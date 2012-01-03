@@ -906,8 +906,8 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact
 				bonus_h /= 2;
 				bonus_d /= 2;
 			}
-			o_ptr->to_h += bonus_h;
-			o_ptr->to_d += bonus_d;
+			o_ptr->to_h += (s16b)bonus_h;
+			o_ptr->to_d += (s16b)bonus_d;
 			break;
 		}
 		case 30:
@@ -1524,7 +1524,7 @@ static void give_activation_power(object_type *o_ptr, int artifact_bias)
 	}
 
 	/* A type was chosen... */
-	o_ptr->xtra2 = type;
+	o_ptr->xtra2 = (byte_hack)type;
 	add_flag(o_ptr->art_flags, TR_ACTIVATE);
 	o_ptr->timeout = 0;
 }
@@ -3127,7 +3127,7 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 	object_prep(q_ptr, i, ITEM_FREE_SIZE);
 
 	/* Save the name */
-	q_ptr->name1 = a_idx;
+	q_ptr->name1 = (byte_hack)a_idx;
 
 	/* Extract the fields */
 	q_ptr->pval = a_ptr->pval;

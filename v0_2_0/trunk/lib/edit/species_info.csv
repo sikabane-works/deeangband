@@ -8600,15 +8600,15 @@ TOUCH:UN_POWER",,,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP
 841,『シュマ=ゴラス』,Shuma-Gorath,e,G,FLOATING_EYE,FLOATING_EYE,0x00,WARRIOR,841,ORDINARY,NONE,NONE,88,3,50,47000,0,0,0,0,NONE,NONE,12,20,50,150,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:12d12
 CRUSH:HURT:12d12
 GAZE:LOSE_INT:2d12
-GAZE:LOSE_WIS:2d12",,,ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL,1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR,,"『シュマ=ゴラス』は不死なる混沌の神の一人である。この冒涜的な恐怖
-の真の姿は、触手に囲まれた、全てを見通す巨大な眼である。","Shuma-Gorath is one of the immortal lords of chaos. The true form of 
+GAZE:LOSE_WIS:2d12",,,ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL,1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR,,　『シュマ=ゴラス』は不死なる混沌の神の一人である。この冒涜的な恐怖の真の姿は、触手に囲まれた、全てを見通す巨大な眼である。,"Shuma-Gorath is one of the immortal lords of chaos. The true form of 
 this blasphemous horror is a huge, all-seeing eye surrounded by tentacles.
 =
 ",JZ#,,,,
 1093,鍛冶の司『アウレ』,"Aure, the Avatar of Smith",P,W,MAIAR,MAIAR,0x02,SMITH,1090,ORDINARY,NONE,NONE,88,3,50,48000,0,0,0,100,1090,NONE,18,20,100,160,0,28,28,28,28,28,28,1056,0,7962,0,1056,0,7962,0,"HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
-HIT:UN_BONUS:10d12",,ART:117:100%,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR|RES_TELE|POWERFUL|AMAN,1_IN_2|TPORT|TELE_LEVEL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|BO_ICEE|BO_MANA|BO_PLAS|BA_MANA|BA_FIRE|BA_WATE|BA_DARK|S_MONSTERS|HAND_DOOM|DISPEL|PSY_SPEAR,,かつてアルタノ・アンナタールの友にして師であった彼はアマンが侵略を受けた後、 ヴァララウカール達に和を請うてその屈辱的条件を飲みつつも全ての復旧に力を注いだ。 アルダの善が傷つけられてもなお、 彼はイルーヴァタールにドワーフを生み出す事を許された恩義を忘れておらず、 マンウェと共に崩れかかったアルダの屋台骨を支え続けているのだ。,    ,,,,,
+HIT:UN_BONUS:10d12",,ART:117:100%,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR|RES_TELE|POWERFUL|AMAN,1_IN_2|TPORT|TELE_LEVEL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|BO_ICEE|BO_MANA|BO_PLAS|BA_MANA|BA_FIRE|BA_WATE|BA_DARK|S_MONSTERS|HAND_DOOM|DISPEL|PSY_SPEAR,,"　かつてヴァラールの中で数少ないメルコールの理解者であり、アルタノ・アンナタールの友にして師であった彼は、アマンが侵略を受けた後、ヴァララウカール達に和を請うてその屈辱的条件を飲んだ。
+　以来、多くの者に謗られながらも、彼は己の鍛冶の技の全てを注いで世界の復旧に尽力してきた。アルダの善が傷つけられてもなお、彼はイルーヴァタールにドワーフを生み出す事を許された恩義を忘れておらず、マンウェと共に崩れかかった西の世界の屋台骨を支え続けているのだ。",    ,,,,,
 1094,星々の女王『ヴァルダ』,"Valda, the Queen of Stars",P,W,MAIAR,MAIAR,0x01,PALADIN,1090,ORDINARY,CRUSADE,NONE,88,3,50,48000,0,0,0,100,1090,NONE,18,20,100,160,0,28,28,28,28,28,28,974,0,7093,0,954,0,7093,0,"HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
 TOUCH:UN_POWER
@@ -8655,7 +8655,7 @@ lay, but only the clamminess of death and corruption.""
 843,サイバーデーモンの王『Oremorj』,Oremorj the Cyberdemon Lord,U,u,DEMON,DEMON,0x02,WARRIOR,843,ORDINARY,NONE,NONE,89,4,50,50000,0,0,77665,0,NONE,NONE,10,20,90,90,90,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:2d50
 HIT:HURT:2d50
 HIT:HURT:2d50
-HIT:HURT:2d50",,,RAND_25|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|DROP_GREAT|UNIQUE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING,1_IN_3|ROCKET|S_CYBER,,最強のサイバーデーモンで、彼らの王であり支配者である。,"The mightiest of Cyberdemons, their lord and ruler.
+HIT:HURT:2d50",,,RAND_25|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|DROP_GREAT|UNIQUE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING,1_IN_3|ROCKET|S_CYBER,,　最強のサイバーデーモンで、彼らの王であり支配者である。,"The mightiest of Cyberdemons, their lord and ruler.
 ","JZ# J.Romero という人から。日本語で逆にすると...
 JZ# ロメロＪ...だめじゃん",,,,
 849,大いなる深淵の主『ノーデンス』,"Nodens, Lord of the Great Abyss",P,w,TITAN,TITAN,0x01,RANGER,NONE,ORDINARY,NONE,NONE,89,3,50,21873166,0,0,2324387671,0,NONE,NONE,18,20,100,100,20,28,28,28,28,28,28,776,0,7776,0,766,0,7776,0,"HIT:HURT:2d66
@@ -8673,11 +8673,9 @@ JZ#老人の姿をした神で、人間にはあまり敵対はしません。 by 久留さん",,,,
 856,冥府の大元帥『ゴスモグ』,"Gothmog, the Arch Marshal of Infernal Region",U,R,BALROG,BALROG,0x02,RANGER,861,ORDINARY,NATURE,DEATH,89,1,50,18123109,0,0,18992,122,NONE,NONE,18,27,100,231,0,28,28,28,28,28,28,1731,0,40031,0,1731,0,40031,0,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 CRUSH:SUPERHURT:8d12
-TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP,1_IN_3|BR_DISI|BO_MANA,,"彼はバルログという、かつてのマイアに比する者でありながら、
-アルダの創世の歌、アイヌリンダレには加わっていなかったとされる存在だ。
-一説によれば彼は冥王メルコールの実の長子であり、
-バルログの中でも抜きん出た力の持ち主であることがその仮説を強く裏付けている。
-彼が自ら冥府の王となることを選んだのは、己が罪の清算のためであるらしい。","
+TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP,1_IN_3|BR_DISI|BO_MANA,,"　アルダの神代、メルコールの叛逆に加わった神族達はほどなくして、男と女で交わることを覚えた。彼はその中で初めて父親と母親を持つ存在として生まれた神族第二世代の長子だ。父親は冥王メルコールその人、母はウルバンディである。
+　上古の戦の中で、数え切れない武勲をもたらした彼は、メルコールの失踪後、新たなる盟主として冥王の座を継ぐものと思われた。だが、その後起きた内紛の中で己の罪業を悔やんだ彼は、その償いのために自ら動乱の死者と共に奈落に落ちる事を選んだのである。
+　今の彼は主神アルタノ・アンナタールから死と冥府の権限を与えられた封臣の立場にある。死した闇の民の魂を集めて裁き、神々の動乱あらば死者の軍勢を率いる。冥府の大元帥として、彼は今も地の底で鍛錬を怠らない。東の民の戦士達の間では、戦いの中で死して、彼に勇者として見出されることは至上の誉であると見なされている。","
 
 
 
@@ -8704,21 +8702,16 @@ JZ#ラグナロクではオーディンを呑み込んでしまいます。 by 久留さん",,,,
 847,パワー・ワイアーム,Great Wyrm of Power,D,y,DRAGON,DRAGON,0x01,NONE,NONE,ORDINARY,NONE,NONE,90,4,50,18212410,0,0,0,0,NONE,NONE,19,20,20,111,70,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CRUSH:POISON:8d12
 CRUSH:FIRE:8d12
 CRUSH:ELEC:8d12
-CRUSH:HURT:10d18",,,FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|CAN_FLY|DROP_CORPSE|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_NETH|RES_LITE|RES_DARK|RES_SOUN|RES_CHAO|RES_DISE|RES_NEXU|RES_TIME|RES_INER|RES_GRAV|RES_SHAR|RES_PLAS|RES_WALL|RES_TELE|RIDING,1_IN_3|S_HI_DRAGON|S_DRAGON|S_KIN|BR_NUKE|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BR_DISI,,"龍族の中でも最強であるパワー・ワイアームには、この世界では滅多に
-出会うことはない。その力は星をも砕く。","The mightiest of all dragonkind, a great wyrm of power is seldom 
+CRUSH:HURT:10d18",,,FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|CAN_FLY|DROP_CORPSE|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_NETH|RES_LITE|RES_DARK|RES_SOUN|RES_CHAO|RES_DISE|RES_NEXU|RES_TIME|RES_INER|RES_GRAV|RES_SHAR|RES_PLAS|RES_WALL|RES_TELE|RIDING,1_IN_3|S_HI_DRAGON|S_DRAGON|S_KIN|BR_NUKE|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BR_DISI,,　竜族の中でも最強であるパワー・ワイアームは、恐らくは真竜イオがバハムートとティアマトに分かれる以前に産み落とした直系の子孫である。天文学的な年月を得て成竜になった彼等は、もはや一個体一個体が生半可な神々の追随を許さない存在になる。その力は星をも砕くだろう。,"The mightiest of all dragonkind, a great wyrm of power is seldom 
 encountered in our world. It can crush stars with its might.
 
 ",JZ#,,,,
 851,這いうねる混沌『ナイアルラトホテップ』,"Nyarlathotep, the Crawling Chaos",U,r,GREAT_OLD_ONE,GREAT_OLD_ONE,0x03,ROGUE,851,ORDINARY,NONE,NONE,90,3,50,28761690,0,0,2222222222,0,NONE,NONE,19,32,100,100,20,28,28,28,28,28,28,667,0,6667,0,667,0,6667,0,"CRUSH:LOSE_CON:30d4
 CRUSH:LOSE_STR:30d4
 GAZE:LOSE_INT:1d50
-GAZE:LOSE_WIS:1d50",,,UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|RES_TELE|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|RES_NEXU|RES_CHAO|SHAPECHANGER|ATTR_MULTI|ATTR_ANY|AURA_ELEC|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_GREAT|DROP_90|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|AURA_COLD|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|POWERFUL,1_IN_4|HEAL|SCARE|BRAIN_SMASH|BR_FIRE|S_HOUND,,"ナイアルラトホテップは外なる神々の使者にして心にして魂である。彼
-は変身の能力をもち、数千の悪夢のごとき形態をとる事ができる。その
-一つはこのように見える：「長身痩躯にして古代のファラオを思わせる
-若やいだ面貌を備え、虹色のローブをまとってきらびやか、内在する光
-によって輝く黄金の二重冠をいただいていた。... その誇らしげな態度
-と整った顔立に暗黒神や堕天使の魅力を備え、目のまわりには気まぐれ
-な気質を示す、ものういきらめきをたたえていた」
+GAZE:LOSE_WIS:1d50",,,UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|RES_TELE|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|RES_NEXU|RES_CHAO|SHAPECHANGER|ATTR_MULTI|ATTR_ANY|AURA_ELEC|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_GREAT|DROP_90|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|AURA_COLD|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|POWERFUL,1_IN_4|HEAL|SCARE|BRAIN_SMASH|BR_FIRE|S_HOUND,,"　ナイアルラトホテップは外なる神々の使者にして心にして魂である。
+　彼は変身の能力をもち、数千の悪夢のごとき形態をとる事ができる。今の彼はこのような姿を取っている：
+「長身痩躯にして古代のファラオを思わせる若やいだ面貌を備え、虹色のローブをまとってきらびやか、内在する光によって輝く黄金の二重冠をいただいていた。...その誇らしげな態度と整った顔立に暗黒神や堕天使の魅力を備え、目のまわりには気まぐれな気質を示す、ものういきらめきをたたえていた」
 (Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「未知なるカダスを夢に求めて」
 『ラヴクラフト全集６』、創元推理文庫、p.316-317)","Nyarlathothep is the messenger, the heart and the soul of the outer gods. 
 He is a shapechanger capable of assuming thousands of nightmarish forms.
@@ -8742,17 +8735,11 @@ JZ#「闇に這うもの」など多数の作品に登場。
 JZ#神々の使者として、ある時はエジプトのファラオの如き予言者、ある時は顔
 JZ#の無いスフィンクス、ある時は黒い翼と三つの燃える眼をもつ怪物と、様々
 JZ#な姿で出現し、人類を破滅へ導こうとします。 by 久留さん",,,,
-858,妖術帝『アルタノ・アンナタール』,"Annatar, the Sorcerous Emperor",p,o,MAIAR,MAIAR,0x02,MAGE,861,MIGHTY,DEATH,SORCERY,90,1,50,20559090,0,0,0,139,1090,NONE,20,25,100,0,0,28,28,28,28,28,28,273,0,245,0,273,0,245,0,"HIT:UN_BONUS:10d12
+858,妖術神『アルタノ・アンナタール』,"Artano Annatar, Lord of Sorcery",p,o,MAIAR,MAIAR,0x02,MAGE,861,MIGHTY,DEATH,SORCERY,90,1,50,20559090,0,0,0,139,1090,NONE,20,25,100,0,0,28,28,28,28,28,28,273,0,245,0,273,0,245,0,"HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
 TOUCH:UN_POWER
-TOUCH:UN_POWER",,ART:13:100%,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR|RES_TELE|POWERFUL,1_IN_3|TPORT|SCARE|BLIND|MIND_BLAST|BRAIN_SMASH|DRAIN_MANA|BR_POIS|BR_ACID|BR_FIRE|CONF|DARKNESS|FORGET|S_HI_UNDEAD|BR_NUKE|BR_NETH|BR_CHAO|BR_DISE|BR_DARK|BR_PLAS|BR_CONF|BR_NEXU|S_DEMON|S_CYBER|S_KIN|BR_DISI|HAND_DOOM|ANIM_DEAD,,"彼はかつてアルダの善なる者達にサウロンの名で呼ばれ、
-メルコールの最も強力な臣下として主の次に忌み恐れられた存在だ。
-怒りの闘いの果て、メルコールがアルダから消滅したことにより、
-反逆者達の第一人者に納まった彼は速やかに至福の地アマンの
-蹂躙を成功させ、もって得た力でモルドールに己の帝国を作り上げた。
-彼はアルダの言葉で自らを『贈り物の君』と称し、
-定命の者に大いなる運命を授けるが、それらを背負わされた者達の中で
-神々の栄華を得ることができた者は、余りにも少ない。","
+TOUCH:UN_POWER",,ART:13:100%,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR|RES_TELE|POWERFUL,1_IN_3|TPORT|SCARE|BLIND|MIND_BLAST|BRAIN_SMASH|DRAIN_MANA|BR_POIS|BR_ACID|BR_FIRE|CONF|DARKNESS|FORGET|S_HI_UNDEAD|BR_NUKE|BR_NETH|BR_CHAO|BR_DISE|BR_DARK|BR_PLAS|BR_CONF|BR_NEXU|S_DEMON|S_CYBER|S_KIN|BR_DISI|HAND_DOOM|ANIM_DEAD,,"　アルタノ・アンナタールはアルダ創世の時代よりメルコーレンディル、アウレンディル、マイロンと多くの異名でも知られてきた多才なる神だ。芸術と工芸、交易と政治、そして運命までも司ると言われている。 　彼が定命の者に下賜する指輪は、持ち主に多くの苦悶と災厄を与える代わりに、試練を乗り越えた者を大いなる高みへと導く。ほんの一握りの英雄達だけが、神々の御座に侍ることを許されてきた。
+　多様な東方の信仰の中で、彼はよく主神や文化英雄として崇められている。一方、東方を邪悪に満ちた蛮族の地と蔑む西の民の間では、彼はサウロンという蔑称で呼ばれ只管に唾棄されてきた。しかも、彼等に創作されてきたエピソードはしばしば、歴史上で度々西の地を征服してきた、ウルクやアヴァリの覇者の事跡と混同されて語られているのだ。 ","
 
 
 
@@ -8763,26 +8750,23 @@ TOUCH:UN_POWER",,ART:13:100%,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|
 1051,タイタン族の王『クロノス』,"Kronos, Lord of the Titans",P,v,TITAN,TITAN,0x02,RANGER,NONE,ORDINARY,NATURE,CHAOS,90,3,50,29176619,0,0,28778,0,NONE,NONE,20,15,30,150,15,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:CONFUSE:12d12
 HIT:CONFUSE:12d12
 HIT:CONFUSE:12d12
-HIT:CONFUSE:12d12",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|MOVE_BODY|ONLY_ITEM|DROP_4D2|DROP_3D2|DROP_GOOD|SMART|TAKE_ITEM|BASH_DOOR|HAS_LITE_2|ESCORT|DROP_CORPSE|RES_SHAR|RES_SOUN|RES_TIME|IM_FIRE|IM_COLD|IM_ACID|IM_POIS|IM_ELEC,1_IN_4|BR_FIRE|BR_COLD|BR_SHAR|BR_SOUN|S_MONSTERS|S_KIN|TELE_TO|HEAL,,"このタイタン族の王は、一度は戦いに敗れ奈落で幽閉の身であったが、
-世界への復讐を遂げるため、遂に舞い戻った。","The lord of the Titans, he has broken loose from his confinement in 
+HIT:CONFUSE:12d12",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|MOVE_BODY|ONLY_ITEM|DROP_4D2|DROP_3D2|DROP_GOOD|SMART|TAKE_ITEM|BASH_DOOR|HAS_LITE_2|ESCORT|DROP_CORPSE|RES_SHAR|RES_SOUN|RES_TIME|IM_FIRE|IM_COLD|IM_ACID|IM_POIS|IM_ELEC,1_IN_4|BR_FIRE|BR_COLD|BR_SHAR|BR_SOUN|S_MONSTERS|S_KIN|TELE_TO|HEAL,,　このタイタン族の王は末子ゼウスとの戦いに破れ奈落で幽閉の身であった。だがゼウスの覇業に失望した地母神ガイアの導きにより助け出され、世界への復讐を遂げるためにタイタン族と共に再び舞い戻ったのだ。,"The lord of the Titans, he has broken loose from his confinement in 
 the nether hells to seek revenge on the world. 
 
 ",JP#,,,,
 705,アンバーの王族,Lord of Amber,p,w,AMBERITE,AMBERITE,0x01,NONE,859,ORDINARY,NONE,NONE,91,5,50,18124098,0,0,0,69,NONE,NONE,18,20,30,0,5,28,28,28,28,28,28,178,10,70,2,160,10,50,2,"HIT:HURT:20d5
 HIT:HURT:20d5
 HIT:POISON:20d1
-HIT:LOSE_ALL:15d1",,,FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|ONLY_ITEM|DROP_4D2|ATTR_MULTI|SHAPECHANGER|INVISIBLE|OPEN_DOOR|BASH_DOOR|SMART|HAS_LITE_2|RES_CHAO|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_2|HEAL|MIND_BLAST|BA_CHAO|S_MONSTERS|S_DEMON|PSY_SPEAR,,"多元宇宙の最大根源たるアンバーの王族の血を色濃く引き、
-影の中を旅することの出来る神以上の存在だ。
-あなたのような存在を誑かし、己のアンバーの権力のために
-骨の髄まで利用しつくすか、何らかの玩具にする事しか考えていない。","
+HIT:LOSE_ALL:15d1",,,FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|ONLY_ITEM|DROP_4D2|ATTR_MULTI|SHAPECHANGER|INVISIBLE|OPEN_DOOR|BASH_DOOR|SMART|HAS_LITE_2|RES_CHAO|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_2|HEAL|MIND_BLAST|BA_CHAO|S_MONSTERS|S_DEMON|PSY_SPEAR,,"　多元宇宙の最大根源たるアンバーの王族の血を色濃く引き、影の中を旅することの出来る神以上の存在だ。
+　アンバーの宮廷抗争に明け暮れる彼等は、自分達の『影』にすぎない下位の並行世界の人々を己の権力のために平然と誑かす。あるいは、気紛れに何かの玩具にする事しか考えていないだろう。","
 
 
 ",JZ#,,,,
 737,混沌の王族,Lord of Chaos,p,v,CHAOSIAN,CHAOSIAN,0x01,NONE,862,ORDINARY,NONE,NONE,91,5,50,18887161,0,0,0,0,NONE,NONE,18,20,30,0,5,28,28,28,28,28,28,178,10,70,2,160,10,50,2,"KICK:HURT:20d5
 KICK:HURT:20d5
 HIT:POISON:20d1
-HIT:LOSE_ALL:15d1",,,FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|ONLY_ITEM|DROP_4D2|ATTR_MULTI|SHAPECHANGER|ATTR_ANY|INVISIBLE|OPEN_DOOR|BASH_DOOR|SMART|HAS_LITE_2|RES_CHAO|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_2|HEAL|MIND_BLAST|BA_CHAO|S_MONSTERS|S_DEMON|PSY_SPEAR,,"あらゆる格闘術に熟練し、かつ混沌のログルスを自在に操る数少ない達人の
-うちの一人だ。","He is one of the few true masters of the art, being extremely skillful in 
+HIT:LOSE_ALL:15d1",,,FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|ONLY_ITEM|DROP_4D2|ATTR_MULTI|SHAPECHANGER|ATTR_ANY|INVISIBLE|OPEN_DOOR|BASH_DOOR|SMART|HAS_LITE_2|RES_CHAO|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_2|HEAL|MIND_BLAST|BA_CHAO|S_MONSTERS|S_DEMON|PSY_SPEAR,,"　元々アンバーの王族による宇宙的構図が生まれるより前に存在していた、より原初の根源たる存在だ。宇宙の原理となったパターンの影響を受けることで同じく人の形を取るようになった。
+　アンバーの王族達に面従腹背の姿勢を取る彼等は、現行の宇宙の構図そのものにはひとまず満足はしている。だが、あくまその主導権を担うべきは自分達であるべきと考え、日々策略を繰り広げているのだ。","He is one of the few true masters of the art, being extremely skillful in 
 all forms of unarmed combat and controlling the Logrus 
 with disdainful ease.
 
@@ -8790,9 +8774,7 @@ with disdainful ease.
 834,氷の巨人『イミル』,Ymir the Ice Giant,P,w,TITAN,TITAN,0x03,RANGER,NONE,ORDINARY,NATURE,CHAOS,93,2,50,27786549,0,0,0,0,NONE,NONE,22,20,50,160,20,28,28,28,28,28,28,1234,0,39881,0,1198,0,36791,0,"HIT:COLD:5d10
 HIT:SUPERHURT:5d10
 HIT:COLD:5d10
-HIT:SUPERHURT:5d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|RES_NETH|RES_WATE|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|ESCORT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|RES_DISE|IM_COLD|NO_CONF|NO_SLEEP|IM_POIS|HURT_FIRE|COLD_BLOOD|AURA_COLD|DROP_CORPSE,1_IN_3|BR_COLD|BO_ICEE|DARKNESS|HEAL|TELE_TO|S_KIN|S_HI_UNDEAD,,"北欧神話において世界で最初に誕生した巨人。オーディンらは
-この巨人を殺して世界を創造した。
-彼は氷で出来た巨人のように見える。","Ymir is one of the oldest beings there are. He looks like a giant 
+HIT:SUPERHURT:5d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|RES_NETH|RES_WATE|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|ESCORT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|RES_DISE|IM_COLD|NO_CONF|NO_SLEEP|IM_POIS|HURT_FIRE|COLD_BLOOD|AURA_COLD|DROP_CORPSE,1_IN_3|BR_COLD|BO_ICEE|DARKNESS|HEAL|TELE_TO|S_KIN|S_HI_UNDEAD,,　北欧神話において世界で最初に誕生した巨人だ。今日の主神オーディン達は彼を殺して世界を創造した。彼は氷で出来た巨人であり、男性だけでなく女性としての特性も備えていたとも言われている。彼は再び首を取り戻して強大な存在に蘇った。その目的が復讐なのか、あるいはもっと別の何かであるかは定かではない。,"Ymir is one of the oldest beings there are. He looks like a giant 
 humanoid made of ice.
 
 
@@ -9146,13 +9128,9 @@ JZ#策略を練る。 by 藤岡さん",,,,
 HIT:UN_BONUS:6d8
 HIT:CONFUSE:5d5
 HIT:UN_POWER:5d5",,"ART:84:100%
-ART:126:100%",UNIQUE|ATTR_MULTI|CAN_SPEAK|ATTR_ANY|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO,1_IN_2|BLIND|CONF|TPORT|BLINK|BA_FIRE|BA_COLD|DRAIN_MANA|CAUSE_4|BA_ACID|TELE_AWAY|MIND_BLAST|TRAPS|HEAL|HASTE|BRAIN_SMASH|BA_CHAO|BA_DARK|PSY_SPEAR,ORDER3 | CHAOS3,"ブランドはアンバーの王子の中でも陰鬱な雰囲気を漂わせた、芸術肌の知恵者だ。
-その独創性あふれる芸術の数々はおぞましくも、見る者を捕らえて放さぬ魔性がある。
-彼の創造の志向はどす黒く破滅的ですらあるが、
-今のところ彼は自分の影や他の宇宙でそれを表現するのみで十分に満足しているようだ。
-「ブレイズとぼく自身の両方に似た男。顔かたちは、ちょっと小さいがぼくのも
-の。目はぼく、髪はブレイズ。顎ひげはない。緑色の乗馬服を着て、白馬にま
-たがり…かれには強さと弱さ、探求と放棄の両方の性格がある。」
+ART:126:100%",UNIQUE|ATTR_MULTI|CAN_SPEAK|ATTR_ANY|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO,1_IN_2|BLIND|CONF|TPORT|BLINK|BA_FIRE|BA_COLD|DRAIN_MANA|CAUSE_4|BA_ACID|TELE_AWAY|MIND_BLAST|TRAPS|HEAL|HASTE|BRAIN_SMASH|BA_CHAO|BA_DARK|PSY_SPEAR,ORDER3 | CHAOS3,"　ブランドはアンバーの王子達の中でも特に陰鬱な雰囲気を漂わせた、芸術肌の知恵者だ。その独創性あふれる芸術の数々はおぞましくも、見る者を捕らえて放さぬ魔性がある。
+　彼の創造の志向はどす黒く破滅的ですらあり、それでアンバーの全てを埋め尽くそうとしたならば、恐るべきことになるだろう。幸いなことに、彼は今のところそれを自分の領地で慎ましく表現するのみで、十分に満足しているようだ。
+「ブレイズとぼく自身の両方に似た男。顔かたちは、ちょっと小さいがぼくのもの。目はぼく、髪はブレイズ。顎ひげはない。緑色の乗馬服を着て、白馬にまたがり…かれには強さと弱さ、探求と放棄の両方の性格がある。」
 （ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.48）","...a figure both 
 like Bleys and (Corwin). (Corwin's) features, though smaller, his eyes, 
 Bleys' hair, beardless. He wore a riding suit of green and sat atop a white 
@@ -9181,16 +9159,11 @@ D'ang# とは言え、アンバーの宮廷内で最も暗躍している立場でもあるかも知れない。",,
 TOUCH:UN_BONUS:10d10
 TOUCH:LOSE_ALL:10d10
 TOUCH:EXP_80:10d10",,"ART:8:100%
-ART:90:100%",UNIQUE|FORCE_SLEEP|ONLY_ITEM|DROP_90|FORCE_MAXHP|DROP_GOOD|DROP_GREAT|REFLECTING|INVISIBLE|COLD_BLOOD|KILL_EXP|SMART|REGENERATE|POWERFUL|AURA_FIRE|ATTR_MULTI|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP,1_IN_2|BR_NETH|BR_TIME|BA_MANA|BO_MANA|HAND_DOOM|HEAL|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|DISPEL,,彼はアンバーと混沌の血統を色濃く保ち、双方の技に長けた随一の魔術師だ。,,,,,,
+ART:90:100%",UNIQUE|FORCE_SLEEP|ONLY_ITEM|DROP_90|FORCE_MAXHP|DROP_GOOD|DROP_GREAT|REFLECTING|INVISIBLE|COLD_BLOOD|KILL_EXP|SMART|REGENERATE|POWERFUL|AURA_FIRE|ATTR_MULTI|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP,1_IN_2|BR_NETH|BR_TIME|BA_MANA|BO_MANA|HAND_DOOM|HEAL|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|DISPEL,,　アンバーの黒太子コーウィンと、混沌の王女ダラとの間に生まれた彼は、アンバーと混沌の血統を色濃く保ち、双方の技に長けた随一の魔術師だ。彼が影の地球で学んだ電子工学とアンバーのトランプの技が、〈霊の車輪〉と呼ばれるあらゆる多元宇宙を探り出す機械を生み出した。,,,,,,
 852,奇怪な原子核の混沌『アザトート』,"Azathoth, Seething Nuclear Chaos",E,B,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,IMITATOR,852,ORDINARY,NONE,NONE,100,3,50,36661778,0,0,2800000000,1,NONE,NONE,25,20,100,150,100,28,28,28,28,28,28,99999,0,999999999,0,99999,0,999999999,0,"CRUSH:HURT:35d5
 CRAWL:ACID:35d5
 CRUSH:HURT:35d5
-CRAWL:ACID:35d5",,,UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|AURA_ELEC|ATTR_MULTI|ESCORTS|ESCORT|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_3|TELE_AWAY|TELE_TO|TELE_LEVEL|TPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM,,"クトゥルフ神話における最高神。
-「なべての無限の中核で冒涜の言辞を吐きちらかして沸きかえる、最下
-の混沌の最後の無定形の暗影にほかならぬ―すなわち時を超越した想像
-もおよばぬ無明の房室で、下劣な太鼓のくぐもった狂おしき連打と、呪
-われたフルートのかぼそき単調な音色の只中、餓えて齧りつづけるは、
-あえてその名を口にした者とておらぬ、果てしなき魔王アザトート」
+CRAWL:ACID:35d5",,,UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|AURA_ELEC|ATTR_MULTI|ESCORTS|ESCORT|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_3|TELE_AWAY|TELE_TO|TELE_LEVEL|TPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM,,"「なべての無限の中核で冒涜の言辞を吐きちらかして沸きかえる、最下の混沌の最後の無定形の暗影にほかならぬ―すなわち時を超越した想像もおよばぬ無明の房室で、下劣な太鼓のくぐもった狂おしき連打と、呪われたフルートのかぼそき単調な音色の只中、餓えて齧りつづけるは、あえてその名を口にした者とておらぬ、果てしなき魔王アザトート」
 (Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「未知なるカダスを夢に求めて」
 『ラヴクラフト全集６』、創元推理文庫、p.173)","""That last amorphous blight of nethermost confusion which 
 blasphemes and bubbles at the centre of all infinity -- 
@@ -9206,88 +9179,51 @@ accursed flutes.""
 
 
 (ＨＰ
-６p.173)","JZ#
-JZ#奇怪な原子核の混沌アザトート
-JZ#クトゥルフ神話における最高神ですが、やはり物語の中心となる事は
-JZ#滅多にありません。“奇怪な原子核の混沌”はＨ・Ｐ・ラヴクラフト
-JZ#の「闇に囁くもの」におけるアザトートの表現です。 by 久留さん",,,,
+６p.173)","Zangband#JP
+　奇怪な原子核の混沌アザトート。
+　クトゥルフ神話における最高神ですが、やはり物語の中心となる事は滅多にありません。「奇怪な原子核の混沌」はＨ・Ｐ・ラヴクラフト「闇に囁くもの」におけるアザトートの表現です。By久留さん",,,,
 861,冥王『メルコール』,"Melkor, Lord of Darkness",P,D,MAIAR,MAIAR,0x02,PALADIN,861,FEARLESS,DEATH,NONE,100,1,50,23252211,0,0,30000,142,1090,NONE,25,30,100,150,0,28,28,28,28,28,28,4253,0,2733925,0,4253,0,2733925,0,"HIT:SHATTER:20d10
 HIT:SHATTER:20d10
 HIT:LOSE_ALL:10d12
-TOUCH:UN_POWER",,,UNIQUE|QUESTOR|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|SELF_LITE_1|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|RES_CHAO|RES_NETH|SMART|KILL_WALL|KILL_BODY|POWERFUL|REGENERATE|NONLIVING|CAN_FLY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|GUARDIAN,1_IN_2|TPORT|SCARE|BLIND|S_DEMON|S_MONSTERS|TELE_TO|CONF|BO_MANA|BA_FIRE|BRAIN_SMASH|BA_NETH|BO_ICEE|CAUSE_4|BA_WATE|BO_PLAS|TELE_LEVEL|TELE_AWAY|FORGET|DARKNESS|BA_MANA|S_HI_DRAGON|S_HI_UNDEAD|BA_CHAO|S_AMBERITES|S_CYBER|HAND_DOOM|DISPEL|PSY_SPEAR,,"妖術師『サウロン』
-J0#暗黒の帝王『モルゴス』","
-J0#","J0#(コメント)
-J0#
-J0#(都々目)
-J0#冥王『サウロン』",,,,
+TOUCH:UN_POWER",,,UNIQUE|QUESTOR|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|SELF_LITE_1|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|RES_CHAO|RES_NETH|SMART|KILL_WALL|KILL_BODY|POWERFUL|REGENERATE|NONLIVING|CAN_FLY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|GUARDIAN,1_IN_2|TPORT|SCARE|BLIND|S_DEMON|S_MONSTERS|TELE_TO|CONF|BO_MANA|BA_FIRE|BRAIN_SMASH|BA_NETH|BO_ICEE|CAUSE_4|BA_WATE|BO_PLAS|TELE_LEVEL|TELE_AWAY|FORGET|DARKNESS|BA_MANA|S_HI_DRAGON|S_HI_UNDEAD|BA_CHAO|S_AMBERITES|S_CYBER|HAND_DOOM|DISPEL|PSY_SPEAR,,"　この『力もて立つ者』は創世の時代の頃、父イルーヴァタールの創世の音楽に違和の念を抱き、虚空にその補いを求めた。やがて彼が見出した暗き炎もまた、秘されし不滅の炎と同等の神秘を宿していたのである。
+　彼が己の炎より編み出した旋律は、創世の歌の中で不可欠な要素となったが、それはイルーヴァタールの唯一性を否定する冒涜に他ならず、父の恨みを買った彼とその同志達は永遠に呪われた。
+　東方の民からは大祖神と崇められ、西方の民からは一切の害悪と貶められるこの神格は、上古の戦いの最後に己の創造が真実のものである証を立てた。その血肉を〈紋様〉に捧げ、その魂を〈混沌〉の深奥にまで擲ったこの者の存在は、今は虚ろなもので、ただ〈混沌〉の茫洋たる顕現の一つとして現れるのみである。","
+J0#","0angband#JP
+(都々目)冥王『サウロン』
+D'angband#JP
+変愚の冥王『モルゴス』を改変。",,,,
 883,最初の真竜『イオ』,"Io, the First Great Wyrm",D,y,DRAGON,DRAGON,0x03,PALADIN,NONE,PIOUS,NONE,NONE,100,3,50,54199900,0,0,0,0,NONE,NONE,25,44,20,111,70,28,28,28,28,28,28,5445,100,3531399,10,5445,100,3531399,10,"CRUSH:POISON:8d12
 CRUSH:FIRE:8d12
 CRUSH:ELEC:8d12
-CRUSH:HURT:10d18",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ATTR_MULTI|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|CAN_FLY|DROP_CORPSE|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_NETH|RES_LITE|RES_DARK|RES_SOUN|RES_CHAO|RES_DISE|RES_NEXU|RES_TIME|RES_INER|RES_GRAV|RES_SHAR|RES_PLAS|RES_WALL|RES_TELE|RIDING,1_IN_3|S_HI_DRAGON|S_DRAGON|S_KIN|BR_NUKE|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BR_DISI,,"イオはこの多元宇宙に広がる全ての竜の原型であり、最も根源的な存在だ。
-善竜の神バハムート、悪竜の神ティアマトまでもが彼（彼女）の一面の一つに過ぎない。","
-（）","D'ang# 変愚のサーペント・ゾンビから差し替え
-D'ang# D&Dに登場する竜の最高神格",,,,
+CRUSH:HURT:10d18",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ATTR_MULTI|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|CAN_FLY|DROP_CORPSE|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_NETH|RES_LITE|RES_DARK|RES_SOUN|RES_CHAO|RES_DISE|RES_NEXU|RES_TIME|RES_INER|RES_GRAV|RES_SHAR|RES_PLAS|RES_WALL|RES_TELE|RIDING,1_IN_3|S_HI_DRAGON|S_DRAGON|S_KIN|BR_NUKE|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BR_DISI,,　イオはこの多元宇宙に広がる全ての竜の原型であり、最も根源的な存在だ。善竜の神バハムート、悪竜の神ティアマトまでもがこの存在の一面の一つに過ぎない。大いなる〈混沌〉に滅ぼされたとも噂されていたが、この存在がそもそも滅ぶという概念を持つ者なのか、その事自体が甚だに疑わしい。,"
+（）","D'angband#JP
+　ID的には変愚のサーペント・ゾンビから差し替え。D&Dに登場する竜の最高神格で、版毎に設定が色々変化しているらしい。",,,,
 1090,アルダの創造主『イルーヴァタール』,"Iluvatar, the Creator of Arda",P,W,MAIAR,MAIAR,0x02,PALADIN,1090,MUNCHIKIN,CRUSADE,NONE,100,1,50,29124491,0,0,54131,150,NONE,NONE,25,20,100,0,0,28,28,28,28,28,28,4253,0,2733925,0,4253,0,2733925,0,"HIT:HURT:30d9
 HIT:HURT:30d9
 HIT:HURT:30d9
-HIT:HURT:30d9",,ART:238:100%,ERU|ATTR_MULTI|UNIQUE|NONLIVING|NO_FEAR|FORCE_MAXHP|FORCE_SLEEP|REFLECTING|MOVE_BODY|KILL_WALL|IM_FIRE|IM_ELEC|IM_POIS|IM_ACID|IM_COLD|RES_NETH|RES_WATE|RES_PLAS|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_GRAV|NO_STUN|REGENERATE|NO_CONF|NO_SLEEP|CAN_FLY|POWERFUL|AMAN,1_IN_3|BR_DISI|BO_MANA,,"　この存在は全てを己の意図で創造した。冥王とその同胞達が世界の業を背負うためにアルダの自由の民を自称する者達に唾棄され続ける構図を、この存在は虚空の天幕に隠れて姑息に操り、終焉の時まで糸を手繰り続けている。
-　己の意に沿わぬ者に闇と悪と混沌を押し着せて彼方へ追い散らし、光と善と秩序だけの世界を生み出そうとすることは粗悪な創造主、デミウルゴスの業に過ぎない。今や己に肩を並べうる存在となったあなたをこの存在は見逃さないだろう。秘密の炎をひた隠しにしながら、あらゆる災厄と滅びをあなたに押し付け、自らは絶対者であり続けようとしている。あなたのいかなる善も邪悪もこの独善を滅ぼさぬことには、成し遂げられないだろう。
-　「淵源はことごとくわがうちにあり。何人もイルーヴァタールに挑戦して、その音楽を変え得ざることをしるべし。かかる試みを成す者は、かれ自身想像だに及ばぬ、さらに驚嘆すべきことを作り出すわが道具に過ぎざるべし」（『シルマリルの物語』田中明子訳）",（）,,,,,
+HIT:HURT:30d9",,ART:238:100%,ERU|ATTR_MULTI|UNIQUE|NONLIVING|NO_FEAR|FORCE_MAXHP|FORCE_SLEEP|REFLECTING|MOVE_BODY|KILL_WALL|IM_FIRE|IM_ELEC|IM_POIS|IM_ACID|IM_COLD|RES_NETH|RES_WATE|RES_PLAS|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_GRAV|NO_STUN|REGENERATE|NO_CONF|NO_SLEEP|CAN_FLY|POWERFUL|AMAN,1_IN_3|BR_DISI|BO_MANA,,"　この存在は全てを自らの意図に置くべくして、創造の業を行なった。
+　己の創造が唯一絶対では有り得ぬことを認めぬデミウルゴスは、彼の意に原初から逆らった冥王メルコールとその追従者達を熾烈に貶め続ける構図をあみだした。彼等を原初から終末の時に至るまで、悪性と弱さとおぞましさに満ちた惨めな存在とし、それが彼等の自由意思に因るものと押し着せることで、彼は一切の善性と強さと美しさが自分に依拠する事の証左にしようとしたのである。
+　作為が崩れ去った今もなお、秘されし不滅の炎の起源が自らにのみあると妄信する神の本質は変わらない。彼は己と肩を並べる存在がいることを、永遠に認めず、許さないのだ。
+「淵源はことごとくわがうちにあり。何人もイルーヴァタールに挑戦して、その音楽を変え得ざることをしるべし。かかる試みを成す者は、かれ自身想像だに及ばぬ、さらに驚嘆すべきことを作り出すわが道具に過ぎざるべし」
+（『シルマリルの物語』田中明子訳）",（）,"D'angband#JPより追加。
+トールキンがしばしば書簡でしばしば、キリスト教のヤハウェと同一視して扱ったとされる至上神。",,,,
 763,線の巨匠『ドワーキン』,Dworkin Barimen,p,v,CHAOSIAN,CHAOSIAN,0x02,MAGE,859,ORDINARY,CHAOS,TRUMP,105,2,50,43165510,0,0,99981,99,NONE,NONE,26,20,25,0,10,28,28,28,28,28,28,151,0,45,0,151,0,45,0,"HIT:CONFUSE:4d8
 HIT:TERRIFY:5d6
 HIT:PARALYZE:5d6
-HIT:BLIND:4d8",,,UNIQUE|DROP_CORPSE|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|SHAPECHANGER|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_4D2|DROP_GOOD|CAN_FLY|RES_CHAO|OPEN_DOOR|BASH_DOOR|ATTR_MULTI|RES_DISE|ATTR_ANY|RES_TELE|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_4|HEAL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|S_MONSTERS|BA_CHAO|BLINK|TPORT|TELE_TO|TELE_AWAY|S_DEMON,,"この今では小人のような男が審判の宝石を使ってこの宇宙を作り上げた。
-少なくともあなたはそう聞かされてきた。彼はたとえ今でもその力を
-持っていたとしても、もう理性をほとんど失っている。
-”かれは小さな男だった。いや、ちっちゃなといった方がいいかもしれない。
-身長150センチぐらいで、せむしだ。ぼくと同じように、頭髪もひげももじゃ
-もじゃに伸びている。そのものすごい毛のかたまりの中で、唯一の特長は、
-長い鈎鼻と、ほとんど真っ黒な目だ。今は、光がまぶしくて、その目をしか
-めている。…ドワーキン「こっちはオベロン様の捕虜だから」　コーウィン
-：「へーえ？　父があんたを監禁したなんて、だれも知らなかった」　かれ
-がすすり泣くのが聞こえた。「うん」かれはしばらくして、いった。「あの
-方はわしを信用してなかった」「なぜ？」「アンバーを破壊する方法を思い
-ついたといったのさ。それを詳しく説明したら、監禁されちまった」”
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、pp.263-264）","Once this now gnomish creature created the universe with the Jewel 
-of Judgement - or so you have been told. There is little sanity left 
-in his present form even if he still has the power. ""He was a small 
-man. Tiny, might be an even better word. He was around five feet tall 
-and a hunchback. His hair and beard were as heavy as (Corwin's). The 
-only distinguishing features in that great mass of fur were 
-his long, hook nose and his almost black eyes, now squinted 
-against the light... Dworkin: 'I am Oberon's prisoner.' Corwin: 
-'Oh? None of us knew that Dad had locked you up.' (Corwin) heard 
-(Dworkin) weeping. 'Yes,' he said after a long time. 'He didn't 
-trust me.' 'Why not?' 'I told him I'd thought of a way to 
-destroy Amber. I described it to him, and he locked me in.'""
-
-
-
-
-150
-
-
-　
-：？　　
-
-？
-
-（pp.263-264）","JZ#アンバーの宮廷画家。せむしの小男。
-JZ#前王オベロンに仕えて、”模様”と”トランプ”を
-JZ#制作した。のちに狂気に陥りアンバーを破壊する方法を
-JZ#発見したといって逆鱗に触れ、独房に入れられる。 by 藤岡さん
-JZ#Z (コメント)訳は 久留さん",,,,
+HIT:BLIND:4d8",,,UNIQUE|DROP_CORPSE|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|SHAPECHANGER|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_4D2|DROP_GOOD|CAN_FLY|RES_CHAO|OPEN_DOOR|BASH_DOOR|ATTR_MULTI|RES_DISE|ATTR_ANY|RES_TELE|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP,1_IN_4|HEAL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|S_MONSTERS|BA_CHAO|BLINK|TPORT|TELE_TO|TELE_AWAY|S_DEMON,,"　今では老いた小人のようなこの男が、審判の宝石を使って真世界アンバーを作り上げた。原初の存在がしばしば、神々の現世代達に追われる運命にあるように、この男はかつての力を揺るぎなく維持しつつも、もう理性をほとんど失っている。
+『かれは小さな男だった。いや、ちっちゃなといった方がいいかもしれない。身長150センチぐらいで、せむしだ。ぼくと同じように、頭髪もひげももじゃもじゃに伸びている。そのものすごい毛のかたまりの中で、唯一の特長は、長い鈎鼻と、ほとんど真っ黒な目だ。今は、光がまぶしくて、その目をしかめている。
+ドワーキン「こっちはオベロン様の捕虜だから」
+コーウィン「へーえ？　父があんたを監禁したなんて、だれも知らなかった」
+かれがすすり泣くのが聞こえた。
+「うん」かれはしばらくして、いった。「あの方はわしを信用してなかった」「なぜ？」「アンバーを破壊する方法を思いついたといったのさ。それを詳しく説明したら、監禁されちまった」』
+（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、pp.263-264）",,"Zangband#JP
+　アンバーの宮廷画家。せむしの小男。前王オベロンに仕えて、”模様”と”トランプ”を制作した。のちに狂気に陥りアンバーを破壊する方法を発見したといって逆鱗に触れ、独房に入れられる。 by 藤岡さん
+Zangband#JP時点のコメント訳は 久留さん",,,,
 860,アンバーの王『オベロン』,"Oberon, King of Amber",p,v,AMBERITE,AMBERITE,0x02,PALADIN,859,ORDINARY,NONE,NONE,110,1,50,39290110,0,0,5392,145,763,859,27,35,100,0,0,28,28,28,28,28,28,189,0,80,0,189,0,80,0,"HIT:UN_BONUS:12d12
 HIT:UN_POWER:12d12
 HIT:BLIND:10d3
 TOUCH:DR_MANA:10d8",,"ART:3:100%
-ART:42:100%",UNIQUE|QUESTOR|CAN_SPEAK|DROP_CORPSE|HAS_LITE_2|ATTR_MULTI|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|REFLECTING|AURA_FIRE|AURA_ELEC|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_CHAO|POWERFUL|NO_CONF|NO_SLEEP|NO_FEAR,1_IN_3|SHRIEK|BR_SOUN|BR_LITE|BR_INER|BR_TIME|BR_SHAR|BR_PLAS|BR_MANA|BR_DISI|DRAIN_MANA|HEAL|HASTE|TELE_AWAY|BLINK|TPORT|FORGET|DISPEL|S_MONSTERS|S_HI_DRAGON|S_UNIQUE|S_ANGEL,,"オベロンは、全てのアンバーの王子の父または祖父であり、その力は
-いまだ衰えを見せない。彼はあなたが宇宙のバランスを崩すことを
-恐れており、『混沌のサーペント』を傷つけることを許さないだろう。
-「オベロン、アンバーの君主。あの緑と金の服装で、目の前に立っている。背が
-高く、肩幅が広く、胸が厚い。白髪のいくらか混じった黒い顎ひげ。髪の毛は
-相変わらず。緑の石のはまった金の指輪、金色の剣。」
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.181）","Oberon, the father or grandfather of most Amberites, is as powerful 
+ART:42:100%",UNIQUE|QUESTOR|CAN_SPEAK|DROP_CORPSE|HAS_LITE_2|ATTR_MULTI|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|REFLECTING|AURA_FIRE|AURA_ELEC|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_CHAO|POWERFUL|NO_CONF|NO_SLEEP|NO_FEAR,1_IN_3|SHRIEK|BR_SOUN|BR_LITE|BR_INER|BR_TIME|BR_SHAR|BR_PLAS|BR_MANA|BR_DISI|DRAIN_MANA|HEAL|HASTE|TELE_AWAY|BLINK|TPORT|FORGET|DISPEL|S_MONSTERS|S_HI_DRAGON|S_UNIQUE|S_ANGEL,,　オベロンは、全てのアンバーの王子の父または祖父であり、その力は 最初の王に君臨して以来いまだ衰えを見せない。アンバーの秘密の全てを知る彼は、他の王族以上に多くの切り札を隠している。彼がいる限り、アンバーは多元宇宙の全てに影響を及ぼす最大の帝国として栄え続けることだろう。 「オベロン、アンバーの君主。あの緑と金の服装で、目の前に立っている。背が高く、肩幅が広く、胸が厚い。白髪のいくらか混じった黒い顎ひげ。髪の毛は相変わらず。緑の石のはまった金の指輪、金色の剣。」 （ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.181）,"Oberon, the father or grandfather of most Amberites, is as powerful 
 as ever. He is afraid that you will upset the balance and will not 
 let you harm the Serpent of Chaos. ""Oberon, Lord of Amber, stood before 
 me in his green and his gold. High, wide and thick, his beard black and 
@@ -9307,12 +9243,8 @@ a blade of golden color.""
 859,『秩序のユニコーン』,The Unicorn of Order,q,w,QUADRUPED,QUADRUPED,0x01,RED_MAGE,859,ORDINARY,NONE,NONE,115,1,50,89384812,0,0,89850021,147,862,NONE,28,50,100,170,0,28,28,28,28,28,28,215,0,484,0,215,0,484,0,"KICK:DR_MANA:10d10
 KICK:UN_POWER:13d13
 BUTT:UN_BONUS:12d12
-BITE:TIME:11d11",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_COLD|AURA_ELEC|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_GOOD|DROP_GREAT|RES_LITE|RES_NETH|RES_WATE|RES_PLAS|RES_SOUN|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|SMART|KILL_BODY|POWERFUL|SELF_LITE_1|REGENERATE|NONLIVING|CAN_FLY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|RIDING,1_IN_2|TPORT|TELE_LEVEL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|BO_ICEE|BO_MANA|BO_PLAS|BA_MANA|BA_FIRE|BA_WATE|BA_NETH|BA_DARK|S_MONSTERS|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|HAND_DOOM|ANIM_DEAD|DISPEL|PSY_SPEAR,,"かつて『混沌のサーペント』と闘い、その片目を
-奪いとった『秩序のユニコーン』は
-事の成行きを苦悩を募らせつつ見守っている。
-このユニコーンはあなたを
-不死なる者たちの問題に不用意に干渉する定命の者とみなし、
-抹殺しようとしている。","The Unicorn of Order, who once stole an eye from the great Serpent 
+BITE:TIME:11d11",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|AURA_COLD|AURA_ELEC|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_GOOD|DROP_GREAT|RES_LITE|RES_NETH|RES_WATE|RES_PLAS|RES_SOUN|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|SMART|KILL_BODY|POWERFUL|SELF_LITE_1|REGENERATE|NONLIVING|CAN_FLY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|RIDING,1_IN_2|TPORT|TELE_LEVEL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|BO_ICEE|BO_MANA|BO_PLAS|BA_MANA|BA_FIRE|BA_WATE|BA_NETH|BA_DARK|S_MONSTERS|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|HAND_DOOM|ANIM_DEAD|DISPEL|PSY_SPEAR,,"　『秩序のユニコーン』はかつて『混沌のサーペント』と闘い、その片目を奪い取ることで世界を創造した、最初の真なる勝利者であった。
+　彼女がドワーキンと共に生み出した真世界、アンバーは多元宇宙の中で最も巨大な領域となった。己の産んだ世界を、その支配者たる王族の成り行きを苦悩しながらも見守る彼女は、まさにアンバーの母性である。アンバーを、ひいては彼女を敵に回す者は、既知宇宙の大半に抗おうとする事に他ならない。","The Unicorn of Order, who once stole an eye from the great Serpent 
 of chaos, is watching the events unfold with growing distress. It 
 regards you as a mortal meddling in the affairs of immortals, and 
 attempts to eliminate you.
@@ -9321,12 +9253,13 @@ attempts to eliminate you.
 
 
 
-",JZ#,,,,
+",Zangband#Enより追加,,,,
 862,『混沌のサーペント』,The Serpent of Chaos,J,D,GREAT_OLD_ONE,GREAT_OLD_ONE,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,120,1,50,99999999,0,0,3000000000,1,NONE,NONE,29,45,111,175,0,28,28,28,28,28,28,25542,0,371930300,0,25542,0,371930300,0,"CRUSH:SHATTER:22d10
 CRUSH:SHATTER:22d10
 BITE:LOSE_ALL:10d12
-TOUCH:UN_POWER",,,UNIQUE|QUESTOR|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|SELF_LITE_1|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|RES_CHAO|RES_NETH|SMART|KILL_WALL|KILL_BODY|POWERFUL|REGENERATE|NONLIVING|CAN_FLY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|GUARDIAN,1_IN_3|S_MONSTERS|BR_CHAO|BA_CHAO|ROCKET|S_CYBER|S_KIN|BR_NETH|BR_MANA|S_HI_UNDEAD|S_HI_DRAGON|S_UNIQUE|BR_NUKE|BR_DISI|HAND_DOOM|DISPEL,,"　宇宙が存在する前このサーペントがいた。
-　『秩序のユニコーン』がこのサーペントと闘い、『審判の宝石』として知られるその片目を奪いとった。この宝石を使って『ドワーキン』が「パターン」を描き、その影として無限の世界が生まれたのである。
+TOUCH:UN_POWER",,,UNIQUE|QUESTOR|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|FORCE_DEPTH|SELF_LITE_1|REFLECTING|AURA_FIRE|AURA_ELEC|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|RES_CHAO|RES_NETH|SMART|KILL_WALL|KILL_BODY|POWERFUL|REGENERATE|NONLIVING|CAN_FLY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NO_STUN|RES_TELE|GUARDIAN,1_IN_3|S_MONSTERS|BR_CHAO|BA_CHAO|ROCKET|S_CYBER|S_KIN|BR_NETH|BR_MANA|S_HI_UNDEAD|S_HI_DRAGON|S_UNIQUE|BR_NUKE|BR_DISI|HAND_DOOM|DISPEL,,"　〈混沌〉の最も巨大な顕現であるこの存在は、恐らくはヒドラのように大小無数の頭を持ち、その身を多元宇宙のあらゆる領域に伸ばして、虚空を引き裂き続けている。
+　『秩序のユニコーン』が史上最初にこのサーペントと闘い、『審判の宝石』として知られるその片目を奪いとった。この宝石を使って『ドワーキン』が「パターン」を描き、その影として最も巨大な真世界「アンバー」が生まれたのである。
+　もはや、ユニコーンとドワーキンを超える程の創造の業を成すものは、永遠に有り得ないかも知れない。それでもなお、幾兆もの挑戦者が、無数の目の一つ一つに秘められた創造の力を求めて戦ってきた。あるいは勝ち取った者がほんの僅かにもいるのだろう。多元宇宙はなおも多くの世界を、泡沫のように創造し続けているのだから。
 ","Before the universe the Serpent was. 
 The Unicorn of Order fought with Serpent and stole one of its eyes, known as the Jewel of Judgement. With the Jewel, Dworkin drew the Pattern and thus 
 gave birth to the infinite worlds of shadow. 
@@ -9336,4 +9269,4 @@ gave birth to the infinite worlds of shadow.
 
 
 
-",JZ#,,,,
+",Zangband#Enより追加,,,,
