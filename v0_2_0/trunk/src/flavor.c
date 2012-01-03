@@ -1286,6 +1286,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		case TV_CHEST:
 		case TV_WHISTLE:
 		case TV_WHEEL:
+		case TV_INSTRUMENT:
 		{
 			break;
 		}
@@ -1400,6 +1401,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		case TV_SOFT_ARMOR:
 		case TV_HARD_ARMOR:
 		case TV_DRAG_ARMOR:
+		case TV_TAIL:
 		{
 			show_armour = TRUE;
 			break;

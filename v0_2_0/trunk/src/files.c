@@ -544,7 +544,7 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "E:<tv>:<a>" -- attribute for p_ptr->inventory objects */
+	/* Process "E:<tv>:<a>" -- attribute for inventory objects */
 	case 'E':
 		if (tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) == 2)
 		{

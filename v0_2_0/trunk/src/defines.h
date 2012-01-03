@@ -5921,15 +5921,14 @@ extern int PlayerUID;
 #define CF_ELF              566
 #define CF_DWARF            567
 #define CF_DEMON            568
-
 #define CF_ANGEL            569
 #define CF_GIANT            570
 #define CF_ORC              571
 #define CF_TROLL            572
-
 #define CF_DRAGON           573
 #define CF_ALIEN            574
 #define CF_ANIMAL           575
+#define CF_UNDEAD           576
 
 
 
