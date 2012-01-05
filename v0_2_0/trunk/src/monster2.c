@@ -2171,7 +2171,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				monster_desc_ego(desc, m_ptr, r_ptr);
+				if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
 			}
 		}
 
@@ -2187,7 +2187,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			monster_desc_ego(desc, m_ptr, r_ptr);
+			if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
 
 		}
 
@@ -2209,7 +2209,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-				monster_desc_ego(desc, m_ptr, r_ptr);
+				if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
 
 		}
 
@@ -2275,7 +2275,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 }
 
 
-void monster_desc_ego(char* desc, creature_type *creature_ptr, species_type *species_ptr)
+void creature_desc_ego(char* desc, creature_type *creature_ptr, species_type *species_ptr)
 {
 	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
