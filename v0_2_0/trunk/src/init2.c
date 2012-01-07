@@ -437,10 +437,10 @@ static void init_header(header *head, int num, int len)
 	head->info_size = head->info_num * head->info_len;
 }
 
-/*
- * Initialize the "*_info.csv" array
- */
 
+//
+// Initialize the "*_info.csv" array
+//
 static errr init_info2(cptr filename, header *head, void **info, char **name, char **text, char **tag)
 {
 	int fd;
@@ -1011,21 +1011,20 @@ static errr init_e_info(void)
 }
 
 
-/*
- * Initialize the "species_info" array
- */
+//
+// Initialize the "creature_flag_info" array
+//
 static errr init_creature_flag_csv(void)
 {
 
-	/* Init the header */
+	// Init the header
 	init_header(&creature_flag_head, max_creature_flag_idx, sizeof(creature_flag_type));
 
 #ifdef ALLOW_TEMPLATES
-
-	/* Save a pointer to the parsing function */
+	// Save a pointer to the parsing function
 	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
-
-#endif /* ALLOW_TEMPLATES */
+#endif
+	C_MAKE(creature_flag_tmp, max_creature_flag_idx * FAKE_TMP_BUFFER_SIZE, char);
 
 	return init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, NULL);
 

@@ -88,6 +88,7 @@ void reset_visuals(void)
 		char buf[1024];
 
 		/* Process "font.prf" */
+
 		process_pref_file("font.prf");
 
 		/* Access the "character" pref file */

@@ -858,6 +858,7 @@ char *species_text;
 creature_flag_type *creature_flag_info;
 char *creature_flag_name;
 char *creature_flag_text;
+char *creature_flag_tmp;
 
 /*
  * The race arrays

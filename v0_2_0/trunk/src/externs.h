@@ -488,18 +488,24 @@ extern char *species_text;
 extern creature_flag_type *creature_flag_info;
 extern char *creature_flag_name;
 extern char *creature_flag_text;
+extern char *creature_flag_tmp;	// for self reference
+
 extern race_type *race_info;
 extern char *race_name;
 extern char *race_text;
+
 extern monster_ego *re_info;
 extern char *re_name;
 extern char *re_text;
+
 extern store_pre_type *store_pre_info;
 extern char *stp_name;
 extern char *stp_text;
+
 extern dungeon_info_type *d_info;
 extern char *d_name;
 extern char *d_text;
+
 extern cptr ANGBAND_SYS;
 extern cptr ANGBAND_KEYBOARD;
 extern cptr ANGBAND_GRAF;
