@@ -220,7 +220,7 @@ int calc_expfact_sp(species_type *species_ptr)
 	return expfact;
 }
 
-// Experience factor
+// Set Current Experience factor
 void set_expfact(creature_type *creature_ptr)
 {
 	if (has_cf_creature(creature_ptr, CF_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
@@ -243,14 +243,15 @@ void set_expfact(creature_type *creature_ptr)
 }
 
 
-/* Calculate body size */
+// Set Current Body Size
 void set_bodysize(creature_type * creature_ptr)
 {
 	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 	return;
 }
 
-/* Hitdice */
+
+// Set Current Hitdice
 void set_hitdice(creature_type * creature_ptr)
 {
 	creature_ptr->hitdice = creature_ptr->size >= 10 ? 5 + creature_ptr->size / 2 : creature_ptr->size;
@@ -266,9 +267,8 @@ void set_hitdice(creature_type * creature_ptr)
 }
 
 
-/*
- * Roll the hitdice -- aux of do_cmd_rerate()
- */
+
+// Roll the hitdice -- aux of do_cmd_rerate()
 void set_base_hp(creature_type *cr_ptr)
 {
 	/* Minimum hitpoints at highest level */
