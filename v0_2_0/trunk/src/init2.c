@@ -441,7 +441,7 @@ static void init_header(header *head, int num, int len)
 //
 // Initialize the "*_info.csv" array
 //
-static errr init_info2(cptr filename, header *head, void **info, char **name, char **text, char **tag)
+static errr init_info2(cptr filename, header *head, void **info, char **name, char **text, char **tmp, char **tag)
 {
 	int fd;
 
@@ -498,11 +498,13 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/* Hack -- make "fake" arrays */
 		if (name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
 		if (text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if (tmp)  C_MAKE(head->tmp_ptr, FAKE_TMP_BUFFER_SIZE, char);
 		if (tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
 
 		if (info) (*info) = head->info_ptr;
 		if (name) (*name) = head->name_ptr;
 		if (text) (*text) = head->text_ptr;
+		if (tmp)  (*tmp)  = head->tmp_ptr;
 		if (tag)  (*tag)  = head->tag_ptr;
 
 		/*** Load the ascii template file ***/
@@ -521,8 +523,12 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if (!fp) quit(format("Cannot open '%s.csv' file.", filename));
 #endif
 
-		/* Parse the file */
+		// Parse the file
 		err = init_info_csv(fp, buf, head, head->parse_info_txt);
+
+		if(!err &&head->parse_reprocess){
+			err = head->parse_reprocess(head);
+		}
 
 		/* Close it */
 		my_fclose(fp);
@@ -557,9 +563,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 			/* Quit */
 			quit(format("Error in '%s.csv' file.", filename));
 #endif
-
 		}
-
 
 		/*** Make final retouch on fake tags ***/
 
@@ -1011,11 +1015,11 @@ static errr init_e_info(void)
 }
 
 
-//
 // Initialize the "creature_flag_info" array
-//
+// 2012 Added by Deskull
 static errr init_creature_flag_csv(void)
 {
+	int err;
 
 	// Init the header
 	init_header(&creature_flag_head, max_creature_flag_idx, sizeof(creature_flag_type));
@@ -1024,10 +1028,11 @@ static errr init_creature_flag_csv(void)
 	// Save a pointer to the parsing function
 	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
 #endif
-	C_MAKE(creature_flag_tmp, max_creature_flag_idx * FAKE_TMP_BUFFER_SIZE, char);
 
-	return init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, NULL);
+	err = init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, &creature_flag_tmp, NULL);
+	if(err) return err;
 
+	return 0;
 }
 
 
@@ -1047,7 +1052,7 @@ static errr init_species_info_csv(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL);
+	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL, NULL);
 
 }
 
@@ -1085,7 +1090,7 @@ static errr init_store_pre_info_csv(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("store_pre_info", &st_head, (void*)&store_pre_info, &stp_name, &stp_text, NULL);
+	return init_info2("store_pre_info", &st_head, (void*)&store_pre_info, &stp_name, &stp_text, NULL, NULL);
 
 }
 
@@ -1105,7 +1110,7 @@ static errr init_rc_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL);
+	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL, NULL);
 
 	for(i = 0; i < MAX_RACES; i++)
 		race_info[i].title = race_name + race_info[i].name;

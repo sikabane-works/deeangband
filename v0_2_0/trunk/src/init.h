@@ -40,6 +40,7 @@
 typedef struct header header;
 
 typedef errr (*parse_info_txt_func)(char *buf, header *head);
+typedef errr (*parse_reprocess_func)(header *head);
 
 /*
  * Template file header information (see "init.c").  16 bytes.
@@ -94,9 +95,11 @@ struct header
 	void *info_ptr;
 	char *name_ptr;
 	char *text_ptr;
+	char *tmp_ptr;
 	char *tag_ptr;
 
 	parse_info_txt_func parse_info_txt;
+	parse_reprocess_func parse_reprocess;
 
 	void (*retouch)(header *head);
 };

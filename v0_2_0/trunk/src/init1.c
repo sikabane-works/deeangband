@@ -3750,7 +3750,7 @@ errr parse_creature_flag_csv(char *buf, header *head)
 				break;
 
 				case CF_INFO_FLAGS:
-					//if(!add_text(tmp, head, buf, TRUE)) return(7);
+					strcpy(&creature_flag_tmp[n], tmp);
 				break;
 
 				case CF_INFO_SPEED:

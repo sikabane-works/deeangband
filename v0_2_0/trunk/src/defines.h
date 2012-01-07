@@ -308,10 +308,10 @@
 /*
  * Size of memory reserved for initialization of some arrays
  */
-#define FAKE_NAME_SIZE  80 * 1024L
-#define FAKE_TEXT_SIZE 500 * 1024L
-#define FAKE_TAG_SIZE   50 * 1024L
-#define FAKE_TMP_BUFFER_SIZE 300L
+#define FAKE_NAME_SIZE        80 * 1024L
+#define FAKE_TEXT_SIZE       500 * 1024L
+#define FAKE_TAG_SIZE         50 * 1024L
+#define FAKE_TMP_BUFFER_SIZE 300 * 1024L
 
 
 /*
