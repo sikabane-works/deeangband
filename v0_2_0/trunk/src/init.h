@@ -68,6 +68,8 @@ typedef errr (*parse_reprocess_func)(header *head);
  * In general, these problems occur only on machines (such as most personal
  * computers) which use 2 byte "int" values, and which use "int" for the
  * arguments to the relevent functions.
+ * 
+ * 2012 Deskull added tmporary buffer
  */
 struct header
 {
@@ -89,6 +91,8 @@ struct header
 	u32b name_size;		/* Size of the "name" array in bytes */
 
 	u32b text_size;		/* Size of the "text" array in bytes */
+
+	u32b tmp_size;		// Size of the "tmp" array in bytes
 
 	u32b tag_size;		/* Size of the "tag" array in bytes */
 
@@ -123,8 +127,12 @@ extern errr parse_s_info(char *buf, header *head);
 extern errr parse_m_info(char *buf, header *head);
 
 extern errr parse_species_info_csv(char *buf, header *head);
+
 extern errr parse_race_info_csv(char *buf, header *head);
+
 extern errr parse_creature_flag_csv(char *buf, header *head);
+extern errr reprocess_creature_flag(header *head);
+
 extern errr parse_store_pre_info_csv(char *buf, header *head);
 
 /*

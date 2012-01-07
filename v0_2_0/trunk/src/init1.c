@@ -857,6 +857,32 @@ static bool add_name(u32b *offset, header *head, cptr buf)
 	return (TRUE);
 }
 
+// Deskull
+// Add temporary buffer for reprocess
+static bool add_tmp(u32b *offset, header *head, cptr buf)
+{
+	/* Hack -- Verify space */
+	if (head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE)
+		return (FALSE);
+
+	/* New name? */
+	if (*offset == 0)
+	{
+		/* Advance and save the name index */
+		*offset = ++head->tmp_size;
+	}
+
+	/* Append chars to the names */
+	strcpy(head->tmp_ptr + head->tmp_size, buf);
+
+	/* Advance the index */
+	head->tmp_size += strlen(buf);
+
+	/* Success */
+	return (TRUE);
+}
+
+
 
 /*
  * Add a tag to the tag-storage and return an offset to it.
@@ -1016,7 +1042,6 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 
 	/* Just before the first line */
 	error_line = 0;
-
 
 	/* Prepare the "fake" stuff */
 	head->name_size = 0;
@@ -3589,6 +3614,17 @@ static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_DESCRIPTION	25
 #define CF_INFO_E_DESCRIPTION	26
 #define CF_INFO_SPELL	27
+
+errr reprocess_creature_flag(header *head)
+{
+	int i;
+	for(i = 0; i < max_creature_flag_idx; i++)
+	{
+		creature_flags_splits(&species_info[i].flags, head->tmp_ptr);
+	}
+
+	return 0;
+}
 
 errr parse_creature_flag_csv(char *buf, header *head)
 {

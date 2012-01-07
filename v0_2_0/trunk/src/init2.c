@@ -1027,6 +1027,7 @@ static errr init_creature_flag_csv(void)
 #ifdef ALLOW_TEMPLATES
 	// Save a pointer to the parsing function
 	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
+	creature_flag_head.parse_reprocess = reprocess_creature_flag;
 #endif
 
 	err = init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, &creature_flag_tmp, NULL);
