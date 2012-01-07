@@ -3620,7 +3620,7 @@ errr reprocess_creature_flag(header *head)
 	int i;
 	for(i = 0; i < max_creature_flag_idx; i++)
 	{
-		creature_flags_splits(&species_info[i].flags, head->tmp_ptr);
+		creature_flags_splits(&creature_flag_info[i].flags, head->tmp_ptr);
 	}
 
 	return 0;
