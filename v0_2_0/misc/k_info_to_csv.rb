@@ -82,7 +82,7 @@ class K_info
 			output += '","'
 			output += @e_description if @e_description.size > 0
 			output += '","'
-			output += @comment
+			output += @comment.gsub('"', '""')
 			output += '"'
 			file.puts(output)
 			initialize
