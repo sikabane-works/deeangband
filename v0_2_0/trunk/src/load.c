@@ -1580,7 +1580,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 
 		/* Count */
 
-		real_r_ptr(m_ptr)->cur_num++;
+		real_species_ptr(m_ptr)->cur_num++;
 
 	}
 

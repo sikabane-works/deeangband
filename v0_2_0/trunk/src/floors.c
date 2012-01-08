@@ -498,7 +498,7 @@ void precalc_cur_num_of_pet(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Hack -- Increase the racial counter */
-		real_r_ptr(m_ptr)->cur_num++;
+		real_species_ptr(m_ptr)->cur_num++;
 	}
 }
 
@@ -554,7 +554,7 @@ static void place_pet(creature_type *creature_ptr)
 
 			/* Copy all member of the structure */
 			*m_ptr = party_mon[i];
-			r_ptr = real_r_ptr(m_ptr);
+			r_ptr = real_species_ptr(m_ptr);
 
 			m_ptr->fy = cy;
 			m_ptr->fx = cx;
@@ -593,7 +593,7 @@ static void place_pet(creature_type *creature_ptr)
 		else
 		{
 			creature_type *m_ptr = &party_mon[i];
-			species_type *r_ptr = real_r_ptr(m_ptr);
+			species_type *r_ptr = real_species_ptr(m_ptr);
 			char m_name[80];
 
 			creature_desc(m_name, m_ptr, 0);
@@ -639,7 +639,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		if (!m_ptr->species_idx) continue;
 
 		/* Extract real monster race */
-		r_ptr = real_r_ptr(m_ptr);
+		r_ptr = real_species_ptr(m_ptr);
 
 		/* Memorize location of the unique monster */
 		if (is_unique_species(r_ptr) ||
@@ -903,7 +903,7 @@ void leave_floor(creature_type *cr_ptr)
 		if (quest_species_idx != m_ptr->species_idx) continue;
 
 		/* Extract real monster race */
-		r_ptr = real_r_ptr(m_ptr);
+		r_ptr = real_species_ptr(m_ptr);
 
 		/* Ignore unique monsters */
 		if (is_unique_species(r_ptr) ||
@@ -1228,7 +1228,7 @@ void change_floor(creature_type *cr_ptr)
 				}
 
 				/* Extract real monster race */
-				r_ptr = real_r_ptr(m_ptr);
+				r_ptr = real_species_ptr(m_ptr);
 
 				/* Ignore non-unique */
 				if (!is_unique_species(r_ptr) &&

@@ -6143,7 +6143,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (tar_ptr->mflag2 & MFLAG2_CHAMELEON)
 			{
 				/* You might have unmasked Chameleon first time */
-				r_ptr = real_r_ptr(tar_ptr);
+				r_ptr = real_species_ptr(tar_ptr);
 				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
 	

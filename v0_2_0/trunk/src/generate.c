@@ -981,7 +981,8 @@ static bool cave_gen(creature_type *player_ptr)
 		if (!alloc_stairs(feat_down_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) / 8 , 3)) return FALSE;
 
 		/* Place some up stairs near some walls */
-		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) / 8 , 3)) return FALSE;
+		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) /
+			8 , 3)) return FALSE;
 	}
 
 	if (!dun->laketype)

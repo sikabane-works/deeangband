@@ -1791,7 +1791,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	cptr note = NULL;
 
 	/* Assume a default death */
-	cptr note_dies = extract_note_dies(player_ptr, real_r_ptr(tar_ptr));
+	cptr note_dies = extract_note_dies(player_ptr, real_species_ptr(tar_ptr));
 
 	int ty = tar_ptr->fy;
 	int tx = tar_ptr->fx;

@@ -671,7 +671,7 @@ void reset_target(creature_type *m_ptr)
 /*
  *  Extract monster race pointer of a monster's true form
  */
-species_type *real_r_ptr(creature_type *m_ptr)
+species_type *real_species_ptr(creature_type *m_ptr)
 {
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	/* Extract real race */
@@ -708,7 +708,7 @@ void delete_species_idx(creature_type *cr_ptr)
 
 
 	/* Hack -- Reduce the racial counter */
-	real_r_ptr(cr_ptr)->cur_num--;
+	real_species_ptr(cr_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
 	if (has_cf_creature(cr_ptr, CF_MULTIPLY)) num_repro--;
@@ -1931,7 +1931,7 @@ s16b get_mon_num(int level)
 void creature_desc(char *desc, creature_type *m_ptr, int mode)
 {
 	cptr            res;
-	species_type    *r_ptr;
+	species_type    *species_ptr;
 
 	cptr            name;
 	char            buf[128];
@@ -1952,12 +1952,11 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 		return;
 	}
 
-
-	r_ptr = &species_info[m_ptr->ap_species_idx];
+	species_ptr = &species_info[m_ptr->ap_species_idx];
 
 	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
-	if (mode & MD_TRUE_NAME) name = (species_name + real_r_ptr(m_ptr)->name);
-	else name = (species_name + r_ptr->name);
+	if (mode & MD_TRUE_NAME) name = (species_name + real_species_ptr(m_ptr)->name);
+	else name = (species_name + species_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
 	if (player_ptr->image && !(mode & MD_IGNORE_HALLU))
@@ -2114,7 +2113,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 	else
 	{
 		/* Tanuki? */
-		if (is_pet(player_ptr, m_ptr) && !is_original_ap(m_ptr))
+		if (is_pet(playespecies_ptr, m_ptr) && !is_original_ap(m_ptr))
 		{
 #ifdef JP
 			char *t;
@@ -2135,7 +2134,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((is_unique_species(r_ptr)) && !(p_ptr->image && !(mode & MD_IGNORE_HALLU)))
+		if ((is_unique_species(species_ptr)) && !(p_ptr->image && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if ((m_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
@@ -2171,7 +2170,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
+				if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+				(void)strcat(desc, species_name + species_ptr->name);
+				if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 			}
 		}
 
@@ -2187,15 +2188,16 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
-
+			if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			(void)strcat(desc, species_name + species_ptr->name);
+			if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 		/* It could be a normal, definite, monster */
 		else
 		{
 			/* Definite monsters need a definite article */
-			if (is_pet(player_ptr, m_ptr))
+			if (is_pet(playespecies_ptr, m_ptr))
 #ifdef JP
 				(void)strcpy(desc, "あなたの");
 #else
@@ -2209,8 +2211,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-				if(mode & MD_EGO_DESC) creature_desc_ego(desc, m_ptr, r_ptr);
-
+			if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			(void)strcat(desc, species_name + species_ptr->name);
+			if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 
@@ -2236,7 +2239,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 		if ((mode & MD_IGNORE_HALLU) && (m_ptr->mflag2 & MFLAG2_CHAMELEON))
 		{
-			if (is_unique_species(r_ptr))
+			if (is_unique_species(species_ptr))
 			{
 #ifdef JP
 				strcat(desc,"(カメレオンの王)");
@@ -2275,7 +2278,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 }
 
 
-void creature_desc_ego(char* desc, creature_type *creature_ptr, species_type *species_ptr)
+void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr)
 {
 	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
@@ -2311,7 +2314,10 @@ void creature_desc_ego(char* desc, creature_type *creature_ptr, species_type *sp
 		(void)strcat(desc, re_name + re_info[creature_ptr->monster_ego_idx].name);
 	}
 
-	(void)strcat(desc, species_name + species_ptr->name);
+}
+
+void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_type *species_ptr)
+{
 
 	if(creature_ptr->cls_idx == INDEX_VARIABLE){
 #ifdef JP
@@ -4284,7 +4290,7 @@ msg_print("守りのルーンが壊れた！");
 	update_mon(p_ptr, c_ptr->m_idx, TRUE);
 
 	/* Count the monsters on the level */
-	real_r_ptr(m_ptr)->cur_num++;
+	real_species_ptr(m_ptr)->cur_num++;
 
 	/*
 	 * Memorize location of the unique monster in saved floors.
@@ -4292,7 +4298,7 @@ msg_print("守りのルーンが壊れた！");
 	 */
 	if (character_dungeon &&
 	    ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL)))
-		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
+		real_species_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
 	if (has_cf_creature(m_ptr, CF_MULTIPLY)) num_repro++;
