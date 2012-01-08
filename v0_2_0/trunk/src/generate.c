@@ -977,11 +977,11 @@ static bool cave_gen(creature_type *player_ptr)
 			try_door(y + 1, x);
 		}
 
-		/* Place 3 or 4 down stairs near some walls */
-		if (!alloc_stairs(feat_down_stair, rand_range(3, 4), 3)) return FALSE;
+		/* Place some down stairs near some walls */
+		if (!alloc_stairs(feat_down_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) / 8 , 3)) return FALSE;
 
-		/* Place 1 or 2 up stairs near some walls */
-		if (!alloc_stairs(feat_up_stair, rand_range(1, 2), 3)) return FALSE;
+		/* Place some up stairs near some walls */
+		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) / 8 , 3)) return FALSE;
 	}
 
 	if (!dun->laketype)
