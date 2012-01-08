@@ -2172,9 +2172,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+				if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 				(void)strcat(desc, species_name + species_ptr->name);
-				if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+				if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, m_ptr, species_ptr);
 			}
 		}
 
@@ -2190,9 +2190,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 		/* It could be a normal, definite, monster */
@@ -2213,9 +2213,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 
