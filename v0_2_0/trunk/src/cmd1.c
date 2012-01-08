@@ -3119,15 +3119,15 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		health_track(c_ptr->m_idx);
 	}
 
-	if (IS_FEMALE(tar_ptr) &&
+	if (IS_FEMALE(tar_ptr) && has_cf_creature(tar_ptr, CF_HUMANOID) &&
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
 	{
 		if ((atk_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
-			msg_print("拙者、おなごは斬れぬ！");
+			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", atk_name);
 #else
-			msg_print("I can not attack women!");
+			msg_print("%s shouted, \"I can not attack women!\"", atk_name);
 #endif
 			return FALSE;
 		}
