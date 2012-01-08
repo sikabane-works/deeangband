@@ -1907,16 +1907,17 @@ s16b get_mon_num(int level)
  * so that "char desc[80];" is sufficiently large for any result.
  *
  * Mode Flags:
- *  MD_OBJECTIVE      --> Objective (or Reflexive)
- *  MD_POSSESSIVE     --> Possessive (or Reflexive)
- *  MD_INDEF_HIDDEN   --> Use indefinites for hidden monsters ("something")
- *  MD_INDEF_VISIBLE  --> Use indefinites for visible monsters ("a kobold")
- *  MD_PRON_HIDDEN    --> Pronominalize hidden monsters
- *  MD_PRON_VISIBLE   --> Pronominalize visible monsters
- *  MD_ASSUME_HIDDEN  --> Assume the monster is hidden
- *  MD_ASSUME_VISIBLE --> Assume the monster is visible
- *  MD_TRUE_NAME      --> Chameleon's true name
- *  MD_IGNORE_HALLU   --> Ignore hallucination, and penetrate shape change
+ *  MD_OBJECTIVE       --> Objective (or Reflexive)
+ *  MD_POSSESSIVE      --> Possessive (or Reflexive)
+ *  MD_INDEF_HIDDEN    --> Use indefinites for hidden monsters ("something")
+ *  MD_INDEF_VISIBLE   --> Use indefinites for visible monsters ("a kobold")
+ *  MD_PRON_HIDDEN     --> Pronominalize hidden monsters
+ *  MD_PRON_VISIBLE    --> Pronominalize visible monsters
+ *  MD_ASSUME_HIDDEN   --> Assume the monster is hidden
+ *  MD_ASSUME_VISIBLE  --> Assume the monster is visible
+ *  MD_TRUE_NAME       --> Chameleon's true name
+ *  MD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
+ *  MD_IGNORE_EGO_DESC --> Ignore Ego description
  *
  * Useful Modes:
  *  0x00 --> Full nominative name ("the kobold") or "it"
@@ -1927,6 +1928,7 @@ s16b get_mon_num(int level)
  *    --> Possessive, genderized if visable ("his") or "its"
  *  MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE
  *    --> Reflexive, genderized if visable ("himself") or "itself"
+ *
  */
 void creature_desc(char *desc, creature_type *m_ptr, int mode)
 {
@@ -2170,9 +2172,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+				if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 				(void)strcat(desc, species_name + species_ptr->name);
-				if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+				if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 			}
 		}
 
@@ -2188,9 +2190,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 		/* It could be a normal, definite, monster */
@@ -2211,9 +2213,9 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(mode & MD_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_pre(desc, m_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(mode & MD_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!mode & MD_IGNORE_EGO_DESC) creature_desc_ego_post(desc, m_ptr, species_ptr);
 		}
 
 
@@ -2299,7 +2301,7 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 #endif
 	}
 
-	if(creature_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE){
+	if(has_cf_creature(creature_ptr, CF_VARIABLE_SIZE)){
 		char tmp[80];
 		tmp[0] = '\0';
 #ifdef JP
@@ -2322,9 +2324,9 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 	if(creature_ptr->cls_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
-		(void)strcat(desc, class_info[creature_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
 #else
-		(void)strcat(desc, class_info[creature_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
 #endif
 	}
 
