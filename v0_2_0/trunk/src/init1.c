@@ -5721,13 +5721,23 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 					v = "OFF";
 			}
 
-			/* Race */
-			else if (streq(b+1, "RACE"))
+			/* Race1 */
+			else if (streq(b+1, "RACE1"))
 			{
 #ifdef JP
 				v = race_info[p_ptr->race_idx1].E_title;
 #else
 				v = race_info[p_ptr->race_idx1].title;
+#endif
+			}
+
+			/* Race2 */
+			else if (streq(b+1, "RACE2"))
+			{
+#ifdef JP
+				v = race_info[p_ptr->race_idx2].E_title;
+#else
+				v = race_info[p_ptr->race_idx2].title;
 #endif
 			}
 
