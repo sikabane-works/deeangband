@@ -1196,33 +1196,6 @@ BITE:HURT:1d10",,,WEIRD_MIND|BASH_DOOR|WILD_ALL|DROP_SKELETON|IM_POIS,,,それは巨
 ",J0#,,,,
 176,巨大白ダニ,Giant white tick,S,w,SPIDER,SPIDER,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,204,500,411,0,0,NONE,NONE,-1,-10,12,40,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,BITE:POISON:2d6,,,WEIRD_MIND|BASH_DOOR|CAN_FLY|IM_POIS,,,それはゆっくりと冒険者の方に向かってくる。,"It is moving slowly towards you.
 ",J0#,,,,
-177,『ボーシン』,The Borshin,g,w,IMP,IMP,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,35,2,50,23441,0,0,782,1,NONE,NONE,-1,9,40,30,0,21,14,13,22,23,9,198,0,99,0,0,0,0,0,"HIT:HURT:2d13
-CRUSH:HURT:2d15
-TOUCH:TERRIFY",,,UNIQUE|DROP_CORPSE|BASH_DOOR|FORCE_MAXHP|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR,,,"　青白く捻曲がったこの生物は、あなたの姿そのものを憎んでいる。
-「それはまるで、人間の顔になることをめざして作りはじめながらついに目標にとどかなかったかのような貌だった。踏みしだかれ、捻じ曲げられ、頭部のふくらみを形成する醜い肉塊を穴だらけにされていた。その胴体を包む透明な肉を通して、骨が見えるし、短い脚は樹の幹みたいに太く、その先端に円盤状の平たい足が付いていて、そこから根っこか蛆虫みたいな長い指が何十本となく突きだしていた。腕は体ぜんたいよりもはるかに長かった。つぶしたナメクジといおうか、すっかり焼きあがる前に凍らしてそれをまた解凍させたような物体だった。それは---「これがボーシンだ」 <こうもり王>がそう言った。」
-(ロジャー・ゼラズニイ、荒俣宏訳『影のジャック』
-サンリオＳＦ文庫、p81-82)","Pallid and twisted, this creature hates the very sight of you.
-""It looked like something that had started out to be a man but had never 
-quite made it. It had been stepped on, twisted, had holes poked into the 
-sickly dough of its head-bulge. Bones showed through the transparent flesh 
-of its torso and its short legs were as thick as trees, terminating in 
-disk-shaped pads from which dozens of long toes hung like roots or worms. 
-its arms were longer than its entire body. it was a crushed slug, a thing 
-that had been frozen and thawed before it was fully baked. It was - 
-'It is the Borshin', said the Lord of Bats.""
-
-
-
-
-
-
-
-
-
----
- <>
-(
-ＳＦp81-82)",JZ#,,,,
 178,ダークエルフ・メイジ,Dark elven mage,h,v,DARK_ELF,DARK_ELF,0x01,HIGH_MAGE,NONE,ORDINARY,VARIABLE,NONE,10,1,50,222,700,375,0,0,NONE,NONE,-1,10,20,16,20,12,12,12,12,12,12,0,0,0,0,0,0,0,0,"HIT:HURT:1d6
 HIT:HURT:1d6",,,FORCE_SLEEP|ONLY_ITEM|DROP_1D2|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EAT_MANA|EAT_LOSE_STR|EAT_LOSE_CON|IM_POIS|RES_DARK|HURT_LITE,1_IN_5|BLIND|CONF|MISSILE|DARKNESS|BA_POIS,,黒い服を全身にまとったダークエルフで、呪文を唱えてくる。,"A dark elven figure, dressed all in black, hurling spells at you.
 ",J0#,,,,
@@ -3207,6 +3180,13 @@ makes your soul wilt!
 HIT:HURT:1d5
 HIT:HURT:1d5
 BITE:COLD:3d6",,,FRIENDS|DROP_60|WILD_WASTE|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|REGENERATE|IM_COLD|HURT_LITE,,,彼は強力な爪の付いた手を持った、白いトロルだ。,"He is a white troll with powerfully clawed hands.
+",J0#,,,,
+559,ヤング・ゴールド・ドラゴン,Young gold dragon,d,y,DRAGON,DRAGON,0x01,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,28,2,50,950,6000,590,0,0,NONE,NONE,-1,0,20,63,150,16,16,16,16,16,16,730,30,8100,10,730,30,8100,10,"CLAW:HURT:1d8
+CLAW:HURT:1d8
+BITE:HURT:2d8",,,FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_90|DROP_2D2|DROP_CORPSE|RIDING|OPEN_DOOR|BASH_DOOR|WILD_MOUNTAIN|RES_SOUN,1_IN_11|SCARE|BR_SOUN,,"それはまさにこれから伝説を作らんとするかのような活力に満ちた姿をしている。
+まだ柔らかいそのうろこは曇った金色をしていて、全身で光を反射している。","It has a form that legends are made of.  Its still-tender scales are a 
+tarnished gold hue, and light is reflected from its form.
+
 ",J0#,,"
 F:UNIQUE | MALE | QUESTOR |
 F:FORCE_SLEEP | FORCE_MAXHP | FORCE_DEPTH | SELF_DARK_1 | SELF_DARK_2 |
@@ -3232,13 +3212,6 @@ D:ウルク達にはまことの命が吹き込まれ、サウロンやバルログ達には新たなる力が宿った
 D:その後全ての力を使い果たした彼は、多元宇宙の根源たる『混沌のサーペント』に飲み込まれ、
 D:その顕現の一つとなった。〈混沌〉に歪んだ鉄獄の深遠に無我のまま徘徊する黒い影。
 D:彼の表情は伝承の通り恐ろしくいかめしいが、奇妙な充足に満ちている。"
-559,ヤング・ゴールド・ドラゴン,Young gold dragon,d,y,DRAGON,DRAGON,0x01,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,28,2,50,950,6000,590,0,0,NONE,NONE,-1,0,20,63,150,16,16,16,16,16,16,730,30,8100,10,730,30,8100,10,"CLAW:HURT:1d8
-CLAW:HURT:1d8
-BITE:HURT:2d8",,,FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_90|DROP_2D2|DROP_CORPSE|RIDING|OPEN_DOOR|BASH_DOOR|WILD_MOUNTAIN|RES_SOUN,1_IN_11|SCARE|BR_SOUN,,"それはまさにこれから伝説を作らんとするかのような活力に満ちた姿をしている。
-まだ柔らかいそのうろこは曇った金色をしていて、全身で光を反射している。","It has a form that legends are made of.  Its still-tender scales are a 
-tarnished gold hue, and light is reflected from its form.
-
-",J0#,,,,
 877,ゴルゴロスの蝙蝠,Bat of Gorgoroth,b,g,BAT,BAT,0x01,NONE,NONE,ORDINARY,NONE,NONE,28,3,50,6772,0,0,0,0,NONE,NONE,-1,10,20,60,30,16,16,16,16,16,16,35,2,6,1,35,2,6,1,"BITE:POISON:1d10
 CLAW:HURT:1d4",,,DROP_60|RAND_25|MOVE_BODY|CAN_FLY|DROP_CORPSE|BASH_DOOR|FRIENDS|IM_POIS|RES_DARK,1_IN_8|SCARE|BR_POIS|BR_DARK,,"忌まわしい腐肉を食らい巨大な大きさに成長したこのモルゴスの奴隷は
 常に活きのいい獲物を求めている。","Fed with horrid meats and grown to enormous size, this slavering creature 
@@ -3927,6 +3900,33 @@ HIT:HURT:5d5
 HIT:HURT:5d5
 HIT:HURT:5d5",,,UNIQUE|FORCE_MAXHP|HAS_LITE_1|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_2D2|DROP_GOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,背が低くて浅黒い肌をした東夷で、黒い服に身を包んでいる。,"A short and swarthy Easterling dressed in Black.
 ",,,,,
+177,『ボーシン』,The Borshin,g,w,IMP,IMP,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,35,2,50,23441,0,0,782,1,NONE,NONE,-1,9,40,30,0,21,14,13,22,23,9,198,0,99,0,0,0,0,0,"HIT:HURT:2d13
+CRUSH:HURT:2d15
+TOUCH:TERRIFY",,,UNIQUE|DROP_CORPSE|BASH_DOOR|FORCE_MAXHP|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR,,,"　青白く捻曲がったこの生物は、あなたの姿そのものを憎んでいる。
+「それはまるで、人間の顔になることをめざして作りはじめながらついに目標にとどかなかったかのような貌だった。踏みしだかれ、捻じ曲げられ、頭部のふくらみを形成する醜い肉塊を穴だらけにされていた。その胴体を包む透明な肉を通して、骨が見えるし、短い脚は樹の幹みたいに太く、その先端に円盤状の平たい足が付いていて、そこから根っこか蛆虫みたいな長い指が何十本となく突きだしていた。腕は体ぜんたいよりもはるかに長かった。つぶしたナメクジといおうか、すっかり焼きあがる前に凍らしてそれをまた解凍させたような物体だった。それは---「これがボーシンだ」 <こうもり王>がそう言った。」
+(ロジャー・ゼラズニイ、荒俣宏訳『影のジャック』
+サンリオＳＦ文庫、p81-82)","Pallid and twisted, this creature hates the very sight of you.
+""It looked like something that had started out to be a man but had never 
+quite made it. It had been stepped on, twisted, had holes poked into the 
+sickly dough of its head-bulge. Bones showed through the transparent flesh 
+of its torso and its short legs were as thick as trees, terminating in 
+disk-shaped pads from which dozens of long toes hung like roots or worms. 
+its arms were longer than its entire body. it was a crushed slug, a thing 
+that had been frozen and thawed before it was fully baked. It was - 
+'It is the Borshin', said the Lord of Bats.""
+
+
+
+
+
+
+
+
+
+---
+ <>
+(
+ＳＦp81-82)",JZ#,,,,
 335,大鷲,Great eagle,B,u,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,35,2,50,450,0,0,0,0,NONE,NONE,0,25,20,65,20,17,17,17,17,17,17,165,10,55,3,165,10,55,3,"CLAW:HURT:6d3
 CLAW:HURT:6d3
 BITE:HURT:3d6",,,CAN_FLY|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|DROP_CORPSE|RIDING,1_IN_3|SPECIAL,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
@@ -5817,11 +5817,6 @@ CLAW:HURT:8d4",,,DROP_90|DROP_2D2|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|
 spider, ugly as sin. It screams horribly as it charges at you.
 
 ",,,,,
-940,レッサー・バルログ,Lesser Balrog,U,R,BALROG,BALROG,0x01,NONE,861,ORDINARY,NONE,NONE,62,3,50,1300000,30000,720,0,0,NONE,NONE,3,10,20,50,80,19,19,19,19,19,19,487,0,1099,0,487,0,1099,0,"HIT:FIRE:2d6
-HIT:HURT:4d6
-HIT:FIRE:2d6
-HIT:HURT:5d5",,,FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_1|ONLY_ITEM|DROP_1D2|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_4|BLIND|CONF|BR_FIRE|S_DEMON,,それは全身が炎で覆われた屈強な人間型のモンスターだ。,"It is a massive humanoid demon wreathed in flames.
-",,,,,
 1009,ウォウズの犬王『ドワール』,"Dwar, Dog Lord of Waw",W,D,BARBARIAN,BARBARIAN,0x02,MAGE,NONE,ORDINARY,DEATH,TRUMP,44,3,50,13000,0,0,0,0,NONE,NONE,0,10,90,90,10,19,19,19,19,19,19,184,5,79,2,184,5,79,2,"HIT:HURT:5d5
 HIT:HURT:5d5
 BITE:EXP_40:2d4
@@ -6014,6 +6009,15 @@ you see a little puppy and a toothless old dog.  Perhaps you should give
 up and go to bed.
 ？
 ",J0#,,,,
+829,ジュリアンのヘルハウンド,Hell hound of Julian,C,r,CANINE,CANINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,46,4,50,9871,0,0,0,0,NONE,NONE,-1,10,25,80,30,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:FIRE:3d12
+BITE:FIRE:3d12
+BITE:FIRE:3d12",,,FORCE_SLEEP|FORCE_MAXHP|DROP_CORPSE|RAND_25|FRIENDS|AURA_FIRE|BASH_DOOR|MOVE_BODY|IM_FIRE,1_IN_5|BR_FIRE,,"アンバーの周りのアーデンの森を護るジュリアンが従えているどう猛な猟犬。
+熱を発して輝く巨大な犬で、火炎がその鼻孔からしたたっている。","It is a giant dog that glows with heat.  Flames pour from its nostrils.
+
+","JZ#
+JZ#ジュリアンは九王子で、アンバーの周りのアーデンの森を
+JZ#護る。角笛をもち、ヘルハウンドというどう猛な猟犬を
+JZ#従えている。 by 藤岡さん",,,,
 313,レッサー・ウルク,Lesser Uruk,o,w,URUK,URUK,0x01,NONE,NONE,ORDINARY,NONE,NONE,47,1,50,5000,0,0,0,0,NONE,NONE,0,10,20,0,20,19,19,19,19,19,19,215,10,123,3,210,10,112,3,"SHOOT:HURT:3d5
 HIT:HURT:3d5
 HIT:HURT:3d5",,,FORCE_MAXHP|FRIENDS|DROP_60|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|EAT_POISONOUS|IM_POIS|RES_DARK,1_IN_12|SHOOT,,"彼らは自らをメルコールの正嫡と呼ぶ東方の大帝国モルドールの特権階級だ。
@@ -7141,6 +7145,11 @@ HIT:HURT:8d6",,,FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_2|ONLY_ITEM|DROP_1D2|DROP_2D2|
 and try to resist all desires to obey it.
 
 ",,,,,
+940,レッサー・バルログ,Lesser Balrog,U,R,BALROG,BALROG,0x01,NONE,861,ORDINARY,NONE,NONE,62,3,50,1300000,30000,720,0,0,NONE,NONE,3,10,20,50,80,19,19,19,19,19,19,487,0,1099,0,487,0,1099,0,"HIT:FIRE:2d6
+HIT:HURT:4d6
+HIT:FIRE:2d6
+HIT:HURT:5d5",,,FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_1|ONLY_ITEM|DROP_1D2|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_4|BLIND|CONF|BR_FIRE|S_DEMON,,それは全身が炎で覆われた屈強な人間型のモンスターだ。,"It is a massive humanoid demon wreathed in flames.
+",,,,,
 774,シャドウ・ロード,Shadowlord,G,b,DEMON,DEMON,0x01,NONE,NONE,ORDINARY,NONE,NONE,62,2,50,22500,0,0,0,0,NONE,NONE,2,10,20,150,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:EXP_80:6d12
 HIT:DR_MANA:5d10
 HIT:LOSE_STR:4d6
@@ -7640,6 +7649,31 @@ HIT:HURT:13d13",,,UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|
 1032,エルフの尊き母『メリアン』,"Melian, the Elven great mother.",p,W,MAIAR,MAIAR,0x01,PRIEST,17,PIOUS,NONE,NONE,71,5,50,7141418,0,0,30000,0,1090,NONE,15,20,30,0,5,28,28,28,28,28,28,194,0,82,0,194,0,82,0,,,,UNIQUE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|CAN_SWIM|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|SELF_LITE_2|IM_ACID|IM_FIRE|IM_POIS|RES_CHAO|NO_CONF|NO_SLEEP,1_IN_2|CAUSE_3|PSY_SPEAR,,"テレリの王シンゴルと結ばれ、数多の栄えあるエルフの祖となった存在だ。
 彼女はその神秘的な力をもって自分のいとし子たちを守り抜いてきた。","
 ",,,,,
+842,緑色の火焔『トゥールスチャ』,"Tulzscha, the Green Flame",E,G,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,NONE,852,ORDINARY,NONE,NONE,71,4,50,9871614,0,0,0,0,NONE,NONE,11,20,90,100,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:2d50
+HIT:HURT:2d50
+HIT:HURT:2d50
+HIT:HURT:2d50",,,RAND_25|AURA_FIRE|AURA_COLD|ELDRITCH_HORROR|DROP_2D2|DROP_4D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING|IM_COLD|IM_ACID|IM_ELEC|RES_NEXU|RES_NETH|RES_PLAS|REGENERATE|UNIQUE|SELF_LITE_2,1_IN_3|BR_NEXU|BR_NETH|BR_COLD|BR_FIRE,,"魔王アザトートの玉座の周囲を踊る、異形の神々の一柱。
+死と腐敗と衰退を栄養にして生きている。
+我々の世界に召喚された場合、ガス状の形態で地球の核まで浸透し、
+そこから火柱となって地上に噴き出してくる。
+「噴出する病的な緑色の焔の柱... 深遠かつ人知を越えた地の底から
+火山の様にほとばしり、健全な焔が落とすはずの影を作らず、
+硝石をおぞましくも毒々しい緑青で包む。そのような激しい燃焼
+に反してそこに熱はなく、ただ死と腐敗の湿気があるのみだ。」
+（ラヴクラフト「祝祭」）","""A belching column of sick greenish flame... spouting volcanically 
+from the depths profound and inconceivable, casting no shadows as 
+healthy flame should, and coating the nitrous stone with a nasty, 
+venomous verdigris. For all that seething combustion no warmth 
+lay, but only the clamminess of death and corruption.""
+
+
+
+
+... 
+
+
+
+（）",JZ#,,,,
 720,グレーター・バルログ,Greater Balrog,U,R,BALROG,BALROG,0x01,NONE,861,ORDINARY,NONE,NONE,72,3,50,6000000,0,0,0,0,NONE,NONE,14,10,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:5d6
 HIT:FIRE:6d2
@@ -8065,6 +8099,10 @@ ART:82:100%",UNIQUE|NOLDOR,1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_M
 　そのいかなる邪悪にも怯まぬ不屈さと剛勇はノルドールの誇りである。","
 
 ",D'angband追加ユニーク,,,,
+1160,円環の女神『まどか』,"Madoka, Goddess of Circle",L,y,HUMAN,HUMAN,0x01,RANGER,1160,ORDINARY,NATURE,LIFE,77,2,50,8731200,0,0,4324,1,NONE,NONE,15,20,20,0,50,28,28,28,28,28,28,0,0,0,0,164,0,48,0,"TOUCH:EXP_80
+TOUCH:UN_POWER
+TOUCH:LOSE_DEX:2d12
+TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI,1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,彼女はかつて自らが概念の一部となることで魔法少女を逃れえぬ悲劇から救った。しかし、多元宇宙からの介入により秩序は崩れ、再び魔女が生まれつつある。彼女は自らと魔法少女をさらに過酷な戦場に駆り立ててでも、全てを修復しなければならない境遇に立たされている。,,J0#,,,,
 817,死の女王『ヘラ』,"Hela, Queen of the Dead",p,g,TITAN,TITAN,0x01,MAGE,NONE,ORDINARY,DAEMON,DEATH,78,3,50,40000,0,0,0,0,NONE,NONE,14,20,60,0,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"TOUCH:LOSE_ALL:50d1
 TOUCH:EXP_VAMP:50d1
 TOUCH:UN_BONUS:50d1
@@ -8160,7 +8198,7 @@ TOUCH:UN_BONUS:6d6",,,UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_
 
 III！
 （）",,,,,
-765,死天使『アズリエル』,"Azriel, Angel of Death",A,D,ANGEL,ANGEL,0x02,PRIEST,1090,FEARLESS,NONE,NONE,80,3,50,632121,0,0,0,121,NONE,NONE,17,20,40,190,10,28,28,28,28,28,28,356,0,781,0,0,0,0,0,"TOUCH:EXP_VAMP:5d12
+765,死天使『アズリエル』,"Azriel, Angel of Death",A,D,ANGEL,ANGEL,0x02,PRIEST,1090,FEARLESS,NONE,NONE,87,3,50,18000000,0,0,0,121,NONE,NONE,17,20,40,190,10,28,28,28,28,28,28,356,0,781,0,0,0,0,0,"TOUCH:EXP_VAMP:5d12
 TOUCH:EXP_VAMP:5d12
 HIT:BLIND:10d10
 HIT:HURT:10d10",,,UNIQUE|CAN_SPEAK|RES_NETH|NO_FEAR|FORCE_SLEEP|FORCE_MAXHP|SMART|REFLECTING|AURA_COLD|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|CAN_FLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|RES_TELE|NO_CONF|NO_SLEEP,1_IN_2|TELE_TO|BLIND|BO_MANA|BA_NETH|BR_NETH|PSY_SPEAR|S_MONSTERS|HEAL|S_ANGEL|BR_MANA|BR_COLD|S_DRAGON|INVULNER|BA_LITE,,"恐るべき力を持つアズリエルは、その気高く神聖な様相で冒険者の魂を萎縮させる。
@@ -8177,7 +8215,7 @@ against him and live.
 J0# (コメント)
 J0# 名前の訳は小林さんのものです
 J0#",,,,
-825,『アングマールの魔王』,The Witch-King of Angmar,W,D,DUNADAN,DUNADAN,0x02,PALADIN,858,ORDINARY,DEATH,VARIABLE,80,3,50,42000,0,0,0,0,NONE,NONE,12,20,90,120,10,28,28,28,28,28,28,221,5,119,2,221,5,119,2,"HIT:HURT:10d10
+825,『アングマールの魔王』,The Witch-King of Angmar,W,D,DUNADAN,DUNADAN,0x02,PALADIN,858,ORDINARY,DEATH,VARIABLE,80,3,50,7655900,0,0,0,0,NONE,NONE,12,20,90,120,10,28,28,28,28,28,28,221,5,119,2,221,5,119,2,"HIT:HURT:10d10
 HIT:HURT:10d10
 HIT:EXP_80:5d10
 TOUCH:DR_MANA:6d10",,,UNIQUE|NAZGUL|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP,1_IN_2|TELE_AWAY|BLIND|HOLD|SCARE|CAUSE_3|BRAIN_SMASH|BO_MANA|BA_NETH|PSY_SPEAR|S_KIN|S_HI_UNDEAD|S_HI_DRAGON|S_MONSTERS|ANIM_DEAD,,"指輪の幽鬼の隊長であり、破壊的な力を持った恐るべき存在だ。その呪文は信じが
@@ -8191,7 +8229,7 @@ is fated never to die by the hand of mortal man.
 
 
 ",JZ#,,,,
-826,『シアエガ』,Cyaegha,e,D,FLOATING_EYE,FLOATING_EYE,0x00,NONE,NONE,ORDINARY,NONE,NONE,80,3,50,44444,0,0,0,0,NONE,NONE,8,20,90,120,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:15d15
+826,『シアエガ』,Cyaegha,e,D,FLOATING_EYE,FLOATING_EYE,0x00,NONE,NONE,ORDINARY,NONE,NONE,80,3,50,5477900,0,0,0,0,NONE,NONE,8,20,90,120,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:15d15
 CRUSH:HURT:15d15
 CRUSH:HURT:15d15
 CRUSH:HURT:15d15",,,UNIQUE|CAN_SPEAK|RES_TELE|ELDRITCH_HORROR|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|SMART|SELF_DARK_1|SELF_DARK_2|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_ELEC|RES_DARK|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP,1_IN_3|TELE_AWAY|BLIND|HOLD|SCARE|BRAIN_SMASH|BR_DARK|BA_DARK|BR_NETH|HAND_DOOM|FORGET|S_HI_UNDEAD|S_DEMON|S_MONSTERS|S_HYDRA,,"外見は長い触手に取り囲まれた、大きな緑色の一つ目である。
@@ -8223,11 +8261,18 @@ and a green-glowing eye.""
 JZ#シアエガ
 JZ#クトゥルフ神話に登場しますが、詳細は不明です。 by 久留さん
 JZ#解説は NeSYS さん",,,,
-871,はぐれメタル,Metal Babble,j,s,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,80,10,50,400000,0,0,0,0,NONE,NONE,3,80,200,10000,0,28,28,28,28,28,28,30,2,240,2,30,2,240,2,"HIT:UN_BONUS:1d10
+871,はぐれメタル,Metal Babble,j,s,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,80,10,50,6000000,0,0,0,0,NONE,NONE,15,80,200,10000,0,28,28,28,28,28,28,30,2,240,2,30,2,240,2,"HIT:UN_BONUS:1d10
 HIT:UN_BONUS:1d10
 TOUCH:UN_POWER
 TOUCH:UN_POWER",,,FORCE_SLEEP|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_3D2|DROP_GOOD|DROP_GREAT|CAN_SWIM|SMART|NONLIVING|COLD_BLOOD|RES_ALL|POWERFUL|KILL_EXP|NO_CONF|NO_SLEEP|NO_STUN|RES_TELE,1_IN_1|BLINK|BO_MANA|BA_CHAO|BA_FIRE|TPORT|PSY_SPEAR,,固い金属に包まれたスライムだ。,,,,,,
-880,時を統べる者『リチャード・ウォン』,"Richard Wong, Master of Time",p,w,HUMAN,HUMAN,0x02,MINDCRAFTER,NONE,SHREWD,NONE,NONE,81,3,50,45000,0,0,0,0,NONE,NONE,4,25,100,0,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:TIME:5d8
+841,『シュマ=ゴラス』,Shuma-Gorath,e,G,FLOATING_EYE,FLOATING_EYE,0x00,WARRIOR,841,ORDINARY,NONE,NONE,80,3,50,13455000,0,0,0,0,NONE,NONE,16,20,50,150,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:12d12
+CRUSH:HURT:12d12
+GAZE:LOSE_INT:2d12
+GAZE:LOSE_WIS:2d12",,,ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL,1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR,,　『シュマ=ゴラス』は不死なる混沌の神の一人である。この冒涜的な恐怖の真の姿は、触手に囲まれた、全てを見通す巨大な眼である。,"Shuma-Gorath is one of the immortal lords of chaos. The true form of 
+this blasphemous horror is a huge, all-seeing eye surrounded by tentacles.
+=
+",JZ#,,,,
+880,時を統べる者『リチャード・ウォン』,"Richard Wong, Master of Time",p,w,HUMAN,HUMAN,0x02,MINDCRAFTER,NONE,SHREWD,NONE,NONE,52,3,50,2390000,0,0,0,0,NONE,NONE,6,25,100,0,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:TIME:5d8
 HIT:TIME:5d8
 HIT:TIME:5d8
 KICK:UN_BONUS:8d10",,,UNIQUE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_4D2|DROP_GOOD|REFLECTING|SMART|REGENERATE|PASS_WALL|CAN_FLY|IM_ACID|IM_COLD|IM_POIS|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP|RES_NEXU|RES_WATE|RES_TIME|ESCORT,1_IN_2|TPORT|SCARE|S_KIN|BLINK|HEAL|TELE_TO|CONF|BO_MANA|BRAIN_SMASH|BA_WATE|TELE_AWAY|DISPEL|WORLD|PSY_SPEAR,,"時間と空間を自在に操る超能力者。
@@ -8237,7 +8282,7 @@ KICK:UN_BONUS:8d10",,,UNIQUE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_
 
 
  ",,,,,
-827,風の帝王『パズズ』,"Pazuzu, Lord of Air",B,w,DEMON,DEMON,0x00,NONE,NONE,ORDINARY,NONE,NONE,82,2,50,30000,0,0,0,0,NONE,NONE,12,30,40,125,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:ELEC:12d12
+827,風の帝王『パズズ』,"Pazuzu, Lord of Air",B,w,DEMON,DEMON,0x00,NONE,NONE,ORDINARY,NONE,NONE,82,2,50,7630000,0,0,0,0,NONE,NONE,12,30,40,125,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:ELEC:12d12
 HIT:ELEC:12d12
 HIT:ELEC:12d12
 HIT:ELEC:12d12",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL,1_IN_3|MIND_BLAST|BO_ELEC|BO_MANA|BA_ELEC|PSY_SPEAR,,"地獄界から現れた、羽を持った人間型のモンスターであるパズズは、冒険者の運命
@@ -8245,7 +8290,7 @@ HIT:ELEC:12d12",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP
 as he decides your fate.
 
 ",J0#,,,,
-866,カァウ,Caaws,E,D,ELEMENTAL,ELEMENTAL,0x00,NONE,NONE,ORDINARY,NONE,NONE,82,6,50,70000,0,0,0,0,NONE,NONE,13,10,100,176,0,28,28,28,28,28,28,1750,0,19302,0,1750,0,19302,0,"TOUCH:UN_POWER:13d13
+866,カァウ,Caaws,E,D,ELEMENTAL,ELEMENTAL,0x00,NONE,NONE,ORDINARY,NONE,NONE,66,6,50,2360000,0,0,0,0,NONE,NONE,6,10,100,176,0,28,28,28,28,28,28,1750,0,19302,0,1750,0,19302,0,"TOUCH:UN_POWER:13d13
 TOUCH:UN_BONUS:13d13
 TOUCH:LOSE_ALL:13d13
 TOUCH:DR_MANA:100d100",,,FORCE_MAXHP|NEVER_MOVE|STUPID|KILL_EXP|CAN_SWIM|CAN_FLY|NONLIVING|COLD_BLOOD|WEIRD_MIND|REGENERATE|KILL_BODY|AURA_COLD|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP|WILD_WASTE|WILD_SWAMP,1_IN_5|HEAL|INVULNER|DISPEL,,"四本の触腕をもった巨大な漆黒の牡蛎のような怪物だ。冥界で生まれた
@@ -8264,19 +8309,6 @@ TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|
 This ancient shadow of death wilts any living thing it passes.
 
 ",J0#,,,,
-829,ジュリアンのヘルハウンド,Hell hound of Julian,C,r,CANINE,CANINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,83,4,50,600,0,0,0,0,NONE,NONE,3,10,25,80,30,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:FIRE:3d12
-BITE:FIRE:3d12
-BITE:FIRE:3d12",,,FORCE_SLEEP|FORCE_MAXHP|DROP_CORPSE|RAND_25|FRIENDS|AURA_FIRE|BASH_DOOR|MOVE_BODY|IM_FIRE,1_IN_5|BR_FIRE,,"アンバーの周りのアーデンの森を護るジュリアンが従えているどう猛な猟犬。
-熱を発して輝く巨大な犬で、火炎がその鼻孔からしたたっている。","It is a giant dog that glows with heat.  Flames pour from its nostrils.
-
-","JZ#
-JZ#ジュリアンは九王子で、アンバーの周りのアーデンの森を
-JZ#護る。角笛をもち、ヘルハウンドというどう猛な猟犬を
-JZ#従えている。 by 藤岡さん",,,,
-1160,円環の女神『まどか』,"Madoka, Goddess of Circle",L,y,HUMAN,HUMAN,0x01,RANGER,1160,ORDINARY,NATURE,LIFE,83,2,50,8731200,0,0,4324,1,NONE,NONE,15,20,20,0,50,28,28,28,28,28,28,0,0,0,0,164,0,48,0,"TOUCH:EXP_80
-TOUCH:UN_POWER
-TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI,1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,彼女はかつて自らが概念の一部となることで魔法少女を逃れえぬ悲劇から救った。しかし、多元宇宙からの介入により秩序は崩れ、再び魔女が生まれつつある。彼女は自らと魔法少女をさらに過酷な戦場に駆り立ててでも、全てを修復しなければならない境遇に立たされている。,,J0#,,,,
 830,骸骨の帝王『カントラス』,"Cantoras, the Skeletal Lord",s,B,HUMAN,HUMAN,0x02,HIGH_MAGE,NONE,ORDINARY,DEATH,NONE,84,2,50,14121499,0,0,0,0,NONE,NONE,16,30,20,120,80,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_80
 GAZE:EXP_80
 TOUCH:POISON:3d5
@@ -8592,13 +8624,6 @@ TOUCH:UN_POWER",,,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP
 HIT:UN_BONUS:10d12
 TOUCH:UN_POWER
 TOUCH:UN_POWER",,,UNIQUE|CAN_SPEAK|REFLECTING|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|REGENERATE|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR|RES_TELE|POWERFUL|AMAN,1_IN_2|TPORT|TELE_LEVEL|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|BO_ICEE|BO_MANA|BO_PLAS|BA_MANA|BA_FIRE|BA_WATE|BA_DARK|S_MONSTERS|HAND_DOOM|DISPEL|PSY_SPEAR,,,,,,,,
-841,『シュマ=ゴラス』,Shuma-Gorath,e,G,FLOATING_EYE,FLOATING_EYE,0x00,WARRIOR,841,ORDINARY,NONE,NONE,80,3,50,17716631,0,0,0,0,NONE,NONE,16,20,50,150,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:12d12
-CRUSH:HURT:12d12
-GAZE:LOSE_INT:2d12
-GAZE:LOSE_WIS:2d12",,,ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL,1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR,,　『シュマ=ゴラス』は不死なる混沌の神の一人である。この冒涜的な恐怖の真の姿は、触手に囲まれた、全てを見通す巨大な眼である。,"Shuma-Gorath is one of the immortal lords of chaos. The true form of 
-this blasphemous horror is a huge, all-seeing eye surrounded by tentacles.
-=
-",JZ#,,,,
 1093,鍛冶の司『アウレ』,"Aure, the Avatar of Smith",P,W,MAIAR,MAIAR,0x02,SMITH,1090,ORDINARY,NONE,NONE,88,3,50,19540091,0,0,34261,100,1090,NONE,18,20,100,160,0,28,28,28,28,28,28,1056,0,7962,0,1056,0,7962,0,"HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
 HIT:UN_BONUS:10d12
@@ -8622,31 +8647,6 @@ cleanses the world of evil.
 
 
 ",JZ#,,,,
-842,緑色の火焔『トゥールスチャ』,"Tulzscha, the Green Flame",E,G,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,NONE,852,ORDINARY,NONE,NONE,71,4,50,9871614,0,0,0,0,NONE,NONE,11,20,90,100,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:2d50
-HIT:HURT:2d50
-HIT:HURT:2d50
-HIT:HURT:2d50",,,RAND_25|AURA_FIRE|AURA_COLD|ELDRITCH_HORROR|DROP_2D2|DROP_4D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING|IM_COLD|IM_ACID|IM_ELEC|RES_NEXU|RES_NETH|RES_PLAS|REGENERATE|UNIQUE|SELF_LITE_2,1_IN_3|BR_NEXU|BR_NETH|BR_COLD|BR_FIRE,,"魔王アザトートの玉座の周囲を踊る、異形の神々の一柱。
-死と腐敗と衰退を栄養にして生きている。
-我々の世界に召喚された場合、ガス状の形態で地球の核まで浸透し、
-そこから火柱となって地上に噴き出してくる。
-「噴出する病的な緑色の焔の柱... 深遠かつ人知を越えた地の底から
-火山の様にほとばしり、健全な焔が落とすはずの影を作らず、
-硝石をおぞましくも毒々しい緑青で包む。そのような激しい燃焼
-に反してそこに熱はなく、ただ死と腐敗の湿気があるのみだ。」
-（ラヴクラフト「祝祭」）","""A belching column of sick greenish flame... spouting volcanically 
-from the depths profound and inconceivable, casting no shadows as 
-healthy flame should, and coating the nitrous stone with a nasty, 
-venomous verdigris. For all that seething combustion no warmth 
-lay, but only the clamminess of death and corruption.""
-
-
-
-
-... 
-
-
-
-（）",JZ#,,,,
 843,サイバーデーモンの王『Oremorj』,Oremorj the Cyberdemon Lord,U,u,DEMON,DEMON,0x02,WARRIOR,843,ORDINARY,NONE,NONE,89,4,50,15678832,0,0,77665,0,NONE,NONE,16,20,90,90,90,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:2d50
 HIT:HURT:2d50
 HIT:HURT:2d50
