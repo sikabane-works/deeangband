@@ -3629,11 +3629,15 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
 		     (!cr_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
 		{
+
+			if(is_player(cr_ptr))
+			{
 #ifdef JP
-			msg_print("‚±‚±‚Å‚Í‘f‘‚­“®‚¯‚È‚¢B");
+				msg_print("‚±‚±‚Å‚Í‘f‘‚­“®‚¯‚È‚¢B");
 #else
-			msg_print("You cannot run in here.");
+				msg_print("You cannot run in here.");
 #endif
+			}
 			energy_use = 100;
 			set_action(cr_ptr, ACTION_NONE);
 		}
