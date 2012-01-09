@@ -4137,7 +4137,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 			case ART_JUDGE:
 			{
 #ifdef JP
-msg_print("‚»‚Ì•óÎ‚ÍÔ‚­–¾‚é‚­Œõ‚Á‚½I");
+				msg_print("‚»‚Ì•óÎ‚ÍÔ‚­–¾‚é‚­Œõ‚Á‚½I");
 #else
 				msg_print("The Jewel flashes bright red!");
 #endif

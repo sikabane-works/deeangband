@@ -1955,11 +1955,14 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		sound(SOUND_MISS);
 
 		/* Message */
+		if(is_player(atk_ptr))
+		{
 #ifdef JP
 			msg_format("ミス！ %sにかわされた。", target_name);
 #else
-		msg_format("You miss %s.", target_name);
+			msg_format("You miss %s.", target_name);
 #endif
+		}
 
 	}
 }
