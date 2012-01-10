@@ -6273,7 +6273,7 @@ ART:10:100%",UNIQUE|CAN_SPEAK|DROP_CORPSE|QUESTOR|HAS_LITE_2|FORCE_SLEEP|FORCE_M
 
 
 ！",JZ#,,,,
-1100,ドゥリンの禍『ランデルドゥン』,"Randeludun, the Durin's Bane",U,R,BALROG,BALROG,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,50,1,50,987161,0,0,0,0,NONE,NONE,3,10,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
+1100,モリアの守護者『ランデルドゥン』,"Randeludun, the Guardian Moria",U,R,BALROG,BALROG,0x02,WARRIOR,861,MIGHTY,NONE,NONE,50,1,50,987161,0,0,0,0,NONE,NONE,6,10,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:5d6
 HIT:FIRE:6d2
 HIT:HURT:6d5",,,FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|UNIQUE|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|QUESTOR|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL,1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON,,それは全身が炎で覆われた屈強な人間型のモンスターだ。,"It is a massive humanoid demon wreathed in flames.
@@ -6413,7 +6413,7 @@ KICK:SHATTER:16d10",,,GOLEM|UNIQUE|DROP_CORPSE|NONLIVING|NO_FEAR|FORCE_MAXHP|FOR
 
 
 （）",,,,,
-940,レッサー・バルログ,Lesser Balrog,U,R,BALROG,BALROG,0x01,NONE,861,ORDINARY,NONE,NONE,62,3,50,1300000,30000,720,0,0,NONE,NONE,3,10,20,50,80,19,19,19,19,19,19,487,0,1099,0,487,0,1099,0,"HIT:FIRE:2d6
+940,レッサー・バルログ,Lesser Balrog,U,R,BALROG,BALROG,0x01,VARIABLE,861,VARIABLE,VARIABLE,VARIABLE,62,3,50,1300000,0,720,0,0,NONE,NONE,4,10,20,50,80,19,19,19,19,19,19,487,0,1099,0,487,0,1099,0,"HIT:FIRE:2d6
 HIT:HURT:4d6
 HIT:FIRE:2d6
 HIT:HURT:5d5",,,FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_1|ONLY_ITEM|DROP_1D2|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_4|BLIND|CONF|BR_FIRE|S_DEMON,,それは全身が炎で覆われた屈強な人間型のモンスターだ。,"It is a massive humanoid demon wreathed in flames.
@@ -7848,7 +7848,7 @@ HIT:ELEC:12d12",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP
 as he decides your fate.
 
 ",J0#,,,,
-839,白炎のバルログ『ルンゴルシン』,"Lungorthin, the Balrog of White Fire",U,w,BALROG,BALROG,0x02,ROGUE,861,ORDINARY,DEATH,NONE,85,2,50,17121009,0,0,20871,0,NONE,NONE,12,20,20,125,80,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:FIRE:8d12
+839,白炎のバルログ『ルンゴルシン』,"Lungorthin, the Balrog of White Fire",U,w,BALROG,BALROG,0x02,ROGUE,861,PIOUS,DEATH,NONE,85,2,50,17121009,0,0,20871,0,NONE,NONE,12,20,20,125,80,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:FIRE:8d12
 HIT:FIRE:8d12
 CRUSH:SUPERHURT:8d12
 TOUCH:UN_POWER",,ART:71:100%,UNIQUE|SELF_LITE_1|SELF_LITE_2|AURA_FIRE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP,1_IN_4|BLIND|CONF|SCARE|BR_FIRE|S_DEMON|S_HI_UNDEAD,,"彼はその身に炎をまとった堂々たる姿をしている。ルンゴルシンは赤く煙ったその
@@ -8084,7 +8084,7 @@ conjecture based on overwhelming observable evidence.""
 
 
 ()",,,,,
-720,グレーター・バルログ,Greater Balrog,U,R,BALROG,BALROG,0x01,NONE,861,ORDINARY,NONE,NONE,72,3,50,6000000,0,0,0,0,NONE,NONE,14,10,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
+720,グレーター・バルログ,Greater Balrog,U,R,BALROG,BALROG,0x01,VARIABLE,861,VARIABLE,VARIABLE,VARIABLE,72,3,50,6000000,0,0,0,0,NONE,NONE,14,10,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:5d6
 HIT:FIRE:6d2
 HIT:HURT:6d5",,,FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL,1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON,,それは全身が炎で覆われた屈強な人間型のモンスターだ。,"It is a massive humanoid demon wreathed in flames.
@@ -8095,12 +8095,12 @@ JZ#メルコールの召使いになったマイアールが悪鬼と化したもので、中つ
 JZ#国の言葉で「力強き悪鬼」を意味します。メルコールの支配が終わる
 JZ#とともにほとんど絶滅しましたが、一部がモリヤで復活していました。 by 久留さん
 JZ#Jangband にはいなかったんですね。意外。 by 板倉",,,,
-755,吸血鬼の使者『スリングウェシル』,"Thuringwethil, the Vampire Messenger",V,D,BALROG,BALROG,0x01,WARRIOR_MAGE,861,ORDINARY,ARCANE,CHAOS,72,4,50,7771621,0,0,30000,87,1090,NONE,14,20,20,145,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:DR_MANA:8d8
+755,吸血鬼の使者『スリングウェシル』,"Thuringwethil, the Vampire Messenger",V,D,MAIAR,MAIAR,0x01,WARRIOR_MAGE,861,SEXY,ARCANE,CHAOS,72,4,50,7771621,0,0,30000,87,1090,NONE,14,20,20,145,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:DR_MANA:8d8
 BITE:EXP_VAMP:8d8
 HIT:CONFUSE:6d6
-HIT:CONFUSE:6d6",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE,1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN,,"サウロンとモルゴスの間を取り持つ使者達の隊長であるスリングウェシルは、
-バンパイア族の中で最も恐るべき存在だ。一見したところ彼女はかわいらしい女性
-だが、その羽と瞳を見ればそんな思いはどこかに吹き飛んでしまうだろう。","Chief messenger between Sauron and Morgoth, she is surely the most deadly 
+HIT:CONFUSE:6d6",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE,1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN,,"　「隠密なる影の女」の名を持つ、このぞっとするような淫蕩さに満ちた妖艶な女性は、アルダの上古の時代には伝令役と調停役を担い、メルコールやアンナタール、その他多くの男神の愛妾となっている。
+　西方に伝わるレイシアンの歌の中でこそ、巨大な蝙蝠の姿を取った状態で、あっけなく猟犬フアンに滅ぼされ、エルフの姫ルーシエンに生皮を奪われたと言われている。だが実際の彼女は東方の地で歴然たる女神の一人として健在であり、特にアヴァリの間で性愛と快楽の神として、熱狂的な信仰を受けている。
+　この矛盾にいかなる真実が秘められているのかはほとんど知られていない。ベレンとルーシエンがシルマリルを求めアングバンドに潜入した、その実際を証言し得るのは当人達とウトゥムノの神族の側のみである。彼等は皆その秘密を勿体ぶって秘匿することを楽しんでいるが、ルーシエンとスリングウェシルの美貌の表現について、しばしば表裏一体のように語っていることは何らかの手がかりであるかも知れない。","Chief messenger between Sauron and Morgoth, she is surely the most deadly 
 of her vampire race.  At first she is charming to meet, but her wings and 
 eyes give away her true form.
 
@@ -8595,12 +8595,12 @@ JZ#大いなる深淵の主ノーデンス
 JZ#Ｈ・Ｐ・ラヴクラフトの「霧の中の不思議の館」及び「幻夢境カダス
 JZ#を求めて」に登場。
 JZ#老人の姿をした神で、人間にはあまり敵対はしません。 by 久留さん",,,,
-856,冥府の大元帥『ゴスモグ』,"Gothmog, the Arch Marshal of Infernal Region",U,R,BALROG,BALROG,0x02,RANGER,861,ORDINARY,NATURE,DEATH,89,1,50,18123109,0,0,18992,122,NONE,NONE,18,27,100,231,0,28,28,28,28,28,28,1731,0,40031,0,1731,0,40031,0,"HIT:FIRE:9d12
+856,冥府の大元帥『ゴスモグ』,"Gothmog, the Arch Marshal of Infernal Region",U,R,BALROG,BALROG,0x02,RANGER,861,FEARLESS,NATURE,DEATH,89,1,50,18123109,0,0,18992,122,NONE,NONE,18,27,100,231,0,28,28,28,28,28,28,1731,0,40031,0,1731,0,40031,0,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 CRUSH:SUPERHURT:8d12
 TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP,1_IN_3|BR_DISI|BO_MANA,,"　アルダの神代、メルコールの叛逆に加わった神族達はほどなくして、男と女で交わることを覚えた。彼はその中で初めて父親と母親を持つ存在として生まれた神族第二世代の長子だ。父親は冥王メルコールその人、母はウルバンディである。
 　上古の戦の中で、数え切れない武勲をもたらした彼は、メルコールの失踪後、新たなる盟主として冥王の座を継ぐものと思われた。だが、その後起きた内紛の中で己の罪業を悔やんだ彼は、その償いのために自ら動乱の死者と共に奈落に落ちる事を選んだのである。
-　今の彼は主神アルタノ・アンナタールから死と冥府の権限を与えられた封臣の立場にある。死した闇の民の魂を集めて裁き、神々の動乱あらば死者の軍勢を率いる。冥府の大元帥として、彼は今も地の底で鍛錬を怠らない。東の民の戦士達の間では、戦いの中で死して、彼に勇者として見出されることは至上の誉であると見なされている。","
+　今の彼は主神アルタノ・アンナタールから死の権限と冥府の世界を与えられた封臣の立場にある。死した闇の民の魂を集めて裁き、神々の動乱あらば死者の軍勢を率いる冥府の大元帥として、彼は今も地の底で鍛錬を怠らない。東のあらゆる戦士の間では、戦いの中で死した後、彼に勇者と認められその軍勢に加わる事こそが至上の誉であると見なされている。","
 
 
 
