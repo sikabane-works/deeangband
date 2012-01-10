@@ -4488,10 +4488,13 @@ msg_print("天国の歌が聞こえる...");
 
 				sleep_monsters_touch(cr_ptr);
 				o_ptr->timeout = 55;
+
+
 				break;
 			}
 
-			case ART_THINGOL:
+		
+	case ART_THINGOL:
 			{
 #ifdef JP
 				msg_print("クロークが黄色く明るく輝いた...");
