@@ -3092,20 +3092,20 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 
 #ifdef JP
 	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ ‘¹ŠQ", row-1, col+8);
-display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_RES_ACID, &f, 0, cr_ptr);
-display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
-display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_RES_ELEC, &f, 0, cr_ptr);
-display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
-display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_RES_FIRE, &f, 0, cr_ptr);
-display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
-display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_RES_COLD, &f, 0, cr_ptr);
-display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_IM_COLD, &f, DP_IMM, cr_ptr);
-display_flag_aux(row+4, col, "‘Ï“Å  :", TR_RES_POIS, &f, 0, cr_ptr);
-display_flag_aux(row+5, col, "‘Ï‘MŒõ:", TR_RES_LITE, &f, 0, cr_ptr);
-display_flag_aux(row+6, col, "‘ÏˆÃ•:", TR_RES_DARK, &f, 0, cr_ptr);
-display_flag_aux(row+7, col, "‘Ï”j•Ð:", TR_RES_SHARDS, &f, 0, cr_ptr);
-display_flag_aux(row+8, col, "‘Ï–Ó–Ú:", TR_RES_BLIND, &f, 0, cr_ptr);
-display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
+	display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_RES_ACID, &f, 0, cr_ptr);
+	display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_RES_ELEC, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_RES_FIRE, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_RES_COLD, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_IM_COLD, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+4, col, "‘Ï“Å  :", TR_RES_POIS, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "‘Ï‘MŒõ:", TR_RES_LITE, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "‘ÏˆÃ•:", TR_RES_DARK, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "‘Ï”j•Ð:", TR_RES_SHARDS, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "‘Ï–Ó–Ú:", TR_RES_BLIND, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 #else
 	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ Dam", row-1, col+8);
 	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, cr_ptr);
@@ -3128,83 +3128,92 @@ display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if (has_cf_creature(cr_ptr, CF_RES_ACID))
-		c_put_str(TERM_WHITE, "+", row + 0, col + 33);
-	if (cr_ptr->oppose_acid)
-		c_put_str(TERM_YELLOW, "#", row + 0, col + 33);
+		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
+	if (has_cf_creature(cr_ptr, CF_OPP_ACID))
+		c_put_str(TERM_YELLOW, "#", row + 0, col + 31);
 	if (has_cf_creature(cr_ptr, CF_IM_ACID))
-		c_put_str(TERM_YELLOW, "*", row + 0, col * 33);
+		c_put_str(TERM_YELLOW, "*", row + 0, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ACID))
-		c_put_str(TERM_WHITE, "*", row + 0, col + 33);
+		c_put_str(TERM_WHITE, "*", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	//elec
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if (has_cf_creature(cr_ptr, CF_RES_ELEC))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 33);
-	if (cr_ptr->oppose_elec)
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 33);
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
+	if (has_cf_creature(cr_ptr, CF_RES_ELEC))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
 	if (has_cf_creature(cr_ptr, CF_IM_ELEC))
-		c_put_str(TERM_YELLOW, "*", row + 1, col * 33);
+		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
+
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ELEC))
-		c_put_str(TERM_WHITE, "*", row + 1, col + 33);
+		c_put_str(TERM_WHITE, "*", row + 1, col + 31);
 	if (has_cf_creature(cr_ptr, CF_HURT_ELEC))
-		c_put_str(TERM_RED, "v", row + 1, col + 33);
+		c_put_str(TERM_RED, "v", row + 1, col + 31);
+
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	//fire
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if (has_cf_creature(cr_ptr, CF_RES_FIRE))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 33);
-	if (cr_ptr->oppose_fire)
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 33);
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
+	if (has_cf_creature(cr_ptr, CF_RES_FIRE))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
 	if (has_cf_creature(cr_ptr, CF_IM_FIRE))
-		c_put_str(TERM_YELLOW, "*", row + 2, col * 33);
+		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_FIRE))
-		c_put_str(TERM_WHITE, "*", row + 2, col + 33);
+		c_put_str(TERM_WHITE, "*", row + 2, col + 31);
 	if (has_cf_creature(cr_ptr, CF_HURT_FIRE))
-		c_put_str(TERM_RED, "v", row + 2, col + 33);
+		c_put_str(TERM_RED, "v", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 2, col + 33);
 
 	//cold
+
+
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 	if (has_cf_creature(cr_ptr, CF_RES_COLD))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 33);
-	if (cr_ptr->oppose_cold)
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 33);
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
+	if (has_cf_creature(cr_ptr, CF_OPP_COLD))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
 	if (has_cf_creature(cr_ptr, CF_IM_COLD))
-		c_put_str(TERM_YELLOW, "*", row + 3, col * 33);
+		c_put_str(TERM_YELLOW, "*", row + 3, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_COLD))
-		c_put_str(TERM_WHITE, "*", row + 3, col + 33);
+		c_put_str(TERM_WHITE, "*", row + 3, col + 31);
 	if (has_cf_creature(cr_ptr, CF_HURT_COLD))
-		c_put_str(TERM_RED, "v", row + 3, col + 33);
+		c_put_str(TERM_RED, "v", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
 	//pois
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if (has_cf_creature(cr_ptr, CF_RES_POIS))
-		c_put_str(TERM_WHITE, "+", row + 4, col + 33);
-	if (cr_ptr->oppose_pois)
-		c_put_str(TERM_YELLOW, "#", row + 4, col + 33);
+		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
+	if (has_cf_creature(cr_ptr, CF_OPP_POIS))
+		c_put_str(TERM_YELLOW, "#", row + 4, col + 31);
 	if (has_cf_creature(cr_ptr, CF_IM_POIS))
-		c_put_str(TERM_YELLOW, "*", row + 4, col * 33);
+		c_put_str(TERM_YELLOW, "*", row + 4, col * 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 	//lite
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_LITE))
+		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_DARK))
+		c_put_str(TERM_WHITE, "+", row + 6, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_SHAR))
+		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+7, col + 33);
 
 
@@ -3236,22 +3245,32 @@ display_flag_aux(row+5, col, "‘Ï‹°•|:", TR_RES_FEAR, &f, 0, cr_ptr);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_SOUN))
+		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_NETH))
+		c_put_str(TERM_WHITE, "+", row + 1, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_NEXU))
+		c_put_str(TERM_WHITE, "+", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_CHAOS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_CHAO))
+		c_put_str(TERM_WHITE, "+", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_DISE))
+		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 }
