@@ -2756,7 +2756,7 @@ note = "があなたに隷属した。";
 				break;
 			}
 			do_stun = (randint1(15) + 1) / (r + 1);
-			if (is_resist_cold_creature(tar_ptr))
+			if (has_cf_creature(tar_ptr, CF_RES_COLD))
 			{
 #ifdef JP
 				note = "にはかなり耐性がある。";
@@ -3806,7 +3806,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
-			if (is_resist_lite_creature(tar_ptr))
+			if (has_cf_creature(tar_ptr, CF_RES_LITE))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -3850,7 +3850,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
-			if (is_resist_dark_creature(tar_ptr))
+			if (has_cf_creature(tar_ptr, CF_RES_DARK))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -3912,7 +3912,7 @@ note_dies = "はドロドロに溶けた！";
 			{
 				bool resists_tele = FALSE;
 
-				if (is_resist_tele_creature(tar_ptr))
+				if (has_cf_creature(tar_ptr, CF_RES_TELE))
 				{
 					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
@@ -3967,7 +3967,7 @@ note = "には耐性がある！";
 			{
 				bool resists_tele = FALSE;
 
-				if (is_resist_tele_creature(tar_ptr))
+				if (has_cf_creature(tar_ptr, CF_RES_TELE))
 				{
 					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
@@ -4018,7 +4018,7 @@ note = "には耐性がある！";
 		case GF_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
-			if (is_resist_tele_creature(tar_ptr))
+			if (has_cf_creature(tar_ptr, CF_RES_TELE))
 			{
 				if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 				{
@@ -5306,7 +5306,7 @@ note = "には効果がなかった。";
 	{
 		/* Sound and Impact resisters never stun */
 		if (do_stun &&
-		    !(is_resist_soun_creature(tar_ptr) || is_resist_wall_creature(tar_ptr)) && !has_cf_creature(tar_ptr, CF_NO_STUN))
+		    !(has_cf_creature(tar_ptr, CF_RES_SOUN) || has_cf_creature(tar_ptr, CF_RES_WALL)) && !has_cf_creature(tar_ptr, CF_NO_STUN))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;
@@ -5341,7 +5341,7 @@ note = "には効果がなかった。";
 		}
 
 		/* Confusion and Chaos resisters (and sleepers) never confuse */
-		if (do_conf && !has_cf_creature(tar_ptr, CF_NO_CONF) && !is_resist_chao_creature(tar_ptr))
+		if (do_conf && !has_cf_creature(tar_ptr, CF_NO_CONF) && !has_cf_creature(tar_ptr, CF_RES_CHAO))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;

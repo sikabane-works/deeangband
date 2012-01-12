@@ -420,7 +420,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		break;
 	case SP_FIRE:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
-		if (!is_resist_elec_creature(m_ptr))
+		if (!has_cf_creature(m_ptr, CF_RES_FIRE))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
@@ -428,7 +428,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		break;
 	case SP_COLD:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
-		if (!is_resist_cold_creature(m_ptr))
+		if (!has_cf_creature(m_ptr, CF_RES_COLD))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
@@ -436,7 +436,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		break;
 	case SP_ELEC:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
-		if (!is_resist_elec_creature(m_ptr))
+		if (!has_cf_creature(m_ptr, CF_RES_ELEC))
 		{
 			int n = 18 + (cr_ptr->concent * 4);
 			if (mult < n) mult = n;

@@ -1416,7 +1416,7 @@ static bool build_type4(void)
 	(mon_hook_dungeon(I) && \
 	 !is_unique_species(&species_info[I]) && \
 	 !is_sub_unique_species(&species_info[I]) && \
-	 !is_resist_all_species(&species_info[I]) && \
+	 !has_cf(&species_info[I].flags, CF_RES_ALL) && \
 	 !is_aquatic_species(&species_info[I]))
 
 

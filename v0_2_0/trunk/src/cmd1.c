@@ -449,7 +449,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 					reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
 				/* Otherwise, take the damage */
-				if(!is_resist_acid_creature(tar_ptr))
+				if(!has_cf_creature(tar_ptr, CF_RES_ACID))
 				{
 					if (mult < 25) mult = 25;
 				}
@@ -541,7 +541,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if(!is_resist_pois_creature(tar_ptr))
+				if(!has_cf_creature(tar_ptr, CF_RES_POIS))
 				{
 				}
 				/* Otherwise, take the damage */
@@ -2885,7 +2885,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			{
 				bool resists_tele = FALSE;
 
-				if (is_resist_tele_creature(tar_ptr))
+				if (has_cf_creature(tar_ptr, CF_RES_TELE))
 				{
 					if (is_unique_creature(tar_ptr))
 					{
@@ -2928,7 +2928,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 			{
 				if (!(is_unique_creature(tar_ptr) || is_quest_creature(tar_ptr)) &&
-				    !is_resist_chao_creature(tar_ptr))
+				    !has_cf_creature(tar_ptr, CF_RES_CHAO))
 				{
 					if (polymorph_monster(atk_ptr, y, x))
 					{
@@ -4143,7 +4143,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_LAVA) && !is_resist_fire_creature(steed_ptr))
+		else if (have_flag(f_ptr->flags, FF_LAVA) && !has_cf_creature(steed_ptr, CF_RES_FIRE))
 		{
 #ifdef JP
 			msg_format("%sÇÃè„Ç…çsÇØÇ»Ç¢ÅB", f_name + f_info[get_feat_mimic(c_ptr)].name);

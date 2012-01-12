@@ -3153,7 +3153,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
-				if (!is_resist_acid_creature(tar_ptr))
+				if (!has_cf_creature(tar_ptr, CF_RES_ACID))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3164,7 +3164,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				if (!is_resist_elec_creature(tar_ptr))
+				if (!has_cf_creature(tar_ptr, CF_RES_ELEC))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3176,7 +3176,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
 				/* Notice immunity */
-				if (!is_resist_fire_creature(tar_ptr))
+				if (!has_cf_creature(tar_ptr, CF_RES_FIRE))
 				{
 					if (is_hurt_fire_creature(tar_ptr))
 					{
@@ -3194,7 +3194,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_COLD_RATE);
 
 				/* Otherwise, take the damage */
-				if (!is_resist_cold_creature(tar_ptr))
+				if (!has_cf_creature(tar_ptr, CF_RES_COLD))
 				{
 					if (is_hurt_cold_creature(tar_ptr))
 					{
@@ -3211,7 +3211,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if (!is_resist_pois_creature(tar_ptr))
+				if (!has_cf_creature(tar_ptr, CF_RES_POIS))
 				{
 					if (mult < 17) mult = 17;
 				}

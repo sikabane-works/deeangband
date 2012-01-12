@@ -453,7 +453,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if (has_cf_creature(m_ptr, CF_TPORT) && !is_resist_tele_creature(m_ptr))
+				if (has_cf_creature(m_ptr, CF_TPORT) && !has_cf_creature(m_ptr, CF_RES_TELE))
 				{
 					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, m_ptr->lev, 0L);
 				}
@@ -490,7 +490,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if (has_cf_creature(cr_ptr, CF_TPORT) && !is_resist_tele_creature(cr_ptr))
+				if (has_cf_creature(cr_ptr, CF_TPORT) && !has_cf_creature(cr_ptr, CF_RES_TELE))
 				{
 					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}

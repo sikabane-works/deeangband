@@ -1936,7 +1936,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 			{
 				if (tar_ptr->sh_fire && alive && !tar_ptr->is_dead)
 				{
-					if (!is_resist_fire_creature(tar_ptr))
+					if (!has_cf_creature(atk_ptr, CF_RES_SHAR))
 					{
 						int dam = damroll(2, 6);
 
@@ -1965,7 +1965,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 
 				if (tar_ptr->sh_elec && alive && !tar_ptr->is_dead)
 				{
-					if (!is_resist_elec_creature(tar_ptr))
+					if (!has_cf_creature(atk_ptr, CF_RES_ELEC))
 					{
 						int dam = damroll(2, 6);
 
@@ -1994,7 +1994,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 
 				if (tar_ptr->sh_cold && alive && !tar_ptr->is_dead)
 				{
-					if (!is_resist_cold_creature(tar_ptr))
+					if (!has_cf_creature(atk_ptr, CF_RES_COLD))
 					{
 						int dam = damroll(2, 6);
 
@@ -2024,7 +2024,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 				/* by henkma */
 				if (tar_ptr->dustrobe && alive && !tar_ptr->is_dead)
 				{
-					if (!is_resist_shar_creature(atk_ptr))
+					if (!has_cf_creature(atk_ptr, CF_RES_SHAR))
 					{
 						int dam = damroll(2, 6);
 
@@ -2121,7 +2121,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					int dam = 1;
 					object_type *o_ptr = &tar_ptr->inventory[INVEN_1STARM];
 
-					if (!is_resist_dark_creature(atk_ptr))
+					if (!has_cf_creature(atk_ptr, CF_RES_DARK))
 					{
 						if (o_ptr->k_idx)
 						{

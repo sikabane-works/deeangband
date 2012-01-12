@@ -904,11 +904,11 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->tsuyoshi) return (TRUE);
 
 	/* Elemental Brands */
-	if ((tar_ptr->special_attack & ATTACK_ACID) && !is_resist_acid_creature(tar_ptr)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_FIRE) && !is_resist_fire_creature(tar_ptr)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_ELEC) && !is_resist_elec_creature(tar_ptr)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_COLD) && !is_resist_cold_creature(tar_ptr)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_POIS) && !is_resist_pois_creature(tar_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ACID) && !has_cf_creature(tar_ptr, CF_RES_ACID)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_FIRE) && !has_cf_creature(tar_ptr, CF_RES_FIRE)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ELEC) && !has_cf_creature(tar_ptr, CF_RES_ELEC)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_COLD) && !has_cf_creature(tar_ptr, CF_RES_COLD)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_POIS) && !has_cf_creature(tar_ptr, CF_RES_POIS)) return (TRUE);
 
 	/* Speed */
 	if (tar_ptr->speed < 145)

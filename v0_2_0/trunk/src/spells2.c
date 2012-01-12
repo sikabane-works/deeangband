@@ -6625,7 +6625,7 @@ msg_print("失敗した。");
 
 	(void)set_paralyzed(m_ptr, 0);
 
-	if (is_resist_tele_creature(m_ptr))
+	if (has_cf_creature(m_ptr, CF_RES_TELE))
 	{
 #ifdef JP
 		msg_print("テレポートを邪魔された！");
