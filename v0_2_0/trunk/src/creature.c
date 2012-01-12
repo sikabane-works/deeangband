@@ -442,39 +442,33 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 
 void set_resistance(creature_type *creature_ptr)
 {
-//	int i;
-	creature_flags species_ptr = race_info[creature_ptr->race_idx1].p_flags;
-	creature_flags cf_ptr1 = race_info[creature_ptr->race_idx1].h_flags;
-	creature_flags cf_ptr2 = race_info[creature_ptr->race_idx2].h_flags;
+	if(has_cf_creature(creature_ptr, CF_RES_FIRE)) creature_ptr->resist_fire += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_COLD)) creature_ptr->resist_cold += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_ELEC)) creature_ptr->resist_elec += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_ACID)) creature_ptr->resist_acid += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_POIS)) creature_ptr->resist_pois += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_LITE)) creature_ptr->resist_lite += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_DARK)) creature_ptr->resist_dark += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_SHAR)) creature_ptr->resist_shard += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_SOUN)) creature_ptr->resist_sound += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_NETH)) creature_ptr->resist_neth += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_CHAO)) creature_ptr->resist_chaos += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_DISE)) creature_ptr->resist_disen += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_WALL)) creature_ptr->resist_force += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_NEXU)) creature_ptr->resist_nexus += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_INER)) creature_ptr->resist_inertia += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_TIME)) creature_ptr->resist_time += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_GRAV)) creature_ptr->resist_gravity += 1;
 
-	if(has_cf(&cf_ptr1, CF_RES_FIRE) || has_cf(&cf_ptr2, CF_RES_FIRE) || has_cf(&species_ptr, CF_RES_FIRE)) creature_ptr->resist_fire += 1;
-	if(has_cf(&cf_ptr1, CF_RES_COLD) || has_cf(&cf_ptr2, CF_RES_COLD) || has_cf(&species_ptr, CF_RES_COLD)) creature_ptr->resist_cold += 1;
-	if(has_cf(&cf_ptr1, CF_RES_ELEC) || has_cf(&cf_ptr2, CF_RES_ELEC) || has_cf(&species_ptr, CF_RES_ELEC)) creature_ptr->resist_elec += 1;
-	if(has_cf(&cf_ptr1, CF_RES_ACID) || has_cf(&cf_ptr2, CF_RES_ACID) || has_cf(&species_ptr, CF_RES_ACID)) creature_ptr->resist_acid += 1;
-	if(has_cf(&cf_ptr1, CF_RES_POIS) || has_cf(&cf_ptr2, CF_RES_POIS) || has_cf(&species_ptr, CF_RES_POIS)) creature_ptr->resist_pois += 1;
-	if(has_cf(&cf_ptr1, CF_RES_LITE) || has_cf(&cf_ptr2, CF_RES_LITE) || has_cf(&species_ptr, CF_RES_LITE)) creature_ptr->resist_lite += 1;
-	if(has_cf(&cf_ptr1, CF_RES_DARK) || has_cf(&cf_ptr2, CF_RES_DARK) || has_cf(&species_ptr, CF_RES_DARK)) creature_ptr->resist_dark += 1;
-	if(has_cf(&cf_ptr1, CF_RES_SHAR) || has_cf(&cf_ptr2, CF_RES_SHAR) || has_cf(&species_ptr, CF_RES_SHAR)) creature_ptr->resist_shard += 1;
-	if(has_cf(&cf_ptr1, CF_RES_SOUN) || has_cf(&cf_ptr2, CF_RES_SOUN) || has_cf(&species_ptr, CF_RES_SOUN)) creature_ptr->resist_sound += 1;
-	if(has_cf(&cf_ptr1, CF_RES_NETH) || has_cf(&cf_ptr2, CF_RES_NETH) || has_cf(&species_ptr, CF_RES_NETH)) creature_ptr->resist_neth += 1;
-	if(has_cf(&cf_ptr1, CF_RES_CHAO) || has_cf(&cf_ptr2, CF_RES_CHAO) || has_cf(&species_ptr, CF_RES_CHAO)) creature_ptr->resist_chaos += 1;
-	if(has_cf(&cf_ptr1, CF_RES_DISE) || has_cf(&cf_ptr2, CF_RES_DISE) || has_cf(&species_ptr, CF_RES_DISE)) creature_ptr->resist_disen += 1;
-	if(has_cf(&cf_ptr1, CF_RES_WALL) || has_cf(&cf_ptr2, CF_RES_WALL) || has_cf(&species_ptr, CF_RES_WALL)) creature_ptr->resist_force += 1;
-	if(has_cf(&cf_ptr1, CF_RES_NEXU) || has_cf(&cf_ptr2, CF_RES_NEXU) || has_cf(&species_ptr, CF_RES_NEXU)) creature_ptr->resist_nexus += 1;
-	if(has_cf(&cf_ptr1, CF_RES_INER) || has_cf(&cf_ptr2, CF_RES_INER) || has_cf(&species_ptr, CF_RES_INER)) creature_ptr->resist_inertia += 1;
-	if(has_cf(&cf_ptr1, CF_RES_TIME) || has_cf(&cf_ptr2, CF_RES_TIME) || has_cf(&species_ptr, CF_RES_TIME)) creature_ptr->resist_time += 1;
-	if(has_cf(&cf_ptr1, CF_RES_GRAV) || has_cf(&cf_ptr2, CF_RES_GRAV) || has_cf(&species_ptr, CF_RES_GRAV)) creature_ptr->resist_gravity += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_TELE)) creature_ptr->resist_tele += 1;
 
-	if(has_cf(&cf_ptr1, CF_RES_TELE) || has_cf(&cf_ptr2, CF_RES_TELE) || has_cf(&species_ptr, CF_RES_TELE)) creature_ptr->resist_tele += 1;
+	if(has_cf_creature(creature_ptr, CF_RES_ALL)) creature_ptr->resist_ultimate += 1;
 
-	if(has_cf(&cf_ptr1, CF_RES_ALL) || has_cf(&cf_ptr2, CF_RES_ALL) || has_cf(&species_ptr, CF_RES_ALL)) creature_ptr->resist_ultimate += 1;
-
-	if(has_cf(&cf_ptr1, CF_NO_BLIND) || has_cf(&cf_ptr2, CF_NO_BLIND) || has_cf(&species_ptr, CF_NO_BLIND)) creature_ptr->resist_blind += TRUE;
-	if(has_cf(&cf_ptr1, CF_NO_CONF) || has_cf(&cf_ptr2, CF_NO_CONF) || has_cf(&species_ptr, CF_NO_CONF)) creature_ptr->resist_conf += TRUE;
-	if(has_cf(&cf_ptr1, CF_NO_FEAR) || has_cf(&cf_ptr2, CF_NO_FEAR) || has_cf(&species_ptr, CF_NO_FEAR)) creature_ptr->resist_fear += TRUE;
-	if(has_cf(&cf_ptr1, CF_NO_STUN) || has_cf(&cf_ptr2, CF_NO_STUN) || has_cf(&species_ptr, CF_NO_STUN)); //TODO
-	if(has_cf(&cf_ptr1, CF_NO_SLEEP) || has_cf(&cf_ptr2, CF_NO_SLEEP) || has_cf(&species_ptr, CF_NO_SLEEP)); //TODO
-
+	if(has_cf_creature(creature_ptr, CF_NO_BLIND)) creature_ptr->resist_blind += TRUE;
+	if(has_cf_creature(creature_ptr, CF_NO_CONF)) creature_ptr->resist_conf += TRUE;
+	if(has_cf_creature(creature_ptr, CF_NO_FEAR)) creature_ptr->resist_fear += TRUE;
+	if(has_cf_creature(creature_ptr, CF_NO_STUN)); //TODO
+	if(has_cf_creature(creature_ptr, CF_NO_SLEEP)); //TODO
 }
 
 void initialize_skill(creature_type *creature_ptr)
