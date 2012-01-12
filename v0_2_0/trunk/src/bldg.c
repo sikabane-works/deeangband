@@ -1680,7 +1680,7 @@ static bool vault_aux_battle(int species_idx)
 
 	/* Decline unique monsters */
 	if (is_unique_species(r_ptr)) return (FALSE);
-//	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);
+//	if has_cf_creature(creature_ptr, CF_NAZGUL) return (FALSE);
 
 	if (is_never_move_species(r_ptr)) return (FALSE);
 	if (is_multiply_species(r_ptr)) return (FALSE);

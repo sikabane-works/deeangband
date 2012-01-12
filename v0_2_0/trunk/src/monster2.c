@@ -1778,8 +1778,7 @@ s16b get_mon_num(int level)
 		if (!inside_battle && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
-			if (((is_unique_species(r_ptr)) ||
-			     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+			if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
 				continue;
@@ -4043,8 +4042,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *summoner
 	if (!inside_battle)
 	{
 		/* Hack -- "unique" monsters must be "unique" */
-		if (((is_unique_species(r_ptr)) ||
-		     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+		if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -4141,7 +4139,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 
-	if ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
 	c_ptr->m_idx = m_pop();
@@ -4300,7 +4298,7 @@ msg_print("守りのルーンが壊れた！");
 	 * A unique monster move from old saved floor.
 	 */
 	if (character_dungeon &&
-	    ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL)))
+	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)))
 		real_species_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
@@ -4999,10 +4997,10 @@ static bool summon_specific_okay(int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
 	    creature_has_hostile_align(NULL, p_ptr, 10, -10, r_ptr))
 		return FALSE;
 

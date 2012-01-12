@@ -1866,7 +1866,7 @@ note("メッセージをロードしました");
 		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
 	}
 
 	/* TODO NEW CREATURE LORE

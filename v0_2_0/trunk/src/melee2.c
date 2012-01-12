@@ -257,7 +257,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	/* It is dead now... or is it? */
 	if (cr_ptr->chp < 0)
 	{
-		if (((is_quest_species(r_ptr)) && is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
+		if (((is_quest_species(r_ptr)) && is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) && !inside_battle)
 		{
 			cr_ptr->chp = 1;
 		}
@@ -1603,7 +1603,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 //	if (nonplayer_ptr->species_idx == MON_SHURYUUDAN)
 //		weapon_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
+	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || has_cf_creature(nonplayer_ptr, CF_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
@@ -1737,7 +1737,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, nonplayer_ptr) &&
-	    (((is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+	    (((is_unique_creature(nonplayer_ptr) || has_cf_creature(nonplayer_ptr, CF_NAZGUL)) &&
 	      creature_has_hostile_align(NULL, player_ptr, 10, -10, r_ptr))
 	     || (nonplayer_ptr->resist_ultimate)))
 	{

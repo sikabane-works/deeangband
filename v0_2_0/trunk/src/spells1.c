@@ -2911,7 +2911,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(player_ptr, tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| is_sub_unique_creature(tar_ptr))
+			if ((inside_arena) || is_pet(player_ptr, tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || has_cf_creature(tar_ptr, CF_NAZGUL)|| is_sub_unique_creature(tar_ptr))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -3277,7 +3277,7 @@ note = "は動けなくなった！";
 				break;
 			}
 
-			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3360,7 +3360,7 @@ note = "は突然友好的になったようだ！";
 				break;
 			}
 
-			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3435,7 +3435,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3513,7 +3513,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3609,7 +3609,7 @@ msg_format("%sを見つめた。",m_name);
 				break;
 			}
 
-			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -4847,7 +4847,7 @@ note_dies = "はドロドロに溶けた！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, tar_ptr)) ||
-			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || is_sub_unique_creature(tar_ptr) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
+			    (is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL) || is_sub_unique_creature(tar_ptr) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",m_name);
@@ -5282,7 +5282,7 @@ note = "には効果がなかった。";
 	if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if ((is_quest_creature(tar_ptr)) || is_unique_species(r_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
+	if ((is_quest_creature(tar_ptr)) || is_unique_species(r_ptr) || has_cf_creature(tar_ptr, CF_NAZGUL) && !inside_battle)
 	{
 		if (caster_ptr != caster_ptr && (dam > tar_ptr->chp)) dam = tar_ptr->chp;
 	}

@@ -903,7 +903,7 @@
 #define RACE_GIANT_APE         55
 #define RACE_SUPER_SAIYAN      56
 
-#define RACE_NAZGUL            57
+#define RACE_HORSE             57
 #define RACE_ANT               58
 #define RACE_BAT               59
 #define RACE_CENTIPETE         60

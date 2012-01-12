@@ -610,7 +610,7 @@ bool is_undead_creature(creature_type *creature_ptr)
 	   has_cf_creature(creature_ptr, CF_SKELETON) ||
 	   has_cf_creature(creature_ptr, CF_VAMPIRE) ||
 	   has_cf_creature(creature_ptr, CF_LICH) ||
-	   IS_RACE(creature_ptr, RACE_NAZGUL))
+	   has_cf_creature(creature_ptr, CF_NAZGUL))
 		return TRUE;
 	else
 		return FALSE;
@@ -622,7 +622,7 @@ bool is_undead_species(species_type *species_ptr)
 	   has_cf(&species_ptr->flags, CF_SKELETON) ||
 	   has_cf(&species_ptr->flags, CF_VAMPIRE) ||
 	   has_cf(&species_ptr->flags, CF_LICH) ||
-	   IS_RACE(species_ptr, RACE_NAZGUL))
+	   has_cf(&species_ptr->flags, CF_NAZGUL))
 		return TRUE;
 	else
 		return FALSE;
