@@ -2439,24 +2439,10 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 
 	switch (cr_ptr->race_idx1)
 	{
-	case RACE_YEEK:
-		if (cr_ptr->lev > 19)
-			add_flag(flgs, TR_IM_ACID);
-		break;
 	case RACE_KLACKON:
 		if (cr_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 		break;
-	case RACE_MIND_FLAYER:
-		if (cr_ptr->lev > 29)
-			add_flag(flgs, TR_TELEPATHY);
-		break;
-		/*
-	case RACE_LICH:
-		if (cr_ptr->lev > 34)
-			add_flag(flgs, TR_TELEPATHY);
-		break;
-		*/
 	case RACE_SPRITE:
 		if (cr_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
