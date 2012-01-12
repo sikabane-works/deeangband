@@ -1013,9 +1013,6 @@ struct race_type
 	u32b choice;        /* Legal class choices */
 	u32b possible_equipment;     /* Possible Equipment*/
 
-	resist main_resist;
-	resist sub_resist;
-
 	creature_flags p_flags;
 	creature_flags h_flags;
 	

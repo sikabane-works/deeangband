@@ -2436,124 +2436,6 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			break;
 		}
 	}
-	else if(cr_ptr->race_idx1 != INDEX_NONE) 
-	{	
-		race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
-		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
-			add_flag(flgs, TR_RES_ACID);
-		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
-			add_flag(flgs, TR_RES_ELEC);
-		if(ir_ptr->main_resist.resist_fire != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_fire)
-			add_flag(flgs, TR_RES_FIRE);
-		if(ir_ptr->main_resist.resist_cold != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_cold)
-			add_flag(flgs, TR_RES_COLD);
-		if(ir_ptr->main_resist.resist_pois != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_pois)
-			add_flag(flgs, TR_RES_POIS);
-		if(ir_ptr->main_resist.resist_lite != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_lite)
-			add_flag(flgs, TR_RES_LITE);
-		if(ir_ptr->main_resist.resist_dark != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_dark)
-			add_flag(flgs, TR_RES_DARK);
-		if(ir_ptr->main_resist.resist_neth != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_neth)
-			add_flag(flgs, TR_RES_NETHER);
-		if(ir_ptr->main_resist.resist_shard != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_shard)
-			add_flag(flgs, TR_RES_SHARDS);
-		if(ir_ptr->main_resist.resist_sound != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_sound)
-			add_flag(flgs, TR_RES_SOUND);
-		if(ir_ptr->main_resist.resist_chaos != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_chaos)
-			add_flag(flgs, TR_RES_CHAOS);
-		if(ir_ptr->main_resist.resist_nexus != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_nexus)
-			add_flag(flgs, TR_RES_NEXUS);
-		if(ir_ptr->main_resist.resist_disen != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_disen)
-			add_flag(flgs, TR_RES_DISEN);
-
-
-		if(ir_ptr->main_resist.free_action != 0 && cr_ptr->lev >= ir_ptr->main_resist.free_action)
-			add_flag(flgs, TR_FREE_ACT);
-		if(ir_ptr->main_resist.levitation != 0 && cr_ptr->lev >= ir_ptr->main_resist.levitation)
-			add_flag(flgs, TR_LEVITATION);
-		if(ir_ptr->main_resist.hold_life != 0 && cr_ptr->lev >= ir_ptr->main_resist.hold_life)
-			add_flag(flgs, TR_HOLD_LIFE);
-		if(ir_ptr->main_resist.regenerate != 0 && cr_ptr->lev >= ir_ptr->main_resist.regenerate)
-			add_flag(flgs, TR_REGEN);
-		if(ir_ptr->main_resist.slow_digest != 0 && cr_ptr->lev >= ir_ptr->main_resist.slow_digest)
-			add_flag(flgs, TR_SLOW_DIGEST);
-		if(ir_ptr->main_resist.see_invisible != 0 && cr_ptr->lev >= ir_ptr->main_resist.see_invisible)
-			add_flag(flgs, TR_SEE_INVIS);
-
-		if(ir_ptr->main_resist.sustain_str != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_str)
-			add_flag(flgs, TR_SUST_STR);
-		if(ir_ptr->main_resist.sustain_int != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_int)
-			add_flag(flgs, TR_SUST_INT);
-		if(ir_ptr->main_resist.sustain_wis != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_wis)
-			add_flag(flgs, TR_SUST_WIS);
-		if(ir_ptr->main_resist.sustain_dex != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_dex)
-			add_flag(flgs, TR_SUST_DEX);
-		if(ir_ptr->main_resist.sustain_con != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_con)
-			add_flag(flgs, TR_SUST_CON);
-		if(ir_ptr->main_resist.sustain_cha != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_cha)
-			add_flag(flgs, TR_SUST_CHR);
-
-		for(i = 0; i < MAX_RACES; i++)
-		{
-			if(get_subrace(cr_ptr, i)){
-				race_type *ir_ptr = &race_info[i];
-				if(ir_ptr->sub_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_acid)
-					add_flag(flgs, TR_RES_ACID);
-				if(ir_ptr->sub_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_elec)
-					add_flag(flgs, TR_RES_ELEC);
-				if(ir_ptr->sub_resist.resist_fire != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_fire)
-					add_flag(flgs, TR_RES_FIRE);
-				if(ir_ptr->sub_resist.resist_cold != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_cold)
-					add_flag(flgs, TR_RES_COLD);
-				if(ir_ptr->sub_resist.resist_pois != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_pois)
-					add_flag(flgs, TR_RES_POIS);
-				if(ir_ptr->sub_resist.resist_lite != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_lite)
-					add_flag(flgs, TR_RES_LITE);
-				if(ir_ptr->sub_resist.resist_dark != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_dark)
-					add_flag(flgs, TR_RES_DARK);
-				if(ir_ptr->sub_resist.resist_neth != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_neth)
-					add_flag(flgs, TR_RES_NETHER);
-				if(ir_ptr->sub_resist.resist_shard != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_shard)
-					add_flag(flgs, TR_RES_SHARDS);
-				if(ir_ptr->sub_resist.resist_sound != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_sound)
-					add_flag(flgs, TR_RES_SOUND);
-				if(ir_ptr->sub_resist.resist_chaos != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_chaos)
-					add_flag(flgs, TR_RES_CHAOS);
-				if(ir_ptr->sub_resist.resist_nexus != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_nexus)
-					add_flag(flgs, TR_RES_NEXUS);
-				if(ir_ptr->sub_resist.resist_disen != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_disen)
-					add_flag(flgs, TR_RES_DISEN);
-		
-		
-				if(ir_ptr->sub_resist.free_action != 0 && cr_ptr->lev >= ir_ptr->sub_resist.free_action)
-					add_flag(flgs, TR_FREE_ACT);
-				if(ir_ptr->sub_resist.levitation != 0 && cr_ptr->lev >= ir_ptr->sub_resist.levitation)
-					add_flag(flgs, TR_LEVITATION);
-				if(ir_ptr->sub_resist.hold_life != 0 && cr_ptr->lev >= ir_ptr->sub_resist.hold_life)
-					add_flag(flgs, TR_HOLD_LIFE);
-				if(ir_ptr->sub_resist.regenerate != 0 && cr_ptr->lev >= ir_ptr->sub_resist.regenerate)
-					add_flag(flgs, TR_REGEN);
-				if(ir_ptr->sub_resist.slow_digest != 0 && cr_ptr->lev >= ir_ptr->sub_resist.slow_digest)
-					add_flag(flgs, TR_SLOW_DIGEST);
-				if(ir_ptr->sub_resist.see_invisible != 0 && cr_ptr->lev >= ir_ptr->sub_resist.see_invisible)
-					add_flag(flgs, TR_SEE_INVIS);
-		
-				if(ir_ptr->sub_resist.sustain_str != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_str)
-					add_flag(flgs, TR_SUST_STR);
-				if(ir_ptr->sub_resist.sustain_int != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_int)
-					add_flag(flgs, TR_SUST_INT);
-				if(ir_ptr->sub_resist.sustain_wis != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_wis)
-					add_flag(flgs, TR_SUST_WIS);
-				if(ir_ptr->sub_resist.sustain_dex != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_dex)
-					add_flag(flgs, TR_SUST_DEX);
-				if(ir_ptr->sub_resist.sustain_con != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_con)
-					add_flag(flgs, TR_SUST_CON);
-				if(ir_ptr->sub_resist.sustain_cha != 0 && cr_ptr->lev >= ir_ptr->sub_resist.sustain_cha)
-					add_flag(flgs, TR_SUST_CHR);
-	
-			}
-		}
-
 
 	switch (cr_ptr->race_idx1)
 	{
@@ -2581,7 +2463,6 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		break;
 	default:
 		; /* Do nothing */
-	}
 	}
 
 	if (has_cf_creature(cr_ptr, CF_FLESH_ROT))

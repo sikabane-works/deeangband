@@ -4268,9 +4268,11 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_HITD_M:
+				//TODO
 				break;
 
 			case RC_INFO_H_HITD_M:
+				//TODO
 				break;
 
 			case RC_INFO_P_EXP:
