@@ -8241,6 +8241,7 @@ void signals_init(void)
 
 
 #ifdef SIGINT
+
 	(void)signal(SIGINT, handle_signal_simple);
 #endif
 

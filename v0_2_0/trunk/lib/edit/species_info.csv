@@ -598,8 +598,8 @@ HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
 1436,恍惚『ジョッシュ』,Josh the Extasy,h,g,ELF,ELF,0x02,PRIEST,NONE,ORDINARY,SORCERY,NONE,0,1,50,3650,0,0,98,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
-1437,青鱗の『ンタリカ＝リム』,Blue Scaly N'talik-Lim,u,g,DEEP_ONE,DEEP_ONE,0x02,ARCHER,NONE,ORDINARY,NONE,NONE,0,1,50,87716,0,0,19890,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
+1437,青鱗の『ンタリカ＝リム』,Blue Scaly N'talik-Lim,u,g,DEEP_ONE,DEEP_ONE,0x02,ARCHER,NONE,PIOUS,NONE,NONE,48,10,20,87716,0,0,981,0,NONE,NONE,-1,0,10,0,255,21,19,22,21,21,20,298,10,987,2,297,10,987,2,"HIT:HURT:1d6
+HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,　深きものとしてはまだ若輩な、瑞々しい青い鱗のディープワンだ。人間として暮らしていた頃の感覚をまだ残しており、深海のルルイエで宿屋らしきものを営んでいるが、客がしかるべき者しかいないことは言うまでもない。,,JZ#,,,,
 20,グレイ・モルド,Grey mold,m,s,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,1,1,50,0,6,76,0,0,NONE,NONE,-1,0,2,0,0,5,5,5,5,5,5,50,20,15,2,50,20,15,2,"SPORE:HURT:1d6
 SPORE:HURT:1d6",,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|DROP_CORPSE|NO_CONF|NO_SLEEP|NO_FEAR,,,小さい奇妙なカビだ。,"A small strange growth.
 ",J0#,,,,
@@ -2996,25 +2996,13 @@ CRUSH:SUPERHURT:2d10",,,GOLEM|FORCE_SLEEP|FORCE_MAXHP|KILL_BODY|KILL_ITEM|UNIQUE
 clean, and you are the biggest spot of dirt in sight.
 
 ",JZ#,,,,
-452,深き者,Deep one,u,g,DEEP_ONE,DEEP_ONE,0x01,NONE,NONE,ORDINARY,NONE,NONE,28,5,50,150,0,0,0,0,NONE,NONE,-1,10,20,50,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:POISON:2d4
+452,深き者,Deep one,u,g,DEEP_ONE,DEEP_ONE,0x01,NONE,NONE,ORDINARY,NONE,NONE,28,5,10,19650,0,0,0,0,NONE,NONE,-1,10,20,50,20,16,16,16,16,16,16,0,0,0,0,0,0,0,0,"CLAW:POISON:2d4
 CLAW:POISON:2d4
-BITE:HURT:4d4",,,FRIENDS|WILD_SHORE|DROP_CORPSE|RAND_25|EAT_POISONOUS|DROP_60|DROP_90|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|IM_FIRE|IM_COLD|IM_POIS|RES_WATE,,,"「体の色はおおむね灰色がかった緑色だが、腹は白かった。体の大部分
-は光沢があってぬらぬらしていたが、背中のもりあがったところには鱗
-があった。その姿はどことなく類人猿じみたところがあったとはいえ、
-頭部は魚類のものであり、ふくれあがった大きな目は閉じるということ
-がなかった。首の両側には脈打つ鰓があり、長い四肢の先には水かきが
-ついていた」
+BITE:HURT:4d4",,,FRIENDS,,,"「体の色はおおむね灰色がかった緑色だが、腹は白かった。体の大部分は光沢があってぬらぬらしていたが、背中のもりあがったところには鱗があった。その姿はどことなく類人猿じみたところがあったとはいえ、頭部は魚類のものであり、ふくれあがった大きな目は閉じるということがなかった。首の両側には脈打つ鰓があり、長い四肢の先には水かきがついていた」
 (Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「インスマスを覆う影」
 『クトゥルー９』、青心社文庫、p.305)
-陸上ではぴょんぴょん跳ねるようにして歩き、けろけろという声で鳴く。
-しかし、身振りや手振りでコミュニケーションを取ることが多いようだ。
-時のない深い海の底で生活し、異様で尊大な生命を持ち、
-信じがたいほど冷酷である。
-人間と交配することが可能であり、混血児は生後まもなくは人間と変わらないが、
-二十歳を過ぎたあたりから魚のような特徴が表れ始め、
-最終的には種族の記憶に目覚めて完全なディープワンへと変貌を遂げてしまう。
-ディープワンには老化というものが無く、事故死か或いは殺されるまで何万年で
-も生き続ける。","""I thought their predominant color was a greyish-green, 
+　陸上ではぴょんぴょん跳ねるようにして歩き、けろけろという声で鳴く。しかし、身振りや手振りでコミュニケーションを取ることが多いようだ。時のない深い海の底で生活し、異様で尊大な生命を持ち、信じがたいほど冷酷である。
+　人間と交配することが可能であり、混血児は生後まもなくは人間と変わらないが、二十歳を過ぎたあたりから魚のような特徴が表れ始め、最終的には種族の記憶に目覚めて完全なディープワンへと変貌を遂げてしまう。ディープワンには老化というものが無く、事故死か或いは殺されるまで何万年でも生き続ける。","""I thought their predominant color was a greyish-green, 
 though they had white bellies. They were mostly shiny and 
 slippery, but the ridges of their backs were scaly. Their 
 forms vaguely suggested the anthropoid, while their heads were 
@@ -6754,15 +6742,11 @@ TOUCH:DR_MANA:100d100",,,FORCE_MAXHP|NEVER_MOVE|STUPID|KILL_EXP|CAN_SWIM|CAN_FLY
 ",,,,,
 1429,賢者『ヴァルセロン』,Wiseman Valceronwe,p,g,SPRITE,SPRITE,0x02,SORCERER,NONE,ORDINARY,NONE,NONE,0,1,50,1298871,0,0,566,0,NONE,NONE,7,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
-595,父なる『ダゴン』,Father Dagon,u,g,DEEP_ONE,DEEP_ONE,0x02,PALADIN,857,ORDINARY,DEATH,NONE,38,3,50,3250,0,0,0,0,NONE,NONE,7,10,12,80,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:POISON:8d4
+595,父なる『ダゴン』,Father Dagon,u,g,DEEP_ONE,DEEP_ONE,0x02,PALADIN,857,ORDINARY,DEATH,NONE,57,3,24,310900,0,0,123188,0,NONE,NONE,6,10,12,80,50,19,19,19,19,19,19,761,20,9871,10,761,20,9871,10,"CLAW:POISON:8d4
 CLAW:POISON:8d4
-BITE:HURT:8d8",,,ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP,1_IN_7|S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID,,"ディープワンがサイズ・年齢の面で大きく成長したもの。
-並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。
-年齢は何百万歳にもなると考えられている。
-深きものどもの王：「単眼巨人ポリュフェーモスを思わせるその忌まわ
-しい巨体は、悪夢にあらわれる途方もない怪物のように...」
-(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「ダゴン」
-『ラヴクラフト全集３』、創元推理文庫、pp.16)","The king of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
+BITE:HURT:8d8",,,ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP,S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID,,"　ディープワンがサイズ・年齢の面で大きく成長したもの。並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。年齢は何百万歳にもなると考えられている。
+　深きものどもの王：「単眼巨人ポリュフェーモスを思わせるその忌まわしい巨体は、悪夢にあらわれる途方もない怪物のように...」
+(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「ダゴン」『ラヴクラフト全集３』、創元推理文庫、pp.16)","The king of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 darted like a stupendous monster of nightmares...""
 
 
@@ -6777,15 +6761,11 @@ JZ#でも言及されています。
 JZ#古代ペリシテ人にも崇拝されていた半人半魚の神で。クトゥルフに
 JZ#仕える深きものどもの総帥的存在です。 by 久留さん
 JZ#引用は久留さん、解説は NeSYS さんによる",,,,
-596,母なる『ハイドラ』,Mother Hydra,u,g,DEEP_ONE,DEEP_ONE,0x01,PRIEST,857,ORDINARY,DEATH,CHAOS,38,3,50,3250,0,0,0,0,NONE,NONE,7,10,12,80,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:POISON:8d4
+596,母なる『ハイドラ』,Mother Hydra,u,g,DEEP_ONE,DEEP_ONE,0x01,PRIEST,857,ORDINARY,DEATH,CHAOS,57,3,24,309800,0,0,118741,0,NONE,NONE,6,10,12,80,50,19,19,19,19,19,19,659,20,8976,10,659,20,8976,10,"CLAW:POISON:8d4
 CLAW:POISON:8d4
-BITE:HURT:8d8",,,ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP,1_IN_7|S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID,,"ディープワンがサイズ・年齢の面で大きく成長したもの。
-並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。
-年齢は何百万歳にもなると考えられている。
-深きものどもの女王：「単眼巨人ポリュフェーモスを思わせるその忌ま
-わしい巨体は、悪夢にあらわれる途方もない怪物のように...」
-(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「ダゴン」
-『ラヴクラフト全集３』、創元推理文庫、pp.16)","The queen of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
+BITE:HURT:8d8",,,ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP,S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID,,"　ディープワンがサイズ・年齢の面で大きく成長したもの。並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。年齢は何百万歳にもなると考えられている。
+　深きものどもの王：「単眼巨人ポリュフェーモスを思わせるその忌まわしい巨体は、悪夢にあらわれる途方もない怪物のように...」
+(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「ダゴン」『ラヴクラフト全集３』、創元推理文庫、pp.16)","The queen of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 darted like a stupendous monster of nightmares...""
 
 
