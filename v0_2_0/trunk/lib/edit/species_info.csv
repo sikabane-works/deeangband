@@ -4231,22 +4231,13 @@ TOUCH:EAT_ITEM",,,MULTIPLY|INVISIBLE|RAND_25|TAKE_ITEM|COLD_BLOOD|SMART|HURT_LIT
 sinister wizard who created them: 'Bruce! Bruce..!'
 
 ！！",JZ#,,,,
-685,ショゴス,Shoggoth,j,D,SHOGGOTH,SHOGGOTH,0x00,NONE,NONE,ORDINARY,NONE,NONE,44,2,50,2500,0,0,0,0,NONE,NONE,-1,30,100,80,20,19,19,19,19,19,19,200,30,240,3,200,30,240,3,"CRUSH:ACID:5d6
+685,ショゴス,Shoggoth,j,D,SHOGGOTH,SHOGGOTH,0x00,VARIABLE,NONE,VARIABLE,VARIABLE,VARIABLE,44,2,50,56000,0,0,0,0,NONE,NONE,-1,30,100,80,20,19,19,19,19,19,19,200,30,240,3,200,30,240,3,"CRUSH:ACID:5d6
 CRUSH:ACID:5d6
 CRUSH:ACID:5d6
-CRUSH:HURT:9d9",,,REGENERATE|KILL_ITEM|CAN_SPEAK|BASH_DOOR|NO_CONF|NO_FEAR|NO_SLEEP|KILL_BODY|CAN_SWIM|RES_DARK|VARIABLE_SIZE_EGO|FORCE_MAXHP|FORCE_SLEEP|HURT_LITE|POWERFUL|ELDRITCH_HORROR|IM_ACID|IM_FIRE|RES_PLAS|IM_POIS|IM_COLD|IM_ELEC|RES_TELE,,,"「古のもの」によって創造された、黒くネバネバした巨大な多細胞の原形質。
+CRUSH:HURT:9d9",,,,,,"　「古のもの」によって創造された、黒くネバネバした巨大な多細胞の原形質。
 不定形であり、いかなる器官も自由に作り出すことができる。
-「テケリ・リ」という独特の鳴き声をあげる。
-水陸両棲の、無愛想で不機嫌な召し使い。
-もともと知性は低かったが、次第に主人である「古のもの」を模倣するようにな
-り、反抗して滅ぼした。
-「悪臭放つ虹色に輝く悪夢じみた可塑性のある柱が... 原形質の泡の無
-定形の塊が、自らかすかに輝き、わたくしたちに向かいあう、トンネル
-を満たす前部のいたることこに、緑がかった光を放つ疣のような何万も
-の一時的な眼を構成したり消したりしながら、あわてふためくペンギン
-たちを押しつぶし、同類とともに邪悪にもすべてをとりさったなめらか
-な床をずるずるすべってきたのだった。なおも不気味な嘲笑うような声
-「テケリ・リ！テケリ・リ！」が聞こえ...」
+　「テケリ・リ」という独特の鳴き声をあげる、水陸両棲の、無愛想で不機嫌な召し使い。もともと知性は低かったが、次第に主人である「古のもの」を模倣するようになり、反抗して滅ぼした。
+「悪臭放つ虹色に輝く悪夢じみた可塑性のある柱が... 原形質の泡の無定形の塊が、自らかすかに輝き、わたくしたちに向かいあう、トンネルを満たす前部のいたることこに、緑がかった光を放つ疣のような何万もの一時的な眼を構成したり消したりしながら、あわてふためくペンギンたちを押しつぶし、同類とともに邪悪にもすべてをとりさったなめらかな床をずるずるすべってきたのだった。なおも不気味な嘲笑うような声「テケリ・リ！テケリ・リ！」が聞こえ...」
 (Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「恐怖の山脈にて」
 『ラヴクラフト全集４』、創元推理文庫、pp.300-301)","""The nightmare, plastic column of fetid, black iridescence oozed 
 tightly onward... A shapeless congerie of protoplasmic bubbles, 
