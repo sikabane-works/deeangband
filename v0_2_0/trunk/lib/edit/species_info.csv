@@ -193,8 +193,9 @@ HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
 1222,石肌『ボーズ』,Bors the Stone Skin,p,U,OLOG,OLOG,0x02,SMITH,NONE,ORDINARY,NONE,NONE,0,1,50,78174,0,0,871,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
-1223,頭痛持ちの『ウャ＝ワ＝リクゥ』,Migrainer Uwa-Lya-Rikq,p,g,ELDER_ONE,ELDER_ONE,0x01,SMITH,NONE,ORDINARY,NONE,NONE,0,1,50,56733,0,0,887761,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
+1223,頭痛持ちの『ウャ＝ワ＝リクゥ』,Migrainer Uwa-Lya-Rikq,p,g,ELDER_ONE,ELDER_ONE,0x01,SMITH,NONE,ORDINARY,NONE,NONE,0,1,50,56733,0,0,887761,0,NONE,NONE,-1,0,10,0,255,19,29,28,12,13,18,262,0,172,0,262,0,172,0,"HIT:HURT:1d6
+HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,"　つい数百年前に氷漬けになった状態から助けられた古のものの個体の一つだ。彼らの遺産の解明についてその生き証人として貢献したため、アングウィルから名誉市民権を得て、研究者として現在働いている。
+　ただ長年に渡り眠っていた影響か、耐え難い頭痛の発作に襲われることが多いらしい。",,JZ#,,,,
 1224,残忍なる『アーノルド』,Arnold the Beastly,T,U,TROLL,OLOG,0x02,SMITH,NONE,ORDINARY,NONE,NONE,0,1,50,24761,0,0,143,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,,JZ#,,,,
 1225,獣殺しの『アーンダル』,Arndal Beast-Slayer,h,U,ELF,ELF,0x02,SMITH,NONE,ORDINARY,NONE,NONE,0,1,50,10941,0,0,76,0,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
@@ -3802,23 +3803,13 @@ GAZE:EXP_20",,,FORCE_SLEEP|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|AURA_FIRE|NONLIVING|IM_
 568,メッツォデーモン,Mezzodaemon,u,o,IMP,IMP,0x01,NONE,NONE,ORDINARY,NONE,NONE,36,2,50,750,50000,719,0,0,NONE,NONE,-1,0,10,68,90,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"CLAW:HURT:5d6
 CLAW:HURT:5d6",,,FORCE_SLEEP|PASS_WALL|INVISIBLE|IM_POIS|IM_COLD|IM_ACID|IM_FIRE|NO_SLEEP|NO_CONF|NO_STUN|NONLIVING,1_IN_4|BLINK|DARKNESS|S_DEMON,,昆虫のような四肢と大きな球状の眼を持つ醜い悪魔だ。,"An ugly demon with insect-like extremities and large bulbous eyes.
 ",,,,,
-569,古のもの,Elder thing,u,G,ELDER_ONE,ELDER_ONE,0x00,NONE,NONE,ORDINARY,NONE,NONE,36,3,50,45581,0,0,0,0,NONE,NONE,-1,0,10,70,50,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"CRUSH:HURT:4d6
+569,古のもの,Elder thing,u,G,ELDER_ONE,ELDER_ONE,0x00,NONE,NONE,ORDINARY,NONE,NONE,36,3,25,45581,0,0,0,0,NONE,NONE,-1,0,10,70,50,17,17,17,17,17,17,0,0,0,0,0,0,0,0,"CRUSH:HURT:4d6
 CRUSH:HURT:4d6
 CRUSH:HURT:4d6
-TOUCH:LOSE_WIS",,,FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|NONLIVING|IM_POIS|IM_ACID|NO_CONF|NO_SLEEP|RES_TELE|CAN_SWIM,1_IN_4|SCARE|TELE_AWAY|BA_NUKE|CAUSE_3|BA_POIS|CONF|S_DEMON|S_UNDEAD,,"「隆起をもった樽状の物体で、水平にのびる腕が中央の輪からスポーク
-のように放射状に分出して、ドアの把手のような、球根のようなものが、
-樽の上部と下部から垂直に伸びていた、これら把手状のものはそれぞれ、
-車輪の中心軸さながらに、長くて平たい、三角形のように先細りになっ
-た腕が５本、海星の腕を思わせる格好でまわりに配置されていた」
-(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「魔女の家の夢」
-『ラヴクラフト全集３』、創元推理文庫、pp.195-196)
-彼らの肉体はどんな温度変化や真空にも耐えられ、
-食物の摂取も呼吸の必要も無いような化学変化による方法で、宇宙空間を飛行し
-てきた。
-そして２０億年前に地球に飛来し、偶発的に文明を築いたと考えられる。
-地球上で単純な有機体を創造して食物とし、その有機体から更に奴隷として「シ
-ョゴス」を創造した。
-その他の地球上の様々な生命体も、ショゴスによって作られたと言われている。","""...some ridged barrel-shaped objects with thin 
+TOUCH:LOSE_WIS",,,,SCARE|TELE_AWAY|BA_NUKE|CAUSE_3|BA_POIS|CONF|S_DEMON|S_UNDEAD,,"「隆起をもった樽状の物体で、水平にのびる腕が中央の輪からスポークのように放射状に分出して、ドアの把手のような、球根のようなものが、樽の上部と下部から垂直に伸びていた、これら把手状のものはそれぞれ、車輪の中心軸さながらに、長くて平たい、三角形のように先細りになった腕が５本、海星の腕を思わせる格好でまわりに配置されていた」
+(Ｈ・Ｐ・ラヴクラフト、大瀧啓裕訳「魔女の家の夢」『ラヴクラフト全集３』、創元推理文庫、pp.195-196)
+　彼らの肉体はどんな温度変化や真空にも耐えられ、食物の摂取も呼吸の必要も無いような化学変化による方法で、宇宙空間を飛行してきた。そして２０億年前に地球に飛来し、偶発的に文明を築いたと考えられる。
+　地球上で単純な有機体を創造して食物とし、その有機体から更に奴隷として「ショゴス」を創造した。その他の地球上の様々な生命体も、ショゴスによって作られたと言われている。","""...some ridged barrel-shaped objects with thin 
 horizontal arms radiating spoke-like from a central ring and with 
 vertical knobs or bulbs projecting from the head and base of the 
 barrel. Each of these knobs was the hub of a system of five long, 
