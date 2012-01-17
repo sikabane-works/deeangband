@@ -392,3 +392,34 @@ u32b Rand_simple(u32b m)
 	/* Use the value */
 	return (result);
 }
+
+
+// D'angband added.
+// Random select by rarity.
+
+int get_ratity_random(int **id_list, int **rarity_list, int num)
+{
+	int i;
+
+	long value, total = 0L;
+	
+	for (i = 0; i < num; i++)
+		if (*rarity_list[i])
+				total += *rarity_list[i];
+
+	value = randint0(total - 1);
+
+	for (i = 0; i < num; i++)
+	{
+		if (*rarity_list[i])
+		{
+			total -= *rarity_list[i];
+			if(total < 0) return *id_list[i];
+		}
+	}
+
+	return -1;
+}
+
+
+

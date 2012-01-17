@@ -99,6 +99,10 @@ extern s16b maxroll(int num, int sides);
 extern s32b div_round(s32b n, s32b d);
 extern u32b Rand_simple(u32b m);
 
+// add on D'angband
+
+extern int get_ratity_random(int **id_list, int **rarity_list, int num);
+
 
 #endif
 
