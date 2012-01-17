@@ -419,6 +419,7 @@ int get_ratity_random(int *id_list, int *rarity_list, int num)
 		}
 	}
 
+
 	return -1;
 }
 

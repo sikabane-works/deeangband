@@ -49,7 +49,7 @@ static int select_mode(void)
 
 	/* Init Unique Count */
 #if JP
-	strcpy(se[0].cap, "qà€ˆóÒr");
+	strcpy(se[0].cap, "à€ˆóÒ");
 #else
 	strcpy(se[0].cap, "Stigmatic One");
 #endif
