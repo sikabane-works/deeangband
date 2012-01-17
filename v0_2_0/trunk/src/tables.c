@@ -2507,7 +2507,7 @@ class_type class_info[MAX_CLASS] =
 
 };
 
-player_chara chara_info[MAX_CHARA] =
+creature_chara chara_info[MAX_CHARA] =
 {
 	{
 #ifdef JP

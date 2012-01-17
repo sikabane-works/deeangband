@@ -3825,7 +3825,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 	race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 	class_type *cl_ptr = &class_info[cr_ptr->cls_idx];
-	player_chara *ch_ptr = &chara_info[cr_ptr->chara_idx];
+	creature_chara *ch_ptr = &chara_info[cr_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];
 
 

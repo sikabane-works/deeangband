@@ -1943,6 +1943,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 	desc[0] = '\0';
 
+
 	if(is_player(m_ptr))
 	{
 #ifdef JP
