@@ -4095,24 +4095,29 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
-
+	int id[MAX_CHARA];
+	int rarity[MAX_CHARA];
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
-		if(chara_info[i].sex & (0x01 << creature_ptr->sex))
+		if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
 		{
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
 			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
 			ce[n].l_color = TERM_WHITE;
+
+			id[n] = i;
+			rarity[n] = chara_info[i].rarity;
 			n++;
+
 		}
 	}
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = ce[randint0(n)].code;
+		creature_ptr->chara_idx = get_ratity_random(id, rarity, n);
 		return 0;
 	}
 
@@ -4151,6 +4156,8 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 #if JP
 	put_str("«Ši‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
+
+
 #else
 	put_str("Select a personality:", 0, 0);
 #endif
@@ -4164,7 +4171,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	}
 	else if(i == -1)
 	{
-		creature_ptr->chara_idx = ce[randint0(n - 3)].code;
+		creature_ptr->chara_idx = get_ratity_random(id, rarity, n - 3);
 		return 0;
 	}
 	else
