@@ -1779,7 +1779,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	bool heal_leper = FALSE;
 
 	/* Hold the monster name */
-	char m_name[80];
+	char tar_name[80];
 
 #ifndef JP
 	char m_poss[10];
@@ -1816,7 +1816,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 
 	/* Get the monster name (BEFORE polymorphing) */
-	creature_desc(m_name, tar_ptr, 0);
+	creature_desc(tar_name, tar_ptr, 0);
 
 #ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */
@@ -2281,9 +2281,9 @@ note_dies = "は蒸発した！";
 			if (!(los(tar_ptr->fy, tar_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%sはあなたが見えないので影響されない！", m_name);
+				if (seen_msg) msg_format("%sはあなたが見えないので影響されない！", tar_name);
 #else
-				if (seen_msg) msg_format("%^s can't see you, and isn't affected!", m_name);
+				if (seen_msg) msg_format("%^s can't see you, and isn't affected!", tar_name);
 #endif
 				skipped = TRUE;
 				break;
@@ -2334,10 +2334,10 @@ note_dies = "は蒸発した！";
 				{
 					note = NULL;
 #ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", m_name);
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", tar_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    m_name, (seen ? "'s" : "s"));
+					    tar_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
@@ -2471,10 +2471,10 @@ note_dies = "は蒸発した！";
 				{
 					note = NULL;
 #ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", m_name);
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", tar_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    m_name, (seen ? "'s" : "s"));
+					    tar_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
@@ -2513,11 +2513,11 @@ note_dies = "は蒸発した！";
 				int b = damroll(5, dam) / 4;
 #ifdef JP
 				cptr str = (caster_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
-				msg_format("あなたは%sの苦痛を%sに変換した！", m_name, str);
+				msg_format("あなたは%sの苦痛を%sに変換した！", tar_name, str);
 #else
 				cptr str = (caster_ptr->cls_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
 				msg_format("You convert %s%s pain into %s!",
-				    m_name, (seen ? "'s" : "s"), str);
+				    tar_name, (seen ? "'s" : "s"), str);
 #endif
 
 				b = MIN(caster_ptr->msp, caster_ptr->csp + b);
@@ -2650,10 +2650,10 @@ note_dies = "は蒸発した！";
 				{
 					note = NULL;
 #ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", m_name);
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", tar_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    m_name, (seen ? "'s" : "s"));
+					    tar_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
@@ -2954,9 +2954,9 @@ note = "が分裂した！";
 			if (tar_ptr->mhp < tar_ptr->mmhp)
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%^sの強さが戻った。", m_name);
+				if (seen_msg) msg_format("%^sの強さが戻った。", tar_name);
 #else
-				if (seen_msg) msg_format("%^s recovers %s vitality.", m_name, m_poss);
+				if (seen_msg) msg_format("%^s recovers %s vitality.", tar_name, m_poss);
 #endif
 				tar_ptr->mhp = tar_ptr->mmhp;
 			}
@@ -2980,27 +2980,27 @@ note = "が分裂した！";
 			if (tar_ptr->stun)
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", m_name);
+				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", tar_name);
 #else
-				if (seen_msg) msg_format("%^s is no longer stunned.", m_name);
+				if (seen_msg) msg_format("%^s is no longer stunned.", tar_name);
 #endif
 				(void)set_stun(tar_ptr, 0);
 			}
 			if (tar_ptr->confused)
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%^sは混乱から立ち直った。", m_name);
+				if (seen_msg) msg_format("%^sは混乱から立ち直った。", tar_name);
 #else
-				if (seen_msg) msg_format("%^s is no longer confused.", m_name);
+				if (seen_msg) msg_format("%^s is no longer confused.", tar_name);
 #endif
 				(void)set_confused(tar_ptr, 0);
 			}
 			if (tar_ptr->afraid)
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%^sは勇気を取り戻した。", m_name);
+				if (seen_msg) msg_format("%^sは勇気を取り戻した。", tar_name);
 #else
-				if (seen_msg) msg_format("%^s recovers %s courage.", m_name, m_poss);
+				if (seen_msg) msg_format("%^s recovers %s courage.", tar_name, m_poss);
 #endif
 				(void)set_afraid(tar_ptr, 0);
 			}
@@ -3593,9 +3593,9 @@ note = "はなついた。";
 			if (has_cf_creature(tar_ptr, CF_NO_CONF)) dam -= 30;
 			if (dam < 1) dam = 1;
 #ifdef JP
-msg_format("%sを見つめた。",m_name);
+msg_format("%sを見つめた。",tar_name);
 #else
-			msg_format("You stare into %s.", m_name);
+			msg_format("You stare into %s.", tar_name);
 #endif
 			if ((tar_ptr->resist_ultimate) || inside_arena)
 			{
@@ -4469,9 +4469,9 @@ note_dies = "はドロドロに溶けた！";
 				{
 					/* Message */
 #ifdef JP
-					msg_format("%sから精神エネルギーを吸いとった。", m_name);
+					msg_format("%sから精神エネルギーを吸いとった。", tar_name);
 #else
-					msg_format("You draw psychic energy from %s.", m_name);
+					msg_format("You draw psychic energy from %s.", tar_name);
 #endif
 
 					(void)hp_player(caster_ptr, dam);
@@ -4480,9 +4480,9 @@ note_dies = "はドロドロに溶けた！";
 			else
 			{
 #ifdef JP
-				if (see_s_msg) msg_format("%sには効果がなかった。", m_name);
+				if (see_s_msg) msg_format("%sには効果がなかった。", tar_name);
 #else
-				if (see_s_msg) msg_format("%s is unaffected.", m_name);
+				if (see_s_msg) msg_format("%s is unaffected.", tar_name);
 #endif
 			}
 			dam = 0;
@@ -4495,9 +4495,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4571,9 +4571,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", tar_name);
 #else
-			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", m_name);
+			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4656,9 +4656,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4692,9 +4692,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4728,9 +4728,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4764,9 +4764,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", tar_name);
 #endif
 
 			if (tar_ptr->resist_ultimate)
@@ -4850,9 +4850,9 @@ note_dies = "はドロドロに溶けた！";
 			    (is_unique_creature(tar_ptr)) || has_cf_creature(tar_ptr, CF_NAZGUL) || is_sub_unique_creature(tar_ptr) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
-				msg_format("%sには効果がなかった。",m_name);
+				msg_format("%sには効果がなかった。",tar_name);
 #else
-				msg_format("%^s is unaffected.", m_name);
+				msg_format("%^s is unaffected.", tar_name);
 #endif
 				skipped = TRUE;
 				break;
@@ -4869,7 +4869,7 @@ note_dies = "はドロドロに溶けた！";
 #ifdef JP
 				msg_format("もっと弱らせないと。");
 #else
-				msg_format("You need to weaken %s more.", m_name);
+				msg_format("You need to weaken %s more.", tar_name);
 #endif
 				skipped = TRUE;
 			}
@@ -4877,9 +4877,9 @@ note_dies = "はドロドロに溶けた！";
 			{
 				if (tar_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_monster(c_ptr->m_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
 #ifdef JP
-				msg_format("%sを捕えた！",m_name);
+				msg_format("%sを捕えた！",tar_name);
 #else
-				msg_format("You capture %^s!", m_name);
+				msg_format("You capture %^s!", tar_name);
 #endif
 				cap_mon = tar_ptr->species_idx;
 				cap_speed = tar_ptr->speed;
@@ -4893,7 +4893,7 @@ note_dies = "はドロドロに溶けた！";
 #ifdef JP
 						msg_print("地面に落とされた。");
 #else
-						msg_format("You have fallen from %s.", m_name);
+						msg_format("You have fallen from %s.", tar_name);
 #endif
 					}
 				}
@@ -4907,7 +4907,7 @@ note_dies = "はドロドロに溶けた！";
 #ifdef JP
 msg_format("うまく捕まえられなかった。");
 #else
-				msg_format("You failed to capture %s.", m_name);
+				msg_format("You failed to capture %s.", tar_name);
 #endif
 				skipped = TRUE;
 			}
@@ -5093,9 +5093,9 @@ note = "には効果がなかった！";
 #endif
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%sは消滅した！", m_name);
+				if (seen_msg) msg_format("%sは消滅した！", tar_name);
 #else
-				if (seen_msg) msg_format("%^s disappered!", m_name);
+				if (seen_msg) msg_format("%^s disappered!", tar_name);
 #endif
 				return TRUE;
 			}
@@ -5107,9 +5107,9 @@ note = "には効果がなかった！";
 		case GF_PHOTO:
 		{
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを写真に撮った。", m_name);
+			if (caster_ptr == caster_ptr) msg_format("%sを写真に撮った。", tar_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You take a photograph of %s.", m_name);
+			if (caster_ptr == caster_ptr) msg_format("You take a photograph of %s.", tar_name);
 #endif
 			/* Hurt by light */
 			if (is_hurt_lite_creature(tar_ptr))
@@ -5497,10 +5497,10 @@ note = "には効果がなかった。";
 			/* Give detailed messages if destroyed */
 			if (known && note)
 			{
-				creature_desc(m_name, tar_ptr, MD_TRUE_NAME);
+				creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 				if (see_s_msg)
 				{
-					msg_format("%^s%s", m_name, note);
+					msg_format("%^s%s", tar_name, note);
 				}
 				else
 				{
@@ -5531,7 +5531,7 @@ note = "には効果がなかった。";
 		else
 		{
 			/* Give detailed messages if visible or destroyed */
-			if (note && seen_msg) msg_format("%^s%s", m_name, note);
+			if (note && seen_msg) msg_format("%^s%s", tar_name, note);
 
 			/* Hack -- Pain message */
 			else if (see_s_msg)
@@ -5584,9 +5584,9 @@ note = "には効果がなかった。";
 			/* Give detailed messages if visible or destroyed */
 			if (note && seen_msg)
 #ifdef JP
-				msg_format("%s%s", m_name, note);
+				msg_format("%s%s", tar_name, note);
 #else
-				msg_format("%^s%s", m_name, note);
+				msg_format("%^s%s", tar_name, note);
 #endif
 
 
