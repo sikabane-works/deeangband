@@ -2514,6 +2514,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"普通",
 #endif
 		"Ordinary",
+		1,
 		{  0,  0,  0,  0,  0,  0 },
 		0,  0,  0,  0,  0,  0,  0,  0,
 		0, 1, 0x0F
@@ -2524,6 +2525,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"力自慢",
 #endif
 		"Mighty",
+		2,
 		{  2,  -2,  -1,  0,  1,  0 },
 		-5,  -5,  -3,  -1,  -2,  -2,  10,  0,
 		1, 1, 0x0F
@@ -2534,6 +2536,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"切れ者",
 #endif
 		"Shrewd",
+		2,
 		{  -2,  2,  0,  1,  -1,  -1 },
 		3,  8,  2,  0,  -2,  5,  -8,  -5,
 		-1, 1, 0x0F
@@ -2544,6 +2547,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"幸せ者",
 #endif
 		"Pious",
+		2,
 		{  0,  -1,  2,  -1,  0,  1 },
 		-5,  2,  4,  -1,  3,  -2,  -3,  -6,
 		0, 1, 0x0F
@@ -2554,6 +2558,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"素早い",
 #endif
 		"Nimble",
+		2,
 		{  -1,  1,  -1,  2,  -1,  -1 },
 		7,  2,  -1,  1,  5,  5,  0,  10,
 		0, 0, 0x0F
@@ -2564,6 +2569,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"命知らず",
 #endif
 		"Fearless",
+		2,
 		{  2,  1,  1,  -1,  -1,  0 },
 		-5,  5,  -2,  0,  2,  -2,  10,  10,
 		-1, 1, 0x0F
@@ -2574,6 +2580,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"コンバット",
 #endif
 		"Combat",
+		10,
 		{  1,  -1,  -2,  2,  0,  1 },
 		-2,  -3,  -3,  0,  -1,  2,  5,  5,
 		0, 0, 0x0F
@@ -2584,6 +2591,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"怠け者",
 #endif
 		"Lazy",
+		20,
 		{  -2,  -2,  -2,  -2,  -2,  -2 },
 		-5,  -5,  -3,  -1,  -4,  -2,  -8,  -8,
 		-1, 1, 0x0F
@@ -2594,6 +2602,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"セクシーギャル",
 #endif
 		"Sexy",
+		30,
 		{  1,  1,  1,  1,  1,  3 },
 		10,  5,  3,  0,  4,  2,  10,  10,
 		0, 1, 0x05
@@ -2604,6 +2613,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"ラッキーマン",
 #endif
 		"Lucky",
+		30,
 		{  -2,  -2,  -2,  -2,  -2,  2 },
 		10,  7,  3,  2, 10,  8,  15,  15,
 		0, 1, 0x06
@@ -2614,6 +2624,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"我慢強い",
 #endif
 		"Patient",
+		2,
 		{  -1,  -1,  1,  -2,  2,  0 },
 		-5,  -3,  3,  1,  0,  -3,  -6,  -6,
 		1, 0, 0x0F
@@ -2624,6 +2635,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"イカサマ",
 #endif
 		"Munchkin",
+		150,
 		{ 10,  10,  10,  10,  10,  10 },
 		 20, 40, 30, 10, 40, 40,  80, 80,
 		 15, 1, 0x0F
@@ -2634,6 +2646,7 @@ creature_chara chara_info[MAX_CHARA] =
 		"チャージマン",
 #endif
 		"ChargeMan",
+		30,
 		{  2,  -2,  -2,  -2,  2,  -2 },
 		-5,  -5,  -3,  -1,  -2,  -2,  3,  8,
 		0, 0, 0x0F
@@ -2644,9 +2657,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"非力",
 #endif
 		"Powerless",
+		10,
 		{  -4,  0,  0, -1,  -1,  0 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 
 	{
@@ -2654,9 +2668,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"無知",
 #endif
 		"Ignorant",
+		10,
 		{  0,  -4,  -1,  0,  0,  -1 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 
 	{
@@ -2664,9 +2679,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"愚鈍",
 #endif
 		"Imbecile",
+		10,
 		{  0,  -1,  -4,  0,  0,  -1 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 
 	{
@@ -2674,9 +2690,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"鈍重",
 #endif
 		"Slow-witted",
+		10,
 		{  -1,  0,  0, -4,  -1,  0 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 
 	{
@@ -2684,9 +2701,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"虚弱",
 #endif
 		"Weak",
+		10,
 		{  -1,  0,  0, -1,  -4,  0 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 
 	{
@@ -2694,9 +2712,10 @@ creature_chara chara_info[MAX_CHARA] =
 		"不細工",
 #endif
 		"Ugly",
+		10,
 		{  0,  -1,  -1,  0,  0,  -4 },
 		0,  0,  0,  0,  0,  0,  0,  0,
-		0, 0, 0x00
+		0, 0, 0x0F
 	},
 };
 

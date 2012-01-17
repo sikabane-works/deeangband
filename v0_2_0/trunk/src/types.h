@@ -1099,6 +1099,7 @@ struct creature_chara
 #ifdef JP
 	cptr E_title;		/* ‰pŒê«Ši */
 #endif
+	s16b rarity;		/* chara rarerity (Over 50 was no selected on auto select) */
 
 	s16b a_adj[6];		/* chara stat bonuses */
 
