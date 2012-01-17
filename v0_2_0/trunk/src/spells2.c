@@ -4485,7 +4485,7 @@ bool project_hack(int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Jump directly to the target monster */
-		if (project(0, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
+		if (project(p_ptr, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
 	}
 
 	/* Result */
