@@ -2699,6 +2699,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Holy Fire -- hurts Evil, Good are immune, others _resist_
+		case GF_HOLY_FIRE:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HOLY_FIRE, TRUE);
+			break;
+		}
+		*/
 
 		case GF_HELL_FIRE:
 		{
@@ -2713,6 +2721,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Hellfire -- hurts Evil
+		case GF_HELL_FIRE:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HELL_FIRE, TRUE);
+			break;
+		}
+		*/
 
 		/* Arrow -- XXX no dodging */
 		case GF_ARROW:
@@ -2862,6 +2878,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Water (acid) damage -- Water spirits/elementals are immune
+		case GF_WATER:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_WATER, TRUE);
+			break;
+		}
+		*/
 
 		/* Chaos -- many effects */
 		case GF_CHAOS:
@@ -2912,6 +2936,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Chaos -- Chaos breathers resist
+		case GF_CHAOS:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_CHAOS, TRUE);
+			break;
+		}
+		*/
 
 		/* Shards -- mostly cutting */
 		case GF_SHARDS:
@@ -2939,6 +2971,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Shards -- Shard breathers resist
+		case GF_SHARDS:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SHARD, TRUE);
+			break;
+		}
+		*/
 
 		/* Sound -- mostly stunning */
 		case GF_SOUND:
@@ -2967,6 +3007,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Sound -- Sound breathers resist
+		case GF_SOUND:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SOUND, TRUE);
+			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
+			break;
+		}
+		*/
 
 		/* Pure confusion */
 		case GF_CONFUSION:
@@ -2988,6 +3037,40 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Confusion
+		case GF_CONFUSION:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (target_ptr->resist_conf)
+			{
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+
+				dam *= 3; dam /= randint1(6) + 6;
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
+			}
+			else
+			{
+				//TODO do_conf = (10 + randint1(15) + r) / (r + 1);
+			}
+			break;
+		}
+		*/
 
 		/* Disenchantment -- see above */
 		case GF_DISENCHANT:
@@ -3060,6 +3143,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Nexus -- Breathers and Existers resist
+		case GF_NEXUS:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NEXUS, TRUE);
+			break;
+		}
+		*/
 
 		/* Force -- mostly stun */
 		case GF_FORCE:
@@ -3077,6 +3168,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Force
+		case GF_FORCE:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FORCE, TRUE);
+			break;
+			//TODO else do_stun = (randint1(15) + r) / (r + 1);
+		}
+		*/
 
 
 		/* Rocket -- stun, cut */
@@ -3133,6 +3233,57 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Inertia -- breathers resist
+		case GF_INERTIA:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (target_ptr->resist_inertia)
+			{
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+
+				dam *= 3; dam /= randint1(6) + 6;
+				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_INER);
+			}
+			else
+			{
+				// Powerful monsters can resist
+				if ((is_unique_creature(target_ptr)) ||
+				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				{
+					obvious = FALSE;
+				}
+				// Normal monsters slow down
+				else
+				{
+					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
+					{
+#ifdef JP
+						note = "の動きが遅くなった。";
+#else
+						note = " starts moving slower.";
+#endif
+					}
+				}
+			}
+			break;
+		}
+		*/
 
 		/* Lite -- blinding */
 		case GF_LITE:
@@ -4803,157 +4954,6 @@ note = "は眠り込んでしまった！";
 			break;
 		}
 		*/
-
-		/* Hellfire -- hurts Evil */
-		case GF_HELL_FIRE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HELL_FIRE, TRUE);
-			break;
-		}
-
-		/* Holy Fire -- hurts Evil, Good are immune, others _resist_ */
-		case GF_HOLY_FIRE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HOLY_FIRE, TRUE);
-			break;
-		}
-
-		/* Water (acid) damage -- Water spirits/elementals are immune */
-		case GF_WATER:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_WATER, TRUE);
-			break;
-		}
-
-		/* Chaos -- Chaos breathers resist */
-		case GF_CHAOS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_CHAOS, TRUE);
-			break;
-		}
-
-		/* Shards -- Shard breathers resist */
-		case GF_SHARDS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SHARD, TRUE);
-			break;
-		}
-
-		/* Sound -- Sound breathers resist */
-		case GF_SOUND:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SOUND, TRUE);
-			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
-			break;
-		}
-
-		/* Confusion */
-		case GF_CONFUSION:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_conf)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
-			}
-			else
-			{
-				//TODO do_conf = (10 + randint1(15) + r) / (r + 1);
-			}
-			break;
-		}
-
-		/* Nexus -- Breathers and Existers resist */
-		case GF_NEXUS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NEXUS, TRUE);
-			break;
-		}
-
-		/* Force */
-		case GF_FORCE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FORCE, TRUE);
-			break;
-			//TODO else do_stun = (randint1(15) + r) / (r + 1);
-		}
-
-		/* Inertia -- breathers resist */
-		case GF_INERTIA:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_inertia)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_INER);
-			}
-			else
-			{
-				/* Powerful monsters can resist */
-				if ((is_unique_creature(target_ptr)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					obvious = FALSE;
-				}
-				/* Normal monsters slow down */
-				else
-				{
-					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-					{
-#ifdef JP
-						note = "の動きが遅くなった。";
-#else
-						note = " starts moving slower.";
-#endif
-					}
-				}
-			}
-			break;
-		}
 
 		case GF_PSI:
 		{
