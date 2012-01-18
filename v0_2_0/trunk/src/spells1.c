@@ -2522,6 +2522,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
 		}
+		/* project_m()
+		case GF_FIRE:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
+		}
+		*/
+
 
 		/* Standard damage -- hurts target_ptr->inventory too */
 		case GF_COLD:
@@ -2535,6 +2543,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
 		}
+		/* project_m()
+		case GF_COLD:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
+			break;
+		}
+		*/
+
 
 		/* Standard damage -- hurts target_ptr->inventory too */
 		case GF_ELEC:
@@ -2587,6 +2604,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* project_m()
+		case GF_POIS:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
+			break;
+		}
+		*/
+
 
 		/* Standard damage -- also poisons / mutates player */
 		case GF_NUKE:
@@ -2701,6 +2727,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Arrow -- XXX no defense
+		case GF_ARROW:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			break;
+		}
+		*/
+
 
 		/* Plasma -- XXX No resist */
 		case GF_PLASMA:
@@ -2728,6 +2774,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
+		/* Plasma -- XXX perhaps check ELEC or FIRE
+		case GF_PLASMA:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_PLASMA, TRUE);
+			break;
+		}
+		*/
 
 		/* Nether -- drain experience */
 		case GF_NETHER:
@@ -2762,6 +2816,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
+		/* Nether -- see above
+		case GF_NETHER:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NETH, TRUE);
+			break;
+		}
+		*/
 
 		/* Water -- stun/confuse */
 		case GF_WATER:
@@ -3664,6 +3726,41 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* project_m()
+		case GF_CAUSE_1:
+		{
+			if (seen) obvious = TRUE;
+			// Message
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
+#else
+			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
+#endif
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw
+			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			{
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			break;
+		}
 
 		/* cause 2 */
 		case GF_CAUSE_2:
@@ -3681,6 +3778,41 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 25, MIN(rlev / 2 - 15, 5));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			break;
+		}
+		/* project_m()
+		case GF_CAUSE_2:
+		{
+			if (seen) obvious = TRUE;
+			// Message/
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
+#else
+			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
+#endif
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw
+			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			{
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
 			}
 			break;
 		}
@@ -3704,7 +3836,42 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* project_m()
+		case GF_CAUSE_3:
+		{
+			if (seen) obvious = TRUE;
+			// Message
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
+#else
+			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
+#endif
 
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw
+			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			{
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			break;
+		}
+		*/
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
@@ -3724,6 +3891,41 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/*
+		case GF_CAUSE_4:
+		{
+			if (seen) obvious = TRUE;
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
+#else
+			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
+#endif
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw
+			if ((randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != MON_KENSHIROU)))
+			{
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			break;
+		}
+		*/
 
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
@@ -3755,29 +3957,54 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
-
-		/* Fire damage */
-		case GF_FIRE:
+		/* project_m()
+		case GF_HAND_DOOM:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
-		}
 
-		/* Cold */
-		case GF_COLD:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			if (is_unique_creature(target_ptr))
+			{
+#ifdef JP
+				note = "には効果がなかった！";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			else
+			{
+				if ((caster_ptr != caster_ptr) ? ((caster_lev + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
+				   (((caster_lev / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
+				{
+					dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
+
+					if (target_ptr->chp < dam) dam = target_ptr->chp - 1;
+				}
+				else
+				{
+#ifdef JP
+					note = "は耐性を持っている！";
+#else
+					note = "resists!";
+#endif
+					dam = 0;
+				}
+			}
 			break;
 		}
-
-		/* Poison */
-		case GF_POIS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
-			break;
-		}
+		*/
 
 		/* Nuclear waste */
 		case GF_NUKE:
@@ -3800,41 +4027,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HOLY_FIRE, TRUE);
-			break;
-		}
-
-		/* Arrow -- XXX no defense */
-		case GF_ARROW:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			break;
-		}
-
-		/* Plasma -- XXX perhaps check ELEC or FIRE */
-		case GF_PLASMA:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_PLASMA, TRUE);
-			break;
-		}
-
-		/* Nether -- see above */
-		case GF_NETHER:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NETH, TRUE);
 			break;
 		}
 
@@ -6522,198 +6714,6 @@ note_dies = "はドロドロに溶けた！";
 					do_stun = randint0(8) + 8;
 				}
 				(void)set_slow(target_ptr, target_ptr->slow + 10, FALSE);
-			}
-			break;
-		}
-
-		/* CAUSE_1 */
-		case GF_CAUSE_1:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
-#else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
-		}
-
-		/* CAUSE_2 */
-		case GF_CAUSE_2:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
-#else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
-		}
-
-		/* CAUSE_3 */
-		case GF_CAUSE_3:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
-#else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
-		}
-
-		/* CAUSE_4 */
-		case GF_CAUSE_4:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
-#else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if ((randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != MON_KENSHIROU)))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
-		}
-
-		/* HAND_DOOM */
-		case GF_HAND_DOOM:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			if (is_unique_creature(target_ptr))
-			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else
-			{
-				if ((caster_ptr != caster_ptr) ? ((caster_lev + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
-				   (((caster_lev / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
-				{
-					dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
-
-					if (target_ptr->chp < dam) dam = target_ptr->chp - 1;
-				}
-				else
-				{
-#ifdef JP
-					note = "は耐性を持っている！";
-#else
-					note = "resists!";
-#endif
-					dam = 0;
-				}
 			}
 			break;
 		}
