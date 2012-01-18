@@ -2366,12 +2366,16 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 // Deskull
 // For intagration of project_m() and project_p()
-static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell)
+static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell, bool see_s_msg)
 {
 	int k;
 	int rlev = 0;
 	int get_damage;
 	cptr act, note, note_dies;
+
+	cave_type *c_ptr = &cave[target_ptr->fy][target_ptr->fx];
+
+	int photo = 0;
 
 	bool skipped = FALSE;
 
@@ -2394,6 +2398,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	/* Is the monster "seen"? */
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
+
+	/* Polymorph setting (true or false) */
+	bool do_poly = FALSE;
+
+	/* Teleport setting (max distance) */
+	int do_dist = 0;
 
 	/* Confusion setting (amount to confuse) */
 	int do_conf = 0;
@@ -3897,7 +3907,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam *= 3; dam /= randint1(6) + 6;
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 			}
-			else do_conf = (10 + randint1(15) + r) / (r + 1);
+			else
+			{
+				//TODO do_conf = (10 + randint1(15) + r) / (r + 1);
+			}
 			break;
 		}
 
@@ -4618,7 +4631,7 @@ note = "があなたに隷属した。";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			do_stun = (randint1(15) + 1) / (r + 1);
+			//TODO do_stun = (randint1(15) + 1) / (r + 1);
 			if (has_cf_creature(target_ptr, CF_RES_COLD))
 			{
 #ifdef JP
@@ -6763,7 +6776,7 @@ note_dies = "はドロドロに溶けた！";
 
 				delete_species_idx(target_ptr);
 
-				return (TRUE);
+				//TODO return (TRUE);
 			}
 			else
 			{
@@ -6781,7 +6794,7 @@ msg_format("うまく捕まえられなかった。");
 		case GF_ATTACK:
 		{
 			/* Return this monster's death */
-			return weapon_attack(caster_ptr, y, x, dam);
+			//TODO return weapon_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */
@@ -6960,7 +6973,7 @@ note = "には効果がなかった！";
 #else
 				if (seen_msg) msg_format("%^s disappered!", target_name);
 #endif
-				return TRUE;
+				//TODO return TRUE;
 			}
 
 			skipped = TRUE;
@@ -7306,7 +7319,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
 
-	project_creature_aux(atk_ptr, player_ptr, typ, dam, spell);
+	project_creature_aux(atk_ptr, player_ptr, typ, dam, spell, see_s_msg);
 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
