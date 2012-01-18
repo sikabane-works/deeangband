@@ -3110,6 +3110,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Rocket: Shard resistance helps
+		case GF_ROCKET:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ROCKET, TRUE);
+			break;
+		}
+		*/
+
 
 		/* Inertia -- slowness */
 		case GF_INERTIA:
@@ -3379,6 +3388,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Time -- breathers resist
+		case GF_TIME:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_TIME, TRUE);
+			//TODO else do_time = (dam + 1) / 2;
+			break;
+		}
+		*/
 
 		/* Gravity -- stun plus slowness plus teleport */
 		case GF_GRAVITY:
@@ -3415,6 +3433,110 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Gravity -- breathers resist
+		case GF_GRAVITY:
+		{
+			bool resist_tele = FALSE;
+
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (target_ptr->resist_tele)
+			{
+				if (is_unique_creature(target_ptr))
+				{
+					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
+#ifdef JP
+note = "には効果がなかった。";
+#else
+					note = " is unaffected!";
+#endif
+
+					resist_tele = TRUE;
+				}
+				else if (species_ptr->level > randint1(100))
+				{
+					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
+#ifdef JP
+note = "には耐性がある！";
+#else
+					note = " resists!";
+#endif
+
+					resist_tele = TRUE;
+				}
+			}
+
+			if (!resist_tele) do_dist = 10;
+			else do_dist = 0;
+			if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
+
+			if (target_ptr->resist_gravity)
+			{
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+
+				dam *= 3; dam /= randint1(6) + 6;
+				do_dist = 0;
+				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_GRAV);
+			}
+			else
+			{
+				// 1. slowness
+				// Powerful monsters can resist
+				if ((is_unique_creature(target_ptr)) ||
+				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				{
+					obvious = FALSE;
+				}
+				// Normal monsters slow down
+				else
+				{
+					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
+					{
+#ifdef JP
+						note = "の動きが遅くなった。";
+#else
+						note = " starts moving slower.";
+#endif
+					}
+				}
+
+				// 2. stun
+				do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
+
+				// Attempt a saving throw
+				if ((is_unique_creature(target_ptr)) ||
+				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				{
+					// Resist
+					do_stun = 0;
+					// No obvious effect
+#ifdef JP
+					note = "には効果がなかった。";
+#else
+					note = " is unaffected!";
+#endif
+
+					obvious = FALSE;
+				}
+			}
+			break;
+		}
+		*/
 
 		/* Standard damage */
 		case GF_DISINTEGRATE:
@@ -3428,6 +3550,39 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Pure damage
+		case GF_DISINTEGRATE:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RESIST);
+				break;
+			}
+			if (is_hurt_rock_creature(target_ptr))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_HURT_ROCK);
+#ifdef JP
+note = "の皮膚がただれた！";
+note_dies = "は蒸発した！";
+#else
+				note = " loses some skin!";
+				note_dies = " evaporates!";
+#endif
+
+				dam *= 2;
+			}
+			break;
+		}
+		*/
+
 
 		case GF_OLD_HEAL:
 		{
@@ -3691,6 +3846,28 @@ note = "は眠り込んでしまった！";
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Pure damage
+		case GF_MANA:
+		case GF_SEEKER:
+		case GF_SUPER_RAY:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			break;
+		}
+		*/
+
 
 		/* Pure damage */
 		case GF_PSY_SPEAR:
@@ -3742,6 +3919,26 @@ note = "は眠り込んでしまった！";
 
 			break;
 		}
+		/* Meteor -- powerful magic missile
+		case GF_METEOR:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			break;
+		}
+		*/
+
 
 		/* Ice -- cold plus stun plus cuts */
 		case GF_ICE:
@@ -3773,6 +3970,49 @@ note = "は眠り込んでしまった！";
 			break;
 		}
 
+		/* Ice -- Cold + Cuts + Stun
+		case GF_ICE:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			//TODO do_stun = (randint1(15) + 1) / (r + 1);
+			if (has_cf_creature(target_ptr, CF_RES_COLD))
+			{
+#ifdef JP
+				note = "にはかなり耐性がある。";
+#else
+				note = " resists a lot.";
+#endif
+
+				dam /= 9;
+				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_IM_COLD);
+			}
+			else if (is_hurt_cold_creature(target_ptr))
+			{
+#ifdef JP
+				note = "はひどい痛手をうけた。";
+#else
+				note = " is hit hard.";
+#endif
+
+				dam *= 2;
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_HURT_COLD);
+			}
+			break;
+		}
+		*/
+
 		/* Death Ray */
 		case GF_DEATH_RAY:
 		{
@@ -3800,6 +4040,55 @@ note = "は眠り込んでしまった！";
 			}
 
 			break;
+
+		/* Death Ray
+		case GF_DEATH_RAY:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (!monster_living(species_ptr))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr))
+					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
+
+#ifdef JP
+				note = "には完全な耐性がある。";
+#else
+				note = " is immune.";
+#endif
+
+				obvious = FALSE;
+				dam = 0;
+			}
+			else if (((is_unique_creature(target_ptr)) &&
+				 (randint1(888) != 666)) ||
+				 (((species_ptr->level + randint1(20)) > randint1((caster_lev / 2) + randint1(10))) &&
+				 randint1(100) != 66))
+			{
+#ifdef JP
+				note = "には耐性がある！";
+#else
+				note = " resists!";
+#endif
+
+				obvious = FALSE;
+				dam = 0;
+			}
+
+			break;
+		}
+		*/
 
 		/* Drain mana */
 		case GF_DRAIN_MANA:
@@ -4555,15 +4844,6 @@ note = "は眠り込んでしまった！";
 			break;
 		}
 
-		/* Rocket: Shard resistance helps */
-		case GF_ROCKET:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ROCKET, TRUE);
-			break;
-		}
-
-
 		/* Sound -- Sound breathers resist */
 		case GF_SOUND:
 		{
@@ -4671,173 +4951,6 @@ note = "は眠り込んでしまった！";
 #endif
 					}
 				}
-			}
-			break;
-		}
-
-		/* Time -- breathers resist */
-		case GF_TIME:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_TIME, TRUE);
-			//TODO else do_time = (dam + 1) / 2;
-			break;
-		}
-
-		/* Gravity -- breathers resist */
-		case GF_GRAVITY:
-		{
-			bool resist_tele = FALSE;
-
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_tele)
-			{
-				if (is_unique_creature(target_ptr))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
-#ifdef JP
-note = "には効果がなかった。";
-#else
-					note = " is unaffected!";
-#endif
-
-					resist_tele = TRUE;
-				}
-				else if (species_ptr->level > randint1(100))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
-#ifdef JP
-note = "には耐性がある！";
-#else
-					note = " resists!";
-#endif
-
-					resist_tele = TRUE;
-				}
-			}
-
-			if (!resist_tele) do_dist = 10;
-			else do_dist = 0;
-			if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
-
-			if (target_ptr->resist_gravity)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				do_dist = 0;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_GRAV);
-			}
-			else
-			{
-				/* 1. slowness */
-				/* Powerful monsters can resist */
-				if ((is_unique_creature(target_ptr)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					obvious = FALSE;
-				}
-				/* Normal monsters slow down */
-				else
-				{
-					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-					{
-#ifdef JP
-						note = "の動きが遅くなった。";
-#else
-						note = " starts moving slower.";
-#endif
-					}
-				}
-
-				/* 2. stun */
-				do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
-
-				/* Attempt a saving throw */
-				if ((is_unique_creature(target_ptr)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					/* Resist */
-					do_stun = 0;
-					/* No obvious effect */
-#ifdef JP
-					note = "には効果がなかった。";
-#else
-					note = " is unaffected!";
-#endif
-
-					obvious = FALSE;
-				}
-			}
-			break;
-		}
-
-		/* Pure damage */
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			break;
-		}
-
-
-		/* Pure damage */
-		case GF_DISINTEGRATE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RESIST);
-				break;
-			}
-			if (is_hurt_rock_creature(target_ptr))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_HURT_ROCK);
-#ifdef JP
-note = "の皮膚がただれた！";
-note_dies = "は蒸発した！";
-#else
-				note = " loses some skin!";
-				note_dies = " evaporates!";
-#endif
-
-				dam *= 2;
 			}
 			break;
 		}
@@ -5140,24 +5253,6 @@ note_dies = "は蒸発した！";
 			break;
 		}
 
-		/* Meteor -- powerful magic missile */
-		case GF_METEOR:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			break;
-		}
 
 		case GF_DOMINATION:
 		{
@@ -5287,51 +5382,6 @@ note = "があなたに隷属した。";
 			break;
 		}
 
-
-
-		/* Ice -- Cold + Cuts + Stun */
-		case GF_ICE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			//TODO do_stun = (randint1(15) + 1) / (r + 1);
-			if (has_cf_creature(target_ptr, CF_RES_COLD))
-			{
-#ifdef JP
-				note = "にはかなり耐性がある。";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_IM_COLD);
-			}
-			else if (is_hurt_cold_creature(target_ptr))
-			{
-#ifdef JP
-				note = "はひどい痛手をうけた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				dam *= 2;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_HURT_COLD);
-			}
-			break;
-		}
-
-
 		/* Drain Life */
 		case GF_OLD_DRAIN:
 		{
@@ -5367,53 +5417,6 @@ note = "があなたに隷属した。";
 			break;
 		}
 
-		/* Death Ray */
-		case GF_DEATH_RAY:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (!monster_living(species_ptr))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr))
-					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
-
-#ifdef JP
-				note = "には完全な耐性がある。";
-#else
-				note = " is immune.";
-#endif
-
-				obvious = FALSE;
-				dam = 0;
-			}
-			else if (((is_unique_creature(target_ptr)) &&
-				 (randint1(888) != 666)) ||
-				 (((species_ptr->level + randint1(20)) > randint1((caster_lev / 2) + randint1(10))) &&
-				 randint1(100) != 66))
-			{
-#ifdef JP
-note = "には耐性がある！";
-#else
-				note = " resists!";
-#endif
-
-				obvious = FALSE;
-				dam = 0;
-			}
-
-			break;
-		}
 
 		/* Polymorph monster (Use "dam" as "power") */
 		case GF_OLD_POLY:
