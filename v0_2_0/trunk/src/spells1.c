@@ -1798,6 +1798,8 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 	int caster_lev = caster_ptr->lev * 2;
 
+//
+
 	/* Nobody here */
 	if (!c_ptr->m_idx) return (FALSE);
 
@@ -5830,17 +5832,78 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	/* Player needs a "description" (he is blind) */
 	bool fuzzy = FALSE;
 
-	/* Monster name (for attacks) */
+	/* Creature name (for attacker and target) */
 	char atk_name[80];
 	char tar_name[80];
 
-	/* Monster name (for damage) */
+	/* Creature name (for damage) */
 	char killer[80];
 
 	/* Hack -- messages */
 	cptr act = NULL;
 
 	int get_damage = 0;
+
+	cave_type *c_ptr = &cave[y][x];
+
+	creature_type *tar_ptr = &creature_list[c_ptr->m_idx];
+	species_type *species_ptr = &species_info[tar_ptr->species_idx];
+
+	/* Is the monster "seen"? */
+	bool seen = tar_ptr->ml;
+	bool seen_msg = is_seen(player_ptr, tar_ptr);
+
+	bool slept = (bool)tar_ptr->paralyzed;
+
+	/* Can the player know about this effect? */
+	bool known = ((tar_ptr->cdis <= MAX_SIGHT) || inside_battle);
+
+	/* Were the effects "irrelevant"? */
+	bool skipped = FALSE;
+
+	/* Gets the monster angry at the source of the effect? */
+	bool get_angry = FALSE;
+
+	/* Polymorph setting (true or false) */
+	bool do_poly = FALSE;
+
+	/* Teleport setting (max distance) */
+	int do_dist = 0;
+
+	/* Confusion setting (amount to confuse) */
+	int do_conf = 0;
+
+	/* Stunning setting (amount to stun) */
+	int do_stun = 0;
+
+	/* Sleep amount (amount to sleep) */
+	int do_sleep = 0;
+
+	/* Fear amount (amount to fear) */
+	int do_fear = 0;
+
+	/* Time amount (amount to time) */
+	int do_time = 0;
+
+	bool heal_leper = FALSE;
+
+#ifndef JP
+	char m_poss[10];
+#endif
+
+	int photo = 0;
+
+	/* Assume no note */
+	cptr note = NULL;
+
+	/* Assume a default death */
+	cptr note_dies = extract_note_dies(player_ptr, real_species_ptr(tar_ptr));
+
+	int ty = tar_ptr->fy;
+	int tx = tar_ptr->fx;
+
+	int atk_lev = atk_ptr->lev * 2;
+
 
 	creature_desc(atk_name, atk_ptr, 0);
 	creature_desc(tar_name, player_ptr, 0);
