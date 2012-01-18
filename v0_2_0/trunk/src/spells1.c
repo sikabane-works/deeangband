@@ -2652,6 +2652,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* Nuclear waste
+		case GF_NUKE:
+		{
+			if (seen) obvious = TRUE;
+			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
+			break;
+		}
+		*/
 
 		/* Standard damage */
 		case GF_MISSILE:
@@ -3175,6 +3183,50 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
+		/* Lite -- opposite of Dark
+		case GF_LITE:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (has_cf_creature(target_ptr, CF_RES_LITE))
+			{
+#ifdef JP
+				note = "には耐性がある！";
+#else
+				note = " resists.";
+#endif
+
+				dam *= 2; dam /= (randint1(6)+6);
+				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_LITE);
+			}
+			else if (is_hurt_lite_creature(target_ptr))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
+#ifdef JP
+				note = "は光に身をすくめた！";
+				note_dies = "は光を受けてしぼんでしまった！";
+#else
+				note = " cringes from the light!";
+				note_dies = " shrivels away in the light!";
+#endif
+
+				dam *= 2;
+			}
+			break;
+		}
+		*/
+
 
 		/* Dark -- blinding */
 		case GF_DARK:
@@ -3199,6 +3251,36 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
+		/* Dark -- opposite of Lite
+		case GF_DARK:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			if (has_cf_creature(target_ptr, CF_RES_DARK))
+			{
+#ifdef JP
+				note = "には耐性がある！";
+#else
+				note = " resists.";
+#endif
+
+				dam *= 2; dam /= (randint1(6)+6);
+				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_DARK);
+			}
+			break;
+		}
+		*/
 
 		/* Time -- bolt fewer effects XXX */
 		case GF_TIME:
@@ -3359,6 +3441,63 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
+		/*
+		case GF_OLD_HEAL:
+		{
+			if (seen) obvious = TRUE;
+
+			// Wake up
+			(void)set_paralyzed(target_ptr, 0);
+			if (target_ptr->stun)
+			{
+#ifdef JP
+				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", target_name);
+#else
+				if (seen_msg) msg_format("%^s is no longer stunned.", target_name);
+#endif
+				(void)set_stun(target_ptr, 0);
+			}
+			if (target_ptr->confused)
+			{
+#ifdef JP
+				if (seen_msg) msg_format("%^sは混乱から立ち直った。", target_name);
+#else
+				if (seen_msg) msg_format("%^s is no longer confused.", target_name);
+#endif
+				(void)set_confused(target_ptr, 0);
+			}
+			if (target_ptr->afraid)
+			{
+#ifdef JP
+				if (seen_msg) msg_format("%^sは勇気を取り戻した。", target_name);
+#else
+				if (seen_msg) msg_format("%^s recovers %s courage.", target_name, m_poss);
+#endif
+				(void)set_afraid(target_ptr, 0);
+			}
+
+			// Heal
+			if (target_ptr->chp < 30000) target_ptr->chp += dam;
+
+			// No overflow
+			if (target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
+
+			// Redraw (later) if needed
+			if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+			if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+
+			// Message
+#ifdef JP
+			note = "は体力を回復したようだ。";
+#else
+			note = " looks healthier.";
+#endif
+
+			// No "real" damage
+			dam = 0;
+			break;
+		}
+		*/
 
 		case GF_OLD_SPEED:
 		{
@@ -3372,6 +3511,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
+		/* Speed Monster (Ignore "dam")
+		case GF_OLD_SPEED:
+		{
+			if (seen) obvious = TRUE;
+
+			// Speed up
+			if (set_fast(target_ptr, target_ptr->fast + 100, FALSE))
+			{
+#ifdef JP
+				note = "の動きが速くなった。";
+#else
+				note = " starts moving faster.";
+#endif
+			}
+
+			// No "real" damage
+			dam = 0;
+			break;
+		}
+		*/
 
 		case GF_OLD_SLOW:
 		{
@@ -3384,6 +3543,53 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
 			break;
 		}
+		/* Slow Monster (Use "dam" as "power")
+		case GF_OLD_SLOW:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には効果がなかった！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			// Powerful monsters can resist
+			if ((is_unique_creature(target_ptr)) ||
+			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+#ifdef JP
+note = "には効果がなかった！";
+#else
+				note = " is unaffected!";
+#endif
+
+				obvious = FALSE;
+			}
+
+			// Normal monsters slow down
+			else
+			{
+				if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
+				{
+#ifdef JP
+					note = "の動きが遅くなった。";
+#else
+					note = " starts moving slower.";
+#endif
+				}
+			}
+
+			// No "real" damage
+			dam = 0;
+			break;
+		}
+		*/
 
 		case GF_OLD_SLEEP:
 		{
@@ -3418,6 +3624,59 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+		/* Sleep (Use "dam" as "power")
+		case GF_OLD_SLEEP:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には効果がなかった！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			// Attempt a saving throw
+			if (has_cf_creature(target_ptr, CF_UNIQUE) ||
+			    has_cf_creature(target_ptr, CF_NO_SLEEP) ||
+			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				// Memorize a flag
+				if (has_cf_creature(target_ptr, CF_NO_SLEEP))
+				{
+				}
+
+				// No obvious effect
+#ifdef JP
+				note = "には効果がなかった！";
+#else
+				note = " is unaffected!";
+#endif
+
+				obvious = FALSE;
+			}
+			else
+			{
+				// Go to sleep (much) later
+#ifdef JP
+note = "は眠り込んでしまった！";
+#else
+				note = " falls asleep!";
+#endif
+
+				do_sleep = 500;
+			}
+
+			// No "real" damage
+			dam = 0;
+			break;
+		}
+		*/
+
 		/* Pure damage */
 		case GF_MANA:
 		case GF_SEEKER:
@@ -3445,6 +3704,25 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
 			break;
 		}
+		/* Psycho-spear -- powerful magic missile
+		case GF_PSY_SPEAR:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+			break;
+		}
+		*/
 
 		/* Pure damage */
 		case GF_METEOR:
@@ -3597,6 +3875,75 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
+		/* Drain mana
+		case GF_DRAIN_MANA:
+		{
+			if (seen) obvious = TRUE;
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			if (has_magic_power(target_ptr))
+			{
+				if (caster_ptr > 0)
+				{
+					// Heal the monster
+					if (caster_ptr->chp < caster_ptr->mhp)
+					{
+						// Heal
+						caster_ptr->chp += 6 * dam;
+						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
+
+						// Redraw (later) if needed
+						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[player_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+
+						// Special message
+						if (see_s_msg)
+						{
+							// Get the monster name
+							creature_desc(killer, caster_ptr, 0);
+#ifdef JP
+							msg_format("%^sは気分が良さそうだ。", killer);
+#else
+							msg_format("%^s appears healthier.", killer);
+#endif
+						}
+					}
+				}
+				else
+				{
+					// Message
+#ifdef JP
+					msg_format("%sから精神エネルギーを吸いとった。", target_name);
+#else
+					msg_format("You draw psychic energy from %s.", target_name);
+#endif
+
+					(void)hp_player(caster_ptr, dam);
+				}
+			}
+			else
+			{
+#ifdef JP
+				if (see_s_msg) msg_format("%sには効果がなかった。", target_name);
+#else
+				if (see_s_msg) msg_format("%s is unaffected.", target_name);
+#endif
+			}
+			dam = 0;
+			break;
+		}
+		*/
 
 		/* Mind blast */
 		case GF_MIND_BLAST:
@@ -3643,6 +3990,83 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* Mind blast
+		case GF_MIND_BLAST:
+		{
+			if (seen) obvious = TRUE;
+			// Message
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+#else
+			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
+#endif
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw
+			if (is_unique_creature(target_ptr) ||
+				has_cf_creature(target_ptr, CF_NO_CONF) ||
+			   (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
+			{
+				// Memorize a flag
+				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				{
+					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
+				}
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune!";
+#endif
+				dam = 0;
+			}
+			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+				dam /= 3;
+			}
+			else
+			{
+#ifdef JP
+				note = "は精神攻撃を食らった。";
+				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+#else
+				note = " is blasted by psionic energy.";
+				note_dies = " collapses, a mindless husk.";
+#endif
+
+				if (caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
+				else do_conf = randint0(8) + 8;
+			}
+			break;
+		}
+		*/
+
 
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
@@ -3705,6 +4129,91 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+		/* Brain smash
+		case GF_BRAIN_SMASH:
+		{
+			if (seen) obvious = TRUE;
+			// Message
+#ifdef JP
+			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+#else
+			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
+#endif
+
+			if (target_ptr->resist_ultimate)
+			{
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune.";
+#endif
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+				break;
+			}
+
+			// Attempt a saving throw 
+			if (is_unique_creature(target_ptr) ||
+				has_cf_creature(target_ptr, CF_NO_CONF) ||
+				 (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
+			{
+				// Memorize a flag
+				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				{
+					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
+				}
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
+#ifdef JP
+				note = "には完全な耐性がある！";
+#else
+				note = " is immune!";
+#endif
+				dam = 0;
+			}
+			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
+			{
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+				dam /= 3;
+			}
+			else
+			{
+#ifdef JP
+				note = "は精神攻撃を食らった。";
+				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+#else
+				note = " is blasted by psionic energy.";
+				note_dies = " collapses, a mindless husk.";
+#endif
+
+				if (caster_ptr != caster_ptr)
+				{
+					do_conf = randint0(4) + 4;
+					do_stun = randint0(4) + 4;
+				}
+				else
+				{
+					do_conf = randint0(8) + 8;
+					do_stun = randint0(8) + 8;
+				}
+				(void)set_slow(target_ptr, target_ptr->slow + 10, FALSE);
+			}
+			break;
+		}
+		*/
 
 		/* cause 1 */
 		case GF_CAUSE_1:
@@ -4005,14 +4514,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		*/
-
-		/* Nuclear waste */
-		case GF_NUKE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
-			break;
-		}
 
 		/* Hellfire -- hurts Evil */
 		case GF_HELL_FIRE:
@@ -4639,25 +5140,6 @@ note_dies = "は蒸発した！";
 			break;
 		}
 
-		/* Psycho-spear -- powerful magic missile */
-		case GF_PSY_SPEAR:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			break;
-		}
-
 		/* Meteor -- powerful magic missile */
 		case GF_METEOR:
 		{
@@ -5039,184 +5521,6 @@ note = "が分裂した！";
 
 			/* Fall through */
 		}
-		case GF_OLD_HEAL:
-		{
-			if (seen) obvious = TRUE;
-
-			/* Wake up */
-			(void)set_paralyzed(target_ptr, 0);
-			if (target_ptr->stun)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", target_name);
-#else
-				if (seen_msg) msg_format("%^s is no longer stunned.", target_name);
-#endif
-				(void)set_stun(target_ptr, 0);
-			}
-			if (target_ptr->confused)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは混乱から立ち直った。", target_name);
-#else
-				if (seen_msg) msg_format("%^s is no longer confused.", target_name);
-#endif
-				(void)set_confused(target_ptr, 0);
-			}
-			if (target_ptr->afraid)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは勇気を取り戻した。", target_name);
-#else
-				if (seen_msg) msg_format("%^s recovers %s courage.", target_name, m_poss);
-#endif
-				(void)set_afraid(target_ptr, 0);
-			}
-
-			/* Heal */
-			if (target_ptr->chp < 30000) target_ptr->chp += dam;
-
-			/* No overflow */
-			if (target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
-
-			/* Redraw (later) if needed */
-			if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-			if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
-
-			/* Message */
-#ifdef JP
-			note = "は体力を回復したようだ。";
-#else
-			note = " looks healthier.";
-#endif
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-
-		/* Speed Monster (Ignore "dam") */
-		case GF_OLD_SPEED:
-		{
-			if (seen) obvious = TRUE;
-
-			/* Speed up */
-			if (set_fast(target_ptr, target_ptr->fast + 100, FALSE))
-			{
-#ifdef JP
-				note = "の動きが速くなった。";
-#else
-				note = " starts moving faster.";
-#endif
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-
-		/* Slow Monster (Use "dam" as "power") */
-		case GF_OLD_SLOW:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			/* Powerful monsters can resist */
-			if ((is_unique_creature(target_ptr)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-#ifdef JP
-note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
-				obvious = FALSE;
-			}
-
-			/* Normal monsters slow down */
-			else
-			{
-				if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-				{
-#ifdef JP
-					note = "の動きが遅くなった。";
-#else
-					note = " starts moving slower.";
-#endif
-				}
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-
-		/* Sleep (Use "dam" as "power") */
-		case GF_OLD_SLEEP:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			/* Attempt a saving throw */
-			if (has_cf_creature(target_ptr, CF_UNIQUE) ||
-			    has_cf_creature(target_ptr, CF_NO_SLEEP) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_SLEEP))
-				{
-				}
-
-				/* No obvious effect */
-#ifdef JP
-note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
-				obvious = FALSE;
-			}
-			else
-			{
-				/* Go to sleep (much) later */
-#ifdef JP
-note = "は眠り込んでしまった！";
-#else
-				note = " falls asleep!";
-#endif
-
-				do_sleep = 500;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
 
 		/* Sleep (Use "dam" as "power") */
 		case GF_STASIS_EVIL:
@@ -5810,9 +6114,6 @@ note = "には効果がなかった！";
 			break;
 		}
 
-
-
-
 		/* Lite, but only hurts susceptible creatures */
 		case GF_LITE_WEAK:
 		{
@@ -5853,82 +6154,6 @@ note_dies = "は光を受けてしぼんでしまった！";
 				dam = 0;
 			}
 
-			break;
-		}
-
-
-
-		/* Lite -- opposite of Dark */
-		case GF_LITE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (has_cf_creature(target_ptr, CF_RES_LITE))
-			{
-#ifdef JP
-				note = "には耐性がある！";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 2; dam /= (randint1(6)+6);
-				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_LITE);
-			}
-			else if (is_hurt_lite_creature(target_ptr))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
-#ifdef JP
-				note = "は光に身をすくめた！";
-				note_dies = "は光を受けてしぼんでしまった！";
-#else
-				note = " cringes from the light!";
-				note_dies = " shrivels away in the light!";
-#endif
-
-				dam *= 2;
-			}
-			break;
-		}
-
-
-		/* Dark -- opposite of Lite */
-		case GF_DARK:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-			if (has_cf_creature(target_ptr, CF_RES_DARK))
-			{
-#ifdef JP
-				note = "には耐性がある！";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 2; dam /= (randint1(6)+6);
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_DARK);
-			}
 			break;
 		}
 
@@ -6485,236 +6710,6 @@ note_dies = "はドロドロに溶けた！";
 #endif
 
 
-			break;
-		}
-
-		/* Drain mana */
-		case GF_DRAIN_MANA:
-		{
-			if (seen) obvious = TRUE;
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			if (has_magic_power(target_ptr))
-			{
-				if (caster_ptr > 0)
-				{
-					/* Heal the monster */
-					if (caster_ptr->chp < caster_ptr->mhp)
-					{
-						/* Heal */
-						caster_ptr->chp += 6 * dam;
-						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
-
-						/* Redraw (later) if needed */
-						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-						if (&creature_list[player_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
-
-						/* Special message */
-						if (see_s_msg)
-						{
-							/* Get the monster name */
-							creature_desc(killer, caster_ptr, 0);
-#ifdef JP
-							msg_format("%^sは気分が良さそうだ。", killer);
-#else
-							msg_format("%^s appears healthier.", killer);
-#endif
-						}
-					}
-				}
-				else
-				{
-					/* Message */
-#ifdef JP
-					msg_format("%sから精神エネルギーを吸いとった。", target_name);
-#else
-					msg_format("You draw psychic energy from %s.", target_name);
-#endif
-
-					(void)hp_player(caster_ptr, dam);
-				}
-			}
-			else
-			{
-#ifdef JP
-				if (see_s_msg) msg_format("%sには効果がなかった。", target_name);
-#else
-				if (see_s_msg) msg_format("%s is unaffected.", target_name);
-#endif
-			}
-			dam = 0;
-			break;
-		}
-
-		/* Mind blast */
-		case GF_MIND_BLAST:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-#else
-			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if (is_unique_creature(target_ptr) ||
-				has_cf_creature(target_ptr, CF_NO_CONF) ||
-			   (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
-			{
-				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
-				}
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
-				dam = 0;
-			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-				dam /= 3;
-			}
-			else
-			{
-#ifdef JP
-				note = "は精神攻撃を食らった。";
-				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-				note = " is blasted by psionic energy.";
-				note_dies = " collapses, a mindless husk.";
-#endif
-
-				if (caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
-				else do_conf = randint0(8) + 8;
-			}
-			break;
-		}
-
-		/* Brain smash */
-		case GF_BRAIN_SMASH:
-		{
-			if (seen) obvious = TRUE;
-			/* Message */
-#ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-#else
-			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
-#endif
-
-			if (target_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if (is_unique_creature(target_ptr) ||
-				has_cf_creature(target_ptr, CF_NO_CONF) ||
-				 (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
-			{
-				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
-				}
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
-				dam = 0;
-			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-				dam /= 3;
-			}
-			else
-			{
-#ifdef JP
-				note = "は精神攻撃を食らった。";
-				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-				note = " is blasted by psionic energy.";
-				note_dies = " collapses, a mindless husk.";
-#endif
-
-				if (caster_ptr != caster_ptr)
-				{
-					do_conf = randint0(4) + 4;
-					do_stun = randint0(4) + 4;
-				}
-				else
-				{
-					do_conf = randint0(8) + 8;
-					do_stun = randint0(8) + 8;
-				}
-				(void)set_slow(target_ptr, target_ptr->slow + 10, FALSE);
-			}
 			break;
 		}
 
