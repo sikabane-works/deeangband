@@ -5793,6 +5793,1313 @@ msg_print("生命力が体から吸い取られた気がする！");
 }
 
 
+// Deskull
+// For intagration of project_m() and project_p()
+static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell)
+{
+	int k;
+	int rlev = 0;
+	int get_damage;
+	cptr act;
+
+	/* Player needs a "description" (he is blind) */
+	bool fuzzy = FALSE;
+
+	/* Creature name (for attacker and target) */
+	char caster_name[80];
+	char target_name[80];
+	char killer[80];
+
+	/* Is the player blind? */
+	bool blind = (player_ptr->blind ? TRUE : FALSE);
+
+	creature_desc(caster_name, caster_ptr, 0);
+	creature_desc(target_name, target_ptr, 0);
+
+	if (!is_player(caster_ptr))
+	{
+		/* Get the source monster */
+		/* Extract the monster level */
+		rlev = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
+
+		/* Get the monster name */
+		creature_desc(caster_name, caster_ptr, 0);
+
+		/* Get the monster's real name (gotten before polymorph!) */
+		//TODO ? strcpy(killer, who_name);
+	}
+	else
+	{
+/*TODO
+		switch (who)
+		{
+		case PROJECT_WHO_UNCTRL_POWER:
+#ifdef JP
+			strcpy(killer, "制御できない力の氾流");
+#else
+			strcpy(killer, "uncontrollable power storm");
+#endif
+			break;
+
+		case PROJECT_WHO_GLASS_SHARDS:
+#ifdef JP
+			strcpy(killer, "ガラスの破片");
+#else
+			strcpy(killer, "shards of glass");
+#endif
+			break;
+
+		default:
+#ifdef JP
+			strcpy(killer, "罠");
+#else
+			strcpy(killer, "a trap");
+#endif
+			break;
+		}
+*/
+
+#ifdef JP
+		strcpy(killer, "罠");
+#else
+		strcpy(killer, "a trap");
+#endif
+
+		/* Paranoia */
+		strcpy(caster_name, killer);
+	}
+
+	/* If the player is blind, be more descriptive */
+	if (blind) fuzzy = TRUE;
+
+	/* Analyze the damage */
+	switch (typ)
+	{
+		/* Standard damage -- hurts target_ptr->inventory too */
+		case GF_ACID:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("酸で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by acid!");
+#endif
+			
+			get_damage = acid_dam(target_ptr, dam, killer, spell);
+			break;
+		}
+
+		/* Standard damage -- hurts target_ptr->inventory too */
+		case GF_FIRE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("火炎で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by fire!");
+#endif
+
+			get_damage = fire_dam(target_ptr, dam, killer, spell);
+			break;
+		}
+
+		/* Standard damage -- hurts target_ptr->inventory too */
+		case GF_COLD:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("冷気で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by cold!");
+#endif
+
+			get_damage = cold_dam(target_ptr, dam, killer, spell);
+			break;
+		}
+
+		/* Standard damage -- hurts target_ptr->inventory too */
+		case GF_ELEC:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("電撃で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by lightning!");
+#endif
+
+			get_damage = elec_dam(target_ptr, dam, killer, spell);
+			break;
+		}
+
+		/* Standard damage -- also poisons player */
+		case GF_POIS:
+		{
+			bool double_resist = IS_OPPOSE_POIS(target_ptr);
+#ifdef JP
+			if (fuzzy) msg_print("毒で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by poison!");
+#endif
+
+			if (target_ptr->resist_pois) dam = (dam + 2) / 3;
+			if (double_resist) dam = (dam + 2) / 3;
+
+			if ((!(double_resist || target_ptr->resist_pois)) &&
+			     one_in_(HURT_CHANCE) && !(target_ptr->multishadow && (turn & 1)))
+			{
+				do_dec_stat(target_ptr, STAT_CON);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+
+			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
+			{
+				set_poisoned(target_ptr, target_ptr->poisoned + randint0(dam) + 10);
+			}
+			break;
+		}
+
+		/* Standard damage -- also poisons / mutates player */
+		case GF_NUKE:
+		{
+			bool double_resist = IS_OPPOSE_POIS(target_ptr);
+#ifdef JP
+			if (fuzzy) msg_print("放射能で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by radiation!");
+#endif
+
+			if (target_ptr->resist_pois) dam = (2 * dam + 2) / 5;
+			if (double_resist) dam = (2 * dam + 2) / 5;
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
+			{
+				set_poisoned(target_ptr, target_ptr->poisoned + randint0(dam) + 10);
+
+				if (one_in_(5)) /* 6 */
+				{
+#ifdef JP
+					msg_print("奇形的な変身を遂げた！");
+#else
+					msg_print("You undergo a freakish metamorphosis!");
+#endif
+
+					if (one_in_(4)) /* 4 */
+						do_poly_self(target_ptr);
+					else
+						mutate_creature(target_ptr);
+				}
+
+				if (one_in_(6))
+				{
+					inven_damage(target_ptr, set_acid_destroy, 2);
+				}
+			}
+			break;
+		}
+
+		/* Standard damage */
+		case GF_MISSILE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Holy Orb -- Player only takes partial damage */
+		case GF_HOLY_FIRE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			if (target_ptr->good > 10)
+				dam /= 2;
+			else if (target_ptr->evil > 10)
+				dam *= 2;
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		case GF_HELL_FIRE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			if (target_ptr->good > 10)
+				dam *= 2;
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Arrow -- XXX no dodging */
+		case GF_ARROW:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something sharp!");
+#endif
+
+			else if ((target_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (target_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
+			{
+#ifdef JP
+				msg_print("矢を斬り捨てた！");
+#else
+				msg_print("You cut down the arrow!");
+#endif
+				break;
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Plasma -- XXX No resist */
+		case GF_PLASMA:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かとても熱いもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something *HOT*!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+
+			if (!target_ptr->resist_sound && !(target_ptr->multishadow && (turn & 1)))
+			{
+				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
+				(void)set_stun(target_ptr, target_ptr->stun + k);
+			}
+
+			if (!(target_ptr->resist_fire ||
+			      IS_OPPOSE_FIRE(target_ptr) ||
+			      target_ptr->immune_fire))
+			{
+				inven_damage(target_ptr, set_acid_destroy, 3);
+			}
+
+			break;
+		}
+
+		/* Nether -- drain experience */
+		case GF_NETHER:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("地獄の力で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by nether forces!");
+#endif
+
+			if (target_ptr->resist_neth)
+			{
+				dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1))) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
+
+			if (!(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("気分がよくなった。");
+#else
+				msg_print("You feel invigorated!");
+#endif
+
+				hp_player(target_ptr, dam / 4);
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+
+			break;
+		}
+
+		/* Water -- stun/confuse */
+		case GF_WATER:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か湿ったもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something wet!");
+#endif
+
+			if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				if (!target_ptr->resist_sound)
+				{
+					set_stun(target_ptr, target_ptr->stun + randint1(40));
+				}
+				if (!target_ptr->resist_conf)
+				{
+					set_confused(target_ptr, target_ptr->confused + randint1(5) + 5);
+				}
+
+				if (one_in_(5))
+				{
+					inven_damage(target_ptr, set_cold_destroy, 3);
+				}
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Chaos -- many effects */
+		case GF_CHAOS:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("無秩序の波動で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by a wave of anarchy!");
+#endif
+
+			if (target_ptr->resist_chaos)
+			{
+				dam *= 6; dam /= (randint1(4) + 7);
+			}
+
+			if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				if (!target_ptr->resist_conf)
+				{
+					(void)set_confused(target_ptr, target_ptr->confused + randint0(20) + 10);
+				}
+				if (!target_ptr->resist_chaos)
+				{
+					(void)set_image(target_ptr, target_ptr->image + randint1(10));
+					if (one_in_(3))
+					{
+#ifdef JP
+						msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
+#else
+						msg_print("Your body is twisted by chaos!");
+#endif
+
+						(void)gain_random_mutation(target_ptr, 0, TRUE);
+					}
+				}
+				if (!target_ptr->resist_neth && !target_ptr->resist_chaos)
+				{
+					drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
+				}
+
+				if (!target_ptr->resist_chaos || one_in_(9))
+				{
+					inven_damage(target_ptr, set_elec_destroy, 2);
+					inven_damage(target_ptr, set_fire_destroy, 2);
+				}
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Shards -- mostly cutting */
+		case GF_SHARDS:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something sharp!");
+#endif
+
+			if (target_ptr->resist_shard)
+			{
+				dam *= 6; dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_cut(target_ptr, target_ptr->cut + dam);
+			}
+
+			if (!target_ptr->resist_shard || one_in_(13))
+			{
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Sound -- mostly stunning */
+		case GF_SOUND:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("轟音で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by a loud noise!");
+#endif
+
+			if (target_ptr->resist_sound)
+			{
+				dam *= 5; dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
+				(void)set_stun(target_ptr, target_ptr->stun + k);
+			}
+
+			if (!target_ptr->resist_sound || one_in_(13))
+			{
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Pure confusion */
+		case GF_CONFUSION:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か混乱するもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something puzzling!");
+#endif
+
+			if (target_ptr->resist_conf)
+			{
+				dam *= 5; dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_confused(target_ptr, target_ptr->confused + randint1(20) + 10);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Disenchantment -- see above */
+		case GF_DISENCHANT:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かさえないもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something static!");
+#endif
+
+			if (target_ptr->resist_disen)
+			{
+				dam *= 6; dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)apply_disenchant(target_ptr, 0);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Nexus -- see above */
+		case GF_NEXUS:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か奇妙なもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something strange!");
+#endif
+
+			if (target_ptr->resist_nexus)
+			{
+				dam *= 6; dam /= (randint1(4) + 7);
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				apply_nexus(caster_ptr);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Force -- mostly stun */
+		case GF_FORCE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("運動エネルギーで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by kinetic force!");
+#endif
+
+			if (!target_ptr->resist_sound && !(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_stun(target_ptr, target_ptr->stun + randint1(20));
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+
+		/* Rocket -- stun, cut */
+		case GF_ROCKET:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("爆発があった！");
+#else
+			if (fuzzy) msg_print("There is an explosion!");
+#endif
+
+			if (!target_ptr->resist_sound && !(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_stun(target_ptr, target_ptr->stun + randint1(20));
+			}
+
+			if (target_ptr->resist_shard)
+			{
+				dam /= 2;
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_cut(target_ptr, target_ptr->cut + (dam / 2));
+			}
+
+			if (!target_ptr->resist_shard || one_in_(12))
+			{
+				inven_damage(target_ptr, set_cold_destroy, 3);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Inertia -- slowness */
+		case GF_INERTIA:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か遅いもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something slow!");
+#endif
+
+			if (!(target_ptr->multishadow && (turn & 1))) (void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Lite -- blinding */
+		case GF_LITE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			if (target_ptr->resist_lite)
+			{
+				dam *= 4; dam /= (randint1(4) + 7);
+			}
+			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_blind(target_ptr, target_ptr->blind + randint1(5) + 2);
+			}
+
+			if (has_cf_creature(target_ptr, CF_HURT_LITE))
+			{
+#ifdef JP
+				if (!(target_ptr->multishadow && (turn & 1))) msg_print("光で肉体が焦がされた！");
+#else
+				if (!(target_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
+#endif
+
+				dam *= 2;
+			}
+			else if (race_is_(target_ptr, RACE_S_FAIRY))
+			{
+				dam = dam * 4 / 3;
+			}
+
+			if (target_ptr->wraith_form) dam *= 2;
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+
+			if (target_ptr->wraith_form && !(target_ptr->multishadow && (turn & 1)))
+			{
+				target_ptr->wraith_form = 0;
+#ifdef JP
+				msg_print("閃光のため非物質的な影の存在でいられなくなった。");
+#else
+				msg_print("The light forces you out of your incorporeal shadow form.");
+#endif
+
+				play_redraw |= PR_MAP;
+				/* Update monsters */
+				target_ptr->update |= (PU_MONSTERS);
+				/* Window stuff */
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
+
+				/* Redraw status bar */
+				play_redraw |= (PR_STATUS);
+
+			}
+
+			break;
+		}
+
+		/* Dark -- blinding */
+		case GF_DARK:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			if (target_ptr->resist_dark)
+			{
+				dam *= 4; dam /= (randint1(4) + 7);
+
+				//TODO Dark Immune
+				//if () dam = 0;
+			}
+			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
+			{
+				(void)set_blind(target_ptr, target_ptr->blind + randint1(5) + 2);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Time -- bolt fewer effects XXX */
+		case GF_TIME:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("過去からの衝撃に攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by a blast from the past!");
+#endif
+
+			if (target_ptr->resist_time)
+			{
+				dam *= 4;
+				dam /= (randint1(4) + 7);
+				if(is_player(target_ptr))
+				{
+#ifdef JP
+					msg_format("%sは時間が通り過ぎていく様子を感じた。", target_name);
+#else
+					msg_format("You feel as if time is passing you by.");
+#endif
+				}
+			}
+			else if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				switch (randint1(10))
+				{
+					case 1: case 2: case 3: case 4: case 5:
+					{
+						if (has_cf_creature(target_ptr, CF_ANDROID)) break;
+#ifdef JP
+						msg_format("%sの時の流れが逆戻りしたようだ。", target_name);
+#else
+						//TODO
+						msg_print("You feel life has clocked back.");
+#endif
+
+						lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * MON_DRAIN_LIFE);
+						break;
+					}
+
+					case 6: case 7: case 8: case 9:
+					{
+						switch (randint1(6))
+						{
+#ifdef JP
+							case 1: k = STAT_STR; act = "力強さ"; break;
+							case 2: k = STAT_INT; act = "聡明さ"; break;
+							case 3: k = STAT_WIS; act = "賢明さ"; break;
+							case 4: k = STAT_DEX; act = "器用さ"; break;
+							case 5: k = STAT_CON; act = "頑丈さ"; break;
+							case 6: k = STAT_CHR; act = "美しさ"; break;
+#else
+							case 1: k = STAT_STR; act = "strong"; break;
+							case 2: k = STAT_INT; act = "bright"; break;
+							case 3: k = STAT_WIS; act = "wise"; break;
+							case 4: k = STAT_DEX; act = "agile"; break;
+							case 5: k = STAT_CON; act = "hale"; break;
+							case 6: k = STAT_CHR; act = "beautiful"; break;
+#endif
+						}
+
+#ifdef JP
+						msg_format("%sの%sが大きく損なわれた。", target_name, act);
+#else
+						//TODO
+						msg_format("You're not as %s as you used to be.", act);
+#endif
+
+						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
+						if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+						target_ptr->update |= (PU_BONUS);
+						break;
+					}
+
+					case 10:
+					{
+#ifdef JP
+						msg_format("%sの能力が大きく衰えた。", target_name);
+#else
+						//TODO
+						msg_format("You're not as powerful as you used to be...");
+#endif
+
+						for (k = 0; k < 6; k++)
+						{
+							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
+							if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+						}
+						target_ptr->update |= (PU_BONUS);
+						break;
+					}
+				}
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Gravity -- stun plus slowness plus teleport */
+		case GF_GRAVITY:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か重いもので攻撃された！");
+			msg_print("周辺の重力がゆがんだ。");
+#else
+			if (fuzzy) msg_print("You are hit by something heavy!");
+			msg_print("Gravity warps around you.");
+#endif
+
+			if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
+				if (!target_ptr->levitation)
+					(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+				if (!(target_ptr->resist_sound || target_ptr->levitation))
+				{
+					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
+					(void)set_stun(target_ptr, target_ptr->stun + k);
+				}
+			}
+			if (target_ptr->levitation)
+			{
+				dam = (dam * 2) / 3;
+			}
+
+			if (!target_ptr->levitation || one_in_(13))
+			{
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Standard damage */
+		case GF_DISINTEGRATE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("純粋なエネルギーで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by pure energy!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		case GF_OLD_HEAL:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何らかの攻撃によって気分がよくなった。");
+#else
+			if (fuzzy) msg_print("You are hit by something invigorating!");
+#endif
+
+			(void)hp_player(target_ptr, dam);
+			dam = 0;
+			break;
+		}
+
+		case GF_OLD_SPEED:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something!");
+#endif
+
+			(void)set_fast(target_ptr, target_ptr->fast + randint1(5), FALSE);
+			dam = 0;
+			break;
+		}
+
+		case GF_OLD_SLOW:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か遅いもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something slow!");
+#endif
+
+			(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+			break;
+		}
+
+		case GF_OLD_SLEEP:
+		{
+			if (target_ptr->free_act)  break;
+#ifdef JP
+			if (fuzzy) msg_print("眠ってしまった！");
+#else
+			if (fuzzy) msg_print("You fall asleep!");
+#endif
+
+
+			if (curse_of_Iluvatar)
+			{
+#ifdef JP
+				msg_print("恐ろしい光景が頭に浮かんできた。");
+#else
+				msg_print("A horrible vision enters your mind.");
+#endif
+
+				/* Pick a nightmare */
+				get_mon_num_prep(get_nightmare, NULL);
+
+				/* Have some nightmares */
+				have_nightmare(target_ptr, get_mon_num(MAX_DEPTH));
+
+				/* Remove the monster restriction */
+				get_mon_num_prep(NULL, NULL);
+			}
+
+			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);
+			dam = 0;
+			break;
+		}
+
+		/* Pure damage */
+		case GF_MANA:
+		case GF_SEEKER:
+		case GF_SUPER_RAY:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("魔法のオーラで攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by an aura of magic!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Pure damage */
+		case GF_PSY_SPEAR:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("エネルギーの塊で攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by an energy!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
+			break;
+		}
+
+		/* Pure damage */
+		case GF_METEOR:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何かが空からあなたの頭上に落ちてきた！");
+#else
+			if (fuzzy) msg_print("Something falls from the sky on you!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			if (!target_ptr->resist_shard || one_in_(13))
+			{
+				if (!target_ptr->immune_fire) inven_damage(target_ptr, set_fire_destroy, 2);
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			break;
+		}
+
+		/* Ice -- cold plus stun plus cuts */
+		case GF_ICE:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か鋭く冷たいもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something sharp and cold!");
+#endif
+
+			get_damage = cold_dam(target_ptr, dam, killer, spell);
+			if (!(target_ptr->multishadow && (turn & 1)))
+			{
+				if (!target_ptr->resist_shard)
+				{
+					(void)set_cut(target_ptr, target_ptr->cut + damroll(5, 8));
+				}
+				if (!target_ptr->resist_sound)
+				{
+					(void)set_stun(target_ptr, target_ptr->stun + randint1(15));
+				}
+
+				if ((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+				{
+					if (!target_ptr->immune_cold) inven_damage(target_ptr, set_cold_destroy, 3);
+				}
+			}
+
+			break;
+		}
+
+		/* Death Ray */
+		case GF_DEATH_RAY:
+		{
+#ifdef JP
+			if (fuzzy) msg_print("何か非常に冷たいもので攻撃された！");
+#else
+			if (fuzzy) msg_print("You are hit by something extremely cold!");
+#endif
+
+
+			if (target_ptr->mimic_form)
+			{
+				if (!(mimic_info[target_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
+					get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			else
+			{
+				/* Some races are immune */
+				if(is_undead_creature(target_ptr) || is_demon_creature(target_ptr) || has_cf_creature(target_ptr, CF_NONLIVING))
+					dam = 0;
+				else
+					get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+					break;
+				}
+			}
+
+			break;
+
+		/* Drain mana */
+		case GF_DRAIN_MANA:
+		{
+			if ((target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
+#else
+				msg_print("The attack hits Shadow, you are unharmed!");
+#endif
+			}
+			else if (target_ptr->csp)
+			{
+				/* Basic message */
+#ifdef JP
+				if (caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
+				else msg_print("精神エネルギーを吸い取られてしまった！");
+#else
+				if (caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
+				else msg_print("Your psychic energy is drawn!");
+#endif
+
+				/* Full drain */
+				if (dam >= target_ptr->csp)
+				{
+					dam = target_ptr->csp;
+					target_ptr->csp = 0;
+					target_ptr->csp_frac = 0;
+				}
+
+				/* Partial drain */
+				else
+				{
+					target_ptr->csp -= dam;
+				}
+
+				learn_spell(target_ptr, spell);
+
+				/* Redraw mana */
+				play_redraw |= (PR_MANA);
+
+				/* Window stuff */
+				play_window |= (PW_PLAYER);
+				play_window |= (PW_SPELL);
+
+				if (caster_ptr != NULL)
+				{
+					/* Heal the monster */
+					if (caster_ptr->chp < caster_ptr->mhp)
+					{
+						/* Heal */
+						caster_ptr->chp += (6 * dam);
+						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
+
+						/* Redraw (later) if needed */
+						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+
+						/* Special message */
+						if (caster_ptr->ml)
+						{
+#ifdef JP
+							msg_format("%^sは気分が良さそうだ。", caster_name);
+#else
+							msg_format("%^s appears healthier.", caster_name);
+#endif
+						}
+					}
+				}
+			}
+
+			dam = 0;
+			break;
+		}
+
+		/* Mind blast */
+		case GF_MIND_BLAST:
+		{
+			if ((randint0(100 + rlev / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				if (!(target_ptr->multishadow && (turn & 1)))
+				{
+#ifdef JP
+					msg_print("霊的エネルギーで精神が攻撃された。");
+#else
+					msg_print("Your mind is blasted by psyonic energy.");
+#endif
+
+					if (!target_ptr->resist_conf)
+					{
+						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+					}
+
+					if (!target_ptr->resist_chaos && one_in_(3))
+					{
+						(void)set_image(target_ptr, target_ptr->image + randint0(250) + 150);
+					}
+
+					target_ptr->csp -= 50;
+					if (target_ptr->csp < 0)
+					{
+						target_ptr->csp = 0;
+						target_ptr->csp_frac = 0;
+					}
+					play_redraw |= PR_MANA;
+				}
+
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			break;
+		}
+
+		/* Brain smash */
+		case GF_BRAIN_SMASH:
+		{
+			if ((randint0(100 + rlev / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				if (!(target_ptr->multishadow && (turn & 1)))
+				{
+#ifdef JP
+					msg_print("霊的エネルギーで精神が攻撃された。");
+#else
+					msg_print("Your mind is blasted by psionic energy.");
+#endif
+
+					target_ptr->csp -= 100;
+					if (target_ptr->csp < 0)
+					{
+						target_ptr->csp = 0;
+						target_ptr->csp_frac = 0;
+					}
+					play_redraw |= PR_MANA;
+				}
+
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+				if (!(target_ptr->multishadow && (turn & 1)))
+				{
+					if (!target_ptr->resist_blind)
+					{
+						(void)set_blind(target_ptr, target_ptr->blind + 8 + randint0(8));
+					}
+					if (!target_ptr->resist_conf)
+					{
+						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+					}
+					if (!target_ptr->free_act)
+					{
+						(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
+					}
+					(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+
+					while (randint0(100 + rlev / 2) > (MAX(5, target_ptr->skill_rob)))
+						(void)do_dec_stat(target_ptr, STAT_INT);
+					while (randint0(100 + rlev / 2) > (MAX(5, target_ptr->skill_rob)))
+						(void)do_dec_stat(target_ptr, STAT_WIS);
+
+					if (!target_ptr->resist_chaos)
+					{
+						(void)set_image(target_ptr, target_ptr->image + randint0(250) + 150);
+					}
+				}
+			}
+			break;
+		}
+
+		/* cause 1 */
+		case GF_CAUSE_1:
+		{
+			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				//TODO curse_equipment
+				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 15, 0);
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			break;
+		}
+
+		/* cause 2 */
+		case GF_CAUSE_2:
+		{
+			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 25, MIN(rlev / 2 - 15, 5));
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			break;
+		}
+
+		/* cause 3 */
+		case GF_CAUSE_3:
+		{
+			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 33, MIN(rlev / 2 - 15, 15));
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			}
+			break;
+		}
+
+		/* cause 4 */
+		case GF_CAUSE_4:
+		{
+			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == MON_KENSHIROU) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_print("しかし秘孔を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+				learn_spell(target_ptr, spell);
+			}
+			else
+			{
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+				if (!(target_ptr->multishadow && (turn & 1))) (void)set_cut(target_ptr, target_ptr->cut + damroll(10, 10));
+			}
+			break;
+		}
+
+		/* Hand of Doom */
+		case GF_HAND_DOOM:
+		{
+			if ((randint0(100 + rlev/2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			{
+#ifdef JP
+				msg_format("しかし効力を跳ね返した！");
+#else
+				msg_format("You resist the effects!");
+#endif
+				learn_spell(target_ptr,spell);
+			}
+			else
+			{
+				if (!(target_ptr->multishadow && (turn & 1)))
+				{
+#ifdef JP
+					msg_print("あなたは命が薄まっていくように感じた！");
+#else
+					msg_print("You feel your life fade away!");
+#endif
+					curse_equipment(target_ptr, 40, 20);
+				}
+
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+
+				if (target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
+			}
+			break;
+		}
+
+		/* Default */
+		default:
+		{
+			/* No damage */
+			dam = 0;
+
+			break;
+		}
+	}
+
+}
+
+
+
+
+
 /*
  * Helper function for "project()" below.
  *
@@ -5821,7 +7128,6 @@ msg_print("生命力が体から吸い取られた気がする！");
 static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	int k = 0;
-	int rlev = 0;
 
 	/* Hack -- assume obvious */
 	bool obvious = TRUE;
@@ -5829,15 +7135,9 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	/* Player blind-ness */
 	bool blind = (player_ptr->blind ? TRUE : FALSE);
 
-	/* Player needs a "description" (he is blind) */
-	bool fuzzy = FALSE;
-
 	/* Creature name (for attacker and target) */
 	char atk_name[80];
 	char tar_name[80];
-
-	/* Creature name (for damage) */
-	char killer[80];
 
 	/* Hack -- messages */
 	cptr act = NULL;
@@ -5972,1285 +7272,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
 
-
-	/* If the player is blind, be more descriptive */
-	if (blind) fuzzy = TRUE;
-
-
-	if (!is_player(atk_ptr))
-	{
-		/* Get the source monster */
-		/* Extract the monster level */
-		rlev = (((&species_info[atk_ptr->species_idx])->level >= 1) ? (&species_info[atk_ptr->species_idx])->level : 1);
-
-		/* Get the monster name */
-		creature_desc(atk_name, atk_ptr, 0);
-
-		/* Get the monster's real name (gotten before polymorph!) */
-		strcpy(killer, who_name);
-	}
-	else
-	{
-/*TODO
-		switch (who)
-		{
-		case PROJECT_WHO_UNCTRL_POWER:
-#ifdef JP
-			strcpy(killer, "制御できない力の氾流");
-#else
-			strcpy(killer, "uncontrollable power storm");
-#endif
-			break;
-
-		case PROJECT_WHO_GLASS_SHARDS:
-#ifdef JP
-			strcpy(killer, "ガラスの破片");
-#else
-			strcpy(killer, "shards of glass");
-#endif
-			break;
-
-		default:
-#ifdef JP
-			strcpy(killer, "罠");
-#else
-			strcpy(killer, "a trap");
-#endif
-			break;
-		}
-*/
-
-#ifdef JP
-		strcpy(killer, "罠");
-#else
-		strcpy(killer, "a trap");
-#endif
-
-		/* Paranoia */
-		strcpy(atk_name, killer);
-	}
-
-	/* Analyze the damage */
-	switch (typ)
-	{
-		/* Standard damage -- hurts player_ptr->inventory too */
-		case GF_ACID:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("酸で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by acid!");
-#endif
-			
-			get_damage = acid_dam(player_ptr, dam, killer, spell);
-			break;
-		}
-
-		/* Standard damage -- hurts player_ptr->inventory too */
-		case GF_FIRE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("火炎で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by fire!");
-#endif
-
-			get_damage = fire_dam(player_ptr, dam, killer, spell);
-			break;
-		}
-
-		/* Standard damage -- hurts player_ptr->inventory too */
-		case GF_COLD:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("冷気で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by cold!");
-#endif
-
-			get_damage = cold_dam(player_ptr, dam, killer, spell);
-			break;
-		}
-
-		/* Standard damage -- hurts player_ptr->inventory too */
-		case GF_ELEC:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("電撃で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by lightning!");
-#endif
-
-			get_damage = elec_dam(player_ptr, dam, killer, spell);
-			break;
-		}
-
-		/* Standard damage -- also poisons player */
-		case GF_POIS:
-		{
-			bool double_resist = IS_OPPOSE_POIS(player_ptr);
-#ifdef JP
-			if (fuzzy) msg_print("毒で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by poison!");
-#endif
-
-			if (player_ptr->resist_pois) dam = (dam + 2) / 3;
-			if (double_resist) dam = (dam + 2) / 3;
-
-			if ((!(double_resist || player_ptr->resist_pois)) &&
-			     one_in_(HURT_CHANCE) && !(player_ptr->multishadow && (turn & 1)))
-			{
-				do_dec_stat(player_ptr, STAT_CON);
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-
-			if (!(double_resist || player_ptr->resist_pois) && !(player_ptr->multishadow && (turn & 1)))
-			{
-				set_poisoned(player_ptr, player_ptr->poisoned + randint0(dam) + 10);
-			}
-			break;
-		}
-
-		/* Standard damage -- also poisons / mutates player */
-		case GF_NUKE:
-		{
-			bool double_resist = IS_OPPOSE_POIS(player_ptr);
-#ifdef JP
-			if (fuzzy) msg_print("放射能で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by radiation!");
-#endif
-
-			if (player_ptr->resist_pois) dam = (2 * dam + 2) / 5;
-			if (double_resist) dam = (2 * dam + 2) / 5;
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			if (!(double_resist || player_ptr->resist_pois) && !(player_ptr->multishadow && (turn & 1)))
-			{
-				set_poisoned(player_ptr, player_ptr->poisoned + randint0(dam) + 10);
-
-				if (one_in_(5)) /* 6 */
-				{
-#ifdef JP
-					msg_print("奇形的な変身を遂げた！");
-#else
-					msg_print("You undergo a freakish metamorphosis!");
-#endif
-
-					if (one_in_(4)) /* 4 */
-						do_poly_self(player_ptr);
-					else
-						mutate_creature(player_ptr);
-				}
-
-				if (one_in_(6))
-				{
-					inven_damage(player_ptr, set_acid_destroy, 2);
-				}
-			}
-			break;
-		}
-
-		/* Standard damage */
-		case GF_MISSILE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Holy Orb -- Player only takes partial damage */
-		case GF_HOLY_FIRE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			if (player_ptr->good > 10)
-				dam /= 2;
-			else if (player_ptr->evil > 10)
-				dam *= 2;
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		case GF_HELL_FIRE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			if (player_ptr->good > 10)
-				dam *= 2;
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Arrow -- XXX no dodging */
-		case GF_ARROW:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something sharp!");
-#endif
-
-			else if ((player_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (player_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
-			{
-#ifdef JP
-				msg_print("矢を斬り捨てた！");
-#else
-				msg_print("You cut down the arrow!");
-#endif
-				break;
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Plasma -- XXX No resist */
-		case GF_PLASMA:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かとても熱いもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something *HOT*!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-
-			if (!player_ptr->resist_sound && !(player_ptr->multishadow && (turn & 1)))
-			{
-				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_stun(player_ptr, player_ptr->stun + k);
-			}
-
-			if (!(player_ptr->resist_fire ||
-			      IS_OPPOSE_FIRE(player_ptr) ||
-			      player_ptr->immune_fire))
-			{
-				inven_damage(player_ptr, set_acid_destroy, 3);
-			}
-
-			break;
-		}
-
-		/* Nether -- drain experience */
-		case GF_NETHER:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("地獄の力で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by nether forces!");
-#endif
-
-			if (player_ptr->resist_neth)
-			{
-				dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1))) drain_exp(player_ptr, 200 + (player_ptr->exp / 100), 200 + (player_ptr->exp / 1000), 75);
-
-			if (!(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("気分がよくなった。");
-#else
-				msg_print("You feel invigorated!");
-#endif
-
-				hp_player(player_ptr, dam / 4);
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-
-			break;
-		}
-
-		/* Water -- stun/confuse */
-		case GF_WATER:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か湿ったもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something wet!");
-#endif
-
-			if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				if (!player_ptr->resist_sound)
-				{
-					set_stun(player_ptr, player_ptr->stun + randint1(40));
-				}
-				if (!player_ptr->resist_conf)
-				{
-					set_confused(player_ptr, player_ptr->confused + randint1(5) + 5);
-				}
-
-				if (one_in_(5))
-				{
-					inven_damage(player_ptr, set_cold_destroy, 3);
-				}
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Chaos -- many effects */
-		case GF_CHAOS:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("無秩序の波動で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by a wave of anarchy!");
-#endif
-
-			if (player_ptr->resist_chaos)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-
-			if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				if (!player_ptr->resist_conf)
-				{
-					(void)set_confused(player_ptr, player_ptr->confused + randint0(20) + 10);
-				}
-				if (!player_ptr->resist_chaos)
-				{
-					(void)set_image(player_ptr, player_ptr->image + randint1(10));
-					if (one_in_(3))
-					{
-#ifdef JP
-						msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
-#else
-						msg_print("Your body is twisted by chaos!");
-#endif
-
-						(void)gain_random_mutation(player_ptr, 0, TRUE);
-					}
-				}
-				if (!player_ptr->resist_neth && !player_ptr->resist_chaos)
-				{
-					drain_exp(player_ptr, 5000 + (player_ptr->exp / 100), 500 + (player_ptr->exp / 1000), 75);
-				}
-
-				if (!player_ptr->resist_chaos || one_in_(9))
-				{
-					inven_damage(player_ptr, set_elec_destroy, 2);
-					inven_damage(player_ptr, set_fire_destroy, 2);
-				}
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Shards -- mostly cutting */
-		case GF_SHARDS:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something sharp!");
-#endif
-
-			if (player_ptr->resist_shard)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_cut(player_ptr, player_ptr->cut + dam);
-			}
-
-			if (!player_ptr->resist_shard || one_in_(13))
-			{
-				inven_damage(player_ptr, set_cold_destroy, 2);
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Sound -- mostly stunning */
-		case GF_SOUND:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("轟音で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by a loud noise!");
-#endif
-
-			if (player_ptr->resist_sound)
-			{
-				dam *= 5; dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)set_stun(player_ptr, player_ptr->stun + k);
-			}
-
-			if (!player_ptr->resist_sound || one_in_(13))
-			{
-				inven_damage(player_ptr, set_cold_destroy, 2);
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Pure confusion */
-		case GF_CONFUSION:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か混乱するもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something puzzling!");
-#endif
-
-			if (player_ptr->resist_conf)
-			{
-				dam *= 5; dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_confused(player_ptr, player_ptr->confused + randint1(20) + 10);
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Disenchantment -- see above */
-		case GF_DISENCHANT:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かさえないもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something static!");
-#endif
-
-			if (player_ptr->resist_disen)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)apply_disenchant(player_ptr, 0);
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Nexus -- see above */
-		case GF_NEXUS:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か奇妙なもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something strange!");
-#endif
-
-			if (player_ptr->resist_nexus)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				apply_nexus(atk_ptr);
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Force -- mostly stun */
-		case GF_FORCE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("運動エネルギーで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by kinetic force!");
-#endif
-
-			if (!player_ptr->resist_sound && !(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_stun(player_ptr, player_ptr->stun + randint1(20));
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-
-		/* Rocket -- stun, cut */
-		case GF_ROCKET:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("爆発があった！");
-#else
-			if (fuzzy) msg_print("There is an explosion!");
-#endif
-
-			if (!player_ptr->resist_sound && !(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_stun(player_ptr, player_ptr->stun + randint1(20));
-			}
-
-			if (player_ptr->resist_shard)
-			{
-				dam /= 2;
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_cut(player_ptr, player_ptr->cut + (dam / 2));
-			}
-
-			if (!player_ptr->resist_shard || one_in_(12))
-			{
-				inven_damage(player_ptr, set_cold_destroy, 3);
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Inertia -- slowness */
-		case GF_INERTIA:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か遅いもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something slow!");
-#endif
-
-			if (!(player_ptr->multishadow && (turn & 1))) (void)set_slow(player_ptr, player_ptr->slow + randint0(4) + 4, FALSE);
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Lite -- blinding */
-		case GF_LITE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			if (player_ptr->resist_lite)
-			{
-				dam *= 4; dam /= (randint1(4) + 7);
-			}
-			else if (!blind && !player_ptr->resist_blind && !(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_blind(player_ptr, player_ptr->blind + randint1(5) + 2);
-			}
-
-			if (has_cf_creature(player_ptr, CF_HURT_LITE))
-			{
-#ifdef JP
-				if (!(player_ptr->multishadow && (turn & 1))) msg_print("光で肉体が焦がされた！");
-#else
-				if (!(player_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
-#endif
-
-				dam *= 2;
-			}
-			else if (race_is_(player_ptr, RACE_S_FAIRY))
-			{
-				dam = dam * 4 / 3;
-			}
-
-			if (player_ptr->wraith_form) dam *= 2;
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-
-			if (player_ptr->wraith_form && !(player_ptr->multishadow && (turn & 1)))
-			{
-				player_ptr->wraith_form = 0;
-#ifdef JP
-				msg_print("閃光のため非物質的な影の存在でいられなくなった。");
-#else
-				msg_print("The light forces you out of your incorporeal shadow form.");
-#endif
-
-				play_redraw |= PR_MAP;
-				/* Update monsters */
-				player_ptr->update |= (PU_MONSTERS);
-				/* Window stuff */
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-				/* Redraw status bar */
-				play_redraw |= (PR_STATUS);
-
-			}
-
-			break;
-		}
-
-		/* Dark -- blinding */
-		case GF_DARK:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			if (player_ptr->resist_dark)
-			{
-				dam *= 4; dam /= (randint1(4) + 7);
-
-				//TODO Dark Immune
-				//if () dam = 0;
-			}
-			else if (!blind && !player_ptr->resist_blind && !(player_ptr->multishadow && (turn & 1)))
-			{
-				(void)set_blind(player_ptr, player_ptr->blind + randint1(5) + 2);
-			}
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Time -- bolt fewer effects XXX */
-		case GF_TIME:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("過去からの衝撃に攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by a blast from the past!");
-#endif
-
-			if (player_ptr->resist_time)
-			{
-				dam *= 4;
-				dam /= (randint1(4) + 7);
-				if(is_player(player_ptr))
-				{
-#ifdef JP
-					msg_format("%sは時間が通り過ぎていく様子を感じた。", tar_name);
-#else
-					msg_format("You feel as if time is passing you by.");
-#endif
-				}
-			}
-			else if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				switch (randint1(10))
-				{
-					case 1: case 2: case 3: case 4: case 5:
-					{
-						if (has_cf_creature(player_ptr, CF_ANDROID)) break;
-#ifdef JP
-						msg_format("%sの時の流れが逆戻りしたようだ。", tar_name);
-#else
-						//TODO
-						msg_print("You feel life has clocked back.");
-#endif
-
-						lose_exp(player_ptr, 100 + (player_ptr->exp / 100) * MON_DRAIN_LIFE);
-						break;
-					}
-
-					case 6: case 7: case 8: case 9:
-					{
-						switch (randint1(6))
-						{
-#ifdef JP
-							case 1: k = STAT_STR; act = "力強さ"; break;
-							case 2: k = STAT_INT; act = "聡明さ"; break;
-							case 3: k = STAT_WIS; act = "賢明さ"; break;
-							case 4: k = STAT_DEX; act = "器用さ"; break;
-							case 5: k = STAT_CON; act = "頑丈さ"; break;
-							case 6: k = STAT_CHR; act = "美しさ"; break;
-#else
-							case 1: k = STAT_STR; act = "strong"; break;
-							case 2: k = STAT_INT; act = "bright"; break;
-							case 3: k = STAT_WIS; act = "wise"; break;
-							case 4: k = STAT_DEX; act = "agile"; break;
-							case 5: k = STAT_CON; act = "hale"; break;
-							case 6: k = STAT_CHR; act = "beautiful"; break;
-#endif
-						}
-
-#ifdef JP
-						msg_format("%sの%sが大きく損なわれた。", tar_name, act);
-#else
-						//TODO
-						msg_format("You're not as %s as you used to be.", act);
-#endif
-
-						player_ptr->stat_cur[k] = (player_ptr->stat_cur[k] * 3) / 4;
-						if (player_ptr->stat_cur[k] < 3) player_ptr->stat_cur[k] = 3;
-						player_ptr->update |= (PU_BONUS);
-						break;
-					}
-
-					case 10:
-					{
-#ifdef JP
-						msg_format("%sの能力が大きく衰えた。", tar_name);
-#else
-						//TODO
-						msg_format("You're not as powerful as you used to be...");
-#endif
-
-						for (k = 0; k < 6; k++)
-						{
-							player_ptr->stat_cur[k] = (player_ptr->stat_cur[k] * 7) / 8;
-							if (player_ptr->stat_cur[k] < 3) player_ptr->stat_cur[k] = 3;
-						}
-						player_ptr->update |= (PU_BONUS);
-						break;
-					}
-				}
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Gravity -- stun plus slowness plus teleport */
-		case GF_GRAVITY:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か重いもので攻撃された！");
-			msg_print("周辺の重力がゆがんだ。");
-#else
-			if (fuzzy) msg_print("You are hit by something heavy!");
-			msg_print("Gravity warps around you.");
-#endif
-
-			if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				teleport_player(player_ptr, 5, TELEPORT_PASSIVE);
-				if (!player_ptr->levitation)
-					(void)set_slow(player_ptr, player_ptr->slow + randint0(4) + 4, FALSE);
-				if (!(player_ptr->resist_sound || player_ptr->levitation))
-				{
-					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-					(void)set_stun(player_ptr, player_ptr->stun + k);
-				}
-			}
-			if (player_ptr->levitation)
-			{
-				dam = (dam * 2) / 3;
-			}
-
-			if (!player_ptr->levitation || one_in_(13))
-			{
-				inven_damage(player_ptr, set_cold_destroy, 2);
-			}
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Standard damage */
-		case GF_DISINTEGRATE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("純粋なエネルギーで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by pure energy!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		case GF_OLD_HEAL:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何らかの攻撃によって気分がよくなった。");
-#else
-			if (fuzzy) msg_print("You are hit by something invigorating!");
-#endif
-
-			(void)hp_player(player_ptr, dam);
-			dam = 0;
-			break;
-		}
-
-		case GF_OLD_SPEED:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something!");
-#endif
-
-			(void)set_fast(player_ptr, player_ptr->fast + randint1(5), FALSE);
-			dam = 0;
-			break;
-		}
-
-		case GF_OLD_SLOW:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か遅いもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something slow!");
-#endif
-
-			(void)set_slow(player_ptr, player_ptr->slow + randint0(4) + 4, FALSE);
-			break;
-		}
-
-		case GF_OLD_SLEEP:
-		{
-			if (player_ptr->free_act)  break;
-#ifdef JP
-			if (fuzzy) msg_print("眠ってしまった！");
-#else
-			if (fuzzy) msg_print("You fall asleep!");
-#endif
-
-
-			if (curse_of_Iluvatar)
-			{
-#ifdef JP
-				msg_print("恐ろしい光景が頭に浮かんできた。");
-#else
-				msg_print("A horrible vision enters your mind.");
-#endif
-
-				/* Pick a nightmare */
-				get_mon_num_prep(get_nightmare, NULL);
-
-				/* Have some nightmares */
-				have_nightmare(player_ptr, get_mon_num(MAX_DEPTH));
-
-				/* Remove the monster restriction */
-				get_mon_num_prep(NULL, NULL);
-			}
-
-			set_paralyzed(player_ptr, player_ptr->paralyzed + dam);
-			dam = 0;
-			break;
-		}
-
-		/* Pure damage */
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("魔法のオーラで攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by an aura of magic!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Pure damage */
-		case GF_PSY_SPEAR:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("エネルギーの塊で攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by an energy!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
-			break;
-		}
-
-		/* Pure damage */
-		case GF_METEOR:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何かが空からあなたの頭上に落ちてきた！");
-#else
-			if (fuzzy) msg_print("Something falls from the sky on you!");
-#endif
-
-			get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			if (!player_ptr->resist_shard || one_in_(13))
-			{
-				if (!player_ptr->immune_fire) inven_damage(player_ptr, set_fire_destroy, 2);
-				inven_damage(player_ptr, set_cold_destroy, 2);
-			}
-
-			break;
-		}
-
-		/* Ice -- cold plus stun plus cuts */
-		case GF_ICE:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か鋭く冷たいもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something sharp and cold!");
-#endif
-
-			get_damage = cold_dam(player_ptr, dam, killer, spell);
-			if (!(player_ptr->multishadow && (turn & 1)))
-			{
-				if (!player_ptr->resist_shard)
-				{
-					(void)set_cut(player_ptr, player_ptr->cut + damroll(5, 8));
-				}
-				if (!player_ptr->resist_sound)
-				{
-					(void)set_stun(player_ptr, player_ptr->stun + randint1(15));
-				}
-
-				if ((!(player_ptr->resist_cold || IS_OPPOSE_COLD(player_ptr))) || one_in_(12))
-				{
-					if (!player_ptr->immune_cold) inven_damage(player_ptr, set_cold_destroy, 3);
-				}
-			}
-
-			break;
-		}
-
-		/* Death Ray */
-		case GF_DEATH_RAY:
-		{
-#ifdef JP
-			if (fuzzy) msg_print("何か非常に冷たいもので攻撃された！");
-#else
-			if (fuzzy) msg_print("You are hit by something extremely cold!");
-#endif
-
-
-			if (player_ptr->mimic_form)
-			{
-				if (!(mimic_info[player_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
-					get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-			else
-			{
-				/* Some races are immune */
-				if(is_undead_creature(player_ptr) || is_demon_creature(player_ptr) || has_cf_creature(player_ptr, CF_NONLIVING))
-					dam = 0;
-				else
-					get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-					break;
-				}
-			}
-
-			break;
-
-		/* Drain mana */
-		case GF_DRAIN_MANA:
-		{
-			if ((player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
-#else
-				msg_print("The attack hits Shadow, you are unharmed!");
-#endif
-			}
-			else if (player_ptr->csp)
-			{
-				/* Basic message */
-#ifdef JP
-				if (atk_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", atk_name);
-				else msg_print("精神エネルギーを吸い取られてしまった！");
-#else
-				if (atk_ptr != NULL) msg_format("%^s draws psychic energy from you!", atk_name);
-				else msg_print("Your psychic energy is drawn!");
-#endif
-
-				/* Full drain */
-				if (dam >= player_ptr->csp)
-				{
-					dam = player_ptr->csp;
-					player_ptr->csp = 0;
-					player_ptr->csp_frac = 0;
-				}
-
-				/* Partial drain */
-				else
-				{
-					player_ptr->csp -= dam;
-				}
-
-				learn_spell(player_ptr, spell);
-
-				/* Redraw mana */
-				play_redraw |= (PR_MANA);
-
-				/* Window stuff */
-				play_window |= (PW_PLAYER);
-				play_window |= (PW_SPELL);
-
-				if (atk_ptr != NULL)
-				{
-					/* Heal the monster */
-					if (atk_ptr->chp < atk_ptr->mhp)
-					{
-						/* Heal */
-						atk_ptr->chp += (6 * dam);
-						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
-
-						/* Redraw (later) if needed */
-						if (&creature_list[health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
-						if (&creature_list[player_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
-
-						/* Special message */
-						if (atk_ptr->ml)
-						{
-#ifdef JP
-							msg_format("%^sは気分が良さそうだ。", atk_name);
-#else
-							msg_format("%^s appears healthier.", atk_name);
-#endif
-						}
-					}
-				}
-			}
-
-			dam = 0;
-			break;
-		}
-
-		/* Mind blast */
-		case GF_MIND_BLAST:
-		{
-			if ((randint0(100 + rlev / 2) < MAX(5, player_ptr->skill_rob)) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				if (!(player_ptr->multishadow && (turn & 1)))
-				{
-#ifdef JP
-					msg_print("霊的エネルギーで精神が攻撃された。");
-#else
-					msg_print("Your mind is blasted by psyonic energy.");
-#endif
-
-					if (!player_ptr->resist_conf)
-					{
-						(void)set_confused(player_ptr, player_ptr->confused + randint0(4) + 4);
-					}
-
-					if (!player_ptr->resist_chaos && one_in_(3))
-					{
-						(void)set_image(player_ptr, player_ptr->image + randint0(250) + 150);
-					}
-
-					player_ptr->csp -= 50;
-					if (player_ptr->csp < 0)
-					{
-						player_ptr->csp = 0;
-						player_ptr->csp_frac = 0;
-					}
-					play_redraw |= PR_MANA;
-				}
-
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-			break;
-		}
-
-		/* Brain smash */
-		case GF_BRAIN_SMASH:
-		{
-			if ((randint0(100 + rlev / 2) < MAX(5, player_ptr->skill_rob)) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				if (!(player_ptr->multishadow && (turn & 1)))
-				{
-#ifdef JP
-					msg_print("霊的エネルギーで精神が攻撃された。");
-#else
-					msg_print("Your mind is blasted by psionic energy.");
-#endif
-
-					player_ptr->csp -= 100;
-					if (player_ptr->csp < 0)
-					{
-						player_ptr->csp = 0;
-						player_ptr->csp_frac = 0;
-					}
-					play_redraw |= PR_MANA;
-				}
-
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if (!(player_ptr->multishadow && (turn & 1)))
-				{
-					if (!player_ptr->resist_blind)
-					{
-						(void)set_blind(player_ptr, player_ptr->blind + 8 + randint0(8));
-					}
-					if (!player_ptr->resist_conf)
-					{
-						(void)set_confused(player_ptr, player_ptr->confused + randint0(4) + 4);
-					}
-					if (!player_ptr->free_act)
-					{
-						(void)set_paralyzed(player_ptr, player_ptr->paralyzed + randint0(4) + 4);
-					}
-					(void)set_slow(player_ptr, player_ptr->slow + randint0(4) + 4, FALSE);
-
-					while (randint0(100 + rlev / 2) > (MAX(5, player_ptr->skill_rob)))
-						(void)do_dec_stat(player_ptr, STAT_INT);
-					while (randint0(100 + rlev / 2) > (MAX(5, player_ptr->skill_rob)))
-						(void)do_dec_stat(player_ptr, STAT_WIS);
-
-					if (!player_ptr->resist_chaos)
-					{
-						(void)set_image(player_ptr, player_ptr->image + randint0(250) + 150);
-					}
-				}
-			}
-			break;
-		}
-
-		/* cause 1 */
-		case GF_CAUSE_1:
-		{
-			if ((randint0(100 + rlev / 2) < player_ptr->skill_rob) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				//TODO curse_equipment
-				if (!(player_ptr->multishadow && (turn & 1))) curse_equipment(player_ptr, 15, 0);
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-			break;
-		}
-
-		/* cause 2 */
-		case GF_CAUSE_2:
-		{
-			if ((randint0(100 + rlev / 2) < player_ptr->skill_rob) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				if (!(player_ptr->multishadow && (turn & 1))) curse_equipment(player_ptr, 25, MIN(rlev / 2 - 15, 5));
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-			break;
-		}
-
-		/* cause 3 */
-		case GF_CAUSE_3:
-		{
-			if ((randint0(100 + rlev / 2) < player_ptr->skill_rob) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				if (!(player_ptr->multishadow && (turn & 1))) curse_equipment(player_ptr, 33, MIN(rlev / 2 - 15, 15));
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
-			break;
-		}
-
-		/* cause 4 */
-		case GF_CAUSE_4:
-		{
-			if ((randint0(100 + rlev / 2) < player_ptr->skill_rob) && !(atk_ptr->species_idx == MON_KENSHIROU) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし秘孔を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_spell(player_ptr, spell);
-			}
-			else
-			{
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if (!(player_ptr->multishadow && (turn & 1))) (void)set_cut(player_ptr, player_ptr->cut + damroll(10, 10));
-			}
-			break;
-		}
-
-		/* Hand of Doom */
-		case GF_HAND_DOOM:
-		{
-			if ((randint0(100 + rlev/2) < player_ptr->skill_rob) && !(player_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
-				learn_spell(player_ptr,spell);
-			}
-			else
-			{
-				if (!(player_ptr->multishadow && (turn & 1)))
-				{
-#ifdef JP
-					msg_print("あなたは命が薄まっていくように感じた！");
-#else
-					msg_print("You feel your life fade away!");
-#endif
-					curse_equipment(player_ptr, 40, 20);
-				}
-
-				get_damage = take_hit(atk_ptr, player_ptr, DAMAGE_ATTACK, dam, atk_name, NULL, spell);
-
-				if (player_ptr->chp < 1) player_ptr->chp = 1; /* Paranoia */
-			}
-			break;
-		}
-
-		/* Default */
-		default:
-		{
-			/* No damage */
-			dam = 0;
-
-			break;
-		}
-	}
+	project_creature_aux(atk_ptr, player_ptr, typ, dam, spell);
 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
