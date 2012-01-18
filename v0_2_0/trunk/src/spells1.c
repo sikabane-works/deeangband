@@ -5341,7 +5341,7 @@ note = "は眠り込んでしまった！";
 				{
 					/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+					note = "には効果がなかった！";
 #else
 					note = " is unaffected!";
 #endif
@@ -5354,7 +5354,7 @@ note = "には効果がなかった！";
 				if ((dam > 29) && (randint1(100) < dam))
 				{
 #ifdef JP
-note = "があなたに隷属した。";
+					note = "があなたに隷属した。";
 #else
 					note = " is in your thrall!";
 #endif
@@ -5443,7 +5443,7 @@ note = "があなたに隷属した。";
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
-note = "には効果がなかった。";
+				note = "には効果がなかった。";
 #else
 				note = " is unaffected!";
 #endif
@@ -5467,9 +5467,9 @@ note = "には効果がなかった。";
 			if ((inside_arena) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_cf_creature(target_ptr, CF_NAZGUL)|| is_sub_unique_creature(target_ptr))
 			{
 #ifdef JP
-note = "には効果がなかった。";
+				note = "には効果がなかった。";
 #else
- note = " is unaffected!";
+				note = " is unaffected!";
 #endif
 			}
 			else
@@ -5481,7 +5481,7 @@ note = "には効果がなかった。";
 				if (multiply_monster(c_ptr->m_idx, TRUE, 0L))
 				{
 #ifdef JP
-note = "が分裂した！";
+					note = "が分裂した！";
 #else
 					note = " spawns!";
 #endif
@@ -5547,7 +5547,7 @@ note = "が分裂した！";
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5558,7 +5558,7 @@ note = "には効果がなかった！";
 			{
 				/* Go to sleep (much) later */
 #ifdef JP
-note = "は動けなくなった！";
+				note = "は動けなくなった！";
 #else
 				note = " is suspended!";
 #endif
@@ -5592,7 +5592,7 @@ note = "は動けなくなった！";
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5603,7 +5603,7 @@ note = "には効果がなかった！";
 			{
 				/* Go to sleep (much) later */
 #ifdef JP
-note = "は動けなくなった！";
+				note = "は動けなくなった！";
 #else
 				note = " is suspended!";
 #endif
@@ -5670,7 +5670,7 @@ note = "は動けなくなった！";
 				/* Resist */
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5682,7 +5682,7 @@ note = "には効果がなかった！";
 			else if (caster_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
-note = "はあなたに敵意を抱いている！";
+				note = "はあなたに敵意を抱いている！";
 #else
 				note = " hates you too much!";
 #endif
@@ -5692,7 +5692,7 @@ note = "はあなたに敵意を抱いている！";
 			else
 			{
 #ifdef JP
-note = "は突然友好的になったようだ！";
+				note = "は突然友好的になったようだ！";
 #else
 				note = " suddenly seems friendly!";
 #endif
@@ -5746,7 +5746,7 @@ note = "は突然友好的になったようだ！";
 			{
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5757,7 +5757,7 @@ note = "には効果がなかった！";
 			else if (caster_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
-note = "はあなたに敵意を抱いている！";
+				note = "はあなたに敵意を抱いている！";
 #else
 				note = " hates you too much!";
 #endif
@@ -5767,7 +5767,7 @@ note = "はあなたに敵意を抱いている！";
 			else
 			{
 #ifdef JP
-note = "は既にあなたの奴隷だ！";
+				note = "は既にあなたの奴隷だ！";
 #else
 				note = " is in your thrall!";
 #endif
@@ -5821,7 +5821,7 @@ note = "は既にあなたの奴隷だ！";
 			{
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5832,7 +5832,7 @@ note = "には効果がなかった！";
 			else if (caster_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
-note = "はあなたに敵意を抱いている！";
+				note = "はあなたに敵意を抱いている！";
 #else
 				note = " hates you too much!";
 #endif
@@ -5842,7 +5842,7 @@ note = "はあなたに敵意を抱いている！";
 			else
 			{
 #ifdef JP
-note = "は既にあなたの奴隷だ！";
+				note = "は既にあなたの奴隷だ！";
 #else
 				note = " is in your thrall!";
 #endif
@@ -5907,7 +5907,7 @@ note = "は既にあなたの奴隷だ！";
 				/* Resist */
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -5918,7 +5918,7 @@ note = "には効果がなかった！";
 			else if (caster_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
-note = "はあなたに敵意を抱いている！";
+				note = "はあなたに敵意を抱いている！";
 #else
 				note = " hates you too much!";
 #endif
@@ -5928,7 +5928,7 @@ note = "はあなたに敵意を抱いている！";
 			else
 			{
 #ifdef JP
-note = "はなついた。";
+				note = "はなついた。";
 #else
 				note = " is tamed!";
 #endif
@@ -5968,7 +5968,7 @@ note = "はなついた。";
 			if (has_cf_creature(target_ptr, CF_NO_CONF)) dam -= 30;
 			if (dam < 1) dam = 1;
 #ifdef JP
-msg_format("%sを見つめた。",target_name);
+			msg_format("%sを見つめた。",target_name);
 #else
 			msg_format("You stare into %s.", target_name);
 #endif
@@ -5996,7 +5996,7 @@ msg_format("%sを見つめた。",target_name);
 				/* Resist */
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -6007,7 +6007,7 @@ note = "には効果がなかった！";
 			else if (caster_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
-note = "はあなたに敵意を抱いている！";
+				note = "はあなたに敵意を抱いている！";
 #else
 				note = " hates you too much!";
 #endif
@@ -6017,7 +6017,7 @@ note = "はあなたに敵意を抱いている！";
 			else
 			{
 #ifdef JP
-note = "を支配した。";
+				note = "を支配した。";
 #else
 				note = " is tamed!";
 #endif
@@ -6065,7 +6065,7 @@ note = "を支配した。";
 
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -6104,7 +6104,7 @@ note = "には効果がなかった！";
 
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -6141,8 +6141,8 @@ note = "には効果がなかった！";
 
 				/* Special effect */
 #ifdef JP
-note = "は光に身をすくめた！";
-note_dies = "は光を受けてしぼんでしまった！";
+				note = "は光に身をすくめた！";
+				note_dies = "は光を受けてしぼんでしまった！";
 #else
 				note = " cringes from the light!";
 				note_dies = " shrivels away in the light!";
@@ -6180,8 +6180,8 @@ note_dies = "は光を受けてしぼんでしまった！";
 
 				/* Cute little message */
 #ifdef JP
-note = "の皮膚がただれた！";
-note_dies = "はドロドロに溶けた！";
+				note = "の皮膚がただれた！";
+				note_dies = "はドロドロに溶けた！";
 #else
 				note = " loses some skin!";
 				note_dies = " dissolves!";
@@ -6214,7 +6214,7 @@ note_dies = "はドロドロに溶けた！";
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
 #ifdef JP
-note = "には効果がなかった！";
+						note = "には効果がなかった！";
 #else
 						note = " is unaffected!";
 #endif
@@ -6225,7 +6225,7 @@ note = "には効果がなかった！";
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_TELE);
 #ifdef JP
-note = "には耐性がある！";
+						note = "には耐性がある！";
 #else
 						note = " resists!";
 #endif
@@ -6472,7 +6472,7 @@ note = "には耐性がある！";
 			{
 				/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is unaffected!";
 #endif
@@ -6628,8 +6628,8 @@ note = "には効果がなかった！";
 
 				/* Message */
 #ifdef JP
-note = "は身震いした。";
-note_dies = "はドロドロに溶けた！";
+				note = "は身震いした。";
+				note_dies = "はドロドロに溶けた！";
 #else
 				note = " shudders.";
 				note_dies = " dissolves!";
@@ -6705,8 +6705,8 @@ note_dies = "はドロドロに溶けた！";
 
 			/* Message */
 #ifdef JP
-note = "は身震いした。";
-note_dies = "はドロドロに溶けた！";
+			note = "は身震いした。";
+			note_dies = "はドロドロに溶けた！";
 #else
 			note = " shudders.";
 			note_dies = " dissolves!";
@@ -6885,7 +6885,7 @@ msg_format("うまく捕まえられなかった。");
 
 					/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+					note = "には効果がなかった！";
 #else
 					note = " is unaffected!";
 #endif
@@ -6909,7 +6909,7 @@ note = "には効果がなかった！";
 
 					/* No obvious effect */
 #ifdef JP
-note = "には効果がなかった！";
+					note = "には効果がなかった！";
 #else
 					note = " is unaffected!";
 #endif
@@ -6920,7 +6920,7 @@ note = "には効果がなかった！";
 				{
 					/* Go to sleep (much) later */
 #ifdef JP
-note = "は眠り込んでしまった！";
+					note = "は眠り込んでしまった！";
 #else
 					note = " falls asleep!";
 #endif
@@ -6932,7 +6932,7 @@ note = "は眠り込んでしまった！";
 			if (!done)
 			{
 #ifdef JP
-note = "には効果がなかった！";
+				note = "には効果がなかった！";
 #else
 				note = " is immune!";
 #endif
@@ -6981,9 +6981,9 @@ note = "には効果がなかった！";
 		case GF_PHOTO:
 		{
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを写真に撮った。", target_name);
+			if (is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You take a photograph of %s.", target_name);
+			if (is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
 #endif
 			/* Hurt by light */
 			if (is_hurt_lite_creature(target_ptr))
