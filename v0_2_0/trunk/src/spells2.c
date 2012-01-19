@@ -7292,9 +7292,9 @@ bool charm_creatures(creature_type *caster_ptr, int dam)
 /*
  * Charm animals
  */
-bool charm_animals(int dam)
+bool charm_animals(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_CONTROL_ANIMAL, dam));
+	return (project_hack(caster_ptr, GF_CONTROL_ANIMAL, dam));
 }
 
 

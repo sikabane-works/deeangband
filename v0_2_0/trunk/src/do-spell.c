@@ -3100,7 +3100,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				charm_animals(power);
+				charm_animals(cr_ptr, power);
 			}
 		}
 		break;

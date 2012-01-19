@@ -2444,7 +2444,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_CHARM_ANIMALS:
 		{
-			(void)charm_animals(plev * 2);
+			(void)charm_animals(cr_ptr, plev * 2);
 			o_ptr->timeout = 500;
 			break;
 		}
