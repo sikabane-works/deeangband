@@ -1991,7 +1991,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_MISSILE, dir, damroll(2, 6));
+			fire_bolt(cr_ptr, GF_MISSILE, dir, damroll(2, 6));
 			o_ptr->timeout = 2;
 			break;
 		}
@@ -2019,7 +2019,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_ELEC, dir, damroll(4, 8));
+			fire_bolt(cr_ptr, GF_ELEC, dir, damroll(4, 8));
 			o_ptr->timeout = (s16b)randint0(5) + 5;
 			break;
 		}
@@ -2033,7 +2033,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_ACID, dir, damroll(5, 8));
+			fire_bolt(cr_ptr, GF_ACID, dir, damroll(5, 8));
 			o_ptr->timeout = (s16b)randint0(6) + 6;
 			break;
 		}
@@ -2047,7 +2047,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_COLD, dir, damroll(6, 8));
+			fire_bolt(cr_ptr, GF_COLD, dir, damroll(6, 8));
 			o_ptr->timeout = (s16b)randint0(7) + 7;
 			break;
 		}
@@ -2061,7 +2061,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_FIRE, dir, damroll(9, 8));
+			fire_bolt(cr_ptr, GF_FIRE, dir, damroll(9, 8));
 			o_ptr->timeout = (s16b)randint0(8) + 8;
 			break;
 		}
@@ -2171,7 +2171,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_bolt(GF_ARROW, dir, 150);
+			fire_bolt(cr_ptr, GF_ARROW, dir, 150);
 			o_ptr->timeout = (s16b)randint0(90) + 90;
 			break;
 		}

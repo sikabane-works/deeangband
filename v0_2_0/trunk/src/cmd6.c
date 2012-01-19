@@ -3103,7 +3103,7 @@ msg_print("ロケットを発射した！");
 
 		case SV_WAND_STRIKING:
 		{
-			fire_bolt(GF_METEOR, dir, damroll(15 + cr_ptr->lev / 3, 13));
+			fire_bolt(cr_ptr, GF_METEOR, dir, damroll(15 + cr_ptr->lev / 3, 13));
 			ident = TRUE;
 			break;
 		}
@@ -3839,7 +3839,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 		case 10:
 		{
 			/* Mana Bolt */
-			fire_bolt(GF_MANA, dir, 500);
+			fire_bolt(cr_ptr, GF_MANA, dir, 500);
 
 			break;
 		}
@@ -4554,7 +4554,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_MISSILE, dir, damroll(2, 6));
+				fire_bolt(cr_ptr, GF_MISSILE, dir, damroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
 			}
@@ -4568,7 +4568,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(cr_ptr, GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			}
@@ -4582,7 +4582,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_COLD, dir, damroll(6, 8));
+				fire_bolt(cr_ptr, GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			}
@@ -4596,7 +4596,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(cr_ptr, GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			}
@@ -4610,7 +4610,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ACID, dir, damroll(5, 8));
+				fire_bolt(cr_ptr, GF_ACID, dir, damroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
 			}
@@ -4624,7 +4624,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ARROW, dir, 150);
+				fire_bolt(cr_ptr, GF_ARROW, dir, 150);
 				o_ptr->timeout = randint0(90) + 90;
 				break;
 			}
@@ -4665,7 +4665,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(cr_ptr, GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			}
@@ -4679,7 +4679,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_COLD, dir, damroll(6, 8));
+				fire_bolt(cr_ptr, GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			}
@@ -4693,7 +4693,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(cr_ptr, GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			}
@@ -5257,7 +5257,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("The robe pulsates with raw mana...");
 #endif
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_MANA, dir, 120);
+				fire_bolt(cr_ptr, GF_MANA, dir, 120);
 				o_ptr->timeout = randint0(120) + 120;
 				break;
 			}
@@ -5542,7 +5542,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your sword glows a pale blue...");
 #endif
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_COLD, dir, damroll(12, 8));
+				fire_bolt(cr_ptr, GF_COLD, dir, damroll(12, 8));
 				o_ptr->timeout = 50;
 				break;
 			}
@@ -6089,32 +6089,32 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_RING_MAGIC_MIS:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_MISSILE, dir, damroll(2, 6));
+				fire_bolt(cr_ptr, GF_MISSILE, dir, damroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
 			case EGO_RING_FIRE_BOLT:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(cr_ptr, GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			case EGO_RING_COLD_BOLT:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_COLD, dir, damroll(6, 8));
+				fire_bolt(cr_ptr, GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			case EGO_RING_ELEC_BOLT:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(cr_ptr, GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			case EGO_RING_ACID_BOLT:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_ACID, dir, damroll(5, 8));
+				fire_bolt(cr_ptr, GF_ACID, dir, damroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
 			case EGO_RING_MANA_BOLT:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_bolt(GF_MANA, dir, 120);
+				fire_bolt(cr_ptr, GF_MANA, dir, 120);
 				o_ptr->timeout = randint0(120)+120;
 				break;
 			case EGO_RING_FIRE_BALL:

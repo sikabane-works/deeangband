@@ -1670,7 +1670,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You throw a huge boulder.");
 #endif
 
-			fire_bolt(GF_MISSILE, dir, (3 * plev) / 2);
+			fire_bolt(cr_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
 		case RACE_YEEK:
@@ -1694,7 +1694,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You spit acid.");
 #endif
 
-			if (plev < 25) fire_bolt(GF_ACID, dir, plev);
+			if (plev < 25) fire_bolt(cr_ptr, GF_ACID, dir, plev);
 			else fire_ball(cr_ptr, GF_ACID, dir, plev, 2);
 			break;
 
@@ -1706,7 +1706,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You throw a dart of poison.");
 #endif
 
-			fire_bolt(GF_POIS, dir, plev);
+			fire_bolt(cr_ptr, GF_POIS, dir, plev);
 			break;
 
 		case RACE_NIBELUNG:
@@ -1949,7 +1949,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			fire_bolt(GF_PSI, dir, plev);
+			fire_bolt(cr_ptr, GF_PSI, dir, plev);
 			break;
 
 		case RACE_IMP:
@@ -1972,7 +1972,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				fire_bolt(GF_FIRE, dir, plev);
+				fire_bolt(cr_ptr, GF_FIRE, dir, plev);
 			}
 			break;
 
@@ -2115,7 +2115,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				fire_bolt(GF_MISSILE, dir, (plev+1) / 2);
+				fire_bolt(cr_ptr, GF_MISSILE, dir, (plev+1) / 2);
 			}
 			else if (plev < 25)
 			{
@@ -2124,7 +2124,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				fire_bolt(GF_MISSILE, dir, plev);
+				fire_bolt(cr_ptr, GF_MISSILE, dir, plev);
 			}
 			else if (plev < 35)
 			{

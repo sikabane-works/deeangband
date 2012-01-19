@@ -3377,7 +3377,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("You concentrate...");
 #endif
 
-			fire_bolt(GF_PSI, dir, damroll(3 + ((lvl - 1) / 5), 3));
+			fire_bolt(cr_ptr, GF_PSI, dir, damroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
 		case CF_RADIATION:
@@ -3810,7 +3810,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 					break;
 				}
-				fire_bolt(GF_COLD, dir, 2 * lvl);
+				fire_bolt(cr_ptr, GF_COLD, dir, 2 * lvl);
 			}
 			break;
 

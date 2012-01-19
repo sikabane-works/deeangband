@@ -6679,10 +6679,10 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
  * Stop if we hit a monster, as a "bolt".
  * Affect monsters and grids (not objects).
  */
-bool fire_bolt(int typ, int dir, int dam)
+bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
-	return (project_hook(p_ptr, typ, dir, dam, flg));
+	return (project_hook(caster_ptr, typ, dir, dam, flg));
 }
 
 
@@ -6709,7 +6709,7 @@ bool fire_bolt_or_beam(int prob, int typ, int dir, int dam)
 	}
 	else
 	{
-		return (fire_bolt(typ, dir, dam));
+		return (fire_bolt(p_ptr, typ, dir, dam));
 	}
 }
 
@@ -6755,7 +6755,7 @@ bool destroy_door(int dir)
 bool disarm_trap(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(p_ptr, GF_KILL_TRAP, dir, 0, flg));
+	return (project_hook(caster_ptr, GF_KILL_TRAP, dir, 0, flg));
 }
 
 

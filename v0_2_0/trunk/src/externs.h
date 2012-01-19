@@ -1406,7 +1406,7 @@ extern bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int 
 extern bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
-extern bool fire_bolt(int typ, int dir, int dam);
+extern bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *cr_ptr);
 extern bool fire_beam(int typ, int dir, int dam);

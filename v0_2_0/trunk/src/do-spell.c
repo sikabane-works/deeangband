@@ -8479,7 +8479,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_bolt(GF_ELEC, dir, dam);
+				fire_bolt(cr_ptr, GF_ELEC, dir, dam);
 			}
 		}
 		break;
@@ -9037,7 +9037,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt(GF_SOUND, dir, damroll(dice, sides));
+				fire_bolt(cr_ptr, GF_SOUND, dir, damroll(dice, sides));
 			}
 		}
 		break;

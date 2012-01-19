@@ -1283,7 +1283,7 @@ msg_format("There are too many mirrors to control!");
 	    fire_beam(GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  else {
-	    fire_bolt(GF_LITE, dir,damroll(3+((plev-1)/5),4));
+	    fire_bolt(cr_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  break;
 	/* warped mirror */
