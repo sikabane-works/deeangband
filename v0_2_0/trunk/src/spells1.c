@@ -8940,18 +8940,18 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	int point_y[3];
 
 	/* Default target of monsterspell is player */
-	monster_target_y=p_ptr->fy;
-	monster_target_x=p_ptr->fx;
+	monster_target_y=caster_ptr->fy;
+	monster_target_x=caster_ptr->fx;
 
 	for( x=0 ; x < cur_wid ; x++ )
 	{
 		for( y=0 ; y < cur_hgt ; y++ )
 		{
 			if( is_mirror_grid(&cave[y][x]) &&
-			    distance(p_ptr->fy,p_ptr->fx,y,x) <= MAX_RANGE(p_ptr) &&
-			    distance(p_ptr->fy,p_ptr->fx,y,x) != 0 &&
+			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE(caster_ptr) &&
+			    distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
-			    projectable(p_ptr->fy, p_ptr->fx, y, x)
+			    projectable(caster_ptr->fy, caster_ptr->fx, y, x)
 			    ){
 				mirror_y[mirror_num]=y;
 				mirror_x[mirror_num]=x;
@@ -8972,8 +8972,8 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	point_x[0]=mirror_x[point_x[0]];
 	point_y[1]=mirror_y[point_x[1]];
 	point_x[1]=mirror_x[point_x[1]];
-	point_y[2]=p_ptr->fy;
-	point_x[2]=p_ptr->fx;
+	point_y[2]=caster_ptr->fy;
+	point_x[2]=caster_ptr->fx;
 
 	x=point_x[0]+point_x[1]+point_x[2];
 	y=point_y[0]+point_y[1]+point_y[2];
@@ -9001,12 +9001,12 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
-					if(!(p_ptr->blind)
+					if(!(caster_ptr->blind)
 					   && panel_contains(y,x)){
 					  p = bolt_pict(y,x,y,x, GF_MANA );
-					  print_rel(p_ptr, PICT_C(p), PICT_A(p),y,x);
+					  print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);
 					  move_cursor_relative(y, x);
 					  /*if (fresh_before)*/ Term_fresh();
 					  Term_xtra(TERM_XTRA_DELAY, msec);
@@ -9024,8 +9024,8 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
-					(void)project_f(p_ptr, NULL,0,y,x,dam,GF_MANA); 
+				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+					(void)project_f(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
@@ -9039,8 +9039,8 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
-					(void)project_o(p_ptr,0,y,x,dam,GF_MANA); 
+				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
@@ -9054,8 +9054,8 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
-					(void)project_creature(p_ptr, "Dammy", 0, y, x, dam, GF_MANA,
+				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}
 			}
