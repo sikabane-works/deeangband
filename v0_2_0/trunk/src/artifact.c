@@ -2398,7 +2398,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows deep blue...");
 #endif
 
-			(void)symbol_genocide(200, TRUE);
+			(void)symbol_genocide(cr_ptr, 200, TRUE);
 			o_ptr->timeout = 500;
 			break;
 		}

@@ -4767,7 +4767,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 /*
  * Delete all non-unique/non-quest monsters of a given "type" from the level
  */
-bool symbol_genocide(int power, bool player_cast)
+bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
 	char typ;
@@ -4800,9 +4800,9 @@ bool symbol_genocide(int power, bool player_cast)
 
 		/* Take note */
 #ifdef JP
-		result |= genocide_aux(p_ptr, i, power, player_cast, 4, "–•ŽE");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, "–•ŽE");
 #else
-		result |= genocide_aux(p_ptr, i, power, player_cast, 4, "Genocide");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, "Genocide");
 #endif
 	}
 

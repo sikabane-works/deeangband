@@ -312,7 +312,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 108)
 	{
-		symbol_genocide(plev+50, TRUE);
+		symbol_genocide(cr_ptr, plev+50, TRUE);
 	}
 	else if (die < 110) dispel_monsters(120);
 	else /* RARE */
@@ -465,7 +465,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 108)
 	{
-		symbol_genocide(plev+50, TRUE);
+		symbol_genocide(cr_ptr, plev+50, TRUE);
 	}
 	else if (die < 110)
 	{
@@ -4595,7 +4595,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				symbol_genocide(power, TRUE);
+				symbol_genocide(cr_ptr, power, TRUE);
 			}
 		}
 		break;

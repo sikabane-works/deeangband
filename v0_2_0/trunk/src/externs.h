@@ -1382,7 +1382,7 @@ extern bool slow_monsters(creature_type *caster_ptr);
 extern bool sleep_monsters(creature_type *caster_ptr);
 extern void aggravate_monsters(creature_type *cr_ptr);
 extern bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name);
-extern bool symbol_genocide(int power, bool player_cast);
+extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast);
 extern bool mass_genocide(int power, bool player_cast);
 extern bool mass_genocide_undead(int power, bool player_cast);
 extern bool probing(void);

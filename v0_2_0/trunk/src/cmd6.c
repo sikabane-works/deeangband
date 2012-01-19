@@ -1935,7 +1935,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_GENOCIDE:
 		{
-			(void)symbol_genocide(300, TRUE);
+			(void)symbol_genocide(cr_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
 		}
@@ -2533,7 +2533,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_GENOCIDE:
 		{
-			(void)symbol_genocide((magic ? cr_ptr->lev + 50 : 200), TRUE);
+			(void)symbol_genocide(cr_ptr, (magic ? cr_ptr->lev + 50 : 200), TRUE);
 			ident = TRUE;
 			break;
 		}
@@ -4401,7 +4401,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				msg_print("Your armor glows deep blue...");
 #endif
 
-				(void)symbol_genocide(200, TRUE);
+				(void)symbol_genocide(cr_ptr, 200, TRUE);
 				o_ptr->timeout = 500;
 				break;
 			}

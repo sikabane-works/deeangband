@@ -1180,6 +1180,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	if (!done)
+
 	{
 		/* Flow towards the player */
 		(void)get_moves_aux(player_ptr, m_idx, &y2, &x2, no_flow);
