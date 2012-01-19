@@ -8766,7 +8766,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (banish_evil(power))
+				if (banish_evil(cr_ptr, power))
 				{
 #ifdef JP
 					msg_print("_¹‚È—Í‚ª×ˆ«‚ğ‘Å‚¿•¥‚Á‚½I");

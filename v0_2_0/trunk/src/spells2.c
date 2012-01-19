@@ -4521,9 +4521,9 @@ bool sleep_monsters(creature_type *caster_ptr)
 /*
  * Banish evil monsters
  */
-bool banish_evil(int dist)
+bool banish_evil(creature_type *caster_ptr, int dist)
 {
-	return (project_hack(p_ptr, GF_AWAY_EVIL, dist));
+	return (project_hack(caster_ptr, GF_AWAY_EVIL, dist));
 }
 
 

@@ -1386,7 +1386,7 @@ extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_ca
 extern bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast);
 extern bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast);
 extern bool probing(void);
-extern bool banish_evil(int dist);
+extern bool banish_evil(creature_type *caster_ptr, int dist);
 extern bool dispel_evil(int dam);
 extern bool dispel_good(int dam);
 extern bool dispel_undead(int dam);

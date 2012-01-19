@@ -2377,7 +2377,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_BANISH_EVIL:
 		{
-			if (banish_evil(100))
+			if (banish_evil(cr_ptr, 100))
 			{
 #ifdef JP
 				msg_print("アーティファクトの力が邪悪を打ち払った！");
