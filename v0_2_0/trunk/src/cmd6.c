@@ -2937,7 +2937,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_DRAIN_LIFE:
 		{
-			if (drain_life(dir, 80 + cr_ptr->lev)) ident = TRUE;
+			if (drain_life(cr_ptr, dir, 80 + cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 
@@ -3465,7 +3465,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_DRAIN_LIFE:
 		{
-			if (drain_life(dir, 70 + 3 * cr_ptr->lev / 2)) ident = TRUE;
+			if (drain_life(cr_ptr, dir, 70 + 3 * cr_ptr->lev / 2)) ident = TRUE;
 			break;
 		}
 
@@ -4218,7 +4218,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				if (drain_life(dir, 100))
+				if (drain_life(cr_ptr, dir, 100))
 				o_ptr->timeout = randint0(100) + 100;
 				break;
 			}
@@ -4829,7 +4829,7 @@ msg_print("暁の師団を召喚した。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				drain_life(dir, 120);
+				drain_life(cr_ptr, dir, 120);
 				o_ptr->timeout = 400;
 				break;
 			}
@@ -5047,7 +5047,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				drain_life(dir, 90);
+				drain_life(cr_ptr, dir, 90);
 				o_ptr->timeout = 70;
 				break;
 			}

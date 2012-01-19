@@ -296,12 +296,12 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	else if (die < 71)
 		fire_bolt_or_beam(beam_chance(cr_ptr), GF_FIRE, dir,
 				  damroll(8 + ((plev - 5) / 4), 8));
-	else if (die < 76) drain_life(dir, 75);
+	else if (die < 76) drain_life(cr_ptr, dir, 75);
 	else if (die < 81) fire_ball(cr_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
 	else if (die < 86) fire_ball(cr_ptr, GF_ACID, dir, 40 + plev, 2);
 	else if (die < 91) fire_ball(cr_ptr, GF_ICE, dir, 70 + plev, 3);
 	else if (die < 96) fire_ball(cr_ptr, GF_FIRE, dir, 80 + plev, 3);
-	else if (die < 101) drain_life(dir, 100 + plev);
+	else if (die < 101) drain_life(cr_ptr, dir, 100 + plev);
 	else if (die < 104)
 	{
 		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 12);
@@ -433,7 +433,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 76)
 	{
-		drain_life(dir, 75);
+		drain_life(cr_ptr, dir, 75);
 	}
 	else if (die < 81)
 	{
@@ -453,7 +453,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 101)
 	{
-		drain_life(dir, 100 + plev);
+		drain_life(cr_ptr, dir, 100 + plev);
 	}
 	else if (die < 104)
 	{
@@ -4537,7 +4537,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				if (drain_life(dir, dam))
+				if (drain_life(cr_ptr, dir, dam))
 				{
 					hp_player(cr_ptr, dam);
 
@@ -4733,7 +4733,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 				for (i = 0; i < 3; i++)
 				{
-					if (drain_life(dir, dam))
+					if (drain_life(cr_ptr, dir, dam))
 						hp_player(cr_ptr, dam);
 				}
 			}

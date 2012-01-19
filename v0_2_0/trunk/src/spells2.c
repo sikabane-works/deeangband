@@ -6724,10 +6724,10 @@ bool lite_line(creature_type *caster_ptr, int dir)
 }
 
 
-bool drain_life(int dir, int dam)
+bool drain_life(creature_type *caster_ptr, int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_DRAIN, dir, dam, flg));
+	return (project_hook(caster_ptr, GF_OLD_DRAIN, dir, dam, flg));
 }
 
 

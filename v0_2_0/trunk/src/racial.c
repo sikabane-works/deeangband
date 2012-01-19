@@ -1488,7 +1488,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   /* Dmg */
-				if (drain_life(dir, dummy))
+				if (drain_life(cr_ptr, dir, dummy))
 				{
 					if (cr_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
@@ -2029,7 +2029,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
-				if (drain_life(dir, dummy))
+				if (drain_life(cr_ptr, dir, dummy))
 				{
 					if (cr_ptr->food < PY_FOOD_FULL)
 						// No heal if we are "full"

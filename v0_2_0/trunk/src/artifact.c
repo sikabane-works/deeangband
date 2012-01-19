@@ -2103,7 +2103,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			if (drain_life(dir, 100))
+			if (drain_life(cr_ptr, dir, 100))
 			o_ptr->timeout = (s16b)randint0(100) + 100;
 			break;
 		}
@@ -2145,7 +2145,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			drain_life(dir, 120);
+			drain_life(cr_ptr, dir, 120);
 			o_ptr->timeout = 400;
 			break;
 		}
@@ -2155,7 +2155,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)
 			{
-				if (drain_life(dir, 50))
+				if (drain_life(cr_ptr, dir, 50))
 				hp_player(cr_ptr, 50);
 			}
 			o_ptr->timeout = 400;
@@ -2248,7 +2248,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)
 			{
-				if (drain_life(dir, 100))
+				if (drain_life(cr_ptr, dir, 100))
 				hp_player(cr_ptr, 100);
 			}
 
