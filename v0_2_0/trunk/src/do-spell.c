@@ -283,7 +283,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 				  damroll(3 + ((plev - 1) / 5), 4));
 	else if (die < 41) confuse_monster(dir, plev);
 	else if (die < 46) fire_ball(cr_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
-	else if (die < 51) (void)lite_line(dir);
+	else if (die < 51) (void)lite_line(cr_ptr, dir);
 	else if (die < 56)
 		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir,
 				  damroll(3 + ((plev - 5) / 4), 8));
@@ -409,7 +409,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 51)
 	{
-		(void)lite_line(dir);
+		(void)lite_line(cr_ptr, dir);
 	}
 	else if (die < 56)
 	{
@@ -2928,7 +2928,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("A line of sunlight appears.");
 #endif
 
-				lite_line(dir);
+				lite_line(cr_ptr, dir);
 			}
 		}
 		break;
@@ -6424,7 +6424,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("A line of light appears.");
 #endif
 
-				lite_line(dir);
+				lite_line(cr_ptr, dir);
 			}
 		}
 		break;

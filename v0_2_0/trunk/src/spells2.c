@@ -6717,10 +6717,10 @@ bool fire_bolt_or_beam(int prob, int typ, int dir, int dam)
 /*
  * Some of the old functions
  */
-bool lite_line(int dir)
+bool lite_line(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_LITE_WEAK, dir, damroll(6, 8), flg));
+	return (project_hook(caster_ptr, GF_LITE_WEAK, dir, damroll(6, 8), flg));
 }
 
 

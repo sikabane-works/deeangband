@@ -1977,7 +1977,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("A line of sunlight appears.");
 #endif
 
-			(void)lite_line(dir);
+			(void)lite_line(cr_ptr, dir);
 			o_ptr->timeout = 10;
 			break;
 		}

@@ -1411,7 +1411,7 @@ extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int 
 extern void call_chaos(creature_type *cr_ptr);
 extern bool fire_beam(int typ, int dir, int dam);
 extern bool fire_bolt_or_beam(int prob, int typ, int dir, int dam);
-extern bool lite_line(int dir);
+extern bool lite_line(creature_type *caster_ptr, int dir);
 extern bool drain_life(int dir, int dam);
 extern bool death_ray(int dir, int plev);
 extern bool wall_to_mud(int dir);

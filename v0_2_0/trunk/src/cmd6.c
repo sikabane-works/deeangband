@@ -2906,7 +2906,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 			msg_print("A line of blue shimmering light appears.");
 #endif
 
-			(void)lite_line(dir);
+			(void)lite_line(cr_ptr, dir);
 			ident = TRUE;
 			break;
 		}
@@ -3446,7 +3446,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 			msg_print("A line of blue shimmering light appears.");
 #endif
 
-			(void)lite_line(dir);
+			(void)lite_line(cr_ptr, dir);
 			ident = TRUE;
 			break;
 		}
