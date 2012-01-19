@@ -534,7 +534,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		break;
 	case 19:
 	case 20:
-		trap_creation(cr_ptr->fy, cr_ptr->fx);
+		trap_creation(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 		break;
 	case 21:
 	case 22:

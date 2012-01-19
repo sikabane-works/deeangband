@@ -1431,7 +1431,7 @@ extern bool poly_monster(int dir);
 extern bool clone_monster(int dir);
 extern bool teleport_monster(int dir);
 extern bool door_creation(void);
-extern bool trap_creation(int y, int x);
+extern bool trap_creation(creature_type *caster_ptr, int y, int x);
 extern bool tree_creation(creature_type *caster_ptr);
 extern bool glyph_creation(creature_type *cr_ptr);
 extern bool destroy_doors_touch(creature_type *caster_ptr);

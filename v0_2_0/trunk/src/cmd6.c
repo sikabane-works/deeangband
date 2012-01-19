@@ -1673,7 +1673,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_TRAP_CREATION:
 		{
-			if (trap_creation(cr_ptr->fy, cr_ptr->fx)) ident = TRUE;
+			if (trap_creation(cr_ptr, cr_ptr->fy, cr_ptr->fx)) ident = TRUE;
 			break;
 		}
 

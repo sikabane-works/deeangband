@@ -3608,7 +3608,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 
 			learn_spell(target_ptr, MS_MAKE_TRAP);
-			(void)trap_creation(y, x);
+			(void)trap_creation(caster_ptr, y, x);
 			break;
 		}
 

@@ -6858,10 +6858,10 @@ bool door_creation(void)
 }
 
 
-bool trap_creation(int y, int x)
+bool trap_creation(creature_type *caster_ptr, int y, int x)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, y, x, 0, GF_MAKE_TRAP, flg, -1));
+	return (project(caster_ptr, 1, y, x, 0, GF_MAKE_TRAP, flg, -1));
 }
 
 

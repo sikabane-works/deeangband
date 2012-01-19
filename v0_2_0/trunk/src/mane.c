@@ -1029,7 +1029,7 @@ msg_print("ô•¶‚ğ¥‚¦‚Ä×ˆ«‚É”÷Î‚ñ‚¾B");
 #else
 			msg_print("You cast a spell and cackles evilly.");
 #endif
-		trap_creation(target_row, target_col);
+		trap_creation(cr_ptr, target_row, target_col);
 		break;
 	case MS_FORGET:
 #ifdef JP
