@@ -3227,6 +3227,12 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if (weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
+	// Ceased by Kawarimi
+	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
+	{
+		if (kawarimi(tar_ptr, TRUE)) return TRUE;
+	}
+
 
 	if (atk_ptr->migite && atk_ptr->hidarite)
 	{

@@ -56,7 +56,7 @@ static int monster_critical(int dice, int sides, int dam)
  * Always miss 5% of the time, Always hit 5% of the time.
  * Otherwise, match monster power against player armor.
  */
-static int check_hit(creature_type *tar_ptr, int power, int level, int stun)
+static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 {
 	int i, k, ac;
 
@@ -72,8 +72,8 @@ static int check_hit(creature_type *tar_ptr, int power, int level, int stun)
 	i = (power + (level * 3));
 
 	/* Total armor */
-	ac = tar_ptr->ac + tar_ptr->to_a;
-	if (tar_ptr->special_attack & ATTACK_SUIKEN) ac += (tar_ptr->lev * 2);
+	ac = target_ptr->ac + target_ptr->to_a;
+	if (target_ptr->special_attack & ATTACK_SUIKEN) ac += (target_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
 	if ((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
@@ -140,10 +140,10 @@ static cptr desc_moan[] =
 /*
  * Attack the player via physical attacks.
  */
-bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
+bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 
-	species_type *r_ptr = &species_info[atk_ptr->species_idx];
+	species_type *r_ptr = &species_info[attacker_ptr->species_idx];
 
 	int ap_cnt;
 
@@ -164,35 +164,30 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 	bool blinked;
 	bool touched = FALSE, fear = FALSE, alive = TRUE;
 	bool explode = FALSE;
-	bool do_silly_attack = (one_in_(2) && tar_ptr->image);
+	bool do_silly_attack = (one_in_(2) && target_ptr->image);
 	int get_damage = 0;
 #ifdef JP
 	int abbreviate = 0;
 #endif
 
 	/* Not allowed to attack */
-	if (has_cf_creature(atk_ptr, CF_NEVER_BLOW)) return (FALSE);
+	if (has_cf_creature(attacker_ptr, CF_NEVER_BLOW)) return (FALSE);
 
 	if (d_info[dungeon_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
 	/* ...nor if friendly */
-	if (!is_hostile(atk_ptr)) return FALSE;
+	if (!is_hostile(attacker_ptr)) return FALSE;
 
 	/* Extract the effective monster level */
 	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 
 
 	/* Get the monster name (or "it") */
-	creature_desc(attacker_name, atk_ptr, 0);
-	creature_desc(target_name, tar_ptr, 0);
+	creature_desc(attacker_name, attacker_ptr, 0);
+	creature_desc(target_name, target_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
-	creature_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-
-	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
-	{
-		if (kawarimi(tar_ptr, TRUE)) return TRUE;
-	}
+	creature_desc(ddesc, attacker_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Assume no blink */
 	blinked = FALSE;
@@ -216,18 +211,18 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		/* Hack -- no more attacks */
 		if (!method) break;
 
-		if (is_pet(player_ptr, atk_ptr) && (is_unique_species(r_ptr)) && (method == RBM_EXPLODE))
+		if (is_pet(player_ptr, attacker_ptr) && (is_unique_species(r_ptr)) && (method == RBM_EXPLODE))
 		{
 			method = RBM_HIT;
 			d_dice /= 10;
 		}
 
 		/* Stop if player is dead or gone */
-		if (!tar_ptr->playing || tar_ptr->is_dead) break;
-		if (distance(tar_ptr->fy, tar_ptr->fx, atk_ptr->fy, atk_ptr->fx) > 1) break;
+		if (!target_ptr->playing || target_ptr->is_dead) break;
+		if (distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */
-		if (tar_ptr->leaving) break;
+		if (target_ptr->leaving) break;
 
 		if (method == RBM_SHOOT) continue;
 
@@ -235,23 +230,23 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		power = mbe_info[effect].power;
 
 		/* Total armor */
-		ac = tar_ptr->ac + tar_ptr->to_a;
+		ac = target_ptr->ac + target_ptr->to_a;
 
 		/* Monster hits player */
-		if (!effect || check_hit(tar_ptr, power, rlev, atk_ptr->stun))
+		if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->stun))
 		{
 			/* Always disturbing */
 			disturb(player_ptr, 1, 0);
 
 
 			/* Hack -- Apply "protection from evil" */
-			if ((tar_ptr->protevil > 0) &&
-			    is_enemy_of_good_creature(tar_ptr) &&
-			    (tar_ptr->lev >= rlev) &&
-			    ((randint0(100) + tar_ptr->lev) > 50))
+			if ((target_ptr->protevil > 0) &&
+			    is_enemy_of_good_creature(target_ptr) &&
+			    (target_ptr->lev >= rlev) &&
+			    ((randint0(100) + target_ptr->lev) > 50))
 			{
 				/* Remember the Evil-ness */
-				//TODO if (is_original_ap_and_seen(tar_ptr, atk_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+				//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
 
 				/* Message */
 #ifdef JP
@@ -282,7 +277,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "殴った。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "hit";
 					else
 						act = "hits";
@@ -300,7 +295,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 1;
 					act = "触れた。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "touch";
 					else
 						act = "touches";
@@ -317,7 +312,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "パンチした。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "punch";
 					else
 						act = "punches";
@@ -335,7 +330,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "蹴った。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "kick";
 					else
 						act = "kicks";
@@ -353,7 +348,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "引っ掻いた。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "claw";
 					else
 						act = "claws";
@@ -371,7 +366,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "噛んだ。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "bite";
 					else
 						act = "bites";
@@ -389,7 +384,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "刺した。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "sting";
 					else
 						act = "stings";
@@ -406,7 +401,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "斬った。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "slash";
 					else
 						act = "slashes";
@@ -424,7 +419,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "角で突いた。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "butt";
 					else
 						act = "butts";
@@ -442,7 +437,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 1;
 					act = "体当たりした。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "crush";
 					else
 						act = "crushes";
@@ -460,7 +455,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "飲み込んだ。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "engulf";
 					else
 						act = "engulfs";
@@ -477,7 +472,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 1;
 					act = "請求書をよこした。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "charge";
 					else
 						act = "charges";
@@ -494,7 +489,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 2;
 					act = "体の上を這い回った。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "crawl on";
 					else
 						act = "crawls on";
@@ -511,7 +506,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 1;
 					act = "よだれをたらした。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "drool on";
 					else
 						act = "drools on";
@@ -527,7 +522,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 3;
 					act = "唾を吐きかけた。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "spit on";
 					else
 						act = "spits on";
@@ -543,7 +538,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 4;
 					act = "は爆発した。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "explode";
 					else
 						act = "explodes";
@@ -559,7 +554,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 0;
 					act = "にらんだ。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "gaze at";
 					else
 						act = "gazes at";
@@ -574,7 +569,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 3;
 					act = "泣き叫んだ。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "wail at";
 					else
 						act = "wails at";
@@ -590,7 +585,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 3;
 					act = "胞子を飛ばした。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "release spores at";
 					else
 						act = "releases spores at";
@@ -606,7 +601,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 3;
 					act = "XXX4 を発射した。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "project XXX4's at";
 					else
 						act = "projects XXX4's at";
@@ -621,7 +616,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					abbreviate = 1;
 					act = "金をせがんだ。";
 #else
-					if(is_player(atk_ptr))
+					if(is_player(attacker_ptr))
 						act = "beg";
 					else
 						act = "begs";
@@ -636,7 +631,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #ifdef JP
 					abbreviate = 2;
 #endif
-					act = desc_insult[randint0(atk_ptr->species_idx == MON_DEBBY ? 10 : 8)];
+					act = desc_insult[randint0(attacker_ptr->species_idx == MON_DEBBY ? 10 : 8)];
 					sound(SOUND_MOAN);
 					break;
 				}
@@ -656,7 +651,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #ifdef JP
 					abbreviate = 4;
 #endif
-					if (atk_ptr->species_idx == MON_JAIAN)
+					if (attacker_ptr->species_idx == MON_JAIAN)
 					{
 #ifdef JP
 						switch(randint1(15))
@@ -783,7 +778,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 				case RBE_SUPERHURT:
 				{
-					if (((randint1(rlev*2+300) > (ac+200)) || one_in_(13)) && !(tar_ptr->multishadow && (turn & 1)))
+					if (((randint1(rlev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->multishadow && (turn & 1)))
 					{
 						int tmp_damage = damage - (damage * ((ac < 150) ? ac : 150) / 250);
 #ifdef JP
@@ -795,7 +790,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						tmp_damage = MAX(damage, tmp_damage*2);
 
 						/* Take damage */
-						get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
+						get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
 						break;
 					}
 				}
@@ -808,7 +803,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					damage -= (damage * ((ac < 150) ? ac : 150) / 250);
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					break;
 				}
@@ -818,16 +813,16 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (explode) break;
 
 					/* Take "poison" effect */
-					if (!(tar_ptr->resist_pois || IS_OPPOSE_POIS(tar_ptr)) && !(tar_ptr->multishadow && (turn & 1)))
+					if (!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->multishadow && (turn & 1)))
 					{
-						if (set_poisoned(tar_ptr, tar_ptr->poisoned + randint1(rlev) + 5))
+						if (set_poisoned(target_ptr, target_ptr->poisoned + randint1(rlev) + 5))
 						{
 							obvious = TRUE;
 						}
 					}
 
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_POIS);
@@ -840,19 +835,19 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (explode) break;
 
 					/* Allow complete resist */
-					if (!tar_ptr->resist_disen && !(tar_ptr->multishadow && (turn & 1)))
+					if (!target_ptr->resist_disen && !(target_ptr->multishadow && (turn & 1)))
 					{
 						/* Apply disenchantment */
-						if (apply_disenchant(tar_ptr, 0))
+						if (apply_disenchant(target_ptr, 0))
 						{
 							/* Hack -- Update AC */
-							update_stuff(tar_ptr, TRUE);
+							update_stuff(target_ptr, TRUE);
 							obvious = TRUE;
 						}
 					}
 
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_DISEN);
@@ -863,9 +858,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_UN_POWER:
 				{
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Find an item */
 					for (k = 0; k < 10; k++)
@@ -874,7 +869,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						i = randint0(INVEN_PACK);
 
 						/* Obtain the item */
-						o_ptr = &tar_ptr->inventory[i];
+						o_ptr = &target_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -890,7 +885,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							    heal *=  o_ptr->number;
 
 							/* Don't heal more than max hp */
-							heal = MIN(heal, atk_ptr->mhp - atk_ptr->chp);
+							heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
 
 							/* Message */
 #ifdef JP
@@ -904,17 +899,17 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							obvious = TRUE;
 
 							/* Heal the monster */
-							atk_ptr->chp += heal;
+							attacker_ptr->chp += heal;
 
 							/* Redraw (later) if needed */
-							//TODO if (&m_info[health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
-							//if (&m_info[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
+							//TODO if (&m_info[health_who] == attacker_ptr) play_redraw |= (PR_HEALTH);
+							//if (&m_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
 
 							/* Uncharge */
 							o_ptr->pval = 0;
 
 							/* Combine / Reorder the pack */
-							tar_ptr->notice |= (PN_COMBINE | PN_REORDER);
+							target_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 							/* Window stuff */
 							play_window |= (PW_INVEN);
@@ -930,20 +925,20 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_GOLD:
 				{
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
-					if (atk_ptr->confused) break;
+					if (attacker_ptr->confused) break;
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Saving throw (unless paralyzed) based on dex and level */
-					if (!tar_ptr->paralyzed &&
-					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[STAT_DEX]] +
-							      tar_ptr->lev)))
+					if (!target_ptr->paralyzed &&
+					    (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
+							      target_ptr->lev)))
 					{
 						/* Saving throw message */
 #ifdef JP
@@ -960,11 +955,11 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					/* Eat gold */
 					else
 					{
-						gold = (tar_ptr->au / 10) + randint1(25);
+						gold = (target_ptr->au / 10) + randint1(25);
 						if (gold < 2) gold = 2;
-						if (gold > 5000) gold = (tar_ptr->au / 20) + randint1(3000);
-						if (gold > tar_ptr->au) gold = tar_ptr->au;
-						tar_ptr->au -= gold;
+						if (gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
+						if (gold > target_ptr->au) gold = target_ptr->au;
+						target_ptr->au -= gold;
 						if (gold <= 0)
 						{
 #ifdef JP
@@ -974,7 +969,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 						}
-						else if (tar_ptr->au)
+						else if (target_ptr->au)
 						{
 #ifdef JP
 							msg_print("財布が軽くなった気がする。");
@@ -1011,17 +1006,17 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_ITEM:
 				{
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
-					if (atk_ptr->confused) break;
+					if (attacker_ptr->confused) break;
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Saving throw (unless paralyzed) based on dex and level */
-					if (!tar_ptr->paralyzed &&
-					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[STAT_DEX]] +
-							      tar_ptr->lev)))
+					if (!target_ptr->paralyzed &&
+					    (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
+							      target_ptr->lev)))
 					{
 						/* Saving throw message */
 #ifdef JP
@@ -1050,7 +1045,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						i = randint0(INVEN_PACK);
 
 						/* Obtain the item */
-						o_ptr = &tar_ptr->inventory[i];
+						o_ptr = &target_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -1059,17 +1054,17 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (object_is_artifact(o_ptr)) continue;
 
 						/* Get a description */
-						object_desc(tar_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+						object_desc(target_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
 
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)を%s盗まれた！",
-							   o_name, index_to_label(tar_ptr, i),
+							   o_name, index_to_label(target_ptr, i),
 							   ((o_ptr->number > 1) ? "一つ" : ""));
 #else
 						msg_format("%sour %s (%c) was stolen!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(tar_ptr, i));
+							   o_name, index_to_label(target_ptr, i));
 #endif
 
 						/* Make an object */
@@ -1106,15 +1101,15 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							//TODO j_ptr->held_m_idx = m_idx;
 
 							/* Build stack */
-							j_ptr->next_o_idx = atk_ptr->hold_o_idx;
+							j_ptr->next_o_idx = attacker_ptr->hold_o_idx;
 
 							/* Build stack */
-							atk_ptr->hold_o_idx = o_idx;
+							attacker_ptr->hold_o_idx = o_idx;
 						}
 
 						/* Steal the items */
-						inven_item_increase(tar_ptr, i, -1);
-						inven_item_optimize(tar_ptr, i);
+						inven_item_increase(target_ptr, i, -1);
+						inven_item_optimize(target_ptr, i);
 
 						/* Obvious */
 						obvious = TRUE;
@@ -1132,9 +1127,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_FOOD:
 				{
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Steal some food */
 					for (k = 0; k < 10; k++)
@@ -1143,7 +1138,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						i = randint0(INVEN_PACK);
 
 						/* Get the item */
-						o_ptr = &tar_ptr->inventory[i];
+						o_ptr = &target_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -1152,23 +1147,23 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if ((o_ptr->tval != TV_FOOD) && !((o_ptr->tval == TV_CORPSE) && (o_ptr->sval))) continue;
 
 						/* Get a description */
-						object_desc(tar_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+						object_desc(target_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)を%s食べられてしまった！",
-							  o_name, index_to_label(tar_ptr, i),
+							  o_name, index_to_label(target_ptr, i),
 							  ((o_ptr->number > 1) ? "一つ" : ""));
 #else
 						msg_format("%sour %s (%c) was eaten!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(tar_ptr, i));
+							   o_name, index_to_label(target_ptr, i));
 #endif
 
 
 						/* Steal the items */
-						inven_item_increase(tar_ptr, i, -1);
-						inven_item_optimize(tar_ptr, i);
+						inven_item_increase(target_ptr, i, -1);
+						inven_item_optimize(target_ptr, i);
 
 						/* Obvious */
 						obvious = TRUE;
@@ -1183,12 +1178,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_LITE:
 				{
 					/* Access the lite */
-					o_ptr = &tar_ptr->inventory[INVEN_LITE];
+					o_ptr = &target_ptr->inventory[INVEN_LITE];
 
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Drain fuel */
 					if ((o_ptr->xtra4 > 0) && (!object_is_fixed_artifact(o_ptr)))
@@ -1198,7 +1193,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (o_ptr->xtra4 < 1) o_ptr->xtra4 = 1;
 
 						/* Notice */
-						if (!tar_ptr->blind)
+						if (!target_ptr->blind)
 						{
 #ifdef JP
 							msg_print("明かりが暗くなってしまった。");
@@ -1231,10 +1226,10 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += acid_dam(tar_ptr, damage, ddesc, -1);
+					get_damage += acid_dam(target_ptr, damage, ddesc, -1);
 
 					/* Hack -- Update AC */
-					update_stuff(tar_ptr, TRUE);
+					update_stuff(target_ptr, TRUE);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_ACID);
@@ -1257,7 +1252,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += elec_dam(tar_ptr, damage, ddesc, -1);
+					get_damage += elec_dam(target_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_ELEC);
@@ -1280,7 +1275,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += fire_dam(tar_ptr, damage, ddesc, -1);
+					get_damage += fire_dam(target_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_FIRE);
@@ -1303,7 +1298,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += cold_dam(tar_ptr, damage, ddesc, -1);
+					get_damage += cold_dam(target_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_COLD);
@@ -1314,17 +1309,17 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_BLIND:
 				{
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead) break;
+					if (target_ptr->is_dead) break;
 
 					/* Increase "blind" */
-					if (!tar_ptr->resist_blind && !(tar_ptr->multishadow && (turn & 1)))
+					if (!target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
 					{
-						if (set_blind(tar_ptr, tar_ptr->blind + 10 + randint1(rlev)))
+						if (set_blind(target_ptr, target_ptr->blind + 10 + randint1(rlev)))
 						{
 #ifdef JP
-							if (atk_ptr->species_idx == MON_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
+							if (attacker_ptr->species_idx == MON_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
 #else
 							/* nanka */
 #endif
@@ -1342,14 +1337,14 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				{
 					if (explode) break;
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead) break;
+					if (target_ptr->is_dead) break;
 
 					/* Increase "confused" */
-					if (!tar_ptr->resist_conf && !(tar_ptr->multishadow && (turn & 1)))
+					if (!target_ptr->resist_conf && !(target_ptr->multishadow && (turn & 1)))
 					{
-						if (set_confused(tar_ptr, tar_ptr->confused + 3 + randint1(rlev)))
+						if (set_confused(target_ptr, target_ptr->confused + 3 + randint1(rlev)))
 						{
 							obvious = TRUE;
 						}
@@ -1364,16 +1359,16 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_TERRIFY:
 				{
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead) break;
+					if (target_ptr->is_dead) break;
 
 					/* Increase "afraid" */
-					if ((tar_ptr->multishadow && (turn & 1)))
+					if ((target_ptr->multishadow && (turn & 1)))
 					{
 						/* Do nothing */
 					}
-					else if (tar_ptr->resist_fear)
+					else if (target_ptr->resist_fear)
 					{
 #ifdef JP
 						msg_print("しかし恐怖に侵されなかった！");
@@ -1383,7 +1378,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 						obvious = TRUE;
 					}
-					else if (randint0(100 + r_ptr->level/2) < tar_ptr->skill_rob)
+					else if (randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("しかし恐怖に侵されなかった！");
@@ -1395,7 +1390,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 					else
 					{
-						if (set_afraid(tar_ptr, tar_ptr->afraid + 3 + randint1(rlev)))
+						if (set_afraid(target_ptr, target_ptr->afraid + 3 + randint1(rlev)))
 						{
 							obvious = TRUE;
 						}
@@ -1410,16 +1405,16 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_PARALYZE:
 				{
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead) break;
+					if (target_ptr->is_dead) break;
 
 					/* Increase "paralyzed" */
-					if ((tar_ptr->multishadow && (turn & 1)))
+					if ((target_ptr->multishadow && (turn & 1)))
 					{
 						/* Do nothing */
 					}
-					else if (tar_ptr->free_act)
+					else if (target_ptr->free_act)
 					{
 #ifdef JP
 						msg_print("しかし効果がなかった！");
@@ -1429,7 +1424,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 						obvious = TRUE;
 					}
-					else if (randint0(100 + r_ptr->level/2) < tar_ptr->skill_rob)
+					else if (randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -1441,9 +1436,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 					else
 					{
-						if (!tar_ptr->paralyzed)
+						if (!target_ptr->paralyzed)
 						{
-							if (set_paralyzed(tar_ptr, 3 + randint1(rlev)))
+							if (set_paralyzed(target_ptr, 3 + randint1(rlev)))
 							{
 								obvious = TRUE;
 							}
@@ -1459,12 +1454,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_STR:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_STR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
 
 					break;
 				}
@@ -1472,12 +1467,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_INT:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_INT)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
 
 					break;
 				}
@@ -1485,12 +1480,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_WIS:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_WIS)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
 
 					break;
 				}
@@ -1498,12 +1493,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_DEX:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_DEX)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
 
 					break;
 				}
@@ -1511,12 +1506,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_CON:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_CON)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
 
 					break;
 				}
@@ -1524,12 +1519,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_CHR:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, STAT_CHR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1537,17 +1532,17 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_ALL:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stats) */
-					if (do_dec_stat(tar_ptr, STAT_STR)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, STAT_DEX)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, STAT_CON)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, STAT_INT)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, STAT_WIS)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, STAT_CHR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1561,12 +1556,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					damage -= (damage * ((ac < 150) ? ac : 150) / 250);
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Radius 8 earthquake centered at the monster */
 					if (damage > 23 || explode)
 					{
-						//TODO earthquake_aux(atk_ptr->fy, atk_ptr->fx, 8, m_idx);
+						//TODO earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 					}
 
 					break;
@@ -1574,90 +1569,90 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 				case RBE_EXP_10:
 				{
-					s32b d = damroll(10, 6) + (tar_ptr->exp / 100) * MON_DRAIN_LIFE;
+					s32b d = damroll(10, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
-					(void)drain_exp(tar_ptr, d, d / 10, 95);
+					(void)drain_exp(target_ptr, d, d / 10, 95);
 					break;
 				}
 
 				case RBE_EXP_20:
 				{
-					s32b d = damroll(20, 6) + (tar_ptr->exp / 100) * MON_DRAIN_LIFE;
+					s32b d = damroll(20, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
-					(void)drain_exp(tar_ptr, d, d / 10, 90);
+					(void)drain_exp(target_ptr, d, d / 10, 90);
 					break;
 				}
 
 				case RBE_EXP_40:
 				{
-					s32b d = damroll(40, 6) + (tar_ptr->exp / 100) * MON_DRAIN_LIFE;
+					s32b d = damroll(40, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
-					(void)drain_exp(tar_ptr, d, d / 10, 75);
+					(void)drain_exp(target_ptr, d, d / 10, 75);
 					break;
 				}
 
 				case RBE_EXP_80:
 				{
-					s32b d = damroll(80, 6) + (tar_ptr->exp / 100) * MON_DRAIN_LIFE;
+					s32b d = damroll(80, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
-					(void)drain_exp(tar_ptr, d, d / 10, 50);
+					(void)drain_exp(target_ptr, d, d / 10, 50);
 					break;
 				}
 
 				case RBE_DISEASE:
 				{
 					/* Take some damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Take "poison" effect */
-					if (!(tar_ptr->resist_pois || IS_OPPOSE_POIS(tar_ptr)))
+					if (!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 					{
-						if (set_poisoned(tar_ptr, tar_ptr->poisoned + randint1(rlev) + 5))
+						if (set_poisoned(target_ptr, target_ptr->poisoned + randint1(rlev) + 5))
 						{
 							obvious = TRUE;
 						}
 					}
 
 					/* Damage CON (10% chance)*/
-					if ((randint1(100) < 11) && !has_cf_creature(tar_ptr, CF_ANDROID))
+					if ((randint1(100) < 11) && !has_cf_creature(target_ptr, CF_ANDROID))
 					{
 						/* 1% chance for perm. damage */
 						bool perm = one_in_(10);
-						if (dec_stat(tar_ptr, STAT_CON, randint1(10), perm))
+						if (dec_stat(target_ptr, STAT_CON, randint1(10), perm))
 						{
 #ifdef JP
 							msg_print("病があなたを蝕んでいる気がする。");
@@ -1674,20 +1669,20 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_TIME:
 				{
 					if (explode) break;
-					if (!tar_ptr->resist_time && !(tar_ptr->multishadow && (turn & 1)))
+					if (!target_ptr->resist_time && !(target_ptr->multishadow && (turn & 1)))
 					{
 						switch (randint1(10))
 						{
 							case 1: case 2: case 3: case 4: case 5:
 							{
-								if (has_cf_creature(tar_ptr, CF_ANDROID)) break;
+								if (has_cf_creature(target_ptr, CF_ANDROID)) break;
 #ifdef JP
 								msg_print("人生が逆戻りした気がする。");
 #else
 								msg_print("You feel life has clocked back.");
 #endif
 
-								lose_exp(tar_ptr, 100 + (tar_ptr->exp / 100) * MON_DRAIN_LIFE);
+								lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * MON_DRAIN_LIFE);
 								break;
 							}
 
@@ -1722,9 +1717,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 
-								tar_ptr->stat_cur[stat] = (tar_ptr->stat_cur[stat] * 3) / 4;
-								if (tar_ptr->stat_cur[stat] < 3) tar_ptr->stat_cur[stat] = 3;
-								tar_ptr->update |= (PU_BONUS);
+								target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
+								if (target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
+								target_ptr->update |= (PU_BONUS);
 								break;
 							}
 
@@ -1739,42 +1734,42 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 								for (k = 0; k < 6; k++)
 								{
-									tar_ptr->stat_cur[k] = (tar_ptr->stat_cur[k] * 7) / 8;
-									if (tar_ptr->stat_cur[k] < 3) tar_ptr->stat_cur[k] = 3;
+									target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
+									if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 								}
-								tar_ptr->update |= (PU_BONUS);
+								target_ptr->update |= (PU_BONUS);
 								break;
 							}
 						}
 					}
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					break;
 				}
 				case RBE_EXP_VAMP:
 				{
-					s32b d = damroll(60, 6) + (tar_ptr->exp / 100) * MON_DRAIN_LIFE;
+					s32b d = damroll(60, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 					bool resist_drain;
 
 					/* Obvious */
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
+					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
-					resist_drain = !drain_exp(tar_ptr, d, d / 10, 50);
+					resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
 					/* Heal the attacker? */
-					if (tar_ptr->mimic_form)
+					if (target_ptr->mimic_form)
 					{
-						if (mimic_info[tar_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)
+						if (mimic_info[target_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)
 							resist_drain = TRUE;
 					}
 					else
 					{
-						if(has_cf_creature(tar_ptr, CF_NONLIVING) || is_undead_creature(tar_ptr) || is_demon_creature(tar_ptr))
+						if(has_cf_creature(target_ptr, CF_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
 						{
 							resist_drain = TRUE;
 							break;
@@ -1785,18 +1780,18 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					{
 						bool did_heal = FALSE;
 
-						if (atk_ptr->chp < atk_ptr->mhp) did_heal = TRUE;
+						if (attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
 
 						/* Heal */
-						atk_ptr->chp += damroll(4, damage / 6);
-						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
+						attacker_ptr->chp += damroll(4, damage / 6);
+						if (attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
 						/* Redraw (later) if needed */
 						//TODO if (health_who == m_idx) play_redraw |= (PR_HEALTH);
-						//TODO if (tar_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+						//TODO if (target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
-						if (atk_ptr->ml && did_heal)
+						if (attacker_ptr->ml && did_heal)
 						{
 #ifdef JP
 msg_format("%sは体力を回復したようだ。", attacker_name);
@@ -1814,7 +1809,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					/* Obvious */
 					obvious = TRUE;
 
-					if ((tar_ptr->multishadow && (turn & 1)))
+					if ((target_ptr->multishadow && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
@@ -1827,11 +1822,11 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						do_cut = 0;
 
 						/* Take damage */
-						tar_ptr->csp -= damage;
-						if (tar_ptr->csp < 0)
+						target_ptr->csp -= damage;
+						if (target_ptr->csp < 0)
 						{
-							tar_ptr->csp = 0;
-							tar_ptr->csp_frac = 0;
+							target_ptr->csp = 0;
+							target_ptr->csp_frac = 0;
 						}
 
 						play_redraw |= (PR_MANA);
@@ -1882,7 +1877,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 				}
 
 				/* Apply the cut */
-				if (k) (void)set_cut(tar_ptr, tar_ptr->cut + k);
+				if (k) (void)set_cut(target_ptr, target_ptr->cut + k);
 			}
 
 			/* Handle stun */
@@ -1907,15 +1902,15 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 				}
 
 				/* Apply the stun */
-				if (k) (void)set_stun(tar_ptr, tar_ptr->stun + k);
+				if (k) (void)set_stun(target_ptr, target_ptr->stun + k);
 			}
 
 			if (explode)
 			{
 				sound(SOUND_EXPLODE);
 
-				take_hit(atk_ptr, atk_ptr, 0, atk_ptr->chp + 1, NULL, NULL, -1);
-				if(atk_ptr->species_idx == 0)
+				take_hit(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
+				if(attacker_ptr->species_idx == 0)
 				{
 					blinked = FALSE;
 					alive = FALSE;
@@ -1924,23 +1919,23 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 
 			if (touched)
 			{
-				if (tar_ptr->sh_fire && alive && !tar_ptr->is_dead)
+				if (target_ptr->sh_fire && alive && !target_ptr->is_dead)
 				{
-					if (!has_cf_creature(atk_ptr, CF_RES_SHAR))
+					if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 					{
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは突然熱くなった！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は灰の山になった。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は灰の山になった。", -1);
 #else
 						msg_format("%^s is suddenly very hot!", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1948,28 +1943,28 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 					else
 					{
-						//if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+						//if (is_original_ap_and_seen(target_ptr, attacker_ptr))
 						//TODO 	r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 					}
 				}
 
-				if (tar_ptr->sh_elec && alive && !tar_ptr->is_dead)
+				if (target_ptr->sh_elec && alive && !target_ptr->is_dead)
 				{
-					if (!has_cf_creature(atk_ptr, CF_RES_ELEC))
+					if (!has_cf_creature(attacker_ptr, CF_RES_ELEC))
 					{
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは電撃をくらった！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
 #else
 						msg_format("%^s gets zapped!", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1977,28 +1972,28 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 					else
 					{
-						//TODO if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+						//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr))
 							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 					}
 				}
 
-				if (tar_ptr->sh_cold && alive && !tar_ptr->is_dead)
+				if (target_ptr->sh_cold && alive && !target_ptr->is_dead)
 				{
-					if (!has_cf_creature(atk_ptr, CF_RES_COLD))
+					if (!has_cf_creature(attacker_ptr, CF_RES_COLD))
 					{
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは冷気をくらった！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は凍りついた。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は凍りついた。", -1);
 #else
 						msg_format("%^s is very cold!", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " was frozen.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2006,29 +2001,29 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 					else
 					{
-						//TODO if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+						//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr))
 							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
 					}
 				}
 
 				/* by henkma */
-				if (tar_ptr->dustrobe && alive && !tar_ptr->is_dead)
+				if (target_ptr->dustrobe && alive && !target_ptr->is_dead)
 				{
-					if (!has_cf_creature(atk_ptr, CF_RES_SHAR))
+					if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 					{
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは鏡の破片をくらった！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "はズタズタになった。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
 #else
 						msg_format("%^s gets zapped!", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " had torn to pieces.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2036,65 +2031,65 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 					else
 					{
-						//if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+						//if (is_original_ap_and_seen(target_ptr, attacker_ptr))
 							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 					}
 
-					if (is_mirror_grid(&cave[tar_ptr->fy][tar_ptr->fx]))
+					if (is_mirror_grid(&cave[target_ptr->fy][target_ptr->fx]))
 					{
-						teleport_player(tar_ptr, 10, 0L);
+						teleport_player(target_ptr, 10, 0L);
 					}
 				}
 
-				if (tar_ptr->tim_sh_holy && alive && !tar_ptr->is_dead)
+				if (target_ptr->tim_sh_holy && alive && !target_ptr->is_dead)
 				{
-					if (is_enemy_of_good_creature(tar_ptr))
+					if (is_enemy_of_good_creature(target_ptr))
 					{
-						if (!(atk_ptr->resist_ultimate))
+						if (!(attacker_ptr->resist_ultimate))
 						{
 							int dam = damroll(2, 6);
 
 							/* Modify the damage */
-							dam = mon_damage_mod(atk_ptr, dam, FALSE);
+							dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 							msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
-							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
+							take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 							msg_format("%^s is injured by holy power!", attacker_name);
-							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
+							take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-							if(atk_ptr->species_idx == 0)
+							if(attacker_ptr->species_idx == 0)
 							{
 								blinked = FALSE;
 								alive = FALSE;
 							}
-							if(is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
+							if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 						}
 						else
 						{
-							if(is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
+							if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 						}
 					}
 				}
 
-				if (tar_ptr->tim_sh_touki && alive && !tar_ptr->is_dead)
+				if (target_ptr->tim_sh_touki && alive && !target_ptr->is_dead)
 				{
-					if (!(atk_ptr->resist_ultimate))
+					if (!(attacker_ptr->resist_ultimate))
 					{
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 						msg_format("%^s is injured by the Force", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2102,38 +2097,38 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 					else
 					{
-						if(is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
+						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 					}
 				}
 
-				if (hex_spelling(tar_ptr, HEX_SHADOW_CLOAK) && alive && !tar_ptr->is_dead)
+				if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && alive && !target_ptr->is_dead)
 				{
 					int dam = 1;
-					object_type *o_ptr = &tar_ptr->inventory[INVEN_1STARM];
+					object_type *o_ptr = &target_ptr->inventory[INVEN_1STARM];
 
-					if (!has_cf_creature(atk_ptr, CF_RES_DARK))
+					if (!has_cf_creature(attacker_ptr, CF_RES_DARK))
 					{
 						if (o_ptr->k_idx)
 						{
-							int basedam = ((o_ptr->dd + tar_ptr->to_dd[0]) * (o_ptr->ds + tar_ptr->to_ds[0] + 1));
-							dam = basedam / 2 + o_ptr->to_d + tar_ptr->to_d[0];
+							int basedam = ((o_ptr->dd + target_ptr->to_dd[0]) * (o_ptr->ds + target_ptr->to_ds[0] + 1));
+							dam = basedam / 2 + o_ptr->to_d + target_ptr->to_d[0];
 						}
 
 						/* Cursed armor makes damages doubled */
-						o_ptr = &tar_ptr->inventory[INVEN_BODY];
+						o_ptr = &target_ptr->inventory[INVEN_BODY];
 						if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
 
 						/* Modify the damage */
-						dam = mon_damage_mod(atk_ptr, dam, FALSE);
+						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("影のオーラが%^sに反撃した！", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 						msg_format("Enveloped shadows attack %^s.", attacker_name);
-						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
+						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-						if(atk_ptr->species_idx == 0)
+						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2152,18 +2147,18 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 							/* Some cursed armours gives an extra effect */
 							for (j = 0; j < 4; j++)
 							{
-								o_ptr = &tar_ptr->inventory[typ[j][0]];
+								o_ptr = &target_ptr->inventory[typ[j][0]];
 								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(o_ptr))
-									project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
+									project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}
 					}
 					else
 					{
-						if(is_original_ap_and_seen(player_ptr, tar_ptr))
+						if(is_original_ap_and_seen(player_ptr, target_ptr))
 						{
-							reveal_creature_info(tar_ptr, CF_RES_ALL);
-							reveal_creature_info(tar_ptr, CF_RES_DARK);
+							reveal_creature_info(target_ptr, CF_RES_ALL);
+							reveal_creature_info(target_ptr, CF_RES_DARK);
 						}
 					}
 				}
@@ -2190,7 +2185,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 				case RBM_CHARGE:
 
 				/* Visible monsters */
-				if (atk_ptr->ml)
+				if (attacker_ptr->ml)
 				{
 					/* Disturbing */
 					disturb(player_ptr, 1, 0);
@@ -2198,9 +2193,9 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					/* Message */
 #ifdef JP
 					if (abbreviate)
-					    msg_format("%sかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "");
+					    msg_format("%sかわした。", (target_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "");
 					else
-					    msg_format("%s%^sの攻撃をかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", attacker_name);
+					    msg_format("%s%^sの攻撃をかわした。", (target_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", attacker_name);
 					abbreviate = 1;/*２回目以降は省略 */
 #else
 					msg_format("%^s misses you.", attacker_name);
@@ -2215,7 +2210,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 
 
 		/* Analyze "visible" monsters only */
-		if (is_original_ap_and_seen(tar_ptr, atk_ptr) && !do_silly_attack)
+		if (is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
 		{
 			/* Count "obvious" attacks (and ones that cause damage) */
 			if (obvious || damage || (r_ptr->r_blows[ap_cnt] > 10))
@@ -2228,11 +2223,11 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 			}
 		}
 
-		if (tar_ptr->riding && damage)
+		if (target_ptr->riding && damage)
 		{
 			char attacker_name[80];
-			creature_desc(attacker_name, &creature_list[tar_ptr->riding], 0);
-			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
+			creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
+			if (rakuba(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 #ifdef JP
 msg_format("%^sから落ちてしまった！", attacker_name);
@@ -2242,17 +2237,17 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 			}
 		}
 
-		if (tar_ptr->special_defense & NINJA_KAWARIMI)
+		if (target_ptr->special_defense & NINJA_KAWARIMI)
 		{
-			if (kawarimi(tar_ptr, FALSE)) return TRUE;
+			if (kawarimi(target_ptr, FALSE)) return TRUE;
 		}
 	}
 
 	/* Hex - revenge damage stored */
-	revenge_store(tar_ptr, get_damage);
+	revenge_store(target_ptr, get_damage);
 
-	if ((tar_ptr->tim_eyeeye || hex_spelling(tar_ptr, HEX_EYE_FOR_EYE))
-		&& get_damage > 0 && !tar_ptr->is_dead)
+	if ((target_ptr->tim_eyeeye || hex_spelling(target_ptr, HEX_EYE_FOR_EYE))
+		&& get_damage > 0 && !target_ptr->is_dead)
 	{
 #ifdef JP
 		msg_format("攻撃が%s自身を傷つけた！", attacker_name);
@@ -2260,26 +2255,26 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 		char attacker_name_self[80];
 
 		/* hisself */
-		creature_desc(attacker_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(attacker_name_self, attacker_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
-		project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (tar_ptr->tim_eyeeye) set_tim_eyeeye(tar_ptr, tar_ptr->tim_eyeeye-5, TRUE);
+		project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		if (target_ptr->tim_eyeeye) set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 	}
 
-	if ((tar_ptr->counter || (tar_ptr->special_defense & KATA_MUSOU)) && alive && !tar_ptr->is_dead && atk_ptr->ml && (tar_ptr->csp > 7))
+	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && alive && !target_ptr->is_dead && attacker_ptr->ml && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
-		creature_desc(attacker_name, atk_ptr, 0);
+		creature_desc(attacker_name, attacker_ptr, 0);
 
-		tar_ptr->csp -= 7;
+		target_ptr->csp -= 7;
 #ifdef JP
 		msg_format("%^sに反撃した！", attacker_name);
 #else
 		msg_format("Your counterattack to %s!", attacker_name);
 #endif
-		weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_COUNTER);
+		weapon_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
 		/* Redraw mana */
@@ -2287,9 +2282,9 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 	}
 
 	/* Blink away */
-	if (blinked && alive && !tar_ptr->is_dead)
+	if (blinked && alive && !target_ptr->is_dead)
 	{
-		if (teleport_barrier(tar_ptr, atk_ptr))
+		if (teleport_barrier(target_ptr, attacker_ptr))
 		{
 #ifdef JP
 			msg_print("泥棒は笑って逃げ...ようとしたがバリアに防がれた。");
@@ -2310,14 +2305,14 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 
 
 	/* Always notice cause of death */
-	if (tar_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
+	if (target_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++;
 	}
 
-	if (tar_ptr->special_defense & KATA_IAI)
+	if (target_ptr->special_defense & KATA_IAI)
 	{
-		set_action(tar_ptr, ACTION_NONE);
+		set_action(target_ptr, ACTION_NONE);
 	}
 
 	/* Assume we attacked */

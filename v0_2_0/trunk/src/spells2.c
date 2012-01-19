@@ -7401,6 +7401,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_type forge;
 	object_type *q_ptr = &forge;
 	int y, x;
+	char user_name[80];
+	creature_desc(user_name, user_ptr, 0);
 
 	if (user_ptr->is_dead) return FALSE;
 	if (user_ptr->confused || user_ptr->blind || user_ptr->paralyzed || user_ptr->image) return FALSE;
@@ -7409,9 +7411,9 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if (!success && one_in_(3))
 	{
 #ifdef JP
-		msg_print("Ž¸”sI“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
+		msg_format("Ž¸”sI%s‚Í•Ï‚í‚èg‚Å“¦‚°‚ç‚ê‚È‚©‚Á‚½B", user_name);
 #else
-		msg_print("Failed! You couldn't run away.");
+		msg_format("Failed! %s couldn't run away.", user_name);
 #endif
 		user_ptr->special_defense &= ~(NINJA_KAWARIMI);
 		play_redraw |= (PR_STATUS);
@@ -7433,11 +7435,11 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	(void)drop_near(q_ptr, -1, y, x);
 
 #ifdef JP
-	if (success) msg_print("UŒ‚‚ðŽó‚¯‚é‘O‚É‘f‘‚­g‚ð‚Ð‚é‚ª‚¦‚µ‚½B");
-	else msg_print("Ž¸”sIUŒ‚‚ðŽó‚¯‚Ä‚µ‚Ü‚Á‚½B");
+	if (success) msg_format("%s‚ÍUŒ‚‚ðŽó‚¯‚é‘O‚É‘f‘‚­g‚ð‚Ð‚é‚ª‚¦‚µ‚½B", user_name);
+	else msg_format("%s‚Í•Ï‚í‚èg‚ÉŽ¸”s‚µ‚ÄUŒ‚‚ðŽó‚¯‚½B", user_name);
 #else
-	if (success) msg_print("You have turned around just before the attack hit you.");
-	else msg_print("Failed! You are hit by the attack.");
+	if (success) msg_format("%s have turned around just before the attack hit you.", user_name); // TODO
+	else msg_format("Failed! %s are hit by the attack.", user_name); // TODO
 #endif
 
 	user_ptr->special_defense &= ~(NINJA_KAWARIMI);
