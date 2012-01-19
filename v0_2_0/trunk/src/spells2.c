@@ -6651,7 +6651,7 @@ msg_print("Ž¸”s‚µ‚½B");
 /*
  * Hack -- apply a "projection()" in a direction (or at the target)
  */
-bool project_hook(int typ, int dir, int dam, int flg)
+bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 {
 	int tx, ty;
 
@@ -6659,8 +6659,8 @@ bool project_hook(int typ, int dir, int dam, int flg)
 	flg |= (PROJECT_THRU);
 
 	/* Use the given direction */
-	tx = p_ptr->fx + ddx[dir];
-	ty = p_ptr->fy + ddy[dir];
+	tx = caster_ptr->fx + ddx[dir];
+	ty = caster_ptr->fy + ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -6670,7 +6670,7 @@ bool project_hook(int typ, int dir, int dam, int flg)
 	}
 
 	/* Analyze the "dir" and the "target", do NOT explode */
-	return (project(p_ptr, 0, ty, tx, dam, typ, flg, -1));
+	return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
 }
 
 
@@ -6682,7 +6682,7 @@ bool project_hook(int typ, int dir, int dam, int flg)
 bool fire_bolt(int typ, int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
-	return (project_hook(typ, dir, dam, flg));
+	return (project_hook(p_ptr, typ, dir, dam, flg));
 }
 
 
@@ -6694,7 +6694,7 @@ bool fire_bolt(int typ, int dir, int dam)
 bool fire_beam(int typ, int dir, int dam)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(typ, dir, dam, flg));
+	return (project_hook(p_ptr, typ, dir, dam, flg));
 }
 
 
@@ -6720,70 +6720,70 @@ bool fire_bolt_or_beam(int prob, int typ, int dir, int dam)
 bool lite_line(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL;
-	return (project_hook(GF_LITE_WEAK, dir, damroll(6, 8), flg));
+	return (project_hook(p_ptr, GF_LITE_WEAK, dir, damroll(6, 8), flg));
 }
 
 
 bool drain_life(int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_DRAIN, dir, dam, flg));
+	return (project_hook(p_ptr, GF_OLD_DRAIN, dir, dam, flg));
 }
 
 
 bool wall_to_mud(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-	return (project_hook(GF_KILL_WALL, dir, 20 + randint1(30), flg));
+	return (project_hook(p_ptr, GF_KILL_WALL, dir, 20 + randint1(30), flg));
 }
 
 
 bool wizard_lock(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-	return (project_hook(GF_JAM_DOOR, dir, 20 + randint1(30), flg));
+	return (project_hook(p_ptr, GF_JAM_DOOR, dir, 20 + randint1(30), flg));
 }
 
 
 bool destroy_door(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(GF_KILL_DOOR, dir, 0, flg));
+	return (project_hook(p_ptr, GF_KILL_DOOR, dir, 0, flg));
 }
 
 
 bool disarm_trap(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(GF_KILL_TRAP, dir, 0, flg));
+	return (project_hook(p_ptr, GF_KILL_TRAP, dir, 0, flg));
 }
 
 
 bool heal_monster(int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_HEAL, dir, dam, flg));
+	return (project_hook(p_ptr, GF_OLD_HEAL, dir, dam, flg));
 }
 
 
 bool speed_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_SPEED, dir, p_ptr->lev, flg));
+	return (project_hook(p_ptr, GF_OLD_SPEED, dir, p_ptr->lev, flg));
 }
 
 
 bool slow_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_SLOW, dir, p_ptr->lev, flg));
+	return (project_hook(p_ptr, GF_OLD_SLOW, dir, p_ptr->lev, flg));
 }
 
 
 bool sleep_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_SLEEP, dir, p_ptr->lev, flg));
+	return (project_hook(p_ptr, GF_OLD_SLEEP, dir, p_ptr->lev, flg));
 }
 
 
@@ -6802,21 +6802,21 @@ bool stasis_evil(int dir)
 bool confuse_monster(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_CONF, dir, plev, flg));
+	return (project_hook(p_ptr, GF_OLD_CONF, dir, plev, flg));
 }
 
 
 bool stun_monster(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_STUN, dir, plev, flg));
+	return (project_hook(p_ptr, GF_STUN, dir, plev, flg));
 }
 
 
 bool poly_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	bool tester = (project_hook(GF_OLD_POLY, dir, p_ptr->lev, flg));
+	bool tester = (project_hook(p_ptr, GF_OLD_POLY, dir, p_ptr->lev, flg));
 	return(tester);
 }
 
@@ -6824,28 +6824,28 @@ bool poly_monster(int dir)
 bool clone_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_OLD_CLONE, dir, 0, flg));
+	return (project_hook(p_ptr, GF_OLD_CLONE, dir, 0, flg));
 }
 
 
 bool fear_monster(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_TURN_ALL, dir, plev, flg));
+	return (project_hook(p_ptr, GF_TURN_ALL, dir, plev, flg));
 }
 
 
 bool death_ray(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(GF_DEATH_RAY, dir, plev * 200, flg));
+	return (project_hook(p_ptr, GF_DEATH_RAY, dir, plev * 200, flg));
 }
 
 
 bool teleport_monster(int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL;
-	return (project_hook(GF_AWAY_ALL, dir, MAX_SIGHT * 5, flg));
+	return (project_hook(p_ptr, GF_AWAY_ALL, dir, MAX_SIGHT * 5, flg));
 }
 
 /*
@@ -7364,35 +7364,35 @@ bool deathray_monsters(void)
 bool charm_monster(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(GF_CHARM, dir, plev, flg));
+	return (project_hook(p_ptr, GF_CHARM, dir, plev, flg));
 }
 
 
 bool control_one_undead(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(GF_CONTROL_UNDEAD, dir, plev, flg));
+	return (project_hook(p_ptr, GF_CONTROL_UNDEAD, dir, plev, flg));
 }
 
 
 bool control_one_demon(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(GF_CONTROL_DEMON, dir, plev, flg));
+	return (project_hook(p_ptr, GF_CONTROL_DEMON, dir, plev, flg));
 }
 
 
 bool charm_animal(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(GF_CONTROL_ANIMAL, dir, plev, flg));
+	return (project_hook(p_ptr, GF_CONTROL_ANIMAL, dir, plev, flg));
 }
 
 
 bool charm_living(int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(GF_CONTROL_LIVING, dir, plev, flg));
+	return (project_hook(p_ptr, GF_CONTROL_LIVING, dir, plev, flg));
 }
 
 
