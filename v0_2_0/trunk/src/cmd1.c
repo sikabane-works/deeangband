@@ -4462,7 +4462,7 @@ static int see_wall(creature_type *cr_ptr, int dir, int y, int x)
 /*
  * Hack -- Check for an "unknown corner" (see below)
  */
-static int see_nothing(int dir, int y, int x)
+static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 {
 	/* Get the new location */
 	y += ddy[dir];
@@ -4475,7 +4475,7 @@ static int see_nothing(int dir, int y, int x)
 	if (cave[y][x].info & (CAVE_MARK)) return (FALSE);
 
 	/* Viewable door/wall grids are known */
-	if (player_can_see_bold(p_ptr, y, x)) return (FALSE);
+	if (player_can_see_bold(watcher_ptr, y, x)) return (FALSE);
 
 	/* Default */
 	return (TRUE);
@@ -5056,8 +5056,8 @@ static bool run_test(creature_type *cr_ptr)
 			{
 				/* Can not see anything ahead and in the direction we */
 				/* are turning, assume that it is a potential corner. */
-				if (see_nothing(option, row, col) &&
-				    see_nothing(option2, row, col))
+				if (see_nothing(cr_ptr, option, row, col) &&
+				    see_nothing(cr_ptr, option2, row, col))
 				{
 					find_current = option;
 					find_prevdir = option2;
