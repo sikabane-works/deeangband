@@ -1759,7 +1759,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				mass_genocide_undead(power, TRUE);
+				mass_genocide_undead(cr_ptr, power, TRUE);
 			}
 		}
 		break;

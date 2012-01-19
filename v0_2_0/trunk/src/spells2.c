@@ -4851,7 +4851,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 /*
  * Delete all nearby (non-unique) undead
  */
-bool mass_genocide_undead(int power, bool player_cast)
+bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
 	bool result = FALSE;
@@ -4878,9 +4878,9 @@ bool mass_genocide_undead(int power, bool player_cast)
 
 		/* Note effect */
 #ifdef JP
-		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "アンデッド消滅");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "アンデッド消滅");
 #else
-		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "Annihilate Undead");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "Annihilate Undead");
 #endif
 	}
 
