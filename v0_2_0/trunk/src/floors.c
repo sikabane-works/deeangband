@@ -669,12 +669,12 @@ static void update_unique_artifact(s16b cur_floor_id)
  * When a monster is at a place where player will return,
  * Get out of the my way!
  */
-static void get_out_monster(void)
+static void get_out_creature(creature_type *creature_ptr)
 {
 	int tries = 0;
 	int dis = 1;
-	int oy = p_ptr->fy;
-	int ox = p_ptr->fx;
+	int oy = creature_ptr->fy;
+	int ox = creature_ptr->fx;
 	int m_idx = cave[oy][ox].m_idx;
 
 	/* Nothing to do if no monster */
@@ -704,7 +704,7 @@ static void get_out_monster(void)
 		if (!in_bounds(ny, nx)) continue;
 
 		/* Require "empty" floor space */
-		if (!cave_empty_bold(p_ptr, ny, nx)) continue;
+		if (!cave_empty_bold(creature_ptr, ny, nx)) continue;
 
 		/* Hack -- no teleport onto glyph of warding */
 		if (is_glyph_grid(&cave[ny][nx])) continue;
@@ -1051,7 +1051,7 @@ void leave_floor(creature_type *cr_ptr)
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
 		/* Get out of the my way! */
-		get_out_monster();
+		get_out_creature(cr_ptr);
 
 		/* Record the last visit turn of current floor */
 		sf_ptr->last_visit = turn;
