@@ -581,7 +581,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
  * being close enough to chase directly.  I have no idea what will
  * happen if you combine "smell" with low "aaf" values.
  */
-static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
+static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp, bool no_flow)
 {
 	int i, y, x, y1, x1, best;
 
@@ -602,15 +602,15 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	if (no_flow) return (FALSE);
 
 	/* Monster can go through rocks */
-	if (has_cf_creature(nonplayer_ptr, CF_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
-	if (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != p_ptr->riding)) return (FALSE);
+	if (has_cf_creature(nonplayer_ptr, CF_PASS_WALL) && ((m_idx != mover_ptr->riding) || mover_ptr->pass_wall)) return (FALSE);
+	if (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
 
 	/* Monster location */
 	y1 = nonplayer_ptr->fy;
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
-	if (player_has_los_bold(y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)) return (FALSE);
+	if (player_has_los_bold(y1, x1) && projectable(mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Monster grid */
 	c_ptr = &cave[y1][x1];
@@ -625,7 +625,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	else if (c_ptr->when)
 	{
 		/* Too old smell */
-		if (cave[p_ptr->fy][p_ptr->fx].when - c_ptr->when > 127) return (FALSE);
+		if (cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
 
 		use_scent = TRUE;
 		best = 0;
@@ -674,8 +674,8 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 		}
 
 		/* Hack -- Save the "twiddled" location */
-		(*yp) = p_ptr->fy + 16 * ddy_ddd[i];
-		(*xp) = p_ptr->fx + 16 * ddx_ddd[i];
+		(*yp) = mover_ptr->fy + 16 * ddy_ddd[i];
+		(*xp) = mover_ptr->fx + 16 * ddx_ddd[i];
 	}
 
 	/* No legal move (?) */
@@ -1182,7 +1182,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	if (!done)
 	{
 		/* Flow towards the player */
-		(void)get_moves_aux(m_idx, &y2, &x2, no_flow);
+		(void)get_moves_aux(player_ptr, m_idx, &y2, &x2, no_flow);
 
 		/* Extract the "pseudo-direction" */
 		y = nonplayer_ptr->fy - y2;
