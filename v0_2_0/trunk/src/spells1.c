@@ -6961,9 +6961,9 @@ msg_format("うまく捕まえられなかった。");
 			}
 
 #ifdef JP
-			if (genocide_aux(c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "モンスター消滅"))
+			if (genocide_aux(caster_ptr, c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "モンスター消滅"))
 #else
-			if (genocide_aux(c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
+			if (genocide_aux(caster_ptr, c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP

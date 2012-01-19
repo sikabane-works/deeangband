@@ -4655,7 +4655,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 /*
  * Delete a non-unique/non-quest monster
  */
-bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
+bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
 	creature_type *m_ptr = &creature_list[m_idx];
@@ -4669,7 +4669,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 
 	else if (is_sub_unique_species(r_ptr)) resist = TRUE;
 
-	else if (m_idx == p_ptr->riding) resist = TRUE;
+	else if (m_idx == user_ptr->riding) resist = TRUE;
 
 	else if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || inside_battle) resist = TRUE;
 
@@ -4693,7 +4693,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 
 	if (resist && player_cast)
 	{
-		bool see_m = is_seen(p_ptr, m_ptr);
+		bool see_m = is_seen(user_ptr, m_ptr);
 		char m_name[80];
 
 		creature_desc(m_name, m_ptr, 0);
@@ -4736,14 +4736,14 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	{
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_GENO, randint1(dam_side), format("%^s‚Ìô•¶‚ğ¥‚¦‚½”æ˜J", spell_name), NULL, -1);
+		take_hit(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("%^s‚Ìô•¶‚ğ¥‚¦‚½”æ˜J", spell_name), NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), NULL, -1);
+		take_hit(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), NULL, -1);
 #endif
 	}
 
 	/* Visual feedback */
-	move_cursor_relative(p_ptr->fy, p_ptr->fx);
+	move_cursor_relative(user_ptr->fy, user_ptr->fx);
 
 	/* Redraw */
 	play_redraw |= (PR_HP);
@@ -4752,7 +4752,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
-	handle_stuff(p_ptr);
+	handle_stuff(user_ptr);
 
 	/* Fresh */
 	Term_fresh();
@@ -4800,9 +4800,9 @@ bool symbol_genocide(int power, bool player_cast)
 
 		/* Take note */
 #ifdef JP
-		result |= genocide_aux(i, power, player_cast, 4, "–•E");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 4, "–•E");
 #else
-		result |= genocide_aux(i, power, player_cast, 4, "Genocide");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 4, "Genocide");
 #endif
 	}
 
@@ -4837,9 +4837,9 @@ bool mass_genocide(int power, bool player_cast)
 
 		/* Note effect */
 #ifdef JP
-		result |= genocide_aux(i, power, player_cast, 3, "ü•Ó–•E");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "ü•Ó–•E");
 #else
-		result |= genocide_aux(i, power, player_cast, 3, "Mass Genocide");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "Mass Genocide");
 #endif
 	}
 
@@ -4878,9 +4878,9 @@ bool mass_genocide_undead(int power, bool player_cast)
 
 		/* Note effect */
 #ifdef JP
-		result |= genocide_aux(i, power, player_cast, 3, "ƒAƒ“ƒfƒbƒhÁ–Å");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "ƒAƒ“ƒfƒbƒhÁ–Å");
 #else
-		result |= genocide_aux(i, power, player_cast, 3, "Annihilate Undead");
+		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "Annihilate Undead");
 #endif
 	}
 
