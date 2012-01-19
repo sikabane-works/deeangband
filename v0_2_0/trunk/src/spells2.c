@@ -6752,7 +6752,7 @@ bool destroy_door(int dir)
 }
 
 
-bool disarm_trap(int dir)
+bool disarm_trap(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM;
 	return (project_hook(p_ptr, GF_KILL_TRAP, dir, 0, flg));

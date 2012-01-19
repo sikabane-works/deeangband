@@ -1416,7 +1416,7 @@ extern bool drain_life(int dir, int dam);
 extern bool death_ray(int dir, int plev);
 extern bool wall_to_mud(int dir);
 extern bool destroy_door(int dir);
-extern bool disarm_trap(int dir);
+extern bool disarm_trap(creature_type *caster_ptr, int dir);
 extern bool wizard_lock(int dir);
 extern bool heal_monster(int dir, int dam);
 extern bool speed_monster(int dir);
