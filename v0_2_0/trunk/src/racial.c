@@ -1178,7 +1178,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				project_hack(GF_CONTROL_LIVING, cr_ptr->lev);
+				project_hack(cr_ptr, GF_CONTROL_LIVING, cr_ptr->lev);
 			}
 			break;
 		}

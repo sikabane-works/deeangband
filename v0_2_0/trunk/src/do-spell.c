@@ -9175,7 +9175,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(GF_TURN_ALL, power);
+				project_hack(cr_ptr, GF_TURN_ALL, power);
 			}
 		}
 
@@ -9327,7 +9327,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(GF_PSI, damroll(dice, sides));
+				project_hack(cr_ptr, GF_PSI, damroll(dice, sides));
 			}
 		}
 
@@ -9473,7 +9473,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(GF_SOUND, damroll(dice, sides));
+				project_hack(cr_ptr, GF_SOUND, damroll(dice, sides));
 			}
 		}
 
@@ -10952,7 +10952,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You roar out!");
 #endif
-			project_hack(GF_SOUND, randint1(plev * 3));
+			project_hack(cr_ptr, GF_SOUND, randint1(plev * 3));
 			aggravate_monsters(NULL);
 		}
 		break;
@@ -11097,9 +11097,9 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You irregularly wave your weapon...");
 #endif
-			project_hack(GF_ENGETSU, plev * 4);
-			project_hack(GF_ENGETSU, plev * 4);
-			project_hack(GF_ENGETSU, plev * 4);
+			project_hack(cr_ptr, GF_ENGETSU, plev * 4);
+			project_hack(cr_ptr, GF_ENGETSU, plev * 4);
+			project_hack(cr_ptr, GF_ENGETSU, plev * 4);
 		}
 		break;
 
@@ -11512,7 +11512,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 		if (info) return info_damage(1, power, 0);
 		if (cast || cont)
 		{
-			project_hack(GF_POIS, randint1(power));
+			project_hack(cr_ptr, GF_POIS, randint1(power));
 		}
 		break;
 
@@ -11810,7 +11810,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 		if (info) return info_damage(1, power, 0);
 		if (cast || cont)
 		{
-			project_hack(GF_OLD_DRAIN, randint1(power));
+			project_hack(cr_ptr, GF_OLD_DRAIN, randint1(power));
 		}
 		break;
 
@@ -12180,7 +12180,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 		if (info) return info_damage(1, power, 0);
 		if (cast || cont)
 		{
-			project_hack(GF_PSI_DRAIN, randint1(power));
+			project_hack(cr_ptr, GF_PSI_DRAIN, randint1(power));
 		}
 		break;
 
