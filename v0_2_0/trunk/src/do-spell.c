@@ -2827,7 +2827,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				wall_to_mud(dir);
+				wall_to_mud(cr_ptr, dir);
 			}
 		}
 		break;
@@ -6394,7 +6394,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				wall_to_mud(dir);
+				wall_to_mud(cr_ptr, dir);
 			}
 		}
 		break;

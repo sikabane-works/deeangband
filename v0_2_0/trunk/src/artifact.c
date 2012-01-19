@@ -2928,7 +2928,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			wall_to_mud(dir);
+			wall_to_mud(cr_ptr, dir);
 			o_ptr->timeout = 5;
 			break;
 		}

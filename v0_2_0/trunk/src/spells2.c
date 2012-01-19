@@ -6731,10 +6731,10 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 }
 
 
-bool wall_to_mud(int dir)
+bool wall_to_mud(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_KILL_WALL, dir, 20 + randint1(30), flg));
+	return (project_hook(caster_ptr, GF_KILL_WALL, dir, 20 + randint1(30), flg));
 }
 
 

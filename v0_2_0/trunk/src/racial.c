@@ -1649,7 +1649,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 		case RACE_GIANT:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			(void)wall_to_mud(dir);
+			(void)wall_to_mud(cr_ptr, dir);
 			break;
 
 		case RACE_TITAN:

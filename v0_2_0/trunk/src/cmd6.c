@@ -2894,7 +2894,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_STONE_TO_MUD:
 		{
-			if (wall_to_mud(dir)) ident = TRUE;
+			if (wall_to_mud(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3540,7 +3540,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_STONE_TO_MUD:
 		{
-			if (wall_to_mud(dir)) ident = TRUE;
+			if (wall_to_mud(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -4871,7 +4871,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				wall_to_mud(dir);
+				wall_to_mud(cr_ptr, dir);
 				o_ptr->timeout = 5;
 				break;
 			}
@@ -4885,7 +4885,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				wall_to_mud(dir);
+				wall_to_mud(cr_ptr, dir);
 				o_ptr->timeout = 2;
 				break;
 			}
