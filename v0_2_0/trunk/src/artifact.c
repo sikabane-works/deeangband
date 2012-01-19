@@ -2292,7 +2292,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It floods the area with goodness...");
 #endif
 
-			dispel_evil(cr_ptr->lev * 5);
+			dispel_evil(cr_ptr, cr_ptr->lev * 5);
 			o_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}

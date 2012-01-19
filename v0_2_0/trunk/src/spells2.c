@@ -4549,9 +4549,9 @@ bool dispel_undead(int dam)
 /*
  * Dispel evil monsters
  */
-bool dispel_evil(int dam)
+bool dispel_evil(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_DISP_EVIL, dam));
+	return (project_hack(caster_ptr, GF_DISP_EVIL, dam));
 }
 
 /*

@@ -2508,7 +2508,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if (dispel_evil(80)) ident = TRUE;
+			if (dispel_evil(cr_ptr, 80)) ident = TRUE;
 			break;
 		}
 
@@ -2520,7 +2520,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_HOLINESS:
 		{
-			if (dispel_evil(150)) ident = TRUE;
+			if (dispel_evil(cr_ptr, 150)) ident = TRUE;
 			k = 3 * cr_ptr->lev;
 			if (set_protevil(cr_ptr, (magic ? 0 : cr_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
 			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
@@ -4191,7 +4191,7 @@ if (get_check("帰還の力を使いますか？"))
 				msg_print("The amulet floods the area with goodness...");
 #endif
 
-				dispel_evil(cr_ptr->lev * 5);
+				dispel_evil(cr_ptr, cr_ptr->lev * 5);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -4204,7 +4204,7 @@ if (get_check("帰還の力を使いますか？"))
 				msg_print("The mirror floods the area with goodness...");
 #endif
 
-				dispel_evil(cr_ptr->lev * 5);
+				dispel_evil(cr_ptr, cr_ptr->lev * 5);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -5568,7 +5568,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				(void)set_afraid(cr_ptr, 0);
 				(void)set_hero(cr_ptr, randint1(20) + 20, FALSE);
-				dispel_evil(cr_ptr->lev * 3);
+				dispel_evil(cr_ptr, cr_ptr->lev * 3);
 				o_ptr->timeout = 100 + randint1(100);
 				break;
 			}
@@ -5632,7 +5632,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("The iron ball floods the area with goodness...");
 #endif
 
-				dispel_evil(cr_ptr->lev * 5);
+				dispel_evil(cr_ptr, cr_ptr->lev * 5);
 				o_ptr->timeout = randint0(100) + 100;
 				break;
 			}

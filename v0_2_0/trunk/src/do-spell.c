@@ -8505,7 +8505,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_evil(randint1(dam_sides));
+				dispel_evil(cr_ptr, randint1(dam_sides));
 				hp_player(cr_ptr, heal);
 				set_afraid(cr_ptr, 0);
 				set_poisoned(cr_ptr, 0);
@@ -8615,7 +8615,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_evil(randint1(sides));
+				dispel_evil(cr_ptr, randint1(sides));
 			}
 		}
 		break;
@@ -9746,7 +9746,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cont)
 			{
 				dispel_monsters(randint1(m_sides));
-				dispel_evil(randint1(e_sides));
+				dispel_evil(cr_ptr, randint1(e_sides));
 			}
 		}
 		break;
