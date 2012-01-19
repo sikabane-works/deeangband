@@ -330,16 +330,16 @@ SLASH:POISON:20d1",,,NEVER_MOVE|NONLIVING|NO_FEAR|STUPID|COLD_BLOOD|CHAR_MULTI|N
 SPORE:LOSE_CON:1d3
 SPORE:LOSE_CON:1d3",,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,ค[๑Iป๊อฦฤเจขตปคษฉฆ้B,"Yum!  It looks quite tasty.
 I",J0#,,,,
-109,C[Nฬ|่wRpx,"Kopa, Yeek Archer",y,G,YEEK,YEEK,0x02,ARCHER,NONE,NIMBLE,NONE,NONE,14,2,50,140,0,0,0,0,NONE,NONE,-1,5,20,10,5,13,17,12,16,14,11,156,0,64,0,0,0,0,0,"SHOOT:HURT:3d5
+109,C[Nฬ|่wRpx,"Kopa, the Yeek Archer",y,G,YEEK,YEEK,0x02,ARCHER,NONE,NIMBLE,NONE,NONE,14,2,50,140,0,0,0,0,NONE,NONE,-1,5,20,10,5,13,17,12,16,14,11,156,0,64,0,0,0,0,0,"SHOOT:HURT:3d5
 HIT:HURT:1d5
-HIT:HURT:1d5",,,UNIQUE|HAS_LITE_1|FORCE_SLEEP|WILD_ALL|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_1D2|EAT_GIVE_DEX|EAT_LOSE_INT|EAT_LOSE_WIS|OPEN_DOOR|BASH_DOOR,1_IN_2|SHOOT,,"C[Nฬ‘ๅค{h[ฬbบฬ๊lพB
-ปฬ‘พมฟๅฬ‘ฬษฉํศข“ฎซลฑฟ็ฬAณ๐ห”ฒฑคฦีแผXฦ‘_มฤข้B","
+HIT:HURT:1d5",,,UNIQUE|HAS_LITE_1|FORCE_SLEEP|WILD_ALL|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_1D2|EAT_GIVE_DEX|EAT_LOSE_INT|EAT_LOSE_WIS|OPEN_DOOR|BASH_DOOR,1_IN_2|SHOOT,,"@C[Nฬ‘ๅค{h[ฬ’ภศbบฬ๊lพB
+@ปฬ‘พมฟๅฬ‘ฬษฉํศข“ฎซลฑฟ็ฬAณ๐ห”ฒฑคฦAีแผXฦ‘_มฤ—้B","
 ",J0#,,,,
-110,C[NฬECาwOX“fBbNx,"Guslandick, Slaughter  of Yeek",y,D,YEEK,YEEK,0x02,BERSERKER,NONE,PATIENT,NONE,NONE,17,2,50,1564,0,0,0,0,NONE,NONE,0,12,18,24,10,19,10,11,18,17,7,136,0,27,0,0,0,0,0,"HIT:HURT:2d6
+110,C[NฬECาwOX“fBbNx,"Guslandick, the Slaughter of Yeek",y,D,YEEK,YEEK,0x02,BERSERKER,NONE,PATIENT,NONE,NONE,17,2,50,1564,0,0,0,0,NONE,NONE,0,12,18,24,10,19,10,11,18,17,7,136,0,27,0,0,0,0,0,"HIT:HURT:2d6
 HIT:HURT:2d6
 HIT:HURT:2d6
-HIT:HURT:1d6",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|HAS_LITE_2|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|DROP_CORPSE|IM_ACID,,,"{h[ษ’ภศ•‘ใฬbบษตฤYlพB
-ปฬฌ•ฟศ‘ฬ๐•ช•สศญ”nญษตฝS“พแขฬ“GอA‘ๅ’๏”Þษ๑๐‘~ซซ็๊ฤข้B","
+HIT:HURT:1d6",,,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|HAS_LITE_2|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|DROP_CORPSE|IM_ACID,,,"@{h[ษ’ภศ•‘ใฬbบษตฤYlพB
+@ปฬฌ•ฟศ‘ฬ๐•ช•สศญ”nญษตฝS“พแขฬ“GอA‘ๅ’๏”Þษ๑๐‘~ซซ็๊ฤข้B","
 ",J0#,,,,
 111,j[x“O,Nibelung,h,D,NIBELUNG,NIBELUNG,0x01,VARIABLE,NONE,ORDINARY,NONE,NONE,6,1,50,74,0,0,0,0,NONE,NONE,-1,0,20,12,5,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
 TOUCH:EAT_GOLD",,,FRIENDS|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK|RES_DISE|DROP_SKELETON|DROP_CORPSE,,,–้ฬh[tลA”Þ็ฬๅlAxqฬฝ฿ษ•x๐W฿ฤข้B,"Night dwarfs collecting new riches for their master, Alberich. 
@@ -395,13 +395,11 @@ HIT:HURT:4d5",,,UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|ONLY_ITEM|DROP
 124,โ{ษ๖Þเฬ,Crypt Creep,s,D,HUMAN,HUMAN,0x00,NONE,NONE,ORDINARY,NONE,NONE,7,2,50,25,0,0,0,0,NONE,NONE,-1,0,20,12,14,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:HURT:1d3
 CLAW:HURT:1d3
 BITE:POISON",,,SKELETON|RAND_25|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|FRIENDS|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|HURT_LITE,1_IN_10|CAUSE_1|S_UNDEAD,,"•‘•‘ฉษg๐•๏๑พฐ๋ตฐศ[ฬpพB
-io[gEubNuโ{ษ๖Þเฬvj","Frightening skeletal figures in black robes. 
-
-ij",,,,,
+io[gEubNuโ{ษ๖Þเฬvj",Frightening skeletal figures in black robes. ,,,,,
 125,•…มฝ€‘ฬ,Rotting corpse,z,R,HUMAN,HUMAN,0x01,NONE,NONE,ORDINARY,NONE,NONE,7,1,50,87,50,229,0,0,NONE,NONE,-1,0,20,20,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:POISON:1d4
 CLAW:POISON:1d4",,,ZOMBIE|OPEN_DOOR|BASH_DOOR|FRIENDS|NO_CONF|NO_SLEEP|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD|WEIRD_MIND,,,ร•–pษๆ่–ฐ่๐oÜณ๊ฝ€‘ฬพB,"Corpses awakened from their sleep by dark sorceries. 
 ",JZ#,,,,
-126,“ดAI[N,Cave orc,o,U,ORC,ORC,0x01,SOLDIER,NONE,VARIABLE,NONE,NONE,7,1,50,20,0,0,0,0,NONE,NONE,-1,0,20,0,30,12,10,10,12,12,10,180,13,75,5,170,13,65,5,HIT:HURT:1d9,,,FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK,,,”Þ็อตฮตฮ“ดAฬ[‘wษ‘ๅW’cลฉ๓ฏ็๊้Aผฬ’nลอลเ“T^“Iษฉ๓ฏ็๊้I[NพB,,J0#,,,,
+126,“ดAI[N,Cave orc,o,U,ORC,ORC,0x01,SOLDIER,NONE,VARIABLE,NONE,NONE,7,1,50,20,0,0,0,0,NONE,NONE,-1,0,20,0,30,12,10,10,12,12,10,180,13,75,5,170,13,65,5,HIT:HURT:1d9,,,FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK,,,@”Þ็อตฮตฮ“ดAฬ[‘wษ‘ๅW’cลฉ๓ฏ็๊้Aผฬ’nลอลเ“T^“Iษฉ๓ฏ็๊้I[NพB,,J0#,,,,
 127,X’wๅ,Wood spider,S,U,SPIDER,SPIDER,0x01,NONE,NONE,ORDINARY,NONE,NONE,7,3,50,15,100,277,0,0,NONE,NONE,-1,10,8,16,80,11,11,11,11,11,11,180,20,53,10,180,20,53,10,"BITE:HURT:1d4
 STING:POISON:1d5",,,FRIENDS|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|WILD_WOOD|IM_POIS,,,ป๊อ๊–ฺUษ–`ฏาษüฉมฤญ้B,"It scuttles towards you.
 ",J0#,,,,
@@ -430,11 +428,8 @@ HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|FORCE_MAXHP|ESCORT|ESCORTS|DROP_SKELETON|DROP_
 ",J0#,,,,
 136,“นปฬ”ฦ฿คwW[J[x,"Joker, the Clown Prince of Crime ",p,D,HUMAN,HUMAN,0x02,ROGUE,NONE,SHREWD,SORCERY,NONE,23,15,50,450,0,0,0,0,NONE,NONE,0,8,20,0,20,14,14,14,14,14,14,175,0,66,0,0,0,0,0,"HIT:HURT:1d6
 HIT:HURT:1d6
-TOUCH:EAT_GOLD",,,UNIQUE|CAN_SPEAK|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|RES_TELE,1_IN_5|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS,,"SbT€VeBฬ”‘ฝซูํ”ฦ฿าฬ’ลเAW[J[ฬถCอ”๒ัสฏฤÛ—งมฤข้B
-”Þอตฤ’ดl“IลอศขชA•ภฬซ–ช“€่ยญล ๋คูวฬืซฦฌ“ืฬ ปล ่A
-‘P๐‘ย—ณน้–ษฑฬใศขฝ์๐•๘ขฤข้B
- ศฝชขฉศ้ณ`๐•๘ซAฑฬ’jษญ‘ๅศ“S’ฦ๐บท–ชo—ๆคฦเA
-–๛’fตฤอศ็ศขB”Þฦึํมฝฑฦฉ‘ฬช”j–ลษqช่ฉหศขฬพฉ็B","
+TOUCH:EAT_GOLD",,,UNIQUE|CAN_SPEAK|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|RES_TELE,1_IN_5|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS,,"@SbT€VeBฬ”‘ฝซูํ”ฦ฿าฬ’ลเAW[J[ฬถCอ”๒ัสฏฤÛ—งมฤข้B”Þอ’ดl“Iศ—อฑปมฤอขศขชA•ภฬซ–ช“€่ยญล ๋คูวฬืซฦฌ“ืฬ ปล ่A‘P๐‘ย—ณน้–ษฑฬใศขฝ์๐•๘ขฤข้ฬพB
+@ ศฝชขฉศ้ณ`๐•๘ซAฑฬ’jษญ‘ๅศ“S’ฦ๐บท–ชo—ๆคฦเA–๛’fตฤอศ็ศขB”Þฦึํมฝฑฦฉ‘ฬช”j–ลษqช่ฉหศขฬพฉ็B","
 
 
 
@@ -466,8 +461,8 @@ Glidai‘๚AnQ^Jjษ•ฯฆฤÝฝB
 138,–ณ–@าwr“Etbhx,"Robin Hood, the Outlaw",p,G,HUMAN,HUMAN,0x02,RANGER,NONE,FEARLESS,NATURE,SORCERY,8,2,50,210,0,0,0,0,NONE,NONE,-1,10,20,0,20,11,11,11,11,11,11,168,0,60,0,168,0,60,0,"SHOOT:HURT:3d6
 HIT:HURT:2d6
 TOUCH:EAT_GOLD
-TOUCH:EAT_ITEM",,ART:221:10%,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|WILD_WOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|EAT_GIVE_DEX|EAT_LOSE_WIS,1_IN_5|SHOOT|HEAL|TRAPS,,ฑฬ“`เฬห่อเฟi ศฝอijฉ็เ๐“Þ,"The legendary archer steals from the rich (you qualify).
-ij",JZ#,,,,
+TOUCH:EAT_ITEM",,ART:221:10%,UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|WILD_WOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|EAT_GIVE_DEX|EAT_LOSE_WIS,1_IN_5|SHOOT|HEAL|TRAPS,,@ฑฬ“`เฬห่อเฟi ศฝอijฉ็เ๐“ÞB,"The legendary archer steals from the rich (you qualify).
+",JZ#,,,,
 139,i[O“O,Nurgling,u,U,IMP,IMP,0x01,NONE,1139,ORDINARY,NONE,NONE,8,2,50,67,0,0,0,0,NONE,NONE,-1,0,20,32,30,11,11,11,11,11,11,182,0,83,0,0,0,0,0,BITE:DISEASE:1d9,,,FRIENDS|OPEN_DOOR|BASH_DOOR|IM_POIS|IM_FIRE|NO_FEAR,,,"ป๊อ<i[O>ฬ”zบฬ’แซ–พB–ัฬศขefBxAฬๆคลA
 –ฺอcÝA”งอ•…”sตฤ€SฬๆคพB","It is a minor demon servitor of Nurgle. It looks like a hairless 
 teddy bear, with twisted eyes and rotting, ghoulish skin.
@@ -476,11 +471,8 @@ teddy bear, with twisted eyes and rotting, ghoulish skin.
 140,XiKฬ‘ฐ’ทwOhDtx,"Lagduf, the Leader of Snaga ",o,u,ORC,ORC,0x02,WARRIOR,NONE,FEARLESS,NONE,NONE,16,2,50,160,0,0,0,0,NONE,NONE,-1,0,20,0,30,15,11,10,12,14,8,163,0,64,0,0,0,0,0,"HIT:HURT:2d6
 HIT:HURT:2d6
 HIT:HURT:1d9
-HIT:HURT:1d9",,,UNIQUE|FORCE_MAXHP|ESCORT|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|RES_DARK,,,"OhDtอ“z—๊Kฬํm๐w๖ท้‘เ’ทลA฿่ศ–\—อ๐ฆทฑฦล•”‘เฬ“ง๐•Ûมฤข้B
-“z—๊“ฏ‘Rฬ—ง๊ฉ็üอ๐oต”ฒซ”ฒฏoปคฦ•K€พB
-uจ‘Oณ๑ษอ“๑“xเbตฤ้บASoOฬ“ุวเฬูคชๆษ–ๅ๐oฝฦหA
-ปตฤจ๊ฝฟูคอพ๊เoฟแจ็๑ฦหBOhDtฦ€YKbV…ฬ–์Yช์ฏ”ฒฏฝชA
-“๑lฦเ–๎ลหฝ๊ฝBviJ.R.R.g[L“Aฃ“c’ๅ“๑E“c’–พq–๓ V”ลw—ึ•จ๊j ","
+HIT:HURT:1d9",,,UNIQUE|FORCE_MAXHP|ESCORT|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|RES_DARK,,,"@OhDtอ“z—๊Kฬํm๐w๖ท้‘เ’ทลA฿่ศ–\—อ๐ฆทฑฦล•”‘เฬ“ง๐•Ûมฤข้B “z—๊“ฏ‘Rฬ—ง๊ฉ็üอ๐oต”ฒซA”฿Sศ•้็ตฉ็”ฒฏoปคฦ•K€พB
+uจ‘Oณ๑ษอ“๑“xเbตฤ้บASoOฬ“ุวเฬูคชๆษ–ๅ๐oฝฦหA ปตฤจ๊ฝฟูคอพ๊เoฟแจ็๑ฦหBOhDtฦ€YKbV…ฬ–์Yช์ฏ”ฒฏฝชA “๑lฦเ–๎ลหฝ๊ฝBviJ.R.R.g[L“Aฃ“c’ๅ“๑E“c’–พq–๓ V”ลw—ึ•จ๊j ","
 
 
 
@@ -576,7 +568,7 @@ enough to bore through solid rock.
 
 ",JZ#,,,,
 162,I[NEV[}“,Orc shaman,o,b,ORC,ORC,0x01,PRIEST,NONE,ORDINARY,NONE,NONE,17,1,50,100,0,0,0,0,NONE,NONE,-1,0,20,0,20,11,17,13,15,13,12,180,13,75,5,170,13,65,5,"HIT:HURT:1d7
-HIT:HURT:1d7",,,FORCE_SLEEP|DROP_90|WILD_WOOD|WILD_SWAMP|WILD_MOUNTAIN|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|RES_DARK|HURT_LITE|EAT_GIVE_INT|EAT_LOSE_WIS|EAT_SLEEP,1_IN_8|BLINK|CAUSE_1|MISSILE,,”Þ็ษฦมฤฬ‘ๅศx”zาล ้EgD€mฬ_X๐’฿Aj๐•๙ฐ้I[NฬV[}“พB,,J0#,,,,
+HIT:HURT:1d7",,,FORCE_SLEEP|DROP_90|WILD_WOOD|WILD_SWAMP|WILD_MOUNTAIN|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|RES_DARK|HURT_LITE|EAT_GIVE_INT|EAT_LOSE_WIS|EAT_SLEEP,1_IN_8|BLINK|CAUSE_1|MISSILE,,@”Þ็ษฦมฤฬ‘ๅศx”zาล ้EgD€mฬ_X๐’฿Aj๐•๙ฐ้I[NฬV[}“พBผ•๛ษจขฤอ”—Qณ๊้”ุ‘ฐษ—ฟิ๊ฤตÜมฝI[N‘ฐ’BษฦมฤA”Þ“ฬ“`ฆ้ฬ‘ๅศ‘cๆฬ“`ณอAึ’ฃอ‘ฝญฦเSฬ’ฦศมฤข้B,,J0#,,,,
 163,xr[Eu[EhS“,Baby blue dragon,d,B,DRAGON,DRAGON,0x01,VARIABLE,NONE,ORDINARY,NONE,NONE,11,2,50,621,700,459,0,0,NONE,NONE,-1,0,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,FORCE_MAXHP|FORCE_SLEEP|DROP_CORPSE|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|CAN_FLY|IM_ELEC|EAT_ELEC_RES,1_IN_11|BR_ELEC,,"ฑฬhS“อถÜ๊ฝฮฉ่ศฬลAÜพป๊ูวฅ–\ลอศขBปฬ–ฺอ
@@ -751,7 +743,7 @@ JZ#(R“g)–๓อ ีÛณ๑",,,,
 186,I[Nฬ—b•บ‘เ’ทwOV…ibnx,"Grishnakh, the Orc's Mercenary Captain",o,u,ORC,ORC,0x02,WARRIOR,NONE,SHREWD,NONE,NONE,24,3,50,7981,0,0,34,45,NONE,NONE,-1,0,20,0,20,20,13,13,18,13,11,193,0,88,0,0,0,0,0,"HIT:HURT:1d12
 HIT:HURT:1d10
 HIT:HURT:1d12
-HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|FORCE_MAXHP|ESCORT|WILD_ALL|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS,,,@I[Nฬ‘e–\ศ‘เ’ทฬ๊lพBศฬ‘cๆฝ้ฬ‘ๅศENษ‘ฮตฤ[ขน“iฦ“ฒ๊๐•๘ขฤจ่Aผ•๛ฬ–ฏ๐FEตษท้ฑฦล–ผฦ๗ัชh[ษ“อญๆคษฦ–๔Nษศมฤข้B uOV…ibnฦขคฬอ”wฬ’แขrฬศชมฝI[NลAจ•ชLญA ’n–สÜล“อญูวฬ’ทข่๐มฤขÜตฝBv iJ.R.R.g[L“Aฃ“c’ๅ“๑E“c’–พq–๓ V”ลw—ึ•จ๊j ,"
+HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|FORCE_MAXHP|ESCORT|WILD_ALL|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS,,,@I[Nฬ‘e–\ศ‘เ’ทฬ๊lพBศฬ‘cๆฝ้ฬ‘ๅศENษ‘ฮตฤ[ขน“iฦ“ฒ๊๐•นนมฤจ่Aผ•๛ฬ–ฏ๐FEตษท้ฑฦล–ผฦ๗ัชh[ษ“อญๆคษฦ–๔Nษศมฤข้B uOV…ibnฦขคฬอ”wฬ’แขrฬศชมฝI[NลAจ•ชLญA ’n–สÜล“อญูวฬ’ทข่๐มฤขÜตฝBv iJ.R.R.g[L“Aฃ“c’ๅ“๑E“c’–พq–๓ V”ลw—ึ•จ๊j ,"
 
 
 
@@ -805,7 +797,7 @@ TOUCH:EAT_ITEM",,,DROP_1D2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON,,,”Þอ 
 ",JZ#,,,,
 200,wgฬzbuXx,Hobbes the Tiger,f,y,FELINE,FELINE,0x02,NONE,NONE,FEARLESS,NONE,NONE,10,2,50,762,0,0,0,0,NONE,NONE,-1,10,40,30,0,12,12,12,12,12,12,256,3,302,3,256,3,302,3,"CLAW:HURT:1d11
 CLAW:HURT:1d11
-BITE:HURT:1d4",,,BASH_DOOR|UNIQUE|FORCE_MAXHP|NO_CONF|NO_SLEEP|CAN_SPEAK|DROP_CORPSE|EAT_SPEED,,,‘f‘ญ“ฎญBciT“hช‘ๅDซB,"Fast-moving, with a taste for tuna sandwiches.
+BITE:HURT:1d4",,,BASH_DOOR|UNIQUE|FORCE_MAXHP|NO_CONF|NO_SLEEP|CAN_SPEAK|DROP_CORPSE|EAT_SPEED,,, ‘f‘ญ“ฎญBciT“hช‘ๅDซB,"Fast-moving, with a taste for tuna sandwiches.
 ",JZ#,,,,
 201,tBIiฬeฬ๖•จ,Shadow Creature of Fiona,h,s,HUMAN,HUMAN,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,387,0,0,0,0,NONE,NONE,-1,0,12,12,16,12,12,12,12,12,12,191,10,55,3,191,10,55,3,"HIT:HURT:1d7
 HIT:HURT:1d7",,,BASH_DOOR|OPEN_DOOR|FRIENDS|DROP_60|IM_POIS|NO_SLEEP|NO_CONF|DROP_SKELETON,,,"A“o[ฬค—tBIiช‘ผฬขEiejฉ็ฤั๑นฝ๖•จB
@@ -920,17 +912,17 @@ J0# (R“g)
 J0#
 J0# nether ฬu–ปEvฦขค–๓อ monoTone ณ๑ฬACfA
 J0#",,,,
-214,[•ฃC€Vฬ‘ๅQ,Abyss worm mass,w,D,WORM,WORM,0x01,NONE,NONE,ORDINARY,NONE,NONE,12,4,50,242,0,0,0,0,NONE,NONE,-1,-10,10,15,3,12,12,12,12,12,12,1,0,1,0,1,0,1,0,CRAWL:EXP_10,,,RAND_50|RAND_25|STUPID|WEIRD_MIND|MULTIPLY|BASH_DOOR|CAN_SWIM|HURT_LITE|RES_DARK|NO_FEAR|KILL_WALL|COLD_BLOOD|INVISIBLE,,,”๑‘ถÝชปฬ–{ฟล ้Aผมฦท้ร•ฬC€VพB,"Even more disgusting dark worms, their essence that of unbeing.
+214,[•ฃC€Vฬ‘ๅQ,Abyss worm mass,w,D,WORM,WORM,0x01,NONE,NONE,ORDINARY,NONE,NONE,12,4,50,242,0,0,0,0,NONE,NONE,-1,-10,10,15,3,12,12,12,12,12,12,1,0,1,0,1,0,1,0,CRAWL:EXP_10,,,RAND_50|RAND_25|STUPID|WEIRD_MIND|MULTIPLY|BASH_DOOR|CAN_SWIM|HURT_LITE|RES_DARK|NO_FEAR|KILL_WALL|COLD_BLOOD|INVISIBLE,,,@”๑‘ถÝชปฬ–{ฟล ้Aผมฦท้ร•ฬC€VพB,"Even more disgusting dark worms, their essence that of unbeing.
 ",JZ#,,,,
 215,I[Nฬ—b•บ‘เ’ทwStB“u[x,"Golfimbul, the Orc's Mercenary Captain",o,u,ORC,ORC,0x02,RANGER,NONE,MIGHTY,NONE,NONE,29,3,50,9520,0,0,0,0,NONE,NONE,-1,0,20,0,20,17,17,16,19,16,14,190,0,83,0,0,0,0,0,"HIT:HURT:1d12
 HIT:HURT:1d12
 HIT:HURT:1d10
-HIT:HURT:1d10",,,UNIQUE|QUESTOR|FORCE_MAXHP|WILD_ALL|ESCORT|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_2D2|DROP_GOOD|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK,,,@”Þอณ๐’H๊ฮENฬ‘ฐษเn•๐’H๊้ุฬgลAI[Nฬ•”‘ฐ๐‘ฉหใฐA’mซฦ•—E๐“ห”๕ฆฝํmฬ’ทล ้Bzrbgษ‘ฮตฤ‘“–ศฆÝช ้็ตญทXษ•tฏ‘_มฤอcsศY๐J่•ิตฤข้B,"
+HIT:HURT:1d10",,,UNIQUE|QUESTOR|FORCE_MAXHP|WILD_ALL|ESCORT|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_2D2|DROP_GOOD|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK,,,@”Þอ“•๛ฬ—R ้ENฬ‘ฐษเn•๐’H๊้ุฬgลA’mซฦ•—E๐“ห”๕ฆฝํmฬ’ทล ้Bzrbgษe‘ฐฬ๑๐Y๊ษJ฿็๊ฝฆÝช ่A”Þ“๐ทXษ•tฏ‘_มฤอ“ฏถcsศY๐J่•ิตฤข้B,"
 
 
 ",J0#,,,,
 216,\[h}“,Swordsman,p,U,HUMAN,HUMAN,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,12,1,50,345,400,372,0,0,NONE,NONE,-1,0,20,0,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:3d6
-HIT:HURT:3d6",,,WILD_ALL|HAS_LITE_2|DROP_1D2|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR,,,ฉศ่ฬํ“ฌZp๐มฝํmพB,"A warrior of considerable skill.
+HIT:HURT:3d6",,,WILD_ALL|HAS_LITE_2|DROP_1D2|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR,,,@“มษ’ผ•ฬตขษ’ทฏฝํmพB,"A warrior of considerable sword skill.
 ",J0#,,,,
 217,XPC”“EV[}“,Skaven shaman,r,g,SKAVEN,SKAVEN,0x01,PRIEST,NONE,ORDINARY,CHAOS,NONE,9,1,50,341,0,0,26,54,NONE,NONE,-1,0,20,15,20,12,14,16,12,15,10,165,10,55,3,165,10,55,3,"HIT:HURT:1d7
 HIT:HURT:1d7",,,WILD_SWAMP|WILD_WASTE|FORCE_SLEEP|DROP_90|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE,1_IN_8|BLINK|CAUSE_1|MISSILE|CONF|SCARE,,@XPC”“‘ฐฬV[}“อA[vXg[“ฦขค ฌ“ืฬ—อษๆมฤืซษณ๊ฝ“ไฬฮฉ็—อ๐“พฤข้B,"The shaman of a skaven tribe gets his powers from a mystic 
