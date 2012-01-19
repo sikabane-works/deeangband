@@ -3068,7 +3068,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	creature_type   *tar_ptr;
 	species_type    *atk_species_ptr;
 	species_type    *tar_species_ptr;
-	char			atk_name[80];
+	char			attacker_name[80];
 	char            target_name[80];
 	char			weapon_name[80];
 
@@ -3111,7 +3111,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	/* Extract attacker and target name (or "it") */
 	creature_desc(target_name, tar_ptr, 0);
-	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(attacker_name, atk_ptr, 0);
 
 	if (tar_ptr->ml)
 	{
@@ -3129,9 +3129,9 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if ((atk_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
-			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", atk_name);
+			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
 #else
-			msg_print("%s shouted, \"I can not attack women!\"", atk_name);
+			msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
 #endif
 			return FALSE;
 		}
@@ -3195,9 +3195,9 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/* Message */
 		if (tar_ptr->ml)
 #ifdef JP
-			msg_format("%sは怯えていて%sを攻撃できない！", atk_name, target_name);
+			msg_format("%sは怯えていて%sを攻撃できない！", attacker_name, target_name);
 #else
-			msg_format("%s are too afraid to attack %s!", atk_name, target_name);
+			msg_format("%s are too afraid to attack %s!", attacker_name, target_name);
 #endif
 
 		else if(is_player(atk_ptr))
@@ -3215,6 +3215,18 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/* Done */
 		return FALSE;
 	}
+
+	// Ceased by Iai
+	if (tar_ptr->special_defense & KATA_IAI)
+	{
+#ifdef JP
+		msg_format("%sは%sが襲いかかる前に素早く武器を振るった。", target_name, attacker_name);
+#else
+		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
+#endif
+		if (weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
+	}
+
 
 	if (atk_ptr->migite && atk_ptr->hidarite)
 	{
@@ -3298,9 +3310,9 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		{
 			int k;
 #ifdef JP
-			msg_format("%sは残酷にも%sを踏みつけた！", atk_name, target_name);
+			msg_format("%sは残酷にも%sを踏みつけた！", attacker_name, target_name);
 #else
-			msg_format("%s tranmpled %s cruelly!", atk_name, target_name);
+			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
 #endif
 			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);

@@ -156,8 +156,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 	char o_name[MAX_NLEN];
 
-	char atk_name[100];
-	char taspecies_name[100];
+	char attacker_name[100];
+	char target_name[100];
 
 	char ddesc[80];
 
@@ -183,21 +183,11 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 	/* Get the monster name (or "it") */
-	creature_desc(atk_name, atk_ptr, 0);
-	creature_desc(taspecies_name, tar_ptr, 0);
+	creature_desc(attacker_name, atk_ptr, 0);
+	creature_desc(target_name, tar_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
 	creature_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-
-	if (tar_ptr->special_defense & KATA_IAI)
-	{
-#ifdef JP
-		msg_format("%sは相手が襲いかかる前に素早く武器を振るった。", taspecies_name);
-#else
-		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", taspecies_name, atk_name);
-#endif
-		if (weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
-	}
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
 	{
@@ -268,10 +258,10 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				if (abbreviate)
 				    msg_format("撃退した。");
 				else
-				    msg_format("%^sは撃退された。", atk_name);
+				    msg_format("%^sは撃退された。", attacker_name);
 				abbreviate = 1;/*２回目以降は省略 */
 #else
-				msg_format("%^s is repelled.", atk_name);
+				msg_format("%^s is repelled.", attacker_name);
 #endif
 
 
@@ -748,20 +738,20 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				}
 #ifdef JP
 				if (abbreviate == 0)
-				    msg_format("%^sは%sを%s", atk_name, taspecies_name, act);
+				    msg_format("%^sは%sを%s", attacker_name, target_name, act);
 				else if (abbreviate == 1)
-				    msg_format("%^sは%sに%s", atk_name, taspecies_name, act);
+				    msg_format("%^sは%sに%s", attacker_name, target_name, act);
 				else if (abbreviate == 2)
-				    msg_format("%^sは%sの%s", atk_name, taspecies_name, act);
+				    msg_format("%^sは%sの%s", attacker_name, target_name, act);
 				else if (abbreviate == 3)
-				    msg_format("%^sは%sに向け%s", atk_name, taspecies_name, act);
+				    msg_format("%^sは%sに向け%s", attacker_name, target_name, act);
 				else if (abbreviate == 4)
-				    msg_format("%^s%s", atk_name, act);
+				    msg_format("%^s%s", attacker_name, act);
 				else /* if (abbreviate == -1) */
 				    msg_format("%s", act);
 				abbreviate = -1;/*２回目以降は省略 */
 #else
-				msg_format("%^s %s %s", atk_name, act, do_silly_attack ? taspecies_name : "");
+				msg_format("%^s %s %s", attacker_name, act, do_silly_attack ? target_name : "");
 #endif
 			}
 
@@ -1809,9 +1799,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (atk_ptr->ml && did_heal)
 						{
 #ifdef JP
-msg_format("%sは体力を回復したようだ。", atk_name);
+msg_format("%sは体力を回復したようだ。", attacker_name);
 #else
-							msg_format("%^s appears healthier.", atk_name);
+							msg_format("%^s appears healthier.", attacker_name);
 #endif
 
 						}
@@ -1944,10 +1934,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは突然熱くなった！", atk_name);
+						msg_format("%^sは突然熱くなった！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は灰の山になった。", -1);
 #else
-						msg_format("%^s is suddenly very hot!", atk_name);
+						msg_format("%^s is suddenly very hot!", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -1973,10 +1963,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは電撃をくらった！", atk_name);
+						msg_format("%^sは電撃をくらった！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
 #else
-						msg_format("%^s gets zapped!", atk_name);
+						msg_format("%^s gets zapped!", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2002,10 +1992,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは冷気をくらった！", atk_name);
+						msg_format("%^sは冷気をくらった！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は凍りついた。", -1);
 #else
-						msg_format("%^s is very cold!", atk_name);
+						msg_format("%^s is very cold!", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2032,10 +2022,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは鏡の破片をくらった！", atk_name);
+						msg_format("%^sは鏡の破片をくらった！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "はズタズタになった。", -1);
 #else
-						msg_format("%^s gets zapped!", atk_name);
+						msg_format("%^s gets zapped!", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2068,10 +2058,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 							dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-							msg_format("%^sは聖なるオーラで傷ついた！", atk_name);
+							msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
 							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-							msg_format("%^s is injured by holy power!", atk_name);
+							msg_format("%^s is injured by holy power!", attacker_name);
 							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 							if(atk_ptr->species_idx == 0)
@@ -2098,10 +2088,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sが鋭い闘気のオーラで傷ついた！", atk_name);
+						msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-						msg_format("%^s is injured by the Force", atk_name);
+						msg_format("%^s is injured by the Force", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2137,10 +2127,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("影のオーラが%^sに反撃した！", atk_name);
+						msg_format("影のオーラが%^sに反撃した！", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-						msg_format("Enveloped shadows attack %^s.", atk_name);
+						msg_format("Enveloped shadows attack %^s.", attacker_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2210,10 +2200,10 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					if (abbreviate)
 					    msg_format("%sかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "");
 					else
-					    msg_format("%s%^sの攻撃をかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", atk_name);
+					    msg_format("%s%^sの攻撃をかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", attacker_name);
 					abbreviate = 1;/*２回目以降は省略 */
 #else
-					msg_format("%^s misses you.", atk_name);
+					msg_format("%^s misses you.", attacker_name);
 #endif
 
 				}
@@ -2240,14 +2230,14 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 
 		if (tar_ptr->riding && damage)
 		{
-			char atk_name[80];
-			creature_desc(atk_name, &creature_list[tar_ptr->riding], 0);
+			char attacker_name[80];
+			creature_desc(attacker_name, &creature_list[tar_ptr->riding], 0);
 			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 #ifdef JP
-msg_format("%^sから落ちてしまった！", atk_name);
+msg_format("%^sから落ちてしまった！", attacker_name);
 #else
-				msg_format("You have fallen from %s.", atk_name);
+				msg_format("You have fallen from %s.", attacker_name);
 #endif
 			}
 		}
@@ -2265,14 +2255,14 @@ msg_format("%^sから落ちてしまった！", atk_name);
 		&& get_damage > 0 && !tar_ptr->is_dead)
 	{
 #ifdef JP
-		msg_format("攻撃が%s自身を傷つけた！", atk_name);
+		msg_format("攻撃が%s自身を傷つけた！", attacker_name);
 #else
-		char atk_name_self[80];
+		char attacker_name_self[80];
 
 		/* hisself */
-		creature_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(attacker_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
-		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
+		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
 		project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (tar_ptr->tim_eyeeye) set_tim_eyeeye(tar_ptr, tar_ptr->tim_eyeeye-5, TRUE);
@@ -2280,14 +2270,14 @@ msg_format("%^sから落ちてしまった！", atk_name);
 
 	if ((tar_ptr->counter || (tar_ptr->special_defense & KATA_MUSOU)) && alive && !tar_ptr->is_dead && atk_ptr->ml && (tar_ptr->csp > 7))
 	{
-		char atk_name[80];
-		creature_desc(atk_name, atk_ptr, 0);
+		char attacker_name[80];
+		creature_desc(attacker_name, atk_ptr, 0);
 
 		tar_ptr->csp -= 7;
 #ifdef JP
-		msg_format("%^sに反撃した！", atk_name);
+		msg_format("%^sに反撃した！", attacker_name);
 #else
-		msg_format("Your counterattack to %s!", atk_name);
+		msg_format("Your counterattack to %s!", attacker_name);
 #endif
 		weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
