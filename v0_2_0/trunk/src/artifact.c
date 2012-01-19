@@ -2411,7 +2411,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It lets out a long, shrill note...");
 #endif
 
-			(void)mass_genocide(200, TRUE);
+			(void)mass_genocide(cr_ptr, 200, TRUE);
 			o_ptr->timeout = 1000;
 			break;
 		}

@@ -1942,7 +1942,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_MASS_GENOCIDE:
 		{
-			(void)mass_genocide(300, TRUE);
+			(void)mass_genocide(cr_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
 		}
@@ -4898,7 +4898,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your axe lets out a long, shrill note...");
 #endif
 
-				(void)mass_genocide(200, TRUE);
+				(void)mass_genocide(cr_ptr, 200, TRUE);
 				o_ptr->timeout = 1000;
 				break;
 			}

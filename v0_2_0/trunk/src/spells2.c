@@ -4813,7 +4813,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 /*
  * Delete all nearby (non-unique) monsters
  */
-bool mass_genocide(int power, bool player_cast)
+bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
 	bool result = FALSE;
@@ -4837,9 +4837,9 @@ bool mass_genocide(int power, bool player_cast)
 
 		/* Note effect */
 #ifdef JP
-		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "Žü•Ó–•ŽE");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "Žü•Ó–•ŽE");
 #else
-		result |= genocide_aux(p_ptr, i, power, player_cast, 3, "Mass Genocide");
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "Mass Genocide");
 #endif
 	}
 

@@ -4937,7 +4937,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				mass_genocide(power, TRUE);
+				mass_genocide(cr_ptr, power, TRUE);
 			}
 		}
 		break;

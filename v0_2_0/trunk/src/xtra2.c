@@ -4853,7 +4853,7 @@ msg_print("「我、汝の敵を抹殺せん！」");
 			msg_print("'Let me relieve thee of thine oppressors!'");
 #endif
 
-			(void)mass_genocide(0, FALSE);
+			(void)mass_genocide(cr_ptr, 0, FALSE);
 #ifdef JP
 			reward = "モンスターが抹殺された。";
 #else
