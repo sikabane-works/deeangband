@@ -5278,7 +5278,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your shield gleams with blinding light...");
 #endif
 				fire_ball(cr_ptr, GF_LITE, 0, 300, 6);
-				confuse_monsters(3 * cr_ptr->lev / 2);
+				confuse_creatures(cr_ptr, 3 * cr_ptr->lev / 2);
 				o_ptr->timeout = 250;
 				break;
 			}
@@ -5474,7 +5474,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 					sukekaku = TRUE;
 					stun_monsters(120);
-					confuse_monsters(120);
+					confuse_creatures(cr_ptr, 120);
 					turn_monsters(120);
 					stasis_monsters(120);
 					sukekaku = FALSE;

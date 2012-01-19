@@ -7274,9 +7274,9 @@ void wall_breaker(creature_type *cr_ptr)
 /*
  * Confuse monsters
  */
-bool confuse_monsters(int dam)
+bool confuse_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_OLD_CONF, dam));
+	return (project_hack(caster_ptr, GF_OLD_CONF, dam));
 }
 
 

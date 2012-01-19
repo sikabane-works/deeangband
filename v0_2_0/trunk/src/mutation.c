@@ -3714,7 +3714,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case CF_DAZZLE:
 			stun_monsters(lvl * 4);
-			confuse_monsters(lvl * 4);
+			confuse_creatures(cr_ptr, lvl * 4);
 			turn_monsters(lvl * 4);
 			break;
 
