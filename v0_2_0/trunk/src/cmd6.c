@@ -1899,7 +1899,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_TRAP_DOOR_DESTRUCTION:
 		{
-			if (destroy_doors_touch()) ident = TRUE;
+			if (destroy_doors_touch(cr_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -4414,7 +4414,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				msg_print("Your armor glows bright red...");
 #endif
 
-				destroy_doors_touch();
+				destroy_doors_touch(cr_ptr);
 				o_ptr->timeout = 10;
 				break;
 			}

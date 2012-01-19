@@ -1434,7 +1434,7 @@ extern bool door_creation(void);
 extern bool trap_creation(int y, int x);
 extern bool tree_creation(creature_type *caster_ptr);
 extern bool glyph_creation(creature_type *cr_ptr);
-extern bool destroy_doors_touch(void);
+extern bool destroy_doors_touch(creature_type *caster_ptr);
 extern bool animate_dead(creature_type *cr_ptr, int y, int x);
 extern bool sleep_monsters_touch(creature_type *cr_ptr);
 extern bool activate_ty_curse(creature_type *cr_ptr, bool stop_ty, int *count);

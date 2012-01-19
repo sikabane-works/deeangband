@@ -2914,7 +2914,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows bright red...");
 #endif
 
-			destroy_doors_touch();
+			destroy_doors_touch(cr_ptr);
 			o_ptr->timeout = 10;
 			break;
 		}

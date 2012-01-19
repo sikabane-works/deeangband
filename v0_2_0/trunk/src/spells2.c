@@ -6895,10 +6895,10 @@ bool wall_stone(void)
 }
 
 
-bool destroy_doors_touch(void)
+bool destroy_doors_touch(creature_type *caster_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, p_ptr->fy, p_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
+	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
 }
 
 

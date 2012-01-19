@@ -525,7 +525,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		lite_area(cr_ptr, damroll(2, 3), 2);
 		break;
 	case 15:
-		destroy_doors_touch();
+		destroy_doors_touch(cr_ptr);
 		break;
 	case 16: case 17:
 		wall_breaker(cr_ptr);
@@ -3427,7 +3427,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				destroy_doors_touch();
+				destroy_doors_touch(cr_ptr);
 			}
 		}
 		break;
