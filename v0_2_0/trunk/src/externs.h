@@ -1442,7 +1442,7 @@ extern int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet)
 extern int summon_cyber(creature_type *cr_ptr, int y, int x);
 extern void wall_breaker(creature_type *cr_ptr);
 extern bool confuse_creatures(creature_type *caster_ptr, int dam);
-extern bool charm_monsters(int dam);
+extern bool charm_creatures(creature_type *caster_ptr, int dam);
 extern bool charm_animals(int dam);
 extern bool stun_monsters(int dam);
 extern bool stasis_monsters(int dam);

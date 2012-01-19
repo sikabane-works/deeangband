@@ -903,7 +903,7 @@ if (!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
 		}
 		else
 		{
-			charm_monsters(plev * 2);
+			charm_creatures(cr_ptr, plev * 2);
 		}
 		break;
 	case 5:

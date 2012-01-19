@@ -7283,9 +7283,9 @@ bool confuse_creatures(creature_type *caster_ptr, int dam)
 /*
  * Charm monsters
  */
-bool charm_monsters(int dam)
+bool charm_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_CHARM, dam));
+	return (project_hack(caster_ptr, GF_CHARM, dam));
 }
 
 

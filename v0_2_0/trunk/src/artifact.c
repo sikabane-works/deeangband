@@ -2451,7 +2451,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_CHARM_OTHERS:
 		{
-			charm_monsters(plev * 2);
+			charm_creatures(cr_ptr, plev * 2);
 			o_ptr->timeout = 750;
 			break;
 		}

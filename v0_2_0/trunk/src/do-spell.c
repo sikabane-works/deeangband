@@ -1611,7 +1611,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				charm_monsters(power);
+				charm_creatures(cr_ptr, power);
 			}
 		}
 		break;
@@ -2510,7 +2510,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				charm_monsters(power);
+				charm_creatures(cr_ptr, power);
 			}
 		}
 		break;
@@ -9535,7 +9535,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				charm_monsters(damroll(dice, sides));
+				charm_creatures(cr_ptr, damroll(dice, sides));
 			}
 		}
 
