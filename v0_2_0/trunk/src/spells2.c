@@ -7382,10 +7382,10 @@ bool control_one_demon(int dir, int plev)
 }
 
 
-bool charm_animal(int dir, int plev)
+bool charm_animal(creature_type *caster_ptr, int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_CONTROL_ANIMAL, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_ANIMAL, dir, plev, flg));
 }
 
 

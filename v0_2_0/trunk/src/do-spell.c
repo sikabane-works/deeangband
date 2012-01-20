@@ -2755,7 +2755,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				charm_animal(dir, power);
+				charm_animal(cr_ptr, dir, power);
 			}
 		}
 		break;
