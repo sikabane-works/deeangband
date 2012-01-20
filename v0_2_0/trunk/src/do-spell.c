@@ -7571,7 +7571,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				control_one_demon(dir, power);
+				control_one_demon(cr_ptr, dir, power);
 			}
 		}
 		break;

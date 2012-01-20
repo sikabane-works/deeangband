@@ -1452,7 +1452,7 @@ extern bool turn_evil(int dam);
 extern bool deathray_creatures(creature_type *caster_ptr);
 extern bool charm_monster(int dir, int plev);
 extern bool control_one_undead(int dir, int plev);
-extern bool control_one_demon(int dir, int plev);
+extern bool control_one_demon(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_animal(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_living(creature_type *caster_ptr, int dir, int plev);
 extern bool mindblast_creatures(creature_type *caster_ptr, int dam);
