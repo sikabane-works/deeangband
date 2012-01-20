@@ -940,7 +940,7 @@ msg_print("¸_‚ð”P‚¶‹È‚°‚é”g“®‚ð”­¶‚³‚¹‚½I");
 			project(cr_ptr, 2 + plev / 10, cr_ptr->fy, cr_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
-			(void)mindblast_monsters(randint1(plev * ((plev - 5) / 10 + 1)));
+			(void)mindblast_creatures(cr_ptr, randint1(plev * ((plev - 5) / 10 + 1)));
 		break;
 	case 9:
 		/* Adrenaline */

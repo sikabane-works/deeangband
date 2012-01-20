@@ -7319,9 +7319,9 @@ bool stasis_monsters(int dam)
 /*
  * Mindblast monsters
  */
-bool mindblast_monsters(int dam)
+bool mindblast_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_PSI, dam));
+	return (project_hack(caster_ptr, GF_PSI, dam));
 }
 
 
@@ -7355,7 +7355,7 @@ bool turn_monsters(int dam)
 /*
  * Death-ray all monsters (note: OBSCENELY powerful)
  */
-bool deathray_monsters(creature_type *caster_ptr)
+bool deathray_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_DEATH_RAY, p_ptr->lev * 200));
 }
