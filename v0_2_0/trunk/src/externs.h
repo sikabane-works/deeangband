@@ -1449,7 +1449,7 @@ extern bool stasis_monsters(int dam);
 extern bool banish_monsters(int dist);
 extern bool turn_monsters(int dam);
 extern bool turn_evil(int dam);
-extern bool deathray_monsters(void);
+extern bool deathray_monsters(creature_type *caster_ptr);
 extern bool charm_monster(int dir, int plev);
 extern bool control_one_undead(int dir, int plev);
 extern bool control_one_demon(int dir, int plev);

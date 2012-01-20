@@ -7355,9 +7355,9 @@ bool turn_monsters(int dam)
 /*
  * Death-ray all monsters (note: OBSCENELY powerful)
  */
-bool deathray_monsters(void)
+bool deathray_monsters(creature_type *caster_ptr)
 {
-	return (project_hack(p_ptr, GF_DEATH_RAY, p_ptr->lev * 200));
+	return (project_hack(caster_ptr, GF_DEATH_RAY, p_ptr->lev * 200));
 }
 
 
