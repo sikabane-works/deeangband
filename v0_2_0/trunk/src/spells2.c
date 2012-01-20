@@ -7389,10 +7389,10 @@ bool charm_animal(creature_type *caster_ptr, int dir, int plev)
 }
 
 
-bool charm_living(int dir, int plev)
+bool charm_living(creature_type *caster_ptr, int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_CONTROL_LIVING, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_LIVING, dir, plev, flg));
 }
 
 
