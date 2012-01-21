@@ -6174,7 +6174,7 @@ static int next_to_walls_adj(int cy, int cx, bool (*pass_bold)(int, int))
 /*
  * Aux function -- see below
  */
-static void cave_temp_room_aux(int y, int x, bool only_room, bool (*pass_bold)(int, int))
+static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(int, int))
 {
 	cave_type *c_ptr;
 
@@ -6193,7 +6193,7 @@ static void cave_temp_room_aux(int y, int x, bool only_room, bool (*pass_bold)(i
 		if (!in_bounds2(y, x)) return;
 
 		/* Do not exceed the maximum spell range */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > MAX_RANGE(p_ptr)) return;
+		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE(caster_ptr)) return;
 
 		/* Verify this grid */
 		/*
@@ -6233,7 +6233,7 @@ static bool cave_pass_lite_bold(int y, int x)
  */
 static void cave_temp_lite_room_aux(int y, int x)
 {
-	cave_temp_room_aux(y, x, FALSE, cave_pass_lite_bold);
+	cave_temp_room_aux(p_ptr, y, x, FALSE, cave_pass_lite_bold);
 }
 
 /*
@@ -6249,7 +6249,7 @@ static bool cave_pass_dark_bold(int y, int x)
  */
 static void cave_temp_unlite_room_aux(int y, int x)
 {
-	cave_temp_room_aux(y, x, TRUE, cave_pass_dark_bold);
+	cave_temp_room_aux(p_ptr, y, x, TRUE, cave_pass_dark_bold);
 }
 
 
