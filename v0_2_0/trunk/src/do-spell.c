@@ -7900,7 +7900,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				dispel_monsters(randint1(sides1));
-				dispel_good(randint1(sides2));
+				dispel_good(cr_ptr, randint1(sides2));
 			}
 		}
 		break;

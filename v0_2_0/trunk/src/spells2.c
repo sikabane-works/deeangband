@@ -4557,9 +4557,9 @@ bool dispel_evil(creature_type *caster_ptr, int dam)
 /*
  * Dispel good monsters
  */
-bool dispel_good(int dam)
+bool dispel_good(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_DISP_GOOD, dam));
+	return (project_hack(caster_ptr, GF_DISP_GOOD, dam));
 }
 
 /*
