@@ -2610,7 +2610,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print("You suddenly feel almost lonely.");
 #endif
 
-		banish_monsters(100);
+		banish_creatures(cr_ptr, 100);
 		msg_print(NULL);
 	}
 

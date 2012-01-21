@@ -7328,9 +7328,9 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 /*
  * Banish all monsters
  */
-bool banish_monsters(int dist)
+bool banish_creatures(creature_type *caster_ptr, int dist)
 {
-	return (project_hack(p_ptr, GF_AWAY_ALL, dist));
+	return (project_hack(caster_ptr, GF_AWAY_ALL, dist));
 }
 
 

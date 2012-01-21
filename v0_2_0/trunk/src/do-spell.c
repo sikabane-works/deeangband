@@ -2548,7 +2548,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				banish_monsters(power);
+				banish_creatures(cr_ptr, power);
 			}
 		}
 		break;
@@ -5428,7 +5428,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				banish_monsters(power);
+				banish_creatures(cr_ptr, power);
 			}
 		}
 		break;
