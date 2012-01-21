@@ -2514,7 +2514,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_POWER:
 		{
-			if (dispel_monsters(150)) ident = TRUE;
+			if (dispel_creatures(cr_ptr, 150)) ident = TRUE;
 			break;
 		}
 
@@ -3422,7 +3422,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_PESTICIDE:
 		{
-			if (dispel_monsters(4)) ident = TRUE;
+			if (dispel_creatures(cr_ptr, 4)) ident = TRUE;
 			break;
 		}
 
@@ -3818,7 +3818,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 
 
 			/* Dispel monsters */
-			dispel_monsters(1000);
+			dispel_creatures(cr_ptr, 1000);
 
 			break;
 		}
@@ -5231,7 +5231,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("You exterminate small life.");
 #endif
-				(void)dispel_monsters(4);
+				(void)dispel_creatures(cr_ptr, 4);
 				o_ptr->timeout = randint0(55) + 55;
 				break;
 			}

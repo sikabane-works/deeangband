@@ -4563,11 +4563,11 @@ bool dispel_good(creature_type *caster_ptr, int dam)
 }
 
 /*
- * Dispel all monsters
+ * Dispel all creatures
  */
-bool dispel_monsters(int dam)
+bool dispel_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_DISP_ALL, dam));
+	return (project_hack(caster_ptr, GF_DISP_ALL, dam));
 }
 
 /*

@@ -4869,7 +4869,7 @@ msg_format("%s‚Ì—Í‚ª“G‚ðUŒ‚‚·‚é‚Ì‚ðŠ´‚¶‚½I",
 				species_name + species_info[cr_ptr->patron_idx].name);
 #endif
 
-			(void)dispel_monsters(cr_ptr->lev * 4);
+			(void)dispel_creatures(cr_ptr, cr_ptr->lev * 4);
 			break;
 		case REW_IGNORE:
 #ifdef JP

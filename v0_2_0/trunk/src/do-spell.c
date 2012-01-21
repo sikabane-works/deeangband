@@ -314,10 +314,10 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	{
 		symbol_genocide(cr_ptr, plev+50, TRUE);
 	}
-	else if (die < 110) dispel_monsters(120);
+	else if (die < 110) dispel_creatures(cr_ptr, 120);
 	else /* RARE */
 	{
-		dispel_monsters(150);
+		dispel_creatures(cr_ptr, 150);
 		slow_monsters(cr_ptr);
 		sleep_monsters(cr_ptr);
 		hp_player(cr_ptr, 300);
@@ -469,11 +469,11 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 110)
 	{
-		dispel_monsters(120);
+		dispel_creatures(cr_ptr, 120);
 	}
 	else
 	{ /* RARE */
-		dispel_monsters(150);
+		dispel_creatures(cr_ptr, 150);
 		slow_monsters(cr_ptr);
 		sleep_monsters(cr_ptr);
 		hp_player(cr_ptr, 300);
@@ -3355,7 +3355,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_monsters(d_dam);
+				dispel_creatures(cr_ptr, d_dam);
 				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, q_rad);
 				project(cr_ptr, b_rad, cr_ptr->fy, cr_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
@@ -7899,7 +7899,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_monsters(randint1(sides1));
+				dispel_creatures(cr_ptr, randint1(sides1));
 				dispel_good(cr_ptr, randint1(sides2));
 			}
 		}
@@ -8866,7 +8866,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
-				dispel_monsters(d_dam);
+				dispel_creatures(cr_ptr, d_dam);
 				slow_monsters(cr_ptr);
 				stun_monsters(power);
 				confuse_creatures(cr_ptr, power);
@@ -9745,7 +9745,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				dispel_monsters(randint1(m_sides));
+				dispel_creatures(cr_ptr, randint1(m_sides));
 				dispel_evil(cr_ptr, randint1(e_sides));
 			}
 		}
@@ -10001,7 +10001,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				dispel_monsters(damroll(dice, sides));
+				dispel_creatures(cr_ptr, damroll(dice, sides));
 			}
 		}
 		break;

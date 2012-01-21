@@ -940,7 +940,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else
 			{
-				(void)dispel_monsters(plev * 4);
+				(void)dispel_creatures(cr_ptr, plev * 4);
 				turn_monsters(plev * 4);
 				banish_monsters(plev * 4);
 			}
