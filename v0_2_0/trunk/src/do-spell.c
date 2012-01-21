@@ -1590,7 +1590,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(damroll(dice, sides));
+				dispel_undead(cr_ptr, damroll(dice, sides));
 			}
 		}
 		break;
@@ -8388,7 +8388,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(randint1(sides));
+				dispel_undead(cr_ptr, randint1(sides));
 				dispel_demons(randint1(sides));
 				turn_evil(power);
 			}
@@ -8593,7 +8593,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(randint1(sides));
+				dispel_undead(cr_ptr, randint1(sides));
 				dispel_demons(randint1(sides));
 			}
 		}

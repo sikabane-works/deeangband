@@ -4540,9 +4540,9 @@ bool turn_undead(void)
 /*
  * Dispel undead monsters
  */
-bool dispel_undead(int dam)
+bool dispel_undead(creature_type *caster_ptr, int dam)
 {
-	bool tester = (project_hack(p_ptr, GF_DISP_UNDEAD, dam));
+	bool tester = (project_hack(caster_ptr, GF_DISP_UNDEAD, dam));
 	return tester;
 }
 
