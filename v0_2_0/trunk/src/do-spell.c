@@ -275,7 +275,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	}
 
 	if (die < 8) clone_monster(dir);
-	else if (die < 14) speed_monster(dir);
+	else if (die < 14) speed_other_creature(cr_ptr, dir);
 	else if (die < 26) heal_other_creature(cr_ptr, dir, damroll(4, 6));
 	else if (die < 31) poly_monster(dir);
 	else if (die < 36)
@@ -5336,7 +5336,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 				if (!result) return NULL;
 
-				speed_monster(dir);
+				speed_other_creature(cr_ptr, dir);
 			}
 		}
 		break;

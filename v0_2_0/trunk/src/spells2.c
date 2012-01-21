@@ -6766,10 +6766,10 @@ bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 }
 
 
-bool speed_monster(int dir)
+bool speed_other_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_SPEED, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SPEED, dir, p_ptr->lev, flg));
 }
 
 

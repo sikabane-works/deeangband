@@ -2864,7 +2864,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_HASTE_MONSTER:
 		{
-			if (speed_monster(dir)) ident = TRUE;
+			if (speed_other_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
