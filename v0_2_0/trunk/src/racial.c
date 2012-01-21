@@ -1048,7 +1048,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You glare nearby monsters...");
 #endif
 			slow_monsters(cr_ptr);
-			stun_monsters(cr_ptr->lev * 4);
+			stun_creatures(cr_ptr, cr_ptr->lev * 4);
 			confuse_creatures(cr_ptr, cr_ptr->lev * 4);
 			turn_monsters(cr_ptr->lev * 4);
 			stasis_monsters(cr_ptr->lev * 4);

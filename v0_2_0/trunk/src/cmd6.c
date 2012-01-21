@@ -5473,7 +5473,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 					sukekaku = TRUE;
-					stun_monsters(120);
+					stun_creatures(cr_ptr, 120);
 					confuse_creatures(cr_ptr, 120);
 					turn_monsters(120);
 					stasis_monsters(120);

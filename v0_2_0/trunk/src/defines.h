@@ -5383,7 +5383,7 @@ extern int PlayerUID;
 #define HEX_RESTORE          25
 #define HEX_DRAIN_CURSE      26
 #define HEX_VAMP_BLADE       27
-#define HEX_STUN_MONSTERS    28
+#define HEX_stun_creatures    28
 #define HEX_SHADOW_MOVE      29
 #define HEX_ANTI_MAGIC       30
 #define HEX_REVENGE          31

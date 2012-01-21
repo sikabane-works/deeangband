@@ -7301,9 +7301,9 @@ bool charm_animals(creature_type *caster_ptr, int dam)
 /*
  * Stun monsters
  */
-bool stun_monsters(int dam)
+bool stun_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_STUN, dam));
+	return (project_hack(caster_ptr, GF_STUN, dam));
 }
 
 
