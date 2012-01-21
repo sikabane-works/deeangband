@@ -2489,7 +2489,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if (slow_monsters(cr_ptr)) ident = TRUE;
+			if (slow_creatures(cr_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -4423,7 +4423,7 @@ msg_print("天国の歌が聞こえる...");
 			case ART_TERROR:
 			case ART_STONEMASK:
 			{
-				turn_monsters(40 + cr_ptr->lev);
+				turn_creatures(cr_ptr, 40 + cr_ptr->lev);
 				o_ptr->timeout = 3 * (cr_ptr->lev + 10);
 
 				break;
@@ -5220,7 +5220,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("You wind a mighty blast; your enemies tremble!");
 #endif
-				(void)turn_monsters((3 * cr_ptr->lev / 2) + 10);
+				(void)turn_creatures(cr_ptr, (3 * cr_ptr->lev / 2) + 10);
 				o_ptr->timeout = randint0(40) + 40;
 				break;
 			}
@@ -5475,7 +5475,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					sukekaku = TRUE;
 					stun_creatures(cr_ptr, 120);
 					confuse_creatures(cr_ptr, 120);
-					turn_monsters(120);
+					turn_creatures(cr_ptr, 120);
 					stasis_monsters(120);
 					sukekaku = FALSE;
 				}

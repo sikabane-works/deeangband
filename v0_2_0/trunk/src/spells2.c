@@ -4504,7 +4504,7 @@ bool speed_monsters(creature_type *caster_ptr)
 /*
  * Slow monsters
  */
-bool slow_monsters(creature_type *caster_ptr)
+bool slow_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SLOW, caster_ptr->lev));
 }
@@ -7346,9 +7346,9 @@ bool turn_evil(int dam)
 /*
  * Turn everyone
  */
-bool turn_monsters(int dam)
+bool turn_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_TURN_ALL, dam));
+	return (project_hack(caster_ptr, GF_TURN_ALL, dam));
 }
 
 

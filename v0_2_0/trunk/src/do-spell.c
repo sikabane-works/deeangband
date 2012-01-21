@@ -318,7 +318,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	else /* RARE */
 	{
 		dispel_creatures(cr_ptr, 150);
-		slow_monsters(cr_ptr);
+		slow_creatures(cr_ptr);
 		sleep_monsters(cr_ptr);
 		hp_player(cr_ptr, 300);
 	}
@@ -474,7 +474,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	else
 	{ /* RARE */
 		dispel_creatures(cr_ptr, 150);
-		slow_monsters(cr_ptr);
+		slow_creatures(cr_ptr);
 		sleep_monsters(cr_ptr);
 		hp_player(cr_ptr, 300);
 	}
@@ -2949,7 +2949,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				slow_monsters(cr_ptr);
+				slow_creatures(cr_ptr);
 			}
 		}
 		break;
@@ -8867,10 +8867,10 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_creatures(cr_ptr, d_dam);
-				slow_monsters(cr_ptr);
+				slow_creatures(cr_ptr);
 				stun_creatures(cr_ptr, power);
 				confuse_creatures(cr_ptr, power);
-				turn_monsters(power);
+				turn_creatures(cr_ptr, power);
 				stasis_monsters(power);
 				hp_player(cr_ptr, heal);
 			}
@@ -8974,7 +8974,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				slow_monsters(cr_ptr);
+				slow_creatures(cr_ptr);
 			}
 		}
 		break;
@@ -9780,7 +9780,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				slow_monsters(cr_ptr);
+				slow_creatures(cr_ptr);
 				sleep_monsters(cr_ptr);
 			}
 		}

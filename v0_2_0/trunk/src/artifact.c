@@ -2362,7 +2362,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_TERROR:
 		{
-			turn_monsters(40 + cr_ptr->lev);
+			turn_creatures(cr_ptr, 40 + cr_ptr->lev);
 			o_ptr->timeout = 3 * (cr_ptr->lev + 10);
 			break;
 		}

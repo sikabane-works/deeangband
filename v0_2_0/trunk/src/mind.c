@@ -1347,10 +1347,10 @@ msg_format("There are too many mirrors to control!");
 	/* illusion light */
 	case 14:
 	  tmp = is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 3;
-	  slow_monsters(cr_ptr);
+	  slow_creatures(cr_ptr);
 	  stun_creatures(cr_ptr, plev*tmp);
 	  confuse_creatures(cr_ptr, plev*tmp);
-	  turn_monsters(plev*tmp);
+	  turn_creatures(cr_ptr, plev*tmp);
 	  stun_creatures(cr_ptr, plev*tmp);
 	  stasis_monsters(plev*tmp);
 	  break;

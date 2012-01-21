@@ -941,7 +941,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			else
 			{
 				(void)dispel_creatures(cr_ptr, plev * 4);
-				turn_monsters(plev * 4);
+				turn_creatures(cr_ptr, plev * 4);
 				banish_monsters(plev * 4);
 			}
 			break;
@@ -1047,10 +1047,10 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 			msg_print("You glare nearby monsters...");
 #endif
-			slow_monsters(cr_ptr);
+			slow_creatures(cr_ptr);
 			stun_creatures(cr_ptr, cr_ptr->lev * 4);
 			confuse_creatures(cr_ptr, cr_ptr->lev * 4);
-			turn_monsters(cr_ptr->lev * 4);
+			turn_creatures(cr_ptr, cr_ptr->lev * 4);
 			stasis_monsters(cr_ptr->lev * 4);
 			break;
 		}
