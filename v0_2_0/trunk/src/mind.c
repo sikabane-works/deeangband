@@ -1352,7 +1352,7 @@ msg_format("There are too many mirrors to control!");
 	  confuse_creatures(cr_ptr, plev*tmp);
 	  turn_creatures(cr_ptr, plev*tmp);
 	  stun_creatures(cr_ptr, plev*tmp);
-	  stasis_monsters(plev*tmp);
+	  stasis_creatures(cr_ptr, plev*tmp);
 	  break;
 	/* mirror shift */
 	case 15:

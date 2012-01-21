@@ -8871,7 +8871,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 				stun_creatures(cr_ptr, power);
 				confuse_creatures(cr_ptr, power);
 				turn_creatures(cr_ptr, power);
-				stasis_monsters(power);
+				stasis_creatures(cr_ptr, power);
 				hp_player(cr_ptr, heal);
 			}
 		}
@@ -9910,7 +9910,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				stasis_monsters(power);
+				stasis_creatures(cr_ptr, power);
 			}
 		}
 

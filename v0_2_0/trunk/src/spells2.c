@@ -7310,9 +7310,9 @@ bool stun_creatures(creature_type *caster_ptr, int dam)
 /*
  * Stasis monsters
  */
-bool stasis_monsters(int dam)
+bool stasis_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_STASIS, dam));
+	return (project_hack(caster_ptr, GF_STASIS, dam));
 }
 
 

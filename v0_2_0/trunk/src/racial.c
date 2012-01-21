@@ -1051,7 +1051,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			stun_creatures(cr_ptr, cr_ptr->lev * 4);
 			confuse_creatures(cr_ptr, cr_ptr->lev * 4);
 			turn_creatures(cr_ptr, cr_ptr->lev * 4);
-			stasis_monsters(cr_ptr->lev * 4);
+			stasis_creatures(cr_ptr, cr_ptr->lev * 4);
 			break;
 		}
 		case CLASS_MONK:

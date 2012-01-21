@@ -5476,7 +5476,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					stun_creatures(cr_ptr, 120);
 					confuse_creatures(cr_ptr, 120);
 					turn_creatures(cr_ptr, 120);
-					stasis_monsters(120);
+					stasis_creatures(cr_ptr, 120);
 					sukekaku = FALSE;
 				}
 				else
