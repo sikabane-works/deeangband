@@ -6759,10 +6759,10 @@ bool disarm_trap(creature_type *caster_ptr, int dir)
 }
 
 
-bool heal_monster(int dir, int dam)
+bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_HEAL, dir, dam, flg));
+	return (project_hook(caster_ptr, GF_OLD_HEAL, dir, dam, flg));
 }
 
 

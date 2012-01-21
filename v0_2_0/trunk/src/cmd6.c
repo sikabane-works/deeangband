@@ -2848,7 +2848,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 			else
 			{
 				while (randint1(300) < (0-cr_ptr->karmas[vir - 1])) sval--;
-				if (sval < SV_WAND_HEAL_MONSTER) sval = randint0(3) + SV_WAND_HEAL_MONSTER;
+				if (sval < SV_WAND_heal_other_creature) sval = randint0(3) + SV_WAND_heal_other_creature;
 			}
 		}
 	}
@@ -2856,9 +2856,9 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 	/* Analyze the wand */
 	switch (sval)
 	{
-		case SV_WAND_HEAL_MONSTER:
+		case SV_WAND_heal_other_creature:
 		{
-			if (heal_monster(dir, damroll(10, 10))) ident = TRUE;
+			if (heal_other_creature(cr_ptr, dir, damroll(10, 10))) ident = TRUE;
 			break;
 		}
 
@@ -3171,7 +3171,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 
 
 	/* Allow direction to be cancelled for free */
-	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_HEAL_MONSTER
+	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_heal_other_creature
 				      || o_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
 	if (!get_aim_dir(cr_ptr, &dir))

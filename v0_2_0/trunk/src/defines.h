@@ -2431,7 +2431,7 @@
 
 
 /* The "sval" codes for TV_WAND */
-#define SV_WAND_HEAL_MONSTER             0
+#define SV_WAND_heal_other_creature             0
 #define SV_WAND_HASTE_MONSTER            1
 #define SV_WAND_CLONE_MONSTER            2
 #define SV_WAND_TELEPORT_AWAY            3
