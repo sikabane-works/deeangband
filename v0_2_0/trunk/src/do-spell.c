@@ -1487,7 +1487,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				turn_undead();
+				turn_undead(cr_ptr);
 			}
 		}
 		break;

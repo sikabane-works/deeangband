@@ -1394,7 +1394,7 @@ extern bool dispel_creatures(creature_type *caster_ptr, int dam);
 extern bool dispel_living(creature_type *caster_ptr, int dam);
 extern bool dispel_demons(creature_type *caster_ptr, int dam);
 extern bool crusade(creature_type *cr_ptr);
-extern bool turn_undead(void);
+extern bool turn_undead(creature_type *caster_ptr);
 extern bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate);
 extern bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx);
 extern bool earthquake(creature_type *target_ptr, int cy, int cx, int r);

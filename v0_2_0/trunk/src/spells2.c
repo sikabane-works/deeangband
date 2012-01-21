@@ -4530,9 +4530,9 @@ bool banish_evil(creature_type *caster_ptr, int dist)
 /*
  * Turn undead
  */
-bool turn_undead(void)
+bool turn_undead(creature_type *caster_ptr)
 {
-	bool tester = (project_hack(p_ptr, GF_TURN_UNDEAD, p_ptr->lev));
+	bool tester = (project_hack(caster_ptr, GF_TURN_UNDEAD, p_ptr->lev));
 	return tester;
 }
 
