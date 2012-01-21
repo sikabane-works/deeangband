@@ -5975,7 +5975,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				wizard_lock(dir);
+				wizard_lock(cr_ptr, dir);
 			}
 		}
 		break;

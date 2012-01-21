@@ -1417,7 +1417,7 @@ extern bool death_ray(int dir, int plev);
 extern bool wall_to_mud(creature_type *caster_ptr, int dir);
 extern bool destroy_door(int dir);
 extern bool disarm_trap(creature_type *caster_ptr, int dir);
-extern bool wizard_lock(int dir);
+extern bool wizard_lock(creature_type *caster_ptr, int dir);
 extern bool heal_monster(int dir, int dam);
 extern bool speed_monster(int dir);
 extern bool slow_monster(int dir);

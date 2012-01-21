@@ -6738,10 +6738,10 @@ bool wall_to_mud(creature_type *caster_ptr, int dir)
 }
 
 
-bool wizard_lock(int dir)
+bool wizard_lock(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_JAM_DOOR, dir, 20 + randint1(30), flg));
+	return (project_hook(caster_ptr, GF_JAM_DOOR, dir, 20 + randint1(30), flg));
 }
 
 
