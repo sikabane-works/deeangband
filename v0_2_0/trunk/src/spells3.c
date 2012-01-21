@@ -506,11 +506,11 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
  * This function is slightly obsessive about correctness.
  * This function allows teleporting into vaults (!)
  */
-void teleport_player_to(int ny, int nx, u32b mode)
+void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 {
 	int y, x, dis = 0, ctr = 0;
 
-	if (p_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
+	if (caster_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
 	{
 #ifdef JP
 		msg_print("不思議な力がテレポートを防いだ！");
@@ -533,10 +533,10 @@ void teleport_player_to(int ny, int nx, u32b mode)
 		}
 
 		/* Accept any grid when wizard mode */
-		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == p_ptr->riding))) break;
+		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == caster_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
-		if (cave_player_teleportable_bold(p_ptr, y, x, mode)) break;
+		if (cave_player_teleportable_bold(caster_ptr, y, x, mode)) break;
 
 		/* Occasionally advance the distance */
 		if (++ctr > (4 * dis * dis + 4 * dis + 1))
@@ -550,7 +550,7 @@ void teleport_player_to(int ny, int nx, u32b mode)
 	sound(SOUND_TELEPORT);
 
 	/* Move the player */
-	(void)move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(caster_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 }
 
 
@@ -606,7 +606,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 					msg_print("Failed!");
 #endif
 				}
-				else teleport_player_to(cr_ptr->fy, cr_ptr->fx, 0L);
+				else teleport_creature_to(cr_ptr, cr_ptr->fy, cr_ptr->fx, 0L);
 				cr_ptr->energy_need += ENERGY_NEED();
 			}
 		}
@@ -1209,7 +1209,7 @@ void apply_nexus(creature_type *m_ptr)
 
 		case 4: case 5:
 		{
-			teleport_player_to(m_ptr->fy, m_ptr->fx, TELEPORT_PASSIVE);
+			teleport_creature_to(m_ptr, m_ptr->fy, m_ptr->fx, TELEPORT_PASSIVE);
 			break;
 		}
 
@@ -4170,7 +4170,7 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 
 /*
  * Modify spell fail rate
- * Using p_ptr->to_m_chance, p_ptr->dec_mana, p_ptr->easy_spell and p_ptr->heavy_spell
+ * Using cr_ptr->to_m_chance, cr_ptr->dec_mana, cr_ptr->easy_spell and cr_ptr->heavy_spell
  */
 int mod_spell_chance_1(creature_type *cr_ptr, int chance)
 {
@@ -4188,7 +4188,7 @@ int mod_spell_chance_1(creature_type *cr_ptr, int chance)
 
 /*
  * Modify spell fail rate (as "suffix" process)
- * Using p_ptr->dec_mana, p_ptr->easy_spell and p_ptr->heavy_spell
+ * Using cr_ptr->dec_mana, cr_ptr->easy_spell and cr_ptr->heavy_spell
  * Note: variable "chance" cannot be negative.
  */
 int mod_spell_chance_2(creature_type *cr_ptr, int chance)
@@ -5548,7 +5548,7 @@ static bool dimension_door_aux(creature_type *cr_ptr, int x, int y)
 	}
 	else
 	{
-		teleport_player_to(y, x, 0L);
+		teleport_creature_to(cr_ptr, y, x, 0L);
 
 		/* Success */
 		return TRUE;

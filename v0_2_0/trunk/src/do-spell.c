@@ -11182,7 +11182,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				break;
 			}
 			project(cr_ptr, 0, y, x, HISSATSU_ISSEN, GF_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
-			teleport_player_to(y, x, 0L);
+			teleport_creature_to(cr_ptr, y, x, 0L);
 		}
 		break;
 
@@ -12443,7 +12443,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (flag && randint0(plev * plev / 2))
 			{
-				teleport_player_to(y, x, 0L);
+				teleport_creature_to(cr_ptr, y, x, 0L);
 			}
 			else
 			{

@@ -72,7 +72,7 @@ static bool wiz_dimension_door(creature_type *cr_ptr)
 
 	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
 
-	teleport_player_to(y, x, TELEPORT_NONMAGICAL);
+	teleport_creature_to(cr_ptr, y, x, TELEPORT_NONMAGICAL);
 
 	return (TRUE);
 }
@@ -303,7 +303,7 @@ static void do_cmd_wiz_bamf(void)
 	if (!target_who) return;
 
 	/* Teleport to the target */
-	teleport_player_to(target_row, target_col, TELEPORT_NONMAGICAL);
+	teleport_creature_to(p_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
 }
 
 

@@ -3412,7 +3412,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 						msg_format("%^s holds you, and drops from the sky.", m_name);
 #endif
 						dam = damroll(4, 8);
-						teleport_player_to(caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
 						sound(SOUND_FALL);
 
@@ -3475,7 +3475,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			msg_format("%^s commands you to return.", m_name);
 #endif
 
-			teleport_player_to(caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
+			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
 			learn_spell(target_ptr, MS_TELE_TO);
 			break;
 		}

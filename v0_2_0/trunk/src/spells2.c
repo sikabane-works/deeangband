@@ -7533,7 +7533,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		}
 
 		/* Move player before updating the monster */
-		if (!creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
 		update_mon(cr_ptr, cave[ny][nx].m_idx, TRUE);
@@ -7564,14 +7564,14 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 #endif
 		}
 
-		if (!creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
 		tmp_mdeath = weapon_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}
 
-	if (!moved && !creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+	if (!moved && !creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 	if (mdeath) *mdeath = tmp_mdeath;
 	return TRUE;
