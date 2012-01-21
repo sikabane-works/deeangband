@@ -4573,9 +4573,9 @@ bool dispel_creatures(creature_type *caster_ptr, int dam)
 /*
  * Dispel 'living' monsters
  */
-bool dispel_living(int dam)
+bool dispel_living(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(p_ptr, GF_DISP_LIVING, dam));
+	return (project_hack(caster_ptr, GF_DISP_LIVING, dam));
 }
 
 /*

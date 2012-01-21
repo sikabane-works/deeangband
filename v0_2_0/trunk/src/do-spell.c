@@ -4756,7 +4756,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_living(randint1(sides));
+				dispel_living(cr_ptr, randint1(sides));
 			}
 		}
 		break;
