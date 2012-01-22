@@ -277,7 +277,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	if (die < 8) clone_monster(dir);
 	else if (die < 14) speed_other_creature(cr_ptr, dir);
 	else if (die < 26) heal_other_creature(cr_ptr, dir, damroll(4, 6));
-	else if (die < 31) poly_monster(dir);
+	else if (die < 31) poly_creature(cr_ptr, dir);
 	else if (die < 36)
 		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
@@ -392,7 +392,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 31)
 	{
-		poly_monster(dir);
+		poly_creature(cr_ptr, dir);
 	}
 	else if (die < 36)
 	{
@@ -3799,7 +3799,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				poly_monster(dir);
+				poly_creature(cr_ptr, dir);
 			}
 		}
 		break;

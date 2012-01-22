@@ -2943,7 +2943,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_POLYMORPH:
 		{
-			if (poly_monster(dir)) ident = TRUE;
+			if (poly_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3471,7 +3471,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_POLYMORPH:
 		{
-			if (poly_monster(dir)) ident = TRUE;
+			if (poly_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 

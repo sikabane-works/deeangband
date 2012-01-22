@@ -6813,10 +6813,10 @@ bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 }
 
 
-bool poly_monster(int dir)
+bool poly_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	bool tester = (project_hook(p_ptr, GF_OLD_POLY, dir, p_ptr->lev, flg));
+	bool tester = (project_hook(caster_ptr, GF_OLD_POLY, dir, p_ptr->lev, flg));
 	return(tester);
 }
 
