@@ -6828,10 +6828,10 @@ bool clone_monster(int dir)
 }
 
 
-bool fear_monster(int dir, int plev)
+bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_TURN_ALL, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_TURN_ALL, dir, plev, flg));
 }
 
 

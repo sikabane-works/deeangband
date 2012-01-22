@@ -2931,7 +2931,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_FEAR_MONSTER:
 		{
-			if (fear_monster(dir, cr_ptr->lev)) ident = TRUE;
+			if (fear_creature(cr_ptr, dir, cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 

@@ -822,7 +822,7 @@ else msg_print("‹°‚ë‚µ‚°‚ÈŒ¶Šo‚ğì‚èo‚µ‚½B");
 			else msg_print("You cast a fearful illusion.");
 #endif
 		
-			fear_monster(dir, plev+10);
+			fear_creature(cr_ptr, dir, plev+10);
 		break;
 	case MS_BLIND:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;

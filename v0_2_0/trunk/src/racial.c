@@ -1682,7 +1682,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You make a horrible scream!");
 #endif
 
-			(void)fear_monster(dir, plev);
+			(void)fear_creature(cr_ptr, dir, plev);
 			break;
 
 		case RACE_KLACKON:
@@ -2070,7 +2070,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You emit an eldritch howl!");
 #endif
 
-			(void)fear_monster(dir, plev);
+			(void)fear_creature(dir, plev);
 			break;
 			*/
 
