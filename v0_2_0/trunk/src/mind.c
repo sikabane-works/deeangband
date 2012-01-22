@@ -1604,7 +1604,7 @@ msg_print("その方向にはモンスターはいません。");
 	case 6:
 	{
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		(void)stasis_monster(dir);
+		(void)stasis_creature(cr_ptr, dir);
 		break;
 	}
 	case 7:
