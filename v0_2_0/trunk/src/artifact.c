@@ -2335,7 +2335,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			confuse_monster(dir, 20);
+			confuse_creature(cr_ptr, dir, 20);
 			o_ptr->timeout = 15;
 			break;
 		}

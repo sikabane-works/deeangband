@@ -826,7 +826,7 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 		break;
 	case MS_BLIND:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		confuse_monster(dir, plev * 2);
+		confuse_creature(cr_ptr, dir, plev * 2);
 		break;
 	case MS_CONF:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -836,7 +836,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 			else msg_print("You cast a mesmerizing illusion.");
 #endif
 		
-			confuse_monster(dir, plev * 2);
+			confuse_creature(cr_ptr, dir, plev * 2);
 		break;
 	case MS_SLOW:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;

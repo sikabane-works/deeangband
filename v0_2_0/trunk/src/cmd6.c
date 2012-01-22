@@ -2925,7 +2925,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_CONFUSE_MONSTER:
 		{
-			if (confuse_monster(dir, cr_ptr->lev)) ident = TRUE;
+			if (confuse_creature(cr_ptr, dir, cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 
@@ -4964,7 +4964,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				confuse_monster(dir, 20);
+				confuse_creature(cr_ptr, dir, 20);
 				o_ptr->timeout = 15;
 				break;
 			}

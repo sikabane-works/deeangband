@@ -281,7 +281,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	else if (die < 36)
 		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
-	else if (die < 41) confuse_monster(dir, plev);
+	else if (die < 41) confuse_creature(cr_ptr, dir, plev);
 	else if (die < 46) fire_ball(cr_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
 	else if (die < 51) (void)lite_line(cr_ptr, dir);
 	else if (die < 56)
@@ -401,7 +401,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 41)
 	{
-		confuse_monster (dir, plev);
+		confuse_creature(cr_ptr, dir, plev);
 	}
 	else if (die < 46)
 	{
@@ -1995,7 +1995,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				confuse_monster(dir, power);
+				confuse_creature(cr_ptr, dir, power);
 			}
 		}
 		break;
