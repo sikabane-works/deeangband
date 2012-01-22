@@ -1276,7 +1276,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		break;
 	case MS_SLOW:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		slow_monster(dir);
+		slow_creature(caster_ptr, dir);
 		break;
 	case MS_SLEEP:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;

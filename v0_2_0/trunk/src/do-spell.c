@@ -2121,7 +2121,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				slow_monster(dir);
+				slow_creature(cr_ptr, dir);
 			}
 		}
 		break;

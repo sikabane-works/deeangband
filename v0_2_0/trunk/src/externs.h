@@ -1420,7 +1420,7 @@ extern bool disarm_trap(creature_type *caster_ptr, int dir);
 extern bool wizard_lock(creature_type *caster_ptr, int dir);
 extern bool heal_other_creature(creature_type *caster_ptr, int dir, int dam);
 extern bool speed_other_creature(creature_type *caster_ptr, int dir);
-extern bool slow_monster(int dir);
+extern bool slow_creature(creature_type *caster_ptr, int dir);
 extern bool sleep_monster(int dir);
 extern bool stasis_monster(int dir);    /* Like sleep, affects undead as well */
 extern bool stasis_evil(int dir);    /* Like sleep, affects undead as well */

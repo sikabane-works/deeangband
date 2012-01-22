@@ -6773,10 +6773,10 @@ bool speed_other_creature(creature_type *caster_ptr, int dir)
 }
 
 
-bool slow_monster(int dir)
+bool slow_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_SLOW, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SLOW, dir, p_ptr->lev, flg));
 }
 
 
