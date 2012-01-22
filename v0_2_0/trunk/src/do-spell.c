@@ -8390,7 +8390,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				dispel_undead(cr_ptr, randint1(sides));
 				dispel_demons(cr_ptr, randint1(sides));
-				turn_evil(power);
+				turn_evil(cr_ptr, power);
 			}
 		}
 		break;

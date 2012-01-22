@@ -4485,7 +4485,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Jump directly to the target monster */
-		if (project(p_ptr, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
+		if (project(caster_ptr, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
 	}
 
 	/* Result */
@@ -7337,9 +7337,9 @@ bool banish_creatures(creature_type *caster_ptr, int dist)
 /*
  * Turn evil
  */
-bool turn_evil(int dam)
+bool turn_evil(creature_type *caster_ptr,int dam)
 {
-	return (project_hack(p_ptr, GF_TURN_EVIL, dam));
+	return (project_hack(caster_ptr, GF_TURN_EVIL, dam));
 }
 
 
@@ -7357,7 +7357,7 @@ bool turn_creatures(creature_type *caster_ptr, int dam)
  */
 bool deathray_creatures(creature_type *caster_ptr)
 {
-	return (project_hack(caster_ptr, GF_DEATH_RAY, p_ptr->lev * 200));
+	return (project_hack(caster_ptr, GF_DEATH_RAY, caster_ptr->lev * 200));
 }
 
 
