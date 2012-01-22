@@ -6821,10 +6821,10 @@ bool poly_creature(creature_type *caster_ptr, int dir)
 }
 
 
-bool clone_monster(int dir)
+bool clone_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_CLONE, dir, 0, flg));
+	return (project_hook(caster_ptr, GF_OLD_CLONE, dir, 0, flg));
 }
 
 
@@ -6842,10 +6842,10 @@ bool death_ray(int dir, int plev)
 }
 
 
-bool teleport_monster(int dir)
+bool teleport_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_AWAY_ALL, dir, MAX_SIGHT * 5, flg));
+	return (project_hook(caster_ptr, GF_AWAY_ALL, dir, MAX_SIGHT * 5, flg));
 }
 
 /*

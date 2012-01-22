@@ -274,7 +274,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 #endif
 	}
 
-	if (die < 8) clone_monster(dir);
+	if (die < 8) clone_creature(cr_ptr, dir);
 	else if (die < 14) speed_other_creature(cr_ptr, dir);
 	else if (die < 26) heal_other_creature(cr_ptr, dir, damroll(4, 6));
 	else if (die < 31) poly_creature(cr_ptr, dir);

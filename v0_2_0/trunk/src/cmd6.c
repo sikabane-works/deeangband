@@ -2870,13 +2870,13 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_CLONE_MONSTER:
 		{
-			if (clone_monster(dir)) ident = TRUE;
+			if (clone_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_TELEPORT_AWAY:
 		{
-			if (teleport_monster(dir)) ident = TRUE;
+			if (teleport_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3428,7 +3428,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_TELEPORT_AWAY:
 		{
-			if (teleport_monster(dir)) ident = TRUE;
+			if (teleport_creature(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -4926,7 +4926,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				teleport_monster(dir);
+				teleport_creature(cr_ptr, dir);
 				o_ptr->timeout = 150;
 				break;
 			}
@@ -6178,7 +6178,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_RING_TELE_AWAY:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				teleport_monster(dir);
+				teleport_creature(cr_ptr, dir);
 				o_ptr->timeout = 150;
 				break;
 			case EGO_RING_TRUE:
