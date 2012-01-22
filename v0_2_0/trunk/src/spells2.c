@@ -6780,10 +6780,10 @@ bool slow_creature(creature_type *caster_ptr, int dir)
 }
 
 
-bool sleep_monster(int dir)
+bool sleep_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_OLD_SLEEP, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SLEEP, dir, p_ptr->lev, flg));
 }
 
 

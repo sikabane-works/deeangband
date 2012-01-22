@@ -2039,7 +2039,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				sleep_monster(dir);
+				sleep_creature(cr_ptr, dir);
 			}
 		}
 		break;
@@ -4322,7 +4322,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				sleep_monster(dir);
+				sleep_creature(cr_ptr, dir);
 			}
 		}
 		break;

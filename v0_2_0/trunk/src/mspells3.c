@@ -1280,7 +1280,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		break;
 	case MS_SLEEP:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		sleep_monster(dir);
+		sleep_creature(caster_ptr, dir);
 		break;
 	case MS_SPEED:
 		(void)set_fast(caster_ptr, randint1(20 + plev) + plev, FALSE);
