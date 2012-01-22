@@ -6793,9 +6793,9 @@ bool stasis_creature(creature_type *caster_ptr, int dir)
 }
 
 
-bool stasis_evil(int dir)
+bool stasis_evil(creature_type *caster_ptr, int dir)
 {
-	return (fire_ball_hide(p_ptr, GF_STASIS_EVIL, dir, p_ptr->lev*2, 0));
+	return (fire_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, p_ptr->lev*2, 0));
 }
 
 

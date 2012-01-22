@@ -8551,7 +8551,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				stasis_evil(dir);
+				stasis_evil(cr_ptr, dir);
 			}
 		}
 		break;
