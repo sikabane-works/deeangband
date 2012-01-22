@@ -4367,7 +4367,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fear_monster(dir, power);
-				stun_monster(dir, power);
+				stun_creature(cr_ptr, dir, power);
 			}
 		}
 		break;
@@ -7466,7 +7466,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fear_monster(dir, power);
-				stun_monster(dir, power);
+				stun_creature(cr_ptr, dir, power);
 			}
 		}
 		break;

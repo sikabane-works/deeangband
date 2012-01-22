@@ -6806,10 +6806,10 @@ bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
 }
 
 
-bool stun_monster(int dir, int plev)
+bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_STUN, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_STUN, dir, plev, flg));
 }
 
 
