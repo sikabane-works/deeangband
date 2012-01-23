@@ -3720,7 +3720,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case CF_LASER_EYE:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_beam(GF_LITE, dir, 2 * lvl);
+			fire_beam(cr_ptr, GF_LITE, dir, 2 * lvl);
 			break;
 
 		case CF_RECALL:

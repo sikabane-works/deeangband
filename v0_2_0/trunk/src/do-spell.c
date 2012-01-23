@@ -2165,7 +2165,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_AWAY_ALL, dir, power);
+				fire_beam(cr_ptr, GF_AWAY_ALL, dir, power);
 			}
 		}
 		break;
@@ -2642,7 +2642,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_ELEC, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3685,7 +3685,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_MANA, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_MANA, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3732,7 +3732,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_AWAY_ALL, dir, power);
+				fire_beam(cr_ptr, GF_AWAY_ALL, dir, power);
 			}
 		}
 		break;
@@ -3822,7 +3822,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				for (dir = 0; dir <= 9; dir++)
-					fire_beam(GF_ELEC, dir, damroll(dice, sides));
+					fire_beam(cr_ptr, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -4008,7 +4008,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_GRAVITY, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_GRAVITY, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -5167,7 +5167,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_AWAY_ALL, dir, power);
+				fire_beam(cr_ptr, GF_AWAY_ALL, dir, power);
 			}
 		}
 		break;
@@ -6531,7 +6531,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_AWAY_ALL, dir, power);
+				fire_beam(cr_ptr, GF_AWAY_ALL, dir, power);
 			}
 		}
 		break;
@@ -9809,7 +9809,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(GF_SOUND, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_SOUND, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -10932,7 +10932,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				total_damage += damage / 200;
 				if (i) total_damage = total_damage*7/10;
 			}
-			fire_beam(GF_FORCE, dir, total_damage);
+			fire_beam(cr_ptr, GF_FORCE, dir, total_damage);
 		}
 		break;
 

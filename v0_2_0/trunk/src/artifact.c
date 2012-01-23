@@ -2370,7 +2370,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 		case ACT_TELE_AWAY:
 		{
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			(void)fire_beam(GF_AWAY_ALL, dir, plev);
+			(void)fire_beam(cr_ptr, GF_AWAY_ALL, dir, plev);
 			o_ptr->timeout = 200;
 			break;
 		}

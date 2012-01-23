@@ -1396,7 +1396,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 	case MS_TELE_AWAY:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
-		(void)fire_beam(GF_AWAY_ALL, dir, 100);
+		(void)fire_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
 		break;
 	case MS_TELE_LEVEL:
 	{
@@ -1440,7 +1440,7 @@ else msg_print("Œõ‚ÌŒ•‚ğ•ú‚Á‚½B");
 			else msg_print("You throw a psycho-spear.");
 #endif
 		damage = randint1(plev * 3) + 100;
-		(void)fire_beam(GF_PSY_SPEAR, dir, damage);
+		(void)fire_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 	case MS_DARKNESS:
 #ifdef JP

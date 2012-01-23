@@ -991,7 +991,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		case CLASS_PALADIN:
 		{
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_beam(is_good_realm(cr_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
+			fire_beam(cr_ptr, is_good_realm(cr_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
 			          dir, plev * 3);
 			break;
 		}
@@ -1155,7 +1155,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 				project_length = 1;
-				fire_beam(GF_PHOTO, dir, 1);
+				fire_beam(cr_ptr, GF_PHOTO, dir, 1);
 			}
 			else if (command == -4)
 			{
@@ -2142,7 +2142,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				fire_beam(GF_MISSILE, dir, plev * 2);
+				fire_beam(cr_ptr, GF_MISSILE, dir, plev * 2);
 			}
 			else
 			{

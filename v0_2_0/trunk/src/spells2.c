@@ -6691,10 +6691,10 @@ bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
  * Pass through monsters, as a "beam".
  * Affect monsters, grids and objects.
  */
-bool fire_beam(int typ, int dir, int dam)
+bool fire_beam(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(p_ptr, typ, dir, dam, flg));
+	return (project_hook(caster_ptr, typ, dir, dam, flg));
 }
 
 
@@ -6705,7 +6705,7 @@ bool fire_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, in
 {
 	if (randint0(100) < prob)
 	{
-		return (fire_beam(typ, dir, dam));
+		return (fire_beam(caster_ptr, typ, dir, dam));
 	}
 	else
 	{
@@ -6944,7 +6944,7 @@ void call_chaos(creature_type *cr_ptr)
 			if (dummy - 5)
 			{
 				if (line_chaos)
-					fire_beam(Chaos_type, dummy, 150);
+					fire_beam(cr_ptr, Chaos_type, dummy, 150);
 				else
 					fire_ball(cr_ptr, Chaos_type, dummy, 150, 2);
 			}
@@ -6958,7 +6958,7 @@ void call_chaos(creature_type *cr_ptr)
 	{
 		if (!get_aim_dir(cr_ptr, &dir)) return;
 		if (line_chaos)
-			fire_beam(Chaos_type, dir, 250);
+			fire_beam(cr_ptr, Chaos_type, dir, 250);
 		else
 			fire_ball(cr_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
 	}
