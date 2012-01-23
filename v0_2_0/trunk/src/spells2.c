@@ -5873,7 +5873,7 @@ bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
 }
 
 
-void discharge_minion(void)
+void discharge_minion(creature_type *caster_ptr)
 {
 	int i;
 	bool okay = TRUE;

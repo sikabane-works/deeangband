@@ -1463,7 +1463,7 @@ extern bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
 extern bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg);
 extern bool project_hack(creature_type *caster_ptr, int typ, int dam);
 extern bool eat_magic(creature_type *cr_ptr, int power);
-extern void discharge_minion(void);
+extern void discharge_minion(creature_type *caster_ptr);
 extern bool kawarimi(creature_type *user_ptr, bool success);
 extern bool rush_attack(creature_type *cr_ptr, bool *mdeath);
 extern void remove_all_mirrors(bool explode);

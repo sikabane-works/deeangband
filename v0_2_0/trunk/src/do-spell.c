@@ -8033,7 +8033,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				discharge_minion();
+				discharge_minion(cr_ptr);
 			}
 		}
 		break;
