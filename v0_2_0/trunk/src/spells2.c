@@ -6769,33 +6769,33 @@ bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 bool speed_other_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(caster_ptr, GF_OLD_SPEED, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SPEED, dir, caster_ptr->lev, flg));
 }
 
 
 bool slow_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(caster_ptr, GF_OLD_SLOW, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SLOW, dir, caster_ptr->lev, flg));
 }
 
 
 bool sleep_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(caster_ptr, GF_OLD_SLEEP, dir, p_ptr->lev, flg));
+	return (project_hook(caster_ptr, GF_OLD_SLEEP, dir, caster_ptr->lev, flg));
 }
 
 
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
-	return (fire_ball_hide(caster_ptr, GF_STASIS, dir, p_ptr->lev*2, 0));
+	return (fire_ball_hide(caster_ptr, GF_STASIS, dir, caster_ptr->lev*2, 0));
 }
 
 
 bool stasis_evil(creature_type *caster_ptr, int dir)
 {
-	return (fire_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, p_ptr->lev*2, 0));
+	return (fire_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
 }
 
 
@@ -6816,7 +6816,7 @@ bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 bool poly_creature(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	bool tester = (project_hook(caster_ptr, GF_OLD_POLY, dir, p_ptr->lev, flg));
+	bool tester = (project_hook(caster_ptr, GF_OLD_POLY, dir, caster_ptr->lev, flg));
 	return(tester);
 }
 
@@ -6835,10 +6835,10 @@ bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 }
 
 
-bool death_ray(int dir, int plev)
+bool death_ray(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-	return (project_hook(p_ptr, GF_DEATH_RAY, dir, plev * 200, flg));
+	return (project_hook(caster_ptr, GF_DEATH_RAY, dir, caster_ptr->lev * 200, flg));
 }
 
 
@@ -6898,14 +6898,14 @@ bool wall_stone(void)
 bool destroy_doors_touch(creature_type *caster_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
+	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
 }
 
 
 bool sleep_monsters_touch(creature_type *cr_ptr)
 {
 	int flg = PROJECT_KILL | PROJECT_HIDE;
-	return (project(0, 1, p_ptr->fy, p_ptr->fx, p_ptr->lev, GF_OLD_SLEEP, flg, -1));
+	return (project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, cr_ptr->lev, GF_OLD_SLEEP, flg, -1));
 }
 
 

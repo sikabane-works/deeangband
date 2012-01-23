@@ -1413,7 +1413,7 @@ extern bool fire_beam(int typ, int dir, int dam);
 extern bool fire_bolt_or_beam(int prob, int typ, int dir, int dam);
 extern bool lite_line(creature_type *caster_ptr, int dir);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
-extern bool death_ray(int dir, int plev);
+extern bool death_ray(creature_type *caster_ptr, int dir);
 extern bool wall_to_mud(creature_type *caster_ptr, int dir);
 extern bool destroy_door(int dir);
 extern bool disarm_trap(creature_type *caster_ptr, int dir);
