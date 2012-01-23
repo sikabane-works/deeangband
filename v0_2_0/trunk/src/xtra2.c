@@ -4651,7 +4651,7 @@ msg_print("「汝、武器に頼ることなかれ。」");
 				if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 			}
 			object_desc(cr_ptr, o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
-			(void)curse_weapon(FALSE, dummy);
+			(void)curse_weapon(cr_ptr, FALSE, dummy);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
 #else
@@ -4726,7 +4726,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 							if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 						}
 						object_desc(cr_ptr, o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
-						(void)curse_weapon(FALSE, dummy);
+						(void)curse_weapon(cr_ptr, FALSE, dummy);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
 #else
@@ -4790,7 +4790,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 				}
 				else if (have_weapon(cr_ptr, INVEN_2NDARM)) dummy = INVEN_2NDARM;
 
-				if (dummy) (void)curse_weapon(FALSE, dummy);
+				if (dummy) (void)curse_weapon(cr_ptr, FALSE, dummy);
 			}
 			if (one_in_(2)) (void)curse_armor(cr_ptr);
 			break;

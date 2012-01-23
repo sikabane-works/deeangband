@@ -1625,7 +1625,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 				if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2)) k = INVEN_2NDARM;
 			}
 			else if (have_weapon(cr_ptr, INVEN_2NDARM)) k = INVEN_2NDARM;
-			if (k && curse_weapon(FALSE, k)) ident = TRUE;
+			if (k && curse_weapon(cr_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}
 
@@ -5314,7 +5314,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 						msg_print("The Muramasa is destroyed!");
 #endif
-						curse_weapon(TRUE, item);
+						curse_weapon(cr_ptr, TRUE, item);
 					}
 				}
 				break;

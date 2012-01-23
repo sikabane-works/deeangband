@@ -5240,9 +5240,9 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 
 
 /*
- * Curse the players weapon
+ * Curse the weapon
  */
-bool curse_weapon(bool force, int slot)
+bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 {
 	int i;
 
@@ -5252,14 +5252,14 @@ bool curse_weapon(bool force, int slot)
 
 
 	/* Curse the weapon */
-	o_ptr = &p_ptr->inventory[slot];
+	o_ptr = &target_ptr->inventory[slot];
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
 
 
 	/* Describe */
-	object_desc(p_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(target_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw */
 	if (object_is_artifact(o_ptr) && (randint0(100) < 50) && !force)
@@ -5306,10 +5306,10 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		target_ptr->update |= (PU_BONUS);
 
 		/* Recalculate mana */
-		p_ptr->update |= (PU_MANA);
+		target_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
