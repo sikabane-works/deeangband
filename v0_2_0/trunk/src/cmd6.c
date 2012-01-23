@@ -2956,14 +2956,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			fire_bolt_or_beam(20, GF_MISSILE, dir, damroll(2 + cr_ptr->lev / 10, 6));
+			fire_bolt_or_beam(cr_ptr, 20, GF_MISSILE, dir, damroll(2 + cr_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
@@ -2977,14 +2977,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
@@ -3477,28 +3477,28 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_ACID_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_ELEC, dir, damroll(4 + cr_ptr->lev / 9, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_ELEC, dir, damroll(4 + cr_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}

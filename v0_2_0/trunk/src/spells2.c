@@ -6701,7 +6701,7 @@ bool fire_beam(int typ, int dir, int dam)
 /*
  * Cast a bolt spell, or rarely, a beam spell
  */
-bool fire_bolt_or_beam(int prob, int typ, int dir, int dam)
+bool fire_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
 	if (randint0(100) < prob)
 	{
@@ -6709,7 +6709,7 @@ bool fire_bolt_or_beam(int prob, int typ, int dir, int dam)
 	}
 	else
 	{
-		return (fire_bolt(p_ptr, typ, dir, dam));
+		return (fire_bolt(caster_ptr, typ, dir, dam));
 	}
 }
 
