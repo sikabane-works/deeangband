@@ -6745,10 +6745,10 @@ bool wizard_lock(creature_type *caster_ptr, int dir)
 }
 
 
-bool destroy_door(int dir)
+bool destroy_door(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(p_ptr, GF_KILL_DOOR, dir, 0, flg));
+	return (project_hook(caster_ptr, GF_KILL_DOOR, dir, 0, flg));
 }
 
 
@@ -6851,10 +6851,10 @@ bool teleport_creature(creature_type *caster_ptr, int dir)
 /*
  * Hooks -- affect adjacent grids (radius 1 ball attack)
  */
-bool door_creation(void)
+bool door_creation(creature_type *caster_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, p_ptr->fy, p_ptr->fx, 0, GF_MAKE_DOOR, flg, -1));
+	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_DOOR, flg, -1));
 }
 
 

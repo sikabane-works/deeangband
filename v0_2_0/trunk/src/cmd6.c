@@ -2888,7 +2888,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_TRAP_DOOR_DEST:
 		{
-			if (destroy_door(dir)) ident = TRUE;
+			if (destroy_door(cr_ptr, dir)) ident = TRUE;
 			break;
 		}
 

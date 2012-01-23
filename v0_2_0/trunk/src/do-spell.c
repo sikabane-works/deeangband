@@ -538,7 +538,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		break;
 	case 21:
 	case 22:
-		door_creation();
+		door_creation(cr_ptr);
 		break;
 	case 23:
 	case 24:
@@ -6080,7 +6080,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				destroy_door(dir);
+				destroy_door(cr_ptr, dir);
 			}
 		}
 		break;
@@ -8529,7 +8529,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				destroy_door(dir);
+				destroy_door(cr_ptr, dir);
 			}
 		}
 		break;
