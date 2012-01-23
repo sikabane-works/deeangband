@@ -1049,7 +1049,7 @@ static void analyze_general(object_type *o_ptr, char *desc_ptr)
  * List "player traits" altered by an artifact's pval. These include stats,
  * speed, infravision, tunneling, stealth, searching, and extra attacks.
  */
-static void analyze_pval(object_type *o_ptr, pval_info_type *p_ptr)
+static void analyze_pval(object_type *o_ptr, pval_info_type *pval_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -1059,17 +1059,17 @@ static void analyze_pval(object_type *o_ptr, pval_info_type *p_ptr)
 	if (!o_ptr->pval)
 	{
 		/* An "empty" pval description indicates that pval == 0 */
-		p_ptr->pval_desc[0] = '\0';
+		pval_ptr->pval_desc[0] = '\0';
 		return;
 	}
 
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
 
-	affects_list = p_ptr->pval_affects;
+	affects_list = pval_ptr->pval_affects;
 
 	/* Create the "+N" string */
-	sprintf(p_ptr->pval_desc, "%s%d", POSITIZE(o_ptr->pval), o_ptr->pval);
+	sprintf(pval_ptr->pval_desc, "%s%d", POSITIZE(o_ptr->pval), o_ptr->pval);
 
 	/* First, check to see if the pval affects all stats */
 	if (have_flag(flgs, TR_STR) && have_flag(flgs, TR_INT) &&

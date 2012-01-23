@@ -1516,10 +1516,10 @@ note_kill = "‰ó‚ê‚Ä‚µ‚Ü‚Á‚½I";
 
 			case GF_IDENTIFY:
 			{
-				identify_item(p_ptr, o_ptr);
+				identify_item(caster_ptr, o_ptr);
 
 				/* Auto-inscription */
-				autopick_alter_item(p_ptr, (-this_o_idx), FALSE);
+				autopick_alter_item(caster_ptr, (-this_o_idx), FALSE);
 				break;
 			}
 
@@ -1649,7 +1649,7 @@ msg_format("%s‚Í%s", o_name, note_kill);
 				}
 
 				k_idx = o_ptr->k_idx;
-				is_potion = object_is_potion(p_ptr, o_ptr);
+				is_potion = object_is_potion(caster_ptr, o_ptr);
 
 
 				/* Delete the object */
@@ -1662,7 +1662,7 @@ msg_format("%s‚Í%s", o_name, note_kill);
 				}
 
 				/* Redraw */
-				lite_spot(p_ptr, y, x);
+				lite_spot(caster_ptr, y, x);
 			}
 		}
 	}
