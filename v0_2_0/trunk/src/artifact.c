@@ -2437,7 +2437,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 		case ACT_CHARM_OTHER:
 		{
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			(void)charm_monster(dir, plev);
+			(void)charm_monster(cr_ptr, dir, plev);
 			o_ptr->timeout = 400;
 			break;
 		}

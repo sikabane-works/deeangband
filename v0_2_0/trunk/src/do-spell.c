@@ -829,7 +829,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 #endif
 
 		if (get_aim_dir(cr_ptr, &dir))
-			charm_monster(dir, MIN(cr_ptr->lev, 20));
+			charm_monster(cr_ptr, dir, MIN(cr_ptr->lev, 20));
 	}
 	else if (die < 101)
 	{
@@ -2271,7 +2271,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				charm_monster(dir, power);
+				charm_monster(cr_ptr, dir, power);
 			}
 		}
 		break;

@@ -3345,7 +3345,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("Your eyes look mesmerizing...");
 #endif
 
-			(void)charm_monster(dir, lvl);
+			(void)charm_monster(cr_ptr, dir, lvl);
 			break;
 
 		case CF_TELEKINES:

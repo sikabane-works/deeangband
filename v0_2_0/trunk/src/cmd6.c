@@ -2970,7 +2970,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_CHARM_MONSTER:
 		{
-			if (charm_monster(dir, MAX(20, cr_ptr->lev)))
+			if (charm_monster(cr_ptr, dir, MAX(20, cr_ptr->lev)))
 			ident = TRUE;
 			break;
 		}
@@ -6261,7 +6261,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_AMU_CHARM:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				charm_monster(dir, MAX(20, cr_ptr->lev));
+				charm_monster(cr_ptr, dir, MAX(20, cr_ptr->lev));
 				o_ptr->timeout = 200;
 				break;
 			case EGO_AMU_JUMP:
