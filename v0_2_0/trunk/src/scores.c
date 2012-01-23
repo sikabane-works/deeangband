@@ -450,7 +450,7 @@ bool send_world_score(bool do_send)
 #endif
 			Term_fresh();
 			screen_save();
-			err = report_score();
+			err = report_score(player_ptr);
 			screen_load();
 			if (err)
 			{

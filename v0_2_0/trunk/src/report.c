@@ -405,7 +405,7 @@ cptr make_screen_dump(void)
 }
 
 
-errr report_score(void)
+errr report_score(creature_type *player_ptr)
 {
 #ifdef MACINTOSH
 	OSStatus err;
@@ -425,12 +425,12 @@ errr report_score(void)
 	score = buf_new();
 
 #ifdef JP
-	sprintf(CHARAtmp, "%s%s", chara_info[p_ptr->chara_idx].title, (chara_info[p_ptr->chara_idx].no ? "‚Ì" : ""));
+	sprintf(CHARAtmp, "%s%s", chara_info[player_ptr->chara_idx].title, (chara_info[player_ptr->chara_idx].no ? "‚Ì" : ""));
 #else
-	sprintf(CHARAtmp, "%s ", chara_info[p_ptr->chara_idx].title);
+	sprintf(CHARAtmp, "%s ", chara_info[player_ptr->chara_idx].title);
 #endif
 
-	buf_sprintf(score, "name: %s\n", p_ptr->name);
+	buf_sprintf(score, "name: %s\n", player_ptr->name);
 #ifdef JP
 	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
 		    VER_MAJOR, VER_MINOR, VER_PATCH);
@@ -439,19 +439,19 @@ errr report_score(void)
 		    VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 	buf_sprintf(score, "score: %d\n", total_points());
-	buf_sprintf(score, "level: %d\n", p_ptr->lev);
+	buf_sprintf(score, "level: %d\n", player_ptr->lev);
 	buf_sprintf(score, "depth: %d\n", dun_level);
-	buf_sprintf(score, "maxlv: %d\n", p_ptr->max_plv);
+	buf_sprintf(score, "maxlv: %d\n", player_ptr->max_plv);
 	buf_sprintf(score, "maxdp: %d\n", max_dlv[DUNGEON_ANGBAND]);
-	buf_sprintf(score, "au: %d\n", p_ptr->au);
+	buf_sprintf(score, "au: %d\n", player_ptr->au);
 	buf_sprintf(score, "turns: %d\n", turn_real(turn));
-	buf_sprintf(score, "sex: %d\n", p_ptr->sex);
-	buf_sprintf(score, "race: %s\n", race_info[p_ptr->race_idx1].title);
-	buf_sprintf(score, "class: %s\n", class_info[p_ptr->cls_idx].title);
+	buf_sprintf(score, "sex: %d\n", player_ptr->sex);
+	buf_sprintf(score, "race: %s\n", race_info[player_ptr->race_idx1].title);
+	buf_sprintf(score, "class: %s\n", class_info[player_ptr->cls_idx].title);
 	buf_sprintf(score, "CHARA: %s\n", CHARAtmp);
-	buf_sprintf(score, "realm1: %s\n", realm_names[p_ptr->realm1]);
-	buf_sprintf(score, "realm2: %s\n", realm_names[p_ptr->realm2]);
-	buf_sprintf(score, "killer: %s\n", p_ptr->died_from);
+	buf_sprintf(score, "realm1: %s\n", realm_names[player_ptr->realm1]);
+	buf_sprintf(score, "realm2: %s\n", realm_names[player_ptr->realm2]);
+	buf_sprintf(score, "killer: %s\n", player_ptr->died_from);
 	buf_sprintf(score, "-----charcter dump-----\n");
 
 	make_dump(score);

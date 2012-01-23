@@ -2014,7 +2014,7 @@ extern bool iskanji2(cptr s, int x);
 
 #ifdef WORLD_SCORE
 /* report.c */
-extern errr report_score(void);
+extern errr report_score(creature_type *player_ptr);
 extern cptr make_screen_dump(void);
 #endif
 
