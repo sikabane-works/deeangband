@@ -7368,10 +7368,10 @@ bool charm_monster(creature_type *caster_ptr, int dir, int power)
 }
 
 
-bool control_one_undead(int dir, int plev)
+bool control_one_undead(creature_type *caster_ptr, int dir, int plev)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(p_ptr, GF_CONTROL_UNDEAD, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_UNDEAD, dir, plev, flg));
 }
 
 

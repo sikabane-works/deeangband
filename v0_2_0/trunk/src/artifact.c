@@ -2429,7 +2429,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 		case ACT_CHARM_UNDEAD:
 		{
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			(void)control_one_undead(dir, plev);
+			(void)control_one_undead(cr_ptr, dir, plev);
 			o_ptr->timeout = 333;
 			break;
 		}

@@ -4390,7 +4390,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				control_one_undead(dir, power);
+				control_one_undead(cr_ptr, dir, power);
 			}
 		}
 		break;

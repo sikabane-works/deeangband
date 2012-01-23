@@ -1451,7 +1451,7 @@ extern bool turn_creatures(creature_type *caster_ptr, int dam);
 extern bool turn_evil(creature_type *caster_ptr, int dam);
 extern bool deathray_creatures(creature_type *caster_ptr);
 extern bool charm_monster(creature_type *caster_ptr, int dir, int plev);
-extern bool control_one_undead(int dir, int plev);
+extern bool control_one_undead(creature_type *caster_ptr, int dir, int plev);
 extern bool control_one_demon(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_animal(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_living(creature_type *caster_ptr, int dir, int plev);
