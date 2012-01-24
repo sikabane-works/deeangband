@@ -3825,9 +3825,6 @@ errr parse_creature_flag_csv(char *buf, header *head)
 }
 
 
-
-
-
 #define RC_INFO_CSV_COLUMNS 61
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
@@ -4336,6 +4333,53 @@ errr parse_race_info_csv(char *buf, header *head)
 	}
 	return (0);
 }
+
+#define CL_INFO_CSV_COLUMNS 61
+static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"NAME",
+	"E_NAME",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
+	"A_STR",
+	"A_INT",
+	"A_WIS",
+	"A_DEX",
+	"A_CON",
+	"A_CHA",
+	"RARITY",
+	"C_DIS",
+	"C_DEV",
+	"C_SAV",
+	"C_STL",
+	"C_SRH",
+	"C_FOS",
+	"C_THN",
+	"C_THB",
+	"X_DIS",
+	"X_DEV",
+	"X_SAV",
+	"X_STL",
+	"X_SRH",
+	"X_FOS",
+	"X_THN",
+	"X_THB",
+	"HD",
+	"EXP",
+	"PET_UPKEEP"
+};
+
+static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
+
+#define RC_INFO_ID			0
+#define RC_INFO_COMMON		1
+#define RC_INFO_NAME		2
+
 
 
 
