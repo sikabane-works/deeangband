@@ -4627,7 +4627,7 @@ static void draw_text_editor(text_body_type *tb)
 			s_keep = ss;
 
 			/* Parse the expr */
-			v = process_pref_file_expr(&ss, &f);
+			v = process_pref_file_expr(&ss, &f, player_ptr);
 
 			/* Set flag */
 			if (streq(v, "0")) state |= LSTAT_BYPASS;

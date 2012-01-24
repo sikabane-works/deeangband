@@ -813,7 +813,7 @@ errr process_pref_file_command(char *buf)
  * Output:
  *   result
  */
-cptr process_pref_file_expr(char **sp, char *fp)
+cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 {
 	cptr v;
 
@@ -848,7 +848,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 		s++;
 
 		/* First */
-		t = process_pref_file_expr(&s, &f);
+		t = process_pref_file_expr(&s, &f, creature_ptr);
 
 		/* Oops */
 		if (!*t)
@@ -862,7 +862,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "0";
 			while (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 				if (*t && !streq(t, "0")) v = "1";
 			}
 		}
@@ -873,7 +873,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 				if (*t && streq(t, "0")) v = "0";
 			}
 		}
@@ -884,7 +884,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 				if (*t && streq(t, "1")) v = "0";
 			}
 		}
@@ -895,11 +895,11 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "0";
 			if (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 			}
 			while (*s && (f != b2))
 			{
-				p = process_pref_file_expr(&s, &f);
+				p = process_pref_file_expr(&s, &f, creature_ptr);
 				if (streq(t, p)) v = "1";
 			}
 		}
@@ -910,12 +910,12 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 				if (*t && atoi(p) > atoi(t)) v = "0";
 			}
 		}
@@ -926,12 +926,12 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 
 				/* Compare two numbers instead of string */
 				if (*t && atoi(p) < atoi(t)) v = "0";
@@ -943,7 +943,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 		{
 			while (*s && (f != b2))
 			{
-				t = process_pref_file_expr(&s, &f);
+				t = process_pref_file_expr(&s, &f, creature_ptr);
 			}
 		}
 
@@ -1175,7 +1175,7 @@ static errr process_pref_file_aux(cptr name, int preftype)
 			s = buf + 2;
 
 			/* Parse the expr */
-			v = process_pref_file_expr(&s, &f);
+			v = process_pref_file_expr(&s, &f, player_ptr);
 
 			/* Set flag */
 			bypass = (streq(v, "0") ? TRUE : FALSE);

@@ -1102,7 +1102,7 @@ extern void display_creature_status(int mode, creature_type *cr_ptr);
 extern errr make_character_dump(creature_type *cr_ptr, FILE *fff);
 extern errr file_character(cptr name);
 extern errr process_pref_file_command(char *buf);
-extern cptr process_pref_file_expr(char **sp, char *fp);
+extern cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr);
 extern errr process_pref_file(cptr name);
 extern errr process_autopick_file(cptr name);
 extern errr process_histpref_file(cptr name);

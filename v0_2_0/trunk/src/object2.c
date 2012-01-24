@@ -4592,10 +4592,10 @@ void place_object(int y, int x, u32b mode)
 		c_ptr->o_idx = o_idx;
 
 		/* Notice */
-		note_spot(p_ptr, y, x);
+		note_spot(player_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(p_ptr, y, x);
+		lite_spot(player_ptr, y, x);
 	}
 	else
 	{
