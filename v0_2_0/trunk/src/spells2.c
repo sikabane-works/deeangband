@@ -6247,9 +6247,9 @@ static bool cave_pass_dark_bold(int y, int x)
 /*
  * Aux function -- see below
  */
-static void cave_temp_unlite_room_aux(int y, int x)
+static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 {
-	cave_temp_room_aux(p_ptr, y, x, TRUE, cave_pass_dark_bold);
+	cave_temp_room_aux(caster_ptr, y, x, TRUE, cave_pass_dark_bold);
 }
 
 
@@ -6304,7 +6304,7 @@ void unlite_room(int y1, int x1)
 	int i, x, y;
 
 	/* Add the initial grid */
-	cave_temp_unlite_room_aux(y1, x1);
+	cave_temp_unlite_room_aux(p_ptr, y1, x1);
 
 	/* Spread, breadth first */
 	for (i = 0; i < temp_n; i++)
@@ -6315,16 +6315,16 @@ void unlite_room(int y1, int x1)
 		if (!cave_pass_dark_bold(y, x)) continue;
 
 		/* Spread adjacent */
-		cave_temp_unlite_room_aux(y + 1, x);
-		cave_temp_unlite_room_aux(y - 1, x);
-		cave_temp_unlite_room_aux(y, x + 1);
-		cave_temp_unlite_room_aux(y, x - 1);
+		cave_temp_unlite_room_aux(p_ptr, y + 1, x);
+		cave_temp_unlite_room_aux(p_ptr, y - 1, x);
+		cave_temp_unlite_room_aux(p_ptr, y, x + 1);
+		cave_temp_unlite_room_aux(p_ptr, y, x - 1);
 
 		/* Spread diagonal */
-		cave_temp_unlite_room_aux(y + 1, x + 1);
-		cave_temp_unlite_room_aux(y - 1, x - 1);
-		cave_temp_unlite_room_aux(y - 1, x + 1);
-		cave_temp_unlite_room_aux(y + 1, x - 1);
+		cave_temp_unlite_room_aux(p_ptr, y + 1, x + 1);
+		cave_temp_unlite_room_aux(p_ptr, y - 1, x - 1);
+		cave_temp_unlite_room_aux(p_ptr, y - 1, x + 1);
+		cave_temp_unlite_room_aux(p_ptr, y + 1, x - 1);
 	}
 
 	/* Now, darken them all at once */
