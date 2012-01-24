@@ -5983,7 +5983,7 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 
 			can_save = TRUE;
 			/* Get a command (normal) */
-			request_command(FALSE);
+			request_command(cr_ptr, FALSE);
 			can_save = FALSE;
 
 			/* Process the command */

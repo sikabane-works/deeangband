@@ -5469,7 +5469,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 
 		/* Get a command */
-		request_command(TRUE);
+		request_command(cr_ptr, TRUE);
 
 		/* Process the command */
 		store_process_command(st_ptr, cr_ptr);

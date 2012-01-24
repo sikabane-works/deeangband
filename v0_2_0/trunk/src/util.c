@@ -4342,8 +4342,8 @@ static char inkey_from_menu(void)
 /*
  * Request a command from the user.
  *
- * Sets p_ptr->command_cmd, p_ptr->command_dir, p_ptr->command_rep,
- * p_ptr->command_arg.  May modify p_ptr->command_new.
+ * Sets guest_ptr->command_cmd, guest_ptr->command_dir, guest_ptr->command_rep,
+ * guest_ptr->command_arg.  May modify guest_ptr->command_new.
  *
  * Note that "caret" ("^") is treated specially, and is used to
  * allow manual input of control characters.  This can be used
@@ -4356,9 +4356,9 @@ static char inkey_from_menu(void)
  * Note that this command is used both in the dungeon and in
  * stores, and must be careful to work in both situations.
  *
- * Note that "p_ptr->command_new" may not work any more.  XXX XXX XXX
+ * Note that "guest_ptr->command_new" may not work any more.  XXX XXX XXX
  */
-void request_command(int shopping)
+void request_command(creature_type *guest_ptr, int shopping)
 {
 	int i;
 
