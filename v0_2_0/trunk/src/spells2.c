@@ -6299,12 +6299,12 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 /*
  * Darken all rooms containing the given location
  */
-void unlite_room(int y1, int x1)
+void unlite_room(creature_type *caster_ptr, int y1, int x1)
 {
 	int i, x, y;
 
 	/* Add the initial grid */
-	cave_temp_unlite_room_aux(p_ptr, y1, x1);
+	cave_temp_unlite_room_aux(caster_ptr, y1, x1);
 
 	/* Spread, breadth first */
 	for (i = 0; i < temp_n; i++)
@@ -6315,16 +6315,16 @@ void unlite_room(int y1, int x1)
 		if (!cave_pass_dark_bold(y, x)) continue;
 
 		/* Spread adjacent */
-		cave_temp_unlite_room_aux(p_ptr, y + 1, x);
-		cave_temp_unlite_room_aux(p_ptr, y - 1, x);
-		cave_temp_unlite_room_aux(p_ptr, y, x + 1);
-		cave_temp_unlite_room_aux(p_ptr, y, x - 1);
+		cave_temp_unlite_room_aux(caster_ptr, y + 1, x);
+		cave_temp_unlite_room_aux(caster_ptr, y - 1, x);
+		cave_temp_unlite_room_aux(caster_ptr, y, x + 1);
+		cave_temp_unlite_room_aux(caster_ptr, y, x - 1);
 
 		/* Spread diagonal */
-		cave_temp_unlite_room_aux(p_ptr, y + 1, x + 1);
-		cave_temp_unlite_room_aux(p_ptr, y - 1, x - 1);
-		cave_temp_unlite_room_aux(p_ptr, y - 1, x + 1);
-		cave_temp_unlite_room_aux(p_ptr, y + 1, x - 1);
+		cave_temp_unlite_room_aux(caster_ptr, y + 1, x + 1);
+		cave_temp_unlite_room_aux(caster_ptr, y - 1, x - 1);
+		cave_temp_unlite_room_aux(caster_ptr, y - 1, x + 1);
+		cave_temp_unlite_room_aux(caster_ptr, y + 1, x - 1);
 	}
 
 	/* Now, darken them all at once */
@@ -6393,10 +6393,10 @@ msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
+	(void)project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
 
 	/* Lite up the room */
-	unlite_room(caster_ptr->fy, caster_ptr->fx);
+	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
