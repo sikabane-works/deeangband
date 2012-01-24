@@ -159,7 +159,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 /*
  * Teleport monster next to a grid near the given location
  */
-void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
+void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode)
 {
 	int ny, nx, oy, ox, d, i, min;
 	int attempts = 500;
@@ -240,16 +240,16 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	m_ptr->fx = nx;
 
 	/* Update the monster (new location) */
-	update_mon(p_ptr, m_idx, TRUE);
+	update_mon(target_ptr, m_idx, TRUE);
 
 	/* Redraw the old grid */
-	lite_spot(p_ptr, oy, ox);
+	lite_spot(target_ptr, oy, ox);
 
 	/* Redraw the new grid */
-	lite_spot(p_ptr, ny, nx);
+	lite_spot(target_ptr, ny, nx);
 
 	if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		p_ptr->update |= (PU_MON_LITE);
+		target_ptr->update |= (PU_MON_LITE);
 }
 
 
@@ -455,7 +455,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 				 */
 				if (has_cf_creature(m_ptr, CF_TPORT) && !has_cf_creature(m_ptr, CF_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, m_ptr->lev, 0L);
+					if (!m_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, cr_ptr, cr_ptr->fy, cr_ptr->fx, m_ptr->lev, 0L);
 				}
 			}
 		}
@@ -492,7 +492,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 				 */
 				if (has_cf_creature(cr_ptr, CF_TPORT) && !has_cf_creature(cr_ptr, CF_RES_TELE))
 				{
-					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
+					if (!cr_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, cr_ptr, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}

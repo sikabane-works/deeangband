@@ -1390,7 +1390,7 @@ msg_format("%s‚ðˆø‚«–ß‚µ‚½B", m_name);
 		msg_format("You command %s to return.", m_name);
 #endif
 
-		teleport_monster_to(cave[target_row][target_col].m_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+		teleport_creature_to2(cave[target_row][target_col].m_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
 	case MS_TELE_AWAY:

@@ -6344,7 +6344,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			for (i = 0; i < max_pet; i++)
 			{
 				pet_ctr = who[i];
-				teleport_monster_to(pet_ctr, cr_ptr->fy, cr_ptr->fx, 100, TELEPORT_PASSIVE);
+				teleport_creature_to2(pet_ctr, cr_ptr, cr_ptr->fy, cr_ptr->fx, 100, TELEPORT_PASSIVE);
 			}
 
 			/* Free the "who" array */
