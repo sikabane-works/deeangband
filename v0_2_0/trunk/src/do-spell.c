@@ -563,7 +563,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		fire_ball(cr_ptr, GF_CHAOS, 0, spell + 5, 1 + (spell / 10));
 		break;
 	case 33:
-		wall_stone();
+		wall_stone(cr_ptr);
 		break;
 	case 34:
 	case 35:
@@ -839,7 +839,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Hermit.");
 #endif
 
-		wall_stone();
+		wall_stone(cr_ptr);
 	}
 	else if (die < 111)
 	{
@@ -3134,7 +3134,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				wall_stone();
+				wall_stone(cr_ptr);
 			}
 		}
 		break;

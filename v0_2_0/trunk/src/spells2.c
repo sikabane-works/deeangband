@@ -6879,11 +6879,11 @@ bool glyph_creation(creature_type *cr_ptr)
 }
 
 
-bool wall_stone(void)
+bool wall_stone(creature_type *caster_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
 
-	bool dummy = (project(0, 1, p_ptr->fy, p_ptr->fx, 0, GF_STONE_WALL, flg, -1));
+	bool dummy = (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, flg, -1));
 
 	/* Update stuff */
 	p_ptr->update |= (PU_FLOW);

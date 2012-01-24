@@ -1376,7 +1376,7 @@ extern bool detect_monsters_string(creature_type *cr_ptr, int range, cptr);
 extern bool detect_monsters_nonliving(creature_type *cr_ptr, int range);
 extern bool detect_monsters_mind(creature_type *cr_ptr, int range);
 extern bool detect_all(creature_type *cr_ptr, int range);
-extern bool wall_stone(void);
+extern bool wall_stone(creature_type *caster_ptr);
 extern bool speed_monsters(creature_type *caster_ptr);
 extern bool slow_creatures(creature_type *caster_ptr);
 extern bool sleep_monsters(creature_type *caster_ptr);
