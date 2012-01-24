@@ -6292,13 +6292,13 @@ static bool room_build(int typ)
 	case ROOM_T_INNER_FEAT:    return build_type4();
 	case ROOM_T_NEST:          return build_type5();
 	case ROOM_T_PIT:           return build_type6();
-	case ROOM_T_LESSER_VAULT:  return build_type1();
+	case ROOM_T_LESSER_VAULT:  return build_type7();
 	case ROOM_T_GREATER_VAULT: return build_type8();
 	case ROOM_T_FRACAVE:       return build_type9();
 	case ROOM_T_RANDOM_VAULT:  return build_type10();
 	case ROOM_T_OVAL:          return build_type11();
 	case ROOM_T_CRYPT:         return build_type12();
-	case ROOM_T_TRAP_PIT:      return build_type1();
+	case ROOM_T_TRAP_PIT:      return build_type13();
 	case ROOM_T_TRAP:          return build_type14();
 	case ROOM_T_GLASS:         return build_type15();
 	}
