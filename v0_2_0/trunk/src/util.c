@@ -4664,7 +4664,7 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 	{
 		cptr s;
 
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &guest_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
