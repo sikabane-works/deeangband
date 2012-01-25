@@ -4334,7 +4334,7 @@ errr parse_race_info_csv(char *buf, header *head)
 	return (0);
 }
 
-#define CL_INFO_CSV_COLUMNS 61
+#define CL_INFO_CSV_COLUMNS 35
 static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4376,11 +4376,88 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 
 static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
 
-#define RC_INFO_ID			0
-#define RC_INFO_COMMON		1
-#define RC_INFO_NAME		2
+#define CL_INFO_ID      0
+#define CL_INFO_NAME    1
+#define CL_INFO_E_NAME  2
+#define CL_INFO_STR     3
+#define CL_INFO_INT     4
+#define CL_INFO_WIS     5
+#define CL_INFO_DEX     6
+#define CL_INFO_CON     7
+#define CL_INFO_CHA     8
+#define CL_INFO_A_STR   9
+#define CL_INFO_A_INT   10
+#define CL_INFO_A_WIS   11
+#define CL_INFO_A_DEX   12
+#define CL_INFO_A_CON   13
+#define CL_INFO_A_CHA   14
+#define CL_INFO_RARITY  15
+#define CL_INFO_C_DIS   16
+#define CL_INFO_C_DEV   17
+#define CL_INFO_C_SAV   18
+#define CL_INFO_C_STL   19
+#define CL_INFO_C_SRH   20
+#define CL_INFO_C_FOS   21
+#define CL_INFO_C_THN   22
+#define CL_INFO_C_THB   23
+#define CL_INFO_X_DIS   24
+#define CL_INFO_X_DEV   25
+#define CL_INFO_X_SAV   26
+#define CL_INFO_X_STL   27
+#define CL_INFO_X_SRH   28
+#define CL_INFO_X_FOS   29
+#define CL_INFO_X_THN   30
+#define CL_INFO_X_THB   31
+#define CL_INFO_HD      32
+#define CL_INFO_EXP     33
+#define CL_INFO_PET_UPKEEP 34
 
 
+#define CH_INFO_CSV_COLUMNS 20
+static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
+{
+	"NAME",
+	"E_NAME",
+	"RARITY",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
+	"C_DIS",
+	"C_DEV",
+	"C_SAV",
+	"C_STL",
+	"C_SRH",
+	"C_FOS",
+	"C_THN",
+	"C_THB",
+	"HD",
+	"JP_NO",
+	"SEX",
+};
+
+#define CH_INFO_NAME    0
+#define CH_INFO_E_NAME  1
+#define CH_INFO_RARITY  2
+#define CH_INFO_STR     3
+#define CH_INFO_INT     4
+#define CH_INFO_WIS     5
+#define CH_INFO_DEX     6
+#define CH_INFO_CON     7
+#define CH_INFO_CHA     8
+#define CH_INFO_C_DIS   9
+#define CH_INFO_C_DEV  10
+#define CH_INFO_C_SAV  11
+#define CH_INFO_C_STL  12
+#define CH_INFO_C_SRH  13
+#define CH_INFO_C_FOS  14
+#define CH_INFO_C_THN  15
+#define CH_INFO_C_THB  16
+#define CH_INFO_HD     17
+#define CH_INFO_JP_NO  18
+#define CH_INFO_SEX    19
 
 
 /*
