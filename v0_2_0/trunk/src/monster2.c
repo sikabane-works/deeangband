@@ -3907,7 +3907,7 @@ void deal_item(creature_type *creature_ptr)
 
 }
 
-static int place_monster_one(creature_type *watcher_ptr, creature_type *summoner_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
+static int place_monster_one(creature_type *summoner_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -4134,7 +4134,7 @@ msg_print("守りのルーンが壊れた！");
 			c_ptr->mimic = 0;
 
 			/* Notice */
-			note_spot(watcher_ptr, y, x);
+			//TODO note_spot(watcher_ptr, y, x);
 		}
 		else return max_m_idx;
 	}
@@ -4283,10 +4283,12 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag |= (MFLAG_BORN);
 	}
 
+/*TODO
 	if (is_self_ld_creature(m_ptr))
 		watcher_ptr->update |= (PU_MON_LITE);
 	else if (is_has_ld_creature(m_ptr) && !m_ptr->paralyzed)
 		watcher_ptr->update |= (PU_MON_LITE);
+*/
 
 	/* Update the monster */
 	update_mon(p_ptr, c_ptr->m_idx, TRUE);
@@ -4298,9 +4300,11 @@ msg_print("守りのルーンが壊れた！");
 	 * Memorize location of the unique monster in saved floors.
 	 * A unique monster move from old saved floor.
 	 */
+/*TODO
 	if (character_dungeon &&
 	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)))
 		real_species_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
+*/
 
 	/* Hack -- Count the number of "reproducers" */
 	if (has_cf_creature(m_ptr, CF_MULTIPLY)) num_repro++;
@@ -4311,6 +4315,7 @@ msg_print("守りのルーンが壊れた！");
 			shimmer_monsters = TRUE;
 	}
 
+/* TODO
 	if (watcher_ptr->warning && character_dungeon)
 	{
 		if (is_unique_species(r_ptr))
@@ -4376,6 +4381,7 @@ msg_print("守りのルーンが壊れた！");
 			}
 		}
 	}
+*/
 
 	if (is_explosive_rune_grid(c_ptr))
 	{
@@ -4386,12 +4392,12 @@ msg_print("守りのルーンが壊れた！");
 			if (c_ptr->info & CAVE_MARK)
 			{
 #ifdef JP
-msg_print("ルーンが爆発した！");
+//				msg_print("ルーンが爆発した！");
 #else
-				msg_print("The rune explodes!");
+//				msg_print("The rune explodes!");
 #endif
 
-				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else
@@ -4410,7 +4416,7 @@ msg_print("爆発のルーンは解除された。");
 		c_ptr->info &= ~(CAVE_OBJECT);
 		c_ptr->mimic = 0;
 
-		note_spot(watcher_ptr, y, x);
+		//TODO note_spot(watcher_ptr, y, x);
 		lite_spot(p_ptr, y, x);
 	}
 
@@ -4576,7 +4582,7 @@ static bool place_monster_group(creature_type *player_ptr, creature_type *summon
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(player_ptr, summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4667,7 +4673,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(p_ptr, summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
+	i = place_monster_one(summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
 	m_ptr = &creature_list[i];
@@ -4688,7 +4694,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
-			if(place_monster_one(p_ptr, summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4737,7 +4743,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(p_ptr, summoner_ptr, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_monster_one(summoner_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))

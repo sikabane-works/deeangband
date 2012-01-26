@@ -5925,7 +5925,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 
 /*
- * Drop (some of) a non-cursed p_ptr->inventory/equipment item
+ * Drop (some of) a non-cursed inventory/equipment item
  *
  * The object will be dropped "near" the current location
  */
