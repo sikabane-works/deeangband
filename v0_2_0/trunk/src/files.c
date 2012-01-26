@@ -5840,7 +5840,7 @@ sprintf(caption, "スポイラー・ファイル'%s'", name);
 				if ((str[8] == ']') && (str[9] == ' '))
 				{
 					/* Extract the menu item */
-					strncpy(hook[k], str + 4, 31);
+					strncpy(hook[k], str + 10, 31);
 
 					/* Make sure it's null-terminated */
 					hook[k][31] = '\0';
@@ -6279,7 +6279,7 @@ void do_cmd_help(void)
 
 	/* Peruse the main help file */
 #ifdef JP
-(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
+	(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
 #else
 	(void)show_file(TRUE, "help.hlp", NULL, 0, 0);
 #endif
