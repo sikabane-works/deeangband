@@ -4516,7 +4516,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_monster_group(creature_type *player_ptr, creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -4712,7 +4712,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
-		(void)place_monster_group(p_ptr, summoner_ptr, y, x, species_idx, mode);
+		(void)place_monster_group(summoner_ptr, y, x, species_idx, mode);
 	}
 
 
@@ -4749,7 +4749,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
 				/* Place a group of monsters */
-				(void)place_monster_group(p_ptr, &creature_list[place_monster_m_idx], ny, nx, z, mode);
+				(void)place_monster_group(&creature_list[place_monster_m_idx], ny, nx, z, mode);
 			}
 		}
 	}
