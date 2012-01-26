@@ -5664,7 +5664,7 @@ static cptr variant = "D\'ANGBAND";
 /*
  * Helper function for "process_dungeon_file()"
  */
-static cptr process_dungeon_file_expr(char **sp, char *fp)
+static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char *fp)
 {
 	cptr v;
 
@@ -5698,7 +5698,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 		s++;
 
 		/* First */
-		t = process_dungeon_file_expr(&s, &f);
+		t = process_dungeon_file_expr(p_ptr, &s, &f);
 
 		/* Oops */
 		if (!*t)
@@ -5712,7 +5712,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "0";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 				if (*t && !streq(t, "0")) v = "1";
 			}
 		}
@@ -5723,7 +5723,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 				if (*t && streq(t, "0")) v = "0";
 			}
 		}
@@ -5734,7 +5734,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 				if (*t && streq(t, "1")) v = "0";
 			}
 		}
@@ -5745,11 +5745,11 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "0";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
-				p = process_dungeon_file_expr(&s, &f);
+				p = process_dungeon_file_expr(p_ptr, &s, &f);
 				if (streq(t, p)) v = "1";
 			}
 		}
@@ -5760,12 +5760,12 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 				if (*t && atoi(p) > atoi(t)) v = "0";
 			}
 		}
@@ -5776,12 +5776,12 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 
 				/* Compare two numbers instead of string */
 				if (*t && atoi(p) < atoi(t)) v = "0";
@@ -5793,7 +5793,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 		{
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(p_ptr, &s, &f);
 			}
 		}
 
@@ -5848,9 +5848,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "RACE1"))
 			{
 #ifdef JP
-				v = race_info[p_ptr->race_idx1].E_title;
+				v = race_info[player_ptr->race_idx1].E_title;
 #else
-				v = race_info[p_ptr->race_idx1].title;
+				v = race_info[player_ptr->race_idx1].title;
 #endif
 			}
 
@@ -5858,9 +5858,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "RACE2"))
 			{
 #ifdef JP
-				v = race_info[p_ptr->race_idx2].E_title;
+				v = race_info[player_ptr->race_idx2].E_title;
 #else
-				v = race_info[p_ptr->race_idx2].title;
+				v = race_info[player_ptr->race_idx2].title;
 #endif
 			}
 
@@ -5868,9 +5868,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = class_info[p_ptr->cls_idx].E_title;
+				v = class_info[player_ptr->cls_idx].E_title;
 #else
-				v = class_info[p_ptr->cls_idx].title;
+				v = class_info[player_ptr->cls_idx].title;
 #endif
 			}
 
@@ -5878,9 +5878,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "REALM1"))
 			{
 #ifdef JP
-				v = E_realm_names[p_ptr->realm1];
+				v = E_realm_names[player_ptr->realm1];
 #else
-				v = realm_names[p_ptr->realm1];
+				v = realm_names[player_ptr->realm1];
 #endif
 			}
 
@@ -5888,9 +5888,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "REALM2"))
 			{
 #ifdef JP
-				v = E_realm_names[p_ptr->realm2];
+				v = E_realm_names[player_ptr->realm2];
 #else
-				v = realm_names[p_ptr->realm2];
+				v = realm_names[player_ptr->realm2];
 #endif
 			}
 
@@ -5899,7 +5899,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			{
 				static char tmp_playespecies_name[128];
 				char *pn, *tpn;
-				for (pn = p_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
+				for (pn = player_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
 					if (iskanji(*pn))
@@ -5925,7 +5925,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Level */
 			else if (streq(b+1, "LEVEL"))
 			{
-				sprintf(tmp, "%d", p_ptr->lev);
+				sprintf(tmp, "%d", player_ptr->lev);
 				v = tmp;
 			}
 
@@ -6044,7 +6044,7 @@ errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax)
 			s = buf + 2;
 
 			/* Parse the expr */
-			v = process_dungeon_file_expr(&s, &f);
+			v = process_dungeon_file_expr(p_ptr, &s, &f);
 
 			/* Set flag */
 			bypass = (streq(v, "0") ? TRUE : FALSE);
