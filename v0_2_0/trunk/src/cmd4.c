@@ -7350,7 +7350,7 @@ void plural_aux(char *Name)
 /*
  * Display current pets
  */
-static void do_cmd_knowledge_pets(void)
+static void do_cmd_knowledge_pets(creature_type *master_ptr)
 {
 	int             i;
 	FILE            *fff;
@@ -7391,7 +7391,7 @@ static void do_cmd_knowledge_pets(void)
 		}
 	}
 
-	show_upkeep = calculate_upkeep(p_ptr);
+	show_upkeep = calculate_upkeep(master_ptr);
 
 	fprintf(fff, "----------------------------------------------\n");
 #ifdef JP
@@ -10276,7 +10276,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_kubi(cr_ptr);
 			break;
 		case '7': /* Pets */
-			do_cmd_knowledge_pets();
+			do_cmd_knowledge_pets(cr_ptr);
 			break;
 		case '8': /* Home */
 			do_cmd_knowledge_home();
