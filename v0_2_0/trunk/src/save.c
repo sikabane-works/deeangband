@@ -1666,7 +1666,7 @@ bool save_player(void)
  * Note that we always try to load the "current" savefile, even if
  * there is no such file, so we must check for "empty" savefile names.
  */
-bool load_player(void)
+bool load_player(creature_type *player_ptr)
 {
 	int             fd = -1;
 
@@ -1685,7 +1685,7 @@ bool load_player(void)
 	turn = 0;
 
 	/* Paranoia */
-	p_ptr->is_dead = FALSE;
+	player_ptr->is_dead = FALSE;
 
 
 	/* Allow empty savefile name */
@@ -1901,7 +1901,7 @@ bool load_player(void)
 		}
 
 		/* Player is dead */
-		if (p_ptr->is_dead)
+		if (player_ptr->is_dead)
 		{
 			/* Cheat death */
 			if (arg_wizard)
@@ -1914,7 +1914,7 @@ bool load_player(void)
 			}
 
 			/* Player is no longer "dead" */
-			p_ptr->is_dead = FALSE;
+			player_ptr->is_dead = FALSE;
 
 			/* Count lives */
 			sf_lives++;
@@ -1928,10 +1928,10 @@ bool load_player(void)
 
 		{
 			u32b tmp = counts_read(2);
-			if (tmp > p_ptr->count)
-				p_ptr->count = tmp;
+			if (tmp > player_ptr->count)
+				player_ptr->count = tmp;
 			if (counts_read(0) > playtime || counts_read(1) == playtime)
-				counts_write(2, ++p_ptr->count);
+				counts_write(2, ++player_ptr->count);
 			counts_write(1, playtime);
 		}
 

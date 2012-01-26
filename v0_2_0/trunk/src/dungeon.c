@@ -6734,7 +6734,7 @@ void play_game(creature_type *cr_ptr, bool new_game)
 
 
 	/* Attempt to load */
-	if (!load_player())
+	if (!load_player(cr_ptr))
 	{
 		/* Oops */
 #ifdef JP

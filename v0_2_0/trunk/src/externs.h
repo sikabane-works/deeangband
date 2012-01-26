@@ -1342,7 +1342,7 @@ extern void do_cmd_racial_power(creature_type *cr_ptr);
 
 /* save.c */
 extern bool save_player(void);
-extern bool load_player(void);
+extern bool load_player(creature_type *player_ptr);
 extern void remove_loc(void);
 extern bool save_floor(saved_floor_type *sf_ptr, u32b mode);
 
