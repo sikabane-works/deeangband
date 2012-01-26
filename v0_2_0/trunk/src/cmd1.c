@@ -4053,7 +4053,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			(void)set_paralyzed(m_ptr, 0);
 
 			/* Extract monster name (or "it") */
-			creature_desc(m_name, m_ptr, 0);
+			creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 			if (m_ptr->ml)
 			{
@@ -4113,7 +4113,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			char m_name[80];
 
 			/* Acquire the monster name */
-			creature_desc(m_name, steed_ptr, 0);
+			creature_desc(m_name, cr_ptr, steed_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -4176,7 +4176,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		if (oktomove && steed_ptr->stun && one_in_(2))
 		{
 			char m_name[80];
-			creature_desc(m_name, steed_ptr, 0);
+			creature_desc(m_name, cr_ptr, steed_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ªNO‚Æ‚µ‚Ä‚¢‚Ä‚¤‚Ü‚­“®‚¯‚È‚¢I",m_name);
 #else

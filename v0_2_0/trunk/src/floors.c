@@ -443,7 +443,7 @@ static void preserve_pet(creature_type *cr_ptr)
 			if (!m_ptr->nickname) continue;
 			if (cr_ptr->riding == i) continue;
 
-			creature_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(m_name, cr_ptr, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_MOVED, m_name);
 		}
 	}
@@ -464,7 +464,7 @@ static void preserve_pet(creature_type *cr_ptr)
 				char m_name[80];
 
 				/* Acquire the monster name */
-				creature_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 #ifdef JP
 				msg_format("%s‚ÍÁ‚¦‹Ž‚Á‚½I", m_name);
@@ -596,7 +596,7 @@ static void place_pet(creature_type *creature_ptr)
 			species_type *r_ptr = real_species_ptr(m_ptr);
 			char m_name[80];
 
-			creature_desc(m_name, m_ptr, 0);
+			creature_desc(m_name, cr_ptr, m_ptr, 0);
 #ifdef JP
 			msg_format("%s‚Æ‚Í‚®‚ê‚Ä‚µ‚Ü‚Á‚½B", m_name);
 #else
@@ -604,7 +604,7 @@ static void place_pet(creature_type *creature_ptr)
 #endif
 			if (record_named_pet && m_ptr->nickname)
 			{
-				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOST_SIGHT, m_name);
 			}
 

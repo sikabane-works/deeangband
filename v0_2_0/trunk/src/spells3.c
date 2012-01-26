@@ -637,7 +637,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		creature_type *m_ptr = &creature_list[m_idx];
 
 		/* Get the monster name (or "it") */
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 		see_m = is_seen(cr_ptr, m_ptr);
 	}
@@ -792,7 +792,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		{
 			char m2_name[80];
 
-			creature_desc(m2_name, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m2_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
@@ -1633,7 +1633,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 				if (m_ptr->ml)
 				{
 					/* Acquire the monster name */
-					creature_desc(m_name, m_ptr, 0);
+					creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 					/* Dump a message */
 #ifdef JP
@@ -2644,7 +2644,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 
 
 	/* Description */
-	object_desc(caster_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Describe */
 #ifdef JP
@@ -5259,7 +5259,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 
 
 	/* Describe */
-	object_desc(target_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw */
 	if (object_is_artifact(o_ptr) && (randint0(100) < 50) && !force)

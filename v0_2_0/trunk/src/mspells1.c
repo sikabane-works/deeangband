@@ -1572,7 +1572,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->leaving) return (FALSE);
 
 	/* Get the monster name (or "it") */
-	creature_desc(m_name, caster_ptr, 0x00);
+	creature_desc(m_name, cr_ptr, caster_ptr, 0x00);
 
 #ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */

@@ -946,7 +946,7 @@ void compact_monsters(int size)
 			{
 				char m_name[80];
 
-				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
@@ -1929,7 +1929,7 @@ s16b get_mon_num(int level)
  *    --> Reflexive, genderized if visable ("himself") or "itself"
  *
  */
-void creature_desc(char *desc, creature_type *m_ptr, int mode)
+void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr, int mode)
 {
 	cptr            res;
 	species_type    *species_ptr;
@@ -2136,7 +2136,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((is_unique_species(species_ptr)) && !(p_ptr->image && !(mode & MD_IGNORE_HALLU)))
+		if ((is_unique_species(species_ptr)) && !(watcher_ptr->image && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if ((m_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
@@ -2160,7 +2160,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 
 			/* Inside monster arena, and it is not your mount */
 			else if (inside_battle &&
-				 !(p_ptr->riding && (&creature_list[p_ptr->riding] == m_ptr)))
+				 !(watcher_ptr->riding && (&creature_list[watcher_ptr->riding] == m_ptr)))
 			{
 				/* It is a fake unique monster */
 #ifdef JP
@@ -2231,7 +2231,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 			strcat(desc,buf);
 		}
 
-		if (p_ptr->riding && (&creature_list[p_ptr->riding] == m_ptr))
+		if (watcher_ptr->riding && (&creature_list[watcher_ptr->riding] == m_ptr))
 		{
 #ifdef JP
 			strcat(desc,"(乗馬中)");
@@ -2487,7 +2487,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		power = r_ptr->level / 2;
 
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 		if (!has_cf_creature(m_ptr, CF_UNIQUE))
 		{
@@ -3383,7 +3383,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (m_idx == p_ptr->riding)
 	{
 		char m_name[80];
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, cr_ptr, m_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
 #else
@@ -5152,7 +5152,7 @@ void message_pain(int m_idx, int dam)
 
 
 	/* Get the monster name */
-	creature_desc(m_name, m_ptr, 0);
+	creature_desc(m_name, cr_ptr, m_ptr, 0);
 
 	/* Notice non-damage */
 	if (dam == 0)
