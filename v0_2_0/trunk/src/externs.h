@@ -1325,7 +1325,7 @@ extern void floor_item_describe(int item);
 extern void floor_item_increase(int item, int num);
 extern void floor_item_optimize(int item);
 extern bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr);
+extern bool object_sort_comp(creature_type *subject_ptr, object_type *o_ptr, s32b o_value, object_type *j_ptr);
 extern s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr);
 extern s16b inven_takeoff(creature_type *cr_ptr, int item, int amt);
 extern void inven_drop(creature_type *cr_ptr, int item, int amt);

@@ -5595,7 +5595,7 @@ bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
+bool object_sort_comp(creature_type *subject_ptr, object_type *o_ptr, s32b o_value, object_type *j_ptr)
 {
 	int o_type, j_type;
 
@@ -5603,15 +5603,15 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 	if (!j_ptr->k_idx) return TRUE;
 
 	/* Hack -- readable books always come first */
-	if ((o_ptr->tval == REALM1_BOOK(p_ptr)) &&
-	    (j_ptr->tval != REALM1_BOOK(p_ptr))) return TRUE;
-	if ((j_ptr->tval == REALM1_BOOK(p_ptr)) &&
-	    (o_ptr->tval != REALM1_BOOK(p_ptr))) return FALSE;
+	if ((o_ptr->tval == REALM1_BOOK(subject_ptr)) &&
+	    (j_ptr->tval != REALM1_BOOK(subject_ptr))) return TRUE;
+	if ((j_ptr->tval == REALM1_BOOK(subject_ptr)) &&
+	    (o_ptr->tval != REALM1_BOOK(subject_ptr))) return FALSE;
 
-	if ((o_ptr->tval == REALM2_BOOK(p_ptr)) &&
-	    (j_ptr->tval != REALM2_BOOK(p_ptr))) return TRUE;
-	if ((j_ptr->tval == REALM2_BOOK(p_ptr)) &&
-	    (o_ptr->tval != REALM2_BOOK(p_ptr))) return FALSE;
+	if ((o_ptr->tval == REALM2_BOOK(subject_ptr)) &&
+	    (j_ptr->tval != REALM2_BOOK(subject_ptr))) return TRUE;
+	if ((j_ptr->tval == REALM2_BOOK(subject_ptr)) &&
+	    (o_ptr->tval != REALM2_BOOK(subject_ptr))) return FALSE;
 
 	/* Objects sort by decreasing type */
 	if (o_ptr->tval > j_ptr->tval) return TRUE;
@@ -5758,7 +5758,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &cr_ptr->inventory[j])) break;
+			if (object_sort_comp(cr_ptr, o_ptr, o_value, &cr_ptr->inventory[j])) break;
 		}
 
 		/* Use that slot */
@@ -6141,7 +6141,7 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &creature_ptr->inventory[j])) break;
+			if (object_sort_comp(creature_ptr, o_ptr, o_value, &creature_ptr->inventory[j])) break;
 		}
 
 		/* Never move down */

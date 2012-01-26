@@ -2173,7 +2173,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 		/* Scan every occupied slot */
 		for (j = 0; j < st_ptr->stock_num; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &st_ptr->stock[j])) break;
+			if (object_sort_comp(p_ptr, o_ptr, o_value, &st_ptr->stock[j])) break;
 		}
 
 		/* Never move down */
@@ -2272,7 +2272,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(o_ptr, value, &st_ptr->stock[slot])) break;
+		if (object_sort_comp(p_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
