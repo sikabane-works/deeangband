@@ -1004,9 +1004,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "RACE1"))
 			{
 #ifdef JP
-				v = race_info[p_ptr->race_idx1].E_title;
+				v = race_info[creature_ptr->race_idx1].E_title;
 #else
-				v = race_info[p_ptr->race_idx1].title;
+				v = race_info[creature_ptr->race_idx1].title;
 #endif
 			}
 
@@ -1014,9 +1014,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "RACE2"))
 			{
 #ifdef JP
-				v = race_info[p_ptr->race_idx2].E_title;
+				v = race_info[creature_ptr->race_idx2].E_title;
 #else
-				v = race_info[p_ptr->race_idx2].title;
+				v = race_info[creature_ptr->race_idx2].title;
 #endif
 			}
 
@@ -1024,9 +1024,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = class_info[p_ptr->cls_idx].E_title;
+				v = class_info[creature_ptr->cls_idx].E_title;
 #else
-				v = class_info[p_ptr->cls_idx].title;
+				v = class_info[creature_ptr->cls_idx].title;
 #endif
 			}
 
@@ -1035,7 +1035,7 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			{
 				static char tmp_playespecies_name[128];
 				char *pn, *tpn;
-				for (pn = p_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
+				for (pn = creature_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
 					if (iskanji(*pn))
@@ -1055,9 +1055,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "REALM1"))
 			{
 #ifdef JP
-				v = E_realm_names[p_ptr->realm1];
+				v = E_realm_names[creature_ptr->realm1];
 #else
-				v = realm_names[p_ptr->realm1];
+				v = realm_names[creature_ptr->realm1];
 #endif
 			}
 
@@ -1065,23 +1065,23 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "REALM2"))
 			{
 #ifdef JP
-				v = E_realm_names[p_ptr->realm2];
+				v = E_realm_names[creature_ptr->realm2];
 #else
-				v = realm_names[p_ptr->realm2];
+				v = realm_names[creature_ptr->realm2];
 #endif
 			}
 
 			/* Level */
 			else if (streq(b+1, "LEVEL"))
 			{
-				sprintf(tmp, "%02d", p_ptr->lev);
+				sprintf(tmp, "%02d", creature_ptr->lev);
 				v = tmp;
 			}
 
 			/* Autopick auto-register is in-use or not? */
 			else if (streq(b+1, "AUTOREGISTER"))
 			{
-				if (p_ptr->autopick_autoregister)
+				if (creature_ptr->autopick_autoregister)
 					v = "1";
 				else
 					v = "0";
@@ -1090,7 +1090,7 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			/* Money */
 			else if (streq(b+1, "MONEY"))
 			{
-				sprintf(tmp, "%09d", p_ptr->au);
+				sprintf(tmp, "%09d", creature_ptr->au);
 				v = tmp;
 			}
 		}
