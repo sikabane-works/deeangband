@@ -5698,7 +5698,7 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 		s++;
 
 		/* First */
-		t = process_dungeon_file_expr(p_ptr, &s, &f);
+		t = process_dungeon_file_expr(player_ptr, &s, &f);
 
 		/* Oops */
 		if (!*t)
@@ -5712,7 +5712,7 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "0";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 				if (*t && !streq(t, "0")) v = "1";
 			}
 		}
@@ -5723,7 +5723,7 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 				if (*t && streq(t, "0")) v = "0";
 			}
 		}
@@ -5734,7 +5734,7 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 				if (*t && streq(t, "1")) v = "0";
 			}
 		}
@@ -5745,11 +5745,11 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "0";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
-				p = process_dungeon_file_expr(p_ptr, &s, &f);
+				p = process_dungeon_file_expr(player_ptr, &s, &f);
 				if (streq(t, p)) v = "1";
 			}
 		}
@@ -5760,12 +5760,12 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 				if (*t && atoi(p) > atoi(t)) v = "0";
 			}
 		}
@@ -5776,12 +5776,12 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 
 				/* Compare two numbers instead of string */
 				if (*t && atoi(p) < atoi(t)) v = "0";
@@ -5793,7 +5793,7 @@ static cptr process_dungeon_file_expr(creature_type *player_ptr, char **sp, char
 		{
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(p_ptr, &s, &f);
+				t = process_dungeon_file_expr(player_ptr, &s, &f);
 			}
 		}
 
