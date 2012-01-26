@@ -1323,7 +1323,7 @@ extern void inven_item_describe(creature_type *cr_ptr, int item);
 extern void inven_item_increase(creature_type *cr_ptr, int item, int num);
 extern void inven_item_optimize(creature_type *cr_ptr, int item);
 extern void floor_item_charges(int item);
-extern void floor_item_describe(int item);
+extern void floor_item_describe(creature_type *creature_type, int item);
 extern void floor_item_increase(int item, int num);
 extern void floor_item_optimize(int item);
 extern bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr);

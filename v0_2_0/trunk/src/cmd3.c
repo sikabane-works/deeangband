@@ -1309,7 +1309,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	else
 	{
 		floor_item_increase(0 - item, -amt);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -1768,7 +1768,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -1898,7 +1898,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 

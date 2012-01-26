@@ -2360,7 +2360,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 	else
 	{
 		floor_item_increase(0 - item, -amt);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -3406,7 +3406,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				else
 				{
 					floor_item_increase(0 - item, -1);
-					floor_item_describe(0 - item);
+					floor_item_describe(cr_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -3442,7 +3442,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				else
 				{
 					floor_item_increase(0 - item, -999);
-					floor_item_describe(0 - item);
+					floor_item_describe(cr_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -5867,7 +5867,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 				else
 				{
 					floor_item_increase(0 - item, -1);
-					floor_item_describe(0 - item);
+					floor_item_describe(cr_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -5903,7 +5903,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				else
 				{
 					floor_item_increase(0 - item, -999);
-					floor_item_describe(0 - item);
+					floor_item_describe(cr_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}

@@ -7826,7 +7826,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * viewed as a "ball" with a "rad" of "zero".
  *
  * Note that if no "target" is reached before the beam/bolt/ball travels the
- * maximum distance allowed (MAX_RANGE(p_ptr)), no "blast" will be induced.  This
+ * maximum distance allowed (MAX_RANGE(creature_ptr)), no "blast" will be induced.  This
  * may be relevant even for bolts, since they have a "1x1" mini-blast.
  *
  * Note that for consistency, we "pretend" that the bolt actually takes "time"
@@ -7843,7 +7843,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * if they were being projected at a more distant destination.  This means
  * that "ball" spells will *always* explode.
  *
- * Note that we must call "handle_stuff(p_ptr)" after affecting terrain features
+ * Note that we must call "handle_stuff(creature_ptr)" after affecting terrain features
  * in the blast radius, in case the "illumination" of the grid was changed,
  * and "update_view()" and "update_monsters()" need to be called.
  */

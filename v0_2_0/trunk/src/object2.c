@@ -5271,7 +5271,7 @@ void place_trap(int y, int x)
 
 
 /*
- * Describe the charges on an item in the p_ptr->inventory.
+ * Describe the charges on an item in the cr_ptr->inventory.
  */
 void inven_item_charges(creature_type *cr_ptr, int item)
 {
@@ -5500,15 +5500,15 @@ void floor_item_charges(int item)
 
 
 /*
- * Describe an item in the p_ptr->inventory.
+ * Describe an item in the cr_ptr->inventory.
  */
-void floor_item_describe(int item)
+void floor_item_describe(creature_type *creature_type, int item)
 {
 	object_type *o_ptr = &o_list[item];
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(p_ptr, o_name, o_ptr, 0);
+	object_desc(creature_type, o_name, o_ptr, 0);
 
 	/* Print a message */
 #ifdef JP

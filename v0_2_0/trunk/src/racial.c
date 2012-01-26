@@ -222,7 +222,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		else
 		{
 			floor_item_increase(0 - item, -1);
-			floor_item_describe(0 - item);
+			floor_item_describe(cr_ptr, 0 - item);
 			floor_item_optimize(0 - item);
 		}
 
@@ -288,7 +288,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		else
 		{
 			floor_item_increase(0 - item, -1);
-			floor_item_describe(0 - item);
+			floor_item_describe(cr_ptr, 0 - item);
 			floor_item_optimize(0 - item);
 		}
 
@@ -416,7 +416,7 @@ s = "魔力を取り込めるアイテムがない。";
 	else
 	{
 		floor_item_increase(0 - item, -999);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 	energy_use = 100;

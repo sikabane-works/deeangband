@@ -4592,7 +4592,7 @@ bool dispel_demons(creature_type *caster_ptr, int dam)
  */
 bool crusade(creature_type *cr_ptr)
 {
-	return (project_hack(cr_ptr, GF_CRUSADE, p_ptr->lev*4));
+	return (project_hack(cr_ptr, GF_CRUSADE, cr_ptr->lev*4));
 }
 
 
@@ -4648,7 +4648,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 	if (speed) msg_print("You feel a sudden stirring nearby!");
 	else if (sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
-	if (p_ptr->riding) p_ptr->update |= PU_BONUS;
+	if (cr_ptr->riding) cr_ptr->update |= PU_BONUS;
 }
 
 

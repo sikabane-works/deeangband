@@ -1103,7 +1103,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 		else
 		{
 			floor_item_increase(0 - item, -1);
-			floor_item_describe(0 - item);
+			floor_item_describe(cr_ptr, 0 - item);
 			floor_item_optimize(0 - item);
 		}
 	}

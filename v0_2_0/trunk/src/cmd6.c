@@ -611,7 +611,7 @@ msg_print("¶Ò‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 }
@@ -750,7 +750,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -2186,7 +2186,7 @@ msg_print("Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I");
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(0 - item);
+		floor_item_describe(cr_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 }
