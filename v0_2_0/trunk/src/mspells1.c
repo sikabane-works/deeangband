@@ -1566,7 +1566,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if (!num) return (FALSE);
 
 	/* Stop if player is dead or gone */
-	if (!target_ptr->playing || target_ptr->is_dead) return (FALSE);
+	if (!playing || target_ptr->is_dead) return (FALSE);
 
 	/* Stop if player is leaving */
 	if (target_ptr->leaving) return (FALSE);

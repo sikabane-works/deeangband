@@ -1371,8 +1371,6 @@ struct creature_type
 
 
 	/*** Temporary fields ***/
-
-	bool playing;			/* True if player is playing */
 	bool leaving;			/* True if player is leaving */
 
 	byte exit_bldg;			/* Goal obtained in arena? -KMW- */

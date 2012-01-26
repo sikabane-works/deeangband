@@ -618,7 +618,7 @@ errr process_pref_file_command(char *buf)
 				int os = option_info[i].o_set;
 				int ob = option_info[i].o_bit;
 
-				if ((p_ptr->playing || character_xtra) &&
+				if ((playing || character_xtra) &&
 					(OPT_PAGE_BIRTH == option_info[i].o_page) && !wizard)
 				{
 #ifdef JP
@@ -6606,7 +6606,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	}
 
 	/* Stop playing */
-	cr_ptr->playing = FALSE;
+	playing = FALSE;
 
 	/* Kill the player */
 	cr_ptr->is_dead = TRUE;
@@ -6740,7 +6740,7 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
  */
 void do_cmd_save_and_exit(creature_type *creature_ptr)
 {
-	creature_ptr->playing = FALSE;
+	playing = FALSE;
 
 	/* Leaving */
 	creature_ptr->leaving = TRUE;
@@ -8048,7 +8048,7 @@ quit("強制終了");
 		clear_mon_lite();
 
 		/* Stop playing */
-		p_ptr->playing = FALSE;
+		playing = FALSE;
 
 		/* Suicide */
 		p_ptr->is_dead = TRUE;

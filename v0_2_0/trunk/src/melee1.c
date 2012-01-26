@@ -218,7 +218,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 		}
 
 		/* Stop if player is dead or gone */
-		if (!target_ptr->playing || target_ptr->is_dead) break;
+		if (!playing || target_ptr->is_dead) break;
 		if (distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */

@@ -3960,7 +3960,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 
 				/* Stop playing */
-				cr_ptr->playing = FALSE;
+				playing = FALSE;
 
 				/* Leaving */
 				cr_ptr->leaving = TRUE;
@@ -6157,7 +6157,7 @@ msg_print("中断しました。");
 		}
 
 		/* Hack -- notice death */
-		if (!cr_ptr->playing || cr_ptr->is_dead)
+		if (!playing || cr_ptr->is_dead)
 		{
 			world_player = FALSE;
 			break;
@@ -6329,7 +6329,7 @@ msg_print("試合開始！");
 		cr_ptr->magic_num1[0] = MUSIC_DETECT;
 
 	/* Hack -- notice death or departure */
-	if (!cr_ptr->playing || cr_ptr->is_dead) return;
+	if (!playing || cr_ptr->is_dead) return;
 
 	/* Print quest message if appropriate */
 	if (!inside_quest && (dungeon_type == DUNGEON_DOD))
@@ -6406,7 +6406,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!cr_ptr->playing || cr_ptr->is_dead) break;
+		if (!playing || cr_ptr->is_dead) break;
 
 		/* Process all of the monsters */
 		process_monsters(cr_ptr);
@@ -6424,7 +6424,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!cr_ptr->playing || cr_ptr->is_dead) break;
+		if (!playing || cr_ptr->is_dead) break;
 
 
 		/* Process the world */
@@ -6443,7 +6443,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!cr_ptr->playing || cr_ptr->is_dead) break;
+		if (!playing || cr_ptr->is_dead) break;
 
 		/* Handle "leaving" */
 		if (cr_ptr->leaving) break;
@@ -6470,7 +6470,7 @@ msg_print("試合開始！");
 	}
 
 	/* Not save-and-quit and not dead? */
-	if (cr_ptr->playing && !cr_ptr->is_dead)
+	if (playing && !cr_ptr->is_dead)
 	{
 		/*
 		 * Maintain Unique monsters and artifact, save current
@@ -7129,7 +7129,7 @@ quit("セーブファイルが壊れています");
 
 
 	/* Start game */
-	cr_ptr->playing = TRUE;
+	playing = TRUE;
 
 	/* React to changes */
 
@@ -7197,7 +7197,7 @@ quit("セーブファイルが壊れています");
 		clear_mon_lite();
 
 		/* Handle "quit and save" */
-		if (!cr_ptr->playing && !cr_ptr->is_dead) break;
+		if (!playing && !cr_ptr->is_dead) break;
 
 		/* Erase the old cave */
 		wipe_o_list();
@@ -7210,7 +7210,7 @@ quit("セーブファイルが壊れています");
 		load_game = FALSE;
 
 		/* Accidental Death */
-		if (cr_ptr->playing && cr_ptr->is_dead)
+		if (playing && cr_ptr->is_dead)
 		{
 			if (inside_arena)
 			{

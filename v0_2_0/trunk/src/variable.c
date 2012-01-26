@@ -26,6 +26,9 @@ cptr copyright[5] =
 };
 
 
+bool playing;			/* True if player is playing */
+
+
 int max_macrotrigger = 0;
 cptr macro_template = NULL;
 cptr macro_modifier_chr;

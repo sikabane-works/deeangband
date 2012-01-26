@@ -2756,7 +2756,7 @@ static void msg_flush(int x)
 	}
 	now_damaged = FALSE;
 
-	if (!p_ptr->playing || !nagasu)
+	if (!playing || !nagasu)
 	{
 		/* Pause for response */
 #ifdef JP
@@ -3643,7 +3643,7 @@ bool get_check_strict(cptr prompt, int mode)
 	/* Prompt for it */
 	prt(buf, 0, 0);
 
-	if (!(mode & CHECK_NO_HISTORY) && p_ptr->playing)
+	if (!(mode & CHECK_NO_HISTORY) && playing)
 	{
 		/* HACK : Add the line to message buffer */
 		message_add(buf);

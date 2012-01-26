@@ -27,6 +27,8 @@ extern cptr macro_modifiespecies_name[MAX_MACRO_MOD];
 extern cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 extern cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
+extern bool playing;
+
 
 /* 日本語版機能追加で使う */
 extern int level_up;
