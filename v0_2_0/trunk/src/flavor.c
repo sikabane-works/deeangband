@@ -1201,7 +1201,7 @@ static void get_inscription(char *buff, object_type *o_ptr)
  *   OD_NO_FLAVOR        : Allow to hidden flavor
  *   OD_FORCE_FLAVOR     : Get un-shuffled flavor name
  */
-void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b mode)
+void object_desc(char *buf, object_type *o_ptr, u32b mode)
 {
 	/* Extract object kind name */
 	cptr            kindname = k_name + k_info[o_ptr->k_idx].name;
@@ -1235,7 +1235,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_type *bow_ptr;
+	//object_type *bow_ptr;
 
 	object_kind *k_ptr = &k_info[o_ptr->k_idx];
 	object_kind *flavor_k_ptr = &k_info[k_ptr->flavor];
@@ -1821,7 +1821,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		}
 
 		/* Hack -- The only one of its kind */
-		else if ((known && object_is_artifact(owner_ptr, o_ptr)) ||
+		else if ((known && object_is_artifact(o_ptr)) ||
 		         ((o_ptr->tval == TV_CORPSE) &&
 		          (is_unique_species(species_info[o_ptr->pval]))))
 		{
@@ -1879,7 +1879,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		}
 
 		/* Hack -- The only one of its kind */
-		else if (known && object_is_artifact(owner_ptr, o_ptr))
+		else if (known && object_is_artifact(o_ptr))
 		{
 			t = object_desc_str(t, "The ");
 		}
@@ -1898,10 +1898,8 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 #ifdef JP
 	if (object_is_smith(o_ptr))
 	{
-		if(!o_ptr->creater_idx)
-			t = object_desc_str(t, format("鍛冶師%sの", owner_ptr->name));
-		else
-			t = object_desc_str(t, format("%sの", species_name + species_info[o_ptr->creater_idx].name));
+		//TODO
+		t = object_desc_str(t, format("%sの", species_name + species_info[o_ptr->creater_idx].name));
 	}
 
 	/* 伝説のアイテム、名のあるアイテムの名前を付加する */
@@ -2372,36 +2370,38 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		}
 	}
 
+	/*
 	bow_ptr = &owner_ptr->inventory[INVEN_BOW];
 
-	/* If have a firing weapon + ammo matches bow */
+	// If have a firing weapon + ammo matches bow
 	if (bow_ptr->k_idx && (o_ptr->tval == owner_ptr->tval_ammo))
 	{
 		int avgdam = o_ptr->dd * (o_ptr->ds + 1) * 10 / 2;
 		int tmul = bow_tmul(bow_ptr->sval);
 		s16b energy_fire = bow_energy(bow_ptr->sval);
 
-		/* See if the bow is "known" - then set damage bonus */
+		// See if the bow is "known" - then set damage bonus
 		if (object_is_known(bow_ptr)) avgdam += (bow_ptr->to_d * 10);
 
-		/* Effect of ammo */
+		// Effect of ammo
 		if (known) avgdam += (o_ptr->to_d * 10);
 
-		/* Get extra "power" from "extra might" */
+		// Get extra "power" from "extra might"
 		if (owner_ptr->xtra_might) tmul++;
 
 		tmul = tmul * (100 + (int)(adj_str_td[owner_ptr->stat_ind[STAT_STR]]) - 128);
 
-		/* Launcher multiplier */
+		// Launcher multiplier
 		avgdam *= tmul;
 		avgdam /= (100 * 10);
 
-		/* Get extra damage from concentration */
+		// Get extra damage from concentration
+		
 		if (owner_ptr->concent) avgdam = boost_concentration_damage(owner_ptr, avgdam);
 
 		if (avgdam < 0) avgdam = 0;
 
-		/* Display (shot damage/ avg damage) */
+		// Display (shot damage/ avg damage)
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, p1);
 		t = object_desc_num(t, avgdam);
@@ -2413,7 +2413,7 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 		}
 		else
 		{
-			/* Calc effects of energy */
+			// Calc effects of energy
 			avgdam *= (owner_ptr->num_fire * 100);
 			avgdam /= energy_fire;
 			t = object_desc_num(t, avgdam);
@@ -2428,18 +2428,19 @@ void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b m
 
 		avgdam += ((owner_ptr->lev + 30) * (owner_ptr->lev + 30) - 900) / 55;
 
-		/* Display (shot damage/ avg damage) */
+		// Display (shot damage/ avg damage)
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, p1);
 		t = object_desc_num(t, avgdam);
 		t = object_desc_chr(t, '/');
 
-		/* Calc effects of energy */
+		// Calc effects of energy
 		avgdam = 100 * avgdam / energy_fire;
 
 		t = object_desc_num(t, avgdam);
 		t = object_desc_chr(t, p2);
 	}
+*/
 
 	/* Add the armor bonuses */
 	if (known)

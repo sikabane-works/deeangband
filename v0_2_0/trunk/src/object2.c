@@ -847,7 +847,7 @@ void object_aware(object_type *o_ptr)
 		object_copy(q_ptr, o_ptr);
 
 		q_ptr->number = 1;
-		object_desc(p_ptr, o_name, q_ptr, OD_NAME_ONLY);
+		object_desc(o_name, q_ptr, OD_NAME_ONLY);
 		
 		do_cmd_write_nikki(NIKKI_HANMEI, 0, o_name);
 	}
@@ -2141,7 +2141,7 @@ static void object_mention(object_type *o_ptr)
 	char o_name[MAX_NLEN];
 
 	/* Describe */
-	object_desc(p_ptr, o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+	object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
 
 	/* Artifact */
 	if (object_is_fixed_artifact(o_ptr))
@@ -4764,7 +4764,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 #endif
 
 	/* Describe object */
-	object_desc(p_ptr, o_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 
 	/* Handle normal "breakage" */
@@ -5320,7 +5320,7 @@ void inven_item_describe(creature_type *cr_ptr, int item)
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
@@ -5857,7 +5857,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	q_ptr->number = amt;
 
 	/* Describe the object */
-	object_desc(cr_ptr, o_name, q_ptr, 0);
+	object_desc(o_name, q_ptr, 0);
 
 	/* Took off weapon */
 	if (((item == INVEN_1STARM) || (item == INVEN_2NDARM)) &&
@@ -5973,7 +5973,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	q_ptr->number = amt;
 
 	/* Describe local object */
-	object_desc(cr_ptr, o_name, q_ptr, 0);
+	object_desc(o_name, q_ptr, 0);
 
 	/* Message */
 #ifdef JP

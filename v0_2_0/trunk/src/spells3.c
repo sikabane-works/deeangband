@@ -1096,7 +1096,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 
 
 	/* Describe the object */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 
 	/* Artifacts have 71% chance to resist */
@@ -1378,7 +1378,7 @@ s = "強化できる武器がない。";
 
 		/* Let's get the name before it is changed... */
 		char o_name[MAX_NLEN];
-		object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		switch (brand_type)
 		{
@@ -1961,7 +1961,7 @@ msg_print("そのアイテムは重過ぎます。");
 	o_ptr->iy = (byte)cr_ptr->fy;
 	o_ptr->ix = (byte)cr_ptr->fx;
 
-	object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #else
@@ -2280,7 +2280,7 @@ s = "金に変えられる物がありません。";
 	/* Describe the object */
 	old_number = o_ptr->number;
 	o_ptr->number = amt;
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 	o_ptr->number = old_number;
 
 	/* Verify unless quantity given */
@@ -2552,7 +2552,7 @@ s = "強化できるアイテムがない。";
 
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Describe */
 #ifdef JP
@@ -2747,7 +2747,7 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	char o_name[MAX_NLEN];
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	if (o_ptr->ident & IDENT_KNOWN)
 		old_known = TRUE;
@@ -2772,7 +2772,7 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	record_turn = turn;
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 
 	if(record_fix_art && !old_known && object_is_fixed_artifact(o_ptr))
 		do_cmd_write_nikki(NIKKI_ART, 0, o_name);
@@ -2863,7 +2863,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	old_known = identify_item(cr_ptr, o_ptr);
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
 	if (item >= INVEN_1STARM)
@@ -3056,7 +3056,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	handle_stuff(cr_ptr);
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
 	if (item >= INVEN_1STARM)
@@ -3275,7 +3275,7 @@ s = "魔力を充填すべきアイテムがない。";
 		/* Artifacts are never destroyed. */
 		if (object_is_fixed_artifact(o_ptr))
 		{
-			object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 #else
@@ -3294,7 +3294,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 		else
 		{
 			/* Get the object description */
-			object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/*** Determine Seriousness of Failure ***/
 
@@ -3499,7 +3499,7 @@ s = "祝福できる武器がありません。";
 
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
@@ -3693,7 +3693,7 @@ s = "磨く盾がありません。";
 
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
@@ -4828,7 +4828,7 @@ int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 			if (amt)
 			{
 				/* Get a description */
-				object_desc(cr_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+				object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 				/* Message */
 #ifdef JP
@@ -4918,7 +4918,7 @@ static int minus_ac(creature_type *cr_ptr)
 
 
 	/* Describe */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
@@ -5129,7 +5129,7 @@ s = "錆止めできるものがありません。";
 
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	add_flag(o_ptr->art_flags, TR_IGNORE_ACID);
 
@@ -5180,7 +5180,7 @@ bool curse_armor(creature_type *cr_ptr)
 
 
 	/* Describe */
-	object_desc(cr_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
 	if (object_is_artifact(o_ptr) && (randint0(100) < 50))
@@ -5736,7 +5736,7 @@ msg_print("吸収できる魔力がありません！");
 		/* Artifacts are never destroyed. */
 		if (object_is_fixed_artifact(o_ptr))
 		{
-			object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 #else
@@ -5755,7 +5755,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 		else
 		{
 			/* Get the object description */
-			object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/*** Determine Seriousness of Failure ***/
 

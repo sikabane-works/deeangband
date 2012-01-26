@@ -289,7 +289,7 @@ void build_streamer(int feat, int chance)
 						if (cheat_peek)
 						{
 							char o_name[MAX_NLEN];
-							object_desc(p_ptr, o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
 #ifdef JP
 							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", o_name);
 #else

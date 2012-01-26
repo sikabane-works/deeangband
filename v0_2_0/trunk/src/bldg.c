@@ -2238,7 +2238,7 @@ static bool kankin(creature_type *cr_ptr)
 		if ((o_ptr->tval == TV_CAPTURE) && (o_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(cr_ptr, o_name, o_ptr, 0);
+			object_desc(o_name, o_ptr, 0);
 #ifdef JP
 			sprintf(buf, "%s ‚ğŠ·‹à‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2269,7 +2269,7 @@ static bool kankin(creature_type *cr_ptr)
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (o_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(cr_ptr, o_name, o_ptr, 0);
+			object_desc(o_name, o_ptr, 0);
 #ifdef JP
 			sprintf(buf, "%s ‚ğŠ·‹à‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2300,7 +2300,7 @@ static bool kankin(creature_type *cr_ptr)
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (o_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(cr_ptr, o_name, o_ptr, 0);
+			object_desc(o_name, o_ptr, 0);
 #ifdef JP
 			sprintf(buf, "%s ‚ğŠ·‹à‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2329,7 +2329,7 @@ static bool kankin(creature_type *cr_ptr)
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(cr_ptr, o_name, o_ptr, 0);
+			object_desc(o_name, o_ptr, 0);
 #ifdef JP
 			sprintf(buf, "%s ‚ğŠ·‹à‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2359,7 +2359,7 @@ static bool kankin(creature_type *cr_ptr)
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(cr_ptr, o_name, o_ptr, 0);
+			object_desc(o_name, o_ptr, 0);
 #ifdef JP
 			sprintf(buf, "%s ‚ğŠ·‹à‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2394,7 +2394,7 @@ static bool kankin(creature_type *cr_ptr)
 				int num, k, item_new;
 				object_type forge;
 
-				object_desc(cr_ptr, o_name, o_ptr, 0);
+				object_desc(o_name, o_ptr, 0);
 #ifdef JP
 				sprintf(buf, "%s‚ğ“n‚µ‚Ü‚·‚©H",o_name);
 #else
@@ -2453,7 +2453,7 @@ static bool kankin(creature_type *cr_ptr)
 				item_new = inven_carry(cr_ptr, &forge);
 
 				/* Describe the object */
-				object_desc(cr_ptr, o_name, &forge, 0);
+				object_desc(o_name, &forge, 0);
 #ifdef JP
 				msg_format("%s(%c)‚ğ–á‚Á‚½B", o_name, index_to_label(cr_ptr, item_new));
 #else
@@ -3289,7 +3289,7 @@ static void list_weapon(creature_type *cr_ptr, object_type *o_ptr, int row, int 
 	int eff_ds = o_ptr->ds + cr_ptr->to_ds[0];
 
 	/* Print the weapon name */
-	object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 	c_put_str(TERM_YELLOW, o_name, row, col);
 
 	/* Print the player's number of blows */
@@ -3664,7 +3664,7 @@ static bool resize_item(creature_type *cr_ptr)
 	/* Check if the player has enough money */
 	if (cr_ptr->au < value)
 	{
-		object_desc(cr_ptr, tmp_str, o_ptr, OD_NAME_ONLY);
+		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 		msg_format("%s‚Ì‰ü—Ç‚É‚Í $%d ‚©‚©‚è‚Ü‚·I", tmp_str, value);
 #else
@@ -3695,7 +3695,7 @@ static bool resize_item(creature_type *cr_ptr)
 		return (FALSE);
 		}
 
-		object_desc(cr_ptr, tmp_str, o_ptr, OD_NAME_ONLY);
+		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 		if (get_check(format("%s‚Ì‰ü—Ç‚É‚Í $%d ‚©‚©‚è‚Ü‚·A‚æ‚ë‚µ‚¢‚Å‚·‚©H", tmp_str, value)))
 #else
@@ -3765,7 +3765,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	/* Check if the player has enough money */
 	if (cr_ptr->au < (cost * o_ptr->number))
 	{
-		object_desc(cr_ptr, tmp_str, o_ptr, OD_NAME_ONLY);
+		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 		msg_format("%s‚ğ‰ü—Ç‚·‚é‚¾‚¯‚ÌƒS[ƒ‹ƒh‚ª‚ ‚è‚Ü‚¹‚ñI", tmp_str);
 #else
@@ -3831,7 +3831,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	}
 	else
 	{
-		object_desc(cr_ptr, tmp_str, o_ptr, OD_NAME_AND_ENCHANT);
+		object_desc(tmp_str, o_ptr, OD_NAME_AND_ENCHANT);
 #ifdef JP
 		msg_format("%d‚Å%s‚É‰ü—Ç‚µ‚Ü‚µ‚½B", cost * o_ptr->number, tmp_str);
 #else
@@ -3935,7 +3935,7 @@ get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 			identify_item(cr_ptr, o_ptr);
 
 			/* Description */
-			object_desc(cr_ptr, tmp_str, o_ptr, 0);
+			object_desc(tmp_str, o_ptr, 0);
 
 #ifdef JP
 msg_format("%s ‚Å‚·B", tmp_str);
@@ -4042,7 +4042,7 @@ msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 	/* Check if the player has enough money */
 	if (cr_ptr->au < price)
 	{
-		object_desc(cr_ptr, tmp_str, o_ptr, OD_NAME_ONLY);
+		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("%s‚ğÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", tmp_str,price );
 #else
@@ -4101,7 +4101,7 @@ charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H",
 	}
 
 	/* Give feedback */
-	object_desc(cr_ptr, tmp_str, o_ptr, 0);
+	object_desc(tmp_str, o_ptr, 0);
 #ifdef JP
 msg_format("%s‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
 #else

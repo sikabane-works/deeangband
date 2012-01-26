@@ -11561,7 +11561,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
-			object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
 #ifdef JP
@@ -12026,7 +12026,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_is_armour2)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
-			object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
 #ifdef JP

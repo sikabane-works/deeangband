@@ -3301,7 +3301,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	if ((snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) snipe_type = SP_NONE;
 
 	/* Describe the object */
-	object_desc(cr_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */
 	thits = cr_ptr->num_fire;
@@ -4099,7 +4099,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	q_ptr->number = 1;
 
 	/* Description */
-	object_desc(cr_ptr, o_name, q_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, q_ptr, OD_OMIT_PREFIX);
 
 	if (cr_ptr->mighty_throw) mult += 3;
 
@@ -4461,7 +4461,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 		j = -1;
 		if (boomerang) back_chance += 4+randint1(5);
 		if (super_boomerang) back_chance += 100;
-		object_desc(cr_ptr, o2_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o2_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		if((back_chance > 30) && (!one_in_(100) || super_boomerang))
 		{

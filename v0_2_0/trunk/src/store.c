@@ -2768,7 +2768,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		if (show_weights) maxwid -= 10;
 
 		/* Describe the object */
-		object_desc(cr_ptr, o_name, o_ptr, 0);
+		object_desc(o_name, o_ptr, 0);
 		o_name[maxwid] = '\0';
 		c_put_str(tval_to_attr[o_ptr->tval], o_name, i+6, cur_col);
 
@@ -2798,7 +2798,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		if (show_weights) maxwid -= 7;
 
 		/* Describe the object (fully) */
-		object_desc(cr_ptr, o_name, o_ptr, 0);
+		object_desc(o_name, o_ptr, 0);
 		o_name[maxwid] = '\0';
 		c_put_str(tval_to_attr[o_ptr->tval], o_name, i+6, cur_col);
 
@@ -4048,7 +4048,7 @@ msg_format("一つにつき $%ldです。", (long)(best));
 		else
 		{
 			/* Describe the object (fully) */
-			object_desc(guest_ptr, o_name, j_ptr, 0);
+			object_desc(o_name, j_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -4109,7 +4109,7 @@ msg_format("%s(%c)を購入する。", o_name, I2A(item));
 				j_ptr->ident &= ~(IDENT_FIXED);
 
 				/* Describe the transaction */
-				object_desc(guest_ptr, o_name, j_ptr, 0);
+				object_desc(o_name, j_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -4122,7 +4122,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 				record_turn = turn;
 
 				if (record_buy) do_cmd_write_nikki(NIKKI_BUY, 0, o_name);
-				object_desc(guest_ptr, o_name, o_ptr, OD_NAME_ONLY);
+				object_desc(o_name, o_ptr, OD_NAME_ONLY);
 				if(record_rand_art && o_ptr->art_name)
 					do_cmd_write_nikki(NIKKI_ART, 0, o_name);
 
@@ -4136,7 +4136,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 				item_new = inven_carry(guest_ptr, j_ptr);
 
 				/* Describe the final result */
-				object_desc(guest_ptr, o_name, &guest_ptr->inventory[item_new], 0);
+				object_desc(o_name, &guest_ptr->inventory[item_new], 0);
 
 				/* Message */
 #ifdef JP
@@ -4233,7 +4233,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 		item_new = inven_carry(guest_ptr, j_ptr);
 
 		/* Describe just the result */
-		object_desc(guest_ptr, o_name, &guest_ptr->inventory[item_new], 0);
+		object_desc(o_name, &guest_ptr->inventory[item_new], 0);
 
 		/* Message */
 #ifdef JP
@@ -4421,7 +4421,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	}
 
 	/* Get a full description */
-	object_desc(cr_ptr, o_name, q_ptr, 0);
+	object_desc(o_name, q_ptr, 0);
 
 	/* Remove any inscription, feeling for stores */
 	if (!is_home(st_ptr) && !is_museum(st_ptr))
@@ -4524,7 +4524,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 			value = object_value(q_ptr) * q_ptr->number;
 
 			/* Get the description all over again */
-			object_desc(cr_ptr, o_name, q_ptr, 0);
+			object_desc(o_name, q_ptr, 0);
 
 			/* Describe the result (in message buffer) */
 #ifdef JP
@@ -4579,7 +4579,7 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 	else if (is_museum(st_ptr))
 	{
 		char o2_name[MAX_NLEN];
-		object_desc(cr_ptr, o2_name, q_ptr, OD_NAME_ONLY);
+		object_desc(o2_name, q_ptr, OD_NAME_ONLY);
 
 		if (-1 == store_check_num(st_ptr, q_ptr))
 		{
@@ -4756,7 +4756,7 @@ msg_print("このアイテムについて特に知っていることはない。");
 	}
 
 	/* Description */
-	object_desc(p_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
 #ifdef JP
@@ -4825,7 +4825,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *cr_ptr)
 	o_ptr = &st_ptr->stock[item];
 
 	/* Description */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 #ifdef JP
 	msg_print("展示をやめさせたアイテムは二度と見ることはできません！");
@@ -5558,7 +5558,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 				object_copy(q_ptr, o_ptr);
 
 				/* Describe it */
-				object_desc(cr_ptr, o_name, q_ptr, 0);
+				object_desc(o_name, q_ptr, 0);
 
 				/* Message */
 #ifdef JP

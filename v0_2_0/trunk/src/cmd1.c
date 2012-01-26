@@ -739,7 +739,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 
 #ifdef JP
 	/* Describe the object */
-	object_desc(cr_ptr, old_name, o_ptr, OD_NAME_ONLY);
+	object_desc(old_name, o_ptr, OD_NAME_ONLY);
 	object_desc_kosuu(kazu_str, o_ptr);
 	hirottakazu = o_ptr->number;
 #endif
@@ -764,7 +764,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 	}
 
 	/* Describe the object */
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Message */
 #ifdef JP
@@ -909,7 +909,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE -- TNB */
 
 		/* Describe the object */
-		object_desc(cr_ptr, o_name, o_ptr, 0);
+		object_desc(o_name, o_ptr, 0);
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;

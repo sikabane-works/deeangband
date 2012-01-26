@@ -149,7 +149,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 			slot = inven_carry(cr_ptr, q_ptr);
 
-			object_desc(cr_ptr, o_name, q_ptr, 0);
+			object_desc(o_name, q_ptr, 0);
 #ifdef JP
 			msg_format("%sを作った。", o_name);
 #else
@@ -206,7 +206,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		q_ptr->discount = 99;
 
-		object_desc(cr_ptr, o_name, q_ptr, 0);
+		object_desc(o_name, q_ptr, 0);
 #ifdef JP
 		msg_format("%sを作った。", o_name);
 #else
@@ -272,7 +272,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		q_ptr->discount = 99;
 
-		object_desc(cr_ptr, o_name, q_ptr, 0);
+		object_desc(o_name, q_ptr, 0);
 #ifdef JP
 		msg_format("%sを作った。", o_name);
 #else
@@ -396,7 +396,7 @@ s = "魔力を取り込めるアイテムがない。";
 		}
 	}
 
-	object_desc(cr_ptr, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 	/* Message */
 #ifdef JP
 	msg_format("%sの魔力を取り込んだ。", o_name);

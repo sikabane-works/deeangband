@@ -3957,7 +3957,7 @@ void do_cmd_visuals(void)
 					object_prep(&forge, i, ITEM_FREE_SIZE);
 
 					/* Get un-shuffled flavor name */
-					object_desc(p_ptr, o_name, &forge, OD_FORCE_FLAVOR);
+					object_desc(o_name, &forge, OD_FORCE_FLAVOR);
 				}
 
 				/* Dump a comment */
@@ -6041,7 +6041,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
 	    || object_is_artifact(o_ptr))
 	{
 		int i = 0;
-		object_desc(p_ptr, o_name, o_ptr, OD_NAME_ONLY);
+		object_desc(o_name, o_ptr, OD_NAME_ONLY);
 
 		while (o_name[i] && (i < 26))
 		{
@@ -10002,7 +10002,7 @@ static void do_cmd_knowledge_home(void)
 			{
 #ifdef JP
 				if ((i % 12) == 0) fprintf(fff, "\n ( %d ƒy[ƒW )\n", x++);
-				object_desc(cr_ptr, o_name, &st_ptr->stock[i], 0);
+				object_desc(o_name, &st_ptr->stock[i], 0);
 				if (strlen(o_name) <= 80-3)
 				{
 					fprintf(fff, "%c%s %s\n", I2A(i%12), paren, o_name);
@@ -10019,7 +10019,7 @@ static void do_cmd_knowledge_home(void)
 					fprintf(fff, "   %.77s\n", o_name+n);
 				}
 #else
-				object_desc(cr_ptr, o_name, &st_ptr->stock[i], 0);
+				object_desc(o_name, &st_ptr->stock[i], 0);
 				fprintf(fff, "%c%s %s\n", I2A(i%12), paren, o_name);
 #endif
 

@@ -527,7 +527,7 @@ static void wiz_display_item(object_type *o_ptr)
 	prt_alloc(o_ptr->tval, o_ptr->sval, 1, 0);
 
 	/* Describe fully */
-	object_desc(p_ptr, buf, o_ptr, OD_STORE);
+	object_desc(buf, o_ptr, OD_STORE);
 
 	prt(buf, 2, j);
 

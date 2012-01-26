@@ -2971,7 +2971,7 @@
 
 
 /*
- * Bit flags for object_desc(cr_ptr, )
+ * Bit flags for object_desc()
  */
 #define OD_NAME_ONLY        0x00000001  /* Omit values, pval, inscription */
 #define OD_NAME_AND_ENCHANT 0x00000002  /* Omit pval, inscription */
