@@ -5165,7 +5165,7 @@ static void drop_here(object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
+static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
 {
 	int i;
 
@@ -5274,7 +5274,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				}
 
 				/* Place it */
-				place_monster_aux(p_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
+				place_monster_aux(player_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
 				if (clone)
 				{
 					/* clone */
@@ -5347,7 +5347,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				}
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(p_ptr, o_ptr, base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(player_ptr, o_ptr, base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				drop_here(o_ptr, *y, *x);
 			}
@@ -5369,7 +5369,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				else
 				{
 					/* Create the artifact */
-					if (drop_named_art(p_ptr, artifact_index, *y, *x))
+					if (drop_named_art(player_ptr, artifact_index, *y, *x))
 						a_info[artifact_index].cur_num = 1;
 				}
 			}
@@ -5494,19 +5494,19 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					int y, x;
 
 					/* Delete the monster (if any) */
-					delete_monster(p_ptr->fy, p_ptr->fx);
+					delete_monster(player_ptr->fy, player_ptr->fx);
 
 					y = atoi(zz[0]);
 					x = atoi(zz[1]);
 
-					p_ptr->fy = y;
-					p_ptr->fx = x;
+					player_ptr->fy = y;
+					player_ptr->fx = x;
 				}
 				/* Place player in the town */
-				else if (!p_ptr->oldpx && !p_ptr->oldpy)
+				else if (!player_ptr->oldpx && !player_ptr->oldpy)
 				{
-					p_ptr->oldpy = atoi(zz[0]);
-					p_ptr->oldpx = atoi(zz[1]);
+					player_ptr->oldpy = atoi(zz[0]);
+					player_ptr->oldpx = atoi(zz[1]);
 				}
 			}
 		}
@@ -6057,7 +6057,7 @@ errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax)
 		if (bypass) continue;
 
 		/* Process the line */
-		err = process_dungeon_file_aux(buf, ymin, xmin, ymax, xmax, &y, &x);
+		err = process_dungeon_file_aux(p_ptr, buf, ymin, xmin, ymax, xmax, &y, &x);
 
 		/* Oops */
 		if (err) break;
