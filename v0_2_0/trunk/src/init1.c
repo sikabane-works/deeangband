@@ -5239,7 +5239,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 			{
 				monster_level = base_level + monster_index;
 
-				place_monster(*y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+				place_monster(NULL, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 
 				monster_level = base_level;
 			}

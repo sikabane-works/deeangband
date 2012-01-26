@@ -2842,7 +2842,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				case '&':
 				{
 					monster_level = base_level + 5;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 					break;
 				}
@@ -2851,7 +2851,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				case '@':
 				{
 					monster_level = base_level + 11;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 					break;
 				}
@@ -2860,7 +2860,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				case '9':
 				{
 					monster_level = base_level + 9;
-					place_monster(y, x, PM_ALLOW_SLEEP);
+					place_monster(NULL, y, x, PM_ALLOW_SLEEP);
 					monster_level = base_level;
 					object_level = base_level + 7;
 					place_object(y, x, AM_GOOD);
@@ -2872,7 +2872,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				case '8':
 				{
 					monster_level = base_level + 40;
-					place_monster(y, x, PM_ALLOW_SLEEP);
+					place_monster(NULL, y, x, PM_ALLOW_SLEEP);
 					monster_level = base_level;
 					object_level = base_level + 20;
 					place_object(y, x, AM_GOOD | AM_GREAT);
@@ -2886,7 +2886,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 					if (randint0(100) < 50)
 					{
 						monster_level = base_level + 3;
-						place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 						monster_level = base_level;
 					}
 					if (randint0(100) < 50)
@@ -4126,7 +4126,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				{
 					/* Meanest monster + treasure */
 					monster_level = base_level + 40;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 					object_level = base_level + 20;
 					place_object(y, x, AM_GOOD);
@@ -4136,7 +4136,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				{
 					/* Mean monster +treasure */
 					monster_level = base_level + 20;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 					object_level = base_level + 10;
 					place_object(y, x, AM_GOOD);
@@ -4146,7 +4146,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				{
 					/* Monster */
 					monster_level = base_level + 9;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 				}
 				else if (value < 17)
@@ -4176,7 +4176,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				{
 					/* Monster and trap */
 					monster_level = base_level + 5;
-					place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					monster_level = base_level;
 					place_trap(y, x);
 				}
@@ -4186,7 +4186,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					if (randint0(100) < 50)
 					{
 						monster_level = base_level + 3;
-						place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 						monster_level = base_level;
 					}
 					if (randint0(100) < 50)
@@ -4208,7 +4208,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					/* 20% monster, 40% trap, 20% object, 20% blank space */
 					if (randint0(100) < 20)
 					{
-						place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_monster(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					}
 					else if (randint0(100) < 50)
 					{

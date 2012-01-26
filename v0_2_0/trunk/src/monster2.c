@@ -4764,7 +4764,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
  *
  * Attempt to find a monster appropriate to the "monster_level"
  */
-bool place_monster(int y, int x, u32b mode)
+bool place_monster(creature_type *summoner_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
 
@@ -4778,7 +4778,7 @@ bool place_monster(int y, int x, u32b mode)
 	if (!species_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_monster_aux(p_ptr, y, x, species_idx, mode)) return (TRUE);
+	if (place_monster_aux(summoner_ptr, y, x, species_idx, mode)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -4958,7 +4958,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 #endif /* MONSTER_HORDES */
 
 		/* Attempt to place the monster, allow groups */
-		if (place_monster(y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
+		if (place_monster(NULL, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
 
 #ifdef MONSTER_HORDES
 	}
