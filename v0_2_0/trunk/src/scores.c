@@ -775,7 +775,7 @@ msg_print("スコア・ファイルが使用できません。");
  * Race Legends
  * -KMW-
  */
-void race_score(int race_num)
+void race_score(creature_type *player_ptr, int race_num)
 {
 	register int i = 0, j, m = 0;
 	int pr, clev, lastlev;
@@ -847,14 +847,14 @@ msg_print("スコア・ファイルが使用できません。");
 	}
 
 	/* add player if qualified */
-	if ((p_ptr->race_idx1 == race_num) && (p_ptr->lev >= lastlev))
+	if ((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-		     race_info[p_ptr->race_idx1].title,p_ptr->name, p_ptr->lev);
+		     race_info[player_ptr->race_idx1].title,player_ptr->name, player_ptr->lev);
 #else
 		sprintf(out_val, "You) %s the %s (Level %3d)",
-		    p_ptr->name, race_info[p_ptr->race_idx1].title, p_ptr->lev);
+		    player_ptr->name, race_info[player_ptr->race_idx1].title, player_ptr->lev);
 #endif
 
 		prt(out_val, (m + 8), 0);
@@ -875,7 +875,7 @@ void race_legends(void)
 
 	for (i = 0; i < MAX_RACES; i++)
 	{
-		race_score(i);
+		race_score(p_ptr, i);
 #ifdef JP
 msg_print("何かキーを押すとゲームに戻ります");
 #else
