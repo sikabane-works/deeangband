@@ -1166,7 +1166,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 
 
-static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
+static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, int *yp, int *xp,
 	int f_flag, bool (*path_check)(int, int, int, int))
 {
 	int i;
@@ -1180,9 +1180,9 @@ static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
 			                     {-1,  0,  1, -1,  1, -1,  0,  1},
 			                     { 1,  0, -1,  1, -1,  1,  0, -1}};
 
-	if (m_ptr->fy < p_ptr->fy && m_ptr->fx < p_ptr->fx) tonari = 0;
-	else if (m_ptr->fy < p_ptr->fy) tonari = 1;
-	else if (m_ptr->fx < p_ptr->fx) tonari = 2;
+	if (m_ptr->fy < base_ptr->fy && m_ptr->fx < base_ptr->fx) tonari = 0;
+	else if (m_ptr->fy < base_ptr->fy) tonari = 1;
+	else if (m_ptr->fx < base_ptr->fx) tonari = 2;
 	else tonari = 3;
 
 	for (i = 0; i < 8; i++)
@@ -1407,7 +1407,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			}
 		}
 
-		if (!success) success = adjacent_grid_check(caster_ptr, &y, &x, FF_PROJECT, projectable);
+		if (!success) success = adjacent_grid_check(caster_ptr, target_ptr, &y, &x, FF_PROJECT, projectable);
 
 		if (!success)
 		{
