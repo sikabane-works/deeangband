@@ -6835,7 +6835,7 @@ static void center_string(char *buf, cptr str)
  *
  * Should probably attempt some form of locking...
  */
-static void make_bones(void)
+static void make_bones(creature_type *body_ptr)
 {
 	FILE                *fp;
 
@@ -6881,10 +6881,10 @@ static void make_bones(void)
 			if (!fp) return;
 
 			/* Save the info */
-			fprintf(fp, "%s\n", p_ptr->name);
-			fprintf(fp, "%d\n", p_ptr->mhp);
-			fprintf(fp, "%d\n", p_ptr->race_idx1);
-			fprintf(fp, "%d\n", p_ptr->cls_idx);
+			fprintf(fp, "%s\n", body_ptr->name);
+			fprintf(fp, "%d\n", body_ptr->mhp);
+			fprintf(fp, "%d\n", body_ptr->race_idx1);
+			fprintf(fp, "%d\n", body_ptr->cls_idx);
 
 			/* Close and save the Bones file */
 			my_fclose(fp);
@@ -7546,7 +7546,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 		}
 #if 0
 		/* Dump bones file */
-		make_bones();
+		make_bones(player_ptr);
 #endif
 	}
 
