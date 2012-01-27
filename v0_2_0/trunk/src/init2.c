@@ -1125,9 +1125,9 @@ static errr init_rc_info(void)
  */
 static errr init_authority_info(void)
 {
-	int i, r;
+	int r;
 	/* Init the header */
-	init_header(&authority_head, max_authority_idx, sizeof(authority_type));
+	init_header(&authority_head, MAX_AUTHORITIES, sizeof(authority_type));
 
 #ifdef ALLOW_TEMPLATES
 
@@ -1136,10 +1136,7 @@ static errr init_authority_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	r = init_info2("authority_info", &authority_head, (void*)&authority_info, &race_name, &race_text, NULL, NULL);
-
-	for(i = 0; i < MAX_RACES; i++)
-		race_info[i].title = race_name + race_info[i].name;
+	r = init_info2("authority_info", &authority_head, (void*)&authority_info, &authority_name, &authority_text, NULL, NULL);
 
 	return r;
 }
@@ -2129,6 +2126,10 @@ void init_angband(void)
 	// Initialize creature flags
 	note("[Initializing values... (creature flags)]");
 	if (init_creature_flag_csv()) quit("Cannot creature flags");
+
+	// Initialize authority info
+	note("[Initializing arrays... (Authorities)]");
+	if (init_authority_info()) quit("Cannot initialize authorities");
 
 	/* Initialize feature info */
 	note("[Initializing arrays... (features)]");
