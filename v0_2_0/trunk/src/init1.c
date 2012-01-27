@@ -4460,6 +4460,80 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 #define CH_INFO_SEX    19
 
 
+
+
+#define AU_INFO_CSV_COLUMNS 32
+static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
+{
+	"NAME",
+	"E_NAME",
+	"A_STR",
+	"A_INT",
+	"A_WIS",
+	"A_DEX",
+	"A_CON",
+	"A_CHA",
+	"W_STR",
+	"W_INT",
+	"W_WIS",
+	"W_DEX",
+	"W_CON",
+	"W_CHA",
+	"A_DIS",
+	"A_DEV",
+	"A_SAV",
+	"A_STL",
+	"A_SRH",
+	"A_FOS",
+	"A_THN",
+	"A_THB",
+	"A_MHP",
+	"W_DIS",
+	"W_DEV",
+	"W_SAV",
+	"W_STL",
+	"W_SRH",
+	"W_FOS",
+	"W_THN",
+	"W_THB",
+	"W_MHP"
+};
+
+#define AU_INFO_NAME     0
+#define AU_INFO_E_NAME   1
+#define AU_INFO_A_STR    2
+#define AU_INFO_A_INT    3
+#define AU_INFO_A_WIS    4
+#define AU_INFO_A_DEX    5
+#define AU_INFO_A_CON    6
+#define AU_INFO_A_CHA    7
+#define AU_INFO_W_STR    8
+#define AU_INFO_W_INT    9
+#define AU_INFO_W_WIS    10
+#define AU_INFO_W_DEX    11
+#define AU_INFO_W_CON    12
+#define AU_INFO_W_CHA    13
+#define AU_INFO_A_DIS    14
+#define AU_INFO_A_DEV    15
+#define AU_INFO_A_SAV    16
+#define AU_INFO_A_STL    17
+#define AU_INFO_A_SRH    18
+#define AU_INFO_A_FOS    19
+#define AU_INFO_A_THN    20
+#define AU_INFO_A_THB    21
+#define AU_INFO_A_MHP    22
+#define AU_INFO_W_DIS    23
+#define AU_INFO_W_DEV    24
+#define AU_INFO_W_SAV    25
+#define AU_INFO_W_STL    26
+#define AU_INFO_W_SRH    27
+#define AU_INFO_W_FOS    28
+#define AU_INFO_W_THN    29
+#define AU_INFO_W_THB    30
+#define AU_INFO_W_MHP    31
+
+
+
 /*
  * Grab one flag for a dungeon type from a textual string
  */

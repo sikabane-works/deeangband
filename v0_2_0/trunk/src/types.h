@@ -2019,17 +2019,17 @@ typedef struct authority_type {
 	s16b a_thn;			/* Autority to hit (normal) */
 	s16b a_thb;			/* Autority to hit (bows) */
 
-	s16b a_w_dis;		/* Autority disarming */
-	s16b a_w_dev;		/* Autority magic devices */
-	s16b a_w_sav;		/* Autority saving throws */
-	s16b a_w_stl;		/* Autority stealth */
-	s16b a_w_srh;		/* Autority searching ability */
-	s16b a_w_fos;		/* Autority searching frequency */
-	s16b a_w_thn;		/* Autority to hit (normal) */
-	s16b a_w_thb;		/* Autority to hit (bows) */
+	s16b w_dis;		/* Autority disarming */
+	s16b w_dev;		/* Autority magic devices */
+	s16b w_sav;		/* Autority saving throws */
+	s16b w_stl;		/* Autority stealth */
+	s16b w_srh;		/* Autority searching ability */
+	s16b w_fos;		/* Autority searching frequency */
+	s16b w_thn;		/* Autority to hit (normal) */
+	s16b w_thb;		/* Autority to hit (bows) */
 
-	s16b c_mhp;			/* Class hit-dice adjustment */
-	s16b c_w_mhp;		/* Class hit-dice adjustment */
+	s16b a_mhp;		/* Class hit-dice adjustment */
+	s16b w_mhp;		/* Class hit-dice adjustment */
 
 } authority_type;
 
