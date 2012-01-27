@@ -4574,7 +4574,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize RC:%d]", n);
+		sprintf(nt, "[Initialize Authority:%d]", n);
 
 
 		note(nt);
@@ -4588,7 +4588,102 @@ errr parse_authority_info_csv(char *buf, header *head)
 
 			switch(au_info_csv_code[i])
 			{
+			case AU_INFO_NAME:
 
+				if (!strcpy(authority_info[n].title, tmp))
+					return (7);
+				break;
+
+			case AU_INFO_E_NAME:
+#if JP
+				if (!strcpy(authority_info[n].E_title, tmp))
+					return (7);
+#else
+				if (!strcpy(&authority_info[n].title, tmp))
+					return (7);
+#endif
+				break;
+
+			case AU_INFO_A_STR:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_STR] = (s16b)b;
+				break;
+			case AU_INFO_A_INT:
+				break;
+			case AU_INFO_A_WIS:
+				break;
+			case AU_INFO_A_DEX:
+				break;
+			case AU_INFO_A_CON:
+				break;
+			case AU_INFO_A_CHA:
+				break;
+			case AU_INFO_W_STR:
+				break;
+			case AU_INFO_W_INT:
+				break;
+			case AU_INFO_W_WIS:
+				break;
+			case AU_INFO_W_DEX:
+				break;
+			case AU_INFO_W_CON:
+				break;
+			case AU_INFO_W_CHA:
+				break;
+
+			case AU_INFO_A_DIS:
+				break;
+
+			case AU_INFO_A_DEV:
+				break;
+
+			case AU_INFO_A_SAV:
+				break;
+
+			case AU_INFO_A_STL:
+				break;
+
+			case AU_INFO_A_SRH:
+				break;
+
+			case AU_INFO_A_FOS:
+				break;
+
+			case AU_INFO_A_THN:
+				break;
+
+			case AU_INFO_A_THB:
+				break;
+
+			case AU_INFO_A_MHP:
+				break;
+
+			case AU_INFO_W_DIS:
+				break;
+
+			case AU_INFO_W_DEV:
+				break;
+
+			case AU_INFO_W_SAV:
+				break;
+
+			case AU_INFO_W_STL:
+				break;
+
+			case AU_INFO_W_SRH:
+				break;
+
+			case AU_INFO_W_FOS:
+				break;
+
+			case AU_INFO_W_THN:
+				break;
+
+			case AU_INFO_W_THB:
+				break;
+
+			case AU_INFO_W_MHP:
+				break;
 
 			default:
 				return (1);

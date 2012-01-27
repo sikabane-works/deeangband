@@ -2002,10 +2002,10 @@ typedef struct {
 
 typedef struct authority_type {
 
-	cptr title;			/* Type of autority */
+	char title[80];			/* Type of autority */
 
 #ifdef JP
-	cptr E_title;		/* English Name */
+	char E_title[80];		/* English Name */
 #endif
 	s16b a_adj[6];		/* Autority owner modifier */
 	s16b w_adj[6];		/* Worshiper bonus */
