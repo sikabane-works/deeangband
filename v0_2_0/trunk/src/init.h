@@ -129,6 +129,7 @@ extern errr parse_m_info(char *buf, header *head);
 extern errr parse_species_info_csv(char *buf, header *head);
 
 extern errr parse_race_info_csv(char *buf, header *head);
+extern errr parse_authority_info_csv(char *buf, header *head);
 
 extern errr parse_creature_flag_csv(char *buf, header *head);
 extern errr reprocess_creature_flag(header *head);

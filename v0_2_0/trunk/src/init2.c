@@ -301,6 +301,7 @@ header e_head;
 header creature_flag_head;
 header species_head;
 header race_head;
+header authority_head;
 header re_head;
 header st_head;
 header d_head;
@@ -1119,7 +1120,29 @@ static errr init_rc_info(void)
 	return r;
 }
 
+/*
+ * Initialize the "authority_info" array
+ */
+static errr init_authority_info(void)
+{
+	int i, r;
+	/* Init the header */
+	init_header(&authority_head, max_authority_idx, sizeof(authority_type));
 
+#ifdef ALLOW_TEMPLATES
+
+	/* Save a pointer to the parsing function */
+	authority_head.parse_info_txt = parse_authority_info_csv;
+
+#endif /* ALLOW_TEMPLATES */
+
+	r = init_info2("authority_info", &authority_head, (void*)&authority_info, &race_name, &race_text, NULL, NULL);
+
+	for(i = 0; i < MAX_RACES; i++)
+		race_info[i].title = race_name + race_info[i].name;
+
+	return r;
+}
 
 /*
  * Initialize the "d_info" array

@@ -892,6 +892,13 @@ char *stp_name;
 char *stp_text;
 
 /*
+ * The authority arrays
+ */
+authority_type *authority_info;
+char *authority_name;
+char *authority_text;
+
+/*
  * The dungeon arrays
  */
 dungeon_info_type *d_info;
@@ -1121,6 +1128,11 @@ u16b max_monster_ego_idx;
  * Maximum number of monsters in store_pre_info.txt
  */
 u16b max_store_idx;
+
+/*
+ * Maximum number of monsters in authority_info.txt
+ */
+u16b max_authority_idx;
 
 /*
  * Maximum number of items in k_info.txt

@@ -89,7 +89,6 @@ extern player_sex sex_info[MAX_SEXES];
 extern class_type class_info[MAX_CLASS];
 extern magic_type technic_info[NUM_TECHNIC][32];
 extern creature_chara chara_info[MAX_CHARA];
-extern authority_type authority_info[AUTHORITY_MAX];
 extern race_type mimic_info[];
 extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
@@ -496,6 +495,10 @@ extern race_type *race_info;
 extern char *race_name;
 extern char *race_text;
 
+extern authority_type *authority_info;
+extern char *authority_name;
+extern char *authority_text;
+
 extern monster_ego *re_info;
 extern char *re_name;
 extern char *re_text;
@@ -540,6 +543,7 @@ extern u16b max_quests;
 extern u16b max_species_idx;
 extern u16b max_monster_ego_idx;
 extern u16b max_store_idx;
+extern u16b max_authority_idx;
 extern u16b max_k_idx;
 extern u16b max_v_idx;
 extern u16b max_f_idx;
