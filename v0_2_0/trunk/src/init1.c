@@ -4608,81 +4608,150 @@ errr parse_authority_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				authority_info[n].a_adj[STAT_STR] = (s16b)b;
 				break;
+
 			case AU_INFO_A_INT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_INT] = (s16b)b;
 				break;
+
 			case AU_INFO_A_WIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_WIS] = (s16b)b;
 				break;
+
 			case AU_INFO_A_DEX:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_DEX] = (s16b)b;
 				break;
+
 			case AU_INFO_A_CON:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_CON] = (s16b)b;
 				break;
+
 			case AU_INFO_A_CHA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_adj[STAT_CHA] = (s16b)b;
 				break;
+
 			case AU_INFO_W_STR:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_STR] = (s16b)b;
 				break;
+
 			case AU_INFO_W_INT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_INT] = (s16b)b;
 				break;
+
 			case AU_INFO_W_WIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_WIS] = (s16b)b;
 				break;
+
 			case AU_INFO_W_DEX:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_DEX] = (s16b)b;
 				break;
+
 			case AU_INFO_W_CON:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_CON] = (s16b)b;
 				break;
+
 			case AU_INFO_W_CHA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case AU_INFO_A_DIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_dis = (s16b)b;
 				break;
 
 			case AU_INFO_A_DEV:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_dev = (s16b)b;
 				break;
 
 			case AU_INFO_A_SAV:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_sav = (s16b)b;
 				break;
 
 			case AU_INFO_A_STL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_stl = (s16b)b;
 				break;
 
 			case AU_INFO_A_SRH:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_srh = (s16b)b;
 				break;
 
 			case AU_INFO_A_FOS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_fos = (s16b)b;
 				break;
 
 			case AU_INFO_A_THN:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_thn = (s16b)b;
 				break;
 
 			case AU_INFO_A_THB:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_thb = (s16b)b;
 				break;
 
 			case AU_INFO_A_MHP:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].a_mhp = (s16b)b;
 				break;
 
 			case AU_INFO_W_DIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_dis = (s16b)b;
 				break;
 
 			case AU_INFO_W_DEV:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_dev = (s16b)b;
 				break;
 
 			case AU_INFO_W_SAV:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_sav = (s16b)b;
 				break;
 
 			case AU_INFO_W_STL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_stl = (s16b)b;
 				break;
 
 			case AU_INFO_W_SRH:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_srh = (s16b)b;
 				break;
 
 			case AU_INFO_W_FOS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_fos = (s16b)b;
 				break;
 
 			case AU_INFO_W_THN:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_thn = (s16b)b;
 				break;
 
 			case AU_INFO_W_THB:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_thb = (s16b)b;
 				break;
 
 			case AU_INFO_W_MHP:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_mhp = (s16b)b;
 				break;
 
 			default:
