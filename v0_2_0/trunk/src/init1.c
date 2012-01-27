@@ -4462,9 +4462,10 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 
 
 
-#define AU_INFO_CSV_COLUMNS 32
+#define AU_INFO_CSV_COLUMNS 33
 static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 {
+	"ID",
 	"NAME",
 	"E_NAME",
 	"A_STR",
@@ -4499,38 +4500,108 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 	"W_MHP"
 };
 
-#define AU_INFO_NAME     0
-#define AU_INFO_E_NAME   1
-#define AU_INFO_A_STR    2
-#define AU_INFO_A_INT    3
-#define AU_INFO_A_WIS    4
-#define AU_INFO_A_DEX    5
-#define AU_INFO_A_CON    6
-#define AU_INFO_A_CHA    7
-#define AU_INFO_W_STR    8
-#define AU_INFO_W_INT    9
-#define AU_INFO_W_WIS    10
-#define AU_INFO_W_DEX    11
-#define AU_INFO_W_CON    12
-#define AU_INFO_W_CHA    13
-#define AU_INFO_A_DIS    14
-#define AU_INFO_A_DEV    15
-#define AU_INFO_A_SAV    16
-#define AU_INFO_A_STL    17
-#define AU_INFO_A_SRH    18
-#define AU_INFO_A_FOS    19
-#define AU_INFO_A_THN    20
-#define AU_INFO_A_THB    21
-#define AU_INFO_A_MHP    22
-#define AU_INFO_W_DIS    23
-#define AU_INFO_W_DEV    24
-#define AU_INFO_W_SAV    25
-#define AU_INFO_W_STL    26
-#define AU_INFO_W_SRH    27
-#define AU_INFO_W_FOS    28
-#define AU_INFO_W_THN    29
-#define AU_INFO_W_THB    30
-#define AU_INFO_W_MHP    31
+#define AU_INFO_ID       0
+#define AU_INFO_NAME     1
+#define AU_INFO_E_NAME   2
+#define AU_INFO_A_STR    3
+#define AU_INFO_A_INT    4
+#define AU_INFO_A_WIS    5
+#define AU_INFO_A_DEX    6
+#define AU_INFO_A_CON    7
+#define AU_INFO_A_CHA    8
+#define AU_INFO_W_STR    9
+#define AU_INFO_W_INT    10
+#define AU_INFO_W_WIS    11
+#define AU_INFO_W_DEX    12
+#define AU_INFO_W_CON    13
+#define AU_INFO_W_CHA    14
+#define AU_INFO_A_DIS    15
+#define AU_INFO_A_DEV    16
+#define AU_INFO_A_SAV    17
+#define AU_INFO_A_STL    18
+#define AU_INFO_A_SRH    19
+#define AU_INFO_A_FOS    20
+#define AU_INFO_A_THN    21
+#define AU_INFO_A_THB    22
+#define AU_INFO_A_MHP    23
+#define AU_INFO_W_DIS    24
+#define AU_INFO_W_DEV    25
+#define AU_INFO_W_SAV    26
+#define AU_INFO_W_STL    27
+#define AU_INFO_W_SRH    28
+#define AU_INFO_W_FOS    29
+#define AU_INFO_W_THN    30
+#define AU_INFO_W_THB    31
+#define AU_INFO_W_MHP    32
+
+static int au_info_csv_code[AU_INFO_CSV_COLUMNS];
+
+errr parse_authority_info_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, AU_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, au_info_csv_list[0]))
+	{
+		au_info_csv_code[0] = AU_INFO_ID;
+		for(i = 1; i < AU_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < AU_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, au_info_csv_list[j]))
+				{
+					au_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == AU_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize RC:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < AU_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(au_info_csv_code[i])
+			{
+
+
+			default:
+				return (1);
+
+			}
+		}
+		
+	}
+	return (0);
+}
+
+
+
 
 
 
