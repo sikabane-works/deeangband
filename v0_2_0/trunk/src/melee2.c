@@ -199,7 +199,7 @@ void mon_take_hit_mon(creature_type *player_ptr, creature_type *cr_ptr, int dam,
 	bool known = (cr_ptr->cdis <= MAX_SIGHT);
 
 	/* Extract monster name */
-	creature_desc(m_name, cr_ptr, cr_ptr, 0);
+	creature_desc(m_name, cr_ptr, 0);
 
 	/* Redraw (later) if needed */
 	if (cr_ptr->ml)
@@ -275,7 +275,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 
 			if (known)
 			{
-				creature_desc(m_name, cr_ptr, cr_ptr, MD_TRUE_NAME);
+				creature_desc(m_name, cr_ptr, MD_TRUE_NAME);
 				/* Unseen death by normal attack */
 				if (!seen)
 				{
@@ -379,7 +379,7 @@ msg_format("%^sは殺された。", m_name);
 		char m_name[80];
 
 		/* Extract monster name */
-		creature_desc(m_name, cr_ptr, cr_ptr, 0);
+		creature_desc(m_name, cr_ptr, 0);
 
 		if (cr_ptr->chp > cr_ptr->mhp/3) dam = (dam + 1) / 2;
 		if (rakuba(player_ptr, (dam > 200) ? 200 : dam, FALSE))
@@ -1496,7 +1496,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			msg_print("地面に落とされた。");
 #else
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, &creature_list[player_ptr->riding], 0);
+			creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 			msg_format("You have fallen from %s.", m_name);
 #endif
 		}
@@ -1529,7 +1529,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			char m_name[80];
 
 			/* Acquire the monster name */
-			creature_desc(m_name, cr_ptr, nonplayer_ptr, 0);
+			creature_desc(m_name, nonplayer_ptr, 0);
 
 #ifdef JP
 			msg_format("%sは消え去った！", m_name);
@@ -1542,7 +1542,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		{
 			char m_name[80];
 
-			creature_desc(m_name, cr_ptr, nonplayer_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m_name, nonplayer_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, m_name);
 		}
 
@@ -1571,7 +1571,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				char m_name[80];
 
 				/* Acquire the monster name */
-				creature_desc(m_name, cr_ptr, nonplayer_ptr, 0);
+				creature_desc(m_name, nonplayer_ptr, 0);
 
 				/* Oops */
 #ifdef JP
@@ -1611,7 +1611,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if (nonplayer_ptr->chp < nonplayer_ptr->mhp/3)
 		{
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, nonplayer_ptr, 0);
+			creature_desc(m_name, nonplayer_ptr, 0);
 
 			if (is_riding_mon && riding_pinch < 2)
 			{
@@ -1703,7 +1703,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			char m_name[80];
 
 			/* Acquire the monster name */
-			creature_desc(m_name, cr_ptr, nonplayer_ptr, 0);
+			creature_desc(m_name, nonplayer_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -1752,7 +1752,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if (is_pet(player_ptr, nonplayer_ptr) || see_m)
 		{
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, nonplayer_ptr, is_pet(player_ptr, nonplayer_ptr) ? MD_ASSUME_VISIBLE : 0);
+			creature_desc(m_name, nonplayer_ptr, is_pet(player_ptr, nonplayer_ptr) ? MD_ASSUME_VISIBLE : 0);
 #ifdef JP
 			msg_format("%^sは突然敵にまわった！", m_name);
 #else
@@ -1862,7 +1862,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 			/* Acquire the monster name/poss */
 			if (nonplayer_ptr->ml)
-				creature_desc(m_name, cr_ptr, nonplayer_ptr, 0);
+				creature_desc(m_name, nonplayer_ptr, 0);
 			else
 #ifdef JP
 				strcpy(m_name, "それ");
@@ -2613,10 +2613,10 @@ msg_format("%^s%s", m_name, monmessage);
 					}
 
 					/* Acquire the object name */
-					object_desc(player_ptr, o_name, o_ptr, 0);
+					object_desc(o_name, o_ptr, 0);
 
 					/* Acquire the monster name */
-					creature_desc(m_name, cr_ptr, nonplayer_ptr, MD_INDEF_HIDDEN);
+					creature_desc(m_name, nonplayer_ptr, MD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
 					if (do_take && has_cf_creature(nonplayer_ptr, CF_STUPID) && one_in_(3))
@@ -3139,7 +3139,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 						char m_name[80];
 
 						/* Acquire the monster name */
-						creature_desc(m_name, cr_ptr, cr_ptr, 0);
+						creature_desc(m_name, cr_ptr, 0);
 
 						/* Dump a message */
 #ifdef JP
@@ -3224,7 +3224,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	if(vs_player)
 	{
 		char m_name[80];
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 
 		if (who == 1)
 #ifdef JP

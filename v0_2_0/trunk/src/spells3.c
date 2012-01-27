@@ -637,7 +637,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		creature_type *m_ptr = &creature_list[m_idx];
 
 		/* Get the monster name (or "it") */
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 
 		see_m = is_seen(cr_ptr, m_ptr);
 	}
@@ -792,7 +792,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		{
 			char m2_name[80];
 
-			creature_desc(m2_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m2_name, m_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
@@ -1633,7 +1633,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 				if (m_ptr->ml)
 				{
 					/* Acquire the monster name */
-					creature_desc(m_name, cr_ptr, m_ptr, 0);
+					creature_desc(m_name, m_ptr, 0);
 
 					/* Dump a message */
 #ifdef JP

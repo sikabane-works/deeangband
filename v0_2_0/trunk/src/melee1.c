@@ -1054,7 +1054,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						if (object_is_artifact(o_ptr)) continue;
 
 						/* Get a description */
-						object_desc(target_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
+						object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 						/* Message */
 #ifdef JP
@@ -1147,7 +1147,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						if ((o_ptr->tval != TV_FOOD) && !((o_ptr->tval == TV_CORPSE) && (o_ptr->sval))) continue;
 
 						/* Get a description */
-						object_desc(target_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+						object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 						/* Message */
 #ifdef JP

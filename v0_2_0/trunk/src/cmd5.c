@@ -1593,7 +1593,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 			{
 				char m_name[80];
 
-				creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
 			}
 
@@ -1763,7 +1763,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 		}
 		if (!sn)
 		{
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
@@ -1811,7 +1811,7 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 
 	if (cr_ptr->levitation && !force)
 	{
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%sから落ちたが、空中でうまく体勢を立て直して着地した。",m_name);
 #else
@@ -1964,7 +1964,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 		if (m_ptr->paralyzed)
 		{
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 			(void)set_paralyzed(m_ptr, 0);
 #ifdef JP
 			msg_format("%sを起こした。", m_name);
@@ -2039,7 +2039,7 @@ static void do_name_pet(creature_type *master_ptr)
 #endif
 			return;
 		}
-		creature_desc(m_name, cr_ptr, pet_ptr, 0);
+		creature_desc(m_name, pet_ptr, 0);
 
 		/* Message */
 #ifdef JP
@@ -2077,7 +2077,7 @@ static void do_name_pet(creature_type *master_ptr)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, cr_ptr, pet_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
 					do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
 				}
 			}
@@ -2087,7 +2087,7 @@ static void do_name_pet(creature_type *master_ptr)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, cr_ptr, pet_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
 					do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);
 				}
 				pet_ptr->nickname = 0;

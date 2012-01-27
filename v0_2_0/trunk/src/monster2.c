@@ -946,7 +946,7 @@ void compact_monsters(int size)
 			{
 				char m_name[80];
 
-				creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
@@ -1929,7 +1929,7 @@ s16b get_mon_num(int level)
  *    --> Reflexive, genderized if visable ("himself") or "itself"
  *
  */
-void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr, int mode)
+void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 {
 	cptr            res;
 	species_type    *species_ptr;
@@ -1944,7 +1944,7 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 	desc[0] = '\0';
 
 
-	if(is_player(m_ptr))
+	if(is_player(creature_ptr))
 	{
 #ifdef JP
 		(void)strcpy(desc, "あなた");
@@ -1954,10 +1954,10 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 		return;
 	}
 
-	species_ptr = &species_info[m_ptr->ap_species_idx];
+	species_ptr = &species_info[creature_ptr->ap_species_idx];
 
 	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
-	if (mode & MD_TRUE_NAME) name = (species_name + real_species_ptr(m_ptr)->name);
+	if (mode & MD_TRUE_NAME) name = (species_name + real_species_ptr(creature_ptr)->name);
 	else name = (species_name + species_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
@@ -1966,9 +1966,9 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 		if (one_in_(2))
 		{
 #ifdef JP
-			if (!get_rnd_line("silly_j.txt", m_ptr->species_idx, silly_name))
+			if (!get_rnd_line("silly_j.txt", creature_ptr->species_idx, silly_name))
 #else
-			if (!get_rnd_line("silly.txt", m_ptr->species_idx, silly_name))
+			if (!get_rnd_line("silly.txt", creature_ptr->species_idx, silly_name))
 #endif
 
 				named = TRUE;
@@ -1993,10 +1993,10 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 
 
 	/* Can we "see" it (exists + forced, or visible + not unforced) */
-	seen = (m_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && m_ptr->ml)));
+	seen = (creature_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && creature_ptr->ml)));
 
 	/* Sexed Pronouns (seen and allowed, or unseen and allowed) */
-	pron = (m_ptr && ((seen && (mode & MD_PRON_VISIBLE)) || (!seen && (mode & MD_PRON_HIDDEN))));
+	pron = (creature_ptr && ((seen && (mode & MD_PRON_VISIBLE)) || (!seen && (mode & MD_PRON_HIDDEN))));
 
 
 	/* First, try using pronouns, or describing hidden monsters */
@@ -2006,11 +2006,11 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 		int kind = 0x00;
 
 		/* Extract the gender (if applicable) */
-		if (IS_FEMALE(m_ptr)) kind = 0x20;
-		else if (IS_MALE(m_ptr)) kind = 0x10;
+		if (IS_FEMALE(creature_ptr)) kind = 0x20;
+		else if (IS_MALE(creature_ptr)) kind = 0x10;
 
 		/* Ignore the gender (if desired) */
-		if (!m_ptr || !pron) kind = 0x00;
+		if (!creature_ptr || !pron) kind = 0x00;
 
 
 		/* Assume simple result */
@@ -2100,12 +2100,12 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 	{
 		/* The monster is visible, so use its gender */
 #ifdef JP
-		if (IS_FEMALE(m_ptr)) strcpy(desc, "彼女自身");
-		else if (IS_MALE(m_ptr)) strcpy(desc, "彼自身");
+		if (IS_FEMALE(creature_ptr)) strcpy(desc, "彼女自身");
+		else if (IS_MALE(creature_ptr)) strcpy(desc, "彼自身");
 		else strcpy(desc, "それ自身");
 #else
-		if (IS_FEMALE(m_ptr)) strcpy(desc, "herself");
-		else if (IS_MALE(m_ptr)) strcpy(desc, "himself");
+		if (IS_FEMALE(creature_ptr)) strcpy(desc, "herself");
+		else if (IS_MALE(creature_ptr)) strcpy(desc, "himself");
 		else strcpy(desc, "itself");
 #endif
 	}
@@ -2115,7 +2115,7 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 	else
 	{
 		/* Tanuki? */
-		if (is_pet(playespecies_ptr, m_ptr) && !is_original_ap(m_ptr))
+		if (is_pet(playespecies_ptr, creature_ptr) && !is_original_ap(creature_ptr))
 		{
 #ifdef JP
 			char *t;
@@ -2136,10 +2136,10 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 		else
 
 		/* It could be a Unique */
-		if ((is_unique_species(species_ptr)) && !(watcher_ptr->image && !(mode & MD_IGNORE_HALLU)))
+		if ((is_unique_species(species_ptr)) && !(player_ptr->image && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
-			if ((m_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
+			if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
 			{
 #ifdef JP
 				char *t;
@@ -2159,8 +2159,7 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 			}
 
 			/* Inside monster arena, and it is not your mount */
-			else if (inside_battle &&
-				 !(watcher_ptr->riding && (&creature_list[watcher_ptr->riding] == m_ptr)))
+			else if (inside_battle && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
 			{
 				/* It is a fake unique monster */
 #ifdef JP
@@ -2172,10 +2171,10 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 
 			else
 			{
-				if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+				if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 				(void)strcat(desc, species_name + species_ptr->name);
 				if(!(mode & MD_IGNORE_EGO_DESC)
-					) creature_desc_ego_post(desc, m_ptr, species_ptr);
+					) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 			}
 		}
 
@@ -2191,16 +2190,16 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
 
 		/* It could be a normal, definite, monster */
 		else
 		{
 			/* Definite monsters need a definite article */
-			if (is_pet(playespecies_ptr, m_ptr))
+			if (is_pet(playespecies_ptr, creature_ptr))
 #ifdef JP
 				(void)strcpy(desc, "あなたの");
 #else
@@ -2214,24 +2213,24 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, m_ptr, species_ptr);
+			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
 
 
 
-		if (m_ptr->nickname)
+		if (creature_ptr->nickname)
 		{
 #ifdef JP
-			sprintf(buf,"「%s」",quark_str(m_ptr->nickname));
+			sprintf(buf,"「%s」",quark_str(creature_ptr->nickname));
 #else
-			sprintf(buf," called %s",quark_str(m_ptr->nickname));
+			sprintf(buf," called %s",quark_str(creature_ptr->nickname));
 #endif
 			strcat(desc,buf);
 		}
 
-		if (watcher_ptr->riding && (&creature_list[watcher_ptr->riding] == m_ptr))
+		if (player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr))
 		{
 #ifdef JP
 			strcat(desc,"(乗馬中)");
@@ -2240,7 +2239,7 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 #endif
 		}
 
-		if ((mode & MD_IGNORE_HALLU) && (m_ptr->mflag2 & MFLAG2_CHAMELEON))
+		if ((mode & MD_IGNORE_HALLU) && (creature_ptr->mflag2 & MFLAG2_CHAMELEON))
 		{
 			if (is_unique_species(species_ptr))
 			{
@@ -2260,9 +2259,9 @@ void creature_desc(char *desc, creature_type *watcher_ptr, creature_type *m_ptr,
 			}
 		}
 
-		if ((mode & MD_IGNORE_HALLU) && !is_original_ap(m_ptr))
+		if ((mode & MD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
 		{
-			strcat(desc, format("(%s)", species_name + species_info[m_ptr->species_idx].name));
+			strcat(desc, format("(%s)", species_name + species_info[creature_ptr->species_idx].name));
 		}
 
 		/* Handle the Possessive as a special afterthought */
@@ -2487,7 +2486,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		power = r_ptr->level / 2;
 
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 
 		if (!has_cf_creature(m_ptr, CF_UNIQUE))
 		{
@@ -3383,7 +3382,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (m_idx == p_ptr->riding)
 	{
 		char m_name[80];
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
 #else
@@ -4364,7 +4363,7 @@ msg_print("守りのルーンが壊れた！");
 			o_ptr = choose_warning_item(watcher_ptr);
 			if (o_ptr)
 			{
-				object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sは%s光った。", o_name, color);
 #else
@@ -5152,7 +5151,7 @@ void message_pain(int m_idx, int dam)
 
 
 	/* Get the monster name */
-	creature_desc(m_name, cr_ptr, m_ptr, 0);
+	creature_desc(m_name, m_ptr, 0);
 
 	/* Notice non-damage */
 	if (dam == 0)

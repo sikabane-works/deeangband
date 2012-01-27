@@ -1112,7 +1112,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 			char m_name[80];
 
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 
 			if (randint1(r_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
 			{
@@ -1666,7 +1666,7 @@ msg_print("その方向にはモンスターはいません。");
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[m_idx];
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%sを引き戻した。", m_name);
 #else

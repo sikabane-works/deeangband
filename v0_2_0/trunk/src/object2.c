@@ -5508,7 +5508,7 @@ void floor_item_describe(creature_type *creature_type, int item)
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(creature_type, o_name, o_ptr, 0);
+	object_desc(o_name, o_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
@@ -6214,7 +6214,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Describe */
-	object_desc(creature_ptr, o_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
+	object_desc(o_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
 	Term_putstr(0, 0, -1, TERM_WHITE, o_name);
@@ -6667,7 +6667,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 		{
 			object_type *o_ptr = choose_warning_item(player_ptr);
 
-			if (o_ptr) object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			else strcpy(o_name, "‘Ì"); /* Warning ability without item */
 			msg_format("%s‚ª‰s‚­k‚¦‚½I", o_name);
@@ -6691,7 +6691,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	{
 		object_type *o_ptr = choose_warning_item(player_ptr);
 
-		if (o_ptr) object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		else strcpy(o_name, "‘Ì"); /* Warning ability without item */
 		msg_format("%s‚ªk‚¦‚½I", o_name);
@@ -7258,7 +7258,7 @@ static void drain_essence(creature_type *creature_ptr)
 	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
-		object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		if (!get_check(format("–{“–‚É%s‚©‚ç’Šo‚µ‚Ä‚æ‚ë‚µ‚¢‚Å‚·‚©H", o_name))) return;
 #else
@@ -7906,7 +7906,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		return;
 	}
 
-	object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	use_essence = es_ptr->value;
 	if ((o_ptr->tval >= TV_SHOT) && (o_ptr->tval <= TV_BOLT)) use_essence = (use_essence+9)/10;
@@ -8199,7 +8199,7 @@ static void erase_essence(creature_type *creature_ptr)
 		o_ptr = &o_list[0 - item];
 	}
 
-	object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 	if (!get_check(format("‚æ‚ë‚µ‚¢‚Å‚·‚©H [%s]", o_name))) return;
 #else

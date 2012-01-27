@@ -1614,7 +1614,7 @@ note_kill = "ŠD‚É‚È‚Á‚½B";
 			if (known && (o_ptr->marked & OM_FOUND))
 			{
 				obvious = TRUE;
-				object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			}
 
 			/* Artifacts, and other objects, get to resist */
@@ -2133,7 +2133,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		{
 			char m2_name[80];
 
-			creature_desc(m2_name, cr_ptr, target_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m2_name, target_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
@@ -8895,7 +8895,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	{
 		char m_name[80];
 
-		creature_desc(m_name, cr_ptr, &creature_list[player_ptr->riding], 0);
+		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 
 		if (rakubadam_m > 0)
 		{

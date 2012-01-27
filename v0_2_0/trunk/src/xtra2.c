@@ -792,7 +792,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	{
 		char m_name[80];
 
-		creature_desc(m_name, slayer_ptr, killed_ptr, MD_INDEF_VISIBLE);
+		creature_desc(m_name, killed_ptr, MD_INDEF_VISIBLE);
 		do_cmd_write_nikki(NIKKI_NAMED_PET, 3, m_name);
 	}
 
@@ -866,7 +866,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			char m_name[80];
 			
 			/* Extract monster name */
-			creature_desc(m_name, slayer_ptr, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(m_name, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(NIKKI_ARENA, arena_number, m_name);
 		}
@@ -2526,7 +2526,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		boring = FALSE;
 
 		/* Get the monster name ("a kobold") */
-		creature_desc(m_name, cr_ptr, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 		/* Hack -- track this monster race */
 		species_type_track(m_ptr->ap_species_idx);
@@ -3859,7 +3859,7 @@ msg_print("あなたは混乱している。");
 			char m_name[80];
 			creature_type *m_ptr = &creature_list[cr_ptr->riding];
 
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 			if (m_ptr->confused)
 			{
 #ifdef JP

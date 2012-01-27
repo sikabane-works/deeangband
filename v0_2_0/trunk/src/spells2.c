@@ -4684,7 +4684,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		{
 			char m_name[80];
 
-			creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 		}
 
@@ -4696,7 +4696,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		bool see_m = is_seen(user_ptr, m_ptr);
 		char m_name[80];
 
-		creature_desc(m_name, cr_ptr, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 		if (see_m)
 		{
 #ifdef JP
@@ -4944,7 +4944,7 @@ bool probing(void)
 				lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 			}
 			/* Get "the monster" or "something" */
-			creature_desc(m_name, cr_ptr, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
+			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed - 110;
 			if (m_ptr->fast) speed += 10;
@@ -5152,7 +5152,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					{
 						char m_name[80];
 
-						creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+						creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 						do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
 					}
 
@@ -5565,7 +5565,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				creature_type *m_ptr = &creature_list[m_idx];
 
 				/* Get the monster's real name */
-				creature_desc(m_name, cr_ptr, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
 				killer = format("%s‚Ì‹N‚±‚µ‚½’nk", m_name);
@@ -5665,7 +5665,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					}
 
 					/* Describe the monster */
-					creature_desc(m_name, cr_ptr, m_ptr, 0);
+					creature_desc(m_name, m_ptr, 0);
 
 					/* Scream in pain */
 #ifdef JP
@@ -5699,7 +5699,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							{
 								char m2_name[80];
 
-								creature_desc(m2_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+								creature_desc(m2_name, m_ptr, MD_INDEF_VISIBLE);
 								do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_EARTHQUAKE, m2_name);
 							}
 						}
@@ -5906,7 +5906,7 @@ void discharge_minion(creature_type *caster_ptr)
 		if (is_unique_species(r_ptr))
 		{
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, m_ptr, 0x00);
+			creature_desc(m_name, m_ptr, 0x00);
 #ifdef JP
 			msg_format("%s‚Í”š”j‚³‚ê‚é‚Ì‚ğŒ™‚ª‚èAŸè‚É©•ª‚Ì¢ŠE‚Ö‚Æ‹A‚Á‚½B", m_name);
 #else
@@ -5927,7 +5927,7 @@ void discharge_minion(creature_type *caster_ptr)
 		{
 			char m_name[80];
 
-			creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
 		}
 
@@ -6002,7 +6002,7 @@ static void cave_temp_room_lite(void)
 					char m_name[80];
 
 					/* Acquire the monster name */
-					creature_desc(m_name, p_ptr, m_ptr, 0);
+					creature_desc(m_name, m_ptr, 0);
 
 					/* Dump a message */
 #ifdef JP
@@ -7402,7 +7402,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_type *q_ptr = &forge;
 	int y, x;
 	char user_name[80];
-	creature_desc(user_name, user_ptr, user_ptr, 0);
+	creature_desc(user_name, user_ptr, 0);
 
 	if (user_ptr->is_dead) return FALSE;
 	if (user_ptr->confused || user_ptr->blind || user_ptr->paralyzed || user_ptr->image) return FALSE;
@@ -7556,7 +7556,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 			char m_name[80];
 
 			/* Get the monster name (BEFORE polymorphing) */
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("‘f‘‚­%s‚Ì‰ù‚É“ü‚è‚ñ‚¾I", m_name);
 #else

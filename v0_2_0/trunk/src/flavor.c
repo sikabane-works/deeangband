@@ -1235,8 +1235,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
 	u32b flgs[TR_FLAG_SIZE];
 
-	//
-	object_type *bow_ptr;
+	//object_type *bow_ptr;
 
 	object_kind *k_ptr = &k_info[o_ptr->k_idx];
 	object_kind *flavor_k_ptr = &k_info[k_ptr->flavor];

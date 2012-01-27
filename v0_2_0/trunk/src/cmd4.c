@@ -6804,7 +6804,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			q_ptr->ident |= IDENT_STORE;
 
 			/* Describe the artifact */
-			object_desc(owner_ptr, base_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(base_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 		}
 
 		/* Hack -- Build the artifact name */

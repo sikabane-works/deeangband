@@ -2075,7 +2075,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	}
 	else if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
-		object_desc(atk_ptr, weapon_name, o_ptr, OD_NAME_ONLY);
+		object_desc(weapon_name, o_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
 		{
@@ -2969,7 +2969,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 					object_type *q_ptr = &o_list[tar_ptr->hold_o_idx];
 					char o_name[MAX_NLEN];
 
-					object_desc(tar_ptr, o_name, q_ptr, OD_NAME_ONLY);
+					object_desc(o_name, q_ptr, OD_NAME_ONLY);
 					q_ptr->held_m_idx = 0;
 					q_ptr->marked = OM_TOUCHED;
 					tar_ptr->hold_o_idx = q_ptr->next_o_idx;
@@ -3154,12 +3154,12 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	{
 		if (atk_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER)
 		{
-			object_desc(atk_ptr, weapon_name, &atk_ptr->inventory[INVEN_1STARM], (OD_NAME_ONLY));
+			object_desc(weapon_name, &atk_ptr->inventory[INVEN_1STARM], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
 		if (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER)
 		{
-			object_desc(atk_ptr, weapon_name, &atk_ptr->inventory[INVEN_2NDARM], (OD_NAME_ONLY));
+			object_desc(weapon_name, &atk_ptr->inventory[INVEN_2NDARM], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
 		if (stormbringer)
@@ -4053,7 +4053,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			(void)set_paralyzed(m_ptr, 0);
 
 			/* Extract monster name (or "it") */
-			creature_desc(m_name, cr_ptr, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 
 			if (m_ptr->ml)
 			{
@@ -4113,7 +4113,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			char m_name[80];
 
 			/* Acquire the monster name */
-			creature_desc(m_name, cr_ptr, steed_ptr, 0);
+			creature_desc(m_name, steed_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -4176,7 +4176,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		if (oktomove && steed_ptr->stun && one_in_(2))
 		{
 			char m_name[80];
-			creature_desc(m_name, cr_ptr, steed_ptr, 0);
+			creature_desc(m_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ªNO‚Æ‚µ‚Ä‚¢‚Ä‚¤‚Ü‚­“®‚¯‚È‚¢I",m_name);
 #else

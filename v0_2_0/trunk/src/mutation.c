@@ -3764,7 +3764,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					{
 						char m_name[80];
 
-						creature_desc(m_name, cr_ptr, m_ptr, MD_INDEF_VISIBLE);
+						creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 						do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 					}
 
