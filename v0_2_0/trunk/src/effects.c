@@ -4436,7 +4436,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 #endif
 				}
 
-				do_dec_stat(cr_ptr, STAT_CHR);
+				do_dec_stat(cr_ptr, STAT_CHA);
 			}
 		}
 	}
@@ -5163,7 +5163,7 @@ bool do_dec_stat(creature_type *cr_ptr, int stat)
 		case STAT_WIS: if (cr_ptr->sustain_wis) sust = TRUE; break;
 		case STAT_DEX: if (cr_ptr->sustain_dex) sust = TRUE; break;
 		case STAT_CON: if (cr_ptr->sustain_con) sust = TRUE; break;
-		case STAT_CHR: if (cr_ptr->sustain_chr) sust = TRUE; break;
+		case STAT_CHA: if (cr_ptr->sustain_chr) sust = TRUE; break;
 	}
 
 	/* Sustain */
@@ -5530,7 +5530,7 @@ void do_poly_self(creature_type *cr_ptr)
 			}
 
 			/* Deformities are discriminated against! */
-			(void)dec_stat(cr_ptr, STAT_CHR, randint1(6), TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHA, randint1(6), TRUE);
 
 			if (effect_msg[0])
 			{

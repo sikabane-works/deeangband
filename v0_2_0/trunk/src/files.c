@@ -3746,7 +3746,7 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 				if (has_cf_creature(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
-			else if (stat == STAT_CHR)
+			else if (stat == STAT_CHA)
 			{
 				if (has_cf_creature(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
 				if (has_cf_creature(cr_ptr, CF_BLANK_FAC)) dummy -= 1;

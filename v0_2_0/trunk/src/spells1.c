@@ -3492,14 +3492,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							case 3: k = STAT_WIS; act = "Œ«–¾‚³"; break;
 							case 4: k = STAT_DEX; act = "Ší—p‚³"; break;
 							case 5: k = STAT_CON; act = "Šæä‚³"; break;
-							case 6: k = STAT_CHR; act = "”ü‚µ‚³"; break;
+							case 6: k = STAT_CHA; act = "”ü‚µ‚³"; break;
 #else
 							case 1: k = STAT_STR; act = "strong"; break;
 							case 2: k = STAT_INT; act = "bright"; break;
 							case 3: k = STAT_WIS; act = "wise"; break;
 							case 4: k = STAT_DEX; act = "agile"; break;
 							case 5: k = STAT_CON; act = "hale"; break;
-							case 6: k = STAT_CHR; act = "beautiful"; break;
+							case 6: k = STAT_CHA; act = "beautiful"; break;
 #endif
 						}
 
@@ -5620,7 +5620,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 		case GF_CHARM:
 		{
 			int vir;
-			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHR]] - 1);
+			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
 
 			// TODO: Add Karma of Fortune feature.
 			vir = 0;
@@ -5952,7 +5952,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 			vir = 0;
 			if (seen) obvious = TRUE;
 
-			dam += (adj_chr_chm[caster_ptr->stat_ind[STAT_CHR]]);
+			dam += (adj_chr_chm[caster_ptr->stat_ind[STAT_CHA]]);
 			vir = 0;
 			if (vir)
 			{

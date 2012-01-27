@@ -4828,7 +4828,7 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		if (do_res_stat(cr_ptr, STAT_WIS)) paid = TRUE;
 		if (do_res_stat(cr_ptr, STAT_DEX)) paid = TRUE;
 		if (do_res_stat(cr_ptr, STAT_CON)) paid = TRUE;
-		if (do_res_stat(cr_ptr, STAT_CHR)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_CHA)) paid = TRUE;
 		break;
 	case BACT_ENCHANT_ARROWS:
 		//TODO item_tester_hook = item_tester_hook_ammo;

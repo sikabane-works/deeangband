@@ -3573,7 +3573,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS];
 			cr_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX];
 			cr_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON];
-			cr_ptr->stat_add[STAT_CHR] += creature_flag_info[i].adj[STAT_CHR];
+			cr_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA];
 
 			cr_ptr->skill_dis += creature_flag_info[i].dis;
 			cr_ptr->skill_dev += creature_flag_info[i].dev;
@@ -3620,14 +3620,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (has_cf_creature(cr_ptr, CF_WART_SKIN))
 		{
-			cr_ptr->stat_add[STAT_CHR] -= 2;
+			cr_ptr->stat_add[STAT_CHA] -= 2;
 			cr_ptr->to_a += 5;
 			cr_ptr->dis_to_a += 5;
 		}
 
 		if (has_cf_creature(cr_ptr, CF_SCALES))
 		{
-			cr_ptr->stat_add[STAT_CHR] -= 1;
+			cr_ptr->stat_add[STAT_CHA] -= 1;
 			cr_ptr->to_a += 10;
 			cr_ptr->dis_to_a += 10;
 		}
@@ -3677,7 +3677,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (has_cf_creature(cr_ptr, CF_ILL_NORM))
 		{
-			cr_ptr->stat_add[STAT_CHR] = 0;
+			cr_ptr->stat_add[STAT_CHA] = 0;
 		}
 	}
 
@@ -3713,7 +3713,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_WIS)) cr_ptr->stat_add[STAT_WIS] += o_ptr->pval;
 		if (have_flag(flgs, TR_DEX)) cr_ptr->stat_add[STAT_DEX] += o_ptr->pval;
 		if (have_flag(flgs, TR_CON)) cr_ptr->stat_add[STAT_CON] += o_ptr->pval;
-		if (have_flag(flgs, TR_CHR)) cr_ptr->stat_add[STAT_CHR] += o_ptr->pval;
+		if (have_flag(flgs, TR_CHR)) cr_ptr->stat_add[STAT_CHA] += o_ptr->pval;
 
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    cr_ptr->skill_dev += 8*o_ptr->pval;
 
@@ -4265,7 +4265,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Extract the new "stat_use" value for the stat */
 		use = modify_stat_value(cr_ptr->stat_cur[i], cr_ptr->stat_add[i]);
 
-		if ((i == STAT_CHR) && (has_cf_creature(cr_ptr, CF_ILL_NORM)))
+		if ((i == STAT_CHA) && (has_cf_creature(cr_ptr, CF_ILL_NORM)))
 		{
 			/* 10 to 18/90 charisma, guaranteed, based on level */
 			if (use < 8 + 2 * cr_ptr->lev)
@@ -4328,9 +4328,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Change in WIS may affect Mana/Spells */
-			else if (i == STAT_CHR)
+			else if (i == STAT_CHA)
 			{
-				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHR)
+				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHA)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -5304,7 +5304,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Affect Skill -- saving throw (WIS) */
 	cr_ptr->skill_rob += (adj_sav[cr_ptr->stat_ind[STAT_STR]] + adj_sav[cr_ptr->stat_ind[STAT_CON]]);
 	cr_ptr->skill_eva += (adj_sav[cr_ptr->stat_ind[STAT_INT]] + adj_sav[cr_ptr->stat_ind[STAT_DEX]]);
-	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[STAT_WIS]] + adj_sav[cr_ptr->stat_ind[STAT_CHR]]);
+	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[STAT_WIS]] + adj_sav[cr_ptr->stat_ind[STAT_CHA]]);
 
 	/* Affect Skill -- digging (STR) */
 	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[STAT_STR]];
@@ -5928,7 +5928,7 @@ void redraw_stuff(creature_type *cr_ptr)
 		prt_stat(cr_ptr, STAT_WIS);
 		prt_stat(cr_ptr, STAT_DEX);
 		prt_stat(cr_ptr, STAT_CON);
-		prt_stat(cr_ptr, STAT_CHR);
+		prt_stat(cr_ptr, STAT_CHA);
 	}
 
 	if (play_redraw & (PR_STATUS))

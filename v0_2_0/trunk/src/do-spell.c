@@ -1798,7 +1798,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 				do_res_stat(cr_ptr, STAT_WIS);
 				do_res_stat(cr_ptr, STAT_DEX);
 				do_res_stat(cr_ptr, STAT_CON);
-				do_res_stat(cr_ptr, STAT_CHR);
+				do_res_stat(cr_ptr, STAT_CHA);
 				restore_level(cr_ptr);
 			}
 		}
@@ -10069,7 +10069,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				(void)do_res_stat(cr_ptr, STAT_WIS);
 				(void)do_res_stat(cr_ptr, STAT_DEX);
 				(void)do_res_stat(cr_ptr, STAT_CON);
-				(void)do_res_stat(cr_ptr, STAT_CHR);
+				(void)do_res_stat(cr_ptr, STAT_CHA);
 				(void)restore_level(cr_ptr);
 			}
 		}

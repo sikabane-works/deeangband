@@ -1620,7 +1620,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				(void)do_res_stat(cr_ptr, STAT_WIS);
 				(void)do_res_stat(cr_ptr, STAT_DEX);
 				(void)do_res_stat(cr_ptr, STAT_CON);
-				(void)do_res_stat(cr_ptr, STAT_CHR);
+				(void)do_res_stat(cr_ptr, STAT_CHA);
 				(void)restore_level(cr_ptr);
 			}
 			break;
@@ -3372,7 +3372,7 @@ strcpy(power_desc[num].name, "ê∂ï®éxîz");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = (cr_ptr->lev+3)/4;
-		power_desc[num].stat = STAT_CHR;
+		power_desc[num].stat = STAT_CHA;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 	}
@@ -3388,7 +3388,7 @@ strcpy(power_desc[num].name, "ê^ÅEê∂ï®éxîz");
 
 		power_desc[num].level = 30;
 		power_desc[num].cost = (cr_ptr->lev+20)/2;
-		power_desc[num].stat = STAT_CHR;
+		power_desc[num].stat = STAT_CHA;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
 	}
@@ -3433,7 +3433,7 @@ strcpy(power_desc[num].name, "âÃÇé~ÇﬂÇÈ");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = STAT_CHR;
+		power_desc[num].stat = STAT_CHA;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 	}
@@ -3813,7 +3813,7 @@ strcpy(power_desc[num].name, "â°Ç…êLÇ—ÇÈ");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = STAT_CHR;
+			power_desc[num].stat = STAT_CHA;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
 	}
@@ -3920,7 +3920,7 @@ strcpy(power_desc[num].name, "ç√ñ∞·…Ç›");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = STAT_CHR;
+			power_desc[num].stat = STAT_CHA;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = CF_HYPN_GAZE;
 		}
@@ -4250,7 +4250,7 @@ strcpy(power_desc[num].name, "ï˙éÀî\");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 23;
-			power_desc[num].stat = STAT_CHR;
+			power_desc[num].stat = STAT_CHA;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = CF_STERILITY;
 		}
@@ -4280,7 +4280,7 @@ strcpy(power_desc[num].name, "ï˙éÀî\");
 
 			power_desc[num].level = 7;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = STAT_CHR;
+			power_desc[num].stat = STAT_CHA;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = CF_DAZZLE;
 		}

@@ -1524,7 +1524,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(target_ptr, STAT_CHR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
 
 					break;
 				}
@@ -1542,7 +1542,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
 					if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
 					if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
-					if (do_dec_stat(target_ptr, STAT_CHR)) obvious = TRUE;
+					if (do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
 
 					break;
 				}
@@ -1698,14 +1698,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 									case STAT_WIS: act = "å´ñæÇ≈"; break;
 									case STAT_DEX: act = "äÌópÇ≈"; break;
 									case STAT_CON: act = "åíçNÇ≈"; break;
-									case STAT_CHR: act = "î¸ÇµÇ≠"; break;
+									case STAT_CHA: act = "î¸ÇµÇ≠"; break;
 #else
 									case STAT_STR: act = "strong"; break;
 									case STAT_INT: act = "bright"; break;
 									case STAT_WIS: act = "wise"; break;
 									case STAT_DEX: act = "agile"; break;
 									case STAT_CON: act = "hale"; break;
-									case STAT_CHR: act = "beautiful"; break;
+									case STAT_CHA: act = "beautiful"; break;
 #endif
 
 								}

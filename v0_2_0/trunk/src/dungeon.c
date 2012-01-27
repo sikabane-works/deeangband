@@ -862,7 +862,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		(void)do_res_stat(cr_ptr, STAT_WIS);
 		(void)do_res_stat(cr_ptr, STAT_DEX);
 		(void)do_res_stat(cr_ptr, STAT_CON);
-		(void)do_res_stat(cr_ptr, STAT_CHR);
+		(void)do_res_stat(cr_ptr, STAT_CHA);
 		(void)restore_level(cr_ptr);
 		(void)hp_player(cr_ptr, 1000);
 
@@ -2747,7 +2747,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		case STAT_CON:
 			if (cr_ptr->sustain_con) sustained = TRUE;
 			break;
-		case STAT_CHR:
+		case STAT_CHA:
 			if (cr_ptr->sustain_chr) sustained = TRUE;
 			break;
 		default:

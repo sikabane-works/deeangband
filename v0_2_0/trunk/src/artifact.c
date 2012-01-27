@@ -2655,7 +2655,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			(void)do_res_stat(cr_ptr, STAT_WIS);
 			(void)do_res_stat(cr_ptr, STAT_DEX);
 			(void)do_res_stat(cr_ptr, STAT_CON);
-			(void)do_res_stat(cr_ptr, STAT_CHR);
+			(void)do_res_stat(cr_ptr, STAT_CHA);
 			(void)restore_level(cr_ptr);
 			o_ptr->timeout = 750;
 			break;

@@ -290,7 +290,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 				if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 				if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
-				if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 				break;
 			}
 
@@ -940,7 +940,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)dec_stat(cr_ptr, STAT_WIS, 25, TRUE);
 			(void)dec_stat(cr_ptr, STAT_CON, 25, TRUE);
 			(void)dec_stat(cr_ptr, STAT_STR, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CHR, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHA, 25, TRUE);
 			(void)dec_stat(cr_ptr, STAT_INT, 25, TRUE);
 			ident = TRUE;
 			break;
@@ -966,7 +966,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_DEC_CHR:
-			if (do_dec_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_DETONATIONS:
@@ -1122,7 +1122,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)do_res_stat(cr_ptr, STAT_DEX);
 			(void)do_res_stat(cr_ptr, STAT_WIS);
 			(void)do_res_stat(cr_ptr, STAT_INT);
-			(void)do_res_stat(cr_ptr, STAT_CHR);
+			(void)do_res_stat(cr_ptr, STAT_CHA);
 			(void)set_shero(cr_ptr, 0,TRUE);
 			update_stuff(cr_ptr, TRUE);
 			hp_player(cr_ptr, 5000);
@@ -1195,7 +1195,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_RES_CHR:
-			if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_STR:
@@ -1219,7 +1219,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_INC_CHR:
-			if (do_inc_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_AUGMENTATION:
@@ -1228,7 +1228,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (do_inc_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 			if (do_inc_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 			if (do_inc_stat(cr_ptr, STAT_CON)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_ENLIGHTENMENT:
@@ -3410,7 +3410,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 			if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 			if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 			if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CHA)) ident = TRUE;
 			break;
 		}
 
@@ -3797,7 +3797,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 			(void)dec_stat(cr_ptr, STAT_WIS, 50, TRUE);
 			(void)dec_stat(cr_ptr, STAT_DEX, 50, TRUE);
 			(void)dec_stat(cr_ptr, STAT_CON, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CHR, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHA, 50, TRUE);
 
 			/* Lose some experience (permanently) */
 			cr_ptr->exp -= (cr_ptr->exp / 4);
@@ -5650,7 +5650,7 @@ msg_print("‚ ‚È‚½‚Ì‘„‚Í“d‹C‚ÅƒXƒp[ƒN‚µ‚Ä‚¢‚é...");
 				(void)do_res_stat(cr_ptr, STAT_WIS);
 				(void)do_res_stat(cr_ptr, STAT_DEX);
 				(void)do_res_stat(cr_ptr, STAT_CON);
-				(void)do_res_stat(cr_ptr, STAT_CHR);
+				(void)do_res_stat(cr_ptr, STAT_CHA);
 				(void)restore_level(cr_ptr);
 				o_ptr->timeout = 750;
 				break;

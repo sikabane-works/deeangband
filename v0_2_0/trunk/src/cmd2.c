@@ -793,7 +793,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 					(void)do_dec_stat(cr_ptr, STAT_CON);
 					(void)do_dec_stat(cr_ptr, STAT_INT);
 					(void)do_dec_stat(cr_ptr, STAT_WIS);
-					(void)do_dec_stat(cr_ptr, STAT_CHR);
+					(void)do_dec_stat(cr_ptr, STAT_CHA);
 				}
 				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
 			}

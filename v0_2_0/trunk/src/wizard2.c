@@ -1410,7 +1410,7 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 	(void)res_stat(cr_ptr, STAT_WIS);
 	(void)res_stat(cr_ptr, STAT_CON);
 	(void)res_stat(cr_ptr, STAT_DEX);
-	(void)res_stat(cr_ptr, STAT_CHR);
+	(void)res_stat(cr_ptr, STAT_CHA);
 
 	/* Restore the level */
 	(void)restore_level(cr_ptr);

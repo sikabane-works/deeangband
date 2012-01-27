@@ -4987,7 +4987,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	{
 		if ((!(double_resist || cr_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(cr_ptr, STAT_CHR);
+			(void)do_dec_stat(cr_ptr, STAT_CHA);
 
 		/* If any armor gets hit, defend the player */
 		if (minus_ac(cr_ptr)) dam = (dam + 1) / 2;

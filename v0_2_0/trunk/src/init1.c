@@ -1316,7 +1316,7 @@ errr parse_m_info(char *buf, header *head)
 		else if (streq(stat, "WIS")) m_ptr->spell_stat = STAT_WIS;
 		else if (streq(stat, "DEX")) m_ptr->spell_stat = STAT_DEX;
 		else if (streq(stat, "CON")) m_ptr->spell_stat = STAT_CON;
-		else if (streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHR;
+		else if (streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHA;
 		else return (5);
 
 
@@ -3068,8 +3068,8 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_CHR] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_CHR] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_CHA] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_CHA] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_M_HB:
@@ -3392,7 +3392,7 @@ errr parse_re_info(char *buf, header *head)
 		re_ptr->stat[STAT_WIS] = k[2];
 		re_ptr->stat[STAT_DEX] = k[3];
 		re_ptr->stat[STAT_CON] = k[4];
-		re_ptr->stat[STAT_CHR] = k[5];
+		re_ptr->stat[STAT_CHA] = k[5];
 
 	}
 
@@ -3717,7 +3717,7 @@ errr parse_creature_flag_csv(char *buf, header *head)
 
 				case CF_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_CHR] = (s16b)b;
+					creature_flag_info[n].adj[STAT_CHA] = (s16b)b;
 				break;
 
 				case CF_INFO_DIS:
@@ -4081,7 +4081,7 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_CHR] = (s16b)b;
+				race_info[n].r_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_H_STR:
@@ -4111,7 +4111,7 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_H_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_CHR] = (s16b)b;
+				race_info[n].r_s_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DIS:

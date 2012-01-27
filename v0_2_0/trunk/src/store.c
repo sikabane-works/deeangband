@@ -1452,7 +1452,7 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
 	factor = 100;
 
 	/* Add in the charisma factor */
-	factor += adj_chr_gold[cr_ptr->stat_ind[STAT_CHR]];
+	factor += adj_chr_gold[cr_ptr->stat_ind[STAT_CHA]];
 
 
 	/* Shop is buying */

@@ -2334,7 +2334,7 @@ bool has_status(creature_type *creature_ptr, int stat)
 			return TRUE;
 			break;
 
-		case STAT_CHR:
+		case STAT_CHA:
 			if(has_cf_creature(creature_ptr, CF_EMPTY_MIND)) return FALSE;
 			if(has_cf_creature(creature_ptr, CF_WEIRD_MIND)) return FALSE;
 			return TRUE;

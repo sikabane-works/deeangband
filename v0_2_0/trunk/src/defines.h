@@ -788,7 +788,7 @@
 #define STAT_WIS   2
 #define STAT_DEX   3
 #define STAT_CON   4
-#define STAT_CHR   5
+#define STAT_CHA   5
 #define STAT_MAX   6
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
