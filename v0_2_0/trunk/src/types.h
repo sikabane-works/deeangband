@@ -2007,8 +2007,8 @@ typedef struct authority_type {
 #ifdef JP
 	cptr E_title;		/* English Name */
 #endif
-	s16b c_adj[6];		/* Autority owner modifier */
-	s16b c_adj_b[6];	/* Worshiper bonus */
+	s16b a_adj[6];		/* Autority owner modifier */
+	s16b w_adj[6];		/* Worshiper bonus */
 
 	s16b a_dis;			/* Autority disarming */
 	s16b a_dev;			/* Autority magic devices */
@@ -2018,17 +2018,18 @@ typedef struct authority_type {
 	s16b a_fos;			/* Autority searching frequency */
 	s16b a_thn;			/* Autority to hit (normal) */
 	s16b a_thb;			/* Autority to hit (bows) */
-	s16b a_w_dis;			/* Autority disarming */
-	s16b a_w_dev;			/* Autority magic devices */
-	s16b a_w_sav;			/* Autority saving throws */
-	s16b a_w_stl;			/* Autority stealth */
-	s16b a_w_srh;			/* Autority searching ability */
-	s16b a_w_fos;			/* Autority searching frequency */
-	s16b a_w_thn;			/* Autority to hit (normal) */
-	s16b a_w_thb;			/* Autority to hit (bows) */
+
+	s16b a_w_dis;		/* Autority disarming */
+	s16b a_w_dev;		/* Autority magic devices */
+	s16b a_w_sav;		/* Autority saving throws */
+	s16b a_w_stl;		/* Autority stealth */
+	s16b a_w_srh;		/* Autority searching ability */
+	s16b a_w_fos;		/* Autority searching frequency */
+	s16b a_w_thn;		/* Autority to hit (normal) */
+	s16b a_w_thb;		/* Autority to hit (bows) */
 
 	s16b c_mhp;			/* Class hit-dice adjustment */
-	s16b c_w_mhp;			/* Class hit-dice adjustment */
+	s16b c_w_mhp;		/* Class hit-dice adjustment */
 
 } authority_type;
 
