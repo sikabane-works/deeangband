@@ -2007,6 +2007,11 @@ typedef struct authority_type {
 #ifdef JP
 	char E_title[80];		/* English Name */
 #endif
+
+	char id_e[80];
+	byte rank;
+	s16b dv;
+	s16b cp;
 	s16b a_adj[6];		/* Autority owner modifier */
 	s16b w_adj[6];		/* Worshiper bonus */
 

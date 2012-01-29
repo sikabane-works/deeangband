@@ -4462,7 +4462,7 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 
 
 
-#define AU_INFO_CSV_COLUMNS 33
+#define AU_INFO_CSV_COLUMNS 37
 static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4497,7 +4497,11 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 	"W_FOS",
 	"W_THN",
 	"W_THB",
-	"W_MHP"
+	"W_MHP",
+	"RANK",
+    "ID_E",
+    "DR",
+    "CAP",
 };
 
 #define AU_INFO_ID       0
@@ -4533,6 +4537,11 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 #define AU_INFO_W_THN    30
 #define AU_INFO_W_THB    31
 #define AU_INFO_W_MHP    32
+#define AU_INFO_RANK     33
+#define AU_INFO_ID_E     34
+#define AU_INFO_DV       35
+#define AU_INFO_CP       36
+
 
 static int au_info_csv_code[AU_INFO_CSV_COLUMNS];
 
@@ -4752,6 +4761,18 @@ errr parse_authority_info_csv(char *buf, header *head)
 			case AU_INFO_W_MHP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				authority_info[n].w_mhp = (s16b)b;
+				break;
+
+			case AU_INFO_RANK:
+				break;
+
+			case AU_INFO_ID_E:
+				break;
+
+			case AU_INFO_DV:
+				break;
+
+			case AU_INFO_CP:
 				break;
 
 			default:
