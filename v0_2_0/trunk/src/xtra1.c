@@ -6066,14 +6066,14 @@ void window_stuff(void)
 	if (play_window & (PW_INVEN))
 	{
 		play_window &= ~(PW_INVEN);
-		fix_inven(p_ptr);
+		fix_inven(player_ptr);
 	}
 
 	/* Display equipment */
 	if (play_window & (PW_EQUIP))
 	{
 		play_window &= ~(PW_EQUIP);
-		fix_equip(p_ptr);
+		fix_equip(player_ptr);
 	}
 
 	/* Display spell list */
@@ -6087,7 +6087,7 @@ void window_stuff(void)
 	if (play_window & (PW_PLAYER))
 	{
 		play_window &= ~(PW_PLAYER);
-		fix_player(p_ptr);
+		fix_player(player_ptr);
 	}
 
 	/* Display overhead view */
@@ -6108,21 +6108,21 @@ void window_stuff(void)
 	if (play_window & (PW_DUNGEON))
 	{
 		play_window &= ~(PW_DUNGEON);
-		fix_dungeon(p_ptr);
+		fix_dungeon(player_ptr);
 	}
 
 	/* Display monster recall */
 	if (play_window & (PW_MONSTER))
 	{
 		play_window &= ~(PW_MONSTER);
-		fix_monster(p_ptr);
+		fix_monster(player_ptr);
 	}
 
 	/* Display object recall */
 	if (play_window & (PW_OBJECT))
 	{
 		play_window &= ~(PW_OBJECT);
-		fix_object(p_ptr);
+		fix_object(player_ptr);
 	}
 }
 
