@@ -4433,7 +4433,7 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 
 
 
-#define AU_INFO_CSV_COLUMNS 37
+#define AU_INFO_CSV_COLUMNS 38
 static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4473,6 +4473,7 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
     "ID_E",
     "DR",
     "CAP",
+    "FLAGS",
 };
 
 #define AU_INFO_ID       0
@@ -4512,6 +4513,7 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 #define AU_INFO_ID_E     34
 #define AU_INFO_DV       35
 #define AU_INFO_CP       36
+#define AU_INFO_FLAGS    37
 
 
 static int au_info_csv_code[AU_INFO_CSV_COLUMNS];
@@ -4752,6 +4754,9 @@ errr parse_authority_info_csv(char *buf, header *head)
 			case AU_INFO_CP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				authority_info[n].cp = (s16b)b;
+				break;
+
+			case AU_INFO_FLAGS:
 				break;
 
 			default:
