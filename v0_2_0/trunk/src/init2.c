@@ -1127,7 +1127,7 @@ static errr init_authority_info(void)
 {
 	int r;
 	/* Init the header */
-	init_header(&authority_head, MAX_AUTHORITIES, sizeof(authority_type));
+	init_header(&authority_head, max_authorities_idx, sizeof(authority_type));
 
 #ifdef ALLOW_TEMPLATES
 

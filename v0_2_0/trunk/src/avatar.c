@@ -310,7 +310,7 @@ void authority_desc(char *tmp, creature_type *cr_ptr)
 	/* Authority */
 	tmp[0] = '\0';
 
-	for(i = 0; i < MAX_AUTHORITIES; i++)
+	for(i = 0; i < max_authorities_idx; i++)
 	{
 		if(cr_ptr->authority[i / 32] & (0x0001 << (i % 32)))
 		{

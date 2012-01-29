@@ -1179,10 +1179,14 @@ u16b max_creature_flag_idx;
 u16b max_m_idx;
 
 /*
- * Maximum number of monsters in the world
+ * Maximum number of store pre info in the world
  */
 u16b max_st_idx;
 
+//
+// Maximum number of authorities
+//
+u16b max_authorities_idx;
 
 /*
  * Maximum number of uniques in the world

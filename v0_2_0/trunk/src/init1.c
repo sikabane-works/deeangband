@@ -2676,7 +2676,7 @@ static int grab_one_authority_flag(species_type *r_ptr, cptr what)
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < MAX_AUTHORITIES; i++)
+	for (i = 0; i < max_authorities_idx; i++)
 	{
 		if (streq(what, authority_info[i].id_e))
 		{
@@ -5906,7 +5906,15 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 			/* Maximum a_idx */
 			else if (zz[0][0] == 'A')
 			{
-				max_a_idx = atoi(zz[1]);
+				/* Maximum species_idx */
+				if (zz[0][1] == 'U')
+				{
+					max_authorities_idx = atoi(zz[1]);
+				}
+				else
+				{
+					max_a_idx = atoi(zz[1]);
+				}
 			}
 
 			/* Maximum e_idx */
@@ -5950,7 +5958,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 					max_wild_y = atoi(zz[1]);
 			}
 
-						/* Maximum species_idx */
+			/* Maximum species_idx */
 			else if (zz[0][0] == 'S')
 			{
 				/* Maximum species_idx */

@@ -543,7 +543,7 @@ extern u16b max_quests;
 extern u16b max_species_idx;
 extern u16b max_monster_ego_idx;
 extern u16b max_store_idx;
-extern u16b max_authority_idx;
+extern u16b max_authorities_idx;
 extern u16b max_k_idx;
 extern u16b max_v_idx;
 extern u16b max_f_idx;

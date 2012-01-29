@@ -12,17 +12,20 @@ M:WX:240
 # Maximum y size of the wilderness
 M:WY:161
 
-# Maximum number of monsters in creature_flags.csv
+# Maximum number of creature_flags_info.csv
 M:C:607
 
-# Maximum number of monsters in r_info.txt
+# Maximum number of species_info.txt
 M:R:1438
 
-# Maximum number of monsters in re_info.txt
+# Maximum number of re_info.txt
 M:RE:18
 
-# Maximum number of monsters in st_info.txt
+# Maximum number of store in st_info.csv
 M:ST:52
+
+# Maximum number of authorities in authority_info.csv
+M:AU:44
 
 # Maximum number of items in k_info.txt
 M:K:690
