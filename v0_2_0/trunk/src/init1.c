@@ -4736,7 +4736,8 @@ errr parse_authority_info_csv(char *buf, header *head)
 
 			case AU_INFO_RANK:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				authority_info[n].w_mhp = (s16b)b;
+				authority_info[n].rank = (byte
+					)b;
 				break;
 
 			case AU_INFO_ID_E:
