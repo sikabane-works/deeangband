@@ -4764,15 +4764,23 @@ errr parse_authority_info_csv(char *buf, header *head)
 				break;
 
 			case AU_INFO_RANK:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].w_mhp = (s16b)b;
 				break;
 
 			case AU_INFO_ID_E:
+				if (!strcpy(authority_info[n].id_e, tmp))
+					return (7);
 				break;
 
 			case AU_INFO_DV:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].dv = (s16b)b;
 				break;
 
 			case AU_INFO_CP:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				authority_info[n].cp = (s16b)b;
 				break;
 
 			default:
