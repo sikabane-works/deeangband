@@ -5222,6 +5222,13 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	strcpy(creature_ptr->name, species_name + species_ptr->name);
 
 
+	// Authority is statics
+	for(i = 0; i < 8; i++)
+	{
+		creature_ptr->authority[i] = species_ptr->authority[i];
+	}
+
+
 	// Race Select
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE)
