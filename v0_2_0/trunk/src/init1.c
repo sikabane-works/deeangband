@@ -485,37 +485,7 @@ static cptr f_info_flags[] =
 /*
  * Monster authority flags
  */
-static cptr species_info_auth1[] =
-{
-	"FIRE1",
-	"FIRE2",
-	"FIRE3",
-	"FIRE4",
-	"WATER1",
-	"WATER2",
-	"WATER3",
-	"WATER4",
-	"EARTH1",
-	"EARTH2",
-	"EARTH3",
-	"EARTH4",
-	"WIND1",
-	"WIND2",
-	"WIND3",
-	"WIND4",
-	"LIGHT1",
-	"LIGHT2",
-	"LIGHT3",
-	"DARK1",
-	"DARK2",
-	"DARK3",
-	"ORDER1",
-	"ORDER2",
-	"ORDER3",
-	"CHAOS1",
-	"CHAOS2",
-	"CHAOS3",
-};
+static cptr authority_str_id;
 
 /*
  * Object flags
@@ -2701,20 +2671,20 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 /*
  * Grab one (spell) flag in a species_type from a textual string
  */
-static errr grab_one_authority_flag(species_type *r_ptr, cptr what)
+static int grab_one_authority_flag(species_type *r_ptr, cptr what)
 {
-	if (grab_one_flag(&r_ptr->authority[0], species_info_auth1, what) == 0)
-		return 0;
+	int i;
 
-	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
-	msg_format("Unknown monster flag '%s'.", what);
-#endif
+	/* Check flags */
+	for (i = 0; i < MAX_AUTHORITIES; i++)
+	{
+		if (streq(what, authority_info[i].id_e))
+		{
+			return i;
+		}
+	}
 
-	/* Failure */
-	return (1);
+	return -1;
 }
 
 #define SPECIES_INFO_CSV_COLUMNS 51
@@ -3267,7 +3237,8 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 
 					// Parse this entry
-					if (0 != grab_one_authority_flag(&species_info[n], s)) return (5);
+					if ((b = grab_one_authority_flag(&species_info[n], s)) < 0) return (5);
+					species_info[n].authority[b / 32] |= (0x0001 << (b % 32));
 
 					// Start the next entry
 					s = t;
