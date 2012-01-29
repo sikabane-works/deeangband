@@ -1,4 +1,8 @@
 
+/* --------------------------------------------------------------
+	Basic setting 
+   -------------------------------------------------------------- */
+
 a:link 		{ color: #BBAA99;}
 a:visited	{ color: #BBAA99;}
 a:active	{ color: #FFEEDD;}
@@ -12,6 +16,65 @@ img {
 	border: 0px;
 }
 
+
+/* --------------------------------------------------------------
+	LayOut
+   -------------------------------------------------------------- */
+
+div.header {
+	width: 960px;
+	height: 200px;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #445511;
+}
+
+div.left_bar {
+	float: left;
+	width: 160px;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #442211;
+	background-repeat: repeat-y;
+	background-image:  url("SideBack.png");
+}
+
+div.center_contents {
+	float: left;
+	width: 640px;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #662211;
+}
+
+div.right_bar {
+	float: right;
+	width: 160px;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #442211;
+	background-repeat: repeat-y;
+	background-image:  url("SideBack.png");
+}
+
+div.footer {
+	clear:both;
+	text-align: center;
+	width: 960px;
+	background-color: #555555;
+	padding: 10px;
+	border: 0px;
+	margin: 0px;
+}
+
+
+/* --------------------------------------------------------------
+	Contents
+   -------------------------------------------------------------- */
 
 body {
 	text-align: center;
@@ -30,10 +93,10 @@ body {
 }
 
 #wrapper{
-	width: 700px;
+	width: 960px;
 	text-align: left;
 	position: relative;
-	padding: 0px 0px 80px 0px;
+	padding: 0px 0px 0px 0px;
 	border: 0px;
 	margin: 0 auto;
 
@@ -61,8 +124,8 @@ li{
 }
 
 .title {
-	text-align: center;
-	padding: 20px;
+	text-align: right;
+	padding: 0px;
 }
 
 .newest{
@@ -71,9 +134,9 @@ li{
 }
 
 .base{
-	width: 700px;
+	width: 960px;
 	text-align: left;
-	padding: 80px 180px 80px 180px;
+	padding: 0px;
 	border:  0px;
 	margin:  0px;
 	background-image:  url("NecmasWebBack.png");
@@ -84,13 +147,29 @@ li{
 }
 
 
-H2{
+H2.ptitle{
 	font-size: 18px;
 	line-height: 100%;
 	padding: 10px 10px 10px 10px;
 	border: 4px #554433 solid;
+	background-repeat: no-repeat;
 	background-color: #000000;
 	background-image:  url("slate.png");
+}
+
+H2.topmenu{
+	width: 160px;
+	font-size: 14px;
+	line-height: 32px;
+	text-shadow: 5px 2px 2px #402211;
+	margin: 0px;
+	padding: 0px;
+	background-repeat: no-repeat;
+	text-align: center;
+	vertical-align: bottom;
+	height: 32px;
+	background-image: url("MenuBanner.png");
+	color: #F0C09E;
 }
 
 H3{
