@@ -306,44 +306,19 @@ void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
 
 void authority_desc(char *tmp, creature_type *cr_ptr)
 {
-
+	int i;
 	/* Authority */
 	tmp[0] = '\0';
 
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_FIRE4)) strcat(tmp, authority_info[AUTHORITY_FIRE4].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_FIRE3)) strcat(tmp, authority_info[AUTHORITY_FIRE3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_FIRE2)) strcat(tmp, authority_info[AUTHORITY_FIRE2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_FIRE1)) strcat(tmp, authority_info[AUTHORITY_FIRE1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WATER4)) strcat(tmp, authority_info[AUTHORITY_WATER4].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WATER3)) strcat(tmp, authority_info[AUTHORITY_WATER3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WATER2)) strcat(tmp, authority_info[AUTHORITY_WATER2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WATER1)) strcat(tmp, authority_info[AUTHORITY_WATER1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_EARTH4)) strcat(tmp, authority_info[AUTHORITY_EARTH4].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_EARTH3)) strcat(tmp, authority_info[AUTHORITY_EARTH3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_EARTH2)) strcat(tmp, authority_info[AUTHORITY_EARTH2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_EARTH1)) strcat(tmp, authority_info[AUTHORITY_EARTH1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WIND4)) strcat(tmp, authority_info[AUTHORITY_WIND4].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WIND3)) strcat(tmp, authority_info[AUTHORITY_WIND3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WIND2)) strcat(tmp, authority_info[AUTHORITY_WIND2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_WIND1)) strcat(tmp, authority_info[AUTHORITY_WIND1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_LIGHT3)) strcat(tmp, authority_info[AUTHORITY_LIGHT3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_LIGHT2)) strcat(tmp, authority_info[AUTHORITY_LIGHT2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_LIGHT1)) strcat(tmp, authority_info[AUTHORITY_LIGHT1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_DARK3)) strcat(tmp, authority_info[AUTHORITY_DARK3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_DARK2)) strcat(tmp, authority_info[AUTHORITY_DARK2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_DARK1)) strcat(tmp, authority_info[AUTHORITY_DARK1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_ORDER3)) strcat(tmp, authority_info[AUTHORITY_ORDER3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_ORDER2)) strcat(tmp, authority_info[AUTHORITY_ORDER2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_ORDER1)) strcat(tmp, authority_info[AUTHORITY_ORDER1].title);
-
-	if(cr_ptr->authority[0] & (0x01 << AUTHORITY_CHAOS3)) strcat(tmp, authority_info[AUTHORITY_CHAOS3].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_CHAOS2)) strcat(tmp, authority_info[AUTHORITY_CHAOS2].title);
-	else if(cr_ptr->authority[0] & (0x01 << AUTHORITY_CHAOS1)) strcat(tmp, authority_info[AUTHORITY_CHAOS1].title);
+	for(i = 0; i < MAX_AUTHORITIES; i++)
+	{
+		if(cr_ptr->authority[i / 32] & (0x0001 << (i % 32)))
+		{
+			strcat(tmp, authority_info[i].title);
+			strcat(tmp, "[");
+			strcat(tmp, authority_rank_disp[authority_info[i].rank]);
+			strcat(tmp, "] ");
+		}
+	}
 
 }

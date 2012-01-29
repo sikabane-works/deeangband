@@ -5466,7 +5466,6 @@ half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
 
 };
 
-
 int town_store_id[20][10] =
 {
 	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
@@ -5494,3 +5493,5 @@ int town_store_id[20][10] =
 	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
 
 };
+
+char authority_rank_disp[6][3] = {"E", "D", "C", "B", "A", "S"};
