@@ -5951,7 +5951,7 @@ void discharge_minion(creature_type *caster_ptr)
  * NORMAL monsters wake up 1/4 the time when illuminated
  * STUPID monsters wake up 1/10 the time when illuminated
  */
-static void cave_temp_room_lite(void)
+static void cave_temp_room_lite(creature_type *lite_ptr)
 {
 	int i;
 
@@ -5982,7 +5982,7 @@ static void cave_temp_room_lite(void)
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Update the monster */
-			update_mon(p_ptr, c_ptr->m_idx, FALSE);
+			update_mon(lite_ptr, c_ptr->m_idx, FALSE);
 
 			/* Stupid monsters rarely wake up */
 			if (has_cf_creature(m_ptr, CF_STUPID)) chance = 10;
@@ -6015,12 +6015,12 @@ static void cave_temp_room_lite(void)
 		}
 
 		/* Note */
-		note_spot(p_ptr, y, x);
+		note_spot(lite_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(p_ptr, y, x);
+		lite_spot(lite_ptr, y, x);
 
-		update_local_illumination(p_ptr, y, x);
+		update_local_illumination(lite_ptr, y, x);
 	}
 
 	/* None left */
@@ -6287,7 +6287,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 	}
 
 	/* Now, lite them all up at once */
-	cave_temp_room_lite();
+	cave_temp_room_lite(creature_ptr);
 
 	if (creature_ptr->special_defense & NINJA_S_STEALTH)
 	{
