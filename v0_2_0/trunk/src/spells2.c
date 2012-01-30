@@ -5884,7 +5884,7 @@ void discharge_minion(creature_type *caster_ptr)
 		if (!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
 		if (m_ptr->nickname) okay = FALSE;
 	}
-	if (!okay || p_ptr->riding)
+	if (!okay || caster_ptr->riding)
 	{
 #ifdef JP
 		if (!get_check("本当に全ペットを爆破しますか？"))

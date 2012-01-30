@@ -373,7 +373,7 @@ static named_num gf_desc[] =
  * Specify the attr/char values for unaware "objects" by kind tval
  *   U:<tv>:<a>:<c>
  *
- * Specify the attr/char values for p_ptr->inventory "objects" by kind tval
+ * Specify the attr/char values for player_ptr->inventory "objects" by kind tval
  *   E:<tv>:<a>:<c>
  *
  * Define a macro action, given an encoded macro action

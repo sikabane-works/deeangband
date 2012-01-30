@@ -2013,7 +2013,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 			feat_priority = -1;
 
 			/* Extract the current attr/char at that map location */
-			map_info(p_ptr, j, i, &ta, &tc, &ta, &tc);
+			map_info(watcher_ptr, j, i, &ta, &tc, &ta, &tc);
 
 			/* Extract the priority */
 			tp = feat_priority;
