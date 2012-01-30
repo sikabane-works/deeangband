@@ -1922,6 +1922,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	char **mc;
 	byte **mp;
 
+
 	/* Save lighting effects */
 	bool old_view_special_lite = view_special_lite;
 	bool old_view_granite_lite = view_granite_lite;

@@ -53,7 +53,8 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 	return TRUE;
 }
 
-static bool breath_direct(int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
+// Will Delete ?
+static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {
 	/* Must be the same as projectable() */
 
@@ -91,7 +92,7 @@ static bool breath_direct(int y1, int x1, int y2, int x2, int rad, int typ, bool
 	}
 
 	/* Check the projection path */
-	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, flg);
+	grid_n = project_path(target_ptr, grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, flg);
 
 	/* Project along the path */
 	for (i = 0; i < grid_n; ++i)
@@ -127,17 +128,17 @@ static bool breath_direct(int y1, int x1, int y2, int x2, int rad, int typ, bool
 		if (flg & PROJECT_DISI)
 		{
 			if (in_disintegration_range(y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (in_disintegration_range(y1, x1, p_ptr->fy, p_ptr->fx) && (distance(y1, x1, p_ptr->fy, p_ptr->fx) <= rad)) hityou = TRUE;
+			if (in_disintegration_range(y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 		else if (flg & PROJECT_LOS)
 		{
 			if (los(y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (los(y1, x1, p_ptr->fy, p_ptr->fx) && (distance(y1, x1, p_ptr->fy, p_ptr->fx) <= rad)) hityou = TRUE;
+			if (los(y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 		else
 		{
 			if (projectable(y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (projectable(y1, x1, p_ptr->fy, p_ptr->fx) && (distance(y1, x1, p_ptr->fy, p_ptr->fx) <= rad)) hityou = TRUE;
+			if (projectable(y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 	}
 	else
@@ -151,7 +152,7 @@ static bool breath_direct(int y1, int x1, int y2, int x2, int rad, int typ, bool
 			x = gx[i];
 
 			if ((y == y2) && (x == x2)) hit2 = TRUE;
-			if (creature_bold(p_ptr, y, x)) hityou = TRUE;
+			if (creature_bold(target_ptr, y, x)) hityou = TRUE;
 		}
 	}
 
