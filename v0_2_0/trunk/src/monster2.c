@@ -694,50 +694,50 @@ species_type *real_species_ptr(creature_type *m_ptr)
  *
  * When a monster is deleted, all of its objects are deleted.
  */
-void delete_species_idx(creature_type *cr_ptr)
+void delete_species_idx(creature_type *creature_ptr)
 {
 	int x, y;
-	species_type *r_ptr = &species_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
 	s16b this_o_idx, next_o_idx = 0;
 
 
 	/* Get location */
-	y = cr_ptr->fy;
-	x = cr_ptr->fx;
+	y = creature_ptr->fy;
+	x = creature_ptr->fx;
 
 
 	/* Hack -- Reduce the racial counter */
-	real_species_ptr(cr_ptr)->cur_num--;
+	real_species_ptr(creature_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (has_cf_creature(cr_ptr, CF_MULTIPLY)) num_repro--;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) num_repro--;
 
-	if (cr_ptr->paralyzed) (void)set_paralyzed(cr_ptr, 0);
-	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
-	if (cr_ptr->slow) (void)set_slow(cr_ptr, 0, FALSE);
-	if (cr_ptr->stun) (void)set_stun(cr_ptr, 0);
-	if (cr_ptr->confused) (void)set_confused(cr_ptr, 0);
-	if (cr_ptr->afraid) (void)set_afraid(cr_ptr, 0);
-	if (cr_ptr->invuln) (void)set_invuln(cr_ptr, 0, FALSE);
+	if (creature_ptr->paralyzed) (void)set_paralyzed(creature_ptr, 0);
+	if (creature_ptr->fast) (void)set_fast(creature_ptr, 0, FALSE);
+	if (creature_ptr->slow) (void)set_slow(creature_ptr, 0, FALSE);
+	if (creature_ptr->stun) (void)set_stun(creature_ptr, 0);
+	if (creature_ptr->confused) (void)set_confused(creature_ptr, 0);
+	if (creature_ptr->afraid) (void)set_afraid(creature_ptr, 0);
+	if (creature_ptr->invuln) (void)set_invuln(creature_ptr, 0, FALSE);
 
 
 	/* Hack -- remove target monster */
-	if (cr_ptr == &creature_list[target_who]) target_who = 0;
+	if (creature_ptr == &creature_list[target_who]) target_who = 0;
 
 	/* Hack -- remove tracked monster */
-	if (cr_ptr == &creature_list[health_who]) health_track(0);
+	if (creature_ptr == &creature_list[health_who]) health_track(0);
 
-	if (&creature_list[pet_t_m_idx] == cr_ptr) pet_t_m_idx = 0;
-	if (&creature_list[riding_t_m_idx] == cr_ptr) riding_t_m_idx = 0;
-	if (&creature_list[p_ptr->riding] == cr_ptr) p_ptr->riding = 0;
+	if (&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
+	if (&creature_list[riding_t_m_idx] == creature_ptr) riding_t_m_idx = 0;
+	if (&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
 	/* Monster is gone */
 	cave[y][x].m_idx = 0;
 
 
 	/* Delete objects */
-	for (this_o_idx = cr_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = creature_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 
@@ -749,7 +749,7 @@ void delete_species_idx(creature_type *cr_ptr)
 
 		/*
 		 * o_ptr->held_m_idx is needed in delete_object_idx()
-		 * to prevent calling lite_spot(cr_ptr, )
+		 * to prevent calling lite_spot(creature_ptr, )
 		 */
 
 		/* Delete the object */
@@ -757,21 +757,21 @@ void delete_species_idx(creature_type *cr_ptr)
 	}
 
 
-	if (is_pet(player_ptr, cr_ptr)) check_pets_num_and_align(cr_ptr, FALSE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
 
 
 	/* Wipe the Monster */
-	(void)WIPE(cr_ptr, creature_type);
+	(void)WIPE(creature_ptr, creature_type);
 
 	/* Count monsters */
 	m_cnt--;
 
 	/* Visual update */
-	lite_spot(cr_ptr, y, x);
+	lite_spot(creature_ptr, y, x);
 
 	/* Update some things */
-	if (is_lighting_creature(cr_ptr) || is_darken_creature(cr_ptr))
-		p_ptr->update |= (PU_MON_LITE);
+	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
+		creature_ptr->update |= (PU_MON_LITE);
 }
 
 

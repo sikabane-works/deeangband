@@ -1838,16 +1838,16 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 /*
  * Prints the following information on the screen.
  */
-static void display_player_middle(creature_type *cr_ptr)
+static void display_player_middle(creature_type *creature_ptr)
 {
 	char buf[160];
 
 	/* Base skill */
-	int show_tohit = cr_ptr->dis_to_h_b;
+	int show_tohit = creature_ptr->dis_to_h_b;
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = &cr_ptr->inventory[INVEN_BOW];
+	object_type *o_ptr = &creature_ptr->inventory[INVEN_BOW];
 
 	int tmul = 0;
 	int e;
@@ -1858,23 +1858,23 @@ static void display_player_middle(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "Type    (Hit ,Dam )  Num  ExpV", 10, 1);
 #endif
 
-	if (cr_ptr->migite)
+	if (creature_ptr->migite)
 	{
-		display_player_melee_bonus(cr_ptr, 0, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
+		display_player_melee_bonus(creature_ptr, 0, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
 	}
 
-	if (cr_ptr->hidarite)
+	if (creature_ptr->hidarite)
 	{
-		display_player_melee_bonus(cr_ptr, 1, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
+		display_player_melee_bonus(creature_ptr, 1, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
 	}
-	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
+	else if ((creature_ptr->cls_idx == CLASS_MONK) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
-		if (cr_ptr->special_defense & KAMAE_MASK)
+		if (creature_ptr->special_defense & KAMAE_MASK)
 		{
 			for (i = 0; i < MAX_KAMAE; i++)
 			{
-				if ((cr_ptr->special_defense >> i) & KAMAE_GENBU) break;
+				if ((creature_ptr->special_defense >> i) & KAMAE_GENBU) break;
 			}
 			if (i < MAX_KAMAE)
 #ifdef JP
@@ -1896,27 +1896,27 @@ static void display_player_middle(creature_type *cr_ptr)
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
-		show_tohit += cr_ptr->weapon_exp[0][o_ptr->sval] / 400;
+		show_tohit += creature_ptr->weapon_exp[0][o_ptr->sval] / 400;
 	else
-		show_tohit += (cr_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
+		show_tohit += (creature_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 	/* Range attacks */
 	display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
 	display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
 
-	if (cr_ptr->inventory[INVEN_BOW].k_idx)
+	if (creature_ptr->inventory[INVEN_BOW].k_idx)
 	{
-		tmul = bow_tmul(cr_ptr->inventory[INVEN_BOW].sval);
+		tmul = bow_tmul(creature_ptr->inventory[INVEN_BOW].sval);
 
 		/* Get extra "power" from "extra might" */
-		if (cr_ptr->xtra_might) tmul++;
+		if (creature_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	}
 
 
 	/* Dump the armor class */
-	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", cr_ptr->dis_ac, cr_ptr->dis_to_a), TERM_L_BLUE);
+	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_a), TERM_L_BLUE);
 
 	/* Dump speed */
 	{
@@ -1924,48 +1924,48 @@ static void display_player_middle(creature_type *cr_ptr)
 		byte attr;
 		int i;
 
-		i = cr_ptr->speed-110;
+		i = creature_ptr->speed-110;
 
 		/* Hack -- Visually "undo" the Search Mode Slowdown */
-		if (cr_ptr->action == ACTION_SEARCH) i += 10;
+		if (creature_ptr->action == ACTION_SEARCH) i += 10;
 
 		if (i > 0)
 		{
-			if (!cr_ptr->riding)
+			if (!creature_ptr->riding)
 				attr = TERM_L_GREEN;
 			else
 				attr = TERM_GREEN;
 		}
 		else if (i == 0)
 		{
-			if (!cr_ptr->riding)
+			if (!creature_ptr->riding)
 				attr = TERM_L_BLUE;
 			else
 				attr = TERM_GREEN;
 		}
 		else
 		{
-			if (!cr_ptr->riding)
+			if (!creature_ptr->riding)
 				attr = TERM_L_UMBER;
 			else
 				attr = TERM_RED;
 		}
 
-		if (!cr_ptr->riding)
+		if (!creature_ptr->riding)
 		{
-			if (IS_FAST(p_ptr)) tmp_speed += 10;
-			if (cr_ptr->slow) tmp_speed -= 10;
-			if (cr_ptr->lightspeed) tmp_speed = 99;
+			if (IS_FAST(creature_ptr)) tmp_speed += 10;
+			if (creature_ptr->slow) tmp_speed -= 10;
+			if (creature_ptr->lightspeed) tmp_speed = 99;
 		}
 		else
 		{
-			if (creature_list[cr_ptr->riding].fast) tmp_speed += 10;
-			if (creature_list[cr_ptr->riding].slow) tmp_speed -= 10;
+			if (creature_list[creature_ptr->riding].fast) tmp_speed += 10;
+			if (creature_list[creature_ptr->riding].slow) tmp_speed -= 10;
 		}
 
 		if (tmp_speed)
 		{
-			if (!cr_ptr->riding)
+			if (!creature_ptr->riding)
 				sprintf(buf, "(%+d%+d)", i-tmp_speed, tmp_speed);
 			else
 #ifdef JP
@@ -1981,7 +1981,7 @@ static void display_player_middle(creature_type *cr_ptr)
 		}
 		else
 		{
-			if (!cr_ptr->riding)
+			if (!creature_ptr->riding)
 				sprintf(buf, "(%+d)", i);
 			else
 #ifdef JP
@@ -1995,38 +1995,38 @@ static void display_player_middle(creature_type *cr_ptr)
 	}
 
 	/* Dump experience */
-	if (has_cf_creature(cr_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
+	if (has_cf_creature(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
-	if (cr_ptr->exp >= cr_ptr->max_exp)
-		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_L_GREEN);
+	if (creature_ptr->exp >= creature_ptr->max_exp)
+		display_player_one_line(e, format("%ld", creature_ptr->exp), TERM_L_GREEN);
 	else
-		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_YELLOW);
+		display_player_one_line(e, format("%ld", creature_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (has_cf_creature(cr_ptr, CF_ANDROID))
+	if (has_cf_creature(creature_ptr, CF_ANDROID))
 		/* Nothing */;
 	else
-		display_player_one_line(ENTRY_MAX_EXP, format("%ld", cr_ptr->max_exp), TERM_L_GREEN);
+		display_player_one_line(ENTRY_MAX_EXP, format("%ld", creature_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (has_cf_creature(cr_ptr, CF_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (has_cf_creature(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
-	if (cr_ptr->lev >= cr_ptr->max_lev)
+	if (creature_ptr->lev >= creature_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (has_cf_creature(cr_ptr, CF_ANDROID))
-		display_player_one_line(e, format("%ld", (s32b)(creature_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
+	else if (has_cf_creature(creature_ptr, CF_ANDROID))
+		display_player_one_line(e, format("%ld", (s32b)(creature_exp_a[creature_ptr->lev - 1] * creature_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
-		display_player_one_line(e, format("%ld", (s32b)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
+		display_player_one_line(e, format("%ld", (s32b)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L)), TERM_L_GREEN);
 
 	/* Dump gold */
-	display_player_one_line(ENTRY_GOLD, format("%ld", cr_ptr->au), TERM_L_GREEN);
+	display_player_one_line(ENTRY_GOLD, format("%ld", creature_ptr->au), TERM_L_GREEN);
 
 	/* Dump Day */
 	{
 		int day, hour, min;
-		extract_day_hour_min(cr_ptr, &day, &hour, &min);
+		extract_day_hour_min(creature_ptr, &day, &hour, &min);
 
 #ifdef JP
 		if (day < MAX_DAYS) sprintf(buf, "%d“ú–Ú %2d:%02d", day, hour, min);
