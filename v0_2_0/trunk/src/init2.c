@@ -624,7 +624,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/*** Kill the fake arrays ***/
 
 		/* Free the "*_info" array */
-		//C_KILL(head->info_ptr, head->info_size, char);
+		//TODO C_KILL(head->info_ptr, head->info_size, char);
 
 		/* Hack -- Free the "fake" arrays */
 		if (name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
