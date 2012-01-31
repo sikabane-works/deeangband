@@ -297,13 +297,13 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 /*
  * Hack -- Teleport to the target
  */
-static void do_cmd_wiz_bamf(void)
+static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 {
 	/* Must have a target */
 	if (!target_who) return;
 
 	/* Teleport to the target */
-	teleport_creature_to(p_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
+	teleport_creature_to(caster_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
 }
 
 
@@ -1515,7 +1515,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	inside_arena = FALSE;
 	wild_mode = FALSE;
 
-	leave_quest_check(p_ptr);
+	leave_quest_check(cr_ptr);
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_WIZ_TELE,0,NULL);
 
@@ -1891,7 +1891,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Teleport to target */
 	case 'b':
-		do_cmd_wiz_bamf();
+		do_cmd_wiz_bamf(cr_ptr);
 		break;
 
 	case 'B':
