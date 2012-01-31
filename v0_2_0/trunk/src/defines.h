@@ -3838,6 +3838,10 @@
 	((bool)((A)->ml && (!ignore_unview || inside_battle || \
 	 (player_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
+// Does creature exist here?
+#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || cave[(Y)][(X)].m_idx != 0)
+
+
 
 /*** Option Definitions ***/
 
