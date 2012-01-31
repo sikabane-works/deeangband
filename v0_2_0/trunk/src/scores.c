@@ -869,13 +869,13 @@ msg_print("スコア・ファイルが使用できません。");
  * Race Legends
  * -KMW-
  */
-void race_legends(void)
+void race_legends(creature_type *player_ptr)
 {
 	int i, j;
 
 	for (i = 0; i < MAX_RACES; i++)
 	{
-		race_score(p_ptr, i);
+		race_score(player_ptr, i);
 #ifdef JP
 msg_print("何かキーを押すとゲームに戻ります");
 #else

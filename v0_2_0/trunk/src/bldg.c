@@ -4742,7 +4742,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		town_history();
 		break;
 	case BACT_RACE_LEGENDS:
-		race_legends();
+		race_legends(cr_ptr);
 		break;
 	case BACT_QUEST:
 		castle_quest(cr_ptr);
