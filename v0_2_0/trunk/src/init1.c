@@ -1859,6 +1859,34 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 	return (1);
 }
 
+#define OBJECT_KIND_INFO_CSV_COLUMNS 51
+static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"NAME",
+	"UI_NAME",
+	"E_NAME",
+	"E_UI_NAME",
+	"SYMBOL",
+	"COLOR",
+	"TVAL",
+	"SVAL",
+	"PVAL",
+	"DEPTH",
+	"RARITY",
+	"WEIGHT",
+	"COST",
+	"BASE_AC",
+	"BASE_DAMAGE",
+	"PLUS_HIT",
+	"PLUS_DAM",
+	"PLUS_AC",
+	"ADD_DEPTH_RARITY",
+	"FLAGS",
+	"DESCRIPTION",
+	"E_DESCRIPTION",
+	"COMMENT",
+};
 
 /*
  * Initialize the "k_info" array, by parsing an ascii "template" file
