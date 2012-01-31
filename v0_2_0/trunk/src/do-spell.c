@@ -925,7 +925,7 @@ static void cast_meteor(creature_type *cr_ptr, int dam, int rad)
 
 			if (d >= 9) continue;
 
-			if (!in_bounds(y, x) || !projectable(cr_ptr->fy, cr_ptr->fx, y, x)
+			if (!in_bounds(y, x) || !projectable(p_ptr, cr_ptr->fy, cr_ptr->fx, y, x)
 			    || !cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
@@ -11162,7 +11162,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (!cave_player_teleportable_bold(cr_ptr, y, x, 0L) ||
 			    (distance(y, x, cr_ptr->fy, cr_ptr->fx) > MAX_SIGHT / 2) ||
-			    !projectable(cr_ptr->fy, cr_ptr->fx, y, x))
+			    !projectable(p_ptr, cr_ptr->fy, cr_ptr->fx, y, x))
 			{
 #ifdef JP
 				msg_print("¸”sI");

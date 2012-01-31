@@ -1999,7 +1999,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	if (creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
 
 	/* Monster must be projectable */
-	if (!projectable(creature_ptr->fy, creature_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
+	if (!projectable(creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
 
 	/* XXX XXX XXX Hack -- Never target trappers */
 	/* if (CLEAR_ATTR && (CLEAR_CHAR)) return (FALSE); */

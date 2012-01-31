@@ -136,7 +136,7 @@ bool is_hidden_door(cave_type *c_ptr)
  *
  * Note that "line of sight" is not "reflexive" in all cases.
  *
- * Use the "projectable()" routine to test "spell/missile line of sight".
+ * Use the "projectable(p_ptr, )" routine to test "spell/missile line of sight".
  *
  * Use the "update_view()" function to determine player line-of-sight.
  */
@@ -3593,7 +3593,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
  * equally efficient, and especially willing if the new function happens to
  * derive "reverse-line-of-sight" at the same time, since currently monsters
  * just use an optimized hack of "you see me, so I see you", and then use the
- * actual "projectable()" function to check spell attacks.
+ * actual "projectable(p_ptr, )" function to check spell attacks.
  */
 void update_view(creature_type *cr_ptr)
 {
@@ -4910,7 +4910,7 @@ void mmove2(int *y, int *x, int y1, int x1, int y2, int x2)
  *
  * This is slightly (but significantly) different from "los(y1,x1,y2,x2)".
  */
-bool projectable(int y1, int x1, int y2, int x2)
+bool projectable(creature_type *caster_ptr, int y1, int x1, int y2, int x2)
 {
 	int y, x;
 
@@ -4918,7 +4918,7 @@ bool projectable(int y1, int x1, int y2, int x2)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(p_ptr, grid_g, (project_length ? project_length : MAX_RANGE(p_ptr)), y1, x1, y2, x2, 0);
+	grid_n = project_path(caster_ptr, grid_g, (project_length ? project_length : MAX_RANGE(p_ptr)), y1, x1, y2, x2, 0);
 
 	/* Identical grid */
 	if (!grid_n) return TRUE;
@@ -4967,7 +4967,7 @@ void scatter(int *yp, int *xp, int y, int x, int d, int m)
 		if ((d > 1) && (distance(y, x, ny, nx) > d)) continue;
 
 		/* Require "line of projection" */
-		if (projectable(y, x, ny, nx)) break;
+		if (projectable(p_ptr, y, x, ny, nx)) break;
 	}
 
 	/* Save the location */

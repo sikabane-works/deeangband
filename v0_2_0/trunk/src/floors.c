@@ -411,8 +411,8 @@ static void preserve_pet(creature_type *cr_ptr)
 				 * when you or the pet can see the other.
 				 */
 				if (m_ptr->nickname && 
-				    ((player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
-				     (los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx))))
+				    ((player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(cr_ptr, cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
+				     (los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr, m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx))))
 				{
 					if (dis > 3) continue;
 				}
