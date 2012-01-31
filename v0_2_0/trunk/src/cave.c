@@ -4910,7 +4910,7 @@ void mmove2(int *y, int *x, int y1, int x1, int y2, int x2)
  *
  * This is slightly (but significantly) different from "los(y1,x1,y2,x2)".
  */
-bool projectable(creature_type *caster_ptr, int y1, int x1, int y2, int x2)
+bool projectable(int y1, int x1, int y2, int x2)
 {
 	int y, x;
 
@@ -4967,7 +4967,7 @@ void scatter(int *yp, int *xp, int y, int x, int d, int m)
 		if ((d > 1) && (distance(y, x, ny, nx) > d)) continue;
 
 		/* Require "line of projection" */
-		if (projectable(p_ptr, y, x, ny, nx)) break;
+		if (projectable(y, x, ny, nx)) break;
 	}
 
 	/* Save the location */

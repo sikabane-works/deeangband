@@ -56,7 +56,7 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 // Will Delete ?
 static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {
-	/* Must be the same as projectable(p_ptr, ) */
+	/* Must be the same as projectable() */
 
 	int i;
 
@@ -137,8 +137,8 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		}
 		else
 		{
-			if (projectable(p_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (projectable(p_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if (projectable(y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if (projectable(y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 	}
 	else

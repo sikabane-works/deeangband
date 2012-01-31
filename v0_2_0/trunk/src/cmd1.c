@@ -1633,7 +1633,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 					if (!in_bounds(y1, x1)) continue;
 
 					/* Require line of projection */
-					if (!projectable(p_ptr, cr_ptr->fy, cr_ptr->fx, y1, x1)) continue;
+					if (!projectable(cr_ptr->fy, cr_ptr->fx, y1, x1)) continue;
 
 					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PM_NO_PET)))
 						evil_idx = hack_m_idx_ii;

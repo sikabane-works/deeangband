@@ -1170,7 +1170,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(p_ptr, cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
+		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		dispel_creature(cr_ptr);
 		break;
 	}
@@ -1664,7 +1664,7 @@ msg_print("その方向にはモンスターはいません。");
 		if (!m_idx) break;
 		if (m_idx == cr_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(p_ptr, cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
+		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[m_idx];
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP

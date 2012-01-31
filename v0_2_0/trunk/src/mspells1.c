@@ -376,7 +376,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 			if (pattern_tile(y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
-			if (cave_empty_bold(target_ptr, y, x) && projectable(p_ptr, y1, x1, y, x) && projectable(p_ptr, y, x, y1, x1)) return (TRUE);
+			if (cave_empty_bold(target_ptr, y, x) && projectable(y, x, y1, x1)) return (TRUE);
 		}
 	}
 
@@ -398,7 +398,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 		{
 			if (distance(y, x, yy, xx) > 5) continue;
 			if (!los(y, x, yy, xx)) continue;
-			if (!projectable(p_ptr, y, x, yy, xx)) continue;
+			if (!projectable(y, x, yy, xx)) continue;
 
 			c_ptr = &cave[yy][xx];
 			/* Scan the pile of objects */
@@ -1167,7 +1167,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 
 static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, int *yp, int *xp,
-	int f_flag, bool (*path_check)(creature_type *, int, int, int, int))
+	int f_flag, bool (*path_check)(int, int, int, int))
 {
 	int i;
 	int tonari;
@@ -1197,7 +1197,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 		/* Skip this feature */
 		if (!cave_have_flag_grid(c_ptr, f_flag)) continue;
 
-		if (path_check(m_ptr, m_ptr->fy, m_ptr->fx, next_y, next_x))
+		if (path_check(m_ptr->fy, m_ptr->fx, next_y, next_x))
 		{
 			*yp = next_y;
 			*xp = next_x;
@@ -1236,7 +1236,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  * later time, certain non-optimal things are done in the code below,
  * including explicit checks against the "direct" variable, which is
  * currently always true by the time it is checked, but which should
- * really be set according to an explicit "projectable(p_ptr, )" test, and
+ * really be set according to an explicit "projectable()" test, and
  * the use of generic "x,y" locations instead of the player location,
  * with those values being initialized with the player location.
  *
@@ -1364,7 +1364,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Check path */
-	if (projectable(p_ptr, caster_ptr->fy, caster_ptr->fx, y, x))
+	if (projectable(caster_ptr->fy, caster_ptr->fx, y, x))
 	{
 		feature_type *f_ptr = &f_info[cave[y][x].feat];
 
@@ -1385,7 +1385,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if (has_cf_creature(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
 		    in_disintegration_range(caster_ptr->fy, caster_ptr->fx, y, x) &&
-		    (one_in_(10) || (projectable(p_ptr, y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
+		    (one_in_(10) || (projectable(y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
