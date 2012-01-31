@@ -1859,6 +1859,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 	return (1);
 }
 
+
 #define OBJECT_KIND_INFO_CSV_COLUMNS 24
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
@@ -1888,31 +1889,98 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"COMMENT",
 };
 
-#define ID         0
-#define NAME       1
-#define UI_NAME    2
-#define E_NAME     3
-#define E_UI_NAME  4
-#define SYMBOL     5
-#define COLOR      6
-#define TVAL       7
-#define SVAL       8
-#define PVAL       9
-#define DEPTH     10
-#define RARITY    11
-#define WEIGHT    12
-#define COST      13
-#define BASE_AC   14
-#define BASE_DAMAGE 15
-#define PLUS_HIT  16
-#define PLUS_DAM  17
-#define PLUS_AC   18
-#define ADD_DEPTH_RARITY 19
-#define FLAGS     20
-#define DESCRIPTION 21
-#define E_DESCRIPTION 22
-#define COMMENT   23
+#define OBJECT_KIND_INFO_ID         0
+#define OBJECT_KIND_INFO_NAME       1
+#define OBJECT_KIND_INFO_UI_NAME    2
+#define OBJECT_KIND_INFO_E_NAME     3
+#define OBJECT_KIND_INFO_E_UI_NAME  4
+#define OBJECT_KIND_INFO_SYMBOL     5
+#define OBJECT_KIND_INFO_COLOR      6
+#define OBJECT_KIND_INFO_TVAL       7
+#define OBJECT_KIND_INFO_SVAL       8
+#define OBJECT_KIND_INFO_PVAL       9
+#define OBJECT_KIND_INFO_DEPTH     10
+#define OBJECT_KIND_INFO_RARITY    11
+#define OBJECT_KIND_INFO_WEIGHT    12
+#define OBJECT_KIND_INFO_COST      13
+#define OBJECT_KIND_INFO_BASE_AC   14
+#define OBJECT_KIND_INFO_BASE_DAMAGE 15
+#define OBJECT_KIND_INFO_PLUS_HIT  16
+#define OBJECT_KIND_INFO_PLUS_DAM  17
+#define OBJECT_KIND_INFO_PLUS_AC   18
+#define OBJECT_KIND_INFO_ADD_DEPTH_RARITY 19
+#define OBJECT_KIND_INFO_FLAGS     20
+#define OBJECT_KIND_INFO_DESCRIPTION 21
+#define OBJECT_KIND_INFO_E_DESCRIPTION 22
+#define OBJECT_KIND_INFO_COMMENT   23
 
+/*
+ * Initialize the "k_info" array, by parsing an ascii "template" file
+ */
+static int object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
+
+errr parse_object_kind_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, OBJECT_KIND_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, object_kind_info_csv_list[0]))
+	{
+		object_kind_info_csv_code[0] = OBJECT_KIND_INFO_ID;
+		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < OBJECT_KIND_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, object_kind_info_csv_list[j]))
+				{
+					object_kind_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize CF:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(object_kind_info_csv_code[i])
+			{
+
+			default:
+				return (1);
+
+			}
+		}
+		
+	}
+	return (0);
+}
 
 /*
  * Initialize the "k_info" array, by parsing an ascii "template" file
