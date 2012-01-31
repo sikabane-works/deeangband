@@ -445,7 +445,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(target_ptr, grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
