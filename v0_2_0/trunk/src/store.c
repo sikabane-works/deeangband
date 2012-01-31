@@ -5224,7 +5224,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			do_cmd_feeling(p_ptr);
+			do_cmd_feeling(guest_ptr);
 			break;
 		}
 
@@ -5244,7 +5244,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 
 		case '|':
 		{
-			do_cmd_nikki(p_ptr);
+			do_cmd_nikki(guest_ptr);
 			break;
 		}
 

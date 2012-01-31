@@ -1722,7 +1722,7 @@ static void fix_equip(creature_type *player_ptr)
 /*
  * Hack -- display equipment in sub-windows
  */
-static void fix_spell(void)
+static void fix_spell(creature_type *creature_ptr)
 {
 	int j;
 
@@ -1741,7 +1741,7 @@ static void fix_spell(void)
 		Term_activate(angband_term[j]);
 
 		/* Display spell list */
-		display_spell_list(p_ptr);
+		display_spell_list(creature_ptr);
 
 		/* Fresh */
 		Term_fresh();
@@ -6080,7 +6080,7 @@ void window_stuff(void)
 	if (play_window & (PW_SPELL))
 	{
 		play_window &= ~(PW_SPELL);
-		fix_spell();
+		fix_spell(player_ptr);
 	}
 
 	/* Display player */

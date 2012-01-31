@@ -1016,7 +1016,7 @@ bool item_tester_full;
 bool item_tester_no_ryoute = FALSE;
 
 /*
- * Here is a "pseudo-hook" used during calls to "get_item(p_ptr, )" and
+ * Here is a "pseudo-hook" used during calls to "get_item()" and
  * "show_inven()" and "show_equip()", and the choice window routines.
  */
 byte item_tester_tval;
