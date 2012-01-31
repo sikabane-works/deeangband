@@ -1922,7 +1922,7 @@ static int object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
 errr parse_object_kind_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b;
+	int i, j, b, c;
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, OBJECT_KIND_INFO_CSV_COLUMNS, ',', '"')){
@@ -1972,28 +1972,104 @@ errr parse_object_kind_csv(char *buf, header *head)
 			switch(object_kind_info_csv_code[i])
 			{
 			case OBJECT_KIND_INFO_NAME:
+				if (!add_name(&k_info[n].name, head, tmp)) return (7);
+				break;
+
 			case OBJECT_KIND_INFO_UI_NAME:
+				if (!add_name(&k_info[n].flavospecies_name, head, tmp)) return (7);
+				break;
+
 			case OBJECT_KIND_INFO_E_NAME:
+				break;
+
 			case OBJECT_KIND_INFO_E_UI_NAME:
+				break;
+
 			case OBJECT_KIND_INFO_SYMBOL:
+				if(sscanf(tmp, "%c", &b) != 1) return (1);
+				k_info[n].d_char = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_COLOR:
+				if(sscanf(tmp, "%c", &b) != 1) return (1);
+				k_info[n].d_attr = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_TVAL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].tval = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_SVAL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].sval = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_PVAL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].pval = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_DEPTH:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].level = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_RARITY:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].extra = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_WEIGHT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].weight = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_COST:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].cost = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_BASE_AC:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].ac = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_BASE_DAMAGE:
+				if(sscanf(tmp, "%dd%d", &b, &c) != 2) return (1);
+				k_info[n].dd = (byte)b;
+				k_info[n].ds = (byte)c;
+				break;
+
 			case OBJECT_KIND_INFO_PLUS_HIT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].to_h = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_PLUS_DAM:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].to_d = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_PLUS_AC:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				k_info[n].to_a = (byte)b;
+				break;
+
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
+				break;
+
 			case OBJECT_KIND_INFO_FLAGS:
+				break;
+
 			case OBJECT_KIND_INFO_DESCRIPTION:
+				break;
+
 			case OBJECT_KIND_INFO_E_DESCRIPTION:
+				break;
+
 			case OBJECT_KIND_INFO_COMMENT:
+				break;
 
 			default:
 				return (1);
