@@ -268,7 +268,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
  */
-sint project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
+int project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 {
 	int y, x;
 
@@ -382,7 +382,7 @@ sint project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(player_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -471,7 +471,7 @@ sint project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(player_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -542,7 +542,7 @@ sint project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(player_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 

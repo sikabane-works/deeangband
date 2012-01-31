@@ -437,7 +437,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  */
 bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
 {
-	/* Must be the same as projectable(p_ptr, ) */
+	/* Must be the same as projectable() */
 
 	int i, y, x;
 
