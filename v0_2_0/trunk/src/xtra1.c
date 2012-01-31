@@ -1843,7 +1843,7 @@ static void fix_message(void)
  *
  * Note that the "player" symbol does NOT appear on the map.
  */
-static void fix_overhead(void)
+static void fix_overhead(creature_type *watcher_ptr)
 {
 	int j;
 
@@ -1869,7 +1869,7 @@ static void fix_overhead(void)
 		if (wid > COL_MAP + 2 && hgt > ROW_MAP + 2)
 		{
 			/* Redraw map */
-			display_map(p_ptr, &cy, &cx);
+			display_map(watcher_ptr, &cy, &cx);
 
 			/* Fresh */
 			Term_fresh();
@@ -6101,7 +6101,7 @@ void window_stuff(void)
 	if (play_window & (PW_OVERHEAD))
 	{
 		play_window &= ~(PW_OVERHEAD);
-		fix_overhead();
+		fix_overhead(player_ptr);
 	}
 
 	/* Display overhead view */

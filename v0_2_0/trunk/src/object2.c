@@ -4496,7 +4496,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 	}
 
 	/* Apply magic (allow artifacts) */
-	apply_magic(p_ptr, j_ptr, object_level, mode, 0);
+	apply_magic(player_ptr, j_ptr, object_level, mode, 0);
 
 	/* Hack -- generate multiple spikes/missiles */
 	switch (j_ptr->tval)
@@ -5913,9 +5913,9 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	/* Message */
 #ifdef JP
-	msg_format("%s(%c)%sÅB", o_name, index_to_label(p_ptr, slot), act);
+	msg_format("%s(%c)%sÅB", o_name, index_to_label(cr_ptr, slot), act);
 #else
-	msg_format("%s %s (%c).", act, o_name, index_to_label(p_ptr, slot));
+	msg_format("%s %s (%c).", act, o_name, index_to_label(cr_ptr, slot));
 #endif
 
 
