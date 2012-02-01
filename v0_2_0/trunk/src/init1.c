@@ -2033,14 +2033,14 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OBJECT_KIND_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].weight = (byte)b;
+					k_info[n].weight = (s16b)b;
 				else
 					k_info[n].weight = 0;
 				break;
 
 			case OBJECT_KIND_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].cost = (byte)b;
+					k_info[n].cost = (s32b)b;
 				else
 					k_info[n].cost = 0;
 				break;
@@ -2511,13 +2511,32 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			switch(object_ego_info_csv_code[i])
 			{
+
 			case OBJECT_EGO_INFO_NAME:
+				if(!add_name(&e_info[n].name, head, tmp))
+					return (7);
 				break;
+
 			case OBJECT_EGO_INFO_E_NAME:
 				break;
+
 			case OBJECT_EGO_INFO_SLOT:
+				for(i = 0; i < MAX_EQUIP_TYPE; i++)
+				{
+					if(streq(equip_slot_flags[i], tmp))
+					{
+						e_info[n].slot = i;
+						break;
+					}
+				}
+				if(i == MAX_EQUIP_TYPE) return 1;
 				break;
+
 			case OBJECT_EGO_INFO_RATING:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].rarity = (byte)b;
+				else
+					e_info[n].rarity = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_HIT:
