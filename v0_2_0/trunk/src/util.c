@@ -538,6 +538,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
  */
 errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 {
+	bool first_enclosure = TRUE;
 	huge i = 0;
 	int enc_num = 0;
 
@@ -561,8 +562,19 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 
 #endif /* MACINTOSH || MACH_O_CARBON */
 
+			/* TODO
+			if (*s == enclosure && *(s + 1) == enclosure && !first_enclosure)
+			{
+				buf[i++] = *s++;
+				s++;
+			}
+			else 
+			*/	
 			if (*s == enclosure)
+			{
 				enc_num++;
+				first_enclosure = FALSE;
+			}
 
 			/* Handle newline */
 			if (*s == '\n')

@@ -1989,13 +1989,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_SYMBOL:
-				if(sscanf(tmp, "%c", &b) != 1) return (1);
-				k_info[n].d_char = (byte)b;
+				k_info[n].d_char = (byte)tmp[0];
 				break;
 
 			case OBJECT_KIND_INFO_COLOR:
-				if(sscanf(tmp, "%c", &b) != 1) return (1);
-				k_info[n].d_attr = (byte)b;
+				k_info[n].d_attr = (byte)tmp[0];
 				break;
 
 			case OBJECT_KIND_INFO_TVAL:
@@ -2115,9 +2113,10 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_FLAGS:
+				if(!strlen(tmp)) break;
 				s = tmp;
 				/* Parse every entry textually */
-				for (s = buf + 2; *s; )
+				for (s = tmp; *s;)
 				{
 						/* Find the end of this entry */
 					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
@@ -2130,7 +2129,8 @@ errr parse_object_kind_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&k_info[n], s)) return (5);
+					if (0 != grab_one_kind_flag(&k_info[n], s))
+						return (5);
 
 						/* Start the next entry */
 					s = t;
