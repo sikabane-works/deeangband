@@ -998,7 +998,7 @@ static errr init_a_info(void)
 /*
  * Initialize the "e_info" array
  */
-static errr init_e_info(void)
+static errr init_object_ego_info(void)
 {
 	/* Init the header */
 	init_header(&e_head, max_e_idx, sizeof(ego_item_type));
@@ -1006,12 +1006,12 @@ static errr init_e_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	e_head.parse_info_txt = parse_e_info;
+	e_head.parse_info_txt = parse_object_ego_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("e_info", &e_head,
-			 (void*)&e_info, &e_name, &e_text, NULL);
+	return init_info2("object_ego_info", &e_head,
+			 (void*)&e_info, &e_name, &e_text, NULL, NULL);
 }
 
 
@@ -2146,7 +2146,7 @@ void init_angband(void)
 
 	/* Initialize ego-item info */
 	note("[Initializing arrays... (ego-items)]");
-	if (init_e_info()) quit("Cannot initialize ego-items");
+	if (init_object_ego_info()) quit("Cannot initialize ego-items");
 
 	/* Initialize race info */
 	note("[Initializing arrays... (races)]");

@@ -2461,7 +2461,7 @@ static int object_ego_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b, c;
+	int i, j, b;
 	char *s, *t;
 	char tmp[10000], nt[80];
 
@@ -2589,6 +2589,27 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_FLAG:
+				s = tmp;
+				/* Parse every entry textually */
+				for (s = tmp; *s;)
+				{
+						/* Find the end of this entry */
+					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+
+						/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|') t++;
+					}
+
+						/* Parse this entry */
+					if (0 != grab_one_kind_flag(&k_info[n], s))
+						return (5);
+
+						/* Start the next entry */
+					s = t;
+				}
 				break;
 
 			case OBJECT_EGO_INFO_COMMENT:
