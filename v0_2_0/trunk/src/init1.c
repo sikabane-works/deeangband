@@ -2421,6 +2421,46 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 
+#define OBJECT_EGO_INFO_CSV_COLUMNS 24
+static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"NAME",
+	"E_NAME",
+	"SLOT",
+	"RATING",
+	"MAX_HIT",
+	"MAX_DAM",
+	"MAX_AC",
+	"PVAL",
+	"DEPTH",
+	"RARITY",
+	"WEIGHT",
+	"COST",
+	"FLAG",
+	"COMMENT",
+};
+
+#define OBJECT_EGO_ID            0
+#define OBJECT_EGO_INFO_NAME     1
+#define OBJECT_EGO_INFO_E_NAME   2
+#define OBJECT_EGO_INFO_SLOT     3
+#define OBJECT_EGO_INFO_RATING   4
+#define OBJECT_EGO_INFO_MAX_HIT  5
+#define OBJECT_EGO_INFO_MAX_DAM  6
+#define OBJECT_EGO_INFO_MAX_AC   7
+#define OBJECT_EGO_INFO_PVAL     8
+#define OBJECT_EGO_INFO_DEPTH    9
+#define OBJECT_EGO_INFO_RARITY  10
+#define OBJECT_EGO_INFO_WEIGHT  11
+#define OBJECT_EGO_INFO_COST    12
+#define OBJECT_EGO_INFO_FLAG    13
+#define OBJECT_EGO_INFO_COMMENT 14
+
+errr parse_object_ego_info_csv(char *buf, header *head)
+{
+	return 0;
+}
 
 /*
  * Initialize the "e_info" array, by parsing an ascii "template" file
