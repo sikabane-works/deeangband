@@ -1835,7 +1835,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 
 	if (object_is_armour(o_ptr))
 	{
-		while ((o_ptr->to_d+o_ptr->to_h) > 20)
+		while ((o_ptr->to_d + o_ptr->to_h) > 20)
 		{
 			if (one_in_(o_ptr->to_d) && one_in_(o_ptr->to_h)) break;
 			o_ptr->to_d -= (s16b)randint0(3);

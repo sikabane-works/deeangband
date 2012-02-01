@@ -2067,28 +2067,28 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OBJECT_KIND_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_h = (byte)b;
+					k_info[n].to_h = (s16b)b;
 				else
 					k_info[n].to_h = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_d = (byte)b;
+					k_info[n].to_d = (s16b)b;
 				else
 					k_info[n].to_d = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_a = (byte)b;
+					k_info[n].to_a = (s16b)b;
 				else
 					k_info[n].to_a = 0;
 				break;
 
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
 				/* XXX XXX XXX Simply read each number following a colon */
-				for (j = 0, s = tmp; s && (s[0] == ':') && s[1]; ++j)
+				for (j = 0, s = tmp; s; ++j)
 				{
 						/* Default chance */
 					k_info[n].chance[j] = 1;
