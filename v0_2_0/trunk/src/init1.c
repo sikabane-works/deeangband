@@ -1973,12 +1973,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 			switch(object_kind_info_csv_code[i])
 			{
 			case OBJECT_KIND_INFO_NAME:
-				if(!add_name(&k_info[n].name, head, tmp)) return (7);
+				if(!add_name(&k_info[n].name, head, tmp))
+					return (7);
 				break;
 
 			case OBJECT_KIND_INFO_UI_NAME:
-				if(!strlen(tmp)) break;
-				if(!add_name(&k_info[n].flavospecies_name, head, tmp)) return (7);
+				if(!add_name(&k_info[n].flavospecies_name, head, tmp))
+					return (7);
 				break;
 
 			case OBJECT_KIND_INFO_E_NAME:
@@ -2090,13 +2091,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
 				s = tmp;
 				/* XXX XXX XXX Simply read each number following a colon */
-				for (i = 0, s = buf+1; s && (s[0] == ':') && s[1]; ++i)
+				for (j = 0, s = buf+1; s && (s[0] == ':') && s[1]; ++j)
 				{
 						/* Default chance */
-					k_info[n].chance[i] = 1;
+					k_info[n].chance[j] = 1;
 
 						/* Store the attack damage index */
-					k_info[n].locale[i] = atoi(s+1);
+					k_info[n].locale[j] = atoi(s+1);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -2108,7 +2109,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					if (t && (!s || t < s))
 					{
 						int chance = atoi(t+1);
-						if (chance > 0) k_info[n].chance[i] = chance;
+						if (chance > 0) k_info[n].chance[j] = chance;
 					}
 				}
 				break;
@@ -2138,7 +2139,8 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OBJECT_KIND_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&k_info[n].text, head, tmp, TRUE)) return (7);
+				if (!add_text(&k_info[n].text, head, tmp, TRUE))
+					return (7);
 				break;
 
 			case OBJECT_KIND_INFO_E_DESCRIPTION:
