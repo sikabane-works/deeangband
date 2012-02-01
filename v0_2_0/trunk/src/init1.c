@@ -2441,7 +2441,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"COMMENT",
 };
 
-#define OBJECT_EGO_ID            0
+#define OBJECT_EGO_INFO_ID       0
 #define OBJECT_EGO_INFO_NAME     1
 #define OBJECT_EGO_INFO_E_NAME   2
 #define OBJECT_EGO_INFO_SLOT     3
@@ -2457,9 +2457,69 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_FLAG    13
 #define OBJECT_EGO_INFO_COMMENT 14
 
-errr parse_object_ego_info_csv(char *buf, header *head)
+static int object_ego_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
+errr parse_object_ego_csv(char *buf, header *head)
 {
-	return 0;
+	int split[80], size[80];
+	int i, j, b, c;
+	char *s, *t;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, OBJECT_EGO_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, object_ego_info_csv_list[0]))
+	{
+		object_ego_info_csv_code[0] = OBJECT_EGO_INFO_ID;
+		for(i = 1; i < OBJECT_EGO_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < OBJECT_EGO_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, object_ego_info_csv_list[j]))
+				{
+					object_ego_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize Object Kind:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < OBJECT_EGO_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(object_ego_info_csv_code[i])
+			{
+
+			default:
+				return (1);
+
+			}
+		}
+		
+	}
+	return (0);
 }
 
 /*
