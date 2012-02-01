@@ -1923,6 +1923,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j, b, c;
+	char *s, *t;
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, OBJECT_KIND_INFO_CSV_COLUMNS, ',', '"')){
@@ -1957,7 +1958,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize CF:%d]", n);
+		sprintf(nt, "[Initialize Object Kind:%d]", n);
 
 
 		note(nt);
@@ -1972,11 +1973,12 @@ errr parse_object_kind_csv(char *buf, header *head)
 			switch(object_kind_info_csv_code[i])
 			{
 			case OBJECT_KIND_INFO_NAME:
-				if (!add_name(&k_info[n].name, head, tmp)) return (7);
+				if(!add_name(&k_info[n].name, head, tmp)) return (7);
 				break;
 
 			case OBJECT_KIND_INFO_UI_NAME:
-				if (!add_name(&k_info[n].flavospecies_name, head, tmp)) return (7);
+				if(!strlen(tmp)) break;
+				if(!add_name(&k_info[n].flavospecies_name, head, tmp)) return (7);
 				break;
 
 			case OBJECT_KIND_INFO_E_NAME:
@@ -1996,73 +1998,147 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_TVAL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].tval = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].tval = (byte)b;
+				else
+					k_info[n].tval = 0;
 				break;
 
 			case OBJECT_KIND_INFO_SVAL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].sval = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].sval = (byte)b;
+				else
+					k_info[n].sval = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PVAL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].pval = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].pval = (byte)b;
+				else
+					k_info[n].pval = 0;
 				break;
 
 			case OBJECT_KIND_INFO_DEPTH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].level = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].level = (byte)b;
+				else
+					k_info[n].level = 0;
 				break;
 
 			case OBJECT_KIND_INFO_RARITY:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].extra = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].extra = (byte)b;
+				else
+					k_info[n].extra = 0;
 				break;
 
 			case OBJECT_KIND_INFO_WEIGHT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].weight = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].weight = (byte)b;
+				else
+					k_info[n].weight = 0;
 				break;
 
 			case OBJECT_KIND_INFO_COST:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].cost = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].cost = (byte)b;
+				else
+					k_info[n].cost = 0;
 				break;
 
 			case OBJECT_KIND_INFO_BASE_AC:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].ac = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].ac = (byte)b;
+				else
+					k_info[n].ac = 0;
 				break;
 
 			case OBJECT_KIND_INFO_BASE_DAMAGE:
-				if(sscanf(tmp, "%dd%d", &b, &c) != 2) return (1);
-				k_info[n].dd = (byte)b;
-				k_info[n].ds = (byte)c;
+				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
+				{
+					k_info[n].dd = (byte)b;
+					k_info[n].ds = (byte)c;
+				}
+				else
+				{
+					k_info[n].dd = 0;
+					k_info[n].ds = 0;
+				}
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_HIT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].to_h = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].to_h = (byte)b;
+				else
+					k_info[n].to_h = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_DAM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].to_d = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].to_d = (byte)b;
+				else
+					k_info[n].to_d = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_AC:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				k_info[n].to_a = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].to_a = (byte)b;
+				else
+					k_info[n].to_a = 0;
 				break;
 
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
+				s = tmp;
+				/* XXX XXX XXX Simply read each number following a colon */
+				for (i = 0, s = buf+1; s && (s[0] == ':') && s[1]; ++i)
+				{
+						/* Default chance */
+					k_info[n].chance[i] = 1;
+
+						/* Store the attack damage index */
+					k_info[n].locale[i] = atoi(s+1);
+
+						/* Find the slash */
+					t = my_strchr(s+1, '/');
+
+						/* Find the next colon */
+					s = my_strchr(s+1, ':');
+
+						/* If the slash is "nearby", use it */
+					if (t && (!s || t < s))
+					{
+						int chance = atoi(t+1);
+						if (chance > 0) k_info[n].chance[i] = chance;
+					}
+				}
 				break;
 
 			case OBJECT_KIND_INFO_FLAGS:
+				s = tmp;
+				/* Parse every entry textually */
+				for (s = buf + 2; *s; )
+				{
+						/* Find the end of this entry */
+					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+
+						/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|') t++;
+					}
+
+						/* Parse this entry */
+					if (0 != grab_one_kind_flag(&k_info[n], s)) return (5);
+
+						/* Start the next entry */
+					s = t;
+				}
 				break;
 
 			case OBJECT_KIND_INFO_DESCRIPTION:
+				/* Store the text */
+				if (!add_text(&k_info[n].text, head, tmp, TRUE)) return (7);
 				break;
 
 			case OBJECT_KIND_INFO_E_DESCRIPTION:
@@ -2333,7 +2409,8 @@ errr parse_k_info(char *buf, header *head)
 
 
 	/* Oops */
-	else return (6);
+	else 
+		return (6);
 
 
 	/* Success */

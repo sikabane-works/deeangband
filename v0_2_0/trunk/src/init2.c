@@ -956,9 +956,9 @@ static errr init_f_info(void)
 
 
 /*
- * Initialize the "k_info" array
+ * Initialize the "object_kind_info" array
  */
-static errr init_k_info(void)
+static errr init_object_kind_info(void)
 {
 	/* Init the header */
 	init_header(&k_head, max_k_idx, sizeof(object_kind));
@@ -966,12 +966,11 @@ static errr init_k_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	k_head.parse_info_txt = parse_k_info;
+	k_head.parse_info_txt = parse_object_kind_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("k_info", &k_head,
-			 (void*)&k_info, &k_name, &k_text, NULL);
+	return init_info2("object_kind_info", &k_head, (void*)&k_info, &k_name, &k_text, NULL, NULL);
 }
 
 
@@ -2138,7 +2137,7 @@ void init_angband(void)
 
 	/* Initialize object info */
 	note("[Initializing arrays... (objects)]");
-	if (init_k_info()) quit("Cannot initialize objects");
+	if (init_object_kind_info()) quit("Cannot initialize objects");
 
 	/* Initialize artifact info */
 	note("[Initializing arrays... (artifacts)]");

@@ -136,6 +136,9 @@ extern errr reprocess_creature_flag(header *head);
 
 extern errr parse_store_pre_info_csv(char *buf, header *head);
 
+extern errr parse_object_kind_csv(char *buf, header *head);
+
+
 /*
  * Error tracking
  */
