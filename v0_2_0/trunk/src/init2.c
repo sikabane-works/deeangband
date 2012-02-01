@@ -1660,12 +1660,13 @@ static errr init_object_alloc(void)
 	}
 
 	/* Paranoia */
+/*
 #ifdef JP
-if (!num[0]) quit("町のアイテムがない！");
+	if (!num[0]) quit("町のアイテムがない！");
 #else
 	if (!num[0]) quit("No town objects!");
 #endif
-
+*/
 
 
 	/*** Initialize object allocation info ***/

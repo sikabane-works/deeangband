@@ -2087,9 +2087,8 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
-				s = tmp;
 				/* XXX XXX XXX Simply read each number following a colon */
-				for (j = 0, s = buf+1; s && (s[0] == ':') && s[1]; ++j)
+				for (j = 0, s = tmp; s && (s[0] == ':') && s[1]; ++j)
 				{
 						/* Default chance */
 					k_info[n].chance[j] = 1;
