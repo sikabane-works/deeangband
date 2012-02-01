@@ -2511,6 +2511,69 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			switch(object_ego_info_csv_code[i])
 			{
+			case OBJECT_EGO_INFO_NAME:
+				break;
+			case OBJECT_EGO_INFO_E_NAME:
+				break;
+			case OBJECT_EGO_INFO_SLOT:
+				break;
+			case OBJECT_EGO_INFO_RATING:
+				break;
+
+			case OBJECT_EGO_INFO_MAX_HIT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].max_to_h = (byte)b;
+				else
+					e_info[n].max_to_h = 0;
+				break;
+
+			case OBJECT_EGO_INFO_MAX_DAM:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].max_to_d = (byte)b;
+				else
+					e_info[n].max_to_d = 0;
+				break;
+
+			case OBJECT_EGO_INFO_MAX_AC:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].max_to_a = (byte)b;
+				else
+					e_info[n].max_to_a = 0;
+				break;
+
+			case OBJECT_EGO_INFO_PVAL:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].max_pval = (byte)b;
+				else
+					e_info[n].max_pval = 0;
+				break;
+
+			case OBJECT_EGO_INFO_DEPTH:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].level = (byte)b;
+				else
+					e_info[n].level = 0;
+				break;
+
+			case OBJECT_EGO_INFO_RARITY:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].rarity = (byte)b;
+				else
+					e_info[n].rarity = 0;
+				break;
+
+			case OBJECT_EGO_INFO_COST:
+				if(sscanf(tmp, "%d", &b) == 1)
+					e_info[n].cost = (s32b)b;
+				else
+					e_info[n].cost = 0;
+				break;
+
+			case OBJECT_EGO_INFO_FLAG:
+				break;
+
+			case OBJECT_EGO_INFO_COMMENT:
+				break;
 
 			default:
 				return (1);
