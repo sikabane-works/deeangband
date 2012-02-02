@@ -2238,6 +2238,108 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 #define ARTIFACT_INFO_E_DESCRIPTION 18
 #define ARTIFACT_INFO_COMMENT       19
 
+static int artifact_info_csv_code[ARTIFACT_INFO_CSV_COLUMNS];
+errr parse_artifact_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char *s, *t;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, ARTIFACT_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, artifact_info_csv_list[0]))
+	{
+		artifact_info_csv_code[0] = ARTIFACT_INFO_ID;
+		for(i = 1; i < ARTIFACT_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < ARTIFACT_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, artifact_info_csv_list[j]))
+				{
+					artifact_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == ARTIFACT_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize Object Ego:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < ARTIFACT_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+
+			tmp[size[i]] = '\0';
+			
+
+			switch(artifact_info_csv_code[i])
+			{
+
+			case ARTIFACT_INFO_NAME:
+				if(!add_name(&e_info[n].name, head, tmp))
+					return (7);
+				break;
+
+			case ARTIFACT_INFO_E_NAME:
+				break;
+
+			case ARTIFACT_INFO_FLAGS:
+				s = tmp;
+				/* Parse every entry textually */
+				for (s = tmp; *s;)
+				{
+						/* Find the end of this entry */
+					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+
+						/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|') t++;
+					}
+
+						/* Parse this entry */
+					if (0 != grab_one_kind_flag(&k_info[n], s))
+						return (5);
+
+						/* Start the next entry */
+					s = t;
+				}
+				break;
+
+			case ARTIFACT_INFO_COMMENT:
+				break;
+
+			default:
+				return (1);
+
+			}
+		}
+		
+	}
+	return (0);
+}
+
+
 /*
  * Initialize the "a_info" array, by parsing an ascii "template" file
  */
@@ -2502,7 +2604,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_FLAG    13
 #define OBJECT_EGO_INFO_COMMENT 14
 
-static int object_ego_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
+static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
 {
 	int split[80], size[80];
