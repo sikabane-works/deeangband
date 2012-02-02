@@ -2377,7 +2377,7 @@ errr parse_artifact_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&a_info[n].flags, s))
+					if (0 != grab_one_artifact_flag(&a_info[n], s))
 						return (5);
 
 						/* Start the next entry */
@@ -2821,7 +2821,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&e_info[n].flags, s))
+					if (0 != grab_one_ego_item_flag(&e_info[n], s))
 						return (5);
 
 						/* Start the next entry */
