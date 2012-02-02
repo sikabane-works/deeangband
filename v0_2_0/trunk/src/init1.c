@@ -2192,6 +2192,51 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 
 
+#define ARTIFACT_INFO_CSV_COLUMNS 20
+static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"NAME",
+	"E_NAME",
+	"TVAL",
+	"SVAL",
+	"PVAL",
+	"DEPTH",
+	"RARITY",
+	"WEIGHT",
+	"COST",
+	"SIZE",
+	"BASE_AC",
+	"BASE_DAMAGE",
+	"PLUS_HIT",
+	"PLUS_DAM",
+	"PLUS_AC",
+	"FLAGS",
+	"DESCRIPTION",
+	"E_DESCRIPTION",
+	"COMMENT",
+};
+
+#define ARTIFACT_INFO_ID             0
+#define ARTIFACT_INFO_NAME           1
+#define ARTIFACT_INFO_E_NAME         2
+#define ARTIFACT_INFO_TVAL           3
+#define ARTIFACT_INFO_SVAL           4
+#define ARTIFACT_INFO_PVAL           5
+#define ARTIFACT_INFO_DEPTH          6
+#define ARTIFACT_INFO_RARITY         7
+#define ARTIFACT_INFO_WEIGHT         8
+#define ARTIFACT_INFO_COST           9
+#define ARTIFACT_INFO_SIZE          10
+#define ARTIFACT_INFO_BASE_AC       11
+#define ARTIFACT_INFO_BASE_DAMAGE   12
+#define ARTIFACT_INFO_PLUS_HIT      13
+#define ARTIFACT_INFO_PLUS_DAM      14
+#define ARTIFACT_INFO_PLUS_AC       15
+#define ARTIFACT_INFO_FLAGS         16
+#define ARTIFACT_INFO_DESCRIPTION   17
+#define ARTIFACT_INFO_E_DESCRIPTION 18
+#define ARTIFACT_INFO_COMMENT       19
 
 /*
  * Initialize the "a_info" array, by parsing an ascii "template" file
@@ -2506,6 +2551,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 		{
 			
 			strncpy(tmp, buf + split[i], size[i]);
+
 			tmp[size[i]] = '\0';
 			
 
