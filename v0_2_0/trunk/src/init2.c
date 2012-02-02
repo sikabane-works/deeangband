@@ -978,7 +978,7 @@ static errr init_object_kind_info(void)
 /*
  * Initialize the "a_info" array
  */
-static errr init_a_info(void)
+static errr init_artifact_info(void)
 {
 	/* Init the header */
 	init_header(&a_head, max_a_idx, sizeof(artifact_type));
@@ -986,11 +986,11 @@ static errr init_a_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	a_head.parse_info_txt = parse_a_info;
+	a_head.parse_info_txt = parse_artifact_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("a_info", &a_head, (void*)&a_info, &a_name, &a_text, NULL);
+	return init_info2("a_info", &a_head, (void*)&a_info, &a_name, &a_text, NULL, NULL);
 }
 
 
@@ -2142,7 +2142,7 @@ void init_angband(void)
 
 	/* Initialize artifact info */
 	note("[Initializing arrays... (artifacts)]");
-	if (init_a_info()) quit("Cannot initialize artifacts");
+	if (init_artifact_info()) quit("Cannot initialize artifacts");
 
 	/* Initialize ego-item info */
 	note("[Initializing arrays... (ego-items)]");

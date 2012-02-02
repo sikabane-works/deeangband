@@ -138,7 +138,7 @@ extern errr parse_store_pre_info_csv(char *buf, header *head);
 
 extern errr parse_object_kind_csv(char *buf, header *head);
 extern errr parse_object_ego_csv(char *buf, header *head);
-
+extern errr parse_artifact_csv(char *buf, header *head);
 
 /*
  * Error tracking
