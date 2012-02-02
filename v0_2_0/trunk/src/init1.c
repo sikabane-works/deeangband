@@ -2421,7 +2421,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 
-#define OBJECT_EGO_INFO_CSV_COLUMNS 24
+#define OBJECT_EGO_INFO_CSV_COLUMNS 15
 static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2497,7 +2497,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize Object Kind:%d]", n);
+		sprintf(nt, "[Initialize Object Ego:%d]", n);
 
 
 		note(nt);
@@ -2521,15 +2521,16 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_SLOT:
-				for(i = 0; i < MAX_EQUIP_TYPE; i++)
+				for(j = 0; j < MAX_EQUIP_TYPE; j++)
 				{
-					if(streq(equip_slot_flags[i], tmp))
+					if(streq(equip_slot_flags[j], tmp))
 					{
 						e_info[n].slot = i;
 						break;
 					}
 				}
-				if(i == MAX_EQUIP_TYPE) return 1;
+				if(j == MAX_EQUIP_TYPE)
+					return (1);
 				break;
 
 			case OBJECT_EGO_INFO_RATING:
@@ -2579,6 +2580,9 @@ errr parse_object_ego_csv(char *buf, header *head)
 					e_info[n].rarity = (byte)b;
 				else
 					e_info[n].rarity = 0;
+				break;
+
+			case OBJECT_EGO_INFO_WEIGHT:
 				break;
 
 			case OBJECT_EGO_INFO_COST:
