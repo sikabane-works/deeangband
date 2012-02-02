@@ -2242,7 +2242,7 @@ static int artifact_info_csv_code[ARTIFACT_INFO_CSV_COLUMNS];
 errr parse_artifact_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b;
+	int i, j, b, c;
 	char *s, *t;
 	char tmp[10000], nt[80];
 
@@ -2338,27 +2338,65 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			case ARTIFACT_INFO_WEIGHT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].weight = (s16b)b;
+				else
+					a_info[n].weight = 0;
 				break;
 
 			case ARTIFACT_INFO_COST:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].cost = (s32b)b;
+				else
+					a_info[n].cost = 0;
 				break;
 
 			case ARTIFACT_INFO_SIZE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].fitting_size = (s16b)b;
+				else
+					a_info[n].fitting_size = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_AC:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].ac = (s16b)b;
+				else
+					a_info[n].ac = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_DAMAGE:
+				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
+				{
+					a_info[n].dd = (byte)b;
+					a_info[n].ds = (byte)c;
+				}
+				else
+				{
+					a_info[n].dd = 0;
+					a_info[n].ds = 0;
+				}
 				break;
 
 			case ARTIFACT_INFO_PLUS_HIT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].to_h = (s16b)b;
+				else
+					a_info[n].to_h = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_DAM:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].to_d = (s16b)b;
+				else
+					a_info[n].to_d = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_AC:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].to_a = (s16b)b;
+				else
+					a_info[n].to_a = 0;
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
@@ -2386,6 +2424,9 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			case ARTIFACT_INFO_DESCRIPTION:
+				/* Store the text */
+				if (!add_text(&a_info[n].text, head, tmp, TRUE))
+					return (7);
 				break;
 
 			case ARTIFACT_INFO_E_DESCRIPTION:
