@@ -2278,7 +2278,7 @@ errr parse_artifact_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize Object Ego:%d]", n);
+		sprintf(nt, "[Initialize Artifact:%d]", n);
 
 
 		note(nt);
@@ -2295,11 +2295,50 @@ errr parse_artifact_csv(char *buf, header *head)
 			{
 
 			case ARTIFACT_INFO_NAME:
-				if(!add_name(&e_info[n].name, head, tmp))
+				if(!add_name(&a_info[n].name, head, tmp))
 					return (7);
 				break;
 
 			case ARTIFACT_INFO_E_NAME:
+				break;
+
+			case ARTIFACT_INFO_TVAL:
+				break;
+
+			case ARTIFACT_INFO_SVAL:
+				break;
+
+			case ARTIFACT_INFO_PVAL:
+				break;
+
+			case ARTIFACT_INFO_DEPTH:
+				break;
+
+			case ARTIFACT_INFO_RARITY:
+				break;
+
+			case ARTIFACT_INFO_WEIGHT:
+				break;
+
+			case ARTIFACT_INFO_COST:
+				break;
+
+			case ARTIFACT_INFO_SIZE:
+				break;
+
+			case ARTIFACT_INFO_BASE_AC:
+				break;
+
+			case ARTIFACT_INFO_BASE_DAMAGE:
+				break;
+
+			case ARTIFACT_INFO_PLUS_HIT:
+				break;
+
+			case ARTIFACT_INFO_PLUS_DAM:
+				break;
+
+			case ARTIFACT_INFO_PLUS_AC:
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
@@ -2318,12 +2357,18 @@ errr parse_artifact_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&k_info[n], s))
+					if (0 != grab_one_kind_flag(&a_info[n], s))
 						return (5);
 
 						/* Start the next entry */
 					s = t;
 				}
+				break;
+
+			case ARTIFACT_INFO_DESCRIPTION:
+				break;
+
+			case ARTIFACT_INFO_E_DESCRIPTION:
 				break;
 
 			case ARTIFACT_INFO_COMMENT:
@@ -2756,7 +2801,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&k_info[n], s))
+					if (0 != grab_one_kind_flag(&e_info[n], s))
 						return (5);
 
 						/* Start the next entry */
