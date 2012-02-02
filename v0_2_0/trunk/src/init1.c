@@ -2303,18 +2303,38 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			case ARTIFACT_INFO_TVAL:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].tval = (byte)b;
+				else
+					a_info[n].tval = 0;
 				break;
 
 			case ARTIFACT_INFO_SVAL:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].sval = (byte)b;
+				else
+					a_info[n].sval = 0;
 				break;
 
 			case ARTIFACT_INFO_PVAL:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].pval = (byte)b;
+				else
+					a_info[n].pval = 0;
 				break;
 
 			case ARTIFACT_INFO_DEPTH:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].level = (byte)b;
+				else
+					a_info[n].level = 0;
 				break;
 
 			case ARTIFACT_INFO_RARITY:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].rarity = (byte)b;
+				else
+					a_info[n].rarity = 0;
 				break;
 
 			case ARTIFACT_INFO_WEIGHT:
@@ -2357,7 +2377,7 @@ errr parse_artifact_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&a_info[n], s))
+					if (0 != grab_one_kind_flag(&a_info[n].flags, s))
 						return (5);
 
 						/* Start the next entry */
@@ -2801,7 +2821,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&e_info[n], s))
+					if (0 != grab_one_kind_flag(&e_info[n].flags, s))
 						return (5);
 
 						/* Start the next entry */
