@@ -3485,7 +3485,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	/* Display the stats */
 	for (i = 0; i < 6; i++)
 	{
-		int r_adj, cl_adj;
+		int r_adj, cl_adj, base_lev = (race_info[cr_ptr->race_idx1].lev + race_info[cr_ptr->race_idx2].lev) / 2;
 
 		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
@@ -3529,7 +3529,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			}
 		}
 
-		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) , i);
+		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - base_lev, i);
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 			/* Reduced name of stat */

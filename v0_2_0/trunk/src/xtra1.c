@@ -3453,7 +3453,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		{
 			new_speed += (cr_ptr->lev) / 10;
 		}
-		//TODOO
+		//TODO
 		/*
 			case LICH:
 			cr_ptr->pass_wall = TRUE;
