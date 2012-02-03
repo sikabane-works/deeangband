@@ -3571,11 +3571,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(cr_ptr->chara_idx != INDEX_NONE)
 			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
-/*TODO
-		if(cr_ptr->patron_idx != INDEX_NONE)
-			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron_idx].p_adj[i];
-*/
+		for(j = 0; j < max_authorities_idx; j++)
+			if(HAS_AUTHORITY(cr_ptr, j)) authority_info[i].a_adj[i];
 	}
+
 
 
 
