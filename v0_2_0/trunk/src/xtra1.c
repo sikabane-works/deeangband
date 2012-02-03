@@ -3230,21 +3230,29 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if(cr_ptr->patron_idx != INDEX_NONE)
+	if(cr_ptr->dr >= 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
 	{
-		/*TODO
-		cr_ptr->skill_dis += player_patrons[cr_ptr->patron_idx].p_dis;
-		cr_ptr->skill_dev += player_patrons[cr_ptr->patron_idx].p_dev;
-		cr_ptr->skill_rob += player_patrons[cr_ptr->patron_idx].p_sav;
-		cr_ptr->skill_eva += player_patrons[cr_ptr->patron_idx].p_sav;
-		cr_ptr->skill_vol += player_patrons[cr_ptr->patron_idx].p_sav;
-		cr_ptr->skill_stl += player_patrons[cr_ptr->patron_idx].p_stl;
-		cr_ptr->skill_srh += player_patrons[cr_ptr->patron_idx].p_srh;
-		cr_ptr->skill_fos += player_patrons[cr_ptr->patron_idx].p_fos;
-		cr_ptr->skill_thn += player_patrons[cr_ptr->patron_idx].p_thn;
-		cr_ptr->skill_thb += player_patrons[cr_ptr->patron_idx].p_thb;
-		cr_ptr->skill_tht += player_patrons[cr_ptr->patron_idx].p_thb;
-		*/
+		creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+		if(patron_ptr)
+		{
+			for(i = 0; i < max_authorities_idx; i++)
+			{
+				if(HAS_AUTHORITY(cr_ptr, i))
+				{
+					cr_ptr->skill_dis += authority_info[i].w_dis;
+					cr_ptr->skill_dev += authority_info[i].w_dev;
+					cr_ptr->skill_rob += authority_info[i].w_sav;
+					cr_ptr->skill_eva += authority_info[i].w_sav;
+					cr_ptr->skill_vol += authority_info[i].w_sav;
+					cr_ptr->skill_stl += authority_info[i].w_stl;
+					cr_ptr->skill_srh += authority_info[i].w_srh;
+					cr_ptr->skill_fos += authority_info[i].w_fos;
+					cr_ptr->skill_thn += authority_info[i].w_thn;
+					cr_ptr->skill_thb += authority_info[i].w_thb;
+					cr_ptr->skill_tht += authority_info[i].w_thb;
+				}
+			}
+		}
 	}
 
 	if(cr_ptr->dr >= 0)
@@ -3574,6 +3582,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		for(j = 0; j < max_authorities_idx; j++)
 			if(HAS_AUTHORITY(cr_ptr, j))
 				cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
+
+		if(cr_ptr->dr >= 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+		{
+			creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+			if(patron_ptr)
+			{
+				for(j = 0; j < max_authorities_idx; j++)
+					if(HAS_AUTHORITY(cr_ptr, j))
+						cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
+			}
+		}
+
 	}
 
 
