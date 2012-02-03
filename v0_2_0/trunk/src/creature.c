@@ -2388,3 +2388,11 @@ int get_equip_weapon_num(creature_type *cr_ptr)
 		if(object_is_weapon(&cr_ptr->inventory[i])) n++;
 	return n++;
 }
+
+creature_type *find_unique_instance(int n)
+{
+	int i;
+	for(i = 0; i < max_unique; i++)
+		if(n == u_info[i].species_idx) return &u_info[i];
+	return NULL;
+}
