@@ -3501,6 +3501,12 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			}
 		}
 
+		for(j = 0; j < max_creature_flag_idx; j++)
+		{
+			if(has_cf_creature(cr_ptr, j))
+				r_adj += creature_flag_info[j].adj[i];
+		}
+
 		/* Calculate equipment adjustment */
 		e_adj = 0;
 
@@ -3575,6 +3581,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		if(cr_ptr->cls_idx != INDEX_NONE)
 		{
 			cl_adj = (int)class_info[cr_ptr->cls_idx].c_adj[i];
+			if(cr_ptr->cls_bonus) cl_adj += class_info[cr_ptr->cls_idx].c_adj_b[i];
 
 			(void)sprintf(buf, "%+3d", cl_adj);
 			if(class_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
