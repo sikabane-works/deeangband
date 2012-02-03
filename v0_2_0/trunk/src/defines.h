@@ -6004,3 +6004,5 @@ extern int PlayerUID;
 #define ADD_OUTFIT_EQUIP                0x00000001
 #define ADD_OUTFIT_MULTIPLE_FENCING     0x00000002
 
+
+#define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 

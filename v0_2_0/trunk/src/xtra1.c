@@ -3168,9 +3168,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	}
 
-
-
-
 	if(cr_ptr->cls_idx != INDEX_NONE)
 	{
 		cr_ptr->skill_dis += class_info[cr_ptr->cls_idx].c_dis;
@@ -3213,6 +3210,24 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_thn += chara_info[cr_ptr->chara_idx].a_thn;
 		cr_ptr->skill_thb += chara_info[cr_ptr->chara_idx].a_thb;
 		cr_ptr->skill_tht += chara_info[cr_ptr->chara_idx].a_thb;
+	}
+
+	for(i = 0; i < max_authorities_idx; i++)
+	{
+		if(HAS_AUTHORITY(cr_ptr, i))
+		{
+			cr_ptr->skill_dis += authority_info[i].a_dis;
+			cr_ptr->skill_dev += authority_info[i].a_dev;
+			cr_ptr->skill_rob += authority_info[i].a_sav;
+			cr_ptr->skill_eva += authority_info[i].a_sav;
+			cr_ptr->skill_vol += authority_info[i].a_sav;
+			cr_ptr->skill_stl += authority_info[i].a_stl;
+			cr_ptr->skill_srh += authority_info[i].a_srh;
+			cr_ptr->skill_fos += authority_info[i].a_fos;
+			cr_ptr->skill_thn += authority_info[i].a_thn;
+			cr_ptr->skill_thb += authority_info[i].a_thb;
+			cr_ptr->skill_tht += authority_info[i].a_thb;
+		}
 	}
 
 	if(cr_ptr->patron_idx != INDEX_NONE)
