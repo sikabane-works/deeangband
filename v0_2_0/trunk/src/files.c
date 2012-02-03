@@ -3485,7 +3485,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	/* Display the stats */
 	for (i = 0; i < 6; i++)
 	{
-		int r_adj, cl_adj, base_lev = (race_info[cr_ptr->race_idx1].lev + race_info[cr_ptr->race_idx2].lev) / 2;
+		int r_adj, cl_adj, p_adj = 0, base_lev = (race_info[cr_ptr->race_idx1].lev + race_info[cr_ptr->race_idx2].lev) / 2;
 
 		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
@@ -3593,15 +3593,27 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 23);
 		}
 
+		//authority bonus
 		if(cr_ptr->patron_idx != INDEX_NONE || cr_ptr->dr >= 0)
 		{
-			int t = 0;
 			for(j = 0; j < max_authorities_idx; j++)
-				if(HAS_AUTHORITY(cr_ptr, j)) t += authority_info[j].a_adj[i];
+				if(HAS_AUTHORITY(cr_ptr, j)) p_adj += authority_info[j].a_adj[i];
 
-			(void)sprintf(buf, "%+3d", t);
-			if(t > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
-			else if(t < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
+			//worshipment bonus
+			if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+			{
+				creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+				if(patron_ptr)
+				{
+					for(j = 0; j < max_authorities_idx; j++)
+						if(HAS_AUTHORITY(patron_ptr, j)) p_adj += authority_info[j].w_adj[i];
+				}
+			}
+
+
+			(void)sprintf(buf, "%+3d", p_adj);
+			if(p_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
+			else if(p_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 26);
 		}
 		else

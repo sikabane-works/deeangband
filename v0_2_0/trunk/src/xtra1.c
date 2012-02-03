@@ -3230,14 +3230,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if(cr_ptr->dr >= 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+	if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
 	{
 		creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
 		if(patron_ptr)
 		{
 			for(i = 0; i < max_authorities_idx; i++)
 			{
-				if(HAS_AUTHORITY(cr_ptr, i))
+				if(HAS_AUTHORITY(patron_ptr, i))
 				{
 					cr_ptr->skill_dis += authority_info[i].w_dis;
 					cr_ptr->skill_dev += authority_info[i].w_dev;
@@ -3583,13 +3583,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if(HAS_AUTHORITY(cr_ptr, j))
 				cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
 
-		if(cr_ptr->dr >= 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+		if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
 		{
 			creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
 			if(patron_ptr)
 			{
 				for(j = 0; j < max_authorities_idx; j++)
-					if(HAS_AUTHORITY(cr_ptr, j))
+					if(HAS_AUTHORITY(patron_ptr, j))
 						cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
 			}
 		}
