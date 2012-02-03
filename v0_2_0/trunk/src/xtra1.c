@@ -3572,7 +3572,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
 		for(j = 0; j < max_authorities_idx; j++)
-			if(HAS_AUTHORITY(cr_ptr, j)) authority_info[i].a_adj[i];
+			if(HAS_AUTHORITY(cr_ptr, j)) cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
 	}
 
 

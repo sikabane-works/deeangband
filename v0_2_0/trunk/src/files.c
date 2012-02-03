@@ -3469,14 +3469,14 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "”\—Í", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Šî–{", row, stat_col+7);
 	c_put_str(TERM_WHITE, " ŒÀŠE", row, stat_col+14);
-	c_put_str(TERM_WHITE, " Ží E M « ‘• ", row, stat_col+20);
+	c_put_str(TERM_WHITE, " Ží E _ « ‘• ", row, stat_col+20);
 	c_put_str(TERM_L_GREEN, "‡Œv", row, stat_col+36);
 	c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+42);
 #else
 	c_put_str(TERM_WHITE, "Stat", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Base", row, stat_col+7);
 	c_put_str(TERM_WHITE, "Limit", row, stat_col+14);
-	c_put_str(TERM_WHITE, "RacClaPatPerMod", row, stat_col+20);
+	c_put_str(TERM_WHITE, "RacClaDivPerMod", row, stat_col+20);
 	c_put_str(TERM_L_GREEN, "Actual", row, stat_col+34);
 	c_put_str(TERM_YELLOW, "Current", row, stat_col+39);
 #endif
@@ -3586,19 +3586,21 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 23);
 		}
 
-		/* TODO
-		if(cr_ptr->patron_idx != INDEX_NONE)
+		if(cr_ptr->patron_idx != INDEX_NONE || cr_ptr->dr >= 0)
 		{
-			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron_idx].p_adj[i]);
-			if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
-			else if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
+			int t = 0;
+			for(j = 0; j < max_authorities_idx; j++)
+				if(HAS_AUTHORITY(cr_ptr, j)) t += authority_info[j].a_adj[i];
+
+			(void)sprintf(buf, "%+3d", t);
+			if(t > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
+			else if(t < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 26);
 		}
 		else
 		{
-		*/
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
-		/*}*/
+		}
 
 		if(cr_ptr->chara_idx != INDEX_NONE)
 		{
