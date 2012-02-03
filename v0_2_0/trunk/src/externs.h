@@ -1076,7 +1076,6 @@ extern bool has_magic_power(creature_type *creature_ptr);
 extern bool has_status(creature_type *creature_ptr, int stat);
 
 extern int get_equip_weapon_num(creature_type *cr_ptr);
-extern creature_type *search_creature_info(int species_idx);
 extern int calc_weapon_weight_limit(creature_type *cr_ptr);
 extern int get_equip_weapon_num(creature_type *cr_ptr);
 

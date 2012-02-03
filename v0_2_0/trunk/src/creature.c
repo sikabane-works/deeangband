@@ -2341,37 +2341,6 @@ bool has_status(creature_type *creature_ptr, int stat)
 			break;
 	}
 	return FALSE;
-
-}
-
-creature_type *search_creature_info(int species_idx)
-{
-	static creature_type tmp_cr;
-	int i;
-
-	if(is_unique_species(&species_info[species_idx]))
-	{
-		for(i = 0; i < max_unique; i++)
-		{
-			if(species_idx == u_info[i].species_idx)
-			{
-				u_info[i].update = PU_BONUS | PU_HP | PU_MANA;
-				update_stuff(&u_info[i], FALSE);
-				return &u_info[i];
-			}
-		}
-
-		return NULL;
-	}
-	else
-	{
-		creature_type cr;
-		C_WIPE(&tmp_cr, 1, creature_type);
-		generate_creature(&tmp_cr, species_idx, &cr, GC_AUTO | GC_AVERAGE);
-		return &tmp_cr;
-	}
-
-
 }
 
 int calc_weapon_weight_limit(creature_type *cr_ptr)
