@@ -4100,7 +4100,23 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
-		if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
+		if(creature_ptr->patron_idx == SPECIES_ILUVATAR)
+		{
+			if(i != CHARA_MUNCHKIN) continue;
+			else
+			{
+				strcpy(ce[n].cap, chara_info[i].title);
+				ce[n].code = i;
+				ce[n].key = '\0';
+				ce[n].d_color = TERM_L_DARK;
+				ce[n].l_color = TERM_WHITE;
+	
+				id[n] = i;
+				rarity[n] = chara_info[i].rarity;
+				n++;
+			}
+		}
+		else if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
 		{
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
@@ -4111,7 +4127,6 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 			id[n] = i;
 			rarity[n] = chara_info[i].rarity;
 			n++;
-
 		}
 	}
 

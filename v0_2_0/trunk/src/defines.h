@@ -4951,6 +4951,7 @@ extern int PlayerUID;
 #define MON_LOUSY         1063
 #define MON_JIZOTAKO      1065
 #define MON_TANUKI        1067
+#define SPECIES_ILUVATAR  1090
 #define MON_LION_HEART    1097
 #define MON_ARIOCH        1142
 
