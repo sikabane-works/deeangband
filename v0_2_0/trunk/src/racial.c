@@ -1356,7 +1356,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 				/* Explode all mirrors */
-				remove_all_mirrors(TRUE);
+				remove_all_mirrors(cr_ptr, TRUE);
 			}
 			else if (command == -4)
 			{

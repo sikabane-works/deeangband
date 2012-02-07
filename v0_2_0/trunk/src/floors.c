@@ -858,7 +858,7 @@ void leave_floor(creature_type *cr_ptr)
 	preserve_pet(cr_ptr);
 
 	/* Remove all mirrors without explosion */
-	remove_all_mirrors(FALSE);
+	remove_all_mirrors(cr_ptr, FALSE);
 
 	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 

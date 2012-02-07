@@ -352,7 +352,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(p_ptr, y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(cr_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
 			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
@@ -391,7 +391,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(p_ptr, y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(cr_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
 			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
@@ -435,7 +435,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 	int oy = cr_ptr->fy;
 	int ox = cr_ptr->fx;
 
-	if (!teleport_player_aux(p_ptr, dis, mode)) return;
+	if (!teleport_player_aux(cr_ptr, dis, mode)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)

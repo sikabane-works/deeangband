@@ -7581,7 +7581,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 /*
  * Remove all mirrors in this floor
  */
-void remove_all_mirrors(bool explode)
+void remove_all_mirrors(creature_type *user_ptr, bool explode)
 {
 	int x, y;
 
