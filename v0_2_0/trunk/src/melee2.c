@@ -497,7 +497,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	x1 = nonplayer_ptr->fx;
 
 	/* Monster can already cast spell to player */
-	if (projectable(y1, x1, p_ptr->fy, p_ptr->fx)) return (FALSE);
+	if (projectable(y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
 	now_cost = cave[y1][x1].cost;
@@ -522,15 +522,15 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		if (!in_bounds2(y, x)) continue;
 
 		/* Simply move to player */
-		if (creature_bold(p_ptr, y, x)) return (FALSE);
+		if (creature_bold(player_ptr, y, x)) return (FALSE);
 
 		c_ptr = &cave[y][x];
 
 		cost = c_ptr->cost;
 
 		/* Monster cannot kill or pass walls */
-		if (!((has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) ||
-			  (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != p_ptr->riding))))
+		if (!((has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
+			  (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -541,7 +541,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 		if (now_cost < cost) continue;
 
-		if (!projectable(x, y, p_ptr->fy, p_ptr->fx)) continue;
+		if (!projectable(x, y, player_ptr->fy, player_ptr->fx)) continue;
 
 		/* Accept louder sounds */
 		if (best < cost) continue;
