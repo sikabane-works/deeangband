@@ -609,7 +609,7 @@ void wilderness_gen(creature_type *cr_ptr)
 			mode |= PM_ALLOW_SLEEP;
 
 		/* Make a resident */
-		(void)alloc_monster(generate_encounter ? 0 : 3, mode);
+		(void)alloc_monster(cr_ptr, generate_encounter ? 0 : 3, mode);
 	}
 
 	if(generate_encounter) ambush_flag = TRUE;

@@ -4105,7 +4105,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	    !inside_arena && !inside_quest && !inside_battle)
 	{
 		/* Make a new monster */
-		(void)alloc_monster(MAX_SIGHT + 5, 0);
+		(void)alloc_monster(cr_ptr, MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */

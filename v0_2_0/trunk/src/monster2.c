@@ -4893,7 +4893,7 @@ bool alloc_guardian(bool def_val)
  *
  * Use "monster_level" for the monster level
  */
-bool alloc_monster(int dis, u32b mode)
+bool alloc_monster(creature_type *player_ptr, int dis, u32b mode)
 {
 	int			y = 0, x = 0;
 	int         attempts_left = 10000;
@@ -4915,11 +4915,11 @@ bool alloc_monster(int dis, u32b mode)
 		}
 		else
 		{
-			if (!cave_empty_bold(p_ptr, y, x)) continue;
+			if (!cave_empty_bold(player_ptr, y, x)) continue;
 		}
 
 		/* Accept far away grids */
-		if (distance(y, x, p_ptr->fy, p_ptr->fx) > dis) break;
+		if (distance(y, x, player_ptr->fy, player_ptr->fx) > dis) break;
 	}
 
 	if (!attempts_left)
