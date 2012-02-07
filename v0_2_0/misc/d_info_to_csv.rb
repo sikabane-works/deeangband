@@ -78,8 +78,7 @@ class D_info
 			output += "RACE_POP" + '","'
 			output += "VAULT_INFO" + '","'
 			output += "PORTAL_INFO" + '","'
-			output += @comment + '","'
-			output += '"'
+			output += "COMMENT" + '"'
 			comment_tmp = @comment
 			file.puts(output)
 			initialize
@@ -186,7 +185,7 @@ file1.each do |line|
 
 			when 'F'
 				d.flags += ("|" + line.sub("\n", "").gsub(" ", "")[2..-1])
-				d.flags = d.flags[0..-2] if d.flags[-1] == "|"
+				d.flags = d.flags[1..-1] if d.flags[0] == "|"
 
 		end
 end
