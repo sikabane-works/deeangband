@@ -694,7 +694,7 @@ msg_print("魔法の階段が現れた...");
 /*
  * Return monster death string
  */
-cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
+cptr extract_note_dies(creature_type *killer_ptr, species_type *r_ptr)
 {
 	/* Some monsters get "destroyed" */
 	if (!monster_living(r_ptr))
@@ -714,7 +714,7 @@ cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
 		}
 
 #ifdef JP
-	if(cr_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(killer_ptr->chara_idx == CHARA_CHARGEMAN)
 		return "を倒した。ごめんね～";
 	else
 		return "を倒した。";
@@ -725,7 +725,7 @@ cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
 
 	/* Assume a default death */
 #ifdef JP
-	if(cr_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(killer_ptr->chara_idx == CHARA_CHARGEMAN)
 		return "は死んだ。ごめんね～";
 	else
 		return "は死んだ。";
