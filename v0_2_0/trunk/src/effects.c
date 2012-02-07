@@ -6224,10 +6224,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			for (i = 0; i < 4; i++)
 			{
-				if (r_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
+				if (tar_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
 	
-				if ((r_ptr->blow[i].effect == RBE_EAT_ITEM)
-					|| (r_ptr->blow[i].effect == RBE_EAT_GOLD))
+				if ((tar_ptr->blow[i].effect == RBE_EAT_ITEM)
+					|| (tar_ptr->blow[i].effect == RBE_EAT_GOLD))
 	
 					thief = TRUE; /* Thief! */
 			}
@@ -6282,7 +6282,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 				for (i = 0; i < 4; i++)
 				{
-					if (r_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
+					if (tar_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
 				}
 	
 				/* Special note at death */

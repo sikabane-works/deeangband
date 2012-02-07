@@ -76,6 +76,8 @@ static bool know_armour(int species_idx)
  * the higher the level of the monster, the fewer the attacks you need,
  * the more damage an attack does, the more attacks you need
  */
+
+//TODO Change reference to creature_type.
 static bool know_damage(int species_idx, int i)
 {
 	species_type *r_ptr = &species_info[species_idx];

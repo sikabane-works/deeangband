@@ -1727,7 +1727,8 @@ msg_format("%^s‚ª‚©‚ñ‚‚¢‹àØ‚èº‚ð‚ ‚°‚½B", m_name);
 			else msg_format("%^s fires an arrow.", m_name);
 #endif
 
-			dam = damroll(r_ptr->blow[0].d_dice, r_ptr->blow[0].d_side);
+			//TODO Fix damage calc.
+			dam = damroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, dam, MS_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;

@@ -1858,10 +1858,6 @@ static void spoil_mon_desc(cptr fname)
 		{
 			if(stat[j] < 3) stat[j] = 3;
 		}
-			
-		
-
-
 
 		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && is_never_move_species(species_ptr))
 			sprintf(sa, "--");

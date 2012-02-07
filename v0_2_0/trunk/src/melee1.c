@@ -203,10 +203,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 		cptr act = NULL;
 
 		/* Extract the attack infomation */
-		int effect = r_ptr->blow[ap_cnt].effect;
-		int method = r_ptr->blow[ap_cnt].method;
-		int d_dice = r_ptr->blow[ap_cnt].d_dice;
-		int d_side = r_ptr->blow[ap_cnt].d_side;
+		int effect = attacker_ptr->blow[ap_cnt].effect;
+		int method = attacker_ptr->blow[ap_cnt].method;
+		int d_dice = attacker_ptr->blow[ap_cnt].d_dice;
+		int d_side = attacker_ptr->blow[ap_cnt].d_side;
 
 		/* Hack -- no more attacks */
 		if (!method) break;
