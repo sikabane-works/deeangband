@@ -694,16 +694,16 @@ msg_print("魔法の階段が現れた...");
 /*
  * Return monster death string
  */
-cptr extract_note_dies(creature_type *killer_ptr, species_type *r_ptr)
+cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 {
 	/* Some monsters get "destroyed" */
-	if (!monster_living(r_ptr))
+	if (!monster_living(&species_info[dead_ptr->species_idx]))
 	{
 		int i;
 
 		for (i = 0; i < 4; i++)
 		{
-			if (r_ptr->blow[i].method == RBM_EXPLODE)
+			if (dead_ptr->blow[i].method == RBM_EXPLODE)
 			{
 #ifdef JP
 				return "は爆発して粉々になった。";

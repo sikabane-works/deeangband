@@ -3696,7 +3696,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, real_species_ptr(m_ptr)), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->m_idx].species_idx != 0)
@@ -4346,7 +4346,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, real_species_ptr(m_ptr)), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->m_idx].species_idx != 0)

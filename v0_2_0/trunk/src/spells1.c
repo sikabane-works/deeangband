@@ -1786,7 +1786,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	cptr note = NULL;
 
 	/* Assume a default death */
-	cptr note_dies = extract_note_dies(player_ptr, real_species_ptr(target_ptr));
+	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
 
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
@@ -7240,7 +7240,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	cptr note = NULL;
 
 	/* Assume a default death */
-	cptr note_dies = extract_note_dies(player_ptr, real_species_ptr(target_ptr));
+	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
 
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
