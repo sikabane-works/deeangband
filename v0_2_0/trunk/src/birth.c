@@ -3885,6 +3885,12 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
+	if(!npc)
+	{
+		clear_from(0);
+		put_initial_status(creature_ptr);
+	}
+
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
 		if(class_info[i].rarelity != CLASS_RARELITY_UNSELECTED)
@@ -4103,41 +4109,21 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		put_initial_status(creature_ptr);
 	}
 
+	if(creature_ptr->patron_idx == SPECIES_ILUVATAR)
+	{
+		creature_ptr->chara_idx = CHARA_MUNCHKIN;
+		return 0;
+	}
+
+	if(species_ptr->chara_idx != INDEX_VARIABLE)
+	{
+		creature_ptr->chara_idx = species_ptr->chara_idx;
+		return 0;
+	}
+
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
-		if(creature_ptr->patron_idx == SPECIES_ILUVATAR)
-		{
-			if(i != CHARA_MUNCHKIN) continue;
-			else
-			{
-				strcpy(ce[n].cap, chara_info[i].title);
-				ce[n].code = i;
-				ce[n].key = '\0';
-				ce[n].d_color = TERM_L_DARK;
-				ce[n].l_color = TERM_WHITE;
-	
-				id[n] = i;
-				rarity[n] = chara_info[i].rarity;
-				n++;
-			}
-		}
-		else if(species_ptr->chara_idx != INDEX_VARIABLE)
-		{
-			if(i != species_ptr->chara_idx) continue;
-			else
-			{
-				strcpy(ce[n].cap, chara_info[i].title);
-				ce[n].code = i;
-				ce[n].key = '\0';
-				ce[n].d_color = TERM_L_DARK;
-				ce[n].l_color = TERM_WHITE;
-	
-				id[n] = i;
-				rarity[n] = chara_info[i].rarity;
-				n++;
-			}
-		}
-		else if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
+		if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
 		{
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
@@ -5365,22 +5351,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Patron Select
 	//
-
-	if(species_ptr->patron_idx == INDEX_VARIABLE)
-	{
-		if(!auto_generate)
-		{
-			clear_from(0);
-			put_initial_status(creature_ptr);
-		}
-		i = get_creature_patron(creature_ptr, species_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
-	}
-	else
-	{
-		creature_ptr->patron_idx = species_ptr->patron_idx;
-	}
+	i = get_creature_patron(creature_ptr, species_ptr, auto_generate);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
 
 	//
 	// Character Select
