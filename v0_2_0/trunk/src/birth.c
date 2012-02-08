@@ -3891,11 +3891,8 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-	if(!npc)
-	{
-		clear_from(0);
-		put_initial_status(creature_ptr);
-	}
+	clear_from(0);
+	put_initial_status(creature_ptr);
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
@@ -5324,22 +5321,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Class Select
 	//
-
-	if(species_ptr->cls_idx == INDEX_VARIABLE)
-	{
-		if(!auto_generate)
-		{
-			clear_from(0);
-			put_initial_status(creature_ptr);
-		}
-		i = get_creature_class(creature_ptr, species_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
-	}
-	else
-	{
-		creature_ptr->cls_idx = species_ptr->cls_idx;
-	}
+	i = get_creature_class(creature_ptr, species_ptr, auto_generate);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
 
 	//
 	// Realm Select
@@ -5359,7 +5343,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Character Select
 	//
-
 	i = get_creature_chara(creature_ptr, species_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
