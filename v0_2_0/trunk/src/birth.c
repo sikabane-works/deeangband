@@ -2211,6 +2211,12 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 
 	if(!npc)
 	{
+		clear_from(0);
+		put_initial_status(creature_ptr);
+	}
+
+	if(!npc)
+	{
 #if JP
 		put_str("—Ìˆæ‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
 #else
@@ -5339,11 +5345,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	// Realm Select
 	//
 
-	if(!auto_generate)
-	{
-		clear_from(0);
-		put_initial_status(creature_ptr);
-	}
 	i = get_creature_realms(creature_ptr, species_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
