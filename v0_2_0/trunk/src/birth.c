@@ -4217,6 +4217,9 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	int i, j, n;
 	selection se[STARTING_MAX + 3];
 
+	clear_from(0);
+	put_initial_status(creature_ptr);
+
 	for (i = 0, n = 0; i < STARTING_MAX; i++)
 	{
 		if(starting_point[i].enable)
@@ -5297,11 +5300,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	// TODO Race Trait
 
-
 	//
 	// Sex Select
 	//
-
 	if(species_ptr->sex == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
@@ -5328,7 +5329,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Realm Select
 	//
-
 	i = get_creature_realms(creature_ptr, species_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
@@ -5350,12 +5350,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Starting Point
 	//
-
-	if(!auto_generate)
-	{
-		clear_from(0);
-		put_initial_status(creature_ptr);
-	}
 	if(player)
 	{
 		i = get_starting_point(creature_ptr, auto_generate);
@@ -5364,7 +5358,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	}
 
 	creature_ptr->lev = 1;
-
 	creature_ptr->dr = species_ptr->dr;
 
 	if(player)
