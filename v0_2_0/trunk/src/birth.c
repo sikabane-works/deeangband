@@ -3894,8 +3894,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
 			ce[n].l_color = TERM_WHITE;
-			if(race_info[creature_ptr->race_idx1].choice & (0x01 << i) ||
-			   race_info[creature_ptr->race_idx2].choice & (0x01 << i))
+			if(SUITABLE_CLASS(creature_ptr, i))
 			{
 				ce[n].d_color = TERM_GREEN;
 				ce[n].l_color = TERM_L_GREEN;
