@@ -1399,7 +1399,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		else if (has_cf_creature(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE(target_ptr)))
 		{
 			int by = y, bx = x;
-			get_project_point(caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
+			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
 			if ((distance(by, bx, y, x) <= 3) && los(by, bx, y, x) && one_in_(5))
 			{
 				do_spell = DO_SPELL_BA_LITE;

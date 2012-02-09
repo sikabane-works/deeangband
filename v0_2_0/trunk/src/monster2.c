@@ -4239,7 +4239,7 @@ msg_print("守りのルーンが壊れた！");
 	else if (is_friendly_species(r_ptr) ||
 		 (mode & PM_FORCE_FRIENDLY)) //TODO || is_friendly_idx(who))
 	{
-		if (!creature_has_hostile_align(NULL, p_ptr, 0, -1, r_ptr)) set_friendly(m_ptr);
+		if (!creature_has_hostile_align(NULL, summoner_ptr, 0, -1, r_ptr)) set_friendly(m_ptr);
 	}
 
 	/* Assume no sleeping */
@@ -4290,7 +4290,7 @@ msg_print("守りのルーンが壊れた！");
 */
 
 	/* Update the monster */
-	update_mon(p_ptr, c_ptr->m_idx, TRUE);
+	update_mon(m_ptr, c_ptr->m_idx, TRUE);
 
 	/* Count the monsters on the level */
 	real_species_ptr(m_ptr)->cur_num++;

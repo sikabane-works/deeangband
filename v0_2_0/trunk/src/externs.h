@@ -1784,7 +1784,7 @@ extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
 
 /* mspells2.c */
-extern void get_project_point(int sy, int sx, int *ty, int *tx, int flg);
+extern void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *tx, int flg);
 
 /* artifact.c */
 extern void one_sustain(object_type *o_ptr);
