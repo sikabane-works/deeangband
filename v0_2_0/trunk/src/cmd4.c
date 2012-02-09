@@ -8254,7 +8254,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					{
 						for(j = INVEN_1STARM; j <= INVEN_FEET; j++)
 						{
-							identify_item(p_ptr, &creature_ptr->inventory[j]);
+							identify_item(player_ptr, &creature_ptr->inventory[j]);
 							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
 						}
 						creature_ptr->update = PU_BONUS | PU_HP | PU_MANA;

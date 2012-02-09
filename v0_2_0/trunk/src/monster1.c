@@ -528,12 +528,12 @@ void set_friendly(creature_type *m_ptr)
 	m_ptr->smart |= SM_FRIENDLY;
 }
 
-void set_pet(creature_type *m_ptr)
+void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
-	if (!is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
+	if (!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
 
 	/* Check for quest completion */
-	check_quest_completion(p_ptr, m_ptr);
+	check_quest_completion(master_ptr, m_ptr);
 
 	m_ptr->smart |= SM_PET;
 	if (!(is_enemy_of_evil_creature(m_ptr) && is_enemy_of_good_creature(m_ptr)))

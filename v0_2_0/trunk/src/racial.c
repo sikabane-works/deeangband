@@ -1317,7 +1317,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_format("You tame %s.",steed_name);
 #endif
-				set_pet(steed_ptr);
+				set_pet(cr_ptr, steed_ptr);
 			}
 			else
 			{

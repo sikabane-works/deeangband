@@ -4233,7 +4233,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	/* Pet? */
 	if (mode & PM_FORCE_PET)
 	{
-		set_pet(m_ptr);
+		set_pet(summoner_ptr, m_ptr);
 	}
 	/* Friendly? */
 	else if (is_friendly_species(r_ptr) ||

@@ -1209,7 +1209,7 @@ extern bool mon_hook_dungeon(int species_idx);
 extern creature_hook_type get_creature_hook(void);
 extern creature_hook_type get_creature_hook2(int y, int x);
 extern void set_friendly(creature_type *m_ptr);
-extern void set_pet(creature_type *m_ptr);
+extern void set_pet(creature_type *master_ptr, creature_type *m_ptr);
 extern void set_hostile(creature_type *m_ptr);
 extern void anger_monster(creature_type *m_ptr);
 extern bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode);

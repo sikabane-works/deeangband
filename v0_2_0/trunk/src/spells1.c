@@ -5356,7 +5356,7 @@ note = "は眠り込んでしまった！";
 					note = " is in your thrall!";
 #endif
 
-					set_pet(target_ptr);
+					set_pet(caster_ptr, target_ptr);
 				}
 				else
 				{
@@ -5694,7 +5694,7 @@ note = "は眠り込んでしまった！";
 				note = " suddenly seems friendly!";
 #endif
 
-				set_pet(target_ptr);
+				set_pet(caster_ptr, target_ptr);
 			}
 
 			/* No "real" damage */
@@ -5769,7 +5769,7 @@ note = "は眠り込んでしまった！";
 				note = " is in your thrall!";
 #endif
 
-				set_pet(target_ptr);
+				set_pet(caster_ptr, target_ptr);
 			}
 
 			/* No "real" damage */
@@ -5844,7 +5844,7 @@ note = "は眠り込んでしまった！";
 				note = " is in your thrall!";
 #endif
 
-				set_pet(target_ptr);
+				set_pet(caster_ptr, target_ptr);
 			}
 
 			/* No "real" damage */
@@ -5930,7 +5930,7 @@ note = "は眠り込んでしまった！";
 				note = " is tamed!";
 #endif
 
-				set_pet(target_ptr);
+				set_pet(caster_ptr, target_ptr);
 
 			}
 
@@ -6019,7 +6019,7 @@ note = "は眠り込んでしまった！";
 				note = " is tamed!";
 #endif
 
-				set_pet(target_ptr);
+				set_pet(caster_ptr, target_ptr);
 			}
 
 			/* No "real" damage */
@@ -7074,7 +7074,7 @@ msg_format("うまく捕まえられなかった。");
 					note = " is tamed!";
 #endif
 
-					set_pet(target_ptr);
+					set_pet(caster_ptr, target_ptr);
 					(void)set_fast(target_ptr, target_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
