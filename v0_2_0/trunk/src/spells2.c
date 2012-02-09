@@ -4463,7 +4463,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Require line of sight */
-		if (!player_has_los_bold(y, x) || !projectable(p_ptr->fy, p_ptr->fx, y, x)) continue;
+		if (!player_has_los_bold(y, x) || !projectable(caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
 		/* Mark the monster */
 		m_ptr->mflag |= (MFLAG_TEMP);
@@ -7593,7 +7593,7 @@ void remove_all_mirrors(creature_type *user_ptr, bool explode)
 			{
 				remove_mirror(player_ptr, y, x);
 				if (explode)
-					project(0, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS,
+					project(0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
 						(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
