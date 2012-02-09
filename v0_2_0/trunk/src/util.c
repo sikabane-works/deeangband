@@ -4215,7 +4215,7 @@ static char inkey_from_menu(void)
 	int menu = 0;
 	bool kisuu;
 
-	if (p_ptr->fy - panel_row_min > 10) basey = 2;
+	if (player_ptr->fy - panel_row_min > 10) basey = 2;
 	else basey = 13;
 	basex = 15;
 
@@ -4250,7 +4250,7 @@ static char inkey_from_menu(void)
 				switch(special_menu_info[hoge].jouken)
 				{
 				case MENU_CLASS:
-					if (p_ptr->cls_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
+					if (player_ptr->cls_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					break;
 				case MENU_WILD:
 					if (!dun_level && !inside_arena && !inside_quest)
@@ -4273,7 +4273,7 @@ static char inkey_from_menu(void)
 #endif
 
 		/* Place the cursor on the player */
-		move_cursor_relative(p_ptr->fy, p_ptr->fx);
+		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
 		/* Get a command */
 		sub_cmd = inkey();

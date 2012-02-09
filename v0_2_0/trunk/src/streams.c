@@ -417,7 +417,7 @@ void place_trees(int x, int y)
 /*
  * Build a destroyed level
  */
-void destroy_level(void)
+void destroy_level()
 {
 	int y1, x1, n;
 
@@ -435,6 +435,7 @@ void destroy_level(void)
 		x1 = rand_range(5, cur_wid - 1 - 5);
 		y1 = rand_range(5, cur_hgt - 1 - 5);
 
-		(void)destroy_area(p_ptr, y1, x1, 15, TRUE);
+		//TODO: use dammy creature
+		(void)destroy_area(player_ptr, y1, x1, 15, TRUE);
 	}
 }
