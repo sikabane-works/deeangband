@@ -2149,7 +2149,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		if(target_ptr->species_idx != 0)
 		{
 			/* HACK - anger the monster before showing the sleep message */
-			if (do_sleep) anger_monster(target_ptr);
+			if (do_sleep) anger_creature(caster_ptr, target_ptr);
 
 			/* Give detailed messages if visible or destroyed */
 			if (note && seen_msg)
@@ -2168,7 +2168,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 			/* Anger monsters */
 			if (((dam > 0) || get_angry) && !do_sleep)
-				anger_monster(target_ptr);
+				anger_creature(caster_ptr, target_ptr);
 
 			/* Hack -- handle sleep */
 			if (do_sleep) (void)set_paralyzed(target_ptr, do_sleep);

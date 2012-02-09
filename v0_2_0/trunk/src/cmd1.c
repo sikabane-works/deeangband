@@ -1922,7 +1922,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		}
 
 		/* Anger the monster */
-		if (k > 0) anger_monster(tar_ptr);
+		if (k > 0) anger_creature(atk_ptr, tar_ptr);
 
 		/* Damage, check for fear and mdeath */
 		switch (attack)
@@ -2597,7 +2597,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				int tmp = (10 + randint1(15) + atk_ptr->lev / 5);
 
 				k = 0;
-				anger_monster(tar_ptr);
+				anger_creature(atk_ptr, tar_ptr);
 
 				if (!has_cf_creature(tar_ptr, CF_NO_STUN))
 				{
@@ -2732,7 +2732,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			}
 
 			/* Anger the monster */
-			if (k > 0) anger_monster(tar_ptr);
+			if (k > 0) anger_creature(atk_ptr, tar_ptr);
 
 			touch_zap_player(atk_ptr, tar_ptr);
 

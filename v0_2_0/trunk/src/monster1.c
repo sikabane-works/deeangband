@@ -543,11 +543,11 @@ void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 /*
  * Makes the monster hostile towards the player
  */
-void set_hostile(creature_type *m_ptr)
+void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if (inside_battle) return;
 
-	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(master_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
 
 	m_ptr->smart &= ~SM_PET;
 	m_ptr->smart &= ~SM_FRIENDLY;
@@ -557,7 +557,7 @@ void set_hostile(creature_type *m_ptr)
 /*
  * Anger the monster
  */
-void anger_monster(creature_type *m_ptr)
+void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 {
 	if (inside_battle) return;
 	if (is_friendly(m_ptr))
@@ -571,7 +571,7 @@ msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
 		msg_format("%^s gets angry!", m_name);
 #endif
 
-		set_hostile(m_ptr);
+		set_hostile(hostile_ptr, m_ptr);
 	}
 }
 

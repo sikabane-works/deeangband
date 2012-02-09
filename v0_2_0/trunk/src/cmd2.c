@@ -3720,7 +3720,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					message_pain(c_ptr->m_idx, tdam);
 
 					/* Anger the monster */
-					if (tdam > 0) anger_monster(m_ptr);
+					if (tdam > 0) anger_creature(cr_ptr, m_ptr);
 
 					/* Take note */
 					if (fear && m_ptr->ml)
@@ -4356,7 +4356,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 
 					/* Anger the monster */
 					if ((tdam > 0) && !object_is_potion(cr_ptr, q_ptr))
-						anger_monster(m_ptr);
+						anger_creature(cr_ptr, m_ptr);
 
 					/* Take note */
 					if (fear && m_ptr->ml)
@@ -4441,7 +4441,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 					msg_format("%^s gets angry!", m_name);
 #endif
 
-					set_hostile(&creature_list[cave[y][x].m_idx]);
+					set_hostile(cr_ptr, &creature_list[cave[y][x].m_idx]);
 				}
 			}
 			do_drop = FALSE;

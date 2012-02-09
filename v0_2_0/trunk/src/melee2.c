@@ -1760,7 +1760,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #endif
 		}
 
-		set_hostile(nonplayer_ptr);
+		set_hostile(player_ptr, nonplayer_ptr);
 	}
 
 	/* Get the origin */

@@ -4727,7 +4727,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 				msg_format("%^s gets angry!", m_name);
 #endif
 			}
-			set_hostile(m_ptr);
+			set_hostile(user_ptr, m_ptr);
 		}
 		if (one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
 	}
