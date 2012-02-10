@@ -2180,6 +2180,7 @@
 #define SV_DIAMOND_EDGE                 31  /* 7d5 */
 #define SV_DOKUBARI                     32  /* 1d1 */
 #define SV_HAYABUSA                     33  /* 1d6 */
+#define SV_URUKS_STRAIGHT_SWORD         34
 
 /* The "sval" codes for TV_SHIELD */
 #define SV_SMALL_LEATHER_SHIELD          2

@@ -145,6 +145,13 @@ file1.each do |line|
 
 		case line[0]
 
+			when 'A'
+				if line[2] == "$" then
+					d.e_text += line[3..-2]
+				else
+					d.text += line[2..-2]
+				end
+
 			when '#'
 				d.comment += line[0..-2]
 
