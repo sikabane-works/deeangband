@@ -5405,14 +5405,12 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		/* Display the weight if needed */
 		if (show_weights)
 		{
+			char buf[80];
 			int wgt = o_ptr->weight * o_ptr->number;
-#ifdef JP
-			(void)sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
-#else
-			(void)sprintf(tmp_val, "%3d.%d kg", wgt / 10, wgt % 10);
-#endif
+			format_weight(buf, wgt);
+			(void)sprintf(tmp_val, "%10s", buf);
 
-			prt(tmp_val, j + 1, right_set ? wid - 9 : len + 3);
+			prt(tmp_val, j + 1, right_set ? wid - 10 : len + 3);
 		}
 	}
 
