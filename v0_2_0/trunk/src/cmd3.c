@@ -20,7 +20,7 @@
 void do_cmd_inven(creature_type *cr_ptr)
 {
 	char out_val[160];
-
+	char buf1[80], buf2[80];
 
 	/* Note that we are in "inventory" mode */
 	command_wrk = FALSE;
@@ -44,15 +44,16 @@ void do_cmd_inven(creature_type *cr_ptr)
 	/* Hack -- hide empty slots */
 	item_tester_full = FALSE;
 
+	format_weight(buf1, cr_ptr->total_weight);
+	format_weight(buf2, weight_limit(cr_ptr));
+
 #ifdef JP
-	sprintf(out_val, "持ち物： 合計 %d.%1d/%d.%1d kg (%ld%%) コマンド: ",
-	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
-	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
+	sprintf(out_val, "持ち物： 合計 %s/%s (%ld%%) コマンド: ",
+		buf1, buf2,
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #else
-	sprintf(out_val, "Inventory: carrying %d.%d/%d.%d kg (%ld%%). Command: ",
-	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
-	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
+	sprintf(out_val, "Inventory: carrying %s/%s (%ld%%). Command: ",
+		buf1, buf2,
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #endif
 
@@ -95,7 +96,7 @@ void do_cmd_inven(creature_type *cr_ptr)
 void do_cmd_equip(creature_type *cr_ptr)
 {
 	char out_val[160];
-
+	char buf1[80], buf2[80];
 
 	/* Note that we are in "equipment" mode */
 	command_wrk = TRUE;
@@ -119,16 +120,17 @@ void do_cmd_equip(creature_type *cr_ptr)
 	/* Hack -- undo the hack above */
 	item_tester_full = FALSE;
 
+	format_weight(buf1, cr_ptr->total_weight);
+	format_weight(buf2, weight_limit(cr_ptr));
+
 	/* Build a prompt */
 #ifdef JP
-	sprintf(out_val, "装備: 合計 %d.%d/%d.%d kg (%ld%%). コマンド: ",
-	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
-	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
+	sprintf(out_val, "装備: 合計 %s/%s (%ld%%). コマンド: ",
+		buf1, buf2,
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #else
-	sprintf(out_val, "Equipment: carrying %d.%d/%d.%d kg (%ld%%). Command: ",
-	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
-	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
+	sprintf(out_val, "Equipment: carrying %s/%s (%ld%%). Command: ",
+		buf1, buf2,
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #endif
 

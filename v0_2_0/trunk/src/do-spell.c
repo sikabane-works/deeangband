@@ -159,10 +159,12 @@ static cptr info_radius(int rad)
  */
 static cptr info_weight(int weight)
 {
+	char buf[30];
+	format_weight(buf, weight);
 #ifdef JP
-	return format("Å‘åd—Ê:%dkg", weight/10);
+	return format("Å‘åd—Ê:%s", buf);
 #else
-	return format("max wgt %d", weight/10);
+	return format("max wgt %s", buf);
 #endif
 }
 
