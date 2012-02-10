@@ -46,11 +46,11 @@ void do_cmd_inven(creature_type *cr_ptr)
 
 #ifdef JP
 	sprintf(out_val, "持ち物： 合計 %d.%1d/%d.%1d kg (%ld%%) コマンド: ",
-	    lbtokg1(cr_ptr->total_weight), lbtokg2(cr_ptr->total_weight),
-	    lbtokg1(weight_limit(cr_ptr)), lbtokg2(weight_limit(cr_ptr)),
+	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
+	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #else
-	sprintf(out_val, "Inventory: carrying %d.%d/%d.%d pounds (%ld%%). Command: ",
+	sprintf(out_val, "Inventory: carrying %d.%d/%d.%d kg (%ld%%). Command: ",
 	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
 	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
@@ -121,12 +121,12 @@ void do_cmd_equip(creature_type *cr_ptr)
 
 	/* Build a prompt */
 #ifdef JP
-	sprintf(out_val, "装備： 合計 %d.%1d/%d.%1d kg (%ld%%) コマンド: ",
-	    lbtokg1(cr_ptr->total_weight), lbtokg2(cr_ptr->total_weight),
-	    lbtokg1(weight_limit(cr_ptr)), lbtokg2(weight_limit(cr_ptr)),
+	sprintf(out_val, "装備: 合計 %d.%d/%d.%d kg (%ld%%). コマンド: ",
+	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
+	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));
 #else
-	sprintf(out_val, "Equipment: carrying %d.%d/%d.%d pounds (%ld%%). Command: ",
+	sprintf(out_val, "Equipment: carrying %d.%d/%d.%d kg (%ld%%). Command: ",
 	    (int)(cr_ptr->total_weight / 10), (int)(cr_ptr->total_weight % 10),
 	    (int)(weight_limit(cr_ptr) / 10), (int)(weight_limit(cr_ptr) % 10),
 	    (cr_ptr->total_weight * 100) / weight_limit(cr_ptr));

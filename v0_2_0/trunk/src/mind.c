@@ -315,7 +315,7 @@ void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power)
 	case 8:  sprintf(p, (plev < 25 ? " %s%d" : " %sd%d"), s_dam, (plev < 25 ? plev * 3 / 2 : plev * ((plev - 5) / 10 + 1))); break;
 	case 9:  sprintf(p, " %s10+d%d", s_dur, plev * 3 / 2);  break;
 #ifdef JP
-	case 10: sprintf(p, " Å‘åd—Ê:%d.%dkg", lbtokg1(plev * 15),lbtokg2(plev * 15));  break;
+	case 10: sprintf(p, " Å‘åd—Ê:%dkg", plev * 15);  break;
 #else
 	case 10: sprintf(p, " max wgt %d", plev * 15);  break;
 #endif

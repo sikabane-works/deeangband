@@ -160,7 +160,7 @@ static cptr info_radius(int rad)
 static cptr info_weight(int weight)
 {
 #ifdef JP
-	return format("Å‘åd—Ê:%d.%dkg", lbtokg1(weight/10), lbtokg2(weight/10));
+	return format("Å‘åd—Ê:%dkg", weight/10);
 #else
 	return format("max wgt %d", weight/10);
 #endif

@@ -647,4 +647,4 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,TVAL,SVAL,PVAL,DEPTH,RARITY,WEIGHT
 686,の胴,,Carcass~,,~,d,10,5,0,1,0,40,0,0,1d1,0,0,0,1/2,,,,
 687,#の薄い本,,& Doujinshi~ of #,,?,y,9,12,0,40,0,500,2500,0,1d1,0,0,0,40/3,,,,
 688,#の等身大フィギュア,,& Full Scale Otaku Figure~ of #,,?,y,9,13,0,40,0,500,25000,0,1d1,0,0,0,40/3,,,,
-689,ウルクの直剣,,& Uruk's Straight Sword,,|,U,23,34,0,38,0,150,255,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",
+689,ウルクの直剣,,& Uruk's Straight Sword,,|,U,23,34,0,38,0,150,8700,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",

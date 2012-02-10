@@ -1335,9 +1335,9 @@ static void analyze_misc(object_type *o_ptr, char *misc_desc)
 #ifdef JP
 	sprintf(misc_desc, "ƒŒƒxƒ‹ %u, Šó­“x %u, %d.%d kg, %ld",
 		a_ptr->level, a_ptr->rarity,
-		lbtokg1(a_ptr->weight), lbtokg2(a_ptr->weight), a_ptr->cost);
+		a_ptr->weight / 10, a_ptr->weight % 10, a_ptr->cost);
 #else
-	sprintf(misc_desc, "Level %u, Rarity %u, %d.%d lbs, %ld Gold",
+	sprintf(misc_desc, "Level %u, Rarity %u, %d.%d kg, %ld Gold",
 		a_ptr->level, a_ptr->rarity,
 		a_ptr->weight / 10, a_ptr->weight % 10, a_ptr->cost);
 #endif
@@ -2779,9 +2779,9 @@ static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
 	desc_ptr->activation = item_activation(o_ptr);
 #ifdef JP
 	sprintf(desc_ptr->misc_desc, "d‚³ %d.%d kg",
-		lbtokg1(o_ptr->weight), lbtokg2(o_ptr->weight));
+		o_ptr->weight / 10, o_ptr->weight % 10);
 #else
-	sprintf(desc_ptr->misc_desc, "Weight %d.%d lbs",
+	sprintf(desc_ptr->misc_desc, "Weight %d.%d kg",
 		o_ptr->weight / 10, o_ptr->weight % 10);
 #endif
 }

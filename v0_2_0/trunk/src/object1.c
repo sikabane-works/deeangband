@@ -4622,9 +4622,9 @@ void display_inven(creature_type *cr_ptr)
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
 #ifdef JP
-			sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt),lbtokg2(wgt) );
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #else
-			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #endif
 
 			prt(tmp_val, i, wid - 9);
@@ -4714,9 +4714,9 @@ void display_equip(creature_type *cr_ptr)
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
 #ifdef JP
-			sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt));
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #else
-			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #endif
 
 			prt(tmp_val, i - INVEN_1STARM, wid - (show_labels ? 28 : 9));
@@ -5187,9 +5187,9 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
 #ifdef JP
-			(void)sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt) );
+			(void)sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #else
-			(void)sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
+			(void)sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #endif
 
 			prt(tmp_val, j + 1, right_set ? wid - 9 : len + 3);
@@ -5413,9 +5413,9 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
 #ifdef JP
-			(void)sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt) );
+			(void)sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #else
-			(void)sprintf(tmp_val, "%3d.%d lb", wgt / 10, wgt % 10);
+			(void)sprintf(tmp_val, "%3d.%d kg", wgt / 10, wgt % 10);
 #endif
 
 			prt(tmp_val, j + 1, right_set ? wid - 9 : len + 3);
@@ -6702,9 +6702,9 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
 #ifdef JP
-			sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt) );
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #else
-			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
+			sprintf(tmp_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 #endif
 
 			prt(tmp_val, j + 1, wid - 9);

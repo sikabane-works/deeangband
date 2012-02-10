@@ -2778,10 +2778,10 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 			/* Only show the weight of an individual item */
 			int wgt = o_ptr->weight;
 #ifdef JP
-			sprintf(out_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt) );
+			sprintf(out_val, "%3d.%1d kg", wgt / 10, wgt % 10);
 			put_str(out_val, i+6, 67);
 #else
-			(void)sprintf(out_val, "%3d.%d lb", wgt / 10, wgt % 10);
+			(void)sprintf(out_val, "%3d.%d kg", wgt / 10, wgt % 10);
 			put_str(out_val, i+6, 68);
 #endif
 
@@ -2808,7 +2808,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 			/* Only show the weight of an individual item */
 			int wgt = o_ptr->weight;
 #ifdef JP
-			sprintf(out_val, "%3d.%1d", lbtokg1(wgt) , lbtokg2(wgt) );
+			sprintf(out_val, "%3d.%1d", wgt / 10 , wgt % 10);
 			put_str(out_val, i+6, 60);
 #else
 			(void)sprintf(out_val, "%3d.%d", wgt / 10, wgt % 10);
