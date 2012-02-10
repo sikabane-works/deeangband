@@ -2727,8 +2727,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 	s32b		x;
 
 	char		o_name[MAX_NLEN];
-	char		out_val[160];
-
+	char		out_val[160], weight[80];
 
 	int maxwid = 75;
 
@@ -2776,12 +2775,12 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		if (show_weights)
 		{
 			/* Only show the weight of an individual item */
-			int wgt = o_ptr->weight;
+			format_weight(weight, o_ptr->weight);
 #ifdef JP
-			sprintf(out_val, "%3d.%1d kg", wgt / 10, wgt % 10);
+			sprintf(out_val, "%10s", weight);
 			put_str(out_val, i+6, 67);
 #else
-			(void)sprintf(out_val, "%3d.%d kg", wgt / 10, wgt % 10);
+			(void)sprintf(out_val, "%10s", weight);
 			put_str(out_val, i+6, 68);
 #endif
 

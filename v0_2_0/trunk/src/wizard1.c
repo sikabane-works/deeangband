@@ -1330,16 +1330,17 @@ static void analyze_addition(object_type *o_ptr, char *addition)
  */
 static void analyze_misc(object_type *o_ptr, char *misc_desc)
 {
+	char buf[80];
 	artifact_type *a_ptr = &a_info[o_ptr->name1];
 
+	format_weight(buf, o_ptr->weight);
+
 #ifdef JP
-	sprintf(misc_desc, "レベル %u, 希少度 %u, %d.%d kg, ＄%ld",
-		a_ptr->level, a_ptr->rarity,
-		a_ptr->weight / 10, a_ptr->weight % 10, a_ptr->cost);
+	sprintf(misc_desc, "レベル %u, 希少度 %u, %s, ＄%ld",
+		a_ptr->level, a_ptr->rarity, buf, a_ptr->cost);
 #else
-	sprintf(misc_desc, "Level %u, Rarity %u, %d.%d kg, %ld Gold",
-		a_ptr->level, a_ptr->rarity,
-		a_ptr->weight / 10, a_ptr->weight % 10, a_ptr->cost);
+	sprintf(misc_desc, "Level %u, Rarity %u, %s, %ld Gold",
+		a_ptr->level, a_ptr->rarity, buf, a_ptr->cost);
 #endif
 }
 
@@ -2768,6 +2769,9 @@ void do_cmd_spoilers(void)
  */
 static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
 {
+	char buf[80];
+	format_weight(buf, o_ptr->weight);
+
 	analyze_general(o_ptr, desc_ptr->description);
 	analyze_pval(o_ptr, &desc_ptr->pval_info);
 	analyze_brand(o_ptr, desc_ptr->brands);
@@ -2778,11 +2782,9 @@ static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
 	analyze_misc_magic(o_ptr, desc_ptr->misc_magic);
 	desc_ptr->activation = item_activation(o_ptr);
 #ifdef JP
-	sprintf(desc_ptr->misc_desc, "重さ %d.%d kg",
-		o_ptr->weight / 10, o_ptr->weight % 10);
+	sprintf(desc_ptr->misc_desc, "重さ %s", buf);
 #else
-	sprintf(desc_ptr->misc_desc, "Weight %d.%d kg",
-		o_ptr->weight / 10, o_ptr->weight % 10);
+	sprintf(desc_ptr->misc_desc, "Weight %s", buf);
 #endif
 }
 
