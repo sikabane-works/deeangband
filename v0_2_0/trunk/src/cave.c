@@ -413,7 +413,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 \
 		/* Notice and redraw */ \
 		note_spot((WHO), (Y), (X)); \
-		lite_spot(cr_ptr, (Y), (X)); \
+		lite_spot((Y), (X)); \
 	} \
 }
 
@@ -1612,7 +1612,7 @@ void display_dungeon(creature_type *cr_ptr)
  *
  * This function should only be called on "legal" grids
  */
-void lite_spot(creature_type *cr_ptr, int y, int x)
+void lite_spot(int y, int x)
 {
 	/* Redraw if on screen */
 	if (panel_contains(y, x) && in_bounds2(y, x))
@@ -1624,14 +1624,14 @@ void lite_spot(creature_type *cr_ptr, int y, int x)
 		char tc;
 
 		/* Examine the grid */
-		map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
+		map_info(player_ptr, y, x, &a, &c, &ta, &tc);
 
 		/* Hack -- fake monochrome */
 		if (!use_graphics)
 		{
 			if (world_monster) a = TERM_DARK;
-			else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
-			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
+			else if (IS_INVULN(player_ptr) || world_player) a = TERM_WHITE;
+			else if (player_ptr->wraith_form) a = TERM_L_DARK;
 
 		}
 
@@ -1723,7 +1723,7 @@ void prt_map(creature_type *cr_ptr)
 	}
 
 	/* Display player */
-	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr->fy, cr_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
@@ -4078,7 +4078,7 @@ void delayed_visual_update(void)
 		if (c_ptr->info & CAVE_NOTE) note_spot(p_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(p_ptr, y, x);
+		lite_spot(y, x);
 
 		/* Hack -- Visual update of monster on this grid */
 		if (c_ptr->m_idx) update_mon(p_ptr, c_ptr->m_idx, FALSE);
@@ -4617,7 +4617,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 	note_spot(cr_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(cr_ptr, y, x);
+	lite_spot(y, x);
 
 	/* Check if los has changed */
 	if (old_los ^ have_flag(f_ptr->flags, FF_LOS))
@@ -4656,7 +4656,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 				note_spot(cr_ptr, yy, xx);
 
 				/* Redraw */
-				lite_spot(cr_ptr, yy, xx);
+				lite_spot(yy, xx);
 			}
 
 			update_local_illumination(cr_ptr, yy, xx);
@@ -4808,7 +4808,7 @@ void remove_mirror(creature_type *player_ptr, int y, int x)
 	note_spot(player_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(player_ptr, y, x);
+	lite_spot(y, x);
 }
 
 

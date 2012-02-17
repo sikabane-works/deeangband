@@ -710,7 +710,7 @@ extern void move_cursor_relative(int row, int col);
 extern void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x);
 extern void note_spot(creature_type *cr_ptr, int y, int x);
 extern void display_dungeon(creature_type *cr_ptr);
-extern void lite_spot(creature_type *cr_ptr, int y, int x);
+extern void lite_spot(int y, int x);
 extern void prt_map(creature_type *cr_ptr);
 extern void prt_path(creature_type *creature_ptr, int y, int x);
 extern void display_map(creature_type *cr_ptr, int *cy, int *cx);
