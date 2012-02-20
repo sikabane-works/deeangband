@@ -976,7 +976,7 @@ static errr init_object_kind_info(void)
 
 
 /*
- * Initialize the "a_info" array
+ * Initialize the "artifact_info" array
  */
 static errr init_artifact_info(void)
 {
@@ -990,7 +990,7 @@ static errr init_artifact_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("a_info", &a_head, (void*)&a_info, &a_name, &a_text, NULL, NULL);
+	return init_info2("artifact_info", &a_head, (void*)&a_info, &a_name, &a_text, NULL, NULL);
 }
 
 
