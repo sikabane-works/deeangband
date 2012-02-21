@@ -1351,7 +1351,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	cave_template_type *template;
 
 	/*** Wipe all cave ***/
-	clear_cave(p_ptr);
+	clear_cave();
 
 
 	/*** Basic info ***/
@@ -1395,6 +1395,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 
 	rd_s16b(&base_level);
 	rd_s16b(&num_repro);
+
 
 	rd_u16b(&tmp16u);
 	p_ptr->fy = (int)tmp16u;
