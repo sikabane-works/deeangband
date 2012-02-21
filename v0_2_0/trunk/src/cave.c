@@ -1648,8 +1648,8 @@ void lite_spot(int y, int x)
  * Prints the map of the dungeon
  *
  * Note that, for efficiency, we contain an "optimized" version
- * of both "lite_spot(cr_ptr, )" and "print_rel()", and that we use the
- * "lite_spot(cr_ptr, )" function to display the player grid, if needed.
+ * of both "lite_spot()" and "print_rel()", and that we use the
+ * "lite_spot()" function to display the player grid, if needed.
  */
 void prt_map(creature_type *cr_ptr)
 {
@@ -2522,7 +2522,7 @@ void forget_lite(void)
 		cave[y][x].info &= ~(CAVE_LITE);
 
 		/* Redraw */
-		/* lite_spot(cr_ptr, y, x); Perhaps don't need? */
+		/* lite_spot(y, x); Perhaps don't need? */
 	}
 
 	/* None left */
@@ -2989,7 +2989,7 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
  *
  * The CAVE_TEMP and CAVE_XTRA flag are used to store the state during the
  * updating.  Only squares in view of the player, whos state
- * changes are drawn via lite_spot(cr_ptr, ).
+ * changes are drawn via lite_spot().
  */
 void update_mon_lite(creature_type *cr_ptr)
 {
@@ -3366,7 +3366,7 @@ void forget_view(void)
 		/* if (!panel_contains(y, x)) continue; */
 
 		/* Update the screen */
-		/* lite_spot(cr_ptr, y, x); Perhaps don't need? */
+		/* lite_spot(y, x); Perhaps don't need? */
 	}
 
 	/* None left */

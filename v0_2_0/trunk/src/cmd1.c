@@ -3606,10 +3606,10 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		}
 
 		/* Redraw old spot */
-		lite_spot(cr_ptr, oy, ox);
+		lite_spot(oy, ox);
 
 		/* Redraw new spot */
-		lite_spot(cr_ptr, ny, nx);
+		lite_spot(ny, nx);
 
 		/* Check for new panel (redraw map) */
 		verify_panel(cr_ptr);
@@ -4265,7 +4265,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 #endif
 
 				c_ptr->info |= (CAVE_MARK);
-				lite_spot(cr_ptr, y, x);
+				lite_spot(y, x);
 			}
 		}
 

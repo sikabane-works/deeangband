@@ -166,7 +166,7 @@ void delete_object_idx(int o_idx)
 		x = j_ptr->ix;
 
 		/* Visual update */
-		lite_spot(p_ptr, y, x);
+		lite_spot(y, x);
 	}
 
 	/* Wipe the object */
@@ -216,7 +216,7 @@ void delete_object(int y, int x)
 	c_ptr->o_idx = 0;
 
 	/* Visual update */
-	lite_spot(p_ptr, y, x);
+	lite_spot(y, x);
 }
 
 
@@ -4595,7 +4595,7 @@ void place_object(int y, int x, u32b mode)
 		note_spot(player_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(player_ptr, y, x);
+		lite_spot(y, x);
 	}
 	else
 	{
@@ -4717,7 +4717,7 @@ void place_gold(int y, int x)
 		note_spot(p_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(p_ptr, y, x);
+		lite_spot(y, x);
 	}
 }
 
@@ -5097,7 +5097,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	note_spot(p_ptr, by, bx);
 
 	/* Draw the spot */
-	lite_spot(p_ptr, by, bx);
+	lite_spot(by, bx);
 
 	/* Sound */
 	sound(SOUND_DROP);
@@ -5240,7 +5240,7 @@ void disclose_grid(int y, int x)
 		note_spot(p_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(p_ptr, y, x);
+		lite_spot(y, x);
 	}
 }
 

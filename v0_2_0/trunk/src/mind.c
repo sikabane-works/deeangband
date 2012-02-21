@@ -1150,8 +1150,8 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 					m_ptr->fx = tx;
 
 					update_mon(cr_ptr, m_idx, TRUE);
-					lite_spot(cr_ptr, oy, ox);
-					lite_spot(cr_ptr, ty, tx);
+					lite_spot(oy, ox);
+					lite_spot(ty, tx);
 
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 						cr_ptr->update |= (PU_MON_LITE);
@@ -1708,10 +1708,10 @@ msg_print("その方向にはモンスターはいません。");
 		update_mon(cr_ptr, m_idx, TRUE);
 
 		/* Redraw the old grid */
-		lite_spot(cr_ptr, target_row, target_col);
+		lite_spot(target_row, target_col);
 
 		/* Redraw the new grid */
-		lite_spot(cr_ptr, ty, tx);
+		lite_spot(ty, tx);
 
 		if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 			m_ptr->update |= (PU_MON_LITE);
