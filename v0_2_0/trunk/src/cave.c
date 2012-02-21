@@ -404,7 +404,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 }
 
 
-#define update_local_illumination_aux(WHO, Y, X) \
+#define update_local_illumination_aux(Y, X) \
 { \
 	if (player_has_los_bold((Y), (X))) \
 	{ \
@@ -412,7 +412,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 		if (cave[(Y)][(X)].m_idx) update_mon(cr_ptr, cave[(Y)][(X)].m_idx, FALSE); \
 \
 		/* Notice and redraw */ \
-		note_spot((WHO), (Y), (X)); \
+		note_spot((Y), (X)); \
 		lite_spot((Y), (X)); \
 	} \
 }
@@ -433,9 +433,9 @@ void update_local_illumination(creature_type *cr_ptr, int y, int x)
 	{
 		yy = (y < cr_ptr->fy) ? (y - 1) : (y + 1);
 		xx = (x < cr_ptr->fx) ? (x - 1) : (x + 1);
-		update_local_illumination_aux(cr_ptr, yy, xx);
-		update_local_illumination_aux(cr_ptr, y, xx);
-		update_local_illumination_aux(cr_ptr, yy, x);
+		update_local_illumination_aux(yy, xx);
+		update_local_illumination_aux(y, xx);
+		update_local_illumination_aux(yy, x);
 	}
 	else if (x != cr_ptr->fx) /* y == cr_ptr->fy */
 	{
@@ -443,12 +443,12 @@ void update_local_illumination(creature_type *cr_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
-			update_local_illumination_aux(cr_ptr, yy, xx);
+			update_local_illumination_aux(yy, xx);
 		}
 		yy = y - 1;
-		update_local_illumination_aux(cr_ptr, yy, x);
+		update_local_illumination_aux(yy, x);
 		yy = y + 1;
-		update_local_illumination_aux(cr_ptr, yy, x);
+		update_local_illumination_aux(yy, x);
 	}
 	else if (y != cr_ptr->fy) /* x == cr_ptr->fx */
 	{
@@ -456,12 +456,12 @@ void update_local_illumination(creature_type *cr_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			xx = x + i;
-			update_local_illumination_aux(cr_ptr, yy, xx);
+			update_local_illumination_aux(yy, xx);
 		}
 		xx = x - 1;
-		update_local_illumination_aux(cr_ptr, y, xx);
+		update_local_illumination_aux(y, xx);
 		xx = x + 1;
-		update_local_illumination_aux(cr_ptr, y, xx);
+		update_local_illumination_aux(y, xx);
 	}
 	else /* Player's grid */
 	{
@@ -469,7 +469,7 @@ void update_local_illumination(creature_type *cr_ptr, int y, int x)
 		{
 			yy = y + ddy_cdd[i];
 			xx = x + ddx_cdd[i];
-			update_local_illumination_aux(cr_ptr, yy, xx);
+			update_local_illumination_aux(yy, xx);
 		}
 	}
 
@@ -1462,7 +1462,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
  * optimized primarily for the most common cases, that is, for the
  * non-marked floor grids.
  */
-void note_spot(creature_type *cr_ptr, int y, int x)
+void note_spot(int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 
@@ -1470,7 +1470,7 @@ void note_spot(creature_type *cr_ptr, int y, int x)
 
 
 	/* Blind players see nothing */
-	if (cr_ptr->blind) return;
+	if (player_ptr->blind) return;
 
 	/* Analyze non-torch-lit grids */
 	if (!(c_ptr->info & (CAVE_LITE | CAVE_MNLT)))
@@ -1482,7 +1482,7 @@ void note_spot(creature_type *cr_ptr, int y, int x)
 		if ((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) != CAVE_GLOW)
 		{
 			/* Not Ninja */
-			if (!cr_ptr->see_nocto) return;
+			if (!player_ptr->see_nocto) return;
 		}
 	}
 
@@ -1511,7 +1511,7 @@ void note_spot(creature_type *cr_ptr, int y, int x)
 		{
 			/* Option -- memorize all torch-lit floors */
 			if (view_torch_grids &&
-			    ((c_ptr->info & (CAVE_LITE | CAVE_MNLT)) || cr_ptr->see_nocto))
+			    ((c_ptr->info & (CAVE_LITE | CAVE_MNLT)) || player_ptr->see_nocto))
 			{
 				/* Memorize */
 				c_ptr->info |= (CAVE_MARK);
@@ -1540,14 +1540,14 @@ void note_spot(creature_type *cr_ptr, int y, int x)
 		}
 
 		/* Memorize walls seen by noctovision of Ninja */
-		else if (cr_ptr->see_nocto)
+		else if (player_ptr->see_nocto)
 		{
 			/* Memorize */
 			c_ptr->info |= (CAVE_MARK);
 		}
 
 		/* Memorize certain non-torch-lit wall grids */
-		else if (check_local_illumination(cr_ptr, y, x))
+		else if (check_local_illumination(player_ptr, y, x))
 		{
 			/* Memorize */
 			c_ptr->info |= (CAVE_MARK);
@@ -4075,7 +4075,7 @@ void delayed_visual_update(void)
 		if (!(c_ptr->info & CAVE_REDRAW)) continue;
 
 		/* If required, note */
-		if (c_ptr->info & CAVE_NOTE) note_spot(p_ptr, y, x);
+		if (c_ptr->info & CAVE_NOTE) note_spot(y, x);
 
 		/* Redraw */
 		lite_spot(y, x);
@@ -4614,7 +4614,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 	if (c_ptr->m_idx) update_mon(cr_ptr, c_ptr->m_idx, FALSE);
 
 	/* Notice */
-	note_spot(cr_ptr, y, x);
+	note_spot(y, x);
 
 	/* Redraw */
 	lite_spot(y, x);
@@ -4653,7 +4653,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 				if (cc_ptr->m_idx) update_mon(cr_ptr, cc_ptr->m_idx, FALSE);
 
 				/* Notice */
-				note_spot(cr_ptr, yy, xx);
+				note_spot(yy, xx);
 
 				/* Redraw */
 				lite_spot(yy, xx);
@@ -4805,7 +4805,7 @@ void remove_mirror(creature_type *player_ptr, int y, int x)
 	}
 
 	/* Notice */
-	note_spot(player_ptr, y, x);
+	note_spot(y, x);
 
 	/* Redraw */
 	lite_spot(y, x);

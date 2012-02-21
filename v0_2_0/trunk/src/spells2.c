@@ -6015,7 +6015,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		}
 
 		/* Note */
-		note_spot(lite_ptr, y, x);
+		note_spot(y, x);
 
 		/* Redraw */
 		lite_spot(y, x);
@@ -6091,7 +6091,7 @@ static void cave_temp_room_unlite(void)
 				if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
 				/* Notice */
-				note_spot(p_ptr, y, x);
+				note_spot(y, x);
 			}
 
 			/* Process affected monsters */

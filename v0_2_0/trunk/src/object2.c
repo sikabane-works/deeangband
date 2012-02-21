@@ -4592,7 +4592,7 @@ void place_object(int y, int x, u32b mode)
 		c_ptr->o_idx = o_idx;
 
 		/* Notice */
-		note_spot(player_ptr, y, x);
+		note_spot(y, x);
 
 		/* Redraw */
 		lite_spot(y, x);
@@ -4714,7 +4714,7 @@ void place_gold(int y, int x)
 		c_ptr->o_idx = o_idx;
 
 		/* Notice */
-		note_spot(p_ptr, y, x);
+		note_spot(y, x);
 
 		/* Redraw */
 		lite_spot(y, x);
@@ -5094,7 +5094,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	}
 
 	/* Note the spot */
-	note_spot(p_ptr, by, bx);
+	note_spot(by, bx);
 
 	/* Draw the spot */
 	lite_spot(by, bx);
@@ -5237,7 +5237,7 @@ void disclose_grid(int y, int x)
 		c_ptr->mimic = 0;
 
 		/* Notice */
-		note_spot(p_ptr, y, x);
+		note_spot(y, x);
 
 		/* Redraw */
 		lite_spot(y, x);

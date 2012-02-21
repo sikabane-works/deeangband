@@ -4133,7 +4133,7 @@ msg_print("守りのルーンが壊れた！");
 			c_ptr->mimic = 0;
 
 			/* Notice */
-			//TODO note_spot(watcher_ptr, y, x);
+			//TODO note_spot(y, x);
 		}
 		else return max_m_idx;
 	}
@@ -4415,7 +4415,7 @@ msg_print("爆発のルーンは解除された。");
 		c_ptr->info &= ~(CAVE_OBJECT);
 		c_ptr->mimic = 0;
 
-		//TODO note_spot(watcher_ptr, y, x);
+		//TODO note_spot(y, x);
 		lite_spot(y, x);
 	}
 

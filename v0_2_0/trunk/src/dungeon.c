@@ -4026,7 +4026,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 							if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
 
 							/* Hack -- Notice spot */
-							note_spot(cr_ptr, y, x);
+							note_spot(y, x);
 						}
 					}
 				}
@@ -4069,7 +4069,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 									c_ptr->info &= ~(CAVE_MARK);
 
 									/* Hack -- Notice spot */
-									note_spot(cr_ptr, y, x);
+									note_spot(y, x);
 								}
 							}
 						}
