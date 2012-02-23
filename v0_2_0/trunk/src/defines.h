@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 1
+#define VER_PATCH 2
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -5197,6 +5197,7 @@ extern int PlayerUID;
 #define SAVE_ITEM_INSCRIPTION     0x04000000
 #define SAVE_ITEM_ART_NAME        0x08000000
 #define SAVE_ITEM_CREATER         0x10000000
+#define SAVE_ITEM_VOLUME          0x20000000
 
 
 /*

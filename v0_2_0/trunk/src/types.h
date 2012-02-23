@@ -608,6 +608,7 @@ struct object_type
 	byte discount;		/* Discount (if any) */
 
 	byte number;		/* Number of items */
+	s32b volume;        /* Volume of items */
 
 	s16b weight;		/* Item weight */
 

@@ -96,6 +96,7 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->pval) flags |= SAVE_ITEM_PVAL;
 	if (o_ptr->discount) flags |= SAVE_ITEM_DISCOUNT;
 	if (o_ptr->number != 1) flags |= SAVE_ITEM_NUMBER;
+	if (o_ptr->volume) flags |= SAVE_ITEM_VOLUME;
 	if (o_ptr->name1) flags |= SAVE_ITEM_NAME1;
 	if (o_ptr->name2) flags |= SAVE_ITEM_NAME2;
 	if (o_ptr->timeout) flags |= SAVE_ITEM_TIMEOUT;
@@ -137,6 +138,7 @@ static void wr_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_DISCOUNT) wr_byte(o_ptr->discount);
 	if (flags & SAVE_ITEM_NUMBER) wr_byte(o_ptr->number);
+	if (flags & SAVE_ITEM_VOLUME) wr_s32b(o_ptr->volume);
 
 	wr_s16b(o_ptr->weight);
 

@@ -285,8 +285,12 @@ static void rd_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_DISCOUNT) rd_byte(&o_ptr->discount);
 	else o_ptr->discount = 0;
+
 	if (flags & SAVE_ITEM_NUMBER) rd_byte(&o_ptr->number);
 	else o_ptr->number = 1;
+
+	if (flags & SAVE_ITEM_VOLUME) rd_s32b(&o_ptr->volume);
+	else o_ptr->volume = 0;
 
 	rd_s16b(&o_ptr->weight);
 
