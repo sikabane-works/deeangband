@@ -2902,7 +2902,7 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
 					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
-				o_ptr->name2 = get_random_ego(INVEN_OUTER, TRUE);
+				// o_ptr->name2 = get_random_ego(INVEN_OUTER, TRUE);
 
 				switch (o_ptr->name2)
 				{
@@ -2917,7 +2917,7 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
 			/* Very cursed */
 			else if (power < -1)
 			{
-				o_ptr->name2 = get_random_ego(INVEN_OUTER, FALSE);
+//				o_ptr->name2 = get_random_ego(INVEN_OUTER, FALSE);
 			}
 
 			break;

@@ -1071,7 +1071,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 		case 2: t = INVEN_2NDARM; break;
 		case 3: t = INVEN_BOW; break;
 		case 4: t = INVEN_BODY; break;
-		case 5: t = INVEN_OUTER; break;
+		//case 5: t = INVEN_OUTER; break;
 		case 6: t = INVEN_1STHEAD; break;
 		case 7: t = INVEN_1STHANDS; break;
 		case 8: t = INVEN_FEET; break;
@@ -4902,7 +4902,7 @@ static int minus_ac(creature_type *cr_ptr)
 		case 1: o_ptr = &cr_ptr->inventory[INVEN_1STARM]; break;
 		case 2: o_ptr = &cr_ptr->inventory[INVEN_2NDARM]; break;
 		case 3: o_ptr = &cr_ptr->inventory[INVEN_BODY]; break;
-		case 4: o_ptr = &cr_ptr->inventory[INVEN_OUTER]; break;
+		//case 4: o_ptr = &cr_ptr->inventory[INVEN_OUTER]; break;
 		case 5: o_ptr = &cr_ptr->inventory[INVEN_1STHANDS]; break;
 		case 6: o_ptr = &cr_ptr->inventory[INVEN_1STHEAD]; break;
 		case 7: o_ptr = &cr_ptr->inventory[INVEN_FEET]; break;

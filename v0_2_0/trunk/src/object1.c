@@ -4134,8 +4134,10 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 
 		case TV_CLOAK:
 		{
+			/* TODO
 			if(!can_equip(cr_ptr, INVEN_OUTER)) return -1;
 			return (INVEN_OUTER);
+			*/
 		}
 
 		case TV_CROWN:
@@ -4303,6 +4305,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 			p = "On body"; break;
 #endif
 
+			/*
 #ifdef JP
 		case INVEN_OUTER:
 			p = "ëÃÇÃè„"; break;
@@ -4310,6 +4313,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 		case INVEN_OUTER:
 			p = "About body"; break;
 #endif
+			*/
 
 #ifdef JP
 		case INVEN_1STHEAD:
@@ -4448,11 +4452,13 @@ cptr describe_use(creature_type *cr_ptr, int i)
 		case INVEN_BODY:  p = "wearing on your body"; break;
 #endif
 
+		/*
 #ifdef JP
 		case INVEN_OUTER: p = "êgÇ…Ç‹Ç∆Ç¡ÇƒÇ¢ÇÈ"; break;
 #else
 		case INVEN_OUTER: p = "wearing on your back"; break;
 #endif
+		*/
 
 #ifdef JP
 		case INVEN_1STHEAD:  p = "ì™Ç…Ç©Ç‘Ç¡ÇƒÇ¢ÇÈ"; break;

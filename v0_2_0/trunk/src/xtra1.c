@@ -2409,7 +2409,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	if(cr_ptr->inventory[INVEN_2NDARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_BODY].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
+	//TODO cur_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
@@ -3731,7 +3731,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
-		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET || i == INVEN_OUTER)
+		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET /*|| i == INVEN_OUTER*/)
 		{
 			rate = set_inventory_fitting_rate(cr_ptr, o_ptr, i);
 		}
@@ -3773,6 +3773,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (have_flag(flgs, TR_SPEED) && rate > 90 && rate < 120) new_speed += o_ptr->pval;
 			if (rate <= 90 || rate > 120) new_speed -= 3;
 		}
+		/*
 		else if(i == INVEN_OUTER)
 		{
 			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
@@ -3780,6 +3781,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			else if(rate >= 140) new_speed -= 5;
 			else if(rate >= 120) new_speed -= 2;
 		}
+		*/
 		else
 		{
 			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
@@ -3976,37 +3978,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
 			}
 		}
-		else if(i == INVEN_OUTER)
-		{
-			if(rate <= 40)
-			{
-				cr_ptr->ac += (o_ptr->ac / 8);
-				cr_ptr->dis_ac += (o_ptr->ac / 8);
-				cr_ptr->to_a += (o_ptr->to_a / 8);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 8);
-			}
-			else if(rate <= 60)
-			{
-				cr_ptr->ac += (o_ptr->ac / 4);
-				cr_ptr->dis_ac += (o_ptr->ac / 4);
-				cr_ptr->to_a += (o_ptr->to_a / 4);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 4);
-			}
-			else if(rate <= 80)
-			{
-				cr_ptr->ac += (o_ptr->ac / 2);
-				cr_ptr->dis_ac += (o_ptr->ac / 2);
-				cr_ptr->to_a += (o_ptr->to_a / 2);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 2);
-			}
-			else
-			{
-				cr_ptr->ac += o_ptr->ac;
-				cr_ptr->dis_ac += o_ptr->ac;
-				cr_ptr->to_a += o_ptr->to_a;
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
-			}
-		}
 		else
 		{
 			cr_ptr->ac += o_ptr->ac;
@@ -4149,11 +4120,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
 			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
 		}
+/* TODO
 		if (!(cr_ptr->inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
 		}
+*/
 		if (!(cr_ptr->inventory[INVEN_2NDARM].k_idx) && (cr_ptr->lev > 10))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
@@ -6206,7 +6179,7 @@ bool heavy_armor(creature_type *cr_ptr)
 	if(cr_ptr->inventory[INVEN_2NDARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_BODY].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
+	// TODO monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 

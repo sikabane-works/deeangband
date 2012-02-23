@@ -754,7 +754,7 @@
 #define INVEN_LITE       35
 #define INVEN_INSTRUMENT 36
 #define INVEN_BODY       37
-#define INVEN_OUTER      38
+// #define INVEN_OUTER      38
 #define INVEN_1STHEAD    39
 #define INVEN_2NDHEAD    40
 #define INVEN_3RDHEAD    41

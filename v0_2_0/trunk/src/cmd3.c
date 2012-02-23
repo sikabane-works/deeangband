@@ -494,21 +494,7 @@ msg_print("クエストを達成した！");
 		autopick_alter_item(cr_ptr, item, FALSE);
 	}
 
-	/* Armor Size Information */
-
-	if(slot == INVEN_BODY || slot == INVEN_1STHEAD || slot == INVEN_1STHANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
-	{
-		rate = set_inventory_fitting_rate(cr_ptr, o_ptr, slot);
-
-		if(o_ptr->fitting_size != ARMOR_SIZE_FREE){
-		#ifdef JP
-			msg_format("（装備の体格比：%d％）", rate);
-		#else
-			msg_format("(Size：%d%%)", rate);
-		#endif
-		}
-	}
-
+	rate = 100;
 	switch (slot)
 	{
 	case INVEN_BODY:
@@ -590,87 +576,6 @@ msg_print("クエストを達成した！");
 
 		break;
 
-	case INVEN_OUTER:
-		if(o_ptr->fitting_size == ARMOR_SIZE_FREE)
-		{
-#ifdef JP
-			msg_format("装備があなたの背丈に合うよう長さと形状を変えた！");
-#else
-#endif
-		}
-		else if(rate >= 180)
-		{
-#ifdef JP
-			msg_format("長すぎる！まとっているのか引きずっているのか分からない有様でまともに動けない！");
-#else
-#endif
-		}
-		else if(rate >= 140)
-		{
-#ifdef JP
-			msg_format("すそが地面に引っかかって非常に動きづらい。");
-#else
-#endif
-		}
-		else if(rate >= 120)
-		{
-#ifdef JP
-			msg_format("足の動きにかかりそうな部分まで伸びていて動きづらい。");
-#else
-#endif
-		}
-		else if(rate >= 110)
-		{
-#ifdef JP
-			msg_format("あなたの背丈と比べて少し長いが動作に支障はなさそうだ。");
-#else
-#endif
-		}
-		else if(rate <= 20)
-		{
-#ifdef JP
-			msg_format("どうしてこんな布切れを装備しようと思ったのだろうか？");
-#else
-#endif
-			return;
-		}
-		else if(rate <= 40)
-		{
-#ifdef JP
-			msg_format("あなたにとってはスカーフほどの大きさだ。防具としてまるで役立たない。");
-#else
-#endif
-		}
-		else if(rate <= 60)
-		{
-#ifdef JP
-			msg_format("あなたにとっては腰巻きほどの大きさだ。防具としてほとんど役立たない。");
-#else
-#endif
-		}
-		else if(rate <= 80)
-		{
-#ifdef JP
-			msg_format("短すぎて体の半分位は露出したままだ。防具としては余り役立たない。");
-#else
-#endif
-		}
-		else if(rate <= 90)
-		{
-#ifdef JP
-			msg_format("あなたの背丈と比べて短いが身を護るのにさほど支障はなさそうだ。");
-#else
-#endif
-		}
-		else
-		{
-#ifdef JP
-			msg_format("あなたにぴったりの長さだ。身を護りやすく動きも取りやすい。");
-#else
-#endif
-		}
-
-		break;
 	default:
 		break;
 	}

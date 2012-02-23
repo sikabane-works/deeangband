@@ -12119,7 +12119,8 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 		if (cast)
 		{
-			object_type *o_ptr = &cr_ptr->inventory[INVEN_OUTER];
+			//TODO: GET outer equipment.
+			object_type *o_ptr = &cr_ptr->inventory[0];
 
 			if (!o_ptr->k_idx)
 			{
@@ -12150,7 +12151,8 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 		}
 		if (cont)
 		{
-			object_type *o_ptr = &cr_ptr->inventory[INVEN_OUTER];
+			//TODO: GET outer Equipment
+			object_type *o_ptr = &cr_ptr->inventory[0];
 
 			if ((!o_ptr->k_idx) || (!object_is_cursed(o_ptr)))
 			{
