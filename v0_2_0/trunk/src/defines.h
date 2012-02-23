@@ -740,7 +740,6 @@
  * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
  */
 
-
 #define INVEN_1STARM     24
 #define INVEN_2NDARM     25
 #define INVEN_3RDARM     26
@@ -764,6 +763,7 @@
 #define INVEN_3RDHANDS   44
 #define INVEN_FEET       45
 #define INVEN_TAIL       46
+
 /*
  * Total number of inventory slots (hard-coded).
  */
@@ -6010,5 +6010,23 @@ extern int PlayerUID;
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
 
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
+
+
+#define ITEM_SLOT_PACK        0
+#define ITEM_SLOT_HEAD        1
+#define ITEM_SLOT_BODY        2
+#define ITEM_SLOT_ARM         3
+#define ITEM_SLOT_FOOT        4
+#define ITEM_SLOT_TAIL        5
+#define ITEM_SLOT_OUTER       6
+#define ITEM_SLOT_HAND        7
+#define ITEM_SLOT_RING        8
+#define ITEM_SLOT_AMULET      9
+#define ITEM_SLOT_BOW        10
+#define ITEM_SLOT_INSTRUMENT 11
+
+
+
+
 
 
