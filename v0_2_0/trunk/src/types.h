@@ -166,6 +166,7 @@ struct object_kind
 
 	s16b min_size;      // size limit
 	s16b max_size;      // size limit
+	byte slot;          // equipment slot
 };
 
 

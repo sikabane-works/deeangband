@@ -1860,7 +1860,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 }
 
 
-#define OBJECT_KIND_INFO_CSV_COLUMNS 26
+#define OBJECT_KIND_INFO_CSV_COLUMNS 27
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -1889,6 +1889,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"COMMENT",
 	"MIN_SIZE",
 	"MAX_SIZE",
+	"SLOT",
 };
 
 #define OBJECT_KIND_INFO_ID         0
@@ -1917,6 +1918,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 #define OBJECT_KIND_INFO_COMMENT       23
 #define OBJECT_KIND_INFO_MIN_SIZE      24
 #define OBJECT_KIND_INFO_MAX_SIZE      25
+#define OBJECT_KIND_INFO_SLOT          26
 
 /*
  * Initialize the "k_info" array, by parsing an ascii "template" file
@@ -2164,6 +2166,19 @@ errr parse_object_kind_csv(char *buf, header *head)
 					k_info[n].max_size = (s16b)b;
 				else
 					k_info[n].max_size = 0;
+				break;
+
+			case OBJECT_KIND_INFO_SLOT:
+				for(j = 0; j < MAX_EQUIP_TYPE; j++)
+				{
+					if(streq(equip_slot_flags[j], tmp))
+					{
+						k_info[n].slot = i;
+						break;
+					}
+				}
+				if(j == MAX_EQUIP_TYPE)
+					return (1);
 				break;
 
 			default:
