@@ -1860,7 +1860,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 }
 
 
-#define OBJECT_KIND_INFO_CSV_COLUMNS 24
+#define OBJECT_KIND_INFO_CSV_COLUMNS 26
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -1887,6 +1887,8 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"DESCRIPTION",
 	"E_DESCRIPTION",
 	"COMMENT",
+	"MIN_SIZE",
+	"MAX_SIZE",
 };
 
 #define OBJECT_KIND_INFO_ID         0
@@ -1912,7 +1914,9 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 #define OBJECT_KIND_INFO_FLAGS     20
 #define OBJECT_KIND_INFO_DESCRIPTION 21
 #define OBJECT_KIND_INFO_E_DESCRIPTION 22
-#define OBJECT_KIND_INFO_COMMENT   23
+#define OBJECT_KIND_INFO_COMMENT       23
+#define OBJECT_KIND_INFO_MIN_SIZE      24
+#define OBJECT_KIND_INFO_MAX_SIZE      25
 
 /*
  * Initialize the "k_info" array, by parsing an ascii "template" file
@@ -2146,6 +2150,20 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_COMMENT:
+				break;
+
+			case OBJECT_KIND_INFO_MIN_SIZE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].min_size = (s16b)b;
+				else
+					k_info[n].min_size = 0;
+				break;
+
+			case OBJECT_KIND_INFO_MAX_SIZE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					k_info[n].max_size = (s16b)b;
+				else
+					k_info[n].max_size = 0;
 				break;
 
 			default:

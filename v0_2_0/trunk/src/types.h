@@ -163,6 +163,9 @@ struct object_kind
 	bool aware;			/* The player is "aware" of the item's effects */
 
 	bool tried;			/* The player has "tried" one of the items */
+
+	s16b min_size;      // size limit
+	s16b max_size;      // size limit
 };
 
 
