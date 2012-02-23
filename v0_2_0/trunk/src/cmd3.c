@@ -212,7 +212,7 @@ bool select_ring_slot = FALSE;
  */
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int i, item, slot, rate;
+	int i, item, slot;
 
 	object_type forge;
 	object_type *q_ptr;
@@ -493,94 +493,6 @@ msg_print("クエストを達成した！");
 		/* Auto-inscription */
 		autopick_alter_item(cr_ptr, item, FALSE);
 	}
-
-	rate = 100;
-	switch (slot)
-	{
-	case INVEN_BODY:
-	case INVEN_1STHEAD:
-	case INVEN_1STHANDS:
-	case INVEN_FEET:
-		if(o_ptr->fitting_size == ARMOR_SIZE_FREE)
-		{
-#ifdef JP
-			msg_format("装備があなたの体格に合うよう大きさを変えた！");
-#else
-#endif
-		}
-		else if(rate >= 150)
-		{
-#ifdef JP
-			msg_format("こんな大きい装備を身に着けることはできない。");
-#else
-#endif
-			return;
-		}
-		else if(rate >= 130)
-		{
-#ifdef JP
-			msg_format("装備が大きすぎてブカブカする。防具としての機能をまるで果たせていない。");
-#else
-#endif
-		}
-		else if(rate >= 120)
-		{
-#ifdef JP
-			msg_format("あなたの身と比べてかなり大きいようだ。防具としての機能を果たせていない。");
-#else
-#endif
-		}
-		else if(rate >= 110)
-		{
-#ifdef JP
-			msg_format("あなたの身と比べて大きいようだ。防具としての機能をあまり果たせていない。");
-#else
-#endif
-		}
-		else if(rate <= 75)
-		{
-#ifdef JP
-			msg_format("こんな小さい装備を身に着けることはできない。");
-#else
-#endif
-			return;
-		}
-		else if(rate <= 80)
-		{
-#ifdef JP
-			msg_format("装備が小さすぎて締め付けられるようだ！とても苦しい！");
-#else
-#endif
-		}
-		else if(rate <= 90)
-		{
-#ifdef JP
-			msg_format("あなたの身と比べてかなり小さいようだ。かなり動きづらい。");
-#else
-#endif
-		}
-		else if(rate <= 95)
-		{
-#ifdef JP
-			msg_format("あなたの身と比べて小さいようだ。少し動きづらい。");
-#else
-#endif
-		}
-		else
-		{
-#ifdef JP
-			msg_format("あなたにはちょうど良い大きさだ。防具としての機能は十分に果たせている。");
-#else
-#endif
-		}
-
-		break;
-
-	default:
-		break;
-	}
-
-
 
 	/* Take a turn */
 	energy_use = 100;
