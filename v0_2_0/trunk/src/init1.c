@@ -1993,7 +1993,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_COLOR:
-				k_info[n].d_attr = (byte)tmp[0];
+				k_info[n].d_attr = color_char_to_attr(tmp[0]);
 				break;
 
 			case OBJECT_KIND_INFO_TVAL:
