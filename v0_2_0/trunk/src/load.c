@@ -956,7 +956,10 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)
+	{
 		rd_s16b(&cr_ptr->iven_fitting_rate[i]);
+		rd_byte(&cr_ptr->equip_now[i]);
+	}
 
 	/* Read the inventory */
 	if (rd_inventory(cr_ptr))

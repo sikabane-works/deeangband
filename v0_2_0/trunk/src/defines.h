@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 0
+#define VER_PATCH 1
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -204,20 +204,20 @@
 #define MAX_SEXES            4
 
 
-#define INVEN_EQUIP_INVENTORY  0
-#define INVEN_EQUIP_HAND       1
-#define INVEN_EQUIP_BOW        2
-#define INVEN_EQUIP_AMMO       3
-#define INVEN_EQUIP_RING       4
-#define INVEN_EQUIP_AMULET     5
-#define INVEN_EQUIP_BODY       6
-#define INVEN_EQUIP_OUTER      7
-#define INVEN_EQUIP_HEAD       8
-#define INVEN_EQUIP_ARMS       9
-#define INVEN_EQUIP_FEET       10
-#define INVEN_EQUIP_INSTRUMENT 11
-#define INVEN_EQUIP_LITE       12
-#define INVEN_EQUIP_TAIL       13
+#define ITEM_SLOT_INVENTORY  0
+#define ITEM_SLOT_HAND       1
+#define ITEM_SLOT_BOW        2
+#define ITEM_SLOT_AMMO       3
+#define ITEM_SLOT_RING       4
+#define ITEM_SLOT_AMULET     5
+#define ITEM_SLOT_BODY       6
+#define ITEM_SLOT_OUTER      7
+#define ITEM_SLOT_HEAD       8
+#define ITEM_SLOT_ARMS       9
+#define ITEM_SLOT_FEET       10
+#define ITEM_SLOT_INSTRUMENT 11
+#define ITEM_SLOT_LITE       12
+#define ITEM_SLOT_TAIL       13
 
 #define MAX_EQUIP_TYPE       14
 
