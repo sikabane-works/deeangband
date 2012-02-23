@@ -204,9 +204,6 @@
 #define MAX_SEXES            4
 
 
-
-#define MAX_EQUIP_TYPE       14
-
 #define INVEN_EQUIP_INVENTORY  0
 #define INVEN_EQUIP_HAND       1
 #define INVEN_EQUIP_BOW        2
@@ -221,6 +218,9 @@
 #define INVEN_EQUIP_INSTRUMENT 11
 #define INVEN_EQUIP_LITE       12
 #define INVEN_EQUIP_TAIL       13
+
+#define MAX_EQUIP_TYPE       14
+
 
 /*
  * Maximum number of creature hands.
@@ -6010,23 +6010,4 @@ extern int PlayerUID;
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
 
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
-
-
-#define ITEM_SLOT_PACK        0
-#define ITEM_SLOT_HEAD        1
-#define ITEM_SLOT_BODY        2
-#define ITEM_SLOT_ARM         3
-#define ITEM_SLOT_FOOT        4
-#define ITEM_SLOT_TAIL        5
-#define ITEM_SLOT_OUTER       6
-#define ITEM_SLOT_HAND        7
-#define ITEM_SLOT_RING        8
-#define ITEM_SLOT_AMULET      9
-#define ITEM_SLOT_BOW        10
-#define ITEM_SLOT_INSTRUMENT 11
-
-
-
-
-
 

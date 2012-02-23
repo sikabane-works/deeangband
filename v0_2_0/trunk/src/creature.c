@@ -2365,3 +2365,45 @@ creature_type *find_unique_instance(int n)
 		if(n == u_info[i].species_idx) return &u_info[i];
 	return NULL;
 }
+
+void set_creature_equip(creature_type *creature_ptr)
+{
+	int i;
+
+	if(has_cf_creature(creature_ptr, CF_HUMANOID))
+	{
+		creature_ptr->item_slot_size[INVEN_EQUIP_HAND] = 2;
+		creature_ptr->item_slot_size[INVEN_EQUIP_BOW] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_AMMO] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_RING] = 2;
+		creature_ptr->item_slot_size[INVEN_EQUIP_AMULET] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_BODY] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_OUTER] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_HEAD] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_ARMS] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_FEET] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_INSTRUMENT] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_LITE] = 1;
+		creature_ptr->item_slot_size[INVEN_EQUIP_TAIL] = 1;
+	}
+	else
+	{
+		creature_ptr->item_slot_size[INVEN_EQUIP_HAND] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_BOW] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_AMMO] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_RING] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_AMULET] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_BODY] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_OUTER] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_HEAD] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_ARMS] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_FEET] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_INSTRUMENT] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_LITE] = 0;
+		creature_ptr->item_slot_size[INVEN_EQUIP_TAIL] = 0;
+	}
+
+	creature_ptr->item_slot_size[INVEN_EQUIP_INVENTORY] = INVEN_TOTAL;
+	for(i = INVEN_EQUIP_INVENTORY + 1; i < MAX_EQUIP_TYPE; i++)
+		creature_ptr->item_slot_size[INVEN_EQUIP_INVENTORY] -= creature_ptr->item_slot_size[i];
+}
