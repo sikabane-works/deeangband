@@ -219,7 +219,7 @@
 #define ITEM_SLOT_LITE       12
 #define ITEM_SLOT_TAIL       13
 
-#define MAX_EQUIP_TYPE       14
+#define MAX_ITEM_SLOT       14
 
 
 /*

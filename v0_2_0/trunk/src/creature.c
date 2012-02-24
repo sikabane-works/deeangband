@@ -2404,6 +2404,6 @@ void set_creature_equip(creature_type *creature_ptr)
 	}
 
 	creature_ptr->item_slot_size[ITEM_SLOT_INVENTORY] = INVEN_TOTAL;
-	for(i = ITEM_SLOT_INVENTORY + 1; i < MAX_EQUIP_TYPE; i++)
+	for(i = ITEM_SLOT_INVENTORY + 1; i < MAX_ITEM_SLOT; i++)
 		creature_ptr->item_slot_size[ITEM_SLOT_INVENTORY] -= creature_ptr->item_slot_size[i];
 }
