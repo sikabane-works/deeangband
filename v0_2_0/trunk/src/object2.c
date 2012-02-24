@@ -3712,8 +3712,9 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 
 	if(power >= ITEM_RANK_GREAT){
 		if(specified_idx) create_ego(o_ptr, lev, specified_idx);
-		else create_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
+		else create_ego(o_ptr, lev, get_random_ego(k_info[o_ptr->k_idx].slot, TRUE));
 	}
+
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, o_ptr, FALSE);
 
 	if ((o_ptr->tval == TV_SOFT_ARMOR) &&
