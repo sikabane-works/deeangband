@@ -278,132 +278,68 @@ static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 //
 static cptr tval_flags[255] =
 {
-	"TV_SKELETON",
-	"TV_BOTTLE",
-	"TV_JUNK",
-	"TV_WHISTLE",
-	"TV_SPIKE",
-	"XXX",
-	"TV_CHEST",
-	"TV_FIGURINE",
-	"TV_STATUE",
-	"TV_CORPSE",
+	"NONE",
 
-	"TV_CAPTURE",
+	"SKELETON",
+	"BOTTLE",
+	"JUNK",
+	"WHISTLE",
+	"SPIKE",
 	"XXX",
-	"XXX",
-	"XXX",
-	"TV_NO_AMMO",
-	"TV_SHOT",
-	"TV_ARROW",
-	"TV_BOLT",
-	"TV_BOW",
-	"TV_DIGGING",
+	"CHEST",
+	"FIGURINE",
+	"STATUE",
+	"CORPSE",
 
-	"TV_HAFTED",
-	"TV_POLEARM",
-	"TV_SWORD",
+	"CAPTURE",
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"TV_BOOTS",
+	"NO_AMMO",
+	"SHOT",
+	"ARROW",
+	"BOLT",
+	"BOW",
+	"DIGGING",
 
-	"TV_GLOVES",
-	"TV_HELM",
-	"TV_CROWN",
-	"TV_SHIELD",
-	"TV_CLOAK",
-	"TV_SOFT_ARMOR",
-	"TV_HARD_ARMOR",
-	"TV_DRAG_ARMOR",
-	"TV_LITE",
-	"TV_AMULET",
+	"HAFTED",
+	"POLEARM",
+	"SWORD",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"BOOTS",
 
-	"TV_TAIL",
-	"TV_INSTRUMENT",
-	"XXX",
-	"XXX",
-	"TV_RING",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"TV_CARD",
+	"GLOVES",
+	"HELM",
+	"CROWN",
+	"SHIELD",
+	"CLOAK",
+	"SOFT_ARMOR",
+	"HARD_ARMOR",
+	"DRAG_ARMOR",
+	"LITE",
+	"AMULET",
 
-	"TV_WHEEL",
+	"TAIL",
+	"INSTRUMENT",
+	"XXX",
+	"XXX",
+	"RING",
 	"XXX",
 	"XXX",
 	"XXX",
-	"TV_STAFF",
 	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
+	"CARD",
 
+	"WHEEL",
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
-	"TV_WAND",
-	"TV_ROD",
-	"XXX",
-	"XXX",
-	"TV_PARCHMENT",
-	"TV_SCROLL",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"TV_POTION",
-	"XXX",
-	"TV_FLASK",
-	"XXX",
-	"XXX",
-	"TV_FOOD",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"TV_LIFE_BOOK",
-
-	"TV_SORCERY_BOOK",
-	"TV_NATURE_BOOK",
-	"TV_CHAOS_BOOK",
-	"TV_DEATH_BOOK",
-	"TV_TRUMP_BOOK",
-	"TV_ARCANE_BOOK",
-	"TV_CRAFT_BOOK",
-	"TV_DAEMON_BOOK",
-	"TV_CRUSADE_BOOK",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"TV_MUSIC_BOOK",
-	"TV_HISSATSU_BOOK",
-	"TV_HEX_BOOK",
-	"XXX",
-	"XXX",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
+	"STAFF",
 	"XXX",
 	"XXX",
 	"XXX",
@@ -414,9 +350,75 @@ static cptr tval_flags[255] =
 	"XXX",
 	"XXX",
 	"XXX",
+	"WAND",
+	"ROD",
 	"XXX",
 	"XXX",
-	"TV_GOLD",
+	"PARCHMENT",
+	"SCROLL",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"POTION",
+	"XXX",
+	"FLASK",
+	"XXX",
+	"XXX",
+	"FOOD",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"LIFE_BOOK",
+
+	"SORCERY_BOOK",
+	"NATURE_BOOK",
+	"CHAOS_BOOK",
+	"DEATH_BOOK",
+	"TRUMP_BOOK",
+	"ARCANE_BOOK",
+	"CRAFT_BOOK",
+	"DAEMON_BOOK",
+	"CRUSADE_BOOK",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"MUSIC_BOOK",
+	"HISSATSU_BOOK",
+	"HEX_BOOK",
+	"XXX",
+	"XXX",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"GOLD",
 
 };
 
@@ -2149,10 +2151,21 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_TVAL:
-				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].tval = (byte)b;
-				else
-					k_info[n].tval = 0;
+				for(j = 0; j <= 127; j++)
+				{
+					if(streq(tval_flags[j], tmp))
+					{
+						k_info[n].tval = j;
+						break;
+					}
+				}
+				if(j == MAX_EQUIP_TYPE)
+				{
+					if(sscanf(tmp, "%d", &b) == 1)
+						k_info[n].tval = (byte)b;
+					else
+						k_info[n].tval = 0;
+				}
 				break;
 
 			case OBJECT_KIND_INFO_SVAL:
@@ -2319,7 +2332,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
-						k_info[n].slot = i;
+						k_info[n].slot = j;
 						break;
 					}
 				}
