@@ -2159,7 +2159,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_EQUIP_TYPE)
+				if(j > 127)
 				{
 					if(sscanf(tmp, "%d", &b) == 1)
 						k_info[n].tval = (byte)b;

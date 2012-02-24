@@ -1,13 +1,13 @@
 ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,WEIGHT,COST,MIN_SIZE,MAX_SIZE,BASE_AC,BASE_DAMAGE,PLUS_HIT,PLUS_DAM,PLUS_AC,ADD_DEPTH_RARITY,FLAGS,DESCRIPTION,E_DESCRIPTION,COMMENT
 0,何か,,something,,&,w,INVENTORY,NONE,0,0,0,0,0,0,0,0,0,0d0,0,0,,0/1,,,,"# File: k_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ##JZ# ＃＃＃ 以下は日本語版 Angband にあるコメントです ＃＃＃#J0# 日本語訳と日本語版製作 : しとしん#J0##J0# 日本語版ではオリジナルと比較して設定項目が一つ増えています。#J0# ""E:"" 以下の行がそうで、ここには英語名が記述されます。#J0##J0# アイテム名の翻訳にあたっては多くの方にたいへんお世話になりました。#J0##J0# (コメント)#J0##J0# 武器や防具にも色々と読み方があるようですが、基本的に ""name.doc"" の#J0# 執筆者である VOLKO さんの読み方に従いました。#J0##J0# 基本的に restore という単語には「復活」という訳をあてて、それ以外の回復系#J0# の単語には「回復」という訳をあてています。restore も「回復」でも良いのです#J0# が、restore をするアイテムは「元の状態に戻す」という効果があるので、それ#J0# を示唆する言葉として「復活」を選びました。#J0##J0# identify という単語は他の日本語版ローグライクでは「識別」という訳が使#J0# われている場合が多いのですが、identify の効果はアイテムの正確な名称や効#J0# 果を明らかにするものですので、「鑑定」の方が雰囲気が近いと考えてそうし#J0# ました。他のローグライクと異なってしまっていることは気になりますが。# This file is used to initialize the ""lib/raw/k_info.raw"" file, which is# used to initialize the ""object kind"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/k_info.raw"" file.# Available slots (?):#   29, 29, 90, 177, 178, 179, 182, 183, 195, 196, 205,#   268, 270, 293, 299, 350, 351, 399, 413, 414, 423-479# XXX XXX Add some ""IGNORE_XXX"" flags to Rings, Amulets, etc.# The old ""MULTI_HUED"" objects are now ""violet"", and no other object# is violet, so all six violet objects can be made ""multi-hued"", though# this would be a heinous hack.  XXX XXX# Note that object zero is used for the ""stack"" picture (unused).# === Understanding k_info.txt ===# N: serial number : & object name~# G: symbol : color# I: tval : sval : pval# W: depth : rarity : weight : cost# P: base armor class : base damage : plus to-hit : plus to-dam : plus to-ac# A: depth/rarity : depth/rarity : etc# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item. The '&' and '~' symbols are use to# include articles and pluralization as necessary to ensure# grammatical correctness in object descriptions.# 'G' is for graphics - symbol and color. There are 16 colors, as# follows:# D - Black        w - White          s - Gray          o - Orange# r - Red          g - Green          b - Blue          u - Brown# d - Dark Gray    W - Light Gray     v - Violet        y - Yellow# R - Light Red    G - Light Green    B - Light Blue    U - Light Brown# 'I' is for basic information. The tval is for the type of item, the# sval identifies the subtype and the pval indicates the amount of# effect the item has, if applicable. # 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'P' is for power information. The items base armor class, its base# damage and pluses to-hit, to-dam and to-ac.# 'A' is for allocation - depth and rarity, in pairs. This allows an# item to have multiple natural depths and rarities. It is used to# ensure that certain vital items such as food and identify scrolls# are found throughout the dungeon.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)##### Something special ########## Mushrooms #####"
-391,頭蓋骨の破片,,& Broken Skull~,,~,w,INVENTORY,SLEKETON,1,0,0,0,1,0,0,0,0,1d1,0,0,0,0/1,,,,
-392,骨の破片,,& Broken Bone~,,~,w,INVENTORY,SLEKETON,2,0,0,0,2,0,0,0,0,1d1,0,0,0,0/1,,,,
-394,ネズミの骨,,& Rodent Skeleton~,,~,w,INVENTORY,SLEKETON,3,0,1,0,10,0,0,0,0,1d1,0,0,0,1/1,,,,
-393,犬の骨,,& Canine Skeleton~,,~,w,INVENTORY,SLEKETON,4,0,1,0,10,0,0,0,0,1d1,0,0,0,1/1,,,,
-398,ノームの骨,,& Gnome Skeleton~,,~,w,INVENTORY,SLEKETON,5,0,5,0,30,0,0,0,0,1d2,0,0,0,5/1,,,,##### Additional weapon ######JZ#
-397,エルフの骨,,& Elf Skeleton~,,~,w,INVENTORY,SLEKETON,6,0,5,0,40,0,0,0,0,1d2,0,0,0,5/1,,,,
-396,ドワーフの骨,,& Dwarf Skeleton~,,~,w,INVENTORY,SLEKETON,7,0,5,0,50,0,0,0,0,1d2,0,0,0,5/1,,,,
-395,人間の骨,,& Human Skeleton~,,~,w,INVENTORY,SLEKETON,8,0,5,0,60,0,0,0,0,1d2,0,0,0,5/1,,,,
+391,頭蓋骨の破片,,& Broken Skull~,,~,w,INVENTORY,SKELETON,1,0,0,0,1,0,0,0,0,1d1,0,0,0,0/1,,,,
+392,骨の破片,,& Broken Bone~,,~,w,INVENTORY,SKELETON,2,0,0,0,2,0,0,0,0,1d1,0,0,0,0/1,,,,
+394,ネズミの骨,,& Rodent Skeleton~,,~,w,INVENTORY,SKELETON,3,0,1,0,10,0,0,0,0,1d1,0,0,0,1/1,,,,
+393,犬の骨,,& Canine Skeleton~,,~,w,INVENTORY,SKELETON,4,0,1,0,10,0,0,0,0,1d1,0,0,0,1/1,,,,
+398,ノームの骨,,& Gnome Skeleton~,,~,w,INVENTORY,SKELETON,5,0,5,0,30,0,0,0,0,1d2,0,0,0,5/1,,,,##### Additional weapon ######JZ#
+397,エルフの骨,,& Elf Skeleton~,,~,w,INVENTORY,SKELETON,6,0,5,0,40,0,0,0,0,1d2,0,0,0,5/1,,,,
+396,ドワーフの骨,,& Dwarf Skeleton~,,~,w,INVENTORY,SKELETON,7,0,5,0,50,0,0,0,0,1d2,0,0,0,5/1,,,,
+395,人間の骨,,& Human Skeleton~,,~,w,INVENTORY,SKELETON,8,0,5,0,60,0,0,0,0,1d2,0,0,0,5/1,,,,
 349,空のビン,,& Empty Bottle~,,!,w,INVENTORY,BOTTLE,1,0,0,0,2,1,0,0,0,1d1,0,0,0,0/1,,,,##### Here are the Rods ######JZ#
 389,陶器のかけら,,& Shard~ of Pottery,,~,r,INVENTORY,BOTTLE,3,0,0,0,5,0,0,0,0,1d1,0,0,0,0/1,,,,
 390,折れた棒,,& Broken Stick~,,~,r,INVENTORY,JUNK,6,0,0,0,3,0,0,0,0,1d1,0,0,0,0/1,,,,##### Skeletons #####
@@ -116,54 +116,54 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 72,切り裂きの大鎌,,& Scythe~ of Slicing,,/,r,HAND,22,30,0,60,0,250,3500,0,0,0,8d4,0,0,0,60/4,SHOW_MODS|RIDING,死神の武器である。その長い刃は流血の期待に歓喜の声を上げているかのようだ。,"A reaper's weapon, the long blade almost hums in anticipation of the blood it will spill.","##### Bows, Crossbows, Slings #####"
 615,釣り竿,,& Fishingpole~,,/,B,HAND,22,40,0,10,0,30,30,0,0,0,1d1,0,0,0,,INSTA_ART,,,
 594,死の大鎌,,& Death Scythe~ ,,/,R,HAND,22,50,0,70,0,350,10000,0,0,0,10d10,-50,30,0,70/6,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|RIDING,,,
-30,折れたダガー,,& Broken Dagger~,,|,D,HAND,23,1,0,0,0,5,1,0,0,0,1d1,-2,-4,0,0/1,SHOW_MODS,,,
-47,折れた剣,,& Broken Sword~,,|,D,HAND,23,2,0,0,0,30,2,0,0,0,1d2,-2,-4,0,0/1,SHOW_MODS,柄の上でギザギザに折れている。,"Above the hilt, a foot of steel rises, ending in a jagged edge.",##### Hafted Weapons #####
-43,ダガー,,& Dagger~,,|,W,HAND,23,4,0,0,0,12,10,0,0,0,1d4,0,0,0,0/1:5/1:10/1:20/1,SHOW_MODS,先端が鋭い両刃の短剣だ。,A two-edged knife with a sharp point.,
-38,マン・ゴーシュ,,& Main Gauche~,,|,W,HAND,23,5,0,3,0,30,25,0,0,0,1d5,0,0,0,3/1,SHOW_MODS,拳を防御する大きな鍔を持つ短い剣。主に決闘で防御用の短剣として用いられる。,"A short thrusting blade with a large guard, primarily used in duels.",
-525,短刀,,& Tanto~,,|,W,HAND,23,6,0,3,0,20,30,0,0,0,1d5,0,0,0,3/2,SHOW_MODS,,,#JZ#
-44,レイピア,,& Rapier~,,|,W,HAND,23,7,0,5,0,40,42,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,突きに用いる長く細い刀身を持つ剣。主に決闘に用いられる。,"A long, thin thrusting blade, mainly used in duels.",
-46,スモール・ソード,,& Small Sword~,,|,W,HAND,23,8,0,5,0,75,48,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,ロングソードを少し短くしたような剣だ。ホビットにぴったりのサイズだ。,"A smaller version of the longsword, perfectly sized for Hobbits.",
-554,バゼラード,,& Basillard~,,|,w,HAND,23,9,0,15,0,80,220,0,0,0,1d8,0,0,0,15/3,SHOW_MODS,,,#JZ#
-35,ショート・ソード,,& Short Sword~,,|,W,HAND,23,10,0,5,0,80,90,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,主に突く用途に用いる短い剣だ。,A short thrusting sword.,
-45,サーベル,,& Sabre~,,|,W,HAND,23,11,0,5,0,50,50,0,0,0,1d7,0,0,0,5/1,SHOW_MODS|RIDING,軽い少し曲った刃を持ち、切る事も突く事もできる。馬上及び決闘においてよく使われる。,"A light, somewhat curved blade that can be used to thrust or slash; familiar to horseman and duelists alike.",
-39,カットラス,,& Cutlass~,,|,W,HAND,23,12,0,5,0,110,85,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,大きな曲った刀身と手をカバーする網状の柄を備えた剣だ。船員に良く用いられる。,"A large, curved chopper with a basket hilt, well known to seamen.",
-549,脇差し,,& Wakizashi~,,|,W,HAND,23,13,0,15,0,90,210,0,0,0,2d4,0,0,0,15/3,SHOW_MODS,,,#JZ#
-544,クォピス,,& Khopesh~,,|,W,HAND,23,14,0,10,0,130,190,0,0,0,2d4,0,0,0,10/2,SHOW_MODS,,,#JZ#
-33,タルワール,,& Tulwar~,,|,W,HAND,23,15,0,5,0,100,200,0,0,0,2d4,0,0,0,5/1,SHOW_MODS|RIDING,,,
-34,ブロード・ソード,,& Broad Sword~,,|,W,HAND,23,16,0,10,0,150,255,0,0,0,2d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,重く広い刀身と頑丈な柄を持った両刃の直刀だ。,"A heavy, double-edged sword with a strong grip.",
-42,ロング・ソード,,& Long Sword~,,|,W,HAND,23,17,0,10,0,130,300,0,0,0,2d5,0,0,0,10/1:20/1,SHOW_MODS|RIDING,十字の形に2本の柄が付いた長い両刃の直刀だ。,"A long, straight, two-edged blade, with two hand guards projecting out from the hilt to form a perfect cross.",
-32,シミター,,& Scimitar~,,|,W,HAND,23,18,0,10,0,130,250,0,0,0,2d5,0,0,0,10/1,SHOW_MODS,斬る用途に特化した三日月のような刀身を持つ片刃の剣だ。,A single-edged slashing sword with a blade like a crescent.,
-555,忍者刀,,& Ninjato~,,|,s,HAND,23,19,0,15,0,100,265,0,0,0,1d9,0,0,0,15/2,SHOW_MODS,,,#JZ#
-41,カタナ,,& Katana~,,|,W,HAND,23,20,0,20,0,120,400,0,0,0,3d4,0,0,0,20/1,SHOW_MODS,長い柄と微妙に曲った刃を持つ切れ味に優れた片刃の剣だ。,A slightly curved long-handled slashing sword with a single-edged blade and a chisel tip.,
-31,バスタード・ソード,,& Bastard Sword~,,|,W,HAND,23,21,0,15,0,140,350,0,0,0,3d4,0,0,0,15/1,SHOW_MODS,片手半剣とも呼ばれる。通常のロングソードよりも長い両刃の直刀だ。,Also known as the hand-and-a-half blade.  A larger-than-normal straight-sided sword with two cutting edges.,
-548,青龍刀,,& Falchion~,,|,W,HAND,23,22,0,40,0,240,500,0,0,0,4d5,0,0,0,40/3,SHOW_MODS|RIDING,,,#JZ#
-546,クレイモア,,& Claymore~,,|,W,HAND,23,23,0,40,0,200,600,0,0,0,2d8,0,0,0,40/2,SHOW_MODS,,,#JZ#
-547,エスパドン,,& Espadon~,,|,W,HAND,23,24,0,40,0,200,600,0,0,0,2d9,0,0,0,40/3,SHOW_MODS,,,#JZ#
-37,グレート・ソード,,& Two-Handed Sword~,,|,W,HAND,23,25,0,30,0,200,775,0,0,0,3d6,0,0,0,30/1:40/1,SHOW_MODS,非常に大きな両刃の直刀で、これを片手で持てる者はほとんどいない。,"A great, double-edged broadsword which few can wield in one hand.",
-545,フランベルジュ,,& Flamberge~,,|,W,HAND,23,26,0,40,0,230,600,0,0,0,3d7,0,0,0,40/2,SHOW_MODS,,,#JZ#
-29,野太刀,,& No-dachi~,,|,W,HAND,23,27,0,35,0,190,579,0,0,0,5d4,0,0,0,35/3,SHOW_MODS,,,
-40,首切りソード,,& Executioner's Sword~,,|,r,HAND,23,28,0,40,0,260,850,0,0,0,4d5,0,0,0,40/1,SHOW_MODS,胴体から頭を綺麗に切り落とす為に作られた、巨大な曲った刃を持つ剣だ。,"A giant, curved blade designed to cleave the head cleanly from the body.",
-524,ツヴァイハンダー,,& Zweihander~,,|,w,HAND,23,29,0,40,0,280,580,0,0,0,4d6,0,0,0,40/3,SHOW_MODS,,,#JZ#
-36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,23,30,0,70,0,180,4000,0,0,0,6d5,0,0,0,70/8,RES_CHAOS|SHOW_MODS,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
-565,ダイヤモンド・エッジ,,& Diamond Edge~,,|,w,HAND,23,31,4,90,0,150,50000,0,0,0,7d5,10,10,0,90/16,SHOW_MODS|VORPAL|TUNNEL,,,
-592,毒針,,& Poison Needle~,,|,g,HAND,23,32,0,0,0,5,2000,0,0,0,1d1,0,0,0,30/6,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,,
-635,隼の剣,,& Falcon Sword~,,|,y,HAND,23,33,1,55,0,30,3500,0,0,0,1d6,0,0,0,65/8,SHOW_MODS|BLOWS,,,#JP#
-689,ウルクの直剣,,& Uruk's Straight Sword,,|,U,HAND,23,34,0,38,0,150,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",
-91,軟革ブーツ,,& Pair~ of Soft Leather Boots,,],U,FEET,30,2,0,3,0,20,7,0,0,2,1d1,0,0,0,3/1,,ふくらはぎの高さまでの柔軟な革のブーツだ。踵からふくらはぎまで結び紐が付いている。,"These are calf-high boots of flexible leather, laced from heel to calf.",
-92,硬革ブーツ,,& Pair~ of Hard Leather Boots,,],U,FEET,30,3,0,5,0,40,12,0,0,3,1d1,0,0,0,5/1,,長い旅路でも良く保つ丈夫な革製のブーツだ。,A set of sturdy leather boots that will last many weary miles.,
-585,ドラゴン皮の靴,,& Pair~ of Dragon Boots,,],G,FEET,30,4,0,60,0,60,10000,0,0,5,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,,,
-93,鉄鋲底の靴,,& Pair~ of Metal Shod Boots,,],s,FEET,30,6,0,20,0,80,50,0,0,6,1d1,0,0,0,20/1,,二重の革製ブーツで、踵と爪先が鉄で補強されている。,"A set of double-lined leather boots, with toes and heels reinforced with iron.",
-125,革グローブ,,& Set~ of Leather Gloves,,],U,ARMS,31,1,0,1,0,5,3,0,0,1,0d0,0,0,0,1/1,,革製の手甲で、手のひらは武器を握るために開いている。,"Leather hand protection, with an open palm for gripping weapons.",
-126,ガントレット,,& Set~ of Gauntlets,,],U,ARMS,31,2,0,10,0,25,35,0,0,2,1d1,0,0,0,10/1,,手と手首を鋼鉄板で完全に覆うグローブだ。,A set of gloves that completely covers the hand and wrist in steel plating.,
-584,ドラゴン・グローブ,,& Set~ of Dragon Gloves,,],G,ARMS,31,3,0,60,0,30,10000,0,0,4,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,,,#JZ#
-127,セスタス,,& Set~ of Cesti,,],W,ARMS,31,5,0,50,0,40,100,0,0,5,1d1,0,0,0,50/1,,重厚な手の覆いで、鋼鉄としっかり煮固めた革で縛ってある。,"A massive set of hand sheathings, bound with steel and thrice-cured leather.",### The shields ###
-94,硬革帽子,,& Hard Leather Cap~,,],u,HEAD,32,2,0,3,0,15,12,0,0,2,0d0,0,0,0,3/1,,煮固めた革製の詰め物入りの帽子だ。,A padded skullcap of boiled leather.,
-95,金属帽子,,& Metal Cap~,,],s,HEAD,32,3,0,10,0,20,30,0,0,3,1d1,0,0,0,10/1,,頭部を保護する鋼鉄の帽子だ。,A pot-helm of steel that protects the skull.,
-562,陣笠,,& Jingasa~,,],s,HEAD,32,4,0,16,0,30,60,0,0,4,1d2,0,0,0,16/2,,,,#JZ#
-96,鉄ヘルメット,,& Iron Helm~,,],s,HEAD,32,5,0,20,0,75,75,0,0,5,1d3,0,0,0,20/1,,頭部を完全に覆う鉄製のヘルメットだ。,"A mighty helmet of heavy iron, completely enclosing the head.",
-97,鋼鉄ヘルメット,,& Steel Helm~,,],W,HEAD,32,6,0,40,0,60,200,0,0,6,1d3,0,0,0,40/1,,鋼鉄板と鎖かたびらを組み合わせて、頭部から肩までを完全に覆う防具だ。,This great helm covers the head and shoulders with plates of steel and a curtain of mail.,
-413,ドラゴン・ヘルム,,& Dragon Helm~,,],G,HEAD,32,7,0,60,0,50,10000,0,0,8,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,ドラゴンの翼飾りのある大きな兜で、虹色に輝く。元素への耐性を保証する。,"A dragon-winged great helm, glowing in all the colors of the rainbow.  It grants resistance to the elements.",#JZ#
-560,星兜,,& Kabuto~,,],D,HEAD,32,8,0,50,0,80,300,0,0,7,1d2,0,0,0,50/3,,,,#JZ#
+30,折れたダガー,,& Broken Dagger~,,|,D,HAND,SWORD,1,0,0,0,5,1,0,0,0,1d1,-2,-4,0,0/1,SHOW_MODS,,,
+47,折れた剣,,& Broken Sword~,,|,D,HAND,SWORD,2,0,0,0,30,2,0,0,0,1d2,-2,-4,0,0/1,SHOW_MODS,柄の上でギザギザに折れている。,"Above the hilt, a foot of steel rises, ending in a jagged edge.",##### Hafted Weapons #####
+43,ダガー,,& Dagger~,,|,W,HAND,SWORD,4,0,0,0,12,10,0,0,0,1d4,0,0,0,0/1:5/1:10/1:20/1,SHOW_MODS,先端が鋭い両刃の短剣だ。,A two-edged knife with a sharp point.,
+38,マン・ゴーシュ,,& Main Gauche~,,|,W,HAND,SWORD,5,0,3,0,30,25,0,0,0,1d5,0,0,0,3/1,SHOW_MODS,拳を防御する大きな鍔を持つ短い剣。主に決闘で防御用の短剣として用いられる。,"A short thrusting blade with a large guard, primarily used in duels.",
+525,短刀,,& Tanto~,,|,W,HAND,SWORD,6,0,3,0,20,30,0,0,0,1d5,0,0,0,3/2,SHOW_MODS,,,#JZ#
+44,レイピア,,& Rapier~,,|,W,HAND,SWORD,7,0,5,0,40,42,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,突きに用いる長く細い刀身を持つ剣。主に決闘に用いられる。,"A long, thin thrusting blade, mainly used in duels.",
+46,スモール・ソード,,& Small Sword~,,|,W,HAND,SWORD,8,0,5,0,75,48,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,ロングソードを少し短くしたような剣だ。ホビットにぴったりのサイズだ。,"A smaller version of the longsword, perfectly sized for Hobbits.",
+554,バゼラード,,& Basillard~,,|,w,HAND,SWORD,9,0,15,0,80,220,0,0,0,1d8,0,0,0,15/3,SHOW_MODS,,,#JZ#
+35,ショート・ソード,,& Short Sword~,,|,W,HAND,SWORD,10,0,5,0,80,90,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,主に突く用途に用いる短い剣だ。,A short thrusting sword.,
+45,サーベル,,& Sabre~,,|,W,HAND,SWORD,11,0,5,0,50,50,0,0,0,1d7,0,0,0,5/1,SHOW_MODS|RIDING,軽い少し曲った刃を持ち、切る事も突く事もできる。馬上及び決闘においてよく使われる。,"A light, somewhat curved blade that can be used to thrust or slash; familiar to horseman and duelists alike.",
+39,カットラス,,& Cutlass~,,|,W,HAND,SWORD,12,0,5,0,110,85,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,大きな曲った刀身と手をカバーする網状の柄を備えた剣だ。船員に良く用いられる。,"A large, curved chopper with a basket hilt, well known to seamen.",
+549,脇差し,,& Wakizashi~,,|,W,HAND,SWORD,13,0,15,0,90,210,0,0,0,2d4,0,0,0,15/3,SHOW_MODS,,,#JZ#
+544,クォピス,,& Khopesh~,,|,W,HAND,SWORD,14,0,10,0,130,190,0,0,0,2d4,0,0,0,10/2,SHOW_MODS,,,#JZ#
+33,タルワール,,& Tulwar~,,|,W,HAND,SWORD,15,0,5,0,100,200,0,0,0,2d4,0,0,0,5/1,SHOW_MODS|RIDING,,,
+34,ブロード・ソード,,& Broad Sword~,,|,W,HAND,SWORD,16,0,10,0,150,255,0,0,0,2d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,重く広い刀身と頑丈な柄を持った両刃の直刀だ。,"A heavy, double-edged sword with a strong grip.",
+42,ロング・ソード,,& Long Sword~,,|,W,HAND,SWORD,17,0,10,0,130,300,0,0,0,2d5,0,0,0,10/1:20/1,SHOW_MODS|RIDING,十字の形に2本の柄が付いた長い両刃の直刀だ。,"A long, straight, two-edged blade, with two hand guards projecting out from the hilt to form a perfect cross.",
+32,シミター,,& Scimitar~,,|,W,HAND,SWORD,18,0,10,0,130,250,0,0,0,2d5,0,0,0,10/1,SHOW_MODS,斬る用途に特化した三日月のような刀身を持つ片刃の剣だ。,A single-edged slashing sword with a blade like a crescent.,
+555,忍者刀,,& Ninjato~,,|,s,HAND,SWORD,19,0,15,0,100,265,0,0,0,1d9,0,0,0,15/2,SHOW_MODS,,,#JZ#
+41,カタナ,,& Katana~,,|,W,HAND,SWORD,20,0,20,0,120,400,0,0,0,3d4,0,0,0,20/1,SHOW_MODS,長い柄と微妙に曲った刃を持つ切れ味に優れた片刃の剣だ。,A slightly curved long-handled slashing sword with a single-edged blade and a chisel tip.,
+31,バスタード・ソード,,& Bastard Sword~,,|,W,HAND,SWORD,21,0,15,0,140,350,0,0,0,3d4,0,0,0,15/1,SHOW_MODS,片手半剣とも呼ばれる。通常のロングソードよりも長い両刃の直刀だ。,Also known as the hand-and-a-half blade.  A larger-than-normal straight-sided sword with two cutting edges.,
+548,青龍刀,,& Falchion~,,|,W,HAND,SWORD,22,0,40,0,240,500,0,0,0,4d5,0,0,0,40/3,SHOW_MODS|RIDING,,,#JZ#
+546,クレイモア,,& Claymore~,,|,W,HAND,SWORD,23,0,40,0,200,600,0,0,0,2d8,0,0,0,40/2,SHOW_MODS,,,#JZ#
+547,エスパドン,,& Espadon~,,|,W,HAND,SWORD,24,0,40,0,200,600,0,0,0,2d9,0,0,0,40/3,SHOW_MODS,,,#JZ#
+37,グレート・ソード,,& Two-Handed Sword~,,|,W,HAND,SWORD,25,0,30,0,200,775,0,0,0,3d6,0,0,0,30/1:40/1,SHOW_MODS,非常に大きな両刃の直刀で、これを片手で持てる者はほとんどいない。,"A great, double-edged broadsword which few can wield in one hand.",
+545,フランベルジュ,,& Flamberge~,,|,W,HAND,SWORD,26,0,40,0,230,600,0,0,0,3d7,0,0,0,40/2,SHOW_MODS,,,#JZ#
+29,野太刀,,& No-dachi~,,|,W,HAND,SWORD,27,0,35,0,190,579,0,0,0,5d4,0,0,0,35/3,SHOW_MODS,,,
+40,首切りソード,,& Executioner's Sword~,,|,r,HAND,SWORD,28,0,40,0,260,850,0,0,0,4d5,0,0,0,40/1,SHOW_MODS,胴体から頭を綺麗に切り落とす為に作られた、巨大な曲った刃を持つ剣だ。,"A giant, curved blade designed to cleave the head cleanly from the body.",
+524,ツヴァイハンダー,,& Zweihander~,,|,w,HAND,SWORD,29,0,40,0,280,580,0,0,0,4d6,0,0,0,40/3,SHOW_MODS,,,#JZ#
+36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,SWORD,30,0,70,0,180,4000,0,0,0,6d5,0,0,0,70/8,RES_CHAOS|SHOW_MODS,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
+565,ダイヤモンド・エッジ,,& Diamond Edge~,,|,w,HAND,SWORD,31,4,90,0,150,50000,0,0,0,7d5,10,10,0,90/16,SHOW_MODS|VORPAL|TUNNEL,,,
+592,毒針,,& Poison Needle~,,|,g,HAND,SWORD,32,0,0,0,5,2000,0,0,0,1d1,0,0,0,30/6,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,,
+635,隼の剣,,& Falcon Sword~,,|,y,HAND,SWORD,33,1,55,0,30,3500,0,0,0,1d6,0,0,0,65/8,SHOW_MODS|BLOWS,,,#JP#
+689,ウルクの直剣,,& Uruk's Straight Sword,,|,U,HAND,SWORD,34,0,38,0,150,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",
+91,軟革ブーツ,,& Pair~ of Soft Leather Boots,,],U,FEET,BOOTS,2,0,3,0,20,7,0,0,2,1d1,0,0,0,3/1,,ふくらはぎの高さまでの柔軟な革のブーツだ。踵からふくらはぎまで結び紐が付いている。,"These are calf-high boots of flexible leather, laced from heel to calf.",
+92,硬革ブーツ,,& Pair~ of Hard Leather Boots,,],U,FEET,BOOTS,3,0,5,0,40,12,0,0,3,1d1,0,0,0,5/1,,長い旅路でも良く保つ丈夫な革製のブーツだ。,A set of sturdy leather boots that will last many weary miles.,
+585,ドラゴン皮の靴,,& Pair~ of Dragon Boots,,],G,FEET,BOOTS,4,0,60,0,60,10000,0,0,5,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,,,
+93,鉄鋲底の靴,,& Pair~ of Metal Shod Boots,,],s,FEET,BOOTS,6,0,20,0,80,50,0,0,6,1d1,0,0,0,20/1,,二重の革製ブーツで、踵と爪先が鉄で補強されている。,"A set of double-lined leather boots, with toes and heels reinforced with iron.",
+125,革グローブ,,& Set~ of Leather Gloves,,],U,ARMS,GLOVES,1,0,1,0,5,3,0,0,1,0d0,0,0,0,1/1,,革製の手甲で、手のひらは武器を握るために開いている。,"Leather hand protection, with an open palm for gripping weapons.",
+126,ガントレット,,& Set~ of Gauntlets,,],U,ARMS,GLOVES,2,0,10,0,25,35,0,0,2,1d1,0,0,0,10/1,,手と手首を鋼鉄板で完全に覆うグローブだ。,A set of gloves that completely covers the hand and wrist in steel plating.,
+584,ドラゴン・グローブ,,& Set~ of Dragon Gloves,,],G,ARMS,GLOVES,3,0,60,0,30,10000,0,0,4,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,,,#JZ#
+127,セスタス,,& Set~ of Cesti,,],W,ARMS,GLOVES,5,0,50,0,40,100,0,0,5,1d1,0,0,0,50/1,,重厚な手の覆いで、鋼鉄としっかり煮固めた革で縛ってある。,"A massive set of hand sheathings, bound with steel and thrice-cured leather.",### The shields ###
+94,硬革帽子,,& Hard Leather Cap~,,],u,HEAD,HELM,2,0,3,0,15,12,0,0,2,0d0,0,0,0,3/1,,煮固めた革製の詰め物入りの帽子だ。,A padded skullcap of boiled leather.,
+95,金属帽子,,& Metal Cap~,,],s,HEAD,HELM,3,0,10,0,20,30,0,0,3,1d1,0,0,0,10/1,,頭部を保護する鋼鉄の帽子だ。,A pot-helm of steel that protects the skull.,
+562,陣笠,,& Jingasa~,,],s,HEAD,HELM,4,0,16,0,30,60,0,0,4,1d2,0,0,0,16/2,,,,#JZ#
+96,鉄ヘルメット,,& Iron Helm~,,],s,HEAD,HELM,5,0,20,0,75,75,0,0,5,1d3,0,0,0,20/1,,頭部を完全に覆う鉄製のヘルメットだ。,"A mighty helmet of heavy iron, completely enclosing the head.",
+97,鋼鉄ヘルメット,,& Steel Helm~,,],W,HEAD,HELM,6,0,40,0,60,200,0,0,6,1d3,0,0,0,40/1,,鋼鉄板と鎖かたびらを組み合わせて、頭部から肩までを完全に覆う防具だ。,This great helm covers the head and shoulders with plates of steel and a curtain of mail.,
+413,ドラゴン・ヘルム,,& Dragon Helm~,,],G,HEAD,HELM,7,0,60,0,50,10000,0,0,8,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,ドラゴンの翼飾りのある大きな兜で、虹色に輝く。元素への耐性を保証する。,"A dragon-winged great helm, glowing in all the colors of the rainbow.  It grants resistance to the elements.",#JZ#
+560,星兜,,& Kabuto~,,],D,HEAD,HELM,8,0,50,0,80,300,0,0,7,1d2,0,0,0,50/3,,,,#JZ#
 98,鉄冠,,& Iron Crown~,,],s,HEAD,33,10,0,40,0,20,500,0,0,0,1d1,0,0,0,40/1,,鉄の環に鉄の突起で飾りが付けられた冠だ。君主の印である。,"A plain band of iron, crowned with iron spikes.  It is a tyrant's symbol.",
 99,金の冠,,& Golden Crown~,,],y,HEAD,33,11,0,45,0,30,1000,0,0,0,1d1,0,0,0,45/1,IGNORE_ACID,幾つもの細い突起が上向きに付いた優雅な金の頭飾り。王の額に相応しい物に見える。,"An elegant golden circlet, with slender spines thrusting upward. It looks like it should be resting over the brow of a king.",
 100,宝冠,,& Jewel Encrusted Crown~,,],v,HEAD,33,12,0,50,0,40,2000,0,0,0,1d1,0,0,0,50/1,IGNORE_ACID,精巧に飾り付けられた重厚な金の冠に様々な宝石が虹色にちりばめられている。,"An elaboratedly decorated crown of massive gold, studded with a rainbow of gems and jewels; worthy of an emperor.",
