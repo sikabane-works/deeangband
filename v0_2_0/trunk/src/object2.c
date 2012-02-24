@@ -2349,7 +2349,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
+		if ((good && e_ptr->rating) || (!good && !e_ptr->rating))
 		{
 			if (e_ptr->rarity)
 				total += (255 / e_ptr->rarity);
@@ -2362,7 +2362,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)) )
+		if ((good && e_ptr->rating) || (!good && !e_ptr->rating))
 		{
 			if (e_ptr->rarity)
 				value -= (255 / e_ptr->rarity);

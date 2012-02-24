@@ -2786,9 +2786,9 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			case OBJECT_EGO_INFO_RATING:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].rarity = (byte)b;
+					e_info[n].rating = (byte)b;
 				else
-					e_info[n].rarity = 0;
+					e_info[n].rating = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_HIT:
