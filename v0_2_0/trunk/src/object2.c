@@ -3802,7 +3802,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 					{
 						bool okay_flag = TRUE;
 
-						o_ptr->name2 = get_random_ego(INVEN_LITE, TRUE);
+						o_ptr->name2 = get_random_ego(ITEM_SLOT_LITE, TRUE);
 
 						switch (o_ptr->name2)
 						{
@@ -3817,7 +3817,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if (power == -2)
 			{
-				o_ptr->name2 = get_random_ego(INVEN_LITE, FALSE);
+				o_ptr->name2 = get_random_ego(ITEM_SLOT_LITE, FALSE);
 
 				switch (o_ptr->name2)
 				{
@@ -4193,74 +4193,6 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		else create_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
 	}
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, o_ptr, FALSE);
-
-	// Apply magic
-	/*
-	switch (o_ptr->tval)
-	{
-		case TV_DIGGING:
-		case TV_HAFTED:
-		case TV_BOW:
-		case TV_SHOT:
-		case TV_ARROW:
-		case TV_BOLT:
-		{
-			if (power) a_m_aux_1(owner_ptr, o_ptr, lev, power);
-			break;
-		}
-
-		case TV_POLEARM:
-		{
-			if (power && !(o_ptr->sval == SV_DEATH_SCYTHE)) a_m_aux_1(owner_ptr, o_ptr, lev, power);
-			break;
-		}
-
-		case TV_SWORD:
-		{
-			if (power && !(o_ptr->sval == SV_DOKUBARI)) a_m_aux_1(owner_ptr, o_ptr, lev, power);
-			break;
-		}
-
-		case TV_DRAG_ARMOR:
-		case TV_HARD_ARMOR:
-		case TV_SOFT_ARMOR:
-		case TV_SHIELD:
-		case TV_HELM:
-		case TV_CROWN:
-		case TV_CLOAK:
-		case TV_GLOVES:
-		case TV_BOOTS:
-		{
-			// Elven Cloak and Black Clothes
-
-#if 1
-			if (power ||
-			     ((o_ptr->tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM)) ||
-			     ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||
-			     ((o_ptr->tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
-			     ((o_ptr->tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)))
-				a_m_aux_2(owner_ptr, o_ptr, lev, power);
-#else
-			if (power) a_m_aux_2(o_ptr, lev, power);
-#endif
-			break;
-		}
-
-		case TV_RING:
-		case TV_AMULET:
-		{
-			if (!power && (randint0(100) < 50)) power = -1;
-			generate_process_ring_amulet(owner_ptr, o_ptr, lev, power);
-			break;
-		}
-
-		default:
-		{
-			generate_other_magic_item(owner_ptr, o_ptr, lev, power);
-			break;
-		}
-	}
-	*/
 
 	if ((o_ptr->tval == TV_SOFT_ARMOR) &&
 	    (o_ptr->sval == SV_ABUNAI_MIZUGI) &&
