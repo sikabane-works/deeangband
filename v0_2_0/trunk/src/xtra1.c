@@ -4512,12 +4512,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_d[default_hand] += cr_ptr->size * (10 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
 	}
 
-	if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
+	//TODO: adjust
+	/*
+	if (have_weapon(cr_ptr, ) && have_weapon(cr_ptr, ))
 	{
 		int penalty1, penalty2;
-		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[INVEN_1STARM].weight) / 8);
-		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[INVEN_2NDARM].weight) / 8);
-		if ((cr_ptr->inventory[INVEN_1STARM].name1 == ART_QUICKTHORN) && (cr_ptr->inventory[INVEN_2NDARM].name1 == ART_TINYTHORN))
+		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
+		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
+		if ((cr_ptr->inventory[].name1 == ART_QUICKTHORN) && (cr_ptr->inventory[].name1 == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
@@ -4530,12 +4532,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
 		}
-		else if ((cr_ptr->inventory[INVEN_2NDARM].tval == TV_SWORD) && ((cr_ptr->inventory[INVEN_2NDARM].sval == SV_MAIN_GAUCHE) || (cr_ptr->inventory[INVEN_2NDARM].sval == SV_WAKIZASHI)))
+		else if ((cr_ptr->inventory[].tval == TV_SWORD) && ((cr_ptr->inventory[].sval == SV_MAIN_GAUCHE) || (cr_ptr->inventory[].sval == SV_WAKIZASHI)))
 		{
 			penalty1 = MAX(0, penalty1 - 10);
 			penalty2 = MAX(0, penalty2 - 10);
 		}
-		if ((cr_ptr->inventory[INVEN_1STARM].name1 == ART_MUSASI_KATANA) && (cr_ptr->inventory[INVEN_2NDARM].name1 == ART_MUSASI_WAKIZASI))
+		if ((cr_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (cr_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
 		{
 			penalty1 = MIN(0, penalty1);
 			penalty2 = MIN(0, penalty2);
@@ -4544,18 +4546,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			if ((cr_ptr->inventory[INVEN_1STARM].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+			if ((cr_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
 				penalty1 /= 2;
-			if ((cr_ptr->inventory[INVEN_2NDARM].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+			if ((cr_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
 				penalty2 /= 2;
 		}
-		if (cr_ptr->inventory[INVEN_1STARM].tval == TV_POLEARM) penalty1 += 10;
-		if (cr_ptr->inventory[INVEN_2NDARM].tval == TV_POLEARM) penalty2 += 10;
+		if (cr_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;
+		if (cr_ptr->inventory[].tval == TV_POLEARM) penalty2 += 10;
 		cr_ptr->to_h[0] -= penalty1;
 		cr_ptr->to_h[1] -= penalty2;
 		cr_ptr->dis_to_h[0] -= penalty1;
 		cr_ptr->dis_to_h[1] -= penalty2;
 	}
+	*/
 
 	/* Extract the current weight (in tenth pounds) */
 	j = cr_ptr->total_weight;
