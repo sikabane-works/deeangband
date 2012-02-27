@@ -4835,7 +4835,7 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 		cr_ptr->inven_cnt--;
 
 		/* Slide everything down */
-		for (i = item; i < INVEN_PACK; i++)
+		for (i = item; i < INVEN_TOTAL; i++)
 		{
 			/* Structure copy */
 			cr_ptr->inventory[i] = cr_ptr->inventory[i+1];
@@ -4993,10 +4993,10 @@ bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr)
 	int j;
 
 	/* Empty slot? */
-	if (cr_ptr->inven_cnt < INVEN_PACK) return (TRUE);
+	if (cr_ptr->inven_cnt < INVEN_TOTAL) return (TRUE);
 
 	/* Similar slot? */
-	for (j = 0; j < INVEN_PACK; j++)
+	for (j = 0; j < INVEN_TOTAL; j++)
 	{
 		object_type *j_ptr = &cr_ptr->inventory[j];
 
@@ -5119,7 +5119,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 
 
 	/* Check for combining */
-	for (j = 0; j < INVEN_PACK; j++)
+	for (j = 0; j < INVEN_TOTAL; j++)
 	{
 		j_ptr = &cr_ptr->inventory[j];
 
@@ -5151,10 +5151,10 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 
 
 	/* Paranoia */
-	if (cr_ptr->inven_cnt > INVEN_PACK) return (-1);
+	if (cr_ptr->inven_cnt > INVEN_TOTAL) return (-1);
 
 	/* Find an empty slot */
-	for (j = 0; j <= INVEN_PACK; j++)
+	for (j = 0; j <= INVEN_TOTAL; j++)
 	{
 		j_ptr = &cr_ptr->inventory[j];
 
@@ -5167,13 +5167,13 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 
 
 	/* Reorder the pack */
-	if (i < INVEN_PACK)
+	if (i < INVEN_TOTAL)
 	{
 		/* Get the "value" of the item */
 		s32b o_value = object_value(o_ptr);
 
 		/* Scan every occupied slot */
-		for (j = 0; j < INVEN_PACK; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (object_sort_comp(cr_ptr, o_ptr, o_value, &cr_ptr->inventory[j])) break;
 		}
@@ -5427,7 +5427,7 @@ void combine_pack(creature_type *creature_ptr)
 		combined = FALSE;
 
 		/* Combine the pack (backwards) */
-		for (i = INVEN_PACK; i > 0; i--)
+		for (i = INVEN_TOTAL; i > 0; i--)
 		{
 			/* Get the item */
 			o_ptr = &creature_ptr->inventory[i];
@@ -5467,7 +5467,7 @@ void combine_pack(creature_type *creature_ptr)
 						creature_ptr->inven_cnt--;
 
 						/* Slide everything down */
-						for (k = i; k < INVEN_PACK; k++)
+						for (k = i; k < INVEN_TOTAL; k++)
 						{
 							/* Structure copy */
 							creature_ptr->inventory[k] = creature_ptr->inventory[k+1];
@@ -5541,10 +5541,10 @@ void reorder_pack(creature_type *creature_ptr)
 
 
 	/* Re-order the pack (forwards) */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Mega-Hack -- allow "proper" over-flow */
-		if ((i == INVEN_PACK) && (creature_ptr->inven_cnt == INVEN_PACK)) break;
+		if ((i == INVEN_TOTAL) && (creature_ptr->inven_cnt == INVEN_TOTAL)) break;
 
 		/* Get the item */
 		o_ptr = &creature_ptr->inventory[i];
@@ -5556,7 +5556,7 @@ void reorder_pack(creature_type *creature_ptr)
 		o_value = object_value(o_ptr);
 
 		/* Scan every occupied slot */
-		for (j = 0; j < INVEN_PACK; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (object_sort_comp(creature_ptr, o_ptr, o_value, &creature_ptr->inventory[j])) break;
 		}

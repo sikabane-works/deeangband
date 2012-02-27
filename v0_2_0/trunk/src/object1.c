@@ -4022,7 +4022,7 @@ s16b label_to_inven(creature_type *cr_ptr, int c)
 	i = (islower(c) ? A2I(c) : -1);
 
 	/* Verify the index */
-	if ((i < 0) || (i > INVEN_PACK)) return (-1);
+	if ((i < 0) || (i > INVEN_TOTAL)) return (-1);
 
 	/* Empty slots can never be chosen */
 	if (!cr_ptr->inventory[i].k_idx) return (-1);
@@ -4462,7 +4462,7 @@ void display_inven(creature_type *cr_ptr)
 	Term_get_size(&wid, &hgt);
 
 	/* Find the "final" slot */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -4660,7 +4660,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 
 	case USE_INVEN:
 		start = 0;
-		end = INVEN_PACK - 1;
+		end = INVEN_TOTAL - 1;
 		break;
 
 	default:
@@ -4939,7 +4939,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 
 
 	/* Find the "final" slot */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -5043,7 +5043,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else if (i <= INVEN_PACK)
+		else if (i <= INVEN_TOTAL)
 		{
 			/* Prepare an index --(-- */
 			sprintf(tmp_val, "%c)", inven_label[i]);
@@ -5632,7 +5632,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			}
 		}
 
-		else if ((inven && (*cp >= 0) && (*cp < INVEN_PACK)) ||
+		else if ((inven && (*cp >= 0) && (*cp < INVEN_TOTAL)) ||
 		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
 		{
 			if (prev_tag && command_cmd)
@@ -5688,13 +5688,13 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 
 	/* Full cr_ptr->inventory */
 	i1 = 0;
-	i2 = INVEN_PACK - 1;
+	i2 = INVEN_TOTAL - 1;
 
 	/* Forbid cr_ptr->inventory */
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
-		for (j = 0; j < INVEN_PACK; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
 			if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_inven++;
 	}
 
@@ -6701,7 +6701,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 		}
 
-		else if ((inven && (*cp >= 0) && (*cp < INVEN_PACK)) ||
+		else if ((inven && (*cp >= 0) && (*cp < INVEN_TOTAL)) ||
 		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
 		{
 			if (prev_tag && command_cmd)
@@ -6757,13 +6757,13 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 	/* Full cr_ptr->inventory */
 	i1 = 0;
-	i2 = INVEN_PACK - 1;
+	i2 = INVEN_TOTAL - 1;
 
 	/* Forbid cr_ptr->inventory */
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
-		for (j = 0; j < INVEN_PACK; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
 			if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_inven++;
 	}
 

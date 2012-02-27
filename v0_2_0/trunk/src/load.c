@@ -442,7 +442,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 		}
 
 		/* Warning -- backpack is full */
-		else if (cr_ptr->inven_cnt == INVEN_PACK)
+		else if (cr_ptr->inven_cnt == INVEN_TOTAL)
 		{
 			/* Oops */
 #ifdef JP

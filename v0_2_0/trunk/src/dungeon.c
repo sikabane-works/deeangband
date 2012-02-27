@@ -3336,7 +3336,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	 * and each charging rod in a stack decreases the stack's timeout by
 	 * one per turn. -LM-
 	 */
-	for (changed = FALSE, i = 0; i < INVEN_PACK; i++)
+	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
@@ -5506,17 +5506,17 @@ static bool monster_tsuri(int species_idx)
 /* Hack -- Pack Overflow */
 static void pack_overflow(creature_type *cr_ptr)
 {
-	if (cr_ptr->inventory[INVEN_PACK].k_idx)
+	if (cr_ptr->inventory[INVEN_TOTAL].k_idx)
 	{
 		char o_name[MAX_NLEN];
 		object_type *o_ptr;
 
 		/* Is auto-destroy done? */
 		notice_stuff(cr_ptr);
-		if (!cr_ptr->inventory[INVEN_PACK].k_idx) return;
+		if (!cr_ptr->inventory[INVEN_TOTAL].k_idx) return;
 
 		/* Access the slot to be dropped */
-		o_ptr = &cr_ptr->inventory[INVEN_PACK];
+		o_ptr = &cr_ptr->inventory[INVEN_TOTAL];
 
 		/* Disturbing */
 		disturb(player_ptr, 0, 0);
@@ -5533,18 +5533,18 @@ static void pack_overflow(creature_type *cr_ptr)
 
 		/* Message */
 #ifdef JP
-		msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", o_name, index_to_label(cr_ptr, INVEN_PACK));
+		msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", o_name, index_to_label(cr_ptr, INVEN_TOTAL));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, INVEN_PACK));
+		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, INVEN_TOTAL));
 #endif
 
 		/* Drop it (carefully) near the player */
 		(void)drop_near(o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 		/* Modify, Describe, Optimize */
-		inven_item_increase(cr_ptr, INVEN_PACK, -255);
-		inven_item_describe(cr_ptr, INVEN_PACK);
-		inven_item_optimize(cr_ptr, INVEN_PACK);
+		inven_item_increase(cr_ptr, INVEN_TOTAL, -255);
+		inven_item_describe(cr_ptr, INVEN_TOTAL);
+		inven_item_optimize(cr_ptr, INVEN_TOTAL);
 
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);

@@ -2261,7 +2261,7 @@ static bool kankin(creature_type *cr_ptr)
 		}
 	}
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -2292,7 +2292,7 @@ static bool kankin(creature_type *cr_ptr)
 		}
 	}
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -2323,7 +2323,7 @@ static bool kankin(creature_type *cr_ptr)
 		}
 	}
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
@@ -2352,7 +2352,7 @@ static bool kankin(creature_type *cr_ptr)
 		}
 	}
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -2385,7 +2385,7 @@ static bool kankin(creature_type *cr_ptr)
 	for (j = 0; j < MAX_KUBI; j++)
 	{
 		/* Need reverse order --- Positions will be changed in the loop */
-		for (i = INVEN_PACK-1; i >= 0; i--)
+		for (i = INVEN_TOTAL-1; i >= 0; i--)
 		{
 			o_ptr = &cr_ptr->inventory[i];
 			if ((o_ptr->tval == TV_CORPSE) && (o_ptr->pval == kubi_species_idx[j]))
@@ -4153,7 +4153,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 #endif
 
 	/* Calculate cost */
-	for ( i = 0; i < INVEN_PACK; i++)
+	for ( i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 				
@@ -4232,7 +4232,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 	if (!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
 #endif
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 		k_ptr = &k_info[o_ptr->k_idx];

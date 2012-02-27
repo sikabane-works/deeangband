@@ -1628,11 +1628,11 @@ msg_print("その方向にはモンスターはいません。");
 		{
 			int slot;
 
-			for (slot = 0; slot < INVEN_PACK; slot++)
+			for (slot = 0; slot < INVEN_TOTAL; slot++)
 			{
 				if (cr_ptr->inventory[slot].tval == TV_SPIKE) break;
 			}
-			if (slot == INVEN_PACK)
+			if (slot == INVEN_TOTAL)
 			{
 #ifdef JP
 				if (!i) msg_print("くさびを持っていない。");

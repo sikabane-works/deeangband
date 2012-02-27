@@ -1421,7 +1421,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	if (!IS_FLG(FLG_COLLECTING)) return TRUE;
 
 	/* Check if there is a same item */
-	for (j = 0; j < INVEN_PACK; j++)
+	for (j = 0; j < INVEN_TOTAL; j++)
 	{
 		/*
 		 * 'Collecting' means the item must be absorbed 
@@ -1710,7 +1710,7 @@ void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
 	auto_inscribe_item(cr_ptr, o_ptr, idx);
 
 	/* Do auto-destroy if needed */
-	if (destroy && item <= INVEN_PACK)
+	if (destroy && item <= INVEN_TOTAL)
 		auto_destroy_item(cr_ptr, o_ptr, idx);
 }
 

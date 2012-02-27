@@ -6167,7 +6167,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 #else
 		strcpy(where, "I ");
 #endif
-		for (i = 0; i < INVEN_PACK; i++)
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}

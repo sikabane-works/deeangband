@@ -3005,7 +3005,7 @@ static void wield_all(creature_type *creature_ptr, u32b flags)
 { 
 	int item;
 	/* Scan through the slots backwards */ 
-	for (item = INVEN_PACK - 1; item >= 0; item--) 
+	for (item = INVEN_TOTAL - 1; item >= 0; item--) 
 	{
 		wield_one(creature_ptr, item, flags);
  	} 

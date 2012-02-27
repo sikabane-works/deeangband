@@ -365,7 +365,7 @@ static bool player_has_no_spellbooks(creature_type *cr_ptr)
 	int         i;
 	object_type *o_ptr;
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 		if (o_ptr->k_idx && check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;

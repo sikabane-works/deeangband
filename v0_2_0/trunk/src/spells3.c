@@ -4805,7 +4805,7 @@ int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 	k = 0;
 
 	/* Scan through the slots backwards */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -5328,7 +5328,7 @@ bool brand_bolts(creature_type *cr_ptr)
 	int i;
 
 	/* Use the first acceptable bolts */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 

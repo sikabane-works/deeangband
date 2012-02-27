@@ -5654,7 +5654,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		monk_notify_aux = monk_armour_aux;
 	}
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 #if 0
 		if ((cr_ptr->inventory[i].tval == TV_SORCERY_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_dd_s = TRUE;

@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 4
+#define VER_PATCH 5
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -731,10 +731,9 @@
  * slot, which can hold an item, but only temporarily, since it causes the
  * pack to "overflow", dropping the "last" item onto the ground.  Since this
  * value is used as an actual slot, it must be less than "INVEN_1STARM" (below).
- * Note that "INVEN_PACK" is probably hard-coded by its use in savefiles, and
+ * Note that "INVEN_TOTAL" is probably hard-coded by its use in savefiles, and
  * by the fact that the screen can only show 23 items plus a one-line prompt.
  */
-#define INVEN_PACK              23
 
 /*
  * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
@@ -767,7 +766,7 @@
 /*
  * Total number of inventory slots (hard-coded).
  */
-#define INVEN_TOTAL      47
+#define INVEN_TOTAL      48
 
 /*
  * Fake inventory slot for selecting force (hard-coded).

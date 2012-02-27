@@ -866,7 +866,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					for (k = 0; k < 10; k++)
 					{
 						/* Pick an item */
-						i = randint0(INVEN_PACK);
+						i = randint0(INVEN_TOTAL);
 
 						/* Obtain the item */
 						o_ptr = &target_ptr->inventory[i];
@@ -1042,7 +1042,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						s16b o_idx;
 
 						/* Pick an item */
-						i = randint0(INVEN_PACK);
+						i = randint0(INVEN_TOTAL);
 
 						/* Obtain the item */
 						o_ptr = &target_ptr->inventory[i];
@@ -1135,7 +1135,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					for (k = 0; k < 10; k++)
 					{
 						/* Pick an item from the pack */
-						i = randint0(INVEN_PACK);
+						i = randint0(INVEN_TOTAL);
 
 						/* Get the item */
 						o_ptr = &target_ptr->inventory[i];

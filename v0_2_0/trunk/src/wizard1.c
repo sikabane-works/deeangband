@@ -2913,7 +2913,7 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 		}
 
 		/* random artifacts in cr_ptr */
-		for (i = 0; i < INVEN_PACK; i++)
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			q_ptr = &cr_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);

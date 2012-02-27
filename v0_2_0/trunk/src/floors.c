@@ -912,7 +912,7 @@ void leave_floor(creature_type *cr_ptr)
 	}
 
 	/* Check if there is a same item */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 

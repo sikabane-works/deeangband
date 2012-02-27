@@ -5309,7 +5309,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "  [Character inventory]\n\n");
 #endif
 
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Don't dump the empty slots */
 		if (!cr_ptr->inventory[i].k_idx) break;

@@ -2554,7 +2554,7 @@ static bool get_spike(creature_type *cr_ptr, int *ip)
 	int i;
 
 	/* Check every item in the pack */
-	for (i = 0; i < INVEN_PACK; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 

@@ -5492,9 +5492,9 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		handle_stuff(cr_ptr);
 
 		/* XXX XXX XXX Pack Overflow */
-		if (cr_ptr->inventory[INVEN_PACK].k_idx)
+		if (cr_ptr->inventory[INVEN_TOTAL].k_idx)
 		{
-			int item = INVEN_PACK;
+			int item = INVEN_TOTAL;
 
 			object_type *o_ptr = &cr_ptr->inventory[item];
 
