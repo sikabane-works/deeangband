@@ -2957,9 +2957,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	// Make sure we can wield it and that there's nothing else in that slot
 	slot = wield_slot(creature_ptr, o_ptr);
 
-	//if ((slot > INVEN_1STARM || slot <= INVEN_6THARM) && !(flags & ADD_OUTFIT_MULTIPLE_FENCING)) return -1;
-	if (slot < INVEN_1STARM) return -1; 
-	// if (slot == INVEN_LITE) return -1;
+	if (slot == ITEM_SLOT_INVENTORY) return -1; 
 	if (creature_ptr->inventory[slot].k_idx) return -1; 
  
 	/* Get local object */ 
@@ -5621,11 +5619,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		/* Roll for gold */
 		get_money(creature_ptr);
-
-		/* Iventory Fitting Rate */
-		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
-			creature_ptr->iven_fitting_rate[i] = 100;
-
 
 		/* Input loop */
 		while (TRUE)

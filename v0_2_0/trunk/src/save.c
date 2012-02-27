@@ -149,6 +149,8 @@ static void wr_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_h);
 	if (flags & SAVE_ITEM_TO_D) wr_s16b(o_ptr->to_d);
 	if (flags & SAVE_ITEM_TO_A) wr_s16b(o_ptr->to_a);
+	wr_s16b(o_ptr->size_upper);	
+	wr_s16b(o_ptr->size_lower);	
 	wr_s16b(o_ptr->fitting_size);	
 	wr_s16b(o_ptr->to_size);	
 
