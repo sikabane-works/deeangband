@@ -269,7 +269,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Message (equipment) */
-	if (slot >= INVEN_1STARM)
+	if (cr_ptr->equip_now[slot])
 	{
 #ifdef JP
 msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
@@ -547,7 +547,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
+		if (!cr_ptr->equip_now[i] && (0 != randint0(5))) continue;
 
 		/* Good luck */
 		if (has_cf_creature(cr_ptr, CF_GOOD_LUCK) && !randint0(13))
@@ -677,7 +677,7 @@ static void sense_inventory2(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
+		if (!cr_ptr->equip_now[i] && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(cr_ptr, i, TRUE);
 	}
@@ -1560,9 +1560,10 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 	if (!(cr_ptr->cursed & flag)) return NULL;
 
 	/* Search Inventry */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
+		if(!cr_ptr->equip_now[i]) continue;
 
 		if (o_ptr->curse_flags & flag)
 		{
@@ -3023,10 +3024,13 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			int i, i_keep = 0, count = 0;
 
 			/* Scan the equipment with random teleport ability */
-			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
 				o_ptr = &cr_ptr->inventory[i];
+
+				// Skip no equip
+				if(!cr_ptr->equip_now[i]) continue;
 
 				/* Skip non-objects */
 				if (!o_ptr->k_idx) continue;
@@ -3300,10 +3304,13 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	bool changed;
 
 	/* Process equipment */
-	for (changed = FALSE, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Get the object */
 		object_type *o_ptr = &cr_ptr->inventory[i];
+
+		// Skip no equip
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
