@@ -2342,7 +2342,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
  */
 static void calc_mana(creature_type *cr_ptr, bool message)
 {
-	int		msp, levels, cur_wgt, max_wgt;
+	int		msp, levels, cur_wgt, max_wgt, i;
 
 	object_type	*o_ptr;
 
@@ -2405,19 +2405,22 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 	/* Weigh the armor */
 	cur_wgt = 0;
-	if(cr_ptr->inventory[INVEN_1STARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight;
-	if(cr_ptr->inventory[INVEN_2NDARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_BODY].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
-	//TODO cur_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
-	/* Subtract a percentage of maximum mana. */
+
+	/*TODO:ADJUST
+	if(cr_ptr->inventory[].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
+	if(cr_ptr->inventory[].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
+	cur_wgt += cr_ptr->inventory[].weight;
+	cur_wgt += cr_ptr->inventory[].weight;
+	//TODO cur_wgt += cr_ptr->inventory[].weight;
+	cur_wgt += cr_ptr->inventory[].weight;
+	cur_wgt += cr_ptr->inventory[].weight;
+
+	// Subtract a percentage of maximum mana.
 	switch (cr_ptr->cls_idx)
 	{
-		/* For these classes, mana is halved if armour 
-		 * is 30 pounds over their weight limit. */
+		// For these classes, mana is halved if armour 
+		// is 30 pounds over their weight limit.
 		case CLASS_MAGE:
 		case CLASS_HIGH_MAGE:
 		case CLASS_BLUE_MAGE:
@@ -2425,18 +2428,18 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_FORCETRAINER:
 		case CLASS_SORCERER:
 		{
-			if (cr_ptr->inventory[INVEN_1STARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight;
-			if (cr_ptr->inventory[INVEN_2NDARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
 			break;
 		}
 
-		/* Mana halved if armour is 40 pounds over weight limit. */
+		// Mana halved if armour is 40 pounds over weight limit.
 		case CLASS_PRIEST:
 		case CLASS_BARD:
 		case CLASS_TOURIST:
 		{
-			if (cr_ptr->inventory[INVEN_1STARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight*2/3;
-			if (cr_ptr->inventory[INVEN_2NDARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight*2/3;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight*2/3;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight*2/3;
 			break;
 		}
 
@@ -2444,37 +2447,38 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_BEASTMASTER:
 		case CLASS_MIRROR_MASTER:
 		{
-			if (cr_ptr->inventory[INVEN_1STARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight/2;
-			if (cr_ptr->inventory[INVEN_2NDARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight/2;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/2;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/2;
 			break;
 		}
 
-		/* Mana halved if armour is 50 pounds over weight limit. */
+		// Mana halved if armour is 50 pounds over weight limit.
 		case CLASS_ROGUE:
 		case CLASS_RANGER:
 		case CLASS_RED_MAGE:
 		case CLASS_WARRIOR_MAGE:
 		{
-			if (cr_ptr->inventory[INVEN_1STARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight/3;
-			if (cr_ptr->inventory[INVEN_2NDARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight/3;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/3;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/3;
 			break;
 		}
 
-		/* Mana halved if armour is 60 pounds over weight limit. */
+		// Mana halved if armour is 60 pounds over weight limit.
 		case CLASS_PALADIN:
 		case CLASS_CHAOS_WARRIOR:
 		{
-			if (cr_ptr->inventory[INVEN_1STARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight/5;
-			if (cr_ptr->inventory[INVEN_2NDARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight/5;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/5;
+			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/5;
 			break;
 		}
 
-		/* For new classes created, but not yet added to this formula. */
+		// For new classes created, but not yet added to this formula.
 		default:
 		{
 			break;
 		}
 	}
+	*/
 
 	/* Determine the weight allowance */
 	max_wgt = m_info[cr_ptr->cls_idx].spell_weight;
