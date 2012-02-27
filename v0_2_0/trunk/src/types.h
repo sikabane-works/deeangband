@@ -629,8 +629,6 @@ struct object_type
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */
-
-	s16b fitting_size;	/* Regular body size */
 	s16b to_size;		/* Plusses to size */
 
 	s16b ac;			/* Normal AC */

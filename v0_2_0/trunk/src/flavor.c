@@ -2276,19 +2276,13 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	if (o_ptr->ac) show_armour = TRUE;
 
 	/* Fitting Size */
-//	if (show_armour)
+	if (o_ptr->size_lower && o_ptr->size_upper)
 	{
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, f1);
-		if(o_ptr->fitting_size == 0)
-			t = object_desc_str(t, "--");
-		else
-		{
-			t = object_desc_num(t, o_ptr->fitting_size);
-			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, o_ptr->to_size);
-		}
-			
+		t = object_desc_num(t, o_ptr->size_lower);
+		t = object_desc_chr(t, ':');
+		t = object_desc_int(t, o_ptr->size_upper);
 		t = object_desc_chr(t, f2);
 	}
 

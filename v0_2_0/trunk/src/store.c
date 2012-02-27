@@ -1689,8 +1689,10 @@ static bool store_object_similar(object_type *o_ptr, object_type *j_ptr)
 	/* Different objects cannot be stacked */
 	if (o_ptr->k_idx != j_ptr->k_idx) return (0);
 
-	/* Different Size Armor cannot be stacked */
-	if ((o_ptr->tval >= TV_BOOTS) && (o_ptr->tval <= TV_DRAG_ARMOR) && (o_ptr->fitting_size != j_ptr->fitting_size || o_ptr->to_size != j_ptr->to_size) ) return (0);
+	/* Different Size cannot be stacked */
+	if (o_ptr->size_lower != j_ptr->size_lower || 
+		o_ptr->size_upper != j_ptr->size_upper || 
+		o_ptr->to_size != j_ptr->to_size) return (0);
 
 	/* Different charges (etc) cannot be stacked, unless wands or rods. */
 	if ((o_ptr->pval != j_ptr->pval) && (o_ptr->tval != TV_WAND) && (o_ptr->tval != TV_ROD)) return (0);
@@ -4051,14 +4053,15 @@ msg_format("一つにつき $%ldです。", (long)(best));
 
 			/* Message */
 #ifdef JP
-msg_format("%s(%c)を購入する。", o_name, I2A(item));
+			msg_format("%s(%c)を購入する。", o_name, I2A(item));
 #else
 			msg_format("Buying %s (%c).", o_name, I2A(item));
 #endif
 
+			//TODO
 			if (j_ptr->tval >= TV_BOOTS && j_ptr->tval <= TV_DRAG_ARMOR)
 			{
-				if (guest_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) >= 110 || guest_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) < 90)
+				if (guest_ptr->size < j_ptr->size_lower || j_ptr->size_upper < guest_ptr->size)
 				{
 #ifdef JP
 					if (!get_check("あなたの体格に合わないようだが、よろしいか？ ")) return;

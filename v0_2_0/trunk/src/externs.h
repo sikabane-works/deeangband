@@ -881,7 +881,6 @@ extern void set_creature_sp_percent(creature_type *cr_ptr, int percentage);
 extern s16b calc_bodysize(s32b ht, s32b wt);
 extern s16b calc_punishment_slay(creature_type *cr_ptr, int alignment);
 extern s16b calc_race_standard_size(race_type *ir_ptr);
-extern int  set_inventory_fitting_rate(creature_type *cr_ptr, object_type *o_ptr, int slot);
 extern void estimate_enemy_hp(species_type *mr_ptr, int *result);
 extern void set_resistance(creature_type *cr_ptr);
 extern void initialize_skill(creature_type *cr_ptr);

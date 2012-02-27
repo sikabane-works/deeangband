@@ -3731,11 +3731,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
-		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET /*|| i == INVEN_OUTER*/)
-		{
-			rate = set_inventory_fitting_rate(cr_ptr, o_ptr, i);
-		}
-
 		/* Extract the item flags */
 		object_flags(o_ptr, flgs);
 

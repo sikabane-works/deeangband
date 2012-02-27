@@ -1319,27 +1319,6 @@ s32b object_value_real(object_type *o_ptr)
 		break;
 	}
 
-
-	switch(o_ptr->tval)
-	{
-	case TV_BOOTS:
-	case TV_GLOVES:
-	case TV_HELM:
-	case TV_CROWN:
-	case TV_SHIELD:
-	case TV_CLOAK:
-	case TV_SOFT_ARMOR:
-	case TV_HARD_ARMOR:
-	case TV_DRAG_ARMOR:
-		if(o_ptr->fitting_size != ITEM_FREE_SIZE)
-		{
-			value = value * o_ptr->fitting_size / 10 * o_ptr->fitting_size / 10 ;
-		}
-		break;
-
-	}
-
-
 	/* Analyze the item */
 	switch (o_ptr->tval)
 	{
@@ -1655,7 +1634,8 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 	/* Require identical object types */
 	if (o_ptr->k_idx != j_ptr->k_idx) return 0;
 
-	if (o_ptr->fitting_size != o_ptr->fitting_size || 
+	if (o_ptr->size_lower != j_ptr->size_lower || 
+		o_ptr->size_upper != j_ptr->size_upper ||
 		o_ptr->to_size != o_ptr->to_size) return 0;
 
 	/* Analyze the items */
@@ -1737,20 +1717,6 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 
 			/* Assume okay */
 			break;
-		}
-
-		/* Armor */
-		case TV_BOOTS:
-		case TV_GLOVES:
-		case TV_HELM:
-		case TV_CROWN:
-		case TV_SHIELD:
-		case TV_CLOAK:
-		case TV_SOFT_ARMOR:
-		case TV_HARD_ARMOR:
-		case TV_DRAG_ARMOR:
-		{
-			if(o_ptr->fitting_size != j_ptr->fitting_size || o_ptr->to_size != j_ptr->to_size) return 0;
 		}
 
 		/* Weapons */
@@ -2013,15 +1979,8 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	/* Default "pval" */
 	o_ptr->pval = k_ptr->pval;
 
-	/* Defaule "size" */
-	o_ptr->fitting_size = size;
-
 	/* Default number */
 	o_ptr->number = 1;
-
-	/* Default weight */
-	if(o_ptr->fitting_size) o_ptr->weight = k_ptr->weight * o_ptr->fitting_size / 10 * o_ptr->fitting_size / 10;
-	else o_ptr->weight = k_ptr->weight;
 
 	/* Default magic */
 	o_ptr->to_h = k_ptr->to_h;

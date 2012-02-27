@@ -3627,8 +3627,8 @@ static bool eval_ac(int iAC)
 }
 
 /*
+ * resize_item
  *
- */
 static bool resize_item(creature_type *cr_ptr)
 {
 	object_type *o_ptr;
@@ -3661,7 +3661,7 @@ static bool resize_item(creature_type *cr_ptr)
 	o_ptr = &cr_ptr->inventory[item];
 	value = object_value(o_ptr) / 5;
 
-	/* Check if the player has enough money */
+	// Check if the player has enough money
 	if (cr_ptr->au < value)
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
@@ -3721,8 +3721,9 @@ static bool resize_item(creature_type *cr_ptr)
 	}
 
 	return (TRUE);
-
 }
+ */
+
 
 
 /*
@@ -4786,7 +4787,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		break;
 	case BACT_RESIZE_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
-		resize_item(cr_ptr);
+		//resize_item(cr_ptr);
 		break;
 	case BACT_RECHARGE:
 		building_recharge(cr_ptr);

@@ -309,7 +309,6 @@ static void rd_item(object_type *o_ptr)
 	else o_ptr->to_a = 0;
 	rd_s16b(&o_ptr->size_upper);
 	rd_s16b(&o_ptr->size_lower);
-	rd_s16b(&o_ptr->fitting_size);
 	rd_s16b(&o_ptr->to_size);
 
 	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
