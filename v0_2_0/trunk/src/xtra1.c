@@ -2342,7 +2342,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
  */
 static void calc_mana(creature_type *cr_ptr, bool message)
 {
-	int		msp, levels, cur_wgt, max_wgt, i;
+	int		msp, levels, cur_wgt, max_wgt;
 
 	object_type	*o_ptr;
 
@@ -2904,7 +2904,7 @@ bool have_weapon(creature_type *cr_ptr, int i)
  */
 void calc_bonuses(creature_type *cr_ptr, bool message)
 {
-	int             i, j, k, hold, rate;
+	int             i, j, k, hold;
 	int             new_speed;
 	int             body_size;
 	int             default_hand = 0;
@@ -3767,12 +3767,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_TUNNEL)) cr_ptr->skill_dig += (o_ptr->pval * 20);
 
 		/* Affect speed */
+		/*
 		if(i == INVEN_BODY || i == INVEN_1STHEAD || i ==  INVEN_1STHANDS || i == INVEN_FEET)
 		{
 			if (have_flag(flgs, TR_SPEED) && rate > 90 && rate < 120) new_speed += o_ptr->pval;
 			if (rate <= 90 || rate > 120) new_speed -= 3;
 		}
-		/*
 		else if(i == INVEN_OUTER)
 		{
 			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
@@ -3780,8 +3780,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			else if(rate >= 140) new_speed -= 5;
 			else if(rate >= 120) new_speed -= 2;
 		}
-		*/
 		else
+		*/
 		{
 			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
 		}
@@ -3811,43 +3811,22 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_SLOW_DIGEST)) cr_ptr->slow_digest = TRUE;
 		if (have_flag(flgs, TR_REGEN))       cr_ptr->regenerate = TRUE;
 
-		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
-		{
-			if (rate > 95 && rate < 110){
-				if (have_flag(flgs, TR_TELEPATHY))   cr_ptr->telepathy = TRUE;
-				if (have_flag(flgs, TR_ESP_ANIMAL))  cr_ptr->esp_animal = TRUE;
-				if (have_flag(flgs, TR_ESP_UNDEAD))  cr_ptr->esp_undead = TRUE;
-				if (have_flag(flgs, TR_ESP_DEMON))   cr_ptr->esp_demon = TRUE;
-				if (have_flag(flgs, TR_ESP_ORC))     cr_ptr->esp_orc = TRUE;
-				if (have_flag(flgs, TR_ESP_TROLL))   cr_ptr->esp_troll = TRUE;
-				if (have_flag(flgs, TR_ESP_GIANT))   cr_ptr->esp_giant = TRUE;
-				if (have_flag(flgs, TR_ESP_DRAGON))  cr_ptr->esp_dragon = TRUE;
-				if (have_flag(flgs, TR_ESP_HUMAN))   cr_ptr->esp_human = TRUE;
-				if (have_flag(flgs, TR_ESP_EVIL))    cr_ptr->esp_evil = TRUE;
-				if (have_flag(flgs, TR_ESP_GOOD))    cr_ptr->esp_good = TRUE;
-				if (have_flag(flgs, TR_ESP_NONLIVING)) cr_ptr->esp_nonliving = TRUE;
-				if (have_flag(flgs, TR_ESP_UNIQUE))  cr_ptr->esp_unique = TRUE;
-			}
-		}
-		else
-		{
-			if (have_flag(flgs, TR_TELEPATHY))   cr_ptr->telepathy = TRUE;
-			if (have_flag(flgs, TR_ESP_ANIMAL))  cr_ptr->esp_animal = TRUE;
-			if (have_flag(flgs, TR_ESP_UNDEAD))  cr_ptr->esp_undead = TRUE;
-			if (have_flag(flgs, TR_ESP_DEMON))   cr_ptr->esp_demon = TRUE;
-			if (have_flag(flgs, TR_ESP_ORC))     cr_ptr->esp_orc = TRUE;
-			if (have_flag(flgs, TR_ESP_TROLL))   cr_ptr->esp_troll = TRUE;
-			if (have_flag(flgs, TR_ESP_GIANT))   cr_ptr->esp_giant = TRUE;
-			if (have_flag(flgs, TR_ESP_DRAGON))  cr_ptr->esp_dragon = TRUE;
-			if (have_flag(flgs, TR_ESP_HUMAN))   cr_ptr->esp_human = TRUE;
-			if (have_flag(flgs, TR_ESP_EVIL))    cr_ptr->esp_evil = TRUE;
-			if (have_flag(flgs, TR_ESP_GOOD))    cr_ptr->esp_good = TRUE;
-			if (have_flag(flgs, TR_ESP_NONLIVING)) cr_ptr->esp_nonliving = TRUE;
-			if (have_flag(flgs, TR_ESP_UNIQUE))  cr_ptr->esp_unique = TRUE;
-		}
+		if (have_flag(flgs, TR_TELEPATHY))   cr_ptr->telepathy = TRUE;
+		if (have_flag(flgs, TR_ESP_ANIMAL))  cr_ptr->esp_animal = TRUE;
+		if (have_flag(flgs, TR_ESP_UNDEAD))  cr_ptr->esp_undead = TRUE;
+		if (have_flag(flgs, TR_ESP_DEMON))   cr_ptr->esp_demon = TRUE;
+		if (have_flag(flgs, TR_ESP_ORC))     cr_ptr->esp_orc = TRUE;
+		if (have_flag(flgs, TR_ESP_TROLL))   cr_ptr->esp_troll = TRUE;
+		if (have_flag(flgs, TR_ESP_GIANT))   cr_ptr->esp_giant = TRUE;
+		if (have_flag(flgs, TR_ESP_DRAGON))  cr_ptr->esp_dragon = TRUE;
+		if (have_flag(flgs, TR_ESP_HUMAN))   cr_ptr->esp_human = TRUE;
+		if (have_flag(flgs, TR_ESP_EVIL))    cr_ptr->esp_evil = TRUE;
+		if (have_flag(flgs, TR_ESP_GOOD))    cr_ptr->esp_good = TRUE;
+		if (have_flag(flgs, TR_ESP_NONLIVING)) cr_ptr->esp_nonliving = TRUE;
+		if (have_flag(flgs, TR_ESP_UNIQUE))  cr_ptr->esp_unique = TRUE;
 
 		if (have_flag(flgs, TR_SEE_INVIS))   cr_ptr->see_inv = TRUE;
-		if (have_flag(flgs, TR_LEVITATION))     cr_ptr->levitation = TRUE;
+		if (have_flag(flgs, TR_LEVITATION))  cr_ptr->levitation = TRUE;
 		if (have_flag(flgs, TR_FREE_ACT))    cr_ptr->free_act = TRUE;
 		if (have_flag(flgs, TR_HOLD_LIFE))   cr_ptr->hold_life = TRUE;
 
@@ -3946,45 +3925,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Apply the bonuses to armor class */
 		/* Apply the mental bonuses to armor class, if known */
 
-		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
-		{
-			if(rate >= 130)
-			{
-				cr_ptr->ac += (o_ptr->ac / 8);
-				cr_ptr->dis_ac += (o_ptr->ac / 8);
-				cr_ptr->to_a += (o_ptr->to_a / 8);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 8);
-			}
-			else if(rate >= 120)
-			{
-				cr_ptr->ac += (o_ptr->ac / 4);
-				cr_ptr->dis_ac += (o_ptr->ac / 4);
-				cr_ptr->to_a += (o_ptr->to_a / 4);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 4);
-			}
-			else if(rate >= 110)
-			{
-				cr_ptr->ac += (o_ptr->ac / 2);
-				cr_ptr->dis_ac += (o_ptr->ac / 2);
-				cr_ptr->to_a += (o_ptr->to_a / 2);
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += (o_ptr->to_a / 2);
-			}
-			else
-			{
-				cr_ptr->ac += o_ptr->ac;
-				cr_ptr->dis_ac += o_ptr->ac;
-				cr_ptr->to_a += o_ptr->to_a;
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
-			}
-		}
-		else
-		{
-			cr_ptr->ac += o_ptr->ac;
-			cr_ptr->dis_ac += o_ptr->ac;
-			cr_ptr->to_a += o_ptr->to_a;
-				if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
-		}
-
+		cr_ptr->ac += o_ptr->ac;
+		cr_ptr->dis_ac += o_ptr->ac;
+		cr_ptr->to_a += o_ptr->to_a;
+		if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
 
 		if (o_ptr->curse_flags & TRC_LOW_MELEE)
 		{
