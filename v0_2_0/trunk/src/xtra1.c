@@ -2752,7 +2752,7 @@ static void calc_torch(creature_type *cr_ptr)
 	cr_ptr->cur_lite = 0;
 
 	/* Loop through all wielded items */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
