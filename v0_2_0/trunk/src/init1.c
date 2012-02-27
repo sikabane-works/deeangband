@@ -255,7 +255,7 @@ static cptr realm_flags[MAX_REALM]=
 //
 // Equip Slot Flags
 //
-static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
+static cptr equip_slot_flags[MAX_ITEM_SLOT] =
 {
 	"INVENTORY",
 	"HAND",
@@ -2328,7 +2328,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_SLOT:
-				for(j = 0; j < MAX_EQUIP_TYPE; j++)
+				for(j = 0; j < MAX_ITEM_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
@@ -2336,7 +2336,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_EQUIP_TYPE)
+				if(j == MAX_ITEM_SLOT)
 					return (1);
 				break;
 
@@ -2384,7 +2384,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 
 
-#define ARTIFACT_INFO_CSV_COLUMNS 20
+#define ARTIFACT_INFO_CSV_COLUMNS 21
 static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2397,7 +2397,7 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"RARITY",
 	"WEIGHT",
 	"COST",
-	"SIZE",
+	"SIZE_LOWER",
 	"BASE_AC",
 	"BASE_DAMAGE",
 	"PLUS_HIT",
@@ -2407,6 +2407,7 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"DESCRIPTION",
 	"E_DESCRIPTION",
 	"COMMENT",
+	"SIZE_UPPER",
 };
 
 #define ARTIFACT_INFO_ID             0
@@ -2419,7 +2420,8 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 #define ARTIFACT_INFO_RARITY         7
 #define ARTIFACT_INFO_WEIGHT         8
 #define ARTIFACT_INFO_COST           9
-#define ARTIFACT_INFO_SIZE          10
+#define ARTIFACT_INFO_SIZE_LOWER    10
+#define ARTIFACT_INFO_SIZE_UPPER    20
 #define ARTIFACT_INFO_BASE_AC       11
 #define ARTIFACT_INFO_BASE_DAMAGE   12
 #define ARTIFACT_INFO_PLUS_HIT      13
@@ -2543,11 +2545,18 @@ errr parse_artifact_csv(char *buf, header *head)
 					a_info[n].cost = 0;
 				break;
 
-			case ARTIFACT_INFO_SIZE:
+			case ARTIFACT_INFO_SIZE_LOWER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].fitting_size = (s16b)b;
+					a_info[n].size_lower = (s16b)b;
 				else
-					a_info[n].fitting_size = 0;
+					a_info[n].size_lower = 0;
+				break;
+
+			case ARTIFACT_INFO_SIZE_UPPER:
+				if(sscanf(tmp, "%d", &b) == 1)
+					a_info[n].size_upper = (s16b)b;
+				else
+					a_info[n].size_upper = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_AC:
@@ -2772,15 +2781,15 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_SLOT:
-				for(j = 0; j < MAX_EQUIP_TYPE; j++)
+				for(j = 0; j < MAX_ITEM_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
-						e_info[n].slot = i;
+						e_info[n].slot = j;
 						break;
 					}
 				}
-				if(j == MAX_EQUIP_TYPE)
+				if(j == MAX_ITEM_SLOT)
 					return (1);
 				break;
 

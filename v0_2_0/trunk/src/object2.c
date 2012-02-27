@@ -2349,7 +2349,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if ((good && e_ptr->rating) || (!good && !e_ptr->rating))
+		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
 			if (e_ptr->rarity)
 				total += (255 / e_ptr->rarity);
@@ -2362,7 +2362,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if ((good && e_ptr->rating) || (!good && !e_ptr->rating))
+		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
 			if (e_ptr->rarity)
 				value -= (255 / e_ptr->rarity);
@@ -3671,6 +3671,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	if (object_is_fixed_artifact(o_ptr))
 	{
 		artifact_type *a_ptr = &a_info[o_ptr->name1];
+		int ave;
 
 		/* Hack -- Mark the artifact as "created" */
 		a_ptr->cur_num = 1;
@@ -3682,14 +3683,16 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		/* Extract the other fields */
 		o_ptr->pval = a_ptr->pval;
 		o_ptr->ac = a_ptr->ac;
-		o_ptr->fitting_size = a_ptr->fitting_size; 
+		o_ptr->size_lower = a_ptr->size_lower; 
+		o_ptr->size_upper = a_ptr->size_upper; 
 		o_ptr->dd = a_ptr->dd;
 		o_ptr->ds = a_ptr->ds;
 		o_ptr->to_a = a_ptr->to_a;
 		o_ptr->to_h = a_ptr->to_h;
 		o_ptr->to_d = a_ptr->to_d;
-		if(o_ptr->fitting_size) o_ptr->weight = a_ptr->weight * a_ptr->fitting_size / 10 * a_ptr->fitting_size / 10;
-		else o_ptr->weight = a_ptr->weight;
+		ave = a_ptr->size_lower + a_ptr->size_upper;
+		//TODO adjust weight if(o_ptr->fitting_size) o_ptr->weight = a_ptr->weight * ave / 5 * ave / 5;
+		//else o_ptr->weight = a_ptr->weight;
 
 		/* Hack -- extract the "broken" flag */
 		if (!a_ptr->cost) o_ptr->ident |= (IDENT_BROKEN);

@@ -195,7 +195,8 @@ struct artifact_type
 	s16b to_d;			/* Bonus to damage */
 	s16b to_a;			/* Bonus to armor */
 
-	s16b fitting_size;		/* Regular body size */
+	s16b size_lower;		/* Regular body size */
+	s16b size_upper;		/* Regular body size */
 
 	s16b ac;			/* Base armor */
 

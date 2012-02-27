@@ -3132,7 +3132,8 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 	/* Extract the fields */
 	q_ptr->pval = a_ptr->pval;
 	q_ptr->ac = a_ptr->ac;
-	q_ptr->fitting_size = a_ptr->fitting_size; 
+	q_ptr->size_lower = a_ptr->size_lower; 
+	q_ptr->size_upper = a_ptr->size_upper; 
 	q_ptr->dd = a_ptr->dd;
 	q_ptr->ds = a_ptr->ds;
 	q_ptr->to_a = a_ptr->to_a;
