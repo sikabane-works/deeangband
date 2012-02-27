@@ -4672,11 +4672,14 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 #endif
 
 	/* Hack -- Scan equipment */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		cptr s;
 
 		object_type *o_ptr = &guest_ptr->inventory[i];
+
+		/* Skip no equip */
+		if (!guest_ptr->equip_now[i]) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

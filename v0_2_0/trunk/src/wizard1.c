@@ -2906,8 +2906,10 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 	for (j = 0; group_artifact[j].tval; j++)
 	{
 		/* random artifacts wielding */
-		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
+			/* Skip no equip */
+			if (!cr_ptr->equip_now[i]) continue;
 			q_ptr = &cr_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}

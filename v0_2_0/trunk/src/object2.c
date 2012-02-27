@@ -4827,7 +4827,7 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 	if (o_ptr->number) return;
 
 	/* The item is in the pack */
-	if (item < INVEN_1STARM)
+	if (!cr_ptr->equip_now[item])
 	{
 		int i;
 
@@ -5367,7 +5367,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 
 	/* Take off equipment */
-	if (item >= INVEN_1STARM)
+	if (cr_ptr->equip_now[item])
 	{
 		/* Take off first */
 		item = inven_takeoff(cr_ptr, item, amt);
@@ -5678,17 +5678,18 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 object_type *choose_warning_item(creature_type *caster_ptr)
 {
 	int i;
-	int choices[INVEN_TOTAL - INVEN_1STARM];
+	int choices[INVEN_TOTAL];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning ability */
 	if (!caster_ptr->warning) return NULL;
 
 	/* Search inventory */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr = &caster_ptr->inventory[i];
+		if (!caster_ptr->equip_now[i]) continue;
 
 		object_flags(o_ptr, flgs);
 		if (have_flag(flgs, TR_WARNING))
@@ -5745,13 +5746,15 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_ARROW:
+		/*
 		if (!target_ptr->blind &&
-		    ((target_ptr->inventory[INVEN_1STARM].k_idx && (target_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU)) ||
-		     (target_ptr->inventory[INVEN_2NDARM].k_idx && (target_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))))
+		    ((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
+		     (target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU))))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
+		*/
 		break;
 
 	case GF_LITE:

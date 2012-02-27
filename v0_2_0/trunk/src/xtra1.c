@@ -3727,10 +3727,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Scan the usable cr_ptr->inventory */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-
 		int bonus_to_h, bonus_to_d;
+
+		// Skip no equip
+		if (!cr_ptr->equip_now[i]) continue;
+
 		o_ptr = &cr_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
