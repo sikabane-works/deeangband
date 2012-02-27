@@ -4005,7 +4005,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	}
 	else if (boomerang)
 	{
-		if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
+		//TODO if (have_weapon(cr_ptr,) && have_weapon(cr_ptr,))
 		{
 #ifdef JP
 			q = "‚Ç‚Ì•Ší‚ð“Š‚°‚Ü‚·‚©? ";
@@ -4021,8 +4021,8 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				return FALSE;
 			}
 		}
-		else if (have_weapon(cr_ptr, INVEN_2NDARM)) item = INVEN_2NDARM;
-		else item = INVEN_1STARM;
+		//TODO else if (have_weapon(cr_ptr,)) item = INVEN_2NDARM;
+		//TODO else item = ;
 	}
 	else
 	{
@@ -4054,7 +4054,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 
 
 	/* Item is cursed */
-	if (object_is_cursed(o_ptr) && (item >= INVEN_1STARM))
+	if (object_is_cursed(o_ptr) && cr_ptr->equip_now[item])
 	{
 		/* Oops */
 #ifdef JP
@@ -4162,7 +4162,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (item >= INVEN_1STARM)
+	if (cr_ptr->equip_now[item])
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);

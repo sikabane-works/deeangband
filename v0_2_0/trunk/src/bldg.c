@@ -3842,7 +3842,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 		/* Charge the money */
 		cr_ptr->au -= (cost * o_ptr->number);
 
-		if (item >= INVEN_1STARM) calc_android_exp(cr_ptr);
+		calc_android_exp(cr_ptr);
 
 		/* Something happened */
 		return (TRUE);

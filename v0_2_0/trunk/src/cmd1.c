@@ -1989,7 +1989,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	/* Access the weapon */
-	object_type     *o_ptr = &atk_ptr->inventory[INVEN_1STARM + hand];
+	object_type     *o_ptr = &atk_ptr->inventory[hand];
 
 	char            atk_name[80];
 	char            tar_name[80];
@@ -2019,7 +2019,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (have_weapon(atk_ptr, INVEN_1STARM + hand) && !atk_ptr->icky_wield[hand])
+		if (have_weapon(atk_ptr, hand) && !atk_ptr->icky_wield[hand])
 		{
 			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
 			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
@@ -2079,8 +2079,8 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
 		{
-			int tval = atk_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
-			int sval = atk_ptr->inventory[INVEN_1STARM+hand].sval;
+			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
+			int sval = atk_ptr->inventory[hand].sval;
 			int now_exp = atk_ptr->weapon_exp[tval][sval];
 			if (now_exp < s_info[atk_ptr->cls_idx].w_max[tval][sval])
 			{
@@ -2653,7 +2653,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				}
 				else k = 1;
 			}
-			else if ((atk_ptr->cls_idx == CLASS_NINJA) && have_weapon(atk_ptr, INVEN_1STARM + hand) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
+			else if ((atk_ptr->cls_idx == CLASS_NINJA) && have_weapon(atk_ptr, hand) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
 			{
 				if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 				{
@@ -3126,7 +3126,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
 	{
-		if ((atk_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
+		//TODO if ((atk_ptr->inventory[].name1 == ART_ZANTETSU) || (atk_ptr->inventory[].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
@@ -3152,16 +3152,18 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image ||
 	    atk_ptr->shero || !tar_ptr->ml))
 	{
-		if (atk_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER)
+		/*
+		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
 		{
 			object_desc(weapon_name, &atk_ptr->inventory[INVEN_1STARM], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
-		if (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER)
+		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
 		{
 			object_desc(weapon_name, &atk_ptr->inventory[INVEN_2NDARM], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
+		*/
 		if (stormbringer)
 		{
 #ifdef JP
@@ -3284,8 +3286,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-		if (atk_ptr->migite) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-		if (atk_ptr->hidarite && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+//TODO		if (atk_ptr->migite) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+//			if (atk_ptr->hidarite && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{
@@ -4028,9 +4030,10 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	/* Get the monster */
 	m_ptr = &creature_list[c_ptr->m_idx];
 
-
-	if (cr_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	if (cr_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	/*
+	if (cr_ptr->inventory[].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (cr_ptr->inventory[].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	*/
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
