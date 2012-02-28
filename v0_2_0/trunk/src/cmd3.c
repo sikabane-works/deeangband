@@ -889,7 +889,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if ((item >= INVEN_1STARM) && object_is_cursed(o_ptr))
+	if (cr_ptr->equip_now[item] && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -921,7 +921,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 	/* Drop (some of) the item */
 	inven_drop(cr_ptr, item, amt);
 
-	if (item >= INVEN_1STARM)
+	if (cr_ptr->equip_now[item])
 	{
 		kamaenaoshi(cr_ptr, item);
 		calc_android_exp(cr_ptr);
@@ -1172,7 +1172,7 @@ msg_print("更に経験を積んだような気がする。");
 		}
 		}
 
-	if (item >= INVEN_1STARM) calc_android_exp(cr_ptr);
+	if (cr_ptr->equip_now[item]) calc_android_exp(cr_ptr);
 }
 
 

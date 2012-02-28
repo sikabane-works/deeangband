@@ -6157,8 +6157,10 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 #else
 		strcpy(where, "E ");
 #endif
-		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
+			// Skip no equip
+			if(owner_ptr->equip_now[i]) continue;
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
@@ -8252,8 +8254,9 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					creature_ptr = find_unique_instance(mon_idx[mon_cur]);
 					if(creature_ptr)
 					{
-						for(j = INVEN_1STARM; j <= INVEN_FEET; j++)
+						for(j = 0; j <= INVEN_TOTAL; j++)
 						{
+							if(!creature_ptr->equip_now[j]) continue;
 							identify_item(player_ptr, &creature_ptr->inventory[j]);
 							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
 						}
