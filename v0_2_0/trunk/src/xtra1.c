@@ -2878,7 +2878,11 @@ u32b weight_limit(creature_type *cr_ptr)
 
 bool have_weapon(creature_type *cr_ptr, int i)
 {
-	return ((cr_ptr->inventory[i].k_idx && object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[i])) ? TRUE : FALSE);
+	int j;
+	for(j = 0; j < INVEN_TOTAL; j++)
+		if(cr_ptr->equip_now[j] && k_info[cr_ptr->inventory[j].k_idx].slot == ITEM_SLOT_HAND)
+			return TRUE;
+	return FALSE;
 }
 
 
@@ -6124,8 +6128,8 @@ bool heavy_armor(creature_type *cr_ptr)
 	if ((cr_ptr->cls_idx != CLASS_MONK) && (cr_ptr->cls_idx != CLASS_FORCETRAINER) && (cr_ptr->cls_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
-	if(cr_ptr->inventory[INVEN_1STARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_1STARM].weight;
-	if(cr_ptr->inventory[INVEN_2NDARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
+	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
+	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_BODY].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
 	// TODO monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;

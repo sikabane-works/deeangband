@@ -4629,7 +4629,9 @@ msg_print("「甦るがよい、我が下僕よ！」");
 #endif
 			break;
 		case REW_CURSE_WP:
+
 			if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
+
 #ifdef JP
 msg_format("%sの声が響き渡った:",
 				species_name + species_info[cr_ptr->patron_idx].name);
