@@ -2336,7 +2336,7 @@ int calc_weapon_weight_limit(creature_type *cr_ptr)
 int get_equip_weapon_num(creature_type *cr_ptr)
 {
 	int i, n = 0;
-	for(i = INVEN_1STARM; i <= INVEN_6THARM; i++)
+	for(i = 0; i <= INVEN_TOTAL; i++)
 		if(object_is_weapon(&cr_ptr->inventory[i])) n++;
 	return n++;
 }
