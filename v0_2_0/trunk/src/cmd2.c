@@ -4529,7 +4529,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (come_back)
 	{
-		if (item == INVEN_1STARM || item == INVEN_2NDARM)
+		if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_ARMS)
 		{
 			/* Access the wield slot */
 			o_ptr = &cr_ptr->inventory[item];
