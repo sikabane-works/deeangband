@@ -5711,8 +5711,11 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 	if (!equip) e2 = -1;
 	else if (use_menu)
 	{
-		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+		for (j = 0; j < INVEN_TOTAL; j++)
+		{
+			if(!cr_ptr->equip_now[j]) continue;
+			if(select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
@@ -6701,8 +6704,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 		}
 
-		else if ((inven && (*cp >= 0) && (*cp < INVEN_TOTAL)) ||
-		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
+		else if (*cp >= 0 && *cp < INVEN_TOTAL)
 		{
 			if (prev_tag && command_cmd)
 			{
@@ -6780,8 +6782,11 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	if (!equip) e2 = -1;
 	else if (use_menu)
 	{
-		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
+		{
+			if (!cr_ptr->equip_now[j]) continue; // Skip no equipment
 			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
