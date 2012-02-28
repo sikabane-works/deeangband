@@ -2747,11 +2747,13 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* Check equipment */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		u32b o_flgs[TR_FLAG_SIZE];
 
 		object_type *o_ptr;
+
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
@@ -2874,10 +2876,12 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	else max_i = INVEN_TOTAL;
 
 	/* Check equipment */
-	for (i = INVEN_1STARM; i < max_i; i++)
+	for (i = 0; i < max_i; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr;
+
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
