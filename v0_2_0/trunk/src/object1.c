@@ -4299,77 +4299,78 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
+		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
 #else
-		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+#endif
+
+			/*
+#ifdef JP
+		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
+#else
+		case ITEM_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+#endif
+
+		*/
+#ifdef JP
+		case ITEM_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
+#else
+		case ITEM_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
+		case ITEM_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
 #else
-		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+		case ITEM_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
-
+/*
 #ifdef JP
-		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
+		case ITEM_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
 #else
-		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
-#endif
-
-#ifdef JP
-		case INVEN_RIGHT: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
-#else
-		case INVEN_RIGHT: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
-#endif
-
-#ifdef JP
-		case INVEN_LEFT:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
-#else
-		case INVEN_LEFT:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
-#endif
-
-#ifdef JP
-		case INVEN_NECK:  p = "首にかけている"; break;
-#else
-		case INVEN_NECK:  p = "wearing around your neck"; break;
-#endif
-
-#ifdef JP
-		case INVEN_LITE:  p = "光源にしている"; break;
-#else
-		case INVEN_LITE:  p = "using to light the way"; break;
-#endif
-
-#ifdef JP
-		case INVEN_BODY:  p = "体に着ている"; break;
-#else
-		case INVEN_BODY:  p = "wearing on your body"; break;
-#endif
-
-		/*
-#ifdef JP
-		case INVEN_OUTER: p = "身にまとっている"; break;
-#else
-		case INVEN_OUTER: p = "wearing on your back"; break;
+		case ITEM_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
 #endif
 		*/
 
 #ifdef JP
-		case INVEN_1STHEAD:  p = "頭にかぶっている"; break;
+		case ITEM_SLOT_AMULET:  p = "首にかけている"; break;
 #else
-		case INVEN_1STHEAD:  p = "wearing on your head"; break;
+		case ITEM_SLOT_AMULET:  p = "wearing around your neck"; break;
 #endif
 
 #ifdef JP
-		case INVEN_1STHANDS: p = "手につけている"; break;
+		case ITEM_SLOT_LITE:  p = "光源にしている"; break;
 #else
-		case INVEN_1STHANDS: p = "wearing on your hands"; break;
+		case ITEM_SLOT_LITE:  p = "using to light the way"; break;
 #endif
 
 #ifdef JP
-		case INVEN_FEET:  p = "足にはいている"; break;
+		case ITEM_SLOT_BODY:  p = "体に着ている"; break;
 #else
-		case INVEN_FEET:  p = "wearing on your feet"; break;
+		case ITEM_SLOT_BODY:  p = "wearing on your body"; break;
+#endif
+
+#ifdef JP
+		case ITEM_SLOT_OUTER: p = "身にまとっている"; break;
+#else
+		case ITEM_SLOT_OUTER: p = "wearing on your back"; break;
+#endif
+
+#ifdef JP
+		case ITEM_SLOT_HEAD:  p = "頭にかぶっている"; break;
+#else
+		case ITEM_SLOT_HEAD:  p = "wearing on your head"; break;
+#endif
+
+#ifdef JP
+		case ITEM_SLOT_ARMS: p = "手につけている"; break;
+#else
+		case ITEM_SLOT_ARMS: p = "wearing on your hands"; break;
+#endif
+
+#ifdef JP
+		case ITEM_SLOT_FEET:  p = "足にはいている"; break;
+#else
+		case ITEM_SLOT_FEET:  p = "wearing on your feet"; break;
 #endif
 
 #ifdef JP
