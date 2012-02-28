@@ -6011,3 +6011,5 @@ extern int PlayerUID;
 
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
 
+
+#define GET_ITEM_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)

@@ -6643,8 +6643,9 @@ void calc_android_exp(creature_type *cr_ptr)
 		if ((((i == INVEN_1STARM) || (i == INVEN_2NDARM)) && (have_weapon(cr_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
 		else total_exp += exp / 16;
 
-		if(k_info[cr_ptr->inventory[i].k_idx].slot == ITEM_SLOT_BODY) total_exp += exp / 32;
+		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_BODY) total_exp += exp / 32;
 	}
+
 	cr_ptr->exp = cr_ptr->max_exp = total_exp;
 
 	/* Check Experience */
