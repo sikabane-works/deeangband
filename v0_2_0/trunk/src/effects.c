@@ -6560,13 +6560,15 @@ void calc_android_exp(creature_type *cr_ptr)
 
 	if (!has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 		object_type forge;
 		object_type *q_ptr = &forge;
 		u32b value, exp;
 		int level = MAX(k_info[o_ptr->k_idx].level - 8, 1);
+
+		if(!cr_ptr->equip_now[i]) continue;
 
 		if ((i == INVEN_RIGHT) || (i == INVEN_LEFT) || (i == INVEN_NECK) || (i == INVEN_LITE)) continue;
 		if (!o_ptr->k_idx) continue;
@@ -6640,7 +6642,8 @@ void calc_android_exp(creature_type *cr_ptr)
 		}
 		if ((((i == INVEN_1STARM) || (i == INVEN_2NDARM)) && (have_weapon(cr_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
 		else total_exp += exp / 16;
-		if (i == INVEN_BODY) total_exp += exp / 32;
+
+		if(k_info[cr_ptr->inventory[i].k_idx].slot == ITEM_SLOT_BODY) total_exp += exp / 32;
 	}
 	cr_ptr->exp = cr_ptr->max_exp = total_exp;
 
