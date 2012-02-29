@@ -4069,190 +4069,106 @@ cptr mention_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_1STARM:  
-			p = cr_ptr->heavy_wield[0] ? "‰^”À’†" : ((cr_ptr->ryoute && cr_ptr->migite) ? " —¼Žè" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? " ¶Žè" : " ‰EŽè")); break;
+		case ITEM_SLOT_HAND:  
+			p = cr_ptr->heavy_wield[0] ? "‰^”À’†" : "  Žè"; break;
 #else
-		case INVEN_1STARM:
+		case ITEM_SLOT_HAND:
 			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->migite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDARM:
-			p = cr_ptr->heavy_wield[1] ? "‰^”À’†" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? " —¼Žè" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? " ‰EŽè" : " ¶Žè")); break;
-#else
-		case INVEN_2NDARM:
-			p = cr_ptr->heavy_wield[1] ? "Just lifting" : (cr_ptr->hidarite ? "Wielding" : "On arm"); break;
-#endif
-
-#ifdef JP
-		case INVEN_3RDARM:
-			p = cr_ptr->heavy_wield[2] ? "‰^”À’†" : "‘æ‚RŽè"; break;
-#else
-		case INVEN_3RDARM:
-			p = cr_ptr->heavy_wield[2] ? "Just lifting" : "On arm"; break;
-#endif
-
-#ifdef JP
-		case INVEN_4THARM:
-			p = cr_ptr->heavy_wield[3] ? "‰^”À’†" : "‘æ‚SŽè"; break;
-#else
-		case INVEN_4THARM:
-			p = cr_ptr->heavy_wield[3] ? "Just lifting" : "On arm"; break;
-#endif
-
-#ifdef JP
-		case INVEN_5THARM:
-			p = cr_ptr->heavy_wield[4] ? "‰^”À’†" : "‘æ‚TŽè"; break;
-#else
-		case INVEN_5THARM:
-			p = cr_ptr->heavy_wield[4] ? "Just lifting" : "On arm"; break;
-#endif
-
-#ifdef JP
-		case INVEN_6THARM:
-			p = cr_ptr->heavy_wield[5] ? "‰^”À’†" : "‘æ‚UŽè"; break;
-#else
-		case INVEN_6THARM:
-			p = cr_ptr->heavy_wield[5] ? "Just lifting" : "On arm"; break;
-#endif
-
-#ifdef JP
-		case INVEN_BOW:
+		case ITEM_SLOT_BOW:
 			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
 #else
-		case INVEN_BOW:
+		case ITEM_SLOT_BOW:
 			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 #endif
 
 #ifdef JP
-		case INVEN_AMMO:
+		case ITEM_SLOT_AMMO:
 			p = " –î’e"; break;
 #else
-		case INVEN_AMMO:
+		case ITEM_SLOT_AMMO:
 			p = "Projectile"; break;
 #endif
 
 #ifdef JP
-		case INVEN_RIGHT:
-			p = "Žw—Ö‚P"; break;
+		case ITEM_SLOT_RING:
+			p = " Žw—Ö"; break;
 #else
-		case INVEN_RIGHT:
+		case ITEM_SLOT_RING:
 			p = "1st Ring"; break;
 #endif
 
 #ifdef JP
-		case INVEN_LEFT:
-			p = "Žw—Ö‚Q"; break;
-#else
-		case INVEN_LEFT:
-			p = "2nd Ring"; break;
-#endif
-
-#ifdef JP
-		case INVEN_NECK:
+		case ITEM_SLOT_AMULET:
 			p = " Œì•„"; break;
 #else
-		case INVEN_NECK:
+		case ITEM_SLOT_AMULET:
 			p = "Amulet"; break;
 #endif
 
 #ifdef JP
-		case INVEN_LITE:
+		case ITEM_SLOT_LITE:
 			p = " ŒõŒ¹"; break;
 #else
-		case INVEN_LITE:
+		case ITEM_SLOT_LITE:
 			p = "Light source"; break;
 #endif
 
 #ifdef JP
-		case INVEN_INSTRUMENT:
+		case ITEM_SLOT_INSTRUMENT:
 			p = " ŠyŠí"; break;
 #else
-		case INVEN_INSTRUMENT:
+		case ITEM_SLOT_INSTRUMENT:
 			p = "Instrument"; break;
 #endif
 
-
 #ifdef JP
-		case INVEN_BODY:
+		case ITEM_SLOT_BODY:
 			p = "  ‘Ì"; break;
 #else
-		case INVEN_BODY:
+		case ITEM_SLOT_BODY:
 			p = "On body"; break;
 #endif
 
-			/*
 #ifdef JP
-		case INVEN_OUTER:
+		case ITEM_SLOT_OUTER:
 			p = "‘Ì‚Ìã"; break;
 #else
-		case INVEN_OUTER:
+		case ITEM_SLOT_OUTER:
 			p = "About body"; break;
 #endif
-			*/
 
 #ifdef JP
-		case INVEN_1STHEAD:
-			p = cr_ptr->num_head > 1 ? "“ª•”‚P" : " “ª•”"; break;
+		case ITEM_SLOT_HEAD:
+			p = " “ª•”"; break;
 #else
-		case INVEN_1STHEAD:
-			p = "On head"; break;
-#endif
-
-
-#ifdef JP
-		case INVEN_2NDHEAD:
-			p = "“ª•”‚Q"; break;
-#else
-		case INVEN_2NDHEAD:
+		case ITEM_SLOT_HEAD:
 			p = "On head"; break;
 #endif
 
 #ifdef JP
-		case INVEN_3RDHEAD:
-			p = "“ª•”‚R"; break;
+		case ITEM_SLOT_ARMS:
+			p = " ˜r•”"; break;
 #else
-		case INVEN_3RDHEAD:
-			p = "On head"; break;
-#endif
-
-#ifdef JP
-		case INVEN_1STHANDS:
-			p = cr_ptr->num_hand > 2 ? "˜r•”‚P" : " ˜r•”"; break;
-#else
-		case INVEN_1STHANDS:
+		case ITEM_SLOT_ARMS:
 			p = "On hands"; break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDHANDS:
-			p = "˜r•”‚Q"; break;
-#else
-		case INVEN_2NDHANDS:
-			p = "On hands"; break;
-#endif
-
-#ifdef JP
-		case INVEN_3RDHANDS:
-			p = "˜r•”‚R"; break;
-#else
-		case INVEN_3RDHANDS:
-			p = "On hands"; break;
-#endif
-
-#ifdef JP
-		case INVEN_FEET:
+		case ITEM_SLOT_FEET:
 			p = " ‹r•”"; break;
 #else
-		case INVEN_FEET:
+		case ITEM_SLOT_FEET:
 			p = "On feet"; break;
 #endif
 
 #ifdef JP
-		case INVEN_TAIL:
+		case ITEM_SLOT_TAIL:
 			p = " ”ö•”"; break;
 #else
-		case INVEN_TAIL:
+		case ITEM_SLOT_TAIL:
 			p = "On tail"; break;
 #endif
 
