@@ -2230,7 +2230,7 @@ static bool kankin(creature_type *cr_ptr)
 	object_type *o_ptr;
 
 	/* Loop for cr_ptr->inventory and right/left arm */
-	for (i = 0; i <= INVEN_2NDARM; i++)
+	for (i = 0; i <= INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 

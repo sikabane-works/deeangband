@@ -3511,8 +3511,10 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		/* Calculate equipment adjustment */
 		e_adj = 0;
 
-		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
+		for (j = 0; j < INVEN_TOTAL; j++)
 		{
+			if(!cr_ptr->equip_now[j]) continue;
+
 			o_ptr = &cr_ptr->inventory[j];
 			object_flags_known(o_ptr, flgs);
 			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
@@ -3664,10 +3666,13 @@ c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
 
 
 	/* Process equipment */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
 		o_ptr = &cr_ptr->inventory[i];
+
+		if(!cr_ptr->equip_now[i]) continue;
+
 
 		/* Acquire "known" flags */
 		object_flags_known(o_ptr, flgs);
@@ -5287,8 +5292,10 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 		fprintf(fff, "  [Character Equipment]\n\n");
 #endif
 
-		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
+			if(!cr_ptr->equip_now[i]) continue;
+
 			object_desc(o_name, &cr_ptr->inventory[i], 0);
 			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 #ifdef JP
