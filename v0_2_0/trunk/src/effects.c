@@ -6570,8 +6570,12 @@ void calc_android_exp(creature_type *cr_ptr)
 
 		if(!cr_ptr->equip_now[i]) continue;
 
-		if ((i == INVEN_RIGHT) || (i == INVEN_LEFT) || (i == INVEN_NECK) || (i == INVEN_LITE)) continue;
-		if (!o_ptr->k_idx) continue;
+		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING || 
+		   GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_AMULET || 
+		   GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_LITE)
+		   continue;
+
+		if(!o_ptr->k_idx) continue;
 
 		/* Wipe the object */
 		object_wipe(q_ptr);
