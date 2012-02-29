@@ -3773,26 +3773,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Affect digging (factor of 20) */
 		if (have_flag(flgs, TR_TUNNEL)) cr_ptr->skill_dig += (o_ptr->pval * 20);
 
-		/* Affect speed */
-		/*
-		if(i == INVEN_BODY || i == INVEN_1STHEAD || i ==  INVEN_1STHANDS || i == INVEN_FEET)
-		{
-			if (have_flag(flgs, TR_SPEED) && rate > 90 && rate < 120) new_speed += o_ptr->pval;
-			if (rate <= 90 || rate > 120) new_speed -= 3;
-		}
-		else if(i == INVEN_OUTER)
-		{
-			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
-			if(rate >= 180) new_speed -= 10;
-			else if(rate >= 140) new_speed -= 5;
-			else if(rate >= 120) new_speed -= 2;
-		}
-		else
-		*/
-		{
-			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
-		}
-
+		if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
 
 		/* Affect blows */
 		if (have_flag(flgs, TR_BLOWS))

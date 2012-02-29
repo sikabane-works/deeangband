@@ -1062,26 +1062,19 @@ msg_format("%sの帰還レベルを %d 階にセット。", d_name+d_info[select_dungeon].nam
  */
 bool apply_disenchant(creature_type *cr_ptr, int mode)
 {
-	int             t = 0;
+	int             t = 0, item;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
 	int to_h, to_d, to_a, pval;
 
 	/* Pick a random slot */
-	switch (randint1(8))
-	{
-		case 1: t = INVEN_1STARM; break;
-		case 2: t = INVEN_2NDARM; break;
-		case 3: t = INVEN_BOW; break;
-		case 4: t = INVEN_BODY; break;
-		//case 5: t = INVEN_OUTER; break;
-		case 6: t = INVEN_1STHEAD; break;
-		case 7: t = INVEN_1STHANDS; break;
-		case 8: t = INVEN_FEET; break;
-	}
+	//TODO
+	item = randint1(INVEN_TOTAL);
+
+	if(!cr_ptr->equip_now[item]) return FALSE;
 
 	/* Get the item */
-	o_ptr = &cr_ptr->inventory[t];
+	o_ptr = &cr_ptr->inventory[item];
 
 	/* No item, nothing happens */
 	if (!o_ptr->k_idx) return (FALSE);
