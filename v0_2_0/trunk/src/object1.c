@@ -4822,9 +4822,9 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
 	char            tmp_val[80];
-	int             out_index[23];
-	byte            out_color[23];
-	char            out_desc[23][MAX_NLEN];
+	int             out_index[INVEN_TOTAL];
+	byte            out_color[INVEN_TOTAL];
+	char            out_desc[INVEN_TOTAL][MAX_NLEN];
 	int             target_item_label = 0;
 	int             wid, hgt;
 	char            inven_label[52 + 1];
@@ -4992,7 +4992,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 	}
 
 	/* Make a "shadow" below the list (only if needed) */
-	if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
+	if (j && (j < INVEN_TOTAL)) prt("", j + 1, col ? col - 2 : col);
 
 	/* Save the new column */
 	//command_gap = col;
