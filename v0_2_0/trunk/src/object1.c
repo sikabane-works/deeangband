@@ -3988,25 +3988,7 @@ prt("[‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
  */
 char index_to_label(creature_type *cr_ptr, int i)
 {
-	int j = i;
-	/* Indexes for "inven" are easy */
-	if (j < INVEN_1STARM) return (I2A(j));
-
-	/* Indexes for "equip" are offset */
-	if(j > INVEN_3RDHANDS && cr_ptr->num_hand < 5) j--;
-	if(j > INVEN_2NDHANDS && cr_ptr->num_hand < 3) j--;
-	if(j > INVEN_1STHANDS && cr_ptr->num_hand < 1) j--;
-	if(j > INVEN_3RDHEAD && cr_ptr->num_head < 3) j--;
-	if(j > INVEN_2NDHEAD && cr_ptr->num_head < 2) j--;
-	if(j > INVEN_1STHEAD && cr_ptr->num_head < 1) j--;
-	if(j > INVEN_6THARM && cr_ptr->num_hand < 6) j--;
-	if(j > INVEN_5THARM && cr_ptr->num_hand < 5) j--;
-	if(j > INVEN_4THARM && cr_ptr->num_hand < 4) j--;
-	if(j > INVEN_3RDARM && cr_ptr->num_hand < 3) j--;
-	if(j > INVEN_2NDARM && cr_ptr->num_hand < 2) j--;
-	if(j > INVEN_1STARM && cr_ptr->num_hand < 1) j--;
-	
-	return (I2A(j - INVEN_1STARM));
+	return (i >= 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
 }
 
 
@@ -4556,10 +4538,12 @@ void display_equip(creature_type *cr_ptr)
 	Term_get_size(&wid, &hgt);
 
 	/* Display the equipment */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Examine the item */
 		o_ptr = &cr_ptr->inventory[i];
+
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';

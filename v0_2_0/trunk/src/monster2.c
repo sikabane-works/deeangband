@@ -3891,9 +3891,9 @@ void deal_item(creature_type *creature_ptr)
 
 
 	/* Apply Magic */
-	for(i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		if(creature_ptr->inventory[i].k_idx)
+		if(creature_ptr->inventory[i].k_idx && creature_ptr->equip_now[i])
 		{
 			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].name2)
 			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
