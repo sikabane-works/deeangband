@@ -6109,13 +6109,14 @@ bool heavy_armor(creature_type *cr_ptr)
 	if ((cr_ptr->cls_idx != CLASS_MONK) && (cr_ptr->cls_idx != CLASS_FORCETRAINER) && (cr_ptr->cls_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
+	//TODO
 	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
 	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_BODY].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
-	// TODO monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_FEET].weight;
+	//monk_arm_wgt += cr_ptr->inventory[].weight;
+	//monk_arm_wgt += cr_ptr->inventory[].weight;
+	//monk_arm_wgt += cr_ptr->inventory[].weight;
+	//monk_arm_wgt += cr_ptr->inventory[].weight;
+	//monk_arm_wgt += cr_ptr->inventory[].weight;
 
 	return (monk_arm_wgt > (100 + (cr_ptr->lev * 4)) * cr_ptr->size / 10 * cr_ptr->size / 10);
 }

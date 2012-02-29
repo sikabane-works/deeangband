@@ -5228,7 +5228,7 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else if (i >= INVEN_1STARM)
+		else if (cr_ptr->equip_now[i])
 		{
 			/* Prepare an index --(-- */
 			sprintf(tmp_val, "%c)", equip_label[i - INVEN_1STARM]);
