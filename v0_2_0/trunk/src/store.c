@@ -4376,7 +4376,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if ((item >= INVEN_1STARM) && object_is_cursed(o_ptr))
+	if (cr_ptr->equip_now[item] && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP

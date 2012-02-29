@@ -574,9 +574,12 @@ void teleport_away_followable(creature_type *cr_ptr)
 			object_type *o_ptr;
 			int i;
 
-			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				o_ptr = &cr_ptr->inventory[i];
+
+				if(!cr_ptr->equip_now[i]) continue;
+
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
 				{
 					object_flags(o_ptr, flgs);
@@ -2162,9 +2165,11 @@ static int remove_curse_aux(creature_type *cr_ptr, int all)
 	int i, cnt = 0;
 
 	/* Attempt to uncurse items being worn */
-	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
+
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2866,7 +2871,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if (item >= INVEN_1STARM)
+	if(cr_ptr->equip_now[item])
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)B", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
@@ -3059,7 +3064,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if (item >= INVEN_1STARM)
+	if(cr_ptr->equip_now[item])
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)B", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
@@ -4891,22 +4896,17 @@ o_name, index_to_label(cr_ptr, i),
  */
 static int minus_ac(creature_type *cr_ptr)
 {
+	int i;
 	object_type *o_ptr = NULL;
 	u32b flgs[TR_FLAG_SIZE];
-	char        o_name[MAX_NLEN];
+	char o_name[MAX_NLEN];
 
 
 	/* Pick a (possibly empty) inventory slot */
-	switch (randint1(7))
-	{
-		case 1: o_ptr = &cr_ptr->inventory[INVEN_1STARM]; break;
-		case 2: o_ptr = &cr_ptr->inventory[INVEN_2NDARM]; break;
-		case 3: o_ptr = &cr_ptr->inventory[INVEN_BODY]; break;
-		//case 4: o_ptr = &cr_ptr->inventory[INVEN_OUTER]; break;
-		case 5: o_ptr = &cr_ptr->inventory[INVEN_1STHANDS]; break;
-		case 6: o_ptr = &cr_ptr->inventory[INVEN_1STHEAD]; break;
-		case 7: o_ptr = &cr_ptr->inventory[INVEN_FEET]; break;
-	}
+	//TODO
+	i = randint0(INVEN_TOTAL);
+	if(!cr_ptr->equip_now[i]) return (FALSE);
+	o_ptr = &cr_ptr->inventory[i];
 
 	/* Nothing to damage */
 	if (!o_ptr->k_idx) return (FALSE);
