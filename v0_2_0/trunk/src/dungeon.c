@@ -2976,22 +2976,25 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		if (have_weapon(cr_ptr, INVEN_1STARM))
-		{
-			slot = INVEN_1STARM;
-			o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 
-			if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2))
+		/*TODO
+		if (have_weapon(cr_ptr, ))
+		{
+			slot =;
+			o_ptr = &cr_ptr->inventory[];
+
+			if (have_weapon(cr_ptr,) && one_in_(2))
 			{
-				o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
-				slot = INVEN_2NDARM;
+				o_ptr = &cr_ptr->inventory[];
+				slot = ;
 			}
 		}
-		else if (have_weapon(cr_ptr, INVEN_2NDARM))
+		else if (have_weapon(cr_ptr,))
 		{
-			o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
-			slot = INVEN_2NDARM;
+			o_ptr = &cr_ptr->inventory[];
+			slot =;
 		}
+		*/
 
 		if (slot && !object_is_cursed(o_ptr))
 		{
