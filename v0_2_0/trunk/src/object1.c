@@ -4858,11 +4858,11 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 	strcpy(label, alphabet_chars);
 
 	/* Move each label */
-	for (i = 0, j = 0; i < 52; i++)
+	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
 		int index;
 		char c;
-		if(!can_equip(cr_ptr, i + offset)) continue;
+		if(!cr_ptr->equip_now[i]) continue;
 
 		c = alphabet_chars[j];
 
@@ -5129,11 +5129,11 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 	len = wid - col - 1;
 
 	/* Scan the equipment list */
-	for (k = 0, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	for (k = 0, i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		if(!can_equip(cr_ptr, i)) continue;
+		if(!cr_ptr->equip_now[i]) continue;
 
 		/* Is this item acceptable? */
 		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr, hook)) &&

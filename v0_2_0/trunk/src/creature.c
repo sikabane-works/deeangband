@@ -24,33 +24,6 @@ int estimate_level(species_type *species_ptr)
 	return i;
 }
 
-bool can_equip(creature_type *creature_ptr, int i)
-{
-
-	if(i == INVEN_1STARM && creature_ptr->num_hand < 1) return FALSE;
-	if(i == INVEN_2NDARM && creature_ptr->num_hand < 2) return FALSE;
-	if(i == INVEN_3RDARM && creature_ptr->num_hand < 3) return FALSE;
-	if(i == INVEN_4THARM && creature_ptr->num_hand < 4) return FALSE;
-	if(i == INVEN_5THARM && creature_ptr->num_hand < 5) return FALSE;
-	if(i == INVEN_6THARM && creature_ptr->num_hand < 6) return FALSE;
-
-	if(i == INVEN_1STHEAD && creature_ptr->num_head < 1) return FALSE;
-	if(i == INVEN_2NDHEAD && creature_ptr->num_head < 2) return FALSE;
-	if(i == INVEN_3RDHEAD && creature_ptr->num_head < 3) return FALSE;
-
-	if(i == INVEN_1STHANDS && creature_ptr->num_hand < 1) return FALSE;
-	if(i == INVEN_2NDHANDS && creature_ptr->num_hand < 3) return FALSE;
-	if(i == INVEN_3RDHANDS && creature_ptr->num_hand < 5) return FALSE;
-
-	if(i == INVEN_FEET && creature_ptr->num_hand < 1) return FALSE;
-
-	if(i == INVEN_TAIL && creature_ptr->num_tail < 1) return FALSE;
-
-	return TRUE;
-
-}
-
-
 bool is_player(creature_type *creature_ptr)
 {
 	return (creature_ptr && creature_ptr == player_ptr && creature_ptr->player); 
