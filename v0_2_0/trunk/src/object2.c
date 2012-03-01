@@ -5277,7 +5277,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	object_desc(o_name, q_ptr, 0);
 
 	/* Took off weapon */
-	if (((item == INVEN_1STARM) || (item == INVEN_2NDARM)) &&
+	if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_HAND &&
 	    object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 #ifdef JP
@@ -5289,7 +5289,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	/* Took off bow */
-	else if (item == INVEN_BOW)
+	else if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_BOW)
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -5300,7 +5300,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	/* Took off light */
-	else if (item == INVEN_LITE)
+	else if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_LITE)
 	{
 #ifdef JP
 		act = "‚ðŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½";
