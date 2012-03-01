@@ -1081,7 +1081,8 @@ extern creature_type *find_unique_instance(int n);
 
 extern void set_creature_equip(creature_type *creature_ptr);
 extern int get_equipped_slot_num(creature_type *creature_ptr, int slot);
-extern object_type *get_equipped_slot_id(creature_type *creature_ptr, int slot, int num);
+extern object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int num);
+extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num);
 
 
 /* do-spell.c */
@@ -1654,7 +1655,6 @@ extern void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int
 extern void prt_time(creature_type *player_ptr);
 extern cptr map_name(void);
 extern u32b weight_limit(creature_type *cr_ptr);
-extern bool have_weapon(creature_type *cr_ptr, int i);
 extern void calc_bonuses(creature_type *cr_ptr, bool message);
 extern void notice_stuff(creature_type *cr_ptr);
 extern void update_stuff(creature_type *cr_ptr, bool message);

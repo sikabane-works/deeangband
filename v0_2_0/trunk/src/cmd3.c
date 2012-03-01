@@ -266,7 +266,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	case TV_SHIELD:
 	case TV_CARD:
 		/* Dual wielding */
-		if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
+		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
 		{
 			/* Restrict the choices */
 			item_tester_no_ryoute = TRUE;
@@ -284,11 +284,11 @@ void do_cmd_wield(creature_type *cr_ptr)
 			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
 		}
 
-		else if (have_weapon(cr_ptr, INVEN_2NDARM)) slot = INVEN_1STARM;
+		else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) >= 2) slot = INVEN_1STARM;
 
 		/* Both arms are already used by non-weapon */
-		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1)) &&
-		         get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2)))
+		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1)) &&
+		         get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2)))
 		{
 
 			/* Choose a hand */
@@ -319,7 +319,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 		}
 
-		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && have_weapon(cr_ptr, INVEN_2NDARM))
+		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 		{
 #ifdef JP
 			if (!get_check("“ñ“—¬‚Åí‚¢‚Ü‚·‚©H")) slot = INVEN_2NDARM;
@@ -329,7 +329,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		}
 
 		/* Both arms are already used */
-		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1) && get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2))
+		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1) && get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2))
 		{
 
 			/* Choose a hand */
@@ -342,7 +342,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 
 			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
-			if ((slot == INVEN_2NDARM) && !have_weapon(cr_ptr, INVEN_1STARM))
+			if ((slot == INVEN_2NDARM) && !get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 				need_switch_wielding = INVEN_1STARM;
 		}
 		break;
@@ -350,7 +350,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	/* Rings */
 	case TV_RING:
 		/* Choose a ring slot */
-		if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_RING, 1) && get_equipped_slot_id(cr_ptr, ITEM_SLOT_RING, 2))
+		if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_RING, 1) && get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_RING, 2))
 		{
 #ifdef JP
 			q = "‚Ç‚¿‚ç‚ÌŽw—Ö‚ÆŽæ‚è‘Ö‚¦‚Ü‚·‚©?";
@@ -649,14 +649,14 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 
 	if (item == INVEN_1STARM)
 	{
-		if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2))
+		if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2))
 		{
-			o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2);
+			o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2);
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1);
+				new_o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
 				cr_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(cr_ptr, INVEN_2NDARM, -((int)o_ptr->number));
@@ -690,7 +690,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (have_weapon(cr_ptr, INVEN_1STARM))
+		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) == 1)
 		{
 			if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
@@ -1534,7 +1534,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the lantern */
-	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4;
@@ -1651,7 +1651,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the primary torch */
-	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4 + 5;
@@ -1735,7 +1735,7 @@ void do_cmd_refill(creature_type *cr_ptr)
 	object_type *o_ptr;
 
 	/* Get the light */
-	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	if (cr_ptr->special_defense & KATA_MUSOU)
 	{

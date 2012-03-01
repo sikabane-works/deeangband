@@ -2875,17 +2875,6 @@ u32b weight_limit(creature_type *cr_ptr)
 	return i;
 }
 
-
-bool have_weapon(creature_type *cr_ptr, int i)
-{
-	int j;
-	for(j = 0; j < INVEN_TOTAL; j++)
-		if(cr_ptr->equip_now[j] && k_info[cr_ptr->inventory[j].k_idx].slot == ITEM_SLOT_HAND)
-			return TRUE;
-	return FALSE;
-}
-
-
 /*
  * Calculate the players current "state", taking into account
  * not only race/class intrinsics, but also objects being worn
@@ -4622,7 +4611,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Examine the "current bow" */
-	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 
 
 	/* Assume not heavy */
@@ -5410,7 +5399,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->k_idx)
+		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("‚±‚Ì‹|‚È‚ç‘•”õ‚µ‚Ä‚¢‚Ä‚àh‚­‚È‚¢B");

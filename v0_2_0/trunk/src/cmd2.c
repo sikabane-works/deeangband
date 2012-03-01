@@ -48,7 +48,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	{
 		/* Success */
 #ifdef JP
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 		else
 			msg_print("ã‚ÌŠK‚É“o‚Á‚½B");
@@ -170,7 +170,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 
 	/* Success */
 #ifdef JP
-	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 		msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 	else if (up_num == dun_level)
 		msg_print("’nã‚É–ß‚Á‚½B");
@@ -229,7 +229,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 	else if (have_flag(f_ptr->flags, FF_QUEST))
 	{
 #ifdef JP
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 		else
 			msg_print("‰º‚ÌŠK‚É~‚è‚½B");
@@ -350,7 +350,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 				else
 					msg_print("ŠK’i‚ğ‰º‚è‚ÄV‚½‚È‚é–À‹{‚Ö‚Æ‘«‚ğ“¥‚İ“ü‚ê‚½B");
@@ -3144,7 +3144,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 
 				if ((o_ptr->name1 == ART_BARD_ARROW) &&
 				    (tar_ptr->species_idx == MON_SMAUG) &&
-				    (get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_BARD))
+				    (get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_BARD))
 					mult *= 5;
 			}
 
@@ -3875,7 +3875,7 @@ void do_cmd_fire(creature_type *cr_ptr)
 	is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
+	j_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 
 	/* Require a launcher */
 	if (!j_ptr->tval)
@@ -4005,7 +4005,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	}
 	else if (boomerang)
 	{
-		//TODO if (have_weapon(cr_ptr,) && have_weapon(cr_ptr,))
+		if(get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 		{
 #ifdef JP
 			q = "‚Ç‚Ì•Ší‚ğ“Š‚°‚Ü‚·‚©? ";
@@ -4021,8 +4021,6 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				return FALSE;
 			}
 		}
-		//TODO else if (have_weapon(cr_ptr,)) item = INVEN_2NDARM;
-		//TODO else item = ;
 	}
 	else
 	{

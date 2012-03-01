@@ -493,7 +493,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 {
 	bool flag = FALSE;
-	object_type *o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
+	object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 
 	if (o_ptr->tval != TV_BOW)
 	{

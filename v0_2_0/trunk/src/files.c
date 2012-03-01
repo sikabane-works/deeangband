@@ -1847,7 +1847,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = get_equipped_slot_id(creature_ptr, ITEM_SLOT_BOW, 1);
+	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, ITEM_SLOT_BOW, 1);
 
 	int tmul = 0;
 	int e;
@@ -2206,7 +2206,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 	tmp = cr_ptr->to_h_b + o_ptr->to_h;
 	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 

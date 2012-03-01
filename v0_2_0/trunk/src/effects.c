@@ -6261,7 +6261,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 						msg_format("%s‚Í‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ðŽE‚µ‚½B", atk_name, tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%s‚Í%s‚ðŽE‚µ‚½Bu‚²‚ß‚ñ‚Ë`v", atk_name, tar_name);
@@ -6295,7 +6295,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 						msg_format("‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ð“|‚µ‚½B", tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%sI‚¨‹–‚µ‰º‚³‚¢I", tar_name);
@@ -6317,7 +6317,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 					{
 #ifdef JP
-						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 							msg_format("%s‚Í‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ð‘’‚è‹Ž‚Á‚½B", atk_name, tar_name);
 						else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						{

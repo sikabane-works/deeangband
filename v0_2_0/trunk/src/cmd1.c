@@ -1085,7 +1085,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
 				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("ジュラル星人の仕業に違いない！");
@@ -2019,7 +2019,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (have_weapon(atk_ptr, hand) && !atk_ptr->icky_wield[hand])
+		if (get_equipped_slot_num(atk_ptr, ITEM_SLOT_HAND) > hand && !atk_ptr->icky_wield[hand])
 		{
 			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
 			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
@@ -2653,7 +2653,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				}
 				else k = 1;
 			}
-			else if ((atk_ptr->cls_idx == CLASS_NINJA) && have_weapon(atk_ptr, hand) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
+			else if ((atk_ptr->cls_idx == CLASS_NINJA) && get_equipped_slot_num(atk_ptr, ITEM_SLOT_HAND) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
 			{
 				if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 				{
