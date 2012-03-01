@@ -4720,12 +4720,12 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				case 3:
 					if (one_in_(2))
 					{
-						if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
+						if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) break;
 						dummy = INVEN_1STARM;
-						if (have_weapon(cr_ptr, INVEN_2NDARM))
+						if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
 						{
 							dummy = INVEN_2NDARM;
-							if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
+							if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
 						}
 						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(cr_ptr, FALSE, dummy);
@@ -4785,12 +4785,12 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				dummy = 0;
 
-				if (have_weapon(cr_ptr, INVEN_1STARM))
+				if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
 				{
 					dummy = INVEN_1STARM;
-					if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2)) dummy = INVEN_2NDARM;
+					if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1 && one_in_(2)) dummy = INVEN_2NDARM;
 				}
-				else if (have_weapon(cr_ptr, INVEN_2NDARM)) dummy = INVEN_2NDARM;
+				else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1) dummy = INVEN_2NDARM;
 
 				if (dummy) (void)curse_weapon(cr_ptr, FALSE, dummy);
 			}

@@ -757,8 +757,8 @@ msg_print("–î‚ð•ú‚Á‚½B");
 #else
 			msg_print("You fire an arrow.");
 #endif
-			if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) o_ptr = &caster_ptr->inventory[INVEN_1STARM];
-			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1) o_ptr = &caster_ptr->inventory[INVEN_2NDARM];
+			if (get_equipped_slot_num(caster_ptr, ITEM_SLOT_HAND) > 0) o_ptr = &caster_ptr->inventory[INVEN_1STARM];
+			else if (get_equipped_slot_num(caster_ptr, ITEM_SLOT_HAND) > 1) o_ptr = &caster_ptr->inventory[INVEN_2NDARM];
 			else
 			damage = 1;
 			if (o_ptr)

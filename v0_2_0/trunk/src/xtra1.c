@@ -4489,7 +4489,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	//TODO: adjust
 	/*
-	if (have_weapon(cr_ptr, ) && have_weapon(cr_ptr, ))
+	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
 	{
 		int penalty1, penalty2;
 		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
