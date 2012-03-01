@@ -4661,7 +4661,7 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 			break;
 		case REW_CURSE_AR:
-			if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
+			if (!get_equipped_slot_id(cr_ptr, ITEM_SLOT_BODY, 1)->k_idx) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
 				species_name + species_info[cr_ptr->patron_idx].name);
@@ -4676,7 +4676,7 @@ msg_print("「汝、防具に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+			object_desc(o_name, get_equipped_slot_id(cr_ptr, ITEM_SLOT_BODY, 1), OD_NAME_ONLY);
 			(void)curse_armor(cr_ptr);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -4737,8 +4737,8 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					}
 					else
 					{
-						if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
-						object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+						if (!get_equipped_slot_id(cr_ptr, ITEM_SLOT_BODY, 1)->k_idx) break;
+						object_desc(o_name, get_equipped_slot_id(cr_ptr, ITEM_SLOT_BODY, 1), OD_NAME_ONLY);
 						(void)curse_armor(cr_ptr);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);

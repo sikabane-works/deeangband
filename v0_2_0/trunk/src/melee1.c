@@ -2115,7 +2115,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
 						}
 
 						/* Cursed armor makes damages doubled */
-						o_ptr = &target_ptr->inventory[INVEN_BODY];
+						o_ptr = get_equipped_slot_id(target_ptr, ITEM_SLOT_BODY, 1);
 						if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
 
 						/* Modify the damage */

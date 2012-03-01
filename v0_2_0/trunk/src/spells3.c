@@ -5166,7 +5166,7 @@ bool curse_armor(creature_type *cr_ptr)
 
 
 	/* Curse the body armor */
-	o_ptr = &cr_ptr->inventory[INVEN_BODY];
+	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BODY, 1);
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
