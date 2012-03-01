@@ -4630,7 +4630,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			break;
 		case REW_CURSE_WP:
 
-			if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
+			if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) break;
 
 #ifdef JP
 msg_format("%sの声が響き渡った:",
@@ -4647,10 +4647,10 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 
 			dummy = INVEN_1STARM;
-			if (have_weapon(cr_ptr, INVEN_2NDARM))
+			if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
 			{
 				dummy = INVEN_2NDARM;
-				if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
+				if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
 			}
 			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(cr_ptr, FALSE, dummy);

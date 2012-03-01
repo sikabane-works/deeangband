@@ -355,7 +355,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 
 		return;
 	}
-	if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM))
+	if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 	{
 		if (flush_failure) flush();
 #ifdef JP

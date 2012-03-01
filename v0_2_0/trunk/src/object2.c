@@ -4802,7 +4802,7 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		{
 			if ((item == INVEN_1STARM) || (item == INVEN_2NDARM))
 			{
-				if (!have_weapon(cr_ptr, INVEN_1STARM + INVEN_2NDARM - item))
+				if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 				{
 					/* Clear all temporary elemental brands */
 					set_ele_attack(cr_ptr, 0, 0);

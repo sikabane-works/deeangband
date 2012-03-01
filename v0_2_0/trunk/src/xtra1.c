@@ -3264,8 +3264,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
 
-	if (have_weapon(cr_ptr, INVEN_1STARM)) cr_ptr->migite = TRUE;
-	if (have_weapon(cr_ptr, INVEN_2NDARM))
+	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) cr_ptr->migite = TRUE;
+	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
 	{
 		cr_ptr->hidarite = TRUE;
 		if (!cr_ptr->migite) default_hand = 1;
@@ -3955,7 +3955,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if (slot == ITEM_SLOT_HAND && have_weapon(cr_ptr, i)) continue;
+		if (slot == ITEM_SLOT_HAND && get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > i) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
 		if (slot == ITEM_SLOT_BOW) continue;
@@ -4729,7 +4729,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->icky_wield[i] = FALSE;
 		cr_ptr->riding_wield[i] = FALSE;
 
-		if (!have_weapon(cr_ptr, INVEN_1STARM+i)) {cr_ptr->num_blow[i]=1;continue;}
+		if (!(get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > i)) {cr_ptr->num_blow[i]=1;continue;}
 		/* It is hard to hold a heavy weapon */
 		if (hold < o_ptr->weight / 10)
 		{
@@ -5021,7 +5021,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM))
+				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 					cr_ptr->riding_ryoute = TRUE;
 				break;
 			}
@@ -5137,7 +5137,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for (i = 0; i < 2; i++)
 	{
-		if (have_weapon(cr_ptr, INVEN_1STARM+i))
+		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
 		{
 			int tval = cr_ptr->inventory[INVEN_1STARM+i].tval - TV_WEAPON_BEGIN;
 			int sval = cr_ptr->inventory[INVEN_1STARM+i].sval;
@@ -5437,7 +5437,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (have_weapon(cr_ptr, INVEN_1STARM+i))
+			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら装備していても辛くない。");
@@ -5491,7 +5491,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (have_weapon(cr_ptr, INVEN_1STARM+i))
+			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら乗馬中にぴったりだ。");
@@ -5516,7 +5516,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if(message) msg_print("You do not feel comfortable with your weapon.");
 #endif
 			}
-			else if (have_weapon(cr_ptr, INVEN_1STARM+i))
+			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("今の装備は自分にふさわしい気がする。");

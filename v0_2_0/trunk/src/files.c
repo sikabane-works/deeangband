@@ -1826,7 +1826,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
 
 	/* Dump the bonuses to hit/dam */
-	if (!have_weapon(creature_ptr, INVEN_1STARM) && !have_weapon(creature_ptr, INVEN_2NDARM))
+	if (!get_equipped_slot_num(creature_ptr, ITEM_SLOT_HAND))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
 	else if (creature_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);

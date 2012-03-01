@@ -6643,7 +6643,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			if (value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if (((slot == ITEM_SLOT_HAND) && (have_weapon(cr_ptr, i))) || (slot == ITEM_SLOT_BOW)) total_exp += exp / 48;
+		if (slot == ITEM_SLOT_HAND || slot == ITEM_SLOT_BOW) total_exp += exp / 48;
 		else total_exp += exp / 16;
 
 		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_BODY) total_exp += exp / 32;
@@ -6923,7 +6923,7 @@ bool choose_ele_attack(creature_type *cr_ptr)
 
 	char choice;
 
-	if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM))
+	if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
 	{
 #ifdef JP
 		msg_format("ïêäÌÇéùÇΩÇ»Ç¢Ç∆ñÇñ@åïÇÕégÇ¶Ç»Ç¢ÅB");

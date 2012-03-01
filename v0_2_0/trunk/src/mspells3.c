@@ -84,8 +84,8 @@ static void learned_info(creature_type *cr_ptr, char *p, int power)
 		case MS_SHOOT:
 		{
 			object_type *o_ptr = NULL;
-			if (have_weapon(cr_ptr, INVEN_1STARM)) o_ptr = &cr_ptr->inventory[INVEN_1STARM];
-			else if (have_weapon(cr_ptr, INVEN_2NDARM)) o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
+			if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) o_ptr = &cr_ptr->inventory[INVEN_1STARM];
+			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1) o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)
@@ -757,8 +757,8 @@ msg_print("–î‚ð•ú‚Á‚½B");
 #else
 			msg_print("You fire an arrow.");
 #endif
-			if (have_weapon(caster_ptr, INVEN_1STARM)) o_ptr = &caster_ptr->inventory[INVEN_1STARM];
-			else if (have_weapon(caster_ptr, INVEN_2NDARM)) o_ptr = &caster_ptr->inventory[INVEN_2NDARM];
+			if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) o_ptr = &caster_ptr->inventory[INVEN_1STARM];
+			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1) o_ptr = &caster_ptr->inventory[INVEN_2NDARM];
 			else
 			damage = 1;
 			if (o_ptr)
