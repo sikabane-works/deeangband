@@ -4877,7 +4877,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		(void)strcpy(out_desc[k], o_name);
 
 		/* Find the predicted "line length" */
-		l = strlen(out_desc[k]) + 5;
+		l = strlen(out_desc[k]);
 
 		/* Be sure to account for the weight */
 		if (show_weights) l += 9;
@@ -4896,6 +4896,8 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		k++;
 	}
 
+	if (len < 80) len = l;
+
 	if(right_set){
 		/* Find the column to start in */
 		col = (len > wid - 4) ? 0 : (wid - len - 1);
@@ -4911,7 +4913,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 #if JP
 		put_str("[‰½‚àŽ‚Á‚Ä‚¢‚È‚¢]", 1, right_set ? wid - 20 : 1);
 #else
-		put_str(" [No inventory.] ", 1, right_set ? wid - 13 : 1);
+		put_str("   [No inventory.]", 1, right_set ? wid - 20 : 1);
 #endif
 
 		return 0;
@@ -4937,7 +4939,6 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 #ifdef JP
 				strcpy(tmp_val, "t");
 #else
-
 				strcpy(tmp_val, "> ");
 #endif
 				target_item_label = i;
@@ -4970,6 +4971,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 			if (a & 0x80) a |= 0x40;
 #endif
 
+			if(j + 1 >= hgt) break;
 			Term_queue_bigchar(cur_col, j + 1, a, c, 0, 0);
 			if (use_bigtile) cur_col++;
 

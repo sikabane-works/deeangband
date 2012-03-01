@@ -60,6 +60,15 @@
  */
 #define RANDOM_TRY  100000
 
+
+/*
+ * Back Ground Color (Windows)
+ */
+#define WINDOWS_BK_COLOR_R  50
+#define WINDOWS_BK_COLOR_G  20
+#define WINDOWS_BK_COLOR_B   0
+
+
 /*
  * Number of grids in each block (vertically)
  * Probably hard-coded to 11, see "generate.c"
@@ -6013,3 +6022,4 @@ extern int PlayerUID;
 
 
 #define GET_ITEM_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
+

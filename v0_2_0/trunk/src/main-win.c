@@ -2219,7 +2219,7 @@ static errr Term_xtra_win_clear(void)
 
 	/* Erase it */
 	hdc = GetDC(td->w);
-	SetBkColor(hdc, RGB(0, 0, 0));
+	SetBkColor(hdc, RGB(WINDOWS_BK_COLOR_R, WINDOWS_BK_COLOR_G, WINDOWS_BK_COLOR_B));
 	SelectObject(hdc, td->font_id);
 	ExtTextOut(hdc, 0, 0, ETO_OPAQUE, &rc, NULL, 0, NULL);
 
@@ -2500,7 +2500,7 @@ static errr Term_wipe_win(int x, int y, int n)
 	rc.bottom = rc.top + td->tile_hgt;
 
 	hdc = GetDC(td->w);
-	SetBkColor(hdc, RGB(0, 0, 0));
+	SetBkColor(hdc, RGB(WINDOWS_BK_COLOR_R, WINDOWS_BK_COLOR_G, WINDOWS_BK_COLOR_B));
 	SelectObject(hdc, td->font_id);
 	/* bg */
 	if (use_bg)
@@ -2554,7 +2554,7 @@ static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 	hdc = GetDC(td->w);
 
 	/* Background color */
-	SetBkColor(hdc, RGB(0, 0, 0));
+	SetBkColor(hdc, RGB(WINDOWS_BK_COLOR_R, WINDOWS_BK_COLOR_G, WINDOWS_BK_COLOR_B));
 
 	/* Foreground color */
 	if (colors16)
