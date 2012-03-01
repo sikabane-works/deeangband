@@ -2372,7 +2372,7 @@ int get_equipped_slot_num(creature_type *creature_ptr, int slot)
 	return n;
 }
 
-object_type * get_equipped_slot_id(creature_type *creature_ptr, int slot, int num)
+object_type *get_equipped_slot_id(creature_type *creature_ptr, int slot, int num)
 {
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)

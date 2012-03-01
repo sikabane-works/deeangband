@@ -1085,7 +1085,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
 				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("ジュラル星人の仕業に違いない！");
@@ -3155,12 +3155,12 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/*
 		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
 		{
-			object_desc(weapon_name, &atk_ptr->inventory[INVEN_1STARM], (OD_NAME_ONLY));
+			object_desc(weapon_name, &atk_ptr->inventory[], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
 		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
 		{
-			object_desc(weapon_name, &atk_ptr->inventory[INVEN_2NDARM], (OD_NAME_ONLY));
+			object_desc(weapon_name, &atk_ptr->inventory[], (OD_NAME_ONLY));
 			stormbringer = TRUE;
 		}
 		*/
