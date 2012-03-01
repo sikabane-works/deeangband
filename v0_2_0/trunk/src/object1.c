@@ -4844,8 +4844,11 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		/* Skip non-objects */
+		// Skip non-objects
 		if (!o_ptr->k_idx) continue;
+
+		// Skip Equipmet
+		if (cr_ptr->equip_now[i]) continue;
 
 		/* Track */
 		z = i + 1;
@@ -4895,8 +4898,6 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		/* Advance to next "line" */
 		k++;
 	}
-
-	//if (len < 80) len = 80;
 
 	if(right_set){
 		/* Find the column to start in */

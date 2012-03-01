@@ -2133,18 +2133,19 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", attacker_name);
 							blinked = FALSE;
 							alive = FALSE;
 						}
-						else /* monster does not dead */
+						/* TODO
+						else // monster does not dead
 						{
 							int j;
 							int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 							int typ[4][2] = {
-								{ INVEN_1STHEAD, GF_OLD_CONF },
-								{ INVEN_2NDARM,  GF_OLD_SLEEP },
-								{ INVEN_1STHANDS, GF_TURN_ALL },
-								{ INVEN_FEET, GF_OLD_SLOW }
+								{ ITEM_SLOT_HEAD, GF_OLD_CONF },
+								{ ITEM_SLOT_HAND,  GF_OLD_SLEEP },
+								{ ITEM_SLOT_ARM, GF_TURN_ALL },
+								{ ITEM_SLOT_FEET, GF_OLD_SLOW }
 							};
 
-							/* Some cursed armours gives an extra effect */
+							// Some cursed armours gives an extra effect
 							for (j = 0; j < 4; j++)
 							{
 								o_ptr = &target_ptr->inventory[typ[j][0]];
@@ -2152,6 +2153,7 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", attacker_name);
 									project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}
+						*/
 					}
 					else
 					{

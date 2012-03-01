@@ -4043,41 +4043,40 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->cursed & TRC_TELEPORT) cr_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	/* Monks get extra ac for armour _not worn_ */
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(cr_ptr))
 	{
-		if (!(cr_ptr->inventory[INVEN_BODY].k_idx))
+		/* TODO Monks get extra ac for armour _not worn_
+		if (!(cr_ptr->inventory[ITEM_SLOT_BODY].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
 			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
 		}
-/* TODO
-		if (!(cr_ptr->inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
+		if (!(cr_ptr->inventory[ITEM_SLOT_OUTER].k_idx) && (cr_ptr->lev > 15))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
 		}
-*/
-		if (!(cr_ptr->inventory[INVEN_2NDARM].k_idx) && (cr_ptr->lev > 10))
+		if (!(cr_ptr->inventory[ITEM_SLOT_2NDARM].k_idx) && (cr_ptr->lev > 10))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
 		}
-		if (!(cr_ptr->inventory[INVEN_1STHEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(cr_ptr->inventory[ITEM_SLOT_1STHEAD].k_idx) && (cr_ptr->lev > 4))
 		{
 			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
 			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
 		}
-		if (!(cr_ptr->inventory[INVEN_1STHANDS].k_idx))
+		if (!(cr_ptr->inventory[ITEM_SLOT_1STHANDS].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 2);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 2);
 		}
-		if (!(cr_ptr->inventory[INVEN_FEET].k_idx))
+		if (!(cr_ptr->inventory[ITEM_SLOT_FEET].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 3);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 3);
 		}
+		*/
 		if (cr_ptr->special_defense & KAMAE_BYAKKO)
 		{
 			cr_ptr->stat_add[STAT_STR] += 2;
@@ -4164,9 +4163,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->sh_elec = TRUE;
 			new_speed += 3;
 		}
-		for (i = INVEN_1STARM; i <= INVEN_FEET; i++)
+		for (i = 0; i <= INVEN_TOTAL; i++)
 		{
 			int ac = 0;
+			if(!cr_ptr->equip_now[i]) continue; 
 			o_ptr = &cr_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
 			if (!object_is_armour(o_ptr)) continue;
