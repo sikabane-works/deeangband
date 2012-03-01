@@ -1080,6 +1080,7 @@ extern int get_equip_weapon_num(creature_type *cr_ptr);
 extern creature_type *find_unique_instance(int n);
 
 void set_creature_equip(creature_type *creature_ptr);
+int get_equip_current_slot(creature_type *creature_ptr, int slot);
 
 
 /* do-spell.c */

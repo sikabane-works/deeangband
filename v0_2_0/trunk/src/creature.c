@@ -2363,3 +2363,11 @@ void set_creature_equip(creature_type *creature_ptr)
 	for(i = ITEM_SLOT_INVENTORY + 1; i < MAX_ITEM_SLOT; i++)
 		creature_ptr->item_slot_size[ITEM_SLOT_INVENTORY] -= creature_ptr->item_slot_size[i];
 }
+
+int get_equip_current_slot(creature_type *creature_ptr, int slot)
+{
+	int i, n = 0;
+	for(i = 0; i < INVEN_TOTAL; i++)
+		if(creature_ptr->equip_now[i] && k_info[creature_ptr->inventory[i].k_idx].slot == slot) n++;
+	return n;
+}
