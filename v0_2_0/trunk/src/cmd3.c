@@ -555,21 +555,22 @@ msg_print("クエストを達成した！");
 	/* Where is the item now */
 	switch (slot)
 	{
-	case INVEN_1STARM:
+	case ITEM_SLOT_HAND:
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
 		else
 			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_LARM : STR_WIELD_RARM);
 		break;
-
+/*
 	case INVEN_2NDARM:
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
 		else
 			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_RARM : STR_WIELD_LARM);
 		break;
+*/
 
-	case INVEN_BOW:
+	case ITEM_SLOT_BOW:
 #ifdef JP
 		act = "%s(%c)を射撃用に装備した。";
 #else
@@ -577,7 +578,7 @@ msg_print("クエストを達成した！");
 #endif
 		break;
 
-	case INVEN_LITE:
+	case ITEM_SLOT_LITE:
 #ifdef JP
 		act = "%s(%c)を光源にした。";
 #else
