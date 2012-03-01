@@ -2364,10 +2364,22 @@ void set_creature_equip(creature_type *creature_ptr)
 		creature_ptr->item_slot_size[ITEM_SLOT_INVENTORY] -= creature_ptr->item_slot_size[i];
 }
 
-int get_equip_current_slot(creature_type *creature_ptr, int slot)
+int get_equipped_slot_num(creature_type *creature_ptr, int slot)
 {
 	int i, n = 0;
 	for(i = 0; i < INVEN_TOTAL; i++)
 		if(creature_ptr->equip_now[i] && k_info[creature_ptr->inventory[i].k_idx].slot == slot) n++;
 	return n;
 }
+
+object_type * get_equipped_slot_id(creature_type *creature_ptr, int slot, int num)
+{
+	int i;
+	for(i = 0; i < INVEN_TOTAL; i++)
+	{
+		if(creature_ptr->equip_now[i] == num && k_info[creature_ptr->inventory[i].k_idx].slot == slot)
+			return &creature_ptr->inventory[i];
+	}
+	return NULL;
+}
+
