@@ -3733,10 +3733,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Scan the usable cr_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		int bonus_to_h, bonus_to_d;
+		int bonus_to_h, bonus_to_d, slot;
 
 		// Skip no equip
 		if (!cr_ptr->equip_now[i]) continue;
+
+		slot = GET_ITEM_SLOT_TYPE(cr_ptr, i);
 
 		o_ptr = &cr_ptr->inventory[i];
 		/* Skip non-objects */
@@ -3964,11 +3966,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if (i == INVEN_1STARM && have_weapon(cr_ptr, i)) continue;
-		if (i == INVEN_2NDARM && have_weapon(cr_ptr, i)) continue;
+		if (slot == ITEM_SLOT_HAND && have_weapon(cr_ptr, i)) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
-		if (i == INVEN_BOW) continue;
+		if (slot == ITEM_SLOT_BOW) continue;
 
 		bonus_to_h = o_ptr->to_h;
 		bonus_to_d = o_ptr->to_d;
@@ -4621,7 +4622,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Examine the "current bow" */
-	o_ptr = &cr_ptr->inventory[INVEN_BOW];
+	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
 
 
 	/* Assume not heavy */
@@ -5409,7 +5410,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (cr_ptr->inventory[INVEN_BOW].k_idx)
+		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("‚±‚Ì‹|‚È‚ç‘•”õ‚µ‚Ä‚¢‚Ä‚àh‚­‚È‚¢B");

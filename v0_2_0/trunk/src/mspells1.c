@@ -1680,7 +1680,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			if (target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
 
 #ifdef JP
-			if ((target_ptr->chara_idx == CHARA_COMBAT) || (target_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((target_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(target_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 				msg_print("やりやがったな！");
 			else if (target_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_print("弱いものいじめはやめるんだ！");
@@ -3488,7 +3488,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #ifdef JP
 			msg_format("%^sにテレポートさせられた。", m_name);
 
-			if ((target_ptr->chara_idx == CHARA_COMBAT) || (target_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((target_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(target_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 				msg_print("くっそ～");
 
 			if (target_ptr->chara_idx == CHARA_CHARGEMAN)

@@ -2365,7 +2365,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	}
 
 	/*
-	bow_ptr = &owner_ptr->inventory[INVEN_BOW];
+	bow_ptr = &owner_ptr->inventory[BOW];
 
 	// If have a firing weapon + ammo matches bow
 	if (bow_ptr->k_idx && (o_ptr->tval == owner_ptr->tval_ammo))

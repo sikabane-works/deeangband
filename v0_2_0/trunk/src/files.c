@@ -1847,7 +1847,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = &creature_ptr->inventory[INVEN_BOW];
+	object_type *o_ptr = get_equipped_slot_id(creature_ptr, ITEM_SLOT_BOW, 1);
 
 	int tmul = 0;
 	int e;
@@ -1904,9 +1904,9 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
 	display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
 
-	if (creature_ptr->inventory[INVEN_BOW].k_idx)
+	if (o_ptr->k_idx)
 	{
-		tmul = bow_tmul(creature_ptr->inventory[INVEN_BOW].sval);
+		tmul = bow_tmul(o_ptr->sval);
 
 		/* Get extra "power" from "extra might" */
 		if (creature_ptr->xtra_might) tmul++;
@@ -2206,7 +2206,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = &cr_ptr->inventory[INVEN_BOW];
+	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
 	tmp = cr_ptr->to_h_b + o_ptr->to_h;
 	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 

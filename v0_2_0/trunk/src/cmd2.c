@@ -3875,7 +3875,7 @@ void do_cmd_fire(creature_type *cr_ptr)
 	is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = &cr_ptr->inventory[INVEN_BOW];
+	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1);
 
 	/* Require a launcher */
 	if (!j_ptr->tval)

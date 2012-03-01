@@ -417,7 +417,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)))
 		msg_format("『こっちだぁ、%s』", cr_ptr->name);
 #endif
 
@@ -4849,7 +4849,7 @@ o_name, index_to_label(cr_ptr, i),
 #endif
 
 #ifdef JP
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("やりやがったな！");
 
 				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)

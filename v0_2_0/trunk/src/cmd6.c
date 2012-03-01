@@ -6715,7 +6715,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			do_cmd_fire_aux(cr_ptr, item, &cr_ptr->inventory[INVEN_BOW]);
+			do_cmd_fire_aux(cr_ptr, item, get_equipped_slot_id(cr_ptr, ITEM_SLOT_BOW, 1));
 			break;
 		}
 

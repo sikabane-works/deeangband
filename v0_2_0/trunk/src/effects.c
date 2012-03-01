@@ -6261,7 +6261,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 						msg_format("%s‚Í‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ðŽE‚µ‚½B", atk_name, tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%s‚Í%s‚ðŽE‚µ‚½Bu‚²‚ß‚ñ‚Ë`v", atk_name, tar_name);
@@ -6295,7 +6295,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 						msg_format("‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ð“|‚µ‚½B", tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%sI‚¨‹–‚µ‰º‚³‚¢I", tar_name);
@@ -6317,7 +6317,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 					{
 #ifdef JP
-						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_id(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 							msg_format("%s‚Í‚¹‚Á‚©‚­‚¾‚©‚ç%s‚ð‘’‚è‹Ž‚Á‚½B", atk_name, tar_name);
 						else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						{
@@ -6554,7 +6554,7 @@ void gain_exp(creature_type *cr_ptr, s32b amount)
 
 void calc_android_exp(creature_type *cr_ptr)
 {
-	int i;
+	int i, slot;
 	u32b total_exp = 0;
 	if (cr_ptr->is_dead) return;
 
@@ -6567,12 +6567,11 @@ void calc_android_exp(creature_type *cr_ptr)
 		object_type *q_ptr = &forge;
 		u32b value, exp;
 		int level = MAX(k_info[o_ptr->k_idx].level - 8, 1);
+		slot = GET_ITEM_SLOT_TYPE(cr_ptr, i);
 
 		if(!cr_ptr->equip_now[i]) continue;
 
-		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING || 
-		   GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_AMULET || 
-		   GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_LITE)
+		if(slot == ITEM_SLOT_RING || slot == ITEM_SLOT_AMULET || slot == ITEM_SLOT_LITE)
 		   continue;
 
 		if(!o_ptr->k_idx) continue;
@@ -6644,7 +6643,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			if (value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if ((((i == INVEN_1STARM) || (i == INVEN_2NDARM)) && (have_weapon(cr_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
+		if (((slot == ITEM_SLOT_HAND) && (have_weapon(cr_ptr, i))) || (slot == ITEM_SLOT_BOW)) total_exp += exp / 48;
 		else total_exp += exp / 16;
 
 		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_BODY) total_exp += exp / 32;
