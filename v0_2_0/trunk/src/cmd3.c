@@ -329,7 +329,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		}
 
 		/* Both arms are already used */
-		else if (cr_ptr->inventory[INVEN_2NDARM].k_idx && cr_ptr->inventory[INVEN_1STARM].k_idx)
+		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1) && get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2))
 		{
 
 			/* Choose a hand */
@@ -350,7 +350,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	/* Rings */
 	case TV_RING:
 		/* Choose a ring slot */
-		if (cr_ptr->inventory[INVEN_LEFT].k_idx && cr_ptr->inventory[INVEN_RIGHT].k_idx)
+		if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_RING, 1) && get_equipped_slot_id(cr_ptr, ITEM_SLOT_RING, 2))
 		{
 #ifdef JP
 			q = "‚Ç‚¿‚ç‚Ìw—Ö‚Ææ‚è‘Ö‚¦‚Ü‚·‚©?";
@@ -649,14 +649,14 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 
 	if (item == INVEN_1STARM)
 	{
-		if (have_weapon(cr_ptr, INVEN_2NDARM))
+		if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2))
 		{
-			o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
+			o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2);
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = &cr_ptr->inventory[INVEN_1STARM];
+				new_o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
 				cr_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(cr_ptr, INVEN_2NDARM, -((int)o_ptr->number));

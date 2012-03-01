@@ -1680,10 +1680,11 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 			}
 		}
 
-		if (cr_ptr->inventory[INVEN_LITE].tval && (cr_ptr->inventory[INVEN_LITE].name2 != EGO_LITE_DARKNESS) &&
+		if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1)->tval &&
+			(get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
 		    !cr_ptr->resist_lite)
 		{
-			object_type * o_ptr = &cr_ptr->inventory[INVEN_LITE];
+			object_type * o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 			char o_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -2361,7 +2362,7 @@ static void process_world_aux_timeout(creature_type *cr_ptr)
 static void process_world_aux_light(creature_type *cr_ptr)
 {
 	/* Check for light being wielded */
-	object_type *o_ptr = &cr_ptr->inventory[INVEN_LITE];
+	object_type *o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	/* Burn some fuel in the current lite */
 	if (o_ptr->tval == TV_LITE)
@@ -2633,7 +2634,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			hp_player(cr_ptr, 10);
 		}
 
-		o_ptr = &cr_ptr->inventory[INVEN_LITE];
+		o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 
 		/* Absorb some fuel in the current lite */
 		if (o_ptr->tval == TV_LITE)
