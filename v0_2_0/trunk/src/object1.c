@@ -4896,11 +4896,11 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		k++;
 	}
 
-	if (len < 80) len = l;
+	//if (len < 80) len = 80;
 
 	if(right_set){
 		/* Find the column to start in */
-		col = (len > wid - 4) ? 0 : (wid - len - 1);
+		col = (len > wid - 9) ? 0 : (wid - len - 9);
 	}
 	else
 	{
