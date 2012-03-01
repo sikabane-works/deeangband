@@ -1619,12 +1619,12 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (have_weapon(cr_ptr, INVEN_1STARM))
+			if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1))
 			{
 				k = INVEN_1STARM;
-				if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2)) k = INVEN_2NDARM;
+				if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 2) && one_in_(2)) k = INVEN_2NDARM;
 			}
-			else if (have_weapon(cr_ptr, INVEN_2NDARM)) k = INVEN_2NDARM;
+			else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 2)) k = INVEN_2NDARM;
 			if (k && curse_weapon(cr_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}

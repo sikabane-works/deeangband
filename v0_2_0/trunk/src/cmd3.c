@@ -287,8 +287,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 		else if (have_weapon(cr_ptr, INVEN_2NDARM)) slot = INVEN_1STARM;
 
 		/* Both arms are already used by non-weapon */
-		else if (cr_ptr->inventory[INVEN_1STARM].k_idx && !object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]) &&
-		         cr_ptr->inventory[INVEN_2NDARM].k_idx && !object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
+		else if (get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 1)) &&
+		         get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_id(cr_ptr, ITEM_SLOT_HAND, 2)))
 		{
 
 			/* Choose a hand */
@@ -1534,7 +1534,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the lantern */
-	j_ptr = &cr_ptr->inventory[INVEN_LITE];
+	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4;
@@ -1651,7 +1651,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the primary torch */
-	j_ptr = &cr_ptr->inventory[INVEN_LITE];
+	j_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4 + 5;
@@ -1735,7 +1735,7 @@ void do_cmd_refill(creature_type *cr_ptr)
 	object_type *o_ptr;
 
 	/* Get the light */
-	o_ptr = &cr_ptr->inventory[INVEN_LITE];
+	o_ptr = get_equipped_slot_id(cr_ptr, ITEM_SLOT_LITE, 1);
 
 	if (cr_ptr->special_defense & KATA_MUSOU)
 	{
