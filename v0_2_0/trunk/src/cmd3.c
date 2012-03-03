@@ -176,7 +176,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (wield_slot(cr_ptr, o_ptr) >= INVEN_1STARM) return (TRUE);
+	if (wield_slot(cr_ptr, o_ptr) > ITEM_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -506,22 +506,26 @@ msg_print("クエストを達成した！");
 	/* Modify quantity */
 	q_ptr->number = 1;
 
-	/* Decrease the item (from the pack) */
+
+	/*
+	// Decrease the item (from the pack)
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_optimize(cr_ptr, item);
 	}
 
-	/* Decrease the item (from the floor) */
+	// Decrease the item (from the floor)
 	else
 	{
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
+	*/
 
-	/* Access the wield slot */
-	o_ptr = &cr_ptr->inventory[slot];
+	// Access the wield slot
+	//o_ptr = &cr_ptr->inventory[slot];
+	cr_ptr->equip_now[slot] = 1;
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
