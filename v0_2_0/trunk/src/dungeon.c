@@ -2983,7 +2983,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		{
 			int j = randint0(i);
 			o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, j);
-			slot = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, j);
+			slot = get_equipped_slot_idx(cr_ptr, ITEM_SLOT_HAND, j);
 		}
 
 		if (slot && !object_is_cursed(o_ptr))

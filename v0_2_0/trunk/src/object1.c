@@ -4439,7 +4439,7 @@ void display_inven(creature_type *cr_ptr)
 
 
 /*
- * Choice window "shadow" of the "show_equip()" function
+ * Choice window "shadow" of the "show_inven()" function
  */
 void display_equip(creature_type *cr_ptr)
 {
@@ -5004,229 +5004,6 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 }
 
 
-
-/*
- * Display the equipment.
- */
-int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
-{
-	int             i, j, k, l;
-	int             col, cur_col, len;
-	object_type     *o_ptr;
-	char            tmp_val[80];
-	char            o_name[MAX_NLEN];
-	int             out_index[23];
-	byte            out_color[23];
-	char            out_desc[23][MAX_NLEN];
-	int             target_item_label = 0;
-	int             wid, hgt;
-	char            equip_label[52 + 1];
-
-	/* Starting column */
-	col = 999;
-
-	/* Get size */
-	Term_get_size(&wid, &hgt);
-
-	/* Maximal length */
-	len = wid - col - 1;
-
-	/* Scan the equipment list */
-	for (k = 0, i = 0; i < INVEN_TOTAL; i++)
-	{
-		o_ptr = &cr_ptr->inventory[i];
-
-		if(!cr_ptr->equip_now[i]) continue;
-
-		/* Is this item acceptable? */
-		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr, hook)) &&
-		    (!((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
-		     item_tester_no_ryoute)) continue;
-
-		/* Description */
-		object_desc(o_name, o_ptr, 0);
-
-		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
-		{
-#ifdef JP
-			(void)strcpy(out_desc[k],"(•Ší‚ð—¼ŽèŽ‚¿)");
-#else
-			(void)strcpy(out_desc[k],"(wielding with two-hands)");
-#endif
-			out_color[k] = TERM_WHITE;
-		}
-		else
-		{
-			(void)strcpy(out_desc[k], o_name);
-			out_color[k] = tval_to_attr[o_ptr->tval % 128];
-		}
-
-		out_index[k] = i;
-		/* Grey out charging items */
-		if (o_ptr->timeout)
-		{
-			out_color[k] = TERM_L_DARK;
-		}
-
-		/* Extract the maximal length (see below) */
-#ifdef JP
-		l = strlen(out_desc[k]) + (2 + 1);
-#else
-		l = strlen(out_desc[k]) + (2 + 3);
-#endif
-
-
-		/* Increase length for labels (if needed) */
-#ifdef JP
-		if (show_labels) l += (7 + 2);
-#else
-		if (show_labels) l += (14 + 2);
-#endif
-
-
-		/* Increase length for weight (if needed) */
-		if (show_weights) l += 9;
-		if (show_item_graph) l += 2;
-
-		/* Maintain the max-length */
-		if (l > len) len = l;
-
-		/* Advance the entry */
-		k++;
-	}
-
-	if(!k)
-	{
-#if JP
-		put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, right_set ? wid - 22 : 1);
-#else
-		put_str(" [No equipment.] ", 1, right_set ? wid - 18 : 1);
-#endif
-		return 0;
-	}
-
-	/* Hack -- Find a column to start in */
-
-	if(right_set)
-	{
-	#ifdef JP
-		col = (len > wid - 6) ? 0 : (wid - len - 1);
-	#else
-		col = (len > wid - 4) ? 0 : (wid - len - 1);
-	#endif
-	}
-	else
-	{
-		col = 1;
-	}
-
-	prepare_label_string(cr_ptr, equip_label, USE_EQUIP);
-
-	/* Output each entry */
-	for (j = 0; j < k; j++)
-	{
-		/* Get the index */
-		i = out_index[j];
-
-		/* Get the item */
-		o_ptr = &cr_ptr->inventory[i];
-
-		/* Clear the line */
-		prt("", j + 1, col ? col - 2 : col);
-
-		if (use_menu && target_item)
-		{
-			if (j == (target_item-1))
-			{
-#ifdef JP
-				strcpy(tmp_val, "t");
-#else
-				strcpy(tmp_val, "> ");
-#endif
-				target_item_label = i;
-			}
-			else strcpy(tmp_val, "  ");
-		}
-		else if (cr_ptr->equip_now[i])
-		{
-			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", equip_label[i - INVEN_1STARM]);
-		}
-		else /* Paranoia */
-		{
-			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(cr_ptr, i));
-		}
-
-		/* Clear the line with the (possibly indented) index */
-		put_str(tmp_val, j+1, col);
-
-		cur_col = col + 3;
-
-		/* Display graphics for object, if desired */
-		if (show_item_graph)
-		{
-			byte a = object_attr(o_ptr);
-			char c = object_char(o_ptr);
-
-#ifdef AMIGA
-			if (a & 0x80) a |= 0x40;
-#endif
-
-			Term_queue_bigchar(cur_col, j + 1, a, c, 0, 0);
-			if (use_bigtile) cur_col++;
-
-			cur_col += 2;
-		}
-
-		/* Use labels */
-		if (show_labels)
-		{
-			/* Mention the use */
-#ifdef JP
-			(void)sprintf(tmp_val, "%-7s: ", mention_use(cr_ptr, i));
-#else
-			(void)sprintf(tmp_val, "%-14s: ", mention_use(cr_ptr, i));
-#endif
-
-			put_str(tmp_val, j+1, cur_col);
-
-			/* Display the entry itself */
-#ifdef JP
-			c_put_str(out_color[j], out_desc[j], j+1, cur_col + 9);
-#else
-			c_put_str(out_color[j], out_desc[j], j+1, cur_col + 16);
-#endif
-		}
-
-		/* No labels */
-		else
-		{
-			/* Display the entry itself */
-			c_put_str(out_color[j], out_desc[j], j+1, cur_col);
-		}
-
-		/* Display the weight if needed */
-		if (show_weights)
-		{
-			char buf[80];
-			int wgt = o_ptr->weight * o_ptr->number;
-			format_weight(buf, wgt);
-			(void)sprintf(tmp_val, "%10s", buf);
-
-			prt(tmp_val, j + 1, right_set ? wid - 10 : len + 3);
-		}
-	}
-
-	/* Make a "shadow" below the list (only if needed) */
-	if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
-
-	return target_item_label;
-}
-
-
-
-
 /*
  * Flip "inven" and "equip" in any sub-windows
  */
@@ -5767,7 +5544,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Viewing cr_ptr->inventory */
@@ -6844,7 +6621,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Floor screen */

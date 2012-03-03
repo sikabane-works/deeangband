@@ -8347,7 +8347,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							/* Save the screen */
 							screen_save();
 
-							(void)show_equip(0, &u_info[i], TRUE, NULL);
+							(void)show_inven(0, &u_info[i], TRUE, NULL);
 							/* Forever */
 							while (1)
 							{

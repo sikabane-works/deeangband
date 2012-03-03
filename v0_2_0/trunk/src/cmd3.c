@@ -115,7 +115,7 @@ void do_cmd_equip(creature_type *cr_ptr)
 	item_tester_full = TRUE;
 
 	/* Display the equipment */
-	(void)show_equip(0, cr_ptr, TRUE, NULL);
+	(void)show_inven(0, cr_ptr, TRUE, NULL);
 
 	/* Hack -- undo the hack above */
 	item_tester_full = FALSE;
@@ -273,7 +273,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 			/* Choose a weapon from the equipment only */
 #ifdef JP
-			q = "‚Ç‚¿‚ç‚Ì•Ší‚Ææ‚è‘Ö‚¦‚Ü‚·‚©?";
+			q = "‚Ç‚Ì•Ší‚Ææ‚è‘Ö‚¦‚Ü‚·‚©?";
 			s = "‚¨‚Á‚ÆB";
 #else
 			q = "Replace which weapon? ";
@@ -293,7 +293,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 			/* Choose a hand */
 #ifdef JP
-			q = "‚Ç‚¿‚ç‚Ìè‚É‘•”õ‚µ‚Ü‚·‚©?";
+			q = "‚Ç‚Ìè‚É‘•”õ‚µ‚Ü‚·‚©?";
 			s = "‚¨‚Á‚ÆB";
 #else
 			q = "Equip which hand? ";
@@ -334,7 +334,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 			/* Choose a hand */
 #ifdef JP
-			q = "‚Ç‚¿‚ç‚Ìè‚É‘•”õ‚µ‚Ü‚·‚©?";
+			q = "‚Ç‚Ìè‚É‘•”õ‚µ‚Ü‚·‚©?";
 			s = "‚¨‚Á‚ÆB";
 #else
 			q = "Equip which hand? ";
