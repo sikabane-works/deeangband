@@ -714,6 +714,8 @@ bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *targe
 	byte sub_align1 = SUB_ALIGN_NEUTRAL;
 	byte sub_align2 = SUB_ALIGN_NEUTRAL;
 
+	return TRUE;
+
 	if (thinker_ptr) /* For a monster */
 	{
 		sub_align1 = thinker_ptr->sub_align;

@@ -2380,7 +2380,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		cr_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = &cr_ptr->inventory[INVEN_1STHANDS];
+		o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_ARMS, 1);
 
 		/* Examine the gloves */
 		object_flags(o_ptr, flgs);

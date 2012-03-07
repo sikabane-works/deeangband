@@ -64,9 +64,9 @@
 /*
  * Back Ground Color (Windows)
  */
-#define WINDOWS_BK_COLOR_R  50
-#define WINDOWS_BK_COLOR_G  20
-#define WINDOWS_BK_COLOR_B   0
+#define WINDOWS_BK_COLOR_R  0
+#define WINDOWS_BK_COLOR_G  0
+#define WINDOWS_BK_COLOR_B  0
 
 
 /*
@@ -767,10 +767,10 @@
 #define INVEN_2NDHEAD    40
 #define INVEN_3RDHEAD    41
 #define INVEN_1STHANDS   42
-#define INVEN_2NDHANDS   43
-#define INVEN_3RDHANDS   44
-#define INVEN_FEET       45
-#define INVEN_TAIL       46
+// #define INVEN_2NDHANDS   43
+// #define INVEN_3RDHANDS   44
+// #define INVEN_FEET       45
+// #define INVEN_TAIL       46
 
 /*
  * Total number of inventory slots (hard-coded).
