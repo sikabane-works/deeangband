@@ -2696,20 +2696,17 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
  */
 static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_ptr)
 {
-	int i, max_i;
-
+	int i;
 	byte a;
 	char c;
 
 	object_type *o_ptr;
 
-	/* Weapon flags need only two column */
-	if (mode & DP_WP) max_i = INVEN_2NDARM + 1;
-	else max_i = INVEN_TOTAL;
-
 	/* Dump equippy chars */
-	for (i = INVEN_1STARM; i < max_i; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
+		if(!cr_ptr->equip_now[i]) continue;
+		if(mode & DP_WP && GET_ITEM_SLOT_TYPE(cr_ptr, i) != ITEM_SLOT_HAND) continue;
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
 
@@ -2724,13 +2721,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 
 		}
 
-		/* Dump */
-		if(mode & DP_TWO_LINES)
-			Term_putch(i >= 12 + INVEN_1STARM ? x + i - 12 - INVEN_1STARM : x + i - INVEN_1STARM,
-			           i >= 12 + INVEN_1STARM ? y + 1 : y,
-					   a, c);
-		else
-			Term_putch(x + i - INVEN_1STARM, y, a, c);
+		Term_putch(x + i, y, a, c);
 	}
 }
 
