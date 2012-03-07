@@ -4023,31 +4023,6 @@ static bool is_ring_slot(int i)
 	return (i == INVEN_RIGHT) || (i == INVEN_LEFT);
 }
 
-
-/*
- * Convert a label into the index of a item in the "equip"
- * Return "-1" if the label does not indicate a real item
- */
-s16b label_to_equip(creature_type *cr_ptr, int c)
-{
-	int i;
-
-	/* Convert */
-	i = (islower(c) ? A2I(c) : -1) + INVEN_1STARM;
-
-	/* Verify the index */
-	if ((i < INVEN_1STARM) || (i >= INVEN_TOTAL)) return (-1);
-
-	if (select_ring_slot) return is_ring_slot(i) ? i : -1;
-
-	/* Empty slots can never be chosen */
-	if (!cr_ptr->inventory[i].k_idx) return (-1);
-
-	/* Return the index */
-	return (i);
-}
-
-
 /*
  * Return a string mentioning how a given item is carried
  */
@@ -6024,7 +5999,7 @@ if (other_query_flag && !verify(cr_ptr, "–{“–‚É", k)) continue;
 				{
 					if (which == '(') k = e1;
 					else if (which == ')') k = e2;
-					else k = label_to_equip(cr_ptr, which);
+					else k = label_to_inven(cr_ptr, which);
 				}
 
 				/* Validate the item */
@@ -7488,7 +7463,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				{
 					if (which == '(') k = e1;
 					else if (which == ')') k = e2;
-					else k = label_to_equip(cr_ptr, which);
+					else k = label_to_inven(cr_ptr, which);
 				}
 
 				/* Convert letter to floor index */
