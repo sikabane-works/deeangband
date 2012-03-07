@@ -2381,7 +2381,7 @@ object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int nu
 		if(creature_ptr->equip_now[i] == num && k_info[creature_ptr->inventory[i].k_idx].slot == slot)
 			return &creature_ptr->inventory[i];
 	}
-	return &dammy;
+	return NULL;
 }
 
 int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)

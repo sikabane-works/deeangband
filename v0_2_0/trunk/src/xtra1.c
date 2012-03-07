@@ -4610,107 +4610,108 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size / 10 * cr_ptr->size / 10;
 
 
-	/* Examine the "current bow" */
+	// Examine the "current bow"
 	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 
-
-	/* Assume not heavy */
-	cr_ptr->heavy_shoot = FALSE;
-
-	/* It is hard to carholdry a heavy bow */
-	if (hold < o_ptr->weight / 10)
+	if(o_ptr)
 	{
-		/* Hard to wield a heavy bow */
-		cr_ptr->to_h_b  += 2 * (hold - o_ptr->weight / 10);
-		cr_ptr->dis_to_h_b  += 2 * (hold - o_ptr->weight / 10);
+		/* Assume not heavy */
+		cr_ptr->heavy_shoot = FALSE;
 
-		/* Heavy Bow */
-		cr_ptr->heavy_shoot = TRUE;
-	}
-
-
-	/* Compute "extra shots" if needed */
-	if (o_ptr->k_idx)
-	{
-		/* Analyze the launcher */
-		switch (o_ptr->sval)
+		/* It is hard to carholdry a heavy bow */
+		if (hold < o_ptr->weight / 10)
 		{
-			case SV_SLING:
-			{
-				cr_ptr->tval_ammo = TV_SHOT;
-				break;
-			}
+			/* Hard to wield a heavy bow */
+			cr_ptr->to_h_b  += 2 * (hold - o_ptr->weight / 10);
+			cr_ptr->dis_to_h_b  += 2 * (hold - o_ptr->weight / 10);
 
-			case SV_SHORT_BOW:
-			case SV_LONG_BOW:
-			case SV_NAMAKE_BOW:
-			{
-				cr_ptr->tval_ammo = TV_ARROW;
-				break;
-			}
-
-			case SV_LIGHT_XBOW:
-			case SV_HEAVY_XBOW:
-			{
-				cr_ptr->tval_ammo = TV_BOLT;
-				break;
-			}
-			case SV_CRIMSON:
-			{
-				cr_ptr->tval_ammo = TV_NO_AMMO;
-				break;
-			}
+			/* Heavy Bow */
+			cr_ptr->heavy_shoot = TRUE;
 		}
 
-		/* Apply special flags */
-		if (o_ptr->k_idx && !cr_ptr->heavy_shoot)
+		/* Compute "extra shots" if needed */
+		if (o_ptr->k_idx)
 		{
-			/* Extra shots */
-			cr_ptr->num_fire += (extra_shots * 100);
-
-			/* Hack -- Rangers love Bows */
-			if ((cr_ptr->cls_idx == CLASS_RANGER) &&
-			    (cr_ptr->tval_ammo == TV_ARROW))
+			/* Analyze the launcher */
+			switch (o_ptr->sval)
 			{
-				cr_ptr->num_fire += (cr_ptr->lev * 4);
+				case SV_SLING:
+				{
+					cr_ptr->tval_ammo = TV_SHOT;
+					break;
+				}
+
+				case SV_SHORT_BOW:
+				case SV_LONG_BOW:
+				case SV_NAMAKE_BOW:
+				{
+					cr_ptr->tval_ammo = TV_ARROW;
+					break;
+				}
+
+				case SV_LIGHT_XBOW:
+				case SV_HEAVY_XBOW:
+				{
+					cr_ptr->tval_ammo = TV_BOLT;
+					break;
+				}
+				case SV_CRIMSON:
+				{
+					cr_ptr->tval_ammo = TV_NO_AMMO;
+					break;
+				}
 			}
 
-			if ((cr_ptr->cls_idx == CLASS_CAVALRY) &&
-			    (cr_ptr->tval_ammo == TV_ARROW))
+			/* Apply special flags */
+			if (o_ptr->k_idx && !cr_ptr->heavy_shoot)
 			{
-				cr_ptr->num_fire += (cr_ptr->lev * 3);
-			}
+				/* Extra shots */
+				cr_ptr->num_fire += (extra_shots * 100);
 
-			if (cr_ptr->cls_idx == CLASS_ARCHER)
-			{
-				if (cr_ptr->tval_ammo == TV_ARROW)
-					cr_ptr->num_fire += ((cr_ptr->lev * 5)+50);
-				else if ((cr_ptr->tval_ammo == TV_BOLT) || (cr_ptr->tval_ammo == TV_SHOT))
+				/* Hack -- Rangers love Bows */
+				if ((cr_ptr->cls_idx == CLASS_RANGER) &&
+				    (cr_ptr->tval_ammo == TV_ARROW))
+				{
 					cr_ptr->num_fire += (cr_ptr->lev * 4);
-			}
+				}
 
-			/*
-			 * Addendum -- also "Reward" high level warriors,
-			 * with _any_ missile weapon -- TY
-			 */
-			if (cr_ptr->cls_idx == CLASS_WARRIOR &&
-			   (cr_ptr->tval_ammo <= TV_BOLT) &&
-			   (cr_ptr->tval_ammo >= TV_SHOT))
-			{
-				cr_ptr->num_fire += (cr_ptr->lev * 2);
-			}
-			if ((cr_ptr->cls_idx == CLASS_ROGUE) &&
-			    (cr_ptr->tval_ammo == TV_SHOT))
-			{
-				cr_ptr->num_fire += (cr_ptr->lev * 4);
-			}
+				if ((cr_ptr->cls_idx == CLASS_CAVALRY) &&
+				    (cr_ptr->tval_ammo == TV_ARROW))
+				{
+					cr_ptr->num_fire += (cr_ptr->lev * 3);
+				}
 
-			/* Snipers love Cross bows */
-			if ((cr_ptr->cls_idx == CLASS_SNIPER) &&
-				(cr_ptr->tval_ammo == TV_BOLT))
-			{
-				cr_ptr->to_h_b += (10 + (cr_ptr->lev / 5));
-				cr_ptr->dis_to_h_b += (10 + (cr_ptr->lev / 5));
+				if (cr_ptr->cls_idx == CLASS_ARCHER)
+				{
+					if (cr_ptr->tval_ammo == TV_ARROW)
+						cr_ptr->num_fire += ((cr_ptr->lev * 5)+50);
+					else if ((cr_ptr->tval_ammo == TV_BOLT) || (cr_ptr->tval_ammo == TV_SHOT))
+						cr_ptr->num_fire += (cr_ptr->lev * 4);
+				}
+
+				/*
+				 * Addendum -- also "Reward" high level warriors,
+				 * with _any_ missile weapon -- TY
+				 */
+				if (cr_ptr->cls_idx == CLASS_WARRIOR &&
+				   (cr_ptr->tval_ammo <= TV_BOLT) &&
+				   (cr_ptr->tval_ammo >= TV_SHOT))
+				{
+					cr_ptr->num_fire += (cr_ptr->lev * 2);
+				}
+				if ((cr_ptr->cls_idx == CLASS_ROGUE) &&
+				    (cr_ptr->tval_ammo == TV_SHOT))
+				{
+					cr_ptr->num_fire += (cr_ptr->lev * 4);
+				}
+
+				/* Snipers love Cross bows */
+				if ((cr_ptr->cls_idx == CLASS_SNIPER) &&
+					(cr_ptr->tval_ammo == TV_BOLT))
+				{
+					cr_ptr->to_h_b += (10 + (cr_ptr->lev / 5));
+					cr_ptr->dis_to_h_b += (10 + (cr_ptr->lev / 5));
+				}
 			}
 		}
 	}
