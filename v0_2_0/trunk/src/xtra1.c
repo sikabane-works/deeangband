@@ -4613,7 +4613,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	// Examine the "current bow"
 	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
 
-	if(o_ptr)
+	if(o_ptr->k_idx)
 	{
 		/* Assume not heavy */
 		cr_ptr->heavy_shoot = FALSE;

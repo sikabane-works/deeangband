@@ -1892,7 +1892,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	}
 
 	/* Apply weapon bonuses */
-	if(o_ptr)
+	if(o_ptr->k_idx)
 	{
 		if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
 		if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
@@ -2212,42 +2212,38 @@ static void display_player_various(creature_type * cr_ptr)
 
 	tmp = cr_ptr->to_h_b;
 
-	if(o_ptr)
+	tmp += o_ptr->to_h;
+	/* If the player is wielding one? */
+	if (o_ptr->k_idx)
 	{
-		tmp += o_ptr->to_h;
-		/* If the player is wielding one? */
-		if (o_ptr->k_idx)
+		s16b energy_fire = bow_energy(o_ptr->sval);
+
+		/* Calculate shots per round */
+		shots = cr_ptr->num_fire * 100;
+		shot_frac = (shots * 100 / energy_fire) % 100;
+		shots = shots / energy_fire;
+		if (o_ptr->name1 == ART_CRIMSON)
 		{
-			s16b energy_fire = bow_energy(o_ptr->sval);
-
-			/* Calculate shots per round */
-			shots = cr_ptr->num_fire * 100;
-			shot_frac = (shots * 100 / energy_fire) % 100;
-			shots = shots / energy_fire;
-			if (o_ptr->name1 == ART_CRIMSON)
+			shots = 1;
+			shot_frac = 0;
+			if (cr_ptr->cls_idx == CLASS_ARCHER)
 			{
-				shots = 1;
-				shot_frac = 0;
-				if (cr_ptr->cls_idx == CLASS_ARCHER)
-				{
-					/* Extra shot at level 10 */
-					if (cr_ptr->lev >= 10) shots++;
+				/* Extra shot at level 10 */
+				if (cr_ptr->lev >= 10) shots++;
 
-					/* Extra shot at level 30 */
-					if (cr_ptr->lev >= 30) shots++;
+				/* Extra shot at level 30 */
+				if (cr_ptr->lev >= 30) shots++;
 
-					/* Extra shot at level 45 */
-					if (cr_ptr->lev >= 45) shots++;
-				}
+				/* Extra shot at level 45 */
+				if (cr_ptr->lev >= 45) shots++;
 			}
 		}
-		else
-		{
-			shots = 0;
-			shot_frac = 0;
-		}
 	}
-
+	else
+	{
+		shots = 0;
+		shot_frac = 0;
+	}
 
 	/* Basic abilities */
 

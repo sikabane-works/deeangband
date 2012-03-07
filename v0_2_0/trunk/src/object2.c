@@ -439,6 +439,8 @@ void wipe_o_list(void)
 {
 	int i;
 
+	object_wipe(&object_null);
+	
 	/* Delete the existing objects */
 	for (i = 1; i < o_max; i++)
 	{

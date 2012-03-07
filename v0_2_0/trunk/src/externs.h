@@ -439,6 +439,7 @@ extern saved_floor_type saved_floors[MAX_SAVED_FLOORS];
 extern s16b max_floor_id;
 extern u32b saved_floor_file_sign;
 extern object_type *o_list;
+extern object_type object_null;
 extern creature_type *creature_list;
 extern store_type *st_list;
 extern creature_type **mproc_list[MAX_MTIMED];
