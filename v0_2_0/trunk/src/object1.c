@@ -5298,8 +5298,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			}
 		}
 
-		else if ((inven && (*cp >= 0) && (*cp < INVEN_TOTAL)) ||
-		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
+		else if ((*cp >= 0) && (*cp < INVEN_TOTAL))
 		{
 			if (prev_tag && command_cmd)
 			{
