@@ -1892,28 +1892,30 @@ static void display_player_middle(creature_type *creature_ptr)
 	}
 
 	/* Apply weapon bonuses */
-	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
-	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
-
-	if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
-		show_tohit += creature_ptr->weapon_exp[0][o_ptr->sval] / 400;
-	else
-		show_tohit += (creature_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
-
-	/* Range attacks */
-	display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
-	display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
-
-	if (o_ptr->k_idx)
+	if(o_ptr)
 	{
-		tmul = bow_tmul(o_ptr->sval);
+		if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
+		if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
-		/* Get extra "power" from "extra might" */
-		if (creature_ptr->xtra_might) tmul++;
+		if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
+			show_tohit += creature_ptr->weapon_exp[0][o_ptr->sval] / 400;
+		else
+			show_tohit += (creature_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
-		tmul = tmul * (100 + (int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		/* Range attacks */
+		display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
+		display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
+
+		if (o_ptr->k_idx)
+		{
+			tmul = bow_tmul(o_ptr->sval);
+
+			/* Get extra "power" from "extra might" */
+			if (creature_ptr->xtra_might) tmul++;
+
+			tmul = tmul * (100 + (int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		}
 	}
-
 
 	/* Dump the armor class */
 	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_a), TERM_L_BLUE);
@@ -2207,44 +2209,49 @@ static void display_player_various(creature_type * cr_ptr)
 
 	/* Shooting Skill (with current bow and normal missile) */
 	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
-	tmp = cr_ptr->to_h_b + o_ptr->to_h;
-	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 
-	/* If the player is wielding one? */
-	if (o_ptr->k_idx)
+	tmp = cr_ptr->to_h_b;
+
+	if(o_ptr)
 	{
-		s16b energy_fire = bow_energy(o_ptr->sval);
-
-		/* Calculate shots per round */
-		shots = cr_ptr->num_fire * 100;
-		shot_frac = (shots * 100 / energy_fire) % 100;
-		shots = shots / energy_fire;
-		if (o_ptr->name1 == ART_CRIMSON)
+		tmp += o_ptr->to_h;
+		/* If the player is wielding one? */
+		if (o_ptr->k_idx)
 		{
-			shots = 1;
-			shot_frac = 0;
-			if (cr_ptr->cls_idx == CLASS_ARCHER)
+			s16b energy_fire = bow_energy(o_ptr->sval);
+
+			/* Calculate shots per round */
+			shots = cr_ptr->num_fire * 100;
+			shot_frac = (shots * 100 / energy_fire) % 100;
+			shots = shots / energy_fire;
+			if (o_ptr->name1 == ART_CRIMSON)
 			{
-				/* Extra shot at level 10 */
-				if (cr_ptr->lev >= 10) shots++;
+				shots = 1;
+				shot_frac = 0;
+				if (cr_ptr->cls_idx == CLASS_ARCHER)
+				{
+					/* Extra shot at level 10 */
+					if (cr_ptr->lev >= 10) shots++;
 
-				/* Extra shot at level 30 */
-				if (cr_ptr->lev >= 30) shots++;
+					/* Extra shot at level 30 */
+					if (cr_ptr->lev >= 30) shots++;
 
-				/* Extra shot at level 45 */
-				if (cr_ptr->lev >= 45) shots++;
+					/* Extra shot at level 45 */
+					if (cr_ptr->lev >= 45) shots++;
+				}
 			}
 		}
-	}
-	else
-	{
-		shots = 0;
-		shot_frac = 0;
+		else
+		{
+			shots = 0;
+			shot_frac = 0;
+		}
 	}
 
 
 	/* Basic abilities */
 
+	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 	xdis = cr_ptr->skill_dis;
 	xdev = cr_ptr->skill_dev;
 	xrob = cr_ptr->skill_rob;
