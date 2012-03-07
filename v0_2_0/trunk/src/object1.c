@@ -3988,7 +3988,7 @@ prt("[‰½‚©ƒL[‚ð‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
  */
 char index_to_label(creature_type *cr_ptr, int i)
 {
-	return (i >= 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
+	return (i < 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
 }
 
 
@@ -4705,7 +4705,6 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 {
 	cptr alphabet_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int  offset = (mode == USE_EQUIP) ? INVEN_1STARM : 0;
 	int  i, j;
 
 	/* Prepare normal labels */
@@ -4716,7 +4715,8 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 	{
 		int index;
 		char c;
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
+		if( cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
 
 		c = alphabet_chars[j];
 
@@ -4727,7 +4727,7 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 			if (label[j] == c) label[j] = ' ';
 
 			/* Move the label to the place of corresponding tag */
-			label[index - offset] = c;
+			label[index] = c;
 		}
 		j++;
 	}
