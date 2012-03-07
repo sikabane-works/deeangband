@@ -4513,35 +4513,21 @@ void display_equip(creature_type *cr_ptr)
  */
 static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 {
-	int i, start, end;
+	int i;
 	cptr s;
-
-	/* Extract index from mode */
-	switch (mode)
-	{
-	case USE_EQUIP:
-		start = INVEN_1STARM;
-		end = INVEN_TOTAL - 1;
-		break;
-
-	case USE_INVEN:
-		start = 0;
-		end = INVEN_TOTAL - 1;
-		break;
-
-	default:
-		return FALSE;
-	}
 
 	/**** Find a tag in the form of {@x#} (allow alphabet tag) ***/
 
 	/* Check every cr_ptr->inventory object */
-	for (i = start; i <= end; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
+
+		if (cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
+		if (!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
 
 		/* Skip empty inscriptions */
 		if (!o_ptr->inscription) continue;
@@ -4581,9 +4567,12 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 	}
 
 	/* Check every object */
-	for (i = start; i <= end; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
+
+		if (cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
+		if (!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
