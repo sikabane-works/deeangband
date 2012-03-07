@@ -4889,7 +4889,7 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		k++;
 	}
 
-	if(flags){
+	if(flags & SHOW_ITEM_RIGHT_SET){
 		/* Find the column to start in */
 		col = (len > wid - 9) ? 0 : (wid - len - 9);
 	}
@@ -4902,9 +4902,9 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	if(!k)
 	{
 #if JP
-		put_str("[‰½‚àŽ‚Á‚Ä‚¢‚È‚¢]", 1, flags ? wid - 20 : 1);
+		put_str("[‰½‚àŽ‚Á‚Ä‚¢‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 20 : 1);
 #else
-		put_str("   [No inventory.]", 1, flags ? wid - 20 : 1);
+		put_str("   [No inventory.]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 20 : 1);
 #endif
 
 		return 0;
@@ -4980,7 +4980,7 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
 
-			prt(tmp_val, j + 1, flags ? wid - 10 : len + 3);
+			prt(tmp_val, j + 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : len + 3);
 		}
 	}
 
@@ -5527,14 +5527,14 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		if (!command_wrk)
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
 		}
 
 		/* Equipment screen */
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
 		}
 
 		/* Viewing cr_ptr->inventory */
@@ -6600,7 +6600,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
 		}
 
 		/* Equipment screen */
@@ -6611,7 +6611,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
 		}
 
 		/* Floor screen */
