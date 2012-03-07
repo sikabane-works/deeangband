@@ -4627,7 +4627,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/**** Find a tag in the form of {@x#} (allow alphabet tag) ***/
 
 	/* Check every object in the grid */
-	for (i = 0; i < floor_num && i < 23; i++)
+	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &o_list[floor_list[i]];
 
@@ -4666,7 +4666,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	}
 
 	/* Check every object in the grid */
-	for (i = 0; i < floor_num && i < 23; i++)
+	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &o_list[floor_list[i]];
 
