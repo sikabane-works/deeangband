@@ -4805,7 +4805,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_item_slot(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
+int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
 	int             i, j, k, l, z = 0;
 	int             col, cur_col, len;
@@ -4889,7 +4889,7 @@ int show_item_slot(int target_item, creature_type *cr_ptr, bool right_set, bool 
 		k++;
 	}
 
-	if(right_set){
+	if(flags){
 		/* Find the column to start in */
 		col = (len > wid - 9) ? 0 : (wid - len - 9);
 	}
@@ -4902,9 +4902,9 @@ int show_item_slot(int target_item, creature_type *cr_ptr, bool right_set, bool 
 	if(!k)
 	{
 #if JP
-		put_str("[‰½‚à‚Á‚Ä‚¢‚È‚¢]", 1, right_set ? wid - 20 : 1);
+		put_str("[‰½‚à‚Á‚Ä‚¢‚È‚¢]", 1, flags ? wid - 20 : 1);
 #else
-		put_str("   [No inventory.]", 1, right_set ? wid - 20 : 1);
+		put_str("   [No inventory.]", 1, flags ? wid - 20 : 1);
 #endif
 
 		return 0;
@@ -4980,7 +4980,7 @@ int show_item_slot(int target_item, creature_type *cr_ptr, bool right_set, bool 
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
 
-			prt(tmp_val, j + 1, right_set ? wid - 10 : len + 3);
+			prt(tmp_val, j + 1, flags ? wid - 10 : len + 3);
 		}
 	}
 
