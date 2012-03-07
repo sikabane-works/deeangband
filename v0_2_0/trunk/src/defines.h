@@ -6015,6 +6015,10 @@ extern int PlayerUID;
 #define ADD_OUTFIT_EQUIP                0x00000001
 #define ADD_OUTFIT_MULTIPLE_FENCING     0x00000002
 
+#define SHOW_INVEN_RIGHT_SET 0x00000001
+#define SHOW_INVEN_EQUIPMENT 0x00000002
+
+
 
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
 
@@ -6024,3 +6028,6 @@ extern int PlayerUID;
 #define GET_ITEM_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
 
 #define WIELD_SLOT(O) (k_info[(O)->k_idx].slot)
+
+
+

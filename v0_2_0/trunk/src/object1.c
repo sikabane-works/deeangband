@@ -4336,7 +4336,7 @@ bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tes
 
 
 /*
- * Choice window "shadow" of the "show_inven()" function
+ * Choice window "shadow" of the "show_item_slot()" function
  */
 void display_inven(creature_type *cr_ptr)
 {
@@ -4429,7 +4429,7 @@ void display_inven(creature_type *cr_ptr)
 
 
 /*
- * Choice window "shadow" of the "show_inven()" function
+ * Choice window "shadow" of the "show_item_slot()" function
  */
 void display_equip(creature_type *cr_ptr)
 {
@@ -4805,7 +4805,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
+int show_item_slot(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
 	int             i, j, k, l, z = 0;
 	int             col, cur_col, len;
@@ -5527,14 +5527,14 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		if (!command_wrk)
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Equipment screen */
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Viewing cr_ptr->inventory */
@@ -6600,7 +6600,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Equipment screen */
@@ -6611,7 +6611,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
+			if (command_see) get_item_label = show_item_slot(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Floor screen */
