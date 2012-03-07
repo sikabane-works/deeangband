@@ -198,7 +198,7 @@ static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Check for a usable slot */
-	if ((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD))return (TRUE);
+	if (k_info[o_ptr->k_idx].slot == ITEM_SLOT_HAND) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
