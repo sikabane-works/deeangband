@@ -176,7 +176,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (wield_slot(cr_ptr, o_ptr) > ITEM_SLOT_INVENTORY) return (TRUE);
+	if (WIELD_SLOT(o_ptr) > ITEM_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -216,7 +216,6 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	object_type forge;
 	object_type *q_ptr;
-
 	object_type *o_ptr;
 
 	cptr act;
@@ -257,7 +256,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 
 	/* Check the slot */
-	slot = wield_slot(cr_ptr, o_ptr);
+	slot = WIELD_SLOT(o_ptr);
 
 	switch (o_ptr->tval)
 	{

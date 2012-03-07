@@ -6023,3 +6023,4 @@ extern int PlayerUID;
 
 #define GET_ITEM_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
 
+#define WIELD_SLOT(O) (k_info[(O)->k_idx].slot)

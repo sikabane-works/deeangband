@@ -4048,16 +4048,6 @@ s16b label_to_equip(creature_type *cr_ptr, int c)
 }
 
 
-
-/*
- * Determine which equipment slot (if any) an item likes
- */
-s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
-{
-	return k_info[o_ptr->k_idx].slot;
-}
-
-
 /*
  * Return a string mentioning how a given item is carried
  */
