@@ -4811,7 +4811,7 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	int             col, cur_col, len;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
-	char            tmp_val[80];
+	char            tmp_val[MAX_NLEN];
 	int             out_index[INVEN_TOTAL];
 	byte            out_color[INVEN_TOTAL];
 	char            out_desc[INVEN_TOTAL][MAX_NLEN];
@@ -4838,7 +4838,8 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		if (!o_ptr->k_idx) continue;
 
 		// Skip Equipmet
-		if (cr_ptr->equip_now[i]) continue;
+		if ( cr_ptr->equip_now[i] && !(flags & SHOW_ITEM_EQUIPMENT)) continue;
+		if (!cr_ptr->equip_now[i] && !(flags & SHOW_ITEM_INVENTORY)) continue;
 
 		/* Track */
 		z = i + 1;
@@ -4902,9 +4903,9 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	if(!k)
 	{
 #if JP
-		put_str("[âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 20 : 1);
+		put_str(" [âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
 #else
-		put_str("   [No inventory.]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 20 : 1);
+		put_str("[You have no item.]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
 #endif
 
 		return 0;
