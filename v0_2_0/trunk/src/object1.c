@@ -4902,11 +4902,30 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	if(!k)
 	{
+		if(flags & SHOW_ITEM_INVENTORY && flags & SHOW_ITEM_EQUIPMENT)
+		{
 #if JP
-		put_str(" [âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
+			put_str("[âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
 #else
-		put_str("[You have no item.]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
+			put_str("[No Item]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : 1);
 #endif
+		}
+		else if(flags & SHOW_ITEM_EQUIPMENT)
+		{
+#if JP
+			put_str("[âΩÇ‡ëïîıÇµÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
+#else
+			put_str("[No Equipment]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
+#endif
+		}
+		else if(flags & SHOW_ITEM_INVENTORY)
+		{
+#if JP
+			put_str("[âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
+#else
+			put_str("[No Inventory]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
+#endif
+		}
 
 		return 0;
 	}
