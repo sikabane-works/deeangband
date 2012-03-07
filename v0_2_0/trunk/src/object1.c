@@ -3996,7 +3996,7 @@ char index_to_label(creature_type *cr_ptr, int i)
  * Convert a label into the index of an item in the "inven"
  * Return "-1" if the label does not indicate a real item
  */
-s16b label_to_inven(creature_type *cr_ptr, int c)
+s16b label_to_item(creature_type *cr_ptr, int c)
 {
 	int i;
 
@@ -5991,7 +5991,7 @@ if (other_query_flag && !verify(cr_ptr, "–{“–‚É", k)) continue;
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(cr_ptr, which);
+					else k = label_to_item(cr_ptr, which);
 				}
 
 				/* Convert letter to equipment index */
@@ -5999,7 +5999,7 @@ if (other_query_flag && !verify(cr_ptr, "–{“–‚É", k)) continue;
 				{
 					if (which == '(') k = e1;
 					else if (which == ')') k = e2;
-					else k = label_to_inven(cr_ptr, which);
+					else k = label_to_item(cr_ptr, which);
 				}
 
 				/* Validate the item */
@@ -7451,19 +7451,11 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				which = tolower(which);
 
 				/* Convert letter to cr_ptr->inventory index */
-				if (command_wrk == (USE_INVEN))
+				if (command_wrk == (USE_INVEN) || command_wrk == (USE_EQUIP))
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(cr_ptr, which);
-				}
-
-				/* Convert letter to equipment index */
-				else if (command_wrk == (USE_EQUIP))
-				{
-					if (which == '(') k = e1;
-					else if (which == ')') k = e2;
-					else k = label_to_inven(cr_ptr, which);
+					else k = label_to_item(cr_ptr, which);
 				}
 
 				/* Convert letter to floor index */
