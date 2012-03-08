@@ -3769,9 +3769,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Affect blows */
 		if (have_flag(flgs, TR_BLOWS))
 		{
-			if((i == INVEN_1STARM || i == INVEN_RIGHT) && !cr_ptr->ryoute) extra_blows[0] += o_ptr->pval;
-			else if((i == INVEN_2NDARM || i == INVEN_LEFT) && !cr_ptr->ryoute) extra_blows[1] += o_ptr->pval;
-			else {extra_blows[0] += o_ptr->pval; extra_blows[1] += o_ptr->pval;}
+			//TODO adjust
+			extra_blows[0] += o_ptr->pval;
+			extra_blows[1] += o_ptr->pval;
 		}
 
 		/* Hack -- cause earthquakes */
@@ -3980,7 +3980,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (object_is_known(o_ptr)) cr_ptr->dis_to_h_b += bonus_to_h;
 
 		/* To Melee */
-		if ((i == INVEN_LEFT || i == INVEN_RIGHT) && !cr_ptr->ryoute)
+		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING && !cr_ptr->ryoute)
 		{
 			/* Apply the bonuses to hit/damage */
 			cr_ptr->to_h[i-INVEN_RIGHT] += bonus_to_h;
