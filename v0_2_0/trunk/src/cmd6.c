@@ -6515,7 +6515,7 @@ void do_cmd_activate(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Prepare the hook */
 
 	/* Get an item */
@@ -6603,7 +6603,7 @@ void do_cmd_use(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

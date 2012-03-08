@@ -1828,7 +1828,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	/* Dump the bonuses to hit/dam */
 	if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
-	else if (creature_ptr->ryoute)
+	else if (creature_ptr->two_handed)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);
 	else
 		display_player_one_line(hand_entry, buf, TERM_L_BLUE);
@@ -5291,7 +5291,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 			if(!cr_ptr->equip_now[i]) continue;
 
 			object_desc(o_name, &cr_ptr->inventory[i], 0);
-			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
+			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->two_handed)
 #ifdef JP
 				strcpy(o_name, "(•Ší‚ğ—¼è‚¿)");
 #else

@@ -4330,7 +4330,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 #endif
 
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */

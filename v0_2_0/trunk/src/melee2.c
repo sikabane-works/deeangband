@@ -2441,7 +2441,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		if (is_riding_mon)
 		{
-			if (!player_ptr->riding_ryoute && !creature_list[player_ptr->riding].afraid) do_move = FALSE;
+			if (!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].afraid) do_move = FALSE;
 		}
 
 		if (did_kill_wall && do_move)

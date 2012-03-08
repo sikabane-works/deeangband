@@ -1401,7 +1401,7 @@ struct creature_type
 	bool old_heavy_shoot;
 	bool old_icky_wield[MAX_HANDS];
 	bool old_riding_wield[MAX_HANDS];
-	bool old_riding_ryoute;
+	bool old_riding_two_handed;
 	bool old_monlite;
 
 	s16b old_lite;		/* Old radius of lite (if any) */
@@ -1412,7 +1412,7 @@ struct creature_type
 	bool heavy_shoot;	/* Heavy shooter */
 	bool icky_wield[MAX_HANDS];	/* Icky weapon */
 	bool riding_wield[MAX_HANDS];	/* Riding weapon */
-	bool riding_ryoute;	/* Riding weapon */
+	bool riding_two_handed;	/* Riding weapon */
 	bool monlite;
 
 	s16b cur_lite;		/* Radius of lite (if any) */
@@ -1556,7 +1556,7 @@ struct creature_type
 
 	s16b to_m_chance;		/* Minusses to cast chance */
 
-	bool ryoute;
+	bool two_handed;
 	bool migite;
 	bool hidarite;
 	bool no_flowed;

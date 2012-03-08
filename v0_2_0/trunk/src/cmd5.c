@@ -1652,9 +1652,9 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	bool p_can_enter;
 	bool old_character_xtra = character_xtra;
 	int  old_riding = cr_ptr->riding;
-	bool old_riding_ryoute = cr_ptr->riding_ryoute;
-	bool old_old_riding_ryoute = cr_ptr->old_riding_ryoute;
-	bool old_pf_ryoute = (cr_ptr->pet_extra_flags & PF_RYOUTE) ? TRUE : FALSE;
+	bool old_riding_two_handed = cr_ptr->riding_two_handed;
+	bool old_old_riding_two_handed = cr_ptr->old_riding_two_handed;
+	bool old_pf_two_handed = (cr_ptr->pet_extra_flags & PF_RYOUTE) ? TRUE : FALSE;
 
 	/* Hack -- prevent "icky" message */
 	character_xtra = TRUE;
@@ -1664,7 +1664,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	{
 		cr_ptr->riding = 0;
 		cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-		cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
+		cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
 	}
 
 	calc_bonuses(cr_ptr, TRUE);
@@ -1672,10 +1672,10 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	p_can_enter = player_can_enter(cr_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
 	cr_ptr->riding = old_riding;
-	if (old_pf_ryoute) cr_ptr->pet_extra_flags |= (PF_RYOUTE);
+	if (old_pf_two_handed) cr_ptr->pet_extra_flags |= (PF_RYOUTE);
 	else cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-	cr_ptr->riding_ryoute = old_riding_ryoute;
-	cr_ptr->old_riding_ryoute = old_old_riding_ryoute;
+	cr_ptr->riding_two_handed = old_riding_two_handed;
+	cr_ptr->old_riding_two_handed = old_old_riding_two_handed;
 
 	calc_bonuses(cr_ptr, TRUE);
 
@@ -1706,7 +1706,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 
 			/* 落馬のしやすさ */
 			int rakubalevel = r_ptr->level;
-			if (cr_ptr->riding_ryoute) rakubalevel += 20;
+			if (cr_ptr->riding_two_handed) rakubalevel += 20;
 
 			if ((cur < max) && (max > 1000) &&
 			    (dam / 2 + ridinglevel) > (cur / 30 + 10))
@@ -1724,7 +1724,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 			/* レベルの低い乗馬からは落馬しにくい */
 			if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
 			{
-				if ((((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY)) && !cr_ptr->riding_ryoute) || !one_in_(cr_ptr->lev*(cr_ptr->riding_ryoute ? 2 : 3) + 30))
+				if ((((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY)) && !cr_ptr->riding_two_handed) || !one_in_(cr_ptr->lev*(cr_ptr->riding_two_handed ? 2 : 3) + 30))
 				{
 					return FALSE;
 				}
@@ -1792,7 +1792,7 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 
 	cr_ptr->riding = 0;
 	cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-	cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
+	cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
 
 	calc_bonuses(cr_ptr, TRUE);
 
@@ -1881,7 +1881,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 		cr_ptr->riding = 0;
 		cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-		cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
+		cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
 	}
 	else
 	{

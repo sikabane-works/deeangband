@@ -1014,7 +1014,7 @@ cptr ANGBAND_DIR_XTRA;
  */
 bool item_tester_full;
 
-bool item_tester_no_ryoute = FALSE;
+bool item_tester_no_two_handed = FALSE;
 
 /*
  * Here is a "pseudo-hook" used during calls to "get_item()" and

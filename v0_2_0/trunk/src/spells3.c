@@ -1335,7 +1335,7 @@ void brand_weapon(creature_type *cr_ptr, int brand_type)
 
 
 	/* Assume enchant weapon */
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP
@@ -2519,7 +2519,7 @@ bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac)
 	bool (*item_tester_hook)(creature_type *, object_type *);
 
 	/* Assume enchant weapon */
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Enchant armor if requested */
 	if (num_ac) item_tester_hook = object_is_armour2;
@@ -2615,7 +2615,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	cptr            q, s;
 
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP
@@ -2807,7 +2807,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	bool old_known;
 	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_weapon_armour;
@@ -2912,7 +2912,7 @@ bool mundane_spell(creature_type *cr_ptr, bool only_equip)
 	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP
@@ -2995,7 +2995,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 
 	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
 	else
@@ -3469,7 +3469,7 @@ bool bless_weapon(creature_type *cr_ptr)
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP
@@ -3661,7 +3661,7 @@ bool pulish_shield(creature_type *cr_ptr)
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Assume enchant weapon */
 	item_tester_tval = TV_SHIELD;
 
@@ -5095,7 +5095,7 @@ bool rustproof(creature_type *cr_ptr)
 	char        o_name[MAX_NLEN];
 	cptr        q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

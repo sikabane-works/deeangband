@@ -3416,7 +3416,7 @@ static bool compare_weapons(creature_type *cr_ptr)
 	i_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 	object_copy(&orig_weapon, i_ptr);
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get the first weapon */
 #ifdef JP
@@ -3439,7 +3439,7 @@ s = "î‰Ç◊ÇÈÇ‡ÇÃÇ™Ç†ÇËÇ‹ÇπÇÒÅB";
 	/* Clear the screen */
 	clear_bldg(0, 22);
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get the second weapon */
 #ifdef JP
@@ -3747,7 +3747,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
 #endif
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

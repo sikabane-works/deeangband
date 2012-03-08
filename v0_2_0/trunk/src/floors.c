@@ -366,7 +366,7 @@ static void preserve_pet(creature_type *cr_ptr)
 		{
 			cr_ptr->riding = 0;
 			cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-			cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
+			cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
 		}
 		else
 		{

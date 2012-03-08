@@ -268,7 +268,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 		{
 			/* Restrict the choices */
-			item_tester_no_ryoute = TRUE;
+			item_tester_no_two_handed = TRUE;
 
 			/* Choose a weapon from the equipment only */
 #ifdef JP
@@ -374,7 +374,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 		/* Restrict the choices */
 		select_ring_slot = TRUE;
-		item_tester_no_ryoute = TRUE;
+		item_tester_no_two_handed = TRUE;
 
 		if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), NULL))
 		{
@@ -735,7 +735,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どれを装備からはずしますか? ";
@@ -867,7 +867,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを落としますか? ";
@@ -1193,7 +1193,7 @@ void do_cmd_observe(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを調べますか? ";
@@ -1264,7 +1264,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムの銘を消しますか? ";
@@ -1338,7 +1338,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムに銘を刻みますか? ";
@@ -1413,7 +1413,7 @@ void do_cmd_inscribe_caves(creature_type *cr_ptr)
 {
 	char tmp[CAVE_MESSAGE_LENGTH];
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

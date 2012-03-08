@@ -4155,14 +4155,14 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((cr_ptr->ryoute && cr_ptr->migite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->migite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
 		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 			/*
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->hidarite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
 		case INVEN_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
@@ -4436,7 +4436,7 @@ void display_equip(creature_type *cr_ptr)
 		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
+		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->two_handed)
 		{
 #ifdef JP
 			strcpy(o_name, "(•Ší‚ð—¼ŽèŽ‚¿)");
@@ -5363,14 +5363,14 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			if(!cr_ptr->equip_now[j]) continue;
 			if(select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, j) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
-		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
+		if (cr_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2, hook))) e2--;
 
-	if (equip && cr_ptr->ryoute && !item_tester_no_ryoute)
+	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
 		if (cr_ptr->migite)
 		{
@@ -6034,7 +6034,7 @@ if (ver && !verify(cr_ptr, "–{“–‚É", k))
 	/* Forget the item_tester_tval restriction */
 	item_tester_tval = 0;
 
-	item_tester_no_ryoute = FALSE;
+	item_tester_no_two_handed = FALSE;
 
 	/* Forget the hook restriction */
 	hook = NULL;
@@ -6434,14 +6434,14 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (!cr_ptr->equip_now[j]) continue; // Skip no equipment
 			if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, j) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
-		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
+		if (cr_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2, hook))) e2--;
 
-	if (equip && cr_ptr->ryoute && !item_tester_no_ryoute)
+	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
 		if (cr_ptr->migite)
 		{

@@ -529,7 +529,7 @@ extern cptr ANGBAND_DIR_SAVE;
 extern cptr ANGBAND_DIR_USER;
 extern cptr ANGBAND_DIR_XTRA;
 extern bool item_tester_full;
-extern bool item_tester_no_ryoute;
+extern bool item_tester_no_two_handed;
 extern byte item_tester_tval;
 extern bool (*ang_sort_comp)(vptr u, vptr v, int a, int b);
 extern void (*ang_sort_swap)(vptr u, vptr v, int a, int b);

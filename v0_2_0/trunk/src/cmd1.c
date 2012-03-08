@@ -4127,7 +4127,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
-		else if (cr_ptr->riding_ryoute)
+		else if (cr_ptr->riding_two_handed)
 		{
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);

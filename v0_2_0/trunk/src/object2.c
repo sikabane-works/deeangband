@@ -6652,7 +6652,7 @@ static void drain_essence(creature_type *creature_ptr)
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
 		drain_value[i] = 0;
 
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP
@@ -7293,7 +7293,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		item_tester_hook = object_is_armour2;
 	else
 		item_tester_hook = object_is_weapon_armour_ammo2;
-	item_tester_no_ryoute = TRUE;
+	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

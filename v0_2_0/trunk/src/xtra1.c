@@ -3081,7 +3081,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->immune_fire = FALSE;
 	cr_ptr->immune_cold = FALSE;
 
-	cr_ptr->ryoute = FALSE;
+	cr_ptr->two_handed = FALSE;
 	cr_ptr->migite = FALSE;
 	cr_ptr->hidarite = FALSE;
 	cr_ptr->no_flowed = FALSE;
@@ -3276,12 +3276,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]))
 		{
-			cr_ptr->ryoute = TRUE;
+			cr_ptr->two_handed = TRUE;
 		}
 		else if (cr_ptr->hidarite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
 		{
-			cr_ptr->ryoute = TRUE;
+			cr_ptr->two_handed = TRUE;
 		}
 		else
 		{
@@ -3293,7 +3293,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
 					cr_ptr->migite = TRUE;
-					cr_ptr->ryoute = TRUE;
+					cr_ptr->two_handed = TRUE;
 				}
 				break;
 			}
@@ -3980,7 +3980,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (object_is_known(o_ptr)) cr_ptr->dis_to_h_b += bonus_to_h;
 
 		/* To Melee */
-		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING && !cr_ptr->ryoute)
+		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING && !cr_ptr->two_handed)
 		{
 			/* Apply the bonuses to hit/damage */
 			cr_ptr->to_h[i-INVEN_RIGHT] += bonus_to_h;
@@ -4716,7 +4716,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if (cr_ptr->ryoute) hold *= 2;
+	if (cr_ptr->two_handed) hold *= 2;
 
 	for(i = 0 ; i < 2 ; i++)
 	{
@@ -4741,7 +4741,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Heavy weapon */
 			cr_ptr->heavy_wield[i] = TRUE;
 		}
-		else if (cr_ptr->ryoute && (hold < o_ptr->weight/5)) omoi = TRUE;
+		else if (cr_ptr->two_handed && (hold < o_ptr->weight/5)) omoi = TRUE;
 
 		if ((i == 1) && (o_ptr->tval == TV_SWORD) && ((o_ptr->sval == SV_MAIN_GAUCHE) || (o_ptr->sval == SV_WAKIZASHI)))
 		{
@@ -4864,7 +4864,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Access the strength vs weight */
 			str_index = (adj_str_blow[cr_ptr->stat_ind[STAT_STR]] * mul / div);
 
-			if (cr_ptr->ryoute && !omoi) str_index++;
+			if (cr_ptr->two_handed && !omoi) str_index++;
 			if (cr_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
 
 			/* Maximal value */
@@ -4927,7 +4927,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->to_d[i] += cr_ptr->lev/6;
 			cr_ptr->dis_to_h[i] += cr_ptr->lev/5;
 			cr_ptr->dis_to_d[i] += cr_ptr->lev/6;
-			if (((i == 0) && !cr_ptr->hidarite) || cr_ptr->ryoute)
+			if (((i == 0) && !cr_ptr->hidarite) || cr_ptr->two_handed)
 			{
 				cr_ptr->to_h[i] += cr_ptr->lev/5;
 				cr_ptr->to_d[i] += cr_ptr->lev/6;
@@ -5012,9 +5012,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		int penalty = 0;
 
-		cr_ptr->riding_ryoute = FALSE;
+		cr_ptr->riding_two_handed = FALSE;
 
-		if (cr_ptr->ryoute || (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_ryoute = TRUE;
+		if (cr_ptr->two_handed || (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_two_handed = TRUE;
 		else if (cr_ptr->pet_extra_flags & PF_RYOUTE)
 		{
 			switch (cr_ptr->cls_idx)
@@ -5023,7 +5023,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
 				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
-					cr_ptr->riding_ryoute = TRUE;
+					cr_ptr->riding_two_handed = TRUE;
 				break;
 			}
 		}
@@ -5208,7 +5208,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 
-	if (cr_ptr->ryoute && !omoi)
+	if (cr_ptr->two_handed && !omoi)
 	{
 		int bonus_to_h=0, bonus_to_d=0;
 		bonus_to_d = ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128)/2;
@@ -5220,7 +5220,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
 	}
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->ryoute = FALSE;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->two_handed = FALSE;
 
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;
@@ -5541,10 +5541,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if (cr_ptr->riding && (cr_ptr->old_riding_ryoute != cr_ptr->riding_ryoute))
+	if (cr_ptr->riding && (cr_ptr->old_riding_two_handed != cr_ptr->riding_two_handed))
 	{
 		/* Message */
-		if (cr_ptr->riding_ryoute)
+		if (cr_ptr->riding_two_handed)
 		{
 #ifdef JP
 			if(message) msg_format("%s”n‚ð‘€‚ê‚È‚¢B", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä‚¢‚Ä" : "");
@@ -5561,7 +5561,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 		}
 
-		cr_ptr->old_riding_ryoute = cr_ptr->riding_ryoute;
+		cr_ptr->old_riding_two_handed = cr_ptr->riding_two_handed;
 	}
 
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
