@@ -3081,7 +3081,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->immune_fire = FALSE;
 	cr_ptr->immune_cold = FALSE;
 
-	cr_ptr->two_handed = FALSE;
+	for(i = 0; i < INVEN_TOTAL; i++)
+		cr_ptr->two_handed[i] = -1;
+
 	cr_ptr->migite = FALSE;
 	cr_ptr->hidarite = FALSE;
 	cr_ptr->no_flowed = FALSE;
@@ -3276,12 +3278,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]))
 		{
-			cr_ptr->two_handed = TRUE;
+			//TODO cr_ptr->two_handed = TRUE;
 		}
 		else if (cr_ptr->hidarite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
 		{
-			cr_ptr->two_handed = TRUE;
+			//TODO cr_ptr->two_handed = TRUE;
 		}
 		else
 		{
@@ -3293,7 +3295,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
 					cr_ptr->migite = TRUE;
-					cr_ptr->two_handed = TRUE;
+					// TODO cr_ptr->two_handed = TRUE;
 				}
 				break;
 			}
@@ -5220,7 +5222,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
 	}
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->two_handed = FALSE;
+	//TODO if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->two_handed = FALSE;
 
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;

@@ -486,6 +486,7 @@ static void wr_creature(creature_type *cr_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		wr_s16b(cr_ptr->iven_fitting_rate[i]);
+		wr_byte(cr_ptr->two_handed[i]);
 		wr_byte(cr_ptr->equip_now[i]);
 	}
 
