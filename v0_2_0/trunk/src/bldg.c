@@ -3413,7 +3413,7 @@ static bool compare_weapons(creature_type *cr_ptr)
 	clear_bldg(0, 22);
 
 	/* Store copy of original wielded weapon */
-	i_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1);
+	i_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 	object_copy(&orig_weapon, i_ptr);
 
 	item_tester_no_ryoute = TRUE;
@@ -5019,7 +5019,7 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
 		if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");

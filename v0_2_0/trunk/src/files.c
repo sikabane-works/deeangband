@@ -1826,7 +1826,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
 
 	/* Dump the bonuses to hit/dam */
-	if (!get_equipped_slot_num(creature_ptr, ITEM_SLOT_HAND))
+	if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
 	else if (creature_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);
@@ -1847,7 +1847,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, ITEM_SLOT_BOW, 1);
+	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	int tmul = 0;
 	int e;
@@ -2208,7 +2208,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
 
 	tmp = cr_ptr->to_h_b;
 
@@ -2706,7 +2706,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!cr_ptr->equip_now[i]) continue;
-		if(mode & DP_WP && GET_ITEM_SLOT_TYPE(cr_ptr, i) != ITEM_SLOT_HAND) continue;
+		if(mode & DP_WP && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
 

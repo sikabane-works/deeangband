@@ -3285,7 +3285,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 					{
 						bool okay_flag = TRUE;
 
-						o_ptr->name2 = get_random_ego(ITEM_SLOT_LITE, TRUE);
+						o_ptr->name2 = get_random_ego(INVEN_SLOT_LITE, TRUE);
 
 						switch (o_ptr->name2)
 						{
@@ -3300,7 +3300,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if (power == -2)
 			{
-				o_ptr->name2 = get_random_ego(ITEM_SLOT_LITE, FALSE);
+				o_ptr->name2 = get_random_ego(INVEN_SLOT_LITE, FALSE);
 
 				switch (o_ptr->name2)
 				{
@@ -4804,7 +4804,7 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		{
 			if ((item == INVEN_1STARM) || (item == INVEN_2NDARM))
 			{
-				if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+				if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 				{
 					/* Clear all temporary elemental brands */
 					set_ele_attack(cr_ptr, 0, 0);
@@ -5279,7 +5279,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	object_desc(o_name, q_ptr, 0);
 
 	/* Took off weapon */
-	if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_HAND &&
+	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND &&
 	    object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 #ifdef JP
@@ -5291,7 +5291,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	/* Took off bow */
-	else if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_BOW)
+	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_BOW)
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -5302,7 +5302,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	/* Took off light */
-	else if (GET_ITEM_SLOT_TYPE(cr_ptr, item) == ITEM_SLOT_LITE)
+	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_LITE)
 	{
 #ifdef JP
 		act = "‚ðŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½";

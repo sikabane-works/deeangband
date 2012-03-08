@@ -6261,7 +6261,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 						msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
@@ -6295,7 +6295,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 						msg_format("せっかくだから%sを倒した。", tar_name);
 					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%s！お許し下さい！", tar_name);
@@ -6317,7 +6317,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 					{
 #ifdef JP
-						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 							msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
 						else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 						{
@@ -6567,11 +6567,11 @@ void calc_android_exp(creature_type *cr_ptr)
 		object_type *q_ptr = &forge;
 		u32b value, exp;
 		int level = MAX(k_info[o_ptr->k_idx].level - 8, 1);
-		slot = GET_ITEM_SLOT_TYPE(cr_ptr, i);
+		slot = GET_INVEN_SLOT_TYPE(cr_ptr, i);
 
 		if(!cr_ptr->equip_now[i]) continue;
 
-		if(slot == ITEM_SLOT_RING || slot == ITEM_SLOT_AMULET || slot == ITEM_SLOT_LITE)
+		if(slot == INVEN_SLOT_RING || slot == INVEN_SLOT_AMULET || slot == INVEN_SLOT_LITE)
 		   continue;
 
 		if(!o_ptr->k_idx) continue;
@@ -6643,10 +6643,10 @@ void calc_android_exp(creature_type *cr_ptr)
 			if (value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if (slot == ITEM_SLOT_HAND || slot == ITEM_SLOT_BOW) total_exp += exp / 48;
+		if (slot == INVEN_SLOT_HAND || slot == INVEN_SLOT_BOW) total_exp += exp / 48;
 		else total_exp += exp / 16;
 
-		if(GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_BODY) total_exp += exp / 32;
+		if(GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_BODY) total_exp += exp / 32;
 	}
 
 	cr_ptr->exp = cr_ptr->max_exp = total_exp;
@@ -6923,7 +6923,7 @@ bool choose_ele_attack(creature_type *cr_ptr)
 
 	char choice;
 
-	if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+	if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 	{
 #ifdef JP
 		msg_format("武器を持たないと魔法剣は使えない。");

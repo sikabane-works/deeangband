@@ -355,7 +355,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 
 		return;
 	}
-	if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+	if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 	{
 		if (flush_failure) flush();
 #ifdef JP

@@ -176,7 +176,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (WIELD_SLOT(o_ptr) > ITEM_SLOT_INVENTORY) return (TRUE);
+	if (WIELD_SLOT(o_ptr) > INVEN_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -198,7 +198,7 @@ static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Check for a usable slot */
-	if (k_info[o_ptr->k_idx].slot == ITEM_SLOT_HAND) return (TRUE);
+	if (k_info[o_ptr->k_idx].slot == INVEN_SLOT_HAND) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -265,7 +265,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	case TV_SHIELD:
 	case TV_CARD:
 		/* Dual wielding */
-		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
+		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 		{
 			/* Restrict the choices */
 			item_tester_no_ryoute = TRUE;
@@ -283,11 +283,11 @@ void do_cmd_wield(creature_type *cr_ptr)
 			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
 		}
 
-		else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) >= 2) slot = INVEN_1STARM;
+		else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) >= 2) slot = INVEN_1STARM;
 
 		/* Both arms are already used by non-weapon */
-		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1)) &&
-		         get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2)))
+		else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)) &&
+		         get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)))
 		{
 
 			/* Choose a hand */
@@ -318,7 +318,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 		}
 
-		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 		{
 #ifdef JP
 			if (!get_check("二刀流で戦いますか？")) slot = INVEN_2NDARM;
@@ -328,7 +328,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		}
 
 		/* Both arms are already used */
-		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1) && get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2))
+		else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1) && get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))
 		{
 
 			/* Choose a hand */
@@ -341,7 +341,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 
 			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
-			if ((slot == INVEN_2NDARM) && !get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+			if ((slot == INVEN_2NDARM) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 				need_switch_wielding = INVEN_1STARM;
 		}
 		break;
@@ -349,7 +349,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	/* Rings */
 	case TV_RING:
 		/* Choose a ring slot */
-		if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_RING, 1) && get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_RING, 2))
+		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_RING, 1) && get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_RING, 2))
 		{
 #ifdef JP
 			q = "どちらの指輪と取り替えますか?";
@@ -558,7 +558,7 @@ msg_print("クエストを達成した！");
 	/* Where is the item now */
 	switch (slot)
 	{
-	case ITEM_SLOT_HAND:
+	case INVEN_SLOT_HAND:
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
 		else
@@ -573,7 +573,7 @@ msg_print("クエストを達成した！");
 		break;
 */
 
-	case ITEM_SLOT_BOW:
+	case INVEN_SLOT_BOW:
 #ifdef JP
 		act = "%s(%c)を射撃用に装備した。";
 #else
@@ -581,7 +581,7 @@ msg_print("クエストを達成した！");
 #endif
 		break;
 
-	case ITEM_SLOT_LITE:
+	case INVEN_SLOT_LITE:
 #ifdef JP
 		act = "%s(%c)を光源にした。";
 #else
@@ -652,14 +652,14 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 
 	if (item == INVEN_1STARM)
 	{
-		if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2))
+		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))
 		{
-			o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 2);
+			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, 1);
+				new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
 				cr_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(cr_ptr, INVEN_2NDARM, -((int)o_ptr->number));
@@ -693,7 +693,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) == 1)
+		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) == 1)
 		{
 			if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
@@ -1537,7 +1537,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the lantern */
-	j_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4;
@@ -1654,7 +1654,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the primary torch */
-	j_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4 + 5;
@@ -1738,7 +1738,7 @@ void do_cmd_refill(creature_type *cr_ptr)
 	object_type *o_ptr;
 
 	/* Get the light */
-	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_LITE, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
 
 	if (cr_ptr->special_defense & KATA_MUSOU)
 	{

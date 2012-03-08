@@ -2957,7 +2957,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	// Make sure we can wield it and that there's nothing else in that slot
 	slot = WIELD_SLOT(o_ptr);
 
-	if (slot == ITEM_SLOT_INVENTORY) return -1; 
+	if (slot == INVEN_SLOT_INVENTORY) return -1; 
 	if (creature_ptr->inventory[slot].k_idx) return -1; 
  
 	/* Get local object */ 

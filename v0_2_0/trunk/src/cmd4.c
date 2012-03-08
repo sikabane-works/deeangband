@@ -5070,7 +5070,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	if (has_cf_creature(cr_ptr, CF_GOOD_LUCK))
 		msg_print(do_cmd_feeling_text_lucky[cr_ptr->feeling]);
 	else if (cr_ptr->chara_idx == CHARA_COMBAT ||
-		 get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+		 get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 		msg_print(do_cmd_feeling_text_combat[cr_ptr->feeling]);
 	else
 		msg_print(do_cmd_feeling_text[cr_ptr->feeling]);

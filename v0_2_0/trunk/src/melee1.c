@@ -2115,7 +2115,7 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", attacker_name);
 						}
 
 						/* Cursed armor makes damages doubled */
-						o_ptr = get_equipped_slot_ptr(target_ptr, ITEM_SLOT_BODY, 1);
+						o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
 						if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
 
 						/* Modify the damage */
@@ -2139,10 +2139,10 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", attacker_name);
 							int j;
 							int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 							int typ[4][2] = {
-								{ ITEM_SLOT_HEAD, GF_OLD_CONF },
-								{ ITEM_SLOT_HAND,  GF_OLD_SLEEP },
-								{ ITEM_SLOT_ARM, GF_TURN_ALL },
-								{ ITEM_SLOT_FEET, GF_OLD_SLOW }
+								{ INVEN_SLOT_HEAD, GF_OLD_CONF },
+								{ INVEN_SLOT_HAND,  GF_OLD_SLEEP },
+								{ INVEN_SLOT_ARM, GF_TURN_ALL },
+								{ INVEN_SLOT_FEET, GF_OLD_SLOW }
 							};
 
 							// Some cursed armours gives an extra effect

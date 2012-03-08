@@ -1253,7 +1253,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (!get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+				if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 				{
 #ifdef JP
 					msg_print("•Ší‚ğ‚½‚È‚¢‚Æ‚¢‚¯‚Ü‚¹‚ñB");

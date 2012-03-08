@@ -4027,106 +4027,106 @@ cptr mention_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case ITEM_SLOT_HAND:  
+		case INVEN_SLOT_HAND:  
 			p = cr_ptr->heavy_wield[0] ? "運搬中" : "  手"; break;
 #else
-		case ITEM_SLOT_HAND:
+		case INVEN_SLOT_HAND:
 			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->migite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_BOW:
+		case INVEN_SLOT_BOW:
 			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "運搬中" : "射撃用"; break;
 #else
-		case ITEM_SLOT_BOW:
+		case INVEN_SLOT_BOW:
 			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_AMMO:
+		case INVEN_SLOT_AMMO:
 			p = " 矢弾"; break;
 #else
-		case ITEM_SLOT_AMMO:
+		case INVEN_SLOT_AMMO:
 			p = "Projectile"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_RING:
+		case INVEN_SLOT_RING:
 			p = " 指輪"; break;
 #else
-		case ITEM_SLOT_RING:
+		case INVEN_SLOT_RING:
 			p = "1st Ring"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_AMULET:
+		case INVEN_SLOT_AMULET:
 			p = " 護符"; break;
 #else
-		case ITEM_SLOT_AMULET:
+		case INVEN_SLOT_AMULET:
 			p = "Amulet"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_LITE:
+		case INVEN_SLOT_LITE:
 			p = " 光源"; break;
 #else
-		case ITEM_SLOT_LITE:
+		case INVEN_SLOT_LITE:
 			p = "Light source"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_INSTRUMENT:
+		case INVEN_SLOT_INSTRUMENT:
 			p = " 楽器"; break;
 #else
-		case ITEM_SLOT_INSTRUMENT:
+		case INVEN_SLOT_INSTRUMENT:
 			p = "Instrument"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_BODY:
+		case INVEN_SLOT_BODY:
 			p = "  体"; break;
 #else
-		case ITEM_SLOT_BODY:
+		case INVEN_SLOT_BODY:
 			p = "On body"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_OUTER:
+		case INVEN_SLOT_OUTER:
 			p = "体の上"; break;
 #else
-		case ITEM_SLOT_OUTER:
+		case INVEN_SLOT_OUTER:
 			p = "About body"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_HEAD:
+		case INVEN_SLOT_HEAD:
 			p = " 頭部"; break;
 #else
-		case ITEM_SLOT_HEAD:
+		case INVEN_SLOT_HEAD:
 			p = "On head"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_ARMS:
+		case INVEN_SLOT_ARMS:
 			p = " 腕部"; break;
 #else
-		case ITEM_SLOT_ARMS:
+		case INVEN_SLOT_ARMS:
 			p = "On hands"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_FEET:
+		case INVEN_SLOT_FEET:
 			p = " 脚部"; break;
 #else
-		case ITEM_SLOT_FEET:
+		case INVEN_SLOT_FEET:
 			p = "On feet"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_TAIL:
+		case INVEN_SLOT_TAIL:
 			p = " 尾部"; break;
 #else
-		case ITEM_SLOT_TAIL:
+		case INVEN_SLOT_TAIL:
 			p = "On tail"; break;
 #endif
 
@@ -4155,78 +4155,78 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
 #else
-		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 			/*
 #ifdef JP
-		case ITEM_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
 #else
-		case ITEM_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 		*/
 #ifdef JP
-		case ITEM_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
+		case INVEN_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
 #else
-		case ITEM_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVEN_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
+		case INVEN_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
 #else
-		case ITEM_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
+		case INVEN_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
 /*
 #ifdef JP
-		case ITEM_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
+		case INVEN_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
 #else
-		case ITEM_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
+		case INVEN_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
 #endif
 		*/
 
 #ifdef JP
-		case ITEM_SLOT_AMULET:  p = "首にかけている"; break;
+		case INVEN_SLOT_AMULET:  p = "首にかけている"; break;
 #else
-		case ITEM_SLOT_AMULET:  p = "wearing around your neck"; break;
+		case INVEN_SLOT_AMULET:  p = "wearing around your neck"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_LITE:  p = "光源にしている"; break;
+		case INVEN_SLOT_LITE:  p = "光源にしている"; break;
 #else
-		case ITEM_SLOT_LITE:  p = "using to light the way"; break;
+		case INVEN_SLOT_LITE:  p = "using to light the way"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_BODY:  p = "体に着ている"; break;
+		case INVEN_SLOT_BODY:  p = "体に着ている"; break;
 #else
-		case ITEM_SLOT_BODY:  p = "wearing on your body"; break;
+		case INVEN_SLOT_BODY:  p = "wearing on your body"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_OUTER: p = "身にまとっている"; break;
+		case INVEN_SLOT_OUTER: p = "身にまとっている"; break;
 #else
-		case ITEM_SLOT_OUTER: p = "wearing on your back"; break;
+		case INVEN_SLOT_OUTER: p = "wearing on your back"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_HEAD:  p = "頭にかぶっている"; break;
+		case INVEN_SLOT_HEAD:  p = "頭にかぶっている"; break;
 #else
-		case ITEM_SLOT_HEAD:  p = "wearing on your head"; break;
+		case INVEN_SLOT_HEAD:  p = "wearing on your head"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_ARMS: p = "手につけている"; break;
+		case INVEN_SLOT_ARMS: p = "手につけている"; break;
 #else
-		case ITEM_SLOT_ARMS: p = "wearing on your hands"; break;
+		case INVEN_SLOT_ARMS: p = "wearing on your hands"; break;
 #endif
 
 #ifdef JP
-		case ITEM_SLOT_FEET:  p = "足にはいている"; break;
+		case INVEN_SLOT_FEET:  p = "足にはいている"; break;
 #else
-		case ITEM_SLOT_FEET:  p = "wearing on your feet"; break;
+		case INVEN_SLOT_FEET:  p = "wearing on your feet"; break;
 #endif
 
 #ifdef JP
@@ -4423,7 +4423,7 @@ void display_equip(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING : item_tester_okay(p_ptr, o_ptr, NULL))
+		if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING : item_tester_okay(p_ptr, o_ptr, NULL))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(p_ptr, i);
@@ -5114,7 +5114,7 @@ static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_ty
 	/* Illegal items */
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE);
 
-	if (select_ring_slot) return GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING;
+	if (select_ring_slot) return GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING;
 
 	/* Verify the item */
 	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook)) return (FALSE);
@@ -5361,7 +5361,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if(!cr_ptr->equip_now[j]) continue;
-			if(select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, j) == ITEM_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+			if(select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, j) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
@@ -6432,7 +6432,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (!cr_ptr->equip_now[j]) continue; // Skip no equipment
-			if (select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, j) == ITEM_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+			if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, j) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}

@@ -2380,7 +2380,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		cr_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_ARMS, 1);
+		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_ARMS, 1);
 
 		/* Examine the gloves */
 		object_flags(o_ptr, flgs);
@@ -3264,8 +3264,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
 
-	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0) cr_ptr->migite = TRUE;
-	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
+	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) cr_ptr->migite = TRUE;
+	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 	{
 		cr_ptr->hidarite = TRUE;
 		if (!cr_ptr->migite) default_hand = 1;
@@ -3727,7 +3727,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		// Skip no equip
 		if (!cr_ptr->equip_now[i]) continue;
 
-		slot = GET_ITEM_SLOT_TYPE(cr_ptr, i);
+		slot = GET_INVEN_SLOT_TYPE(cr_ptr, i);
 
 		o_ptr = &cr_ptr->inventory[i];
 		/* Skip non-objects */
@@ -3955,10 +3955,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if (slot == ITEM_SLOT_HAND && get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > i) continue;
+		if (slot == INVEN_SLOT_HAND && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > i) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
-		if (slot == ITEM_SLOT_BOW) continue;
+		if (slot == INVEN_SLOT_BOW) continue;
 
 		bonus_to_h = o_ptr->to_h;
 		bonus_to_d = o_ptr->to_d;
@@ -4036,32 +4036,32 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(cr_ptr))
 	{
 		/* TODO Monks get extra ac for armour _not worn_
-		if (!(cr_ptr->inventory[ITEM_SLOT_BODY].k_idx))
+		if (!(cr_ptr->inventory[INVEN_SLOT_BODY].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
 			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
 		}
-		if (!(cr_ptr->inventory[ITEM_SLOT_OUTER].k_idx) && (cr_ptr->lev > 15))
+		if (!(cr_ptr->inventory[INVEN_SLOT_OUTER].k_idx) && (cr_ptr->lev > 15))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
 		}
-		if (!(cr_ptr->inventory[ITEM_SLOT_2NDARM].k_idx) && (cr_ptr->lev > 10))
+		if (!(cr_ptr->inventory[INVEN_SLOT_2NDARM].k_idx) && (cr_ptr->lev > 10))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
 		}
-		if (!(cr_ptr->inventory[ITEM_SLOT_1STHEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(cr_ptr->inventory[INVEN_SLOT_1STHEAD].k_idx) && (cr_ptr->lev > 4))
 		{
 			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
 			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
 		}
-		if (!(cr_ptr->inventory[ITEM_SLOT_1STHANDS].k_idx))
+		if (!(cr_ptr->inventory[INVEN_SLOT_1STHANDS].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 2);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 2);
 		}
-		if (!(cr_ptr->inventory[ITEM_SLOT_FEET].k_idx))
+		if (!(cr_ptr->inventory[INVEN_SLOT_FEET].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 3);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 3);
@@ -4489,7 +4489,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	//TODO: adjust
 	/*
-	if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 1)
+	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 	{
 		int penalty1, penalty2;
 		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
@@ -4611,7 +4611,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	// Examine the "current bow"
-	o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
 
 	if(o_ptr->k_idx)
 	{
@@ -4730,7 +4730,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->icky_wield[i] = FALSE;
 		cr_ptr->riding_wield[i] = FALSE;
 
-		if (!(get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > i)) {cr_ptr->num_blow[i]=1;continue;}
+		if (!(get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > i)) {cr_ptr->num_blow[i]=1;continue;}
 		/* It is hard to hold a heavy weapon */
 		if (hold < o_ptr->weight / 10)
 		{
@@ -5022,7 +5022,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND))
+				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 					cr_ptr->riding_ryoute = TRUE;
 				break;
 			}
@@ -5138,7 +5138,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for (i = 0; i < 2; i++)
 	{
-		if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
+		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 		{
 			int tval = cr_ptr->inventory[INVEN_1STARM+i].tval - TV_WEAPON_BEGIN;
 			int sval = cr_ptr->inventory[INVEN_1STARM+i].sval;
@@ -5400,7 +5400,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_BOW, 1)->k_idx)
+		else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("この弓なら装備していても辛くない。");
@@ -5438,7 +5438,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら装備していても辛くない。");
@@ -5492,7 +5492,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら乗馬中にぴったりだ。");
@@ -5517,7 +5517,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if(message) msg_print("You do not feel comfortable with your weapon.");
 #endif
 			}
-			else if (get_equipped_slot_num(cr_ptr, ITEM_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("今の装備は自分にふさわしい気がする。");

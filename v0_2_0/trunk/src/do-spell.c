@@ -10912,8 +10912,8 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int damage;
 	
-				if (!get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, i+1)) break;
-				o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, i+1);
+				if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)) break;
+				o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -11266,8 +11266,8 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if (!get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, i+1)) break;
-				o_ptr = get_equipped_slot_ptr(cr_ptr, ITEM_SLOT_HAND, i+1);
+				if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)) break;
+				o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);

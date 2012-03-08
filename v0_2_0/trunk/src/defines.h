@@ -213,20 +213,20 @@
 #define MAX_SEXES            4
 
 
-#define ITEM_SLOT_INVENTORY  0
-#define ITEM_SLOT_HAND       1
-#define ITEM_SLOT_BOW        2
-#define ITEM_SLOT_AMMO       3
-#define ITEM_SLOT_RING       4
-#define ITEM_SLOT_AMULET     5
-#define ITEM_SLOT_BODY       6
-#define ITEM_SLOT_OUTER      7
-#define ITEM_SLOT_HEAD       8
-#define ITEM_SLOT_ARMS       9
-#define ITEM_SLOT_FEET       10
-#define ITEM_SLOT_INSTRUMENT 11
-#define ITEM_SLOT_LITE       12
-#define ITEM_SLOT_TAIL       13
+#define INVEN_SLOT_INVENTORY  0
+#define INVEN_SLOT_HAND       1
+#define INVEN_SLOT_BOW        2
+#define INVEN_SLOT_AMMO       3
+#define INVEN_SLOT_RING       4
+#define INVEN_SLOT_AMULET     5
+#define INVEN_SLOT_BODY       6
+#define INVEN_SLOT_OUTER      7
+#define INVEN_SLOT_HEAD       8
+#define INVEN_SLOT_ARMS       9
+#define INVEN_SLOT_FEET       10
+#define INVEN_SLOT_INSTRUMENT 11
+#define INVEN_SLOT_LITE       12
+#define INVEN_SLOT_TAIL       13
 
 #define MAX_ITEM_SLOT       14
 
@@ -6026,7 +6026,7 @@ extern int PlayerUID;
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
 
 
-#define GET_ITEM_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
+#define GET_INVEN_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
 
 #define WIELD_SLOT(O) (k_info[(O)->k_idx].slot)
 
