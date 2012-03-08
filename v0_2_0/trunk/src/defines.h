@@ -750,19 +750,8 @@
 
 #define INVEN_1STARM     24
 #define INVEN_2NDARM     25
-#define INVEN_3RDARM     26
-#define INVEN_4THARM     27
-#define INVEN_5THARM     28
-#define INVEN_6THARM     29
-#define INVEN_BOW        30
-#define INVEN_AMMO       31
 #define INVEN_RIGHT      32
 #define INVEN_LEFT       33
-#define INVEN_NECK       34
-#define INVEN_1STHEAD    39
-#define INVEN_2NDHEAD    40
-#define INVEN_3RDHEAD    41
-#define INVEN_1STHANDS   42
 
 /*
  * Total number of inventory slots (hard-coded).
