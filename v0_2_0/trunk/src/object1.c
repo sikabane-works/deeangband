@@ -4013,15 +4013,8 @@ s16b label_to_item(creature_type *cr_ptr, int c)
 	return (i);
 }
 
-
 /* See cmd5.c */
 extern bool select_ring_slot;
-
-
-static bool is_ring_slot(int i)
-{
-	return (i == INVEN_RIGHT) || (i == INVEN_LEFT);
-}
 
 /*
  * Return a string mentioning how a given item is carried
@@ -4430,7 +4423,7 @@ void display_equip(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (select_ring_slot ? is_ring_slot(i) : item_tester_okay(p_ptr, o_ptr, NULL))
+		if (select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING : item_tester_okay(p_ptr, o_ptr, NULL))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(p_ptr, i);
@@ -5121,7 +5114,7 @@ static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_ty
 	/* Illegal items */
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE);
 
-	if (select_ring_slot) return is_ring_slot(i);
+	if (select_ring_slot) return GET_ITEM_SLOT_TYPE(cr_ptr, i) == ITEM_SLOT_RING;
 
 	/* Verify the item */
 	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook)) return (FALSE);
@@ -5368,7 +5361,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if(!cr_ptr->equip_now[j]) continue;
-			if(select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+			if(select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, j) == ITEM_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
@@ -6439,7 +6432,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (!cr_ptr->equip_now[j]) continue; // Skip no equipment
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+			if (select_ring_slot ? GET_ITEM_SLOT_TYPE(cr_ptr, j) == ITEM_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
