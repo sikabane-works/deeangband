@@ -3264,7 +3264,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if (one_in_(999) && !cr_ptr->anti_magic)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[INVEN_LITE];
+		object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
 
 		if (o_ptr->name1 == ART_JUDGE)
 		{

@@ -1178,7 +1178,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 				case RBE_EAT_LITE:
 				{
 					/* Access the lite */
-					o_ptr = &target_ptr->inventory[INVEN_LITE];
+					o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 1);
 
 					/* Take some damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);

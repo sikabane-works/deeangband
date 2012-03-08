@@ -2761,7 +2761,7 @@ static void calc_torch(creature_type *cr_ptr)
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Examine actual lites */
-		if ((i == INVEN_LITE) && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
+		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_LITE && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
 		{
 			if (o_ptr->name2 == EGO_LITE_DARKNESS)
 			{

@@ -1259,7 +1259,7 @@ msg_print("‘Ì‚ª‚Ë‚¶‚êŽn‚ß‚½...");
 void phlogiston(creature_type *cr_ptr)
 {
 	int max_flog = 0;
-	object_type * o_ptr = &cr_ptr->inventory[INVEN_LITE];
+	object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
 
 	/* It's a lamp */
 	if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_LANTERN))
