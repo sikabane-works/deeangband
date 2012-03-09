@@ -2133,12 +2133,8 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	{
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
-			int n = 1;
+			int n = count_melee_slot(atk_ptr);
 
-			if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
-			{
-				n *= 2;
-			}
 			if (mode == HISSATSU_3DAN)
 			{
 				n *= 2;
@@ -2711,7 +2707,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				*mdeath = TRUE;
 				if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
 				{
-					if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
+					if (count_melee_slot(atk_ptr) >= 2)
 					{
 						if (hand) energy_use = energy_use*3/5+energy_use*num*2/(atk_ptr->num_blow[hand]*5);
 						else energy_use = energy_use*num*3/(atk_ptr->num_blow[hand]*5);
@@ -3098,7 +3094,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	energy_use = 100;
 
-	if (!atk_ptr->can_melee[0] && !atk_ptr->can_melee[1])
+	if (!count_melee_slot(atk_ptr))
 	    //TODO !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
 	{
 #ifdef JP
@@ -3236,7 +3232,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 
-	if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
+	if (count_melee_slot(atk_ptr))
 	{
 		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < s_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
 		{
