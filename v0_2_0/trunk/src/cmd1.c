@@ -2134,12 +2134,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
 			int n = count_melee_slot(atk_ptr);
-
-			if (mode == HISSATSU_3DAN)
-			{
-				n *= 2;
-			}
-
+			if (mode == HISSATSU_3DAN) n *= 2;
 			success_hit = one_in_(n);
 		}
 		else if ((atk_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;

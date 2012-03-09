@@ -6080,15 +6080,16 @@ void handle_stuff(creature_type *cr_ptr)
 
 s16b empty_hands(creature_type *cr_ptr, bool riding_control)
 {
-	s16b status = EMPTY_HAND_NONE;
+	s16b status = 0x0000, least_zero_bit;
+	int i;
 
-	if (!cr_ptr->inventory[INVEN_1STARM].k_idx) status |= EMPTY_HAND_RARM;
-	if (!cr_ptr->inventory[INVEN_2NDARM].k_idx) status |= EMPTY_HAND_LARM;
+	for(i = 0; i < MAX_HANDS; i++)
+		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i)) status |= 0x0001 << i;
 
-	if (riding_control && (status != EMPTY_HAND_NONE) && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))
+	if (riding_control && status && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))
 	{
-		if (status & EMPTY_HAND_LARM) status &= ~(EMPTY_HAND_LARM);
-		else if (status & EMPTY_HAND_RARM) status &= ~(EMPTY_HAND_RARM);
+		least_zero_bit = ~status & -(~status);
+		status |= least_zero_bit;
 	}
 
 	return status;
