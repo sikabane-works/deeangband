@@ -2394,4 +2394,10 @@ int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 	return -1;
 }
 
-
+int count_melee_slot(creature_type *creature_ptr)
+{
+	int i, n = 0;
+	for(i = 0; i < MAX_HANDS; i++)
+		if(creature_ptr->can_melee) n++;
+	return n;
+}
