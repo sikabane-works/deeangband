@@ -3084,8 +3084,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	for(i = 0; i < INVEN_TOTAL; i++)
 		cr_ptr->two_handed[i] = -1;
 
-	cr_ptr->migite = FALSE;
-	cr_ptr->hidarite = FALSE;
+	cr_ptr->can_melee[0] = FALSE;
+	cr_ptr->can_melee[1] = FALSE;
 	cr_ptr->no_flowed = FALSE;
 
 	for(i = 0; i < STAT_MAX; i++)
@@ -3266,21 +3266,21 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
 
-	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) cr_ptr->migite = TRUE;
+	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) cr_ptr->can_melee[0] = TRUE;
 	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 	{
-		cr_ptr->hidarite = TRUE;
-		if (!cr_ptr->migite) default_hand = 1;
+		cr_ptr->can_melee[1] = TRUE;
+		if (!cr_ptr->can_melee[0]) default_hand = 1;
 	}
 
 	if (CAN_TWO_HANDS_WIELDING(cr_ptr))
 	{
-		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
+		if (cr_ptr->can_melee[0] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]))
 		{
 			//TODO cr_ptr->two_handed = TRUE;
 		}
-		else if (cr_ptr->hidarite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
+		else if (cr_ptr->can_melee[1] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
 		{
 			//TODO cr_ptr->two_handed = TRUE;
@@ -3294,7 +3294,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_BERSERKER:
 				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
-					cr_ptr->migite = TRUE;
+					cr_ptr->can_melee[0] = TRUE;
 					// TODO cr_ptr->two_handed = TRUE;
 				}
 				break;
@@ -3302,12 +3302,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if (!cr_ptr->migite && !cr_ptr->hidarite)
+	if (!cr_ptr->can_melee[0] && !cr_ptr->can_melee[1])
 	{
-		if (empty_hands_status & EMPTY_HAND_RARM) cr_ptr->migite = TRUE;
+		if (empty_hands_status & EMPTY_HAND_RARM) cr_ptr->can_melee[0] = TRUE;
 		else if (empty_hands_status == EMPTY_HAND_LARM)
 		{
-			cr_ptr->hidarite = TRUE;
+			cr_ptr->can_melee[1] = TRUE;
 			default_hand = 1;
 		}
 	}
@@ -3392,8 +3392,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				new_speed -= (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
 			}
-			else if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->migite) &&
-			         (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->hidarite))
+			else if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
+			         (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
 			{
 				new_speed += 3;
 				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
@@ -3406,8 +3406,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if  (cr_ptr->lev > 24)
 					cr_ptr->free_act = TRUE;
 			}
-			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->migite) &&
-			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->hidarite))
+			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
+			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
 			{
 				cr_ptr->to_a += cr_ptr->lev/2+5;
 				cr_ptr->dis_to_a += cr_ptr->lev/2+5;
@@ -3995,7 +3995,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				cr_ptr->dis_to_d[i-INVEN_RIGHT] += bonus_to_d;
 			}
 		}
-		else if (cr_ptr->migite && cr_ptr->hidarite)
+		else if (cr_ptr->can_melee[0] && cr_ptr->can_melee[1])
 		{
 			/* Apply the bonuses to hit/damage */
 			cr_ptr->to_h[0] += (bonus_to_h > 0) ? (bonus_to_h+1)/2 : bonus_to_h;
@@ -4480,8 +4480,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->special_defense & KAMAE_SUZAKU) new_speed += 10;
 
-	if ((cr_ptr->migite && (empty_hands_status & EMPTY_HAND_RARM)) ||
-	    (cr_ptr->hidarite && (empty_hands_status & EMPTY_HAND_LARM)))
+	if ((cr_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
+	    (cr_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
 	{
 		cr_ptr->to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
 		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
@@ -4929,7 +4929,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->to_d[i] += cr_ptr->lev/6;
 			cr_ptr->dis_to_h[i] += cr_ptr->lev/5;
 			cr_ptr->dis_to_d[i] += cr_ptr->lev/6;
-			if (((i == 0) && !cr_ptr->hidarite) || cr_ptr->two_handed)
+			if (((i == 0) && !cr_ptr->can_melee[1]) || cr_ptr->two_handed)
 			{
 				cr_ptr->to_h[i] += cr_ptr->lev/5;
 				cr_ptr->to_d[i] += cr_ptr->lev/6;
@@ -5047,7 +5047,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Different calculation for monks with empty hands */
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) &&
-		(empty_hands_status & EMPTY_HAND_RARM) && !cr_ptr->hidarite)
+		(empty_hands_status & EMPTY_HAND_RARM) && !cr_ptr->can_melee[1])
 	{
 		int blow_base = cr_ptr->lev + adj_dex_blow[cr_ptr->stat_ind[STAT_DEX]];
 		cr_ptr->num_blow[0] = 0;

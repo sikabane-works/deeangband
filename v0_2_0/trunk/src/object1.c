@@ -4031,7 +4031,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 			p = cr_ptr->heavy_wield[0] ? "‰^”À’†" : "  Žè"; break;
 #else
 		case INVEN_SLOT_HAND:
-			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->migite ? "Wielding" : "On arm"); break;
+			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
@@ -4155,16 +4155,16 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->migite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->can_melee[0]) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 			/*
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->hidarite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((cr_ptr->two_handed && cr_ptr->can_melee[1]) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
-		case INVEN_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->can_melee[1] ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 		*/
@@ -4436,7 +4436,7 @@ void display_equip(creature_type *cr_ptr)
 		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->two_handed)
+		if ((((i == INVEN_1STARM) && cr_ptr->can_melee[1]) || ((i == INVEN_2NDARM) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
 		{
 #ifdef JP
 			strcpy(o_name, "(•Ší‚ð—¼ŽèŽ‚¿)");
@@ -5372,11 +5372,11 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 
 	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
-		if (cr_ptr->migite)
+		if (cr_ptr->can_melee[0])
 		{
 			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (cr_ptr->hidarite) e1 = INVEN_1STARM;
+		else if (cr_ptr->can_melee[1]) e1 = INVEN_1STARM;
 	}
 
 
@@ -6443,11 +6443,11 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
-		if (cr_ptr->migite)
+		if (cr_ptr->can_melee[0])
 		{
 			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (cr_ptr->hidarite) e1 = INVEN_1STARM;
+		else if (cr_ptr->can_melee[1]) e1 = INVEN_1STARM;
 	}
 
 

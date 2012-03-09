@@ -2135,7 +2135,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 		{
 			int n = 1;
 
-			if (atk_ptr->migite && atk_ptr->hidarite)
+			if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
 			{
 				n *= 2;
 			}
@@ -2711,7 +2711,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				*mdeath = TRUE;
 				if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
 				{
-					if (atk_ptr->migite && atk_ptr->hidarite)
+					if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
 					{
 						if (hand) energy_use = energy_use*3/5+energy_use*num*2/(atk_ptr->num_blow[hand]*5);
 						else energy_use = energy_use*num*3/(atk_ptr->num_blow[hand]*5);
@@ -3098,7 +3098,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	energy_use = 100;
 
-	if (!atk_ptr->migite && !atk_ptr->hidarite)
+	if (!atk_ptr->can_melee[0] && !atk_ptr->can_melee[1])
 	    //TODO !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
 	{
 #ifdef JP
@@ -3236,7 +3236,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 
-	if (atk_ptr->migite && atk_ptr->hidarite)
+	if (atk_ptr->can_melee[0] && atk_ptr->can_melee[1])
 	{
 		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < s_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
 		{
@@ -3286,8 +3286,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-//TODO		if (atk_ptr->migite) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-//			if (atk_ptr->hidarite && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+//TODO		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+//			if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{

@@ -1858,12 +1858,12 @@ static void display_player_middle(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, "Type    (Hit ,Dam )  Num  ExpV", 10, 1);
 #endif
 
-	if (creature_ptr->migite)
+	if (creature_ptr->can_melee[0])
 	{
 		display_player_melee_bonus(creature_ptr, 0, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
 	}
 
-	if (creature_ptr->hidarite)
+	if (creature_ptr->can_melee[1])
 	{
 		display_player_melee_bonus(creature_ptr, 1, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
 	}
@@ -2353,8 +2353,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			add_flag(flgs, TR_SPEED);
 		else
 		{
-			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->migite) &&
-			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->hidarite))
+			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
+			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
 				add_flag(flgs, TR_SPEED);
 			if (cr_ptr->lev>24)
 				add_flag(flgs, TR_FREE_ACT);
@@ -5291,7 +5291,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 			if(!cr_ptr->equip_now[i]) continue;
 
 			object_desc(o_name, &cr_ptr->inventory[i], 0);
-			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->two_handed)
+			if ((((i == INVEN_1STARM) && cr_ptr->can_melee[1]) || ((i == INVEN_2NDARM) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
 #ifdef JP
 				strcpy(o_name, "(•Ší‚ğ—¼è‚¿)");
 #else

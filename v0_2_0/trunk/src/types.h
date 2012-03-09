@@ -1557,8 +1557,7 @@ struct creature_type
 	s16b to_m_chance;		/* Minusses to cast chance */
 
 	byte two_handed[INVEN_TOTAL];      /* each Two-handed slot */
-	bool migite;
-	bool hidarite;
+	bool can_melee[MAX_HANDS];
 	bool no_flowed;
 
 	s16b ac;			/* Base ac */
