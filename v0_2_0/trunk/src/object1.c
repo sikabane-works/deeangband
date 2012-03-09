@@ -4160,14 +4160,6 @@ cptr describe_use(creature_type *cr_ptr, int i)
 		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
-			/*
-#ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->two_handed && cr_ptr->can_melee[1]) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
-#else
-		case INVEN_SLOT_HAND::  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->can_melee[1] ? "attacking monsters with" : "wearing on your arm"); break;
-#endif
-
-		*/
 #ifdef JP
 		case INVEN_SLOT_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
 #else
@@ -4179,13 +4171,6 @@ cptr describe_use(creature_type *cr_ptr, int i)
 #else
 		case INVEN_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
-/*
-#ifdef JP
-		case INVEN_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
-#else
-		case INVEN_SLOT_RING:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
-#endif
-		*/
 
 #ifdef JP
 		case INVEN_SLOT_AMULET:  p = "首にかけている"; break;
@@ -4948,6 +4933,8 @@ int show_item_slot(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 		/* Display the entry itself */
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col);
+
+		c_put_str(out_color[j], mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, j)) , j + 1, cur_col);
 
 		/* Display the weight if needed */
 		if (show_weights)
