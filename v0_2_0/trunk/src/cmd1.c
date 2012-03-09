@@ -3093,7 +3093,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	    //TODO !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
 	{
 #ifdef JP
-		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(atk_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(atk_ptr, FALSE)) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
 #else
 		msg_print("You cannot do attacking.");
 #endif

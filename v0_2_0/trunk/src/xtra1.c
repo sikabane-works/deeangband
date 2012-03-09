@@ -6084,12 +6084,12 @@ s16b empty_hands(creature_type *cr_ptr, bool riding_control)
 	int i;
 
 	for(i = 0; i < MAX_HANDS; i++)
-		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i)) status |= 0x0001 << i;
+		if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i)->k_idx) status |= 0x0001 << i;
 
 	if (riding_control && status && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))
 	{
 		least_zero_bit = ~status & -(~status);
-		status |= least_zero_bit;
+		status &= ~least_zero_bit;
 	}
 
 	return status;
