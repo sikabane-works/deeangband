@@ -74,9 +74,11 @@ void creature_knowledge(creature_type *creature_ptr)
 	info[i++] = "";
 
 	/* Acquire item flags from equipment */
-	for (k = INVEN_1STARM; k < INVEN_TOTAL; k++)
+	for (k = 0; k < INVEN_TOTAL; k++)
 	{
 		u32b tflgs[TR_FLAG_SIZE];
+
+		if(!creature_ptr->equip_now[k]) continue;
 
 		o_ptr = &creature_ptr->inventory[k];
 
