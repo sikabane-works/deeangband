@@ -2847,7 +2847,6 @@ info[i++] = "‚ ‚È‚½‚ÌUŒ‚‘¬“x‚Í‘•”õ‚É‚æ‚Á‚Ä‰e‹¿‚ðŽó‚¯‚Ä‚¢‚éB";
 
 	}
 
-
 	/* Access the current weapon */
 	o_ptr = &creature_ptr->inventory[INVEN_1STARM];
 
