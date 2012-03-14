@@ -1994,6 +1994,8 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	o_ptr->dd = k_ptr->dd;
 	o_ptr->ds = k_ptr->ds;
 
+	o_ptr->weight = k_ptr->weight;
+
 	/* Hack -- worthless items are always "broken" */
 	if (k_info[o_ptr->k_idx].cost <= 0) o_ptr->ident |= (IDENT_BROKEN);
 
@@ -3653,7 +3655,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		o_ptr->to_d = a_ptr->to_d;
 		ave = a_ptr->size_lower + a_ptr->size_upper;
 		//TODO adjust weight if(o_ptr->fitting_size) o_ptr->weight = a_ptr->weight * ave / 5 * ave / 5;
-		//else o_ptr->weight = a_ptr->weight;
+		o_ptr->weight = a_ptr->weight;
 
 		/* Hack -- extract the "broken" flag */
 		if (!a_ptr->cost) o_ptr->ident |= (IDENT_BROKEN);
