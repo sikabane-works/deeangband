@@ -1018,7 +1018,7 @@ bool item_tester_no_two_handed = FALSE;
 
 /*
  * Here is a "pseudo-hook" used during calls to "get_item()" and
- * "show_item_slot()" and "show_item_slot()", and the choice window routines.
+ * "show_item_list()" and "show_item_list()", and the choice window routines.
  */
 byte item_tester_tval;
 

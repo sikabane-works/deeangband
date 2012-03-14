@@ -4222,14 +4222,14 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	else if (mode == 2)
 	{
 		/* Display the inventory */
-		(void)show_item_slot(0, cr_ptr, SHOW_ITEM_INVENTORY, NULL);		
+		(void)show_item_list(0, cr_ptr, SHOW_ITEM_INVENTORY, NULL);		
 	}
 
 	else if (mode == 3)
 	{
 		/* Display the inventory */
 
-		(void)show_item_slot(0, cr_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
+		(void)show_item_list(0, cr_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
 	}
 
 	/* Special */
@@ -7276,7 +7276,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_item_slot(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
 #ifdef JP
 prt("装備していたアイテム: -続く-", 0, 0);
 #else
@@ -7291,7 +7291,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_item_slot(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
 #ifdef JP
 prt("持っていたアイテム: -続く-", 0, 0);
 #else
