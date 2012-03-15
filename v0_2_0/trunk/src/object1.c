@@ -6348,8 +6348,8 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(cr_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
+				if (!get_tag(cr_ptr, &k, prev_tag, cr_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if (!cr_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(cr_ptr, k, hook)) /* Reject */;
 				else
 				{

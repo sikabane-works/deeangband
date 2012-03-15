@@ -5383,6 +5383,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 		// Access original object
 		o_ptr = &cr_ptr->inventory[item];
 	}
+
 	*/
 
 
