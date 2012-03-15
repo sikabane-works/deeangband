@@ -5281,8 +5281,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	object_desc(o_name, q_ptr, 0);
 
 	/* Took off weapon */
-	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND &&
-	    object_is_melee_weapon(cr_ptr, o_ptr))
+	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -5370,15 +5369,17 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	if (amt > o_ptr->number) amt = o_ptr->number;
 
 
-	/* Take off equipment */
+	// Take off equipment
+	/*
 	if (cr_ptr->equip_now[item])
 	{
-		/* Take off first */
+		// Take off first
 		item = inven_takeoff(cr_ptr, item, amt);
 
-		/* Access original object */
+		// Access original object
 		o_ptr = &cr_ptr->inventory[item];
 	}
+	*/
 
 
 	/* Get local object */
