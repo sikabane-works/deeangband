@@ -4452,10 +4452,10 @@ void display_equip(creature_type *cr_ptr)
 		}
 
 		/* Display the entry itself */
-		Term_putstr(3, i - INVEN_1STARM, n, attr, o_name);
+		Term_putstr(3, i, n, attr, o_name);
 
 		/* Erase the rest of the line */
-		Term_erase(3+n, i - INVEN_1STARM, 255);
+		Term_erase(3+n, i, 255);
 
 		/* Display the weight (if needed) */
 		if (show_weights)
@@ -4471,8 +4471,8 @@ void display_equip(creature_type *cr_ptr)
 		/* Display the slot description (if needed) */
 		if (show_labels)
 		{
-			Term_putstr(wid - 20, i - INVEN_1STARM, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(cr_ptr, i), i - INVEN_1STARM, wid - 15);
+			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
+			prt(mention_use(cr_ptr, i), i, wid - 15);
 		}
 	}
 

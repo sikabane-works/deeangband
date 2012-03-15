@@ -526,7 +526,7 @@ msg_print("クエストを達成した！");
 	//o_ptr = &cr_ptr->inventory[slot];
 
 	// Equip Flag
-	cr_ptr->equip_now[item] = 1;
+	cr_ptr->equip_now[slot] = 1;
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
