@@ -4033,6 +4033,14 @@ cptr mention_use(creature_type *cr_ptr, int i)
 	switch (GET_INVEN_SLOT_TYPE(cr_ptr, i))
 	{
 #ifdef JP
+		case INVEN_SLOT_INVENTORY:
+			p = " Š"; break;
+#else
+		case INVEN_SLOT_INVENTORY:
+			p = "In pack"; break;
+#endif
+
+#ifdef JP
 		case INVEN_SLOT_HAND:  
 			p = cr_ptr->heavy_wield[0] ? "‰^”À’†" : "  è"; break;
 #else
@@ -4134,14 +4142,6 @@ cptr mention_use(creature_type *cr_ptr, int i)
 #else
 		case INVEN_SLOT_TAIL:
 			p = "On tail"; break;
-#endif
-
-#ifdef JP
-		default:
-			p = " Š"; break;
-#else
-		default:
-			p = "In pack"; break;
 #endif
 	}
 
