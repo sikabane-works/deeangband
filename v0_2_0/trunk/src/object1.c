@@ -4025,7 +4025,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 	if(!cr_ptr->equip_now[i])
 	{
-		p = " ŠŽ";
+		p = "[ŠŽ]";
 		return p;
 	}
 
@@ -4938,7 +4938,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		/* Display the entry itself */
-		c_put_str(cr_ptr->equip_now[j] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, j)) , j + 1, cur_col);
+		c_put_str(cr_ptr->equip_now[j] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, j) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		/* Display the weight if needed */
