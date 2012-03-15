@@ -4023,8 +4023,14 @@ cptr mention_use(creature_type *cr_ptr, int i)
 {
 	cptr p;
 
+	if(!cr_ptr->equip_now[i])
+	{
+		p = " ŠŽ";
+		return p;
+	}
+
 	/* Examine the location */
-	switch (i)
+	switch (GET_INVEN_SLOT_TYPE(cr_ptr, i))
 	{
 #ifdef JP
 		case INVEN_SLOT_HAND:  
@@ -4932,7 +4938,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		/* Display the entry itself */
-		c_put_str(out_color[j], mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, j)) , j + 1, cur_col);
+		c_put_str(cr_ptr->equip_now[j] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, j)) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		/* Display the weight if needed */
@@ -6408,7 +6414,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 
 	/* Full equipment */
-	e1 = INVEN_1STARM;
+	e1 = 0;
 	e2 = INVEN_TOTAL - 1;
 
 	/* Forbid equipment */
