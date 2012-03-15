@@ -524,7 +524,9 @@ msg_print("クエストを達成した！");
 
 	// Access the wield slot
 	//o_ptr = &cr_ptr->inventory[slot];
-	cr_ptr->equip_now[slot] = 1;
+
+	// Equip Flag
+	cr_ptr->equip_now[item] = 1;
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
@@ -603,7 +605,6 @@ msg_print("クエストを達成した！");
 
 	/* Message */
 	msg_format(act, o_name, index_to_label(cr_ptr, slot));
-
 
 	/* Cursed! */
 	if (object_is_cursed(o_ptr))
