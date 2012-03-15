@@ -254,9 +254,12 @@ void do_cmd_wield(creature_type *cr_ptr)
 		o_ptr = &o_list[0 - item];
 	}
 
+	q_ptr = &forge;
 
 	/* Check the slot */
 	slot = WIELD_SLOT(o_ptr);
+
+#if 0
 
 	switch (o_ptr->tval)
 	{
@@ -524,19 +527,20 @@ msg_print("クエストを達成した！");
 
 	// Access the wield slot
 	//o_ptr = &cr_ptr->inventory[slot];
+#endif
 
 	// Equip Flag
-	cr_ptr->equip_now[slot] = 1;
+	cr_ptr->equip_now[item] = 1;
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
 	{
 		/* Take off existing item */
-		(void)inven_takeoff(cr_ptr, slot, 255);
+//		(void)inven_takeoff(cr_ptr, slot, 255);
 	}
 
 	/* Wear the new stuff */
-	object_copy(o_ptr, q_ptr);
+//	object_copy(o_ptr, q_ptr);
 
 	/* Player touches it */
 	o_ptr->marked |= OM_TOUCHED;
