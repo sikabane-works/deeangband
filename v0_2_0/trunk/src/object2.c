@@ -5247,6 +5247,9 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
  */
 s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 {
+	cr_ptr->equip_now[item] = 0;
+	return 0;
+	/*
 	int slot;
 
 	object_type forge;
@@ -5259,28 +5262,28 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	char o_name[MAX_NLEN];
 
 
-	/* Get the item to take off */
+	// Get the item to take off
 	o_ptr = &cr_ptr->inventory[item];
 
-	/* Paranoia */
+	// Paranoia
 	if (amt <= 0) return (-1);
 
-	/* Verify */
+	// Verify
 	if (amt > o_ptr->number) amt = o_ptr->number;
 
-	/* Get local object */
+	// Get local object
 	q_ptr = &forge;
 
-	/* Obtain a local object */
+	// Obtain a local object
 	object_copy(q_ptr, o_ptr);
 
-	/* Modify quantity */
+	// Modify quantity
 	q_ptr->number = amt;
 
-	/* Describe the object */
+	// Describe the object
 	object_desc(o_name, q_ptr, 0);
 
-	/* Took off weapon */
+	// Took off weapon
 	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 #ifdef JP
@@ -5291,7 +5294,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	}
 
-	/* Took off bow */
+	// Took off bow
 	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_BOW)
 	{
 #ifdef JP
@@ -5302,7 +5305,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	}
 
-	/* Took off light */
+	// Took off light
 	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_LITE)
 	{
 #ifdef JP
@@ -5313,7 +5316,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	}
 
-	/* Took off something */
+	// Took off something
 	else
 	{
 #ifdef JP
@@ -5324,14 +5327,14 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	}
 
-	/* Modify, Optimize */
+	// Modify, Optimize
 	inven_item_increase(cr_ptr, item, -amt);
 	inven_item_optimize(cr_ptr, item);
 
-	/* Carry the object */
+	// Carry the object
 	slot = inven_carry(cr_ptr, q_ptr);
 
-	/* Message */
+	// Message
 #ifdef JP
 	msg_format("%s(%c)%sÅB", o_name, index_to_label(cr_ptr, slot), act);
 #else
@@ -5339,8 +5342,9 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 #endif
 
 
-	/* Return slot */
+	// Return slot
 	return (slot);
+*/
 }
 
 
