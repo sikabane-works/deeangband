@@ -312,7 +312,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	case TV_POLEARM:
 	case TV_SWORD:
 		/* Asking for dual wielding */
-		if (slot == INVEN_2NDARM)
+		if (slot == INVEN_2)
 		{
 #ifdef JP
 			if (!get_check("“ñ“—¬‚Åí‚¢‚Ü‚·‚©H")) slot = INVEN_1;
@@ -321,7 +321,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 		}
 
-		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+		else if (!cr_ptr->inventory[INVEN_1].k_idx && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 		{
 #ifdef JP
 			if (!get_check("“ñ“—¬‚Åí‚¢‚Ü‚·‚©H")) slot = INVEN_2;
@@ -695,7 +695,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 	}
 	else if (item == INVEN_2NDARM)
 	{
-		o_ptr = &cr_ptr->inventory[INVEN_1STARM];
+		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
 		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) == 1)

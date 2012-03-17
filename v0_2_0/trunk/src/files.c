@@ -1785,7 +1785,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	}
 	else
 	{
-		o_ptr = &creature_ptr->inventory[INVEN_1STARM + hand];
+		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + hand);
 		/* Average damage per round */
 		if (o_ptr->k_idx)
 		{
