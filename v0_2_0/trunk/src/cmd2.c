@@ -4314,7 +4314,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 
 				if (boomerang)
 				{
-					tdam *= (mult+cr_ptr->num_blow[item - INVEN_1STARM]);
+					tdam *= (mult+cr_ptr->num_blow[item]);
 					tdam += cr_ptr->to_d_m;
 				}
 				else if (have_flag(flgs, TR_THROW))

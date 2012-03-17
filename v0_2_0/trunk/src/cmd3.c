@@ -283,10 +283,10 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 
 			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_melee_weapon)) return;
-			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
+			if (slot == INVEN_1) need_switch_wielding = INVEN_2;
 		}
 
-		else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) >= 2) slot = INVEN_1STARM;
+		else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) >= 2) slot = INVEN_1;
 
 		/* Both arms are already used by non-weapon */
 		else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx && !object_is_melee_weapon(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)) &&
@@ -315,18 +315,18 @@ void do_cmd_wield(creature_type *cr_ptr)
 		if (slot == INVEN_2NDARM)
 		{
 #ifdef JP
-			if (!get_check("二刀流で戦いますか？")) slot = INVEN_1STARM;
+			if (!get_check("二刀流で戦いますか？")) slot = INVEN_1;
 #else
-			if (!get_check("Dual wielding? ")) slot = INVEN_1STARM;
+			if (!get_check("Dual wielding? ")) slot = INVEN_1;
 #endif
 		}
 
 		else if (!cr_ptr->inventory[INVEN_1STARM].k_idx && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 		{
 #ifdef JP
-			if (!get_check("二刀流で戦いますか？")) slot = INVEN_2NDARM;
+			if (!get_check("二刀流で戦いますか？")) slot = INVEN_2;
 #else
-			if (!get_check("Dual wielding? ")) slot = INVEN_2NDARM;
+			if (!get_check("Dual wielding? ")) slot = INVEN_2;
 #endif
 		}
 
@@ -345,7 +345,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
 			if ((slot == INVEN_2NDARM) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
-				need_switch_wielding = INVEN_1STARM;
+				need_switch_wielding = INVEN_1;
 		}
 		break;
 
@@ -460,9 +460,9 @@ sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name)
 		object_copy(switch_o_ptr, slot_o_ptr);
 		object_copy(slot_o_ptr, otmcr_ptr);
 #ifdef JP
-		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_1STARM) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手" : "左手"));
+		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_1) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手" : "左手"));
 #else
-		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_1STARM) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "left" : "right") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "right" : "left"));
+		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_1) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "left" : "right") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "right" : "left"));
 #endif
 
 		slot = need_switch_wielding;
