@@ -1814,7 +1814,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	av_dam = blows * damage / 100 * show_activerate / 100;
 	show_blows = blows * show_activerate;
 
-	o_ptr = &creature_ptr->inventory[INVEN_1STARM + hand];
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + hand);
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
 	if (damage < 0) damage = 0;
 

@@ -1553,7 +1553,7 @@ static void check_music(creature_type *cr_ptr)
 static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 {
 	int i;
-	int choices[INVEN_TOTAL-INVEN_1STARM];
+	int choices[INVEN_TOTAL];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning-item */
