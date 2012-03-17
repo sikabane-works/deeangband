@@ -344,7 +344,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 #endif
 
 			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
-			if ((slot == INVEN_2NDARM) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+			if ((slot == INVEN_2) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 				need_switch_wielding = INVEN_1;
 		}
 		break;
@@ -570,14 +570,6 @@ msg_print("クエストを達成した！");
 		else
 			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_LARM : STR_WIELD_RARM);
 		break;
-/*
-	case INVEN_2NDARM:
-		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
-			act = STR_WIELD_ARMS;
-		else
-			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_RARM : STR_WIELD_LARM);
-		break;
-*/
 
 	case INVEN_SLOT_BOW:
 #ifdef JP
@@ -693,7 +685,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 			}
 		}
 	}
-	else if (item == INVEN_2NDARM)
+	else if (item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2))
 	{
 		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);

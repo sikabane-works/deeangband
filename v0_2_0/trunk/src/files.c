@@ -5291,7 +5291,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 			if(!cr_ptr->equip_now[i]) continue;
 
 			object_desc(o_name, &cr_ptr->inventory[i], 0);
-			if ((((i == INVEN_1STARM) && cr_ptr->can_melee[1]) || ((i == INVEN_2NDARM) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
+			if ((((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) && cr_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2)) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
 #ifdef JP
 				strcpy(o_name, "(•Ší‚ğ—¼è‚¿)");
 #else
