@@ -655,7 +655,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 	object_type *o_ptr, *new_o_ptr;
 	char o_name[MAX_NLEN];
 
-	if (item == INVEN_1STARM)
+	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && cr_ptr->equip_now[item] == 1)
 	{
 		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))
 		{
