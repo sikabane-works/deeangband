@@ -4427,20 +4427,8 @@ void display_equip(creature_type *cr_ptr)
 		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		if ((((i == INVEN_1STARM) && cr_ptr->can_melee[1]) || ((i == INVEN_2NDARM) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
-		{
-#ifdef JP
-			strcpy(o_name, "(•Ší‚ð—¼ŽèŽ‚¿)");
-#else
-			strcpy(o_name, "(wielding with two-hands)");
-#endif
-			attr = TERM_WHITE;
-		}
-		else
-		{
-			object_desc(o_name, o_ptr, 0);
-			attr = tval_to_attr[o_ptr->tval % 128];
-		}
+		object_desc(o_name, o_ptr, 0);
+		attr = tval_to_attr[o_ptr->tval % 128];
 
 		/* Obtain the length of the description */
 		n = strlen(o_name);
@@ -4465,7 +4453,7 @@ void display_equip(creature_type *cr_ptr)
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
 
-			prt(tmp_val, i - INVEN_1STARM, wid - (show_labels ? 28 : 10));
+			prt(tmp_val, i, wid - (show_labels ? 28 : 10));
 		}
 
 		/* Display the slot description (if needed) */
