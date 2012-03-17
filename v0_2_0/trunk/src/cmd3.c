@@ -709,7 +709,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		}
 		else if (!(empty_hands(cr_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
 		{
-			new_o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
+			new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
 			object_copy(new_o_ptr, o_ptr);
 			cr_ptr->total_weight += o_ptr->weight;
 			inven_item_increase(cr_ptr, INVEN_1STARM, -((int)o_ptr->number));
