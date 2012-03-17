@@ -2848,7 +2848,7 @@ info[i++] = "‚ ‚È‚½‚ÌUŒ‚‘¬“x‚Í‘•”õ‚É‚æ‚Á‚Ä‰e‹¿‚ðŽó‚¯‚Ä‚¢‚éB";
 	}
 
 	/* Access the current weapon */
-	o_ptr = &creature_ptr->inventory[INVEN_1STARM];
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 
 	/* Analyze the weapon */
 	if (o_ptr->k_idx)

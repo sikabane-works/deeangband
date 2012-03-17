@@ -4720,10 +4720,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->two_handed) hold *= 2;
 
-	for(i = 0 ; i < 2 ; i++)
+	for(i = 0 ; i < MAX_HANDS ; i++)
 	{
 		/* Examine the "main weapon" */
-		o_ptr = &cr_ptr->inventory[INVEN_1STARM+i];
+		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1 + i);
 
 		object_flags(o_ptr, flgs);
 

@@ -4673,7 +4673,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		}
 	}
 
-	if ((choice == 0) && (item >= INVEN_1STARM))
+	if ((choice == 0) && (cr_ptr->equip_now[item]))
 	{
 		calc_android_exp(cr_ptr);
 		kamaenaoshi(cr_ptr, item);
