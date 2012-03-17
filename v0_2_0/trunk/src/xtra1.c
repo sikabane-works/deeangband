@@ -3276,12 +3276,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (CAN_TWO_HANDS_WIELDING(cr_ptr))
 	{
 		if (cr_ptr->can_melee[0] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]))
+			object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)))
 		{
 			//TODO cr_ptr->two_handed = TRUE;
 		}
 		else if (cr_ptr->can_melee[1] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
+			object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)))
 		{
 			//TODO cr_ptr->two_handed = TRUE;
 		}
@@ -3392,8 +3392,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				new_speed -= (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
 			}
-			else if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
-			         (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
+			else if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
+			         (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
 			{
 				new_speed += 3;
 				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
