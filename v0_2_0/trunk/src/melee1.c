@@ -2104,7 +2104,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
 				if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && alive && !target_ptr->is_dead)
 				{
 					int dam = 1;
-					object_type *o_ptr = &target_ptr->inventory[INVEN_1STARM];
+					object_type *o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
 
 					if (!has_cf_creature(attacker_ptr, CF_RES_DARK))
 					{
