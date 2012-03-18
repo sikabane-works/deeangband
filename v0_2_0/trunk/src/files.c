@@ -2353,8 +2353,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			add_flag(flgs, TR_SPEED);
 		else
 		{
-			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
-			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
+			if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
 				add_flag(flgs, TR_SPEED);
 			if (cr_ptr->lev>24)
 				add_flag(flgs, TR_FREE_ACT);

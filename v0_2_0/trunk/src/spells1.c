@@ -2736,7 +2736,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			else if ((target_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (target_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
+			//TODO
+			else if ((get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1)->name1 == ART_ZANTETSU) ||
+				     (get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 2)->name2 == ART_ZANTETSU))
 			{
 #ifdef JP
 				msg_print("–î‚ğa‚èÌ‚Ä‚½I");
