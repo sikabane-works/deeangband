@@ -4804,7 +4804,8 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
 		if (!o_ptr->number && cr_ptr->ele_attack)
 		{
-			if ((item == INVEN_1STARM) || (item == INVEN_2NDARM))
+			if ((item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) ||
+				(item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2)))
 			{
 				if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
 				{
