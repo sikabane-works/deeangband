@@ -5160,7 +5160,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 			else if (cr_ptr->cls_idx == CLASS_NINJA)
 			{
-				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (cr_ptr->inventory[INVEN_2NDARM-i].tval == TV_SHIELD))
+				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
+					(cr_ptr->inventory[INVEN_2NDARM-i].tval == TV_SHIELD))
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;

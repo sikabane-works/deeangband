@@ -4646,10 +4646,10 @@ msg_print("「汝、武器に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thy weapon.'");
 #endif
 
-			dummy = INVEN_1STARM;
+			dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
 			if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 			{
-				dummy = INVEN_2NDARM;
+				dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
 				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
 			}
 			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
@@ -4721,10 +4721,10 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					if (one_in_(2))
 					{
 						if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) break;
-						dummy = INVEN_1STARM;
+						dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
 						if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 						{
-							dummy = INVEN_2NDARM;
+							dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
 							if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
 						}
 						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
@@ -4787,10 +4787,12 @@ msg_print("「死ぬがよい、下僕よ！」");
 
 				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 				{
-					dummy = INVEN_1STARM;
-					if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1 && one_in_(2)) dummy = INVEN_2NDARM;
+					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
+					if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1 && one_in_(2))
+						dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
 				}
-				else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1) dummy = INVEN_2NDARM;
+				else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
+					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
 
 				if (dummy) (void)curse_weapon(cr_ptr, FALSE, dummy);
 			}
