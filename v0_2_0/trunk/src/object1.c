@@ -4424,7 +4424,7 @@ void display_equip(creature_type *cr_ptr)
 		}
 
 		/* Display the index (or blank space) */
-		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
+		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
 		object_desc(o_name, o_ptr, 0);
@@ -7233,7 +7233,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 					}
 
 					/* Hack -- Validate the item */
-					if ((k < INVEN_1STARM) ? !inven : !equip)
+					if (!cr_ptr->equip_now[k] ? !inven : !equip)
 					{
 						bell();
 						break;
@@ -7366,7 +7366,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 					}
 
 					/* Hack -- Validate the item */
-					else if ((k < INVEN_1STARM) ? !inven : !equip)
+					else if (!cr_ptr->equip_now[k] ? !inven : !equip)
 					{
 						not_found = TRUE;
 					}

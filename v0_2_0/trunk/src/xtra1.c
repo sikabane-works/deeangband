@@ -3913,7 +3913,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (o_ptr->curse_flags & TRC_LOW_MELEE)
 		{
-			int slot = i - INVEN_1STARM;
+			int slot = i - 0; //TODO 
 			if (slot < 2)
 			{
 				if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
