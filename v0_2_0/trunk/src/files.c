@@ -2863,8 +2863,10 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	col += strlen(header) + 1;
 
 	/* Weapon flags need only two column */
-	if (mode & DP_WP) max_i = INVEN_2NDARM + 1;
-	else max_i = INVEN_TOTAL;
+	//TODO
+	//if (mode & DP_WP) max_i = INVEN_2 + 1;
+	//else max_i = INVEN_TOTAL;
+	max_i = INVEN_TOTAL;
 
 	/* Check equipment */
 	for (i = 0; i < max_i; i++)

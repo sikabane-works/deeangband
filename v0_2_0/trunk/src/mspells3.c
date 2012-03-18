@@ -84,8 +84,8 @@ static void learned_info(creature_type *cr_ptr, char *p, int power)
 		case MS_SHOOT:
 		{
 			object_type *o_ptr = NULL;
-			if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
-			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
+			if      (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
+			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)

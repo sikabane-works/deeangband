@@ -3406,8 +3406,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if  (cr_ptr->lev > 24)
 					cr_ptr->free_act = TRUE;
 			}
-			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->can_melee[0]) &&
-			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->can_melee[1]))
+			if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
 			{
 				cr_ptr->to_a += cr_ptr->lev/2+5;
 				cr_ptr->dis_to_a += cr_ptr->lev/2+5;
@@ -5161,7 +5161,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			else if (cr_ptr->cls_idx == CLASS_NINJA)
 			{
 				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
-					(cr_ptr->inventory[INVEN_2NDARM-i].tval == TV_SHIELD))
+					(get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;
