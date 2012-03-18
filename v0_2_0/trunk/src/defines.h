@@ -742,6 +742,8 @@
  * value is used as an actual slot, it must be less than "INVEN_1STARM" (below).
  * Note that "INVEN_TOTAL" is probably hard-coded by its use in savefiles, and
  * by the fact that the screen can only show 23 items plus a one-line prompt.
+
+ // TODO; this comment is too old.
  */
 
 /*

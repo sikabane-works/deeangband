@@ -4465,7 +4465,8 @@ void display_equip(creature_type *cr_ptr)
 	}
 
 	/* Erase the rest of the window */
-	for (i = INVEN_TOTAL - INVEN_1STARM; i < hgt; i++)
+	//TODO
+	for (i = INVEN_TOTAL; i < hgt; i++)
 	{
 		/* Clear that line */
 		Term_erase(0, i, 255);
@@ -5265,8 +5266,8 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(cr_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
+				if (!get_tag(cr_ptr, &k, prev_tag, cr_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if (!cr_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(cr_ptr, k, hook)) /* Reject */;
 				else
 				{

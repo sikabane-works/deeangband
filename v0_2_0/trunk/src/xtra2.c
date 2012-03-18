@@ -4650,7 +4650,8 @@ msg_print("「汝、武器に頼ることなかれ。」");
 			if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 			{
 				dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
-				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
+				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
+					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
 			}
 			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(cr_ptr, FALSE, dummy);
@@ -4725,7 +4726,8 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 						if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
 						{
 							dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
-							if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2)) dummy = INVEN_1STARM;
+							if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
+								dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
 						}
 						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(cr_ptr, FALSE, dummy);

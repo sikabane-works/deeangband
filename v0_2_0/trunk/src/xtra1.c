@@ -3441,7 +3441,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(IS_RACE(cr_ptr, RACE_ENT))
 		{
 			/* Ents dig like maniacs, but only with their hands. */
-			if (!cr_ptr->inventory[INVEN_1STARM].k_idx) 
+			if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx) 
 				cr_ptr->skill_dig += cr_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
 			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_STR]++;
@@ -3777,7 +3777,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- cause earthquakes */
-		if (have_flag(flgs, TR_IMPACT)) cr_ptr->impact[(i == INVEN_1STARM) ? 0 : 1] = TRUE;
+		if (have_flag(flgs, TR_IMPACT)) cr_ptr->impact[(i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
 
 		/* Boost shots */
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
@@ -5142,8 +5142,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
 		{
-			int tval = cr_ptr->inventory[INVEN_1STARM+i].tval - TV_WEAPON_BEGIN;
-			int sval = cr_ptr->inventory[INVEN_1STARM+i].sval;
+			int tval = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
+			int sval = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->sval;
 			int boost = (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 
 			cr_ptr->to_h[i] += boost > 0 ? boost : 0;
@@ -5171,7 +5171,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 			}
 
-			if (cr_ptr->inventory[INVEN_1STARM + i].name1 == ART_IRON_BALL) cr_ptr->good -= 1000;
+			if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) cr_ptr->good -= 1000;
 		}
 	}
 

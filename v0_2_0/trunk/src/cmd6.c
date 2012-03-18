@@ -1621,7 +1621,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 			k = 0;
 			if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1))
 			{
-				k = INVEN_1STARM;
+				k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
 				if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 2) && one_in_(2)) k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
 			}
 			else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 2)) k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
