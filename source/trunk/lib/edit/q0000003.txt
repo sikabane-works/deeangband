@@ -1,0 +1,29 @@
+# q0000003.txt
+
+# Name
+Q:$3:N:Logrus Master
+Q:3:N:ƒƒOƒ‹ƒXŽg‚¢
+
+# Definition
+Q:$3:Q:1:0:0:1:25:498:0:0:6
+Q:3:Q:1:0:0:1:25:498:0:0:6
+
+
+# Floor with Logrus Master
+F:a:FLOOR:8:498
+
+# Dungeon
+D:XXXXXXXXXXXXXXX
+D:X............>X
+D:X.........a...X
+D:X.............X
+D:X....XXXXXXXXXX
+D:X.............X
+D:X.............X
+D:X.............X
+D:X<............X
+D:XXXXXXXXXXXXXXX
+
+# Starting position
+P:8:10
+
