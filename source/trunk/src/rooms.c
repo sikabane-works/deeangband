@@ -2339,9 +2339,7 @@ static bool build_type5(void)
 
 	if (cheat_room && cheat_hear)
 	{
-		ang_sort_comp = ang_sort_comp_nest_mon_info;
-		ang_sort_swap = ang_sort_swap_nest_mon_info;
-		ang_sort(nest_mon_info, NULL, NUM_NEST_MON_TYPE);
+		ang_sort(nest_mon_info, NULL, NUM_NEST_MON_TYPE, ang_sort_comp_nest_mon_info, ang_sort_swap_nest_mon_info);
 
 		/* Dump the entries (prevent multi-printing) */
 		for (i = 0; i < NUM_NEST_MON_TYPE; i++)

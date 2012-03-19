@@ -1024,19 +1024,6 @@ byte item_tester_tval;
 
 
 /*
- * Current "comp" function for ang_sort()
- */
-bool (*ang_sort_comp)(vptr u, vptr v, int a, int b);
-
-
-/*
- * Current "swap" function for ang_sort()
- */
-void (*ang_sort_swap)(vptr u, vptr v, int a, int b);
-
-
-
-/*
  * Hack -- function hooks to restrict "get_mon_num_prep()" function
  */
 creature_hook_type get_mon_num_hook;

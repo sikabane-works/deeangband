@@ -2328,19 +2328,15 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 	/* Set the sort hooks */
 	if (mode & (TARGET_KILL))
 	{
-		/* Target the nearest monster for shooting */
-		ang_sort_comp = ang_sort_comp_distance;
-		ang_sort_swap = ang_sort_swap_distance;
+		/* Sort the positions */
+		ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_distance, ang_sort_swap_distance);
 	}
 	else
 	{
 		/* Look important grids first in Look command */
-		ang_sort_comp = ang_sort_comp_importance;
-		ang_sort_swap = ang_sort_swap_distance;
+		ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_importance, ang_sort_swap_distance);
 	}
 
-	/* Sort the positions */
-	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp, ang_sort_swap);
 
 	if (cr_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
 	{
@@ -5046,12 +5042,8 @@ static void tgt_pt_prepare(void)
 		}
 	}
 
-	/* Target the nearest monster for shooting */
-	ang_sort_comp = ang_sort_comp_distance;
-	ang_sort_swap = ang_sort_swap_distance;
-
 	/* Sort the positions */
-	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp, ang_sort_swap);
+	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_distance, ang_sort_swap_distance);
 }
 
 /*

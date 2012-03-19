@@ -5529,12 +5529,8 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 	/* Terminate the list */
 	mon_idx[mon_cnt] = -1;
 
-	/* Select the sort method */
-	ang_sort_comp = ang_sort_comp_creature_exp;
-	ang_sort_swap = ang_sort_swap_hook;
-
 	/* Sort by monster level */
-	ang_sort(mon_idx, &dummy_why, mon_cnt);
+	ang_sort(mon_idx, &dummy_why, mon_cnt, ang_sort_comp_creature_exp, ang_sort_swap_hook);
 
 	/* Return the number of races */
 	return mon_cnt;
@@ -6764,12 +6760,8 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		if (okay[k]) who[n++] = k;
 	}
 
-	/* Select the sort method */
-	ang_sort_comp = ang_sort_art_comp;
-	ang_sort_swap = ang_sort_art_swap;
-
 	/* Sort the array by dungeon depth of monsters */
-	ang_sort(who, &why, n);
+	ang_sort(who, &why, n, ang_sort_art_comp, ang_sort_art_swap);
 
 	/* Scan the artifacts */
 	for (k = 0; k < n; k++)
@@ -6916,12 +6908,8 @@ static void do_cmd_knowledge_uniques(void)
 		who[n++] = i;
 	}
 
-	/* Select the sort method */
-	ang_sort_comp = ang_sort_comp_hook;
-	ang_sort_swap = ang_sort_swap_hook;
-
 	/* Sort the array by dungeon depth of monsters */
-	ang_sort(who, &why, n);
+	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	if (n_alive_surface)
 	{
@@ -7511,12 +7499,8 @@ static void do_cmd_knowledge_kill_count(void)
 		if (r_ptr->name) who[n++] = i;
 	}
 
-	/* Select the sort method */
-	ang_sort_comp = ang_sort_comp_hook;
-	ang_sort_swap = ang_sort_swap_hook;
-
 	/* Sort the array by dungeon depth of monsters */
-	ang_sort(who, &why, n);
+	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	/* Scan the monster races */
 	for (k = 0; k < n; k++)
@@ -9920,9 +9904,7 @@ static void do_cmd_knowledge_quests(void)
 
 	/* Sort by compete level */
 	for (i = 1; i < max_quests; i++) quest_num[i] = i;
-	ang_sort_comp = ang_sort_comp_quest_num;
-	ang_sort_swap = ang_sort_swap_quest_num;
-	ang_sort(quest_num, &dummy, max_quests);
+	ang_sort(quest_num, &dummy, max_quests, ang_sort_comp_quest_num, ang_sort_swap_quest_num);
 
 	/* Dump Quest Information */
 	do_cmd_knowledge_quests_current(fff);
