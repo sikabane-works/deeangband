@@ -3985,14 +3985,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING && !cr_ptr->two_handed)
 		{
 			/* Apply the bonuses to hit/damage */
-			cr_ptr->to_h[i-INVEN_RIGHT] += bonus_to_h;
-			cr_ptr->to_d[i-INVEN_RIGHT] += bonus_to_d;
+			cr_ptr->to_h[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
+			cr_ptr->to_d[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
 
 			/* Apply the mental bonuses tp hit/damage, if known */
 			if (object_is_known(o_ptr))
 			{
-				cr_ptr->dis_to_h[i-INVEN_RIGHT] += bonus_to_h;
-				cr_ptr->dis_to_d[i-INVEN_RIGHT] += bonus_to_d;
+				cr_ptr->dis_to_h[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
+				cr_ptr->dis_to_d[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
 			}
 		}
 		else if (cr_ptr->can_melee[0] && cr_ptr->can_melee[1])
