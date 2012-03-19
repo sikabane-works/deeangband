@@ -546,7 +546,7 @@ msg_print("クエストを達成した！");
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Increase the weight */
-	cr_ptr->total_weight += q_ptr->weight;
+	//cr_ptr->total_weight += q_ptr->weight;
 
 	/* Increment the equip counter by hand */
 	cr_ptr->equip_cnt++;

@@ -752,8 +752,6 @@
 
 #define INVEN_1STARM     24
 #define INVEN_2NDARM     25
-#define INVEN_RIGHT      32
-#define INVEN_LEFT       33
 
 /*
  * Total number of inventory slots (hard-coded).
