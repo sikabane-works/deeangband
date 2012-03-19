@@ -435,7 +435,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+			calc_inventory_weight(cr_ptr);
 
 			/* One more item */
 			cr_ptr->equip_cnt++;
@@ -469,7 +469,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+			calc_inventory_weight(cr_ptr);
 
 			/* One more item */
 			cr_ptr->inven_cnt++;

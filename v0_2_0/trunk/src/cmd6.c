@@ -486,7 +486,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 
 			/* Unstack the used item */
 			o_ptr->number--;
-			cr_ptr->total_weight -= q_ptr->weight;
+			calc_inventory_weight(cr_ptr);
 			item = inven_carry(cr_ptr, q_ptr);
 
 			/* Message */
@@ -2773,7 +2773,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 		/* Unstack the used item */
 		o_ptr->number--;
-		cr_ptr->total_weight -= q_ptr->weight;
+		calc_inventory_weight(cr_ptr);
 		item = inven_carry(cr_ptr, q_ptr);
 
 		/* Message */

@@ -546,7 +546,7 @@ msg_print("クエストを達成した！");
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Increase the weight */
-	//cr_ptr->total_weight += q_ptr->weight;
+	calc_inventory_weight(cr_ptr);
 
 	/* Increment the equip counter by hand */
 	cr_ptr->equip_cnt++;
@@ -658,7 +658,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 			{
 				new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
-				cr_ptr->total_weight += o_ptr->weight;
+				calc_inventory_weight(cr_ptr);
 				inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2), -((int)o_ptr->number));
 				inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2));
 				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
@@ -703,7 +703,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		{
 			new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
 			object_copy(new_o_ptr, o_ptr);
-			cr_ptr->total_weight += o_ptr->weight;
+			calc_inventory_weight(cr_ptr);
 			inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1), -((int)o_ptr->number));
 			inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1));
 #ifdef JP

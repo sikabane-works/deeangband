@@ -4536,7 +4536,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			object_copy(o_ptr, q_ptr);
 
 			/* Increase the weight */
-			cr_ptr->total_weight += q_ptr->weight;
+			calc_inventory_weight(cr_ptr);
 
 			/* Increment the equip counter by hand */
 			cr_ptr->equip_cnt++;

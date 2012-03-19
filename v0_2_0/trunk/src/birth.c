@@ -2988,7 +2988,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	object_copy(o_ptr, i_ptr); 
  
 	/* Increase the weight */ 
-	creature_ptr->total_weight += i_ptr->weight; 
+	calc_inventory_weight(creature_ptr);
  
 	/* Increment the equip counter by hand */ 
 	creature_ptr->equip_cnt++;

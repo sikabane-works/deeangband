@@ -1303,8 +1303,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 		/* Recalcurate object's weight */
 		if (item >= 0)
 		{
-			cr_ptr->total_weight += (q_ptr->weight * q_ptr->number)
-				- (o_ptr->weight * o_ptr->number);
+			calc_inventory_weight(cr_ptr);
 		}
 
 		/* Change */
