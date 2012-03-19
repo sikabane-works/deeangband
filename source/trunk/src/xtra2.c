@@ -2309,14 +2309,14 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			cave_type *c_ptr;
 
 			/* Require "interesting" contents */
-			if (!target_set_accept(p_ptr, y, x)) continue;
+			if (!target_set_accept(cr_ptr, y, x)) continue;
 
 			c_ptr = &cave[y][x];
 
 			/* Require target_able monsters for "TARGET_KILL" */
-			if ((mode & (TARGET_KILL)) && !target_able(p_ptr, c_ptr->m_idx)) continue;
+			if ((mode & (TARGET_KILL)) && !target_able(cr_ptr, c_ptr->m_idx)) continue;
 
-			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(player_ptr, &creature_list[c_ptr->m_idx])) continue;
+			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(cr_ptr, &creature_list[c_ptr->m_idx])) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;
