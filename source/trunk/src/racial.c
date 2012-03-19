@@ -160,7 +160,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 			if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
 
 			/* Destroy the wall */
-			cave_alter_feat(y, x, FF_HURT_ROCK);
+			cave_alter_feat(cr_ptr, y, x, FF_HURT_ROCK);
 
 			cr_ptr->update |= (PU_FLOW);
 		}

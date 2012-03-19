@@ -3549,7 +3549,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(y, x, FF_HURT_ROCK);
+				cave_alter_feat(cr_ptr, y, x, FF_HURT_ROCK);
 
 				/* Move the player */
 				(void)move_creature_effect(cr_ptr, y, x, MPE_DONT_PICKUP);
