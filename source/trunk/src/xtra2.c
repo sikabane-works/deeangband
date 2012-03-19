@@ -1909,7 +1909,9 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
  * function hooks to interact with the data, which is given as
  * two pointers, and which may have any user-defined form.
  */
-void ang_sort_aux(vptr u, vptr v, int p, int q)
+void ang_sort_aux(vptr u, vptr v, int p, int q,
+				  bool (*ang_sort_comp)(vptr u, vptr v, int a, int b),
+				  void (*ang_sort_swap)(vptr u, vptr v, int a, int b))
 {
 	int z, a, b;
 
@@ -1943,10 +1945,10 @@ void ang_sort_aux(vptr u, vptr v, int p, int q)
 	}
 
 	/* Recurse left side */
-	ang_sort_aux(u, v, p, b);
+	ang_sort_aux(u, v, p, b, ang_sort_comp, ang_sort_swap);
 
 	/* Recurse right side */
-	ang_sort_aux(u, v, b+1, q);
+	ang_sort_aux(u, v, b+1, q, ang_sort_comp, ang_sort_swap);
 }
 
 
@@ -1958,10 +1960,12 @@ void ang_sort_aux(vptr u, vptr v, int p, int q)
  * function hooks to interact with the data, which is given as
  * two pointers, and which may have any user-defined form.
  */
-void ang_sort(vptr u, vptr v, int n)
+void ang_sort(vptr u, vptr v, int n,
+			  bool (*ang_sort_comp)(vptr u, vptr v, int a, int b),
+		      void (*ang_sort_swap)(vptr u, vptr v, int a, int b))
 {
 	/* Sort the array */
-	ang_sort_aux(u, v, 0, n-1);
+	ang_sort_aux(u, v, 0, n-1, ang_sort_comp, ang_sort_swap);
 }
 
 
@@ -2336,7 +2340,7 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 	}
 
 	/* Sort the positions */
-	ang_sort(temp_x, temp_y, temp_n);
+	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp, ang_sort_swap);
 
 	if (cr_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
 	{
@@ -5047,7 +5051,7 @@ static void tgt_pt_prepare(void)
 	ang_sort_swap = ang_sort_swap_distance;
 
 	/* Sort the positions */
-	ang_sort(temp_x, temp_y, temp_n);
+	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp, ang_sort_swap);
 }
 
 /*
