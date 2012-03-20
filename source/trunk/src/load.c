@@ -1420,8 +1420,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	rd_s16b(&cur_hgt);
 	rd_s16b(&cur_wid);
 
-	rd_byte(&p_ptr->feeling);
-
 
 
 	/*** Read template for cave_type ***/
