@@ -354,7 +354,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		}
 	}
 
-	if (wilderness[y][x].entrance && !wilderness[y][x].town && (total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+	if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
 	{
 		int dy, dx;
 
@@ -657,7 +657,7 @@ void wilderness_gen_small(creature_type *cr_ptr)
 			cave[j][i].special = wilderness[j][i].town;
 		}
 		else if (wilderness[j][i].road) cave[j][i].feat = feat_floor;
-		else if (wilderness[j][i].entrance && (total_winner || !(d_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
+		else if (wilderness[j][i].entrance && (cr_ptr->total_winner || !(d_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
 		{
 			cave[j][i].feat = feat_entrance;
 			cave[j][i].special = (byte)wilderness[j][i].entrance;

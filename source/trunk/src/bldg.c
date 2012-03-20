@@ -4934,7 +4934,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 	if (quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
 	{
 		/* Total winner */
-		total_winner = TRUE;
+		cr_ptr->total_winner = TRUE;
 
 		/* Redraw the "title" */
 		play_redraw |= (PR_TITLE);

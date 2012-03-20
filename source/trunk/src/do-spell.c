@@ -11358,10 +11358,10 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			i = inkey();
 			prt("", 0, 0);
 			if (i != '@') return NULL;
-			if (total_winner)
+			if (cr_ptr->total_winner)
 			{
 				take_hit(NULL, cr_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
-				total_winner = TRUE;
+				cr_ptr->total_winner = TRUE;
 			}
 			else
 			{

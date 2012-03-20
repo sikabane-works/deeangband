@@ -582,7 +582,6 @@ extern bool write_level;
 extern u32b playtime;
 extern u32b start_time;
 
-extern u16b total_winner;	  /* Total winner */
 extern u16b panic_save;	  /* Panic save */
 extern u16b noscore;		  /* Cheating flags */
 

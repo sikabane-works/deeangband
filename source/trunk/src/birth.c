@@ -2811,6 +2811,8 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->sub_race[6] = 0x0;
 	creature_ptr->sub_race[7] = 0x0;
 
+	creature_ptr->total_winner = FALSE;
+
 }
 
 

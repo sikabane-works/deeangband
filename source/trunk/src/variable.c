@@ -1240,7 +1240,6 @@ bool write_level;
 u32b playtime;
 u32b start_time;
 
-u16b total_winner;	  /* Total winner */
 u16b panic_save;	  /* Panic save */
 u16b noscore;		  /* Cheating flags */
 

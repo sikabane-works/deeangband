@@ -1623,6 +1623,8 @@ struct creature_type
 
 	bool now_damaged;
 
+	u16b total_winner;	  /* Total winner */
+
 };
 
 // creature_flags_type

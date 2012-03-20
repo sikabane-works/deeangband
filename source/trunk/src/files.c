@@ -4123,7 +4123,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 		if (cr_ptr->is_dead)
 		{
-			if (total_winner)
+			if (cr_ptr->total_winner)
 			{
 #ifdef JP
 				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(cr_ptr->died_from, "Seppuku") ? "切腹" : "引退");
@@ -4802,7 +4802,7 @@ static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 {
 	if (cr_ptr->is_dead)
 	{
-		if (!total_winner)
+		if (!cr_ptr->total_winner)
 		{
 			int i;
 
@@ -6555,7 +6555,7 @@ void do_cmd_suicide(creature_type *cr_ptr)
 	flush();
 
 	/* Verify Retirement */
-	if (total_winner)
+	if (cr_ptr->total_winner)
 	{
 		/* Verify */
 #ifdef JP
@@ -6598,7 +6598,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	cr_ptr->last_message = NULL;
 
 	/* Hack -- Note *winning* message */
-	if (total_winner && last_words)
+	if (cr_ptr->total_winner && last_words)
 	{
 		char buf[1024] = "";
 
@@ -6632,7 +6632,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	/* Leaving */
 	cr_ptr->leaving = TRUE;
 
-	if (!total_winner)
+	if (!cr_ptr->total_winner)
 	{
 #ifdef JP
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
@@ -6817,7 +6817,7 @@ long total_points(creature_type *player_ptr)
 	if ((player_ptr->chara_idx == CHARA_MUNCHKIN) && point)
 	{
 		point = 1;
-		if (total_winner) point = 2;
+		if (player_ptr->total_winner) point = 2;
 	}
 
 	return point;
@@ -6976,7 +6976,7 @@ static void print_tomb(creature_type *cr_ptr)
 		}
 
 		/* King or Queen */
-		if (total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
+		if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 		{
 #ifdef JP
 			/* 英日切り替え */
@@ -7425,9 +7425,9 @@ msg_print("詐欺をやった人はスコアが記録されません。");
 
 	/* Interupted */
 #ifdef JP
-if (!total_winner && streq(p_ptr->died_from, "強制終了"))
+if (!p_ptr->total_winner && streq(p_ptr->died_from, "強制終了"))
 #else
-	if (!total_winner && streq(p_ptr->died_from, "Interrupting"))
+	if (!p_ptr->total_winner && streq(p_ptr->died_from, "Interrupting"))
 #endif
 
 	{
@@ -7443,9 +7443,9 @@ msg_print("強制終了のためスコアが記録されません。");
 
 	/* Quitter */
 #ifdef JP
-if (!total_winner && streq(p_ptr->died_from, "途中終了"))
+if (!p_ptr->total_winner && streq(p_ptr->died_from, "途中終了"))
 #else
-	if (!total_winner && streq(p_ptr->died_from, "Quitting"))
+	if (!cr_ptr->total_winner && streq(p_ptr->died_from, "Quitting"))
 #endif
 
 	{
@@ -7507,7 +7507,7 @@ void close_game(creature_type *player_ptr)
 	if (player_ptr->is_dead)
 	{
 		/* Handle retirement */
-		if (total_winner) kingly(player_ptr);
+		if (player_ptr->total_winner) kingly(player_ptr);
 
 		/* Save memories */
 #ifdef JP

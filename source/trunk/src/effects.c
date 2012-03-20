@@ -5905,7 +5905,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				int q_idx = quest_number(dun_level);
 				bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
-				bool winning_seppuku = total_winner && seppuku;
+				bool winning_seppuku = tar_ptr->total_winner && seppuku;
 	
 	#ifdef WORLD_SCORE
 				/* Make screen dump */
@@ -5930,9 +5930,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#endif
 					my_strcpy(tar_ptr->died_from, dummy, sizeof tar_ptr->died_from);
 				}
-	
-				/* No longer a winner */
-				total_winner = FALSE;
 	
 				if (winning_seppuku)
 				{

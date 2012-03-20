@@ -7436,7 +7436,6 @@ void world_wipe()
 	dungeon_type = 0;
 
 	/* Assume no winning game */
-	total_winner = FALSE;
 	world_player = FALSE;
 
 	/* Assume no panic save */

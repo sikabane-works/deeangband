@@ -1192,6 +1192,8 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 		rd_byte(&cr_ptr->spell_order[i]);
 	}
 
+	rd_u16b(&cr_ptr->total_winner);
+
 	/* Update */
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
@@ -1263,7 +1265,6 @@ static void rd_extra(void)
 
 	/* Special stuff */
 	rd_u16b(&panic_save);
-	rd_u16b(&total_winner);
 	rd_u16b(&noscore);
 
 	/* Turn when level began */

@@ -695,6 +695,9 @@ static void wr_creature(creature_type *cr_ptr)
 	{
 		wr_byte(cr_ptr->spell_order[i]);
 	}
+
+	wr_u16b(cr_ptr->total_winner);
+
 }
 
 /*
@@ -747,7 +750,6 @@ static void wr_extra(void)
 
 	/* Special stuff */
 	wr_u16b(panic_save);
-	wr_u16b(total_winner);
 	wr_u16b(noscore);
 
 	/* Turn when level began */
