@@ -408,7 +408,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool seen = is_seen(cr_ptr, m_ptr);
 
-	switch (snipe_type)
+	switch (cr_ptr->snipe_type)
 	{
 	case SP_LITE:
 		if (is_hurt_lite_creature(m_ptr))
@@ -512,21 +512,21 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 		if (!snipe_concentrate(cr_ptr)) return (FALSE);
 		energy_use = 100;
 		return (TRUE);
-	case 1: snipe_type = SP_LITE; break;
-	case 2: snipe_type = SP_AWAY; break;
-	case 3: snipe_type = SP_KILL_TRAP; break;
-	case 4: snipe_type = SP_FIRE; break;
-	case 5: snipe_type = SP_KILL_WALL; break;
-	case 6: snipe_type = SP_COLD; break;
-	case 7: snipe_type = SP_RUSH; break;
-	case 8: snipe_type = SP_PIERCE; break;
-	case 9: snipe_type = SP_EVILNESS; break;
-	case 10: snipe_type = SP_HOLYNESS; break;
-	case 11: snipe_type = SP_EXPLODE; break;
-	case 12: snipe_type = SP_DOUBLE; break;
-	case 13: snipe_type = SP_ELEC; break;
-	case 14: snipe_type = SP_NEEDLE; break;
-	case 15: snipe_type = SP_FINAL; break;
+	case 1: cr_ptr->snipe_type = SP_LITE; break;
+	case 2: cr_ptr->snipe_type = SP_AWAY; break;
+	case 3: cr_ptr->snipe_type = SP_KILL_TRAP; break;
+	case 4: cr_ptr->snipe_type = SP_FIRE; break;
+	case 5: cr_ptr->snipe_type = SP_KILL_WALL; break;
+	case 6: cr_ptr->snipe_type = SP_COLD; break;
+	case 7: cr_ptr->snipe_type = SP_RUSH; break;
+	case 8: cr_ptr->snipe_type = SP_PIERCE; break;
+	case 9: cr_ptr->snipe_type = SP_EVILNESS; break;
+	case 10: cr_ptr->snipe_type = SP_HOLYNESS; break;
+	case 11: cr_ptr->snipe_type = SP_EXPLODE; break;
+	case 12: cr_ptr->snipe_type = SP_DOUBLE; break;
+	case 13: cr_ptr->snipe_type = SP_ELEC; break;
+	case 14: cr_ptr->snipe_type = SP_NEEDLE; break;
+	case 15: cr_ptr->snipe_type = SP_FINAL; break;
 	default:
 #ifdef JP
 		msg_print("�ȂɁH");
@@ -537,7 +537,7 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 
 	command_cmd = 'f';
 	do_cmd_fire(cr_ptr);
-	snipe_type = 0;
+	cr_ptr->snipe_type = 0;
 
 	return (is_fired);
 }

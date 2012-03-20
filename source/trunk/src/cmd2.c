@@ -2912,15 +2912,15 @@ static int breakage_chance(creature_type *cr_ptr, object_type *o_ptr)
 	int archer_bonus = (cr_ptr->cls_idx == CLASS_ARCHER ? (cr_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
-	if (snipe_type)
+	if (cr_ptr->snipe_type)
 	{
-		if (snipe_type == SP_KILL_WALL) return (100);
-		if (snipe_type == SP_EXPLODE) return (100);
-		if (snipe_type == SP_PIERCE) return (100);
-		if (snipe_type == SP_FINAL) return (100);
-		if (snipe_type == SP_NEEDLE) return (100);
-		if (snipe_type == SP_EVILNESS) return (40);
-		if (snipe_type == SP_HOLYNESS) return (40);
+		if (cr_ptr->snipe_type == SP_KILL_WALL) return (100);
+		if (cr_ptr->snipe_type == SP_EXPLODE) return (100);
+		if (cr_ptr->snipe_type == SP_PIERCE) return (100);
+		if (cr_ptr->snipe_type == SP_FINAL) return (100);
+		if (cr_ptr->snipe_type == SP_NEEDLE) return (100);
+		if (cr_ptr->snipe_type == SP_EVILNESS) return (40);
+		if (cr_ptr->snipe_type == SP_HOLYNESS) return (40);
 	}
 
 	/* Examine the item type */
@@ -3228,7 +3228,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 	}
 
 	/* Sniper */
-	if (snipe_type) mult = tot_dam_aux_snipe(atk_ptr, mult, tar_ptr);
+	if (atk_ptr->snipe_type) mult = tot_dam_aux_snipe(atk_ptr, mult, tar_ptr);
 
 	/* Return the total damage */
 	return (tdam * mult / 10);
@@ -3298,7 +3298,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Cannot shot a single arrow twice */
-	if ((snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) snipe_type = SP_NONE;
+	if ((cr_ptr->snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) cr_ptr->snipe_type = SP_NONE;
 
 	/* Describe the object */
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
@@ -3348,7 +3348,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	{
 		energy_use = 0;
 
-		if (snipe_type == SP_AWAY) snipe_type = SP_NONE;
+		if (cr_ptr->snipe_type == SP_AWAY) cr_ptr->snipe_type = SP_NONE;
 
 		/* need not to reset project_length (already did)*/
 
@@ -3387,10 +3387,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
-	if (snipe_type == SP_DOUBLE)  cr_ptr->concent = (cr_ptr->concent + 1) / 2;
+	if (cr_ptr->snipe_type == SP_DOUBLE)  cr_ptr->concent = (cr_ptr->concent + 1) / 2;
 
 	/* Sniper - Repeat shooting when double shots */
-	for (i = 0; i < ((snipe_type == SP_DOUBLE) ? 2 : 1); i++)
+	for (i = 0; i < ((cr_ptr->snipe_type == SP_DOUBLE) ? 2 : 1); i++)
 	{
 
 	/* Start at the player */
@@ -3448,7 +3448,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 		/* Shatter Arrow */
-		if (snipe_type == SP_KILL_WALL)
+		if (cr_ptr->snipe_type == SP_KILL_WALL)
 		{
 			c_ptr = &cave[ny][nx];
 
@@ -3479,7 +3479,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		cur_dis++;
 
 		/* Sniper */
-		if (snipe_type == SP_LITE)
+		if (cr_ptr->snipe_type == SP_LITE)
 		{
 			cave[ny][nx].info |= (CAVE_GLOW);
 
@@ -3513,14 +3513,14 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Sniper */
-		if (snipe_type == SP_KILL_TRAP)
+		if (cr_ptr->snipe_type == SP_KILL_TRAP)
 		{
 			project(cr_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
 		/* Sniper */
-		if (snipe_type == SP_EVILNESS)
+		if (cr_ptr->snipe_type == SP_EVILNESS)
 		{
 			cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
 
@@ -3635,7 +3635,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					}
 				}
 
-				if (snipe_type == SP_NEEDLE)
+				if (cr_ptr->snipe_type == SP_NEEDLE)
 				{
 					if ((randint1(randint1(r_ptr->level / (3 + cr_ptr->concent)) + (8 - cr_ptr->concent)) == 1)
 						&& !is_unique_creature(m_ptr) && !is_sub_unique_creature(m_ptr))
@@ -3674,7 +3674,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Sniper */
-				if (snipe_type == SP_EXPLODE)
+				if (cr_ptr->snipe_type == SP_EXPLODE)
 				{
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
@@ -3684,7 +3684,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Sniper */
-				if (snipe_type == SP_HOLYNESS)
+				if (cr_ptr->snipe_type == SP_HOLYNESS)
 				{
 					cave[ny][nx].info |= (CAVE_GLOW);
 
@@ -3745,7 +3745,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					set_target(m_ptr, cr_ptr->fy, cr_ptr->fx);
 
 					/* Sniper */
-					if (snipe_type == SP_RUSH)
+					if (cr_ptr->snipe_type == SP_RUSH)
 					{
 						int n = randint1(5) + 3;
 						int m_idx = c_ptr->m_idx;
@@ -3794,7 +3794,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Sniper */
-			if (snipe_type == SP_PIERCE)
+			if (cr_ptr->snipe_type == SP_PIERCE)
 			{
 				if(cr_ptr->concent < 1) break;
 				cr_ptr->concent--;
@@ -3930,11 +3930,11 @@ void do_cmd_fire(creature_type *cr_ptr)
 	if (!is_fired || cr_ptr->cls_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
-	if (snipe_type == SP_AWAY)
+	if (cr_ptr->snipe_type == SP_AWAY)
 	{
 		teleport_player(cr_ptr, 10 + (cr_ptr->concent * 2), 0L);
 	}
-	if (snipe_type == SP_FINAL)
+	if (cr_ptr->snipe_type == SP_FINAL)
 	{
 #ifdef JP
 		msg_print("ËŒ‚‚Ì”½“®‚ª‘Ì‚ğP‚Á‚½B");

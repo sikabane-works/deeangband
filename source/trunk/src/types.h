@@ -1616,6 +1616,8 @@ struct creature_type
 
 	u16b start_wx;			// Starting Wilderness_X
 	u16b start_wy;			// Statring Wilderness_Y
+
+	byte snipe_type;
 };
 
 // creature_flags_type

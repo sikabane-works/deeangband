@@ -2055,7 +2055,6 @@ extern travel_type travel;
 #endif
 
 /* variable.c (for snipers) */
-extern int snipe_type;
 extern bool reset_concent;   /* Concentration reset flag */
 extern bool is_fired;
 
