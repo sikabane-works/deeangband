@@ -7347,7 +7347,7 @@ prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
 }
 
 
-static bool check_score(void)
+static bool check_score(creature_type *player_ptr)
 {
 	/* Clear screen */
 	Term_clear();
@@ -7425,9 +7425,9 @@ msg_print("詐欺をやった人はスコアが記録されません。");
 
 	/* Interupted */
 #ifdef JP
-if (!p_ptr->total_winner && streq(p_ptr->died_from, "強制終了"))
+if (!player_ptr->total_winner && streq(player_ptr->died_from, "強制終了"))
 #else
-	if (!p_ptr->total_winner && streq(p_ptr->died_from, "Interrupting"))
+	if (!player_ptr->total_winner && streq(player_ptr->died_from, "Interrupting"))
 #endif
 
 	{
@@ -7443,9 +7443,9 @@ msg_print("強制終了のためスコアが記録されません。");
 
 	/* Quitter */
 #ifdef JP
-if (!p_ptr->total_winner && streq(p_ptr->died_from, "途中終了"))
+if (!player_ptr->total_winner && streq(player_ptr->died_from, "途中終了"))
 #else
-	if (!cr_ptr->total_winner && streq(p_ptr->died_from, "Quitting"))
+	if (!cr_ptr->total_winner && streq(player_ptr->died_from, "Quitting"))
 #endif
 
 	{
@@ -7536,7 +7536,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 		/* Clear screen */
 		Term_clear();
 
-		if (check_score())
+		if (check_score(player_ptr))
 		{
 			if ((!send_world_score(do_send)))
 			{
