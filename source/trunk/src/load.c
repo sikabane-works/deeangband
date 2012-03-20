@@ -2145,28 +2145,6 @@ note("特別情報をロードしました");
 	if (arg_fiddle) note("Loaded extra information");
 #endif
 
-
-	/* Read the base_hp array */
-	rd_u16b(&tmp16u);
-
-	/* Incompatible save files */
-	if (tmp16u > PY_MAX_LEVEL)
-	{
-#ifdef JP
-note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
-#else
-		note(format("Too many (%u) hitpoint entries!", tmp16u));
-#endif
-
-		return (25);
-	}
-
-	/* Read the base_hp array */
-	for (i = 0; i < tmp16u; i++)
-	{
-		rd_s16b(&cr_ptr->base_hp[i]);
-	}
-
 	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;
 
 	for (i = 0; i < 64; i++)

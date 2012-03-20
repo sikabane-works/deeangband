@@ -1366,14 +1366,6 @@ static bool wr_savefile_new(void)
 	wr_creature(p_ptr);
 	wr_extra();
 
-	/* Dump the "player hp" entries */
-	tmp16u = PY_MAX_LEVEL;
-	wr_u16b(tmp16u);
-	for (i = 0; i < tmp16u; i++)
-	{
-		wr_s16b(p_ptr->base_hp[i]);
-	}
-
 	/* Dump the ordered spells */
 	for (i = 0; i < 64; i++)
 	{
