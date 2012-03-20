@@ -100,7 +100,7 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 	msg_format("You concentrate deeply. (lvl %d)", cr_ptr->concent);
 #endif
 
-	reset_concent = FALSE;
+	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -125,7 +125,7 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	}
 
 	cr_ptr->concent = 0;
-	reset_concent = FALSE;
+	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);

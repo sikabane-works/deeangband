@@ -1619,6 +1619,8 @@ struct creature_type
 
 	byte snipe_type;
 	bool is_fired;
+	bool reset_concent;   /* Concentration reset flag */
+
 };
 
 // creature_flags_type

@@ -2054,8 +2054,6 @@ extern bool browsing_movie;
 extern travel_type travel;
 #endif
 
-/* variable.c (for snipers) */
-extern bool reset_concent;   /* Concentration reset flag */
 
 /* snipe.c */
 extern void reset_concentration(creature_type *cr_ptr, bool msg);

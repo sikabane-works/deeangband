@@ -1375,6 +1375,3 @@ bool browsing_movie;
 /* for travel */
 travel_type travel;
 #endif
-
-/* for snipers */
-bool reset_concent = FALSE;   /* Concentration reset flag */

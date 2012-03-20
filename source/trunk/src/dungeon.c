@@ -4495,7 +4495,7 @@ static void process_command(creature_type *cr_ptr)
 
 	/* Sniper */
 	if ((cr_ptr->cls_idx == CLASS_SNIPER) && (cr_ptr->concent))
-		reset_concent = TRUE;
+		cr_ptr->reset_concent = TRUE;
 
 	/* Parse the command */
 	switch (command_cmd)
@@ -6164,7 +6164,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Sniper */
-		if (energy_use && reset_concent) reset_concentration(cr_ptr, TRUE);
+		if (energy_use && cr_ptr->reset_concent) reset_concentration(cr_ptr, TRUE);
 
 		/* Handle "leaving" */
 		if (cr_ptr->leaving) break;
