@@ -1166,7 +1166,7 @@ static bool wr_dungeon(void)
 /*
  * Actually write a save-file
  */
-static bool wr_savefile_new(void)
+static bool wr_savefile_new(creature_type *cr_ptr)
 {
 	int        i, j;
 
@@ -1367,7 +1367,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Write the "extra" information */
-	wr_creature(p_ptr);
+	wr_creature(cr_ptr);
 	wr_extra();
 
 	/* Note the towns */
@@ -1380,11 +1380,11 @@ static bool wr_savefile_new(void)
 			wr_store(&st_list[i]);
 
 	/* Write the pet command settings */
-	wr_s16b(p_ptr->pet_follow_distance);
-	wr_s16b(p_ptr->pet_extra_flags);
+	wr_s16b(cr_ptr->pet_follow_distance);
+	wr_s16b(cr_ptr->pet_extra_flags);
 
 	/* Write screen dump for sending score */
-	if (screen_dump && (p_ptr->wait_report_score || !p_ptr->is_dead))
+	if (screen_dump && (cr_ptr->wait_report_score || !cr_ptr->is_dead))
 	{
 		wr_string(screen_dump);
 	}
@@ -1394,7 +1394,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Player is not dead, write the dungeon */
-	if (!p_ptr->is_dead)
+	if (!cr_ptr->is_dead)
 	{
 		/* Dump the dungeon */
 		if (!wr_dungeon()) return FALSE;
@@ -1487,7 +1487,7 @@ static bool save_player_aux(char *name)
 		if (fff)
 		{
 			/* Write the savefile */
-			if (wr_savefile_new()) ok = TRUE;
+			if (wr_savefile_new(p_ptr)) ok = TRUE;
 
 			/* Attempt to close it */
 			if (my_fclose(fff)) ok = FALSE;
