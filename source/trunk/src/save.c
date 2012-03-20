@@ -689,6 +689,12 @@ static void wr_creature(creature_type *cr_ptr)
 
 	wr_s16b(cr_ptr->start_wx);
 	wr_s16b(cr_ptr->start_wy);
+
+	/* Dump the ordered spells */
+	for (i = 0; i < 64; i++)
+	{
+		wr_byte(cr_ptr->spell_order[i]);
+	}
 }
 
 /*
@@ -1360,17 +1366,9 @@ static bool wr_savefile_new(void)
 		wr_s16b(a_ptr->floor_id);
 	}
 
-
-
 	/* Write the "extra" information */
 	wr_creature(p_ptr);
 	wr_extra();
-
-	/* Dump the ordered spells */
-	for (i = 0; i < 64; i++)
-	{
-		wr_byte(p_ptr->spell_order[i]);
-	}
 
 	/* Note the towns */
 	tmp16u = max_towns;

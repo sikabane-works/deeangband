@@ -1187,6 +1187,11 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	rd_s16b(&cr_ptr->start_wx);
 	rd_s16b(&cr_ptr->start_wy);
 
+	for (i = 0; i < 64; i++)
+	{
+		rd_byte(&cr_ptr->spell_order[i]);
+	}
+
 	/* Update */
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
@@ -2146,11 +2151,6 @@ note("“Á•Êî•ñ‚ðƒ[ƒh‚µ‚Ü‚µ‚½");
 #endif
 
 	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;
-
-	for (i = 0; i < 64; i++)
-	{
-		rd_byte(&cr_ptr->spell_order[i]);
-	}
 
 	/* Read number of towns */
 	rd_u16b(&tmp16u);
