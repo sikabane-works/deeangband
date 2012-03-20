@@ -5742,7 +5742,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		disturb(player_ptr, 1, 0);
 		if (auto_more)
 		{
-			now_damaged = TRUE;
+			tar_ptr->now_damaged = TRUE;
 		}
 	}
 
@@ -6496,7 +6496,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (auto_more)
 		{
 			/* stop auto_more even if DAMAGE_USELIFE */
-			now_damaged = TRUE;
+			tar_ptr->now_damaged = TRUE;
 		}
 	
 		/* Message */

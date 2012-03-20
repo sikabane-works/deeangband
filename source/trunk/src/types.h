@@ -1621,6 +1621,8 @@ struct creature_type
 	bool is_fired;
 	bool reset_concent;   /* Concentration reset flag */
 
+	bool now_damaged;
+
 };
 
 // creature_flags_type

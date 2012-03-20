@@ -5866,7 +5866,7 @@ msg_print("中断しました。");
 		play_window |= PW_PLAYER;
 		cr_ptr->sutemi = FALSE;
 		cr_ptr->counter = FALSE;
-		now_damaged = FALSE;
+		cr_ptr->now_damaged = FALSE;
 
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
@@ -7006,7 +7006,7 @@ quit("セーブファイルが壊れています");
 	cr_ptr->teleport_town = FALSE;
 	cr_ptr->sutemi = FALSE;
 	world_monster = FALSE;
-	now_damaged = FALSE;
+	cr_ptr->now_damaged = FALSE;
 	now_message = 0;
 	start_time = (u32b)time(NULL) - 1;
 	record_o_name[0] = '\0';

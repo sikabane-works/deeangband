@@ -657,7 +657,6 @@ extern s16b feat_wall_outer;
 extern s16b feat_wall_inner;
 extern s16b feat_wall_solid;
 extern s16b floor_type[100], fill_type[100];
-extern bool now_damaged;
 extern s16b now_message;
 extern bool use_menu;
 
