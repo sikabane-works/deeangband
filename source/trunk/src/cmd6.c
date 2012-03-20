@@ -6364,10 +6364,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			if(fire_ball(cr_ptr, GF_CAPTURE, dir, 0, 0))
 			{
-				o_ptr->pval = cap_mon;
-				o_ptr->xtra3 = cap_speed;
-				o_ptr->xtra4 = cap_hp;
-				o_ptr->xtra5 = cap_mhp;
+				//TODO: Capture monster status.
+
+				/*
 				if (cap_nickname)
 				{
 					cptr t;
@@ -6386,7 +6385,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					*s = '#';
 					s++;
 #ifdef JP
- /*nothing*/
+ //nothing
 #else
 					*s++ = '\'';
 #endif
@@ -6398,13 +6397,15 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 						t++;
 					}
 #ifdef JP
- /*nothing*/
+ //nothing
 #else
 					*s++ = '\'';
 #endif
 					*s = '\0';
 					o_ptr->inscription = quark_add(buf);
 				}
+				*/
+
 			}
 		}
 		else

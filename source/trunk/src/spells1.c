@@ -6754,11 +6754,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 #else
 				msg_format("You capture %^s!", target_name);
 #endif
-				cap_mon = target_ptr->species_idx;
-				cap_speed = target_ptr->speed;
-				cap_hp = target_ptr->chp;
-				cap_mhp = target_ptr->mmhp;
-				cap_nickname = target_ptr->nickname; /* Quark transfer */
+				//TODO: capture monster status
 				if (c_ptr->m_idx == player_ptr->riding)
 				{
 					if (rakuba(player_ptr, -1, FALSE))

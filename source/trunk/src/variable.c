@@ -1223,12 +1223,6 @@ bool can_save = FALSE;        /* Game can be saved */
 s16b world_monster;
 bool world_player;
 
-int cap_mon;
-int cap_speed;
-int cap_hp;
-int cap_mhp;
-u16b cap_nickname;
-
 s16b battle_mon[4];
 int sel_monster;
 int battle_odds;
