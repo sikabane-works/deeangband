@@ -1618,6 +1618,7 @@ struct creature_type
 	u16b start_wy;			// Statring Wilderness_Y
 
 	byte snipe_type;
+	bool is_fired;
 };
 
 // creature_flags_type

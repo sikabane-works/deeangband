@@ -2056,7 +2056,6 @@ extern travel_type travel;
 
 /* variable.c (for snipers) */
 extern bool reset_concent;   /* Concentration reset flag */
-extern bool is_fired;
 
 /* snipe.c */
 extern void reset_concentration(creature_type *cr_ptr, bool msg);

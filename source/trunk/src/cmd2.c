@@ -3384,7 +3384,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 	/* Take a (partial) turn */
 	energy_use = (energy_use / thits);
-	is_fired = TRUE;
+	cr_ptr->is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
 	if (cr_ptr->snipe_type == SP_DOUBLE)  cr_ptr->concent = (cr_ptr->concent + 1) / 2;
@@ -3872,7 +3872,7 @@ void do_cmd_fire(creature_type *cr_ptr)
 	object_type *j_ptr;
 	cptr q, s;
 
-	is_fired = FALSE;	/* not fired yet */
+	cr_ptr->is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
 	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
@@ -3927,7 +3927,7 @@ void do_cmd_fire(creature_type *cr_ptr)
 	/* Fire the item */
 	do_cmd_fire_aux(cr_ptr, item, j_ptr);
 
-	if (!is_fired || cr_ptr->cls_idx != CLASS_SNIPER) return;
+	if (!cr_ptr->is_fired || cr_ptr->cls_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
 	if (cr_ptr->snipe_type == SP_AWAY)

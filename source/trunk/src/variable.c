@@ -1378,4 +1378,3 @@ travel_type travel;
 
 /* for snipers */
 bool reset_concent = FALSE;   /* Concentration reset flag */
-bool is_fired = FALSE;

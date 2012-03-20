@@ -539,7 +539,7 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 	do_cmd_fire(cr_ptr);
 	cr_ptr->snipe_type = 0;
 
-	return (is_fired);
+	return (cr_ptr->is_fired);
 }
 
 
