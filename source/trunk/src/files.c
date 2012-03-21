@@ -7616,7 +7616,7 @@ prt("リターンキーか ESC キーを押して下さい。", 0, 40);
  * XXX XXX Hack -- clear the death flag when creating a HANGUP
  * save file so that player can see tombstone when restart.
  */
-void exit_game_panic(void)
+void exit_game_panic(creature_type *player_ptr)
 {
 	/* If nothing important has happened, just quit */
 #ifdef JP
@@ -7635,7 +7635,7 @@ void exit_game_panic(void)
 	disturb(player_ptr, 1, 0);
 
 	/* Mega-Hack -- Delay death */
-	if (p_ptr->chp < 0) p_ptr->is_dead = FALSE;
+	if (player_ptr->chp < 0) player_ptr->is_dead = FALSE;
 
 	/* Hardcode panic save */
 	panic_save = 1;
@@ -7645,9 +7645,9 @@ void exit_game_panic(void)
 
 	/* Indicate panic save */
 #ifdef JP
-	(void)strcpy(p_ptr->died_from, "(緊急セーブ)");
+	(void)strcpy(player_ptr->died_from, "(緊急セーブ)");
 #else
-	(void)strcpy(p_ptr->died_from, "(panic save)");
+	(void)strcpy(player_ptr->died_from, "(panic save)");
 #endif
 
 
