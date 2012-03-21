@@ -770,6 +770,9 @@ static void wr_extra(void)
 	wr_s16b(0);
 
 	wr_u32b(playtime);
+
+	wr_u32b(&creature_id_latest);
+
 }
 
 

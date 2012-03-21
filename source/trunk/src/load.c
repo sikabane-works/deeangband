@@ -1291,6 +1291,8 @@ static void rd_extra(void)
 	}
 
 	rd_u32b(&playtime);
+
+	rd_u32b(&creature_id_latest);
 }
 
 
