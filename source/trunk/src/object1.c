@@ -5921,7 +5921,7 @@ if (other_query_flag && !verify(cr_ptr, "–{“–‚É", k)) continue;
 				}
 
 				/* Hack -- Validate the item */
-				else if ((k < INVEN_1STARM) ? !inven : !equip)
+				else if ((!cr_ptr->equip_now[k]) ? !inven : !equip)
 				{
 					not_found = TRUE;
 				}
