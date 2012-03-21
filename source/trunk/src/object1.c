@@ -6564,8 +6564,8 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 		else if (command_wrk == (USE_EQUIP))
 		{
 			/* Extract the legal requests */
-			n1 = I2A(e1 - INVEN_1STARM);
-			n2 = I2A(e2 - INVEN_1STARM);
+			n1 = I2A(e1);
+			n2 = I2A(e2);
 
 			/* Redraw if needed */
 			if (command_see) get_item_label = show_item_list(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
