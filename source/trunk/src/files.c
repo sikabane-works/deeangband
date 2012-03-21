@@ -3880,6 +3880,12 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 		{
 			sprintf(tmp, "%s", cr_ptr->name);
 		}
+
+		if(wizard)
+		{
+			sprintf(tmp, "%s[%d]", tmp, cr_ptr->creature_idx);
+		}
+
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
 		if(cr_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
