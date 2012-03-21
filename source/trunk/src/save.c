@@ -672,6 +672,8 @@ static void wr_creature(creature_type *cr_ptr)
 
 	wr_s16b(cr_ptr->today_mon);
 	wr_s16b(cr_ptr->riding);
+	wr_s16b(cr_ptr->ridden);
+
 	wr_s16b(cr_ptr->floor_id);
 
 	wr_s32b(cr_ptr->visit);

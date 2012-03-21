@@ -1353,7 +1353,8 @@ struct creature_type
 	bool wait_report_score;   /* Waiting to report score */
 	bool is_dead;		      /* is dead */
 
-	s16b riding;              /* Riding on a monster of this index */
+	s16b riding;              /* Riding on a creature of this index */
+	s16b ridden;              /* Ridden on a creature of this index */
 	byte knowledge;           /* Knowledge about yourself */
 	s32b visit;               /* Visited towns */
 
