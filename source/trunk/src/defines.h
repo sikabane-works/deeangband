@@ -747,13 +747,6 @@
  */
 
 /*
- * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
- */
-
-#define INVEN_1STARM     24
-#define INVEN_2NDARM     25
-
-/*
  * Total number of inventory slots (hard-coded).
  */
 #define INVEN_TOTAL      48

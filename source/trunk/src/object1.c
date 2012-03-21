@@ -5332,7 +5332,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 
 
 	/* Full equipment */
-	e1 = INVEN_1STARM;
+	e1 = 0;
 	e2 = INVEN_TOTAL - 1;
 
 	/* Forbid equipment */
@@ -5351,14 +5351,16 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2, hook))) e2--;
 
+	/*
 	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
 		if (cr_ptr->can_melee[0])
 		{
-			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
+			if (e2 < INVEN_2) e2 = INVEN_2;
 		}
-		else if (cr_ptr->can_melee[1]) e1 = INVEN_1STARM;
+		else if (cr_ptr->can_melee[1]) e1 = INVEN_1;
 	}
+	*/
 
 
 	/* Restrict floor usage */
@@ -6422,14 +6424,16 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2, hook))) e2--;
 
+	/*
 	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
 	{
 		if (cr_ptr->can_melee[0])
 		{
-			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
+			if (e2 < INVEN_2) e2 = INVEN_2;
 		}
-		else if (cr_ptr->can_melee[1]) e1 = INVEN_1STARM;
+		else if (cr_ptr->can_melee[1]) e1 = INVEN_1;
 	}
+	*/
 
 
 	/* Count "okay" floor items */
