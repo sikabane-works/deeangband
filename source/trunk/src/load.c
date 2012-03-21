@@ -917,7 +917,7 @@ static void rd_creature(creature_type *cr_ptr)
 	byte tmp8u;
 	u16b tmp16u;
 
-	rd_u16b(&cr_ptr->id);
+	rd_u32b(&cr_ptr->creature_id);
 
 	rd_byte(&cr_ptr->player);
 	rd_byte(&cr_ptr->stigmatic);

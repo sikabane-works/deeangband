@@ -4218,7 +4218,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Get a new monster record */
 	m_ptr = &creature_list[c_ptr->m_idx];
-	m_ptr->id = c_ptr->m_idx;
+	m_ptr->creature_id = c_ptr->m_idx;
 
 	if(is_unique_species(r_ptr))
 	{

@@ -212,7 +212,7 @@ bool select_ring_slot = FALSE;
  */
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int i, item, slot;
+	int item, slot;
 
 	object_type forge;
 	object_type *q_ptr;
