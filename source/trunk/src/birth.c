@@ -5217,6 +5217,7 @@ static void edit_history(creature_type *creature_ptr)
  */
 static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
 {
+
 	int i;
 	int mode = 0;
 

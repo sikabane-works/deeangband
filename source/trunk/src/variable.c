@@ -1360,3 +1360,7 @@ bool browsing_movie;
 /* for travel */
 travel_type travel;
 #endif
+
+int creature_id_latest = 0;
+
+

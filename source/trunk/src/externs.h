@@ -1931,6 +1931,7 @@ extern void py_pickup_floor(creature_type *cr_ptr, bool pickup);
 
 /* variable.c */
 extern bool easy_floor;
+extern int creature_id_latest;
 
 #endif /* ALLOW_EASY_FLOOR -- TNB */
 
