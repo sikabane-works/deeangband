@@ -1024,13 +1024,6 @@ byte item_tester_tval;
 
 
 /*
- * Hack -- function hooks to restrict "get_mon_num_prep()" function
- */
-creature_hook_type get_mon_num_hook;
-creature_hook_type get_mon_num2_hook;
-
-
-/*
  * Hack -- function hook to restrict "get_obj_num_prep()" function
  */
 bool (*get_obj_num_hook)(int k_idx);

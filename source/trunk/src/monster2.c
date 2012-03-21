@@ -1574,8 +1574,8 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 	/* Todo: Check the hooks for non-changes */
 
 	/* Set the new hooks */
-	get_mon_num_hook = creature_hook;
-	get_mon_num2_hook = creature_hook2;
+	creature_hook_type get_mon_num_hook  = creature_hook;
+	creature_hook_type get_mon_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -1589,7 +1589,7 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 		r_ptr = &species_info[entry->index];
 
 		/* Skip monsters which don't pass the restriction */
-		if ((get_mon_num_hook && !((*get_mon_num_hook)(entry->index))) ||
+		if ((get_mon_num_hook  && !((*get_mon_num_hook)(entry->index))) ||
 		    (get_mon_num2_hook && !((*get_mon_num2_hook)(entry->index))))
 			continue;
 
@@ -1623,6 +1623,71 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 	/* Success */
 	return (0);
 }
+
+
+/*
+ * Apply a "monster restriction function" to the "monster allocation table"
+ */
+errr get_mon_num_prep2(creature_type *player_ptr,
+					   creature_hook_type2 creature_hook,
+					   creature_hook_type2 creature_hook2)
+{
+	int i;
+
+	/* Todo: Check the hooks for non-changes */
+
+	/* Set the new hooks */
+	creature_hook_type2 get_mon_num_hook  = creature_hook;
+	creature_hook_type2 get_mon_num2_hook = creature_hook2;
+
+	/* Scan the allocation table */
+	for (i = 0; i < alloc_race_size; i++)
+	{
+		species_type	*r_ptr;
+		
+		/* Get the entry */
+		alloc_entry *entry = &alloc_race_table[i];
+
+		entry->prob2 = 0;
+		r_ptr = &species_info[entry->index];
+
+		/* Skip monsters which don't pass the restriction */
+		if ((get_mon_num_hook  && !((*get_mon_num_hook) (player_ptr, entry->index))) ||
+		    (get_mon_num2_hook && !((*get_mon_num2_hook)(player_ptr, entry->index))))
+			continue;
+
+		if (!inside_battle && !chameleon_change_m_idx &&
+		    summon_specific_type != SUMMON_GUARDIANS)
+		{
+			/* Hack -- don't create questors */
+			if (is_quest_species(r_ptr))
+				continue;
+
+			if (is_guardian_species(r_ptr))
+				continue;
+
+			/* Depth Monsters never appear out of depth */
+			if (is_force_depth_species(r_ptr) &&
+			    (r_ptr->level > dun_level))
+				continue;
+		}
+
+		/* Accept this monster */
+		entry->prob2 = entry->prob1;
+
+		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !inside_battle)
+		{
+			int hoge = entry->prob2 * d_info[dungeon_type].special_div;
+			entry->prob2 = hoge / 64;
+			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
+		}
+	}
+
+	/* Success */
+	return (0);
+}
+
+
 
 
 static int mysqrt(int n)
@@ -3247,7 +3312,10 @@ static bool creature_hook_chameleon_lord(int species_idx)
 
 	if (ABS(r_ptr->level - species_info[MON_CHAMELEON_K].level) > 5) return FALSE;
 
-	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
+	if ((r_ptr->blow[0].method == RBM_EXPLODE) ||
+		(r_ptr->blow[1].method == RBM_EXPLODE) ||
+		(r_ptr->blow[2].method == RBM_EXPLODE) ||
+		(r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
 	if (!monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;

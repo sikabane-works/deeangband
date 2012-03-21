@@ -1809,7 +1809,7 @@ struct tag_type
 };
 
 typedef bool (*creature_hook_type)(int species_idx);
-
+typedef bool (*creature_hook_type2)(creature_type *player_ptr, int species_idx);
 
 /*
  * This seems like a pretty standard "typedef"

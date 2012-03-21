@@ -531,8 +531,6 @@ extern cptr ANGBAND_DIR_XTRA;
 extern bool item_tester_full;
 extern bool item_tester_no_two_handed;
 extern byte item_tester_tval;
-extern creature_hook_type get_mon_num_hook;
-extern creature_hook_type get_mon_num2_hook;
 extern bool (*get_obj_num_hook)(int k_idx);
 extern bool monk_armour_aux;
 extern bool monk_notify_aux;
