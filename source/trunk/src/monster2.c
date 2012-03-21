@@ -3301,7 +3301,7 @@ void update_monsters(bool full)
 /*
  * Hack -- the index of the summoning monster
  */
-static bool creature_hook_chameleon_lord(int species_idx)
+static bool creature_hook_chameleon_lord(creature_type *player_ptr, int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -3323,13 +3323,13 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	/* Not born */
 	if (!is_chameleon_species(old_r_ptr))
 	{
-		if (creature_has_hostile_align(m_ptr, p_ptr, 0, 0, r_ptr)) return FALSE;
+		if (creature_has_hostile_align(m_ptr, player_ptr, 0, 0, r_ptr)) return FALSE;
 	}
 
 	/* Born now */
 	else if (summon_specific_who > 0)
 	{
-		if (creature_has_hostile_align(&creature_list[summon_specific_who], p_ptr, 0, 0, r_ptr)) return FALSE;
+		if (creature_has_hostile_align(&creature_list[summon_specific_who], player_ptr, 0, 0, r_ptr)) return FALSE;
 	}
 
 	return TRUE;
@@ -3390,7 +3390,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_mon_num_prep(creature_hook_chameleon_lord, NULL);
+			get_mon_num_prep2(p_ptr, creature_hook_chameleon_lord, NULL);
 		else
 			get_mon_num_prep(creature_hook_chameleon, NULL);
 
