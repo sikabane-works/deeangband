@@ -1361,6 +1361,6 @@ bool browsing_movie;
 travel_type travel;
 #endif
 
-int creature_id_latest = 0;
+u32b creature_idx_latest = 0;
 
 

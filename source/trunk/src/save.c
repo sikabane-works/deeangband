@@ -444,7 +444,7 @@ static void wr_creature(creature_type *cr_ptr)
 	int i,j;
 	u16b tmp16u;
 
-	wr_u32b(cr_ptr->creature_id);
+	wr_u32b(cr_ptr->creature_idx);
 
 	wr_byte(cr_ptr->player);
 	wr_byte(cr_ptr->stigmatic);
@@ -771,7 +771,7 @@ static void wr_extra(void)
 
 	wr_u32b(playtime);
 
-	wr_u32b(&creature_id_latest);
+	wr_u32b(creature_idx_latest);
 
 }
 

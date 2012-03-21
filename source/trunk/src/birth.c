@@ -5243,6 +5243,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	/* Wipe the player */
 	creature_wipe(creature_ptr);
 
+	creature_ptr->creature_idx = ++creature_idx_latest;
+
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
 

@@ -1146,7 +1146,7 @@ typedef struct creature_type creature_type;
 
 struct creature_type
 {
-	u32b creature_id;
+	u32b creature_idx;
 
 	char name[128];
 

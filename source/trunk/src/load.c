@@ -917,7 +917,7 @@ static void rd_creature(creature_type *cr_ptr)
 	byte tmp8u;
 	u16b tmp16u;
 
-	rd_u32b(&cr_ptr->creature_id);
+	rd_u32b(&cr_ptr->creature_idx);
 
 	rd_byte(&cr_ptr->player);
 	rd_byte(&cr_ptr->stigmatic);
@@ -1292,7 +1292,7 @@ static void rd_extra(void)
 
 	rd_u32b(&playtime);
 
-	rd_u32b(&creature_id_latest);
+	rd_u32b(&creature_idx_latest);
 }
 
 
