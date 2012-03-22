@@ -4790,10 +4790,10 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		calc_inventory_weight(cr_ptr);
 
 		/* Recalculate bonuses */
-		update |= (PU_BONUS);
+		update |= (CRU_BONUS);
 
 		/* Recalculate mana XXX */
-		update |= (PU_MANA);
+		update |= (CRU_MANA);
 
 		/* Combine the pack */
 		cr_ptr->notice |= (PN_COMBINE);
@@ -4863,13 +4863,13 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 		object_wipe(&cr_ptr->inventory[item]);
 
 		/* Recalculate bonuses */
-		update |= (PU_BONUS);
+		update |= (CRU_BONUS);
 
 		/* Recalculate torch */
-		update |= (PU_TORCH);
+		update |= (CRU_TORCH);
 
 		/* Recalculate mana XXX */
-		update |= (PU_MANA);
+		update |= (CRU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -5144,7 +5144,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 			calc_inventory_weight(cr_ptr);
 
 			/* Recalculate bonuses */
-			update |= (PU_BONUS);
+			update |= (CRU_BONUS);
 
 			/* Window stuff */
 			play_window |= (PW_INVEN);
@@ -5223,7 +5223,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	cr_ptr->inven_cnt++;
 
 	/* Recalculate bonuses */
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	/* Combine and Reorder pack */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);

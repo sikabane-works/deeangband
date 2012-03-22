@@ -1647,7 +1647,7 @@ extern u32b weight_limit(creature_type *cr_ptr);
 extern void calc_bonuses(creature_type *cr_ptr, bool message);
 extern void notice_stuff(creature_type *cr_ptr);
 extern void update_creature(creature_type *cr_ptr, bool message);
-extern void redraw_stuff();
+extern void redraw_stuff(void);
 extern void window_stuff(void);
 extern void handle_stuff(void);
 extern s16b empty_hands(creature_type *cr_ptr, bool riding_control);

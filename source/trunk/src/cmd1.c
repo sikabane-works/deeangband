@@ -2069,7 +2069,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 					atk_ptr->skill_exp[GINOU_SUDE] += 1;
 				else if ((atk_ptr->lev > 34))
 					if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
-				update |= (PU_BONUS);
+				update |= (CRU_BONUS);
 			}
 		}
 	}
@@ -2090,7 +2090,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				else if ((now_exp < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19)) amount = 1;
 				else if ((atk_ptr->lev > 34) && one_in_(2)) amount = 1;
 				atk_ptr->weapon_exp[tval][sval] += amount;
-				update |= (PU_BONUS);
+				update |= (CRU_BONUS);
 			}
 		}
 	}
@@ -3239,7 +3239,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 				atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
 			else if(atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
 				if (one_in_(3)) atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			update |= (PU_BONUS);
+			update |= (CRU_BONUS);
 		}
 	}
 
@@ -3269,7 +3269,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 			atk_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
 
-			update |= (PU_BONUS);
+			update |= (CRU_BONUS);
 		}
 	}
 

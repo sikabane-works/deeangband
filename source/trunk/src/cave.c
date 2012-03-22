@@ -5067,7 +5067,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		update |= (PU_TORCH);
+		update |= (CRU_TORCH);
 
 		/* Update monster flow */
 		update |= (PU_FLOW);
@@ -5083,7 +5083,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		update |= (PU_TORCH);
+		update |= (CRU_TORCH);
 	}
 #endif
 

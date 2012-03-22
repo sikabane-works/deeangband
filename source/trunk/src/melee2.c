@@ -1729,7 +1729,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	if (is_riding_mon)
 	{
-		update |= (PU_BONUS);
+		update |= (CRU_BONUS);
 	}
 
 	/* No one wants to be your friend if you're aggravating */

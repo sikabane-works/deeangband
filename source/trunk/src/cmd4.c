@@ -1173,10 +1173,10 @@ void do_cmd_redraw(creature_type *cr_ptr)
 
 
 	/* Update torch */
-	update |= (PU_TORCH);
+	update |= (CRU_TORCH);
 
 	/* Update stuff */
-	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
 	update |= (PU_UN_VIEW | PU_UN_LITE);
@@ -8244,7 +8244,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							identify_item(player_ptr, &creature_ptr->inventory[j]);
 							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
 						}
-						update = PU_BONUS | PU_HP | PU_MANA;
+						update = CRU_BONUS | CRU_HP | CRU_MANA;
 						update_creature(creature_ptr, FALSE);
 
 						display_creature_dump(creature_ptr);

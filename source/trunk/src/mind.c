@@ -1074,7 +1074,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		msg_print("You improved the Force.");
 #endif
 		cr_ptr->magic_num1[0] += (70 + plev);
-		update |= (PU_BONUS);
+		update |= (CRU_BONUS);
 		if (randint1(cr_ptr->magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
@@ -1222,7 +1222,7 @@ msg_print("�ȂɁH");
 
 	}
 	cr_ptr->magic_num1[0] = 0;
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	return TRUE;
 }

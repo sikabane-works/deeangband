@@ -31,7 +31,7 @@ bool stop_hex_spell_all(creature_type *cr_ptr)
 	if (cr_ptr->action == ACTION_SPELL) set_action(cr_ptr, ACTION_NONE);
 
 	/* Redraw status */
-	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
@@ -115,7 +115,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 	}
 
 	/* Redraw status */
-	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
@@ -190,7 +190,7 @@ void check_hex(creature_type *cr_ptr)
 			cr_ptr->action = ACTION_SPELL;
 
 			/* Recalculate bonuses */
-			update |= (PU_BONUS | PU_HP);
+			update |= (CRU_BONUS | CRU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);

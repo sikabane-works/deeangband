@@ -2843,25 +2843,26 @@
 /*
  * Bit flags for the "update" variable
  */
-#define PU_BONUS        0x00000001L     /* Calculate bonuses */
-#define PU_TORCH        0x00000002L     /* Calculate torch radius */
+//creature update
+#define CRU_BONUS        0x00000001L     // Calculate bonuses
+#define CRU_TORCH        0x00000002L     // Calculate torch radius
+// xxx (many)
+#define CRU_HP           0x00000010L     // Calculate chp and mhp
+#define CRU_MANA         0x00000020L     // Calculate csp and msp
+#define CRU_SPELLS       0x00000040L     // Calculate spells
+
+//world update
+#define PU_UN_VIEW      0x00010000L     // Forget view
+#define PU_UN_LITE      0x00020000L     // Forget lite
 /* xxx (many) */
-#define PU_HP           0x00000010L     /* Calculate chp and mhp */
-#define PU_MANA         0x00000020L     /* Calculate csp and msp */
-#define PU_SPELLS       0x00000040L     /* Calculate spells */
-/* xxx (many) */
-/* xxx (many) */
-#define PU_UN_VIEW      0x00010000L     /* Forget view */
-#define PU_UN_LITE      0x00020000L     /* Forget lite */
-/* xxx (many) */
-#define PU_VIEW         0x00100000L     /* Update view */
-#define PU_LITE         0x00200000L     /* Update lite */
-#define PU_MON_LITE     0x00400000L     /* Monster illumination */
-#define PU_DELAY_VIS    0x00800000L     /* Mega-Hack -- Delayed visual update */
-#define PU_MONSTERS     0x01000000L     /* Update monsters */
-#define PU_DISTANCE     0x02000000L     /* Update distances */
+#define PU_VIEW         0x00100000L     // Update view
+#define PU_LITE         0x00200000L     // Update lite
+#define PU_MON_LITE     0x00400000L     // Monster illumination
+#define PU_DELAY_VIS    0x00800000L     // Mega-Hack -- Delayed visual update
+#define PU_MONSTERS     0x01000000L     // Update monsters
+#define PU_DISTANCE     0x02000000L     // Update distances
 /* xxx */
-#define PU_FLOW         0x10000000L     /* Update flow */
+#define PU_FLOW         0x10000000L     // Update flow
 /* xxx (many) */
 
 

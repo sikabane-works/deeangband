@@ -641,7 +641,7 @@ static void change_realm2(creature_type *cr_ptr, int next_realm)
 	cr_ptr->realm2 = next_realm;
 
 	cr_ptr->notice |= (PN_REORDER);
-	update |= (PU_SPELLS);
+	update |= (CRU_SPELLS);
 	handle_stuff();
 
 	/* Load an autopick preference file */
@@ -963,7 +963,7 @@ s = "読める本がない。";
 #endif
 
 	/* Update Study */
-	update |= (PU_SPELLS);
+	update |= (CRU_SPELLS);
 	update_creature(cr_ptr, TRUE);
 
 	/* Redraw object recall */
@@ -1427,7 +1427,7 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 		if (is_enemy_of_good_creature(m_ptr)) friend_align += r_ptr->level;
 	}
 
-	if (old_friend_align != friend_align) update |= (PU_BONUS);
+	if (old_friend_align != friend_align) update |= (CRU_BONUS);
 }
 
 int calculate_upkeep(creature_type *cr_ptr)
@@ -1473,7 +1473,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 			if (is_enemy_of_good_creature(m_ptr)) friend_align -= m_ptr->lev;
 		}
 	}
-	if (old_friend_align != friend_align) update |= (PU_BONUS);
+	if (old_friend_align != friend_align) update |= (CRU_BONUS);
 	if (total_friends)
 	{
 		int upkeep_factor;
@@ -1604,7 +1604,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 				cr_ptr->riding = 0;
 
 				/* Update the monsters */
-				update |= (PU_BONUS | PU_MONSTERS);
+				update |= (CRU_BONUS | PU_MONSTERS);
 				play_redraw |= (PR_EXTRA | PR_UHEALTH);
 			}
 
@@ -1792,7 +1792,7 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 
 	calc_bonuses(cr_ptr, TRUE);
 
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	/* Update stuff */
 	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
@@ -1983,7 +1983,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the monsters */
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP | PR_EXTRA);
@@ -2730,7 +2730,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 		{
 			if (cr_ptr->pet_extra_flags & PF_RYOUTE) cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 			else cr_ptr->pet_extra_flags |= (PF_RYOUTE);
-			update |= (PU_BONUS);
+			update |= (CRU_BONUS);
 			handle_stuff();
 			break;
 		}

@@ -4237,7 +4237,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in CON affects Hitpoints */
 			if (i == STAT_CON)
 			{
-				update |= (PU_HP);
+				update |= (CRU_HP);
 			}
 
 			/* Change in INT may affect Mana/Spells */
@@ -4245,7 +4245,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_INT)
 				{
-					update |= (PU_MANA | PU_SPELLS);
+					update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -4254,7 +4254,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_WIS)
 				{
-					update |= (PU_MANA | PU_SPELLS);
+					update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -4263,7 +4263,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHA)
 				{
-					update |= (PU_MANA | PU_SPELLS);
+					update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -5688,33 +5688,33 @@ void update_creature(creature_type *cr_ptr, bool message)
 	/* Update stuff */
 	if (!update) return;
 
-	if (update & (PU_BONUS))
+	if (update & (CRU_BONUS))
 	{
-		update &= ~(PU_BONUS);
+		update &= ~(CRU_BONUS);
 		calc_bonuses(cr_ptr, message);
 	}
 
-	if (update & (PU_TORCH))
+	if (update & (CRU_TORCH))
 	{
-		update &= ~(PU_TORCH);
+		update &= ~(CRU_TORCH);
 		calc_torch(cr_ptr);
 	}
 
-	if (update & (PU_HP))
+	if (update & (CRU_HP))
 	{
-		update &= ~(PU_HP);
+		update &= ~(CRU_HP);
 		calc_hitpoints(cr_ptr, message);
 	}
 
-	if (update & (PU_MANA))
+	if (update & (CRU_MANA))
 	{
-		update &= ~(PU_MANA);
+		update &= ~(CRU_MANA);
 		calc_mana(cr_ptr, message);
 	}
 
-	if (update & (PU_SPELLS))
+	if (update & (CRU_SPELLS))
 	{
-		update &= ~(PU_SPELLS);
+		update &= ~(CRU_SPELLS);
 		calc_spells(cr_ptr, message);
 	}
 

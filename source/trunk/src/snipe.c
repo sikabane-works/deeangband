@@ -103,7 +103,7 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 
@@ -128,7 +128,7 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	update |= (PU_BONUS);
+	update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 

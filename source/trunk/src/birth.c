@@ -5634,7 +5634,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 			// Calculate the bonuses and hitpoints
 			// Update stuff 
-			update |= (PU_BONUS | PU_HP | PU_MANA);
+			update |= (CRU_BONUS | CRU_HP | CRU_MANA);
 			update_creature(creature_ptr, FALSE);
 
 
@@ -5863,7 +5863,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	get_extra(creature_ptr, FALSE);
 
 	/* Calculate the bonuses and hitpoints */
-	update |= (PU_BONUS | PU_HP);
+	update |= (CRU_BONUS | CRU_HP);
 
 	/* Update stuff */
 	update_creature(creature_ptr, TRUE);

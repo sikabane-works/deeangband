@@ -3511,7 +3511,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
 						if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-						update |= (PU_BONUS);
+						update |= (CRU_BONUS);
 						break;
 					}
 
@@ -3529,7 +3529,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 							if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 						}
-						update |= (PU_BONUS);
+						update |= (CRU_BONUS);
 						break;
 					}
 				}
