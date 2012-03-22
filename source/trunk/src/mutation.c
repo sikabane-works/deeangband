@@ -1316,7 +1316,7 @@ if(messsage) msg_print("硬いクチバシがなくなった。");
 		}
 
 		cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
-		update |= CRU_BONUS;
+		cr_ptr->creature_update |= CRU_BONUS;
 		handle_stuff();
 		return TRUE;
 	}
@@ -2322,7 +2322,7 @@ muta_desc = "白いオーラは輝いて消えた。";
 		msg_print(muta_desc);
 		*(muta_class) &= ~(muta_which);
 
-		update |= CRU_BONUS;
+		cr_ptr->creature_update |= CRU_BONUS;
 		handle_stuff();
 		cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 		return TRUE;
