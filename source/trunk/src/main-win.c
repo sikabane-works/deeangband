@@ -4581,7 +4581,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				msg_flag = FALSE;
 
 				/* Mega-Hack -- Delay death */
-				if (p_ptr->chp < 0) p_ptr->is_dead = FALSE;
+				if (player_ptr->chp < 0) player_ptr->is_dead = FALSE;
 
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ƒQ[ƒ€’†’f----");
@@ -4597,9 +4597,9 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				/* Indicate panic save */
 #ifdef JP
-				(void)strcpy(p_ptr->died_from, "(‹Ù‹}ƒZ[ƒu)");
+				(void)strcpy(player_ptr->died_from, "(‹Ù‹}ƒZ[ƒu)");
 #else
-				(void)strcpy(p_ptr->died_from, "(panic save)");
+				(void)strcpy(player_ptr->died_from, "(panic save)");
 #endif
 
 				/* Panic save */
@@ -5494,7 +5494,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
 	      if (!lpCmdLine[2]) break;
 	      chuukei_client = TRUE;
 	      connect_chuukei_server(&lpCmdLine[2]);
-	      play_game(p_ptr, FALSE);
+	      play_game(player_ptr, FALSE);
 	      quit(NULL);
 	      return 0;
 	    }
@@ -5503,7 +5503,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
 	    {
 	      if (!lpCmdLine[2]) break;
 	      prepare_browse_movie(&lpCmdLine[2]);
-	      play_game(p_ptr, FALSE);
+	      play_game(player_ptr, FALSE);
 	      quit(NULL);
 	      return 0;
 	    }
