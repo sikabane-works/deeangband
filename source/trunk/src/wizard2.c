@@ -30,7 +30,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 
 
 	/* Update and redraw hitpoints */
-	update |= (CRU_HP);
+	cr_ptr->creature_update |= (CRU_HP);
 	play_redraw |= (PR_HP);
 
 	/* Window stuff */
@@ -946,7 +946,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 		object_copy(o_ptr, q_ptr);
 
 		/* Recalculate bonuses */
-		update |= (CRU_BONUS);
+		caster_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
 		caster_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -1311,7 +1311,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 
 		/* Recalculate bonuses */
-		update |= (CRU_BONUS);
+		cr_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
 		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);

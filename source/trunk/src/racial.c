@@ -559,7 +559,7 @@ static bool choose_kamae(creature_type *cr_ptr)
 	else
 	{
 		cr_ptr->special_defense &= ~(KAMAE_MASK);
-		update |= (CRU_BONUS);
+		cr_ptr->creature_update |= (CRU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
 		msg_format("%sの構えをとった。",kamae_shurui[new_kamae].desc);
@@ -697,8 +697,7 @@ static bool choose_kata(creature_type *cr_ptr)
 	else
 	{
 		cr_ptr->special_defense &= ~(KATA_MASK);
-		update |= (CRU_BONUS);
-		update |= (PU_MONSTERS);
+		cr_ptr->creature_update |= (CRU_BONUS | PU_MONSTERS);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
 #else
@@ -1078,7 +1077,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 				if (!choose_kamae(cr_ptr)) return FALSE;
-				update |= (CRU_BONUS);
+				cr_ptr->creature_update |= (CRU_BONUS);
 			}
 			else if (command == -4)
 			{
@@ -1263,7 +1262,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					return FALSE;
 				}
 				if (!choose_kata(cr_ptr)) return FALSE;
-				update |= (CRU_BONUS);
+				cr_ptr->creature_update |= (CRU_BONUS);
 			}
 			break;
 		}

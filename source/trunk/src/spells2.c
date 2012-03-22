@@ -4649,7 +4649,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 	if (speed) msg_print("You feel a sudden stirring nearby!");
 	else if (sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
-	if (cr_ptr->riding) update |= CRU_BONUS;
+	if (cr_ptr->riding) cr_ptr->creature_update |= CRU_BONUS;
 }
 
 

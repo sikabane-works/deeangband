@@ -5480,7 +5480,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		 * Hack -- To redraw missiles damage and prices in store
 		 * If player's charisma changes, or if player changes a bow, CRU_BONUS is set
 		 */
-		need_redraw_store_inv = (update & CRU_BONUS) ? TRUE : FALSE;
+		need_redraw_store_inv = (cr_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
 
 		/* Hack -- Character is still in "icky" mode */
 		character_icky = TRUE;
