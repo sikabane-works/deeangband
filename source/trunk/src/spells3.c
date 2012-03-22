@@ -5296,7 +5296,7 @@ if (!force) msg_format("‹°•|‚ÌˆÃ•ƒI[ƒ‰‚ª‚ ‚È‚½‚Ì%s‚ð•ï‚Ýž‚ñ‚¾I", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses and mana */
-		update |= (CRU_BONUS | CRU_MANA);
+		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);

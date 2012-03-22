@@ -4237,7 +4237,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in CON affects Hitpoints */
 			if (i == STAT_CON)
 			{
-				update |= (CRU_HP);
+				cr_ptr->creature_update |= (CRU_HP);
 			}
 
 			/* Change in INT may affect Mana/Spells */
@@ -4245,7 +4245,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_INT)
 				{
-					update |= (CRU_MANA | CRU_SPELLS);
+					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -4254,7 +4254,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_WIS)
 				{
-					update |= (CRU_MANA | CRU_SPELLS);
+					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -4263,7 +4263,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHA)
 				{
-					update |= (CRU_MANA | CRU_SPELLS);
+					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -5688,33 +5688,33 @@ void update_creature(creature_type *cr_ptr, bool message)
 	/* Update stuff */
 	if (!update) return;
 
-	if (update & (CRU_BONUS))
+	if (cr_ptr->creature_update & (CRU_BONUS))
 	{
-		update &= ~(CRU_BONUS);
+		cr_ptr->creature_update &= ~(CRU_BONUS);
 		calc_bonuses(cr_ptr, message);
 	}
 
-	if (update & (CRU_TORCH))
+	if (cr_ptr->creature_update & (CRU_TORCH))
 	{
 		update &= ~(CRU_TORCH);
 		calc_torch(cr_ptr);
 	}
 
-	if (update & (CRU_HP))
+	if (cr_ptr->creature_update & (CRU_HP))
 	{
-		update &= ~(CRU_HP);
+		cr_ptr->creature_update &= ~(CRU_HP);
 		calc_hitpoints(cr_ptr, message);
 	}
 
-	if (update & (CRU_MANA))
+	if (cr_ptr->creature_update & (CRU_MANA))
 	{
-		update &= ~(CRU_MANA);
+		cr_ptr->creature_update &= ~(CRU_MANA);
 		calc_mana(cr_ptr, message);
 	}
 
-	if (update & (CRU_SPELLS))
+	if (cr_ptr->creature_update & (CRU_SPELLS))
 	{
-		update &= ~(CRU_SPELLS);
+		cr_ptr->creature_update &= ~(CRU_SPELLS);
 		calc_spells(cr_ptr, message);
 	}
 

@@ -104,7 +104,7 @@ void check_experience(creature_type *cr_ptr)
 		cr_ptr->lev--;
 
 		/* Update some stuff */
-		update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -152,7 +152,7 @@ void check_experience(creature_type *cr_ptr)
 		}
 
 		/* Update some stuff */
-		update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
@@ -264,7 +264,7 @@ void check_experience(creature_type *cr_ptr)
 		}
 
 		/* Update some stuff */
-		update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -1554,7 +1554,7 @@ void resize_map(void)
 	verify_panel(player_ptr);
 
 	/* Update stuff */
-	update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	p_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
 	update |= (PU_UN_VIEW | PU_UN_LITE);
