@@ -861,7 +861,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 #endif
 
 			cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-			update |= CRU_BONUS;
+			cr_ptr->creature_update |= CRU_BONUS;
 			handle_stuff();
 		}
 	}
@@ -1139,7 +1139,7 @@ static void start_singing(creature_type *cr_ptr, int spell, int song)
 
 
 	/* Recalculate bonuses */
-	update |= (CRU_BONUS);
+	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1174,7 +1174,7 @@ void stop_singing(creature_type *cr_ptr)
 	cr_ptr->magic_num2[0] = 0;
 
 	/* Recalculate bonuses */
-	update |= (CRU_BONUS);
+	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -9207,7 +9207,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			update |= (CRU_HP);
+			cr_ptr->creature_update |= (CRU_HP);
 
 			start_singing(cr_ptr, spell, MUSIC_HERO);
 		}
@@ -9222,7 +9222,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				update |= (CRU_HP);
+				cr_ptr->creature_update |= (CRU_HP);
 			}
 		}
 
@@ -9967,7 +9967,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			update |= (CRU_HP);
+			cr_ptr->creature_update |= (CRU_HP);
 
 			start_singing(cr_ptr, spell, MUSIC_SHERO);
 		}
@@ -9982,7 +9982,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				update |= (CRU_HP);
+				cr_ptr->creature_update |= (CRU_HP);
 			}
 
 			if (!cr_ptr->fast)
@@ -11638,7 +11638,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			update |= (CRU_BONUS);
+			cr_ptr->creature_update |= (CRU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -12104,7 +12104,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			update |= (CRU_BONUS);
+			cr_ptr->creature_update |= (CRU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -12273,7 +12273,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 						cr_ptr->stat_cur[i] = cr_ptr->stat_max[i];
 
 					/* Recalculate bonuses */
-					update |= (CRU_BONUS);
+					cr_ptr->creature_update |= (CRU_BONUS);
 
 					flag = TRUE;
 				}
@@ -12291,7 +12291,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				if (cr_ptr->magic_num2) cr_ptr->action = ACTION_NONE;
 
 				/* Redraw status */
-				update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+				cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 				play_redraw |= (PR_EXTRA);
 
 				return "";
@@ -12578,7 +12578,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 	/* Redraw status */
 	if (!info)
 	{
-		update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 	}
 

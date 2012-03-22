@@ -1369,7 +1369,7 @@ msg_print("全ての突然変異が治った。");
 #endif
 
 				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-				update |= CRU_BONUS;
+				cr_ptr->creature_update |= CRU_BONUS;
 				handle_stuff();
 			}
 			else
@@ -1928,7 +1928,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		{
 			if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_IMITATOR) || (cr_ptr->cls_idx == CLASS_MINDCRAFTER) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_ARCHER) || (cr_ptr->cls_idx == CLASS_MAGIC_EATER) || (cr_ptr->cls_idx == CLASS_RED_MAGE) || (cr_ptr->cls_idx == CLASS_SAMURAI) || (cr_ptr->cls_idx == CLASS_BLUE_MAGE) || (cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BERSERKER) || (cr_ptr->cls_idx == CLASS_SMITH) || (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) || (cr_ptr->cls_idx == CLASS_NINJA)) break;
 			cr_ptr->add_spells++;
-			update |= (CRU_SPELLS);
+			cr_ptr->creature_update |= (CRU_SPELLS);
 			ident = TRUE;
 			break;
 		}
@@ -5556,7 +5556,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
 				if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
-				update |= (CRU_BONUS | CRU_HP);
+				cr_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;
 			}
 			case ART_KESHO:

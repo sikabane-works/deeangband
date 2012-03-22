@@ -1228,10 +1228,7 @@ msg_print("明かりが消えてしまった！");
 #endif
 
 		/* Recalculate torch radius */
-		update |= (CRU_TORCH);
-
-		/* Some ego light lose its effects without fuel */
-		update |= (CRU_BONUS);
+		cr_ptr->creature_update |= (CRU_TORCH | CRU_BONUS);
 	}
 
 	/* The light is getting dim */
@@ -1523,7 +1520,7 @@ static void check_music(creature_type *cr_ptr)
 			cr_ptr->action = ACTION_SING;
 
 			/* Recalculate bonuses */
-			update |= (CRU_BONUS | CRU_HP);
+			cr_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
@@ -3122,7 +3119,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				update |= (CRU_BONUS);
+				cr_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
 		/* Add heavy curse (Later) */
@@ -3149,7 +3146,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				update |= (CRU_BONUS);
+				cr_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
 		/* Call animal */
@@ -5816,7 +5813,7 @@ msg_print("中断しました。");
 			cr_ptr->magic_num1[0] = 0;
 		}
 		else cr_ptr->magic_num1[0] -= 40;
-		update |= (CRU_BONUS);
+		cr_ptr->creature_update |= (CRU_BONUS);
 	}
 	if (cr_ptr->action == ACTION_LEARN)
 	{
@@ -6274,10 +6271,10 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	play_redraw |= (PR_MAP);
 
 	/* Update stuff */
-	update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 
 	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE | CRU_TORCH);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
 	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
@@ -6289,7 +6286,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	character_xtra = FALSE;
 
 	/* Update stuff */
-	update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Combine / Reorder the pack */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -6762,7 +6759,7 @@ quit("セーブファイルが壊れています");
 			quit(0);
 
 		/* Update stuff */
-		update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Update stuff */
 		update_creature(cr_ptr, TRUE);
