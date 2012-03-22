@@ -1591,7 +1591,7 @@ struct creature_type
 	byte cdis;		/* Current dis from player */
 
 	byte mflag;		/* Extra monster flags */
-	byte mflag2;		/* Extra monster flags */
+	byte mflag2;	/* Extra monster flags */
 
 	bool ml;		/* Monster is "visible" */
 
@@ -1623,6 +1623,7 @@ struct creature_type
 	bool now_damaged;
 
 	u16b total_winner;	  /* Total winner */
+	u32b creature_update;
 
 };
 
