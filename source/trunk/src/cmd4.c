@@ -8245,7 +8245,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
 						}
 						update = PU_BONUS | PU_HP | PU_MANA;
-						update_stuff(creature_ptr, FALSE);
+						update_creature(creature_ptr, FALSE);
 
 						display_creature_dump(creature_ptr);
 						redraw = TRUE;

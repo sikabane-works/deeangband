@@ -5683,7 +5683,7 @@ void notice_stuff(creature_type *cr_ptr)
 /*
  * Handle "update"
  */
-void update_stuff(creature_type *cr_ptr, bool message)
+void update_creature(creature_type *cr_ptr, bool message)
 {
 	/* Update stuff */
 	if (!update) return;
@@ -6063,7 +6063,7 @@ void window_stuff(void)
 void handle_stuff(void)
 {
 	/* Update stuff */
-	if (update) update_stuff(player_ptr, TRUE);
+	if (update) update_creature(player_ptr, TRUE);
 
 	/* Redraw stuff */
 	if (play_redraw) redraw_stuff();

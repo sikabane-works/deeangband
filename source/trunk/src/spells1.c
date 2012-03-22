@@ -8536,7 +8536,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Update stuff if needed */
-	if (update) update_stuff(player_ptr, TRUE);
+	if (update) update_creature(player_ptr, TRUE);
 
 
 	if (flg & PROJECT_KILL)
@@ -8587,7 +8587,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	}
 
 	/* Update stuff if needed */
-	if (update) update_stuff(player_ptr, TRUE);
+	if (update) update_creature(player_ptr, TRUE);
 
 	/* Check objects */
 	if (flg & (PROJECT_ITEM))

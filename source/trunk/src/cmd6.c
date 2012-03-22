@@ -1124,7 +1124,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)do_res_stat(cr_ptr, STAT_INT);
 			(void)do_res_stat(cr_ptr, STAT_CHA);
 			(void)set_shero(cr_ptr, 0,TRUE);
-			update_stuff(cr_ptr, TRUE);
+			update_creature(cr_ptr, TRUE);
 			hp_player(cr_ptr, 5000);
 			ident = TRUE;
 			break;

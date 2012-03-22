@@ -964,7 +964,7 @@ s = "ì«ÇﬂÇÈñ{Ç™Ç»Ç¢ÅB";
 
 	/* Update Study */
 	update |= (PU_SPELLS);
-	update_stuff(cr_ptr, TRUE);
+	update_creature(cr_ptr, TRUE);
 
 	/* Redraw object recall */
 	play_window |= (PW_OBJECT);

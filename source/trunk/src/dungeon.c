@@ -6765,7 +6765,7 @@ quit("セーブファイルが壊れています");
 		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Update stuff */
-		update_stuff(cr_ptr, TRUE);
+		update_creature(cr_ptr, TRUE);
 
 		cr_ptr->is_dead = TRUE;
 

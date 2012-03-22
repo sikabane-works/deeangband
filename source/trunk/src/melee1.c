@@ -841,7 +841,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						if (apply_disenchant(target_ptr, 0))
 						{
 							/* Hack -- Update AC */
-							update_stuff(target_ptr, TRUE);
+							update_creature(target_ptr, TRUE);
 							obvious = TRUE;
 						}
 					}
@@ -1229,7 +1229,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					get_damage += acid_dam(target_ptr, damage, ddesc, -1);
 
 					/* Hack -- Update AC */
-					update_stuff(target_ptr, TRUE);
+					update_creature(target_ptr, TRUE);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_ACID);

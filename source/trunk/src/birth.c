@@ -5635,7 +5635,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			// Calculate the bonuses and hitpoints
 			// Update stuff 
 			update |= (PU_BONUS | PU_HP | PU_MANA);
-			update_stuff(creature_ptr, FALSE);
+			update_creature(creature_ptr, FALSE);
 
 
 			/* And start out fully healthy */
@@ -5866,7 +5866,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	update |= (PU_BONUS | PU_HP);
 
 	/* Update stuff */
-	update_stuff(creature_ptr, TRUE);
+	update_creature(creature_ptr, TRUE);
 
 	/* Fully healed */
 	creature_ptr->chp = creature_ptr->mhp;
