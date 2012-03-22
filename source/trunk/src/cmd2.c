@@ -2889,7 +2889,7 @@ void do_cmd_rest(creature_type *cr_ptr)
 	cr_ptr->action = ACTION_REST;
 
 	/* Recalculate bonuses */
-	update |= (CRU_BONUS);
+	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Redraw the state */
 	play_redraw |= (PR_STATE);
@@ -3566,7 +3566,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					else if ((now_exp < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19)) amount = 10;
 					else if (cr_ptr->lev > 34) amount = 2;
 					cr_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					update |= (CRU_BONUS);
+					cr_ptr->creature_update |= (CRU_BONUS);
 				}
 			}
 
@@ -3577,7 +3577,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					&& one_in_(2))
 				{
 					cr_ptr->skill_exp[GINOU_RIDING] += 1;
-					update |= (CRU_BONUS);
+					cr_ptr->creature_update |= (CRU_BONUS);
 				}
 			}
 
@@ -4542,13 +4542,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			cr_ptr->equip_cnt++;
 
 			/* Recalculate bonuses */
-			update |= (CRU_BONUS);
-
-			/* Recalculate torch */
-			update |= (CRU_TORCH);
-
-			/* Recalculate mana XXX */
-			update |= (CRU_MANA);
+			cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
 			/* Window stuff */
 			play_window |= (PW_EQUIP);

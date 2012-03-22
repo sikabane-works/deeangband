@@ -5634,7 +5634,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 			// Calculate the bonuses and hitpoints
 			// Update stuff 
-			update |= (CRU_BONUS | CRU_HP | CRU_MANA);
+			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA);
 			update_creature(creature_ptr, FALSE);
 
 
@@ -5862,10 +5862,8 @@ bool ask_quick_start(creature_type *creature_ptr)
 	/* Calc hitdice, but don't roll */
 	get_extra(creature_ptr, FALSE);
 
-	/* Calculate the bonuses and hitpoints */
-	update |= (CRU_BONUS | CRU_HP);
-
-	/* Update stuff */
+	// Update the bonuses and hitpoints
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 	update_creature(creature_ptr, TRUE);
 
 	/* Fully healed */

@@ -1483,7 +1483,7 @@ static void auto_inscribe_item(creature_type *cr_ptr, object_type *o_ptr, int id
 	play_window |= (PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect warning and TRC_TELEPORT_SELF */
-	update |= (CRU_BONUS);
+	cr_ptr->creature_update |= (CRU_BONUS);
 }
 
 
