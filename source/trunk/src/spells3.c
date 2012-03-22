@@ -3051,7 +3051,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	o_ptr->ident |= (IDENT_MENTAL);
 
 	/* Handle stuff */
-	handle_stuff(cr_ptr);
+	handle_stuff();
 
 	/* Description */
 	object_desc(o_name, o_ptr, 0);

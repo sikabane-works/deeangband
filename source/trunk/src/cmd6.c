@@ -1331,7 +1331,7 @@ msg_print("全ての突然変異が治った。");
 
 				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 				update |= PU_BONUS;
-				handle_stuff(cr_ptr);
+				handle_stuff();
 				cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 			}
 			ident = TRUE;
@@ -1370,7 +1370,7 @@ msg_print("全ての突然変異が治った。");
 
 				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 				update |= PU_BONUS;
-				handle_stuff(cr_ptr);
+				handle_stuff();
 			}
 			else
 			{

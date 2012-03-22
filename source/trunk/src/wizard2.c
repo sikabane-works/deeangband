@@ -37,7 +37,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 	play_window |= (PW_PLAYER);
 
 	/* Handle stuff */
-	handle_stuff(cr_ptr);
+	handle_stuff();
 
 	/* Message */
 	if (display)

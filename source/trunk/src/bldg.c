@@ -2464,7 +2464,7 @@ static bool kankin(creature_type *cr_ptr)
 				autopick_alter_item(cr_ptr, item_new, FALSE);
 
 				/* Handle stuff */
-				handle_stuff(cr_ptr);
+				handle_stuff();
 
 				change = TRUE;
 			}
@@ -2764,7 +2764,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 	}
 
 	update |= PU_BONUS;
-	handle_stuff(watcher_ptr);
+	handle_stuff();
 }
 
 
@@ -4620,7 +4620,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 				species_type_track(species_idx);
 
 				/* Hack -- Handle stuff */
-				handle_stuff(cr_ptr);
+				handle_stuff();
 
 				/* know every thing mode */
 				//screen_roff(species_idx);
@@ -5179,7 +5179,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		notice_stuff(cr_ptr);
 
 		/* Handle stuff */
-		handle_stuff(cr_ptr);
+		handle_stuff();
 	}
 
 	/* Flush messages XXX XXX XXX */

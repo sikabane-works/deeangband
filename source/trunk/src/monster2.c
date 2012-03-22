@@ -2828,7 +2828,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 	}
 
 	update |= PU_BONUS;
-	handle_stuff(watcher_ptr);
+	handle_stuff();
 }
 
 

@@ -292,7 +292,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 
 		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
-		if (!corner && !border) p_ptr->visit |= (1L << (town_num - 1));
+		if (!corner && !border) player_ptr->visit |= (1L << (town_num - 1));
 	}
 	else
 	{
@@ -354,7 +354,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		}
 	}
 
-	if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+	if (wilderness[y][x].entrance && !wilderness[y][x].town && (player_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
 	{
 		int dy, dx;
 

@@ -4158,7 +4158,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 				}
 
 				/* Handle stuff */
-				handle_stuff(guest_ptr);
+				handle_stuff();
 
 				/* Note how many slots the store used to have */
 				i = st_ptr->stock_num;
@@ -4246,7 +4246,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
  o_name, index_to_label(guest_ptr, item_new));
 
 		/* Handle stuff */
-		handle_stuff(guest_ptr);
+		handle_stuff();
 
 		/* Take note if we take the last one */
 		i = st_ptr->stock_num;
@@ -4563,7 +4563,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			inven_item_optimize(cr_ptr, item);
 
 			/* Handle stuff */
-			handle_stuff(cr_ptr);
+			handle_stuff();
 
 			/* The store gets that (known) item */
 			item_pos = store_carry(st_ptr, q_ptr);
@@ -4627,7 +4627,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		inven_item_optimize(cr_ptr, item);
 
 		/* Handle stuff */
-		handle_stuff(cr_ptr);
+		handle_stuff();
 
 		/* Let the home carry it */
 		item_pos = home_carry(st_ptr, q_ptr);
@@ -4660,7 +4660,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		inven_item_optimize(cr_ptr, item);
 
 		/* Handle stuff */
-		handle_stuff(cr_ptr);
+		handle_stuff();
 
 		/* Let the home carry it */
 		item_pos = home_carry(st_ptr, q_ptr);
@@ -5489,7 +5489,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		notice_stuff(cr_ptr);
 
 		/* Handle stuff */
-		handle_stuff(cr_ptr);
+		handle_stuff();
 
 		/* XXX XXX XXX Pack Overflow */
 		if (cr_ptr->inventory[INVEN_TOTAL].k_idx)
@@ -5576,7 +5576,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 				inven_item_optimize(cr_ptr, item);
 
 				/* Handle stuff */
-				handle_stuff(cr_ptr);
+				handle_stuff();
 
 				/* Let the home carry it */
 				item_pos = home_carry(st_ptr, q_ptr);

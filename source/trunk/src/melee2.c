@@ -3291,7 +3291,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		msg_print(NULL);
 	}
 
-	handle_stuff(player_ptr);
+	handle_stuff();
 
 	return (TRUE);
 }

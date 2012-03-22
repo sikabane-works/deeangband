@@ -1929,7 +1929,7 @@ void do_cmd_locate(creature_type *cr_ptr)
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
-	handle_stuff(cr_ptr);
+	handle_stuff();
 }
 
 
@@ -2265,7 +2265,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		species_type_track(species_idx);
 
 		/* Hack -- Handle stuff */
-		handle_stuff(cr_ptr);
+		handle_stuff();
 
 		/* Interact */
 		while (1)

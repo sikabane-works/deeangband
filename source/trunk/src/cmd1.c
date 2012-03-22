@@ -847,7 +847,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
-	handle_stuff(cr_ptr);
+	handle_stuff();
 
 	/* Automatically pickup/destroy/inscribe items */
 	autopick_pickup_items(cr_ptr, c_ptr);
@@ -1745,7 +1745,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_FIRE);
-			handle_stuff(atk_ptr);
+			handle_stuff();
 		}
 	}
 
@@ -1771,7 +1771,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_COLD);
-			handle_stuff(atk_ptr);
+			handle_stuff();
 		}
 	}
 
@@ -1798,7 +1798,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_ELEC);
-			handle_stuff(atk_ptr);
+			handle_stuff();
 		}
 	}
 }
@@ -3631,7 +3631,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		if (dun_level && (d_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
 
 		/* Handle stuff */
-		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff(cr_ptr);
+		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
 
 		if (cr_ptr->cls_idx == CLASS_NINJA)
 		{

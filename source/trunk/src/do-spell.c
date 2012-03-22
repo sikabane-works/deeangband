@@ -862,7 +862,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 
 			cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 			update |= PU_BONUS;
-			handle_stuff(cr_ptr);
+			handle_stuff();
 		}
 	}
 	else if (die < 120)
@@ -11136,7 +11136,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				command_dir = 0;
 
 				play_redraw |= PR_MANA;
-				handle_stuff(cr_ptr);
+				handle_stuff();
 			}
 			while (cr_ptr->csp > mana_cost_per_monster);
 
@@ -11211,7 +11211,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				weapon_attack(cr_ptr, y, x, 0);
 				if (cave[y][x].m_idx)
 				{
-					handle_stuff(cr_ptr);
+					handle_stuff();
 					weapon_attack(cr_ptr, y, x, 0);
 				}
 			}

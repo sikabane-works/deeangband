@@ -6066,10 +6066,10 @@ void window_stuff(void)
 /*
  * Handle "update" and "play_redraw" and "play_window"
  */
-void handle_stuff(creature_type *cr_ptr)
+void handle_stuff(void)
 {
 	/* Update stuff */
-	if (update) update_stuff(cr_ptr, is_player(cr_ptr));
+	if (update) update_stuff(player_ptr, TRUE);
 
 	/* Redraw stuff */
 	if (play_redraw) redraw_stuff(player_ptr);
