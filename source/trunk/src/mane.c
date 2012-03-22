@@ -910,7 +910,7 @@ msg_print("–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B");
 		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);

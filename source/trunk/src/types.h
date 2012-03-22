@@ -1418,9 +1418,7 @@ struct creature_type
 
 	s16b cur_lite;		/* Radius of lite (if any) */
 
-
 	u32b notice;		/* Special Updates (bit flags) */
-	u32b update;		/* Pending Updates (bit flags) */
 
 	s16b stat_use[6];	/* Current modified stats */
 	s16b stat_top[6];	/* Maximal modified stats */

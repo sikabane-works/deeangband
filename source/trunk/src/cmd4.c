@@ -1173,19 +1173,19 @@ void do_cmd_redraw(creature_type *cr_ptr)
 
 
 	/* Update torch */
-	cr_ptr->update |= (PU_TORCH);
+	update |= (PU_TORCH);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Forget lite/view */
-	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -8244,7 +8244,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							identify_item(player_ptr, &creature_ptr->inventory[j]);
 							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
 						}
-						creature_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+						update = PU_BONUS | PU_HP | PU_MANA;
 						update_stuff(creature_ptr, FALSE);
 
 						display_creature_dump(creature_ptr);

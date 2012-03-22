@@ -2763,7 +2763,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 		}
 	}
 
-	watcher_ptr->update |= PU_BONUS;
+	update |= PU_BONUS;
 	handle_stuff(watcher_ptr);
 }
 
@@ -5199,7 +5199,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	Term_clear();
 
 	/* Update the visuals */
-	cr_ptr->update |= (PU_VIEW | PU_MONSTERS | PU_BONUS | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_MONSTERS | PU_BONUS | PU_LITE | PU_MON_LITE);
 
 	/* Redraw entire screen */
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);

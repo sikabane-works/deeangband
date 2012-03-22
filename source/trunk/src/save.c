@@ -1082,10 +1082,10 @@ static bool wr_dungeon(creature_type *player_ptr)
 	clear_mon_lite();
 
 	/* Update lite/view */
-	player_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
-	player_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 
 	/*** Meta info ***/

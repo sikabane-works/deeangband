@@ -149,7 +149,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	lite_spot(ny, nx);
 
 	if (is_lighting_creature(cr_ptr) || is_darken_creature(cr_ptr))
-		p_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 
 	return (TRUE);
 }
@@ -249,7 +249,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	lite_spot(ny, nx);
 
 	if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		target_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 }
 
 
@@ -1149,7 +1149,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(cr_ptr, t) );
 #endif
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP | PW_PLAYER);
@@ -1186,7 +1186,7 @@ void mutate_creature(creature_type *cr_ptr)
 		if(cr_ptr->stat_cur[i] > cr_ptr->stat_mod_max_max[i]) cr_ptr->stat_cur[i] = cr_ptr->stat_mod_max_max[i];
 	}
 
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 }
 
 
@@ -1320,7 +1320,7 @@ msg_print("照明用アイテムは満タンになった。");
 	}
 
 	/* Recalculate torch */
-	cr_ptr->update |= (PU_TORCH);
+	update |= (PU_TORCH);
 }
 
 
@@ -1714,13 +1714,13 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -2191,7 +2191,7 @@ static int remove_curse_aux(creature_type *cr_ptr, int all)
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -2487,7 +2487,7 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 	if (!res) return (FALSE);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -2758,7 +2758,7 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -3537,7 +3537,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -3639,7 +3639,7 @@ msg_format("%s は劣化した！",
 	}
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
@@ -4941,7 +4941,7 @@ msg_format("%sがダメージを受けた！", o_name);
 	o_ptr->to_a--;
 
 	/* Calculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
@@ -5219,10 +5219,10 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Recalculate mana */
-		cr_ptr->update |= (PU_MANA);
+		update |= (PU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -5299,10 +5299,10 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses */
-		target_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Recalculate mana */
-		target_ptr->update |= (PU_MANA);
+		update |= (PU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);

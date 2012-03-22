@@ -162,7 +162,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 			/* Destroy the wall */
 			cave_alter_feat(cr_ptr, y, x, FF_HURT_ROCK);
 
-			cr_ptr->update |= (PU_FLOW);
+			update |= (PU_FLOW);
 		}
 	}
 	/**********Create arrows*********/
@@ -559,7 +559,7 @@ static bool choose_kamae(creature_type *cr_ptr)
 	else
 	{
 		cr_ptr->special_defense &= ~(KAMAE_MASK);
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
 		msg_format("%sの構えをとった。",kamae_shurui[new_kamae].desc);
@@ -697,8 +697,8 @@ static bool choose_kata(creature_type *cr_ptr)
 	else
 	{
 		cr_ptr->special_defense &= ~(KATA_MASK);
-		cr_ptr->update |= (PU_BONUS);
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_BONUS);
+		update |= (PU_MONSTERS);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
 #else
@@ -1078,7 +1078,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 				if (!choose_kamae(cr_ptr)) return FALSE;
-				cr_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 			else if (command == -4)
 			{
@@ -1263,7 +1263,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					return FALSE;
 				}
 				if (!choose_kata(cr_ptr)) return FALSE;
-				cr_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 			break;
 		}

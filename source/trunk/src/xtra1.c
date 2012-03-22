@@ -2845,7 +2845,7 @@ static void calc_torch(creature_type *cr_ptr)
 	{
 		/* Update stuff */
 		/* Hack -- PU_MON_LITE for monsters' darkness */
-		cr_ptr->update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
 
 		/* Remember the old lite */
 		cr_ptr->old_lite = cr_ptr->cur_lite;
@@ -4237,7 +4237,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in CON affects Hitpoints */
 			if (i == STAT_CON)
 			{
-				cr_ptr->update |= (PU_HP);
+				update |= (PU_HP);
 			}
 
 			/* Change in INT may affect Mana/Spells */
@@ -4245,7 +4245,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_INT)
 				{
-					cr_ptr->update |= (PU_MANA | PU_SPELLS);
+					update |= (PU_MANA | PU_SPELLS);
 				}
 			}
 
@@ -4254,7 +4254,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_WIS)
 				{
-					cr_ptr->update |= (PU_MANA | PU_SPELLS);
+					update |= (PU_MANA | PU_SPELLS);
 				}
 			}
 
@@ -4263,7 +4263,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHA)
 				{
-					cr_ptr->update |= (PU_MANA | PU_SPELLS);
+					update |= (PU_MANA | PU_SPELLS);
 				}
 			}
 
@@ -4450,7 +4450,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Hack -- Telepathy Change */
 	if (cr_ptr->telepathy != old_telepathy)
 	{
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 	}
 
 	if ((cr_ptr->esp_animal != old_esp_animal) ||
@@ -4466,13 +4466,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	    (cr_ptr->esp_nonliving != old_esp_nonliving) ||
 	    (cr_ptr->esp_unique != old_esp_unique))
 	{
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 	}
 
 	/* Hack -- See Invis Change */
 	if (cr_ptr->see_inv != old_see_inv)
 	{
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 	}
 
 	/* Bloating slows the player down (a little) */
@@ -5681,40 +5681,40 @@ void notice_stuff(creature_type *cr_ptr)
 
 
 /*
- * Handle "cr_ptr->update"
+ * Handle "update"
  */
 void update_stuff(creature_type *cr_ptr, bool message)
 {
 	/* Update stuff */
-	if (!cr_ptr->update) return;
+	if (!update) return;
 
-	if (cr_ptr->update & (PU_BONUS))
+	if (update & (PU_BONUS))
 	{
-		cr_ptr->update &= ~(PU_BONUS);
+		update &= ~(PU_BONUS);
 		calc_bonuses(cr_ptr, message);
 	}
 
-	if (cr_ptr->update & (PU_TORCH))
+	if (update & (PU_TORCH))
 	{
-		cr_ptr->update &= ~(PU_TORCH);
+		update &= ~(PU_TORCH);
 		calc_torch(cr_ptr);
 	}
 
-	if (cr_ptr->update & (PU_HP))
+	if (update & (PU_HP))
 	{
-		cr_ptr->update &= ~(PU_HP);
+		update &= ~(PU_HP);
 		calc_hitpoints(cr_ptr, message);
 	}
 
-	if (cr_ptr->update & (PU_MANA))
+	if (update & (PU_MANA))
 	{
-		cr_ptr->update &= ~(PU_MANA);
+		update &= ~(PU_MANA);
 		calc_mana(cr_ptr, message);
 	}
 
-	if (cr_ptr->update & (PU_SPELLS))
+	if (update & (PU_SPELLS))
 	{
-		cr_ptr->update &= ~(PU_SPELLS);
+		update &= ~(PU_SPELLS);
 		calc_spells(cr_ptr, message);
 	}
 
@@ -5727,50 +5727,50 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (character_icky) return;
 
 
-	if (cr_ptr->update & (PU_UN_LITE))
+	if (update & (PU_UN_LITE))
 	{
-		cr_ptr->update &= ~(PU_UN_LITE);
+		update &= ~(PU_UN_LITE);
 		forget_lite();
 	}
 
-	if (cr_ptr->update & (PU_UN_VIEW))
+	if (update & (PU_UN_VIEW))
 	{
-		cr_ptr->update &= ~(PU_UN_VIEW);
+		update &= ~(PU_UN_VIEW);
 		forget_view();
 	}
 
-	if (cr_ptr->update & (PU_VIEW))
+	if (update & (PU_VIEW))
 	{
-		cr_ptr->update &= ~(PU_VIEW);
+		update &= ~(PU_VIEW);
 		update_view(cr_ptr);
 	}
 
-	if (cr_ptr->update & (PU_LITE))
+	if (update & (PU_LITE))
 	{
-		cr_ptr->update &= ~(PU_LITE);
+		update &= ~(PU_LITE);
 		update_lite(cr_ptr);
 	}
 
 
-	if (cr_ptr->update & (PU_FLOW))
+	if (update & (PU_FLOW))
 	{
-		cr_ptr->update &= ~(PU_FLOW);
+		update &= ~(PU_FLOW);
 		update_flow(cr_ptr);
 	}
 
-	if (cr_ptr->update & (PU_DISTANCE))
+	if (update & (PU_DISTANCE))
 	{
-		cr_ptr->update &= ~(PU_DISTANCE);
+		update &= ~(PU_DISTANCE);
 
 		/* Still need to call update_monsters(FALSE) after update_mon_lite() */ 
-		/* cr_ptr->update &= ~(PU_MONSTERS); */
+		/* update &= ~(PU_MONSTERS); */
 
 		update_monsters(TRUE);
 	}
 
-	if (cr_ptr->update & (PU_MON_LITE))
+	if (update & (PU_MON_LITE))
 	{
-		cr_ptr->update &= ~(PU_MON_LITE);
+		update &= ~(PU_MON_LITE);
 		update_mon_lite(cr_ptr);
 	}
 
@@ -5778,15 +5778,15 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	 * Mega-Hack -- Delayed visual update
 	 * Only used if update_view(), update_lite() or update_mon_lite() was called
 	 */
-	if (cr_ptr->update & (PU_DELAY_VIS))
+	if (update & (PU_DELAY_VIS))
 	{
-		cr_ptr->update &= ~(PU_DELAY_VIS);
+		update &= ~(PU_DELAY_VIS);
 		delayed_visual_update();
 	}
 
-	if (cr_ptr->update & (PU_MONSTERS))
+	if (update & (PU_MONSTERS))
 	{
-		cr_ptr->update &= ~(PU_MONSTERS);
+		update &= ~(PU_MONSTERS);
 		update_monsters(FALSE);
 	}
 }
@@ -6069,7 +6069,7 @@ void window_stuff(void)
 void handle_stuff(creature_type *cr_ptr)
 {
 	/* Update stuff */
-	if (cr_ptr->update) update_stuff(cr_ptr, is_player(cr_ptr));
+	if (update) update_stuff(cr_ptr, is_player(cr_ptr));
 
 	/* Redraw stuff */
 	if (play_redraw) redraw_stuff(player_ptr);

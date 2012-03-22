@@ -103,12 +103,12 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	return (TRUE);
 }
@@ -128,12 +128,12 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	cr_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 }
 
 int boost_concentration_damage(creature_type *cr_ptr, int tdam)

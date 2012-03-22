@@ -861,7 +861,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 #endif
 
 			cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-			cr_ptr->update |= PU_BONUS;
+			update |= PU_BONUS;
 			handle_stuff(cr_ptr);
 		}
 	}
@@ -1139,7 +1139,7 @@ static void start_singing(creature_type *cr_ptr, int spell, int song)
 
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1174,7 +1174,7 @@ void stop_singing(creature_type *cr_ptr)
 	cr_ptr->magic_num2[0] = 0;
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -9207,7 +9207,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			cr_ptr->update |= (PU_HP);
+			update |= (PU_HP);
 
 			start_singing(cr_ptr, spell, MUSIC_HERO);
 		}
@@ -9222,7 +9222,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				cr_ptr->update |= (PU_HP);
+				update |= (PU_HP);
 			}
 		}
 
@@ -9967,7 +9967,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			cr_ptr->update |= (PU_HP);
+			update |= (PU_HP);
 
 			start_singing(cr_ptr, spell, MUSIC_SHERO);
 		}
@@ -9982,7 +9982,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				cr_ptr->update |= (PU_HP);
+				update |= (PU_HP);
 			}
 
 			if (!cr_ptr->fast)
@@ -10129,7 +10129,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 		
 				/* Update monsters */
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 		
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10150,7 +10150,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10571,7 +10571,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					lite_spot(ty, tx);
 	
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						cr_ptr->update |= (PU_MON_LITE);
+						update |= (PU_MON_LITE);
 				}
 			}
 		}
@@ -10627,7 +10627,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			cave_alter_feat(cr_ptr, y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
-			cr_ptr->update |= (PU_FLOW);
+			update |= (PU_FLOW);
 		}
 		break;
 
@@ -11638,7 +11638,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			cr_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -12104,7 +12104,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			cr_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -12273,7 +12273,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 						cr_ptr->stat_cur[i] = cr_ptr->stat_max[i];
 
 					/* Recalculate bonuses */
-					cr_ptr->update |= (PU_BONUS);
+					update |= (PU_BONUS);
 
 					flag = TRUE;
 				}
@@ -12291,7 +12291,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 				if (cr_ptr->magic_num2) cr_ptr->action = ACTION_NONE;
 
 				/* Redraw status */
-				cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+				update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 				play_redraw |= (PR_EXTRA);
 
 				return "";
@@ -12578,7 +12578,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 	/* Redraw status */
 	if (!info)
 	{
-		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 	}
 

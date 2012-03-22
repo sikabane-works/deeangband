@@ -4649,7 +4649,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 	if (speed) msg_print("You feel a sudden stirring nearby!");
 	else if (sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
-	if (cr_ptr->riding) cr_ptr->update |= PU_BONUS;
+	if (cr_ptr->riding) update |= PU_BONUS;
 }
 
 
@@ -5330,10 +5330,10 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		forget_flow();
 
 		/* Mega-Hack -- Forget the view and lite */
-		caster_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+		update |= (PU_UN_VIEW | PU_UN_LITE);
 
 		/* Update stuff */
-		caster_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -5845,10 +5845,10 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 
 	/* Mega-Hack -- Forget the view and lite */
-	target_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	target_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
@@ -6887,7 +6887,7 @@ bool wall_stone(creature_type *caster_ptr)
 	bool dummy = (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, flg, -1));
 
 	/* Update stuff */
-	p_ptr->update |= (PU_FLOW);
+	update |= (PU_FLOW);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

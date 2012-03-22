@@ -2072,3 +2072,4 @@ extern half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION];
 extern int town_store_id[20][10];
 extern char authority_rank_disp[6][3];
 
+extern u32b update;	

@@ -1729,7 +1729,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	if (is_riding_mon)
 	{
-		player_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 	}
 
 	/* No one wants to be your friend if you're aggravating */
@@ -2229,7 +2229,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
-						player_ptr->update |= (PU_FLOW);
+						update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
 						if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_BASH_DOOR);
 
@@ -2467,7 +2467,7 @@ msg_format("%^s%s", m_name, monmessage);
 			if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
-				player_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 				if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_KILL_WALL);
 
@@ -2722,7 +2722,7 @@ msg_format("%^s%s", m_name, monmessage);
 	if (do_view)
 	{
 		/* Update some things */
-		player_ptr->update |= (PU_FLOW);
+		update |= (PU_FLOW);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2733,7 +2733,7 @@ msg_format("%^s%s", m_name, monmessage);
 		|| ((has_cf_creature(nonplayer_ptr, CF_HAS_LITE_1) || has_cf_creature(nonplayer_ptr, CF_HAS_LITE_2)) && !inside_battle))
 	{
 		/* Update some things */
-		player_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 	}
 
 	/* Learn things from observable monster */
@@ -3259,7 +3259,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		if (player_ptr->notice) notice_stuff(player_ptr);
 
 		/* Update stuff */
-		if (player_ptr->update) update_stuff(player_ptr, TRUE);
+		if (update) update_stuff(player_ptr, TRUE);
 
 		/* Redraw stuff */
 		if (play_redraw) redraw_stuff(player_ptr);
@@ -3275,7 +3275,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_redraw |= (PR_MAP);
 
 	/* Update monsters */
-	player_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);

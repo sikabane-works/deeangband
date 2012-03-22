@@ -838,7 +838,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	verify_panel(cr_ptr);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -2069,7 +2069,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 					atk_ptr->skill_exp[GINOU_SUDE] += 1;
 				else if ((atk_ptr->lev > 34))
 					if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
-				atk_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 		}
 	}
@@ -2090,7 +2090,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				else if ((now_exp < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19)) amount = 1;
 				else if ((atk_ptr->lev > 34) && one_in_(2)) amount = 1;
 				atk_ptr->weapon_exp[tval][sval] += amount;
-				atk_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 		}
 	}
@@ -3239,7 +3239,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 				atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
 			else if(atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
 				if (one_in_(3)) atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			atk_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 		}
 	}
 
@@ -3269,7 +3269,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 			atk_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
 
-			atk_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 		}
 	}
 
@@ -3612,14 +3612,14 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			forget_flow();
 
 			/* Mega-Hack -- Forget the view */
-			cr_ptr->update |= (PU_UN_VIEW);
+			update |= (PU_UN_VIEW);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 		}
 
 		/* Update stuff */
-		cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -4376,7 +4376,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			cave_alter_feat(cr_ptr, y, x, FF_HURT_DISI);
 
 			/* Update some things -- similar to GF_KILL_WALL */
-			cr_ptr->update |= (PU_FLOW);
+			update |= (PU_FLOW);
 		}
 
 		/* Sound */

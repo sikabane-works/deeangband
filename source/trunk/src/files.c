@@ -7199,7 +7199,7 @@ static void show_info(creature_type *creature_ptr)
 	*/
 
 	/* Hack -- Recalculate bonuses */
-	creature_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(creature_ptr);

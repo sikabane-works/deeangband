@@ -625,13 +625,13 @@ msg_print("クエストを達成した！");
 	}
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Recalculate torch */
-	cr_ptr->update |= (PU_TORCH);
+	update |= (PU_TORCH);
 
 	/* Recalculate mana */
-	cr_ptr->update |= (PU_MANA);
+	update |= (PU_MANA);
 
 	play_redraw |= (PR_EQUIPPY);
 
@@ -811,7 +811,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 			o_ptr->feeling = FEEL_NONE;
 
 			/* Recalculate the bonuses */
-			cr_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 
 			/* Window stuff */
 			play_window |= (PW_EQUIP);
@@ -1315,7 +1315,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* .や$の関係で, 再計算が必要なはず -- henkma */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 }
 
@@ -1398,7 +1398,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* .や$の関係で, 再計算が必要なはず -- henkma */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 	}
 }
 
@@ -1593,7 +1593,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	}
 
 	/* Recalculate torch */
-	cr_ptr->update |= (PU_TORCH);
+	update |= (PU_TORCH);
 }
 
 
@@ -1723,7 +1723,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	}
 
 	/* Recalculate torch */
-	cr_ptr->update |= (PU_TORCH);
+	update |= (PU_TORCH);
 }
 
 
@@ -1920,7 +1920,7 @@ void do_cmd_locate(creature_type *cr_ptr)
 	verify_panel(cr_ptr);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

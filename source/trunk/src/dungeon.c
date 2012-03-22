@@ -1228,10 +1228,10 @@ msg_print("明かりが消えてしまった！");
 #endif
 
 		/* Recalculate torch radius */
-		cr_ptr->update |= (PU_TORCH);
+		update |= (PU_TORCH);
 
 		/* Some ego light lose its effects without fuel */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 	}
 
 	/* The light is getting dim */
@@ -1523,13 +1523,13 @@ static void check_music(creature_type *cr_ptr)
 			cr_ptr->action = ACTION_SING;
 
 			/* Recalculate bonuses */
-			cr_ptr->update |= (PU_BONUS | PU_HP);
+			update |= (PU_BONUS | PU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -3122,7 +3122,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				cr_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 		}
 		/* Add heavy curse (Later) */
@@ -3149,7 +3149,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				cr_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 			}
 		}
 		/* Call animal */
@@ -4081,7 +4081,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			}
 
 			/* Update the monsters */
-			cr_ptr->update |= (PU_MONSTERS | PU_MON_LITE);
+			update |= (PU_MONSTERS | PU_MON_LITE);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
@@ -4541,7 +4541,7 @@ msg_print("ウィザードモード突入。");
 			}
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Redraw "title" */
 			play_redraw |= (PR_TITLE);
@@ -5549,7 +5549,7 @@ static void pack_overflow(creature_type *cr_ptr)
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 	}
 }
@@ -5791,7 +5791,7 @@ msg_print("中断しました。");
 			}
 		}
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 	}
 
@@ -5816,7 +5816,7 @@ msg_print("中断しました。");
 			cr_ptr->magic_num1[0] = 0;
 		}
 		else cr_ptr->magic_num1[0] -= 40;
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 	}
 	if (cr_ptr->action == ACTION_LEARN)
 	{
@@ -5871,7 +5871,7 @@ msg_print("中断しました。");
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 
 		/* Place the cursor on the player */
@@ -6137,7 +6137,7 @@ msg_print("中断しました。");
 				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -6151,7 +6151,7 @@ msg_print("中断しました。");
 				world_player = FALSE;
 				cr_ptr->energy_need = ENERGY_NEED();
 
-				/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+				/* Handle "update" and "play_redraw" and "play_window" */
 				handle_stuff(cr_ptr);
 			}
 		}
@@ -6274,22 +6274,22 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	play_redraw |= (PR_MAP);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Update lite/view */
-	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_TORCH);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_TORCH);
 
 	/* Update monsters */
-	cr_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
-	/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+	/* Handle "update" and "play_redraw" and "play_window" */
 	handle_stuff(cr_ptr);
 
 	/* Leave "xtra" mode */
 	character_xtra = FALSE;
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Combine / Reorder the pack */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -6297,7 +6297,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	/* Handle "cr_ptr->notice" */
 	notice_stuff(cr_ptr);
 
-	/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+	/* Handle "update" and "play_redraw" and "play_window" */
 	handle_stuff(cr_ptr);
 
 	/* Refresh */
@@ -6396,7 +6396,7 @@ msg_print("試合開始！");
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
@@ -6414,7 +6414,7 @@ msg_print("試合開始！");
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
@@ -6433,7 +6433,7 @@ msg_print("試合開始！");
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
@@ -6762,7 +6762,7 @@ quit("セーブファイルが壊れています");
 			quit(0);
 
 		/* Update stuff */
-		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Update stuff */
 		update_stuff(cr_ptr, TRUE);
@@ -7175,7 +7175,7 @@ quit("セーブファイルが壊れています");
 		/* Hack -- prevent "icky" message */
 		character_xtra = TRUE;
 
-		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(cr_ptr);
 
 		character_xtra = FALSE;

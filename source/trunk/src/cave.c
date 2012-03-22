@@ -2813,7 +2813,7 @@ void update_lite(creature_type *cr_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	cr_ptr->update |= (PU_DELAY_VIS);
+	update |= (PU_DELAY_VIS);
 }
 
 
@@ -3289,7 +3289,7 @@ void update_mon_lite(creature_type *cr_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	cr_ptr->update |= (PU_DELAY_VIS);
+	update |= (PU_DELAY_VIS);
 
 	cr_ptr->monlite = (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
@@ -4049,7 +4049,7 @@ void update_view(creature_type *cr_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	cr_ptr->update |= (PU_DELAY_VIS);
+	update |= (PU_DELAY_VIS);
 }
 
 
@@ -4468,7 +4468,7 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 	}
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4534,13 +4534,13 @@ void wiz_dark(creature_type *cr_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the view and lite */
-	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4630,7 +4630,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS);
 	}
 
 	/* Hack -- glow the GLOW terrain */
@@ -5067,10 +5067,10 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		player_ptr->update |= (PU_TORCH);
+		update |= (PU_TORCH);
 
 		/* Update monster flow */
-		player_ptr->update |= (PU_FLOW);
+		update |= (PU_FLOW);
 	}
 
 #ifdef TRAVEL
@@ -5083,7 +5083,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		player_ptr->update |= (PU_TORCH);
+		update |= (PU_TORCH);
 	}
 #endif
 
@@ -5125,7 +5125,7 @@ void glow_deep_lava_and_bldg(void)
 	}
 
 	/* Update the view and lite */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

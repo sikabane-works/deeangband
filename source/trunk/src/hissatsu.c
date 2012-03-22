@@ -544,5 +544,5 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	else
 		energy_use = 100;
 
-	cr_ptr->update |= (PU_SPELLS);
+	update |= (PU_SPELLS);
 }

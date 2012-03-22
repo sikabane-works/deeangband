@@ -30,7 +30,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 
 
 	/* Update and redraw hitpoints */
-	cr_ptr->update |= (PU_HP);
+	update |= (PU_HP);
 	play_redraw |= (PR_HP);
 
 	/* Window stuff */
@@ -946,7 +946,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 		object_copy(o_ptr, q_ptr);
 
 		/* Recalculate bonuses */
-		caster_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
 		caster_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -1311,7 +1311,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
 		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -1736,7 +1736,7 @@ static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 	lite_spot(y, x);
 
 	/* Update some things */
-	cr_ptr->update |= (PU_FLOW);
+	update |= (PU_FLOW);
 
 	prev_feat = tmp_feat;
 	prev_mimic = tmp_mimic;

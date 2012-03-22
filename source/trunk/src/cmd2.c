@@ -1570,7 +1570,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 			cave_alter_feat(cr_ptr, y, x, FF_TUNNEL);
 
 			/* Update some things */
-			cr_ptr->update |= (PU_FLOW);
+			update |= (PU_FLOW);
 		}
 		else
 		{
@@ -1597,14 +1597,14 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 			else
 			{
 				msg_print("穴を掘り終えた。");
-				cr_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 #else
 			if (tree) msg_format("You have cleared away the %s.", name);
 			else
 			{
 				msg_print("You have finished the tunnel.");
-				cr_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 #endif
 
@@ -2889,7 +2889,7 @@ void do_cmd_rest(creature_type *cr_ptr)
 	cr_ptr->action = ACTION_REST;
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw the state */
 	play_redraw |= (PR_STATE);
@@ -3462,7 +3462,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
 
-				cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 				/* Destroy the wall */
 				cave_alter_feat(cr_ptr, ny, nx, FF_HURT_ROCK);
@@ -3566,7 +3566,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					else if ((now_exp < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19)) amount = 10;
 					else if (cr_ptr->lev > 34) amount = 2;
 					cr_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					cr_ptr->update |= (PU_BONUS);
+					update |= (PU_BONUS);
 				}
 			}
 
@@ -3577,7 +3577,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					&& one_in_(2))
 				{
 					cr_ptr->skill_exp[GINOU_RIDING] += 1;
-					cr_ptr->update |= (PU_BONUS);
+					update |= (PU_BONUS);
 				}
 			}
 
@@ -4542,13 +4542,13 @@ msg_print("これはあまり良くない気がする。");
 			cr_ptr->equip_cnt++;
 
 			/* Recalculate bonuses */
-			cr_ptr->update |= (PU_BONUS);
+			update |= (PU_BONUS);
 
 			/* Recalculate torch */
-			cr_ptr->update |= (PU_TORCH);
+			update |= (PU_TORCH);
 
 			/* Recalculate mana XXX */
-			cr_ptr->update |= (PU_MANA);
+			update |= (PU_MANA);
 
 			/* Window stuff */
 			play_window |= (PW_EQUIP);

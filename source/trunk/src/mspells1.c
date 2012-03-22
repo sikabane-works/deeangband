@@ -630,7 +630,7 @@ msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", cr_ptr->name, o_name
 
 		o_ptr->feeling = FEEL_NONE;
 	}
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 }
 
 
@@ -3255,7 +3255,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 				msg_format("%^s blinks away.", m_name);
 #endif
 				teleport_away(caster_ptr, 10, 0L);
-				target_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 			}
 			break;
 		}
@@ -3402,7 +3402,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 						msg_format("%^s suddenly go out of your sight!", m_name);
 #endif
 						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						target_ptr->update |= (PU_MONSTERS);
+						update |= (PU_MONSTERS);
 					}
 					else
 					{

@@ -67,7 +67,7 @@ void set_action(creature_type *cr_ptr, int typ)
 				msg_print("You stop assuming the posture.");
 #endif
 				cr_ptr->special_defense &= ~(KATA_MASK);
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 				play_redraw |= (PR_STATUS);
 				break;
 			}
@@ -152,7 +152,7 @@ void set_action(creature_type *cr_ptr, int typ)
 	}
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw the state */
 	play_redraw |= (PR_STATE);
@@ -313,13 +313,13 @@ void dispel_creature(creature_type *cr_ptr)
 		cr_ptr->action = ACTION_NONE;
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS | PU_HP);
+		update |= (PU_BONUS | PU_HP);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		/* Update monsters */
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -399,7 +399,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 	play_redraw |= (PR_BASIC | PR_STATUS);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS | PU_HP);
+	update |= (PU_BONUS | PU_HP);
 
 	handle_stuff(cr_ptr);
 
@@ -496,7 +496,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Fully update the visuals */
-	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -566,7 +566,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 #endif
 				}
 				cr_ptr->special_defense &= ~(KAMAE_MASK);
-				cr_ptr->update |= (PU_BONUS);
+				update |= (PU_BONUS);
 				play_redraw |= (PR_STATE);
 				cr_ptr->action = ACTION_NONE;
 			}
@@ -581,8 +581,8 @@ bool set_confused(creature_type *cr_ptr, int v)
 #endif
 				}
 				cr_ptr->special_defense &= ~(KATA_MASK);
-				cr_ptr->update |= (PU_BONUS);
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_BONUS);
+				update |= (PU_MONSTERS);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				cr_ptr->action = ACTION_NONE;
@@ -745,8 +745,8 @@ bool set_afraid(creature_type *cr_ptr, int v)
 #endif
 				}
 				cr_ptr->special_defense &= ~(KATA_MASK);
-				cr_ptr->update |= (PU_BONUS);
-				cr_ptr->update |= (PU_MONSTERS);
+				update |= (PU_BONUS);
+				update |= (PU_MONSTERS);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				cr_ptr->action = ACTION_NONE;
@@ -956,7 +956,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (is_has_ld_creature(cr_ptr)) cr_ptr->update |= (PU_MON_LITE);
+	if (is_has_ld_creature(cr_ptr)) update |= (PU_MON_LITE);
 
 	return TRUE;
 
@@ -1044,7 +1044,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
 
 	/* Update monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1120,7 +1120,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1156,7 +1156,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -1228,7 +1228,7 @@ bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1303,7 +1303,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1341,7 +1341,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -1414,7 +1414,7 @@ bool set_shield(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1490,7 +1490,7 @@ bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1566,7 +1566,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1642,7 +1642,7 @@ bool set_blessed(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1716,10 +1716,10 @@ bool set_hero(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	cr_ptr->update |= (PU_HP);
+	update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1795,10 +1795,10 @@ bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	cr_ptr->update |= (PU_HP);
+	update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1914,7 +1914,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1941,7 +1941,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1961,7 +1961,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2011,7 +2011,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2038,7 +2038,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2060,7 +2060,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2172,10 +2172,10 @@ bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2251,10 +2251,10 @@ bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2328,10 +2328,10 @@ bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Update the monsters */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2406,7 +2406,7 @@ bool set_tim_regen(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2481,7 +2481,7 @@ bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2628,7 +2628,7 @@ bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2763,7 +2763,7 @@ msg_print("炎のオーラが消えた。");
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2836,7 +2836,7 @@ bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2912,7 +2912,7 @@ bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2987,7 +2987,7 @@ bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3061,7 +3061,7 @@ bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3134,7 +3134,7 @@ bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3208,7 +3208,7 @@ bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3282,7 +3282,7 @@ bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3357,10 +3357,10 @@ bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	cr_ptr->update |= (PU_HP);
+	update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3485,7 +3485,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
 
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3602,7 +3602,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
 
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -4118,8 +4118,8 @@ bool set_stun(creature_type *cr_ptr, int v)
 #endif
 			}
 			cr_ptr->special_defense &= ~(KATA_MASK);
-			cr_ptr->update |= (PU_BONUS);
-			cr_ptr->update |= (PU_MONSTERS);
+			update |= (PU_BONUS);
+			update |= (PU_MONSTERS);
 			play_redraw |= (PR_STATE);
 			play_redraw |= (PR_STATUS);
 			cr_ptr->action = ACTION_NONE;
@@ -4170,7 +4170,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw the "stun" */
 	play_redraw |= (PR_STUN);
@@ -4476,7 +4476,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw the "cut" */
 	play_redraw |= (PR_CUT);
@@ -4757,7 +4757,7 @@ bool set_food(creature_type *cr_ptr, int v)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Redraw hunger */
 	play_redraw |= (PR_HUNGER);
@@ -4824,7 +4824,7 @@ bool inc_stat(creature_type *cr_ptr, int stat)
 		}
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Success */
 		return (TRUE);
@@ -4951,7 +4951,7 @@ bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent)
 		play_redraw |= (PR_STATS);
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 	}
 
 	/* Done */
@@ -4971,7 +4971,7 @@ bool res_stat(creature_type *cr_ptr, int stat)
 		cr_ptr->stat_cur[stat] = cr_ptr->stat_max[stat];
 
 		/* Recalculate bonuses */
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 
 		/* Redisplay the stats later */
 		play_redraw |= (PR_STATS);
@@ -5348,7 +5348,7 @@ bool lose_all_info(creature_type *cr_ptr)
 	}
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -5452,7 +5452,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 
 	play_redraw |= (PR_BASIC);
 
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	handle_stuff(cr_ptr);
 
@@ -6771,7 +6771,7 @@ msg_print("あらゆることに対する耐性が薄れた気がする。");
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -6836,7 +6836,7 @@ msg_print("地獄の力に対する耐性が薄れた気がする。");
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -6901,7 +6901,7 @@ msg_print("時間逆転の力に対する耐性が薄れた気がする。");
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);

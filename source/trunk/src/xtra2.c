@@ -104,7 +104,7 @@ void check_experience(creature_type *cr_ptr)
 		cr_ptr->lev--;
 
 		/* Update some stuff */
-		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -152,7 +152,7 @@ void check_experience(creature_type *cr_ptr)
 		}
 
 		/* Update some stuff */
-		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
@@ -264,7 +264,7 @@ void check_experience(creature_type *cr_ptr)
 		}
 
 		/* Update some stuff */
-		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -662,7 +662,7 @@ msg_print("–‚–@‚ÌŠK’i‚ªŒ»‚ê‚½...");
 		cave_set_feat(cr_ptr, y, x, feat_down_stair);
 
 		/* Remember to update everything */
-		cr_ptr->update |= (PU_FLOW);
+		update |= (PU_FLOW);
 	}
 
 	/*
@@ -781,7 +781,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	if (is_lighting_creature(killed_ptr) || is_darken_creature(killed_ptr))
 	{
 		/* Update some things */
-		slayer_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 	}
 
 	/* Get the location */
@@ -1433,7 +1433,7 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 	{
 		if (is_psy_spear)
 		{
-			if (!p_ptr->blind && is_seen(p_ptr, m_ptr))
+			if (!player_ptr->blind && is_seen(player_ptr, m_ptr))
 			{
 #ifdef JP
 				msg_print("ƒoƒŠƒA‚ðØ‚è—ô‚¢‚½I");
@@ -1554,16 +1554,16 @@ void resize_map(void)
 	verify_panel(player_ptr);
 
 	/* Update stuff */
-	player_ptr->update |= (PU_TORCH | PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	update |= (PU_TORCH | PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Forget lite/view */
-	player_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	player_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
-	player_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1599,7 +1599,7 @@ void redraw_window(void)
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
-	handle_stuff(p_ptr);
+	handle_stuff(player_ptr);
 
 	/* Redraw */
 	Term_redraw();
@@ -1644,7 +1644,7 @@ bool change_panel(int dy, int dx)
 		panel_bounds_center();
 
 		/* Update stuff */
-		p_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -1763,7 +1763,7 @@ void verify_panel(creature_type *cr_ptr)
 	panel_bounds_center();
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -3235,7 +3235,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 					verify_panel(aimer_ptr);
 
 					/* Update stuff */
-					aimer_ptr->update |= (PU_MONSTERS);
+					update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -3318,7 +3318,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						panel_bounds_center();
 
 						/* Update stuff */
-						aimer_ptr->update |= (PU_MONSTERS);
+						update |= (PU_MONSTERS);
 
 						/* Redraw map */
 						play_redraw |= (PR_MAP);
@@ -3435,7 +3435,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 					verify_panel(aimer_ptr);
 
 					/* Update stuff */
-					aimer_ptr->update |= (PU_MONSTERS);
+					update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -3562,7 +3562,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 	verify_panel(aimer_ptr);
 
 	/* Update stuff */
-	aimer_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -5140,7 +5140,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 					verify_panel(cr_ptr);	/* Move cursor to player */
 
 					/* Update stuff */
-					cr_ptr->update |= (PU_MONSTERS);
+					update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -5231,7 +5231,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 	verify_panel(cr_ptr);
 
 	/* Update stuff */
-	cr_ptr->update |= (PU_MONSTERS);
+	update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

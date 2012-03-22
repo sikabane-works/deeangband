@@ -771,7 +771,7 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	/* Update some things */
 	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		creature_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 }
 
 
@@ -2827,7 +2827,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 		}
 	}
 
-	watcher_ptr->update |= PU_BONUS;
+	update |= PU_BONUS;
 	handle_stuff(watcher_ptr);
 }
 
@@ -3431,7 +3431,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 
 	if (is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
-		p_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 
 	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
 
@@ -4351,9 +4351,9 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 /*TODO
 	if (is_self_ld_creature(m_ptr))
-		watcher_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 	else if (is_has_ld_creature(m_ptr) && !m_ptr->paralyzed)
-		watcher_ptr->update |= (PU_MON_LITE);
+		update |= (PU_MON_LITE);
 */
 
 	/* Update the monster */

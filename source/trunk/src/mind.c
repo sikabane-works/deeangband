@@ -1012,7 +1012,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
-		cr_ptr->update |= (PU_MONSTERS);
+		update |= (PU_MONSTERS);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1074,7 +1074,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		msg_print("You improved the Force.");
 #endif
 		cr_ptr->magic_num1[0] += (70 + plev);
-		cr_ptr->update |= (PU_BONUS);
+		update |= (PU_BONUS);
 		if (randint1(cr_ptr->magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
@@ -1154,7 +1154,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 					lite_spot(ty, tx);
 
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						cr_ptr->update |= (PU_MON_LITE);
+						update |= (PU_MON_LITE);
 				}
 			}
 		}
@@ -1222,7 +1222,7 @@ msg_print("なに？");
 
 	}
 	cr_ptr->magic_num1[0] = 0;
-	cr_ptr->update |= (PU_BONUS);
+	update |= (PU_BONUS);
 
 	return TRUE;
 }
@@ -1714,7 +1714,7 @@ msg_print("その方向にはモンスターはいません。");
 		lite_spot(ty, tx);
 
 		if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-			m_ptr->update |= (PU_MON_LITE);
+			update |= (PU_MON_LITE);
 
 		if (m_ptr->ml)
 		{

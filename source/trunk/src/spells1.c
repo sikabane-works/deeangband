@@ -871,7 +871,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				cave_alter_feat(player_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 
 			break;
@@ -1128,7 +1128,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				cave_alter_feat(player_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -1164,7 +1164,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				cave_alter_feat(player_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -1182,7 +1182,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				cave_alter_feat(player_ptr, y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to GF_KILL_WALL */
-				aimer_ptr->update |= (PU_FLOW);
+				update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -3331,7 +3331,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				play_redraw |= PR_MAP;
 				/* Update monsters */
-				target_ptr->update |= (PU_MONSTERS);
+				update |= (PU_MONSTERS);
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -3511,7 +3511,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
 						if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-						target_ptr->update |= (PU_BONUS);
+						update |= (PU_BONUS);
 						break;
 					}
 
@@ -3529,7 +3529,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 							if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 						}
-						target_ptr->update |= (PU_BONUS);
+						update |= (PU_BONUS);
 						break;
 					}
 				}
@@ -8536,7 +8536,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Update stuff if needed */
-	if (player_ptr->update) update_stuff(player_ptr, TRUE);
+	if (update) update_stuff(player_ptr, TRUE);
 
 
 	if (flg & PROJECT_KILL)
@@ -8587,7 +8587,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	}
 
 	/* Update stuff if needed */
-	if (player_ptr->update) update_stuff(player_ptr, TRUE);
+	if (update) update_stuff(player_ptr, TRUE);
 
 	/* Check objects */
 	if (flg & (PROJECT_ITEM))

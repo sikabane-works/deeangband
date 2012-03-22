@@ -795,6 +795,8 @@ s32b wilderness_y = 0;
 
 s16b species_window_idx;	/* Species info trackee */
 
+u32b update;		/* Pending Updates (bit flags) */
+
 
 /*
  * The last character rolled,
