@@ -1719,7 +1719,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 
 								target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
 								if (target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
-								update |= (CRU_BONUS);
+								target_ptr->creature_update |= (CRU_BONUS);
 								break;
 							}
 
@@ -1737,7 +1737,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 									target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 									if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 								}
-								update |= (CRU_BONUS);
+								target_ptr->creature_update |= (CRU_BONUS);
 								break;
 							}
 						}

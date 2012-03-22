@@ -544,5 +544,5 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	else
 		energy_use = 100;
 
-	update |= (CRU_SPELLS);
+	cr_ptr->creature_update |= (CRU_SPELLS);
 }
