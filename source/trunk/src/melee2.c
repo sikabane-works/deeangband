@@ -3262,7 +3262,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		if (update) update_stuff(player_ptr, TRUE);
 
 		/* Redraw stuff */
-		if (play_redraw) redraw_stuff(player_ptr);
+		if (play_redraw) redraw_stuff();
 
 		/* Redraw stuff */
 		if (play_window) window_stuff();

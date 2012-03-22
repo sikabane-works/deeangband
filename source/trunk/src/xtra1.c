@@ -5795,20 +5795,16 @@ void update_stuff(creature_type *cr_ptr, bool message)
 /*
  * Handle "play_redraw"
  */
-void redraw_stuff(creature_type *cr_ptr)
+void redraw_stuff()
 {
 	/* Redraw stuff */
 	if (!play_redraw) return;
 
-
 	/* Character is not ready yet, no screen updates */
 	if (!character_generated) return;
 
-
 	/* Character is in "icky" mode, no screen updates */
 	if (character_icky) return;
-
-
 
 	/* Hack -- clear the screen */
 	if (play_redraw & (PR_WIPE))
@@ -5818,15 +5814,13 @@ void redraw_stuff(creature_type *cr_ptr)
 		Term_clear();
 	}
 
-
 	if (play_redraw & (PR_MAP))
 	{
 		play_redraw &= ~(PR_MAP);
-		prt_map(cr_ptr);
+		prt_map(player_ptr);
 	}
 
-
-	prt_frame_basic(cr_ptr);
+	prt_frame_basic(player_ptr);
 
 	if (play_redraw & (PR_BASIC))
 	{
@@ -5835,7 +5829,7 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_time(cr_ptr);
+		prt_time(player_ptr);
 		prt_dungeon();
 	}
 
@@ -5847,72 +5841,72 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_LEV))
 	{
 		play_redraw &= ~(PR_LEV);
-		prt_level(cr_ptr);
+		prt_level(player_ptr);
 	}
 
 	if (play_redraw & (PR_EXP))
 	{
 		play_redraw &= ~(PR_EXP);
-		prt_exp(cr_ptr);
+		prt_exp(player_ptr);
 	}
 
 	if (play_redraw & (PR_STATS))
 	{
 		play_redraw &= ~(PR_STATS);
-		prt_stat(cr_ptr, STAT_STR);
-		prt_stat(cr_ptr, STAT_INT);
-		prt_stat(cr_ptr, STAT_WIS);
-		prt_stat(cr_ptr, STAT_DEX);
-		prt_stat(cr_ptr, STAT_CON);
-		prt_stat(cr_ptr, STAT_CHA);
+		prt_stat(player_ptr, STAT_STR);
+		prt_stat(player_ptr, STAT_INT);
+		prt_stat(player_ptr, STAT_WIS);
+		prt_stat(player_ptr, STAT_DEX);
+		prt_stat(player_ptr, STAT_CON);
+		prt_stat(player_ptr, STAT_CHA);
 	}
 
 	if (play_redraw & (PR_STATUS))
 	{
 		play_redraw &= ~(PR_STATUS);
-		prt_status(cr_ptr);
+		prt_status(player_ptr);
 	}
 
 	if (play_redraw & (PR_ARMOR))
 	{
 		play_redraw &= ~(PR_ARMOR);
-		prt_ac(cr_ptr);
+		prt_ac(player_ptr);
 	}
 
 	if (play_redraw & (PR_HP))
 	{
 		play_redraw &= ~(PR_HP);
-		prt_hp(cr_ptr);
+		prt_hp(player_ptr);
 	}
 
 	if (play_redraw & (PR_MANA))
 	{
 		play_redraw &= ~(PR_MANA);
-		prt_sp(cr_ptr);
+		prt_sp(player_ptr);
 	}
 
 	if (play_redraw & (PR_GOLD))
 	{
 		play_redraw &= ~(PR_GOLD);
-		prt_gold(cr_ptr);
+		prt_gold(player_ptr);
 	}
 
 	if (play_redraw & (PR_DEPTH))
 	{
 		play_redraw &= ~(PR_DEPTH);
-		prt_depth(cr_ptr);
+		prt_depth(player_ptr);
 	}
 
 	if (play_redraw & (PR_HEALTH))
 	{
 		play_redraw &= ~(PR_HEALTH);
-		health_redraw(cr_ptr, FALSE);
+		health_redraw(player_ptr, FALSE);
 	}
 
 	if (play_redraw & (PR_UHEALTH))
 	{
 		play_redraw &= ~(PR_UHEALTH);
-		health_redraw(cr_ptr, TRUE);
+		health_redraw(player_ptr, TRUE);
 	}
 
 
@@ -5922,51 +5916,51 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_CUT | PR_STUN);
 		play_redraw &= ~(PR_HUNGER);
 		play_redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
-		prt_frame_extra(cr_ptr);
+		prt_frame_extra(player_ptr);
 	}
 
 	if (play_redraw & (PR_CUT))
 	{
 		play_redraw &= ~(PR_CUT);
-		prt_cut(cr_ptr);
+		prt_cut(player_ptr);
 	}
 
 	if (play_redraw & (PR_STUN))
 	{
 		play_redraw &= ~(PR_STUN);
-		prt_stun(cr_ptr);
+		prt_stun(player_ptr);
 	}
 
 	if (play_redraw & (PR_HUNGER))
 	{
 		play_redraw &= ~(PR_HUNGER);
-		prt_hunger(cr_ptr);
+		prt_hunger(player_ptr);
 	}
 
 	if (play_redraw & (PR_STATE))
 	{
 		play_redraw &= ~(PR_STATE);
-		prt_state(cr_ptr);
+		prt_state(player_ptr);
 	}
 
 	if (play_redraw & (PR_SPEED))
 	{
 		play_redraw &= ~(PR_SPEED);
-		prt_speed(cr_ptr);
+		prt_speed(player_ptr);
 	}
 
-	if (cr_ptr->cls_idx == CLASS_IMITATOR)
+	if (player_ptr->cls_idx == CLASS_IMITATOR)
 	{
 		if (play_redraw & (PR_IMITATION))
 		{
 			play_redraw &= ~(PR_IMITATION);
-			prt_imitation(cr_ptr);
+			prt_imitation(player_ptr);
 		}
 	}
 	else if (play_redraw & (PR_STUDY))
 	{
 		play_redraw &= ~(PR_STUDY);
-		prt_study(cr_ptr);
+		prt_study(player_ptr);
 	}
 }
 
@@ -6072,7 +6066,7 @@ void handle_stuff(void)
 	if (update) update_stuff(player_ptr, TRUE);
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff(player_ptr);
+	if (play_redraw) redraw_stuff();
 
 	/* Window stuff */
 	if (play_window) window_stuff();

@@ -3011,7 +3011,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
-				redraw_stuff(player_ptr);
+				redraw_stuff();
 			}
 			else
 			{
