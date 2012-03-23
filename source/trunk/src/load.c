@@ -1144,7 +1144,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	cr_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
 
 	rd_byte(&cr_ptr->action);
-	rd_byte((byte *)&wait_report_score);
 
 	/* Read "death" */
 	rd_byte(&tmp8u);
@@ -1293,6 +1292,7 @@ static void rd_extra(void)
 
 	rd_u32b(&creature_idx_latest);
 	rd_string(gameover_from, sizeof(gameover_from));
+	rd_byte((byte *)&wait_report_score);
 }
 
 

@@ -2746,10 +2746,6 @@ void creature_wipe(creature_type *creature_ptr)
 	/* Clean the mutation count */
 	creature_ptr->mutant_regenerate_mod = 100;
 
-
-	/* Not waiting to report score */
-	wait_report_score = FALSE;
-
 	/* Default pet command settings */
 	creature_ptr->pet_follow_distance = PET_FOLLOW_DIST;
 	creature_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_SUMMON_SPELL);
