@@ -340,7 +340,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -424,7 +424,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -524,7 +524,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -647,7 +647,7 @@ bool set_poisoned(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -718,7 +718,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -849,7 +849,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	//TODO
 	if(is_player(cr_ptr))
@@ -982,7 +982,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 
 	/* Open */
@@ -1067,7 +1067,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	//TODO
 	if(is_player(cr_ptr))
@@ -1174,7 +1174,7 @@ bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	if (wild_mode) v = 0;
 
@@ -1248,7 +1248,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	//TODO
 	if(is_player(cr_ptr))
@@ -1359,7 +1359,7 @@ bool set_shield(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1435,7 +1435,7 @@ bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1511,7 +1511,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1587,7 +1587,7 @@ bool set_blessed(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1662,7 +1662,7 @@ bool set_hero(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1739,7 +1739,7 @@ bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	if (cr_ptr->cls_idx == CLASS_BERSERKER) v = 1;
 	/* Open */
@@ -1818,7 +1818,7 @@ bool set_protevil(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1888,7 +1888,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -1982,7 +1982,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	//TODO
 	if(is_player(cr_ptr))
@@ -2117,7 +2117,7 @@ bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2195,7 +2195,7 @@ bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2274,7 +2274,7 @@ bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2351,7 +2351,7 @@ bool set_tim_regen(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2426,7 +2426,7 @@ bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2495,7 +2495,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 {
 	bool notice = FALSE;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (set)
@@ -2579,7 +2579,7 @@ bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2648,7 +2648,7 @@ bool set_tim_sh_touki(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2714,7 +2714,7 @@ bool set_tim_sh_fire(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2783,7 +2783,7 @@ bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2857,7 +2857,7 @@ bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -2933,7 +2933,7 @@ bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3007,7 +3007,7 @@ bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3081,7 +3081,7 @@ bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3154,7 +3154,7 @@ bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3228,7 +3228,7 @@ bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3299,7 +3299,7 @@ bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3621,7 +3621,7 @@ bool set_oppose_acid(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3692,7 +3692,7 @@ bool set_oppose_elec(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3763,7 +3763,7 @@ bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	if ((is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) || (cr_ptr->mimic_form == MIMIC_DEMON)) v = 1;
 	/* Open */
@@ -3836,7 +3836,7 @@ bool set_oppose_cold(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3907,7 +3907,7 @@ bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec)
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) v = 1;
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -3981,7 +3981,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 
 	//TODO
@@ -4225,7 +4225,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	if (is_undead_creature(cr_ptr) && has_cf_creature(cr_ptr, CF_NONLIVING))
 		v = 0;
@@ -6519,7 +6519,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
  */
 void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 {
-	if (cr_ptr->is_dead) return;
+	if (IS_DEAD(cr_ptr)) return;
 
 	if (has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
@@ -6553,7 +6553,7 @@ void calc_android_exp(creature_type *cr_ptr)
 {
 	int i, slot;
 	u32b total_exp = 0;
-	if (cr_ptr->is_dead) return;
+	if (IS_DEAD(cr_ptr)) return;
 
 	if (!has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
@@ -6722,7 +6722,7 @@ bool set_ultimate_res(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -6787,7 +6787,7 @@ bool set_tim_res_nether(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)
@@ -6852,7 +6852,7 @@ bool set_tim_res_time(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (cr_ptr->is_dead) return FALSE;
+	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
 	if (v)

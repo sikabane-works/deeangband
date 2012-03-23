@@ -6004,5 +6004,5 @@ extern int PlayerUID;
 
 #define WIELD_SLOT(O) (k_info[(O)->k_idx].slot)
 
-
+#define IS_DEAD(CR) ((CR)->chp < 0)
 
