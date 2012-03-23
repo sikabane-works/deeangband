@@ -218,7 +218,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 		}
 
 		/* Stop if player is dead or gone */
-		if (!playing || target_ptr->is_dead) break;
+		if (!playing || IS_DEAD(target_ptr)) break;
 		if (distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */
@@ -860,7 +860,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take some damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Find an item */
 					for (k = 0; k < 10; k++)
@@ -930,7 +930,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Confused monsters cannot steal successfully. -LM-*/
 					if (attacker_ptr->confused) break;
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Obvious */
 					obvious = TRUE;
@@ -1011,7 +1011,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Confused monsters cannot steal successfully. -LM-*/
 					if (attacker_ptr->confused) break;
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Saving throw (unless paralyzed) based on dex and level */
 					if (!target_ptr->paralyzed &&
@@ -1129,7 +1129,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take some damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Steal some food */
 					for (k = 0; k < 10; k++)
@@ -1183,7 +1183,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take some damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Drain fuel */
 					if ((o_ptr->xtra4 > 0) && (!object_is_fixed_artifact(o_ptr)))
@@ -1311,7 +1311,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead) break;
+					if (IS_DEAD(target_ptr)) break;
 
 					/* Increase "blind" */
 					if (!target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
@@ -1339,7 +1339,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead) break;
+					if (IS_DEAD(target_ptr)) break;
 
 					/* Increase "confused" */
 					if (!target_ptr->resist_conf && !(target_ptr->multishadow && (turn & 1)))
@@ -1361,7 +1361,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead) break;
+					if (IS_DEAD(target_ptr)) break;
 
 					/* Increase "afraid" */
 					if ((target_ptr->multishadow && (turn & 1)))
@@ -1407,7 +1407,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead) break;
+					if (IS_DEAD(target_ptr)) break;
 
 					/* Increase "paralyzed" */
 					if ((target_ptr->multishadow && (turn & 1)))
@@ -1456,7 +1456,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
@@ -1469,7 +1469,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
@@ -1482,7 +1482,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
@@ -1495,7 +1495,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
@@ -1508,7 +1508,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
@@ -1521,7 +1521,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
 					if (do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
@@ -1534,7 +1534,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Damage (physical) */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stats) */
 					if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
@@ -1577,7 +1577,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					(void)drain_exp(target_ptr, d, d / 10, 95);
 					break;
@@ -1593,7 +1593,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					(void)drain_exp(target_ptr, d, d / 10, 90);
 					break;
@@ -1609,7 +1609,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					(void)drain_exp(target_ptr, d, d / 10, 75);
 					break;
@@ -1625,7 +1625,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					(void)drain_exp(target_ptr, d, d / 10, 50);
 					break;
@@ -1636,7 +1636,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take some damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					/* Take "poison" effect */
 					if (!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
@@ -1757,7 +1757,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-					if (target_ptr->is_dead || (target_ptr->multishadow && (turn & 1))) break;
+					if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 					resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
@@ -1919,7 +1919,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 
 			if (touched)
 			{
-				if (target_ptr->sh_fire && alive && !target_ptr->is_dead)
+				if (target_ptr->sh_fire && alive && !IS_DEAD(target_ptr))
 				{
 					if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 					{
@@ -1948,7 +1948,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 				}
 
-				if (target_ptr->sh_elec && alive && !target_ptr->is_dead)
+				if (target_ptr->sh_elec && alive && !IS_DEAD(target_ptr))
 				{
 					if (!has_cf_creature(attacker_ptr, CF_RES_ELEC))
 					{
@@ -1977,7 +1977,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 				}
 
-				if (target_ptr->sh_cold && alive && !target_ptr->is_dead)
+				if (target_ptr->sh_cold && alive && !IS_DEAD(target_ptr))
 				{
 					if (!has_cf_creature(attacker_ptr, CF_RES_COLD))
 					{
@@ -2007,7 +2007,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 				}
 
 				/* by henkma */
-				if (target_ptr->dustrobe && alive && !target_ptr->is_dead)
+				if (target_ptr->dustrobe && alive && !IS_DEAD(target_ptr))
 				{
 					if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 					{
@@ -2041,7 +2041,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 				}
 
-				if (target_ptr->tim_sh_holy && alive && !target_ptr->is_dead)
+				if (target_ptr->tim_sh_holy && alive && !IS_DEAD(target_ptr))
 				{
 					if (is_enemy_of_good_creature(target_ptr))
 					{
@@ -2073,7 +2073,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 				}
 
-				if (target_ptr->tim_sh_touki && alive && !target_ptr->is_dead)
+				if (target_ptr->tim_sh_touki && alive && !IS_DEAD(target_ptr))
 				{
 					if (!(attacker_ptr->resist_ultimate))
 					{
@@ -2101,7 +2101,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 					}
 				}
 
-				if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && alive && !target_ptr->is_dead)
+				if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && alive && !IS_DEAD(target_ptr))
 				{
 					int dam = 1;
 					object_type *o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
@@ -2249,7 +2249,7 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 	revenge_store(target_ptr, get_damage);
 
 	if ((target_ptr->tim_eyeeye || hex_spelling(target_ptr, HEX_EYE_FOR_EYE))
-		&& get_damage > 0 && !target_ptr->is_dead)
+		&& get_damage > 0 && !IS_DEAD(target_ptr))
 	{
 #ifdef JP
 		msg_format("攻撃が%s自身を傷つけた！", attacker_name);
@@ -2265,7 +2265,7 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 		if (target_ptr->tim_eyeeye) set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 	}
 
-	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && alive && !target_ptr->is_dead && attacker_ptr->ml && (target_ptr->csp > 7))
+	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && alive && !IS_DEAD(target_ptr) && attacker_ptr->ml && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, attacker_ptr, 0);
@@ -2284,7 +2284,7 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 	}
 
 	/* Blink away */
-	if (blinked && alive && !target_ptr->is_dead)
+	if (blinked && alive && !IS_DEAD(target_ptr))
 	{
 		if (teleport_barrier(target_ptr, attacker_ptr))
 		{
@@ -2307,7 +2307,7 @@ msg_format("%^sから落ちてしまった！", attacker_name);
 
 
 	/* Always notice cause of death */
-	if (target_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
+	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++;
 	}
