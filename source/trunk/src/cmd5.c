@@ -1427,7 +1427,7 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 		if (is_enemy_of_good_creature(m_ptr)) friend_align += r_ptr->level;
 	}
 
-	if (old_friend_align != friend_align) p_ptr->creature_update |= (CRU_BONUS);
+	if (old_friend_align != friend_align) player_ptr->creature_update |= (CRU_BONUS);
 }
 
 int calculate_upkeep(creature_type *cr_ptr)

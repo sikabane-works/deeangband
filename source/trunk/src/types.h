@@ -1346,7 +1346,6 @@ struct creature_type
 	s16b concent;      /* Sniper's concentration level */
 
 	s16b base_hp[PY_MAX_LEVEL];
-	char died_from[80];   	  /* What killed the player */
 	cptr last_message;        /* Last message on death or retirement */
 	char history[HISTORY_ROW][HISTORY_COL];  	  /* Textual "history" for the Player */
 

@@ -2073,3 +2073,4 @@ extern int town_store_id[20][10];
 extern char authority_rank_disp[6][3];
 
 extern u32b update;	
+extern char gameover_from[80];

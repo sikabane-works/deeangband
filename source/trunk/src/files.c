@@ -4132,17 +4132,17 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 			if (cr_ptr->total_winner)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(cr_ptr->died_from, "Seppuku") ? "切腹" : "引退");
+				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, "Seppuku") ? "切腹" : "引退");
 #else
-				sprintf(statmsg, "...You %s after the winning.", streq(cr_ptr->died_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
+				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif
 			}
 			else if (!dun_level)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(), cr_ptr->died_from);
+				sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(), gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s in %s.", cr_ptr->died_from, map_name());
+				sprintf(statmsg, "...You were killed by %s in %s.", gameover_from, map_name());
 #endif
 			}
 			else if (inside_quest && is_fixed_quest_idx(inside_quest))
@@ -4154,17 +4154,17 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
-				sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, cr_ptr->died_from);
+				sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s in the quest '%s'.", cr_ptr->died_from, quest[inside_quest].name);
+				sprintf(statmsg, "...You were killed by %s in the quest '%s'.", gameover_from, quest[inside_quest].name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), dun_level, cr_ptr->died_from);
+				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), dun_level, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s on level %d of %s.", cr_ptr->died_from, dun_level, map_name());
+				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, dun_level, map_name());
 #endif
 			}
 		}
@@ -6652,9 +6652,9 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 
 	/* Cause of death */
 #ifdef JP
-(void)strcpy(cr_ptr->died_from, "途中終了");
+(void)strcpy(gameover_from, "途中終了");
 #else
-	(void)strcpy(cr_ptr->died_from, "Quitting");
+	(void)strcpy(gameover_from, "Quitting");
 #endif
 
 }
@@ -6701,9 +6701,9 @@ prt("ゲームをセーブしています...", 0, 0);
 
 	/* The player is not dead */
 #ifdef JP
-(void)strcpy(creature_ptr->died_from, "(セーブ)");
+(void)strcpy(gameover_from, "(セーブ)");
 #else
-	(void)strcpy(creature_ptr->died_from, "(saved)");
+	(void)strcpy(gameover_from, "(saved)");
 #endif
 
 
@@ -6740,9 +6740,9 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
 
 	/* Note that the player is not dead */
 #ifdef JP
-(void)strcpy(creature_ptr->died_from, "(元気に生きている)");
+(void)strcpy(gameover_from, "(元気に生きている)");
 #else
-	(void)strcpy(creature_ptr->died_from, "(alive and well)");
+	(void)strcpy(gameover_from, "(alive and well)");
 #endif
 
 	/* HACK -- don't get sanity blast on updating view */
@@ -7038,21 +7038,21 @@ static void print_tomb(creature_type *cr_ptr)
 
 #ifdef JP
 		/* 墓に刻む言葉をオリジナルより細かく表示 */
-		if (streq(cr_ptr->died_from, "途中終了"))
+		if (streq(gameover_from, "途中終了"))
 		{
 			strcpy(tmp, "<自殺>");
 		}
-		else if (streq(cr_ptr->died_from, "ripe"))
+		else if (streq(gameover_from, "ripe"))
 		{
 			strcpy(tmp, "引退後に天寿を全う");
 		}
-		else if (streq(cr_ptr->died_from, "Seppuku"))
+		else if (streq(gameover_from, "Seppuku"))
 		{
 			strcpy(tmp, "勝利の後、切腹");
 		}
 		else
 		{
-			roff_to_buf(cr_ptr->died_from, GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
+			roff_to_buf(gameover_from, GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
 			t = tmp + strlen(tmp) + 1;
 			if (*t)
 			{
@@ -7092,12 +7092,12 @@ static void print_tomb(creature_type *cr_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		if (!streq(cr_ptr->died_from, "ripe") && !streq(cr_ptr->died_from, "Seppuku"))
+		if (!streq(gameover_from, "ripe") && !streq(gameover_from, "Seppuku"))
 		{
 			if (dun_level == 0)
 			{
 				cptr town = town_num ? "街" : "荒野";
-				if (streq(cr_ptr->died_from, "途中終了"))
+				if (streq(gameover_from, "途中終了"))
 				{
 					sprintf(tmp, "%sで死んだ", town);
 				}
@@ -7108,7 +7108,7 @@ static void print_tomb(creature_type *cr_ptr)
 			}
 			else
 			{
-				if (streq(cr_ptr->died_from, "途中終了"))
+				if (streq(gameover_from, "途中終了"))
 				{
 					sprintf(tmp, "地下 %d 階で死んだ", dun_level);
 				}
@@ -7125,7 +7125,7 @@ static void print_tomb(creature_type *cr_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		roff_to_buf(format("by %s.", cr_ptr->died_from), GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
+		roff_to_buf(format("by %s.", gameover_from), GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
 		center_string(buf, tmp);
 		put_str(buf, 15, 11);
 		t = tmp + strlen(tmp) + 1;
@@ -7431,9 +7431,9 @@ msg_print("詐欺をやった人はスコアが記録されません。");
 
 	/* Interupted */
 #ifdef JP
-if (!player_ptr->total_winner && streq(player_ptr->died_from, "強制終了"))
+if (!player_ptr->total_winner && streq(gameover_from, "強制終了"))
 #else
-	if (!player_ptr->total_winner && streq(player_ptr->died_from, "Interrupting"))
+	if (!player_ptr->total_winner && streq(gameover_from, "Interrupting"))
 #endif
 
 	{
@@ -7449,9 +7449,9 @@ msg_print("強制終了のためスコアが記録されません。");
 
 	/* Quitter */
 #ifdef JP
-if (!player_ptr->total_winner && streq(player_ptr->died_from, "途中終了"))
+if (!player_ptr->total_winner && streq(gameover_from, "途中終了"))
 #else
-	if (!cr_ptr->total_winner && streq(player_ptr->died_from, "Quitting"))
+	if (!cr_ptr->total_winner && streq(gameover_from, "Quitting"))
 #endif
 
 	{
@@ -7645,9 +7645,9 @@ void exit_game_panic(creature_type *player_ptr)
 
 	/* Indicate panic save */
 #ifdef JP
-	(void)strcpy(player_ptr->died_from, "(緊急セーブ)");
+	(void)strcpy(gameover_from, "(緊急セーブ)");
 #else
-	(void)strcpy(player_ptr->died_from, "(panic save)");
+	(void)strcpy(gameover_from, "(panic save)");
 #endif
 
 
@@ -8035,9 +8035,9 @@ static void handle_signal_simple(int sig)
 	{
 		/* Mark the savefile */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "強制終了");
+(void)strcpy(gameover_from, "強制終了");
 #else
-		(void)strcpy(p_ptr->died_from, "Abortion");
+		(void)strcpy(gameover_from, "Abortion");
 #endif
 
 		forget_lite();
@@ -8061,9 +8061,9 @@ quit("強制終了");
 	{
 		/* Cause of "death" */
 #ifdef JP
-		(void)strcpy(p_ptr->died_from, "強制終了中");
+		(void)strcpy(gameover_from, "強制終了中");
 #else
-		(void)strcpy(p_ptr->died_from, "Interrupting");
+		(void)strcpy(gameover_from, "Interrupting");
 #endif
 
 
@@ -8180,9 +8180,9 @@ static void handle_signal_abort(int sig)
 
 	/* Panic save */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "(緊急セーブ)");
+(void)strcpy(gameover_from, "(緊急セーブ)");
 #else
-	(void)strcpy(p_ptr->died_from, "(panic save)");
+	(void)strcpy(gameover_from, "(panic save)");
 #endif
 
 

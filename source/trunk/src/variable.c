@@ -1364,5 +1364,6 @@ travel_type travel;
 #endif
 
 u32b creature_idx_latest = 0;
+char gameover_from[80];   	  /* What killed the player */
 
 

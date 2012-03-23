@@ -4597,9 +4597,9 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				/* Indicate panic save */
 #ifdef JP
-				(void)strcpy(player_ptr->died_from, "(緊急セーブ)");
+				(void)strcpy(gameover_from, "(緊急セーブ)");
 #else
-				(void)strcpy(player_ptr->died_from, "(panic save)");
+				(void)strcpy(gameover_from, "(panic save)");
 #endif
 
 				/* Panic save */

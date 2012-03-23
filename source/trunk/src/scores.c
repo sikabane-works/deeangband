@@ -531,19 +531,19 @@ errr top_twenty(creature_type *player_ptr)
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
 	/* Save the cause of death (31 chars) */
-	if (strlen(player_ptr->died_from) >= sizeof(the_score.how))
+	if (strlen(gameover_from) >= sizeof(the_score.how))
 	{
 #ifdef JP
-		my_strcpy(the_score.how, player_ptr->died_from, sizeof(the_score.how) - 2);
+		my_strcpy(the_score.how, gameover_from, sizeof(the_score.how) - 2);
 		strcat(the_score.how, "c");
 #else
-		my_strcpy(the_score.how, player_ptr->died_from, sizeof(the_score.how) - 3);
+		my_strcpy(the_score.how, gameover_from, sizeof(the_score.how) - 3);
 		strcat(the_score.how, "...");
 #endif
 	}
 	else
 	{
-		strcpy(the_score.how, player_ptr->died_from);
+		strcpy(the_score.how, gameover_from);
 	}
 
 	/* Grab permissions */
@@ -897,7 +897,7 @@ void kingly(creature_type *player_ptr)
 {
 	int wid, hgt;
 	int cx, cy;
-	bool seppuku = streq(player_ptr->died_from, "Seppuku");
+	bool seppuku = streq(gameover_from, "Seppuku");
 
 	/* Hack -- retire in town */
 	dun_level = 0;
@@ -906,9 +906,9 @@ void kingly(creature_type *player_ptr)
 	if (!seppuku)
 #ifdef JP
 		/* ˆø‘Þ‚µ‚½‚Æ‚«‚ÌŽ¯•Ê•¶Žš */
-		(void)strcpy(player_ptr->died_from, "ripe");
+		(void)strcpy(gameover_from, "ripe");
 #else
-		(void)strcpy(player_ptr->died_from, "Ripe Old Age");
+		(void)strcpy(gameover_from, "Ripe Old Age");
 #endif
 
 

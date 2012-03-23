@@ -450,7 +450,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->stigmatic);
 
 	wr_string(cr_ptr->name);
-	wr_string(cr_ptr->died_from);
+	wr_string(gameover_from);
 	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
 	for (i = 0; i < HISTORY_ROW; i++)

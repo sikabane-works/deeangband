@@ -5915,9 +5915,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				/* Note cause of death */
 				if (seppuku)
 				{
-					strcpy(tar_ptr->died_from, hit_from);
+					strcpy(gameover_from, hit_from);
 	#ifdef JP
-					if (!winning_seppuku) strcpy(tar_ptr->died_from, "Ø• ");
+					if (!winning_seppuku) strcpy(gameover_from, "Ø• ");
 	#endif
 				}
 				else
@@ -5928,7 +5928,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#else
 					sprintf(dummy, "%s%s", hit_from, !tar_ptr->paralyzed ? "" : " while helpless");
 	#endif
-					my_strcpy(tar_ptr->died_from, dummy, sizeof tar_ptr->died_from);
+					my_strcpy(gameover_from, dummy, sizeof gameover_from);
 				}
 	
 				if (winning_seppuku)
@@ -5970,9 +5970,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#endif
 	
 	#ifdef JP
-					sprintf(tmp, "%s‚Å%s‚ÉŽE‚³‚ê‚½B", buf, tar_ptr->died_from);
+					sprintf(tmp, "%s‚Å%s‚ÉŽE‚³‚ê‚½B", buf, gameover_from);
 	#else
-					sprintf(tmp, "killed by %s %s.", tar_ptr->died_from, buf);
+					sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 	#endif
 					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
 				}

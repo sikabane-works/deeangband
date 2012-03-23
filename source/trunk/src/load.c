@@ -923,7 +923,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_byte(&cr_ptr->stigmatic);
 
 	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
-	rd_string(cr_ptr->died_from, sizeof(cr_ptr->died_from));
+	rd_string(gameover_from, sizeof(gameover_from));
 	/* Read the message */
 	rd_string(buf, sizeof buf);
 	if (buf[0]) cr_ptr->last_message = string_make(buf);

@@ -451,7 +451,7 @@ errr report_score(creature_type *player_ptr)
 	buf_sprintf(score, "CHARA: %s\n", CHARAtmp);
 	buf_sprintf(score, "realm1: %s\n", realm_names[player_ptr->realm1]);
 	buf_sprintf(score, "realm2: %s\n", realm_names[player_ptr->realm2]);
-	buf_sprintf(score, "killer: %s\n", player_ptr->died_from);
+	buf_sprintf(score, "killer: %s\n", gameover_from);
 	buf_sprintf(score, "-----charcter dump-----\n");
 
 	make_dump(score);

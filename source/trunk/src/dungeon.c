@@ -7303,9 +7303,9 @@ quit("セーブファイルが壊れています");
 
 					/* Note cause of death XXX XXX XXX */
 #ifdef JP
-					(void)strcpy(cr_ptr->died_from, "死の欺き");
+					(void)strcpy(gameover_from, "死の欺き");
 #else
-					(void)strcpy(cr_ptr->died_from, "Cheating death");
+					(void)strcpy(gameover_from, "Cheating death");
 #endif
 
 					/* Do not die */
