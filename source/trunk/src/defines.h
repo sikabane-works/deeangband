@@ -4001,7 +4001,7 @@
  * Grid based version of "creature_bold()"
  */
 #define player_grid(C) \
-	((C) == &cave[p_ptr->fy][p_ptr->fx])
+	((C) == &cave[player_ptr->fy][player_ptr->fx])
 
 
 #define cave_have_flag_bold(Y,X,INDEX) \
@@ -4087,10 +4087,10 @@
  * Line 2 -- forbid monsters
  * Line 3 -- forbid the player
  */
-#define cave_naked_bold(Y,X) \
+#define cave_naked_bold(C,Y,X) \
 	(cave_clean_bold(Y,X) && \
 	 !(cave[Y][X].m_idx) && \
-	 !creature_bold(p_ptr, Y,X))
+	 !creature_bold(C, Y, X))
 
 
 /*
@@ -4103,12 +4103,11 @@
 
 
 /*
- * Grid based version of "cave_empty_bold(cr_ptr, )"
+ * Grid based version of "cave_empty_bold()"
  */
 #define cave_empty_grid(C) \
 	(cave_have_flag_grid((C), FF_PLACE) && \
-	 !((C)->m_idx) && \
-	 !player_grid(C))
+	 !((C)->m_idx) && !player_grid(C))
 
 
 /*

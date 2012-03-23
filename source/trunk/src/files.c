@@ -8061,7 +8061,7 @@ quit("‹­§I—¹");
 	{
 		/* Cause of "death" */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "‹­§I—¹’†");
+		(void)strcpy(p_ptr->died_from, "‹­§I—¹’†");
 #else
 		(void)strcpy(p_ptr->died_from, "Interrupting");
 #endif
@@ -8103,7 +8103,7 @@ quit("‹­§I—¹");
 
 		/* Display the cause */
 #ifdef JP
-Term_putstr(0, 0, -1, TERM_WHITE, "n—¶‚Ìã‚Ì©EI");
+		Term_putstr(0, 0, -1, TERM_WHITE, "n—¶‚Ìã‚Ì©EI");
 #else
 		Term_putstr(0, 0, -1, TERM_WHITE, "Contemplating suicide!");
 #endif
