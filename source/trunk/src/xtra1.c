@@ -1620,8 +1620,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 	prt_depth(cr_ptr);
 
 	/* Special */
-	health_redraw(cr_ptr, FALSE);
-//TODO	health_redraw(cr_ptr, TRUE);
+//TODO	//health_redraw(cr_ptr, FALSE);
 }
 
 
@@ -5686,7 +5685,7 @@ void notice_stuff(creature_type *cr_ptr)
 void update_creature(creature_type *cr_ptr, bool message)
 {
 	/* Update stuff */
-	if (!update) return;
+	if (!cr_ptr->creature_update) return;
 
 	if (cr_ptr->creature_update & (CRU_BONUS))
 	{
