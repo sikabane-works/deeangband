@@ -2074,3 +2074,4 @@ extern char authority_rank_disp[6][3];
 
 extern u32b update;	
 extern char gameover_from[80];
+extern bool wait_report_score;

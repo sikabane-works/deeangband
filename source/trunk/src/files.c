@@ -7552,7 +7552,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 				if (get_check_strict("Stand by for later score registration? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
 #endif
 				{
-					player_ptr->wait_report_score = TRUE;
+					wait_report_score = TRUE;
 					player_ptr->is_dead = FALSE;
 #ifdef JP
 					if (!save_player()) msg_print("セーブ失敗！");
@@ -7561,7 +7561,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 #endif
 				}
 			}
-			if (!player_ptr->wait_report_score)
+			if (!wait_report_score)
 				(void)top_twenty(player_ptr);
 		}
 		else if (highscore_fd >= 0)

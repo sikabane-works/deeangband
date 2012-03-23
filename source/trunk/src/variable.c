@@ -1366,4 +1366,5 @@ travel_type travel;
 u32b creature_idx_latest = 0;
 char gameover_from[80];   	  /* What killed the player */
 
+bool wait_report_score;   /* Waiting to report score */
 

@@ -658,7 +658,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->knowledge);
 	wr_byte(cr_ptr->autopick_autoregister);
 	wr_byte(cr_ptr->action);
-	wr_byte(cr_ptr->wait_report_score);
+	wr_byte(wait_report_score);
 
 	/* Write death */
 	wr_byte(cr_ptr->is_dead);
@@ -1390,7 +1390,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->pet_extra_flags);
 
 	/* Write screen dump for sending score */
-	if (screen_dump && (cr_ptr->wait_report_score || !cr_ptr->is_dead))
+	if (screen_dump && (wait_report_score || !cr_ptr->is_dead))
 	{
 		wr_string(screen_dump);
 	}

@@ -6746,7 +6746,7 @@ quit("セーブファイルが壊れています");
 	extract_option_vars();
 
 	/* Report waited score */
-	if (cr_ptr->wait_report_score)
+	if (wait_report_score)
 	{
 		char buf[1024];
 		bool success;
@@ -6798,7 +6798,7 @@ quit("セーブファイルが壊れています");
 		}
 		else
 		{
-			cr_ptr->wait_report_score = FALSE;
+			wait_report_score = FALSE;
 			top_twenty(cr_ptr);
 #ifdef JP
 			if (!save_player()) msg_print("セーブ失敗！");

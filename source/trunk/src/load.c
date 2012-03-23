@@ -1144,7 +1144,7 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	cr_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
 
 	rd_byte(&cr_ptr->action);
-	rd_byte((byte *)&cr_ptr->wait_report_score);
+	rd_byte((byte *)&wait_report_score);
 
 	/* Read "death" */
 	rd_byte(&tmp8u);

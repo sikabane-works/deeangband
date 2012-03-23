@@ -1349,7 +1349,6 @@ struct creature_type
 	cptr last_message;        /* Last message on death or retirement */
 	char history[HISTORY_ROW][HISTORY_COL];  	  /* Textual "history" for the Player */
 
-	bool wait_report_score;   /* Waiting to report score */
 	bool is_dead;		      /* is dead */
 
 	s16b riding;              /* Riding on a creature of this index */

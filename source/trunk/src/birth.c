@@ -2748,7 +2748,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 
 	/* Not waiting to report score */
-	creature_ptr->wait_report_score = FALSE;
+	wait_report_score = FALSE;
 
 	/* Default pet command settings */
 	creature_ptr->pet_follow_distance = PET_FOLLOW_DIST;
