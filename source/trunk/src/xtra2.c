@@ -5018,7 +5018,7 @@ static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
  * XAngband: Prepare the "temp" array for "tget_pt"
  * based on target_set_prepare funciton.
  */
-static void tgt_pt_prepare(void)
+static void tgt_pt_prepare(creature_type *cr_ptr)
 {
 	int y, x;
 
@@ -5033,7 +5033,7 @@ static void tgt_pt_prepare(void)
 		for (x = 1; x < cur_wid; x++)
 		{
 			/* Require "interesting" contents */
-			if (!tgt_pt_accept(p_ptr, y, x)) continue;
+			if (!tgt_pt_accept(cr_ptr, y, x)) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;
@@ -5065,7 +5065,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 
 	if (expand_list) 
 	{
-		tgt_pt_prepare();
+		tgt_pt_prepare(cr_ptr);
 		n = 0;
 	}
 
