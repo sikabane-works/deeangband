@@ -450,7 +450,6 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->stigmatic);
 
 	wr_string(cr_ptr->name);
-	wr_string(gameover_from);
 	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
 	for (i = 0; i < HISTORY_ROW; i++)
@@ -772,6 +771,7 @@ static void wr_extra(void)
 	wr_u32b(playtime);
 
 	wr_u32b(creature_idx_latest);
+	wr_string(gameover_from);
 
 }
 
