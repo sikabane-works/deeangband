@@ -1032,7 +1032,7 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 				{
 					scatter(&wy, &wx, y, x, 20, 0);
 				}
-				while (!(in_bounds(wy, wx) && cave_empty_bold2(wy, wx)) && --attempts);
+				while (!(in_bounds(wy, wx) && cave_empty_bold2(slayer_ptr, wy, wx)) && --attempts);
 
 				if (attempts > 0)
 				{
