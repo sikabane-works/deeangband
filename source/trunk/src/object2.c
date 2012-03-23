@@ -839,7 +839,7 @@ void object_aware(object_type *o_ptr)
 	k_info[o_ptr->k_idx].aware = TRUE;
 
 	if(mihanmei && !(k_info[o_ptr->k_idx].gen_flags & TRG_INSTA_ART) && record_ident &&
-	   !p_ptr->is_dead && ((o_ptr->tval >= TV_AMULET && o_ptr->tval <= TV_POTION) || (o_ptr->tval == TV_FOOD)))
+	   !gameover_e && ((o_ptr->tval >= TV_AMULET && o_ptr->tval <= TV_POTION) || (o_ptr->tval == TV_FOOD)))
 	{
 		object_type forge;
 		object_type *q_ptr;

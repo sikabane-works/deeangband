@@ -1825,7 +1825,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 	}
 
 	/* Move the player */
-	if (sy && !cr_ptr->is_dead)
+	if (sy && !gameover_e)
 		(void)move_creature_effect(cr_ptr, cr_ptr->fy, cr_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return fall_dam;

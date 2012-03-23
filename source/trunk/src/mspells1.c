@@ -1567,7 +1567,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if (!num) return (FALSE);
 
 	/* Stop if player is dead or gone */
-	if (!playing || target_ptr->is_dead) return (FALSE);
+	if (!playing || gameover_e) return (FALSE);
 
 	/* Stop if player is leaving */
 	if (target_ptr->leaving) return (FALSE);
@@ -3440,7 +3440,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 						   -- henkma
 						 */
 						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, m_name, NULL, -1);
-						if (target_ptr->tim_eyeeye && get_damage > 0 && !target_ptr->is_dead)
+						if (target_ptr->tim_eyeeye && get_damage > 0 && !gameover_e)
 						{
 #ifdef JP
 							msg_format("攻撃が%s自身を傷つけた！", m_name);
@@ -4371,7 +4371,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 
 	/* Always take note of monsters that kill you */
-	if (target_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
+	if (gameover_e && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++; /* Ignore appearance difference */
 	}

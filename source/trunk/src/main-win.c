@@ -4581,7 +4581,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				msg_flag = FALSE;
 
 				/* Mega-Hack -- Delay death */
-				if (player_ptr->chp < 0) player_ptr->is_dead = FALSE;
+				if (player_ptr->chp < 0) gameover_e = FALSE;
 
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ƒQ[ƒ€’†’f----");

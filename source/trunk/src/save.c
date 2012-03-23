@@ -660,7 +660,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->action);
 
 	/* Write death */
-	wr_byte(cr_ptr->is_dead);
+	wr_byte(gameover_e);
 
 	/* Write feeling */
 	wr_byte(cr_ptr->feeling);
@@ -1390,7 +1390,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->pet_extra_flags);
 
 	/* Write screen dump for sending score */
-	if (screen_dump && (wait_report_score || !cr_ptr->is_dead))
+	if (screen_dump && (wait_report_score || !gameover_e))
 	{
 		wr_string(screen_dump);
 	}
@@ -1400,7 +1400,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	}
 
 	/* Player is not dead, write the dungeon */
-	if (!cr_ptr->is_dead)
+	if (!gameover_e)
 	{
 		/* Dump the dungeon */
 		if (!wr_dungeon(cr_ptr)) return FALSE;
@@ -1684,7 +1684,7 @@ bool load_player(creature_type *player_ptr)
 	turn = 0;
 
 	/* Paranoia */
-	player_ptr->is_dead = FALSE;
+	gameover_e = FALSE;
 
 
 	/* Allow empty savefile name */
@@ -1900,7 +1900,7 @@ bool load_player(creature_type *player_ptr)
 		}
 
 		/* Player is dead */
-		if (player_ptr->is_dead)
+		if (gameover_e)
 		{
 			/* Cheat death */
 			if (arg_wizard)
@@ -1913,7 +1913,7 @@ bool load_player(creature_type *player_ptr)
 			}
 
 			/* Player is no longer "dead" */
-			player_ptr->is_dead = FALSE;
+			gameover_e = FALSE;
 
 			/* Count lives */
 			sf_lives++;

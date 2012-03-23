@@ -1147,7 +1147,7 @@ note("持ち物情報を読み込むことができません");
 
 	/* Read "death" */
 	rd_byte(&tmp8u);
-	cr_ptr->is_dead = tmp8u;
+	gameover_e = tmp8u;
 
 	/* Read "feeling" */
 	rd_byte(&cr_ptr->feeling);
@@ -2173,7 +2173,7 @@ note("特別情報をロードしました");
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);
 
-	if (cr_ptr->is_dead)
+	if (gameover_e)
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
@@ -2183,7 +2183,7 @@ note("特別情報をロードしました");
 
 
 	/* I'm not dead yet... */
-	if (!cr_ptr->is_dead)
+	if (!gameover_e)
 	{
 		/* Dead players have no dungeon */
 #ifdef JP

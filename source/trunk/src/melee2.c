@@ -2969,7 +2969,7 @@ void process_monsters(creature_type *cr_ptr)
 			m_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 		/* Hack -- notice death or departure */
-		if (!playing || cr_ptr->is_dead) break;
+		if (!playing || gameover_e) break;
 
 		/* Notice leaving */
 		if (cr_ptr->leaving) break;
