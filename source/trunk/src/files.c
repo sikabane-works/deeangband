@@ -3883,7 +3883,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 		if(wizard)
 		{
-			sprintf(tmp, "[%d]%s", cr_ptr->creature_idx, tmp);
+			sprintf(tmp, "[%d]%s", cr_ptr->creature_idx, cr_ptr->name);
 		}
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
