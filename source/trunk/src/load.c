@@ -1145,10 +1145,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 
 	rd_byte(&cr_ptr->action);
 
-	/* Read "death" */
-	rd_byte(&tmp8u);
-	gameover_e = tmp8u;
-
 	/* Read "feeling" */
 	rd_byte(&cr_ptr->feeling);
 
@@ -1261,7 +1257,6 @@ static void rd_extra(void)
 	rd_u32b(&seed_flavor);
 	rd_u32b(&seed_town);
 
-
 	/* Special stuff */
 	rd_u16b(&panic_save);
 	rd_u16b(&noscore);
@@ -1293,6 +1288,7 @@ static void rd_extra(void)
 	rd_u32b(&creature_idx_latest);
 	rd_string(gameover_from, sizeof(gameover_from));
 	rd_byte((byte *)&wait_report_score);
+	rd_byte((byte *)&gameover_e);
 }
 
 

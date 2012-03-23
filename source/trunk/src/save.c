@@ -659,9 +659,6 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->autopick_autoregister);
 	wr_byte(cr_ptr->action);
 
-	/* Write death */
-	wr_byte(gameover_e);
-
 	/* Write feeling */
 	wr_byte(cr_ptr->feeling);
 
@@ -772,7 +769,7 @@ static void wr_extra(void)
 	wr_u32b(creature_idx_latest);
 	wr_string(gameover_from);
 	wr_byte(wait_report_score);
-
+	wr_byte(gameover_e);
 }
 
 
