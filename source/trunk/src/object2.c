@@ -1530,7 +1530,7 @@ bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr)
 		o_ptr->ident |= (IDENT_SENSE);
 
 		/* Combine the pack */
-		cr_ptr->notice |= (CRN_COMBINE);
+		cr_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -4796,7 +4796,7 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		cr_ptr->creature_update |= (CRU_MANA);
 
 		/* Combine the pack */
-		cr_ptr->notice |= (CRN_COMBINE);
+		cr_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -5220,7 +5220,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine and Reorder pack */
-	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -6859,7 +6859,7 @@ static void drain_essence(creature_type *creature_ptr)
 	}
 
 	/* Combine the pack */
-	creature_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -7586,7 +7586,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 
 	/* Combine the pack */
-	creature_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -7651,7 +7651,7 @@ static void erase_essence(creature_type *creature_ptr)
 #endif
 
 	/* Combine the pack */
-	creature_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);

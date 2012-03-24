@@ -5351,7 +5351,7 @@ bool lose_all_info(creature_type *cr_ptr)
 	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);

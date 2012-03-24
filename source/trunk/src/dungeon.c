@@ -308,7 +308,7 @@ o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 	autopick_alter_item(cr_ptr, slot, destroy_feeling);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
@@ -1191,7 +1191,7 @@ static void regen_captured_monsters(creature_type *cr_ptr)
 	if (heal)
 	{
 		/* Combine pack */
-		cr_ptr->notice |= (CRN_COMBINE);
+		cr_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -1383,7 +1383,7 @@ msg_format("%sは%sという感じがする...",
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -5543,7 +5543,7 @@ static void pack_overflow(creature_type *cr_ptr)
 		inven_item_describe(cr_ptr, INVEN_TOTAL);
 		inven_item_optimize(cr_ptr, INVEN_TOTAL);
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 		notice_stuff(cr_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
@@ -5865,7 +5865,7 @@ msg_print("中断しました。");
 		cr_ptr->counter = FALSE;
 		cr_ptr->now_damaged = FALSE;
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 		notice_stuff(cr_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
@@ -6289,9 +6289,9 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Combine / Reorder the pack */
-	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Handle "cr_ptr->notice" */
+	/* Handle "cr_ptr->creature_update" */
 	notice_stuff(cr_ptr);
 
 	/* Handle "update" and "play_redraw" and "play_window" */
@@ -6390,7 +6390,7 @@ msg_print("試合開始！");
 		/* Process the player */
 		process_player(cr_ptr);
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 		notice_stuff(cr_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
@@ -6408,7 +6408,7 @@ msg_print("試合開始！");
 		/* Process all of the monsters */
 		process_monsters(cr_ptr);
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 		notice_stuff(cr_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
@@ -6427,7 +6427,7 @@ msg_print("試合開始！");
 		/* Process the world */
 		process_world(cr_ptr);
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 		notice_stuff(cr_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
@@ -7164,7 +7164,7 @@ quit("セーブファイルが壊れています");
 		/* Process the level */
 		dungeon(cr_ptr, load_game);
 
-		/* Handle "cr_ptr->notice" */
+		/* Handle "cr_ptr->creature_update" */
 
 
 		notice_stuff(cr_ptr);

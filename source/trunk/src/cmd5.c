@@ -640,7 +640,7 @@ static void change_realm2(creature_type *cr_ptr, int next_realm)
 	cr_ptr->old_realm |= 1 << (cr_ptr->realm2-1);
 	cr_ptr->realm2 = next_realm;
 
-	cr_ptr->notice |= (CRN_REORDER);
+	cr_ptr->creature_update |= (CRU_REORDER);
 	cr_ptr->creature_update |= (CRU_SPELLS);
 	handle_stuff();
 

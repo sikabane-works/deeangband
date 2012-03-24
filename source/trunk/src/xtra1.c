@@ -5648,32 +5648,32 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 /*
- * Handle "cr_ptr->notice"
+ * Handle "cr_ptr->creature_update"
  */
 void notice_stuff(creature_type *cr_ptr)
 {
 	/* Notice stuff */
-	if (!cr_ptr->notice) return;
+	if (!cr_ptr->creature_update) return;
 
 
 	/* Actually do auto-destroy */
-	if (cr_ptr->notice & (CRN_AUTODESTROY))
+	if (cr_ptr->creature_update & (CRN_AUTODESTROY))
 	{
-		cr_ptr->notice &= ~(CRN_AUTODESTROY);
+		cr_ptr->creature_update &= ~(CRN_AUTODESTROY);
 		autopick_delayed_alter(cr_ptr);
 	}
 
 	/* Combine the pack */
-	if (cr_ptr->notice & (CRN_COMBINE))
+	if (cr_ptr->creature_update & (CRU_COMBINE))
 	{
-		cr_ptr->notice &= ~(CRN_COMBINE);
+		cr_ptr->creature_update &= ~(CRU_COMBINE);
 		combine_pack(cr_ptr);
 	}
 
 	/* Reorder the pack */
-	if (cr_ptr->notice & (CRN_REORDER))
+	if (cr_ptr->creature_update & (CRU_REORDER))
 	{
-		cr_ptr->notice &= ~(CRN_REORDER);
+		cr_ptr->creature_update &= ~(CRU_REORDER);
 		reorder_pack(cr_ptr);
 	}
 }

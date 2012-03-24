@@ -2834,9 +2834,6 @@
 /*
  * Bit flags for the "notice" variable
  */
-#define CRN_COMBINE      0x00000001L     /* Combine the pack */
-#define CRN_REORDER      0x00000002L     /* Reorder the pack */
-#define CRN_AUTODESTROY  0x00000004L     /* Auto-destroy marked item */
 /* xxx (many) */
 
 
@@ -2850,6 +2847,11 @@
 #define CRU_HP           0x00000010L     // Calculate chp and mhp
 #define CRU_MANA         0x00000020L     // Calculate csp and msp
 #define CRU_SPELLS       0x00000040L     // Calculate spells
+
+#define CRU_COMBINE      0x00001001L     // Combine the pack
+#define CRU_REORDER      0x00001002L     // Reorder the pack
+#define CRN_AUTODESTROY  0x00001004L     // Auto-destroy marked item
+
 
 //world update
 #define PU_UN_VIEW      0x00010000L     // Forget view

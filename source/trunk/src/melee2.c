@@ -3256,7 +3256,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		reset_target(m_ptr);
 
 		/* Notice stuff */
-		if (player_ptr->notice) notice_stuff(player_ptr);
+		if (player_ptr->creature_update) notice_stuff(player_ptr);
 
 		/* Update stuff */
 		if (update) update_creature(player_ptr, TRUE);
