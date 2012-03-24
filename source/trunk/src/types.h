@@ -1379,8 +1379,6 @@ struct creature_type
 	/*** Temporary fields ***/
 	bool leaving;			/* True if player is leaving */
 
-	byte exit_bldg;			/* Goal obtained in arena? -KMW- */
-
 	bool leaving_dungeon;	/* True if player is leaving the dungeon */
 	bool teleport_town;
 	bool enter_dungeon;     /* Just enter the dungeon */

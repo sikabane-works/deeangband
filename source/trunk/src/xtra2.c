@@ -826,7 +826,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
 	if (inside_arena && !is_pet(player_ptr, killed_ptr))
 	{
-		slayer_ptr->exit_bldg = TRUE;
+		arena_settled = TRUE;
 
 		if (arena_number > MAX_ARENA_MONS)
 		{

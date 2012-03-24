@@ -7219,7 +7219,7 @@ quit("セーブファイルが壊れています");
 				gameover_e = FALSE;
 				cr_ptr->chp = 0;
 				cr_ptr->chp_frac = 0;
-				cr_ptr->exit_bldg = TRUE;
+				arena_settled = TRUE;
 				reset_tim_flags(cr_ptr);
 
 				/* Leave through the exit */

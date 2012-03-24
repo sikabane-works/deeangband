@@ -1368,3 +1368,4 @@ char gameover_from[80];   	  /* What killed the player */
 
 bool wait_report_score = FALSE;   /* Waiting to report score */
 bool gameover_e = FALSE;
+bool arena_settled = TRUE;

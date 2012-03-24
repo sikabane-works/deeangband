@@ -553,7 +553,7 @@ static void wr_creature(creature_type *cr_ptr)
 	}
 	wr_s16b(cr_ptr->mane_num);
 
-	wr_byte(cr_ptr->exit_bldg);
+	wr_byte(arena_settled);
 
 	wr_s16b(cr_ptr->oldpx);
 	wr_s16b(cr_ptr->oldpy);

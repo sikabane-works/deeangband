@@ -1030,7 +1030,7 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	}
 	rd_s16b(&cr_ptr->mane_num);
 
-	rd_byte(&cr_ptr->exit_bldg);
+	rd_byte(&arena_settled);
 
 	rd_s16b(&cr_ptr->oldpx);
 	rd_s16b(&cr_ptr->oldpy);

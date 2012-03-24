@@ -2780,7 +2780,6 @@ void creature_wipe(creature_type *creature_ptr)
 		creature_ptr->mane_dam[i] = 0;
 	}
 	creature_ptr->mane_num = 0;
-	creature_ptr->exit_bldg = TRUE; /* only used for arena now -KMW- */
 
 	/* Bounty */
 	creature_ptr->today_mon = 0;

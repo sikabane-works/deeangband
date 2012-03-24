@@ -285,7 +285,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 					if (get_check("Do you fight? "))
 #endif
 					{
-						cr_ptr->exit_bldg = FALSE;
+						arena_settled = FALSE;
 						reset_tim_flags(cr_ptr);
 
 						/* Save the surface floor as saved floor */
@@ -327,7 +327,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 			}
 			else
 			{
-				cr_ptr->exit_bldg = FALSE;
+				arena_settled = FALSE;
 				reset_tim_flags(cr_ptr);
 
 				/* Save the surface floor as saved floor */
@@ -5080,7 +5080,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	}
 	else if ((which == 2) && inside_arena)
 	{
-		if (!cr_ptr->exit_bldg)
+		if (!arena_settled)
 		{
 #ifdef JP
 			prt("ゲートは閉まっている。モンスターがあなたを待っている！", 0, 0);
