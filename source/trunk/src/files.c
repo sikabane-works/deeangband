@@ -6636,7 +6636,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	gameover_e = TRUE;
 
 	/* Leaving */
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 
 	if (!cr_ptr->total_winner)
 	{
@@ -6767,7 +6767,7 @@ void do_cmd_save_and_exit(creature_type *creature_ptr)
 	playing = FALSE;
 
 	/* Leaving */
-	creature_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 #ifdef JP
 	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ゲーム中断----");
 #else
@@ -8078,7 +8078,7 @@ quit("強制終了");
 		gameover_e = TRUE;
 
 		/* Leaving */
-		p_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 
 		/* Close stuff */
 		close_game(p_ptr);

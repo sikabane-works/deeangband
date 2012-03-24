@@ -1116,7 +1116,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 				/* Leaving */
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 			}
 			break;
 		}
@@ -3663,7 +3663,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			(void)project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, (60 + cr_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
-			if (!creature_bold(cr_ptr, ny, nx) || gameover_e || cr_ptr->leaving) return FALSE;
+			if (!creature_bold(cr_ptr, ny, nx) || gameover_e || subject_change_floor) return FALSE;
 		}
 
 		/* Spontaneous Searching */
@@ -3741,7 +3741,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		cr_ptr->oldpx = 0;
 		cr_ptr->oldpy = 0;
 
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 	}
 
 	/* Set off a trap */
@@ -3767,7 +3767,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		/* Hit the trap */
 		hit_trap(cr_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if (!creature_bold(cr_ptr, ny, nx) || gameover_e || cr_ptr->leaving) return FALSE;
+		if (!creature_bold(cr_ptr, ny, nx) || gameover_e || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
@@ -3793,7 +3793,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		}
 	}
 
-	return creature_bold(cr_ptr, ny, nx) && !gameover_e && !cr_ptr->leaving;
+	return creature_bold(cr_ptr, ny, nx) && !gameover_e && !subject_change_floor;
 }
 
 
@@ -3970,7 +3970,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 				wilderness_x = tmp_wx;
 				cr_ptr->oldpy = tmp_py;
 				cr_ptr->oldpx = tmp_px;
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
@@ -3993,7 +3993,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 				wilderness_x = tmp_wx;
 				cr_ptr->oldpy = tmp_py;
 				cr_ptr->oldpx = tmp_px;
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;

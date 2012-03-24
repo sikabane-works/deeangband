@@ -1531,7 +1531,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 	/* Leaving */
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 }
 
 

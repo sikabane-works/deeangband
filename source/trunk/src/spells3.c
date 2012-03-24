@@ -709,7 +709,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			}
 
 			/* Leaving */
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 		}
 	}
 
@@ -735,7 +735,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			/* Leaving */
 			inside_quest = 0;
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 		}
 	}
 	else if (go_up)
@@ -756,7 +756,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 		}
 	}
 	else
@@ -779,7 +779,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 		}
 	}
 

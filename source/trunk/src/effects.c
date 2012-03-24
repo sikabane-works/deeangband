@@ -1156,7 +1156,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->creature_update |= (CRU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !subject_change_floor) cr_ptr->creature_update |= (CRU_BONUS);
 
 	return TRUE;
 
@@ -1341,7 +1341,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->creature_update |= (CRU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !subject_change_floor) cr_ptr->creature_update |= (CRU_BONUS);
 
 	return TRUE;
 
@@ -5885,7 +5885,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			sound(SOUND_DEATH);
 	
 			/* Leaving */
-			tar_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 	
 			/* Note death */
 			gameover_e = TRUE;
@@ -6117,7 +6117,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Dead */
 		}
 	
-		if (wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
+		if (wild_mode && !subject_change_floor && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 		{
 			change_wild_mode(tar_ptr);
 		}

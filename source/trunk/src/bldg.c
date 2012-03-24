@@ -292,7 +292,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 						prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 						inside_arena = TRUE;
-						cr_ptr->leaving = TRUE;
+						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
 					}
 					else
@@ -334,7 +334,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 				prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 				inside_arena = TRUE;
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 				leave_bldg = TRUE;
 			}
 			break;
@@ -2072,7 +2072,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 			monster_arena_mode = TRUE;
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 
 			leave_bldg = TRUE;
 			screen_load();
@@ -4375,7 +4375,7 @@ bool tele_town(creature_type *cr_ptr)
 		}
 	}
 
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 	leave_bldg = TRUE;
 	cr_ptr->teleport_town = TRUE;
 	screen_load();
@@ -5033,7 +5033,7 @@ msg_print("ここにはクエストの入口はない。");
 		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
 		inside_quest = cave[cr_ptr->fy][cr_ptr->fx].special;
 
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 	}
 }
 
@@ -5094,7 +5094,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 			inside_arena = FALSE;
-			cr_ptr->leaving = TRUE;
+			subject_change_floor = TRUE;
 
 			/* Re-enter the arena */
 			command_new = SPECIAL_KEY_BUILDING;
@@ -5110,7 +5110,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		/* Don't save the arena as saved floor */
 		prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 		monster_arena_mode = FALSE;
 
 		/* Re-enter the monster arena */
@@ -5189,7 +5189,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	/* Reinit wilderness to activate quests ... */
 	if (reinit_wilderness)
 	{
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 	}
 
 	/* Hack -- Decrease "icky" depth */

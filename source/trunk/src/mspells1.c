@@ -1570,7 +1570,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if (!playing || gameover_e) return (FALSE);
 
 	/* Stop if player is leaving */
-	if (target_ptr->leaving) return (FALSE);
+	if (subject_change_floor) return (FALSE);
 
 	/* Get the monster name (or "it") */
 	creature_desc(m_name, caster_ptr, 0x00);

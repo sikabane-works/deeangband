@@ -2864,7 +2864,7 @@ void process_monsters(creature_type *cr_ptr)
 		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Handle "leaving" */
-		if (cr_ptr->leaving) break;
+		if (subject_change_floor) break;
 
 		/* Ignore "dead" monsters */
 		if (!m_ptr->species_idx) continue;
@@ -2972,7 +2972,7 @@ void process_monsters(creature_type *cr_ptr)
 		if (!playing || gameover_e) break;
 
 		/* Notice leaving */
-		if (cr_ptr->leaving) break;
+		if (subject_change_floor) break;
 	}
 
 	/* Reset global index */

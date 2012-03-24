@@ -595,7 +595,7 @@ void wilderness_gen(creature_type *cr_ptr)
 	}
 
 	creature_place(cr_ptr, cr_ptr->oldpy, cr_ptr->oldpx);
-	/* cr_ptr->leaving_dungeon = FALSE;*/
+	/* subject_change_floor_dungeon = FALSE;*/
 
 
 	lim = (generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
@@ -1031,7 +1031,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 	bool have_pet = FALSE;
 
 	/* It is in the middle of changing map */
-	if (cr_ptr->leaving) return FALSE;
+	if (subject_change_floor) return FALSE;
 
 
 	if (wild_mode)
@@ -1047,7 +1047,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 		wild_mode = FALSE;
 
 		/* Leaving */
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 
 		/* Succeed */
 		return TRUE;
@@ -1097,7 +1097,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 	msg_print("‚ ‚È‚½‚Í¬“×‚Ì’n•½‚ð•à‚ÝŽn‚ß‚½c");
 
 	/* Leaving */
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 
 	//TODO
 	wilderness[wilderness_y][wilderness_x].known = TRUE;

@@ -786,7 +786,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 	prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 	/* Leaving */
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 }
 
 
@@ -3446,7 +3446,7 @@ msg_print("上に引っ張りあげられる感じがする！");
 
 				inside_quest = 0;
 
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 			}
 			else
 			{
@@ -3502,7 +3502,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 				/* Leaving */
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 
 				if (dungeon_type == DUNGEON_DOD)
 				{
@@ -3561,7 +3561,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 				/* Leaving */
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 			}
 			else
 			{
@@ -3830,7 +3830,7 @@ static void process_world(creature_type *cr_ptr)
 	update_dungeon_feeling(cr_ptr);
 
 	/*** Check monster arena ***/
-	if (monster_arena_mode && !cr_ptr->leaving)
+	if (monster_arena_mode && !subject_change_floor)
 	{
 		int i2, j2;
 		int win_m_idx = 0;
@@ -3960,7 +3960,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				playing = FALSE;
 
 				/* Leaving */
-				cr_ptr->leaving = TRUE;
+				subject_change_floor = TRUE;
 			}
 		}
 	}
@@ -4109,7 +4109,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	if (!(turn % (TURNS_PER_TICK*10)) && !monster_arena_mode) regen_monsters(cr_ptr);
 	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters(cr_ptr);
 
-	if (!cr_ptr->leaving)
+	if (!subject_change_floor)
 	{
 		int i;
 
@@ -6164,7 +6164,7 @@ msg_print("中断しました。");
 		if (energy_use && cr_ptr->reset_concent) reset_concentration(cr_ptr, TRUE);
 
 		/* Handle "leaving" */
-		if (cr_ptr->leaving) break;
+		if (subject_change_floor) break;
 	}
 
 	/* Update scent trail */
@@ -6189,7 +6189,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	hack_mind = FALSE;
 
 	/* Not leaving */
-	cr_ptr->leaving = FALSE;
+	subject_change_floor = FALSE;
 
 	/* Reset the "command" vars */
 	command_cmd = 0;
@@ -6361,7 +6361,7 @@ msg_print("試合開始！");
 	hack_mind = TRUE;
 
 	if (cr_ptr->energy_need > 0 && !monster_arena_mode &&
-	    (dun_level || cr_ptr->leaving_dungeon || inside_arena))
+		(dun_level || cr_ptr->leaving_dungeon || inside_arena))
 		cr_ptr->energy_need = 0;
 
 	/* Not leaving dungeon */
@@ -6443,7 +6443,7 @@ msg_print("試合開始！");
 		if (!playing || gameover_e) break;
 
 		/* Handle "leaving" */
-		if (cr_ptr->leaving) break;
+		if (subject_change_floor) break;
 
 		/* Count game turns */
 		turn++;
@@ -7341,7 +7341,7 @@ quit("セーブファイルが壊れています");
 
 					/* Leaving */
 					wild_mode = FALSE;
-					cr_ptr->leaving = TRUE;
+					subject_change_floor = TRUE;
 
 #ifdef JP
 					do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            しかし、生き返った。");

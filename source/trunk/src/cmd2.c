@@ -73,7 +73,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		}
 
 		/* Leaving */
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 
 		cr_ptr->oldpx = 0;
 		cr_ptr->oldpy = 0;
@@ -184,7 +184,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 #endif
 
 	/* Leaving */
-	cr_ptr->leaving = TRUE;
+	subject_change_floor = TRUE;
 }
 
 
@@ -255,7 +255,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		}
 
 		/* Leaving */
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 
 		cr_ptr->oldpx = 0;
 		cr_ptr->oldpy = 0;
@@ -362,7 +362,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 
 
 		/* Leaving */
-		cr_ptr->leaving = TRUE;
+		subject_change_floor = TRUE;
 
 		if (fall_trap)
 		{

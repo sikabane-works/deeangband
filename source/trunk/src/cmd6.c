@@ -4765,7 +4765,7 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 						if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
 
 						/* Leaving */
-						cr_ptr->leaving = TRUE;
+						subject_change_floor = TRUE;
 					}
 				}
 				o_ptr->timeout = 35;

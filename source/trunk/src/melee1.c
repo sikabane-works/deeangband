@@ -222,7 +222,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 		if (distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */
-		if (target_ptr->leaving) break;
+		if (subject_change_floor) break;
 
 		if (method == RBM_SHOOT) continue;
 
