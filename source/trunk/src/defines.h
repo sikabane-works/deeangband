@@ -2848,9 +2848,9 @@
 #define CRU_MANA         0x00000020L     // Calculate csp and msp
 #define CRU_SPELLS       0x00000040L     // Calculate spells
 
-#define CRU_COMBINE      0x00001001L     // Combine the pack
-#define CRU_REORDER      0x00001002L     // Reorder the pack
-#define CRN_AUTODESTROY  0x00001004L     // Auto-destroy marked item
+#define CRU_COMBINE      0x00001000L     // Combine the pack
+#define CRU_REORDER      0x00002000L     // Reorder the pack
+#define CRN_AUTODESTROY  0x00004000L     // Auto-destroy marked item
 
 
 //world update

@@ -4392,7 +4392,7 @@ void display_inven(creature_type *cr_ptr)
  */
 void display_equip(creature_type *cr_ptr)
 {
-	register        int i, n;
+	register        int i, j, n;
 	object_type     *o_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
@@ -4401,6 +4401,26 @@ void display_equip(creature_type *cr_ptr)
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
+
+	n = 0;
+	for (i = 0; i < INVEN_TOTAL; i++)
+	{
+		for(j = 0; j < cr_ptr->item_slot_size[INVEN_SLOT_HAND]; j++)
+		{
+			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, j);
+			if(o_ptr->k_idx)
+			{
+				/* Obtain an item description */
+				object_desc(o_name, o_ptr, 0);
+
+				/* Display the index (or blank space) */
+				Term_putstr(0, n, 3, TERM_WHITE, o_name);
+				n++;
+			}
+		}
+
+	}
+
 
 	/* Display the equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
