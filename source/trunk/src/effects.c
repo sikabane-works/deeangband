@@ -6360,7 +6360,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			/* Mega hack : replace IKETA to BIKETAL */
 			if ((tar_ptr->species_idx == MON_IKETA) &&
-			    !(inside_arena || inside_battle))
+			    !(inside_arena || monster_arena_mode))
 			{
 				int dummy_y = tar_ptr->fy;
 				int dummy_x = tar_ptr->fx;

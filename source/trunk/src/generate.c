@@ -1613,7 +1613,7 @@ void generate_cave(creature_type *player_ptr)
 		}
 
 		/* Build the battle -KMW- */
-		else if (inside_battle)
+		else if (monster_arena_mode)
 		{
 			/* Small arena */
 			battle_gen(player_ptr);

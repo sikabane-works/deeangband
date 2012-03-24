@@ -724,7 +724,7 @@ static void wr_extra(void)
 	wr_s16b(arena_number);
 	wr_s16b(inside_arena);
 	wr_s16b(inside_quest);
-	wr_s16b(inside_battle);
+	wr_s16b(monster_arena_mode);
 	wr_byte(preserve_mode);
 	wr_byte(0); /* Unused */
 

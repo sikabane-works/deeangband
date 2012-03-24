@@ -1227,7 +1227,7 @@ static void rd_extra(void)
 	inside_arena = (bool)tmp16s;
 	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
-	inside_battle = (bool)tmp16s;
+	monster_arena_mode = (bool)tmp16s;
 	rd_byte((byte *)&preserve_mode);
 	rd_byte(&tmp8u);
 

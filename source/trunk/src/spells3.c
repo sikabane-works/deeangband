@@ -563,7 +563,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !inside_battle && los(cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !monster_arena_mode && los(cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
@@ -5427,7 +5427,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 	bool health_tracked = (health_who == c_ptr->m_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
-	if (inside_arena || inside_battle) return (FALSE);
+	if (inside_arena || monster_arena_mode) return (FALSE);
 
 	if ((cr_ptr->riding == c_ptr->m_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 

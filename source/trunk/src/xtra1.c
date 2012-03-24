@@ -185,7 +185,7 @@ cptr map_name(void)
 #else
 		return "Arena";
 #endif
-	else if (inside_battle)
+	else if (monster_arena_mode)
 #ifdef JP
 		return "“¬‹Zê";
 #else

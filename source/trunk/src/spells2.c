@@ -4672,7 +4672,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	else if (m_idx == user_ptr->riding) resist = TRUE;
 
-	else if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || inside_battle) resist = TRUE;
+	else if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || monster_arena_mode) resist = TRUE;
 
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
 
@@ -4775,7 +4775,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent genocide in quest levels */
-	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || monster_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -4820,7 +4820,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || monster_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -4858,7 +4858,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || inside_arena || monster_arena_mode)
 	{
 		return (FALSE);
 	}

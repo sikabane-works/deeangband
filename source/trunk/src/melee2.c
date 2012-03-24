@@ -49,7 +49,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 	}
 	else
 	{
-		if (inside_battle)
+		if (monster_arena_mode)
 		{
 			start = randint1(m_max-1)+m_max;
 			if(randint0(2)) plus = -1;
@@ -257,7 +257,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	/* It is dead now... or is it? */
 	if (cr_ptr->chp < 0)
 	{
-		if (((is_quest_species(r_ptr)) && is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) && !inside_battle)
+		if (((is_quest_species(r_ptr)) && is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) && !monster_arena_mode)
 		{
 			cr_ptr->chp = 1;
 		}
@@ -1604,7 +1604,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 //	if (nonplayer_ptr->species_idx == MON_SHURYUUDAN)
 //		weapon_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || has_cf_creature(nonplayer_ptr, CF_NAZGUL)) && !inside_battle)
+	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || has_cf_creature(nonplayer_ptr, CF_NAZGUL)) && !monster_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1745,7 +1745,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		gets_angry = TRUE;
 	}
 
-	if (inside_battle) gets_angry = FALSE;
+	if (monster_arena_mode) gets_angry = FALSE;
 
 	if (gets_angry)
 	{
@@ -1812,7 +1812,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		/* Hack -- Ohmu scatters molds! */
 		if (nonplayer_ptr->species_idx == MON_OHMU)
 		{
-			if (!inside_arena && !inside_battle)
+			if (!inside_arena && !monster_arena_mode)
 			{
 				if (r_ptr->freq_spell && (randint1(100) <= r_ptr->freq_spell))
 				{
@@ -1835,7 +1835,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 
-	if (!inside_battle)
+	if (!monster_arena_mode)
 	{
 		/* Hack! "Cyber" monster makes noise... */
 		if (nonplayer_ptr->ap_species_idx == MON_CYBER &&
@@ -2730,7 +2730,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 	/* Notice changes in view */
 	if (do_move && (is_self_ld_creature(nonplayer_ptr) || is_darken_creature(nonplayer_ptr))
-		|| ((has_cf_creature(nonplayer_ptr, CF_HAS_LITE_1) || has_cf_creature(nonplayer_ptr, CF_HAS_LITE_2)) && !inside_battle))
+		|| ((has_cf_creature(nonplayer_ptr, CF_HAS_LITE_1) || has_cf_creature(nonplayer_ptr, CF_HAS_LITE_2)) && !monster_arena_mode))
 	{
 		/* Update some things */
 		update |= (PU_MON_LITE);
