@@ -379,7 +379,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* We have tried it */
 	if (o_ptr->tval == TV_FOOD) object_tried(o_ptr);
@@ -447,7 +447,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 			o_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
-			cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+			cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 			play_window |= (PW_INVEN);
 
 			return;
@@ -1399,7 +1399,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 	}
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* The item has been tried */
 	object_tried(q_ptr);
@@ -2150,7 +2150,7 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* The item was tried */
 	object_tried(o_ptr);
@@ -2716,7 +2716,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 		o_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 		play_window |= (PW_INVEN);
 
 		return;
@@ -2730,7 +2730,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Tried the item */
 	object_tried(o_ptr);
@@ -3243,7 +3243,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 		o_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 		play_window |= (PW_INVEN);
 
 		return;
@@ -3255,7 +3255,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	ident = wand_effect(cr_ptr, o_ptr->sval, dir, FALSE);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Mark it as tried */
 	object_tried(o_ptr);
@@ -3704,7 +3704,7 @@ msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 	if (use_charge) o_ptr->timeout += k_ptr->pval;
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Tried the object */
 	object_tried(o_ptr);

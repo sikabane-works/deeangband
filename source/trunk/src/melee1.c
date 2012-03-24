@@ -909,7 +909,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 							o_ptr->pval = 0;
 
 							/* Combine / Reorder the pack */
-							target_ptr->notice |= (PN_COMBINE | PN_REORDER);
+							target_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 							/* Window stuff */
 							play_window |= (PW_INVEN);

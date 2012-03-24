@@ -949,7 +949,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 		caster_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		caster_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		caster_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -1314,7 +1314,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 		cr_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);

@@ -2490,7 +2490,7 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -2761,7 +2761,7 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -3448,7 +3448,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -5905,7 +5905,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 	/* Redraw mana and hp */
 	play_redraw |= (PR_MANA);
 
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 	play_window |= (PW_INVEN);
 
 	return TRUE;

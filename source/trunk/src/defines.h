@@ -2834,9 +2834,9 @@
 /*
  * Bit flags for the "notice" variable
  */
-#define PN_COMBINE      0x00000001L     /* Combine the pack */
-#define PN_REORDER      0x00000002L     /* Reorder the pack */
-#define PN_AUTODESTROY  0x00000004L     /* Auto-destroy marked item */
+#define CRN_COMBINE      0x00000001L     /* Combine the pack */
+#define CRN_REORDER      0x00000002L     /* Reorder the pack */
+#define CRN_AUTODESTROY  0x00000004L     /* Auto-destroy marked item */
 /* xxx (many) */
 
 

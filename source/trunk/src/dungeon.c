@@ -308,7 +308,7 @@ o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 	autopick_alter_item(cr_ptr, slot, destroy_feeling);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
@@ -1191,7 +1191,7 @@ static void regen_captured_monsters(creature_type *cr_ptr)
 	if (heal)
 	{
 		/* Combine pack */
-		cr_ptr->notice |= (PN_COMBINE);
+		cr_ptr->notice |= (CRN_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -1383,7 +1383,7 @@ msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -6289,7 +6289,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Combine / Reorder the pack */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Handle "cr_ptr->notice" */
 	notice_stuff(cr_ptr);

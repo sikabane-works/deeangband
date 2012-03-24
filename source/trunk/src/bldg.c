@@ -4110,7 +4110,7 @@ msg_format("%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
 #endif
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -4279,7 +4279,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 	msg_print(NULL);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);

@@ -1612,7 +1612,7 @@ static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int aut
 
 	/* Destroy Later */
 	o_ptr->marked |= OM_AUTODESTROY;
-	cr_ptr->notice |= PN_AUTODESTROY;
+	cr_ptr->notice |= CRN_AUTODESTROY;
 
 	return;
 }

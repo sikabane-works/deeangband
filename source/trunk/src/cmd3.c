@@ -1303,7 +1303,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	o_ptr->inscription = 0;
 
 	/* Combine the pack */
-	cr_ptr->notice |= (PN_COMBINE);
+	cr_ptr->notice |= (CRN_COMBINE);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
@@ -1386,7 +1386,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 		o_ptr->inscription = quark_add(out_val);
 
 		/* Combine the pack */
-		cr_ptr->notice |= (PN_COMBINE);
+		cr_ptr->notice |= (CRN_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);

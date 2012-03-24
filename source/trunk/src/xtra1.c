@@ -5657,23 +5657,23 @@ void notice_stuff(creature_type *cr_ptr)
 
 
 	/* Actually do auto-destroy */
-	if (cr_ptr->notice & (PN_AUTODESTROY))
+	if (cr_ptr->notice & (CRN_AUTODESTROY))
 	{
-		cr_ptr->notice &= ~(PN_AUTODESTROY);
+		cr_ptr->notice &= ~(CRN_AUTODESTROY);
 		autopick_delayed_alter(cr_ptr);
 	}
 
 	/* Combine the pack */
-	if (cr_ptr->notice & (PN_COMBINE))
+	if (cr_ptr->notice & (CRN_COMBINE))
 	{
-		cr_ptr->notice &= ~(PN_COMBINE);
+		cr_ptr->notice &= ~(CRN_COMBINE);
 		combine_pack(cr_ptr);
 	}
 
 	/* Reorder the pack */
-	if (cr_ptr->notice & (PN_REORDER))
+	if (cr_ptr->notice & (CRN_REORDER))
 	{
-		cr_ptr->notice &= ~(PN_REORDER);
+		cr_ptr->notice &= ~(CRN_REORDER);
 		reorder_pack(cr_ptr);
 	}
 }

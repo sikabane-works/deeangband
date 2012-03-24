@@ -1169,7 +1169,7 @@ void do_cmd_redraw(creature_type *cr_ptr)
 
 
 	/* Combine and Reorder the pack (later) */
-	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (CRN_COMBINE | CRN_REORDER);
 
 
 	/* Update torch */
