@@ -2078,3 +2078,4 @@ extern bool wait_report_score;
 extern bool gameover_e;
 extern bool arena_settled;
 extern bool subject_change_floor;
+extern bool subject_change_dungeon;

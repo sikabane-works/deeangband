@@ -6361,11 +6361,11 @@ msg_print("ŽŽ‡ŠJŽnI");
 	hack_mind = TRUE;
 
 	if (cr_ptr->energy_need > 0 && !monster_arena_mode &&
-		(dun_level || cr_ptr->leaving_dungeon || inside_arena))
+		(dun_level || subject_change_dungeon || inside_arena))
 		cr_ptr->energy_need = 0;
 
 	/* Not leaving dungeon */
-	cr_ptr->leaving_dungeon = FALSE;
+	subject_change_dungeon = FALSE;
 
 	/* Initialize monster process */
 	mproc_init();

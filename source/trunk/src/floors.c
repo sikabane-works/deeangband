@@ -987,7 +987,7 @@ void leave_floor(creature_type *cr_ptr)
 	/* Leaving the dungeon to town */
 	if (!dun_level && dungeon_type)
 	{
-		cr_ptr->leaving_dungeon = TRUE;
+		subject_change_dungeon = TRUE;
 		wilderness_y = d_info[dungeon_type].dy;
 		wilderness_x = d_info[dungeon_type].dx;
 

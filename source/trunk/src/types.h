@@ -1376,7 +1376,6 @@ struct creature_type
 	s32b feeling_turn;	/* The turn of the last dungeon feeling */
 
 	/*** Temporary fields ***/
-	bool leaving_dungeon;	/* True if player is leaving the dungeon */
 	bool teleport_town;
 	bool enter_dungeon;     /* Just enter the dungeon */
 

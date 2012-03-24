@@ -574,7 +574,7 @@ void wilderness_gen(creature_type *cr_ptr)
 		cr_ptr->teleport_town = FALSE;
 	}
 
-	else if (cr_ptr->leaving_dungeon)
+	else if (subject_change_dungeon)
 	{
 		for (y = 0; y < cur_hgt; y++)
 		{
