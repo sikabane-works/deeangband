@@ -1968,7 +1968,7 @@ static void fix_object(creature_type *creature_ptr)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (creature_ptr->object_kind_idx) display_koff(creature_ptr, creature_ptr->object_kind_idx);
+		if (play_window_object_kind_idx) display_koff(creature_ptr, play_window_object_kind_idx);
 
 		/* Fresh */
 		Term_fresh();

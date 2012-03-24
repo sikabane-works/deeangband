@@ -2079,3 +2079,4 @@ extern bool gameover_e;
 extern bool arena_settled;
 extern bool subject_change_floor;
 extern bool subject_change_dungeon;
+extern s16b play_window_object_kind_idx;

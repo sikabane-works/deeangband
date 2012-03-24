@@ -1371,4 +1371,5 @@ bool gameover_e = FALSE;
 bool arena_settled = TRUE;
 bool subject_change_floor = FALSE;
 bool subject_change_dungeon = FALSE;
+s16b play_window_object_kind_idx = FALSE;
 

@@ -5014,8 +5014,8 @@ void species_type_track(int species_idx)
  */
 void object_kind_track(creature_type *creature_ptr, int k_idx)
 {
-	/* Save this monster ID */
-	creature_ptr->object_kind_idx = k_idx;
+	/* Save this object ID */
+	play_window_object_kind_idx = k_idx;
 
 	/* Window stuff */
 	play_window |= (PW_OBJECT);
