@@ -1030,8 +1030,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	}
 	rd_s16b(&cr_ptr->mane_num);
 
-	rd_byte(&arena_settled);
-
 	rd_s16b(&cr_ptr->oldpx);
 	rd_s16b(&cr_ptr->oldpy);
 
@@ -1289,6 +1287,7 @@ static void rd_extra(void)
 	rd_string(gameover_from, sizeof(gameover_from));
 	rd_byte((byte *)&wait_report_score);
 	rd_byte((byte *)&gameover_e);
+	rd_byte(&arena_settled);
 }
 
 
