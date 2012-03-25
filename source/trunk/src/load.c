@@ -1356,7 +1356,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	byte count;
 	byte tmp8u;
 	s16b tmp16s;
-	u16b tmp16u;
 	s32b tmp32s;
 	u32b tmp32u;
 	u16b limit;
@@ -2175,7 +2174,7 @@ note("特別情報をロードしました");
 	{
 		/* Dead players have no dungeon */
 #ifdef JP
-note("ダンジョン復元中...");
+		note("ダンジョン復元中...");
 #else
 		note("Restoring Dungeon...");
 #endif
@@ -2183,15 +2182,11 @@ note("ダンジョン復元中...");
 		if (rd_dungeon())
 		{
 #ifdef JP
-note("ダンジョンデータ読み込み失敗");
+			note("ダンジョンデータ読み込み失敗");
 #else
 			note("Error reading dungeon data");
 #endif
-
 			return (34);
-		}
-		else
-		{
 		}
 
 		/* Read the ghost info */
