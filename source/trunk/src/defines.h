@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 17
+#define VER_PATCH 18
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1

@@ -853,8 +853,6 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 
 	wr_u16b(base_level);
 	wr_u16b(num_repro);
-	wr_u16b((u16b)p_ptr->fy);
-	wr_u16b((u16b)p_ptr->fx);
 	wr_u16b(cur_hgt);
 	wr_u16b(cur_wid);
 
