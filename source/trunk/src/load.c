@@ -1768,7 +1768,7 @@ static errr rd_dungeon(void)
 /*
  * Actually read the savefile
  */
-static errr rd_savefile_new_aux(creature_type *cr_ptr)
+static errr rd_savefile_new_aux(void)
 {
 	int i, j;
 
@@ -2137,9 +2137,9 @@ note("伝説のアイテムをロードしました");
 
 
 	/* Read the extra stuff */
-	rd_creature(cr_ptr);
+	rd_creature(player_ptr);
 	rd_extra();
-	if (cr_ptr->energy_need < -999) world_player = TRUE;
+	if (player_ptr->energy_need < -999) world_player = TRUE;
 
 #ifdef JP
 note("特別情報をロードしました");
@@ -2147,7 +2147,7 @@ note("特別情報をロードしました");
 	if (arg_fiddle) note("Loaded extra information");
 #endif
 
-	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;
+	if (player_ptr->cls_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	/* Read number of towns */
 	rd_u16b(&tmp16u);
@@ -2162,8 +2162,8 @@ note("特別情報をロードしました");
 			rd_store(&st_list[i]);
 
 
-	rd_s16b(&cr_ptr->pet_follow_distance);
-	rd_s16b(&cr_ptr->pet_extra_flags);
+	rd_s16b(&player_ptr->pet_follow_distance);
+	rd_s16b(&player_ptr->pet_extra_flags);
 
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);
@@ -2280,7 +2280,7 @@ errr rd_savefile_new(void)
 	if (!fff) return (-1);
 
 	/* Call the sub-function */
-	err = rd_savefile_new_aux(p_ptr);
+	err = rd_savefile_new_aux();
 
 
 	/* Check for errors */
