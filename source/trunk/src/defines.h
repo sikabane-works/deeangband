@@ -4077,7 +4077,7 @@
  * Line 1 -- forbid non-empty grids
  * Line 2 -- forbid trees while dungeon generation
  */
-#define cave_empty_bold2(C,Y,X) \
+#define cave_empty_bold2(Y, X) \
 	(cave_empty_bold(Y,X) && \
 	 (character_dungeon || !cave_have_flag_bold((Y), (X), FF_TREE)))
 

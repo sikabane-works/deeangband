@@ -4538,7 +4538,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 			else
 			{
 				/* Walls and Monsters block flow */
-				if (!cave_empty_bold2(player_ptr, ny, nx)) continue;
+				if (!cave_empty_bold2(ny, nx)) continue;
 
 				/* ... nor on the Pattern */
 				if (pattern_tile(ny, nx)) continue;
@@ -4645,7 +4645,7 @@ static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int s
 			scatter(&my, &mx, hy, hx, 4, 0);
 
 			/* Walls and Monsters block flow */
-			if (!cave_empty_bold2(player_ptr, my, mx)) continue;
+			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
 			if (place_monster_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
@@ -4751,7 +4751,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			scatter(&ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
-			if (!cave_empty_bold2(player_ptr, ny, nx)) continue;
+			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
@@ -4792,7 +4792,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			scatter(&ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
-			if (!cave_empty_bold2(player_ptr, ny, nx)) continue;
+			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
@@ -4929,7 +4929,7 @@ bool alloc_guardian(bool def_val)
 			ox = randint1(cur_wid - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(p_ptr, oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
+			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_monster_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
@@ -4973,7 +4973,7 @@ bool alloc_monster(creature_type *player_ptr, int dis, u32b mode)
 		/* Require empty floor grid (was "naked") */
 		if (dun_level)
 		{
-			if (!cave_empty_bold2(player_ptr, y, x)) continue;
+			if (!cave_empty_bold2(y, x)) continue;
 		}
 		else
 		{
