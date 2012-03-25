@@ -1240,7 +1240,7 @@ extern void update_monsters(bool full);
 extern bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode);
 extern bool place_monster(creature_type *summoner_ptr, int y, int x, u32b mode);
 extern void deal_item(creature_type *creature_ptr);
-extern bool alloc_horde(int y, int x);
+extern bool alloc_horde(creature_type *summoner_ptr, int y, int x);
 extern bool alloc_guardian(bool def_val);
 extern bool alloc_monster(creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u32b mode);

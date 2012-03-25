@@ -4848,7 +4848,7 @@ bool place_monster(creature_type *summoner_ptr, int y, int x, u32b mode)
 
 #ifdef MONSTER_HORDES
 
-bool alloc_horde(int y, int x)
+bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 {
 	species_type *r_ptr = NULL;
 	int species_idx = 0;
@@ -4882,7 +4882,7 @@ bool alloc_horde(int y, int x)
 	while (--attempts)
 	{
 		/* Attempt to place the monster */
-		if (place_monster_aux(p_ptr, y, x, species_idx, 0L)) break;
+		if (place_monster_aux(summoner_ptr, y, x, species_idx, 0L)) break;
 	}
 
 	if (attempts < 1) return FALSE;
@@ -5003,7 +5003,8 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 #ifdef MONSTER_HORDES
 	if (randint1(5000) <= dun_level)
 	{
-		if (alloc_horde(y, x))
+		//TODO: Dungeon Master
+		if (alloc_horde(player_ptr, y, x))
 		{
 #ifdef JP
 			if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
