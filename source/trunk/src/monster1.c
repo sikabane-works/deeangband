@@ -705,34 +705,11 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 
 
 /*
- * Check if this monster race has "hostile" alignment
- * If user is player, m_ptr == NULL.
+ * Check if this creature has "hostile" alignment
  */
-bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr, int pa_good, int pa_evil, species_type *r_ptr)
+bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr)
 {
 	// TODO: Apply new feature
-	byte sub_align1 = SUB_ALIGN_NEUTRAL;
-	byte sub_align2 = SUB_ALIGN_NEUTRAL;
-
-	return TRUE;
-
-	if (thinker_ptr) /* For a monster */
-	{
-		sub_align1 = thinker_ptr->sub_align;
-	}
-	else /* For player */
-	{
-		if (target_ptr->good_rank < 0) sub_align1 |= SUB_ALIGN_GOOD;
-		if (target_ptr->evil_rank < 0) sub_align1 |= SUB_ALIGN_EVIL;
-	}
-
-	/* Racial alignment flags */
-	if (is_enemy_of_good_creature(thinker_ptr)) sub_align2 |= SUB_ALIGN_EVIL;
-	if (is_enemy_of_evil_creature(thinker_ptr)) sub_align2 |= SUB_ALIGN_GOOD;
-
-	if (check_hostile_align(sub_align1, sub_align2)) return TRUE;
-
-	/* Non-hostile alignment */
 	return FALSE;
 }
 
