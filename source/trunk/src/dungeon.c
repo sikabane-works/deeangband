@@ -6679,7 +6679,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
  * savefile, we will commit suicide, if necessary, to allow the
  * player to start a new game.
  */
-void play_game(creature_type *cr_ptr, bool new_game)
+void play_game(bool new_game)
 {
 	int i; //j;
 	bool load_game = TRUE;
@@ -6759,10 +6759,10 @@ quit("セーブファイルが壊れています");
 			quit(0);
 
 		/* Update stuff */
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Update stuff */
-		update_creature(cr_ptr, TRUE);
+		update_creature(player_ptr, TRUE);
 
 		gameover_e = TRUE;
 
@@ -6799,7 +6799,7 @@ quit("セーブファイルが壊れています");
 		else
 		{
 			wait_report_score = FALSE;
-			top_twenty(cr_ptr);
+			top_twenty(player_ptr);
 #ifdef JP
 			if (!save_player()) msg_print("セーブ失敗！");
 #else
@@ -6822,7 +6822,7 @@ quit("セーブファイルが壊れています");
 	reset_visuals();
 
 	/* Load the "pref" files */
-	load_all_pref_files(cr_ptr);
+	load_all_pref_files(player_ptr);
 
 	creating_savefile = new_game;
 
@@ -6853,7 +6853,7 @@ quit("セーブファイルが壊れています");
 	if (!new_game)
 	{
 		/* Process the player name */
-		process_creature_name(FALSE, cr_ptr);
+		process_creature_name(FALSE, player_ptr);
 	}
 
 	/* Init the RNG */
@@ -6911,7 +6911,7 @@ quit("セーブファイルが壊れています");
 		wipe_creature_list();
 
 		/* Quick start? */
-		if (!ask_quick_start(cr_ptr))
+		if (!ask_quick_start(player_ptr))
 		{
 			/* No, initial start */
 			int mode, species;
@@ -6942,16 +6942,16 @@ quit("セーブファイルが壊れています");
 			}
 
 			/* Roll up a new character */
-			generate_creature(cr_ptr, species, &player_prev, GC_PLAYER);
-			wilderness_x = cr_ptr->start_wx;
-			wilderness_y = cr_ptr->start_wy;
+			generate_creature(player_ptr, species, &player_prev, GC_PLAYER);
+			wilderness_x = player_ptr->start_wx;
+			wilderness_y = player_ptr->start_wy;
 		}
 
 		/* Initialize random quests */
 		init_dungeon_quests();
 
 		/* Save character data for quick start */
-		player_prev = *cr_ptr; 
+		player_prev = *player_ptr; 
 		quick_ok = TRUE;
 
 		/* Init Stores */
@@ -6964,7 +6964,7 @@ quit("セーブファイルが壊れています");
 		seed_wilderness();
 
 		/* Give beastman a mutation at character birth */
-		if (cr_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
+		if (player_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
 		else hack_mutation = FALSE;
 
 		/* Set the message window flag as default */
@@ -6976,12 +6976,12 @@ quit("セーブファイルが壊れています");
 			window_flag[2] |= PW_INVEN;
 
 		counts_write(2,0);
-		cr_ptr->count = 0;
+		player_ptr->count = 0;
 
 		load = FALSE;
 
 		determine_bounty_uniques();
-		determine_today_mon(cr_ptr, FALSE);
+		determine_today_mon(player_ptr, FALSE);
 
 		/* Initialize object array */
 		wipe_o_list();
@@ -7000,10 +7000,10 @@ quit("セーブファイルが壊れています");
 
 	creating_savefile = FALSE;
 
-	cr_ptr->teleport_town = FALSE;
-	cr_ptr->sutemi = FALSE;
+	player_ptr->teleport_town = FALSE;
+	player_ptr->sutemi = FALSE;
 	world_monster = FALSE;
-	cr_ptr->now_damaged = FALSE;
+	player_ptr->now_damaged = FALSE;
 	now_message = 0;
 	start_time = (u32b)time(NULL) - 1;
 	record_o_name[0] = '\0';
@@ -7013,8 +7013,8 @@ quit("セーブファイルが壊れています");
 	panel_col_min = cur_wid;
 
 	/* Sexy gal gets bonus to maximum weapon skill of whip */
-	if (cr_ptr->chara_idx == CHARA_SEXY)
-		s_info[cr_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+	if (player_ptr->chara_idx == CHARA_SEXY)
+		s_info[player_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(dungeon_type);
@@ -7036,11 +7036,11 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enter wizard mode */
 	if (arg_wizard)
 	{
-		if (enter_wizard_mode(cr_ptr))
+		if (enter_wizard_mode(player_ptr))
 		{
 			wizard = TRUE;
 
-			if (gameover_e || !cr_ptr->fy || !cr_ptr->fx)
+			if (gameover_e || !player_ptr->fy || !player_ptr->fx)
 			{
 				/* Initialize the saved floors data */
 				init_saved_floors(TRUE);
@@ -7049,7 +7049,7 @@ quit("セーブファイルが壊れています");
 				inside_quest = 0;
 
 				/* Avoid crash in update_view() */
-				cr_ptr->fy = cr_ptr->fx = 10;
+				player_ptr->fy = player_ptr->fx = 10;
 			}
 		}
 		else if (gameover_e)
@@ -7077,7 +7077,7 @@ quit("セーブファイルが壊れています");
 	/* Generate a dungeon level if needed */
 	if (!character_dungeon)
 	{
-		change_floor(cr_ptr);
+		change_floor(player_ptr);
 	}
 
 	else
@@ -7091,18 +7091,18 @@ quit("セーブファイルが壊れています");
 	}
 
 	/* No player?  -- Try to regenerate floor */
-	if (!cr_ptr->fy || !cr_ptr->fx)
+	if (!player_ptr->fy || !player_ptr->fx)
 	{
 #ifdef JP
 		msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
 #else
 		msg_print("What a strange player location.  Regenerate the dungeon floor.");
 #endif
-		change_floor(cr_ptr);
+		change_floor(player_ptr);
 	}
 
 	/* Still no player?  -- Try to locate random place */
-	if (!cr_ptr->fy || !cr_ptr->fx) cr_ptr->fy = cr_ptr->fx = 10;
+	if (!player_ptr->fy || !player_ptr->fx) player_ptr->fy = player_ptr->fx = 10;
 
 	/* Character is now "complete" */
 	character_generated = TRUE;
@@ -7147,27 +7147,27 @@ quit("セーブファイルが壊れています");
 	if (arg_force_roguelike) rogue_like_commands = TRUE;
 
 	/* Hack -- Enforce "delayed death" */
-	if (cr_ptr->chp < 0) gameover_e = TRUE;
+	if (player_ptr->chp < 0) gameover_e = TRUE;
 
-	if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
+	if (has_cf_creature(player_ptr, CF_ANDROID)) calc_android_exp(player_ptr);
 
-	if (new_game && ((cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BEASTMASTER)))
+	if (new_game && ((player_ptr->cls_idx == CLASS_CAVALRY) || (player_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
-		int pet_species_idx = ((cr_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
+		int pet_species_idx = ((player_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		species_type *r_ptr = &species_info[pet_species_idx];
-		place_monster_aux(cr_ptr, cr_ptr->fy, cr_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
+		place_monster_aux(player_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 
 	/* Process */
 	while (TRUE)
 	{
 		/* Process the level */
-		dungeon(cr_ptr, load_game);
+		dungeon(player_ptr, load_game);
 
-		/* Handle "cr_ptr->creature_update" */
+		/* Handle "player_ptr->creature_update" */
 
 
-		notice_stuff(cr_ptr);
+		notice_stuff(player_ptr);
 
 		/* Hack -- prevent "icky" message */
 		character_xtra = TRUE;
@@ -7217,16 +7217,16 @@ quit("セーブファイルが壊れています");
 				else
 					arena_number = -1 - arena_number;
 				gameover_e = FALSE;
-				cr_ptr->chp = 0;
-				cr_ptr->chp_frac = 0;
+				player_ptr->chp = 0;
+				player_ptr->chp_frac = 0;
 				arena_settled = TRUE;
-				reset_tim_flags(cr_ptr);
+				reset_tim_flags(player_ptr);
 
 				/* Leave through the exit */
 				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
 
 				/* prepare next floor */
-				leave_floor(cr_ptr);
+				leave_floor(player_ptr);
 			}
 			else
 			{
@@ -7238,13 +7238,13 @@ quit("セーブファイルが壊れています");
 #endif
 				{
 					/* Mark social class, reset age, if needed */
-					if (cr_ptr->sc){
-						cr_ptr->sc = 0;
-						cr_ptr->age = 0;
+					if (player_ptr->sc){
+						player_ptr->sc = 0;
+						player_ptr->age = 0;
 					}
 
 					/* Increase age */
-					cr_ptr->age++;
+					player_ptr->age++;
 
 					/* Mark savefile */
 					noscore |= 0x0001;
@@ -7258,26 +7258,26 @@ quit("セーブファイルが壊れています");
 					msg_print(NULL);
 
 					/* Restore hit points */
-					cr_ptr->chp = cr_ptr->mhp;
-					cr_ptr->chp_frac = 0;
+					player_ptr->chp = player_ptr->mhp;
+					player_ptr->chp_frac = 0;
 
-					if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+					if (player_ptr->cls_idx == CLASS_MAGIC_EATER)
 					{
 						for (i = 0; i < EATER_EXT*2; i++)
 						{
-							cr_ptr->magic_num1[i] = cr_ptr->magic_num2[i]*EATER_CHARGE;
+							player_ptr->magic_num1[i] = player_ptr->magic_num2[i]*EATER_CHARGE;
 						}
 						for (; i < EATER_EXT*3; i++)
 						{
-							cr_ptr->magic_num1[i] = 0;
+							player_ptr->magic_num1[i] = 0;
 						}
 					}
 					/* Restore spell points */
-					cr_ptr->csp = cr_ptr->msp;
-					cr_ptr->csp_frac = 0;
+					player_ptr->csp = player_ptr->msp;
+					player_ptr->csp_frac = 0;
 
 					/* Hack -- cancel recall */
-					if (cr_ptr->word_recall)
+					if (player_ptr->word_recall)
 					{
 						/* Message */
 #ifdef JP
@@ -7289,15 +7289,15 @@ quit("セーブファイルが壊れています");
 						msg_print(NULL);
 
 						/* Hack -- Prevent recall */
-						cr_ptr->word_recall = 0;
+						player_ptr->word_recall = 0;
 						play_redraw |= (PR_STATUS);
 					}
 
 					/* Hack -- cancel alter */
-					if (cr_ptr->alter_reality)
+					if (player_ptr->alter_reality)
 					{
 						/* Hack -- Prevent alter */
-						cr_ptr->alter_reality = 0;
+						player_ptr->alter_reality = 0;
 						play_redraw |= (PR_STATUS);
 					}
 
@@ -7312,32 +7312,32 @@ quit("セーブファイルが壊れています");
 					gameover_e = FALSE;
 
 					/* Hack -- Healing */
-					(void)set_blind(cr_ptr, 0);
-					(void)set_confused(cr_ptr, 0);
-					(void)set_poisoned(cr_ptr, 0);
-					(void)set_afraid(cr_ptr, 0);
-					(void)set_paralyzed(cr_ptr, 0);
-					(void)set_image(cr_ptr, 0);
-					(void)set_stun(cr_ptr, 0);
-					(void)set_cut(cr_ptr, 0);
+					(void)set_blind(player_ptr, 0);
+					(void)set_confused(player_ptr, 0);
+					(void)set_poisoned(player_ptr, 0);
+					(void)set_afraid(player_ptr, 0);
+					(void)set_paralyzed(player_ptr, 0);
+					(void)set_image(player_ptr, 0);
+					(void)set_stun(player_ptr, 0);
+					(void)set_cut(player_ptr, 0);
 
 					/* Hack -- Prevent starvation */
-					(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
+					(void)set_food(player_ptr, PY_FOOD_MAX - 1);
 
 					dun_level = 0;
 					inside_arena = FALSE;
 					monster_arena_mode = FALSE;
 					leaving_quest = 0;
 					inside_quest = 0;
-					if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
+					if (dungeon_type) player_ptr->recall_dungeon = dungeon_type;
 					dungeon_type = 0;
 
 					// Start Point Set
-					wilderness_y = cr_ptr->start_wy;
-					wilderness_x = cr_ptr->start_wx;
+					wilderness_y = player_ptr->start_wy;
+					wilderness_x = player_ptr->start_wx;
 
-					cr_ptr->oldpy = 95;
-					cr_ptr->oldpx = 95;
+					player_ptr->oldpy = 95;
+					player_ptr->oldpx = 95;
 
 					/* Leaving */
 					wild_mode = FALSE;
@@ -7350,7 +7350,7 @@ quit("セーブファイルが壊れています");
 #endif
 
 					/* Prepare next floor */
-					leave_floor(cr_ptr);
+					leave_floor(player_ptr);
 					wipe_creature_list();
 				}
 			}
@@ -7360,7 +7360,7 @@ quit("セーブファイルが壊れています");
 		if (gameover_e) break;
 
 		/* Make a new level */
-		change_floor(cr_ptr);
+		change_floor(player_ptr);
 	}
 
 	/* Close stuff */
