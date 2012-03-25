@@ -1388,8 +1388,9 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	if (w1 == p_ptr->riding) return TRUE;
-	if (w2 == p_ptr->riding) return FALSE;
+	//TODO player's steed
+	if (m_ptr2->ridden) return TRUE;
+	if (m_ptr1->ridden) return FALSE;
 
 	if (m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
 	if (m_ptr2->nickname && !m_ptr1->nickname) return FALSE;

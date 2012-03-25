@@ -2061,15 +2061,15 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 	int da, db, kx, ky;
 
 	/* Absolute distance components */
-	kx = x[a]; kx -= p_ptr->fx; kx = ABS(kx);
-	ky = y[a]; ky -= p_ptr->fy; ky = ABS(ky);
+	kx = x[a]; kx -= player_ptr->fx; kx = ABS(kx);
+	ky = y[a]; ky -= player_ptr->fy; ky = ABS(ky);
 
 	/* Approximate Double Distance to the first point */
 	da = ((kx > ky) ? (kx + kx + ky) : (ky + ky + kx));
 
 	/* Absolute distance components */
-	kx = x[b]; kx -= p_ptr->fx; kx = ABS(kx);
-	ky = y[b]; ky -= p_ptr->fy; ky = ABS(ky);
+	kx = x[b]; kx -= player_ptr->fx; kx = ABS(kx);
+	ky = y[b]; ky -= player_ptr->fy; ky = ABS(ky);
 
 	/* Approximate Double Distance to the first point */
 	db = ((kx > ky) ? (kx + kx + ky) : (ky + ky + kx));
@@ -2096,8 +2096,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	species_type *ap_ra_ptr, *ap_rb_ptr;
 
 	/* The player grid */
-	if (y[a] == p_ptr->fy && x[a] == p_ptr->fx) return TRUE;
-	if (y[b] == p_ptr->fy && x[b] == p_ptr->fx) return FALSE;
+	if (y[a] == player_ptr->fy && x[a] == player_ptr->fx) return TRUE;
+	if (y[b] == player_ptr->fy && x[b] == player_ptr->fx) return FALSE;
 
 	/* Extract monster race */
 	if (ca_ptr->m_idx && ma_ptr->ml) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
