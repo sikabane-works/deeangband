@@ -4983,9 +4983,6 @@ void scatter(int *yp, int *xp, int y, int x, int d, int m)
  */
 void health_track(int m_idx)
 {
-	/* Mount monster is already tracked */
-	if (m_idx && m_idx == p_ptr->riding) return;
-
 	/* Track a new guy */
 	health_who = m_idx;
 
