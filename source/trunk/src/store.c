@@ -4947,7 +4947,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		/* Redraw */
 		case KTRL('R'):
 		{
-			do_cmd_redraw(guest_ptr);
+			do_cmd_redraw();
 			display_store(guest_ptr, st_ptr);
 			break;
 		}
@@ -5202,7 +5202,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		{
 			do_cmd_options();
 			(void)combine_and_reorder_home(st_ptr, STORE_HOME);
-			do_cmd_redraw(guest_ptr);
+			do_cmd_redraw();
 			display_store(guest_ptr, st_ptr);
 			break;
 		}

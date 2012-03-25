@@ -1157,26 +1157,25 @@ void do_cmd_nikki(creature_type *player_ptr)
  * selecting various things, such as graphics mode, so it must call
  * the "TERM_XTRA_REACT" hook before redrawing the windows.
  */
-void do_cmd_redraw(creature_type *cr_ptr)
+void do_cmd_redraw(void)
 {
 	int j;
 
 	term *old = Term;
 
-
 	/* Hack -- react to changes */
 	Term_xtra(TERM_XTRA_REACT, 0);
 
-
-	/* Combine and Reorder the pack (later) */
+	/*
+	// Combine and Reorder the pack (later)
 	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-
-	/* Update torch */
+	// Update torch
 	cr_ptr->creature_update |= (CRU_TORCH);
 
-	/* Update stuff */
+	// Update stuff
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	*/
 
 	/* Forget lite/view */
 	update |= (PU_UN_VIEW | PU_UN_LITE);
@@ -1201,8 +1200,9 @@ void do_cmd_redraw(creature_type *cr_ptr)
 	/* Hack -- update */
 	handle_stuff();
 
+	/*
 	if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
-
+	*/
 
 	/* Redraw every window */
 	for (j = 0; j < 8; j++)
@@ -4481,7 +4481,7 @@ void do_cmd_visuals(void)
 	/* Restore the screen */
 	screen_load();
 
-	if (need_redraw) do_cmd_redraw(p_ptr);
+	if (need_redraw) do_cmd_redraw();
 }
 
 
@@ -6443,7 +6443,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	if (html_dump)
 	{
 		do_cmd_save_screen_html();
-		do_cmd_redraw(player_ptr);
+		do_cmd_redraw();
 	}
 
 	/* Do we use a special screendump function ? */
@@ -10315,7 +10315,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 	/* Restore the screen */
 	screen_load();
 
-	if (need_redraw) do_cmd_redraw(cr_ptr);
+	if (need_redraw) do_cmd_redraw();
 }
 
 

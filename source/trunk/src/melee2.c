@@ -3246,7 +3246,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	/* This monster cast spells */
 	world_monster = hack_m_idx;
 
-	if (vs_player) do_cmd_redraw(player_ptr);
+	if (vs_player) do_cmd_redraw();
 
 	while(num--)
 	{
