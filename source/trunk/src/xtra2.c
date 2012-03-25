@@ -1554,7 +1554,7 @@ void resize_map(void)
 	verify_panel(player_ptr);
 
 	/* Update stuff */
-	p_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	player_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
 	update |= (PU_UN_VIEW | PU_UN_LITE);

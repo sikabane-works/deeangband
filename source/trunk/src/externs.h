@@ -1956,7 +1956,7 @@ extern bool object_is_weapon_armour_ammo(object_type *o_ptr);
 extern bool object_is_weapon_armour_ammo2(creature_type *cr_ptr, object_type *o_ptr);
 
 extern bool object_is_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_wearable(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_wearable(object_type *o_ptr);
 
 extern bool object_is_equipment(object_type *o_ptr);
 extern bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr);

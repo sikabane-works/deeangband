@@ -246,7 +246,7 @@ bool object_is_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Wearable including all weapon, all armour, bow, light source, amulet, and ring
  */
-bool object_is_wearable(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_wearable(object_type *o_ptr)
 {
 	if (TV_WEARABLE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEARABLE_END) return TRUE;
 
