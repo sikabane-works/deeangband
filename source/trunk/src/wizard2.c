@@ -115,7 +115,7 @@ static void do_cmd_summon_horde(creature_type *cr_ptr)
 	while (--attempts)
 	{
 		scatter(&wy, &wx, cr_ptr->fy, cr_ptr->fx, 3, 0);
-		if (cave_empty_bold(cr_ptr, wy, wx)) break;
+		if (cave_empty_bold(wy, wx)) break;
 	}
 
 	(void)alloc_horde(wy, wx);

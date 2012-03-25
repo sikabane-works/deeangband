@@ -5447,7 +5447,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			x = target_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
-			if (!cave_empty_bold(target_ptr, y, x)) continue;
+			if (!cave_empty_bold(y, x)) continue;
 
 			/* Important -- Skip "quake" grids */
 			if (map[16+y-cy][16+x-cx]) continue;
@@ -5639,7 +5639,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							x = xx + ddx_ddd[i];
 
 							/* Skip non-empty grids */
-							if (!cave_empty_bold(target_ptr, y, x)) continue;
+							if (!cave_empty_bold(y, x)) continue;
 
 							/* Hack -- no safety on glyph of warding */
 							if (is_glyph_grid(&cave[y][x])) continue;
@@ -7501,7 +7501,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(cr_ptr, ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
+		if (cave_empty_bold(ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;

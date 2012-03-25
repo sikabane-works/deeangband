@@ -4977,7 +4977,7 @@ bool alloc_monster(creature_type *player_ptr, int dis, u32b mode)
 		}
 		else
 		{
-			if (!cave_empty_bold(player_ptr, y, x)) continue;
+			if (!cave_empty_bold(y, x)) continue;
 		}
 
 		/* Accept far away grids */

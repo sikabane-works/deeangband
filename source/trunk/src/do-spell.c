@@ -10547,7 +10547,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(cr_ptr, y, x))
+					if (cave_empty_bold(y, x))
 					{
 						ty = y;
 						tx = x;
@@ -12432,7 +12432,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 					if(cave[dy][dx].m_idx) flag = TRUE;
 				}
 
-				if (!cave_empty_bold(cr_ptr, y, x) || (cave[y][x].info & CAVE_ICKY) ||
+				if (!cave_empty_bold(y, x) || (cave[y][x].info & CAVE_ICKY) ||
 					(distance(y, x, cr_ptr->fy, cr_ptr->fx) > plev + 2))
 				{
 #ifdef JP
