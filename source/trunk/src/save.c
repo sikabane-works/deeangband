@@ -1659,7 +1659,7 @@ bool save_player(void)
  * Note that we always try to load the "current" savefile, even if
  * there is no such file, so we must check for "empty" savefile names.
  */
-bool load_player(creature_type *player_ptr)
+bool load_player(void)
 {
 	int             fd = -1;
 

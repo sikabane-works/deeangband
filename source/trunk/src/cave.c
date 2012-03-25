@@ -409,7 +409,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 	if (player_has_los_bold((Y), (X))) \
 	{ \
 		/* Update the monster */ \
-		if (cave[(Y)][(X)].m_idx) update_mon(cr_ptr, cave[(Y)][(X)].m_idx, FALSE); \
+		if (cave[(Y)][(X)].m_idx) update_mon(player_ptr, cave[(Y)][(X)].m_idx, FALSE); \
 \
 		/* Notice and redraw */ \
 		note_spot((Y), (X)); \
