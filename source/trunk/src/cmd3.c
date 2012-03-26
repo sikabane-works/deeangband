@@ -242,21 +242,14 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear)) return;
 
-	/* Get the item (in the pack) */
-	if (item >= 0)
-	{
+	if (item >= 0) // pack
 		o_ptr = &cr_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
+	else // floor
 		o_ptr = &o_list[0 - item];
-	}
 
 	q_ptr = &forge;
 
-	/* Check the slot */
+	// Check the slot
 	slot = WIELD_SLOT(o_ptr);
 
 	// Equip Flag
