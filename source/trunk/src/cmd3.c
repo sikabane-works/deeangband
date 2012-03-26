@@ -530,8 +530,9 @@ msg_print("クエストを達成した！");
 #endif
 
 	// Equip Flag
-	for(i = 0; i < cr_ptr->item_slot_size[slot]; i++)
-		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0) cr_ptr->equip_now[item] = i;
+	for(i = 0; i < cr_ptr->item_slot_num[slot]; i++)
+		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
+			cr_ptr->equip_now[item] = i;
 
 
 	/* Take off existing item */

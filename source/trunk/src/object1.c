@@ -4405,7 +4405,7 @@ void display_equip(creature_type *cr_ptr)
 	n = 0;
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		for(j = 0; j < cr_ptr->item_slot_size[INVEN_SLOT_HAND]; j++)
+		for(j = 0; j < cr_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
 		{
 			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, j);
 			if(o_ptr->k_idx)

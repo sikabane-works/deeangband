@@ -5687,6 +5687,8 @@ void update_creature(creature_type *cr_ptr, bool message)
 	/* Update stuff */
 	if (!cr_ptr->creature_update) return;
 
+	set_creature_equip(cr_ptr);
+
 	if (cr_ptr->creature_update & (CRU_BONUS))
 	{
 		cr_ptr->creature_update &= ~(CRU_BONUS);
