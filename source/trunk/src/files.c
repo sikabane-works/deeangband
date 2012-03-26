@@ -2920,7 +2920,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 
 }
 
-static cptr get_equipped_flag_label(creature_type *cr_ptr)
+static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
 {
 	int i, n;
 	cptr list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -2928,6 +2928,7 @@ static cptr get_equipped_flag_label(creature_type *cr_ptr)
 
 	for(i = 0, n = 0; i < INVEN_TOTAL; i++)
 	{
+		if((mode & DP_WP) && WIELD_SLOT(&cr_ptr->inventory[i]) != INVEN_SLOT_HAND) continue;
 		if(cr_ptr->equip_now[i])
 		{
 			res[n] = list[i];
@@ -2968,7 +2969,7 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 	display_player_equippy(row-2, col+8, 0, cr_ptr);
 
 #ifdef JP
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+8);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "耐酸  :", TR_RES_ACID, &f, 0, cr_ptr);
 	display_flag_aux(row+0, col, "耐酸  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
 	display_flag_aux(row+1, col, "耐電撃:", TR_RES_ELEC, &f, 0, cr_ptr);
@@ -2984,7 +2985,7 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 	display_flag_aux(row+8, col, "耐盲目:", TR_RES_BLIND, &f, 0, cr_ptr);
 	display_flag_aux(row+9, col, "耐混乱:", TR_RES_CONF, &f, 0, cr_ptr);
 #else
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+8);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, cr_ptr);
 	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
 	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, cr_ptr);
@@ -3103,15 +3104,15 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 
 
 #ifdef JP
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+8);
-display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, cr_ptr);
-display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, cr_ptr);
-display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, cr_ptr);
-display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, cr_ptr);
-display_flag_aux(row+4, col, "耐劣化:", TR_RES_DISEN, &f, 0, cr_ptr);
-display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, cr_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
+	display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, cr_ptr);
+	display_flag_aux(row+4, col, "耐劣化:", TR_RES_DISEN, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, cr_ptr);
 #else
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ Dam", row-1, col+8);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, cr_ptr);
 	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, cr_ptr);
 	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, cr_ptr);
@@ -3178,8 +3179,7 @@ static void display_player_flag_info2(creature_type *cr_ptr)
 
 	display_player_equippy(row-2, col+12, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+12);
-
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+12);
 #ifdef JP
 	display_flag_aux(row+0, col, "反射      :", TR_REFLECT, &f, 0, cr_ptr);
 	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, cr_ptr);
@@ -3245,8 +3245,7 @@ static void display_player_flag_info3(creature_type *cr_ptr)
 	col = 1;
 
 	display_player_equippy(row-2, col+12, 0, cr_ptr);
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+12);
-
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+12);
 #ifdef JP
 	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, cr_ptr);
 	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, cr_ptr);
@@ -3297,8 +3296,7 @@ static void display_player_flag_info3(creature_type *cr_ptr)
 
 	display_player_equippy(row-2, col+14, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row-1, col+14);
-
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+14);
 #ifdef JP
 	display_flag_aux(row+ 0, col, "追加攻撃    :", TR_BLOWS, &f, 0, cr_ptr);
 	display_flag_aux(row+ 1, col, "採掘        :", TR_TUNNEL, &f, 0, cr_ptr);
@@ -3666,9 +3664,9 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	col = stat_col + 49;
 
 	/* Header and Footer */
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr), row, col);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row, col);
 #ifdef JP
-c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
+	c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
 #else
 	c_put_str(TERM_L_GREEN, "Modification", row - 1, col);
 #endif
