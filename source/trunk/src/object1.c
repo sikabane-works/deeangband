@@ -4022,6 +4022,7 @@ extern bool select_ring_slot;
 cptr mention_use(creature_type *cr_ptr, int i)
 {
 	cptr p;
+	int num;
 
 	if(!cr_ptr->equip_now[i])
 	{
@@ -4042,7 +4043,37 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
-			p = cr_ptr->heavy_wield[0] ? "‰^”À’†" : "  Žè"; break;
+			num = cr_ptr->equip_now[i];
+			if(cr_ptr->heavy_wield[num])
+			{
+#ifdef JP
+				p = "‰^”À’†";
+#else
+				p = "Just lifting";
+#endif
+				break;
+			}
+			else
+			{
+				if(has_cf_creature(cr_ptr, CF_HUMANOID))
+				{
+					if(num == 1) p = " ‰EŽè";
+					if(num == 2) p = " ¶Žè";
+					break;
+				}
+				else
+				{
+					if(num == 1) p = "‘æ‚PŽè";
+					if(num == 2) p = "‘æ‚QŽè";
+					if(num == 3) p = "‘æ‚RŽè";
+					if(num == 4) p = "‘æ‚SŽè";
+					if(num == 5) p = "‘æ‚TŽè";
+					if(num == 6) p = "‘æ‚UŽè";
+					if(num == 7) p = "‘æ‚VŽè";
+					if(num == 8) p = "‘æ‚WŽè";
+					break;
+				}
+			}
 #else
 		case INVEN_SLOT_HAND:
 			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
