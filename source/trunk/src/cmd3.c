@@ -255,8 +255,16 @@ void do_cmd_wield(creature_type *cr_ptr)
 	// Equip Flag
 	for(i = 0; i < cr_ptr->item_slot_num[slot]; i++)
 		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
+		{
 			cr_ptr->equip_now[item] = i;
+			msg_format("%d/%d番目に装備した。\n", i, cr_ptr->item_slot_num[slot]);
+			break;
+		}
 
+	if(i == cr_ptr->item_slot_num[slot])
+			msg_format("%dつの枠が空いていなかった。\n", i);
+
+	return;
 
 #if 0
 
@@ -524,9 +532,6 @@ msg_print("クエストを達成した！");
 	}
 	*/
 
-	// Access the wield slot
-	//o_ptr = &cr_ptr->inventory[slot];
-#endif
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
@@ -546,6 +551,8 @@ msg_print("クエストを達成した！");
 
 	/* Increment the equip counter by hand */
 	cr_ptr->equip_cnt++;
+#endif
+
 
 #ifdef JP
 #define STR_WIELD_RARM "%s(%c)を右手に装備した。"
