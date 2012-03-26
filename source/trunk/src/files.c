@@ -2848,7 +2848,6 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 {
 	int     i;
 	bool    vuln = FALSE;
-	int max_i;
 
 	if (have_flag(f->player_vuln, flag1) &&
 	    !(have_flag(f->known_obj_imm, flag1) ||
@@ -2862,22 +2861,17 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	/* Advance */
 	col += strlen(header) + 1;
 
-	/* Weapon flags need only two column */
-	//TODO
-	//if (mode & DP_WP) max_i = INVEN_2 + 1;
-	//else max_i = INVEN_TOTAL;
-	max_i = INVEN_TOTAL;
-
 	/* Check equipment */
-	for (i = 0; i < max_i; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr;
 
-		if(!cr_ptr->equip_now[i]) continue;
-
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
+
+		if(!cr_ptr->equip_now[i]) continue;
+		if((mode & DP_WP) && WIELD_SLOT(o_ptr) != INVEN_SLOT_HAND) continue;
 
 		/* Known flags */
 		object_flags_known(o_ptr, flgs);
