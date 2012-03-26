@@ -253,7 +253,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	slot = WIELD_SLOT(o_ptr);
 
 	// Equip Flag
-	for(i = 0; i < cr_ptr->item_slot_num[slot]; i++)
+	for(i = 1; i <= cr_ptr->item_slot_num[slot]; i++)
 		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
 		{
 			cr_ptr->equip_now[item] = i;
@@ -261,7 +261,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 			break;
 		}
 
-	if(i == cr_ptr->item_slot_num[slot])
+	if(i > cr_ptr->item_slot_num[slot])
 			msg_format("%d‚Â‚Ì˜g‚ª‹ó‚¢‚Ä‚¢‚È‚©‚Á‚½B\n", i);
 
 	return;
