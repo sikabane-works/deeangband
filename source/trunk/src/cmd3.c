@@ -212,7 +212,7 @@ bool select_ring_slot = FALSE;
  */
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int item, slot;
+	int item, slot, i;
 
 	object_type forge;
 	object_type *q_ptr;
@@ -530,7 +530,9 @@ msg_print("クエストを達成した！");
 #endif
 
 	// Equip Flag
-	cr_ptr->equip_now[item] = 1;
+	for(i = 0; i < cr_ptr->item_slot_size[slot]; i++)
+		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0) cr_ptr->equip_now[item] = i;
+
 
 	/* Take off existing item */
 	if (o_ptr->k_idx)
