@@ -3359,7 +3359,7 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	row = 3;
 	col = 1;
 
-	c_put_str(TERM_WHITE, "abcdef@", row-1, col+12);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
 	display_flag_aux(row+ 0, col, "Ž×ˆ« ”{‘Å :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
@@ -3411,7 +3411,7 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	row = 3;
 	col = 25;
 
-	c_put_str(TERM_WHITE, "abcdef@", row-1, col+12);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
 	display_flag_aux(row, col, "—n‰ð      :", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
