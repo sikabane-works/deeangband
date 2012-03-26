@@ -176,7 +176,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (WIELD_SLOT(o_ptr) > INVEN_SLOT_INVENTORY) return (TRUE);
+	if (WIELD_SLOT(o_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -258,6 +258,12 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	/* Check the slot */
 	slot = WIELD_SLOT(o_ptr);
+
+	// Equip Flag
+	for(i = 0; i < cr_ptr->item_slot_num[slot]; i++)
+		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
+			cr_ptr->equip_now[item] = i;
+
 
 #if 0
 
@@ -529,12 +535,6 @@ msg_print("クエストを達成した！");
 	//o_ptr = &cr_ptr->inventory[slot];
 #endif
 
-	// Equip Flag
-	for(i = 0; i < cr_ptr->item_slot_num[slot]; i++)
-		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
-			cr_ptr->equip_now[item] = i;
-
-
 	/* Take off existing item */
 	if (o_ptr->k_idx)
 	{
@@ -567,6 +567,7 @@ msg_print("クエストを達成した！");
 	/* Where is the item now */
 	switch (slot)
 	{
+/*
 	case INVEN_SLOT_HAND:
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
@@ -589,6 +590,7 @@ msg_print("クエストを達成した！");
 		act = "Your light source is %s (%c).";
 #endif
 		break;
+*/
 
 	default:
 #ifdef JP
