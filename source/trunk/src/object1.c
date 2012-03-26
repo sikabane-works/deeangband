@@ -4793,6 +4793,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
+		if (!o_ptr->k_idx) continue;
 		if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
 		if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
@@ -4906,7 +4907,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		/* Display graphics for object, if desired */
 		if (show_item_graph)
 		{
-			byte  a = object_attr(o_ptr);
+			byte a = object_attr(o_ptr);
 			char c = object_char(o_ptr);
 
 #ifdef AMIGA
@@ -4921,7 +4922,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		/* Display the entry itself */
-		c_put_str(cr_ptr->equip_now[j] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, j) , j + 1, cur_col);
+		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, i) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		/* Display the weight if needed */
