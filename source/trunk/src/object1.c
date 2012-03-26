@@ -4910,10 +4910,6 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			byte a = object_attr(o_ptr);
 			char c = object_char(o_ptr);
 
-#ifdef AMIGA
-			if (a & 0x80) a |= 0x40;
-#endif
-
 			if(j + 1 >= hgt) break;
 			Term_queue_bigchar(cur_col, j + 1, a, c, 0, 0);
 			if (use_bigtile) cur_col++;

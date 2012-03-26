@@ -44,16 +44,6 @@ static void quit_hook(cptr s)
 }
 
 
-
-/*
- * Set the stack size (for the Amiga)
- */
-#ifdef AMIGA
-# include <dos.h>
-__near long __stack = 32768L;
-#endif
-
-
 /*
  * Set the stack size and overlay buffer (see main-286.c")
  */
@@ -118,12 +108,12 @@ static void init_stuff(void)
 {
 	char path[1024];
 
-#if defined(AMIGA) || defined(VM)
+#if defined(VM)
 
 	/* Hack -- prepare "path" */
 	strcpy(path, "Angband:");
 
-#else /* AMIGA / VM */
+#else /* VM */
 
 	cptr tail;
 
@@ -139,7 +129,7 @@ static void init_stuff(void)
 	/* Hack -- Add a path separator (only if needed) */
 	if (!suffix(path, PATH_SEP)) strcat(path, PATH_SEP);
 
-#endif /* AMIGA / VM */
+#endif /* VM */
 
 	/* Initialize */
 	init_file_paths(path);

@@ -6327,7 +6327,7 @@ void process_creature_name(bool sf, creature_type *creature_ptr)
 	if (character_generated) strcpy(old_player_base, player_base);
 
 	/* Cannot be too long */
-#if defined(MACINTOSH) || defined(MSDOS) || defined(USE_EMX) || defined(AMIGA) || defined(ACORN) || defined(VM)
+#if defined(MACINTOSH) || defined(MSDOS) || defined(USE_EMX) || defined(ACORN) || defined(VM)
 #ifdef MSDOS
 	if (strlen(creature_ptr->name) > 8)
 #else
