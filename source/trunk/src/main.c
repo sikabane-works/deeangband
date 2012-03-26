@@ -43,16 +43,6 @@ static void quit_hook(cptr s)
 	}
 }
 
-
-/*
- * Set the stack size and overlay buffer (see main-286.c")
- */
-#ifdef USE_286
-# include <dos.h>
-extern unsigned _stklen = 32768U;
-extern unsigned _ovrbuffer = 0x1500;
-#endif
-
 #ifdef PRIVATE_USER_PATH
 
 /*
@@ -282,14 +272,6 @@ int main(int argc, char *argv[])
 
 	/* Save the "program name" XXX XXX XXX */
 	argv0 = argv[0];
-
-#ifdef USE_286
-	/* Attempt to use XMS (or EMS) memory for swap space */
-	if (_OvrInitExt(0L, 0L))
-	{
-		_OvrInitEms(0, 0, 64);
-	}
-#endif
 
 
 #ifdef SET_UID
