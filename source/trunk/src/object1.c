@@ -4764,7 +4764,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  */
 int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	int             i, j, k, l, z = 0;
+	int             i, j, k, l;
 	int             col, cur_col, len;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
@@ -4785,32 +4785,16 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	/* Default "max-length" */
 	len = wid - col - 1;
 
-
-	/* Find the "final" slot */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		o_ptr = &cr_ptr->inventory[i];
-
-		// Skip non-objects
-		if (!o_ptr->k_idx) continue;
-
-		// Skip Equipmet
-		if ( cr_ptr->equip_now[i] && !(flags & SHOW_ITEM_EQUIPMENT)) continue;
-		if (!cr_ptr->equip_now[i] && !(flags & SHOW_ITEM_INVENTORY)) continue;
-
-		/* Track */
-		z = i + 1;
-	}
-
 	prepare_label_string(cr_ptr, inven_label, USE_INVEN);
 
-	/* Display the cr_ptr->inventory */
-	for (k = 0, i = 0; i < z; i++)
+	/* Display item */
+	for (k = 0, i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
 		if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
+		if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
@@ -4848,7 +4832,6 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	}
 
 	if(flags & SHOW_ITEM_RIGHT_SET){
-		/* Find the column to start in */
 		col = (len > wid - 9) ? 0 : (wid - len - 9);
 	}
 	else
@@ -4859,15 +4842,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	if(!k)
 	{
-		if(flags & SHOW_ITEM_INVENTORY && flags & SHOW_ITEM_EQUIPMENT)
-		{
-#if JP
-			put_str("[âΩÇ‡éùÇ¡ÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
-#else
-			put_str("[No Item]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : 1);
-#endif
-		}
-		else if(flags & SHOW_ITEM_EQUIPMENT)
+		if(flags & SHOW_ITEM_EQUIPMENT)
 		{
 #if JP
 			put_str("[âΩÇ‡ëïîıÇµÇƒÇ¢Ç»Ç¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
@@ -4883,7 +4858,6 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			put_str("[No Inventory]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
 #endif
 		}
-
 		return 0;
 	}
 
