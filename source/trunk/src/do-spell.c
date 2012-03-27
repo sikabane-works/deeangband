@@ -958,7 +958,7 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 	ty = cr_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(cr_ptr))
 	{
 		tx = target_col;
 		ty = target_row;

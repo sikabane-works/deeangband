@@ -6423,7 +6423,7 @@ bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(caster_ptr))
 	{
 		flg &= ~(PROJECT_STOP);
 		tx = target_col;
@@ -6452,7 +6452,7 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(caster_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -6480,7 +6480,7 @@ bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(caster_ptr))
 	{
 		flg &= ~(PROJECT_STOP);
 		tx = target_col;
@@ -6572,7 +6572,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	creature_type * m_ptr;
 	species_type * r_ptr;
 
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -6664,7 +6664,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 	ty = caster_ptr->fy + ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(caster_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -7475,7 +7475,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 	ty = cr_ptr->fy + project_length * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(cr_ptr))
 	{
 		tx = target_col;
 		ty = target_row;

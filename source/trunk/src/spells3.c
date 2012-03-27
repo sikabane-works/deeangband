@@ -1851,7 +1851,7 @@ msg_print("©•ª‚Ì‘«‚Ì‰º‚É‚ ‚é•¨‚Íæ‚ê‚Ü‚¹‚ñB");
 	}
 
 	/* Use a target */
-	if (dir == 5 && target_okay())
+	if (dir == 5 && target_okay(cr_ptr))
 	{
 		tx = target_col;
 		ty = target_row;

@@ -2020,7 +2020,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
  *
  * We return TRUE if the target is "okay" and FALSE otherwise.
  */
-bool target_okay(void)
+bool target_okay(creature_type *creature_ptr)
 {
 	/* Accept stationary targets */
 	if (target_who < 0) return (TRUE);
@@ -2029,7 +2029,7 @@ bool target_okay(void)
 	if (target_who > 0)
 	{
 		/* Accept reasonable targets */
-		if (target_able(p_ptr, target_who))
+		if (target_able(creature_ptr, target_who))
 		{
 			creature_type *m_ptr = &creature_list[target_who];
 
@@ -3607,7 +3607,7 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 	dir = command_dir;
 
 	/* Hack -- auto-target if requested */
-	if (use_old_target && target_okay()) dir = 5;
+	if (use_old_target && target_okay(cr_ptr)) dir = 5;
 
 #ifdef ALLOW_REPEAT /* TNB */
 
@@ -3616,7 +3616,7 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 		/* Confusion? */
 
 		/* Verify */
-		if (!(*dp == 5 && !target_okay()))
+		if (!(*dp == 5 && !target_okay(cr_ptr)))
 		{
 /*			return (TRUE); */
 			dir = *dp;
@@ -3629,7 +3629,7 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 	while (!dir)
 	{
 		/* Choose a prompt */
-		if (!target_okay())
+		if (!target_okay(cr_ptr))
 		{
 #ifdef JP
 p = "方向 ('*'でターゲット選択, ESCで中断)? ";
@@ -3689,7 +3689,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		}
 
 		/* Verify requested targets */
-		if ((dir == 5) && !target_okay()) dir = 0;
+		if ((dir == 5) && !target_okay(cr_ptr)) dir = 0;
 
 		/* Error */
 		if (!dir) bell();
@@ -5267,7 +5267,7 @@ bool get_hack_dir(creature_type *cr_ptr, int *dp)
 	while (!dir)
 	{
 		/* Choose a prompt */
-		if (!target_okay())
+		if (!target_okay(cr_ptr))
 		{
 #ifdef JP
 p = "方向 ('*'でターゲット選択, ESCで中断)? ";
@@ -5327,7 +5327,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		}
 
 		/* Verify requested targets */
-		if ((dir == 5) && !target_okay()) dir = 0;
+		if ((dir == 5) && !target_okay(cr_ptr)) dir = 0;
 
 		/* Error */
 		if (!dir) bell();

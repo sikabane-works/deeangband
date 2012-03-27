@@ -3360,7 +3360,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	ty = cr_ptr->fy + 99 * ddy[dir];
 
 	/* Check for "target request" */
-	if ((dir == 5) && target_okay())
+	if ((dir == 5) && target_okay(cr_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -4132,7 +4132,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		ty = cr_ptr->fy + 99 * ddy[dir];
 
 		/* Check for "target request" */
-		if ((dir == 5) && target_okay())
+		if ((dir == 5) && target_okay(cr_ptr))
 		{
 			tx = target_col;
 			ty = target_row;
