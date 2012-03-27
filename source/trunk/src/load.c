@@ -1159,7 +1159,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	/* Turn of last "feeling" */
 	rd_s32b(&cr_ptr->feeling_turn);
 
-	rd_s16b(&cr_ptr->today_mon);
 	rd_s16b(&cr_ptr->riding);
 	rd_s16b(&cr_ptr->ridden);
 	rd_s16b(&cr_ptr->floor_id);

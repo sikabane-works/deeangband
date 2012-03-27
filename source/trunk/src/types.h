@@ -1363,8 +1363,6 @@ struct creature_type
 	s16b pet_follow_distance; /* Length of the imaginary "leash" for pets */
 	s16b pet_extra_flags;     /* Various flags for controling pets */
 
-	s16b today_mon;           /* Wanted monster */
-
 	bool dtrap;               /* Whether you are on trap-safe grids */
 	s16b floor_id;            /* Current floor location */ 
 

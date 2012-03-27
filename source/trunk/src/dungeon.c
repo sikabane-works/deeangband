@@ -6667,7 +6667,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 		n++;
 	}
 
-	cr_ptr->today_mon = 0;
+	today_mon = 0;
 	monster_arena_mode = old_monster_arena_mode;
 }
 

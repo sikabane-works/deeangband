@@ -5483,7 +5483,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 			for (j = 0; j < MAX_KUBI; j++)
 			{
 				if (kubi_species_idx[j] == i || kubi_species_idx[j] - 10000 == i ||
-					(p_ptr->today_mon && p_ptr->today_mon == i))
+					(today_mon && today_mon == i))
 				{
 					wanted = TRUE;
 					break;
@@ -9219,11 +9219,11 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 		bool listed = FALSE;
 
 #ifdef JP
-		fprintf(fff, "今日のターゲット : %s\n", (cr_ptr->today_mon ? species_name + species_info[cr_ptr->today_mon].name : "不明"));
+		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : "不明"));
 		fprintf(fff, "\n");
 		fprintf(fff, "賞金首リスト\n");
 #else
-		fprintf(fff, "Today target : %s\n", (cr_ptr->today_mon ? species_name + species_info[cr_ptr->today_mon].name : "unknown"));
+		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : "unknown"));
 		fprintf(fff, "\n");
 		fprintf(fff, "List of wanted monsters\n");
 #endif

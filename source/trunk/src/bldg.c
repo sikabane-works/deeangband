@@ -2114,7 +2114,6 @@ c_put_str(TERM_YELLOW, "–{“ú‚ÌÜ‹àŽñ", 5, 10);
 	sprintf(buf,"skeleton ---- $%d",r_ptr->level * 30 + 60);
 #endif
 	prt(buf, 9, 10);
-	cr_ptr->today_mon = today_mon;
 }
 
 static void tsuchinoko(void)

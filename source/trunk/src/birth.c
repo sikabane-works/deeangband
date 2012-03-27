@@ -2781,9 +2781,6 @@ void creature_wipe(creature_type *creature_ptr)
 	}
 	creature_ptr->mane_num = 0;
 
-	/* Bounty */
-	creature_ptr->today_mon = 0;
-
 	/* Reset karmas*/
 	for (i = 0; i < 8; i++) creature_ptr->karmas[i] = 0;
 

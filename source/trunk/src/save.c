@@ -663,7 +663,6 @@ static void wr_creature(creature_type *cr_ptr)
 	/* Turn of last "feeling" */
 	wr_s32b(cr_ptr->feeling_turn);
 
-	wr_s16b(cr_ptr->today_mon);
 	wr_s16b(cr_ptr->riding);
 	wr_s16b(cr_ptr->ridden);
 
