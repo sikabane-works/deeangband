@@ -2696,14 +2696,14 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
  */
 static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_ptr)
 {
-	int i;
+	int i, j;
 	byte a;
 	char c;
 
 	object_type *o_ptr;
 
 	/* Dump equippy chars */
-	for (i = 0; i < INVEN_TOTAL; i++)
+	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!cr_ptr->equip_now[i]) continue;
 		if(mode & DP_WP && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
@@ -2721,7 +2721,8 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 
 		}
 
-		Term_putch(x + i, y, a, c);
+		Term_putch(x + (j++), y, a, c);
+		
 	}
 }
 
