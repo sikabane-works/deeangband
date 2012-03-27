@@ -1165,7 +1165,7 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	rd_s16b(&cr_ptr->floor_id);
 
 	rd_s32b(&cr_ptr->visit);
-	rd_u32b(&cr_ptr->count);
+	rd_u32b(&game_load_count);
 
 	/* Read spell info */
 	rd_u32b(&cr_ptr->spell_learned1);

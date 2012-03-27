@@ -6976,7 +6976,7 @@ quit("セーブファイルが壊れています");
 			window_flag[2] |= PW_INVEN;
 
 		counts_write(2,0);
-		player_ptr->count = 0;
+		game_load_count = 0;
 
 		load = FALSE;
 

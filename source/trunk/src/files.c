@@ -2706,7 +2706,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!cr_ptr->equip_now[i]) continue;
-		if(mode & DP_WP && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
+		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
 

@@ -670,7 +670,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->floor_id);
 
 	wr_s32b(cr_ptr->visit);
-	wr_u32b(cr_ptr->count);
+	wr_u32b(game_load_count);
 
 	/* Write spell data */
 	wr_u32b(cr_ptr->spell_learned1);
@@ -1921,10 +1921,10 @@ bool load_player(void)
 
 		{
 			u32b tmp = counts_read(2);
-			if (tmp > player_ptr->count)
-				player_ptr->count = tmp;
+			if (tmp > game_load_count)
+				game_load_count = tmp;
 			if (counts_read(0) > playtime || counts_read(1) == playtime)
-				counts_write(2, ++player_ptr->count);
+				counts_write(2, ++game_load_count);
 			counts_write(1, playtime);
 		}
 

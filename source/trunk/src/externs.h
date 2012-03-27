@@ -2080,3 +2080,5 @@ extern bool arena_settled;
 extern bool subject_change_floor;
 extern bool subject_change_dungeon;
 extern s16b play_window_object_kind_idx;
+
+extern u32b game_load_count;
