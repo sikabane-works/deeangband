@@ -1165,7 +1165,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	rd_s16b(&cr_ptr->floor_id);
 
 	rd_s32b(&cr_ptr->visit);
-	rd_u32b(&game_load_count);
 
 	/* Read spell info */
 	rd_u32b(&cr_ptr->spell_learned1);
@@ -1288,6 +1287,8 @@ static void rd_extra(void)
 	rd_byte((byte *)&wait_report_score);
 	rd_byte((byte *)&gameover_e);
 	rd_byte(&arena_settled);
+
+	rd_u32b(&game_load_count);
 }
 
 

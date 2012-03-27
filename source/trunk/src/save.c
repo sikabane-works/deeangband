@@ -670,7 +670,6 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->floor_id);
 
 	wr_s32b(cr_ptr->visit);
-	wr_u32b(game_load_count);
 
 	/* Write spell data */
 	wr_u32b(cr_ptr->spell_learned1);
@@ -769,6 +768,8 @@ static void wr_extra(void)
 	wr_byte(wait_report_score);
 	wr_byte(gameover_e);
 	wr_byte(arena_settled);
+
+	wr_u32b(game_load_count);
 }
 
 
