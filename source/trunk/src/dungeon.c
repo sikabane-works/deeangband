@@ -3824,7 +3824,7 @@ static void process_world(creature_type *cr_ptr)
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
 	
-	extract_day_hour_min(cr_ptr, &day, &hour, &min);
+	extract_day_hour_min(&day, &hour, &min);
 
 	/* Update dungeon feeling, and announce it if changed */
 	update_dungeon_feeling(cr_ptr);

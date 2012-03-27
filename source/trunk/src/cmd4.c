@@ -370,7 +370,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	static bool disable_nikki = FALSE;
 
-	extract_day_hour_min(p_ptr, &day, &hour, &min);
+	extract_day_hour_min(&day, &hour, &min);
 
 	if (disable_nikki) return(-1);
 
@@ -10351,7 +10351,7 @@ void do_cmd_time(creature_type *cr_ptr)
 
 	FILE *fff;
 
-	extract_day_hour_min(cr_ptr, &day, &hour, &min);
+	extract_day_hour_min(&day, &hour, &min);
 
 	full = hour * 100 + min;
 

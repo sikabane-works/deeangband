@@ -122,11 +122,12 @@ bool is_daytime(void)
 /*
  * Extract day, hour, min
  */
-void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
+void extract_day_hour_min(int *day, int *hour, int *min)
 {
 	const s32b A_DAY = TURNS_PER_TICK * TOWN_DAWN;
 	s32b turn_in_today = (turn + A_DAY / 4) % A_DAY;
 
+	/*
 	if(is_undead_creature(cr_ptr))
 	{
 		*day = (turn - A_DAY * 3 / 4) / A_DAY + 1;
@@ -135,6 +136,8 @@ void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
 	{
 		*day = (turn + A_DAY / 4) / A_DAY + 1;
 	}
+	*/
+
 	*hour = (24 * turn_in_today / A_DAY) % 24;
 	*min = (1440 * turn_in_today / A_DAY) % 60;
 }
@@ -149,7 +152,7 @@ void prt_time(creature_type *player_ptr)
 	/* Dump 13 spaces to clear */
 	c_put_str(TERM_WHITE, "             ", ROW_DAY, COL_DAY);
 
-	extract_day_hour_min(player_ptr, &day, &hour, &min);
+	extract_day_hour_min(&day, &hour, &min);
 
 	/* Dump the info itself */
 #ifdef JP
