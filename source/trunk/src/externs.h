@@ -2082,3 +2082,6 @@ extern bool subject_change_dungeon;
 extern s16b play_window_object_kind_idx;
 
 extern u32b game_load_count;
+
+extern byte start_hour;
+extern byte start_min;

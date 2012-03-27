@@ -769,6 +769,10 @@ static void wr_extra(void)
 	wr_byte(arena_settled);
 
 	wr_u32b(game_load_count);
+
+	wr_byte(start_hour);
+	wr_byte(start_min);
+
 }
 
 

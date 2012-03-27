@@ -1374,3 +1374,6 @@ bool subject_change_dungeon = FALSE;
 s16b play_window_object_kind_idx = FALSE;
 
 u32b game_load_count = 0;
+
+byte start_hour;
+byte start_min;

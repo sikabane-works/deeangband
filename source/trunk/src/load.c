@@ -1288,6 +1288,10 @@ static void rd_extra(void)
 	rd_byte(&arena_settled);
 
 	rd_u32b(&game_load_count);
+
+	rd_byte(&start_hour);
+	rd_byte(&start_min);
+
 }
 
 
