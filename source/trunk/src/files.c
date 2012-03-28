@@ -3297,7 +3297,7 @@ static void display_player_flag_info3(creature_type *cr_ptr)
 
 	display_player_equippy(row-2, col+14, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+14);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+14);
 #ifdef JP
 	display_flag_aux(row+ 0, col, "í«â¡çUåÇ    :", TR_BLOWS, &f, 0, cr_ptr);
 	display_flag_aux(row+ 1, col, "çÃå@        :", TR_TUNNEL, &f, 0, cr_ptr);
