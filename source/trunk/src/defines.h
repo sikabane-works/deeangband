@@ -497,6 +497,7 @@
 #define MON_DRAIN_LIFE	    2       /* Percent of player exp drained per hit */
 #define USE_DEVICE    	    3       /* x> Harder devices x< Easier devices */
 #define MAX_UNDERLINGS     12       /* Max Underling Types */
+#define A_DAY              (TURNS_PER_TICK * TOWN_DAWN)
 
 
 

@@ -3820,7 +3820,6 @@ static void process_world(creature_type *cr_ptr)
 {
 	int day, hour, min;
 
-	const s32b A_DAY = TURNS_PER_TICK * TOWN_DAWN;
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
 	
@@ -6945,6 +6944,18 @@ quit("セーブファイルが壊れています");
 			generate_creature(player_ptr, species, &player_prev, GC_PLAYER);
 			wilderness_x = player_ptr->start_wx;
 			wilderness_y = player_ptr->start_wy;
+
+			if(is_undead_creature(player_ptr))
+			{
+				start_hour = 18;
+				start_min = 0;
+			}
+			else
+			{
+				start_hour = 6;
+				start_min = 0;
+			}
+
 		}
 
 		/* Initialize random quests */
