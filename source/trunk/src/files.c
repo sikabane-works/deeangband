@@ -5526,7 +5526,7 @@ errr file_character(cptr name)
 		return (-1);
 	}
 
-	(void)make_character_dump(p_ptr, fff);
+	(void)make_character_dump(player_ptr, fff);
 
 	/* Close it */
 	my_fclose(fff);
@@ -6269,7 +6269,7 @@ prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
 				break;
 			}
 
-			sprintf(xtmp, "%s: %s", p_ptr->name, what ? what : caption);
+			sprintf(xtmp, "%s: %s", player_ptr->name, what ? what : caption);
 			my_fputs(ffp, xtmp, 80);
 			my_fputs(ffp, "\n", 80);
 
