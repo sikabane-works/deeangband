@@ -5822,16 +5822,11 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	/* Hurt the player */
 	tar_ptr->chp -= damage;
-	if(tar_ptr->chp < 0) gameover = TRUE;
 
 	if(is_player(tar_ptr))
 	{
-		/* Display the hitpoints */
-		play_redraw |= (PR_HP);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
-
+		if(tar_ptr->chp < 0) gameover = TRUE;
+		play_redraw |= (PR_HP | PW_PLAYER);
 		handle_stuff();
 	}
 

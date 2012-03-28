@@ -7367,7 +7367,7 @@ quit("セーブファイルが壊れています");
 			}
 		}
 
-		/* Handle "death" */
+		// Handle GameOver
 		if (gameover) break;
 
 		/* Make a new level */
