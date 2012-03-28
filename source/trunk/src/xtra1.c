@@ -124,6 +124,10 @@ bool is_daytime(void)
  */
 void extract_day_hour_min(int *day, int *hour, int *min)
 {
+	s32b turn_in_today = (turn + A_DAY / 4 + start_hour * 1440 + start_min * 60) % A_DAY;
+	*day = (turn + A_DAY / 4) / A_DAY + 1;
+	*hour = (24 * turn_in_today / A_DAY) % 24;
+	*min = (1440 * turn_in_today / A_DAY) % 60;
 }
 
 /*
