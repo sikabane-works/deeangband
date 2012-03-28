@@ -6153,7 +6153,7 @@ msg_print("中断しました。");
 		}
 
 		/* Hack -- notice death */
-		if (!playing || gameover_e)
+		if (!playing || gameover)
 		{
 			world_player = FALSE;
 			break;
@@ -6325,7 +6325,7 @@ msg_print("試合開始！");
 		cr_ptr->magic_num1[0] = MUSIC_DETECT;
 
 	/* Hack -- notice death or departure */
-	if (!playing || gameover_e) return;
+	if (!playing || gameover) return;
 
 	/* Print quest message if appropriate */
 	if (!inside_quest && (dungeon_type == DUNGEON_DOD))
@@ -6402,7 +6402,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!playing || gameover_e) break;
+		if (!playing || gameover) break;
 
 		/* Process all of the monsters */
 		process_monsters(cr_ptr);
@@ -6420,7 +6420,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!playing || gameover_e) break;
+		if (!playing || gameover) break;
 
 
 		/* Process the world */
@@ -6439,7 +6439,7 @@ msg_print("試合開始！");
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!playing || gameover_e) break;
+		if (!playing || gameover) break;
 
 		/* Handle "leaving" */
 		if (subject_change_floor) break;
@@ -6466,7 +6466,7 @@ msg_print("試合開始！");
 	}
 
 	/* Not save-and-quit and not dead? */
-	if (playing && !gameover_e)
+	if (playing && !gameover)
 	{
 		/*
 		 * Maintain Unique monsters and artifact, save current
@@ -6763,7 +6763,7 @@ quit("セーブファイルが壊れています");
 		/* Update stuff */
 		update_creature(player_ptr, TRUE);
 
-		gameover_e = TRUE;
+		gameover = TRUE;
 
 		start_time = (u32b)time(NULL);
 
@@ -7051,7 +7051,7 @@ quit("セーブファイルが壊れています");
 		{
 			wizard = TRUE;
 
-			if (gameover_e || !player_ptr->fy || !player_ptr->fx)
+			if (gameover || !player_ptr->fy || !player_ptr->fx)
 			{
 				/* Initialize the saved floors data */
 				init_saved_floors(TRUE);
@@ -7063,7 +7063,7 @@ quit("セーブファイルが壊れています");
 				player_ptr->fy = player_ptr->fx = 10;
 			}
 		}
-		else if (gameover_e)
+		else if (gameover)
 		{
 			quit("Already dead.");
 		}
@@ -7158,7 +7158,7 @@ quit("セーブファイルが壊れています");
 	if (arg_force_roguelike) rogue_like_commands = TRUE;
 
 	/* Hack -- Enforce "delayed death" */
-	if (player_ptr->chp < 0) gameover_e = TRUE;
+	if (player_ptr->chp < 0) gameover = TRUE;
 
 	if (has_cf_creature(player_ptr, CF_ANDROID)) calc_android_exp(player_ptr);
 
@@ -7205,11 +7205,11 @@ quit("セーブファイルが壊れています");
 		clear_mon_lite();
 
 		/* Handle "quit and save" */
-		if (!playing && !gameover_e) break;
+		if (!playing && !gameover) break;
 
 		/* Erase the old cave */
 		wipe_o_list();
-		if (!gameover_e) wipe_creature_list();
+		if (!gameover) wipe_creature_list();
 
 
 		/* XXX XXX XXX */
@@ -7218,7 +7218,7 @@ quit("セーブファイルが壊れています");
 		load_game = FALSE;
 
 		/* Accidental Death */
-		if (playing && gameover_e)
+		if (playing && gameover)
 		{
 			if (inside_arena)
 			{
@@ -7227,7 +7227,7 @@ quit("セーブファイルが壊れています");
 					arena_number++;
 				else
 					arena_number = -1 - arena_number;
-				gameover_e = FALSE;
+				gameover = FALSE;
 				player_ptr->chp = 0;
 				player_ptr->chp_frac = 0;
 				arena_settled = TRUE;
@@ -7320,7 +7320,7 @@ quit("セーブファイルが壊れています");
 #endif
 
 					/* Do not die */
-					gameover_e = FALSE;
+					gameover = FALSE;
 
 					/* Hack -- Healing */
 					(void)set_blind(player_ptr, 0);
@@ -7368,7 +7368,7 @@ quit("セーブファイルが壊れています");
 		}
 
 		/* Handle "death" */
-		if (gameover_e) break;
+		if (gameover) break;
 
 		/* Make a new level */
 		change_floor(player_ptr);

@@ -1284,7 +1284,7 @@ static void rd_extra(void)
 	rd_u32b(&creature_idx_latest);
 	rd_string(gameover_from, sizeof(gameover_from));
 	rd_byte((byte *)&wait_report_score);
-	rd_byte((byte *)&gameover_e);
+	rd_byte((byte *)&gameover);
 	rd_byte(&arena_settled);
 
 	rd_u32b(&game_load_count);
@@ -2164,7 +2164,7 @@ note("特別情報をロードしました");
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);
 
-	if (gameover_e)
+	if (gameover)
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
@@ -2174,7 +2174,7 @@ note("特別情報をロードしました");
 
 
 	/* I'm not dead yet... */
-	if (!gameover_e)
+	if (!gameover)
 	{
 		/* Dead players have no dungeon */
 #ifdef JP

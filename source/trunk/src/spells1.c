@@ -7318,7 +7318,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	revenge_store(player_ptr, get_damage);
 
 	if ((player_ptr->tim_eyeeye || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !gameover_e && (atk_ptr != NULL))
+		&& (get_damage > 0) && !gameover && (atk_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("UŒ‚‚ª%s©g‚ğ‚Â‚¯‚½I", atk_name);

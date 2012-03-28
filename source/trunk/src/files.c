@@ -4141,7 +4141,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 		*statmsg = '\0';
 
-		if (gameover_e)
+		if (gameover)
 		{
 			if (cr_ptr->total_winner)
 			{
@@ -4820,7 +4820,7 @@ static void dump_aux_quest(FILE *fff)
  */
 static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 {
-	if (gameover_e)
+	if (gameover)
 	{
 		if (!cr_ptr->total_winner)
 		{
@@ -6647,7 +6647,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	playing = FALSE;
 
 	/* Kill the player */
-	gameover_e = TRUE;
+	gameover = TRUE;
 
 	/* Leaving */
 	subject_change_floor = TRUE;
@@ -7524,7 +7524,7 @@ void close_game(void)
 	safe_setuid_drop();
 
 	/* Handle death */
-	if (gameover_e)
+	if (gameover)
 	{
 		/* Handle retirement */
 		if (player_ptr->total_winner) kingly(player_ptr);
@@ -7567,7 +7567,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 #endif
 				{
 					wait_report_score = TRUE;
-					gameover_e = FALSE;
+					gameover = FALSE;
 #ifdef JP
 					if (!save_player()) msg_print("セーブ失敗！");
 #else
@@ -7649,7 +7649,7 @@ void exit_game_panic(creature_type *player_ptr)
 	disturb(player_ptr, 1, 0);
 
 	/* Mega-Hack -- Delay death */
-	if (player_ptr->chp < 0) gameover_e = FALSE;
+	if (player_ptr->chp < 0) gameover = FALSE;
 
 	/* Hardcode panic save */
 	panic_save = 1;
@@ -8045,7 +8045,7 @@ static void handle_signal_simple(int sig)
 
 
 	/* Terminate dead characters */
-	if (gameover_e)
+	if (gameover)
 	{
 		/* Mark the savefile */
 #ifdef JP
@@ -8089,7 +8089,7 @@ quit("強制終了");
 		playing = FALSE;
 
 		/* Suicide */
-		gameover_e = TRUE;
+		gameover = TRUE;
 
 		/* Leaving */
 		subject_change_floor = TRUE;

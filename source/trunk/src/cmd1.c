@@ -2129,7 +2129,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) num_blow = 1;
 
 	// Attack once for each legal blow
-	while ((num++ < num_blow) && !gameover_e)
+	while ((num++ < num_blow) && !gameover)
 	{
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
@@ -2697,7 +2697,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			// Damage, check for fear and death
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1);
 
-			if(gameover_e);
+			if(gameover);
 			{
 				*mdeath = TRUE;
 				if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
@@ -3276,8 +3276,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-//TODO		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-//			if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{
@@ -3663,7 +3663,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			(void)project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, (60 + cr_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
-			if (!creature_bold(cr_ptr, ny, nx) || gameover_e || subject_change_floor) return FALSE;
+			if (!creature_bold(cr_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 
 		/* Spontaneous Searching */
@@ -3767,7 +3767,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		/* Hit the trap */
 		hit_trap(cr_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if (!creature_bold(cr_ptr, ny, nx) || gameover_e || subject_change_floor) return FALSE;
+		if (!creature_bold(cr_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
@@ -3793,7 +3793,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		}
 	}
 
-	return creature_bold(cr_ptr, ny, nx) && !gameover_e && !subject_change_floor;
+	return creature_bold(cr_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
 

@@ -5731,7 +5731,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	//if (!m_idx) return TRUE;
 
 	/* Paranoia */
-	if (gameover_e) return 0;
+	if (gameover) return 0;
 
 	if (tar_ptr->sutemi) damage *= 2;
 	if (tar_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
@@ -5822,7 +5822,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	/* Hurt the player */
 	tar_ptr->chp -= damage;
-	if(tar_ptr->chp < 0) gameover_e = TRUE;
+	if(tar_ptr->chp < 0) gameover = TRUE;
 
 	if(is_player(tar_ptr))
 	{
@@ -5836,7 +5836,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 
 	// Dying Process
-	if(gameover_e)
+	if(gameover)
 	{
 		// Don't kill Amberites
 		if ((tar_ptr->race_idx1 == RACE_AMBERITE) && one_in_(1))
@@ -5888,7 +5888,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			subject_change_floor = TRUE;
 	
 			/* Note death */
-			gameover_e = TRUE;
+			gameover = TRUE;
 	
 			if (inside_arena)
 			{
@@ -6466,7 +6466,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 
 	/* Hitpoint warning */
-	if (is_player(tar_ptr) && tar_ptr->chp < warning && !gameover_e)
+	if (is_player(tar_ptr) && tar_ptr->chp < warning && !gameover)
 	{
 		/* Hack -- bell on first notice */
 		if (old_chp > warning) bell();

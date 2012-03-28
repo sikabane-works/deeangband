@@ -155,7 +155,7 @@ void creature_knowledge(creature_type *creature_ptr)
 #endif
 	}
 
-	if(gameover_e)
+	if(gameover)
 	{
 #ifdef JP
 		info[i++] = "‚ ‚È‚½‚ÍŽ€‚ñ‚Å‚¢‚é";
@@ -7405,7 +7405,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	char user_name[80];
 	creature_desc(user_name, user_ptr, 0);
 
-	if (gameover_e) return FALSE;
+	if (gameover) return FALSE;
 	if (user_ptr->confused || user_ptr->blind || user_ptr->paralyzed || user_ptr->image) return FALSE;
 	if (randint0(200) < user_ptr->stun) return FALSE;
 
