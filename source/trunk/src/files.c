@@ -3360,6 +3360,7 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	row = 3;
 	col = 1;
 
+	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
@@ -3412,6 +3413,7 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	row = 3;
 	col = 25;
 
+	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
