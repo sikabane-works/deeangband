@@ -1629,7 +1629,7 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
-	else o_ptr = &o_list[0 - item];
+	else o_ptr = &object_list[0 - item];
 
 	if (o_ptr->k_idx && (o_ptr->marked & OM_AUTODESTROY))
 	{
@@ -1679,7 +1679,7 @@ void autopick_delayed_alter(creature_type *cr_ptr)
 	item = cave[cr_ptr->fy][cr_ptr->fx].o_idx;
 	while (item)
 	{
-		int next = o_list[item].next_o_idx;
+		int next = object_list[item].next_o_idx;
 		autopick_delayed_alter_aux(cr_ptr, -item);
 		item = next;
 	}
@@ -1701,7 +1701,7 @@ void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
 	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
-	else o_ptr = &o_list[0 - item];
+	else o_ptr = &object_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
 	idx = is_autopick(cr_ptr, o_ptr);
@@ -1728,7 +1728,7 @@ void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 		int idx;
 	
 		/* Acquire object */
-		object_type *o_ptr = &o_list[this_o_idx];
+		object_type *o_ptr = &object_list[this_o_idx];
 		
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -3324,7 +3324,7 @@ static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
 	if (item >= 0) return &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
-	else return &o_list[0 - item];
+	else return &object_list[0 - item];
 }
 
 

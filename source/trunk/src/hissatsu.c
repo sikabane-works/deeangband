@@ -508,7 +508,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	for (i = o_ptr->sval * 8; i < o_ptr->sval * 8 + 8; i++)

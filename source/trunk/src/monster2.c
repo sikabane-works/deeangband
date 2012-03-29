@@ -742,7 +742,7 @@ void delete_species_idx(creature_type *creature_ptr)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -825,7 +825,7 @@ static void move_creature_object(int i1, int i2)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -6033,7 +6033,7 @@ void monster_drop_carried_objects(creature_type *m_ptr)
 	for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;

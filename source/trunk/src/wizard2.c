@@ -1231,7 +1231,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 	
 	/* The item was not changed */

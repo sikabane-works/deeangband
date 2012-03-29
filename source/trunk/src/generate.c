@@ -1520,7 +1520,7 @@ void clear_cave(void)
 	int x, y, i;
 
 	/* Very simplified version of wipe_object_list() */
-	C_WIPE(o_list, o_max, object_type);
+	C_WIPE(object_list, o_max, object_type);
 	o_max = 1;
 	o_cnt = 0;
 

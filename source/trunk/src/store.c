@@ -4366,7 +4366,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 

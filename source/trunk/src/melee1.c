@@ -1076,7 +1076,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 							object_type *j_ptr;
 
 							/* Get new object */
-							j_ptr = &o_list[o_idx];
+							j_ptr = &object_list[o_idx];
 
 							/* Copy object */
 							object_copy(j_ptr, o_ptr);

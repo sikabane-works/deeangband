@@ -3699,7 +3699,7 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 	/* Scan objects */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -3766,7 +3766,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 	/* Scan objects */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -3838,7 +3838,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 	/* Scan all objects */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -5173,7 +5173,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					object_type *o_ptr;
 
 					/* Acquire object */
-					o_ptr = &o_list[this_o_idx];
+					o_ptr = &object_list[this_o_idx];
 
 					/* Acquire next object */
 					next_o_idx = o_ptr->next_o_idx;

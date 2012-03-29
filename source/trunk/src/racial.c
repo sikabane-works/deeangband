@@ -191,7 +191,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		/* Get the item (on the floor) */
 		else
 		{
-			q_ptr = &o_list[0 - item];
+			q_ptr = &object_list[0 - item];
 		}
 
 		/* Get local object */
@@ -257,7 +257,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		/* Get the item (on the floor) */
 		else
 		{
-			q_ptr = &o_list[0 - item];
+			q_ptr = &object_list[0 - item];
 		}
 
 		/* Get local object */
@@ -329,7 +329,7 @@ s = "魔力を取り込めるアイテムがない。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	if (o_ptr->tval == TV_STAFF && o_ptr->sval == SV_STAFF_NOTHING)

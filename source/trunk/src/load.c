@@ -1518,7 +1518,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		if (i != o_idx) return 152;
 
 		/* Acquire place */
-		o_ptr = &o_list[o_idx];
+		o_ptr = &object_list[o_idx];
 
 		/* Read the item */
 		rd_item(o_ptr);

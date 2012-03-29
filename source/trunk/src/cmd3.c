@@ -245,7 +245,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	if (item >= 0) // pack
 		o_ptr = &cr_ptr->inventory[item];
 	else // floor
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 
 	q_ptr = &forge;
 
@@ -752,7 +752,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Item is cursed */
@@ -884,7 +884,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -1004,7 +1004,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Verify unless quantity given beforehand */
@@ -1210,7 +1210,7 @@ void do_cmd_observe(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -1281,7 +1281,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Nothing to remove */
@@ -1355,7 +1355,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Describe the activity */
@@ -1525,7 +1525,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -1642,7 +1642,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 

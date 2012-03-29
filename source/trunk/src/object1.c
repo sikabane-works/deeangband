@@ -4653,7 +4653,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/* Check every object in the grid */
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &o_list[floor_list[i]];
+		object_type *o_ptr = &object_list[floor_list[i]];
 
 		/* Skip empty inscriptions */
 		if (!o_ptr->inscription) continue;
@@ -4692,7 +4692,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/* Check every object in the grid */
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &o_list[floor_list[i]];
+		object_type *o_ptr = &object_list[floor_list[i]];
 
 		/* Skip empty inscriptions */
 		if (!o_ptr->inscription) continue;
@@ -5034,7 +5034,7 @@ static bool verify(creature_type *cr_ptr, cptr prompt, int item)
 	/* Floor */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Describe */
@@ -5075,7 +5075,7 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 	/* Floor */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* No inscription */
@@ -5268,7 +5268,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			k = 0 - (*cp);
 
 			/* Acquire object */
-			o_ptr = &o_list[k];
+			o_ptr = &object_list[k];
 
 			/* Validate the item */
 			if (item_tester_okay(cr_ptr, o_ptr, hook))
@@ -5394,7 +5394,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &o_list[this_o_idx];
+			o_ptr = &object_list[this_o_idx];
 
 			/* Acquire next object */
 			next_o_idx = o_ptr->next_o_idx;
@@ -5802,7 +5802,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 						object_type *o_ptr;
 
 						/* Acquire object */
-						o_ptr = &o_list[this_o_idx];
+						o_ptr = &object_list[this_o_idx];
 
 						/* Acquire next object */
 						next_o_idx = o_ptr->next_o_idx;
@@ -6082,7 +6082,7 @@ if (ver && !verify(cr_ptr, "–{“–‚É", k))
 /*
  * scan_floor --
  *
- * Return a list of o_list[] indexes of items at the given cave
+ * Return a list of object_list[] indexes of items at the given cave
  * location. Valid flags are:
  *
  *		mode & 0x01 -- Item tester
@@ -6104,7 +6104,7 @@ int scan_floor(int *items, int y, int x, int mode)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -6168,7 +6168,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 	/* Display the floor objects */
 	for (k = 0, i = 0; i < floor_num && i < 23; i++)
 	{
-		o_ptr = &o_list[floor_list[i]];
+		o_ptr = &object_list[floor_list[i]];
 
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
@@ -6214,7 +6214,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		i = floor_list[out_index[j]];
 
 		/* Get the item */
-		o_ptr = &o_list[i];
+		o_ptr = &object_list[i];
 
 		/* Clear the line */
 		prt("", j + 1, col ? col - 2 : col);
@@ -6344,7 +6344,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 
 			/* Validate the item */
-			else if (item_tester_okay(cr_ptr, &o_list[0 - (*cp)], hook))
+			else if (item_tester_okay(cr_ptr, &object_list[0 - (*cp)], hook))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -7111,18 +7111,18 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				o_idx = c_ptr->o_idx;
 
 				/* Only rotate a pile of two or more objects. */
-				if (!(o_idx && o_list[o_idx].next_o_idx)) break;
+				if (!(o_idx && object_list[o_idx].next_o_idx)) break;
 
 				/* Remove the first object from the list. */
 				excise_object_idx(o_idx);
 
 				/* Find end of the list. */
 				i = c_ptr->o_idx;
-				while (o_list[i].next_o_idx)
-					i = o_list[i].next_o_idx;
+				while (object_list[i].next_o_idx)
+					i = object_list[i].next_o_idx;
 
 				/* Add after the last object. */
-				o_list[i].next_o_idx = o_idx;
+				object_list[i].next_o_idx = o_idx;
 
 				/* Re-scan floor list */ 
 				floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
@@ -7605,7 +7605,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		object_type *o_ptr;
 
 		/* Access the object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
@@ -7680,7 +7680,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		if (floor_num == 1)
 		{
 			/* Access the object */
-			o_ptr = &o_list[floor_o_idx];
+			o_ptr = &object_list[floor_o_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7728,7 +7728,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		if (floor_num == 1)
 		{
 			/* Access the object */
-			o_ptr = &o_list[floor_o_idx];
+			o_ptr = &object_list[floor_o_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7778,7 +7778,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 			char out_val[MAX_NLEN+20];
 
 			/* Access the object */
-			o_ptr = &o_list[floor_o_idx];
+			o_ptr = &object_list[floor_o_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7811,7 +7811,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		}
 
 		/* Access the object */
-		o_ptr = &o_list[floor_o_idx];
+		o_ptr = &object_list[floor_o_idx];
 
 #ifdef ALLOW_EASY_SENSE
 

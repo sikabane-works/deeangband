@@ -28,7 +28,7 @@ void excise_object_idx(int o_idx)
 
 
 	/* Object */
-	j_ptr = &o_list[o_idx];
+	j_ptr = &object_list[o_idx];
 
 	/* Monster */
 	if (j_ptr->held_m_idx)
@@ -44,7 +44,7 @@ void excise_object_idx(int o_idx)
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &o_list[this_o_idx];
+			o_ptr = &object_list[this_o_idx];
 
 			/* Acquire next object */
 			next_o_idx = o_ptr->next_o_idx;
@@ -65,7 +65,7 @@ void excise_object_idx(int o_idx)
 					object_type *k_ptr;
 
 					/* Previous object */
-					k_ptr = &o_list[prev_o_idx];
+					k_ptr = &object_list[prev_o_idx];
 
 					/* Remove from list */
 					k_ptr->next_o_idx = next_o_idx;
@@ -100,7 +100,7 @@ void excise_object_idx(int o_idx)
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &o_list[this_o_idx];
+			o_ptr = &object_list[this_o_idx];
 
 			/* Acquire next object */
 			next_o_idx = o_ptr->next_o_idx;
@@ -121,7 +121,7 @@ void excise_object_idx(int o_idx)
 					object_type *k_ptr;
 
 					/* Previous object */
-					k_ptr = &o_list[prev_o_idx];
+					k_ptr = &object_list[prev_o_idx];
 
 					/* Remove from list */
 					k_ptr->next_o_idx = next_o_idx;
@@ -154,7 +154,7 @@ void delete_object_idx(int o_idx)
 	excise_object_idx(o_idx);
 
 	/* Object */
-	j_ptr = &o_list[o_idx];
+	j_ptr = &object_list[o_idx];
 
 	/* Dungeon floor */
 	if (!(j_ptr->held_m_idx))
@@ -200,7 +200,7 @@ void delete_object(int y, int x)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -240,7 +240,7 @@ static void compact_objects_aux(int i1, int i2)
 	for (i = 1; i < o_max; i++)
 	{
 		/* Acquire object */
-		o_ptr = &o_list[i];
+		o_ptr = &object_list[i];
 
 		/* Skip "dead" objects */
 		if (!o_ptr->k_idx) continue;
@@ -255,7 +255,7 @@ static void compact_objects_aux(int i1, int i2)
 
 
 	/* Acquire object */
-	o_ptr = &o_list[i1];
+	o_ptr = &object_list[i1];
 
 
 	/* Monster */
@@ -296,7 +296,7 @@ static void compact_objects_aux(int i1, int i2)
 
 
 	/* Structure copy */
-	o_list[i2] = o_list[i1];
+	object_list[i2] = object_list[i1];
 
 	/* Wipe the hole */
 	object_wipe(o_ptr);
@@ -353,7 +353,7 @@ void compact_objects(int size)
 		/* Examine the objects */
 		for (i = 1; i < o_max; i++)
 		{
-			o_ptr = &o_list[i];
+			o_ptr = &object_list[i];
 
 			/* Skip dead objects */
 			if (!o_ptr->k_idx) continue;
@@ -410,7 +410,7 @@ void compact_objects(int size)
 	/* Excise dead objects (backwards!) */
 	for (i = o_max - 1; i >= 1; i--)
 	{
-		o_ptr = &o_list[i];
+		o_ptr = &object_list[i];
 
 		/* Skip real objects */
 		if (o_ptr->k_idx) continue;
@@ -444,7 +444,7 @@ void wipe_object_list(void)
 	/* Delete the existing objects */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -534,7 +534,7 @@ s16b o_pop(void)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[i];
+		o_ptr = &object_list[i];
 
 		/* Skip live objects */
 		if (o_ptr->k_idx) continue;
@@ -3997,7 +3997,7 @@ void place_object(int y, int x, u32b mode)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[o_idx];
+		o_ptr = &object_list[o_idx];
 
 		/* Structure Copy */
 		object_copy(o_ptr, q_ptr);
@@ -4119,7 +4119,7 @@ void place_gold(int y, int x)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[o_idx];
+		o_ptr = &object_list[o_idx];
 
 		/* Copy the object */
 		object_copy(o_ptr, q_ptr);
@@ -4267,7 +4267,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 				object_type *o_ptr;
 
 				/* Acquire object */
-				o_ptr = &o_list[this_o_idx];
+				o_ptr = &object_list[this_o_idx];
 
 				/* Acquire next object */
 				next_o_idx = o_ptr->next_o_idx;
@@ -4436,7 +4436,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -4492,10 +4492,10 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	if (!done)
 	{
 		/* Structure copy */
-		object_copy(&o_list[o_idx], j_ptr);
+		object_copy(&object_list[o_idx], j_ptr);
 
 		/* Access new object */
-		j_ptr = &o_list[o_idx];
+		j_ptr = &object_list[o_idx];
 
 		/* Locate */
 		j_ptr->iy = by;
@@ -4879,7 +4879,7 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
  */
 void floor_item_charges(int item)
 {
-	object_type *o_ptr = &o_list[item];
+	object_type *o_ptr = &object_list[item];
 
 	/* Require staff/wand */
 	if ((o_ptr->tval != TV_STAFF) && (o_ptr->tval != TV_WAND)) return;
@@ -4920,7 +4920,7 @@ void floor_item_charges(int item)
  */
 void floor_item_describe(creature_type *creature_type, int item)
 {
-	object_type *o_ptr = &o_list[item];
+	object_type *o_ptr = &object_list[item];
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
@@ -4949,7 +4949,7 @@ void floor_item_describe(creature_type *creature_type, int item)
  */
 void floor_item_increase(int item, int num)
 {
-	object_type *o_ptr = &o_list[item];
+	object_type *o_ptr = &object_list[item];
 
 	/* Apply */
 	num += o_ptr->number;
@@ -4971,7 +4971,7 @@ void floor_item_increase(int item, int num)
  */
 void floor_item_optimize(int item)
 {
-	object_type *o_ptr = &o_list[item];
+	object_type *o_ptr = &object_list[item];
 
 	/* Paranoia -- be sure it exists */
 	if (!o_ptr->k_idx) return;
@@ -6677,7 +6677,7 @@ static void drain_essence(creature_type *creature_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
@@ -7318,7 +7318,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	if ((mode != 10) && (object_is_artifact(o_ptr) || object_is_smith(o_ptr)))
@@ -7621,7 +7621,7 @@ static void erase_essence(creature_type *creature_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));

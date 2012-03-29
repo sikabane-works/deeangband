@@ -2265,7 +2265,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -2646,7 +2646,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &o_list[this_o_idx];
+			o_ptr = &object_list[this_o_idx];
 
 			/* Acquire next object */
 			next_o_idx = o_ptr->next_o_idx;
@@ -2703,7 +2703,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				object_type *o_ptr;
 
 				/* Acquire object */
-				o_ptr = &o_list[floor_list[0]];
+				o_ptr = &object_list[floor_list[0]];
 
 				/* Describe the object */
 				object_desc(o_name, o_ptr, 0);
@@ -2792,18 +2792,18 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				o_idx = c_ptr->o_idx;
  
 				/* Only rotate a pile of two or more objects. */
-				if (!(o_idx && o_list[o_idx].next_o_idx)) continue;
+				if (!(o_idx && object_list[o_idx].next_o_idx)) continue;
 
 				/* Remove the first object from the list. */
 				excise_object_idx(o_idx);
 
 				/* Find end of the list. */
 				i = c_ptr->o_idx;
-				while (o_list[i].next_o_idx)
-					i = o_list[i].next_o_idx;
+				while (object_list[i].next_o_idx)
+					i = object_list[i].next_o_idx;
 
 				/* Add after the last object. */
-				o_list[i].next_o_idx = o_idx;
+				object_list[i].next_o_idx = o_idx;
 
 				/* Loop and re-display the list */
 			}
@@ -2821,7 +2821,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 

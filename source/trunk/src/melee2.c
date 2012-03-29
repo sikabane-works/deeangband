@@ -2593,7 +2593,7 @@ msg_format("%^s%s", m_name, monmessage);
 					char m_name[80], o_name[MAX_NLEN];
 
 					/* Acquire object */
-					object_type *o_ptr = &o_list[this_o_idx];
+					object_type *o_ptr = &object_list[this_o_idx];
 
 					/* Acquire next object */
 					next_o_idx = o_ptr->next_o_idx;

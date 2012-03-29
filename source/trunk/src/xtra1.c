@@ -5591,7 +5591,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;

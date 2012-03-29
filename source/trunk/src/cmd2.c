@@ -428,7 +428,7 @@ static s16b chest_check(int y, int x)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -466,7 +466,7 @@ static void chest_death(bool scatter, int y, int x, s16b o_idx)
 	object_type forge;
 	object_type *q_ptr;
 
-	object_type *o_ptr = &o_list[o_idx];
+	object_type *o_ptr = &object_list[o_idx];
 
 
 	/* Small chests often hold "gold" */
@@ -565,7 +565,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 {
 	int  i, trap;
 
-	object_type *o_ptr = &o_list[o_idx];
+	object_type *o_ptr = &object_list[o_idx];
 
 	int mon_level = o_ptr->xtra3;
 
@@ -860,7 +860,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 
 	bool more = FALSE;
 
-	object_type *o_ptr = &o_list[o_idx];
+	object_type *o_ptr = &object_list[o_idx];
 
 
 	/* Take a turn */
@@ -1012,7 +1012,7 @@ static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 		if ((o_idx = chest_check(yy, xx)) == 0) continue;
 
 		/* Grab the object */
-		o_ptr = &o_list[o_idx];
+		o_ptr = &object_list[o_idx];
 
 		/* Already open */
 		if (o_ptr->pval == 0) continue;
@@ -1881,7 +1881,7 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 
 	bool more = FALSE;
 
-	object_type *o_ptr = &o_list[o_idx];
+	object_type *o_ptr = &object_list[o_idx];
 
 
 	/* Take a turn */
@@ -3294,7 +3294,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Sniper - Cannot shot a single arrow twice */
@@ -3829,7 +3829,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			return;
 		}
 
-		o_ptr = &o_list[o_idx];
+		o_ptr = &object_list[o_idx];
 		object_copy(o_ptr, q_ptr);
 
 		/* Forget mark */
@@ -4047,7 +4047,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	}
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 

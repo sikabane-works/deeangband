@@ -1357,7 +1357,7 @@ s = "強化できる武器がない。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -1936,7 +1936,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 		while (!c_ptr->o_idx);
 	}
 
-	o_ptr = &o_list[c_ptr->o_idx];
+	o_ptr = &object_list[c_ptr->o_idx];
 
 	if (o_ptr->weight > wgt)
 	{
@@ -2260,7 +2260,7 @@ s = "金に変えられる物がありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -2545,7 +2545,7 @@ s = "強化できるアイテムがない。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -2637,7 +2637,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -2854,7 +2854,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Identify it */
@@ -2934,7 +2934,7 @@ s = "使えるものがありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Oops */
@@ -3041,7 +3041,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Identify it */
@@ -3167,7 +3167,7 @@ s = "魔力を充填すべきアイテムがない。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Get the object kind. */
@@ -3492,7 +3492,7 @@ s = "祝福できる武器がありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -3686,7 +3686,7 @@ s = "磨く盾がありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -5117,7 +5117,7 @@ s = "錆止めできるものがありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -5484,7 +5484,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 			for (this_o_idx = back_m.hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
 			{
 				/* Acquire object */
-				object_type *o_ptr = &o_list[this_o_idx];
+				object_type *o_ptr = &object_list[this_o_idx];
 
 				/* Acquire next object */
 				next_o_idx = o_ptr->next_o_idx;
@@ -5499,7 +5499,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 			for (this_o_idx = back_m.hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
 			{
 				/* Acquire next object */
-				next_o_idx = o_list[this_o_idx].next_o_idx;
+				next_o_idx = object_list[this_o_idx].next_o_idx;
 
 				/* Delete the object */
 				delete_object_idx(this_o_idx);
@@ -5617,7 +5617,7 @@ s = "魔力を吸収できるアイテムがありません。";
 	}
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	k_ptr = &k_info[o_ptr->k_idx];

@@ -71,7 +71,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Sound */
@@ -726,7 +726,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Get local object */
@@ -1538,7 +1538,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -2255,7 +2255,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Read the scroll */
@@ -2637,7 +2637,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -3154,7 +3154,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
@@ -3585,7 +3585,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 
@@ -3903,7 +3903,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* Take a turn */
@@ -6621,7 +6621,7 @@ s = "Žg‚¦‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	switch (o_ptr->tval)

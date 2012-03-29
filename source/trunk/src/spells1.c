@@ -1283,7 +1283,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		/* Acquire object */
-		object_type *o_ptr = &o_list[this_o_idx];
+		object_type *o_ptr = &object_list[this_o_idx];
 
 		bool is_art = FALSE;
 		bool ignore = FALSE;

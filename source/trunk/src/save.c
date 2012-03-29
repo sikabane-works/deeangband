@@ -1038,7 +1038,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 	/* Dump the objects */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Dump it */
 		wr_item(o_ptr);

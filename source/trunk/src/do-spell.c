@@ -1073,7 +1073,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	summon_lev = plev * 2 / 3 + species_info[o_ptr->pval].level;

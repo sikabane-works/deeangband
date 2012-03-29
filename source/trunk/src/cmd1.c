@@ -672,7 +672,7 @@ void search(creature_type *cr_ptr)
 					object_type *o_ptr;
 
 					/* Acquire object */
-					o_ptr = &o_list[this_o_idx];
+					o_ptr = &object_list[this_o_idx];
 
 					/* Acquire next object */
 					next_o_idx = o_ptr->next_o_idx;
@@ -735,7 +735,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 
 	object_type *o_ptr;
 
-	o_ptr = &o_list[o_idx];
+	o_ptr = &object_list[o_idx];
 
 #ifdef JP
 	/* Describe the object */
@@ -867,7 +867,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	{
 		object_type *o_ptr;
 		/* Access the object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
@@ -895,7 +895,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &o_list[this_o_idx];
+		o_ptr = &object_list[this_o_idx];
 
 #ifdef ALLOW_EASY_SENSE /* TNB */
 
@@ -2957,7 +2957,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 
 				if (tar_ptr->hold_o_idx)
 				{
-					object_type *q_ptr = &o_list[tar_ptr->hold_o_idx];
+					object_type *q_ptr = &object_list[tar_ptr->hold_o_idx];
 					char o_name[MAX_NLEN];
 
 					object_desc(o_name, q_ptr, OD_NAME_ONLY);
@@ -4835,7 +4835,7 @@ static bool run_test(creature_type *cr_ptr)
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &o_list[this_o_idx];
+			o_ptr = &object_list[this_o_idx];
 
 			/* Acquire next object */
 			next_o_idx = o_ptr->next_o_idx;

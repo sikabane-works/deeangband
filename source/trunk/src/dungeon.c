@@ -1330,7 +1330,7 @@ s = "調べるアイテムがありません。";
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &o_list[0 - item];
+		o_ptr = &object_list[0 - item];
 	}
 
 	/* It is fully known, no information needed */
@@ -3381,7 +3381,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	for (i = 1; i < o_max; i++)
 	{
 		/* Access object */
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -3676,7 +3676,7 @@ static byte get_dungeon_feeling(void)
 	/* Examine each unidentified object */
 	for (i = 1; i < o_max; i++)
 	{
-		object_type *o_ptr = &o_list[i];
+		object_type *o_ptr = &object_list[i];
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 		int delta = 0;
 
