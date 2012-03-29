@@ -1559,7 +1559,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	rd_u16b(&limit);
 
 	/* Hack -- verify */
-	if (limit > max_m_idx) return 161;
+	if (limit > max_creature_idx) return 161;
 
 	/* Read the monsters */
 	for (i = 1; i < limit; i++)

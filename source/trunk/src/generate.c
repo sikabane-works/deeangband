@@ -1655,7 +1655,7 @@ why = "ƒAƒCƒeƒ€‚ª‘½‚·‚¬‚é";
 			okay = FALSE;
 		}
 		/* Prevent monster over-flow */
-		else if (m_max >= max_m_idx)
+		else if (m_max >= max_creature_idx)
 		{
 			/* Message */
 #ifdef JP

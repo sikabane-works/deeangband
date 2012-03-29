@@ -1093,7 +1093,7 @@ s16b m_pop(void)
 
 
 	/* Normal allocation */
-	if (m_max < max_m_idx)
+	if (m_max < max_creature_idx)
 	{
 		/* Access the next hole */
 		i = m_max;
@@ -4050,18 +4050,18 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 	if (wild_mode){
 		if (cheat_hear)
 		{
-			msg_format("[max_m_idx: Wild mode]");
+			msg_format("[max_creature_idx: Wild mode]");
 		}
-		return max_m_idx;
+		return max_creature_idx;
 	}
 
 	/* Verify location */
 	if (!in_bounds(y, x)){
 		if (cheat_hear)
 		{
-			msg_format("[max_m_idx: Invalid Location]");
+			msg_format("[max_creature_idx: Invalid Location]");
 		}
-		return (max_m_idx);
+		return (max_creature_idx);
 	}
 
 	/* Paranoia */
@@ -4069,9 +4069,9 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 	{
 		if (cheat_hear)
 		{
-			msg_format("[max_m_idx: Invalid Monster Race]");
+			msg_format("[max_creature_idx: Invalid Monster Race]");
 		}
-		return (max_m_idx);
+		return (max_creature_idx);
 	}
 
 	/* Paranoia */
@@ -4079,23 +4079,23 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 	{
 		if (cheat_hear)
 		{
-			msg_format("[max_m_idx: Invalid Monster Name]");
+			msg_format("[max_creature_idx: Invalid Monster Name]");
 		}
-		return (max_m_idx);
+		return (max_creature_idx);
 	}
 
 	if (!(mode & PM_IGNORE_TERRAIN))
 	{
 		/* Not on the Pattern */
-		if (pattern_tile(y, x)) return max_m_idx;
+		if (pattern_tile(y, x)) return max_creature_idx;
 
 		/* Require empty space (if not ghostly) */
 		if (!monster_can_enter(y, x, r_ptr, 0)){
 			if (cheat_hear)
 			{
-				msg_format("[max_m_idx: Monster Can't Enter]");
+				msg_format("[max_creature_idx: Monster Can't Enter]");
 			}
-			return max_m_idx;
+			return max_creature_idx;
 		}
 	}
 
@@ -4108,11 +4108,11 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 		{
 			if (cheat_hear)
 			{
-				msg_format("[max_m_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique monster must be unique.]");
 			}
 
 			/* Cannot create */
-			return (max_m_idx);
+			return (max_creature_idx);
 		}
 
 		if (is_sub_unique_species(r_ptr) &&
@@ -4120,18 +4120,18 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 		{
 			if (cheat_hear)
 			{
-				msg_format("[max_m_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique monster must be unique.]");
 			}
-			return (max_m_idx);
+			return (max_creature_idx);
 		}
 
 		if (species_idx == MON_BANORLUPART)
 		{
-			if (species_info[MON_BANOR].cur_num > 0) return max_m_idx;
-			if (species_info[MON_LUPART].cur_num > 0) return max_m_idx;
+			if (species_info[MON_BANOR].cur_num > 0) return max_creature_idx;
+			if (species_info[MON_LUPART].cur_num > 0) return max_creature_idx;
 			if (cheat_hear)
 			{
-				msg_format("[max_m_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique monster must be unique.]");
 			}
 
 		}
@@ -4142,10 +4142,10 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 		{
 			if (cheat_hear)
 			{
-				msg_format("[max_m_idx: No Nightmare mode.]");
+				msg_format("[max_creature_idx: No Nightmare mode.]");
 			}
 			/* Cannot create */
-			return (max_m_idx);
+			return (max_creature_idx);
 		}
 	}
 
@@ -4166,7 +4166,7 @@ static int place_monster_one(creature_type *summoner_ptr, int y, int x, int spec
 							if (creature_list[cave[j2][i2].m_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
-					return max_m_idx;
+					return max_creature_idx;
 			}
 		}
 	}
@@ -4196,7 +4196,7 @@ msg_print("守りのルーンが壊れた！");
 			/* Notice */
 			//TODO note_spot(y, x);
 		}
-		else return max_m_idx;
+		else return max_creature_idx;
 	}
 
 
@@ -4207,7 +4207,7 @@ msg_print("守りのルーンが壊れた！");
 	hack_m_idx_ii = c_ptr->m_idx;
 
 	/* Mega-Hack -- catch "failure" */
-	if (!c_ptr->m_idx) return (max_m_idx);
+	if (!c_ptr->m_idx) return (max_creature_idx);
 
 	/* Get a new monster record */
 	m_ptr = &creature_list[c_ptr->m_idx];
@@ -4641,7 +4641,7 @@ static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int s
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4728,7 +4728,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 
 	/* Place one monster, or fail */
 	i = place_monster_one(summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
-	if (i == max_m_idx) return (FALSE);
+	if (i == max_creature_idx) return (FALSE);
 
 	m_ptr = &creature_list[i];
 
@@ -4748,7 +4748,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
-			if(place_monster_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;

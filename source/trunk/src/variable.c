@@ -677,7 +677,7 @@ object_type *object_list;
 object_type object_null;
 
 /*
- * The array of dungeon monsters [max_m_idx]
+ * The array of dungeon monsters [max_creature_idx]
  */
 creature_type *creature_list;
 
@@ -689,7 +689,7 @@ store_type *st_list;
 
 
 /*
- * The array to process dungeon monsters [max_m_idx]
+ * The array to process dungeon monsters [max_creature_idx]
  */
 creature_type **mproc_list[MAX_MTIMED];
 s16b mproc_max[MAX_MTIMED]; /* Number of monsters to be processed */
@@ -1152,9 +1152,9 @@ u16b max_o_idx;
 u16b max_creature_flag_idx;
 
 /*
- * Maximum number of monsters in the level
+ * Maximum number of monsters in simulate
  */
-u16b max_m_idx;
+u16b max_creature_idx;
 
 /*
  * Maximum number of store pre info in the world

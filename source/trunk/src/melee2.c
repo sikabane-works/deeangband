@@ -3022,7 +3022,7 @@ int get_mproc_idx(creature_type *cr_ptr, int mproc_type)
 
 void mproc_add(creature_type *cr_ptr, int mproc_type)
 {
-	if (mproc_max[mproc_type] < max_m_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = cr_ptr;
+	if (mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = cr_ptr;
 }
 
 

@@ -6259,7 +6259,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 			/* Maximum m_idx */
 			else if (zz[0][0] == 'M')
 			{
-				max_m_idx = atoi(zz[1]);
+				max_creature_idx = atoi(zz[1]);
 			}
 
 			/* Maximum m_idx */

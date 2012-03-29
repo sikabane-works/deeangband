@@ -1505,7 +1505,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	Term->scr->cv = 1;
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_m_idx, u16b);
+	C_MAKE(who, max_creature_idx, u16b);
 
 	/* Process the monsters (backwards) */
 	for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
@@ -1629,7 +1629,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	Term->scr->cv = cv;
 	Term_fresh();
 
-	C_KILL(who, max_m_idx, u16b);
+	C_KILL(who, max_creature_idx, u16b);
 
 #ifdef JP
 	msg_format("%d 体のペットを放しました。", Dismissed);

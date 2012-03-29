@@ -548,7 +548,7 @@ extern u16b max_a_idx;
 extern u16b max_e_idx;
 extern u16b max_d_idx;
 extern u16b max_o_idx;
-extern u16b max_m_idx;
+extern u16b max_creature_idx;
 extern u16b max_creature_flag_idx;
 extern u16b max_st_idx;
 extern s32b max_wild_x;
