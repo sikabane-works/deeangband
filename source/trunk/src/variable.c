@@ -160,8 +160,8 @@ bool hack_mind;
 bool hack_mutation;
 
 
-s16b o_max = 1;			/* Number of allocated objects */
-s16b o_cnt = 0;			/* Number of live objects */
+s16b object_max = 1;			/* Number of allocated objects */
+s16b object_cnt = 0;			/* Number of live objects */
 
 s16b creature_max = 1;			/* Number of allocated monsters */
 s16b creature_cnt = 0;			/* Number of live monsters */

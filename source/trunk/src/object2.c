@@ -173,7 +173,7 @@ void delete_object_idx(int o_idx)
 	object_wipe(j_ptr);
 
 	/* Count objects */
-	o_cnt--;
+	object_cnt--;
 }
 
 
@@ -209,7 +209,7 @@ void delete_object(int y, int x)
 		object_wipe(o_ptr);
 
 		/* Count objects */
-		o_cnt--;
+		object_cnt--;
 	}
 
 	/* Objects are gone */
@@ -237,7 +237,7 @@ static void compact_objects_aux(int i1, int i2)
 
 
 	/* Repair objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		/* Acquire object */
 		o_ptr = &object_list[i];
@@ -351,7 +351,7 @@ void compact_objects(int size)
 		cur_dis = 5 * (20 - cnt);
 
 		/* Examine the objects */
-		for (i = 1; i < o_max; i++)
+		for (i = 1; i < object_max; i++)
 		{
 			o_ptr = &object_list[i];
 
@@ -408,7 +408,7 @@ void compact_objects(int size)
 
 
 	/* Excise dead objects (backwards!) */
-	for (i = o_max - 1; i >= 1; i--)
+	for (i = object_max - 1; i >= 1; i--)
 	{
 		o_ptr = &object_list[i];
 
@@ -416,10 +416,10 @@ void compact_objects(int size)
 		if (o_ptr->k_idx) continue;
 
 		/* Move last object into open hole */
-		compact_objects_aux(o_max - 1, i);
+		compact_objects_aux(object_max - 1, i);
 
-		/* Compress "o_max" */
-		o_max--;
+		/* Compress "object_max" */
+		object_max--;
 	}
 }
 
@@ -442,7 +442,7 @@ void wipe_object_list(void)
 	object_wipe(&object_null);
 	
 	/* Delete the existing objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 
@@ -492,11 +492,11 @@ void wipe_object_list(void)
 		object_wipe(o_ptr);
 	}
 
-	/* Reset "o_max" */
-	o_max = 1;
+	/* Reset "object_max" */
+	object_max = 1;
 
-	/* Reset "o_cnt" */
-	o_cnt = 0;
+	/* Reset "object_cnt" */
+	object_cnt = 0;
 }
 
 
@@ -512,16 +512,16 @@ s16b o_pop(void)
 
 
 	/* Initial allocation */
-	if (o_max < max_o_idx)
+	if (object_max < max_o_idx)
 	{
 		/* Get next space */
-		i = o_max;
+		i = object_max;
 
 		/* Expand object array */
-		o_max++;
+		object_max++;
 
 		/* Count objects */
-		o_cnt++;
+		object_cnt++;
 
 		/* Use this object */
 		return (i);
@@ -529,7 +529,7 @@ s16b o_pop(void)
 
 
 	/* Recycle dead objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr;
 
@@ -540,7 +540,7 @@ s16b o_pop(void)
 		if (o_ptr->k_idx) continue;
 
 		/* Count objects */
-		o_cnt++;
+		object_cnt++;
 
 		/* Use this object */
 		return (i);

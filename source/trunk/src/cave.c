@@ -4398,7 +4398,7 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 	feature_type *f_ptr;
 
 	/* Memorize objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 
@@ -4519,7 +4519,7 @@ void wiz_dark(creature_type *cr_ptr)
 	}
 
 	/* Forget all objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 

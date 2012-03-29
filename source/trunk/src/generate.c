@@ -1520,9 +1520,9 @@ void clear_cave(void)
 	int x, y, i;
 
 	/* Very simplified version of wipe_object_list() */
-	C_WIPE(object_list, o_max, object_type);
-	o_max = 1;
-	o_cnt = 0;
+	C_WIPE(object_list, object_max, object_type);
+	object_max = 1;
+	object_cnt = 0;
 
 	/* Very simplified version of wipe_creature_list() */
 	for (i = 1; i < max_species_idx; i++)
@@ -1641,7 +1641,7 @@ void generate_cave(creature_type *player_ptr)
 
 
 		/* Prevent object over-flow */
-		if (o_max >= max_o_idx)
+		if (object_max >= max_o_idx)
 		{
 			/* Message */
 #ifdef JP

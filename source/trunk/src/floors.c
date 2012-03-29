@@ -649,7 +649,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 	}
 
 	/* Maintain artifatcs */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 
@@ -1241,7 +1241,7 @@ void change_floor(creature_type *cr_ptr)
 			}
 
 			/* Maintain artifatcs */
-			for (i = 1; i < o_max; i++)
+			for (i = 1; i < object_max; i++)
 			{
 				object_type *o_ptr = &object_list[i];
 

@@ -1033,10 +1033,10 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 	/*** Dump objects ***/
 
 	/* Total objects */
-	wr_u16b(o_max);
+	wr_u16b(object_max);
 
 	/* Dump the objects */
-	for (i = 1; i < o_max; i++)
+	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 
