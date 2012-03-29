@@ -5120,7 +5120,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				/* Process the monsters (backwards) */
-				for (i = m_max - 1; i >= 1; i--)
+				for (i = creature_max - 1; i >= 1; i--)
 				{
 					/* Access the monster */
 					m_ptr = &creature_list[i];
@@ -5452,7 +5452,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 				if (!count)
 				{
-					for (i = m_max - 1; i > 0; i--)
+					for (i = creature_max - 1; i > 0; i--)
 					{
 						m_ptr = &creature_list[i];
 						if (!m_ptr->species_idx) continue;
@@ -6328,7 +6328,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			C_MAKE(who, max_creature_idx, u16b);
 
 			/* Process the monsters (backwards) */
-			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
+			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				if (is_pet(player_ptr, &creature_list[pet_ctr]) && (cr_ptr->riding != pet_ctr))
 				  who[max_pet++] = pet_ctr;

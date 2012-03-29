@@ -4488,7 +4488,7 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 	bool pet_settings = FALSE;
 	char pet_name[80];
 
-	for (i = m_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--)
 	{
 		creature_type *m_ptr = &creature_list[i];
 

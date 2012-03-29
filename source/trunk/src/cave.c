@@ -3029,7 +3029,7 @@ void update_mon_lite(creature_type *cr_ptr)
 		species_type *r_ptr;
 
 		/* Loop through monsters, adding newly lit squares to changes list */
-		for (i = 1; i < m_max; i++)
+		for (i = 1; i < creature_max; i++)
 		{
 			m_ptr = &creature_list[i];
 			r_ptr = &species_info[m_ptr->species_idx];

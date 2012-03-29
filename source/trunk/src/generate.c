@@ -1307,7 +1307,7 @@ static void battle_gen(creature_type *player_ptr)
 				  (PM_NO_KAGE | PM_NO_PET));
 		set_friendly(&creature_list[cave[player_ptr->fy+8+(i/2)*4][player_ptr->fx-2+(i%2)*4].m_idx]);
 	}
-	for(i = 1; i < m_max; i++)
+	for(i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -1527,8 +1527,8 @@ void clear_cave(void)
 	/* Very simplified version of wipe_creature_list() */
 	for (i = 1; i < max_species_idx; i++)
 		species_info[i].cur_num = 0;
-	C_WIPE(creature_list, m_max, creature_type);
-	m_max = 1;
+	C_WIPE(creature_list, creature_max, creature_type);
+	creature_max = 1;
 	m_cnt = 0;
 
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
@@ -1655,7 +1655,7 @@ why = "ƒAƒCƒeƒ€‚ª‘½‚·‚¬‚é";
 			okay = FALSE;
 		}
 		/* Prevent monster over-flow */
-		else if (m_max >= max_creature_idx)
+		else if (creature_max >= max_creature_idx)
 		{
 			/* Message */
 #ifdef JP

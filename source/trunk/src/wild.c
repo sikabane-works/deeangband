@@ -1053,7 +1053,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 		return TRUE;
 	}
 
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 

@@ -850,7 +850,7 @@ static void move_creature_object(int i1, int i2)
 	/* Hack -- Update parent index */
 	if (is_pet(player_ptr, m_ptr))
 	{
-		for (i = 1; i < m_max; i++)
+		for (i = 1; i < creature_max; i++)
 		{
 			creature_type *m2_ptr = &creature_list[i];
 
@@ -908,7 +908,7 @@ void compact_monsters(int size)
 		cur_dis = 5 * (20 - cnt);
 
 		/* Check all the monsters */
-		for (i = 1; i < m_max; i++)
+		for (i = 1; i < creature_max; i++)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
@@ -955,7 +955,7 @@ void compact_monsters(int size)
 
 
 	/* Excise dead monsters (backwards!) */
-	for (i = m_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--)
 	{
 		/* Get the i'th monster */
 		creature_type *m_ptr = &creature_list[i];
@@ -964,10 +964,10 @@ void compact_monsters(int size)
 		if (m_ptr->species_idx) continue;
 
 		/* Move last monster into open hole */
-		move_creature_object(m_max - 1, i);
+		move_creature_object(creature_max - 1, i);
 
-		/* Compress "m_max" */
-		m_max--;
+		/* Compress "creature_max" */
+		creature_max--;
 	}
 }
 
@@ -1035,7 +1035,7 @@ void wipe_creature_list(void)
 	}
 
 	/* Delete all the monsters */
-	for (i = m_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -1059,8 +1059,8 @@ void wipe_creature_list(void)
 	/* Hack -- Wipe the racial counter of all monster races */
 	for (i = 1; i < max_species_idx; i++) species_info[i].cur_num = 0;
 
-	/* Reset "m_max" */
-	m_max = 1;
+	/* Reset "creature_max" */
+	creature_max = 1;
 
 	/* Reset "m_cnt" */
 	m_cnt = 0;
@@ -1092,13 +1092,13 @@ s16b m_pop(void)
 
 
 	/* Normal allocation */
-	if (m_max < max_creature_idx)
+	if (creature_max < max_creature_idx)
 	{
 		/* Access the next hole */
-		i = m_max;
+		i = creature_max;
 
 		/* Expand the array */
-		m_max++;
+		creature_max++;
 
 		/* Count monsters */
 		m_cnt++;
@@ -1109,7 +1109,7 @@ s16b m_pop(void)
 
 
 	/* Recycle dead monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr;
 
@@ -3277,7 +3277,7 @@ void update_monsters(bool full)
 	int i;
 
 	/* Update each (live) monster */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 

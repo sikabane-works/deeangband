@@ -51,15 +51,15 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 	{
 		if (monster_arena_mode)
 		{
-			start = randint1(m_max-1)+m_max;
+			start = randint1(creature_max-1) + creature_max;
 			if(randint0(2)) plus = -1;
 		}
-		else start = m_max + 1;
+		else start = creature_max + 1;
 
 		/* Scan thru all monsters */
-		for (i = start; ((i < start + m_max) && (i > start - m_max)); i+=plus)
+		for (i = start; ((i < start + creature_max) && (i > start - creature_max)); i+=plus)
 		{
-			int dummy = (i % m_max);
+			int dummy = (i % creature_max);
 
 			if (!dummy) continue;
 
@@ -2857,7 +2857,7 @@ void process_monsters(creature_type *cr_ptr)
 
 
 	/* Process the monsters (backwards) */
-	for (i = m_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--)
 	{
 		/* Access the monster */
 		m_ptr = &creature_list[i];
@@ -3045,7 +3045,7 @@ void mproc_init(void)
 	for (cmi = 0; cmi < MAX_MTIMED; cmi++) mproc_max[cmi] = 0;
 
 	/* Process the monsters (backwards) */
-	for (i = m_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--)
 	{
 		/* Access the monster */
 		m_ptr = &creature_list[i];

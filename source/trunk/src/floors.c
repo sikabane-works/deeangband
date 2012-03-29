@@ -384,7 +384,7 @@ static void preserve_pet(creature_type *cr_ptr)
 	 */
 	if (!wild_mode && !inside_arena && !monster_arena_mode)
 	{
-		for (i = m_max - 1, num = 1; (i >= 1 && num < MAX_PARTY_MON); i--)
+		for (i = creature_max - 1, num = 1; (i >= 1 && num < MAX_PARTY_MON); i--)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
@@ -433,7 +433,7 @@ static void preserve_pet(creature_type *cr_ptr)
 
 	if (record_named_pet)
 	{
-		for (i = m_max - 1; i >=1; i--)
+		for (i = creature_max - 1; i >=1; i--)
 		{
 			creature_type *m_ptr = &creature_list[i];
 			char m_name[80];
@@ -450,7 +450,7 @@ static void preserve_pet(creature_type *cr_ptr)
 
 
 	/* Pet of other pet may disappear. */
-	for (i = m_max - 1; i >=1; i--)
+	for (i = creature_max - 1; i >=1; i--)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -630,7 +630,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 	int i;
 
 	/* Maintain unique monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		species_type *r_ptr;
 		creature_type *m_ptr = &creature_list[i];
@@ -890,7 +890,7 @@ void leave_floor(creature_type *cr_ptr)
 	}
 
 	/* Maintain quest monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		species_type *r_ptr;
 		creature_type *m_ptr = &creature_list[i];
@@ -1203,7 +1203,7 @@ void change_floor(creature_type *cr_ptr)
 			absence_ticks = (turn - tmp_last_visit) / TURNS_PER_TICK;
 
 			/* Maintain monsters */
-			for (i = 1; i < m_max; i++)
+			for (i = 1; i < creature_max; i++)
 			{
 				species_type *r_ptr;
 				creature_type *m_ptr = &creature_list[i];

@@ -1048,10 +1048,10 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 	/*** Dump the creatures ***/
 
 	/* Total monsters */
-	wr_u16b(m_max);
+	wr_u16b(creature_max);
 
 	/* Dump the monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -1413,10 +1413,10 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	/*** Dump the monsters ***/
 
 	/* Total monsters */
-	wr_u16b(m_max);
+	wr_u16b(creature_max);
 
 	/* Dump the monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 

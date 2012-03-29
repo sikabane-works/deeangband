@@ -3921,7 +3921,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -3983,7 +3983,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4053,7 +4053,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4128,7 +4128,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4195,7 +4195,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4262,7 +4262,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4336,7 +4336,7 @@ cptr desc_monsters = "ïœÇ»ÉÇÉìÉXÉ^Å[";
 	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4452,7 +4452,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 
 
 	/* Mark all (nearby) monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -4471,7 +4471,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	}
 
 	/* Affect all marked monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -4608,7 +4608,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 
 
 	/* Aggravate everyone nearby */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type    *m_ptr = &creature_list[i];
 
@@ -4788,7 +4788,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 #endif
 
 	/* Delete the monsters of that "type" */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4826,7 +4826,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	}
 
 	/* Delete the (nearby) monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -4864,7 +4864,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	}
 
 	/* Delete the (nearby) monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4908,7 +4908,7 @@ bool probing(void)
 	Term->scr->cv = 1;
 
 	/* Probe all (nearby) monsters */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -5879,7 +5879,7 @@ void discharge_minion(creature_type *caster_ptr)
 	int i;
 	bool okay = TRUE;
 
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		if (!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
@@ -5894,7 +5894,7 @@ void discharge_minion(creature_type *caster_ptr)
 #endif
 			return;
 	}
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		int dam;
 		creature_type *m_ptr = &creature_list[i];

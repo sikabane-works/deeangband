@@ -3339,7 +3339,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int dummy_x = caster_ptr->fx;
 
 					if (!species_info[MON_BANOR].cur_num || !species_info[MON_LUPART].cur_num) return (FALSE);
-					for (k = 1; k < m_max; k++)
+					for (k = 1; k < creature_max; k++)
 					{
 						if (creature_list[k].species_idx == MON_BANOR || creature_list[k].species_idx == MON_LUPART)
 						{

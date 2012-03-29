@@ -1441,7 +1441,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 	total_friends = 0;
 	friend_align = 0;
 
-	for (m_idx = m_max - 1; m_idx >=1; m_idx--)
+	for (m_idx = creature_max - 1; m_idx >=1; m_idx--)
 	{
 		creature_type *m_ptr;
 		
@@ -1508,7 +1508,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	C_MAKE(who, max_creature_idx, u16b);
 
 	/* Process the monsters (backwards) */
-	for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
+	for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 	{
 		if (is_pet(player_ptr, &creature_list[pet_ctr]))
 			who[max_pet++] = pet_ctr;
@@ -2589,7 +2589,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 		case PET_DISMISS: /* Dismiss pets */
 		{
 			/* Check pets (backwards) */
-			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
+			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				/* Player has pet */
 				if (is_pet(player_ptr, &creature_list[pet_ctr])) break;
@@ -2671,7 +2671,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 			if (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
 			{
 				cr_ptr->pet_extra_flags &= ~(PF_PICKUP_ITEMS);
-				for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
+				for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 				{
 					/* Access the monster */
 					m_ptr = &creature_list[pet_ctr];

@@ -195,7 +195,7 @@ extern bool repair_objects;
 extern s16b inven_nxt;
 extern s16b o_max;
 extern s16b o_cnt;
-extern s16b m_max;
+extern s16b creature_max;
 extern s16b m_cnt;
 extern s16b hack_m_idx;
 extern s16b hack_m_idx_ii;

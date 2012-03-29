@@ -1108,7 +1108,7 @@ static void regen_monsters(creature_type *cr_ptr)
 
 
 	/* Regenerate everyone */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		/* Check the i'th monster */
 		creature_type *m_ptr = &creature_list[i];
@@ -2843,7 +2843,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		int danger_amount = 0;
 		int monster;
 
-		for (monster = 0; monster < m_max; monster++)
+		for (monster = 0; monster < creature_max; monster++)
 		{
 			creature_type    *m_ptr = &creature_list[monster];
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
@@ -3625,7 +3625,7 @@ static byte get_dungeon_feeling(void)
 	if (!dun_level) return 0;
 
 	/* Examine each monster */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr;
@@ -5578,7 +5578,7 @@ msg_print("何か変わった気がする！");
 
 	if (monster_arena_mode)
 	{
-		for(i = 1; i < m_max; i++)
+		for(i = 1; i < creature_max; i++)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
@@ -6019,7 +6019,7 @@ msg_print("中断しました。");
 				shimmer_monsters = FALSE;
 
 				/* Shimmer multi-hued monsters */
-				for (i = 1; i < m_max; i++)
+				for (i = 1; i < creature_max; i++)
 				{
 					creature_type *m_ptr;
 					species_type *r_ptr;
@@ -6056,7 +6056,7 @@ msg_print("中断しました。");
 				repair_monsters = FALSE;
 
 				/* Rotate detection flags */
-				for (i = 1; i < m_max; i++)
+				for (i = 1; i < creature_max; i++)
 				{
 					creature_type *m_ptr;
 
@@ -6376,7 +6376,7 @@ msg_print("試合開始！");
 		if ((m_cnt + 32 > max_creature_idx) && !monster_arena_mode) compact_monsters(64);
 
 		/* Hack -- Compress the monster list occasionally */
-		if ((m_cnt + 32 < m_max) && !monster_arena_mode) compact_monsters(0);
+		if ((m_cnt + 32 < creature_max) && !monster_arena_mode) compact_monsters(0);
 
 
 		/* Hack -- Compact the object list occasionally */

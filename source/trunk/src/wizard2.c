@@ -1612,7 +1612,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 
 
 	/* Genocide everyone nearby */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
@@ -1647,7 +1647,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 	int i;
 
 	/* Genocide everyone */
-	for (i = 1; i < m_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
