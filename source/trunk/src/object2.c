@@ -435,7 +435,7 @@ void compact_objects(int size)
  * clear those fields for grids/monsters containing objects,
  * and we clear it once for every such object.
  */
-void wipe_o_list(void)
+void wipe_object_list(void)
 {
 	int i;
 

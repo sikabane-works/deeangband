@@ -6995,7 +6995,7 @@ quit("セーブファイルが壊れています");
 		determine_today_mon(player_ptr, FALSE);
 
 		/* Initialize object array */
-		wipe_o_list();
+		wipe_object_list();
 	}
 	else
 	{
@@ -7208,7 +7208,7 @@ quit("セーブファイルが壊れています");
 		if (!playing && !gameover) break;
 
 		/* Erase the old cave */
-		wipe_o_list();
+		wipe_object_list();
 		if (!gameover) wipe_creature_list();
 
 

@@ -1519,7 +1519,7 @@ void clear_cave(void)
 {
 	int x, y, i;
 
-	/* Very simplified version of wipe_o_list() */
+	/* Very simplified version of wipe_object_list() */
 	C_WIPE(o_list, o_max, object_type);
 	o_max = 1;
 	o_cnt = 0;
@@ -1681,7 +1681,7 @@ if (why) msg_format("ê∂ê¨Ç‚ÇËíºÇµ(%s)", why);
 
 
 		/* Wipe the objects */
-		wipe_o_list();
+		wipe_object_list();
 
 		/* Wipe the monsters */
 		wipe_creature_list();
