@@ -796,29 +796,24 @@ void delete_monster(int y, int x)
 /*
  * Move an object from index i1 to index i2 in the object list
  */
-static void compact_monsters_aux(int i1, int i2)
+static void move_creature_object(int i1, int i2)
 {
 	int y, x, i;
-
 	cave_type *c_ptr;
-
 	creature_type *m_ptr;
-
 	s16b this_o_idx, next_o_idx = 0;
 
-
-	/* Do nothing */
+	// Do nothing
 	if (i1 == i2) return;
 
-
-	/* Old monster */
+	// Old monster
 	m_ptr = &creature_list[i1];
 
-	/* Location */
+	// Location
 	y = m_ptr->fy;
 	x = m_ptr->fx;
 
-	/* Cave grid */
+	// Cave grid
 	c_ptr = &cave[y][x];
 
 	/* Update the cave */
@@ -969,7 +964,7 @@ void compact_monsters(int size)
 		if (m_ptr->species_idx) continue;
 
 		/* Move last monster into open hole */
-		compact_monsters_aux(m_max - 1, i);
+		move_creature_object(m_max - 1, i);
 
 		/* Compress "m_max" */
 		m_max--;
