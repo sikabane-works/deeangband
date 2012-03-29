@@ -1529,7 +1529,7 @@ void clear_cave(void)
 		species_info[i].cur_num = 0;
 	C_WIPE(creature_list, creature_max, creature_type);
 	creature_max = 1;
-	m_cnt = 0;
+	creature_cnt = 0;
 
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 

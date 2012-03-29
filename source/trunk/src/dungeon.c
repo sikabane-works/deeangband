@@ -6373,10 +6373,10 @@ msg_print("ŽŽ‡ŠJŽnI");
 	while (TRUE)
 	{
 		/* Hack -- Compact the monster list occasionally */
-		if ((m_cnt + 32 > max_creature_idx) && !monster_arena_mode) compact_monsters(64);
+		if ((creature_cnt + 32 > max_creature_idx) && !monster_arena_mode) compact_monsters(64);
 
 		/* Hack -- Compress the monster list occasionally */
-		if ((m_cnt + 32 < creature_max) && !monster_arena_mode) compact_monsters(0);
+		if ((creature_cnt + 32 < creature_max) && !monster_arena_mode) compact_monsters(0);
 
 
 		/* Hack -- Compact the object list occasionally */

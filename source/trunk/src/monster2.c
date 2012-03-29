@@ -764,7 +764,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	(void)WIPE(creature_ptr, creature_type);
 
 	/* Count monsters */
-	m_cnt--;
+	creature_cnt--;
 
 	/* Visual update */
 	lite_spot(y, x);
@@ -1062,8 +1062,8 @@ void wipe_creature_list(void)
 	/* Reset "creature_max" */
 	creature_max = 1;
 
-	/* Reset "m_cnt" */
-	m_cnt = 0;
+	/* Reset "creature_cnt" */
+	creature_cnt = 0;
 
 	/* Reset "mproc_max[]" */
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
@@ -1101,7 +1101,7 @@ s16b m_pop(void)
 		creature_max++;
 
 		/* Count monsters */
-		m_cnt++;
+		creature_cnt++;
 
 		/* Return the index */
 		return (i);
@@ -1120,7 +1120,7 @@ s16b m_pop(void)
 		if (m_ptr->species_idx) continue;
 
 		/* Count monsters */
-		m_cnt++;
+		creature_cnt++;
 
 		/* Use this monster */
 		return (i);
