@@ -3966,7 +3966,7 @@ void deal_item(creature_type *creature_ptr)
 
 }
 
-static int place_monster_one(creature_type *summoner_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
+static int place_creature_one(creature_type *summoner_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -4643,7 +4643,7 @@ static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int s
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
+			if (place_creature_one(summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4729,7 +4729,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
+	i = place_creature_one(summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_creature_idx) return (FALSE);
 
 	m_ptr = &creature_list[i];
@@ -4750,7 +4750,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
-			if(place_monster_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
+			if(place_creature_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4799,7 +4799,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(summoner_ptr, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_creature_one(summoner_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
