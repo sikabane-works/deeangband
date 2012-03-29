@@ -8268,7 +8268,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					int m = 0;
 
 					int i;
-					for(i = 0; i < max_unique; i++)
+					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */
@@ -8292,7 +8292,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					int m = 0;
 
 					int i;
-					for(i = 0; i < max_unique; i++)
+					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */
@@ -8325,7 +8325,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					int m = 0;
 
 					int i;
-					for(i = 0; i < max_unique; i++)
+					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */

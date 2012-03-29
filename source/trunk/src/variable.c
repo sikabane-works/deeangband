@@ -1142,33 +1142,23 @@ u16b max_e_idx;
  */
 u16b max_d_idx;
 
-/*
- * Maximum number of objects in the level
- */
+// Maximum number of objects in the level
 u16b max_o_idx;
 
 
 // Maximum number of creature_flags
 u16b max_creature_flag_idx;
 
-/*
- * Maximum number of monsters in simulate
- */
+// Maximum number of monsters in simulate
 u16b max_creature_idx;
 
-/*
- * Maximum number of store pre info in the world
- */
+// Maximum number of store pre info in the world
 u16b max_st_idx;
 
-//
 // Maximum number of authorities
-//
 u16b max_authorities_idx;
 
-/*
- * Maximum number of uniques in the world
- */
+// Maximum number of uniques in the world
 u16b max_unique;
 
 /*

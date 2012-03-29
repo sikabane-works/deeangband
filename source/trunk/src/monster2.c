@@ -1001,7 +1001,6 @@ void birth_uniques(void)
 			j++;
 		}
 	}
-//	C_KILL(u_info, max_unique, creature_type);
 
 }
 
@@ -4214,10 +4213,13 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if(is_unique_species(r_ptr))
 	{
-		int i;
-		for(i = 0; i < max_unique; i++)
+		//int i;
+		//TODO
+/*
+		for(i = 0; i < max_creature_idx; i++)
 			if(species_idx == creature_list[i].species_idx)
 				*m_ptr = creature_list[i];
+*/
 	}
 	else
 	{

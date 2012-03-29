@@ -2317,7 +2317,7 @@ int get_equip_weapon_num(creature_type *cr_ptr)
 creature_type *find_unique_instance(int n)
 {
 	int i;
-	for(i = 0; i < max_unique; i++)
+	for(i = 0; i < max_creature_idx; i++)
 		if(n == creature_list[i].species_idx) return &creature_list[i];
 	return NULL;
 }
