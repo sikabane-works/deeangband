@@ -682,11 +682,6 @@ object_type object_null;
 creature_type *creature_list;
 
 /*
- * The array of uniques [max_unique]
- */
-creature_type *u_info;
-
-/*
  * The array of stores [max_st_idx]
  */
 store_type *st_list;

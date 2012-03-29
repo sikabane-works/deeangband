@@ -8269,12 +8269,12 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 					int i;
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].species_idx)
+						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */
 							screen_save();
 
-							creature_knowledge(&u_info[i]);
+							creature_knowledge(&creature_list[i]);
 
 							/* Restore the screen */
 							screen_load();
@@ -8293,12 +8293,12 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 					int i;
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].species_idx)
+						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */
 							screen_save();
 
-							(void)show_item_list(0, &u_info[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
+							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
 							/* Forever */
 							while (1)
 							{
@@ -8326,12 +8326,12 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 					int i;
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].species_idx)
+						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							/* Save the screen */
 							screen_save();
 
-							(void)show_item_list(0, &u_info[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
+							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
 							/* Forever */
 							while (1)
 							{

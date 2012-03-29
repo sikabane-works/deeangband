@@ -1283,7 +1283,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	/* Dump the unique monsters */
 	for (i = 0; i < max_unique; i++)
 	{
-		creature_type *m_ptr = &u_info[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Dump it */
 		wr_creature(m_ptr);

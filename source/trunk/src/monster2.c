@@ -985,8 +985,6 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i])) max_unique++;
 	}
 
-	C_MAKE(u_info, max_unique, creature_type);
-	C_WIPE(u_info, max_unique, creature_type);
 	j = 0;
 
 
@@ -999,7 +997,7 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i]))
 		{
 			creature_type save_ptr;
-			generate_creature(&u_info[j], i, &save_ptr, GC_AUTO);
+			generate_creature(&creature_list[j], i, &save_ptr, GC_AUTO);
 			j++;
 		}
 	}
@@ -4218,8 +4216,8 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	{
 		int i;
 		for(i = 0; i < max_unique; i++)
-			if(species_idx == u_info[i].species_idx)
-				*m_ptr = u_info[i];
+			if(species_idx == creature_list[i].species_idx)
+				*m_ptr = creature_list[i];
 	}
 	else
 	{

@@ -556,7 +556,6 @@ extern s32b max_wild_y;
 
 /* Unique Data for D'angband*/
 extern u16b max_unique;
-extern creature_type *u_info;
 
 extern quest_type *quest;
 extern char questp_text[10][80];

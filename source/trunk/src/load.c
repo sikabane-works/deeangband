@@ -1889,12 +1889,10 @@ note("メッセージをロードしました");
 	/* Unique monsters */
 
 	rd_u16b(&max_unique);
-	C_MAKE(u_info, max_unique, creature_type);
-	C_WIPE(u_info, max_unique, creature_type);
 
 	for (i = 0; i < max_unique; i++)
 	{
-		creature_type *m_ptr = &u_info[i];
+		creature_type *m_ptr = &creature_list[i];
 		rd_creature(m_ptr);
 	}
 
