@@ -1887,22 +1887,7 @@ note("メッセージをロードしました");
 
 
 	/* Unique monsters */
-
 	rd_u16b(&max_unique);
-
-	for (i = 0; i < max_unique; i++)
-	{
-		creature_type *m_ptr = &creature_list[i];
-		rd_creature(m_ptr);
-	}
-
-#ifdef JP
-note(format("ユニークモンスターをロードしました:%u", max_unique));
-#else
-	if (arg_fiddle) note("Loaded Unique Monsters");
-#endif
-
-
 
 	/* Object Memory */
 	rd_u16b(&tmp16u);
