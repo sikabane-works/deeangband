@@ -4577,7 +4577,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -4663,15 +4663,15 @@ static bool place_monster_group(creature_type *summoner_ptr, int y, int x, int s
  * Hack -- help pick an escort type
  */
 static int place_species_idx = 0;
-static int place_monster_m_idx = 0;
+static int place_creature_m_idx = 0;
 
 /*
  * Hack -- help pick an escort type
  */
-static bool place_monster_okay(int species_idx)
+static bool place_creature_okay(int species_idx)
 {
 	species_type *r_ptr = &species_info[place_species_idx];
-	creature_type *m_ptr = &creature_list[place_monster_m_idx];
+	creature_type *m_ptr = &creature_list[place_creature_m_idx];
 
 	species_type *z_ptr = &species_info[species_idx];
 
@@ -4719,7 +4719,7 @@ static bool place_monster_okay(int species_idx)
  * Note the use of the new "monster allocation table" code to restrict
  * the "get_mon_num()" function to "legal" escort types.
  */
-bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
+bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
 {
 	int             i, j;
 	species_type    *r_ptr = &species_info[species_idx];
@@ -4749,7 +4749,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
+			get_mon_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
 			if(place_creature_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
@@ -4762,13 +4762,13 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 	/* Require the "group" flag */
 	if (!(mode & PM_ALLOW_GROUP)) return (TRUE);
 
-	place_monster_m_idx = hack_m_idx_ii;
+	place_creature_m_idx = hack_m_idx_ii;
 
 	/* Friends for certain monsters */
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
-		(void)place_monster_group(summoner_ptr, y, x, species_idx, mode);
+		(void)place_creature_group(summoner_ptr, y, x, species_idx, mode);
 	}
 
 
@@ -4790,7 +4790,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
+			get_mon_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
 
 			/* Pick a random race */
 			z = get_mon_num(r_ptr->level);
@@ -4805,7 +4805,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
 				/* Place a group of monsters */
-				(void)place_monster_group(&creature_list[place_monster_m_idx], ny, nx, z, mode);
+				(void)place_creature_group(&creature_list[place_creature_m_idx], ny, nx, z, mode);
 			}
 		}
 	}
@@ -4820,7 +4820,7 @@ bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_id
  *
  * Attempt to find a monster appropriate to the "monster_level"
  */
-bool place_monster(creature_type *summoner_ptr, int y, int x, u32b mode)
+bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
 
@@ -4834,7 +4834,7 @@ bool place_monster(creature_type *summoner_ptr, int y, int x, u32b mode)
 	if (!species_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_monster_aux(summoner_ptr, y, x, species_idx, mode)) return (TRUE);
+	if (place_creature_aux(summoner_ptr, y, x, species_idx, mode)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -4877,7 +4877,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	while (--attempts)
 	{
 		/* Attempt to place the monster */
-		if (place_monster_aux(summoner_ptr, y, x, species_idx, 0L)) break;
+		if (place_creature_aux(summoner_ptr, y, x, species_idx, 0L)) break;
 	}
 
 	if (attempts < 1) return FALSE;
@@ -4927,7 +4927,7 @@ bool alloc_guardian(bool def_val)
 			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if (place_monster_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
+				if (place_creature_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
@@ -5015,7 +5015,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 #endif /* MONSTER_HORDES */
 
 		/* Attempt to place the monster, allow groups */
-		if (place_monster(NULL, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
+		if (place_creature(NULL, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
 
 #ifdef MONSTER_HORDES
 	}
@@ -5119,7 +5119,7 @@ bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_monster_aux(cr_ptr, y, x, species_idx, mode))
+	if (!place_creature_aux(cr_ptr, y, x, species_idx, mode))
 	{
 		summon_specific_type = 0;
 		return (FALSE);
@@ -5143,7 +5143,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
 	if (!mon_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_monster_aux(cr_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_creature_aux(cr_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
 }
 
 
@@ -5164,7 +5164,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new monster (awake, no groups) */
-	if (!place_monster_aux(&creature_list[m_idx], y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_creature_aux(&creature_list[m_idx], y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */

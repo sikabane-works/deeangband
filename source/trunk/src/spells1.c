@@ -1689,7 +1689,7 @@ msg_format("%s‚Í%s", o_name, note_kill);
  * divided by the radius, so monsters not at the "epicenter" will not take
  * as much damage (or whatever)...
  *
- * Note that "polymorph" is dangerous, since a failure in "place_monster()"'
+ * Note that "polymorph" is dangerous, since a failure in "place_creature()"'
  * may result in a dereference of an invalid pointer.  XXX XXX XXX
  *
  * Various messages are produced, and damage is applied.

@@ -5653,7 +5653,7 @@ msg_print("何か変わった気がする！");
 				int y, x;
 				y = cr_ptr->fy+ddy[tsuri_dir];
 				x = cr_ptr->fx+ddx[tsuri_dir];
-				if (place_monster_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
+				if (place_creature_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
 					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
@@ -7166,7 +7166,7 @@ quit("セーブファイルが壊れています");
 	{
 		int pet_species_idx = ((player_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		species_type *r_ptr = &species_info[pet_species_idx];
-		place_monster_aux(player_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
+		place_creature_aux(player_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 
 	/* Process */

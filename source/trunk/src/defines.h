@@ -2926,7 +2926,7 @@
 #define PW_BORG_2       0x00008000L     /* Display borg status */
 
 /*
- * Bit flags for the place_monster_???() (etc)
+ * Bit flags for the place_creature_???() (etc)
  */
 #define PM_ALLOW_SLEEP    0x00000001
 #define PM_ALLOW_GROUP    0x00000002

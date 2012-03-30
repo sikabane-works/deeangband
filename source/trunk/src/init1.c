@@ -5874,7 +5874,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 			{
 				monster_level = base_level + monster_index;
 
-				place_monster(NULL, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+				place_creature(NULL, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 
 				monster_level = base_level;
 			}
@@ -5909,7 +5909,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 				}
 
 				/* Place it */
-				place_monster_aux(player_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
+				place_creature_aux(player_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
 				if (clone)
 				{
 					/* clone */
