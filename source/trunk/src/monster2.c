@@ -3971,7 +3971,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
 
-	creature_type	*m_ptr;
+	creature_type	*creature_ptr;
 
 	species_type	*r_ptr = &species_info[species_idx];
 	monster_ego		*re_ptr;
@@ -4209,7 +4209,7 @@ msg_print("守りのルーンが壊れた！");
 	if (!c_ptr->m_idx) return (max_creature_idx);
 
 	/* Get a new monster record */
-	m_ptr = &creature_list[c_ptr->m_idx];
+	creature_ptr = &creature_list[c_ptr->m_idx];
 
 	if(is_unique_species(r_ptr))
 	{
@@ -4218,94 +4218,94 @@ msg_print("守りのルーンが壊れた！");
 /*
 		for(i = 0; i < max_creature_idx; i++)
 			if(species_idx == creature_list[i].species_idx)
-				*m_ptr = creature_list[i];
+				*creature_ptr = creature_list[i];
 */
 	}
 	else
 	{
 		creature_type cr;
-		generate_creature(m_ptr, species_idx, &cr, GC_AUTO); 
+		generate_creature(creature_ptr, species_idx, &cr, GC_AUTO); 
 	}
 
 	/* No flags */
-	m_ptr->mflag = 0;
-	m_ptr->mflag2 = 0;
+	creature_ptr->mflag = 0;
+	creature_ptr->mflag2 = 0;
 
 	/* Hack -- Appearance transfer */
 	if ((mode & PM_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
-		m_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
+		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
 
 		/* Hack -- Shadower spawns Shadower */
-		if (summoner_ptr->mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
+		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
 	/* Sub-alignment of a monster */
 	if (summoner_ptr && !is_player(summoner_ptr) && !(is_enemy_of_evil_creature(summoner_ptr) && is_enemy_of_good_creature(summoner_ptr)))
-		m_ptr->sub_align = summoner_ptr->sub_align;
+		creature_ptr->sub_align = summoner_ptr->sub_align;
 	else
 	{
-		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
-		if (is_enemy_of_good_creature(m_ptr)) m_ptr->sub_align |= SUB_ALIGN_EVIL;
-		if (is_enemy_of_evil_creature(m_ptr)) m_ptr->sub_align |= SUB_ALIGN_GOOD;
+		creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+		if (is_enemy_of_good_creature(creature_ptr)) creature_ptr->sub_align |= SUB_ALIGN_EVIL;
+		if (is_enemy_of_evil_creature(creature_ptr)) creature_ptr->sub_align |= SUB_ALIGN_GOOD;
 	}
 
 	/* Place the monster at the location */
-	m_ptr->fy = y;
-	m_ptr->fx = x;
+	creature_ptr->fy = y;
+	creature_ptr->fx = x;
 
 	/* Unknown distance */
-	m_ptr->cdis = 0;
-	reset_target(m_ptr);
-	m_ptr->nickname = 0;
+	creature_ptr->cdis = 0;
+	reset_target(creature_ptr);
+	creature_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
 	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
 		mode |= PM_FORCE_PET;
 		//TODO Parent Set
-		m_ptr->parent_m_idx = 0;
+		creature_ptr->parent_m_idx = 0;
 	}
 	else
 	{
-		m_ptr->parent_m_idx = 0;
+		creature_ptr->parent_m_idx = 0;
 	}
 
 	if (is_chameleon_species(r_ptr))
 	{
 		choose_new_monster(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
-		r_ptr = &species_info[m_ptr->species_idx];
-		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
+		r_ptr = &species_info[creature_ptr->species_idx];
+		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
 		if (summoner_ptr && (is_unique_species(r_ptr)) && is_player(summoner_ptr))
-			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+			creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
 	{
-		m_ptr->ap_species_idx = MON_KAGE;
-		m_ptr->mflag2 |= MFLAG2_KAGE;
+		creature_ptr->ap_species_idx = MON_KAGE;
+		creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
-	if (mode & PM_NO_PET) m_ptr->mflag2 |= MFLAG2_NOPET;
+	if (mode & PM_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
 
 	/* Not visible */
-	m_ptr->ml = FALSE;
+	creature_ptr->ml = FALSE;
 
 	/* Pet? */
 	if (mode & PM_FORCE_PET)
 	{
-		set_pet(summoner_ptr, m_ptr);
+		set_pet(summoner_ptr, creature_ptr);
 	}
 	/* Friendly? */
 	else if (is_friendly_species(r_ptr) ||
 		 (mode & PM_FORCE_FRIENDLY)) //TODO || is_friendly_idx(who))
 	{
-		if (!creature_has_hostile_align(p_ptr, summoner_ptr)) set_friendly(m_ptr);
+		if (!creature_has_hostile_align(p_ptr, summoner_ptr)) set_friendly(creature_ptr);
 	}
 
 	/* Assume no sleeping */
-	m_ptr->paralyzed = 0;
+	creature_ptr->paralyzed = 0;
 
 	/* Enforce sleeping if needed */
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar)
@@ -4319,19 +4319,19 @@ msg_print("守りのルーンが壊れた！");
 	/* Give a random starting energy */
 	if (!curse_of_Iluvatar)
 	{
-		m_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
+		creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
 	}
 	else
 	{
 		/* Nightmare monsters are more prepared */
-		m_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
+		creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
 	}
 
 	/* Force monster to wait for player, unless in Nightmare mode */
-	if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !curse_of_Iluvatar)
+	if (has_cf_creature(creature_ptr, CF_FORCE_SLEEP) && !curse_of_Iluvatar)
 	{
 		/* Monster is still being nice */
-		m_ptr->mflag |= (MFLAG_NICE);
+		creature_ptr->mflag |= (MFLAG_NICE);
 
 		/* Must repair monsters */
 		repair_monsters = TRUE;
@@ -4341,21 +4341,21 @@ msg_print("守りのルーンが壊れた！");
 	if (c_ptr->m_idx < hack_m_idx)
 	{
 		/* Monster is still being born */
-		m_ptr->mflag |= (MFLAG_BORN);
+		creature_ptr->mflag |= (MFLAG_BORN);
 	}
 
 /*TODO
-	if (is_self_ld_creature(m_ptr))
+	if (is_self_ld_creature(creature_ptr))
 		update |= (PU_MON_LITE);
-	else if (is_has_ld_creature(m_ptr) && !m_ptr->paralyzed)
+	else if (is_has_ld_creature(creature_ptr) && !creature_ptr->paralyzed)
 		update |= (PU_MON_LITE);
 */
 
 	/* Update the monster */
-	update_mon(m_ptr, c_ptr->m_idx, TRUE);
+	update_mon(creature_ptr, c_ptr->m_idx, TRUE);
 
 	/* Count the monsters on the level */
-	real_species_ptr(m_ptr)->cur_num++;
+	real_species_ptr(creature_ptr)->cur_num++;
 
 	/*
 	 * Memorize location of the unique monster in saved floors.
@@ -4364,15 +4364,15 @@ msg_print("守りのルーンが壊れた！");
 /*TODO
 	if (character_dungeon &&
 	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)))
-		real_species_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
+		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
 */
 
 	/* Hack -- Count the number of "reproducers" */
-	if (has_cf_creature(m_ptr, CF_MULTIPLY)) num_repro++;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
-		if (has_cf_creature(m_ptr, CF_ATTR_MULTI) || has_cf_creature(m_ptr, CF_SHAPECHANGER))
+		if (has_cf_creature(creature_ptr, CF_ATTR_MULTI) || has_cf_creature(creature_ptr, CF_SHAPECHANGER))
 			shimmer_monsters = TRUE;
 	}
 
@@ -4481,14 +4481,14 @@ msg_print("爆発のルーンは解除された。");
 		lite_spot(y, x);
 	}
 
-	//strcpy(m_ptr->name, species_name + r_ptr->name);
-	creature_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	//strcpy(creature_ptr->name, species_name + r_ptr->name);
+	creature_desc(creature_ptr->name, creature_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)
 	{
-		msg_format("[%s L%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
-			m_ptr->ac + m_ptr->to_a, m_ptr->ht, m_ptr->wt, m_ptr->sex);
+		msg_format("[%s L%d AC%d HW%d/%d S%d]", creature_ptr->name, creature_ptr->lev,
+			creature_ptr->ac + creature_ptr->to_a, creature_ptr->ht, creature_ptr->wt, creature_ptr->sex);
 	}
 
 	/* Success */

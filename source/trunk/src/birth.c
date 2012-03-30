@@ -5954,6 +5954,7 @@ int generate_creature(creature_type *creature_ptr, int species_idx, creature_typ
 
 	}
 
+	creature_max++;
 	return 0;
 }
 
