@@ -1086,7 +1086,7 @@ void wipe_creature_list(void)
  *
  * This routine should almost never fail, but it *can* happen.
  */
-s16b m_pop(void)
+s16b creature_pop(void)
 {
 	int i;
 
@@ -4202,7 +4202,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
-	c_ptr->m_idx = m_pop();
+	c_ptr->m_idx = creature_pop();
 	hack_m_idx_ii = c_ptr->m_idx;
 
 	/* Mega-Hack -- catch "failure" */
@@ -5152,7 +5152,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
  *
  * Note that "reproduction" REQUIRES empty space.
  */
-bool multiply_monster(int m_idx, bool clone, u32b mode)
+bool multiply_creature(int m_idx, bool clone, u32b mode)
 {
 	creature_type	*m_ptr = &creature_list[m_idx];
 

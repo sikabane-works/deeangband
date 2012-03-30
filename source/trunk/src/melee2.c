@@ -1792,7 +1792,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
 		{
 			/* Try to multiply */
-			if (multiply_monster(m_idx, FALSE, (is_pet(player_ptr, nonplayer_ptr) ? PM_FORCE_PET : 0)))
+			if (multiply_creature(m_idx, FALSE, (is_pet(player_ptr, nonplayer_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
 				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, nonplayer_ptr))

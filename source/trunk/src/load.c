@@ -1569,7 +1569,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		creature_type *m_ptr;
 
 		/* Get a new record */
-		m_idx = m_pop();
+		m_idx = creature_pop();
 
 		/* Oops */
 		if (i != m_idx) return 162;

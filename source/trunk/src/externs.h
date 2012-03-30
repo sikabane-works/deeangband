@@ -1225,7 +1225,7 @@ extern void compact_monsters(int size);
 extern void birth_uniques(void);
 
 extern void wipe_creature_list(void);
-extern s16b m_pop(void);
+extern s16b creature_pop(void);
 extern errr get_mon_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2);
 extern s16b get_mon_num(int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
@@ -1244,7 +1244,7 @@ extern bool alloc_guardian(bool def_val);
 extern bool alloc_monster(creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u32b mode);
 extern bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode);
-extern bool multiply_monster(int m_idx, bool clone, u32b mode);
+extern bool multiply_creature(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_idx);
 extern bool creature_place(creature_type *creature_ptr, int y, int x);
