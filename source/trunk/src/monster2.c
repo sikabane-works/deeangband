@@ -4198,12 +4198,10 @@ msg_print("守りのルーンが壊れた！");
 		else return max_creature_idx;
 	}
 
-
 	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
 	c_ptr->m_idx = creature_pop();
-	hack_m_idx_ii = c_ptr->m_idx;
 
 	/* Mega-Hack -- catch "failure" */
 	if (!c_ptr->m_idx) return (max_creature_idx);
@@ -4213,19 +4211,15 @@ msg_print("守りのルーンが壊れた！");
 
 	if(is_unique_species(r_ptr))
 	{
-		//int i;
 		//TODO
-/*
-		for(i = 0; i < max_creature_idx; i++)
-			if(species_idx == creature_list[i].species_idx)
-				*creature_ptr = creature_list[i];
-*/
 	}
 	else
 	{
 		creature_type cr;
 		generate_creature(creature_ptr, species_idx, &cr, GC_AUTO); 
 	}
+
+	hack_m_idx_ii = c_ptr->m_idx;
 
 	/* No flags */
 	creature_ptr->mflag = 0;

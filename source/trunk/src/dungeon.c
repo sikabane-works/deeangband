@@ -6942,6 +6942,7 @@ quit("セーブファイルが壊れています");
 
 			/* Roll up a new character */
 			generate_creature(player_ptr, species, &player_prev, GC_PLAYER);
+
 			wilderness_x = player_ptr->start_wx;
 			wilderness_y = player_ptr->start_wy;
 
@@ -7439,6 +7440,8 @@ void prevent_turn_overflow(creature_type *cr_ptr)
 void world_wipe()
 {
 	int i;
+
+	playtime = 0;
 
 	// Set the recall dungeon accordingly
 	dungeon_type = 0;

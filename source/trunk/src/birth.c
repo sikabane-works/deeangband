@@ -5880,8 +5880,6 @@ int generate_creature(creature_type *creature_ptr, int species_idx, creature_typ
 {
 	char buf[80];
 
-	playtime = 0;
-
 	/* Create a new character */
 	while (!generate_creature_aux(creature_ptr, species_idx, save_ptr, flags));
 
