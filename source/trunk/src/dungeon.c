@@ -6941,7 +6941,8 @@ quit("セーブファイルが壊れています");
 			}
 
 			/* Roll up a new character */
-			generate_creature(player_ptr, species, &player_prev, GC_PLAYER);
+			player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
+			p_ptr = player_ptr;
 
 			wilderness_x = player_ptr->start_wx;
 			wilderness_y = player_ptr->start_wy;

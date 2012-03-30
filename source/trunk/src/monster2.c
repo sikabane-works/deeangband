@@ -973,20 +973,13 @@ void compact_monsters(int size)
 
 void birth_uniques(void)
 {
-	int i, j;
+	int i;
 	char buf[80];
 
 	int t = sizeof(creature_type);
 
-	/* Init Unique Count */
+	// Init Unique Count
 	max_unique = 0;
-	for(i = 0; i < max_species_idx; i++)
-	{
-		if(is_unique_species(&species_info[i])) max_unique++;
-	}
-
-	j = 0;
-
 
 	for(i = 0; i < max_species_idx; i++)
 	{
@@ -997,8 +990,8 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i]))
 		{
 			creature_type save_ptr;
-			generate_creature(&creature_list[j], i, &save_ptr, GC_AUTO);
-			j++;
+			max_unique++;
+			generate_creature(NULL, i, &save_ptr, GC_AUTO);
 		}
 	}
 
@@ -4200,15 +4193,6 @@ msg_print("守りのルーンが壊れた！");
 
 	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
-	/* Make a new monster */
-	c_ptr->m_idx = creature_pop();
-
-	/* Mega-Hack -- catch "failure" */
-	if (!c_ptr->m_idx) return (max_creature_idx);
-
-	/* Get a new monster record */
-	creature_ptr = &creature_list[c_ptr->m_idx];
-
 	if(is_unique_species(r_ptr))
 	{
 		//TODO
@@ -4216,7 +4200,7 @@ msg_print("守りのルーンが壊れた！");
 	else
 	{
 		creature_type cr;
-		generate_creature(creature_ptr, species_idx, &cr, GC_AUTO); 
+		creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
 	}
 
 	hack_m_idx_ii = c_ptr->m_idx;

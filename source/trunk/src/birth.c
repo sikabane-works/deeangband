@@ -5876,11 +5876,22 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-int generate_creature(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
+creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_type *save_ptr, u32b flags)
 {
 	char buf[80];
+	int id;
+	creature_type *creature_ptr;
 
-	/* Create a new character */
+	// Make a new monster
+	id = creature_pop();
+	if (!id) return NULL;
+
+	// Get a new monster record
+	creature_ptr = &creature_list[id];
+
+	if(c_ptr) c_ptr->m_idx = id;
+
+	// Create a new character
 	while (!generate_creature_aux(creature_ptr, species_idx, save_ptr, flags));
 
 	if(flags & GC_PLAYER)
@@ -5952,8 +5963,7 @@ int generate_creature(creature_type *creature_ptr, int species_idx, creature_typ
 
 	}
 
-	creature_max++;
-	return 0;
+	return creature_ptr;
 }
 
 
