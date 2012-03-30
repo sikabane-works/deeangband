@@ -304,7 +304,7 @@ msg_print("‚©‚ñ‚‚¢‹àØ‚èº‚ğ‚ ‚°‚½B");
 		msg_print("You make a high pitched shriek.");
 #endif
 
-		aggravate_monsters(NULL);
+		aggravate_creatures(cr_ptr);
 		break;
 	case MS_XXX1:
 		break;

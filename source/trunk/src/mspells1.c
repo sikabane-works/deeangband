@@ -1662,7 +1662,7 @@ msg_format("%^s‚ª‚©‚ñ‚‚¢‹àØ‚èº‚ğ‚ ‚°‚½B", m_name);
 			msg_format("%^s makes a high pitched shriek.", m_name);
 #endif
 
-			aggravate_monsters(caster_ptr);
+			aggravate_creatures(caster_ptr);
 			break;
 		}
 

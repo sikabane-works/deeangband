@@ -4600,7 +4600,7 @@ bool crusade(creature_type *cr_ptr)
 /*
  * Wake up all monsters, and speed up "los" monsters.
  */
-void aggravate_monsters(creature_type *cr_ptr)
+void aggravate_creatures(creature_type *cr_ptr)
 {
 	int     i;
 	bool    sleep = FALSE;
@@ -7044,7 +7044,7 @@ msg_print("エネルギーのうねりを感じた！");
 			}
 			if (!one_in_(6)) break;
 		case 1: case 2: case 3: case 16: case 17:
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 			if (!one_in_(6)) break;
 		case 4: case 5: case 6:
 			(*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);

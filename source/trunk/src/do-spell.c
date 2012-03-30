@@ -545,7 +545,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 23:
 	case 24:
 	case 25:
-		aggravate_monsters(NULL);
+		aggravate_creatures(cr_ptr);
 		break;
 	case 26:
 		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
@@ -669,7 +669,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the swords of discord.");
 #endif
 
-		aggravate_monsters(NULL);
+		aggravate_creatures(cr_ptr);
 	}
 	else if (die < 26)
 	{
@@ -10955,7 +10955,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			msg_print("You roar out!");
 #endif
 			project_hack(cr_ptr, GF_SOUND, randint1(plev * 3));
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 		}
 		break;
 

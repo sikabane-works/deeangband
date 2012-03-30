@@ -1605,7 +1605,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 			msg_print("There is a high pitched humming noise.");
 #endif
 
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 			ident = TRUE;
 			break;
 		}
@@ -3546,7 +3546,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_AGGRAVATE:
 		{
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 			ident = TRUE;
 			break;
 		}
@@ -5498,7 +5498,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("You beat Your wooden clappers.");
 #endif
-				aggravate_monsters(NULL);
+				aggravate_creatures(cr_ptr);
 				break;
 			}
 
@@ -6305,19 +6305,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 	{
 		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
-
-#if 0
-		if (object_is_cursed(o_ptr))
-		{
-#ifdef JP
-			msg_print("カン高い音が響き渡った。");
-#else
-			msg_print("You produce a shrill whistling sound.");
-#endif
-			aggravate_monsters(NULL);
-		}
-		else
-#endif
 		{
 			int pet_ctr, i;
 			u16b *who;

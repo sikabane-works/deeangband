@@ -1588,7 +1588,7 @@ msg_print("Ç‹ÇŒÇ‰Ç¢ëMåıÇ™ëñÇ¡ÇΩÅI");
 			msg_print("An alarm sounds!");
 #endif
 
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 
 			break;
 		}
@@ -1603,7 +1603,7 @@ msg_print("Ç‹ÇŒÇ‰Ç¢ëMåıÇ™ëñÇ¡ÇΩÅI");
 			(void)project(NULL, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(NULL, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(NULL, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 
 			break;
 		}

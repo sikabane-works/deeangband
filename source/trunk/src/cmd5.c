@@ -1254,7 +1254,7 @@ msg_print("‚¢‚â‚È‰¹‚ª‹¿‚¢‚½");
 msg_print("An infernal sound echoed.");
 #endif
 
-			aggravate_monsters(NULL);
+			aggravate_creatures(cr_ptr);
 		}
 	}
 

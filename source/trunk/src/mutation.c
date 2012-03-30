@@ -3570,7 +3570,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 		case CF_SHRIEK:
 			mutation_stop_mouth(cr_ptr);
 			(void)fire_ball(cr_ptr, GF_SOUND, 0, 2 * lvl, 8);
-			(void)aggravate_monsters(NULL);
+			(void)aggravate_creatures(cr_ptr);
 			break;
 
 		case CF_ILLUMINE:

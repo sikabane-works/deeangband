@@ -2231,7 +2231,7 @@ msg_print("エネルギーのうねりを感じた！");
 				project(0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
 				if (!one_in_(6)) break;
 			case 12: case 13: case 14: case 15: case 16:
-				aggravate_monsters(NULL);
+				aggravate_creatures(caster_ptr);
 				if (!one_in_(6)) break;
 			case 17: case 18:
 				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
