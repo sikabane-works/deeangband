@@ -1530,9 +1530,8 @@ void clear_cave(void)
 
 	for (i = 0; i < max_creature_idx; i++)
 	{
-		if(is_player(&creature_list[i])) continue;
-		creature_wipe(&creature_list[i]);
-		//C_WIPE(creature_list, creature_max, creature_type);
+		if(is_player(&creature_list[i]) || is_unique_creature(&creature_list[i])) continue;
+		C_WIPE(&creature_list[i], 1, creature_type);
 	}
 
 	creature_max = 1;
