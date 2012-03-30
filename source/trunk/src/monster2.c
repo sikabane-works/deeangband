@@ -1109,8 +1109,8 @@ s16b creature_pop(void)
 		/* Acquire monster */
 		m_ptr = &creature_list[i];
 
-		/* Skip live monsters */
-		if (m_ptr->species_idx) continue;
+		// Skip live creatures and player
+		if (m_ptr->species_idx || m_ptr == player_ptr) continue;
 
 		/* Count monsters */
 		creature_cnt++;
