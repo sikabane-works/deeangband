@@ -1081,20 +1081,6 @@ s16b creature_pop(void)
 {
 	int i;
 
-	// Normal allocation
-	if (creature_max < max_creature_idx)
-	{
-		// Access the next hole
-		i = creature_max;
-
-		// Expand the array and count creature
-		creature_max++;
-		creature_cnt++;
-
-		// Return the index
-		return (i);
-	}
-
 	/* Recycle dead monsters */
 	for (i = 1; i < creature_max; i++)
 	{
@@ -1104,18 +1090,34 @@ s16b creature_pop(void)
 		creature_ptr = &creature_list[i];
 
 		// Skip live creatures and player
-		if (creature_ptr->species_idx || is_player(creature_ptr)) continue;
+		if (creature_ptr->species_idx ||
+			is_unique_creature(creature_ptr) ||
+			is_player(creature_ptr)) continue;
 
 		// Count creature and return using id
 		creature_cnt++;
 		return i;
 	}
 
+	// Normal allocation
+	if (creature_max < max_creature_idx)
+	{
+		// Access the next hole
+		i = creature_max;
+
+		// Expand the array and count creature
+		creature_max++;
+		creature_cnt++;
+		return i;
+
+		// Return the index
+	}
+
 	/* Warn the player (except during dungeon creation) */
 #ifdef JP
-	if (character_dungeon) msg_print("モンスターが多すぎる！");
+	if (character_dungeon) msg_print("クリーチャーが多すぎる！");
 #else
-	if (character_dungeon) msg_print("Too many monsters!");
+	if (character_dungeon) msg_print("Too many creatures!");
 #endif
 
 	/* Try not to crash */

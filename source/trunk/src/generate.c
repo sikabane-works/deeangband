@@ -1521,14 +1521,12 @@ void clear_cave(void)
 
 	/* Very simplified version of wipe_object_list() */
 	C_WIPE(object_list, object_max, object_type);
-	object_max = 1;
-	object_cnt = 0;
 
 	/* Very simplified version of wipe_creature_list() */
 	for (i = 1; i < max_species_idx; i++)
 		species_info[i].cur_num = 0;
 
-	for (i = 0; i < max_creature_idx; i++)
+	for (i = 0; i < creature_max; i++)
 	{
 		if(is_player(&creature_list[i]) || is_unique_creature(&creature_list[i])) continue;
 		C_WIPE(&creature_list[i], 1, creature_type);
