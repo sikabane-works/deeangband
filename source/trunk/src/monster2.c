@@ -1083,7 +1083,6 @@ s16b creature_pop(void)
 {
 	int i;
 
-
 	/* Normal allocation */
 	if (creature_max < max_creature_idx)
 	{
@@ -1100,22 +1099,19 @@ s16b creature_pop(void)
 		return (i);
 	}
 
-
 	/* Recycle dead monsters */
 	for (i = 1; i < creature_max; i++)
 	{
-		creature_type *m_ptr;
+		creature_type *creature_ptr;
 
-		/* Acquire monster */
-		m_ptr = &creature_list[i];
+		/* Acquire creature */
+		creature_ptr = &creature_list[i];
 
 		// Skip live creatures and player
-		if (m_ptr->species_idx || m_ptr == player_ptr) continue;
+		if (creature_ptr->species_idx || is_player(creature_ptr)) continue;
 
-		/* Count monsters */
+		// Count creature and return using id
 		creature_cnt++;
-
-		/* Use this monster */
 		return (i);
 	}
 
