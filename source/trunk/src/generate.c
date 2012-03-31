@@ -1526,14 +1526,14 @@ void clear_cave(void)
 	for (i = 1; i < max_species_idx; i++)
 		species_info[i].cur_num = 0;
 
-	for (i = 0; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++)
 	{
 		if(is_player(&creature_list[i]) || is_unique_creature(&creature_list[i])) continue;
 		C_WIPE(&creature_list[i], 1, creature_type);
 		creature_cnt--;
 	}
 
-	creature_max = 1;
+	//creature_max = 1;
 
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 

@@ -1561,6 +1561,9 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	/* Hack -- verify */
 	if (limit > max_creature_idx) return 161;
 
+	player_ptr = &creature_list[1];
+	p_ptr = &creature_list[1];
+
 	/* Read the monsters */
 	for (i = 1; i < limit; i++)
 	{
@@ -1629,7 +1632,6 @@ static errr rd_dungeon(void)
 
 	/* Number of the saved_floors array elements */
 	rd_byte(&num);
-
 
 	/*** No saved floor (On the surface etc.) ***/
 	if (!num)
