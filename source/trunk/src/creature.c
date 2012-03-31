@@ -26,7 +26,7 @@ int estimate_level(species_type *species_ptr)
 
 bool is_player(creature_type *creature_ptr)
 {
-	return (creature_ptr && creature_ptr == player_ptr && creature_ptr->player); 
+	return (creature_ptr == player_ptr); 
 }
 
 

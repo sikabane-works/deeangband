@@ -4928,7 +4928,7 @@ bool alloc_guardian(bool def_val)
  *
  * Use "monster_level" for the monster level
  */
-bool alloc_monster(creature_type *player_ptr, int dis, u32b mode)
+bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
 {
 	int			y = 0, x = 0;
 	int         attempts_left = 10000;
