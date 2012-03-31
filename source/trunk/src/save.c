@@ -1183,7 +1183,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	/* Compact the objects */
 	compact_objects(0);
 	/* Compact the monsters */
-	compact_monsters(0);
+	compact_creatures(0);
 
 	/* Guess at the current time */
 	now = (u32b)time((time_t *)0);
@@ -2007,7 +2007,7 @@ static bool save_floor_aux(saved_floor_type *sf_ptr)
 	/* Compact the objects */
 	compact_objects(0);
 	/* Compact the monsters */
-	compact_monsters(0);
+	compact_creatures(0);
 
 
 	/*** Actually write the file ***/

@@ -2771,7 +2771,7 @@ msg_format("%^s%s", m_name, monmessage);
  * monster, and allowing fully energized monsters to move, attack, pass, etc.
  *
  * Note that monsters can never move in the monster array (except when the
- * "compact_monsters()" function is called by "dungeon()" or "save_player()").
+ * "compact_creatures()" function is called by "dungeon()" or "save_player()").
  *
  * This function is responsible for at least half of the processor time
  * on a normal system with a "normal" amount of monsters and a player doing

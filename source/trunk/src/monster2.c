@@ -885,7 +885,7 @@ static void move_creature_object(int i1, int i2)
  * After "compacting" (if needed), we "reorder" the monsters into a more
  * compact order, and we reset the allocation info, and the "live" array.
  */
-void compact_monsters(int size)
+void compact_creatures(int size)
 {
 	int		i, num, cnt;
 	int		cur_lev, cur_dis, chance;
@@ -4186,8 +4186,10 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
+	{
 	creature_type cr;
 	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
+	}
 
 	if(is_unique_species(r_ptr))
 	{
