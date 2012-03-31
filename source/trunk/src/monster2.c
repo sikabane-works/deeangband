@@ -897,6 +897,7 @@ void compact_monsters(int size)
 	if (size) msg_print("Compacting monsters...");
 #endif
 
+	return;
 
 	/* Compact at least 'size' objects */
 	for (num = 0, cnt = 1; num < size; cnt++)
@@ -4185,14 +4186,15 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
+	creature_type cr;
+	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
+
 	if(is_unique_species(r_ptr))
 	{
 		//TODO
 	}
 	else
 	{
-		creature_type cr;
-		creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
 	}
 
 	hack_m_idx_ii = c_ptr->m_idx;

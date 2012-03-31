@@ -7214,7 +7214,7 @@ quit("セーブファイルが壊れています");
 		wipe_object_list();
 		if (!gameover) wipe_creature_list();
 */
-		clear_cave();
+//		clear_cave();
 
 
 		/* XXX XXX XXX */
