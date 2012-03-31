@@ -1052,10 +1052,8 @@ void wipe_creature_list(void)
 	/* Hack -- Wipe the racial counter of all monster races */
 	for (i = 1; i < max_species_idx; i++) species_info[i].cur_num = 0;
 
-	/* Reset "creature_max" */
+	/* Reset "creature_max" and "creature_cnt" */
 	creature_max = 1;
-
-	/* Reset "creature_cnt" */
 	creature_cnt = 0;
 
 	/* Reset "mproc_max[]" */
@@ -1083,19 +1081,17 @@ s16b creature_pop(void)
 {
 	int i;
 
-	/* Normal allocation */
+	// Normal allocation
 	if (creature_max < max_creature_idx)
 	{
-		/* Access the next hole */
+		// Access the next hole
 		i = creature_max;
 
-		/* Expand the array */
+		// Expand the array and count creature
 		creature_max++;
-
-		/* Count monsters */
 		creature_cnt++;
 
-		/* Return the index */
+		// Return the index
 		return (i);
 	}
 
@@ -1112,9 +1108,8 @@ s16b creature_pop(void)
 
 		// Count creature and return using id
 		creature_cnt++;
-		return (i);
+		return i;
 	}
-
 
 	/* Warn the player (except during dungeon creation) */
 #ifdef JP
@@ -1122,7 +1117,6 @@ s16b creature_pop(void)
 #else
 	if (character_dungeon) msg_print("Too many monsters!");
 #endif
-
 
 	/* Try not to crash */
 	return (0);

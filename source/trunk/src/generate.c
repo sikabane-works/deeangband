@@ -1532,10 +1532,10 @@ void clear_cave(void)
 	{
 		if(is_player(&creature_list[i]) || is_unique_creature(&creature_list[i])) continue;
 		C_WIPE(&creature_list[i], 1, creature_type);
+		creature_cnt--;
 	}
 
 	creature_max = 1;
-	creature_cnt = 0;
 
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 
