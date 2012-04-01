@@ -1453,6 +1453,13 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 	(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 }
 
+/*
+ * Creature list 
+ */
+static void do_cmd_wiz_creature_list(void)
+{
+}
+
 
 /*
  * Go to any level
@@ -1886,6 +1893,10 @@ void do_cmd_debug(creature_type *cr_ptr)
 	/* Cure all maladies */
 	case 'a':
 		do_cmd_wiz_cure_all(cr_ptr);
+		break;
+
+	case 'A':
+		do_cmd_wiz_creature_list();
 		break;
 
 	/* Teleport to target */
