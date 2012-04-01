@@ -1470,10 +1470,11 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(i = 0; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %-55s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d HP:%6d/%6d %-32s", i,
+				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
 			ce[i].d_color = TERM_L_DARK;
 			ce[i].l_color = TERM_WHITE;
-			ce[i].key = '0';
+			ce[i].key = '\0';
 			ce[i].code = i;
 		}
 
@@ -1483,7 +1484,7 @@ static void do_cmd_wiz_creature_list(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, creature_max + 1, 1, 1, 20, 80, NULL);
+		i = get_selection(ce, creature_max + 1, 1, 1, 22, 78, NULL);
 		if(i == creature_max) break;
 
 		mode = 0;
