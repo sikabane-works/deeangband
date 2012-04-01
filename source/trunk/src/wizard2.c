@@ -1473,6 +1473,11 @@ static void do_cmd_wiz_creature_list(void)
 			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d HP:%6d/%6d %-30s", i,
 				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
 			ce[i].cap[72] = '\0'; 
+			if(is_player(&creature_list[i]))
+			{
+				ce[i].d_color = TERM_UMBER;
+				ce[i].l_color = TERM_L_UMBER;
+			}
 			if(is_unique_creature(&creature_list[i]))
 			{
 				ce[i].d_color = TERM_GREEN;
