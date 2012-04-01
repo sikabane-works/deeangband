@@ -7210,11 +7210,9 @@ quit("セーブファイルが壊れています");
 		if (!playing && !gameover) break;
 
 		/* Erase the old cave */
-/*
 		wipe_object_list();
-		if (!gameover) wipe_creature_list();
-*/
-//		clear_cave();
+//		if (!gameover) wipe_creature_list();
+		if (!gameover) clear_cave();
 
 
 		/* XXX XXX XXX */
