@@ -1170,7 +1170,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 /*
  * Actually write a save-file
  */
-static bool wr_savefile_new(creature_type *cr_ptr)
+static bool wr_savefile_new(void)
 {
 	int        i, j;
 
@@ -1360,7 +1360,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	}
 
 	/* Write the "extra" information */
-	wr_creature(cr_ptr);
+	wr_creature(player_ptr);
 	wr_extra();
 
 	/* Note the towns */
@@ -1373,8 +1373,8 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 			wr_store(&st_list[i]);
 
 	/* Write the pet command settings */
-	wr_s16b(cr_ptr->pet_follow_distance);
-	wr_s16b(cr_ptr->pet_extra_flags);
+	wr_s16b(player_ptr->pet_follow_distance);
+	wr_s16b(player_ptr->pet_extra_flags);
 
 	/* Write screen dump for sending score */
 	if (screen_dump && (wait_report_score || !gameover))
@@ -1390,7 +1390,7 @@ static bool wr_savefile_new(creature_type *cr_ptr)
 	if (!gameover)
 	{
 		/* Dump the dungeon */
-		if (!wr_dungeon(cr_ptr)) return FALSE;
+		if (!wr_dungeon(player_ptr)) return FALSE;
 
 		/* Dump the ghost */
 		wr_ghost();
@@ -1437,20 +1437,15 @@ static bool wr_savefile_new(creature_type *cr_ptr)
  */
 static bool save_player_aux(char *name)
 {
-	bool    ok = FALSE;
-
-	int             fd = -1;
-
-	int             mode = 0644;
-
+	bool ok = FALSE;
+	int fd = -1;
+	int mode = 0644;
 
 	/* No file yet */
 	fff = NULL;
 
-
 	/* File type is "SAVE" */
 	FILE_TYPE(FILE_TYPE_SAVE);
-
 
 	/* Grab permissions */
 	safe_setuid_grab();
@@ -1480,7 +1475,7 @@ static bool save_player_aux(char *name)
 		if (fff)
 		{
 			/* Write the savefile */
-			if (wr_savefile_new(p_ptr)) ok = TRUE;
+			if (wr_savefile_new()) ok = TRUE;
 
 			/* Attempt to close it */
 			if (my_fclose(fff)) ok = FALSE;
@@ -1516,9 +1511,8 @@ static bool save_player_aux(char *name)
  */
 bool save_player(void)
 {
-	int             result = FALSE;
-
-	char    safe[1024];
+	int result = FALSE;
+	char safe[1024];
 
 
 #ifdef SET_UID

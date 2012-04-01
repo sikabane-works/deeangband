@@ -6728,7 +6728,7 @@ prt("ゲームをセーブしています...", 0, 0);
 	if (save_player())
 	{
 #ifdef JP
-prt("ゲームをセーブしています... 終了", 0, 0);
+		prt("ゲームをセーブしています... 終了", 0, 0);
 #else
 		prt("Saving game... done.", 0, 0);
 #endif
@@ -6739,7 +6739,7 @@ prt("ゲームをセーブしています... 終了", 0, 0);
 	else
 	{
 #ifdef JP
-prt("ゲームをセーブしています... 失敗！", 0, 0);
+		prt("ゲームをセーブしています... 失敗！", 0, 0);
 #else
 		prt("Saving game... failed!", 0, 0);
 #endif
