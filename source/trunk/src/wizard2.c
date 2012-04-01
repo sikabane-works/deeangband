@@ -1458,6 +1458,22 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
  */
 static void do_cmd_wiz_creature_list(void)
 {
+	selection *ce;
+	int i;
+	ce = malloc(sizeof(selection) * creature_max);
+
+	for(i = 0; i < creature_max; i++)
+	{
+		strcpy(ce[i].cap, creature_list[i].name);
+		ce[i].d_color = TERM_L_DARK;
+		ce[i].l_color = TERM_WHITE;
+		ce[i].key = '\0';
+		ce[i].code = i;
+	}
+
+	i = get_selection(ce, creature_max, 1, 1, 20, 50, NULL);
+
+	free(ce);
 }
 
 
