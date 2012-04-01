@@ -5631,10 +5631,10 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 {
 	int i, se = 0, page = 1, offset;
 	int page_num = num / h + 1;
-	char buf[80];
+	char buf[100];
 	char c;
-	char eraser[80];
-	char line[80];
+	char eraser[100];
+	char line[100];
 
 	if (num <= 0) return -1;
 	

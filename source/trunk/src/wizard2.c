@@ -1470,20 +1470,20 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(i = 0; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %60s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %-55s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
 			ce[i].d_color = TERM_L_DARK;
 			ce[i].l_color = TERM_WHITE;
 			ce[i].key = '0';
 			ce[i].code = i;
 		}
 
-		sprintf(ce[i].cap, "END");
+		sprintf(ce[i].cap, " END ");
 		ce[i].d_color = TERM_RED;
 		ce[i].l_color = TERM_L_RED;
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, creature_max + 1, 1, 1, 20, 70, NULL);
+		i = get_selection(ce, creature_max + 1, 1, 1, 20, 80, NULL);
 		if(i == creature_max) break;
 
 		mode = 0;
@@ -1507,7 +1507,6 @@ static void do_cmd_wiz_creature_list(void)
 #else
 				if (get_string("File name: ", tmp, 80))
 #endif
-
 				{
 					if (tmp[0] && (tmp[0] != ' ')) file_character(tmp);
 				}
