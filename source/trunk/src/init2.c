@@ -1493,7 +1493,9 @@ static errr init_other(void)
 
 	/* Allocate and Wipe the monster list */
 	C_MAKE(creature_list, max_creature_idx, creature_type);
-	player_ptr = &creature_list[0];
+
+	player_ptr = &creature_list[1];
+	p_ptr = &creature_list[1];
 
 	/* Allocate and Wipe the monster process list */
 	for (i = 0; i < MAX_MTIMED; i++)
