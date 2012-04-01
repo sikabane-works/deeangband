@@ -1470,10 +1470,20 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(i = 0; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d HP:%6d/%6d %-32s", i,
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d HP:%6d/%6d %-30s", i,
 				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
-			ce[i].d_color = TERM_L_DARK;
-			ce[i].l_color = TERM_WHITE;
+			ce[i].cap[72] = '\0'; 
+			if(is_unique_creature(&creature_list[i]))
+			{
+				ce[i].d_color = TERM_GREEN;
+				ce[i].l_color = TERM_L_GREEN;
+			}
+			else
+			{
+				ce[i].d_color = TERM_L_DARK;
+				ce[i].l_color = TERM_WHITE;
+			}
+
 			ce[i].key = '\0';
 			ce[i].code = i;
 		}
