@@ -1460,21 +1460,33 @@ static void do_cmd_wiz_creature_list(void)
 {
 	selection *ce;
 	int i;
-	ce = malloc(sizeof(selection) * creature_max);
+	ce = malloc(sizeof(selection) * (creature_max + 1));
 
 	screen_save();
 
-	for(i = 0; i < creature_max; i++)
+	while(1)
 	{
-		sprintf(ce[i].cap, "[%4d] %s", i, creature_list[i].name);
-		ce[i].d_color = TERM_L_DARK;
-		ce[i].l_color = TERM_WHITE;
-		ce[i].key = '\0';
-		ce[i].code = i;
-	}
 
-	i = get_selection(ce, creature_max, 1, 1, 20, 70, NULL);
-	display_creature_status(0, &creature_list[i]);
+		for(i = 0; i < creature_max; i++)
+		{
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
+			ce[i].d_color = TERM_L_DARK;
+			ce[i].l_color = TERM_WHITE;
+			ce[i].key = '\0';
+			ce[i].code = i;
+		}
+
+		sprintf(ce[i].cap, "I—¹");
+		ce[i].d_color = TERM_RED;
+		ce[i].l_color = TERM_L_RED;
+		ce[i].key = '\e';
+		ce[i].code = i;
+
+		i = get_selection(ce, creature_max + 1, 1, 1, 20, 70, NULL);
+		if(i == creature_max) break;
+		display_creature_status(0, &creature_list[i]);
+
+	}
 
 	screen_load();
 
