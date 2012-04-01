@@ -1459,7 +1459,8 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 static void do_cmd_wiz_creature_list(void)
 {
 	selection *ce;
-	int i;
+	int i, mode;
+	char k, tmp[80];
 	ce = malloc(sizeof(selection) * (creature_max + 1));
 
 	screen_save();
@@ -1469,23 +1470,58 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(i = 0; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %60s", i, creature_list[i].fx, creature_list[i].fy, creature_list[i].name);
 			ce[i].d_color = TERM_L_DARK;
 			ce[i].l_color = TERM_WHITE;
-			ce[i].key = '\0';
+			ce[i].key = '0';
 			ce[i].code = i;
 		}
 
-		sprintf(ce[i].cap, "終了");
+		sprintf(ce[i].cap, "END");
 		ce[i].d_color = TERM_RED;
 		ce[i].l_color = TERM_L_RED;
-		ce[i].key = '\e';
+		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
 		i = get_selection(ce, creature_max + 1, 1, 1, 20, 70, NULL);
 		if(i == creature_max) break;
-		display_creature_status(0, &creature_list[i]);
 
+		mode = 0;
+		while(1)
+		{
+			display_creature_status(mode, &creature_list[i]);
+			k = inkey();
+
+			// Exit
+			if (k == ESCAPE) break;
+
+			// Change name
+			if (k == 'c') process_creature_name(FALSE, &creature_list[i]);
+
+			// File dump
+			else if (k == 'f')
+			{
+				sprintf(tmp, "%s.txt", player_base);
+#ifdef JP
+				if (get_string("ファイル名: ", tmp, 80))
+#else
+				if (get_string("File name: ", tmp, 80))
+#endif
+
+				{
+					if (tmp[0] && (tmp[0] != ' ')) file_character(tmp);
+				}
+			}
+
+			// Toggle mode
+			else if (k == 'h') mode = (mode++ % 9);
+
+			// Oops
+			else bell();
+
+			// Flush messages
+			msg_print(NULL);
+		}
 	}
 
 	screen_load();
