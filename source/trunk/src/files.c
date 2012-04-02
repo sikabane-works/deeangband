@@ -6724,19 +6724,15 @@ prt("ゲームをセーブしています...", 0, 0);
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
-	/* Save the player */
-	if (save_player())
+	if (save_player()) // Save the player
 	{
 #ifdef JP
 		prt("ゲームをセーブしています... 終了", 0, 0);
 #else
 		prt("Saving game... done.", 0, 0);
 #endif
-
 	}
-
-	/* Save failed (oops) */
-	else
+	else // Save failed (oops)
 	{
 #ifdef JP
 		prt("ゲームをセーブしています... 失敗！", 0, 0);

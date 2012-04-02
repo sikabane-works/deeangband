@@ -3113,10 +3113,9 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	if (IS_FEMALE(tar_ptr) && has_cf_creature(tar_ptr, CF_HUMANOID) &&
-
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
 	{
-		//TODO if ((atk_ptr->inventory[].name1 == ART_ZANTETSU) || (atk_ptr->inventory[].name1 == ART_ZANTETSU))
+		/*TODO if ((atk_ptr->inventory[].name1 == ART_ZANTETSU) || (atk_ptr->inventory[].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
@@ -3125,6 +3124,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 #endif
 			return FALSE;
 		}
+		*/
 	}
 
 	if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)

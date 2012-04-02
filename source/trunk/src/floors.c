@@ -889,27 +889,29 @@ void leave_floor(creature_type *cr_ptr)
 		}
 	}
 
-	/* Maintain quest monsters */
+	//TODO: Temporary Omit  Maintain quest monsters
+	/*
 	for (i = 1; i < creature_max; i++)
 	{
 		species_type *r_ptr;
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip dead monsters */
+		// Skip dead monsters
 		if (!m_ptr->species_idx) continue;
 
-		/* Only maintain quest monsters */
+		// Only maintain quest monsters
 		if (quest_species_idx != m_ptr->species_idx) continue;
 
-		/* Extract real monster race */
+		// Extract real monster race
 		r_ptr = real_species_ptr(m_ptr);
 
-		/* Ignore unique monsters */
+		// Ignore unique monsters
 		if (is_unique_species(r_ptr) || has_cf(&r_ptr->flags, CF_NAZGUL)) continue;
 
-		/* Delete non-unique quest monsters */
+		// Delete non-unique quest monsters
 		delete_species_idx(&creature_list[i]);
 	}
+	*/
 
 	/* Check if there is a same item */
 	for (i = 0; i < INVEN_TOTAL; i++)
