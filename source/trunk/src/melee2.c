@@ -1453,7 +1453,7 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
  *
  * A "direction" of "5" means "pick a random direction".
  */
-static void process_monster(creature_type *player_ptr, int m_idx)
+static void process_monster(int m_idx)
 {
 	creature_type    *nonplayer_ptr = &creature_list[m_idx];
 	species_type    *r_ptr = &species_info[nonplayer_ptr->species_idx];
@@ -2960,7 +2960,7 @@ void process_monsters(creature_type *cr_ptr)
 		hack_m_idx = i;
 
 		/* Process the monster */
-		process_monster(cr_ptr, i);
+		process_monster(i);
 
 		reset_target(m_ptr);
 
@@ -3251,7 +3251,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		process_monster(player_ptr, the_world);
+		process_monster(the_world);
 
 		reset_target(m_ptr);
 
