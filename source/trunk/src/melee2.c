@@ -2931,18 +2931,10 @@ void process_creatures(void)
 		/* Do nothing */
 		if (!test) continue;
 
+		speed = creature_ptr->speed;
 
-		if (player_ptr->riding == i)
-			speed = player_ptr->speed;
-		else
-		{
-			speed = creature_ptr->speed;
-
-			/* Monsters move quickly in Nightmare mode */
-			if (curse_of_Iluvatar) speed += 5;
-			if (creature_ptr->fast) speed += 10;
-			if (creature_ptr->slow) speed -= 10;
-		}
+		// Monsters move quickly in curse of Iluvatar mode
+		if (curse_of_Iluvatar) speed += 5;
 
 		/* Give this monster some energy */
 		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed);
@@ -2952,7 +2944,6 @@ void process_creatures(void)
 
 		/* Use up "some" energy */
 		creature_ptr->energy_need += ENERGY_NEED();
-
 
 		/* Save global index */
 		hack_m_idx = i;
