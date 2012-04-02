@@ -2835,7 +2835,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * Note that this function is called once per monster every time the
  * player moves.  When the player is running, this function is one
  * of the primary bottlenecks, along with "update_view()" and the
- * "process_monsters()" code, so efficiency is important.
+ * "process_creatures()" code, so efficiency is important.
  *
  * Note the optimized "inline" version of the "distance()" function.
  *
@@ -4298,7 +4298,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		repair_monsters = TRUE;
 	}
 
-	/* Hack -- see "process_monsters()" */
+	/* Hack -- see "process_creatures()" */
 	if (c_ptr->m_idx < hack_m_idx)
 	{
 		/* Monster is still being born */

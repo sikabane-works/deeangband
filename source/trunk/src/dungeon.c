@@ -6404,8 +6404,8 @@ msg_print("ŽŽ‡ŠJŽnI");
 		/* Hack -- Notice death or departure */
 		if (!playing || gameover) break;
 
-		/* Process all of the monsters */
-		process_monsters(player_ptr);
+		// Process all of the monsters in this floor.
+		process_creatures();
 
 		/* Handle "player_ptr->creature_update" */
 		notice_stuff(player_ptr);

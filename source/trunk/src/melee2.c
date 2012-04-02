@@ -2795,7 +2795,7 @@ msg_format("%^s%s", m_name, monmessage);
  * changes (flags, attacks, spells), we induce a redraw of the monster
  * recall window.
  */
-void process_monsters(creature_type *cr_ptr)
+void process_creatures(void)
 {
 	int             i;
 	int             fx, fy;
@@ -2891,7 +2891,7 @@ void process_monsters(creature_type *cr_ptr)
 		fy = m_ptr->fy;
 
 		/* Flow by smell is allowed */
-		if (!cr_ptr->no_flowed)
+		if (!player_ptr->no_flowed)
 		{
 			m_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 		}
@@ -2908,18 +2908,18 @@ void process_monsters(creature_type *cr_ptr)
 
 		/* Handle "sight" and "aggravation" */
 		else if ((m_ptr->cdis <= MAX_SIGHT) &&
-			(player_has_los_bold(fy, fx) || (cr_ptr->cursed & TRC_AGGRAVATE)))
+			(player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
 		{
 			/* We can "see" or "feel" the player */
 			test = TRUE;
 		}
 
-#if 0 /* (cave[cr_ptr->fy][cr_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
+#if 0 /* (cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
 		/* Hack -- Monsters can "smell" the player from far away */
 		/* Note that most monsters have "aaf" of "20" or so */
 		else if (!(m_ptr->mflag2 & MFLAG2_NOFLOW) &&
-			cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_MOVE) &&
-			(cave[cr_ptr->fy][cr_ptr->fx].when == cave[fy][fx].when) &&
+			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
+			(cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) &&
 			(cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
 			(cave[fy][fx].dist < r_ptr->aaf))
 		{
@@ -2933,8 +2933,8 @@ void process_monsters(creature_type *cr_ptr)
 		if (!test) continue;
 
 
-		if (cr_ptr->riding == i)
-			speed = cr_ptr->speed;
+		if (player_ptr->riding == i)
+			speed = player_ptr->speed;
 		else
 		{
 			speed = m_ptr->speed;
@@ -2965,7 +2965,7 @@ void process_monsters(creature_type *cr_ptr)
 		reset_target(m_ptr);
 
 		/* Give up flow_by_smell when it might useless */
-		if (cr_ptr->no_flowed && one_in_(3))
+		if (player_ptr->no_flowed && one_in_(3))
 			m_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 		/* Hack -- notice death or departure */
