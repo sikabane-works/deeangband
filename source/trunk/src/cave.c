@@ -2982,16 +2982,16 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 
 
 /*
- * Update squares illuminated or darkened by monsters.
+ * Update squares illuminated or darkened by creatures.
  *
  * Hack - use the CAVE_ROOM flag (renamed to be CAVE_MNLT) to
- * denote squares illuminated by monsters.
+ * denote squares illuminated by creatures.
  *
  * The CAVE_TEMP and CAVE_XTRA flag are used to store the state during the
  * updating.  Only squares in view of the player, whos state
  * changes are drawn via lite_spot().
  */
-void update_mon_lite(creature_type *cr_ptr)
+void update_creature_lite(creature_type *cr_ptr)
 {
 	int i, rad;
 	cave_type *c_ptr;
@@ -4055,7 +4055,7 @@ void update_view(creature_type *cr_ptr)
 
 /*
  * Mega-Hack -- Delayed visual update
- * Only used if update_view(), update_lite() or update_mon_lite() was called
+ * Only used if update_view(), update_lite() or update_creature_lite() was called
  */
 void delayed_visual_update(void)
 {

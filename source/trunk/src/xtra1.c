@@ -5754,7 +5754,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	{
 		update &= ~(PU_DISTANCE);
 
-		/* Still need to call update_monsters(FALSE) after update_mon_lite() */ 
+		/* Still need to call update_monsters(FALSE) after update_creature_lite() */ 
 		/* update &= ~(PU_MONSTERS); */
 
 		update_monsters(TRUE);
@@ -5763,12 +5763,12 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_MON_LITE))
 	{
 		update &= ~(PU_MON_LITE);
-		update_mon_lite(cr_ptr);
+		update_creature_lite(cr_ptr);
 	}
 
 	/*
 	 * Mega-Hack -- Delayed visual update
-	 * Only used if update_view(), update_lite() or update_mon_lite() was called
+	 * Only used if update_view(), update_lite() or update_creature_lite() was called
 	 */
 	if (update & (PU_DELAY_VIS))
 	{
