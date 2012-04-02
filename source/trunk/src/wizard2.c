@@ -1544,6 +1544,50 @@ static void do_cmd_wiz_creature_list(void)
 	free(ce);
 }
 
+/*
+ * Floor object list 
+ */
+
+static void do_cmd_wiz_floor_object_list(void)
+{
+	selection *ce;
+	int i;
+	char tmp[100];
+	ce = malloc(sizeof(selection) * (object_max + 1));
+
+	screen_save();
+
+	while(1)
+	{
+
+		for(i = 0; i < object_max; i++)
+		{
+			object_desc(tmp, &object_list[i], 0);
+			sprintf(ce[i].cap, "[%4d] X:%3d Y:%3d %-40s", i,
+				object_list[i].ix, object_list[i].iy, tmp);
+			ce[i].cap[72] = '\0'; 
+
+			ce[i].d_color = TERM_L_DARK;
+			ce[i].l_color = TERM_WHITE;
+			ce[i].key = '\0';
+			ce[i].code = i;
+		}
+
+		sprintf(ce[i].cap, " END ");
+		ce[i].d_color = TERM_RED;
+		ce[i].l_color = TERM_L_RED;
+		ce[i].key = ESCAPE;
+		ce[i].code = i;
+
+		i = get_selection(ce, object_max + 1, 1, 1, 22, 78, NULL);
+		if(i == object_max) break;
+
+	}
+
+	screen_load();
+
+	free(ce);
+}
 
 /*
  * Go to any level
@@ -2035,11 +2079,17 @@ void do_cmd_debug(creature_type *cr_ptr)
 		do_cmd_wiz_create_feature(cr_ptr);
 		break;
 
-	/* Good Objects */
+	// Good Objects
 	case 'g':
 		if (command_arg <= 0) command_arg = 1;
 		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, FALSE, TRUE);
 		break;
+
+	// Put goods list
+	case 'G':
+		do_cmd_wiz_floor_object_list();
+		break;
+
 
 	/* Hitpoint rerating */
 	case 'h':
