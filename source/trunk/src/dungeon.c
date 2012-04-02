@@ -7015,7 +7015,7 @@ quit("セーブファイルが壊れています");
 
 	player_ptr->teleport_town = FALSE;
 	player_ptr->sutemi = FALSE;
-	world_monster = FALSE;
+	the_world = FALSE;
 	player_ptr->now_damaged = FALSE;
 	now_message = 0;
 	start_time = (u32b)time(NULL) - 1;

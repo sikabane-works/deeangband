@@ -1017,7 +1017,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	/*** Try to pick an appropriate spell type ***/
 
 	/* world */
-	if (world_num && (randint0(100) < 15) && !world_monster)
+	if (world_num && (randint0(100) < 15) && !the_world)
 	{
 		/* Choose haste spell */
 		return (world[randint0(world_num)]);
@@ -1076,7 +1076,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_cf(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !world_monster)
+	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_cf(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !the_world)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);
@@ -1127,7 +1127,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Try another tactical spell (sometimes) */
-	if (tactic_num && (randint0(100) < 50) && !world_monster)
+	if (tactic_num && (randint0(100) < 50) && !the_world)
 	{
 		/* Choose tactic spell */
 		return (tactic[randint0(tactic_num)]);
@@ -1302,7 +1302,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	bool seen = (!blind && caster_ptr->ml);
 
 	bool maneable = player_has_los_bold(caster_ptr->fy, caster_ptr->fx);
-	bool learnable = (seen && maneable && !world_monster);
+	bool learnable = (seen && maneable && !the_world);
 
 	/* Check "projectable" */
 	bool direct;
@@ -4321,7 +4321,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 		learn_spell(target_ptr, thrown_spell - 96);
 	}
 
-	if (seen && maneable && !world_monster && (target_ptr->cls_idx == CLASS_IMITATOR))
+	if (seen && maneable && !the_world && (target_ptr->cls_idx == CLASS_IMITATOR))
 	{
 		if (thrown_spell != CF_SPECIAL)
 		{

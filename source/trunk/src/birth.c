@@ -2809,22 +2809,22 @@ void creature_wipe(creature_type *creature_ptr)
 
 
 /*
- *  Hook function for quest monsters
+ *  Hook function for quest creatures
  */
 static bool mon_hook_quest(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Random quests are in the dungeon */
+	// Random quests are in the dungeon
 	if (is_wild_only_species(r_ptr)) return FALSE;
 
-	/* No random quests for aquatic monsters */
+	// No random quests for aquatic creatures
 	if (is_aquatic_species(r_ptr)) return FALSE;
 
-	/* No random quests for multiplying monsters */
+	// No random quests for multiplying creatures
 	if (is_multiply_species(r_ptr)) return FALSE;
 
-	/* No quests to kill friendly monsters */
+	// No quests to kill friendly creatures
 	if (is_friendly_species(r_ptr)) return FALSE;
 
 	return TRUE;

@@ -3219,7 +3219,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 {
 	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world monster */
 
-	if(world_monster) return (FALSE);
+	if(the_world) return (FALSE);
 
 	if(vs_player)
 	{
@@ -3243,15 +3243,15 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		msg_print(NULL);
 	}
 
-	/* This monster cast spells */
-	world_monster = hack_m_idx;
+	// This monster cast spells
+	the_world = hack_m_idx;
 
 	if (vs_player) do_cmd_redraw();
 
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		process_monster(player_ptr, world_monster);
+		process_monster(player_ptr, the_world);
 
 		reset_target(m_ptr);
 
@@ -3280,7 +3280,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	world_monster = 0;
+	the_world = 0;
 	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP

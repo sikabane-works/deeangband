@@ -1409,7 +1409,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
 		/* Hack -- fake monochrome */
 		if (!use_graphics)
 		{
-			if (world_monster) a = TERM_DARK;
+			if (the_world) a = TERM_DARK;
 			else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
 			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 		}
@@ -1578,7 +1578,7 @@ void display_dungeon(creature_type *cr_ptr)
 				/* Hack -- fake monochrome */
 				if (!use_graphics)
 				{
-					if (world_monster) a = TERM_DARK;
+					if (the_world) a = TERM_DARK;
 					else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
 					else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 				}
@@ -1629,7 +1629,7 @@ void lite_spot(int y, int x)
 		/* Hack -- fake monochrome */
 		if (!use_graphics)
 		{
-			if (world_monster) a = TERM_DARK;
+			if (the_world) a = TERM_DARK;
 			else if (IS_INVULN(player_ptr) || world_player) a = TERM_WHITE;
 			else if (player_ptr->wraith_form) a = TERM_L_DARK;
 
@@ -1712,7 +1712,7 @@ void prt_map(creature_type *cr_ptr)
 			/* Hack -- fake monochrome */
 			if (!use_graphics)
 			{
-				if (world_monster) a = TERM_DARK;
+				if (the_world) a = TERM_DARK;
 				else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
 				else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 			}
@@ -1784,7 +1784,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 
 			if (!use_graphics)
 			{
-				if (world_monster) a = TERM_DARK;
+				if (the_world) a = TERM_DARK;
 				else if (IS_INVULN(creature_ptr) || world_player) a = TERM_WHITE;
 				else if (creature_ptr->wraith_form) a = TERM_L_DARK;
 			}
@@ -2104,7 +2104,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 			/* Hack -- fake monochrome */
 			if (!use_graphics)
 			{
-				if (world_monster) ta = TERM_DARK;
+				if (the_world) ta = TERM_DARK;
 				else if (IS_INVULN(watcher_ptr) || world_player) ta = TERM_WHITE;
 			}
 
@@ -3023,7 +3023,7 @@ void update_creature_lite(void)
 	temp_n = 0;
 
 	/* If a monster stops time, don't process */
-	if (!world_monster)
+	if (!the_world)
 	{
 		creature_type *creature_ptr;
 		species_type *species_ptr;

@@ -2837,7 +2837,7 @@ void msg_print(cptr msg)
 
 	char buf[1024];
 
-	if (world_monster) return;
+	if (the_world) return;
 
 	/* Hack -- Reset */
 	if (!msg_flag) {

@@ -564,7 +564,7 @@ extern s16b gf_color[MAX_GF];
 extern int init_flags;
 extern int highscore_fd;
 extern bool can_save;
-extern s16b world_monster;
+extern s16b the_world;
 extern bool world_player;
 extern s16b battle_mon[4];
 extern int sel_monster;

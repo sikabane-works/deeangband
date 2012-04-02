@@ -775,7 +775,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 		&& !monster_arena_mode && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
-	if (world_monster && &creature_list[world_monster] == killed_ptr) world_monster = 0;
+	if (the_world && &creature_list[the_world] == killed_ptr) the_world = 0;
 
 	/* Notice changes in view */
 	if (is_lighting_creature(killed_ptr) || is_darken_creature(killed_ptr))
