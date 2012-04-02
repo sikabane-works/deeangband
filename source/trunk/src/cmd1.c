@@ -1985,11 +1985,10 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	int		num = 0, k, bonus, chance;
 
 	cave_type       *c_ptr = &cave[y][x];
-
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
-	/* Access the weapon */
-	object_type     *o_ptr = &atk_ptr->inventory[hand];
+	// Access the weapon
+	object_type     *o_ptr = get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_HAND, hand);
 
 	char            atk_name[80];
 	char            tar_name[80];
@@ -3276,8 +3275,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 2, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{
