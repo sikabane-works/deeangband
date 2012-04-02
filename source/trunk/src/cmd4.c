@@ -7941,7 +7941,7 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 /*
  * Display the monsters in a group.
  */
-static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
+static void display_creature_list(int col, int row, int per_page, s16b mon_idx[],
 	int mon_cur, int mon_top, bool visual_only)
 {
 	int i;
@@ -8149,14 +8149,14 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 		if (!visual_list)
 		{
 			/* Display a list of monsters in the current group */
-			display_monster_list(max + 3, 6, browser_rows, mon_idx, mon_cur, mon_top, visual_only);
+			display_creature_list(max + 3, 6, browser_rows, mon_idx, mon_cur, mon_top, visual_only);
 		}
 		else
 		{
 			mon_top = mon_cur;
 
-			/* Display a monster name */
-			display_monster_list(max + 3, 6, 1, mon_idx, mon_cur, mon_top, visual_only);
+			/* Display a creature name */
+			display_creature_list(max + 3, 6, 1, mon_idx, mon_cur, mon_top, visual_only);
 
 			/* Display visual list below first monster */
 			display_visual_list(max + 3, 7, browser_rows-1, wid - (max + 3), attr_top, char_left);
