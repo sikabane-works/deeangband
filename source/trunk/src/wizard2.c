@@ -1476,9 +1476,9 @@ static void do_cmd_wiz_creature_list(void)
 			if(is_player(&creature_list[i]))
 			{
 				ce[i].d_color = TERM_UMBER;
-				ce[i].l_color = TERM_L_UMBER;
+				ce[i].l_color = TERM_YELLOW;
 			}
-			if(is_unique_creature(&creature_list[i]))
+			else if(is_unique_creature(&creature_list[i]))
 			{
 				ce[i].d_color = TERM_GREEN;
 				ce[i].l_color = TERM_L_GREEN;
