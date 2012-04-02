@@ -708,7 +708,7 @@ extern void forget_lite(void);
 extern void update_lite(creature_type *cr_ptr);
 extern void forget_view(void);
 extern void update_view(creature_type *cr_ptr);
-extern void update_creature_lite(creature_type *cr_ptr);
+extern void update_creature_lite(void);
 extern void clear_mon_lite(void);
 extern void delayed_visual_update(void);
 extern void forget_flow(void);
