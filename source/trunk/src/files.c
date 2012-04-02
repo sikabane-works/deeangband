@@ -1926,7 +1926,7 @@ static void display_player_middle(creature_type *creature_ptr)
 		byte attr;
 		int i;
 
-		i = creature_ptr->speed-110;
+		i = creature_ptr->speed - 110;
 
 		/* Hack -- Visually "undo" the Search Mode Slowdown */
 		if (creature_ptr->action == ACTION_SEARCH) i += 10;

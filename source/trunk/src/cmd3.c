@@ -264,6 +264,10 @@ void do_cmd_wield(creature_type *cr_ptr)
 	if(i > cr_ptr->item_slot_num[slot])
 			msg_format("%d‚Â‚Ì˜g‚ª‹ó‚¢‚Ä‚¢‚È‚©‚Á‚½B\n", i);
 
+	/* Recalculate bonuses */
+	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+	update_creature(cr_ptr, TRUE);
+
 	return;
 
 #if 0
