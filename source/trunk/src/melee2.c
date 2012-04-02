@@ -2802,8 +2802,8 @@ void process_creatures(void)
 
 	bool            test;
 
-	creature_type    *m_ptr;
-	species_type    *r_ptr;
+	creature_type   *creature_ptr;
+	species_type    *species_ptr;
 
 	int             old_species_window_idx;
 
@@ -2834,25 +2834,25 @@ void process_creatures(void)
 	if (species_window_idx)
 	{
 		/* Acquire current monster */
-		r_ptr = &species_info[species_window_idx];
+		species_ptr = &species_info[species_window_idx];
 
 		/* Memorize flags */
-		old_r_flags1 = r_ptr->r_flags1;
-		old_r_flags2 = r_ptr->r_flags2;
-		old_r_flags3 = r_ptr->r_flags3;
-		old_r_flags4 = r_ptr->r_flags4;
-		old_r_flags5 = r_ptr->r_flags5;
-		old_r_flags6 = r_ptr->r_flags6;
-		old_r_flags10 = r_ptr->r_flags10;
+		old_r_flags1 = species_ptr->r_flags1;
+		old_r_flags2 = species_ptr->r_flags2;
+		old_r_flags3 = species_ptr->r_flags3;
+		old_r_flags4 = species_ptr->r_flags4;
+		old_r_flags5 = species_ptr->r_flags5;
+		old_r_flags6 = species_ptr->r_flags6;
+		old_r_flags10 = species_ptr->r_flags10;
 
 		/* Memorize blows */
-		old_r_blows0 = r_ptr->r_blows[0];
-		old_r_blows1 = r_ptr->r_blows[1];
-		old_r_blows2 = r_ptr->r_blows[2];
-		old_r_blows3 = r_ptr->r_blows[3];
+		old_r_blows0 = species_ptr->r_blows[0];
+		old_r_blows1 = species_ptr->r_blows[1];
+		old_r_blows2 = species_ptr->r_blows[2];
+		old_r_blows3 = species_ptr->r_blows[3];
 
 		/* Memorize castings */
-		old_r_cast_spell = r_ptr->r_cast_spell;
+		old_r_cast_spell = species_ptr->r_cast_spell;
 	}
 
 
@@ -2860,54 +2860,53 @@ void process_creatures(void)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		/* Access the monster */
-		m_ptr = &creature_list[i];
-		r_ptr = &species_info[m_ptr->species_idx];
+		creature_ptr = &creature_list[i];
+		species_ptr  = &species_info[creature_ptr->species_idx];
 
 		/* Handle "leaving" */
 		if (subject_change_floor) break;
 
-		/* Ignore "dead" monsters */
-		if (!m_ptr->species_idx) continue;
-
+		// Ignore dead or out of floot creatures
+		if (!creature_ptr->species_idx) continue;
+		if (!is_in_this_floor(creature_ptr)) continue;
 		if (wild_mode) continue;
 
-
 		/* Handle "fresh" monsters */
-		if (m_ptr->mflag & MFLAG_BORN)
+		if (creature_ptr->mflag & MFLAG_BORN)
 		{
 			/* No longer "fresh" */
-			m_ptr->mflag &= ~(MFLAG_BORN);
+			creature_ptr->mflag &= ~(MFLAG_BORN);
 
 			/* Skip */
 			continue;
 		}
 
 		/* Hack -- Require proximity */
-		if (m_ptr->cdis >= AAF_LIMIT) continue;
+		if (creature_ptr->cdis >= AAF_LIMIT) continue;
 
 
 		/* Access the location */
-		fx = m_ptr->fx;
-		fy = m_ptr->fy;
+		fx = creature_ptr->fx;
+		fy = creature_ptr->fy;
 
 		/* Flow by smell is allowed */
 		if (!player_ptr->no_flowed)
 		{
-			m_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+			creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 		}
 
 		/* Assume no move */
 		test = FALSE;
 
 		/* Handle "sensing radius" */
-		if (m_ptr->cdis <= (is_pet(player_ptr, m_ptr) ? (r_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+		if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
 		{
 			/* We can "sense" the player */
 			test = TRUE;
 		}
 
 		/* Handle "sight" and "aggravation" */
-		else if ((m_ptr->cdis <= MAX_SIGHT) &&
+		else if ((creature_ptr->cdis <= MAX_SIGHT) &&
 			(player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
 		{
 			/* We can "see" or "feel" the player */
@@ -2917,17 +2916,17 @@ void process_creatures(void)
 #if 0 /* (cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
 		/* Hack -- Monsters can "smell" the player from far away */
 		/* Note that most monsters have "aaf" of "20" or so */
-		else if (!(m_ptr->mflag2 & MFLAG2_NOFLOW) &&
+		else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
 			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
 			(cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) &&
 			(cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
-			(cave[fy][fx].dist < r_ptr->aaf))
+			(cave[fy][fx].dist < species_ptr->aaf))
 		{
 			/* We can "smell" the player */
 			test = TRUE;
 		}
 #endif
-		else if (m_ptr->target_y) test = TRUE;
+		else if (creature_ptr->target_y) test = TRUE;
 
 		/* Do nothing */
 		if (!test) continue;
@@ -2937,23 +2936,22 @@ void process_creatures(void)
 			speed = player_ptr->speed;
 		else
 		{
-			speed = m_ptr->speed;
+			speed = creature_ptr->speed;
 
 			/* Monsters move quickly in Nightmare mode */
 			if (curse_of_Iluvatar) speed += 5;
-
-			if (m_ptr->fast) speed += 10;
-			if (m_ptr->slow) speed -= 10;
+			if (creature_ptr->fast) speed += 10;
+			if (creature_ptr->slow) speed -= 10;
 		}
 
 		/* Give this monster some energy */
-		m_ptr->energy_need -= SPEED_TO_ENERGY(speed);
+		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed);
 
 		/* Not enough energy to move */
-		if (m_ptr->energy_need > 0) continue;
+		if (creature_ptr->energy_need > 0) continue;
 
 		/* Use up "some" energy */
-		m_ptr->energy_need += ENERGY_NEED();
+		creature_ptr->energy_need += ENERGY_NEED();
 
 
 		/* Save global index */
@@ -2962,11 +2960,11 @@ void process_creatures(void)
 		/* Process the monster */
 		process_monster(i);
 
-		reset_target(m_ptr);
+		reset_target(creature_ptr);
 
 		/* Give up flow_by_smell when it might useless */
 		if (player_ptr->no_flowed && one_in_(3))
-			m_ptr->mflag2 |= MFLAG2_NOFLOW;
+			creature_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 		/* Hack -- notice death or departure */
 		if (!playing || gameover) break;
@@ -2983,21 +2981,21 @@ void process_creatures(void)
 	if (species_window_idx && (species_window_idx == old_species_window_idx))
 	{
 		/* Acquire monster race */
-		r_ptr = &species_info[species_window_idx];
+		species_ptr = &species_info[species_window_idx];
 
 		/* Check for knowledge change */
-		if ((old_r_flags1 != r_ptr->r_flags1) ||
-			(old_r_flags2 != r_ptr->r_flags2) ||
-			(old_r_flags3 != r_ptr->r_flags3) ||
-			(old_r_flags4 != r_ptr->r_flags4) ||
-			(old_r_flags5 != r_ptr->r_flags5) ||
-			(old_r_flags6 != r_ptr->r_flags6) ||
-			(old_r_flags10 != r_ptr->r_flags10) ||
-			(old_r_blows0 != r_ptr->r_blows[0]) ||
-			(old_r_blows1 != r_ptr->r_blows[1]) ||
-			(old_r_blows2 != r_ptr->r_blows[2]) ||
-			(old_r_blows3 != r_ptr->r_blows[3]) ||
-			(old_r_cast_spell != r_ptr->r_cast_spell))
+		if ((old_r_flags1 != species_ptr->r_flags1) ||
+			(old_r_flags2 != species_ptr->r_flags2) ||
+			(old_r_flags3 != species_ptr->r_flags3) ||
+			(old_r_flags4 != species_ptr->r_flags4) ||
+			(old_r_flags5 != species_ptr->r_flags5) ||
+			(old_r_flags6 != species_ptr->r_flags6) ||
+			(old_r_flags10 != species_ptr->r_flags10) ||
+			(old_r_blows0 != species_ptr->r_blows[0]) ||
+			(old_r_blows1 != species_ptr->r_blows[1]) ||
+			(old_r_blows2 != species_ptr->r_blows[2]) ||
+			(old_r_blows3 != species_ptr->r_blows[3]) ||
+			(old_r_cast_spell != species_ptr->r_cast_spell))
 		{
 			/* Window stuff */
 			play_window |= (PW_MONSTER);
