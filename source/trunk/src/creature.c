@@ -29,6 +29,11 @@ bool is_player(creature_type *creature_ptr)
 	return (creature_ptr == player_ptr); 
 }
 
+bool is_in_this_floor(creature_type *creature_ptr)
+{
+	return creature_ptr->fx && creature_ptr->fy; 
+}
+
 
 /*
  * Set Creature's sex
