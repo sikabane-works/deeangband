@@ -6177,7 +6177,7 @@ msg_print("中断しました。");
  * This function will not exit until the level is completed,
  * the user dies, or the game is terminated.
  */
-static void dungeon(creature_type *cr_ptr, bool load_game)
+static void dungeon(bool load_game)
 {
 	int quest_num = 0;
 
@@ -6232,9 +6232,9 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	}
 
 	/* Track maximum player level */
-	if (cr_ptr->max_plv < cr_ptr->lev)
+	if (player_ptr->max_plv < player_ptr->lev)
 	{
-		cr_ptr->max_plv = cr_ptr->lev;
+		player_ptr->max_plv = player_ptr->lev;
 	}
 
 
@@ -6245,13 +6245,13 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
 	}
 
-	(void)calculate_upkeep(cr_ptr);
+	(void)calculate_upkeep(player_ptr);
 
 	/* Validate the panel */
 	panel_bounds_center();
 
 	/* Verify the panel */
-	verify_panel(cr_ptr);
+	verify_panel(player_ptr);
 
 	/* Flush messages */
 	msg_print(NULL);
@@ -6270,7 +6270,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	play_redraw |= (PR_MAP);
 
 	/* Update stuff */
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
+	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 
 	/* Update lite/view */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
@@ -6285,13 +6285,13 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	character_xtra = FALSE;
 
 	/* Update stuff */
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Combine / Reorder the pack */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	player_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Handle "cr_ptr->creature_update" */
-	notice_stuff(cr_ptr);
+	/* Handle "player_ptr->creature_update" */
+	notice_stuff(player_ptr);
 
 	/* Handle "update" and "play_redraw" and "play_window" */
 	handle_stuff();
@@ -6301,13 +6301,13 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 
 	if (quest_num && (is_fixed_quest_idx(quest_num) &&
 	    !( quest_num == QUEST_SERPENT ||
-	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(cr_ptr);
+	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
 
 	if (monster_arena_mode)
 	{
 		if (load_game)
 		{
-			cr_ptr->energy_need = 0;
+			player_ptr->energy_need = 0;
 			battle_monsters();
 		}
 		else
@@ -6321,8 +6321,8 @@ msg_print("試合開始！");
 		}
 	}
 
-	if ((cr_ptr->cls_idx == CLASS_BARD) && (cr_ptr->magic_num1[0] > MUSIC_DETECT))
-		cr_ptr->magic_num1[0] = MUSIC_DETECT;
+	if ((player_ptr->cls_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
+		player_ptr->magic_num1[0] = MUSIC_DETECT;
 
 	/* Hack -- notice death or departure */
 	if (!playing || gameover) return;
@@ -6347,7 +6347,7 @@ msg_print("試合開始！");
 #endif
 	}
 
-	if (!load_game && (cr_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(cr_ptr, FALSE);
+	if (!load_game && (player_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
 
 	/*** Process this dungeon level ***/
 
@@ -6359,9 +6359,9 @@ msg_print("試合開始！");
 
 	hack_mind = TRUE;
 
-	if (cr_ptr->energy_need > 0 && !monster_arena_mode &&
+	if (player_ptr->energy_need > 0 && !monster_arena_mode &&
 		(dun_level || subject_change_dungeon || inside_arena))
-		cr_ptr->energy_need = 0;
+		player_ptr->energy_need = 0;
 
 	/* Not leaving dungeon */
 	subject_change_dungeon = FALSE;
@@ -6387,16 +6387,16 @@ msg_print("試合開始！");
 
 
 		/* Process the player */
-		process_player(cr_ptr);
+		process_player(player_ptr);
 
-		/* Handle "cr_ptr->creature_update" */
-		notice_stuff(cr_ptr);
+		/* Handle "player_ptr->creature_update" */
+		notice_stuff(player_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6405,16 +6405,16 @@ msg_print("試合開始！");
 		if (!playing || gameover) break;
 
 		/* Process all of the monsters */
-		process_monsters(cr_ptr);
+		process_monsters(player_ptr);
 
-		/* Handle "cr_ptr->creature_update" */
-		notice_stuff(cr_ptr);
+		/* Handle "player_ptr->creature_update" */
+		notice_stuff(player_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6424,16 +6424,16 @@ msg_print("試合開始！");
 
 
 		/* Process the world */
-		process_world(cr_ptr);
+		process_world(player_ptr);
 
-		/* Handle "cr_ptr->creature_update" */
-		notice_stuff(cr_ptr);
+		/* Handle "player_ptr->creature_update" */
+		notice_stuff(player_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6453,7 +6453,7 @@ msg_print("試合開始！");
 			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) dungeon_turn++;
 		}
 
-		prevent_turn_overflow(cr_ptr);
+		prevent_turn_overflow(player_ptr);
 
 		if (wild_regen) wild_regen--;
 	}
@@ -6472,7 +6472,7 @@ msg_print("試合開始！");
 		 * Maintain Unique monsters and artifact, save current
 		 * floor, then prepare next floor
 		 */
-		leave_floor(cr_ptr);
+		leave_floor(player_ptr);
 
 		/* Forget the flag */
 		reinit_wilderness = FALSE;
@@ -7175,7 +7175,7 @@ quit("セーブファイルが壊れています");
 	while (TRUE)
 	{
 		/* Process the level */
-		dungeon(player_ptr, load_game);
+		dungeon(load_game);
 
 		/* Handle "player_ptr->creature_update" */
 
