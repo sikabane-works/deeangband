@@ -1847,7 +1847,7 @@ note("メッセージをロードしました");
 
 
 	/* Unique monsters */
-	rd_u16b(&max_unique);
+	rd_u16b(&unique_max);
 
 	/*** Monsters ***/
 

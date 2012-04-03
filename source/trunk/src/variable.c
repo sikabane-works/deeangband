@@ -1161,7 +1161,7 @@ u16b max_st_idx;
 u16b max_authorities_idx;
 
 // Maximum number of uniques in the world
-u16b max_unique;
+u16b unique_max;
 
 /*
  * Maximum size of the wilderness

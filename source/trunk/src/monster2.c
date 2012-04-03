@@ -980,7 +980,7 @@ void birth_uniques(void)
 	int t = sizeof(creature_type);
 
 	// Init Unique Count
-	max_unique = 0;
+	unique_max = 0;
 
 	for(i = 0; i < max_species_idx; i++)
 	{
@@ -991,7 +991,7 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i]))
 		{
 			creature_type save_ptr;
-			max_unique++;
+			unique_max++;
 			generate_creature(NULL, i, &save_ptr, GC_AUTO);
 		}
 	}

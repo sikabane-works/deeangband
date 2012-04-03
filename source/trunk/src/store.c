@@ -5746,7 +5746,7 @@ void init_stores(void)
 		store_create(&st_list[i], &store_pre_info[i]);
 
 	}
-//	C_KILL(u_info, max_unique, creature_type);
+//	C_KILL(u_info, unique_max, creature_type);
 
 }
 

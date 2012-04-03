@@ -1263,7 +1263,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Unique monsters */
-	wr_u16b(max_unique);
+	wr_u16b(unique_max);
 
 	/*** Dump the creatures ***/
 
