@@ -1515,7 +1515,8 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		o_idx = o_pop();
 
 		/* Oops */
-		if (i != o_idx) return 152;
+		//if (i != o_idx)
+		//	return 152;
 
 		/* Acquire place */
 		o_ptr = &object_list[o_idx];
@@ -2279,6 +2280,7 @@ errr rd_savefile_new(void)
  */
 static bool load_floor_aux(saved_floor_type *sf_ptr)
 {
+	int i;
 	byte tmp8u;
 	u32b tmp32u;
 
@@ -2304,10 +2306,12 @@ static bool load_floor_aux(saved_floor_type *sf_ptr)
 
 	/* Verify the sign */
 	rd_u32b(&tmp32u);
-	if (saved_floor_file_sign != tmp32u) return FALSE;
+	if (saved_floor_file_sign != tmp32u)
+		return FALSE;
 
 	/* Read -- have error? */
-	if (rd_saved_floor(sf_ptr)) return FALSE;
+	if (i = rd_saved_floor(sf_ptr))
+		return FALSE;
 
 
 #ifdef VERIFY_CHECKSUMS
@@ -2318,7 +2322,8 @@ static bool load_floor_aux(saved_floor_type *sf_ptr)
 	rd_u32b(&o_v_check);
 
 	/* Verify */
-	if (o_v_check != n_v_check) return FALSE;
+	if (o_v_check != n_v_check)
+		return FALSE;
 
 	/* Save the encoded checksum */
 	n_x_check = x_check;
@@ -2327,7 +2332,8 @@ static bool load_floor_aux(saved_floor_type *sf_ptr)
 	rd_u32b(&o_x_check);
 
 	/* Verify */
-	if (o_x_check != n_x_check) return FALSE;
+	if (o_x_check != n_x_check)
+		return FALSE;
 #endif
 
 	/* Success */
