@@ -6678,7 +6678,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 /*
  * Save the game
  */
-void do_cmd_save_game(creature_type *creature_ptr, int is_autosave)
+void do_cmd_save_game(int is_autosave)
 {
 	/* Autosaves do not disturb */
 	if (is_autosave)
@@ -6759,7 +6759,7 @@ msg_print("自動セーブ中");
 	hack_mind = FALSE;
 
 	/* Update stuff */
-	update_creature(creature_ptr, TRUE);
+	//TODO update_creature(creature_ptr, TRUE);
 
 	/* Initialize monster process */
 	mproc_init();

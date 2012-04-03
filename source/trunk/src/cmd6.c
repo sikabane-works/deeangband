@@ -4762,7 +4762,7 @@ if (get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 #endif
 
 					{
-						if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+						if (autosave_l) do_cmd_save_game(TRUE);
 
 						/* Leaving */
 						subject_change_floor = TRUE;

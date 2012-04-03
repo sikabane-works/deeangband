@@ -1106,7 +1106,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 
 				/* Still alive and autosave enabled */
 				if (autosave_l && (cr_ptr->chp >= 0))
-					do_cmd_save_game(cr_ptr, TRUE);
+					do_cmd_save_game(TRUE);
 
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "—Ž‚Æ‚µŒË‚É—Ž‚¿‚½");

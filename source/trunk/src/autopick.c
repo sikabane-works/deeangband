@@ -6201,7 +6201,7 @@ void do_cmd_edit_autopick(creature_type *cr_ptr)
 	/* Autosave */
 	if (turn > old_autosave_turn + 100L)
 	{
-		do_cmd_save_game(cr_ptr, TRUE);
+		do_cmd_save_game(TRUE);
 		old_autosave_turn = turn;
 	}
 

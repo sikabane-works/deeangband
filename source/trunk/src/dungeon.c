@@ -767,7 +767,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 #endif
 
 
-	if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
 	dun_level = command_arg;
@@ -3413,7 +3413,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 		 * he loads the autosaved game.
 		 */
 		if (autosave_l && (cr_ptr->word_recall == 1) && !monster_arena_mode)
-			do_cmd_save_game(cr_ptr, TRUE);
+			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
 		cr_ptr->word_recall--;
@@ -3532,7 +3532,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 	if (cr_ptr->alter_reality)
 	{
 		if (autosave_l && (cr_ptr->alter_reality == 1) && !monster_arena_mode)
-			do_cmd_save_game(cr_ptr, TRUE);
+			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
 		cr_ptr->alter_reality--;
@@ -3968,7 +3968,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	if (autosave_t && autosave_freq && !monster_arena_mode)
 	{
 		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
-			do_cmd_save_game(cr_ptr, TRUE);
+			do_cmd_save_game(TRUE);
 	}
 
 	if (mon_fight && !ignore_unview)
@@ -5379,7 +5379,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Hack -- Save and don't quit */
 		case KTRL('S'):
 		{
-			do_cmd_save_game(cr_ptr, FALSE);
+			do_cmd_save_game(FALSE);
 			break;
 		}
 

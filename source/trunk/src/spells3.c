@@ -696,7 +696,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
 
-			if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+			if (autosave_l) do_cmd_save_game(TRUE);
 
 			if (!dun_level)
 			{
@@ -727,7 +727,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		{
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, -1, NULL);
 
-			if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+			if (autosave_l) do_cmd_save_game(TRUE);
 
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
@@ -751,7 +751,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		{
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, -1, NULL);
 
-			if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+			if (autosave_l) do_cmd_save_game(TRUE);
 
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
@@ -774,7 +774,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
 
-			if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
+			if (autosave_l) do_cmd_save_game(TRUE);
 
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
