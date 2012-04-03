@@ -6704,7 +6704,7 @@ msg_print("自動セーブ中");
 
 	/* Message */
 #ifdef JP
-prt("ゲームをセーブしています...", 0, 0);
+	prt("ゲームをセーブしています...", 0, 0);
 #else
 	prt("Saving game...", 0, 0);
 #endif
@@ -6715,7 +6715,7 @@ prt("ゲームをセーブしています...", 0, 0);
 
 	/* The player is not dead */
 #ifdef JP
-(void)strcpy(gameover_from, "(セーブ)");
+	(void)strcpy(gameover_from, "(セーブ)");
 #else
 	(void)strcpy(gameover_from, "(saved)");
 #endif

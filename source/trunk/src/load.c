@@ -1367,7 +1367,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	cave_template_type *template;
 
 	/*** Wipe all cave ***/
-	clear_cave();
+	//clear_cave();
 
 
 	/*** Basic info ***/

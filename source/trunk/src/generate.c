@@ -1520,6 +1520,8 @@ void clear_cave(void)
 	int x, y, i;
 
 	/* Very simplified version of wipe_object_list() */
+
+	/*
 	C_WIPE(object_list, object_max, object_type);
 
 	for (i = 1; i < creature_max; i++)
@@ -1533,6 +1535,7 @@ void clear_cave(void)
 	//creature_max = 1;
 
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
+	*/
 
 	/* Pre-calc cur_num of pets in party_mon[] */
 	precalc_cur_num_of_pet();
