@@ -7362,7 +7362,7 @@ bool deathray_creatures(creature_type *caster_ptr)
 }
 
 
-bool charm_monster(creature_type *caster_ptr, int dir, int power)
+bool charm_creature(creature_type *caster_ptr, int dir, int power)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL;
 	return (project_hook(caster_ptr, GF_CHARM, dir, power, flg));
