@@ -3954,8 +3954,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
 
-
-	/* Select Ego */
+	// Select Ego
 	re_ptr = NULL;
 	rpr_ptr = NULL;
 	re_selected = MONEGO_NONE;
@@ -4211,7 +4210,8 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		if (is_enemy_of_evil_creature(creature_ptr)) creature_ptr->sub_align |= SUB_ALIGN_GOOD;
 	}
 
-	/* Place the monster at the location */
+	// Place the monster at the location
+	creature_ptr->floor_id = player_ptr->floor_id; // TODO
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
 
