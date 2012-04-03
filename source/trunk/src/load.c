@@ -1553,49 +1553,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		}
 	}
 
-	/*** Monsters ***/
-
-	/* Read the monster count */
-	rd_u16b(&limit);
-
-	/* Hack -- verify */
-	if (limit > max_creature_idx) return 161;
-
-	player_ptr = &creature_list[1];
-	p_ptr = &creature_list[1];
-
-	/* Read the monsters */
-	for (i = 1; i < limit; i++)
-	{
-		cave_type *c_ptr;
-		int m_idx;
-		creature_type *m_ptr;
-
-		/* Get a new record */
-		m_idx = creature_pop();
-
-		/* Oops */
-		if (i != m_idx) return 162;
-
-		/* Acquire monster */
-		m_ptr = &creature_list[m_idx];
-
-		/* Read the monster */
-		rd_creature(m_ptr);
-
-		/* Access grid */
-		c_ptr = &cave[m_ptr->fy][m_ptr->fx];
-
-		/* Mark the location */
-		c_ptr->m_idx = m_idx;
-
-		/* Count */
-
-		real_species_ptr(m_ptr)->cur_num++;
-
-	}
-
-
 
 	/* Success */
 	return 0;
@@ -1770,6 +1727,7 @@ static errr rd_savefile_new_aux(void)
 {
 	int i, j;
 
+	s16b limit;
 	s32b wild_x_size;
 	s32b wild_y_size;
 
@@ -1890,6 +1848,50 @@ note("メッセージをロードしました");
 
 	/* Unique monsters */
 	rd_u16b(&max_unique);
+
+	/*** Monsters ***/
+
+	/* Read the monster count */
+	rd_u16b(&limit);
+
+	/* Hack -- verify */
+	if (limit > max_creature_idx) return 161;
+
+	player_ptr = &creature_list[1];
+	p_ptr = &creature_list[1];
+
+	/* Read the monsters */
+	for (i = 1; i < limit; i++)
+	{
+		cave_type *c_ptr;
+		int m_idx;
+		creature_type *m_ptr;
+
+		/* Get a new record */
+		m_idx = creature_pop();
+
+		/* Oops */
+		if (i != m_idx) return 162;
+
+		/* Acquire monster */
+		m_ptr = &creature_list[m_idx];
+
+		/* Read the monster */
+		rd_creature(m_ptr);
+
+		/* Access grid */
+		c_ptr = &cave[m_ptr->fy][m_ptr->fx];
+
+		/* Mark the location */
+		c_ptr->m_idx = m_idx;
+
+		/* Count */
+
+		real_species_ptr(m_ptr)->cur_num++;
+
+	}
+
+
 
 	/* Object Memory */
 	rd_u16b(&tmp16u);

@@ -1044,21 +1044,6 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 		wr_item(o_ptr);
 	}
 
-
-	/*** Dump the creatures ***/
-
-	/* Total monsters */
-	wr_u16b(creature_max);
-
-	/* Dump the monsters */
-	for (i = 1; i < creature_max; i++)
-	{
-		creature_type *m_ptr = &creature_list[i];
-
-		/* Dump it */
-		wr_creature(m_ptr);
-	}
-
 }
 
 
@@ -1279,6 +1264,21 @@ static bool wr_savefile_new(void)
 
 	/* Unique monsters */
 	wr_u16b(max_unique);
+
+	/*** Dump the creatures ***/
+
+	/* Total monsters */
+	wr_u16b(creature_max);
+
+	/* Dump the monsters */
+	for (i = 1; i < creature_max; i++)
+	{
+		creature_type *m_ptr = &creature_list[i];
+
+		/* Dump it */
+		wr_creature(m_ptr);
+	}
+
 
 	/* Dump the object memory */
 	tmp16u = max_k_idx;
