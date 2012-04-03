@@ -1412,7 +1412,7 @@ static bool build_type4(void)
  * Line 2 -- forbid uniques
  * Line 3 -- forbid aquatic monsters
  */
-#define vault_monster_okay(I) \
+#define vault_creature_okay(I) \
 	(mon_hook_dungeon(I) && \
 	 !is_unique_species(&species_info[I]) && \
 	 !is_sub_unique_species(&species_info[I]) && \
@@ -1436,7 +1436,7 @@ static u32b vault_aux_dragon_mask4;
 static bool vault_aux_simple(int species_idx)
 {
 	/* Okay */
-	return (vault_monster_okay(species_idx));
+	return (vault_creature_okay(species_idx));
 }
 
 
@@ -1448,7 +1448,7 @@ static bool vault_aux_jelly(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
 
@@ -1471,7 +1471,7 @@ static bool vault_aux_animal(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require "animal" flag */
 	if (!is_animal_species(r_ptr)) return (FALSE);
@@ -1489,7 +1489,7 @@ static bool vault_aux_undead(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require Undead */
 	if (!is_undead_species(r_ptr)) return (FALSE);
@@ -1514,8 +1514,8 @@ static bool vault_aux_chapel_g(int species_idx)
 
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	/* Validate the creature */
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 	if ((species_idx == MON_A_GOLD) || (species_idx == MON_A_SILVER)) return (FALSE);
@@ -1539,7 +1539,7 @@ static bool vault_aux_kennel(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require a Zephyr Hound or a dog */
 	if (!my_strchr("CZ", r_ptr->d_char)) return (FALSE);
@@ -1557,7 +1557,7 @@ static bool vault_aux_mimic(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require mimic */
 	if (!my_strchr("!$&(/=?[\\|", r_ptr->d_char)) return (FALSE);
@@ -1572,7 +1572,7 @@ static bool vault_aux_mimic(int species_idx)
 static bool vault_aux_clone(int species_idx)
 {
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	return (species_idx == vault_aux_race);
 }
@@ -1586,7 +1586,7 @@ static bool vault_aux_symbol_e(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
 
@@ -1608,7 +1608,7 @@ static bool vault_aux_symbol_g(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
 
@@ -1630,7 +1630,7 @@ static bool vault_aux_orc(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require orc */
 	if (!is_orc_species(r_ptr)) return (FALSE);
@@ -1651,7 +1651,7 @@ static bool vault_aux_troll(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require troll */
 	if (is_troll_species(r_ptr)) return (FALSE);
@@ -1672,7 +1672,7 @@ static bool vault_aux_giant(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require giant */
 	if (!is_giant_species(r_ptr)) return (FALSE);
@@ -1695,7 +1695,7 @@ static bool vault_aux_dragon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require dragon */
 	if (!is_dragon_species(r_ptr)) return (FALSE);
@@ -1719,7 +1719,7 @@ static bool vault_aux_demon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
 
@@ -1739,7 +1739,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
 
@@ -1875,7 +1875,7 @@ static bool vault_aux_dark_elf(int species_idx)
 	};
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return FALSE;
+	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require dark elves */
 	for (i = 0; dark_elf_list[i]; i++)
@@ -5585,7 +5585,7 @@ static bool vault_aux_trapped_pit(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* No wall passing monster */
 	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return (FALSE);
@@ -5987,7 +5987,7 @@ static bool vault_aux_lite(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return FALSE;
+	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require lite attack */
 	if (!has_cf(&r_ptr->flags, CF_BR_LITE) && !has_cf(&r_ptr->flags, CF_BA_LITE)) return FALSE;
@@ -6009,7 +6009,7 @@ static bool vault_aux_shards(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
-	if (!vault_monster_okay(species_idx)) return FALSE;
+	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require shards breath attack */
 	if (!has_cf(&r_ptr->flags, CF_BR_SHAR)) return FALSE;
