@@ -678,7 +678,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Down only */ 
-	if ((ironman_downward && (m_idx <= 0)) || (dun_level <= d_info[dungeon_type].mindepth))
+	if ((ironman_downward && (m_idx <= 0)) || (dun_level <= dungeon_info[dungeon_type].mindepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^sは床を突き破って沈んでいく。", m_name);
@@ -700,7 +700,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (!dun_level)
 			{
-				dun_level = d_info[dungeon_type].mindepth;
+				dun_level = dungeon_info[dungeon_type].mindepth;
 				prepare_change_floor_mode(CFM_RAND_PLACE);
 			}
 			else
@@ -714,7 +714,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if (quest_number(dun_level) || (dun_level >= d_info[dungeon_type].maxdepth))
+	else if (quest_number(dun_level) || (dun_level >= dungeon_info[dungeon_type].maxdepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^sは天井を突き破って宙へ浮いていく。", m_name);
@@ -821,9 +821,9 @@ int choose_dungeon(cptr note, int y, int x)
 		else
 		{
 #ifdef JP
-			msg_format("まだ%sに入ったことはない。", d_name + d_info[DUNGEON_ANGBAND].name);
+			msg_format("まだ%sに入ったことはない。", d_name + dungeon_info[DUNGEON_ANGBAND].name);
 #else
-			msg_format("You haven't entered %s yet.", d_name + d_info[DUNGEON_ANGBAND].name);
+			msg_format("You haven't entered %s yet.", d_name + dungeon_info[DUNGEON_ANGBAND].name);
 #endif
 			msg_print(NULL);
 			return 0;
@@ -839,18 +839,18 @@ int choose_dungeon(cptr note, int y, int x)
 		char buf[80];
 		bool seiha = FALSE;
 
-		if (!d_info[i].maxdepth) continue;
+		if (!dungeon_info[i].maxdepth) continue;
 		if (!max_dlv[i]) continue;
-		if (d_info[i].final_guardian)
+		if (dungeon_info[i].final_guardian)
 		{
-			if (!species_info[d_info[i].final_guardian].max_num) seiha = TRUE;
+			if (!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
 		}
-		else if (max_dlv[i] == d_info[i].maxdepth) seiha = TRUE;
+		else if (max_dlv[i] == dungeon_info[i].maxdepth) seiha = TRUE;
 
 #ifdef JP
-		sprintf(buf,"      %c) %c%-12s : 最大 %d 階", 'a'+num, seiha ? '!' : ' ', d_name + d_info[i].name, max_dlv[i]);
+		sprintf(buf,"      %c) %c%-12s : 最大 %d 階", 'a'+num, seiha ? '!' : ' ', d_name + dungeon_info[i].name, max_dlv[i]);
 #else
-		sprintf(buf,"      %c) %c%-16s : Max level %d", 'a'+num, seiha ? '!' : ' ', d_name + d_info[i].name, max_dlv[i]);
+		sprintf(buf,"      %c) %c%-16s : Max level %d", 'a'+num, seiha ? '!' : ' ', d_name + dungeon_info[i].name, max_dlv[i]);
 #endif
 		prt(buf, y + num, x);
 		dun[num++] = i;
@@ -1007,9 +1007,9 @@ bool reset_recall(void)
 	if (!select_dungeon) return FALSE;
 	/* Prompt */
 #ifdef JP
-sprintf(ppp, "何階にセットしますか (%d-%d):", d_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
+sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #else
-	sprintf(ppp, "Reset to which level (%d-%d): ", d_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
+	sprintf(ppp, "Reset to which level (%d-%d): ", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #endif
 
 
@@ -1027,7 +1027,7 @@ sprintf(ppp, "何階にセットしますか (%d-%d):", d_info[select_dungeon].mindepth, m
 
 		/* Paranoia */
 		if (dummy > max_dlv[select_dungeon]) dummy = max_dlv[select_dungeon];
-		if (dummy < d_info[select_dungeon].mindepth) dummy = d_info[select_dungeon].mindepth;
+		if (dummy < dungeon_info[select_dungeon].mindepth) dummy = dungeon_info[select_dungeon].mindepth;
 
 		max_dlv[select_dungeon] = dummy;
 
@@ -1039,7 +1039,7 @@ sprintf(ppp, "何階にセットしますか (%d-%d):", d_info[select_dungeon].mindepth, m
 #endif
 					/* Accept request */
 #ifdef JP
-msg_format("%sの帰還レベルを %d 階にセット。", d_name+d_info[select_dungeon].name, dummy, dummy * 50);
+msg_format("%sの帰還レベルを %d 階にセット。", d_name+dungeon_info[select_dungeon].name, dummy, dummy * 50);
 #else
 		msg_format("Recall depth set to level %d (%d').", dummy, dummy * 50);
 #endif

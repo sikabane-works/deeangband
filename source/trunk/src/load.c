@@ -1246,7 +1246,7 @@ static void rd_extra(void)
 	for(i = 0; i < max; i++)
 	{
 		rd_s16b(&max_dlv[i]);
-		if (max_dlv[i] > d_info[i].maxdepth) max_dlv[i] = d_info[i].maxdepth;
+		if (max_dlv[i] > dungeon_info[i].maxdepth) max_dlv[i] = dungeon_info[i].maxdepth;
 	}
 
 	/* Hack -- the two "special seeds" */

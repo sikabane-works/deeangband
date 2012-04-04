@@ -330,7 +330,7 @@ bool mon_hook_dungeon(int species_idx)
 		return TRUE;
 	else
 	{
-		dungeon_info_type *d_ptr = &d_info[dungeon_type];
+		dungeon_info_type *d_ptr = &dungeon_info[dungeon_type];
 //TODO	if ((d_ptr->mflags8 & RF8_WILD_MOUNTAIN) &&
 //		    is_wild_mountain_species(r_ptr)) return TRUE;
 		return FALSE;

@@ -1297,14 +1297,14 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (d_info[dungeon_type].final_guardian == killed_ptr->species_idx))
+		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (dungeon_info[dungeon_type].final_guardian == killed_ptr->species_idx))
 		{
-			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
+			int k_idx = dungeon_info[dungeon_type].final_object ? dungeon_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 
-			if (d_info[dungeon_type].final_artifact)
+			if (dungeon_info[dungeon_type].final_artifact)
 			{
-				int a_idx = d_info[dungeon_type].final_artifact;
+				int a_idx = dungeon_info[dungeon_type].final_artifact;
 				artifact_type *a_ptr = &a_info[a_idx];
 
 				if (!a_ptr->cur_num)
@@ -1320,7 +1320,7 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
 					/* Prevent rewarding both artifact and "default" object */
-					if (!d_info[dungeon_type].final_object) k_idx = 0;
+					if (!dungeon_info[dungeon_type].final_object) k_idx = 0;
 				}
 			}
 
@@ -1338,9 +1338,9 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 				(void)drop_near(q_ptr, -1, y, x);
 			}
 #ifdef JP
-			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I",d_name+d_info[dungeon_type].name);
+			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I",d_name+dungeon_info[dungeon_type].name);
 #else
-			msg_format("You have conquered %s!",d_name+d_info[dungeon_type].name);
+			msg_format("You have conquered %s!",d_name+dungeon_info[dungeon_type].name);
 #endif
 		}
 	}
@@ -2950,9 +2950,9 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		else if (have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
 #ifdef JP
-			name = format("%s(%dŠK‘Š“–)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
+			name = format("%s(%dŠK‘Š“–)", d_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #else
-			name = format("%s(level %d)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
+			name = format("%s(level %d)", d_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #endif
 		}
 		else if (have_flag(f_ptr->flags, FF_TOWN))

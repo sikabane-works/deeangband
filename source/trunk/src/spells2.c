@@ -3535,7 +3535,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 	bool      detect = FALSE;
 	cave_type *c_ptr;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan the current panel */
 	for (y = 1; y < cur_hgt - 1; y++)
@@ -3694,7 +3694,7 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 
 	bool detect = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -3761,7 +3761,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 
 	bool detect = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -3833,7 +3833,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 
 	bool detect = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
@@ -3918,7 +3918,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 
 	bool flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -3980,7 +3980,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4050,7 +4050,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4125,7 +4125,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4192,7 +4192,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4259,7 +4259,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4333,7 +4333,7 @@ cptr desc_monsters = "変なモンスター";
 	cptr desc_monsters = "weird monsters";
 #endif
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -5288,7 +5288,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				c_ptr = &cave[y][x];
 
 				if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-				else if (!(d_info[dungeon_type].flags1 & DF1_DARKNESS))
+				else if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
 				{
 					int i, yy, xx;
 					cave_type *cc_ptr;
@@ -5822,7 +5822,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			c_ptr = &cave[yy][xx];
 
 			if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-			else if (!(d_info[dungeon_type].flags1 & DF1_DARKNESS))
+			else if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
 			{
 				int ii, yyy, xxx;
 				cave_type *cc_ptr;
@@ -6342,7 +6342,7 @@ bool lite_area(creature_type *cr_ptr, int dam, int rad)
 {
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS)
+	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS)
 	{
 #ifdef JP
 		msg_print("ダンジョンが光を吸収した。");

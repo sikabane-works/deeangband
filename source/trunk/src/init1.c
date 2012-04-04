@@ -809,7 +809,7 @@ static cptr k_info_gen_flags[] =
 /*
  * Dungeon flags
  */
-static cptr d_info_flags1[] =
+static cptr dungeon_info_flags1[] =
 {
 	"WINNER",
 	"MAZE",
@@ -2009,7 +2009,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 
 
 #define OBJECT_KIND_INFO_CSV_COLUMNS 27
-static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
+static cptr object_kindungeon_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"NAME",
@@ -2071,7 +2071,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 /*
  * Initialize the "k_info" array, by parsing an ascii "template" file
  */
-static int object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
+static int object_kindungeon_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
 
 errr parse_object_kind_csv(char *buf, header *head)
 {
@@ -2087,18 +2087,18 @@ errr parse_object_kind_csv(char *buf, header *head)
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, object_kind_info_csv_list[0]))
+	if(!strcmp(tmp, object_kindungeon_info_csv_list[0]))
 	{
-		object_kind_info_csv_code[0] = OBJECT_KIND_INFO_ID;
+		object_kindungeon_info_csv_code[0] = OBJECT_KIND_INFO_ID;
 		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			for(j = 1; j < OBJECT_KIND_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, object_kind_info_csv_list[j]))
+				if(!strcmp(tmp, object_kindungeon_info_csv_list[j]))
 				{
-					object_kind_info_csv_code[i] = j;
+					object_kindungeon_info_csv_code[i] = j;
 					break;
 				}
 			}
@@ -2124,7 +2124,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			
 
-			switch(object_kind_info_csv_code[i])
+			switch(object_kindungeon_info_csv_code[i])
 			{
 			case OBJECT_KIND_INFO_NAME:
 				if(!add_name(&k_info[n].name, head, tmp))
@@ -5100,7 +5100,7 @@ errr parse_authority_info_csv(char *buf, header *head)
  */
 static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
 {
-	if (grab_one_flag(&d_ptr->flags1, d_info_flags1, what) == 0)
+	if (grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -5115,9 +5115,9 @@ static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
 }
 
 /*
- * Initialize the "d_info" array, by parsing an ascii "template" file
+ * Initialize the "dungeon_info" array, by parsing an ascii "template" file
  */
-errr parse_d_info(char *buf, header *head)
+errr parse_dungeon_info(char *buf, header *head)
 {
 	int i;
 
@@ -5155,7 +5155,7 @@ errr parse_d_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		d_ptr = &d_info[i];
+		d_ptr = &dungeon_info[i];
 #ifdef JP
 		/* Store the name */
 		if (!add_name(&d_ptr->name, head, s)) return (7);

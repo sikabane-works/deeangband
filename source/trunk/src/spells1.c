@@ -1007,7 +1007,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_LITE:
 		{
 			/* Turn on the light */
-			if (!(d_info[dungeon_type].flags1 & DF1_DARKNESS))
+			if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
 			{
 				c_ptr->info |= (CAVE_GLOW);
 

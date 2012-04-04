@@ -43,7 +43,7 @@ void set_floor_and_wall(byte type)
 	if (cur_type == type) return;
 
 	cur_type = type;
-	d_ptr = &d_info[type];
+	d_ptr = &dungeon_info[type];
 
 	set_floor_and_wall_aux(floor_type, d_ptr->floor);
 	set_floor_and_wall_aux(fill_type, d_ptr->fill);
@@ -354,7 +354,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		}
 	}
 
-	if (wilderness[y][x].entrance && !wilderness[y][x].town && (player_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+	if (wilderness[y][x].entrance && !wilderness[y][x].town && (player_ptr->total_winner || !(dungeon_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
 	{
 		int dy, dx;
 
@@ -657,7 +657,7 @@ void wilderness_gen_small(creature_type *cr_ptr)
 			cave[j][i].special = wilderness[j][i].town;
 		}
 		else if (wilderness[j][i].road) cave[j][i].feat = feat_floor;
-		else if (wilderness[j][i].entrance && (cr_ptr->total_winner || !(d_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
+		else if (wilderness[j][i].entrance && (cr_ptr->total_winner || !(dungeon_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
 		{
 			cave[j][i].feat = feat_entrance;
 			cave[j][i].special = (byte)wilderness[j][i].entrance;
@@ -833,10 +833,10 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	
 	for (i = 1; i < max_d_idx; i++)
 	{
-		if (!d_info[i].maxdepth) continue;
-		wilderness[d_info[i].dy][d_info[i].dx].entrance = i;
-		if (!wilderness[d_info[i].dy][d_info[i].dx].town)
-			wilderness[d_info[i].dy][d_info[i].dx].level = d_info[i].mindepth;
+		if (!dungeon_info[i].maxdepth) continue;
+		wilderness[dungeon_info[i].dy][dungeon_info[i].dx].entrance = i;
+		if (!wilderness[dungeon_info[i].dy][dungeon_info[i].dx].town)
+			wilderness[dungeon_info[i].dy][dungeon_info[i].dx].level = dungeon_info[i].mindepth;
 	}
 
 	/* Success */

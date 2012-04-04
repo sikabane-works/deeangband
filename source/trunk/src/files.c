@@ -4870,18 +4870,18 @@ static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 	{
 		bool seiha = FALSE;
 
-		if (!d_info[y].maxdepth) continue;
+		if (!dungeon_info[y].maxdepth) continue;
 		if (!max_dlv[y]) continue;
-		if (d_info[y].final_guardian)
+		if (dungeon_info[y].final_guardian)
 		{
-			if (!species_info[d_info[y].final_guardian].max_num) seiha = TRUE;
+			if (!species_info[dungeon_info[y].final_guardian].max_num) seiha = TRUE;
 		}
-		else if (max_dlv[y] == d_info[y].maxdepth) seiha = TRUE;
+		else if (max_dlv[y] == dungeon_info[y].maxdepth) seiha = TRUE;
 
 #ifdef JP
-		fprintf(fff, "   %c%-12s: %3d äK\n", seiha ? '!' : ' ', d_name+d_info[y].name, max_dlv[y]);
+		fprintf(fff, "   %c%-12s: %3d äK\n", seiha ? '!' : ' ', d_name+dungeon_info[y].name, max_dlv[y]);
 #else
-		fprintf(fff, "   %c%-16s: level %3d\n", seiha ? '!' : ' ', d_name+d_info[y].name, max_dlv[y]);
+		fprintf(fff, "   %c%-16s: level %3d\n", seiha ? '!' : ' ', d_name+dungeon_info[y].name, max_dlv[y]);
 #endif
 	}
 }
@@ -7588,7 +7588,7 @@ if (!save_player()) msg_print("ÉZÅ[Éué∏îsÅI");
 	else
 	{
 		/* Save the game */
-		do_cmd_save_game(player_ptr, FALSE);
+		do_cmd_save_game(FALSE);
 
 		/* Prompt for scores XXX XXX XXX */
 #ifdef JP

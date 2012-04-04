@@ -956,9 +956,9 @@ static errr init_f_info(void)
 
 
 /*
- * Initialize the "object_kind_info" array
+ * Initialize the "object_kindungeon_info" array
  */
-static errr init_object_kind_info(void)
+static errr init_object_kindungeon_info(void)
 {
 	/* Init the header */
 	init_header(&k_head, max_k_idx, sizeof(object_kind));
@@ -970,7 +970,7 @@ static errr init_object_kind_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("object_kind_info", &k_head, (void*)&k_info, &k_name, &k_text, NULL, NULL);
+	return init_info2("object_kindungeon_info", &k_head, (void*)&k_info, &k_name, &k_text, NULL, NULL);
 }
 
 
@@ -1141,9 +1141,9 @@ static errr init_authority_info(void)
 }
 
 /*
- * Initialize the "d_info" array
+ * Initialize the "dungeon_info" array
  */
-static errr init_d_info(void)
+static errr init_dungeon_info(void)
 {
 	/* Init the header */
 	init_header(&d_head, max_d_idx, sizeof(dungeon_info_type));
@@ -1151,12 +1151,12 @@ static errr init_d_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	d_head.parse_info_txt = parse_d_info;
+	d_head.parse_info_txt = parse_dungeon_info;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("d_info", &d_head,
-			 (void*)&d_info, &d_name, &d_text, NULL);
+	return init_info("dungeon_info", &d_head,
+			 (void*)&dungeon_info, &d_name, &d_text, NULL);
 }
 
 
@@ -2141,7 +2141,7 @@ void init_angband(void)
 
 	/* Initialize object info */
 	note("[Initializing arrays... (objects)]");
-	if (init_object_kind_info()) quit("Cannot initialize objects");
+	if (init_object_kindungeon_info()) quit("Cannot initialize objects");
 
 	/* Initialize artifact info */
 	note("[Initializing arrays... (artifacts)]");
@@ -2167,12 +2167,12 @@ void init_angband(void)
 
 	/* Initialize dungeon info */
 	note("[Initializing arrays... (dungeon)]");
-	if (init_d_info()) quit("Cannot initialize dungeon");
+	if (init_dungeon_info()) quit("Cannot initialize dungeon");
 	{
 //		int i;
 //		for (i = 1; i < max_d_idx; i++)
-//			if (d_info[i].final_guardian)
-//TODO				species_info[d_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
+//			if (dungeon_info[i].final_guardian)
+//TODO				species_info[dungeon_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
 	}
 
 	/* Initialize magic info */

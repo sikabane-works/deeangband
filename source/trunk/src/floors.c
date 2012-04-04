@@ -975,11 +975,11 @@ void leave_floor(creature_type *cr_ptr)
 		if (change_floor_mode & CFM_DOWN)
 		{
 			if (!dun_level)
-				move_num = d_info[dungeon_type].mindepth;
+				move_num = dungeon_info[dungeon_type].mindepth;
 		}
 		else if (change_floor_mode & CFM_UP)
 		{
-			if (dun_level + move_num < d_info[dungeon_type].mindepth)
+			if (dun_level + move_num < dungeon_info[dungeon_type].mindepth)
 				move_num = -dun_level;
 		}
 
@@ -990,8 +990,8 @@ void leave_floor(creature_type *cr_ptr)
 	if (!dun_level && dungeon_type)
 	{
 		subject_change_dungeon = TRUE;
-		wilderness_y = d_info[dungeon_type].dy;
-		wilderness_x = d_info[dungeon_type].dx;
+		wilderness_y = dungeon_info[dungeon_type].dy;
+		wilderness_x = dungeon_info[dungeon_type].dx;
 
 		cr_ptr->recall_dungeon = dungeon_type;
 		dungeon_type = 0;
@@ -1198,7 +1198,7 @@ void change_floor(creature_type *cr_ptr)
 			int i;
 			s32b tmp_last_visit = sf_ptr->last_visit;
 			s32b absence_ticks;
-			int alloc_chance = d_info[dungeon_type].max_m_alloc_chance;
+			int alloc_chance = dungeon_info[dungeon_type].max_m_alloc_chance;
 			int alloc_times;
 
 			while (tmp_last_visit > turn) tmp_last_visit -= TURNS_PER_TICK * TOWN_DAWN;
@@ -1432,7 +1432,7 @@ void stair_creation(creature_type *creature_ptr)
 	if (ironman_downward) up = FALSE;
 
 	/* Forbid down staircases on quest level */
-	if (quest_number(dun_level) || (dun_level >= d_info[dungeon_type].maxdepth)) down = FALSE;
+	if (quest_number(dun_level) || (dun_level >= dungeon_info[dungeon_type].maxdepth)) down = FALSE;
 
 	/* No effect out of standard dungeon floor */
 	if (!dun_level || (!up && !down) ||

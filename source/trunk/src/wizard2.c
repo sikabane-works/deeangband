@@ -1612,10 +1612,10 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		if (!get_string(ppp, tmp_val, 2)) return;
 
 		tmp_dungeon_type = atoi(tmp_val);
-		if (!d_info[tmp_dungeon_type].maxdepth || (tmp_dungeon_type > max_d_idx)) tmp_dungeon_type = DUNGEON_DOD;
+		if (!dungeon_info[tmp_dungeon_type].maxdepth || (tmp_dungeon_type > max_d_idx)) tmp_dungeon_type = DUNGEON_DOD;
 
 		/* Prompt */
-		sprintf(ppp, "Jump to level (0, %d-%d): ", d_info[tmp_dungeon_type].mindepth, d_info[tmp_dungeon_type].maxdepth);
+		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_type].mindepth, dungeon_info[tmp_dungeon_type].maxdepth);
 
 		/* Default */
 		sprintf(tmp_val, "%d", dun_level);
@@ -1630,10 +1630,10 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	}
 
 	/* Paranoia */
-	if (command_arg < d_info[dungeon_type].mindepth) command_arg = 0;
+	if (command_arg < dungeon_info[dungeon_type].mindepth) command_arg = 0;
 
 	/* Paranoia */
-	if (command_arg > d_info[dungeon_type].maxdepth) command_arg = d_info[dungeon_type].maxdepth;
+	if (command_arg > dungeon_info[dungeon_type].maxdepth) command_arg = dungeon_info[dungeon_type].maxdepth;
 
 	/* Accept request */
 	msg_format("You jump to dungeon level %d.", command_arg);

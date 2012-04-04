@@ -4851,7 +4851,7 @@ msg_print("お金が足りません！");
 		show_building(cr_ptr, bldg);
 		if (!select_dungeon) return;
 
-		max_depth = d_info[select_dungeon].maxdepth;
+		max_depth = dungeon_info[select_dungeon].maxdepth;
 
 		/* Limit depth in Angband */
 		if (select_dungeon == DUNGEON_ANGBAND)
@@ -4860,16 +4860,16 @@ msg_print("お金が足りません！");
 		}
 
 #ifdef JP
-		amt = get_quantity(format("%sの何階にテレポートしますか？", d_name + d_info[select_dungeon].name), max_depth);
+		amt = get_quantity(format("%sの何階にテレポートしますか？", d_name + dungeon_info[select_dungeon].name), max_depth);
 #else
-		amt = get_quantity(format("Teleport to which level of %s? ", d_name + d_info[select_dungeon].name), max_depth);
+		amt = get_quantity(format("Teleport to which level of %s? ", d_name + dungeon_info[select_dungeon].name), max_depth);
 #endif
 
 		if (amt > 0)
 		{
 			cr_ptr->word_recall = 1;
 			cr_ptr->recall_dungeon = select_dungeon;
-			max_dlv[cr_ptr->recall_dungeon] = ((amt > d_info[select_dungeon].maxdepth) ? d_info[select_dungeon].maxdepth : ((amt < d_info[select_dungeon].mindepth) ? d_info[select_dungeon].mindepth : amt));
+			max_dlv[cr_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if (record_maxdepth)
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "トランプタワーで");

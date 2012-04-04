@@ -1307,7 +1307,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check "projectable" */
 	bool direct;
 
-	bool in_no_magic_dungeon = (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && dun_level
+	bool in_no_magic_dungeon = (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC) && dun_level
 		&& (!inside_quest || is_fixed_quest_idx(inside_quest));
 
 	bool can_use_lite_area = FALSE;
@@ -1462,7 +1462,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if (!has_cf_creature(caster_ptr, CF_STUPID))
 		{
-			//TODO if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
+			//TODO if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			//TODO else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}

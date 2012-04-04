@@ -2346,7 +2346,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* In anti-melee dungeon, stupid or confused monster takes useless turn */
-			if (do_move && (d_info[dungeon_type].flags1 & DF1_NO_MELEE))
+			if (do_move && (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE))
 			{
 				if (!nonplayer_ptr->confused)
 				{
@@ -2407,7 +2407,7 @@ msg_format("%^s%s", m_name, monmessage);
 						if (weapon_attack(nonplayer_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
-						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
+						else if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
 						{
 							if (nonplayer_ptr->confused) return;
 							else if (has_cf_creature(nonplayer_ptr, CF_STUPID))

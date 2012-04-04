@@ -10528,7 +10528,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 				return NULL;
 			}
-			if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
 			{
 				return "";
 			}
@@ -10999,7 +10999,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					return NULL;
 				}
 	
-				if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
+				if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
 				{
 					return "";
 				}
@@ -11249,7 +11249,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");

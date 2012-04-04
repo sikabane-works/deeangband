@@ -899,7 +899,7 @@ char *authority_text;
 /*
  * The dungeon arrays
  */
-dungeon_info_type *d_info;
+dungeon_info_type *dungeon_info;
 char *d_name;
 char *d_text;
 
@@ -1138,7 +1138,7 @@ u16b max_a_idx;
 u16b max_e_idx;
 
 /*
- * Maximum number of dungeon in d_info.txt
+ * Maximum number of dungeon in dungeon_info.txt
  */
 u16b max_d_idx;
 

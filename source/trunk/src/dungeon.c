@@ -718,8 +718,8 @@ static void pattern_teleport(creature_type *cr_ptr)
 		}
 		else
 		{
-			max_level = d_info[dungeon_type].maxdepth;
-			min_level = d_info[dungeon_type].mindepth;
+			max_level = dungeon_info[dungeon_type].maxdepth;
+			min_level = dungeon_info[dungeon_type].mindepth;
 		}
 
 		/* Prompt */
@@ -3478,7 +3478,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					}
 					else if (dun_level > 100)
 					{
-						dun_level = d_info[dungeon_type].maxdepth - 1;
+						dun_level = dungeon_info[dungeon_type].maxdepth - 1;
 					}
 				}
 
@@ -4097,7 +4097,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	/*** Process the monsters ***/
 
 	/* Check for creature generation. */
-	if (one_in_(d_info[dungeon_type].max_m_alloc_chance) &&
+	if (one_in_(dungeon_info[dungeon_type].max_m_alloc_chance) &&
 	    !inside_arena && !inside_quest && !monster_arena_mode)
 	{
 		/* Make a new monster */
@@ -4896,7 +4896,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
+				else if (dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -6333,17 +6333,17 @@ msg_print("試合開始！");
 		quest_discovery(random_quest_number(dun_level));
 		inside_quest = random_quest_number(dun_level);
 	}
-	if ((dun_level == d_info[dungeon_type].maxdepth) && d_info[dungeon_type].final_guardian)
+	if ((dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
 	{
-		if (species_info[d_info[dungeon_type].final_guardian].max_num)
+		if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
 #ifdef JP
 			msg_format("この階には%sの主である%sが棲んでいる。",
-				   d_name+d_info[dungeon_type].name, 
-				   species_name+species_info[d_info[dungeon_type].final_guardian].name);
+				   d_name+dungeon_info[dungeon_type].name, 
+				   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name);
 #else
 			msg_format("%^s lives in this level as the keeper of %s.",
-					   species_name+species_info[d_info[dungeon_type].final_guardian].name, 
-					   d_name+d_info[dungeon_type].name);
+					   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name, 
+					   d_name+dungeon_info[dungeon_type].name);
 #endif
 	}
 
@@ -6642,7 +6642,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 	{
 		for (i = 0; i < max_d_idx; i++)
 		{
-			if (max_dlv[i] < d_info[i].mindepth) continue;
+			if (max_dlv[i] < dungeon_info[i].mindepth) continue;
 			if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
 		}
 	}

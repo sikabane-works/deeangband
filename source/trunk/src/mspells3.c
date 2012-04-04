@@ -14,7 +14,7 @@
 
 #define pseudo_plev(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
 
-static void learned_info(creature_type *cr_ptr, char *p, int power)
+static void learnedungeon_info(creature_type *cr_ptr, char *p, int power)
 {
 	int plev = pseudo_plev(cr_ptr);
 	int hp = cr_ptr->chp;
@@ -573,7 +573,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					chance = mod_spell_chance_2(cr_ptr, chance);
 
 					/* Get info */
-					learned_info(cr_ptr, comment, spellnum[i]);
+					learnedungeon_info(cr_ptr, comment, spellnum[i]);
 
 					if (use_menu)
 					{

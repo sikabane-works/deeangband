@@ -158,7 +158,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if (dun_level - up_num < d_info[dungeon_type].mindepth)
+		if (dun_level - up_num < dungeon_info[dungeon_type].mindepth)
 			up_num = dun_level;
 	}
 
@@ -281,10 +281,10 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			if (!max_dlv[target_dungeon])
 			{
 #ifdef JP
-				msg_format("ここには%sの入り口(%d階相当)があります", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
+				msg_format("ここには%sの入り口(%d階相当)があります", d_name+dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
 				if (!get_check("本当にこのダンジョンに入りますか？")) return;
 #else
-				msg_format("There is the entrance of %s (Danger level: %d)", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
+				msg_format("There is the entrance of %s (Danger level: %d)", d_name+dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
 				if (!get_check("Do you really get in this dungeon? ")) return;
 #endif
 			}
@@ -314,7 +314,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		{
 			/* Enter the dungeon just now */
 			cr_ptr->enter_dungeon = TRUE;
-			down_num = d_info[dungeon_type].mindepth;
+			down_num = dungeon_info[dungeon_type].mindepth;
 		}
 
 		if (record_stair)
@@ -342,9 +342,9 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			if (target_dungeon)
 			{
 #ifdef JP
-				msg_format("%sへ入った。", d_text + d_info[dungeon_type].text);
+				msg_format("%sへ入った。", d_text + dungeon_info[dungeon_type].text);
 #else
-				msg_format("You entered %s.", d_text + d_info[dungeon_type].text);
+				msg_format("You entered %s.", d_text + dungeon_info[dungeon_type].text);
 #endif
 			}
 			else
