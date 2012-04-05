@@ -1227,7 +1227,7 @@ extern void birth_uniques(void);
 
 extern void wipe_creature_list(void);
 extern s16b creature_pop(void);
-extern errr get_mon_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2);
+extern errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2);
 extern s16b get_mon_num(int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
 extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr);

@@ -3915,13 +3915,13 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
 #endif
 
 				/* Pick a nightmare */
-				get_mon_num_prep(get_nightmare, NULL);
+				get_species_num_prep(get_nightmare, NULL);
 
 				/* Have some nightmares */
 				have_nightmare(target_ptr, get_mon_num(MAX_DEPTH));
 
 				/* Remove the monster restriction */
-				get_mon_num_prep(NULL, NULL);
+				get_species_num_prep(NULL, NULL);
 			}
 
 			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);

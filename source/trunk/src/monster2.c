@@ -1544,7 +1544,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 /*
  * Apply a "monster restriction function" to the "monster allocation table"
  */
-errr get_mon_num_prep(creature_hook_type creature_hook,
+errr get_species_num_prep(creature_hook_type creature_hook,
 					  creature_hook_type creature_hook2)
 {
 	int i;
@@ -1552,8 +1552,8 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 	/* Todo: Check the hooks for non-changes */
 
 	/* Set the new hooks */
-	creature_hook_type get_mon_num_hook  = creature_hook;
-	creature_hook_type get_mon_num2_hook = creature_hook2;
+	creature_hook_type get_species_num_hook  = creature_hook;
+	creature_hook_type get_species_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -1567,8 +1567,8 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 		r_ptr = &species_info[entry->index];
 
 		/* Skip monsters which don't pass the restriction */
-		if ((get_mon_num_hook  && !((*get_mon_num_hook)(entry->index))) ||
-		    (get_mon_num2_hook && !((*get_mon_num2_hook)(entry->index))))
+		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
+		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))))
 			continue;
 
 		if (!monster_arena_mode && !chameleon_change_m_idx &&
@@ -1606,7 +1606,7 @@ errr get_mon_num_prep(creature_hook_type creature_hook,
 /*
  * Apply a "monster restriction function" to the "monster allocation table"
  */
-errr get_mon_num_prep2(creature_type *player_ptr,
+errr get_species_num_prep2(creature_type *player_ptr,
 					   creature_hook_type2 creature_hook,
 					   creature_hook_type2 creature_hook2)
 {
@@ -1615,8 +1615,8 @@ errr get_mon_num_prep2(creature_type *player_ptr,
 	/* Todo: Check the hooks for non-changes */
 
 	/* Set the new hooks */
-	creature_hook_type2 get_mon_num_hook  = creature_hook;
-	creature_hook_type2 get_mon_num2_hook = creature_hook2;
+	creature_hook_type2 get_species_num_hook  = creature_hook;
+	creature_hook_type2 get_species_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -1630,8 +1630,8 @@ errr get_mon_num_prep2(creature_type *player_ptr,
 		r_ptr = &species_info[entry->index];
 
 		/* Skip monsters which don't pass the restriction */
-		if ((get_mon_num_hook  && !((*get_mon_num_hook) (player_ptr, entry->index))) ||
-		    (get_mon_num2_hook && !((*get_mon_num2_hook)(player_ptr, entry->index))))
+		if ((get_species_num_hook  && !((*get_species_num_hook) (player_ptr, entry->index))) ||
+		    (get_species_num2_hook && !((*get_species_num2_hook)(player_ptr, entry->index))))
 			continue;
 
 		if (!monster_arena_mode && !chameleon_change_m_idx &&
@@ -3355,9 +3355,9 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int creature_ego_
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_mon_num_prep2(p_ptr, creature_hook_chameleon_lord, NULL);
+			get_species_num_prep2(p_ptr, creature_hook_chameleon_lord, NULL);
 		else
-			get_mon_num_prep(creature_hook_chameleon, NULL);
+			get_species_num_prep(creature_hook_chameleon, NULL);
 
 		if (old_unique)
 			level = species_info[MON_CHAMELEON_K].level;
@@ -3487,7 +3487,7 @@ static int initial_r_appearance(int species_idx)
 	if (is_tanuki_species(&species_info[species_idx]))
 		return species_idx;
 
-	get_mon_num_prep(creature_hook_tanuki, NULL);
+	get_species_num_prep(creature_hook_tanuki, NULL);
 
 	while (--attempts)
 	{
@@ -3589,7 +3589,7 @@ static void deal_food(creature_type *creature_ptr)
 	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
 	{
 		/* Prepare allocation table */
-		get_mon_num_prep(creature_hook_human, NULL);
+		get_species_num_prep(creature_hook_human, NULL);
 
 		for (i = rand_range(3,4); i > 0; i--)
 		{
@@ -4710,7 +4710,7 @@ bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_i
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
+			get_species_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
 			if(place_creature_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
@@ -4751,7 +4751,7 @@ bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_i
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
+			get_species_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
 
 			/* Pick a random race */
 			z = get_mon_num(r_ptr->level);
@@ -4786,7 +4786,7 @@ bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 	int species_idx;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), get_creature_hook2(y, x));
+	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	/* Pick a monster */
 	species_idx = get_mon_num(monster_level);
@@ -4814,7 +4814,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	int cx = x;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), get_creature_hook2(y, x));
+	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	while (--attempts)
 	{
@@ -5065,7 +5065,7 @@ bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u
 	summon_unique_okay = (mode & PM_ALLOW_UNIQUE) ? TRUE : FALSE;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(summon_specific_okay, get_creature_hook2(y, x));
+	get_species_num_prep(summon_specific_okay, get_creature_hook2(y, x));
 
 	/* Pick a monster, using the level calculation */
 	species_idx = get_mon_num((dun_level + lev) / 2 + 5);

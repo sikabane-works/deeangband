@@ -1737,7 +1737,7 @@ void battle_monsters(void)
 			int species_idx, j;
 			while (1)
 			{
-				get_mon_num_prep(vault_aux_battle, NULL);
+				get_species_num_prep(vault_aux_battle, NULL);
 				monster_arena_mode = TRUE;
 				species_idx = get_mon_num(mon_level);
 				monster_arena_mode = old_monster_arena_mode;
@@ -2849,7 +2849,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #endif
 
 					/* Pick a nightmare */
-					get_mon_num_prep(get_nightmare, NULL);
+					get_species_num_prep(get_nightmare, NULL);
 
 					/* Have some nightmares */
 					while(1)
@@ -2860,7 +2860,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					}
 
 					/* Remove the monster restriction */
-					get_mon_num_prep(NULL, NULL);
+					get_species_num_prep(NULL, NULL);
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");

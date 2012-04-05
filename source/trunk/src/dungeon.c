@@ -5645,7 +5645,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		{
 			int species_idx;
 			bool success = FALSE;
-			get_mon_num_prep(monster_tsuri,NULL);
+			get_species_num_prep(monster_tsuri,NULL);
 			species_idx = get_mon_num(dun_level ? dun_level : wilderness[wilderness_y][wilderness_x].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
@@ -6588,7 +6588,7 @@ void determine_bounty_uniques(void)
 	int          i, j, tmp;
 	species_type *r_ptr;
 
-	get_mon_num_prep(NULL, NULL);
+	get_species_num_prep(NULL, NULL);
 	for (i = 0; i < MAX_KUBI; i++)
 	{
 		while (1)
@@ -6649,7 +6649,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 	else max_dl = MAX(max_dlv[DUNGEON_DOD], 3);
 
 	monster_arena_mode = TRUE;
-	get_mon_num_prep(NULL, NULL);
+	get_species_num_prep(NULL, NULL);
 
 	while (n < RANDOM_TRY)
 	{

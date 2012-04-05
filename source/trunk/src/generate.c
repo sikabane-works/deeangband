@@ -707,7 +707,7 @@ static bool cave_gen(creature_type *player_ptr)
 	set_floor_and_wall(dungeon_type);
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), NULL);
+	get_species_num_prep(get_creature_hook(), NULL);
 
 	/* Randomize the dungeon creation values */
 	dun_tun_rnd = rand_range(DUN_TUN_RND_MIN, DUN_TUN_RND_MAX);
@@ -1348,7 +1348,7 @@ static void quest_gen(void)
 	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), NULL);
+	get_species_num_prep(get_creature_hook(), NULL);
 
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
@@ -1373,7 +1373,7 @@ static void fortless_gen(int type)
 	}
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), NULL);
+	get_species_num_prep(get_creature_hook(), NULL);
 
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 

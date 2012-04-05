@@ -3399,7 +3399,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			species_type *r_ptr;
 
 			/* Hack -- Remove the monster restriction */
-			get_mon_num_prep(item_monster_okay, NULL);
+			get_species_num_prep(item_monster_okay, NULL);
 
 			/* Pick a random non-unique monster race */
 			while (1)

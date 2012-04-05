@@ -407,7 +407,7 @@ void wilderness_gen(creature_type *cr_ptr)
 	y = wilderness_y;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_creature_hook(), NULL);
+	get_species_num_prep(get_creature_hook(), NULL);
 
 	/* North border */
 	generate_area(y - 1, x, TRUE, FALSE);
