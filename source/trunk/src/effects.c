@@ -6259,7 +6259,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Death by Physical attack -- non-living monster */
-			else if (!monster_living(r_ptr))
+			else if (!creature_living(atk_ptr))
 			{
 				int i;
 				bool explode = FALSE;

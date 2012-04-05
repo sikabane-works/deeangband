@@ -10845,7 +10845,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				/* Hack -- attack monsters */
 				if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 				{
-					if (!monster_living(&species_info[m_ptr->species_idx]))
+					if (!creature_living(&m_ptr))
 					{
 						char m_name[80];
 	

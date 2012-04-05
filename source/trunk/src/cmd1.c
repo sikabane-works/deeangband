@@ -554,7 +554,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 					if (mult < 25) mult = 25;
 				}
 			}
-			if ((mode == HISSATSU_ZANMA) && !monster_living(r_ptr) && is_enemy_of_good_creature(tar_ptr))
+			if ((mode == HISSATSU_ZANMA) && !creature_living(tar_ptr) && is_enemy_of_good_creature(tar_ptr))
 			{
 				if (mult < 15) mult = 25;
 				else if (mult < 50) mult = MIN(50, mult+20);
@@ -572,7 +572,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = MIN(60, mult+30);
 			}
-			if ((mode == HISSATSU_SEKIRYUKA) && atk_ptr->cut && monster_living(r_ptr))
+			if ((mode == HISSATSU_SEKIRYUKA) && atk_ptr->cut && creature_living(atk_ptr))
 			{
 				int tmp = MIN(100, MAX(10, atk_ptr->cut / 10));
 				if (mult < tmp) mult = tmp;
@@ -2240,7 +2240,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
 			{
 				/* Only drain "living" monsters */
-				if (monster_living(r_ptr))
+				if (creature_living(tar_ptr))
 					can_drain = TRUE;
 				else
 					can_drain = FALSE;
