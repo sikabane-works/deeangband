@@ -1979,7 +1979,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 #ifdef JP
 		prt("どれに賭けますか:", 0, 0);
 #else
-		prt("Which monster: ", 0, 0);
+		prt("Which creature: ", 0, 0);
 #endif
 		while(1)
 		{
@@ -4386,7 +4386,7 @@ bool tele_town(creature_type *cr_ptr)
  *  research_mon
  *  -KMW-
  */
-static bool research_mon(creature_type *cr_ptr)
+static bool research_creature(creature_type *cr_ptr)
 {
 	int i, n, species_idx;
 	char sym, query;
@@ -4416,7 +4416,7 @@ static bool research_mon(creature_type *cr_ptr)
 
 	/* Get a character, or abort */
 #ifdef JP
-if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
+if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
 #else
 	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
 #endif
@@ -4439,27 +4439,27 @@ if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):
 	{
 		all = TRUE;
 #ifdef JP
-		strcpy(buf, "全モンスターのリスト");
+		strcpy(buf, "全クリーチャーのリスト");
 #else
-		strcpy(buf, "Full monster list.");
+		strcpy(buf, "Full creature list.");
 #endif
 	}
 	else if (sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
 #ifdef JP
-		strcpy(buf, "ユニーク・モンスターのリスト");
+		strcpy(buf, "ユニーク・クリーチャーのリスト");
 #else
-		strcpy(buf, "Unique monster list.");
+		strcpy(buf, "Unique creature list.");
 #endif
 	}
 	else if (sym == KTRL('N'))
 	{
 		all = norm = TRUE;
 #ifdef JP
-		strcpy(buf, "ユニーク外モンスターのリスト");
+		strcpy(buf, "ユニーク外クリーチャーのリスト");
 #else
-		strcpy(buf, "Non-unique monster list.");
+		strcpy(buf, "Non-unique creature list.");
 #endif
 	}
 	else if (sym == KTRL('M'))
@@ -4505,19 +4505,19 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, u16b);
 
-	/* Collect matching monsters */
+	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i];
 
-		/* Empty monster */
+		/* Empty creature */
 		if (!r_ptr->name) continue;
 
 		/* XTRA HACK WHATSEARCH */
-		/* Require non-unique monsters if needed */
+		/* Require non-unique creatures if needed */
 		if (norm && is_unique_species(r_ptr)) continue;
 
-		/* Require unique monsters if needed */
+		/* Require unique creatures if needed */
 		if (uniq && !is_unique_species(r_ptr)) continue;
 
 		/* 名前検索 */
@@ -4587,7 +4587,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 	notpicked = TRUE;
 
-	/* Scan the monster memory */
+	/* Scan the creature memory */
 	while (notpicked)
 	{
 		/* Extract a race */
@@ -4612,10 +4612,10 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 			{
 				/*** Recall on screen ***/
 
-				/* Get maximal info about this monster */
+				/* Get maximal info about this creature */
 				lore_do_probe(species_idx);
 
-				/* Save this monster ID */
+				/* Save this creature ID */
 				species_type_track(species_idx);
 
 				/* Hack -- Handle stuff */
@@ -4643,7 +4643,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 		/* Stop scanning */
 		if (query == ESCAPE) break;
 
-		/* Move to "prev" monster */
+		/* Move to "prev" creature */
 		if (query == '-')
 		{
 			if (++i == n)
@@ -4653,7 +4653,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 			}
 		}
 
-		/* Move to "next" monster */
+		/* Move to "next" creature */
 		else
 		{
 			if (i-- == 0)
@@ -4767,7 +4767,7 @@ msg_print("お金が足りません！");
 		paid = inn_comm(cr_ptr, bact);
 		break;
 	case BACT_RESEARCH_MONSTER:
-		paid = research_mon(cr_ptr);
+		paid = research_creature(cr_ptr);
 		break;
 	case BACT_COMPARE_WEAPONS:
 		paid = compare_weapons(cr_ptr);
