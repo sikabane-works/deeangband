@@ -2811,7 +2811,7 @@ void creature_wipe(creature_type *creature_ptr)
 /*
  *  Hook function for quest creatures
  */
-static bool mon_hook_quest(int species_idx)
+static bool creature_hook_quest(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -2840,7 +2840,7 @@ void determine_random_questor(quest_type *q_ptr)
 	species_type *r_ptr;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(mon_hook_quest, NULL);
+	get_mon_num_prep(creature_hook_quest, NULL);
 
 	while (1)
 	{
