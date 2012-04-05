@@ -778,7 +778,7 @@ void delete_species_idx(creature_type *creature_ptr)
 /*
  * Delete the monster, if any, at a given location
  */
-void delete_monster(int y, int x)
+void delete_creature(int y, int x)
 {
 	cave_type *c_ptr;
 
@@ -1003,7 +1003,7 @@ void birth_uniques(void)
  * Delete/Remove all the monsters when the player leaves the level
  *
  * This is an efficient method of simulating multiple calls to the
- * "delete_monster()" function, with no visual effects.
+ * "delete_creature()" function, with no visual effects.
  */
 void wipe_creature_list(void)
 {

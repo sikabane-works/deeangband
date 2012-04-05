@@ -85,7 +85,7 @@ static void place_locked_door(int y, int x)
 	{
 		set_cave_feat(y, x, feat_locked_door_random((dungeon_info[dungeon_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR));
 		cave[y][x].info &= ~(CAVE_FLOOR);
-		delete_monster(y, x);
+		delete_creature(y, x);
 	}
 }
 
@@ -126,7 +126,7 @@ static void place_secret_door(int y, int x, int type)
 		}
 
 		c_ptr->info &= ~(CAVE_FLOOR);
-		delete_monster(y, x);
+		delete_creature(y, x);
 	}
 }
 

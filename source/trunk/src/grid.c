@@ -200,7 +200,7 @@ void place_random_door(int y, int x, bool room)
 		}
 	}
 
-	delete_monster(y, x);
+	delete_creature(y, x);
 }
 
 
