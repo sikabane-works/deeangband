@@ -3283,7 +3283,7 @@ static bool creature_hook_chameleon_lord(creature_type *player_ptr, int species_
 		(r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!creature_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
 	if (!is_chameleon_species(old_r_ptr))
@@ -3313,7 +3313,7 @@ static bool creature_hook_chameleon(int species_idx)
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!creature_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
 	if (!is_chameleon_species(old_r_ptr))
@@ -4885,7 +4885,7 @@ bool alloc_guardian(bool def_val)
 			ox = randint1(cur_wid - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
+			if (cave_empty_bold2(oy, ox) && creature_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_creature_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;

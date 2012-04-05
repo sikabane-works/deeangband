@@ -579,7 +579,7 @@ msg_format("%^s‚Í“{‚Á‚½I", m_name);
 /*
  * Check if monster can cross terrain
  */
-bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
+bool creature_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feat];
 
@@ -646,7 +646,7 @@ bool monster_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	if (creature_bold(p_ptr, y, x)) return FALSE;
 	if (c_ptr->m_idx) return FALSE;
 
-	return monster_can_cross_terrain(c_ptr->feat, r_ptr, mode);
+	return creature_can_cross_terrain(c_ptr->feat, r_ptr, mode);
 }
 
 

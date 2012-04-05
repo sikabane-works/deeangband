@@ -939,7 +939,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			c_ptr = &cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!monster_can_cross_terrain(c_ptr->feat, &species_info[m_ptr->species_idx], (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if (!creature_can_cross_terrain(c_ptr->feat, &species_info[m_ptr->species_idx], (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if monsters can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
@@ -1118,7 +1118,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				c_ptr = &cave[yy][xx];
 
 				/* Check grid */
-				if (monster_can_cross_terrain(c_ptr->feat, r_ptr, 0))
+				if (creature_can_cross_terrain(c_ptr->feat, r_ptr, 0))
 				{
 					/* One more room grid */
 					room++;
@@ -2095,7 +2095,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* Access that cave grid */
 		c_ptr = &cave[ny][nx];
 		f_ptr = &f_info[c_ptr->feat];
-		can_cross = monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0);
+		can_cross = creature_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0);
 
 		/* Access that cave grid's contents */
 		y_ptr = &creature_list[c_ptr->m_idx];
@@ -2424,7 +2424,7 @@ msg_format("%^s%s", m_name, monmessage);
 			else if (has_cf_creature(nonplayer_ptr, CF_MOVE_BODY) && !has_cf_creature(nonplayer_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
-				monster_can_cross_terrain(cave[nonplayer_ptr->fy][nonplayer_ptr->fx].feat, z_ptr, 0))
+				creature_can_cross_terrain(cave[nonplayer_ptr->fy][nonplayer_ptr->fx].feat, z_ptr, 0))
 			{
 				/* Allow movement */
 				do_move = TRUE;
@@ -2485,7 +2485,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		if (must_alter_to_move && has_cf_creature(nonplayer_ptr, CF_AQUATIC))
 		{
-			if (!monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0))
+			if (!creature_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0))
 			{
 				/* Assume no move allowed */
 				do_move = FALSE;
