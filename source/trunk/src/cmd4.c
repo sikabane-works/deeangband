@@ -5272,7 +5272,7 @@ static cptr monster_group_text[] =
  * Symbols of monsters in each group. Note the "Uniques" group
  * is handled differently.
  */
-static cptr monster_group_char[] =
+static cptr creature_group_char[] =
 {
 	(char *) -1L,
 	(char *) -2L,
@@ -5420,36 +5420,36 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
  * mode & 0x01 : check for non-empty group
  * mode & 0x02 : visual operation only
  */
-static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
+static int collect_creatures(int grp_cur, s16b mon_idx[], byte mode)
 {
 	int i, mon_cnt = 0, ego = 0;
 	int dummy_why;
 	int cls = 255;
 
 	/* Get a list of x_char in this group */
-	cptr group_char = monster_group_char[grp_cur];
+	cptr group_char = creature_group_char[grp_cur];
 
 	/* XXX Hack -- Check if this is the "Uniques" group */
-	bool grp_unique = (monster_group_char[grp_cur] == (char *) -1L);
+	bool grp_unique = (creature_group_char[grp_cur] == (char *) -1L);
 
 	/* XXX Hack -- Check if this is the "Riding" group */
-	bool grp_riding = (monster_group_char[grp_cur] == (char *) -2L);
+	bool grp_riding = (creature_group_char[grp_cur] == (char *) -2L);
 
 	/* XXX Hack -- Check if this is the "Wanted" group */
-	bool grp_wanted = (monster_group_char[grp_cur] == (char *) -3L);
+	bool grp_wanted = (creature_group_char[grp_cur] == (char *) -3L);
 
 	/* XXX Hack -- Check if this is the "Amberite" group */
-	bool grp_amberite = (monster_group_char[grp_cur] == (char *) -4L);
+	bool grp_amberite = (creature_group_char[grp_cur] == (char *) -4L);
 
-	if(monster_group_char[grp_cur] == (char *) -200L)
+	if(creature_group_char[grp_cur] == (char *) -200L)
 		ego = 1;
 
-	if(monster_group_char[grp_cur] == (char *) -201L)
+	if(creature_group_char[grp_cur] == (char *) -201L)
 		ego = 2;
 
-	if(monster_group_char[grp_cur] > (char *) -200L && monster_group_char[grp_cur] <= (char *) -100L)
+	if(creature_group_char[grp_cur] > (char *) -200L && creature_group_char[grp_cur] <= (char *) -100L)
 	{
-		cls = -((int)monster_group_char[grp_cur] + 100);
+		cls = -((int)creature_group_char[grp_cur] + 100);
 	}
 
 
@@ -8048,7 +8048,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			if (len > max) max = len;
 
 			/* See if any monsters are known */
-			if ((monster_group_char[i] == ((char *) -1L)) || collect_monsters(i, mon_idx, mode))
+			if ((creature_group_char[i] == ((char *) -1L)) || collect_creatures(i, mon_idx, mode))
 			{
 				/* Build a list of groups with known monsters */
 				grp_idx[grp_cnt++] = i;
@@ -8136,7 +8136,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				old_grp_cur = grp_cur;
 
 				/* Get a list of monsters in the current group */
-				mon_cnt = collect_monsters(grp_idx[grp_cur], mon_idx, mode);
+				mon_cnt = collect_creatures(grp_idx[grp_cur], mon_idx, mode);
 			}
 
 			/* Scroll monster list */
