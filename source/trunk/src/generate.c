@@ -468,8 +468,8 @@ static void try_door(int y, int x)
 }
 
 
-/* Place quest monsters */
-bool place_quest_monsters(creature_type *player_ptr)
+// Place quest creatures
+bool place_quest_creatures(creature_type *player_ptr)
 {
 	int i;
 
@@ -1023,7 +1023,7 @@ static bool cave_gen(creature_type *player_ptr)
 	/* Determine the character location */
 	if (!new_player_spot(player_ptr)) return FALSE;
 
-	if (!place_quest_monsters(player_ptr)) return FALSE;
+	if (!place_quest_creatures(player_ptr)) return FALSE;
 
 	/* Basic "amount" */
 	k = (dun_level / 3);
