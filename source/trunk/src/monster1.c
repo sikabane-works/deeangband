@@ -730,6 +730,16 @@ bool monster_living(species_type *r_ptr)
 	return TRUE;
 }
 
+bool creature_living(creature_type *creature_ptr)
+{
+	/* Non-living, undead, or demon */
+	if (is_non_living_creature(creature_ptr) || is_undead_creature(creature_ptr)) return FALSE;
+
+	if (is_demon_creature(creature_ptr)) return FALSE;
+
+	return TRUE;
+}
+
 
 /*
  * Is this monster declined to be questor or bounty?
