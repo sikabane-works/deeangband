@@ -6198,7 +6198,7 @@ static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int y
 				/* Maximum species_idx */
 				if (zz[0][1] == 'E')
 				{
-					max_monster_ego_idx = atoi(zz[1]);
+					max_creature_ego_idx = atoi(zz[1]);
 				}
 				else
 				{

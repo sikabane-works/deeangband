@@ -137,7 +137,7 @@ void set_height_weight(creature_type *creature_ptr)
 		ave_m_wt = 5;
 	}
 
-	if (creature_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE)
+	if (creature_ptr->creature_ego_idx == MONEGO_VARIABLE_SIZE)
 	{
 		int rate = randint0(400);
 		ave_m_ht = 0;

@@ -1100,7 +1100,7 @@ u16b max_species_idx;
 /*
  * Maximum number of monsters in re_info.txt
  */
-u16b max_monster_ego_idx;
+u16b max_creature_ego_idx;
 
 /*
  * Maximum number of monsters in store_pre_info.txt
