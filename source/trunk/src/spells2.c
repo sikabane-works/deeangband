@@ -6903,7 +6903,7 @@ bool destroy_doors_touch(creature_type *caster_ptr)
 }
 
 
-bool sleep_monsters_touch(creature_type *cr_ptr)
+bool sleep_creatures_touch(creature_type *cr_ptr)
 {
 	int flg = PROJECT_KILL | PROJECT_HIDE;
 	return (project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, cr_ptr->lev, GF_OLD_SLEEP, flg, -1));

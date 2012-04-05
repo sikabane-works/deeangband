@@ -2080,7 +2080,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You throw some magic dust...");
 #endif
 
-			if (plev < 25) sleep_monsters_touch(cr_ptr);
+			if (plev < 25) sleep_creatures_touch(cr_ptr);
 			else (void)sleep_monsters(cr_ptr);
 			break;
 
