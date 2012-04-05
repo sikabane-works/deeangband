@@ -6399,7 +6399,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool success = FALSE;
 			if (!get_rep_dir2(cr_ptr, &dir)) return;
-			if (monster_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &species_info[o_ptr->pval], 0))
+			if (creature_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &species_info[o_ptr->pval], 0))
 			{
 				if (place_creature_aux(cr_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{

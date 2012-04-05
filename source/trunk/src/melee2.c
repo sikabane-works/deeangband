@@ -1024,7 +1024,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			if (!in_bounds(y, x)) continue;
 
 			/* Skip occupied locations */
-			if (!monster_can_enter(y, x, r_ptr, 0)) continue;
+			if (!creature_can_enter(y, x, r_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
 			if (!projectable(player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
@@ -1164,7 +1164,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				if (!in_bounds2(y2, x2)) continue;
 
 				/* Ignore filled grids */
-				if (!monster_can_enter(y2, x2, r_ptr, 0)) continue;
+				if (!creature_can_enter(y2, x2, r_ptr, 0)) continue;
 
 				/* Try to fill this hole */
 				break;
