@@ -431,7 +431,7 @@ void vault_traps(int y, int x, int yd, int xd, int num)
 /*
  * Hack -- Place some sleeping monsters near the given location
  */
-void vault_monsters(int y1, int x1, int num)
+void vault_creatures(int y1, int x1, int num)
 {
 	int k, i, y, x;
 	cave_type *c_ptr;
