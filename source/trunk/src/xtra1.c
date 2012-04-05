@@ -5754,10 +5754,10 @@ void update_creature(creature_type *cr_ptr, bool message)
 	{
 		update &= ~(PU_DISTANCE);
 
-		/* Still need to call update_monsters(FALSE) after update_creature_lite() */ 
+		/* Still need to call update_creatures(FALSE) after update_creature_lite() */ 
 		/* update &= ~(PU_MONSTERS); */
 
-		update_monsters(TRUE);
+		update_creatures(TRUE);
 	}
 
 	if (update & (PU_MON_LITE))
@@ -5779,7 +5779,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_MONSTERS))
 	{
 		update &= ~(PU_MONSTERS);
-		update_monsters(FALSE);
+		update_creatures(FALSE);
 	}
 }
 

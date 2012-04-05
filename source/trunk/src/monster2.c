@@ -2814,7 +2814,7 @@ msg_print("åÉóÛÇ»ä¥èÓÇÃî≠çÏÇ…Ç®ÇªÇÌÇÍÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅI");
  * distance from the player), "ml" (visible to the player), and
  * "mflag" (to maintain the "MFLAG_VIEW" flag).
  *
- * Note the special "update_monsters()" function which can be used to
+ * Note the special "update_creatures()" function which can be used to
  * call this function once for every monster.
  *
  * Note the "full" flag which requests that the "cdis" field be updated,
@@ -3245,7 +3245,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 /*
  * This function simply updates all the (non-dead) monsters (see above).
  */
-void update_monsters(bool full)
+void update_creatures(bool full)
 {
 	int i;
 

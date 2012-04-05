@@ -1236,7 +1236,7 @@ extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro);
 extern void update_mon(creature_type *cr_ptr, int m_idx, bool full);
-extern void update_monsters(bool full);
+extern void update_creatures(bool full);
 extern bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode);
 extern bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode);
 extern void deal_item(creature_type *creature_ptr);

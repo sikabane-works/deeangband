@@ -7840,7 +7840,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  *
  * Note that we must call "handle_stuff();
  * in the blast radius, in case the "illumination" of the grid was changed,
- * and "update_view()" and "update_monsters()" need to be called.
+ * and "update_view()" and "update_creatures()" need to be called.
  */
 bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
