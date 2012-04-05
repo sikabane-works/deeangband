@@ -2549,13 +2549,13 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			drain_result += atk_ptr->to_d[hand];
 
 			if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
-			if ((mode == HISSATSU_SEKIRYUKA) && !monster_living(r_ptr)) k = 0;
+			if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(tar_ptr)) k = 0;
 			if ((mode == HISSATSU_SEKIRYUKA) && !atk_ptr->cut) k /= 2;
 
 			/* No negative damage */
 			if (k < 0) k = 0;
 
-			if ((mode == HISSATSU_ZANMA) && !(!monster_living(r_ptr) && is_enemy_of_good_creature(tar_ptr)))
+			if ((mode == HISSATSU_ZANMA) && !(!creature_living(tar_ptr) && is_enemy_of_good_creature(tar_ptr)))
 			{
 				k = 0;
 			}
