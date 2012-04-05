@@ -1676,7 +1676,7 @@ static bool vault_aux_battle(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Decline town monsters */
-/*	if (!mon_hook_dungeon(species_idx)) return FALSE; */
+/*	if (!species_hook_dungeon(species_idx)) return FALSE; */
 
 	/* Decline unique monsters */
 	if (is_unique_species(r_ptr)) return (FALSE);

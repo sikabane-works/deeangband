@@ -1196,7 +1196,7 @@ extern void screen_roff(creature_type *creature_ptr);
 extern void display_roff(int species_idx);
 extern void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str));
 extern void create_name(int type, char *name);
-extern bool mon_hook_dungeon(int species_idx);
+extern bool species_hook_dungeon(int species_idx);
 
 extern creature_hook_type get_creature_hook(void);
 extern creature_hook_type get_creature_hook2(int y, int x);

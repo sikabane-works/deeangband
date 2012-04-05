@@ -322,7 +322,7 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 }
 
 
-bool mon_hook_dungeon(int species_idx)
+bool species_hook_dungeon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -406,7 +406,7 @@ static bool mon_hook_deep_water(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!mon_hook_dungeon(species_idx)) return FALSE;
+	if (!species_hook_dungeon(species_idx)) return FALSE;
 
 	if (is_aquatic_species(r_ptr))
 		return TRUE;
@@ -419,7 +419,7 @@ static bool mon_hook_shallow_water(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!mon_hook_dungeon(species_idx)) return FALSE;
+	if (!species_hook_dungeon(species_idx)) return FALSE;
 
 	if (is_aura_fire_species(r_ptr))
 		return FALSE;
@@ -432,7 +432,7 @@ static bool mon_hook_lava(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!mon_hook_dungeon(species_idx)) return FALSE;
+	if (!species_hook_dungeon(species_idx)) return FALSE;
 
 	if ((has_cf(&r_ptr->flags, CF_RES_FIRE) ||
 	     can_fly_species(r_ptr)) &&
@@ -481,12 +481,12 @@ creature_hook_type get_creature_hook(void)
 		case TERRAIN_MOUNTAIN:
 			return (creature_hook_type)mon_hook_mountain;
 		default:
-			return (creature_hook_type)mon_hook_dungeon;
+			return (creature_hook_type)species_hook_dungeon;
 		}
 	}
 	else
 	{
-		return (creature_hook_type)mon_hook_dungeon;
+		return (creature_hook_type)species_hook_dungeon;
 	}
 }
 

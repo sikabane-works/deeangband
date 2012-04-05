@@ -1413,7 +1413,7 @@ static bool build_type4(void)
  * Line 3 -- forbid aquatic monsters
  */
 #define vault_creature_okay(I) \
-	(mon_hook_dungeon(I) && \
+	(species_hook_dungeon(I) && \
 	 !is_unique_species(&species_info[I]) && \
 	 !is_sub_unique_species(&species_info[I]) && \
 	 !has_cf(&species_info[I].flags, CF_RES_ALL) && \
