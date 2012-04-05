@@ -3940,7 +3940,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 		if (!has_cf_creature(m_ptr, CF_INVISIBLE) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4009,7 +4009,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4085,7 +4085,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4154,7 +4154,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4221,7 +4221,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4288,7 +4288,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -4369,7 +4369,7 @@ cptr desc_monsters = "•Ï‚Èƒ‚ƒ“ƒXƒ^[";
 			}
 
 			/* Repair visibility later */
-			repair_monsters = TRUE;
+			repair_creatures = TRUE;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);

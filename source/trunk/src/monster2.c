@@ -4295,7 +4295,7 @@ msg_print("守りのルーンが壊れた！");
 		creature_ptr->mflag |= (MFLAG_NICE);
 
 		/* Must repair monsters */
-		repair_monsters = TRUE;
+		repair_creatures = TRUE;
 	}
 
 	/* Hack -- see "process_creatures()" */
@@ -4334,7 +4334,7 @@ msg_print("守りのルーンが壊れた！");
 	/* Hack -- Notice new multi-hued monsters */
 	{
 		if (has_cf_creature(creature_ptr, CF_ATTR_MULTI) || has_cf_creature(creature_ptr, CF_SHAPECHANGER))
-			shimmer_monsters = TRUE;
+			shimmer_creatures = TRUE;
 	}
 
 /* TODO

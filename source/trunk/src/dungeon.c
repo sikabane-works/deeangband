@@ -6013,10 +6013,10 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 
 
 			/* Shimmer monsters if needed */
-			if (shimmer_monsters)
+			if (shimmer_creatures)
 			{
 				/* Clear the flag */
-				shimmer_monsters = FALSE;
+				shimmer_creatures = FALSE;
 
 				/* Shimmer multi-hued monsters */
 				for (i = 1; i < creature_max; i++)
@@ -6041,7 +6041,7 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 						continue;
 
 					/* Reset the flag */
-					shimmer_monsters = TRUE;
+					shimmer_creatures = TRUE;
 
 					/* Redraw regardless */
 					lite_spot(m_ptr->fy, m_ptr->fx);
@@ -6050,10 +6050,10 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 
 
 			/* Handle monster detection */
-			if (repair_monsters)
+			if (repair_creatures)
 			{
 				/* Reset the flag */
-				repair_monsters = FALSE;
+				repair_creatures = FALSE;
 
 				/* Rotate detection flags */
 				for (i = 1; i < creature_max; i++)
@@ -6083,7 +6083,7 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 							m_ptr->mflag2 &= ~(MFLAG2_SHOW);
 
 							/* Still need repairs */
-							repair_monsters = TRUE;
+							repair_creatures = TRUE;
 						}
 
 						/* Remove detection */
@@ -6212,9 +6212,9 @@ static void dungeon(bool load_game)
 	health_track(0);
 
 	/* Check visual effects */
-	shimmer_monsters = TRUE;
+	shimmer_creatures = TRUE;
 	shimmer_objects = TRUE;
-	repair_monsters = TRUE;
+	repair_creatures = TRUE;
 	repair_objects = TRUE;
 
 

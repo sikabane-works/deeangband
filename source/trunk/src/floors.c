@@ -571,7 +571,7 @@ static void place_pet(creature_type *creature_ptr)
 				m_ptr->mflag |= (MFLAG_NICE);
 
 				/* Must repair monsters */
-				repair_monsters = TRUE;
+				repair_creatures = TRUE;
 			}
 
 			/* Update the monster */
@@ -587,7 +587,7 @@ static void place_pet(creature_type *creature_ptr)
 			/* Hack -- Notice new multi-hued monsters */
 			{
 				if (has_cf_creature(m_ptr, CF_ATTR_MULTI) || has_cf_creature(m_ptr, CF_SHAPECHANGER))
-					shimmer_monsters = TRUE;
+					shimmer_creatures = TRUE;
 			}
 		}
 		else
