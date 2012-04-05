@@ -1867,9 +1867,9 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 			weapon_attack(cr_ptr, y, x, 0);
@@ -1897,9 +1897,9 @@ bool do_riding(creature_type *cr_ptr, bool force)
 		if (!c_ptr->m_idx || !m_ptr->ml)
 		{
 #ifdef JP
-			msg_print("その場所にはモンスターはいません。");
+			msg_print("その場所にはクリーチャーはいません。");
 #else
-			msg_print("Here is no monster.");
+			msg_print("Here is no creature.");
 #endif
 
 			return FALSE;
@@ -1907,9 +1907,9 @@ bool do_riding(creature_type *cr_ptr, bool force)
 		if (!is_pet(player_ptr, m_ptr) && !force)
 		{
 #ifdef JP
-			msg_print("そのモンスターはペットではありません。");
+			msg_print("そのクリーチャーはペットではありません。");
 #else
-			msg_print("That monster is not a pet.");
+			msg_print("That creature is not a pet.");
 #endif
 
 			return FALSE;
@@ -1917,9 +1917,9 @@ bool do_riding(creature_type *cr_ptr, bool force)
 		if (!has_cf_creature(m_ptr, CF_RIDING))
 		{
 #ifdef JP
-			msg_print("そのモンスターには乗れなさそうだ。");
+			msg_print("そのクリーチャーには乗れなさそうだ。");
 #else
-			msg_print("This monster doesn't seem suitable for riding.");
+			msg_print("This creature doesn't seem suitable for riding.");
 #endif
 
 			return FALSE;
@@ -1932,12 +1932,12 @@ bool do_riding(creature_type *cr_ptr, bool force)
 			/* Feature code (applying "mimic" field) */
 			feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
 #ifdef JP
-			msg_format("そのモンスターは%sの%sにいる。", f_name + f_ptr->name,
+			msg_format("そのクリーチャーは%sの%sにいる。", f_name + f_ptr->name,
 			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
 			           "中" : "上");
 #else
-			msg_format("This monster is %s the %s.",
+			msg_format("This creature is %s the %s.",
 			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
 			           "in" : "on", f_name + f_ptr->name);
@@ -1974,7 +1974,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 		cr_ptr->riding = c_ptr->m_idx;
 
-		/* Hack -- remove tracked monster */
+		/* Hack -- remove tracked creature */
 		if (cr_ptr->riding == health_who) health_track(0);
 	}
 
@@ -1983,7 +1983,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 	/* Mega-Hack -- Forget the view and lite */
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
-	/* Update the monsters */
+	/* Update the creatures */
 	cr_ptr->creature_update |= (CRU_BONUS);
 
 	/* Redraw map */
