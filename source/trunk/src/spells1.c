@@ -5989,7 +5989,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 			/* Attempt a saving throw */
 			if ((is_quest_creature(target_ptr)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 !monster_living(species_ptr) ||
+				 !creature_living(target_ptr) ||
 				 ((species_ptr->level+10) > randint1(dam)))
 			{
 				/* Resist */
@@ -6620,7 +6620,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 				break;
 			}
 			/* Only affect non-undead */
-			if (monster_living(species_ptr))
+			if (creature_living(target_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
@@ -6732,7 +6732,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 			}
 
 			if (is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
-			else if ((caster_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(species_ptr))
+			else if ((caster_ptr->cls_idx == CLASS_BEASTMASTER) && creature_living(target_ptr))
 				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
 			else
 				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);

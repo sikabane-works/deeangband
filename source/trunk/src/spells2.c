@@ -4144,7 +4144,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
-		if (!monster_living(r_ptr))
+		if (!creature_living(cr_ptr))
 		{
 			/* Update monster recall window */
 			if (species_window_idx == m_ptr->species_idx)

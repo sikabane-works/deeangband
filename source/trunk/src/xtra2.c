@@ -697,7 +697,7 @@ msg_print("–‚–@‚ÌŠK’i‚ªŒ»‚ê‚½...");
 cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 {
 	/* Some monsters get "destroyed" */
-	if (!monster_living(&species_info[dead_ptr->species_idx]))
+	if (!creature_living(dead_ptr))
 	{
 		int i;
 
@@ -1786,7 +1786,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	cptr clone;
 
 	/* Determine if the monster is "living" */
-	living = monster_living(ap_r_ptr);
+	living = creature_living(m_ptr);
 
 	/* Calculate a health "percentage" */
 	perc = 100L * m_ptr->chp / m_ptr->mhp;
