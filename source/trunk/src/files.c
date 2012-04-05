@@ -5069,7 +5069,7 @@ static void dump_aux_arena(FILE *fff)
 /*
  *
  */
-static void dump_aux_monsters(FILE *fff)
+static void dump_aux_creatures(FILE *fff)
 {
 	/* Monsters slain */
 
@@ -5448,7 +5448,7 @@ errr make_character_dump(creature_type *cr_ptr, FILE *fff)
 	dump_aux_recall(cr_ptr, fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
-	dump_aux_monsters(fff);
+	dump_aux_creatures(fff);
 	dump_aux_karmas(cr_ptr, fff);
 	dump_aux_race_history(cr_ptr, fff);
 	dump_aux_realm_history(cr_ptr, fff);
