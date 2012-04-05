@@ -2081,7 +2081,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 			if (plev < 25) sleep_creatures_touch(cr_ptr);
-			else (void)sleep_monsters(cr_ptr);
+			else (void)sleep_creatures(cr_ptr);
 			break;
 
 		case RACE_DEMON:

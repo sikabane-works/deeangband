@@ -2483,7 +2483,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if (sleep_monsters(cr_ptr)) ident = TRUE;
+			if (sleep_creatures(cr_ptr)) ident = TRUE;
 			break;
 		}
 

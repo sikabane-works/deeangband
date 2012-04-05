@@ -4513,7 +4513,7 @@ bool slow_creatures(creature_type *caster_ptr)
 /*
  * Sleep monsters
  */
-bool sleep_monsters(creature_type *caster_ptr)
+bool sleep_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SLEEP, caster_ptr->lev));
 }

@@ -321,7 +321,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	{
 		dispel_creatures(cr_ptr, 150);
 		slow_creatures(cr_ptr);
-		sleep_monsters(cr_ptr);
+		sleep_creatures(cr_ptr);
 		hp_player(cr_ptr, 300);
 	}
 }
@@ -477,7 +477,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	{ /* RARE */
 		dispel_creatures(cr_ptr, 150);
 		slow_creatures(cr_ptr);
-		sleep_monsters(cr_ptr);
+		sleep_creatures(cr_ptr);
 		hp_player(cr_ptr, 300);
 	}
 
@@ -2144,7 +2144,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				sleep_monsters(cr_ptr);
+				sleep_creatures(cr_ptr);
 			}
 		}
 		break;
@@ -9783,7 +9783,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cont)
 			{
 				slow_creatures(cr_ptr);
-				sleep_monsters(cr_ptr);
+				sleep_creatures(cr_ptr);
 			}
 		}
 
