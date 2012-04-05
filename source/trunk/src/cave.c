@@ -2993,11 +2993,12 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
  */
 void update_creature_lite(void)
 {
-	int i, rad;
+	int i, rad, creature_fx, creature_fy, creature_lite_x[MON_LITE_MAX], creature_lite_y[MON_LITE_MAX], creature_invis;
+	//int mon_lite_hack, mon_dark_hack, mon_lite_n;
 	cave_type *c_ptr;
 
 	s16b fx, fy;
-	void (*add_mon_lite)(creature_type *, int, int);
+	void (*add_creature_lite)(creature_type *, int, int);
 	int f_flag;
 
 	s16b end_temp;
@@ -3010,7 +3011,7 @@ void update_creature_lite(void)
 	for (i = 0; i < mon_lite_n; i++)
 	{
 		/* Point to grid */
-		c_ptr = &cave[mon_lite_y[i]][mon_lite_x[i]];
+		c_ptr = &cave[creature_lite_y[i]][creature_lite_x[i]];
 
 		/* Set temp or xtra flag */
 		c_ptr->info |= (c_ptr->info & CAVE_MNLT) ? CAVE_TEMP : CAVE_XTRA;
@@ -3058,109 +3059,109 @@ void update_creature_lite(void)
 				if (!(has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_SELF_LITE_2)) && 
 					(creature_ptr->paralyzed || (!dun_level && is_daytime()) || monster_arena_mode)) continue;
 				if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
-				add_mon_lite = mon_lite_hack;
+				add_creature_lite = mon_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
 				if (!(has_cf_creature(creature_ptr, CF_SELF_DARK_1) || has_cf_creature(creature_ptr, CF_SELF_DARK_2)) && (creature_ptr->paralyzed || (!dun_level && !is_daytime()))) continue;
-				add_mon_lite = mon_dark_hack;
+				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
 			}
 
 			/* Access the location */
-			mon_fx = creature_ptr->fx;
-			mon_fy = creature_ptr->fy;
+			creature_fx = creature_ptr->fx;
+			creature_fy = creature_ptr->fy;
 
 			/* Is the monster visible? */
-			mon_invis = !(cave[mon_fy][mon_fx].info & CAVE_VIEW);
+			creature_invis = !(cave[creature_fy][creature_fx].info & CAVE_VIEW);
 
 			/* The square it is on */
-			add_mon_lite(player_ptr, mon_fy, mon_fx);
+			add_creature_lite(player_ptr, creature_fy, creature_fx);
 
 			/* Adjacent squares */
-			add_mon_lite(player_ptr, mon_fy + 1, mon_fx);
-			add_mon_lite(player_ptr, mon_fy - 1, mon_fx);
-			add_mon_lite(player_ptr, mon_fy, mon_fx + 1);
-			add_mon_lite(player_ptr, mon_fy, mon_fx - 1);
-			add_mon_lite(player_ptr, mon_fy + 1, mon_fx + 1);
-			add_mon_lite(player_ptr, mon_fy + 1, mon_fx - 1);
-			add_mon_lite(player_ptr, mon_fy - 1, mon_fx + 1);
-			add_mon_lite(player_ptr, mon_fy - 1, mon_fx - 1);
+			add_creature_lite(player_ptr, creature_fy + 1, creature_fx);
+			add_creature_lite(player_ptr, creature_fy - 1, creature_fx);
+			add_creature_lite(player_ptr, creature_fy, creature_fx + 1);
+			add_creature_lite(player_ptr, creature_fy, creature_fx - 1);
+			add_creature_lite(player_ptr, creature_fy + 1, creature_fx + 1);
+			add_creature_lite(player_ptr, creature_fy + 1, creature_fx - 1);
+			add_creature_lite(player_ptr, creature_fy - 1, creature_fx + 1);
+			add_creature_lite(player_ptr, creature_fy - 1, creature_fx - 1);
 
 			/* Radius 2 */
 			if (rad >= 2)
 			{
 				/* South of the monster */
-				if (cave_have_flag_bold(mon_fy + 1, mon_fx, f_flag))
+				if (cave_have_flag_bold(creature_fy + 1, creature_fx, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy + 2, mon_fx + 1);
-					add_mon_lite(player_ptr, mon_fy + 2, mon_fx);
-					add_mon_lite(player_ptr, mon_fy + 2, mon_fx - 1);
+					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 1);
+					add_creature_lite(player_ptr, creature_fy + 2, creature_fx);
+					add_creature_lite(player_ptr, creature_fy + 2, creature_fx - 1);
 
-					c_ptr = &cave[mon_fy + 2][mon_fx];
+					c_ptr = &cave[creature_fy + 2][creature_fx];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(player_ptr, mon_fy + 3, mon_fx + 1);
-						add_mon_lite(player_ptr, mon_fy + 3, mon_fx);
-						add_mon_lite(player_ptr, mon_fy + 3, mon_fx - 1);
+						add_creature_lite(player_ptr, creature_fy + 3, creature_fx + 1);
+						add_creature_lite(player_ptr, creature_fy + 3, creature_fx);
+						add_creature_lite(player_ptr, creature_fy + 3, creature_fx - 1);
 					}
 				}
 
 				/* North of the monster */
-				if (cave_have_flag_bold(mon_fy - 1, mon_fx, f_flag))
+				if (cave_have_flag_bold(creature_fy - 1, creature_fx, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy - 2, mon_fx + 1);
-					add_mon_lite(player_ptr, mon_fy - 2, mon_fx);
-					add_mon_lite(player_ptr, mon_fy - 2, mon_fx - 1);
+					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 1);
+					add_creature_lite(player_ptr, creature_fy - 2, creature_fx);
+					add_creature_lite(player_ptr, creature_fy - 2, creature_fx - 1);
 
-					c_ptr = &cave[mon_fy - 2][mon_fx];
+					c_ptr = &cave[creature_fy - 2][creature_fx];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(player_ptr, mon_fy - 3, mon_fx + 1);
-						add_mon_lite(player_ptr, mon_fy - 3, mon_fx);
-						add_mon_lite(player_ptr, mon_fy - 3, mon_fx - 1);
+						add_creature_lite(player_ptr, creature_fy - 3, creature_fx + 1);
+						add_creature_lite(player_ptr, creature_fy - 3, creature_fx);
+						add_creature_lite(player_ptr, creature_fy - 3, creature_fx - 1);
 					}
 				}
 
 				/* East of the monster */
-				if (cave_have_flag_bold(mon_fy, mon_fx + 1, f_flag))
+				if (cave_have_flag_bold(creature_fy, creature_fx + 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy + 1, mon_fx + 2);
-					add_mon_lite(player_ptr, mon_fy, mon_fx + 2);
-					add_mon_lite(player_ptr, mon_fy - 1, mon_fx + 2);
+					add_creature_lite(player_ptr, creature_fy + 1, creature_fx + 2);
+					add_creature_lite(player_ptr, creature_fy, creature_fx + 2);
+					add_creature_lite(player_ptr, creature_fy - 1, creature_fx + 2);
 
-					c_ptr = &cave[mon_fy][mon_fx + 2];
+					c_ptr = &cave[creature_fy][creature_fx + 2];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(player_ptr, mon_fy + 1, mon_fx + 3);
-						add_mon_lite(player_ptr, mon_fy, mon_fx + 3);
-						add_mon_lite(player_ptr, mon_fy - 1, mon_fx + 3);
+						add_creature_lite(player_ptr, creature_fy + 1, creature_fx + 3);
+						add_creature_lite(player_ptr, creature_fy, creature_fx + 3);
+						add_creature_lite(player_ptr, creature_fy - 1, creature_fx + 3);
 					}
 				}
 
 				/* West of the monster */
-				if (cave_have_flag_bold(mon_fy, mon_fx - 1, f_flag))
+				if (cave_have_flag_bold(creature_fy, creature_fx - 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy + 1, mon_fx - 2);
-					add_mon_lite(player_ptr, mon_fy, mon_fx - 2);
-					add_mon_lite(player_ptr, mon_fy - 1, mon_fx - 2);
+					add_creature_lite(player_ptr, creature_fy + 1, creature_fx - 2);
+					add_creature_lite(player_ptr, creature_fy, creature_fx - 2);
+					add_creature_lite(player_ptr, creature_fy - 1, creature_fx - 2);
 
-					c_ptr = &cave[mon_fy][mon_fx - 2];
+					c_ptr = &cave[creature_fy][creature_fx - 2];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(player_ptr, mon_fy + 1, mon_fx - 3);
-						add_mon_lite(player_ptr, mon_fy, mon_fx - 3);
-						add_mon_lite(player_ptr, mon_fy - 1, mon_fx - 3);
+						add_creature_lite(player_ptr, creature_fy + 1, creature_fx - 3);
+						add_creature_lite(player_ptr, creature_fy, creature_fx - 3);
+						add_creature_lite(player_ptr, creature_fy - 1, creature_fx - 3);
 					}
 				}
 			}
@@ -3169,27 +3170,27 @@ void update_creature_lite(void)
 			if (rad == 3)
 			{
 				/* South-East of the monster */
-				if (cave_have_flag_bold(mon_fy + 1, mon_fx + 1, f_flag))
+				if (cave_have_flag_bold(creature_fy + 1, creature_fx + 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy + 2, mon_fx + 2);
+					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 2);
 				}
 
 				/* South-West of the monster */
-				if (cave_have_flag_bold(mon_fy + 1, mon_fx - 1, f_flag))
+				if (cave_have_flag_bold(creature_fy + 1, creature_fx - 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy + 2, mon_fx - 2);
+					add_creature_lite(player_ptr, creature_fy + 2, creature_fx - 2);
 				}
 
 				/* North-East of the monster */
-				if (cave_have_flag_bold(mon_fy - 1, mon_fx + 1, f_flag))
+				if (cave_have_flag_bold(creature_fy - 1, creature_fx + 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy - 2, mon_fx + 2);
+					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 2);
 				}
 
 				/* North-West of the monster */
-				if (cave_have_flag_bold(mon_fy - 1, mon_fx - 1, f_flag))
+				if (cave_have_flag_bold(creature_fy - 1, creature_fx - 1, f_flag))
 				{
-					add_mon_lite(player_ptr, mon_fy - 2, mon_fx - 2);
+					add_creature_lite(player_ptr, creature_fy - 2, creature_fx - 2);
 				}
 			}
 		}
@@ -3203,8 +3204,8 @@ void update_creature_lite(void)
 	 */
 	for (i = 0; i < mon_lite_n; i++)
 	{
-		fx = mon_lite_x[i];
-		fy = mon_lite_y[i];
+		fx = creature_lite_x[i];
+		fy = creature_lite_y[i];
 
 		/* We trust this grid is in bounds */
 
@@ -3274,8 +3275,8 @@ void update_creature_lite(void)
 		}
 
 		/* Save in the monster lit or darkened array */
-		mon_lite_x[mon_lite_n] = fx;
-		mon_lite_y[mon_lite_n] = fy;
+		creature_lite_x[mon_lite_n] = fx;
+		creature_lite_y[mon_lite_n] = fy;
 		mon_lite_n++;
 	}
 
