@@ -3423,9 +3423,9 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int creature_ego_
 #endif
 		if (!has_cf_creature(m_ptr, CF_RIDING))
 #ifdef JP
-			if (rakuba(p_ptr, 0, TRUE)) msg_print("地面に落とされた。");
+			if (rakuba(&creature_list[creature_list[m_idx].ridden], 0, TRUE)) msg_print("地面に落とされた。");
 #else
-			if (rakuba(p_ptr, 0, TRUE)) msg_format("You have fallen from %s.", m_name);
+			if (rakuba(&creature_list[creature_list[m_idx].ridden], 0, TRUE)) msg_format("You have fallen from %s.", m_name);
 #endif
 	}
 
