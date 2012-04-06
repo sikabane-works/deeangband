@@ -689,7 +689,7 @@ static void gen_caverns_and_lakes(void)
  *
  * Note that "dun_body" adds about 4000 bytes of memory to the stack.
  */
-static bool cave_gen(creature_type *player_ptr)
+static bool cave_gen(void)
 {
 	int i, k, y, x;
 
@@ -1465,7 +1465,7 @@ static bool level_gen(cptr *why)
 	}
 
 	/* Make a dungeon */
-	if (!cave_gen(p_ptr))
+	if (!cave_gen())
 	{
 #ifdef JP
 *why = "ƒ_ƒ“ƒWƒ‡ƒ“¶¬‚É¸”s";

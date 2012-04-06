@@ -199,10 +199,10 @@ static void kill_saved_floor(saved_floor_type *sf_ptr)
 
 	if (sf_ptr->floor_id == p_ptr->floor_id)
 	{
-		/* Kill current floor */
-		p_ptr->floor_id = 0;
+		// Kill current floor
+		player_ptr->floor_id = 0;
 
-		/* Current floor doesn't have temporal file */
+		// Current floor doesn't have temporal file
 	}
 	else 
 	{
