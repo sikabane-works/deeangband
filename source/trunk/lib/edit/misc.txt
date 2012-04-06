@@ -46,8 +46,8 @@ M:E:255
 M:D:36
 
 # Maximum size for "o_list[]"
-M:O:1024
+M:O:5000
 
 # Maximum size for "m_list[]"
-M:M:1500
+M:M:5000
 
