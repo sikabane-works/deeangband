@@ -1317,7 +1317,7 @@ static void battle_gen(creature_type *player_ptr)
 		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 		/* Update the monster */
-		update_mon(player_ptr, i, FALSE);
+		update_mon(i, FALSE);
 	}
 }
 

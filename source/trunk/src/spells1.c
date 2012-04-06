@@ -1024,7 +1024,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->m_idx) update_mon(aimer_ptr, c_ptr->m_idx, FALSE);
+				if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
 
 				if (aimer_ptr->special_defense & NINJA_S_STEALTH)
 				{
@@ -1089,7 +1089,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->m_idx) update_mon(aimer_ptr, c_ptr->m_idx, FALSE);
+				if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
 			}
 
 			/* All done */
@@ -2295,7 +2295,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the monster */
-	if (target_ptr->species_idx) update_mon(player_ptr, c_ptr->m_idx, FALSE);
+	if (target_ptr->species_idx) update_mon(c_ptr->m_idx, FALSE);
 
 	/* Redraw the monster grid */
 	lite_spot(y, x);

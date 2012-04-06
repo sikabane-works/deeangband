@@ -575,7 +575,7 @@ static void place_pet(creature_type *creature_ptr)
 			}
 
 			/* Update the monster */
-			update_mon(creature_ptr, m_idx, TRUE);
+			update_mon(m_idx, TRUE);
 			lite_spot(cy, cx);
 
 			/* Pre-calculated in precalc_cur_num_of_pet() */
@@ -727,7 +727,7 @@ static void get_out_creature(creature_type *creature_ptr)
 		m_ptr->fy = ny;
 		m_ptr->fx = nx; 
 
-		/* No need to do update_mon(cr_ptr, ) */
+		/* No need to do update_mon() */
 
 		/* Success */
 		return;

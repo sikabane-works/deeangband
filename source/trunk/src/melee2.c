@@ -2326,7 +2326,7 @@ msg_format("%^s%s", m_name, monmessage);
 					y_ptr->fx = ox;
 
 					/* Update the old monster */
-					update_mon(player_ptr, c_ptr->m_idx, TRUE);
+					update_mon(c_ptr->m_idx, TRUE);
 				}
 
 				/* Hack -- Update the new location */
@@ -2337,7 +2337,7 @@ msg_format("%^s%s", m_name, monmessage);
 				nonplayer_ptr->fx = nx;
 
 				/* Update the monster */
-				update_mon(player_ptr, m_idx, TRUE);
+				update_mon(m_idx, TRUE);
 
 				/* Redraw the old grid */
 				lite_spot(oy, ox);

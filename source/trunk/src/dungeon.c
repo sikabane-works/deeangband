@@ -5588,7 +5588,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the monster */
-			update_mon(cr_ptr, i, FALSE);
+			update_mon(i, FALSE);
 		}
 		prt_time(cr_ptr);
 	}
@@ -6096,7 +6096,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							m_ptr->ml = FALSE;
 
 							/* Update the monster */
-							update_mon(cr_ptr, i, FALSE);
+							update_mon(i, FALSE);
 
 							if (health_who == i) play_redraw |= (PR_HEALTH);
 							if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);

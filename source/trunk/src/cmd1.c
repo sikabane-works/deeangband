@@ -3584,7 +3584,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 				creature_type *om_ptr = &creature_list[om_idx];
 				om_ptr->fy = ny;
 				om_ptr->fx = nx;
-				update_mon(cr_ptr, om_idx, TRUE);
+				update_mon(om_idx, TRUE);
 			}
 
 			if (nm_idx > 0) /* Monster on new spot */
@@ -3592,7 +3592,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 				creature_type *nm_ptr = &creature_list[nm_idx];
 				nm_ptr->fy = oy;
 				nm_ptr->fx = ox;
-				update_mon(cr_ptr, nm_idx, TRUE);
+				update_mon(nm_idx, TRUE);
 			}
 		}
 
