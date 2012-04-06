@@ -3986,7 +3986,7 @@ prt("[‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
  * Convert an inventory index into a one character label
  * Note that the label does NOT distinguish inven/equip.
  */
-char index_to_label(creature_type *cr_ptr, int i)
+char index_to_label(int i)
 {
 	return (i < 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
 }
@@ -4365,7 +4365,7 @@ void display_inven(creature_type *cr_ptr)
 		if (item_tester_okay(cr_ptr, o_ptr, NULL))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(cr_ptr, i);
+			tmp_val[0] = index_to_label(i);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';
@@ -4468,7 +4468,7 @@ void display_equip(creature_type *cr_ptr)
 		if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING : item_tester_okay(p_ptr, o_ptr, NULL))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(p_ptr, i);
+			tmp_val[0] = index_to_label(i);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';
@@ -4927,7 +4927,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		else
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(cr_ptr, i));
+			sprintf(tmp_val, "%c)", index_to_label(i));
 		}
 
 		/* Clear the line with the (possibly indented) index */
@@ -5537,7 +5537,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(cr_ptr, i1), index_to_label(cr_ptr, i2));
+					index_to_label(i2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -5577,7 +5577,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(cr_ptr, e1), index_to_label(cr_ptr, e2));
+					index_to_label(e2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -6629,7 +6629,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(cr_ptr, i1), index_to_label(cr_ptr, i2));
+					index_to_label(i2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -6701,7 +6701,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(cr_ptr, e1), index_to_label(cr_ptr, e2));
+					index_to_label(e2));
 
 				/* Append */
 				strcat(out_val, tmp_val);

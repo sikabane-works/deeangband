@@ -5314,7 +5314,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 #endif
 
 			fprintf(fff, "%c) %s\n",
-				index_to_label(cr_ptr, i), o_name);
+				index_to_label(i), o_name);
 		}
 		fprintf(fff, "\n\n");
 	}
@@ -5333,7 +5333,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 
 		/* Dump the inventory slots */
 		object_desc(o_name, &cr_ptr->inventory[i], 0);
-		fprintf(fff, "%c) %s\n", index_to_label(cr_ptr, i), o_name);
+		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
 	}
 
 	/* Add an empty line */

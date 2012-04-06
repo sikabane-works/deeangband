@@ -1100,10 +1100,10 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	{
 		/* Message */
 #ifdef JP
-msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(cr_ptr, t) );
+msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 #else
 		msg_format("Your %s (%c) resist%s disenchantment!",
-			   o_name, index_to_label(cr_ptr, t),
+			   o_name, index_to_label(t),
 			   ((o_ptr->number != 1) ? "" : "s"));
 #endif
 
@@ -1141,10 +1141,10 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(cr_ptr, t) );
 		/* Message */
 #ifdef JP
 		msg_format("%s(%c)は劣化してしまった！",
-			   o_name, index_to_label(cr_ptr, t) );
+			   o_name, index_to_label(t) );
 #else
 		msg_format("Your %s (%c) %s disenchanted!",
-			   o_name, index_to_label(cr_ptr, t),
+			   o_name, index_to_label(t),
 			   ((o_ptr->number != 1) ? "were" : "was"));
 #endif
 
@@ -2867,17 +2867,17 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	if(cr_ptr->equip_now[item])
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(item));
 #endif
 	}
 	else if (item >= 0)
 	{
 #ifdef JP
-		msg_format("ザック中: %s(%c)。", o_name, index_to_label(cr_ptr, item));
+		msg_format("ザック中: %s(%c)。", o_name, index_to_label(item));
 #else
-		msg_format("In your pack: %s (%c).", o_name, index_to_label(cr_ptr, item));
+		msg_format("In your pack: %s (%c).", o_name, index_to_label(item));
 #endif
 	}
 	else
@@ -3060,9 +3060,9 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	if(cr_ptr->equip_now[item])
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(item));
 #endif
 
 
@@ -3070,9 +3070,9 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	else if (item >= 0)
 	{
 #ifdef JP
-		msg_format("ザック中: %s(%c)。", o_name, index_to_label(cr_ptr, item));
+		msg_format("ザック中: %s(%c)。", o_name, index_to_label(item));
 #else
-		msg_format("In your pack: %s (%c).", o_name, index_to_label(cr_ptr, item));
+		msg_format("In your pack: %s (%c).", o_name, index_to_label(item));
 #endif
 	}
 	else
@@ -4836,7 +4836,7 @@ msg_format("%s(%c)が%s壊れてしまった！",
 #endif
 
 #ifdef JP
-o_name, index_to_label(cr_ptr, i),
+o_name, index_to_label(i),
     ((o_ptr->number > 1) ?
     ((amt == o_ptr->number) ? "全部" :
     (amt > 1 ? "何個か" : "一個")) : "")    );
@@ -4844,7 +4844,7 @@ o_name, index_to_label(cr_ptr, i),
 				    ((o_ptr->number > 1) ?
 				    ((amt == o_ptr->number) ? "All of y" :
 				    (amt > 1 ? "Some of y" : "One of y")) : "Y"),
-				    o_name, index_to_label(cr_ptr, i),
+				    o_name, index_to_label(i),
 				    ((amt > 1) ? "were" : "was"));
 #endif
 

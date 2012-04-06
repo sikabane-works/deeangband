@@ -1259,7 +1259,7 @@ extern void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE]);
 extern void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE]);
 extern cptr item_activation(object_type *o_ptr);
 extern bool screen_object(object_type *o_ptr, u32b mode);
-extern char index_to_label(creature_type *cr_ptr, int i);
+extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *cr_ptr, int c);
 extern cptr mention_use(creature_type *cr_ptr, int i);
 extern cptr describe_use(creature_type *cr_ptr, int i);

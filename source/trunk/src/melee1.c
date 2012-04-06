@@ -1059,12 +1059,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I",
-							   o_name, index_to_label(target_ptr, i),
+							   o_name, index_to_label(i),
 							   ((o_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 						msg_format("%sour %s (%c) was stolen!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(target_ptr, i));
+							   o_name, index_to_label(i));
 #endif
 
 						/* Make an object */
@@ -1152,12 +1152,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I",
-							  o_name, index_to_label(target_ptr, i),
+							  o_name, index_to_label(i),
 							  ((o_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 						msg_format("%sour %s (%c) was eaten!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(target_ptr, i));
+							   o_name, index_to_label(i));
 #endif
 
 

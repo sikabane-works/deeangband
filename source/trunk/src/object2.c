@@ -5331,9 +5331,9 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	// Message
 #ifdef JP
-	msg_format("%s(%c)%s。", o_name, index_to_label(cr_ptr, slot), act);
+	msg_format("%s(%c)%s。", o_name, index_to_label(slot), act);
 #else
-	msg_format("%s %s (%c).", act, o_name, index_to_label(cr_ptr, slot));
+	msg_format("%s %s (%c).", act, o_name, index_to_label(slot));
 #endif
 
 
@@ -5399,9 +5399,9 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 	/* Message */
 #ifdef JP
-	msg_format("%s(%c)を落とした。", o_name, index_to_label(cr_ptr, item));
+	msg_format("%s(%c)を落とした。", o_name, index_to_label(item));
 #else
-	msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, item));
+	msg_format("You drop %s (%c).", o_name, index_to_label(item));
 #endif
 
 

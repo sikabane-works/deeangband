@@ -273,10 +273,10 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	{
 #ifdef JP
 msg_format("%s%s(%c)は%sという感じがする...",
-describe_use(cr_ptr, slot),o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
+describe_use(cr_ptr, slot),o_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
-			   o_name, index_to_label(cr_ptr, slot), describe_use(slot),
+			   o_name, index_to_label(slot), describe_use(slot),
 			   ((o_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -288,10 +288,10 @@ describe_use(cr_ptr, slot),o_name, index_to_label(cr_ptr, slot),game_inscription
 	{
 #ifdef JP
 msg_format("ザックの中の%s(%c)は%sという感じがする...",
-o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
+o_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
-			   o_name, index_to_label(cr_ptr, slot),
+			   o_name, index_to_label(slot),
 			   ((o_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -5529,9 +5529,9 @@ static void pack_overflow(creature_type *cr_ptr)
 
 		/* Message */
 #ifdef JP
-		msg_format("%s(%c)を落とした。", o_name, index_to_label(cr_ptr, INVEN_TOTAL));
+		msg_format("%s(%c)を落とした。", o_name, index_to_label(INVEN_TOTAL));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, INVEN_TOTAL));
+		msg_format("You drop %s (%c).", o_name, index_to_label(INVEN_TOTAL));
 #endif
 
 		/* Drop it (carefully) near the player */

@@ -4137,10 +4137,10 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 
 				/* Message */
 #ifdef JP
-		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(guest_ptr, item_new));
+		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(item_new));
 #else
 				msg_format("You have %s (%c).",
-						   o_name, index_to_label(guest_ptr, item_new));
+						   o_name, index_to_label(item_new));
 #endif
 
 				/* Auto-inscription */
@@ -4238,7 +4238,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 #else
 		msg_format("You have %s (%c).",
 #endif
- o_name, index_to_label(guest_ptr, item_new));
+ o_name, index_to_label(item_new));
 
 		/* Handle stuff */
 		handle_stuff();
@@ -4460,9 +4460,9 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	{
 		/* Describe the transaction */
 #ifdef JP
-		msg_format("%s(%c)を売却する。", o_name, index_to_label(cr_ptr, item));
+		msg_format("%s(%c)を売却する。", o_name, index_to_label(item));
 #else
-		msg_format("Selling %s (%c).", o_name, index_to_label(cr_ptr, item));
+		msg_format("Selling %s (%c).", o_name, index_to_label(item));
 #endif
 
 		msg_print(NULL);
@@ -4609,9 +4609,9 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 
 		/* Describe */
 #ifdef JP
-		msg_format("%sを置いた。(%c)", o_name, index_to_label(cr_ptr, item));
+		msg_format("%sを置いた。(%c)", o_name, index_to_label(item));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, item));
+		msg_format("You drop %s (%c).", o_name, index_to_label(item));
 #endif
 
 		choice = 0;
@@ -4642,9 +4642,9 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 
 		/* Describe */
 #ifdef JP
-		msg_format("%sを置いた。(%c)", o_name, index_to_label(cr_ptr, item));
+		msg_format("%sを置いた。(%c)", o_name, index_to_label(item));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, item));
+		msg_format("You drop %s (%c).", o_name, index_to_label(item));
 #endif
 
 		choice = 0;
@@ -5559,9 +5559,9 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 				/* Message */
 #ifdef JP
-				msg_format("%sが落ちた。(%c)", o_name, index_to_label(cr_ptr, item));
+				msg_format("%sが落ちた。(%c)", o_name, index_to_label(item));
 #else
-				msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, item));
+				msg_format("You drop %s (%c).", o_name, index_to_label(item));
 #endif
 
 
