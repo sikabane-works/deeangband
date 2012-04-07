@@ -5082,7 +5082,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	}
 
 	/* Lose monster light */
-	if (!in_generate) clear_mon_lite();
+	if (!in_generate) clear_creature_lite();
 
 	/* Big area of affect */
 	for (y = (y1 - r); y <= (y1 + r); y++)
@@ -5742,7 +5742,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	/* Lose monster light */
-	clear_mon_lite();
+	clear_creature_lite();
 
 	/* Examine the quaked region */
 	for (dy = -r; dy <= r; dy++)

@@ -1065,7 +1065,7 @@ void leave_floor(creature_type *cr_ptr)
 		forget_view();
 
 		/* Forget the view */
-		clear_mon_lite();
+		clear_creature_lite();
 
 		/* Save current floor */
 		if (!save_floor(sf_ptr, 0))

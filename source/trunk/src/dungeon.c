@@ -7204,7 +7204,7 @@ quit("セーブファイルが壊れています");
 		forget_view();
 
 		/* Forget the view */
-		clear_mon_lite();
+		clear_creature_lite();
 
 		/* Handle "quit and save" */
 		if (!playing && !gameover) break;

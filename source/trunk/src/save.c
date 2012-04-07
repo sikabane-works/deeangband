@@ -1062,7 +1062,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	forget_view();
 
 	/* Forget the view */
-	clear_mon_lite();
+	clear_creature_lite();
 
 	/* Update lite/view */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);

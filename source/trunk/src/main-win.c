@@ -3612,7 +3612,7 @@ static void process_menus(WORD wCmd)
 
 				forget_lite();
 				forget_view();
-				clear_mon_lite();
+				clear_creature_lite();
 
 				/* Save the game */
 #ifdef ZANGBAND
@@ -4558,7 +4558,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				forget_lite();
 				forget_view();
-				clear_mon_lite();
+				clear_creature_lite();
 
 				/* Save the game */
 #ifdef ZANGBAND
