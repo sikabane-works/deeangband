@@ -3760,7 +3760,7 @@ static void print_visuals_menu(cptr choice_msg)
 #endif
 }
 
-static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_species_idx);
+static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);
 static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int direct_f_idx, int *lighting_level);
 
@@ -4164,7 +4164,7 @@ void do_cmd_visuals(void)
 					need_redraw = TRUE;
 					break;
 				case 'v':
-					do_cmd_knowledge_monsters(&need_redraw, TRUE, r);
+					do_cmd_knowledge_creatures(&need_redraw, TRUE, r);
 
 					/* Clear screen */
 					Term_clear();
@@ -4434,7 +4434,7 @@ void do_cmd_visuals(void)
 
 		/* Modify monster attr/chars (visual mode) */
 		case '7':
-			do_cmd_knowledge_monsters(&need_redraw, TRUE, -1);
+			do_cmd_knowledge_creatures(&need_redraw, TRUE, -1);
 			break;
 
 		/* Modify object attr/chars (visual mode) */
@@ -5420,7 +5420,7 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
  * mode & 0x01 : check for non-empty group
  * mode & 0x02 : visual operation only
  */
-static int collect_creatures(int grp_cur, s16b mon_idx[], byte mode)
+static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 {
 	int i, mon_cnt = 0, ego = 0;
 	int dummy_why;
@@ -5520,17 +5520,17 @@ static int collect_creatures(int grp_cur, s16b mon_idx[], byte mode)
 		}
 
 		/* Add the race */
-		mon_idx[mon_cnt++] = i;
+		creature_idx[mon_cnt++] = i;
 
 		/* XXX Hack -- Just checking for non-empty group */
 		if (mode & 0x01) break;
 	}
 
 	/* Terminate the list */
-	mon_idx[mon_cnt] = -1;
+	creature_idx[mon_cnt] = -1;
 
 	/* Sort by monster level */
-	ang_sort(mon_idx, &dummy_why, mon_cnt, ang_sort_comp_creature_exp, ang_sort_swap_hook);
+	ang_sort(creature_idx, &dummy_why, mon_cnt, ang_sort_comp_creature_exp, ang_sort_swap_hook);
 
 	/* Return the number of races */
 	return mon_cnt;
@@ -8002,7 +8002,7 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 /*
  * Display known monsters.
  */
-static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_species_idx)
+static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx)
 {
 	int i, len, max;
 	int grp_cur, grp_top, old_grp_cur;
@@ -10248,7 +10248,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_uniques();
 			break;
 		case '4': /* Monsters */
-			do_cmd_knowledge_monsters(&need_redraw, FALSE, -1);
+			do_cmd_knowledge_creatures(&need_redraw, FALSE, -1);
 			break;
 		case '5': /* Kill count  */
 			do_cmd_knowledge_kill_count();
