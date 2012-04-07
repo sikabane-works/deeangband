@@ -2232,7 +2232,7 @@ static void spoil_out(cptr str)
 
 
 /*
- *  Hook function used in spoil_mon_info()
+ *  Hook function used in spoil_species_info()
  */
 static void roff_func(byte attr, cptr str)
 {
@@ -2246,7 +2246,7 @@ static void roff_func(byte attr, cptr str)
 /*
  * Create a spoiler file for monsters (-SHAWN-)
  */
-static void spoil_mon_info(cptr fname)
+static void spoil_species_info(cptr fname)
 {
 	char buf[1024];
 	int i, l, n = 0;
@@ -2535,7 +2535,7 @@ static void ang_sort_swap_evol_tree(vptr u, vptr v, int a, int b)
 /*
  * Print monsters' evolution information to file
  */
-static void spoil_mon_evol(cptr fname)
+static void spoil_species_evol(cptr fname)
 {
 	char buf[1024];
 	species_type *r_ptr;
@@ -2733,12 +2733,12 @@ void do_cmd_spoilers(void)
 
 		/* Option (4) */
 		case '4':
-			spoil_mon_info("mon-info.spo");
+			spoil_species_info("mon-info.spo");
 			break;
 
 		/* Option (5) */
 		case '5':
-			spoil_mon_evol("mon-evol.spo");
+			spoil_species_evol("mon-evol.spo");
 			break;
 
 		/* Oops */
