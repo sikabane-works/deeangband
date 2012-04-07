@@ -4211,6 +4211,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	// Place the monster at the location
+	//creature_ptr->floor_id = new_floor_id;
 	creature_ptr->floor_id = player_ptr->floor_id; // TODO
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;

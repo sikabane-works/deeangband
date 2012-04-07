@@ -871,7 +871,8 @@ void leave_floor(creature_type *cr_ptr)
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
 	    /* Get temporal floor_id */
-	    cr_ptr->floor_id = get_new_floor_id();
+	    //new_floor_id = get_new_floor_id();
+		//cr_ptr->floor_id = new_floor_id;
 	}
 
 
@@ -1030,7 +1031,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (!new_floor_id)
 	{
 		/* Get new id */
-		new_floor_id = get_new_floor_id();
+		//new_floor_id = get_new_floor_id();
 
 		/* Connect from here */
 		if (c_ptr && !feat_uses_special(c_ptr->feat))
