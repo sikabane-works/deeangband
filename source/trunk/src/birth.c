@@ -2848,7 +2848,7 @@ void determine_random_questor(quest_type *q_ptr)
 		 * Random monster 5 - 10 levels out of depth
 		 * (depending on level)
 		 */
-		species_idx = get_mon_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
+		species_idx = get_species_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
 		r_ptr = &species_info[species_idx];
 
 		if (!is_unique_species(r_ptr)) continue;

@@ -3918,7 +3918,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
 				get_species_num_prep(get_nightmare, NULL);
 
 				/* Have some nightmares */
-				have_nightmare(target_ptr, get_mon_num(MAX_DEPTH));
+				have_nightmare(target_ptr, get_species_num(MAX_DEPTH));
 
 				/* Remove the monster restriction */
 				get_species_num_prep(NULL, NULL);

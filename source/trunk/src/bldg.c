@@ -1739,7 +1739,7 @@ void battle_monsters(void)
 			{
 				get_species_num_prep(vault_aux_battle, NULL);
 				monster_arena_mode = TRUE;
-				species_idx = get_mon_num(creature_level);
+				species_idx = get_species_num(creature_level);
 				monster_arena_mode = old_monster_arena_mode;
 				if (!species_idx) continue;
 
@@ -2854,7 +2854,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					/* Have some nightmares */
 					while(1)
 					{
-						have_nightmare(cr_ptr, get_mon_num(MAX_DEPTH));
+						have_nightmare(cr_ptr, get_species_num(MAX_DEPTH));
 
 						if (!one_in_(3)) break;
 					}
@@ -3062,14 +3062,14 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 			if (q_ptr->species_idx == 0)
 			{
 				/* Random monster at least 5 - 10 levels out of deep */
-				q_ptr->species_idx = get_mon_num(q_ptr->level + 4 + randint1(6));
+				q_ptr->species_idx = get_species_num(q_ptr->level + 4 + randint1(6));
 			}
 
 			r_ptr = &species_info[q_ptr->species_idx];
 
 			while (is_unique_species(r_ptr) || (r_ptr->rarity != 1))
 			{
-				q_ptr->species_idx = get_mon_num(q_ptr->level) + 4 + (s16b)randint1(6);
+				q_ptr->species_idx = get_species_num(q_ptr->level) + 4 + (s16b)randint1(6);
 				r_ptr = &species_info[q_ptr->species_idx];
 			}
 

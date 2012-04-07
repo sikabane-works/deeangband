@@ -5390,7 +5390,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	for (i = 0; i < 1000; i++)
 	{
 		/* Pick a new race, using a level calculation */
-		r = get_mon_num((dun_level + species_ptr->level) / 2 + 5);
+		r = get_species_num((dun_level + species_ptr->level) / 2 + 5);
 
 		/* Handle failure */
 		if (!r) break;
