@@ -873,6 +873,7 @@ void leave_floor(creature_type *cr_ptr)
 	    /* Get temporal floor_id */
 	    //new_floor_id = get_new_floor_id();
 		//cr_ptr->floor_id = new_floor_id;
+		//cr_ptr->floor_id = get_new_floor_id();
 	}
 
 
@@ -1114,8 +1115,6 @@ void change_floor(creature_type *cr_ptr)
 		generate_cave(cr_ptr);
 
 		/* Paranoia -- No new saved floor */
-
-
 		new_floor_id = 0;
 	}
 
@@ -1127,6 +1126,7 @@ void change_floor(creature_type *cr_ptr)
 		{
 			/* Get new id */
 			new_floor_id = get_new_floor_id();
+			cr_ptr->floor_id = new_floor_id;
 		}
 
 		/* Pointer for infomations of new floor */
