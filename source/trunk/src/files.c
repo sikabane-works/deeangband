@@ -6514,7 +6514,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_p
 /*
  * Gets a name for the character, reacting to name changes.
  *
- * Assumes that "display_creature_status(0, p_ptr)" has just been called
+ * Assumes that "display_creature_status(creature_ptr)" has just been called
  *
  * Perhaps we should NOT ask for a name (at "birth()") on
  * Unix machines?  XXX XXX
@@ -7851,9 +7851,9 @@ static errr counts_seek(int fd, u32b where, bool flag)
 	int i;
 
 #ifdef SAVEFILE_USE_UID
-	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->cls_idx, p_ptr->chara_idx, p_ptr->age);
+	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, player_ptr->cls_idx, player_ptr->chara_idx, player_ptr->age);
 #else
-	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->cls_idx, p_ptr->chara_idx, p_ptr->age);
+	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, player_ptr->cls_idx, player_ptr->chara_idx, player_ptr->age);
 #endif
 	for (i = 0; temp1[i]; i++)
 		temp1[i] ^= (i+1) * 63;
