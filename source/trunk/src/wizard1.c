@@ -1699,7 +1699,7 @@ static void spoil_artifact(cptr fname)
 /*
  * Create a spoiler file for monsters   -BEN-
  */
-static void spoil_mon_desc(cptr fname)
+static void spoil_species_desc(cptr fname)
 {
 	int i, j, n = 0;
 	int tmpht, tmpwt, tmpsize;
@@ -2728,7 +2728,7 @@ void do_cmd_spoilers(void)
 
 		/* Option (3) */
 		case '3':
-			spoil_mon_desc("mon-desc.spo");
+			spoil_species_desc("mon-desc.spo");
 			break;
 
 		/* Option (4) */
