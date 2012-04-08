@@ -413,7 +413,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
  * Note the use of "PU_UN_LITE" and "PU_UN_VIEW", which is needed to
  * memorize any terrain features which suddenly become "visible".
  * Note that blindness is currently the only thing which can affect
- * "player_can_see_bold()".
+ * "creature_can_see_bold()".
  */
 bool set_blind(creature_type *cr_ptr, int v)
 {

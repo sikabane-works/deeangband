@@ -3158,7 +3158,7 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Use "illumination" */
-			if (player_can_see_bold(player_ptr, fy, fx))
+			if (creature_can_see_bold(player_ptr, fy, fx))
 			{
 				/* Handle "invisible" monsters */
 				if (has_cf_creature(m_ptr, CF_INVISIBLE))

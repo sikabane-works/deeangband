@@ -2410,7 +2410,7 @@ msg_format("%^s%s", m_name, monmessage);
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (nonplayer_ptr->ml && player_can_see_bold(player_ptr, ny, nx))
+						if (nonplayer_ptr->ml && creature_can_see_bold(player_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2428,7 +2428,7 @@ msg_format("%^s%s", m_name, monmessage);
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (player_can_see_bold(player_ptr, ny, nx))
+						if (creature_can_see_bold(player_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP

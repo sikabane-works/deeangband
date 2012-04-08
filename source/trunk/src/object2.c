@@ -4192,7 +4192,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	if (!object_is_artifact(j_ptr) && (randint0(100) < chance))
 	{
 		/* Message */
-		if(player_can_see_bold(player_ptr, y, x))
+		if(creature_can_see_bold(player_ptr, y, x))
 		{
 /* TODO
 #ifdef JP

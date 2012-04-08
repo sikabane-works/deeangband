@@ -545,7 +545,7 @@ void update_local_illumination(int y, int x)
  * "glowing" grid.  This prevents the player from being able to "see" the
  * walls of illuminated rooms from a corridor outside the room.
  */
-bool player_can_see_bold(creature_type *viewer_ptr, int y, int x)
+bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
@@ -582,7 +582,7 @@ bool player_can_see_bold(creature_type *viewer_ptr, int y, int x)
  */
 bool no_lite(creature_type *cr_ptr)
 {
-	return (!player_can_see_bold(cr_ptr, cr_ptr->fy, cr_ptr->fx));
+	return (!creature_can_see_bold(cr_ptr, cr_ptr->fy, cr_ptr->fx));
 }
 
 
@@ -890,7 +890,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * illuminated viewable wall grids.
  *
  * Note that, when "view_granite_lite" is set, we use an inline version
- * of the "player_can_see_bold()" function to check the "viewability" of
+ * of the "creature_can_see_bold()" function to check the "viewability" of
  * grids when the "view_bright_lite" option is set, and we do NOT use
  * any special colors for "dark" wall grids, since this would allow the
  * player to notice the walls of illuminated rooms from a hallway that
@@ -1458,7 +1458,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
  * viewable or illuminated in any way, but not when they "maintain"
  * or "lose" their previous viewability or illumination.
  *
- * Note the butchered "internal" version of "player_can_see_bold()",
+ * Note the butchered "internal" version of "creature_can_see_bold()",
  * optimized primarily for the most common cases, that is, for the
  * non-marked floor grids.
  */
@@ -2347,7 +2347,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  * grid and maintains an array of all "CAVE_LITE" grids.
  *
  * This set of grids is the complete set of all grids which are lit by
- * the players light source, which allows the "player_can_see_bold()"
+ * the players light source, which allows the "creature_can_see_bold()"
  * function to work very quickly.
  *
  * Note that every "CAVE_LITE" grid is also a "CAVE_VIEW" grid, and in
@@ -4763,7 +4763,7 @@ void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action)
 			found = TRUE;
 		}
 
-		if (found && character_dungeon && player_can_see_bold(creature_ptr, y, x))
+		if (found && character_dungeon && creature_can_see_bold(creature_ptr, y, x))
 		{
 #ifdef JP
 			msg_print("âΩÇ©Çî≠å©ÇµÇΩÅI");

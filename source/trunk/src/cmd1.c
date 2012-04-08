@@ -4234,7 +4234,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		disturb(player_ptr, 0, 0);
 
 		/* Notice things in the dark */
-		if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(cr_ptr, y, x))
+		if (!(c_ptr->info & CAVE_MARK) && !creature_can_see_bold(cr_ptr, y, x))
 		{
 			/* Boundary floor mimic */
 			if (boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
@@ -4467,7 +4467,7 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	if (cave[y][x].info & (CAVE_MARK)) return (FALSE);
 
 	/* Viewable door/wall grids are known */
-	if (player_can_see_bold(watcher_ptr, y, x)) return (FALSE);
+	if (creature_can_see_bold(watcher_ptr, y, x)) return (FALSE);
 
 	/* Default */
 	return (TRUE);
