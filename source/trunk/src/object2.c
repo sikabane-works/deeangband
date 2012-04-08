@@ -2163,7 +2163,7 @@ static void object_mention(object_type *o_ptr)
  *
  * Note -- see "make_artifact()" and "apply_magic()"
  */
-static bool make_artifact_special(object_type *o_ptr)
+static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 {
 	int i;
 	int k_idx = 0;
@@ -2222,7 +2222,7 @@ static bool make_artifact_special(object_type *o_ptr)
 		o_ptr->name1 = i;
 
 		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(p_ptr, o_ptr, a_ptr);
+		random_artifact_resistance(owner_ptr, o_ptr, a_ptr);
 
 		/* Success */
 		return (TRUE);
@@ -3881,8 +3881,8 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level);
 
 
-	/* Generate a special object, or a normal object */
-	if (!one_in_(prob) || !make_artifact_special(j_ptr))
+	// Generate a special object, or a normal object (for player)
+	if (!one_in_(prob) || !make_artifact_special(player_ptr, j_ptr))
 	{
 		int k_idx;
 
