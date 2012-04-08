@@ -705,6 +705,7 @@ bool creature_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	if (creature_bold(p_ptr, y, x)) return FALSE;
 	if (c_ptr->m_idx) return FALSE;
 
+	//TODO
 	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
 }
 

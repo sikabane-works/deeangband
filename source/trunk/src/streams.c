@@ -261,7 +261,7 @@ void build_streamer(int feat, int chance)
 				if (is_closed_door(c_ptr->feat)) continue;
 			}
 
-			if (c_ptr->m_idx && !(have_flag(streamer_ptr->flags, FF_PLACE) && species_can_cross_terrain(feat, &species_info[creature_list[c_ptr->m_idx].species_idx], 0)))
+			if (c_ptr->m_idx && !(have_flag(streamer_ptr->flags, FF_PLACE) && creature_can_cross_terrain(feat, &creature_list[c_ptr->m_idx], 0)))
 			{
 				/* Delete the monster (if any) */
 				delete_creature(ty, tx);
