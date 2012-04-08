@@ -4712,7 +4712,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	if (place_species_idx == species_idx) return (FALSE);
 
 	/* Skip different alignment */
-	if (creature_has_hostile_align(m_ptr, p_ptr)) return FALSE;
+	if (creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE;
 
 	if (is_chameleon_species(r_ptr) && !is_chameleon_species(z_ptr))
 		return FALSE;
