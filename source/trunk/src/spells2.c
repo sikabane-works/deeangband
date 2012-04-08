@@ -6194,7 +6194,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		if (!in_bounds2(y, x)) return;
 
 		/* Do not exceed the maximum spell range */
-		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE(caster_ptr)) return;
+		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;
 
 		/* Verify this grid */
 		/*

@@ -445,7 +445,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, MAX_RANGE, y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -1335,7 +1335,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/*** require projectable player ***/
 
 	/* Check range */
-	if ((caster_ptr->cdis > MAX_RANGE(target_ptr)) && !caster_ptr->target_y) return (FALSE);
+	if ((caster_ptr->cdis > MAX_RANGE) && !caster_ptr->target_y) return (FALSE);
 
 	/* Check path for lite breath */
 	if (has_cf_creature(target_ptr, CF_BR_LITE))
@@ -1384,20 +1384,20 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		bool success = FALSE;
 
-		if (has_cf_creature(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
+		if (has_cf_creature(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    in_disintegration_range(caster_ptr->fy, caster_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
 		}
-		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
+		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    los(caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
 		}
-		else if (has_cf_creature(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE(target_ptr)))
+		else if (has_cf_creature(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
 		{
 			int by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
@@ -1422,7 +1422,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 				success = TRUE;
 			}
 
-			if (y_br_lite && x_br_lite && (caster_ptr->cdis < MAX_RANGE(target_ptr)/2) && one_in_(5))
+			if (y_br_lite && x_br_lite && (caster_ptr->cdis < MAX_RANGE/2) && one_in_(5))
 			{
 				if (!success)
 				{

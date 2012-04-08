@@ -600,7 +600,7 @@
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
-#define MAX_RANGE(WHO)  (WHO ? (monster_arena_mode ? 36 : 18) : 18) /* Maximum range (spells, etc) */
+#define MAX_RANGE       (monster_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
