@@ -6021,7 +6021,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		/* Redraw */
 		lite_spot(y, x);
 
-		update_local_illumination(lite_ptr, y, x);
+		update_local_illumination(y, x);
 	}
 
 	/* None left */
@@ -6105,7 +6105,7 @@ static void cave_temp_room_unlite(void)
 			/* Redraw */
 			lite_spot(y, x);
 
-			update_local_illumination(p_ptr, y, x);
+			update_local_illumination(y, x);
 		}
 	}
 

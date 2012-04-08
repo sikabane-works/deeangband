@@ -1017,7 +1017,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(aimer_ptr, y, x);
+				update_local_illumination(y, x);
 
 				/* Observe */
 				if (player_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
@@ -1082,7 +1082,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(aimer_ptr, y, x);
+				update_local_illumination(y, x);
 
 				/* Notice */
 				if (player_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
