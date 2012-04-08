@@ -10624,7 +10624,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			if (!cave_have_flag_bold(y, x, FF_HURT_ROCK)) break;
 	
 			/* Destroy the feature */
-			cave_alter_feat(cr_ptr, y, x, FF_HURT_ROCK);
+			cave_alter_feat(y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
 			update |= (PU_FLOW);

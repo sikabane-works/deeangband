@@ -4732,7 +4732,7 @@ int feat_state(int feat, int action)
  * Takes a location and action and changes the feature at that 
  * location through applying the given action.
  */
-void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action)
+void cave_alter_feat(int y, int x, int action)
 {
 	/* Set old feature */
 	int oldfeat = cave[y][x].feat;
@@ -4768,7 +4768,7 @@ void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action)
 			found = TRUE;
 		}
 
-		if (found && character_dungeon && creature_can_see_bold(creature_ptr, y, x))
+		if (found && character_dungeon && creature_can_see_bold(player_ptr, y, x))
 		{
 #ifdef JP
 			msg_print("‰½‚©‚ð”­Œ©‚µ‚½I");
@@ -4784,8 +4784,7 @@ void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action)
 
 		if (have_flag(old_f_ptr->flags, FF_GLASS) && character_dungeon)
 		{
-			/*TODO*/
-			project(creature_ptr, 1, y, x, MIN(dun_level, 100) / 4, GF_SHARDS,
+			project(NULL, 1, y, x, MIN(dun_level, 100) / 4, GF_SHARDS,
 			        (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}

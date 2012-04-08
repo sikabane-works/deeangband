@@ -1122,7 +1122,7 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 #endif
 
 			/* Open the door */
-			cave_alter_feat(cr_ptr, y, x, FF_OPEN);
+			cave_alter_feat(y, x, FF_OPEN);
 
 			/* Sound */
 			sound(SOUND_OPENDOOR);
@@ -1154,7 +1154,7 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 	else
 	{
 		/* Open the door */
-		cave_alter_feat(cr_ptr, y, x, FF_OPEN);
+		cave_alter_feat(y, x, FF_OPEN);
 
 		/* Sound */
 		sound(SOUND_OPENDOOR);
@@ -1331,7 +1331,7 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 		else
 		{
 			/* Close the door */
-			cave_alter_feat(cr_ptr, y, x, FF_CLOSE);
+			cave_alter_feat(y, x, FF_CLOSE);
 
 			/* Broken door */
 			if (old_feat == c_ptr->feat)
@@ -1567,7 +1567,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 #endif
 
 			/* Remove the feature */
-			cave_alter_feat(cr_ptr, y, x, FF_TUNNEL);
+			cave_alter_feat(y, x, FF_TUNNEL);
 
 			/* Update some things */
 			update |= (PU_FLOW);
@@ -1612,7 +1612,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 			if (have_flag(f_ptr->flags, FF_GLASS)) sound(SOUND_GLASS);
 
 			/* Remove the feature */
-			cave_alter_feat(cr_ptr, y, x, FF_TUNNEL);
+			cave_alter_feat(y, x, FF_TUNNEL);
 
 		}
 
@@ -1824,7 +1824,7 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 #endif
 
 			/* Open the door */
-			cave_alter_feat(cr_ptr, y, x, FF_OPEN);
+			cave_alter_feat(y, x, FF_OPEN);
 
 			/* Sound */
 			sound(SOUND_OPENDOOR);
@@ -1853,7 +1853,7 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 	else
 	{
 		/* Open the door */
-		cave_alter_feat(cr_ptr, y, x, FF_OPEN);
+		cave_alter_feat(y, x, FF_OPEN);
 
 		/* Sound */
 		sound(SOUND_OPENDOOR);
@@ -2043,7 +2043,7 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 		gain_exp(cr_ptr, power);
 
 		/* Remove the trap */
-		cave_alter_feat(cr_ptr, y, x, FF_DISARM);
+		cave_alter_feat(y, x, FF_DISARM);
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
@@ -2284,13 +2284,13 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 		/* Break down the door */
 		if ((randint0(100) < 50) || (feat_state(c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 		{
-			cave_alter_feat(cr_ptr, y, x, FF_BASH);
+			cave_alter_feat(y, x, FF_BASH);
 		}
 
 		/* Open the door */
 		else
 		{
-			cave_alter_feat(cr_ptr, y, x, FF_OPEN);
+			cave_alter_feat(y, x, FF_OPEN);
 		}
 
 		/* Hack -- Fall through the door */
@@ -2661,7 +2661,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 			msg_format("You jam the %s with a spike.", f_name + f_info[feat].name);
 #endif
 
-			cave_alter_feat(cr_ptr, y, x, FF_SPIKE);
+			cave_alter_feat(y, x, FF_SPIKE);
 
 			/* Use up, and describe, a single spike, from the bottom */
 			inven_item_increase(cr_ptr, item, -1);
@@ -3465,7 +3465,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 				/* Destroy the wall */
-				cave_alter_feat(cr_ptr, ny, nx, FF_HURT_ROCK);
+				cave_alter_feat(ny, nx, FF_HURT_ROCK);
 
 				hit_body = TRUE;
 				break;

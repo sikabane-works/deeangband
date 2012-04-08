@@ -322,14 +322,14 @@ void build_streamer(int feat, int chance)
 				/* Hack -- Add some known treasure */
 				if (one_in_(chance))
 				{
-					cave_alter_feat(p_ptr, ty, tx, FF_MAY_HAVE_GOLD);
+					cave_alter_feat(ty, tx, FF_MAY_HAVE_GOLD);
 				}
 
 				/* Hack -- Add some hidden treasure */
 				else if (one_in_(chance / 4))
 				{
-					cave_alter_feat(p_ptr, ty, tx, FF_MAY_HAVE_GOLD);
-					cave_alter_feat(p_ptr, ty, tx, FF_ENSECRET);
+					cave_alter_feat(ty, tx, FF_MAY_HAVE_GOLD);
+					cave_alter_feat(ty, tx, FF_ENSECRET);
 				}
 			}
 		}

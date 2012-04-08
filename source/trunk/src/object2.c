@@ -4650,7 +4650,7 @@ void disclose_grid(int y, int x)
 	if (cave_have_flag_grid(c_ptr, FF_SECRET))
 	{
 		/* No longer hidden */
-		cave_alter_feat(p_ptr, y, x, FF_SECRET);
+		cave_alter_feat(y, x, FF_SECRET);
 	}
 	else if (c_ptr->mimic)
 	{

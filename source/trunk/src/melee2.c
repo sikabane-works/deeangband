@@ -1958,7 +1958,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (randint0(nonplayer_ptr->chp / 10) > f_ptr->power)
 					{
 						/* Unlock the door */
-						cave_alter_feat(player_ptr, ny, nx, FF_DISARM);
+						cave_alter_feat(ny, nx, FF_DISARM);
 
 						/* Do not bash the door */
 						may_bash = FALSE;
@@ -2009,7 +2009,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Break down the door */
 				if (did_bash_door && ((randint0(100) < 50) || (feat_state(c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
 				{
-					cave_alter_feat(player_ptr, ny, nx, FF_BASH);
+					cave_alter_feat(ny, nx, FF_BASH);
 
 					if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
@@ -2025,7 +2025,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Open the door */
 				else
 				{
-					cave_alter_feat(player_ptr, ny, nx, FF_OPEN);
+					cave_alter_feat(ny, nx, FF_OPEN);
 				}
 
 				f_ptr = &f_info[c_ptr->feat];
@@ -2247,7 +2247,7 @@ msg_format("%^s%s", m_name, monmessage);
 #endif
 			}
 
-			cave_alter_feat(player_ptr, ny, nx, FF_HURT_DISI);
+			cave_alter_feat(ny, nx, FF_HURT_DISI);
 
 			if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
