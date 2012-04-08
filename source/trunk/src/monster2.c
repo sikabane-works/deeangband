@@ -841,9 +841,6 @@ static void move_creature_object(int i1, int i2)
 	if (pet_t_m_idx == i1) pet_t_m_idx = i2;
 	if (riding_t_m_idx == i1) riding_t_m_idx = i2;
 
-	/* Hack -- Update the riding */
-	if (p_ptr->riding == i1) p_ptr->riding = i2;
-
 	/* Hack -- Update the health bar */
 	if (health_who == i1) health_track(i2);
 
@@ -870,6 +867,11 @@ static void move_creature_object(int i1, int i2)
 		int mproc_idx = get_mproc_idx(&creature_list[i1], i);
 		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = &creature_list[i2];
 	}
+
+	// Hack -- Update the riding
+	if (m_ptr->riding) creature_list[m_ptr->riding].ridden = i2;
+	if (m_ptr->ridden) creature_list[m_ptr->ridden].riding = i2;
+
 }
 
 
