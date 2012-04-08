@@ -6748,7 +6748,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 			}
 			else if (target_ptr->chp < randint0(nokori_hp))
 			{
-				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_monster(c_ptr->m_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
+				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_species(c_ptr->m_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
 #ifdef JP
 				msg_format("%s‚ğ•ß‚¦‚½I",target_name);
 #else

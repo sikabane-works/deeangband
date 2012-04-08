@@ -816,7 +816,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	if (killed_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		//TODO
-		//choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
+		//choose_new_species(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
 		//r_ptr = &species_info[killed_ptr->species_idx];
 	}
 

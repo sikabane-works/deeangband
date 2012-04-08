@@ -1289,7 +1289,7 @@ static void process_creature(int m_idx)
 
 	if ((nonplayer_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !nonplayer_ptr->paralyzed)
 	{
-		choose_new_monster(m_idx, FALSE, 0, MONEGO_NONE);
+		choose_new_species(m_idx, FALSE, 0, MONEGO_NONE);
 		r_ptr = &species_info[nonplayer_ptr->species_idx];
 	}
 

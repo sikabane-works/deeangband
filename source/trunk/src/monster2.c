@@ -3333,7 +3333,7 @@ static bool creature_hook_chameleon(int species_idx)
 }
 
 
-void choose_new_monster(int m_idx, bool born, int species_idx, int creature_ego_idx)
+void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx)
 {
 	int oldmhp;
 	creature_type *m_ptr = &creature_list[m_idx];
@@ -4235,7 +4235,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if (is_chameleon_species(r_ptr))
 	{
-		choose_new_monster(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
+		choose_new_species(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
