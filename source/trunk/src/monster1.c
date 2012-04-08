@@ -579,7 +579,7 @@ msg_format("%^s‚Í“{‚Á‚½I", m_name);
 /*
  * Check if monster can cross terrain
  */
-bool creature_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
+bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feat];
 
@@ -634,6 +634,65 @@ bool creature_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	return TRUE;
 }
 
+/*
+ * Check if monster can cross terrain
+ */
+bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
+{
+	feature_type *f_ptr = &f_info[feat];
+
+	/* Pattern */
+	if (have_flag(f_ptr->flags, FF_PATTERN))
+	{
+		if (!(mode & CEM_RIDING))
+		{
+			if (!can_fly_creature(cr_ptr)) return FALSE;
+		}
+		else
+		{
+			if (!(mode & CEM_P_CAN_ENTER_PATTERN)) return FALSE;
+		}
+	}
+
+	/* "CAN" flags */
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(cr_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(cr_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_PASS))
+	{
+		if (is_pass_wall_creature(cr_ptr)) return TRUE;
+	}
+
+	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
+
+	/* Some monsters can walk on mountains */
+	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_creature(cr_ptr)) return TRUE;
+
+	/* Water */
+	if (have_flag(f_ptr->flags, FF_WATER))
+	{
+		if (!is_aquatic_creature(cr_ptr))
+		{
+			/* Deep water */
+			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
+
+			/* Shallow water */
+			else if (is_aura_fire_creature(cr_ptr)) return FALSE;
+		}
+	}
+
+	/* Aquatic monster into non-water? */
+	else if (is_aquatic_creature(cr_ptr)) return FALSE;
+
+	/* Lava */
+	if (have_flag(f_ptr->flags, FF_LAVA))
+	{
+		if (!has_cf_creature(cr_ptr, CF_RES_FIRE)) return FALSE;
+	}
+
+	return TRUE;
+}
+
+
 
 /*
  * Strictly check if monster can enter the grid
@@ -646,7 +705,7 @@ bool creature_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	if (creature_bold(p_ptr, y, x)) return FALSE;
 	if (c_ptr->m_idx) return FALSE;
 
-	return creature_can_cross_terrain(c_ptr->feat, r_ptr, mode);
+	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
 }
 
 
@@ -655,6 +714,7 @@ bool creature_can_enter(int y, int x, species_type *r_ptr, u16b mode)
  */
 static bool check_hostile_align(byte sub_align1, byte sub_align2)
 {
+	//TODO
 	if (sub_align1 != sub_align2)
 	{
 		if (((sub_align1 & SUB_ALIGN_EVIL) && (sub_align2 & SUB_ALIGN_GOOD)) ||

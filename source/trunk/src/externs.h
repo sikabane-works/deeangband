@@ -911,11 +911,19 @@ extern bool is_aura_fire_species(species_type *species_ptr);
 extern bool is_aura_cold_species(species_type *species_ptr);
 extern bool is_aura_elec_species(species_type *species_ptr);
 
+extern bool is_powerful_creature(creature_type *creature_ptr);
+extern bool is_pass_wall_creature(creature_type *creature_ptr);
+extern bool is_aura_fire_creature(creature_type *creature_ptr);
+
 extern bool is_aquatic_species(species_type *species_ptr);
 extern bool can_swim_species(species_type *species_ptr);
 extern bool can_fly_species(species_type *species_ptr);
 extern bool is_guardian_species(species_type *species_ptr);
 extern bool is_riding_species(species_type *species_ptr);
+
+extern bool is_aquatic_creature(creature_type *creature_ptr);
+extern bool can_swim_creature(creature_type *creature_ptr);
+extern bool can_fly_creature(creature_type *creature_ptr);
 
 extern bool is_self_lite_1_species(species_type *species_ptr);
 extern bool is_self_lite_2_species(species_type *species_ptr);
@@ -954,6 +962,8 @@ extern bool is_chameleon_species(species_type *species_ptr);
 extern bool is_tanuki_species(species_type *species_ptr);
 extern bool is_kill_exp_species(species_type *species_ptr);
 extern bool is_friendly_species(species_type *species_ptr);
+
+extern bool is_wild_mountain_creature(creature_type *creature_ptr);
 
 extern bool is_force_lesser_species(species_type *species_ptr);
 extern bool is_variable_race_species(species_type *species_ptr);
@@ -1204,7 +1214,8 @@ extern void set_friendly(creature_type *m_ptr);
 extern void set_pet(creature_type *master_ptr, creature_type *m_ptr);
 extern void set_hostile(creature_type *master_ptr, creature_type *m_ptr);
 extern void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr);
-extern bool creature_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode);
+extern bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode);
+extern bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode);
 extern bool creature_can_enter(int y, int x, species_type *r_ptr, u16b mode);
 extern bool are_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr);

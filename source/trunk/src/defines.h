@@ -1348,7 +1348,7 @@
 
 
 /*
- * Bit flags for the *_can_enter() and creature_can_cross_terrain()
+ * Bit flags for the *_can_enter() and species_can_cross_terrain()
  */
 #define CEM_RIDING              0x0001
 #define CEM_P_CAN_ENTER_PATTERN 0x0002
