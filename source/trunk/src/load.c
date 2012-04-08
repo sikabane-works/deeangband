@@ -536,7 +536,7 @@ static errr rd_inventory(creature_type *cr_ptr)
  * Also note that it may not correctly "adapt" to "knowledge" bacoming
  * known, the player may have to pick stuff up and drop it again.
  */
-static void home_carry(store_type *st_ptr, object_type *o_ptr)
+static void store_item_load(store_type *st_ptr, object_type *o_ptr)
 {
 	int 				slot;
 	s32b			   value;
@@ -645,7 +645,7 @@ static errr rd_store(store_type *st_ptr)
 			int k;
 			if (sort)
 			{
-				home_carry(st_ptr, q_ptr);
+				store_item_load(st_ptr, q_ptr);
 			}
 			else
 			{
