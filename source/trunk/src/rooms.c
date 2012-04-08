@@ -2331,7 +2331,7 @@ static bool build_type5(void)
 			species_idx = nest_mon_info[i].species_idx;
 
 			/* Place that "random" monster (no groups) */
-			(void)place_creature_aux(p_ptr, y, x, species_idx, 0L);
+			(void)place_creature_aux(NULL, y, x, species_idx, 0L);
 
 			nest_mon_info[i].used = TRUE;
 		}
