@@ -4559,7 +4559,7 @@ void wiz_dark(creature_type *cr_ptr)
 /*
  * Change the "feat" flag for a grid, and notice/redraw the grid
  */
-void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
+void cave_set_feat(int y, int x, int feat)
 {
 	cave_type *c_ptr = &cave[y][x];
 	feature_type *f_ptr = &f_info[feat];
@@ -4665,10 +4665,13 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 			update_local_illumination(yy, xx);
 		}
 
+		/* TODO
 		if (cr_ptr->special_defense & NINJA_S_STEALTH)
 		{
 			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 		}
+		*/
+
 	}
 }
 
@@ -4739,7 +4742,7 @@ void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action)
 	if (newfeat == oldfeat) return;
 
 	/* Set the new feature */
-	cave_set_feat(creature_ptr, y, x, newfeat);
+	cave_set_feat(y, x, newfeat);
 
 	if (!(feature_action_flags[action] & FAF_NO_DROP))
 	{

@@ -717,7 +717,7 @@ extern void update_smell(creature_type *cr_ptr);
 extern void map_area(creature_type *creature_ptr, int range);
 extern void wiz_lite(creature_type *cr_ptr, bool ninja);
 extern void wiz_dark(creature_type *cr_ptr);
-extern void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat);
+extern void cave_set_feat(int y, int x, int feat);
 extern int conv_dungeon_feat(int newfeat);
 extern int feat_state(int feat, int action);
 extern void cave_alter_feat(creature_type *creature_ptr, int y, int x, int action);

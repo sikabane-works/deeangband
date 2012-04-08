@@ -1853,7 +1853,7 @@ static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 	if (tmp_mimic < 0) tmp_mimic = 0;
 	else if (tmp_mimic >= max_f_idx) tmp_mimic = max_f_idx - 1;
 
-	cave_set_feat(cr_ptr, y, x, tmp_feat);
+	cave_set_feat(y, x, tmp_feat);
 	c_ptr->mimic = tmp_mimic;
 
 	f_ptr = &f_info[get_feat_mimic(c_ptr)];

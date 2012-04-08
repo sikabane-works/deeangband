@@ -5220,22 +5220,22 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					if (t < 20)
 					{
 						/* Create granite wall */
-						cave_set_feat(caster_ptr, y, x, feat_granite);
+						cave_set_feat(y, x, feat_granite);
 					}
 					else if (t < 70)
 					{
 						/* Create quartz vein */
-						cave_set_feat(caster_ptr, y, x, feat_quartz_vein);
+						cave_set_feat(y, x, feat_quartz_vein);
 					}
 					else if (t < 100)
 					{
 						/* Create magma vein */
-						cave_set_feat(caster_ptr, y, x, feat_magma_vein);
+						cave_set_feat(y, x, feat_magma_vein);
 					}
 					else
 					{
 						/* Create floor */
-						cave_set_feat(caster_ptr, y, x, floor_type[randint0(100)]);
+						cave_set_feat(y, x, floor_type[randint0(100)]);
 					}
 				}
 				else /* In generation */
@@ -5775,28 +5775,28 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				if (t < 20)
 				{
 					/* Create granite wall */
-					cave_set_feat(target_ptr, yy, xx, feat_granite);
+					cave_set_feat(yy, xx, feat_granite);
 				}
 
 				/* Quartz */
 				else if (t < 70)
 				{
 					/* Create quartz vein */
-					cave_set_feat(target_ptr, yy, xx, feat_quartz_vein);
+					cave_set_feat(yy, xx, feat_quartz_vein);
 				}
 
 				/* Magma */
 				else if (t < 100)
 				{
 					/* Create magma vein */
-					cave_set_feat(target_ptr, yy, xx, feat_magma_vein);
+					cave_set_feat(yy, xx, feat_magma_vein);
 				}
 
 				/* Floor */
 				else
 				{
 					/* Create floor */
-					cave_set_feat(target_ptr, yy, xx, floor_type[randint0(100)]);
+					cave_set_feat(yy, xx, floor_type[randint0(100)]);
 				}
 			}
 		}

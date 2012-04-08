@@ -665,7 +665,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 #else
 			msg_format("A tree %s", message);
 #endif
-			cave_set_feat(aimer_ptr, y, x, one_in_(3) ? feat_brake : feat_grass);
+			cave_set_feat(y, x, one_in_(3) ? feat_brake : feat_grass);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -887,7 +887,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
-			cave_set_feat(aimer_ptr, y, x, feat_door[DOOR_DOOR].closed);
+			cave_set_feat(y, x, feat_door[DOOR_DOOR].closed);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -914,7 +914,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
-			cave_set_feat(aimer_ptr, y, x, feat_tree);
+			cave_set_feat(y, x, feat_tree);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -950,7 +950,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Place a wall */
-			cave_set_feat(aimer_ptr, y, x, feat_granite);
+			cave_set_feat(y, x, feat_granite);
 
 			break;
 		}
@@ -968,13 +968,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow lava */
-				cave_set_feat(aimer_ptr, y, x, feat_shallow_lava);
+				cave_set_feat(y, x, feat_shallow_lava);
 			}
 			/* Deep Lava */
 			else if (dam)
 			{
 				/* Place a deep lava */
-				cave_set_feat(aimer_ptr, y, x, feat_deep_lava);
+				cave_set_feat(y, x, feat_deep_lava);
 			}
 			break;
 		}
@@ -991,13 +991,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(aimer_ptr, y, x, feat_shallow_water);
+				cave_set_feat(y, x, feat_shallow_water);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(aimer_ptr, y, x, feat_deep_water);
+				cave_set_feat(y, x, feat_deep_water);
 			}
 			break;
 		}
@@ -1199,13 +1199,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(aimer_ptr, y, x, feat_shallow_acid);
+				cave_set_feat(y, x, feat_shallow_acid);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(aimer_ptr, y, x, feat_deep_acid);
+				cave_set_feat(y, x, feat_deep_acid);
 			}
 			break;
 		}
@@ -1222,13 +1222,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(aimer_ptr, y, x, feat_shallow_poison);
+				cave_set_feat(y, x, feat_shallow_poison);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(aimer_ptr, y, x, feat_deep_poison);
+				cave_set_feat(y, x, feat_deep_poison);
 			}
 			break;
 		}
