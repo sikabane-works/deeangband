@@ -3412,7 +3412,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int creature_ego_
 		return;
 	}
 
-	if (m_idx == p_ptr->riding)
+	if (creature_list[m_idx].ridden)
 	{
 		char m_name[80];
 		creature_desc(m_name, m_ptr, 0);
