@@ -4689,7 +4689,7 @@ static int place_creature_m_idx = 0;
 /*
  * Hack -- help pick an escort type
  */
-static bool place_creature_okay(int species_idx)
+static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 {
 	species_type *r_ptr = &species_info[place_species_idx];
 	creature_type *m_ptr = &creature_list[place_creature_m_idx];
@@ -4770,7 +4770,7 @@ bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_i
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_species_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
+			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
 			if(place_creature_one(summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
@@ -4811,7 +4811,7 @@ bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_i
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_species_num_prep(place_creature_okay, get_creature_hook2(ny, nx));
+			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
 
 			/* Pick a random race */
 			z = get_species_num(r_ptr->level);
