@@ -2240,7 +2240,7 @@ static bool make_artifact_special(object_type *o_ptr)
  *
  * Note -- see "make_artifact_special()" and "apply_magic()"
  */
-static bool make_artifact(object_type *o_ptr)
+static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 {
 	int i;
 
@@ -2287,7 +2287,7 @@ static bool make_artifact(object_type *o_ptr)
 		o_ptr->name1 = i;
 
 		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(p_ptr, o_ptr, a_ptr);
+		random_artifact_resistance(owner_ptr, o_ptr, a_ptr);
 
 		/* Success */
 		return (TRUE);
@@ -3623,10 +3623,10 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	for (i = 0; i < rolls; i++)
 	{
 		/* Roll for an artifact */
-		if (make_artifact(o_ptr)) break;
+		if (make_artifact(owner_ptr, o_ptr)) break;
 		if (has_cf_creature(owner_ptr, CF_GOOD_LUCK) && one_in_(77))
 		{
-			if (make_artifact(o_ptr)) break;
+			if (make_artifact(owner_ptr, o_ptr)) break;
 		}
 	}
 

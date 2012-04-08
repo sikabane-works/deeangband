@@ -3037,13 +3037,13 @@ void get_bloody_moon_flags(object_type *o_ptr)
 }
 
 
-void random_artifact_resistance(creature_type *cr_ptr, object_type *o_ptr, artifact_type *a_ptr)
+void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, artifact_type *a_ptr)
 {
 	bool give_resistance = FALSE, give_power = FALSE;
 
 	if (o_ptr->name1 == ART_TERROR) /* Terror Mask is for warriors... */
 	{
-		if (cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_ARCHER || cr_ptr->cls_idx == CLASS_CAVALRY || cr_ptr->cls_idx == CLASS_BERSERKER)
+		if (owner_ptr->cls_idx == CLASS_WARRIOR || owner_ptr->cls_idx == CLASS_ARCHER || owner_ptr->cls_idx == CLASS_CAVALRY || owner_ptr->cls_idx == CLASS_BERSERKER)
 		{
 			give_power = TRUE;
 			give_resistance = TRUE;
@@ -3061,7 +3061,7 @@ void random_artifact_resistance(creature_type *cr_ptr, object_type *o_ptr, artif
 
 	if (o_ptr->name1 == ART_MURAMASA)
 	{
-		if (cr_ptr->cls_idx != CLASS_SAMURAI)
+		if (owner_ptr->cls_idx != CLASS_SAMURAI)
 		{
 			add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 			o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -3070,7 +3070,7 @@ void random_artifact_resistance(creature_type *cr_ptr, object_type *o_ptr, artif
 
 	if (o_ptr->name1 == ART_XIAOLONG)
 	{
-		if (cr_ptr->cls_idx == CLASS_MONK)
+		if (owner_ptr->cls_idx == CLASS_MONK)
 			add_flag(o_ptr->art_flags, TR_BLOWS);
 	}
 
@@ -3081,7 +3081,7 @@ void random_artifact_resistance(creature_type *cr_ptr, object_type *o_ptr, artif
 
 	if (o_ptr->name1 == ART_HEAVENLY_MAIDEN)
 	{
-		if (cr_ptr->sex != SEX_FEMALE)
+		if (owner_ptr->sex != SEX_FEMALE)
 		{
 			add_flag(o_ptr->art_flags, TR_AGGRAVATE);
 		}
