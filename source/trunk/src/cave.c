@@ -4641,6 +4641,7 @@ void cave_set_feat(int y, int x, int feat)
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
+		creature_type *cr_ptr;
 
 		for (i = 0; i < 9; i++)
 		{
@@ -4648,6 +4649,7 @@ void cave_set_feat(int y, int x, int feat)
 			xx = x + ddx_ddd[i];
 			if (!in_bounds2(yy, xx)) continue;
 			cc_ptr = &cave[yy][xx];
+			cr_ptr = &creature_list[cc_ptr->m_idx];
 			cc_ptr->info |= CAVE_GLOW;
 
 			if (player_has_los_grid(cc_ptr))
@@ -4663,14 +4665,14 @@ void cave_set_feat(int y, int x, int feat)
 			}
 
 			update_local_illumination(yy, xx);
+
+			if (cr_ptr->special_defense & NINJA_S_STEALTH)
+			{
+				if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+			}
+
 		}
 
-		/* TODO
-		if (cr_ptr->special_defense & NINJA_S_STEALTH)
-		{
-			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
-		}
-		*/
 
 	}
 }
