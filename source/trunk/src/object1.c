@@ -4465,7 +4465,7 @@ void display_equip(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING : item_tester_okay(p_ptr, o_ptr, NULL))
+		if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, o_ptr, NULL))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);

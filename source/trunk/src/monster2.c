@@ -4948,7 +4948,7 @@ bool alloc_guardian(bool def_val)
 			if (cave_empty_bold2(oy, ox) && creature_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if (place_creature_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
+				if (place_creature_aux(NULL, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
