@@ -293,10 +293,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\main.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\mane.c"
 				>
 			</File>

@@ -601,7 +601,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_species(r_ptr)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
-		if (is_pass_wall_species(r_ptr) && (!(mode & CEM_RIDING) || p_ptr->pass_wall)) return TRUE;
+		if (is_pass_wall_species(r_ptr)) return TRUE;
 	}
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
