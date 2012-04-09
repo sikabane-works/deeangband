@@ -708,6 +708,17 @@ bool species_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
 }
 
+bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
+{
+	cave_type *c_ptr = &cave[y][x];
+
+	/* Other creature */
+	if (c_ptr->m_idx) return FALSE;
+
+	//TODO
+	return creature_can_cross_terrain(c_ptr->feat, cr_ptr, mode);
+}
+
 
 /*
  * Check if this monster has "hostile" alignment (aux)
