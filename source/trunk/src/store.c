@@ -2175,7 +2175,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 		/* Scan every occupied slot */
 		for (j = 0; j < st_ptr->stock_num; j++)
 		{
-			if (object_sort_comp(p_ptr, o_ptr, o_value, &st_ptr->stock[j])) break;
+			if (object_sort_comp(player_ptr, o_ptr, o_value, &st_ptr->stock[j])) break;
 		}
 
 		/* Never move down */

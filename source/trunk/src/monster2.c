@@ -4108,7 +4108,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 		if (pattern_tile(y, x)) return max_creature_idx;
 
 		/* Require empty space (if not ghostly) */
-		if (!creature_can_enter(y, x, r_ptr, 0)){
+		if (!species_can_enter(y, x, r_ptr, 0)){
 			if (cheat_hear)
 			{
 				msg_format("[max_creature_idx: Monster Can't Enter]");
@@ -4536,7 +4536,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 				species_type *r_ptr = &species_info[species_idx];
 
 				/* Require empty space (if not ghostly) */
-				if (!creature_can_enter(ny, nx, r_ptr, 0))
+				if (!species_can_enter(ny, nx, r_ptr, 0))
 					continue;
 			}
 			else

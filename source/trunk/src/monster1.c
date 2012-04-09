@@ -695,14 +695,13 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 
 
 /*
- * Strictly check if monster can enter the grid
+ * Strictly check if creature can enter the grid
  */
-bool creature_can_enter(int y, int x, species_type *r_ptr, u16b mode)
+bool species_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 {
 	cave_type *c_ptr = &cave[y][x];
 
-	/* Player or other monster */
-	if (creature_bold(p_ptr, y, x)) return FALSE;
+	/* Other creature */
 	if (c_ptr->m_idx) return FALSE;
 
 	//TODO

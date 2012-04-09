@@ -11013,7 +11013,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				m_ptr = &creature_list[m_idx];
 	
 				/* Monster cannot move back? */
-				if (!creature_can_enter(ny, nx, &species_info[m_ptr->species_idx], 0))
+				if (!species_can_enter(ny, nx, &species_info[m_ptr->species_idx], 0))
 				{
 					/* -more- */
 					if (i < 2) msg_print(NULL);
