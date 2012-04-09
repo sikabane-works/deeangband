@@ -1647,7 +1647,7 @@ static errr rd_dungeon(void)
 		/* Finally load current floor data from temporal file */
 		if (!err)
 		{
-			if (!load_floor(get_sf_ptr(p_ptr->floor_id), SLF_SECOND)) err = 183;
+			if (!load_floor(get_sf_ptr(player_ptr->floor_id), SLF_SECOND)) err = 183;
 		}
 	}
 

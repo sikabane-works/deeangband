@@ -3325,7 +3325,7 @@ void update_creatures(bool full)
 /*
  * Hack -- the index of the summoning monster
  */
-static bool creature_hook_chameleon_lord(creature_type *player_ptr, int species_idx)
+static bool creature_hook_chameleon_lord(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -3343,18 +3343,6 @@ static bool creature_hook_chameleon_lord(creature_type *player_ptr, int species_
 		return FALSE;
 
 	if (!species_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
-
-	/* Not born */
-	if (!is_chameleon_species(old_r_ptr))
-	{
-		if (creature_has_hostile_align(m_ptr, player_ptr)) return FALSE;
-	}
-
-	/* Born now */
-	else if (summon_specific_who > 0)
-	{
-		if (creature_has_hostile_align(&creature_list[summon_specific_who], player_ptr)) return FALSE;
-	}
 
 	return TRUE;
 }
@@ -3414,7 +3402,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_species_num_prep2(p_ptr, creature_hook_chameleon_lord, NULL);
+			get_species_num_prep(creature_hook_chameleon_lord, NULL);
 		else
 			get_species_num_prep(creature_hook_chameleon, NULL);
 
