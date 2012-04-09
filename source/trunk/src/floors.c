@@ -536,7 +536,7 @@ static void place_pet(creature_type *creature_ptr)
 				for (j = 1000; j > 0; j--)
 				{
 					scatter(&cy, &cx, creature_ptr->fy, creature_ptr->fx, d, 0);
-					if (species_can_enter(cy, cx, &species_info[party_mon[i].species_idx], 0)) break;
+					if (creature_can_enter(cy, cx, &party_mon[i], 0)) break;
 				}
 				if (j) break;
 			}
