@@ -2222,7 +2222,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
  * Also note that it may not correctly "adapt" to "knowledge" bacoming
  * known, the player may have to pick stuff up and drop it again.
  */
-static int home_carry(store_type *st_ptr, object_type *o_ptr)
+static int home_carry(creature_type *cr_ptr, store_type *st_ptr, object_type *o_ptr)
 {
 	int 				slot;
 	s32b			   value;
@@ -2274,7 +2274,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(p_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
+		if (object_sort_comp(cr_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
@@ -4625,7 +4625,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(st_ptr, q_ptr);
+		item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
@@ -4658,7 +4658,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(st_ptr, q_ptr);
+		item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
@@ -5574,7 +5574,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 				handle_stuff();
 
 				/* Let the home carry it */
-				item_pos = home_carry(st_ptr, q_ptr);
+				item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
 
 				/* Redraw the home */
 				if (item_pos >= 0)
