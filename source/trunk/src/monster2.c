@@ -4505,20 +4505,20 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 }
 
 
-#define MON_SCAT_MAXD 10
+#define CREATURE_SCAT_MAXD 10
 
-static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max_dist)
+static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, int max_dist)
 {
-	int place_x[MON_SCAT_MAXD];
-	int place_y[MON_SCAT_MAXD];
-	int num[MON_SCAT_MAXD];
+	int place_x[CREATURE_SCAT_MAXD];
+	int place_y[CREATURE_SCAT_MAXD];
+	int num[CREATURE_SCAT_MAXD];
 	int i;
 	int nx, ny;
 
-	if (max_dist >= MON_SCAT_MAXD)
+	if (max_dist >= CREATURE_SCAT_MAXD)
 		return FALSE;
 
-	for (i = 0; i < MON_SCAT_MAXD; i++)
+	for (i = 0; i < CREATURE_SCAT_MAXD; i++)
 		num[i] = 0;
 
 	for (nx = x - max_dist; nx <= x + max_dist; nx++)
@@ -4565,9 +4565,9 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 	}
 
 	i = 0;
-	while (i < MON_SCAT_MAXD && 0 == num[i])
+	while (i < CREATURE_SCAT_MAXD && 0 == num[i])
 		i++;
-	if (i >= MON_SCAT_MAXD)
+	if (i >= CREATURE_SCAT_MAXD)
 		return FALSE;
 
 	*xp = place_x[i];
@@ -5102,7 +5102,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 
 	if (inside_arena) return (FALSE);
 
-	if (!mon_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
+	if (!creature_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
 
 	/* Save the summoner */
 	//summon_specific_who = who;
@@ -5149,7 +5149,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
 
 	if (inside_arena) return FALSE;
 
-	if (!mon_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
+	if (!creature_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
 	return place_creature_aux(cr_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
@@ -5167,7 +5167,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 
 	int y, x;
 
-	if (!mon_scatter(m_ptr->species_idx, &y, &x, m_ptr->fy, m_ptr->fx, 1))
+	if (!creature_scatter(m_ptr->species_idx, &y, &x, m_ptr->fy, m_ptr->fx, 1))
 		return FALSE;
 
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
