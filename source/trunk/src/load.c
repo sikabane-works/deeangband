@@ -1487,7 +1487,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	/* Free the "template" array */
 	C_FREE(template, limit, cave_template_type);
 
-
 	/*** Load cave messages ***/
 	for (y = 0; y < cur_hgt; y++)
 	{
@@ -1496,65 +1495,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 			rd_string(cave[y][x].message, CAVE_MESSAGE_LENGTH);	
 		}
 	}
-
-	/*** Objects ***/
-
-	/* Read the item count */
-	rd_u16b(&limit);
-
-	/* Verify maximum */
-	if (limit > max_object_idx) return 151;
-
-	/* Read the dungeon items */
-	for (i = 1; i < limit; i++)
-	{
-		int object_idx;
-		object_type *o_ptr;
-
-
-		/* Get a new record */
-		object_idx = object_pop();
-
-		/* Oops */
-		//if (i != object_idx)
-		//	return 152;
-
-		/* Acquire place */
-		o_ptr = &object_list[object_idx];
-
-		/* Read the item */
-		rd_item(o_ptr);
-
-
-		/* Monster */
-		if (o_ptr->held_m_idx)
-		{
-			creature_type *m_ptr;
-
-			/* Monster */
-			m_ptr = &creature_list[o_ptr->held_m_idx];
-
-			/* Build a stack */
-			o_ptr->next_object_idx = m_ptr->hold_object_idx;
-
-			/* Place the object */
-			m_ptr->hold_object_idx = object_idx;
-		}
-
-		/* Dungeon */
-		else
-		{
-			/* Access the item location */
-			cave_type *c_ptr = &cave[o_ptr->iy][o_ptr->ix];
-
-			/* Build a stack */
-			o_ptr->next_object_idx = c_ptr->object_idx;
-
-			/* Place the object */
-			c_ptr->object_idx = object_idx;
-		}
-	}
-
 
 	/* Success */
 	return 0;
@@ -1892,8 +1832,6 @@ note("メッセージをロードしました");
 
 	}
 
-
-
 	/* Object Memory */
 	rd_u16b(&tmp16u);
 
@@ -1920,12 +1858,70 @@ note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
 		k_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
 		k_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
 	}
+
+	/*** Objects ***/
+
+	/* Read the item count */
+	rd_u16b(&limit);
+
+	/* Verify maximum */
+	if (limit > max_object_idx) return 151;
+
+	/* Read the dungeon items */
+	for (i = 1; i < limit; i++)
+	{
+		int object_idx;
+		object_type *o_ptr;
+
+
+		/* Get a new record */
+		object_idx = object_pop();
+
+		/* Oops */
+		//if (i != object_idx)
+		//	return 152;
+
+		/* Acquire place */
+		o_ptr = &object_list[object_idx];
+
+		/* Read the item */
+		rd_item(o_ptr);
+
+
+		/* Monster */
+		if (o_ptr->held_m_idx)
+		{
+			creature_type *m_ptr;
+
+			/* Monster */
+			m_ptr = &creature_list[o_ptr->held_m_idx];
+
+			/* Build a stack */
+			o_ptr->next_object_idx = m_ptr->hold_object_idx;
+
+			/* Place the object */
+			m_ptr->hold_object_idx = object_idx;
+		}
+
+		/* Dungeon */
+		else
+		{
+			/* Access the item location */
+			cave_type *c_ptr = &cave[o_ptr->iy][o_ptr->ix];
+
+			/* Build a stack */
+			o_ptr->next_object_idx = c_ptr->object_idx;
+
+			/* Place the object */
+			c_ptr->object_idx = object_idx;
+		}
+	}
+
 #ifdef JP
-note(format("アイテムの記録をロードしました:%u", tmp16u));
+	note(format("アイテムの記録をロードしました:%u", tmp16u));
 #else
 	if (arg_fiddle) note("Loaded Object Memory");
 #endif
-
 
 	/* Init the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)

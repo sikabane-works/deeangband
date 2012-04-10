@@ -1028,23 +1028,6 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 			wr_string(cave[y][x].message);	
 		}
 	}
-
-
-
-	/*** Dump objects ***/
-
-	/* Total objects */
-	wr_u16b(object_max);
-
-	/* Dump the objects */
-	for (i = 1; i < object_max; i++)
-	{
-		object_type *o_ptr = &object_list[i];
-
-		/* Dump it */
-		wr_item(o_ptr);
-	}
-
 }
 
 
@@ -1280,11 +1263,24 @@ static bool wr_savefile_new(void)
 		wr_creature(m_ptr);
 	}
 
-
 	/* Dump the object memory */
 	tmp16u = max_k_idx;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) wr_xtra(i);
+
+	/*** Dump objects ***/
+
+	/* Total objects */
+	wr_u16b(object_max);
+
+	/* Dump the objects */
+	for (i = 1; i < object_max; i++)
+	{
+		object_type *o_ptr = &object_list[i];
+
+		/* Dump it */
+		wr_item(o_ptr);
+	}
 
 	/* Dump the towns */
 	tmp16u = max_towns;
