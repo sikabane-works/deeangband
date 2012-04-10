@@ -169,7 +169,7 @@ extern s16b cur_wid;
 extern s16b dun_level;
 extern s16b num_repro;
 extern s16b object_level;
-extern s16b monster_level;
+extern s16b creature_level;
 extern s16b base_level;
 extern s32b turn;
 extern s32b turn_limit;

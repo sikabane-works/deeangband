@@ -6352,7 +6352,7 @@ msg_print("‡ŠJnI");
 	/*** Process this dungeon level ***/
 
 	/* Reset the monster generation level */
-	monster_level = base_level;
+	creature_level = base_level;
 
 	/* Reset the object generation level */
 	object_level = base_level;

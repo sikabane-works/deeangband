@@ -4817,7 +4817,7 @@ bool place_creature_aux(creature_type *summoner_ptr, int y, int x, int species_i
 /*
  * Hack -- attempt to place a monster at the given location
  *
- * Attempt to find a monster appropriate to the "monster_level"
+ * Attempt to find a monster appropriate to the "creature_level"
  */
 bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 {
@@ -4827,7 +4827,7 @@ bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	/* Pick a monster */
-	species_idx = get_species_num(monster_level);
+	species_idx = get_species_num(creature_level);
 
 	/* Handle failure */
 	if (!species_idx) return (FALSE);
@@ -4857,7 +4857,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	while (--attempts)
 	{
 		/* Pick a monster */
-		species_idx = get_species_num(monster_level);
+		species_idx = get_species_num(creature_level);
 
 		/* Handle failure */
 		if (!species_idx) return (FALSE);
@@ -4947,7 +4947,7 @@ bool alloc_guardian(bool def_val)
  *
  * Use "slp" to choose the initial "sleep" status
  *
- * Use "monster_level" for the monster level
+ * Use "creature_level" for the monster level
  */
 bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
 {

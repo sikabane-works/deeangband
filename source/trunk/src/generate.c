@@ -1343,7 +1343,7 @@ static void quest_gen(void)
 	base_level = quest[inside_quest].level;
 	dun_level = base_level;
 	object_level = base_level;
-	monster_level = base_level;
+	creature_level = base_level;
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
 
@@ -1580,7 +1580,7 @@ void clear_cave(void)
 	/* Set the base level */
 	base_level = dun_level;
 	/* Reset the monster generation level */
-	monster_level = base_level;
+	creature_level = base_level;
 	/* Reset the object generation level */
 	object_level = base_level;
 }

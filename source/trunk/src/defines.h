@@ -578,7 +578,7 @@
 #define GREAT_OBJ       10
 
 /*
- * There is a 1/50 (2%) chance of inflating the requested monster_level
+ * There is a 1/50 (2%) chance of inflating the requested creature_level
  * during the creation of a monsters (see "get_species_num()" in "monster.c").
  * Lower values yield harder monsters more often.
  */

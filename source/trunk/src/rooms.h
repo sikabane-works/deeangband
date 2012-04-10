@@ -39,7 +39,7 @@
 #define ROOM_T_RANDOM_VAULT   9	 /* Random vault */
 #define ROOM_T_OVAL          10	 /* Circular rooms */
 #define ROOM_T_CRYPT         11	 /* Crypts (22x22) */
-#define ROOM_T_TRAP_PIT      12	 /* Trapped monster pit */
+#define ROOM_T_TRAP_PIT      12	 /* Trapped creature pit */
 #define ROOM_T_TRAP          13	 /* Piranha/Armageddon trap room */
 #define ROOM_T_GLASS         14	 /* Glass room */
 
