@@ -548,7 +548,7 @@ static void place_pet(creature_type *creature_ptr)
 			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr;
 
-			cave[cy][cx].m_idx = m_idx;
+			cave[cy][cx].creature_idx = m_idx;
 
 			m_ptr->species_idx = party_mon[i].species_idx;
 
@@ -675,7 +675,7 @@ static void get_out_creature(creature_type *creature_ptr)
 	int dis = 1;
 	int oy = creature_ptr->fy;
 	int ox = creature_ptr->fx;
-	int m_idx = cave[oy][ox].m_idx;
+	int m_idx = cave[oy][ox].creature_idx;
 
 	/* Nothing to do if no monster */
 	if (!m_idx) return;
@@ -718,10 +718,10 @@ static void get_out_creature(creature_type *creature_ptr)
 		m_ptr = &creature_list[m_idx];
 
 		/* Update the old location */
-		cave[oy][ox].m_idx = 0;
+		cave[oy][ox].creature_idx = 0;
 
 		/* Update the new location */
-		cave[ny][nx].m_idx = m_idx;
+		cave[ny][nx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ny;

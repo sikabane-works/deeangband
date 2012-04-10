@@ -733,7 +733,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if (&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
 	/* Monster is gone */
-	cave[y][x].m_idx = 0;
+	cave[y][x].creature_idx = 0;
 
 
 	/* Delete objects */
@@ -789,7 +789,7 @@ void delete_creature(int y, int x)
 	c_ptr = &cave[y][x];
 
 	/* Delete the monster (if any) */
-	if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
+	if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 }
 
 
@@ -817,7 +817,7 @@ static void move_creature_object(int i1, int i2)
 	c_ptr = &cave[y][x];
 
 	/* Update the cave */
-	c_ptr->m_idx = i2;
+	c_ptr->creature_idx = i2;
 
 	/* Repair objects being carried by monster */
 	for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
@@ -1039,7 +1039,7 @@ void wipe_creature_list(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Monster is gone */
-		cave[m_ptr->fy][m_ptr->fx].m_idx = 0;
+		cave[m_ptr->fy][m_ptr->fx].creature_idx = 0;
 
 		/* Wipe the Monster */
 		(void)WIPE(m_ptr, creature_type);
@@ -4174,8 +4174,8 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 				/* Count all quest monsters */
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
-						if (cave[j2][i2].m_idx > 0)
-							if (creature_list[cave[j2][i2].m_idx].species_idx == quest[hoge].species_idx)
+						if (cave[j2][i2].creature_idx > 0)
+							if (creature_list[cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
 					return max_creature_idx;
@@ -4226,7 +4226,7 @@ msg_print("守りのルーンが壊れた！");
 	{
 	}
 
-	hack_m_idx_ii = c_ptr->m_idx;
+	hack_m_idx_ii = c_ptr->creature_idx;
 
 	/* No flags */
 	creature_ptr->mflag = 0;
@@ -4276,7 +4276,7 @@ msg_print("守りのルーンが壊れた！");
 
 	if (is_chameleon_species(r_ptr))
 	{
-		choose_new_species(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
+		choose_new_species(c_ptr->creature_idx, TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
@@ -4310,10 +4310,10 @@ msg_print("守りのルーンが壊れた！");
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar)
 	{
 		int val = r_ptr->sleep;
-		(void)set_paralyzed(&creature_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
+		(void)set_paralyzed(&creature_list[c_ptr->creature_idx], (val * 2) + randint1(val * 10));
 	}
 
-	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->m_idx], 100, FALSE);
+	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->creature_idx], 100, FALSE);
 
 	/* Give a random starting energy */
 	if (!curse_of_Iluvatar)
@@ -4337,7 +4337,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	/* Hack -- see "process_creatures()" */
-	if (c_ptr->m_idx < hack_m_idx)
+	if (c_ptr->creature_idx < hack_m_idx)
 	{
 		/* Monster is still being born */
 		creature_ptr->mflag |= (MFLAG_BORN);
@@ -4351,7 +4351,7 @@ msg_print("守りのルーンが壊れた！");
 */
 
 	/* Update the monster */
-	update_mon(c_ptr->m_idx, TRUE);
+	update_mon(c_ptr->creature_idx, TRUE);
 
 	/* Count the monsters on the level */
 	real_species_ptr(creature_ptr)->cur_num++;
@@ -4491,7 +4491,7 @@ msg_print("爆発のルーンは解除された。");
 	}
 
 	/* Success */
-	return c_ptr->m_idx;
+	return c_ptr->creature_idx;
 }
 
 
@@ -4881,7 +4881,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 
 	if (attempts < 1) return FALSE;
 
-	m_idx = cave[y][x].m_idx;
+	m_idx = cave[y][x].creature_idx;
 
 	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
 	summon_kin_type = r_ptr->d_char;
@@ -6006,7 +6006,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 bool creature_place(creature_type *creature_ptr, int y, int x)
 {
 	/* Paranoia XXX XXX */
-	if (cave[y][x].m_idx != 0) return FALSE;
+	if (cave[y][x].creature_idx != 0) return FALSE;
 
 	/* Save player location */
 	creature_ptr->fy = y;

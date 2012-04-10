@@ -150,7 +150,7 @@ static bool alloc_stairs_aux(int y, int x, int walls)
 	/* Require "naked" floor grid */
 	if (!is_floor_grid(c_ptr)) return FALSE;
 	if (pattern_tile(y, x)) return FALSE;
-	if (c_ptr->o_idx || c_ptr->m_idx) return FALSE;
+	if (c_ptr->o_idx || c_ptr->creature_idx) return FALSE;
 
 	/* Require a certain number of adjacent walls */
 	if (next_to_walls(y, x) < walls) return FALSE;
@@ -304,7 +304,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			c_ptr = &cave[y][x];
 
 			/* Require "naked" floor grid */
-			if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->m_idx) continue;
+			if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->creature_idx) continue;
 
 			/* Avoid player location */
 			if (creature_bold(player_ptr, y, x)) continue;
@@ -1305,7 +1305,7 @@ static void battle_gen(creature_type *player_ptr)
 	{
 		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i/2)*4, player_ptr->fx - 2 + (i%2)*4, battle_mon[i],
 				  (PM_NO_KAGE | PM_NO_PET));
-		set_friendly(&creature_list[cave[player_ptr->fy+8+(i/2)*4][player_ptr->fx-2+(i%2)*4].m_idx]);
+		set_friendly(&creature_list[cave[player_ptr->fy+8+(i/2)*4][player_ptr->fx-2+(i%2)*4].creature_idx]);
 	}
 	for(i = 1; i < creature_max; i++)
 	{
@@ -1558,7 +1558,7 @@ void clear_cave(void)
 			c_ptr->o_idx = 0;
 
 			/* No monsters */
-			c_ptr->m_idx = 0;
+			c_ptr->creature_idx = 0;
 
 			/* No special */
 			c_ptr->special = 0;

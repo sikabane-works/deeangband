@@ -564,7 +564,7 @@ void wilderness_gen(creature_type *cr_ptr)
 				{
 					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
 					{
-						if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
+						if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 						cr_ptr->oldpy = y;
 						cr_ptr->oldpx = x;
 					}
@@ -585,7 +585,7 @@ void wilderness_gen(creature_type *cr_ptr)
 
 				if (cave_have_flag_grid(c_ptr, FF_ENTRANCE))
 				{
-					if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
+					if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 					cr_ptr->oldpy = y;
 					cr_ptr->oldpx = x;
 				}

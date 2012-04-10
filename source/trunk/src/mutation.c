@@ -3403,7 +3403,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 				mutation_stop_mouth(cr_ptr);
 
-				if (!(c_ptr->m_idx))
+				if (!(c_ptr->creature_idx))
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");
@@ -3500,9 +3500,9 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 #endif
 					break;
 				}
-				else if (c_ptr->m_idx)
+				else if (c_ptr->creature_idx)
 				{
-					creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+					creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 #ifdef JP
 					msg_print("何かが邪魔しています！");
 #else
@@ -3688,7 +3688,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr,&dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				if (cave[y][x].m_idx)
+				if (cave[y][x].creature_idx)
 				{
 					weapon_attack(cr_ptr, y, x, 0);
 					if (randint0(cr_ptr->skill_dis) < 7)
@@ -3739,7 +3739,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				if (!c_ptr->m_idx)
+				if (!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("邪悪な存在を感じとれません！");
@@ -3750,7 +3750,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					break;
 				}
 
-				m_ptr = &creature_list[c_ptr->m_idx];
+				m_ptr = &creature_list[c_ptr->creature_idx];
 				r_ptr = &species_info[m_ptr->species_idx];
 
 				if (is_enemy_of_good_species(r_ptr) &&
@@ -3769,7 +3769,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					}
 
 					/* Delete the monster, rather than killing it. */
-					delete_species_idx(&creature_list[c_ptr->m_idx]);
+					delete_species_idx(&creature_list[c_ptr->creature_idx]);
 #ifdef JP
 					msg_print("その邪悪なモンスターは硫黄臭い煙とともに消え去った！");
 #else
@@ -3800,7 +3800,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				if (!c_ptr->m_idx)
+				if (!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("あなたは何もない場所で手を振った。");

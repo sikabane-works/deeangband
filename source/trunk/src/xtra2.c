@@ -535,8 +535,8 @@ msg_print("クエストを達成した！");
 				/* Count all hostile monsters */
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
-						if (cave[j2][i2].m_idx > 0)
-							if (is_hostile(&creature_list[cave[j2][i2].m_idx])) 
+						if (cave[j2][i2].creature_idx > 0)
+							if (is_hostile(&creature_list[cave[j2][i2].creature_idx])) 
 								number_mon++;
 
 				if ((number_mon - 1) == 0)
@@ -2091,8 +2091,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	byte *y = (byte*)(v);
 	cave_type *ca_ptr = &cave[y[a]][x[a]];
 	cave_type *cb_ptr = &cave[y[b]][x[b]];
-	creature_type *ma_ptr = &creature_list[ca_ptr->m_idx];
-	creature_type *mb_ptr = &creature_list[cb_ptr->m_idx];
+	creature_type *ma_ptr = &creature_list[ca_ptr->creature_idx];
+	creature_type *mb_ptr = &creature_list[cb_ptr->creature_idx];
 	species_type *ap_ra_ptr, *ap_rb_ptr;
 
 	/* The player grid */
@@ -2100,9 +2100,9 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (y[b] == player_ptr->fy && x[b] == player_ptr->fx) return FALSE;
 
 	/* Extract monster race */
-	if (ca_ptr->m_idx && ma_ptr->ml) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
+	if (ca_ptr->creature_idx && ma_ptr->ml) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
 	else ap_ra_ptr = NULL;
-	if (cb_ptr->m_idx && mb_ptr->ml) ap_rb_ptr = &species_info[mb_ptr->ap_species_idx];
+	if (cb_ptr->creature_idx && mb_ptr->ml) ap_rb_ptr = &species_info[mb_ptr->ap_species_idx];
 	else ap_rb_ptr = NULL;
 
 	if (ap_ra_ptr && !ap_rb_ptr) return TRUE;
@@ -2251,9 +2251,9 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 	c_ptr = &cave[y][x];
 
 	/* Visible monsters */
-	if (c_ptr->m_idx)
+	if (c_ptr->creature_idx)
 	{
-		creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Visible monsters */
 		if (m_ptr->ml) return (TRUE);
@@ -2314,9 +2314,9 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			c_ptr = &cave[y][x];
 
 			/* Require target_able monsters for "TARGET_KILL" */
-			if ((mode & (TARGET_KILL)) && !target_able(cr_ptr, c_ptr->m_idx)) continue;
+			if ((mode & (TARGET_KILL)) && !target_able(cr_ptr, c_ptr->creature_idx)) continue;
 
-			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(cr_ptr, &creature_list[c_ptr->m_idx])) continue;
+			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(cr_ptr, &creature_list[c_ptr->creature_idx])) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;
@@ -2515,9 +2515,9 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 
 	/* Actual monsters */
-	if (c_ptr->m_idx && creature_list[c_ptr->m_idx].ml)
+	if (c_ptr->creature_idx && creature_list[c_ptr->creature_idx].ml)
 	{
-		creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 		char m_name[120];
 		bool recall = FALSE;
@@ -2532,7 +2532,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		species_type_track(m_ptr->ap_species_idx);
 
 		/* Hack -- health bar for this monster */
-		health_track(c_ptr->m_idx);
+		health_track(c_ptr->creature_idx);
 
 		/* Hack -- handle stuff */
 		handle_stuff();
@@ -3142,7 +3142,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			c_ptr = &cave[y][x];
 
 			/* Allow target */
-			if (target_able(aimer_ptr, c_ptr->m_idx))
+			if (target_able(aimer_ptr, c_ptr->creature_idx))
 			{
 #ifdef JP
 strcpy(info, "q止 t決 p自 o現 +次 -前");
@@ -3192,10 +3192,10 @@ strcpy(info, "q止 p自 o現 +次 -前");
 				case '5':
 				case '0':
 				{
-					if (target_able(aimer_ptr, c_ptr->m_idx))
+					if (target_able(aimer_ptr, c_ptr->creature_idx))
 					{
-						health_track(c_ptr->m_idx);
-						target_who = c_ptr->m_idx;
+						health_track(c_ptr->creature_idx);
+						target_who = c_ptr->creature_idx;
 						target_row = y;
 						target_col = x;
 						done = TRUE;

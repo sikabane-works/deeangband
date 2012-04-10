@@ -3826,7 +3826,7 @@
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
-#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || cave[(Y)][(X)].m_idx != 0)
+#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || cave[(Y)][(X)].creature_idx != 0)
 
 
 
@@ -4067,7 +4067,7 @@
  */
 #define cave_empty_bold(Y, X) \
 	(cave_have_flag_bold((Y), (X), FF_PLACE) && \
-	 !(cave[Y][X].m_idx) && \
+	 !(cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y,X))
 
 
@@ -4092,7 +4092,7 @@
  */
 #define cave_naked_bold(Y, X) \
 	(cave_clean_bold(Y, X) && \
-	 !(cave[Y][X].m_idx) && \
+	 !(cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y, X))
 
 
@@ -4110,7 +4110,7 @@
  */
 #define cave_empty_grid(C) \
 	(cave_have_flag_grid((C), FF_PLACE) && \
-	 !((C)->m_idx) && !player_grid(C))
+	 !((C)->creature_idx) && !player_grid(C))
 
 
 /*

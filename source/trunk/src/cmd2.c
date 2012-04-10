@@ -1253,7 +1253,7 @@ void do_cmd_open(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->m_idx && cr_ptr->riding != c_ptr->m_idx)
+		else if (c_ptr->creature_idx && cr_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -1425,7 +1425,7 @@ void do_cmd_close(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->m_idx)
+		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -1727,7 +1727,7 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 		}
 
 		/* A monster is in the way */
-		else if (c_ptr->m_idx)
+		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -2188,7 +2188,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->m_idx && cr_ptr->riding != c_ptr->m_idx)
+		else if (c_ptr->creature_idx && cr_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -2402,7 +2402,7 @@ void do_cmd_bash(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->m_idx)
+		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -2490,7 +2490,7 @@ void do_cmd_alter(creature_type *cr_ptr)
 		energy_use = 100;
 
 		/* Attack monsters */
-		if (c_ptr->m_idx)
+		if (c_ptr->creature_idx)
 		{
 			/* Attack */
 			weapon_attack(cr_ptr, y, x, 0);
@@ -2632,7 +2632,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 		}
 
 		/* Is a monster in the way? */
-		else if (c_ptr->m_idx)
+		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -3452,7 +3452,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		{
 			c_ptr = &cave[ny][nx];
 
-			if (cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->m_idx)
+			if (cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
 #ifdef JP
 				if (c_ptr->info & (CAVE_MARK)) msg_print("Šâ‚ªÓ‚¯U‚Á‚½B");
@@ -3473,7 +3473,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && !cave[ny][nx].m_idx) break;
+		if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && !cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
@@ -3541,12 +3541,12 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 
 		/* Monster here, Try to hit it */
-		if (cave[y][x].m_idx)
+		if (cave[y][x].creature_idx)
 		{
 			int armour;
 			cave_type *c_ptr = &cave[y][x];
 
-			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
@@ -3631,7 +3631,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 						if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this monster */
-						health_track(c_ptr->m_idx);
+						health_track(c_ptr->creature_idx);
 					}
 				}
 
@@ -3696,10 +3696,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
 
 				/* No death */
-				if(creature_list[c_ptr->m_idx].species_idx != 0)
+				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
 					/* STICK TO */
 					if (object_is_fixed_artifact(q_ptr))
@@ -3717,7 +3717,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					}
 
 					/* Message */
-					message_pain(c_ptr->m_idx, tdam);
+					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the monster */
 					if (tdam > 0) anger_creature(cr_ptr, m_ptr);
@@ -3748,7 +3748,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					if (cr_ptr->snipe_type == SP_RUSH)
 					{
 						int n = randint1(5) + 3;
-						int m_idx = c_ptr->m_idx;
+						int m_idx = c_ptr->creature_idx;
 
 						for ( ; cur_dis <= tdis; )
 						{
@@ -3769,14 +3769,14 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							/* Stopped by monsters */
 							if (!cave_empty_bold(ny, nx)) break;
 
-							cave[ny][nx].m_idx = m_idx;
-							cave[oy][ox].m_idx = 0;
+							cave[ny][nx].creature_idx = m_idx;
+							cave[oy][ox].creature_idx = 0;
 
 							m_ptr->fx = nx;
 							m_ptr->fy = ny;
 
 							/* Update the monster (new location) */
-							update_mon(c_ptr->m_idx, TRUE);
+							update_mon(c_ptr->creature_idx, TRUE);
 
 							lite_spot(ny, nx);
 							lite_spot(oy, ox);
@@ -3811,7 +3811,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 	if (stick_to)
 	{
-		int m_idx = cave[y][x].m_idx;
+		int m_idx = cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
 		int o_idx = o_pop();
 
@@ -4210,7 +4210,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		if (!cave_have_flag_bold(ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !cave[ny[cur_dis]][nx[cur_dis]].m_idx) break;
+			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
@@ -4247,11 +4247,11 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		cur_dis++;
 
 		/* Monster here, Try to hit it */
-		if (cave[y][x].m_idx)
+		if (cave[y][x].creature_idx)
 		{
 			cave_type *c_ptr = &cave[y][x];
 
-			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
@@ -4298,7 +4298,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 						if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this monster */
-						health_track(c_ptr->m_idx);
+						health_track(c_ptr->creature_idx);
 					}
 				}
 
@@ -4344,13 +4344,13 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
 
 				/* No death */
-				if(creature_list[c_ptr->m_idx].species_idx != 0)
+				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
 					/* Message */
-					message_pain(c_ptr->m_idx, tdam);
+					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the monster */
 					if ((tdam > 0) && !object_is_potion(cr_ptr, q_ptr))
@@ -4424,22 +4424,22 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 			if (potion_smash_effect(0, y, x, q_ptr->k_idx))
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
-				if (cave[y][x].m_idx &&
-				    is_friendly(&creature_list[cave[y][x].m_idx]) &&
+				if (cave[y][x].creature_idx &&
+				    is_friendly(&creature_list[cave[y][x].creature_idx]) &&
 				    !m_ptr->invuln)
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
+					creature_desc(m_name, &creature_list[cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%s‚Í“{‚Á‚½I", m_name);
 #else
 					msg_format("%^s gets angry!", m_name);
 #endif
 
-					set_hostile(cr_ptr, &creature_list[cave[y][x].m_idx]);
+					set_hostile(cr_ptr, &creature_list[cave[y][x].creature_idx]);
 				}
 			}
 			do_drop = FALSE;

@@ -5889,7 +5889,7 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 	// Get a new monster record
 	creature_ptr = &creature_list[id];
 
-	if(c_ptr) c_ptr->m_idx = id;
+	if(c_ptr) c_ptr->creature_idx = id;
 
 	// Create a new character
 	while (!generate_creature_aux(creature_ptr, species_idx, save_ptr, flags));

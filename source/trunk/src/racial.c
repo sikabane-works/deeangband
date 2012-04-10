@@ -904,7 +904,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				c_ptr = &cave[y][x];
 
 				/* Hack -- attack monsters */
-				if (c_ptr->m_idx)
+				if (c_ptr->creature_idx)
 					weapon_attack(cr_ptr, y, x, 0);
 				else
 				{
@@ -952,7 +952,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 			{
 				weapon_attack(cr_ptr, y, x, 0);
 				if (randint0(cr_ptr->skill_dis) < 7)
@@ -1086,7 +1086,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				if (cave[y][x].m_idx)
+				if (cave[y][x].creature_idx)
 				{
 #ifdef JP
 					if (one_in_(3)) msg_print("あーたたたたたたたたたたたたたたたたたたたたたた！！！");
@@ -1099,7 +1099,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 					weapon_attack(cr_ptr, y, x, 0);
-					if (cave[y][x].m_idx)
+					if (cave[y][x].creature_idx)
 					{
 						handle_stuff();
 						weapon_attack(cr_ptr, y, x, 0);
@@ -1469,7 +1469,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 				ratial_stop_mouth(cr_ptr);
 
-				if (!c_ptr->m_idx)
+				if (!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");
@@ -2010,7 +2010,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 				ratial_stop_mouth(cr_ptr);
 
-				if (!c_ptr->m_idx)
+				if (!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");

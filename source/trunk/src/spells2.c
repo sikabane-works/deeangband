@@ -5129,9 +5129,9 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			/* Hack -- Skip the epicenter */
 			if ((y == y1) && (x == x1)) continue;
 
-			if (c_ptr->m_idx)
+			if (c_ptr->creature_idx)
 			{
-				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				if (in_generate) /* In generation */
@@ -5145,7 +5145,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					m_ptr->chp = m_ptr->mhp;
 
 					/* Try to teleport away quest monsters */
-					if (!teleport_away(&creature_list[c_ptr->m_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
+					if (!teleport_away(&creature_list[c_ptr->creature_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
 				}
 				else
 				{
@@ -5452,7 +5452,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Important -- Skip "quake" grids */
 			if (map[16+y-cy][16+x-cx]) continue;
 
-			if (cave[y][x].m_idx) continue;
+			if (cave[y][x].creature_idx) continue;
 
 			/* Count "safe" grids */
 			sn++;
@@ -5602,12 +5602,12 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Access the grid */
 			c_ptr = &cave[yy][xx];
 
-			if (c_ptr->m_idx == target_ptr->riding) continue;
+			if (c_ptr->creature_idx == target_ptr->riding) continue;
 
 			/* Process monsters */
-			if (c_ptr->m_idx)
+			if (c_ptr->creature_idx)
 			{
-				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/* Quest monsters */
@@ -5651,7 +5651,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							/* Important -- Skip "quake" grids */
 							if (map[16+y-cy][16+x-cx]) continue;
 
-							if (cave[y][x].m_idx) continue;
+							if (cave[y][x].creature_idx) continue;
 							if (creature_bold(target_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
@@ -5679,7 +5679,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					damage = (sn ? damroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Monster is certainly awake */
-					(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
+					(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
@@ -5694,9 +5694,9 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						if (!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
 #endif
 
-						if (c_ptr->m_idx)
+						if (c_ptr->creature_idx)
 						{
-							if (record_named_pet && is_pet(player_ptr, &creature_list[c_ptr->m_idx]) && creature_list[c_ptr->m_idx].nickname)
+							if (record_named_pet && is_pet(player_ptr, &creature_list[c_ptr->creature_idx]) && creature_list[c_ptr->creature_idx].nickname)
 							{
 								char m2_name[80];
 
@@ -5715,13 +5715,13 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					/* Hack -- Escape from the rock */
 					if (sn)
 					{
-						int m_idx = cave[yy][xx].m_idx;
+						int m_idx = cave[yy][xx].creature_idx;
 
 						/* Update the old location */
-						cave[yy][xx].m_idx = 0;
+						cave[yy][xx].creature_idx = 0;
 
 						/* Update the new location */
-						cave[sy][sx].m_idx = m_idx;
+						cave[sy][sx].creature_idx = m_idx;
 
 						/* Move the monster */
 						m_ptr->fy = sy;
@@ -5974,16 +5974,16 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		c_ptr->info |= (CAVE_GLOW);
 
 		/* Process affected monsters */
-		if (c_ptr->m_idx)
+		if (c_ptr->creature_idx)
 		{
 			int chance = 25;
 
-			creature_type    *m_ptr = &creature_list[c_ptr->m_idx];
+			creature_type    *m_ptr = &creature_list[c_ptr->creature_idx];
 
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Update the monster */
-			update_mon(c_ptr->m_idx, FALSE);
+			update_mon(c_ptr->creature_idx, FALSE);
 
 			/* Stupid monsters rarely wake up */
 			if (has_cf_creature(m_ptr, CF_STUPID)) chance = 10;
@@ -5995,7 +5995,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if (m_ptr->paralyzed && (randint0(100) < chance))
 			{
 				/* Wake up! */
-				(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
+				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 				/* Notice the "waking up" */
 				if (m_ptr->ml)
@@ -6096,10 +6096,10 @@ static void cave_temp_room_unlite(void)
 			}
 
 			/* Process affected monsters */
-			if (c_ptr->m_idx)
+			if (c_ptr->creature_idx)
 			{
 				/* Update the monster */
-				update_mon(c_ptr->m_idx, FALSE);
+				update_mon(c_ptr->creature_idx, FALSE);
 			}
 
 			/* Redraw */
@@ -6595,7 +6595,7 @@ msg_print("不思議な力がテレポートを防いだ！");
 		return FALSE;
 	}
 
-	if (!c_ptr->m_idx || (c_ptr->m_idx == creature_ptr->riding))
+	if (!c_ptr->creature_idx || (c_ptr->creature_idx == creature_ptr->riding))
 	{
 #ifdef JP
 msg_print("それとは場所を交換できません。");
@@ -6621,7 +6621,7 @@ msg_print("失敗した。");
 		return FALSE;
 	}
 
-	m_ptr = &creature_list[c_ptr->m_idx];
+	m_ptr = &creature_list[c_ptr->creature_idx];
 	r_ptr = &species_info[m_ptr->species_idx];
 
 	(void)set_paralyzed(m_ptr, 0);
@@ -7481,7 +7481,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		ty = target_row;
 	}
 
-	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].m_idx;
+	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].creature_idx;
 
 	path_n = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
@@ -7510,7 +7510,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 			continue;
 		}
 
-		if (!cave[ny][nx].m_idx)
+		if (!cave[ny][nx].creature_idx)
 		{
 			if (tm_idx)
 			{
@@ -7537,12 +7537,12 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
-		update_mon(cave[ny][nx].m_idx, TRUE);
+		update_mon(cave[ny][nx].creature_idx, TRUE);
 
 		/* Found a monster */
-		m_ptr = &creature_list[cave[ny][nx].m_idx];
+		m_ptr = &creature_list[cave[ny][nx].creature_idx];
 
-		if (tm_idx != cave[ny][nx].m_idx)
+		if (tm_idx != cave[ny][nx].creature_idx)
 		{
 #ifdef JP
 			msg_format("%s%sが立ちふさがっている！", tm_idx ? "別の" : "",

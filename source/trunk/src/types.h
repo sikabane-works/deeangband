@@ -537,7 +537,7 @@ struct cave_type
 
 	s16b o_idx;		/* Object in this grid */
 
-	s16b m_idx;		/* Monster in this grid */
+	s16b creature_idx;		// Creature in this grid
 
 	s16b special;	/* Special cave info */
 

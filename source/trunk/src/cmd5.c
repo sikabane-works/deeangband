@@ -1657,7 +1657,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	/* Hack -- prevent "icky" message */
 	character_xtra = TRUE;
 
-	if (now_riding) cr_ptr->riding = c_ptr->m_idx;
+	if (now_riding) cr_ptr->riding = c_ptr->creature_idx;
 	else
 	{
 		cr_ptr->riding = 0;
@@ -1740,7 +1740,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 
 			c_ptr = &cave[y][x];
 
-			if (c_ptr->m_idx) continue;
+			if (c_ptr->creature_idx) continue;
 
 			/* Skip non-empty grids */
 			if (!cave_have_flag_grid(c_ptr, FF_MOVE) && !cave_have_flag_grid(c_ptr, FF_CAN_FLY))
@@ -1860,7 +1860,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if (!pattern_seq(rider_ptr, rider_ptr->fy, rider_ptr->fx, y, x)) return FALSE;
 
-		if (c_ptr->m_idx)
+		if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -1892,9 +1892,9 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			return FALSE;
 		}
 
-		steed_ptr = &creature_list[c_ptr->m_idx];
+		steed_ptr = &creature_list[c_ptr->creature_idx];
 
-		if (!c_ptr->m_idx || !steed_ptr->ml)
+		if (!c_ptr->creature_idx || !steed_ptr->ml)
 		{
 #ifdef JP
 			msg_print("その場所にはクリーチャーはいません。");
@@ -1972,7 +1972,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if (rider_ptr->action == ACTION_KAMAE) set_action(rider_ptr, ACTION_NONE);
 
-		rider_ptr->riding = c_ptr->m_idx;
+		rider_ptr->riding = c_ptr->creature_idx;
 		steed_ptr->ridden = (s16b)rider_ptr->creature_idx;
 
 		/* Hack -- remove tracked creature */
@@ -2014,9 +2014,9 @@ static void do_name_pet(creature_type *master_ptr)
 	}
 	target_pet = old_target_pet;
 
-	if (cave[target_row][target_col].m_idx)
+	if (cave[target_row][target_col].creature_idx)
 	{
-		pet_ptr = &creature_list[cave[target_row][target_col].m_idx];
+		pet_ptr = &creature_list[cave[target_row][target_col].creature_idx];
 
 		if (!is_pet(player_ptr, pet_ptr))
 		{
@@ -2616,9 +2616,9 @@ void do_cmd_pet(creature_type *cr_ptr)
 			else
 			{
 				cave_type *c_ptr = &cave[target_row][target_col];
-				if (c_ptr->m_idx && (creature_list[c_ptr->m_idx].ml))
+				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].ml))
 				{
-					pet_t_m_idx = cave[target_row][target_col].m_idx;
+					pet_t_m_idx = cave[target_row][target_col].creature_idx;
 					cr_ptr->pet_follow_distance = PET_DESTROY_DIST;
 				}
 				else pet_t_m_idx = 0;

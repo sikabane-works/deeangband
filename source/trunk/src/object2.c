@@ -6000,9 +6000,9 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 			c_ptr = &cave[my][mx];
 
-			if (!c_ptr->m_idx) continue;
+			if (!c_ptr->creature_idx) continue;
 
-			m_ptr = &creature_list[c_ptr->m_idx];
+			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			if (m_ptr->paralyzed) continue;
 			if (!is_hostile(m_ptr)) continue;

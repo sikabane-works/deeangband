@@ -50,7 +50,7 @@
 	(C)->feat = floor_type[randint0(100)]; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_FLOOR; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_extra_bold(Y, X) \
@@ -66,7 +66,7 @@
 	(C)->feat = fill_type[randint0(100)]; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_EXTRA; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_extra_perm_bold(Y, X) \
@@ -82,7 +82,7 @@
 	(C)->feat = feat_permanent; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_EXTRA; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_extra_noperm_bold(Y, X) \
@@ -109,7 +109,7 @@
 	(C)->feat = feat_wall_inner; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_INNER; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_inner_perm_bold(Y, X) \
@@ -125,7 +125,7 @@
 	(C)->feat = feat_permanent; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_INNER; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_outer_bold(Y, X) \
@@ -141,7 +141,7 @@
 	(C)->feat = feat_wall_outer; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_OUTER; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_outer_perm_bold(Y, X) \
@@ -157,7 +157,7 @@
 	(C)->feat = feat_permanent; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_OUTER; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_outer_noperm_bold(Y, X) \
@@ -177,7 +177,7 @@
 	else (C)->feat = feat_wall_outer; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= (CAVE_OUTER | CAVE_VAULT); \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_solid_bold(Y, X) \
@@ -193,7 +193,7 @@
 	(C)->feat = feat_wall_solid; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_SOLID; \
-	if ((C)->m_idx) delete_species_idx((C)->m_idx); \
+	if ((C)->creature_idx) delete_species_idx((C)->creature_idx); \
 }
 
 #define place_solid_perm_bold(Y, X) \
@@ -209,7 +209,7 @@
 	(C)->feat = feat_permanent; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_SOLID; \
-	if ((C)->m_idx) delete_species_idx(&creature_list[(C)->m_idx]); \
+	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
 #define place_solid_noperm_bold(Y, X) \
@@ -231,7 +231,7 @@
 	else (C)->feat = feat_wall_solid; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= CAVE_SOLID; \
-	if ((C)->m_idx) delete_species_idx((C)->m_idx); \
+	if ((C)->creature_idx) delete_species_idx((C)->creature_idx); \
 }
 
 

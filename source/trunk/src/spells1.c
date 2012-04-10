@@ -1024,7 +1024,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
+				if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 				if (aimer_ptr->special_defense & NINJA_S_STEALTH)
 				{
@@ -1089,7 +1089,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
+				if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 			}
 
 			/* All done */
@@ -1729,7 +1729,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 	cave_type *c_ptr = &cave[y][x];
 
-	creature_type *target_ptr = &creature_list[c_ptr->m_idx];
+	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Is the monster "seen"? */
@@ -1796,12 +1796,12 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 //
 
 	/* Nobody here */
-	if (!c_ptr->m_idx) return (FALSE);
+	if (!c_ptr->creature_idx) return (FALSE);
 
 	/* Never affect projector */
 	if (target_ptr == caster_ptr) return (FALSE);
 
-	if ((c_ptr->m_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
+	if ((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((target_ptr->species_idx == MON_SUKE) || (target_ptr->species_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
@@ -1821,7 +1821,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 #endif
 
 
-	if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
+	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 
 	/* Analyze the damage type */
 	switch (typ)
@@ -1849,7 +1849,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	/* Quest monsters cannot be polymorphed */
 	if (is_quest_creature(target_ptr)) do_poly = FALSE;
 
-	if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_poly = FALSE;
+	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
 	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_cf_creature(target_ptr, CF_NAZGUL) && !monster_arena_mode)
@@ -2047,8 +2047,8 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	else if (caster_ptr != caster_ptr)
 	{
 		/* Redraw (later) if needed */
-		if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-		if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+		if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+		if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
 		(void)set_paralyzed(target_ptr, 0);
@@ -2106,7 +2106,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			/* Hack -- Pain message */
 			else if (see_s_msg)
 			{
-				message_pain(c_ptr->m_idx, dam);
+				message_pain(c_ptr->creature_idx, dam);
 			}
 			else
 			{
@@ -2163,7 +2163,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			/* Hack -- Pain message */
 			else if (known && (dam || !do_fear))
 			{
-				message_pain(c_ptr->m_idx, dam);
+				message_pain(c_ptr->creature_idx, dam);
 			}
 
 			/* Anger monsters */
@@ -2287,7 +2287,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 	if (monster_arena_mode)
 	{
-		health_track(c_ptr->m_idx);
+		health_track(c_ptr->creature_idx);
 		play_redraw |= (PR_HEALTH);
 		redraw_stuff();
 	}
@@ -2295,7 +2295,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the monster */
-	if (target_ptr->species_idx) update_mon(c_ptr->m_idx, FALSE);
+	if (target_ptr->species_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 	/* Redraw the monster grid */
 	lite_spot(y, x);
@@ -2323,7 +2323,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		}
 	}
 
-	if (player_ptr->riding && (player_ptr->riding == c_ptr->m_idx) && (dam > 0))
+	if (player_ptr->riding && (player_ptr->riding == c_ptr->creature_idx) && (dam > 0))
 	{
 		if (target_ptr->chp > target_ptr->mhp/3) dam = (dam + 1) / 2;
 		rakubadam_m = (dam > 200) ? 200 : dam;
@@ -3629,7 +3629,7 @@ note = "には耐性がある！";
 
 			if (!resist_tele) do_dist = 10;
 			else do_dist = 0;
-			if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
+			if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
 
 			if (target_ptr->resist_gravity)
 			{
@@ -3788,8 +3788,8 @@ note_dies = "は蒸発した！";
 			if (target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
 
 			// Redraw (later) if needed
-			if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-			if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+			if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+			if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
 			// Message
 #ifdef JP
@@ -5233,7 +5233,7 @@ note = "は眠り込んでしまった！";
 			}
 			if (one_in_(4))
 			{
-				if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
+				if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
 				else do_dist = 7;
 			}
 
@@ -5477,7 +5477,7 @@ note = "は眠り込んでしまった！";
 				target_ptr->chp = target_ptr->mhp;
 
 				/* Attempt to clone. */
-				if (multiply_creature(c_ptr->m_idx, TRUE, 0L))
+				if (multiply_creature(c_ptr->creature_idx, TRUE, 0L))
 				{
 #ifdef JP
 					note = "が分裂した！";
@@ -5516,8 +5516,8 @@ note = "は眠り込んでしまった！";
 			if (!dam)
 			{
 				/* Redraw (later) if needed */
-				if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-				if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+				if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+				if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 				break;
 			}
 
@@ -6748,14 +6748,14 @@ note = "には耐性がある！";
 			}
 			else if (target_ptr->chp < randint0(nokori_hp))
 			{
-				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_species(c_ptr->m_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
+				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_species(c_ptr->creature_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
 #ifdef JP
 				msg_format("%sを捕えた！",target_name);
 #else
 				msg_format("You capture %^s!", target_name);
 #endif
 				//TODO: capture monster status
-				if (c_ptr->m_idx == player_ptr->riding)
+				if (c_ptr->creature_idx == player_ptr->riding)
 				{
 					if (rakuba(player_ptr, -1, FALSE))
 					{
@@ -6956,9 +6956,9 @@ msg_format("うまく捕まえられなかった。");
 			}
 
 #ifdef JP
-			if (genocide_aux(caster_ptr, c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "モンスター消滅"))
+			if (genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "モンスター消滅"))
 #else
-			if (genocide_aux(caster_ptr, c_ptr->m_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
+			if (genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP
@@ -7187,7 +7187,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 
 	cave_type *c_ptr = &cave[y][x];
 
-	creature_type *target_ptr = &creature_list[c_ptr->m_idx];
+	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Is the monster "seen"? */
@@ -8095,8 +8095,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					x = GRID_X(path_g[j]);
 					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-					  if(cave[project_m_y][project_m_x].m_idx >0 ){
-					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
+					  if(cave[project_m_y][project_m_x].creature_idx >0 ){
+					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
 
 					    if (m_ptr->ml)
 					    {
@@ -8104,7 +8104,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
-					      health_track(cave[project_m_y][project_m_x].m_idx);
+					      health_track(cave[project_m_y][project_m_x].creature_idx);
 					    }
 					  }
 					}
@@ -8121,8 +8121,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell))
 			  notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(cave[project_m_y][project_m_x].m_idx >0 ){
-			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
+			  if(cave[project_m_y][project_m_x].creature_idx >0 ){
+			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -8130,7 +8130,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
-			      health_track(cave[project_m_y][project_m_x].m_idx);
+			      health_track(cave[project_m_y][project_m_x].creature_idx);
 			    }
 			  }
 			}
@@ -8253,8 +8253,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			x = GRID_X(path_g[i]);
 			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SUPER_RAY, flg, TRUE, monspell);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(cave[project_m_y][project_m_x].m_idx >0 ){
-			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
+			  if(cave[project_m_y][project_m_x].creature_idx >0 ){
+			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -8262,7 +8262,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
-			      health_track(cave[project_m_y][project_m_x].m_idx);
+			      health_track(cave[project_m_y][project_m_x].creature_idx);
 			    }
 			  }
 			}
@@ -8648,11 +8648,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			/* A single bolt may be reflected */
 			if (grids <= 1)
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
-				    ((cave[y][x].m_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].creature_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
+				    ((cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
@@ -8691,7 +8691,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(&creature_list[cave[y][x].m_idx], 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&creature_list[cave[y][x].creature_idx], 0, t_y, t_x, dam, typ, flg, monspell);
 
 					/* Don't affect the monster any longer */
 					continue;
@@ -8794,9 +8794,9 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			y = project_m_y;
 
 			/* Track if possible */
-			if (cave[y][x].m_idx > 0)
+			if (cave[y][x].creature_idx > 0)
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
 
 				if (m_ptr->ml)
 				{
@@ -8804,7 +8804,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
-					if (m_ptr->ml) health_track(cave[y][x].m_idx);
+					if (m_ptr->ml) health_track(cave[y][x].creature_idx);
 				}
 			}
 		}
@@ -9081,7 +9081,7 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
-					if( !cave[y][x].m_idx )
+					if( !cave[y][x].creature_idx )
 					{
 						remove_mirror(player_ptr, y,x);
 					}

@@ -864,7 +864,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	/* Counter attack to an enemy monster */
 	if (!will_run && nonplayer_ptr->target_y)
 	{
-		int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].m_idx;
+		int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 		/* The monster must be an enemy, and in LOS */
 		if (t_m_idx &&
@@ -1566,7 +1566,7 @@ static void process_creature(int m_idx)
 				/* Ignore locations off of edge */
 				if (!in_bounds2(y, x)) continue;
 
-				if (cave[y][x].m_idx) k++;
+				if (cave[y][x].creature_idx) k++;
 			}
 		}
 
@@ -1702,7 +1702,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* Give priority to counter attack? */
 		if (nonplayer_ptr->target_y)
 		{
-			int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].m_idx;
+			int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
@@ -1883,7 +1883,7 @@ msg_format("%^s%s", m_name, monmessage);
 		can_cross = creature_can_cross_terrain(c_ptr->feat, nonplayer_ptr, is_riding_mon ? CEM_RIDING : 0);
 
 		/* Access that cave grid's contents */
-		y_ptr = &creature_list[c_ptr->m_idx];
+		y_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Hack -- player 'in' wall */
 		if (creature_bold(player_ptr, ny, nx))
@@ -1892,7 +1892,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Possibly a monster to attack */
-		else if (c_ptr->m_idx)
+		else if (c_ptr->creature_idx)
 		{
 			do_move = TRUE;
 		}
@@ -2166,7 +2166,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* A monster is in the way */
-		if (do_move && c_ptr->m_idx)
+		if (do_move && c_ptr->creature_idx)
 		{
 			species_type *z_ptr = &species_info[y_ptr->species_idx];
 
@@ -2176,7 +2176,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Attack 'enemies' */
 			if ((has_cf_creature(nonplayer_ptr, CF_KILL_BODY) && !has_cf_creature(nonplayer_ptr, CF_NEVER_BLOW) &&
 				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
-				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
+				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
 				  are_enemies(nonplayer_ptr, y_ptr) ||  nonplayer_ptr->confused)
 			{
 				if (!has_cf_creature(nonplayer_ptr, CF_NEVER_BLOW))
@@ -2208,7 +2208,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Push past weaker monsters (unless leaving a wall) */
 			else if (has_cf_creature(nonplayer_ptr, CF_MOVE_BODY) && !has_cf_creature(nonplayer_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
-				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
+				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
 				creature_can_cross_terrain(cave[nonplayer_ptr->fy][nonplayer_ptr->fx].feat, y_ptr, 0))
 			{
 				/* Allow movement */
@@ -2218,7 +2218,7 @@ msg_format("%^s%s", m_name, monmessage);
 				did_move_body = TRUE;
 
 				/* Wake up the moved monster */
-				(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
+				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 				/* XXX XXX XXX Message */
 			}
@@ -2316,21 +2316,21 @@ msg_format("%^s%s", m_name, monmessage);
 			if (!is_riding_mon)
 			{
 				/* Hack -- Update the old location */
-				cave[oy][ox].m_idx = c_ptr->m_idx;
+				cave[oy][ox].creature_idx = c_ptr->creature_idx;
 
 				/* Mega-Hack -- move the old monster, if any */
-				if (c_ptr->m_idx)
+				if (c_ptr->creature_idx)
 				{
 					/* Move the old monster */
 					y_ptr->fy = oy;
 					y_ptr->fx = ox;
 
 					/* Update the old monster */
-					update_mon(c_ptr->m_idx, TRUE);
+					update_mon(c_ptr->creature_idx, TRUE);
 				}
 
 				/* Hack -- Update the new location */
-				c_ptr->m_idx = m_idx;
+				c_ptr->creature_idx = m_idx;
 
 				/* Move the monster */
 				nonplayer_ptr->fy = ny;

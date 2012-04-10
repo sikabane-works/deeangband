@@ -1104,12 +1104,12 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		x = cr_ptr->fx + ddx[dir];
 		dam = damroll(8 + ((plev - 5) / 4) + boost / 12, 8);
 		fire_beam(cr_ptr, GF_MISSILE, dir, dam);
-		if (cave[y][x].m_idx)
+		if (cave[y][x].creature_idx)
 		{
 			int i;
 			int ty = y, tx = x;
 			int oy = y, ox = x;
-			int m_idx = cave[y][x].m_idx;
+			int m_idx = cave[y][x].creature_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 			char m_name[80];
@@ -1144,8 +1144,8 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 #else
 					msg_format("You blow %s away!", m_name);
 #endif
-					cave[oy][ox].m_idx = 0;
-					cave[ty][tx].m_idx = m_idx;
+					cave[oy][ox].creature_idx = 0;
+					cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 
@@ -1169,7 +1169,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		int m_idx;
 
 		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = cave[target_row][target_col].m_idx;
+		m_idx = cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
@@ -1443,7 +1443,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
 
-		if (!cave[y][x].m_idx)
+		if (!cave[y][x].creature_idx)
 		{
 #ifdef JP
 			msg_print("その方向にはモンスターはいません。");
@@ -1461,7 +1461,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
+		if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].creature_idx)
 		{
 			msg_print(NULL);
 
@@ -1493,10 +1493,10 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			c_ptr = &cave[y][x];
 
 			/* Get the monster */
-			m_ptr = &creature_list[c_ptr->m_idx];
+			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Hack -- attack monsters */
-			if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
+			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 				weapon_attack(cr_ptr, y, x, 0);
 		}
 		break;
@@ -1577,7 +1577,7 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
-		if (cave[y][x].m_idx)
+		if (cave[y][x].creature_idx)
 		{
 			weapon_attack(cr_ptr, y, x, 0);
 			if (randint0(cr_ptr->skill_dis) < 7)
@@ -1662,7 +1662,7 @@ msg_print("その方向にはモンスターはいません。");
 		int ty,tx;
 
 		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = cave[target_row][target_col].m_idx;
+		m_idx = cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (m_idx == cr_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1692,10 +1692,10 @@ msg_print("その方向にはモンスターはいません。");
 			}
 		}
 		/* Update the old location */
-		cave[target_row][target_col].m_idx = 0;
+		cave[target_row][target_col].creature_idx = 0;
 
 		/* Update the new location */
-		cave[ty][tx].m_idx = m_idx;
+		cave[ty][tx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ty;

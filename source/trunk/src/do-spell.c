@@ -983,7 +983,7 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 		if (!cave_have_flag_bold(ny, nx, FF_PROJECT)) break;
 
 		/* Stopped by monsters */
-		if ((dir != 5) && cave[ny][nx].m_idx != 0) break;
+		if ((dir != 5) && cave[ny][nx].creature_idx != 0) break;
 
 		/* Save the new location */
 		x = nx;
@@ -3202,10 +3202,10 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
-					m_ptr = &creature_list[c_ptr->m_idx];
+					m_ptr = &creature_list[c_ptr->creature_idx];
 
 					/* Hack -- attack monsters */
-					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
+					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 						weapon_attack(cr_ptr, y, x, 0);
 				}
 			}
@@ -10219,7 +10219,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 
 			y = cr_ptr->fy + ddy_cdd[cdir];
 			x = cr_ptr->fx + ddx_cdd[cdir];
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10229,7 +10229,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			y = cr_ptr->fy + ddy_cdd[(cdir + 7) % 8];
 			x = cr_ptr->fx + ddx_cdd[(cdir + 7) % 8];
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10239,7 +10239,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			y = cr_ptr->fy + ddy_cdd[(cdir + 1) % 8];
 			x = cr_ptr->fx + ddx_cdd[(cdir + 1) % 8];
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10284,7 +10284,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
@@ -10332,7 +10332,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
@@ -10404,7 +10404,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 	
-			if (!cave[y][x].m_idx)
+			if (!cave[y][x].creature_idx)
 			{
 #ifdef JP
 				msg_print("その方向にはモンスターはいません。");
@@ -10422,7 +10422,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y += ddy[dir];
 			x += ddx[dir];
 	
-			if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
+			if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].creature_idx)
 			{
 				msg_print(NULL);
 	
@@ -10451,7 +10451,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_POISON);
 			else
 			{
@@ -10484,7 +10484,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
@@ -10517,7 +10517,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, 0);
 			else
 			{
@@ -10532,12 +10532,12 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				return "";
 			}
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 			{
 				int i;
 				int ty = y, tx = x;
 				int oy = y, ox = x;
-				int m_idx = cave[y][x].m_idx;
+				int m_idx = cave[y][x].creature_idx;
 				creature_type *m_ptr = &creature_list[m_idx];
 				char m_name[80];
 	
@@ -10561,8 +10561,8 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 					msg_format("You blow %s away!", m_name);
 #endif
-					cave[oy][ox].m_idx = 0;
-					cave[ty][tx].m_idx = m_idx;
+					cave[oy][ox].creature_idx = 0;
+					cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 	
@@ -10618,7 +10618,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_HAGAN);
 	
 			if (!cave_have_flag_bold(y, x, FF_HURT_ROCK)) break;
@@ -10650,7 +10650,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_COLD);
 			else
 			{
@@ -10683,7 +10683,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
@@ -10716,7 +10716,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
@@ -10749,7 +10749,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
@@ -10783,7 +10783,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
@@ -10840,10 +10840,10 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				c_ptr = &cave[y][x];
 	
 				/* Get the monster */
-				m_ptr = &creature_list[c_ptr->m_idx];
+				m_ptr = &creature_list[c_ptr->creature_idx];
 	
 				/* Hack -- attack monsters */
-				if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
+				if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 				{
 					if (!creature_living(m_ptr))
 					{
@@ -10881,7 +10881,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_QUAKE);
 			else
 				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
@@ -10987,7 +10987,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 	
-				if (c_ptr->m_idx)
+				if (c_ptr->creature_idx)
 					weapon_attack(cr_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
@@ -11005,11 +11005,11 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				}
 	
 				/* Monster is dead? */
-				if (!c_ptr->m_idx) break;
+				if (!c_ptr->creature_idx) break;
 	
 				ny = y + ddy[dir];
 				nx = x + ddx[dir];
-				m_idx = c_ptr->m_idx;
+				m_idx = c_ptr->creature_idx;
 				m_ptr = &creature_list[m_idx];
 	
 				/* Monster cannot move back? */
@@ -11020,8 +11020,8 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					continue;
 				}
 	
-				c_ptr->m_idx = 0;
-				cave[ny][nx].m_idx = m_idx;
+				c_ptr->creature_idx = 0;
+				cave[ny][nx].creature_idx = m_idx;
 				m_ptr->fy = ny;
 				m_ptr->fx = nx;
 	
@@ -11069,7 +11069,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
@@ -11206,10 +11206,10 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 			{
 				weapon_attack(cr_ptr, y, x, 0);
-				if (cave[y][x].m_idx)
+				if (cave[y][x].creature_idx)
 				{
 					handle_stuff();
 					weapon_attack(cr_ptr, y, x, 0);
@@ -11311,7 +11311,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 
-			if (cave[y][x].m_idx)
+			if (cave[y][x].creature_idx)
 				weapon_attack(cr_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
@@ -12429,7 +12429,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 					int dy = y + ddy_ddd[dir];
 					int dx = x + ddx_ddd[dir];
 					if (dir == 5) continue;
-					if(cave[dy][dx].m_idx) flag = TRUE;
+					if(cave[dy][dx].creature_idx) flag = TRUE;
 				}
 
 				if (!cave_empty_bold(y, x) || (cave[y][x].info & CAVE_ICKY) ||

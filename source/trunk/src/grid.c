@@ -37,7 +37,7 @@ bool new_player_spot(creature_type *creature_ptr)
 		c_ptr = &cave[y][x];
 
 		/* Must be a "naked" floor grid */
-		if (c_ptr->m_idx) continue;
+		if (c_ptr->creature_idx) continue;
 		if (dun_level)
 		{
 			f_ptr = &f_info[c_ptr->feat];
@@ -403,7 +403,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 
 		/* Require "naked" floor grids */
 		c_ptr = &cave[y1][x1];
-		if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->m_idx) continue;
+		if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
 		place_trap(y1, x1);

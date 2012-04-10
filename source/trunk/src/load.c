@@ -1883,7 +1883,7 @@ note("メッセージをロードしました");
 		c_ptr = &cave[m_ptr->fy][m_ptr->fx];
 
 		/* Mark the location */
-		c_ptr->m_idx = m_idx;
+		c_ptr->creature_idx = m_idx;
 
 		/* Count */
 

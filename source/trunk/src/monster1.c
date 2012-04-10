@@ -702,7 +702,7 @@ bool species_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	cave_type *c_ptr = &cave[y][x];
 
 	/* Other creature */
-	if (c_ptr->m_idx) return FALSE;
+	if (c_ptr->creature_idx) return FALSE;
 
 	//TODO
 	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
@@ -713,7 +713,7 @@ bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
 	cave_type *c_ptr = &cave[y][x];
 
 	/* Other creature */
-	if (c_ptr->m_idx) return FALSE;
+	if (c_ptr->creature_idx) return FALSE;
 
 	//TODO
 	return creature_can_cross_terrain(c_ptr->feat, cr_ptr, mode);

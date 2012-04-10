@@ -27,7 +27,7 @@ static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, 
 	/* Require "teleportable" space */
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
 
-	if (c_ptr->m_idx && (&creature_list[c_ptr->m_idx] != cr_ptr)) return FALSE;
+	if (c_ptr->creature_idx && (&creature_list[c_ptr->creature_idx] != cr_ptr)) return FALSE;
 	if (creature_bold(cr_ptr, y, x)) return FALSE;
 
 	/* Hack -- no teleport onto glyph of warding */
@@ -119,7 +119,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	cave[oy][ox].m_idx = 0;
+	cave[oy][ox].creature_idx = 0;
 
 	/*TODO::!*/
 	for(i = 0; i < 10000; i++)
@@ -130,7 +130,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 		}
 
 	/* Update the new location */
-	cave[ny][nx].m_idx = m_idx;
+	cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
 	cr_ptr->fy = ny;
@@ -230,10 +230,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	cave[oy][ox].m_idx = 0;
+	cave[oy][ox].creature_idx = 0;
 
 	/* Update the new location */
-	cave[ny][nx].m_idx = m_idx;
+	cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
 	m_ptr->fy = ny;
@@ -264,7 +264,7 @@ bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mod
 	/* No magical teleporting into vaults and such */
 	if (!(mode & TELEPORT_NONMAGICAL) && (c_ptr->info & CAVE_ICKY)) return FALSE;
 
-	if (c_ptr->m_idx && (c_ptr->m_idx != cr_ptr->riding)) return FALSE;
+	if (c_ptr->creature_idx && (c_ptr->creature_idx != cr_ptr->riding)) return FALSE;
 
 	/* don't teleport on a trap. */
 	if (have_flag(f_ptr->flags, FF_HIT_TRAP)) return FALSE;
@@ -442,7 +442,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = cave[oy+yy][ox+xx].m_idx;
+			int tmp_m_idx = cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount may follow */
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
@@ -478,7 +478,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = cave[oy+yy][ox+xx].m_idx;
+			int tmp_m_idx = cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount or caster may follow */
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx) && (cr_ptr != &creature_list[tmp_m_idx]))
@@ -533,7 +533,7 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 		}
 
 		/* Accept any grid when wizard mode */
-		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == caster_ptr->riding))) break;
+		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].creature_idx || (cave[y][x].creature_idx == caster_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
 		if (cave_player_teleportable_bold(caster_ptr, y, x, mode)) break;
@@ -1617,10 +1617,10 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			/* Lose room and vault */
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
 
-			m_ptr = &creature_list[c_ptr->m_idx];
+			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Awake monster */
-			if (c_ptr->m_idx && m_ptr->paralyzed)
+			if (c_ptr->creature_idx && m_ptr->paralyzed)
 			{
 				/* Reset sleep counter */
 				(void)set_paralyzed(m_ptr, 0);
@@ -5419,17 +5419,17 @@ static s16b poly_species_idx(int pre_species_idx)
 bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
-	creature_type *m_ptr = &creature_list[c_ptr->m_idx];
+	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 	bool polymorphed = FALSE;
 	int new_species_idx;
 	int old_species_idx = m_ptr->species_idx;
-	bool targeted = (target_who == c_ptr->m_idx) ? TRUE : FALSE;
-	bool health_tracked = (health_who == c_ptr->m_idx) ? TRUE : FALSE;
+	bool targeted = (target_who == c_ptr->creature_idx) ? TRUE : FALSE;
+	bool health_tracked = (health_who == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
 	if (inside_arena || monster_arena_mode) return (FALSE);
 
-	if ((cr_ptr->riding == c_ptr->m_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
+	if ((cr_ptr->riding == c_ptr->creature_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 
 	/* Memorize the monster before polymorphing */
 	back_m = *m_ptr;
@@ -5453,7 +5453,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 		m_ptr->hold_o_idx = 0;
 
 		/* "Kill" the "old" monster */
-		delete_species_idx(&creature_list[c_ptr->m_idx]);
+		delete_species_idx(&creature_list[c_ptr->creature_idx]);
 
 		/* Create a new monster (no groups) */
 		if (place_creature_aux(NULL, y, x, new_species_idx, mode))

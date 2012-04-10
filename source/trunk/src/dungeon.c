@@ -3598,7 +3598,7 @@ static int get_monster_crowd_number(int m_idx)
 		if (!in_bounds(ay, ax)) continue;
 
 		/* Count number of monsters */
-		if (cave[ay][ax].m_idx > 0) count++;
+		if (cave[ay][ax].creature_idx > 0) count++;
  	}
 
 	return count;
@@ -3841,10 +3841,10 @@ static void process_world(creature_type *cr_ptr)
 			{
 				cave_type *c_ptr = &cave[j2][i2];
 
-				if ((c_ptr->m_idx > 0) && (c_ptr->m_idx != cr_ptr->riding))
+				if ((c_ptr->creature_idx > 0) && (c_ptr->creature_idx != cr_ptr->riding))
 				{
 					number_mon++;
-					win_m_idx = c_ptr->m_idx;
+					win_m_idx = c_ptr->creature_idx;
 				}
 			}
 
@@ -5656,7 +5656,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 				if (place_creature_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
+					creature_desc(m_name, &creature_list[cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%s‚ª’Ş‚ê‚½I", m_name);
 #else
