@@ -3897,7 +3897,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 		if(wizard)
 		{
-			sprintf(tmp, "[cid:%d/x:%d/y:%d]%s", cr_ptr->creature_idx, cr_ptr->fx, cr_ptr->fy, cr_ptr->name);
+			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", cr_ptr->creature_idx, cr_ptr->floor_id, cr_ptr->fx, cr_ptr->fy, cr_ptr->name);
 		}
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
