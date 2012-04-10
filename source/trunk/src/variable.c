@@ -772,7 +772,6 @@ creature_type p_body;
 /*
  * Pointer to the player info
  */
-creature_type *p_ptr = NULL;
 creature_type *player_ptr = NULL;
 
 u32b play_redraw = 0;		/* Normal Redraws (bit flags) */

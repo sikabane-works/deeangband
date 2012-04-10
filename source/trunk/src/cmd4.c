@@ -2614,7 +2614,7 @@ void do_cmd_options(void)
 			case 'P':
 			case 'p':
 			{
-				do_cmd_edit_autopick(p_ptr);
+				do_cmd_edit_autopick(player_ptr);
 				break;
 			}
 

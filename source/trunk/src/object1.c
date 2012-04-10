@@ -6110,7 +6110,7 @@ int scan_floor(int *items, int y, int x, int mode)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Item tester */
-		if ((mode & 0x01) && !item_tester_okay(p_ptr, o_ptr, NULL)) continue;
+		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL)) continue;
 
 		/* Marked */
 		if ((mode & 0x02) && !(o_ptr->marked & OM_FOUND)) continue;

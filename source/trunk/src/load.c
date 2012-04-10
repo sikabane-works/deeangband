@@ -572,7 +572,7 @@ static void store_item_load(store_type *st_ptr, object_type *o_ptr)
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(p_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
+		if (object_sort_comp(player_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
@@ -1859,7 +1859,6 @@ note("メッセージをロードしました");
 	if (limit > max_creature_idx) return 161;
 
 	player_ptr = &creature_list[1];
-	p_ptr = &creature_list[1];
 
 	/* Read the monsters */
 	for (i = 1; i < limit; i++)

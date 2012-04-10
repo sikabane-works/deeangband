@@ -197,7 +197,7 @@ static void kill_saved_floor(saved_floor_type *sf_ptr)
 	/* Already empty */
 	if (!sf_ptr->floor_id) return;
 
-	if (sf_ptr->floor_id == p_ptr->floor_id)
+	if (sf_ptr->floor_id == player_ptr->floor_id)
 	{
 		// Kill current floor
 		player_ptr->floor_id = 0;

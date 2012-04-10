@@ -457,7 +457,6 @@ extern char misc_to_char[256];
 extern byte tval_to_attr[128];
 extern char tval_to_char[128];
 extern cptr keymap_act[KEYMAP_MODES][256];
-extern creature_type *p_ptr;
 extern creature_type *player_ptr; /* New Reference Pointer */
 extern u32b play_redraw;		/* Normal Redraws (bit flags) */
 extern u32b play_window;		/* Window Redraws (bit flags) */
