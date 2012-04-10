@@ -938,7 +938,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->race_idx1);
 	rd_s16b(&cr_ptr->race_idx2);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
-	rd_s16b(&cr_ptr->creature_ego_idx);
+	rd_s16b(&cr_ptr->creature_egobject_idx);
 	rd_s16b(&cr_ptr->cls_idx);
 	rd_s16b(&cr_ptr->chara_idx);
 	rd_s16b(&cr_ptr->starting_idx);
@@ -1502,24 +1502,24 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	rd_u16b(&limit);
 
 	/* Verify maximum */
-	if (limit > max_o_idx) return 151;
+	if (limit > max_object_idx) return 151;
 
 	/* Read the dungeon items */
 	for (i = 1; i < limit; i++)
 	{
-		int o_idx;
+		int object_idx;
 		object_type *o_ptr;
 
 
 		/* Get a new record */
-		o_idx = o_pop();
+		object_idx = o_pop();
 
 		/* Oops */
-		//if (i != o_idx)
+		//if (i != object_idx)
 		//	return 152;
 
 		/* Acquire place */
-		o_ptr = &object_list[o_idx];
+		o_ptr = &object_list[object_idx];
 
 		/* Read the item */
 		rd_item(o_ptr);
@@ -1534,10 +1534,10 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 			m_ptr = &creature_list[o_ptr->held_m_idx];
 
 			/* Build a stack */
-			o_ptr->next_o_idx = m_ptr->hold_o_idx;
+			o_ptr->next_object_idx = m_ptr->hold_object_idx;
 
 			/* Place the object */
-			m_ptr->hold_o_idx = o_idx;
+			m_ptr->hold_object_idx = object_idx;
 		}
 
 		/* Dungeon */
@@ -1547,10 +1547,10 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 			cave_type *c_ptr = &cave[o_ptr->iy][o_ptr->ix];
 
 			/* Build a stack */
-			o_ptr->next_o_idx = c_ptr->o_idx;
+			o_ptr->next_object_idx = c_ptr->object_idx;
 
 			/* Place the object */
-			c_ptr->o_idx = o_idx;
+			c_ptr->object_idx = object_idx;
 		}
 	}
 

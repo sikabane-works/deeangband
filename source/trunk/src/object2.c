@@ -18,17 +18,17 @@
 /*
  * Excise a dungeon object from any stacks
  */
-void excise_object_idx(int o_idx)
+void excise_object_idx(int object_idx)
 {
 	object_type *j_ptr;
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
-	s16b prev_o_idx = 0;
+	s16b prev_object_idx = 0;
 
 
 	/* Object */
-	j_ptr = &object_list[o_idx];
+	j_ptr = &object_list[object_idx];
 
 	/* Monster */
 	if (j_ptr->held_m_idx)
@@ -39,24 +39,24 @@ void excise_object_idx(int o_idx)
 		m_ptr = &creature_list[j_ptr->held_m_idx];
 
 		/* Scan all objects in the grid */
-		for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+		for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_o_idx];
+			o_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_o_idx = o_ptr->next_o_idx;
+			next_object_idx = o_ptr->next_object_idx;
 
 			/* Done */
-			if (this_o_idx == o_idx)
+			if (this_object_idx == object_idx)
 			{
 				/* No previous */
-				if (prev_o_idx == 0)
+				if (prev_object_idx == 0)
 				{
 					/* Remove from list */
-					m_ptr->hold_o_idx = next_o_idx;
+					m_ptr->hold_object_idx = next_object_idx;
 				}
 
 				/* Real previous */
@@ -65,21 +65,21 @@ void excise_object_idx(int o_idx)
 					object_type *k_ptr;
 
 					/* Previous object */
-					k_ptr = &object_list[prev_o_idx];
+					k_ptr = &object_list[prev_object_idx];
 
 					/* Remove from list */
-					k_ptr->next_o_idx = next_o_idx;
+					k_ptr->next_object_idx = next_object_idx;
 				}
 
 				/* Forget next pointer */
-				o_ptr->next_o_idx = 0;
+				o_ptr->next_object_idx = 0;
 
 				/* Done */
 				break;
 			}
 
-			/* Save prev_o_idx */
-			prev_o_idx = this_o_idx;
+			/* Save prev_object_idx */
+			prev_object_idx = this_object_idx;
 		}
 	}
 
@@ -95,24 +95,24 @@ void excise_object_idx(int o_idx)
 		c_ptr = &cave[y][x];
 
 		/* Scan all objects in the grid */
-		for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+		for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_o_idx];
+			o_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_o_idx = o_ptr->next_o_idx;
+			next_object_idx = o_ptr->next_object_idx;
 
 			/* Done */
-			if (this_o_idx == o_idx)
+			if (this_object_idx == object_idx)
 			{
 				/* No previous */
-				if (prev_o_idx == 0)
+				if (prev_object_idx == 0)
 				{
 					/* Remove from list */
-					c_ptr->o_idx = next_o_idx;
+					c_ptr->object_idx = next_object_idx;
 				}
 
 				/* Real previous */
@@ -121,21 +121,21 @@ void excise_object_idx(int o_idx)
 					object_type *k_ptr;
 
 					/* Previous object */
-					k_ptr = &object_list[prev_o_idx];
+					k_ptr = &object_list[prev_object_idx];
 
 					/* Remove from list */
-					k_ptr->next_o_idx = next_o_idx;
+					k_ptr->next_object_idx = next_object_idx;
 				}
 
 				/* Forget next pointer */
-				o_ptr->next_o_idx = 0;
+				o_ptr->next_object_idx = 0;
 
 				/* Done */
 				break;
 			}
 
-			/* Save prev_o_idx */
-			prev_o_idx = this_o_idx;
+			/* Save prev_object_idx */
+			prev_object_idx = this_object_idx;
 		}
 	}
 }
@@ -146,15 +146,15 @@ void excise_object_idx(int o_idx)
  *
  * Handle "stacks" of objects correctly.
  */
-void delete_object_idx(int o_idx)
+void delete_object_idx(int object_idx)
 {
 	object_type *j_ptr;
 
 	/* Excise */
-	excise_object_idx(o_idx);
+	excise_object_idx(object_idx);
 
 	/* Object */
-	j_ptr = &object_list[o_idx];
+	j_ptr = &object_list[object_idx];
 
 	/* Dungeon floor */
 	if (!(j_ptr->held_m_idx))
@@ -184,7 +184,7 @@ void delete_object(int y, int x)
 {
 	cave_type *c_ptr;
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 
 	/* Refuse "illegal" locations */
@@ -195,15 +195,15 @@ void delete_object(int y, int x)
 	c_ptr = &cave[y][x];
 
 	/* Scan all objects in the grid */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Wipe the object */
 		object_wipe(o_ptr);
@@ -213,7 +213,7 @@ void delete_object(int y, int x)
 	}
 
 	/* Objects are gone */
-	c_ptr->o_idx = 0;
+	c_ptr->object_idx = 0;
 
 	/* Visual update */
 	lite_spot(y, x);
@@ -246,10 +246,10 @@ static void compact_objects_aux(int i1, int i2)
 		if (!o_ptr->k_idx) continue;
 
 		/* Repair "next" pointers */
-		if (o_ptr->next_o_idx == i1)
+		if (o_ptr->next_object_idx == i1)
 		{
 			/* Repair */
-			o_ptr->next_o_idx = i2;
+			o_ptr->next_object_idx = i2;
 		}
 	}
 
@@ -267,10 +267,10 @@ static void compact_objects_aux(int i1, int i2)
 		m_ptr = &creature_list[o_ptr->held_m_idx];
 
 		/* Repair monster */
-		if (m_ptr->hold_o_idx == i1)
+		if (m_ptr->hold_object_idx == i1)
 		{
 			/* Repair */
-			m_ptr->hold_o_idx = i2;
+			m_ptr->hold_object_idx = i2;
 		}
 	}
 
@@ -287,10 +287,10 @@ static void compact_objects_aux(int i1, int i2)
 		c_ptr = &cave[y][x];
 
 		/* Repair grid */
-		if (c_ptr->o_idx == i1)
+		if (c_ptr->object_idx == i1)
 		{
 			/* Repair */
-			c_ptr->o_idx = i2;
+			c_ptr->object_idx = i2;
 		}
 	}
 
@@ -429,8 +429,8 @@ void compact_objects(int size)
  *
  * Note -- we do NOT visually reflect these (irrelevant) changes
  *
- * Hack -- we clear the "c_ptr->o_idx" field for every grid,
- * and the "m_ptr->next_o_idx" field for every monster, since
+ * Hack -- we clear the "c_ptr->object_idx" field for every grid,
+ * and the "m_ptr->next_object_idx" field for every monster, since
  * we know we are clearing every object.  Technically, we only
  * clear those fields for grids/monsters containing objects,
  * and we clear it once for every such object.
@@ -469,7 +469,7 @@ void wipe_object_list(void)
 			m_ptr = &creature_list[o_ptr->held_m_idx];
 
 			/* Hack -- see above */
-			m_ptr->hold_o_idx = 0;
+			m_ptr->hold_object_idx = 0;
 		}
 
 		/* Dungeon */
@@ -485,7 +485,7 @@ void wipe_object_list(void)
 			c_ptr = &cave[y][x];
 
 			/* Hack -- see above */
-			c_ptr->o_idx = 0;
+			c_ptr->object_idx = 0;
 		}
 
 		/* Wipe the object */
@@ -512,7 +512,7 @@ s16b o_pop(void)
 
 
 	/* Initial allocation */
-	if (object_max < max_o_idx)
+	if (object_max < max_object_idx)
 	{
 		/* Get next space */
 		i = object_max;
@@ -3959,7 +3959,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
  */
 void place_object(int y, int x, u32b mode)
 {
-	s16b o_idx;
+	s16b object_idx;
 
 	/* Acquire grid */
 	cave_type *c_ptr = &cave[y][x];
@@ -3975,7 +3975,7 @@ void place_object(int y, int x, u32b mode)
 	if (!cave_drop_bold(y, x)) return;
 
 	/* Avoid stacking on other objects */
-	if (c_ptr->o_idx) return;
+	if (c_ptr->object_idx) return;
 
 
 	/* Get local object */
@@ -3989,15 +3989,15 @@ void place_object(int y, int x, u32b mode)
 
 
 	/* Make an object */
-	o_idx = o_pop();
+	object_idx = o_pop();
 
 	/* Success */
-	if (o_idx)
+	if (object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[o_idx];
+		o_ptr = &object_list[object_idx];
 
 		/* Structure Copy */
 		object_copy(o_ptr, q_ptr);
@@ -4007,10 +4007,10 @@ void place_object(int y, int x, u32b mode)
 		o_ptr->ix = x;
 
 		/* Build a stack */
-		o_ptr->next_o_idx = c_ptr->o_idx;
+		o_ptr->next_object_idx = c_ptr->object_idx;
 
 		/* Place the object */
-		c_ptr->o_idx = o_idx;
+		c_ptr->object_idx = object_idx;
 
 		/* Notice */
 		note_spot(y, x);
@@ -4080,7 +4080,7 @@ bool make_gold(object_type *j_ptr, int value)
  */
 void place_gold(int y, int x)
 {
-	s16b o_idx;
+	s16b object_idx;
 
 	/* Acquire grid */
 	cave_type *c_ptr = &cave[y][x];
@@ -4097,7 +4097,7 @@ void place_gold(int y, int x)
 	if (!cave_drop_bold(y, x)) return;
 
 	/* Avoid stacking on other objects */
-	if (c_ptr->o_idx) return;
+	if (c_ptr->object_idx) return;
 
 
 	/* Get local object */
@@ -4111,15 +4111,15 @@ void place_gold(int y, int x)
 
 
 	/* Make an object */
-	o_idx = o_pop();
+	object_idx = o_pop();
 
 	/* Success */
-	if (o_idx)
+	if (object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[o_idx];
+		o_ptr = &object_list[object_idx];
 
 		/* Copy the object */
 		object_copy(o_ptr, q_ptr);
@@ -4129,10 +4129,10 @@ void place_gold(int y, int x)
 		o_ptr->ix = x;
 
 		/* Build a stack */
-		o_ptr->next_o_idx = c_ptr->o_idx;
+		o_ptr->next_object_idx = c_ptr->object_idx;
 
 		/* Place the object */
-		c_ptr->o_idx = o_idx;
+		c_ptr->object_idx = object_idx;
 
 		/* Notice */
 		note_spot(y, x);
@@ -4168,9 +4168,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	int dy, dx;
 	int ty, tx = 0;
 
-	s16b o_idx = 0;
+	s16b object_idx = 0;
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	cave_type *c_ptr;
 
@@ -4262,15 +4262,15 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			k = 0;
 
 			/* Scan objects in that grid */
-			for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				object_type *o_ptr;
 
 				/* Acquire object */
-				o_ptr = &object_list[this_o_idx];
+				o_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_o_idx = o_ptr->next_o_idx;
+				next_object_idx = o_ptr->next_object_idx;
 
 				/* Check for possible combination */
 				if (object_similar(o_ptr, j_ptr)) comb = TRUE;
@@ -4431,15 +4431,15 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	c_ptr = &cave[by][bx];
 
 	/* Scan objects in that grid for combination */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Check for combination */
 		if (object_similar(o_ptr, j_ptr))
@@ -4456,10 +4456,10 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	}
 
 	/* Get new object */
-	if (!done) o_idx = o_pop();
+	if (!done) object_idx = o_pop();
 
 	/* Failure */
-	if (!done && !o_idx)
+	if (!done && !object_idx)
 	{
 		/* Message */
 #ifdef JP
@@ -4492,10 +4492,10 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	if (!done)
 	{
 		/* Structure copy */
-		object_copy(&object_list[o_idx], j_ptr);
+		object_copy(&object_list[object_idx], j_ptr);
 
 		/* Access new object */
-		j_ptr = &object_list[o_idx];
+		j_ptr = &object_list[object_idx];
 
 		/* Locate */
 		j_ptr->iy = by;
@@ -4505,10 +4505,10 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		j_ptr->held_m_idx = 0;
 
 		/* Build a stack */
-		j_ptr->next_o_idx = c_ptr->o_idx;
+		j_ptr->next_object_idx = c_ptr->object_idx;
 
 		/* Place the object */
-		c_ptr->o_idx = o_idx;
+		c_ptr->object_idx = object_idx;
 
 		/* Success */
 		done = TRUE;
@@ -4538,7 +4538,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	/* XXX XXX XXX */
 
 	/* Result */
-	return (o_idx);
+	return (object_idx);
 }
 
 
@@ -5199,7 +5199,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	j_ptr = &cr_ptr->inventory[i];
 
 	/* Forget stack */
-	j_ptr->next_o_idx = 0;
+	j_ptr->next_object_idx = 0;
 
 	/* Forget monster */
 	j_ptr->held_m_idx = 0;
@@ -6650,7 +6650,7 @@ static void drain_essence(creature_type *creature_ptr)
 	object_type *o_ptr;
 	cptr            q, s;
 	byte iy, ix, marked, number;
-	s16b next_o_idx, weight;
+	s16b next_object_idx, weight;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
 		drain_value[i] = 0;
@@ -6722,7 +6722,7 @@ static void drain_essence(creature_type *creature_ptr)
 
 	iy = o_ptr->iy;
 	ix = o_ptr->ix;
-	next_o_idx = o_ptr->next_o_idx;
+	next_object_idx = o_ptr->next_object_idx;
 	marked = o_ptr->marked;
 	weight = o_ptr->weight;
 	number = o_ptr->number;
@@ -6731,7 +6731,7 @@ static void drain_essence(creature_type *creature_ptr)
 
 	o_ptr->iy=iy;
 	o_ptr->ix=ix;
-	o_ptr->next_o_idx=next_o_idx;
+	o_ptr->next_object_idx=next_object_idx;
 	o_ptr->marked=marked;
 	o_ptr->number = number;
 	if (o_ptr->tval == TV_DRAG_ARMOR) o_ptr->timeout = old_timeout;

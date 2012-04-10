@@ -39,7 +39,7 @@
  *
  * Certain data is saved in multiple places for efficient access, currently,
  * this includes the tval/sval/weight fields in "object_type", various fields
- * in "header_type", and the "m_idx" and "o_idx" fields in "cave_type".  All
+ * in "header_type", and the "m_idx" and "object_idx" fields in "cave_type".  All
  * of these could be removed, but this would, in general, slow down the game
  * and increase the complexity of the code.
  */
@@ -335,7 +335,7 @@ struct species_type
 	s16b father_idx;
 	s16b mother_idx;
 	s16b chara_idx;                 /* Chara index */
-	s16b creature_ego_idx;		    /* Monster ego index */
+	s16b creature_egobject_idx;		    /* Monster ego index */
 
 	s16b realm1;       /* First magic realm */
 	s16b realm2;       /* Second magic realm */
@@ -508,7 +508,7 @@ struct skill_table
  * to a max size of 256 by 256.  In partcular, locations are often
  * saved as bytes, limiting each coordinate to the 0-255 range.
  *
- * The "o_idx" and "m_idx" fields are very interesting.  There are
+ * The "object_idx" and "m_idx" fields are very interesting.  There are
  * many places in the code where we need quick access to the actual
  * monster or object(s) in a given cave grid.  The easiest way to
  * do this is to simply keep the index of the monster and object
@@ -519,9 +519,9 @@ struct skill_table
  * these reasons, we simply store an index into the "object_list" and
  * "creature_list" arrays, using "zero" when no monster/object is present.
  *
- * Note that "o_idx" is the index of the top object in a stack of
- * objects, using the "next_o_idx" field of objects (see below) to
- * create the singly linked list of objects.  If "o_idx" is zero
+ * Note that "object_idx" is the index of the top object in a stack of
+ * objects, using the "next_object_idx" field of objects (see below) to
+ * create the singly linked list of objects.  If "object_idx" is zero
  * then there are no objects in the grid.
  *
  * Note the special fields for the "MONSTER_FLOW" code.
@@ -535,7 +535,7 @@ struct cave_type
 
 	s16b feat;		/* Hack -- feature type */
 
-	s16b o_idx;		/* Object in this grid */
+	s16b object_idx;		/* Object in this grid */
 
 	s16b creature_idx;		// Creature in this grid
 
@@ -579,14 +579,14 @@ struct coord
  * Note that "object flags" must now be derived from the object kind,
  * the artifact and ego-item indexes, and the two "xtra" fields.
  *
- * Each cave grid points to one (or zero) objects via the "o_idx"
+ * Each cave grid points to one (or zero) objects via the "object_idx"
  * field (above).  Each object then points to one (or zero) objects
- * via the "next_o_idx" field, forming a singly linked list, which
+ * via the "next_object_idx" field, forming a singly linked list, which
  * in game terms, represents a "stack" of objects in the same grid.
  *
- * Each monster points to one (or zero) objects via the "hold_o_idx"
+ * Each monster points to one (or zero) objects via the "hold_object_idx"
  * field (below).  Each object then points to one (or zero) objects
- * via the "next_o_idx" field, forming a singly linked list, which
+ * via the "next_object_idx" field, forming a singly linked list, which
  * in game terms, represents a pile of objects held by the monster.
  *
  * The "held_m_idx" field is used to indicate which monster, if any,
@@ -650,7 +650,7 @@ struct object_type
 
 	u32b curse_flags;        /* Flags for curse */
 
-	s16b next_o_idx;	/* Next object in stack (if any) */
+	s16b next_object_idx;	/* Next object in stack (if any) */
 
 	s16b held_m_idx;	/* Monster holding us (if any) */
 
@@ -1160,7 +1160,7 @@ struct creature_type
 	s16b race_idx2;			    // Intelligence race index //
 	s16b species_idx;			// Species index //
 	s16b ap_species_idx;		// Species appearance index //
-	s16b creature_ego_idx;		// Ego index //
+	s16b creature_egobject_idx;		// Ego index //
 	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
 	u32b sub_race[8];       /* Sub-Race flags */
@@ -1575,7 +1575,7 @@ struct creature_type
 
 	bool ml;		/* Monster is "visible" */
 
-	s16b hold_o_idx;	/* Object being held (if any) */
+	s16b hold_object_idx;	/* Object being held (if any) */
 
 	s16b target_y;		/* Can attack !los player */
 	s16b target_x;		/* Can attack !los player */

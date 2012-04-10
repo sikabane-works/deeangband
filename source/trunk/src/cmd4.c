@@ -6712,18 +6712,18 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		{
 			cave_type *c_ptr = &cave[y][x];
 
-			s16b this_o_idx, next_o_idx = 0;
+			s16b this_object_idx, next_object_idx = 0;
 
 			/* Scan all objects in the grid */
-			for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				object_type *o_ptr;
 
 				/* Acquire object */
-				o_ptr = &object_list[this_o_idx];
+				o_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_o_idx = o_ptr->next_o_idx;
+				next_object_idx = o_ptr->next_object_idx;
 
 				/* Ignore non-artifacts */
 				if (!object_is_fixed_artifact(o_ptr)) continue;

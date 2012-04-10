@@ -371,7 +371,7 @@ static bool player_has_no_spellbooks(creature_type *cr_ptr)
 		if (o_ptr->k_idx && check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;
 	}
 
-	for (i = cave[cr_ptr->fy][cr_ptr->fx].o_idx; i; i = o_ptr->next_o_idx)
+	for (i = cave[cr_ptr->fy][cr_ptr->fx].object_idx; i; i = o_ptr->next_object_idx)
 	{
 		o_ptr = &object_list[i];
 		if (o_ptr->k_idx && (o_ptr->marked & OM_FOUND) && check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;

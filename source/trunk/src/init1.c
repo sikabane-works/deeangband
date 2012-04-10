@@ -5773,10 +5773,10 @@ static void drop_here(object_type *j_ptr, int y, int x)
 	object_type *o_ptr;
 
 	/* Get new object */
-	s16b o_idx = o_pop();
+	s16b object_idx = o_pop();
 
 	/* Access new object */
-	o_ptr = &object_list[o_idx];
+	o_ptr = &object_list[object_idx];
 
 	/* Structure copy */
 	object_copy(o_ptr, j_ptr);
@@ -5790,10 +5790,10 @@ static void drop_here(object_type *j_ptr, int y, int x)
 	o_ptr->held_m_idx = 0;
 
 	/* Build a stack */
-	o_ptr->next_o_idx = c_ptr->o_idx;
+	o_ptr->next_object_idx = c_ptr->object_idx;
 
 	/* Place the object */
-	c_ptr->o_idx = o_idx;
+	c_ptr->object_idx = object_idx;
 }
 
 
@@ -6198,7 +6198,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				/* Maximum species_idx */
 				if (zz[0][1] == 'E')
 				{
-					max_creature_ego_idx = atoi(zz[1]);
+					max_creature_egobject_idx = atoi(zz[1]);
 				}
 				else
 				{
@@ -6250,10 +6250,10 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				max_d_idx = atoi(zz[1]); 
 			}
 
-			/* Maximum o_idx */
+			/* Maximum object_idx */
 			else if (zz[0][0] == 'O')
 			{
-				max_o_idx = atoi(zz[1]);
+				max_object_idx = atoi(zz[1]);
 			}
 
 			/* Maximum m_idx */

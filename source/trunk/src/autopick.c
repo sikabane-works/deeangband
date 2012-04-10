@@ -1676,10 +1676,10 @@ void autopick_delayed_alter(creature_type *cr_ptr)
 		autopick_delayed_alter_aux(cr_ptr, item);
 
 	/* Scan the pile of objects */
-	item = cave[cr_ptr->fy][cr_ptr->fx].o_idx;
+	item = cave[cr_ptr->fy][cr_ptr->fx].object_idx;
 	while (item)
 	{
-		int next = object_list[item].next_o_idx;
+		int next = object_list[item].next_object_idx;
 		autopick_delayed_alter_aux(cr_ptr, -item);
 		item = next;
 	}
@@ -1720,18 +1720,18 @@ void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
  */
 void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 {
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 	
 	/* Scan the pile of objects */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		int idx;
 	
 		/* Acquire object */
-		object_type *o_ptr = &object_list[this_o_idx];
+		object_type *o_ptr = &object_list[this_object_idx];
 		
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		idx = is_autopick(cr_ptr, o_ptr);
 
@@ -1789,7 +1789,7 @@ void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 				}
 
 			}
-			py_pickup_aux(cr_ptr, this_o_idx);
+			py_pickup_aux(cr_ptr, this_object_idx);
 		}
 		
 		/*

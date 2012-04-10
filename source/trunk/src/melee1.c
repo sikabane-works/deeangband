@@ -1039,7 +1039,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 					/* Find an item */
 					for (k = 0; k < 10; k++)
 					{
-						s16b o_idx;
+						s16b object_idx;
 
 						/* Pick an item */
 						i = randint0(INVEN_TOTAL);
@@ -1068,15 +1068,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 
 						/* Make an object */
-						o_idx = o_pop();
+						object_idx = o_pop();
 
 						/* Success */
-						if (o_idx)
+						if (object_idx)
 						{
 							object_type *j_ptr;
 
 							/* Get new object */
-							j_ptr = &object_list[o_idx];
+							j_ptr = &object_list[object_idx];
 
 							/* Copy object */
 							object_copy(j_ptr, o_ptr);
@@ -1101,10 +1101,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 							//TODO j_ptr->held_m_idx = m_idx;
 
 							/* Build stack */
-							j_ptr->next_o_idx = attacker_ptr->hold_o_idx;
+							j_ptr->next_object_idx = attacker_ptr->hold_object_idx;
 
 							/* Build stack */
-							attacker_ptr->hold_o_idx = o_idx;
+							attacker_ptr->hold_object_idx = object_idx;
 						}
 
 						/* Steal the items */

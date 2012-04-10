@@ -1839,7 +1839,7 @@ void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los)
 	char            o_name[MAX_NLEN];
 
 	/* Check to see if an object is already there */
-	if (cave[cr_ptr->fy][cr_ptr->fx].o_idx)
+	if (cave[cr_ptr->fy][cr_ptr->fx].object_idx)
 	{
 #ifdef JP
 msg_print("自分の足の下にある物は取れません。");
@@ -1870,7 +1870,7 @@ msg_print("そんなに遠くにある物は取れません！");
 		c_ptr = &cave[ty][tx];
 
 		/* We need an item to fetch */
-		if (!c_ptr->o_idx)
+		if (!c_ptr->object_idx)
 		{
 #ifdef JP
 msg_print("そこには何もありません。");
@@ -1933,10 +1933,10 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 			if ((distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE) ||
 				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
 		}
-		while (!c_ptr->o_idx);
+		while (!c_ptr->object_idx);
 	}
 
-	o_ptr = &object_list[c_ptr->o_idx];
+	o_ptr = &object_list[c_ptr->object_idx];
 
 	if (o_ptr->weight > wgt)
 	{
@@ -1950,10 +1950,10 @@ msg_print("そのアイテムは重過ぎます。");
 		return;
 	}
 
-	i = c_ptr->o_idx;
-	c_ptr->o_idx = o_ptr->next_o_idx;
-	cave[cr_ptr->fy][cr_ptr->fx].o_idx = i; /* 'move' it */
-	o_ptr->next_o_idx = 0;
+	i = c_ptr->object_idx;
+	c_ptr->object_idx = o_ptr->next_object_idx;
+	cave[cr_ptr->fy][cr_ptr->fx].object_idx = i; /* 'move' it */
+	o_ptr->next_object_idx = 0;
 	o_ptr->iy = (byte)cr_ptr->fy;
 	o_ptr->ix = (byte)cr_ptr->fx;
 
@@ -2946,7 +2946,7 @@ s = "使えるものがありません。";
 	{
 		byte iy = o_ptr->iy;                 /* Y-position on map, or zero */
 		byte ix = o_ptr->ix;                 /* X-position on map, or zero */
-		s16b next_o_idx = o_ptr->next_o_idx; /* Next object in stack (if any) */
+		s16b next_object_idx = o_ptr->next_object_idx; /* Next object in stack (if any) */
 		byte marked = o_ptr->marked;         /* Object is marked */
 		s16b weight = o_ptr->number * o_ptr->weight;
 		u16b inscription = o_ptr->inscription;
@@ -2956,7 +2956,7 @@ s = "使えるものがありません。";
 
 		o_ptr->iy = iy;
 		o_ptr->ix = ix;
-		o_ptr->next_o_idx = next_o_idx;
+		o_ptr->next_object_idx = next_object_idx;
 		o_ptr->marked = marked;
 		o_ptr->inscription = inscription;
 		calc_inventory_weight(cr_ptr);
@@ -5441,8 +5441,8 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 	if (new_species_idx != old_species_idx)
 	{
 		u32b mode = 0L;
-		bool preserve_hold_objects = back_m.hold_o_idx ? TRUE : FALSE;
-		s16b this_o_idx, next_o_idx = 0;
+		bool preserve_hold_objects = back_m.hold_object_idx ? TRUE : FALSE;
+		s16b this_object_idx, next_object_idx = 0;
 
 		/* Get the monsters attitude */
 		if (is_friendly(m_ptr)) mode |= PM_FORCE_FRIENDLY;
@@ -5450,7 +5450,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 		/* Mega-hack -- ignore held objects */
-		m_ptr->hold_o_idx = 0;
+		m_ptr->hold_object_idx = 0;
 
 		/* "Kill" the "old" monster */
 		delete_species_idx(&creature_list[c_ptr->creature_idx]);
@@ -5460,7 +5460,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 		{
 			creature_list[hack_m_idx_ii].nickname = back_m.nickname;
 			creature_list[hack_m_idx_ii].parent_m_idx = back_m.parent_m_idx;
-			creature_list[hack_m_idx_ii].hold_o_idx = back_m.hold_o_idx;
+			creature_list[hack_m_idx_ii].hold_object_idx = back_m.hold_object_idx;
 
 			/* Success */
 			polymorphed = TRUE;
@@ -5481,28 +5481,28 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 		/* Mega-hack -- preserve held objects */
 		if (preserve_hold_objects)
 		{
-			for (this_o_idx = back_m.hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+			for (this_object_idx = back_m.hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				/* Acquire object */
-				object_type *o_ptr = &object_list[this_o_idx];
+				object_type *o_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_o_idx = o_ptr->next_o_idx;
+				next_object_idx = o_ptr->next_object_idx;
 
 				/* Held by new monster */
 				o_ptr->held_m_idx = hack_m_idx_ii;
 			}
 		}
-		else if (back_m.hold_o_idx) /* Failed (paranoia) */
+		else if (back_m.hold_object_idx) /* Failed (paranoia) */
 		{
 			/* Delete objects */
-			for (this_o_idx = back_m.hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+			for (this_object_idx = back_m.hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				/* Acquire next object */
-				next_o_idx = object_list[this_o_idx].next_o_idx;
+				next_object_idx = object_list[this_object_idx].next_object_idx;
 
 				/* Delete the object */
-				delete_object_idx(this_o_idx);
+				delete_object_idx(this_object_idx);
 			}
 		}
 

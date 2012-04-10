@@ -2366,22 +2366,22 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Take or Kill objects on the floor */
-			if (c_ptr->o_idx && (has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM) || has_cf_creature(nonplayer_ptr, CF_KILL_ITEM)) &&
+			if (c_ptr->object_idx && (has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM) || has_cf_creature(nonplayer_ptr, CF_KILL_ITEM)) &&
 			    (!is_pet(player_ptr, nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM))))
 			{
-				s16b this_o_idx, next_o_idx;
+				s16b this_object_idx, next_object_idx;
 				bool do_take = has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM) ? TRUE : FALSE;
 
 				/* Scan all objects in the grid */
-				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					char m_name[80], o_name[MAX_NLEN];
 
 					/* Acquire object */
-					object_type *o_ptr = &object_list[this_o_idx];
+					object_type *o_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_o_idx = o_ptr->next_o_idx;
+					next_object_idx = o_ptr->next_object_idx;
 
 					if (do_take)
 					{
@@ -2439,7 +2439,7 @@ msg_format("%^s%s", m_name, monmessage);
 						}
 
 						/* Excise the object */
-						excise_object_idx(this_o_idx);
+						excise_object_idx(this_object_idx);
 
 						/* Forget mark */
 						o_ptr->marked &= OM_TOUCHED;
@@ -2451,10 +2451,10 @@ msg_format("%^s%s", m_name, monmessage);
 						o_ptr->held_m_idx = m_idx;
 
 						/* Build a stack */
-						o_ptr->next_o_idx = nonplayer_ptr->hold_o_idx;
+						o_ptr->next_object_idx = nonplayer_ptr->hold_object_idx;
 
 						/* Carry object */
-						nonplayer_ptr->hold_o_idx = this_o_idx;
+						nonplayer_ptr->hold_object_idx = this_object_idx;
 					}
 
 					/* Destroy the item if not a pet */
@@ -2475,7 +2475,7 @@ msg_format("%^s%s", m_name, monmessage);
 						}
 
 						/* Delete the object */
-						delete_object_idx(this_o_idx);
+						delete_object_idx(this_object_idx);
 					}
 				}
 			}

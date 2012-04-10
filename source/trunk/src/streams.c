@@ -267,18 +267,18 @@ void build_streamer(int feat, int chance)
 				delete_creature(ty, tx);
 			}
 
-			if (c_ptr->o_idx && !have_flag(streamer_ptr->flags, FF_DROP))
+			if (c_ptr->object_idx && !have_flag(streamer_ptr->flags, FF_DROP))
 			{
-				s16b this_o_idx, next_o_idx = 0;
+				s16b this_object_idx, next_object_idx = 0;
 
 				/* Scan all objects in the grid */
-				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					/* Acquire object */
-					object_type *o_ptr = &object_list[this_o_idx];
+					object_type *o_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_o_idx = o_ptr->next_o_idx;
+					next_object_idx = o_ptr->next_object_idx;
 
 					/* Hack -- Preserve unknown artifacts */
 					if (object_is_fixed_artifact(o_ptr))
@@ -377,7 +377,7 @@ void place_trees(int x, int y)
 			c_ptr = &cave[j][i];
 
 			if (c_ptr->info & CAVE_ICKY) continue;
-			if (c_ptr->o_idx) continue;
+			if (c_ptr->object_idx) continue;
 
 			/* Want square to be in the circle and accessable. */
 			if ((distance(j, i, y, x) < 4) && !cave_perma_grid(c_ptr))

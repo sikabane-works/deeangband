@@ -4043,7 +4043,7 @@
 #define cave_clean_bold(Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_FLOOR) && \
 	 !(cave[Y][X].info & CAVE_OBJECT) && \
-	  (cave[Y][X].o_idx == 0))
+	  (cave[Y][X].object_idx == 0))
 
 
 /*

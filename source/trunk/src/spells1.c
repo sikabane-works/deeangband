@@ -1262,7 +1262,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 {
 	cave_type *c_ptr = &cave[y][x];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
@@ -1280,10 +1280,10 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 
 	/* Scan all objects in the grid */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		/* Acquire object */
-		object_type *o_ptr = &object_list[this_o_idx];
+		object_type *o_ptr = &object_list[this_object_idx];
 
 		bool is_art = FALSE;
 		bool ignore = FALSE;
@@ -1297,7 +1297,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 #endif
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Extract the flags */
 		object_flags(o_ptr, flgs);
@@ -1516,7 +1516,7 @@ note_kill = "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI";
 				identify_item(caster_ptr, o_ptr);
 
 				/* Auto-inscription */
-				autopick_alter_item(caster_ptr, (-this_o_idx), FALSE);
+				autopick_alter_item(caster_ptr, (-this_object_idx), FALSE);
 				break;
 			}
 
@@ -1650,7 +1650,7 @@ msg_format("%sÇÕ%s", o_name, note_kill);
 
 
 				/* Delete the object */
-				delete_object_idx(this_o_idx);
+				delete_object_idx(this_object_idx);
 
 				/* Potions produce effects when 'shattered' */
 				if (is_potion)

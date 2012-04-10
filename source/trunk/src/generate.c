@@ -150,7 +150,7 @@ static bool alloc_stairs_aux(int y, int x, int walls)
 	/* Require "naked" floor grid */
 	if (!is_floor_grid(c_ptr)) return FALSE;
 	if (pattern_tile(y, x)) return FALSE;
-	if (c_ptr->o_idx || c_ptr->creature_idx) return FALSE;
+	if (c_ptr->object_idx || c_ptr->creature_idx) return FALSE;
 
 	/* Require a certain number of adjacent walls */
 	if (next_to_walls(y, x) < walls) return FALSE;
@@ -304,7 +304,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			c_ptr = &cave[y][x];
 
 			/* Require "naked" floor grid */
-			if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->creature_idx) continue;
+			if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 			/* Avoid player location */
 			if (creature_bold(player_ptr, y, x)) continue;
@@ -1555,7 +1555,7 @@ void clear_cave(void)
 			c_ptr->feat = 0;
 
 			/* No objects */
-			c_ptr->o_idx = 0;
+			c_ptr->object_idx = 0;
 
 			/* No monsters */
 			c_ptr->creature_idx = 0;
@@ -1644,7 +1644,7 @@ void generate_cave(creature_type *player_ptr)
 
 
 		/* Prevent object over-flow */
-		if (object_max >= max_o_idx)
+		if (object_max >= max_object_idx)
 		{
 			/* Message */
 #ifdef JP

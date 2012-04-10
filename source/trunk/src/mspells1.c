@@ -389,7 +389,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 	int xx, yy;
 	int y = target_ptr->fy;
 	int x = target_ptr->fx;
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 	cave_type *c_ptr;
 
 	for (xx = x - 5; xx <= x + 5; xx++)
@@ -402,13 +402,13 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 
 			c_ptr = &cave[yy][xx];
 			/* Scan the pile of objects */
-			for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				/* Acquire object */
-				object_type *o_ptr = &object_list[this_o_idx];
+				object_type *o_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_o_idx = o_ptr->next_o_idx;
+				next_object_idx = o_ptr->next_object_idx;
 
 				/* Known to be worthless? */
 				if (o_ptr->tval == TV_CORPSE)

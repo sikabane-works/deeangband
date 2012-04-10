@@ -641,7 +641,7 @@ msg_print("クエストを達成した！");
 	if (create_stairs)
 	{
 		/* Stagger around */
-		while (cave_perma_bold(y, x) || cave[y][x].o_idx || (cave[y][x].info & CAVE_OBJECT) )
+		while (cave_perma_bold(y, x) || cave[y][x].object_idx || (cave[y][x].info & CAVE_OBJECT) )
 		{
 			/* Pick a location */
 			scatter(&ny, &nx, y, x, 1, 0);
@@ -1889,7 +1889,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	if (ap_r_ptr->r_tkills && !(m_ptr->mflag2 & MFLAG2_KAGE))
 	{
 		if (cheat_hear)
-			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->creature_ego_idx);
+			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->creature_egobject_idx);
 		else
 			return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
 	}
@@ -2136,8 +2136,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	}
 
 	/* An object get higher priority */
-	if (cave[y[a]][x[a]].o_idx && !cave[y[b]][x[b]].o_idx) return TRUE;
-	if (!cave[y[a]][x[a]].o_idx && cave[y[b]][x[b]].o_idx) return FALSE;
+	if (cave[y[a]][x[a]].object_idx && !cave[y[b]][x[b]].object_idx) return TRUE;
+	if (!cave[y[a]][x[a]].object_idx && cave[y[b]][x[b]].object_idx) return FALSE;
 
 	/* Priority from the terrain */
 	if (f_info[ca_ptr->feat].priority > f_info[cb_ptr->feat].priority) return TRUE;
@@ -2233,7 +2233,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
 	if (!(in_bounds(y, x))) return (FALSE);
@@ -2260,15 +2260,15 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 	}
 
 	/* Scan all objects in the grid */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Memorized object */
 		if (o_ptr->marked & OM_FOUND) return (TRUE);
@@ -2433,7 +2433,7 @@ bool show_gold_on_floor = FALSE;
 static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr info)
 {
 	cave_type *c_ptr = &cave[y][x];
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
 	bool boring = TRUE;
 	s16b feat;
@@ -2639,17 +2639,17 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 
 		/* Scan all objects being carried */
-		for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+		for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			char o_name[MAX_NLEN];
 
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_o_idx];
+			o_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_o_idx = o_ptr->next_o_idx;
+			next_object_idx = o_ptr->next_object_idx;
 
 			/* Obtain an object description */
 			object_desc(o_name, o_ptr, 0);
@@ -2755,7 +2755,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			/* Continue scrolling list if requested */
 			while (1)
 			{
-				int i, o_idx;
+				int i, object_idx;
 
 				/* Save screen */
 				screen_save();
@@ -2789,21 +2789,21 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				}
 
 				/* Get the object being moved. */
-				o_idx = c_ptr->o_idx;
+				object_idx = c_ptr->object_idx;
  
 				/* Only rotate a pile of two or more objects. */
-				if (!(o_idx && object_list[o_idx].next_o_idx)) continue;
+				if (!(object_idx && object_list[object_idx].next_object_idx)) continue;
 
 				/* Remove the first object from the list. */
-				excise_object_idx(o_idx);
+				excise_object_idx(object_idx);
 
 				/* Find end of the list. */
-				i = c_ptr->o_idx;
-				while (object_list[i].next_o_idx)
-					i = object_list[i].next_o_idx;
+				i = c_ptr->object_idx;
+				while (object_list[i].next_object_idx)
+					i = object_list[i].next_object_idx;
 
 				/* Add after the last object. */
-				object_list[i].next_o_idx = o_idx;
+				object_list[i].next_object_idx = object_idx;
 
 				/* Loop and re-display the list */
 			}
@@ -2816,16 +2816,16 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 	/* Scan all objects in the grid */
 
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
 
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Describe it */
 		if (o_ptr->marked & OM_FOUND)

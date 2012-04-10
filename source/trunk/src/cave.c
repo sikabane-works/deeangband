@@ -597,22 +597,22 @@ bool cave_valid_bold(int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 
 	/* Forbid perma-grids */
 	if (cave_perma_grid(c_ptr)) return (FALSE);
 
 	/* Check objects */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Forbid artifact grids */
 		if (object_is_artifact(o_ptr)) return (FALSE);
@@ -919,7 +919,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	/* Get the cave */
 	cave_type *c_ptr = &cave[y][x];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	/* Feature code (applying "mimic" field) */
 	s16b feat = get_feat_mimic(c_ptr);
@@ -1173,15 +1173,15 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	}
 
 	/* Objects */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Memorized objects */
 		if (o_ptr->marked & OM_FOUND)
@@ -1466,7 +1466,7 @@ void note_spot(int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 
 	/* Blind players see nothing */
@@ -1488,12 +1488,12 @@ void note_spot(int y, int x)
 
 
 	/* Hack -- memorize objects */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr = &object_list[this_o_idx];
+		object_type *o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Memorize objects */
 		o_ptr->marked |= OM_FOUND;

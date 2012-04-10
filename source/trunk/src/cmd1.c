@@ -609,7 +609,7 @@ void search(creature_type *cr_ptr)
 {
 	int y, x, chance;
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	cave_type *c_ptr;
 
@@ -667,15 +667,15 @@ void search(creature_type *cr_ptr)
 				}
 
 				/* Scan all objects in the grid */
-				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					object_type *o_ptr;
 
 					/* Acquire object */
-					o_ptr = &object_list[this_o_idx];
+					o_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_o_idx = o_ptr->next_o_idx;
+					next_object_idx = o_ptr->next_object_idx;
 
 					/* Skip non-chests */
 					if (o_ptr->tval != TV_CHEST) continue;
@@ -713,7 +713,7 @@ void search(creature_type *cr_ptr)
  *
  * Delete the object afterwards.
  */
-void py_pickup_aux(creature_type *cr_ptr, int o_idx)
+void py_pickup_aux(creature_type *cr_ptr, int object_idx)
 {
 	int slot, i;
 
@@ -735,7 +735,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 
 	object_type *o_ptr;
 
-	o_ptr = &object_list[o_idx];
+	o_ptr = &object_list[object_idx];
 
 #ifdef JP
 	/* Describe the object */
@@ -750,7 +750,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 	o_ptr = &cr_ptr->inventory[slot];
 
 	/* Delete the object */
-	delete_object_idx(o_idx);
+	delete_object_idx(object_idx);
 
 	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
@@ -830,7 +830,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 	int max_len = 0;
 
-	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
+	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
 
 	char	o_name[MAX_NLEN];
 
@@ -863,12 +863,12 @@ void carry(creature_type *cr_ptr, bool pickup)
 
 #endif /* ALLOW_EASY_FLOOR */
 
-	for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 		/* Access the object */
-		o_ptr = &object_list[this_o_idx];
-		next_o_idx = o_ptr->next_o_idx;
+		o_ptr = &object_list[this_object_idx];
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Hack -- disturb */
 		disturb(player_ptr, 0, 0);
@@ -890,12 +890,12 @@ void carry(creature_type *cr_ptr, bool pickup)
 
 
 	/* Scan the pile of objects */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 #ifdef ALLOW_EASY_SENSE /* TNB */
 
@@ -912,7 +912,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 		object_desc(o_name, o_ptr, 0);
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Hack -- disturb */
 		disturb(player_ptr, 0, 0);
@@ -923,7 +923,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 			int value = (long)o_ptr->pval;
 
 			/* Delete the gold */
-			delete_object_idx(this_o_idx);
+			delete_object_idx(this_object_idx);
 
 			/* Message */
 #ifdef JP
@@ -1002,7 +1002,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 				if (okay)
 				{
 					/* Pick up the object */
-					py_pickup_aux(cr_ptr, this_o_idx);
+					py_pickup_aux(cr_ptr, this_object_idx);
 				}
 			}
 		}
@@ -2954,16 +2954,16 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			{
 				creature_type *tar_ptr = &creature_list[c_ptr->creature_idx];
 
-				if (tar_ptr->hold_o_idx)
+				if (tar_ptr->hold_object_idx)
 				{
-					object_type *q_ptr = &object_list[tar_ptr->hold_o_idx];
+					object_type *q_ptr = &object_list[tar_ptr->hold_object_idx];
 					char o_name[MAX_NLEN];
 
 					object_desc(o_name, q_ptr, OD_NAME_ONLY);
 					q_ptr->held_m_idx = 0;
 					q_ptr->marked = OM_TOUCHED;
-					tar_ptr->hold_o_idx = q_ptr->next_o_idx;
-					q_ptr->next_o_idx = 0;
+					tar_ptr->hold_object_idx = q_ptr->next_object_idx;
+					q_ptr->next_object_idx = 0;
 #ifdef JP
 					msg_format("%s‚ğ’D‚Á‚½B", o_name);
 #else
@@ -4803,7 +4803,7 @@ static bool run_test(creature_type *cr_ptr)
 	/* Look at every newly adjacent square. */
 	for (i = -max; i <= max; i++)
 	{
-		s16b this_o_idx, next_o_idx = 0;
+		s16b this_object_idx, next_object_idx = 0;
 
 		/* New direction */
 		new_dir = cycle[chome[prev_dir] + i];
@@ -4829,15 +4829,15 @@ static bool run_test(creature_type *cr_ptr)
 		}
 
 		/* Visible objects abort running */
-		for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+		for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_o_idx];
+			o_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_o_idx = o_ptr->next_o_idx;
+			next_object_idx = o_ptr->next_object_idx;
 
 			/* Visible object */
 			if (o_ptr->marked & OM_FOUND) return (TRUE);

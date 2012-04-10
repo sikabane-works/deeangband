@@ -419,25 +419,25 @@ static s16b chest_check(int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 
 	/* Scan all objects in the grid */
-	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Skip unknown chests XXX XXX */
 		/* if (!(o_ptr->marked & OM_FOUND)) continue; */
 
 		/* Check for chest */
-		if (o_ptr->tval == TV_CHEST) return (this_o_idx);
+		if (o_ptr->tval == TV_CHEST) return (this_object_idx);
 	}
 
 	/* No chest */
@@ -456,7 +456,7 @@ static s16b chest_check(int y, int x)
  * chest is based on the "power" of the chest, which is in turn based
  * on the level on which the chest is generated.
  */
-static void chest_death(bool scatter, int y, int x, s16b o_idx)
+static void chest_death(bool scatter, int y, int x, s16b object_idx)
 {
 	int number;
 
@@ -466,7 +466,7 @@ static void chest_death(bool scatter, int y, int x, s16b o_idx)
 	object_type forge;
 	object_type *q_ptr;
 
-	object_type *o_ptr = &object_list[o_idx];
+	object_type *o_ptr = &object_list[object_idx];
 
 
 	/* Small chests often hold "gold" */
@@ -561,11 +561,11 @@ static void chest_death(bool scatter, int y, int x, s16b o_idx)
  * Exploding chest destroys contents (and traps).
  * Note that the chest itself is never destroyed.
  */
-static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
+static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 {
 	int  i, trap;
 
-	object_type *o_ptr = &object_list[o_idx];
+	object_type *o_ptr = &object_list[object_idx];
 
 	int mon_level = o_ptr->xtra3;
 
@@ -839,7 +839,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 #else
 		msg_print("The contents of the chest scatter all over the dungeon!");
 #endif
-		chest_death(TRUE, y, x, o_idx);
+		chest_death(TRUE, y, x, object_idx);
 		o_ptr->pval = 0;
 	}
 }
@@ -852,7 +852,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
+static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_idx)
 {
 	int i, j;
 
@@ -860,7 +860,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 
 	bool more = FALSE;
 
-	object_type *o_ptr = &object_list[o_idx];
+	object_type *o_ptr = &object_list[object_idx];
 
 
 	/* Take a turn */
@@ -917,10 +917,10 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 	if (flag)
 	{
 		/* Apply chest traps, if any */
-		chest_trap(cr_ptr, y, x, o_idx);
+		chest_trap(cr_ptr, y, x, object_idx);
 
 		/* Let the Chest drop items */
-		chest_death(FALSE, y, x, o_idx);
+		chest_death(FALSE, y, x, object_idx);
 	}
 
 	/* Result */
@@ -994,7 +994,7 @@ static int count_dt(creature_type *cr_ptr, int *y, int *x, bool (*test)(int feat
  */
 static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 {
-	int d, count, o_idx;
+	int d, count, object_idx;
 
 	object_type *o_ptr;
 
@@ -1009,10 +1009,10 @@ static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 		int xx = cr_ptr->fx + ddx_ddd[d];
 
 		/* No (visible) chest is there */
-		if ((o_idx = chest_check(yy, xx)) == 0) continue;
+		if ((object_idx = chest_check(yy, xx)) == 0) continue;
 
 		/* Grab the object */
-		o_ptr = &object_list[o_idx];
+		o_ptr = &object_list[object_idx];
 
 		/* Already open */
 		if (o_ptr->pval == 0) continue;
@@ -1175,7 +1175,7 @@ void do_cmd_open(creature_type *cr_ptr)
 {
 	int y, x, dir;
 
-	s16b o_idx;
+	s16b object_idx;
 
 	bool more = FALSE;
 
@@ -1238,10 +1238,10 @@ void do_cmd_open(creature_type *cr_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Check for chest */
-		o_idx = chest_check(y, x);
+		object_idx = chest_check(y, x);
 
 		/* Nothing useful */
-		if (!have_flag(f_info[feat].flags, FF_OPEN) && !o_idx)
+		if (!have_flag(f_info[feat].flags, FF_OPEN) && !object_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -1271,10 +1271,10 @@ void do_cmd_open(creature_type *cr_ptr)
 		}
 
 		/* Handle chests */
-		else if (o_idx)
+		else if (object_idx)
 		{
 			/* Open the chest */
-			more = do_cmd_open_chest(cr_ptr, y, x, o_idx);
+			more = do_cmd_open_chest(cr_ptr, y, x, object_idx);
 		}
 
 		/* Handle doors */
@@ -1318,7 +1318,7 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 		s16b closed_feat = feat_state(old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
-		if ((c_ptr->o_idx || (c_ptr->info & CAVE_OBJECT)) &&
+		if ((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
 		    (closed_feat != old_feat) && !have_flag(f_info[closed_feat].flags, FF_DROP))
 		{
 			/* Message */
@@ -1875,13 +1875,13 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
+static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object_idx)
 {
 	int i, j;
 
 	bool more = FALSE;
 
-	object_type *o_ptr = &object_list[o_idx];
+	object_type *o_ptr = &object_list[object_idx];
 
 
 	/* Take a turn */
@@ -1970,7 +1970,7 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 #endif
 
 		sound(SOUND_FAIL);
-		chest_trap(cr_ptr, y, x, o_idx);
+		chest_trap(cr_ptr, y, x, object_idx);
 	}
 
 	/* Result */
@@ -2110,7 +2110,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 {
 	int y, x, dir;
 
-	s16b o_idx;
+	s16b object_idx;
 
 	bool more = FALSE;
 
@@ -2173,10 +2173,10 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Check for chests */
-		o_idx = chest_check(y, x);
+		object_idx = chest_check(y, x);
 
 		/* Disarm a trap */
-		if (!is_trap(feat) && !o_idx)
+		if (!is_trap(feat) && !object_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -2203,10 +2203,10 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		}
 
 		/* Disarm chest */
-		else if (o_idx)
+		else if (object_idx)
 		{
 			/* Disarm the chest */
-			more = do_cmd_disarm_chest(cr_ptr, y, x, o_idx);
+			more = do_cmd_disarm_chest(cr_ptr, y, x, object_idx);
 		}
 
 		/* Disarm trap */
@@ -3813,9 +3813,9 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	{
 		int m_idx = cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
-		int o_idx = o_pop();
+		int object_idx = o_pop();
 
-		if (!o_idx)
+		if (!object_idx)
 		{
 #ifdef JP
 			msg_format("%s‚Í‚Ç‚±‚©‚Ös‚Á‚½B", o_name);
@@ -3829,7 +3829,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			return;
 		}
 
-		o_ptr = &object_list[o_idx];
+		o_ptr = &object_list[object_idx];
 		object_copy(o_ptr, q_ptr);
 
 		/* Forget mark */
@@ -3842,10 +3842,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		o_ptr->held_m_idx = m_idx;
 
 		/* Build a stack */
-		o_ptr->next_o_idx = m_ptr->hold_o_idx;
+		o_ptr->next_object_idx = m_ptr->hold_object_idx;
 
 		/* Carry object */
-		m_ptr->hold_o_idx = o_idx;
+		m_ptr->hold_object_idx = object_idx;
 	}
 	else if (cave_have_flag_bold(y, x, FF_PROJECT))
 	{

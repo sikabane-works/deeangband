@@ -87,7 +87,7 @@ void place_random_stairs(int y, int x)
 
 	/* Paranoia */
 	c_ptr = &cave[y][x];
-	if (!is_floor_grid(c_ptr) || c_ptr->o_idx) return;
+	if (!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 
 	/* Town */
 	if (!dun_level)
@@ -344,7 +344,7 @@ msg_print("警告！地下室のアイテムを配置できません！");
 
 			/* Require "clean" floor space */
 			c_ptr = &cave[j][k];
-			if (!is_floor_grid(c_ptr) || c_ptr->o_idx) continue;
+			if (!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item */
 			if (randint0(100) < 75)
@@ -403,7 +403,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 
 		/* Require "naked" floor grids */
 		c_ptr = &cave[y1][x1];
-		if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->creature_idx) continue;
+		if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
 		place_trap(y1, x1);

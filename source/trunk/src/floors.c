@@ -562,7 +562,7 @@ static void place_pet(creature_type *creature_ptr)
 			m_ptr->paralyzed = 0;
 
 			/* Paranoia */
-			m_ptr->hold_o_idx = 0;
+			m_ptr->hold_object_idx = 0;
 			m_ptr->target_y = 0;
 
 			if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !curse_of_Iluvatar)

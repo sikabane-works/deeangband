@@ -671,7 +671,7 @@ u32b saved_floor_file_sign;
 
 
 /*
- * The array of dungeon items [max_o_idx]
+ * The array of dungeon items [max_object_idx]
  */
 object_type *object_list;
 object_type object_null;
@@ -1099,7 +1099,7 @@ u16b max_species_idx;
 /*
  * Maximum number of monsters in re_info.txt
  */
-u16b max_creature_ego_idx;
+u16b max_creature_egobject_idx;
 
 /*
  * Maximum number of monsters in store_pre_info.txt
@@ -1142,7 +1142,7 @@ u16b max_e_idx;
 u16b max_d_idx;
 
 // Maximum number of objects in the level
-u16b max_o_idx;
+u16b max_object_idx;
 
 
 // Maximum number of creature_flags

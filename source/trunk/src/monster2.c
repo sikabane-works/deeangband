@@ -699,7 +699,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	int x, y;
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 
 	/* Get location */
@@ -737,15 +737,15 @@ void delete_species_idx(creature_type *creature_ptr)
 
 
 	/* Delete objects */
-	for (this_o_idx = creature_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = creature_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/*
 		 * o_ptr->held_m_idx is needed in delete_object_idx()
@@ -753,7 +753,7 @@ void delete_species_idx(creature_type *creature_ptr)
 		 */
 
 		/* Delete the object */
-		delete_object_idx(this_o_idx);
+		delete_object_idx(this_object_idx);
 	}
 
 
@@ -801,7 +801,7 @@ static void move_creature_object(int i1, int i2)
 	int y, x, i;
 	cave_type *c_ptr;
 	creature_type *m_ptr;
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 
 	// Do nothing
 	if (i1 == i2) return;
@@ -820,15 +820,15 @@ static void move_creature_object(int i1, int i2)
 	c_ptr->creature_idx = i2;
 
 	/* Repair objects being carried by monster */
-	for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Reset monster pointer */
 		o_ptr->held_m_idx = i2;
@@ -2414,8 +2414,8 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 		(void)strcat(desc, tmp);
 	}
 
-	else if(creature_ptr->creature_ego_idx != MONEGO_NONE){
-		(void)strcat(desc, re_name + re_info[creature_ptr->creature_ego_idx].name);
+	else if(creature_ptr->creature_egobject_idx != MONEGO_NONE){
+		(void)strcat(desc, re_name + re_info[creature_ptr->creature_egobject_idx].name);
 	}
 
 }
@@ -3374,7 +3374,7 @@ static bool creature_hook_chameleon(int species_idx)
 }
 
 
-void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx)
+void choose_new_species(int m_idx, bool born, int species_idx, int creature_egobject_idx)
 {
 	int oldmhp;
 	creature_type *m_ptr = &creature_list[m_idx];
@@ -3425,13 +3425,13 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 	update_mon(m_idx, FALSE);
 	lite_spot(m_ptr->fy, m_ptr->fx);
 
-	if(creature_ego_idx == MONEGO_NONE)
+	if(creature_egobject_idx == MONEGO_NONE)
 	{
-		m_ptr->creature_ego_idx = 0;
+		m_ptr->creature_egobject_idx = 0;
 	}
 	else
 	{
-		m_ptr->creature_ego_idx = creature_ego_idx;
+		m_ptr->creature_egobject_idx = creature_egobject_idx;
 	}
 
 
@@ -3483,13 +3483,13 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 	m_ptr->stat_use[4] = r_ptr->stat_max[4];
 	m_ptr->stat_use[5] = r_ptr->stat_max[5];
 
-	if(m_ptr->creature_ego_idx != MONEGO_NONE){
-		m_ptr->stat_use[0] += re_info[creature_ego_idx].stat[0];
-		m_ptr->stat_use[1] += re_info[creature_ego_idx].stat[1];
-		m_ptr->stat_use[2] += re_info[creature_ego_idx].stat[2];
-		m_ptr->stat_use[3] += re_info[creature_ego_idx].stat[3];
-		m_ptr->stat_use[4] += re_info[creature_ego_idx].stat[4];
-		m_ptr->stat_use[5] += re_info[creature_ego_idx].stat[5];
+	if(m_ptr->creature_egobject_idx != MONEGO_NONE){
+		m_ptr->stat_use[0] += re_info[creature_egobject_idx].stat[0];
+		m_ptr->stat_use[1] += re_info[creature_egobject_idx].stat[1];
+		m_ptr->stat_use[2] += re_info[creature_egobject_idx].stat[2];
+		m_ptr->stat_use[3] += re_info[creature_egobject_idx].stat[3];
+		m_ptr->stat_use[4] += re_info[creature_egobject_idx].stat[4];
+		m_ptr->stat_use[5] += re_info[creature_egobject_idx].stat[5];
 	}
 
 	//TODO Reset Status
@@ -3980,7 +3980,7 @@ void deal_item(creature_type *creature_ptr)
 
 }
 
-static int place_creature_one(creature_type *summoner_ptr, int y, int x, int species_idx, int creature_ego_idx, u32b mode)
+static int place_creature_one(creature_type *summoner_ptr, int y, int x, int species_idx, int creature_egobject_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -4003,7 +4003,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 	rpc_selected = INDEX_NONE;
 	rps_selected = INDEX_NONE;
 
-	if(creature_ego_idx == MONEGO_NORMAL)
+	if(creature_egobject_idx == MONEGO_NORMAL)
 	{
 		if(is_force_lesser_species(r_ptr)){
 			int n;
@@ -4017,7 +4017,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 		}
 	}
 	else{
-		re_selected = creature_ego_idx;
+		re_selected = creature_egobject_idx;
 	}
 
 	// set intelligence race
@@ -6022,20 +6022,20 @@ bool creature_place(creature_type *creature_ptr, int y, int x)
  */
 void monster_drop_carried_objects(creature_type *m_ptr)
 {
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_object_idx, next_object_idx = 0;
 	object_type forge;
 	object_type *o_ptr;
 	object_type *q_ptr;
 
 
 	/* Drop objects being carried */
-	for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		/* Acquire object */
-		o_ptr = &object_list[this_o_idx];
+		o_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_o_idx = o_ptr->next_o_idx;
+		next_object_idx = o_ptr->next_object_idx;
 
 		/* Get local object */
 		q_ptr = &forge;
@@ -6047,12 +6047,12 @@ void monster_drop_carried_objects(creature_type *m_ptr)
 		q_ptr->held_m_idx = 0;
 
 		/* Delete the object */
-		delete_object_idx(this_o_idx);
+		delete_object_idx(this_object_idx);
 
 		/* Drop it */
 		(void)drop_near(q_ptr, -1, m_ptr->fy, m_ptr->fx);
 	}
 
 	/* Forget objects */
-	m_ptr->hold_o_idx = 0;
+	m_ptr->hold_object_idx = 0;
 }

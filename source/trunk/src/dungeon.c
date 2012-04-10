@@ -6380,7 +6380,7 @@ msg_print("ŽŽ‡ŠJŽnI");
 
 
 		/* Hack -- Compact the object list occasionally */
-		if (object_cnt + 32 > max_o_idx) compact_objects(64);
+		if (object_cnt + 32 > max_object_idx) compact_objects(64);
 
 		/* Hack -- Compress the object list occasionally */
 		if (object_cnt + 32 < object_max) compact_objects(0);
