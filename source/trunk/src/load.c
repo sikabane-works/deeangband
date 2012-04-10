@@ -1513,7 +1513,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 
 
 		/* Get a new record */
-		object_idx = o_pop();
+		object_idx = object_pop();
 
 		/* Oops */
 		//if (i != object_idx)

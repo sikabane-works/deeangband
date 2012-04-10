@@ -1294,7 +1294,7 @@ extern void delete_object_idx(int object_idx);
 extern void delete_object(int y, int x);
 extern void compact_objects(int size);
 extern void wipe_object_list(void);
-extern s16b o_pop(void);
+extern s16b object_pop(void);
 extern s16b get_obj_num(int level, u32b flags);
 extern void object_known(object_type *o_ptr);
 extern void object_aware(object_type *o_ptr);

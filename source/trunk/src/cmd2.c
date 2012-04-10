@@ -3813,7 +3813,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	{
 		int m_idx = cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
-		int object_idx = o_pop();
+		int object_idx = object_pop();
 
 		if (!object_idx)
 		{

@@ -1068,7 +1068,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 
 						/* Make an object */
-						object_idx = o_pop();
+						object_idx = object_pop();
 
 						/* Success */
 						if (object_idx)

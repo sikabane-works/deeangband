@@ -506,7 +506,7 @@ void wipe_object_list(void)
  * This routine should almost never fail, but in case it does,
  * we must be sure to handle "failure" of this routine.
  */
-s16b o_pop(void)
+s16b object_pop(void)
 {
 	int i;
 
@@ -3989,7 +3989,7 @@ void place_object(int y, int x, u32b mode)
 
 
 	/* Make an object */
-	object_idx = o_pop();
+	object_idx = object_pop();
 
 	/* Success */
 	if (object_idx)
@@ -4111,7 +4111,7 @@ void place_gold(int y, int x)
 
 
 	/* Make an object */
-	object_idx = o_pop();
+	object_idx = object_pop();
 
 	/* Success */
 	if (object_idx)
@@ -4456,7 +4456,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	}
 
 	/* Get new object */
-	if (!done) object_idx = o_pop();
+	if (!done) object_idx = object_pop();
 
 	/* Failure */
 	if (!done && !object_idx)

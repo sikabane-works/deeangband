@@ -5773,7 +5773,7 @@ static void drop_here(object_type *j_ptr, int y, int x)
 	object_type *o_ptr;
 
 	/* Get new object */
-	s16b object_idx = o_pop();
+	s16b object_idx = object_pop();
 
 	/* Access new object */
 	o_ptr = &object_list[object_idx];
