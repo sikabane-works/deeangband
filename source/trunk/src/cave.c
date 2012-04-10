@@ -639,7 +639,7 @@ static char image_object_hack[] = "?/|\\\"!$()_-=[]{},~";
 /*
  * Mega-Hack -- Hallucinatory monster
  */
-static void image_monster(byte *ap, char *cp)
+static void image_creature(byte *ap, char *cp)
 {
 	/* Random symbol from set above */
 	if (use_graphics)
@@ -695,7 +695,7 @@ static void image_random(byte *ap, char *cp)
 	/* Normally, assume monsters */
 	if (randint0(100) < 75)
 	{
-		image_monster(ap, cp);
+		image_creature(ap, cp);
 	}
 
 	/* Otherwise, assume objects */
@@ -1249,7 +1249,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				else
 				{
 					/* Hallucinatory monster */
-					image_monster(ap, cp);
+					image_creature(ap, cp);
 				}
 			}
 			else
