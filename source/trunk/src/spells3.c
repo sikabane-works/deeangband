@@ -5416,7 +5416,7 @@ static s16b poly_species_idx(int pre_species_idx)
 }
 
 
-bool polymorph_monster(creature_type *cr_ptr, int y, int x)
+bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];

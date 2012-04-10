@@ -1970,7 +1970,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		/* Mega-Hack -- Handle "polymorph" -- monsters get a saving throw */
 		if (do_poly && (randint1(90) > species_ptr->level))
 		{
-			if (polymorph_monster(player_ptr, y, x))
+			if (polymorph_creature(player_ptr, y, x))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;

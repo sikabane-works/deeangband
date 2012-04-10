@@ -2920,7 +2920,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 				if (!(is_unique_creature(tar_ptr) || is_quest_creature(tar_ptr)) &&
 				    !has_cf_creature(tar_ptr, CF_RES_CHAO))
 				{
-					if (polymorph_monster(atk_ptr, y, x))
+					if (polymorph_creature(atk_ptr, y, x))
 					{
 #ifdef JP
 						msg_format("%^s‚Í•Ï‰»‚µ‚½I", tar_name);
