@@ -5800,7 +5800,7 @@ static void drop_here(object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(creature_type *player_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
+static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
 {
 	int i;
 
@@ -6700,7 +6700,7 @@ errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax)
 		if (bypass) continue;
 
 		/* Process the line */
-		err = process_dungeon_file_aux(p_ptr, buf, ymin, xmin, ymax, xmax, &y, &x);
+		err = process_dungeon_file_aux(buf, ymin, xmin, ymax, xmax, &y, &x);
 
 		/* Oops */
 		if (err) break;

@@ -253,7 +253,7 @@ s16b get_new_floor_id(void)
 			sf_ptr = &saved_floors[i];
 
 			/* Don't kill current floor */
-			if (sf_ptr->floor_id == p_ptr->floor_id) continue;
+			if (sf_ptr->floor_id == player_ptr->floor_id) continue;
 
 			/* Don't kill newer */
 			if (sf_ptr->visit_mark > oldest_visit) continue;
