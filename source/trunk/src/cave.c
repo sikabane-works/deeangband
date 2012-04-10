@@ -4470,7 +4470,7 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 		}
 	}
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Redraw map */
@@ -4542,7 +4542,7 @@ void wiz_dark(creature_type *cr_ptr)
 	/* Update the view and lite */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Redraw map */

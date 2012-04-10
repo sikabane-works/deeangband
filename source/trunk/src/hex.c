@@ -195,7 +195,7 @@ void check_hex(creature_type *cr_ptr)
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */

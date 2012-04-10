@@ -1604,7 +1604,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 
 				cr_ptr->riding = 0;
 
-				/* Update the monsters */
+				// Update creatures
 				cr_ptr->creature_update |= (CRU_BONUS);
 				update |= PU_MONSTERS;
 				play_redraw |= (PR_EXTRA | PR_UHEALTH);

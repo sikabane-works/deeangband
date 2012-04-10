@@ -1719,7 +1719,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	/* Update stuff */
 	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Redraw map */

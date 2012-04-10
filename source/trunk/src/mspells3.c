@@ -1336,7 +1336,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
-		/* Update monsters */
+		// Update creatures
 		update |= (PU_MONSTERS);
 
 		/* Window stuff */

@@ -1067,7 +1067,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Update lite/view */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
-	/* Update monsters */
+	// Update creatures
 	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 

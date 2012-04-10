@@ -318,7 +318,7 @@ void dispel_creature(creature_type *cr_ptr)
 		/* Redraw map */
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
-		/* Update monsters */
+		// Update creatures
 		update |= (PU_MONSTERS);
 
 		/* Window stuff */
@@ -1043,7 +1043,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
 
-	/* Update monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Window stuff */
@@ -1913,7 +1913,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */
@@ -1940,7 +1940,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */
@@ -2010,7 +2010,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */
@@ -2037,7 +2037,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */
@@ -2174,7 +2174,7 @@ bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 	/* Recalculate bonuses */
 	cr_ptr->creature_update |= (CRU_BONUS);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Handle stuff */
@@ -2253,7 +2253,7 @@ bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 	/* Recalculate bonuses */
 	cr_ptr->creature_update |= (CRU_BONUS);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Handle stuff */
@@ -2330,7 +2330,7 @@ bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 	/* Recalculate bonuses */
 	cr_ptr->creature_update |= (CRU_BONUS);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Handle stuff */

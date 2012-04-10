@@ -3330,7 +3330,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				play_redraw |= PR_MAP;
-				/* Update monsters */
+				// Update creatures
 				update |= (PU_MONSTERS);
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);

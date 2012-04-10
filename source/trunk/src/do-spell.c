@@ -10128,7 +10128,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				/* Redraw map */
 				play_redraw |= (PR_MAP);
 		
-				/* Update monsters */
+				// Update creatures
 				update |= (PU_MONSTERS);
 		
 				/* Window stuff */
@@ -10149,7 +10149,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				/* Redraw map */
 				play_redraw |= (PR_MAP);
 
-				/* Update monsters */
+				// Update creatures
 				update |= (PU_MONSTERS);
 
 				/* Window stuff */

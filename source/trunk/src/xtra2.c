@@ -1562,7 +1562,7 @@ void resize_map(void)
 	/* Update lite/view */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
-	/* Update monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	/* Redraw everything */

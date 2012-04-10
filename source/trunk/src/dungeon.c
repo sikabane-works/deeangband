@@ -1525,7 +1525,7 @@ static void check_music(creature_type *cr_ptr)
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Window stuff */
@@ -4076,7 +4076,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				}
 			}
 
-			/* Update the monsters */
+			// Update creatures
 			update |= (PU_MONSTERS | PU_MON_LITE);
 
 			/* Redraw map */
@@ -4536,7 +4536,7 @@ msg_print("ウィザードモード突入。");
 
 			}
 
-			/* Update monsters */
+			// Update creatures
 			update |= (PU_MONSTERS);
 
 			/* Redraw "title" */
@@ -6132,7 +6132,7 @@ msg_print("中断しました。");
 				/* Redraw map */
 				play_redraw |= (PR_MAP);
 
-				/* Update monsters */
+				// Update creatures
 				update |= (PU_MONSTERS);
 
 				/* Window stuff */
@@ -6275,7 +6275,7 @@ static void dungeon(bool load_game)
 	/* Update lite/view */
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
-	/* Update monsters */
+	// Update creatures
 	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 	/* Handle "update" and "play_redraw" and "play_window" */

@@ -107,7 +107,7 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 
 	play_redraw |= (PR_STATUS);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 
 	return (TRUE);
@@ -132,7 +132,7 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 
 	play_redraw |= (PR_STATUS);
 
-	/* Update the monsters */
+	// Update creatures
 	update |= (PU_MONSTERS);
 }
 
