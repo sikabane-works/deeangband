@@ -271,6 +271,7 @@ static void rd_item(object_type *o_ptr)
 	rd_s16b(&o_ptr->k_idx);
 
 	/* Location */
+	rd_byte(&o_ptr->floor_idx);
 	rd_byte(&o_ptr->iy);
 	rd_byte(&o_ptr->ix);
 
