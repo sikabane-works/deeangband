@@ -3370,12 +3370,6 @@ static bool creature_hook_chameleon(int species_idx)
 		if (!(is_enemy_of_evil_species(old_r_ptr) && is_enemy_of_good_species(old_r_ptr)) && (is_enemy_of_evil_species(r_ptr) && is_enemy_of_good_species(r_ptr))) return FALSE;
 	}
 
-	/* Born now */
-	else if (summon_specific_who > 0)
-	{
-		if (creature_has_hostile_align(&creature_list[summon_specific_who], p_ptr)) return FALSE;
-	}
-
 	return (*(get_creature_hook()))(species_idx);
 }
 
@@ -4306,12 +4300,8 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	{
 		set_pet(summoner_ptr, creature_ptr);
 	}
-	/* Friendly? */
-	else if (is_friendly_species(r_ptr) ||
-		 (mode & PM_FORCE_FRIENDLY)) //TODO || is_friendly_idx(who))
-	{
-		if (!creature_has_hostile_align(p_ptr, summoner_ptr)) set_friendly(creature_ptr);
-	}
+
+	// TODO reimpelment frendly creature.
 
 	/* Assume no sleeping */
 	creature_ptr->paralyzed = 0;
