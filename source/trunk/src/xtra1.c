@@ -955,7 +955,14 @@ static void prt_depth(creature_type *cr_ptr)
 	}
 
 	/* Right-Adjust the "depth", and clear old values */
-	c_prt(attr, format("%7s", depths), row_depth, col_depth);
+	if(wizard)
+	{
+		c_prt(attr, format("%7s F:%3d", depths, current_floor_id), row_depth, col_depth - 6);
+	}
+	else
+	{
+		c_prt(attr, format("%7s", depths), row_depth, col_depth);
+	}
 }
 
 
