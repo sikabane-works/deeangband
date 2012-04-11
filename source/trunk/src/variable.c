@@ -786,6 +786,7 @@ s16b town_num = 0;			/* Current town number */
 s16b arena_number = 0;		/* monster number in arena -KMW- */
 s32b wilderness_x = 0;	/* Coordinates in the wilderness */
 s32b wilderness_y = 0;
+u16b current_floor_id = 0;
 
 s16b species_window_idx;	/* Species info trackee */
 
