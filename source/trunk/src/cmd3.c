@@ -2081,36 +2081,36 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 	{
 		all = TRUE;
 #ifdef JP
-		strcpy(buf, "全モンスターのリスト");
+		strcpy(buf, "全クリーチャーのリスト");
 #else
-		strcpy(buf, "Full monster list.");
+		strcpy(buf, "Full creature list.");
 #endif
 	}
 	else if (sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
 #ifdef JP
-		strcpy(buf, "ユニーク・モンスターのリスト");
+		strcpy(buf, "ユニーク・クリーチャーのリスト");
 #else
-		strcpy(buf, "Unique monster list.");
+		strcpy(buf, "Unique creature list.");
 #endif
 	}
 	else if (sym == KTRL('N'))
 	{
 		all = norm = TRUE;
 #ifdef JP
-		strcpy(buf, "ユニーク外モンスターのリスト");
+		strcpy(buf, "ユニーク外クリーチャーのリスト");
 #else
-		strcpy(buf, "Non-unique monster list.");
+		strcpy(buf, "Non-unique creature list.");
 #endif
 	}
 	else if (sym == KTRL('R'))
 	{
 		all = ride = TRUE;
 #ifdef JP
-		strcpy(buf, "乗馬可能モンスターのリスト");
+		strcpy(buf, "乗馬可能クリーチャーのリスト");
 #else
-		strcpy(buf, "Ridable monster list.");
+		strcpy(buf, "Ridable creature list.");
 #endif
 	}
 	/* XTRA HACK WHATSEARCH */
@@ -2151,7 +2151,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, u16b);
 
-	/* Collect matching monsters */
+	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i];
@@ -2159,13 +2159,13 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		/* Nothing to recall */
 		if (!cheat_know && !r_ptr->r_sights) continue;
 
-		/* Require non-unique monsters if needed */
+		/* Require non-unique creatures if needed */
 		if (norm && is_unique_species(r_ptr)) continue;
 
-		/* Require unique monsters if needed */
+		/* Require unique creatures if needed */
 		if (uniq && !is_unique_species(r_ptr)) continue;
 
-		/* Require ridable monsters if needed */
+		/* Require ridable creatures if needed */
 		if (ride && !is_riding_species(r_ptr)) continue;
 
 		/* XTRA HACK WHATSEARCH */
@@ -2198,7 +2198,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 			  who[n++]=i;
 		}
 
-		/* Collect "appropriate" monsters */
+		/* Collect "appropriate" creatures */
 		else if (all || (r_ptr->d_char == sym)) who[n++] = i;
 	}
 
@@ -2258,7 +2258,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 	/* Start at the end */
 	i = n - 1;
 
-	/* Scan the monster memory */
+	/* Scan the creature memory */
 	while (1)
 	{
 		/* Extract a race */
@@ -2313,7 +2313,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		/* Stop scanning */
 		if (query == ESCAPE) break;
 
-		/* Move to "prev" monster */
+		/* Move to "prev" creature */
 		if (query == '-')
 		{
 			if (++i == n)
@@ -2323,7 +2323,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 			}
 		}
 
-		/* Move to "next" monster */
+		/* Move to "next" creature */
 		else
 		{
 			if (i-- == 0)

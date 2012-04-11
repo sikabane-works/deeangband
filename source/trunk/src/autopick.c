@@ -573,7 +573,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 			ADD_FLG(FLG_BOOSTED);
 	}
 
-	/* Wanted monster's corpse */
+	/* Wanted creature's corpse */
 	if (object_is_shoukinkubi(cr_ptr, o_ptr))
 	{
 		REM_FLG(FLG_WORTHLESS);
@@ -1243,11 +1243,11 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	if (IS_FLG(FLG_COMMON) && object_is_rare(cr_ptr, o_ptr))
 		return FALSE;
 
-	/*** Wanted monster's corpse/skeletons ***/
+	/*** Wanted creature's corpse/skeletons ***/
 	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(cr_ptr, o_ptr))
 		return FALSE;
 
-	/*** Unique monster's corpse/skeletons/statues ***/
+	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE) &&
 	    ((o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_STATUE) ||
 	     !is_unique_species(&species_info[o_ptr->pval])))
@@ -2279,7 +2279,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 		body_str = "装備";
 	}
 
-	/*** Wanted monster's corpse/skeletons ***/
+	/*** Wanted creature's corpse/skeletons ***/
 	if (IS_FLG(FLG_WANTED))
 	{
 		before_str[before_n++] = "ハンター事務所で賞金首とされている";
@@ -2293,7 +2293,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 		body_str = "死体や骨";
 	}
 
-	/*** Unique monster's corpse/skeletons/statues ***/
+	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE))
 	{
 		before_str[before_n++] = "ユニークモンスターの";
@@ -2571,7 +2571,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 		whose_str[whose_n++] = more_bonus_desc_str;
 	}
 
-	/*** Wanted monster's corpse/skeletons ***/
+	/*** Wanted creature's corpse/skeletons ***/
 	if (IS_FLG(FLG_WANTED))
 	{
 		body_str = "corpse or skeletons";
@@ -2586,10 +2586,10 @@ static void describe_autopick(char *buff, autopick_type *entry)
 		which_str[which_n++] = "can be used for Daemon magic";
 	}
 
-	/*** Unique monster's corpse/skeletons/statues ***/
+	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE))
 	{
-		before_str[before_n++] = "unique monster's";
+		before_str[before_n++] = "unique creature's";
 		body_str = "corpse or skeletons";
 	}
 
