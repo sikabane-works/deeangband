@@ -499,7 +499,7 @@ extern authority_type *authority_info;
 extern char *authority_name;
 extern char *authority_text;
 
-extern monster_ego *re_info;
+extern creature_ego *re_info;
 extern char *re_name;
 extern char *re_text;
 

@@ -3607,7 +3607,7 @@ errr parse_re_info(char *buf, header *head)
 	char *s;
 
 	/* Current entry */
-	static monster_ego *re_ptr = NULL;
+	static creature_ego *re_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
 	if (buf[0] == 'N')

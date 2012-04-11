@@ -1064,7 +1064,7 @@ static errr init_species_info_csv(void)
 static errr init_re_info(void)
 {
 	/* Init the header */
-	init_header(&re_head, max_creature_egobject_idx, sizeof(monster_ego));
+	init_header(&re_head, max_creature_egobject_idx, sizeof(creature_ego));
 
 #ifdef ALLOW_TEMPLATES
 

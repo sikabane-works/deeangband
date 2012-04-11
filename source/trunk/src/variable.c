@@ -877,7 +877,7 @@ char *a_text;
 /*
  * The monster ego arrays
  */
-monster_ego *re_info;
+creature_ego *re_info;
 char *re_name;
 char *re_text;
 

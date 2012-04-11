@@ -3988,7 +3988,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 	creature_type	*creature_ptr;
 
 	species_type	*r_ptr = &species_info[species_idx];
-	monster_ego		*re_ptr;
+	creature_ego		*re_ptr;
 	race_type		*rpr_ptr;
 
 	cptr		name = (species_name + r_ptr->name);

@@ -448,13 +448,13 @@ struct species_type
 
 
 /*
- * Information about "monster_ego"
+ * Information about "creature_ego"
  */
 
 
-typedef struct monster_ego monster_ego;
+typedef struct creature_ego creature_ego;
 
-struct monster_ego
+struct creature_ego
 {
 	u32b name;				/* Name (offset) */
 #ifdef JP
