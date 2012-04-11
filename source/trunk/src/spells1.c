@@ -566,8 +566,8 @@ static int project_m_n;
 static int project_m_x;
 static int project_m_y;
 /* Mega-Hack -- monsters target */
-static s16b monster_target_x;
-static s16b monster_target_y;
+static s16b creature_target_x;
+static s16b creature_target_y;
 
 
 /*
@@ -2314,7 +2314,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 		{
 			if (!(flg & PROJECT_NO_HANGEKI))
 			{
-				set_target(target_ptr, monster_target_y, monster_target_x);
+				set_target(target_ptr, creature_target_y, creature_target_x);
 			}
 		}
 		else if ((caster_ptr != caster_ptr) && is_pet(player_ptr, caster_ptr) && !creature_bold(target_ptr, target_ptr->target_y, target_ptr->target_x))
@@ -7906,8 +7906,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	rakubadam_m = 0;
 
 	/* Default target */
-	monster_target_y = player_ptr->fy;
-	monster_target_x = player_ptr->fx;
+	creature_target_y = player_ptr->fy;
+	creature_target_x = player_ptr->fx;
 
 	/* Hack -- Jump to target */
 	if (flg & (PROJECT_JUMP))
@@ -8082,8 +8082,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if( is_mirror_grid(&cave[y][x]))
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
-				monster_target_y=(s16b)y;
-				monster_target_x=(s16b)x;
+				creature_target_y=(s16b)y;
+				creature_target_x=(s16b)x;
 
 				remove_mirror(player_ptr, y,x);
 				next_mirror( &oy,&ox,y,x );
@@ -8224,8 +8224,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if( is_mirror_grid(&cave[y][x]) && !second_step )
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
-				monster_target_y=(s16b)y;
-				monster_target_x=(s16b)x;
+				creature_target_y=(s16b)y;
+				creature_target_x=(s16b)x;
 
 				remove_mirror(player_ptr, y,x);
 				for( j = 0; j <=i ; j++ )
@@ -8935,8 +8935,8 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	int point_y[3];
 
 	/* Default target of monsterspell is player */
-	monster_target_y=caster_ptr->fy;
-	monster_target_x=caster_ptr->fx;
+	creature_target_y=caster_ptr->fy;
+	creature_target_x=caster_ptr->fx;
 
 	for( x=0 ; x < cur_wid ; x++ )
 	{

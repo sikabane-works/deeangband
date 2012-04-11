@@ -5859,7 +5859,7 @@ static bool build_type13(void)
 #ifdef JP
 		msg_format("%s%s‚Ìã©ƒsƒbƒg", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #else
-		msg_format("Trapped monster pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
+		msg_format("Trapped creature pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #endif
 	}
 
