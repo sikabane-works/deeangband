@@ -1643,9 +1643,9 @@ bool save_player(void)
  * Note that we always try to load the "current" savefile, even if
  * there is no such file, so we must check for "empty" savefile names.
  */
-bool load_player(void)
+int load_player(void)
 {
-	int             fd = -1;
+	int     fd = -1;
 
 	errr    err = 0;
 
@@ -1666,7 +1666,7 @@ bool load_player(void)
 
 
 	/* Allow empty savefile name */
-	if (!savefile[0]) return (TRUE);
+	if (!savefile[0]) return 0;
 
 
 #if !defined(MACINTOSH) && !defined(WINDOWS) && !defined(VM)
@@ -1686,7 +1686,7 @@ bool load_player(void)
 		msg_print(NULL);
 
 		/* Allow this */
-		return (TRUE);
+		return 0;
 	}
 
 #endif
@@ -1724,7 +1724,7 @@ bool load_player(void)
 			msg_print(NULL);
 
 			/* Oops */
-			return (FALSE);
+			return 1;
 		}
 
 		/* Create a lock file */
@@ -1887,7 +1887,7 @@ bool load_player(void)
 				character_loaded = TRUE;
 
 				/* Done */
-				return (TRUE);
+				return 0;
 			}
 
 			/* Player is no longer "dead" */
@@ -1897,7 +1897,7 @@ bool load_player(void)
 			sf_lives++;
 
 			/* Done */
-			return (TRUE);
+			return 0;
 		}
 
 		/* A character was loaded */
@@ -1913,7 +1913,7 @@ bool load_player(void)
 		}
 
 		/* Success */
-		return (TRUE);
+		return 0;
 	}
 
 
@@ -1946,7 +1946,7 @@ bool load_player(void)
 	msg_print(NULL);
 
 	/* Oops */
-	return (FALSE);
+	return 2;
 }
 
 
