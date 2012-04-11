@@ -3593,7 +3593,7 @@ bool detect_traps(creature_type *cr_ptr, int range, bool known)
 {
 	bool detect = detect_feat_flag(cr_ptr, range, FF_TRAP, known);
 
-	if (known) cr_ptr->dtrap = TRUE;
+	if (known) cr_ptr->detect_trap = TRUE;
 
 	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 

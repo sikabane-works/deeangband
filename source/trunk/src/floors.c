@@ -1092,11 +1092,11 @@ void change_floor(creature_type *cr_ptr)
 	saved_floor_type *sf_ptr;
 	bool loaded = FALSE;
 
-	/* The dungeon is not ready */
+	// The dungeon is not ready
 	character_dungeon = FALSE;
 
-	/* No longer in the trap detecteded region */
-	cr_ptr->dtrap = FALSE;
+	// No longer in the trap detecteded region
+	cr_ptr->detect_trap = FALSE;
 
 	/* Mega-Hack -- no panel yet */
 	panel_row_min = 0;

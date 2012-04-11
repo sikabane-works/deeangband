@@ -3771,10 +3771,10 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 	/* Warn when leaving trap detected region */
 	if (!(mpe_mode & MPE_STAYING) && (disturb_trap_detect || alert_trap_detect)
-	    && cr_ptr->dtrap && !(c_ptr->info & CAVE_IN_DETECT))
+	    && cr_ptr->detect_trap && !(c_ptr->info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		cr_ptr->dtrap = FALSE;
+		cr_ptr->detect_trap = FALSE;
 
 		/* You are just on the edge */
 		if (!(c_ptr->info & CAVE_UNSAFE))
@@ -4775,10 +4775,10 @@ static bool run_test(creature_type *cr_ptr)
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && cr_ptr->dtrap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && cr_ptr->detect_trap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		cr_ptr->dtrap = FALSE;
+		cr_ptr->detect_trap = FALSE;
 
 		/* You are just on the edge */
 		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
@@ -5190,10 +5190,10 @@ static bool travel_test(creature_type *cr_ptr)
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && cr_ptr->dtrap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && cr_ptr->detect_trap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		cr_ptr->dtrap = FALSE;
+		cr_ptr->detect_trap = FALSE;
 
 		/* You are just on the edge */
 		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
