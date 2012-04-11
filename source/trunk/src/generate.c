@@ -1596,6 +1596,7 @@ void generate_cave(creature_type *player_ptr)
 	int num;
 
 	/* Fill the arrays of floors and walls in the good proportions */
+
 	set_floor_and_wall(dungeon_type);
 
 	/* Generate */

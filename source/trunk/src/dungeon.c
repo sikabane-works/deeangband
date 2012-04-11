@@ -6680,7 +6680,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
  */
 void play_game(bool new_game)
 {
-	int i; //j;
+	int i, err; //j;
 	bool load_game = TRUE;
 
 #ifdef CHUUKEI
@@ -6729,16 +6729,17 @@ void play_game(bool new_game)
 	(void)Term_set_cursor(0);
 
 
-	/* Attempt to load */
-	if (!load_player())
+	// Attempt to load
+	err = load_player();
+	if (!err)
 	{
-		/* Oops */
+		char tmp[80];
 #ifdef JP
-		quit("セーブファイルが壊れています");
+		sprintf(tmp, "セーブファイルが壊れています: ERR:%d", err);
 #else
-		quit("broken savefile");
+		sprintf(tmp, "broken savefile: ERR:%d", err);
 #endif
-
+		quit(tmp);
 	}
 
 	/* Extract the options */
