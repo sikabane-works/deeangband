@@ -6731,7 +6731,7 @@ void play_game(bool new_game)
 
 	// Attempt to load
 	err = load_player();
-	if (!err)
+	if (err)
 	{
 		char tmp[80];
 #ifdef JP

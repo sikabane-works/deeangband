@@ -1519,27 +1519,10 @@ void clear_cave(void)
 {
 	int x, y;
 
-	/* Very simplified version of wipe_object_list() */
-
-	/*
-	C_WIPE(object_list, object_max, object_type);
-
-	for (i = 1; i < creature_max; i++)
-	{
-		if(is_player(&creature_list[i]) || is_unique_creature(&creature_list[i])) continue;
-		C_WIPE(&creature_list[i], 1, creature_type);
-		species_info[creature_list[i].species_idx].cur_num--;
-		creature_cnt--;
-	}
-
-	//creature_max = 1;
-
-	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
-	*/
-
-	/* Pre-calc cur_num of pets in party_mon[] */
+	// Pre-calc cur_num of pets in party_mon[]
 	precalc_cur_num_of_pet();
 
+	current_floor_id = 0;
 
 	/* Start with a blank cave */
 	for (y = 0; y < MAX_HGT; y++)
