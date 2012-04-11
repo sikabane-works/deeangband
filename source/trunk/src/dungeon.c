@@ -6734,7 +6734,7 @@ void play_game(bool new_game)
 	{
 		/* Oops */
 #ifdef JP
-quit("セーブファイルが壊れています");
+		quit("セーブファイルが壊れています");
 #else
 		quit("broken savefile");
 #endif

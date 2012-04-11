@@ -1205,42 +1205,15 @@ void change_floor(creature_type *cr_ptr)
 			while (tmp_last_visit > turn) tmp_last_visit -= TURNS_PER_TICK * TOWN_DAWN;
 			absence_ticks = (turn - tmp_last_visit) / TURNS_PER_TICK;
 
-			/* Maintain monsters */
+			// Maintain creatures
 			for (i = 1; i < creature_max; i++)
 			{
-				species_type *r_ptr;
 				creature_type *m_ptr = &creature_list[i];
 
-				/* Skip dead monsters */
+				// Skip empty creature slot.
 				if (!m_ptr->species_idx) continue;
 
-				if (!is_pet(player_ptr, m_ptr))
-				{
-					/* Restore HP */
-					m_ptr->chp = m_ptr->mhp = m_ptr->mmhp;
-
-					/* Remove timed status (except MTIMED_CSLEEP) */
-					(void)set_fast(m_ptr, 0, FALSE);
-					(void)set_slow(m_ptr, 0, FALSE);
-					(void)set_stun(m_ptr, 0);
-					(void)set_confused(m_ptr, 0);
-					(void)set_afraid(m_ptr, 0);
-					(void)set_invuln(m_ptr, 0, FALSE);
-				}
-
-				/* Extract real monster race */
-				r_ptr = real_species_ptr(m_ptr);
-
-				/* Ignore non-unique */
-				if (!is_unique_species(r_ptr) &&
-				    !has_cf(&r_ptr->flags, CF_NAZGUL)) continue;
-
-				/* Appear at a different floor? */
-				if (r_ptr->floor_id != new_floor_id)
-				{
-					/* Disapper from here */
-					delete_species_idx(&creature_list[i]);
-				}
+				// TODO set cave data?
 			}
 
 			/* Maintain artifatcs */
@@ -1248,23 +1221,10 @@ void change_floor(creature_type *cr_ptr)
 			{
 				object_type *o_ptr = &object_list[i];
 
-				/* Skip dead objects */
+				// Skip empty objects
 				if (!o_ptr->k_idx) continue;
 
-				/* Ignore non-artifact */
-				if (!object_is_fixed_artifact(o_ptr)) continue;
-
-				/* Appear at a different floor? */
-				if (a_info[o_ptr->name1].floor_id != new_floor_id)
-				{
-					/* Disappear from here */
-					delete_object_idx(i);
-				}
-				else
-				{
-					/* Cancel preserve */
-					a_info[o_ptr->name1].cur_num = 1;
-				}
+				// TODO set cave data?
 			}
 
 			(void)place_quest_creatures(cr_ptr);
