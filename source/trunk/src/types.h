@@ -1364,7 +1364,6 @@ struct creature_type
 	s16b pet_follow_distance; /* Length of the imaginary "leash" for pets */
 	s16b pet_extra_flags;     /* Various flags for controling pets */
 
-	bool detect_trap;               /* Whether you are on trap-safe grids */
 	s16b floor_id;            /* Current floor location */ 
 
 	bool autopick_autoregister; /* auto register is in-use or not */

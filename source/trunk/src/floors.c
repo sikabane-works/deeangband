@@ -1096,7 +1096,7 @@ void change_floor(creature_type *cr_ptr)
 	character_dungeon = FALSE;
 
 	// No longer in the trap detecteded region
-	cr_ptr->detect_trap = FALSE;
+	detect_trap = FALSE;
 
 	/* Mega-Hack -- no panel yet */
 	panel_row_min = 0;
