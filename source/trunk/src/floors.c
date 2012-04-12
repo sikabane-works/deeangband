@@ -1070,18 +1070,14 @@ void change_floor(creature_type *cr_ptr)
 	/* Mega-Hack -- not ambushed on the wildness? */
 	ambush_flag = FALSE;
 
-	/* No saved floors (On the surface etc.) */
-	if (!(change_floor_mode & CFM_SAVE_FLOORS) &&
-	    !(change_floor_mode & CFM_FIRST_FLOOR))
+	// No saved floors (On the surface etc.)
+	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
-		/* Create cave */
+		// Create cave
 		generate_cave(cr_ptr);
-
-		/* Paranoia -- No new saved floor */
-		//current_floor_id = 0;
 	}
 
-	/* In the dungeon */
+	// In the dungeon
 	else
 	{
 		/* No floor_id yet */
@@ -1276,9 +1272,8 @@ void change_floor(creature_type *cr_ptr)
 			(void)new_player_spot(cr_ptr);
 		}
 
-		/* You see stairs blocked */
-		else if ((change_floor_mode & CFM_NO_RETURN) &&
-			 (change_floor_mode & (CFM_DOWN | CFM_UP)))
+		// You see stairs blocked
+		else if ((change_floor_mode & CFM_NO_RETURN) && (change_floor_mode & (CFM_DOWN | CFM_UP)))
 		{
 			if (!cr_ptr->blind)
 			{

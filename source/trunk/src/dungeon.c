@@ -7178,8 +7178,6 @@ void play_game(bool new_game)
 		dungeon(load_game);
 
 		/* Handle "player_ptr->creature_update" */
-
-
 		notice_stuff(player_ptr);
 
 		/* Hack -- prevent "icky" message */
