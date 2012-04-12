@@ -1057,8 +1057,8 @@ static bool wr_dungeon(creature_type *player_ptr)
 
 	/*** Meta info ***/
 
-	/* Number of floor_id used from birth */
-	wr_s16b(max_floor_id);
+	wr_s16b(current_floor_id);
+	wr_s16b(max_floor_id); 	// Number of floor_id used from birth
 
 	/* Current dungeon type */
 	wr_byte(dungeon_type);

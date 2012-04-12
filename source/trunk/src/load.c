@@ -1519,8 +1519,8 @@ static errr rd_dungeon(void)
 
 	/*** Meta info ***/
 
-        /* Number of floor_id used from birth */
-	rd_s16b(&max_floor_id);
+	rd_s16b(&current_floor_id);
+	rd_s16b(&max_floor_id); // Number of floor_id used from birth
 
 	note(format("max_floor_id:%d",max_floor_id));
 
