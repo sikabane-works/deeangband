@@ -971,66 +971,76 @@ static void prt_depth(creature_type *cr_ptr)
  */
 static void prt_hunger(creature_type *cr_ptr)
 {
-	/* Fainting / Starving */
+	byte color;
+	char *expression;
+	char tmp[30];
+
 	if (cr_ptr->food < PY_FOOD_FAINT)
 	{
+		color = TERM_RED;
 #ifdef JP
+		expression = "ŠŽã  ";
 		c_put_str(TERM_RED, "ŠŽã  ", ROW_HUNGRY, COL_HUNGRY);
 #else
+		expression = "Weak  ";
 		c_put_str(TERM_RED, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
 #endif
 
 	}
-
-	/* Weak */
 	else if (cr_ptr->food < PY_FOOD_WEAK)
 	{
+		color = TERM_ORANGE;
 #ifdef JP
+		expression = "ŠŽã  ";
 		c_put_str(TERM_ORANGE, "ŠŽã  ", ROW_HUNGRY, COL_HUNGRY);
 #else
+		expression = "ŠŽã  ";
 		c_put_str(TERM_ORANGE, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
 #endif
 
 	}
-
-	/* Hungry */
 	else if (cr_ptr->food < PY_FOOD_ALERT)
 	{
+		color = TERM_YELLOW;
 #ifdef JP
+		expression = "‹ó•   ";
 		c_put_str(TERM_YELLOW, "‹ó•   ", ROW_HUNGRY, COL_HUNGRY);
 #else
+		expression = "Hungry";
 		c_put_str(TERM_YELLOW, "Hungry", ROW_HUNGRY, COL_HUNGRY);
 #endif
-
 	}
-
-	/* Normal */
 	else if (cr_ptr->food < PY_FOOD_FULL)
 	{
+		color = TERM_L_GREEN;
+		expression = "      ";
 		c_put_str(TERM_L_GREEN, "      ", ROW_HUNGRY, COL_HUNGRY);
 	}
-
-	/* Full */
 	else if (cr_ptr->food < PY_FOOD_MAX)
 	{
+		color = TERM_L_GREEN;
 #ifdef JP
-		c_put_str(TERM_L_GREEN, "–ž•   ", ROW_HUNGRY, COL_HUNGRY);
+		expression = "–ž•   ";
 #else
-		c_put_str(TERM_L_GREEN, "Full  ", ROW_HUNGRY, COL_HUNGRY);
+		expression = "Full  ";
 #endif
 
 	}
-
-	/* Gorged */
 	else
 	{
+		color = TERM_GREEN;
 #ifdef JP
-		c_put_str(TERM_GREEN, "H‰ß‚¬", ROW_HUNGRY, COL_HUNGRY);
+		expression = "H‰ß‚¬";
 #else
-		c_put_str(TERM_GREEN, "Gorged", ROW_HUNGRY, COL_HUNGRY);
+		expression = "Gorged";
 #endif
 
 	}
+
+	if(wizard) sprintf(tmp, "%6s(%d)", expression, cr_ptr->food);
+	else sprintf(tmp, "%6s", expression);
+
+	c_put_str(color, tmp, ROW_HUNGRY, COL_HUNGRY);
 }
 
 
@@ -5930,11 +5940,11 @@ void redraw_stuff()
 		prt_stun(player_ptr);
 	}
 
-	if (play_redraw & (PR_HUNGER))
-	{
+//	if (play_redraw & (PR_HUNGER))
+//	{
 		play_redraw &= ~(PR_HUNGER);
 		prt_hunger(player_ptr);
-	}
+//	}
 
 	if (play_redraw & (PR_STATE))
 	{
