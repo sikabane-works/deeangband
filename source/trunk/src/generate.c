@@ -1522,7 +1522,7 @@ void clear_cave(void)
 	// Pre-calc cur_num of pets in party_mon[]
 	precalc_cur_num_of_pet();
 
-	current_floor_id = 0;
+	//current_floor_id = 0;
 
 	/* Start with a blank cave */
 	for (y = 0; y < MAX_HGT; y++)

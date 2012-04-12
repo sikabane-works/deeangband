@@ -862,7 +862,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 
 	/* New floor is not yet prepared */
-	current_floor_id = 0;
+	//current_floor_id = 0;
 
 	/* Search the quest monster index */
 	for (i = 0; i < max_quests; i++)
@@ -1078,7 +1078,7 @@ void change_floor(creature_type *cr_ptr)
 		generate_cave(cr_ptr);
 
 		/* Paranoia -- No new saved floor */
-		current_floor_id = 0;
+		//current_floor_id = 0;
 	}
 
 	/* In the dungeon */
