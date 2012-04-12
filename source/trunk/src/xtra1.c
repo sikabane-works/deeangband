@@ -5940,11 +5940,11 @@ void redraw_stuff()
 		prt_stun(player_ptr);
 	}
 
-//	if (play_redraw & (PR_HUNGER))
-//	{
+	if (play_redraw & (PR_HUNGER))
+	{
 		play_redraw &= ~(PR_HUNGER);
 		prt_hunger(player_ptr);
-//	}
+	}
 
 	if (play_redraw & (PR_STATE))
 	{

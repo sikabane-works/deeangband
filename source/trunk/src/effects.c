@@ -4517,6 +4517,8 @@ bool set_food(creature_type *cr_ptr, int v)
 
 	bool notice = FALSE;
 
+	if(is_player(cr_ptr)) play_redraw |= PR_HUNGER;
+
 	/* Hack -- Force good values */
 	v = (v > 20000) ? 20000 : (v < 0) ? 0 : v;
 
