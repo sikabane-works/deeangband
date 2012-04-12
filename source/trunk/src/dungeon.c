@@ -6791,7 +6791,77 @@ static void cheat_death(void)
 	leave_floor(player_ptr);
 }
 
+void waited_report_score(void)
+{
+	char buf[1024];
+	bool success;
 
+#ifdef JP
+	if (!get_check_strict("待機していたスコア登録を今行ないますか？", CHECK_NO_HISTORY))
+#else
+	if (!get_check_strict("Do you register score now? ", CHECK_NO_HISTORY))
+#endif
+	quit(0);
+
+	/* Update stuff */
+	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+
+	/* Update stuff */
+	update_creature(player_ptr, TRUE);
+
+	gameover = TRUE;
+
+	start_time = (u32b)time(NULL);
+
+	/* No suspending now */	
+	signals_ignore_tstp();
+		
+	/* Hack -- Character is now "icky" */
+	character_icky = TRUE;
+
+	/* Build the filename */
+	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
+
+	/* Open the high score file, for reading/writing */
+	highscore_fd = fd_open(buf, O_RDWR);
+
+	/* Handle score, show Top scores */
+	success = send_world_score(TRUE);
+
+#ifdef JP
+	if (!success && !get_check_strict("スコア登録を諦めますか？", CHECK_NO_HISTORY))
+#else
+	if (!success && !get_check_strict("Do you give up score registration? ", CHECK_NO_HISTORY))
+#endif
+	{
+#ifdef JP
+		prt("引き続き待機します。", 0, 0);
+#else
+		prt("standing by for future registration...", 0, 0);
+#endif
+		(void)inkey();
+	}
+	else
+	{
+		wait_report_score = FALSE;
+		top_twenty(player_ptr);
+#ifdef JP
+		if (!save_player()) msg_print("セーブ失敗！");
+#else
+		if (!save_player()) msg_print("death save failed!");
+#endif
+	}
+	/* Shut the high score file */
+	(void)fd_close(highscore_fd);
+
+	/* Forget the high score fd */
+	highscore_fd = -1;
+		
+	/* Allow suspending now */
+	signals_handle_tstp();
+
+	quit(0);
+}
 
 
 /*
@@ -6869,77 +6939,7 @@ void play_game(bool new_game)
 	extract_option_vars();
 
 	/* Report waited score */
-	if (wait_report_score)
-	{
-		char buf[1024];
-		bool success;
-
-#ifdef JP
-		if (!get_check_strict("待機していたスコア登録を今行ないますか？", CHECK_NO_HISTORY))
-#else
-		if (!get_check_strict("Do you register score now? ", CHECK_NO_HISTORY))
-#endif
-			quit(0);
-
-		/* Update stuff */
-		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
-		/* Update stuff */
-		update_creature(player_ptr, TRUE);
-
-		gameover = TRUE;
-
-		start_time = (u32b)time(NULL);
-
-		/* No suspending now */
-		signals_ignore_tstp();
-		
-		/* Hack -- Character is now "icky" */
-		character_icky = TRUE;
-
-		/* Build the filename */
-		path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
-
-		/* Open the high score file, for reading/writing */
-		highscore_fd = fd_open(buf, O_RDWR);
-
-		/* Handle score, show Top scores */
-		success = send_world_score(TRUE);
-
-#ifdef JP
-		if (!success && !get_check_strict("スコア登録を諦めますか？", CHECK_NO_HISTORY))
-#else
-		if (!success && !get_check_strict("Do you give up score registration? ", CHECK_NO_HISTORY))
-#endif
-		{
-#ifdef JP
-			prt("引き続き待機します。", 0, 0);
-#else
-			prt("standing by for future registration...", 0, 0);
-#endif
-			(void)inkey();
-		}
-		else
-		{
-			wait_report_score = FALSE;
-			top_twenty(player_ptr);
-#ifdef JP
-			if (!save_player()) msg_print("セーブ失敗！");
-#else
-			if (!save_player()) msg_print("death save failed!");
-#endif
-		}
-		/* Shut the high score file */
-		(void)fd_close(highscore_fd);
-
-		/* Forget the high score fd */
-		highscore_fd = -1;
-		
-		/* Allow suspending now */
-		signals_handle_tstp();
-
-		quit(0);
-	}
+	if (wait_report_score) waited_report_score();
 
 	/* Reset the visual mappings */
 	reset_visuals();
