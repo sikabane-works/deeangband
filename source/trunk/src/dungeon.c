@@ -7208,8 +7208,6 @@ void play_game(bool new_game)
 		if (!playing && !gameover) break;
 
 		/* Erase the old cave */
-		wipe_object_list();
-//		if (!gameover) wipe_creature_list();
 		if (!gameover) clear_cave();
 
 
