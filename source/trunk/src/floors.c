@@ -14,7 +14,6 @@
 #include "grid.h"
 
 
-static s16b new_floor_id;       /* floor_id of the destination */
 static u32b change_floor_mode;  /* Mode flags for changing floor */
 static u32b latest_visit_mark;  /* Max number of visit_mark */
 
@@ -102,7 +101,7 @@ void init_saved_floors(bool force)
 	saved_floor_file_sign = (u32b)time(NULL);
 
 	/* No next floor yet */
-	new_floor_id = 0;
+	current_floor_id = 0;
 
 	/* No change floor mode yet */
 	change_floor_mode = 0;
@@ -228,7 +227,7 @@ static void kill_saved_floor(saved_floor_type *sf_ptr)
  * Initialize new saved floor and get its floor id.  If number of
  * saved floors are already MAX_SAVED_FLOORS, kill the oldest one.
  */
-s16b get_new_floor_id(void)
+s16b get_current_floor_id(void)
 {
 	saved_floor_type *sf_ptr;
 	int i;
@@ -863,19 +862,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 
 	/* New floor is not yet prepared */
-	new_floor_id = 0;
-
-	/* Temporary get a floor_id (for Arena) */
-	if (!cr_ptr->floor_id &&
-	    (change_floor_mode & CFM_SAVE_FLOORS) &&
-	    !(change_floor_mode & CFM_NO_RETURN))
-	{
-	    /* Get temporal floor_id */
-	    //new_floor_id = get_new_floor_id();
-		//cr_ptr->floor_id = new_floor_id;
-		//cr_ptr->floor_id = get_new_floor_id();
-	}
-
+	current_floor_id = 0;
 
 	/* Search the quest monster index */
 	for (i = 0; i < max_quests; i++)
@@ -890,30 +877,6 @@ void leave_floor(creature_type *cr_ptr)
 			quest_species_idx = quest[i].species_idx;
 		}
 	}
-
-	//TODO: Temporary Omit  Maintain quest monsters
-	/*
-	for (i = 1; i < creature_max; i++)
-	{
-		species_type *r_ptr;
-		creature_type *m_ptr = &creature_list[i];
-
-		// Skip dead monsters
-		if (!m_ptr->species_idx) continue;
-
-		// Only maintain quest monsters
-		if (quest_species_idx != m_ptr->species_idx) continue;
-
-		// Extract real monster race
-		r_ptr = real_species_ptr(m_ptr);
-
-		// Ignore unique monsters
-		if (is_unique_species(r_ptr) || has_cf(&r_ptr->flags, CF_NAZGUL)) continue;
-
-		// Delete non-unique quest monsters
-		delete_species_idx(&creature_list[i]);
-	}
-	*/
 
 	/* Check if there is a same item */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -950,7 +913,7 @@ void leave_floor(creature_type *cr_ptr)
 		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_sf_ptr(c_ptr->special))
 		{
 			/* Saved floor is exist.  Use it. */
-			new_floor_id = c_ptr->special;
+			current_floor_id = c_ptr->special;
 		}
 
 		/* Mark shaft up/down */
@@ -1029,15 +992,15 @@ void leave_floor(creature_type *cr_ptr)
 
 
 	/* Mark next floor_id on the previous floor */
-	if (!new_floor_id)
+	if (!current_floor_id)
 	{
 		/* Get new id */
-		//new_floor_id = get_new_floor_id();
+		//current_floor_id = get_current_floor_id();
 
 		/* Connect from here */
 		if (c_ptr && !feat_uses_special(c_ptr->feat))
 		{
-			c_ptr->special = new_floor_id;
+			c_ptr->special = current_floor_id;
 		}
 	}
 
@@ -1045,9 +1008,9 @@ void leave_floor(creature_type *cr_ptr)
 	if (change_floor_mode & CFM_RAND_CONNECT)
 	{
 		if (change_floor_mode & CFM_UP)
-			sf_ptr->upper_floor_id = new_floor_id;
+			sf_ptr->upper_floor_id = current_floor_id;
 		else if (change_floor_mode & CFM_DOWN)
-			sf_ptr->lower_floor_id = new_floor_id;
+			sf_ptr->lower_floor_id = current_floor_id;
 	}
 
 	/* If you can return, you need to save previous floor */
@@ -1115,22 +1078,22 @@ void change_floor(creature_type *cr_ptr)
 		generate_cave(cr_ptr);
 
 		/* Paranoia -- No new saved floor */
-		new_floor_id = 0;
+		current_floor_id = 0;
 	}
 
 	/* In the dungeon */
 	else
 	{
 		/* No floor_id yet */
-		if (!new_floor_id)
+		if (!current_floor_id)
 		{
 			/* Get new id */
-			new_floor_id = get_new_floor_id();
-			cr_ptr->floor_id = new_floor_id;
+			current_floor_id = get_current_floor_id();
+			cr_ptr->floor_id = current_floor_id;
 		}
 
 		/* Pointer for infomations of new floor */
-		sf_ptr = get_sf_ptr(new_floor_id);
+		sf_ptr = get_sf_ptr(current_floor_id);
 
 		/* Try to restore old floor */
 		if (sf_ptr->last_visit)
@@ -1173,13 +1136,13 @@ void change_floor(creature_type *cr_ptr)
 			if (change_floor_mode & CFM_UP)
 			{
 				/* New floor is right-above */
-				if (cur_sf_ptr->upper_floor_id == new_floor_id)
+				if (cur_sf_ptr->upper_floor_id == current_floor_id)
 					sf_ptr->lower_floor_id = cr_ptr->floor_id;
 			}
 			else if (change_floor_mode & CFM_DOWN)
 			{
 				/* New floor is right-under */
-				if (cur_sf_ptr->lower_floor_id == new_floor_id)
+				if (cur_sf_ptr->lower_floor_id == current_floor_id)
 					sf_ptr->upper_floor_id = cr_ptr->floor_id;
 			}
 		}
@@ -1350,10 +1313,10 @@ void change_floor(creature_type *cr_ptr)
 	place_pet(cr_ptr);
 
 	/* Hack -- maintain unique and artifacts */
-	update_unique_artifact(new_floor_id);
+	update_unique_artifact(current_floor_id);
 
 	/* Now the player is in new floor */
-	cr_ptr->floor_id = new_floor_id;
+	cr_ptr->floor_id = current_floor_id;
 
 	/* The dungeon is ready */
 	character_dungeon = TRUE;
@@ -1431,7 +1394,7 @@ void stair_creation(creature_type *creature_ptr)
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		creature_ptr->floor_id = get_new_floor_id();
+		creature_ptr->floor_id = get_current_floor_id();
 		sf_ptr = get_sf_ptr(creature_ptr->floor_id);
 	} 
 
@@ -1478,7 +1441,7 @@ void stair_creation(creature_type *creature_ptr)
 	/* No old destination -- Get new one now */
 	else
 	{
-		dest_floor_id = get_new_floor_id();
+		dest_floor_id = get_current_floor_id();
 
 		/* Fix it */
 		if (up)

@@ -1153,7 +1153,7 @@ extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
 extern void init_saved_floors(bool force);
 extern void clear_saved_floor_files(creature_type *player_ptr);
 extern saved_floor_type *get_sf_ptr(s16b floor_id);
-extern s16b get_new_floor_id(void);
+extern s16b get_current_floor_id(void);
 extern void prepare_change_floor_mode(u32b mode);
 extern void precalc_cur_num_of_pet(void);
 extern void leave_floor(creature_type *cr_ptr);
@@ -2099,5 +2099,5 @@ extern u32b game_load_count;
 extern byte start_hour;
 extern byte start_min;
 
-extern u16b current_floor_id;
+extern s16b current_floor_id;
 bool detect_trap;
