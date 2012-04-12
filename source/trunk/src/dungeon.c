@@ -6670,6 +6670,129 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 	monster_arena_mode = old_monster_arena_mode;
 }
 
+static void cheat_death(void)
+{
+	int i;
+
+	/* Mark social class, reset age, if needed */
+	if (player_ptr->sc){
+		player_ptr->sc = 0;
+		player_ptr->age = 0;
+	}
+
+	/* Increase age */
+	player_ptr->age++;
+
+	/* Mark savefile */
+	noscore |= 0x0001;
+
+	/* Message */
+#ifdef JP
+	msg_print("ウィザードモードに念を送り、死を欺いた。");
+#else
+	msg_print("You invoke wizard mode and cheat death.");
+#endif
+	msg_print(NULL);
+
+	/* Restore hit points */
+	player_ptr->chp = player_ptr->mhp;
+	player_ptr->chp_frac = 0;
+
+	if (player_ptr->cls_idx == CLASS_MAGIC_EATER)
+	{
+		for (i = 0; i < EATER_EXT*2; i++)
+		{
+			player_ptr->magic_num1[i] = player_ptr->magic_num2[i]*EATER_CHARGE;
+		}
+		for (; i < EATER_EXT*3; i++)
+		{
+			player_ptr->magic_num1[i] = 0;
+		}
+	}
+
+	/* Restore spell points */
+	player_ptr->csp = player_ptr->msp;
+	player_ptr->csp_frac = 0;
+
+	/* Hack -- cancel recall */
+	if (player_ptr->word_recall)
+	{
+		/* Message */
+#ifdef JP
+		msg_print("張りつめた大気が流れ去った...");
+#else
+		msg_print("A tension leaves the air around you...");
+#endif
+
+		msg_print(NULL);
+
+		/* Hack -- Prevent recall */
+		player_ptr->word_recall = 0;
+		play_redraw |= (PR_STATUS);
+	}
+
+	/* Hack -- cancel alter */
+	if (player_ptr->alter_reality)
+	{
+		/* Hack -- Prevent alter */
+		player_ptr->alter_reality = 0;
+		play_redraw |= (PR_STATUS);
+	}
+
+	/* Note cause of death XXX XXX XXX */
+#ifdef JP
+	(void)strcpy(gameover_from, "死の欺き");
+#else
+	(void)strcpy(gameover_from, "Cheating death");
+#endif
+
+	/* Do not die */
+	gameover = FALSE;
+
+	/* Hack -- Healing */
+	(void)set_blind(player_ptr, 0);
+	(void)set_confused(player_ptr, 0);
+	(void)set_poisoned(player_ptr, 0);
+	(void)set_afraid(player_ptr, 0);
+	(void)set_paralyzed(player_ptr, 0);
+	(void)set_image(player_ptr, 0);
+	(void)set_stun(player_ptr, 0);
+	(void)set_cut(player_ptr, 0);
+
+	/* Hack -- Prevent starvation */
+	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
+
+	dun_level = 0;
+	inside_arena = FALSE;
+	monster_arena_mode = FALSE;
+	leaving_quest = 0;
+	inside_quest = 0;
+	if (dungeon_type) player_ptr->recall_dungeon = dungeon_type;
+	dungeon_type = 0;
+
+	// Start Point Set
+	wilderness_y = player_ptr->start_wy;
+	wilderness_x = player_ptr->start_wx;
+
+	player_ptr->oldpy = 95;
+	player_ptr->oldpx = 95;
+
+	/* Leaving */
+	wild_mode = FALSE;
+	subject_change_floor = TRUE;
+
+#ifdef JP
+	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            しかし、生き返った。");
+#else
+	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            but revived.");
+#endif
+
+	// Prepare next floor
+	leave_floor(player_ptr);
+}
+
+
+
 
 /*
  * Actually play a game
@@ -7194,7 +7317,6 @@ void play_game(bool new_game)
 		/* Cancel the health bar */
 		health_track(0);
 
-
 		/* Forget the lite */
 		forget_lite();
 
@@ -7210,8 +7332,6 @@ void play_game(bool new_game)
 		/* Erase the old cave */
 		if (!gameover) clear_cave();
 
-
-		/* XXX XXX XXX */
 		msg_print(NULL);
 
 		load_game = FALSE;
@@ -7242,134 +7362,17 @@ void play_game(bool new_game)
 			{
 				/* Mega-Hack -- Allow player to cheat death */
 #ifdef JP
-				if ((wizard || cheat_live) && !get_check("死にますか? "))
+				if ((wizard || cheat_live) && !get_check("死にますか? ")) cheat_death();
 #else
-				if ((wizard || cheat_live) && !get_check("Die? "))
+				if ((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
 #endif
-				{
-					/* Mark social class, reset age, if needed */
-					if (player_ptr->sc){
-						player_ptr->sc = 0;
-						player_ptr->age = 0;
-					}
-
-					/* Increase age */
-					player_ptr->age++;
-
-					/* Mark savefile */
-					noscore |= 0x0001;
-
-					/* Message */
-#ifdef JP
-					msg_print("ウィザードモードに念を送り、死を欺いた。");
-#else
-					msg_print("You invoke wizard mode and cheat death.");
-#endif
-					msg_print(NULL);
-
-					/* Restore hit points */
-					player_ptr->chp = player_ptr->mhp;
-					player_ptr->chp_frac = 0;
-
-					if (player_ptr->cls_idx == CLASS_MAGIC_EATER)
-					{
-						for (i = 0; i < EATER_EXT*2; i++)
-						{
-							player_ptr->magic_num1[i] = player_ptr->magic_num2[i]*EATER_CHARGE;
-						}
-						for (; i < EATER_EXT*3; i++)
-						{
-							player_ptr->magic_num1[i] = 0;
-						}
-					}
-					/* Restore spell points */
-					player_ptr->csp = player_ptr->msp;
-					player_ptr->csp_frac = 0;
-
-					/* Hack -- cancel recall */
-					if (player_ptr->word_recall)
-					{
-						/* Message */
-#ifdef JP
-						msg_print("張りつめた大気が流れ去った...");
-#else
-						msg_print("A tension leaves the air around you...");
-#endif
-
-						msg_print(NULL);
-
-						/* Hack -- Prevent recall */
-						player_ptr->word_recall = 0;
-						play_redraw |= (PR_STATUS);
-					}
-
-					/* Hack -- cancel alter */
-					if (player_ptr->alter_reality)
-					{
-						/* Hack -- Prevent alter */
-						player_ptr->alter_reality = 0;
-						play_redraw |= (PR_STATUS);
-					}
-
-					/* Note cause of death XXX XXX XXX */
-#ifdef JP
-					(void)strcpy(gameover_from, "死の欺き");
-#else
-					(void)strcpy(gameover_from, "Cheating death");
-#endif
-
-					/* Do not die */
-					gameover = FALSE;
-
-					/* Hack -- Healing */
-					(void)set_blind(player_ptr, 0);
-					(void)set_confused(player_ptr, 0);
-					(void)set_poisoned(player_ptr, 0);
-					(void)set_afraid(player_ptr, 0);
-					(void)set_paralyzed(player_ptr, 0);
-					(void)set_image(player_ptr, 0);
-					(void)set_stun(player_ptr, 0);
-					(void)set_cut(player_ptr, 0);
-
-					/* Hack -- Prevent starvation */
-					(void)set_food(player_ptr, PY_FOOD_MAX - 1);
-
-					dun_level = 0;
-					inside_arena = FALSE;
-					monster_arena_mode = FALSE;
-					leaving_quest = 0;
-					inside_quest = 0;
-					if (dungeon_type) player_ptr->recall_dungeon = dungeon_type;
-					dungeon_type = 0;
-
-					// Start Point Set
-					wilderness_y = player_ptr->start_wy;
-					wilderness_x = player_ptr->start_wx;
-
-					player_ptr->oldpy = 95;
-					player_ptr->oldpx = 95;
-
-					/* Leaving */
-					wild_mode = FALSE;
-					subject_change_floor = TRUE;
-
-#ifdef JP
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            しかし、生き返った。");
-#else
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            but revived.");
-#endif
-
-					/* Prepare next floor */
-					leave_floor(player_ptr);
-					wipe_creature_list();
-				}
 			}
 		}
 
 		// Handle GameOver
 		if (gameover) break;
 
-		/* Make a new level */
+		// Make a new level
 		change_floor(player_ptr);
 	}
 
