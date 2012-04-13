@@ -6961,10 +6961,6 @@ static void new_game_setting(void)
 	/* Generate the random seeds for the wilderness */
 	seed_wilderness();
 
-	/* Give beastman a mutation at character birth */
-	if (player_ptr->race_idx1 == RACE_BEASTMAN) player_ptr->hack_mutation = TRUE;
-	else player_ptr->hack_mutation = FALSE;
-
 	/* Set the message window flag as default */
 	if (!window_flag[1])
 		window_flag[1] |= PW_MESSAGE;

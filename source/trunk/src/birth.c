@@ -5295,6 +5295,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	// TODO Race Trait
 
+	// Give beastman a mutation at character birth
+	if (IS_RACE(creature_ptr, RACE_BEASTMAN)) creature_ptr->hack_mutation = TRUE;
+	else creature_ptr->hack_mutation = FALSE;
+
 	//
 	// Sex Select
 	//
