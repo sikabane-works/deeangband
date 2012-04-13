@@ -157,7 +157,6 @@ bool repair_objects;	/* Hack -- optimize detect objects */
 
 s16b inven_nxt;			/* Hack -- unused */
 bool hack_mind;
-bool hack_mutation;
 
 
 s16b object_max = 1;			/* Number of allocated objects */

@@ -1601,6 +1601,7 @@ struct creature_type
 	bool reset_concent;   /* Concentration reset flag */
 
 	bool now_damaged;
+	bool hack_mutation;
 
 	u16b total_winner;	  /* Total winner */
 	u32b creature_update;

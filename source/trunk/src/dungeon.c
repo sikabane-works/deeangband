@@ -5564,7 +5564,7 @@ static void process_player(creature_type *cr_ptr)
 
 	/*** Apply energy ***/
 
-	if (hack_mutation)
+	if (cr_ptr->hack_mutation)
 	{
 #ifdef JP
 msg_print("何か変わった気がする！");
@@ -5573,7 +5573,7 @@ msg_print("何か変わった気がする！");
 #endif
 
 		(void)gain_random_mutation(cr_ptr, 0, TRUE);
-		hack_mutation = FALSE;
+		cr_ptr->hack_mutation = FALSE;
 	}
 
 	if (monster_arena_mode)
@@ -6962,8 +6962,8 @@ static void new_game_setting(void)
 	seed_wilderness();
 
 	/* Give beastman a mutation at character birth */
-	if (player_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
-	else hack_mutation = FALSE;
+	if (player_ptr->race_idx1 == RACE_BEASTMAN) player_ptr->hack_mutation = TRUE;
+	else player_ptr->hack_mutation = FALSE;
 
 	/* Set the message window flag as default */
 	if (!window_flag[1])
@@ -7109,8 +7109,6 @@ void play_game(bool new_game)
 		browse_movie();
 		return;
 	}
-
-	hack_mutation = FALSE;
 
 	/* Hack -- Character is "icky" */
 	character_icky = TRUE;
