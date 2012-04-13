@@ -6986,6 +6986,97 @@ static void new_game_setting(void)
 
 }
 
+static void play_loop(void)
+{
+	bool load_game = TRUE;
+
+	/* Process */
+	while (TRUE)
+	{
+		/* Process the level */
+		dungeon(load_game);
+
+		/* Handle "player_ptr->creature_update" */
+		notice_stuff(player_ptr);
+
+		/* Hack -- prevent "icky" message */
+		character_xtra = TRUE;
+
+		/* Handle "update" and "play_redraw" and "play_window" */
+		handle_stuff();
+
+		character_xtra = FALSE;
+
+		/* Cancel the target */
+		target_who = 0;
+
+		/* Cancel the health bar */
+		health_track(0);
+
+		/* Forget the lite */
+		forget_lite();
+
+		/* Forget the view */
+		forget_view();
+
+		/* Forget the view */
+		clear_creature_lite();
+
+		/* Handle "quit and save" */
+		if (!playing && !gameover) break;
+
+		/* Erase the old cave */
+		if (!gameover) clear_cave();
+
+		msg_print(NULL);
+
+		load_game = FALSE;
+
+		/* Accidental Death */
+		if (playing && gameover)
+		{
+			if (inside_arena)
+			{
+				inside_arena = FALSE;
+
+				if (arena_number > MAX_ARENA_MONS)
+					arena_number++;
+				else
+					arena_number = -1 - arena_number;
+
+				gameover = FALSE;
+				player_ptr->chp = 0;
+				player_ptr->chp_frac = 0;
+				arena_settled = TRUE;
+				reset_tim_flags(player_ptr);
+
+				/* Leave through the exit */
+				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
+
+				/* prepare next floor */
+				leave_floor(player_ptr);
+			}
+			else
+			{
+				/* Mega-Hack -- Allow player to cheat death */
+#ifdef JP
+				if ((wizard || cheat_live) && !get_check("Ž€‚É‚Ü‚·‚©? ")) cheat_death();
+#else
+				if ((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
+#endif
+			}
+		}
+
+		// Handle GameOver
+		if (gameover) break;
+
+		// Make a new level
+		change_floor(player_ptr);
+	}
+
+}
+
+
 
 /*
  * Actually play a game
@@ -6997,7 +7088,6 @@ static void new_game_setting(void)
 void play_game(bool new_game)
 {
 	int i, err; //j;
-	bool load_game = TRUE;
 
 #ifdef CHUUKEI
 	if (chuukei_client)
@@ -7043,7 +7133,6 @@ void play_game(bool new_game)
 
 	/* Hack -- turn off the cursor */
 	(void)Term_set_cursor(0);
-
 
 	// Attempt to load
 	err = load_player();
@@ -7298,87 +7387,7 @@ void play_game(bool new_game)
 		place_creature_aux(player_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 
-	/* Process */
-	while (TRUE)
-	{
-		/* Process the level */
-		dungeon(load_game);
-
-		/* Handle "player_ptr->creature_update" */
-		notice_stuff(player_ptr);
-
-		/* Hack -- prevent "icky" message */
-		character_xtra = TRUE;
-
-		/* Handle "update" and "play_redraw" and "play_window" */
-		handle_stuff();
-
-		character_xtra = FALSE;
-
-		/* Cancel the target */
-		target_who = 0;
-
-		/* Cancel the health bar */
-		health_track(0);
-
-		/* Forget the lite */
-		forget_lite();
-
-		/* Forget the view */
-		forget_view();
-
-		/* Forget the view */
-		clear_creature_lite();
-
-		/* Handle "quit and save" */
-		if (!playing && !gameover) break;
-
-		/* Erase the old cave */
-		if (!gameover) clear_cave();
-
-		msg_print(NULL);
-
-		load_game = FALSE;
-
-		/* Accidental Death */
-		if (playing && gameover)
-		{
-			if (inside_arena)
-			{
-				inside_arena = FALSE;
-				if (arena_number > MAX_ARENA_MONS)
-					arena_number++;
-				else
-					arena_number = -1 - arena_number;
-				gameover = FALSE;
-				player_ptr->chp = 0;
-				player_ptr->chp_frac = 0;
-				arena_settled = TRUE;
-				reset_tim_flags(player_ptr);
-
-				/* Leave through the exit */
-				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
-
-				/* prepare next floor */
-				leave_floor(player_ptr);
-			}
-			else
-			{
-				/* Mega-Hack -- Allow player to cheat death */
-#ifdef JP
-				if ((wizard || cheat_live) && !get_check("Ž€‚É‚Ü‚·‚©? ")) cheat_death();
-#else
-				if ((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
-#endif
-			}
-		}
-
-		// Handle GameOver
-		if (gameover) break;
-
-		// Make a new level
-		change_floor(player_ptr);
-	}
+	play_loop();
 
 	/* Close stuff */
 	close_game();
