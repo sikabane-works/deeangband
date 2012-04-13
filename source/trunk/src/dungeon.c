@@ -6864,6 +6864,129 @@ void waited_report_score(void)
 }
 
 
+static void new_game_setting(void)
+{
+	/* The dungeon is not ready */
+	character_dungeon = FALSE;
+
+	/* Start in town */
+	dun_level = 0;
+	inside_quest = 0;
+	inside_arena = FALSE;
+	monster_arena_mode = FALSE;
+
+	write_level = TRUE;
+
+	/* Hack -- seed for flavors */
+	seed_flavor = randint0(0x10000000);
+
+	/* Hack -- seed for town layout */
+	seed_town = randint0(0x10000000);
+
+	// Initialize General Gamedata
+	world_wipe();
+
+	// Initialize Item Awareness
+	k_info_reset();
+
+	/* 
+	 * Wipe monsters in old dungeon
+	 * This wipe destroys value of creature_list[].cur_num .
+	 */
+	wipe_creature_list();
+
+	/* Quick start? */
+	if (!ask_quick_start(player_ptr))
+	{
+		/* No, initial start */
+		int mode, species;
+		Term_clear();
+		mode = select_mode();
+		if(mode == 0)
+		{
+			species = MON_STIGMATIC_ONE;
+			unique_play = FALSE;
+#ifdef JP
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印者〉モードを選択した");
+#else
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select Stigmatic One mode.");
+#endif
+		}
+		else
+		{
+			Term_clear();
+			species = select_unique_species();
+			unique_play = TRUE;
+#ifdef JP
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ユニークモードを選択した");
+#else
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select unique mode.");
+#endif
+			/* Mark savefile */
+			noscore |= 0x0010;
+		}
+
+		/* Roll up a new character */
+		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
+
+		wilderness_x = player_ptr->start_wx;
+		wilderness_y = player_ptr->start_wy;
+
+		if(is_undead_creature(player_ptr))
+		{
+			start_hour = 18;
+			start_min = 0;
+		}
+		else
+		{
+			start_hour = 6;
+			start_min = 0;
+		}
+
+	}
+
+	/* Initialize random quests */
+	init_dungeon_quests();
+
+	/* Save character data for quick start */
+	player_prev = *player_ptr; 
+	quick_ok = TRUE;
+
+	/* Init Stores */
+	init_stores();
+
+	/* Init Uniques */
+	birth_uniques();
+
+	/* Generate the random seeds for the wilderness */
+	seed_wilderness();
+
+	/* Give beastman a mutation at character birth */
+	if (player_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
+	else hack_mutation = FALSE;
+
+	/* Set the message window flag as default */
+	if (!window_flag[1])
+		window_flag[1] |= PW_MESSAGE;
+
+	/* Set the inv/equip window flag as default */
+	if (!window_flag[2])
+		window_flag[2] |= PW_INVEN;
+
+	counts_write(2,0);
+	game_load_count = 0;
+
+	load = FALSE;
+
+	determine_bounty_uniques();
+	determine_today_mon(player_ptr, FALSE);
+
+	/* Initialize object array */
+	wipe_object_list();
+
+}
+
+
 /*
  * Actually play a game
  *
@@ -7002,126 +7125,7 @@ void play_game(bool new_game)
 	}
 
 	/* Roll new character */
-	if (new_game)
-	{
-		/* The dungeon is not ready */
-		character_dungeon = FALSE;
-
-		/* Start in town */
-		dun_level = 0;
-		inside_quest = 0;
-		inside_arena = FALSE;
-		monster_arena_mode = FALSE;
-
-		write_level = TRUE;
-
-		/* Hack -- seed for flavors */
-		seed_flavor = randint0(0x10000000);
-
-		/* Hack -- seed for town layout */
-		seed_town = randint0(0x10000000);
-
-		// Initialize General Gamedata
-		world_wipe();
-
-		// Initialize Item Awareness
-		k_info_reset();
-
-		/* 
-		 * Wipe monsters in old dungeon
-		 * This wipe destroys value of creature_list[].cur_num .
-		 */
-		wipe_creature_list();
-
-		/* Quick start? */
-		if (!ask_quick_start(player_ptr))
-		{
-			/* No, initial start */
-			int mode, species;
-			Term_clear();
-			mode = select_mode();
-			if(mode == 0)
-			{
-				species = MON_STIGMATIC_ONE;
-				unique_play = FALSE;
-#ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印者〉モードを選択した");
-#else
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select Stigmatic One mode.");
-#endif
-			}
-			else
-			{
-				Term_clear();
-				species = select_unique_species();
-				unique_play = TRUE;
-#ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ユニークモードを選択した");
-#else
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select unique mode.");
-#endif
-		/* Mark savefile */
-		noscore |= 0x0010;
-			}
-
-			/* Roll up a new character */
-			player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
-
-			wilderness_x = player_ptr->start_wx;
-			wilderness_y = player_ptr->start_wy;
-
-			if(is_undead_creature(player_ptr))
-			{
-				start_hour = 18;
-				start_min = 0;
-			}
-			else
-			{
-				start_hour = 6;
-				start_min = 0;
-			}
-
-		}
-
-		/* Initialize random quests */
-		init_dungeon_quests();
-
-		/* Save character data for quick start */
-		player_prev = *player_ptr; 
-		quick_ok = TRUE;
-
-		/* Init Stores */
-		init_stores();
-
-		/* Init Uniques */
-		birth_uniques();
-
-		/* Generate the random seeds for the wilderness */
-		seed_wilderness();
-
-		/* Give beastman a mutation at character birth */
-		if (player_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
-		else hack_mutation = FALSE;
-
-		/* Set the message window flag as default */
-		if (!window_flag[1])
-			window_flag[1] |= PW_MESSAGE;
-
-		/* Set the inv/equip window flag as default */
-		if (!window_flag[2])
-			window_flag[2] |= PW_INVEN;
-
-		counts_write(2,0);
-		game_load_count = 0;
-
-		load = FALSE;
-
-		determine_bounty_uniques();
-		determine_today_mon(player_ptr, FALSE);
-
-		/* Initialize object array */
-		wipe_object_list();
-	}
+	if (new_game) new_game_setting();
 	else
 	{
 		write_level = FALSE;
