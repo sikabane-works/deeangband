@@ -7212,22 +7212,16 @@ void play_game(bool new_game)
 	else
 	{
 		write_level = FALSE;
-
 #ifdef JP
 		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "                            ----ƒQ[ƒ€ÄŠJ----");
 #else
 		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "                            ---- Restart Game ----");
 #endif
-
 	}
 
 	/* Reset map panel */
 	panel_row_min = cur_hgt;
 	panel_col_min = cur_wid;
-
-	/* Sexy gal gets bonus to maximum weapon skill of whip */
-	if (player_ptr->chara_idx == CHARA_SEXY)
-		s_info[player_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(dungeon_type);
