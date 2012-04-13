@@ -2426,9 +2426,9 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 	if(creature_ptr->cls_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
-		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
+		(void)strcat(desc, classkill_info[species_ptr->cls_idx].title);
 #else
-		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
+		(void)strcat(desc, classkill_info[species_ptr->cls_idx].title);
 #endif
 	}
 

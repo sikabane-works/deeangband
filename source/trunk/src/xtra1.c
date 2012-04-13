@@ -2682,7 +2682,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 		if (cr_ptr->cls_idx == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
 		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
 
-		if (cr_ptr->cls_idx != INDEX_NONE) tmp_hitdice += class_info[cr_ptr->cls_idx].c_mhp;
+		if (cr_ptr->cls_idx != INDEX_NONE) tmp_hitdice += classkill_info[cr_ptr->cls_idx].c_mhp;
 		if (cr_ptr->chara_idx != INDEX_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
 
 		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
@@ -3176,31 +3176,31 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if(cr_ptr->cls_idx != INDEX_NONE)
 	{
-		cr_ptr->skill_dis += class_info[cr_ptr->cls_idx].c_dis;
-		cr_ptr->skill_dev += class_info[cr_ptr->cls_idx].c_dev;
-		cr_ptr->skill_rob += class_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_eva += class_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_vol += class_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_stl += class_info[cr_ptr->cls_idx].c_stl;
-		cr_ptr->skill_srh += class_info[cr_ptr->cls_idx].c_srh;
-		cr_ptr->skill_fos += class_info[cr_ptr->cls_idx].c_fos;
-		cr_ptr->skill_thn += class_info[cr_ptr->cls_idx].c_thn;
-		cr_ptr->skill_thb += class_info[cr_ptr->cls_idx].c_thb;
-		cr_ptr->skill_tht += class_info[cr_ptr->cls_idx].c_thb;
+		cr_ptr->skill_dis += classkill_info[cr_ptr->cls_idx].c_dis;
+		cr_ptr->skill_dev += classkill_info[cr_ptr->cls_idx].c_dev;
+		cr_ptr->skill_rob += classkill_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_eva += classkill_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_vol += classkill_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_stl += classkill_info[cr_ptr->cls_idx].c_stl;
+		cr_ptr->skill_srh += classkill_info[cr_ptr->cls_idx].c_srh;
+		cr_ptr->skill_fos += classkill_info[cr_ptr->cls_idx].c_fos;
+		cr_ptr->skill_thn += classkill_info[cr_ptr->cls_idx].c_thn;
+		cr_ptr->skill_thb += classkill_info[cr_ptr->cls_idx].c_thb;
+		cr_ptr->skill_tht += classkill_info[cr_ptr->cls_idx].c_thb;
 	}
 	else
 	{
-		cr_ptr->skill_dis += class_info[CLASS_TOURIST].c_dis;
-		cr_ptr->skill_dev += class_info[CLASS_TOURIST].c_dev;
-		cr_ptr->skill_rob += class_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_eva += class_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_vol += class_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_stl += class_info[CLASS_TOURIST].c_stl;
-		cr_ptr->skill_srh += class_info[CLASS_TOURIST].c_srh;
-		cr_ptr->skill_fos += class_info[CLASS_TOURIST].c_fos;
-		cr_ptr->skill_thn += class_info[CLASS_TOURIST].c_thn;
-		cr_ptr->skill_thb += class_info[CLASS_TOURIST].c_thb;
-		cr_ptr->skill_tht += class_info[CLASS_TOURIST].c_thb;
+		cr_ptr->skill_dis += classkill_info[CLASS_TOURIST].c_dis;
+		cr_ptr->skill_dev += classkill_info[CLASS_TOURIST].c_dev;
+		cr_ptr->skill_rob += classkill_info[CLASS_TOURIST].c_sav;
+		cr_ptr->skill_eva += classkill_info[CLASS_TOURIST].c_sav;
+		cr_ptr->skill_vol += classkill_info[CLASS_TOURIST].c_sav;
+		cr_ptr->skill_stl += classkill_info[CLASS_TOURIST].c_stl;
+		cr_ptr->skill_srh += classkill_info[CLASS_TOURIST].c_srh;
+		cr_ptr->skill_fos += classkill_info[CLASS_TOURIST].c_fos;
+		cr_ptr->skill_thn += classkill_info[CLASS_TOURIST].c_thn;
+		cr_ptr->skill_thb += classkill_info[CLASS_TOURIST].c_thb;
+		cr_ptr->skill_tht += classkill_info[CLASS_TOURIST].c_thb;
 	}
 
 	if(cr_ptr->chara_idx != INDEX_NONE)
@@ -3578,8 +3578,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if(cr_ptr->cls_idx != INDEX_NONE)
 		{
-			cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj[i];
-			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj_b[i];
+			cr_ptr->stat_add[i] += classkill_info[cr_ptr->cls_idx].c_adj[i];
+			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += classkill_info[cr_ptr->cls_idx].c_adj_b[i];
 		}
 
 		if(cr_ptr->chara_idx != INDEX_NONE)
@@ -5158,7 +5158,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 			if ((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER))
 			{
-				if (!s_info[cr_ptr->cls_idx].w_max[tval][sval])
+				if (!skill_info[cr_ptr->cls_idx].w_max[tval][sval])
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;
@@ -5167,7 +5167,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 			else if (cr_ptr->cls_idx == CLASS_NINJA)
 			{
-				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
+				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
 					(get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
 				{
 					cr_ptr->to_h[i] -= 40;
@@ -5253,54 +5253,54 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[STAT_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
-	else cr_ptr->skill_dis += (class_info[CLASS_TOURIST].x_dis * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dis += (classkill_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
+	else cr_ptr->skill_dis += (classkill_info[CLASS_TOURIST].x_dis * cr_ptr->lev / 10);
 
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara_idx].a_dis * cr_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
-	else cr_ptr->skill_dev += (class_info[CLASS_TOURIST].x_dev * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dev += (classkill_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
+	else cr_ptr->skill_dev += (classkill_info[CLASS_TOURIST].x_dev * cr_ptr->lev / 10);
 
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara_idx].a_dev * cr_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_eva += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_rob += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
+	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_eva += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
+	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_vol += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
+	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
 
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_eva += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
-	else cr_ptr->skill_stl += (class_info[CLASS_TOURIST].x_stl * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_stl += (classkill_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
+	else cr_ptr->skill_stl += (classkill_info[CLASS_TOURIST].x_stl * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search ability (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_srh += (class_info[cr_ptr->cls_idx].x_srh * cr_ptr->lev / 10);
-	else cr_ptr->skill_srh += (class_info[CLASS_TOURIST].x_srh * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_srh += (classkill_info[cr_ptr->cls_idx].x_srh * cr_ptr->lev / 10);
+	else cr_ptr->skill_srh += (classkill_info[CLASS_TOURIST].x_srh * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search frequency (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_fos += (class_info[cr_ptr->cls_idx].x_fos * cr_ptr->lev / 10);
-	else  cr_ptr->skill_fos += (class_info[CLASS_TOURIST].x_fos * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_fos += (classkill_info[cr_ptr->cls_idx].x_fos * cr_ptr->lev / 10);
+	else  cr_ptr->skill_fos += (classkill_info[CLASS_TOURIST].x_fos * cr_ptr->lev / 10);
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
-	else cr_ptr->skill_thn += (class_info[CLASS_TOURIST].x_thn * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thn += (classkill_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
+	else cr_ptr->skill_thn += (classkill_info[CLASS_TOURIST].x_thn * cr_ptr->lev / 10);
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara_idx].a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	else cr_ptr->skill_thb += (class_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thb += (classkill_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
+	else cr_ptr->skill_thb += (classkill_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	else cr_ptr->skill_tht += (class_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_tht += (classkill_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
+	else cr_ptr->skill_tht += (classkill_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
 	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 
@@ -6307,7 +6307,7 @@ cptr get_class_desc(creature_type *cr_ptr){
 	char name[80];
 	name[0] = '\0';
 
-	strcat(name, class_info[cr_ptr->cls_idx].title);
+	strcat(name, classkill_info[cr_ptr->cls_idx].title);
 
 	if(has_cf_creature(cr_ptr, CF_PUELLA_MAGI))
 	{

@@ -1276,9 +1276,9 @@ errr parse_v_info(char *buf, header *head)
 
 
 /*
- * Initialize the "s_info" array, by parsing an ascii "template" file
+ * Initialize the "skill_info" array, by parsing an ascii "template" file
  */
-errr parse_s_info(char *buf, header *head)
+errr parse_skill_info(char *buf, header *head)
 {
 	int i;
 
@@ -1302,7 +1302,7 @@ errr parse_s_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		s_ptr = &s_info[i];
+		s_ptr = &skill_info[i];
 	}
 
 	/* There better be a current s_ptr */
@@ -6511,9 +6511,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = class_info[player_ptr->cls_idx].E_title;
+				v = classkill_info[player_ptr->cls_idx].E_title;
 #else
-				v = class_info[player_ptr->cls_idx].title;
+				v = classkill_info[player_ptr->cls_idx].title;
 #endif
 			}
 

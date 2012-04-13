@@ -1184,9 +1184,9 @@ errr init_v_info(void)
 
 
 /*
- * Initialize the "s_info" array
+ * Initialize the "skill_info" array
  */
-static errr init_s_info(void)
+static errr init_skill_info(void)
 {
 	/* Init the header */
 	init_header(&s_head, MAX_CLASS, sizeof(skill_table));
@@ -1194,12 +1194,12 @@ static errr init_s_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	s_head.parse_info_txt = parse_s_info;
+	s_head.parse_info_txt = parse_skill_info;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("s_info", &s_head,
-			 (void*)&s_info, NULL, NULL, NULL);
+	return init_info("skill_info", &s_head,
+			 (void*)&skill_info, NULL, NULL, NULL);
 }
 
 
@@ -2180,7 +2180,7 @@ void init_angband(void)
 
 	/* Initialize weapon_exp info */
 	note("[Initializing arrays... (skill)]");
-	if (init_s_info()) quit("Cannot initialize skill");
+	if (init_skill_info()) quit("Cannot initialize skill");
 
 	/* Initialize wilderness array */
 	note("[Initializing arrays... (wilderness)]");

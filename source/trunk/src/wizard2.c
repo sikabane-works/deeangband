@@ -366,14 +366,14 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		for (i = 0;i < 64;i++)
 		{
 			cr_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (cr_ptr->weapon_exp[j][i] > s_info[cr_ptr->cls_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = s_info[cr_ptr->cls_idx].w_max[j][i];
+			if (cr_ptr->weapon_exp[j][i] > skill_info[cr_ptr->cls_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = skill_info[cr_ptr->cls_idx].w_max[j][i];
 		}
 	}
 
 	for (j = 0; j < 10; j++)
 	{
 		cr_ptr->skill_exp[j] = tmp_s16b;
-		if (cr_ptr->skill_exp[j] > s_info[cr_ptr->cls_idx].s_max[j]) cr_ptr->skill_exp[j] = s_info[cr_ptr->cls_idx].s_max[j];
+		if (cr_ptr->skill_exp[j] > skill_info[cr_ptr->cls_idx].s_max[j]) cr_ptr->skill_exp[j] = skill_info[cr_ptr->cls_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)

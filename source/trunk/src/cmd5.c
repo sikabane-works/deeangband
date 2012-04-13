@@ -1478,7 +1478,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 	if (total_friends)
 	{
 		int upkeep_factor;
-		upkeep_factor = (total_friend_levels - (cr_ptr->lev * 80 / (class_info[cr_ptr->cls_idx].pet_upkeep_div)));
+		upkeep_factor = (total_friend_levels - (cr_ptr->lev * 80 / (classkill_info[cr_ptr->cls_idx].pet_upkeep_div)));
 		if (upkeep_factor < 0) upkeep_factor = 0;
 		if (upkeep_factor > 1000) upkeep_factor = 1000;
 		return upkeep_factor;
@@ -1699,7 +1699,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 		if (!force)
 		{
 			int cur = cr_ptr->skill_exp[GINOU_RIDING];
-			int max = s_info[cr_ptr->cls_idx].s_max[GINOU_RIDING];
+			int max = skill_info[cr_ptr->cls_idx].s_max[GINOU_RIDING];
 			int ridinglevel = r_ptr->level;
 
 			/* —Ž”n‚Ì‚µ‚â‚·‚³ */

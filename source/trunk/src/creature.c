@@ -181,13 +181,13 @@ int calc_expfact_sp(species_type *species_ptr)
 	{
 		if(IS_PURE(species_ptr))
 		{
-			expfact = race_info[species_ptr->race_idx1].r_exp + class_info[species_ptr->cls_idx].c_exp;
+			expfact = race_info[species_ptr->race_idx1].r_exp + classkill_info[species_ptr->cls_idx].c_exp;
 		}
 		else
 		{
 			expfact = race_info[species_ptr->race_idx1].r_s_exp +
 					  race_info[species_ptr->race_idx2].r_s_exp +
-					  class_info[species_ptr->cls_idx].c_exp;
+					  classkill_info[species_ptr->cls_idx].c_exp;
 		}
 
 	}
@@ -205,13 +205,13 @@ void set_expfact(creature_type *creature_ptr)
 	else {
 		if(IS_PURE(creature_ptr))
 		{
-			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->cls_idx].c_exp;
+			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + classkill_info[creature_ptr->cls_idx].c_exp;
 		}
 		else
 		{
 			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_s_exp +
 									race_info[creature_ptr->race_idx2].r_s_exp +
-									class_info[creature_ptr->cls_idx].c_exp - 100;
+									classkill_info[creature_ptr->cls_idx].c_exp - 100;
 		}
 
 	}
@@ -238,7 +238,7 @@ void set_hitdice(creature_type * creature_ptr)
 	if (creature_ptr->cls_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
 	if (creature_ptr->cls_idx != INDEX_NONE)
-		creature_ptr->hitdice += class_info[creature_ptr->cls_idx].c_mhp;
+		creature_ptr->hitdice += classkill_info[creature_ptr->cls_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
 	return;	
@@ -377,7 +377,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
 	if (mr_ptr->cls_idx != INDEX_NONE)
-		dice += class_info[mr_ptr->cls_idx].c_mhp;
+		dice += classkill_info[mr_ptr->cls_idx].c_mhp;
 	if (mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
@@ -450,14 +450,14 @@ void initialize_skill(creature_type *creature_ptr)
 
 	for (i = 0; i < 5; i++)
 		for (j = 0; j < 64; j++)
-			creature_ptr->weapon_exp[i][j] = s_info[tmp_cls].w_start[i][j];
+			creature_ptr->weapon_exp[i][j] = skill_info[tmp_cls].w_start[i][j];
 	if ((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 	{
 		creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 	}
 
 	for (i = 0; i < 10; i++)
-		creature_ptr->skill_exp[i] = s_info[tmp_cls].s_start[i];
+		creature_ptr->skill_exp[i] = skill_info[tmp_cls].s_start[i];
 
 }
 

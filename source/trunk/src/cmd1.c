@@ -2058,7 +2058,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 		if ((r_ptr->level + 10) > atk_ptr->lev)
 		{
 			// Matrial arts skill mastering
-			if (atk_ptr->skill_exp[GINOU_SUDE] < s_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
+			if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
 			{
 				if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
 					atk_ptr->skill_exp[GINOU_SUDE] += 40;
@@ -2081,7 +2081,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = atk_ptr->inventory[hand].sval;
 			int now_exp = atk_ptr->weapon_exp[tval][sval];
-			if (now_exp < s_info[atk_ptr->cls_idx].w_max[tval][sval])
+			if (now_exp < skill_info[atk_ptr->cls_idx].w_max[tval][sval])
 			{
 				int amount = 0;
 				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -3228,7 +3228,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if (count_melee_slot(atk_ptr))
 	{
-		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < s_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
+		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < skill_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
 		{
 			if (atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
 				atk_ptr->skill_exp[GINOU_NITOURYU] += 80;
@@ -3246,7 +3246,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	if (atk_ptr->riding)
 	{
 		int cur = atk_ptr->skill_exp[GINOU_RIDING];
-		int max = s_info[atk_ptr->cls_idx].s_max[GINOU_RIDING];
+		int max = skill_info[atk_ptr->cls_idx].s_max[GINOU_RIDING];
 
 		if (cur < max)
 		{

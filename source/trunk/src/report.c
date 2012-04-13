@@ -447,7 +447,7 @@ errr report_score(creature_type *player_ptr)
 	buf_sprintf(score, "turns: %d\n", turn_real(turn));
 	buf_sprintf(score, "sex: %d\n", player_ptr->sex);
 	buf_sprintf(score, "race: %s\n", race_info[player_ptr->race_idx1].title);
-	buf_sprintf(score, "class: %s\n", class_info[player_ptr->cls_idx].title);
+	buf_sprintf(score, "class: %s\n", classkill_info[player_ptr->cls_idx].title);
 	buf_sprintf(score, "CHARA: %s\n", CHARAtmp);
 	buf_sprintf(score, "realm1: %s\n", realm_names[player_ptr->realm1]);
 	buf_sprintf(score, "realm2: %s\n", realm_names[player_ptr->realm2]);

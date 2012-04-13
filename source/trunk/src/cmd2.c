@@ -3558,7 +3558,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			if ((r_ptr->level + 10) > cr_ptr->lev)
 			{
 				int now_exp = cr_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < s_info[cr_ptr->cls_idx].w_max[0][j_ptr->sval])
+				if (now_exp < skill_info[cr_ptr->cls_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
 					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -3572,7 +3572,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 			if (cr_ptr->riding)
 			{
-				if ((cr_ptr->skill_exp[GINOU_RIDING] < s_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
+				if ((cr_ptr->skill_exp[GINOU_RIDING] < skill_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
 					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[cr_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{

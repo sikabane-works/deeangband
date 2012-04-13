@@ -2649,7 +2649,7 @@ static void birth_put_stats(creature_type *creature_ptr)
 			else
 				j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 
-			j += class_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
+			j += classkill_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
 			/* Obtain the current stat */
 			m = adjust_stat(creature_ptr->stat_max[i], j);
 
@@ -3208,23 +3208,23 @@ void class_detail(int code)
 	if(code < 0) return;
 
 #ifdef JP
-	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("‚ÌŽåŽí‘°C³", base, 24+strlen(class_info[code].title));
+	c_put_str(TERM_L_BLUE, classkill_info[code].title, base, 24);
+	put_str("‚ÌŽåŽí‘°C³", base, 24+strlen(classkill_info[code].title));
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
-	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(class_info[code].title));
+	c_put_str(TERM_L_BLUE, classkill_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(classkill_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
-		class_info[code].c_adj[0],
-		class_info[code].c_adj[1],
-		class_info[code].c_adj[2],
-		class_info[code].c_adj[3],
-		class_info[code].c_adj[4],
-		class_info[code].c_adj[5],
-		class_info[code].c_exp);
+		classkill_info[code].c_adj[0],
+		classkill_info[code].c_adj[1],
+		classkill_info[code].c_adj[2],
+		classkill_info[code].c_adj[3],
+		classkill_info[code].c_adj[4],
+		classkill_info[code].c_adj[5],
+		classkill_info[code].c_exp);
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
 	roff_to_buf(class_jouhou[code], 56, temp, sizeof(temp));
@@ -3888,9 +3888,9 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
-		if(class_info[i].rarelity != CLASS_RARELITY_UNSELECTED)
+		if(classkill_info[i].rarelity != CLASS_RARELITY_UNSELECTED)
 		{
-			strcpy(ce[n].cap, class_info[i].title);
+			strcpy(ce[n].cap, classkill_info[i].title);
 			ce[n].code = i;
 			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
@@ -4338,7 +4338,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		else
 			j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 		
-		j += class_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
+		j += classkill_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -4392,7 +4392,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		/* Prepare a prompt */
 		//TODO
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
-			stat_names[i], cval[i], race_info[creature_ptr->race_idx1].r_adj[i], class_info[creature_ptr->cls_idx].c_adj[i],
+			stat_names[i], cval[i], race_info[creature_ptr->race_idx1].r_adj[i], classkill_info[creature_ptr->cls_idx].c_adj[i],
 			chara_info[creature_ptr->chara_idx].a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
@@ -4429,7 +4429,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			else
 			{
 				/* Race/Class bonus */
-				j = race_info[creature_ptr->race_idx1].r_adj[cs] + class_info[creature_ptr->cls_idx].c_adj[cs] + chara_info[creature_ptr->chara_idx].a_adj[cs];
+				j = race_info[creature_ptr->race_idx1].r_adj[cs] + classkill_info[creature_ptr->cls_idx].c_adj[cs] + chara_info[creature_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -4457,7 +4457,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
 					stat_names[cs], cval[cs], race_info[creature_ptr->race_idx1].r_adj[cs],
-					class_info[creature_ptr->cls_idx].c_adj[cs], chara_info[creature_ptr->chara_idx].a_adj[cs], inp);
+					classkill_info[creature_ptr->cls_idx].c_adj[cs], chara_info[creature_ptr->chara_idx].a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
 			os = cs;
@@ -5480,13 +5480,13 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				/* Race/Class/Species bonus */
 				if(IS_PURE(creature_ptr))
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
-						class_info[creature_ptr->cls_idx].c_adj[i] +
+						classkill_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / 10 - 10;
 				else
 					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
 						race_info[creature_ptr->race_idx2].r_s_adj[i] +
-						class_info[creature_ptr->cls_idx].c_adj[i] +
+						classkill_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / 10 - 10;
 
@@ -5642,7 +5642,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_creature_sp_percent(creature_ptr, 100);
 
 			/* Sexy gal gets bonus to maximum weapon skill of whip */
-			if (creature_ptr->chara_idx == CHARA_SEXY) s_info[player_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+			if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 			if(auto_generate) break;
 
@@ -5945,9 +5945,9 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 	#ifdef JP
-		sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", class_info[creature_ptr->cls_idx].title);
+		sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", classkill_info[creature_ptr->cls_idx].title);
 	#else
-		sprintf(buf,"                            choose %s class.", class_info[creature_ptr->cls_idx].title);
+		sprintf(buf,"                            choose %s class.", classkill_info[creature_ptr->cls_idx].title);
 	#endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -6000,9 +6000,9 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	roff_to_buf(class_jouhou[creature_ptr->cls_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "E‹Æ: %s\n", class_info[creature_ptr->cls_idx].title);
+	fprintf(fff, "E‹Æ: %s\n", classkill_info[creature_ptr->cls_idx].title);
 #else
-	fprintf(fff, "Class: %s\n", class_info[creature_ptr->cls_idx].title);
+	fprintf(fff, "Class: %s\n", classkill_info[creature_ptr->cls_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)

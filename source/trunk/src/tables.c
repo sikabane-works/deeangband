@@ -2076,7 +2076,7 @@ player_sex sex_info[MAX_SEXES] =
  *      x_dis, x_dev, x_sav, x_stl, x_srh, x_fos, x_thn, x_thb,
  *      HD, Exp, pet_upkeep_div
  */
-class_type class_info[MAX_CLASS] =
+class_type classkill_info[MAX_CLASS] =
 {
 	{
 #ifdef JP

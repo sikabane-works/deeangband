@@ -276,7 +276,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 			sprintf(out_val, "%3d.%9s  %s %s the %s %s, Level %d",
 				place, the_score.pts,
 				chara_info[pa].title,
-				the_score.who, race_info[pr].title, class_info[pc].title, clev);
+				the_score.who, race_info[pr].title, classkill_info[pc].title, clev);
 #endif
 
 
@@ -294,9 +294,9 @@ if (mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 			/* Another line of info */
 #ifdef JP
 			if (mdun != 0)
-				sprintf(tmp_val2, "               %s/%s(レベル%d/最高%3d階) ", race_info[pr].title, class_info[pc].title, clev, mdun);
+				sprintf(tmp_val2, "               %s/%s(レベル%d/最高%3d階) ", race_info[pr].title, classkill_info[pc].title, clev, mdun);
 			else
-				sprintf(tmp_val2, "               %s/%s(レベル%d) ", race_info[pr].title, class_info[pc].title, clev);
+				sprintf(tmp_val2, "               %s/%s(レベル%d) ", race_info[pr].title, classkill_info[pc].title, clev);
 
 			/* Dump the info */
 			c_put_str(attr, tmp_val2, n*4 + 3, 0);

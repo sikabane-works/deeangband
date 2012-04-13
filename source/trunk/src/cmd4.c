@@ -7029,7 +7029,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 					weapon_exp = cr_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
-					if (weapon_exp >= s_info[cr_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
+					if (weapon_exp >= skill_info[cr_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
 					else fprintf(fff, " ");
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
@@ -7192,7 +7192,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
 	{
 		skill_exp = cr_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);
-		if (skill_exp >= s_info[cr_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
+		if (skill_exp >= skill_info[cr_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, "%s", exp_level_str[(i == GINOU_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
 		if (cheat_xtra) fprintf(fff, " %d", skill_exp);
