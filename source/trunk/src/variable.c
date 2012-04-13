@@ -827,7 +827,7 @@ char *f_tag;
 /*
  * The object kind arrays
  */
-object_kind *k_info;
+object_kind *object_kind_info;
 char *k_name;
 char *k_text;
 
@@ -1113,7 +1113,7 @@ u16b max_store_idx;
 u16b max_authority_idx;
 
 /*
- * Maximum number of items in k_info.txt
+ * Maximum number of items in object_kind_info.txt
  */
 u16b max_k_idx;
 

@@ -3961,7 +3961,7 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	/* Hack -- make aware of the water */
-	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
+	object_kind_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
 
 
 	/* Apply Magic */

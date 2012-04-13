@@ -2373,7 +2373,7 @@ int get_equipped_slot_num(creature_type *creature_ptr, int slot)
 {
 	int i, n = 0;
 	for(i = 0; i < INVEN_TOTAL; i++)
-		if(creature_ptr->equip_now[i] && k_info[creature_ptr->inventory[i].k_idx].slot == slot) n++;
+		if(creature_ptr->equip_now[i] && object_kind_info[creature_ptr->inventory[i].k_idx].slot == slot) n++;
 	return n;
 }
 
@@ -2382,7 +2382,7 @@ object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int nu
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		if(creature_ptr->equip_now[i] == num && k_info[creature_ptr->inventory[i].k_idx].slot == slot)
+		if(creature_ptr->equip_now[i] == num && object_kind_info[creature_ptr->inventory[i].k_idx].slot == slot)
 			return &creature_ptr->inventory[i];
 	}
 	return &object_null;
@@ -2393,7 +2393,7 @@ int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		if(creature_ptr->equip_now[i] == num && k_info[creature_ptr->inventory[i].k_idx].slot == slot)
+		if(creature_ptr->equip_now[i] == num && object_kind_info[creature_ptr->inventory[i].k_idx].slot == slot)
 			return i;
 	}
 	return -1;

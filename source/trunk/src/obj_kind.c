@@ -5,7 +5,7 @@
 
 bool object_is_potion(creature_type *cr_ptr, object_type *o_ptr)
 {
-	return (k_info[o_ptr->k_idx].tval == TV_POTION);
+	return (object_kind_info[o_ptr->k_idx].tval == TV_POTION);
 }
 
 
@@ -167,7 +167,7 @@ bool object_is_rare(creature_type *creature_ptr, object_type *o_ptr)
  */
 bool object_is_weapon(object_type *o_ptr)
 {
-	if (k_info[o_ptr->k_idx].slot == INVEN_SLOT_ARMS) return TRUE;
+	if (object_kind_info[o_ptr->k_idx].slot == INVEN_SLOT_ARMS) return TRUE;
 	return FALSE;
 }
 bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)

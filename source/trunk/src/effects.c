@@ -6552,7 +6552,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		object_type forge;
 		object_type *q_ptr = &forge;
 		u32b value, exp;
-		int level = MAX(k_info[o_ptr->k_idx].level - 8, 1);
+		int level = MAX(object_kind_info[o_ptr->k_idx].level - 8, 1);
 		slot = GET_INVEN_SLOT_TYPE(cr_ptr, i);
 
 		if(!cr_ptr->equip_now[i]) continue;

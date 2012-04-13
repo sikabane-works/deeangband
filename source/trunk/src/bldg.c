@@ -3903,7 +3903,7 @@ s = "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 		o_ptr = &object_list[0 - item];
 	}
 
-	k_ptr = &k_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	/*
 	 * We don't want to give the player free info about
@@ -3956,7 +3956,7 @@ msg_format("%s ‚Å‚·B", tmp_str);
 	}
 
 	/* Extract the object "level" */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Price for a rod */
 	if (o_ptr->tval == TV_ROD)
@@ -3982,7 +3982,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 	else if (o_ptr->tval == TV_STAFF)
 	{
 		/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-		price = (k_info[o_ptr->k_idx].cost / 10) * o_ptr->number;
+		price = (object_kind_info[o_ptr->k_idx].cost / 10) * o_ptr->number;
 
 		/* Pay at least 10 gold per charge */
 		price = MAX(10, price);
@@ -3990,7 +3990,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 	else
 	{
 		/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-		price = (k_info[o_ptr->k_idx].cost / 10);
+		price = (object_kind_info[o_ptr->k_idx].cost / 10);
 
 		/* Pay at least 10 gold per charge */
 		price = MAX(10, price);
@@ -4163,9 +4163,9 @@ static void building_recharge_all(creature_type *cr_ptr)
 		if (!object_is_known(o_ptr)) total_cost += 50;
 
 		/* Extract the object "level" */
-		lev = k_info[o_ptr->k_idx].level;
+		lev = object_kind_info[o_ptr->k_idx].level;
 
-		k_ptr = &k_info[o_ptr->k_idx];
+		k_ptr = &object_kind_info[o_ptr->k_idx];
 
 		switch (o_ptr->tval)
 		{
@@ -4175,7 +4175,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 
 		case TV_STAFF:
 			/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-			price = (k_info[o_ptr->k_idx].cost / 10) * o_ptr->number;
+			price = (object_kind_info[o_ptr->k_idx].cost / 10) * o_ptr->number;
 
 			/* Pay at least 10 gold per charge */
 			price = MAX(10, price);
@@ -4186,7 +4186,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 
 		case TV_WAND:
 			/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-			price = (k_info[o_ptr->k_idx].cost / 10);
+			price = (object_kind_info[o_ptr->k_idx].cost / 10);
 
 			/* Pay at least 10 gold per charge */
 			price = MAX(10, price);
@@ -4234,7 +4234,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
-		k_ptr = &k_info[o_ptr->k_idx];
+		k_ptr = &object_kind_info[o_ptr->k_idx];
 
 		/* skip non magic device */
 		if (o_ptr->tval < TV_STAFF || o_ptr->tval > TV_ROD) continue;

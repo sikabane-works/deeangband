@@ -196,7 +196,7 @@ static void wr_xtra(int k_idx)
 {
 	byte tmp8u = 0;
 
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	if (k_ptr->aware) tmp8u |= 0x01;
 	if (k_ptr->tried) tmp8u |= 0x02;

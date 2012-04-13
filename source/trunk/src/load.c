@@ -276,7 +276,7 @@ static void rd_item(object_type *o_ptr)
 	rd_byte(&o_ptr->ix);
 
 	/* Type/Subtype */
-	k_ptr = &k_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[o_ptr->k_idx];
 	o_ptr->tval = k_ptr->tval;
 	o_ptr->sval = k_ptr->sval;
 
@@ -1851,7 +1851,7 @@ note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
 	for (i = 0; i < tmp16u; i++)
 	{
 		byte tmp8u;
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		rd_byte(&tmp8u);
 

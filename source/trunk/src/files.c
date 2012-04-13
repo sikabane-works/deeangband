@@ -450,7 +450,7 @@ errr process_pref_file_command(char *buf)
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
 			if (i >= max_k_idx) return 1;
-			k_ptr = &k_info[i];
+			k_ptr = &object_kind_info[i];
 			if (n1 || (!(n2 & 0x80) && n2)) k_ptr->x_attr = n1; /* Allow TERM_DARK text */
 			if (n2) k_ptr->x_char = n2;
 			return 0;
@@ -533,7 +533,7 @@ errr process_pref_file_command(char *buf)
 			n2 = strtol(zz[2], NULL, 0);
 			for (i = 1; i < max_k_idx; i++)
 			{
-				object_kind *k_ptr = &k_info[i];
+				object_kind *k_ptr = &object_kind_info[i];
 				if (k_ptr->tval == j)
 				{
 					if (n1) k_ptr->d_attr = n1;
@@ -4751,7 +4751,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 
 				k_idx = lookup_kind(tval, i);
 				if (!k_idx) continue;
-				sprintf(s[eat_num], "%23s (%2d)", (k_name + k_info[k_idx].name), magic_num);
+				sprintf(s[eat_num], "%23s (%2d)", (k_name + object_kind_info[k_idx].name), magic_num);
 				eat_num++;
 			}
 

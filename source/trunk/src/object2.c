@@ -359,7 +359,7 @@ void compact_objects(int size)
 			if (!o_ptr->k_idx) continue;
 
 			/* Hack -- High level objects start out "immune" */
-			if (k_info[o_ptr->k_idx].level > cur_lev) continue;
+			if (object_kind_info[o_ptr->k_idx].level > cur_lev) continue;
 
 			/* Monster */
 			if (o_ptr->held_m_idx)
@@ -645,7 +645,7 @@ s16b get_obj_num(int level, u32b flag)
 		k_idx = table[i].index;
 
 		/* Access the actual kind */
-		k_ptr = &k_info[k_idx];
+		k_ptr = &object_kind_info[k_idx];
 
 		if(flag & GON_ITEM)
 		{
@@ -836,9 +836,9 @@ void object_aware(object_type *o_ptr)
 	bool mihanmei = !object_is_aware(o_ptr);
 
 	/* Fully aware of the effects */
-	k_info[o_ptr->k_idx].aware = TRUE;
+	object_kind_info[o_ptr->k_idx].aware = TRUE;
 
-	if(mihanmei && !(k_info[o_ptr->k_idx].gen_flags & TRG_INSTA_ART) && record_ident &&
+	if(mihanmei && !(object_kind_info[o_ptr->k_idx].gen_flags & TRG_INSTA_ART) && record_ident &&
 	   !gameover && ((o_ptr->tval >= TV_AMULET && o_ptr->tval <= TV_POTION) || (o_ptr->tval == TV_FOOD)))
 	{
 		object_type forge;
@@ -862,7 +862,7 @@ void object_aware(object_type *o_ptr)
 void object_tried(object_type *o_ptr)
 {
 	/* Mark it as tried (even if "aware") */
-	k_info[o_ptr->k_idx].tried = TRUE;
+	object_kind_info[o_ptr->k_idx].tried = TRUE;
 }
 
 
@@ -873,7 +873,7 @@ void object_tried(object_type *o_ptr)
 static s32b object_value_base(object_type *o_ptr)
 {
 	/* Aware item -- use template cost */
-	if (object_is_aware(o_ptr)) return (k_info[o_ptr->k_idx].cost);
+	if (object_is_aware(o_ptr)) return (object_kind_info[o_ptr->k_idx].cost);
 
 	/* Analyze the type */
 	switch (o_ptr->tval)
@@ -932,7 +932,7 @@ s32b flag_cost(object_type *o_ptr, int plusses)
 	s32b tmp_cost;
 	int count;
 	int i;
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	object_flags(o_ptr, flgs);
 
@@ -1214,14 +1214,14 @@ s32b object_value_real(object_type *o_ptr)
 
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 
 	/* Hack -- "worthless" items */
-	if (!k_info[o_ptr->k_idx].cost) return (0L);
+	if (!object_kind_info[o_ptr->k_idx].cost) return (0L);
 
 	/* Base cost */
-	value = k_info[o_ptr->k_idx].cost;
+	value = object_kind_info[o_ptr->k_idx].cost;
 
 	/* Extract some flags */
 	object_flags(o_ptr, flgs);
@@ -1715,7 +1715,7 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 		case TV_ROD:
 		{
 			/* Prevent overflaw of timeout */
-			max_num = MIN(max_num, MAX_SHORT / k_info[o_ptr->k_idx].pval);
+			max_num = MIN(max_num, MAX_SHORT / object_kind_info[o_ptr->k_idx].pval);
 
 			/* Assume okay */
 			break;
@@ -1908,7 +1908,7 @@ s16b lookup_kind(int tval, int sval)
 	/* Look for it */
 	for (k = 1; k < max_k_idx; k++)
 	{
-		object_kind *k_ptr = &k_info[k];
+		object_kind *k_ptr = &object_kind_info[k];
 
 		/* Require correct tval */
 		if (k_ptr->tval != tval) continue;
@@ -1966,7 +1966,7 @@ void object_copy(object_type *o_ptr, object_type *j_ptr)
  */
 void object_prep(object_type *o_ptr, int k_idx, int size)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Clear the record */
 	object_wipe(o_ptr);
@@ -1997,7 +1997,7 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	o_ptr->weight = k_ptr->weight;
 
 	/* Hack -- worthless items are always "broken" */
-	if (k_info[o_ptr->k_idx].cost <= 0) o_ptr->ident |= (IDENT_BROKEN);
+	if (object_kind_info[o_ptr->k_idx].cost <= 0) o_ptr->ident |= (IDENT_BROKEN);
 
 	/* Hack -- cursed items are always "cursed" */
 	if (k_ptr->gen_flags & (TRG_CURSED)) o_ptr->curse_flags |= (TRC_CURSED);
@@ -2206,10 +2206,10 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval);
 
 		/* XXX XXX Enforce minimum "object" level (loosely) */
-		if (k_info[k_idx].level > object_level)
+		if (object_kind_info[k_idx].level > object_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (k_info[k_idx].level - object_level) * 5;
+			int d = (object_kind_info[k_idx].level - object_level) * 5;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
@@ -2729,7 +2729,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				while(!o_ptr->name2)
 				{
 					int tmp = m_bonus(10, level);
-					object_kind *k_ptr = &k_info[o_ptr->k_idx];
+					object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 					switch(randint1(28))
 					{
 					case 1: case 2:
@@ -2882,7 +2882,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				o_ptr->art_flags[1] = 0;
 				while(!o_ptr->name2)
 				{
-					object_kind *k_ptr = &k_info[o_ptr->k_idx];
+					object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 					switch(randint1(5))
 					{
 					case 1:
@@ -3064,7 +3064,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			{
 				while(!o_ptr->name2)
 				{
-					object_kind *k_ptr = &k_info[o_ptr->k_idx];
+					object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 					switch(randint1(21))
 					{
 					case 1: case 2:
@@ -3168,7 +3168,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				o_ptr->art_flags[1] = 0;
 				while(!o_ptr->name2)
 				{
-					object_kind *k_ptr = &k_info[o_ptr->k_idx];
+					object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 					switch(randint1(5))
 					{
 					case 1:
@@ -3230,7 +3230,7 @@ static bool item_monster_okay(int species_idx)
  */
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	/* Unused */
 	(void)level;
@@ -3479,7 +3479,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 		case TV_CHEST:
 		{
-			byte obj_level = k_info[o_ptr->k_idx].level;
+			byte obj_level = object_kind_info[o_ptr->k_idx].level;
 
 			/* Hack -- skip ruined chests */
 			if (obj_level <= 0) break;
@@ -3678,7 +3678,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 
 	if(power >= ITEM_RANK_GREAT){
 		if(specified_idx) create_ego(o_ptr, lev, specified_idx);
-		else create_ego(o_ptr, lev, get_random_ego(k_info[o_ptr->k_idx].slot, TRUE));
+		else create_ego(o_ptr, lev, get_random_ego(object_kind_info[o_ptr->k_idx].slot, TRUE));
 	}
 
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, o_ptr, FALSE);
@@ -3742,10 +3742,10 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	// Examine real objects
 	if (o_ptr->k_idx)
 	{
-		object_kind *k_ptr = &k_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 		// Hack -- acquire "broken" flag
-		if (!k_info[o_ptr->k_idx].cost) o_ptr->ident |= (IDENT_BROKEN);
+		if (!object_kind_info[o_ptr->k_idx].cost) o_ptr->ident |= (IDENT_BROKEN);
 
 		// Hack -- acquire "cursed" flag
 		if (k_ptr->gen_flags & (TRG_CURSED)) o_ptr->curse_flags |= (TRC_CURSED);
@@ -3781,7 +3781,7 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *o_ptr, int
  */
 static bool kind_is_good(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	switch (k_ptr->tval)
@@ -3932,7 +3932,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 		}
 	}
 
-	obj_level = k_info[j_ptr->k_idx].level;
+	obj_level = object_kind_info[j_ptr->k_idx].level;
 	if (object_is_fixed_artifact(j_ptr)) obj_level = a_info[j_ptr->name1].level;
 
 	/* Notice "okay" out-of-depth objects */
@@ -4060,7 +4060,7 @@ bool make_gold(object_type *j_ptr, int value)
 	object_prep(j_ptr, OBJ_GOLD_LIST + i, ITEM_FREE_SIZE);
 
 	/* Hack -- Base coin cost */
-	base = k_info[OBJ_GOLD_LIST+i].cost;
+	base = object_kind_info[OBJ_GOLD_LIST+i].cost;
 
 	/* Determine how much the treasure is "worth" */
 	if(value <= 0)
@@ -8019,8 +8019,8 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 			break;
 
 		case EGO_DWARVEN:
-			o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
-			o_ptr->ac = k_info[o_ptr->k_idx].ac + 5;
+			o_ptr->weight = (2 * object_kind_info[o_ptr->k_idx].weight / 3);
+			o_ptr->ac = object_kind_info[o_ptr->k_idx].ac + 5;
 			if (one_in_(4))
 				add_flag(o_ptr->art_flags, TR_CON);
 			break;

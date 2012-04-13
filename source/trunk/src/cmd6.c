@@ -84,7 +84,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	ident = FALSE;
 
 	/* Object level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	if (o_ptr->tval == TV_FOOD)
 	{
@@ -762,7 +762,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	ident = FALSE;
 
 	/* Object level */
-	lev = k_info[q_ptr->k_idx].level;
+	lev = object_kind_info[q_ptr->k_idx].level;
 
 	/* Analyze the potion */
 	if (q_ptr->tval == TV_POTION)
@@ -1141,7 +1141,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 				for (; i < EATER_EXT*3; i++)
 				{
 					int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
-					cr_ptr->magic_num1[i] -= ((cr_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : cr_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*k_info[k_idx].pval;
+					cr_ptr->magic_num1[i] -= ((cr_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : cr_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 					if (cr_ptr->magic_num1[i] < 0) cr_ptr->magic_num1[i] = 0;
 				}
 #ifdef JP
@@ -1577,7 +1577,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 	ident = FALSE;
 
 	/* Object level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Assume the scroll will get used up */
 	used_up = TRUE;
@@ -2658,7 +2658,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
@@ -3185,7 +3185,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	energy_use = 100;
 
 	/* Get the level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
@@ -3562,7 +3562,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
  * Hack -- rods of perception/genocide can be "cancelled"
  * All rods can be cancelled at the "Direction?" prompt
  *
- * pvals are defined for each rod in k_info. -LM-
+ * pvals are defined for each rod in object_kind_info. -LM-
  */
 static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 {
@@ -3615,7 +3615,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Base chance of success */
 	chance = cr_ptr->skill_dev;
@@ -3668,7 +3668,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 		return;
 	}
 
-	k_ptr = &k_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	/* A single rod is still charging */
 	if ((o_ptr->number == 1) && (o_ptr->timeout))
@@ -3910,7 +3910,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Hack -- use artifact level instead */
 	if (object_is_fixed_artifact(o_ptr)) lev = a_info[o_ptr->name1].level;
@@ -5716,7 +5716,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					for (; i < EATER_EXT*3; i++)
 					{
 						int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
-						cr_ptr->magic_num1[i] -= ((cr_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : cr_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*k_info[k_idx].pval;
+						cr_ptr->magic_num1[i] -= ((cr_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : cr_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 						if (cr_ptr->magic_num1[i] < 0) cr_ptr->magic_num1[i] = 0;
 					}
 #ifdef JP
@@ -6728,7 +6728,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 	if (repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if (sn >= EATER_EXT*2 && !(cr_ptr->magic_num1[sn] > k_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (cr_ptr->magic_num2[sn] - 1) * EATER_ROD_CHARGE))
+		if (sn >= EATER_EXT*2 && !(cr_ptr->magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (cr_ptr->magic_num2[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
 		else if (sn < EATER_EXT*2 && !(cr_ptr->magic_num1[sn] < EATER_CHARGE))
 			return sn;
@@ -6920,7 +6920,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 				}
 				x1 = ((ctr < EATER_EXT/2) ? x : x + 40);
 				y1 = ((ctr < EATER_EXT/2) ? y + ctr : y + ctr - EATER_EXT/2);
-				level = (tval == TV_ROD ? k_info[k_idx].level * 5 / 6 - 5 : k_info[k_idx].level);
+				level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 				chance = level * 4 / 5 + 20;
 				chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
 				level /= 2;
@@ -6950,15 +6950,15 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 #else
 							       " %-22.22s   (%2d/%2d) %3d%%",
 #endif
-							       k_name + k_info[k_idx].name, 
+							       k_name + object_kind_info[k_idx].name, 
 							       cr_ptr->magic_num1[ctr+ext] ? 
-							       (cr_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * k_info[k_idx].pval) +1 : 0, 
+							       (cr_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
 							       cr_ptr->magic_num2[ctr+ext], chance));
-						if (cr_ptr->magic_num1[ctr+ext] > k_info[k_idx].pval * (cr_ptr->magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
+						if (cr_ptr->magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (cr_ptr->magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
 					}
 					else
 					{
-						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", k_name + k_info[k_idx].name, (s16b)(cr_ptr->magic_num1[ctr+ext]/EATER_CHARGE), cr_ptr->magic_num2[ctr+ext], chance));
+						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", k_name + object_kind_info[k_idx].name, (s16b)(cr_ptr->magic_num1[ctr+ext]/EATER_CHARGE), cr_ptr->magic_num2[ctr+ext], chance));
 						if (cr_ptr->magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
 					}
 				}
@@ -7106,9 +7106,9 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 
 				/* Prompt */
 #ifdef JP
-				(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", k_name + k_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", k_name + object_kind_info[lookup_kind(tval ,i)].name);
 #else
-				(void) strnfmt(tmp_val, 78, "Use %s?", k_name + k_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, "Use %s?", k_name + object_kind_info[lookup_kind(tval ,i)].name);
 #endif
 
 				/* Belay that order */
@@ -7116,7 +7116,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			}
 			if (tval == TV_ROD)
 			{
-				if (cr_ptr->magic_num1[ext+i]  > k_info[lookup_kind(tval, i)].pval * (cr_ptr->magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
+				if (cr_ptr->magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (cr_ptr->magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法はまだ充填している最中だ。");
@@ -7156,7 +7156,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			Term_erase(7, 21, 255);
 			Term_erase(7, 20, 255);
 
-			roff_to_buf(k_text + k_info[lookup_kind(tval, i)].text, 62, temp, sizeof(temp));
+			roff_to_buf(k_text + object_kind_info[lookup_kind(tval, i)].text, 62, temp, sizeof(temp));
 			for (j = 0, line = 21; temp[j]; j += 1 + strlen(&temp[j]))
 			{
 				prt(&temp[j], line, 10);
@@ -7219,7 +7219,7 @@ msg_print("混乱していて唱えられない！");
 	else {tval = TV_STAFF;sval = item;}
 	k_idx = lookup_kind(tval, sval);
 
-	level = (tval == TV_ROD ? k_info[k_idx].level * 5 / 6 - 5 : k_info[k_idx].level);
+	level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
 	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
 	level /= 2;
@@ -7275,6 +7275,6 @@ msg_print("呪文をうまく唱えられなかった！");
 		}
 	}
 	energy_use = 100;
-	if (tval == TV_ROD) cr_ptr->magic_num1[item] += k_info[k_idx].pval * EATER_ROD_CHARGE;
+	if (tval == TV_ROD) cr_ptr->magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
 	else cr_ptr->magic_num1[item] -= EATER_CHARGE;
 }

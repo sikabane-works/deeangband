@@ -3859,13 +3859,13 @@
  * Determine if a given inventory item is "aware"
  */
 #define object_is_aware(T) \
-    (k_info[(T)->k_idx].aware)
+    (object_kind_info[(T)->k_idx].aware)
 
 /*
  * Determine if a given inventory item is "tried"
  */
 #define object_is_tried(T) \
-    (k_info[(T)->k_idx].tried)
+    (object_kind_info[(T)->k_idx].tried)
 
 
 /*
@@ -3875,7 +3875,7 @@
  */
 #define object_is_known(T) \
     (((T)->ident & (IDENT_KNOWN)) || \
-     (k_info[(T)->k_idx].easy_know && k_info[(T)->k_idx].aware))
+     (object_kind_info[(T)->k_idx].easy_know && object_kind_info[(T)->k_idx].aware))
 
 
 /*
@@ -3884,11 +3884,11 @@
  * Default to user definitions.
  */
 #define object_attr(T) \
-	((k_info[(T)->k_idx].flavor) ? \
-	 (k_info[k_info[(T)->k_idx].flavor].x_attr) : \
+	((object_kind_info[(T)->k_idx].flavor) ? \
+	 (object_kind_info[object_kind_info[(T)->k_idx].flavor].x_attr) : \
 	 ((!(T)->k_idx || ((T)->tval != TV_CORPSE) || ((T)->sval != SV_CORPSE) || \
-	   (k_info[(T)->k_idx].x_attr != TERM_DARK)) ? \
-	  (k_info[(T)->k_idx].x_attr) : (species_info[(T)->pval].x_attr)))
+	   (object_kind_info[(T)->k_idx].x_attr != TERM_DARK)) ? \
+	  (object_kind_info[(T)->k_idx].x_attr) : (species_info[(T)->pval].x_attr)))
 
 /*
  * Return the "char" for a given item.
@@ -3896,9 +3896,9 @@
  * Default to user definitions.
  */
 #define object_char(T) \
-	((k_info[(T)->k_idx].flavor) ? \
-	 (k_info[k_info[(T)->k_idx].flavor].x_char) : \
-	 (k_info[(T)->k_idx].x_char))
+	((object_kind_info[(T)->k_idx].flavor) ? \
+	 (object_kind_info[object_kind_info[(T)->k_idx].flavor].x_char) : \
+	 (object_kind_info[(T)->k_idx].x_char))
 
 
 /*
@@ -6003,9 +6003,9 @@ extern int PlayerUID;
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
 
 
-#define GET_INVEN_SLOT_TYPE(CR, I) (k_info[(CR)->inventory[(I)].k_idx].slot)
+#define GET_INVEN_SLOT_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
 
-#define WIELD_SLOT(O) (k_info[(O)->k_idx].slot)
+#define WIELD_SLOT(O) (object_kind_info[(O)->k_idx].slot)
 
 #define IS_DEAD(CR) ((CR)->chp < 0)
 

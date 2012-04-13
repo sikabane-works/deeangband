@@ -310,7 +310,7 @@ static int get_coin_type(int species_idx)
  */
 static bool kind_is_cloak(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if (k_ptr->tval == TV_CLOAK)
@@ -328,7 +328,7 @@ static bool kind_is_cloak(int k_idx)
  */
 static bool kind_is_polearm(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if (k_ptr->tval == TV_POLEARM)
@@ -346,7 +346,7 @@ static bool kind_is_polearm(int k_idx)
  */
 static bool kind_is_sword(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if ((k_ptr->tval == TV_SWORD) && (k_ptr->sval > 2))
@@ -364,7 +364,7 @@ static bool kind_is_sword(int k_idx)
  */
 static bool kind_is_book(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if ((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK))
@@ -382,7 +382,7 @@ static bool kind_is_book(int k_idx)
  */
 static bool kind_is_good_book(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if ((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK) && (k_ptr->tval != TV_ARCANE_BOOK) && (k_ptr->sval > 1))
@@ -400,7 +400,7 @@ static bool kind_is_good_book(int k_idx)
  */
 static bool kind_is_armor(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if (k_ptr->tval == TV_HARD_ARMOR)
@@ -418,7 +418,7 @@ static bool kind_is_armor(int k_idx)
  */
 static bool kind_is_hafted(int k_idx)
 {
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
 	if (k_ptr->tval == TV_HAFTED)

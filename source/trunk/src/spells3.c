@@ -3171,10 +3171,10 @@ s = "魔力を充填すべきアイテムがない。";
 	}
 
 	/* Get the object kind. */
-	k_ptr = &k_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	/* Extract the object "level" */
-	lev = k_info[o_ptr->k_idx].level;
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 
 	/* Recharge a rod */
@@ -3755,7 +3755,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 	int     dam = 0;
 	bool    angry = FALSE;
 
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	switch (k_ptr->sval)
 	{
@@ -5620,8 +5620,8 @@ s = "魔力を吸収できるアイテムがありません。";
 		o_ptr = &object_list[0 - item];
 	}
 
-	k_ptr = &k_info[o_ptr->k_idx];
-	lev = k_info[o_ptr->k_idx].level;
+	k_ptr = &object_kind_info[o_ptr->k_idx];
+	lev = object_kind_info[o_ptr->k_idx].level;
 
 	if (o_ptr->tval == TV_ROD)
 	{

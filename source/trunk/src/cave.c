@@ -669,7 +669,7 @@ static void image_object(byte *ap, char *cp)
 {
 	if (use_graphics)
 	{
-		object_kind *k_ptr = &k_info[randint1(max_k_idx-1)];
+		object_kind *k_ptr = &object_kind_info[randint1(max_k_idx-1)];
 
 		*cp = k_ptr->x_char;
 		*ap = k_ptr->x_attr;
@@ -908,7 +908,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * and use the "*" symbol to indicate multiple objects, though this will
  * have to wait for Angband 2.8.0 or later.  Note that currently, this
  * is not important, since only one object or terrain feature is allowed
- * in each grid.  If needed, "k_info[0]" will hold the "stack" attr/char.
+ * in each grid.  If needed, "object_kind_info[0]" will hold the "stack" attr/char.
  *
  * Note the assumption that doing "x_ptr = &x_info[x]" plus a few of
  * "x_ptr->xxx", is quicker than "x_info[x].xxx", if this is incorrect

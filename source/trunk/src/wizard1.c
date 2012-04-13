@@ -285,7 +285,7 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 
 
 	/* Level */
-	(*lev) = k_info[q_ptr->k_idx].level;
+	(*lev) = object_kind_info[q_ptr->k_idx].level;
 
 	/* Value */
 	(*val) = object_value(q_ptr);
@@ -459,7 +459,7 @@ static void spoil_obj_desc(cptr fname)
 		/* Acquire legal item types */
 		for (k = 1; k < max_k_idx; k++)
 		{
-			object_kind *k_ptr = &k_info[k];
+			object_kind *k_ptr = &object_kind_info[k];
 
 			/* Skip wrong tval's */
 			if (k_ptr->tval != group_item[i].tval) continue;

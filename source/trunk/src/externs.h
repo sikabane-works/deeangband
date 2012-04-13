@@ -472,7 +472,7 @@ extern magic_table_type *m_info;
 extern feature_type *f_info;
 extern char *f_name;
 extern char *f_tag;
-extern object_kind *k_info;
+extern object_kind *object_kind_info;
 extern char *k_name;
 extern char *k_text;
 extern artifact_type *a_info;

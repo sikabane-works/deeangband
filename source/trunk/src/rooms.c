@@ -6022,7 +6022,7 @@ static bool vault_aux_shards(int species_idx)
  */
 static bool kind_is_potion(int k_idx)
 {
-	return k_info[k_idx].tval == TV_POTION;
+	return object_kind_info[k_idx].tval == TV_POTION;
 }
 
 /*

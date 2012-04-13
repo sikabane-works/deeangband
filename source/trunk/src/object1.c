@@ -51,7 +51,7 @@ void reset_visuals(void)
 	/* Extract default attr/char code for objects */
 	for (i = 0; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Default attr/char */
 		k_ptr->x_attr = k_ptr->d_attr;
@@ -105,7 +105,7 @@ void reset_visuals(void)
  */
 void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 {
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 	int i;
 
 	/* Base object */
@@ -215,7 +215,7 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 	bool spoil = FALSE;
 	int i;
 
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 	/* Clear */
 	for (i = 0; i < TR_FLAG_SIZE; i++)
@@ -2377,7 +2377,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 	/* Extract the description */
 	{
 		roff_to_buf(o_ptr->name1 ? (a_text + a_info[o_ptr->name1].text) :
-			    (k_text + k_info[o_ptr->k_idx].text),
+			    (k_text + object_kind_info[o_ptr->k_idx].text),
 			    77 - 15, temp, sizeof(temp));
 		for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
 		{ info[i] = &temp[j]; i++;}

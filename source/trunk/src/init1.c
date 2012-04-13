@@ -638,7 +638,7 @@ static cptr authority_str_id;
 /*
  * Object flags
  */
-static cptr k_info_flags[] =
+static cptr object_kind_info_flags[] =
 {
 	"STR",
 	"INT",
@@ -769,7 +769,7 @@ static cptr k_info_flags[] =
 };
 
 
-static cptr k_info_gen_flags[] =
+static cptr object_kind_info_gen_flags[] =
 {
 	"INSTA_ART",
 	"QUESTITEM",
@@ -1985,14 +1985,14 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TR_FLAG_MAX; i++)
 	{
-		if (streq(what, k_info_flags[i]))
+		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(k_ptr->flags, i);
 			return (0);
 		}
 	}
 
-	if (grab_one_flag(&k_ptr->gen_flags, k_info_gen_flags, what) == 0)
+	if (grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -2069,7 +2069,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 #define OBJECT_KIND_INFO_SLOT          26
 
 /*
- * Initialize the "k_info" array, by parsing an ascii "template" file
+ * Initialize the "object_kind_info" array, by parsing an ascii "template" file
  */
 static int object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
 
@@ -2127,12 +2127,12 @@ errr parse_object_kind_csv(char *buf, header *head)
 			switch(object_kind_info_csv_code[i])
 			{
 			case OBJECT_KIND_INFO_NAME:
-				if(!add_name(&k_info[n].name, head, tmp))
+				if(!add_name(&object_kind_info[n].name, head, tmp))
 					return (7);
 				break;
 
 			case OBJECT_KIND_INFO_UI_NAME:
-				if(!add_name(&k_info[n].flavospecies_name, head, tmp))
+				if(!add_name(&object_kind_info[n].flavospecies_name, head, tmp))
 					return (7);
 				break;
 
@@ -2143,11 +2143,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_KIND_INFO_SYMBOL:
-				k_info[n].d_char = (byte)tmp[0];
+				object_kind_info[n].d_char = (byte)tmp[0];
 				break;
 
 			case OBJECT_KIND_INFO_COLOR:
-				k_info[n].d_attr = color_char_to_attr(tmp[0]);
+				object_kind_info[n].d_attr = color_char_to_attr(tmp[0]);
 				break;
 
 			case OBJECT_KIND_INFO_TVAL:
@@ -2155,100 +2155,100 @@ errr parse_object_kind_csv(char *buf, header *head)
 				{
 					if(streq(tval_flags[j], tmp))
 					{
-						k_info[n].tval = j;
+						object_kind_info[n].tval = j;
 						break;
 					}
 				}
 				if(j > 127)
 				{
 					if(sscanf(tmp, "%d", &b) == 1)
-						k_info[n].tval = (byte)b;
+						object_kind_info[n].tval = (byte)b;
 					else
-						k_info[n].tval = 0;
+						object_kind_info[n].tval = 0;
 				}
 				break;
 
 			case OBJECT_KIND_INFO_SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].sval = (byte)b;
+					object_kind_info[n].sval = (byte)b;
 				else
-					k_info[n].sval = 0;
+					object_kind_info[n].sval = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].pval = (byte)b;
+					object_kind_info[n].pval = (byte)b;
 				else
-					k_info[n].pval = 0;
+					object_kind_info[n].pval = 0;
 				break;
 
 			case OBJECT_KIND_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].level = (byte)b;
+					object_kind_info[n].level = (byte)b;
 				else
-					k_info[n].level = 0;
+					object_kind_info[n].level = 0;
 				break;
 
 			case OBJECT_KIND_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].extra = (byte)b;
+					object_kind_info[n].extra = (byte)b;
 				else
-					k_info[n].extra = 0;
+					object_kind_info[n].extra = 0;
 				break;
 
 			case OBJECT_KIND_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].weight = (s16b)b;
+					object_kind_info[n].weight = (s16b)b;
 				else
-					k_info[n].weight = 0;
+					object_kind_info[n].weight = 0;
 				break;
 
 			case OBJECT_KIND_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].cost = (s32b)b;
+					object_kind_info[n].cost = (s32b)b;
 				else
-					k_info[n].cost = 0;
+					object_kind_info[n].cost = 0;
 				break;
 
 			case OBJECT_KIND_INFO_BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].ac = (byte)b;
+					object_kind_info[n].ac = (byte)b;
 				else
-					k_info[n].ac = 0;
+					object_kind_info[n].ac = 0;
 				break;
 
 			case OBJECT_KIND_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
-					k_info[n].dd = (byte)b;
-					k_info[n].ds = (byte)c;
+					object_kind_info[n].dd = (byte)b;
+					object_kind_info[n].ds = (byte)c;
 				}
 				else
 				{
-					k_info[n].dd = 0;
-					k_info[n].ds = 0;
+					object_kind_info[n].dd = 0;
+					object_kind_info[n].ds = 0;
 				}
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_h = (s16b)b;
+					object_kind_info[n].to_h = (s16b)b;
 				else
-					k_info[n].to_h = 0;
+					object_kind_info[n].to_h = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_d = (s16b)b;
+					object_kind_info[n].to_d = (s16b)b;
 				else
-					k_info[n].to_d = 0;
+					object_kind_info[n].to_d = 0;
 				break;
 
 			case OBJECT_KIND_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].to_a = (s16b)b;
+					object_kind_info[n].to_a = (s16b)b;
 				else
-					k_info[n].to_a = 0;
+					object_kind_info[n].to_a = 0;
 				break;
 
 			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
@@ -2256,10 +2256,10 @@ errr parse_object_kind_csv(char *buf, header *head)
 				for (j = 0, s = tmp; s; ++j)
 				{
 						/* Default chance */
-					k_info[n].chance[j] = 1;
+					object_kind_info[n].chance[j] = 1;
 
 						/* Store the attack damage index */
-					k_info[n].locale[j] = atoi(s+1);
+					object_kind_info[n].locale[j] = atoi(s+1);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -2271,7 +2271,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					if (t && (!s || t < s))
 					{
 						int chance = atoi(t+1);
-						if (chance > 0) k_info[n].chance[j] = chance;
+						if (chance > 0) object_kind_info[n].chance[j] = chance;
 					}
 				}
 				break;
@@ -2293,7 +2293,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&k_info[n], s))
+					if (0 != grab_one_kind_flag(&object_kind_info[n], s))
 						return (5);
 
 						/* Start the next entry */
@@ -2303,7 +2303,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OBJECT_KIND_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&k_info[n].text, head, tmp, TRUE))
+				if (!add_text(&object_kind_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
 
@@ -2315,16 +2315,16 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OBJECT_KIND_INFO_MIN_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].min_size = (s16b)b;
+					object_kind_info[n].min_size = (s16b)b;
 				else
-					k_info[n].min_size = 0;
+					object_kind_info[n].min_size = 0;
 				break;
 
 			case OBJECT_KIND_INFO_MAX_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					k_info[n].max_size = (s16b)b;
+					object_kind_info[n].max_size = (s16b)b;
 				else
-					k_info[n].max_size = 0;
+					object_kind_info[n].max_size = 0;
 				break;
 
 			case OBJECT_KIND_INFO_SLOT:
@@ -2332,7 +2332,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
-						k_info[n].slot = j;
+						object_kind_info[n].slot = j;
 						break;
 					}
 				}
@@ -2360,14 +2360,14 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TR_FLAG_MAX; i++)
 	{
-		if (streq(what, k_info_flags[i]))
+		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(a_ptr->flags, i);
 			return (0);
 		}
 	}
 
-	if (grab_one_flag(&a_ptr->gen_flags, k_info_gen_flags, what) == 0)
+	if (grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -2656,14 +2656,14 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TR_FLAG_MAX; i++)
 	{
-		if (streq(what, k_info_flags[i]))
+		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(e_ptr->flags, i);
 			return (0);
 		}
 	}
 
-	if (grab_one_flag(&e_ptr->gen_flags, k_info_gen_flags, what) == 0)
+	if (grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
 
 	/* Oops */

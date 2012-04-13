@@ -3939,7 +3939,7 @@ void do_cmd_visuals(void)
 			for (i = 0; i < max_k_idx; i++)
 			{
 				char o_name[80];
-				object_kind *k_ptr = &k_info[i];
+				object_kind *k_ptr = &object_kind_info[i];
 
 				/* Skip non-entries */
 				if (!k_ptr->name) continue;
@@ -4195,7 +4195,7 @@ void do_cmd_visuals(void)
 			/* Hack -- query until done */
 			while (1)
 			{
-				object_kind *k_ptr = &k_info[k];
+				object_kind *k_ptr = &object_kind_info[k];
 				char c;
 				int t;
 
@@ -4271,7 +4271,7 @@ void do_cmd_visuals(void)
 								break;
 							}
 						}
-						while (!k_info[k].name);
+						while (!object_kind_info[k].name);
 					}
 					break;
 				case 'a':
@@ -5705,7 +5705,7 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 	for (i = 0; i < max_k_idx; i++)
 	{
 		/* Access the object */
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip empty objects */
 		if (!k_ptr->name) continue;
@@ -7020,7 +7020,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 		{
 			for (j = 0; j < max_k_idx; j++)
 			{
-				object_kind *k_ptr = &k_info[j];
+				object_kind *k_ptr = &object_kind_info[j];
 
 				if ((k_ptr->tval == TV_SWORD - i) && (k_ptr->sval == num))
 				{
@@ -8380,7 +8380,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		int k_idx = object_idx[object_top + i];
 
 		/* Access the object */
-		object_kind *k_ptr = &k_info[k_idx];
+		object_kind *k_ptr = &object_kind_info[k_idx];
 
 		/* Choose a color */
 		byte attr = ((k_ptr->aware || visual_only) ? TERM_WHITE : TERM_SLATE);
@@ -8390,7 +8390,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		if (!visual_only && k_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &k_info[k_ptr->flavor];
+			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
 		}
 		else
 		{
@@ -8543,13 +8543,13 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	}
 	else
 	{
-		object_kind *k_ptr = &k_info[direct_k_idx];
+		object_kind *k_ptr = &object_kind_info[direct_k_idx];
 		object_kind *flavor_k_ptr;
 
 		if (!visual_only && k_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &k_info[k_ptr->flavor];
+			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
 		}
 		else
 		{
@@ -8660,12 +8660,12 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		}
 
 		/* Get the current object */
-		k_ptr = &k_info[object_idx[object_cur]];
+		k_ptr = &object_kind_info[object_idx[object_cur]];
 
 		if (!visual_only && k_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &k_info[k_ptr->flavor];
+			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
 		}
 		else
 		{

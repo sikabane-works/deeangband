@@ -1641,7 +1641,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	o_ptr->name2 = 0;
 
 	for (i = 0; i < TR_FLAG_SIZE; i++)
-		o_ptr->art_flags[i] |= k_info[o_ptr->k_idx].flags[i];
+		o_ptr->art_flags[i] |= object_kind_info[o_ptr->k_idx].flags[i];
 
 	if (o_ptr->pval) has_pval = TRUE;
 

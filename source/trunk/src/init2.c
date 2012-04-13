@@ -970,7 +970,7 @@ static errr init_object_kind_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("object_kind_info", &k_head, (void*)&k_info, &k_name, &k_text, NULL, NULL);
+	return init_info2("object_kind_info", &k_head, (void*)&object_kind_info, &k_name, &k_text, NULL, NULL);
 }
 
 
@@ -1637,7 +1637,7 @@ static errr init_object_alloc(void)
 	/* Scan the objects */
 	for (i = 1; i < max_k_idx; i++)
 	{
-		k_ptr = &k_info[i];
+		k_ptr = &object_kind_info[i];
 
 		/* Scan allocation pairs */
 		for (j = 0; j < 4; j++)
@@ -1682,7 +1682,7 @@ static errr init_object_alloc(void)
 	/* Scan the objects */
 	for (i = 1; i < max_k_idx; i++)
 	{
-		k_ptr = &k_info[i];
+		k_ptr = &object_kind_info[i];
 
 		/* Scan allocation pairs */
 		for (j = 0; j < 4; j++)

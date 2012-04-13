@@ -194,7 +194,7 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 			}
 
 			/* Acquire this kind */
-			k_ptr = &k_info[table[j].index];
+			k_ptr = &object_kind_info[table[j].index];
 
 			/* Accumulate probabilities */
 			total[i] += prob / (GREAT_OBJ * K_MAX_DEPTH);
@@ -532,7 +532,7 @@ static void wiz_display_item(object_type *o_ptr)
 	prt(buf, 2, j);
 
 	prt(format("kind = %-5d  level = %-4d  tval = %-5d  sval = %-5d",
-		   o_ptr->k_idx, k_info[o_ptr->k_idx].level,
+		   o_ptr->k_idx, object_kind_info[o_ptr->k_idx].level,
 		   o_ptr->tval, o_ptr->sval), 4, j);
 
 	prt(format("number = %-3d  wgt = %-6d  ac = %-5d    damage = %dd%d",
@@ -662,7 +662,7 @@ void strip_name(char *buf, int k_idx)
 {
 	char *t;
 
-	object_kind *k_ptr = &k_info[k_idx];
+	object_kind *k_ptr = &object_kind_info[k_idx];
 
 	cptr str = (k_name + k_ptr->name);
 
@@ -746,7 +746,7 @@ static int wiz_create_itemtype(void)
 	/* We have to search the whole itemlist. */
 	for (num = 0, i = 1; (num < 80) && (i < max_k_idx); i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Analyze matching items */
 		if (k_ptr->tval == tval)
@@ -1358,7 +1358,7 @@ static void wiz_create_item(creature_type *cr_ptr)
 	/* Return if failed */
 	if (!k_idx) return;
 
-	if (k_info[k_idx].gen_flags & TRG_INSTA_ART)
+	if (object_kind_info[k_idx].gen_flags & TRG_INSTA_ART)
 	{
 		int i;
 
@@ -1366,10 +1366,10 @@ static void wiz_create_item(creature_type *cr_ptr)
 		for (i = 1; i < max_a_idx; i++)
 		{
 			/* Ignore incorrect tval */
-			if (a_info[i].tval != k_info[k_idx].tval) continue;
+			if (a_info[i].tval != object_kind_info[k_idx].tval) continue;
 
 			/* Ignore incorrect sval */
-			if (a_info[i].sval != k_info[k_idx].sval) continue;
+			if (a_info[i].sval != object_kind_info[k_idx].sval) continue;
 
 			/* Create this artifact */
 			(void)drop_named_art(cr_ptr, i, cr_ptr->fy, cr_ptr->fx);
@@ -1683,7 +1683,7 @@ static void do_cmd_wiz_learn(void)
 	/* Scan every object */
 	for (i = 1; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Induce awareness */
 		if (k_ptr->level <= command_arg)

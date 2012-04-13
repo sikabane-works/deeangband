@@ -16,7 +16,7 @@
  */
 static bool object_easy_know(int i)
 {
-	object_kind *k_ptr = &k_info[i];
+	object_kind *k_ptr = &object_kind_info[i];
 
 	/* Analyze the "tval" */
 	switch (k_ptr->tval)
@@ -204,7 +204,7 @@ static void shuffle_flavors(byte tval)
 	/* Search objects with given tval for shuffle */
 	for (i = 0; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip non-Rings */
 		if (k_ptr->tval != tval) continue;
@@ -225,8 +225,8 @@ static void shuffle_flavors(byte tval)
 	/* Shuffle flavors */
 	for (i = 0; i < k_idx_list_num; i++)
 	{
-		object_kind *k1_ptr = &k_info[k_idx_list[i]];
-		object_kind *k2_ptr = &k_info[k_idx_list[randint0(k_idx_list_num)]];
+		object_kind *k1_ptr = &object_kind_info[k_idx_list[i]];
+		object_kind *k2_ptr = &object_kind_info[k_idx_list[randint0(k_idx_list_num)]];
 
 		/* Swap flavors of this pair */
 		s16b tmp = k1_ptr->flavor;
@@ -239,7 +239,7 @@ static void shuffle_flavors(byte tval)
 }
 
 /*
- * Prepare the "variable" part of the "k_info" array.
+ * Prepare the "variable" part of the "object_kind_info" array.
  *
  * The "color"/"metal"/"type" of an item is its "flavor".
  * For the most part, flavors are assigned randomly each game.
@@ -283,7 +283,7 @@ void flavor_init(void)
 	/* Initialize flavor index of each object by itself */
 	for (i = 0; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip objects without flavor name */
 		if (!k_ptr->flavospecies_name) continue;
@@ -326,7 +326,7 @@ void flavor_init(void)
 	/* Analyze every object */
 	for (i = 1; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip "empty" objects */
 		if (!k_ptr->name) continue;
@@ -956,7 +956,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji,
 	/* Remove obvious flags */
 	if (!all)
 	{
-		object_kind *k_ptr = &k_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 		int j;
 				
 		/* Base object */
@@ -1179,12 +1179,12 @@ static void get_inscription(char *buff, object_type *o_ptr)
  * The "Specials" never use "modifiers" if they are "known", since they
  * have special "descriptions", such as "The Necklace of the Dwarves".
  *
- * Special Lite's use the "k_info" base-name (Phial, Star, or Arkenstone),
+ * Special Lite's use the "object_kind_info" base-name (Phial, Star, or Arkenstone),
  * plus the artifact name, just like any other artifact, if known.
  *
  * Special Ring's and Amulet's, if not "aware", use the same code as normal
- * rings and amulets, and if "aware", use the "k_info" base-name (Ring or
- * Amulet or Necklace).  They will NEVER "append" the "k_info" name.  But,
+ * rings and amulets, and if "aware", use the "object_kind_info" base-name (Ring or
+ * Amulet or Necklace).  They will NEVER "append" the "object_kind_info" name.  But,
  * they will append the artifact name, just like any artifact, if known.
  *
  * Hack -- Display "The One Ring" as "a Plain Gold Ring" until aware.
@@ -1204,7 +1204,7 @@ static void get_inscription(char *buff, object_type *o_ptr)
 void object_desc(char *buf, object_type *o_ptr, u32b mode)
 {
 	/* Extract object kind name */
-	cptr            kindname = k_name + k_info[o_ptr->k_idx].name;
+	cptr            kindname = k_name + object_kind_info[o_ptr->k_idx].name;
 
 	/* Extract default "base" string */
 	cptr            basenm = kindname;
@@ -1237,8 +1237,8 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
 	//object_type *bow_ptr;
 
-	object_kind *k_ptr = &k_info[o_ptr->k_idx];
-	object_kind *flavor_k_ptr = &k_info[k_ptr->flavor];
+	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+	object_kind *flavor_k_ptr = &object_kind_info[k_ptr->flavor];
 
 	/* Extract some flags */
 	object_flags(o_ptr, flgs);
@@ -1757,7 +1757,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 
-	/* Use full name from k_info or a_info */
+	/* Use full name from object_kind_info or a_info */
 	if (aware && have_flag(flgs, TR_FULL_NAME))
 	{
 		if (known && o_ptr->name1) basenm = a_name + a_info[o_ptr->name1].name;

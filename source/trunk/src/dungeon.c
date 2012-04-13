@@ -104,14 +104,14 @@ static int select_unique_species(void)
 	return get_selection(se, unique_num, 2, 2, 20, 76, NULL);
 }
 
-static void k_info_reset(void)
+static void object_kind_info_reset(void)
 {
 	int i;
 
 	/* Reset the "objects" */
 	for (i = 1; i < max_k_idx; i++)
 	{
-		object_kind *k_ptr = &k_info[i];
+		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Reset "tried" */
 		k_ptr->tried = FALSE;
@@ -3336,7 +3336,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
-		object_kind *k_ptr = &k_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -3677,7 +3677,7 @@ static byte get_dungeon_feeling(void)
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
-		object_kind *k_ptr = &k_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 		int delta = 0;
 
 		/* Skip dead objects */
@@ -6887,7 +6887,7 @@ static void new_game_setting(void)
 	world_wipe();
 
 	// Initialize Item Awareness
-	k_info_reset();
+	object_kind_info_reset();
 
 	/* 
 	 * Wipe monsters in old dungeon
