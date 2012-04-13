@@ -7227,16 +7227,6 @@ void play_game(bool new_game)
 
 	}
 
-	creating_savefile = FALSE;
-
-	player_ptr->teleport_town = FALSE;
-	player_ptr->sutemi = FALSE;
-	the_world = FALSE;
-	player_ptr->now_damaged = FALSE;
-	now_message = 0;
-	start_time = (u32b)time(NULL) - 1;
-	record_o_name[0] = '\0';
-
 	/* Reset map panel */
 	panel_row_min = cur_hgt;
 	panel_col_min = cur_wid;
@@ -7369,7 +7359,6 @@ void play_game(bool new_game)
 
 	/* Window stuff */
 	window_stuff();
-
 
 	/* Set or clear "rogue_like_commands" if requested */
 	if (arg_force_original) rogue_like_commands = FALSE;
@@ -7592,5 +7581,11 @@ void world_wipe()
 	wilderness[53][96].known = TRUE;
 	wilderness[53][97].known = TRUE;
 	wilderness[53][98].known = TRUE;
+
+	creating_savefile = FALSE;
+	the_world = FALSE;
+	now_message = 0;
+	start_time = (u32b)time(NULL) - 1;
+	record_o_name[0] = '\0';
 
 }
