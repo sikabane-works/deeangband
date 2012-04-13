@@ -6231,13 +6231,6 @@ static void dungeon(bool load_game)
 		//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
 	}
 
-	/* Track maximum player level */
-	if (player_ptr->max_plv < player_ptr->lev)
-	{
-		player_ptr->max_plv = player_ptr->lev;
-	}
-
-
 	/* Track maximum dungeon level (if not in quest -KMW-) */
 	if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
 	{
@@ -7009,10 +7002,8 @@ static void play_loop(void)
 		/* Cancel the health bar */
 		health_track(0);
 
-		/* Forget the lite */
+		// Forget the lite and view
 		forget_lite();
-
-		/* Forget the view */
 		forget_view();
 
 		/* Forget the view */

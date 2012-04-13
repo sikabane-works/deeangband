@@ -2951,7 +2951,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	species_type *species_ptr = &species_info[cr_ptr->species_idx];
 
-
 	/* Clear extra blows/shots */
 	extra_blows[0] = extra_blows[1] = extra_shots = 0;
 
