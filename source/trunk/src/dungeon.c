@@ -6761,6 +6761,39 @@ static void new_game_setting(void)
 
 }
 
+static void accidental_death(void)
+{
+	if (inside_arena)
+	{
+		inside_arena = FALSE;
+
+		if (arena_number > MAX_ARENA_MONS)
+			arena_number++;
+		else
+			arena_number = -1 - arena_number;
+
+		gameover = FALSE;
+		player_ptr->chp = 0;
+		player_ptr->chp_frac = 0;
+		arena_settled = TRUE;
+		reset_tim_flags(player_ptr);
+
+		prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
+
+		leave_floor(player_ptr); // prepare next floor
+	}
+	else
+	{
+		// Mega-Hack -- Allow player to cheat death
+#ifdef JP
+		if ((wizard || cheat_live) && !get_check("Ž€‚É‚Ü‚·‚©? ")) cheat_death();
+#else
+		if ((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
+#endif
+	}
+}
+
+
 static void play_loop(void)
 {
 	bool load_game = TRUE;
@@ -6956,37 +6989,7 @@ static void play_loop(void)
 		load_game = FALSE;
 
 		// Accidental Death
-		if (playing && gameover)
-		{
-			if (inside_arena)
-			{
-				inside_arena = FALSE;
-
-				if (arena_number > MAX_ARENA_MONS)
-					arena_number++;
-				else
-					arena_number = -1 - arena_number;
-
-				gameover = FALSE;
-				player_ptr->chp = 0;
-				player_ptr->chp_frac = 0;
-				arena_settled = TRUE;
-				reset_tim_flags(player_ptr);
-
-				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
-
-				leave_floor(player_ptr); // prepare next floor
-			}
-			else
-			{
-				// Mega-Hack -- Allow player to cheat death
-#ifdef JP
-				if ((wizard || cheat_live) && !get_check("Ž€‚É‚Ü‚·‚©? ")) cheat_death();
-#else
-				if ((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
-#endif
-			}
-		}
+		if (playing && gameover) accidental_death();
 
 		// Handle GameOver
 		if (gameover) break;
