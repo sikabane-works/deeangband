@@ -1648,14 +1648,10 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool now_riding)
 {
 	bool p_can_enter;
-	bool old_character_xtra = character_xtra;
 	int  old_riding = cr_ptr->riding;
 	bool old_riding_two_handed = cr_ptr->riding_two_handed;
 	bool old_old_riding_two_handed = cr_ptr->old_riding_two_handed;
 	bool old_pf_two_handed = (cr_ptr->pet_extra_flags & PF_RYOUTE) ? TRUE : FALSE;
-
-	/* Hack -- prevent "icky" message */
-	character_xtra = TRUE;
 
 	if (now_riding) cr_ptr->riding = c_ptr->creature_idx;
 	else
@@ -1676,8 +1672,6 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	cr_ptr->old_riding_two_handed = old_old_riding_two_handed;
 
 	calc_bonuses(cr_ptr, TRUE);
-
-	character_xtra = old_character_xtra;
 
 	return p_can_enter;
 }

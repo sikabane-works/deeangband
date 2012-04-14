@@ -618,7 +618,7 @@ errr process_pref_file_command(char *buf)
 				int os = option_info[i].o_set;
 				int ob = option_info[i].o_bit;
 
-				if ((playing || character_xtra) &&
+				if ((playing) &&
 					(OPT_PAGE_BIRTH == option_info[i].o_page) && !wizard)
 				{
 #ifdef JP
@@ -7819,17 +7819,11 @@ errr process_histpref_file(cptr name)
 {
 	char buf[1024];
 	errr err = 0;
-	bool old_character_xtra = character_xtra;
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
 
-	/* Hack -- prevent modification birth options in this file */
-	character_xtra = TRUE;
-
 	err = process_pref_file_aux(buf, PREF_TYPE_HISTPREF);
-
-	character_xtra = old_character_xtra;
 
 	/* Result */
 	return (err);

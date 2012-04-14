@@ -6234,41 +6234,22 @@ static void dungeon(bool load_game)
 	/* Flush messages */
 	msg_print(NULL);
 
-
-	/* Enter "xtra" mode */
-	character_xtra = TRUE;
-
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
-
-	/* Redraw dungeon */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
-
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
-	/* Update stuff */
+	// Update stuff
 	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 
-	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
-
-	// Update creatures
-	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+	// Update lite/view
+	update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 	/* Handle "update" and "play_redraw" and "play_window" */
 	handle_stuff();
 
-	/* Leave "xtra" mode */
-	character_xtra = FALSE;
-
 	/* Update stuff */
-	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
-	/* Combine / Reorder the pack */
-	player_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-
-	/* Handle "player_ptr->creature_update" */
+	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 	notice_stuff(player_ptr);
 
 	/* Handle "update" and "play_redraw" and "play_window" */
@@ -6291,7 +6272,7 @@ static void dungeon(bool load_game)
 		else
 		{
 #ifdef JP
-msg_print("試合開始！");
+			msg_print("試合開始！");
 #else
 			msg_format("Ready..Fight!");
 #endif
@@ -6311,6 +6292,7 @@ msg_print("試合開始！");
 		quest_discovery(random_quest_number(dun_level));
 		inside_quest = random_quest_number(dun_level);
 	}
+
 	if ((dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
 	{
 		if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
@@ -6965,19 +6947,13 @@ static void play_loop(void)
 	/* Process */
 	while (TRUE)
 	{
-		/* Process the level */
-		dungeon(load_game);
+		dungeon(load_game);             // Process the level
 
 		/* Handle "player_ptr->creature_update" */
 		notice_stuff(player_ptr);
 
-		/* Hack -- prevent "icky" message */
-		character_xtra = TRUE;
-
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
-
-		character_xtra = FALSE;
 
 		/* Cancel the target */
 		target_who = 0;

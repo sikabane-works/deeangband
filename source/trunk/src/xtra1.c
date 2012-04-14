@@ -2013,9 +2013,6 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	/* Hack -- wait for creation */
 	if (!character_generated) return;
 
-	/* Hack -- handle "xtra" mode */
-	if (character_xtra) return;
-
 	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 	{
 		cr_ptr->new_spells = 0;
@@ -2594,10 +2591,6 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		play_window |= (PW_PLAYER);
 		play_window |= (PW_SPELL);
 	}
-
-
-	/* Hack -- handle "xtra" mode */
-	if (character_xtra) return;
 
 	/* Take note when "glove state" changes */
 	if (cr_ptr->old_cumber_glove != cr_ptr->cumber_glove)
@@ -5390,12 +5383,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	cr_ptr->balance_rank = calc_rank(cr_ptr->balance);
 
-
-
-
-	/* Hack -- handle "xtra" mode */
-	if (character_xtra) return;
-
 	/* Take note when "heavy bow" changes */
 	if (cr_ptr->old_heavy_shoot != cr_ptr->heavy_shoot)
 	{
@@ -5661,7 +5648,6 @@ void notice_stuff(creature_type *cr_ptr)
 {
 	/* Notice stuff */
 	if (!cr_ptr->creature_update) return;
-
 
 	/* Actually do auto-destroy */
 	if (cr_ptr->creature_update & (CRN_AUTODESTROY))

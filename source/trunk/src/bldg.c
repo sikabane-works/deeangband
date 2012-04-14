@@ -3405,7 +3405,6 @@ static bool compare_weapons(creature_type *cr_ptr)
 	object_type *i_ptr;
 	cptr q, s;
 	int row = 2;
-	bool old_character_xtra = character_xtra;
 
 	screen_save();
 	/* Clear the screen */
@@ -3465,13 +3464,8 @@ s = "”ä‚×‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	if (o1_ptr != i_ptr)
 		object_copy(i_ptr, o1_ptr);
 
-	/* Hack -- prevent "icky" message */
-	character_xtra = TRUE;
-
 	/* Get the new values */
 	calc_bonuses(cr_ptr, TRUE);
-
-	character_xtra = old_character_xtra;
 
 	/* List the new values */
 	list_weapon(cr_ptr, o1_ptr, row, 2);
@@ -3483,13 +3477,8 @@ s = "”ä‚×‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	else
 		object_copy(i_ptr, &orig_weapon);
 
-	/* Hack -- prevent "icky" message */
-	character_xtra = TRUE;
-
 	/* Get the new values */
 	calc_bonuses(cr_ptr, TRUE);
-
-	character_xtra = old_character_xtra;
 
 	/* List the new values */
 	list_weapon(cr_ptr, o2_ptr, row, 40);

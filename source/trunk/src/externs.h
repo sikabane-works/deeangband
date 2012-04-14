@@ -148,7 +148,6 @@ extern bool character_dungeon;
 extern bool character_loaded;
 extern bool character_saved;
 extern bool character_icky;
-extern bool character_xtra;
 extern bool creating_savefile;
 extern u32b seed_flavor;
 extern u32b seed_town;
