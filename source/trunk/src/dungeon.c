@@ -6181,60 +6181,49 @@ static void dungeon(bool load_game)
 {
 	int quest_num = 0;
 
-	base_level = dun_level; 	// Set the base level
+	base_level = dun_level; 	   // Set the base level
+	subject_change_floor = FALSE;  // Not leaving
 
-	/* Not leaving */
-	subject_change_floor = FALSE;
-
-	/* Reset the "command" vars */
+	// Reset the "command" vars
 	command_cmd = 0;
-
-#if 0 /* Don't reset here --- It's used for Arena */
-	command_new = 0;
-#endif
-
 	command_rep = 0;
 	command_arg = 0;
 	command_dir = 0;
 
-
-	/* Cancel the target */
+	// Cancel the target
 	target_who = 0;
 	pet_t_m_idx = 0;
 	riding_t_m_idx = 0;
 	ambush_flag = FALSE;
 
-	/* Cancel the health bar */
+	// Cancel the health bar
 	health_track(0);
 
-	/* Check visual effects */
+	// Check visual effects 
 	shimmer_creatures = TRUE;
 	shimmer_objects = TRUE;
 	repair_creatures = TRUE;
 	repair_objects = TRUE;
 
-
-	/* Disturb */
+	// Disturb
 	disturb(player_ptr, 1, 0);
 
-	/* Get index of current quest (if any) */
+	// Get index of current quest (if any)
 	quest_num = quest_number(dun_level);
 
-	/* Inside a quest? */
+	// Inside a quest?
 	if (quest_num)
 	{
 		/* Mark the quest monster */
 		//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
 	}
 
-	/* Track maximum dungeon level (if not in quest -KMW-) */
+	// Track maximum dungeon level (if not in quest -KMW-)
 	if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
 	{
 		max_dlv[dungeon_type] = dun_level;
 		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
 	}
-
-	(void)calculate_upkeep(player_ptr);
 
 	/* Validate the panel */
 	panel_bounds_center();
