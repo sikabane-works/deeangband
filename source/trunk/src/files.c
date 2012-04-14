@@ -6720,7 +6720,6 @@ msg_print("自動セーブ中");
 	(void)strcpy(gameover_from, "(saved)");
 #endif
 
-
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
@@ -6755,17 +6754,11 @@ msg_print("自動セーブ中");
 	(void)strcpy(gameover_from, "(alive and well)");
 #endif
 
-	/* HACK -- don't get sanity blast on updating view */
-	hack_mind = FALSE;
-
 	/* Update stuff */
 	//TODO update_creature(creature_ptr, TRUE);
 
 	/* Initialize monster process */
 	mproc_init();
-
-	/* HACK -- reset the hackish flag */
-	hack_mind = TRUE;
 }
 
 

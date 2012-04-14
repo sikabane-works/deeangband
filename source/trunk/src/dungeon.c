@@ -6181,11 +6181,7 @@ static void dungeon(bool load_game)
 {
 	int quest_num = 0;
 
-	/* Set the base level */
-	base_level = dun_level;
-
-	/* Reset various flags */
-	hack_mind = FALSE;
+	base_level = dun_level; 	// Set the base level
 
 	/* Not leaving */
 	subject_change_floor = FALSE;
@@ -6349,8 +6345,6 @@ msg_print("‡ŠJnI");
 
 	/* Reset the object generation level */
 	object_level = base_level;
-
-	hack_mind = TRUE;
 
 	if (player_ptr->energy_need > 0 && !monster_arena_mode &&
 		(dun_level || subject_change_dungeon || inside_arena))

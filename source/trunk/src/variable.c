@@ -156,8 +156,6 @@ bool repair_creatures;	/* Hack -- optimize detect monsters */
 bool repair_objects;	/* Hack -- optimize detect objects */
 
 s16b inven_nxt;			/* Hack -- unused */
-bool hack_mind;
-
 
 s16b object_max = 1;			/* Number of allocated objects */
 s16b object_cnt = 0;			/* Number of live objects */

@@ -2598,7 +2598,6 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		else power *= 2;
 
 		if (!is_in_this_floor(m_ptr)) return;
-		if (!hack_mind) return; // No effect yet, just loaded...
 		if (!m_ptr->ml) return; // Cannot see it for some reason
 		if (!has_cf_creature(m_ptr, CF_ELDRITCH_HORROR)) return; // oops
 		if (is_pet(player_ptr, m_ptr)) return; // Pet eldritch horrors are safe most of the time
