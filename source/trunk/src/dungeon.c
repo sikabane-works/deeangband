@@ -6330,79 +6330,72 @@ static void dungeon(bool load_game)
 	/* Main loop */
 	while (TRUE)
 	{
-		/* Hack -- Compact the monster list occasionally */
+		// Hack -- Compact and Compress the creature & object list occasionally
+		/*
 		if ((creature_cnt + 32 > max_creature_idx) && !monster_arena_mode) compact_creatures(64);
-
-		/* Hack -- Compress the monster list occasionally */
 		if ((creature_cnt + 32 < creature_max) && !monster_arena_mode) compact_creatures(0);
-
-
-		/* Hack -- Compact the object list occasionally */
 		if (object_cnt + 32 > max_object_idx) compact_objects(64);
-
-		/* Hack -- Compress the object list occasionally */
 		if (object_cnt + 32 < object_max) compact_objects(0);
+		*/
 
-
-		/* Process the player */
+		// Process the player
 		process_player(player_ptr);
 
-		/* Handle "player_ptr->creature_update" */
+		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
 
-		/* Handle "update" and "play_redraw" and "play_window" */
+		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff();
 
-		/* Hack -- Hilite the player */
+		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
-		/* Optional fresh */
+		// Optional fresh//
 		if (fresh_after) Term_fresh();
 
-		/* Hack -- Notice death or departure */
+		// Hack -- Notice death or departure
 		if (!playing || gameover) break;
 
 		// Process all of the monsters in this floor.
 		process_creatures();
 
-		/* Handle "player_ptr->creature_update" */
+		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
 
-		/* Handle "update" and "play_redraw" and "play_window" */
+		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff();
 
-		/* Hack -- Hilite the player */
+		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
-		/* Optional fresh */
+		// Optional fresh
 		if (fresh_after) Term_fresh();
 
-		/* Hack -- Notice death or departure */
+		// Hack -- Notice death or departure
 		if (!playing || gameover) break;
 
-
-		/* Process the world */
+		// Process the world
 		process_world(player_ptr);
 
-		/* Handle "player_ptr->creature_update" */
+		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
 
-		/* Handle "update" and "play_redraw" and "play_window" */
+		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff();
 
-		/* Hack -- Hilite the player */
+		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
-		/* Optional fresh */
+		// Optional fresh
 		if (fresh_after) Term_fresh();
 
-		/* Hack -- Notice death or departure */
+		// Hack -- Notice death or departure
 		if (!playing || gameover) break;
 
-		/* Handle "leaving" */
+		// Handle "leaving"
 		if (subject_change_floor) break;
 
-		/* Count game turns */
+		// Count game turns
 		turn++;
 
 		if (dungeon_turn < dungeon_turn_limit)
@@ -6416,14 +6409,14 @@ static void dungeon(bool load_game)
 		if (wild_regen) wild_regen--;
 	}
 
-	/* Inside a quest and non-unique questor? */
+	// Inside a quest and non-unique questor?
 	if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
 	{
-		/* Un-mark the quest monster */
-		//TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
+		// Un-mark the quest monster
+		// TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
 	}
 
-	/* Not save-and-quit and not dead? */
+	// Not save-and-quit and not dead?
 	if (playing && !gameover)
 	{
 		/*
@@ -6432,11 +6425,11 @@ static void dungeon(bool load_game)
 		 */
 		leave_floor(player_ptr);
 
-		/* Forget the flag */
+		// Forget the flag
 		reinit_wilderness = FALSE;
 	}
 
-	/* Write about current level on the play record once per level */
+	// Write about current level on the play record once per level
 	write_level = TRUE;
 }
 
