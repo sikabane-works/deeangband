@@ -1024,6 +1024,8 @@ struct race_type
 
 	creature_flags p_flags;
 	creature_flags h_flags;
+
+	char symbol;
 	
 	/*    byte choice_xtra;   */
 };

@@ -4575,6 +4575,7 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SYM:
+				race_info[n].symbol = tmp[0];
 				break;
 
 			case RC_INFO_AGE:

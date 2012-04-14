@@ -5917,6 +5917,8 @@ bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode
 	bool pet = (bool)(mode & PM_FORCE_PET);
 	if (!pet) mode |= PM_NO_PET;
 
+	//race_info[cr_ptr->race_idx1].s
+
 	switch (cr_ptr->mimic_form)
 	{
 	case MIMIC_NONE:
