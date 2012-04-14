@@ -1431,7 +1431,7 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 	if (old_friend_align != friend_align) player_ptr->creature_update |= (CRU_BONUS);
 }
 
-int calculate_upkeep(creature_type *cr_ptr)
+int calculate_upkeep_servant(creature_type *cr_ptr)
 {
 	s32b old_friend_align = friend_align;
 	int m_idx;
@@ -2606,7 +2606,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 				break;
 			}
 			do_cmd_pet_dismiss(cr_ptr);
-			(void)calculate_upkeep(cr_ptr);
+			(void)calculate_upkeep_servant(cr_ptr);
 			break;
 		}
 		case PET_TARGET:

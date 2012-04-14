@@ -1981,7 +1981,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÄ‚«Å‚ª‚µ‚½I", o_name);
 		regen_amount = regen_amount * 2;
 	}
 
-	upkeep_factor = calculate_upkeep(cr_ptr);
+	upkeep_factor = calculate_upkeep_servant(cr_ptr);
 
 	/* No regeneration while special action */
 	if ((cr_ptr->action == ACTION_LEARN) ||
@@ -2014,7 +2014,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÄ‚«Å‚ª‚µ‚½I", o_name);
 			msg_print(NULL);
 			do_cmd_pet_dismiss(cr_ptr);
 
-			upkeep_factor = calculate_upkeep(cr_ptr);
+			upkeep_factor = calculate_upkeep_servant(cr_ptr);
 
 #ifdef JP
 			msg_format("ˆÛ‚l‚o‚Í %d%%", upkeep_factor);

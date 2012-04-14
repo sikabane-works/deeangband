@@ -7382,7 +7382,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 		}
 	}
 
-	show_upkeep = calculate_upkeep(master_ptr);
+	show_upkeep = calculate_upkeep_servant(master_ptr);
 
 	fprintf(fff, "----------------------------------------------\n");
 #ifdef JP
