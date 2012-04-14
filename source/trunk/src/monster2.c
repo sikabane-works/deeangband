@@ -1289,7 +1289,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_KIN:
 		{
-			okay = ((r_ptr->d_char == summon_kin_type) && (species_idx != MON_HAGURE));
+			okay = TRUE;
 			break;
 		}
 
@@ -4883,7 +4883,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	m_idx = cave[y][x].creature_idx;
 
 	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
-	summon_kin_type = r_ptr->d_char;
+	//summon_kin_type = r_ptr->d_char;
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
@@ -5000,9 +5000,9 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 		if (alloc_horde(player_ptr, y, x))
 		{
 #ifdef JP
-			if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
+	//		if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
 #else
-			if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
+	//		if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
 #endif
 
 			return (TRUE);

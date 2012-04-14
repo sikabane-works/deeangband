@@ -203,8 +203,7 @@ extern s32b friend_ethics;
 extern int leaving_quest;
 extern bool reinit_wilderness;
 extern bool multi_rew;
-extern char summon_kin_type;
-
+	
 /*
  * Software options (set via the '=' command).  See "tables.c"
  */

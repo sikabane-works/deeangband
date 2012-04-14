@@ -3770,7 +3770,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 				break;
 
 			default:
-				summon_kin_type = r_ptr->d_char; /* Big hack */
+				//summon_kin_type = r_ptr->d_char; /* Big hack */
 
 				for (k = 0; k < 4; k++)
 				{

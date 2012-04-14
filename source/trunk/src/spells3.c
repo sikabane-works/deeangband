@@ -5915,107 +5915,26 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode)
 {
 	bool pet = (bool)(mode & PM_FORCE_PET);
+	char kin_symbol;
 	if (!pet) mode |= PM_NO_PET;
-
-	//race_info[cr_ptr->race_idx1].s
 
 	switch (cr_ptr->mimic_form)
 	{
 	case MIMIC_NONE:
 		switch (cr_ptr->race_idx1)
-		{
-			case RACE_HUMAN:
-			case RACE_AMBERITE:
-			case RACE_BARBARIAN:
-			case RACE_BEASTMAN:
-			case RACE_DUNADAN:
-				summon_kin_type = 'p';
-				break;
-			case RACE_ELF:
-			case RACE_HOBBIT:
-			case RACE_GNOME:
-			case RACE_DWARF:
-			case RACE_ELDAR:
-			case RACE_NIBELUNG:
-			case RACE_DARK_ELF:
-			case RACE_MIND_FLAYER:
-			case RACE_KUTAR:
-			case RACE_S_FAIRY:
-				summon_kin_type = 'h';
-				break;
-			case RACE_ORC:
-				summon_kin_type = 'o';
-				break;
-			case RACE_TROLL:
-				summon_kin_type = 'T';
-				break;
-			case RACE_OGRE:
-				summon_kin_type = 'O';
-				break;
-			case RACE_GIANT:
-			case RACE_TITAN:
-			case RACE_CYCLOPS:
-				summon_kin_type = 'P';
-				break;
-			case RACE_YEEK:
-				summon_kin_type = 'y';
-				break;
-			case RACE_KLACKON:
-				summon_kin_type = 'K';
-				break;
-			case RACE_KOBOLD:
-				summon_kin_type = 'k';
-				break;
-			case RACE_IMP:
-				if (one_in_(13)) summon_kin_type = 'U';
-				else summon_kin_type = 'u';
-				break;
-			case RACE_DRACONIAN:
-				summon_kin_type = 'd';
-				break;
-			/*
-			case SKELETON:
-				if (one_in_(13)) summon_kin_type = 'L';
-				else summon_kin_type = 's';
-				break;
-			case ZOMBIE:
-				summon_kin_type = 'z';
-				break;
-			case VAMPIRE:
-				summon_kin_type = 'V';
-				break;
-			case LICH:
-				summon_kin_type = 'G';
-			*/
-				break;
-			case RACE_SPRITE:
-				summon_kin_type = 'I';
-				break;
-			case RACE_ENT:
-				summon_kin_type = '#';
-				break;
-			case RACE_ANGEL:
-				summon_kin_type = 'A';
-				break;
-			case RACE_DEMON:
-			case RACE_BALROG:
-				summon_kin_type = 'U';
-				break;
-			default:
-				summon_kin_type = 'p';
-				break;
-		}
+			kin_symbol = race_info[cr_ptr->race_idx1].symbol;
 		break;
 	case MIMIC_DEMON:
-		if (one_in_(13)) summon_kin_type = 'U';
-		else summon_kin_type = 'u';
+		if (one_in_(13)) kin_symbol = 'U';
+		else kin_symbol = 'u';
 		break;
 	case MIMIC_DEMON_LORD:
-		summon_kin_type = 'U';
+		kin_symbol = 'U';
 		break;
 	case MIMIC_VAMPIRE:
-		summon_kin_type = 'V';
+		kin_symbol = 'V';
 		break;
 	}	
+
 	return summon_specific((pet ? cr_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }
