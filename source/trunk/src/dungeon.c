@@ -6177,155 +6177,8 @@ msg_print("中断しました。");
  * This function will not exit until the level is completed,
  * the user dies, or the game is terminated.
  */
-static void dungeon(bool load_game)
+static void turn_loop(bool load_game)
 {
-	int quest_num = 0;
-
-	base_level = dun_level; 	   // Set the base level
-	subject_change_floor = FALSE;  // Not leaving
-
-	// Reset the "command" vars
-	command_cmd = 0;
-	command_rep = 0;
-	command_arg = 0;
-	command_dir = 0;
-
-	// Cancel the target
-	target_who = 0;
-	pet_t_m_idx = 0;
-	riding_t_m_idx = 0;
-	ambush_flag = FALSE;
-
-	// Cancel the health bar
-	health_track(0);
-
-	// Check visual effects 
-	shimmer_creatures = TRUE;
-	shimmer_objects = TRUE;
-	repair_creatures = TRUE;
-	repair_objects = TRUE;
-
-	// Disturb
-	disturb(player_ptr, 1, 0);
-
-	// Get index of current quest (if any)
-	quest_num = quest_number(dun_level);
-
-	// Inside a quest?
-	if (quest_num)
-	{
-		/* Mark the quest monster */
-		//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
-	}
-
-	// Track maximum dungeon level (if not in quest -KMW-)
-	if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
-	{
-		max_dlv[dungeon_type] = dun_level;
-		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
-	}
-
-	/* Validate the panel */
-	panel_bounds_center();
-
-	/* Verify the panel */
-	verify_panel(player_ptr);
-
-	/* Flush messages */
-	msg_print(NULL);
-
-	/* Window stuff */
-	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
-	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
-	play_redraw |= (PR_MAP);
-
-	// Update stuff
-	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
-
-	// Update lite/view
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
-
-	/* Handle "update" and "play_redraw" and "play_window" */
-	handle_stuff();
-
-	/* Update stuff */
-	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
-	notice_stuff(player_ptr);
-
-	/* Handle "update" and "play_redraw" and "play_window" */
-	handle_stuff();
-
-	/* Refresh */
-	Term_fresh();
-
-	if (quest_num && (is_fixed_quest_idx(quest_num) &&
-	    !( quest_num == QUEST_SERPENT ||
-	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
-
-	if (monster_arena_mode)
-	{
-		if (load_game)
-		{
-			player_ptr->energy_need = 0;
-			battle_monsters();
-		}
-		else
-		{
-#ifdef JP
-			msg_print("試合開始！");
-#else
-			msg_format("Ready..Fight!");
-#endif
-			msg_print(NULL);
-		}
-	}
-
-	if ((player_ptr->cls_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
-		player_ptr->magic_num1[0] = MUSIC_DETECT;
-
-	/* Hack -- notice death or departure */
-	if (!playing || gameover) return;
-
-	/* Print quest message if appropriate */
-	if (!inside_quest && (dungeon_type == DUNGEON_DOD))
-	{
-		quest_discovery(random_quest_number(dun_level));
-		inside_quest = random_quest_number(dun_level);
-	}
-
-	if ((dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
-	{
-		if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
-#ifdef JP
-			msg_format("この階には%sの主である%sが棲んでいる。",
-				   d_name+dungeon_info[dungeon_type].name, 
-				   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name);
-#else
-			msg_format("%^s lives in this level as the keeper of %s.",
-					   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name, 
-					   d_name+dungeon_info[dungeon_type].name);
-#endif
-	}
-
-	if (!load_game && (player_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
-
-	/*** Process this dungeon level ***/
-
-	/* Reset the monster generation level */
-	creature_level = base_level;
-
-	/* Reset the object generation level */
-	object_level = base_level;
-
-	if (player_ptr->energy_need > 0 && !monster_arena_mode &&
-		(dun_level || subject_change_dungeon || inside_arena))
-		player_ptr->energy_need = 0;
-
-	/* Not leaving dungeon */
-	subject_change_dungeon = FALSE;
-
-	/* Initialize monster process */
-	mproc_init();
 
 	/* Main loop */
 	while (TRUE)
@@ -6409,28 +6262,6 @@ static void dungeon(bool load_game)
 		if (wild_regen) wild_regen--;
 	}
 
-	// Inside a quest and non-unique questor?
-	if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
-	{
-		// Un-mark the quest monster
-		// TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
-	}
-
-	// Not save-and-quit and not dead?
-	if (playing && !gameover)
-	{
-		/*
-		 * Maintain Unique monsters and artifact, save current
-		 * floor, then prepare next floor
-		 */
-		leave_floor(player_ptr);
-
-		// Forget the flag
-		reinit_wilderness = FALSE;
-	}
-
-	// Write about current level on the play record once per level
-	write_level = TRUE;
 }
 
 
@@ -6937,38 +6768,194 @@ static void play_loop(void)
 	/* Process */
 	while (TRUE)
 	{
-		dungeon(load_game);             // Process the level
+		int quest_num = 0;
 
-		/* Handle "player_ptr->creature_update" */
+		base_level = dun_level; 	   // Set the base level
+		subject_change_floor = FALSE;  // Not leaving
+
+		// Reset the "command" vars
+		command_cmd = 0;
+		command_rep = 0;
+		command_arg = 0;
+		command_dir = 0;
+
+		// Cancel the target
+		target_who = 0;
+		pet_t_m_idx = 0;
+		riding_t_m_idx = 0;
+		ambush_flag = FALSE;
+
+		// Cancel the health bar
+		health_track(0);
+
+		// Check visual effects 
+		shimmer_creatures = TRUE;
+		shimmer_objects = TRUE;
+		repair_creatures = TRUE;
+		repair_objects = TRUE;
+
+		// Disturb
+		disturb(player_ptr, 1, 0);
+
+		// Get index of current quest (if any)
+		quest_num = quest_number(dun_level);
+
+		// Inside a quest?
+		if (quest_num)
+		{
+			/* Mark the quest monster */
+			//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
+		}
+
+		// Track maximum dungeon level (if not in quest -KMW-)
+		if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
+		{
+			max_dlv[dungeon_type] = dun_level;
+			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
+		}
+
+		/* Validate the panel */
+		panel_bounds_center();
+
+		/* Verify the panel */
+		verify_panel(player_ptr);
+
+		/* Flush messages */
+		msg_print(NULL);
+
+		/* Window stuff */
+		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
+		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
+		play_redraw |= (PR_MAP);
+
+		// Update stuff
+		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
+
+		// Update lite/view
+		update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+
+		/* Handle "update" and "play_redraw" and "play_window" */
+		handle_stuff();
+
+		/* Update stuff */
+		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
-		/* Cancel the target */
-		target_who = 0;
+		/* Refresh */
+		Term_fresh();
 
-		/* Cancel the health bar */
-		health_track(0);
+		if (quest_num && (is_fixed_quest_idx(quest_num) &&
+		    !( quest_num == QUEST_SERPENT ||
+		    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
 
-		// Forget the lite and view
-		forget_lite();
+		if (monster_arena_mode)
+		{
+			if (load_game)
+			{
+				player_ptr->energy_need = 0;
+				battle_monsters();
+			}
+			else
+			{
+#ifdef JP
+				msg_print("試合開始！");
+#else
+				msg_format("Ready..Fight!");
+#endif
+				msg_print(NULL);
+			}
+		}
+
+		if ((player_ptr->cls_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
+			player_ptr->magic_num1[0] = MUSIC_DETECT;
+
+		/* Hack -- notice death or departure */
+		if (!playing || gameover) return;
+
+		/* Print quest message if appropriate */
+		if (!inside_quest && (dungeon_type == DUNGEON_DOD))
+		{
+			quest_discovery(random_quest_number(dun_level));
+			inside_quest = random_quest_number(dun_level);
+		}
+
+		if ((dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
+		{
+			if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
+#ifdef JP
+				msg_format("この階には%sの主である%sが棲んでいる。",
+					   d_name+dungeon_info[dungeon_type].name, 
+					   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name);
+#else
+				msg_format("%^s lives in this level as the keeper of %s.",
+						   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name, 
+						   d_name+dungeon_info[dungeon_type].name);
+#endif
+		}
+
+		if (!load_game && (player_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
+
+		/*** Process this dungeon level ***/
+
+		/* Reset the monster generation level */
+		creature_level = base_level;
+
+		/* Reset the object generation level */
+		object_level = base_level;
+
+		if (player_ptr->energy_need > 0 && !monster_arena_mode &&
+			(dun_level || subject_change_dungeon || inside_arena))
+			player_ptr->energy_need = 0;
+
+		/* Not leaving dungeon */
+		subject_change_dungeon = FALSE;
+
+		/* Initialize monster process */
+		mproc_init();
+
+		turn_loop(load_game); // Process the level, Turn loop
+
+		// Inside a quest and non-unique questor?
+		if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
+		{
+			// Un-mark the quest monster
+			// TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
+		}
+
+		// Not save-and-quit and not dead?
+		if (playing && !gameover)
+		{
+			// Maintain Unique monsters and artifact, save current
+			// floor, then prepare next floor
+			leave_floor(player_ptr);
+
+			// Forget the flag
+			reinit_wilderness = FALSE;
+		}
+
+		// Write about current level on the play record once per level
+		write_level = TRUE;
+
+		notice_stuff(player_ptr); // Handle "player_ptr->creature_update"
+		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
+
+		target_who = 0; // Cancel the target
+		health_track(0); // Cancel the health bar
+		forget_lite(); // Forget the lite and view
 		forget_view();
 
-		/* Forget the view */
-		clear_creature_lite();
+		clear_creature_lite(); // Forget the view
 
-		/* Handle "quit and save" */
-		if (!playing && !gameover) break;
-
-		/* Erase the old cave */
-		if (!gameover) clear_cave();
+		if (!playing && !gameover) break; // Handle "quit and save"
+		if (!gameover) clear_cave(); // Erase the old cave
 
 		msg_print(NULL);
-
 		load_game = FALSE;
 
-		/* Accidental Death */
+		// Accidental Death
 		if (playing && gameover)
 		{
 			if (inside_arena)
@@ -6986,15 +6973,13 @@ static void play_loop(void)
 				arena_settled = TRUE;
 				reset_tim_flags(player_ptr);
 
-				/* Leave through the exit */
-				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
+				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 
-				/* prepare next floor */
-				leave_floor(player_ptr);
+				leave_floor(player_ptr); // prepare next floor
 			}
 			else
 			{
-				/* Mega-Hack -- Allow player to cheat death */
+				// Mega-Hack -- Allow player to cheat death
 #ifdef JP
 				if ((wizard || cheat_live) && !get_check("死にますか? ")) cheat_death();
 #else
