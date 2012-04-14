@@ -7495,11 +7495,6 @@ void close_game(void)
 	/* No suspending now */
 	signals_ignore_tstp();
 
-
-	/* Hack -- Character is now "icky" */
-	character_icky = TRUE;
-
-
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 

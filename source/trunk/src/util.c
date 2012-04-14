@@ -2147,7 +2147,7 @@ char inkey(void)
 	(void)Term_get_cursor(&v);
 
 	/* Show the cursor if waiting, except sometimes in "command" mode */
-	if (!inkey_scan && (!inkey_flag || hilite_player || character_icky))
+	if (!inkey_scan && (!inkey_flag || hilite_player))
 	{
 		/* Show the cursor */
 		(void)Term_set_cursor(1);
@@ -2996,9 +2996,6 @@ void screen_save(void)
 
 	/* Save the screen (if legal) */
 	if (screen_depth++ == 0) Term_save();
-
-	/* Increase "icky" depth */
-	character_icky++;
 }
 
 
@@ -3014,9 +3011,6 @@ void screen_load(void)
 
 	/* Load the screen (if legal) */
 	if (--screen_depth == 0) Term_load();
-
-	/* Decrease "icky" depth */
-	character_icky--;
 }
 
 

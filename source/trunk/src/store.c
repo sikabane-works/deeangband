@@ -5329,10 +5329,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		st_ptr->last_visit = turn;
 	}
 
-	/* Hack -- Character is in "icky" mode */
-	character_icky = TRUE;
-
-
 	/* No command argument */
 	command_arg = 0;
 
@@ -5477,9 +5473,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		 */
 		need_redraw_store_inv = (cr_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
 
-		/* Hack -- Character is still in "icky" mode */
-		character_icky = TRUE;
-
 		/* Notice stuff */
 		notice_stuff(cr_ptr);
 
@@ -5598,11 +5591,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 	/* Free turn XXX XXX XXX */
 	energy_use = 100;
-
-
-	/* Hack -- Character is no longer in "icky" mode */
-	//character_icky = FALSE;
-
 
 	/* Hack -- Cancel automatic command */
 	//command_new = 0;

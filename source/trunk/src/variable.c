@@ -90,8 +90,6 @@ bool character_dungeon;		/* The character has a dungeon */
 bool character_loaded;		/* The character was loaded from a savefile */
 bool character_saved;		/* The character was just saved to a savefile */
 
-bool character_icky;		/* The game is in an icky full screen mode */
-
 bool creating_savefile;		/* New savefile is currently created */
 
 u32b seed_flavor;		/* Hack -- consistent object colors */

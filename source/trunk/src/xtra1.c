@@ -5717,11 +5717,6 @@ void update_creature(creature_type *cr_ptr, bool message)
 	/* Character is not ready yet, no screen updates */
 	if (!character_generated) return;
 
-
-	/* Character is in "icky" mode, no screen updates */
-	if (character_icky) return;
-
-
 	if (update & (PU_UN_LITE))
 	{
 		update &= ~(PU_UN_LITE);
@@ -5797,9 +5792,6 @@ void redraw_stuff()
 
 	/* Character is not ready yet, no screen updates */
 	if (!character_generated) return;
-
-	/* Character is in "icky" mode, no screen updates */
-	if (character_icky) return;
 
 	/* Hack -- clear the screen */
 	if (play_redraw & (PR_WIPE))

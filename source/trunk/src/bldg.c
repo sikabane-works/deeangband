@@ -5121,9 +5121,6 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	/* Forget the view */
 	forget_view();
 
-	/* Hack -- Increase "icky" depth */
-	character_icky++;
-
 	command_arg = 0;
 	command_rep = 0;
 	command_new = 0;
@@ -5179,9 +5176,6 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	{
 		subject_change_floor = TRUE;
 	}
-
-	/* Hack -- Decrease "icky" depth */
-	character_icky--;
 
 	/* Clear the screen */
 	Term_clear();

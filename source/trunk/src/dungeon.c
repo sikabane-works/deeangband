@@ -6773,9 +6773,6 @@ void waited_report_score(void)
 
 	/* No suspending now */	
 	signals_ignore_tstp();
-		
-	/* Hack -- Character is now "icky" */
-	character_icky = TRUE;
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
@@ -7056,9 +7053,6 @@ void play_game(bool new_game)
 		return;
 	}
 
-	/* Hack -- Character is "icky" */
-	character_icky = TRUE;
-
 	/* Make sure main term is active */
 	Term_activate(angband_term[0]);
 
@@ -7263,11 +7257,6 @@ void play_game(bool new_game)
 
 	/* Character is now "complete" */
 	character_generated = TRUE;
-
-
-	/* Hack -- Character is no longer "icky" */
-	character_icky = FALSE;
-
 
 	if (new_game)
 	{
