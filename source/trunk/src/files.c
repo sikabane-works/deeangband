@@ -6333,7 +6333,7 @@ void do_cmd_help(void)
  * Extract a clean "base name".
  * Build the savefile name if needed.
  */
-void process_creature_name(bool sf, creature_type *creature_ptr)
+void set_creature_name(bool sf, creature_type *creature_ptr)
 {
 	int i, k = 0;
 	char old_player_base[32] = "";

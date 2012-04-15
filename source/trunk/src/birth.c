@@ -5758,25 +5758,16 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(!auto_generate)
 	{
-
-	/* Get a name, recolor it, prepare savefile */
-		get_name(creature_ptr);
-
-	/* Process the player name */
-		process_creature_name(creating_savefile, creature_ptr);
-
-	/*** Edit character background ***/
-		edit_history(creature_ptr);
-
-	/*** Finish up ***/
+		get_name(creature_ptr); // Get a name, recolor it, prepare savefile
+		set_creature_name(creating_savefile, creature_ptr); // Process the player name
+		edit_history(creature_ptr); // Edit character background
 	}
 
 	get_max_stats(creature_ptr);
 
 	if(auto_generate) return (TRUE);
 
-
-	/* Prompt for it */
+	// Prompt for it
 #ifdef JP
 	prt("[ 'Q' ’†’f, 'S' ‰‚ß‚©‚ç, Enter ƒQ[ƒ€ŠJŽn ]", 23, 14);
 #else
@@ -5872,7 +5863,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	creature_ptr->csp = creature_ptr->msp;
 
 	/* Process the player name */
-	process_creature_name(FALSE, creature_ptr);
+	set_creature_name(FALSE, creature_ptr);
 
 	return TRUE;
 }

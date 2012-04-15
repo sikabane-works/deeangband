@@ -1276,7 +1276,7 @@ void do_cmd_change_name(creature_type *cr_ptr)
 			get_name(cr_ptr);
 
 			/* Process the player name */
-			process_creature_name(FALSE, cr_ptr);
+			set_creature_name(FALSE, cr_ptr);
 		}
 
 		/* File dump */

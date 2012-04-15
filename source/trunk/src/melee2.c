@@ -3088,7 +3088,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		process_creature(the_world);
+		// TODO the world process process_creature(the_world);
 
 		reset_target(m_ptr);
 

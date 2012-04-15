@@ -1512,7 +1512,7 @@ static void do_cmd_wiz_creature_list(void)
 			if (k == ESCAPE) break;
 
 			// Change name
-			if (k == 'c') process_creature_name(FALSE, &creature_list[i]);
+			if (k == 'c') set_creature_name(FALSE, &creature_list[i]);
 
 			// File dump
 			else if (k == 'f')
