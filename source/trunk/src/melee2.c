@@ -1241,11 +1241,12 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 static void process_creature(int m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
+	char creature_name[80];
+
 	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
 	species_type    *ap_r_ptr = &species_info[creature_ptr->ap_species_idx];
 
 	int             i, d, oy, ox, ny, nx;
-
 	int             mm[8];
 
 	cave_type       *c_ptr;
@@ -1376,8 +1377,6 @@ static void process_creature(int m_idx)
 		// Its parent have gone, it also goes away.
 		if (see_m)
 		{
-			char creature_name[80];
-
 			// Acquire the monster name
 			creature_desc(creature_name, creature_ptr, 0);
 #ifdef JP
@@ -1389,8 +1388,6 @@ static void process_creature(int m_idx)
 
 		if (record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
-			char creature_name[80];
-
 			creature_desc(creature_name, creature_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
@@ -1417,8 +1414,6 @@ static void process_creature(int m_idx)
 
 			if (see_m)
 			{
-				char creature_name[80];
-
 				/* Acquire the monster name */
 				creature_desc(creature_name, creature_ptr, 0);
 
@@ -1459,7 +1454,6 @@ static void process_creature(int m_idx)
 
 		if (creature_ptr->chp < creature_ptr->mhp/3)
 		{
-			char creature_name[80];
 			creature_desc(creature_name, creature_ptr, 0);
 
 			if (is_riding_mon && riding_pinch < 2)
@@ -1548,8 +1542,6 @@ static void process_creature(int m_idx)
 		// Notice the "waking up"
 		if (creature_ptr->ml)
 		{
-			char creature_name[80];
-
 			// Acquire the monster name
 			creature_desc(creature_name, creature_ptr, 0);
 
@@ -1599,7 +1591,6 @@ static void process_creature(int m_idx)
 	{
 		if (is_pet(player_ptr, creature_ptr) || see_m)
 		{
-			char creature_name[80];
 			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? MD_ASSUME_VISIBLE : 0);
 #ifdef JP
 			msg_format("%^s‚Í“Ë‘R“G‚É‚Ü‚í‚Á‚½I", creature_name);
@@ -1704,7 +1695,6 @@ static void process_creature(int m_idx)
 		    player_has_los_bold(oy, ox) &&
 		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))
 		{
-			char creature_name[80];
 			char monmessage[1024];
 			cptr filename;
 
