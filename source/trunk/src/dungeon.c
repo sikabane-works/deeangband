@@ -3812,6 +3812,87 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 }
 
+static void monster_arena_result(void)
+{
+	int i2, j2;
+	int win_m_idx = 0;
+	int number_mon = 0;
+
+	/* Count all hostile monsters */
+	for (i2 = 0; i2 < cur_wid; ++i2)
+		for (j2 = 0; j2 < cur_hgt; j2++)
+		{
+			cave_type *c_ptr = &cave[j2][i2];
+
+			if ((c_ptr->creature_idx > 0) && (creature_list[c_ptr->creature_idx].ridden))
+			{
+				number_mon++;
+				win_m_idx = c_ptr->creature_idx;
+			}
+		}
+
+	if (number_mon == 0)
+	{
+#ifdef JP
+		msg_print("相打ちに終わりました。");
+#else
+		msg_print("They have kill each other at the same time.");
+#endif
+		msg_print(NULL);
+		battle_monsters();
+	}
+	else if ((number_mon-1) == 0)
+	{
+		char m_name[80];
+		creature_type *wm_ptr;
+
+		wm_ptr = &creature_list[win_m_idx];
+
+		creature_desc(m_name, wm_ptr, 0);
+#ifdef JP
+		msg_format("%sが勝利した！", m_name);
+#else
+		msg_format("%s is winner!", m_name);
+#endif
+		msg_print(NULL);
+
+		if (win_m_idx == (sel_monster+1))
+		{
+#ifdef JP
+			msg_print("おめでとうございます。");
+#else
+			msg_print("Congratulations.");
+#endif
+#ifdef JP
+			msg_format("%d＄を受け取った。", battle_odds);
+#else
+			msg_format("You received %d gold.", battle_odds);
+#endif
+			player_ptr->au += battle_odds;
+		}
+		else
+		{
+#ifdef JP
+			msg_print("残念でした。");
+#else
+			msg_print("You lost gold.");
+#endif
+		}
+		msg_print(NULL);
+		battle_monsters();
+	}
+	else if (turn - old_turn == 150*TURNS_PER_TICK)
+	{
+#ifdef JP
+		msg_print("申し分けありませんが、この勝負は引き分けとさせていただきます。");
+#else
+		msg_format("This battle have ended in a draw.");
+#endif
+		player_ptr->au += kakekin;
+		msg_print(NULL);
+		battle_monsters();
+	}
+}
 
 /*
  * Handle certain things once every 10 game turns
@@ -3829,90 +3910,7 @@ static void process_world(creature_type *cr_ptr)
 	update_dungeon_feeling(cr_ptr);
 
 	/*** Check monster arena ***/
-	if (monster_arena_mode && !subject_change_floor)
-	{
-		int i2, j2;
-		int win_m_idx = 0;
-		int number_mon = 0;
-
-		/* Count all hostile monsters */
-		for (i2 = 0; i2 < cur_wid; ++i2)
-			for (j2 = 0; j2 < cur_hgt; j2++)
-			{
-				cave_type *c_ptr = &cave[j2][i2];
-
-				if ((c_ptr->creature_idx > 0) && (c_ptr->creature_idx != cr_ptr->riding))
-				{
-					number_mon++;
-					win_m_idx = c_ptr->creature_idx;
-				}
-			}
-
-		if (number_mon == 0)
-		{
-#ifdef JP
-			msg_print("相打ちに終わりました。");
-#else
-			msg_print("They have kill each other at the same time.");
-#endif
-			msg_print(NULL);
-			cr_ptr->energy_need = 0;
-			battle_monsters();
-		}
-		else if ((number_mon-1) == 0)
-		{
-			char m_name[80];
-			creature_type *wm_ptr;
-
-			wm_ptr = &creature_list[win_m_idx];
-
-			creature_desc(m_name, wm_ptr, 0);
-#ifdef JP
-			msg_format("%sが勝利した！", m_name);
-#else
-			msg_format("%s is winner!", m_name);
-#endif
-			msg_print(NULL);
-
-			if (win_m_idx == (sel_monster+1))
-			{
-#ifdef JP
-				msg_print("おめでとうございます。");
-#else
-				msg_print("Congratulations.");
-#endif
-#ifdef JP
-				msg_format("%d＄を受け取った。", battle_odds);
-#else
-				msg_format("You received %d gold.", battle_odds);
-#endif
-				cr_ptr->au += battle_odds;
-			}
-			else
-			{
-#ifdef JP
-				msg_print("残念でした。");
-#else
-				msg_print("You lost gold.");
-#endif
-			}
-			msg_print(NULL);
-			cr_ptr->energy_need = 0;
-			battle_monsters();
-		}
-		else if (turn - old_turn == 150*TURNS_PER_TICK)
-		{
-#ifdef JP
-			msg_print("申し分けありませんが、この勝負は引き分けとさせていただきます。");
-#else
-			msg_format("This battle have ended in a draw.");
-#endif
-			cr_ptr->au += kakekin;
-			msg_print(NULL);
-			cr_ptr->energy_need = 0;
-			battle_monsters();
-		}
-	}
+	if (monster_arena_mode && !subject_change_floor) monster_arena_result();
 
 	/* Every 10 game turns */
 	if (turn % TURNS_PER_TICK) return;
