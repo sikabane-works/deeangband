@@ -4188,39 +4188,7 @@ static void process_world(creature_type *cr_ptr)
 		}
 
 
-		/* Getting Faint */
-		if ((cr_ptr->food < PY_FOOD_FAINT))
-		{
-			/* Faint occasionally */
-			if (!cr_ptr->paralyzed && (randint0(100) < 10))
-			{
-				/* Message */
-#ifdef JP
-				msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
-#else
-				msg_print("You faint from the lack of food.");
-#endif
 
-				disturb(player_ptr, 1, 0);
-
-				/* Hack -- faint (bypass free action) */
-				(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 1 + randint0(5));
-			}
-
-			/* Starve to death (slowly) */
-			if (cr_ptr->food < PY_FOOD_STARVE)
-			{
-				/* Calculate damage */
-				int dam = (PY_FOOD_STARVE - cr_ptr->food) / 10;
-
-				/* Take damage */
-#ifdef JP
-				if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, dam, "‹Q‚¦", NULL, -1);
-#else
-				if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
-#endif
-			}
-		}
 	}
 
 
