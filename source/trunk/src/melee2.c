@@ -1270,11 +1270,49 @@ static void process_creature(int m_idx)
 	bool            aware = TRUE;
 
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
-
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
 
-	/* Getting Faint */
+	// food digest
+	if (!monster_arena_mode)
+	{
+		/* Digest quickly when gorged */
+		if (creature_ptr->food >= PY_FOOD_MAX)
+		{
+			/* Digest a lot of food */
+			(void)set_food(creature_ptr, creature_ptr->food - 100);
+		}
+
+		/* Digest normally -- Every 50 game turns */
+		else if (!(turn % (TURNS_PER_TICK*5)))
+		{
+			/* Basic digestion rate based on speed */
+			int digestion = SPEED_TO_ENERGY(creature_ptr->speed);
+
+			/* Regeneration takes more food */
+			if (creature_ptr->regenerate)
+				digestion += 20;
+			if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
+				digestion += 20;
+			if (creature_ptr->cursed & TRC_FAST_DIGEST)
+				digestion += 30;
+
+			/* Slow digestion takes less food */
+			if (creature_ptr->slow_digest)
+				digestion -= 5;
+
+			/* Minimal digestion */
+			if (digestion < 1) digestion = 1;
+			/* Maximal digestion */
+			if (digestion > 100) digestion = 100;
+
+			/* Digest some food */
+			(void)set_food(creature_ptr, creature_ptr->food - digestion);
+		}
+
+	}
+
+	// Getting Faint
 	if ((creature_ptr->food < PY_FOOD_FAINT))
 	{
 		/* Faint occasionally */

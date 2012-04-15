@@ -4157,47 +4157,6 @@ static void process_world(creature_type *cr_ptr)
 
 	/*** Check the Food, and Regenerate ***/
 
-	if (!monster_arena_mode)
-	{
-		/* Digest quickly when gorged */
-		if (cr_ptr->food >= PY_FOOD_MAX)
-		{
-			/* Digest a lot of food */
-			(void)set_food(cr_ptr, cr_ptr->food - 100);
-		}
-
-		/* Digest normally -- Every 50 game turns */
-		else if (!(turn % (TURNS_PER_TICK*5)))
-		{
-			/* Basic digestion rate based on speed */
-			int digestion = SPEED_TO_ENERGY(cr_ptr->speed);
-
-			/* Regeneration takes more food */
-			if (cr_ptr->regenerate)
-				digestion += 20;
-			if (cr_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
-				digestion += 20;
-			if (cr_ptr->cursed & TRC_FAST_DIGEST)
-				digestion += 30;
-
-			/* Slow digestion takes less food */
-			if (cr_ptr->slow_digest)
-				digestion -= 5;
-
-			/* Minimal digestion */
-			if (digestion < 1) digestion = 1;
-			/* Maximal digestion */
-			if (digestion > 100) digestion = 100;
-
-			/* Digest some food */
-			(void)set_food(cr_ptr, cr_ptr->food - digestion);
-		}
-
-
-
-	}
-
-
 
 	/* Process timed damage and regeneration */
 	process_world_aux_hp_and_sp(cr_ptr);
