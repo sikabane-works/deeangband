@@ -3917,53 +3917,6 @@ static void process_world(creature_type *cr_ptr)
 	/* Every 10 game turns */
 	if (turn % TURNS_PER_TICK) return;
 
-	/*** Check the Time and Load ***/
-
-	if (!(turn % (50*TURNS_PER_TICK)))
-	{
-		/* Check time and load */
-		if ((0 != check_time()) || (0 != check_load()))
-		{
-			/* Warning */
-			if (closing_flag <= 2)
-			{
-				/* Disturb */
-				disturb(player_ptr, 0, 0);
-
-				/* Count warnings */
-				closing_flag++;
-
-				/* Message */
-#ifdef JP
-msg_print("アングバンドへの門が閉じかかっています...");
-msg_print("ゲームを終了するかセーブするかして下さい。");
-#else
-				msg_print("The gates to ANGBAND are closing...");
-				msg_print("Please finish up and/or save your game.");
-#endif
-
-			}
-
-			/* Slam the gate */
-			else
-			{
-				/* Message */
-#ifdef JP
-msg_print("今、アングバンドへの門が閉ざされました。");
-#else
-				msg_print("The gates to ANGBAND are now closed.");
-#endif
-
-
-				/* Stop playing */
-				playing = FALSE;
-
-				/* Leaving */
-				subject_change_floor = TRUE;
-			}
-		}
-	}
-
 	/*** Attempt timed autosave ***/
 	if (autosave_t && autosave_freq && !monster_arena_mode)
 	{
@@ -6929,10 +6882,8 @@ static void play_loop(void)
 
 		/*** Process this dungeon level ***/
 
-		/* Reset the monster generation level */
+		// Reset the creature and object generation level
 		creature_level = base_level;
-
-		/* Reset the object generation level */
 		object_level = base_level;
 
 		if (player_ptr->energy_need > 0 && !monster_arena_mode &&
@@ -6984,14 +6935,10 @@ static void play_loop(void)
 		msg_print(NULL);
 		load_game = FALSE;
 
-		// Accidental Death
-		if (playing && gameover) accidental_death();
+		if (playing && gameover) accidental_death(); // Accidental Death
+		if (gameover) break; // Handle GameOver
 
-		// Handle GameOver
-		if (gameover) break;
-
-		// Make a new level
-		change_floor(player_ptr);
+		change_floor(player_ptr); // Make a new level
 	}
 
 }
@@ -7246,7 +7193,6 @@ void play_game(bool new_game)
 #endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, buf);
 	}
-
 
 	/* Start game */
 	playing = TRUE;

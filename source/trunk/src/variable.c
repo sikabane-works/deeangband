@@ -354,14 +354,6 @@ bool autosave_l;	/* Autosave before entering new levels */
 bool autosave_t;	/* Timed autosave */
 s16b autosave_freq;     /* Autosave frequency */
 
-
-/*
- * Dungeon variables
- */
-
-bool closing_flag;		/* Dungeon is closing */
-
-
 /*
  * Dungeon size info
  */
