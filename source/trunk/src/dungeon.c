@@ -6847,14 +6847,10 @@ static void play_loop(void)
 			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
 		}
 
-		/* Validate the panel */
-		panel_bounds_center();
+		panel_bounds_center(); // Validate the panel
+		verify_panel(player_ptr); // Verify the panel
+		msg_print(NULL); // Flush messages
 
-		/* Verify the panel */
-		verify_panel(player_ptr);
-
-		/* Flush messages */
-		msg_print(NULL);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
@@ -6868,14 +6864,14 @@ static void play_loop(void)
 		update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		//TODO DELETE?
+		//handle_stuff();
 
 		/* Update stuff */
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
 
-		/* Handle "update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
 
 		/* Refresh */
 		Term_fresh();
