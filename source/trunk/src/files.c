@@ -6758,7 +6758,7 @@ msg_print("©“®ƒZ[ƒu’†");
 	//TODO update_creature(creature_ptr, TRUE);
 
 	/* Initialize monster process */
-	mproc_init();
+	creature_process_init();
 }
 
 

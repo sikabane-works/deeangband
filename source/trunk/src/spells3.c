@@ -5473,7 +5473,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 				creature_list[hack_m_idx_ii] = back_m;
 
 				/* Re-initialize monster process */
-				mproc_init();
+				creature_process_init();
 			}
 			else preserve_hold_objects = FALSE;
 		}

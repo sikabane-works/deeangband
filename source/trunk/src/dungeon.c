@@ -6827,7 +6827,7 @@ static void play_loop(void)
 		subject_change_dungeon = FALSE;
 
 		/* Initialize monster process */
-		mproc_init();
+		creature_process_init();
 
 		turn_loop(load_game); // Process the level, Turn loop
 

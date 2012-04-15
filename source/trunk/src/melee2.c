@@ -2861,9 +2861,9 @@ void mproc_remove(creature_type *cr_ptr, int mproc_type)
 
 
 /*
- * Initialize monster process
+ * Initialize creature process
  */
-void mproc_init(void)
+void creature_process_init(void)
 {
 	creature_type *m_ptr;
 	int          i, cmi;
