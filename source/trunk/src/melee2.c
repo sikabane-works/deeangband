@@ -1272,24 +1272,20 @@ static void process_creature(int m_idx)
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
-
 	// food digest
 	if (!monster_arena_mode)
 	{
-		/* Digest quickly when gorged */
+		// Digest quickly when gorged
 		if (creature_ptr->food >= PY_FOOD_MAX)
-		{
-			/* Digest a lot of food */
 			(void)set_food(creature_ptr, creature_ptr->food - 100);
-		}
 
-		/* Digest normally -- Every 50 game turns */
+		// Digest normally -- Every 50 game turns
 		else if (!(turn % (TURNS_PER_TICK*5)))
 		{
-			/* Basic digestion rate based on speed */
+			// Basic digestion rate based on speed
 			int digestion = SPEED_TO_ENERGY(creature_ptr->speed);
 
-			/* Regeneration takes more food */
+			// Regeneration takes more food
 			if (creature_ptr->regenerate)
 				digestion += 20;
 			if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
@@ -1297,16 +1293,14 @@ static void process_creature(int m_idx)
 			if (creature_ptr->cursed & TRC_FAST_DIGEST)
 				digestion += 30;
 
-			/* Slow digestion takes less food */
+			// Slow digestion takes less food
 			if (creature_ptr->slow_digest)
 				digestion -= 5;
 
-			/* Minimal digestion */
-			if (digestion < 1) digestion = 1;
-			/* Maximal digestion */
-			if (digestion > 100) digestion = 100;
+			if (digestion < 1) digestion = 1;     // Minimal digestion
+			if (digestion > 100) digestion = 100; // Maximal digestion
 
-			/* Digest some food */
+			// Digest some food
 			(void)set_food(creature_ptr, creature_ptr->food - digestion);
 		}
 
@@ -1315,29 +1309,28 @@ static void process_creature(int m_idx)
 	// Getting Faint
 	if ((creature_ptr->food < PY_FOOD_FAINT))
 	{
-		/* Faint occasionally */
+		// Faint occasionally
 		if (!creature_ptr->paralyzed && (randint0(100) < 10))
 		{
-			/* Message */
+			// Message
 #ifdef JP
 			msg_print("あまりにも空腹で気絶してしまった。");
 #else
 			msg_print("You faint from the lack of food.");
 #endif
-
 			disturb(player_ptr, 1, 0);
 
-			/* Hack -- faint (bypass free action) */
+			// Hack -- faint (bypass free action)
 			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 1 + randint0(5));
 		}
 
-		/* Starve to death (slowly) */
+		// Starve to death (slowly)
 		if (creature_ptr->food < PY_FOOD_STARVE)
 		{
-			/* Calculate damage */
+			// Calculate damage
 			int dam = (PY_FOOD_STARVE - creature_ptr->food) / 10;
 
-			/* Take damage */
+			// Take damage
 #ifdef JP
 			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "飢え", NULL, -1);
 #else
@@ -1353,9 +1346,9 @@ static void process_creature(int m_idx)
 #ifdef JP
 			msg_print("地面に落とされた。");
 #else
-			char m_name[80];
-			creature_desc(m_name, &creature_list[player_ptr->riding], 0);
-			msg_format("You have fallen from %s.", m_name);
+			char creature_name[80];
+			creature_desc(creature_name, &creature_list[player_ptr->riding], 0);
+			msg_format("You have fallen from %s.", creature_name);
 #endif
 		}
 	}
@@ -1366,45 +1359,43 @@ static void process_creature(int m_idx)
 		r_ptr = &species_info[creature_ptr->species_idx];
 	}
 
-	/* Players hidden in shadow are almost imperceptable. -LM- */
+	// Players hidden in shadow are almost imperceptable. -LM-
 	if (player_ptr->special_defense & NINJA_S_STEALTH)
 	{
 		int tmp = player_ptr->lev*6+(player_ptr->skill_stl+10)*4;
 		if (player_ptr->monlite) tmp /= 3;
 		if (player_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
 		if (r_ptr->level > (player_ptr->lev*player_ptr->lev/20+10)) tmp /= 3;
-		/* Low-level monsters will find it difficult to locate the player. */
+		// Low-level monsters will find it difficult to locate the player.
 		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
 	}
 
-	/* Are there its parent? */
+	// Are there its parent?
 	if (creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
 	{
-		/* Its parent have gone, it also goes away. */
-
+		// Its parent have gone, it also goes away.
 		if (see_m)
 		{
-			char m_name[80];
+			char creature_name[80];
 
-			/* Acquire the monster name */
-			creature_desc(m_name, creature_ptr, 0);
-
+			// Acquire the monster name
+			creature_desc(creature_name, creature_ptr, 0);
 #ifdef JP
-			msg_format("%sは消え去った！", m_name);
+			msg_format("%sは消え去った！", creature_name);
 #else
-			msg_format("%^s disappears!", m_name);
+			msg_format("%^s disappears!", creature_name);
 #endif
 		}
 
 		if (record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
-			char m_name[80];
+			char creature_name[80];
 
-			creature_desc(m_name, creature_ptr, MD_INDEF_VISIBLE);
-			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, m_name);
+			creature_desc(creature_name, creature_ptr, MD_INDEF_VISIBLE);
+			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
-		/* Delete the monster */
+		// Delete the monster
 		delete_species_idx(&creature_list[m_idx]);
 
 		return;
@@ -1426,16 +1417,16 @@ static void process_creature(int m_idx)
 
 			if (see_m)
 			{
-				char m_name[80];
+				char creature_name[80];
 
 				/* Acquire the monster name */
-				creature_desc(m_name, creature_ptr, 0);
+				creature_desc(creature_name, creature_ptr, 0);
 
 				/* Oops */
 #ifdef JP
-				msg_format("%sは消え去った！", m_name);
+				msg_format("%sは消え去った！", creature_name);
 #else
-				msg_format("%^s disappears!", m_name);
+				msg_format("%^s disappears!", creature_name);
 #endif
 			}
 
@@ -1458,7 +1449,7 @@ static void process_creature(int m_idx)
 		}
 	}
 
-		//TODO SYURYUUDAN's Process
+// TODO SYURYUUDAN's Process
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		weapon_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
@@ -1468,15 +1459,15 @@ static void process_creature(int m_idx)
 
 		if (creature_ptr->chp < creature_ptr->mhp/3)
 		{
-			char m_name[80];
-			creature_desc(m_name, creature_ptr, 0);
+			char creature_name[80];
+			creature_desc(creature_name, creature_ptr, 0);
 
 			if (is_riding_mon && riding_pinch < 2)
 			{
 #ifdef JP
-				msg_format("%sは傷の痛さの余りあなたの束縛から逃れようとしている。", m_name);
+				msg_format("%sは傷の痛さの余りあなたの束縛から逃れようとしている。", creature_name);
 #else
-				msg_format("%^s seems to be in so much pain, and trying to escape from your restriction.", m_name);
+				msg_format("%^s seems to be in so much pain, and trying to escape from your restriction.", creature_name);
 #endif
 				riding_pinch++;
 				disturb(player_ptr, 1, 0);
@@ -1486,9 +1477,9 @@ static void process_creature(int m_idx)
 				if (is_riding_mon)
 				{
 #ifdef JP
-					msg_format("%sはあなたの束縛から脱出した。", m_name);
+					msg_format("%sはあなたの束縛から脱出した。", creature_name);
 #else
-					msg_format("%^s succeeded to escape from your restriction!", m_name);
+					msg_format("%^s succeeded to escape from your restriction!", creature_name);
 #endif
 					if (rakuba(player_ptr, -1, FALSE))
 					{
@@ -1506,17 +1497,17 @@ static void process_creature(int m_idx)
 					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
 					{
 #ifdef JP
-						msg_format("%^s「ピンチだ！退却させてもらう！」", m_name);
+						msg_format("%^s「ピンチだ！退却させてもらう！」", creature_name);
 #else
-						msg_format("%^s says 'It is the pinch! I will retreat'.", m_name);
+						msg_format("%^s says 'It is the pinch! I will retreat'.", creature_name);
 #endif
 					}
 #ifdef JP
-					msg_format("%^sがテレポート・レベルの巻物を読んだ。", m_name);
-					msg_format("%^sが消え去った。", m_name);
+					msg_format("%^sがテレポート・レベルの巻物を読んだ。", creature_name);
+					msg_format("%^sが消え去った。", creature_name);
 #else
-					msg_format("%^s read a scroll of teleport level.", m_name);
-					msg_format("%^s disappears.", m_name);
+					msg_format("%^s read a scroll of teleport level.", creature_name);
+					msg_format("%^s disappears.", creature_name);
 #endif
 				}
 
@@ -1529,7 +1520,7 @@ static void process_creature(int m_idx)
 #endif
 				}
 
-				/* Check for quest completion */
+				// Check for quest completion
 				check_quest_completion(player_ptr, creature_ptr);
 
 				delete_species_idx(&creature_list[m_idx]);
@@ -1539,35 +1530,34 @@ static void process_creature(int m_idx)
 		}
 		else
 		{
-			/* Reset the counter */
+			// Reset the counter
 			if (is_riding_mon) riding_pinch = 0;
 		}
 	}
 
-	/* Handle "sleep" */
+	// Handle "sleep"
 	if (creature_ptr->paralyzed)
 	{
-		/* Handle non-aggravation - Still sleeping */
+		// Handle non-aggravation - Still sleeping
 		if (!(player_ptr->cursed & TRC_AGGRAVATE)) return;
 
-		/* Handle aggravation */
-
-		/* Reset sleep counter */
+		// Handle aggravation
+		// Reset sleep counter
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
-		/* Notice the "waking up" */
+		// Notice the "waking up"
 		if (creature_ptr->ml)
 		{
-			char m_name[80];
+			char creature_name[80];
 
-			/* Acquire the monster name */
-			creature_desc(m_name, creature_ptr, 0);
+			// Acquire the monster name
+			creature_desc(creature_name, creature_ptr, 0);
 
-			/* Dump a message */
+			// Dump a message
 #ifdef JP
-			msg_format("%^sが目を覚ました。", m_name);
+			msg_format("%^sが目を覚ました。", creature_name);
 #else
-			msg_format("%^s wakes up.", m_name);
+			msg_format("%^s wakes up.", creature_name);
 #endif
 		}
 
@@ -1609,12 +1599,12 @@ static void process_creature(int m_idx)
 	{
 		if (is_pet(player_ptr, creature_ptr) || see_m)
 		{
-			char m_name[80];
-			creature_desc(m_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? MD_ASSUME_VISIBLE : 0);
+			char creature_name[80];
+			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? MD_ASSUME_VISIBLE : 0);
 #ifdef JP
-			msg_format("%^sは突然敵にまわった！", m_name);
+			msg_format("%^sは突然敵にまわった！", creature_name);
 #else
-			msg_format("%^s suddenly becomes hostile!", m_name);
+			msg_format("%^s suddenly becomes hostile!", creature_name);
 #endif
 		}
 
@@ -1714,18 +1704,18 @@ static void process_creature(int m_idx)
 		    player_has_los_bold(oy, ox) &&
 		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))
 		{
-			char m_name[80];
+			char creature_name[80];
 			char monmessage[1024];
 			cptr filename;
 
 			/* Acquire the monster name/poss */
 			if (creature_ptr->ml)
-				creature_desc(m_name, creature_ptr, 0);
+				creature_desc(creature_name, creature_ptr, 0);
 			else
 #ifdef JP
-				strcpy(m_name, "それ");
+				strcpy(creature_name, "それ");
 #else
-				strcpy(m_name, "It");
+				strcpy(creature_name, "It");
 #endif
 
 			/* Select the file for monster quotes */
@@ -1758,9 +1748,9 @@ static void process_creature(int m_idx)
 			{
 				/* Say something */
 #ifdef JP
-msg_format("%^s%s", m_name, monmessage);
+msg_format("%^s%s", creature_name, monmessage);
 #else
-				msg_format("%^s %s", m_name, monmessage);
+				msg_format("%^s %s", creature_name, monmessage);
 #endif
 
 			}
@@ -2448,7 +2438,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
-					char m_name[80], o_name[MAX_NLEN];
+					char creature_name[80], o_name[MAX_NLEN];
 
 					/* Acquire object */
 					object_type *o_ptr = &object_list[this_object_idx];
@@ -2474,7 +2464,7 @@ msg_format("%^s%s", m_name, monmessage);
 					object_desc(o_name, o_ptr, 0);
 
 					/* Acquire the monster name */
-					creature_desc(m_name, creature_ptr, MD_INDEF_HIDDEN);
+					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
 					if (do_take && has_cf_creature(creature_ptr, CF_STUPID) && one_in_(3))
@@ -2487,9 +2477,9 @@ msg_format("%^s%s", m_name, monmessage);
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^sは%sを拾おうとしたが、だめだった。", m_name, o_name);
+							msg_format("%^sは%sを拾おうとしたが、だめだった。", creature_name, o_name);
 #else
-							msg_format("%^s tries to pick up %s, but fails.", m_name, o_name);
+							msg_format("%^s tries to pick up %s, but fails.", creature_name, o_name);
 #endif
 						}
 					}
@@ -2505,9 +2495,9 @@ msg_format("%^s%s", m_name, monmessage);
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^sが%sを拾った。", m_name, o_name);
+							msg_format("%^sが%sを拾った。", creature_name, o_name);
 #else
-							msg_format("%^s picks up %s.", m_name, o_name);
+							msg_format("%^s picks up %s.", creature_name, o_name);
 #endif
 						}
 
@@ -2541,9 +2531,9 @@ msg_format("%^s%s", m_name, monmessage);
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^sが%sを破壊した。", m_name, o_name);
+							msg_format("%^sが%sを破壊した。", creature_name, o_name);
 #else
-							msg_format("%^s destroys %s.", m_name, o_name);
+							msg_format("%^s destroys %s.", creature_name, o_name);
 #endif
 						}
 
