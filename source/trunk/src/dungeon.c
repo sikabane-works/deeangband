@@ -3894,44 +3894,8 @@ static void monster_arena_result(void)
 	}
 }
 
-/*
- * Handle certain things once every 10 game turns
- */
-static void process_world(creature_type *cr_ptr)
+static void sunrise_and_sunset(void)
 {
-	int day, hour, min;
-
-	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
-	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
-	
-	extract_day_hour_min(&day, &hour, &min);
-
-	/* Update dungeon feeling, and announce it if changed */
-	update_dungeon_feeling(cr_ptr);
-
-	/*** Check monster arena ***/
-	if (monster_arena_mode && !subject_change_floor) monster_arena_result();
-
-	/* Every 10 game turns */
-	if (turn % TURNS_PER_TICK) return;
-
-	/*** Attempt timed autosave ***/
-	if (autosave_t && autosave_freq && !monster_arena_mode)
-	{
-		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
-			do_cmd_save_game(TRUE);
-	}
-
-	if (mon_fight && !ignore_unview)
-	{
-#ifdef JP
-		msg_print("âΩÇ©Ç™ï∑Ç±Ç¶ÇΩÅB");
-#else
-		msg_print("You hear noise.");
-#endif
-	}
-
-	/*** Handle the wilderness/town (sunshine) ***/
 
 	/* While in town/wilderness */
 	if (!dun_level && !inside_quest && !monster_arena_mode && !inside_arena)
@@ -4036,12 +4000,56 @@ static void process_world(creature_type *cr_ptr)
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
+			//TODO
+			/*
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
 				if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
+			*/
 		}
 	}
+}
+
+
+/*
+ * Handle certain things once every 10 game turns
+ */
+static void process_world(creature_type *cr_ptr)
+{
+	int day, hour, min;
+
+	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
+	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
+	
+	extract_day_hour_min(&day, &hour, &min);
+
+	/* Update dungeon feeling, and announce it if changed */
+	update_dungeon_feeling(cr_ptr);
+
+	/*** Check monster arena ***/
+	if (monster_arena_mode && !subject_change_floor) monster_arena_result();
+
+	/* Every 10 game turns */
+	if (turn % TURNS_PER_TICK) return;
+
+	/*** Attempt timed autosave ***/
+	if (autosave_t && autosave_freq && !monster_arena_mode)
+	{
+		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
+			do_cmd_save_game(TRUE);
+	}
+
+	if (mon_fight && !ignore_unview)
+	{
+#ifdef JP
+		msg_print("âΩÇ©Ç™ï∑Ç±Ç¶ÇΩÅB");
+#else
+		msg_print("You hear noise.");
+#endif
+	}
+
+	sunrise_and_sunset();
 
 	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/
 
