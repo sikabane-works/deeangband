@@ -227,7 +227,7 @@ static void kill_saved_floor(saved_floor_type *sf_ptr)
  * Initialize new saved floor and get its floor id.  If number of
  * saved floors are already MAX_SAVED_FLOORS, kill the oldest one.
  */
-s16b get_current_floor_id(void)
+s16b add_new_floor(void)
 {
 	saved_floor_type *sf_ptr;
 	int i;
@@ -699,7 +699,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (!current_floor_id)
 	{
 		// Get new id
-		current_floor_id = get_current_floor_id();
+		current_floor_id = add_new_floor();
 
 		// Connect from here
 		if (c_ptr && !feat_uses_special(c_ptr->feat))
@@ -786,7 +786,7 @@ void change_floor(creature_type *cr_ptr)
 		if (!current_floor_id)
 		{
 			/* Get new id */
-			current_floor_id = get_current_floor_id();
+			current_floor_id = add_new_floor();
 			cr_ptr->floor_id = current_floor_id;
 		}
 
@@ -1088,7 +1088,7 @@ void stair_creation(creature_type *creature_ptr)
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		creature_ptr->floor_id = get_current_floor_id();
+		creature_ptr->floor_id = add_new_floor();
 		sf_ptr = get_sf_ptr(creature_ptr->floor_id);
 	} 
 
@@ -1135,7 +1135,7 @@ void stair_creation(creature_type *creature_ptr)
 	/* No old destination -- Get new one now */
 	else
 	{
-		dest_floor_id = get_current_floor_id();
+		dest_floor_id = add_new_floor();
 
 		/* Fix it */
 		if (up)
