@@ -2068,7 +2068,7 @@ msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚Å‚¢‚±‚¤B");
 			cr_ptr->au -= wager;
 			reset_tim_flags(cr_ptr);
 
-			/* Save the surface floor as saved floor */
+			// Save the surface floor as saved floor
 			prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 			monster_arena_mode = TRUE;

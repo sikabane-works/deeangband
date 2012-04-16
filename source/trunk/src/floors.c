@@ -396,8 +396,11 @@ static void get_out_creature(creature_type *creature_ptr)
 	int ox = creature_ptr->fx;
 	int m_idx = cave[oy][ox].creature_idx;
 
-	/* Nothing to do if no monster */
+	// Nothing to do if no monster
 	if (!m_idx) return;
+
+	// it's yourself
+	if (&creature_list[m_idx] == creature_ptr) return; 
 
 	/* Look until done */
 	while (TRUE)
@@ -717,8 +720,8 @@ void leave_floor(creature_type *cr_ptr)
 	if ((change_floor_mode & CFM_SAVE_FLOORS) &&
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
-		/* Get out of the my way! */
-		get_out_creature(cr_ptr);
+		// Get out of the my way!
+		//get_out_creature(cr_ptr);
 
 		/* Record the last visit turn of current floor */
 		sf_ptr->last_visit = turn;
