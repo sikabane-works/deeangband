@@ -523,7 +523,7 @@ creature_hook_type get_creature_hook2(int y, int x)
 }
 
 
-void set_friendly(creature_type *m_ptr)
+void set_camp(creature_type *m_ptr)
 {
 	m_ptr->smart |= SM_FRIENDLY;
 }

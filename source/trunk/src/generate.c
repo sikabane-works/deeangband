@@ -1301,11 +1301,10 @@ static void generate_field_monster_arena(creature_type *player_ptr)
 
 	build_battle(player_ptr);
 
-	for(i=0;i<4;i++)
+	for(i = 0; i < 4;i ++)
 	{
-		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i/2)*4, player_ptr->fx - 2 + (i%2)*4, battle_mon[i],
-				  (PM_NO_KAGE | PM_NO_PET));
-		set_friendly(&creature_list[cave[player_ptr->fy+8+(i/2)*4][player_ptr->fx-2+(i%2)*4].creature_idx]);
+		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
+		set_camp(&creature_list[cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 	for(i = 1; i < creature_max; i++)
 	{
