@@ -2865,28 +2865,28 @@ void mproc_remove(creature_type *cr_ptr, int mproc_type)
  */
 void creature_process_init(void)
 {
-	creature_type *m_ptr;
+	creature_type *creature_ptr;
 	int          i, cmi;
 
-	/* Reset "mproc_max[]" */
+	// Reset "creature_max[]"
 	for (cmi = 0; cmi < MAX_MTIMED; cmi++) mproc_max[cmi] = 0;
 
-	/* Process the monsters (backwards) */
+	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		/* Access the monster */
-		m_ptr = &creature_list[i];
+		// Access the creature
+		creature_ptr = &creature_list[i];
 
-		/* Ignore "dead" monsters */
-		if (!m_ptr->species_idx) continue;
+		// Ignore "dead" creatures
+		if (!creature_ptr->species_idx) continue;
 
-		if (m_ptr->paralyzed) mproc_add(m_ptr, MTIMED_CSLEEP);
-		if (m_ptr->fast) mproc_add(m_ptr, MTIMED_FAST);
-		if (m_ptr->slow) mproc_add(m_ptr, MTIMED_SLOW);
-		if (m_ptr->stun) mproc_add(m_ptr, MTIMED_STUNNED);
-		if (m_ptr->confused) mproc_add(m_ptr, MTIMED_CONFUSED);
-		if (m_ptr->afraid) mproc_add(m_ptr, MTIMED_MONFEAR);
-		if (m_ptr->invuln) mproc_add(m_ptr, MTIMED_INVULNER);
+		if (creature_ptr->paralyzed) mproc_add(creature_ptr, MTIMED_CSLEEP);
+		if (creature_ptr->fast) mproc_add(creature_ptr, MTIMED_FAST);
+		if (creature_ptr->slow) mproc_add(creature_ptr, MTIMED_SLOW);
+		if (creature_ptr->stun) mproc_add(creature_ptr, MTIMED_STUNNED);
+		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
+		if (creature_ptr->afraid) mproc_add(creature_ptr, MTIMED_MONFEAR);
+		if (creature_ptr->invuln) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }
 
