@@ -573,40 +573,23 @@ void leave_floor(creature_type *cr_ptr)
 	int quest_species_idx = 0;
 	int i;
 
-	/* Remove all mirrors without explosion */
+	// Remove all mirrors without explosion
 	remove_all_mirrors(cr_ptr, FALSE);
 
+	// Cut supersthealth
 	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
-
-	/* New floor is not yet prepared */
-	//current_floor_id = 0;
 
 	/* Search the quest monster index */
 	for (i = 0; i < max_quests; i++)
 	{
-		if ((quest[i].status == QUEST_STATUS_TAKEN) &&
-		    ((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
-		    (quest[i].type == QUEST_TYPE_RANDOM)) &&
-		    (quest[i].level == dun_level) &&
-		    (dungeon_type == quest[i].dungeon) &&
+		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
+			((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
+		     (quest[i].type == QUEST_TYPE_RANDOM)) &&
+		     (quest[i].level == dun_level) &&
+		     (dungeon_type == quest[i].dungeon) &&
 		    !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
-		}
-	}
-
-	/* Check if there is a same item */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
-
-		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
-
-		/* Delete old memorized location of the artifact */
-		if (object_is_fixed_artifact(o_ptr))
-		{
-			a_info[o_ptr->name1].floor_id = 0;
 		}
 	}
 
@@ -778,13 +761,13 @@ void change_floor(creature_type *cr_ptr)
 	// No longer in the trap detecteded region
 	detect_trap = FALSE;
 
-	/* Mega-Hack -- no panel yet */
+	// Mega-Hack -- no panel yet
 	panel_row_min = 0;
 	panel_row_max = 0;
 	panel_col_min = 0;
 	panel_col_max = 0;
 
-	/* Mega-Hack -- not ambushed on the wildness? */
+	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
 	// No saved floors (On the surface etc.)
