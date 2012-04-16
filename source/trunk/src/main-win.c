@@ -2105,12 +2105,7 @@ static errr Term_xtra_win_react(void)
 		/* Change setting */
 		use_graphics = arg_graphics;
 
-		/* Reset visuals */
-#ifdef ANGBAND_2_8_1
 		reset_visuals();
-#else /* ANGBAND_2_8_1 */
-		reset_visuals(TRUE);
-#endif /* ANGBAND_2_8_1 */
 	}
 
 #endif /* USE_GRAPHICS */

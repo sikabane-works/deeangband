@@ -51,9 +51,6 @@
 #define VER_PATCH 28
 #define VER_EXTRA 0
 
-#define ANGBAND_2_8_1
-#define HENGBAND
-
 /*
  * Number of Trying for random search
  */
