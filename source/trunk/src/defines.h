@@ -2814,7 +2814,7 @@
 #define SM_IMM_ELEC             0x02000000
 #define SM_IMM_FIRE             0x04000000
 #define SM_IMM_COLD             0x08000000
-#define SM_FRIENDLY             0x10000000 /* XXX Friendly */
+//#define SM_FRIENDLY             0x10000000 /* XXX Friendly */
 #define SM_IMM_REFLECT          0x20000000
 #define SM_IMM_FREE             0x40000000
 #define SM_IMM_MANA             0x80000000
@@ -3793,9 +3793,8 @@
  */
 #define MR1_SINKA 0x01
 
-
-#define is_friendly(A) \
-	 (bool)(((A)->smart & SM_FRIENDLY) ? TRUE : FALSE)
+//TODO
+#define is_friendly(A) FALSE
 
 #define is_friendly_idx(IDX) \
 	 (bool)((IDX) > 0 && is_friendly(&creature_list[(IDX)]))

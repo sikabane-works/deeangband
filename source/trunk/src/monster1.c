@@ -525,7 +525,7 @@ creature_hook_type get_creature_hook2(int y, int x)
 
 void set_camp(creature_type *m_ptr)
 {
-	m_ptr->smart |= SM_FRIENDLY;
+	//TODO m_ptr->smart |= SM_FRIENDLY;
 }
 
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
@@ -550,7 +550,7 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 	if (is_pet(master_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
 
 	m_ptr->smart &= ~SM_PET;
-	m_ptr->smart &= ~SM_FRIENDLY;
+	//TODO m_ptr->smart &= ~SM_FRIENDLY;
 }
 
 
