@@ -947,8 +947,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->realm1);
 	rd_s16b(&cr_ptr->realm2);
 
-	rd_s16b(&cr_ptr->camp);
-	rd_s16b(&cr_ptr->master);
+	rd_s16b(&cr_ptr->camp_idx);
+	rd_s16b(&cr_ptr->master_creature_idx);
 
 	/* Special Race/Class info */
 	rd_s16b(&cr_ptr->hitdice);

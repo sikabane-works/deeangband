@@ -1180,8 +1180,8 @@ struct creature_type
 	s16b realm2;            /* Second magic realm */
 	byte oops;			    /* Unused */
 
-	s16b camp;				/* Camp */
-	s16b master;			/* Master */
+	s16b camp_idx;				/* Camp */
+	s16b master_creature_idx;	/* Master */
 
 	s16b hitdice;		/* Hit dice */
 	s16b hitdice_base;   /* Hit dice base */
