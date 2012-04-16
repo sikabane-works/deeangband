@@ -1519,9 +1519,6 @@ void clear_cave(void)
 {
 	int x, y;
 
-	// Pre-calc cur_num of pets in party_mon[]
-	precalc_cur_num_of_pet();
-
 	//current_floor_id = 0;
 
 	/* Start with a blank cave */

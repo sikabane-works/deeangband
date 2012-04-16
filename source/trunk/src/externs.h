@@ -1148,7 +1148,6 @@ extern void clear_saved_floor_files(creature_type *player_ptr);
 extern saved_floor_type *get_sf_ptr(s16b floor_id);
 extern s16b get_current_floor_id(void);
 extern void prepare_change_floor_mode(u32b mode);
-extern void precalc_cur_num_of_pet(void);
 extern void leave_floor(creature_type *cr_ptr);
 extern void change_floor(creature_type *cr_ptr);
 extern void stair_creation(creature_type *creature_ptr);
