@@ -4428,7 +4428,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 				/* ToDo (Robert): fix the invulnerability */
 				if (cave[y][x].creature_idx &&
-				    is_friendly(&creature_list[cave[y][x].creature_idx]) &&
+				    is_friendly(cr_ptr, &creature_list[cave[y][x].creature_idx]) &&
 				    !m_ptr->invuln)
 				{
 					char m_name[80];

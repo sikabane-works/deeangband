@@ -2308,7 +2308,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢æ‚ç‚ê‚½‹C‚ª‚·‚éI");
 		play_window |= (PW_MONSTER);
 	}
 
-	if ((dam > 0) && !is_pet(player_ptr, target_ptr) && !is_friendly(target_ptr))
+	if ((dam > 0) && !is_pet(player_ptr, target_ptr) && !is_friendly(player_ptr, target_ptr))
 	{
 		if (caster_ptr == caster_ptr)
 		{

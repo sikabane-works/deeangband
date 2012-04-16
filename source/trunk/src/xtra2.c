@@ -1857,7 +1857,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 		attitude = ", pet";
 #endif
 	}
-	else if (is_friendly(m_ptr))
+	else if (is_friendly(player_ptr, m_ptr))
 	{
 #ifdef JP
 		attitude = ", —FD“I";

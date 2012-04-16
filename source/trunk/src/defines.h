@@ -3794,16 +3794,16 @@
 #define MR1_SINKA 0x01
 
 //TODO
-#define is_friendly(A) FALSE
+#define is_friendly(player_ptr, A) FALSE
 
 #define is_friendly_idx(IDX) \
-	 (bool)((IDX) > 0 && is_friendly(&creature_list[(IDX)]))
+	 (bool)((IDX) > 0 && is_friendly(playet_ptr, &creature_list[(IDX)]))
 
 #define is_pet(B, A) \
 	 (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)
 
 #define is_hostile(A) \
-	 (bool)((is_friendly(A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
+	 (bool)((is_friendly(player_ptr, A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
 
 /* Hack -- Determine monster race appearance index is same as race index */
 #define is_original_ap(A) \

@@ -560,7 +560,7 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 {
 	if (monster_arena_mode) return;
-	if (is_friendly(m_ptr))
+	if (is_friendly(player_ptr, m_ptr))
 	{
 		char m_name[80];
 

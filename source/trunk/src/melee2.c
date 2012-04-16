@@ -1448,7 +1448,7 @@ static void process_creature(int m_idx)
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		weapon_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !monster_arena_mode)
+	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !monster_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1573,7 +1573,7 @@ static void process_creature(int m_idx)
 	}
 
 	/* No one wants to be your friend if you're aggravating */
-	if (is_friendly(creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE))
+	if (is_friendly(player_ptr, creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE))
 		gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
@@ -1721,7 +1721,7 @@ static void process_creature(int m_idx)
 #else
 				filename = "monpet.txt";
 #endif
-			else if (is_friendly(creature_ptr))
+			else if (is_friendly(player_ptr, creature_ptr))
 #ifdef JP
 				filename = "monfrien_j.txt";
 #else

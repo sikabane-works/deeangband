@@ -5445,7 +5445,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 		s16b this_object_idx, next_object_idx = 0;
 
 		/* Get the monsters attitude */
-		if (is_friendly(m_ptr)) mode |= PM_FORCE_FRIENDLY;
+		if (is_friendly(player_ptr, m_ptr)) mode |= PM_FORCE_FRIENDLY;
 		if (is_pet(player_ptr, m_ptr)) mode |= PM_FORCE_PET;
 		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 

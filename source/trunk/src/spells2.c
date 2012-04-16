@@ -4718,7 +4718,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 #endif
 			}
 		}
-		if (is_friendly(m_ptr) && !is_pet(player_ptr, m_ptr))
+		if (is_friendly(player_ptr, m_ptr) && !is_pet(player_ptr, m_ptr))
 		{
 			if (see_m)
 			{
