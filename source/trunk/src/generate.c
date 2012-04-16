@@ -1358,7 +1358,7 @@ static void generate_field_quest(void)
 /*
  * Generate a fortless level
  */
-static void fortless_gen(int type)
+static void generate_field_fortless(int type)
 {
 	int x, y;
 
@@ -1405,7 +1405,7 @@ static bool generate_field_cave(cptr *why)
 		if (cheat_room)
 			msg_format("Fortless level -- type %d.", dungeon_info[dungeon_type].vault_quest_type[i]);
 
-		fortless_gen(dungeon_info[dungeon_type].vault_quest_type[i]);
+		generate_field_fortless(dungeon_info[dungeon_type].vault_quest_type[i]);
 		return TRUE;
 	}
 
