@@ -52,7 +52,6 @@
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
-#define ZANGBAND
 #define HENGBAND
 
 /*
