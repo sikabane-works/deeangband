@@ -577,12 +577,13 @@ void leave_floor(creature_type *cr_ptr)
 	int i;
 
 	// Remove all mirrors without explosion
-	remove_all_mirrors(cr_ptr, FALSE);
+	//remove_all_mirrors(cr_ptr, FALSE);
 
 	// Cut supersthealth
-	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
+	//if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 
 	/* Search the quest monster index */
+	/*
 	for (i = 0; i < max_quests; i++)
 	{
 		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
@@ -595,6 +596,7 @@ void leave_floor(creature_type *cr_ptr)
 			quest_species_idx = quest[i].species_idx;
 		}
 	}
+	*/
 
 	/* Extract current floor info or NULL */
 	sf_ptr = get_sf_ptr(cr_ptr->floor_id);
