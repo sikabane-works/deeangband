@@ -168,8 +168,8 @@ saved_floor_type *get_sf_ptr(s16b floor_id)
 {
 	int i;
 
-	/* floor_id No.0 indicates no floor */
-	if (!floor_id) return NULL;
+	// floor_id No.0 indicates no floor
+	//if (!floor_id) return NULL;
 
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
@@ -178,7 +178,7 @@ saved_floor_type *get_sf_ptr(s16b floor_id)
 		if (sf_ptr->floor_id == floor_id) return sf_ptr;
 	}
 
-	/* None found */
+	// None found
 	return NULL;
 }
 
@@ -723,19 +723,18 @@ void leave_floor(creature_type *cr_ptr)
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
 		// Get out of the my way!
-		//get_out_creature(cr_ptr);
+		get_out_creature(cr_ptr);
 
 		// Record the last visit turn of current floor
-		//sf_ptr->last_visit = turn;
+		sf_ptr->last_visit = turn;
 
 		// Forget the lite and view
 		//TODO
-		//forget_lite();
-		//forget_view();
-		//clear_creature_lite();
+		forget_lite();
+		forget_view();
+		clear_creature_lite();
 
 		// Save current floor
-		/*
 		if (!save_floor(sf_ptr, 0))
 		{
 			// Save failed -- No return
@@ -744,7 +743,6 @@ void leave_floor(creature_type *cr_ptr)
 			// Kill current floor
 			kill_saved_floor(get_sf_ptr(cr_ptr->floor_id));
 		}
-		*/
 	}
 
 }
