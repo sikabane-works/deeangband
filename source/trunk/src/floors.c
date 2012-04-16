@@ -574,7 +574,7 @@ void leave_floor(creature_type *cr_ptr)
 	feature_type *f_ptr;
 	saved_floor_type *sf_ptr;
 	int quest_species_idx = 0;
-	int i;
+	//int i;
 
 	// Remove all mirrors without explosion
 	//remove_all_mirrors(cr_ptr, FALSE);
@@ -776,7 +776,7 @@ void change_floor(creature_type *cr_ptr)
 	// No saved floors (On the surface etc.)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
-		generate_field(cr_ptr); // Create field
+		generate_field(cr_ptr); // Generate field
 	}
 
 	// In the dungeon

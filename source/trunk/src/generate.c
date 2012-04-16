@@ -1163,7 +1163,7 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void arena_gen(creature_type *player_ptr)
+static void generate_field_arena(creature_type *player_ptr)
 {
 	int y, x;
 	int qy = 0;
@@ -1270,7 +1270,7 @@ static void build_battle(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void battle_gen(creature_type *player_ptr)
+static void generate_field_monster_arena(creature_type *player_ptr)
 {
 	int y, x, i;
 	int qy = 0;
@@ -1325,7 +1325,7 @@ static void battle_gen(creature_type *player_ptr)
 /*
  * Generate a quest level
  */
-static void quest_gen(void)
+static void generate_field_quest(void)
 {
 	int x, y;
 
@@ -1385,7 +1385,7 @@ static void fortless_gen(int type)
 
 
 /* Make a real level */
-static bool level_gen(cptr *why)
+static bool generate_field_cave(cptr *why)
 {
 	int level_height, level_width, i;
 
@@ -1574,8 +1574,7 @@ void generate_field(creature_type *player_ptr)
 {
 	int num;
 
-	/* Fill the arrays of floors and walls in the good proportions */
-
+	// Fill the arrays of floors and walls in the good proportions
 	set_floor_and_wall(dungeon_type);
 
 	/* Generate */
@@ -1585,14 +1584,14 @@ void generate_field(creature_type *player_ptr)
 
 		cptr why = NULL;
 
-		/* Clear and empty the cave */
-		clear_cave();
+		clear_cave(); // Clear and empty the cave
+
 
 		/* Build the arena -KMW- */
 		if (inside_arena)
 		{
 			/* Small arena */
-			arena_gen(player_ptr);
+			generate_field_arena(player_ptr);
 			current_floor_id = 0;
 		}
 
@@ -1600,13 +1599,13 @@ void generate_field(creature_type *player_ptr)
 		else if (monster_arena_mode)
 		{
 			/* Small arena */
-			battle_gen(player_ptr);
+			generate_field_monster_arena(player_ptr);
 			current_floor_id = 0;
 		}
 
 		else if (inside_quest)
 		{
-			quest_gen();
+			generate_field_quest();
 			current_floor_id = 0;
 		}
 
@@ -1614,15 +1613,15 @@ void generate_field(creature_type *player_ptr)
 		else if (!dun_level)
 		{
 			/* Make the wilderness */
-			if (wild_mode) wilderness_gen_small(player_ptr);
-			else wilderness_gen(player_ptr);
+			if (wild_mode) generate_field_world(player_ptr);
+			else generate_field_wilderness(player_ptr);
 			current_floor_id = 0;
 		}
 
 		/* Build a real level */
 		else
 		{
-			okay = level_gen(&why);
+			okay = generate_field_cave(&why);
 		}
 
 

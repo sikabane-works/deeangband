@@ -1981,8 +1981,8 @@ extern bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
 
 /* wild.c */
 extern void set_floor_and_wall(byte type);
-extern void wilderness_gen(creature_type *cr_ptr);
-extern void wilderness_gen_small(creature_type *cr_ptr);
+extern void generate_field_wilderness(creature_type *cr_ptr);
+extern void generate_field_world(creature_type *cr_ptr);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);
