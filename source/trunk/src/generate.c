@@ -1394,8 +1394,7 @@ static bool level_gen(cptr *why)
 	{
 		int p = !one_in_(dungeon_info[dungeon_type].vault_quest_probability[i]);
 		if(dungeon_info[dungeon_type].vault_quest_level[i] <= dun_level &&
-		   dungeon_info[dungeon_type].vault_quest_level_max[i] >= dun_level &&
-		   !p)
+		   dungeon_info[dungeon_type].vault_quest_level_max[i] >= dun_level && !p)
 		   break;
 
 		   i++;
@@ -1571,7 +1570,7 @@ void clear_cave(void)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_cave(creature_type *player_ptr)
+void generate_field(creature_type *player_ptr)
 {
 	int num;
 
@@ -1594,6 +1593,7 @@ void generate_cave(creature_type *player_ptr)
 		{
 			/* Small arena */
 			arena_gen(player_ptr);
+			current_floor_id = 0;
 		}
 
 		/* Build the battle -KMW- */
@@ -1601,11 +1601,13 @@ void generate_cave(creature_type *player_ptr)
 		{
 			/* Small arena */
 			battle_gen(player_ptr);
+			current_floor_id = 0;
 		}
 
 		else if (inside_quest)
 		{
 			quest_gen();
+			current_floor_id = 0;
 		}
 
 		/* Build the town */
@@ -1614,7 +1616,7 @@ void generate_cave(creature_type *player_ptr)
 			/* Make the wilderness */
 			if (wild_mode) wilderness_gen_small(player_ptr);
 			else wilderness_gen(player_ptr);
-
+			current_floor_id = 0;
 		}
 
 		/* Build a real level */

@@ -776,8 +776,7 @@ void change_floor(creature_type *cr_ptr)
 	// No saved floors (On the surface etc.)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
-		// Create cave
-		generate_cave(cr_ptr);
+		generate_field(cr_ptr); // Create field
 	}
 
 	// In the dungeon
@@ -932,7 +931,7 @@ void change_floor(creature_type *cr_ptr)
 			else
 			{
 				/* Newly create cave */
-				generate_cave(cr_ptr);
+				generate_field(cr_ptr);
 			}
 
 			/* Record last visit turn */

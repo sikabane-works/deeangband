@@ -1156,7 +1156,7 @@ extern void stair_creation(creature_type *creature_ptr);
 extern bool place_quest_creatures(creature_type *player_ptr);
 extern void wipe_generate_cave_flags(void);
 extern void clear_cave(void);
-extern void generate_cave(creature_type *player_ptr);
+extern void generate_field(creature_type *player_ptr);
 
 /* init1.c */
 extern byte color_char_to_attr(char c);
