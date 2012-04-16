@@ -112,7 +112,7 @@ int dun_tun_jct;
 
 
 /*
- * Dungeon generation data -- see "cave_gen()"
+ * Dungeon generation data -- see "create_cave_structure()"
  */
 dun_data *dun;
 
@@ -586,7 +586,7 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 /*
  * Generate various caverns and lakes
  *
- * There were moved from cave_gen().
+ * There were moved from create_cave_structure().
  */
 static void gen_caverns_and_lakes(void)
 {
@@ -689,7 +689,7 @@ static void gen_caverns_and_lakes(void)
  *
  * Note that "dun_body" adds about 4000 bytes of memory to the stack.
  */
-static bool cave_gen(void)
+static bool create_cave_structure(void)
 {
 	int i, k, y, x;
 
@@ -1358,7 +1358,7 @@ static void generate_field_quest(void)
 /*
  * Generate a fortless level
  */
-static void generate_field_fortless(int type)
+static void generate_field_fortress(int type)
 {
 	int x, y;
 
@@ -1405,13 +1405,13 @@ static bool generate_field_cave(cptr *why)
 		if (cheat_room)
 			msg_format("Fortless level -- type %d.", dungeon_info[dungeon_type].vault_quest_type[i]);
 
-		generate_field_fortless(dungeon_info[dungeon_type].vault_quest_type[i]);
+		generate_field_fortress(dungeon_info[dungeon_type].vault_quest_type[i]);
 		return TRUE;
 	}
 
 	if ((always_small_levels || ironman_small_levels ||
 	    (one_in_(SMALL_LEVEL) && small_levels) ||
-	     (dungeon_info[dungeon_type].flags1 & DF1_BEGINNER) ||
+	    (dungeon_info[dungeon_type].flags1 & DF1_BEGINNER) ||
 	    (dungeon_info[dungeon_type].flags1 & DF1_SMALLEST)) &&
 	    !(dungeon_info[dungeon_type].flags1 & DF1_BIG))
 	{
@@ -1421,50 +1421,48 @@ static bool generate_field_cave(cptr *why)
 		if (dungeon_info[dungeon_type].flags1 & DF1_SMALLEST)
 		{
 			level_height = MIN_SCREEN_HGT;
-			level_width = MIN_SCREEN_WID;
+			level_width  = MIN_SCREEN_WID;
 		}
 		else if (dungeon_info[dungeon_type].flags1 & DF1_BEGINNER)
 		{
-			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/4);
-			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/4);;
+			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT / SCREEN_HGT / 4);
+			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 4);
 		}
 		else
 		{
-			level_height = rand_range(MIN_SCREEN_HGT,MAX_HGT/SCREEN_HGT/3);
-			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/3);
+			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT / SCREEN_HGT / 3);
+			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 3);
 		}
 
 		cur_hgt = level_height * SCREEN_HGT;
-		cur_wid = level_width * SCREEN_WID;
+		cur_wid = level_width  * SCREEN_WID;
 
-		/* Assume illegal panel */
+		// Assume illegal panel
 		panel_row_min = cur_hgt;
 		panel_col_min = cur_wid;
 
-		if (cheat_room)
-		  msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
+		if (cheat_room) msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
 	}
 	else
 	{
-		/* Big dungeon */
+		// Big dungeon
 		do{
-		level_height = rand_range(MAX_HGT/SCREEN_HGT/3, MAX_HGT/SCREEN_HGT);
-		level_width = rand_range(MAX_WID/SCREEN_WID/3, MAX_WID/SCREEN_WID);
-		} while (level_height + level_width < (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
-			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3/4));
+		level_height = rand_range(MAX_HGT / SCREEN_HGT / 3, MAX_HGT/SCREEN_HGT);
+		level_width  = rand_range(MAX_WID / SCREEN_WID / 3, MAX_WID/SCREEN_WID);
+		} while (level_height + level_width <  (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
+			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3 / 4));
 		cur_hgt = level_height * SCREEN_HGT;
-		cur_wid = level_width * SCREEN_WID;
+		cur_wid = level_width  * SCREEN_WID;
 
-		/* Assume illegal panel */
+		// Assume illegal panel
 		panel_row_min = cur_hgt;
 		panel_col_min = cur_wid;
 
-		if (cheat_room)
-		  msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
+		if (cheat_room) msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
 	}
 
-	/* Make a dungeon */
-	if (!cave_gen())
+	// Make a dungeon
+	if (!create_cave_structure())
 	{
 #ifdef JP
 *why = "É_ÉìÉWÉáÉìê∂ê¨Ç…é∏îs";
