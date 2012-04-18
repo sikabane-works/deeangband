@@ -850,6 +850,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 		wr_s16b(sf_ptr->floor_id);
 		wr_byte(sf_ptr->savefile_id);
 		wr_s16b(sf_ptr->dun_level);
+		wr_byte(sf_ptr->dun_type);
 		wr_s32b(sf_ptr->world_x);
 		wr_s32b(sf_ptr->world_y);
 		wr_s32b(sf_ptr->last_visit);
@@ -1093,6 +1094,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 		wr_s16b(sf_ptr->floor_id);
 		wr_byte(sf_ptr->savefile_id);
 		wr_s16b(sf_ptr->dun_level);
+		wr_byte(sf_ptr->dun_type);
 		wr_s32b(sf_ptr->world_x);
 		wr_s32b(sf_ptr->world_y);
 		wr_s32b(sf_ptr->last_visit);

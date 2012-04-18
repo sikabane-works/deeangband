@@ -1396,6 +1396,10 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		if (tmp16s != sf_ptr->dun_level) return 171;
 		dun_level = sf_ptr->dun_level;
 
+		rd_byte(&tmp8u);
+		if (tmp8u != sf_ptr->dun_type) return 171;
+		dungeon_type = sf_ptr->dun_type;
+
 		rd_s32b(&tmp32s);
 		if (tmp32s != sf_ptr->world_x) return 171;
 
@@ -1558,6 +1562,7 @@ static errr rd_dungeon(void)
 			rd_s16b(&sf_ptr->floor_id);
 			rd_byte(&sf_ptr->savefile_id);
 			rd_s16b(&sf_ptr->dun_level);
+			rd_byte(&sf_ptr->dun_type);
 			rd_s32b(&sf_ptr->world_x);
 			rd_s32b(&sf_ptr->world_y);
 			rd_s32b(&sf_ptr->last_visit);

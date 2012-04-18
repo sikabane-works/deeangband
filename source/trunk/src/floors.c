@@ -279,6 +279,7 @@ s16b add_new_floor(void)
 
 	/* sf_ptr->dun_level may be changed later */
 	sf_ptr->dun_level = dun_level;
+	sf_ptr->dun_type = dungeon_type;
 	sf_ptr->world_x = wilderness_x;
 	sf_ptr->world_y = wilderness_y;
 
@@ -941,6 +942,7 @@ void change_floor(creature_type *cr_ptr)
 
 			/* Set correct dun_level value */
 			sf_ptr->dun_level = dun_level;
+			sf_ptr->dun_type = dungeon_type;
 			sf_ptr->world_x = wilderness_x;
 			sf_ptr->world_y = wilderness_y;
 
@@ -1156,13 +1158,15 @@ void stair_creation(creature_type *creature_ptr)
 	if (up)
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level <= dun_level - 2 && dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
+			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level <= dun_level - 2 && sf_ptr->dun_type == dungeon_type &&
+			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level >= dun_level + 2 && dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
+			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level >= dun_level + 2 && sf_ptr->dun_type == dungeon_type &&
+			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 

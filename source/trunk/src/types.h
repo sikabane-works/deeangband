@@ -1925,6 +1925,7 @@ typedef struct
 	s16b floor_id;        /* No recycle until 65536 IDs are all used */
 	byte savefile_id;     /* ID for savefile (from 0 to MAX_SAVED_FLOOR) */
 	s16b dun_level;
+	byte dun_type;
 	s32b world_x;
 	s32b world_y;
 	s32b last_visit;      /* Time count of last visit. 0 for new floor. */
