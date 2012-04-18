@@ -99,7 +99,7 @@ cptr            p = "能力";
 	cptr            p = "power";
 #endif
 
-	monster_power   spell;
+	racial_power   spell;
 	bool            flag, redraw;
 
 	/* Assume cancelled */
@@ -163,7 +163,7 @@ put_str("失率 効果", y, x + 36);
 				for (i = 0; i < num; i++)
 				{
 					/* Access the spell */
-					spell = monster_powers[cr_ptr->mane_spell[i]];
+					spell = racial_powers[cr_ptr->mane_spell[i]];
 
 					chance = spell.manefail;
 
@@ -235,7 +235,7 @@ put_str("失率 効果", y, x + 36);
 		}
 
 		/* Save the spell index */
-		spell = monster_powers[cr_ptr->mane_spell[i]];
+		spell = racial_powers[cr_ptr->mane_spell[i]];
 
 		/* Verify it */
 		if (ask)
@@ -244,9 +244,9 @@ put_str("失率 効果", y, x + 36);
 
 			/* Prompt */
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sをまねますか？", monster_powers[cr_ptr->mane_spell[i]].name);
+			(void) strnfmt(tmp_val, 78, "%sをまねますか？", racial_powers[cr_ptr->mane_spell[i]].name);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", monster_powers[cr_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[cr_ptr->mane_spell[i]].name);
 #endif
 
 
@@ -1279,7 +1279,7 @@ bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi)
 	int             chance;
 	int             minfail = 0;
 	int             plev = cr_ptr->lev;
-	monster_power   spell;
+	racial_power   spell;
 	bool            cast;
 
 
@@ -1309,7 +1309,7 @@ msg_print("まねられるものが何もない！");
 	/* get power */
 	if (!get_mane_power(cr_ptr, &n, baigaesi)) return FALSE;
 
-	spell = monster_powers[cr_ptr->mane_spell[n]];
+	spell = racial_powers[cr_ptr->mane_spell[n]];
 
 	/* Spell failure chance */
 	chance = spell.manefail;

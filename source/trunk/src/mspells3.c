@@ -271,7 +271,7 @@ cptr            p = "魔法";
 	cptr            p = "magic";
 #endif
 
-	monster_power   spell;
+	racial_power   spell;
 	bool            flag, redraw;
 	int menu_line = (use_menu ? 1 : 0);
 
@@ -536,7 +536,7 @@ put_str("MP 失率 効果", y, x + 33);
 					if (!cr_ptr->magic_num2[spellnum[i]]) continue;
 
 					/* Access the spell */
-					spell = monster_powers[spellnum[i]];
+					spell = racial_powers[spellnum[i]];
 
 					chance = spell.fail;
 
@@ -549,7 +549,7 @@ put_str("MP 失率 効果", y, x + 33);
 
 					chance = mod_spell_chance_1(cr_ptr, chance);
 
-					need_mana = mod_need_mana(cr_ptr, monster_powers[spellnum[i]].smana, 0, REALM_NONE);
+					need_mana = mod_need_mana(cr_ptr, racial_powers[spellnum[i]].smana, 0, REALM_NONE);
 
 					/* Not enough mana to cast */
 					if (need_mana > cr_ptr->csp)
@@ -631,7 +631,7 @@ put_str("MP 失率 効果", y, x + 33);
 		}
 
 		/* Save the spell index */
-		spell = monster_powers[spellnum[i]];
+		spell = racial_powers[spellnum[i]];
 
 		/* Verify it */
 		if (ask)
@@ -640,9 +640,9 @@ put_str("MP 失率 効果", y, x + 33);
 
 			/* Prompt */
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sの魔法を唱えますか？", monster_powers[spellnum[i]].name);
+			(void) strnfmt(tmp_val, 78, "%sの魔法を唱えますか？", racial_powers[spellnum[i]].name);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", monster_powers[spellnum[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[spellnum[i]].name);
 #endif
 
 
@@ -1898,7 +1898,7 @@ bool do_cmd_cast_learned(creature_type *cr_ptr)
 	int             chance;
 	int             minfail = 0;
 	int             plev = cr_ptr->lev;
-	monster_power   spell;
+	racial_power   spell;
 	bool            cast;
 	int             need_mana;
 
@@ -1918,7 +1918,7 @@ msg_print("混乱していて唱えられない！");
 	/* get power */
 	if (!get_learned_power(cr_ptr, &n)) return FALSE;
 
-	spell = monster_powers[n];
+	spell = racial_powers[n];
 
 	need_mana = mod_need_mana(cr_ptr, spell.smana, 0, REALM_NONE);
 
@@ -2063,15 +2063,15 @@ void learn_spell(creature_type *cr_ptr, int monspell)
 	if (monspell < 0) return; /* Paranoia */
 	if (cr_ptr->magic_num2[monspell]) return;
 	if (cr_ptr->confused || cr_ptr->blind || cr_ptr->image || cr_ptr->stun || cr_ptr->paralyzed) return;
-	if (randint1(cr_ptr->lev + 70) > monster_powers[monspell].level + 40)
+	if (randint1(cr_ptr->lev + 70) > racial_powers[monspell].level + 40)
 	{
 		cr_ptr->magic_num2[monspell] = 1;
 #ifdef JP
-		msg_format("%sを学習した！", monster_powers[monspell].name);
+		msg_format("%sを学習した！", racial_powers[monspell].name);
 #else
-		msg_format("You have learned %s!", monster_powers[monspell].name);
+		msg_format("You have learned %s!", racial_powers[monspell].name);
 #endif
-		gain_exp(cr_ptr, monster_powers[monspell].level * monster_powers[monspell].smana);
+		gain_exp(cr_ptr, racial_powers[monspell].level * racial_powers[monspell].smana);
 
 		/* Sound */
 		sound(SOUND_STUDY);

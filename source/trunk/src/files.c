@@ -4656,14 +4656,14 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 					pcol = TRUE;
 					/* Dump blue magic */
 					l1 = strlen(p[col]);
-					l2 = strlen(monster_powers_short[spellnum[i]]);
+					l2 = strlen(racial_powers_short[spellnum[i]]);
 					if ((l1 + l2) >= 75)
 					{
 						strcat(p[col], "\n");
 						col++;
 						strcat(p[col], "       ");
 					}
-					strcat(p[col], monster_powers_short[spellnum[i]]);
+					strcat(p[col], racial_powers_short[spellnum[i]]);
 					strcat(p[col], ", ");
 				}
 			}

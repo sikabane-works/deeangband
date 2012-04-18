@@ -3155,7 +3155,7 @@ int chest_traps[64] =
 	(CHEST_EXPLODE | CHEST_SUMMON),
 };
 
-monster_power monster_powers[MAX_MONSPELLS] =
+racial_power racial_powers[MAX_MONSPELLS] =
 {
 /* level,  smana,  %fail,  manedam,  %manefail,  use_stat, name */
 #ifdef JP
@@ -3357,7 +3357,7 @@ monster_power monster_powers[MAX_MONSPELLS] =
 };
 
 
-cptr monster_powers_short[MAX_MONSPELLS] = {
+cptr racial_powers_short[MAX_MONSPELLS] = {
 #ifdef JP
 
 	"ã©Ç‘", "âΩÇ©", "ñÇóÕè¡ãé", "ÉçÉPÉbÉg", "éÀåÇ", "âΩÇ©", "âΩÇ©", "âΩÇ©",

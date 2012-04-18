@@ -1686,8 +1686,8 @@ struct mind_power
 
 /* Imitator */
 
-typedef struct monster_power monster_power;
-struct monster_power
+typedef struct racial_power racial_power;
+struct racial_power
 {
 	int     level;
 	int     smana;
