@@ -1544,6 +1544,50 @@ static void do_cmd_wiz_creature_list(void)
 	free(ce);
 }
 
+
+/*
+ * Creature list 
+ */
+static void do_cmd_wiz_floor_teleport(void)
+{
+	selection *ce;
+	int i;//, mode;
+	//char k, tmp[80];
+	ce = malloc(sizeof(selection) * (max_floor_id + 1));
+
+	screen_save();
+
+	while(1)
+	{
+
+		for(i = 0; i < max_floor_id; i++)
+		{
+			sprintf(ce[i].cap, "[%4d] F:%d Lev:%3d X:%3d Y:%3d", i,
+				saved_floors[i].floor_id, saved_floors[i].dun_level, saved_floors[i].world_x, saved_floors[i].world_y);
+			ce[i].cap[72] = '\0'; 
+
+			ce[i].d_color = TERM_L_DARK;
+			ce[i].l_color = TERM_WHITE;
+			ce[i].key = '\0';
+			ce[i].code = i;
+		}
+
+		sprintf(ce[i].cap, " END ");
+		ce[i].d_color = TERM_RED;
+		ce[i].l_color = TERM_L_RED;
+		ce[i].key = ESCAPE;
+		ce[i].code = i;
+
+		i = get_selection(ce, max_floor_id + 1, 1, 1, 22, 78, NULL);
+		if(i == max_floor_id) break;
+
+	}
+
+	screen_load();
+
+	free(ce);
+}
+
 /*
  * Floor object list 
  */
@@ -2090,7 +2134,6 @@ void do_cmd_debug(creature_type *cr_ptr)
 		do_cmd_wiz_floor_object_list();
 		break;
 
-
 	/* Hitpoint rerating */
 	case 'h':
 		do_cmd_rerate(cr_ptr, TRUE);
@@ -2201,9 +2244,14 @@ void do_cmd_debug(creature_type *cr_ptr)
 		do_cmd_wiz_summon(cr_ptr, command_arg);
 		break;
 
-	/* Teleport */
+	// Teleport
 	case 't':
 		teleport_player(cr_ptr, 100, 0L);
+		break;
+
+	// Teleport Known Floor
+	case 'T':
+		do_cmd_wiz_floor_teleport();
 		break;
 
 	/* Very Good Objects */
