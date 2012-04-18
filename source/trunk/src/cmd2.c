@@ -3664,7 +3664,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					if (tdam < 0) tdam = 0;
 
 					/* Modify the damage */
-					tdam = mon_damage_mod(m_ptr, tdam, FALSE);
+					tdam = invuln_damage_mod(m_ptr, tdam, FALSE);
 				}
 
 				/* Complex message */
@@ -4335,7 +4335,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				if (tdam < 0) tdam = 0;
 
 				/* Modify the damage */
-				tdam = mon_damage_mod(m_ptr, tdam, FALSE);
+				tdam = invuln_damage_mod(m_ptr, tdam, FALSE);
 
 				/* Complex message */
 				if (wizard)

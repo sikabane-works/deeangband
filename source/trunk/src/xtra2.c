@@ -1419,7 +1419,7 @@ msg_print("’n–Ê‚É—‚Æ‚³‚ê‚½B");
  *
  * "type" is not yet used and should be 0.
  */
-int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
+int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 {
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
 

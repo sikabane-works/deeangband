@@ -1761,7 +1761,7 @@ extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
 extern bool tgt_pt (creature_type *cr_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *cr_ptr);
 extern void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg);
-extern int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
+extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern s16b gain_energy(void);
 extern s16b bow_energy(int sval);
 extern int bow_tmul(int sval);

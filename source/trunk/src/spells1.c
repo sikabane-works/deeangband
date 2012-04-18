@@ -1859,7 +1859,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 	/* Modify the damage */
 	tmp = dam;
-	dam = mon_damage_mod(target_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
+	dam = invuln_damage_mod(target_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
 #ifdef JP
 	if ((tmp > 0) && (dam == 0)) note = "はダメージを受けていない。";
 #else

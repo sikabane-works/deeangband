@@ -1926,7 +1926,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは突然熱くなった！", attacker_name);
@@ -1955,7 +1955,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは電撃をくらった！", attacker_name);
@@ -1984,7 +1984,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは冷気をくらった！", attacker_name);
@@ -2014,7 +2014,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sは鏡の破片をくらった！", attacker_name);
@@ -2050,7 +2050,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 							int dam = damroll(2, 6);
 
 							/* Modify the damage */
-							dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+							dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 							msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
@@ -2080,7 +2080,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						int dam = damroll(2, 6);
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
@@ -2119,7 +2119,7 @@ msg_format("%sは体力を回復したようだ。", attacker_name);
 						if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
 
 						/* Modify the damage */
-						dam = mon_damage_mod(attacker_ptr, dam, FALSE);
+						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 						msg_format("影のオーラが%^sに反撃した！", attacker_name);

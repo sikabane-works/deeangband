@@ -1913,7 +1913,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		if (k < 0) k = 0;
 
 		/* Modify the damage */
-		k = mon_damage_mod(tar_ptr, k, FALSE);
+		k = invuln_damage_mod(tar_ptr, k, FALSE);
 
 		/* Complex message */
 		if (wizard)
@@ -2628,7 +2628,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			}
 
 			/* Modify the damage */
-			k = mon_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
+			k = invuln_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
 			if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 			{
 				if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
