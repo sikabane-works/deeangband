@@ -334,7 +334,7 @@ s16b calc_race_standard_size(race_type * ir_ptr){
 						 (ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2);	
 }
 
-s16b calc_monster_standard_size(species_type * mr_ptr){
+static s16b calc_creature_standard_size(species_type * mr_ptr){
 	int tmpht, tmpwt;
 
 	if(IS_MALE(mr_ptr))
@@ -369,7 +369,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 
 	num = 10;
 
-	size = calc_monster_standard_size(mr_ptr);
+	size = calc_creature_standard_size(mr_ptr);
 
 	dice = size >= 10 ? 5 + size / 2 : size;
 	if (mr_ptr->race_idx1 != INDEX_NONE)
