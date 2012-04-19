@@ -573,11 +573,11 @@ static void locate_connected_stairs(creature_type *creature_ptr, saved_floor_typ
  */
 void leave_floor(creature_type *cr_ptr)
 {
+	int i;
 	cave_type *c_ptr = NULL;
 	feature_type *f_ptr;
 	saved_floor_type *sf_ptr;
 	int quest_species_idx = 0;
-	//int i;
 
 	// Remove all mirrors without explosion
 	//remove_all_mirrors(cr_ptr, FALSE);
@@ -673,29 +673,16 @@ void leave_floor(creature_type *cr_ptr)
 		change_floor_mode &= ~CFM_SAVE_FLOORS;
 	}
 
-	// Kill some old saved floors
-	if (!(change_floor_mode & CFM_SAVE_FLOORS))
+	if (!(change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
-		int i;
-
 		// Kill all saved floors
 		for (i = 0; i < MAX_SAVED_FLOORS; i++) kill_saved_floor(&saved_floors[i]);
-
-		// Reset visit_mark count
-		latest_visit_mark = 1;
+		latest_visit_mark = 1; // Reset visit_mark count
 	}
-	else if (change_floor_mode & CFM_NO_RETURN)
-	{
-		// Kill current floor
-		kill_saved_floor(sf_ptr);
-	}
+	else if (change_floor_mode & CFM_NO_RETURN) kill_saved_floor(sf_ptr);
 
 	// No current floor -- Left/Enter dungeon etc...
-	if (!cr_ptr->floor_id)
-	{
-		// No longer need to save current floor
-		return;
-	}
+	if (!cr_ptr->floor_id) return;
 
 
 	// Mark next floor_id on the previous floor
@@ -758,7 +745,7 @@ void leave_floor(creature_type *cr_ptr)
  */
 void change_floor(creature_type *cr_ptr)
 {
-	saved_floor_type *sf_ptr;
+	//saved_floor_type *sf_ptr;
 	bool loaded = FALSE;
 
 	// The dungeon is not ready
