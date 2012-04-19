@@ -2817,7 +2817,6 @@ void update_lite(creature_type *cr_ptr)
 }
 
 
-static bool mon_invis;
 static s16b mon_fy, mon_fx;
 
 /*
@@ -2857,8 +2856,6 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 				if (!cave_los_bold(y, x - 1)) return;
 			}
 
-			/* Hack XXX XXX - Is it a wall and monster not in LOS? */
-			else if (mon_invis) return;
 		}
 
 		/* Vertical walls between player and a monster */
@@ -2877,9 +2874,6 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 			{
 				if (!cave_los_bold(y - 1, x)) return;
 			}
-
-			/* Hack XXX XXX - Is it a wall and monster not in LOS? */
-			else if (mon_invis) return;
 		}
 	}
 
@@ -2942,9 +2936,6 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			{
 				if (!cave_los_bold(y, x - 1) && !cave_have_flag_bold(y, x - 1, FF_PROJECT)) return;
 			}
-
-			/* Hack XXX XXX - Is it a wall and monster not in LOS? */
-			else if (mon_invis) return;
 		}
 
 		/* Vertical walls between player and a monster */
@@ -2963,9 +2954,6 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			{
 				if (!cave_los_bold(y - 1, x) && !cave_have_flag_bold(y - 1, x, FF_PROJECT)) return;
 			}
-
-			/* Hack XXX XXX - Is it a wall and monster not in LOS? */
-			else if (mon_invis) return;
 		}
 	}
 
