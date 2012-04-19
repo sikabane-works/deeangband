@@ -776,35 +776,37 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
+	generate_field(cr_ptr); // Generate field
+
+	/*
 	// No saved floors (On the surface etc.)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
 		generate_field(cr_ptr); // Generate field
 	}
-
 	// In the dungeon
 	else
 	{
-		/* No floor_id yet */
+		// No floor_id yet
 		if (!current_floor_id)
 		{
-			/* Get new id */
+			// Get new id
 			current_floor_id = add_new_floor();
 			cr_ptr->floor_id = current_floor_id;
 		}
 
-		/* Pointer for infomations of new floor */
+		// Pointer for infomations of new floor
 		sf_ptr = get_sf_ptr(current_floor_id);
 
-		/* Try to restore old floor */
+		// Try to restore old floor
 		if (sf_ptr->last_visit)
 		{
-			/* Old saved floor is exist */
+			// Old saved floor is exist
 			if (load_floor(sf_ptr, 0))
 			{
 				loaded = TRUE;
 
-				/* Forbid return stairs */
+				// Forbid return stairs
 				if (change_floor_mode & CFM_NO_RETURN)
 				{
 					cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
@@ -813,7 +815,7 @@ void change_floor(creature_type *cr_ptr)
 					{
 						if (change_floor_mode & (CFM_DOWN | CFM_UP))
 						{
-							/* Reset to floor */
+							// Reset to floor
 							c_ptr->feat = floor_type[randint0(100)];
 						}
 
@@ -823,32 +825,31 @@ void change_floor(creature_type *cr_ptr)
 			}
 		}
 
-		/*
-		 * Set lower/upper_floor_id of new floor when the new
-		 * floor is right-above/right-under the current floor.
-		 *
-		 * Stair creation/Teleport level/Trap door will take
-		 * you the same floor when you used it later again.
-		 */
+		//* Set lower/upper_floor_id of new floor when the new
+		//* floor is right-above/right-under the current floor.
+		//*
+		//* Stair creation/Teleport level/Trap door will take
+		//* you the same floor when you used it later again.
+		
 		if (cr_ptr->floor_id)
 		{
 			saved_floor_type *cur_sf_ptr = get_sf_ptr(cr_ptr->floor_id);
 
 			if (change_floor_mode & CFM_UP)
 			{
-				/* New floor is right-above */
+				// New floor is right-above
 				if (cur_sf_ptr->upper_floor_id == current_floor_id)
 					sf_ptr->lower_floor_id = cr_ptr->floor_id;
 			}
 			else if (change_floor_mode & CFM_DOWN)
 			{
-				/* New floor is right-under */
+				// New floor is right-under
 				if (cur_sf_ptr->lower_floor_id == current_floor_id)
 					sf_ptr->upper_floor_id = cr_ptr->floor_id;
 			}
 		}
 
-		/* Break connection to killed floor */
+		// Break connection to killed floor
 		else
 		{
 			if (change_floor_mode & CFM_UP)
@@ -857,7 +858,7 @@ void change_floor(creature_type *cr_ptr)
 				sf_ptr->upper_floor_id = 0;
 		}
 
-		/* Maintain monsters and artifacts */
+		// Maintain monsters and artifacts
 		if (loaded)
 		{
 			int i;
@@ -880,7 +881,7 @@ void change_floor(creature_type *cr_ptr)
 				// TODO set cave data?
 			}
 
-			/* Maintain artifatcs */
+			// Maintain artifatcs
 			for (i = 1; i < object_max; i++)
 			{
 				object_type *o_ptr = &object_list[i];
@@ -893,7 +894,7 @@ void change_floor(creature_type *cr_ptr)
 
 			(void)place_quest_creatures(cr_ptr);
 
-			/* Place some random monsters */
+			// Place some random monsters
 			alloc_times = absence_ticks / alloc_chance;
 
 			if (randint0(alloc_chance) < (absence_ticks % alloc_chance))
@@ -901,27 +902,27 @@ void change_floor(creature_type *cr_ptr)
 
 			for (i = 0; i < alloc_times; i++)
 			{
-				/* Make a (group of) new monster */
+				// Make a (group of) new monster
 				(void)alloc_creature(cr_ptr, 0, 0);
 			}
 		}
 
-		/* New floor_id or failed to restore */
-		else /* if (!loaded) */
+		// New floor_id or failed to restore
+		else // if (!loaded)
 		{
 			if (sf_ptr->last_visit)
 			{
-				/* Temporal file is broken? */
+				// Temporal file is broken?
 #ifdef JP
 				msg_print("ŠK’i‚Ís‚«~‚Ü‚è‚¾‚Á‚½B");
 #else
 				msg_print("The staircases come to a dead end...");
 #endif
 
-				/* Create simple dead end */
+				// Create simple dead end
 				build_dead_end(cr_ptr);
 
-				/* Break connection */
+				// Break connection
 				if (change_floor_mode & CFM_UP)
 				{
 					sf_ptr->upper_floor_id = 0;
@@ -933,48 +934,48 @@ void change_floor(creature_type *cr_ptr)
 			}
 			else
 			{
-				/* Newly create cave */
+				// Newly create cave
 				generate_field(cr_ptr);
 			}
 
-			/* Record last visit turn */
+			// Record last visit turn
 			sf_ptr->last_visit = turn;
 
-			/* Set correct dun_level value */
+			// Set correct dun_level value
 			sf_ptr->dun_level = dun_level;
 			sf_ptr->dun_type = dungeon_type;
 			sf_ptr->world_x = wilderness_x;
 			sf_ptr->world_y = wilderness_y;
 
-			/* Create connected stairs */
+			// Create connected stairs
 			if (!(change_floor_mode & CFM_NO_RETURN))
 			{
-				/* Extract stair position */
+				// Extract stair position
 				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 
-				/*** Create connected stairs ***/
+				// Create connected stairs
 
-				/* No stairs down from Quest */
+				// No stairs down from Quest
 				if ((change_floor_mode & CFM_UP) && !quest_number(dun_level))
 				{
 					c_ptr->feat = (change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
 				}
 
-				/* No stairs up when ironman_downward */
+				// No stairs up when ironman_downward
 				else if ((change_floor_mode & CFM_DOWN) && !ironman_downward)
 				{
 					c_ptr->feat = (change_floor_mode & CFM_SHAFT) ? feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair;
 				}
 
-				/* Paranoia -- Clear mimic */
+				// Paranoia -- Clear mimic
 				c_ptr->mimic = 0;
 
-				/* Connect to previous floor */
+				// Connect to previous floor
 				c_ptr->special = cr_ptr->floor_id;
 			}
 		}
 
-		/* Arrive at random grid */
+		// Arrive at random grid
 		if (change_floor_mode & (CFM_RAND_PLACE))
 		{
 			(void)new_player_spot(cr_ptr);
@@ -1001,16 +1002,17 @@ void change_floor(creature_type *cr_ptr)
 			}
 		}
 
-		/*
-		 * Update visit mark
-		 *
-		 * The "turn" is not always different number because
-		 * the level teleport doesn't take any turn.  Use
-		 * visit mark instead of last visit turn to find the
-		 * oldest saved floor.
-		 */
+		
+		 //* Update visit mark
+		 //*
+		 //* The "turn" is not always different number because
+		 //* the level teleport doesn't take any turn.  Use
+		 //* visit mark instead of last visit turn to find the
+		 //* oldest saved floor.
+		 
 		sf_ptr->visit_mark = latest_visit_mark++;
 	}
+	*/
 
 	/* Hack -- maintain unique and artifacts */
 	update_unique_artifact(current_floor_id);
