@@ -2098,17 +2098,17 @@ typedef struct
 	s16b species_idx;
 	bool used;
 }
-nest_mon_info_type;
+nest_info_type;
 
 
 /*
  * Comp function for sorting nest monster information
  */
-static bool ang_sort_comp_nest_mon_info(vptr u, vptr v, int a, int b)
+static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 {
-	nest_mon_info_type *nest_mon_info = (nest_mon_info_type *)u;
-	int w1 = nest_mon_info[a].species_idx;
-	int w2 = nest_mon_info[b].species_idx;
+	nest_info_type *nest_info = (nest_info_type *)u;
+	int w1 = nest_info[a].species_idx;
+	int w2 = nest_info[b].species_idx;
 	species_type *r1_ptr = &species_info[w1];
 	species_type *r2_ptr = &species_info[w2];
 	int z1, z2;
@@ -2117,8 +2117,8 @@ static bool ang_sort_comp_nest_mon_info(vptr u, vptr v, int a, int b)
 	(void)v;
 
 	/* Extract used info */
-	z1 = nest_mon_info[a].used;
-	z2 = nest_mon_info[b].used;
+	z1 = nest_info[a].used;
+	z2 = nest_info[b].used;
 
 	/* Compare used status */
 	if (z1 < z2) return FALSE;
@@ -2140,18 +2140,18 @@ static bool ang_sort_comp_nest_mon_info(vptr u, vptr v, int a, int b)
 /*
  * Swap function for sorting nest monster information
  */
-static void ang_sort_swap_nest_mon_info(vptr u, vptr v, int a, int b)
+static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
 {
-	nest_mon_info_type *nest_mon_info = (nest_mon_info_type *)u;
-	nest_mon_info_type holder;
+	nest_info_type *nest_info = (nest_info_type *)u;
+	nest_info_type holder;
 
 	/* Unused */
 	(void)v;
 
 	/* Swap */
-	holder = nest_mon_info[a];
-	nest_mon_info[a] = nest_mon_info[b];
-	nest_mon_info[b] = holder;
+	holder = nest_info[a];
+	nest_info[a] = nest_info[b];
+	nest_info[b] = holder;
 }
 
 
@@ -2180,7 +2180,7 @@ static bool build_type5(void)
 {
 	int y, x, y1, x1, y2, x2, xval, yval;
 	int i;
-	nest_mon_info_type nest_mon_info[NUM_NEST_MON_TYPE];
+	nest_info_type nest_info[NUM_NEST_MON_TYPE];
 
 	creature_type align;
 
@@ -2228,8 +2228,8 @@ static bool build_type5(void)
 		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
-		nest_mon_info[i].species_idx = species_idx;
-		nest_mon_info[i].used = FALSE;
+		nest_info[i].species_idx = species_idx;
+		nest_info[i].used = FALSE;
 	}
 
 	x = rand_range(0, 16);
@@ -2328,29 +2328,29 @@ static bool build_type5(void)
 			int species_idx;
 
 			i = randint0(NUM_NEST_MON_TYPE);
-			species_idx = nest_mon_info[i].species_idx;
+			species_idx = nest_info[i].species_idx;
 
 			/* Place that "random" monster (no groups) */
 			(void)place_creature_aux(NULL, y, x, species_idx, 0L);
 
-			nest_mon_info[i].used = TRUE;
+			nest_info[i].used = TRUE;
 		}
 	}
 
 	if (cheat_room && cheat_hear)
 	{
-		ang_sort(nest_mon_info, NULL, NUM_NEST_MON_TYPE, ang_sort_comp_nest_mon_info, ang_sort_swap_nest_mon_info);
+		ang_sort(nest_info, NULL, NUM_NEST_MON_TYPE, ang_sort_comp_nest_info, ang_sort_swap_nest_info);
 
 		/* Dump the entries (prevent multi-printing) */
 		for (i = 0; i < NUM_NEST_MON_TYPE; i++)
 		{
-			if (!nest_mon_info[i].used) break;
+			if (!nest_info[i].used) break;
 			for (; i < NUM_NEST_MON_TYPE - 1; i++)
 			{
-				if (nest_mon_info[i].species_idx != nest_mon_info[i + 1].species_idx) break;
-				if (!nest_mon_info[i + 1].used) break;
+				if (nest_info[i].species_idx != nest_info[i + 1].species_idx) break;
+				if (!nest_info[i + 1].used) break;
 			}
-			msg_print(species_name + species_info[nest_mon_info[i].species_idx].name);
+			msg_print(species_name + species_info[nest_info[i].species_idx].name);
 		}
 	}
 
