@@ -585,7 +585,7 @@ void leave_floor(creature_type *cr_ptr)
 	// Cut supersthealth
 	//if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 
-	/* Search the quest monster index */
+	// Search the quest monster index
 	/*
 	for (i = 0; i < max_quests; i++)
 	{
