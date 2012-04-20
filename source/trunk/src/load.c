@@ -1542,43 +1542,8 @@ static errr rd_dungeon(void)
 	/* Number of the saved_floors array elements */
 	rd_byte(&num);
 
-	/*** No saved floor (On the surface etc.) ***/
-	if (!num)
-	{
-
-		// Read the current floor data
-		err = rd_saved_floor(NULL);
-
-	}
-	/*** In the dungeon ***/
-	else
-	{
-
-		/* Read the saved_floors array */
-		for (i = 0; i < num; i++)
-		{
-			floor_type *sf_ptr = &floor_list[i];
-
-			rd_s16b(&sf_ptr->floor_id);
-			rd_byte(&sf_ptr->savefile_id);
-			rd_s16b(&sf_ptr->dun_level);
-			rd_byte(&sf_ptr->dun_type);
-			rd_s32b(&sf_ptr->world_x);
-			rd_s32b(&sf_ptr->world_y);
-			rd_s32b(&sf_ptr->last_visit);
-			rd_u32b(&sf_ptr->visit_mark);
-			rd_s16b(&sf_ptr->upper_floor_id);
-			rd_s16b(&sf_ptr->lower_floor_id);
-		}
-
-		/* Finally load current floor data from temporal file */
-		if (!err)
-		{
-			if (!load_floor(get_sf_ptr(player_ptr->floor_id), SLF_SECOND)) err = 183;
-		}
-	}
-
-
+	// Read the current floor data
+	err = rd_saved_floor(NULL);
 
 	/*** Error messages ***/
 	switch (err)

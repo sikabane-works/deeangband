@@ -1086,26 +1086,6 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Number of array elements */
 	wr_byte(MAX_FLOORS);
 
-	/* Write the saved_floors array */
-	for (i = 0; i < MAX_FLOORS; i++)
-	{
-		floor_type *sf_ptr = &floor_list[i];
-
-		wr_s16b(sf_ptr->floor_id);
-		wr_byte(sf_ptr->savefile_id);
-		wr_s16b(sf_ptr->dun_level);
-		wr_byte(sf_ptr->dun_type);
-		wr_s32b(sf_ptr->world_x);
-		wr_s32b(sf_ptr->world_y);
-		wr_s32b(sf_ptr->last_visit);
-		wr_u32b(sf_ptr->visit_mark);
-		wr_s16b(sf_ptr->upper_floor_id);
-		wr_s16b(sf_ptr->lower_floor_id);
-	}
-
-	/* Extract pointer to current floor */
-	cur_sf_ptr = get_sf_ptr(player_ptr->floor_id);
-
 	/* Save current floor to temporal file */
 	if (!save_floor(cur_sf_ptr, (SLF_SECOND))) return FALSE;
 
