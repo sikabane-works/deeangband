@@ -337,7 +337,7 @@ static void build_dead_end(creature_type *creature_ptr)
 	/* Give one square */
 	place_floor_bold(creature_ptr->fy, creature_ptr->fx);
 
-	wipe_generate_cave_flags();
+	wipe_generate_floor_flags();
 }
 
 /*
@@ -763,13 +763,13 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	generate_field(cr_ptr); // Generate field
+	generate_floor(cr_ptr); // Generate field
 
 	/*
 	// No saved floors (On the surface etc.)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
-		generate_field(cr_ptr); // Generate field
+		generate_floor(cr_ptr); // Generate field
 	}
 	// In the dungeon
 	else
@@ -922,7 +922,7 @@ void change_floor(creature_type *cr_ptr)
 			else
 			{
 				// Newly create cave
-				generate_field(cr_ptr);
+				generate_floor(cr_ptr);
 			}
 
 			// Record last visit turn

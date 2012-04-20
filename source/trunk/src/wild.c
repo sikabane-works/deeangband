@@ -385,7 +385,7 @@ static border_type border;
 /*
  * Build the wilderness area outside of the town.
  */
-void generate_field_wilderness(creature_type *cr_ptr)
+void generate_floor_wilderness(creature_type *cr_ptr)
 {
 	int i, y, x, lim;
 	cave_type *c_ptr;
@@ -633,7 +633,7 @@ static s16b conv_terrain2feat[MAX_WILDERNESS];
  * Build the wilderness area.
  * -DG-
  */
-void generate_field_world(creature_type *cr_ptr)
+void generate_floor_world(creature_type *cr_ptr)
 {
 	int i, j;
 

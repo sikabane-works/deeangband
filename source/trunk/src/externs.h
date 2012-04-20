@@ -1154,9 +1154,9 @@ extern void stair_creation(creature_type *creature_ptr);
 
 /* generate.c */
 extern bool place_quest_creatures(creature_type *player_ptr);
-extern void wipe_generate_cave_flags(void);
+extern void wipe_generate_floor_flags(void);
 extern void clear_cave(void);
-extern void generate_field(creature_type *player_ptr);
+extern void generate_floor(creature_type *player_ptr);
 
 /* init1.c */
 extern byte color_char_to_attr(char c);
@@ -1981,8 +1981,8 @@ extern bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
 
 /* wild.c */
 extern void set_floor_and_wall(byte type);
-extern void generate_field_wilderness(creature_type *cr_ptr);
-extern void generate_field_world(creature_type *cr_ptr);
+extern void generate_floor_wilderness(creature_type *cr_ptr);
+extern void generate_floor_world(creature_type *cr_ptr);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);

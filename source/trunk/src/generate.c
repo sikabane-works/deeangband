@@ -1163,7 +1163,7 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_field_arena(creature_type *player_ptr)
+static void generate_floor_arena(creature_type *player_ptr)
 {
 	int y, x;
 	int qy = 0;
@@ -1270,7 +1270,7 @@ static void build_battle(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_field_monster_arena(creature_type *player_ptr)
+static void generate_floor_monster_arena(creature_type *player_ptr)
 {
 	int y, x, i;
 	int qy = 0;
@@ -1324,7 +1324,7 @@ static void generate_field_monster_arena(creature_type *player_ptr)
 /*
  * Generate a quest level
  */
-static void generate_field_quest(void)
+static void generate_floor_quest(void)
 {
 	int x, y;
 
@@ -1357,7 +1357,7 @@ static void generate_field_quest(void)
 /*
  * Generate a fortless level
  */
-static void generate_field_fortress(int type)
+static void generate_floor_fortress(int type)
 {
 	int x, y;
 
@@ -1384,7 +1384,7 @@ static void generate_field_fortress(int type)
 
 
 /* Make a real level */
-static bool generate_field_cave(cptr *why)
+static bool generate_floor_cave(cptr *why)
 {
 	int level_height, level_width, i;
 
@@ -1404,7 +1404,7 @@ static bool generate_field_cave(cptr *why)
 		if (cheat_room)
 			msg_format("Fortless level -- type %d.", dungeon_info[dungeon_type].vault_quest_type[i]);
 
-		generate_field_fortress(dungeon_info[dungeon_type].vault_quest_type[i]);
+		generate_floor_fortress(dungeon_info[dungeon_type].vault_quest_type[i]);
 		return TRUE;
 	}
 
@@ -1481,7 +1481,7 @@ static bool generate_field_cave(cptr *why)
 /*
  * Wipe all unnecessary flags after cave generation
  */
-void wipe_generate_cave_flags(void)
+void wipe_generate_floor_flags(void)
 {
 	int x, y;
 
@@ -1567,7 +1567,7 @@ void clear_cave(void)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_field(creature_type *player_ptr)
+void generate_floor(creature_type *player_ptr)
 {
 	int num;
 
@@ -1588,7 +1588,7 @@ void generate_field(creature_type *player_ptr)
 		if (inside_arena)
 		{
 			/* Small arena */
-			generate_field_arena(player_ptr);
+			generate_floor_arena(player_ptr);
 			current_floor_id = 0;
 		}
 
@@ -1596,13 +1596,13 @@ void generate_field(creature_type *player_ptr)
 		else if (monster_arena_mode)
 		{
 			/* Small arena */
-			generate_field_monster_arena(player_ptr);
+			generate_floor_monster_arena(player_ptr);
 			current_floor_id = 0;
 		}
 
 		else if (inside_quest)
 		{
-			generate_field_quest();
+			generate_floor_quest();
 			current_floor_id = 0;
 		}
 
@@ -1610,15 +1610,15 @@ void generate_field(creature_type *player_ptr)
 		else if (!dun_level)
 		{
 			/* Make the wilderness */
-			if (wild_mode) generate_field_world(player_ptr);
-			else generate_field_wilderness(player_ptr);
+			if (wild_mode) generate_floor_world(player_ptr);
+			else generate_floor_wilderness(player_ptr);
 			current_floor_id = 0;
 		}
 
 		/* Build a real level */
 		else
 		{
-			okay = generate_field_cave(&why);
+			okay = generate_floor_cave(&why);
 		}
 
 
@@ -1675,5 +1675,5 @@ if (why) msg_format("¶¬‚â‚è’¼‚µ(%s)", why);
 	/* Reset flag */
 	player_ptr->enter_dungeon = FALSE;
 
-	wipe_generate_cave_flags();
+	wipe_generate_floor_flags();
 }
