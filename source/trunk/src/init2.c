@@ -1488,24 +1488,24 @@ static errr init_other(void)
 
 	/*** Prepare the "dungeon" information ***/
 
-	/* Allocate and Wipe the object list */
+	// Allocate and Wipe the object list
 	C_MAKE(object_list, max_object_idx, object_type);
 
-	/* Allocate and Wipe the monster list */
+	// Allocate and Wipe the creature list
 	C_MAKE(creature_list, max_creature_idx, creature_type);
-
 	player_ptr = &creature_list[1];
 
-	/* Allocate and Wipe the monster process list */
+	// Allocate and Wipe the monster process list
 	for (i = 0; i < MAX_MTIMED; i++)
 	{
 		C_MAKE(mproc_list[i], max_creature_idx, creature_type *);
 	}
 
-	/* Allocate and Wipe the max dungeon level */
+	// Allocate and Wipe the max dungeon level
 	C_MAKE(max_dlv, max_d_idx, s16b);
 
-	/* Allocate and wipe each line of the cave */
+
+	// Allocate and wipe each line of the cave
 	for (i = 0; i < MAX_HGT; i++)
 	{
 		/* Allocate one row of the cave */

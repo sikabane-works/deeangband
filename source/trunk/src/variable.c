@@ -759,6 +759,9 @@ creature_type p_body;
  */
 creature_type *player_ptr = NULL;
 
+// pointer current floor
+floor_type *current_floor_ptr = NULL;
+
 u32b play_redraw = 0;		/* Normal Redraws (bit flags) */
 u32b play_window = 0;		/* Window Redraws (bit flags) */
 bool wizard = FALSE;		 /* wizard mode */
