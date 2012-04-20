@@ -452,9 +452,9 @@ void vault_creatures(int y1, int x1, int num)
 			if (!cave_empty_grid(c_ptr)) continue;
 
 			/* Place the monster (allow groups) */
-			creature_level = current_floor_ptr->base_level + 2;
+			current_floor_ptr->creature_level = current_floor_ptr->base_level + 2;
 			(void)place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-			creature_level = current_floor_ptr->base_level;
+			current_floor_ptr->creature_level = current_floor_ptr->base_level;
 		}
 	}
 }

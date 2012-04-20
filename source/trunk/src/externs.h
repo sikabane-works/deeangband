@@ -164,7 +164,6 @@ extern s16b running;
 extern s16b resting;
 extern s16b num_repro;
 extern s16b object_level;
-extern s16b creature_level;
 extern s32b turn;
 extern s32b turn_limit;
 extern s32b dungeon_turn;

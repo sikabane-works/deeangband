@@ -6816,7 +6816,7 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		creature_level = current_floor_ptr->base_level;
+		current_floor_ptr->creature_level = current_floor_ptr->base_level;
 		object_level = current_floor_ptr->base_level;
 
 		if (player_ptr->energy_need > 0 && !monster_arena_mode &&

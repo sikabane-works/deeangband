@@ -5873,11 +5873,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Create a monster */
 			if (random & RANDOM_MONSTER)
 			{
-				creature_level = current_floor_ptr->base_level + monster_index;
+				current_floor_ptr->creature_level = current_floor_ptr->base_level + monster_index;
 
 				place_creature(NULL, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 
-				creature_level = current_floor_ptr->base_level;
+				current_floor_ptr->creature_level = current_floor_ptr->base_level;
 			}
 			else if (monster_index)
 			{

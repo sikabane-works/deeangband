@@ -2839,27 +2839,27 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				/* Monster */
 				case '&':
 				{
-					creature_level = current_floor_ptr->base_level + 5;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 5;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					break;
 				}
 
 				/* Meaner monster */
 				case '@':
 				{
-					creature_level = current_floor_ptr->base_level + 11;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 11;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					break;
 				}
 
 				/* Meaner monster, plus treasure */
 				case '9':
 				{
-					creature_level = current_floor_ptr->base_level + 9;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 9;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					object_level = current_floor_ptr->base_level + 7;
 					place_object(y, x, AM_GOOD);
 					object_level = current_floor_ptr->base_level;
@@ -2869,9 +2869,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				/* Nasty monster and treasure */
 				case '8':
 				{
-					creature_level = current_floor_ptr->base_level + 40;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					object_level = current_floor_ptr->base_level + 20;
 					place_object(y, x, AM_GOOD | AM_GREAT);
 					object_level = current_floor_ptr->base_level;
@@ -2883,9 +2883,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				{
 					if (randint0(100) < 50)
 					{
-						creature_level = current_floor_ptr->base_level + 3;
+						current_floor_ptr->creature_level = current_floor_ptr->base_level + 3;
 						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-						creature_level = current_floor_ptr->base_level;
+						current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
 					{
@@ -4123,9 +4123,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				if (value < 0)
 				{
 					/* Meanest monster + treasure */
-					creature_level = current_floor_ptr->base_level + 40;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					object_level = current_floor_ptr->base_level + 20;
 					place_object(y, x, AM_GOOD);
 					object_level = current_floor_ptr->base_level;
@@ -4133,9 +4133,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				else if (value < 5)
 				{
 					/* Mean monster +treasure */
-					creature_level = current_floor_ptr->base_level + 20;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 20;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					object_level = current_floor_ptr->base_level + 10;
 					place_object(y, x, AM_GOOD);
 					object_level = current_floor_ptr->base_level;
@@ -4143,9 +4143,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				else if (value < 10)
 				{
 					/* Monster */
-					creature_level = current_floor_ptr->base_level + 9;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 9;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 				}
 				else if (value < 17)
 				{
@@ -4173,9 +4173,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				else if (value < 30)
 				{
 					/* Monster and trap */
-					creature_level = current_floor_ptr->base_level + 5;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level + 5;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					creature_level = current_floor_ptr->base_level;
+					current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					place_trap(y, x);
 				}
 				else if (value < 40)
@@ -4183,9 +4183,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					/* Monster or object */
 					if (randint0(100) < 50)
 					{
-						creature_level = current_floor_ptr->base_level + 3;
+						current_floor_ptr->creature_level = current_floor_ptr->base_level + 3;
 						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-						creature_level = current_floor_ptr->base_level;
+						current_floor_ptr->creature_level = current_floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
 					{

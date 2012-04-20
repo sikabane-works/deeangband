@@ -1708,7 +1708,7 @@ void battle_monsters(void)
 
 	int total, i;
 	int max_dl = 0;
-	int creature_level;
+	int ave_creature_level;
 	int power[4];
 	bool tekitou;
 	bool old_monster_arena_mode = monster_arena_mode;
@@ -1716,16 +1716,16 @@ void battle_monsters(void)
 	for (i = 0; i < max_d_idx; i++)
 		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
-	creature_level = randint1(MIN(max_dl, 122))+5;
+	ave_creature_level = randint1(MIN(max_dl, 122))+5;
 	if (randint0(100) < 60)
 	{
 		i = randint1(MIN(max_dl, 122))+5;
-		creature_level = MAX(i, creature_level);
+		ave_creature_level = MAX(i, ave_creature_level);
 	}
 	if (randint0(100) < 30)
 	{
 		i = randint1(MIN(max_dl, 122))+5;
-		creature_level = MAX(i, creature_level);
+		ave_creature_level = MAX(i, ave_creature_level);
 	}
 
 	while (1)
@@ -1739,13 +1739,13 @@ void battle_monsters(void)
 			{
 				get_species_num_prep(vault_aux_battle, NULL);
 				monster_arena_mode = TRUE;
-				species_idx = get_species_num(creature_level);
+				species_idx = get_species_num(ave_creature_level);
 				monster_arena_mode = old_monster_arena_mode;
 				if (!species_idx) continue;
 
 				if (is_unique_species(&species_info[species_idx]) || is_sub_unique_species(&species_info[species_idx]))
 				{
-					if ((species_info[species_idx].level + 10) > creature_level) continue;
+					if ((species_info[species_idx].level + 10) > ave_creature_level) continue;
 				}
 
 				for (j = 0; j < i; j++)

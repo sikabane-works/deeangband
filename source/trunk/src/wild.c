@@ -272,7 +272,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 	current_floor_ptr->dun_level = 0;
 
 	/* Set the monster generation level */
-	creature_level = current_floor_ptr->base_level;
+	current_floor_ptr->creature_level = current_floor_ptr->base_level;
 
 	/* Set the object generation level */
 	object_level = current_floor_ptr->base_level;
