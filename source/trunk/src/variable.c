@@ -118,7 +118,6 @@ s16b resting;			/* Current counter for resting, if any */
 s16b num_repro;			/* Current reproducer count */
 s16b object_level;		/* Current object creation level */
 s16b creature_level;	/* Current monster creation level */
-s16b base_level;        /* Base dungeon level */
 
 s32b turn;				/* Current game turn */
 s32b turn_limit;		/* Limit of game turn */
@@ -375,7 +374,7 @@ int player_euid;
 int player_egid;
 
 /*
- * Stripped version of "playespecies_name"
+ * Stripped version of "player_name"
  */
 char player_base[64];
 

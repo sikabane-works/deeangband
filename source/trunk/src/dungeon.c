@@ -6689,7 +6689,7 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		base_level = current_floor_ptr->dun_level; 	   // Set the base level
+		current_floor_ptr->base_level = current_floor_ptr->dun_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -6816,8 +6816,8 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		creature_level = base_level;
-		object_level = base_level;
+		creature_level = current_floor_ptr->base_level;
+		object_level = current_floor_ptr->base_level;
 
 		if (player_ptr->energy_need > 0 && !monster_arena_mode &&
 			(current_floor_ptr->dun_level || subject_change_dungeon || inside_arena))

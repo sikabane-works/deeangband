@@ -1392,7 +1392,7 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 	}
 
 	/* Reset the object level */
-	object_level = base_level;
+	object_level = current_floor_ptr->base_level;
 
 	/* Reset "coin" type */
 	coin_type = 0;

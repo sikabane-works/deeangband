@@ -1918,6 +1918,7 @@ typedef struct
 {
 	s16b floor_id;        /* No recycle until 65536 IDs are all used */
 	byte savefile_id;     /* ID for savefile (from 0 to MAX_SAVED_FLOOR) */
+	s16b base_level;      /* Base dungeon level */
 	s16b dun_level;
 	byte dun_type;
 	s32b world_x;

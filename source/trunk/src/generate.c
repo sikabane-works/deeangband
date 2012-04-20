@@ -1082,7 +1082,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
 	/* Set back to default */
-	object_level = base_level;
+	object_level = current_floor_ptr->base_level;
 
 	/* Put the Guardian */
 	if (!alloc_guardian(TRUE)) return FALSE;
@@ -1339,10 +1339,10 @@ static void generate_floor_quest(void)
 	}
 
 	/* Set the quest level */
-	base_level = quest[inside_quest].level;
-	current_floor_ptr->dun_level = base_level;
-	object_level = base_level;
-	creature_level = base_level;
+	current_floor_ptr->base_level = quest[inside_quest].level;
+	current_floor_ptr->dun_level = current_floor_ptr->base_level;
+	object_level = current_floor_ptr->base_level;
+	creature_level = current_floor_ptr->base_level;
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
 
@@ -1554,11 +1554,11 @@ void clear_cave(void)
 	// TODO:Check  player_ptr->fx = player_ptr->fy = 0;
 
 	/* Set the base level */
-	base_level = current_floor_ptr->dun_level;
+	current_floor_ptr->base_level = current_floor_ptr->dun_level;
 	/* Reset the monster generation level */
-	creature_level = base_level;
+	creature_level = current_floor_ptr->base_level;
 	/* Reset the object generation level */
-	object_level = base_level;
+	object_level = current_floor_ptr->base_level;
 }
 
 

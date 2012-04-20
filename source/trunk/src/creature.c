@@ -2079,12 +2079,12 @@ int calc_unreached_race_level_penalty(int shortage_lev, int type)
 
 void set_unreached_race_level_penalty(creature_type *creature_ptr)
 {
-	int i, base_level;
+	int i, st_level;
 
-	base_level = calc_base_level(creature_ptr);
+	st_level = calc_base_level(creature_ptr);
 
 	for(i = 0; i < STAT_MAX; i++)
-		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(base_level - creature_ptr->lev, i);
+		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(st_level - creature_ptr->lev, i);
 }
 
 bool has_breath_flags(creature_flags *flags_ptr)

@@ -3522,7 +3522,7 @@ static int initial_r_appearance(int species_idx)
 	int attempts = 1000;
 
 	int ap_species_idx;
-	int min = MIN(base_level-5, 50);
+	int min = MIN(current_floor_ptr->base_level-5, 50);
 
 	if (is_tanuki_species(&species_info[species_idx]))
 		return species_idx;
@@ -3531,7 +3531,7 @@ static int initial_r_appearance(int species_idx)
 
 	while (--attempts)
 	{
-		ap_species_idx = get_species_num(base_level + 10);
+		ap_species_idx = get_species_num(current_floor_ptr->base_level + 10);
 		if (species_info[ap_species_idx].level >= min) return ap_species_idx;
 	}
 

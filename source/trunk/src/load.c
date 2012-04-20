@@ -1380,7 +1380,7 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 		/*** Not a saved floor ***/
 
 		rd_s16b(&current_floor_ptr->dun_level);
-		base_level = current_floor_ptr->dun_level;
+		current_floor_ptr->base_level = current_floor_ptr->dun_level;
 	}
 	else
 	{
@@ -1420,7 +1420,7 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	}
 
 
-	rd_s16b(&base_level);
+	rd_s16b(&current_floor_ptr->base_level);
 	rd_s16b(&num_repro);
 
 	rd_s16b(&current_floor_ptr->height);
