@@ -1563,9 +1563,9 @@ static void do_cmd_wiz_floor_teleport(void)
 		for(i = 0; i < max_floor_id; i++)
 		{
 			sprintf(ce[i].cap, "[%4d] F:%d X:%3d Y:%3d %s-%3dF", i,
-				saved_floors[i].floor_id, saved_floors[i].world_x, saved_floors[i].world_y,
-				d_name + dungeon_info[saved_floors[i].dun_type].name,
-				saved_floors[i].dun_level);
+				floors_info[i].floor_id, floors_info[i].world_x, floors_info[i].world_y,
+				d_name + dungeon_info[floors_info[i].dun_type].name,
+				floors_info[i].dun_level);
 			ce[i].cap[72] = '\0'; 
 
 			ce[i].d_color = TERM_L_DARK;

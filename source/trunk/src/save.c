@@ -1089,7 +1089,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Write the saved_floors array */
 	for (i = 0; i < MAX_FLOORS; i++)
 	{
-		floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &floors_info[i];
 
 		wr_s16b(sf_ptr->floor_id);
 		wr_byte(sf_ptr->savefile_id);
@@ -1112,7 +1112,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Move data in temporal files to the savefile */
 	for (i = 0; i < MAX_FLOORS; i++)
 	{
-		floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &floors_info[i];
 
 		/* Unused element */
 		if (!sf_ptr->floor_id) continue;
