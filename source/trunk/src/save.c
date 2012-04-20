@@ -1037,10 +1037,10 @@ static void wr_saved_floor(floor_type *sf_ptr)
 /*
  * Write the current dungeon (new method)
  */
-static bool wr_dungeon(creature_type *player_ptr)
+static bool wr_floors(creature_type *player_ptr)
 {
-	floor_type *cur_sf_ptr;
-	int i;
+	floor_type *cur_sf_ptr = &floor_list[0];
+	//int i;
 
 	/* Forget the lite */
 	forget_lite();
@@ -1348,8 +1348,8 @@ static bool wr_savefile_new(void)
 	/* Player is not dead, write the dungeon */
 	if (!gameover)
 	{
-		/* Dump the dungeon */
-		if (!wr_dungeon(player_ptr)) return FALSE;
+		// Dump the dungeon
+		if (!wr_floors(player_ptr)) return FALSE;
 
 		/* Dump the ghost */
 		wr_ghost();

@@ -1517,11 +1517,11 @@ static errr rd_saved_floor(floor_type *sf_ptr)
  * The monsters/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
-static errr rd_dungeon(void)
+static errr rd_floors(void)
 {
 	errr err = 0;
 	byte num;
-	int i;
+	//int i;
 
 	/* Initialize saved_floors array and temporal files */
 	init_saved_floors(FALSE);
@@ -2118,7 +2118,7 @@ note("特別情報をロードしました");
 		note("Restoring Dungeon...");
 #endif
 
-		if (rd_dungeon())
+		if (rd_floors())
 		{
 #ifdef JP
 			note("ダンジョンデータ読み込み失敗");
