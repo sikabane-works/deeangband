@@ -428,7 +428,7 @@ extern char angband_term_name[8][16];
 extern byte angband_color_table[256][4];
 extern char angband_sound_name[SOUND_MAX][16];
 extern cave_type *cave[MAX_HGT];
-extern floor_type saved_floors[MAX_SAVED_FLOORS];
+extern floor_type saved_floors[MAX_FLOORS];
 extern s16b max_floor_id;
 extern u32b saved_floor_file_sign;
 extern object_type *object_list;

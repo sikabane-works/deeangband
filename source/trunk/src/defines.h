@@ -337,7 +337,7 @@
 /*
  * Maximum number of saved floors.
  */
-#define MAX_SAVED_FLOORS       20
+#define MAX_FLOORS       20
 
 
 /*

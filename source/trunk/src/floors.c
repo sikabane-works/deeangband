@@ -36,7 +36,7 @@ void init_saved_floors(bool force)
 # endif
 #endif
 
-	for (i = 0; i < MAX_SAVED_FLOORS; i++)
+	for (i = 0; i < MAX_FLOORS; i++)
 	{
 		floor_type *sf_ptr = &saved_floors[i];
 
@@ -131,7 +131,7 @@ void clear_saved_floor_files(creature_type *player_ptr)
 # endif
 #endif
 
-	for (i = 0; i < MAX_SAVED_FLOORS; i++)
+	for (i = 0; i < MAX_FLOORS; i++)
 	{
 		floor_type *sf_ptr = &saved_floors[i];
 
@@ -171,7 +171,7 @@ floor_type *get_sf_ptr(s16b floor_id)
 	// floor_id No.0 indicates no floor
 	//if (!floor_id) return NULL;
 
-	for (i = 0; i < MAX_SAVED_FLOORS; i++)
+	for (i = 0; i < MAX_FLOORS; i++)
 	{
 		floor_type *sf_ptr = &saved_floors[i];
 
@@ -225,7 +225,7 @@ static void kill_saved_floor(floor_type *sf_ptr)
 
 /*
  * Initialize new saved floor and get its floor id.  If number of
- * saved floors are already MAX_SAVED_FLOORS, kill the oldest one.
+ * saved floors are already MAX_FLOORS, kill the oldest one.
  */
 s16b add_new_floor(void)
 {
@@ -233,7 +233,7 @@ s16b add_new_floor(void)
 	int i;
 
 	/* Look for empty space */
-	for (i = 0; i < MAX_SAVED_FLOORS; i++)
+	for (i = 0; i < MAX_FLOORS; i++)
 	{
 		sf_ptr = &saved_floors[i];
 
@@ -241,13 +241,13 @@ s16b add_new_floor(void)
 	}
 
 	/* None found */
-	if (i == MAX_SAVED_FLOORS)
+	if (i == MAX_FLOORS)
 	{
 		int oldest = 0;
 		u32b oldest_visit = 0xffffffffL;
 
 		/* Search for oldest */
-		for (i = 0; i < MAX_SAVED_FLOORS; i++)
+		for (i = 0; i < MAX_FLOORS; i++)
 		{
 			sf_ptr = &saved_floors[i];
 
@@ -676,7 +676,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
 		// Kill all saved floors
-		for (i = 0; i < MAX_SAVED_FLOORS; i++) kill_saved_floor(&saved_floors[i]);
+		for (i = 0; i < MAX_FLOORS; i++) kill_saved_floor(&saved_floors[i]);
 		latest_visit_mark = 1; // Reset visit_mark count
 	}
 	else if (change_floor_mode & CFM_NO_RETURN) kill_saved_floor(sf_ptr);
