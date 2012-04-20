@@ -5925,7 +5925,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Object (and possible trap) */
 			if ((random & RANDOM_OBJECT) && (random & RANDOM_TRAP))
 			{
-				object_level = current_floor_ptr->base_level + object_index;
+				current_floor_ptr->object_level = current_floor_ptr->base_level + object_index;
 
 				/*
 				 * Random trap and random treasure defined
@@ -5940,11 +5940,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					place_trap(*y, *x);
 				}
 
-				object_level = current_floor_ptr->base_level;
+				current_floor_ptr->object_level = current_floor_ptr->base_level;
 			}
 			else if (random & RANDOM_OBJECT)
 			{
-				object_level = current_floor_ptr->base_level + object_index;
+				current_floor_ptr->object_level = current_floor_ptr->base_level + object_index;
 
 				/* Create an out of deep object */
 				if (randint0(100) < 75)
@@ -5954,7 +5954,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				else
 					place_object(*y, *x, AM_GOOD | AM_GREAT);
 
-				object_level = current_floor_ptr->base_level;
+				current_floor_ptr->object_level = current_floor_ptr->base_level;
 			}
 			/* Random trap */
 			else if (random & RANDOM_TRAP)

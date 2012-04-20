@@ -2795,9 +2795,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 
 			case 'A':
 				/* Reward for Pattern walk */
-				object_level = current_floor_ptr->base_level + 12;
+				current_floor_ptr->object_level = current_floor_ptr->base_level + 12;
 				place_object(y, x, AM_GOOD | AM_GREAT);
-				object_level = current_floor_ptr->base_level;
+				current_floor_ptr->object_level = current_floor_ptr->base_level;
 				break;
 			}
 		}
@@ -2860,9 +2860,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 					current_floor_ptr->creature_level = current_floor_ptr->base_level + 9;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
 					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					object_level = current_floor_ptr->base_level + 7;
+					current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
 					place_object(y, x, AM_GOOD);
-					object_level = current_floor_ptr->base_level;
+					current_floor_ptr->object_level = current_floor_ptr->base_level;
 					break;
 				}
 
@@ -2872,9 +2872,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
 					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					object_level = current_floor_ptr->base_level + 20;
+					current_floor_ptr->object_level = current_floor_ptr->base_level + 20;
 					place_object(y, x, AM_GOOD | AM_GREAT);
-					object_level = current_floor_ptr->base_level;
+					current_floor_ptr->object_level = current_floor_ptr->base_level;
 					break;
 				}
 
@@ -2889,9 +2889,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 					}
 					if (randint0(100) < 50)
 					{
-						object_level = current_floor_ptr->base_level + 7;
+						current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
 						place_object(y, x, 0L);
-						object_level = current_floor_ptr->base_level;
+						current_floor_ptr->object_level = current_floor_ptr->base_level;
 					}
 					break;
 				}
@@ -4126,9 +4126,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					object_level = current_floor_ptr->base_level + 20;
+					current_floor_ptr->object_level = current_floor_ptr->base_level + 20;
 					place_object(y, x, AM_GOOD);
-					object_level = current_floor_ptr->base_level;
+					current_floor_ptr->object_level = current_floor_ptr->base_level;
 				}
 				else if (value < 5)
 				{
@@ -4136,9 +4136,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					current_floor_ptr->creature_level = current_floor_ptr->base_level + 20;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					object_level = current_floor_ptr->base_level + 10;
+					current_floor_ptr->object_level = current_floor_ptr->base_level + 10;
 					place_object(y, x, AM_GOOD);
-					object_level = current_floor_ptr->base_level;
+					current_floor_ptr->object_level = current_floor_ptr->base_level;
 				}
 				else if (value < 10)
 				{
@@ -4189,9 +4189,9 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					}
 					if (randint0(100) < 50)
 					{
-						object_level = current_floor_ptr->base_level + 7;
+						current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
 						place_object(y, x, 0L);
-						object_level = current_floor_ptr->base_level;
+						current_floor_ptr->object_level = current_floor_ptr->base_level;
 					}
 				}
 				else if (value < 50)

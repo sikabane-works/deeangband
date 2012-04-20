@@ -1921,6 +1921,7 @@ typedef struct
 	s16b base_level;      /* Base dungeon level */
 	s16b dun_level;
 	s16b creature_level;	/* Current monster creation level */
+	s16b object_level;		/* Current object creation level */
 	byte dun_type;
 	s32b world_x;
 	s32b world_y;

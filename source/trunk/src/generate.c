@@ -1071,7 +1071,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	if (player_ptr->enter_dungeon && current_floor_ptr->dun_level > 1)
 	{
 		/* No stair scum! */
-		object_level = 1;
+		current_floor_ptr->object_level = 1;
 	}
 
 	/* Put some objects in rooms */
@@ -1082,7 +1082,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
 	/* Set back to default */
-	object_level = current_floor_ptr->base_level;
+	current_floor_ptr->object_level = current_floor_ptr->base_level;
 
 	/* Put the Guardian */
 	if (!alloc_guardian(TRUE)) return FALSE;
@@ -1341,7 +1341,7 @@ static void generate_floor_quest(void)
 	/* Set the quest level */
 	current_floor_ptr->base_level = quest[inside_quest].level;
 	current_floor_ptr->dun_level = current_floor_ptr->base_level;
-	object_level = current_floor_ptr->base_level;
+	current_floor_ptr->object_level = current_floor_ptr->base_level;
 	current_floor_ptr->creature_level = current_floor_ptr->base_level;
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
@@ -1558,7 +1558,7 @@ void clear_cave(void)
 	/* Reset the monster generation level */
 	current_floor_ptr->creature_level = current_floor_ptr->base_level;
 	/* Reset the object generation level */
-	object_level = current_floor_ptr->base_level;
+	current_floor_ptr->object_level = current_floor_ptr->base_level;
 }
 
 

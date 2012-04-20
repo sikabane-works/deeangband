@@ -679,7 +679,7 @@ msg_print("魔法の階段が現れた...");
 			object_wipe(q_ptr);
 
 			/* Make a great object */
-			make_object(q_ptr, AM_GOOD | AM_GREAT, 0, object_level);
+			make_object(q_ptr, AM_GOOD | AM_GREAT, 0, current_floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -853,7 +853,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Prepare to make a prize */
 			object_prep(q_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -927,7 +927,7 @@ msg_print("地面に落とされた。");
 		/* Prepare to make an object */
 		object_prep(q_ptr, lookup_kind(TV_CORPSE, (corpse ? SV_CORPSE : SV_SKELETON)), ITEM_FREE_SIZE);
 
-		apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
+		apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 		q_ptr->pval = killed_ptr->species_idx;
 
@@ -985,7 +985,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Blade of Chaos */
 			object_prep(q_ptr, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | mo_mode, 0);
+			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART | mo_mode, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1008,7 +1008,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_book;
 
 			/* Make a book */
-			make_object(q_ptr, mo_mode, 0, object_level);
+			make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1167,7 +1167,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Can of Toys */
 			object_prep(q_ptr, lookup_kind(TV_CHEST, SV_CHEST_KANDUME), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1201,7 +1201,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_cloak;
 
 				/* Make a cloak */
-				make_object(q_ptr, mo_mode, 0, object_level);
+				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1221,7 +1221,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_polearm;
 
 				/* Make a poleweapon */
-				make_object(q_ptr, mo_mode, 0, object_level);
+				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1241,7 +1241,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_armor;
 
 				/* Make a hard armor */
-				make_object(q_ptr, mo_mode, 0, object_level);
+				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1261,7 +1261,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_hafted;
 
 				/* Make a hafted weapon */
-				make_object(q_ptr, mo_mode, 0, object_level);
+				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1281,7 +1281,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_sword;
 
 				/* Make a sword */
-				make_object(q_ptr, mo_mode, 0, object_level);
+				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1332,7 +1332,7 @@ msg_print("地面に落とされた。");
 				/* Prepare to make a reward */
 				object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
-				apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1356,7 +1356,7 @@ msg_print("地面に落とされた。");
 	coin_type = force_coin;
 
 	/* Average dungeon and monster levels */
-	object_level = (current_floor_ptr->dun_level + r_ptr->level) / 2;
+	current_floor_ptr->object_level = (current_floor_ptr->dun_level + r_ptr->level) / 2;
 
 	/* Drop some objects */
 	for (j = 0; j < number; j++)
@@ -1381,7 +1381,7 @@ msg_print("地面に落とされた。");
 		else
 		{
 			/* Make an object */
-			if (!make_object(q_ptr, mo_mode, 0, object_level)) continue;
+			if (!make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level)) continue;
 
 			/* XXX XXX XXX */
 			dump_item++;
@@ -1392,7 +1392,7 @@ msg_print("地面に落とされた。");
 	}
 
 	/* Reset the object level */
-	object_level = current_floor_ptr->base_level;
+	current_floor_ptr->object_level = current_floor_ptr->base_level;
 
 	/* Reset "coin" type */
 	coin_type = 0;

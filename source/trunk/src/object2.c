@@ -2206,10 +2206,10 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval);
 
 		/* XXX XXX Enforce minimum "object" level (loosely) */
-		if (object_kind_info[k_idx].level > object_level)
+		if (object_kind_info[k_idx].level > current_floor_ptr->object_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (object_kind_info[k_idx].level - object_level) * 5;
+			int d = (object_kind_info[k_idx].level - current_floor_ptr->object_level) * 5;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
@@ -3865,7 +3865,7 @@ static bool kind_is_good(int k_idx)
  *
  * This routine plays nasty games to generate the "special artifacts".
  *
- * This routine uses "object_level" for the "generation level".
+ * This routine uses "current_floor_ptr->object_level" for the "generation level".
  *
  * We assume that the given object has been "wiped".
  */
@@ -3937,7 +3937,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 
 	/* Notice "okay" out-of-depth objects */
 	if (!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) &&
-	    (obj_level > current_floor_ptr->dun_level))
+		(obj_level > current_floor_ptr->object_level))
 	{
 		/* Cheat -- peek at items */
 		if (cheat_peek) object_mention(j_ptr);
@@ -3953,7 +3953,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
  *
  * This routine plays nasty games to generate the "special artifacts".
  *
- * This routine uses "object_level" for the "generation level".
+ * This routine uses "current_floor_ptr->object_level" for the "generation level".
  *
  * This routine requires a clean floor grid destination.
  */
@@ -3985,7 +3985,7 @@ void place_object(int y, int x, u32b mode)
 	object_wipe(q_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(q_ptr, mode, 0, object_level)) return;
+	if (!make_object(q_ptr, mode, 0, current_floor_ptr->object_level)) return;
 
 
 	/* Make an object */
@@ -4042,12 +4042,12 @@ bool make_gold(object_type *j_ptr, int value)
 
 
 	/* Hack -- Pick a Treasure variety */
-	i = ((randint1(object_level + 2) + 2) / 2) - 1;
+	i = ((randint1(current_floor_ptr->object_level + 2) + 2) / 2) - 1;
 
 	/* Apply "extra" magic */
 	if (one_in_(GREAT_OBJ))
 	{
-		i += randint1(object_level + 1);
+		i += randint1(current_floor_ptr->object_level + 1);
 	}
 
 	/* Hack -- Creeping Coins only generate "themselves" */
@@ -4561,7 +4561,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if (!make_object(i_ptr, mode, 0, object_level)) continue;
+		if (!make_object(i_ptr, mode, 0, current_floor_ptr->object_level)) continue;
 
 		if (known)
 		{

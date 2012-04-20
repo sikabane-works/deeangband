@@ -2438,7 +2438,7 @@ static bool kankin(creature_type *cr_ptr)
 
 				/* Prepare to make a prize */
 				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval), ITEM_FREE_SIZE);
-				apply_magic(cr_ptr, &forge, object_level, AM_NO_FIXED_ART, 0);
+				apply_magic(cr_ptr, &forge, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 				/* Identify it fully */
 				object_aware(&forge);

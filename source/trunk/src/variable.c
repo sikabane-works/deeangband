@@ -116,7 +116,6 @@ s16b running;			/* Current counter for running, if any */
 s16b resting;			/* Current counter for resting, if any */
 
 s16b num_repro;			/* Current reproducer count */
-s16b object_level;		/* Current object creation level */
 
 s32b turn;				/* Current game turn */
 s32b turn_limit;		/* Limit of game turn */
