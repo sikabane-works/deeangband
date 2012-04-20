@@ -38,7 +38,7 @@ void init_saved_floors(bool force)
 
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
-		saved_floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &saved_floors[i];
 
 		/* File name */
 		sprintf(floor_savefile, "%s.F%02d", savefile, i);
@@ -133,7 +133,7 @@ void clear_saved_floor_files(creature_type *player_ptr)
 
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
-		saved_floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &saved_floors[i];
 
 		/* No temporal file */
 		if (!sf_ptr->floor_id) continue;
@@ -164,7 +164,7 @@ void clear_saved_floor_files(creature_type *player_ptr)
 /*
  * Get a pointer for an item of the saved_floors array.
  */
-saved_floor_type *get_sf_ptr(s16b floor_id)
+floor_type *get_sf_ptr(s16b floor_id)
 {
 	int i;
 
@@ -173,7 +173,7 @@ saved_floor_type *get_sf_ptr(s16b floor_id)
 
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
-		saved_floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &saved_floors[i];
 
 		if (sf_ptr->floor_id == floor_id) return sf_ptr;
 	}
@@ -186,7 +186,7 @@ saved_floor_type *get_sf_ptr(s16b floor_id)
 /*
  * kill a saved floor and get an empty space
  */
-static void kill_saved_floor(saved_floor_type *sf_ptr)
+static void kill_saved_floor(floor_type *sf_ptr)
 {
 	char floor_savefile[1024];
 
@@ -229,7 +229,7 @@ static void kill_saved_floor(saved_floor_type *sf_ptr)
  */
 s16b add_new_floor(void)
 {
-	saved_floor_type *sf_ptr;
+	floor_type *sf_ptr;
 	int i;
 
 	/* Look for empty space */
@@ -474,7 +474,7 @@ static void get_out_creature(creature_type *creature_ptr)
  * the one of the floors connected by the one of the stairs in the
  * current floor.
  */
-static void locate_connected_stairs(creature_type *creature_ptr, saved_floor_type *sf_ptr)
+static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_ptr)
 {
 	int x, y, sx = 0, sy = 0;
 	int x_table[20];
@@ -576,7 +576,7 @@ void leave_floor(creature_type *cr_ptr)
 	int i;
 	cave_type *c_ptr = NULL;
 	feature_type *f_ptr;
-	saved_floor_type *sf_ptr;
+	floor_type *sf_ptr;
 	int quest_species_idx = 0;
 
 	// Remove all mirrors without explosion
@@ -745,7 +745,7 @@ void leave_floor(creature_type *cr_ptr)
  */
 void change_floor(creature_type *cr_ptr)
 {
-	//saved_floor_type *sf_ptr;
+	//floor_type *sf_ptr;
 	bool loaded = FALSE;
 
 	// The dungeon is not ready
@@ -820,7 +820,7 @@ void change_floor(creature_type *cr_ptr)
 		
 		if (cr_ptr->floor_id)
 		{
-			saved_floor_type *cur_sf_ptr = get_sf_ptr(cr_ptr->floor_id);
+			floor_type *cur_sf_ptr = get_sf_ptr(cr_ptr->floor_id);
 
 			if (change_floor_mode & CFM_UP)
 			{
@@ -1033,8 +1033,8 @@ void change_floor(creature_type *cr_ptr)
  */
 void stair_creation(creature_type *creature_ptr)
 {
-	saved_floor_type *sf_ptr;
-	saved_floor_type *dest_sf_ptr;
+	floor_type *sf_ptr;
+	floor_type *dest_sf_ptr;
 
 	bool up = TRUE;
 	bool down = TRUE;

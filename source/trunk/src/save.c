@@ -818,7 +818,7 @@ static void ang_sort_swap_cave_temp(vptr u, vptr v, int a, int b)
  * Actually write a saved floor data
  * using effectively compressed format.
  */
-static void wr_saved_floor(saved_floor_type *sf_ptr)
+static void wr_saved_floor(floor_type *sf_ptr)
 {
 	cave_template_type *template;
 	u16b max_num_temp;
@@ -1039,7 +1039,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
  */
 static bool wr_dungeon(creature_type *player_ptr)
 {
-	saved_floor_type *cur_sf_ptr;
+	floor_type *cur_sf_ptr;
 	int i;
 
 	/* Forget the lite */
@@ -1089,7 +1089,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Write the saved_floors array */
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
-		saved_floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &saved_floors[i];
 
 		wr_s16b(sf_ptr->floor_id);
 		wr_byte(sf_ptr->savefile_id);
@@ -1112,7 +1112,7 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Move data in temporal files to the savefile */
 	for (i = 0; i < MAX_SAVED_FLOORS; i++)
 	{
-		saved_floor_type *sf_ptr = &saved_floors[i];
+		floor_type *sf_ptr = &saved_floors[i];
 
 		/* Unused element */
 		if (!sf_ptr->floor_id) continue;
@@ -1997,7 +1997,7 @@ void remove_loc(void)
 /*
  * Actually write a temporal saved floor file
  */
-static bool save_floor_aux(saved_floor_type *sf_ptr)
+static bool save_floor_aux(floor_type *sf_ptr)
 {
 	byte tmp8u;
 
@@ -2044,7 +2044,7 @@ static bool save_floor_aux(saved_floor_type *sf_ptr)
 /*
  * Attempt to save the temporally saved-floor data
  */
-bool save_floor(saved_floor_type *sf_ptr, u32b mode)
+bool save_floor(floor_type *sf_ptr, u32b mode)
 {
 	FILE *old_fff = NULL;
 	byte old_xor_byte = 0;

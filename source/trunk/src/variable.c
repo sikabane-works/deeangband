@@ -639,7 +639,7 @@ cave_type *cave[MAX_HGT];
 /*
  * The array of saved floors
  */
-saved_floor_type saved_floors[MAX_SAVED_FLOORS];
+floor_type saved_floors[MAX_SAVED_FLOORS];
 
 
 /*

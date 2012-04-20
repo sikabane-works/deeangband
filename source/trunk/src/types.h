@@ -1926,7 +1926,7 @@ typedef struct
 	u32b visit_mark;      /* Older has always smaller mark. */
 	s16b upper_floor_id;  /* a floor connected with level teleportation */
 	s16b lower_floor_id;  /* a floor connected with level tel. and trap door */
-} saved_floor_type;
+} floor_type;
 
 
 /*

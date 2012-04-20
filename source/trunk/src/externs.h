@@ -428,7 +428,7 @@ extern char angband_term_name[8][16];
 extern byte angband_color_table[256][4];
 extern char angband_sound_name[SOUND_MAX][16];
 extern cave_type *cave[MAX_HGT];
-extern saved_floor_type saved_floors[MAX_SAVED_FLOORS];
+extern floor_type saved_floors[MAX_SAVED_FLOORS];
 extern s16b max_floor_id;
 extern u32b saved_floor_file_sign;
 extern object_type *object_list;
@@ -1145,7 +1145,7 @@ extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
 /* floors.c */
 extern void init_saved_floors(bool force);
 extern void clear_saved_floor_files(creature_type *player_ptr);
-extern saved_floor_type *get_sf_ptr(s16b floor_id);
+extern floor_type *get_sf_ptr(s16b floor_id);
 extern s16b add_new_floor(void);
 extern void prepare_change_floor_mode(u32b mode);
 extern void leave_floor(creature_type *cr_ptr);
@@ -1174,7 +1174,7 @@ extern cptr get_check_sum(void);
 
 /* load.c */
 extern errr rd_savefile_new(void);
-extern bool load_floor(saved_floor_type *sf_ptr, u32b mode);
+extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
 /* melee1.c */
 /* melee2.c */
@@ -1347,7 +1347,7 @@ extern void do_cmd_racial_power(creature_type *cr_ptr);
 extern bool save_player(void);
 extern int load_player(void);
 extern void remove_loc(void);
-extern bool save_floor(saved_floor_type *sf_ptr, u32b mode);
+extern bool save_floor(floor_type *sf_ptr, u32b mode);
 
 /* spells1.c */
 extern bool in_disintegration_range(int y1, int x1, int y2, int x2);

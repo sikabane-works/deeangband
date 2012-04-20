@@ -1354,7 +1354,7 @@ static void rd_messages(void)
  * The monsters/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
-static errr rd_saved_floor(saved_floor_type *sf_ptr)
+static errr rd_saved_floor(floor_type *sf_ptr)
 {
 	int ymax, xmax;
 	int i, y, x;
@@ -1557,7 +1557,7 @@ static errr rd_dungeon(void)
 		/* Read the saved_floors array */
 		for (i = 0; i < num; i++)
 		{
-			saved_floor_type *sf_ptr = &saved_floors[i];
+			floor_type *sf_ptr = &saved_floors[i];
 
 			rd_s16b(&sf_ptr->floor_id);
 			rd_byte(&sf_ptr->savefile_id);
@@ -1575,7 +1575,7 @@ static errr rd_dungeon(void)
 		/* Move saved floors data to temporal files */
 		for (i = 0; i < num; i++)
 		{
-			saved_floor_type *sf_ptr = &saved_floors[i];
+			floor_type *sf_ptr = &saved_floors[i];
 			byte tmp8u;
 
 			/* Unused element */
@@ -2287,7 +2287,7 @@ errr rd_savefile_new(void)
 /*
  * Actually load and verify a floor save data
  */
-static bool load_floor_aux(saved_floor_type *sf_ptr)
+static bool load_floor_aux(floor_type *sf_ptr)
 {
 	int i;
 	byte tmp8u;
@@ -2353,7 +2353,7 @@ static bool load_floor_aux(saved_floor_type *sf_ptr)
 /*
  * Attempt to load the temporally saved-floor data
  */
-bool load_floor(saved_floor_type *sf_ptr, u32b mode)
+bool load_floor(floor_type *sf_ptr, u32b mode)
 {
 	FILE *old_fff = NULL;
 	byte old_xor_byte = 0;
