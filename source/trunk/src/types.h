@@ -531,22 +531,16 @@ typedef struct cave_type cave_type;
 
 struct cave_type
 {
-	u16b info;		/* Hack -- cave flags */
-
-	s16b feat;		/* Hack -- feature type */
-
-	s16b object_idx;		/* Object in this grid */
-
-	s16b creature_idx;		// Creature in this grid
-
-	s16b special;	/* Special cave info */
-
-	s16b mimic;		/* Feature to mimic */
-
-	byte cost;		/* Hack -- cost of flowing */
-	byte dist;		/* Hack -- distance from player */
-	byte when;		/* Hack -- when cost was computed */
-
+	u16b info;		   // Hack -- cave flags
+	s16b feat;		   // Hack -- feature type
+	s16b object_idx;   // Object in this grid
+	s16b creature_idx; // Creature in this grid
+	s16b special;      // Special cave info
+	s16b mimic;        // Feature to mimic
+	byte cost;         // Hack -- cost of flowing
+	byte dist;         // Hack -- distance from player
+	byte when;         // Hack -- when cost was computed
+	s16b owner_idx;    // Owner of trap, mirror and so on.
 	char message[CAVE_MESSAGE_LENGTH];
 };
 
