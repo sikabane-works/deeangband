@@ -319,9 +319,9 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 	int y = 0, x = 0, min, pick, i;
 
 	int left = MAX(1, cr_ptr->fx - dis);
-	int right = MIN(cur_wid - 2, cr_ptr->fx + dis);
+	int right = MIN(current_floor_ptr->width - 2, cr_ptr->fx + dis);
 	int top = MAX(1, cr_ptr->fy - dis);
-	int bottom = MIN(cur_hgt - 2, cr_ptr->fy + dis);
+	int bottom = MIN(current_floor_ptr->height - 2, cr_ptr->fy + dis);
 
 	if (wild_mode) return FALSE;
 
@@ -1605,9 +1605,9 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	}
 
 	/* Scan all normal grids */
-	for (y = 1; y < cur_hgt - 1; y++)
+	for (y = 1; y < current_floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < cur_wid - 1; x++)
+		for (x = 1; x < current_floor_ptr->width - 1; x++)
 		{
 			c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -1646,7 +1646,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	}
 
 	/* Special boundary walls -- Top and bottom */
-	for (x = 0; x < cur_wid; x++)
+	for (x = 0; x < current_floor_ptr->width; x++)
 	{
 		c_ptr = &current_floor_ptr->cave[0][x];
 		f_ptr = &f_info[c_ptr->mimic];
@@ -1663,7 +1663,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &current_floor_ptr->cave[cur_hgt - 1][x];
+		c_ptr = &current_floor_ptr->cave[current_floor_ptr->height - 1][x];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1680,7 +1680,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	}
 
 	/* Special boundary walls -- Left and right */
-	for (y = 1; y < (cur_hgt - 1); y++)
+	for (y = 1; y < (current_floor_ptr->height - 1); y++)
 	{
 		c_ptr = &current_floor_ptr->cave[y][0];
 		f_ptr = &f_info[c_ptr->mimic];
@@ -1697,7 +1697,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &current_floor_ptr->cave[y][cur_wid - 1];
+		c_ptr = &current_floor_ptr->cave[y][current_floor_ptr->width - 1];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */

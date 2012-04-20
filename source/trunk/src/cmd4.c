@@ -6706,9 +6706,9 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	}
 
 	/* Check the dungeon */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 

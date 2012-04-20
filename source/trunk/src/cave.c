@@ -1676,9 +1676,9 @@ void prt_map(creature_type *cr_ptr)
 
 	/* Get bounds */
 	xmin = (0 < panel_col_min) ? panel_col_min : 0;
-	xmax = (cur_wid - 1 > panel_col_max) ? panel_col_max : cur_wid - 1;
+	xmax = (current_floor_ptr->width - 1 > panel_col_max) ? panel_col_max : current_floor_ptr->width - 1;
 	ymin = (0 < panel_row_min) ? panel_row_min : 0;
-	ymax = (cur_hgt - 1 > panel_row_max) ? panel_row_max : cur_hgt - 1;
+	ymax = (current_floor_ptr->height - 1 > panel_row_max) ? panel_row_max : current_floor_ptr->height - 1;
 
 	/* Bottom section of screen */
 	for (y = 1; y <= ymin - panel_row_prt; y++)
@@ -1938,8 +1938,8 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	wid -= 14;
 	if (use_bigtile) wid /= 2;
 
-	yrat = (cur_hgt + hgt - 1) / hgt;
-	xrat = (cur_wid + wid - 1) / wid;
+	yrat = (current_floor_ptr->height + hgt - 1) / hgt;
+	xrat = (current_floor_ptr->width + wid - 1) / wid;
 
 	/* Disable lighting effects */
 	view_special_lite = FALSE;
@@ -1977,19 +1977,19 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	}
 
 	/* Allocate the maps */
-	C_MAKE(bigma, (cur_hgt + 2), byte_ptr);
-	C_MAKE(bigmc, (cur_hgt + 2), char_ptr);
-	C_MAKE(bigmp, (cur_hgt + 2), byte_ptr);
+	C_MAKE(bigma, (current_floor_ptr->height + 2), byte_ptr);
+	C_MAKE(bigmc, (current_floor_ptr->height + 2), char_ptr);
+	C_MAKE(bigmp, (current_floor_ptr->height + 2), byte_ptr);
 
 	/* Allocate and wipe each line map */
-	for (y = 0; y < (cur_hgt + 2); y++)
+	for (y = 0; y < (current_floor_ptr->height + 2); y++)
 	{
 		/* Allocate one row each array */
-		C_MAKE(bigma[y], (cur_wid + 2), byte);
-		C_MAKE(bigmc[y], (cur_wid + 2), char);
-		C_MAKE(bigmp[y], (cur_wid + 2), byte);
+		C_MAKE(bigma[y], (current_floor_ptr->width + 2), byte);
+		C_MAKE(bigmc[y], (current_floor_ptr->width + 2), char);
+		C_MAKE(bigmp[y], (current_floor_ptr->width + 2), byte);
 
-		for (x = 0; x < cur_wid + 2; ++x)
+		for (x = 0; x < current_floor_ptr->width + 2; ++x)
 		{
 			/* Nothing here */
 			bigma[y][x] = TERM_WHITE;
@@ -2001,9 +2001,9 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	}
 
 	/* Fill in the map */
-	for (i = 0; i < cur_wid; ++i)
+	for (i = 0; i < current_floor_ptr->width; ++i)
 	{
-		for (j = 0; j < cur_hgt; ++j)
+		for (j = 0; j < current_floor_ptr->height; ++j)
 		{
 			/* Location */
 			x = i / xrat + 1;
@@ -2035,9 +2035,9 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 		}
 	}
 
-	for (j = 0; j < cur_hgt; ++j)
+	for (j = 0; j < current_floor_ptr->height; ++j)
 	{
-		for (i = 0; i < cur_wid; ++i)
+		for (i = 0; i < current_floor_ptr->width; ++i)
 		{
 			/* Location */
 			x = i / xrat + 1;
@@ -2173,18 +2173,18 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	C_FREE(object_autopick_yx, (hgt + 2), object_type **);
 
 	/* Free each line map */
-	for (y = 0; y < (cur_hgt + 2); y++)
+	for (y = 0; y < (current_floor_ptr->height + 2); y++)
 	{
 		/* Free one row each array */
-		C_FREE(bigma[y], (cur_wid + 2), byte);
-		C_FREE(bigmc[y], (cur_wid + 2), char);
-		C_FREE(bigmp[y], (cur_wid + 2), byte);
+		C_FREE(bigma[y], (current_floor_ptr->width + 2), byte);
+		C_FREE(bigmc[y], (current_floor_ptr->width + 2), char);
+		C_FREE(bigmp[y], (current_floor_ptr->width + 2), byte);
 	}
 
 	/* Free each line map */
-	C_FREE(bigma, (cur_hgt + 2), byte_ptr);
-	C_FREE(bigmc, (cur_hgt + 2), char_ptr);
-	C_FREE(bigmp, (cur_hgt + 2), byte_ptr);
+	C_FREE(bigma, (current_floor_ptr->height + 2), byte_ptr);
+	C_FREE(bigmc, (current_floor_ptr->height + 2), char_ptr);
+	C_FREE(bigmp, (current_floor_ptr->height + 2), byte_ptr);
 }
 
 
@@ -2736,7 +2736,7 @@ void update_lite(creature_type *cr_ptr)
 
 		/* Maximal south */
 		max_y = cr_ptr->fy + p;
-		if (max_y > cur_hgt-1) max_y = cur_hgt-1;
+		if (max_y > current_floor_ptr->height-1) max_y = current_floor_ptr->height-1;
 
 		/* Maximal west */
 		min_x = cr_ptr->fx - p;
@@ -2744,7 +2744,7 @@ void update_lite(creature_type *cr_ptr)
 
 		/* Maximal east */
 		max_x = cr_ptr->fx + p;
-		if (max_x > cur_wid-1) max_x = cur_wid-1;
+		if (max_x > current_floor_ptr->width-1) max_x = current_floor_ptr->width-1;
 
 		/* Scan the maximal box */
 		for (y = min_y; y <= max_y; y++)
@@ -3594,8 +3594,8 @@ void update_view(creature_type *cr_ptr)
 
 	int full, over;
 
-	int y_max = cur_hgt - 1;
-	int x_max = cur_wid - 1;
+	int y_max = current_floor_ptr->height - 1;
+	int x_max = current_floor_ptr->width - 1;
 
 	cave_type *c_ptr;
 
@@ -4091,9 +4091,9 @@ void forget_flow(void)
 	int x, y;
 
 	/* Check the entire dungeon */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			/* Forget the old data */
 			current_floor_ptr->cave[y][x].dist = 0;
@@ -4144,9 +4144,9 @@ void update_flow(creature_type *creature_ptr)
 	}
 
 	/* Erase all of the current flow information */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			current_floor_ptr->cave[y][x].cost = 0;
 			current_floor_ptr->cave[y][x].dist = 0;
@@ -4256,9 +4256,9 @@ void update_smell(creature_type *cr_ptr)
 	if (++scent_when == 254)
 	{
 		/* Scan the entire dungeon */
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				int w = current_floor_ptr->cave[y][x].when;
 				current_floor_ptr->cave[y][x].when = (w > 128) ? (w - 128) : 0;
@@ -4315,9 +4315,9 @@ void map_area(creature_type *creature_ptr, int range)
 	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan that area */
-	for (y = 1; y < cur_hgt - 1; y++)
+	for (y = 1; y < current_floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < cur_wid - 1; x++)
+		for (x = 1; x < current_floor_ptr->width - 1; x++)
 		{
 			if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
@@ -4404,10 +4404,10 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 	}
 
 	/* Scan all normal grids */
-	for (y = 1; y < cur_hgt - 1; y++)
+	for (y = 1; y < current_floor_ptr->height - 1; y++)
 	{
 		/* Scan all normal grids */
-		for (x = 1; x < cur_wid - 1; x++)
+		for (x = 1; x < current_floor_ptr->width - 1; x++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -4483,9 +4483,9 @@ void wiz_dark(creature_type *cr_ptr)
 
 
 	/* Forget every grid */
-	for (y = 1; y < cur_hgt - 1; y++)
+	for (y = 1; y < current_floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < cur_wid - 1; x++)
+		for (x = 1; x < current_floor_ptr->width - 1; x++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -4496,17 +4496,17 @@ void wiz_dark(creature_type *cr_ptr)
 	}
 
 	/* Forget every grid on horizontal edge */
-	for (x = 0; x < cur_wid; x++)
+	for (x = 0; x < current_floor_ptr->width; x++)
 	{
 		current_floor_ptr->cave[0][x].info &= ~(CAVE_MARK);
-		current_floor_ptr->cave[cur_hgt - 1][x].info &= ~(CAVE_MARK);
+		current_floor_ptr->cave[current_floor_ptr->height - 1][x].info &= ~(CAVE_MARK);
 	}
 
 	/* Forget every grid on vertical edge */
-	for (y = 1; y < (cur_hgt - 1); y++)
+	for (y = 1; y < (current_floor_ptr->height - 1); y++)
 	{
 		current_floor_ptr->cave[y][0].info &= ~(CAVE_MARK);
-		current_floor_ptr->cave[y][cur_wid - 1].info &= ~(CAVE_MARK);
+		current_floor_ptr->cave[y][current_floor_ptr->width - 1].info &= ~(CAVE_MARK);
 	}
 
 	/* Forget all objects */
@@ -5095,9 +5095,9 @@ void glow_deep_lava_and_bldg(void)
 	/* Not in the darkness dungeon */
 	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) return;
 
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			c_ptr = &current_floor_ptr->cave[y][x];
 

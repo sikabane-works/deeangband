@@ -364,8 +364,8 @@ static void generate_area(int y, int x, bool border, bool corner)
 		/* Hack -- Induce consistant town layout */
 		Rand_value = wilderness[y][x].seed;
 
-		dy = rand_range(6, cur_hgt - 6);
-		dx = rand_range(6, cur_wid - 6);
+		dy = rand_range(6, current_floor_ptr->height - 6);
+		dx = rand_range(6, current_floor_ptr->width - 6);
 
 		current_floor_ptr->cave[dy][dx].feat = feat_entrance;
 		current_floor_ptr->cave[dy][dx].special = wilderness[y][x].entrance;
@@ -392,12 +392,12 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 	feature_type *f_ptr;
 
 	/* Big town */
-	cur_hgt = MAX_HGT;
-	cur_wid = MAX_WID;
+	current_floor_ptr->height = MAX_HGT;
+	current_floor_ptr->width = MAX_WID;
 
 	/* Assume illegal panel */
-	panel_row_min = cur_hgt;
-	panel_col_min = cur_wid;
+	panel_row_min = current_floor_ptr->height;
+	panel_col_min = current_floor_ptr->width;
 
 	/* Init the wilderness */
 
@@ -503,9 +503,9 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 	current_floor_ptr->cave[MAX_HGT - 1][MAX_WID - 1].mimic = border.south_east;
 
 	/* Light up or darken the area */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			/* Get the cave grid */
 			c_ptr = &current_floor_ptr->cave[y][x];
@@ -550,9 +550,9 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	if (cr_ptr->teleport_town)
 	{
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				/* Get the cave grid */
 				c_ptr = &current_floor_ptr->cave[y][x];
@@ -576,9 +576,9 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	else if (subject_change_dungeon)
 	{
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				/* Get the cave grid */
 				c_ptr = &current_floor_ptr->cave[y][x];
@@ -667,15 +667,15 @@ void generate_floor_world(creature_type *cr_ptr)
 		current_floor_ptr->cave[j][i].info |= (CAVE_GLOW | CAVE_MARK);
 	}
 
-	cur_hgt = (s16b) max_wild_y;
-	cur_wid = (s16b) max_wild_x;
+	current_floor_ptr->height = (s16b) max_wild_y;
+	current_floor_ptr->width = (s16b) max_wild_x;
 
-	if (cur_hgt > MAX_HGT) cur_hgt = MAX_HGT;
-	if (cur_wid > MAX_WID) cur_wid = MAX_WID;
+	if (current_floor_ptr->height > MAX_HGT) current_floor_ptr->height = MAX_HGT;
+	if (current_floor_ptr->width > MAX_WID) current_floor_ptr->width = MAX_WID;
 
 	/* Assume illegal panel */
-	panel_row_min = cur_hgt;
-	panel_col_min = cur_wid;
+	panel_row_min = current_floor_ptr->height;
+	panel_col_min = current_floor_ptr->width;
 
 	/* Place the player */
 	cr_ptr->fx = (byte)wilderness_x;

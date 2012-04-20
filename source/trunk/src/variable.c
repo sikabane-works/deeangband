@@ -115,8 +115,6 @@ bool msg_flag;			/* Used in msg_print() for "buffering" */
 s16b running;			/* Current counter for running, if any */
 s16b resting;			/* Current counter for resting, if any */
 
-s16b cur_hgt;			/* Current dungeon height */
-s16b cur_wid;			/* Current dungeon width */
 s16b dun_level;			/* Current dungeon level */
 s16b num_repro;			/* Current reproducer count */
 s16b object_level;		/* Current object creation level */

@@ -213,9 +213,9 @@ static bool alloc_stairs(int feat, int num, int walls)
 			int candidates = 0;
 			int pick;
 
-			for (y = 1; y < cur_hgt - 1; y++)
+			for (y = 1; y < current_floor_ptr->height - 1; y++)
 			{
-				for (x = 1; x < cur_wid - 1; x++)
+				for (x = 1; x < current_floor_ptr->width - 1; x++)
 				{
 					if (alloc_stairs_aux(y, x, walls))
 					{
@@ -239,9 +239,9 @@ static bool alloc_stairs(int feat, int num, int walls)
 			/* Choose a random one */
 			pick = randint1(candidates);
 
-			for (y = 1; y < cur_hgt - 1; y++)
+			for (y = 1; y < current_floor_ptr->height - 1; y++)
 			{
-				for (x = 1; x < cur_wid - 1; x++)
+				for (x = 1; x < current_floor_ptr->width - 1; x++)
 				{
 					if (alloc_stairs_aux(y, x, walls))
 					{
@@ -285,7 +285,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 	cave_type *c_ptr;
 
 	/* A small level has few objects. */
-	num = num * cur_hgt * cur_wid / (MAX_HGT * MAX_WID) +1;
+	num = num * current_floor_ptr->height * current_floor_ptr->width / (MAX_HGT * MAX_WID) +1;
 
 	/* Place some objects */
 	for (k = 0; k < num; k++)
@@ -298,8 +298,8 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			dummy++;
 
 			/* Location */
-			y = randint0(cur_hgt);
-			x = randint0(cur_wid);
+			y = randint0(current_floor_ptr->height);
+			x = randint0(current_floor_ptr->width);
 
 			c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -517,8 +517,8 @@ bool place_quest_creatures(creature_type *player_ptr)
 					cave_type    *c_ptr;
 					feature_type *f_ptr;
 
-					y = randint0(cur_hgt);
-					x = randint0(cur_wid);
+					y = randint0(current_floor_ptr->height);
+					x = randint0(current_floor_ptr->width);
 
 					c_ptr = &current_floor_ptr->cave[y][x];
 					f_ptr = &f_info[c_ptr->feat];
@@ -717,8 +717,8 @@ static bool create_cave_structure(void)
 	dun_tun_jct = rand_range(DUN_TUN_JCT_MIN, DUN_TUN_JCT_MAX);
 
 	/* Actual maximum number of rooms on this level */
-	dun->row_rooms = cur_hgt / BLOCK_HGT;
-	dun->col_rooms = cur_wid / BLOCK_WID;
+	dun->row_rooms = current_floor_ptr->height / BLOCK_HGT;
+	dun->col_rooms = current_floor_ptr->width / BLOCK_WID;
 
 	/* Initialize the room table */
 	for (y = 0; y < dun->row_rooms; y++)
@@ -748,34 +748,34 @@ static bool create_cave_structure(void)
 	if (dun->empty_level)
 	{
 		/* Start with floors */
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				place_floor_bold(y, x);
 			}
 		}
 
 		/* Special boundary walls -- Top and bottom */
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			place_extra_bold(0, x);
-			place_extra_bold(cur_hgt - 1, x);
+			place_extra_bold(current_floor_ptr->height - 1, x);
 		}
 
 		/* Special boundary walls -- Left and right */
-		for (y = 1; y < (cur_hgt - 1); y++)
+		for (y = 1; y < (current_floor_ptr->height - 1); y++)
 		{
 			place_extra_bold(y, 0);
-			place_extra_bold(y, cur_wid - 1);
+			place_extra_bold(y, current_floor_ptr->width - 1);
 		}
 	}
 	else
 	{
 		/* Start with walls */
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				place_extra_bold(y, x);
 			}
@@ -790,7 +790,7 @@ static bool create_cave_structure(void)
 	/* Build maze */
 	if (dungeon_info[dungeon_type].flags1 & DF1_MAZE)
 	{
-		build_maze_vault(cur_wid/2-1, cur_hgt/2-1, cur_wid-4, cur_hgt-4, FALSE);
+		build_maze_vault(current_floor_ptr->width/2-1, current_floor_ptr->height/2-1, current_floor_ptr->width-4, current_floor_ptr->height-4, FALSE);
 
 		/* Place 3 or 4 down stairs near some walls */
 		if (!alloc_stairs(feat_down_stair, rand_range(2, 3), 3)) return FALSE;
@@ -815,7 +815,7 @@ static bool create_cave_structure(void)
 		{
 			while (one_in_(DUN_MOS_DEN))
 			{
-				place_trees(randint1(cur_wid - 2), randint1(cur_hgt - 2));
+				place_trees(randint1(current_floor_ptr->width - 2), randint1(current_floor_ptr->height - 2));
 			}
 		}
 
@@ -978,10 +978,10 @@ static bool create_cave_structure(void)
 		}
 
 		/* Place some down stairs near some walls */
-		if (!alloc_stairs(feat_down_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) / 8 , 3)) return FALSE;
+		if (!alloc_stairs(feat_down_stair, rand_range(1, 4) + (current_floor_ptr->width / SCREEN_WID * current_floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
 
 		/* Place some up stairs near some walls */
-		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (cur_wid / SCREEN_WID * cur_hgt / SCREEN_HGT) /
+		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (current_floor_ptr->width / SCREEN_WID * current_floor_ptr->height / SCREEN_HGT) /
 			8 , 3)) return FALSE;
 	}
 
@@ -1007,17 +1007,17 @@ static bool create_cave_structure(void)
 	}
 
 	/* Special boundary walls -- Top and bottom */
-	for (x = 0; x < cur_wid; x++)
+	for (x = 0; x < current_floor_ptr->width; x++)
 	{
 		set_bound_perm_wall(&current_floor_ptr->cave[0][x]);
-		set_bound_perm_wall(&current_floor_ptr->cave[cur_hgt - 1][x]);
+		set_bound_perm_wall(&current_floor_ptr->cave[current_floor_ptr->height - 1][x]);
 	}
 
 	/* Special boundary walls -- Left and right */
-	for (y = 1; y < (cur_hgt - 1); y++)
+	for (y = 1; y < (current_floor_ptr->height - 1); y++)
 	{
 		set_bound_perm_wall(&current_floor_ptr->cave[y][0]);
-		set_bound_perm_wall(&current_floor_ptr->cave[y][cur_wid - 1]);
+		set_bound_perm_wall(&current_floor_ptr->cave[y][current_floor_ptr->width - 1]);
 	}
 
 	/* Determine the character location */
@@ -1034,12 +1034,12 @@ static bool create_cave_structure(void)
 	i = dungeon_info[dungeon_type].min_m_alloc_level;
 
 	/* To make small levels a bit more playable */
-	if (cur_hgt < MAX_HGT || cur_wid < MAX_WID)
+	if (current_floor_ptr->height < MAX_HGT || current_floor_ptr->width < MAX_WID)
 	{
 		int small_tester = i;
 
-		i = (i * cur_hgt) / MAX_HGT;
-		i = (i * cur_wid) / MAX_WID;
+		i = (i * current_floor_ptr->height) / MAX_HGT;
+		i = (i * current_floor_ptr->width) / MAX_WID;
 		i += 1;
 
 		if (i > small_tester) i = small_tester;
@@ -1090,9 +1090,9 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	if (dun->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > dun_level)) && !(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
 	{
 		/* Lite the cave */
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				current_floor_ptr->cave[y][x].info |= (CAVE_GLOW);
 			}
@@ -1170,8 +1170,8 @@ static void generate_floor_arena(creature_type *player_ptr)
 	int qx = 0;
 
 	/* Smallest area */
-	cur_hgt = SCREEN_HGT;
-	cur_wid = SCREEN_WID;
+	current_floor_ptr->height = SCREEN_HGT;
+	current_floor_ptr->width = SCREEN_WID;
 
 	/* Start with solid walls */
 	for (y = 0; y < MAX_HGT; y++)
@@ -1330,9 +1330,9 @@ static void generate_floor_quest(void)
 
 
 	/* Start with perm walls */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			place_solid_perm_bold(y, x);
 		}
@@ -1363,9 +1363,9 @@ static void generate_floor_fortress(int type)
 
 
 	/* Start with perm walls */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			place_solid_perm_bold(y, x);
 		}
@@ -1433,14 +1433,14 @@ static bool generate_floor_cave(cptr *why)
 			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 3);
 		}
 
-		cur_hgt = level_height * SCREEN_HGT;
-		cur_wid = level_width  * SCREEN_WID;
+		current_floor_ptr->height = level_height * SCREEN_HGT;
+		current_floor_ptr->width = level_width  * SCREEN_WID;
 
 		// Assume illegal panel
-		panel_row_min = cur_hgt;
-		panel_col_min = cur_wid;
+		panel_row_min = current_floor_ptr->height;
+		panel_col_min = current_floor_ptr->width;
 
-		if (cheat_room) msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
+		if (cheat_room) msg_format("X:%d, Y:%d.", current_floor_ptr->width, current_floor_ptr->height);
 	}
 	else
 	{
@@ -1450,14 +1450,14 @@ static bool generate_floor_cave(cptr *why)
 		level_width  = rand_range(MAX_WID / SCREEN_WID / 3, MAX_WID/SCREEN_WID);
 		} while (level_height + level_width <  (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
 			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3 / 4));
-		cur_hgt = level_height * SCREEN_HGT;
-		cur_wid = level_width  * SCREEN_WID;
+		current_floor_ptr->height = level_height * SCREEN_HGT;
+		current_floor_ptr->width = level_width  * SCREEN_WID;
 
 		// Assume illegal panel
-		panel_row_min = cur_hgt;
-		panel_col_min = cur_wid;
+		panel_row_min = current_floor_ptr->height;
+		panel_col_min = current_floor_ptr->width;
 
-		if (cheat_room) msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
+		if (cheat_room) msg_format("X:%d, Y:%d.", current_floor_ptr->width, current_floor_ptr->height);
 	}
 
 	// Make a dungeon
@@ -1485,9 +1485,9 @@ void wipe_generate_floor_flags(void)
 {
 	int x, y;
 
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			/* Wipe unused flags */
 			current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
@@ -1496,9 +1496,9 @@ void wipe_generate_floor_flags(void)
 
 	if (dun_level)
 	{
-		for (y = 1; y < cur_hgt - 1; y++)
+		for (y = 1; y < current_floor_ptr->height - 1; y++)
 		{
-			for (x = 1; x < cur_wid - 1; x++)
+			for (x = 1; x < current_floor_ptr->width - 1; x++)
 			{
 				/* There might be trap */
 				current_floor_ptr->cave[y][x].info |= CAVE_UNSAFE;

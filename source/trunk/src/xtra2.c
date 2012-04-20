@@ -533,8 +533,8 @@ msg_print("クエストを達成した！");
 				if (!is_hostile(m_ptr)) break;
 
 				/* Count all hostile monsters */
-				for (i2 = 0; i2 < cur_wid; ++i2)
-					for (j2 = 0; j2 < cur_hgt; j2++)
+				for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
+					for (j2 = 0; j2 < current_floor_ptr->height; j2++)
 						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
 							if (is_hostile(&creature_list[current_floor_ptr->cave[j2][i2].creature_idx])) 
 								number_mon++;
@@ -1548,8 +1548,8 @@ void resize_map(void)
 	panel_col_max = 0;
 
 	/* Reset the panels */
-	panel_row_min = cur_hgt;
-	panel_col_min = cur_wid;
+	panel_row_min = current_floor_ptr->height;
+	panel_col_min = current_floor_ptr->width;
 				
 	verify_panel(player_ptr);
 
@@ -1626,11 +1626,11 @@ bool change_panel(int dy, int dx)
 	x = panel_col_min + dx * wid / 2;
 
 	/* Verify the row */
-	if (y > cur_hgt - hgt) y = cur_hgt - hgt;
+	if (y > current_floor_ptr->height - hgt) y = current_floor_ptr->height - hgt;
 	if (y < 0) y = 0;
 
 	/* Verify the col */
-	if (x > cur_wid - wid) x = cur_wid - wid;
+	if (x > current_floor_ptr->width - wid) x = current_floor_ptr->width - wid;
 	if (x < 0) x = 0;
 
 	/* Handle "changes" */
@@ -1683,8 +1683,8 @@ void verify_panel(creature_type *cr_ptr)
 	/* Get size */
 	get_screen_size(&wid, &hgt);
 
-	max_prow_min = cur_hgt - hgt;
-	max_pcol_min = cur_wid - wid;
+	max_prow_min = current_floor_ptr->height - hgt;
+	max_pcol_min = current_floor_ptr->width - wid;
 
 	/* Bounds checking */
 	if (max_prow_min < 0) max_prow_min = 0;
@@ -3361,11 +3361,11 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						}
 
 						/* Slide into legality */
-						if (x >= cur_wid-1) x = cur_wid - 2;
+						if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
 						else if (x <= 0) x = 1;
 
 						/* Slide into legality */
-						if (y >= cur_hgt-1) y = cur_hgt- 2;
+						if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
 						else if (y <= 0) y = 1;
 					}
 				}
@@ -3542,11 +3542,11 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 				}
 
 				/* Slide into legality */
-				if (x >= cur_wid-1) x = cur_wid - 2;
+				if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
 				else if (x <= 0) x = 1;
 
 				/* Slide into legality */
-				if (y >= cur_hgt-1) y = cur_hgt- 2;
+				if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
 				else if (y <= 0) y = 1;
 			}
 		}
@@ -5028,9 +5028,9 @@ static void tgt_pt_prepare(creature_type *cr_ptr)
 	if (!expand_list) return;
 
 	/* Scan the current panel */
-	for (y = 1; y < cur_hgt; y++)
+	for (y = 1; y < current_floor_ptr->height; y++)
 	{
-		for (x = 1; x < cur_wid; x++)
+		for (x = 1; x < current_floor_ptr->width; x++)
 		{
 			/* Require "interesting" contents */
 			if (!tgt_pt_accept(cr_ptr, y, x)) continue;
@@ -5212,11 +5212,11 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 				}
 
 				/* Slide into legality */
-				if (x >= cur_wid-1) x = cur_wid - 2;
+				if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
 				else if (x <= 0) x = 1;
 
 				/* Slide into legality */
-				if (y >= cur_hgt-1) y = cur_hgt- 2;
+				if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
 				else if (y <= 0) y = 1;
 
 			}

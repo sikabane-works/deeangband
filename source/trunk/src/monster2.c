@@ -4171,8 +4171,8 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 				number_mon = 0;
 
 				/* Count all quest monsters */
-				for (i2 = 0; i2 < cur_wid; ++i2)
-					for (j2 = 0; j2 < cur_hgt; j2++)
+				for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
+					for (j2 = 0; j2 < current_floor_ptr->height; j2++)
 						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
 							if (creature_list[current_floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
@@ -4918,8 +4918,8 @@ bool alloc_guardian(bool def_val)
 		while (try)
 		{
 			/* Get a random spot */
-			oy = randint1(cur_hgt - 4) + 2;
-			ox = randint1(cur_wid - 4) + 2;
+			oy = randint1(current_floor_ptr->height - 4) + 2;
+			ox = randint1(current_floor_ptr->width - 4) + 2;
 
 			/* Is it a good spot ? */
 			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(current_floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
@@ -4960,8 +4960,8 @@ bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
 	while (attempts_left--)
 	{
 		/* Pick a location */
-		y = randint0(cur_hgt);
-		x = randint0(cur_wid);
+		y = randint0(current_floor_ptr->height);
+		x = randint0(current_floor_ptr->width);
 
 		/* Require empty floor grid (was "naked") */
 		if (dun_level)

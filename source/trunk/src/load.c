@@ -1423,8 +1423,8 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	rd_s16b(&base_level);
 	rd_s16b(&num_repro);
 
-	rd_s16b(&cur_hgt);
-	rd_s16b(&cur_wid);
+	rd_s16b(&current_floor_ptr->height);
+	rd_s16b(&current_floor_ptr->width);
 
 
 
@@ -1449,8 +1449,8 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	}
 
 	/* Maximal size */
-	ymax = cur_hgt;
-	xmax = cur_wid;
+	ymax = current_floor_ptr->height;
+	xmax = current_floor_ptr->width;
 
 
 	/*** Run length decoding ***/
@@ -1498,9 +1498,9 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	C_FREE(cave_templete_ptr, limit, cave_template_type);
 
 	/*** Load cave messages ***/
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			rd_string(current_floor_ptr->cave[y][x].message, CAVE_MESSAGE_LENGTH);	
 		}

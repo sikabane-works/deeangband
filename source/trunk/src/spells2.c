@@ -3538,9 +3538,9 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan the current panel */
-	for (y = 1; y < cur_hgt - 1; y++)
+	for (y = 1; y < current_floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x <= cur_wid - 1; x++)
+		for (x = 1; x <= current_floor_ptr->width - 1; x++)
 		{
 			int dist = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 			if (dist > range) continue;
@@ -7586,9 +7586,9 @@ void remove_all_mirrors(creature_type *user_ptr, bool explode)
 {
 	int x, y;
 
-	for (x = 0; x < cur_wid; x++)
+	for (x = 0; x < current_floor_ptr->width; x++)
 	{
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
 			if (is_mirror_grid(&current_floor_ptr->cave[y][x]))
 			{

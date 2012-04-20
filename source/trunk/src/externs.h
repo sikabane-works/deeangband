@@ -162,8 +162,6 @@ extern s16b energy_use;
 extern bool msg_flag;
 extern s16b running;
 extern s16b resting;
-extern s16b cur_hgt;
-extern s16b cur_wid;
 extern s16b dun_level;
 extern s16b num_repro;
 extern s16b object_level;

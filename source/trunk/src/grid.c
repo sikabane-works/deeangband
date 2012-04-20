@@ -31,8 +31,8 @@ bool new_player_spot(creature_type *creature_ptr)
 	while (max_attempts--)
 	{
 		/* Pick a legal spot */
-		y = rand_range(1, cur_hgt - 2);
-		x = rand_range(1, cur_wid - 2);
+		y = rand_range(1, current_floor_ptr->height - 2);
+		x = rand_range(1, current_floor_ptr->width - 2);
 
 		c_ptr = &current_floor_ptr->cave[y][x];
 

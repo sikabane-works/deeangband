@@ -3819,8 +3819,8 @@ static void monster_arena_result(void)
 	int number_mon = 0;
 
 	/* Count all hostile monsters */
-	for (i2 = 0; i2 < cur_wid; ++i2)
-		for (j2 = 0; j2 < cur_hgt; j2++)
+	for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
+		for (j2 = 0; j2 < current_floor_ptr->height; j2++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[j2][i2];
 
@@ -3923,9 +3923,9 @@ static void sunrise_and_sunset(void)
 				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
-					for (y = 0; y < cur_hgt; y++)
+					for (y = 0; y < current_floor_ptr->height; y++)
 					{
-						for (x = 0; x < cur_wid; x++)
+						for (x = 0; x < current_floor_ptr->width; x++)
 						{
 							/* Get the cave grid */
 							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
@@ -3958,9 +3958,9 @@ static void sunrise_and_sunset(void)
 				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
-					for (y = 0; y < cur_hgt; y++)
+					for (y = 0; y < current_floor_ptr->height; y++)
 					{
-						for (x = 0; x < cur_wid; x++)
+						for (x = 0; x < current_floor_ptr->width; x++)
 						{
 							/* Get the cave grid */
 							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
@@ -7021,8 +7021,8 @@ void play_game(bool new_game)
 	}
 
 	/* Reset map panel */
-	panel_row_min = cur_hgt;
-	panel_col_min = cur_wid;
+	panel_row_min = current_floor_ptr->height;
+	panel_col_min = current_floor_ptr->width;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(dungeon_type);

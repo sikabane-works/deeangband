@@ -3895,8 +3895,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			{
 				tmp_wy = wilderness_y - 1;
 				tmp_wx = wilderness_x - 1;
-				tmp_py = cur_hgt - 2;
-				tmp_px = cur_wid - 2;
+				tmp_py = current_floor_ptr->height - 2;
+				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
 			}
 
@@ -3904,7 +3904,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			{
 				tmp_wy = wilderness_y - 1;
 				tmp_wx = wilderness_x + 1;
-				tmp_py = cur_hgt - 2;
+				tmp_py = current_floor_ptr->height - 2;
 				tmp_px = 1;
 				ambush_flag = FALSE;
 			}
@@ -3914,7 +3914,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 				tmp_wy = wilderness_y + 1;
 				tmp_wx = wilderness_x - 1;
 				tmp_py = 1;
-				tmp_px = cur_wid - 2;
+				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
 			}
 
@@ -3931,7 +3931,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			{
 				tmp_wy = wilderness_y - 1;
 				tmp_wx = wilderness_x;
-				tmp_py = cur_hgt - 2;
+				tmp_py = current_floor_ptr->height - 2;
 				tmp_px = x;
 				ambush_flag = FALSE;
 			}
@@ -3950,7 +3950,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 				tmp_wy = wilderness_y;
 				tmp_wx = wilderness_x - 1;
 				tmp_py = y;
-				tmp_px = cur_wid - 2;
+				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
 			}
 

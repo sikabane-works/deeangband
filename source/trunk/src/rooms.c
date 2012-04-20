@@ -2946,7 +2946,7 @@ static bool build_type7(void)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x+2 > cur_hgt-2)
+	if (x+2 > current_floor_ptr->height-2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -3038,7 +3038,7 @@ static bool build_type8(void)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x+2 > cur_hgt-2)
+	if (x+2 > current_floor_ptr->height-2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -3810,8 +3810,8 @@ void build_cavern(void)
 	if ((dun_level <= randint1(50)) && !(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	/* Make a cave the size of the dungeon */
-	xsize = cur_wid - 1;
-	ysize = cur_hgt - 1;
+	xsize = current_floor_ptr->width - 1;
+	ysize = current_floor_ptr->height - 1;
 	x0 = xsize / 2;
 	y0 = ysize / 2;
 
@@ -3999,8 +3999,8 @@ void build_lake(int type)
 	}
 
 	/* Make the size of the dungeon */
-	xsize = cur_wid - 1;
-	ysize = cur_hgt - 1;
+	xsize = current_floor_ptr->width - 1;
+	ysize = current_floor_ptr->height - 1;
 	x0 = xsize / 2;
 	y0 = ysize / 2;
 
@@ -6321,7 +6321,7 @@ bool generate_rooms(void)
 	int total_prob;
 	int prob_list[ROOM_T_MAX];
 	int rooms_built = 0;
-	int area_size = 100 * (cur_hgt*cur_wid) / (MAX_HGT*MAX_WID);
+	int area_size = 100 * (current_floor_ptr->height*current_floor_ptr->width) / (MAX_HGT*MAX_WID);
 	int level_index = MIN(10, div_round(dun_level, 10));
 
 	/* Number of each type of room on this level */

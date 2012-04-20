@@ -4604,9 +4604,9 @@ void forget_travel_flow(void)
 	int x, y;
 
 	/* Check the entire dungeon */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			/* Forget the old data */
 			travel.cost[y][x] = TRAVEL_UNABLE;

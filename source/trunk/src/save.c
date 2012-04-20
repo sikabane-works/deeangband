@@ -861,8 +861,8 @@ static void wr_saved_floor(floor_type *sf_ptr)
 
 	wr_u16b(base_level);
 	wr_u16b(num_repro);
-	wr_u16b(cur_hgt);
-	wr_u16b(cur_wid);
+	wr_u16b(current_floor_ptr->height);
+	wr_u16b(current_floor_ptr->width);
 
 
 
@@ -886,9 +886,9 @@ static void wr_saved_floor(floor_type *sf_ptr)
 	C_MAKE(template, max_num_temp, cave_template_type);
 
 	/* Extract template array */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -960,9 +960,9 @@ static void wr_saved_floor(floor_type *sf_ptr)
 	prev_u16b = 0;
 
 	/* Dump the cave */
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -1024,9 +1024,9 @@ static void wr_saved_floor(floor_type *sf_ptr)
 
 	/*** Dump cave messages ***/
 
-	for (y = 0; y < cur_hgt; y++)
+	for (y = 0; y < current_floor_ptr->height; y++)
 	{
-		for (x = 0; x < cur_wid; x++)
+		for (x = 0; x < current_floor_ptr->width; x++)
 		{
 			wr_string(current_floor_ptr->cave[y][x].message);	
 		}

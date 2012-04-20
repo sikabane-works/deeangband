@@ -2230,9 +2230,9 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Make every dungeon square "known" to test streamers -KMW- */
 	case 'u':
-		for (y = 0; y < cur_hgt; y++)
+		for (y = 0; y < current_floor_ptr->height; y++)
 		{
-			for (x = 0; x < cur_wid; x++)
+			for (x = 0; x < current_floor_ptr->width; x++)
 			{
 				current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 			}

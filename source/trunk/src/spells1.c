@@ -32,9 +32,9 @@ static void next_mirror( int* next_y , int* next_x , int cury, int curx)
 	int x,y;
 	int num;
 
-	for( x=0 ; x < cur_wid ; x++ )
+	for( x=0 ; x < current_floor_ptr->width ; x++ )
 	{
-		for( y=0 ; y < cur_hgt ; y++ )
+		for( y=0 ; y < current_floor_ptr->height ; y++ )
 		{
 			if( is_mirror_grid(&current_floor_ptr->cave[y][x])){
 				mirror_y[mirror_num]=y;
@@ -8938,9 +8938,9 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	creature_target_y=caster_ptr->fy;
 	creature_target_x=caster_ptr->fx;
 
-	for( x=0 ; x < cur_wid ; x++ )
+	for( x=0 ; x < current_floor_ptr->width ; x++ )
 	{
-		for( y=0 ; y < cur_hgt ; y++ )
+		for( y=0 ; y < current_floor_ptr->height ; y++ )
 		{
 			if( is_mirror_grid(&current_floor_ptr->cave[y][x]) &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
@@ -9072,9 +9072,9 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 {
 	int x,y;
 
-	for( x = 0 ; x < cur_wid ; x++ )
+	for( x = 0 ; x < current_floor_ptr->width ; x++ )
 	{
-		for( y = 0 ; y < cur_hgt ; y++ )
+		for( y = 0 ; y < current_floor_ptr->height ; y++ )
 		{
 			if( is_mirror_grid(&current_floor_ptr->cave[y][x]))
 			{
