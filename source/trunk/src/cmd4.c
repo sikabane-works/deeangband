@@ -422,7 +422,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		return (-1);
 	}
 
-	q_idx = quest_number(dun_level);
+	q_idx = quest_number(current_floor_ptr->dun_level);
 
 	if (write_level)
 	{
@@ -432,7 +432,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #else
 			note_level = "Arane:";
 #endif
-		else if (!dun_level)
+		else if (!current_floor_ptr->dun_level)
 #ifdef JP
 			note_level = "’nã:";
 #else
@@ -448,9 +448,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		else
 		{
 #ifdef JP
-			sprintf(note_level_buf, "%dŠK(%s):", dun_level, d_name+dungeon_info[dungeon_type].name);
+			sprintf(note_level_buf, "%dŠK(%s):", current_floor_ptr->dun_level, d_name+dungeon_info[dungeon_type].name);
 #else
-			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[dungeon_type].name, dun_level);
+			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[dungeon_type].name, current_floor_ptr->dun_level);
 #endif
 			note_level = note_level_buf;
 		}
@@ -574,11 +574,11 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			else
 			{
 #ifdef JP
-				if (!(dun_level+num)) to = "’nã";
-				else to = format("%dŠK", dun_level+num);
+				if (!(current_floor_ptr->dun_level+num)) to = "’nã";
+				else to = format("%dŠK", current_floor_ptr->dun_level+num);
 #else
-				if (!(dun_level+num)) to = "the surface";
-				else to = format("level %d", dun_level+num);
+				if (!(current_floor_ptr->dun_level+num)) to = "the surface";
+				else to = format("level %d", current_floor_ptr->dun_level+num);
 #endif
 			}
 
@@ -682,7 +682,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_WIZ_TELE:
 		{
 			cptr to;
-			if (!dun_level)
+			if (!current_floor_ptr->dun_level)
 #ifdef JP
 				to = "’nã";
 #else
@@ -690,9 +690,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", dun_level, d_name+dungeon_info[dungeon_type].name);
+				to = format("%dŠK(%s)", current_floor_ptr->dun_level, d_name+dungeon_info[dungeon_type].name);
 #else
-				to = format("level %d of %s", dun_level, d_name+dungeon_info[dungeon_type].name);
+				to = format("level %d of %s", current_floor_ptr->dun_level, d_name+dungeon_info[dungeon_type].name);
 #endif
 
 #ifdef JP
@@ -705,7 +705,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_PAT_TELE:
 		{
 			cptr to;
-			if (!dun_level)
+			if (!current_floor_ptr->dun_level)
 #ifdef JP
 				to = "’nã";
 #else
@@ -713,9 +713,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", dun_level, d_name+dungeon_info[dungeon_type].name);
+				to = format("%dŠK(%s)", current_floor_ptr->dun_level, d_name+dungeon_info[dungeon_type].name);
 #else
-				to = format("level %d of %s", dun_level, d_name+dungeon_info[dungeon_type].name);
+				to = format("level %d of %s", current_floor_ptr->dun_level, d_name+dungeon_info[dungeon_type].name);
 #endif
 
 #ifdef JP
@@ -5014,7 +5014,7 @@ static cptr do_cmd_feeling_text_lucky[11] =
 void do_cmd_feeling(creature_type *cr_ptr)
 {
 	/* No useful feeling in quests */
-	if (inside_quest && !random_quest_number(dun_level))
+	if (inside_quest && !random_quest_number(current_floor_ptr->dun_level))
 	{
 #ifdef JP
 		msg_print("“TŒ^“I‚ÈƒNƒGƒXƒg‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚Ì‚æ‚¤‚¾B");
@@ -5026,7 +5026,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in town */
-	else if (town_num && !dun_level)
+	else if (town_num && !current_floor_ptr->dun_level)
 	{
 #ifdef JP
 		if (!strcmp(town[town_num].name, "r–ì"))
@@ -5055,7 +5055,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in the wilderness */
-	else if (!dun_level)
+	else if (!current_floor_ptr->dun_level)
 	{
 #ifdef JP
 		msg_print("“TŒ^“I‚Èr–ì‚Ì‚æ‚¤‚¾B");

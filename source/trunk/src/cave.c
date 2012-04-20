@@ -3045,14 +3045,14 @@ void update_creature_lite(void)
 			else if (rad > 0)
 			{
 				if (!(has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_SELF_LITE_2)) && 
-					(creature_ptr->paralyzed || (!dun_level && is_daytime()) || monster_arena_mode)) continue;
+					(creature_ptr->paralyzed || (!current_floor_ptr->dun_level && is_daytime()) || monster_arena_mode)) continue;
 				if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = mon_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
-				if (!(has_cf_creature(creature_ptr, CF_SELF_DARK_1) || has_cf_creature(creature_ptr, CF_SELF_DARK_2)) && (creature_ptr->paralyzed || (!dun_level && !is_daytime()))) continue;
+				if (!(has_cf_creature(creature_ptr, CF_SELF_DARK_1) || has_cf_creature(creature_ptr, CF_SELF_DARK_2)) && (creature_ptr->paralyzed || (!current_floor_ptr->dun_level && !is_daytime()))) continue;
 				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
@@ -3602,7 +3602,7 @@ void update_view(creature_type *cr_ptr)
 	/*** Initialize ***/
 
 	/* Optimize */
-	if (view_reduce_view && !dun_level)
+	if (view_reduce_view && !current_floor_ptr->dun_level)
 	{
 		/* Full radius (10) */
 		full = MAX_SIGHT / 2;
@@ -4749,7 +4749,7 @@ void cave_alter_feat(int y, int x, int action)
 		}
 
 		/* Handle item */
-		if (have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - dun_level / 2)))
+		if (have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - current_floor_ptr->dun_level / 2)))
 		{
 			/* Place object */
 			place_object(y, x, 0L);
@@ -4772,7 +4772,7 @@ void cave_alter_feat(int y, int x, int action)
 
 		if (have_flag(old_f_ptr->flags, FF_GLASS) && character_dungeon)
 		{
-			project(NULL, 1, y, x, MIN(dun_level, 100) / 4, GF_SHARDS,
+			project(NULL, 1, y, x, MIN(current_floor_ptr->dun_level, 100) / 4, GF_SHARDS,
 			        (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}

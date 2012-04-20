@@ -69,7 +69,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		/* Leaving a quest */
 		if (!inside_quest)
 		{
-			dun_level = 0;
+			current_floor_ptr->dun_level = 0;
 		}
 
 		/* Leaving */
@@ -82,7 +82,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		return;
 	}
 
-	if (!dun_level)
+	if (!current_floor_ptr->dun_level)
 	{
 		go_up = TRUE;
 	}
@@ -134,7 +134,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
-		dun_level = 0;
+		current_floor_ptr->dun_level = 0;
 		up_num = 0;
 	}
 
@@ -158,8 +158,8 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if (dun_level - up_num < dungeon_info[dungeon_type].mindepth)
-			up_num = dun_level;
+		if (current_floor_ptr->dun_level - up_num < dungeon_info[dungeon_type].mindepth)
+			up_num = current_floor_ptr->dun_level;
 	}
 
 #ifdef JP
@@ -172,12 +172,12 @@ void do_cmd_go_up(creature_type *cr_ptr)
 #ifdef JP
 	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 		msg_print("なんだこの階段は！");
-	else if (up_num == dun_level)
+	else if (up_num == current_floor_ptr->dun_level)
 		msg_print("地上に戻った。");
 	else
 		msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
-	if (up_num == dun_level)
+	if (up_num == current_floor_ptr->dun_level)
 		msg_print("You go back to the surface.");
 	else
 		msg_print("You enter a maze of up staircases.");
@@ -251,7 +251,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		/* Leaving a quest */
 		if (!inside_quest)
 		{
-			dun_level = 0;
+			current_floor_ptr->dun_level = 0;
 		}
 
 		/* Leaving */
@@ -265,7 +265,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 	{
 		int target_dungeon = 0;
 
-		if (!dun_level)
+		if (!current_floor_ptr->dun_level)
 		{
 			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->special : DUNGEON_ANGBAND;
 
@@ -310,7 +310,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		if (have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;
 		else down_num += 1;
 
-		if (!dun_level)
+		if (!current_floor_ptr->dun_level)
 		{
 			/* Enter the dungeon just now */
 			cr_ptr->enter_dungeon = TRUE;
@@ -647,7 +647,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 
 		for (i = 0; i < num; i++)
 		{
-			if (randint1(100)<dun_level)
+			if (randint1(100)<current_floor_ptr->dun_level)
 				activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));

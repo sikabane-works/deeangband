@@ -5697,7 +5697,7 @@ static void you_died(cptr hit_from)
 		}
 		else
 		{
-			int q_idx = quest_number(dun_level);
+			int q_idx = quest_number(current_floor_ptr->dun_level);
 			bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
 			bool winning_seppuku = player_ptr->total_winner && seppuku;
 	
@@ -5742,7 +5742,7 @@ static void you_died(cptr hit_from)
 	#else
 					strcpy(buf,"in the Arena");
 	#endif
-				else if (!dun_level)
+				else if (!current_floor_ptr->dun_level)
 	#ifdef JP
 					strcpy(buf,"’nã");
 	#else
@@ -5757,9 +5757,9 @@ static void you_died(cptr hit_from)
 	#endif
 				else
 	#ifdef JP
-					sprintf(buf,"%dŠK", dun_level);
+					sprintf(buf,"%dŠK", current_floor_ptr->dun_level);
 	#else
-					sprintf(buf,"level %d", dun_level);
+					sprintf(buf,"level %d", current_floor_ptr->dun_level);
 	#endif
 	
 	#ifdef JP

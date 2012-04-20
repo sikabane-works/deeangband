@@ -38,7 +38,7 @@ bool new_player_spot(creature_type *creature_ptr)
 
 		/* Must be a "naked" floor grid */
 		if (c_ptr->creature_idx) continue;
-		if (dun_level)
+		if (current_floor_ptr->dun_level)
 		{
 			f_ptr = &f_info[c_ptr->feat];
 
@@ -90,7 +90,7 @@ void place_random_stairs(int y, int x)
 	if (!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 
 	/* Town */
-	if (!dun_level)
+	if (!current_floor_ptr->dun_level)
 		up_stairs = FALSE;
 
 	/* Ironman */
@@ -98,11 +98,11 @@ void place_random_stairs(int y, int x)
 		up_stairs = FALSE;
 
 	/* Bottom */
-	if (dun_level >= dungeon_info[dungeon_type].maxdepth)
+	if (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth)
 		down_stairs = FALSE;
 
 	/* Quest-level */
-	if (quest_number(dun_level) && (dun_level > 1))
+	if (quest_number(current_floor_ptr->dun_level) && (current_floor_ptr->dun_level > 1))
 		down_stairs = FALSE;
 
 	/* We can't place both */

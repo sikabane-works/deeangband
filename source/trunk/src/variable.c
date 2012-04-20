@@ -115,7 +115,6 @@ bool msg_flag;			/* Used in msg_print() for "buffering" */
 s16b running;			/* Current counter for running, if any */
 s16b resting;			/* Current counter for resting, if any */
 
-s16b dun_level;			/* Current dungeon level */
 s16b num_repro;			/* Current reproducer count */
 s16b object_level;		/* Current object creation level */
 s16b creature_level;	/* Current monster creation level */

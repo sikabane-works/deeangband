@@ -4151,7 +4151,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif
 			}
-			else if (!dun_level)
+			else if (!current_floor_ptr->dun_level)
 			{
 #ifdef JP
 				sprintf(statmsg, "c‚ ‚È‚½‚Í%s‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(), gameover_from);
@@ -4176,15 +4176,15 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "c‚ ‚È‚½‚ÍA%s‚Ì%dŠK‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(), dun_level, gameover_from);
+				sprintf(statmsg, "c‚ ‚È‚½‚ÍA%s‚Ì%dŠK‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(), current_floor_ptr->dun_level, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, dun_level, map_name());
+				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, current_floor_ptr->dun_level, map_name());
 #endif
 			}
 		}
 		else if (character_dungeon)
 		{
-			if (!dun_level)
+			if (!current_floor_ptr->dun_level)
 			{
 #ifdef JP
 				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚É‚¢‚éB", map_name());
@@ -4216,9 +4216,9 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚Ì %d ŠK‚Å’Tõ‚µ‚Ä‚¢‚éB", map_name(), dun_level);
+				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚Ì %d ŠK‚Å’Tõ‚µ‚Ä‚¢‚éB", map_name(), current_floor_ptr->dun_level);
 #else
-				sprintf(statmsg, "...Now, you are exploring level %d of %s.", dun_level, map_name());
+				sprintf(statmsg, "...Now, you are exploring level %d of %s.", current_floor_ptr->dun_level, map_name());
 #endif
 			}
 		}
@@ -6873,12 +6873,12 @@ static void make_bones(creature_type *body_ptr)
 	if (!(noscore & 0x00FF))
 	{
 		/* Ignore people who die in town */
-		if (dun_level)
+		if (current_floor_ptr->dun_level)
 		{
 			char tmp[128];
 
 			/* XXX XXX XXX "Bones" name */
-			sprintf(tmp, "bone.%03d", dun_level);
+			sprintf(tmp, "bone.%03d", current_floor_ptr->dun_level);
 
 			/* Build the filename */
 			path_build(str, sizeof(str), ANGBAND_DIR_BONE, tmp);
@@ -7097,7 +7097,7 @@ static void print_tomb(creature_type *cr_ptr)
 
 		if (!streq(gameover_from, "ripe") && !streq(gameover_from, "Seppuku"))
 		{
-			if (dun_level == 0)
+			if (current_floor_ptr->dun_level == 0)
 			{
 				cptr town = town_num ? "ŠX" : "r–ì";
 				if (streq(gameover_from, "“r’†I—¹"))
@@ -7113,18 +7113,18 @@ static void print_tomb(creature_type *cr_ptr)
 			{
 				if (streq(gameover_from, "“r’†I—¹"))
 				{
-					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", dun_level);
+					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", current_floor_ptr->dun_level);
 				}
 				else
 				{
-					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", dun_level);
+					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", current_floor_ptr->dun_level);
 				}
 			}
 			center_string(buf, tmp);
 			put_str(buf, 15 + extra_line, 11);
 		}
 #else
-		(void)sprintf(tmp, "Killed on Level %d", dun_level);
+		(void)sprintf(tmp, "Killed on Level %d", current_floor_ptr->dun_level);
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 

@@ -890,42 +890,42 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 			case 'w': case 'W':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART, 0);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
+				apply_magic(caster_ptr, q_ptr, current_floor_ptr->dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
 
 				/* Failed to create artifact; make a random one */
 				if (!object_is_artifact(q_ptr)) create_artifact(caster_ptr, q_ptr, FALSE);
@@ -1028,7 +1028,7 @@ static void wiz_statistics(object_type *o_ptr)
 
 		/* Let us know what we are doing */
 		msg_format("Creating a lot of %s items. Base level = %d.",
-					  quality, dun_level);
+					  quality, current_floor_ptr->dun_level);
 		msg_print(NULL);
 
 		/* Set counters to zero */
@@ -1388,7 +1388,7 @@ static void wiz_create_item(creature_type *cr_ptr)
 	object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Apply magic */
-	apply_magic(cr_ptr, q_ptr, dun_level, AM_NO_FIXED_ART, 0);
+	apply_magic(cr_ptr, q_ptr, current_floor_ptr->dun_level, AM_NO_FIXED_ART, 0);
 
 	/* Drop the object from heaven */
 	(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
@@ -1664,7 +1664,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_type].mindepth, dungeon_info[tmp_dungeon_type].maxdepth);
 
 		/* Default */
-		sprintf(tmp_val, "%d", dun_level);
+		sprintf(tmp_val, "%d", current_floor_ptr->dun_level);
 
 		/* Ask for a level */
 		if (!get_string(ppp, tmp_val, 10)) return;
@@ -1687,11 +1687,11 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
-	dun_level = command_arg;
+	current_floor_ptr->dun_level = command_arg;
 
 	prepare_change_floor_mode(CFM_RAND_PLACE);
 
-	if (!dun_level) dungeon_type = 0;
+	if (!current_floor_ptr->dun_level) dungeon_type = 0;
 	inside_arena = FALSE;
 	wild_mode = FALSE;
 
@@ -1756,7 +1756,7 @@ static void do_cmd_wiz_summon(creature_type *cr_ptr, int num)
 
 	for (i = 0; i < num; i++)
 	{
-		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 	}
 }
 

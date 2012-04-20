@@ -706,14 +706,14 @@ static void pattern_teleport(creature_type *cr_ptr)
 
 		/* Only downward in ironman mode */
 		if (ironman_downward)
-			min_level = dun_level;
+			min_level = current_floor_ptr->dun_level;
 
 		/* Maximum level */
 		if (dungeon_type == DUNGEON_ANGBAND)
 		{
-			if (dun_level > 100)
+			if (current_floor_ptr->dun_level > 100)
 				max_level = MAX_DEPTH - 1;
-			else if (dun_level == 100)
+			else if (current_floor_ptr->dun_level == 100)
 				max_level = 100;
 		}
 		else
@@ -731,7 +731,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 
 
 		/* Default */
-		sprintf(tmp_val, "%d", dun_level);
+		sprintf(tmp_val, "%d", current_floor_ptr->dun_level);
 
 		/* Ask for a level */
 		if (!get_string(ppp, tmp_val, 10)) return;
@@ -770,7 +770,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
-	dun_level = command_arg;
+	current_floor_ptr->dun_level = command_arg;
 
 	leave_quest_check(cr_ptr);
 
@@ -1535,11 +1535,11 @@ static void check_music(creature_type *cr_ptr)
 	if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
 		cr_ptr->spell_exp[spell] += 5;
 	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-	{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
+	{ if (one_in_(2) && (current_floor_ptr->dun_level > 4) && ((current_floor_ptr->dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
 	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-	{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+	{ if (one_in_(5) && ((current_floor_ptr->dun_level + 5) > cr_ptr->lev) && ((current_floor_ptr->dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-	{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && (dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+	{ if (one_in_(5) && ((current_floor_ptr->dun_level + 5) > cr_ptr->lev) && (current_floor_ptr->dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 
 	/* Do any effects of continual song */
 	do_spell(cr_ptr, REALM_MUSIC, spell, SPELL_CONT);
@@ -1660,7 +1660,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 	/* (Vampires) Take damage from sunlight */
 	if (has_cf_creature(cr_ptr, CF_HURT_LITE))
 	{
-		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
+		if (!current_floor_ptr->dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
 			if ((current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
@@ -2549,7 +2549,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
 		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx,
-				    dun_level, SUMMON_DEMON, mode))
+				    current_floor_ptr->dun_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
 			msg_print("あなたはデーモンを引き寄せた！");
@@ -2673,7 +2673,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
+		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("動物を引き寄せた！");
@@ -2781,7 +2781,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DRAGON, mode))
+		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ドラゴンを引き寄せた！");
@@ -3152,7 +3152,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call animal */
 		if ((cr_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_ANIMAL,
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
@@ -3170,7 +3170,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call demon */
 		if ((cr_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
@@ -3187,7 +3187,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call dragon */
 		if ((cr_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DRAGON,
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
@@ -3427,7 +3427,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if (dun_level || inside_quest)
+			if (current_floor_ptr->dun_level || inside_quest)
 			{
 #ifdef JP
 msg_print("上に引っ張りあげられる感じがする！");
@@ -3437,9 +3437,9 @@ msg_print("上に引っ張りあげられる感じがする！");
 
 				if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, dun_level, NULL);
+					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->dun_level, NULL);
 
-				dun_level = 0;
+				current_floor_ptr->dun_level = 0;
 				dungeon_type = 0;
 
 				leave_quest_check(cr_ptr);
@@ -3459,26 +3459,26 @@ msg_print("下に引きずり降ろされる感じがする！");
 				dungeon_type = cr_ptr->recall_dungeon;
 
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, dun_level, NULL);
+					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->dun_level, NULL);
 
 				/* New depth */
-				dun_level = max_dlv[dungeon_type];
-				if (dun_level < 1) dun_level = 1;
+				current_floor_ptr->dun_level = max_dlv[dungeon_type];
+				if (current_floor_ptr->dun_level < 1) current_floor_ptr->dun_level = 1;
 
 				/* Nightmare mode makes recall more dangerous */
 				if (curse_of_Iluvatar && !randint0(666) && (dungeon_type == DUNGEON_ANGBAND))
 				{
-					if (dun_level < 50)
+					if (current_floor_ptr->dun_level < 50)
 					{
-						dun_level *= 2;
+						current_floor_ptr->dun_level *= 2;
 					}
-					else if (dun_level < 99)
+					else if (current_floor_ptr->dun_level < 99)
 					{
-						dun_level = (dun_level + 99) / 2;
+						current_floor_ptr->dun_level = (current_floor_ptr->dun_level + 99) / 2;
 					}
-					else if (dun_level > 100)
+					else if (current_floor_ptr->dun_level > 100)
 					{
-						dun_level = dungeon_info[dungeon_type].maxdepth - 1;
+						current_floor_ptr->dun_level = dungeon_info[dungeon_type].maxdepth - 1;
 					}
 				}
 
@@ -3512,7 +3512,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					{
 						if ((quest[i].type == QUEST_TYPE_RANDOM) &&
 						    (quest[i].status == QUEST_STATUS_TAKEN) &&
-						    (quest[i].level < dun_level))
+						    (quest[i].level < current_floor_ptr->dun_level))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)cr_ptr->lev;
@@ -3546,7 +3546,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if (!quest_number(dun_level) && dun_level)
+			if (!quest_number(current_floor_ptr->dun_level) && current_floor_ptr->dun_level)
 			{
 #ifdef JP
 				msg_print("世界が変わった！");
@@ -3622,7 +3622,7 @@ static byte get_dungeon_feeling(void)
 	int i;
 
 	/* Hack -- no feeling in the town */
-	if (!dun_level) return 0;
+	if (!current_floor_ptr->dun_level) return 0;
 
 	/* Examine each monster */
 	for (i = 1; i < creature_max; i++)
@@ -3643,19 +3643,19 @@ static byte get_dungeon_feeling(void)
 		if (is_unique_species(r_ptr))
 		{
 			/* Nearly out-of-depth unique monsters */
-			if (r_ptr->level + 10 > dun_level)
+			if (r_ptr->level + 10 > current_floor_ptr->dun_level)
 			{
 				/* Boost rating by twice delta-depth */
-				delta += (r_ptr->level + 10 - dun_level) * 2 * base;
+				delta += (r_ptr->level + 10 - current_floor_ptr->dun_level) * 2 * base;
 			}
 		}
 		else
 		{
 			/* Out-of-depth monsters */
-			if (r_ptr->level > dun_level)
+			if (r_ptr->level > current_floor_ptr->dun_level)
 			{
 				/* Boost rating by delta-depth */
-				delta += (r_ptr->level - dun_level) * base;
+				delta += (r_ptr->level - current_floor_ptr->dun_level) * base;
 			}
 		}
 
@@ -3736,10 +3736,10 @@ static byte get_dungeon_feeling(void)
 
 		/* Out-of-depth objects */
 		if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) &&
-		    k_ptr->level > dun_level)
+		    k_ptr->level > current_floor_ptr->dun_level)
 		{
 			/* Rating increase */
-			delta += (k_ptr->level - dun_level) * base;
+			delta += (k_ptr->level - current_floor_ptr->dun_level) * base;
 		}
 
 		rating += RATING_BOOST(delta);
@@ -3769,19 +3769,19 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	int delay;
 
 	/* No feeling on the surface */
-	if (!dun_level) return;
+	if (!current_floor_ptr->dun_level) return;
 
 	/* No feeling in the arena */
 	if (monster_arena_mode) return;
 
 	/* Extract delay time */
-	delay = MAX(10, 150 - cr_ptr->skill_fos) * (150 - dun_level) * TURNS_PER_TICK / 100;
+	delay = MAX(10, 150 - cr_ptr->skill_fos) * (150 - current_floor_ptr->dun_level) * TURNS_PER_TICK / 100;
 
  	/* Not yet felt anything */
 	if (turn < cr_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	/* Extract quest number (if any) */
-	quest_num = quest_number(dun_level);
+	quest_num = quest_number(current_floor_ptr->dun_level);
 
 	/* No feeling in a quest */
 	if (quest_num &&
@@ -3898,7 +3898,7 @@ static void sunrise_and_sunset(void)
 {
 
 	/* While in town/wilderness */
-	if (!dun_level && !inside_quest && !monster_arena_mode && !inside_arena)
+	if (!current_floor_ptr->dun_level && !inside_quest && !monster_arena_mode && !inside_arena)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -4653,7 +4653,7 @@ msg_print("ウィザードモード突入。");
 		/* Go up staircase */
 		case '<':
 		{
-			if (!wild_mode && !dun_level && !inside_arena && !inside_quest)
+			if (!wild_mode && !current_floor_ptr->dun_level && !inside_arena && !inside_quest)
 			{
 
 				if (ambush_flag)
@@ -4782,7 +4782,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
+				else if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -5532,7 +5532,7 @@ msg_print("何か変わった気がする！");
 			int species_idx;
 			bool success = FALSE;
 			get_species_num_prep(monster_tsuri,NULL);
-			species_idx = get_species_num(dun_level ? dun_level : wilderness[wilderness_y][wilderness_x].level);
+			species_idx = get_species_num(current_floor_ptr->dun_level ? current_floor_ptr->dun_level : wilderness[wilderness_y][wilderness_x].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
 			{
@@ -6430,7 +6430,7 @@ static void cheat_death(void)
 	/* Hack -- Prevent starvation */
 	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
 
-	dun_level = 0;
+	current_floor_ptr->dun_level = 0;
 	inside_arena = FALSE;
 	monster_arena_mode = FALSE;
 	leaving_quest = 0;
@@ -6535,7 +6535,7 @@ static void new_game_setting(void)
 	character_dungeon = FALSE;
 
 	/* Start in town */
-	dun_level = 0;
+	current_floor_ptr->dun_level = 0;
 	inside_quest = 0;
 	inside_arena = FALSE;
 	monster_arena_mode = FALSE;
@@ -6689,7 +6689,7 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		base_level = dun_level; 	   // Set the base level
+		base_level = current_floor_ptr->dun_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -6717,7 +6717,7 @@ static void play_loop(void)
 		disturb(player_ptr, 1, 0);
 
 		// Get index of current quest (if any)
-		quest_num = quest_number(dun_level);
+		quest_num = quest_number(current_floor_ptr->dun_level);
 
 		// Inside a quest?
 		if (quest_num)
@@ -6727,10 +6727,10 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
+		if ((max_dlv[dungeon_type] < current_floor_ptr->dun_level) && !inside_quest)
 		{
-			max_dlv[dungeon_type] = dun_level;
-			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
+			max_dlv[dungeon_type] = current_floor_ptr->dun_level;
+			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, current_floor_ptr->dun_level, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -6793,11 +6793,11 @@ static void play_loop(void)
 		/* Print quest message if appropriate */
 		if (!inside_quest && (dungeon_type == DUNGEON_DOD))
 		{
-			quest_discovery(random_quest_number(dun_level));
-			inside_quest = random_quest_number(dun_level);
+			quest_discovery(random_quest_number(current_floor_ptr->dun_level));
+			inside_quest = random_quest_number(current_floor_ptr->dun_level);
 		}
 
-		if ((dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
+		if ((current_floor_ptr->dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
 		{
 			if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
 #ifdef JP
@@ -6820,7 +6820,7 @@ static void play_loop(void)
 		object_level = base_level;
 
 		if (player_ptr->energy_need > 0 && !monster_arena_mode &&
-			(dun_level || subject_change_dungeon || inside_arena))
+			(current_floor_ptr->dun_level || subject_change_dungeon || inside_arena))
 			player_ptr->energy_need = 0;
 
 		/* Not leaving dungeon */
@@ -7068,7 +7068,7 @@ void play_game(bool new_game)
 
 
 	/* Initialize the town-buildings if necessary */
-	if (!dun_level && !inside_quest)
+	if (!current_floor_ptr->dun_level && !inside_quest)
 	{
 
 		/* Init the wilderness */

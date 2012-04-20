@@ -426,7 +426,7 @@ s = "魔力を取り込めるアイテムがない。";
 
 static bool can_do_cmd_cast(creature_type *cr_ptr)
 {
-	if (dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC))
+	if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC))
 	{
 #ifdef JP
 		msg_print("ダンジョンが魔法を吸収した！");

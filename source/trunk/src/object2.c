@@ -2170,7 +2170,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 
 
 	/* No artifacts in the town */
-	if (!dun_level) return (FALSE);
+	if (!current_floor_ptr->dun_level) return (FALSE);
 
 	/* Themed object */
 	if (get_obj_num_hook) return (FALSE);
@@ -2190,10 +2190,10 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 		if (!(a_ptr->gen_flags & TRG_INSTA_ART)) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
-		if (a_ptr->level > dun_level)
+		if (a_ptr->level > current_floor_ptr->dun_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (a_ptr->level - dun_level) * 2;
+			int d = (a_ptr->level - current_floor_ptr->dun_level) * 2;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
@@ -2246,7 +2246,7 @@ static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 
 
 	/* No artifacts in the town */
-	if (!dun_level) return (FALSE);
+	if (!current_floor_ptr->dun_level) return (FALSE);
 
 	/* Paranoia -- no "plural" artifacts */
 	if (o_ptr->number != 1) return (FALSE);
@@ -2271,10 +2271,10 @@ static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 		if (a_ptr->sval != o_ptr->sval) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
-		if (a_ptr->level > dun_level)
+		if (a_ptr->level > current_floor_ptr->dun_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (a_ptr->level - dun_level) * 2;
+			int d = (a_ptr->level - current_floor_ptr->dun_level) * 2;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
@@ -3357,7 +3357,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 				r_ptr = &species_info[i];
 
-				check = (dun_level < r_ptr->level) ? (r_ptr->level - dun_level) : 0;
+				check = (current_floor_ptr->dun_level < r_ptr->level) ? (r_ptr->level - current_floor_ptr->dun_level) : 0;
 
 				/* Ignore dead monsters */
 				if (!r_ptr->rarity) continue;
@@ -3404,11 +3404,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique monster race */
 			while (1)
 			{
-				i = get_species_num(dun_level);
+				i = get_species_num(current_floor_ptr->dun_level);
 
 				r_ptr = &species_info[i];
 
-				check = (dun_level < r_ptr->level) ? (r_ptr->level - dun_level) : 0;
+				check = (current_floor_ptr->dun_level < r_ptr->level) ? (r_ptr->level - current_floor_ptr->dun_level) : 0;
 
 				/* Ignore dead monsters */
 				if (!r_ptr->rarity) continue;
@@ -3488,7 +3488,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			o_ptr->pval = (s16b)randint1(obj_level);
 			if (o_ptr->sval == SV_CHEST_KANDUME) o_ptr->pval = 6;
 
-			o_ptr->xtra3 = dun_level + 5;
+			o_ptr->xtra3 = current_floor_ptr->dun_level + 5;
 
 			/* Never exceed "difficulty" of 55 to 59 */
 			if (o_ptr->pval > 55) o_ptr->pval = 55 + (byte)randint0(5);
@@ -3937,7 +3937,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 
 	/* Notice "okay" out-of-depth objects */
 	if (!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) &&
-	    (obj_level > dun_level))
+	    (obj_level > current_floor_ptr->dun_level))
 	{
 		/* Cheat -- peek at items */
 		if (cheat_peek) object_mention(j_ptr);
@@ -4629,10 +4629,10 @@ s16b choose_random_trap(void)
 		if (!have_flag(f_info[feat].flags, FF_MORE)) break;
 
 		/* Hack -- no trap doors on special levels */
-		if (inside_arena || quest_number(dun_level)) continue;
+		if (inside_arena || quest_number(current_floor_ptr->dun_level)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
-		if (dun_level >= dungeon_info[dungeon_type].maxdepth) continue;
+		if (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth) continue;
 
 		break;
 	}

@@ -526,7 +526,7 @@ errr top_twenty(creature_type *player_ptr)
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
-	sprintf(the_score.cur_dun, "%3d", dun_level);
+	sprintf(the_score.cur_dun, "%3d", current_floor_ptr->dun_level);
 	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
@@ -648,7 +648,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
-	sprintf(the_score.cur_dun, "%3d", dun_level);
+	sprintf(the_score.cur_dun, "%3d", current_floor_ptr->dun_level);
 	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
@@ -900,7 +900,7 @@ void kingly(creature_type *player_ptr)
 	bool seppuku = streq(gameover_from, "Seppuku");
 
 	/* Hack -- retire in town */
-	dun_level = 0;
+	current_floor_ptr->dun_level = 0;
 
 	/* Fake death */
 	if (!seppuku)

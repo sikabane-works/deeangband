@@ -1484,7 +1484,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	}
 	if (d_ptr->flags1 & DF1_BEGINNER)
 	{
-		if (r_ptr->level > dun_level)
+		if (r_ptr->level > current_floor_ptr->dun_level)
 			return FALSE;
 	}
 
@@ -1584,14 +1584,14 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 
 			/* Depth Monsters never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > dun_level))
+			    (r_ptr->level > current_floor_ptr->dun_level))
 				continue;
 		}
 
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1645,14 +1645,14 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 
 			/* Depth Monsters never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > dun_level))
+			    (r_ptr->level > current_floor_ptr->dun_level))
 				continue;
 		}
 
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1707,14 +1707,14 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 
 			/* Depth Monsters never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > dun_level))
+			    (r_ptr->level > current_floor_ptr->dun_level))
 				continue;
 		}
 
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -3401,10 +3401,10 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 
 		if (old_unique)
 			level = species_info[MON_CHAMELEON_K].level;
-		else if (!dun_level)
+		else if (!current_floor_ptr->dun_level)
 			level = wilderness[wilderness_y][wilderness_x].level;
 		else
-			level = dun_level;
+			level = current_floor_ptr->dun_level;
 
 		if (dungeon_info[dungeon_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
@@ -4148,7 +4148,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 		}
 
 		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
-		if (is_force_depth_species(r_ptr) && (dun_level < r_ptr->level) &&
+		if (is_force_depth_species(r_ptr) && (current_floor_ptr->dun_level < r_ptr->level) &&
 		    (!curse_of_Iluvatar || (is_quest_species(r_ptr))))
 		{
 			if (cheat_hear)
@@ -4160,9 +4160,9 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 		}
 	}
 
-	if (quest_number(dun_level))
+	if (quest_number(current_floor_ptr->dun_level))
 	{
-		int hoge = quest_number(dun_level);
+		int hoge = quest_number(current_floor_ptr->dun_level);
 		if ((quest[hoge].type == QUEST_TYPE_KILL_LEVEL) || (quest[hoge].type == QUEST_TYPE_RANDOM))
 		{
 			if(species_idx == quest[hoge].species_idx)
@@ -4592,16 +4592,16 @@ static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int 
 	total = randint1(10);
 
 	/* Hard monsters, small groups */
-	if (r_ptr->level > dun_level)
+	if (r_ptr->level > current_floor_ptr->dun_level)
 	{
-		extra = r_ptr->level - dun_level;
+		extra = r_ptr->level - current_floor_ptr->dun_level;
 		extra = 0 - randint1(extra);
 	}
 
 	/* Easy monsters, large groups */
-	else if (r_ptr->level < dun_level)
+	else if (r_ptr->level < current_floor_ptr->dun_level)
 	{
-		extra = dun_level - r_ptr->level;
+		extra = current_floor_ptr->dun_level - r_ptr->level;
 		extra = randint1(extra);
 	}
 
@@ -4889,7 +4889,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	{
 		scatter(&cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&creature_list[m_idx], cy, cx, dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, current_floor_ptr->dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4908,7 +4908,7 @@ bool alloc_guardian(bool def_val)
 {
 	int guardian = dungeon_info[dungeon_type].final_guardian;
 
-	if (guardian && (dungeon_info[dungeon_type].maxdepth == dun_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
+	if (guardian && (dungeon_info[dungeon_type].maxdepth == current_floor_ptr->dun_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		int oy;
 		int ox;
@@ -4964,7 +4964,7 @@ bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
 		x = randint0(current_floor_ptr->width);
 
 		/* Require empty floor grid (was "naked") */
-		if (dun_level)
+		if (current_floor_ptr->dun_level)
 		{
 			if (!cave_empty_bold2(y, x)) continue;
 		}
@@ -4994,7 +4994,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 
 
 #ifdef MONSTER_HORDES
-	if (randint1(5000) <= dun_level)
+	if (randint1(5000) <= current_floor_ptr->dun_level)
 	{
 		//TODO: Dungeon Master
 		if (alloc_horde(player_ptr, y, x))
@@ -5105,7 +5105,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	get_species_num_prep3(summoner_ptr, get_creature_hook2(y, x), summon_specific_okay);
 
 	/* Pick a monster, using the level calculation */
-	species_idx = get_species_num((dun_level + lev) / 2 + 5);
+	species_idx = get_species_num((current_floor_ptr->dun_level + lev) / 2 + 5);
 
 	/* Handle failure */
 	if (!species_idx)

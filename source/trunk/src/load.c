@@ -1379,8 +1379,8 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	{
 		/*** Not a saved floor ***/
 
-		rd_s16b(&dun_level);
-		base_level = dun_level;
+		rd_s16b(&current_floor_ptr->dun_level);
+		base_level = current_floor_ptr->dun_level;
 	}
 	else
 	{
@@ -1394,7 +1394,7 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 
 		rd_s16b(&tmp16s);
 		if (tmp16s != sf_ptr->dun_level) return 171;
-		dun_level = sf_ptr->dun_level;
+		current_floor_ptr->dun_level = sf_ptr->dun_level;
 
 		rd_byte(&tmp8u);
 		if (tmp8u != sf_ptr->dun_type) return 171;

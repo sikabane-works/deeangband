@@ -1633,7 +1633,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1645,7 +1645,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1655,7 +1655,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -2297,7 +2297,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -4801,7 +4801,7 @@ msg_print("‹Å‚ÌŽt’c‚ð¢Š«‚µ‚½B");
 				msg_print("You summon the Legion of the Dawn.");
 #endif
 
-				(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
+				(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
 				o_ptr->timeout = 500 + randint1(500);
 				break;
 			}

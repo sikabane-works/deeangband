@@ -211,11 +211,11 @@ void check_hex(creature_type *cr_ptr)
 		if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
 			cr_ptr->spell_exp[spell] += 5;
 		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-		{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
+		{ if (one_in_(2) && (current_floor_ptr->dun_level > 4) && ((current_floor_ptr->dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
 		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-		{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+		{ if (one_in_(5) && ((current_floor_ptr->dun_level + 5) > cr_ptr->lev) && ((current_floor_ptr->dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-		{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && (dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+		{ if (one_in_(5) && ((current_floor_ptr->dun_level + 5) > cr_ptr->lev) && (current_floor_ptr->dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 	}
 
 	/* Do any effects of continual spells */

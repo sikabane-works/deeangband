@@ -1292,10 +1292,10 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
 			{
-				(void)summon_specific(0, y, x, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 
-			if (dun_level > randint1(100)) /* No nasty effect for low levels */
+			if (current_floor_ptr->dun_level > randint1(100)) /* No nasty effect for low levels */
 			{
 				bool stop_ty = FALSE;
 				int count = 0;
@@ -1621,7 +1621,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Summon Demons and Angels */
-			for (lev = dun_level; lev >= 20; lev -= 1 + lev/16)
+			for (lev = current_floor_ptr->dun_level; lev >= 20; lev -= 1 + lev/16)
 			{
 				num = levs[MIN(lev/10, 9)];
 				for (i = 0; i < num; i++)
@@ -1670,10 +1670,10 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			fire_ball_hide(cr_ptr, GF_WATER_FLOW, 0, 1, 10);
 
 			/* Summon Piranhas */
-			num = 1 + dun_level/20;
+			num = 1 + current_floor_ptr->dun_level/20;
 			for (i = 0; i < num; i++)
 			{
-				(void)summon_specific(0, y, x, dun_level, SUMMON_PIRANHAS, (PM_ALLOW_GROUP | PM_NO_PET));
+				(void)summon_specific(0, y, x, current_floor_ptr->dun_level, SUMMON_PIRANHAS, (PM_ALLOW_GROUP | PM_NO_PET));
 			}
 			break;
 		}
@@ -3626,7 +3626,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		if ((!cr_ptr->blind && !no_lite(cr_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if (dun_level && (dungeon_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
+		if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
 
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
@@ -3736,7 +3736,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
-		dun_level = 0;
+		current_floor_ptr->dun_level = 0;
 		cr_ptr->oldpx = 0;
 		cr_ptr->oldpy = 0;
 
@@ -3881,7 +3881,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	bool do_past = FALSE;
 
 	/* Exit the area */
-	if (!dun_level && !wild_mode &&
+	if (!current_floor_ptr->dun_level && !wild_mode &&
 		((x == 0) || (x == MAX_WID - 1) ||
 		 (y == 0) || (y == MAX_HGT - 1)))
 	{
