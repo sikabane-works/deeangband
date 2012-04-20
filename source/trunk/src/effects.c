@@ -2502,7 +2502,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	{
 		if (!(cr_ptr->special_defense & NINJA_S_STEALTH))
 		{
-			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT)
+			if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT)
 			{
 				if(is_seen(player_ptr, cr_ptr))
 				{

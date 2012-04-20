@@ -733,7 +733,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if (&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
 	/* Monster is gone */
-	cave[y][x].creature_idx = 0;
+	current_floor_ptr->cave[y][x].creature_idx = 0;
 
 
 	/* Delete objects */
@@ -786,7 +786,7 @@ void delete_creature(int y, int x)
 	if (!in_bounds(y, x)) return;
 
 	/* Check the grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Delete the monster (if any) */
 	if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
@@ -814,7 +814,7 @@ static void move_creature_object(int i1, int i2)
 	x = m_ptr->fx;
 
 	// Cave grid
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Update the cave */
 	c_ptr->creature_idx = i2;
@@ -1039,7 +1039,7 @@ void wipe_creature_list(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Monster is gone */
-		cave[m_ptr->fy][m_ptr->fx].creature_idx = 0;
+		current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].creature_idx = 0;
 
 		/* Wipe the Monster */
 		(void)WIPE(m_ptr, creature_type);
@@ -3341,7 +3341,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 		(r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!species_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!species_can_cross_terrain(current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	return TRUE;
 }
@@ -3359,7 +3359,7 @@ static bool creature_hook_chameleon(int species_idx)
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!species_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!species_can_cross_terrain(current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
 	if (!is_chameleon_species(old_r_ptr))
@@ -3982,7 +3982,7 @@ void deal_item(creature_type *creature_ptr)
 static int place_creature_one(creature_type *summoner_ptr, int y, int x, int species_idx, int creature_egobject_idx, u32b mode)
 {
 	/* Access the location */
-	cave_type		*c_ptr = &cave[y][x];
+	cave_type		*c_ptr = &current_floor_ptr->cave[y][x];
 
 	creature_type	*creature_ptr;
 
@@ -4173,8 +4173,8 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 				/* Count all quest monsters */
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
-						if (cave[j2][i2].creature_idx > 0)
-							if (creature_list[cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
+						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
+							if (creature_list[current_floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
 					return max_creature_idx;
@@ -4880,7 +4880,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 
 	if (attempts < 1) return FALSE;
 
-	m_idx = cave[y][x].creature_idx;
+	m_idx = current_floor_ptr->cave[y][x].creature_idx;
 
 	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
 	//summon_kin_type = r_ptr->d_char;
@@ -4922,7 +4922,7 @@ bool alloc_guardian(bool def_val)
 			ox = randint1(cur_wid - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
+			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(current_floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_creature_aux(NULL, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
@@ -6005,7 +6005,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 bool creature_place(creature_type *creature_ptr, int y, int x)
 {
 	/* Paranoia XXX XXX */
-	if (cave[y][x].creature_idx != 0) return FALSE;
+	if (current_floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
 
 	/* Save player location */
 	creature_ptr->fy = y;

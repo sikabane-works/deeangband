@@ -3821,7 +3821,7 @@
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
-#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || cave[(Y)][(X)].creature_idx != 0)
+#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || current_floor_ptr->cave[(Y)][(X)].creature_idx != 0)
 
 
 
@@ -3999,11 +3999,11 @@
  * Grid based version of "creature_bold()"
  */
 #define player_grid(C) \
-	((C) == &cave[player_ptr->fy][player_ptr->fx])
+	((C) == &current_floor_ptr->cave[player_ptr->fy][player_ptr->fx])
 
 
 #define cave_have_flag_bold(Y,X,INDEX) \
-	(have_flag(f_info[cave[(Y)][(X)].feat].flags, (INDEX)))
+	(have_flag(f_info[current_floor_ptr->cave[(Y)][(X)].feat].flags, (INDEX)))
 
 
 #define cave_have_flag_grid(C,INDEX) \
@@ -4021,7 +4021,7 @@
  * Determine if a "legal" grid supports "los"
  */
 #define cave_los_bold(Y,X) \
-	(feat_supports_los(cave[(Y)][(X)].feat))
+	(feat_supports_los(current_floor_ptr->cave[(Y)][(X)].feat))
 
 #define cave_los_grid(C) \
 	(feat_supports_los((C)->feat))
@@ -4037,8 +4037,8 @@
  */
 #define cave_clean_bold(Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_FLOOR) && \
-	 !(cave[Y][X].info & CAVE_OBJECT) && \
-	  (cave[Y][X].object_idx == 0))
+	 !(current_floor_ptr->cave[Y][X].info & CAVE_OBJECT) && \
+	  (current_floor_ptr->cave[Y][X].object_idx == 0))
 
 
 /*
@@ -4049,7 +4049,7 @@
  */
 #define cave_drop_bold(Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_DROP) && \
-	 !(cave[Y][X].info & CAVE_OBJECT))
+	 !(current_floor_ptr->cave[Y][X].info & CAVE_OBJECT))
 
 
 /*
@@ -4062,7 +4062,7 @@
  */
 #define cave_empty_bold(Y, X) \
 	(cave_have_flag_bold((Y), (X), FF_PLACE) && \
-	 !(cave[Y][X].creature_idx) && \
+	 !(current_floor_ptr->cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y,X))
 
 
@@ -4087,7 +4087,7 @@
  */
 #define cave_naked_bold(Y, X) \
 	(cave_clean_bold(Y, X) && \
-	 !(cave[Y][X].creature_idx) && \
+	 !(current_floor_ptr->cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y, X))
 
 
@@ -4141,7 +4141,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y,X) \
-    (((cave[Y][X].info & (CAVE_VIEW)) != 0) || monster_arena_mode)
+    (((current_floor_ptr->cave[Y][X].info & (CAVE_VIEW)) != 0) || monster_arena_mode)
 
 
 /*

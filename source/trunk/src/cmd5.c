@@ -371,7 +371,7 @@ static bool player_has_no_spellbooks(creature_type *cr_ptr)
 		if (o_ptr->k_idx && check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;
 	}
 
-	for (i = cave[cr_ptr->fy][cr_ptr->fx].object_idx; i; i = o_ptr->next_object_idx)
+	for (i = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; i; i = o_ptr->next_object_idx)
 	{
 		o_ptr = &object_list[i];
 		if (o_ptr->k_idx && (o_ptr->marked & OM_FOUND) && check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;
@@ -1732,7 +1732,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 			y = cr_ptr->fy + ddy_ddd[i];
 			x = cr_ptr->fx + ddx_ddd[i];
 
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			if (c_ptr->creature_idx) continue;
 
@@ -1835,7 +1835,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	if (!get_rep_dir2(rider_ptr, &dir)) return FALSE;
 	y = rider_ptr->fy + ddy[dir];
 	x = rider_ptr->fx + ddx[dir];
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	if (rider_ptr->special_defense & KATA_MUSOU) set_action(rider_ptr, ACTION_NONE);
 
@@ -2008,9 +2008,9 @@ static void do_name_pet(creature_type *master_ptr)
 	}
 	target_pet = old_target_pet;
 
-	if (cave[target_row][target_col].creature_idx)
+	if (current_floor_ptr->cave[target_row][target_col].creature_idx)
 	{
-		pet_ptr = &creature_list[cave[target_row][target_col].creature_idx];
+		pet_ptr = &creature_list[current_floor_ptr->cave[target_row][target_col].creature_idx];
 
 		if (!is_pet(player_ptr, pet_ptr))
 		{
@@ -2609,10 +2609,10 @@ void do_cmd_pet(creature_type *cr_ptr)
 			if (!target_set(cr_ptr, TARGET_KILL)) pet_t_m_idx = 0;
 			else
 			{
-				cave_type *c_ptr = &cave[target_row][target_col];
+				cave_type *c_ptr = &current_floor_ptr->cave[target_row][target_col];
 				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].ml))
 				{
-					pet_t_m_idx = cave[target_row][target_col].creature_idx;
+					pet_t_m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
 					cr_ptr->pet_follow_distance = PET_DESTROY_DIST;
 				}
 				else pet_t_m_idx = 0;

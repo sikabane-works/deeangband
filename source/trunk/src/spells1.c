@@ -36,7 +36,7 @@ static void next_mirror( int* next_y , int* next_x , int cury, int curx)
 	{
 		for( y=0 ; y < cur_hgt ; y++ )
 		{
-			if( is_mirror_grid(&cave[y][x])){
+			if( is_mirror_grid(&current_floor_ptr->cave[y][x])){
 				mirror_y[mirror_num]=y;
 				mirror_x[mirror_num]=x;
 				mirror_num++;
@@ -588,7 +588,7 @@ static s16b creature_target_y;
  */
 static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, int y, int x, int dam, int typ)
 {
-	cave_type       *c_ptr = &cave[y][x];
+	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type    *f_ptr = &f_info[c_ptr->feat];
 
 	bool obvious = FALSE;
@@ -1054,7 +1054,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 						if (in_bounds2(by, bx))
 						{
-							cave_type *cc_ptr = &cave[by][bx];
+							cave_type *cc_ptr = &current_floor_ptr->cave[by][bx];
 
 							if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 							{
@@ -1260,7 +1260,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
  */
 static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
 
@@ -1727,7 +1727,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 {
 	int tmp;
 
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -2024,7 +2024,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			x = target_ptr->fx;
 
 			/* Hack -- get new grid */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 		}
 
 		/* Fear */
@@ -2370,7 +2370,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int get_damage;
 	cptr act, note, note_dies;
 
-	cave_type *c_ptr = &cave[target_ptr->fy][target_ptr->fx];
+	cave_type *c_ptr = &current_floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 
 	int photo = 0;
 
@@ -7185,7 +7185,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 
 	int get_damage = 0;
 
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -8079,7 +8079,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 			}
 			if(project_o(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
-			if( is_mirror_grid(&cave[y][x]))
+			if( is_mirror_grid(&current_floor_ptr->cave[y][x]))
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
 				creature_target_y=(s16b)y;
@@ -8095,8 +8095,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					x = GRID_X(path_g[j]);
 					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-					  if(cave[project_m_y][project_m_x].creature_idx >0 ){
-					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
+					  if(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+					    creature_type *m_ptr = &creature_list[current_floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
 					    if (m_ptr->ml)
 					    {
@@ -8104,7 +8104,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
-					      health_track(cave[project_m_y][project_m_x].creature_idx);
+					      health_track(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx);
 					    }
 					  }
 					}
@@ -8121,8 +8121,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell))
 			  notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(cave[project_m_y][project_m_x].creature_idx >0 ){
-			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
+			  if(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+			    creature_type *m_ptr = &creature_list[current_floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -8130,7 +8130,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
-			      health_track(cave[project_m_y][project_m_x].creature_idx);
+			      health_track(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx);
 			    }
 			  }
 			}
@@ -8221,7 +8221,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				if( second_step )continue;
 				break;
 			}
-			if( is_mirror_grid(&cave[y][x]) && !second_step )
+			if( is_mirror_grid(&current_floor_ptr->cave[y][x]) && !second_step )
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
 				creature_target_y=(s16b)y;
@@ -8253,8 +8253,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			x = GRID_X(path_g[i]);
 			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SUPER_RAY, flg, TRUE, monspell);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(cave[project_m_y][project_m_x].creature_idx >0 ){
-			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].creature_idx];
+			  if(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+			    creature_type *m_ptr = &creature_list[current_floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -8262,7 +8262,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
-			      health_track(cave[project_m_y][project_m_x].creature_idx);
+			      health_track(current_floor_ptr->cave[project_m_y][project_m_x].creature_idx);
 			    }
 			  }
 			}
@@ -8648,11 +8648,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			/* A single bolt may be reflected */
 			if (grids <= 1)
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
+				creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].creature_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
-				    ((cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+				if ((flg & PROJECT_REFLECTABLE) && current_floor_ptr->cave[y][x].creature_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
+				    ((current_floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
@@ -8691,7 +8691,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(&creature_list[cave[y][x].creature_idx], 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&creature_list[current_floor_ptr->cave[y][x].creature_idx], 0, t_y, t_x, dam, typ, flg, monspell);
 
 					/* Don't affect the monster any longer */
 					continue;
@@ -8794,9 +8794,9 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			y = project_m_y;
 
 			/* Track if possible */
-			if (cave[y][x].creature_idx > 0)
+			if (current_floor_ptr->cave[y][x].creature_idx > 0)
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
+				creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
 
 				if (m_ptr->ml)
 				{
@@ -8804,7 +8804,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
-					if (m_ptr->ml) health_track(cave[y][x].creature_idx);
+					if (m_ptr->ml) health_track(current_floor_ptr->cave[y][x].creature_idx);
 				}
 			}
 		}
@@ -8942,7 +8942,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	{
 		for( y=0 ; y < cur_hgt ; y++ )
 		{
-			if( is_mirror_grid(&cave[y][x]) &&
+			if( is_mirror_grid(&current_floor_ptr->cave[y][x]) &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
@@ -9076,12 +9076,12 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 	{
 		for( y = 0 ; y < cur_hgt ; y++ )
 		{
-			if( is_mirror_grid(&cave[y][x]))
+			if( is_mirror_grid(&current_floor_ptr->cave[y][x]))
 			{
 				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
-					if( !cave[y][x].creature_idx )
+					if( !current_floor_ptr->cave[y][x].creature_idx )
 					{
 						remove_mirror(player_ptr, y,x);
 					}

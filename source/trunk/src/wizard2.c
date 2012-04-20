@@ -1867,7 +1867,7 @@ static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 
 	if (!tgt_pt(cr_ptr, &x, &y)) return;
 
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Default */
 	sprintf(tmp_val, "%d", prev_feat);
@@ -2234,7 +2234,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 		{
 			for (x = 0; x < cur_wid; x++)
 			{
-				cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+				current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 			}
 		}
 		wiz_lite(cr_ptr, FALSE);

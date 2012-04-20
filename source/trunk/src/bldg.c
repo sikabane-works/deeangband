@@ -2995,7 +2995,7 @@ static void castle_quest(creature_type *cr_ptr)
 	clear_bldg(4, 18);
 
 	/* Current quest of the building */
-	q_index = cave[cr_ptr->fy][cr_ptr->fx].special;
+	q_index = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].special;
 
 	/* Is there a quest available at the building? */
 	if (!q_index)
@@ -5019,7 +5019,7 @@ msg_print("ここにはクエストの入口はない。");
 		leave_quest_check(cr_ptr);
 
 		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
-		inside_quest = cave[cr_ptr->fy][cr_ptr->fx].special;
+		inside_quest = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].special;
 
 		subject_change_floor = TRUE;
 	}
@@ -5050,7 +5050,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		return;
 	}
 
-	which = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	which = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	bldg = &building[which];
 

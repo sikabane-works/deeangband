@@ -92,7 +92,7 @@ void excise_object_idx(int object_idx)
 		int x = j_ptr->ix;
 
 		/* Grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Scan all objects in the grid */
 		for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -192,7 +192,7 @@ void delete_object(int y, int x)
 
 
 	/* Grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Scan all objects in the grid */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -284,7 +284,7 @@ static void compact_objects_aux(int i1, int i2)
 		x = o_ptr->ix;
 
 		/* Acquire grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Repair grid */
 		if (c_ptr->object_idx == i1)
@@ -482,7 +482,7 @@ void wipe_object_list(void)
 			int x = o_ptr->ix;
 
 			/* Access grid */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Hack -- see above */
 			c_ptr->object_idx = 0;
@@ -3962,7 +3962,7 @@ void place_object(int y, int x, u32b mode)
 	s16b object_idx;
 
 	/* Acquire grid */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	object_type forge;
 	object_type *q_ptr;
@@ -4083,7 +4083,7 @@ void place_gold(int y, int x)
 	s16b object_idx;
 
 	/* Acquire grid */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 
 	object_type forge;
@@ -4253,7 +4253,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			if (!projectable(y, x, ty, tx)) continue;
 
 			/* Obtain grid */
-			c_ptr = &cave[ty][tx];
+			c_ptr = &current_floor_ptr->cave[ty][tx];
 
 			/* Require floor space */
 			if (!cave_drop_bold(ty, tx)) continue;
@@ -4428,7 +4428,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Grid */
-	c_ptr = &cave[by][bx];
+	c_ptr = &current_floor_ptr->cave[by][bx];
 
 	/* Scan objects in that grid for combination */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -4645,7 +4645,7 @@ s16b choose_random_trap(void)
  */
 void disclose_grid(int y, int x)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	if (cave_have_flag_grid(c_ptr, FF_SECRET))
 	{
@@ -4677,7 +4677,7 @@ void disclose_grid(int y, int x)
  */
 void place_trap(int y, int x)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Paranoia -- verify location */
 	if (!in_bounds(y, x)) return;
@@ -5998,7 +5998,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 			if (!in_bounds(my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
 
-			c_ptr = &cave[my][mx];
+			c_ptr = &current_floor_ptr->cave[my][mx];
 
 			if (!c_ptr->creature_idx) continue;
 
@@ -6110,7 +6110,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	}
 	else old_damage = old_damage / 2;
 
-	c_ptr = &cave[yy][xx];
+	c_ptr = &current_floor_ptr->cave[yy][xx];
 	if (((!easy_disarm && is_trap(c_ptr->feat))
 	    || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{

@@ -890,7 +890,7 @@ static void wr_saved_floor(floor_type *sf_ptr)
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
 			{
@@ -964,7 +964,7 @@ static void wr_saved_floor(floor_type *sf_ptr)
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
 			{
@@ -1028,7 +1028,7 @@ static void wr_saved_floor(floor_type *sf_ptr)
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			wr_string(cave[y][x].message);	
+			wr_string(current_floor_ptr->cave[y][x].message);	
 		}
 	}
 }

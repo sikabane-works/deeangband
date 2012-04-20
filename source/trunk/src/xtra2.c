@@ -535,8 +535,8 @@ msg_print("クエストを達成した！");
 				/* Count all hostile monsters */
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
-						if (cave[j2][i2].creature_idx > 0)
-							if (is_hostile(&creature_list[cave[j2][i2].creature_idx])) 
+						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
+							if (is_hostile(&creature_list[current_floor_ptr->cave[j2][i2].creature_idx])) 
 								number_mon++;
 
 				if ((number_mon - 1) == 0)
@@ -641,7 +641,7 @@ msg_print("クエストを達成した！");
 	if (create_stairs)
 	{
 		/* Stagger around */
-		while (cave_perma_bold(y, x) || cave[y][x].object_idx || (cave[y][x].info & CAVE_OBJECT) )
+		while (cave_perma_bold(y, x) || current_floor_ptr->cave[y][x].object_idx || (current_floor_ptr->cave[y][x].info & CAVE_OBJECT) )
 		{
 			/* Pick a location */
 			scatter(&ny, &nx, y, x, 1, 0);
@@ -2089,8 +2089,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
 	byte *x = (byte*)(u);
 	byte *y = (byte*)(v);
-	cave_type *ca_ptr = &cave[y[a]][x[a]];
-	cave_type *cb_ptr = &cave[y[b]][x[b]];
+	cave_type *ca_ptr = &current_floor_ptr->cave[y[a]][x[a]];
+	cave_type *cb_ptr = &current_floor_ptr->cave[y[b]][x[b]];
 	creature_type *ma_ptr = &creature_list[ca_ptr->creature_idx];
 	creature_type *mb_ptr = &creature_list[cb_ptr->creature_idx];
 	species_type *ap_ra_ptr, *ap_rb_ptr;
@@ -2136,8 +2136,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	}
 
 	/* An object get higher priority */
-	if (cave[y[a]][x[a]].object_idx && !cave[y[b]][x[b]].object_idx) return TRUE;
-	if (!cave[y[a]][x[a]].object_idx && cave[y[b]][x[b]].object_idx) return FALSE;
+	if (current_floor_ptr->cave[y[a]][x[a]].object_idx && !current_floor_ptr->cave[y[b]][x[b]].object_idx) return TRUE;
+	if (!current_floor_ptr->cave[y[a]][x[a]].object_idx && current_floor_ptr->cave[y[b]][x[b]].object_idx) return FALSE;
 
 	/* Priority from the terrain */
 	if (f_info[ca_ptr->feat].priority > f_info[cb_ptr->feat].priority) return TRUE;
@@ -2248,7 +2248,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 
 
 	/* Examine the grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Visible monsters */
 	if (c_ptr->creature_idx)
@@ -2311,7 +2311,7 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			/* Require "interesting" contents */
 			if (!target_set_accept(cr_ptr, y, x)) continue;
 
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Require target_able monsters for "TARGET_KILL" */
 			if ((mode & (TARGET_KILL)) && !target_able(cr_ptr, c_ptr->creature_idx)) continue;
@@ -2432,7 +2432,7 @@ bool show_gold_on_floor = FALSE;
  */
 static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr info)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	s16b this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
 	bool boring = TRUE;
@@ -3139,7 +3139,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Allow target */
 			if (target_able(aimer_ptr, c_ptr->creature_idx))
@@ -3383,7 +3383,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Default prompt */
 #ifdef JP
@@ -4995,7 +4995,7 @@ static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
 	if (cr_ptr->image) return (FALSE);
 
 	/* Examine the grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Interesting memorized features */
 	if (c_ptr->info & (CAVE_MARK))
@@ -5112,7 +5112,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 
 				while(n < temp_n)	/* Skip stairs which have defferent distance */
 				{
-					cave_type *c_ptr = &cave[temp_y[n]][temp_x[n]];
+					cave_type *c_ptr = &current_floor_ptr->cave[temp_y[n]][temp_x[n]];
 
 					if (ch == '>')
 					{

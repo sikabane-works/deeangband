@@ -628,13 +628,6 @@ char angband_sound_name[SOUND_MAX][16] =
 };
 
 
-/*
- * The array of "cave grids" [MAX_WID][MAX_HGT].
- * Not completely allocated, that would be inefficient
- * Not completely hardcoded, that would overflow memory
- */
-cave_type *cave[MAX_HGT];
-
 
 /*
  * The array of saved floors

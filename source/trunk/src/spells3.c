@@ -21,7 +21,7 @@
 
 static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
 {
-	cave_type    *c_ptr = &cave[y][x];
+	cave_type    *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
@@ -96,7 +96,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 
 			/* No teleporting into vaults and such */
 			if (!(inside_quest || inside_arena))
-				if (cave[ny][nx].info & CAVE_ICKY) continue;
+				if (current_floor_ptr->cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
 			look = FALSE;
@@ -119,7 +119,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	cave[oy][ox].creature_idx = 0;
+	current_floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/*TODO::!*/
 	for(i = 0; i < 10000; i++)
@@ -130,7 +130,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 		}
 
 	/* Update the new location */
-	cave[ny][nx].creature_idx = m_idx;
+	current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
 	cr_ptr->fy = ny;
@@ -208,7 +208,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 			if (!cave_monster_teleportable_bold(m_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			/* if (cave[ny][nx].info & (CAVE_ICKY)) continue; */
+			/* if (current_floor_ptr->cave[ny][nx].info & (CAVE_ICKY)) continue; */
 
 			/* This grid looks good */
 			look = FALSE;
@@ -230,10 +230,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	cave[oy][ox].creature_idx = 0;
+	current_floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/* Update the new location */
-	cave[ny][nx].creature_idx = m_idx;
+	current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
 	m_ptr->fy = ny;
@@ -255,7 +255,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 
 bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
 {
-	cave_type    *c_ptr = &cave[y][x];
+	cave_type    *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
@@ -442,7 +442,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = cave[oy+yy][ox+xx].creature_idx;
+			int tmp_m_idx = current_floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount may follow */
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
@@ -478,7 +478,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = cave[oy+yy][ox+xx].creature_idx;
+			int tmp_m_idx = current_floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount or caster may follow */
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx) && (cr_ptr != &creature_list[tmp_m_idx]))
@@ -533,7 +533,7 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 		}
 
 		/* Accept any grid when wizard mode */
-		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].creature_idx || (cave[y][x].creature_idx == caster_ptr->riding))) break;
+		if (wizard && !(mode & TELEPORT_PASSIVE) && (!current_floor_ptr->cave[y][x].creature_idx || (current_floor_ptr->cave[y][x].creature_idx == caster_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
 		if (cave_player_teleportable_bold(caster_ptr, y, x, mode)) break;
@@ -1609,7 +1609,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	{
 		for (x = 1; x < cur_wid - 1; x++)
 		{
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Seeing true feature code (ignore mimic) */
 			f_ptr = &f_info[c_ptr->feat];
@@ -1648,7 +1648,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	/* Special boundary walls -- Top and bottom */
 	for (x = 0; x < cur_wid; x++)
 	{
-		c_ptr = &cave[0][x];
+		c_ptr = &current_floor_ptr->cave[0][x];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1663,7 +1663,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &cave[cur_hgt - 1][x];
+		c_ptr = &current_floor_ptr->cave[cur_hgt - 1][x];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1682,7 +1682,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	/* Special boundary walls -- Left and right */
 	for (y = 1; y < (cur_hgt - 1); y++)
 	{
-		c_ptr = &cave[y][0];
+		c_ptr = &current_floor_ptr->cave[y][0];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1697,7 +1697,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &cave[y][cur_wid - 1];
+		c_ptr = &current_floor_ptr->cave[y][cur_wid - 1];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1740,7 +1740,7 @@ void call_the_void(creature_type *cr_ptr)
 
 	for (i = 0; i < 9; i++)
 	{
-		c_ptr = &cave[cr_ptr->fy + ddy_ddd[i]][cr_ptr->fx + ddx_ddd[i]];
+		c_ptr = &current_floor_ptr->cave[cr_ptr->fy + ddy_ddd[i]][cr_ptr->fx + ddx_ddd[i]];
 
 		if (!cave_have_flag_grid(c_ptr, FF_PROJECT))
 		{
@@ -1839,7 +1839,7 @@ void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los)
 	char            o_name[MAX_NLEN];
 
 	/* Check to see if an object is already there */
-	if (cave[cr_ptr->fy][cr_ptr->fx].object_idx)
+	if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx)
 	{
 #ifdef JP
 msg_print("自分の足の下にある物は取れません。");
@@ -1867,7 +1867,7 @@ msg_print("そんなに遠くにある物は取れません！");
 			return;
 		}
 
-		c_ptr = &cave[ty][tx];
+		c_ptr = &current_floor_ptr->cave[ty][tx];
 
 		/* We need an item to fetch */
 		if (!c_ptr->object_idx)
@@ -1928,7 +1928,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 		{
 			ty += ddy[dir];
 			tx += ddx[dir];
-			c_ptr = &cave[ty][tx];
+			c_ptr = &current_floor_ptr->cave[ty][tx];
 
 			if ((distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE) ||
 				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
@@ -1952,7 +1952,7 @@ msg_print("そのアイテムは重過ぎます。");
 
 	i = c_ptr->object_idx;
 	c_ptr->object_idx = o_ptr->next_object_idx;
-	cave[cr_ptr->fy][cr_ptr->fx].object_idx = i; /* 'move' it */
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx = i; /* 'move' it */
 	o_ptr->next_object_idx = 0;
 	o_ptr->iy = (byte)cr_ptr->fy;
 	o_ptr->ix = (byte)cr_ptr->fx;
@@ -2029,8 +2029,8 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a glyph */
-	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
-	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_glyph;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_glyph;
 
 	/* Notice */
 	note_spot(cr_ptr->fy, cr_ptr->fx);
@@ -2056,11 +2056,11 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a mirror */
-	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
-	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_mirror;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_mirror;
 
 	/* Turn on the light */
-	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_GLOW;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_GLOW;
 
 	/* Notice */
 	note_spot(cr_ptr->fy, cr_ptr->fx);
@@ -2092,8 +2092,8 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a glyph */
-	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
-	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_explosive_rune;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
+	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_explosive_rune;
 
 	/* Notice */
 	note_spot(cr_ptr->fy, cr_ptr->fx);
@@ -5418,7 +5418,7 @@ static s16b poly_species_idx(int pre_species_idx)
 
 bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 	bool polymorphed = FALSE;
 	int new_species_idx;

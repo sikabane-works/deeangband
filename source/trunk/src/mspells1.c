@@ -400,7 +400,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 			if (!los(y, x, yy, xx)) continue;
 			if (!projectable(y, x, yy, xx)) continue;
 
-			c_ptr = &cave[yy][xx];
+			c_ptr = &current_floor_ptr->cave[yy][xx];
 			/* Scan the pile of objects */
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
@@ -462,9 +462,9 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 		y = GRID_Y(grid_g[i]);
 		x = GRID_X(grid_g[i]);
 
-		if ((cave[y][x].creature_idx > 0) && !((y == y2) && (x == x2)))
+		if ((current_floor_ptr->cave[y][x].creature_idx > 0) && !((y == y2) && (x == x2)))
 		{
-			creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
+			creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
 			if (friend == is_pet(player_ptr, m_ptr))
 			{
 				return (FALSE);
@@ -1193,7 +1193,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 		cave_type *c_ptr;
 
 		/* Access the next grid */
-		c_ptr = &cave[next_y][next_x];
+		c_ptr = &current_floor_ptr->cave[next_y][next_x];
 
 		/* Skip this feature */
 		if (!cave_have_flag_grid(c_ptr, f_flag)) continue;
@@ -1345,7 +1345,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if (los(caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
 		{
-			feature_type *f_ptr = &f_info[cave[y_br_lite][x_br_lite].feat];
+			feature_type *f_ptr = &f_info[current_floor_ptr->cave[y_br_lite][x_br_lite].feat];
 
 			if (!have_flag(f_ptr->flags, FF_LOS))
 			{
@@ -1367,7 +1367,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check path */
 	if (projectable(caster_ptr->fy, caster_ptr->fx, y, x))
 	{
-		feature_type *f_ptr = &f_info[cave[y][x].feat];
+		feature_type *f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
 
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{
@@ -3313,7 +3313,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int dummy_x = caster_ptr->fx;
 
 					if (inside_arena || monster_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+					delete_species_idx(&creature_list[current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;

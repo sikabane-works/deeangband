@@ -34,7 +34,7 @@ bool new_player_spot(creature_type *creature_ptr)
 		y = rand_range(1, cur_hgt - 2);
 		x = rand_range(1, cur_wid - 2);
 
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Must be a "naked" floor grid */
 		if (c_ptr->creature_idx) continue;
@@ -86,7 +86,7 @@ void place_random_stairs(int y, int x)
 	cave_type *c_ptr;
 
 	/* Paranoia */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 	if (!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 
 	/* Town */
@@ -130,7 +130,7 @@ void place_random_door(int y, int x, bool room)
 {
 	int tmp, type;
 	s16b feat = feat_none;
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Initialize mimic info */
 	c_ptr->mimic = 0;
@@ -247,7 +247,7 @@ void place_closed_door(int y, int x, int type)
 		cave_set_feat(y, x, feat);
 
 		/* Now it is not floor */
-		cave[y][x].info &= ~(CAVE_MASK);
+		current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
 	}
 	else
 	{
@@ -343,7 +343,7 @@ msg_print("警告！地下室のアイテムを配置できません！");
 
 
 			/* Require "clean" floor space */
-			c_ptr = &cave[j][k];
+			c_ptr = &current_floor_ptr->cave[j][k];
 			if (!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item */
@@ -402,7 +402,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 		}
 
 		/* Require "naked" floor grids */
-		c_ptr = &cave[y1][x1];
+		c_ptr = &current_floor_ptr->cave[y1][x1];
 		if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
@@ -448,7 +448,7 @@ void vault_creatures(int y1, int x1, int num)
 			scatter(&y, &x, y1, x1, d, 0);
 
 			/* Require "empty" floor grids */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 			if (!cave_empty_grid(c_ptr)) continue;
 
 			/* Place the monster (allow groups) */
@@ -519,7 +519,7 @@ void set_floor(int x, int y)
 		return;
 	}
 
-	if (cave[y][x].info & CAVE_ROOM)
+	if (current_floor_ptr->cave[y][x].info & CAVE_ROOM)
 	{
 		/* A room border don't touch. */
 		return;
@@ -624,7 +624,7 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 
 
 		/* Access the location */
-		c_ptr = &cave[tmp_row][tmp_col];
+		c_ptr = &current_floor_ptr->cave[tmp_row][tmp_col];
 
 		/* Avoid "solid" walls */
 		if (is_solid_grid(c_ptr)) continue;
@@ -755,7 +755,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 {
 	int i, j, dx, dy;
 
-	cave_type *c_ptr = &cave[*y][*x];
+	cave_type *c_ptr = &current_floor_ptr->cave[*y][*x];
 
 	if (!in_bounds(*y, *x)) return TRUE;
 
@@ -810,7 +810,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		}
 
 		/* Clear mimic type */
-		cave[*y][*x].mimic = 0;
+		current_floor_ptr->cave[*y][*x].mimic = 0;
 
 		place_floor_bold(*y, *x);
 
@@ -1067,7 +1067,7 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 			y3 = (y1 + y2) / 2;
 		}
 		/* cache c_ptr */
-		c_ptr = &cave[y3][x3];
+		c_ptr = &current_floor_ptr->cave[y3][x3];
 		if (is_solid_grid(c_ptr))
 		{
 			/* move midpoint a bit to avoid problem. */
@@ -1097,14 +1097,14 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 			}
 			y3 += dy;
 			x3 += dx;
-			c_ptr = &cave[y3][x3];
+			c_ptr = &current_floor_ptr->cave[y3][x3];
 		}
 
 		if (is_floor_grid(c_ptr))
 		{
 			if (build_tunnel2(x1, y1, x3, y3, type, cutoff))
 			{
-				if ((cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
+				if ((current_floor_ptr->cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
 				{
 					/* do second half only if works + if have hit a room */
 					retval = build_tunnel2(x3, y3, x2, y2, type, cutoff);

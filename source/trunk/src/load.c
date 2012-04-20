@@ -1474,7 +1474,7 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 		for (i = count; i > 0; i--)
 		{
 			/* Access the cave */
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Extract cave data */
 			c_ptr->info = cave_templete_ptr[id].info;
@@ -1502,7 +1502,7 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			rd_string(cave[y][x].message, CAVE_MESSAGE_LENGTH);	
+			rd_string(current_floor_ptr->cave[y][x].message, CAVE_MESSAGE_LENGTH);	
 		}
 	}
 
@@ -1834,7 +1834,7 @@ note("メッセージをロードしました");
 		rd_creature(m_ptr);
 
 		/* Access grid */
-		c_ptr = &cave[m_ptr->fy][m_ptr->fx];
+		c_ptr = &current_floor_ptr->cave[m_ptr->fy][m_ptr->fx];
 
 		/* Mark the location */
 		c_ptr->creature_idx = m_idx;
@@ -1920,7 +1920,7 @@ note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
 		else
 		{
 			/* Access the item location */
-			cave_type *c_ptr = &cave[o_ptr->iy][o_ptr->ix];
+			cave_type *c_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
 
 			/* Build a stack */
 			o_ptr->next_object_idx = c_ptr->object_idx;

@@ -21,7 +21,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	bool go_up = FALSE;
 
 	/* Player grid */
-	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	int up_num = 0;
@@ -194,7 +194,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 void do_cmd_go_down(creature_type *cr_ptr)
 {
 	/* Player grid */
-	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	bool fall_trap = FALSE;
@@ -417,7 +417,7 @@ void do_cmd_search(creature_type *cr_ptr)
  */
 static s16b chest_check(int y, int x)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
 
@@ -964,7 +964,7 @@ static int count_dt(creature_type *cr_ptr, int *y, int *x, bool (*test)(int feat
 		xx = cr_ptr->fx + ddx_ddd[d];
 
 		/* Get the cave */
-		c_ptr = &cave[yy][xx];
+		c_ptr = &current_floor_ptr->cave[yy][xx];
 
 		/* Must have knowledge */
 		if (!(c_ptr->info & (CAVE_MARK))) continue;
@@ -1068,7 +1068,7 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 	int i, j;
 
 	/* Get requested grid */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
@@ -1232,7 +1232,7 @@ void do_cmd_open(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get requested grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -1303,7 +1303,7 @@ void do_cmd_open(creature_type *cr_ptr)
 static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 {
 	/* Get grid and contents */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	s16b      old_feat = c_ptr->feat;
 	bool      more = FALSE;
 
@@ -1408,7 +1408,7 @@ void do_cmd_close(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -1459,7 +1459,7 @@ void do_cmd_close(creature_type *cr_ptr)
  */
 static bool do_cmd_tunnel_test(creature_type *cr_ptr, int y, int x)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Must have knowledge */
 	if (!(c_ptr->info & CAVE_MARK))
@@ -1518,7 +1518,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 	energy_use = 100;
 
 	/* Get grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 	f_ptr = &f_info[c_ptr->feat];
 	power = f_ptr->power;
 
@@ -1700,7 +1700,7 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -1772,7 +1772,7 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 {
 	int i, j;
 
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Must be a closed door */
@@ -1998,7 +1998,7 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #endif /* ALLOW_EASY_DISARM -- TNB */
 {
 	/* Get grid and contents */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Get feature */
 	feature_type *f_ptr = &f_info[c_ptr->feat];
@@ -2167,7 +2167,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2234,7 +2234,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 {
 	/* Get grid */
-	cave_type	*c_ptr = &cave[y][x];
+	cave_type	*c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Get feature */
 	feature_type *f_ptr = &f_info[c_ptr->feat];
@@ -2384,7 +2384,7 @@ void do_cmd_bash(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2480,7 +2480,7 @@ void do_cmd_alter(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2603,7 +2603,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 		x = cr_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -3450,7 +3450,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Shatter Arrow */
 		if (cr_ptr->snipe_type == SP_KILL_WALL)
 		{
-			c_ptr = &cave[ny][nx];
+			c_ptr = &current_floor_ptr->cave[ny][nx];
 
 			if (cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
@@ -3473,7 +3473,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && !cave[ny][nx].creature_idx) break;
+		if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && !current_floor_ptr->cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
@@ -3481,7 +3481,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Sniper */
 		if (cr_ptr->snipe_type == SP_LITE)
 		{
-			cave[ny][nx].info |= (CAVE_GLOW);
+			current_floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 			/* Notice */
 			note_spot(ny, nx);
@@ -3522,7 +3522,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Sniper */
 		if (cr_ptr->snipe_type == SP_EVILNESS)
 		{
-			cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
 
 			/* Notice */
 			note_spot(ny, nx);
@@ -3541,10 +3541,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 
 		/* Monster here, Try to hit it */
-		if (cave[y][x].creature_idx)
+		if (current_floor_ptr->cave[y][x].creature_idx)
 		{
 			int armour;
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -3686,7 +3686,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				/* Sniper */
 				if (cr_ptr->snipe_type == SP_HOLYNESS)
 				{
-					cave[ny][nx].info |= (CAVE_GLOW);
+					current_floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 					/* Notice */
 					note_spot(ny, nx);
@@ -3764,13 +3764,13 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							if (!in_bounds2(ny, nx)) break;
 
 							/* Stopped by walls/doors */
-							if (!player_can_enter(cr_ptr, cave[ny][nx].feat, 0)) break;
+							if (!player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by monsters */
 							if (!cave_empty_bold(ny, nx)) break;
 
-							cave[ny][nx].creature_idx = m_idx;
-							cave[oy][ox].creature_idx = 0;
+							current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
+							current_floor_ptr->cave[oy][ox].creature_idx = 0;
 
 							m_ptr->fx = nx;
 							m_ptr->fy = ny;
@@ -3811,7 +3811,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 	if (stick_to)
 	{
-		int m_idx = cave[y][x].creature_idx;
+		int m_idx = current_floor_ptr->cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
 		int object_idx = object_pop();
 
@@ -4210,7 +4210,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		if (!cave_have_flag_bold(ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
+			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !current_floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
@@ -4247,9 +4247,9 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		cur_dis++;
 
 		/* Monster here, Try to hit it */
-		if (cave[y][x].creature_idx)
+		if (current_floor_ptr->cave[y][x].creature_idx)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4424,22 +4424,22 @@ msg_print("これはあまり良くない気がする。");
 
 			if (potion_smash_effect(0, y, x, q_ptr->k_idx))
 			{
-				creature_type *m_ptr = &creature_list[cave[y][x].creature_idx];
+				creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
-				if (cave[y][x].creature_idx &&
-				    is_friendly(cr_ptr, &creature_list[cave[y][x].creature_idx]) &&
+				if (current_floor_ptr->cave[y][x].creature_idx &&
+				    is_friendly(cr_ptr, &creature_list[current_floor_ptr->cave[y][x].creature_idx]) &&
 				    !m_ptr->invuln)
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[cave[y][x].creature_idx], 0);
+					creature_desc(m_name, &creature_list[current_floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%sは怒った！", m_name);
 #else
 					msg_format("%^s gets angry!", m_name);
 #endif
 
-					set_hostile(cr_ptr, &creature_list[cave[y][x].creature_idx]);
+					set_hostile(cr_ptr, &creature_list[current_floor_ptr->cave[y][x].creature_idx]);
 				}
 			}
 			do_drop = FALSE;
@@ -4616,7 +4616,7 @@ void forget_travel_flow(void)
 
 static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wall)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 	int old_head = flow_head;
 
@@ -4631,7 +4631,7 @@ static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wal
 	/* Ignore "walls" and "rubble" (include "secret doors") */
 	if (have_flag(f_ptr->flags, FF_WALL) ||
 		have_flag(f_ptr->flags, FF_CAN_DIG) ||
-		(have_flag(f_ptr->flags, FF_DOOR) && cave[y][x].mimic) ||
+		(have_flag(f_ptr->flags, FF_DOOR) && current_floor_ptr->cave[y][x].mimic) ||
 		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !cr_ptr->levitation))
 	{
 		if (!wall) return wall;
@@ -4663,7 +4663,7 @@ static void travel_flow(creature_type *cr_ptr, int ty, int tx)
 {
 	int x, y, d;
 	bool wall = FALSE;
-	feature_type *f_ptr = &f_info[cave[ty][tx].feat];
+	feature_type *f_ptr = &f_info[current_floor_ptr->cave[ty][tx].feat];
 
 	/* Reset the "queue" */
 	flow_head = flow_tail = 0;
@@ -4713,12 +4713,12 @@ void do_cmd_travel(creature_type *cr_ptr)
 		return;
 	}
 
-	f_ptr = &f_info[cave[y][x].feat];
+	f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
 
-	if ((cave[y][x].info & CAVE_MARK) &&
+	if ((current_floor_ptr->cave[y][x].info & CAVE_MARK) &&
 		(have_flag(f_ptr->flags, FF_WALL) ||
 			have_flag(f_ptr->flags, FF_CAN_DIG) ||
-			(have_flag(f_ptr->flags, FF_DOOR) && cave[y][x].mimic)))
+			(have_flag(f_ptr->flags, FF_DOOR) && current_floor_ptr->cave[y][x].mimic)))
 	{
 #ifdef JP
 		msg_print("そこには行くことができません！");

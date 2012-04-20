@@ -493,7 +493,7 @@ creature_hook_type get_creature_hook(void)
 
 creature_hook_type get_creature_hook2(int y, int x)
 {
-	feature_type *f_ptr = &f_info[cave[y][x].feat];
+	feature_type *f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
 
 	/* Set the monster list */
 
@@ -699,7 +699,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
  */
 bool species_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Other creature */
 	if (c_ptr->creature_idx) return FALSE;
@@ -710,7 +710,7 @@ bool species_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 
 bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
 {
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Other creature */
 	if (c_ptr->creature_idx) return FALSE;

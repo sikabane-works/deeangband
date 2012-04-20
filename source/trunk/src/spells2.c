@@ -3546,7 +3546,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 			if (dist > range) continue;
 
 			/* Access the grid */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Hack -- Safe */
 			if (flag == FF_TRAP)
@@ -5099,7 +5099,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			if (k > r) continue;
 
 			/* Access the grid */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			// Erase Message
 			c_ptr->message[0] = '\0';
@@ -5285,7 +5285,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				if (k > r) continue;
 
 				/* Access the grid */
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
 				else if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
@@ -5298,7 +5298,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						yy = y + ddy_ddd[i];
 						xx = x + ddx_ddd[i];
 						if (!in_bounds2(yy, xx)) continue;
-						cc_ptr = &cave[yy][xx];
+						cc_ptr = &current_floor_ptr->cave[yy][xx];
 						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
 							c_ptr->info |= CAVE_GLOW;
@@ -5343,7 +5343,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		if (caster_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
+			if (current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
 		}
 	}
 
@@ -5414,7 +5414,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (distance(cy, cx, yy, xx) > r) continue;
 
 			/* Access the grid */
-			c_ptr = &cave[yy][xx];
+			c_ptr = &current_floor_ptr->cave[yy][xx];
 
 			/* Lose room and vault */
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY | CAVE_UNSAFE);
@@ -5452,7 +5452,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Important -- Skip "quake" grids */
 			if (map[16+y-cy][16+x-cx]) continue;
 
-			if (cave[y][x].creature_idx) continue;
+			if (current_floor_ptr->cave[y][x].creature_idx) continue;
 
 			/* Count "safe" grids */
 			sn++;
@@ -5600,7 +5600,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (!map[16+yy-cy][16+xx-cx]) continue;
 
 			/* Access the grid */
-			c_ptr = &cave[yy][xx];
+			c_ptr = &current_floor_ptr->cave[yy][xx];
 
 			if (c_ptr->creature_idx == target_ptr->riding) continue;
 
@@ -5642,8 +5642,8 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							if (!cave_empty_bold(y, x)) continue;
 
 							/* Hack -- no safety on glyph of warding */
-							if (is_glyph_grid(&cave[y][x])) continue;
-							if (is_explosive_rune_grid(&cave[y][x])) continue;
+							if (is_glyph_grid(&current_floor_ptr->cave[y][x])) continue;
+							if (is_explosive_rune_grid(&current_floor_ptr->cave[y][x])) continue;
 
 							/* ... nor on the Pattern */
 							if (pattern_tile(y, x)) continue;
@@ -5651,7 +5651,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							/* Important -- Skip "quake" grids */
 							if (map[16+y-cy][16+x-cx]) continue;
 
-							if (cave[y][x].creature_idx) continue;
+							if (current_floor_ptr->cave[y][x].creature_idx) continue;
 							if (creature_bold(target_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
@@ -5715,13 +5715,13 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					/* Hack -- Escape from the rock */
 					if (sn)
 					{
-						int m_idx = cave[yy][xx].creature_idx;
+						int m_idx = current_floor_ptr->cave[yy][xx].creature_idx;
 
 						/* Update the old location */
-						cave[yy][xx].creature_idx = 0;
+						current_floor_ptr->cave[yy][xx].creature_idx = 0;
 
 						/* Update the new location */
-						cave[sy][sx].creature_idx = m_idx;
+						current_floor_ptr->cave[sy][sx].creature_idx = m_idx;
 
 						/* Move the monster */
 						m_ptr->fy = sy;
@@ -5757,7 +5757,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (!map[16+yy-cy][16+xx-cx]) continue;
 
 			/* Access the cave grid */
-			c_ptr = &cave[yy][xx];
+			c_ptr = &current_floor_ptr->cave[yy][xx];
 
 			/* Paranoia -- never affect player */
 			if (creature_bold(target_ptr, yy, xx)) continue;
@@ -5819,7 +5819,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (distance(cy, cx, yy, xx) > r) continue;
 
 			/* Access the grid */
-			c_ptr = &cave[yy][xx];
+			c_ptr = &current_floor_ptr->cave[yy][xx];
 
 			if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
 			else if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
@@ -5832,7 +5832,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					yyy = yy + ddy_ddd[ii];
 					xxx = xx + ddx_ddd[ii];
 					if (!in_bounds2(yyy, xxx)) continue;
-					cc_ptr = &cave[yyy][xxx];
+					cc_ptr = &current_floor_ptr->cave[yyy][xxx];
 					if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 					{
 						c_ptr->info |= CAVE_GLOW;
@@ -5861,7 +5861,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 	if (target_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
+		if (current_floor_ptr->cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
 	}
 
 	/* Success */
@@ -5962,7 +5962,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		int y = temp_y[i];
 		int x = temp_x[i];
 
-		cave_type *c_ptr = &cave[y][x];
+		cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* No longer in the array */
 		c_ptr->info &= ~(CAVE_TEMP);
@@ -6052,7 +6052,7 @@ static void cave_temp_room_unlite(void)
 		int x = temp_x[i];
 		int j;
 
-		cave_type *c_ptr = &cave[y][x];
+		cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 		bool do_dark = !is_mirror_grid(c_ptr);
 
 		/* No longer in the array */
@@ -6070,7 +6070,7 @@ static void cave_temp_room_unlite(void)
 
 					if (in_bounds2(by, bx))
 					{
-						cave_type *cc_ptr = &cave[by][bx];
+						cave_type *cc_ptr = &current_floor_ptr->cave[by][bx];
 
 						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
@@ -6180,7 +6180,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 	cave_type *c_ptr;
 
 	/* Get the grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Avoid infinite recursion */
 	if (c_ptr->info & (CAVE_TEMP)) return;
@@ -6292,7 +6292,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 
 	if (creature_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
+		if (current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
 }
 
@@ -6582,7 +6582,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 		tx = creature_ptr->fx + ddx[dir];
 		ty = creature_ptr->fy + ddy[dir];
 	}
-	c_ptr = &cave[ty][tx];
+	c_ptr = &current_floor_ptr->cave[ty][tx];
 
 	if (creature_ptr->anti_tele)
 	{
@@ -7481,7 +7481,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		ty = target_row;
 	}
 
-	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].creature_idx;
+	if (in_bounds(ty, tx)) tm_idx = current_floor_ptr->cave[ty][tx].creature_idx;
 
 	path_n = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
@@ -7501,7 +7501,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
+		if (cave_empty_bold(ny, nx) && player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;
@@ -7510,7 +7510,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 			continue;
 		}
 
-		if (!cave[ny][nx].creature_idx)
+		if (!current_floor_ptr->cave[ny][nx].creature_idx)
 		{
 			if (tm_idx)
 			{
@@ -7537,12 +7537,12 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
-		update_mon(cave[ny][nx].creature_idx, TRUE);
+		update_mon(current_floor_ptr->cave[ny][nx].creature_idx, TRUE);
 
 		/* Found a monster */
-		m_ptr = &creature_list[cave[ny][nx].creature_idx];
+		m_ptr = &creature_list[current_floor_ptr->cave[ny][nx].creature_idx];
 
-		if (tm_idx != cave[ny][nx].creature_idx)
+		if (tm_idx != current_floor_ptr->cave[ny][nx].creature_idx)
 		{
 #ifdef JP
 			msg_format("%s%s‚ª—§‚¿‚Ó‚³‚ª‚Á‚Ä‚¢‚éI", tm_idx ? "•Ê‚Ì" : "",
@@ -7590,7 +7590,7 @@ void remove_all_mirrors(creature_type *user_ptr, bool explode)
 	{
 		for (y = 0; y < cur_hgt; y++)
 		{
-			if (is_mirror_grid(&cave[y][x]))
+			if (is_mirror_grid(&current_floor_ptr->cave[y][x]))
 			{
 				remove_mirror(player_ptr, y, x);
 				if (explode)

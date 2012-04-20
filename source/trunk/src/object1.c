@@ -5389,7 +5389,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 	if (floor)
 	{
 		/* Scan all objects in the grid */
-		for (this_object_idx = cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+		for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
 
@@ -5797,7 +5797,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 				if (allow_floor)
 				{
 					/* Scan all objects in the grid */
-					for (this_object_idx = cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+					for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 					{
 						object_type *o_ptr;
 
@@ -6099,7 +6099,7 @@ int scan_floor(int *items, int y, int x, int mode)
 	if (!in_bounds(y, x)) return 0;
 
 	/* Scan all objects in the grid */
-	for (this_object_idx = cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = current_floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
@@ -7103,7 +7103,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '+':
 			{
 				int i, object_idx;
-				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 				if (command_wrk != (USE_FLOOR)) break;
 
@@ -7600,7 +7600,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 	int can_pickup = 0;
 
 	/* Scan the pile of objects */
-	for (this_object_idx = cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 

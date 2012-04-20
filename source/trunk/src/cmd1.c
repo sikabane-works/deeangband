@@ -630,7 +630,7 @@ void search(creature_type *cr_ptr)
 			if (randint0(100) < chance)
 			{
 				/* Access the grid */
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				/* Invisible trap */
 				if (c_ptr->mimic && is_trap(c_ptr->feat))
@@ -827,7 +827,7 @@ void py_pickup_aux(creature_type *cr_ptr, int object_idx)
  */
 void carry(creature_type *cr_ptr, bool pickup)
 {
-	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 	int max_len = 0;
 
 	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
@@ -863,7 +863,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 
 #endif /* ALLOW_EASY_FLOOR */
 
-	for (this_object_idx = cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 		/* Access the object */
@@ -1052,7 +1052,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 	int x = cr_ptr->fx, y = cr_ptr->fy;
 
 	/* Get the cave grid */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 	int trap_feat_type = have_flag(f_ptr->flags, FF_TRAP) ? f_ptr->subtype : NOT_TRAP;
 
@@ -1984,7 +1984,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 {
 	int		num = 0, k, bonus, chance;
 
-	cave_type       *c_ptr = &cave[y][x];
+	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	// Access the weapon
@@ -3044,7 +3044,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	if (do_quake)
 	{
 		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
-		if (!cave[y][x].creature_idx) *mdeath = TRUE;
+		if (!current_floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
 	}
 }
 
@@ -3054,7 +3054,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	bool            mdeath = FALSE;
 	bool            stormbringer = FALSE;
 
-	cave_type       *c_ptr = &cave[y][x];
+	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
 	creature_type   *tar_ptr;
 	species_type    *atk_species_ptr;
 	species_type    *tar_species_ptr;
@@ -3364,8 +3364,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x)
 {
-	feature_type *cur_f_ptr = &f_info[cave[c_y][c_x].feat];
-	feature_type *new_f_ptr = &f_info[cave[n_y][n_x].feat];
+	feature_type *cur_f_ptr = &f_info[current_floor_ptr->cave[c_y][c_x].feat];
+	feature_type *new_f_ptr = &f_info[current_floor_ptr->cave[n_y][n_x].feat];
 	bool is_pattern_tile_cur = have_flag(cur_f_ptr->flags, FF_PATTERN);
 	bool is_pattern_tile_new = have_flag(new_f_ptr->flags, FF_PATTERN);
 	int pattern_type_cur, pattern_type_new;
@@ -3542,7 +3542,7 @@ bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
  */
 bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 {
-	cave_type *c_ptr = &cave[ny][nx];
+	cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	if (wild_mode)
@@ -3564,7 +3564,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	{
 		int oy = cr_ptr->fy;
 		int ox = cr_ptr->fx;
-		cave_type *oc_ptr = &cave[oy][ox];
+		cave_type *oc_ptr = &current_floor_ptr->cave[oy][ox];
 		int om_idx = oc_ptr->creature_idx;
 		int nm_idx = c_ptr->creature_idx;
 
@@ -3862,7 +3862,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	int x = cr_ptr->fx + ddx[dir];
 
 	/* Examine the destination */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
@@ -4062,7 +4062,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 				weapon_attack(cr_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
-			else if (creature_can_cross_terrain(cave[cr_ptr->fy][cr_ptr->fx].feat, cr_ptr, 0))
+			else if (creature_can_cross_terrain(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat, cr_ptr, 0))
 			{
 				do_past = TRUE;
 			}
@@ -4145,7 +4145,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		else if (!have_flag(f_ptr->flags, FF_WATER) && has_cf_creature(steed_ptr, CF_AQUATIC))
 		{
 #ifdef JP
-			msg_format("%s‚©‚çã‚ª‚ê‚È‚¢B", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name);
+			msg_format("%s‚©‚çã‚ª‚ê‚È‚¢B", f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name);
 #else
 			msg_print("Can't land.");
 #endif
@@ -4426,7 +4426,7 @@ static int see_wall(creature_type *cr_ptr, int dir, int y, int x)
 	if (!in_bounds2(y, x)) return (FALSE);
 
 	/* Access grid */
-	c_ptr = &cave[y][x];
+	c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Must be known to the player */
 	if (c_ptr->info & (CAVE_MARK))
@@ -4464,7 +4464,7 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	if (!in_bounds2(y, x)) return (TRUE);
 
 	/* Memorized grids are always known */
-	if (cave[y][x].info & (CAVE_MARK)) return (FALSE);
+	if (current_floor_ptr->cave[y][x].info & (CAVE_MARK)) return (FALSE);
 
 	/* Viewable door/wall grids are known */
 	if (creature_can_see_bold(watcher_ptr, y, x)) return (FALSE);
@@ -4775,13 +4775,13 @@ static bool run_test(creature_type *cr_ptr)
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && detect_trap && !(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;
 
 		/* You are just on the edge */
-		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
+		if (!(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -4813,7 +4813,7 @@ static bool run_test(creature_type *cr_ptr)
 		col = cr_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
-		c_ptr = &cave[row][col];
+		c_ptr = &current_floor_ptr->cave[row][col];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -5190,13 +5190,13 @@ static bool travel_test(creature_type *cr_ptr)
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && detect_trap && !(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;
 
 		/* You are just on the edge */
-		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
+		if (!(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -5237,7 +5237,7 @@ static bool travel_test(creature_type *cr_ptr)
 		col = cr_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
-		c_ptr = &cave[row][col];
+		c_ptr = &current_floor_ptr->cave[row][col];
 
 
 		/* Visible monsters abort running */
@@ -5294,7 +5294,7 @@ void travel_step(creature_type *cr_ptr)
 	}
 
 	/* Close door */
-	if (!easy_open && is_closed_door(cave[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]].feat))
+	if (!easy_open && is_closed_door(current_floor_ptr->cave[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]].feat))
 	{
 		disturb(player_ptr, 0, 0);
 		return;

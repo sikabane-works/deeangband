@@ -793,7 +793,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 static void wreck_the_pattern(creature_type *cr_ptr)
 {
 	int to_ruin = 0, r_y, r_x;
-	int pattern_type = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	int pattern_type = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	if (pattern_type == PATTERN_TILE_WRECKED)
 	{
@@ -823,7 +823,7 @@ static void wreck_the_pattern(creature_type *cr_ptr)
 		scatter(&r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 		if (pattern_tile(r_y, r_x) &&
-		    (f_info[cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
+		    (f_info[current_floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
 			cave_set_feat(r_y, r_x, feat_pattern_corrupted);
 		}
@@ -846,7 +846,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		wreck_the_pattern(cr_ptr);
 	}
 
-	pattern_type = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	pattern_type = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	switch (pattern_type)
 	{
@@ -1579,7 +1579,7 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
  */
 static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 {
-	feature_type *f_ptr = &f_info[cave[cr_ptr->fy][cr_ptr->fx].feat];
+	feature_type *f_ptr = &f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat];
 	char creature_name[80];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
@@ -1662,7 +1662,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 	{
 		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
-			if ((cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+			if ((current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
 				/* Take damage */
 #ifdef JP
@@ -1746,15 +1746,15 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
 			{
-				cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
+				cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
 #ifdef JP
 				msg_format("%sで火傷した！", name);
 #else
@@ -1782,7 +1782,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_POIS, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
@@ -1813,7 +1813,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ACID, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
@@ -2626,7 +2626,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
-		if ((cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+		if ((current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
 			hp_player(cr_ptr, 10);
 		}
@@ -3598,7 +3598,7 @@ static int get_monster_crowd_number(int m_idx)
 		if (!in_bounds(ay, ax)) continue;
 
 		/* Count number of monsters */
-		if (cave[ay][ax].creature_idx > 0) count++;
+		if (current_floor_ptr->cave[ay][ax].creature_idx > 0) count++;
  	}
 
 	return count;
@@ -3822,7 +3822,7 @@ static void monster_arena_result(void)
 	for (i2 = 0; i2 < cur_wid; ++i2)
 		for (j2 = 0; j2 < cur_hgt; j2++)
 		{
-			cave_type *c_ptr = &cave[j2][i2];
+			cave_type *c_ptr = &current_floor_ptr->cave[j2][i2];
 
 			if ((c_ptr->creature_idx > 0) && (creature_list[c_ptr->creature_idx].ridden))
 			{
@@ -3928,7 +3928,7 @@ static void sunrise_and_sunset(void)
 						for (x = 0; x < cur_wid; x++)
 						{
 							/* Get the cave grid */
-							cave_type *c_ptr = &cave[y][x];
+							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 							/* Assume lit */
 							c_ptr->info |= (CAVE_GLOW);
@@ -3963,7 +3963,7 @@ static void sunrise_and_sunset(void)
 						for (x = 0; x < cur_wid; x++)
 						{
 							/* Get the cave grid */
-							cave_type *c_ptr = &cave[y][x];
+							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 							/* Feature code (applying "mimic" field) */
 							feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
@@ -4004,7 +4004,7 @@ static void sunrise_and_sunset(void)
 			/*
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 			*/
 		}
@@ -4628,7 +4628,7 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+			cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 			int which = town_store_id[town_num][f_info[c_ptr->feat].subtype];
 			screen_save();
 			store_process(cr_ptr, &st_list[which]);
@@ -5542,7 +5542,7 @@ msg_print("何か変わった気がする！");
 				if (place_creature_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[cave[y][x].creature_idx], 0);
+					creature_desc(m_name, &creature_list[current_floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%sが釣れた！", m_name);
 #else

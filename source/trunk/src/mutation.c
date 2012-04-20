@@ -3399,7 +3399,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				mutation_stop_mouth(cr_ptr);
 
@@ -3476,7 +3476,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr,&dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 				f_ptr = &f_info[c_ptr->feat];
 				mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
@@ -3688,7 +3688,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr,&dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				if (cave[y][x].creature_idx)
+				if (current_floor_ptr->cave[y][x].creature_idx)
 				{
 					weapon_attack(cr_ptr, y, x, 0);
 					if (randint0(cr_ptr->skill_dis) < 7)
@@ -3737,7 +3737,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				if (!c_ptr->creature_idx)
 				{
@@ -3798,7 +3798,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				if (!c_ptr->creature_idx)
 				{

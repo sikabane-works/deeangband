@@ -1104,12 +1104,12 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		x = cr_ptr->fx + ddx[dir];
 		dam = damroll(8 + ((plev - 5) / 4) + boost / 12, 8);
 		fire_beam(cr_ptr, GF_MISSILE, dir, dam);
-		if (cave[y][x].creature_idx)
+		if (current_floor_ptr->cave[y][x].creature_idx)
 		{
 			int i;
 			int ty = y, tx = x;
 			int oy = y, ox = x;
-			int m_idx = cave[y][x].creature_idx;
+			int m_idx = current_floor_ptr->cave[y][x].creature_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 			char m_name[80];
@@ -1144,8 +1144,8 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 #else
 					msg_format("You blow %s away!", m_name);
 #endif
-					cave[oy][ox].creature_idx = 0;
-					cave[ty][tx].creature_idx = m_idx;
+					current_floor_ptr->cave[oy][ox].creature_idx = 0;
+					current_floor_ptr->cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 
@@ -1169,7 +1169,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		int m_idx;
 
 		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = cave[target_row][target_col].creature_idx;
+		m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
@@ -1235,7 +1235,7 @@ static int number_of_mirrors( void )
   int val=0;
   for( x=0 ; x < cur_wid ; x++ ){
     for( y=0 ; y < cur_hgt ; y++ ){
-      if (is_mirror_grid(&cave[y][x])) val++;
+      if (is_mirror_grid(&current_floor_ptr->cave[y][x])) val++;
     }
   }
   return val;
@@ -1253,7 +1253,7 @@ static bool cast_mirror_spell(creature_type *cr_ptr, int spell)
 	{
 	/* mirror of seeing */
 	case 0:
-	  tmp = is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 0;
+	  tmp = is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 0;
 	  if( plev + tmp > 4) detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 18) detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 28) set_tim_esp(cr_ptr, plev,FALSE);
@@ -1281,7 +1281,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	case 2:
 	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  if ( plev > 9 && is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ) {
+	  if ( plev > 9 && is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ) {
 	    fire_beam(cr_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  else {
@@ -1319,7 +1319,7 @@ msg_format("There are too many mirrors to control!");
 	case 9:
 	  for(x=0;x<cur_wid;x++){
 	    for(y=0;y<cur_hgt;y++){
-	      if (is_mirror_grid(&cave[y][x])) {
+	      if (is_mirror_grid(&current_floor_ptr->cave[y][x])) {
 				project(cr_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 	      }
 	    }
@@ -1348,7 +1348,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* illusion light */
 	case 14:
-	  tmp = is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 3;
+	  tmp = is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 3;
 	  slow_creatures(cr_ptr);
 	  stun_creatures(cr_ptr, plev*tmp);
 	  confuse_creatures(cr_ptr, plev*tmp);
@@ -1358,7 +1358,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* mirror shift */
 	case 15:
-	  if( !is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ){
+	  if( !is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ){
 #ifdef JP
 		msg_print("鏡の国の場所がわからない！");
 #else
@@ -1443,7 +1443,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
 
-		if (!cave[y][x].creature_idx)
+		if (!current_floor_ptr->cave[y][x].creature_idx)
 		{
 #ifdef JP
 			msg_print("その方向にはモンスターはいません。");
@@ -1455,13 +1455,13 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 
 		weapon_attack(cr_ptr, y, x, 0);
 
-		if (!player_can_enter(cr_ptr, cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
+		if (!player_can_enter(cr_ptr, current_floor_ptr->cave[y][x].feat, 0) || is_trap(current_floor_ptr->cave[y][x].feat))
 			break;
 
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].creature_idx)
+		if (player_can_enter(cr_ptr, current_floor_ptr->cave[y][x].feat, 0) && !is_trap(current_floor_ptr->cave[y][x].feat) && !current_floor_ptr->cave[y][x].creature_idx)
 		{
 			msg_print(NULL);
 
@@ -1490,7 +1490,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		{
 			y = cr_ptr->fy + ddy_ddd[dir];
 			x = cr_ptr->fx + ddx_ddd[dir];
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Get the monster */
 			m_ptr = &creature_list[c_ptr->creature_idx];
@@ -1577,7 +1577,7 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
-		if (cave[y][x].creature_idx)
+		if (current_floor_ptr->cave[y][x].creature_idx)
 		{
 			weapon_attack(cr_ptr, y, x, 0);
 			if (randint0(cr_ptr->skill_dis) < 7)
@@ -1662,7 +1662,7 @@ msg_print("その方向にはモンスターはいません。");
 		int ty,tx;
 
 		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = cave[target_row][target_col].creature_idx;
+		m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (m_idx == cr_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1681,7 +1681,7 @@ msg_print("その方向にはモンスターはいません。");
 		{
 			int ny = GRID_Y(path_g[i]);
 			int nx = GRID_X(path_g[i]);
-			cave_type *c_ptr = &cave[ny][nx];
+			cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
 
 			if (in_bounds(ny, nx) && cave_empty_bold(ny, nx) &&
 			    !(c_ptr->info & CAVE_OBJECT) &&
@@ -1692,10 +1692,10 @@ msg_print("その方向にはモンスターはいません。");
 			}
 		}
 		/* Update the old location */
-		cave[target_row][target_col].creature_idx = 0;
+		current_floor_ptr->cave[target_row][target_col].creature_idx = 0;
 
 		/* Update the new location */
-		cave[ty][tx].creature_idx = m_idx;
+		current_floor_ptr->cave[ty][tx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ty;
@@ -2080,7 +2080,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 			break;
 		case MIND_MIRROR_MASTER:
 			/* Cast the spell */
-			if( is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) )on_mirror = TRUE;
+			if( is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) )on_mirror = TRUE;
 			cast = cast_mirror_spell(cr_ptr, n);
 			break;
 		case MIND_NINJUTSU:

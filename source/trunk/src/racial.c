@@ -113,7 +113,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
 		{
@@ -901,7 +901,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				dir = randint0(8);
 				y = cr_ptr->fy + ddy_ddd[dir];
 				x = cr_ptr->fx + ddx_ddd[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				/* Hack -- attack monsters */
 				if (c_ptr->creature_idx)
@@ -952,7 +952,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
-			if (cave[y][x].creature_idx)
+			if (current_floor_ptr->cave[y][x].creature_idx)
 			{
 				weapon_attack(cr_ptr, y, x, 0);
 				if (randint0(cr_ptr->skill_dis) < 7)
@@ -1086,7 +1086,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				if (cave[y][x].creature_idx)
+				if (current_floor_ptr->cave[y][x].creature_idx)
 				{
 #ifdef JP
 					if (one_in_(3)) msg_print("あーたたたたたたたたたたたたたたたたたたたたたた！！！");
@@ -1099,7 +1099,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 					weapon_attack(cr_ptr, y, x, 0);
-					if (cave[y][x].creature_idx)
+					if (current_floor_ptr->cave[y][x].creature_idx)
 					{
 						handle_stuff();
 						weapon_attack(cr_ptr, y, x, 0);
@@ -1368,7 +1368,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if (is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]))
+				if (is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]))
 				{
 #ifdef JP
 					msg_print("少し頭がハッキリした。");
@@ -1405,7 +1405,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else
 			{
-				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 				feature_type *f_ptr = &f_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
@@ -1465,7 +1465,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				ratial_stop_mouth(cr_ptr);
 
@@ -2006,7 +2006,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				if (!get_rep_dir(cr_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				ratial_stop_mouth(cr_ptr);
 

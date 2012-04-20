@@ -6710,7 +6710,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			s16b this_object_idx, next_object_idx = 0;
 

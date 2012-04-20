@@ -145,7 +145,7 @@ static int next_to_walls(int y, int x)
 static bool alloc_stairs_aux(int y, int x, int walls)
 {
 	/* Access the grid */
-	cave_type *c_ptr = &cave[y][x];
+	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Require "naked" floor grid */
 	if (!is_floor_grid(c_ptr)) return FALSE;
@@ -256,7 +256,7 @@ static bool alloc_stairs(int feat, int num, int walls)
 			}
 
 			/* Access the grid */
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Clear possible garbage of hidden trap */
 			c_ptr->mimic = 0;
@@ -301,7 +301,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			y = randint0(cur_hgt);
 			x = randint0(cur_wid);
 
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Require "naked" floor grid */
 			if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
@@ -310,7 +310,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			if (creature_bold(player_ptr, y, x)) continue;
 
 			/* Check for "room" */
-			room = (cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
+			room = (current_floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
 
 			/* Require corridor? */
 			if ((set == ALLOC_SET_CORR) && room) continue;
@@ -343,14 +343,14 @@ msg_print("警告！アイテムを配置できません！");
 			case ALLOC_TYP_RUBBLE:
 			{
 				place_rubble(y, x);
-				cave[y][x].info &= ~(CAVE_FLOOR);
+				current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}
 
 			case ALLOC_TYP_TRAP:
 			{
 				place_trap(y, x);
-				cave[y][x].info &= ~(CAVE_FLOOR);
+				current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}
 
@@ -393,7 +393,7 @@ static int next_to_corr(int y1, int x1)
 		x = x1 + ddx_ddd[i];
 
 		/* Access the grid */
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* Skip non floors */
 		if (cave_have_flag_grid(c_ptr, FF_WALL)) continue;
@@ -457,7 +457,7 @@ static void try_door(int y, int x)
 	if (cave_have_flag_bold(y, x, FF_WALL)) return;
 
 	/* Ignore room grids */
-	if (cave[y][x].info & (CAVE_ROOM)) return;
+	if (current_floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
 
 	/* Occasional door (if allowed) */
 	if ((randint0(100) < dun_tun_jct) && possible_doorway(y, x) && !(dungeon_info[dungeon_type].flags1 & DF1_NO_DOORS))
@@ -520,7 +520,7 @@ bool place_quest_creatures(creature_type *player_ptr)
 					y = randint0(cur_hgt);
 					x = randint0(cur_wid);
 
-					c_ptr = &cave[y][x];
+					c_ptr = &current_floor_ptr->cave[y][x];
 					f_ptr = &f_info[c_ptr->feat];
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
@@ -919,7 +919,7 @@ static bool create_cave_structure(void)
 				x = dun->tunn[j].x;
 
 				/* Access the grid */
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 				f_ptr = &f_info[c_ptr->feat];
 
 				/* Clear previous contents (if not a lake), add a floor */
@@ -942,7 +942,7 @@ static bool create_cave_structure(void)
 				x = dun->wall[j].x;
 
 				/* Access the grid */
-				c_ptr = &cave[y][x];
+				c_ptr = &current_floor_ptr->cave[y][x];
 
 				/* Clear mimic type */
 				c_ptr->mimic = 0;
@@ -1009,15 +1009,15 @@ static bool create_cave_structure(void)
 	/* Special boundary walls -- Top and bottom */
 	for (x = 0; x < cur_wid; x++)
 	{
-		set_bound_perm_wall(&cave[0][x]);
-		set_bound_perm_wall(&cave[cur_hgt - 1][x]);
+		set_bound_perm_wall(&current_floor_ptr->cave[0][x]);
+		set_bound_perm_wall(&current_floor_ptr->cave[cur_hgt - 1][x]);
 	}
 
 	/* Special boundary walls -- Left and right */
 	for (y = 1; y < (cur_hgt - 1); y++)
 	{
-		set_bound_perm_wall(&cave[y][0]);
-		set_bound_perm_wall(&cave[y][cur_wid - 1]);
+		set_bound_perm_wall(&current_floor_ptr->cave[y][0]);
+		set_bound_perm_wall(&current_floor_ptr->cave[y][cur_wid - 1]);
 	}
 
 	/* Determine the character location */
@@ -1094,7 +1094,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 		{
 			for (x = 0; x < cur_wid; x++)
 			{
-				cave[y][x].info |= (CAVE_GLOW);
+				current_floor_ptr->cave[y][x].info |= (CAVE_GLOW);
 			}
 		}
 	}
@@ -1122,40 +1122,40 @@ static void build_arena(creature_type *player_ptr)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (i = y_depth; i >= y_depth - 5; i--)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_left; j <= x_left + 17; j++)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_right; j >= x_right - 17; j--)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 
 	place_extra_perm_bold(y_height+6, x_left+18);
-	cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-6, x_left+18);
-	cave[y_depth-6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_depth-6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_height+6, x_right-18);
-	cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-6, x_right-18);
-	cave[y_depth-6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_depth-6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 
 	i = y_height + 5;
 	j = xval;
-	cave[i][j].feat = f_tag_to_index("ARENA_GATE");
-	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[i][j].feat = f_tag_to_index("ARENA_GATE");
+	current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 	creature_place(player_ptr, i, j);
 }
 
@@ -1182,7 +1182,7 @@ static void generate_field_arena(creature_type *player_ptr)
 			place_solid_perm_bold(y, x);
 
 			/* Illuminate and memorize the walls */
-			cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	}
 
@@ -1192,7 +1192,7 @@ static void generate_field_arena(creature_type *player_ptr)
 		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
 		{
 			/* Create empty floor */
-			cave[y][x].feat = feat_floor;
+			current_floor_ptr->cave[y][x].feat = feat_floor;
 		}
 	}
 
@@ -1223,46 +1223,46 @@ static void build_battle(creature_type *player_ptr)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (i = y_depth; i >= y_depth - 3; i--)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_left; j <= x_left + 17; j++)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_right; j >= x_right - 17; j--)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 
 	place_extra_perm_bold(y_height+6, x_left+18);
-	cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-4, x_left+18);
-	cave[y_depth-4][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_depth-4][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_height+6, x_right-18);
-	cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-4, x_right-18);
-	cave[y_depth-4][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[y_depth-4][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 
 	for (i = y_height + 1; i <= y_height + 5; i++)
 		for (j = x_left + 20 + 2 * (y_height + 5 - i); j <= x_right - 20 - 2 * (y_height + 5 - i); j++)
 		{
-			cave[i][j].feat = feat_permanent_glass_wall;
+			current_floor_ptr->cave[i][j].feat = feat_permanent_glass_wall;
 		}
 
 	i = y_height + 1;
 	j = xval;
-	cave[i][j].feat = f_tag_to_index("BUILDING_3");
-	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+	current_floor_ptr->cave[i][j].feat = f_tag_to_index("BUILDING_3");
+	current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 	creature_place(player_ptr, i, j);
 }
 
@@ -1285,7 +1285,7 @@ static void generate_field_monster_arena(creature_type *player_ptr)
 			place_solid_perm_bold(y, x);
 
 			/* Illuminate and memorize the walls */
-			cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+			current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	}
 
@@ -1295,7 +1295,7 @@ static void generate_field_monster_arena(creature_type *player_ptr)
 		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
 		{
 			/* Create empty floor */
-			cave[y][x].feat = feat_floor;
+			current_floor_ptr->cave[y][x].feat = feat_floor;
 		}
 	}
 
@@ -1304,7 +1304,7 @@ static void generate_field_monster_arena(creature_type *player_ptr)
 	for(i = 0; i < 4;i ++)
 	{
 		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
-		set_camp(&creature_list[cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
+		set_camp(&creature_list[current_floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 	for(i = 1; i < creature_max; i++)
 	{
@@ -1490,7 +1490,7 @@ void wipe_generate_cave_flags(void)
 		for (x = 0; x < cur_wid; x++)
 		{
 			/* Wipe unused flags */
-			cave[y][x].info &= ~(CAVE_MASK);
+			current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
 		}
 	}
 
@@ -1501,7 +1501,7 @@ void wipe_generate_cave_flags(void)
 			for (x = 1; x < cur_wid - 1; x++)
 			{
 				/* There might be trap */
-				cave[y][x].info |= CAVE_UNSAFE;
+				current_floor_ptr->cave[y][x].info |= CAVE_UNSAFE;
 			}
 		}
 	}
@@ -1522,7 +1522,7 @@ void clear_cave(void)
 	{
 		for (x = 0; x < MAX_WID; x++)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* No flags */
 			c_ptr->info = 0;

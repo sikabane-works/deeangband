@@ -1676,7 +1676,7 @@ void autopick_delayed_alter(creature_type *cr_ptr)
 		autopick_delayed_alter_aux(cr_ptr, item);
 
 	/* Scan the pile of objects */
-	item = cave[cr_ptr->fy][cr_ptr->fx].object_idx;
+	item = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx;
 	while (item)
 	{
 		int next = object_list[item].next_object_idx;

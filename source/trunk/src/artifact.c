@@ -2229,7 +2229,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 				{
 					y = cr_ptr->fy + ddy[dir];
 					x = cr_ptr->fx + ddx[dir];
-					c_ptr = &cave[y][x];
+					c_ptr = &current_floor_ptr->cave[y][x];
 
 					/* Get the monster */
 					m_ptr = &creature_list[c_ptr->creature_idx];

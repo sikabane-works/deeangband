@@ -2035,7 +2035,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
 							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 					}
 
-					if (is_mirror_grid(&cave[target_ptr->fy][target_ptr->fx]))
+					if (is_mirror_grid(&current_floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
 					{
 						teleport_player(target_ptr, 10, 0L);
 					}

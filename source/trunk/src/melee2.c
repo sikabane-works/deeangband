@@ -285,7 +285,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	if (projectable(y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
-	now_cost = cave[y1][x1].cost;
+	now_cost = current_floor_ptr->cave[y1][x1].cost;
 	if (now_cost == 0) now_cost = 999;
 
 	/* Can monster bash or open doors? */
@@ -309,7 +309,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		/* Simply move to player */
 		if (creature_bold(player_ptr, y, x)) return (FALSE);
 
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		cost = c_ptr->cost;
 
@@ -398,7 +398,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if (player_has_los_bold(y1, x1) && projectable(mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Monster grid */
-	c_ptr = &cave[y1][x1];
+	c_ptr = &current_floor_ptr->cave[y1][x1];
 
 	/* If we can hear noises, advance towards them */
 	if (c_ptr->cost)
@@ -410,7 +410,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	else if (c_ptr->when)
 	{
 		/* Too old smell */
-		if (cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
+		if (current_floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
 
 		use_scent = TRUE;
 		best = 0;
@@ -432,7 +432,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		/* Ignore locations off of edge */
 		if (!in_bounds2(y, x)) continue;
 
-		c_ptr = &cave[y][x];
+		c_ptr = &current_floor_ptr->cave[y][x];
 
 		/* We're following a scent trail */
 		if (use_scent)
@@ -507,13 +507,13 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		if (!in_bounds2(y, x)) continue;
 
 		/* Don't move toward player */
-		/* if (cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
+		/* if (current_floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
 
 		/* Calculate distance of this grid from our destination */
 		dis = distance(y, x, y1, x1);
 
 		/* Score this grid */
-		s = 5000 / (dis + 3) - 500 / (cave[y][x].dist + 1);
+		s = 5000 / (dis + 3) - 500 / (current_floor_ptr->cave[y][x].dist + 1);
 
 		/* No negative scores */
 		if (s < 0) s = 0;
@@ -721,7 +721,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			/* Skip illegal locations */
 			if (!in_bounds(y, x)) continue;
 
-			c_ptr = &cave[y][x];
+			c_ptr = &current_floor_ptr->cave[y][x];
 
 			/* Skip locations in a wall */
 			if (!creature_can_cross_terrain(c_ptr->feat, m_ptr, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
@@ -733,7 +733,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 				if (c_ptr->dist == 0) continue;
 
 				/* Ignore too-distant grids */
-				if (c_ptr->dist > cave[fy][fx].dist + 2 * d) continue;
+				if (c_ptr->dist > current_floor_ptr->cave[fy][fx].dist + 2 * d) continue;
 			}
 
 			/* Check for absence of shot (more or less) */
@@ -858,13 +858,13 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
-	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
+	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
 	bool         can_pass_wall = (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
 	if (!will_run && nonplayer_ptr->target_y)
 	{
-		int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
+		int t_m_idx = current_floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 		/* The monster must be an enemy, and in LOS */
 		if (t_m_idx &&
@@ -881,7 +881,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_cf_creature(nonplayer_ptr, CF_FRIENDS) &&
 	    ((los(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
-	    (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
+	    (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
 	 * Animal packs try to get the player out of corridors
@@ -900,7 +900,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 				if (!in_bounds2(yy, xx)) continue;
 
-				c_ptr = &cave[yy][xx];
+				c_ptr = &current_floor_ptr->cave[yy][xx];
 
 				/* Check grid */
 				if (creature_can_cross_terrain(c_ptr->feat, player_ptr, 0))
@@ -911,7 +911,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			}
 
 			/* TODO
-			if (cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
+			if (current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
 			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
 			*/
 
@@ -925,7 +925,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		}
 
 		/* Monster groups try to surround the player */
-		if (!done && (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
+		if (!done && (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
 		{
 			int i;
 
@@ -1620,7 +1620,7 @@ static void process_creature(int m_idx)
 				/* Ignore locations off of edge */
 				if (!in_bounds2(y, x)) continue;
 
-				if (cave[y][x].creature_idx) k++;
+				if (current_floor_ptr->cave[y][x].creature_idx) k++;
 			}
 		}
 
@@ -1755,7 +1755,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		/* Give priority to counter attack? */
 		if (creature_ptr->target_y)
 		{
-			int t_m_idx = cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
+			int t_m_idx = current_floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
 
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
@@ -1931,7 +1931,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		if (!in_bounds2(ny, nx)) continue;
 
 		/* Access that cave grid */
-		c_ptr = &cave[ny][nx];
+		c_ptr = &current_floor_ptr->cave[ny][nx];
 		f_ptr = &f_info[c_ptr->feat];
 		can_cross = creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0);
 
@@ -2262,7 +2262,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			else if (has_cf_creature(creature_ptr, CF_MOVE_BODY) && !has_cf_creature(creature_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
-				creature_can_cross_terrain(cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
+				creature_can_cross_terrain(current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
 			{
 				/* Allow movement */
 				do_move = TRUE;
@@ -2369,7 +2369,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			if (!is_riding_mon)
 			{
 				/* Hack -- Update the old location */
-				cave[oy][ox].creature_idx = c_ptr->creature_idx;
+				current_floor_ptr->cave[oy][ox].creature_idx = c_ptr->creature_idx;
 
 				/* Mega-Hack -- move the old monster, if any */
 				if (c_ptr->creature_idx)
@@ -2751,14 +2751,14 @@ void process_creatures(void)
 			test = TRUE;
 		}
 
-#if 0 /* (cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
+#if 0 /* (current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == current_floor_ptr->cave[fy][fx].when) is always FALSE... */
 		/* Hack -- Monsters can "smell" the player from far away */
 		/* Note that most monsters have "aaf" of "20" or so */
 		else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
 			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
-			(cave[player_ptr->fy][player_ptr->fx].when == cave[fy][fx].when) &&
-			(cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
-			(cave[fy][fx].dist < species_ptr->aaf))
+			(current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == current_floor_ptr->cave[fy][fx].when) &&
+			(current_floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
+			(current_floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
 		{
 			/* We can "smell" the player */
 			test = TRUE;

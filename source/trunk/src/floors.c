@@ -397,7 +397,7 @@ static void get_out_creature(creature_type *creature_ptr)
 	int dis = 1;
 	int oy = creature_ptr->fy;
 	int ox = creature_ptr->fx;
-	int m_idx = cave[oy][ox].creature_idx;
+	int m_idx = current_floor_ptr->cave[oy][ox].creature_idx;
 
 	// Nothing to do if no monster
 	if (!m_idx) return;
@@ -432,8 +432,8 @@ static void get_out_creature(creature_type *creature_ptr)
 		if (!cave_empty_bold(ny, nx)) continue;
 
 		/* Hack -- no teleport onto glyph of warding */
-		if (is_glyph_grid(&cave[ny][nx])) continue;
-		if (is_explosive_rune_grid(&cave[ny][nx])) continue;
+		if (is_glyph_grid(&current_floor_ptr->cave[ny][nx])) continue;
+		if (is_explosive_rune_grid(&current_floor_ptr->cave[ny][nx])) continue;
 
 		/* ...nor onto the Pattern */
 		if (pattern_tile(ny, nx)) continue;
@@ -443,10 +443,10 @@ static void get_out_creature(creature_type *creature_ptr)
 		m_ptr = &creature_list[m_idx];
 
 		/* Update the old location */
-		cave[oy][ox].creature_idx = 0;
+		current_floor_ptr->cave[oy][ox].creature_idx = 0;
 
 		/* Update the new location */
-		cave[ny][nx].creature_idx = m_idx;
+		current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ny;
@@ -487,7 +487,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 	{
 		for (x = 0; x < cur_wid; x++)
 		{
-			cave_type *c_ptr = &cave[y][x];
+			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 			feature_type *f_ptr = &f_info[c_ptr->feat];
 			bool ok = FALSE;
 
@@ -554,7 +554,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 		prepare_change_floor_mode(CFM_RAND_PLACE | CFM_NO_RETURN);
 
 		/* Mega Hack -- It's not the stairs you enter.  Disable it.  */
-		if (!feat_uses_special(cave[creature_ptr->fy][creature_ptr->fx].feat)) cave[creature_ptr->fy][creature_ptr->fx].special = 0;
+		if (!feat_uses_special(current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat)) current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = 0;
 	}
 	else
 	{
@@ -614,7 +614,7 @@ void leave_floor(creature_type *cr_ptr)
 	if (change_floor_mode & CFM_SAVE_FLOORS)
 	{
 		// Extract stair position
-		c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+		c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 		f_ptr = &f_info[c_ptr->feat];
 
 		// Get back to old saved floor?
@@ -796,7 +796,7 @@ void change_floor(creature_type *cr_ptr)
 				// Forbid return stairs
 				if (change_floor_mode & CFM_NO_RETURN)
 				{
-					cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+					cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 					if (!feat_uses_special(c_ptr->feat))
 					{
@@ -938,7 +938,7 @@ void change_floor(creature_type *cr_ptr)
 			if (!(change_floor_mode & CFM_NO_RETURN))
 			{
 				// Extract stair position
-				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 				// Create connected stairs
 
@@ -1114,7 +1114,7 @@ void stair_creation(creature_type *creature_ptr)
 		{
 			for (x = 0; x < cur_wid; x++)
 			{
-				cave_type *c_ptr = &cave[y][x];
+				cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 				if (!c_ptr->special) continue;
 				if (feat_uses_special(c_ptr->feat)) continue;
@@ -1161,5 +1161,5 @@ void stair_creation(creature_type *creature_ptr)
 
 
 	/* Connect this stairs to the destination */
-	cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
+	current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
