@@ -178,7 +178,7 @@ void place_random_door(int y, int x, bool room)
 			{
 				if (have_flag(f_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(f_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
-					c_ptr->feat = one_in_(2) ? c_ptr->mimic : floor_type[randint0(100)];
+					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}
 				c_ptr->mimic = 0;
 			}

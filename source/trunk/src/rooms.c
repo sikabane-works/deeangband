@@ -119,7 +119,7 @@ static void place_secret_door(int y, int x, int type)
 			{
 				if (have_flag(f_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(f_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
-					c_ptr->feat = one_in_(2) ? c_ptr->mimic : floor_type[randint0(100)];
+					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}
 				c_ptr->mimic = 0;
 			}
@@ -3573,9 +3573,9 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 	fill_data.c3 = 0;
 
 	/* features to fill with */
-	fill_data.feat1 = floor_type[randint0(100)];
-	fill_data.feat2 = floor_type[randint0(100)];
-	fill_data.feat3 = floor_type[randint0(100)];
+	fill_data.feat1 = feat_floor_rand_table[randint0(100)];
+	fill_data.feat2 = feat_floor_rand_table[randint0(100)];
+	fill_data.feat3 = feat_floor_rand_table[randint0(100)];
 
 	fill_data.info1 = CAVE_FLOOR;
 	fill_data.info2 = CAVE_FLOOR;
@@ -3853,21 +3853,21 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 	case LAKE_T_LAVA: /* Lava */
 		feat1 = feat_deep_lava;
 		feat2 = feat_shallow_lava;
-		feat3 = floor_type[randint0(100)];
+		feat3 = feat_floor_rand_table[randint0(100)];
 		break;
 	case LAKE_T_WATER: /* Water */
 		feat1 = feat_deep_water;
 		feat2 = feat_shallow_water;
-		feat3 = floor_type[randint0(100)];
+		feat3 = feat_floor_rand_table[randint0(100)];
 		break;
 	case LAKE_T_CAVE: /* Collapsed cave */
-		feat1 = floor_type[randint0(100)];
-		feat2 = floor_type[randint0(100)];
+		feat1 = feat_floor_rand_table[randint0(100)];
+		feat2 = feat_floor_rand_table[randint0(100)];
 		feat3 = feat_rubble;
 		break;
 	case LAKE_T_EARTH_VAULT: /* Earth vault */
 		feat1 = feat_rubble;
-		feat2 = floor_type[randint0(100)];
+		feat2 = feat_floor_rand_table[randint0(100)];
 		feat3 = feat_rubble;
 		break;
 	case LAKE_T_AIR_VAULT: /* Air vault */

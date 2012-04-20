@@ -4675,7 +4675,7 @@ int conv_dungeon_feat(int newfeat)
 		switch (f_ptr->subtype)
 		{
 		case CONVERT_TYPE_FLOOR:
-			return floor_type[randint0(100)];
+			return feat_floor_rand_table[randint0(100)];
 		case CONVERT_TYPE_WALL:
 			return fill_type[randint0(100)];
 		case CONVERT_TYPE_INNER:

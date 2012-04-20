@@ -5235,7 +5235,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					else
 					{
 						/* Create floor */
-						cave_set_feat(y, x, floor_type[randint0(100)]);
+						cave_set_feat(y, x, feat_floor_rand_table[randint0(100)]);
 					}
 				}
 				else /* In generation */
@@ -5796,7 +5796,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				else
 				{
 					/* Create floor */
-					cave_set_feat(yy, xx, floor_type[randint0(100)]);
+					cave_set_feat(yy, xx, feat_floor_rand_table[randint0(100)]);
 				}
 			}
 		}

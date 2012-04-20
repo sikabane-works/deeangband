@@ -45,7 +45,7 @@ void set_floor_and_wall(byte type)
 	cur_type = type;
 	d_ptr = &dungeon_info[type];
 
-	set_floor_and_wall_aux(floor_type, d_ptr->floor);
+	set_floor_and_wall_aux(feat_floor_rand_table, d_ptr->floor);
 	set_floor_and_wall_aux(fill_type, d_ptr->fill);
 
 	feat_wall_outer = d_ptr->outer_wall;

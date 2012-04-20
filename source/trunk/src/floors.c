@@ -803,7 +803,7 @@ void change_floor(creature_type *cr_ptr)
 						if (change_floor_mode & (CFM_DOWN | CFM_UP))
 						{
 							// Reset to floor
-							c_ptr->feat = floor_type[randint0(100)];
+							c_ptr->feat = feat_floor_rand_table[randint0(100)];
 						}
 
 						c_ptr->special = 0;
@@ -1122,7 +1122,7 @@ void stair_creation(creature_type *creature_ptr)
 
 				/* Remove old stairs */
 				c_ptr->special = 0;
-				cave_set_feat(y, x, floor_type[randint0(100)]);
+				cave_set_feat(y, x, feat_floor_rand_table[randint0(100)]);
 			}
 		}
 	}

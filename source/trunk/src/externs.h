@@ -639,7 +639,7 @@ extern s16b *max_dlv;
 extern s16b feat_wall_outer;
 extern s16b feat_wall_inner;
 extern s16b feat_wall_solid;
-extern s16b floor_type[100], fill_type[100];
+extern s16b feat_floor_rand_table[100], fill_type[100];
 extern s16b now_message;
 extern bool use_menu;
 

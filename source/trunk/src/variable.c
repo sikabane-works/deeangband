@@ -1314,7 +1314,7 @@ s16b *max_dlv;
 s16b feat_wall_outer;
 s16b feat_wall_inner;
 s16b feat_wall_solid;
-s16b floor_type[100], fill_type[100];
+s16b feat_floor_rand_table[100], fill_type[100];
 
 s16b now_message;
 bool use_menu;
