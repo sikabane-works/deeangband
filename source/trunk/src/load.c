@@ -1557,7 +1557,7 @@ static errr rd_dungeon(void)
 		/* Read the saved_floors array */
 		for (i = 0; i < num; i++)
 		{
-			floor_type *sf_ptr = &floors_info[i];
+			floor_type *sf_ptr = &floor_list[i];
 
 			rd_s16b(&sf_ptr->floor_id);
 			rd_byte(&sf_ptr->savefile_id);
@@ -1575,7 +1575,7 @@ static errr rd_dungeon(void)
 		/* Move saved floors data to temporal files */
 		for (i = 0; i < num; i++)
 		{
-			floor_type *sf_ptr = &floors_info[i];
+			floor_type *sf_ptr = &floor_list[i];
 			byte tmp8u;
 
 			/* Unused element */
