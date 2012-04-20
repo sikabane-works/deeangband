@@ -1571,33 +1571,6 @@ static errr rd_dungeon(void)
 			rd_s16b(&sf_ptr->lower_floor_id);
 		}
 
-
-		/* Move saved floors data to temporal files */
-		for (i = 0; i < num; i++)
-		{
-			floor_type *sf_ptr = &floor_list[i];
-			byte tmp8u;
-
-			/* Unused element */
-			if (!sf_ptr->floor_id) continue;
-
-			/* Read the failure mark */
-			rd_byte(&tmp8u);
-			if (tmp8u) continue;
-
-			/* Read from the save file */
-			err = rd_saved_floor(sf_ptr);
-
-			/* Error? */
-			if (err) break;
-
-			/* Re-save as temporal saved floor file */
-			if (!save_floor(sf_ptr, SLF_SECOND)) err = 182;
-
-			/* Error? */
-			if (err) break;
-		}
-
 		/* Finally load current floor data from temporal file */
 		if (!err)
 		{

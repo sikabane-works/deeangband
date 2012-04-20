@@ -1109,30 +1109,6 @@ static bool wr_dungeon(creature_type *player_ptr)
 	/* Save current floor to temporal file */
 	if (!save_floor(cur_sf_ptr, (SLF_SECOND))) return FALSE;
 
-	/* Move data in temporal files to the savefile */
-	for (i = 0; i < MAX_FLOORS; i++)
-	{
-		floor_type *sf_ptr = &floor_list[i];
-
-		/* Unused element */
-		if (!sf_ptr->floor_id) continue;
-
-		/* Load temporal saved floor file */
-		if (load_floor(sf_ptr, (SLF_SECOND | SLF_NO_KILL)))
-		{
-			/* Mark success */
-			wr_byte(0);
-
-			/* Write saved floor data to the save file */
-			wr_saved_floor(sf_ptr);
-		}
-		else
-		{
-			/* Mark failure */
-			wr_byte(1);
-		}
-	}
-
 	/* Restore current floor */
 	if (!load_floor(cur_sf_ptr, (SLF_SECOND))) return FALSE;
 
