@@ -6535,7 +6535,6 @@ static void new_game_setting(void)
 	character_dungeon = FALSE;
 
 	/* Start in town */
-	current_floor_ptr->dun_level = 0;
 	inside_quest = 0;
 	inside_arena = FALSE;
 	monster_arena_mode = FALSE;

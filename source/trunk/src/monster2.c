@@ -1575,23 +1575,16 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		if (!monster_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
-			/* Hack -- don't create questors */
-			if (is_quest_species(r_ptr))
-				continue;
+			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
+			if (is_guardian_species(r_ptr)) continue;
+			if (is_force_depth_species(r_ptr) && current_floor_ptr && (r_ptr->level > current_floor_ptr->dun_level)) continue; // Depth Monsters never appear out of depth
 
-			if (is_guardian_species(r_ptr))
-				continue;
-
-			/* Depth Monsters never appear out of depth */
-			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > current_floor_ptr->dun_level))
-				continue;
 		}
 
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;

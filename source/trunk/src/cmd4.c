@@ -422,7 +422,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		return (-1);
 	}
 
-	q_idx = quest_number(current_floor_ptr->dun_level);
+
+	if(current_floor_ptr) q_idx = quest_number(current_floor_ptr->dun_level);
+	else q_idx = 0;
 
 	if (write_level)
 	{
@@ -432,7 +434,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #else
 			note_level = "Arane:";
 #endif
-		else if (!current_floor_ptr->dun_level)
+		else if (!current_floor_ptr || !current_floor_ptr->dun_level)
 #ifdef JP
 			note_level = "ínè„:";
 #else
