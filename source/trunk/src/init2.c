@@ -1506,11 +1506,13 @@ static errr init_other(void)
 
 	// Allocate and wipe each line of the cave
 	current_floor_ptr = &floor_list[0];
+/*
 	C_MAKE(current_floor_ptr->cave, MAX_HGT, cave_type *);
 	for (i = 0; i < MAX_HGT; i++)
 	{
 		C_MAKE(current_floor_ptr->cave[i], MAX_WID, cave_type);
 	}
+*/
 
 	/*** Prepare the various "bizarre" arrays ***/
 

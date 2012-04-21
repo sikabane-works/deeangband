@@ -5543,7 +5543,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->riding_two_handed)
 		{
 #ifdef JP
-			if(message) msg_format("%s馬を操れない。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+		if(message) msg_format("%s馬を操れない。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
 #else
 			if(message) msg_print("You are using both hand for fighting, and you can't control a riding pet.");
 #endif
@@ -5582,45 +5582,28 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-#if 0
-		if ((cr_ptr->inventory[i].tval == TV_SORCERY_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_dd_s = TRUE;
-		if ((cr_ptr->inventory[i].tval == TV_TRUMP_BOOK) && (cr_ptr->inventory[i].sval == 1)) have_dd_t = TRUE;
-#endif
 		if ((cr_ptr->inventory[i].tval == TV_NATURE_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_sw = TRUE;
 		if ((cr_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
-	for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+
+	if(is_in_this_floor(cr_ptr))
 	{
-		object_type *o_ptr;
+		for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+		{
+			object_type *o_ptr;
 
-		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+			/* Acquire object */
+			o_ptr = &object_list[this_object_idx];
 
-		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+			/* Acquire next object */
+			next_object_idx = o_ptr->next_object_idx;
 
-#if 0
-		if ((o_ptr->tval == TV_SORCERY_BOOK) && (o_ptr->sval == 3)) have_dd_s = TRUE;
-		if ((o_ptr->tval == TV_TRUMP_BOOK) && (o_ptr->sval == 1)) have_dd_t = TRUE;
-#endif
-		if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
-		if ((o_ptr->tval == TV_CRAFT_BOOK) && (o_ptr->sval == 2)) have_kabe = TRUE;
+			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
+			if ((o_ptr->tval == TV_CRAFT_BOOK) && (o_ptr->sval == 2)) have_kabe = TRUE;
+		}
 	}
 
 	if (cr_ptr->pass_wall && !cr_ptr->kill_wall) cr_ptr->no_flowed = TRUE;
-#if 0
-	if (have_dd_s && ((cr_ptr->realm1 == REALM_SORCERY) || (cr_ptr->realm2 == REALM_SORCERY) || (cr_ptr->cls_idx == CLASS_SORCERER)))
-	{
-		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_SORCERY-1][SPELL_DD_S];
-		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
-	}
-
-	if (have_dd_t && ((cr_ptr->realm1 == REALM_TRUMP) || (cr_ptr->realm2 == REALM_TRUMP) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)))
-	{
-		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_TRUMP-1][SPELL_DD_T];
-		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
-	}
-#endif
 	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
 		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_NATURE-1][SPELL_SW];
