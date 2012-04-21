@@ -177,11 +177,12 @@ s16b add_new_floor(void)
 		}
 
 		// Kill oldest saved floor
-		floor_ptr = &floor_list[oldest];
-		kill_floor(floor_ptr);
+		kill_floor(&floor_list[oldest]);
 
 		i = oldest; // Use it
 	}
+
+	floor_ptr = &floor_list[i];
 
 	// Prepare new floor data
 	floor_ptr->savefile_id = i;
@@ -648,6 +649,8 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
+	current_floor_ptr = &floor_list[add_new_floor()];
+
 	generate_floor(cr_ptr); // Generate field
 
 	/*
@@ -896,8 +899,7 @@ void change_floor(creature_type *cr_ptr)
 	character_dungeon = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
-		wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
 
 	/* Remember when this level was "created" */
 	old_turn = turn;
