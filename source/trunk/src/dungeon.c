@@ -7020,8 +7020,8 @@ void play_game(bool new_game)
 	}
 
 	/* Reset map panel */
-	panel_row_min = current_floor_ptr->height;
-	panel_col_min = current_floor_ptr->width;
+	panel_row_min = MAX_HGT;
+	panel_col_min = MAX_WID;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(dungeon_type);

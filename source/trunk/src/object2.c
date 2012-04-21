@@ -473,7 +473,7 @@ void wipe_object_list(void)
 		}
 
 		/* Dungeon */
-		else
+		else if(current_floor_ptr)
 		{
 			cave_type *c_ptr;
 

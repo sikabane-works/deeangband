@@ -3702,6 +3702,7 @@ void deal_item(creature_type *creature_ptr)
 	int i, number;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	u32b mo_mode = 0L;
+	int object_level;
 
 	creature_ptr->total_weight = 0;
 	creature_ptr->inven_cnt = 0;
@@ -3713,7 +3714,7 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	// TODO:  
-	current_floor_ptr->object_level = creature_ptr->lev * 2;
+	object_level = creature_ptr->lev * 2;
 
 	/* inventory */
 	number = 0;
@@ -3725,7 +3726,7 @@ void deal_item(creature_type *creature_ptr)
 	/*
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(q_ptr, AM_UNCURSED, 0, current_floor_ptr->object_level);
+		make_object(q_ptr, AM_UNCURSED, 0, object_level);
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
 	*/
@@ -3758,7 +3759,7 @@ void deal_item(creature_type *creature_ptr)
 		{
 			object_type ob;
 			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
-			create_ego(&ob, current_floor_ptr->object_level, species_ptr->artifact_ego[i]);
+			create_ego(&ob, object_level, species_ptr->artifact_ego[i]);
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
 	}
