@@ -1138,7 +1138,6 @@ extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
 
 /* floors.c */
 extern void init_saved_floors(bool force);
-extern void clear_saved_floor_files(creature_type *player_ptr);
 extern floor_type *get_sf_ptr(s16b floor_id);
 extern s16b add_new_floor(void);
 extern void prepare_change_floor_mode(u32b mode);

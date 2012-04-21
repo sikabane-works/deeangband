@@ -116,52 +116,6 @@ void init_saved_floors(bool force)
 
 
 /*
- * Kill temporal files
- * Should be called just before the game quit.
- */
-void clear_saved_floor_files(creature_type *player_ptr)
-{
-	char floor_savefile[1024];
-	int i;
-
-#ifdef SET_UID
-# ifdef SECURE
-	/* Get "games" permissions */
-	beGames();
-# endif
-#endif
-
-	for (i = 0; i < MAX_FLOORS; i++)
-	{
-		floor_type *sf_ptr = &floor_list[i];
-
-		/* No temporal file */
-		if (!sf_ptr->floor_id) continue;
-		if (sf_ptr->floor_id == player_ptr->floor_id) continue;
-
-		/* File name */
-		sprintf(floor_savefile, "%s.F%02d", savefile, i);
-
-		/* Grab permissions */
-		safe_setuid_grab();
-
-		/* Simply kill the temporal file */ 
-		(void)fd_kill(floor_savefile);
-
-		/* Drop permissions */
-		safe_setuid_drop();
-	}
-
-#ifdef SET_UID
-# ifdef SECURE
-	/* Drop "games" permissions */
-	bePlayer();
-# endif
-#endif
-}
-
-
-/*
  * Get a pointer for an item of the saved_floors array.
  */
 floor_type *get_sf_ptr(s16b floor_id)
