@@ -14,7 +14,6 @@
 #include "grid.h"
 
 
-static u32b change_floor_mode;  /* Mode flags for changing floor */
 static u32b latest_visit_mark;  /* Max number of visit_mark */
 
 
@@ -104,7 +103,7 @@ void init_saved_floors(bool force)
 	current_floor_id = 0;
 
 	/* No change floor mode yet */
-	change_floor_mode = 0;
+	player_ptr->change_floor_mode = 0;
 
 #ifdef SET_UID
 # ifdef SECURE
@@ -403,7 +402,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 			feature_type *f_ptr = &f_info[c_ptr->feat];
 			bool ok = FALSE;
 
-			if (change_floor_mode & CFM_UP)
+			if (creature_ptr->change_floor_mode & CFM_UP)
 			{
 				if (have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) &&
 				    !have_flag(f_ptr->flags, FF_SPECIAL))
@@ -420,7 +419,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 				}
 			}
 
-			else if (change_floor_mode & CFM_DOWN)
+			else if (creature_ptr->change_floor_mode & CFM_DOWN)
 			{
 				if (have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) &&
 				    !have_flag(f_ptr->flags, FF_SPECIAL))
@@ -517,13 +516,13 @@ void leave_floor(creature_type *creature_ptr)
 	floor_ptr = get_floor_ptr(creature_ptr->floor_id);
 
 	// Choose random stairs
-	if ((change_floor_mode & CFM_RAND_CONNECT) && creature_ptr->floor_id)
+	if ((creature_ptr->change_floor_mode & CFM_RAND_CONNECT) && creature_ptr->floor_id)
 	{
 		locate_connected_stairs(creature_ptr, floor_ptr);
 	}
 
 	// Extract new dungeon level
-	if (change_floor_mode & CFM_SAVE_FLOORS)
+	if (creature_ptr->change_floor_mode & CFM_SAVE_FLOORS)
 	{
 		// Extract stair position
 		stair_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
@@ -543,25 +542,25 @@ void leave_floor(creature_type *creature_ptr)
 	}
 
 	// Climb up/down some sort of stairs
-	if (change_floor_mode & (CFM_DOWN | CFM_UP))
+	if (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
 	{
 		int move_num = 0;
 
 		// Extract level movement number
-		if      (change_floor_mode & CFM_DOWN) move_num = 1;
-		else if (change_floor_mode & CFM_UP)   move_num = -1;
+		if      (creature_ptr->change_floor_mode & CFM_DOWN) move_num = 1;
+		else if (creature_ptr->change_floor_mode & CFM_UP)   move_num = -1;
 
 		// Shafts are deeper than normal stairs
-		if (change_floor_mode & CFM_SHAFT)
+		if (creature_ptr->change_floor_mode & CFM_SHAFT)
 			move_num += SGN(move_num);
 
 		// Get out from or Enter the dungeon
-		if (change_floor_mode & CFM_DOWN)
+		if (creature_ptr->change_floor_mode & CFM_DOWN)
 		{
 			if (!current_floor_ptr->dun_level)
 				move_num = dungeon_info[dungeon_type].mindepth;
 		}
-		else if (change_floor_mode & CFM_UP)
+		else if (creature_ptr->change_floor_mode & CFM_UP)
 		{
 			if (current_floor_ptr->dun_level + move_num < dungeon_info[dungeon_type].mindepth)
 				move_num = -current_floor_ptr->dun_level;
@@ -581,15 +580,15 @@ void leave_floor(creature_type *creature_ptr)
 		dungeon_type = 0;
 
 		// Reach to the surface -- Clear all saved floors
-		change_floor_mode &= ~CFM_SAVE_FLOORS;
+		creature_ptr->change_floor_mode &= ~CFM_SAVE_FLOORS;
 	}
 
-	if (!(change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
+	if (!(creature_ptr->change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
 		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]); // Kill all saved floors
 		latest_visit_mark = 1; // Reset visit_mark count
 	}
-	else if (change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
+	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
 
 	// No current floor -- Left/Enter dungeon etc...
 	if (!creature_ptr->floor_id) return;
@@ -602,15 +601,15 @@ void leave_floor(creature_type *creature_ptr)
 	}
 
 	// Fix connection -- level teleportation or trap door
-	if (change_floor_mode & CFM_RAND_CONNECT)
+	if (creature_ptr->change_floor_mode & CFM_RAND_CONNECT)
 	{
-		if (change_floor_mode & CFM_UP)        floor_ptr->upper_floor_id = current_floor_id;
-		else if (change_floor_mode & CFM_DOWN) floor_ptr->lower_floor_id = current_floor_id;
+		if (creature_ptr->change_floor_mode & CFM_UP)        floor_ptr->upper_floor_id = current_floor_id;
+		else if (creature_ptr->change_floor_mode & CFM_DOWN) floor_ptr->lower_floor_id = current_floor_id;
 	}
 
 	// If you can return, you need to save previous floor
 
-	if ((change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_NO_RETURN))
+	if ((creature_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(creature_ptr->change_floor_mode & CFM_NO_RETURN))
 	{
 		get_out_creature(creature_ptr); // Get out of the my way!
 		floor_ptr->last_visit = turn; // Record the last visit turn of current floor
@@ -653,7 +652,7 @@ void change_floor(creature_type *cr_ptr)
 
 	/*
 	// No saved floors (On the surface etc.)
-	if (!(change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_FIRST_FLOOR))
+	if (!(cr_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(cr_ptr->change_floor_mode & CFM_FIRST_FLOOR))
 	{
 		generate_floor(cr_ptr); // Generate field
 	}
@@ -680,13 +679,13 @@ void change_floor(creature_type *cr_ptr)
 				loaded = TRUE;
 
 				// Forbid return stairs
-				if (change_floor_mode & CFM_NO_RETURN)
+				if (cr_ptr->change_floor_mode & CFM_NO_RETURN)
 				{
 					cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 					if (!feat_uses_special(c_ptr->feat))
 					{
-						if (change_floor_mode & (CFM_DOWN | CFM_UP))
+						if (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
 						{
 							// Reset to floor
 							c_ptr->feat = feat_floor_rand_table[randint0(100)];
@@ -708,13 +707,13 @@ void change_floor(creature_type *cr_ptr)
 		{
 			floor_type *cur_sf_ptr = get_floor_ptr(cr_ptr->floor_id);
 
-			if (change_floor_mode & CFM_UP)
+			if (cr_ptr->change_floor_mode & CFM_UP)
 			{
 				// New floor is right-above
 				if (cur_sf_ptr->upper_floor_id == current_floor_id)
 					sf_ptr->lower_floor_id = cr_ptr->floor_id;
 			}
-			else if (change_floor_mode & CFM_DOWN)
+			else if (cr_ptr->change_floor_mode & CFM_DOWN)
 			{
 				// New floor is right-under
 				if (cur_sf_ptr->lower_floor_id == current_floor_id)
@@ -725,9 +724,9 @@ void change_floor(creature_type *cr_ptr)
 		// Break connection to killed floor
 		else
 		{
-			if (change_floor_mode & CFM_UP)
+			if (cr_ptr->change_floor_mode & CFM_UP)
 				sf_ptr->lower_floor_id = 0;
-			else if (change_floor_mode & CFM_DOWN)
+			else if (cr_ptr->change_floor_mode & CFM_DOWN)
 				sf_ptr->upper_floor_id = 0;
 		}
 
@@ -796,11 +795,11 @@ void change_floor(creature_type *cr_ptr)
 				build_dead_end(cr_ptr);
 
 				// Break connection
-				if (change_floor_mode & CFM_UP)
+				if (cr_ptr->change_floor_mode & CFM_UP)
 				{
 					sf_ptr->upper_floor_id = 0;
 				}
-				else if (change_floor_mode & CFM_DOWN)
+				else if (cr_ptr->change_floor_mode & CFM_DOWN)
 				{
 					sf_ptr->lower_floor_id = 0;
 				}
@@ -821,7 +820,7 @@ void change_floor(creature_type *cr_ptr)
 			sf_ptr->world_y = wilderness_y;
 
 			// Create connected stairs
-			if (!(change_floor_mode & CFM_NO_RETURN))
+			if (!(cr_ptr->change_floor_mode & CFM_NO_RETURN))
 			{
 				// Extract stair position
 				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
@@ -829,15 +828,15 @@ void change_floor(creature_type *cr_ptr)
 				// Create connected stairs
 
 				// No stairs down from Quest
-				if ((change_floor_mode & CFM_UP) && !quest_number(current_floor_ptr->dun_level))
+				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(current_floor_ptr->dun_level))
 				{
-					c_ptr->feat = (change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
+					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
 				}
 
 				// No stairs up when ironman_downward
-				else if ((change_floor_mode & CFM_DOWN) && !ironman_downward)
+				else if ((cr_ptr->change_floor_mode & CFM_DOWN) && !ironman_downward)
 				{
-					c_ptr->feat = (change_floor_mode & CFM_SHAFT) ? feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair;
+					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair;
 				}
 
 				// Paranoia -- Clear mimic
@@ -849,13 +848,13 @@ void change_floor(creature_type *cr_ptr)
 		}
 
 		// Arrive at random grid
-		if (change_floor_mode & (CFM_RAND_PLACE))
+		if (cr_ptr->change_floor_mode & (CFM_RAND_PLACE))
 		{
 			(void)new_player_spot(cr_ptr);
 		}
 
 		// You see stairs blocked
-		else if ((change_floor_mode & CFM_NO_RETURN) && (change_floor_mode & (CFM_DOWN | CFM_UP)))
+		else if ((cr_ptr->change_floor_mode & CFM_NO_RETURN) && (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP)))
 		{
 			if (!cr_ptr->blind)
 			{
@@ -908,7 +907,7 @@ void change_floor(creature_type *cr_ptr)
 	cr_ptr->feeling = 0;
 
 	/* Clear all flags */
-	change_floor_mode = 0L;
+	cr_ptr->change_floor_mode = 0L;
 }
 
 
