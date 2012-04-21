@@ -1504,7 +1504,6 @@ static errr init_other(void)
 	// Allocate and Wipe the max dungeon level
 	C_MAKE(max_dlv, max_d_idx, s16b);
 
-
 	// Allocate and wipe each line of the cave
 	current_floor_ptr = &floor_list[0];
 	C_MAKE(current_floor_ptr->cave, MAX_HGT, cave_type *);
