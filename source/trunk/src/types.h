@@ -1602,6 +1602,7 @@ struct creature_type
 	u16b total_winner;	  /* Total winner */
 	u32b creature_update;
 
+	u32b change_floor_mode;
 };
 
 // creature_flags_type
