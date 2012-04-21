@@ -128,11 +128,9 @@ floor_type *get_sf_ptr(s16b floor_id)
 	for (i = 0; i < MAX_FLOORS; i++)
 	{
 		floor_type *sf_ptr = &floor_list[i];
-
 		if (sf_ptr->floor_id == floor_id) return sf_ptr;
 	}
 
-	// None found
 	return NULL;
 }
 
@@ -140,40 +138,14 @@ floor_type *get_sf_ptr(s16b floor_id)
 /*
  * kill a saved floor and get an empty space
  */
-static void kill_saved_floor(floor_type *sf_ptr)
+static void kill_floor(floor_type *sf_ptr)
 {
-	char floor_savefile[1024];
+	if (!sf_ptr) return; // Paranoia
+	if (!sf_ptr->floor_id) return; // Already empty
 
-	/* Paranoia */
-	if (!sf_ptr) return;
+	// TODO
 
-	/* Already empty */
-	if (!sf_ptr->floor_id) return;
-
-	if (sf_ptr->floor_id == player_ptr->floor_id)
-	{
-		// Kill current floor
-		player_ptr->floor_id = 0;
-
-		// Current floor doesn't have temporal file
-	}
-	else 
-	{
-		/* File name */
-		sprintf(floor_savefile, "%s.F%02d", savefile, (int)sf_ptr->savefile_id);
-
-		/* Grab permissions */
-		safe_setuid_grab();
-
-		/* Simply kill the temporal file */ 
-		(void)fd_kill(floor_savefile);
-
-		/* Drop permissions */
-		safe_setuid_drop();
-	}
-
-	/* No longer exists */
-	sf_ptr->floor_id = 0;
+	sf_ptr->floor_id = 0; 	// No longer exists
 }
 
 
@@ -217,7 +189,7 @@ s16b add_new_floor(void)
 
 		/* Kill oldest saved floor */
 		sf_ptr = &floor_list[oldest];
-		kill_saved_floor(sf_ptr);
+		kill_floor(sf_ptr);
 
 		/* Use it */
 		i = oldest;
@@ -630,10 +602,10 @@ void leave_floor(creature_type *cr_ptr)
 	if (!(change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
 		// Kill all saved floors
-		for (i = 0; i < MAX_FLOORS; i++) kill_saved_floor(&floor_list[i]);
+		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]);
 		latest_visit_mark = 1; // Reset visit_mark count
 	}
-	else if (change_floor_mode & CFM_NO_RETURN) kill_saved_floor(sf_ptr);
+	else if (change_floor_mode & CFM_NO_RETURN) kill_floor(sf_ptr);
 
 	// No current floor -- Left/Enter dungeon etc...
 	if (!cr_ptr->floor_id) return;
@@ -685,7 +657,7 @@ void leave_floor(creature_type *cr_ptr)
 			prepare_change_floor_mode(CFM_NO_RETURN);
 
 			// Kill current floor
-			kill_saved_floor(get_sf_ptr(cr_ptr->floor_id));
+			kill_floor(get_sf_ptr(cr_ptr->floor_id));
 		}
 	}
 
