@@ -1040,23 +1040,15 @@ static void wr_saved_floor(floor_type *sf_ptr)
 static bool wr_floors(creature_type *player_ptr)
 {
 	floor_type *cur_sf_ptr = &floor_list[0];
-	//int i;
 
-	/* Forget the lite */
+	// Forget the lite and view
 	forget_lite();
-
-	/* Forget the view */
 	forget_view();
-
-	/* Forget the view */
 	clear_creature_lite();
 
-	/* Update lite/view */
+	// Update lite/view/creatures
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
-
-	// Update creatures
 	update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
-
 
 	/*** Meta info ***/
 
@@ -1066,34 +1058,10 @@ static bool wr_floors(creature_type *player_ptr)
 	/* Current dungeon type */
 	wr_byte(dungeon_type);
 
+	wr_byte(0); // No array elements
+	wr_saved_floor(NULL); // Write the current floor data
 
-	/*** No saved floor (On the surface etc.) ***/
-	if (!player_ptr->floor_id)
-	{
-		/* No array elements */
-		wr_byte(0);
-
-		/* Write the current floor data */
-		wr_saved_floor(NULL);
-
-		/* Success */
-		return TRUE;
-	}
-
-
-	/*** In the dungeon ***/
-
-	/* Number of array elements */
-	wr_byte(MAX_FLOORS);
-
-	/* Save current floor to temporal file */
-	if (!save_floor(cur_sf_ptr, (SLF_SECOND))) return FALSE;
-
-	/* Restore current floor */
-	if (!load_floor(cur_sf_ptr, (SLF_SECOND))) return FALSE;
-
-	/* Success */
-	return TRUE;
+	return TRUE; 
 }
 
 
@@ -1981,13 +1949,11 @@ static bool save_floor_aux(floor_type *sf_ptr)
 	/* Dump the dungeon floor */
 	wr_saved_floor(sf_ptr);
 
-
 	/* Write the "value check-sum" */
 	wr_u32b(v_stamp);
 
 	/* Write the "encoded checksum" */
 	wr_u32b(x_stamp);
-
 
 	/* Error in save */
 	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;
@@ -1996,129 +1962,3 @@ static bool save_floor_aux(floor_type *sf_ptr)
 	return TRUE;
 }
 
-
-/*
- * Attempt to save the temporally saved-floor data
- */
-bool save_floor(floor_type *sf_ptr, u32b mode)
-{
-	FILE *old_fff = NULL;
-	byte old_xor_byte = 0;
-	u32b old_v_stamp = 0;
-	u32b old_x_stamp = 0;
-
-	char floor_savefile[1024];
-	int fd = -1;
-	bool ok = FALSE;
-
-	if (!(mode & SLF_SECOND))
-	{
-#ifdef SET_UID
-# ifdef SECURE
-		/* Get "games" permissions */
-		beGames();
-# endif
-#endif
-	}
-
-	/* We have one file already opened */
-	else
-	{
-		/* Backup original values */
-		old_fff = fff;
-		old_xor_byte = xor_byte;
-		old_v_stamp = v_stamp;
-		old_x_stamp = x_stamp;
-	}
-
-	/* New savefile */
-	sprintf(floor_savefile, "%s.F%02d", savefile, (int)sf_ptr->savefile_id);
-
-	/* Grab permissions */
-	safe_setuid_grab();
-
-	/* Remove it */
-	fd_kill(floor_savefile);
-
-	/* Drop permissions */
-	safe_setuid_drop();
-
-
-	/* Attempt to save the player */
-
-	/* No file yet */
-	fff = NULL;
-
-	/* File type is "SAVE" */
-	FILE_TYPE(FILE_TYPE_SAVE);
-
-	/* Grab permissions */
-	safe_setuid_grab();
-
-	/* Create the savefile */
-	fd = fd_make(floor_savefile, 0644);
-
-	/* Drop permissions */
-	safe_setuid_drop();
-
-	/* File is okay */
-	if (fd >= 0)
-	{
-		/* Close the "fd" */
-		(void)fd_close(fd);
-
-		/* Grab permissions */
-		safe_setuid_grab();
-
-		/* Open the savefile */
-		fff = my_fopen(floor_savefile, "wb");
-
-		/* Drop permissions */
-		safe_setuid_drop();
-
-		/* Successful open */
-		if (fff)
-		{
-			/* Write the savefile */
-			if (save_floor_aux(sf_ptr)) ok = TRUE;
-
-			/* Attempt to close it */
-			if (my_fclose(fff)) ok = FALSE;
-		}
-
-		/* Remove "broken" files */
-		if (!ok)
-		{
-			/* Grab permissions */
-			safe_setuid_grab();
-
-			(void)fd_kill(floor_savefile);
-
-			/* Drop permissions */
-			safe_setuid_drop();
-		}
-	}
-
-	if (!(mode & SLF_SECOND))
-	{
-#ifdef SET_UID
-# ifdef SECURE
-		/* Drop "games" permissions */
-		bePlayer();
-# endif
-#endif
-	}
-
-	/* We have one file already opened */
-	else
-	{
-		/* Restore original values */
-		fff = old_fff;
-		xor_byte = old_xor_byte;
-		v_stamp = old_v_stamp;
-		x_stamp = old_x_stamp;
-	}
-
-	/* Return the result */
-	return ok;
-}

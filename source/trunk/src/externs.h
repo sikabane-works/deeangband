@@ -1340,7 +1340,6 @@ extern void do_cmd_racial_power(creature_type *cr_ptr);
 extern bool save_player(void);
 extern int load_player(void);
 extern void remove_loc(void);
-extern bool save_floor(floor_type *sf_ptr, u32b mode);
 
 /* spells1.c */
 extern bool in_disintegration_range(int y1, int x1, int y2, int x2);
