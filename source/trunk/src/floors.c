@@ -483,19 +483,19 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
  * Maintain quest monsters, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
-void leave_floor(creature_type *cr_ptr)
+void leave_floor(creature_type *creature_ptr)
 {
 	int i;
-	cave_type *c_ptr = NULL;
-	feature_type *f_ptr;
-	floor_type *sf_ptr;
+	cave_type *stair_ptr = NULL;
+	feature_type *feature_ptr;
+	floor_type *floor_ptr;
 	int quest_species_idx = 0;
 
 	// Remove all mirrors without explosion
-	//remove_all_mirrors(cr_ptr, FALSE);
+	//remove_all_mirrors(creature_ptr, FALSE);
 
 	// Cut supersthealth
-	//if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
+	//if (creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	// Search the quest monster index
 	/*
@@ -514,29 +514,29 @@ void leave_floor(creature_type *cr_ptr)
 	*/
 
 	// Extract current floor info or NULL
-	sf_ptr = get_floor_ptr(cr_ptr->floor_id);
+	floor_ptr = get_floor_ptr(creature_ptr->floor_id);
 
 	// Choose random stairs
-	if ((change_floor_mode & CFM_RAND_CONNECT) && cr_ptr->floor_id)
+	if ((change_floor_mode & CFM_RAND_CONNECT) && creature_ptr->floor_id)
 	{
-		locate_connected_stairs(cr_ptr, sf_ptr);
+		locate_connected_stairs(creature_ptr, floor_ptr);
 	}
 
 	// Extract new dungeon level
 	if (change_floor_mode & CFM_SAVE_FLOORS)
 	{
 		// Extract stair position
-		c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
-		f_ptr = &f_info[c_ptr->feat];
+		stair_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
+		feature_ptr = &f_info[stair_ptr->feat];
 
 		// Get back to old saved floor?
-		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_floor_ptr(c_ptr->special))
+		if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && get_floor_ptr(stair_ptr->special))
 		{
-			current_floor_id = c_ptr->special; // Saved floor is exist.  Use it.
+			current_floor_id = stair_ptr->special; // Saved floor is exist.  Use it.
 		}
 
 		// Mark shaft up/down
-		if (have_flag(f_ptr->flags, FF_STAIRS) && have_flag(f_ptr->flags, FF_SHAFT))
+		if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
 		{
 			prepare_change_floor_mode(CFM_SHAFT);
 		}
@@ -548,8 +548,8 @@ void leave_floor(creature_type *cr_ptr)
 		int move_num = 0;
 
 		// Extract level movement number
-		if (change_floor_mode & CFM_DOWN) move_num = 1;
-		else if (change_floor_mode & CFM_UP) move_num = -1;
+		if      (change_floor_mode & CFM_DOWN) move_num = 1;
+		else if (change_floor_mode & CFM_UP)   move_num = -1;
 
 		// Shafts are deeper than normal stairs
 		if (change_floor_mode & CFM_SHAFT)
@@ -577,7 +577,7 @@ void leave_floor(creature_type *cr_ptr)
 		wilderness_y = dungeon_info[dungeon_type].dy;
 		wilderness_x = dungeon_info[dungeon_type].dx;
 
-		cr_ptr->recall_dungeon = dungeon_type;
+		creature_ptr->recall_dungeon = dungeon_type;
 		dungeon_type = 0;
 
 		// Reach to the surface -- Clear all saved floors
@@ -586,39 +586,34 @@ void leave_floor(creature_type *cr_ptr)
 
 	if (!(change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
-		// Kill all saved floors
-		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]);
+		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]); // Kill all saved floors
 		latest_visit_mark = 1; // Reset visit_mark count
 	}
-	else if (change_floor_mode & CFM_NO_RETURN) kill_floor(sf_ptr);
+	else if (change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
 
 	// No current floor -- Left/Enter dungeon etc...
-	if (!cr_ptr->floor_id) return;
-
+	if (!creature_ptr->floor_id) return;
 
 	// Mark next floor_id on the previous floor
 	if (!current_floor_id)
 	{
 		current_floor_id = add_new_floor(); // Get new id
-		if (c_ptr && !feat_uses_special(c_ptr->feat)) c_ptr->special = current_floor_id; // Connect from here
+		if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = current_floor_id; // Connect from here
 	}
 
 	// Fix connection -- level teleportation or trap door
 	if (change_floor_mode & CFM_RAND_CONNECT)
 	{
-		if (change_floor_mode & CFM_UP)
-			sf_ptr->upper_floor_id = current_floor_id;
-		else if (change_floor_mode & CFM_DOWN)
-			sf_ptr->lower_floor_id = current_floor_id;
+		if (change_floor_mode & CFM_UP)        floor_ptr->upper_floor_id = current_floor_id;
+		else if (change_floor_mode & CFM_DOWN) floor_ptr->lower_floor_id = current_floor_id;
 	}
 
 	// If you can return, you need to save previous floor
 
-	if ((change_floor_mode & CFM_SAVE_FLOORS) &&
-	    !(change_floor_mode & CFM_NO_RETURN))
+	if ((change_floor_mode & CFM_SAVE_FLOORS) && !(change_floor_mode & CFM_NO_RETURN))
 	{
-		get_out_creature(cr_ptr); // Get out of the my way!
-		sf_ptr->last_visit = turn; // Record the last visit turn of current floor
+		get_out_creature(creature_ptr); // Get out of the my way!
+		floor_ptr->last_visit = turn; // Record the last visit turn of current floor
 
 		// Forget the lite and view
 		//TODO
