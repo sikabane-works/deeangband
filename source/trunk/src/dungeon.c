@@ -7067,7 +7067,7 @@ void play_game(bool new_game)
 
 
 	/* Initialize the town-buildings if necessary */
-	if (!current_floor_ptr->dun_level && !inside_quest)
+	if ((!current_floor_ptr || !current_floor_ptr->dun_level) && !inside_quest)
 	{
 
 		/* Init the wilderness */

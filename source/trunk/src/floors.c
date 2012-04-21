@@ -171,7 +171,7 @@ s16b add_new_floor(void)
 		{
 			floor_ptr = &floor_list[i];
 			if (floor_ptr == current_floor_ptr) continue; // Don't kill current floor
-			if (floor_ptr->visit_mark > oldest_visit)     continue; // Don't kill newer
+			if (floor_ptr->visit_mark > oldest_visit) continue; // Don't kill newer
 			oldest = i;
 			oldest_visit = floor_ptr->visit_mark;
 		}
@@ -193,7 +193,7 @@ s16b add_new_floor(void)
 	floor_ptr->visit_mark = latest_visit_mark++;
 
 	// These may be changed later
-	floor_ptr->dun_level = current_floor_ptr->dun_level;
+	floor_ptr->dun_level = current_floor_ptr ? current_floor_ptr->dun_level : 0;
 	floor_ptr->dun_type = dungeon_type;
 	floor_ptr->world_x = wilderness_x;
 	floor_ptr->world_y = wilderness_y;
@@ -650,7 +650,6 @@ void change_floor(creature_type *cr_ptr)
 	ambush_flag = FALSE;
 
 	current_floor_ptr = &floor_list[add_new_floor()];
-
 	generate_floor(cr_ptr); // Generate field
 
 	/*
