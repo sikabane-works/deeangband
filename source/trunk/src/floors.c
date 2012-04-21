@@ -118,7 +118,7 @@ void init_saved_floors(bool force)
 //
 // Get a pointer for an item of the saved_floors array.
 //
-floor_type *get_floot_ptr(s16b floor_id)
+floor_type *get_floor_ptr(s16b floor_id)
 {
 	int i;
 
@@ -149,80 +149,66 @@ static void kill_floor(floor_type *sf_ptr)
 }
 
 
-/*
- * Initialize new saved floor and get its floor id.  If number of
- * saved floors are already MAX_FLOORS, kill the oldest one.
- */
+//
+// Initialize new saved floor and get its floor id.  If number of
+// saved floors are already MAX_FLOORS, kill the oldest one.
+//
 s16b add_new_floor(void)
 {
-	floor_type *sf_ptr;
+	floor_type *floor_ptr;
 	int i;
 
-	/* Look for empty space */
-	for (i = 0; i < MAX_FLOORS; i++)
-	{
-		sf_ptr = &floor_list[i];
+	// Find empty space
+	for (i = 0; i < MAX_FLOORS; i++) if (!floor_list[i].floor_id) break;
 
-		if (!sf_ptr->floor_id) break;
-	}
-
-	/* None found */
+	// Not found
 	if (i == MAX_FLOORS)
 	{
 		int oldest = 0;
 		u32b oldest_visit = 0xffffffffL;
 
-		/* Search for oldest */
+		// Search for oldest
 		for (i = 0; i < MAX_FLOORS; i++)
 		{
-			sf_ptr = &floor_list[i];
-
-			/* Don't kill current floor */
-			if (sf_ptr->floor_id == player_ptr->floor_id) continue;
-
-			/* Don't kill newer */
-			if (sf_ptr->visit_mark > oldest_visit) continue;
-
+			floor_ptr = &floor_list[i];
+			if (floor_ptr->floor_id == current_floor_ptr) continue; // Don't kill current floor
+			if (floor_ptr->visit_mark > oldest_visit)     continue; // Don't kill newer
 			oldest = i;
-			oldest_visit = sf_ptr->visit_mark;
+			oldest_visit = floor_ptr->visit_mark;
 		}
 
-		/* Kill oldest saved floor */
-		sf_ptr = &floor_list[oldest];
-		kill_floor(sf_ptr);
+		// Kill oldest saved floor
+		floor_ptr = &floor_list[oldest];
+		kill_floor(floor_ptr);
 
-		/* Use it */
-		i = oldest;
+		i = oldest; // Use it
 	}
 
-	/* Prepare new floor data */
-	sf_ptr->savefile_id = i;
-	sf_ptr->floor_id = max_floor_id;
-	sf_ptr->last_visit = 0;
-	sf_ptr->upper_floor_id = 0;
-	sf_ptr->lower_floor_id = 0;
-	sf_ptr->visit_mark = latest_visit_mark++;
+	// Prepare new floor data
+	floor_ptr->savefile_id = i;
+	floor_ptr->floor_id = max_floor_id;
+	floor_ptr->last_visit = 0;
+	floor_ptr->upper_floor_id = 0;
+	floor_ptr->lower_floor_id = 0;
+	floor_ptr->visit_mark = latest_visit_mark++;
 
-	/* sf_ptr->current_floor_ptr->dun_level may be changed later */
-	sf_ptr->dun_level = current_floor_ptr->dun_level;
-	sf_ptr->dun_type = dungeon_type;
-	sf_ptr->world_x = wilderness_x;
-	sf_ptr->world_y = wilderness_y;
+	// These may be changed later
+	floor_ptr->dun_level = current_floor_ptr->dun_level;
+	floor_ptr->dun_type = dungeon_type;
+	floor_ptr->world_x = wilderness_x;
+	floor_ptr->world_y = wilderness_y;
 
-
-	/* Increment number of floor_id */
+	// Increment number of floor_id
 	if (max_floor_id < MAX_SHORT) max_floor_id++;
+	else max_floor_id = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
 
-	/* 32767 floor_ids are all used up!  Re-use ancient IDs */
-	else max_floor_id = 1;
-
-	return sf_ptr->floor_id;
+	return floor_ptr->floor_id;
 }
 
 
-/*
- * Prepare mode flags of changing floor
- */
+//
+// Prepare mode flags of changing floor
+//
 void prepare_change_floor_mode(u32b mode)
 {
 	change_floor_mode |= mode;
@@ -528,7 +514,7 @@ void leave_floor(creature_type *cr_ptr)
 	*/
 
 	// Extract current floor info or NULL
-	sf_ptr = get_floot_ptr(cr_ptr->floor_id);
+	sf_ptr = get_floor_ptr(cr_ptr->floor_id);
 
 	// Choose random stairs
 	if ((change_floor_mode & CFM_RAND_CONNECT) && cr_ptr->floor_id)
@@ -544,7 +530,7 @@ void leave_floor(creature_type *cr_ptr)
 		f_ptr = &f_info[c_ptr->feat];
 
 		// Get back to old saved floor?
-		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_floot_ptr(c_ptr->special))
+		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_floor_ptr(c_ptr->special))
 		{
 			// Saved floor is exist.  Use it.
 			current_floor_id = c_ptr->special;
@@ -657,7 +643,7 @@ void leave_floor(creature_type *cr_ptr)
 			prepare_change_floor_mode(CFM_NO_RETURN);
 
 			// Kill current floor
-			kill_floor(get_floot_ptr(cr_ptr->floor_id));
+			kill_floor(get_floor_ptr(cr_ptr->floor_id));
 		}
 	}
 
@@ -709,7 +695,7 @@ void change_floor(creature_type *cr_ptr)
 		}
 
 		// Pointer for infomations of new floor
-		sf_ptr = get_floot_ptr(current_floor_id);
+		sf_ptr = get_floor_ptr(current_floor_id);
 
 		// Try to restore old floor
 		if (sf_ptr->last_visit)
@@ -746,7 +732,7 @@ void change_floor(creature_type *cr_ptr)
 		
 		if (cr_ptr->floor_id)
 		{
-			floor_type *cur_sf_ptr = get_floot_ptr(cr_ptr->floor_id);
+			floor_type *cur_sf_ptr = get_floor_ptr(cr_ptr->floor_id);
 
 			if (change_floor_mode & CFM_UP)
 			{
@@ -1003,14 +989,14 @@ void stair_creation(creature_type *creature_ptr)
 	delete_object(creature_ptr->fy, creature_ptr->fx);
 
 	/* Extract current floor data */
-	sf_ptr = get_floot_ptr(creature_ptr->floor_id);
+	sf_ptr = get_floor_ptr(creature_ptr->floor_id);
 
 	/* Paranoia */
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
 		creature_ptr->floor_id = add_new_floor();
-		sf_ptr = get_floot_ptr(creature_ptr->floor_id);
+		sf_ptr = get_floor_ptr(creature_ptr->floor_id);
 	} 
 
 	/* Choose randomly */
@@ -1066,7 +1052,7 @@ void stair_creation(creature_type *creature_ptr)
 	}
 
 	/* Extract destination floor data */
-	dest_sf_ptr = get_floot_ptr(dest_floor_id);
+	dest_sf_ptr = get_floor_ptr(dest_floor_id);
 
 
 	/* Create a staircase */
