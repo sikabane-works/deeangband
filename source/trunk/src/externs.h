@@ -1140,7 +1140,7 @@ extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
 extern void init_saved_floors(bool force);
 extern floor_type *get_floor_ptr(s16b floor_id);
 extern s16b add_new_floor(void);
-extern void prepare_change_floor_mode(u32b mode);
+extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
 extern void leave_floor(creature_type *cr_ptr);
 extern void change_floor(creature_type *cr_ptr);
 extern void stair_creation(creature_type *creature_ptr);

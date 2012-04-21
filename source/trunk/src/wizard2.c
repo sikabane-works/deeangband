@@ -1689,7 +1689,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	/* Change level */
 	current_floor_ptr->dun_level = command_arg;
 
-	prepare_change_floor_mode(CFM_RAND_PLACE);
+	prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 
 	if (!current_floor_ptr->dun_level) dungeon_type = 0;
 	inside_arena = FALSE;
@@ -1709,7 +1709,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	prepare_change_floor_mode(CFM_FIRST_FLOOR);
+	prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
 
 	/* Leaving */
 	subject_change_floor = TRUE;

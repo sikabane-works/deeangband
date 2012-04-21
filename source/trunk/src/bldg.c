@@ -289,7 +289,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 						reset_tim_flags(cr_ptr);
 
 						/* Save the surface floor as saved floor */
-						prepare_change_floor_mode(CFM_SAVE_FLOORS);
+						prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
 						inside_arena = TRUE;
 						subject_change_floor = TRUE;
@@ -331,7 +331,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 				reset_tim_flags(cr_ptr);
 
 				/* Save the surface floor as saved floor */
-				prepare_change_floor_mode(CFM_SAVE_FLOORS);
+				prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
 				inside_arena = TRUE;
 				subject_change_floor = TRUE;
@@ -2069,7 +2069,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			reset_tim_flags(cr_ptr);
 
 			// Save the surface floor as saved floor
-			prepare_change_floor_mode(CFM_SAVE_FLOORS);
+			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
 			monster_arena_mode = TRUE;
 			subject_change_floor = TRUE;
@@ -5079,7 +5079,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		else
 		{
 			/* Don't save the arena as saved floor */
-			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
+			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 			inside_arena = FALSE;
 			subject_change_floor = TRUE;
@@ -5096,7 +5096,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	else if (monster_arena_mode)
 	{
 		/* Don't save the arena as saved floor */
-		prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
+		prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 		subject_change_floor = TRUE;
 		monster_arena_mode = FALSE;

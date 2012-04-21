@@ -701,11 +701,11 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			if (!current_floor_ptr->dun_level)
 			{
 				current_floor_ptr->dun_level = dungeon_info[dungeon_type].mindepth;
-				prepare_change_floor_mode(CFM_RAND_PLACE);
+				prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 			}
 			else
 			{
-				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+				prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 			}
 
 			/* Leaving */
@@ -729,7 +729,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
-			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			leave_quest_check(cr_ptr);
 
@@ -753,7 +753,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
-			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
 			subject_change_floor = TRUE;
@@ -776,7 +776,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
-			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
 			subject_change_floor = TRUE;
