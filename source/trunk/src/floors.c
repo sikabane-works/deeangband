@@ -171,7 +171,7 @@ s16b add_new_floor(void)
 		for (i = 0; i < MAX_FLOORS; i++)
 		{
 			floor_ptr = &floor_list[i];
-			if (floor_ptr->floor_id == current_floor_ptr) continue; // Don't kill current floor
+			if (floor_ptr == current_floor_ptr) continue; // Don't kill current floor
 			if (floor_ptr->visit_mark > oldest_visit)     continue; // Don't kill newer
 			oldest = i;
 			oldest_visit = floor_ptr->visit_mark;
@@ -532,8 +532,7 @@ void leave_floor(creature_type *cr_ptr)
 		// Get back to old saved floor?
 		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_floor_ptr(c_ptr->special))
 		{
-			// Saved floor is exist.  Use it.
-			current_floor_id = c_ptr->special;
+			current_floor_id = c_ptr->special; // Saved floor is exist.  Use it.
 		}
 
 		// Mark shaft up/down
@@ -600,14 +599,8 @@ void leave_floor(creature_type *cr_ptr)
 	// Mark next floor_id on the previous floor
 	if (!current_floor_id)
 	{
-		// Get new id
-		current_floor_id = add_new_floor();
-
-		// Connect from here
-		if (c_ptr && !feat_uses_special(c_ptr->feat))
-		{
-			c_ptr->special = current_floor_id;
-		}
+		current_floor_id = add_new_floor(); // Get new id
+		if (c_ptr && !feat_uses_special(c_ptr->feat)) c_ptr->special = current_floor_id; // Connect from here
 	}
 
 	// Fix connection -- level teleportation or trap door
@@ -624,29 +617,15 @@ void leave_floor(creature_type *cr_ptr)
 	if ((change_floor_mode & CFM_SAVE_FLOORS) &&
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
-		// Get out of the my way!
-		get_out_creature(cr_ptr);
-
-		// Record the last visit turn of current floor
-		sf_ptr->last_visit = turn;
+		get_out_creature(cr_ptr); // Get out of the my way!
+		sf_ptr->last_visit = turn; // Record the last visit turn of current floor
 
 		// Forget the lite and view
 		//TODO
 		forget_lite();
 		forget_view();
 		clear_creature_lite();
-
-		// Save current floor
-		if (!save_floor(sf_ptr, 0))
-		{
-			// Save failed -- No return
-			prepare_change_floor_mode(CFM_NO_RETURN);
-
-			// Kill current floor
-			kill_floor(get_floor_ptr(cr_ptr->floor_id));
-		}
 	}
-
 }
 
 
