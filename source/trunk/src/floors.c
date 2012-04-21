@@ -115,10 +115,10 @@ void init_saved_floors(bool force)
 }
 
 
-/*
- * Get a pointer for an item of the saved_floors array.
- */
-floor_type *get_sf_ptr(s16b floor_id)
+//
+// Get a pointer for an item of the saved_floors array.
+//
+floor_type *get_floot_ptr(s16b floor_id)
 {
 	int i;
 
@@ -135,9 +135,9 @@ floor_type *get_sf_ptr(s16b floor_id)
 }
 
 
-/*
- * kill a saved floor and get an empty space
- */
+//
+// kill a saved floor and get an empty space
+//
 static void kill_floor(floor_type *sf_ptr)
 {
 	if (!sf_ptr) return; // Paranoia
@@ -528,7 +528,7 @@ void leave_floor(creature_type *cr_ptr)
 	*/
 
 	// Extract current floor info or NULL
-	sf_ptr = get_sf_ptr(cr_ptr->floor_id);
+	sf_ptr = get_floot_ptr(cr_ptr->floor_id);
 
 	// Choose random stairs
 	if ((change_floor_mode & CFM_RAND_CONNECT) && cr_ptr->floor_id)
@@ -544,7 +544,7 @@ void leave_floor(creature_type *cr_ptr)
 		f_ptr = &f_info[c_ptr->feat];
 
 		// Get back to old saved floor?
-		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_sf_ptr(c_ptr->special))
+		if (c_ptr->special && !have_flag(f_ptr->flags, FF_SPECIAL) && get_floot_ptr(c_ptr->special))
 		{
 			// Saved floor is exist.  Use it.
 			current_floor_id = c_ptr->special;
@@ -657,7 +657,7 @@ void leave_floor(creature_type *cr_ptr)
 			prepare_change_floor_mode(CFM_NO_RETURN);
 
 			// Kill current floor
-			kill_floor(get_sf_ptr(cr_ptr->floor_id));
+			kill_floor(get_floot_ptr(cr_ptr->floor_id));
 		}
 	}
 
@@ -709,7 +709,7 @@ void change_floor(creature_type *cr_ptr)
 		}
 
 		// Pointer for infomations of new floor
-		sf_ptr = get_sf_ptr(current_floor_id);
+		sf_ptr = get_floot_ptr(current_floor_id);
 
 		// Try to restore old floor
 		if (sf_ptr->last_visit)
@@ -746,7 +746,7 @@ void change_floor(creature_type *cr_ptr)
 		
 		if (cr_ptr->floor_id)
 		{
-			floor_type *cur_sf_ptr = get_sf_ptr(cr_ptr->floor_id);
+			floor_type *cur_sf_ptr = get_floot_ptr(cr_ptr->floor_id);
 
 			if (change_floor_mode & CFM_UP)
 			{
@@ -1003,14 +1003,14 @@ void stair_creation(creature_type *creature_ptr)
 	delete_object(creature_ptr->fy, creature_ptr->fx);
 
 	/* Extract current floor data */
-	sf_ptr = get_sf_ptr(creature_ptr->floor_id);
+	sf_ptr = get_floot_ptr(creature_ptr->floor_id);
 
 	/* Paranoia */
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
 		creature_ptr->floor_id = add_new_floor();
-		sf_ptr = get_sf_ptr(creature_ptr->floor_id);
+		sf_ptr = get_floot_ptr(creature_ptr->floor_id);
 	} 
 
 	/* Choose randomly */
@@ -1066,7 +1066,7 @@ void stair_creation(creature_type *creature_ptr)
 	}
 
 	/* Extract destination floor data */
-	dest_sf_ptr = get_sf_ptr(dest_floor_id);
+	dest_sf_ptr = get_floot_ptr(dest_floor_id);
 
 
 	/* Create a staircase */
