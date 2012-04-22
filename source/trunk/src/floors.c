@@ -158,16 +158,16 @@ s16b add_new_floor(void)
 	int i;
 
 	// Find empty space
-	for (i = 0; i < MAX_FLOORS; i++) if (!floor_list[i].floor_id) break;
+	for (i = 1; i < MAX_FLOORS; i++) if (!floor_list[i].floor_id) break;
 
 	// Not found
 	if (i == MAX_FLOORS)
 	{
-		int oldest = 0;
+		int oldest = 1;
 		u32b oldest_visit = 0xffffffffL;
 
 		// Search for oldest
-		for (i = 0; i < MAX_FLOORS; i++)
+		for (i = 1; i < MAX_FLOORS; i++)
 		{
 			floor_ptr = &floor_list[i];
 			if (floor_ptr == current_floor_ptr) continue; // Don't kill current floor
