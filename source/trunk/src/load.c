@@ -1755,32 +1755,18 @@ note("メッセージをロードしました");
 	/* Read the monsters */
 	for (i = 1; i < limit; i++)
 	{
-		cave_type *c_ptr;
+		cave_type *cave_ptr;
 		int m_idx;
-		creature_type *m_ptr;
+		creature_type *creature_ptr;
 
-		/* Get a new record */
-		m_idx = creature_pop();
+		m_idx = creature_pop(); // Get a new record
+		if (i != m_idx) return 162; // Oops
+		creature_ptr = &creature_list[m_idx]; // Acquire creature
+		rd_creature(creature_ptr); // Read the monster
+		cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
+		cave_ptr->creature_idx = m_idx; // Mark the location
 
-		/* Oops */
-		if (i != m_idx) return 162;
-
-		/* Acquire monster */
-		m_ptr = &creature_list[m_idx];
-
-		/* Read the monster */
-		rd_creature(m_ptr);
-
-		/* Access grid */
-		c_ptr = &current_floor_ptr->cave[m_ptr->fy][m_ptr->fx];
-
-		/* Mark the location */
-		c_ptr->creature_idx = m_idx;
-
-		/* Count */
-
-		real_species_ptr(m_ptr)->cur_num++;
-
+		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
 
 	/* Object Memory */
@@ -1842,29 +1828,29 @@ note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
 		/* Monster */
 		if (o_ptr->held_m_idx)
 		{
-			creature_type *m_ptr;
+			creature_type *creature_ptr;
 
 			/* Monster */
-			m_ptr = &creature_list[o_ptr->held_m_idx];
+			creature_ptr = &creature_list[o_ptr->held_m_idx];
 
 			/* Build a stack */
-			o_ptr->next_object_idx = m_ptr->hold_object_idx;
+			o_ptr->next_object_idx = creature_ptr->hold_object_idx;
 
 			/* Place the object */
-			m_ptr->hold_object_idx = object_idx;
+			creature_ptr->hold_object_idx = object_idx;
 		}
 
 		/* Dungeon */
 		else
 		{
 			/* Access the item location */
-			cave_type *c_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
+			cave_type *cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
 
 			/* Build a stack */
-			o_ptr->next_object_idx = c_ptr->object_idx;
+			o_ptr->next_object_idx = cave_ptr->object_idx;
 
 			/* Place the object */
-			c_ptr->object_idx = object_idx;
+			cave_ptr->object_idx = object_idx;
 		}
 	}
 
