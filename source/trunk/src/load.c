@@ -1253,11 +1253,10 @@ static void rd_extra(void)
 
 	/* Current turn */
 	rd_s32b(&turn);
-
 	rd_s32b(&dungeon_turn);
-
+	rd_s32b(&turn_limit);
+	rd_s32b(&dungeon_turn_limit);
 	rd_s32b(&old_battle);
-
 	rd_s16b(&today_mon);
 
 	/* Get number of party_mon array */
