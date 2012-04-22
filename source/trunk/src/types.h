@@ -409,11 +409,9 @@ struct species_type
 	byte x_char;			/* Desired monster character */
 
 	byte max_num;			/* Maximum population allowed per level */
-
 	byte cur_num;			/* Monster population on current level */
 
-	s16b floor_id;                  /* Location of unique monster */
-
+	s16b floor_id;          /* Location of unique monster */
 
 	s16b r_sights;			/* Count sightings of this monster */
 	s16b r_deaths;			/* Count deaths from this monster */
@@ -462,8 +460,6 @@ struct creature_ego
 #endif
 	s16b stat[6];		/* Current modified stats */
 };
-
-
 
 
 /*
@@ -737,31 +733,6 @@ struct quest_type
 
 	byte complev;           /* player level (complete) */
 };
-
-
-/*
- * A store owner
- */
-/*
-typedef struct owner_type owner_type;
-
-struct owner_type
-{
-	cptr ownespecies_name;	// Name
-
-	s16b max_cost;		// Purse limit
-
-	byte max_inflate;	// Inflation (max)
-	byte min_inflate;	// Inflation (min)
-
-	byte haggle_per;	// Haggle unit
-
-	byte insult_max;	// Insult limit
-
-	byte owner_race;	// Owner race
-};
-
-/*
 
 
 /*
