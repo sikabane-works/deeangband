@@ -574,10 +574,6 @@ struct coord
  * via the "next_object_idx" field, forming a singly linked list, which
  * in game terms, represents a "stack" of objects in the same grid.
  *
- * Each monster points to one (or zero) objects via the "hold_object_idx"
- * field (below).  Each object then points to one (or zero) objects
- * via the "next_object_idx" field, forming a singly linked list, which
- * in game terms, represents a pile of objects held by the monster.
  *
  * The "held_m_idx" field is used to indicate which monster, if any,
  * is holding the object.  Objects being held have "ix=0" and "iy=0".
@@ -1540,8 +1536,6 @@ struct creature_type
 	byte mflag2;	/* Extra monster flags */
 
 	bool ml;		/* Monster is "visible" */
-
-	s16b hold_object_idx;	/* Object being held (if any) */
 
 	s16b target_y;		/* Can attack !los player */
 	s16b target_x;		/* Can attack !los player */

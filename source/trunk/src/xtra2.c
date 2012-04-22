@@ -2637,48 +2637,6 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		s2 = "carrying ";
 #endif
 
-
-		/* Scan all objects being carried */
-		for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-		{
-			char o_name[MAX_NLEN];
-
-			object_type *o_ptr;
-
-			/* Acquire object */
-			o_ptr = &object_list[this_object_idx];
-
-			/* Acquire next object */
-			next_object_idx = o_ptr->next_object_idx;
-
-			/* Obtain an object description */
-			object_desc(o_name, o_ptr, 0);
-
-			/* Describe the object */
-#ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s]", s1, o_name, s2, s3, info);
-#else
-			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, o_name, info);
-#endif
-
-			prt(out_val, 0, 0);
-			move_cursor_relative(y, x);
-			query = inkey();
-
-			/* Always stop at "normal" keys */
-			if ((query != '\r') && (query != '\n') && (query != ' ') && (query != 'x')) return query;
-
-			/* Sometimes stop at "space" key */
-			if ((query == ' ') && !(mode & (TARGET_LOOK))) return query;
-
-			/* Change the intro */
-#ifdef JP
-			s2 = "ÇÇ‹ÇΩ";
-#else
-			s2 = "also carrying ";
-#endif
-		}
-
 		/* Use a preposition */
 #ifdef JP
 		s2 = "ÇÃè„";
@@ -2686,6 +2644,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 #else
 		s2 = "on ";
 #endif
+
 	}
 
 

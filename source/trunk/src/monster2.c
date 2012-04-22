@@ -699,8 +699,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	int x, y;
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
-	s16b this_object_idx, next_object_idx = 0;
-
+	s16b next_object_idx = 0;
 
 	/* Get location */
 	y = creature_ptr->fy;

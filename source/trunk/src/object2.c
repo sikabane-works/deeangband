@@ -37,50 +37,6 @@ void excise_object_idx(int object_idx)
 
 		/* Monster */
 		m_ptr = &creature_list[j_ptr->held_m_idx];
-
-		/* Scan all objects in the grid */
-		for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-		{
-			object_type *o_ptr;
-
-			/* Acquire object */
-			o_ptr = &object_list[this_object_idx];
-
-			/* Acquire next object */
-			next_object_idx = o_ptr->next_object_idx;
-
-			/* Done */
-			if (this_object_idx == object_idx)
-			{
-				/* No previous */
-				if (prev_object_idx == 0)
-				{
-					/* Remove from list */
-					m_ptr->hold_object_idx = next_object_idx;
-				}
-
-				/* Real previous */
-				else
-				{
-					object_type *k_ptr;
-
-					/* Previous object */
-					k_ptr = &object_list[prev_object_idx];
-
-					/* Remove from list */
-					k_ptr->next_object_idx = next_object_idx;
-				}
-
-				/* Forget next pointer */
-				o_ptr->next_object_idx = 0;
-
-				/* Done */
-				break;
-			}
-
-			/* Save prev_object_idx */
-			prev_object_idx = this_object_idx;
-		}
 	}
 
 	/* Dungeon */
@@ -226,9 +182,8 @@ void delete_object(int y, int x)
 static void compact_objects_aux(int i1, int i2)
 {
 	int i;
-
+	int y, x;
 	cave_type *c_ptr;
-
 	object_type *o_ptr;
 
 
@@ -257,41 +212,18 @@ static void compact_objects_aux(int i1, int i2)
 	/* Acquire object */
 	o_ptr = &object_list[i1];
 
+	/* Acquire location */
+	y = o_ptr->iy;
+	x = o_ptr->ix;
 
-	/* Monster */
-	if (o_ptr->held_m_idx)
+	/* Acquire grid */
+	c_ptr = &current_floor_ptr->cave[y][x];
+
+	/* Repair grid */
+	if (c_ptr->object_idx == i1)
 	{
-		creature_type *m_ptr;
-
-		/* Acquire monster */
-		m_ptr = &creature_list[o_ptr->held_m_idx];
-
-		/* Repair monster */
-		if (m_ptr->hold_object_idx == i1)
-		{
-			/* Repair */
-			m_ptr->hold_object_idx = i2;
-		}
-	}
-
-	/* Dungeon */
-	else
-	{
-		int y, x;
-
-		/* Acquire location */
-		y = o_ptr->iy;
-		x = o_ptr->ix;
-
-		/* Acquire grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
-
-		/* Repair grid */
-		if (c_ptr->object_idx == i1)
-		{
-			/* Repair */
-			c_ptr->object_idx = i2;
-		}
+		/* Repair */
+		c_ptr->object_idx = i2;
 	}
 
 
@@ -460,20 +392,9 @@ void wipe_object_list(void)
 			}
 		}
 
-		/* Monster */
-		if (o_ptr->held_m_idx)
-		{
-			creature_type *m_ptr;
-
-			/* Monster */
-			m_ptr = &creature_list[o_ptr->held_m_idx];
-
-			/* Hack -- see above */
-			m_ptr->hold_object_idx = 0;
-		}
 
 		/* Dungeon */
-		else if(current_floor_ptr)
+		if(current_floor_ptr)
 		{
 			cave_type *c_ptr;
 

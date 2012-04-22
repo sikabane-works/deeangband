@@ -2502,12 +2502,6 @@ msg_format("%^s%s", creature_name, monmessage);
 
 						/* Memorize monster */
 						o_ptr->held_m_idx = m_idx;
-
-						/* Build a stack */
-						o_ptr->next_object_idx = creature_ptr->hold_object_idx;
-
-						/* Carry object */
-						creature_ptr->hold_object_idx = this_object_idx;
 					}
 
 					/* Destroy the item if not a pet */

@@ -5441,8 +5441,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 	if (new_species_idx != old_species_idx)
 	{
 		u32b mode = 0L;
-		bool preserve_hold_objects = back_m.hold_object_idx ? TRUE : FALSE;
-		s16b this_object_idx, next_object_idx = 0;
+		s16b next_object_idx = 0;
 
 		/* Get the monsters attitude */
 		if (is_friendly(player_ptr, m_ptr)) mode |= PM_FORCE_FRIENDLY;

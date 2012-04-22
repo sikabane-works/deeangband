@@ -1725,7 +1725,6 @@ note("メッセージをロードしました");
 	// Read creatures
 	for (i = 1; i < limit; i++)
 	{
-		cave_type *cave_ptr;
 		int creature_idx;
 		creature_type *creature_ptr;
 
@@ -1782,10 +1781,6 @@ note("メッセージをロードしました");
 
 		/* Get a new record */
 		object_idx = object_pop();
-
-		/* Oops */
-		//if (i != object_idx)
-		//	return 152;
 
 		/* Acquire place */
 		o_ptr = &object_list[object_idx];

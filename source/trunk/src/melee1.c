@@ -1099,12 +1099,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 
 							/* Memorize monster */
 							//TODO j_ptr->held_m_idx = m_idx;
-
-							/* Build stack */
-							j_ptr->next_object_idx = attacker_ptr->hold_object_idx;
-
-							/* Build stack */
-							attacker_ptr->hold_object_idx = object_idx;
 						}
 
 						/* Steal the items */
