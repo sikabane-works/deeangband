@@ -2673,7 +2673,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 					if (is_pet(player_ptr, m_ptr))
 					{
-						monster_drop_carried_objects(m_ptr);
+						creature_drop_carried_objects(m_ptr);
 					}
 				}
 			}

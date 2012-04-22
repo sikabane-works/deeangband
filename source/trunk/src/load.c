@@ -1728,7 +1728,6 @@ note("メッセージをロードしました");
 	{
 		int object_idx;
 		object_type *o_ptr;
-		cave_type *cave_ptr;
 
 		/* Get a new record */
 		object_idx = object_pop();

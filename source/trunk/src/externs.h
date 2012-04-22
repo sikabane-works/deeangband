@@ -1246,7 +1246,7 @@ extern bool multiply_creature(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_species(int m_idx, bool born, int species_idx, int creature_egobject_idx);
 extern bool creature_place(creature_type *creature_ptr, int y, int x);
-extern void monster_drop_carried_objects(creature_type *m_ptr);
+extern void creature_drop_carried_objects(creature_type *m_ptr);
 
 /* object1.c */
 extern s16b m_bonus(int max, int level);

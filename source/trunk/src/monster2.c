@@ -5904,9 +5904,12 @@ bool creature_place(creature_type *creature_ptr, int y, int x)
 
 
 /*
- * Drop all items carried by a monster
+ * Drop all items carried by a creature
  */
-void monster_drop_carried_objects(creature_type *m_ptr)
+void creature_drop_carried_objects(creature_type *creature_ptr)
 {
-	// TODO
+	int i;
+	for(i = 0; i < INVEN_TOTAL; i++)
+		if(creature_ptr->inventory[i].k_idx)
+			(void)drop_near(&creature_ptr->inventory[i], 25, creature_ptr->fy, creature_ptr->fx);
 }

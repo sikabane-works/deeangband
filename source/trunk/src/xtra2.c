@@ -884,12 +884,6 @@ msg_print("地面に落とされた。");
 		}
 	}
 
-	/* Drop Inventory */
-	for(i = 0; i < INVEN_TOTAL; i++) {
-		if(killed_ptr->inventory[i].k_idx) (void)drop_near(&killed_ptr->inventory[i], 25, y, x);
-	}
-
-
 	/* Drop a dead corpse? */
 	if (one_in_(has_cf_creature(killed_ptr, CF_UNIQUE) ? 1 : 4) &&
 	    (has_cf_creature(killed_ptr, CF_DROP_CORPSE) || has_cf_creature(killed_ptr, CF_DROP_SKELETON)) &&
@@ -936,10 +930,7 @@ msg_print("地面に落とされた。");
 	}
 
 	/* Drop objects being carried */
-	monster_drop_carried_objects(killed_ptr);
-
-	//if (killed_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	//if (killed_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	creature_drop_carried_objects(killed_ptr);
 
 	switch (killed_ptr->species_idx)
 	{
