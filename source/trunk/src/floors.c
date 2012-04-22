@@ -1049,3 +1049,18 @@ void stair_creation(creature_type *creature_ptr)
 	/* Connect this stairs to the destination */
 	current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
+
+void reset_cave_reference(void)
+{
+	int i, j;
+
+	for(i = 0; i < current_floor_ptr->height; i++)
+		for(j = 0; j < current_floor_ptr->width; j++)
+			current_floor_ptr->cave[i][j].creature_idx = 0;
+
+	for(i = 1; i < creature_max; i++)
+	{
+		current_floor_ptr->cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
+	}
+
+}
