@@ -997,14 +997,8 @@ static void rd_creature(creature_type *cr_ptr)
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
-	if (tmp16u > PY_MAX_LEVEL)
-		note(format("Too many (%u) hitpoint entries!", tmp16u));
-
-	for (i = 0; i < tmp16u; i++)
-	{
-		rd_s16b(&cr_ptr->base_hp[i]);
-	}
-
+	if (tmp16u > PY_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
+	for (i = 0; i < tmp16u; i++) rd_s16b(&cr_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) rd_s32b(&cr_ptr->authority[i]);
 	for (i = 0; i < 64; i++) rd_s16b(&cr_ptr->spell_exp[i]);
@@ -1044,7 +1038,7 @@ static void rd_creature(creature_type *cr_ptr)
 
 	rd_s16b(&cr_ptr->max_plv);
 
-	// Repair maximum player level XXX XXX XXX
+	// Repair maximum player level
 	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;
 
 	rd_s16b(&cr_ptr->sc);
@@ -1124,8 +1118,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->flags13);
 	rd_u32b(&cr_ptr->flags14);
 
-	for (i = 0; i < MAX_KARMA; i++)
-		rd_s32b(&cr_ptr->karmas[i]);
+	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&cr_ptr->karmas[i]);
 
 	// Calc the regeneration modifier for mutation
 	cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
@@ -1174,8 +1167,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u16b(&cr_ptr->total_winner);
 
 	// Update
-	set_experience(cr_ptr);
-	calc_bonuses(cr_ptr, FALSE);
+	//set_experience(cr_ptr);
+	//calc_bonuses(cr_ptr, FALSE);
 
 }
 
@@ -1740,8 +1733,8 @@ note("メッセージをロードしました");
 		if (i != m_idx) return 162; // Oops
 		creature_ptr = &creature_list[m_idx]; // Acquire creature
 		rd_creature(creature_ptr); // Read the monster
-		cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
-		cave_ptr->creature_idx = m_idx; // Mark the location
+		//cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
+		//cave_ptr->creature_idx = m_idx; // Mark the location
 
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
@@ -2156,30 +2149,15 @@ errr rd_savefile_new(void)
 {
 	errr err;
 
-	/* Grab permissions */
-	safe_setuid_grab();
+	safe_setuid_grab(); // Grab permissions
+	fff = my_fopen(savefile, "rb"); // The savefile is a binary file
+	safe_setuid_drop(); // Drop permissions
 
-	/* The savefile is a binary file */
-	fff = my_fopen(savefile, "rb");
-
-	/* Drop permissions */
-	safe_setuid_drop();
-
-	/* Paranoia */
 	if (!fff) return (-1);
-
-	/* Call the sub-function */
 	err = rd_savefile_new_aux();
-
-
-	/* Check for errors */
 	if (ferror(fff)) err = -1;
-
-	/* Close the file */
 	my_fclose(fff);
 
-
-	/* Result */
 	return (err);
 }
 
