@@ -1719,7 +1719,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				num_repro += MAX_REPRO;
+				current_floor_ptr->num_repro += MAX_REPRO;
 			}
 		}
 		break;

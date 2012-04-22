@@ -115,8 +115,6 @@ bool msg_flag;			/* Used in msg_print() for "buffering" */
 s16b running;			/* Current counter for running, if any */
 s16b resting;			/* Current counter for resting, if any */
 
-s16b num_repro;			/* Current reproducer count */
-
 s32b turn;				/* Current game turn */
 s32b turn_limit;		/* Limit of game turn */
 s32b dungeon_turn;			/* Game turn in dungeon */

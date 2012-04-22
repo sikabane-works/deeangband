@@ -710,7 +710,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	real_species_ptr(creature_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) num_repro--;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) current_floor_ptr->num_repro--;
 
 	if (creature_ptr->paralyzed) (void)set_paralyzed(creature_ptr, 0);
 	if (creature_ptr->fast) (void)set_fast(creature_ptr, 0, FALSE);
@@ -965,7 +965,7 @@ void wipe_creature_list(void)
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 
 	/* Hack -- reset "reproducer" count */
-	num_repro = 0;
+	current_floor_ptr->num_repro = 0;
 
 	/* Hack -- no more target */
 	target_who = 0;
@@ -4262,7 +4262,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 */
 
 	/* Hack -- Count the number of "reproducers" */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) num_repro++;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) current_floor_ptr->num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{

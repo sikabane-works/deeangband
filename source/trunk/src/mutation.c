@@ -3678,7 +3678,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
 #endif
 
-			num_repro += MAX_REPRO;
+			current_floor_ptr->num_repro += MAX_REPRO;
 			break;
 
 		case CF_PANIC_HIT:

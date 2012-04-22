@@ -1896,6 +1896,7 @@ typedef struct
 	s16b lower_floor_id;  /* a floor connected with level tel. and trap door */
 	s16b width;
 	s16b height;
+	s16b num_repro; /* Current reproducer count */
 	cave_type cave[MAX_HGT][MAX_WID];
 } floor_type;
 

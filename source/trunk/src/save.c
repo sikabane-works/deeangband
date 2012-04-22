@@ -848,7 +848,7 @@ static void wr_floor(floor_type *sf_ptr)
 	wr_s16b(current_floor_ptr->lower_floor_id);
 
 	wr_u16b(current_floor_ptr->base_level);
-	wr_u16b(num_repro);
+	wr_u16b(current_floor_ptr->num_repro);
 	wr_u16b(current_floor_ptr->height);
 	wr_u16b(current_floor_ptr->width);
 

@@ -1608,7 +1608,7 @@ static void process_creature(int m_idx)
 
 
 	/* Attempt to "multiply" if able and allowed */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (num_repro < MAX_REPRO))
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (current_floor_ptr->num_repro < MAX_REPRO))
 	{
 		int k, y, x;
 

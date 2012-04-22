@@ -1363,7 +1363,7 @@ static errr rd_floor(floor_type *sf_ptr)
 
 
 	rd_s16b(&current_floor_ptr->base_level);
-	rd_s16b(&num_repro);
+	rd_s16b(&current_floor_ptr->num_repro);
 
 	rd_s16b(&current_floor_ptr->height);
 	rd_s16b(&current_floor_ptr->width);
