@@ -817,7 +817,7 @@ static void ang_sort_swap_cave_temp(vptr u, vptr v, int a, int b)
  * Actually write a saved floor data
  * using effectively compressed format.
  */
-static void wr_floor(floor_type *sf_ptr)
+static void wr_floor(floor_type *floor_ptr)
 {
 	cave_template_type *template;
 	u16b max_num_temp;
@@ -836,21 +836,21 @@ static void wr_floor(floor_type *sf_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	wr_s16b(current_floor_ptr->floor_id);
-	wr_byte(current_floor_ptr->savefile_id);
-	wr_s16b(current_floor_ptr->dun_level);
-	wr_byte(current_floor_ptr->dun_type);
-	wr_s32b(current_floor_ptr->world_x);
-	wr_s32b(current_floor_ptr->world_y);
-	wr_s32b(current_floor_ptr->last_visit);
-	wr_u32b(current_floor_ptr->visit_mark);
-	wr_s16b(current_floor_ptr->upper_floor_id);
-	wr_s16b(current_floor_ptr->lower_floor_id);
+	wr_s16b(floor_ptr->floor_id);
+	wr_byte(floor_ptr->savefile_id);
+	wr_s16b(floor_ptr->dun_level);
+	wr_byte(floor_ptr->dun_type);
+	wr_s32b(floor_ptr->world_x);
+	wr_s32b(floor_ptr->world_y);
+	wr_s32b(floor_ptr->last_visit);
+	wr_u32b(floor_ptr->visit_mark);
+	wr_s16b(floor_ptr->upper_floor_id);
+	wr_s16b(floor_ptr->lower_floor_id);
 
-	wr_u16b(current_floor_ptr->base_level);
-	wr_u16b(current_floor_ptr->num_repro);
-	wr_u16b(current_floor_ptr->height);
-	wr_u16b(current_floor_ptr->width);
+	wr_u16b(floor_ptr->base_level);
+	wr_u16b(floor_ptr->num_repro);
+	wr_u16b(floor_ptr->height);
+	wr_u16b(floor_ptr->width);
 
 
 
@@ -874,11 +874,11 @@ static void wr_floor(floor_type *sf_ptr)
 	C_MAKE(template, max_num_temp, cave_template_type);
 
 	/* Extract template array */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
 			{
@@ -948,11 +948,11 @@ static void wr_floor(floor_type *sf_ptr)
 	prev_u16b = 0;
 
 	/* Dump the cave */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
 			{
@@ -1012,11 +1012,11 @@ static void wr_floor(floor_type *sf_ptr)
 
 	/*** Dump cave messages ***/
 
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			wr_string(current_floor_ptr->cave[y][x].message);	
+			wr_string(floor_ptr->cave[y][x].message);	
 		}
 	}
 }
@@ -1047,7 +1047,7 @@ static bool wr_floors(creature_type *player_ptr)
 	wr_byte(dungeon_type);
 
 	wr_byte(0); // No array elements
-	wr_floor(NULL); // Write the current floor data
+	wr_floor(current_floor_ptr); // Write the current floor data
 
 	return TRUE; 
 }

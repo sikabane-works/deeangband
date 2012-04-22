@@ -1333,15 +1333,12 @@ static void rd_messages(void)
  * The monsters/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
-static errr rd_floor(floor_type *sf_ptr)
+static errr rd_floor(floor_type *floor_ptr)
 {
 	int ymax, xmax;
 	int i, y, x;
 	byte count;
 	byte tmp8u;
-	s16b tmp16s;
-	s32b tmp32s;
-	u32b tmp32u;
 	u16b limit;
 
 	cave_template_type *cave_templete_ptr;
@@ -1350,23 +1347,23 @@ static errr rd_floor(floor_type *sf_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	rd_s16b(&current_floor_ptr->floor_id);
-	rd_byte(&current_floor_ptr->savefile_id);
-	rd_s16b(&current_floor_ptr->dun_level);
-	rd_byte(&current_floor_ptr->dun_type);
-	rd_s32b(&current_floor_ptr->world_x);
-	rd_s32b(&current_floor_ptr->world_y);
-	rd_s32b(&current_floor_ptr->last_visit);
-	rd_u32b(&current_floor_ptr->visit_mark);
-	rd_s16b(&current_floor_ptr->upper_floor_id);
-	rd_s16b(&current_floor_ptr->lower_floor_id);
+	rd_s16b(&floor_ptr->floor_id);
+	rd_byte(&floor_ptr->savefile_id);
+	rd_s16b(&floor_ptr->dun_level);
+	rd_byte(&floor_ptr->dun_type);
+	rd_s32b(&floor_ptr->world_x);
+	rd_s32b(&floor_ptr->world_y);
+	rd_s32b(&floor_ptr->last_visit);
+	rd_u32b(&floor_ptr->visit_mark);
+	rd_s16b(&floor_ptr->upper_floor_id);
+	rd_s16b(&floor_ptr->lower_floor_id);
 
 
-	rd_s16b(&current_floor_ptr->base_level);
-	rd_s16b(&current_floor_ptr->num_repro);
+	rd_s16b(&floor_ptr->base_level);
+	rd_s16b(&floor_ptr->num_repro);
 
-	rd_s16b(&current_floor_ptr->height);
-	rd_s16b(&current_floor_ptr->width);
+	rd_s16b(&floor_ptr->height);
+	rd_s16b(&floor_ptr->width);
 
 
 
@@ -1391,8 +1388,8 @@ static errr rd_floor(floor_type *sf_ptr)
 	}
 
 	/* Maximal size */
-	ymax = current_floor_ptr->height;
-	xmax = current_floor_ptr->width;
+	ymax = floor_ptr->height;
+	xmax = floor_ptr->width;
 
 
 	/*** Run length decoding ***/
@@ -1416,7 +1413,7 @@ static errr rd_floor(floor_type *sf_ptr)
 		for (i = count; i > 0; i--)
 		{
 			/* Access the cave */
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			/* Extract cave data */
 			c_ptr->info = cave_templete_ptr[id].info;
@@ -1440,11 +1437,11 @@ static errr rd_floor(floor_type *sf_ptr)
 	C_FREE(cave_templete_ptr, limit, cave_template_type);
 
 	/*** Load cave messages ***/
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			rd_string(current_floor_ptr->cave[y][x].message, CAVE_MESSAGE_LENGTH);	
+			rd_string(floor_ptr->cave[y][x].message, CAVE_MESSAGE_LENGTH);	
 		}
 	}
 
@@ -1486,7 +1483,7 @@ static errr rd_floors(void)
 	current_floor_ptr = &floor_list[1];
 
 	// Read the current floor data
-	err = rd_floor(NULL);
+	err = rd_floor(current_floor_ptr);
 
 	/*** Error messages ***/
 	switch (err)

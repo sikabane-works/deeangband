@@ -964,9 +964,6 @@ void wipe_creature_list(void)
 	/* Reset "mproc_max[]" */
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 
-	/* Hack -- reset "reproducer" count */
-	current_floor_ptr->num_repro = 0;
-
 	/* Hack -- no more target */
 	target_who = 0;
 	pet_t_m_idx = 0;
