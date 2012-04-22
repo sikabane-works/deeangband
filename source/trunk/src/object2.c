@@ -541,7 +541,7 @@ s16b get_obj_num(int level, u32b flag)
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
 	/* Boost level */
-	if ((level > 0) && !(dungeon_info[dungeon_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Occasional "boost" */
 		if (one_in_(GREAT_OBJ))
@@ -3465,14 +3465,14 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	f1 = lev + 10;
 
 	/* Maximal chance of being "good" */
-	if (f1 > dungeon_info[dungeon_type].obj_good) f1 = dungeon_info[dungeon_type].obj_good;
+	if (f1 > dungeon_info[current_floor_ptr->dun_type].obj_good) f1 = dungeon_info[current_floor_ptr->dun_type].obj_good;
 
 	/* Base chance of being "great" */
 	f2 = f1 * 2 / 3;
 
 	/* Maximal chance of being "great" */
-	if ((owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[dungeon_type].obj_great))
-		f2 = dungeon_info[dungeon_type].obj_great;
+	if ((owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[current_floor_ptr->dun_type].obj_great))
+		f2 = dungeon_info[current_floor_ptr->dun_type].obj_great;
 
 	if (has_cf_creature(owner_ptr, CF_GOOD_LUCK))
 	{
@@ -4554,7 +4554,7 @@ s16b choose_random_trap(void)
 		if (inside_arena || quest_number(current_floor_ptr->dun_level)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
-		if (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth) continue;
+		if (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth) continue;
 
 		break;
 	}
@@ -5942,7 +5942,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				u32b f5 = 0;
 				u32b f6 = 0;
 
-				if (!(dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC))
+				if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 				{
 					int rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 					int storm_dam = rlev * 4 + 150;
@@ -5981,7 +5981,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			}
 
 			/* Monster melee attacks */
-			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE))
+			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{

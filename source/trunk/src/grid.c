@@ -98,7 +98,7 @@ void place_random_stairs(int y, int x)
 		up_stairs = FALSE;
 
 	/* Bottom */
-	if (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth)
+	if (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)
 		down_stairs = FALSE;
 
 	/* Quest-level */
@@ -135,15 +135,15 @@ void place_random_door(int y, int x, bool room)
 	/* Initialize mimic info */
 	c_ptr->mimic = 0;
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_NO_DOORS)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(y, x);
 		return;
 	}
 
-	type = ((dungeon_info[dungeon_type].flags1 & DF1_CURTAIN) &&
-		one_in_((dungeon_info[dungeon_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
-		((dungeon_info[dungeon_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
+	type = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
+		one_in_((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
+		((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
 
 	/* Choose an object */
 	tmp = randint0(1000);
@@ -212,7 +212,7 @@ void place_closed_door(int y, int x, int type)
 	int tmp;
 	s16b feat = feat_none;
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_NO_DOORS)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(y, x);
 		return;

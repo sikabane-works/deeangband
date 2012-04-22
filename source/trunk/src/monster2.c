@@ -1349,7 +1349,7 @@ static int chameleon_change_m_idx = 0;
  */
 static bool restrict_monster_to_dungeon(int species_idx)
 {
-	dungeon_info_type *d_ptr = &dungeon_info[dungeon_type];
+	dungeon_info_type *d_ptr = &dungeon_info[current_floor_ptr->dun_type];
 	species_type *r_ptr = &species_info[species_idx];
 	//byte a;
 
@@ -1479,7 +1479,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 
 		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -1540,7 +1540,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 
 		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -1602,7 +1602,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 
 		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[dungeon_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -1700,7 +1700,7 @@ s16b get_species_num(int level)
 		pls_level = 2;
 	}
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_MAZE)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
 		pls_kakuritu = MIN(pls_kakuritu/2, pls_kakuritu-10);
 		if (pls_kakuritu < 2) pls_kakuritu = 2;
@@ -1709,7 +1709,7 @@ s16b get_species_num(int level)
 	}
 
 	/* Boost the level */
-	if ((level > 0) && !monster_arena_mode && !(dungeon_info[dungeon_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !monster_arena_mode && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth monsters */
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
@@ -2822,7 +2822,7 @@ void update_mon(int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto;
+	bool in_darkness = (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto;
 
 	/* Do disturb? */
 	if (disturb_high)
@@ -3292,7 +3292,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 		else
 			level = current_floor_ptr->dun_level;
 
-		if (dungeon_info[dungeon_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
+		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
 		species_idx = get_species_num(level);
 		r_ptr = &species_info[species_idx];
@@ -4793,9 +4793,9 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
  */
 bool alloc_guardian(bool def_val)
 {
-	int guardian = dungeon_info[dungeon_type].final_guardian;
+	int guardian = dungeon_info[current_floor_ptr->dun_type].final_guardian;
 
-	if (guardian && (dungeon_info[dungeon_type].maxdepth == current_floor_ptr->dun_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
+	if (guardian && (dungeon_info[current_floor_ptr->dun_type].maxdepth == current_floor_ptr->dun_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		int oy;
 		int ox;
@@ -4942,7 +4942,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	if ((summon_specific_who < 0) &&
 	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL))) return FALSE;
 
-	if (is_chameleon_species(r_ptr) && (dungeon_info[dungeon_type].flags1 & DF1_CHAMELEON)) return TRUE;
+	if (is_chameleon_species(r_ptr) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 
 	return (summon_specific_aux(species_idx));
 }

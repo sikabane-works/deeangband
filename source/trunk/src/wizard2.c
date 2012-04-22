@@ -1646,22 +1646,22 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		char	ppp[80];
 
 		char	tmp_val[160];
-		int		tmp_dungeon_type;
+		int		tmp_dungeon_level;
 
 		/* Prompt */
 		sprintf(ppp, "Jump which dungeon : ");
 
 		/* Default */
-		sprintf(tmp_val, "%d", dungeon_type);
+		sprintf(tmp_val, "%d", current_floor_ptr->dun_type);
 
 		/* Ask for a level */
 		if (!get_string(ppp, tmp_val, 2)) return;
 
-		tmp_dungeon_type = atoi(tmp_val);
-		if (!dungeon_info[tmp_dungeon_type].maxdepth || (tmp_dungeon_type > max_d_idx)) tmp_dungeon_type = DUNGEON_DOD;
+		tmp_dungeon_level = atoi(tmp_val);
+		if (!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_d_idx)) tmp_dungeon_level = DUNGEON_DOD;
 
 		/* Prompt */
-		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_type].mindepth, dungeon_info[tmp_dungeon_type].maxdepth);
+		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
 
 		/* Default */
 		sprintf(tmp_val, "%d", current_floor_ptr->dun_level);
@@ -1672,14 +1672,14 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		/* Extract request */
 		command_arg = atoi(tmp_val);
 
-		dungeon_type = tmp_dungeon_type;
+		current_floor_ptr->dun_type = tmp_dungeon_level;
 	}
 
 	/* Paranoia */
-	if (command_arg < dungeon_info[dungeon_type].mindepth) command_arg = 0;
+	if (command_arg < dungeon_info[current_floor_ptr->dun_type].mindepth) command_arg = 0;
 
 	/* Paranoia */
-	if (command_arg > dungeon_info[dungeon_type].maxdepth) command_arg = dungeon_info[dungeon_type].maxdepth;
+	if (command_arg > dungeon_info[current_floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[current_floor_ptr->dun_type].maxdepth;
 
 	/* Accept request */
 	msg_format("You jump to dungeon level %d.", command_arg);
@@ -1691,7 +1691,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 
 	prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 
-	if (!current_floor_ptr->dun_level) dungeon_type = 0;
+	if (!current_floor_ptr->dun_level) current_floor_ptr->dun_type = 0;
 	inside_arena = FALSE;
 	wild_mode = FALSE;
 

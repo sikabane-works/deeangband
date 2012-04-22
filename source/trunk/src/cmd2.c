@@ -158,7 +158,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if (current_floor_ptr->dun_level - up_num < dungeon_info[dungeon_type].mindepth)
+		if (current_floor_ptr->dun_level - up_num < dungeon_info[current_floor_ptr->dun_type].mindepth)
 			up_num = current_floor_ptr->dun_level;
 	}
 
@@ -292,7 +292,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			/* Save old player position */
 			cr_ptr->oldpx = cr_ptr->fx;
 			cr_ptr->oldpy = cr_ptr->fy;
-			dungeon_type = (byte)target_dungeon;
+			current_floor_ptr->dun_type = (byte)target_dungeon;
 
 			/*
 			 * Clear all saved floors
@@ -314,7 +314,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		{
 			/* Enter the dungeon just now */
 			cr_ptr->enter_dungeon = TRUE;
-			down_num = dungeon_info[dungeon_type].mindepth;
+			down_num = dungeon_info[current_floor_ptr->dun_type].mindepth;
 		}
 
 		if (record_stair)
@@ -342,9 +342,9 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			if (target_dungeon)
 			{
 #ifdef JP
-				msg_format("%s‚Ö“ü‚Á‚½B", d_text + dungeon_info[dungeon_type].text);
+				msg_format("%s‚Ö“ü‚Á‚½B", d_text + dungeon_info[current_floor_ptr->dun_type].text);
 #else
-				msg_format("You entered %s.", d_text + dungeon_info[dungeon_type].text);
+				msg_format("You entered %s.", d_text + dungeon_info[current_floor_ptr->dun_type].text);
 #endif
 			}
 			else

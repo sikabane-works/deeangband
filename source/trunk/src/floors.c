@@ -194,7 +194,7 @@ s16b add_new_floor(void)
 
 	// These may be changed later
 	floor_ptr->dun_level = current_floor_ptr ? current_floor_ptr->dun_level : 0;
-	floor_ptr->dun_type = dungeon_type;
+	floor_ptr->dun_type = current_floor_ptr->dun_type;
 	floor_ptr->world_x = wilderness_x;
 	floor_ptr->world_y = wilderness_y;
 
@@ -505,7 +505,7 @@ void leave_floor(creature_type *creature_ptr)
 			((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
 		     (quest[i].type == QUEST_TYPE_RANDOM)) &&
 		     (quest[i].level == current_floor_ptr->dun_level) &&
-		     (dungeon_type == quest[i].dungeon) &&
+		     (current_floor_ptr->dun_type == quest[i].dungeon) &&
 		    !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
@@ -559,11 +559,11 @@ void leave_floor(creature_type *creature_ptr)
 		if (creature_ptr->change_floor_mode & CFM_DOWN)
 		{
 			if (!current_floor_ptr->dun_level)
-				move_num = dungeon_info[dungeon_type].mindepth;
+				move_num = dungeon_info[current_floor_ptr->dun_type].mindepth;
 		}
 		else if (creature_ptr->change_floor_mode & CFM_UP)
 		{
-			if (current_floor_ptr->dun_level + move_num < dungeon_info[dungeon_type].mindepth)
+			if (current_floor_ptr->dun_level + move_num < dungeon_info[current_floor_ptr->dun_type].mindepth)
 				move_num = -current_floor_ptr->dun_level;
 		}
 
@@ -571,14 +571,14 @@ void leave_floor(creature_type *creature_ptr)
 	}
 
 	// Leaving the dungeon to town
-	if (!current_floor_ptr->dun_level && dungeon_type)
+	if (!current_floor_ptr->dun_level && current_floor_ptr->dun_type)
 	{
 		subject_change_dungeon = TRUE;
-		wilderness_y = dungeon_info[dungeon_type].dy;
-		wilderness_x = dungeon_info[dungeon_type].dx;
+		wilderness_y = dungeon_info[current_floor_ptr->dun_type].dy;
+		wilderness_x = dungeon_info[current_floor_ptr->dun_type].dx;
 
-		creature_ptr->recall_dungeon = dungeon_type;
-		dungeon_type = 0;
+		creature_ptr->recall_dungeon = current_floor_ptr->dun_type;
+		current_floor_ptr->dun_type = 0;
 
 		// Reach to the surface -- Clear all saved floors
 		creature_ptr->change_floor_mode &= ~CFM_SAVE_FLOORS;
@@ -738,7 +738,7 @@ void change_floor(creature_type *cr_ptr)
 			int i;
 			s32b tmp_last_visit = sf_ptr->last_visit;
 			s32b absence_ticks;
-			int alloc_chance = dungeon_info[dungeon_type].max_m_alloc_chance;
+			int alloc_chance = dungeon_info[current_floor_ptr->dun_type].max_m_alloc_chance;
 			int alloc_times;
 
 			while (tmp_last_visit > turn) tmp_last_visit -= TURNS_PER_TICK * TOWN_DAWN;
@@ -817,7 +817,7 @@ void change_floor(creature_type *cr_ptr)
 
 			// Set correct current_floor_ptr->dun_level value
 			sf_ptr->current_floor_ptr->dun_level = current_floor_ptr->dun_level;
-			sf_ptr->dun_type = dungeon_type;
+			sf_ptr->dun_type = current_floor_ptr->dun_type;
 			sf_ptr->world_x = wilderness_x;
 			sf_ptr->world_y = wilderness_y;
 
@@ -931,7 +931,7 @@ void stair_creation(creature_type *creature_ptr)
 	if (ironman_downward) up = FALSE;
 
 	/* Forbid down staircases on quest level */
-	if (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth)) down = FALSE;
+	if (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)) down = FALSE;
 
 	/* No effect out of standard dungeon floor */
 	if (!current_floor_ptr->dun_level || (!up && !down) ||
@@ -1033,14 +1033,14 @@ void stair_creation(creature_type *creature_ptr)
 	if (up)
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level <= current_floor_ptr->dun_level - 2 && sf_ptr->dun_type == dungeon_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level <= current_floor_ptr->dun_level - 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level >= current_floor_ptr->dun_level + 2 && sf_ptr->dun_type == dungeon_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level >= current_floor_ptr->dun_level + 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}

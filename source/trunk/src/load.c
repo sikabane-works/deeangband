@@ -1474,9 +1474,9 @@ static errr rd_floors(void)
 	note(format("max_floor_id:%d",max_floor_id));
 
 	/* Current dungeon type */
-	rd_byte(&dungeon_type);
+	rd_byte(&current_floor_ptr->dun_type);
 
-	note(format("dungeon_type:%d",dungeon_type));
+	note(format("current_floor_ptr->dun_type:%d",current_floor_ptr->dun_type));
 
 	/* Number of the saved_floors array elements */
 	rd_byte(&num);

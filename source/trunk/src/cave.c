@@ -2992,7 +2992,7 @@ void update_creature_lite(void)
 	s16b end_temp;
 
 	/* Non-Ninja player in the darkness */
-	int dis_lim = ((dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto) ?
+	int dis_lim = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto) ?
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
 	/* Clear all monster lit squares */
@@ -3046,7 +3046,7 @@ void update_creature_lite(void)
 			{
 				if (!(has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_SELF_LITE_2)) && 
 					(creature_ptr->paralyzed || (!current_floor_ptr->dun_level && is_daytime()) || monster_arena_mode)) continue;
-				if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
+				if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = mon_lite_hack;
 				f_flag = FF_LOS;
 			}
@@ -4312,7 +4312,7 @@ void map_area(creature_type *creature_ptr, int range)
 	s16b            feat;
 	feature_type    *f_ptr;
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan that area */
 	for (y = 1; y < current_floor_ptr->height - 1; y++)
@@ -4431,7 +4431,7 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 					f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
 					/* Perma-lite the grid */
-					if (!(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) && !ninja)
+					if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !ninja)
 					{
 						c_ptr->info |= (CAVE_GLOW);
 					}
@@ -4562,7 +4562,7 @@ void cave_set_feat(int y, int x, int feat)
 		c_ptr->feat = feat;
 
 		/* Hack -- glow the GLOW terrain */
-		if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
+		if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 		{
 			int i, yy, xx;
 
@@ -4590,7 +4590,7 @@ void cave_set_feat(int y, int x, int feat)
 	/* Remove flag for mirror/glyph */
 	c_ptr->info &= ~(CAVE_OBJECT);
 
-	if (old_mirror && (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
+	if (old_mirror && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
@@ -4625,7 +4625,7 @@ void cave_set_feat(int y, int x, int feat)
 	}
 
 	/* Hack -- glow the GLOW terrain */
-	if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[dungeon_type].flags1 & DF1_DARKNESS))
+	if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
@@ -4685,9 +4685,9 @@ int conv_dungeon_feat(int newfeat)
 		case CONVERT_TYPE_SOLID:
 			return feat_wall_solid;
 		case CONVERT_TYPE_STREAM1:
-			return dungeon_info[dungeon_type].stream1;
+			return dungeon_info[current_floor_ptr->dun_type].stream1;
 		case CONVERT_TYPE_STREAM2:
-			return dungeon_info[dungeon_type].stream2;
+			return dungeon_info[current_floor_ptr->dun_type].stream2;
 		default:
 			return newfeat;
 		}
@@ -4788,7 +4788,7 @@ void remove_mirror(creature_type *player_ptr, int y, int x)
 	c_ptr->info &= ~(CAVE_OBJECT);
 	c_ptr->mimic = 0;
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
@@ -5093,7 +5093,7 @@ void glow_deep_lava_and_bldg(void)
 	cave_type *c_ptr;
 
 	/* Not in the darkness dungeon */
-	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS) return;
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) return;
 
 	for (y = 0; y < current_floor_ptr->height; y++)
 	{

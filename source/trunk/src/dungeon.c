@@ -709,7 +709,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 			min_level = current_floor_ptr->dun_level;
 
 		/* Maximum level */
-		if (dungeon_type == DUNGEON_ANGBAND)
+		if (current_floor_ptr->dun_type == DUNGEON_ANGBAND)
 		{
 			if (current_floor_ptr->dun_level > 100)
 				max_level = MAX_DEPTH - 1;
@@ -718,8 +718,8 @@ static void pattern_teleport(creature_type *cr_ptr)
 		}
 		else
 		{
-			max_level = dungeon_info[dungeon_type].maxdepth;
-			min_level = dungeon_info[dungeon_type].mindepth;
+			max_level = dungeon_info[current_floor_ptr->dun_type].maxdepth;
+			min_level = dungeon_info[current_floor_ptr->dun_type].mindepth;
 		}
 
 		/* Prompt */
@@ -3435,12 +3435,12 @@ msg_print("上に引っ張りあげられる感じがする！");
 				msg_print("You feel yourself yanked upwards!");
 #endif
 
-				if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
+				if (current_floor_ptr->dun_type) cr_ptr->recall_dungeon = current_floor_ptr->dun_type;
 				if (record_stair)
 					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->dun_level, NULL);
 
 				current_floor_ptr->dun_level = 0;
-				dungeon_type = 0;
+				current_floor_ptr->dun_type = 0;
 
 				leave_quest_check(cr_ptr);
 
@@ -3456,17 +3456,17 @@ msg_print("下に引きずり降ろされる感じがする！");
 				msg_print("You feel yourself yanked downwards!");
 #endif
 
-				dungeon_type = cr_ptr->recall_dungeon;
+				current_floor_ptr->dun_type = cr_ptr->recall_dungeon;
 
 				if (record_stair)
 					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->dun_level, NULL);
 
 				/* New depth */
-				current_floor_ptr->dun_level = max_dlv[dungeon_type];
+				current_floor_ptr->dun_level = max_dlv[current_floor_ptr->dun_type];
 				if (current_floor_ptr->dun_level < 1) current_floor_ptr->dun_level = 1;
 
 				/* Nightmare mode makes recall more dangerous */
-				if (curse_of_Iluvatar && !randint0(666) && (dungeon_type == DUNGEON_ANGBAND))
+				if (curse_of_Iluvatar && !randint0(666) && (current_floor_ptr->dun_type == DUNGEON_ANGBAND))
 				{
 					if (current_floor_ptr->dun_level < 50)
 					{
@@ -3478,7 +3478,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					}
 					else if (current_floor_ptr->dun_level > 100)
 					{
-						current_floor_ptr->dun_level = dungeon_info[dungeon_type].maxdepth - 1;
+						current_floor_ptr->dun_level = dungeon_info[current_floor_ptr->dun_type].maxdepth - 1;
 					}
 				}
 
@@ -3504,7 +3504,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				/* Leaving */
 				subject_change_floor = TRUE;
 
-				if (dungeon_type == DUNGEON_DOD)
+				if (current_floor_ptr->dun_type == DUNGEON_DOD)
 				{
 					int i;
 
@@ -4056,7 +4056,7 @@ static void process_world(creature_type *cr_ptr)
 	/*** Process the monsters ***/
 
 	/* Check for creature generation. */
-	if (one_in_(dungeon_info[dungeon_type].max_m_alloc_chance) &&
+	if (one_in_(dungeon_info[current_floor_ptr->dun_type].max_m_alloc_chance) &&
 	    !inside_arena && !inside_quest && !monster_arena_mode)
 	{
 		/* Make a new monster */
@@ -4782,7 +4782,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
+				else if (current_floor_ptr->dun_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -6435,8 +6435,8 @@ static void cheat_death(void)
 	monster_arena_mode = FALSE;
 	leaving_quest = 0;
 	inside_quest = 0;
-	if (dungeon_type) player_ptr->recall_dungeon = dungeon_type;
-	dungeon_type = 0;
+	if (current_floor_ptr->dun_type) player_ptr->recall_dungeon = current_floor_ptr->dun_type;
+	current_floor_ptr->dun_type = 0;
 
 	// Start Point Set
 	wilderness_y = player_ptr->start_wy;
@@ -6726,9 +6726,9 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if ((max_dlv[dungeon_type] < current_floor_ptr->dun_level) && !inside_quest)
+		if ((max_dlv[current_floor_ptr->dun_type] < current_floor_ptr->dun_level) && !inside_quest)
 		{
-			max_dlv[dungeon_type] = current_floor_ptr->dun_level;
+			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->dun_level;
 			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, current_floor_ptr->dun_level, NULL);
 		}
 
@@ -6790,23 +6790,23 @@ static void play_loop(void)
 		if (!playing || gameover) return;
 
 		/* Print quest message if appropriate */
-		if (!inside_quest && (dungeon_type == DUNGEON_DOD))
+		if (!inside_quest && (current_floor_ptr->dun_type == DUNGEON_DOD))
 		{
 			quest_discovery(random_quest_number(current_floor_ptr->dun_level));
 			inside_quest = random_quest_number(current_floor_ptr->dun_level);
 		}
 
-		if ((current_floor_ptr->dun_level == dungeon_info[dungeon_type].maxdepth) && dungeon_info[dungeon_type].final_guardian)
+		if ((current_floor_ptr->dun_level == dungeon_info[current_floor_ptr->dun_type].maxdepth) && dungeon_info[current_floor_ptr->dun_type].final_guardian)
 		{
-			if (species_info[dungeon_info[dungeon_type].final_guardian].max_num)
+			if (species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].max_num)
 #ifdef JP
 				msg_format("この階には%sの主である%sが棲んでいる。",
-					   d_name+dungeon_info[dungeon_type].name, 
-					   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name);
+					   d_name+dungeon_info[current_floor_ptr->dun_type].name, 
+					   species_name+species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].name);
 #else
 				msg_format("%^s lives in this level as the keeper of %s.",
-						   species_name+species_info[dungeon_info[dungeon_type].final_guardian].name, 
-						   d_name+dungeon_info[dungeon_type].name);
+						   species_name+species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].name, 
+						   d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #endif
 		}
 
@@ -7024,7 +7024,7 @@ void play_game(bool new_game)
 	panel_col_min = MAX_WID;
 
 	/* Fill the arrays of floors and walls in the good proportions */
-	set_floor_and_wall(dungeon_type);
+	set_floor_and_wall(current_floor_ptr->dun_type);
 
 	/* Flavor the objects */
 	flavor_init();
@@ -7229,7 +7229,7 @@ void world_wipe()
 	playtime = 0;
 
 	// Set the recall dungeon accordingly
-	dungeon_type = 0;
+	current_floor_ptr->dun_type = 0;
 
 	/* Assume no winning game */
 	world_player = FALSE;

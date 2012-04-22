@@ -173,7 +173,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 	/* Not allowed to attack */
 	if (has_cf_creature(attacker_ptr, CF_NEVER_BLOW)) return (FALSE);
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE) return (FALSE);
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
 	/* ...nor if friendly */
 	if (!is_hostile(attacker_ptr)) return FALSE;

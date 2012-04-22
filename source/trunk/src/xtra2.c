@@ -1297,14 +1297,14 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (dungeon_info[dungeon_type].final_guardian == killed_ptr->species_idx))
+		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (dungeon_info[current_floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
 		{
-			int k_idx = dungeon_info[dungeon_type].final_object ? dungeon_info[dungeon_type].final_object
+			int k_idx = dungeon_info[current_floor_ptr->dun_type].final_object ? dungeon_info[current_floor_ptr->dun_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 
-			if (dungeon_info[dungeon_type].final_artifact)
+			if (dungeon_info[current_floor_ptr->dun_type].final_artifact)
 			{
-				int a_idx = dungeon_info[dungeon_type].final_artifact;
+				int a_idx = dungeon_info[current_floor_ptr->dun_type].final_artifact;
 				artifact_type *a_ptr = &a_info[a_idx];
 
 				if (!a_ptr->cur_num)
@@ -1320,7 +1320,7 @@ msg_print("地面に落とされた。");
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
 					/* Prevent rewarding both artifact and "default" object */
-					if (!dungeon_info[dungeon_type].final_object) k_idx = 0;
+					if (!dungeon_info[current_floor_ptr->dun_type].final_object) k_idx = 0;
 				}
 			}
 
@@ -1338,9 +1338,9 @@ msg_print("地面に落とされた。");
 				(void)drop_near(q_ptr, -1, y, x);
 			}
 #ifdef JP
-			msg_format("あなたは%sを制覇した！",d_name+dungeon_info[dungeon_type].name);
+			msg_format("あなたは%sを制覇した！",d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #else
-			msg_format("You have conquered %s!",d_name+dungeon_info[dungeon_type].name);
+			msg_format("You have conquered %s!",d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #endif
 		}
 	}

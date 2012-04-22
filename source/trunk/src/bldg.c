@@ -5302,7 +5302,7 @@ int quest_number(int level)
 		if ((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
 			!(quest[i].flags & QUEST_FLAG_PRESET) &&
 		    (quest[i].level == level) &&
-		    (quest[i].dungeon == dungeon_type))
+		    (quest[i].dungeon == current_floor_ptr->dun_type))
 			return (i);
 	}
 
@@ -5319,7 +5319,7 @@ int random_quest_number(int level)
 {
 	int i;
 
-	if (dungeon_type != DUNGEON_DOD) return 0;
+	if (current_floor_ptr->dun_type != DUNGEON_DOD) return 0;
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{

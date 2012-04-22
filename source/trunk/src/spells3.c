@@ -678,7 +678,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Down only */ 
-	if ((ironman_downward && (m_idx <= 0)) || (current_floor_ptr->dun_level <= dungeon_info[dungeon_type].mindepth))
+	if ((ironman_downward && (m_idx <= 0)) || (current_floor_ptr->dun_level <= dungeon_info[current_floor_ptr->dun_type].mindepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^s‚Í°‚ğ“Ë‚«”j‚Á‚Ä’¾‚ñ‚Å‚¢‚­B", m_name);
@@ -689,7 +689,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		{
 			if (!current_floor_ptr->dun_level)
 			{
-				dungeon_type = cr_ptr->recall_dungeon;
+				current_floor_ptr->dun_type = cr_ptr->recall_dungeon;
 				cr_ptr->oldpy = cr_ptr->fy;
 				cr_ptr->oldpx = cr_ptr->fx;
 			}
@@ -700,7 +700,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (!current_floor_ptr->dun_level)
 			{
-				current_floor_ptr->dun_level = dungeon_info[dungeon_type].mindepth;
+				current_floor_ptr->dun_level = dungeon_info[current_floor_ptr->dun_type].mindepth;
 				prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 			}
 			else
@@ -714,7 +714,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[dungeon_type].maxdepth))
+	else if (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^s‚Í“Vˆä‚ğ“Ë‚«”j‚Á‚Ä’ˆ‚Ö•‚‚¢‚Ä‚¢‚­B", m_name);
@@ -770,7 +770,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		if (m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
-			/* if (!current_floor_ptr->dun_level) dungeon_type = cr_ptr->recall_dungeon; */
+			/* if (!current_floor_ptr->dun_level) current_floor_ptr->dun_type = cr_ptr->recall_dungeon; */
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
 
@@ -919,7 +919,7 @@ msg_print("‰½‚à‹N‚±‚ç‚È‚©‚Á‚½B");
 		return TRUE;
 	}
 
-	if (current_floor_ptr->dun_level && (max_dlv[dungeon_type] > current_floor_ptr->dun_level) && !inside_quest && !cr_ptr->word_recall)
+	if (current_floor_ptr->dun_level && (max_dlv[current_floor_ptr->dun_type] > current_floor_ptr->dun_level) && !inside_quest && !cr_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -927,12 +927,12 @@ if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 		if (get_check("Reset recall depth? "))
 #endif
 		{
-			max_dlv[dungeon_type] = current_floor_ptr->dun_level;
+			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->dun_level;
 			if (record_maxdepth)
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_TRUMP, dungeon_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
+				do_cmd_write_nikki(NIKKI_TRUMP, current_floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
 #else
-				do_cmd_write_nikki(NIKKI_TRUMP, dungeon_type, "when recall from dungeon");
+				do_cmd_write_nikki(NIKKI_TRUMP, current_floor_ptr->dun_type, "when recall from dungeon");
 #endif
 		}
 

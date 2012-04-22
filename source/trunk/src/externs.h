@@ -627,7 +627,6 @@ extern s16b feat_swamp;
 extern s16b feat_undetected;
 extern s16b feat_chaos_tainted;
 
-extern byte dungeon_type;
 extern s16b *max_dlv;
 extern s16b feat_wall_outer;
 extern s16b feat_wall_inner;

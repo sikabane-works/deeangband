@@ -426,7 +426,7 @@ s = "魔力を取り込めるアイテムがない。";
 
 static bool can_do_cmd_cast(creature_type *cr_ptr)
 {
-	if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_NO_MAGIC))
+	if (current_floor_ptr->dun_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 	{
 #ifdef JP
 		msg_print("ダンジョンが魔法を吸収した！");
@@ -1447,7 +1447,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			break;
 		}
 		case MIMIC_VAMPIRE:
-			if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("なぜか攻撃することができない。");
@@ -1988,7 +1988,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			break;
 
 		case RACE_VAMPIRE:
-			if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("なぜか攻撃することができない。");

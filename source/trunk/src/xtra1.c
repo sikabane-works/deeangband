@@ -185,7 +185,7 @@ cptr map_name(void)
 	else if (!current_floor_ptr->dun_level && town_num)
 		return town[town_num].name;
 	else
-		return d_name+dungeon_info[dungeon_type].name;
+		return d_name+dungeon_info[current_floor_ptr->dun_type].name;
 }
 
 /*
@@ -918,7 +918,7 @@ static void prt_depth(creature_type *cr_ptr)
 		strcpy(depths, "Surf.");
 #endif
 	}
-	else if (inside_quest && !dungeon_type)
+	else if (inside_quest && !current_floor_ptr->dun_type)
 	{
 #ifdef JP
 		strcpy(depths, "’nã");
@@ -2826,7 +2826,7 @@ static void calc_torch(creature_type *cr_ptr)
 
 	/* max radius is 14 (was 5) without rewriting other code -- */
 	/* see cave.c:update_lite() and defines.h:LITE_MAX */
-	if (dungeon_info[dungeon_type].flags1 & DF1_DARKNESS && cr_ptr->cur_lite > 1)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS && cr_ptr->cur_lite > 1)
 		cr_ptr->cur_lite = 1;
 
 	/*

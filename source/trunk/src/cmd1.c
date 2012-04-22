@@ -3111,7 +3111,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		*/
 	}
 
-	if (dungeon_info[dungeon_type].flags1 & DF1_NO_MELEE)
+	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
 #ifdef JP
 		msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
@@ -3610,7 +3610,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		if ((!cr_ptr->blind && !no_lite(cr_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if (current_floor_ptr->dun_level && (dungeon_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
+		if (current_floor_ptr->dun_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
 
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
