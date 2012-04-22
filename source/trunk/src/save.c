@@ -1027,7 +1027,7 @@ static void wr_floor(floor_type *floor_ptr)
  */
 static bool wr_floors(creature_type *player_ptr)
 {
-	floor_type *cur_sf_ptr = &floor_list[0];
+	int i;
 
 	// Forget the lite and view
 	forget_lite();
@@ -1042,9 +1042,7 @@ static bool wr_floors(creature_type *player_ptr)
 
 	wr_s16b(current_floor_id);
 	wr_s16b(max_floor_id); 	// Number of floor_id used from birth
-
-	wr_byte(0); // No array elements
-	wr_floor(current_floor_ptr); // Write the current floor data
+	for(i = 1; i < max_floor_id; i++) wr_floor(&floor_list[i]); // Write the current floor data
 
 	return TRUE; 
 }

@@ -1459,28 +1459,20 @@ static errr rd_floor(floor_type *floor_ptr)
 static errr rd_floors(void)
 {
 	errr err = 0;
-	byte num;
 	int i;
 
 	/* Initialize saved_floors array and temporal files */
 	init_saved_floors(FALSE);
-
 
 	/*** Meta info ***/
 
 	rd_s16b(&current_floor_id);
 	rd_s16b(&max_floor_id); // Number of floor_id used from birth
 
-	note(format("max_floor_id:%d",max_floor_id));
-
-	note(format("current_floor_ptr->dun_type:%d",current_floor_ptr->dun_type));
-
-	/* Number of the saved_floors array elements */
-	rd_byte(&num);
 	current_floor_ptr = &floor_list[1];
 
 	// Read the current floor data
-	//for(i = 1; i < num; i++)
+	for(i = 1; i < max_floor_id; i++)
 		err = rd_floor(&floor_list[1]);
 
 	/*** Error messages ***/
