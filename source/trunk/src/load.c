@@ -1147,16 +1147,6 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	/* Read "feeling" */
 	rd_byte(&cr_ptr->feeling);
 
-	if(is_undead_creature(cr_ptr))
-	{
-		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-	}
-	else
-	{
-		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-	}
-	dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-
 	/* Turn of last "feeling" */
 	rd_s32b(&cr_ptr->feeling_turn);
 
