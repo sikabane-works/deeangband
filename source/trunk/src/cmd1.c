@@ -2954,23 +2954,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 			{
 				creature_type *tar_ptr = &creature_list[c_ptr->creature_idx];
 
-				if (tar_ptr->hold_object_idx)
-				{
-					object_type *q_ptr = &object_list[tar_ptr->hold_object_idx];
-					char o_name[MAX_NLEN];
-
-					object_desc(o_name, q_ptr, OD_NAME_ONLY);
-					q_ptr->held_m_idx = 0;
-					q_ptr->marked = OM_TOUCHED;
-					tar_ptr->hold_object_idx = q_ptr->next_object_idx;
-					q_ptr->next_object_idx = 0;
-#ifdef JP
-					msg_format("%s‚ğ’D‚Á‚½B", o_name);
-#else
-					msg_format("You snatched %s.", o_name);
-#endif
-					inven_carry(atk_ptr, q_ptr);
-				}
+				//TODO reimplement get item process.
 			}
 		}
 

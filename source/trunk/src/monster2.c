@@ -735,30 +735,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	/* Monster is gone */
 	current_floor_ptr->cave[y][x].creature_idx = 0;
 
-
-	/* Delete objects */
-	for (this_object_idx = creature_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-	{
-		object_type *o_ptr;
-
-		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
-
-		/*
-		 * o_ptr->held_m_idx is needed in delete_object_idx()
-		 * to prevent calling lite_spot()
-		 */
-
-		/* Delete the object */
-		delete_object_idx(this_object_idx);
-	}
-
-
 	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
-
 
 	/* Wipe the Monster */
 	(void)WIPE(creature_ptr, creature_type);
@@ -6015,37 +5992,5 @@ bool creature_place(creature_type *creature_ptr, int y, int x)
  */
 void monster_drop_carried_objects(creature_type *m_ptr)
 {
-	s16b this_object_idx, next_object_idx = 0;
-	object_type forge;
-	object_type *o_ptr;
-	object_type *q_ptr;
-
-
-	/* Drop objects being carried */
-	for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-	{
-		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
-
-		/* Get local object */
-		q_ptr = &forge;
-
-		/* Copy the object */
-		object_copy(q_ptr, o_ptr);
-
-		/* Forget monster */
-		q_ptr->held_m_idx = 0;
-
-		/* Delete the object */
-		delete_object_idx(this_object_idx);
-
-		/* Drop it */
-		(void)drop_near(q_ptr, -1, m_ptr->fy, m_ptr->fx);
-	}
-
-	/* Forget objects */
-	m_ptr->hold_object_idx = 0;
+	// TODO
 }

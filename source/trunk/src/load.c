@@ -1726,12 +1726,12 @@ note("メッセージをロードしました");
 	for (i = 1; i < limit; i++)
 	{
 		cave_type *cave_ptr;
-		int m_idx;
+		int creature_idx;
 		creature_type *creature_ptr;
 
-		m_idx = creature_pop(); // Get a new record
-		if (i != m_idx) return 162; // Oops
-		creature_ptr = &creature_list[m_idx]; // Acquire creature
+		creature_idx = creature_pop(); // Get a new record
+		if (i != creature_idx) return 162; // Oops
+		creature_ptr = &creature_list[creature_idx]; // Acquire creature
 		rd_creature(creature_ptr); // Read the monster
 		//cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
 		//cave_ptr->creature_idx = m_idx; // Mark the location
@@ -1792,7 +1792,6 @@ note("メッセージをロードしました");
 
 		/* Read the item */
 		rd_item(o_ptr);
-
 
 		/* Monster */
 		if (o_ptr->held_m_idx)

@@ -5449,62 +5449,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 		if (is_pet(player_ptr, m_ptr)) mode |= PM_FORCE_PET;
 		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
-		/* Mega-hack -- ignore held objects */
-		m_ptr->hold_object_idx = 0;
-
-		/* "Kill" the "old" monster */
-		delete_species_idx(&creature_list[c_ptr->creature_idx]);
-
-		/* Create a new monster (no groups) */
-		if (place_creature_aux(NULL, y, x, new_species_idx, mode))
-		{
-			creature_list[hack_m_idx_ii].nickname = back_m.nickname;
-			creature_list[hack_m_idx_ii].parent_m_idx = back_m.parent_m_idx;
-			creature_list[hack_m_idx_ii].hold_object_idx = back_m.hold_object_idx;
-
-			/* Success */
-			polymorphed = TRUE;
-		}
-		else
-		{
-			/* Placing the new monster failed */
-			if (place_creature_aux(NULL, y, x, old_species_idx, (mode | PM_NO_KAGE | PM_IGNORE_TERRAIN)))
-			{
-				creature_list[hack_m_idx_ii] = back_m;
-
-				/* Re-initialize monster process */
-				creature_process_init();
-			}
-			else preserve_hold_objects = FALSE;
-		}
-
-		/* Mega-hack -- preserve held objects */
-		if (preserve_hold_objects)
-		{
-			for (this_object_idx = back_m.hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-			{
-				/* Acquire object */
-				object_type *o_ptr = &object_list[this_object_idx];
-
-				/* Acquire next object */
-				next_object_idx = o_ptr->next_object_idx;
-
-				/* Held by new monster */
-				o_ptr->held_m_idx = hack_m_idx_ii;
-			}
-		}
-		else if (back_m.hold_object_idx) /* Failed (paranoia) */
-		{
-			/* Delete objects */
-			for (this_object_idx = back_m.hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-			{
-				/* Acquire next object */
-				next_object_idx = object_list[this_object_idx].next_object_idx;
-
-				/* Delete the object */
-				delete_object_idx(this_object_idx);
-			}
-		}
+		//TODO inventory process
 
 		if (targeted) target_who = hack_m_idx_ii;
 		if (health_tracked) health_track(hack_m_idx_ii);
