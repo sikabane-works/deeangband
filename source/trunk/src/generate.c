@@ -1664,7 +1664,7 @@ if (why) msg_format("ê∂ê¨Ç‚ÇËíºÇµ(%s)", why);
 		// TODO Reimplement wiping 
 
 		/* Wipe the objects */
-		wipe_object_list();
+		wipe_object_list(0);
 
 		/* Wipe the monsters */
 		wipe_creature_list(0);

@@ -367,7 +367,7 @@ void compact_objects(int size)
  * clear those fields for grids/monsters containing objects,
  * and we clear it once for every such object.
  */
-void wipe_object_list(void)
+void wipe_object_list(int floor_id)
 {
 	int i;
 
@@ -380,6 +380,7 @@ void wipe_object_list(void)
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
+		if (floor_id && o_ptr->floor_idx != floor_id) continue;
 
 		/* Mega-Hack -- preserve artifacts */
 		if (!character_dungeon || preserve_mode)

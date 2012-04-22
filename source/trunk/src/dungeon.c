@@ -6642,7 +6642,7 @@ static void new_game_setting(void)
 	determine_today_mon(player_ptr, FALSE);
 
 	/* Initialize object array */
-	wipe_object_list();
+	wipe_object_list(0);
 
 }
 

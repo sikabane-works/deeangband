@@ -1220,7 +1220,7 @@ extern void delete_creature(int y, int x);
 extern void compact_creatures(int size);
 extern void birth_uniques(void);
 
-extern void wipe_creature_list(void);
+extern void wipe_creature_list(int floor_id);
 extern s16b creature_pop(void);
 extern errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2);
 extern errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 creature_hook, creature_hook_type2 creature_hook2);
@@ -1277,7 +1277,7 @@ extern void excise_object_idx(int object_idx);
 extern void delete_object_idx(int object_idx);
 extern void delete_object(int y, int x);
 extern void compact_objects(int size);
-extern void wipe_object_list(void);
+extern void wipe_object_list(int floor_id);
 extern s16b object_pop(void);
 extern s16b get_obj_num(int level, u32b flags);
 extern void object_known(object_type *o_ptr);
