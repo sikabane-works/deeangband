@@ -912,7 +912,7 @@ static void load_quick_start(species_type *species_ptr)
 
 static void rd_creature(creature_type *cr_ptr)
 {
-	int i,j;
+	int i, j;
 	char buf[1024];
 
 	byte tmp8u;
@@ -1703,20 +1703,13 @@ note("メッセージをロードしました");
 	if (arg_fiddle) note("Loaded Messages");
 #endif
 
-
-
 	for (i = 0; i < max_species_idx; i++)
 	{
-		/* Access that monster */
-		species_type *r_ptr = &species_info[i];
-
-		/* Hack -- Reset the death counter */
-		r_ptr->max_num = 100;
-
+		species_type *r_ptr = &species_info[i]; // Access that creature
+		r_ptr->max_num = 100; // Hack -- Reset the death counter
 		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
 
-		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
 	/* TODO NEW CREATURE LORE
@@ -1727,21 +1720,19 @@ note("メッセージをロードしました");
 #endif
 	*/
 
-
-	/* Unique monsters */
+	// Unique monsters
 	rd_u16b(&unique_max);
 
-	/*** Monsters ***/
+	/*** Creatures ***/
 
-	/* Read the monster count */
+	// Read the monster count
 	rd_u16b(&limit);
-
-	/* Hack -- verify */
 	if (limit > max_creature_idx) return 161;
 
+	//TODO
 	player_ptr = &creature_list[1];
 
-	/* Read the monsters */
+	// Read creatures
 	for (i = 1; i < limit; i++)
 	{
 		cave_type *cave_ptr;
@@ -1765,11 +1756,10 @@ note("メッセージをロードしました");
 	if (tmp16u > max_k_idx)
 	{
 #ifdef JP
-note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
+		note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
 #else
 		note(format("Too many (%u) object kinds!", tmp16u));
 #endif
-
 		return (22);
 	}
 

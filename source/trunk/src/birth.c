@@ -2922,7 +2922,7 @@ static void init_turn(creature_type *creature_ptr)
 	if (is_undead_creature(creature_ptr))
 	{
 		/* Undead start just after midnight */
-		turn = (TURNS_PER_TICK*3 * TOWN_DAWN) / 4 + 1;
+		turn = (TURNS_PER_TICK * 3 * TOWN_DAWN) / 4 + 1;
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 	}
 	else
@@ -2945,7 +2945,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 
 	o_ptr = &creature_ptr->inventory[item]; 
  
-	/* Skip non-objects */ 
+	// Skip non-objects
 	if (!o_ptr->k_idx) return -1; 
  
 	// Make sure we can wield it and that there's nothing else in that slot
