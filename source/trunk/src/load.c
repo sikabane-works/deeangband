@@ -1473,7 +1473,7 @@ static errr rd_floors(void)
 
 	// Read the current floor data
 	for(i = 1; i < max_floor_id; i++)
-		err = rd_floor(&floor_list[1]);
+		err = rd_floor(&floor_list[i]);
 
 	/*** Error messages ***/
 	switch (err)
