@@ -312,6 +312,8 @@ bool object_is_smith(object_type *o_ptr)
 	if (object_is_weapon_armour_ammo(o_ptr) && o_ptr->xtra3) return TRUE;
 	return FALSE;
 }
+
+
 bool object_is_smith2(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (object_is_weapon_armour_ammo(o_ptr) && o_ptr->xtra3) return TRUE;

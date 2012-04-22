@@ -31,7 +31,7 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_in_this_floor(creature_type *creature_ptr)
 {
-	//if(!current_floor_ptr) return FALSE;
+	if(!current_floor_ptr) return FALSE;
 	return creature_ptr->fx && creature_ptr->fy; 
 }
 

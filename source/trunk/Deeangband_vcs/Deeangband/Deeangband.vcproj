@@ -64,6 +64,8 @@
 				ShowProgress="2"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapExports="true"
 				TargetMachine="1"
 			/>
 			<Tool
