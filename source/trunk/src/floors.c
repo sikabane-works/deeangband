@@ -152,7 +152,7 @@ static void kill_floor(floor_type *sf_ptr)
 // Initialize new saved floor and get its floor id.  If number of
 // saved floors are already MAX_FLOORS, kill the oldest one.
 //
-s16b add_new_floor(void)
+s16b floor_pop(void)
 {
 	floor_type *floor_ptr;
 	int i;
@@ -597,7 +597,7 @@ void leave_floor(creature_type *creature_ptr)
 	// Mark next floor_id on the previous floor
 	if (!current_floor_id)
 	{
-		current_floor_id = add_new_floor(); // Get new id
+		current_floor_id = floor_pop(); // Get new id
 		if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = current_floor_id; // Connect from here
 	}
 
@@ -649,7 +649,7 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	current_floor_ptr = &floor_list[add_new_floor()];
+	current_floor_ptr = &floor_list[floor_pop()];
 	generate_floor(cr_ptr); // Generate field
 
 	/*
@@ -665,7 +665,7 @@ void change_floor(creature_type *cr_ptr)
 		if (!current_floor_id)
 		{
 			// Get new id
-			current_floor_id = add_new_floor();
+			current_floor_id = floor_pop();
 			cr_ptr->floor_id = current_floor_id;
 		}
 
@@ -969,7 +969,7 @@ void stair_creation(creature_type *creature_ptr)
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		creature_ptr->floor_id = add_new_floor();
+		creature_ptr->floor_id = floor_pop();
 		sf_ptr = get_floor_ptr(creature_ptr->floor_id);
 	} 
 
@@ -1016,7 +1016,7 @@ void stair_creation(creature_type *creature_ptr)
 	/* No old destination -- Get new one now */
 	else
 	{
-		dest_floor_id = add_new_floor();
+		dest_floor_id = floor_pop();
 
 		/* Fix it */
 		if (up)
