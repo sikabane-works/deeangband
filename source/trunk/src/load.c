@@ -1349,7 +1349,6 @@ static errr rd_saved_floor(floor_type *sf_ptr)
 	/*** Wipe all cave ***/
 	//clear_cave();
 
-
 	/*** Basic info ***/
 
 	/* Dungeon floor specific info follows */
@@ -1520,6 +1519,7 @@ static errr rd_floors(void)
 
 	/* Number of the saved_floors array elements */
 	rd_byte(&num);
+	current_floor_ptr = &floor_list[1];
 
 	// Read the current floor data
 	err = rd_saved_floor(NULL);
