@@ -874,7 +874,6 @@ struct resist
 	int sustain_con;
 	int sustain_cha;
 
-
 };
 
 

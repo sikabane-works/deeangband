@@ -922,9 +922,9 @@ static void rd_creature(creature_type *cr_ptr)
 
 	rd_byte(&cr_ptr->player);
 	rd_byte(&cr_ptr->stigmatic);
-
 	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
-	/* Read the message */
+
+	// Read the message
 	rd_string(buf, sizeof buf);
 	if (buf[0]) cr_ptr->last_message = string_make(buf);
 
@@ -933,7 +933,7 @@ static void rd_creature(creature_type *cr_ptr)
 		rd_string(cr_ptr->history[i], sizeof(cr_ptr->history[i]));
 	}
 
-	/* Class/Race/CHARA/Gender/Spells */
+	// Class/Race/Chara/Gender/Spells
 	rd_s16b(&cr_ptr->species_idx);
 	rd_s16b(&cr_ptr->ap_species_idx);
 	rd_s16b(&cr_ptr->race_idx1);
@@ -950,11 +950,11 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->camp_idx);
 	rd_s16b(&cr_ptr->master_creature_idx);
 
-	/* Special Race/Class info */
+	// Special Race/Class info
 	rd_s16b(&cr_ptr->hitdice);
 	rd_u16b(&cr_ptr->expfact);
 
-	/* Age/Height/Weight */
+	// Age/Height/Weight
 	rd_s32b(&cr_ptr->age);
 	rd_s32b(&cr_ptr->ht);
 	rd_s32b(&cr_ptr->wt);
@@ -967,18 +967,18 @@ static void rd_creature(creature_type *cr_ptr)
 		rd_byte(&cr_ptr->equip_now[i]);
 	}
 
-	/* Read the inventory */
+	// Read the inventory
 	if (rd_inventory(cr_ptr))
 	{
 #ifdef JP
-note("持ち物情報を読み込むことができません");
+		note("持ち物情報を読み込むことができません");
 #else
 		note("Unable to read inventory");
 #endif
 		return;
 	}
 
-	/* Read the stat info */
+	// Read the stat info
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_cur[i]);
@@ -994,8 +994,7 @@ note("持ち物情報を読み込むことができません");
 	rd_byte(&cr_ptr->fy);
 	rd_byte(&cr_ptr->fx);
 
-
-	/* Read creature's HP array */
+	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
 	if (tmp16u > PY_MAX_LEVEL)
@@ -1045,7 +1044,7 @@ note("持ち物情報を読み込むことができません");
 
 	rd_s16b(&cr_ptr->max_plv);
 
-	/* Repair maximum player level XXX XXX XXX */
+	// Repair maximum player level XXX XXX XXX
 	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;
 
 	rd_s16b(&cr_ptr->sc);
@@ -1128,7 +1127,7 @@ note("持ち物情報を読み込むことができません");
 	for (i = 0; i < MAX_KARMA; i++)
 		rd_s32b(&cr_ptr->karmas[i]);
 
-	/* Calc the regeneration modifier for mutations */
+	// Calc the regeneration modifier for mutation
 	cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 
 	rd_s16b(&cr_ptr->ele_attack);
@@ -1144,10 +1143,8 @@ note("持ち物情報を読み込むことができません");
 
 	rd_byte(&cr_ptr->action);
 
-	/* Read "feeling" */
+	// Read "feeling"
 	rd_byte(&cr_ptr->feeling);
-
-	/* Turn of last "feeling" */
 	rd_s32b(&cr_ptr->feeling_turn);
 
 	rd_s16b(&cr_ptr->riding);
@@ -1156,7 +1153,7 @@ note("持ち物情報を読み込むことができません");
 
 	rd_s32b(&cr_ptr->visit);
 
-	/* Read spell info */
+	// Read spell info
 	rd_u32b(&cr_ptr->spell_learned1);
 	rd_u32b(&cr_ptr->spell_learned2);
 	rd_u32b(&cr_ptr->spell_worked1);
@@ -1176,7 +1173,7 @@ note("持ち物情報を読み込むことができません");
 
 	rd_u16b(&cr_ptr->total_winner);
 
-	/* Update */
+	// Update
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
 
@@ -1749,7 +1746,7 @@ note("メッセージをロードしました");
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
 
-	/* Object Memory */
+	// Object Memory
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
