@@ -1043,9 +1043,6 @@ static bool wr_floors(creature_type *player_ptr)
 	wr_s16b(current_floor_id);
 	wr_s16b(max_floor_id); 	// Number of floor_id used from birth
 
-	/* Current dungeon type */
-	wr_byte(current_floor_ptr->dun_type);
-
 	wr_byte(0); // No array elements
 	wr_floor(current_floor_ptr); // Write the current floor data
 

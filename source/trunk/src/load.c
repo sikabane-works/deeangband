@@ -1460,7 +1460,7 @@ static errr rd_floors(void)
 {
 	errr err = 0;
 	byte num;
-	//int i;
+	int i;
 
 	/* Initialize saved_floors array and temporal files */
 	init_saved_floors(FALSE);
@@ -1473,9 +1473,6 @@ static errr rd_floors(void)
 
 	note(format("max_floor_id:%d",max_floor_id));
 
-	/* Current dungeon type */
-	rd_byte(&current_floor_ptr->dun_type);
-
 	note(format("current_floor_ptr->dun_type:%d",current_floor_ptr->dun_type));
 
 	/* Number of the saved_floors array elements */
@@ -1483,7 +1480,8 @@ static errr rd_floors(void)
 	current_floor_ptr = &floor_list[1];
 
 	// Read the current floor data
-	err = rd_floor(current_floor_ptr);
+	//for(i = 1; i < num; i++)
+		err = rd_floor(&floor_list[1]);
 
 	/*** Error messages ***/
 	switch (err)
