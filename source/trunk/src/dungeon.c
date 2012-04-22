@@ -7229,13 +7229,10 @@ void world_wipe()
 	playtime = 0;
 	current_floor_ptr = &floor_list[0];
 
-	/* Assume no winning game */
-	world_player = FALSE;
+	world_player = FALSE; // Assume no winning game
+	panic_save = 0;	// Assume no cheating
 
-	/* Assume no panic save */
-	panic_save = 0;
 
-	/* Assume no cheating */
 	noscore = 0;
 	wizard = FALSE;
 	cheat_peek = FALSE;
@@ -7259,33 +7256,21 @@ void world_wipe()
 	// Reset the "monsters"
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
-		/* Hack -- Reset the counter */
-		r_ptr->cur_num = 0;
+		species_ptr->cur_num = 0; // Hack -- Reset the counter
+		species_ptr->max_num = 100; // Hack -- Reset the max counter
+		if (is_unique_species(species_ptr)) species_ptr->max_num = 1; // Hack -- Reset the max counter
+		else if (has_cf(&species_ptr->flags, CF_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 
-		/* Hack -- Reset the max counter */
-		r_ptr->max_num = 100;
-
-		/* Hack -- Reset the max counter */
-		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
-
-		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
-
-		/* Clear visible kills in this life */
-		r_ptr->r_pkills = 0;
-
-		/* Clear all kills in this life */
-		r_ptr->r_akills = 0;
+		species_ptr->r_pkills = 0; // Clear visible kills in this life
+		species_ptr->r_akills = 0; // Clear all kills in this life
 	}
-
 
 	// Wipe the quests
 	for (i = 0; i < max_quests; i++)
 	{
 		quest[i].status = QUEST_STATUS_UNTAKEN;
-
 		quest[i].cur_num = 0;
 		quest[i].max_num = 0;
 		quest[i].type = 0;
