@@ -1740,13 +1740,13 @@ note("メッセージをロードしました");
 		rd_item(o_ptr);
 
 		/* Access the item location */
-		cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
+		//TODO cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
 
 		/* Build a stack */
-		o_ptr->next_object_idx = cave_ptr->object_idx;
+		//o_ptr->next_object_idx = cave_ptr->object_idx;
 
 		/* Place the object */
-		cave_ptr->object_idx = object_idx;
+		//cave_ptr->object_idx = object_idx;
 	}
 
 #ifdef JP
