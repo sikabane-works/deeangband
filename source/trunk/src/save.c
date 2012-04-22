@@ -836,27 +836,16 @@ static void wr_floor(floor_type *sf_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	if (!sf_ptr)
-	{
-		/*** Not a saved floor ***/
-
-		wr_s16b(current_floor_ptr->dun_level);
-	}
-	else
-	{
-		/*** The saved floor ***/
-
-		wr_s16b(sf_ptr->floor_id);
-		wr_byte(sf_ptr->savefile_id);
-		wr_s16b(sf_ptr->dun_level);
-		wr_byte(sf_ptr->dun_type);
-		wr_s32b(sf_ptr->world_x);
-		wr_s32b(sf_ptr->world_y);
-		wr_s32b(sf_ptr->last_visit);
-		wr_u32b(sf_ptr->visit_mark);
-		wr_s16b(sf_ptr->upper_floor_id);
-		wr_s16b(sf_ptr->lower_floor_id);
-	}
+	wr_s16b(current_floor_ptr->floor_id);
+	wr_byte(current_floor_ptr->savefile_id);
+	wr_s16b(current_floor_ptr->dun_level);
+	wr_byte(current_floor_ptr->dun_type);
+	wr_s32b(current_floor_ptr->world_x);
+	wr_s32b(current_floor_ptr->world_y);
+	wr_s32b(current_floor_ptr->last_visit);
+	wr_u32b(current_floor_ptr->visit_mark);
+	wr_s16b(current_floor_ptr->upper_floor_id);
+	wr_s16b(current_floor_ptr->lower_floor_id);
 
 	wr_u16b(current_floor_ptr->base_level);
 	wr_u16b(num_repro);

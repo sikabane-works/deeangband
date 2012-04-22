@@ -1346,56 +1346,20 @@ static errr rd_floor(floor_type *sf_ptr)
 
 	cave_template_type *cave_templete_ptr;
 
-	/*** Wipe all cave ***/
-	//clear_cave();
-
 	/*** Basic info ***/
 
 	/* Dungeon floor specific info follows */
 
-	if (!sf_ptr)
-	{
-		/*** Not a saved floor ***/
-
-		rd_s16b(&current_floor_ptr->dun_level);
-		current_floor_ptr->base_level = current_floor_ptr->dun_level;
-	}
-	else
-	{
-		/*** The saved floor ***/
-
-		rd_s16b(&tmp16s);
-		if (tmp16s != sf_ptr->floor_id) return 171;
-
-		rd_byte(&tmp8u);
-		if (tmp8u != sf_ptr->savefile_id) return 171;
-
-		rd_s16b(&tmp16s);
-		if (tmp16s != sf_ptr->dun_level) return 171;
-		current_floor_ptr->dun_level = sf_ptr->dun_level;
-
-		rd_byte(&tmp8u);
-		if (tmp8u != sf_ptr->dun_type) return 171;
-		dungeon_type = sf_ptr->dun_type;
-
-		rd_s32b(&tmp32s);
-		if (tmp32s != sf_ptr->world_x) return 171;
-
-		rd_s32b(&tmp32s);
-		if (tmp32s != sf_ptr->world_y) return 171;
-
-		rd_s32b(&tmp32s);
-		if (tmp32s != sf_ptr->last_visit) return 171;
-
-		rd_u32b(&tmp32u);
-		if (tmp32u != sf_ptr->visit_mark) return 171;
-
-		rd_s16b(&tmp16s);
-		if (tmp16s != sf_ptr->upper_floor_id) return 171;
-
-		rd_s16b(&tmp16s);
-		if (tmp16s != sf_ptr->lower_floor_id) return 171;
-	}
+	rd_s16b(&current_floor_ptr->floor_id);
+	rd_byte(&current_floor_ptr->savefile_id);
+	rd_s16b(&current_floor_ptr->dun_level);
+	rd_byte(&current_floor_ptr->dun_type);
+	rd_s32b(&current_floor_ptr->world_x);
+	rd_s32b(&current_floor_ptr->world_y);
+	rd_s32b(&current_floor_ptr->last_visit);
+	rd_u32b(&current_floor_ptr->visit_mark);
+	rd_s16b(&current_floor_ptr->upper_floor_id);
+	rd_s16b(&current_floor_ptr->lower_floor_id);
 
 
 	rd_s16b(&current_floor_ptr->base_level);
