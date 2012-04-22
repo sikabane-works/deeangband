@@ -7227,9 +7227,7 @@ void world_wipe()
 	int i;
 
 	playtime = 0;
-
-	// Set the recall dungeon accordingly
-	current_floor_ptr->dun_type = 0;
+	current_floor_ptr = &floor_list[0];
 
 	/* Assume no winning game */
 	world_player = FALSE;

@@ -1732,7 +1732,7 @@ void battle_monsters(void)
 	{
 		total = 0;
 		tekitou = FALSE;
-		for(i=0;i<4;i++)
+		for(i = 0; i < 4; i++)
 		{
 			int species_idx, j;
 			while (1)
