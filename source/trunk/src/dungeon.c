@@ -6557,7 +6557,7 @@ static void new_game_setting(void)
 	 * Wipe monsters in old dungeon
 	 * This wipe destroys value of creature_list[].cur_num .
 	 */
-	wipe_creature_list();
+	wipe_creature_list(0);
 
 	/* Quick start? */
 	if (!ask_quick_start(player_ptr))

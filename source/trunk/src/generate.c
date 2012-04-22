@@ -1661,12 +1661,13 @@ if (why) msg_format("ê∂ê¨Ç‚ÇËíºÇµ(%s)", why);
 		if (why) msg_format("Generation restarted (%s)", why);
 #endif
 
+		// TODO Reimplement wiping 
 
 		/* Wipe the objects */
 		wipe_object_list();
 
 		/* Wipe the monsters */
-		wipe_creature_list();
+		wipe_creature_list(0);
 	}
 
 	/* Glow deep lava and building entrances */

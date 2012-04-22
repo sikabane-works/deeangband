@@ -909,7 +909,7 @@ void birth_uniques(void)
  * This is an efficient method of simulating multiple calls to the
  * "delete_creature()" function, with no visual effects.
  */
-void wipe_creature_list(void)
+void wipe_creature_list(int floor_id)
 {
 	int i;
 
@@ -935,17 +935,11 @@ void wipe_creature_list(void)
 	/* Delete all the monsters */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		creature_type *m_ptr = &creature_list[i];
-
-		/* Skip dead monsters */
-		if (!m_ptr->species_idx) continue;
-
-		/* Monster is gone */
-		current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].creature_idx = 0;
-
-		/* Wipe the Monster */
-		(void)WIPE(m_ptr, creature_type);
-
+		creature_type *creature_ptr = &creature_list[i];
+		if (!creature_ptr->species_idx) continue; // Skip dead creature
+		if (floor_id && creature_ptr->floor_id != floor_id) continue; // Skip dead creature
+		if(current_floor_ptr) current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
+		(void)WIPE(creature_ptr, creature_type); //Wipe the Monster
 	}
 
 	/*
