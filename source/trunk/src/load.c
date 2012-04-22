@@ -1333,7 +1333,7 @@ static void rd_messages(void)
  * The monsters/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
-static errr rd_saved_floor(floor_type *sf_ptr)
+static errr rd_floor(floor_type *sf_ptr)
 {
 	int ymax, xmax;
 	int i, y, x;
@@ -1522,7 +1522,7 @@ static errr rd_floors(void)
 	current_floor_ptr = &floor_list[1];
 
 	// Read the current floor data
-	err = rd_saved_floor(NULL);
+	err = rd_floor(NULL);
 
 	/*** Error messages ***/
 	switch (err)

@@ -817,7 +817,7 @@ static void ang_sort_swap_cave_temp(vptr u, vptr v, int a, int b)
  * Actually write a saved floor data
  * using effectively compressed format.
  */
-static void wr_saved_floor(floor_type *sf_ptr)
+static void wr_floor(floor_type *sf_ptr)
 {
 	cave_template_type *template;
 	u16b max_num_temp;
@@ -1058,7 +1058,7 @@ static bool wr_floors(creature_type *player_ptr)
 	wr_byte(dungeon_type);
 
 	wr_byte(0); // No array elements
-	wr_saved_floor(NULL); // Write the current floor data
+	wr_floor(NULL); // Write the current floor data
 
 	return TRUE; 
 }
