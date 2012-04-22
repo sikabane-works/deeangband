@@ -1778,7 +1778,7 @@ note("メッセージをロードしました");
 	{
 		int object_idx;
 		object_type *o_ptr;
-
+		cave_type *cave_ptr;
 
 		/* Get a new record */
 		object_idx = object_pop();
@@ -1793,33 +1793,14 @@ note("メッセージをロードしました");
 		/* Read the item */
 		rd_item(o_ptr);
 
-		/* Monster */
-		if (o_ptr->held_m_idx)
-		{
-			creature_type *creature_ptr;
+		/* Access the item location */
+		cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
 
-			/* Monster */
-			creature_ptr = &creature_list[o_ptr->held_m_idx];
+		/* Build a stack */
+		o_ptr->next_object_idx = cave_ptr->object_idx;
 
-			/* Build a stack */
-			o_ptr->next_object_idx = creature_ptr->hold_object_idx;
-
-			/* Place the object */
-			creature_ptr->hold_object_idx = object_idx;
-		}
-
-		/* Dungeon */
-		else
-		{
-			/* Access the item location */
-			cave_type *cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
-
-			/* Build a stack */
-			o_ptr->next_object_idx = cave_ptr->object_idx;
-
-			/* Place the object */
-			cave_ptr->object_idx = object_idx;
-		}
+		/* Place the object */
+		cave_ptr->object_idx = object_idx;
 	}
 
 #ifdef JP

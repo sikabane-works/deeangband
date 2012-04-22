@@ -3842,10 +3842,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		o_ptr->held_m_idx = m_idx;
 
 		/* Build a stack */
-		o_ptr->next_object_idx = m_ptr->hold_object_idx;
+		//TODO
 
 		/* Carry object */
-		m_ptr->hold_object_idx = object_idx;
+		//TODO
 	}
 	else if (cave_have_flag_bold(y, x, FF_PROJECT))
 	{

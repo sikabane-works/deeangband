@@ -775,80 +775,7 @@ void delete_creature(int y, int x)
  */
 static void move_creature_object(int i1, int i2)
 {
-	int y, x, i;
-	cave_type *c_ptr;
-	creature_type *m_ptr;
-	s16b this_object_idx, next_object_idx = 0;
-
-	// Do nothing
-	if (i1 == i2) return;
-
-	// Old monster
-	m_ptr = &creature_list[i1];
-
-	// Location
-	y = m_ptr->fy;
-	x = m_ptr->fx;
-
-	// Cave grid
-	c_ptr = &current_floor_ptr->cave[y][x];
-
-	/* Update the cave */
-	c_ptr->creature_idx = i2;
-
-	/* Repair objects being carried by monster */
-	for (this_object_idx = m_ptr->hold_object_idx; this_object_idx; this_object_idx = next_object_idx)
-	{
-		object_type *o_ptr;
-
-		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
-
-		/* Reset monster pointer */
-		o_ptr->held_m_idx = i2;
-	}
-
-	/* Hack -- Update the target */
-	if (target_who == i1) target_who = i2;
-
-	/* Hack -- Update the target */
-	if (pet_t_m_idx == i1) pet_t_m_idx = i2;
-	if (riding_t_m_idx == i1) riding_t_m_idx = i2;
-
-	/* Hack -- Update the health bar */
-	if (health_who == i1) health_track(i2);
-
-	/* Hack -- Update parent index */
-	if (is_pet(player_ptr, m_ptr))
-	{
-		for (i = 1; i < creature_max; i++)
-		{
-			creature_type *m2_ptr = &creature_list[i];
-
-			if (m2_ptr->parent_m_idx == i1)
-				m2_ptr->parent_m_idx = i2;
-		}
-	}
-
-	/* Structure copy */
-	COPY(&creature_list[i2], &creature_list[i1], creature_type);
-
-	/* Wipe the hole */
-	(void)WIPE(&creature_list[i1], creature_type);
-
-	for (i = 0; i < MAX_MTIMED; i++)
-	{
-		int mproc_idx = get_mproc_idx(&creature_list[i1], i);
-		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = &creature_list[i2];
-	}
-
-	// Hack -- Update the riding
-	if (m_ptr->riding) creature_list[m_ptr->riding].ridden = i2;
-	if (m_ptr->ridden) creature_list[m_ptr->ridden].riding = i2;
-
+	//TODO reimplement
 }
 
 
@@ -932,7 +859,6 @@ void compact_creatures(int size)
 			num++;
 		}
 	}
-
 
 	/* Excise dead monsters (backwards!) */
 	for (i = creature_max - 1; i >= 1; i--)
