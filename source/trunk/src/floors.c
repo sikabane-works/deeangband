@@ -166,7 +166,6 @@ s16b floor_pop(void)
 	floor_ptr = &floor_list[i];
 
 	// Prepare new floor data
-	floor_ptr->savefile_id = i;
 	floor_ptr->last_visit = 0;
 	floor_ptr->upper_floor_id = 0;
 	floor_ptr->lower_floor_id = 0;

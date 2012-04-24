@@ -1881,7 +1881,6 @@ typedef struct {
  */
 typedef struct 
 {
-	byte savefile_id;     /* ID for savefile (from 0 to MAX_SAVED_FLOOR) */
 	s16b base_level;      /* Base dungeon level */
 	s16b dun_level;
 	s16b creature_level;	/* Current monster creation level */
