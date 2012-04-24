@@ -68,7 +68,7 @@ static int select_mode(void)
 	se[1].key = '\0';
 	se[1].code = 1;
 
-	return get_selection(se, 2, 10, 2, 2, 18, game_mode_detail);
+	return get_selection(se, 2, 0, 10, 2, 2, 18, game_mode_detail);
 }
 
 static int select_unique_species(void)
@@ -101,7 +101,7 @@ static int select_unique_species(void)
 		}
 	}
 
-	return get_selection(se, unique_num, 2, 2, 20, 76, NULL);
+	return get_selection(se, unique_num, 0, 2, 2, 20, 76, NULL);
 }
 
 static void object_kind_info_reset(void)
