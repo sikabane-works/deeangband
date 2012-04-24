@@ -1568,10 +1568,20 @@ static void do_cmd_wiz_floor_teleport(void)
 				floor_list[i].dun_level);
 			ce[i].cap[72] = '\0'; 
 
-			ce[i].d_color = TERM_L_DARK;
-			ce[i].l_color = TERM_WHITE;
-			ce[i].key = '\0';
-			ce[i].code = i;
+			if(player_ptr->floor_id == i)
+			{
+				ce[i].d_color = TERM_GREEN;
+				ce[i].l_color = TERM_L_GREEN;
+				ce[i].key = '\0';
+				ce[i].code = i;
+			}
+			else
+			{
+				ce[i].d_color = TERM_L_DARK;
+				ce[i].l_color = TERM_WHITE;
+				ce[i].key = '\0';
+				ce[i].code = i;
+			}
 		}
 
 		sprintf(ce[i].cap, " END ");
