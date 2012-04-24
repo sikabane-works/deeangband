@@ -1466,7 +1466,6 @@ static errr rd_floors(void)
 
 	/*** Meta info ***/
 
-	rd_s16b(&current_floor_id);
 	rd_s16b(&max_floor_id); // Number of floor_id used from birth
 
 	current_floor_ptr = &floor_list[1];

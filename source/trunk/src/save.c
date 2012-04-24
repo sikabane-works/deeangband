@@ -1040,7 +1040,6 @@ static bool wr_floors(creature_type *player_ptr)
 
 	/*** Meta info ***/
 
-	wr_s16b(current_floor_id);
 	wr_s16b(max_floor_id); 	// Number of floor_id used from birth
 	for(i = 1; i < max_floor_id; i++) wr_floor(&floor_list[i]); // Write the current floor data
 

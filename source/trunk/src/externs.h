@@ -2082,5 +2082,4 @@ extern u32b game_load_count;
 extern byte start_hour;
 extern byte start_min;
 
-extern s16b current_floor_id;
 bool detect_trap;
