@@ -1551,8 +1551,7 @@ static void do_cmd_wiz_creature_list(void)
 static void do_cmd_wiz_floor_teleport(void)
 {
 	selection *ce;
-	int i;//, mode;
-	//char k, tmp[80];
+	int i;
 	ce = malloc(sizeof(selection) * (max_floor_id + 1));
 
 	screen_save();
@@ -1562,8 +1561,8 @@ static void do_cmd_wiz_floor_teleport(void)
 
 		for(i = 0; i < max_floor_id; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] F:%d World[X:%3d Y:%3d] Size[%dx%d] %s-%3dF", i,
-				floor_list[i].floor_id, floor_list[i].world_x, floor_list[i].world_y,
+			sprintf(ce[i].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+				floor_list[i].world_x, floor_list[i].world_y,
 				floor_list[i].width, floor_list[i].height,
 				d_name + dungeon_info[floor_list[i].dun_type].name,
 				floor_list[i].dun_level);

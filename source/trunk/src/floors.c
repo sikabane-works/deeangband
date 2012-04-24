@@ -87,7 +87,6 @@ void init_saved_floors(bool force)
 		/* Drop permissions */
 		safe_setuid_drop();
 
-		sf_ptr->floor_id = 0;
 	}
 
 	/* No floor_id used yet (No.0 is reserved to indicate non existance) */
@@ -116,18 +115,7 @@ void init_saved_floors(bool force)
 //
 floor_type *get_floor_ptr(s16b floor_id)
 {
-	int i;
-
-	// floor_id No.0 indicates no floor
-	//if (!floor_id) return NULL;
-
-	for (i = 0; i < MAX_FLOORS; i++)
-	{
-		floor_type *sf_ptr = &floor_list[i];
-		if (sf_ptr->floor_id == floor_id) return sf_ptr;
-	}
-
-	return NULL;
+	return &floor_list[floor_id];
 }
 
 
@@ -137,11 +125,7 @@ floor_type *get_floor_ptr(s16b floor_id)
 static void kill_floor(floor_type *sf_ptr)
 {
 	if (!sf_ptr) return; // Paranoia
-	if (!sf_ptr->floor_id) return; // Already empty
-
 	// TODO
-
-	sf_ptr->floor_id = 0; 	// No longer exists
 }
 
 
@@ -155,7 +139,7 @@ s16b floor_pop(void)
 	int i;
 
 	// Find empty space
-	for (i = 1; i < MAX_FLOORS; i++) if (!floor_list[i].floor_id) break;
+	for (i = 1; i < MAX_FLOORS; i++) if (floor_list[i].width || !floor_list[i].height) break;
 
 	// Not found
 	if (i == MAX_FLOORS)
@@ -183,7 +167,6 @@ s16b floor_pop(void)
 
 	// Prepare new floor data
 	floor_ptr->savefile_id = i;
-	floor_ptr->floor_id = max_floor_id;
 	floor_ptr->last_visit = 0;
 	floor_ptr->upper_floor_id = 0;
 	floor_ptr->lower_floor_id = 0;
@@ -199,7 +182,7 @@ s16b floor_pop(void)
 	if (max_floor_id < MAX_SHORT) max_floor_id++;
 	else max_floor_id = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
 
-	return floor_ptr->floor_id;
+	return i;
 }
 
 
@@ -880,9 +863,6 @@ void change_floor(creature_type *cr_ptr)
 
 	/* Hack -- maintain unique and artifacts */
 	//update_unique_artifact(current_floor_id);
-
-	/* Now the player is in new floor */
-	cr_ptr->floor_id = current_floor_ptr->floor_id;
 
 	/* The dungeon is ready */
 	character_dungeon = TRUE;

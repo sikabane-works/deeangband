@@ -1347,7 +1347,6 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	rd_s16b(&floor_ptr->floor_id);
 	rd_byte(&floor_ptr->savefile_id);
 	rd_s16b(&floor_ptr->dun_level);
 	rd_byte(&floor_ptr->dun_type);
