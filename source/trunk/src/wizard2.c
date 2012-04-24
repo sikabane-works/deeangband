@@ -1582,6 +1582,12 @@ static void do_cmd_wiz_floor_teleport(void)
 
 		i = get_selection(ce, max_floor_id + 1, 1, 1, 22, 78, NULL);
 		if(i == max_floor_id) break;
+		else
+		{
+			current_floor_ptr = &floor_list[i];
+			play_redraw |= PR_WIPE;
+			redraw_stuff(); // redraw
+		}
 
 	}
 
