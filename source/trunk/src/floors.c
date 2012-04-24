@@ -99,9 +99,6 @@ void init_saved_floors(bool force)
 	/* A sign to mark temporal files */
 	saved_floor_file_sign = (u32b)time(NULL);
 
-	/* No next floor yet */
-	current_floor_id = 0;
-
 	/* No change floor mode yet */
 	player_ptr->change_floor_mode = 0;
 
@@ -485,7 +482,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
  */
 void leave_floor(creature_type *creature_ptr)
 {
-	int i;
+	int i, floor_id;
 	cave_type *stair_ptr = NULL;
 	feature_type *feature_ptr;
 	floor_type *floor_ptr;
@@ -532,7 +529,7 @@ void leave_floor(creature_type *creature_ptr)
 		// Get back to old saved floor?
 		if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && get_floor_ptr(stair_ptr->special))
 		{
-			current_floor_id = stair_ptr->special; // Saved floor is exist.  Use it.
+			current_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		}
 
 		// Mark shaft up/down
@@ -591,21 +588,14 @@ void leave_floor(creature_type *creature_ptr)
 	}
 	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
 
-	// No current floor -- Left/Enter dungeon etc...
-	if (!creature_ptr->floor_id) return;
-
-	// Mark next floor_id on the previous floor
-	if (!current_floor_id)
-	{
-		current_floor_id = floor_pop(); // Get new id
-		if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = current_floor_id; // Connect from here
-	}
+	floor_id = floor_pop(); // Get new id
+	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
 	if (creature_ptr->change_floor_mode & CFM_RAND_CONNECT)
 	{
-		if (creature_ptr->change_floor_mode & CFM_UP)        floor_ptr->upper_floor_id = current_floor_id;
-		else if (creature_ptr->change_floor_mode & CFM_DOWN) floor_ptr->lower_floor_id = current_floor_id;
+		if (creature_ptr->change_floor_mode & CFM_UP)        floor_ptr->upper_floor_id = floor_id;
+		else if (creature_ptr->change_floor_mode & CFM_DOWN) floor_ptr->lower_floor_id = floor_id;
 	}
 
 	// If you can return, you need to save previous floor
@@ -889,10 +879,10 @@ void change_floor(creature_type *cr_ptr)
 	*/
 
 	/* Hack -- maintain unique and artifacts */
-	update_unique_artifact(current_floor_id);
+	//update_unique_artifact(current_floor_id);
 
 	/* Now the player is in new floor */
-	cr_ptr->floor_id = current_floor_id;
+	cr_ptr->floor_id = current_floor_ptr->floor_id;
 
 	/* The dungeon is ready */
 	character_dungeon = TRUE;

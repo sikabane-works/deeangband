@@ -957,7 +957,7 @@ static void prt_depth(creature_type *cr_ptr)
 	/* Right-Adjust the "depth", and clear old values */
 	if(wizard)
 	{
-		c_prt(attr, format("%7s F:%3d", depths, current_floor_id), row_depth, col_depth - 6);
+		c_prt(attr, format("%7s F:%3d", depths, current_floor_ptr->floor_id), row_depth, col_depth - 6);
 	}
 	else
 	{
@@ -2746,21 +2746,21 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
  * SWD: Experimental modification: multiple light sources have additive effect.
  *
  */
-static void calc_torch(creature_type *cr_ptr)
+static void calc_lite(creature_type *cr_ptr)
 {
 	int i;
 	object_type *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 
-	/* Assume no light */
+	// Assume no light
 	cr_ptr->cur_lite = 0;
 
-	/* Loop through all wielded items */
+	// Loop through all wielded items
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		/* Examine actual lites */
+		// Examine actual lites
 		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_LITE && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
 		{
 			if (o_ptr->name2 == EGO_LITE_DARKNESS)
@@ -2770,7 +2770,7 @@ static void calc_torch(creature_type *cr_ptr)
 					cr_ptr->cur_lite -= 2;
 				}
 
-				/* Lanterns (with fuel) provide more lite */
+				// Lanterns (with fuel) provide more lite
 				else if (o_ptr->sval == SV_LITE_LANTERN)
 				{
 					cr_ptr->cur_lite -= 2;
@@ -5675,7 +5675,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (cr_ptr->creature_update & (CRU_TORCH))
 	{
 		update &= ~(CRU_TORCH);
-		calc_torch(cr_ptr);
+		calc_lite(cr_ptr);
 	}
 
 	if (cr_ptr->creature_update & (CRU_HP))

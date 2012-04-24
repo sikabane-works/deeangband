@@ -1515,8 +1515,6 @@ void clear_cave(void)
 {
 	int x, y;
 
-	//current_floor_id = 0;
-
 	/* Start with a blank cave */
 	for (y = 0; y < MAX_HGT; y++)
 	{
@@ -1589,7 +1587,6 @@ void generate_floor(creature_type *player_ptr)
 		{
 			/* Small arena */
 			generate_floor_arena(player_ptr);
-			current_floor_id = 0;
 		}
 
 		/* Build the battle -KMW- */
@@ -1597,13 +1594,11 @@ void generate_floor(creature_type *player_ptr)
 		{
 			/* Small arena */
 			generate_floor_monster_arena(player_ptr);
-			current_floor_id = 0;
 		}
 
 		else if (inside_quest)
 		{
 			generate_floor_quest();
-			current_floor_id = 0;
 		}
 
 		/* Build the town */
@@ -1612,7 +1607,6 @@ void generate_floor(creature_type *player_ptr)
 			/* Make the wilderness */
 			if (wild_mode) generate_floor_world(player_ptr);
 			else generate_floor_wilderness(player_ptr);
-			current_floor_id = 0;
 		}
 
 		/* Build a real level */
