@@ -1562,8 +1562,9 @@ static void do_cmd_wiz_floor_teleport(void)
 
 		for(i = 0; i < max_floor_id; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] F:%d X:%3d Y:%3d %s-%3dF", i,
+			sprintf(ce[i].cap, "[%4d] F:%d World[X:%3d Y:%3d] Size[%dx%d] %s-%3dF", i,
 				floor_list[i].floor_id, floor_list[i].world_x, floor_list[i].world_y,
+				floor_list[i].width, floor_list[i].height,
 				d_name + dungeon_info[floor_list[i].dun_type].name,
 				floor_list[i].dun_level);
 			ce[i].cap[72] = '\0'; 
@@ -1590,13 +1591,17 @@ static void do_cmd_wiz_floor_teleport(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, max_floor_id + 1, 0, 1, 1, 22, 78, NULL);
+		i = get_selection(ce, max_floor_id + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL);
 		if(i == max_floor_id) break;
 		else
 		{
+			// move simulate floor and player.
 			current_floor_ptr = &floor_list[i];
-			play_redraw |= PR_WIPE;
-			redraw_stuff(); // redraw
+			player_ptr->floor_id = i;
+
+			// redraw
+			play_redraw |= PR_MAP;
+			redraw_stuff();
 		}
 
 	}
