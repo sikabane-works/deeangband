@@ -1468,7 +1468,7 @@ static errr rd_floors(void)
 
 	rd_s16b(&max_floor_id); // Number of floor_id used from birth
 
-	current_floor_ptr = &floor_list[1];
+	current_floor_ptr = &floor_list[player_ptr->floor_id];
 
 	// Read the current floor data
 	for(i = 1; i < max_floor_id; i++)
