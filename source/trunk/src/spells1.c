@@ -1039,7 +1039,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_DARK_WEAK:
 		case GF_DARK:
 		{
-			bool do_dark = !monster_arena_mode && !is_mirror_grid(c_ptr);
+			bool do_dark = !gamble_arena_mode && !is_mirror_grid(c_ptr);
 			int j;
 
 			/* Turn off the light. */
@@ -1739,7 +1739,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	bool slept = (bool)target_ptr->paralyzed;
 
 	/* Can the player know about this effect? */
-	bool known = ((target_ptr->cdis <= MAX_SIGHT) || monster_arena_mode);
+	bool known = ((target_ptr->cdis <= MAX_SIGHT) || gamble_arena_mode);
 
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;
@@ -1852,7 +1852,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_cf_creature(target_ptr, CF_NAZGUL) && !monster_arena_mode)
+	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_cf_creature(target_ptr, CF_NAZGUL) && !gamble_arena_mode)
 	{
 		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
@@ -2285,7 +2285,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 		while (one_in_(5));
 	}
 
-	if (monster_arena_mode)
+	if (gamble_arena_mode)
 	{
 		health_track(c_ptr->creature_idx);
 		play_redraw |= (PR_HEALTH);
@@ -7197,7 +7197,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	bool slept = (bool)target_ptr->paralyzed;
 
 	/* Can the player know about this effect? */
-	bool known = ((target_ptr->cdis <= MAX_SIGHT) || monster_arena_mode);
+	bool known = ((target_ptr->cdis <= MAX_SIGHT) || gamble_arena_mode);
 
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;

@@ -176,7 +176,7 @@ cptr map_name(void)
 #else
 		return "Arena";
 #endif
-	else if (monster_arena_mode)
+	else if (gamble_arena_mode)
 #ifdef JP
 		return "“¬‹Zê";
 #else

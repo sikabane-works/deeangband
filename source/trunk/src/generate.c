@@ -1593,7 +1593,7 @@ void generate_floor(creature_type *player_ptr)
 		}
 
 		/* Build the battle -KMW- */
-		else if (monster_arena_mode)
+		else if (gamble_arena_mode)
 		{
 			/* Small arena */
 			generate_floor_monster_arena(player_ptr);

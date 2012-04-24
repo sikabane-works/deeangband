@@ -2995,7 +2995,7 @@ void update_creature_lite(void)
 	int dis_lim = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto) ?
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
-	/* Clear all monster lit squares */
+	/* Clear all creature lit squares */
 	for (i = 0; i < mon_lite_n; i++)
 	{
 		/* Point to grid */
@@ -3004,20 +3004,20 @@ void update_creature_lite(void)
 		/* Set temp or xtra flag */
 		c_ptr->info |= (c_ptr->info & CAVE_MNLT) ? CAVE_TEMP : CAVE_XTRA;
 
-		/* Clear monster illumination flag */
+		/* Clear creature illumination flag */
 		c_ptr->info &= ~(CAVE_MNLT | CAVE_MNDK);
 	}
 
 	/* Empty temp list of new squares to lite up */
 	temp_n = 0;
 
-	/* If a monster stops time, don't process */
+	/* If a creature stops time, don't process */
 	if (!the_world)
 	{
 		creature_type *creature_ptr;
 		species_type *species_ptr;
 
-		/* Loop through monsters, adding newly lit squares to changes list */
+		/* Loop through creatures, adding newly lit squares to changes list */
 		for (i = 1; i < creature_max; i++)
 		{
 			creature_ptr = &creature_list[i];
@@ -3025,7 +3025,7 @@ void update_creature_lite(void)
 
 			if(!is_in_this_floor(creature_ptr)) continue;
 
-			/* Skip dead monsters */
+			/* Skip dead creatures */
 			if (!creature_ptr->species_idx) continue;
 
 			/* Is it too far away? */
@@ -3045,7 +3045,7 @@ void update_creature_lite(void)
 			else if (rad > 0)
 			{
 				if (!(has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_SELF_LITE_2)) && 
-					(creature_ptr->paralyzed || (!current_floor_ptr->dun_level && is_daytime()) || monster_arena_mode)) continue;
+					(creature_ptr->paralyzed || (!current_floor_ptr->dun_level && is_daytime()) || gamble_arena_mode)) continue;
 				if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = mon_lite_hack;
 				f_flag = FF_LOS;
@@ -3062,7 +3062,7 @@ void update_creature_lite(void)
 			creature_fx = creature_ptr->fx;
 			creature_fy = creature_ptr->fy;
 
-			/* Is the monster visible? */
+			/* Is the creature visible? */
 			creature_invis = !(current_floor_ptr->cave[creature_fy][creature_fx].info & CAVE_VIEW);
 
 			/* The square it is on */
@@ -3081,7 +3081,7 @@ void update_creature_lite(void)
 			/* Radius 2 */
 			if (rad >= 2)
 			{
-				/* South of the monster */
+				/* South of the creature */
 				if (cave_have_flag_bold(creature_fy + 1, creature_fx, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 1);
@@ -3099,7 +3099,7 @@ void update_creature_lite(void)
 					}
 				}
 
-				/* North of the monster */
+				/* North of the creature */
 				if (cave_have_flag_bold(creature_fy - 1, creature_fx, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 1);
@@ -3117,7 +3117,7 @@ void update_creature_lite(void)
 					}
 				}
 
-				/* East of the monster */
+				/* East of the creature */
 				if (cave_have_flag_bold(creature_fy, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 1, creature_fx + 2);
@@ -3135,7 +3135,7 @@ void update_creature_lite(void)
 					}
 				}
 
-				/* West of the monster */
+				/* West of the creature */
 				if (cave_have_flag_bold(creature_fy, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 1, creature_fx - 2);
@@ -3157,25 +3157,25 @@ void update_creature_lite(void)
 			/* Radius 3 */
 			if (rad == 3)
 			{
-				/* South-East of the monster */
+				/* South-East of the creature */
 				if (cave_have_flag_bold(creature_fy + 1, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 2);
 				}
 
-				/* South-West of the monster */
+				/* South-West of the creature */
 				if (cave_have_flag_bold(creature_fy + 1, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx - 2);
 				}
 
-				/* North-East of the monster */
+				/* North-East of the creature */
 				if (cave_have_flag_bold(creature_fy - 1, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 2);
 				}
 
-				/* North-West of the monster */
+				/* North-West of the creature */
 				if (cave_have_flag_bold(creature_fy - 1, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx - 2);
@@ -3262,7 +3262,7 @@ void update_creature_lite(void)
 			}
 		}
 
-		/* Save in the monster lit or darkened array */
+		/* Save in the creature lit or darkened array */
 		creature_lite_x[mon_lite_n] = fx;
 		creature_lite_y[mon_lite_n] = fy;
 		mon_lite_n++;

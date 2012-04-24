@@ -772,7 +772,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	object_type *q_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !inside_arena
-		&& !monster_arena_mode && !is_pet(player_ptr, killed_ptr);
+		&& !gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
 	if (the_world && &creature_list[the_world] == killed_ptr) the_world = 0;
@@ -887,7 +887,7 @@ msg_print("地面に落とされた。");
 	/* Drop a dead corpse? */
 	if (one_in_(has_cf_creature(killed_ptr, CF_UNIQUE) ? 1 : 4) &&
 	    (has_cf_creature(killed_ptr, CF_DROP_CORPSE) || has_cf_creature(killed_ptr, CF_DROP_SKELETON)) &&
-	    !(inside_arena || monster_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
+	    !(inside_arena || gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -936,7 +936,7 @@ msg_print("地面に落とされた。");
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
-		if (!(inside_arena || monster_arena_mode))
+		if (!(inside_arena || gamble_arena_mode))
 		{
 			bool notice = FALSE;
 
@@ -1011,7 +1011,7 @@ msg_print("地面に落とされた。");
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
 		 */
-		if (!inside_arena && !monster_arena_mode)
+		if (!inside_arena && !gamble_arena_mode)
 		{
 			if (!one_in_(7))
 			{
@@ -1339,7 +1339,7 @@ msg_print("地面に落とされた。");
 	if (cloned && !(is_unique_creature(killed_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, killed_ptr) || monster_arena_mode || inside_arena)
+	if (is_pet(player_ptr, killed_ptr) || gamble_arena_mode || inside_arena)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1398,7 +1398,7 @@ msg_print("地面に落とされた。");
 
 	/* Only process "Quest Monsters" */
 	if (!is_quest_creature(killed_ptr)) return;
-	if (monster_arena_mode) return;
+	if (gamble_arena_mode) return;
 }
 
 /*
@@ -1461,7 +1461,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 
 	if (has_cf_creature(tar_ptr, CF_BLUFF)) return;
 	if (!tar_ptr->species_idx) return;
-	if (is_pet(player_ptr, tar_ptr) || monster_arena_mode) return;
+	if (is_pet(player_ptr, tar_ptr) || gamble_arena_mode) return;
 
 	/*
 	 * - Ratio of monster's level to player's level effects

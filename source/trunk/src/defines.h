@@ -596,7 +596,7 @@
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
-#define MAX_RANGE       (monster_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
+#define MAX_RANGE       (gamble_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
@@ -3817,7 +3817,7 @@
  */
 // TODO Check using
 #define is_seen(B, A) \
-	((bool)((A)->ml && (!ignore_unview || monster_arena_mode || \
+	((bool)((A)->ml && (!ignore_unview || gamble_arena_mode || \
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
@@ -4141,7 +4141,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y,X) \
-    (((current_floor_ptr->cave[Y][X].info & (CAVE_VIEW)) != 0) || monster_arena_mode)
+    (((current_floor_ptr->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
 
 
 /*
@@ -5242,7 +5242,7 @@ extern int PlayerUID;
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(USER, TARGET) \
-	(inside_arena || monster_arena_mode || \
+	(inside_arena || gamble_arena_mode || \
 	 (inside_quest && !random_quest_number(current_floor_ptr->dun_level)) || \
 	 (((TARGET) <= 0) && (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)) && \
 	  (current_floor_ptr->dun_level >= 1) && ironman_downward))

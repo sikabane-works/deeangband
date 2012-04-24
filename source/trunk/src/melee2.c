@@ -49,7 +49,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 	}
 	else
 	{
-		if (monster_arena_mode)
+		if (gamble_arena_mode)
 		{
 			start = randint1(creature_max-1) + creature_max;
 			if(randint0(2)) plus = -1;
@@ -1274,7 +1274,7 @@ static void process_creature(int m_idx)
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
 	// food digest
-	if (!monster_arena_mode)
+	if (!gamble_arena_mode)
 	{
 		// Digest quickly when gorged
 		if (creature_ptr->food >= PY_FOOD_MAX)
@@ -1448,7 +1448,7 @@ static void process_creature(int m_idx)
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		weapon_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !monster_arena_mode)
+	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1585,7 +1585,7 @@ static void process_creature(int m_idx)
 		gets_angry = TRUE;
 	}
 
-	if (monster_arena_mode) gets_angry = FALSE;
+	if (gamble_arena_mode) gets_angry = FALSE;
 
 	if (gets_angry)
 	{
@@ -1651,7 +1651,7 @@ static void process_creature(int m_idx)
 		/* Hack -- Ohmu scatters molds! */
 		if (creature_ptr->species_idx == MON_OHMU)
 		{
-			if (!inside_arena && !monster_arena_mode)
+			if (!inside_arena && !gamble_arena_mode)
 			{
 				if (r_ptr->freq_spell && (randint1(100) <= r_ptr->freq_spell))
 				{
@@ -1674,7 +1674,7 @@ static void process_creature(int m_idx)
 	}
 
 
-	if (!monster_arena_mode)
+	if (!gamble_arena_mode)
 	{
 		/* Hack! "Cyber" monster makes noise... */
 		if (creature_ptr->ap_species_idx == MON_CYBER &&
@@ -2562,7 +2562,7 @@ msg_format("%^s%s", creature_name, monmessage);
 
 	/* Notice changes in view */
 	if (do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		|| ((has_cf_creature(creature_ptr, CF_HAS_LITE_1) || has_cf_creature(creature_ptr, CF_HAS_LITE_2)) && !monster_arena_mode))
+		|| ((has_cf_creature(creature_ptr, CF_HAS_LITE_1) || has_cf_creature(creature_ptr, CF_HAS_LITE_2)) && !gamble_arena_mode))
 	{
 		/* Update some things */
 		update |= (PU_MON_LITE);

@@ -1465,7 +1465,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))))
 			continue;
 
-		if (!monster_arena_mode && !chameleon_change_m_idx &&
+		if (!gamble_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
@@ -1477,7 +1477,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1519,7 +1519,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		    (get_species_num2_hook && !((*get_species_num2_hook)(summoner_ptr, entry->index))))
 			continue;
 
-		if (!monster_arena_mode && !chameleon_change_m_idx &&
+		if (!gamble_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
@@ -1538,7 +1538,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1581,7 +1581,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		    (get_species_num2_hook && !((*get_species_num2_hook)(summoner_ptr, entry->index))))
 			continue;
 
-		if (!monster_arena_mode && !chameleon_change_m_idx &&
+		if (!gamble_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
@@ -1600,7 +1600,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !monster_arena_mode)
+		if (current_floor_ptr->dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1709,7 +1709,7 @@ s16b get_species_num(int level)
 	}
 
 	/* Boost the level */
-	if ((level > 0) && !monster_arena_mode && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !gamble_arena_mode && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth monsters */
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
@@ -1763,7 +1763,7 @@ s16b get_species_num(int level)
 		/* Citizens doesn't wander. */
 		if (is_citizen_species(r_ptr)) continue;
 
-		if (!monster_arena_mode && !chameleon_change_m_idx)
+		if (!gamble_arena_mode && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
 			if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
@@ -2147,7 +2147,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			}
 
 			/* Inside monster arena, and it is not your mount */
-			else if (monster_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
+			else if (gamble_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
 			{
 				/* It is a fake unique monster */
 #ifdef JP
@@ -2465,7 +2465,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 	bool happened = FALSE;
 	int power = 100;
 
-	if (monster_arena_mode || !character_dungeon) return;
+	if (gamble_arena_mode || !character_dungeon) return;
 
 	if (!necro)
 	{
@@ -3998,7 +3998,7 @@ static int place_creature_one(creature_type *summoner_ptr, int y, int x, int spe
 	}
 
 	// TO DO DEBUG.
-	if (!monster_arena_mode)
+	if (!gamble_arena_mode)
 	{
 		/* Hack -- "unique" monsters must be "unique" */
 		if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&

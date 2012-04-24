@@ -1711,7 +1711,7 @@ void battle_monsters(void)
 	int ave_creature_level;
 	int power[4];
 	bool tekitou;
-	bool old_monster_arena_mode = monster_arena_mode;
+	bool old_gamble_arena_mode = gamble_arena_mode;
 
 	for (i = 0; i < max_d_idx; i++)
 		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
@@ -1738,9 +1738,9 @@ void battle_monsters(void)
 			while (1)
 			{
 				get_species_num_prep(vault_aux_battle, NULL);
-				monster_arena_mode = TRUE;
+				gamble_arena_mode = TRUE;
 				species_idx = get_species_num(ave_creature_level);
-				monster_arena_mode = old_monster_arena_mode;
+				gamble_arena_mode = old_gamble_arena_mode;
 				if (!species_idx) continue;
 
 				if (is_unique_species(&species_info[species_idx]) || is_sub_unique_species(&species_info[species_idx]))
@@ -2071,7 +2071,7 @@ msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚Å‚¢‚±‚¤B");
 			// Save the surface floor as saved floor
 			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
-			monster_arena_mode = TRUE;
+			gamble_arena_mode = TRUE;
 			subject_change_floor = TRUE;
 
 			leave_bldg = TRUE;
@@ -4295,7 +4295,7 @@ bool tele_town(creature_type *cr_ptr)
 		return FALSE;
 	}
 
-	if (inside_arena || monster_arena_mode)
+	if (inside_arena || gamble_arena_mode)
 	{
 #ifdef JP
 		msg_print("‚±‚Ì–‚–@‚ÍŠO‚Å‚µ‚©Žg‚¦‚È‚¢I");
@@ -5093,13 +5093,13 @@ void do_cmd_bldg(creature_type *cr_ptr)
 
 		return;
 	}
-	else if (monster_arena_mode)
+	else if (gamble_arena_mode)
 	{
 		/* Don't save the arena as saved floor */
 		prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 		subject_change_floor = TRUE;
-		monster_arena_mode = FALSE;
+		gamble_arena_mode = FALSE;
 
 		/* Re-enter the monster arena */
 		command_new = SPECIAL_KEY_BUILDING;
@@ -5141,7 +5141,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		{
 			leave_bldg = TRUE;
 			inside_arena = FALSE;
-			monster_arena_mode = FALSE;
+			gamble_arena_mode = FALSE;
 			break;
 		}
 
