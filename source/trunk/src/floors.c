@@ -876,7 +876,7 @@ void change_floor(creature_type *cr_ptr)
 
 	/* No dungeon feeling yet */
 	cr_ptr->feeling_turn = old_turn;
-	cr_ptr->feeling = 0;
+	cr_ptr->floor_feeling = 0;
 
 	/* Clear all flags */
 	cr_ptr->change_floor_mode = 0L;

@@ -938,7 +938,7 @@ static void prt_depth(creature_type *cr_ptr)
 
 
 		/* Get color of level based on feeling  -JSV- */
-		switch (cr_ptr->feeling)
+		switch (cr_ptr->floor_feeling)
 		{
 		case  0: attr = TERM_SLATE;   break; /* Unknown */
 		case  1: attr = TERM_L_BLUE;  break; /* Special */

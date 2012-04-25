@@ -1330,8 +1330,8 @@ struct creature_type
 
 	bool autopick_autoregister; /* auto register is in-use or not */
 
-	byte feeling;		/* Most recent dungeon feeling */
-	s32b feeling_turn;	/* The turn of the last dungeon feeling */
+	byte floor_feeling;		// Most recent dungeon feeling
+	s32b feeling_turn;		/* The turn of the last dungeon feeling */
 
 	/*** Temporary fields ***/
 	bool teleport_town;

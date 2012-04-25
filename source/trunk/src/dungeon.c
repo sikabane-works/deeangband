@@ -3797,10 +3797,10 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	cr_ptr->feeling_turn = turn;
 
 	/* No change */
-	if (cr_ptr->feeling == new_feeling) return;
+	if (cr_ptr->floor_feeling == new_feeling) return;
 
 	/* Dungeon feeling is changed */
-	cr_ptr->feeling = new_feeling;
+	cr_ptr->floor_feeling = new_feeling;
 
 	/* Announce feeling */
 	do_cmd_feeling(cr_ptr);

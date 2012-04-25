@@ -1137,7 +1137,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_byte(&cr_ptr->action);
 
 	// Read "feeling"
-	rd_byte(&cr_ptr->feeling);
+	rd_byte(&cr_ptr->floor_feeling);
 	rd_s32b(&cr_ptr->feeling_turn);
 
 	rd_s16b(&cr_ptr->riding);

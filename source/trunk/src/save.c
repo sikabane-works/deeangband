@@ -659,7 +659,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->action);
 
 	/* Write feeling */
-	wr_byte(cr_ptr->feeling);
+	wr_byte(cr_ptr->floor_feeling);
 
 	/* Turn of last "feeling" */
 	wr_s32b(cr_ptr->feeling_turn);
