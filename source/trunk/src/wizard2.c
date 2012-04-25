@@ -744,7 +744,7 @@ static int wiz_create_itemtype(void)
 	Term_clear();
 
 	/* We have to search the whole itemlist. */
-	for (num = 0, i = 1; (num < 80) && (i < max_k_idx); i++)
+	for (num = 0, i = 1; (num < 80) && (i < max_object_kind_idx); i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 
@@ -1363,7 +1363,7 @@ static void wiz_create_item(creature_type *cr_ptr)
 		int i;
 
 		/* Artifactify */
-		for (i = 1; i < max_a_idx; i++)
+		for (i = 1; i < max_artifact_idx; i++)
 		{
 			/* Ignore incorrect tval */
 			if (artifact_info[i].tval != object_kind_info[k_idx].tval) continue;
@@ -1747,7 +1747,7 @@ static void do_cmd_wiz_learn(void)
 	object_type *q_ptr;
 
 	/* Scan every object */
-	for (i = 1; i < max_k_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 

@@ -1828,7 +1828,7 @@ s16b lookup_kind(int tval, int sval)
 	int bk = 0;
 
 	/* Look for it */
-	for (k = 1; k < max_k_idx; k++)
+	for (k = 1; k < max_object_kind_idx; k++)
 	{
 		object_kind *k_ptr = &object_kind_info[k];
 
@@ -2098,7 +2098,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 	if (get_obj_num_hook) return (FALSE);
 
 	/* Check the artifact list (just the "specials") */
-	for (i = 0; i < max_a_idx; i++)
+	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 
@@ -2174,7 +2174,7 @@ static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 	if (o_ptr->number != 1) return (FALSE);
 
 	/* Check the artifact list (skip the "specials") */
-	for (i = 0; i < max_a_idx; i++)
+	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 

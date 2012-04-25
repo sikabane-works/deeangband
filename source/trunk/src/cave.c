@@ -669,7 +669,7 @@ static void image_object(byte *ap, char *cp)
 {
 	if (use_graphics)
 	{
-		object_kind *k_ptr = &object_kind_info[randint1(max_k_idx-1)];
+		object_kind *k_ptr = &object_kind_info[randint1(max_object_kind_idx-1)];
 
 		*cp = k_ptr->x_char;
 		*ap = k_ptr->x_attr;

@@ -688,7 +688,7 @@ byte race_population[MAX_RACES];
 
 
 /*
- * The size of "alloc_kind_table" (at most max_k_idx * 4)
+ * The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
  */
 s16b alloc_kind_size;
 
@@ -1088,7 +1088,7 @@ u16b max_authority_idx;
 /*
  * Maximum number of items in object_kind_info.txt
  */
-u16b max_k_idx;
+u16b max_object_kind_idx;
 
 /*
  * Maximum number of vaults in v_info.txt
@@ -1103,7 +1103,7 @@ u16b max_f_idx;
 /*
  * Maximum number of artifacts in artifact_info.txt
  */
-u16b max_a_idx;
+u16b max_artifact_idx;
 
 /*
  * Maximum number of ego-items in e_info.txt

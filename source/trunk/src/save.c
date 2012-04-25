@@ -1174,7 +1174,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Dump the object memory */
-	tmp16u = max_k_idx;
+	tmp16u = max_object_kind_idx;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) wr_xtra(i);
 
@@ -1257,7 +1257,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Hack -- Dump the artifacts */
-	tmp16u = max_a_idx;
+	tmp16u = max_artifact_idx;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{

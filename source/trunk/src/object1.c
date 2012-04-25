@@ -49,7 +49,7 @@ void reset_visuals(void)
 	}
 
 	/* Extract default attr/char code for objects */
-	for (i = 0; i < max_k_idx; i++)
+	for (i = 0; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 

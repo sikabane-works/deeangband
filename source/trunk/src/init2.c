@@ -961,7 +961,7 @@ static errr init_f_info(void)
 static errr init_object_kind_info(void)
 {
 	/* Init the header */
-	init_header(&k_head, max_k_idx, sizeof(object_kind));
+	init_header(&k_head, max_object_kind_idx, sizeof(object_kind));
 
 #ifdef ALLOW_TEMPLATES
 
@@ -981,7 +981,7 @@ static errr init_object_kind_info(void)
 static errr init_artifact_info(void)
 {
 	/* Init the header */
-	init_header(&artifact_head, max_a_idx, sizeof(artifact_type));
+	init_header(&artifact_head, max_artifact_idx, sizeof(artifact_type));
 
 #ifdef ALLOW_TEMPLATES
 
@@ -1625,7 +1625,7 @@ static errr init_object_alloc(void)
 	alloc_kind_size = 0;
 
 	/* Scan the objects */
-	for (i = 1; i < max_k_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		k_ptr = &object_kind_info[i];
 
@@ -1670,7 +1670,7 @@ static errr init_object_alloc(void)
 	table = alloc_kind_table;
 
 	/* Scan the objects */
-	for (i = 1; i < max_k_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		k_ptr = &object_kind_info[i];
 

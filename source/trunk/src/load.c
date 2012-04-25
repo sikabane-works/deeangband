@@ -1690,7 +1690,7 @@ note("メッセージをロードしました");
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
-	if (tmp16u > max_k_idx)
+	if (tmp16u > max_object_kind_idx)
 	{
 #ifdef JP
 		note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
@@ -1916,7 +1916,7 @@ note("クエスト情報をロードしました");
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
-	if (tmp16u > max_a_idx)
+	if (tmp16u > max_artifact_idx)
 	{
 #ifdef JP
 note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));

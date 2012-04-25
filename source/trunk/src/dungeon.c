@@ -109,7 +109,7 @@ static void object_kind_info_reset(void)
 	int i;
 
 	/* Reset the "objects" */
-	for (i = 1; i < max_k_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 
@@ -7209,7 +7209,7 @@ void world_wipe()
 	battle_monsters();
 
 	// Start with no artifacts made yet
-	for (i = 0; i < max_a_idx; i++)
+	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		a_ptr->cur_num = 0;

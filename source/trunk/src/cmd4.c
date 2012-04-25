@@ -3938,7 +3938,7 @@ void do_cmd_visuals(void)
 #endif
 
 			/* Dump objects */
-			for (i = 0; i < max_k_idx; i++)
+			for (i = 0; i < max_object_kind_idx; i++)
 			{
 				char o_name[80];
 				object_kind *k_ptr = &object_kind_info[i];
@@ -4267,7 +4267,7 @@ void do_cmd_visuals(void)
 						int prev_k = k;
 						do
 						{
-							if (!cmd_visuals_aux(i, &k, max_k_idx))
+							if (!cmd_visuals_aux(i, &k, max_object_kind_idx))
 							{
 								k = prev_k;
 								break;
@@ -5704,7 +5704,7 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 	byte group_tval = object_group_tval[grp_cur];
 
 	/* Check every object */
-	for (i = 0; i < max_k_idx; i++)
+	for (i = 0; i < max_object_kind_idx; i++)
 	{
 		/* Access the object */
 		object_kind *k_ptr = &object_kind_info[i];
@@ -5825,7 +5825,7 @@ static int collect_artifacts(int grp_cur, int object_idx[])
 	byte group_tval = object_group_tval[grp_cur];
 
 	/* Check every object */
-	for (i = 0; i < max_a_idx; i++)
+	for (i = 0; i < max_artifact_idx; i++)
 	{
 		/* Access the artifact */
 		artifact_type *a_ptr = &artifact_info[i];
@@ -6684,13 +6684,13 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_a_idx, s16b);
+	C_MAKE(who, max_artifact_idx, s16b);
 
 	/* Allocate the "okay" array */
-	C_MAKE(okay, max_a_idx, bool);
+	C_MAKE(okay, max_artifact_idx, bool);
 
 	/* Scan the artifacts */
-	for (k = 0; k < max_a_idx; k++)
+	for (k = 0; k < max_artifact_idx; k++)
 	{
 		artifact_type *a_ptr = &artifact_info[k];
 
@@ -6757,7 +6757,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		okay[o_ptr->name1] = FALSE;
 	}
 
-	for (k = 0; k < max_a_idx; k++)
+	for (k = 0; k < max_artifact_idx; k++)
 	{
 		if (okay[k]) who[n++] = k;
 	}
@@ -6814,10 +6814,10 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_a_idx, s16b);
+	C_KILL(who, max_artifact_idx, s16b);
 
 	/* Free the "okay" array */
-	C_KILL(okay, max_a_idx, bool);
+	C_KILL(okay, max_artifact_idx, bool);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -7020,7 +7020,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 	{
 		for (num = 0; num < 64; num++)
 		{
-			for (j = 0; j < max_k_idx; j++)
+			for (j = 0; j < max_object_kind_idx; j++)
 			{
 				object_kind *k_ptr = &object_kind_info[j];
 
@@ -8514,7 +8514,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	browser_rows = hgt - 8;
 
 	/* Allocate the "object_idx" array */
-	C_MAKE(object_idx, max_k_idx, int);
+	C_MAKE(object_idx, max_object_kind_idx, int);
 
 	max = 0;
 	grp_cnt = 0;
@@ -8768,7 +8768,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	}
 
 	/* Free the "object_idx" array */
-	C_KILL(object_idx, max_k_idx, int);
+	C_KILL(object_idx, max_object_kind_idx, int);
 }
 
 

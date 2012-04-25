@@ -199,10 +199,10 @@ static void shuffle_flavors(byte tval)
 	int i;
 
 	/* Allocate an array for a list of k_idx */
-	C_MAKE(k_idx_list, max_k_idx, s16b);
+	C_MAKE(k_idx_list, max_object_kind_idx, s16b);
 
 	/* Search objects with given tval for shuffle */
-	for (i = 0; i < max_k_idx; i++)
+	for (i = 0; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 
@@ -235,7 +235,7 @@ static void shuffle_flavors(byte tval)
 	}
 
 	/* Free an array for a list of k_idx */
-	C_KILL(k_idx_list, max_k_idx, s16b);
+	C_KILL(k_idx_list, max_object_kind_idx, s16b);
 }
 
 /*
@@ -281,7 +281,7 @@ void flavor_init(void)
 
 
 	/* Initialize flavor index of each object by itself */
-	for (i = 0; i < max_k_idx; i++)
+	for (i = 0; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 
@@ -324,7 +324,7 @@ void flavor_init(void)
 	Rand_quick = FALSE;
 
 	/* Analyze every object */
-	for (i = 1; i < max_k_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		object_kind *k_ptr = &object_kind_info[i];
 

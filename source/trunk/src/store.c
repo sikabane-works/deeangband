@@ -5798,7 +5798,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = general_store_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5806,7 +5806,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5824,7 +5824,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = sculpture_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5832,7 +5832,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5850,7 +5850,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = paint_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5858,7 +5858,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5876,7 +5876,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = armoury_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5884,7 +5884,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5902,7 +5902,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = weapon_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5910,7 +5910,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5928,7 +5928,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = alchemy_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5936,7 +5936,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5954,7 +5954,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = magic_item_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5962,7 +5962,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -5980,7 +5980,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = oriental_weapon_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -5988,7 +5988,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -6006,7 +6006,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = otaku_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -6014,7 +6014,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -6032,7 +6032,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = morgue_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -6040,7 +6040,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -6058,7 +6058,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = temple_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -6066,7 +6066,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;
@@ -6084,7 +6084,7 @@ static void store_set_table(store_type *st_ptr)
 			int sv = book_table[k][1];
 
 			// Look for it
-			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
 				object_kind *k_ptr = &object_kind_info[k_idx];
 				// Found a match
@@ -6092,7 +6092,7 @@ static void store_set_table(store_type *st_ptr)
 			}
 
 			// Catch errors
-			if (k_idx == max_k_idx) continue;
+			if (k_idx == max_object_kind_idx) continue;
 
 			// Add that item index to the table
 			st_ptr->table[st_ptr->table_num++] = k_idx;

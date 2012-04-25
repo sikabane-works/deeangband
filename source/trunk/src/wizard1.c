@@ -457,7 +457,7 @@ static void spoil_obj_desc(cptr fname)
 		}
 
 		/* Acquire legal item types */
-		for (k = 1; k < max_k_idx; k++)
+		for (k = 1; k < max_object_kind_idx; k++)
 		{
 			object_kind *k_ptr = &object_kind_info[k];
 
@@ -1657,7 +1657,7 @@ static void spoil_artifact(cptr fname)
 		}
 
 		/* Now search through all of the artifacts */
-		for (j = 1; j < max_a_idx; ++j)
+		for (j = 1; j < max_artifact_idx; ++j)
 		{
 			artifact_type *a_ptr = &artifact_info[j];
 
