@@ -932,8 +932,8 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 				break;
 			}
 		}
-		q_ptr->iy = o_ptr->iy;
-		q_ptr->ix = o_ptr->ix;
+		q_ptr->fy = o_ptr->fy;
+		q_ptr->fx = o_ptr->fx;
 		q_ptr->next_object_idx = o_ptr->next_object_idx;
 		q_ptr->marked = o_ptr->marked;
 	}
@@ -1630,7 +1630,7 @@ static void do_cmd_wiz_floor_object_list(void)
 		{
 			object_desc(tmp, &object_list[i], 0);
 			sprintf(ce[i].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i,
-				object_list[i].floor_idx, object_list[i].ix, object_list[i].iy, tmp);
+				object_list[i].floor_idx, object_list[i].fx, object_list[i].fy, tmp);
 			ce[i].cap[72] = '\0'; 
 
 			ce[i].d_color = TERM_L_DARK;

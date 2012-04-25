@@ -132,8 +132,8 @@ static void wr_item(object_type *o_ptr)
 
 	/* Location */
 	wr_byte(o_ptr->floor_idx);
-	wr_byte(o_ptr->iy);
-	wr_byte(o_ptr->ix);
+	wr_byte(o_ptr->fy);
+	wr_byte(o_ptr->fx);
 
 	if (flags & SAVE_ITEM_PVAL) wr_s16b(o_ptr->pval);
 

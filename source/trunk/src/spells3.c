@@ -1954,8 +1954,8 @@ msg_print("そのアイテムは重過ぎます。");
 	c_ptr->object_idx = o_ptr->next_object_idx;
 	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx = i; /* 'move' it */
 	o_ptr->next_object_idx = 0;
-	o_ptr->iy = (byte)cr_ptr->fy;
-	o_ptr->ix = (byte)cr_ptr->fx;
+	o_ptr->fy = (byte)cr_ptr->fy;
+	o_ptr->fx = (byte)cr_ptr->fx;
 
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -2944,8 +2944,8 @@ s = "使えるものがありません。";
 	msg_print("There is a bright flash of light!");
 #endif
 	{
-		byte iy = o_ptr->iy;                 /* Y-position on map, or zero */
-		byte ix = o_ptr->ix;                 /* X-position on map, or zero */
+		byte iy = o_ptr->fy;                 /* Y-position on map, or zero */
+		byte ix = o_ptr->fx;                 /* X-position on map, or zero */
 		s16b next_object_idx = o_ptr->next_object_idx; /* Next object in stack (if any) */
 		byte marked = o_ptr->marked;         /* Object is marked */
 		s16b weight = o_ptr->number * o_ptr->weight;
@@ -2954,8 +2954,8 @@ s = "使えるものがありません。";
 		/* Wipe it clean */
 		object_prep(o_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
 
-		o_ptr->iy = iy;
-		o_ptr->ix = ix;
+		o_ptr->fy = iy;
+		o_ptr->fx = ix;
 		o_ptr->next_object_idx = next_object_idx;
 		o_ptr->marked = marked;
 		o_ptr->inscription = inscription;

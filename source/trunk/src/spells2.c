@@ -3708,8 +3708,8 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 		if (o_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->iy;
-		x = o_ptr->ix;
+		y = o_ptr->fy;
+		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
@@ -3775,8 +3775,8 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 		if (o_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->iy;
-		x = o_ptr->ix;
+		y = o_ptr->fy;
+		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
@@ -3847,8 +3847,8 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 		if (o_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->iy;
-		x = o_ptr->ix;
+		y = o_ptr->fy;
+		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;

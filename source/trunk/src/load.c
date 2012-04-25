@@ -272,8 +272,8 @@ static void rd_item(object_type *o_ptr)
 
 	/* Location */
 	rd_byte(&o_ptr->floor_idx);
-	rd_byte(&o_ptr->iy);
-	rd_byte(&o_ptr->ix);
+	rd_byte(&o_ptr->fy);
+	rd_byte(&o_ptr->fx);
 
 	/* Type/Subtype */
 	k_ptr = &object_kind_info[o_ptr->k_idx];
@@ -1736,7 +1736,7 @@ note("メッセージをロードしました");
 		rd_item(o_ptr);
 
 		/* Access the item location */
-		//TODO cave_ptr = &current_floor_ptr->cave[o_ptr->iy][o_ptr->ix];
+		//TODO cave_ptr = &current_floor_ptr->cave[o_ptr->fy][o_ptr->fx];
 
 		/* Build a stack */
 		//o_ptr->next_object_idx = cave_ptr->object_idx;

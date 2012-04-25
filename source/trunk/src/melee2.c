@@ -2498,7 +2498,7 @@ msg_format("%^s%s", creature_name, monmessage);
 						o_ptr->marked &= OM_TOUCHED;
 
 						/* Forget location */
-						o_ptr->iy = o_ptr->ix = 0;
+						o_ptr->fy = o_ptr->fx = 0;
 
 						/* Memorize monster */
 						o_ptr->held_m_idx = m_idx;

@@ -5784,8 +5784,8 @@ static void drop_here(object_type *j_ptr, int y, int x)
 
 
 	/* Locate */
-	o_ptr->iy = y;
-	o_ptr->ix = x;
+	o_ptr->fy = y;
+	o_ptr->fx = x;
 
 	/* No monster */
 	o_ptr->held_m_idx = 0;

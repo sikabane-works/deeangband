@@ -3657,23 +3657,23 @@ static byte get_dungeon_feeling(void)
 
 	for (i = 1; i < object_max; i++) // Examine each unidentified object
 	{
-		object_type *o_ptr = &object_list[i];
-		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+		object_type *object_ptr = &object_list[i];
+		object_kind *kind_ptr = &object_kind_info[object_ptr->k_idx];
 		int delta = 0;
 
-		if (!o_ptr->k_idx) continue; // Skip dead objects
-		if (object_is_known(o_ptr) && o_ptr->marked & OM_TOUCHED) continue; // Skip known objects
-		if (o_ptr->ident & IDENT_SENSE) continue; /* Skip pseudo-known objects */
+		if (!object_ptr->k_idx) continue; // Skip dead objects
+		if (object_is_known(object_ptr) && object_ptr->marked & OM_TOUCHED) continue; // Skip known objects
+		if (object_ptr->ident & IDENT_SENSE) continue; /* Skip pseudo-known objects */
 
-		if (object_is_ego(o_ptr)) // Ego objects
+		if (object_is_ego(object_ptr)) // Ego objects
 		{
-			ego_item_type *e_ptr = &e_info[o_ptr->name2];
-			delta += e_ptr->rating * base;
+			ego_item_type *ego_ptr = &e_info[object_ptr->name2];
+			delta += ego_ptr->rating * base;
 		}
 
-		if (object_is_artifact(o_ptr)) // Artifacts
+		if (object_is_artifact(object_ptr)) // Artifacts
 		{
-			s32b cost = object_value_real(o_ptr);
+			s32b cost = object_value_real(object_ptr);
 
 			delta += 10 * base;
 			if (cost > 10000L) delta += 10 * base;
@@ -3682,28 +3682,28 @@ static byte get_dungeon_feeling(void)
 			if (!preserve_mode) return 1; // Special feeling
 		}
 
-		if (o_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
-		if (o_ptr->tval == TV_SHIELD &&
-		    o_ptr->sval == SV_DRAGON_SHIELD) delta += 5 * base;
-		if (o_ptr->tval == TV_GLOVES &&
-		    o_ptr->sval == SV_SET_OF_DRAGON_GLOVES) delta += 5 * base;
-		if (o_ptr->tval == TV_BOOTS &&
-		    o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE) delta += 5 * base;
-		if (o_ptr->tval == TV_HELM &&
-		    o_ptr->sval == SV_DRAGON_HELM) delta += 5 * base;
-		if (o_ptr->tval == TV_RING &&
-		    o_ptr->sval == SV_RING_SPEED &&
-		    !object_is_cursed(o_ptr)) delta += 25 * base;
-		if (o_ptr->tval == TV_RING &&
-		    o_ptr->sval == SV_RING_LORDLY &&
-		    !object_is_cursed(o_ptr)) delta += 15 * base;
-		if (o_ptr->tval == TV_AMULET &&
-		    o_ptr->sval == SV_AMULET_THE_MAGI &&
-		    !object_is_cursed(o_ptr)) delta += 15 * base;
+		if (object_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
+		if (object_ptr->tval == TV_SHIELD &&
+		    object_ptr->sval == SV_DRAGON_SHIELD) delta += 5 * base;
+		if (object_ptr->tval == TV_GLOVES &&
+		    object_ptr->sval == SV_SET_OF_DRAGON_GLOVES) delta += 5 * base;
+		if (object_ptr->tval == TV_BOOTS &&
+		    object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE) delta += 5 * base;
+		if (object_ptr->tval == TV_HELM &&
+		    object_ptr->sval == SV_DRAGON_HELM) delta += 5 * base;
+		if (object_ptr->tval == TV_RING &&
+		    object_ptr->sval == SV_RING_SPEED &&
+		    !object_is_cursed(object_ptr)) delta += 25 * base;
+		if (object_ptr->tval == TV_RING &&
+		    object_ptr->sval == SV_RING_LORDLY &&
+		    !object_is_cursed(object_ptr)) delta += 15 * base;
+		if (object_ptr->tval == TV_AMULET &&
+		    object_ptr->sval == SV_AMULET_THE_MAGI &&
+		    !object_is_cursed(object_ptr)) delta += 15 * base;
 
-		if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) && 
-		    k_ptr->level > current_floor_ptr->dun_level) // Out-of-depth objects
-			delta += (k_ptr->level - current_floor_ptr->dun_level) * base; // Rating increase
+		if (!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
+		    kind_ptr->level > current_floor_ptr->dun_level) // Out-of-depth objects
+			delta += (kind_ptr->level - current_floor_ptr->dun_level) * base; // Rating increase
 
 		rating += RATING_BOOST(delta);
 	}

@@ -44,8 +44,8 @@ void excise_object_idx(int object_idx)
 	{
 		cave_type *c_ptr;
 
-		int y = j_ptr->iy;
-		int x = j_ptr->ix;
+		int y = j_ptr->fy;
+		int x = j_ptr->fx;
 
 		/* Grid */
 		c_ptr = &current_floor_ptr->cave[y][x];
@@ -118,8 +118,8 @@ void delete_object_idx(int object_idx)
 		int y, x;
 
 		/* Location */
-		y = j_ptr->iy;
-		x = j_ptr->ix;
+		y = j_ptr->fy;
+		x = j_ptr->fx;
 
 		/* Visual update */
 		lite_spot(y, x);
@@ -213,8 +213,8 @@ static void compact_objects_aux(int i1, int i2)
 	o_ptr = &object_list[i1];
 
 	/* Acquire location */
-	y = o_ptr->iy;
-	x = o_ptr->ix;
+	y = o_ptr->fy;
+	x = o_ptr->fx;
 
 	/* Acquire grid */
 	c_ptr = &current_floor_ptr->cave[y][x];
@@ -313,8 +313,8 @@ void compact_objects(int size)
 			else
 			{
 				/* Get the location */
-				y = o_ptr->iy;
-				x = o_ptr->ix;
+				y = o_ptr->fy;
+				x = o_ptr->fx;
 			}
 
 			/* Nearby objects start out "immune" */
@@ -400,8 +400,8 @@ void wipe_object_list(int floor_id)
 			cave_type *c_ptr;
 
 			/* Access location */
-			int y = o_ptr->iy;
-			int x = o_ptr->ix;
+			int y = o_ptr->fy;
+			int x = o_ptr->fx;
 
 			/* Access grid */
 			c_ptr = &current_floor_ptr->cave[y][x];
@@ -3925,8 +3925,8 @@ void place_object(int y, int x, u32b mode)
 		object_copy(o_ptr, q_ptr);
 
 		/* Location */
-		o_ptr->iy = y;
-		o_ptr->ix = x;
+		o_ptr->fy = y;
+		o_ptr->fx = x;
 
 		/* Build a stack */
 		o_ptr->next_object_idx = c_ptr->object_idx;
@@ -4047,8 +4047,8 @@ void place_gold(int y, int x)
 		object_copy(o_ptr, q_ptr);
 
 		/* Save location */
-		o_ptr->iy = y;
-		o_ptr->ix = x;
+		o_ptr->fy = y;
+		o_ptr->fx = x;
 
 		/* Build a stack */
 		o_ptr->next_object_idx = c_ptr->object_idx;
@@ -4420,8 +4420,8 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		j_ptr = &object_list[object_idx];
 
 		/* Locate */
-		j_ptr->iy = by;
-		j_ptr->ix = bx;
+		j_ptr->fy = by;
+		j_ptr->fx = bx;
 
 		/* No monster */
 		j_ptr->held_m_idx = 0;
@@ -5127,7 +5127,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	j_ptr->held_m_idx = 0;
 
 	/* Forget location */
-	j_ptr->iy = j_ptr->ix = 0;
+	j_ptr->fy = j_ptr->fx = 0;
 
 	/* Player touches it, and no longer marked */
 	j_ptr->marked = OM_TOUCHED;
@@ -6642,8 +6642,8 @@ static void drain_essence(creature_type *creature_ptr)
 	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;
 	if (have_flag(old_flgs, TR_TY_CURSE)) dec--;
 
-	iy = o_ptr->iy;
-	ix = o_ptr->ix;
+	iy = o_ptr->fy;
+	ix = o_ptr->fx;
 	next_object_idx = o_ptr->next_object_idx;
 	marked = o_ptr->marked;
 	weight = o_ptr->weight;
@@ -6651,8 +6651,8 @@ static void drain_essence(creature_type *creature_ptr)
 
 	object_prep(o_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
 
-	o_ptr->iy=iy;
-	o_ptr->ix=ix;
+	o_ptr->fy=iy;
+	o_ptr->fx=ix;
 	o_ptr->next_object_idx=next_object_idx;
 	o_ptr->marked=marked;
 	o_ptr->number = number;
