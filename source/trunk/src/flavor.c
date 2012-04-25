@@ -1204,7 +1204,7 @@ static void get_inscription(char *buff, object_type *o_ptr)
 void object_desc(char *buf, object_type *o_ptr, u32b mode)
 {
 	/* Extract object kind name */
-	cptr            kindname = k_name + object_kind_info[o_ptr->k_idx].name;
+	cptr            kindname = object_kind_name + object_kind_info[o_ptr->k_idx].name;
 
 	/* Extract default "base" string */
 	cptr            basenm = kindname;
@@ -1424,7 +1424,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のアミュレット";
@@ -1450,7 +1450,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の指輪";
@@ -1475,7 +1475,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_STAFF:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の杖";
@@ -1493,7 +1493,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_WAND:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の魔法棒";
@@ -1511,7 +1511,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_ROD:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のロッド";
@@ -1529,7 +1529,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_SCROLL:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の巻物";
@@ -1547,7 +1547,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_POTION:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の薬";
@@ -1568,7 +1568,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			if (!k_ptr->flavospecies_name) break;
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のキノコ";

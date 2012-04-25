@@ -801,8 +801,8 @@ char *f_tag;
  * The object kind arrays
  */
 object_kind *object_kind_info;
-char *k_name;
-char *k_text;
+char *object_kind_name;
+char *object_kind_text;
 
 /*
  * The artifact arrays

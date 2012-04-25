@@ -4751,7 +4751,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 
 				k_idx = lookup_kind(tval, i);
 				if (!k_idx) continue;
-				sprintf(s[eat_num], "%23s (%2d)", (k_name + object_kind_info[k_idx].name), magic_num);
+				sprintf(s[eat_num], "%23s (%2d)", (object_kind_name + object_kind_info[k_idx].name), magic_num);
 				eat_num++;
 			}
 

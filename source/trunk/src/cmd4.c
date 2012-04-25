@@ -4210,11 +4210,11 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("アイテム = %d, 名前 = %-40.40s",
-						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
+						   k, object_kind_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Object = %d, Name = %-40.40s",
-						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
+						   k, object_kind_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
 #endif
 
 				/* Label the Default values */
@@ -8412,7 +8412,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		else
 		{
 			/* Flavor name */
-			strcpy(o_name, k_name + flavor_k_ptr->flavospecies_name);
+			strcpy(o_name, object_kind_name + flavor_k_ptr->flavospecies_name);
 		}
 
 		/* Display the name */

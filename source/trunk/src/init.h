@@ -155,7 +155,7 @@ extern int error_line;
 extern header z_head;
 extern header v_head;
 extern header f_head;
-extern header k_head;
+extern header object_kind_head;
 extern header artifact_head;
 extern header object_ego_head;
 extern header species_head;

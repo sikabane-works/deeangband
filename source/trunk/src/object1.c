@@ -2377,7 +2377,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 	/* Extract the description */
 	{
 		roff_to_buf(o_ptr->name1 ? (artifact_text + artifact_info[o_ptr->name1].text) :
-			    (k_text + object_kind_info[o_ptr->k_idx].text),
+			    (object_kind_text + object_kind_info[o_ptr->k_idx].text),
 			    77 - 15, temp, sizeof(temp));
 		for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
 		{ info[i] = &temp[j]; i++;}

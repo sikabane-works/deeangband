@@ -295,7 +295,7 @@ cptr err_str[PARSE_ERROR_MAX] =
  */
 header v_head;
 header f_head;
-header k_head;
+header object_kind_head;
 header artifact_head;
 header object_ego_head;
 header creature_flag_head;
@@ -961,16 +961,16 @@ static errr init_f_info(void)
 static errr init_object_kind_info(void)
 {
 	/* Init the header */
-	init_header(&k_head, max_object_kind_idx, sizeof(object_kind));
+	init_header(&object_kind_head, max_object_kind_idx, sizeof(object_kind));
 
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	k_head.parse_info_txt = parse_object_kind_csv;
+	object_kind_head.parse_info_txt = parse_object_kind_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("object_kind_info", &k_head, (void*)&object_kind_info, &k_name, &k_text, NULL, NULL);
+	return init_info2("object_kind_info", &object_kind_head, (void*)&object_kind_info, &object_kind_name, &object_kind_text, NULL, NULL);
 }
 
 
@@ -2244,7 +2244,7 @@ cptr get_check_sum(void)
 {
 	return format("%02x%02x%02x%02x%02x%02x%02x%02x%02x", 
 		      f_head.v_extra, 
-		      k_head.v_extra, 
+		      object_kind_head.v_extra, 
 		      artifact_head.v_extra, 
 		      object_ego_head.v_extra, 
 		      species_head.v_extra, 

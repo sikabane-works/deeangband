@@ -664,7 +664,7 @@ void strip_name(char *buf, int k_idx)
 
 	object_kind *k_ptr = &object_kind_info[k_idx];
 
-	cptr str = (k_name + k_ptr->name);
+	cptr str = (object_kind_name + k_ptr->name);
 
 
 	/* Skip past leading characters */

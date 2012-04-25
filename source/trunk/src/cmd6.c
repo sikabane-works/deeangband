@@ -6950,7 +6950,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 #else
 							       " %-22.22s   (%2d/%2d) %3d%%",
 #endif
-							       k_name + object_kind_info[k_idx].name, 
+							       object_kind_name + object_kind_info[k_idx].name, 
 							       cr_ptr->magic_num1[ctr+ext] ? 
 							       (cr_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
 							       cr_ptr->magic_num2[ctr+ext], chance));
@@ -6958,7 +6958,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 					}
 					else
 					{
-						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", k_name + object_kind_info[k_idx].name, (s16b)(cr_ptr->magic_num1[ctr+ext]/EATER_CHARGE), cr_ptr->magic_num2[ctr+ext], chance));
+						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(cr_ptr->magic_num1[ctr+ext]/EATER_CHARGE), cr_ptr->magic_num2[ctr+ext], chance));
 						if (cr_ptr->magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
 					}
 				}
@@ -7106,9 +7106,9 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 
 				/* Prompt */
 #ifdef JP
-				(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", k_name + object_kind_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
 #else
-				(void) strnfmt(tmp_val, 78, "Use %s?", k_name + object_kind_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, "Use %s?", object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
 #endif
 
 				/* Belay that order */
@@ -7156,7 +7156,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			Term_erase(7, 21, 255);
 			Term_erase(7, 20, 255);
 
-			roff_to_buf(k_text + object_kind_info[lookup_kind(tval, i)].text, 62, temp, sizeof(temp));
+			roff_to_buf(object_kind_text + object_kind_info[lookup_kind(tval, i)].text, 62, temp, sizeof(temp));
 			for (j = 0, line = 21; temp[j]; j += 1 + strlen(&temp[j]))
 			{
 				prt(&temp[j], line, 10);
