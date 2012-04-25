@@ -571,6 +571,9 @@ void leave_floor(creature_type *creature_ptr)
 	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
 
 	floor_id = floor_pop(); // Get new id
+	current_floor_ptr = &floor_list[floor_id];
+	player_ptr->floor_id = floor_id;
+
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
