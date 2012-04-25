@@ -621,7 +621,6 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	current_floor_ptr = &floor_list[floor_pop()];
 	generate_floor(cr_ptr); // Generate field
 
 	/*
@@ -938,7 +937,6 @@ void stair_creation(creature_type *creature_ptr)
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		creature_ptr->floor_id = floor_pop();
 		sf_ptr = get_floor_ptr(creature_ptr->floor_id);
 	} 
 
@@ -985,8 +983,6 @@ void stair_creation(creature_type *creature_ptr)
 	/* No old destination -- Get new one now */
 	else
 	{
-		dest_floor_id = floor_pop();
-
 		/* Fix it */
 		if (up)
 			sf_ptr->upper_floor_id = dest_floor_id;
