@@ -465,7 +465,7 @@ extern char *k_text;
 extern artifact_type *a_info;
 extern char *a_name;
 extern char *a_text;
-extern ego_item_type *e_info;
+extern ego_item_type *object_ego_info;
 extern char *e_name;
 extern char *e_text;
 extern species_type *species_info;

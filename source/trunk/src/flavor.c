@@ -973,7 +973,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji,
 
 		if (object_is_ego(o_ptr))
 		{
-			ego_item_type *e_ptr = &e_info[o_ptr->name2];
+			ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 					
 			for (j = 0; j < TR_FLAG_SIZE; j++)
 				flgs[j] &= ~e_ptr->flags[j];
@@ -1935,7 +1935,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* –¼‚Ì‚ ‚éƒAƒCƒeƒ€ */
 		else if (object_is_ego(o_ptr))
 		{
-			ego_item_type *e_ptr = &e_info[o_ptr->name2];
+			ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 			t = object_desc_str(t, e_name + e_ptr->name);
 		}
 	}
@@ -2095,7 +2095,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		{
 			if (object_is_ego(o_ptr))
 			{
-				ego_item_type *e_ptr = &e_info[o_ptr->name2];
+				ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 				t = object_desc_chr(t, ' ');
 				t = object_desc_str(t, e_name + e_ptr->name);

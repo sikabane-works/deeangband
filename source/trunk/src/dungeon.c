@@ -3667,7 +3667,7 @@ static byte get_dungeon_feeling(void)
 
 		if (object_is_ego(object_ptr)) // Ego objects
 		{
-			ego_item_type *ego_ptr = &e_info[object_ptr->name2];
+			ego_item_type *ego_ptr = &object_ego_info[object_ptr->name2];
 			delta += ego_ptr->rating * base;
 		}
 

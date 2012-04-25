@@ -4012,7 +4012,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 				lev = 0;
 		}
 	}
-	else if (((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) && o_ptr->name2) lev = e_info[o_ptr->name2].level;
+	else if (((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) && o_ptr->name2) lev = object_ego_info[o_ptr->name2].level;
 
 	/* Base chance of success */
 	chance = cr_ptr->skill_dev;

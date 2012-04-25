@@ -2773,7 +2773,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 			{
 
 			case OBJECT_EGO_INFO_NAME:
-				if(!add_name(&e_info[n].name, head, tmp))
+				if(!add_name(&object_ego_info[n].name, head, tmp))
 					return (7);
 				break;
 
@@ -2785,7 +2785,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
-						e_info[n].slot = j;
+						object_ego_info[n].slot = j;
 						break;
 					}
 				}
@@ -2795,51 +2795,51 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			case OBJECT_EGO_INFO_RATING:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].rating = (byte)b;
+					object_ego_info[n].rating = (byte)b;
 				else
-					e_info[n].rating = 0;
+					object_ego_info[n].rating = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].max_to_h = (byte)b;
+					object_ego_info[n].max_to_h = (byte)b;
 				else
-					e_info[n].max_to_h = 0;
+					object_ego_info[n].max_to_h = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].max_to_d = (byte)b;
+					object_ego_info[n].max_to_d = (byte)b;
 				else
-					e_info[n].max_to_d = 0;
+					object_ego_info[n].max_to_d = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].max_to_a = (byte)b;
+					object_ego_info[n].max_to_a = (byte)b;
 				else
-					e_info[n].max_to_a = 0;
+					object_ego_info[n].max_to_a = 0;
 				break;
 
 			case OBJECT_EGO_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].max_pval = (byte)b;
+					object_ego_info[n].max_pval = (byte)b;
 				else
-					e_info[n].max_pval = 0;
+					object_ego_info[n].max_pval = 0;
 				break;
 
 			case OBJECT_EGO_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].level = (byte)b;
+					object_ego_info[n].level = (byte)b;
 				else
-					e_info[n].level = 0;
+					object_ego_info[n].level = 0;
 				break;
 
 			case OBJECT_EGO_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].rarity = (byte)b;
+					object_ego_info[n].rarity = (byte)b;
 				else
-					e_info[n].rarity = 0;
+					object_ego_info[n].rarity = 0;
 				break;
 
 			case OBJECT_EGO_INFO_WEIGHT:
@@ -2847,9 +2847,9 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			case OBJECT_EGO_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					e_info[n].cost = (s32b)b;
+					object_ego_info[n].cost = (s32b)b;
 				else
-					e_info[n].cost = 0;
+					object_ego_info[n].cost = 0;
 				break;
 
 			case OBJECT_EGO_INFO_FLAG:
@@ -2868,7 +2868,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_ego_item_flag(&e_info[n], s))
+					if (0 != grab_one_ego_item_flag(&object_ego_info[n], s))
 						return (5);
 
 						/* Start the next entry */

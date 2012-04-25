@@ -877,7 +877,7 @@ s32b flag_cost(object_type *o_ptr, int plusses)
 	/* Exclude fixed flags of the ego-item. */
 	else if (object_is_ego(o_ptr))
 	{
-		ego_item_type *e_ptr = &e_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] &= ~(e_ptr->flags[i]);
@@ -1167,7 +1167,7 @@ s32b object_value_real(object_type *o_ptr)
 	/* Ego-Item */
 	else if (object_is_ego(o_ptr))
 	{
-		ego_item_type *e_ptr = &e_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 		/* Hack -- "worthless" ego-items */
 		if (!e_ptr->cost) return (0L);
@@ -2232,7 +2232,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	
 	for (i = 1; i < max_e_idx; i++)
 	{
-		e_ptr = &e_info[i];
+		e_ptr = &object_ego_info[i];
 		
 		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
@@ -2245,7 +2245,7 @@ static s16b get_random_ego(u16b slot, bool good)
 
 	for (i = 1; i < max_e_idx; i++)
 	{
-		e_ptr = &e_info[i];
+		e_ptr = &object_ego_info[i];
 		
 		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
@@ -3621,7 +3621,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	// Hack -- analyze ego-items
 	if (object_is_ego(o_ptr))
 	{
-		ego_item_type *e_ptr = &e_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 		/* Hack -- acquire "broken" flag */
 		if (!e_ptr->cost) o_ptr->ident |= (IDENT_BROKEN);
@@ -7860,7 +7860,7 @@ void armour_boost(object_type *o_ptr, int level, int power)
 
 void create_ego(object_type *o_ptr, int level, int ego_id)
 {
-	ego_item_type *e_ptr = &e_info[ego_id];
+	ego_item_type *e_ptr = &object_ego_info[ego_id];
 
 	o_ptr->name2 = ego_id;
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;

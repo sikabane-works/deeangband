@@ -814,7 +814,7 @@ char *a_text;
 /*
  * The ego-item arrays
  */
-ego_item_type *e_info;
+ego_item_type *object_ego_info;
 char *e_name;
 char *e_text;
 

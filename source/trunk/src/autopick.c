@@ -529,7 +529,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 				 * are almost meaningless.
 				 * Register the ego type only.
 				 */
-				ego_item_type *e_ptr = &e_info[o_ptr->name2];
+				ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 #ifdef JP
 				/* エゴ銘には「^」マークが使える */
 				sprintf(name_str, "^%s", e_name + e_ptr->name);

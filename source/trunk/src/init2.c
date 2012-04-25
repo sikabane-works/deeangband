@@ -1010,8 +1010,7 @@ static errr init_object_ego_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("object_ego_info", &e_head,
-			 (void*)&e_info, &e_name, &e_text, NULL, NULL);
+	return init_info2("object_ego_info", &e_head, (void*)&object_ego_info, &e_name, &e_text, NULL, NULL);
 }
 
 

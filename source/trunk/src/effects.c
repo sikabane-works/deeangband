@@ -6576,7 +6576,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		}
 		else if (object_is_ego(o_ptr))
 		{
-			level += MAX(3, (e_info[o_ptr->name2].rating - 5)/2);
+			level += MAX(3, (object_ego_info[o_ptr->name2].rating - 5)/2);
 		}
 		else if (o_ptr->art_name)
 		{

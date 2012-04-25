@@ -124,7 +124,7 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 	/* Ego-item */
 	if (object_is_ego(o_ptr))
 	{
-		ego_item_type *e_ptr = &e_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] |= e_ptr->flags[i];
@@ -233,7 +233,7 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 	/* Ego-item (known basic flags) */
 	if (object_is_ego(o_ptr))
 	{
-		ego_item_type *e_ptr = &e_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] |= e_ptr->flags[i];
