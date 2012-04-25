@@ -532,10 +532,10 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 				ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 #ifdef JP
 				/* エゴ銘には「^」マークが使える */
-				sprintf(name_str, "^%s", e_name + e_ptr->name);
+				sprintf(name_str, "^%s", object_ego_name + e_ptr->name);
 #else
 				/* We ommit the basename and cannot use the ^ mark */
-				strcpy(name_str, e_name + e_ptr->name);
+				strcpy(name_str, object_ego_name + e_ptr->name);
 #endif
 
 				/* Don't use the object description */

@@ -297,7 +297,7 @@ header v_head;
 header f_head;
 header k_head;
 header a_head;
-header e_head;
+header object_ego_head;
 header creature_flag_head;
 header species_head;
 header race_head;
@@ -1001,16 +1001,16 @@ static errr init_artifact_info(void)
 static errr init_object_ego_info(void)
 {
 	/* Init the header */
-	init_header(&e_head, max_e_idx, sizeof(ego_item_type));
+	init_header(&object_ego_head, max_e_idx, sizeof(ego_item_type));
 
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	e_head.parse_info_txt = parse_object_ego_csv;
+	object_ego_head.parse_info_txt = parse_object_ego_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("object_ego_info", &e_head, (void*)&object_ego_info, &e_name, &e_text, NULL, NULL);
+	return init_info2("object_ego_info", &object_ego_head, (void*)&object_ego_info, &object_ego_name, &object_ego_text, NULL, NULL);
 }
 
 
@@ -2246,7 +2246,7 @@ cptr get_check_sum(void)
 		      f_head.v_extra, 
 		      k_head.v_extra, 
 		      a_head.v_extra, 
-		      e_head.v_extra, 
+		      object_ego_head.v_extra, 
 		      species_head.v_extra, 
 		      d_head.v_extra, 
 		      m_head.v_extra, 

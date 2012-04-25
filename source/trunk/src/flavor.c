@@ -1936,7 +1936,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		else if (object_is_ego(o_ptr))
 		{
 			ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
-			t = object_desc_str(t, e_name + e_ptr->name);
+			t = object_desc_str(t, object_ego_name + e_ptr->name);
 		}
 	}
 #endif
@@ -2098,7 +2098,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 				ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
 
 				t = object_desc_chr(t, ' ');
-				t = object_desc_str(t, e_name + e_ptr->name);
+				t = object_desc_str(t, object_ego_name + e_ptr->name);
 			}
 
 			if (o_ptr->inscription && my_strchr(quark_str(o_ptr->inscription), '#'))
