@@ -771,7 +771,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	object_type forge;
 	object_type *q_ptr;
 
-	bool drop_chosen_item = drop_item && !cloned && !inside_arena
+	bool drop_chosen_item = drop_item && !cloned && !fight_arena_mode
 		&& !gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
@@ -824,7 +824,7 @@ void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool dr
 	check_quest_completion(slayer_ptr, killed_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (inside_arena && !is_pet(player_ptr, killed_ptr))
+	if (fight_arena_mode && !is_pet(player_ptr, killed_ptr))
 	{
 		arena_settled = TRUE;
 
@@ -887,7 +887,7 @@ msg_print("地面に落とされた。");
 	/* Drop a dead corpse? */
 	if (one_in_(has_cf_creature(killed_ptr, CF_UNIQUE) ? 1 : 4) &&
 	    (has_cf_creature(killed_ptr, CF_DROP_CORPSE) || has_cf_creature(killed_ptr, CF_DROP_SKELETON)) &&
-	    !(inside_arena || gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
+	    !(fight_arena_mode || gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -936,7 +936,7 @@ msg_print("地面に落とされた。");
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
-		if (!(inside_arena || gamble_arena_mode))
+		if (!(fight_arena_mode || gamble_arena_mode))
 		{
 			bool notice = FALSE;
 
@@ -1011,7 +1011,7 @@ msg_print("地面に落とされた。");
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
 		 */
-		if (!inside_arena && !gamble_arena_mode)
+		if (!fight_arena_mode && !gamble_arena_mode)
 		{
 			if (!one_in_(7))
 			{
@@ -1339,7 +1339,7 @@ msg_print("地面に落とされた。");
 	if (cloned && !(is_unique_creature(killed_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, killed_ptr) || gamble_arena_mode || inside_arena)
+	if (is_pet(player_ptr, killed_ptr) || gamble_arena_mode || fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -2893,7 +2893,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		}
 
 		/* Hack -- special handling for building doors */
-		else if (have_flag(f_ptr->flags, FF_BLDG) && !inside_arena)
+		else if (have_flag(f_ptr->flags, FF_BLDG) && !fight_arena_mode)
 		{
 			name = building[f_ptr->subtype].name;
 		}
@@ -2939,7 +2939,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		/* Hack -- special introduction for store & building doors -KMW- */
 		if (have_flag(f_ptr->flags, FF_STORE) ||
 		    have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
-		    (have_flag(f_ptr->flags, FF_BLDG) && !inside_arena) ||
+		    (have_flag(f_ptr->flags, FF_BLDG) && !fight_arena_mode) ||
 		    have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
 #ifdef JP

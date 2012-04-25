@@ -1712,7 +1712,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 
 	if (!current_floor_ptr->dun_level) current_floor_ptr->dun_type = 0;
-	inside_arena = FALSE;
+	fight_arena_mode = FALSE;
 	wild_mode = FALSE;
 
 	leave_quest_check(cr_ptr);

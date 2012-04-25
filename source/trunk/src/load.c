@@ -1203,7 +1203,7 @@ static void rd_extra(void)
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
 	rd_s16b(&tmp16s);
-	inside_arena = (bool)tmp16s;
+	fight_arena_mode = (bool)tmp16s;
 	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	gamble_arena_mode = (bool)tmp16s;

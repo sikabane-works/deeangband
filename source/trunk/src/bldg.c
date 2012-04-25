@@ -291,7 +291,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 						/* Save the surface floor as saved floor */
 						prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
-						inside_arena = TRUE;
+						fight_arena_mode = TRUE;
 						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
 					}
@@ -333,7 +333,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 				/* Save the surface floor as saved floor */
 				prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS);
 
-				inside_arena = TRUE;
+				fight_arena_mode = TRUE;
 				subject_change_floor = TRUE;
 				leave_bldg = TRUE;
 			}
@@ -4295,7 +4295,7 @@ bool tele_town(creature_type *cr_ptr)
 		return FALSE;
 	}
 
-	if (inside_arena || gamble_arena_mode)
+	if (fight_arena_mode || gamble_arena_mode)
 	{
 #ifdef JP
 		msg_print("この魔法は外でしか使えない！");
@@ -5066,7 +5066,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 #endif
 		return;
 	}
-	else if ((which == 2) && inside_arena)
+	else if ((which == 2) && fight_arena_mode)
 	{
 		if (!arena_settled)
 		{
@@ -5081,7 +5081,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 			/* Don't save the arena as saved floor */
 			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
-			inside_arena = FALSE;
+			fight_arena_mode = FALSE;
 			subject_change_floor = TRUE;
 
 			/* Re-enter the arena */
@@ -5140,7 +5140,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		if (command == ESCAPE)
 		{
 			leave_bldg = TRUE;
-			inside_arena = FALSE;
+			fight_arena_mode = FALSE;
 			gamble_arena_mode = FALSE;
 			break;
 		}

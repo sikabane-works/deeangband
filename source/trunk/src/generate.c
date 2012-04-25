@@ -1583,7 +1583,7 @@ void generate_floor(creature_type *player_ptr)
 
 
 		/* Build the arena -KMW- */
-		if (inside_arena)
+		if (fight_arena_mode)
 		{
 			/* Small arena */
 			generate_floor_arena(player_ptr);

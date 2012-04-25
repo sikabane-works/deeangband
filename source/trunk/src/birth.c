@@ -2772,7 +2772,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	/* Initialize arena and rewards information -KMW- */
 	arena_number = 0;
-	inside_arena = FALSE;
+	fight_arena_mode = FALSE;
 	inside_quest = 0;
 	for (i = 0; i < MAX_MANE; i++)
 	{

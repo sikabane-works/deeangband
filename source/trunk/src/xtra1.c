@@ -170,7 +170,7 @@ cptr map_name(void)
 #else
 		return "Surface";
 #endif
-	else if (inside_arena)
+	else if (fight_arena_mode)
 #ifdef JP
 		return "ƒAƒŠ[ƒi";
 #else

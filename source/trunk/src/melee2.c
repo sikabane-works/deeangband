@@ -1651,7 +1651,7 @@ static void process_creature(int m_idx)
 		/* Hack -- Ohmu scatters molds! */
 		if (creature_ptr->species_idx == MON_OHMU)
 		{
-			if (!inside_arena && !gamble_arena_mode)
+			if (!fight_arena_mode && !gamble_arena_mode)
 			{
 				if (r_ptr->freq_spell && (randint1(100) <= r_ptr->freq_spell))
 				{

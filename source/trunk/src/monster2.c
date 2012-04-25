@@ -4975,7 +4975,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 {
 	int x, y, species_idx;
 
-	if (inside_arena) return (FALSE);
+	if (fight_arena_mode) return (FALSE);
 
 	if (!creature_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
 
@@ -5022,7 +5022,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
 	/* Prevent illegal monsters */
 	if (species_idx >= max_species_idx) return FALSE;
 
-	if (inside_arena) return FALSE;
+	if (fight_arena_mode) return FALSE;
 
 	if (!creature_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 

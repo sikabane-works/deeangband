@@ -95,7 +95,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 			if (!cave_monster_teleportable_bold(cr_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			if (!(inside_quest || inside_arena))
+			if (!(inside_quest || fight_arena_mode))
 				if (current_floor_ptr->cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
@@ -908,7 +908,7 @@ bool recall_player(creature_type *cr_ptr, int turns)
 	 */
 
 	/* Ironman option */
-	if (inside_arena || ironman_downward)
+	if (fight_arena_mode || ironman_downward)
 	{
 #ifdef JP
 msg_print("何も起こらなかった。");
@@ -1973,7 +1973,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 void alter_reality(creature_type *cr_ptr)
 {
 	/* Ironman option */
-	if (inside_arena || ironman_downward)
+	if (fight_arena_mode || ironman_downward)
 	{
 #ifdef JP
 		msg_print("何も起こらなかった。");
@@ -4797,7 +4797,7 @@ int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 
 	if ((cr_ptr->multishadow && (turn & 1))) return 0;
 
-	if (inside_arena) return 0;
+	if (fight_arena_mode) return 0;
 
 	/* Count the casualties */
 	k = 0;
@@ -5427,7 +5427,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 	bool health_tracked = (health_who == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
-	if (inside_arena || gamble_arena_mode) return (FALSE);
+	if (fight_arena_mode || gamble_arena_mode) return (FALSE);
 
 	if ((cr_ptr->riding == c_ptr->creature_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 

@@ -4551,7 +4551,7 @@ s16b choose_random_trap(void)
 		if (!have_flag(f_info[feat].flags, FF_MORE)) break;
 
 		/* Hack -- no trap doors on special levels */
-		if (inside_arena || quest_number(current_floor_ptr->dun_level)) continue;
+		if (fight_arena_mode || quest_number(current_floor_ptr->dun_level)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
 		if (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth) continue;

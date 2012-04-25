@@ -5684,7 +5684,7 @@ static void you_died(cptr hit_from)
 		// Note death
 		gameover = TRUE;
 	
-		if (inside_arena)
+		if (fight_arena_mode)
 		{
 			cptr tar_name = species_name+species_info[arena_info[arena_number].species_idx].name;
 #ifdef JP
@@ -5736,7 +5736,7 @@ static void you_died(cptr hit_from)
 			else
 			{
 				char buf[24];	
-				if (inside_arena)
+				if (fight_arena_mode)
 	#ifdef JP
 					strcpy(buf,"ƒAƒŠ[ƒi");
 	#else
@@ -6349,7 +6349,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			/* Mega hack : replace IKETA to BIKETAL */
 			if ((tar_ptr->species_idx == MON_IKETA) &&
-			    !(inside_arena || gamble_arena_mode))
+			    !(fight_arena_mode || gamble_arena_mode))
 			{
 				int dummy_y = tar_ptr->fy;
 				int dummy_x = tar_ptr->fx;

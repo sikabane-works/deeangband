@@ -1499,7 +1499,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Remove the "ineffective" spells */
 	//TODO remove_bad_spells(caster_ptr, &f4, &f5, &f6);
 
-	if (inside_arena || gamble_arena_mode)
+	if (fight_arena_mode || gamble_arena_mode)
 	{
 		//TODO f4 &= ~(RF4_SUMMON_MASK);
 		//TODO f5 &= ~(RF5_SUMMON_MASK);
@@ -3312,7 +3312,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if (inside_arena || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					if (fight_arena_mode || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
@@ -4371,7 +4371,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 
 	/* Always take note of monsters that kill you */
-	if (gameover && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
+	if (gameover && (r_ptr->r_deaths < MAX_SHORT) && !fight_arena_mode)
 	{
 		r_ptr->r_deaths++; /* Ignore appearance difference */
 	}

@@ -428,7 +428,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	if (write_level)
 	{
-		if (inside_arena)
+		if (fight_arena_mode)
 #ifdef JP
 			note_level = "ƒAƒŠ[ƒi:";
 #else

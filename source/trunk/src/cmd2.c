@@ -4065,7 +4065,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		return FALSE;
 	}
 
-	if (inside_arena && !boomerang)
+	if (fight_arena_mode && !boomerang)
 	{
 		if (o_ptr->tval != TV_SPIKE)
 		{
@@ -4387,7 +4387,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	j = (hit_body ? breakage_chance(cr_ptr, q_ptr) : 0);
 
 	/* Figurines transform */
-	if ((q_ptr->tval == TV_FIGURINE) && !(inside_arena))
+	if ((q_ptr->tval == TV_FIGURINE) && !(fight_arena_mode))
 	{
 		j = 100;
 

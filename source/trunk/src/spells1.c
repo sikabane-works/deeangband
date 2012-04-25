@@ -5463,7 +5463,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_cf_creature(target_ptr, CF_NAZGUL)|| is_sub_unique_creature(target_ptr))
+			if ((fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_cf_creature(target_ptr, CF_NAZGUL)|| is_sub_unique_creature(target_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5638,7 +5638,7 @@ note = "は眠り込んでしまった！";
 
 			if (seen) obvious = TRUE;
 
-			if ((target_ptr->resist_ultimate) || inside_arena)
+			if ((target_ptr->resist_ultimate) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5722,7 +5722,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || inside_arena)
+			if ((target_ptr->resist_ultimate) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5797,7 +5797,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || inside_arena)
+			if ((target_ptr->resist_ultimate) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5875,7 +5875,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || inside_arena)
+			if ((target_ptr->resist_ultimate) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5971,7 +5971,7 @@ note = "は眠り込んでしまった！";
 #else
 			msg_format("You stare into %s.", target_name);
 #endif
-			if ((target_ptr->resist_ultimate) || inside_arena)
+			if ((target_ptr->resist_ultimate) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -7036,7 +7036,7 @@ msg_format("うまく捕まえられなかった。");
 			bool success = FALSE;
 			if (seen) obvious = TRUE;
 
-			if (is_enemy_of_evil_creature(target_ptr) && !inside_arena)
+			if (is_enemy_of_evil_creature(target_ptr) && !fight_arena_mode)
 			{
 				if (has_cf_creature(target_ptr, CF_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;

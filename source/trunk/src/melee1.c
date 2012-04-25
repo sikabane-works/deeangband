@@ -2301,7 +2301,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);
 
 
 	/* Always notice cause of death */
-	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
+	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !fight_arena_mode)
 	{
 		r_ptr->r_deaths++;
 	}
