@@ -139,7 +139,7 @@ s16b floor_pop(void)
 	int i;
 
 	// Find empty space
-	for (i = 1; i < MAX_FLOORS; i++) if (floor_list[i].width || !floor_list[i].height) break;
+	for (i = 1; i < MAX_FLOORS; i++) if (!floor_list[i].width || !floor_list[i].height) break;
 
 	// Not found
 	if (i == MAX_FLOORS)
