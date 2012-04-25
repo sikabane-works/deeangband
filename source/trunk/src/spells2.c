@@ -5182,7 +5182,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					if (object_is_fixed_artifact(o_ptr) && (!object_is_known(o_ptr) || in_generate))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						a_info[o_ptr->name1].cur_num = 0;
+						artifact_info[o_ptr->name1].cur_num = 0;
 
 						if (in_generate && cheat_peek)
 						{

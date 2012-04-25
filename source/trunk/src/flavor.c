@@ -965,7 +965,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji,
 
 		if (object_is_fixed_artifact(o_ptr))
 		{
-			artifact_type *a_ptr = &a_info[o_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 					
 			for (j = 0; j < TR_FLAG_SIZE; j++)
 				flgs[j] &= ~a_ptr->flags[j];
@@ -1757,10 +1757,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 
-	/* Use full name from object_kind_info or a_info */
+	/* Use full name from object_kind_info or artifact_info */
 	if (aware && have_flag(flgs, TR_FULL_NAME))
 	{
-		if (known && o_ptr->name1) basenm = a_name + a_info[o_ptr->name1].name;
+		if (known && o_ptr->name1) basenm = artifact_name + artifact_info[o_ptr->name1].name;
 		else basenm = kindname;
 	}
 
@@ -1925,11 +1925,11 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* 伝説のアイテム */
 		else if (o_ptr->name1 && !have_flag(flgs, TR_FULL_NAME))
 		{
-			artifact_type *a_ptr = &a_info[o_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 			/* '『' から始まらない伝説のアイテムの名前は最初に付加する */
-			if (strncmp(a_name + a_ptr->name, "『", 2) != 0)
+			if (strncmp(artifact_name + a_ptr->name, "『", 2) != 0)
 			{
-				t = object_desc_str(t, a_name + a_ptr->name);
+				t = object_desc_str(t, artifact_name + a_ptr->name);
 			}
 		}
 		/* 名のあるアイテム */
@@ -2030,10 +2030,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 		else if (object_is_fixed_artifact(o_ptr))
 		{
-			artifact_type *a_ptr = &a_info[o_ptr->name1];
-			if (strncmp(a_name + a_ptr->name, "『", 2) == 0)
+			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
+			if (strncmp(artifact_name + a_ptr->name, "『", 2) == 0)
 			{
-				t = object_desc_str(t, a_name + a_ptr->name);
+				t = object_desc_str(t, artifact_name + a_ptr->name);
 			}
 		}
 		else if (o_ptr->inscription)
@@ -2084,10 +2084,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* Grab any artifact name */
 		else if (object_is_fixed_artifact(o_ptr))
 		{
-			artifact_type *a_ptr = &a_info[o_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 			t = object_desc_chr(t, ' ');
-			t = object_desc_str(t, a_name + a_ptr->name);
+			t = object_desc_str(t, artifact_name + a_ptr->name);
 		}
 
 		/* Grab any ego-item name */

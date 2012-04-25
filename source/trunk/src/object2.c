@@ -389,7 +389,7 @@ void wipe_object_list(int floor_id)
 			if (object_is_fixed_artifact(o_ptr) && !object_is_known(o_ptr))
 			{
 				/* Mega-Hack -- Preserve the artifact */
-				a_info[o_ptr->name1].cur_num = 0;
+				artifact_info[o_ptr->name1].cur_num = 0;
 			}
 		}
 
@@ -868,7 +868,7 @@ s32b flag_cost(object_type *o_ptr, int plusses)
 	/* Exclude fixed flags of the fixed artifact. */
 	if (object_is_fixed_artifact(o_ptr))
 	{
-		artifact_type *a_ptr = &a_info[o_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] &= ~(a_ptr->flags[i]);
@@ -1151,7 +1151,7 @@ s32b object_value_real(object_type *o_ptr)
 	/* Artifact */
 	if (object_is_fixed_artifact(o_ptr))
 	{
-		artifact_type *a_ptr = &a_info[o_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 		/* Hack -- "worthless" artifacts */
 		if (!a_ptr->cost) return (0L);
@@ -2100,7 +2100,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 	/* Check the artifact list (just the "specials") */
 	for (i = 0; i < max_a_idx; i++)
 	{
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 
 		/* Skip "empty" artifacts */
 		if (!a_ptr->name) continue;
@@ -2176,7 +2176,7 @@ static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 	/* Check the artifact list (skip the "specials") */
 	for (i = 0; i < max_a_idx; i++)
 	{
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 
 		/* Skip "empty" items */
 		if (!a_ptr->name) continue;
@@ -3555,7 +3555,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	/* Hack -- analyze artifacts */
 	if (object_is_fixed_artifact(o_ptr))
 	{
-		artifact_type *a_ptr = &a_info[o_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 		int ave;
 
 		/* Hack -- Mark the artifact as "created" */
@@ -3855,7 +3855,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 	}
 
 	obj_level = object_kind_info[j_ptr->k_idx].level;
-	if (object_is_fixed_artifact(j_ptr)) obj_level = a_info[j_ptr->name1].level;
+	if (object_is_fixed_artifact(j_ptr)) obj_level = artifact_info[j_ptr->name1].level;
 
 	/* Notice "okay" out-of-depth objects */
 	if (!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) &&
@@ -3945,7 +3945,7 @@ void place_object(int y, int x, u32b mode)
 		/* Hack -- Preserve artifacts */
 		if (object_is_fixed_artifact(q_ptr))
 		{
-			a_info[q_ptr->name1].cur_num = 0;
+			artifact_info[q_ptr->name1].cur_num = 0;
 		}
 	}
 }
@@ -4317,7 +4317,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 				if (object_is_fixed_artifact(j_ptr) && !object_is_known(j_ptr))
 				{
 					/* Mega-Hack -- Preserve the artifact */
-					a_info[j_ptr->name1].cur_num = 0;
+					artifact_info[j_ptr->name1].cur_num = 0;
 				}
 			}
 
@@ -4403,7 +4403,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		/* Hack -- Preserve artifacts */
 		if (object_is_fixed_artifact(j_ptr))
 		{
-			a_info[j_ptr->name1].cur_num = 0;
+			artifact_info[j_ptr->name1].cur_num = 0;
 		}
 
 		/* Failure */

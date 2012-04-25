@@ -1360,7 +1360,7 @@
 #define F_LIT_MAX      3
 
 
-/*** Artifact indexes (see "lib/edit/a_info.txt") ***/
+/*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
 /* Lites */
 #define ART_GALADRIEL            1

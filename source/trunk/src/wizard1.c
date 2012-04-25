@@ -1289,7 +1289,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
  */
 static void analyze_addition(object_type *o_ptr, char *addition)
 {
-	artifact_type *a_ptr = &a_info[o_ptr->name1];
+	artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 	/* Init */
 	strcpy(addition, "");
@@ -1331,7 +1331,7 @@ static void analyze_addition(object_type *o_ptr, char *addition)
 static void analyze_misc(object_type *o_ptr, char *misc_desc)
 {
 	char buf[80];
-	artifact_type *a_ptr = &a_info[o_ptr->name1];
+	artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 	format_weight(buf, o_ptr->weight);
 
@@ -1578,7 +1578,7 @@ static bool make_fake_artifact(object_type *o_ptr, int name1)
 {
 	int i;
 
-	artifact_type *a_ptr = &a_info[name1];
+	artifact_type *a_ptr = &artifact_info[name1];
 
 
 	/* Ignore "empty" artifacts */
@@ -1659,7 +1659,7 @@ static void spoil_artifact(cptr fname)
 		/* Now search through all of the artifacts */
 		for (j = 1; j < max_a_idx; ++j)
 		{
-			artifact_type *a_ptr = &a_info[j];
+			artifact_type *a_ptr = &artifact_info[j];
 
 			/* We only want objects in the current group */
 			if (a_ptr->tval != group_artifact[i].tval) continue;

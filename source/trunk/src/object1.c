@@ -115,7 +115,7 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 	/* Artifact */
 	if (object_is_fixed_artifact(o_ptr))
 	{
-		artifact_type *a_ptr = &a_info[o_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] = a_ptr->flags[i];
@@ -270,7 +270,7 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 		/* Artifact */
 		if (object_is_fixed_artifact(o_ptr))
 		{
-			artifact_type *a_ptr = &a_info[o_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
 
 			for (i = 0; i < TR_FLAG_SIZE; i++)
 				flgs[i] = a_ptr->flags[i];
@@ -2376,7 +2376,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
 	/* Extract the description */
 	{
-		roff_to_buf(o_ptr->name1 ? (a_text + a_info[o_ptr->name1].text) :
+		roff_to_buf(o_ptr->name1 ? (artifact_text + artifact_info[o_ptr->name1].text) :
 			    (k_text + object_kind_info[o_ptr->k_idx].text),
 			    77 - 15, temp, sizeof(temp));
 		for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))

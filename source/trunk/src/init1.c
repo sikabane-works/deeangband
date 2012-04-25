@@ -2489,7 +2489,7 @@ errr parse_artifact_csv(char *buf, header *head)
 			{
 
 			case ARTIFACT_INFO_NAME:
-				if(!add_name(&a_info[n].name, head, tmp))
+				if(!add_name(&artifact_info[n].name, head, tmp))
 					return (7);
 				break;
 
@@ -2498,106 +2498,106 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_TVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].tval = (byte)b;
+					artifact_info[n].tval = (byte)b;
 				else
-					a_info[n].tval = 0;
+					artifact_info[n].tval = 0;
 				break;
 
 			case ARTIFACT_INFO_SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].sval = (byte)b;
+					artifact_info[n].sval = (byte)b;
 				else
-					a_info[n].sval = 0;
+					artifact_info[n].sval = 0;
 				break;
 
 			case ARTIFACT_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].pval = (byte)b;
+					artifact_info[n].pval = (byte)b;
 				else
-					a_info[n].pval = 0;
+					artifact_info[n].pval = 0;
 				break;
 
 			case ARTIFACT_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].level = (byte)b;
+					artifact_info[n].level = (byte)b;
 				else
-					a_info[n].level = 0;
+					artifact_info[n].level = 0;
 				break;
 
 			case ARTIFACT_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].rarity = (byte)b;
+					artifact_info[n].rarity = (byte)b;
 				else
-					a_info[n].rarity = 0;
+					artifact_info[n].rarity = 0;
 				break;
 
 			case ARTIFACT_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].weight = (s16b)b;
+					artifact_info[n].weight = (s16b)b;
 				else
-					a_info[n].weight = 0;
+					artifact_info[n].weight = 0;
 				break;
 
 			case ARTIFACT_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].cost = (s32b)b;
+					artifact_info[n].cost = (s32b)b;
 				else
-					a_info[n].cost = 0;
+					artifact_info[n].cost = 0;
 				break;
 
 			case ARTIFACT_INFO_SIZE_LOWER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].size_lower = (s16b)b;
+					artifact_info[n].size_lower = (s16b)b;
 				else
-					a_info[n].size_lower = 0;
+					artifact_info[n].size_lower = 0;
 				break;
 
 			case ARTIFACT_INFO_SIZE_UPPER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].size_upper = (s16b)b;
+					artifact_info[n].size_upper = (s16b)b;
 				else
-					a_info[n].size_upper = 0;
+					artifact_info[n].size_upper = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].ac = (s16b)b;
+					artifact_info[n].ac = (s16b)b;
 				else
-					a_info[n].ac = 0;
+					artifact_info[n].ac = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
-					a_info[n].dd = (byte)b;
-					a_info[n].ds = (byte)c;
+					artifact_info[n].dd = (byte)b;
+					artifact_info[n].ds = (byte)c;
 				}
 				else
 				{
-					a_info[n].dd = 0;
-					a_info[n].ds = 0;
+					artifact_info[n].dd = 0;
+					artifact_info[n].ds = 0;
 				}
 				break;
 
 			case ARTIFACT_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].to_h = (s16b)b;
+					artifact_info[n].to_h = (s16b)b;
 				else
-					a_info[n].to_h = 0;
+					artifact_info[n].to_h = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].to_d = (s16b)b;
+					artifact_info[n].to_d = (s16b)b;
 				else
-					a_info[n].to_d = 0;
+					artifact_info[n].to_d = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					a_info[n].to_a = (s16b)b;
+					artifact_info[n].to_a = (s16b)b;
 				else
-					a_info[n].to_a = 0;
+					artifact_info[n].to_a = 0;
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
@@ -2616,7 +2616,7 @@ errr parse_artifact_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_artifact_flag(&a_info[n], s))
+					if (0 != grab_one_artifact_flag(&artifact_info[n], s))
 						return (5);
 
 						/* Start the next entry */
@@ -2626,7 +2626,7 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&a_info[n].text, head, tmp, TRUE))
+				if (!add_text(&artifact_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
 
@@ -5991,7 +5991,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Artifact */
 			if (artifact_index)
 			{
-				if (a_info[artifact_index].cur_num)
+				if (artifact_info[artifact_index].cur_num)
 				{
 					int k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 					object_type forge;
@@ -6006,7 +6006,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				{
 					/* Create the artifact */
 					if (drop_named_art(player_ptr, artifact_index, *y, *x))
-						a_info[artifact_index].cur_num = 1;
+						artifact_info[artifact_index].cur_num = 1;
 				}
 			}
 
@@ -6066,7 +6066,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				//if (is_unique_species(r_ptr))
 					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
-				a_ptr = &a_info[q_ptr->k_idx];
+				a_ptr = &artifact_info[q_ptr->k_idx];
 				a_ptr->gen_flags |= TRG_QUESTITEM;
 			}
 			return (0);

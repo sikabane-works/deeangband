@@ -272,7 +272,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		/* Memorize location of the artifact */
 		if (object_is_fixed_artifact(o_ptr))
 		{
-			a_info[o_ptr->name1].floor_id = cur_floor_id;
+			artifact_info[o_ptr->name1].floor_id = cur_floor_id;
 		}
 	}
 }

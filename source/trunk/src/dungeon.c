@@ -7211,7 +7211,7 @@ void world_wipe()
 	// Start with no artifacts made yet
 	for (i = 0; i < max_a_idx; i++)
 	{
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 		a_ptr->cur_num = 0;
 	}
 

@@ -807,9 +807,9 @@ char *k_text;
 /*
  * The artifact arrays
  */
-artifact_type *a_info;
-char *a_name;
-char *a_text;
+artifact_type *artifact_info;
+char *artifact_name;
+char *artifact_text;
 
 /*
  * The ego-item arrays
@@ -844,9 +844,9 @@ char *race_text;
 /*
  * The artifact arrays
  */
-artifact_type *a_info;
-char *a_name;
-char *a_text;
+artifact_type *artifact_info;
+char *artifact_name;
+char *artifact_text;
 
 /*
  * The monster ego arrays
@@ -1101,7 +1101,7 @@ u16b max_v_idx;
 u16b max_f_idx;
 
 /*
- * Maximum number of artifacts in a_info.txt
+ * Maximum number of artifacts in artifact_info.txt
  */
 u16b max_a_idx;
 

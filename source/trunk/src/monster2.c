@@ -3634,7 +3634,7 @@ void deal_item(creature_type *creature_ptr)
 
 		if(species_ptr->artifact_id[i])
 		{
-			artifact_type *a_ptr = &a_info[species_ptr->artifact_id[i]];
+			artifact_type *a_ptr = &artifact_info[species_ptr->artifact_id[i]];
 			if ((species_ptr->artifact_id[i] > 0) && ((randint0(100) < species_ptr->artifact_prob[i]) || wizard))
 			{
 				if (!a_ptr->cur_num)

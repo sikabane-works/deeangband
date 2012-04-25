@@ -284,7 +284,7 @@ void build_streamer(int feat, int chance)
 					if (object_is_fixed_artifact(o_ptr))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						a_info[o_ptr->name1].cur_num = 0;
+						artifact_info[o_ptr->name1].cur_num = 0;
 
 						if (cheat_peek)
 						{

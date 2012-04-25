@@ -3913,7 +3913,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Hack -- use artifact level instead */
-	if (object_is_fixed_artifact(o_ptr)) lev = a_info[o_ptr->name1].level;
+	if (object_is_fixed_artifact(o_ptr)) lev = artifact_info[o_ptr->name1].level;
 	else if (o_ptr->art_name)
 	{
 		switch (o_ptr->xtra2)

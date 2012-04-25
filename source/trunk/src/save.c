@@ -1261,7 +1261,7 @@ static bool wr_savefile_new(void)
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 		wr_byte(a_ptr->cur_num);
 		wr_s16b(a_ptr->floor_id);
 	}

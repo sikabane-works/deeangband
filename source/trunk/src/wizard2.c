@@ -862,7 +862,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 			/* Preserve wizard-generated artifacts */
 			if (object_is_fixed_artifact(q_ptr))
 			{
-				a_info[q_ptr->name1].cur_num = 0;
+				artifact_info[q_ptr->name1].cur_num = 0;
 				q_ptr->name1 = 0;
 			}
 
@@ -880,7 +880,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 		/* Preserve wizard-generated artifacts */
 		if (object_is_fixed_artifact(q_ptr))
 		{
-			a_info[q_ptr->name1].cur_num = 0;
+			artifact_info[q_ptr->name1].cur_num = 0;
 			q_ptr->name1 = 0;
 		}
 
@@ -988,7 +988,7 @@ static void wiz_statistics(object_type *o_ptr)
 
 
 	/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-	if (object_is_fixed_artifact(o_ptr)) a_info[o_ptr->name1].cur_num = 0;
+	if (object_is_fixed_artifact(o_ptr)) artifact_info[o_ptr->name1].cur_num = 0;
 
 
 	/* Interact */
@@ -1070,7 +1070,7 @@ static void wiz_statistics(object_type *o_ptr)
 
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-			if (object_is_fixed_artifact(q_ptr)) a_info[q_ptr->name1].cur_num = 0;
+			if (object_is_fixed_artifact(q_ptr)) artifact_info[q_ptr->name1].cur_num = 0;
 
 
 			/* Test for the same tval and sval. */
@@ -1122,7 +1122,7 @@ static void wiz_statistics(object_type *o_ptr)
 
 
 	/* Hack -- Normally only make a single artifact */
-	if (object_is_fixed_artifact(o_ptr)) a_info[o_ptr->name1].cur_num = 1;
+	if (object_is_fixed_artifact(o_ptr)) artifact_info[o_ptr->name1].cur_num = 1;
 }
 
 
@@ -1366,10 +1366,10 @@ static void wiz_create_item(creature_type *cr_ptr)
 		for (i = 1; i < max_a_idx; i++)
 		{
 			/* Ignore incorrect tval */
-			if (a_info[i].tval != object_kind_info[k_idx].tval) continue;
+			if (artifact_info[i].tval != object_kind_info[k_idx].tval) continue;
 
 			/* Ignore incorrect sval */
-			if (a_info[i].sval != object_kind_info[k_idx].sval) continue;
+			if (artifact_info[i].sval != object_kind_info[k_idx].sval) continue;
 
 			/* Create this artifact */
 			(void)drop_named_art(cr_ptr, i, cr_ptr->fy, cr_ptr->fx);

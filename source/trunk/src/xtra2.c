@@ -1083,7 +1083,7 @@ msg_print("地面に落とされた。");
 					break;
 				}
 
-				a_ptr = &a_info[a_idx];
+				a_ptr = &artifact_info[a_idx];
 			}
 			while (a_ptr->cur_num);
 
@@ -1296,7 +1296,7 @@ msg_print("地面に落とされた。");
 			if (dungeon_info[current_floor_ptr->dun_type].final_artifact)
 			{
 				int a_idx = dungeon_info[current_floor_ptr->dun_type].final_artifact;
-				artifact_type *a_ptr = &a_info[a_idx];
+				artifact_type *a_ptr = &artifact_info[a_idx];
 
 				if (!a_ptr->cur_num)
 				{

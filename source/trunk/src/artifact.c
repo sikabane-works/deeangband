@@ -3013,7 +3013,7 @@ void get_bloody_moon_flags(object_type *o_ptr)
 	int dummy, i;
 
 	for (i = 0; i < TR_FLAG_SIZE; i++)
-		o_ptr->art_flags[i] = a_info[ART_BLOOD].flags[i];
+		o_ptr->art_flags[i] = artifact_info[ART_BLOOD].flags[i];
 
 	dummy = randint1(2) + randint1(2);
 	for (i = 0; i < dummy; i++)
@@ -3112,7 +3112,7 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 {
 	int i;
 
-	artifact_type *a_ptr = &a_info[a_idx];
+	artifact_type *a_ptr = &artifact_info[a_idx];
 
 	/* Ignore "empty" artifacts */
 	if (!a_ptr->name) return FALSE;

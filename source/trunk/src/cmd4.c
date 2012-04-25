@@ -5828,7 +5828,7 @@ static int collect_artifacts(int grp_cur, int object_idx[])
 	for (i = 0; i < max_a_idx; i++)
 	{
 		/* Access the artifact */
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 
 		/* Skip empty artifacts */
 		if (!a_ptr->name) continue;
@@ -6591,8 +6591,8 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 	if (*why >= 3)
 	{
 		/* Extract total kills */
-		z1 = a_info[w1].tval;
-		z2 = a_info[w2].tval;
+		z1 = artifact_info[w1].tval;
+		z2 = artifact_info[w2].tval;
 
 		/* Compare total kills */
 		if (z1 < z2) return (TRUE);
@@ -6604,8 +6604,8 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 	if (*why >= 2)
 	{
 		/* Extract levels */
-		z1 = a_info[w1].sval;
-		z2 = a_info[w2].sval;
+		z1 = artifact_info[w1].sval;
+		z2 = artifact_info[w2].sval;
 
 		/* Compare levels */
 		if (z1 < z2) return (TRUE);
@@ -6617,8 +6617,8 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 	if (*why >= 1)
 	{
 		/* Extract experience */
-		z1 = a_info[w1].level;
-		z2 = a_info[w2].level;
+		z1 = artifact_info[w1].level;
+		z2 = artifact_info[w2].level;
 
 		/* Compare experience */
 		if (z1 < z2) return (TRUE);
@@ -6692,7 +6692,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	/* Scan the artifacts */
 	for (k = 0; k < max_a_idx; k++)
 	{
-		artifact_type *a_ptr = &a_info[k];
+		artifact_type *a_ptr = &artifact_info[k];
 
 		/* Default */
 		okay[k] = FALSE;
@@ -6768,7 +6768,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	/* Scan the artifacts */
 	for (k = 0; k < n; k++)
 	{
-		artifact_type *a_ptr = &a_info[who[k]];
+		artifact_type *a_ptr = &artifact_info[who[k]];
 
 		/* Paranoia */
 #ifdef JP
@@ -9516,7 +9516,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					case QUEST_TYPE_FIND_ARTIFACT:
 						d_ptr = &dungeon_info[quest[i].dungeon];
 						strcpy(dungeon_name, d_name + d_ptr->name);
-						strcpy(name, a_name + a_info[quest[i].k_idx].name);
+						strcpy(name, artifact_name + artifact_info[quest[i].k_idx].name);
 #ifdef JP
 						sprintf(note,"「%s」にある「%s」を見つけ出す。", dungeon_name, name);
 #else

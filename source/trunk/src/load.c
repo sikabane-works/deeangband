@@ -1833,7 +1833,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					rd_s16b(&quest[i].k_idx);
 
 					if (quest[i].k_idx)
-						a_info[quest[i].k_idx].gen_flags |= TRG_QUESTITEM;
+						artifact_info[quest[i].k_idx].gen_flags |= TRG_QUESTITEM;
 
 					rd_byte(&quest[i].flags);
 					rd_byte(&quest[i].dungeon);
@@ -1930,7 +1930,7 @@ note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));
 	/* Read the artifact flags */
 	for (i = 0; i < tmp16u; i++)
 	{
-		artifact_type *a_ptr = &a_info[i];
+		artifact_type *a_ptr = &artifact_info[i];
 
 		rd_byte(&tmp8u);
 		a_ptr->cur_num = tmp8u;

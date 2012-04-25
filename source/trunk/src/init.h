@@ -156,7 +156,7 @@ extern header z_head;
 extern header v_head;
 extern header f_head;
 extern header k_head;
-extern header a_head;
+extern header artifact_head;
 extern header object_ego_head;
 extern header species_head;
 extern header p_head;

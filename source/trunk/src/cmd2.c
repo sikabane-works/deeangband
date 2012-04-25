@@ -3824,7 +3824,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 #endif
 			if (object_is_fixed_artifact(q_ptr))
 			{
-				a_info[j_ptr->name1].cur_num = 0;
+				artifact_info[j_ptr->name1].cur_num = 0;
 			}
 			return;
 		}
