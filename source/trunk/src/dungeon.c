@@ -7189,7 +7189,9 @@ void world_wipe()
 	int i;
 
 	playtime = 0;
-	current_floor_ptr = &floor_list[0];
+
+	current_floor_ptr = &floor_list[1];
+	floor_max = 2; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
 
 	world_player = FALSE; // Assume no winning game
 	panic_save = 0;	// Assume no cheating

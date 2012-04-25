@@ -89,9 +89,6 @@ void init_saved_floors(bool force)
 
 	}
 
-	/* No floor_id used yet (No.0 is reserved to indicate non existance) */
-	floor_max = 1;
-
 	/* vist_mark is from 1 */
 	latest_visit_mark = 1;
 
