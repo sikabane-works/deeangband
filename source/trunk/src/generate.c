@@ -1572,74 +1572,47 @@ void generate_floor(creature_type *player_ptr)
 	// Fill the arrays of floors and walls in the good proportions
 	set_floor_and_wall(current_floor_ptr->dun_type);
 
-	/* Generate */
+	// Generate
 	for (num = 0; TRUE; num++)
 	{
 		bool okay = TRUE;
-
 		cptr why = NULL;
 
 		clear_cave(); // Clear and empty the cave
 
-
-		/* Build the arena -KMW- */
-		if (fight_arena_mode)
+		if (fight_arena_mode) generate_floor_arena(player_ptr); // fight arena
+		else if (gamble_arena_mode) generate_floor_monster_arena(player_ptr); // gamble arena
+		else if (inside_quest) generate_floor_quest(); // quest
+		else if (!current_floor_ptr->dun_level) // world map
 		{
-			/* Small arena */
-			generate_floor_arena(player_ptr);
-		}
-
-		/* Build the battle -KMW- */
-		else if (gamble_arena_mode)
-		{
-			/* Small arena */
-			generate_floor_monster_arena(player_ptr);
-		}
-
-		else if (inside_quest)
-		{
-			generate_floor_quest();
-		}
-
-		/* Build the town */
-		else if (!current_floor_ptr->dun_level)
-		{
-			/* Make the wilderness */
 			if (wild_mode) generate_floor_world(player_ptr);
 			else generate_floor_wilderness(player_ptr);
 		}
+		else okay = generate_floor_cave(&why); // dungeon
 
-		/* Build a real level */
-		else
-		{
-			okay = generate_floor_cave(&why);
-		}
-
-
-		/* Prevent object over-flow */
+		// Prevent object over-flow
 		if (object_max >= max_object_idx)
 		{
 			/* Message */
 #ifdef JP
-why = "アイテムが多すぎる";
+			why = "アイテムが多すぎる";
 #else
 			why = "too many objects";
 #endif
 
-
 			/* Message */
 			okay = FALSE;
 		}
+
 		/* Prevent monster over-flow */
 		else if (creature_max >= max_creature_idx)
 		{
 			/* Message */
 #ifdef JP
-why = "モンスターが多すぎる";
+			why = "モンスターが多すぎる";
 #else
 			why = "too many monsters";
 #endif
-
 
 			/* Message */
 			okay = FALSE;
@@ -1656,11 +1629,7 @@ if (why) msg_format("生成やり直し(%s)", why);
 #endif
 
 		// TODO Reimplement wiping 
-
-		/* Wipe the objects */
 		wipe_object_list(0);
-
-		/* Wipe the monsters */
 		wipe_creature_list(0);
 	}
 
