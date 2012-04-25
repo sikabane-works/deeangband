@@ -90,7 +90,7 @@ void init_saved_floors(bool force)
 	}
 
 	/* No floor_id used yet (No.0 is reserved to indicate non existance) */
-	max_floor_id = 1;
+	floor_max = 1;
 
 	/* vist_mark is from 1 */
 	latest_visit_mark = 1;
@@ -178,8 +178,8 @@ s16b floor_pop(void)
 	floor_ptr->world_y = wilderness_y;
 
 	// Increment number of floor_id
-	if (max_floor_id < MAX_SHORT) max_floor_id++;
-	else max_floor_id = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
+	if (floor_max < MAX_SHORT) floor_max++;
+	else floor_max = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
 
 	return i;
 }

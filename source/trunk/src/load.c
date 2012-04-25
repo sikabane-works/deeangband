@@ -1464,12 +1464,12 @@ static errr rd_floors(void)
 
 	/*** Meta info ***/
 
-	rd_s16b(&max_floor_id); // Number of floor_id used from birth
+	rd_s16b(&floor_max); // Number of floor_id used from birth
 
 	current_floor_ptr = &floor_list[player_ptr->floor_id];
 
 	// Read the current floor data
-	for(i = 1; i < max_floor_id; i++)
+	for(i = 1; i < floor_max; i++)
 		err = rd_floor(&floor_list[i]);
 
 	/*** Error messages ***/

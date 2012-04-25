@@ -630,7 +630,7 @@ floor_type floor_list[MAX_FLOORS];
 /*
  * Number of floor_id used from birth
  */
-s16b max_floor_id;
+s16b floor_max;
 
 
 /*

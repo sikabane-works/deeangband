@@ -421,7 +421,7 @@ extern char angband_term_name[8][16];
 extern byte angband_color_table[256][4];
 extern char angband_sound_name[SOUND_MAX][16];
 extern floor_type floor_list[MAX_FLOORS];
-extern s16b max_floor_id;
+extern s16b floor_max;
 extern u32b saved_floor_file_sign;
 extern object_type *object_list;
 extern object_type object_null;

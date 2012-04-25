@@ -1552,14 +1552,14 @@ static void do_cmd_wiz_floor_teleport(void)
 {
 	selection *ce;
 	int i;
-	ce = malloc(sizeof(selection) * (max_floor_id + 1));
+	ce = malloc(sizeof(selection) * (floor_max + 1));
 
 	screen_save();
 
 	while(1)
 	{
 
-		for(i = 0; i < max_floor_id; i++)
+		for(i = 0; i < floor_max; i++)
 		{
 			sprintf(ce[i].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
 				floor_list[i].world_x, floor_list[i].world_y,
@@ -1590,8 +1590,8 @@ static void do_cmd_wiz_floor_teleport(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, max_floor_id + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL);
-		if(i == max_floor_id) break;
+		i = get_selection(ce, floor_max + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL);
+		if(i == floor_max) break;
 		else
 		{
 			// move simulate floor and player.
