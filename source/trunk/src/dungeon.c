@@ -3621,88 +3621,57 @@ static byte get_dungeon_feeling(void)
 	int rating = 0;
 	int i;
 
-	/* Hack -- no feeling in the town */
-	if (!current_floor_ptr->dun_level) return 0;
+	if (!current_floor_ptr->dun_level) return 0; // Hack -- no feeling in the town
 
-	/* Examine each monster */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++) // Examine each monster
 	{
-		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr;
+		creature_type *creature_ptr = &creature_list[i];
+		species_type *species_ptr;
 		int delta = 0;
 
-		/* Skip dead monsters */
-		if (!m_ptr->species_idx) continue;
+		if(!is_in_this_floor(creature_ptr)) continue;
+		if(!creature_ptr->species_idx) continue; // Skip dead monsters
+		if(is_pet(player_ptr, creature_ptr)) continue; // Ignore pet
 
-		/* Ignore pet */
-		if (is_pet(player_ptr, m_ptr)) continue;
+		species_ptr = &species_info[creature_ptr->species_idx];
 
-		r_ptr = &species_info[m_ptr->species_idx];
-
-		/* Unique monsters */
-		if (is_unique_species(r_ptr))
+		if (is_unique_species(species_ptr)) // Unique monsters
 		{
-			/* Nearly out-of-depth unique monsters */
-			if (r_ptr->level + 10 > current_floor_ptr->dun_level)
-			{
-				/* Boost rating by twice delta-depth */
-				delta += (r_ptr->level + 10 - current_floor_ptr->dun_level) * 2 * base;
-			}
+			if (species_ptr->level + 10 > current_floor_ptr->dun_level) // Nearly out-of-depth unique monsters
+				delta += (species_ptr->level + 10 - current_floor_ptr->dun_level) * 2 * base; // Boost rating by twice delta-depth
 		}
 		else
 		{
-			/* Out-of-depth monsters */
-			if (r_ptr->level > current_floor_ptr->dun_level)
-			{
-				/* Boost rating by delta-depth */
-				delta += (r_ptr->level - current_floor_ptr->dun_level) * base;
-			}
+			if (species_ptr->level > current_floor_ptr->dun_level) // Out-of-depth monsters
+				delta += (species_ptr->level - current_floor_ptr->dun_level) * base; // Boost rating by delta-depth
 		}
 
-		/* Unusually crowded monsters get a little bit of rating boost */
-		if (has_cf_creature(m_ptr, CF_FRIENDS))
-		{
+		// Unusually crowded monsters get a little bit of rating boost
+		if (has_cf_creature(creature_ptr, CF_FRIENDS))
 			if (5 <= get_monster_crowd_number(i)) delta += 1;
-		}
 		else
-		{
 			if (2 <= get_monster_crowd_number(i)) delta += 1;
-		}
-
 
 		rating += RATING_BOOST(delta);
 	}
 
-	/* Examine each unidentified object */
-	for (i = 1; i < object_max; i++)
+	for (i = 1; i < object_max; i++) // Examine each unidentified object
 	{
 		object_type *o_ptr = &object_list[i];
 		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 		int delta = 0;
 
-		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!o_ptr->k_idx) continue; // Skip dead objects
+		if (object_is_known(o_ptr) && o_ptr->marked & OM_TOUCHED) continue; // Skip known objects
+		if (o_ptr->ident & IDENT_SENSE) continue; /* Skip pseudo-known objects */
 
-		/* Skip known objects */
-		if (object_is_known(o_ptr))
-		{
-			/* Touched? */
-			if (o_ptr->marked & OM_TOUCHED) continue;
-		}
-
-		/* Skip pseudo-known objects */
-		if (o_ptr->ident & IDENT_SENSE) continue;
-
-		/* Ego objects */
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(o_ptr)) // Ego objects
 		{
 			ego_item_type *e_ptr = &e_info[o_ptr->name2];
-
 			delta += e_ptr->rating * base;
 		}
 
-		/* Artifacts */
-		if (object_is_artifact(o_ptr))
+		if (object_is_artifact(o_ptr)) // Artifacts
 		{
 			s32b cost = object_value_real(o_ptr);
 
@@ -3710,9 +3679,7 @@ static byte get_dungeon_feeling(void)
 			if (cost > 10000L) delta += 10 * base;
 			if (cost > 50000L) delta += 10 * base;
 			if (cost > 100000L) delta += 10 * base;
-
-			/* Special feeling */
-			if (!preserve_mode) return 1;
+			if (!preserve_mode) return 1; // Special feeling
 		}
 
 		if (o_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
@@ -3734,17 +3701,12 @@ static byte get_dungeon_feeling(void)
 		    o_ptr->sval == SV_AMULET_THE_MAGI &&
 		    !object_is_cursed(o_ptr)) delta += 15 * base;
 
-		/* Out-of-depth objects */
-		if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) &&
-		    k_ptr->level > current_floor_ptr->dun_level)
-		{
-			/* Rating increase */
-			delta += (k_ptr->level - current_floor_ptr->dun_level) * base;
-		}
+		if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) && 
+		    k_ptr->level > current_floor_ptr->dun_level) // Out-of-depth objects
+			delta += (k_ptr->level - current_floor_ptr->dun_level) * base; // Rating increase
 
 		rating += RATING_BOOST(delta);
 	}
-
 
 	if (rating > RATING_BOOST(1000)) return 2;
 	if (rating > RATING_BOOST(800)) return 3;
