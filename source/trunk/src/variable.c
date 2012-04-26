@@ -86,7 +86,7 @@ bool arg_bigtile = FALSE;	/* Command arg -- Request big tile mode */
  * Various things
  */
 bool character_generated;	/* The character exists */
-bool character_dungeon;		/* The character has a dungeon */
+bool change_floor_flag;		/* The character has a dungeon */
 bool character_loaded;		/* The character was loaded from a savefile */
 bool character_saved;		/* The character was just saved to a savefile */
 

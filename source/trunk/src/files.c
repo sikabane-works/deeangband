@@ -4182,7 +4182,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 #endif
 			}
 		}
-		else if (character_dungeon)
+		else if (change_floor_flag)
 		{
 			if (!current_floor_ptr->dun_level)
 			{

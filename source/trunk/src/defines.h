@@ -4075,7 +4075,7 @@
  */
 #define cave_empty_bold2(Y, X) \
 	(cave_empty_bold(Y,X) && \
-	 (character_dungeon || !cave_have_flag_bold((Y), (X), FF_TREE)))
+	 (change_floor_flag || !cave_have_flag_bold((Y), (X), FF_TREE)))
 
 
 /*

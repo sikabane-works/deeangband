@@ -1093,7 +1093,7 @@ msg_print("地面に落とされた。");
 				a_ptr->cur_num = 1;
 
 				/* Hack -- Memorize location of artifact in saved floors */
-				if (character_dungeon) a_ptr->floor_id = slayer_ptr->floor_id;
+				if (change_floor_flag) a_ptr->floor_id = slayer_ptr->floor_id;
 			}
 			else if (!preserve_mode) a_ptr->cur_num = 1;
 		}
@@ -1306,7 +1306,7 @@ msg_print("地面に落とされた。");
 						a_ptr->cur_num = 1;
 
 						/* Hack -- Memorize location of artifact in saved floors */
-						if (character_dungeon) a_ptr->floor_id = slayer_ptr->floor_id;
+						if (change_floor_flag) a_ptr->floor_id = slayer_ptr->floor_id;
 					}
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
@@ -1532,7 +1532,7 @@ void panel_bounds_center(void)
 void resize_map(void)
 {
 	/* Only if the dungeon exists */
-	if (!character_dungeon) return;
+	if (!change_floor_flag) return;
 	
 	/* Mega-Hack -- no panel yet */
 	panel_row_max = 0;
@@ -1581,7 +1581,7 @@ void resize_map(void)
 void redraw_window(void)
 {
 	/* Only if the dungeon exists */
-	if (!character_dungeon) return;
+	if (!change_floor_flag) return;
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);

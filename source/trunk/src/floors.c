@@ -606,9 +606,6 @@ void change_floor(creature_type *cr_ptr)
 	//floor_type *sf_ptr;
 	bool loaded = FALSE;
 
-	// The dungeon is not ready
-	character_dungeon = FALSE;
-
 	// No longer in the trap detecteded region
 	detect_trap = FALSE;
 
@@ -863,7 +860,7 @@ void change_floor(creature_type *cr_ptr)
 	//update_unique_artifact(current_floor_id);
 
 	/* The dungeon is ready */
-	character_dungeon = TRUE;
+	change_floor_flag = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
 	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));

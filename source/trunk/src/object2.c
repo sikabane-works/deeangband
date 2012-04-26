@@ -383,7 +383,7 @@ void wipe_object_list(int floor_id)
 		if (floor_id && o_ptr->floor_idx != floor_id) continue;
 
 		/* Mega-Hack -- preserve artifacts */
-		if (!character_dungeon || preserve_mode)
+		if (!change_floor_flag || preserve_mode)
 		{
 			/* Hack -- Preserve unknown artifacts */
 			if (object_is_fixed_artifact(o_ptr) && !object_is_known(o_ptr))
@@ -471,9 +471,9 @@ s16b object_pop(void)
 
 	/* Warn the player (except during dungeon creation) */
 #ifdef JP
-	if (character_dungeon) msg_print("アイテムが多すぎる！");
+	if (change_floor_flag) msg_print("アイテムが多すぎる！");
 #else
-	if (character_dungeon) msg_print("Too many objects!");
+	if (change_floor_flag) msg_print("Too many objects!");
 #endif
 
 
@@ -3562,7 +3562,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		a_ptr->cur_num = 1;
 
 		/* Hack -- Memorize location of artifact in saved floors */
-		if (character_dungeon)
+		if (change_floor_flag)
 			a_ptr->floor_id = owner_ptr->floor_id;
 
 		/* Extract the other fields */

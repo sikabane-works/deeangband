@@ -1536,7 +1536,7 @@ static errr rd_floors(void)
 	}
 
 	/* The dungeon is ready */
-	character_dungeon = TRUE;
+	change_floor_flag = TRUE;
 
 	/* Success or Error */
 	return err;
