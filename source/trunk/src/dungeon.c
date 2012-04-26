@@ -6649,11 +6649,11 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		if (!character_dungeon || !player_ptr->fy || !player_ptr->fx) // Generate a dungeon level if needed
-		{
+		//if (!character_dungeon) // Generate a dungeon level if needed
+		//{
 			change_floor(player_ptr);
-		}
-		else if (panic_save) panic_save = 0;
+		//}
+		//else if (panic_save) panic_save = 0;
 
 		current_floor_ptr->base_level = current_floor_ptr->dun_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
