@@ -6493,7 +6493,7 @@ void waited_report_score(void)
 static void new_game_setting(void)
 {
 	/* The dungeon is not ready */
-	change_floor_flag = FALSE;
+	floor_generated = FALSE;
 
 	/* Start in town */
 	inside_quest = 0;
@@ -6649,7 +6649,7 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		if (!change_floor_flag) change_floor(player_ptr);
+		if (!floor_generated) change_floor(player_ptr);
 		if (panic_save) panic_save = 0; // TODO
 
 		current_floor_ptr->base_level = current_floor_ptr->dun_level; 	   // Set the base level
@@ -6925,7 +6925,7 @@ void play_game(bool new_game)
 		new_game = TRUE;
 
 		/* The dungeon is not ready */
-		change_floor_flag = FALSE;
+		floor_generated = FALSE;
 
 		/* Prepare to init the RNG */
 		Rand_quick = TRUE;

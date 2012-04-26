@@ -1011,9 +1011,9 @@ s16b creature_pop(void)
 
 	/* Warn the player (except during dungeon creation) */
 #ifdef JP
-	if (change_floor_flag) msg_print("クリーチャーが多すぎる！");
+	if (floor_generated) msg_print("クリーチャーが多すぎる！");
 #else
-	if (change_floor_flag) msg_print("Too many creatures!");
+	if (floor_generated) msg_print("Too many creatures!");
 #endif
 
 	/* Try not to crash */
@@ -2465,7 +2465,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 	bool happened = FALSE;
 	int power = 100;
 
-	if (gamble_arena_mode || !change_floor_flag) return;
+	if (gamble_arena_mode || !floor_generated) return;
 
 	if (!necro)
 	{
@@ -4246,7 +4246,7 @@ msg_print("守りのルーンが壊れた！");
 	 * A unique monster move from old saved floor.
 	 */
 /*TODO
-	if (change_floor_flag &&
+	if (floor_generated &&
 	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)))
 		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
 */
@@ -4261,7 +4261,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 /* TODO
-	if (watcher_ptr->warning && change_floor_flag)
+	if (watcher_ptr->warning && floor_generated)
 	{
 		if (is_unique_species(r_ptr))
 		{

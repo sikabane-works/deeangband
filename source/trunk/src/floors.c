@@ -570,6 +570,7 @@ void leave_floor(creature_type *creature_ptr)
 	floor_id = floor_pop(); // Get new id
 	current_floor_ptr = &floor_list[floor_id];
 	creature_ptr->floor_id = floor_id;
+	floor_generated = FALSE;
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
@@ -860,7 +861,7 @@ void change_floor(creature_type *cr_ptr)
 	//update_unique_artifact(current_floor_id);
 
 	/* The dungeon is ready */
-	change_floor_flag = TRUE;
+	floor_generated = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
 	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
