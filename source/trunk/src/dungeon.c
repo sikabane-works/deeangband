@@ -6649,6 +6649,12 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
+		if (!character_dungeon || !player_ptr->fy || !player_ptr->fx) // Generate a dungeon level if needed
+		{
+			change_floor(player_ptr);
+		}
+		else if (panic_save) panic_save = 0;
+
 		current_floor_ptr->base_level = current_floor_ptr->dun_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
@@ -6831,7 +6837,6 @@ static void play_loop(void)
 		if (playing && gameover) accidental_death(); // Accidental Death
 		if (gameover) break; // Handle GameOver
 
-		change_floor(player_ptr); // Make a new level
 	}
 
 }
@@ -7041,36 +7046,6 @@ void play_game(bool new_game)
 		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
 	}
-
-	/* Generate a dungeon level if needed */
-	if (!character_dungeon)
-	{
-		change_floor(player_ptr);
-	}
-
-	else
-	{
-		/* HACK -- Restore from panic-save */
-		if (panic_save)
-		{
-			/* No longer in panic */
-			panic_save = 0;
-		}
-	}
-
-	/* No player?  -- Try to regenerate floor */
-	if (!player_ptr->fy || !player_ptr->fx)
-	{
-#ifdef JP
-		msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
-#else
-		msg_print("What a strange player location.  Regenerate the dungeon floor.");
-#endif
-		change_floor(player_ptr);
-	}
-
-	/* Still no player?  -- Try to locate random place */
-	if (!player_ptr->fy || !player_ptr->fx) player_ptr->fy = player_ptr->fx = 10;
 
 	/* Character is now "complete" */
 	character_generated = TRUE;
