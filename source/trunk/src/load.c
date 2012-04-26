@@ -994,6 +994,9 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_byte(&cr_ptr->fy);
 	rd_byte(&cr_ptr->fx);
 
+	rd_s32b(&cr_ptr->wx);
+	rd_s32b(&cr_ptr->wy);
+
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
@@ -1861,8 +1864,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		}
 
 		/* Position in the wilderness */
-		rd_s32b(&player_ptr->wx);
-		rd_s32b(&player_ptr->wy);
 		rd_byte((byte *)&wild_mode);
 		rd_byte((byte *)&ambush_flag);
 

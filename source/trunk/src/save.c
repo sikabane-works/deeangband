@@ -525,6 +525,10 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_byte(cr_ptr->fy);
 	wr_byte(cr_ptr->fx);
 
+	wr_s32b(cr_ptr->wx);
+	wr_s32b(cr_ptr->wy);
+
+
 	tmp16u = PY_MAX_LEVEL;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
@@ -1229,9 +1233,6 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Dump the position in the wilderness */
-	wr_s32b(player_ptr->wx);
-	wr_s32b(player_ptr->wy);
-
 	wr_byte(wild_mode);
 	wr_byte(ambush_flag);
 
