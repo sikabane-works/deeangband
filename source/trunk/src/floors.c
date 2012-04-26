@@ -171,8 +171,8 @@ s16b floor_pop(void)
 	// These may be changed later
 	floor_ptr->dun_level = current_floor_ptr ? current_floor_ptr->dun_level : 0;
 	floor_ptr->dun_type = current_floor_ptr->dun_type;
-	floor_ptr->world_x = wilderness_x;
-	floor_ptr->world_y = wilderness_y;
+	floor_ptr->world_x = cr_ptr->wx;
+	floor_ptr->world_y = cr_ptr->wy;
 
 	// Increment number of floor_id
 	if (floor_max < MAX_SHORT) floor_max++;
@@ -550,8 +550,8 @@ void leave_floor(creature_type *creature_ptr)
 	if (!current_floor_ptr->dun_level && current_floor_ptr->dun_type)
 	{
 		subject_change_dungeon = TRUE;
-		wilderness_y = dungeon_info[current_floor_ptr->dun_type].dy;
-		wilderness_x = dungeon_info[current_floor_ptr->dun_type].dx;
+		cr_ptr->wy = dungeon_info[current_floor_ptr->dun_type].dy;
+		cr_ptr->wx = dungeon_info[current_floor_ptr->dun_type].dx;
 
 		creature_ptr->recall_dungeon = current_floor_ptr->dun_type;
 		current_floor_ptr->dun_type = 0;
@@ -789,8 +789,8 @@ void change_floor(creature_type *cr_ptr)
 			// Set correct current_floor_ptr->dun_level value
 			sf_ptr->current_floor_ptr->dun_level = current_floor_ptr->dun_level;
 			sf_ptr->dun_type = current_floor_ptr->dun_type;
-			sf_ptr->world_x = wilderness_x;
-			sf_ptr->world_y = wilderness_y;
+			sf_ptr->world_x = cr_ptr->wx;
+			sf_ptr->world_y = cr_ptr->wy;
 
 			// Create connected stairs
 			if (!(cr_ptr->change_floor_mode & CFM_NO_RETURN))
@@ -999,14 +999,14 @@ void stair_creation(creature_type *creature_ptr)
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level <= current_floor_ptr->dun_level - 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
-			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
+			 dest_sf_ptr->world_x == cr_ptr->wx && dest_sf_ptr->world_y == cr_ptr->wy) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && dest_sf_ptr->dun_level >= current_floor_ptr->dun_level + 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
-			 dest_sf_ptr->world_x == wilderness_x && dest_sf_ptr->world_y == wilderness_y) ?
+			 dest_sf_ptr->world_x == cr_ptr->wx && dest_sf_ptr->world_y == cr_ptr->wy) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 

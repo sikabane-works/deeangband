@@ -3483,8 +3483,8 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 
 				if (wild_mode)
 				{
-					wilderness_y = cr_ptr->fy;
-					wilderness_x = cr_ptr->fx;
+					cr_ptr->wy = cr_ptr->fy;
+					cr_ptr->wx = cr_ptr->fx;
 				}
 				else
 				{
@@ -5493,7 +5493,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			int species_idx;
 			bool success = FALSE;
 			get_species_num_prep(monster_tsuri,NULL);
-			species_idx = get_species_num(current_floor_ptr->dun_level ? current_floor_ptr->dun_level : wilderness[wilderness_y][wilderness_x].level);
+			species_idx = get_species_num(current_floor_ptr->dun_level ? current_floor_ptr->dun_level : wilderness[cr_ptr->wy][cr_ptr->wx].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
 			{
@@ -6400,8 +6400,8 @@ static void cheat_death(void)
 	current_floor_ptr->dun_type = 0;
 
 	// Start Point Set
-	wilderness_y = player_ptr->start_wy;
-	wilderness_x = player_ptr->start_wx;
+	cr_ptr->wy = player_ptr->start_wy;
+	cr_ptr->wx = player_ptr->start_wx;
 
 	player_ptr->oldpy = 95;
 	player_ptr->oldpx = 95;
@@ -6554,8 +6554,8 @@ static void new_game_setting(void)
 		/* Roll up a new character */
 		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
 
-		wilderness_x = player_ptr->start_wx;
-		wilderness_y = player_ptr->start_wy;
+		cr_ptr->wx = player_ptr->start_wx;
+		cr_ptr->wy = player_ptr->start_wy;
 
 		if(is_undead_creature(player_ptr))
 		{

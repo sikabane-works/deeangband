@@ -3877,8 +3877,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			/* Hack: move to new area */
 			if ((y == 0) && (x == 0))
 			{
-				tmp_wy = wilderness_y - 1;
-				tmp_wx = wilderness_x - 1;
+				tmp_wy = cr_ptr->wy - 1;
+				tmp_wx = cr_ptr->wx - 1;
 				tmp_py = current_floor_ptr->height - 2;
 				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
@@ -3886,8 +3886,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if ((y == 0) && (x == MAX_WID - 1))
 			{
-				tmp_wy = wilderness_y - 1;
-				tmp_wx = wilderness_x + 1;
+				tmp_wy = cr_ptr->wy - 1;
+				tmp_wx = cr_ptr->wx + 1;
 				tmp_py = current_floor_ptr->height - 2;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -3895,8 +3895,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if ((y == MAX_HGT - 1) && (x == 0))
 			{
-				tmp_wy = wilderness_y + 1;
-				tmp_wx = wilderness_x - 1;
+				tmp_wy = cr_ptr->wy + 1;
+				tmp_wx = cr_ptr->wx - 1;
 				tmp_py = 1;
 				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
@@ -3904,8 +3904,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if ((y == MAX_HGT - 1) && (x == MAX_WID - 1))
 			{
-				tmp_wy = wilderness_y + 1;
-				tmp_wx = wilderness_x + 1;
+				tmp_wy = cr_ptr->wy + 1;
+				tmp_wx = cr_ptr->wx + 1;
 				tmp_py = 1;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -3913,8 +3913,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if (y == 0)
 			{
-				tmp_wy = wilderness_y - 1;
-				tmp_wx = wilderness_x;
+				tmp_wy = cr_ptr->wy - 1;
+				tmp_wx = cr_ptr->wx;
 				tmp_py = current_floor_ptr->height - 2;
 				tmp_px = x;
 				ambush_flag = FALSE;
@@ -3922,8 +3922,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if (y == MAX_HGT - 1)
 			{
-				tmp_wy = wilderness_y + 1;
-				tmp_wx = wilderness_x;
+				tmp_wy = cr_ptr->wy + 1;
+				tmp_wx = cr_ptr->wx;
 				tmp_py = 1;
 				tmp_px = x;
 				ambush_flag = FALSE;
@@ -3931,8 +3931,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if (x == 0)
 			{
-				tmp_wy = wilderness_y;
-				tmp_wx = wilderness_x - 1;
+				tmp_wy = cr_ptr->wy;
+				tmp_wx = cr_ptr->wx - 1;
 				tmp_py = y;
 				tmp_px = current_floor_ptr->width - 2;
 				ambush_flag = FALSE;
@@ -3940,8 +3940,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			else if (x == MAX_WID - 1)
 			{
-				tmp_wy = wilderness_y;
-				tmp_wx = wilderness_x + 1;
+				tmp_wy = cr_ptr->wy;
+				tmp_wx = cr_ptr->wx + 1;
 				tmp_py = y;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -3949,8 +3949,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 			if(wilderness[tmp_wy][tmp_wx].terrain != TERRAIN_CHAOS)
 			{
-				wilderness_y = tmp_wy;
-				wilderness_x = tmp_wx;
+				cr_ptr->wy = tmp_wy;
+				cr_ptr->wx = tmp_wx;
 				cr_ptr->oldpy = tmp_py;
 				cr_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;
@@ -3972,8 +3972,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			else if(get_check("Really want to enter territory of chaos? "))
 #endif
 			{
-				wilderness_y = tmp_wy;
-				wilderness_x = tmp_wx;
+				cr_ptr->wy = tmp_wy;
+				cr_ptr->wx = tmp_wx;
 				cr_ptr->oldpy = tmp_py;
 				cr_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;

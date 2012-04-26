@@ -4357,8 +4357,8 @@ bool tele_town(creature_type *cr_ptr)
 		{
 			if(wilderness[y][x].town == (i-'a'+1))
 			{
-				wilderness_y = y;
-				wilderness_x = x;
+				cr_ptr->wy = y;
+				cr_ptr->wx = x;
 			}
 		}
 	}

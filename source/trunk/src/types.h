@@ -1530,6 +1530,10 @@ struct creature_type
 	byte fy;		/* Y location on map */
 	byte fx;		/* X location on map */
 
+	s32b wx;	/* Coordinates in the wilderness */
+	s32b wy;
+
+
 	byte cdis;		/* Current dis from player */
 
 	byte mflag;		/* Extra monster flags */
@@ -2041,8 +2045,8 @@ typedef struct starting_type {
 	byte enable;
 	s16b dungeon;
 	s16b floor;
-	s16b wilderness_y;
-	s16b wilderness_x;
+	s16b wy;
+	s16b wx;
 	s16b py;
 	s16b px;
 } starting_type;

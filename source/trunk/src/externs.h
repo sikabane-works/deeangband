@@ -1895,9 +1895,6 @@ extern bool gamble_arena_mode;		/* Is character inside tougijou? */
 extern s16b town_num;			/* Current town number */
 extern s16b arena_number;		/* monster number in arena -KMW- */
 
-extern s32b wilderness_x;	/* Coordinates in the wilderness */
-extern s32b wilderness_y;
-
 extern s16b species_window_idx;	/* Species info trackee */
 
 
