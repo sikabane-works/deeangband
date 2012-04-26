@@ -757,8 +757,6 @@ bool fight_arena_mode = FALSE;		/* inside arena? */
 bool gamble_arena_mode = FALSE;		/* inside tougijou? */
 s16b town_num = 0;			/* Current town number */
 s16b arena_number = 0;		/* monster number in arena -KMW- */
-s32b cr_ptr->wx = 0;	/* Coordinates in the wilderness */
-s32b cr_ptr->wy = 0;
 bool detect_trap;               /* Whether on trap-safe grids */
 
 s16b species_window_idx;	/* Species info trackee */

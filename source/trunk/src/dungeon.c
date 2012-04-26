@@ -6400,8 +6400,8 @@ static void cheat_death(void)
 	current_floor_ptr->dun_type = 0;
 
 	// Start Point Set
-	cr_ptr->wy = player_ptr->start_wy;
-	cr_ptr->wx = player_ptr->start_wx;
+	player_ptr->wy = player_ptr->start_wy;
+	player_ptr->wx = player_ptr->start_wx;
 
 	player_ptr->oldpy = 95;
 	player_ptr->oldpx = 95;
@@ -6554,8 +6554,8 @@ static void new_game_setting(void)
 		/* Roll up a new character */
 		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
 
-		cr_ptr->wx = player_ptr->start_wx;
-		cr_ptr->wy = player_ptr->start_wy;
+		player_ptr->wx = player_ptr->start_wx;
+		player_ptr->wy = player_ptr->start_wy;
 
 		if(is_undead_creature(player_ptr))
 		{

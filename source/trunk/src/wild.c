@@ -801,18 +801,18 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	/* Process "W:P:<x>:<y> - starting position in the wilderness */
 	case 'P':
 	{
-		if ((cr_ptr->wx == 0) &&
-		    (cr_ptr->wy == 0))
+		if ((player_ptr->wx == 0) &&
+		    (player_ptr->wy == 0))
 		{
 			if (tokenize(buf+4, 2, zz, 0) == 2)
 			{
-				cr_ptr->wy = atoi(zz[0]);
-				cr_ptr->wx = atoi(zz[1]);
+				player_ptr->wy = atoi(zz[0]);
+				player_ptr->wx = atoi(zz[1]);
 				
-				if ((cr_ptr->wx < 1) ||
-				    (cr_ptr->wx > max_wild_x) ||
-				    (cr_ptr->wy < 1) ||
-				    (cr_ptr->wy > max_wild_y))
+				if ((player_ptr->wx < 1) ||
+				    (player_ptr->wx > max_wild_x) ||
+				    (player_ptr->wy < 1) ||
+				    (player_ptr->wy > max_wild_y))
 				{
 					return (PARSE_ERROR_OUT_OF_BOUNDS);
 				}

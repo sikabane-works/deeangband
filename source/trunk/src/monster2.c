@@ -3288,7 +3288,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 		if (old_unique)
 			level = species_info[MON_CHAMELEON_K].level;
 		else if (!current_floor_ptr->dun_level)
-			level = wilderness[cr_ptr->wy][cr_ptr->wx].level;
+			level = wilderness[player_ptr->wy][player_ptr->wx].level;
 		else
 			level = current_floor_ptr->dun_level;
 

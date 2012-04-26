@@ -459,7 +459,7 @@ creature_hook_type get_creature_hook(void)
 {
 	if (!current_floor_ptr->dun_level && !inside_quest)
 	{
-		switch (wilderness[cr_ptr->wy][cr_ptr->wx].terrain)
+		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
 		case TERRAIN_TOWN:
 			return (creature_hook_type)mon_hook_town;

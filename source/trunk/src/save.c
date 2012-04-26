@@ -1229,8 +1229,8 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Dump the position in the wilderness */
-	wr_s32b(cr_ptr->wx);
-	wr_s32b(cr_ptr->wy);
+	wr_s32b(player_ptr->wx);
+	wr_s32b(player_ptr->wy);
 
 	wr_byte(wild_mode);
 	wr_byte(ambush_flag);

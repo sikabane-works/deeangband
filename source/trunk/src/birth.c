@@ -4270,22 +4270,22 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	else
 	{
 		j = se[randint0(n - 3)].code;
-		creature_ptr->start_wy = starting_point[j].cr_ptr->wy;
-		creature_ptr->start_wx = starting_point[j].cr_ptr->wx;
+		creature_ptr->start_wy = starting_point[j].wy;
+		creature_ptr->start_wx = starting_point[j].wx;
 		return 0;
 	}
 
 	if(i >= 0)
 	{
-		creature_ptr->start_wy = starting_point[i].cr_ptr->wy;
-		creature_ptr->start_wx = starting_point[i].cr_ptr->wx;
+		creature_ptr->start_wy = starting_point[i].wy;
+		creature_ptr->start_wx = starting_point[i].wx;
 		return 0;
 	}
 	else if(i == -1)
 	{
 		j = se[randint0(n - 3)].code;
-		creature_ptr->start_wy = starting_point[j].cr_ptr->wy;
-		creature_ptr->start_wx = starting_point[j].cr_ptr->wx;
+		creature_ptr->start_wy = starting_point[j].wy;
+		creature_ptr->start_wx = starting_point[j].wx;
 		return 0;
 	}
 	else
@@ -5846,8 +5846,8 @@ bool ask_quick_start(creature_type *creature_ptr)
 	init_dungeon_quests();
 	init_turn(creature_ptr);
 
-	cr_ptr->wy = creature_ptr->start_wy;
-	cr_ptr->wx = creature_ptr->start_wx;
+	creature_ptr->wy = creature_ptr->start_wy;
+	creature_ptr->wx = creature_ptr->start_wx;
 
 	/* Calc hitdice, but don't roll */
 	get_extra(creature_ptr, FALSE);
