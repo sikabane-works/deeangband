@@ -569,7 +569,7 @@ void leave_floor(creature_type *creature_ptr)
 
 	floor_id = floor_pop(); // Get new id
 	current_floor_ptr = &floor_list[floor_id];
-	player_ptr->floor_id = floor_id;
+	creature_ptr->floor_id = floor_id;
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 

@@ -2389,7 +2389,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	/* No mutation with effects */
 	if (!cr_ptr->flags13) return;
 
-	/* No effect on monster arena */
+	/* No effect on creature arena */
 	if (gamble_arena_mode) return;
 
 	/* No effect on the global map */
@@ -2659,7 +2659,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		/*
 		 * Unlite the area (radius 10) around player and
-		 * do 50 points damage to every affected monster
+		 * do 50 points damage to every affected creature
 		 */
 		unlite_area(cr_ptr, 50, 10);
 	}
@@ -2841,11 +2841,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (has_cf_creature(cr_ptr, CF_WARNING) && one_in_(1000))
 	{
 		int danger_amount = 0;
-		int monster;
+		int creature;
 
-		for (monster = 0; monster < creature_max; monster++)
+		for (creature = 0; creature < creature_max; creature++)
 		{
-			creature_type    *m_ptr = &creature_list[monster];
+			creature_type    *m_ptr = &creature_list[creature];
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Paranoia -- Skip dead monsters */
@@ -3118,7 +3118,6 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #endif
 
 				o_ptr->feeling = FEEL_NONE;
-
 				cr_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
