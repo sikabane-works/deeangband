@@ -1167,8 +1167,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u16b(&cr_ptr->total_winner);
 
 	// Update
-	//set_experience(cr_ptr);
-	//calc_bonuses(cr_ptr, FALSE);
+	set_experience(cr_ptr);
+	calc_bonuses(cr_ptr, FALSE);
 
 }
 
