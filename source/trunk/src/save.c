@@ -1008,12 +1008,11 @@ static void wr_floor(floor_type *floor_ptr)
 	}
 
 
-	/* Free the "template" array */
+	// Free the "template" array
 	C_FREE(template, max_num_temp, cave_template_type);
 
 
-	/*** Dump cave messages ***/
-
+	// Dump cave messages
 	for (y = 0; y < floor_ptr->height; y++)
 	{
 		for (x = 0; x < floor_ptr->width; x++)
@@ -1021,6 +1020,24 @@ static void wr_floor(floor_type *floor_ptr)
 			wr_string(floor_ptr->cave[y][x].message);	
 		}
 	}
+
+	// Dump connection other floor
+	for (y = 0; y < floor_ptr->height; y++)
+	{
+		for (x = 0; x < floor_ptr->width; x++)
+		{
+			if(floor_ptr->cave[y][x].cx && floor_ptr->cave[y][x].cy)
+			{
+				wr_s16b(x);
+				wr_s16b(y);
+				floor_ptr->cave[y][x].cx;
+				floor_ptr->cave[y][x].cy;
+			}
+		}
+	}
+	wr_s16b(0); // Termination
+	
+
 }
 
 

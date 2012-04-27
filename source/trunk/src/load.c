@@ -1446,6 +1446,21 @@ static errr rd_floor(floor_type *floor_ptr)
 		}
 	}
 
+	// Dump connection other floor
+	while(1)
+	{
+		s16b px, py, cx, cy;
+		rd_s16b(&px);
+		if(!px) break;
+
+		rd_s16b(&py);
+		rd_s16b(&cx);
+		rd_s16b(&cy);
+
+		floor_ptr->cave[py][px].cx = cx;
+		floor_ptr->cave[py][px].cy = cy;
+	}
+
 	/* Success */
 	return 0;
 }
