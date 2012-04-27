@@ -188,11 +188,11 @@ void add_river(int feat1, int feat2)
 	recursive_river(x1, y1, x2, y2, feat1, feat2, wid);
 
 	/* Hack - Save the location as a "room" */
-	if (dun->cent_n < CENT_MAX)
+	if (dungeon_ptr->cent_n < CENT_MAX)
 	{
-		dun->cent[dun->cent_n].y = y2;
-		dun->cent[dun->cent_n].x = x2;
-		dun->cent_n++;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].y = y2;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].x = x2;
+		dungeon_ptr->cent_n++;
 	}
 }
 

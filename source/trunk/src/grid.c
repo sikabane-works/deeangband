@@ -645,11 +645,11 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 			col1 = tmp_col;
 
 			/* Save the wall location */
-			if (dun->wall_n < WALL_MAX)
+			if (dungeon_ptr->wall_n < WALL_MAX)
 			{
-				dun->wall[dun->wall_n].y = row1;
-				dun->wall[dun->wall_n].x = col1;
-				dun->wall_n++;
+				dungeon_ptr->wall[dungeon_ptr->wall_n].y = row1;
+				dungeon_ptr->wall[dungeon_ptr->wall_n].x = col1;
+				dungeon_ptr->wall_n++;
 			}
 			else return FALSE;
 
@@ -684,11 +684,11 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 			col1 = tmp_col;
 
 			/* Save the tunnel location */
-			if (dun->tunn_n < TUNN_MAX)
+			if (dungeon_ptr->tunn_n < TUNN_MAX)
 			{
-				dun->tunn[dun->tunn_n].y = row1;
-				dun->tunn[dun->tunn_n].x = col1;
-				dun->tunn_n++;
+				dungeon_ptr->tunn[dungeon_ptr->tunn_n].y = row1;
+				dungeon_ptr->tunn[dungeon_ptr->tunn_n].x = col1;
+				dungeon_ptr->tunn_n++;
 			}
 			else return FALSE;
 
@@ -707,11 +707,11 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 			if (!door_flag)
 			{
 				/* Save the door location */
-				if (dun->door_n < DOOR_MAX)
+				if (dungeon_ptr->door_n < DOOR_MAX)
 				{
-					dun->door[dun->door_n].y = row1;
-					dun->door[dun->door_n].x = col1;
-					dun->door_n++;
+					dungeon_ptr->door[dungeon_ptr->door_n].y = row1;
+					dungeon_ptr->door[dungeon_ptr->door_n].x = col1;
+					dungeon_ptr->door_n++;
 				}
 				else return FALSE;
 
@@ -767,11 +767,11 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 	if (is_extra_bold(*y,*x))
 	{
 		/* Save the tunnel location */
-		if (dun->tunn_n < TUNN_MAX)
+		if (dungeon_ptr->tunn_n < TUNN_MAX)
 		{
-			dun->tunn[dun->tunn_n].y = *y;
-			dun->tunn[dun->tunn_n].x = *x;
-			dun->tunn_n++;
+			dungeon_ptr->tunn[dungeon_ptr->tunn_n].y = *y;
+			dungeon_ptr->tunn[dungeon_ptr->tunn_n].x = *x;
+			dungeon_ptr->tunn_n++;
 
 			return TRUE;
 		}
@@ -787,11 +787,11 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 	if (is_outer_grid(c_ptr) && affectwall)
 	{
 		/* Save the wall location */
-		if (dun->wall_n < WALL_MAX)
+		if (dungeon_ptr->wall_n < WALL_MAX)
 		{
-			dun->wall[dun->wall_n].y = *y;
-			dun->wall[dun->wall_n].x = *x;
-			dun->wall_n++;
+			dungeon_ptr->wall[dungeon_ptr->wall_n].y = *y;
+			dungeon_ptr->wall[dungeon_ptr->wall_n].x = *x;
+			dungeon_ptr->wall_n++;
 		}
 		else return FALSE;
 
@@ -1115,11 +1115,11 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 					retval = FALSE;
 
 					/* Save the door location */
-					if (dun->door_n < DOOR_MAX)
+					if (dungeon_ptr->door_n < DOOR_MAX)
 					{
-						dun->door[dun->door_n].y = y3;
-						dun->door[dun->door_n].x = x3;
-						dun->door_n++;
+						dungeon_ptr->door[dungeon_ptr->door_n].y = y3;
+						dungeon_ptr->door[dungeon_ptr->door_n].x = x3;
+						dungeon_ptr->door_n++;
 					}
 					else return FALSE;
 				}

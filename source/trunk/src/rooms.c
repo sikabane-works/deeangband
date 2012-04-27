@@ -281,7 +281,7 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 	else
 	{
 		/* Shift towards left edge of dungeon. */
-		if (block_x + (blocks_wide / 2) <= dun->col_rooms / 2)
+		if (block_x + (blocks_wide / 2) <= dungeon_ptr->col_rooms / 2)
 		{
 			if (((block_x % 3) == 2) && ((blocks_wide % 3) == 2))
 				return FALSE;
@@ -306,15 +306,15 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 	bx2 = block_x + blocks_wide;
 
 	/* Never run off the screen */
-	if ((by1 < 0) || (by2 > dun->row_rooms)) return FALSE;
-	if ((bx1 < 0) || (bx2 > dun->col_rooms)) return FALSE;
+	if ((by1 < 0) || (by2 > dungeon_ptr->row_rooms)) return FALSE;
+	if ((bx1 < 0) || (bx2 > dungeon_ptr->col_rooms)) return FALSE;
 	
 	/* Verify available space */
 	for (by = by1; by < by2; by++)
 	{
 		for (bx = bx1; bx < bx2; bx++)
 		{
-			if (dun->room_map[by][bx])
+			if (dungeon_ptr->room_map[by][bx])
 			{
 				return FALSE;
 			}
@@ -353,16 +353,16 @@ static bool find_space(int *y, int *x, int height, int width)
 	int blocks_wide = 1 + ((width - 1) / BLOCK_WID);
 
 	/* There are no way to allocate such huge space */
-	if (dun->row_rooms < blocks_high) return FALSE;
-	if (dun->col_rooms < blocks_wide) return FALSE;
+	if (dungeon_ptr->row_rooms < blocks_high) return FALSE;
+	if (dungeon_ptr->col_rooms < blocks_wide) return FALSE;
 
 	/* Initiallize */
 	candidates = 0;
 
 	/* Count the number of valid places */
-	for (block_y = dun->row_rooms - blocks_high; block_y >= 0; block_y--)
+	for (block_y = dungeon_ptr->row_rooms - blocks_high; block_y >= 0; block_y--)
 	{
-		for (block_x = dun->col_rooms - blocks_wide; block_x >= 0; block_x--)
+		for (block_x = dungeon_ptr->col_rooms - blocks_wide; block_x >= 0; block_x--)
 		{
 			if (find_space_aux(blocks_high, blocks_wide, block_y, block_x))
 			{
@@ -393,9 +393,9 @@ static bool find_space(int *y, int *x, int height, int width)
 	}
 
 	/* Pick up the choosen location */
-	for (block_y = dun->row_rooms - blocks_high; block_y >= 0; block_y--)
+	for (block_y = dungeon_ptr->row_rooms - blocks_high; block_y >= 0; block_y--)
 	{
-		for (block_x = dun->col_rooms - blocks_wide; block_x >= 0; block_x--)
+		for (block_x = dungeon_ptr->col_rooms - blocks_wide; block_x >= 0; block_x--)
 		{
 			if (find_space_aux(blocks_high, blocks_wide, block_y, block_x))
 			{
@@ -425,11 +425,11 @@ static bool find_space(int *y, int *x, int height, int width)
 	(*x) = ((bx1 + bx2) * BLOCK_WID) / 2;
 
 	/* Save the room location */
-	if (dun->cent_n < CENT_MAX)
+	if (dungeon_ptr->cent_n < CENT_MAX)
 	{
-		dun->cent[dun->cent_n].y = *y;
-		dun->cent[dun->cent_n].x = *x;
-		dun->cent_n++;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].y = *y;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].x = *x;
+		dungeon_ptr->cent_n++;
 	}
 
 	/* Reserve some blocks. */
@@ -437,7 +437,7 @@ static bool find_space(int *y, int *x, int height, int width)
 	{
 		for (bx = bx1; bx < bx2; bx++)
 		{
-			dun->room_map[by][bx] = TRUE;
+			dungeon_ptr->room_map[by][bx] = TRUE;
 		}
 	}
 
@@ -6387,7 +6387,7 @@ bool generate_rooms(void)
 	}
 
 	/* No caves when a (random) cavern exists: they look bad */
-	else if (dun->cavern || dun->empty_level)
+	else if (dungeon_ptr->cavern || dungeon_ptr->empty_level)
 	{
 		prob_list[ROOM_T_FRACAVE] = 0;
 	}

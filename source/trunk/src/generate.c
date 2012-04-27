@@ -114,7 +114,7 @@ int dun_tun_jct;
 /*
  * Dungeon generation data -- see "create_cave_structure()"
  */
-dun_data *dun;
+dun_data *dungeon_ptr;
 
 
 /*
@@ -594,14 +594,14 @@ static void gen_caverns_and_lakes(void)
 	/* Possible "destroyed" level */
 	if ((current_floor_ptr->dun_level > 30) && one_in_(DUN_DEST*2) && (small_levels) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DESTROY))
 	{
-		dun->destroyed = TRUE;
+		dungeon_ptr->destroyed = TRUE;
 
 		/* extra rubble around the place looks cool */
 		build_lake(one_in_(2) ? LAKE_T_CAVE : LAKE_T_EARTH_VAULT);
 	}
 
 	/* Make a lake some of the time */
-	if (one_in_(LAKE_LEVEL) && !dun->empty_level && !dun->destroyed &&
+	if (one_in_(LAKE_LEVEL) && !dungeon_ptr->empty_level && !dungeon_ptr->destroyed &&
 	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_MASK))
 	{
 		int count = 0;
@@ -613,40 +613,40 @@ static void gen_caverns_and_lakes(void)
 		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA)
 		{
 			/* Lake of Lava */
-			if ((current_floor_ptr->dun_level > 80) && (randint0(count) < 2)) dun->laketype = LAKE_T_LAVA;
+			if ((current_floor_ptr->dun_level > 80) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_LAVA;
 			count -= 2;
 
 			/* Lake of Lava2 */
-			if (!dun->laketype && (current_floor_ptr->dun_level > 80) && one_in_(count)) dun->laketype = LAKE_T_FIRE_VAULT;
+			if (!dungeon_ptr->laketype && (current_floor_ptr->dun_level > 80) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_FIRE_VAULT;
 			count--;
 		}
 
-		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) && !dun->laketype)
+		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) && !dungeon_ptr->laketype)
 		{
 			/* Lake of Water */
-			if ((current_floor_ptr->dun_level > 50) && randint0(count) < 2) dun->laketype = LAKE_T_WATER;
+			if ((current_floor_ptr->dun_level > 50) && randint0(count) < 2) dungeon_ptr->laketype = LAKE_T_WATER;
 			count -= 2;
 
 			/* Lake of Water2 */
-			if (!dun->laketype && (current_floor_ptr->dun_level > 50) && one_in_(count)) dun->laketype = LAKE_T_WATER_VAULT;
+			if (!dungeon_ptr->laketype && (current_floor_ptr->dun_level > 50) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_WATER_VAULT;
 			count--;
 		}
 
-		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) && !dun->laketype)
+		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) && !dungeon_ptr->laketype)
 		{
 			/* Lake of rubble */
-			if ((current_floor_ptr->dun_level > 35) && (randint0(count) < 2)) dun->laketype = LAKE_T_CAVE;
+			if ((current_floor_ptr->dun_level > 35) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_CAVE;
 			count -= 2;
 
 			/* Lake of rubble2 */
-			if (!dun->laketype && (current_floor_ptr->dun_level > 35) && one_in_(count)) dun->laketype = LAKE_T_EARTH_VAULT;
+			if (!dungeon_ptr->laketype && (current_floor_ptr->dun_level > 35) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_EARTH_VAULT;
 			count--;
 		}
 
 		/* Lake of tree */
-		if ((current_floor_ptr->dun_level > 5) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) && !dun->laketype) dun->laketype = LAKE_T_AIR_VAULT;
+		if ((current_floor_ptr->dun_level > 5) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) && !dungeon_ptr->laketype) dungeon_ptr->laketype = LAKE_T_AIR_VAULT;
 
-		if (dun->laketype)
+		if (dungeon_ptr->laketype)
 		{
 			if (cheat_room)
 #ifdef JP
@@ -655,15 +655,15 @@ static void gen_caverns_and_lakes(void)
 				msg_print("Lake on the level.");
 #endif
 
-			build_lake(dun->laketype);
+			build_lake(dungeon_ptr->laketype);
 		}
 	}
 
-	if ((current_floor_ptr->dun_level > DUN_CAVERN) && !dun->empty_level &&
+	if ((current_floor_ptr->dun_level > DUN_CAVERN) && !dungeon_ptr->empty_level &&
 	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CAVERN) &&
-	    !dun->laketype && !dun->destroyed && (randint1(1000) < current_floor_ptr->dun_level))
+	    !dungeon_ptr->laketype && !dungeon_ptr->destroyed && (randint1(1000) < current_floor_ptr->dun_level))
 	{
-		dun->cavern = TRUE;
+		dungeon_ptr->cavern = TRUE;
 
 		/* make a large fractal cave in the middle of the dungeon */
 
@@ -679,7 +679,7 @@ static void gen_caverns_and_lakes(void)
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	/* Hack -- No destroyed "quest" levels */
-	if (quest_number(current_floor_ptr->dun_level)) dun->destroyed = FALSE;
+	if (quest_number(current_floor_ptr->dun_level)) dungeon_ptr->destroyed = FALSE;
 }
 
 
@@ -696,12 +696,12 @@ static bool create_cave_structure(void)
 	dun_data dun_body;
 
 	/* Global data */
-	dun = &dun_body;
+	dungeon_ptr = &dun_body;
 
-	dun->destroyed = FALSE;
-	dun->empty_level = FALSE;
-	dun->cavern = FALSE;
-	dun->laketype = 0;
+	dungeon_ptr->destroyed = FALSE;
+	dungeon_ptr->empty_level = FALSE;
+	dungeon_ptr->cavern = FALSE;
+	dungeon_ptr->laketype = 0;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(current_floor_ptr->dun_type);
@@ -717,25 +717,25 @@ static bool create_cave_structure(void)
 	dun_tun_jct = rand_range(DUN_TUN_JCT_MIN, DUN_TUN_JCT_MAX);
 
 	/* Actual maximum number of rooms on this level */
-	dun->row_rooms = current_floor_ptr->height / BLOCK_HGT;
-	dun->col_rooms = current_floor_ptr->width / BLOCK_WID;
+	dungeon_ptr->row_rooms = current_floor_ptr->height / BLOCK_HGT;
+	dungeon_ptr->col_rooms = current_floor_ptr->width / BLOCK_WID;
 
 	/* Initialize the room table */
-	for (y = 0; y < dun->row_rooms; y++)
+	for (y = 0; y < dungeon_ptr->row_rooms; y++)
 	{
-		for (x = 0; x < dun->col_rooms; x++)
+		for (x = 0; x < dungeon_ptr->col_rooms; x++)
 		{
-			dun->room_map[y][x] = FALSE;
+			dungeon_ptr->room_map[y][x] = FALSE;
 		}
 	}
 
 	/* No rooms yet */
-	dun->cent_n = 0;
+	dungeon_ptr->cent_n = 0;
 
 	/* Empty arena levels */
 	if (ironman_empty_levels || ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
 	{
-		dun->empty_level = TRUE;
+		dungeon_ptr->empty_level = TRUE;
 
 		if (cheat_room)
 #ifdef JP
@@ -745,7 +745,7 @@ static bool create_cave_structure(void)
 #endif
 	}
 
-	if (dun->empty_level)
+	if (dungeon_ptr->empty_level)
 	{
 		/* Start with floors */
 		for (y = 0; y < current_floor_ptr->height; y++)
@@ -820,7 +820,7 @@ static bool create_cave_structure(void)
 		}
 
 		/* Destroy the level if necessary */
-		if (dun->destroyed) destroy_level();
+		if (dungeon_ptr->destroyed) destroy_level();
 
 		/* Hack -- Add some rivers */
 		if (one_in_(3) && (randint1(current_floor_ptr->dun_level) > 5))
@@ -855,9 +855,9 @@ static bool create_cave_structure(void)
 				feature_type *f_ptr = &f_info[feat1];
 
 				/* Only add river if matches lake type or if have no lake at all */
-				if (((dun->laketype == LAKE_T_LAVA) && have_flag(f_ptr->flags, FF_LAVA)) ||
-				    ((dun->laketype == LAKE_T_WATER) && have_flag(f_ptr->flags, FF_WATER)) ||
-				     !dun->laketype)
+				if (((dungeon_ptr->laketype == LAKE_T_LAVA) && have_flag(f_ptr->flags, FF_LAVA)) ||
+				    ((dungeon_ptr->laketype == LAKE_T_WATER) && have_flag(f_ptr->flags, FF_WATER)) ||
+				     !dungeon_ptr->laketype)
 				{
 					add_river(feat1, feat2);
 				}
@@ -865,58 +865,58 @@ static bool create_cave_structure(void)
 		}
 
 		/* Hack -- Scramble the room order */
-		for (i = 0; i < dun->cent_n; i++)
+		for (i = 0; i < dungeon_ptr->cent_n; i++)
 		{
 			int ty, tx;
 			int pick = rand_range(0, i);
 
-			ty = dun->cent[i].y;
-			tx = dun->cent[i].x;
-			dun->cent[i].y = dun->cent[pick].y;
-			dun->cent[i].x = dun->cent[pick].x;
-			dun->cent[pick].y = ty;
-			dun->cent[pick].x = tx;
+			ty = dungeon_ptr->cent[i].y;
+			tx = dungeon_ptr->cent[i].x;
+			dungeon_ptr->cent[i].y = dungeon_ptr->cent[pick].y;
+			dungeon_ptr->cent[i].x = dungeon_ptr->cent[pick].x;
+			dungeon_ptr->cent[pick].y = ty;
+			dungeon_ptr->cent[pick].x = tx;
 		}
 
 		/* Start with no tunnel doors */
-		dun->door_n = 0;
+		dungeon_ptr->door_n = 0;
 
 		/* Hack -- connect the first room to the last room */
-		y = dun->cent[dun->cent_n-1].y;
-		x = dun->cent[dun->cent_n-1].x;
+		y = dungeon_ptr->cent[dungeon_ptr->cent_n-1].y;
+		x = dungeon_ptr->cent[dungeon_ptr->cent_n-1].x;
 
 		/* Connect all the rooms together */
-		for (i = 0; i < dun->cent_n; i++)
+		for (i = 0; i < dungeon_ptr->cent_n; i++)
 		{
 			int j;
 
 			/* Reset the arrays */
-			dun->tunn_n = 0;
-			dun->wall_n = 0;
+			dungeon_ptr->tunn_n = 0;
+			dungeon_ptr->wall_n = 0;
 
 			/* Connect the room to the previous room */
 			if (randint1(current_floor_ptr->dun_level) > dungeon_info[current_floor_ptr->dun_type].tunnel_percent)
 			{
 				/* make cave-like tunnel */
-				(void)build_tunnel2(dun->cent[i].x, dun->cent[i].y, x, y, 2, 2);
+				(void)build_tunnel2(dungeon_ptr->cent[i].x, dungeon_ptr->cent[i].y, x, y, 2, 2);
 			}
 			else
 			{
 				/* make normal tunnel */
-				if (!build_tunnel(dun->cent[i].y, dun->cent[i].x, y, x)) tunnel_fail_count++;
+				if (!build_tunnel(dungeon_ptr->cent[i].y, dungeon_ptr->cent[i].x, y, x)) tunnel_fail_count++;
 			}
 
 			if (tunnel_fail_count >= 2) return FALSE;
 
 			/* Turn the tunnel into corridor */
-			for (j = 0; j < dun->tunn_n; j++)
+			for (j = 0; j < dungeon_ptr->tunn_n; j++)
 			{
 				cave_type *c_ptr;
 				feature_type *f_ptr;
 
 				/* Access the grid */
-				y = dun->tunn[j].y;
-				x = dun->tunn[j].x;
+				y = dungeon_ptr->tunn[j].y;
+				x = dungeon_ptr->tunn[j].x;
 
 				/* Access the grid */
 				c_ptr = &current_floor_ptr->cave[y][x];
@@ -933,13 +933,13 @@ static bool create_cave_structure(void)
 			}
 
 			/* Apply the piercings that we found */
-			for (j = 0; j < dun->wall_n; j++)
+			for (j = 0; j < dungeon_ptr->wall_n; j++)
 			{
 				cave_type *c_ptr;
 
 				/* Access the grid */
-				y = dun->wall[j].y;
-				x = dun->wall[j].x;
+				y = dungeon_ptr->wall[j].y;
+				x = dungeon_ptr->wall[j].x;
 
 				/* Access the grid */
 				c_ptr = &current_floor_ptr->cave[y][x];
@@ -959,16 +959,16 @@ static bool create_cave_structure(void)
 			}
 
 			/* Remember the "previous" room */
-			y = dun->cent[i].y;
-			x = dun->cent[i].x;
+			y = dungeon_ptr->cent[i].y;
+			x = dungeon_ptr->cent[i].x;
 		}
 
 		/* Place intersection doors */
-		for (i = 0; i < dun->door_n; i++)
+		for (i = 0; i < dungeon_ptr->door_n; i++)
 		{
 			/* Extract junction location */
-			y = dun->door[i].y;
-			x = dun->door[i].x;
+			y = dungeon_ptr->door[i].y;
+			x = dungeon_ptr->door[i].x;
 
 			/* Try placing doors */
 			try_door(y, x - 1);
@@ -985,7 +985,7 @@ static bool create_cave_structure(void)
 			8 , 3)) return FALSE;
 	}
 
-	if (!dun->laketype)
+	if (!dungeon_ptr->laketype)
 	{
 		if (dungeon_info[current_floor_ptr->dun_type].stream2)
 		{
@@ -1087,7 +1087,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	/* Put the Guardian */
 	if (!alloc_guardian(TRUE)) return FALSE;
 
-	if (dun->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > current_floor_ptr->dun_level)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if (dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > current_floor_ptr->dun_level)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		/* Lite the cave */
 		for (y = 0; y < current_floor_ptr->height; y++)
@@ -1469,8 +1469,7 @@ void wipe_generate_floor_flags(floor_type *floor_ptr)
 	{
 		for (x = 0; x < floor_ptr->width; x++)
 		{
-			/* Wipe unused flags */
-			floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+			floor_ptr->cave[y][x].info &= ~(CAVE_MASK); // Wipe unused flags
 		}
 	}
 
@@ -1480,8 +1479,7 @@ void wipe_generate_floor_flags(floor_type *floor_ptr)
 		{
 			for (x = 1; x < floor_ptr->width - 1; x++)
 			{
-				/* There might be trap */
-				floor_ptr->cave[y][x].info |= CAVE_UNSAFE;
+				floor_ptr->cave[y][x].info |= CAVE_UNSAFE; // There might be trap
 			}
 		}
 	}

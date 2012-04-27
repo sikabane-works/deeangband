@@ -142,4 +142,4 @@ struct dun_data
 	int laketype;
 };
 
-extern dun_data *dun;
+extern dun_data *dungeon_ptr;
