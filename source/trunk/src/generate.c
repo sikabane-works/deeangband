@@ -1560,50 +1560,52 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 
 		clear_cave(); // Clear and empty the cave
 
-		if (fight_arena_mode) generate_floor_arena(floor_ptr, 41, 41); // fight arena
-		else if (gamble_arena_mode) generate_floor_monster_arena(floor_ptr); // gamble arena
-		else if (inside_quest) generate_floor_quest(floor_ptr); // quest
-		else if (!floor_ptr->dun_level) // world map
+		if(fight_arena_mode)
+			generate_floor_arena(floor_ptr, 41, 41); // fight arena
+		else if(gamble_arena_mode)
+			generate_floor_monster_arena(floor_ptr); // gamble arena
+		else if(inside_quest)
+			generate_floor_quest(floor_ptr); // quest
+		else if(!floor_ptr->dun_level) // world map
 		{
-			if (wild_mode) generate_floor_world(floor_ptr);
-			else generate_floor_wilderness(floor_ptr);
+			if(wild_mode)
+				generate_floor_world(floor_ptr);
+			else
+				generate_floor_wilderness(floor_ptr);
 		}
-		else okay = generate_floor_cave(floor_ptr, &why); // dungeon
+		else
+			okay = generate_floor_cave(floor_ptr, &why); // dungeon
 
 		// Prevent object over-flow
 		if (object_max >= max_object_idx)
 		{
-			/* Message */
 #ifdef JP
 			why = "アイテムが多すぎる";
 #else
 			why = "too many objects";
 #endif
 
-			/* Message */
 			okay = FALSE;
 		}
 
-		/* Prevent monster over-flow */
+		// Prevent monster over-flow
 		else if (creature_max >= max_creature_idx)
 		{
-			/* Message */
 #ifdef JP
 			why = "モンスターが多すぎる";
 #else
 			why = "too many monsters";
 #endif
 
-			/* Message */
 			okay = FALSE;
 		}
 
-		/* Accept */
+		// Accept
 		if (okay) break;
 
-		/* Message */
+		// Message
 #ifdef JP
-if (why) msg_format("生成やり直し(%s)", why);
+		if (why) msg_format("生成やり直し(%s)", why);
 #else
 		if (why) msg_format("Generation restarted (%s)", why);
 #endif
@@ -1613,10 +1615,10 @@ if (why) msg_format("生成やり直し(%s)", why);
 		wipe_creature_list(0);
 	}
 
-	/* Glow deep lava and building entrances */
-	glow_deep_lava_and_bldg();
+	// Glow deep lava and building entrances
+	glow_deep_lava_and_bldg(floor_ptr);
 
-	/* Reset flag */
+	// Reset flag
 	player_ptr->enter_dungeon = FALSE;
 
 	wipe_generate_floor_flags();

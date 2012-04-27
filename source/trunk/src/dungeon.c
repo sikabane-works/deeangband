@@ -3947,7 +3947,7 @@ static void sunrise_and_sunset(void)
 						}
 
 						/* Glow deep lava and building entrances */
-						glow_deep_lava_and_bldg();
+						glow_deep_lava_and_bldg(current_floor_ptr);
 					}
 				}
 			}

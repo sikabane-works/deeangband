@@ -716,7 +716,7 @@ extern void health_track(int m_idx);
 extern void species_type_track(int species_idx);
 extern void object_kind_track(int k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
-extern void glow_deep_lava_and_bldg(void);
+extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
 
 /* cmd1.c */
 extern bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis);

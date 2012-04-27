@@ -5087,22 +5087,21 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 /*
  * Glow deep lava and building entrances in the floor
  */
-void glow_deep_lava_and_bldg(void)
+void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 {
 	int y, x, i, yy, xx;
 	cave_type *c_ptr;
 
-	/* Not in the darkness dungeon */
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) return;
+	// Not in the darkness dungeon
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) return;
 
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
-			/* Feature code (applying "mimic" field) */
-
+			// Feature code (applying "mimic" field)
 			if (have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_GLOW))
 			{
 				for (i = 0; i < 9; i++)
@@ -5110,7 +5109,7 @@ void glow_deep_lava_and_bldg(void)
 					yy = y + ddy_ddd[i];
 					xx = x + ddx_ddd[i];
 					if (!in_bounds2(yy, xx)) continue;
-					current_floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
+					floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 				}
 			}
 		}
