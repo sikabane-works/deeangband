@@ -1147,7 +1147,7 @@ extern void reset_cave_reference(void);
 /* generate.c */
 extern bool place_quest_creatures(creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
-extern void clear_cave(void);
+extern void clear_cave(floor_type *floor_ptr);
 extern void generate_floor(creature_type *player_ptr, floor_type *floor_ptr);
 
 /* init1.c */

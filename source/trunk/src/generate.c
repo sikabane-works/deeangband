@@ -1491,36 +1491,23 @@ void wipe_generate_floor_flags(floor_type *floor_ptr)
 /*
  *  Clear and empty the cave
  */
-void clear_cave(void)
+void clear_cave(floor_type *floor_ptr)
 {
 	int x, y;
 
-	/* Start with a blank cave */
+	// Start with a blank cave
 	for (y = 0; y < MAX_HGT; y++)
 	{
 		for (x = 0; x < MAX_WID; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-			/* No flags */
 			c_ptr->info = 0;
-
-			/* No features */
 			c_ptr->feat = 0;
-
-			/* No objects */
 			c_ptr->object_idx = 0;
-
-			/* No monsters */
 			c_ptr->creature_idx = 0;
-
-			/* No special */
 			c_ptr->special = 0;
-
-			/* No mimic */
 			c_ptr->mimic = 0;
-
-			/* No flow */
 			c_ptr->cost = 0;
 			c_ptr->dist = 0;
 			c_ptr->when = 0;
@@ -1528,15 +1515,14 @@ void clear_cave(void)
 		}
 	}
 
-	/* Mega-Hack -- no player yet */
-	// TODO:Check  player_ptr->fx = player_ptr->fy = 0;
+	//TODO clear creatures and objects.
 
-	/* Set the base level */
-	current_floor_ptr->base_level = current_floor_ptr->dun_level;
-	/* Reset the monster generation level */
-	current_floor_ptr->creature_level = current_floor_ptr->base_level;
-	/* Reset the object generation level */
-	current_floor_ptr->object_level = current_floor_ptr->base_level;
+	// Set the base level
+	floor_ptr->base_level = floor_ptr->dun_level;
+	// Reset the monster generation level
+	floor_ptr->creature_level = floor_ptr->base_level;
+	// Reset the object generation level
+	floor_ptr->object_level = floor_ptr->base_level;
 }
 
 
@@ -1558,7 +1544,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 		bool okay = TRUE;
 		cptr why = NULL;
 
-		clear_cave(); // Clear and empty the cave
+		clear_cave(floor_ptr); // Clear and empty the cave
 
 		if(fight_arena_mode)
 			generate_floor_arena(floor_ptr, 41, 41); // fight arena
