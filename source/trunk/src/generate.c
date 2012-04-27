@@ -1106,13 +1106,13 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 /*
  * Builds the arena after it is entered -KMW-
  */
-static void build_arena(creature_type *player_ptr)
+static void build_arena(creature_type *player_ptr, int height, int width)
 {
 	int yval, y_height, y_depth, xval, x_left, x_right;
 	register int i, j;
 
-	yval = SCREEN_HGT / 2;
-	xval = SCREEN_WID / 2;
+	yval = height/ 2;
+	xval = width / 2;
 	y_height = yval - 10;
 	y_depth = yval + 10;
 	x_left = xval - 32;
@@ -1163,7 +1163,7 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr, int width, int height)
+static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr, int height, int width)
 {
 	int y, x;
 	int qy = 0;
@@ -1193,7 +1193,7 @@ static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_pt
 		}
 	}
 
-	build_arena(player_ptr);
+	build_arena(player_ptr, height, width);
 	place_creature_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
