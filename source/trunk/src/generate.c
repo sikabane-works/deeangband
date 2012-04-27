@@ -1163,7 +1163,7 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr, int height, int width)
+static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 {
 	int y, x;
 	int qy = 0;
@@ -1185,17 +1185,12 @@ static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_pt
 
 	// Then place some floors
 	for (y = qy + 1; y < qy + height - 1; y++)
-	{
 		for (x = qx + 1; x < qx + width - 1; x++)
-		{
 			floor_ptr->cave[y][x].feat = feat_floor; // Create empty floor
 
-		}
-	}
-
 	build_arena(floor_ptr, height, width);
-	place_creature_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx,
-	    (PM_NO_KAGE | PM_NO_PET));
+
+	place_creature_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PM_NO_KAGE | PM_NO_PET));
 }
 
 
@@ -1266,32 +1261,28 @@ static void build_battle(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_monster_arena(creature_type *player_ptr)
+static void generate_floor_monster_arena(floor_type *floor_ptr)
 {
 	int y, x, i;
 	int qy = 0;
 	int qx = 0;
 
-	/* Start with solid walls */
+	// Start with solid walls
 	for (y = 0; y < MAX_HGT; y++)
 	{
 		for (x = 0; x < MAX_WID; x++)
 		{
-			/* Create "solid" perma-wall */
-			place_solid_perm_bold(y, x);
-
-			/* Illuminate and memorize the walls */
-			current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+			place_solid_perm_bold(y, x); // Create "solid" perma-wall
+			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK); // Illuminate and memorize the walls
 		}
 	}
 
-	/* Then place some floors */
+	// Then place some floors
 	for (y = qy + 1; y < qy + SCREEN_HGT - 1; y++)
 	{
 		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
 		{
-			/* Create empty floor */
-			current_floor_ptr->cave[y][x].feat = feat_floor;
+			floor_ptr->cave[y][x].feat = feat_floor; // Create empty floor
 		}
 	}
 
@@ -1300,19 +1291,15 @@ static void generate_floor_monster_arena(creature_type *player_ptr)
 	for(i = 0; i < 4;i ++)
 	{
 		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
-		set_camp(&creature_list[current_floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
+		set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
+
 	for(i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-
 		if (!m_ptr->species_idx) continue;
-
-		/* Hack -- Detect monster */
-		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
-
-		/* Update the monster */
-		update_mon(i, FALSE);
+		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW); // Hack -- Detect monster
+		update_mon(i, FALSE); // Update the monster
 	}
 }
 
@@ -1576,8 +1563,8 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 
 		clear_cave(); // Clear and empty the cave
 
-		if (fight_arena_mode) generate_floor_arena(player_ptr, floor_ptr, 41, 41); // fight arena
-		else if (gamble_arena_mode) generate_floor_monster_arena(player_ptr); // gamble arena
+		if (fight_arena_mode) generate_floor_arena(floor_ptr, 41, 41); // fight arena
+		else if (gamble_arena_mode) generate_floor_monster_arena(floor_ptr); // gamble arena
 		else if (inside_quest) generate_floor_quest(); // quest
 		else if (!floor_ptr->dun_level) // world map
 		{
