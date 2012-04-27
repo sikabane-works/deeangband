@@ -6313,7 +6313,7 @@ static bool room_build(int typ)
  * 
  * Generate rooms in dungeon.  Build bigger rooms at first.
  */
-bool generate_rooms(void)
+bool generate_rooms(floor_type *floor_ptr)
 {
 	int i;
 	bool remain;
@@ -6321,8 +6321,8 @@ bool generate_rooms(void)
 	int total_prob;
 	int prob_list[ROOM_T_MAX];
 	int rooms_built = 0;
-	int area_size = 100 * (current_floor_ptr->height*current_floor_ptr->width) / (MAX_HGT*MAX_WID);
-	int level_index = MIN(10, div_round(current_floor_ptr->dun_level, 10));
+	int area_size = 100 * (floor_ptr->height*floor_ptr->width) / (MAX_HGT*MAX_WID);
+	int level_index = MIN(10, div_round(floor_ptr->dun_level, 10));
 
 	/* Number of each type of room on this level */
 	s16b room_num[ROOM_T_MAX];
@@ -6339,7 +6339,7 @@ bool generate_rooms(void)
 	for (i = 0; i < ROOM_T_MAX; i++)
 	{
 		/* No rooms allowed above their minimum depth. */
-		if (current_floor_ptr->dun_level < room_info_ptr[i].min_level)
+		if (floor_ptr->dun_level < room_info_ptr[i].min_level)
 		{
 			prob_list[i] = 0;
 		}
@@ -6354,7 +6354,7 @@ bool generate_rooms(void)
 	 */
 
 	/* Ironman sees only Greater Vaults */
-	if (ironman_rooms && !((dungeon_info[current_floor_ptr->dun_type].flags1 & (DF1_BEGINNER | DF1_CHAMELEON | DF1_SMALLEST))))
+	if (ironman_rooms && !((dungeon_info[floor_ptr->dun_type].flags1 & (DF1_BEGINNER | DF1_CHAMELEON | DF1_SMALLEST))))
 	{
 		for (i = 0; i < ROOM_T_MAX; i++)
 		{
@@ -6364,7 +6364,7 @@ bool generate_rooms(void)
 	}
 
 	/* Forbidden vaults */
-	else if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_VAULT)
+	else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_VAULT)
 	{
 		prob_list[ROOM_T_LESSER_VAULT] = 0;
 		prob_list[ROOM_T_GREATER_VAULT] = 0;
@@ -6373,7 +6373,7 @@ bool generate_rooms(void)
 
 
 	/* NO_CAVE dungeon (Castle)*/
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)
 	{
 		MOVE_PLIST(ROOM_T_NORMAL, ROOM_T_FRACAVE);
 		MOVE_PLIST(ROOM_T_INNER_FEAT, ROOM_T_CRYPT);
@@ -6381,7 +6381,7 @@ bool generate_rooms(void)
 	}
 
 	/* CAVE dungeon (Orc cave etc.) */
-	else if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CAVE)
+	else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CAVE)
 	{
 		MOVE_PLIST(ROOM_T_FRACAVE, ROOM_T_NORMAL);
 	}
@@ -6393,7 +6393,7 @@ bool generate_rooms(void)
 	}
 
 	/* Forbidden glass rooms */
-	if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_ROOM))
+	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_ROOM))
 	{
 		prob_list[ROOM_T_GLASS] = 0;
 	}

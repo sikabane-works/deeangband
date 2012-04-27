@@ -807,7 +807,7 @@ static bool create_cave_structure(void)
 		/*
 		 * Build each type of room in turn until we cannot build any more.
 		 */
-		if (!generate_rooms()) return FALSE;
+		if (!generate_rooms(current_floor_ptr)) return FALSE;
 
 
 		/* Make a hole in the dungeon roof sometimes at level 1 */
