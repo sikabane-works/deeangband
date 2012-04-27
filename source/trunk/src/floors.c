@@ -619,7 +619,7 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	generate_floor(cr_ptr, current_floor_ptr); // Generate field
+	generate_floor(current_floor_ptr); // Generate field
 
 	/*
 	// No saved floors (On the surface etc.)
