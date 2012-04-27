@@ -363,7 +363,7 @@ msg_print("警告！ストリーマーを配置できません！");
  * Put trees near a hole in the dungeon roof  (rubble on ground + up stairway)
  * This happens in real world lava tubes.
  */
-void place_trees(int x, int y)
+void place_trees(floor_type *floor_ptr, int x, int y)
 {
 	int i, j;
 	cave_type *c_ptr;
@@ -374,7 +374,7 @@ void place_trees(int x, int y)
 		for (j = y - 3; j < y + 4; j++)
 		{
 			if (!in_bounds(j, i)) continue;
-			c_ptr = &current_floor_ptr->cave[j][i];
+			c_ptr = &floor_ptr->cave[j][i];
 
 			if (c_ptr->info & CAVE_ICKY) continue;
 			if (c_ptr->object_idx) continue;
@@ -389,18 +389,18 @@ void place_trees(int x, int y)
 				if ((distance(j, i, y, x) > 1) || (randint1(100) < 25))
 				{
 					if (randint1(100) < 75)
-						current_floor_ptr->cave[j][i].feat = feat_tree;
+						floor_ptr->cave[j][i].feat = feat_tree;
 				}
 				else
 				{
-					current_floor_ptr->cave[j][i].feat = feat_rubble;
+					floor_ptr->cave[j][i].feat = feat_rubble;
 				}
 
 				/* Clear garbage of hidden trap or door */
 				c_ptr->mimic = 0;
 
 				/* Light area since is open above */
-				if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) current_floor_ptr->cave[j][i].info |= (CAVE_GLOW | CAVE_ROOM);
+				if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) floor_ptr->cave[j][i].info |= (CAVE_GLOW | CAVE_ROOM);
 			}
 		}
 	}
@@ -409,7 +409,7 @@ void place_trees(int x, int y)
 	if (!ironman_downward && one_in_(3))
 	{
 		/* up stair */
-		current_floor_ptr->cave[y][x].feat = feat_up_stair;
+		floor_ptr->cave[y][x].feat = feat_up_stair;
 	}
 }
 
