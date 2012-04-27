@@ -225,7 +225,7 @@ static void build_dead_end(creature_type *creature_ptr)
 	/* Give one square */
 	place_floor_bold(creature_ptr->fy, creature_ptr->fx);
 
-	wipe_generate_floor_flags();
+	wipe_generate_floor_flags(current_floor_ptr);
 }
 
 /*
