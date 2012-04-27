@@ -1307,25 +1307,24 @@ static void generate_floor_monster_arena(floor_type *floor_ptr)
 /*
  * Generate a quest level
  */
-static void generate_floor_quest(void)
+static void generate_floor_quest(floor_type *floor_ptr)
 {
 	int x, y;
 
-
 	/* Start with perm walls */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
 			place_solid_perm_bold(y, x);
 		}
 	}
 
 	/* Set the quest level */
-	current_floor_ptr->base_level = quest[inside_quest].level;
-	current_floor_ptr->dun_level = current_floor_ptr->base_level;
-	current_floor_ptr->object_level = current_floor_ptr->base_level;
-	current_floor_ptr->creature_level = current_floor_ptr->base_level;
+	floor_ptr->base_level = quest[inside_quest].level;
+	floor_ptr->dun_level = floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->base_level;
+	floor_ptr->creature_level = floor_ptr->base_level;
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
 
@@ -1565,7 +1564,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 
 		if (fight_arena_mode) generate_floor_arena(floor_ptr, 41, 41); // fight arena
 		else if (gamble_arena_mode) generate_floor_monster_arena(floor_ptr); // gamble arena
-		else if (inside_quest) generate_floor_quest(); // quest
+		else if (inside_quest) generate_floor_quest(floor_ptr); // quest
 		else if (!floor_ptr->dun_level) // world map
 		{
 			if (wild_mode) generate_floor_world(player_ptr);
