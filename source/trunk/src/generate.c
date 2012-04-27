@@ -1565,12 +1565,12 @@ void clear_cave(void)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_floor(creature_type *player_ptr)
+void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 {
 	int num;
 
 	// Fill the arrays of floors and walls in the good proportions
-	set_floor_and_wall(current_floor_ptr->dun_type);
+	set_floor_and_wall(floor_ptr->dun_type);
 
 	// Generate
 	for (num = 0; TRUE; num++)
@@ -1583,7 +1583,7 @@ void generate_floor(creature_type *player_ptr)
 		if (fight_arena_mode) generate_floor_arena(player_ptr); // fight arena
 		else if (gamble_arena_mode) generate_floor_monster_arena(player_ptr); // gamble arena
 		else if (inside_quest) generate_floor_quest(); // quest
-		else if (!current_floor_ptr->dun_level) // world map
+		else if (!floor_ptr->dun_level) // world map
 		{
 			if (wild_mode) generate_floor_world(player_ptr);
 			else generate_floor_wilderness(player_ptr);

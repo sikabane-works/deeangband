@@ -619,13 +619,13 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	generate_floor(cr_ptr); // Generate field
+	generate_floor(cr_ptr, current_floor_ptr); // Generate field
 
 	/*
 	// No saved floors (On the surface etc.)
 	if (!(cr_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(cr_ptr->change_floor_mode & CFM_FIRST_FLOOR))
 	{
-		generate_floor(cr_ptr); // Generate field
+		// Generate field
 	}
 	// In the dungeon
 	else
@@ -778,7 +778,6 @@ void change_floor(creature_type *cr_ptr)
 			else
 			{
 				// Newly create cave
-				generate_floor(cr_ptr);
 			}
 
 			// Record last visit turn
