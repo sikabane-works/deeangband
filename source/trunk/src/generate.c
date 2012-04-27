@@ -1163,15 +1163,15 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(creature_type *player_ptr)
+static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr)
 {
 	int y, x;
 	int qy = 0;
 	int qx = 0;
 
 	/* Smallest area */
-	current_floor_ptr->height = SCREEN_HGT;
-	current_floor_ptr->width = SCREEN_WID;
+	floor_ptr->height = SCREEN_HGT;
+	floor_ptr->width = SCREEN_WID;
 
 	/* Start with solid walls */
 	for (y = 0; y < MAX_HGT; y++)
@@ -1182,7 +1182,7 @@ static void generate_floor_arena(creature_type *player_ptr)
 			place_solid_perm_bold(y, x);
 
 			/* Illuminate and memorize the walls */
-			current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	}
 
@@ -1192,7 +1192,7 @@ static void generate_floor_arena(creature_type *player_ptr)
 		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
 		{
 			/* Create empty floor */
-			current_floor_ptr->cave[y][x].feat = feat_floor;
+			floor_ptr->cave[y][x].feat = feat_floor;
 		}
 	}
 
@@ -1580,7 +1580,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 
 		clear_cave(); // Clear and empty the cave
 
-		if (fight_arena_mode) generate_floor_arena(player_ptr); // fight arena
+		if (fight_arena_mode) generate_floor_arena(player_ptr, floor_ptr); // fight arena
 		else if (gamble_arena_mode) generate_floor_monster_arena(player_ptr); // gamble arena
 		else if (inside_quest) generate_floor_quest(); // quest
 		else if (!floor_ptr->dun_level) // world map
