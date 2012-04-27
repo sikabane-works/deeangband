@@ -1365,17 +1365,17 @@ static void generate_floor_fortress(int type)
 
 
 
-/* Make a real level */
-static bool generate_floor_cave(cptr *why)
+// Make a real level
+static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 {
 	int level_height, level_width, i;
 
 	i = 0;
 	while(i < MAX_DUNEGON_FORTLESS)
 	{
-		int p = !one_in_(dungeon_info[current_floor_ptr->dun_type].vault_quest_probability[i]);
-		if(dungeon_info[current_floor_ptr->dun_type].vault_quest_level[i] <= current_floor_ptr->dun_level &&
-		   dungeon_info[current_floor_ptr->dun_type].vault_quest_level_max[i] >= current_floor_ptr->dun_level && !p)
+		int p = !one_in_(dungeon_info[floor_ptr->dun_type].vault_quest_probability[i]);
+		if(dungeon_info[floor_ptr->dun_type].vault_quest_level[i] <= floor_ptr->dun_level &&
+		   dungeon_info[floor_ptr->dun_type].vault_quest_level_max[i] >= floor_ptr->dun_level && !p)
 		   break;
 
 		   i++;
@@ -1384,27 +1384,27 @@ static bool generate_floor_cave(cptr *why)
 	if (i != MAX_DUNEGON_FORTLESS)
 	{
 		if (cheat_room)
-			msg_format("Fortless level -- type %d.", dungeon_info[current_floor_ptr->dun_type].vault_quest_type[i]);
+			msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 
-		generate_floor_fortress(dungeon_info[current_floor_ptr->dun_type].vault_quest_type[i]);
+		generate_floor_fortress(dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 		return TRUE;
 	}
 
 	if ((always_small_levels || ironman_small_levels ||
 	    (one_in_(SMALL_LEVEL) && small_levels) ||
-	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER) ||
-	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
-	    !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BIG))
+	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER) ||
+	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
+	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
 	{
 		if (cheat_room)
 			msg_print("A small dungeon level.");
 
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_SMALLEST)
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)
 		{
 			level_height = MIN_SCREEN_HGT;
 			level_width  = MIN_SCREEN_WID;
 		}
-		else if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER)
+		else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER)
 		{
 			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT / SCREEN_HGT / 4);
 			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 4);
@@ -1415,31 +1415,31 @@ static bool generate_floor_cave(cptr *why)
 			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 3);
 		}
 
-		current_floor_ptr->height = level_height * SCREEN_HGT;
-		current_floor_ptr->width = level_width  * SCREEN_WID;
+		floor_ptr->height = level_height * SCREEN_HGT;
+		floor_ptr->width = level_width  * SCREEN_WID;
 
 		// Assume illegal panel
-		panel_row_min = current_floor_ptr->height;
-		panel_col_min = current_floor_ptr->width;
+		panel_row_min = floor_ptr->height;
+		panel_col_min = floor_ptr->width;
 
-		if (cheat_room) msg_format("X:%d, Y:%d.", current_floor_ptr->width, current_floor_ptr->height);
+		if (cheat_room) msg_format("X:%d, Y:%d.", floor_ptr->width, floor_ptr->height);
 	}
 	else
 	{
 		// Big dungeon
 		do{
-		level_height = rand_range(MAX_HGT / SCREEN_HGT / 3, MAX_HGT/SCREEN_HGT);
-		level_width  = rand_range(MAX_WID / SCREEN_WID / 3, MAX_WID/SCREEN_WID);
+			level_height = rand_range(MAX_HGT / SCREEN_HGT / 3, MAX_HGT/SCREEN_HGT);
+			level_width  = rand_range(MAX_WID / SCREEN_WID / 3, MAX_WID/SCREEN_WID);
 		} while (level_height + level_width <  (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
 			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3 / 4));
-		current_floor_ptr->height = level_height * SCREEN_HGT;
-		current_floor_ptr->width = level_width  * SCREEN_WID;
+		floor_ptr->height = level_height * SCREEN_HGT;
+		floor_ptr->width = level_width  * SCREEN_WID;
 
 		// Assume illegal panel
-		panel_row_min = current_floor_ptr->height;
-		panel_col_min = current_floor_ptr->width;
+		panel_row_min = floor_ptr->height;
+		panel_col_min = floor_ptr->width;
 
-		if (cheat_room) msg_format("X:%d, Y:%d.", current_floor_ptr->width, current_floor_ptr->height);
+		if (cheat_room) msg_format("X:%d, Y:%d.", floor_ptr->width, floor_ptr->height);
 	}
 
 	// Make a dungeon
@@ -1453,8 +1453,6 @@ static bool generate_floor_cave(cptr *why)
 
 		return FALSE;
 	}
-
-
 
 	else return TRUE;
 }
@@ -1570,7 +1568,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 			if (wild_mode) generate_floor_world(floor_ptr);
 			else generate_floor_wilderness(floor_ptr);
 		}
-		else okay = generate_floor_cave(&why); // dungeon
+		else okay = generate_floor_cave(floor_ptr, &why); // dungeon
 
 		// Prevent object over-flow
 		if (object_max >= max_object_idx)
