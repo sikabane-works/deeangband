@@ -1567,7 +1567,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 		else if (inside_quest) generate_floor_quest(floor_ptr); // quest
 		else if (!floor_ptr->dun_level) // world map
 		{
-			if (wild_mode) generate_floor_world(player_ptr);
+			if (wild_mode) generate_floor_world(floor_ptr);
 			else generate_floor_wilderness(player_ptr);
 		}
 		else okay = generate_floor_cave(&why); // dungeon
