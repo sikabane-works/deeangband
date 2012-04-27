@@ -417,7 +417,7 @@ void place_trees(int x, int y)
 /*
  * Build a destroyed level
  */
-void destroy_level()
+void destroy_level(floor_type *floor_ptr)
 {
 	int y1, x1, n;
 
@@ -432,8 +432,8 @@ void destroy_level()
 	for (n = 0; n < randint1(5); n++)
 	{
 		/* Pick an epi-center */
-		x1 = rand_range(5, current_floor_ptr->width - 1 - 5);
-		y1 = rand_range(5, current_floor_ptr->height - 1 - 5);
+		x1 = rand_range(5, floor_ptr->width - 1 - 5);
+		y1 = rand_range(5, floor_ptr->height - 1 - 5);
 
 		//TODO: use dammy creature
 		(void)destroy_area(player_ptr, y1, x1, 15, TRUE);

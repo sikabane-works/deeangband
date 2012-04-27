@@ -790,7 +790,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	/* Build maze */
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
-		build_maze_vault(floor_ptr->width/2-1, floor_ptr->height/2-1, floor_ptr->width-4, floor_ptr->height-4, FALSE);
+		build_maze_vault(floor_ptr -> width / 2 - 1, floor_ptr->height / 2 - 1, floor_ptr->width - 4, floor_ptr->height - 4, FALSE);
 
 		/* Place 3 or 4 down stairs near some walls */
 		if (!alloc_stairs(feat_down_stair, rand_range(2, 3), 3)) return FALSE;
@@ -799,14 +799,12 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		if (!alloc_stairs(feat_up_stair, 1, 3)) return FALSE;
 	}
 
-	/* Build some rooms */
+	// Build some rooms
 	else
 	{
 		int tunnel_fail_count = 0;
 
-		/*
-		 * Build each type of room in turn until we cannot build any more.
-		 */
+		// Build each type of room in turn until we cannot build any more.
 		if (!generate_rooms(floor_ptr)) return FALSE;
 
 
@@ -820,7 +818,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 
 		/* Destroy the level if necessary */
-		if (dungeon_ptr->destroyed) destroy_level();
+		if (dungeon_ptr->destroyed) destroy_level(floor_ptr);
 
 		/* Hack -- Add some rivers */
 		if (one_in_(3) && (randint1(floor_ptr->dun_level) > 5))
@@ -1446,7 +1444,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 	if (!create_cave_structure(floor_ptr))
 	{
 #ifdef JP
-*why = "ダンジョン生成に失敗";
+		*why = "ダンジョン生成に失敗";
 #else
 		*why = "could not place player";
 #endif
