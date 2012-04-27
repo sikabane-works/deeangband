@@ -385,26 +385,26 @@ static border_type border;
 /*
  * Build the wilderness area outside of the town.
  */
-void generate_floor_wilderness(creature_type *cr_ptr)
+void generate_floor_wilderness(floor_type *floor_ptr)
 {
 	int i, y, x, lim;
 	cave_type *c_ptr;
 	feature_type *f_ptr;
 
 	/* Big town */
-	current_floor_ptr->height = MAX_HGT;
-	current_floor_ptr->width = MAX_WID;
+	floor_ptr->height = MAX_HGT;
+	floor_ptr->width = MAX_WID;
 
 	/* Assume illegal panel */
-	panel_row_min = current_floor_ptr->height;
-	panel_col_min = current_floor_ptr->width;
+	panel_row_min = floor_ptr->height;
+	panel_col_min = floor_ptr->width;
 
 	/* Init the wilderness */
 
 	process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
-	x = cr_ptr->wx;
-	y = cr_ptr->wy;
+	x = player_ptr->wx;
+	y = player_ptr->wy;
 
 	/* Prepare allocation table */
 	get_species_num_prep(get_creature_hook(), NULL);
@@ -414,7 +414,7 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	for (i = 1; i < MAX_WID - 1; i++)
 	{
-		border.north[i] = current_floor_ptr->cave[MAX_HGT - 2][i].feat;
+		border.north[i] = floor_ptr->cave[MAX_HGT - 2][i].feat;
 	}
 
 	/* South border */
@@ -422,7 +422,7 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	for (i = 1; i < MAX_WID - 1; i++)
 	{
-		border.south[i] = current_floor_ptr->cave[1][i].feat;
+		border.south[i] = floor_ptr->cave[1][i].feat;
 	}
 
 	/* West border */
@@ -430,7 +430,7 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	for (i = 1; i < MAX_HGT - 1; i++)
 	{
-		border.west[i] = current_floor_ptr->cave[i][MAX_WID - 2].feat;
+		border.west[i] = floor_ptr->cave[i][MAX_WID - 2].feat;
 	}
 
 	/* East border */
@@ -438,24 +438,24 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 
 	for (i = 1; i < MAX_HGT - 1; i++)
 	{
-		border.east[i] = current_floor_ptr->cave[i][1].feat;
+		border.east[i] = floor_ptr->cave[i][1].feat;
 	}
 
 	/* North west corner */
 	generate_area(y - 1, x - 1, FALSE, TRUE);
-	border.north_west = current_floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
+	border.north_west = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
 	/* North east corner */
 	generate_area(y - 1, x + 1, FALSE, TRUE);
-	border.north_east = current_floor_ptr->cave[MAX_HGT - 2][1].feat;
+	border.north_east = floor_ptr->cave[MAX_HGT - 2][1].feat;
 
 	/* South west corner */
 	generate_area(y + 1, x - 1, FALSE, TRUE);
-	border.south_west = current_floor_ptr->cave[1][MAX_WID - 2].feat;
+	border.south_west = floor_ptr->cave[1][MAX_WID - 2].feat;
 
 	/* South east corner */
 	generate_area(y + 1, x + 1, FALSE, TRUE);
-	border.south_east = current_floor_ptr->cave[1][1].feat;
+	border.south_east = floor_ptr->cave[1][1].feat;
 
 
 	/* Create terrain of the current area */
@@ -465,50 +465,50 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 	/* Special boundary walls -- North */
 	for (i = 0; i < MAX_WID; i++)
 	{
-		current_floor_ptr->cave[0][i].feat = feat_permanent;
-		current_floor_ptr->cave[0][i].mimic = border.north[i];
+		floor_ptr->cave[0][i].feat = feat_permanent;
+		floor_ptr->cave[0][i].mimic = border.north[i];
 	}
 
 	/* Special boundary walls -- South */
 	for (i = 0; i < MAX_WID; i++)
 	{
-		current_floor_ptr->cave[MAX_HGT - 1][i].feat = feat_permanent;
-		current_floor_ptr->cave[MAX_HGT - 1][i].mimic = border.south[i];
+		floor_ptr->cave[MAX_HGT - 1][i].feat = feat_permanent;
+		floor_ptr->cave[MAX_HGT - 1][i].mimic = border.south[i];
 	}
 
 	/* Special boundary walls -- West */
 	for (i = 0; i < MAX_HGT; i++)
 	{
-		current_floor_ptr->cave[i][0].feat = feat_permanent;
-		current_floor_ptr->cave[i][0].mimic = border.west[i];
+		floor_ptr->cave[i][0].feat = feat_permanent;
+		floor_ptr->cave[i][0].mimic = border.west[i];
 	}
 
 	/* Special boundary walls -- East */
 	for (i = 0; i < MAX_HGT; i++)
 	{
-		current_floor_ptr->cave[i][MAX_WID - 1].feat = feat_permanent;
-		current_floor_ptr->cave[i][MAX_WID - 1].mimic = border.east[i];
+		floor_ptr->cave[i][MAX_WID - 1].feat = feat_permanent;
+		floor_ptr->cave[i][MAX_WID - 1].mimic = border.east[i];
 	}
 
 	/* North west corner */
-	current_floor_ptr->cave[0][0].mimic = border.north_west;
+	floor_ptr->cave[0][0].mimic = border.north_west;
 
 	/* North east corner */
-	current_floor_ptr->cave[0][MAX_WID - 1].mimic = border.north_east;
+	floor_ptr->cave[0][MAX_WID - 1].mimic = border.north_east;
 
 	/* South west corner */
-	current_floor_ptr->cave[MAX_HGT - 1][0].mimic = border.south_west;
+	floor_ptr->cave[MAX_HGT - 1][0].mimic = border.south_west;
 
 	/* South east corner */
-	current_floor_ptr->cave[MAX_HGT - 1][MAX_WID - 1].mimic = border.south_east;
+	floor_ptr->cave[MAX_HGT - 1][MAX_WID - 1].mimic = border.south_east;
 
 	/* Light up or darken the area */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
 			/* Get the cave grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			if (is_daytime())
 			{
@@ -548,14 +548,14 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 		}
 	}
 
-	if (cr_ptr->teleport_town)
+	if (player_ptr->teleport_town)
 	{
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			for (x = 0; x < current_floor_ptr->width; x++)
+			for (x = 0; x < floor_ptr->width; x++)
 			{
 				/* Get the cave grid */
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 
 				/* Seeing true feature code (ignore mimic) */
 				f_ptr = &f_info[c_ptr->feat];
@@ -565,36 +565,36 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
 					{
 						if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
-						cr_ptr->oldpy = y;
-						cr_ptr->oldpx = x;
+						player_ptr->oldpy = y;
+						player_ptr->oldpx = x;
 					}
 				}
 			}
 		}
-		cr_ptr->teleport_town = FALSE;
+		player_ptr->teleport_town = FALSE;
 	}
 
 	else if (subject_change_dungeon)
 	{
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			for (x = 0; x < current_floor_ptr->width; x++)
+			for (x = 0; x < floor_ptr->width; x++)
 			{
 				/* Get the cave grid */
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 
 				if (cave_have_flag_grid(c_ptr, FF_ENTRANCE))
 				{
 					if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
-					cr_ptr->oldpy = y;
-					cr_ptr->oldpx = x;
+					player_ptr->oldpy = y;
+					player_ptr->oldpx = x;
 				}
 			}
 		}
-		cr_ptr->teleport_town = FALSE;
+		player_ptr->teleport_town = FALSE;
 	}
 
-	creature_place(cr_ptr, cr_ptr->oldpy, cr_ptr->oldpx);
+	creature_place(player_ptr, player_ptr->oldpy, player_ptr->oldpx);
 	/* subject_change_floor_dungeon = FALSE;*/
 
 
@@ -609,7 +609,7 @@ void generate_floor_wilderness(creature_type *cr_ptr)
 			mode |= PM_ALLOW_SLEEP;
 
 		/* Make a resident */
-		(void)alloc_creature(cr_ptr, generate_encounter ? 0 : 3, mode);
+		(void)alloc_creature(player_ptr, generate_encounter ? 0 : 3, mode);
 	}
 
 	if(generate_encounter) ambush_flag = TRUE;
