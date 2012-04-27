@@ -1163,41 +1163,37 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr)
+static void generate_floor_arena(creature_type *player_ptr, floor_type *floor_ptr, int width, int height)
 {
 	int y, x;
 	int qy = 0;
 	int qx = 0;
 
-	/* Smallest area */
-	floor_ptr->height = SCREEN_HGT;
-	floor_ptr->width = SCREEN_WID;
+	// Small area
+	floor_ptr->height = height;
+	floor_ptr->width = width;
 
-	/* Start with solid walls */
-	for (y = 0; y < MAX_HGT; y++)
+	// Start with solid walls
+	for (y = 0; y < height; y++)
 	{
-		for (x = 0; x < MAX_WID; x++)
+		for (x = 0; x < width; x++)
 		{
-			/* Create "solid" perma-wall */
-			place_solid_perm_bold(y, x);
-
-			/* Illuminate and memorize the walls */
-			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+			place_solid_perm_bold(y, x); // Create "solid" perma-wall
+			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK); // Illuminate and memorize the walls
 		}
 	}
 
-	/* Then place some floors */
-	for (y = qy + 1; y < qy + SCREEN_HGT - 1; y++)
+	// Then place some floors
+	for (y = qy + 1; y < qy + height - 1; y++)
 	{
-		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
+		for (x = qx + 1; x < qx + width - 1; x++)
 		{
-			/* Create empty floor */
-			floor_ptr->cave[y][x].feat = feat_floor;
+			floor_ptr->cave[y][x].feat = feat_floor; // Create empty floor
+
 		}
 	}
 
 	build_arena(player_ptr);
-
 	place_creature_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
@@ -1580,7 +1576,7 @@ void generate_floor(creature_type *player_ptr, floor_type *floor_ptr)
 
 		clear_cave(); // Clear and empty the cave
 
-		if (fight_arena_mode) generate_floor_arena(player_ptr, floor_ptr); // fight arena
+		if (fight_arena_mode) generate_floor_arena(player_ptr, floor_ptr, 41, 41); // fight arena
 		else if (gamble_arena_mode) generate_floor_monster_arena(player_ptr); // gamble arena
 		else if (inside_quest) generate_floor_quest(); // quest
 		else if (!floor_ptr->dun_level) // world map
