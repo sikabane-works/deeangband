@@ -467,6 +467,9 @@ void leave_floor(creature_type *creature_ptr)
 	floor_type *floor_ptr;
 	int quest_species_idx = 0;
 
+	if(!creature_ptr->floor_id) return;
+	else floor_ptr = &floor_list[creature_ptr->floor_id];
+
 	// Remove all mirrors without explosion
 	//remove_all_mirrors(creature_ptr, FALSE);
 
@@ -480,8 +483,8 @@ void leave_floor(creature_type *creature_ptr)
 		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
 			((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
 		     (quest[i].type == QUEST_TYPE_RANDOM)) &&
-		     (quest[i].level == current_floor_ptr->dun_level) &&
-		     (current_floor_ptr->dun_type == quest[i].dungeon) &&
+		     (quest[i].level == floor_ptr->dun_level) &&
+		     (floor_ptr->dun_type == quest[i].dungeon) &&
 		    !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
@@ -502,13 +505,13 @@ void leave_floor(creature_type *creature_ptr)
 	if (creature_ptr->change_floor_mode & CFM_SAVE_FLOORS)
 	{
 		// Extract stair position
-		stair_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
+		stair_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 		feature_ptr = &f_info[stair_ptr->feat];
 
 		// Get back to old saved floor?
 		if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && get_floor_ptr(stair_ptr->special))
 		{
-			current_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
+			floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		}
 
 		// Mark shaft up/down
@@ -534,27 +537,27 @@ void leave_floor(creature_type *creature_ptr)
 		// Get out from or Enter the dungeon
 		if (creature_ptr->change_floor_mode & CFM_DOWN)
 		{
-			if (!current_floor_ptr->dun_level)
-				move_num = dungeon_info[current_floor_ptr->dun_type].mindepth;
+			if (!floor_ptr->dun_level)
+				move_num = dungeon_info[floor_ptr->dun_type].mindepth;
 		}
 		else if (creature_ptr->change_floor_mode & CFM_UP)
 		{
-			if (current_floor_ptr->dun_level + move_num < dungeon_info[current_floor_ptr->dun_type].mindepth)
-				move_num = -current_floor_ptr->dun_level;
+			if (floor_ptr->dun_level + move_num < dungeon_info[floor_ptr->dun_type].mindepth)
+				move_num = -floor_ptr->dun_level;
 		}
 
-		current_floor_ptr->dun_level += move_num;
+		floor_ptr->dun_level += move_num;
 	}
 
 	// Leaving the dungeon to town
-	if (!current_floor_ptr->dun_level && current_floor_ptr->dun_type)
+	if (!floor_ptr->dun_level && floor_ptr->dun_type)
 	{
 		subject_change_dungeon = TRUE;
-		creature_ptr->wy = dungeon_info[current_floor_ptr->dun_type].dy;
-		creature_ptr->wx = dungeon_info[current_floor_ptr->dun_type].dx;
+		creature_ptr->wy = dungeon_info[floor_ptr->dun_type].dy;
+		creature_ptr->wx = dungeon_info[floor_ptr->dun_type].dx;
 
-		creature_ptr->recall_dungeon = current_floor_ptr->dun_type;
-		current_floor_ptr->dun_type = 0;
+		creature_ptr->recall_dungeon = floor_ptr->dun_type;
+		floor_ptr->dun_type = 0;
 
 		// Reach to the surface -- Clear all saved floors
 		creature_ptr->change_floor_mode &= ~CFM_SAVE_FLOORS;
@@ -568,7 +571,7 @@ void leave_floor(creature_type *creature_ptr)
 	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN) kill_floor(floor_ptr);
 
 	floor_id = floor_pop(); // Get new id
-	current_floor_ptr = &floor_list[floor_id];
+	floor_ptr = &floor_list[floor_id];
 	creature_ptr->floor_id = floor_id;
 	floor_generated = FALSE;
 
