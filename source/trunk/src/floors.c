@@ -106,16 +106,6 @@ void init_saved_floors(bool force)
 #endif
 }
 
-
-//
-// Get a pointer for an item of the saved_floors array.
-//
-floor_type *get_floor_ptr(s16b floor_id)
-{
-	return &floor_list[floor_id];
-}
-
-
 //
 // kill a saved floor and get an empty space
 //
@@ -471,10 +461,10 @@ void leave_floor(creature_type *creature_ptr)
 	else floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	// Remove all mirrors without explosion
-	//remove_all_mirrors(creature_ptr, FALSE);
+	remove_all_mirrors(creature_ptr, FALSE);
 
 	// Cut supersthealth
-	//if (creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
+	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	// Search the quest monster index
 	/*
@@ -493,7 +483,7 @@ void leave_floor(creature_type *creature_ptr)
 	*/
 
 	// Extract current floor info or NULL
-	floor_ptr = get_floor_ptr(creature_ptr->floor_id);
+	floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	// Choose random stairs
 	if ((creature_ptr->change_floor_mode & CFM_RAND_CONNECT) && creature_ptr->floor_id)
@@ -509,7 +499,7 @@ void leave_floor(creature_type *creature_ptr)
 		feature_ptr = &f_info[stair_ptr->feat];
 
 		// Get back to old saved floor?
-		if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && get_floor_ptr(stair_ptr->special))
+		if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
 		{
 			floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		}
@@ -642,7 +632,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 		}
 
 		// Pointer for infomations of new floor
-		sf_ptr = get_floor_ptr(current_floor_id);
+		sf_ptr = &floor_list[current_floor_id];
 
 		// Try to restore old floor
 		if (sf_ptr->last_visit)
@@ -679,7 +669,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 		
 		if (cr_ptr->floor_id)
 		{
-			floor_type *cur_sf_ptr = get_floor_ptr(cr_ptr->floor_id);
+			floor_type *cur_sf_ptr = &floor_list[cr_ptr->floor_id];
 
 			if (cr_ptr->change_floor_mode & CFM_UP)
 			{
@@ -931,13 +921,13 @@ void stair_creation(creature_type *creature_ptr)
 	delete_object(creature_ptr->fy, creature_ptr->fx);
 
 	/* Extract current floor data */
-	sf_ptr = get_floor_ptr(creature_ptr->floor_id);
+	sf_ptr = &floor_list[creature_ptr->floor_id];
 
 	/* Paranoia */
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		sf_ptr = get_floor_ptr(creature_ptr->floor_id);
+		sf_ptr = &floor_list[creature_ptr->floor_id];
 	} 
 
 	/* Choose randomly */
@@ -991,7 +981,7 @@ void stair_creation(creature_type *creature_ptr)
 	}
 
 	/* Extract destination floor data */
-	dest_sf_ptr = get_floor_ptr(dest_floor_id);
+	dest_sf_ptr = &floor_list[dest_floor_id];
 
 
 	/* Create a staircase */
