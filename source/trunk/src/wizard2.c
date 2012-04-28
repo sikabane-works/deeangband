@@ -1470,7 +1470,7 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(i = 0; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] F:%2d X:%3d Y:%3d HP:%6d/%6d %-24s", i, creature_list[i].floor_id,
+			sprintf(ce[i].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
 				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
 			ce[i].cap[72] = '\0'; 
 			if(is_player(&creature_list[i]))
