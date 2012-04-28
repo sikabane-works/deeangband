@@ -1535,6 +1535,7 @@ struct creature_type
 	s32b wx;	/* Coordinates in the wilderness */
 	s32b wy;
 
+	s16b depth;
 
 	byte cdis;		/* Current dis from player */
 
