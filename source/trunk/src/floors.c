@@ -602,7 +602,7 @@ void leave_floor(creature_type *creature_ptr)
  * restored from the temporal file.  If the floor is new one, new cave
  * will be generated.
  */
-void change_floor(creature_type *cr_ptr)
+void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 {
 	//floor_type *sf_ptr;
 	bool loaded = FALSE;
@@ -619,7 +619,7 @@ void change_floor(creature_type *cr_ptr)
 	// Mega-Hack -- not ambushed on the wildness?
 	ambush_flag = FALSE;
 
-	generate_floor(current_floor_ptr); // Generate field
+	generate_floor(floor_ptr); // Generate field
 
 	/*
 	// No saved floors (On the surface etc.)
@@ -652,7 +652,7 @@ void change_floor(creature_type *cr_ptr)
 				// Forbid return stairs
 				if (cr_ptr->change_floor_mode & CFM_NO_RETURN)
 				{
-					cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+					cave_type *c_ptr = &floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 					if (!feat_uses_special(c_ptr->feat))
 					{
@@ -707,7 +707,7 @@ void change_floor(creature_type *cr_ptr)
 			int i;
 			s32b tmp_last_visit = sf_ptr->last_visit;
 			s32b absence_ticks;
-			int alloc_chance = dungeon_info[current_floor_ptr->dun_type].max_m_alloc_chance;
+			int alloc_chance = dungeon_info[floor_ptr->dun_type].max_m_alloc_chance;
 			int alloc_times;
 
 			while (tmp_last_visit > turn) tmp_last_visit -= TURNS_PER_TICK * TOWN_DAWN;
@@ -783,9 +783,9 @@ void change_floor(creature_type *cr_ptr)
 			// Record last visit turn
 			sf_ptr->last_visit = turn;
 
-			// Set correct current_floor_ptr->dun_level value
-			sf_ptr->current_floor_ptr->dun_level = current_floor_ptr->dun_level;
-			sf_ptr->dun_type = current_floor_ptr->dun_type;
+			// Set correct floor_ptr->dun_level value
+			sf_ptr->floor_ptr->dun_level = floor_ptr->dun_level;
+			sf_ptr->dun_type = floor_ptr->dun_type;
 			sf_ptr->world_x = cr_ptr->wx;
 			sf_ptr->world_y = cr_ptr->wy;
 
@@ -793,12 +793,12 @@ void change_floor(creature_type *cr_ptr)
 			if (!(cr_ptr->change_floor_mode & CFM_NO_RETURN))
 			{
 				// Extract stair position
-				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
 
 				// Create connected stairs
 
 				// No stairs down from Quest
-				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(current_floor_ptr->dun_level))
+				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(floor_ptr->dun_level))
 				{
 					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
 				}

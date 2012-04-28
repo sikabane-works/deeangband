@@ -6649,7 +6649,7 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		if (!floor_generated) change_floor(player_ptr);
+		if (!floor_generated) change_floor(current_floor_ptr, player_ptr);
 		if (panic_save) panic_save = 0; // TODO
 
 		current_floor_ptr->base_level = current_floor_ptr->dun_level; 	   // Set the base level
