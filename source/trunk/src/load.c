@@ -1350,7 +1350,7 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	rd_s16b(&floor_ptr->dun_level);
+	rd_s16b(&floor_ptr->floor_level);
 	rd_byte(&floor_ptr->dun_type);
 	rd_s32b(&floor_ptr->world_x);
 	rd_s32b(&floor_ptr->world_y);

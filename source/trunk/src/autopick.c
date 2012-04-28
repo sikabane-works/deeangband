@@ -4236,8 +4236,8 @@ static int do_command_menu(int level, int start)
 	int i;
 	int max_len = 0;
 	int max_menu_wid;
-	int col0 = 5 + level*7;
-	int row0 = 1 + level*3;
+	int col0 = 5 + level * 7;
+	int row0 = 1 + level * 3;
 	byte menu_key = 0;
 	int menu_id_list[26];
 	bool redraw = TRUE;

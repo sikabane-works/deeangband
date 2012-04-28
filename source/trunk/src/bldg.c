@@ -4285,7 +4285,7 @@ bool tele_town(creature_type *cr_ptr)
 	int i, x, y;
 	int num = 0;
 
-	if (current_floor_ptr->dun_level)
+	if (current_floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("この魔法は地上でしか使えない！");
@@ -5018,7 +5018,7 @@ msg_print("ここにはクエストの入口はない。");
 
 		leave_quest_check(cr_ptr);
 
-		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) current_floor_ptr->dun_level = 1;
+		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) current_floor_ptr->floor_level = 1;
 		inside_quest = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].special;
 
 		subject_change_floor = TRUE;

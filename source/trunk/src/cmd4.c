@@ -423,7 +423,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 	}
 
 
-	if(current_floor_ptr) q_idx = quest_number(current_floor_ptr->dun_level);
+	if(current_floor_ptr) q_idx = quest_number(current_floor_ptr->floor_level);
 	else q_idx = 0;
 
 	if (write_level)
@@ -434,7 +434,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #else
 			note_level = "Arane:";
 #endif
-		else if (!current_floor_ptr || !current_floor_ptr->dun_level)
+		else if (!current_floor_ptr || !current_floor_ptr->floor_level)
 #ifdef JP
 			note_level = "地上:";
 #else
@@ -450,9 +450,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		else
 		{
 #ifdef JP
-			sprintf(note_level_buf, "%d階(%s):", current_floor_ptr->dun_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+			sprintf(note_level_buf, "%d階(%s):", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #else
-			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[current_floor_ptr->dun_type].name, current_floor_ptr->dun_level);
+			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[current_floor_ptr->dun_type].name, current_floor_ptr->floor_level);
 #endif
 			note_level = note_level_buf;
 		}
@@ -576,11 +576,11 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			else
 			{
 #ifdef JP
-				if (!(current_floor_ptr->dun_level+num)) to = "地上";
-				else to = format("%d階", current_floor_ptr->dun_level+num);
+				if (!(current_floor_ptr->floor_level+num)) to = "地上";
+				else to = format("%d階", current_floor_ptr->floor_level+num);
 #else
-				if (!(current_floor_ptr->dun_level+num)) to = "the surface";
-				else to = format("level %d", current_floor_ptr->dun_level+num);
+				if (!(current_floor_ptr->floor_level+num)) to = "the surface";
+				else to = format("level %d", current_floor_ptr->floor_level+num);
 #endif
 			}
 
@@ -684,7 +684,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_WIZ_TELE:
 		{
 			cptr to;
-			if (!current_floor_ptr->dun_level)
+			if (!current_floor_ptr->floor_level)
 #ifdef JP
 				to = "地上";
 #else
@@ -692,9 +692,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%d階(%s)", current_floor_ptr->dun_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("%d階(%s)", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", current_floor_ptr->dun_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("level %d of %s", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
@@ -707,7 +707,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_PAT_TELE:
 		{
 			cptr to;
-			if (!current_floor_ptr->dun_level)
+			if (!current_floor_ptr->floor_level)
 #ifdef JP
 				to = "地上";
 #else
@@ -715,9 +715,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%d階(%s)", current_floor_ptr->dun_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("%d階(%s)", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", current_floor_ptr->dun_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("level %d of %s", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
@@ -5016,7 +5016,7 @@ static cptr do_cmd_feeling_text_lucky[11] =
 void do_cmd_feeling(creature_type *cr_ptr)
 {
 	/* No useful feeling in quests */
-	if (inside_quest && !random_quest_number(current_floor_ptr->dun_level))
+	if (inside_quest && !random_quest_number(current_floor_ptr->floor_level))
 	{
 #ifdef JP
 		msg_print("典型的なクエストのダンジョンのようだ。");
@@ -5028,7 +5028,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in town */
-	else if (town_num && !current_floor_ptr->dun_level)
+	else if (town_num && !current_floor_ptr->floor_level)
 	{
 #ifdef JP
 		if (!strcmp(town[town_num].name, "荒野"))
@@ -5057,7 +5057,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in the wilderness */
-	else if (!current_floor_ptr->dun_level)
+	else if (!current_floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("典型的な荒野のようだ。");

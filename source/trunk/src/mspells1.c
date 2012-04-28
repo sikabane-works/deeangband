@@ -1307,7 +1307,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check "projectable" */
 	bool direct;
 
-	bool in_no_magic_dungeon = (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && current_floor_ptr->dun_level
+	bool in_no_magic_dungeon = (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && current_floor_ptr->floor_level
 		&& (!inside_quest || is_fixed_quest_idx(inside_quest));
 
 	bool can_use_lite_area = FALSE;

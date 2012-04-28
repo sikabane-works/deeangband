@@ -467,7 +467,7 @@ void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 				continue;
 
 			/* Quest is not on this level */
-			if ((quest[i].level != current_floor_ptr->dun_level) &&
+			if ((quest[i].level != current_floor_ptr->floor_level) &&
 			    (quest[i].type != QUEST_TYPE_KILL_ANY_LEVEL))
 				continue;
 
@@ -670,7 +670,7 @@ msg_print("魔法の階段が現れた...");
 	 */
 	if (reward)
 	{
-		for (j = 0; j < (current_floor_ptr->dun_level / 15)+1; j++)
+		for (j = 0; j < (current_floor_ptr->floor_level / 15)+1; j++)
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -984,7 +984,7 @@ msg_print("地面に落とされた。");
 		break;
 
 	case MON_RAAL:
-		if (drop_chosen_item && (current_floor_ptr->dun_level > 9))
+		if (drop_chosen_item && (current_floor_ptr->floor_level > 9))
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -993,7 +993,7 @@ msg_print("地面に落とされた。");
 			object_wipe(q_ptr);
 
 			/* Activate restriction */
-			if ((current_floor_ptr->dun_level > 49) && one_in_(5))
+			if ((current_floor_ptr->floor_level > 49) && one_in_(5))
 				get_obj_num_hook = kind_is_good_book;
 			else
 				get_obj_num_hook = kind_is_book;
@@ -1180,7 +1180,7 @@ msg_print("地面に落とされた。");
 		switch (r_ptr->d_char)
 		{
 		case '(':
-			if (current_floor_ptr->dun_level > 0)
+			if (current_floor_ptr->floor_level > 0)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1200,7 +1200,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '/':
-			if (current_floor_ptr->dun_level > 4)
+			if (current_floor_ptr->floor_level > 4)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1220,7 +1220,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '[':
-			if (current_floor_ptr->dun_level > 19)
+			if (current_floor_ptr->floor_level > 19)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1240,7 +1240,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '\\':
-			if (current_floor_ptr->dun_level > 4)
+			if (current_floor_ptr->floor_level > 4)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1347,7 +1347,7 @@ msg_print("地面に落とされた。");
 	coin_type = force_coin;
 
 	/* Average dungeon and monster levels */
-	current_floor_ptr->object_level = (current_floor_ptr->dun_level + r_ptr->level) / 2;
+	current_floor_ptr->object_level = (current_floor_ptr->floor_level + r_ptr->level) / 2;
 
 	/* Drop some objects */
 	for (j = 0; j < number; j++)
@@ -1474,7 +1474,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
 	/* Special penalty in the wilderness */
-	if (!current_floor_ptr->dun_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
+	if (!current_floor_ptr->floor_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
@@ -4253,8 +4253,8 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			}
 
 			object_prep(q_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
-			q_ptr->to_h = 3 + randint1(current_floor_ptr->dun_level) % 10;
-			q_ptr->to_d = 3 + randint1(current_floor_ptr->dun_level) % 10;
+			q_ptr->to_h = 3 + randint1(current_floor_ptr->floor_level) % 10;
+			q_ptr->to_d = 3 + randint1(current_floor_ptr->floor_level) % 10;
 			one_resistance(q_ptr);
 			q_ptr->name2 = EGO_CHAOTIC;
 
@@ -4349,7 +4349,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
-				(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
 			reward = "モンスターを召喚された。";
@@ -4844,7 +4844,7 @@ msg_format("%sは褒美として悪魔の使いをよこした！",species_name + species_info[cr
 			msg_format("%s rewards you with a demonic servant!",species_name + species_info[cr_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4865,7 +4865,7 @@ msg_format("%sは褒美として使いをよこした！",species_name + species_info[cr_ptr->
 			msg_format("%s rewards you with a servant!",species_name + species_info[cr_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4886,7 +4886,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_i
 			msg_format("%s rewards you with an undead servant!",species_name + species_info[cr_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else

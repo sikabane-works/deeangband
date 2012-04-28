@@ -269,7 +269,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 	current_floor_ptr->base_level = wilderness[y][x].level;
 
 	/* Set the dungeon level */
-	current_floor_ptr->dun_level = 0;
+	current_floor_ptr->floor_level = 0;
 
 	/* Set the monster generation level */
 	current_floor_ptr->creature_level = current_floor_ptr->base_level;

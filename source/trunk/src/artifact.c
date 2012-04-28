@@ -2471,7 +2471,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("You summon a phantasmal servant.");
 #endif
 
-			(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}

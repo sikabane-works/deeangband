@@ -840,7 +840,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	wr_s16b(floor_ptr->dun_level);
+	wr_s16b(floor_ptr->floor_level);
 	wr_byte(floor_ptr->dun_type);
 	wr_s32b(floor_ptr->world_x);
 	wr_s32b(floor_ptr->world_y);

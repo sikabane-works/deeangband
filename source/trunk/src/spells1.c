@@ -1045,7 +1045,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			/* Turn off the light. */
 			if (do_dark)
 			{
-				if (current_floor_ptr->dun_level || !is_daytime())
+				if (current_floor_ptr->floor_level || !is_daytime())
 				{
 					for (j = 0; j < 9; j++)
 					{
@@ -2244,7 +2244,7 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : current_floor_ptr->dun_level), 0, mode);
+				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : current_floor_ptr->floor_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:

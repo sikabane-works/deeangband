@@ -182,7 +182,7 @@ cptr map_name(void)
 #else
 		return "Monster Arena";
 #endif
-	else if (!current_floor_ptr->dun_level && town_num)
+	else if (!current_floor_ptr->floor_level && town_num)
 		return town[town_num].name;
 	else
 		return d_name+dungeon_info[current_floor_ptr->dun_type].name;
@@ -910,7 +910,7 @@ static void prt_depth(creature_type *cr_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
-	if (!current_floor_ptr->dun_level)
+	if (!current_floor_ptr->floor_level)
 	{
 #ifdef JP
 		strcpy(depths, "’nã");
@@ -929,11 +929,11 @@ static void prt_depth(creature_type *cr_ptr)
 	else
 	{
 #ifdef JP
-		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->dun_level * 50);
-		else (void)sprintf(depths, "%d ŠK", current_floor_ptr->dun_level);
+		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->floor_level * 50);
+		else (void)sprintf(depths, "%d ŠK", current_floor_ptr->floor_level);
 #else
-		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->dun_level * 50);
-		else (void)sprintf(depths, "Lev %d", current_floor_ptr->dun_level);
+		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->floor_level * 50);
+		else (void)sprintf(depths, "Lev %d", current_floor_ptr->floor_level);
 #endif
 
 

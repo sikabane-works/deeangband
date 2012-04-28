@@ -1065,7 +1065,7 @@ msg_print("援軍を召喚した。");
 	case MS_S_CYBER:
 	{
 		int k;
-		int max_cyber = (current_floor_ptr->dun_level / 50) + randint1(3);
+		int max_cyber = (current_floor_ptr->floor_level / 50) + randint1(3);
 		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("サイバーデーモンを召喚した！");

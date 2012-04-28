@@ -4672,7 +4672,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	else if (m_idx == user_ptr->riding) resist = TRUE;
 
-	else if ((inside_quest && !random_quest_number(current_floor_ptr->dun_level)) || fight_arena_mode || gamble_arena_mode) resist = TRUE;
+	else if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode) resist = TRUE;
 
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
 
@@ -4775,7 +4775,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->dun_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -4820,7 +4820,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->dun_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -4858,7 +4858,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->dun_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -5076,7 +5076,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	bool      flag = FALSE;
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
@@ -5381,7 +5381,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
@@ -6061,7 +6061,7 @@ static void cave_temp_room_unlite(void)
 		/* Darken the grid */
 		if (do_dark)
 		{
-			if (current_floor_ptr->dun_level || !is_daytime())
+			if (current_floor_ptr->floor_level || !is_daytime())
 			{
 				for (j = 0; j < 9; j++)
 				{
@@ -7050,7 +7050,7 @@ msg_print("エネルギーのうねりを感じた！");
 			(*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 			if (!one_in_(6)) break;
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(*count) += summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			if (!one_in_(6)) break;
 		case 10: case 11: case 12:
 #ifdef JP
@@ -7097,7 +7097,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			/*
 			 * Only summon Cyberdemons deep in the dungeon.
 			 */
-			if ((current_floor_ptr->dun_level > 65) && !stop_ty)
+			if ((current_floor_ptr->floor_level > 65) && !stop_ty)
 			{
 				(*count) += summon_cyber(NULL, cr_ptr->fy, cr_ptr->fx);
 				stop_ty = TRUE;
@@ -7146,11 +7146,11 @@ int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet)
 
 	if (!pet) mode |= PM_NO_PET;
 
-	summon_lev = (pet ? cr_ptr->lev * 2 / 3 + randint1(cr_ptr->lev / 2) : current_floor_ptr->dun_level);
+	summon_lev = (pet ? cr_ptr->lev * 2 / 3 + randint1(cr_ptr->lev / 2) : current_floor_ptr->floor_level);
 
-	for (i = 0; i < (randint1(7) + (current_floor_ptr->dun_level / 40)); i++)
+	for (i = 0; i < (randint1(7) + (current_floor_ptr->floor_level / 40)); i++)
 	{
-		switch (randint1(25) + (current_floor_ptr->dun_level / 20))
+		switch (randint1(25) + (current_floor_ptr->floor_level / 20))
 		{
 			case 1: case 2:
 				count += summon_specific((pet ? cr_ptr : NULL), y, x, summon_lev, SUMMON_ANT, mode);
@@ -7209,7 +7209,7 @@ int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet)
 int summon_cyber(creature_type *cr_ptr, int y, int x)
 {
 	int i;
-	int max_cyber = (current_floor_ptr->dun_level / 50) + randint1(2);
+	int max_cyber = (current_floor_ptr->floor_level / 50) + randint1(2);
 	int count = 0;
 	u32b mode = PM_ALLOW_GROUP;
 

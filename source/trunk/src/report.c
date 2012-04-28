@@ -440,7 +440,7 @@ errr report_score(creature_type *player_ptr)
 #endif
 	buf_sprintf(score, "score: %d\n", total_points());
 	buf_sprintf(score, "level: %d\n", player_ptr->lev);
-	buf_sprintf(score, "depth: %d\n", current_floor_ptr->dun_level);
+	buf_sprintf(score, "depth: %d\n", current_floor_ptr->floor_level);
 	buf_sprintf(score, "maxlv: %d\n", player_ptr->max_plv);
 	buf_sprintf(score, "maxdp: %d\n", max_dlv[DUNGEON_ANGBAND]);
 	buf_sprintf(score, "au: %d\n", player_ptr->au);

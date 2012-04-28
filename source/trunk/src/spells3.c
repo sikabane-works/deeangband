@@ -678,7 +678,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Down only */ 
-	if ((ironman_downward && (m_idx <= 0)) || (current_floor_ptr->dun_level <= dungeon_info[current_floor_ptr->dun_type].mindepth))
+	if ((ironman_downward && (m_idx <= 0)) || (current_floor_ptr->floor_level <= dungeon_info[current_floor_ptr->dun_type].mindepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^s‚Í°‚ğ“Ë‚«”j‚Á‚Ä’¾‚ñ‚Å‚¢‚­B", m_name);
@@ -687,7 +687,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 #endif
 		if (m_idx <= 0) /* To player */
 		{
-			if (!current_floor_ptr->dun_level)
+			if (!current_floor_ptr->floor_level)
 			{
 				current_floor_ptr->dun_type = cr_ptr->recall_dungeon;
 				cr_ptr->oldpy = cr_ptr->fy;
@@ -698,9 +698,9 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
-			if (!current_floor_ptr->dun_level)
+			if (!current_floor_ptr->floor_level)
 			{
-				current_floor_ptr->dun_level = dungeon_info[current_floor_ptr->dun_type].mindepth;
+				current_floor_ptr->floor_level = dungeon_info[current_floor_ptr->dun_type].mindepth;
 				prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
 			}
 			else
@@ -714,7 +714,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if (quest_number(current_floor_ptr->dun_level) || (current_floor_ptr->dun_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth))
+	else if (quest_number(current_floor_ptr->floor_level) || (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^s‚Í“Vˆä‚ğ“Ë‚«”j‚Á‚Ä’ˆ‚Ö•‚‚¢‚Ä‚¢‚­B", m_name);
@@ -770,7 +770,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		if (m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
-			/* if (!current_floor_ptr->dun_level) current_floor_ptr->dun_type = cr_ptr->recall_dungeon; */
+			/* if (!current_floor_ptr->floor_level) current_floor_ptr->dun_type = cr_ptr->recall_dungeon; */
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
 
@@ -919,7 +919,7 @@ msg_print("‰½‚à‹N‚±‚ç‚È‚©‚Á‚½B");
 		return TRUE;
 	}
 
-	if (current_floor_ptr->dun_level && (max_dlv[current_floor_ptr->dun_type] > current_floor_ptr->dun_level) && !inside_quest && !cr_ptr->word_recall)
+	if (current_floor_ptr->floor_level && (max_dlv[current_floor_ptr->dun_type] > current_floor_ptr->floor_level) && !inside_quest && !cr_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -927,7 +927,7 @@ if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 		if (get_check("Reset recall depth? "))
 #endif
 		{
-			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->dun_level;
+			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->floor_level;
 			if (record_maxdepth)
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_TRUMP, current_floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
@@ -939,7 +939,7 @@ if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 	}
 	if (!cr_ptr->word_recall)
 	{
-		if (!current_floor_ptr->dun_level)
+		if (!current_floor_ptr->floor_level)
 		{
 			int select_dungeon;
 #ifdef JP
@@ -1014,7 +1014,7 @@ sprintf(ppp, "‰½ŠK‚ÉƒZƒbƒg‚µ‚Ü‚·‚© (%d-%d):", dungeon_info[select_dungeon].minde
 
 
 	/* Default */
-	sprintf(tmp_val, "%d", MAX(current_floor_ptr->dun_level, 1));
+	sprintf(tmp_val, "%d", MAX(current_floor_ptr->floor_level, 1));
 
 	/* Ask for a level */
 	if (get_string(ppp, tmp_val, 10))
@@ -1388,7 +1388,7 @@ act = "‚Í‰s‚³‚ğ‘‚µ‚½I";
 #endif
 
 				o_ptr->name2 = EGO_SHARPNESS;
-				o_ptr->pval = m_bonus(5, current_floor_ptr->dun_level) + 1;
+				o_ptr->pval = m_bonus(5, current_floor_ptr->floor_level) + 1;
 
 				if ((o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2))
 					o_ptr->pval = 2;
@@ -1402,7 +1402,7 @@ act = "‚Í”j‰ó—Í‚ğ‘‚µ‚½I";
 #endif
 
 				o_ptr->name2 = EGO_EARTHQUAKES;
-				o_ptr->pval = m_bonus(3, current_floor_ptr->dun_level);
+				o_ptr->pval = m_bonus(3, current_floor_ptr->floor_level);
 			}
 			break;
 		case 16:
@@ -1599,7 +1599,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	char         m_name[80];
 
 	/* Prevent vasishing of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
 	{
 		return FALSE;
 	}
@@ -1772,7 +1772,7 @@ void call_the_void(creature_type *cr_ptr)
 	}
 
 	/* Prevent destruction of quest levels and town */
-	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->dun_level)
+	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("’n–Ê‚ª—h‚ê‚½B");
@@ -5390,7 +5390,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	for (i = 0; i < 1000; i++)
 	{
 		/* Pick a new race, using a level calculation */
-		r = get_species_num((current_floor_ptr->dun_level + species_ptr->level) / 2 + 5);
+		r = get_species_num((current_floor_ptr->floor_level + species_ptr->level) / 2 + 5);
 
 		/* Handle failure */
 		if (!r) break;

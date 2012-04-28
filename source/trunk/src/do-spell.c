@@ -370,7 +370,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
 
-		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 14)
 	{
@@ -571,7 +571,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
+			(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
 		}
 		break;
 	case 36:
@@ -648,7 +648,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("Oh no! It's the Devil!");
 #endif
 
-		summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 18)
 	{
@@ -690,7 +690,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a strange monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, FALSE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
+		trump_summoning(cr_ptr, 1, FALSE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
 	}
 	else if (die < 33)
 	{
@@ -790,7 +790,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3 / 2), SUMMON_BIZARRE1, 0L);
+		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
 	}
 	else if (die < 84)
 	{
@@ -800,7 +800,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3 / 2), SUMMON_BIZARRE2, 0L);
+		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
 	}
 	else if (die < 86)
 	{
@@ -810,7 +810,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3 / 2), SUMMON_BIZARRE4, 0L);
+		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
 	}
 	else if (die < 88)
 	{
@@ -820,7 +820,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->dun_level * 3 / 2), SUMMON_BIZARRE5, 0L);
+		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
 	}
 	else if (die < 96)
 	{
