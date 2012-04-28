@@ -6823,7 +6823,7 @@ static void play_loop(void)
 		forget_lite(); // Forget the lite and view
 		forget_view();
 
-		clear_creature_lite(); // Forget the view
+		clear_creature_lite(current_floor_ptr); // Forget the view
 
 		if (!playing && !gameover) break; // Handle "quit and save"
 		if (!gameover) clear_cave(current_floor_ptr); // Erase the old cave

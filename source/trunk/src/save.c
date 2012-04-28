@@ -1051,7 +1051,7 @@ static bool wr_floors(creature_type *player_ptr)
 	// Forget the lite and view
 	forget_lite();
 	forget_view();
-	clear_creature_lite();
+	clear_creature_lite(current_floor_ptr);
 
 	// Update lite/view/creatures
 	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);

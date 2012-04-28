@@ -8031,7 +8031,7 @@ static void handle_signal_simple(int sig)
 
 		forget_lite();
 		forget_view();
-		clear_creature_lite();
+		clear_creature_lite(current_floor_ptr);
 
 		/* Close stuff */
 		close_game();
@@ -8058,7 +8058,7 @@ quit("ã≠êßèIóπ");
 
 		forget_lite();
 		forget_view();
-		clear_creature_lite();
+		clear_creature_lite(current_floor_ptr);
 
 		/* Stop playing */
 		playing = FALSE;
@@ -8133,7 +8133,7 @@ static void handle_signal_abort(int sig)
 
 	forget_lite();
 	forget_view();
-	clear_creature_lite();
+	clear_creature_lite(current_floor_ptr);
 
 	/* Clear the bottom line */
 	Term_erase(0, hgt - 1, 255);

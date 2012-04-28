@@ -585,7 +585,7 @@ void leave_floor(creature_type *creature_ptr)
 		//TODO
 		forget_lite();
 		forget_view();
-		clear_creature_lite();
+		clear_creature_lite(current_floor_ptr);
 	}
 }
 

@@ -3309,7 +3309,7 @@ void update_creature_lite(void)
 	player_ptr->old_monlite = player_ptr->monlite;
 }
 
-void clear_creature_lite(void)
+void clear_creature_lite(floor_type *floor_ptr)
 {
 	int i;
 	cave_type *c_ptr;
