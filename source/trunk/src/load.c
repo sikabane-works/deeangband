@@ -997,6 +997,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s32b(&cr_ptr->wx);
 	rd_s32b(&cr_ptr->wy);
 
+	rd_s16b(&cr_ptr->depth);
+
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);

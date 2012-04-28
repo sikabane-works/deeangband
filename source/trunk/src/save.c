@@ -528,6 +528,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s32b(cr_ptr->wx);
 	wr_s32b(cr_ptr->wy);
 
+	wr_s16b(cr_ptr->depth);
 
 	tmp16u = PY_MAX_LEVEL;
 	wr_u16b(tmp16u);
