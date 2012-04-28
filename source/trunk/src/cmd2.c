@@ -4598,18 +4598,18 @@ static int flow_tail = 0;
 static s16b temp2_x[MAX_SHORT];
 static s16b temp2_y[MAX_SHORT];
 
-/* Hack: forget the "flow" information */
-void forget_travel_flow(void)
+// Hack: forget the "flow" information
+static void forget_travel_flow(floor_type *floor_ptr)
 {
 	int x, y;
 
-	/* Check the entire dungeon */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	// Check the entire dungeon
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			/* Forget the old data */
-			travel.cost[y][x] = TRAVEL_UNABLE;
+			travel.cost[y][x] = TRAVEL_UNABLE; // Forget the old data
+
 		}
 	}
 }
@@ -4731,7 +4731,7 @@ void do_cmd_travel(creature_type *cr_ptr)
 	travel.x = x;
 	travel.y = y;
 
-	forget_travel_flow();
+	forget_travel_flow(current_floor_ptr);
 	travel_flow(cr_ptr, y, x);
 
 	/* Travel till 255 steps */
