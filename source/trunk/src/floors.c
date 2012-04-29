@@ -444,6 +444,7 @@ void move_floor(creature_type *creature_ptr)
 	feature_type *feature_ptr;
 	floor_type *old_floor_ptr, *new_floor_ptr;
 	int quest_species_idx = 0;
+
 	old_floor_ptr = &floor_list[creature_ptr->floor_id];
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &f_info[stair_ptr->feat];
@@ -496,45 +497,46 @@ void move_floor(creature_type *creature_ptr)
 
 		new_floor_ptr->dun_type = 4; // TODO
 
+		// Mark shaft up/down
+		if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
+		{
+			prepare_change_floor_mode(creature_ptr, CFM_SHAFT);
+		}
+
+		// Climb up/down some sort of stairs
+		if (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
+		{
+			int move_num = 0;
+
+			// Extract level movement number
+			if      (creature_ptr->change_floor_mode & CFM_DOWN) move_num = 1;
+			else if (creature_ptr->change_floor_mode & CFM_UP)   move_num = -1;
+
+			// Shafts are deeper than normal stairs
+			if (creature_ptr->change_floor_mode & CFM_SHAFT)
+				move_num += SGN(move_num);
+
+			// Get out from or Enter the dungeon
+			if (creature_ptr->change_floor_mode & CFM_DOWN)
+			{
+				if (!old_floor_ptr->floor_level)
+					move_num = dungeon_info[old_floor_ptr->dun_type].mindepth;
+			}
+			else if (creature_ptr->change_floor_mode & CFM_UP)
+			{
+				if (old_floor_ptr->floor_level + move_num < dungeon_info[old_floor_ptr->dun_type].mindepth)
+					move_num = -old_floor_ptr->floor_level;
+			}
+
+			new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
+		}
+
 		change_floor(new_floor_ptr, creature_ptr);
 		creature_ptr->floor_id = floor_id;
 	}
 
-	// Mark shaft up/down
-	if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
-	{
-		prepare_change_floor_mode(creature_ptr, CFM_SHAFT);
-	}
 
-	// Climb up/down some sort of stairs
-	if (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
-	{
-		int move_num = 0;
-
-		// Extract level movement number
-		if      (creature_ptr->change_floor_mode & CFM_DOWN) move_num = 1;
-		else if (creature_ptr->change_floor_mode & CFM_UP)   move_num = -1;
-
-		// Shafts are deeper than normal stairs
-		if (creature_ptr->change_floor_mode & CFM_SHAFT)
-			move_num += SGN(move_num);
-
-		// Get out from or Enter the dungeon
-		if (creature_ptr->change_floor_mode & CFM_DOWN)
-		{
-			if (!old_floor_ptr->floor_level)
-				move_num = dungeon_info[old_floor_ptr->dun_type].mindepth;
-		}
-		else if (creature_ptr->change_floor_mode & CFM_UP)
-		{
-			if (old_floor_ptr->floor_level + move_num < dungeon_info[old_floor_ptr->dun_type].mindepth)
-				move_num = -old_floor_ptr->floor_level;
-		}
-
-		new_floor_ptr->floor_level = old_floor_ptr->floor_level + move_num;
-		creature_ptr->depth += move_num;
-	}
-
+	/*
 	// Leaving the dungeon to town
 	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
 	{
@@ -557,6 +559,7 @@ void move_floor(creature_type *creature_ptr)
 	{
 		kill_floor(old_floor_ptr);
 	}
+	*/
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat))
 		stair_ptr->special = floor_id; // Connect from here
@@ -584,7 +587,6 @@ void move_floor(creature_type *creature_ptr)
 
 	if(is_player(creature_ptr))
 		current_floor_ptr = new_floor_ptr;
-
 }
 
 
