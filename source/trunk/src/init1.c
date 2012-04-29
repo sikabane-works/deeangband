@@ -5768,32 +5768,31 @@ static errr parse_line_building(char *buf)
 /*
  * Place the object j_ptr to a grid
  */
-static void drop_here(object_type *j_ptr, int y, int x)
+static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	object_type *o_ptr;
 
-	/* Get new object */
+	// Get new object
 	s16b object_idx = object_pop();
 
-	/* Access new object */
+	// Access new object
 	o_ptr = &object_list[object_idx];
 
-	/* Structure copy */
+	// Structure copy
 	object_copy(o_ptr, j_ptr);
 
-
-	/* Locate */
+	// Locate
 	o_ptr->fy = y;
 	o_ptr->fx = x;
 
-	/* No monster */
+	// No monster
 	o_ptr->held_m_idx = 0;
 
-	/* Build a stack */
+	// Build a stack
 	o_ptr->next_object_idx = c_ptr->object_idx;
 
-	/* Place the object */
+	// Place the object
 	c_ptr->object_idx = object_idx;
 }
 
@@ -5985,7 +5984,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				/* Apply magic (no messages, no artifacts) */
 				apply_magic(player_ptr, o_ptr, floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
-				drop_here(o_ptr, *y, *x);
+				drop_here(floor_ptr, o_ptr, *y, *x);
 			}
 
 			/* Artifact */
@@ -6000,7 +5999,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 					object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
 					/* Drop it in the dungeon */
-					drop_here(q_ptr, *y, *x);
+					drop_here(floor_ptr, q_ptr, *y, *x);
 				}
 				else
 				{
@@ -6711,11 +6710,10 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		cptr oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 		msg_format("Error %d (%s) at line %d of '%s'.", err, oops, num, name);
 #ifdef JP
-msg_format("'%s'‚ğ‰ğÍ’†B", buf);
+		msg_format("'%s'‚ğ‰ğÍ’†B", buf);
 #else
 		msg_format("Parsing '%s'.", buf);
 #endif
-
 		msg_print(NULL);
 	}
 
