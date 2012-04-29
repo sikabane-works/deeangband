@@ -162,7 +162,7 @@ static bool alloc_stairs_aux(int y, int x, int walls)
 /*
  * Places some staircases near walls
  */
-static bool alloc_stairs(int feat, int num, int walls)
+static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 {
 	int i;
 	int shaft_num = 0;
@@ -172,17 +172,17 @@ static bool alloc_stairs(int feat, int num, int walls)
 	if (have_flag(f_ptr->flags, FF_LESS))
 	{
 		/* No up stairs in town or in ironman mode */
-		if (ironman_downward || !current_floor_ptr->floor_level) return TRUE;
+		if (ironman_downward || !floor_ptr->floor_level) return TRUE;
 
-		if (current_floor_ptr->floor_level > dungeon_info[current_floor_ptr->dun_type].mindepth)
+		if (floor_ptr->floor_level > dungeon_info[floor_ptr->dun_type].mindepth)
 			shaft_num = (randint1(num+1))/2;
 	}
 	else if (have_flag(f_ptr->flags, FF_MORE))
 	{
-		int q_idx = quest_number(current_floor_ptr->floor_level);
+		int q_idx = quest_number(floor_ptr->floor_level);
 
 		/* No downstairs on quest levels */
-		if (current_floor_ptr->floor_level > 1 && q_idx)
+		if (floor_ptr->floor_level > 1 && q_idx)
 		{
 			species_type *r_ptr = &species_info[quest[q_idx].species_idx];
 
@@ -192,9 +192,9 @@ static bool alloc_stairs(int feat, int num, int walls)
 		}
 
 		/* No downstairs at the bottom */
-		if (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth) return TRUE;
+		if (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth) return TRUE;
 
-		if ((current_floor_ptr->floor_level < dungeon_info[current_floor_ptr->dun_type].maxdepth-1) && !quest_number(current_floor_ptr->floor_level+1))
+		if ((floor_ptr->floor_level < dungeon_info[floor_ptr->dun_type].maxdepth-1) && !quest_number(floor_ptr->floor_level+1))
 			shaft_num = (randint1(num)+1)/2;
 	}
 
@@ -213,9 +213,9 @@ static bool alloc_stairs(int feat, int num, int walls)
 			int candidates = 0;
 			int pick;
 
-			for (y = 1; y < current_floor_ptr->height - 1; y++)
+			for (y = 1; y < floor_ptr->height - 1; y++)
 			{
-				for (x = 1; x < current_floor_ptr->width - 1; x++)
+				for (x = 1; x < floor_ptr->width - 1; x++)
 				{
 					if (alloc_stairs_aux(y, x, walls))
 					{
@@ -239,9 +239,9 @@ static bool alloc_stairs(int feat, int num, int walls)
 			/* Choose a random one */
 			pick = randint1(candidates);
 
-			for (y = 1; y < current_floor_ptr->height - 1; y++)
+			for (y = 1; y < floor_ptr->height - 1; y++)
 			{
-				for (x = 1; x < current_floor_ptr->width - 1; x++)
+				for (x = 1; x < floor_ptr->width - 1; x++)
 				{
 					if (alloc_stairs_aux(y, x, walls))
 					{
@@ -256,7 +256,7 @@ static bool alloc_stairs(int feat, int num, int walls)
 			}
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Clear possible garbage of hidden trap */
 			c_ptr->mimic = 0;
@@ -791,10 +791,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		build_maze_vault(floor_ptr, floor_ptr->width / 2 - 1, floor_ptr->height / 2 - 1, floor_ptr->width - 4, floor_ptr->height - 4, FALSE);
 
 		/* Place 3 or 4 down stairs near some walls */
-		if (!alloc_stairs(feat_down_stair, rand_range(2, 3), 3)) return FALSE;
+		if (!alloc_stairs(floor_ptr, feat_down_stair, rand_range(2, 3), 3)) return FALSE;
 
 		/* Place 1 or 2 up stairs near some walls */
-		if (!alloc_stairs(feat_up_stair, 1, 3)) return FALSE;
+		if (!alloc_stairs(floor_ptr, feat_up_stair, 1, 3)) return FALSE;
 	}
 
 	// Build some rooms
@@ -974,11 +974,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 
 		/* Place some down stairs near some walls */
-		if (!alloc_stairs(feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
+		if (!alloc_stairs(floor_ptr, feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
 
 		/* Place some up stairs near some walls */
-		if (!alloc_stairs(feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) /
-			8 , 3)) return FALSE;
+		if (!alloc_stairs(floor_ptr, feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
 	}
 
 	if (!dungeon_ptr->laketype)
