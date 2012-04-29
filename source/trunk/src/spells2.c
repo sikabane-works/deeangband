@@ -5297,7 +5297,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					{
 						yy = y + ddy_ddd[i];
 						xx = x + ddx_ddd[i];
-						if (!in_bounds2(yy, xx)) continue;
+						if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
 						cc_ptr = &current_floor_ptr->cave[yy][xx];
 						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
@@ -5831,7 +5831,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				{
 					yyy = yy + ddy_ddd[ii];
 					xxx = xx + ddx_ddd[ii];
-					if (!in_bounds2(yyy, xxx)) continue;
+					if (!in_bounds2(current_floor_ptr, yyy, xxx)) continue;
 					cc_ptr = &current_floor_ptr->cave[yyy][xxx];
 					if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 					{
@@ -6068,7 +6068,7 @@ static void cave_temp_room_unlite(void)
 					int by = y + ddy_ddd[j];
 					int bx = x + ddx_ddd[j];
 
-					if (in_bounds2(by, bx))
+					if (in_bounds2(current_floor_ptr, by, bx))
 					{
 						cave_type *cc_ptr = &current_floor_ptr->cave[by][bx];
 
@@ -6191,7 +6191,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		if (only_room) return;
 
 		/* Verify */
-		if (!in_bounds2(y, x)) return;
+		if (!in_bounds2(current_floor_ptr, y, x)) return;
 
 		/* Do not exceed the maximum spell range */
 		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;

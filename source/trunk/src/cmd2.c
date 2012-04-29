@@ -3761,7 +3761,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 							/* Stopped by wilderness boundary */
-							if (!in_bounds2(ny, nx)) break;
+							if (!in_bounds2(current_floor_ptr, ny, nx)) break;
 
 							/* Stopped by walls/doors */
 							if (!player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0)) break;

@@ -3960,17 +3960,13 @@
 	((int)((G) % 256U))
 
 
-/*
- * Determines if a map location is fully inside the outer walls
- */
+// Determines if a map location is fully inside the outer walls
 #define in_bounds(FLOOR, Y, X) \
    (((Y) > 0) && ((X) > 0) && ((Y) < (FLOOR)->height - 1) && ((X) < (FLOOR)->width - 1))
 
-/*
- * Determines if a map location is on or inside the outer walls
- */
-#define in_bounds2(Y,X) \
-   (((Y) >= 0) && ((X) >= 0) && ((Y) < current_floor_ptr->height) && ((X) < current_floor_ptr->width))
+// Determines if a map location is on or inside the outer walls
+#define in_bounds2(FLOOR, Y, X) \
+   (((Y) >= 0) && ((X) >= 0) && ((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
 /*
  * Determines if a map location is on or inside the outer walls
@@ -3981,7 +3977,7 @@
 
 /*
  * Determines if a map location is currently "on screen" -RAK-
- * Note that "panel_contains(Y,X)" always implies "in_bounds2(Y,X)".
+ * Note that "panel_contains(Y,X)" always implies "in_bounds2(current_floor_ptr, Y,X)".
  */
 #define panel_contains(Y,X) \
   (((Y) >= panel_row_min) && ((Y) <= panel_row_max) && \

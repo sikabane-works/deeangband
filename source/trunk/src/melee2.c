@@ -304,7 +304,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(y, x)) continue;
+		if (!in_bounds2(current_floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
 		if (creature_bold(player_ptr, y, x)) return (FALSE);
@@ -430,7 +430,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(y, x)) continue;
+		if (!in_bounds2(current_floor_ptr, y, x)) continue;
 
 		c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -504,7 +504,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		x = fx + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(y, x)) continue;
+		if (!in_bounds2(current_floor_ptr, y, x)) continue;
 
 		/* Don't move toward player */
 		/* if (current_floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
@@ -898,7 +898,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				int xx = player_ptr->fx + ddx_ddd[i];
 				int yy = player_ptr->fy + ddy_ddd[i];
 
-				if (!in_bounds2(yy, xx)) continue;
+				if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
 
 				c_ptr = &current_floor_ptr->cave[yy][xx];
 
@@ -946,7 +946,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 					break;
 				}
 
-				if (!in_bounds2(y2, x2)) continue;
+				if (!in_bounds2(current_floor_ptr, y2, x2)) continue;
 
 				/* Ignore filled grids */
 				if (!creature_can_enter(y2, x2, nonplayer_ptr, 0)) continue;
@@ -1618,7 +1618,7 @@ static void process_creature(int m_idx)
 			for (x = ox - 1; x <= ox + 1; x++)
 			{
 				/* Ignore locations off of edge */
-				if (!in_bounds2(y, x)) continue;
+				if (!in_bounds2(current_floor_ptr, y, x)) continue;
 
 				if (current_floor_ptr->cave[y][x].creature_idx) k++;
 			}
@@ -1928,7 +1928,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		nx = ox + ddx[d];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(ny, nx)) continue;
+		if (!in_bounds2(current_floor_ptr, ny, nx)) continue;
 
 		/* Access that cave grid */
 		c_ptr = &current_floor_ptr->cave[ny][nx];

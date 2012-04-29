@@ -1569,7 +1569,7 @@ void display_dungeon(creature_type *cr_ptr)
 	{
 		for (y = cr_ptr->fy - Term->hgt / 2 + 1; y <= cr_ptr->fy + Term->hgt / 2; y++)
 		{
-			if (in_bounds2(y, x))
+			if (in_bounds2(current_floor_ptr, y, x))
 			{
 
 				/* Examine the grid */
@@ -1615,7 +1615,7 @@ void display_dungeon(creature_type *cr_ptr)
 void lite_spot(int y, int x)
 {
 	/* Redraw if on screen */
-	if (panel_contains(y, x) && in_bounds2(y, x))
+	if (panel_contains(y, x) && in_bounds2(current_floor_ptr, y, x))
 	{
 		byte a;
 		char c;
@@ -2828,7 +2828,7 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 	int       midpoint, dpf, d;
 
 	/* We trust this grid is in bounds */
-	/* if (!in_bounds2(y, x)) return; */
+	/* if (!in_bounds2(current_floor_ptr, y, x)) return; */
 
 	c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -2909,7 +2909,7 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 	int       midpoint, dpf, d;
 
 	/* We trust this grid is in bounds */
-	/* if (!in_bounds2(y, x)) return; */
+	/* if (!in_bounds2(current_floor_ptr, y, x)) return; */
 
 	c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -4570,7 +4570,7 @@ void cave_set_feat(int y, int x, int feat)
 			{
 				yy = y + ddy_ddd[i];
 				xx = x + ddx_ddd[i];
-				if (!in_bounds2(yy, xx)) continue;
+				if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
 				current_floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 			}
 		}
@@ -4635,7 +4635,7 @@ void cave_set_feat(int y, int x, int feat)
 		{
 			yy = y + ddy_ddd[i];
 			xx = x + ddx_ddd[i];
-			if (!in_bounds2(yy, xx)) continue;
+			if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
 			cc_ptr = &current_floor_ptr->cave[yy][xx];
 			cr_ptr = &creature_list[cc_ptr->creature_idx];
 			cc_ptr->info |= CAVE_GLOW;
@@ -5108,7 +5108,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 				{
 					yy = y + ddy_ddd[i];
 					xx = x + ddx_ddd[i];
-					if (!in_bounds2(yy, xx)) continue;
+					if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
 					floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 				}
 			}

@@ -4407,7 +4407,7 @@ static int see_wall(creature_type *cr_ptr, int dir, int y, int x)
 	x += ddx[dir];
 
 	/* Illegal grids are not known walls */
-	if (!in_bounds2(y, x)) return (FALSE);
+	if (!in_bounds2(current_floor_ptr, y, x)) return (FALSE);
 
 	/* Access grid */
 	c_ptr = &current_floor_ptr->cave[y][x];
@@ -4445,7 +4445,7 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	x += ddx[dir];
 
 	/* Illegal grids are unknown */
-	if (!in_bounds2(y, x)) return (TRUE);
+	if (!in_bounds2(current_floor_ptr, y, x)) return (TRUE);
 
 	/* Memorized grids are always known */
 	if (current_floor_ptr->cave[y][x].info & (CAVE_MARK)) return (FALSE);
