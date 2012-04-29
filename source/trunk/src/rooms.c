@@ -680,7 +680,7 @@ static bool build_type1(floor_type *floor_ptr)
 /*
  * Type 2 -- Overlapping rectangular rooms
  */
-static bool build_type2(void)
+static bool build_type2(floor_type *floor_ptr)
 {
 	int			y, x, xval, yval;
 	int			y1a, x1a, y2a, x2a;
@@ -692,7 +692,7 @@ static bool build_type2(void)
 	if (!find_space(&yval, &xval, 25, 25)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Determine extents of the first room */
 	y1a = yval - randint1(10);
@@ -713,7 +713,7 @@ static bool build_type2(void)
 	{
 		for (x = x1a - 1; x <= x2a + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
 			if (light) c_ptr->info |= (CAVE_GLOW);
@@ -725,7 +725,7 @@ static bool build_type2(void)
 	{
 		for (x = x1b - 1; x <= x2b + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
 			if (light) c_ptr->info |= (CAVE_GLOW);
@@ -736,32 +736,32 @@ static bool build_type2(void)
 	/* Place the walls around room "a" */
 	for (y = y1a - 1; y <= y2a + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1a - 1];
+		c_ptr = &floor_ptr->cave[y][x1a - 1];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2a + 1];
+		c_ptr = &floor_ptr->cave[y][x2a + 1];
 		place_outer_grid(c_ptr);
 	}
 	for (x = x1a - 1; x <= x2a + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1a - 1][x];
+		c_ptr = &floor_ptr->cave[y1a - 1][x];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2a + 1][x];
+		c_ptr = &floor_ptr->cave[y2a + 1][x];
 		place_outer_grid(c_ptr);
 	}
 
 	/* Place the walls around room "b" */
 	for (y = y1b - 1; y <= y2b + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1b - 1];
+		c_ptr = &floor_ptr->cave[y][x1b - 1];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2b + 1];
+		c_ptr = &floor_ptr->cave[y][x2b + 1];
 		place_outer_grid(c_ptr);
 	}
 	for (x = x1b - 1; x <= x2b + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1b - 1][x];
+		c_ptr = &floor_ptr->cave[y1b - 1][x];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2b + 1][x];
+		c_ptr = &floor_ptr->cave[y2b + 1][x];
 		place_outer_grid(c_ptr);
 	}
 
@@ -772,7 +772,7 @@ static bool build_type2(void)
 	{
 		for (x = x1a; x <= x2a; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 		}
 	}
@@ -782,7 +782,7 @@ static bool build_type2(void)
 	{
 		for (x = x1b; x <= x2b; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 		}
 	}
@@ -6277,14 +6277,14 @@ static bool build_type15(void)
  * Note that we restrict the number of "crowded" rooms to reduce
  * the chance of overflowing the monster list during level creation.
  */
-static bool room_build(int typ)
+static bool room_build(floor_type *floor_ptr, int typ)
 {
 	/* Build a room */
 	switch (typ)
 	{
 	/* Build an appropriate room */
-	case ROOM_T_NORMAL:        return build_type1(current_floor_ptr);
-	case ROOM_T_OVERLAP:       return build_type2();
+	case ROOM_T_NORMAL:        return build_type1(floor_ptr);
+	case ROOM_T_OVERLAP:       return build_type2(floor_ptr);
 	case ROOM_T_CROSS:         return build_type3();
 	case ROOM_T_INNER_FEAT:    return build_type4();
 	case ROOM_T_NEST:          return build_type5();
@@ -6472,7 +6472,7 @@ bool generate_rooms(floor_type *floor_ptr)
 			room_num[room_type]--;
 
 			/* Build the room. */
-			if (room_build(room_type))
+			if (room_build(floor_ptr, room_type))
 			{
 				/* Increase the room built count. */
 				rooms_built++;
