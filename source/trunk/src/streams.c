@@ -140,7 +140,7 @@ static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2
 /*
  * Places water /lava through dungeon.
  */
-void add_river(int feat1, int feat2)
+void add_river(floor_type *floor_ptr, int feat1, int feat2)
 {
 	int y2, x2;
 	int y1 = 0, x1 = 0;
@@ -148,8 +148,8 @@ void add_river(int feat1, int feat2)
 
 
 	/* Hack -- Choose starting point */
-	y2 = randint1(current_floor_ptr->height / 2 - 2) + current_floor_ptr->height / 2;
-	x2 = randint1(current_floor_ptr->width / 2 - 2) + current_floor_ptr->width / 2;
+	y2 = randint1(floor_ptr->height / 2 - 2) + floor_ptr->height / 2;
+	x2 = randint1(floor_ptr->width / 2 - 2) + floor_ptr->width / 2;
 
 	/* Hack -- Choose ending point somewhere on boundary */
 	switch(randint1(4))
@@ -157,7 +157,7 @@ void add_river(int feat1, int feat2)
 		case 1:
 		{
 			/* top boundary */
-			x1 = randint1(current_floor_ptr->width-2)+1;
+			x1 = randint1(floor_ptr->width-2)+1;
 			y1 = 1;
 			break;
 		}
@@ -165,21 +165,21 @@ void add_river(int feat1, int feat2)
 		{
 			/* left boundary */
 			x1 = 1;
-			y1 = randint1(current_floor_ptr->height-2)+1;
+			y1 = randint1(floor_ptr->height-2)+1;
 			break;
 		}
 		case 3:
 		{
 			/* right boundary */
-			x1 = current_floor_ptr->width-1;
-			y1 = randint1(current_floor_ptr->height-2)+1;
+			x1 = floor_ptr->width-1;
+			y1 = randint1(floor_ptr->height-2)+1;
 			break;
 		}
 		case 4:
 		{
 			/* bottom boundary */
-			x1 = randint1(current_floor_ptr->width-2)+1;
-			y1 = current_floor_ptr->height-1;
+			x1 = randint1(floor_ptr->width-2)+1;
+			y1 = floor_ptr->height-1;
 			break;
 		}
 	}

@@ -855,7 +855,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 				    ((dungeon_ptr->laketype == LAKE_T_WATER) && have_flag(f_ptr->flags, FF_WATER)) ||
 				     !dungeon_ptr->laketype)
 				{
-					add_river(feat1, feat2);
+					add_river(floor_ptr, feat1, feat2);
 				}
 			}
 		}
