@@ -6649,6 +6649,8 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
+		current_floor_ptr = &floor_list[player_ptr->floor_id];
+
 		if (!floor_generated) change_floor(current_floor_ptr, player_ptr);
 		if (panic_save) panic_save = 0; // TODO
 
