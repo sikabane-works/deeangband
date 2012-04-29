@@ -1215,7 +1215,7 @@ extern void set_target(creature_type *m_ptr, int y, int x);
 extern void reset_target(creature_type *m_ptr);
 extern species_type *real_species_ptr(creature_type *m_ptr);
 extern void delete_species_idx(creature_type *creature_ptr);
-extern void delete_creature(int y, int x);
+extern void delete_creature(floor_type *floor_ptr, int y, int x);
 extern void compact_creatures(int size);
 extern void birth_uniques(void);
 

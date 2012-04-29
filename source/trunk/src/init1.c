@@ -6129,7 +6129,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 					int y, x;
 
 					/* Delete the monster (if any) */
-					delete_creature(player_ptr->fy, player_ptr->fx);
+					delete_creature(current_floor_ptr, player_ptr->fy, player_ptr->fx);
 
 					y = atoi(zz[0]);
 					x = atoi(zz[1]);

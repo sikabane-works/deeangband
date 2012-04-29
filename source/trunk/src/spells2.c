@@ -5137,7 +5137,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				if (in_generate) /* In generation */
 				{
 					/* Delete the monster (if any) */
-					delete_creature(y, x);
+					delete_creature(current_floor_ptr, y, x);
 				}
 				else if (is_quest_species(r_ptr))
 				{
@@ -5158,7 +5158,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					}
 
 					/* Delete the monster (if any) */
-					delete_creature(y, x);
+					delete_creature(current_floor_ptr, y, x);
 				}
 			}
 
@@ -5706,7 +5706,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						}
 
 						/* Delete the monster */
-						delete_creature(yy, xx);
+						delete_creature(current_floor_ptr, yy, xx);
 
 						/* No longer safe */
 						sn = 0;
