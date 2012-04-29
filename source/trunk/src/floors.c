@@ -456,7 +456,6 @@ void leave_floor(creature_type *creature_ptr)
 	feature_type *feature_ptr;
 	floor_type *old_floor_ptr, *new_floor_ptr;
 	int quest_species_idx = 0;
-
 	old_floor_ptr = &floor_list[creature_ptr->floor_id];
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &f_info[stair_ptr->feat];
@@ -491,12 +490,14 @@ void leave_floor(creature_type *creature_ptr)
 	if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
+		creature_ptr->floor_id = stair_ptr->special;
 	}
 	else // Create New Floor
 	{
 		floor_id = floor_pop(); // Get new id
 		new_floor_ptr = &floor_list[stair_ptr->special];
 		change_floor(new_floor_ptr, player_ptr);
+		creature_ptr->floor_id = floor_id;
 	}
 
 	// Mark shaft up/down
@@ -583,7 +584,7 @@ void leave_floor(creature_type *creature_ptr)
 	}
 
 	if(is_player(creature_ptr))
-		current_floor_ptr = &floor_list[player_ptr->floor_id];
+		current_floor_ptr = new_floor_ptr;
 
 }
 
