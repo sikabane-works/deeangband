@@ -899,7 +899,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			else
 			{
 				/* make normal tunnel */
-				if (!build_tunnel(dungeon_ptr->cent[i].y, dungeon_ptr->cent[i].x, y, x)) tunnel_fail_count++;
+				if (!build_tunnel(floor_ptr, dungeon_ptr->cent[i].y, dungeon_ptr->cent[i].x, y, x)) tunnel_fail_count++;
 			}
 
 			if (tunnel_fail_count >= 2) return FALSE;

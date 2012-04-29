@@ -562,7 +562,7 @@ void set_floor(int x, int y)
  *   outer -- outer room walls
  *   solid -- solid room walls
  */
-bool build_tunnel(int row1, int col1, int row2, int col2)
+bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 {
 	int y, x;
 	int tmp_row, tmp_col;
@@ -606,7 +606,7 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 
 
 		/* Extremely Important -- do not leave the dungeon */
-		while (!in_bounds(current_floor_ptr, tmp_row, tmp_col))
+		while (!in_bounds(floor_ptr, tmp_row, tmp_col))
 		{
 			/* Acquire the correct direction */
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
@@ -624,7 +624,7 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 
 
 		/* Access the location */
-		c_ptr = &current_floor_ptr->cave[tmp_row][tmp_col];
+		c_ptr = &floor_ptr->cave[tmp_row][tmp_col];
 
 		/* Avoid "solid" walls */
 		if (is_solid_grid(c_ptr)) continue;
