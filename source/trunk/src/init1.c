@@ -5801,7 +5801,7 @@ static void drop_here(object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
+static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
 {
 	int i;
 
@@ -5825,7 +5825,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 	if (buf[0] == '%')
 	{
 		// Attempt to Process the given file
-		return (process_dungeon_file(current_floor_ptr, buf + 2, ymin, xmin, ymax, xmax));
+		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax));
 	}
 
 	/* Process "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
@@ -5850,7 +5850,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 		for (*x = xmin, i = 0; ((*x < xmax) && (i < len)); (*x)++, s++, i++)
 		{
 			/* Access the grid */
-			cave_type *c_ptr = &current_floor_ptr->cave[*y][*x];
+			cave_type *c_ptr = &floor_ptr->cave[*y][*x];
 
 			int idx = s[0];
 
@@ -5873,11 +5873,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Create a monster */
 			if (random & RANDOM_MONSTER)
 			{
-				current_floor_ptr->creature_level = current_floor_ptr->base_level + monster_index;
+				floor_ptr->creature_level = floor_ptr->base_level + monster_index;
 
 				place_creature(NULL, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 
-				current_floor_ptr->creature_level = current_floor_ptr->base_level;
+				floor_ptr->creature_level = floor_ptr->base_level;
 			}
 			else if (monster_index)
 			{
@@ -5925,7 +5925,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Object (and possible trap) */
 			if ((random & RANDOM_OBJECT) && (random & RANDOM_TRAP))
 			{
-				current_floor_ptr->object_level = current_floor_ptr->base_level + object_index;
+				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
 				/*
 				 * Random trap and random treasure defined
@@ -5940,11 +5940,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					place_trap(*y, *x);
 				}
 
-				current_floor_ptr->object_level = current_floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->base_level;
 			}
 			else if (random & RANDOM_OBJECT)
 			{
-				current_floor_ptr->object_level = current_floor_ptr->base_level + object_index;
+				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
 				/* Create an out of deep object */
 				if (randint0(100) < 75)
@@ -5954,7 +5954,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				else
 					place_object(*y, *x, AM_GOOD | AM_GREAT);
 
-				current_floor_ptr->object_level = current_floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->base_level;
 			}
 			/* Random trap */
 			else if (random & RANDOM_TRAP)
@@ -5983,7 +5983,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				}
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(player_ptr, o_ptr, current_floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(player_ptr, o_ptr, floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				drop_here(o_ptr, *y, *x);
 			}
@@ -6114,15 +6114,15 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				/* Hack - Set the dungeon size */
 				panels_y = (*y / SCREEN_HGT);
 				if (*y % SCREEN_HGT) panels_y++;
-				current_floor_ptr->height = panels_y * SCREEN_HGT;
+				floor_ptr->height = panels_y * SCREEN_HGT;
 
 				panels_x = (*x / SCREEN_WID);
 				if (*x % SCREEN_WID) panels_x++;
-				current_floor_ptr->width = panels_x * SCREEN_WID;
+				floor_ptr->width = panels_x * SCREEN_WID;
 
 				/* Assume illegal panel */
-				panel_row_min = current_floor_ptr->height;
-				panel_col_min = current_floor_ptr->width;
+				panel_row_min = floor_ptr->height;
+				panel_col_min = floor_ptr->width;
 
 				/* Place player in a quest level */
 				if (inside_quest)
@@ -6676,7 +6676,6 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		/* Skip comments */
 		if (buf[0] == '#') continue;
 
-
 		/* Process "?:<expr>" */
 		if ((buf[0] == '?') && (buf[1] == ':'))
 		{
@@ -6701,21 +6700,15 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		if (bypass) continue;
 
 		/* Process the line */
-		err = process_dungeon_file_aux(buf, ymin, xmin, ymax, xmax, &y, &x);
+		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x);
 
-		/* Oops */
 		if (err) break;
 	}
 
-	/* Errors */
+	// Errors
 	if (err)
 	{
-		cptr oops;
-
-		/* Error string */
-		oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
-
-		/* Oops */
+		cptr oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 		msg_format("Error %d (%s) at line %d of '%s'.", err, oops, num, name);
 #ifdef JP
 msg_format("'%s'‚ð‰ðÍ’†B", buf);
@@ -6726,11 +6719,7 @@ msg_format("'%s'‚ð‰ðÍ’†B", buf);
 		msg_print(NULL);
 	}
 
-
-	/* Close the file */
 	my_fclose(fp);
-
-	/* Result */
 	return (err);
 }
 

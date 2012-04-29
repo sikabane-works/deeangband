@@ -582,6 +582,9 @@ void leave_floor(creature_type *creature_ptr)
 		clear_creature_lite(current_floor_ptr);
 	}
 
+	if(is_player(creature_ptr))
+		current_floor_ptr = &floor_list[player_ptr->floor_id];
+
 }
 
 

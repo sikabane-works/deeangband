@@ -401,7 +401,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 
 	/* Init the wilderness */
 
-	process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
+	process_dungeon_file(floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
 	x = player_ptr->wx;
 	y = player_ptr->wy;
