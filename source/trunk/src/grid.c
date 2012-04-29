@@ -137,7 +137,7 @@ void place_random_door(int y, int x, bool room)
 
 	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 		return;
 	}
 
@@ -196,7 +196,7 @@ void place_random_door(int y, int x, bool room)
 		}
 		else
 		{
-			place_floor_bold(y, x);
+			place_floor_bold(current_floor_ptr, y, x);
 		}
 	}
 
@@ -214,7 +214,7 @@ void place_closed_door(int y, int x, int type)
 
 	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 		return;
 	}
 
@@ -251,7 +251,7 @@ void place_closed_door(int y, int x, int type)
 	}
 	else
 	{
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 	}
 }
 
@@ -268,7 +268,7 @@ void place_floor(int x1, int x2, int y1, int y2, bool light)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			place_floor_bold(y, x);
+			place_floor_bold(current_floor_ptr, y, x);
 			add_cave_info(y, x, CAVE_ROOM);
 			if (light) add_cave_info(y, x, CAVE_GLOW);
 		}
@@ -527,7 +527,7 @@ void set_floor(int x, int y)
 
 	/* Set to be floor if is a wall (don't touch lakes). */
 	if (is_extra_bold(y, x))
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 }
 
 
@@ -812,7 +812,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		/* Clear mimic type */
 		current_floor_ptr->cave[*y][*x].mimic = 0;
 
-		place_floor_bold(*y, *x);
+		place_floor_bold(current_floor_ptr, *y, *x);
 
 		return TRUE;
 	}

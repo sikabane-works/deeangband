@@ -752,7 +752,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		{
 			for (x = 0; x < floor_ptr->width; x++)
 			{
-				place_floor_bold(y, x);
+				place_floor_bold(floor_ptr, y, x);
 			}
 		}
 

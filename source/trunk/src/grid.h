@@ -37,10 +37,10 @@
 #define is_outer_grid(C) ((C)->info & CAVE_OUTER)
 #define is_solid_grid(C) ((C)->info & CAVE_SOLID)
 
-#define place_floor_bold(Y, X) \
+#define place_floor_bold(FLOOR, Y, X) \
 { \
 	set_cave_feat(Y,X,feat_floor_rand_table[randint0(100)]); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_FLOOR); \
 	delete_creature(Y, X); \
 }

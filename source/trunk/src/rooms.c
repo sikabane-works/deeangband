@@ -79,7 +79,7 @@ static void place_locked_door(int y, int x)
 {
 	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 	}
 	else
 	{
@@ -93,7 +93,7 @@ static void place_secret_door(int y, int x, int type)
 {
 	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(y, x);
+		place_floor_bold(current_floor_ptr, y, x);
 	}
 	else
 	{
@@ -166,7 +166,7 @@ static void build_small_room(int x0, int y0)
 	current_floor_ptr->cave[y0][x0].mimic = 0;
 
 	/* Add inner open space */
-	place_floor_bold(y0, x0);
+	place_floor_bold(current_floor_ptr, y0, x0);
 }
 
 
@@ -3926,7 +3926,7 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 		{
 			for (y = 0; y <= ysize; ++y)
 			{
-				place_floor_bold(y0 + y - yhsize, x0 + x - xhsize);
+				place_floor_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 				current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY);
 			}
 		}
@@ -4347,7 +4347,7 @@ static void build_bubble_vault(int x0, int y0, int xsize, int ysize)
 			else
 			{
 				/* middle of a bubble */
-				place_floor_bold(y0 - yhsize + y, x0 - xhsize + x);
+				place_floor_bold(current_floor_ptr, y0 - yhsize + y, x0 - xhsize + x);
 			}
 
 			/* clean up rest of flags */
@@ -4429,7 +4429,7 @@ static void build_room(int x1, int x2, int y1, int y2)
 			if (is_extra_bold(y1+y, x1+x))
 			{
 				/* clear the untouched region */
-				place_floor_bold(y1 + y, x1 + x);
+				place_floor_bold(current_floor_ptr, y1 + y, x1 + x);
 				current_floor_ptr->cave[y1 + y][x1 + x].info |= (CAVE_ROOM | CAVE_ICKY);
 			}
 			else
@@ -4571,7 +4571,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 	visited[node] = 1;
 	x = 2 * (node % m) + x1;
 	y = 2 * (node / m) + y1;
-	place_floor_bold(y, x);
+	place_floor_bold(current_floor_ptr, y, x);
 
 	/* setup order of adjacent node visits */
 	if (one_in_(3))
@@ -4611,7 +4611,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 				/* (0,+) - check for bottom boundary */
 				if ((node / m < n - 1) && (visited[node + m] == 0))
 				{
-					place_floor_bold(y + 1, x);
+					place_floor_bold(current_floor_ptr, y + 1, x);
 					r_visit(y1, x1, y2, x2, node + m, dir, visited);
 				}
 				break;
@@ -4619,7 +4619,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 				/* (0,-) - check for top boundary */
 				if ((node / m > 0) && (visited[node - m] == 0))
 				{
-					place_floor_bold(y - 1, x);
+					place_floor_bold(current_floor_ptr, y - 1, x);
 					r_visit(y1, x1, y2, x2, node - m, dir, visited);
 				}
 				break;
@@ -4627,7 +4627,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 				/* (+,0) - check for right boundary */
 				if ((node % m < m - 1) && (visited[node + 1] == 0))
 				{
-					place_floor_bold(y, x + 1);
+					place_floor_bold(current_floor_ptr, y, x + 1);
 					r_visit(y1, x1, y2, x2, node + 1, dir, visited);
 				}
 				break;
@@ -4635,7 +4635,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 				/* (-,0) - check for left boundary */
 				if ((node % m > 0) && (visited[node - 1] == 0))
 				{
-					place_floor_bold(y, x - 1);
+					place_floor_bold(current_floor_ptr, y, x - 1);
 					r_visit(y1, x1, y2, x2, node - 1, dir, visited);
 				}
 		} /* end switch */
@@ -4905,15 +4905,15 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			{
 				/* left and right */
 				y = randint1(ysize) + y1;
-				place_floor_bold(y, x1);
-				place_floor_bold(y, x2);
+				place_floor_bold(current_floor_ptr, y, x1);
+				place_floor_bold(current_floor_ptr, y, x2);
 			}
 			else
 			{
 				/* top and bottom */
 				x = randint1(xsize) + x1;
-				place_floor_bold(y1, x);
-				place_floor_bold(y2, x);
+				place_floor_bold(current_floor_ptr, y1, x);
+				place_floor_bold(current_floor_ptr, y2, x);
 			}
 
 			/* Select size of keep */
@@ -4981,12 +4981,12 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			if (one_in_(2))
 			{
 				/* left */
-				place_floor_bold(y, x1 + 1);
+				place_floor_bold(current_floor_ptr, y, x1 + 1);
 			}
 			else
 			{
 				/* right */
-				place_floor_bold(y, x2 - 1);
+				place_floor_bold(current_floor_ptr, y, x2 - 1);
 			}
 
 			/* Build the room */
@@ -5070,7 +5070,7 @@ static void build_castle_vault(int x0, int y0, int xsize, int ysize)
 		{
 			current_floor_ptr->cave[y][x].info |= (CAVE_ROOM | CAVE_ICKY);
 			/* Make everything a floor */
-			place_floor_bold(y, x);
+			place_floor_bold(current_floor_ptr, y, x);
 		}
 	}
 
@@ -5204,7 +5204,7 @@ static void build_target_vault(int x0, int y0, int xsize, int ysize)
 			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside- so is floor */
-				place_floor_bold(y, x);
+				place_floor_bold(current_floor_ptr, y, x);
 			}
 			else
 			{
@@ -5261,7 +5261,7 @@ static void build_target_vault(int x0, int y0, int xsize, int ysize)
 		place_inner_bold(y0 + 1, x);
 	}
 
-	place_floor_bold(y0, x0);
+	place_floor_bold(current_floor_ptr, y0, x0);
 
 
 	/* Add doors to vault */
@@ -5460,7 +5460,7 @@ static bool build_type11(void)
 			if (distance(y0, x0, y, x) <= rad - 1)
 			{
 				/* inside- so is floor */
-				place_floor_bold(y, x);
+				place_floor_bold(current_floor_ptr, y, x);
 			}
 			else if (distance(y0, x0, y, x) <= rad + 1)
 			{
@@ -5516,11 +5516,11 @@ static bool build_type12(void)
 			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside - so is floor */
-				place_floor_bold(y, x);
+				place_floor_bold(current_floor_ptr, y, x);
 			}
 			else if (distance(y0, x0, y, x) < 3)
 			{
-				place_floor_bold(y, x);
+				place_floor_bold(current_floor_ptr, y, x);
 			}
 			else
 			{
@@ -5803,12 +5803,12 @@ static bool build_type13(void)
 	{
 		for (y = y1; y <= yval; y++)
 		{
-			place_floor_bold(y, x2);
+			place_floor_bold(current_floor_ptr, y, x2);
 			place_solid_bold(y, x1-1);
 		}
 		for (y = yval; y <= y2 + 1; y++)
 		{
-			place_floor_bold(y, x1);
+			place_floor_bold(current_floor_ptr, y, x1);
 			place_solid_bold(y, x2+1);
 		}
 	}
@@ -5816,12 +5816,12 @@ static bool build_type13(void)
 	{
 		for (y = yval; y <= y2 + 1; y++)
 		{
-			place_floor_bold(y, x1);
+			place_floor_bold(current_floor_ptr, y, x1);
 			place_solid_bold(y, x2+1);
 		}
 		for (y = y1; y <= yval; y++)
 		{
-			place_floor_bold(y, x2);
+			place_floor_bold(current_floor_ptr, y, x2);
 			place_solid_bold(y, x1-1);
 		}
 	}

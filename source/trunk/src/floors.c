@@ -201,7 +201,7 @@ static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 	creature_ptr->fx = floor_ptr->width / 2;
 
 	/* Give one square */
-	place_floor_bold(creature_ptr->fy, creature_ptr->fx);
+	place_floor_bold(current_floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	wipe_generate_floor_flags(floor_ptr);
 }
