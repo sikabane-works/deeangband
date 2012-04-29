@@ -152,20 +152,6 @@ s16b floor_pop(void)
 		i = oldest; // Use it
 	}
 
-	floor_ptr = &floor_list[i];
-
-	// Prepare new floor data
-	floor_ptr->last_visit = 0;
-	floor_ptr->upper_floor_id = 0;
-	floor_ptr->lower_floor_id = 0;
-	floor_ptr->visit_mark = latest_visit_mark++;
-
-	// These may be changed later
-	floor_ptr->floor_level = current_floor_ptr ? current_floor_ptr->floor_level : 0;
-	floor_ptr->dun_type = current_floor_ptr->dun_type;
-	floor_ptr->world_x = player_ptr->wx;
-	floor_ptr->world_y = player_ptr->wy;
-
 	// Increment number of floor_id
 	if (floor_max < MAX_SHORT) floor_max++;
 	else floor_max = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
@@ -497,8 +483,20 @@ void move_floor(creature_type *creature_ptr)
 	else // Create New Floor
 	{
 		floor_id = floor_pop();
+
 		new_floor_ptr = &floor_list[floor_id];
-		change_floor(new_floor_ptr, player_ptr);
+
+		// Prepare new floor data
+		new_floor_ptr->last_visit = 0;
+		new_floor_ptr->upper_floor_id = 0;
+		new_floor_ptr->lower_floor_id = 0;
+		new_floor_ptr->visit_mark = latest_visit_mark++;
+		new_floor_ptr->world_x = creature_ptr->wx;
+		new_floor_ptr->world_y = creature_ptr->wy;
+
+		new_floor_ptr->dun_type = 4; // TODO
+
+		change_floor(new_floor_ptr, creature_ptr);
 		creature_ptr->floor_id = floor_id;
 	}
 
@@ -537,7 +535,6 @@ void move_floor(creature_type *creature_ptr)
 		creature_ptr->depth += move_num;
 	}
 
-/*
 	// Leaving the dungeon to town
 	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
 	{
@@ -584,7 +581,6 @@ void move_floor(creature_type *creature_ptr)
 		forget_view();
 		clear_creature_lite(current_floor_ptr);
 	}
-*/
 
 	if(is_player(creature_ptr))
 		current_floor_ptr = new_floor_ptr;

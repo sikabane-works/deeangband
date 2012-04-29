@@ -6644,13 +6644,13 @@ static void play_loop(void)
 {
 	bool load_game = TRUE;
 
-	if (!floor_generated) move_floor(player_ptr);
 
 	/* Process */
 	while (TRUE)
 	{
 		int quest_num = 0;
 
+		if (!floor_generated) move_floor(player_ptr);
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
 
 		if (panic_save) panic_save = 0; // TODO
@@ -6811,6 +6811,7 @@ static void play_loop(void)
 			//TODO move_floor(player_ptr);
 
 			// Forget the flag
+			floor_generated = FALSE;
 			reinit_wilderness = FALSE;
 		}
 
