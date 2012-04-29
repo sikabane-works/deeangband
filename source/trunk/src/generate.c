@@ -1337,15 +1337,14 @@ static void generate_floor_quest(floor_type *floor_ptr)
 /*
  * Generate a fortless level
  */
-static void generate_floor_fortress(int type)
+static void generate_floor_fortress(floor_type *floor_ptr, int type)
 {
 	int x, y;
 
-
-	/* Start with perm walls */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	// Start with perm walls
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
 			place_solid_perm_bold(y, x);
 		}
@@ -1357,7 +1356,7 @@ static void generate_floor_fortress(int type)
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
 	inside_quest = type;
-	process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
 	inside_quest = 0;
 }
 
@@ -1375,7 +1374,6 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		if(dungeon_info[floor_ptr->dun_type].vault_quest_level[i] <= floor_ptr->floor_level &&
 		   dungeon_info[floor_ptr->dun_type].vault_quest_level_max[i] >= floor_ptr->floor_level && !p)
 		   break;
-
 		   i++;
 	}
 
@@ -1384,7 +1382,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		if (cheat_room)
 			msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 
-		generate_floor_fortress(dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
+		generate_floor_fortress(floor_ptr, dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 		return TRUE;
 	}
 
