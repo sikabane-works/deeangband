@@ -1031,7 +1031,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
  * Note it is VERY important that the "stop if hit another passage" logic
  * stays as is.  Without this the dungeon turns into Swiss Cheese...
  */
-bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
+bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int type, int cutoff)
 {
 	int x3, y3, dx, dy;
 	int changex, changey;
@@ -1061,13 +1061,13 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 		y3 = y1 + dy + changey;
 
 		/* See if in bounds - if not - do not perturb point */
-		if (!in_bounds(current_floor_ptr, y3, x3))
+		if (!in_bounds(floor_ptr, y3, x3))
 		{
 			x3 = (x1 + x2) / 2;
 			y3 = (y1 + y2) / 2;
 		}
 		/* cache c_ptr */
-		c_ptr = &current_floor_ptr->cave[y3][x3];
+		c_ptr = &floor_ptr->cave[y3][x3];
 		if (is_solid_grid(c_ptr))
 		{
 			/* move midpoint a bit to avoid problem. */
@@ -1080,7 +1080,7 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 			{
 				dy = randint0(3) - 1;
 				dx = randint0(3) - 1;
-				if (!in_bounds(current_floor_ptr, y3 + dy, x3 + dx))
+				if (!in_bounds(floor_ptr, y3 + dy, x3 + dx))
 				{
 					dx = 0;
 					dy = 0;
@@ -1097,17 +1097,17 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 			}
 			y3 += dy;
 			x3 += dx;
-			c_ptr = &current_floor_ptr->cave[y3][x3];
+			c_ptr = &floor_ptr->cave[y3][x3];
 		}
 
 		if (is_floor_grid(c_ptr))
 		{
-			if (build_tunnel2(x1, y1, x3, y3, type, cutoff))
+			if (build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
 			{
-				if ((current_floor_ptr->cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
+				if ((floor_ptr->cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
 				{
 					/* do second half only if works + if have hit a room */
-					retval = build_tunnel2(x3, y3, x2, y2, type, cutoff);
+					retval = build_tunnel2(floor_ptr, x3, y3, x2, y2, type, cutoff);
 				}
 				else
 				{
@@ -1135,9 +1135,9 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 		else
 		{
 			/* tunnel through walls */
-			if (build_tunnel2(x1, y1, x3, y3, type, cutoff))
+			if (build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
 			{
-				retval = build_tunnel2(x3, y3, x2, y2, type, cutoff);
+				retval = build_tunnel2(floor_ptr, x3, y3, x2, y2, type, cutoff);
 				firstsuccede = TRUE;
 			}
 			else

@@ -146,7 +146,6 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
 	int y1 = 0, x1 = 0;
 	int wid;
 
-
 	/* Hack -- Choose starting point */
 	y2 = randint1(floor_ptr->height / 2 - 2) + floor_ptr->height / 2;
 	x2 = randint1(floor_ptr->width / 2 - 2) + floor_ptr->width / 2;

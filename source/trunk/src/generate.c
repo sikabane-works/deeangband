@@ -894,7 +894,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			if (randint1(floor_ptr->floor_level) > dungeon_info[floor_ptr->dun_type].tunnel_percent)
 			{
 				/* make cave-like tunnel */
-				(void)build_tunnel2(dungeon_ptr->cent[i].x, dungeon_ptr->cent[i].y, x, y, 2, 2);
+				(void)build_tunnel2(floor_ptr, dungeon_ptr->cent[i].x, dungeon_ptr->cent[i].y, x, y, 2, 2);
 			}
 			else
 			{
