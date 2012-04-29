@@ -278,14 +278,14 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 /*
  * Allocates some objects (using "place" and "type")
  */
-static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
+static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int set, int typ, int num)
 {
 	int y = 0, x = 0, k;
 	int dummy = 0;
 	cave_type *c_ptr;
 
 	/* A small level has few objects. */
-	num = num * current_floor_ptr->height * current_floor_ptr->width / (MAX_HGT * MAX_WID) +1;
+	num = num * floor_ptr->height * floor_ptr->width / (MAX_HGT * MAX_WID) +1;
 
 	/* Place some objects */
 	for (k = 0; k < num; k++)
@@ -298,10 +298,10 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			dummy++;
 
 			/* Location */
-			y = randint0(current_floor_ptr->height);
-			x = randint0(current_floor_ptr->width);
+			y = randint0(floor_ptr->height);
+			x = randint0(floor_ptr->width);
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Require "naked" floor grid */
 			if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
@@ -310,7 +310,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 			if (creature_bold(player_ptr, y, x)) continue;
 
 			/* Check for "room" */
-			room = (current_floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
+			room = (floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
 
 			/* Require corridor? */
 			if ((set == ALLOC_SET_CORR) && room) continue;
@@ -343,14 +343,14 @@ msg_print("警告！アイテムを配置できません！");
 			case ALLOC_TYP_RUBBLE:
 			{
 				place_rubble(y, x);
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
+				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}
 
 			case ALLOC_TYP_TRAP:
 			{
 				place_trap(y, x);
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
+				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}
 
@@ -1057,10 +1057,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		(void)alloc_creature(floor_ptr, player_ptr, 0, PM_ALLOW_SLEEP);
 	}
 
-	/* Place some traps in the dungeon *	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
+	/* Place some traps in the dungeon *	alloc_object(floor_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
 	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
-	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
+	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(floor_ptr, player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	// Mega Hack -- No object at first level of deeper dungeon
 	if (player_ptr->enter_dungeon && floor_ptr->floor_level > 1)
@@ -1069,11 +1069,11 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	}
 
 	// Put some objects in rooms
-	alloc_object(player_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
+	alloc_object(floor_ptr, player_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
 
 	// Put some objects/gold in the dungeon
-	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
-	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
+	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
+	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
 	// Set back to default
 	floor_ptr->object_level = floor_ptr->base_level;
