@@ -739,7 +739,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 			for (i = 0; i < alloc_times; i++)
 			{
 				// Make a (group of) new monster
-				(void)alloc_creature(cr_ptr, 0, 0);
+				(void)alloc_creature(floor_ptr, cr_ptr, 0, 0);
 			}
 		}
 

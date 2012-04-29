@@ -4021,7 +4021,7 @@ static void process_world(creature_type *cr_ptr)
 	    !fight_arena_mode && !inside_quest && !gamble_arena_mode)
 	{
 		/* Make a new monster */
-		(void)alloc_creature(cr_ptr, MAX_SIGHT + 5, 0);
+		(void)alloc_creature(current_floor_ptr, cr_ptr, MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */

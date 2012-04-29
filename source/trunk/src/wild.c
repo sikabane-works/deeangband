@@ -609,7 +609,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 			mode |= PM_ALLOW_SLEEP;
 
 		/* Make a resident */
-		(void)alloc_creature(player_ptr, generate_encounter ? 0 : 3, mode);
+		(void)alloc_creature(floor_ptr, player_ptr, generate_encounter ? 0 : 3, mode);
 	}
 
 	if(generate_encounter) ambush_flag = TRUE;

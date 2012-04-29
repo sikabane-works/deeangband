@@ -4827,23 +4827,23 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
  *
  * Use "current_floor_ptr->creature_level" for the monster level
  */
-bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
+bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
 	int			y = 0, x = 0;
 	int         attempts_left = 10000;
 
 	/* Put the Guardian */
-	if (alloc_guardian(current_floor_ptr, FALSE)) return TRUE;
+	if (alloc_guardian(floor_ptr, FALSE)) return TRUE;
 
 	/* Find a legal, distant, unoccupied, space */
 	while (attempts_left--)
 	{
 		/* Pick a location */
-		y = randint0(current_floor_ptr->height);
-		x = randint0(current_floor_ptr->width);
+		y = randint0(floor_ptr->height);
+		x = randint0(floor_ptr->width);
 
 		/* Require empty floor grid (was "naked") */
-		if (current_floor_ptr->floor_level)
+		if (floor_ptr->floor_level)
 		{
 			if (!cave_empty_bold2(y, x)) continue;
 		}
@@ -4873,7 +4873,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 
 
 #ifdef MONSTER_HORDES
-	if (randint1(5000) <= current_floor_ptr->floor_level)
+	if (randint1(5000) <= floor_ptr->floor_level)
 	{
 		//TODO: Dungeon Master
 		if (alloc_horde(player_ptr, y, x))

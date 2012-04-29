@@ -1238,7 +1238,7 @@ extern bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 extern void deal_item(creature_type *creature_ptr);
 extern bool alloc_horde(creature_type *summoner_ptr, int y, int x);
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
-extern bool alloc_creature(creature_type *player_ptr, int dis, u32b mode);
+extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode);
 extern bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode);
 extern bool multiply_creature(int m_idx, bool clone, u32b mode);
