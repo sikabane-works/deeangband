@@ -494,8 +494,8 @@ void move_floor(creature_type *creature_ptr)
 	}
 	else // Create New Floor
 	{
-		floor_id = floor_pop(); // Get new id
-		new_floor_ptr = &floor_list[stair_ptr->special];
+		floor_id = floor_pop();
+		new_floor_ptr = &floor_list[floor_id];
 		change_floor(new_floor_ptr, player_ptr);
 		creature_ptr->floor_id = floor_id;
 	}
@@ -535,6 +535,7 @@ void move_floor(creature_type *creature_ptr)
 		creature_ptr->depth += move_num;
 	}
 
+/*
 	// Leaving the dungeon to town
 	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
 	{
@@ -548,7 +549,6 @@ void move_floor(creature_type *creature_ptr)
 		// Reach to the surface -- Clear all saved floors
 		creature_ptr->change_floor_mode &= ~CFM_SAVE_FLOORS;
 	}
-
 	if (!(creature_ptr->change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
 	{
 		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]); // Kill all saved floors
@@ -582,6 +582,7 @@ void move_floor(creature_type *creature_ptr)
 		forget_view();
 		clear_creature_lite(current_floor_ptr);
 	}
+*/
 
 	if(is_player(creature_ptr))
 		current_floor_ptr = new_floor_ptr;
