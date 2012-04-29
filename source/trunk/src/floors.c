@@ -449,7 +449,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
  * Maintain quest monsters, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
-void leave_floor(creature_type *creature_ptr)
+void move_floor(creature_type *creature_ptr)
 {
 	int i, floor_id;
 	cave_type *stair_ptr = NULL;

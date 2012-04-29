@@ -6417,7 +6417,7 @@ static void cheat_death(void)
 #endif
 
 	// Prepare next floor
-	leave_floor(player_ptr);
+	move_floor(player_ptr);
 }
 
 void waited_report_score(void)
@@ -6626,7 +6626,7 @@ static void accidental_death(void)
 
 		prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 
-		leave_floor(player_ptr); // prepare next floor
+		move_floor(player_ptr); // prepare next floor
 	}
 	else
 	{
@@ -6644,7 +6644,7 @@ static void play_loop(void)
 {
 	bool load_game = TRUE;
 
-	if (!floor_generated) leave_floor(player_ptr);
+	if (!floor_generated) move_floor(player_ptr);
 
 	/* Process */
 	while (TRUE)
@@ -6808,7 +6808,7 @@ static void play_loop(void)
 		{
 			// Maintain Unique monsters and artifact, save current
 			// floor, then prepare next floor
-			leave_floor(player_ptr);
+			move_floor(player_ptr);
 
 			// Forget the flag
 			reinit_wilderness = FALSE;
@@ -7163,8 +7163,8 @@ void world_wipe()
 
 	playtime = 0;
 
-	current_floor_ptr = &floor_list[1];
-	floor_max = 2; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
+	current_floor_ptr = &floor_list[0];
+	floor_max = 1; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
 
 	world_player = FALSE; // Assume no winning game
 	panic_save = 0;	// Assume no cheating

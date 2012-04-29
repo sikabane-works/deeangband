@@ -1138,7 +1138,7 @@ extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
 extern void init_saved_floors(bool force);
 extern s16b floor_pop(void);
 extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
-extern void leave_floor(creature_type *creature_ptr);
+extern void move_floor(creature_type *creature_ptr);
 extern void change_floor(floor_type *floor_ptr, creature_type *cr_ptr);
 extern void stair_creation(creature_type *creature_ptr);
 extern void reset_cave_reference(void);
