@@ -463,7 +463,7 @@ static void try_door(int y, int x)
 	if ((randint0(100) < dun_tun_jct) && possible_doorway(y, x) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 	{
 		/* Place a door */
-		place_random_door(y, x, FALSE);
+		place_random_door(current_floor_ptr, y, x, FALSE);
 	}
 }
 
@@ -950,7 +950,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 				if ((randint0(100) < dun_tun_pen) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 				{
 					/* Place a random door */
-					place_random_door(y, x, TRUE);
+					place_random_door(current_floor_ptr, y, x, TRUE);
 				}
 			}
 

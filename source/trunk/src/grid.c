@@ -126,24 +126,24 @@ void place_random_stairs(int y, int x)
 /*
  * Place a random type of door at the given location
  */
-void place_random_door(int y, int x, bool room)
+void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 {
 	int tmp, type;
 	s16b feat = feat_none;
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Initialize mimic info */
 	c_ptr->mimic = 0;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(current_floor_ptr, y, x);
+		place_floor_bold(floor_ptr, y, x);
 		return;
 	}
 
-	type = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
-		one_in_((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
-		((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
+	type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
+		one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
+		((dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
 
 	/* Choose an object */
 	tmp = randint0(1000);
@@ -196,11 +196,11 @@ void place_random_door(int y, int x, bool room)
 		}
 		else
 		{
-			place_floor_bold(current_floor_ptr, y, x);
+			place_floor_bold(floor_ptr, y, x);
 		}
 	}
 
-	delete_creature(current_floor_ptr, y, x);
+	delete_creature(floor_ptr, y, x);
 }
 
 

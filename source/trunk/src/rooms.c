@@ -660,7 +660,7 @@ static bool build_type1(void)
 			place_solid_bold(y2 + 1, xval);
 		}
 
-		place_random_door(yval, xval, TRUE);
+		place_random_door(current_floor_ptr, yval, xval, TRUE);
 		if (curtain2) current_floor_ptr->cave[yval][xval].feat = feat_door[DOOR_CURTAIN].closed;
 	}
 
