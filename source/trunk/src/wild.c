@@ -258,7 +258,7 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
  * be generated (for initializing the border structure).
  * If corner is set then only the corners of the area are needed.
  */
-static void generate_area(int y, int x, bool border, bool corner)
+static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool corner)
 {
 	int x1, y1;
 
@@ -266,16 +266,16 @@ static void generate_area(int y, int x, bool border, bool corner)
 	town_num = wilderness[y][x].town;
 
 	/* Set the base level */
-	current_floor_ptr->base_level = wilderness[y][x].level;
+	floor_ptr->base_level = wilderness[y][x].level;
 
 	/* Set the dungeon level */
-	current_floor_ptr->floor_level = 0;
+	floor_ptr->floor_level = 0;
 
 	/* Set the monster generation level */
-	current_floor_ptr->creature_level = current_floor_ptr->base_level;
+	floor_ptr->creature_level = floor_ptr->base_level;
 
 	/* Set the object generation level */
-	current_floor_ptr->object_level = current_floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->base_level;
 
 
 	/* Create the town */
@@ -290,7 +290,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		else
 			init_flags = INIT_CREATE_DUNGEON;
 
-		process_dungeon_file(current_floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID);
+		process_dungeon_file(floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
 		if (!corner && !border) player_ptr->visit |= (1L << (town_num - 1));
 	}
@@ -310,7 +310,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		 */
 		if (wilderness[y][x].road)
 		{
-			current_floor_ptr->cave[MAX_HGT/2][MAX_WID/2].feat = feat_floor;
+			floor_ptr->cave[MAX_HGT/2][MAX_WID/2].feat = feat_floor;
 
 			if (wilderness[y-1][x].road)
 			{
@@ -318,7 +318,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 				for (y1 = 1; y1 < MAX_HGT/2; y1++)
 				{
 					x1 = MAX_WID/2;
-					current_floor_ptr->cave[y1][x1].feat = feat_floor;
+					floor_ptr->cave[y1][x1].feat = feat_floor;
 				}
 			}
 
@@ -328,7 +328,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 				for (y1 = MAX_HGT/2; y1 < MAX_HGT - 1; y1++)
 				{
 					x1 = MAX_WID/2;
-					current_floor_ptr->cave[y1][x1].feat = feat_floor;
+					floor_ptr->cave[y1][x1].feat = feat_floor;
 				}
 			}
 
@@ -338,7 +338,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 				for (x1 = MAX_WID/2; x1 < MAX_WID - 1; x1++)
 				{
 					y1 = MAX_HGT/2;
-					current_floor_ptr->cave[y1][x1].feat = feat_floor;
+					floor_ptr->cave[y1][x1].feat = feat_floor;
 				}
 			}
 
@@ -348,7 +348,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 				for (x1 = 1; x1 < MAX_WID/2; x1++)
 				{
 					y1 = MAX_HGT/2;
-					current_floor_ptr->cave[y1][x1].feat = feat_floor;
+					floor_ptr->cave[y1][x1].feat = feat_floor;
 				}
 			}
 		}
@@ -364,11 +364,11 @@ static void generate_area(int y, int x, bool border, bool corner)
 		/* Hack -- Induce consistant town layout */
 		Rand_value = wilderness[y][x].seed;
 
-		dy = rand_range(6, current_floor_ptr->height - 6);
-		dx = rand_range(6, current_floor_ptr->width - 6);
+		dy = rand_range(6, floor_ptr->height - 6);
+		dx = rand_range(6, floor_ptr->width - 6);
 
-		current_floor_ptr->cave[dy][dx].feat = feat_entrance;
-		current_floor_ptr->cave[dy][dx].special = wilderness[y][x].entrance;
+		floor_ptr->cave[dy][dx].feat = feat_entrance;
+		floor_ptr->cave[dy][dx].special = wilderness[y][x].entrance;
 
 		/* Use the complex RNG */
 		Rand_quick = FALSE;
@@ -410,7 +410,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	get_species_num_prep(get_creature_hook(), NULL);
 
 	/* North border */
-	generate_area(y - 1, x, TRUE, FALSE);
+	generate_area(floor_ptr, y - 1, x, TRUE, FALSE);
 
 	for (i = 1; i < MAX_WID - 1; i++)
 	{
@@ -418,7 +418,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	}
 
 	/* South border */
-	generate_area(y + 1, x, TRUE, FALSE);
+	generate_area(floor_ptr, y + 1, x, TRUE, FALSE);
 
 	for (i = 1; i < MAX_WID - 1; i++)
 	{
@@ -426,7 +426,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	}
 
 	/* West border */
-	generate_area(y, x - 1, TRUE, FALSE);
+	generate_area(floor_ptr, y, x - 1, TRUE, FALSE);
 
 	for (i = 1; i < MAX_HGT - 1; i++)
 	{
@@ -434,7 +434,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	}
 
 	/* East border */
-	generate_area(y, x + 1, TRUE, FALSE);
+	generate_area(floor_ptr, y, x + 1, TRUE, FALSE);
 
 	for (i = 1; i < MAX_HGT - 1; i++)
 	{
@@ -442,24 +442,24 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	}
 
 	/* North west corner */
-	generate_area(y - 1, x - 1, FALSE, TRUE);
+	generate_area(floor_ptr, y - 1, x - 1, FALSE, TRUE);
 	border.north_west = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
 	/* North east corner */
-	generate_area(y - 1, x + 1, FALSE, TRUE);
+	generate_area(floor_ptr, y - 1, x + 1, FALSE, TRUE);
 	border.north_east = floor_ptr->cave[MAX_HGT - 2][1].feat;
 
 	/* South west corner */
-	generate_area(y + 1, x - 1, FALSE, TRUE);
+	generate_area(floor_ptr, y + 1, x - 1, FALSE, TRUE);
 	border.south_west = floor_ptr->cave[1][MAX_WID - 2].feat;
 
 	/* South east corner */
-	generate_area(y + 1, x + 1, FALSE, TRUE);
+	generate_area(floor_ptr, y + 1, x + 1, FALSE, TRUE);
 	border.south_east = floor_ptr->cave[1][1].feat;
 
 
 	/* Create terrain of the current area */
-	generate_area(y, x, FALSE, FALSE);
+	generate_area(floor_ptr, y, x, FALSE, FALSE);
 
 
 	/* Special boundary walls -- North */
