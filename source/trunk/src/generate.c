@@ -448,22 +448,22 @@ static bool possible_doorway(int y, int x)
 /*
  * Places door at y, x position if at least 2 walls found
  */
-static void try_door(int y, int x)
+static void try_door(floor_type *floor_ptr, int y, int x)
 {
 	/* Paranoia */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Ignore walls */
 	if (cave_have_flag_bold(y, x, FF_WALL)) return;
 
 	/* Ignore room grids */
-	if (current_floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
+	if (floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
 
 	/* Occasional door (if allowed) */
-	if ((randint0(100) < dun_tun_jct) && possible_doorway(y, x) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
+	if ((randint0(100) < dun_tun_jct) && possible_doorway(y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 	{
 		/* Place a door */
-		place_random_door(current_floor_ptr, y, x, FALSE);
+		place_random_door(floor_ptr, y, x, FALSE);
 	}
 }
 
@@ -967,10 +967,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			x = dungeon_ptr->door[i].x;
 
 			/* Try placing doors */
-			try_door(y, x - 1);
-			try_door(y, x + 1);
-			try_door(y - 1, x);
-			try_door(y + 1, x);
+			try_door(floor_ptr, y, x - 1);
+			try_door(floor_ptr, y, x + 1);
+			try_door(floor_ptr, y - 1, x);
+			try_door(floor_ptr, y + 1, x);
 		}
 
 		/* Place some down stairs near some walls */
