@@ -6581,7 +6581,7 @@ static void new_game_setting(void)
 	init_stores();
 
 	/* Init Uniques */
-	birth_uniques();
+	//TODO birth_uniques();
 
 	/* Generate the random seeds for the wilderness */
 	seed_wilderness();
@@ -6644,7 +6644,7 @@ static void play_loop(void)
 {
 	bool load_game = TRUE;
 
-	if (!floor_generated) change_floor(current_floor_ptr, player_ptr);
+	if (!floor_generated) leave_floor(player_ptr);
 
 	/* Process */
 	while (TRUE)
@@ -7037,12 +7037,12 @@ void play_game(bool new_game)
 
 		/* Init the wilderness */
 
-		process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
+		process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
 		/* Init the town */
 		init_flags = INIT_ONLY_BUILDINGS;
 
-		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
+		process_dungeon_file(current_floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
 	}
 

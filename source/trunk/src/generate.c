@@ -1331,7 +1331,7 @@ static void generate_floor_quest(floor_type *floor_ptr)
 
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
-	process_dungeon_file("q_info.txt", 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
 }
 
 /*
@@ -1357,7 +1357,7 @@ static void generate_floor_fortress(int type)
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
 	inside_quest = type;
-	process_dungeon_file("q_info.txt", 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
 	inside_quest = 0;
 }
 

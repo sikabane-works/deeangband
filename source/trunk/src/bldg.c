@@ -2958,7 +2958,7 @@ static void get_questinfo(int questnum)
 	/* Get the quest text */
 	init_flags = INIT_SHOW_TEXT | INIT_ASSIGN;
 
-	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
+	process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, 0, 0);
 
 	/* Reset the old quest number */
 	inside_quest = old_quest;

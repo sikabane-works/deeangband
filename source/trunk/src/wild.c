@@ -290,7 +290,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 		else
 			init_flags = INIT_CREATE_DUNGEON;
 
-		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
+		process_dungeon_file(current_floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
 		if (!corner && !border) player_ptr->visit |= (1L << (town_num - 1));
 	}
@@ -401,7 +401,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 
 	/* Init the wilderness */
 
-	process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
+	process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
 	x = player_ptr->wx;
 	y = player_ptr->wy;
@@ -647,7 +647,7 @@ void generate_floor_world(floor_type *floor_ptr)
 	}
 
 	// Init the wilderness
-	process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
+	process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
 	// Fill the map
 	for (i = 0; i < max_wild_x; i++)

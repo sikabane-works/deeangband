@@ -457,8 +457,6 @@ void leave_floor(creature_type *creature_ptr)
 	floor_type *old_floor_ptr, *new_floor_ptr;
 	int quest_species_idx = 0;
 
-	if(!creature_ptr->floor_id) return;
-
 	old_floor_ptr = &floor_list[creature_ptr->floor_id];
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &f_info[stair_ptr->feat];
@@ -560,7 +558,8 @@ void leave_floor(creature_type *creature_ptr)
 		kill_floor(old_floor_ptr);
 	}
 
-	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
+	if (stair_ptr && !feat_uses_special(stair_ptr->feat))
+		stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
 	if (creature_ptr->change_floor_mode & CFM_RAND_CONNECT)

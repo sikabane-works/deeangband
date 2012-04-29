@@ -1229,7 +1229,7 @@ static errr init_m_info(void)
 static errr init_misc(void)
 {
 	/* Initialize the values */
-	process_dungeon_file("misc.txt", 0, 0, 0, 0);
+	process_dungeon_file(current_floor_ptr, "misc.txt", 0, 0, 0, 0);
 
 	return 0;
 }

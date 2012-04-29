@@ -5824,8 +5824,8 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 	/* Process "%:<fname>" */
 	if (buf[0] == '%')
 	{
-		/* Attempt to Process the given file */
-		return (process_dungeon_file(buf + 2, ymin, xmin, ymax, xmax));
+		// Attempt to Process the given file
+		return (process_dungeon_file(current_floor_ptr, buf + 2, ymin, xmin, ymax, xmax));
 	}
 
 	/* Process "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
@@ -6635,7 +6635,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 }
 
 
-errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax)
+errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax)
 {
 	FILE *fp;
 

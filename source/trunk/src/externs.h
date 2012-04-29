@@ -1152,7 +1152,7 @@ extern void generate_floor(floor_type *floor_ptr);
 /* init1.c */
 extern byte color_char_to_attr(char c);
 extern s16b f_tag_to_index(cptr str);
-extern errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax);
+extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax);
 
 /* init2.c */
 extern void init_file_paths(char *path);
