@@ -6644,6 +6644,8 @@ static void play_loop(void)
 {
 	bool load_game = TRUE;
 
+	if (!floor_generated) change_floor(current_floor_ptr, player_ptr);
+
 	/* Process */
 	while (TRUE)
 	{
@@ -6651,7 +6653,6 @@ static void play_loop(void)
 
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
 
-		if (!floor_generated) change_floor(current_floor_ptr, player_ptr);
 		if (panic_save) panic_save = 0; // TODO
 
 		current_floor_ptr->base_level = current_floor_ptr->floor_level; 	   // Set the base level
@@ -6702,8 +6703,7 @@ static void play_loop(void)
 		verify_panel(player_ptr); // Verify the panel
 		msg_print(NULL); // Flush messages
 
-
-		/* Window stuff */
+		// Window stuff
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 		play_redraw |= (PR_MAP);

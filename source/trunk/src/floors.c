@@ -498,6 +498,7 @@ void leave_floor(creature_type *creature_ptr)
 	{
 		floor_id = floor_pop(); // Get new id
 		new_floor_ptr = &floor_list[stair_ptr->special];
+		change_floor(new_floor_ptr, player_ptr);
 	}
 
 	// Mark shaft up/down
@@ -555,12 +556,9 @@ void leave_floor(creature_type *creature_ptr)
 		latest_visit_mark = 1; // Reset visit_mark count
 	}
 	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN)
+	{
 		kill_floor(old_floor_ptr);
-
-
-	old_floor_ptr = &floor_list[floor_id];
-	creature_ptr->floor_id = floor_id;
-	floor_generated = FALSE;
+	}
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
