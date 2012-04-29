@@ -3594,7 +3594,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 		{
 			for (y = 0; y <= ysize; ++y)
 			{
-				place_extra_bold(y0 + y - yhsize, x0 + x - xhsize);
+				place_extra_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 				current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
 			}
 		}
@@ -3620,7 +3620,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 		else
 		{
 			/* set to be normal granite */
-			place_extra_bold(y0 + 0 - yhsize, x0 + i - xhsize);
+			place_extra_bold(current_floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
 		}
 
 		/* bottom boundary */
@@ -3635,7 +3635,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 		else
 		{
 			/* set to be normal granite */
-			place_extra_bold(y0 + ysize - yhsize, x0 + i - xhsize);
+			place_extra_bold(current_floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
 		}
 
 		/* clear the icky flag-don't need it any more */
@@ -3658,7 +3658,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 		else
 		{
 			/* outside room */
-			place_extra_bold(y0 + i - yhsize, x0 + 0 - xhsize);
+			place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
 		}
 		/* right boundary */
 		if ((current_floor_ptr->cave[i + y0 - yhsize][xsize + x0 - xhsize].info & CAVE_ICKY) && room)
@@ -3672,7 +3672,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 		else
 		{
 			/* outside room */
-			place_extra_bold(y0 + i - yhsize, x0 + xsize - xhsize);
+			place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
 		}
 
 		/* clear icky flag -done with it */
@@ -3709,14 +3709,14 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 				else
 				{
 
-					place_extra_bold(y0 + y - yhsize, x0 + x - xhsize);
+					place_extra_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 					current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ROOM);
 				}
 			}
 			else
 			{
 				/* Clear the unconnected regions */
-				place_extra_bold(y0 + y - yhsize, x0 + x - xhsize);
+				place_extra_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 				current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
 			}
 		}
@@ -3936,8 +3936,8 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 	/* Do boundarys- set to normal granite */
 	for (i = 0; i <= xsize; ++i)
 	{
-		place_extra_bold(y0 + 0 - yhsize, x0 + i - xhsize);
-		place_extra_bold(y0 + ysize - yhsize, x0 + i - xhsize);
+		place_extra_bold(current_floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
+		place_extra_bold(current_floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
 
 		/* clear the icky flag-don't need it any more */
 		current_floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info &= ~(CAVE_ICKY);
@@ -3948,8 +3948,8 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 
 	for (i = 1; i < ysize; ++i)
 	{
-		place_extra_bold(y0 + i - yhsize, x0 + 0 - xhsize);
-		place_extra_bold(y0 + i - yhsize, x0 + xsize - xhsize);
+		place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
+		place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
 
 		/* clear icky flag -done with it */
 		current_floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info &= ~(CAVE_ICKY);
@@ -3965,7 +3965,7 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 			/* Fill unconnected regions with granite */
 			if ((!(current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
 				is_outer_bold(y0 + y - yhsize, x0 + x - xhsize))
-				place_extra_bold(y0 + y - yhsize, x0 + x - xhsize);
+				place_extra_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 
 			/* turn off icky flag (no longer needed.) */
 			current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
@@ -4463,7 +4463,7 @@ static void build_room_vault(int x0, int y0, int xsize, int ysize)
 		{
 			int y = y0 - yhsize + y1;
 
-			place_extra_bold(y, x);
+			place_extra_bold(current_floor_ptr, y, x);
 			current_floor_ptr->cave[y][x].info &= (~CAVE_ICKY);
 		}
 	}
@@ -5209,14 +5209,14 @@ static void build_target_vault(int x0, int y0, int xsize, int ysize)
 			else
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(y, x);
+				place_extra_bold(current_floor_ptr, y, x);
 			}
 
 			/* proper boundary for arena */
 			if (((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
-				place_extra_bold(y, x);
+				place_extra_bold(current_floor_ptr, y, x);
 			}
 		}
 	}
@@ -5465,7 +5465,7 @@ static bool build_type11(void)
 			else if (distance(y0, x0, y, x) <= rad + 1)
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(y, x);
+				place_extra_bold(current_floor_ptr, y, x);
 			}
 		}
 	}
@@ -5525,14 +5525,14 @@ static bool build_type12(void)
 			else
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(y, x);
+				place_extra_bold(current_floor_ptr, y, x);
 			}
 
 			/* proper boundary for arena */
 			if (((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
-				place_extra_bold(y, x);
+				place_extra_bold(current_floor_ptr, y, x);
 			}
 		}
 	}

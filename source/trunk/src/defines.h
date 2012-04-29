@@ -3968,17 +3968,12 @@
 #define in_bounds2(FLOOR, Y, X) \
    (((Y) >= 0) && ((X) >= 0) && ((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
-/*
- * Determines if a map location is on or inside the outer walls
- * (unsigned version)
- */
-#define in_bounds2u(Y,X) \
-   (((Y) < current_floor_ptr->height) && ((X) < current_floor_ptr->width))
+// Determines if a map location is on or inside the outer walls (unsigned version)
+#define in_bounds2u(FLOOR, Y, X) \
+   (((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
-/*
- * Determines if a map location is currently "on screen" -RAK-
- * Note that "panel_contains(Y,X)" always implies "in_bounds2(current_floor_ptr, Y,X)".
- */
+// Determines if a map location is currently "on screen" -RAK-
+// Note that "panel_contains(Y,X)" always implies "in_bounds2(current_floor_ptr, Y,X)".
 #define panel_contains(Y,X) \
   (((Y) >= panel_row_min) && ((Y) <= panel_row_max) && \
    ((X) >= panel_col_min) && ((X) <= panel_col_max))
@@ -3987,7 +3982,7 @@
 /*
  * Determine if player is on this grid
  */
-#define creature_bold(C,Y,X) \
+#define creature_bold(C, Y, X) \
 	(((Y) == (C)->fy) && ((X) == (C)->fx))
 
 

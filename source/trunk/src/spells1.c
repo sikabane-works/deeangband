@@ -7285,7 +7285,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 				t_x = atk_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(player_ptr->fy, player_ptr->fx, t_y, t_x));
+			while (max_attempts && in_bounds2u(current_floor_ptr, t_y, t_x) && !projectable(player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
@@ -8665,7 +8665,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						t_x = x_saver - 1 + (byte)randint1(3);
 						max_attempts--;
 					}
-					while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(y, x, t_y, t_x));
+					while (max_attempts && in_bounds2u(current_floor_ptr, t_y, t_x) && !projectable(y, x, t_y, t_x));
 
 					if (max_attempts < 1)
 					{

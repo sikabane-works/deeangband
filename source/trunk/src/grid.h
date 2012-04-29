@@ -53,12 +53,12 @@
 	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
-#define place_extra_bold(Y, X) \
+#define place_extra_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(Y,X,fill_type[randint0(100)]); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
-	add_cave_info(Y,X,CAVE_EXTRA); \
-	delete_creature(current_floor_ptr, Y, X); \
+	set_cave_feat(Y, X, fill_type[randint0(100)]); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
+	add_cave_info(Y, X, CAVE_EXTRA); \
+	delete_creature((FLOOR), Y, X); \
 }
 
 #define place_extra_grid(C) \
