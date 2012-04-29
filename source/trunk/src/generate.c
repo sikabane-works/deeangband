@@ -588,11 +588,11 @@ static void set_bound_perm_wall(cave_type *c_ptr)
  *
  * There were moved from create_cave_structure().
  */
-static void gen_caverns_and_lakes(void)
+static void generate_caverns_and_lakes(floor_type *floor_ptr)
 {
 #ifdef ALLOW_CAVERNS_AND_LAKES
 	/* Possible "destroyed" level */
-	if ((current_floor_ptr->floor_level > 30) && one_in_(DUN_DEST*2) && (small_levels) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DESTROY))
+	if ((floor_ptr->floor_level > 30) && one_in_(DUN_DEST*2) && (small_levels) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DESTROY))
 	{
 		dungeon_ptr->destroyed = TRUE;
 
@@ -602,49 +602,49 @@ static void gen_caverns_and_lakes(void)
 
 	/* Make a lake some of the time */
 	if (one_in_(LAKE_LEVEL) && !dungeon_ptr->empty_level && !dungeon_ptr->destroyed &&
-	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_MASK))
+	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_MASK))
 	{
 		int count = 0;
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) count += 3;
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA) count += 3;
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) count += 3;
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) count += 3;
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) count += 3;
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA) count += 3;
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) count += 3;
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) count += 3;
 
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA)
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA)
 		{
 			/* Lake of Lava */
-			if ((current_floor_ptr->floor_level > 80) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_LAVA;
+			if ((floor_ptr->floor_level > 80) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_LAVA;
 			count -= 2;
 
 			/* Lake of Lava2 */
-			if (!dungeon_ptr->laketype && (current_floor_ptr->floor_level > 80) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_FIRE_VAULT;
+			if (!dungeon_ptr->laketype && (floor_ptr->floor_level > 80) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_FIRE_VAULT;
 			count--;
 		}
 
-		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) && !dungeon_ptr->laketype)
+		if ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) && !dungeon_ptr->laketype)
 		{
 			/* Lake of Water */
-			if ((current_floor_ptr->floor_level > 50) && randint0(count) < 2) dungeon_ptr->laketype = LAKE_T_WATER;
+			if ((floor_ptr->floor_level > 50) && randint0(count) < 2) dungeon_ptr->laketype = LAKE_T_WATER;
 			count -= 2;
 
 			/* Lake of Water2 */
-			if (!dungeon_ptr->laketype && (current_floor_ptr->floor_level > 50) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_WATER_VAULT;
+			if (!dungeon_ptr->laketype && (floor_ptr->floor_level > 50) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_WATER_VAULT;
 			count--;
 		}
 
-		if ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) && !dungeon_ptr->laketype)
+		if ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) && !dungeon_ptr->laketype)
 		{
 			/* Lake of rubble */
-			if ((current_floor_ptr->floor_level > 35) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_CAVE;
+			if ((floor_ptr->floor_level > 35) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_CAVE;
 			count -= 2;
 
 			/* Lake of rubble2 */
-			if (!dungeon_ptr->laketype && (current_floor_ptr->floor_level > 35) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_EARTH_VAULT;
+			if (!dungeon_ptr->laketype && (floor_ptr->floor_level > 35) && one_in_(count)) dungeon_ptr->laketype = LAKE_T_EARTH_VAULT;
 			count--;
 		}
 
 		/* Lake of tree */
-		if ((current_floor_ptr->floor_level > 5) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) && !dungeon_ptr->laketype) dungeon_ptr->laketype = LAKE_T_AIR_VAULT;
+		if ((floor_ptr->floor_level > 5) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) && !dungeon_ptr->laketype) dungeon_ptr->laketype = LAKE_T_AIR_VAULT;
 
 		if (dungeon_ptr->laketype)
 		{
@@ -659,9 +659,9 @@ static void gen_caverns_and_lakes(void)
 		}
 	}
 
-	if ((current_floor_ptr->floor_level > DUN_CAVERN) && !dungeon_ptr->empty_level &&
-	    (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CAVERN) &&
-	    !dungeon_ptr->laketype && !dungeon_ptr->destroyed && (randint1(1000) < current_floor_ptr->floor_level))
+	if ((floor_ptr->floor_level > DUN_CAVERN) && !dungeon_ptr->empty_level &&
+	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CAVERN) &&
+	    !dungeon_ptr->laketype && !dungeon_ptr->destroyed && (randint1(1000) < floor_ptr->floor_level))
 	{
 		dungeon_ptr->cavern = TRUE;
 
@@ -679,7 +679,7 @@ static void gen_caverns_and_lakes(void)
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	/* Hack -- No destroyed "quest" levels */
-	if (quest_number(current_floor_ptr->floor_level)) dungeon_ptr->destroyed = FALSE;
+	if (quest_number(floor_ptr->floor_level)) dungeon_ptr->destroyed = FALSE;
 }
 
 
@@ -729,10 +729,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 	}
 
-	/* No rooms yet */
+	// No rooms yet
 	dungeon_ptr->cent_n = 0;
 
-	/* Empty arena levels */
+	// Empty arena levels
 	if (ironman_empty_levels || ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
 	{
 		dungeon_ptr->empty_level = TRUE;
@@ -747,7 +747,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	if (dungeon_ptr->empty_level)
 	{
-		/* Start with floors */
+		// Start with floors
 		for (y = 0; y < floor_ptr->height; y++)
 		{
 			for (x = 0; x < floor_ptr->width; x++)
@@ -756,14 +756,14 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			}
 		}
 
-		/* Special boundary walls -- Top and bottom */
+		// Special boundary walls -- Top and bottom
 		for (x = 0; x < floor_ptr->width; x++)
 		{
 			place_extra_bold(floor_ptr, 0, x);
 			place_extra_bold(floor_ptr, floor_ptr->height - 1, x);
 		}
 
-		/* Special boundary walls -- Left and right */
+		// Special boundary walls -- Left and right
 		for (y = 1; y < (floor_ptr->height - 1); y++)
 		{
 			place_extra_bold(floor_ptr, y, 0);
@@ -772,7 +772,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	}
 	else
 	{
-		/* Start with walls */
+		// Start with walls
 		for (y = 0; y < floor_ptr->height; y++)
 		{
 			for (x = 0; x < floor_ptr->width; x++)
@@ -782,12 +782,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 	}
 
+	// Generate various caverns and lakes
+	generate_caverns_and_lakes(floor_ptr);
 
-	/* Generate various caverns and lakes */
-	gen_caverns_and_lakes();
-
-
-	/* Build maze */
+	// Build maze
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
 		build_maze_vault(floor_ptr -> width / 2 - 1, floor_ptr->height / 2 - 1, floor_ptr->width - 4, floor_ptr->height - 4, FALSE);
