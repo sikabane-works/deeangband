@@ -987,7 +987,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			/* Hack -- Add some quartz streamers */
 			for (i = 0; i < DUN_STR_QUA; i++)
 			{
-				build_streamer(dungeon_info[floor_ptr->dun_type].stream2, DUN_STR_QC);
+				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream2, DUN_STR_QC);
 			}
 		}
 
@@ -996,7 +996,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			/* Hack -- Add some magma streamers */
 			for (i = 0; i < DUN_STR_MAG; i++)
 			{
-				build_streamer(dungeon_info[floor_ptr->dun_type].stream1, DUN_STR_MC);
+				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream1, DUN_STR_MC);
 			}
 		}
 	}

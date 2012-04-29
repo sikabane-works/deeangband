@@ -204,7 +204,7 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
  * basic vein, one with hidden gold, and one with known gold.  The
  * hidden gold types are currently unused.
  */
-void build_streamer(int feat, int chance)
+void build_streamer(floor_type *floor_ptr, int feat, int chance)
 {
 	int		i, tx, ty;
 	int		y, x, dir;
@@ -218,8 +218,8 @@ void build_streamer(int feat, int chance)
 	bool streamer_may_have_gold = have_flag(streamer_ptr->flags, FF_MAY_HAVE_GOLD);
 
 	/* Hack -- Choose starting point */
-	y = rand_spread(current_floor_ptr->height / 2, current_floor_ptr->height / 6);
-	x = rand_spread(current_floor_ptr->width / 2, current_floor_ptr->width / 6);
+	y = rand_spread(floor_ptr->height / 2, floor_ptr->height / 6);
+	x = rand_spread(floor_ptr->width / 2, floor_ptr->width / 6);
 
 	/* Choose a random compass direction */
 	dir = ddd[randint0(8)];
@@ -239,12 +239,12 @@ void build_streamer(int feat, int chance)
 			{
 				ty = rand_spread(y, d);
 				tx = rand_spread(x, d);
-				if (!in_bounds2(current_floor_ptr, ty, tx)) continue;
+				if (!in_bounds2(floor_ptr, ty, tx)) continue;
 				break;
 			}
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[ty][tx];
+			c_ptr = &floor_ptr->cave[ty][tx];
 			f_ptr = &f_info[c_ptr->feat];
 
 			if (have_flag(f_ptr->flags, FF_MOVE) && (have_flag(f_ptr->flags, FF_WATER) || have_flag(f_ptr->flags, FF_LAVA)))
@@ -263,7 +263,7 @@ void build_streamer(int feat, int chance)
 			if (c_ptr->creature_idx && !(have_flag(streamer_ptr->flags, FF_PLACE) && creature_can_cross_terrain(feat, &creature_list[c_ptr->creature_idx], 0)))
 			{
 				/* Delete the monster (if any) */
-				delete_creature(current_floor_ptr, ty, tx);
+				delete_creature(floor_ptr, ty, tx);
 			}
 
 			if (c_ptr->object_idx && !have_flag(streamer_ptr->flags, FF_DROP))
@@ -353,7 +353,7 @@ msg_print("警告！ストリーマーを配置できません！");
 		x += ddx[dir];
 
 		/* Quit before leaving the dungeon */
-		if (!in_bounds(current_floor_ptr, y, x)) break;
+		if (!in_bounds(floor_ptr, y, x)) break;
 	}
 }
 
