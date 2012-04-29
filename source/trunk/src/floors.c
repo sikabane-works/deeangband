@@ -10,6 +10,8 @@
  * included in all such copies.
  */
 
+// 2012 Deskull
+
 #include "angband.h"
 #include "grid.h"
 
@@ -184,19 +186,19 @@ void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode)
 /*
  * Builds the dead end
  */
-static void build_dead_end(creature_type *creature_ptr)
+static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int x,y;
 
 	/* Clear and empty the cave */
-	clear_cave(current_floor_ptr);
+	clear_cave(floor_ptr);
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(0);
 
 	/* Smallest area */
-	current_floor_ptr->height = SCREEN_HGT;
-	current_floor_ptr->width = SCREEN_WID;
+	floor_ptr->height = SCREEN_HGT;
+	floor_ptr->width = SCREEN_WID;
 
 	/* Filled with permanent walls */
 	for (y = 0; y < MAX_HGT; y++)
@@ -209,13 +211,13 @@ static void build_dead_end(creature_type *creature_ptr)
 	}
 
 	/* Place at center of the floor */
-	creature_ptr->fy = current_floor_ptr->height / 2;
-	creature_ptr->fx = current_floor_ptr->width / 2;
+	creature_ptr->fy = floor_ptr->height / 2;
+	creature_ptr->fx = floor_ptr->width / 2;
 
 	/* Give one square */
 	place_floor_bold(creature_ptr->fy, creature_ptr->fx);
 
-	wipe_generate_floor_flags(current_floor_ptr);
+	wipe_generate_floor_flags(floor_ptr);
 }
 
 /*
