@@ -1067,7 +1067,7 @@ static bool build_type3(floor_type *floor_ptr)
  *	4 - Inner room has a maze
  *	5 - A set of four inner rooms
  */
-static bool build_type4(void)
+static bool build_type4(floor_type *floor_ptr)
 {
 	int         y, x, y1, x1;
 	int         y2, x2, tmp, yval, xval;
@@ -1082,7 +1082,7 @@ static bool build_type4(void)
 	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 
 	/* Large room */
@@ -1103,7 +1103,7 @@ static bool build_type4(void)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
 			if (light) c_ptr->info |= (CAVE_GLOW);
@@ -1113,16 +1113,16 @@ static bool build_type4(void)
 	/* Outer Walls */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1 - 1];
+		c_ptr = &floor_ptr->cave[y][x1 - 1];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2 + 1];
+		c_ptr = &floor_ptr->cave[y][x2 + 1];
 		place_outer_grid(c_ptr);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1 - 1][x];
+		c_ptr = &floor_ptr->cave[y1 - 1][x];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2 + 1][x];
+		c_ptr = &floor_ptr->cave[y2 + 1][x];
 		place_outer_grid(c_ptr);
 	}
 
@@ -1136,16 +1136,16 @@ static bool build_type4(void)
 	/* The inner walls */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1 - 1];
+		c_ptr = &floor_ptr->cave[y][x1 - 1];
 		place_inner_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2 + 1];
+		c_ptr = &floor_ptr->cave[y][x2 + 1];
 		place_inner_grid(c_ptr);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1 - 1][x];
+		c_ptr = &floor_ptr->cave[y1 - 1][x];
 		place_inner_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2 + 1][x];
+		c_ptr = &floor_ptr->cave[y2 + 1][x];
 		place_inner_grid(c_ptr);
 	}
 
@@ -1189,7 +1189,7 @@ static bool build_type4(void)
 				for (x = xval -  1; x <= xval + 1; x++)
 				{
 					if ((x == xval) && (y == yval)) continue;
-					c_ptr = &current_floor_ptr->cave[y][x];
+					c_ptr = &floor_ptr->cave[y][x];
 					place_inner_grid(c_ptr);
 				}
 			}
@@ -1241,7 +1241,7 @@ static bool build_type4(void)
 			{
 				for (x = xval - 1; x <= xval + 1; x++)
 				{
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 				place_inner_grid(c_ptr);
 				}
 			}
@@ -1254,12 +1254,12 @@ static bool build_type4(void)
 				{
 					for (x = xval - 5 - tmp; x <= xval - 3 - tmp; x++)
 					{
-					c_ptr = &current_floor_ptr->cave[y][x];
+					c_ptr = &floor_ptr->cave[y][x];
 					place_inner_grid(c_ptr);
 					}
 					for (x = xval + 3 + tmp; x <= xval + 5 + tmp; x++)
 					{
-					c_ptr = &current_floor_ptr->cave[y][x];
+					c_ptr = &floor_ptr->cave[y][x];
 					place_inner_grid(c_ptr);
 					}
 				}
@@ -1268,23 +1268,23 @@ static bool build_type4(void)
 			/* Occasionally, some Inner rooms */
 			if (one_in_(3))
 			{
-				int door_type = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
-					one_in_((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
-					((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
+				int door_type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
+					one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
+					((dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
 
 				/* Long horizontal walls */
 				for (x = xval - 5; x <= xval + 5; x++)
 				{
-				c_ptr = &current_floor_ptr->cave[yval - 1][x];
+				c_ptr = &floor_ptr->cave[yval - 1][x];
 				place_inner_grid(c_ptr);
-				c_ptr = &current_floor_ptr->cave[yval + 1][x];
+				c_ptr = &floor_ptr->cave[yval + 1][x];
 				place_inner_grid(c_ptr);
 				}
 
 				/* Close off the left/right edges */
-				c_ptr = &current_floor_ptr->cave[yval][xval - 5];
+				c_ptr = &floor_ptr->cave[yval][xval - 5];
 				place_inner_grid(c_ptr);
-				c_ptr = &current_floor_ptr->cave[yval][xval + 5];
+				c_ptr = &floor_ptr->cave[yval][xval + 5];
 				place_inner_grid(c_ptr);
 
 				/* Secret doors (random top/bottom) */
@@ -1322,7 +1322,7 @@ static bool build_type4(void)
 				{
 					if (0x1 & (x + y))
 					{
-						c_ptr = &current_floor_ptr->cave[y][x];
+						c_ptr = &floor_ptr->cave[y][x];
 						place_inner_grid(c_ptr);
 					}
 				}
@@ -1345,19 +1345,19 @@ static bool build_type4(void)
 		/* Four small rooms. */
 		case 5:
 		{
-			int door_type = ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
-				one_in_((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
-				((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
+			int door_type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
+				one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
+				((dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR);
 
 			/* Inner "cross" */
 			for (y = y1; y <= y2; y++)
 			{
-				c_ptr = &current_floor_ptr->cave[y][xval];
+				c_ptr = &floor_ptr->cave[y][xval];
 				place_inner_grid(c_ptr);
 			}
 			for (x = x1; x <= x2; x++)
 			{
-				c_ptr = &current_floor_ptr->cave[yval][x];
+				c_ptr = &floor_ptr->cave[yval][x];
 				place_inner_grid(c_ptr);
 			}
 
@@ -6286,7 +6286,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_NORMAL:        return build_type1(floor_ptr);
 	case ROOM_T_OVERLAP:       return build_type2(floor_ptr);
 	case ROOM_T_CROSS:         return build_type3(floor_ptr);
-	case ROOM_T_INNER_FEAT:    return build_type4();
+	case ROOM_T_INNER_FEAT:    return build_type4(floor_ptr);
 	case ROOM_T_NEST:          return build_type5();
 	case ROOM_T_PIT:           return build_type6();
 	case ROOM_T_LESSER_VAULT:  return build_type7();
