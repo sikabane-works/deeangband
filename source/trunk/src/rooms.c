@@ -3506,7 +3506,7 @@ static void cave_fill(byte y, byte x)
 			i = tx + ddx_ddd[d];
 
 			/* Paranoia Don't leave the cave */
-			if (!in_bounds(j, i))
+			if (!in_bounds(current_floor_ptr, j, i))
 			{
 				/* affect boundary */
 				current_floor_ptr->cave[j][i].info |= CAVE_ICKY;
@@ -4737,7 +4737,7 @@ static void build_mini_c_vault(int x0, int y0, int xsize, int ysize)
 	/* generate the room */
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if (!in_bounds(y1-2,x)) break;
+		if (!in_bounds(current_floor_ptr, y1-2,x)) break;
 
 		current_floor_ptr->cave[y1-2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4746,7 +4746,7 @@ static void build_mini_c_vault(int x0, int y0, int xsize, int ysize)
 
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if (!in_bounds(y2+2,x)) break;
+		if (!in_bounds(current_floor_ptr, y2+2,x)) break;
 
 		current_floor_ptr->cave[y2+2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4755,7 +4755,7 @@ static void build_mini_c_vault(int x0, int y0, int xsize, int ysize)
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if (!in_bounds(y,x1-2)) break;
+		if (!in_bounds(current_floor_ptr, y,x1-2)) break;
 
 		current_floor_ptr->cave[y][x1-2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4764,7 +4764,7 @@ static void build_mini_c_vault(int x0, int y0, int xsize, int ysize)
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if (!in_bounds(y,x2+2)) break;
+		if (!in_bounds(current_floor_ptr, y,x2+2)) break;
 
 		current_floor_ptr->cave[y][x2+2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -5093,7 +5093,7 @@ static void add_outer_wall(int x, int y, int light, int x1, int y1, int x2, int 
 	feature_type *f_ptr;
 	int i, j;
 
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	c_ptr = &current_floor_ptr->cave[y][x];
 

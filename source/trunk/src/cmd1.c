@@ -1630,7 +1630,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 					int y1 = rand_spread(y, 5);
 
 					/* Skip illegal grids */
-					if (!in_bounds(y1, x1)) continue;
+					if (!in_bounds(current_floor_ptr, y1, x1)) continue;
 
 					/* Require line of projection */
 					if (!projectable(cr_ptr->fy, cr_ptr->fx, y1, x1)) continue;

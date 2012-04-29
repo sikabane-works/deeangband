@@ -719,7 +719,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(y, x)) continue;
+			if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 			c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -806,7 +806,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(y, x)) continue;
+			if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 			/* Skip occupied locations */
 			if (!creature_can_enter(y, x, m_ptr, 0)) continue;

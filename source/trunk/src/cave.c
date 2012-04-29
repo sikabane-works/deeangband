@@ -178,8 +178,8 @@ bool los(int y1, int x1, int y2, int x2)
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if (!in_bounds(y1, x1)) return FALSE; */
-	/* if (!in_bounds(y2, x2)) return FALSE; */
+	/* if (!in_bounds(current_floor_ptr, y1, x1)) return FALSE; */
+	/* if (!in_bounds(current_floor_ptr, y2, x2)) return FALSE; */
 
 
 	/* Directly South/North */
@@ -425,7 +425,7 @@ void update_local_illumination(int y, int x)
 {
 	int i, yy, xx;
 
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
@@ -4137,7 +4137,7 @@ void update_flow(creature_type *creature_ptr)
 	if (temp_n) return;
 
 	/* The last way-point is on the map */
-	if (running && in_bounds(flow_y, flow_x))
+	if (running && in_bounds(current_floor_ptr, flow_y, flow_x))
 	{
 		/* The way point is in sight - do not update.  (Speedup) */
 		if (current_floor_ptr->cave[flow_y][flow_x].info & CAVE_VIEW) return;
@@ -4282,7 +4282,7 @@ void update_smell(creature_type *cr_ptr)
 			x = j + cr_ptr->fx - 2;
 
 			/* Check Bounds */
-			if (!in_bounds(y, x)) continue;
+			if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 			c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -4956,7 +4956,7 @@ void scatter(int *yp, int *xp, int y, int x, int d, int m)
 		nx = rand_spread(x, d);
 
 		/* Ignore annoying locations */
-		if (!in_bounds(ny, nx)) continue;
+		if (!in_bounds(current_floor_ptr, ny, nx)) continue;
 
 		/* Ignore "excessively distant" locations */
 		if ((d > 1) && (distance(y, x, ny, nx) > d)) continue;

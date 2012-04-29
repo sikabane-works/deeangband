@@ -367,7 +367,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 		for (x = x1 - 2; x <= x1 + 2; x++)
 		{
 			/* Ignore illegal locations */
-			if (!in_bounds(y, x)) continue;
+			if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 			/* Only check a circular area */
 			if (distance(y1, x1, y, x)>2) continue;

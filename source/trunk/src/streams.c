@@ -61,7 +61,7 @@ static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2
 			changey = 0;
 		}
 
-		if (!in_bounds(y1 + dy + changey, x1 + dx + changex))
+		if (!in_bounds(current_floor_ptr, y1 + dy + changey, x1 + dx + changex))
 		{
 			changex = 0;
 			changey = 0;
@@ -354,7 +354,7 @@ msg_print("警告！ストリーマーを配置できません！");
 		x += ddx[dir];
 
 		/* Quit before leaving the dungeon */
-		if (!in_bounds(y, x)) break;
+		if (!in_bounds(current_floor_ptr, y, x)) break;
 	}
 }
 
@@ -373,7 +373,7 @@ void place_trees(floor_type *floor_ptr, int x, int y)
 	{
 		for (j = y - 3; j < y + 4; j++)
 		{
-			if (!in_bounds(j, i)) continue;
+			if (!in_bounds(current_floor_ptr, j, i)) continue;
 			c_ptr = &floor_ptr->cave[j][i];
 
 			if (c_ptr->info & CAVE_ICKY) continue;

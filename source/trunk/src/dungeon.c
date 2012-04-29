@@ -3594,7 +3594,7 @@ static int get_monster_crowd_number(int m_idx)
 		int ay = my + ddy_ddd[i];
 		int ax = mx + ddx_ddd[i];
 
-		if (!in_bounds(ay, ax)) continue;
+		if (!in_bounds(current_floor_ptr, ay, ax)) continue;
 
 		/* Count number of monsters */
 		if (current_floor_ptr->cave[ay][ax].creature_idx > 0) count++;

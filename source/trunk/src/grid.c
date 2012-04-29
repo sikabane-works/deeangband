@@ -56,7 +56,7 @@ bool new_player_spot(creature_type *creature_ptr)
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
 		if (!player_can_enter(creature_ptr, c_ptr->feat, 0)) continue;
-		if (!in_bounds(y, x)) continue;
+		if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 		/* Refuse to start on anti-teleport grids */
 		if (c_ptr->info & (CAVE_ICKY)) continue;
@@ -323,7 +323,7 @@ void vault_objects(int y, int x, int num)
 				j = rand_spread(y, 2);
 				k = rand_spread(x, 3);
 				dummy++;
-				if (!in_bounds(j, k)) continue;
+				if (!in_bounds(current_floor_ptr, j, k)) continue;
 				break;
 			}
 
@@ -384,7 +384,7 @@ void vault_trap_aux(int y, int x, int yd, int xd)
 			y1 = rand_spread(y, yd);
 			x1 = rand_spread(x, xd);
 			dummy++;
-			if (!in_bounds(y1, x1)) continue;
+			if (!in_bounds(current_floor_ptr, y1, x1)) continue;
 			break;
 		}
 
@@ -497,7 +497,7 @@ void rand_dir(int *rdir, int *cdir)
 /* Function that sees if a square is a floor.  (Includes range checking.) */
 bool get_is_floor(int x, int y)
 {
-	if (!in_bounds(y, x))
+	if (!in_bounds(current_floor_ptr, y, x))
 	{
 		/* Out of bounds */
 		return (FALSE);
@@ -513,7 +513,7 @@ bool get_is_floor(int x, int y)
 /* Set a square to be floor.  (Includes range checking.) */
 void set_floor(int x, int y)
 {
-	if (!in_bounds(y, x))
+	if (!in_bounds(current_floor_ptr, y, x))
 	{
 		/* Out of bounds */
 		return;
@@ -606,7 +606,7 @@ bool build_tunnel(int row1, int col1, int row2, int col2)
 
 
 		/* Extremely Important -- do not leave the dungeon */
-		while (!in_bounds(tmp_row, tmp_col))
+		while (!in_bounds(current_floor_ptr, tmp_row, tmp_col))
 		{
 			/* Acquire the correct direction */
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
@@ -757,7 +757,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 
 	cave_type *c_ptr = &current_floor_ptr->cave[*y][*x];
 
-	if (!in_bounds(*y, *x)) return TRUE;
+	if (!in_bounds(current_floor_ptr, *y, *x)) return TRUE;
 
 	if (is_inner_grid(c_ptr))
 	{
@@ -832,7 +832,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 			dy = randint0(3) - 1;
 			dx = randint0(3) - 1;
 
-			if (!in_bounds(*y + dy, *x + dx))
+			if (!in_bounds(current_floor_ptr, *y + dy, *x + dx))
 			{
 				dx = 0;
 				dy = 0;
@@ -1061,7 +1061,7 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 		y3 = y1 + dy + changey;
 
 		/* See if in bounds - if not - do not perturb point */
-		if (!in_bounds(y3, x3))
+		if (!in_bounds(current_floor_ptr, y3, x3))
 		{
 			x3 = (x1 + x2) / 2;
 			y3 = (y1 + y2) / 2;
@@ -1080,7 +1080,7 @@ bool build_tunnel2(int x1, int y1, int x2, int y2, int type, int cutoff)
 			{
 				dy = randint0(3) - 1;
 				dx = randint0(3) - 1;
-				if (!in_bounds(y3 + dy, x3 + dx))
+				if (!in_bounds(current_floor_ptr, y3 + dy, x3 + dx))
 				{
 					dx = 0;
 					dy = 0;

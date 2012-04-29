@@ -120,7 +120,7 @@ dun_data *dungeon_ptr;
 /*
  * Count the number of walls adjacent to the given grid.
  *
- * Note -- Assumes "in_bounds(y, x)"
+ * Note -- Assumes "in_bounds(current_floor_ptr, y, x)"
  *
  * We count only granite walls and permanent walls.
  */
@@ -128,10 +128,10 @@ static int next_to_walls(int y, int x)
 {
 	int k = 0;
 
-	if (in_bounds(y + 1, x) && is_extra_bold(y + 1, x)) k++;
-	if (in_bounds(y - 1, x) && is_extra_bold(y - 1, x)) k++;
-	if (in_bounds(y, x + 1) && is_extra_bold(y, x + 1)) k++;
-	if (in_bounds(y, x - 1) && is_extra_bold(y, x - 1)) k++;
+	if (in_bounds(current_floor_ptr, y + 1, x) && is_extra_bold(y + 1, x)) k++;
+	if (in_bounds(current_floor_ptr, y - 1, x) && is_extra_bold(y - 1, x)) k++;
+	if (in_bounds(current_floor_ptr, y, x + 1) && is_extra_bold(y, x + 1)) k++;
+	if (in_bounds(current_floor_ptr, y, x - 1) && is_extra_bold(y, x - 1)) k++;
 
 	return (k);
 }
@@ -373,7 +373,7 @@ msg_print("警告！アイテムを配置できません！");
 /*
  * Count the number of "corridor" grids adjacent to the given grid.
  *
- * Note -- Assumes "in_bounds(y1, x1)"
+ * Note -- Assumes "in_bounds(current_floor_ptr, y1, x1)"
  *
  * XXX XXX This routine currently only counts actual "empty floor"
  * grids which are not in rooms.  We might want to also count stairs,
@@ -418,7 +418,7 @@ static int next_to_corr(int y1, int x1)
  * Determine if the given location is "between" two walls,
  * and "next to" two corridor spaces.  XXX XXX XXX
  *
- * Assumes "in_bounds(y, x)"
+ * Assumes "in_bounds(current_floor_ptr, y, x)"
  */
 static bool possible_doorway(int y, int x)
 {
@@ -451,7 +451,7 @@ static bool possible_doorway(int y, int x)
 static void try_door(int y, int x)
 {
 	/* Paranoia */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Ignore walls */
 	if (cave_have_flag_bold(y, x, FF_WALL)) return;

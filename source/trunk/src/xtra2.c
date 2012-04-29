@@ -1023,7 +1023,7 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 				{
 					scatter(&wy, &wx, y, x, 20, 0);
 				}
-				while (!(in_bounds(wy, wx) && cave_empty_bold2(wy, wx)) && --attempts);
+				while (!(in_bounds(current_floor_ptr, wy, wx) && cave_empty_bold2(wy, wx)) && --attempts);
 
 				if (attempts > 0)
 				{
@@ -2227,7 +2227,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
-	if (!(in_bounds(y, x))) return (FALSE);
+	if (!(in_bounds(current_floor_ptr, y, x))) return (FALSE);
 	if (wild_mode && !wilderness[y][x].known) return (FALSE);
 
 	/* Player grid is always interesting */
@@ -4936,7 +4936,7 @@ static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
 	cave_type *c_ptr;
 
 	/* Bounds */
-	if (!(in_bounds(y, x))) return (FALSE);
+	if (!(in_bounds(current_floor_ptr, y, x))) return (FALSE);
 
 	/* Player grid is always interesting */
 	if ((y == cr_ptr->fy) && (x == cr_ptr->fx)) return (TRUE);

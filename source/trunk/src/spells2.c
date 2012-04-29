@@ -5090,7 +5090,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		for (x = (x1 - r); x <= (x1 + r); x++)
 		{
 			/* Skip illegal grids */
-			if (!in_bounds(y, x)) continue;
+			if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 			/* Extract the distance */
 			k = distance(y1, x1, y, x);
@@ -5276,7 +5276,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			for (x = (x1 - r); x <= (x1 + r); x++)
 			{
 				/* Skip illegal grids */
-				if (!in_bounds(y, x)) continue;
+				if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 				/* Extract the distance */
 				k = distance(y1, x1, y, x);
@@ -5408,7 +5408,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			xx = cx + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(yy, xx)) continue;
+			if (!in_bounds(current_floor_ptr, yy, xx)) continue;
 
 			/* Skip distant grids */
 			if (distance(cy, cx, yy, xx) > r) continue;
@@ -5813,7 +5813,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			xx = cx + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(yy, xx)) continue;
+			if (!in_bounds(current_floor_ptr, yy, xx)) continue;
 
 			/* Skip distant grids */
 			if (distance(cy, cx, yy, xx) > r) continue;
@@ -6205,7 +6205,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		 * properly.
 		 * This leaves only a check for 6 bounding walls!
 		 */
-		if (in_bounds(y, x) && pass_bold(y, x) &&
+		if (in_bounds(current_floor_ptr, y, x) && pass_bold(y, x) &&
 		    (next_to_walls_adj(y, x, pass_bold) == 6) && (next_to_open(y, x, pass_bold) <= 1)) return;
 	}
 
@@ -7481,7 +7481,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		ty = target_row;
 	}
 
-	if (in_bounds(ty, tx)) tm_idx = current_floor_ptr->cave[ty][tx].creature_idx;
+	if (in_bounds(current_floor_ptr, ty, tx)) tm_idx = current_floor_ptr->cave[ty][tx].creature_idx;
 
 	path_n = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;

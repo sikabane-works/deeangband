@@ -6096,7 +6096,7 @@ int scan_floor(int *items, int y, int x, int mode)
 	int num = 0;
 
 	/* Sanity */
-	if (!in_bounds(y, x)) return 0;
+	if (!in_bounds(current_floor_ptr, y, x)) return 0;
 
 	/* Scan all objects in the grid */
 	for (this_object_idx = current_floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)

@@ -385,7 +385,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 					break;
 			}
 
-			if (!in_bounds(y, x)) break;
+			if (!in_bounds(current_floor_ptr, y, x)) break;
 
 			/* Slant */
 			if (m)
@@ -473,7 +473,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 					break;
 			}
 
-			if (!in_bounds(y, x)) break;
+			if (!in_bounds(current_floor_ptr, y, x)) break;
 
 			/* Slant */
 			if (m)
@@ -543,7 +543,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 					break;
 			}
 
-			if (!in_bounds(y, x)) break;
+			if (!in_bounds(current_floor_ptr, y, x)) break;
 
 			/* Advance (Y) */
 			y += sy;
@@ -7425,7 +7425,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if (!in_bounds(y1, x1)) return (FALSE); */
+	/* if (!in_bounds(current_floor_ptr, y1, x1)) return (FALSE); */
 
 
 	/* Directly South/North */
@@ -7652,7 +7652,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
 				for (x = bx - cdis; x <= bx + cdis; x++)
 				{
 					/* Ignore "illegal" locations */
-					if (!in_bounds(y, x)) continue;
+					if (!in_bounds(current_floor_ptr, y, x)) continue;
 
 					/* Enforce a circular "ripple" */
 					if (distance(y1, x1, y, x) != bdis) continue;

@@ -759,7 +759,7 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr;
 
 	/* Paranoia */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
@@ -3954,7 +3954,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	/* Verify location */
-	if (!in_bounds(y, x)){
+	if (!in_bounds(current_floor_ptr, y, x)){
 		if (cheat_hear)
 		{
 			msg_format("[max_creature_idx: Invalid Location]");
@@ -4394,7 +4394,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 		for (ny = y - max_dist; ny <= y + max_dist; ny++)
 		{
 			/* Ignore annoying locations */
-			if (!in_bounds(ny, nx)) continue;
+			if (!in_bounds(current_floor_ptr, ny, nx)) continue;
 
 			/* Require "line of projection" */
 			if (!projectable(y, x, ny, nx)) continue;

@@ -144,7 +144,7 @@ void delete_object(int y, int x)
 
 
 	/* Refuse "illegal" locations */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 
 	/* Grid */
@@ -3891,7 +3891,7 @@ void place_object(int y, int x, u32b mode)
 
 
 	/* Paranoia -- check bounds */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Require floor space */
 	if (!cave_drop_bold(y, x)) return;
@@ -4013,7 +4013,7 @@ void place_gold(int y, int x)
 
 
 	/* Paranoia -- check bounds */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Require floor space */
 	if (!cave_drop_bold(y, x)) return;
@@ -4068,7 +4068,7 @@ void place_gold(int y, int x)
 /*
  * Let an object fall to the ground at or near a location.
  *
- * The initial location is assumed to be "in_bounds()".
+ * The initial location is assumed to be "in_bounds(current_floor_ptr, )".
  *
  * This function takes a parameter "chance".  This is the percentage
  * chance that the item will "disappear" instead of drop.  If the object
@@ -4169,7 +4169,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			tx = x + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(ty, tx)) continue;
+			if (!in_bounds(current_floor_ptr, ty, tx)) continue;
 
 			/* Require line of projection */
 			if (!projectable(y, x, ty, tx)) continue;
@@ -4266,7 +4266,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		tx = rand_spread(bx, 1);
 
 		/* Verify location */
-		if (!in_bounds(ty, tx)) continue;
+		if (!in_bounds(current_floor_ptr, ty, tx)) continue;
 
 		/* Bounce to that location */
 		by = ty;
@@ -4602,7 +4602,7 @@ void place_trap(int y, int x)
 	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	/* Paranoia -- verify location */
-	if (!in_bounds(y, x)) return;
+	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Require empty, clean, floor grid */
 	if (!cave_clean_bold(y, x)) return;
@@ -5918,7 +5918,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			creature_type *m_ptr;
 			species_type *r_ptr;
 
-			if (!in_bounds(my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
+			if (!in_bounds(current_floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
 
 			c_ptr = &current_floor_ptr->cave[my][mx];
 

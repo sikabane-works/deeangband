@@ -4623,7 +4623,7 @@ static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wal
 	n = n % TRAVEL_UNABLE;
 
 	/* Ignore out of bounds */
-	if (!in_bounds(y, x)) return wall;
+	if (!in_bounds(current_floor_ptr, y, x)) return wall;
 
 	/* Ignore "pre-stamped" entries */
 	if (travel.cost[y][x] != TRAVEL_UNABLE) return wall;
