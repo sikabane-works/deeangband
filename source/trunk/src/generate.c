@@ -1041,7 +1041,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		else if (cheat_hear)
 		{
 #ifdef JP
-msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
+			msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 #else
 			msg_format("Reduced monsters base from %d to %d", small_tester, i);
 #endif
@@ -1062,25 +1062,24 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
 	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
-	/* Mega Hack -- No object at first level of deeper dungeon */
+	// Mega Hack -- No object at first level of deeper dungeon
 	if (player_ptr->enter_dungeon && floor_ptr->floor_level > 1)
 	{
-		/* No stair scum! */
-		floor_ptr->object_level = 1;
+		floor_ptr->object_level = 1; // No stair scum!
 	}
 
-	/* Put some objects in rooms */
+	// Put some objects in rooms
 	alloc_object(player_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
 
-	/* Put some objects/gold in the dungeon */
+	// Put some objects/gold in the dungeon
 	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
 	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
-	/* Set back to default */
+	// Set back to default
 	floor_ptr->object_level = floor_ptr->base_level;
 
-	/* Put the Guardian */
-	if (!alloc_guardian(TRUE)) return FALSE;
+	// Put the Guardian
+	if (!alloc_guardian(floor_ptr, TRUE)) return FALSE;
 
 	if (dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > floor_ptr->floor_level)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{

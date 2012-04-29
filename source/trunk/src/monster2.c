@@ -4783,11 +4783,11 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 /*
  * Put the Guardian
  */
-bool alloc_guardian(bool def_val)
+bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 {
-	int guardian = dungeon_info[current_floor_ptr->dun_type].final_guardian;
+	int guardian = dungeon_info[floor_ptr->dun_type].final_guardian;
 
-	if (guardian && (dungeon_info[current_floor_ptr->dun_type].maxdepth == current_floor_ptr->floor_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
+	if (guardian && (dungeon_info[floor_ptr->dun_type].maxdepth == floor_ptr->floor_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		int oy;
 		int ox;
@@ -4797,11 +4797,11 @@ bool alloc_guardian(bool def_val)
 		while (try)
 		{
 			/* Get a random spot */
-			oy = randint1(current_floor_ptr->height - 4) + 2;
-			ox = randint1(current_floor_ptr->width - 4) + 2;
+			oy = randint1(floor_ptr->height - 4) + 2;
+			ox = randint1(floor_ptr->width - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(current_floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
+			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_creature_aux(NULL, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
@@ -4833,7 +4833,7 @@ bool alloc_creature(creature_type *player_ptr, int dis, u32b mode)
 	int         attempts_left = 10000;
 
 	/* Put the Guardian */
-	if (alloc_guardian(FALSE)) return TRUE;
+	if (alloc_guardian(current_floor_ptr, FALSE)) return TRUE;
 
 	/* Find a legal, distant, unoccupied, space */
 	while (attempts_left--)
