@@ -4643,7 +4643,7 @@ static void r_visit(int y1, int x1, int y2, int x2,
 }
 
 
-void build_maze_vault(int x0, int y0, int xsize, int ysize, bool is_vault)
+void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize, bool is_vault)
 {
 	int y, x, dy, dx;
 	int y1, x1, y2, x2;
@@ -4651,11 +4651,10 @@ void build_maze_vault(int x0, int y0, int xsize, int ysize, bool is_vault)
 	bool light;
 	cave_type *c_ptr;
 
-
 	if (cheat_room && is_vault) msg_print("Maze Vault");
 
 	/* Choose lite or dark */
-	light = ((current_floor_ptr->floor_level <= randint1(25)) && is_vault && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->floor_level <= randint1(25)) && is_vault && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Pick a random room size - randomized by calling routine */
 	dy = ysize / 2 - 1;
@@ -4671,7 +4670,7 @@ void build_maze_vault(int x0, int y0, int xsize, int ysize, bool is_vault)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			c_ptr->info |= CAVE_ROOM;
 			if (is_vault) c_ptr->info |= CAVE_ICKY;
 			if ((x == x1 - 1) || (x == x2 + 1) || (y == y1 - 1) || (y == y2 + 1))
@@ -5415,7 +5414,7 @@ static bool build_type10(void)
 		case 1: case  9: build_bubble_vault(x0, y0, xsize, ysize); break;
 		case 2: case 10: build_room_vault(x0, y0, xsize, ysize); break;
 		case 3: case 11: build_cave_vault(x0, y0, xsize, ysize); break;
-		case 4: case 12: build_maze_vault(x0, y0, xsize, ysize, TRUE); break;
+		case 4: case 12: build_maze_vault(current_floor_ptr, x0, y0, xsize, ysize, TRUE); break;
 		case 5: case 13: build_mini_c_vault(x0, y0, xsize, ysize); break;
 		case 6: case 14: build_castle_vault(x0, y0, xsize, ysize); break;
 		case 7: case 15: build_target_vault(x0, y0, xsize, ysize); break;
