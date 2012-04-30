@@ -2643,8 +2643,7 @@ static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
 /*
  * Hack -- fill in "vault" rooms
  */
-static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
-		int xoffset, int yoffset, int transno)
+static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int xmax, cptr data, int xoffset, int yoffset, int transno)
 {
 	int dx, dy, x, y, i, j;
 
@@ -2683,7 +2682,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 			if (*t == ' ') continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Lay down a floor */
 			place_floor_grid(c_ptr);
@@ -2794,9 +2793,9 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 
 			case 'A':
 				/* Reward for Pattern walk */
-				current_floor_ptr->object_level = current_floor_ptr->base_level + 12;
+				floor_ptr->object_level = floor_ptr->base_level + 12;
 				place_object(y, x, AM_GOOD | AM_GREAT);
-				current_floor_ptr->object_level = current_floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->base_level;
 				break;
 			}
 		}
@@ -2838,42 +2837,42 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				/* Monster */
 				case '&':
 				{
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 5;
+					floor_ptr->creature_level = floor_ptr->base_level + 5;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
 
 				/* Meaner monster */
 				case '@':
 				{
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 11;
+					floor_ptr->creature_level = floor_ptr->base_level + 11;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
 
 				/* Meaner monster, plus treasure */
 				case '9':
 				{
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 9;
+					floor_ptr->creature_level = floor_ptr->base_level + 9;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
+					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level + 7;
 					place_object(y, x, AM_GOOD);
-					current_floor_ptr->object_level = current_floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level;
 					break;
 				}
 
 				/* Nasty monster and treasure */
 				case '8':
 				{
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
+					floor_ptr->creature_level = floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					current_floor_ptr->object_level = current_floor_ptr->base_level + 20;
+					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level + 20;
 					place_object(y, x, AM_GOOD | AM_GREAT);
-					current_floor_ptr->object_level = current_floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level;
 					break;
 				}
 
@@ -2882,15 +2881,15 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				{
 					if (randint0(100) < 50)
 					{
-						current_floor_ptr->creature_level = current_floor_ptr->base_level + 3;
+						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-						current_floor_ptr->creature_level = current_floor_ptr->base_level;
+						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
 					{
-						current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
+						floor_ptr->object_level = floor_ptr->base_level + 7;
 						place_object(y, x, 0L);
-						current_floor_ptr->object_level = current_floor_ptr->base_level;
+						floor_ptr->object_level = floor_ptr->base_level;
 					}
 					break;
 				}
@@ -2986,7 +2985,7 @@ static bool build_type7(floor_type *floor_ptr)
 #endif
 
 	/* Hack -- Build the vault */
-	build_vault(yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
+	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
 
 	return TRUE;
 }
@@ -3082,9 +3081,8 @@ static bool build_type8(void)
 	if (cheat_room) msg_format("Greater vault (%s)", v_name + v_ptr->name);
 #endif
 
-	/* Hack -- Build the vault */
-	build_vault(yval, xval, v_ptr->hgt, v_ptr->wid,
-		    v_text + v_ptr->text, xoffset, yoffset, transno);
+	// Hack -- Build the vault
+	build_vault(current_floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
 
 	return TRUE;
 }
