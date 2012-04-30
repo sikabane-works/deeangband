@@ -4231,7 +4231,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
  * Note: If two centers are on the same point then this algorithm will create a
  *       blank bubble filled with walls. - This is prevented from happening.
  */
-static void build_bubble_vault(int x0, int y0, int xsize, int ysize)
+static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
 {
 	#define BUBBLENUM 10		/* number of bubbles */
 
@@ -4283,9 +4283,9 @@ static void build_bubble_vault(int x0, int y0, int xsize, int ysize)
 		int x = x0 - xhsize + i;
 
 		place_outer_noperm_bold(y0 - yhsize + 0, x);
-		current_floor_ptr->cave[y0 - yhsize + 0][x].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y0 - yhsize + 0][x].info |= (CAVE_ROOM | CAVE_ICKY);
 		place_outer_noperm_bold(y0 - yhsize + ysize - 1, x);
-		current_floor_ptr->cave[y0 - yhsize + ysize - 1][x].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y0 - yhsize + ysize - 1][x].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
 	/* Left and right boundaries */
@@ -4294,9 +4294,9 @@ static void build_bubble_vault(int x0, int y0, int xsize, int ysize)
 		int y = y0 - yhsize + i;
 
 		place_outer_noperm_bold(y, x0 - xhsize + 0);
-		current_floor_ptr->cave[y][x0 - xhsize + 0].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y][x0 - xhsize + 0].info |= (CAVE_ROOM | CAVE_ICKY);
 		place_outer_noperm_bold(y, x0 - xhsize + xsize - 1);
-		current_floor_ptr->cave[y][x0 - xhsize + xsize - 1].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y][x0 - xhsize + xsize - 1].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
 	/* Fill in middle with bubbles */
@@ -4343,11 +4343,11 @@ static void build_bubble_vault(int x0, int y0, int xsize, int ysize)
 			else
 			{
 				/* middle of a bubble */
-				place_floor_bold(current_floor_ptr, y0 - yhsize + y, x0 - xhsize + x);
+				place_floor_bold(floor_ptr, y0 - yhsize + y, x0 - xhsize + x);
 			}
 
 			/* clean up rest of flags */
-			current_floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= (CAVE_ROOM | CAVE_ICKY);
+			floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= (CAVE_ROOM | CAVE_ICKY);
 		}
 	}
 
@@ -5407,7 +5407,7 @@ static bool build_type10(floor_type *floor_ptr)
 	switch (vtype)
 	{
 		/* Build an appropriate room */
-		case 1: case  9: build_bubble_vault(x0, y0, xsize, ysize); break;
+		case 1: case  9: build_bubble_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 2: case 10: build_room_vault(x0, y0, xsize, ysize); break;
 		case 3: case 11: build_cave_vault(x0, y0, xsize, ysize); break;
 		case 4: case 12: build_maze_vault(floor_ptr, x0, y0, xsize, ysize, TRUE); break;
