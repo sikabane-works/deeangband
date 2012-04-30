@@ -267,8 +267,8 @@ void place_floor(int x1, int x2, int y1, int y2, bool light)
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
 			place_floor_bold(current_floor_ptr, y, x);
-			add_cave_info(y, x, CAVE_ROOM);
-			if (light) add_cave_info(y, x, CAVE_GLOW);
+			add_cave_info(current_floor_ptr, y, x, CAVE_ROOM);
+			if (light) add_cave_info(current_floor_ptr, y, x, CAVE_GLOW);
 		}
 	}
 }

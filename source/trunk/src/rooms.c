@@ -2299,7 +2299,7 @@ static bool build_type5(floor_type *floor_ptr)
 	{
 		for (x = x1; x <= x2; x++)
 		{
-			add_cave_info(y, x, CAVE_ICKY);
+			add_cave_info(floor_ptr, y, x, CAVE_ICKY);
 		}
 	}
 
@@ -2515,7 +2515,7 @@ static bool build_type6(floor_type *floor_ptr)
 	{
 		for (x = x1; x <= x2; x++)
 		{
-			add_cave_info(y, x, CAVE_ICKY);
+			add_cave_info(floor_ptr, y, x, CAVE_ICKY);
 		}
 	}
 
@@ -5746,11 +5746,11 @@ static bool build_type13(void)
 	{
 		c_ptr = &current_floor_ptr->cave[yval-2][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(yval-2, x, CAVE_ICKY);
+		add_cave_info(current_floor_ptr, yval-2, x, CAVE_ICKY);
 
 		c_ptr = &current_floor_ptr->cave[yval+2][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(yval+2, x, CAVE_ICKY);
+		add_cave_info(current_floor_ptr, yval+2, x, CAVE_ICKY);
 	}
 
 	/* Place the floor area 2 */
@@ -5758,11 +5758,11 @@ static bool build_type13(void)
 	{
 		c_ptr = &current_floor_ptr->cave[yval-3][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(yval-3, x, CAVE_ICKY);
+		add_cave_info(current_floor_ptr, yval-3, x, CAVE_ICKY);
 
 		c_ptr = &current_floor_ptr->cave[yval+3][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(yval+3, x, CAVE_ICKY);
+		add_cave_info(current_floor_ptr, yval+3, x, CAVE_ICKY);
 	}
 
 	/* Corridor */
