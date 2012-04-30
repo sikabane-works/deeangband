@@ -83,7 +83,7 @@ static void place_locked_door(int y, int x)
 	}
 	else
 	{
-		set_cave_feat(y, x, feat_locked_door_random((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR));
+		set_cave_feat(current_floor_ptr, y, x, feat_locked_door_random((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR));
 		current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 		delete_creature(current_floor_ptr, y, x);
 	}
@@ -2758,37 +2758,37 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 				/* Black market in a dungeon */
 			case 'S':
-				set_cave_feat(y, x, feat_black_market);
+				set_cave_feat(floor_ptr, y, x, feat_black_market);
 				//TODO Black Market
 				break;
 
 				/* The Pattern */
 			case 'p':
-				set_cave_feat(y, x, feat_pattern_start);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_start);
 				break;
 
 			case 'a':
-				set_cave_feat(y, x, feat_pattern_1);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_1);
 				break;
 
 			case 'b':
-				set_cave_feat(y, x, feat_pattern_2);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_2);
 				break;
 
 			case 'c':
-				set_cave_feat(y, x, feat_pattern_3);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_3);
 				break;
 
 			case 'd':
-				set_cave_feat(y, x, feat_pattern_4);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_4);
 				break;
 
 			case 'P':
-				set_cave_feat(y, x, feat_pattern_end);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_end);
 				break;
 
 			case 'B':
-				set_cave_feat(y, x, feat_pattern_exit);
+				set_cave_feat(floor_ptr, y, x, feat_pattern_exit);
 				break;
 
 			case 'A':

@@ -192,7 +192,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	{
 		if (feat != feat_none)
 		{
-			set_cave_feat(y, x, feat);
+			set_cave_feat(floor_ptr, y, x, feat);
 		}
 		else
 		{

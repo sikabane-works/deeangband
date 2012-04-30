@@ -15,15 +15,15 @@
 
 /* Macros */
 
-#define set_cave_feat(Y,X,F)    (current_floor_ptr->cave[(Y)][(X)].feat = (F))
+#define set_cave_feat(FLOOR, Y, X, F)    ((FLOOR)->cave[(Y)][(X)].feat = (F))
 #define add_cave_info(Y,X,I)    (current_floor_ptr->cave[(Y)][(X)].info |= (I))
 
 /* This should not be used */
 /*#define set_cave_info(Y,X,I)    (current_floor_ptr->cave[(Y)][(X)].info = (I)) */
 
-#define place_rubble(Y,X)       set_cave_feat(Y,X,feat_rubble)
-#define place_up_stairs(Y,X)    set_cave_feat(Y,X,feat_up_stair)
-#define place_down_stairs(Y,X)  set_cave_feat(Y,X,feat_down_stair)
+#define place_rubble(Y,X)       set_cave_feat(current_floor_ptr, Y,X,feat_rubble)
+#define place_up_stairs(Y,X)    set_cave_feat(current_floor_ptr, Y,X,feat_up_stair)
+#define place_down_stairs(Y,X)  set_cave_feat(current_floor_ptr, Y,X,feat_down_stair)
 
 #define is_floor_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_FLOOR)
 #define is_extra_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_EXTRA)
@@ -39,7 +39,7 @@
 
 #define place_floor_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(Y,X,feat_floor_rand_table[randint0(100)]); \
+	set_cave_feat(FLOOR, Y, X, feat_floor_rand_table[randint0(100)]); \
 	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_FLOOR); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -55,7 +55,7 @@
 
 #define place_extra_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(Y, X, fill_type[randint0(100)]); \
+	set_cave_feat(FLOOR, Y, X, fill_type[randint0(100)]); \
 	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y, X, CAVE_EXTRA); \
 	delete_creature((FLOOR), Y, X); \
@@ -71,7 +71,7 @@
 
 #define place_extra_perm_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_permanent); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_EXTRA); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -88,7 +88,7 @@
 #define place_extra_noperm_bold(Y, X) \
 { \
 	feature_type *_f_ptr; \
-	set_cave_feat(Y,X,fill_type[randint0(100)]); \
+	set_cave_feat(current_floor_ptr, Y, X, fill_type[randint0(100)]); \
 	_f_ptr = &f_info[current_floor_ptr->cave[Y][X].feat]; \
 	if (permanent_wall(_f_ptr)) current_floor_ptr->cave[Y][X].feat = feat_state(current_floor_ptr->cave[Y][X].feat, FF_UNPERM); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
@@ -98,7 +98,7 @@
 
 #define place_inner_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_wall_inner); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_wall_inner); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_INNER); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -114,7 +114,7 @@
 
 #define place_inner_perm_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_permanent); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_INNER); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -130,7 +130,7 @@
 
 #define place_outer_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_wall_outer); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_wall_outer); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_OUTER); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -146,7 +146,7 @@
 
 #define place_outer_perm_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_permanent); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_OUTER); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -163,8 +163,8 @@
 #define place_outer_noperm_bold(Y, X) \
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_outer]; \
-	if (permanent_wall(_f_ptr)) set_cave_feat(Y, X, feat_state(feat_wall_outer, FF_UNPERM)); \
-	else set_cave_feat(Y,X,feat_wall_outer); \
+	if (permanent_wall(_f_ptr)) set_cave_feat(current_floor_ptr, Y, X, feat_state(feat_wall_outer, FF_UNPERM)); \
+	else set_cave_feat(current_floor_ptr, Y, X, feat_wall_outer); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,(CAVE_OUTER | CAVE_VAULT)); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -182,7 +182,7 @@
 
 #define place_solid_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_wall_solid); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_wall_solid); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_SOLID); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -198,7 +198,7 @@
 
 #define place_solid_perm_bold(Y, X) \
 { \
-	set_cave_feat(Y,X,feat_permanent); \
+	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_SOLID); \
 	delete_creature(current_floor_ptr, Y, X); \
@@ -216,8 +216,8 @@
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_solid]; \
 	if ((current_floor_ptr->cave[Y][X].info & CAVE_VAULT) && permanent_wall(_f_ptr)) \
-		set_cave_feat(Y, X, feat_state(feat_wall_solid, FF_UNPERM)); \
-	else set_cave_feat(Y,X,feat_wall_solid); \
+		set_cave_feat(current_floor_ptr, Y, X, feat_state(feat_wall_solid, FF_UNPERM)); \
+	else set_cave_feat(current_floor_ptr, Y, X, feat_wall_solid); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(Y,X,CAVE_SOLID); \
 	delete_creature(current_floor_ptr, Y, X); \
