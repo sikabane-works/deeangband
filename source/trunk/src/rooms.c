@@ -4440,7 +4440,7 @@ static void build_room(int x1, int x2, int y1, int y2)
 
 /* Create a random vault that looks like a collection of overlapping rooms */
 
-static void build_room_vault(int x0, int y0, int xsize, int ysize)
+static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
 {
 	int i, x1, x2, y1, y2, xhsize, yhsize;
 
@@ -4459,8 +4459,8 @@ static void build_room_vault(int x0, int y0, int xsize, int ysize)
 		{
 			int y = y0 - yhsize + y1;
 
-			place_extra_bold(current_floor_ptr, y, x);
-			current_floor_ptr->cave[y][x].info &= (~CAVE_ICKY);
+			place_extra_bold(floor_ptr, y, x);
+			floor_ptr->cave[y][x].info &= (~CAVE_ICKY);
 		}
 	}
 
@@ -5408,7 +5408,7 @@ static bool build_type10(floor_type *floor_ptr)
 	{
 		/* Build an appropriate room */
 		case 1: case  9: build_bubble_vault(floor_ptr, x0, y0, xsize, ysize); break;
-		case 2: case 10: build_room_vault(x0, y0, xsize, ysize); break;
+		case 2: case 10: build_room_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 3: case 11: build_cave_vault(x0, y0, xsize, ysize); break;
 		case 4: case 12: build_maze_vault(floor_ptr, x0, y0, xsize, ysize, TRUE); break;
 		case 5: case 13: build_mini_c_vault(x0, y0, xsize, ysize); break;
