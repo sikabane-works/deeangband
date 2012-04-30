@@ -341,12 +341,11 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
  * Return TRUE and values for the center of the room if all went well.
  * Otherwise, return FALSE.
  */
-static bool find_space(int *y, int *x, int height, int width)
+static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int width)
 {
 	int candidates, pick;
 	int by, bx, by1, bx1, by2, bx2;
 	int block_y = 0, block_x = 0;
-
 
 	/* Find out how many blocks we need. */
 	int blocks_high = 1 + ((height - 1) / BLOCK_HGT);
@@ -379,7 +378,7 @@ static bool find_space(int *y, int *x, int height, int width)
 	}
 
 	/* Normal dungeon */
-	if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE))
+	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE))
 	{
 		/* Choose a random one */
 		pick = randint1(candidates);
@@ -501,7 +500,7 @@ static bool build_type1(floor_type *floor_ptr)
 	ysize = y1 + y2 + 1;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, ysize + 2, xsize + 2))
+	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2))
 	{
 		/* Limit to the minimum room size, and retry */
 		y1 = 1;
@@ -513,7 +512,7 @@ static bool build_type1(floor_type *floor_ptr)
 		ysize = y1 + y2 + 1;
 
 		/* Find and reserve some space in the dungeon.  Get center of room. */
-		if (!find_space(&yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+		if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 	}
 
 	/* Choose lite or dark */
@@ -689,7 +688,7 @@ static bool build_type2(floor_type *floor_ptr)
 	cave_type   *c_ptr;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 25, 25)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, 25, 25)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -824,7 +823,7 @@ static bool build_type3(floor_type *floor_ptr)
 	dx = rand_range(3, 9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, dy*2+3, dx*2+3)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, dy*2+3, dx*2+3)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -1079,7 +1078,7 @@ static bool build_type4(floor_type *floor_ptr)
 	y = 10 + rand_range(0, 40);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -2238,7 +2237,7 @@ static bool build_type5(floor_type *floor_ptr)
 	y += 9;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
 	y1 = yval - y/2;
@@ -2456,7 +2455,7 @@ static bool build_type6(floor_type *floor_ptr)
 	y += 9;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
 	y1 = yval - y/2;
@@ -2946,7 +2945,7 @@ static bool build_type7(floor_type *floor_ptr)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x+2 > floor_ptr->height-2)
+	if (x + 2 > floor_ptr->height - 2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -2973,7 +2972,7 @@ static bool build_type7(floor_type *floor_ptr)
 	}
 
 	// Find and reserve some space in the dungeon.  Get center of room.
-	if (!find_space(&yval, &xval, abs(y), abs(x))) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
 
 #ifdef FORCE_V_IDX
 	v_ptr = &v_info[2];
@@ -3070,7 +3069,7 @@ static bool build_type8(void)
 	 * prevent generation of vaults with no-entrance.
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
+	if (!find_space(current_floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
 
 #ifdef FORCE_V_IDX
 	v_ptr = &v_info[76 + randint1(3)];
@@ -3749,14 +3748,14 @@ static bool build_type9(void)
 	ysize = randint1(20) * 2 + 6;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&y0, &x0, ysize + 1, xsize + 1))
+	if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 	{
 		/* Limit to the minimum room size, and retry */
 		xsize = 8;
 		ysize = 8;
 
 		/* Find and reserve some space in the dungeon.  Get center of room. */
-		if (!find_space(&y0, &x0, ysize + 1, xsize + 1))
+		if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 		{
 			/*
 			 * Still no space?!
@@ -5388,7 +5387,7 @@ static bool build_type10(void)
 	ysize = randint1(20) + 12;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&y0, &x0, ysize + 1, xsize + 1)) return FALSE;
+	if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
 
 	/* Select type of vault */
 #ifdef ALLOW_CAVERNS_AND_LAKES
@@ -5448,7 +5447,7 @@ static bool build_type11(void)
 	rad = randint0(23);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
+	if (!find_space(current_floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
 
 	/* Make circular floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
@@ -5501,7 +5500,7 @@ static bool build_type12(void)
 	rad = randint1(9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
+	if (!find_space(current_floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
 
 	/* Make floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
@@ -5726,7 +5725,7 @@ static bool build_type13(void)
 	}
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 13, 25)) return FALSE;
+	if (!find_space(current_floor_ptr, &yval, &xval, 13, 25)) return FALSE;
 
 	/* Large room */
 	y1 = yval - 5;
@@ -5910,7 +5909,7 @@ static bool build_type14(void)
 	ysize = y1 + y2 + 1;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if (!find_space(current_floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -6039,7 +6038,7 @@ static bool build_type15(void)
 	ysize = rand_range(7, 18);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if (!find_space(current_floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
