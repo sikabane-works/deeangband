@@ -349,7 +349,7 @@ msg_print("警告！アイテムを配置できません！");
 
 			case ALLOC_TYP_TRAP:
 			{
-				place_trap(y, x);
+				place_trap(floor_ptr, y, x);
 				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}

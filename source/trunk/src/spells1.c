@@ -899,7 +899,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_TRAP:
 		{
 			/* Place a trap */
-			place_trap(y, x);
+			place_trap(current_floor_ptr, y, x);
 
 			break;
 		}

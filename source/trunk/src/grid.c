@@ -406,7 +406,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 		if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
-		place_trap(y1, x1);
+		place_trap(current_floor_ptr, y1, x1);
 
 		/* Done */
 		break;

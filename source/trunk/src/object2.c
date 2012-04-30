@@ -4597,12 +4597,12 @@ void disclose_grid(int y, int x)
  * when they are "discovered" (by detecting them or setting them off),
  * the trap is "instantiated" as a visible, "typed", trap.
  */
-void place_trap(int y, int x)
+void place_trap(floor_type *floor_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Paranoia -- verify location */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Require empty, clean, floor grid */
 	if (!cave_clean_bold(y, x)) return;

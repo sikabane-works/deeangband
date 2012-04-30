@@ -1307,7 +1307,7 @@ extern void acquirement(int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);
 extern s16b choose_random_trap(void);
 extern void disclose_grid(int y, int x);
-extern void place_trap(int y, int x);
+extern void place_trap(floor_type *floor_ptr, int y, int x);
 extern void inven_item_charges(creature_type *cr_ptr, int item);
 extern void inven_item_describe(creature_type *cr_ptr, int item);
 extern void inven_item_increase(creature_type *cr_ptr, int item, int num);

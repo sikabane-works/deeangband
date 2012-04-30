@@ -2731,7 +2731,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				}
 				else
 				{
-					place_trap(y, x);
+					place_trap(floor_ptr, y, x);
 				}
 				break;
 
@@ -2753,7 +2753,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 				/* Trap */
 			case '^':
-				place_trap(y, x);
+				place_trap(floor_ptr, y, x);
 				break;
 
 				/* Black market in a dungeon */
@@ -4163,7 +4163,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					}
 					else
 					{
-						place_trap(y, x);
+						place_trap(current_floor_ptr, y, x);
 					}
 				}
 				else if (value < 30)
@@ -4172,7 +4172,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					current_floor_ptr->creature_level = current_floor_ptr->base_level + 5;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					place_trap(y, x);
+					place_trap(current_floor_ptr, y, x);
 				}
 				else if (value < 40)
 				{
@@ -4193,7 +4193,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 				else if (value < 50)
 				{
 					/* Trap */
-					place_trap(y, x);
+					place_trap(current_floor_ptr, y, x);
 				}
 				else
 				{
@@ -4206,7 +4206,7 @@ static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
 					}
 					else if (randint0(100) < 50)
 					{
-						place_trap(y, x);
+						place_trap(current_floor_ptr, y, x);
 					}
 					else if (randint0(100) < 50)
 					{
