@@ -5479,7 +5479,7 @@ static bool build_type11(floor_type *floor_ptr)
  *
  * When done fill from the inside to find the walls,
  */
-static bool build_type12(void)
+static bool build_type12(floor_type *floor_ptr)
 {
 	int rad, x, y, x0, y0;
 	int light = FALSE;
@@ -5493,12 +5493,12 @@ static bool build_type12(void)
 	h4 = randint1(32) - 16;
 
 	/* Occasional light */
-	if ((randint1(current_floor_ptr->floor_level) <= 5) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if ((randint1(floor_ptr->floor_level) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint1(9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
+	if (!find_space(floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
 
 	/* Make floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
@@ -5506,35 +5506,34 @@ static bool build_type12(void)
 		for (y = y0 - rad; y <= y0 + rad; y++)
 		{
 			/* clear room flag */
-			current_floor_ptr->cave[y][x].info &= ~(CAVE_ROOM);
+			floor_ptr->cave[y][x].info &= ~(CAVE_ROOM);
 
 			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside - so is floor */
-				place_floor_bold(current_floor_ptr, y, x);
+				place_floor_bold(floor_ptr, y, x);
 			}
 			else if (distance(y0, x0, y, x) < 3)
 			{
-				place_floor_bold(current_floor_ptr, y, x);
+				place_floor_bold(floor_ptr, y, x);
 			}
 			else
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(current_floor_ptr, y, x);
+				place_extra_bold(floor_ptr, y, x);
 			}
 
 			/* proper boundary for arena */
 			if (((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
-				place_extra_bold(current_floor_ptr, y, x);
+				place_extra_bold(floor_ptr, y, x);
 			}
 		}
 	}
 
 	/* Find visible outer walls and set to be FEAT_OUTER */
-	add_outer_wall(x0, y0, light, x0 - rad - 1, y0 - rad - 1,
-		       x0 + rad + 1, y0 + rad + 1);
+	add_outer_wall(x0, y0, light, x0 - rad - 1, y0 - rad - 1, x0 + rad + 1, y0 + rad + 1);
 
 	/* Check to see if there is room for an inner vault */
 	for (x = x0 - 2; x <= x0 + 2; x++)
@@ -5555,7 +5554,7 @@ static bool build_type12(void)
 		build_small_room(x0, y0);
 
 		/* Place a treasure in the vault */
-		place_object(current_floor_ptr, y0, x0, 0L);
+		place_object(floor_ptr, y0, x0, 0L);
 
 		/* Let's guard the treasure well */
 		vault_creatures(y0, x0, randint0(2) + 3);
@@ -6290,7 +6289,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
 	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
 	case ROOM_T_OVAL:          return build_type11(floor_ptr);
-	case ROOM_T_CRYPT:         return build_type12();
+	case ROOM_T_CRYPT:         return build_type12(floor_ptr);
 	case ROOM_T_TRAP_PIT:      return build_type13();
 	case ROOM_T_TRAP:          return build_type14();
 	case ROOM_T_GLASS:         return build_type15();
