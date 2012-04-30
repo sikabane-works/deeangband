@@ -116,10 +116,8 @@ void place_random_stairs(int y, int x)
 	}
 
 	/* Place the stairs */
-	if (up_stairs)
-		place_up_stairs(y, x);
-	else if (down_stairs)
-		place_down_stairs(y, x);
+	if (up_stairs) place_up_stairs(current_floor_ptr, y, x);
+	else if (down_stairs) place_down_stairs(current_floor_ptr, y, x);
 }
 
 
