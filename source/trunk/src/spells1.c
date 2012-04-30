@@ -881,7 +881,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(y, x)) break;
+			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;
@@ -908,7 +908,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_TREE:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(y, x)) break;
+			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;
@@ -926,7 +926,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_GLYPH:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(y, x)) break;
+			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
 
 			/* Create a glyph */
 			c_ptr->info |= CAVE_OBJECT;
@@ -944,7 +944,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_STONE_WALL:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(y, x)) break;
+			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;

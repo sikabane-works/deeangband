@@ -4076,9 +4076,9 @@
  * Line 2 -- forbid monsters
  * Line 3 -- forbid the player
  */
-#define cave_naked_bold(Y, X) \
-	(cave_clean_bold(current_floor_ptr, Y, X) && \
-	 !(current_floor_ptr->cave[Y][X].creature_idx) && \
+#define cave_naked_bold(FLOOR, Y, X) \
+	(cave_clean_bold(FLOOR, Y, X) && \
+	 !((FLOOR)->cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y, X))
 
 
