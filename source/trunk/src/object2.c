@@ -3879,19 +3879,19 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
  *
  * This routine requires a clean floor grid destination.
  */
-void place_object(int y, int x, u32b mode)
+void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	s16b object_idx;
 
 	/* Acquire grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	object_type forge;
 	object_type *q_ptr;
 
 
 	/* Paranoia -- check bounds */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Require floor space */
 	if (!cave_drop_bold(y, x)) return;
@@ -3907,7 +3907,7 @@ void place_object(int y, int x, u32b mode)
 	object_wipe(q_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(q_ptr, mode, 0, current_floor_ptr->object_level)) return;
+	if (!make_object(q_ptr, mode, 0, floor_ptr->object_level)) return;
 
 
 	/* Make an object */

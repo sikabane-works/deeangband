@@ -4752,7 +4752,7 @@ void cave_alter_feat(int y, int x, int action)
 		if (have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - current_floor_ptr->floor_level / 2)))
 		{
 			/* Place object */
-			place_object(y, x, 0L);
+			place_object(current_floor_ptr, y, x, 0L);
 			found = TRUE;
 		}
 
