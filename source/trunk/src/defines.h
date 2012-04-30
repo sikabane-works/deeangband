@@ -4026,10 +4026,10 @@
  * Line 2 -- forbid object terrains
  * Line 3 -- forbid normal objects
  */
-#define cave_clean_bold(Y,X) \
+#define cave_clean_bold(FLOOR,Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_FLOOR) && \
-	 !(current_floor_ptr->cave[Y][X].info & CAVE_OBJECT) && \
-	  (current_floor_ptr->cave[Y][X].object_idx == 0))
+	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT) && \
+	  ((FLOOR)->cave[Y][X].object_idx == 0))
 
 
 /*
@@ -4077,7 +4077,7 @@
  * Line 3 -- forbid the player
  */
 #define cave_naked_bold(Y, X) \
-	(cave_clean_bold(Y, X) && \
+	(cave_clean_bold(current_floor_ptr, Y, X) && \
 	 !(current_floor_ptr->cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y, X))
 

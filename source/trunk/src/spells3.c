@@ -2017,7 +2017,7 @@ void alter_reality(creature_type *cr_ptr)
 bool warding_glyph(creature_type *cr_ptr)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(cr_ptr->fy, cr_ptr->fx))
+	if (!cave_clean_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2044,7 +2044,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 bool place_mirror(creature_type *cr_ptr)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(cr_ptr->fy, cr_ptr->fx))
+	if (!cave_clean_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2080,7 +2080,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 bool explosive_rune(creature_type *cr_ptr)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(cr_ptr->fy, cr_ptr->fx))
+	if (!cave_clean_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
