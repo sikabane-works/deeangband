@@ -5286,7 +5286,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
  *
  * Miniture rooms are then scattered across the vault.
  */
-static void build_elemental_vault(int x0, int y0, int xsiz, int ysiz)
+static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
 {
 	int grd, roug;
 	int c1, c2, c3;
@@ -5303,17 +5303,17 @@ static void build_elemental_vault(int x0, int y0, int xsiz, int ysiz)
 	xsize = xhsize * 2;
 	ysize = yhsize * 2;
 
-	if (current_floor_ptr->floor_level < 25)
+	if (floor_ptr->floor_level < 25)
 	{
 		/* Earth vault  (Rubble) */
 		type = LAKE_T_EARTH_VAULT;
 	}
-	else if (current_floor_ptr->floor_level < 50)
+	else if (floor_ptr->floor_level < 50)
 	{
 		/* Air vault (Trees) */
 		type = LAKE_T_AIR_VAULT;
 	}
-	else if (current_floor_ptr->floor_level < 75)
+	else if (floor_ptr->floor_level < 75)
 	{
 		/* Water vault (shallow water) */
 		type = LAKE_T_WATER_VAULT;
@@ -5354,7 +5354,7 @@ static void build_elemental_vault(int x0, int y0, int xsiz, int ysiz)
 	{
 		for (y = 0; y <= ysize; y++)
 		{
-			current_floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= CAVE_ICKY;
+			floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= CAVE_ICKY;
 		}
 	}
 
@@ -5415,7 +5415,7 @@ static bool build_type10(floor_type *floor_ptr)
 		case 6: case 14: build_castle_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 7: case 15: build_target_vault(floor_ptr, x0, y0, xsize, ysize); break;
 #ifdef ALLOW_CAVERNS_AND_LAKES
-		case 8: build_elemental_vault(x0, y0, xsize, ysize); break;
+		case 8: build_elemental_vault(floor_ptr, x0, y0, xsize, ysize); break;
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 		/* I know how to add a few more... give me some time. */
 
