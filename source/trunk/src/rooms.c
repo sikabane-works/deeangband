@@ -2905,7 +2905,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 /*
  * Type 7 -- simple vaults (see "v_info.txt")
  */
-static bool build_type7(void)
+static bool build_type7(floor_type *floor_ptr)
 {
 	vault_type *v_ptr;
 	int dummy;
@@ -2946,7 +2946,7 @@ static bool build_type7(void)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x+2 > current_floor_ptr->height-2)
+	if (x+2 > floor_ptr->height-2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -2972,7 +2972,7 @@ static bool build_type7(void)
 		yoffset = 0;
 	}
 
-	/* Find and reserve some space in the dungeon.  Get center of room. */
+	// Find and reserve some space in the dungeon.  Get center of room.
 	if (!find_space(&yval, &xval, abs(y), abs(x))) return FALSE;
 
 #ifdef FORCE_V_IDX
@@ -2987,8 +2987,7 @@ static bool build_type7(void)
 #endif
 
 	/* Hack -- Build the vault */
-	build_vault(yval, xval, v_ptr->hgt, v_ptr->wid,
-		    v_text + v_ptr->text, xoffset, yoffset, transno);
+	build_vault(yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
 
 	return TRUE;
 }
@@ -6289,7 +6288,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_INNER_FEAT:    return build_type4(floor_ptr);
 	case ROOM_T_NEST:          return build_type5(floor_ptr);
 	case ROOM_T_PIT:           return build_type6(floor_ptr);
-	case ROOM_T_LESSER_VAULT:  return build_type7();
+	case ROOM_T_LESSER_VAULT:  return build_type7(floor_ptr);
 	case ROOM_T_GREATER_VAULT: return build_type8();
 	case ROOM_T_FRACAVE:       return build_type9();
 	case ROOM_T_RANDOM_VAULT:  return build_type10();
