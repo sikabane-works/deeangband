@@ -5041,7 +5041,7 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 *
 *This makes a vault that looks like a castle/ city in the dungeon.
 */
-static void build_castle_vault(int x0, int y0, int xsize, int ysize)
+static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
 {
 	int dy, dx;
 	int y1, x1, y2, x2;
@@ -5063,9 +5063,9 @@ static void build_castle_vault(int x0, int y0, int xsize, int ysize)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			current_floor_ptr->cave[y][x].info |= (CAVE_ROOM | CAVE_ICKY);
+			floor_ptr->cave[y][x].info |= (CAVE_ROOM | CAVE_ICKY);
 			/* Make everything a floor */
-			place_floor_bold(current_floor_ptr, y, x);
+			place_floor_bold(floor_ptr, y, x);
 		}
 	}
 
@@ -5162,7 +5162,7 @@ static int dist2(int x1, int y1, int x2, int y2,
  * This is made by two concentric "crypts" with perpendicular
  * walls creating the cross-hairs.
  */
-static void build_target_vault(int x0, int y0, int xsize, int ysize)
+static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
 {
 	int rad, x, y;
 
@@ -5191,27 +5191,27 @@ static void build_target_vault(int x0, int y0, int xsize, int ysize)
 		for (y = y0 - rad; y <= y0 + rad; y++)
 		{
 			/* clear room flag */
-			current_floor_ptr->cave[y][x].info &= ~(CAVE_ROOM);
+			floor_ptr->cave[y][x].info &= ~(CAVE_ROOM);
 
 			/* Vault - so is "icky" */
-			current_floor_ptr->cave[y][x].info |= CAVE_ICKY;
+			floor_ptr->cave[y][x].info |= CAVE_ICKY;
 
 			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside- so is floor */
-				place_floor_bold(current_floor_ptr, y, x);
+				place_floor_bold(floor_ptr, y, x);
 			}
 			else
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(current_floor_ptr, y, x);
+				place_extra_bold(floor_ptr, y, x);
 			}
 
 			/* proper boundary for arena */
 			if (((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
-				place_extra_bold(current_floor_ptr, y, x);
+				place_extra_bold(floor_ptr, y, x);
 			}
 		}
 	}
@@ -5256,7 +5256,7 @@ static void build_target_vault(int x0, int y0, int xsize, int ysize)
 		place_inner_bold(y0 + 1, x);
 	}
 
-	place_floor_bold(current_floor_ptr, y0, x0);
+	place_floor_bold(floor_ptr, y0, x0);
 
 
 	/* Add doors to vault */
@@ -5412,8 +5412,8 @@ static bool build_type10(floor_type *floor_ptr)
 		case 3: case 11: build_cave_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 4: case 12: build_maze_vault(floor_ptr, x0, y0, xsize, ysize, TRUE); break;
 		case 5: case 13: build_mini_c_vault(floor_ptr, x0, y0, xsize, ysize); break;
-		case 6: case 14: build_castle_vault(x0, y0, xsize, ysize); break;
-		case 7: case 15: build_target_vault(x0, y0, xsize, ysize); break;
+		case 6: case 14: build_castle_vault(floor_ptr, x0, y0, xsize, ysize); break;
+		case 7: case 15: build_target_vault(floor_ptr, x0, y0, xsize, ysize); break;
 #ifdef ALLOW_CAVERNS_AND_LAKES
 		case 8: build_elemental_vault(x0, y0, xsize, ysize); break;
 #endif /* ALLOW_CAVERNS_AND_LAKES */
