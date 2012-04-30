@@ -21,9 +21,9 @@
 /* This should not be used */
 /*#define set_cave_info(Y,X,I)    (current_floor_ptr->cave[(Y)][(X)].info = (I)) */
 
-#define place_rubble(Y,X)       set_cave_feat(current_floor_ptr, Y,X,feat_rubble)
-#define place_up_stairs(Y,X)    set_cave_feat(current_floor_ptr, Y,X,feat_up_stair)
-#define place_down_stairs(Y,X)  set_cave_feat(current_floor_ptr, Y,X,feat_down_stair)
+#define place_rubble(FLOOR, Y, X)       set_cave_feat(FLOOR, Y, X, feat_rubble)
+#define place_up_stairs(Y, X)    set_cave_feat(current_floor_ptr, Y, X, feat_up_stair)
+#define place_down_stairs(Y, X)  set_cave_feat(current_floor_ptr, Y, X, feat_down_stair)
 
 #define is_floor_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_FLOOR)
 #define is_extra_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_EXTRA)

@@ -342,7 +342,7 @@ msg_print("警告！アイテムを配置できません！");
 		{
 			case ALLOC_TYP_RUBBLE:
 			{
-				place_rubble(y, x);
+				place_rubble(floor_ptr, y, x);
 				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
 			}
