@@ -4488,7 +4488,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 
 
 /* Create a random vault out of a fractal cave */
-static void build_cave_vault(int x0, int y0, int xsiz, int ysiz)
+static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
 {
 	int grd, roug, cutoff, xhsize, yhsize, xsize, ysize, x, y;
 	bool done, light, room;
@@ -4528,7 +4528,7 @@ static void build_cave_vault(int x0, int y0, int xsiz, int ysiz)
 	{
 		for (y = 0; y <= ysize; y++)
 		{
-			current_floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= CAVE_ICKY;
+			floor_ptr->cave[y0 - yhsize + y][x0 - xhsize + x].info |= CAVE_ICKY;
 		}
 	}
 
@@ -5409,7 +5409,7 @@ static bool build_type10(floor_type *floor_ptr)
 		/* Build an appropriate room */
 		case 1: case  9: build_bubble_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 2: case 10: build_room_vault(floor_ptr, x0, y0, xsize, ysize); break;
-		case 3: case 11: build_cave_vault(x0, y0, xsize, ysize); break;
+		case 3: case 11: build_cave_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 4: case 12: build_maze_vault(floor_ptr, x0, y0, xsize, ysize, TRUE); break;
 		case 5: case 13: build_mini_c_vault(x0, y0, xsize, ysize); break;
 		case 6: case 14: build_castle_vault(x0, y0, xsize, ysize); break;
