@@ -5082,15 +5082,15 @@ static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
  * Note: no range checking is done so must be inside dungeon
  * This routine also stomps on doors
  */
-static void add_outer_wall(int x, int y, int light, int x1, int y1, int x2, int y2)
+static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x1, int y1, int x2, int y2)
 {
 	cave_type *c_ptr;
 	feature_type *f_ptr;
 	int i, j;
 
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* hack- check to see if square has been visited before
 	* if so, then exit (use room flag to do this) */
@@ -5110,7 +5110,7 @@ static void add_outer_wall(int x, int y, int light, int x1, int y1, int x2, int 
 				if ((x + i >= x1) && (x + i <= x2) &&
 					 (y + j >= y1) && (y + j <= y2))
 				{
-					add_outer_wall(x + i, y + j, light, x1, y1, x2, y2);
+					add_outer_wall(floor_ptr, x + i, y + j, light, x1, y1, x2, y2);
 					if (light) c_ptr->info |= CAVE_GLOW;
 				}
 			}
@@ -5217,8 +5217,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	}
 
 	/* Find visible outer walls and set to be FEAT_OUTER */
-	add_outer_wall(x0, y0, FALSE, x0 - rad - 1, y0 - rad - 1,
-		       x0 + rad + 1, y0 + rad + 1);
+	add_outer_wall(floor_ptr, x0, y0, FALSE, x0 - rad - 1, y0 - rad - 1, x0 + rad + 1, y0 + rad + 1);
 
 	/* Add inner wall */
 	for (x = x0 - rad / 2; x <= x0 + rad / 2; x++)
@@ -5466,7 +5465,7 @@ static bool build_type11(floor_type *floor_ptr)
 	}
 
 	/* Find visible outer walls and set to be FEAT_OUTER */
-	add_outer_wall(x0, y0, light, x0 - rad, y0 - rad, x0 + rad, y0 + rad);
+	add_outer_wall(floor_ptr, x0, y0, light, x0 - rad, y0 - rad, x0 + rad, y0 + rad);
 
 	return TRUE;
 }
@@ -5533,7 +5532,7 @@ static bool build_type12(floor_type *floor_ptr)
 	}
 
 	/* Find visible outer walls and set to be FEAT_OUTER */
-	add_outer_wall(x0, y0, light, x0 - rad - 1, y0 - rad - 1, x0 + rad + 1, y0 + rad + 1);
+	add_outer_wall(floor_ptr, x0, y0, light, x0 - rad - 1, y0 - rad - 1, x0 + rad + 1, y0 + rad + 1);
 
 	/* Check to see if there is room for an inner vault */
 	for (x = x0 - 2; x <= x0 + 2; x++)
