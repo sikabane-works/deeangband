@@ -5375,7 +5375,7 @@ static void build_elemental_vault(int x0, int y0, int xsiz, int ysiz)
 /*
  * Random vaults
  */
-static bool build_type10(void)
+static bool build_type10(floor_type *floor_ptr)
 {
 	int y0, x0, xsize, ysize, vtype;
 
@@ -5385,7 +5385,7 @@ static bool build_type10(void)
 	ysize = randint1(20) + 12;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
+	if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
 
 	/* Select type of vault */
 #ifdef ALLOW_CAVERNS_AND_LAKES
@@ -5393,14 +5393,14 @@ static bool build_type10(void)
 	{
 		vtype = randint1(15);
 	}
-	while ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
+	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
 		((vtype == 1) || (vtype == 3) || (vtype == 8) || (vtype == 9) || (vtype == 11)));
 #else /* ALLOW_CAVERNS_AND_LAKES */
 	do
 	{
 		vtype = randint1(7);
 	}
-	while ((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
+	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
 		((vtype == 1) || (vtype == 3)));
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
@@ -5410,7 +5410,7 @@ static bool build_type10(void)
 		case 1: case  9: build_bubble_vault(x0, y0, xsize, ysize); break;
 		case 2: case 10: build_room_vault(x0, y0, xsize, ysize); break;
 		case 3: case 11: build_cave_vault(x0, y0, xsize, ysize); break;
-		case 4: case 12: build_maze_vault(current_floor_ptr, x0, y0, xsize, ysize, TRUE); break;
+		case 4: case 12: build_maze_vault(floor_ptr, x0, y0, xsize, ysize, TRUE); break;
 		case 5: case 13: build_mini_c_vault(x0, y0, xsize, ysize); break;
 		case 6: case 14: build_castle_vault(x0, y0, xsize, ysize); break;
 		case 7: case 15: build_target_vault(x0, y0, xsize, ysize); break;
@@ -6288,7 +6288,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_LESSER_VAULT:  return build_type7(floor_ptr);
 	case ROOM_T_GREATER_VAULT: return build_type8(floor_ptr);
 	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
-	case ROOM_T_RANDOM_VAULT:  return build_type10();
+	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
 	case ROOM_T_OVAL:          return build_type11();
 	case ROOM_T_CRYPT:         return build_type12();
 	case ROOM_T_TRAP_PIT:      return build_type13();
