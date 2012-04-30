@@ -5434,18 +5434,18 @@ static bool build_type10(floor_type *floor_ptr)
  *
  * When done fill from the inside to find the walls,
  */
-static bool build_type11(void)
+static bool build_type11(floor_type *floor_ptr)
 {
 	int rad, x, y, x0, y0;
 	int light = FALSE;
 
 	/* Occasional light */
-	if ((randint1(current_floor_ptr->floor_level) <= 15) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if ((randint1(floor_ptr->floor_level) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint0(23);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
+	if (!find_space(floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
 
 	/* Make circular floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
@@ -5455,12 +5455,12 @@ static bool build_type11(void)
 			if (distance(y0, x0, y, x) <= rad - 1)
 			{
 				/* inside- so is floor */
-				place_floor_bold(current_floor_ptr, y, x);
+				place_floor_bold(floor_ptr, y, x);
 			}
 			else if (distance(y0, x0, y, x) <= rad + 1)
 			{
 				/* make granite outside so arena works */
-				place_extra_bold(current_floor_ptr, y, x);
+				place_extra_bold(floor_ptr, y, x);
 			}
 		}
 	}
@@ -6289,7 +6289,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_GREATER_VAULT: return build_type8(floor_ptr);
 	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
 	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
-	case ROOM_T_OVAL:          return build_type11();
+	case ROOM_T_OVAL:          return build_type11(floor_ptr);
 	case ROOM_T_CRYPT:         return build_type12();
 	case ROOM_T_TRAP_PIT:      return build_type13();
 	case ROOM_T_TRAP:          return build_type14();
