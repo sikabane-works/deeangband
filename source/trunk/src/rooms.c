@@ -3735,7 +3735,7 @@ static bool generate_fracave(int y0, int x0, int xsize, int ysize, int cutoff, b
 /*
  * Driver routine to create fractal cave system
  */
-static bool build_type9(void)
+static bool build_type9(floor_type *floor_ptr)
 {
 	int grd, roug, cutoff, xsize, ysize, y0, x0;
 
@@ -3746,27 +3746,27 @@ static bool build_type9(void)
 	ysize = randint1(20) * 2 + 6;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
+	if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 	{
 		/* Limit to the minimum room size, and retry */
 		xsize = 8;
 		ysize = 8;
 
 		/* Find and reserve some space in the dungeon.  Get center of room. */
-		if (!find_space(current_floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
+		if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 		{
 			/*
 			 * Still no space?!
 			 * Try normal room
 			 */
-			return build_type1(current_floor_ptr);
+			return build_type1(floor_ptr);
 		}
 	}
 
 	light = done = FALSE;
 	room = TRUE;
 
-	if ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	while (!done)
 	{
@@ -6287,7 +6287,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_PIT:           return build_type6(floor_ptr);
 	case ROOM_T_LESSER_VAULT:  return build_type7(floor_ptr);
 	case ROOM_T_GREATER_VAULT: return build_type8(floor_ptr);
-	case ROOM_T_FRACAVE:       return build_type9();
+	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
 	case ROOM_T_RANDOM_VAULT:  return build_type10();
 	case ROOM_T_OVAL:          return build_type11();
 	case ROOM_T_CRYPT:         return build_type12();
