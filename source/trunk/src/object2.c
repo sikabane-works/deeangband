@@ -4537,7 +4537,7 @@ void init_normal_traps(void)
  * Actually, it is not this routine, but the "trap instantiation"
  * code, which should also check for "trap doors" on quest levels.
  */
-s16b choose_random_trap(void)
+s16b choose_random_trap(floor_type *floor_ptr)
 {
 	s16b feat;
 
@@ -4551,10 +4551,10 @@ s16b choose_random_trap(void)
 		if (!have_flag(f_info[feat].flags, FF_MORE)) break;
 
 		/* Hack -- no trap doors on special levels */
-		if (fight_arena_mode || quest_number(current_floor_ptr->floor_level)) continue;
+		if (fight_arena_mode || quest_number(floor_ptr->floor_level)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
-		if (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth) continue;
+		if (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth) continue;
 
 		break;
 	}
@@ -4609,7 +4609,7 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 
 	/* Place an invisible trap */
 	c_ptr->mimic = c_ptr->feat;
-	c_ptr->feat = choose_random_trap();
+	c_ptr->feat = choose_random_trap(floor_ptr);
 }
 
 
