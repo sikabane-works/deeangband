@@ -5885,7 +5885,7 @@ static bool build_type13(floor_type *floor_ptr)
  *
  * A special trap is placed at center of the room
  */
-static bool build_type14(void)
+static bool build_type14(floor_type *floor_ptr)
 {
 	int y, x, y2, x2, yval, xval;
 	int y1, x1, xsize, ysize;
@@ -5905,10 +5905,10 @@ static bool build_type14(void)
 	ysize = y1 + y2 + 1;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 
 	/* Get corner values */
@@ -5923,7 +5923,7 @@ static bool build_type14(void)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
 			if (light) c_ptr->info |= (CAVE_GLOW);
@@ -5933,20 +5933,20 @@ static bool build_type14(void)
 	/* Walls around the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1 - 1];
+		c_ptr = &floor_ptr->cave[y][x1 - 1];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2 + 1];
+		c_ptr = &floor_ptr->cave[y][x2 + 1];
 		place_outer_grid(c_ptr);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1 - 1][x];
+		c_ptr = &floor_ptr->cave[y1 - 1][x];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2 + 1][x];
+		c_ptr = &floor_ptr->cave[y2 + 1][x];
 		place_outer_grid(c_ptr);
 	}
 
-	if (current_floor_ptr->floor_level < 30 + randint1(30))
+	if (floor_ptr->floor_level < 30 + randint1(30))
 		if (one_in_(3)) trap = feat_trap_piranha;
 		else if(one_in_(2)) trap = feat_trap_acid_flow;
 		else trap = feat_trap_poison_flow;
@@ -5954,7 +5954,7 @@ static bool build_type14(void)
 		trap = feat_trap_armageddon;
 
 	/* Place a special trap */
-	c_ptr = &current_floor_ptr->cave[rand_spread(yval, ysize/4)][rand_spread(xval, xsize/4)];
+	c_ptr = &floor_ptr->cave[rand_spread(yval, ysize/4)][rand_spread(xval, xsize/4)];
 	c_ptr->mimic = c_ptr->feat;
 	c_ptr->feat = trap;
 
@@ -6290,7 +6290,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_OVAL:          return build_type11(floor_ptr);
 	case ROOM_T_CRYPT:         return build_type12(floor_ptr);
 	case ROOM_T_TRAP_PIT:      return build_type13(floor_ptr);
-	case ROOM_T_TRAP:          return build_type14();
+	case ROOM_T_TRAP:          return build_type14(floor_ptr);
 	case ROOM_T_GLASS:         return build_type15();
 	}
 
