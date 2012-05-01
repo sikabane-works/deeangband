@@ -5632,7 +5632,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  *
  * Note that "monster pits" will never contain "unique" monsters.
  */
-static bool build_type13(void)
+static bool build_type13(floor_type *floor_ptr)
 {
 	static int placing[][3] = {
 		{-2, -9, 0}, {-2, -8, 0}, {-3, -7, 0}, {-3, -6, 0},
@@ -5672,11 +5672,11 @@ static bool build_type13(void)
 
 	cave_type *c_ptr;
 
-	int cur_pit_type = pick_vault_type(pit_types, dungeon_info[current_floor_ptr->dun_type].pit);
+	int cur_pit_type = pick_vault_type(pit_types, dungeon_info[floor_ptr->dun_type].pit);
 	vault_aux_type *n_ptr;
 
 	/* Only in Angband */
-	if (current_floor_ptr->dun_type != DUNGEON_ANGBAND) return FALSE;
+	if (floor_ptr->dun_type != DUNGEON_ANGBAND) return FALSE;
 
 	/* No type available */
 	if (cur_pit_type < 0) return FALSE;
@@ -5700,7 +5700,7 @@ static bool build_type13(void)
 		while (attempts--)
 		{
 			/* Get a (hard) monster type */
-			species_idx = get_species_num(current_floor_ptr->floor_level + 0);
+			species_idx = get_species_num(floor_ptr->floor_level + 0);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -5721,7 +5721,7 @@ static bool build_type13(void)
 	}
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &yval, &xval, 13, 25)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, 13, 25)) return FALSE;
 
 	/* Large room */
 	y1 = yval - 5;
@@ -5734,7 +5734,7 @@ static bool build_type13(void)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_inner_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
 		}
@@ -5743,51 +5743,51 @@ static bool build_type13(void)
 	/* Place the floor area 1 */
 	for (x = x1 + 3; x <= x2 - 3; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[yval-2][x];
+		c_ptr = &floor_ptr->cave[yval-2][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(current_floor_ptr, yval-2, x, CAVE_ICKY);
+		add_cave_info(floor_ptr, yval-2, x, CAVE_ICKY);
 
-		c_ptr = &current_floor_ptr->cave[yval+2][x];
+		c_ptr = &floor_ptr->cave[yval+2][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(current_floor_ptr, yval+2, x, CAVE_ICKY);
+		add_cave_info(floor_ptr, yval+2, x, CAVE_ICKY);
 	}
 
 	/* Place the floor area 2 */
 	for (x = x1 + 5; x <= x2 - 5; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[yval-3][x];
+		c_ptr = &floor_ptr->cave[yval-3][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(current_floor_ptr, yval-3, x, CAVE_ICKY);
+		add_cave_info(floor_ptr, yval-3, x, CAVE_ICKY);
 
-		c_ptr = &current_floor_ptr->cave[yval+3][x];
+		c_ptr = &floor_ptr->cave[yval+3][x];
 		place_floor_grid(c_ptr);
-		add_cave_info(current_floor_ptr, yval+3, x, CAVE_ICKY);
+		add_cave_info(floor_ptr, yval+3, x, CAVE_ICKY);
 	}
 
 	/* Corridor */
 	for (x = x1; x <= x2; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[yval][x];
+		c_ptr = &floor_ptr->cave[yval][x];
 		place_floor_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y1][x];
+		c_ptr = &floor_ptr->cave[y1][x];
 		place_floor_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2][x];
+		c_ptr = &floor_ptr->cave[y2][x];
 		place_floor_grid(c_ptr);
 	}
 
 	/* Place the outer walls */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1 - 1];
+		c_ptr = &floor_ptr->cave[y][x1 - 1];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y][x2 + 1];
+		c_ptr = &floor_ptr->cave[y][x2 + 1];
 		place_outer_grid(c_ptr);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1 - 1][x];
+		c_ptr = &floor_ptr->cave[y1 - 1][x];
 		place_outer_grid(c_ptr);
-		c_ptr = &current_floor_ptr->cave[y2 + 1][x];
+		c_ptr = &floor_ptr->cave[y2 + 1][x];
 		place_outer_grid(c_ptr);
 	}
 
@@ -5796,12 +5796,12 @@ static bool build_type13(void)
 	{
 		for (y = y1; y <= yval; y++)
 		{
-			place_floor_bold(current_floor_ptr, y, x2);
+			place_floor_bold(floor_ptr, y, x2);
 			place_solid_bold(y, x1-1);
 		}
 		for (y = yval; y <= y2 + 1; y++)
 		{
-			place_floor_bold(current_floor_ptr, y, x1);
+			place_floor_bold(floor_ptr, y, x1);
 			place_solid_bold(y, x2+1);
 		}
 	}
@@ -5809,19 +5809,19 @@ static bool build_type13(void)
 	{
 		for (y = yval; y <= y2 + 1; y++)
 		{
-			place_floor_bold(current_floor_ptr, y, x1);
+			place_floor_bold(floor_ptr, y, x1);
 			place_solid_bold(y, x2+1);
 		}
 		for (y = y1; y <= yval; y++)
 		{
-			place_floor_bold(current_floor_ptr, y, x2);
+			place_floor_bold(floor_ptr, y, x2);
 			place_solid_bold(y, x1-1);
 		}
 	}
 
 	/* Place the wall open trap */
-	current_floor_ptr->cave[yval][xval].mimic = current_floor_ptr->cave[yval][xval].feat;
-	current_floor_ptr->cave[yval][xval].feat = feat_trap_open;
+	floor_ptr->cave[yval][xval].mimic = floor_ptr->cave[yval][xval].feat;
+	floor_ptr->cave[yval][xval].feat = feat_trap_open;
 
 	/* Sort the entries */
 	for (i = 0; i < 16 - 1; i++)
@@ -6289,7 +6289,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
 	case ROOM_T_OVAL:          return build_type11(floor_ptr);
 	case ROOM_T_CRYPT:         return build_type12(floor_ptr);
-	case ROOM_T_TRAP_PIT:      return build_type13();
+	case ROOM_T_TRAP_PIT:      return build_type13(floor_ptr);
 	case ROOM_T_TRAP:          return build_type14();
 	case ROOM_T_GLASS:         return build_type15();
 	}
