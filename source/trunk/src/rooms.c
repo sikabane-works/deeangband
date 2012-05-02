@@ -4370,7 +4370,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
  * The area inside the walls is not touched:
  * only granite is removed- normal walls stay
  */
-static void build_room(int x1, int x2, int y1, int y2)
+static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 {
 	int x, y, i, xsize, ysize, temp;
 
@@ -4403,18 +4403,18 @@ static void build_room(int x1, int x2, int y1, int y2)
 	for (i = 0; i <= xsize; i++)
 	{
 		place_outer_noperm_bold(y1, x1 + i);
-		current_floor_ptr->cave[y1][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y1][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
 		place_outer_noperm_bold(y2, x1 + i);
-		current_floor_ptr->cave[y2][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y2][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
 	/* Left and right boundaries */
 	for (i = 1; i < ysize; i++)
 	{
 		place_outer_noperm_bold(y1 + i, x1);
-		current_floor_ptr->cave[y1 + i][x1].info|=(CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y1 + i][x1].info|=(CAVE_ROOM | CAVE_ICKY);
 		place_outer_noperm_bold(y1 + i, x2);
-		current_floor_ptr->cave[y1 + i][x2].info|=(CAVE_ROOM | CAVE_ICKY);
+		floor_ptr->cave[y1 + i][x2].info|=(CAVE_ROOM | CAVE_ICKY);
 	}
 
 	/* Middle */
@@ -4425,13 +4425,13 @@ static void build_room(int x1, int x2, int y1, int y2)
 			if (is_extra_bold(y1+y, x1+x))
 			{
 				/* clear the untouched region */
-				place_floor_bold(current_floor_ptr, y1 + y, x1 + x);
-				current_floor_ptr->cave[y1 + y][x1 + x].info |= (CAVE_ROOM | CAVE_ICKY);
+				place_floor_bold(floor_ptr, y1 + y, x1 + x);
+				floor_ptr->cave[y1 + y][x1 + x].info |= (CAVE_ROOM | CAVE_ICKY);
 			}
 			else
 			{
 				/* make it a room- but don't touch */
-				current_floor_ptr->cave[y1 + y][x1 + x].info |= (CAVE_ROOM | CAVE_ICKY);
+				floor_ptr->cave[y1 + y][x1 + x].info |= (CAVE_ROOM | CAVE_ICKY);
 			}
 		}
 	}
@@ -4471,7 +4471,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 		x2 = randint1(xhsize) * 2 + x0 - xhsize;
 		y1 = randint1(yhsize) * 2 + y0 - yhsize;
 		y2 = randint1(yhsize) * 2 + y0 - yhsize;
-		build_room(x1, x2, y1, y2);
+		build_room(floor_ptr, x1, x2, y1, y2);
 	}
 
 	/* Add some random doors */
