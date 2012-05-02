@@ -3981,7 +3981,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 /*
  * makes a lake/collapsed cave system in the center of the dungeon
  */
-void build_lake(int type)
+void build_lake(floor_type *floor_ptr, int type)
 {
 	int grd, roug, xsize, ysize, x0, y0;
 	bool done = FALSE;
@@ -3995,8 +3995,8 @@ void build_lake(int type)
 	}
 
 	/* Make the size of the dungeon */
-	xsize = current_floor_ptr->width - 1;
-	ysize = current_floor_ptr->height - 1;
+	xsize = floor_ptr->width - 1;
+	ysize = floor_ptr->height - 1;
 	x0 = xsize / 2;
 	y0 = ysize / 2;
 
@@ -4026,7 +4026,7 @@ void build_lake(int type)
 		generate_hmap(y0 + 1, x0 + 1, xsize, ysize, grd, roug, c3);
 
 		/* Convert to normal format+ clean up */
-		done = generate_lake(current_floor_ptr, y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
+		done = generate_lake(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
 	}
 }
 #endif /* ALLOW_CAVERNS_AND_LAKES */

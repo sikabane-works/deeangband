@@ -63,7 +63,7 @@ struct room_info_type
 
 /* Externs */
 #ifdef ALLOW_CAVERNS_AND_LAKES
-extern void build_lake(int type);
+extern void build_lake(floor_type *floor_ptr, int type);
 extern void build_cavern(void);
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 

@@ -597,7 +597,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 		dungeon_ptr->destroyed = TRUE;
 
 		/* extra rubble around the place looks cool */
-		build_lake(one_in_(2) ? LAKE_T_CAVE : LAKE_T_EARTH_VAULT);
+		build_lake(floor_ptr, one_in_(2) ? LAKE_T_CAVE : LAKE_T_EARTH_VAULT);
 	}
 
 	/* Make a lake some of the time */
@@ -655,7 +655,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 				msg_print("Lake on the level.");
 #endif
 
-			build_lake(dungeon_ptr->laketype);
+			build_lake(floor_ptr, dungeon_ptr->laketype);
 		}
 	}
 
