@@ -4038,7 +4038,7 @@ void build_lake(int type)
  *
  * The doors must be INSIDE the allocated region.
  */
-static void add_door(int x, int y)
+static void add_door(floor_type *floor_ptr, int x, int y)
 {
 	/* Need to have a wall in the center square */
 	if (!is_outer_bold(y, x)) return;
@@ -4056,7 +4056,7 @@ static void add_door(int x, int y)
 	    (is_outer_bold(y, x - 1) && is_outer_bold(y, x + 1)))
 	{
 		/* secret door */
-		place_secret_door(current_floor_ptr, y, x, DOOR_DEFAULT);
+		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
 
 		/* set boundarys so don't get wide doors */
 		place_solid_bold(y, x - 1);
@@ -4076,7 +4076,7 @@ static void add_door(int x, int y)
 	    is_floor_bold(y,x-1) && is_floor_bold(y,x+1))
 	{
 		/* secret door */
-		place_secret_door(current_floor_ptr, y, x, DOOR_DEFAULT);
+		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
 
 		/* set boundarys so don't get wide doors */
 		place_solid_bold(y - 1, x);
@@ -4356,7 +4356,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	{
 		x = randint1(xsize - 3) - xhsize + x0 + 1;
 		y = randint1(ysize - 3) - yhsize + y0 + 1;
-		add_door(x, y);
+		add_door(floor_ptr, x, y);
 	}
 
 	/* Fill with monsters and treasure, low difficulty */
@@ -4479,7 +4479,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 	{
 		x1 = randint1(xsize - 3) - xhsize + x0 + 1;
 		y1 = randint1(ysize - 3) - yhsize + y0 + 1;
-		add_door(x1, y1);
+		add_door(floor_ptr, x1, y1);
 	}
 
 	/* Fill with monsters and treasure, high difficulty */
@@ -5262,14 +5262,14 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	x = (rad - 2) / 4 + 1;
 	y = rad / 2 + x;
 
-	add_door(x0 + x, y0);
-	add_door(x0 + y, y0);
-	add_door(x0 - x, y0);
-	add_door(x0 - y, y0);
-	add_door(x0, y0 + x);
-	add_door(x0, y0 + y);
-	add_door(x0, y0 - x);
-	add_door(x0, y0 - y);
+	add_door(floor_ptr, x0 + x, y0);
+	add_door(floor_ptr, x0 + y, y0);
+	add_door(floor_ptr, x0 - x, y0);
+	add_door(floor_ptr, x0 - y, y0);
+	add_door(floor_ptr, x0, y0 + x);
+	add_door(floor_ptr, x0, y0 + y);
+	add_door(floor_ptr, x0, y0 - x);
+	add_door(floor_ptr, x0, y0 - y);
 
 	/* Fill with stuff - medium difficulty */
 	fill_treasure(floor_ptr, x0 - rad, x0 + rad, y0 - rad, y0 + rad, randint1(3) + 3);
