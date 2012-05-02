@@ -418,12 +418,12 @@ static int next_to_corr(floor_type *floor_ptr, int y1, int x1)
  * Determine if the given location is "between" two walls,
  * and "next to" two corridor spaces.  XXX XXX XXX
  *
- * Assumes "in_bounds(current_floor_ptr, y, x)"
+ * Assumes "in_bounds(floor_ptr, y, x)"
  */
-static bool possible_doorway(int y, int x)
+static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 {
 	/* Count the adjacent corridors */
-	if (next_to_corr(current_floor_ptr, y, x) >= 2)
+	if (next_to_corr(floor_ptr, y, x) >= 2)
 	{
 		/* Check Vertical */
 		if (cave_have_flag_bold(y - 1, x, FF_WALL) &&
@@ -460,7 +460,7 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 	if (floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
 
 	/* Occasional door (if allowed) */
-	if ((randint0(100) < dun_tun_jct) && possible_doorway(y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
+	if ((randint0(100) < dun_tun_jct) && possible_doorway(floor_ptr, y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 	{
 		/* Place a door */
 		place_random_door(floor_ptr, y, x, FALSE);
