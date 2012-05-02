@@ -3390,13 +3390,13 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 }
 
 
-static bool hack_isnt_wall(int y, int x, int c1, int c2, int c3, int feat1, int feat2, int feat3, int info1, int info2, int info3)
+static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, int c3, int feat1, int feat2, int feat3, int info1, int info2, int info3)
 {
 	/*
 	 * function used to convert from height-map back to the
 	 *  normal angband cave format
 	 */
-	if (current_floor_ptr->cave[y][x].info & CAVE_ICKY)
+	if (floor_ptr->cave[y][x].info & CAVE_ICKY)
 	{
 		/* already done */
 		return FALSE;
@@ -3404,50 +3404,50 @@ static bool hack_isnt_wall(int y, int x, int c1, int c2, int c3, int feat1, int 
 	else
 	{
 		/* Show that have looked at this square */
-		current_floor_ptr->cave[y][x].info|= (CAVE_ICKY);
+		floor_ptr->cave[y][x].info|= (CAVE_ICKY);
 
 		/* Use cutoffs c1-c3 to allocate regions of floor /water/ lava etc. */
-		if (current_floor_ptr->cave[y][x].feat <= c1)
+		if (floor_ptr->cave[y][x].feat <= c1)
 		{
 			/* 25% of the time use the other tile : it looks better this way */
 			if (randint1(100) < 75)
 			{
-				current_floor_ptr->cave[y][x].feat = feat1;
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
-				current_floor_ptr->cave[y][x].info |= info1;
+				floor_ptr->cave[y][x].feat = feat1;
+				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+				floor_ptr->cave[y][x].info |= info1;
 				return TRUE;
 			}
 			else
 			{
-				current_floor_ptr->cave[y][x].feat = feat2;
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
-				current_floor_ptr->cave[y][x].info |= info2;
+				floor_ptr->cave[y][x].feat = feat2;
+				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+				floor_ptr->cave[y][x].info |= info2;
 				return TRUE;
 			}
 		}
-		else if (current_floor_ptr->cave[y][x].feat <= c2)
+		else if (floor_ptr->cave[y][x].feat <= c2)
 		{
 			/* 25% of the time use the other tile : it looks better this way */
 			if (randint1(100) < 75)
 			{
-				current_floor_ptr->cave[y][x].feat = feat2;
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
-				current_floor_ptr->cave[y][x].info |= info2;
+				floor_ptr->cave[y][x].feat = feat2;
+				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+				floor_ptr->cave[y][x].info |= info2;
 				return TRUE;
 			}
 			else
 			{
-				current_floor_ptr->cave[y][x].feat = feat1;
-				current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
-				current_floor_ptr->cave[y][x].info |= info1;
+				floor_ptr->cave[y][x].feat = feat1;
+				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+				floor_ptr->cave[y][x].info |= info1;
 				return TRUE;
 			}
 		}
-		else if (current_floor_ptr->cave[y][x].feat <= c3)
+		else if (floor_ptr->cave[y][x].feat <= c3)
 		{
-			current_floor_ptr->cave[y][x].feat = feat3;
-			current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
-			current_floor_ptr->cave[y][x].info |= info3;
+			floor_ptr->cave[y][x].feat = feat3;
+			floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+			floor_ptr->cave[y][x].info |= info3;
 			return TRUE;
 		}
 		/* if greater than cutoff then is a wall */
@@ -3514,7 +3514,7 @@ static void cave_fill(byte y, byte x)
 				&& (j > fill_data.ymin) && (j < fill_data.ymax))
 			{
 				/* If not a wall or floor done before */
-				if (hack_isnt_wall(j, i,
+				if (hack_isnt_wall(current_floor_ptr, j, i,
 					fill_data.c1, fill_data.c2, fill_data.c3,
 					fill_data.feat1, fill_data.feat2, fill_data.feat3,
 					fill_data.info1, fill_data.info2, fill_data.info3))
