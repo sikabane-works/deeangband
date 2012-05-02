@@ -1195,7 +1195,7 @@ static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 /*
  * Builds the arena after it is entered -KMW-
  */
-static void build_battle(creature_type *player_ptr)
+static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 {
 	int yval, y_height, y_depth, xval, x_left, x_right;
 	register int i, j;
@@ -1211,46 +1211,46 @@ static void build_battle(creature_type *player_ptr)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (i = y_depth; i >= y_depth - 3; i--)
 		for (j = x_left; j <= x_right; j++)
 		{
 			place_extra_perm_bold(i, j);
-			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_left; j <= x_left + 17; j++)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	for (j = x_right; j >= x_right - 17; j--)
 		for (i = y_height; i <= y_depth; i++)
 		{
 			place_extra_perm_bold(i, j);
-			current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 
 	place_extra_perm_bold(y_height+6, x_left+18);
-	current_floor_ptr->cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	floor_ptr->cave[y_height+6][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-4, x_left+18);
-	current_floor_ptr->cave[y_depth-4][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
+	floor_ptr->cave[y_depth-4][x_left+18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_height+6, x_right-18);
-	current_floor_ptr->cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	floor_ptr->cave[y_height+6][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 	place_extra_perm_bold(y_depth-4, x_right-18);
-	current_floor_ptr->cave[y_depth-4][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
+	floor_ptr->cave[y_depth-4][x_right-18].info |= (CAVE_GLOW | CAVE_MARK);
 
 	for (i = y_height + 1; i <= y_height + 5; i++)
 		for (j = x_left + 20 + 2 * (y_height + 5 - i); j <= x_right - 20 - 2 * (y_height + 5 - i); j++)
 		{
-			current_floor_ptr->cave[i][j].feat = feat_permanent_glass_wall;
+			floor_ptr->cave[i][j].feat = feat_permanent_glass_wall;
 		}
 
 	i = y_height + 1;
 	j = xval;
-	current_floor_ptr->cave[i][j].feat = f_tag_to_index("BUILDING_3");
-	current_floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
+	floor_ptr->cave[i][j].feat = f_tag_to_index("BUILDING_3");
+	floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
 	creature_place(player_ptr, i, j);
 }
 
@@ -1283,7 +1283,7 @@ static void generate_floor_monster_arena(floor_type *floor_ptr)
 		}
 	}
 
-	build_battle(player_ptr);
+	build_battle(floor_ptr, player_ptr);
 
 	for(i = 0; i < 4;i ++)
 	{
