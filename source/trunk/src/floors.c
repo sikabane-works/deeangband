@@ -340,7 +340,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  * the one of the floors connected by the one of the stairs in the
  * current floor.
  */
-static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_ptr)
+static void locate_connected_stairs(creature_type *creature_ptr, floor_type *floor_ptr, floor_type *dest_floor_ptr)
 {
 	int x, y, sx = 0, sy = 0;
 	int x_table[20];
@@ -349,11 +349,11 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 	int i;
 
 	/* Search usable stairs */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 			feature_type *f_ptr = &f_info[c_ptr->feat];
 			bool ok = FALSE;
 
@@ -366,7 +366,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 
 					/* Found fixed stairs? */
 					if (c_ptr->special &&
-					    c_ptr->special == sf_ptr->upper_floor_id)
+					    c_ptr->special == dest_floor_ptr->upper_floor_id)
 					{
 						sx = x;
 						sy = y;
@@ -383,7 +383,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 
 					/* Found fixed stairs */
 					if (c_ptr->special &&
-					    c_ptr->special == sf_ptr->lower_floor_id)
+					    c_ptr->special == dest_floor_ptr->lower_floor_id)
 					{
 						sx = x;
 						sy = y;
@@ -420,7 +420,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, floor_type *sf_
 		prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE | CFM_NO_RETURN);
 
 		/* Mega Hack -- It's not the stairs you enter.  Disable it.  */
-		if (!feat_uses_special(current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat)) current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = 0;
+		if (!feat_uses_special(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat)) floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = 0;
 	}
 	else
 	{
@@ -466,14 +466,6 @@ void move_floor(creature_type *creature_ptr)
 			quest_species_idx = quest[i].species_idx;
 		}
 	}
-
-	// Choose random stairs
-	/* TODO
-	if ((creature_ptr->change_floor_mode & CFM_RAND_CONNECT) && creature_ptr->floor_id)
-	{
-		locate_connected_stairs(creature_ptr, old_floor_ptr);
-	}
-	*/
 
 	// Get back to old saved floor?
 	if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
@@ -533,6 +525,9 @@ void move_floor(creature_type *creature_ptr)
 
 		change_floor(new_floor_ptr, creature_ptr);
 		creature_ptr->floor_id = floor_id;
+
+		// Choose random stairs
+		//locate_connected_stairs(creature_ptr, old_floor_ptr, new_floor_ptr);
 	}
 
 
