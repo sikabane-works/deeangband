@@ -142,10 +142,10 @@ static int next_to_walls(int y, int x)
  *
  *  Is this a good location for stairs?
  */
-static bool alloc_stairs_aux(int y, int x, int walls)
+static bool alloc_stairs_aux(floor_type *floor_ptr, int y, int x, int walls)
 {
 	/* Access the grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Require "naked" floor grid */
 	if (!is_floor_grid(c_ptr)) return FALSE;
@@ -217,7 +217,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			{
 				for (x = 1; x < floor_ptr->width - 1; x++)
 				{
-					if (alloc_stairs_aux(y, x, walls))
+					if (alloc_stairs_aux(floor_ptr, y, x, walls))
 					{
 						/* A valid space found */
 						candidates++;
@@ -243,7 +243,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			{
 				for (x = 1; x < floor_ptr->width - 1; x++)
 				{
-					if (alloc_stairs_aux(y, x, walls))
+					if (alloc_stairs_aux(floor_ptr, y, x, walls))
 					{
 						pick--;
 
@@ -803,7 +803,8 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		int tunnel_fail_count = 0;
 
 		// Build each type of room in turn until we cannot build any more.
-		if (!generate_rooms(floor_ptr)) return FALSE;
+		if (!generate_rooms(floor_ptr))
+			return FALSE;
 
 
 		/* Make a hole in the dungeon roof sometimes at level 1 */
@@ -973,11 +974,13 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			try_door(floor_ptr, y + 1, x);
 		}
 
-		/* Place some down stairs near some walls */
-		if (!alloc_stairs(floor_ptr, feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
+		// Place some down stairs near some walls
+		if (!alloc_stairs(floor_ptr, feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3))
+			return FALSE;
 
-		/* Place some up stairs near some walls */
-		if (!alloc_stairs(floor_ptr, feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3)) return FALSE;
+		// Place some up stairs near some walls
+		if (!alloc_stairs(floor_ptr, feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3))
+			return FALSE;
 	}
 
 	if (!dungeon_ptr->laketype)
