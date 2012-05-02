@@ -4088,7 +4088,7 @@ static void add_door(int x, int y)
 /*
  * Routine that fills the empty areas of a room with treasure and monsters.
  */
-static void fill_treasure(int x1, int x2, int y1, int y2, int difficulty)
+static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2, int difficulty)
 {
 	int x, y, cx, cy, size;
 	s32b value;
@@ -4360,7 +4360,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	}
 
 	/* Fill with monsters and treasure, low difficulty */
-	fill_treasure(x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5));
+	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5));
 }
 
 
@@ -4483,7 +4483,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 	}
 
 	/* Fill with monsters and treasure, high difficulty */
-	fill_treasure(x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5) + 5);
+	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5) + 5);
 }
 
 
@@ -4533,7 +4533,7 @@ static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, in
 	}
 
 	/* Fill with monsters and treasure, low difficulty */
-	fill_treasure(x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
+	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
 }
 
 /*
@@ -4697,7 +4697,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 	r_visit(y1, x1, y2, x2, randint0(num_vertices), 0, visited);
 
 	/* Fill with monsters and treasure, low difficulty */
-	if (is_vault) fill_treasure(x1, x2, y1, y2, randint1(5));
+	if (is_vault) fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(5));
 
 	C_KILL(visited, num_vertices, int);
 }
@@ -4822,7 +4822,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	}
 
 	/* Fill with monsters and treasure, highest difficulty */
-	fill_treasure(x1, x2, y1, y2, 10);
+	fill_treasure(floor_ptr, x1, x2, y1, y2, 10);
 
 	C_KILL(visited, num_vertices, int);
 }
@@ -5073,7 +5073,7 @@ static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	build_recursive_room(x1, y1, x2, y2, randint1(5));
 
 	/* Fill with monsters and treasure, low difficulty */
-	fill_treasure(x1, x2, y1, y2, randint1(3));
+	fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(3));
 }
 
 
@@ -5273,7 +5273,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	add_door(x0, y0 - y);
 
 	/* Fill with stuff - medium difficulty */
-	fill_treasure(x0 - rad, x0 + rad, y0 - rad, y0 + rad, randint1(3) + 3);
+	fill_treasure(floor_ptr, x0 - rad, x0 + rad, y0 - rad, y0 + rad, randint1(3) + 3);
 }
 
 
@@ -5360,13 +5360,11 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	/* make a few rooms in the vault */
 	for (i = 1; i <= (xsize * ysize) / 50; i++)
 	{
-		build_small_room(x0 + randint0(xsize - 4) - xsize / 2 + 2,
-				 y0 + randint0(ysize - 4) - ysize / 2 + 2);
+		build_small_room(x0 + randint0(xsize - 4) - xsize / 2 + 2, y0 + randint0(ysize - 4) - ysize / 2 + 2);
 	}
 
 	/* Fill with monsters and treasure, low difficulty */
-	fill_treasure(x0 - xhsize + 1, x0 - xhsize + xsize - 1,
-		      y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
+	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
 }
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
@@ -6021,7 +6019,7 @@ static bool kind_is_potion(int k_idx)
 /*
  * Type 15 -- glass rooms
  */
-static bool build_type15(void)
+static bool build_type15(floor_type *floor_ptr)
 {
 	int y, x, y2, x2, yval, xval;
 	int y1, x1, xsize, ysize;
@@ -6034,10 +6032,10 @@ static bool build_type15(void)
 	ysize = rand_range(7, 18);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(current_floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((current_floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Get corner values */
 	y1 = yval - ysize / 2;
@@ -6050,7 +6048,7 @@ static bool build_type15(void)
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->feat = feat_glass_floor;
 			c_ptr->info |= (CAVE_ROOM);
@@ -6061,19 +6059,19 @@ static bool build_type15(void)
 	/* Walls around the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x1 - 1];
+		c_ptr = &floor_ptr->cave[y][x1 - 1];
 		place_outer_grid(c_ptr);
 		c_ptr->feat = feat_glass_wall;
-		c_ptr = &current_floor_ptr->cave[y][x2 + 1];
+		c_ptr = &floor_ptr->cave[y][x2 + 1];
 		place_outer_grid(c_ptr);
 		c_ptr->feat = feat_glass_wall;
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[y1 - 1][x];
+		c_ptr = &floor_ptr->cave[y1 - 1][x];
 		place_outer_grid(c_ptr);
 		c_ptr->feat = feat_glass_wall;
-		c_ptr = &current_floor_ptr->cave[y2 + 1][x];
+		c_ptr = &floor_ptr->cave[y2 + 1][x];
 		place_outer_grid(c_ptr);
 		c_ptr->feat = feat_glass_wall;
 	}
@@ -6090,7 +6088,7 @@ static bool build_type15(void)
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(current_floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr->floor_level);
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
@@ -6099,7 +6097,7 @@ static bool build_type15(void)
 				/* Walls around the breather */
 				for (dir2 = 0; dir2 < 8; dir2++)
 				{
-					c_ptr = &current_floor_ptr->cave[y + ddy_ddd[dir2]][x + ddx_ddd[dir2]];
+					c_ptr = &floor_ptr->cave[y + ddy_ddd[dir2]][x + ddx_ddd[dir2]];
 					place_inner_grid(c_ptr);
 					c_ptr->feat = feat_glass_wall;
 				}
@@ -6110,10 +6108,10 @@ static bool build_type15(void)
 			{
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 				place_inner_perm_grid(c_ptr);
 				c_ptr->feat = feat_permanent_glass_wall;
-				current_floor_ptr->cave[yval + ddy_ddd[dir1]][xval + ddx_ddd[dir1]].info |= (CAVE_ICKY);
+				floor_ptr->cave[yval + ddy_ddd[dir1]][xval + ddx_ddd[dir1]].info |= (CAVE_ICKY);
 			}
 
 			/* Glass door */
@@ -6121,13 +6119,13 @@ static bool build_type15(void)
 			y = yval + 2 * ddy_ddd[dir1];
 			x = xval + 2 * ddx_ddd[dir1];
 			place_secret_door(y, x, DOOR_GLASS_DOOR);
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			if (is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 
 			/* Place a potion */
 			get_obj_num_hook = kind_is_potion;
-			place_object(current_floor_ptr, yval, xval, AM_NO_FIXED_ART);
-			current_floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
+			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
 
@@ -6136,32 +6134,32 @@ static bool build_type15(void)
 			int species_idx, dir1;
 
 			/* Pillars */
-			c_ptr = &current_floor_ptr->cave[y1 + 1][x1 + 1];
+			c_ptr = &floor_ptr->cave[y1 + 1][x1 + 1];
 			place_inner_grid(c_ptr);
 			c_ptr->feat = feat_glass_wall;
 
-			c_ptr = &current_floor_ptr->cave[y1 + 1][x2 - 1];
+			c_ptr = &floor_ptr->cave[y1 + 1][x2 - 1];
 			place_inner_grid(c_ptr);
 			c_ptr->feat = feat_glass_wall;
 
-			c_ptr = &current_floor_ptr->cave[y2 - 1][x1 + 1];
+			c_ptr = &floor_ptr->cave[y2 - 1][x1 + 1];
 			place_inner_grid(c_ptr);
 			c_ptr->feat = feat_glass_wall;
 
-			c_ptr = &current_floor_ptr->cave[y2 - 1][x2 - 1];
+			c_ptr = &floor_ptr->cave[y2 - 1][x2 - 1];
 			place_inner_grid(c_ptr);
 			c_ptr->feat = feat_glass_wall;
 
 			/* Prepare allocation table */
 			get_species_num_prep(vault_aux_lite, NULL);
 
-			species_idx = get_species_num(current_floor_ptr->floor_level);
+			species_idx = get_species_num(floor_ptr->floor_level);
 			if (species_idx) place_creature_aux(NULL, yval, xval, species_idx, 0L);
 
 			/* Walls around the breather */
 			for (dir1 = 0; dir1 < 8; dir1++)
 			{
-				c_ptr = &current_floor_ptr->cave[yval + ddy_ddd[dir1]][xval + ddx_ddd[dir1]];
+				c_ptr = &floor_ptr->cave[yval + ddy_ddd[dir1]][xval + ddx_ddd[dir1]];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
 			}
@@ -6179,8 +6177,8 @@ static bool build_type15(void)
 			}
 
 			/* Place an object */
-			place_object(current_floor_ptr, yval, xval, AM_NO_FIXED_ART);
-			current_floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
+			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
 
@@ -6191,25 +6189,25 @@ static bool build_type15(void)
 			/* Walls around the potion */
 			for (y = yval - 2; y <= yval + 2; y++)
 			{
-				c_ptr = &current_floor_ptr->cave[y][xval - 3];
+				c_ptr = &floor_ptr->cave[y][xval - 3];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
-				c_ptr = &current_floor_ptr->cave[y][xval + 3];
+				c_ptr = &floor_ptr->cave[y][xval + 3];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
 			}
 			for (x = xval - 2; x <= xval + 2; x++)
 			{
-				c_ptr = &current_floor_ptr->cave[yval - 3][x];
+				c_ptr = &floor_ptr->cave[yval - 3][x];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
-				c_ptr = &current_floor_ptr->cave[yval + 3][x];
+				c_ptr = &floor_ptr->cave[yval + 3][x];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
 			}
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				c_ptr = &current_floor_ptr->cave[yval + 2 * ddy_ddd[dir1]][xval + 2 * ddx_ddd[dir1]];
+				c_ptr = &floor_ptr->cave[yval + 2 * ddy_ddd[dir1]][xval + 2 * ddx_ddd[dir1]];
 				place_inner_grid(c_ptr);
 				c_ptr->feat = feat_glass_wall;
 			}
@@ -6220,7 +6218,7 @@ static bool build_type15(void)
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(current_floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr->floor_level);
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];
@@ -6231,21 +6229,21 @@ static bool build_type15(void)
 			if (one_in_(2))
 			{
 				get_obj_num_hook = kind_is_potion;
-				place_object(current_floor_ptr, yval, xval - 1, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART);
 				get_obj_num_hook = kind_is_potion;
-				place_object(current_floor_ptr, yval, xval + 1, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART);
 			}
 			else
 			{
 				get_obj_num_hook = kind_is_potion;
-				place_object(current_floor_ptr, yval - 1, xval, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART);
 				get_obj_num_hook = kind_is_potion;
-				place_object(current_floor_ptr, yval + 1, xval, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART);
 			}
 
 			for (y = yval - 2; y <= yval + 2; y++)
 				for (x = xval - 2; x <= xval + 2; x++)
-					current_floor_ptr->cave[y][x].info |= (CAVE_ICKY);
+					floor_ptr->cave[y][x].info |= (CAVE_ICKY);
 
 		}
 		break;
@@ -6291,7 +6289,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_CRYPT:         return build_type12(floor_ptr);
 	case ROOM_T_TRAP_PIT:      return build_type13(floor_ptr);
 	case ROOM_T_TRAP:          return build_type14(floor_ptr);
-	case ROOM_T_GLASS:         return build_type15();
+	case ROOM_T_GLASS:         return build_type15(floor_ptr);
 	}
 
 	/* Paranoia */
