@@ -3466,7 +3466,7 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
  * Quick and nasty fill routine used to find the connected region
  * of floor in the middle of the cave
  */
-static void cave_fill(byte y, byte x)
+static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 {
 	int i, j, d;
 	int ty, tx;
@@ -3502,10 +3502,10 @@ static void cave_fill(byte y, byte x)
 			i = tx + ddx_ddd[d];
 
 			/* Paranoia Don't leave the cave */
-			if (!in_bounds(current_floor_ptr, j, i))
+			if (!in_bounds(floor_ptr, j, i))
 			{
 				/* affect boundary */
-				current_floor_ptr->cave[j][i].info |= CAVE_ICKY;
+				floor_ptr->cave[j][i].info |= CAVE_ICKY;
 /*				return; */
 			}
 
@@ -3514,7 +3514,7 @@ static void cave_fill(byte y, byte x)
 				&& (j > fill_data.ymin) && (j < fill_data.ymax))
 			{
 				/* If not a wall or floor done before */
-				if (hack_isnt_wall(current_floor_ptr, j, i,
+				if (hack_isnt_wall(floor_ptr, j, i,
 					fill_data.c1, fill_data.c2, fill_data.c3,
 					fill_data.feat1, fill_data.feat2, fill_data.feat3,
 					fill_data.info1, fill_data.info2, fill_data.info3))
@@ -3541,7 +3541,7 @@ static void cave_fill(byte y, byte x)
 			else
 			{
 				/* affect boundary */
-				current_floor_ptr->cave[j][i].info |= CAVE_ICKY;
+				floor_ptr->cave[j][i].info |= CAVE_ICKY;
 			}
 		}
 	}
@@ -3580,7 +3580,7 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	/* number of filled squares */
 	fill_data.amount = 0;
 
-	cave_fill((byte)y0, (byte)x0);
+	cave_fill(floor_ptr, (byte)y0, (byte)x0);
 
 	/* if tally too small, try again */
 	if (fill_data.amount < 10)
@@ -3912,7 +3912,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 	/* select region connected to center of cave system
 	* this gets rid of alot of isolated one-sqaures that
 	* can make teleport traps instadeaths... */
-	cave_fill((byte)y0, (byte)x0);
+	cave_fill(floor_ptr, (byte)y0, (byte)x0);
 
 	/* if tally too small, try again */
 	if (fill_data.amount < 10)
