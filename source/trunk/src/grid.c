@@ -366,7 +366,7 @@ msg_print("警告！地下室のアイテムを配置できません！");
 /*
  * Place a trap with a given displacement of point
  */
-void vault_trap_aux(int y, int x, int yd, int xd)
+void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd)
 {
 	int count = 0, y1 = y, x1 = x;
 	int dummy = 0;
@@ -382,7 +382,7 @@ void vault_trap_aux(int y, int x, int yd, int xd)
 			y1 = rand_spread(y, yd);
 			x1 = rand_spread(x, xd);
 			dummy++;
-			if (!in_bounds(current_floor_ptr, y1, x1)) continue;
+			if (!in_bounds(floor_ptr, y1, x1)) continue;
 			break;
 		}
 
@@ -400,11 +400,11 @@ msg_print("警告！地下室のトラップを配置できません！");
 		}
 
 		/* Require "naked" floor grids */
-		c_ptr = &current_floor_ptr->cave[y1][x1];
+		c_ptr = &floor_ptr->cave[y1][x1];
 		if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
-		place_trap(current_floor_ptr, y1, x1);
+		place_trap(floor_ptr, y1, x1);
 
 		/* Done */
 		break;
@@ -421,7 +421,7 @@ void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num)
 
 	for (i = 0; i < num; i++)
 	{
-		vault_trap_aux(y, x, yd, xd);
+		vault_trap_aux(floor_ptr, y, x, yd, xd);
 	}
 }
 
