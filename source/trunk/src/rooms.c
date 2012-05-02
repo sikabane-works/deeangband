@@ -4119,29 +4119,29 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				if (value < 0)
 				{
 					/* Meanest monster + treasure */
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 40;
+					floor_ptr->creature_level = floor_ptr->base_level + 40;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					current_floor_ptr->object_level = current_floor_ptr->base_level + 20;
-					place_object(current_floor_ptr, y, x, AM_GOOD);
-					current_floor_ptr->object_level = current_floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level + 20;
+					place_object(floor_ptr, y, x, AM_GOOD);
+					floor_ptr->object_level = floor_ptr->base_level;
 				}
 				else if (value < 5)
 				{
 					/* Mean monster +treasure */
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 20;
+					floor_ptr->creature_level = floor_ptr->base_level + 20;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					current_floor_ptr->object_level = current_floor_ptr->base_level + 10;
-					place_object(current_floor_ptr, y, x, AM_GOOD);
-					current_floor_ptr->object_level = current_floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->base_level + 10;
+					place_object(floor_ptr, y, x, AM_GOOD);
+					floor_ptr->object_level = floor_ptr->base_level;
 				}
 				else if (value < 10)
 				{
 					/* Monster */
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 9;
+					floor_ptr->creature_level = floor_ptr->base_level + 9;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->base_level;
 				}
 				else if (value < 17)
 				{
@@ -4159,41 +4159,41 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* Object or trap */
 					if (randint0(100) < 25)
 					{
-						place_object(current_floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L);
 					}
 					else
 					{
-						place_trap(current_floor_ptr, y, x);
+						place_trap(floor_ptr, y, x);
 					}
 				}
 				else if (value < 30)
 				{
 					/* Monster and trap */
-					current_floor_ptr->creature_level = current_floor_ptr->base_level + 5;
+					floor_ptr->creature_level = floor_ptr->base_level + 5;
 					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-					current_floor_ptr->creature_level = current_floor_ptr->base_level;
-					place_trap(current_floor_ptr, y, x);
+					floor_ptr->creature_level = floor_ptr->base_level;
+					place_trap(floor_ptr, y, x);
 				}
 				else if (value < 40)
 				{
 					/* Monster or object */
 					if (randint0(100) < 50)
 					{
-						current_floor_ptr->creature_level = current_floor_ptr->base_level + 3;
+						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-						current_floor_ptr->creature_level = current_floor_ptr->base_level;
+						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
 					{
-						current_floor_ptr->object_level = current_floor_ptr->base_level + 7;
-						place_object(current_floor_ptr, y, x, 0L);
-						current_floor_ptr->object_level = current_floor_ptr->base_level;
+						floor_ptr->object_level = floor_ptr->base_level + 7;
+						place_object(floor_ptr, y, x, 0L);
+						floor_ptr->object_level = floor_ptr->base_level;
 					}
 				}
 				else if (value < 50)
 				{
 					/* Trap */
-					place_trap(current_floor_ptr, y, x);
+					place_trap(floor_ptr, y, x);
 				}
 				else
 				{
@@ -4206,11 +4206,11 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					}
 					else if (randint0(100) < 50)
 					{
-						place_trap(current_floor_ptr, y, x);
+						place_trap(floor_ptr, y, x);
 					}
 					else if (randint0(100) < 50)
 					{
-						place_object(current_floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L);
 					}
 				}
 
