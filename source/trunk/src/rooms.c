@@ -163,10 +163,10 @@ static void build_small_room(floor_type *floor_ptr, int x0, int y0)
 	}
 
 	/* Clear mimic type */
-	current_floor_ptr->cave[y0][x0].mimic = 0;
+	floor_ptr->cave[y0][x0].mimic = 0;
 
 	/* Add inner open space */
-	place_floor_bold(current_floor_ptr, y0, x0);
+	place_floor_bold(floor_ptr, y0, x0);
 }
 
 
