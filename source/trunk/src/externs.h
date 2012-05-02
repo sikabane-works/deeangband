@@ -1144,7 +1144,7 @@ extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
 extern void reset_creature_cave_reference(floor_type *floor_ptr);
 
 /* generate.c */
-extern bool place_quest_creatures(creature_type *player_ptr);
+extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
 extern void generate_floor(floor_type *floor_ptr);

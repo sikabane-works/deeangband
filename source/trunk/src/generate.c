@@ -469,7 +469,7 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 
 
 // Place quest creatures
-bool place_quest_creatures(creature_type *player_ptr)
+bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 {
 	int i;
 
@@ -483,8 +483,8 @@ bool place_quest_creatures(creature_type *player_ptr)
 		if (quest[i].status != QUEST_STATUS_TAKEN ||
 		    (quest[i].type != QUEST_TYPE_KILL_LEVEL &&
 		     quest[i].type != QUEST_TYPE_RANDOM) ||
-		    quest[i].level != current_floor_ptr->floor_level ||
-		    current_floor_ptr->dun_type != quest[i].dungeon ||
+		    quest[i].level != floor_ptr->floor_level ||
+		    floor_ptr->dun_type != quest[i].dungeon ||
 		    (quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			/* Ignore it */
@@ -517,10 +517,10 @@ bool place_quest_creatures(creature_type *player_ptr)
 					cave_type    *c_ptr;
 					feature_type *f_ptr;
 
-					y = randint0(current_floor_ptr->height);
-					x = randint0(current_floor_ptr->width);
+					y = randint0(floor_ptr->height);
+					x = randint0(floor_ptr->width);
 
-					c_ptr = &current_floor_ptr->cave[y][x];
+					c_ptr = &floor_ptr->cave[y][x];
 					f_ptr = &f_info[c_ptr->feat];
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
@@ -1021,7 +1021,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	/* Determine the character location */
 	if (!new_player_spot(player_ptr)) return FALSE;
 
-	if (!place_quest_creatures(player_ptr)) return FALSE;
+	if (!place_quest_creatures(floor_ptr, player_ptr)) return FALSE;
 
 	/* Basic "amount" */
 	k = (floor_ptr->floor_level / 3);
