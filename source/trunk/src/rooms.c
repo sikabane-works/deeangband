@@ -75,17 +75,17 @@ static byte room_build_order[ROOM_T_MAX] = {
 };
 
 
-static void place_locked_door(int y, int x)
+static void place_locked_door(floor_type *floor_ptr, int y, int x)
 {
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(current_floor_ptr, y, x);
+		place_floor_bold(floor_ptr, y, x);
 	}
 	else
 	{
-		set_cave_feat(current_floor_ptr, y, x, feat_locked_door_random((dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR));
-		current_floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
-		delete_creature(current_floor_ptr, y, x);
+		set_cave_feat(floor_ptr, y, x, feat_locked_door_random((dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_DOOR) ? DOOR_GLASS_DOOR : DOOR_DOOR));
+		floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
+		delete_creature(floor_ptr, y, x);
 	}
 }
 
@@ -1196,10 +1196,10 @@ static bool build_type4(floor_type *floor_ptr)
 			/* Place a locked door on the inner room */
 			switch (randint1(4))
 			{
-				case 1: place_locked_door(yval - 1, xval); break;
-				case 2: place_locked_door(yval + 1, xval); break;
-				case 3: place_locked_door(yval, xval - 1); break;
-				case 4: place_locked_door(yval, xval + 1); break;
+				case 1: place_locked_door(floor_ptr, yval - 1, xval); break;
+				case 2: place_locked_door(floor_ptr, yval + 1, xval); break;
+				case 3: place_locked_door(floor_ptr, yval, xval - 1); break;
+				case 4: place_locked_door(floor_ptr, yval, xval + 1); break;
 			}
 
 			/* Monsters to guard the "treasure" */
