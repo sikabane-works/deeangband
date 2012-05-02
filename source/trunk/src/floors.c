@@ -870,7 +870,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
  * Create stairs at or move previously created stairs into the player
  * location.
  */
-void stair_creation(creature_type *creature_ptr)
+void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 {
 	floor_type *sf_ptr;
 	floor_type *dest_sf_ptr;
@@ -884,10 +884,10 @@ void stair_creation(creature_type *creature_ptr)
 	if (ironman_downward) up = FALSE;
 
 	/* Forbid down staircases on quest level */
-	if (quest_number(current_floor_ptr->floor_level) || (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)) down = FALSE;
+	if (quest_number(floor_ptr->floor_level) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
 
 	/* No effect out of standard dungeon floor */
-	if (!current_floor_ptr->floor_level || (!up && !down) ||
+	if (!floor_ptr->floor_level || (!up && !down) ||
 	    (inside_quest && is_fixed_quest_idx(inside_quest)) ||
 	    fight_arena_mode || gamble_arena_mode)
 	{
@@ -948,11 +948,11 @@ void stair_creation(creature_type *creature_ptr)
 	{
 		int x, y;
 
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			for (x = 0; x < current_floor_ptr->width; x++)
+			for (x = 0; x < floor_ptr->width; x++)
 			{
-				cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+				cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 				if (!c_ptr->special) continue;
 				if (feat_uses_special(c_ptr->feat)) continue;
@@ -983,21 +983,21 @@ void stair_creation(creature_type *creature_ptr)
 	if (up)
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level <= current_floor_ptr->floor_level - 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level <= floor_ptr->floor_level - 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level >= current_floor_ptr->floor_level + 2 && sf_ptr->dun_type == current_floor_ptr->dun_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level >= floor_ptr->floor_level + 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 
 
 	/* Connect this stairs to the destination */
-	current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
 
 void reset_cave_reference(void)

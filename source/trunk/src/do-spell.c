@@ -3017,7 +3017,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				stair_creation(cr_ptr);
+				stair_creation(cr_ptr, current_floor_ptr);
 			}
 		}
 		break;
