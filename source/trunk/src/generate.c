@@ -379,7 +379,7 @@ msg_print("警告！アイテムを配置できません！");
  * grids which are not in rooms.  We might want to also count stairs,
  * open doors, closed doors, etc.
  */
-static int next_to_corr(int y1, int x1)
+static int next_to_corr(floor_type *floor_ptr, int y1, int x1)
 {
 	int i, y, x, k = 0;
 
@@ -393,7 +393,7 @@ static int next_to_corr(int y1, int x1)
 		x = x1 + ddx_ddd[i];
 
 		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Skip non floors */
 		if (cave_have_flag_grid(c_ptr, FF_WALL)) continue;
@@ -423,7 +423,7 @@ static int next_to_corr(int y1, int x1)
 static bool possible_doorway(int y, int x)
 {
 	/* Count the adjacent corridors */
-	if (next_to_corr(y, x) >= 2)
+	if (next_to_corr(current_floor_ptr, y, x) >= 2)
 	{
 		/* Check Vertical */
 		if (cave_have_flag_bold(y - 1, x, FF_WALL) &&
