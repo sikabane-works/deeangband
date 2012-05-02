@@ -257,13 +257,13 @@ static void update_unique_artifact(s16b cur_floor_id)
  * When a monster is at a place where player will return,
  * Get out of the my way!
  */
-static void get_out_creature(creature_type *creature_ptr)
+static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int tries = 0;
 	int dis = 1;
 	int oy = creature_ptr->fy;
 	int ox = creature_ptr->fx;
-	int m_idx = current_floor_ptr->cave[oy][ox].creature_idx;
+	int m_idx = floor_ptr->cave[oy][ox].creature_idx;
 
 	// Nothing to do if no monster
 	if (!m_idx) return;
@@ -292,14 +292,14 @@ static void get_out_creature(creature_type *creature_ptr)
 		if (tries > 20 * dis * dis) dis++;
 
 		/* Ignore illegal locations */
-		if (!in_bounds(current_floor_ptr, ny, nx)) continue;
+		if (!in_bounds(floor_ptr, ny, nx)) continue;
 
 		/* Require "empty" floor space */
 		if (!cave_empty_bold(ny, nx)) continue;
 
 		/* Hack -- no teleport onto glyph of warding */
-		if (is_glyph_grid(&current_floor_ptr->cave[ny][nx])) continue;
-		if (is_explosive_rune_grid(&current_floor_ptr->cave[ny][nx])) continue;
+		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue;
+		if (is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
 
 		/* ...nor onto the Pattern */
 		if (pattern_tile(ny, nx)) continue;
@@ -309,10 +309,10 @@ static void get_out_creature(creature_type *creature_ptr)
 		m_ptr = &creature_list[m_idx];
 
 		/* Update the old location */
-		current_floor_ptr->cave[oy][ox].creature_idx = 0;
+		floor_ptr->cave[oy][ox].creature_idx = 0;
 
 		/* Update the new location */
-		current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
+		floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ny;
@@ -575,7 +575,7 @@ void move_floor(creature_type *creature_ptr)
 
 	if ((creature_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(creature_ptr->change_floor_mode & CFM_NO_RETURN))
 	{
-		get_out_creature(creature_ptr); // Get out of the my way!
+		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!
 		old_floor_ptr->last_visit = turn; // Record the last visit turn of current floor
 
 		// Forget the lite and view
