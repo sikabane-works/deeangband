@@ -4835,7 +4835,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
  * The power variable is a measure of how well defended a region is.
  * This alters the possible choices.
  */
-static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
+static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int power)
 {
 	int xsize, ysize;
 	int x, y;
@@ -4900,15 +4900,15 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			{
 				/* left and right */
 				y = randint1(ysize) + y1;
-				place_floor_bold(current_floor_ptr, y, x1);
-				place_floor_bold(current_floor_ptr, y, x2);
+				place_floor_bold(floor_ptr, y, x1);
+				place_floor_bold(floor_ptr, y, x2);
 			}
 			else
 			{
 				/* top and bottom */
 				x = randint1(xsize) + x1;
-				place_floor_bold(current_floor_ptr, y1, x);
-				place_floor_bold(current_floor_ptr, y2, x);
+				place_floor_bold(floor_ptr, y1, x);
+				place_floor_bold(floor_ptr, y2, x);
 			}
 
 			/* Select size of keep */
@@ -4920,12 +4920,12 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			/* Do outside areas */
 
 			/* Above and below keep */
-			build_recursive_room(x1 + 1, y1 + 1, x2 - 1, t1, power + 1);
-			build_recursive_room(x1 + 1, t2, x2 - 1, y2, power + 1);
+			build_recursive_room(floor_ptr, x1 + 1, y1 + 1, x2 - 1, t1, power + 1);
+			build_recursive_room(floor_ptr, x1 + 1, t2, x2 - 1, y2, power + 1);
 
 			/* Left and right of keep */
-			build_recursive_room(x1 + 1, t1 + 1, t3, t2 - 1, power + 3);
-			build_recursive_room(t4, t1 + 1, x2 - 1, t2 - 1, power + 3);
+			build_recursive_room(floor_ptr, x1 + 1, t1 + 1, t3, t2 - 1, power + 3);
+			build_recursive_room(floor_ptr, t4, t1 + 1, x2 - 1, t2 - 1, power + 3);
 
 			/* Make the keep itself: */
 			x1 = t3;
@@ -4976,16 +4976,16 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			if (one_in_(2))
 			{
 				/* left */
-				place_floor_bold(current_floor_ptr, y, x1 + 1);
+				place_floor_bold(floor_ptr, y, x1 + 1);
 			}
 			else
 			{
 				/* right */
-				place_floor_bold(current_floor_ptr, y, x2 - 1);
+				place_floor_bold(floor_ptr, y, x2 - 1);
 			}
 
 			/* Build the room */
-			build_recursive_room(x1 + 2, y1 + 2, x2 - 2, y2 - 2, power + 3);
+			build_recursive_room(floor_ptr, x1 + 2, y1 + 2, x2 - 2, y2 - 2, power + 3);
 			break;
 		}
 		case 2:
@@ -5005,8 +5005,8 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			}
 
 			t1 = randint1(xsize - 2) + x1 + 1;
-			build_recursive_room(x1, y1, t1, y2, power - 2);
-			build_recursive_room(t1 + 1, y1, x2, y2, power - 2);
+			build_recursive_room(floor_ptr, x1, y1, t1, y2, power - 2);
+			build_recursive_room(floor_ptr, t1 + 1, y1, x2, y2, power - 2);
 			break;
 		}
 		case 3:
@@ -5026,8 +5026,8 @@ static void build_recursive_room(int x1, int y1, int x2, int y2, int power)
 			}
 
 			t1 = randint1(ysize - 2) + y1 + 1;
-			build_recursive_room(x1, y1, x2, t1, power - 2);
-			build_recursive_room(x1, t1 + 1, x2, y2, power - 2);
+			build_recursive_room(floor_ptr, x1, y1, x2, t1, power - 2);
+			build_recursive_room(floor_ptr, x1, t1 + 1, x2, y2, power - 2);
 			break;
 		}
 	}
@@ -5070,7 +5070,7 @@ static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	}
 
 	/* Make the castle */
-	build_recursive_room(x1, y1, x2, y2, randint1(5));
+	build_recursive_room(floor_ptr, x1, y1, x2, y2, randint1(5));
 
 	/* Fill with monsters and treasure, low difficulty */
 	fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(3));
