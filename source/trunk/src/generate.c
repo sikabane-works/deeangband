@@ -124,14 +124,14 @@ dun_data *dungeon_ptr;
  *
  * We count only granite walls and permanent walls.
  */
-static int next_to_walls(int y, int x)
+static int next_to_walls(floor_type *floor_ptr, int y, int x)
 {
 	int k = 0;
 
-	if (in_bounds(current_floor_ptr, y + 1, x) && is_extra_bold(y + 1, x)) k++;
-	if (in_bounds(current_floor_ptr, y - 1, x) && is_extra_bold(y - 1, x)) k++;
-	if (in_bounds(current_floor_ptr, y, x + 1) && is_extra_bold(y, x + 1)) k++;
-	if (in_bounds(current_floor_ptr, y, x - 1) && is_extra_bold(y, x - 1)) k++;
+	if (in_bounds(floor_ptr, y + 1, x) && is_extra_bold(y + 1, x)) k++;
+	if (in_bounds(floor_ptr, y - 1, x) && is_extra_bold(y - 1, x)) k++;
+	if (in_bounds(floor_ptr, y, x + 1) && is_extra_bold(y, x + 1)) k++;
+	if (in_bounds(floor_ptr, y, x - 1) && is_extra_bold(y, x - 1)) k++;
 
 	return (k);
 }
@@ -153,7 +153,7 @@ static bool alloc_stairs_aux(floor_type *floor_ptr, int y, int x, int walls)
 	if (c_ptr->object_idx || c_ptr->creature_idx) return FALSE;
 
 	/* Require a certain number of adjacent walls */
-	if (next_to_walls(y, x) < walls) return FALSE;
+	if (next_to_walls(floor_ptr, y, x) < walls) return FALSE;
 
 	return TRUE;
 }
