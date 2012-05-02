@@ -3834,7 +3834,7 @@ void build_cavern(void)
 	}
 }
 
-static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, int c3, int type)
+static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int ysize, int c1, int c2, int c3, int type)
 {
 	int x, y, i, xhsize, yhsize;
 	int feat1, feat2, feat3;
@@ -3922,8 +3922,8 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 		{
 			for (y = 0; y <= ysize; ++y)
 			{
-				place_floor_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
-				current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY);
+				place_floor_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
+				floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY);
 			}
 		}
 		return FALSE;
@@ -3932,24 +3932,24 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 	/* Do boundarys- set to normal granite */
 	for (i = 0; i <= xsize; ++i)
 	{
-		place_extra_bold(current_floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
-		place_extra_bold(current_floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
+		place_extra_bold(floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
+		place_extra_bold(floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
 
 		/* clear the icky flag-don't need it any more */
-		current_floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info &= ~(CAVE_ICKY);
-		current_floor_ptr->cave[y0 + ysize - yhsize][x0 + i - xhsize].info &= ~(CAVE_ICKY);
+		floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info &= ~(CAVE_ICKY);
+		floor_ptr->cave[y0 + ysize - yhsize][x0 + i - xhsize].info &= ~(CAVE_ICKY);
 	}
 
 	/* Do the left and right boundaries minus the corners (done above) */
 
 	for (i = 1; i < ysize; ++i)
 	{
-		place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
-		place_extra_bold(current_floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
+		place_extra_bold(floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
+		place_extra_bold(floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
 
 		/* clear icky flag -done with it */
-		current_floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info &= ~(CAVE_ICKY);
-		current_floor_ptr->cave[y0 + i - yhsize][x0 + xsize - xhsize].info &= ~(CAVE_ICKY);
+		floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info &= ~(CAVE_ICKY);
+		floor_ptr->cave[y0 + i - yhsize][x0 + xsize - xhsize].info &= ~(CAVE_ICKY);
 	}
 
 
@@ -3959,17 +3959,17 @@ static bool generate_lake(int y0, int x0, int xsize, int ysize, int c1, int c2, 
 		for (y = 1; y < ysize; ++y)
 		{
 			/* Fill unconnected regions with granite */
-			if ((!(current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
+			if ((!(floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
 				is_outer_bold(y0 + y - yhsize, x0 + x - xhsize))
-				place_extra_bold(current_floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
+				place_extra_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 
 			/* turn off icky flag (no longer needed.) */
-			current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
+			floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
 
 			/* Light lava */
 			if (cave_have_flag_bold(y0 + y - yhsize, x0 + x - xhsize, FF_LAVA))
 			{
-				if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) current_floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= CAVE_GLOW;
+				if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= CAVE_GLOW;
 			}
 		}
 	}
@@ -4026,7 +4026,7 @@ void build_lake(int type)
 		generate_hmap(y0 + 1, x0 + 1, xsize, ysize, grd, roug, c3);
 
 		/* Convert to normal format+ clean up */
-		done = generate_lake(y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
+		done = generate_lake(current_floor_ptr, y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
 	}
 }
 #endif /* ALLOW_CAVERNS_AND_LAKES */
@@ -5344,7 +5344,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 		generate_hmap(y0, x0, xsize, ysize, grd, roug, c3);
 
 		/* Convert to normal format+ clean up */
-		done = generate_lake(y0, x0, xsize, ysize, c1, c2, c3, type);
+		done = generate_lake(floor_ptr, y0, x0, xsize, ysize, c1, c2, c3, type);
 	}
 
 	/* Set icky flag because is a vault */
