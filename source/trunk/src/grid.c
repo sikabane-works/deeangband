@@ -164,7 +164,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	else if (tmp < 600)
 	{
 		/* Create secret door */
-		place_closed_door(y, x, type);
+		place_closed_door(floor_ptr, y, x, type);
 
 		if (type != DOOR_CURTAIN)
 		{
@@ -184,7 +184,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	}
 
 	/* Closed, locked, or stuck doors (400/1000) */
-	else place_closed_door(y, x, type);
+	else place_closed_door(floor_ptr, y, x, type);
 
 	if (tmp < 400)
 	{
@@ -205,14 +205,14 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 /*
  * Place a random type of normal door at the given location.
  */
-void place_closed_door(int y, int x, int type)
+void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 {
 	int tmp;
 	s16b feat = feat_none;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
-		place_floor_bold(current_floor_ptr, y, x);
+		place_floor_bold(floor_ptr, y, x);
 		return;
 	}
 
@@ -245,11 +245,11 @@ void place_closed_door(int y, int x, int type)
 		cave_set_feat(y, x, feat);
 
 		/* Now it is not floor */
-		current_floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
+		floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
 	}
 	else
 	{
-		place_floor_bold(current_floor_ptr, y, x);
+		place_floor_bold(floor_ptr, y, x);
 	}
 }
 

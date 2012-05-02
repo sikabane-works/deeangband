@@ -241,7 +241,7 @@ extern bool new_player_spot(creature_type *creature_ptr);
 
 extern void place_random_stairs(floor_type *floor_ptr, int y, int x);
 extern void place_random_door(floor_type *floor_ptr, int y, int x, bool room);
-extern void place_closed_door(int y, int x, int type);
+extern void place_closed_door(floor_type *floor_ptr, int y, int x, int type);
 extern void place_floor(int x1, int x2, int y1, int y2, bool light);
 extern void place_room(int x1, int x2, int y1, int y2, bool light);
 extern void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num);

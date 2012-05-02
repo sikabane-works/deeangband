@@ -107,7 +107,7 @@ static void place_secret_door(floor_type *floor_ptr, int y, int x, int type)
 		}
 
 		/* Create secret door */
-		place_closed_door(y, x, type);
+		place_closed_door(floor_ptr, y, x, type);
 
 		if (type != DOOR_CURTAIN)
 		{
@@ -6165,13 +6165,13 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Curtains around the breather */
 			for (y = yval - 1; y <= yval + 1; y++)
 			{
-				place_closed_door(y, xval - 2, DOOR_CURTAIN);
-				place_closed_door(y, xval + 2, DOOR_CURTAIN);
+				place_closed_door(floor_ptr, y, xval - 2, DOOR_CURTAIN);
+				place_closed_door(floor_ptr, y, xval + 2, DOOR_CURTAIN);
 			}
 			for (x = xval - 1; x <= xval + 1; x++)
 			{
-				place_closed_door(yval - 2, x, DOOR_CURTAIN);
-				place_closed_door(yval + 2, x, DOOR_CURTAIN);
+				place_closed_door(floor_ptr, yval - 2, x, DOOR_CURTAIN);
+				place_closed_door(floor_ptr, yval + 2, x, DOOR_CURTAIN);
 			}
 
 			/* Place an object */
