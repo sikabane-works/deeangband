@@ -3191,7 +3191,7 @@ static void store_height(int x, int y, int val)
  *    small values are good for smooth walls.
  *  size=length of the side of the square cave system.
  */
-static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug, int cutoff)
+static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int ysiz, int grd, int roug, int cutoff)
 {
 	int xhsize, yhsize, xsize, ysize, maxsize;
 
@@ -3250,20 +3250,20 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 		for (j = 0; j <= ysize; j++)
 		{
 			/* -1 is a flag for "not done yet" */
-			current_floor_ptr->cave[(int)(fill_data.ymin + j)][(int)(fill_data.xmin + i)].feat = -1;
+			floor_ptr->cave[(int)(fill_data.ymin + j)][(int)(fill_data.xmin + i)].feat = -1;
 			/* Clear icky flag because may be redoing the cave */
-			current_floor_ptr->cave[(int)(fill_data.ymin + j)][(int)(fill_data.xmin + i)].info &= ~(CAVE_ICKY);
+			floor_ptr->cave[(int)(fill_data.ymin + j)][(int)(fill_data.xmin + i)].info &= ~(CAVE_ICKY);
 		}
 	}
 
 	/* Boundaries are walls */
-	current_floor_ptr->cave[fill_data.ymin][fill_data.xmin].feat = maxsize;
-	current_floor_ptr->cave[fill_data.ymax][fill_data.xmin].feat = maxsize;
-	current_floor_ptr->cave[fill_data.ymin][fill_data.xmax].feat = maxsize;
-	current_floor_ptr->cave[fill_data.ymax][fill_data.xmax].feat = maxsize;
+	floor_ptr->cave[fill_data.ymin][fill_data.xmin].feat = maxsize;
+	floor_ptr->cave[fill_data.ymax][fill_data.xmin].feat = maxsize;
+	floor_ptr->cave[fill_data.ymin][fill_data.xmax].feat = maxsize;
+	floor_ptr->cave[fill_data.ymax][fill_data.xmax].feat = maxsize;
 
 	/* Set the middle square to be an open area. */
-	current_floor_ptr->cave[y0][x0].feat = 0;
+	floor_ptr->cave[y0][x0].feat = 0;
 
 	/* Initialize the step sizes */
 	xstep = xhstep = xsize * 256;
@@ -3300,7 +3300,7 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (current_floor_ptr->cave[jj][ii].feat == -1)
+				if (floor_ptr->cave[jj][ii].feat == -1)
 				{
 					if (xhstep2 > grd)
 					{
@@ -3311,8 +3311,8 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 					{
 						/* Average of left and right points +random bit */
 						store_height(ii, jj,
-							(current_floor_ptr->cave[jj][fill_data.xmin + (i - xhstep) / 256].feat
-							 + current_floor_ptr->cave[jj][fill_data.xmin + (i + xhstep) / 256].feat) / 2
+							(floor_ptr->cave[jj][fill_data.xmin + (i - xhstep) / 256].feat
+							 + floor_ptr->cave[jj][fill_data.xmin + (i + xhstep) / 256].feat) / 2
 							 + (randint1(xstep2) - xhstep2) * roug / 16);
 					}
 				}
@@ -3330,7 +3330,7 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (current_floor_ptr->cave[jj][ii].feat == -1)
+				if (floor_ptr->cave[jj][ii].feat == -1)
 				{
 					if (xhstep2 > grd)
 					{
@@ -3341,8 +3341,8 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 					{
 						/* Average of up and down points +random bit */
 						store_height(ii, jj,
-							(current_floor_ptr->cave[fill_data.ymin + (j - yhstep) / 256][ii].feat
-							+ current_floor_ptr->cave[fill_data.ymin + (j + yhstep) / 256][ii].feat) / 2
+							(floor_ptr->cave[fill_data.ymin + (j - yhstep) / 256][ii].feat
+							+ floor_ptr->cave[fill_data.ymin + (j + yhstep) / 256][ii].feat) / 2
 							+ (randint1(ystep2) - yhstep2) * roug / 16);
 					}
 				}
@@ -3359,7 +3359,7 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (current_floor_ptr->cave[jj][ii].feat == -1)
+				if (floor_ptr->cave[jj][ii].feat == -1)
 				{
 					if (xhstep2 > grd)
 					{
@@ -3379,8 +3379,8 @@ static void generate_hmap(int y0, int x0, int xsiz, int ysiz, int grd, int roug,
 						 * reduce the effect of the square grid on the shape of the fractal
 						 */
 						store_height(ii, jj,
-							(current_floor_ptr->cave[ym][xm].feat + current_floor_ptr->cave[yp][xm].feat
-							+ current_floor_ptr->cave[ym][xp].feat + current_floor_ptr->cave[yp][xp].feat) / 4
+							(floor_ptr->cave[ym][xm].feat + floor_ptr->cave[yp][xm].feat
+							+ floor_ptr->cave[ym][xp].feat + floor_ptr->cave[yp][xp].feat) / 4
 							+ (randint1(xstep2) - xhstep2) * (diagsize / 16) / 256 * roug);
 					}
 				}
@@ -3784,7 +3784,7 @@ static bool build_type9(floor_type *floor_ptr)
 			 randint1(xsize / 4) + randint1(ysize / 4);
 
 		/* make it */
-		generate_hmap(y0, x0, xsize, ysize, grd, roug, cutoff);
+		generate_hmap(floor_ptr, y0, x0, xsize, ysize, grd, roug, cutoff);
 
 		/* Convert to normal format + clean up */
 		done = generate_fracave(floor_ptr, y0, x0, xsize, ysize, cutoff, light, room);
@@ -3827,7 +3827,7 @@ void build_cavern(floor_type *floor_ptr)
 		cutoff = xsize / 2;
 
 		 /* make it */
-		generate_hmap(y0 + 1, x0 + 1, xsize, ysize, grd, roug, cutoff);
+		generate_hmap(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, grd, roug, cutoff);
 
 		/* Convert to normal format+ clean up */
 		done = generate_fracave(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, cutoff, light, FALSE);
@@ -4023,7 +4023,7 @@ void build_lake(floor_type *floor_ptr, int type)
 		c2 = (c1 + c3) / 2;
 
 		/* make it */
-		generate_hmap(y0 + 1, x0 + 1, xsize, ysize, grd, roug, c3);
+		generate_hmap(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, grd, roug, c3);
 
 		/* Convert to normal format+ clean up */
 		done = generate_lake(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
@@ -4517,7 +4517,7 @@ static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, in
 			 randint1(xsize / 4) + randint1(ysize / 4);
 
 		/* make it */
-		generate_hmap(y0, x0, xsize, ysize, grd, roug, cutoff);
+		generate_hmap(floor_ptr, y0, x0, xsize, ysize, grd, roug, cutoff);
 
 		/* Convert to normal format+ clean up */
 		done = generate_fracave(floor_ptr, y0, x0, xsize, ysize, cutoff, light, room);
@@ -5341,7 +5341,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 		c2 = (c1 + c3) / 2;
 
 		/* make it */
-		generate_hmap(y0, x0, xsize, ysize, grd, roug, c3);
+		generate_hmap(floor_ptr, y0, x0, xsize, ysize, grd, roug, c3);
 
 		/* Convert to normal format+ clean up */
 		done = generate_lake(floor_ptr, y0, x0, xsize, ysize, c1, c2, c3, type);
