@@ -137,20 +137,20 @@ static void place_secret_door(int y, int x, int type)
  * Note - this should be used only on allocated regions
  * within another room.
  */
-static void build_small_room(int x0, int y0)
+static void build_small_room(floor_type *floor_ptr, int x0, int y0)
 {
 	int x, y;
 
 	for (y = y0 - 1; y <= y0 + 1; y++)
 	{
-		place_inner_bold(y, x0 - 1);
-		place_inner_bold(y, x0 + 1);
+		place_inner_bold(floor_ptr, y, x0 - 1);
+		place_inner_bold(floor_ptr, y, x0 + 1);
 	}
 
 	for (x = x0 - 1; x <= x0 + 1; x++)
 	{
-		place_inner_bold(y0 - 1, x);
-		place_inner_bold(y0 + 1, x);
+		place_inner_bold(floor_ptr, y0 - 1, x);
+		place_inner_bold(floor_ptr, y0 + 1, x);
 	}
 
 	/* Place a secret door on one side */
@@ -637,7 +637,7 @@ static bool build_type1(floor_type *floor_ptr)
 			/* Horizontal wall */
 			for (x = x1; x <= x2; x++)
 			{
-				place_inner_bold(yval, x);
+				place_inner_bold(floor_ptr, yval, x);
 				if (curtain2) floor_ptr->cave[yval][x].feat = feat_door[DOOR_CURTAIN].closed;
 			}
 
@@ -650,7 +650,7 @@ static bool build_type1(floor_type *floor_ptr)
 			/* Vertical wall */
 			for (y = y1; y <= y2; y++)
 			{
-				place_inner_bold(y, xval);
+				place_inner_bold(floor_ptr, y, xval);
 				if (curtain2) floor_ptr->cave[y][xval].feat = feat_door[DOOR_CURTAIN].closed;
 			}
 
@@ -4799,7 +4799,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			/* If total is odd- and is a floor then make a wall */
 			if ((total % 2 == 1) && is_floor_bold(y, x))
 			{
-				place_inner_bold(y, x);
+				place_inner_bold(floor_ptr, y, x);
 			}
 		}
 	}
@@ -4809,15 +4809,15 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	{
 		/* left and right */
 		y = randint1(dy) + dy / 2;
-		place_inner_bold(y1 + y, x1 - 1);
-		place_inner_bold(y1 + y, x2 + 1);
+		place_inner_bold(floor_ptr, y1 + y, x1 - 1);
+		place_inner_bold(floor_ptr, y1 + y, x2 + 1);
 	}
 	else
 	{
 		/* top and bottom */
 		x = randint1(dx) + dx / 2;
-		place_inner_bold(y1 - 1, x1 + x);
-		place_inner_bold(y2 + 1, x1 + x);
+		place_inner_bold(floor_ptr, y1 - 1, x1 + x);
+		place_inner_bold(floor_ptr, y2 + 1, x1 + x);
 	}
 
 	/* Fill with monsters and treasure, highest difficulty */
@@ -4946,7 +4946,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 				{
 					for (x = x1; x < x2; x++)
 					{
-						place_inner_bold(y, x);
+						place_inner_bold(floor_ptr, y, x);
 					}
 				}
 
@@ -4958,15 +4958,15 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 			/* top and bottom */
 			for (x = x1 + 1; x <= x2 - 1; x++)
 			{
-				place_inner_bold(y1 + 1, x);
-				place_inner_bold(y2 - 1, x);
+				place_inner_bold(floor_ptr, y1 + 1, x);
+				place_inner_bold(floor_ptr, y2 - 1, x);
 			}
 
 			/* left and right */
 			for (y = y1 + 1; y <= y2 - 1; y++)
 			{
-				place_inner_bold(y, x1 + 1);
-				place_inner_bold(y, x2 - 1);
+				place_inner_bold(floor_ptr, y, x1 + 1);
+				place_inner_bold(floor_ptr, y, x2 - 1);
 			}
 
 			/* Make a door */
@@ -4997,7 +4997,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 				{
 					for (x = x1; x < x2; x++)
 					{
-						place_inner_bold(y, x);
+						place_inner_bold(floor_ptr, y, x);
 					}
 				}
 				return;
@@ -5018,7 +5018,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 				{
 					for (x = x1; x < x2; x++)
 					{
-						place_inner_bold(y, x);
+						place_inner_bold(floor_ptr, y, x);
 					}
 				}
 				return;
@@ -5226,7 +5226,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			if (dist2(y0, x0, y, x, h1, h2, h3, h4) == rad / 2)
 			{
 				/* Make an internal wall */
-				place_inner_bold(y, x);
+				place_inner_bold(floor_ptr, y, x);
 			}
 		}
 	}
@@ -5234,24 +5234,24 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* Add perpendicular walls */
 	for (x = x0 - rad; x <= x0 + rad; x++)
 	{
-		place_inner_bold(y0, x);
+		place_inner_bold(floor_ptr, y0, x);
 	}
 
 	for (y = y0 - rad; y <= y0 + rad; y++)
 	{
-		place_inner_bold(y, x0);
+		place_inner_bold(floor_ptr, y, x0);
 	}
 
 	/* Make inner vault */
 	for (y = y0 - 1; y <= y0 + 1; y++)
 	{
-		place_inner_bold(y, x0 - 1);
-		place_inner_bold(y, x0 + 1);
+		place_inner_bold(floor_ptr, y, x0 - 1);
+		place_inner_bold(floor_ptr, y, x0 + 1);
 	}
 	for (x = x0 - 1; x <= x0 + 1; x++)
 	{
-		place_inner_bold(y0 - 1, x);
-		place_inner_bold(y0 + 1, x);
+		place_inner_bold(floor_ptr, y0 - 1, x);
+		place_inner_bold(floor_ptr, y0 + 1, x);
 	}
 
 	place_floor_bold(floor_ptr, y0, x0);
@@ -5359,7 +5359,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	/* make a few rooms in the vault */
 	for (i = 1; i <= (xsize * ysize) / 50; i++)
 	{
-		build_small_room(x0 + randint0(xsize - 4) - xsize / 2 + 2, y0 + randint0(ysize - 4) - ysize / 2 + 2);
+		build_small_room(floor_ptr, x0 + randint0(xsize - 4) - xsize / 2 + 2, y0 + randint0(ysize - 4) - ysize / 2 + 2);
 	}
 
 	/* Fill with monsters and treasure, low difficulty */
@@ -5547,7 +5547,7 @@ static bool build_type12(floor_type *floor_ptr)
 	if (emptyflag && one_in_(2))
 	{
 		/* Build the vault */
-		build_small_room(x0, y0);
+		build_small_room(floor_ptr, x0, y0);
 
 		/* Place a treasure in the vault */
 		place_object(floor_ptr, y0, x0, 0L);

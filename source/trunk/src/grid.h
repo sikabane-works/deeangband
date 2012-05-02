@@ -96,12 +96,12 @@
 	delete_creature(current_floor_ptr, Y, X); \
 }
 
-#define place_inner_bold(Y, X) \
+#define place_inner_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(current_floor_ptr, Y, X, feat_wall_inner); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
-	add_cave_info(current_floor_ptr, Y, X, CAVE_INNER); \
-	delete_creature(current_floor_ptr, Y, X); \
+	set_cave_feat(FLOOR, Y, X, feat_wall_inner); \
+	FLOOR->cave[Y][X].info &= ~(CAVE_MASK); \
+	add_cave_info(FLOOR, Y, X, CAVE_INNER); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_inner_grid(C) \

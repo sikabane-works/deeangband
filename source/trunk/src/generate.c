@@ -120,7 +120,7 @@ dun_data *dungeon_ptr;
 /*
  * Count the number of walls adjacent to the given grid.
  *
- * Note -- Assumes "in_bounds(current_floor_ptr, y, x)"
+ * Note -- Assumes "in_bounds(floor_ptr, y, x)"
  *
  * We count only granite walls and permanent walls.
  */
@@ -373,7 +373,7 @@ msg_print("警告！アイテムを配置できません！");
 /*
  * Count the number of "corridor" grids adjacent to the given grid.
  *
- * Note -- Assumes "in_bounds(current_floor_ptr, y1, x1)"
+ * Note -- Assumes "in_bounds(floor_ptr, y1, x1)"
  *
  * XXX XXX This routine currently only counts actual "empty floor"
  * grids which are not in rooms.  We might want to also count stairs,
@@ -951,7 +951,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 				if ((randint0(100) < dun_tun_pen) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 				{
 					/* Place a random door */
-					place_random_door(current_floor_ptr, y, x, TRUE);
+					place_random_door(floor_ptr, y, x, TRUE);
 				}
 			}
 
@@ -1330,7 +1330,7 @@ static void generate_floor_quest(floor_type *floor_ptr)
 
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
-	process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, MAX_HGT, MAX_WID);
 }
 
 /*
