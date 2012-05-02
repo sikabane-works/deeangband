@@ -3797,17 +3797,17 @@ static bool build_type9(floor_type *floor_ptr)
 /*
  * Builds a cave system in the center of the dungeon.
  */
-void build_cavern(void)
+void build_cavern(floor_type *floor_ptr)
 {
 	int grd, roug, cutoff, xsize, ysize, x0, y0;
 	bool done, light;
 
 	light = done = FALSE;
-	if ((current_floor_ptr->floor_level <= randint1(50)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if ((floor_ptr->floor_level <= randint1(50)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	/* Make a cave the size of the dungeon */
-	xsize = current_floor_ptr->width - 1;
-	ysize = current_floor_ptr->height - 1;
+	xsize = floor_ptr->width - 1;
+	ysize = floor_ptr->height - 1;
 	x0 = xsize / 2;
 	y0 = ysize / 2;
 

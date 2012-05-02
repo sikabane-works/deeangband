@@ -674,7 +674,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 			msg_print("Cavern on level.");
 #endif
 
-		build_cavern();
+		build_cavern(floor_ptr);
 	}
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
