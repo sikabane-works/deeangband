@@ -509,15 +509,15 @@ bool get_is_floor(int x, int y)
 
 
 /* Set a square to be floor.  (Includes range checking.) */
-void set_floor(int x, int y)
+void set_floor(floor_type *floor_ptr, int x, int y)
 {
-	if (!in_bounds(current_floor_ptr, y, x))
+	if (!in_bounds(floor_ptr, y, x))
 	{
 		/* Out of bounds */
 		return;
 	}
 
-	if (current_floor_ptr->cave[y][x].info & CAVE_ROOM)
+	if (floor_ptr->cave[y][x].info & CAVE_ROOM)
 	{
 		/* A room border don't touch. */
 		return;
@@ -525,7 +525,7 @@ void set_floor(int x, int y)
 
 	/* Set to be floor if is a wall (don't touch lakes). */
 	if (is_extra_bold(y, x))
-		place_floor_bold(current_floor_ptr, y, x);
+		place_floor_bold(floor_ptr, y, x);
 }
 
 

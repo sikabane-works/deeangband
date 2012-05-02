@@ -179,7 +179,6 @@ static void check_room_boundary(int x1, int y1, int x2, int y2)
 	int count, x, y;
 	bool old_is_floor, new_is_floor;
 
-
 	/* Initialize */
 	count = 0;
 
@@ -244,7 +243,7 @@ static void check_room_boundary(int x1, int y1, int x2, int y2)
 	{
 		for (x = x1; x <= x2; x++)
 		{
-			set_floor(x, y);
+			set_floor(current_floor_ptr, x, y);
 		}
 	}
 }
