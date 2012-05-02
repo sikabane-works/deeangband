@@ -301,7 +301,7 @@ void place_room(int x1, int x2, int y1, int y2, bool light)
  * Create up to "num" objects near the given coordinates
  * Only really called by some of the "vault" routines.
  */
-void vault_objects(int y, int x, int num)
+void vault_objects(floor_type *floor_ptr, int y, int x, int num)
 {
 	int dummy = 0;
 	int i = 0, j = y, k = x;
@@ -321,7 +321,7 @@ void vault_objects(int y, int x, int num)
 				j = rand_spread(y, 2);
 				k = rand_spread(x, 3);
 				dummy++;
-				if (!in_bounds(current_floor_ptr, j, k)) continue;
+				if (!in_bounds(floor_ptr, j, k)) continue;
 				break;
 			}
 
@@ -341,13 +341,13 @@ msg_print("警告！地下室のアイテムを配置できません！");
 
 
 			/* Require "clean" floor space */
-			c_ptr = &current_floor_ptr->cave[j][k];
+			c_ptr = &floor_ptr->cave[j][k];
 			if (!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item */
 			if (randint0(100) < 75)
 			{
-				place_object(current_floor_ptr, j, k, 0L);
+				place_object(floor_ptr, j, k, 0L);
 			}
 
 			/* Place gold */
@@ -415,7 +415,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 /*
  * Place some traps with a given displacement of given location
  */
-void vault_traps(int y, int x, int yd, int xd, int num)
+void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num)
 {
 	int i;
 

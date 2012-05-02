@@ -245,9 +245,9 @@ extern void place_closed_door(int y, int x, int type);
 extern void place_floor(int x1, int x2, int y1, int y2, bool light);
 extern void place_room(int x1, int x2, int y1, int y2, bool light);
 extern void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num);
-extern void vault_objects(int y, int x, int num);
+extern void vault_objects(floor_type *floor_ptr, int y, int x, int num);
 extern void vault_trap_aux(int y, int x, int yd, int xd);
-extern void vault_traps(int y, int x, int yd, int xd, int num);
+extern void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num);
 
 extern void correct_dir(int *rdir, int *cdir, int y1, int x1, int y2, int x2);
 

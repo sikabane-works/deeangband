@@ -980,7 +980,7 @@ static bool build_type3(floor_type *floor_ptr)
 			vault_creatures(floor_ptr, yval, xval, randint0(2) + 3);
 
 			/* Traps naturally */
-			vault_traps(yval, xval, 4, 4, randint0(3) + 2);
+			vault_traps(floor_ptr, yval, xval, 4, 4, randint0(3) + 2);
 
 			break;
 		}
@@ -1217,7 +1217,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Traps to protect the treasure */
-			vault_traps(yval, xval, 4, 10, 2 + randint1(3));
+			vault_traps(floor_ptr, yval, xval, 4, 10, 2 + randint1(3));
 
 			break;
 		}
@@ -1331,11 +1331,11 @@ static bool build_type4(floor_type *floor_ptr)
 			vault_creatures(floor_ptr, yval, xval + 5, randint1(3));
 
 			/* Traps make them entertaining. */
-			vault_traps(yval, xval - 3, 2, 8, randint1(3));
-			vault_traps(yval, xval + 3, 2, 8, randint1(3));
+			vault_traps(floor_ptr, yval, xval - 3, 2, 8, randint1(3));
+			vault_traps(floor_ptr, yval, xval + 3, 2, 8, randint1(3));
 
 			/* Mazes should have some treasure too. */
-			vault_objects(yval, xval, 3);
+			vault_objects(floor_ptr, yval, xval, 3);
 
 			break;
 		}
@@ -1378,7 +1378,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Treasure, centered at the center of the cross */
-			vault_objects(yval, xval, 2 + randint1(2));
+			vault_objects(floor_ptr, yval, xval, 2 + randint1(2));
 
 			/* Gotta have some monsters. */
 			vault_creatures(floor_ptr, yval + 1, xval - 4, randint1(4));
@@ -5555,7 +5555,7 @@ static bool build_type12(floor_type *floor_ptr)
 		vault_creatures(floor_ptr, y0, x0, randint0(2) + 3);
 
 		/* Traps naturally */
-		vault_traps(y0, x0, 4, 4, randint0(3) + 2);
+		vault_traps(floor_ptr, y0, x0, 4, 4, randint0(3) + 2);
 	}
 
 	if(cheat_room)
