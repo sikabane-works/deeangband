@@ -79,18 +79,18 @@ bool new_player_spot(creature_type *creature_ptr)
 /*
  * Place an up/down staircase at given location
  */
-void place_random_stairs(int y, int x)
+void place_random_stairs(floor_type *floor_ptr, int y, int x)
 {
 	bool up_stairs = TRUE;
 	bool down_stairs = TRUE;
 	cave_type *c_ptr;
 
 	/* Paranoia */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 	if (!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 
 	/* Town */
-	if (!current_floor_ptr->floor_level)
+	if (!floor_ptr->floor_level)
 		up_stairs = FALSE;
 
 	/* Ironman */
@@ -98,11 +98,11 @@ void place_random_stairs(int y, int x)
 		up_stairs = FALSE;
 
 	/* Bottom */
-	if (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)
+	if (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)
 		down_stairs = FALSE;
 
 	/* Quest-level */
-	if (quest_number(current_floor_ptr->floor_level) && (current_floor_ptr->floor_level > 1))
+	if (quest_number(floor_ptr->floor_level) && (floor_ptr->floor_level > 1))
 		down_stairs = FALSE;
 
 	/* We can't place both */
@@ -116,8 +116,8 @@ void place_random_stairs(int y, int x)
 	}
 
 	/* Place the stairs */
-	if (up_stairs) place_up_stairs(current_floor_ptr, y, x);
-	else if (down_stairs) place_down_stairs(current_floor_ptr, y, x);
+	if (up_stairs) place_up_stairs(floor_ptr, y, x);
+	else if (down_stairs) place_down_stairs(floor_ptr, y, x);
 }
 
 
