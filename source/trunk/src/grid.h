@@ -27,8 +27,8 @@
 
 #define is_floor_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_FLOOR)
 #define is_extra_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_EXTRA)
-#define is_inner_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_INNER)
-#define is_outer_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_OUTER)
+#define is_inner_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_INNER)
+#define is_outer_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_OUTER)
 #define is_solid_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_SOLID)
 
 #define is_floor_grid(C) ((C)->info & CAVE_FLOOR)

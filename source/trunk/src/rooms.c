@@ -3691,7 +3691,7 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 				if (light) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_GLOW);
 				if (room) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_ROOM);
 			}
-			else if (is_outer_bold(y0 + y - yhsize, x0 + x - xhsize) &&
+			else if (is_outer_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
 				 (floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY))
 			{
 				/* Walls */
@@ -3959,7 +3959,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 		{
 			/* Fill unconnected regions with granite */
 			if ((!(floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
-				is_outer_bold(y0 + y - yhsize, x0 + x - xhsize))
+				is_outer_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize))
 				place_extra_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 
 			/* turn off icky flag (no longer needed.) */
@@ -4040,7 +4040,7 @@ void build_lake(floor_type *floor_ptr, int type)
 static void add_door(floor_type *floor_ptr, int x, int y)
 {
 	/* Need to have a wall in the center square */
-	if (!is_outer_bold(y, x)) return;
+	if (!is_outer_bold(floor_ptr, y, x)) return;
 
 	/* look at:
 	 *  x#x
@@ -4052,7 +4052,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 */
 
 	if (is_floor_bold(floor_ptr, y-1,x) && is_floor_bold(floor_ptr, y+1,x) &&
-	    (is_outer_bold(y, x - 1) && is_outer_bold(y, x + 1)))
+	    (is_outer_bold(floor_ptr, y, x - 1) && is_outer_bold(floor_ptr, y, x + 1)))
 	{
 		/* secret door */
 		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
@@ -4071,7 +4071,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 *  where x = don't care
 	 *  .=floor, #=wall
 	 */
-	if (is_outer_bold(y - 1, x) && is_outer_bold(y + 1, x) &&
+	if (is_outer_bold(floor_ptr, y - 1, x) && is_outer_bold(floor_ptr, y + 1, x) &&
 	    is_floor_bold(floor_ptr, y,x-1) && is_floor_bold(floor_ptr, y,x+1))
 	{
 		/* secret door */
