@@ -257,7 +257,7 @@ void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 /*
  * Make an empty square floor, for the middle of rooms
  */
-void place_floor(int x1, int x2, int y1, int y2, bool light)
+void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light)
 {
 	int x, y;
 
@@ -281,7 +281,7 @@ void place_room(int x1, int x2, int y1, int y2, bool light)
 {
 	int y, x;
 
-	place_floor(x1, x2, y1, y2, light);
+	place_floor(current_floor_ptr, x1, x2, y1, y2, light);
 
 	/* Walls around the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
