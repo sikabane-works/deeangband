@@ -85,15 +85,15 @@
 	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
-#define place_extra_noperm_bold(Y, X) \
+#define place_extra_noperm_bold(FLOOR, Y, X) \
 { \
 	feature_type *_f_ptr; \
-	set_cave_feat(current_floor_ptr, Y, X, fill_type[randint0(100)]); \
-	_f_ptr = &f_info[current_floor_ptr->cave[Y][X].feat]; \
-	if (permanent_wall(_f_ptr)) current_floor_ptr->cave[Y][X].feat = feat_state(current_floor_ptr->cave[Y][X].feat, FF_UNPERM); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
-	add_cave_info(current_floor_ptr, Y, X, CAVE_EXTRA); \
-	delete_creature(current_floor_ptr, Y, X); \
+	set_cave_feat(FLOOR, Y, X, fill_type[randint0(100)]); \
+	_f_ptr = &f_info[(FLOOR)->cave[Y][X].feat]; \
+	if (permanent_wall(_f_ptr)) (FLOOR)->cave[Y][X].feat = feat_state(FLOOR->cave[Y][X].feat, FF_UNPERM); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
+	add_cave_info(FLOOR, Y, X, CAVE_EXTRA); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_inner_bold(FLOOR, Y, X) \
