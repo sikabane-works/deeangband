@@ -275,24 +275,24 @@ void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool lig
 
 
 /*
- * Make an empty square room, only floor and wall grids
+ * Make an empty square room, only floor and wall grids (UNUSED?)
  */
-void place_room(int x1, int x2, int y1, int y2, bool light)
+void place_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light)
 {
 	int y, x;
 
-	place_floor(current_floor_ptr, x1, x2, y1, y2, light);
+	place_floor(floor_ptr, x1, x2, y1, y2, light);
 
 	/* Walls around the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		place_outer_bold(current_floor_ptr, y, x1 - 1);
-		place_outer_bold(current_floor_ptr, y, x2 + 1);
+		place_outer_bold(floor_ptr, y, x1 - 1);
+		place_outer_bold(floor_ptr, y, x2 + 1);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		place_outer_bold(current_floor_ptr, y1 - 1, x);
-		place_outer_bold(current_floor_ptr, y2 + 1, x);
+		place_outer_bold(floor_ptr, y1 - 1, x);
+		place_outer_bold(floor_ptr, y2 + 1, x);
 	}
 }
 
