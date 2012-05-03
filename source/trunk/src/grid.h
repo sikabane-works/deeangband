@@ -69,12 +69,12 @@
 	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
-#define place_extra_perm_bold(Y, X) \
+#define place_extra_perm_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
+	set_cave_feat(FLOOR, Y, X, feat_permanent); \
 	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
-	add_cave_info(current_floor_ptr, Y, X, CAVE_EXTRA); \
-	delete_creature(current_floor_ptr, Y, X); \
+	add_cave_info(FLOOR, Y, X, CAVE_EXTRA); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_extra_perm_grid(C) \
