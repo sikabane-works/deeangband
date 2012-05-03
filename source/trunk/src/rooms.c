@@ -174,7 +174,7 @@ static void build_small_room(floor_type *floor_ptr, int x0, int y0)
  * This function tunnels around a room if
  * it will cut off part of a cave system.
  */
-static void check_room_boundary(int x1, int y1, int x2, int y2)
+static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, int y2)
 {
 	int count, x, y;
 	bool old_is_floor, new_is_floor;
@@ -243,7 +243,7 @@ static void check_room_boundary(int x1, int y1, int x2, int y2)
 	{
 		for (x = x1; x <= x2; x++)
 		{
-			set_floor(current_floor_ptr, x, y);
+			set_floor(floor_ptr, x, y);
 		}
 	}
 }
@@ -446,7 +446,7 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	 * If so, fix by tunneling outside the room in such a
 	 * way as to connect the caves.
 	 */
-	check_room_boundary(*x - width / 2 - 1, *y - height / 2 - 1, *x + (width - 1) / 2 + 1, *y + (height - 1) / 2 + 1);
+	check_room_boundary(floor_ptr, *x - width / 2 - 1, *y - height / 2 - 1, *x + (width - 1) / 2 + 1, *y + (height - 1) / 2 + 1);
 
 	/* Success. */
 	return TRUE;
@@ -1758,7 +1758,7 @@ static void vault_prep_clone(floor_type *floor_ptr)
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
-	vault_aux_race = get_species_num(current_floor_ptr->floor_level + 10);
+	vault_aux_race = get_species_num(floor_ptr->floor_level + 10);
 
 	/* Remove the monster restriction */
 	get_species_num_prep(NULL, NULL);
@@ -1776,7 +1776,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
-	species_idx = get_species_num(current_floor_ptr->floor_level + 10);
+	species_idx = get_species_num(floor_ptr->floor_level + 10);
 
 	/* Remove the monster restriction */
 	get_species_num_prep(NULL, NULL);
