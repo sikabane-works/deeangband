@@ -636,7 +636,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 
 			/* Hack -- Avoid outer/solid walls */
 			if (is_outer_bold(floor_ptr, y, x)) continue;
-			if (is_solid_bold(y, x)) continue;
+			if (is_solid_bold(floor_ptr, y, x)) continue;
 
 			/* Accept this location */
 			row1 = tmp_row;
@@ -825,7 +825,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 
 		dy = 0;
 		dx = 0;
-		while ((i > 0) && is_solid_bold(*y + dy, *x + dx))
+		while ((i > 0) && is_solid_bold(current_floor_ptr, *y + dy, *x + dx))
 		{
 			dy = randint0(3) - 1;
 			dx = randint0(3) - 1;
@@ -1074,7 +1074,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 
 			dy = 0;
 			dx = 0;
-			while ((i > 0) && is_solid_bold(y3 + dy, x3 + dx))
+			while ((i > 0) && is_solid_bold(floor_ptr, y3 + dy, x3 + dx))
 			{
 				dy = randint0(3) - 1;
 				dx = randint0(3) - 1;
