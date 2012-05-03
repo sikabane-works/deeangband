@@ -286,13 +286,13 @@ void place_room(int x1, int x2, int y1, int y2, bool light)
 	/* Walls around the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
-		place_outer_bold(y, x1 - 1);
-		place_outer_bold(y, x2 + 1);
+		place_outer_bold(current_floor_ptr, y, x1 - 1);
+		place_outer_bold(current_floor_ptr, y, x2 + 1);
 	}
 	for (x = x1 - 1; x <= x2 + 1; x++)
 	{
-		place_outer_bold(y1 - 1, x);
-		place_outer_bold(y2 + 1, x);
+		place_outer_bold(current_floor_ptr, y1 - 1, x);
+		place_outer_bold(current_floor_ptr, y2 + 1, x);
 	}
 }
 
@@ -1089,7 +1089,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 			if (i == 0)
 			{
 				/* Failed for some reason: hack - ignore the solidness */
-				place_outer_bold(y3, x3);
+				place_outer_bold(floor_ptr, y3, x3);
 				dx = 0;
 				dy = 0;
 			}
