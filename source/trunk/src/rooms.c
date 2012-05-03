@@ -1752,7 +1752,7 @@ static bool vault_aux_cthulhu(int species_idx)
 /*
  * Helper function for "monster pit (clone)"
  */
-static void vault_prep_clone(void)
+static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the monster restriction */
 	get_species_num_prep(vault_aux_simple, NULL);
@@ -1768,7 +1768,7 @@ static void vault_prep_clone(void)
 /*
  * Helper function for "monster pit (symbol clone)"
  */
-static void vault_prep_symbol(void)
+static void vault_prep_symbol(floor_type *floor_ptr)
 {
 	int species_idx;
 
@@ -1789,7 +1789,7 @@ static void vault_prep_symbol(void)
 /*
  * Helper function for "monster pit (dragon)"
  */
-static void vault_prep_dragon(void)
+static void vault_prep_dragon(floor_type *floor_ptr)
 {
 	/* Pick dragon type */
 	switch (randint0(6))
@@ -1891,7 +1891,7 @@ struct vault_aux_type
 {
 	cptr name;
 	bool (*hook_func)(int species_idx);
-	void (*prep_func)(void);
+	void (*prep_func)(floor_type *floor_ptr);
 	int level;
 	int chance;
 };
@@ -2193,7 +2193,7 @@ static bool build_type5(floor_type *floor_ptr)
 	n_ptr = &nest_types[cur_nest_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))();
+	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(n_ptr->hook_func, NULL);
@@ -2412,7 +2412,7 @@ static bool build_type6(floor_type *floor_ptr)
 	n_ptr = &pit_types[cur_pit_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))();
+	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(n_ptr->hook_func, NULL);
@@ -5680,7 +5680,7 @@ static bool build_type13(floor_type *floor_ptr)
 	n_ptr = &pit_types[cur_pit_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))();
+	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(n_ptr->hook_func, vault_aux_trapped_pit);
