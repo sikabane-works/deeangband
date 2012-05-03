@@ -26,7 +26,7 @@
 #define place_down_stairs(FLOOR, Y, X)  set_cave_feat(FLOOR, Y, X, feat_down_stair)
 
 #define is_floor_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_FLOOR)
-#define is_extra_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_EXTRA)
+#define is_extra_bold(FLOOR, Y, X) ((FLOOR)->cave[Y][X].info & CAVE_EXTRA)
 #define is_inner_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_INNER)
 #define is_outer_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_OUTER)
 #define is_solid_bold(Y,X) (current_floor_ptr->cave[Y][X].info & CAVE_SOLID)

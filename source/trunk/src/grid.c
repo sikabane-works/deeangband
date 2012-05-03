@@ -524,7 +524,7 @@ void set_floor(floor_type *floor_ptr, int x, int y)
 	}
 
 	/* Set to be floor if is a wall (don't touch lakes). */
-	if (is_extra_bold(y, x))
+	if (is_extra_bold(floor_ptr, y, x))
 		place_floor_bold(floor_ptr, y, x);
 }
 
@@ -762,7 +762,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		return TRUE;
 	}
 
-	if (is_extra_bold(*y,*x))
+	if (is_extra_bold(current_floor_ptr, *y,*x))
 	{
 		/* Save the tunnel location */
 		if (dungeon_ptr->tunn_n < TUNN_MAX)

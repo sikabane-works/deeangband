@@ -128,10 +128,10 @@ static int next_to_walls(floor_type *floor_ptr, int y, int x)
 {
 	int k = 0;
 
-	if (in_bounds(floor_ptr, y + 1, x) && is_extra_bold(y + 1, x)) k++;
-	if (in_bounds(floor_ptr, y - 1, x) && is_extra_bold(y - 1, x)) k++;
-	if (in_bounds(floor_ptr, y, x + 1) && is_extra_bold(y, x + 1)) k++;
-	if (in_bounds(floor_ptr, y, x - 1) && is_extra_bold(y, x - 1)) k++;
+	if (in_bounds(floor_ptr, y + 1, x) && is_extra_bold(floor_ptr, y + 1, x)) k++;
+	if (in_bounds(floor_ptr, y - 1, x) && is_extra_bold(floor_ptr, y - 1, x)) k++;
+	if (in_bounds(floor_ptr, y, x + 1) && is_extra_bold(floor_ptr, y, x + 1)) k++;
+	if (in_bounds(floor_ptr, y, x - 1) && is_extra_bold(floor_ptr, y, x - 1)) k++;
 
 	return (k);
 }

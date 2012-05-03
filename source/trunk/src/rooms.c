@@ -4421,7 +4421,7 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 	{
 		for (y = 1; y < ysize; y++)
 		{
-			if (is_extra_bold(y1+y, x1+x))
+			if (is_extra_bold(floor_ptr, y1+y, x1+x))
 			{
 				/* clear the untouched region */
 				place_floor_bold(floor_ptr, y1 + y, x1 + x);
@@ -5114,7 +5114,7 @@ static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x
 			}
 		}
 	}
-	else if (is_extra_bold(y, x))
+	else if (is_extra_bold(floor_ptr, y, x))
 	{
 		/* Set bounding walls */
 		place_outer_bold(y, x);
