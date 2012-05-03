@@ -1897,7 +1897,7 @@ struct vault_aux_type
 };
 
 
-static int pick_vault_type(vault_aux_type *l_ptr, s16b allow_flag_mask)
+static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b allow_flag_mask)
 {
 	int tmp, total, count;
 
@@ -1910,13 +1910,13 @@ static int pick_vault_type(vault_aux_type *l_ptr, s16b allow_flag_mask)
 		if (!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if (n_ptr->level > current_floor_ptr->floor_level) continue;
+		if (n_ptr->level > floor_ptr->floor_level) continue;
 
 		/* Not matched with pit/nest flag */
 		if (!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
-		total += n_ptr->chance * MAX_DEPTH / (MIN(current_floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
+		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
 	}
 
 	/* Pick a random type */
@@ -1929,13 +1929,13 @@ static int pick_vault_type(vault_aux_type *l_ptr, s16b allow_flag_mask)
 		if (!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if (n_ptr->level > current_floor_ptr->floor_level) continue;
+		if (n_ptr->level > floor_ptr->floor_level) continue;
 
 		/* Not matched with pit/nest flag */
 		if (!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
-		total += n_ptr->chance * MAX_DEPTH / (MIN(current_floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
+		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
 
 		/* Found the type */
 		if (tmp < total) break;
@@ -2184,7 +2184,7 @@ static bool build_type5(floor_type *floor_ptr)
 
 	cave_type *c_ptr;
 
-	int cur_nest_type = pick_vault_type(nest_types, dungeon_info[floor_ptr->dun_type].nest);
+	int cur_nest_type = pick_vault_type(floor_ptr, nest_types, dungeon_info[floor_ptr->dun_type].nest);
 	vault_aux_type *n_ptr;
 
 	/* No type available */
@@ -2403,7 +2403,7 @@ static bool build_type6(floor_type *floor_ptr)
 
 	cave_type *c_ptr;
 
-	int cur_pit_type = pick_vault_type(pit_types, dungeon_info[floor_ptr->dun_type].pit);
+	int cur_pit_type = pick_vault_type(floor_ptr, pit_types, dungeon_info[floor_ptr->dun_type].pit);
 	vault_aux_type *n_ptr;
 
 	/* No type available */
@@ -5668,7 +5668,7 @@ static bool build_type13(floor_type *floor_ptr)
 
 	cave_type *c_ptr;
 
-	int cur_pit_type = pick_vault_type(pit_types, dungeon_info[floor_ptr->dun_type].pit);
+	int cur_pit_type = pick_vault_type(floor_ptr, pit_types, dungeon_info[floor_ptr->dun_type].pit);
 	vault_aux_type *n_ptr;
 
 	/* Only in Angband */
