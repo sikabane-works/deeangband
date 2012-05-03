@@ -3681,7 +3681,7 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	{
 		for (y = 1; y < ysize; ++y)
 		{
-			if (is_floor_bold(y0 + y - yhsize, x0 + x - xhsize) &&
+			if (is_floor_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
 			    (floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY))
 			{
 				/* Clear the icky flag in the filled region */
@@ -4051,7 +4051,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 *  .=floor, #=wall
 	 */
 
-	if (is_floor_bold(y-1,x) && is_floor_bold(y+1,x) &&
+	if (is_floor_bold(floor_ptr, y-1,x) && is_floor_bold(floor_ptr, y+1,x) &&
 	    (is_outer_bold(y, x - 1) && is_outer_bold(y, x + 1)))
 	{
 		/* secret door */
@@ -4072,7 +4072,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 *  .=floor, #=wall
 	 */
 	if (is_outer_bold(y - 1, x) && is_outer_bold(y + 1, x) &&
-	    is_floor_bold(y,x-1) && is_floor_bold(y,x+1))
+	    is_floor_bold(floor_ptr, y,x-1) && is_floor_bold(floor_ptr, y,x+1))
 	{
 		/* secret door */
 		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
@@ -4111,7 +4111,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 			if ((randint1(100) - difficulty * 3) > 50) value = 20;
 
 			 /* if floor, shallow water and lava */
-			if (is_floor_bold(y, x) ||
+			if (is_floor_bold(floor_ptr, y, x) ||
 			    (cave_have_flag_bold(y, x, FF_PLACE) && cave_have_flag_bold(y, x, FF_DROP)))
 			{
 				/* The smaller 'value' is, the better the stuff */
@@ -4796,7 +4796,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		{
 			total = x - x1 + y - y1;
 			/* If total is odd- and is a floor then make a wall */
-			if ((total % 2 == 1) && is_floor_bold(y, x))
+			if ((total % 2 == 1) && is_floor_bold(floor_ptr, y, x))
 			{
 				place_inner_bold(floor_ptr, y, x);
 			}
@@ -5099,7 +5099,7 @@ static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x
 
 	f_ptr = &f_info[c_ptr->feat];
 
-	if (is_floor_bold(y, x))
+	if (is_floor_bold(floor_ptr, y, x))
 	{
 		for (i = -1; i <= 1; i++)
 		{
@@ -5535,7 +5535,7 @@ static bool build_type12(floor_type *floor_ptr)
 	{
 		for (y = y0 - 2; y <= y0 + 2; y++)
 		{
-			if (!is_floor_bold(y, x))
+			if (!is_floor_bold(floor_ptr, y, x))
 			{
 				/* Wall in the way */
 				emptyflag = FALSE;

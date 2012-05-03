@@ -502,7 +502,7 @@ bool get_is_floor(int x, int y)
 	}
 
 	/* Do the real check */
-	if (is_floor_bold(y, x)) return (TRUE);
+	if (is_floor_bold(current_floor_ptr, y, x)) return (TRUE);
 
 	return (FALSE);
 }
@@ -776,7 +776,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		else return FALSE;
 	}
 
-	if (is_floor_bold(*y, *x))
+	if (is_floor_bold(current_floor_ptr, *y, *x))
 	{
 		/* Don't do anything */
 		return TRUE;
