@@ -4454,7 +4454,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -4471,16 +4471,16 @@ static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int 
 	total = randint1(10);
 
 	/* Hard monsters, small groups */
-	if (r_ptr->level > current_floor_ptr->floor_level)
+	if (r_ptr->level > floor_ptr->floor_level)
 	{
-		extra = r_ptr->level - current_floor_ptr->floor_level;
+		extra = r_ptr->level - floor_ptr->floor_level;
 		extra = 0 - randint1(extra);
 	}
 
 	/* Easy monsters, large groups */
-	else if (r_ptr->level < current_floor_ptr->floor_level)
+	else if (r_ptr->level < floor_ptr->floor_level)
 	{
-		extra = current_floor_ptr->floor_level - r_ptr->level;
+		extra = floor_ptr->floor_level - r_ptr->level;
 		extra = randint1(extra);
 	}
 
@@ -4495,7 +4495,6 @@ static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int 
 
 	/* Maximum size */
 	if (total > GROUP_MAX) total = GROUP_MAX;
-
 
 	/* Start on the monster */
 	hack_n = 1;
@@ -4520,7 +4519,7 @@ static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int 
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_creature_one(summoner_ptr, current_floor_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
+			if (place_creature_one(summoner_ptr, floor_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4529,7 +4528,6 @@ static bool place_creature_group(creature_type *summoner_ptr, int y, int x, int 
 			}
 		}
 	}
-
 
 	/* Success */
 	return (TRUE);
@@ -4645,7 +4643,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
-		(void)place_creature_group(summoner_ptr, y, x, species_idx, mode);
+		(void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
 	}
 
 
@@ -4682,7 +4680,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
 				/* Place a group of monsters */
-				(void)place_creature_group(&creature_list[place_creature_m_idx], ny, nx, z, mode);
+				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);
 			}
 		}
 	}
