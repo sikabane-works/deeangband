@@ -5359,7 +5359,7 @@ bool lose_all_info(creature_type *cr_ptr)
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Mega-Hack -- Forget the map */
-	wiz_dark(cr_ptr);
+	wiz_dark(current_floor_ptr, cr_ptr);
 
 	/* It worked */
 	return (TRUE);

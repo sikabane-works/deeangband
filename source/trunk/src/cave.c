@@ -4477,17 +4477,16 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 /*
  * Forget the dungeon map (ala "Thinking of Maud...").
  */
-void wiz_dark(creature_type *cr_ptr)
+void wiz_dark(floor_type *floor_ptr, creature_type *cr_ptr)
 {
 	int i, y, x;
 
-
 	/* Forget every grid */
-	for (y = 1; y < current_floor_ptr->height - 1; y++)
+	for (y = 1; y < floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < current_floor_ptr->width - 1; x++)
+		for (x = 1; x < floor_ptr->width - 1; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			/* Process the grid */
 			c_ptr->info &= ~(CAVE_MARK | CAVE_IN_DETECT);
@@ -4496,17 +4495,17 @@ void wiz_dark(creature_type *cr_ptr)
 	}
 
 	/* Forget every grid on horizontal edge */
-	for (x = 0; x < current_floor_ptr->width; x++)
+	for (x = 0; x < floor_ptr->width; x++)
 	{
-		current_floor_ptr->cave[0][x].info &= ~(CAVE_MARK);
-		current_floor_ptr->cave[current_floor_ptr->height - 1][x].info &= ~(CAVE_MARK);
+		floor_ptr->cave[0][x].info &= ~(CAVE_MARK);
+		floor_ptr->cave[floor_ptr->height - 1][x].info &= ~(CAVE_MARK);
 	}
 
 	/* Forget every grid on vertical edge */
-	for (y = 1; y < (current_floor_ptr->height - 1); y++)
+	for (y = 1; y < (floor_ptr->height - 1); y++)
 	{
-		current_floor_ptr->cave[y][0].info &= ~(CAVE_MARK);
-		current_floor_ptr->cave[y][current_floor_ptr->width - 1].info &= ~(CAVE_MARK);
+		floor_ptr->cave[y][0].info &= ~(CAVE_MARK);
+		floor_ptr->cave[y][floor_ptr->width - 1].info &= ~(CAVE_MARK);
 	}
 
 	/* Forget all objects */

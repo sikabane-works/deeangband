@@ -864,9 +864,9 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 				{
 					ident = TRUE;
 					if (one_in_(3)) lose_all_info(cr_ptr);
-					else wiz_dark(cr_ptr);
+					else wiz_dark(current_floor_ptr, cr_ptr);
 					(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-					wiz_dark(cr_ptr);
+					wiz_dark(current_floor_ptr, cr_ptr);
 #ifdef JP
 					msg_print("知らない場所で目が醒めた。頭痛がする。");
 					msg_print("何も思い出せない。どうやってここへ来たのかも分からない！");

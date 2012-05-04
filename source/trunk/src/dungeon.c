@@ -2470,9 +2470,9 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			{
 				msg_print(NULL);
 				if (one_in_(3)) lose_all_info(cr_ptr);
-				else wiz_dark(cr_ptr);
+				else wiz_dark(current_floor_ptr, cr_ptr);
 				(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-				wiz_dark(cr_ptr);
+				wiz_dark(current_floor_ptr, cr_ptr);
 #ifdef JP
 				msg_print("あなたは見知らぬ場所で目が醒めた...頭が痛い。");
 				msg_print("何も覚えていない。どうやってここに来たかも分からない！");
