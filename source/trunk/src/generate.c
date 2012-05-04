@@ -1019,7 +1019,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	}
 
 	/* Determine the character location */
-	if (!new_player_spot(player_ptr)) return FALSE;
+	if (!new_player_spot(floor_ptr, player_ptr)) return FALSE;
 
 	if (!place_quest_creatures(floor_ptr, player_ptr)) return FALSE;
 

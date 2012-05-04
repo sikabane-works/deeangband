@@ -19,7 +19,7 @@
 /*
  * Returns random co-ordinates for player/monster/object
  */
-bool new_player_spot(creature_type *creature_ptr)
+bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int	y, x;
 	int max_attempts = 10000;
@@ -31,14 +31,14 @@ bool new_player_spot(creature_type *creature_ptr)
 	while (max_attempts--)
 	{
 		/* Pick a legal spot */
-		y = rand_range(1, current_floor_ptr->height - 2);
-		x = rand_range(1, current_floor_ptr->width - 2);
+		y = rand_range(1, floor_ptr->height - 2);
+		x = rand_range(1, floor_ptr->width - 2);
 
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Must be a "naked" floor grid */
 		if (c_ptr->creature_idx) continue;
-		if (current_floor_ptr->floor_level)
+		if (floor_ptr->floor_level)
 		{
 			f_ptr = &f_info[c_ptr->feat];
 
@@ -56,7 +56,7 @@ bool new_player_spot(creature_type *creature_ptr)
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
 		if (!player_can_enter(creature_ptr, c_ptr->feat, 0)) continue;
-		if (!in_bounds(current_floor_ptr, y, x)) continue;
+		if (!in_bounds(floor_ptr, y, x)) continue;
 
 		/* Refuse to start on anti-teleport grids */
 		if (c_ptr->info & (CAVE_ICKY)) continue;
