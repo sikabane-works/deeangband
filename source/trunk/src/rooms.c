@@ -182,7 +182,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	/* Initialize */
 	count = 0;
 
-	old_is_floor = get_is_floor(x1 - 1, y1);
+	old_is_floor = get_floor(floor_ptr, x1 - 1, y1);
 
 	/*
 	 * Count the number of floor-wall boundaries around the room
@@ -193,7 +193,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	/* Above the top boundary */
 	for (x = x1; x <= x2; x++)
 	{
-		new_is_floor = get_is_floor(x, y1 - 1);
+		new_is_floor = get_floor(floor_ptr, x, y1 - 1);
 
 		/* Increment counter if they are different */
 		if (new_is_floor != old_is_floor) count++;
@@ -204,7 +204,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	/* Right boundary */
 	for (y = y1; y <= y2; y++)
 	{
-		new_is_floor = get_is_floor(x2 + 1, y);
+		new_is_floor = get_floor(floor_ptr, x2 + 1, y);
 
 		/* increment counter if they are different */
 		if (new_is_floor != old_is_floor) count++;
@@ -215,7 +215,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	/* Bottom boundary */
 	for (x = x2; x >= x1; x--)
 	{
-		new_is_floor = get_is_floor(x, y2 + 1);
+		new_is_floor = get_floor(floor_ptr, x, y2 + 1);
 
 		/* increment counter if they are different */
 		if (new_is_floor != old_is_floor) count++;
@@ -226,7 +226,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	/* Left boundary */
 	for (y = y2; y >= y1; y--)
 	{
-		new_is_floor = get_is_floor(x1 - 1, y);
+		new_is_floor = get_floor(floor_ptr, x1 - 1, y);
 
 		/* increment counter if they are different */
 		if (new_is_floor != old_is_floor) count++;
