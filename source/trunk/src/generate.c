@@ -1175,7 +1175,7 @@ static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 	{
 		for (x = 0; x < width; x++)
 		{
-			place_solid_perm_bold(y, x); // Create "solid" perma-wall
+			place_solid_perm_bold(floor_ptr, y, x); // Create "solid" perma-wall
 			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK); // Illuminate and memorize the walls
 		}
 	}
@@ -1269,7 +1269,7 @@ static void generate_floor_monster_arena(floor_type *floor_ptr)
 	{
 		for (x = 0; x < MAX_WID; x++)
 		{
-			place_solid_perm_bold(y, x); // Create "solid" perma-wall
+			place_solid_perm_bold(floor_ptr, y, x); // Create "solid" perma-wall
 			floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK); // Illuminate and memorize the walls
 		}
 	}
@@ -1313,7 +1313,7 @@ static void generate_floor_quest(floor_type *floor_ptr)
 	{
 		for (x = 0; x < floor_ptr->width; x++)
 		{
-			place_solid_perm_bold(y, x);
+			place_solid_perm_bold(floor_ptr, y, x);
 		}
 	}
 
@@ -1345,7 +1345,7 @@ static void generate_floor_fortress(floor_type *floor_ptr, int type)
 	{
 		for (x = 0; x < floor_ptr->width; x++)
 		{
-			place_solid_perm_bold(y, x);
+			place_solid_perm_bold(floor_ptr, y, x);
 		}
 	}
 
