@@ -856,26 +856,26 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
  * Note that this routine is only called on "even" squares - so it gives
  * a natural checkerboard pattern.
  */
-static void create_cata_tunnel(int x, int y)
+static void create_cata_tunnel(floor_type *floor_ptr, int x, int y)
 {
 	int x1, y1;
 
 	/* Build tunnel */
 	x1 = x - 1;
 	y1 = y;
-	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
+	set_tunnel(floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x + 1;
 	y1 = y;
-	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
+	set_tunnel(floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x;
 	y1 = y - 1;
-	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
+	set_tunnel(floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x;
 	y1 = y + 1;
-	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
+	set_tunnel(floor_ptr, &x1, &y1, FALSE);
 }
 
 
@@ -948,7 +948,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 				}
 				if ((type == 3) && ((x + y) % 2))
 				{
-					create_cata_tunnel(i, y1);
+					create_cata_tunnel(current_floor_ptr, i, y1);
 				}
 			}
 		}
@@ -966,7 +966,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 				}
 				if ((type == 3) && ((x + y) % 2))
 				{
-					create_cata_tunnel(i, y1);
+					create_cata_tunnel(current_floor_ptr, i, y1);
 				}
 			}
 
@@ -985,7 +985,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 				}
 				if ((type == 3) && ((x + y) % 2))
 				{
-					create_cata_tunnel(x2, i);
+					create_cata_tunnel(current_floor_ptr, x2, i);
 				}
 			}
 		}
@@ -1003,7 +1003,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 				}
 				if ((type == 3) && ((x + y) % 2))
 				{
-					create_cata_tunnel(x2, i);
+					create_cata_tunnel(current_floor_ptr, x2, i);
 				}
 			}
 		}

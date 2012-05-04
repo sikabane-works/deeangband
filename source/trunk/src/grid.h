@@ -42,7 +42,7 @@
 	set_cave_feat(FLOOR, Y, X, feat_floor_rand_table[randint0(100)]); \
 	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(FLOOR, Y, X, CAVE_FLOOR); \
-	delete_creature(current_floor_ptr, Y, X); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_floor_grid(C) \
@@ -72,7 +72,7 @@
 #define place_extra_perm_bold(FLOOR, Y, X) \
 { \
 	set_cave_feat(FLOOR, Y, X, feat_permanent); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(FLOOR, Y, X, CAVE_EXTRA); \
 	delete_creature(FLOOR, Y, X); \
 }
