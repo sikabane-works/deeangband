@@ -4391,8 +4391,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	{
 		j = 100;
 
-		if (!(summon_named_creature(0, y, x, q_ptr->pval,
-					    !(object_is_cursed(q_ptr)) ? PM_FORCE_PET : 0L)))
+		if (!(summon_named_creature(0, current_floor_ptr, y, x, q_ptr->pval, !(object_is_cursed(q_ptr)) ? PM_FORCE_PET : 0L)))
 #ifdef JP
 msg_print("lŒ`‚Í”P‚¶‹È‚ª‚èÓ‚¯U‚Á‚Ä‚µ‚Ü‚Á‚½I");
 #else

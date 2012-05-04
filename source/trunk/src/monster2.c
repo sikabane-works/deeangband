@@ -5005,7 +5005,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 }
 
 /* A "dangerous" function, creates a pet of the specified type */
-bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode)
+bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode)
 {
 	int x, y;
 

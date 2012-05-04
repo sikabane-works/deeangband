@@ -1240,7 +1240,7 @@ extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int 
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
 extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode);
-extern bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode);
+extern bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode);
 extern bool multiply_creature(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_species(int m_idx, bool born, int species_idx, int creature_egobject_idx);

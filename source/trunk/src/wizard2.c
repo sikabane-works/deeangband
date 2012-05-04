@@ -1788,7 +1788,7 @@ static void do_cmd_wiz_summon(creature_type *cr_ptr, int num)
  */
 static void do_cmd_wiz_named(creature_type *cr_ptr, int species_idx)
 {
-	(void)summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+	(void)summon_named_creature(0, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 }
 
 
@@ -1799,7 +1799,7 @@ static void do_cmd_wiz_named(creature_type *cr_ptr, int species_idx)
  */
 static void do_cmd_wiz_named_friendly(creature_type *cr_ptr, int species_idx)
 {
-	(void)summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
+	(void)summon_named_creature(0, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
 }
 
 

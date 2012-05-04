@@ -6360,7 +6360,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				/* Delete the monster */
 				delete_species_idx(tar_ptr);
 	
-				if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
+				if (summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BIKETAL, mode))
 				{
 	#ifdef JP
 					msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");

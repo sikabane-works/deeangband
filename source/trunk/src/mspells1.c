@@ -3314,10 +3314,10 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 					if (fight_arena_mode || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
+					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, dummy_y, dummy_x, MON_LUPART, mode);
+					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_LUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -3353,7 +3353,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 							delete_species_idx(&creature_list[k]);
 						}
 					}
-					summon_named_creature(0, dummy_y, dummy_x, MON_BANORLUPART, mode);
+					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BANORLUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -3380,7 +3380,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, y, x, MON_SHURYUUDAN, mode);
+						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_SHURYUUDAN, mode);
 					}
 				}
 #ifdef JP
@@ -3722,7 +3722,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, y, x, MON_IE, mode);
+						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_IE, mode);
 					}
 				}
 				break;
@@ -3754,7 +3754,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int num = randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, y, x, MON_LOCKE_CLONE, mode);
+						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_LOCKE_CLONE, mode);
 					}
 				}
 				break;
@@ -4147,7 +4147,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					}
 					if (!cave_empty_bold(cy, cx)) continue;
 
-					if (summon_named_creature(caster_ptr, cy, cx, MON_NAZGUL, mode))
+					if (summon_named_creature(caster_ptr, current_floor_ptr, cy, cx, MON_NAZGUL, mode))
 					{
 						y = cy;
 						x = cx;

@@ -5430,7 +5430,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				cptr kakusan = "";
 #endif
 
-				if (summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, MON_SUKE, PM_FORCE_PET))
+				if (summon_named_creature(0, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, MON_SUKE, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『助さん』が現れた。");
@@ -5440,7 +5440,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					count++;
 				}
-				if (summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, MON_KAKU, PM_FORCE_PET))
+				if (summon_named_creature(0, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, MON_KAKU, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『格さん』が現れた。");
@@ -5602,7 +5602,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				bool pet = !one_in_(5);
 				if (pet) mode |= PM_FORCE_PET;
 
-				if (summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, MON_JIZOTAKO, mode))
+				if (summon_named_creature(0, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, MON_JIZOTAKO, mode))
 				{
 					if (pet)
 #ifdef JP
