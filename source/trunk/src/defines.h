@@ -4011,8 +4011,8 @@
 /*
  * Determine if a "legal" grid supports "los"
  */
-#define cave_los_bold(Y,X) \
-	(feat_supports_los(current_floor_ptr->cave[(Y)][(X)].feat))
+#define cave_los_bold(FLOOR, Y, X) \
+	(feat_supports_los((FLOOR)->cave[(Y)][(X)].feat))
 
 #define cave_los_grid(C) \
 	(feat_supports_los((C)->feat))

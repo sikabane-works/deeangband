@@ -6226,7 +6226,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
  */
 static bool cave_pass_lite_bold(int y, int x)
 {
-	return cave_los_bold(y, x);
+	return cave_los_bold(current_floor_ptr, y, x);
 }
 
 /*

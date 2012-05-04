@@ -370,7 +370,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(y, x)) break;
+				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
@@ -458,7 +458,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(y, x)) break;
+				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
@@ -528,7 +528,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(y, x)) break;
+				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
@@ -8288,7 +8288,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		else if (flg & PROJECT_LOS)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_los_bold(ny, nx) && (rad > 0)) break;
+			if (!cave_los_bold(current_floor_ptr, ny, nx) && (rad > 0)) break;
 		}
 		else
 		{

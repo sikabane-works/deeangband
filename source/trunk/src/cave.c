@@ -190,7 +190,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if (!cave_los_bold(ty, x1)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -199,7 +199,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if (!cave_los_bold(ty, x1)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -215,7 +215,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if (!cave_los_bold(y1, tx)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -224,7 +224,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if (!cave_los_bold(y1, tx)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -243,7 +243,7 @@ bool los(int y1, int x1, int y2, int x2)
 	{
 		if (ay == 2)
 		{
-			if (cave_los_bold(y1 + sy, x1)) return TRUE;
+			if (cave_los_bold(current_floor_ptr, y1 + sy, x1)) return TRUE;
 		}
 	}
 
@@ -252,7 +252,7 @@ bool los(int y1, int x1, int y2, int x2)
 	{
 		if (ax == 2)
 		{
-			if (cave_los_bold(y1, x1 + sx)) return TRUE;
+			if (cave_los_bold(current_floor_ptr, y1, x1 + sx)) return TRUE;
 		}
 	}
 
@@ -288,7 +288,7 @@ bool los(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if (!cave_los_bold(ty, tx)) return FALSE;
+			if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
 
 			qy += m;
 
@@ -299,7 +299,7 @@ bool los(int y1, int x1, int y2, int x2)
 			else if (qy > f2)
 			{
 				ty += sy;
-				if (!cave_los_bold(ty, tx)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
 				qy -= f1;
 				tx += sx;
 			}
@@ -335,7 +335,7 @@ bool los(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if (!cave_los_bold(ty, tx)) return FALSE;
+			if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
 
 			qx += m;
 
@@ -346,7 +346,7 @@ bool los(int y1, int x1, int y2, int x2)
 			else if (qx > f2)
 			{
 				tx += sx;
-				if (!cave_los_bold(ty, tx)) return FALSE;
+				if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
 				qx -= f1;
 				ty += sy;
 			}
@@ -2666,7 +2666,7 @@ void update_lite(creature_type *cr_ptr)
 	if (p >= 2)
 	{
 		/* South of the player */
-		if (cave_los_bold(cr_ptr->fy + 1, cr_ptr->fx))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy + 1, cr_ptr->fx))
 		{
 			cave_lite_hack(cr_ptr->fy+2, cr_ptr->fx);
 			cave_lite_hack(cr_ptr->fy+2, cr_ptr->fx+1);
@@ -2674,7 +2674,7 @@ void update_lite(creature_type *cr_ptr)
 		}
 
 		/* North of the player */
-		if (cave_los_bold(cr_ptr->fy - 1, cr_ptr->fx))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy - 1, cr_ptr->fx))
 		{
 			cave_lite_hack(cr_ptr->fy-2, cr_ptr->fx);
 			cave_lite_hack(cr_ptr->fy-2, cr_ptr->fx+1);
@@ -2682,7 +2682,7 @@ void update_lite(creature_type *cr_ptr)
 		}
 
 		/* East of the player */
-		if (cave_los_bold(cr_ptr->fy, cr_ptr->fx + 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx + 1))
 		{
 			cave_lite_hack(cr_ptr->fy, cr_ptr->fx+2);
 			cave_lite_hack(cr_ptr->fy+1, cr_ptr->fx+2);
@@ -2690,7 +2690,7 @@ void update_lite(creature_type *cr_ptr)
 		}
 
 		/* West of the player */
-		if (cave_los_bold(cr_ptr->fy, cr_ptr->fx - 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx - 1))
 		{
 			cave_lite_hack(cr_ptr->fy, cr_ptr->fx-2);
 			cave_lite_hack(cr_ptr->fy+1, cr_ptr->fx-2);
@@ -2707,25 +2707,25 @@ void update_lite(creature_type *cr_ptr)
 		if (p > 14) p = 14;
 
 		/* South-East of the player */
-		if (cave_los_bold(cr_ptr->fy + 1, cr_ptr->fx + 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy + 1, cr_ptr->fx + 1))
 		{
 			cave_lite_hack(cr_ptr->fy+2, cr_ptr->fx+2);
 		}
 
 		/* South-West of the player */
-		if (cave_los_bold(cr_ptr->fy + 1, cr_ptr->fx - 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy + 1, cr_ptr->fx - 1))
 		{
 			cave_lite_hack(cr_ptr->fy+2, cr_ptr->fx-2);
 		}
 
 		/* North-East of the player */
-		if (cave_los_bold(cr_ptr->fy - 1, cr_ptr->fx + 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy - 1, cr_ptr->fx + 1))
 		{
 			cave_lite_hack(cr_ptr->fy-2, cr_ptr->fx+2);
 		}
 
 		/* North-West of the player */
-		if (cave_los_bold(cr_ptr->fy - 1, cr_ptr->fx - 1))
+		if (cave_los_bold(current_floor_ptr, cr_ptr->fy - 1, cr_ptr->fx - 1))
 		{
 			cave_lite_hack(cr_ptr->fy-2, cr_ptr->fx-2);
 		}
@@ -2849,11 +2849,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
 			{
-				if (!cave_los_bold(y, x + 1)) return;
+				if (!cave_los_bold(current_floor_ptr, y, x + 1)) return;
 			}
 			else if (x > midpoint)
 			{
-				if (!cave_los_bold(y, x - 1)) return;
+				if (!cave_los_bold(current_floor_ptr, y, x - 1)) return;
 			}
 
 		}
@@ -2868,11 +2868,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
 			{
-				if (!cave_los_bold(y + 1, x)) return;
+				if (!cave_los_bold(current_floor_ptr, y + 1, x)) return;
 			}
 			else if (y > midpoint)
 			{
-				if (!cave_los_bold(y - 1, x)) return;
+				if (!cave_los_bold(current_floor_ptr, y - 1, x)) return;
 			}
 		}
 	}
@@ -2930,11 +2930,11 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
 			{
-				if (!cave_los_bold(y, x + 1) && !cave_have_flag_bold(current_floor_ptr, y, x + 1, FF_PROJECT)) return;
+				if (!cave_los_bold(current_floor_ptr, y, x + 1) && !cave_have_flag_bold(current_floor_ptr, y, x + 1, FF_PROJECT)) return;
 			}
 			else if (x > midpoint)
 			{
-				if (!cave_los_bold(y, x - 1) && !cave_have_flag_bold(current_floor_ptr, y, x - 1, FF_PROJECT)) return;
+				if (!cave_los_bold(current_floor_ptr, y, x - 1) && !cave_have_flag_bold(current_floor_ptr, y, x - 1, FF_PROJECT)) return;
 			}
 		}
 
@@ -2948,11 +2948,11 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
 			{
-				if (!cave_los_bold(y + 1, x) && !cave_have_flag_bold(current_floor_ptr, y + 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(current_floor_ptr, y + 1, x) && !cave_have_flag_bold(current_floor_ptr, y + 1, x, FF_PROJECT)) return;
 			}
 			else if (y > midpoint)
 			{
-				if (!cave_los_bold(y - 1, x) && !cave_have_flag_bold(current_floor_ptr, y - 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(current_floor_ptr, y - 1, x) && !cave_have_flag_bold(current_floor_ptr, y - 1, x, FF_PROJECT)) return;
 			}
 		}
 	}
