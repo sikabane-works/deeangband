@@ -653,7 +653,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 					if (is_outer_bold(floor_ptr, y, x))
 					{
 						/* Change the wall to a "solid" wall */
-						place_solid_noperm_bold(y, x);
+						place_solid_noperm_bold(floor_ptr, y, x);
 					}
 				}
 			}
@@ -795,7 +795,7 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 				if (is_outer_bold(floor_ptr, j, i))
 				{
 					/* Change the wall to a "solid" wall */
-					place_solid_noperm_bold(j, i);
+					place_solid_noperm_bold(floor_ptr, j, i);
 				}
 			}
 		}
