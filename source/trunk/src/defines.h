@@ -3821,7 +3821,7 @@
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
-#define EXIST_CREATURE(Y, X) (creature_bold(player_ptr, (Y), (X)) || current_floor_ptr->cave[(Y)][(X)].creature_idx != 0)
+#define EXIST_CREATURE(FLOOR, Y, X) (current_floor_ptr->cave[(Y)][(X)].creature_idx != 0)
 
 
 

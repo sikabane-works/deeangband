@@ -381,7 +381,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(y, x))
+				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
 					break;
 			}
 
@@ -469,7 +469,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(y, x))
+				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
 					break;
 			}
 
@@ -539,7 +539,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(y, x))
+				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
 					break;
 			}
 
