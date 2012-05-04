@@ -742,7 +742,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the trap */
-				cave_alter_feat(y, x, FF_DISARM);
+				cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
 			}
 
 			/* Locked doors are unlocked */
@@ -751,7 +751,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				s16b old_feat = c_ptr->feat;
 
 				/* Unlock the door */
-				cave_alter_feat(y, x, FF_DISARM);
+				cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
 
 				/* Check line of sound */
 				if (known && (old_feat != c_ptr->feat))
@@ -800,7 +800,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the feature */
-				cave_alter_feat(y, x, FF_TUNNEL);
+				cave_alter_feat(current_floor_ptr, y, x, FF_TUNNEL);
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
@@ -824,7 +824,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				s16b old_mimic = c_ptr->mimic;
 				feature_type *mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
-				cave_alter_feat(y, x, FF_SPIKE);
+				cave_alter_feat(current_floor_ptr, y, x, FF_SPIKE);
 
 				c_ptr->mimic = old_mimic;
 
@@ -868,7 +868,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(y, x, FF_HURT_ROCK);
+				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -1125,7 +1125,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(y, x, FF_HURT_ROCK);
+				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -1161,7 +1161,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(y, x, FF_HURT_ROCK);
+				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -1179,7 +1179,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			/* But not protect monsters and other objects */
 			if (have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
 			{
-				cave_alter_feat(y, x, FF_HURT_DISI);
+				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to GF_KILL_WALL */
 				update |= (PU_FLOW);

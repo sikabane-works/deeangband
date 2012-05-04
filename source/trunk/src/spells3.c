@@ -1641,7 +1641,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			}
 
 			/* Process all walls, doors and patterns */
-			if (have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(y, x, FF_HURT_DISI);
+			if (have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(current_floor_ptr, y, x, FF_HURT_DISI);
 		}
 	}
 

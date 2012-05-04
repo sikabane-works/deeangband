@@ -1065,7 +1065,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 	/* Disturb the player */
 	disturb(player_ptr, 0, 0);
 
-	cave_alter_feat(y, x, FF_HIT_TRAP);
+	cave_alter_feat(current_floor_ptr, y, x, FF_HIT_TRAP);
 
 	/* Analyze XXX XXX XXX */
 	switch (trap_feat_type)
@@ -1709,7 +1709,7 @@ msg_print("まばゆい閃光が走った！");
 
 	if (break_trap && is_trap(c_ptr->feat))
 	{
-		cave_alter_feat(y, x, FF_DISARM);
+		cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
 #ifdef JP
 		msg_print("トラップを粉砕した。");
 #else
@@ -4355,7 +4355,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 		if (p_can_kill_walls)
 		{
-			cave_alter_feat(y, x, FF_HURT_DISI);
+			cave_alter_feat(current_floor_ptr, y, x, FF_HURT_DISI);
 
 			/* Update some things -- similar to GF_KILL_WALL */
 			update |= (PU_FLOW);

@@ -4720,10 +4720,10 @@ int feat_state(int feat, int action)
  * Takes a location and action and changes the feature at that 
  * location through applying the given action.
  */
-void cave_alter_feat(int y, int x, int action)
+void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 {
 	/* Set old feature */
-	int oldfeat = current_floor_ptr->cave[y][x].feat;
+	int oldfeat = floor_ptr->cave[y][x].feat;
 
 	/* Get the new feat */
 	int newfeat = feat_state(oldfeat, action);
@@ -4732,7 +4732,7 @@ void cave_alter_feat(int y, int x, int action)
 	if (newfeat == oldfeat) return;
 
 	/* Set the new feature */
-	cave_set_feat(current_floor_ptr, y, x, newfeat);
+	cave_set_feat(floor_ptr, y, x, newfeat);
 
 	if (!(feature_action_flags[action] & FAF_NO_DROP))
 	{
@@ -4749,10 +4749,10 @@ void cave_alter_feat(int y, int x, int action)
 		}
 
 		/* Handle item */
-		if (have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - current_floor_ptr->floor_level / 2)))
+		if (have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - floor_ptr->floor_level / 2)))
 		{
 			/* Place object */
-			place_object(current_floor_ptr, y, x, 0L);
+			place_object(floor_ptr, y, x, 0L);
 			found = TRUE;
 		}
 
@@ -4772,7 +4772,7 @@ void cave_alter_feat(int y, int x, int action)
 
 		if (have_flag(old_f_ptr->flags, FF_GLASS) && floor_generated)
 		{
-			project(NULL, 1, y, x, MIN(current_floor_ptr->floor_level, 100) / 4, GF_SHARDS,
+			project(NULL, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, GF_SHARDS,
 			        (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}
@@ -5108,7 +5108,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 				{
 					yy = y + ddy_ddd[i];
 					xx = x + ddx_ddd[i];
-					if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
+					if (!in_bounds2(floor_ptr, yy, xx)) continue;
 					floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 				}
 			}
