@@ -448,7 +448,7 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 
 			/* Place the monster (allow groups) */
 			floor_ptr->creature_level = floor_ptr->base_level + 2;
-			(void)place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+			(void)place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 			floor_ptr->creature_level = floor_ptr->base_level;
 		}
 	}

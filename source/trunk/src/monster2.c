@@ -4697,7 +4697,7 @@ bool place_creature_aux(creature_type *summoner_ptr, floor_type *floor_ptr, int 
  *
  * Attempt to find a monster appropriate to the "current_floor_ptr->creature_level"
  */
-bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
+bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
 
@@ -4705,13 +4705,13 @@ bool place_creature(creature_type *summoner_ptr, int y, int x, u32b mode)
 	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	/* Pick a monster */
-	species_idx = get_species_num(current_floor_ptr->creature_level);
+	species_idx = get_species_num(floor_ptr->creature_level);
 
 	/* Handle failure */
 	if (!species_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_creature_aux(summoner_ptr, current_floor_ptr, y, x, species_idx, mode)) return (TRUE);
+	if (place_creature_aux(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -4890,9 +4890,8 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 	else
 	{
 #endif /* MONSTER_HORDES */
-
 		/* Attempt to place the monster, allow groups */
-		if (place_creature(NULL, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
+		if (place_creature(NULL, floor_ptr, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
 
 #ifdef MONSTER_HORDES
 	}

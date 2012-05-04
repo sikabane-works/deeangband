@@ -2837,7 +2837,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '&':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
@@ -2846,7 +2846,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '@':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 11;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
@@ -2855,7 +2855,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '9':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
-					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
+					place_creature(NULL, floor_ptr, y, x, PM_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 7;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -2867,7 +2867,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '8':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
-					place_creature(NULL, y, x, PM_ALLOW_SLEEP);
+					place_creature(NULL, floor_ptr, y, x, PM_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
 					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
@@ -2881,7 +2881,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					if (randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
-						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
@@ -4119,7 +4119,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Meanest monster + treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -4129,7 +4129,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Mean monster +treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 20;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 10;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -4139,7 +4139,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Monster */
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 				}
 				else if (value < 17)
@@ -4169,7 +4169,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Monster and trap */
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
-					place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					place_trap(floor_ptr, y, x);
 				}
@@ -4179,7 +4179,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					if (randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
-						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
@@ -4201,7 +4201,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* 20% monster, 40% trap, 20% object, 20% blank space */
 					if (randint0(100) < 20)
 					{
-						place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					}
 					else if (randint0(100) < 50)
 					{
