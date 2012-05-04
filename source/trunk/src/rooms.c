@@ -2329,7 +2329,7 @@ static bool build_type5(floor_type *floor_ptr)
 			species_idx = nest_info[i].species_idx;
 
 			/* Place that "random" monster (no groups) */
-			(void)place_creature_aux(NULL, floor_ptr, y, x, species_idx, 0L);
+			(void)place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
 
 			nest_info[i].used = TRUE;
 		}
@@ -2574,28 +2574,28 @@ static bool build_type6(floor_type *floor_ptr)
 	}
 
 	/* Center monster */
-	place_creature_aux(NULL, floor_ptr, yval, xval, what[7], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval, xval+1, what[6], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval, xval-1, what[6], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval-1, xval, what[6], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval+1, xval, what[6], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval-1, xval-1, what[5], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval+1, xval-1, what[5], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval-1, xval+1, what[5], PM_NO_KAGE);
-	place_creature_aux(NULL, floor_ptr, yval+1, xval+1, what[5], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval, what[7], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval+1, what[6], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval-1, what[6], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval, what[6], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval, what[6], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval-1, what[5], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval-1, what[5], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval+1, what[5], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval+1, what[5], PM_NO_KAGE);
 
 	k = 2;
 	while(k <= y2 - yval|| k <= x2 - xval)
 	{
 		for(i = -k; i <= k; i++)
 		{
-			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_creature_aux(NULL, floor_ptr, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_creature_aux(NULL, floor_ptr, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_creature_species(NULL, floor_ptr, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_creature_species(NULL, floor_ptr, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
 		}
 		for(i = -k + 1; i <= k - 1; i++)
 		{
-			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_creature_aux(NULL, floor_ptr, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_creature_aux(NULL, floor_ptr, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
 		}
 		k++;
 	}
@@ -5869,7 +5869,7 @@ static bool build_type13(floor_type *floor_ptr)
 	{
 		y = yval + placing[i][0];
 		x = xval + placing[i][1];
-		place_creature_aux(NULL, floor_ptr, y, x, what[placing[i][2]], PM_NO_KAGE);
+		place_creature_species(NULL, floor_ptr, y, x, what[placing[i][2]], PM_NO_KAGE);
 	}
 
 	return TRUE;
@@ -6090,7 +6090,7 @@ static bool build_type15(floor_type *floor_ptr)
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
-				if (species_idx) place_creature_aux(NULL, floor_ptr, y, x, species_idx, PM_ALLOW_SLEEP);
+				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, PM_ALLOW_SLEEP);
 
 				/* Walls around the breather */
 				for (dir2 = 0; dir2 < 8; dir2++)
@@ -6152,7 +6152,7 @@ static bool build_type15(floor_type *floor_ptr)
 			get_species_num_prep(vault_aux_lite, NULL);
 
 			species_idx = get_species_num(floor_ptr->floor_level);
-			if (species_idx) place_creature_aux(NULL, floor_ptr, yval, xval, species_idx, 0L);
+			if (species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
 
 			/* Walls around the breather */
 			for (dir1 = 0; dir1 < 8; dir1++)
@@ -6220,7 +6220,7 @@ static bool build_type15(floor_type *floor_ptr)
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];
-				if (species_idx) place_creature_aux(NULL, floor_ptr, y, x, species_idx, 0L);
+				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
 			}
 
 			/* Place two potions */

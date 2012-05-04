@@ -4596,7 +4596,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
  * Note the use of the new "monster allocation table" code to restrict
  * the "get_species_num()" function to "legal" escort types.
  */
-bool place_creature_aux(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
+bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
 	int             i, j;
 	species_type    *r_ptr = &species_info[species_idx];
@@ -4711,7 +4711,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	if (!species_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_creature_aux(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
+	if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -4754,7 +4754,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	while (--attempts)
 	{
 		/* Attempt to place the monster */
-		if (place_creature_aux(summoner_ptr, current_floor_ptr, y, x, species_idx, 0L)) break;
+		if (place_creature_species(summoner_ptr, current_floor_ptr, y, x, species_idx, 0L)) break;
 	}
 
 	if (attempts < 1) return FALSE;
@@ -4804,7 +4804,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if (place_creature_aux(NULL, floor_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
+				if (place_creature_species(NULL, floor_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
@@ -4995,7 +4995,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_creature_aux(summoner_ptr, current_floor_ptr, y, x, species_idx, mode))
+	if (!place_creature_species(summoner_ptr, current_floor_ptr, y, x, species_idx, mode))
 	{
 		summon_specific_type = 0;
 		return (FALSE);
@@ -5019,7 +5019,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
 	if (!creature_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_creature_aux(cr_ptr, current_floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_creature_species(cr_ptr, current_floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
 }
 
 
@@ -5040,7 +5040,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new monster (awake, no groups) */
-	if (!place_creature_aux(&creature_list[m_idx], current_floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_creature_species(&creature_list[m_idx], current_floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */

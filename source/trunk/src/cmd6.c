@@ -6401,7 +6401,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			if (!get_rep_dir2(cr_ptr, &dir)) return;
 			if (species_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &species_info[o_ptr->pval], 0))
 			{
-				if (place_creature_aux(cr_ptr, current_floor_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
+				if (place_creature_species(cr_ptr, current_floor_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{
 					if (o_ptr->xtra3) creature_list[hack_m_idx_ii].speed = o_ptr->xtra3;
 					if (o_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = o_ptr->xtra5;
