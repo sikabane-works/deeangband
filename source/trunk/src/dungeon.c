@@ -5500,7 +5500,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 				int y, x;
 				y = cr_ptr->fy+ddy[tsuri_dir];
 				x = cr_ptr->fx+ddx[tsuri_dir];
-				if (place_creature_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
+				if (place_creature_aux(cr_ptr, current_floor_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
 					creature_desc(m_name, &creature_list[current_floor_ptr->cave[y][x].creature_idx], 0);
@@ -7088,7 +7088,7 @@ void play_game(bool new_game)
 	{
 		int pet_species_idx = ((player_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		species_type *r_ptr = &species_info[pet_species_idx];
-		place_creature_aux(player_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
+		place_creature_aux(player_ptr, current_floor_ptr, player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 
 	play_loop();

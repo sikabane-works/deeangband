@@ -534,7 +534,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				if (!l) return FALSE;
 
 				/* Try to place the monster */
-				if (place_creature_aux(player_ptr, y, x, quest[i].species_idx, mode))
+				if (place_creature_aux(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode))
 				{
 					/* Success */
 					break;
@@ -1187,7 +1187,7 @@ static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 
 	build_arena(floor_ptr, height, width);
 
-	place_creature_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PM_NO_KAGE | PM_NO_PET));
+	place_creature_aux(player_ptr, floor_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PM_NO_KAGE | PM_NO_PET));
 }
 
 
@@ -1287,7 +1287,7 @@ static void generate_floor_monster_arena(floor_type *floor_ptr)
 
 	for(i = 0; i < 4;i ++)
 	{
-		place_creature_aux(player_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
+		place_creature_aux(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
 		set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 
