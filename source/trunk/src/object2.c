@@ -3889,16 +3889,9 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	object_type forge;
 	object_type *q_ptr;
 
-
-	/* Paranoia -- check bounds */
-	if (!in_bounds(floor_ptr, y, x)) return;
-
-	/* Require floor space */
-	if (!cave_drop_bold(y, x)) return;
-
-	/* Avoid stacking on other objects */
-	if (c_ptr->object_idx) return;
-
+	if (!in_bounds(floor_ptr, y, x)) return; // Paranoia -- check bounds
+	if (!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
+	if (c_ptr->object_idx) return; // Avoid stacking on other objects
 
 	/* Get local object */
 	q_ptr = &forge;
@@ -4016,7 +4009,7 @@ void place_gold(int y, int x)
 	if (!in_bounds(current_floor_ptr, y, x)) return;
 
 	/* Require floor space */
-	if (!cave_drop_bold(y, x)) return;
+	if (!cave_drop_bold(current_floor_ptr, y, x)) return;
 
 	/* Avoid stacking on other objects */
 	if (c_ptr->object_idx) return;
@@ -4178,7 +4171,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			c_ptr = &current_floor_ptr->cave[ty][tx];
 
 			/* Require floor space */
-			if (!cave_drop_bold(ty, tx)) continue;
+			if (!cave_drop_bold(current_floor_ptr, ty, tx)) continue;
 
 			/* No objects */
 			k = 0;
@@ -4273,7 +4266,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		bx = tx;
 
 		/* Require floor space */
-		if (!cave_drop_bold(by, bx)) continue;
+		if (!cave_drop_bold(current_floor_ptr, by, bx)) continue;
 
 		/* Okay */
 		flag = TRUE;
@@ -4289,7 +4282,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			for (tx = 1; tx < current_floor_ptr->width - 1; tx++)
 			{
 				/* A valid space found */
-				if (cave_drop_bold(ty, tx)) candidates++;
+				if (cave_drop_bold(current_floor_ptr, ty, tx)) candidates++;
 			}
 		}
 
@@ -4332,7 +4325,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		{
 			for (tx = 1; tx < current_floor_ptr->width - 1; tx++)
 			{
-				if (cave_drop_bold(ty, tx))
+				if (cave_drop_bold(current_floor_ptr, ty, tx))
 				{
 					pick--;
 

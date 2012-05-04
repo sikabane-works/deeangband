@@ -4027,7 +4027,7 @@
  * Line 3 -- forbid normal objects
  */
 #define cave_clean_bold(FLOOR,Y,X) \
-	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_FLOOR) && \
+	(cave_have_flag_bold((FLOOR), (Y), (X), FF_FLOOR) && \
 	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT) && \
 	  ((FLOOR)->cave[Y][X].object_idx == 0))
 
@@ -4038,9 +4038,9 @@
  * Line 1 -- forbid non-drops
  * Line 2 -- forbid object terrains
  */
-#define cave_drop_bold(Y,X) \
-	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_DROP) && \
-	 !(current_floor_ptr->cave[Y][X].info & CAVE_OBJECT))
+#define cave_drop_bold(FLOOR, Y, X) \
+	(cave_have_flag_bold((FLOOR), (Y), (X), FF_DROP) && \
+	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT))
 
 
 /*
