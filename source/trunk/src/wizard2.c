@@ -118,7 +118,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 		if (cave_empty_bold(wy, wx)) break;
 	}
 
-	(void)alloc_horde(summoner_ptr, wy, wx);
+	(void)alloc_horde(summoner_ptr, current_floor_ptr, wy, wx);
 }
 
 #endif /* MONSTER_HORDES */

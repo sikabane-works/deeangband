@@ -4720,7 +4720,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 
 #ifdef MONSTER_HORDES
 
-bool alloc_horde(creature_type *summoner_ptr, int y, int x)
+bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x)
 {
 	species_type *r_ptr = NULL;
 	int species_idx = 0;
@@ -4735,7 +4735,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	while (--attempts)
 	{
 		/* Pick a monster */
-		species_idx = get_species_num(current_floor_ptr->creature_level);
+		species_idx = get_species_num(floor_ptr->creature_level);
 
 		/* Handle failure */
 		if (!species_idx) return (FALSE);
@@ -4754,12 +4754,12 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	while (--attempts)
 	{
 		/* Attempt to place the monster */
-		if (place_creature_species(summoner_ptr, current_floor_ptr, y, x, species_idx, 0L)) break;
+		if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
 	}
 
 	if (attempts < 1) return FALSE;
 
-	m_idx = current_floor_ptr->cave[y][x].creature_idx;
+	m_idx = floor_ptr->cave[y][x].creature_idx;
 
 	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
 	//summon_kin_type = r_ptr->d_char;
@@ -4768,7 +4768,7 @@ bool alloc_horde(creature_type *summoner_ptr, int y, int x)
 	{
 		scatter(&cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&creature_list[m_idx], cy, cx, current_floor_ptr->floor_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4876,7 +4876,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 	if (randint1(5000) <= floor_ptr->floor_level)
 	{
 		//TODO: Dungeon Master
-		if (alloc_horde(player_ptr, y, x))
+		if (alloc_horde(player_ptr, floor_ptr, y, x))
 		{
 #ifdef JP
 	//		if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
