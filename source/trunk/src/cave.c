@@ -2390,7 +2390,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  * To simplify various things, a grid may be marked as "CAVE_MARK", meaning
  * that even if the player cannot "see" the grid, he "knows" the terrain in
  * that grid.  This is used to "remember" walls/doors/stairs/floors when they
- * are "seen" or "detected", and also to "memorize" floors, after "wiz_lite()",
+ * are "seen" or "detected", and also to "memorize" floors, after "wiz_lite(current_floor_ptr, )",
  * or when one of the "memorize floor grids" options induces memorization.
  *
  * Objects are "memorized" in a different way, using a special "marked" flag
@@ -4382,7 +4382,7 @@ void map_area(creature_type *creature_ptr, int range)
  * since this would prevent the use of "view_torch_grids" as a method to
  * keep track of what grids have been observed directly.
  */
-void wiz_lite(creature_type *cr_ptr, bool ninja)
+void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 {
 	int i, y, x;
 	s16b feat;

@@ -1238,7 +1238,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			msg_print("An image of your surroundings forms in your mind...");
 #endif
 
-			wiz_lite(cr_ptr, FALSE);
+			wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1250,7 +1250,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 #endif
 
 			msg_print(NULL);
-			wiz_lite(cr_ptr, FALSE);
+			wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 			(void)do_inc_stat(cr_ptr, STAT_INT);
 			(void)do_inc_stat(cr_ptr, STAT_WIS);
 			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
@@ -4142,7 +4142,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 				msg_print("The Jewel flashes bright red!");
 #endif
 
-				wiz_lite(cr_ptr, FALSE);
+				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 #ifdef JP
 				msg_print("‚»‚Ì•óÎ‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ğ’D‚Á‚½...");
 				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(3,8), "R”»‚Ì•óÎ", NULL, -1);

@@ -873,7 +873,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Sun.");
 #endif
 
-		wiz_lite(cr_ptr, FALSE);
+		wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 	}
 	else
 	{
@@ -1778,7 +1778,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				wiz_lite(cr_ptr, FALSE);
+				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 			}
 		}
 		break;
@@ -2486,7 +2486,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 
-				wiz_lite(cr_ptr, FALSE);
+				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 
 				if (!cr_ptr->telepathy)
 				{
@@ -3301,7 +3301,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				fire_ball(cr_ptr, GF_LITE, 0, dam, rad);
-				wiz_lite(cr_ptr, FALSE);
+				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 
 				if (has_cf_creature(cr_ptr, CF_HURT_LITE) && !cr_ptr->resist_lite)
 				{
@@ -6632,7 +6632,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				wiz_lite(cr_ptr, FALSE);
+				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 
 				if (!cr_ptr->telepathy)
 				{
@@ -9263,7 +9263,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int count = cr_ptr->magic_num1[2];
 
-				if (count >= 19) wiz_lite(cr_ptr, FALSE);
+				if (count >= 19) wiz_lite(current_floor_ptr, cr_ptr, FALSE);
 				if (count >= 11)
 				{
 					map_area(cr_ptr, rad);

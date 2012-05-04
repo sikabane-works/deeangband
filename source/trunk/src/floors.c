@@ -850,7 +850,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 	floor_generated = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
 
 	/* Remember when this level was "created" */
 	old_turn = turn;

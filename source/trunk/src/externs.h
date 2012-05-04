@@ -699,7 +699,7 @@ extern void forget_flow(void);
 extern void update_flow(creature_type *creature_ptr);
 extern void update_smell(creature_type *cr_ptr);
 extern void map_area(creature_type *creature_ptr, int range);
-extern void wiz_lite(creature_type *cr_ptr, bool ninja);
+extern void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja);
 extern void wiz_dark(creature_type *cr_ptr);
 extern void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat);
 extern int conv_dungeon_feat(int newfeat);
