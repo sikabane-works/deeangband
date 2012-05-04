@@ -144,12 +144,12 @@
 	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
-#define place_outer_perm_bold(Y, X) \
+#define place_outer_perm_bold(FLOOR, Y, X) \
 { \
-	set_cave_feat(current_floor_ptr, Y, X, feat_permanent); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
+	set_cave_feat(FLOOR, Y, X, feat_permanent); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(FLOOR, Y, X, CAVE_OUTER); \
-	delete_creature(current_floor_ptr, Y, X); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_outer_perm_grid(C) \
