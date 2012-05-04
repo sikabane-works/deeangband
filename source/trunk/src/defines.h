@@ -3990,7 +3990,7 @@
  * Grid based version of "creature_bold()"
  */
 #define player_grid(C) \
-	((C) == &current_floor_ptr->cave[player_ptr->fy][player_ptr->fx])
+	((C) == &floor_list[player_ptr->floor_id].cave[player_ptr->fy][player_ptr->fx])
 
 
 #define cave_have_flag_bold(Y,X,INDEX) \
