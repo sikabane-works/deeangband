@@ -242,15 +242,12 @@ void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 
 	if (feat != feat_none)
 	{
-		cave_set_feat(y, x, feat);
+		cave_set_feat(floor_ptr, y, x, feat);
 
 		/* Now it is not floor */
 		floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
 	}
-	else
-	{
-		place_floor_bold(floor_ptr, y, x);
-	}
+	else place_floor_bold(floor_ptr, y, x);
 }
 
 

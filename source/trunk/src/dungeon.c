@@ -825,11 +825,11 @@ static void wreck_the_pattern(creature_type *cr_ptr)
 		if (pattern_tile(r_y, r_x) &&
 		    (f_info[current_floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
-			cave_set_feat(r_y, r_x, feat_pattern_corrupted);
+			cave_set_feat(current_floor_ptr, r_y, r_x, feat_pattern_corrupted);
 		}
 	}
 
-	cave_set_feat(cr_ptr->fy, cr_ptr->fx, feat_pattern_corrupted);
+	cave_set_feat(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, feat_pattern_corrupted);
 }
 
 
@@ -866,7 +866,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		(void)restore_level(cr_ptr);
 		(void)hp_player(cr_ptr, 1000);
 
-		cave_set_feat(cr_ptr->fy, cr_ptr->fx, feat_pattern_old);
+		cave_set_feat(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, feat_pattern_old);
 
 #ifdef JP
 		msg_print("「パターン」のこの部分は他の部分より強力でないようだ。");

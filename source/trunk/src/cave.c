@@ -4547,7 +4547,7 @@ void wiz_dark(creature_type *cr_ptr)
 /*
  * Change the "feat" flag for a grid, and notice/redraw the grid
  */
-void cave_set_feat(int y, int x, int feat)
+void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 {
 	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[feat];
@@ -4732,7 +4732,7 @@ void cave_alter_feat(int y, int x, int action)
 	if (newfeat == oldfeat) return;
 
 	/* Set the new feature */
-	cave_set_feat(y, x, newfeat);
+	cave_set_feat(current_floor_ptr, y, x, newfeat);
 
 	if (!(feature_action_flags[action] & FAF_NO_DROP))
 	{
