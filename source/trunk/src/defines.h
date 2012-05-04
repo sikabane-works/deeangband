@@ -567,14 +567,14 @@
 
 
 /*
- * There is a 1/20 (5%) chance of inflating the requested current_floor_ptr->object_level
+ * There is a 1/20 (5%) chance of inflating the requested object_level
  * during the creation of an object (see "get_obj_num()" in "object.c").
  * Lower values yield better objects more often.
  */
 #define GREAT_OBJ       10
 
 /*
- * There is a 1/50 (2%) chance of inflating the requested current_floor_ptr->creature_level
+ * There is a 1/50 (2%) chance of inflating the requested creature_level
  * during the creation of a monsters (see "get_species_num()" in "monster.c").
  * Lower values yield harder monsters more often.
  */
@@ -3821,7 +3821,7 @@
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
-#define EXIST_CREATURE(FLOOR, Y, X) (current_floor_ptr->cave[(Y)][(X)].creature_idx != 0)
+#define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
 
 
 
@@ -3993,8 +3993,8 @@
 	((C) == &floor_list[player_ptr->floor_id].cave[player_ptr->fy][player_ptr->fx])
 
 
-#define cave_have_flag_bold(Y,X,INDEX) \
-	(have_flag(f_info[current_floor_ptr->cave[(Y)][(X)].feat].flags, (INDEX)))
+#define cave_have_flag_bold(FLOOR, Y, X, INDEX) \
+	(have_flag(f_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
 
 
 #define cave_have_flag_grid(C,INDEX) \
@@ -4027,7 +4027,7 @@
  * Line 3 -- forbid normal objects
  */
 #define cave_clean_bold(FLOOR,Y,X) \
-	(cave_have_flag_bold((Y), (X), FF_FLOOR) && \
+	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_FLOOR) && \
 	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT) && \
 	  ((FLOOR)->cave[Y][X].object_idx == 0))
 
@@ -4039,7 +4039,7 @@
  * Line 2 -- forbid object terrains
  */
 #define cave_drop_bold(Y,X) \
-	(cave_have_flag_bold((Y), (X), FF_DROP) && \
+	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_DROP) && \
 	 !(current_floor_ptr->cave[Y][X].info & CAVE_OBJECT))
 
 
@@ -4052,7 +4052,7 @@
  * Line 3 -- forbid the player
  */
 #define cave_empty_bold(Y, X) \
-	(cave_have_flag_bold((Y), (X), FF_PLACE) && \
+	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PLACE) && \
 	 !(current_floor_ptr->cave[Y][X].creature_idx) && \
 	 !creature_bold(player_ptr, Y,X))
 
@@ -4066,7 +4066,7 @@
  */
 #define cave_empty_bold2(Y, X) \
 	(cave_empty_bold(Y,X) && \
-	 (floor_generated || !cave_have_flag_bold((Y), (X), FF_TREE)))
+	 (floor_generated || !cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_TREE)))
 
 
 /*
@@ -4088,7 +4088,7 @@
  * Line 1 -- permanent flag
  */
 #define cave_perma_bold(Y,X) \
-	(cave_have_flag_bold((Y), (X), FF_PERMANENT))
+	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PERMANENT))
 
 
 /*
@@ -4107,15 +4107,15 @@
 
 
 #define pattern_tile(Y,X) \
-	(cave_have_flag_bold((Y), (X), FF_PATTERN))
+	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PATTERN))
 
 /*
  * Does the grid stop disintegration?
  */
 #define cave_stop_disintegration(Y,X) \
-	(!cave_have_flag_bold((Y), (X), FF_PROJECT) && \
-	 (!cave_have_flag_bold((Y), (X), FF_HURT_DISI) || \
-	  cave_have_flag_bold((Y), (X), FF_PERMANENT)))
+	(!cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PROJECT) && \
+	 (!cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_HURT_DISI) || \
+	  cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PERMANENT)))
 
 
 /*

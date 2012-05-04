@@ -2719,7 +2719,7 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if (wild_mode && !cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_TOWN))
+	if (wild_mode && !cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_TOWN))
 	{
 
 		int tmp = 120 + cr_ptr->lev*10 - wilderness[cr_ptr->fy][cr_ptr->fx].level + 5;
@@ -3473,7 +3473,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && !current_floor_ptr->cave[ny][nx].creature_idx) break;
+		if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT) && !current_floor_ptr->cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
@@ -3847,7 +3847,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Carry object */
 		//TODO
 	}
-	else if (cave_have_flag_bold(y, x, FF_PROJECT))
+	else if (cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
 		(void)drop_near(q_ptr, j, y, x);
@@ -4207,7 +4207,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		mmove2(&ny[cur_dis], &nx[cur_dis], cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(ny[cur_dis], nx[cur_dis], FF_PROJECT))
+		if (!cave_have_flag_bold(current_floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
 			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !current_floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
@@ -4561,7 +4561,7 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 	/* Drop (or break) near that location */
 	if (do_drop)
 	{
-		if (cave_have_flag_bold(y, x, FF_PROJECT))
+		if (cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
 			(void)drop_near(q_ptr, j, y, x);

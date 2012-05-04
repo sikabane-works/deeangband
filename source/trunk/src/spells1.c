@@ -375,7 +375,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
@@ -463,7 +463,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
@@ -533,7 +533,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
@@ -8216,7 +8216,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 			}
 			if(project_o(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
-			if (!cave_have_flag_bold(y, x, FF_PROJECT))
+			if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
 				break;
@@ -8293,7 +8293,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		else
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_have_flag_bold(ny, nx, FF_PROJECT) && (rad > 0)) break;
+			if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
 		}
 
 		/* Advance */

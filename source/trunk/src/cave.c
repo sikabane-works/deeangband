@@ -2930,11 +2930,11 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
 			{
-				if (!cave_los_bold(y, x + 1) && !cave_have_flag_bold(y, x + 1, FF_PROJECT)) return;
+				if (!cave_los_bold(y, x + 1) && !cave_have_flag_bold(current_floor_ptr, y, x + 1, FF_PROJECT)) return;
 			}
 			else if (x > midpoint)
 			{
-				if (!cave_los_bold(y, x - 1) && !cave_have_flag_bold(y, x - 1, FF_PROJECT)) return;
+				if (!cave_los_bold(y, x - 1) && !cave_have_flag_bold(current_floor_ptr, y, x - 1, FF_PROJECT)) return;
 			}
 		}
 
@@ -2948,11 +2948,11 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
 			{
-				if (!cave_los_bold(y + 1, x) && !cave_have_flag_bold(y + 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(y + 1, x) && !cave_have_flag_bold(current_floor_ptr, y + 1, x, FF_PROJECT)) return;
 			}
 			else if (y > midpoint)
 			{
-				if (!cave_los_bold(y - 1, x) && !cave_have_flag_bold(y - 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(y - 1, x) && !cave_have_flag_bold(current_floor_ptr, y - 1, x, FF_PROJECT)) return;
 			}
 		}
 	}
@@ -3082,7 +3082,7 @@ void update_creature_lite(void)
 			if (rad >= 2)
 			{
 				/* South of the creature */
-				if (cave_have_flag_bold(creature_fy + 1, creature_fx, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy + 1, creature_fx, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 1);
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx);
@@ -3100,7 +3100,7 @@ void update_creature_lite(void)
 				}
 
 				/* North of the creature */
-				if (cave_have_flag_bold(creature_fy - 1, creature_fx, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy - 1, creature_fx, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 1);
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx);
@@ -3118,7 +3118,7 @@ void update_creature_lite(void)
 				}
 
 				/* East of the creature */
-				if (cave_have_flag_bold(creature_fy, creature_fx + 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 1, creature_fx + 2);
 					add_creature_lite(player_ptr, creature_fy, creature_fx + 2);
@@ -3136,7 +3136,7 @@ void update_creature_lite(void)
 				}
 
 				/* West of the creature */
-				if (cave_have_flag_bold(creature_fy, creature_fx - 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 1, creature_fx - 2);
 					add_creature_lite(player_ptr, creature_fy, creature_fx - 2);
@@ -3158,25 +3158,25 @@ void update_creature_lite(void)
 			if (rad == 3)
 			{
 				/* South-East of the creature */
-				if (cave_have_flag_bold(creature_fy + 1, creature_fx + 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy + 1, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx + 2);
 				}
 
 				/* South-West of the creature */
-				if (cave_have_flag_bold(creature_fy + 1, creature_fx - 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy + 1, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy + 2, creature_fx - 2);
 				}
 
 				/* North-East of the creature */
-				if (cave_have_flag_bold(creature_fy - 1, creature_fx + 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy - 1, creature_fx + 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx + 2);
 				}
 
 				/* North-West of the creature */
-				if (cave_have_flag_bold(creature_fy - 1, creature_fx - 1, f_flag))
+				if (cave_have_flag_bold(current_floor_ptr, creature_fy - 1, creature_fx - 1, f_flag))
 				{
 					add_creature_lite(player_ptr, creature_fy - 2, creature_fx - 2);
 				}
@@ -4578,7 +4578,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 		return;
 	}
 
-	old_los = cave_have_flag_bold(y, x, FF_LOS);
+	old_los = cave_have_flag_bold(current_floor_ptr, y, x, FF_LOS);
 	old_mirror = is_mirror_grid(c_ptr);
 
 	/* Clear mimic type */

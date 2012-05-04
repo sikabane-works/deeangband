@@ -4671,7 +4671,7 @@ static void run_init(creature_type *cr_ptr, int dir)
 	row = cr_ptr->fy + ddy[dir];
 	col = cr_ptr->fx + ddx[dir];
 
-	ignore_avoid_run = cave_have_flag_bold(row, col, FF_AVOID_RUN);
+	ignore_avoid_run = cave_have_flag_bold(current_floor_ptr, row, col, FF_AVOID_RUN);
 
 	/* Extract cycle index */
 	i = chome[dir];

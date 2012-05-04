@@ -1931,7 +1931,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 			c_ptr = &current_floor_ptr->cave[ty][tx];
 
 			if ((distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE) ||
-				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
+				!cave_have_flag_bold(current_floor_ptr, ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->object_idx);
 	}

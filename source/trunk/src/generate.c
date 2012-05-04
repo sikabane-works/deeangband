@@ -426,15 +426,15 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 	if (next_to_corr(floor_ptr, y, x) >= 2)
 	{
 		/* Check Vertical */
-		if (cave_have_flag_bold(y - 1, x, FF_WALL) &&
-		    cave_have_flag_bold(y + 1, x, FF_WALL))
+		if (cave_have_flag_bold(floor_ptr, y - 1, x, FF_WALL) &&
+		    cave_have_flag_bold(floor_ptr, y + 1, x, FF_WALL))
 		{
 			return (TRUE);
 		}
 
 		/* Check Horizontal */
-		if (cave_have_flag_bold(y, x - 1, FF_WALL) &&
-		    cave_have_flag_bold(y, x + 1, FF_WALL))
+		if (cave_have_flag_bold(floor_ptr, y, x - 1, FF_WALL) &&
+		    cave_have_flag_bold(floor_ptr, y, x + 1, FF_WALL))
 		{
 			return (TRUE);
 		}
@@ -454,7 +454,7 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Ignore walls */
-	if (cave_have_flag_bold(y, x, FF_WALL)) return;
+	if (cave_have_flag_bold(floor_ptr, y, x, FF_WALL)) return;
 
 	/* Ignore room grids */
 	if (floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;

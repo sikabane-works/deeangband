@@ -113,7 +113,7 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		else
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_have_flag_bold(ny, nx, FF_PROJECT)) break;
+			if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT)) break;
 		}
 
 		/* Save the "blast epicenter" */
@@ -182,7 +182,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 		sx = GRID_X(path_g[i]);
 
 		/* Hack -- Balls explode before reaching walls */
-		if (!cave_have_flag_bold(sy, sx, FF_PROJECT)) break;
+		if (!cave_have_flag_bold(current_floor_ptr, sy, sx, FF_PROJECT)) break;
 
 		*ty = sy;
 		*tx = sx;

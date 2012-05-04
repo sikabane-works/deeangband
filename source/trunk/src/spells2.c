@@ -5769,7 +5769,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				delete_object(yy, xx);
 
 				/* Wall (or floor) type */
-				t = cave_have_flag_bold(yy, xx, FF_PROJECT) ? randint0(100) : 200;
+				t = cave_have_flag_bold(current_floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200;
 
 				/* Granite */
 				if (t < 20)
@@ -6242,7 +6242,7 @@ static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
  */
 static bool cave_pass_dark_bold(int y, int x)
 {
-	return cave_have_flag_bold(y, x, FF_PROJECT);
+	return cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT);
 }
 
 /*
@@ -7240,7 +7240,7 @@ void wall_breaker(creature_type *cr_ptr)
 		{
 			scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
-			if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
+			if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
 
 			if (!creature_bold(cr_ptr, y, x)) break;
 		}

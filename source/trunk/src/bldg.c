@@ -4988,7 +4988,7 @@ void do_cmd_quest(creature_type *cr_ptr)
 {
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_QUEST_ENTER))
+	if (!cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_QUEST_ENTER))
 	{
 #ifdef JP
 msg_print("ここにはクエストの入口はない。");
@@ -5039,7 +5039,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_BLDG))
+	if (!cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_BLDG))
 	{
 #ifdef JP
 		msg_print("ここには建物はない。");
