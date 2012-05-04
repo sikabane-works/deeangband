@@ -160,14 +160,14 @@
 	if ((C)->creature_idx) delete_species_idx(&creature_list[(C)->creature_idx]); \
 }
 
-#define place_outer_noperm_bold(Y, X) \
+#define place_outer_noperm_bold(FLOOR, Y, X) \
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_outer]; \
-	if (permanent_wall(_f_ptr)) set_cave_feat(current_floor_ptr, Y, X, feat_state(feat_wall_outer, FF_UNPERM)); \
-	else set_cave_feat(current_floor_ptr, Y, X, feat_wall_outer); \
-	current_floor_ptr->cave[Y][X].info &= ~(CAVE_MASK); \
-	add_cave_info(current_floor_ptr, Y, X, (CAVE_OUTER | CAVE_VAULT)); \
-	delete_creature(current_floor_ptr, Y, X); \
+	if (permanent_wall(_f_ptr)) set_cave_feat(FLOOR, Y, X, feat_state(feat_wall_outer, FF_UNPERM)); \
+	else set_cave_feat(FLOOR, Y, X, feat_wall_outer); \
+	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
+	add_cave_info(FLOOR, Y, X, (CAVE_OUTER | CAVE_VAULT)); \
+	delete_creature(FLOOR, Y, X); \
 }
 
 #define place_outer_noperm_grid(C) \

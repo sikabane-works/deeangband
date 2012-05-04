@@ -4281,9 +4281,9 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	{
 		int x = x0 - xhsize + i;
 
-		place_outer_noperm_bold(y0 - yhsize + 0, x);
+		place_outer_noperm_bold(floor_ptr, y0 - yhsize + 0, x);
 		floor_ptr->cave[y0 - yhsize + 0][x].info |= (CAVE_ROOM | CAVE_ICKY);
-		place_outer_noperm_bold(y0 - yhsize + ysize - 1, x);
+		place_outer_noperm_bold(floor_ptr, y0 - yhsize + ysize - 1, x);
 		floor_ptr->cave[y0 - yhsize + ysize - 1][x].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
@@ -4292,9 +4292,9 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	{
 		int y = y0 - yhsize + i;
 
-		place_outer_noperm_bold(y, x0 - xhsize + 0);
+		place_outer_noperm_bold(floor_ptr, y, x0 - xhsize + 0);
 		floor_ptr->cave[y][x0 - xhsize + 0].info |= (CAVE_ROOM | CAVE_ICKY);
-		place_outer_noperm_bold(y, x0 - xhsize + xsize - 1);
+		place_outer_noperm_bold(floor_ptr, y, x0 - xhsize + xsize - 1);
 		floor_ptr->cave[y][x0 - xhsize + xsize - 1].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
@@ -4337,7 +4337,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			if (((min2 - min1) <= 2) && (!(min1 < 3)))
 			{
 				/* Boundary at midpoint+ not at inner region of bubble */
-				place_outer_noperm_bold(y0 - yhsize + y, x0 - xhsize + x);
+				place_outer_noperm_bold(floor_ptr, y0 - yhsize + y, x0 - xhsize + x);
 			}
 			else
 			{
@@ -4401,18 +4401,18 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 	/* Top and bottom boundaries */
 	for (i = 0; i <= xsize; i++)
 	{
-		place_outer_noperm_bold(y1, x1 + i);
+		place_outer_noperm_bold(floor_ptr, y1, x1 + i);
 		floor_ptr->cave[y1][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
-		place_outer_noperm_bold(y2, x1 + i);
+		place_outer_noperm_bold(floor_ptr, y2, x1 + i);
 		floor_ptr->cave[y2][x1 + i].info |= (CAVE_ROOM | CAVE_ICKY);
 	}
 
 	/* Left and right boundaries */
 	for (i = 1; i < ysize; i++)
 	{
-		place_outer_noperm_bold(y1 + i, x1);
+		place_outer_noperm_bold(floor_ptr, y1 + i, x1);
 		floor_ptr->cave[y1 + i][x1].info|=(CAVE_ROOM | CAVE_ICKY);
-		place_outer_noperm_bold(y1 + i, x2);
+		place_outer_noperm_bold(floor_ptr, y1 + i, x2);
 		floor_ptr->cave[y1 + i][x2].info|=(CAVE_ROOM | CAVE_ICKY);
 	}
 
@@ -4734,7 +4734,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 		floor_ptr->cave[y1-2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
-		place_outer_noperm_bold(y1-2, x);
+		place_outer_noperm_bold(floor_ptr, y1-2, x);
 	}
 
 	for (x = x1 - 2; x <= x2 + 2; x++)
@@ -4743,7 +4743,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 		floor_ptr->cave[y2+2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
-		place_outer_noperm_bold(y2+2, x);
+		place_outer_noperm_bold(floor_ptr, y2+2, x);
 	}
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
@@ -4752,7 +4752,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 		floor_ptr->cave[y][x1-2].info |= (CAVE_ROOM | CAVE_ICKY);
 
-		place_outer_noperm_bold(y, x1-2);
+		place_outer_noperm_bold(floor_ptr, y, x1-2);
 	}
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
@@ -4761,7 +4761,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 		floor_ptr->cave[y][x2+2].info |= (CAVE_ROOM | CAVE_ICKY);
 
-		place_outer_noperm_bold(y, x2+2);
+		place_outer_noperm_bold(floor_ptr, y, x2+2);
 	}
 
 	for (y = y1 - 1; y <= y2 + 1; y++)
