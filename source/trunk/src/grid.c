@@ -266,9 +266,9 @@ void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool lig
 	{
 		for (x = x1 - 1; x <= x2 + 1; x++)
 		{
-			place_floor_bold(current_floor_ptr, y, x);
-			add_cave_info(current_floor_ptr, y, x, CAVE_ROOM);
-			if (light) add_cave_info(current_floor_ptr, y, x, CAVE_GLOW);
+			place_floor_bold(floor_ptr, y, x);
+			add_cave_info(floor_ptr, y, x, CAVE_ROOM);
+			if (light) add_cave_info(floor_ptr, y, x, CAVE_GLOW);
 		}
 	}
 }
@@ -446,13 +446,13 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 			scatter(&y, &x, y1, x1, d, 0);
 
 			/* Require "empty" floor grids */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 			if (!cave_empty_grid(c_ptr)) continue;
 
 			/* Place the monster (allow groups) */
-			current_floor_ptr->creature_level = current_floor_ptr->base_level + 2;
+			floor_ptr->creature_level = floor_ptr->base_level + 2;
 			(void)place_creature(NULL, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-			current_floor_ptr->creature_level = current_floor_ptr->base_level;
+			floor_ptr->creature_level = floor_ptr->base_level;
 		}
 	}
 }
@@ -749,20 +749,20 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
  * the boundaries of rooms. - This is used by the catacomb
  * routine.
  */
-static bool set_tunnel(int *x, int *y, bool affectwall)
+static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 {
 	int i, j, dx, dy;
 
-	cave_type *c_ptr = &current_floor_ptr->cave[*y][*x];
+	cave_type *c_ptr = &floor_ptr->cave[*y][*x];
 
-	if (!in_bounds(current_floor_ptr, *y, *x)) return TRUE;
+	if (!in_bounds(floor_ptr, *y, *x)) return TRUE;
 
 	if (is_inner_grid(c_ptr))
 	{
 		return TRUE;
 	}
 
-	if (is_extra_bold(current_floor_ptr, *y,*x))
+	if (is_extra_bold(floor_ptr, *y,*x))
 	{
 		/* Save the tunnel location */
 		if (dungeon_ptr->tunn_n < TUNN_MAX)
@@ -776,7 +776,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		else return FALSE;
 	}
 
-	if (is_floor_bold(current_floor_ptr, *y, *x))
+	if (is_floor_bold(floor_ptr, *y, *x))
 	{
 		/* Don't do anything */
 		return TRUE;
@@ -799,7 +799,7 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 			for (i = *x - 1; i <= *x + 1; i++)
 			{
 				/* Convert adjacent "outer" walls as "solid" walls */
-				if (is_outer_bold(current_floor_ptr, j, i))
+				if (is_outer_bold(floor_ptr, j, i))
 				{
 					/* Change the wall to a "solid" wall */
 					place_solid_noperm_bold(j, i);
@@ -808,9 +808,9 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 		}
 
 		/* Clear mimic type */
-		current_floor_ptr->cave[*y][*x].mimic = 0;
+		floor_ptr->cave[*y][*x].mimic = 0;
 
-		place_floor_bold(current_floor_ptr, *y, *x);
+		place_floor_bold(floor_ptr, *y, *x);
 
 		return TRUE;
 	}
@@ -825,12 +825,12 @@ static bool set_tunnel(int *x, int *y, bool affectwall)
 
 		dy = 0;
 		dx = 0;
-		while ((i > 0) && is_solid_bold(current_floor_ptr, *y + dy, *x + dx))
+		while ((i > 0) && is_solid_bold(floor_ptr, *y + dy, *x + dx))
 		{
 			dy = randint0(3) - 1;
 			dx = randint0(3) - 1;
 
-			if (!in_bounds(current_floor_ptr, *y + dy, *x + dx))
+			if (!in_bounds(floor_ptr, *y + dy, *x + dx))
 			{
 				dx = 0;
 				dy = 0;
@@ -870,19 +870,19 @@ static void create_cata_tunnel(int x, int y)
 	/* Build tunnel */
 	x1 = x - 1;
 	y1 = y;
-	set_tunnel(&x1, &y1, FALSE);
+	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x + 1;
 	y1 = y;
-	set_tunnel(&x1, &y1, FALSE);
+	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x;
 	y1 = y - 1;
-	set_tunnel(&x1, &y1, FALSE);
+	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
 
 	x1 = x;
 	y1 = y + 1;
-	set_tunnel(&x1, &y1, FALSE);
+	set_tunnel(current_floor_ptr, &x1, &y1, FALSE);
 }
 
 
@@ -924,7 +924,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 		{
 			x = x1 + i * (x2 - x1) / length;
 			y = y1 + i * (y2 - y1) / length;
-			if (!set_tunnel(&x, &y, TRUE))
+			if (!set_tunnel(current_floor_ptr, &x, &y, TRUE))
 			{
 				if (count > 50)
 				{
@@ -947,7 +947,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 			{
 				x = i;
 				y = y1;
-				if (!set_tunnel(&x, &y, TRUE))
+				if (!set_tunnel(current_floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(x, y, i - 1, y1, 1, count, fail);
@@ -965,7 +965,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 			{
 				x = i;
 				y = y1;
-				if (!set_tunnel(&x, &y, TRUE))
+				if (!set_tunnel(current_floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(x, y, i - 1, y1, 1, count, fail);
@@ -984,7 +984,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 			{
 				x = x2;
 				y = i;
-				if (!set_tunnel(&x, &y, TRUE))
+				if (!set_tunnel(current_floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(x, y, x2, i - 1, 1, count, fail);
@@ -1002,7 +1002,7 @@ static void short_seg_hack(int x1, int y1, int x2, int y2, int type, int count, 
 			{
 				x = x2;
 				y = i;
-				if (!set_tunnel(&x, &y, TRUE))
+				if (!set_tunnel(current_floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(x, y, x2, i - 1, 1, count, fail);
@@ -1148,7 +1148,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 		if (firstsuccede)
 		{
 			/* only do this if the first half has worked */
-			set_tunnel(&x3, &y3, TRUE);
+			set_tunnel(floor_ptr, &x3, &y3, TRUE);
 		}
 		/* return value calculated above */
 		return retval;
