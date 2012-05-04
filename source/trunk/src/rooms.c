@@ -641,8 +641,8 @@ static bool build_type1(floor_type *floor_ptr)
 			}
 
 			/* Prevent edge of wall from being tunneled */
-			place_solid_bold(yval, x1 - 1);
-			place_solid_bold(yval, x2 + 1);
+			place_solid_bold(floor_ptr, yval, x1 - 1);
+			place_solid_bold(floor_ptr, yval, x2 + 1);
 		}
 		else
 		{
@@ -654,8 +654,8 @@ static bool build_type1(floor_type *floor_ptr)
 			}
 
 			/* Prevent edge of wall from being tunneled */
-			place_solid_bold(y1 - 1, xval);
-			place_solid_bold(y2 + 1, xval);
+			place_solid_bold(floor_ptr, y1 - 1, xval);
+			place_solid_bold(floor_ptr, y2 + 1, xval);
 		}
 
 		place_random_door(floor_ptr, yval, xval, TRUE);
@@ -4058,8 +4058,8 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
 
 		/* set boundarys so don't get wide doors */
-		place_solid_bold(y, x - 1);
-		place_solid_bold(y, x + 1);
+		place_solid_bold(floor_ptr, y, x - 1);
+		place_solid_bold(floor_ptr, y, x + 1);
 	}
 
 
@@ -4078,8 +4078,8 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 		place_secret_door(floor_ptr, y, x, DOOR_DEFAULT);
 
 		/* set boundarys so don't get wide doors */
-		place_solid_bold(y - 1, x);
-		place_solid_bold(y + 1, x);
+		place_solid_bold(floor_ptr, y - 1, x);
+		place_solid_bold(floor_ptr, y + 1, x);
 	}
 }
 
@@ -5793,12 +5793,12 @@ static bool build_type13(floor_type *floor_ptr)
 		for (y = y1; y <= yval; y++)
 		{
 			place_floor_bold(floor_ptr, y, x2);
-			place_solid_bold(y, x1-1);
+			place_solid_bold(floor_ptr, y, x1-1);
 		}
 		for (y = yval; y <= y2 + 1; y++)
 		{
 			place_floor_bold(floor_ptr, y, x1);
-			place_solid_bold(y, x2+1);
+			place_solid_bold(floor_ptr, y, x2+1);
 		}
 	}
 	else
@@ -5806,12 +5806,12 @@ static bool build_type13(floor_type *floor_ptr)
 		for (y = yval; y <= y2 + 1; y++)
 		{
 			place_floor_bold(floor_ptr, y, x1);
-			place_solid_bold(y, x2+1);
+			place_solid_bold(floor_ptr, y, x2+1);
 		}
 		for (y = y1; y <= yval; y++)
 		{
 			place_floor_bold(floor_ptr, y, x2);
-			place_solid_bold(y, x1-1);
+			place_solid_bold(floor_ptr, y, x1-1);
 		}
 	}
 
