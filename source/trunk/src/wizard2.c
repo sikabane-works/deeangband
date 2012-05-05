@@ -1607,6 +1607,12 @@ static void do_cmd_wiz_floor_teleport(void)
 
 	screen_load();
 
+	// redraw
+	play_redraw |= PR_MAP;
+	redraw_stuff();
+
+	wiz_dimension_door(player_ptr);
+
 	free(ce);
 }
 
