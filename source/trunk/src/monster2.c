@@ -698,6 +698,7 @@ void delete_species_idx(creature_type *creature_ptr)
 {
 	int x, y;
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	s16b next_object_idx = 0;
 
@@ -710,7 +711,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	real_species_ptr(creature_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) current_floor_ptr->num_repro--;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) floor_ptr->num_repro--;
 
 	if (creature_ptr->paralyzed) (void)set_paralyzed(creature_ptr, 0);
 	if (creature_ptr->fast) (void)set_fast(creature_ptr, 0, FALSE);
@@ -732,7 +733,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if (&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
 	/* Monster is gone */
-	current_floor_ptr->cave[y][x].creature_idx = 0;
+	floor_ptr->cave[y][x].creature_idx = 0;
 
 	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
 
@@ -759,7 +760,7 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr;
 
 	/* Paranoia */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
@@ -907,7 +908,7 @@ void birth_uniques(void)
  * Delete/Remove all the monsters when the player leaves the level
  *
  * This is an efficient method of simulating multiple calls to the
- * "delete_creature(current_floor_ptr, )" function, with no visual effects.
+ * "delete_creature()" function, with no visual effects.
  */
 void wipe_creature_list(int floor_id)
 {
@@ -936,9 +937,10 @@ void wipe_creature_list(int floor_id)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		creature_type *creature_ptr = &creature_list[i];
+		floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 		if (!creature_ptr->species_idx) continue; // Skip dead creature
 		if (floor_id && creature_ptr->floor_id != floor_id) continue; // Skip dead creature
-		if(current_floor_ptr) current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
+		floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
 		(void)WIPE(creature_ptr, creature_type); //Wipe the Monster
 	}
 
