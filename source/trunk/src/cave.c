@@ -3587,7 +3587,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
  * just use an optimized hack of "you see me, so I see you", and then use the
  * actual "projectable()" function to check spell attacks.
  */
-void update_view(creature_type *cr_ptr)
+void update_view(creature_type *creature_ptr)
 {
 	int n, m, d, k, y, x, z;
 
@@ -3595,15 +3595,16 @@ void update_view(creature_type *cr_ptr)
 
 	int full, over;
 
-	int y_max = current_floor_ptr->height - 1;
-	int x_max = current_floor_ptr->width - 1;
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	int y_max = floor_ptr->height - 1;
+	int x_max = floor_ptr->width - 1;
 
 	cave_type *c_ptr;
 
 	/*** Initialize ***/
 
 	/* Optimize */
-	if (view_reduce_view && !current_floor_ptr->floor_level)
+	if (view_reduce_view && !floor_ptr->floor_level)
 	{
 		/* Full radius (10) */
 		full = MAX_SIGHT / 2;
@@ -3632,7 +3633,7 @@ void update_view(creature_type *cr_ptr)
 		x = view_x[n];
 
 		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Mark the grid as not in "view" */
 		c_ptr->info &= ~(CAVE_VIEW);
@@ -3652,11 +3653,11 @@ void update_view(creature_type *cr_ptr)
 	/*** Step 1 -- adjacent grids ***/
 
 	/* Now start on the player */
-	y = cr_ptr->fy;
-	x = cr_ptr->fx;
+	y = creature_ptr->fy;
+	x = creature_ptr->fx;
 
 	/* Access the grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Assume the player grid is easily viewable */
 	c_ptr->info |= (CAVE_XTRA);
@@ -3673,7 +3674,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan south-east */
 	for (d = 1; d <= z; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y+d][x+d];
+		c_ptr = &floor_ptr->cave[y+d][x+d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y+d, x+d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3682,7 +3683,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan south-west */
 	for (d = 1; d <= z; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y+d][x-d];
+		c_ptr = &floor_ptr->cave[y+d][x-d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y+d, x-d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3691,7 +3692,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan north-east */
 	for (d = 1; d <= z; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y-d][x+d];
+		c_ptr = &floor_ptr->cave[y-d][x+d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y-d, x+d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3700,7 +3701,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan north-west */
 	for (d = 1; d <= z; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y-d][x-d];
+		c_ptr = &floor_ptr->cave[y-d][x-d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y-d, x-d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3712,7 +3713,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan south */
 	for (d = 1; d <= full; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y+d][x];
+		c_ptr = &floor_ptr->cave[y+d][x];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y+d, x);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3724,7 +3725,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan north */
 	for (d = 1; d <= full; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y-d][x];
+		c_ptr = &floor_ptr->cave[y-d][x];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y-d, x);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3736,7 +3737,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan east */
 	for (d = 1; d <= full; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x+d];
+		c_ptr = &floor_ptr->cave[y][x+d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y, x+d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3748,7 +3749,7 @@ void update_view(creature_type *cr_ptr)
 	/* Scan west */
 	for (d = 1; d <= full; d++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][x-d];
+		c_ptr = &floor_ptr->cave[y][x-d];
 		c_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(c_ptr, y, x-d);
 		if (!cave_los_grid(c_ptr)) break;
@@ -3792,7 +3793,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
+					if (update_view_aux(creature_ptr, ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
 					{
 						if (n + d >= se) break;
 					}
@@ -3815,7 +3816,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
+					if (update_view_aux(creature_ptr, ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
 					{
 						if (n + d >= sw) break;
 					}
@@ -3846,7 +3847,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
+					if (update_view_aux(creature_ptr, ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
 					{
 						if (n + d >= ne) break;
 					}
@@ -3869,7 +3870,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
+					if (update_view_aux(creature_ptr, ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
 					{
 						if (n + d >= nw) break;
 					}
@@ -3900,7 +3901,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
+					if (update_view_aux(creature_ptr, ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
 					{
 						if (n + d >= es) break;
 					}
@@ -3923,7 +3924,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
+					if (update_view_aux(creature_ptr, ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
 					{
 						if (n + d >= en) break;
 					}
@@ -3954,7 +3955,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					// Check grid "d" in strip "n", notice "blockage"
-					if (update_view_aux(cr_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
+					if (update_view_aux(creature_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
 					{
 						if (n + d >= ws) break;
 					}
@@ -3978,7 +3979,7 @@ void update_view(creature_type *cr_ptr)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(cr_ptr, ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
+					if (update_view_aux(creature_ptr, ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
 					{
 						if (n + d >= wn) break;
 					}
@@ -4006,7 +4007,7 @@ void update_view(creature_type *cr_ptr)
 		x = view_x[n];
 
 		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Clear the "CAVE_XTRA" flag */
 		c_ptr->info &= ~(CAVE_XTRA);
@@ -4025,7 +4026,7 @@ void update_view(creature_type *cr_ptr)
 		x = temp_x[n];
 
 		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* No longer in the array */
 		c_ptr->info &= ~(CAVE_TEMP);
