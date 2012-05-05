@@ -2826,11 +2826,12 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
+	floor_type *floor_ptr = &floor_list[cr_ptr->floor_id];
 
 	/* We trust this grid is in bounds */
-	/* if (!in_bounds2(current_floor_ptr, y, x)) return; */
+	/* if (!in_bounds2(floor_ptr, y, x)) return; */
 
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Want a unlit square in view of the player */
 	if ((c_ptr->info & (CAVE_MNLT | CAVE_VIEW)) != CAVE_VIEW) return;
@@ -2849,11 +2850,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y, x + 1)) return;
+				if (!cave_los_bold(floor_ptr, y, x + 1)) return;
 			}
 			else if (x > midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y, x - 1)) return;
+				if (!cave_los_bold(floor_ptr, y, x - 1)) return;
 			}
 
 		}
@@ -2868,11 +2869,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y + 1, x)) return;
+				if (!cave_los_bold(floor_ptr, y + 1, x)) return;
 			}
 			else if (y > midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y - 1, x)) return;
+				if (!cave_los_bold(floor_ptr, y - 1, x)) return;
 			}
 		}
 	}
