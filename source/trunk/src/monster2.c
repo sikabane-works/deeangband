@@ -1498,12 +1498,16 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 creature_hook, creature_hook_type2 creature_hook2)
 {
 	int i;
+	floor_type *floor_ptr;
 
 	/* Todo: Check the hooks for non-changes */
 
 	/* Set the new hooks */
 	creature_hook_type2 get_species_num_hook  = creature_hook;
 	creature_hook_type2 get_species_num2_hook = creature_hook2;
+
+	if(summoner_ptr) floor_ptr = &floor_list[summoner_ptr->floor_id];
+	else floor_ptr = current_floor_ptr;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -1533,16 +1537,16 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 
 			/* Depth Monsters never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > current_floor_ptr->floor_level))
+			    (r_ptr->level > floor_ptr->floor_level))
 				continue;
 		}
 
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (current_floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
+		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -3871,7 +3875,7 @@ void deal_item(creature_type *creature_ptr)
 static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_egobject_idx, u32b mode)
 {
 	/* Access the location */
-	cave_type		*c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 
 	creature_type	*creature_ptr;
 
@@ -3956,7 +3960,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	/* Verify location */
-	if (!in_bounds(current_floor_ptr, y, x)){
+	if (!in_bounds(floor_ptr, y, x)){
 		if (cheat_hear)
 		{
 			msg_format("[max_creature_idx: Invalid Location]");
@@ -4037,7 +4041,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 
 		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
-		if (is_force_depth_species(r_ptr) && (current_floor_ptr->floor_level < r_ptr->level) &&
+		if (is_force_depth_species(r_ptr) && (floor_ptr->floor_level < r_ptr->level) &&
 		    (!curse_of_Iluvatar || (is_quest_species(r_ptr))))
 		{
 			if (cheat_hear)
@@ -4049,9 +4053,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 	}
 
-	if (quest_number(current_floor_ptr->floor_level))
+	if (quest_number(floor_ptr->floor_level))
 	{
-		int hoge = quest_number(current_floor_ptr->floor_level);
+		int hoge = quest_number(floor_ptr->floor_level);
 		if ((quest[hoge].type == QUEST_TYPE_KILL_LEVEL) || (quest[hoge].type == QUEST_TYPE_RANDOM))
 		{
 			if(species_idx == quest[hoge].species_idx)
@@ -4060,10 +4064,10 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 				number_mon = 0;
 
 				/* Count all quest monsters */
-				for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
-					for (j2 = 0; j2 < current_floor_ptr->height; j2++)
-						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
-							if (creature_list[current_floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
+				for (i2 = 0; i2 < floor_ptr->width; ++i2)
+					for (j2 = 0; j2 < floor_ptr->height; j2++)
+						if (floor_ptr->cave[j2][i2].creature_idx > 0)
+							if (creature_list[floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
 					return max_creature_idx;
@@ -4247,7 +4251,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 */
 
 	/* Hack -- Count the number of "reproducers" */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) current_floor_ptr->num_repro++;
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) floor_ptr->num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
