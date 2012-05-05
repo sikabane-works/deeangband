@@ -397,7 +397,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 		for (yy = y - 5; yy <= y + 5; yy++)
 		{
 			if (distance(y, x, yy, xx) > 5) continue;
-			if (!los(y, x, yy, xx)) continue;
+			if (!los(current_floor_ptr, y, x, yy, xx)) continue;
 			if (!projectable(y, x, yy, xx)) continue;
 
 			c_ptr = &current_floor_ptr->cave[yy][xx];
@@ -1343,7 +1343,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		y_br_lite = y;
 		x_br_lite = x;
 
-		if (los(caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
+		if (los(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
 		{
 			feature_type *f_ptr = &f_info[current_floor_ptr->cave[y_br_lite][x_br_lite].feat];
 
@@ -1392,7 +1392,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			success = TRUE;
 		}
 		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
-		    los(caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
+		    los(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
@@ -1401,7 +1401,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		{
 			int by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
-			if ((distance(by, bx, y, x) <= 3) && los(by, bx, y, x) && one_in_(5))
+			if ((distance(by, bx, y, x) <= 3) && los(current_floor_ptr, by, bx, y, x) && one_in_(5))
 			{
 				do_spell = DO_SPELL_BA_LITE;
 				success = TRUE;

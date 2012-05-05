@@ -4959,7 +4959,7 @@ note = "ÇÕñ∞ÇËçûÇÒÇ≈ÇµÇ‹Ç¡ÇΩÅI";
 			if (seen) obvious = TRUE;
 
 			/* PSI only works if the monster can see you! -- RG */
-			if (!(los(target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
+			if (!(los(current_floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%sÇÕÇ†Ç»ÇΩÇ™å©Ç¶Ç»Ç¢ÇÃÇ≈âeãøÇ≥ÇÍÇ»Ç¢ÅI", target_name);
@@ -7665,7 +7665,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
 					case GF_LITE:
 					case GF_LITE_WEAK:
 						/* Lights are stopped by opaque terrains */
-						if (!los(by, bx, y, x)) continue;
+						if (!los(current_floor_ptr, by, bx, y, x)) continue;
 						break;
 					case GF_DISINTEGRATE:
 						/* Disintegration are stopped only by perma-walls */
@@ -8431,7 +8431,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						case GF_LITE:
 						case GF_LITE_WEAK:
 							/* Lights are stopped by opaque terrains */
-							if (!los(by, bx, y, x)) continue;
+							if (!los(current_floor_ptr, by, bx, y, x)) continue;
 							break;
 						case GF_DISINTEGRATE:
 							/* Disintegration are stopped only by perma-walls */

@@ -140,7 +140,7 @@ bool is_hidden_door(cave_type *c_ptr)
  *
  * Use the "update_view()" function to determine player line-of-sight.
  */
-bool los(int y1, int x1, int y2, int x2)
+bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 {
 	/* Delta */
 	int dx, dy;
@@ -178,8 +178,8 @@ bool los(int y1, int x1, int y2, int x2)
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if (!in_bounds(current_floor_ptr, y1, x1)) return FALSE; */
-	/* if (!in_bounds(current_floor_ptr, y2, x2)) return FALSE; */
+	/* if (!in_bounds(floor_ptr, y1, x1)) return FALSE; */
+	/* if (!in_bounds(floor_ptr, y2, x2)) return FALSE; */
 
 
 	/* Directly South/North */
@@ -190,7 +190,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if (!cave_los_bold(current_floor_ptr, ty, x1)) return FALSE;
+				if (!cave_los_bold(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -199,7 +199,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if (!cave_los_bold(current_floor_ptr, ty, x1)) return FALSE;
+				if (!cave_los_bold(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -215,7 +215,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if (!cave_los_bold(current_floor_ptr, y1, tx)) return FALSE;
+				if (!cave_los_bold(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -224,7 +224,7 @@ bool los(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if (!cave_los_bold(current_floor_ptr, y1, tx)) return FALSE;
+				if (!cave_los_bold(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -243,7 +243,7 @@ bool los(int y1, int x1, int y2, int x2)
 	{
 		if (ay == 2)
 		{
-			if (cave_los_bold(current_floor_ptr, y1 + sy, x1)) return TRUE;
+			if (cave_los_bold(floor_ptr, y1 + sy, x1)) return TRUE;
 		}
 	}
 
@@ -252,7 +252,7 @@ bool los(int y1, int x1, int y2, int x2)
 	{
 		if (ax == 2)
 		{
-			if (cave_los_bold(current_floor_ptr, y1, x1 + sx)) return TRUE;
+			if (cave_los_bold(floor_ptr, y1, x1 + sx)) return TRUE;
 		}
 	}
 
@@ -288,7 +288,7 @@ bool los(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
+			if (!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
 
 			qy += m;
 
@@ -299,7 +299,7 @@ bool los(int y1, int x1, int y2, int x2)
 			else if (qy > f2)
 			{
 				ty += sy;
-				if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
+				if (!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
 				qy -= f1;
 				tx += sx;
 			}
@@ -335,7 +335,7 @@ bool los(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
+			if (!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
 
 			qx += m;
 
@@ -346,7 +346,7 @@ bool los(int y1, int x1, int y2, int x2)
 			else if (qx > f2)
 			{
 				tx += sx;
-				if (!cave_los_bold(current_floor_ptr, ty, tx)) return FALSE;
+				if (!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
 				qx -= f1;
 				ty += sy;
 			}
@@ -3467,7 +3467,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
 
 
 	/* Hack -- check line of sight */
-	if (los(cr_ptr->fy, cr_ptr->fx, y, x))
+	if (los(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, y, x))
 	{
 		cave_view_hack(c_ptr, y, x);
 

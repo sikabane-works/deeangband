@@ -563,7 +563,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !the_world && !gamble_arena_mode && los(cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !the_world && !gamble_arena_mode && los(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
