@@ -353,7 +353,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 			feature_type *f_ptr = &f_info[c_ptr->feat];
 			bool ok = FALSE;
 
-			if (creature_ptr->change_floor_mode & CFM_UP)
+			if (creature_ptr->change_floor_mode & CFM_DOWN)
 			{
 				if (have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
@@ -368,7 +368,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 				}
 			}
 
-			else if (creature_ptr->change_floor_mode & CFM_DOWN)
+			else if (creature_ptr->change_floor_mode & CFM_UP)
 			{
 				if (have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
