@@ -4548,7 +4548,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *cr_ptr)
  */
 void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[feat];
 	bool old_los, old_mirror;
 
@@ -4561,7 +4561,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 		c_ptr->feat = feat;
 
 		/* Hack -- glow the GLOW terrain */
-		if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+		if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 		{
 			int i, yy, xx;
 
@@ -4569,15 +4569,15 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			{
 				yy = y + ddy_ddd[i];
 				xx = x + ddx_ddd[i];
-				if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
-				current_floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
+				if (!in_bounds2(floor_ptr, yy, xx)) continue;
+				floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 			}
 		}
 
 		return;
 	}
 
-	old_los = cave_have_flag_bold(current_floor_ptr, y, x, FF_LOS);
+	old_los = cave_have_flag_bold(floor_ptr, y, x, FF_LOS);
 	old_mirror = is_mirror_grid(c_ptr);
 
 	/* Clear mimic type */
@@ -4589,7 +4589,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	/* Remove flag for mirror/glyph */
 	c_ptr->info &= ~(CAVE_OBJECT);
 
-	if (old_mirror && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if (old_mirror && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
@@ -4624,7 +4624,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	}
 
 	/* Hack -- glow the GLOW terrain */
-	if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
@@ -4634,8 +4634,8 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 		{
 			yy = y + ddy_ddd[i];
 			xx = x + ddx_ddd[i];
-			if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
-			cc_ptr = &current_floor_ptr->cave[yy][xx];
+			if (!in_bounds2(floor_ptr, yy, xx)) continue;
+			cc_ptr = &floor_ptr->cave[yy][xx];
 			cr_ptr = &creature_list[cc_ptr->creature_idx];
 			cc_ptr->info |= CAVE_GLOW;
 
@@ -4655,7 +4655,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 
 		}
