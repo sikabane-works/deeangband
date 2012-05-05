@@ -8030,7 +8030,7 @@ static void handle_signal_simple(int sig)
 #endif
 
 		forget_lite();
-		forget_view();
+		forget_view(current_floor_ptr);
 		clear_creature_lite(current_floor_ptr);
 
 		/* Close stuff */
@@ -8057,7 +8057,7 @@ quit("ã≠êßèIóπ");
 
 
 		forget_lite();
-		forget_view();
+		forget_view(current_floor_ptr);
 		clear_creature_lite(current_floor_ptr);
 
 		/* Stop playing */
@@ -8132,7 +8132,7 @@ static void handle_signal_abort(int sig)
 
 
 	forget_lite();
-	forget_view();
+	forget_view(current_floor_ptr);
 	clear_creature_lite(current_floor_ptr);
 
 	/* Clear the bottom line */

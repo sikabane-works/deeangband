@@ -6824,7 +6824,7 @@ static void play_loop(void)
 		target_who = 0; // Cancel the target
 		health_track(0); // Cancel the health bar
 		forget_lite(); // Forget the lite and view
-		forget_view();
+		forget_view(current_floor_ptr);
 
 		clear_creature_lite(current_floor_ptr); // Forget the view
 

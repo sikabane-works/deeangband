@@ -3334,37 +3334,22 @@ void clear_creature_lite(floor_type *floor_ptr)
 /*
  * Clear the viewable space
  */
-void forget_view(void)
+void forget_view(floor_type *floor_ptr)
 {
 	int i;
-
 	cave_type *c_ptr;
 
-	/* None to forget */
-	if (!view_n) return;
+	if (!view_n) return; // None to forget
 
-	/* Clear them all */
-	for (i = 0; i < view_n; i++)
+	for (i = 0; i < view_n; i++) // Clear them all
 	{
 		int y = view_y[i];
 		int x = view_x[i];
-
-		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
-
-		/* Forget that the grid is viewable */
-		c_ptr->info &= ~(CAVE_VIEW);
-
-		/* if (!panel_contains(y, x)) continue; */
-
-		/* Update the screen */
-		/* lite_spot(y, x); Perhaps don't need? */
+		c_ptr = &floor_ptr->cave[y][x]; // Access the grid
+		c_ptr->info &= ~(CAVE_VIEW); // Forget that the grid is viewable
 	}
-
-	/* None left */
-	view_n = 0;
+	view_n = 0;	// None left
 }
-
 
 
 /*

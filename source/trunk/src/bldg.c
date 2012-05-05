@@ -5119,7 +5119,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	forget_lite();
 
 	/* Forget the view */
-	forget_view();
+	forget_view(&floor_list[cr_ptr->floor_id]);
 
 	command_arg = 0;
 	command_rep = 0;

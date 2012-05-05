@@ -3602,7 +3602,7 @@ static void process_menus(WORD wCmd)
 				msg_flag = FALSE;
 
 				forget_lite();
-				forget_view();
+				forget_view(current_floor_ptr);
 				clear_creature_lite(current_floor_ptr);
 
 				Term_key_push(SPECIAL_KEY_QUIT);
@@ -4542,7 +4542,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				msg_flag = FALSE;
 
 				forget_lite();
-				forget_view();
+				forget_view(current_floor_ptr);
 				clear_creature_lite(current_floor_ptr);
 
 				Term_key_push(SPECIAL_KEY_QUIT);

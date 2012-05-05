@@ -690,7 +690,7 @@ extern void display_map(creature_type *cr_ptr, int *cy, int *cx);
 extern void do_cmd_view_map(creature_type *creature_ptr);
 extern void forget_lite(void);
 extern void update_lite(creature_type *cr_ptr);
-extern void forget_view(void);
+extern void forget_view(floor_type *floor_ptr);
 extern void update_view(creature_type *creature_ptr);
 extern void update_creature_lite(void);
 extern void clear_creature_lite(floor_type *floor_ptr);

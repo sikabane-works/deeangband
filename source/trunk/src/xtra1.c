@@ -5709,7 +5709,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_UN_VIEW))
 	{
 		update &= ~(PU_UN_VIEW);
-		forget_view();
+		forget_view(current_floor_ptr);
 	}
 
 	if (update & (PU_VIEW))
