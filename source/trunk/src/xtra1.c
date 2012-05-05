@@ -5744,7 +5744,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_MON_LITE))
 	{
 		update &= ~(PU_MON_LITE);
-		//update_creature_lite();
+		//update_creature_lite(current_floor_ptr);
 	}
 
 	/*
