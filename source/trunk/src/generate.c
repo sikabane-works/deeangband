@@ -1153,7 +1153,7 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
 	j = xval;
 	floor_ptr->cave[i][j].feat = f_tag_to_index("ARENA_GATE");
 	floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(player_ptr, i, j);
+	creature_place(floor_ptr, player_ptr, i, j);
 }
 
 
@@ -1251,7 +1251,7 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 	j = xval;
 	floor_ptr->cave[i][j].feat = f_tag_to_index("BUILDING_3");
 	floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(player_ptr, i, j);
+	creature_place(floor_ptr, player_ptr, i, j);
 }
 
 

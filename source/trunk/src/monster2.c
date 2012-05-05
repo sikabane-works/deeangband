@@ -5026,7 +5026,7 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
 	if (!creature_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_creature_species(cr_ptr, current_floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_creature_species(cr_ptr, floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
 }
 
 
@@ -5037,7 +5037,8 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
  */
 bool multiply_creature(int m_idx, bool clone, u32b mode)
 {
-	creature_type	*m_ptr = &creature_list[m_idx];
+	creature_type  *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = &floor_list[m_ptr->floor_id];
 
 	int y, x;
 
@@ -5047,7 +5048,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new monster (awake, no groups) */
-	if (!place_creature_species(&creature_list[m_idx], current_floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_creature_species(&creature_list[m_idx], floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
@@ -5887,10 +5888,10 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	}
 }
 
-bool creature_place(creature_type *creature_ptr, int y, int x)
+bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x)
 {
 	/* Paranoia XXX XXX */
-	if (current_floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
+	if (floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
 
 	/* Save player location */
 	creature_ptr->fy = y;
