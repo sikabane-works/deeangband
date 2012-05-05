@@ -144,6 +144,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 
 	species_type *r_ptr = &species_info[attacker_ptr->species_idx];
+	species_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
 
 	int ap_cnt;
 
@@ -166,6 +167,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 	bool explode = FALSE;
 	bool do_silly_attack = (one_in_(2) && target_ptr->image);
 	int get_damage = 0;
+
 #ifdef JP
 	int abbreviate = 0;
 #endif
@@ -173,7 +175,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 	/* Not allowed to attack */
 	if (has_cf_creature(attacker_ptr, CF_NEVER_BLOW)) return (FALSE);
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
 	/* ...nor if friendly */
 	if (!is_hostile(attacker_ptr)) return FALSE;
@@ -2029,7 +2031,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
 							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 					}
 
-					if (is_mirror_grid(&current_floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
+					if (is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
 					{
 						teleport_player(target_ptr, 10, 0L);
 					}
