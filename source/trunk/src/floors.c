@@ -97,9 +97,6 @@ void init_saved_floors(bool force)
 	/* A sign to mark temporal files */
 	saved_floor_file_sign = (u32b)time(NULL);
 
-	/* No change floor mode yet */
-	player_ptr->change_floor_mode = 0;
-
 #ifdef SET_UID
 # ifdef SECURE
 	/* Drop "games" permissions */
@@ -523,6 +520,9 @@ void move_floor(creature_type *creature_ptr)
 
 		// Choose random stairs
 		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr);
+
+		// Clear all flags
+		creature_ptr->change_floor_mode = 0L;
 	}
 
 
@@ -855,8 +855,6 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 	cr_ptr->feeling_turn = old_turn;
 	cr_ptr->floor_feeling = 0;
 
-	/* Clear all flags */
-	cr_ptr->change_floor_mode = 0L;
 }
 
 
