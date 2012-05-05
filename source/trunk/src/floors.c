@@ -597,6 +597,9 @@ void move_floor(creature_type *creature_ptr)
 
 	// Clear all flags
 	creature_ptr->change_floor_mode = 0L;
+
+	reset_cave_creature_reference(old_floor_ptr);
+	reset_cave_creature_reference(new_floor_ptr);
 }
 
 
