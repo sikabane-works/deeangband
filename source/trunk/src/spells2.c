@@ -5327,7 +5327,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			}
 		}
 
-		forget_flow();
+		forget_flow(current_floor_ptr);
 
 		/* Mega-Hack -- Forget the view and lite */
 		update |= (PU_UN_VIEW | PU_UN_LITE);

@@ -4073,19 +4073,19 @@ void delayed_visual_update(void)
 /*
  * Hack -- forget the "flow" information
  */
-void forget_flow(void)
+void forget_flow(floor_type *floor_ptr)
 {
 	int x, y;
 
 	/* Check the entire dungeon */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
 			/* Forget the old data */
-			current_floor_ptr->cave[y][x].dist = 0;
-			current_floor_ptr->cave[y][x].cost = 0;
-			current_floor_ptr->cave[y][x].when = 0;
+			floor_ptr->cave[y][x].dist = 0;
+			floor_ptr->cave[y][x].cost = 0;
+			floor_ptr->cave[y][x].when = 0;
 		}
 	}
 }

@@ -695,7 +695,7 @@ extern void update_view(creature_type *creature_ptr);
 extern void update_creature_lite(void);
 extern void clear_creature_lite(floor_type *floor_ptr);
 extern void delayed_visual_update(void);
-extern void forget_flow(void);
+extern void forget_flow(floor_type *floor_ptr);
 extern void update_flow(creature_type *creature_ptr);
 extern void update_smell(creature_type *cr_ptr);
 extern void map_area(creature_type *creature_ptr, int range);

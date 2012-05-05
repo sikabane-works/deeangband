@@ -3591,7 +3591,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 		if (mpe_mode & MPE_FORGET_FLOW)
 		{
-			forget_flow();
+			forget_flow(current_floor_ptr);
 
 			/* Mega-Hack -- Forget the view */
 			update |= (PU_UN_VIEW);
