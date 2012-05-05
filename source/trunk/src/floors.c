@@ -468,8 +468,8 @@ void move_floor(creature_type *creature_ptr)
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		creature_ptr->floor_id = stair_ptr->special;
-		creature_ptr->fx = stair_ptr->cx;
-		creature_ptr->fy = stair_ptr->cy;
+		creature_ptr->fx = (byte)stair_ptr->cx;
+		creature_ptr->fy = (byte)stair_ptr->cy;
 
 		floor_id = stair_ptr->special;
 	}
@@ -536,9 +536,6 @@ void move_floor(creature_type *creature_ptr)
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].special = old_floor_id;
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cx = old_fx;
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cy = old_fy;
-
-		// Clear all flags
-		creature_ptr->change_floor_mode = 0L;
 	}
 
 
@@ -593,6 +590,13 @@ void move_floor(creature_type *creature_ptr)
 
 	if(is_player(creature_ptr))
 		current_floor_ptr = new_floor_ptr;
+
+	// Arrive at random grid
+	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE))
+		(void)new_player_spot(new_floor_ptr, creature_ptr);
+
+	// Clear all flags
+	creature_ptr->change_floor_mode = 0L;
 }
 
 
@@ -622,24 +626,9 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 
 	/*
 	// No saved floors (On the surface etc.)
-	if (!(cr_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(cr_ptr->change_floor_mode & CFM_FIRST_FLOOR))
-	{
-		// Generate field
-	}
 	// In the dungeon
 	else
 	{
-		// No floor_id yet
-		if (!current_floor_id)
-		{
-			// Get new id
-			current_floor_id = floor_pop();
-			cr_ptr->floor_id = current_floor_id;
-		}
-
-		// Pointer for infomations of new floor
-		sf_ptr = &floor_list[current_floor_id];
-
 		// Try to restore old floor
 		if (sf_ptr->last_visit)
 		{
@@ -816,11 +805,6 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 			}
 		}
 
-		// Arrive at random grid
-		if (cr_ptr->change_floor_mode & (CFM_RAND_PLACE))
-		{
-			(void)new_player_spot(cr_ptr);
-		}
 
 		// You see stairs blocked
 		else if ((cr_ptr->change_floor_mode & CFM_NO_RETURN) && (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP)))
@@ -842,21 +826,8 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 #endif
 			}
 		}
-
-		
-		 //* Update visit mark
-		 //*
-		 //* The "turn" is not always different number because
-		 //* the level teleport doesn't take any turn.  Use
-		 //* visit mark instead of last visit turn to find the
-		 //* oldest saved floor.
-		 
-		sf_ptr->visit_mark = latest_visit_mark++;
 	}
 	*/
-
-	/* Hack -- maintain unique and artifacts */
-	//update_unique_artifact(current_floor_id);
 
 	/* The dungeon is ready */
 	floor_generated = TRUE;
