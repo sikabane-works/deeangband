@@ -5703,7 +5703,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_UN_LITE))
 	{
 		update &= ~(PU_UN_LITE);
-		forget_lite();
+		forget_lite(current_floor_ptr);
 	}
 
 	if (update & (PU_UN_VIEW))

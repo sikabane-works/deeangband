@@ -5115,10 +5115,8 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		cr_ptr->oldpx = cr_ptr->fx;
 	}
 
-	/* Forget the lite */
-	forget_lite();
-
-	/* Forget the view */
+	// Forget the lite and view
+	forget_lite(&floor_list[cr_ptr->floor_id]);
 	forget_view(&floor_list[cr_ptr->floor_id]);
 
 	command_arg = 0;

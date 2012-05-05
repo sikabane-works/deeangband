@@ -3601,7 +3601,7 @@ static void process_menus(WORD wCmd)
 				/* Hack -- Forget messages */
 				msg_flag = FALSE;
 
-				forget_lite();
+				forget_lite(current_floor_ptr);
 				forget_view(current_floor_ptr);
 				clear_creature_lite(current_floor_ptr);
 
@@ -4541,7 +4541,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				/* Hack -- Forget messages */
 				msg_flag = FALSE;
 
-				forget_lite();
+				forget_lite(current_floor_ptr);
 				forget_view(current_floor_ptr);
 				clear_creature_lite(current_floor_ptr);
 

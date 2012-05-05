@@ -8029,7 +8029,7 @@ static void handle_signal_simple(int sig)
 		(void)strcpy(gameover_from, "Abortion");
 #endif
 
-		forget_lite();
+		forget_lite(current_floor_ptr);
 		forget_view(current_floor_ptr);
 		clear_creature_lite(current_floor_ptr);
 
@@ -8055,8 +8055,7 @@ quit("ã≠êßèIóπ");
 		(void)strcpy(gameover_from, "Interrupting");
 #endif
 
-
-		forget_lite();
+		forget_lite(current_floor_ptr);
 		forget_view(current_floor_ptr);
 		clear_creature_lite(current_floor_ptr);
 
@@ -8131,7 +8130,7 @@ static void handle_signal_abort(int sig)
 	if (!character_generated || character_saved) quit(NULL);
 
 
-	forget_lite();
+	forget_lite(current_floor_ptr);
 	forget_view(current_floor_ptr);
 	clear_creature_lite(current_floor_ptr);
 

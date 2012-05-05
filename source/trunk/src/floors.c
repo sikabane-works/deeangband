@@ -583,7 +583,7 @@ void move_floor(creature_type *creature_ptr)
 
 		// Forget the lite and view
 		//TODO
-		forget_lite();
+		forget_lite(old_floor_ptr);
 		forget_view(old_floor_ptr);
 		clear_creature_lite(current_floor_ptr);
 	}

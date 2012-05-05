@@ -2505,7 +2505,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 /*
  * Actually erase the entire "lite" array, redrawing every grid
  */
-void forget_lite(void)
+void forget_lite(floor_type *floor_ptr)
 {
 	int i, x, y;
 
@@ -2519,7 +2519,7 @@ void forget_lite(void)
 		x = lite_x[i];
 
 		/* Forget "LITE" flag */
-		current_floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
+		floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
 
 		/* Redraw */
 		/* lite_spot(y, x); Perhaps don't need? */
