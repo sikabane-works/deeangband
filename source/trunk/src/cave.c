@@ -4391,12 +4391,12 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 	}
 
 	/* Scan all normal grids */
-	for (y = 1; y < current_floor_ptr->height - 1; y++)
+	for (y = 1; y < floor_ptr->height - 1; y++)
 	{
 		/* Scan all normal grids */
-		for (x = 1; x < current_floor_ptr->width - 1; x++)
+		for (x = 1; x < floor_ptr->width - 1; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			/* Feature code (applying "mimic" field) */
 			feat = get_feat_mimic(c_ptr);
@@ -4412,13 +4412,13 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 					int xx = x + ddx_ddd[i];
 
 					/* Get the grid */
-					c_ptr = &current_floor_ptr->cave[yy][xx];
+					c_ptr = &floor_ptr->cave[yy][xx];
 
 					/* Feature code (applying "mimic" field) */
 					f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
 					/* Perma-lite the grid */
-					if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !ninja)
+					if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !ninja)
 					{
 						c_ptr->info |= (CAVE_GLOW);
 					}
@@ -4456,7 +4456,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 
 	if (cr_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+		if (floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 	}
 }
 
