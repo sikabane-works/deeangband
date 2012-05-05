@@ -4966,9 +4966,12 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode)
 {
 	int x, y, species_idx;
+	floor_type *floor_ptr;
+	
+	if(summoner_ptr) floor_ptr = &floor_list[summoner_ptr->floor_id];
+	else floor_ptr = &floor_list[0];
 
-	if (fight_arena_mode) return (FALSE);
-
+	if (floor_ptr) return (FALSE);
 	if (!creature_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
 
 	/* Save the summoner */
