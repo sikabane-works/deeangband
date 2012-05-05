@@ -431,7 +431,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
  */
 void move_floor(creature_type *creature_ptr)
 {
-	int i, old_floor_id, floor_id;
+	int i, old_floor_id, floor_id, old_fx, old_fy;
 	cave_type *stair_ptr = NULL;
 	feature_type *feature_ptr;
 	floor_type *old_floor_ptr, *new_floor_ptr;
@@ -439,6 +439,9 @@ void move_floor(creature_type *creature_ptr)
 
 	old_floor_ptr = &floor_list[creature_ptr->floor_id];
 	old_floor_id = creature_ptr->floor_id;
+	old_fx = creature_ptr->fx;
+	old_fy = creature_ptr->fy;
+
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &f_info[stair_ptr->feat];
 
@@ -465,6 +468,9 @@ void move_floor(creature_type *creature_ptr)
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		creature_ptr->floor_id = stair_ptr->special;
+		creature_ptr->fx = stair_ptr->cx;
+		creature_ptr->fy = stair_ptr->cy;
+
 		floor_id = stair_ptr->special;
 	}
 	else // Create New Floor
@@ -522,8 +528,14 @@ void move_floor(creature_type *creature_ptr)
 
 		// Choose random stairs
 		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr);
+
 		stair_ptr->special = floor_id;
+		stair_ptr->cx = player_ptr->fx;
+		stair_ptr->cy = player_ptr->fy;
+
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].special = old_floor_id;
+		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cx = old_fx;
+		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cy = old_fy;
 
 		// Clear all flags
 		creature_ptr->change_floor_mode = 0L;
