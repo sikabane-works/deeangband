@@ -998,3 +998,12 @@ void reset_cave_creature_reference(floor_type *floor_ptr)
 	}
 
 }
+
+int get_floor_id(floor_type *floor_ptr)
+{
+	int i;
+	for(i = 0; i < floor_max; i++)
+		if(floor_ptr = &floor_list[i]) return i;
+
+	return 0;
+}

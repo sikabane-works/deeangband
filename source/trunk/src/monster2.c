@@ -4136,7 +4136,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	// Place the monster at the location
-	creature_ptr->floor_id = player_ptr->floor_id;
+	creature_ptr->floor_id = get_floor_id(floor_ptr);
 	creature_ptr->depth = floor_ptr->floor_level;
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
