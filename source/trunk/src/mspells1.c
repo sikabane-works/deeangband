@@ -4140,7 +4140,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 						int j;
 						for (j = 100; j > 0; j--)
 						{
-							scatter(&cy, &cx, y, x, 2, 0);
+							scatter(current_floor_ptr, &cy, &cx, y, x, 2, 0);
 							if (cave_empty_bold(cy, cx)) break;
 						}
 						if (!j) break;

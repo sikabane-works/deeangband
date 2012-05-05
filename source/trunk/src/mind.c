@@ -1767,7 +1767,7 @@ msg_print("その方向にはモンスターはいません。");
 
 			while (attempts--)
 			{
-				scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+				scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 				if (!creature_bold(cr_ptr, y, x)) break;
 			}

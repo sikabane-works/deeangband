@@ -114,7 +114,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 
 	while (--attempts)
 	{
-		scatter(&wy, &wx, summoner_ptr->fy, summoner_ptr->fx, 3, 0);
+		scatter(current_floor_ptr, &wy, &wx, summoner_ptr->fy, summoner_ptr->fx, 3, 0);
 		if (cave_empty_bold(wy, wx)) break;
 	}
 

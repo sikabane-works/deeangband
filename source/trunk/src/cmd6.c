@@ -2366,7 +2366,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 				while (attempts--)
 				{
-					scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+					scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 					if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
 
@@ -4313,7 +4313,7 @@ msg_print("‚ ‚È‚½‚Íƒtƒ‰ƒLƒA‚É“G‚ð’÷‚ßŽE‚·‚æ‚¤–½‚¶‚½B");
 
 					while (attempts--)
 					{
-						scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+						scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 						if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
 

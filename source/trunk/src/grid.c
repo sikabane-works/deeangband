@@ -440,7 +440,7 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 			int d = 1;
 
 			/* Pick a nearby location */
-			scatter(&y, &x, y1, x1, d, 0);
+			scatter(floor_ptr, &y, &x, y1, x1, d, 0);
 
 			/* Require "empty" floor grids */
 			c_ptr = &floor_ptr->cave[y][x];

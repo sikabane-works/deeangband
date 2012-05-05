@@ -8904,7 +8904,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 					while (attempt--)
 					{
-						scatter(&my, &mx, cr_ptr->fy, cr_ptr->fx, 4, 0);
+						scatter(current_floor_ptr, &my, &mx, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 						/* Require empty grids */
 						if (cave_empty_bold2(my, mx)) break;

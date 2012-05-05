@@ -4513,7 +4513,7 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 		{
 			int mx, my;
 
-			scatter(&my, &mx, hy, hx, 4, 0);
+			scatter(current_floor_ptr, &my, &mx, hy, hx, 4, 0);
 
 			/* Walls and Monsters block flow */
 			if (!cave_empty_bold2(my, mx)) continue;
@@ -4618,7 +4618,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			int nx, ny, d = 8;
 
 			/* Pick a location */
-			scatter(&ny, &nx, y, x, d, 0);
+			scatter(current_floor_ptr, &ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
 			if (!cave_empty_bold2(ny, nx)) continue;
@@ -4659,7 +4659,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			int nx, ny, z, d = 3;
 
 			/* Pick a location */
-			scatter(&ny, &nx, y, x, d, 0);
+			scatter(current_floor_ptr, &ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
 			if (!cave_empty_bold2(ny, nx)) continue;
@@ -4764,7 +4764,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
-		scatter(&cy, &cx, y, x, 5, 0);
+		scatter(current_floor_ptr, &cy, &cx, y, x, 5, 0);
 
 		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 

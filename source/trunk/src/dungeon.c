@@ -820,7 +820,7 @@ static void wreck_the_pattern(creature_type *cr_ptr)
 
 	while (to_ruin--)
 	{
-		scatter(&r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+		scatter(current_floor_ptr, &r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 		if (pattern_tile(r_y, r_x) &&
 		    (f_info[current_floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))

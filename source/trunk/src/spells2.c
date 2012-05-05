@@ -7238,7 +7238,7 @@ void wall_breaker(creature_type *cr_ptr)
 	{
 		while (attempts--)
 		{
-			scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+			scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 			if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
 
@@ -7260,7 +7260,7 @@ void wall_breaker(creature_type *cr_ptr)
 		{
 			while (1)
 			{
-				scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 10, 0);
+				scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 10, 0);
 
 				if (!creature_bold(cr_ptr, y, x)) break;
 			}

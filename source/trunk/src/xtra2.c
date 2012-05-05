@@ -644,7 +644,7 @@ msg_print("クエストを達成した！");
 		while (cave_perma_bold(y, x) || current_floor_ptr->cave[y][x].object_idx || (current_floor_ptr->cave[y][x].info & CAVE_OBJECT) )
 		{
 			/* Pick a location */
-			scatter(&ny, &nx, y, x, 1, 0);
+			scatter(current_floor_ptr, &ny, &nx, y, x, 1, 0);
 
 			/* Stagger */
 			y = ny; x = nx;
@@ -1021,7 +1021,7 @@ msg_print("地面に落とされた。");
 
 				do
 				{
-					scatter(&wy, &wx, y, x, 20, 0);
+					scatter(current_floor_ptr, &wy, &wx, y, x, 20, 0);
 				}
 				while (!(in_bounds(current_floor_ptr, wy, wx) && cave_empty_bold2(wy, wx)) && --attempts);
 
