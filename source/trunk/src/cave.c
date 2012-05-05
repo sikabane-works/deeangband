@@ -4665,7 +4665,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 }
 
 
-int conv_dungeon_feat(int newfeat)
+int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
 {
 	feature_type *f_ptr = &f_info[newfeat];
 
@@ -4707,12 +4707,12 @@ int feat_state(int feat, int action)
 	/* Get the new feature */
 	for (i = 0; i < MAX_FEAT_STATES; i++)
 	{
-		if (f_ptr->state[i].action == action) return conv_dungeon_feat(f_ptr->state[i].result);
+		if (f_ptr->state[i].action == action) return conv_dungeon_feat(current_floor_ptr, f_ptr->state[i].result);
 	}
 
 	if (have_flag(f_ptr->flags, FF_PERMANENT)) return feat;
 
-	return (feature_action_flags[action] & FAF_DESTROY) ? conv_dungeon_feat(f_ptr->destroyed) : feat;
+	return (feature_action_flags[action] & FAF_DESTROY) ? conv_dungeon_feat(current_floor_ptr, f_ptr->destroyed) : feat;
 }
 
 /*
