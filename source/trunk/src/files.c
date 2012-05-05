@@ -3857,8 +3857,8 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	int i;
 
 	char	buf[80];
-	char	tmp[64];
-	char	tmp2[64];
+	char	tmp[128];
+	char	tmp2[128];
 
 	race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 	class_type *cl_ptr = &classkill_info[cr_ptr->cls_idx];

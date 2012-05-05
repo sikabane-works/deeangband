@@ -993,6 +993,7 @@ void reset_cave_creature_reference(floor_type *floor_ptr)
 
 	for(i = 1; i < creature_max; i++)
 	{
+		if(!is_in_this_floor(&creature_list[i])) continue;
 		floor_ptr->cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
 	}
 
