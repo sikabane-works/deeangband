@@ -259,27 +259,21 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 	int dis = 1;
 	int oy = creature_ptr->fy;
 	int ox = creature_ptr->fx;
-	int m_idx = floor_ptr->cave[oy][ox].creature_idx;
+	int mover_idx = floor_ptr->cave[oy][ox].creature_idx;
 
-	// Nothing to do if no monster
-	if (!m_idx) return;
+	if (!mover_idx) return; // Nothing to do if no monster
+	if (&creature_list[mover_idx] == creature_ptr) return; // it's yourself 
 
-	// it's yourself
-	if (&creature_list[m_idx] == creature_ptr) return; 
-
-	/* Look until done */
-	while (TRUE)
+	while (TRUE) // Look until done
 	{
-		creature_type *m_ptr;
+		creature_type *mover_ptr;
 
-		/* Pick a (possibly illegal) location */
+		// Pick a (possibly illegal) location
 		int ny = rand_spread(oy, dis);
 		int nx = rand_spread(ox, dis);
 
 		tries++;
-
-		/* Stop after 1000 tries */
-		if (tries > 10000) return;
+		if (tries > 10000) return; // Stop after 1000 tries
 
 		/*
 		 * Increase distance after doing enough tries
@@ -287,37 +281,23 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		 */
 		if (tries > 20 * dis * dis) dis++;
 
-		/* Ignore illegal locations */
-		if (!in_bounds(floor_ptr, ny, nx)) continue;
-
-		/* Require "empty" floor space */
-		if (!cave_empty_bold(floor_ptr, ny, nx)) continue;
-
-		/* Hack -- no teleport onto glyph of warding */
-		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue;
+		if (!in_bounds(floor_ptr, ny, nx)) continue; // Ignore illegal locations
+		if (!cave_empty_bold(floor_ptr, ny, nx)) continue; // Require "empty" floor space
+		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue; // Hack -- no teleport onto glyph of warding
 		if (is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
-
-		/* ...nor onto the Pattern */
-		if (pattern_tile(ny, nx)) continue;
+		if (pattern_tile(ny, nx)) continue; // ...nor onto the Pattern
 
 		/*** It's a good place ***/
 
-		m_ptr = &creature_list[m_idx];
+		mover_ptr = &creature_list[mover_idx];
+		floor_ptr->cave[oy][ox].creature_idx = 0; // Update the old location
+		floor_ptr->cave[ny][nx].creature_idx = mover_idx; // Update the new location
 
-		/* Update the old location */
-		floor_ptr->cave[oy][ox].creature_idx = 0;
+		// Move the monster
+		mover_ptr->fy = ny;
+		mover_ptr->fx = nx; 
 
-		/* Update the new location */
-		floor_ptr->cave[ny][nx].creature_idx = m_idx;
-
-		/* Move the monster */
-		m_ptr->fy = ny;
-		m_ptr->fx = nx; 
-
-		/* No need to do update_mon() */
-
-		/* Success */
-		return;
+		return; // Success
 	}
 }
 
