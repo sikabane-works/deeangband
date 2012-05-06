@@ -8905,9 +8905,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 					while (attempt--)
 					{
 						scatter(current_floor_ptr, &my, &mx, cr_ptr->fy, cr_ptr->fx, 4, 0);
-
-						/* Require empty grids */
-						if (cave_empty_bold2(my, mx)) break;
+						if (cave_empty_bold2(current_floor_ptr, my, mx)) break; // Require empty grids
 					}
 					if (attempt < 0) continue;
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));

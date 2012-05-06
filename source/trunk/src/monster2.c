@@ -4416,7 +4416,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 			else
 			{
 				/* Walls and Monsters block flow */
-				if (!cave_empty_bold2(ny, nx)) continue;
+				if (!cave_empty_bold2(current_floor_ptr, ny, nx)) continue;
 
 				/* ... nor on the Pattern */
 				if (pattern_tile(ny, nx)) continue;
@@ -4522,7 +4522,7 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 			scatter(current_floor_ptr, &my, &mx, hy, hx, 4, 0);
 
 			/* Walls and Monsters block flow */
-			if (!cave_empty_bold2(my, mx)) continue;
+			if (!cave_empty_bold2(current_floor_ptr, my, mx)) continue;
 
 			/* Attempt to place another monster */
 			if (place_creature_one(summoner_ptr, floor_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
@@ -4627,7 +4627,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			scatter(current_floor_ptr, &ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
-			if (!cave_empty_bold2(ny, nx)) continue;
+			if (!cave_empty_bold2(current_floor_ptr, ny, nx)) continue;
 
 			/* Prepare allocation table */
 			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
@@ -4665,10 +4665,10 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			int nx, ny, z, d = 3;
 
 			/* Pick a location */
-			scatter(current_floor_ptr, &ny, &nx, y, x, d, 0);
+			scatter(floor_ptr, &ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
-			if (!cave_empty_bold2(ny, nx)) continue;
+			if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 			/* Prepare allocation table */
 			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
@@ -4805,7 +4805,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 			ox = randint1(floor_ptr->width - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
+			if (cave_empty_bold2(floor_ptr, oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_creature_species(NULL, floor_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
@@ -4849,7 +4849,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		/* Require empty floor grid (was "naked") */
 		if (floor_ptr->floor_level)
 		{
-			if (!cave_empty_bold2(y, x)) continue;
+			if (!cave_empty_bold2(floor_ptr, y, x)) continue;
 		}
 		else
 		{
