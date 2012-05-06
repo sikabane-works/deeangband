@@ -995,7 +995,7 @@ void reset_cave_creature_reference(void)
 	}
 
 	for(i = 1; i < creature_max; i++)
-		if(!creature_list[i].floor_id)
+		if(creature_list[i].floor_id)
 			floor_list[creature_list[i].floor_id].cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
 
 }
