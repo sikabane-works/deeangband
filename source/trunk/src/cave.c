@@ -4299,17 +4299,22 @@ void map_area(creature_type *creature_ptr, int range)
 	cave_type       *c_ptr;
 	s16b            feat;
 	feature_type    *f_ptr;
+	floor_type      *floor_ptr;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(creature_ptr->floor_id) floor_ptr = &floor_list[creature_ptr->floor_id];
+	else floor_ptr = current_floor_ptr;
+
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+
 
 	/* Scan that area */
-	for (y = 1; y < current_floor_ptr->height - 1; y++)
+	for (y = 1; y < floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < current_floor_ptr->width - 1; x++)
+		for (x = 1; x < floor_ptr->width - 1; x++)
 		{
 			if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Feature code (applying "mimic" field) */
 			feat = get_feat_mimic(c_ptr);
@@ -4328,7 +4333,7 @@ void map_area(creature_type *creature_ptr, int range)
 				/* Memorize known walls */
 				for (i = 0; i < 8; i++)
 				{
-					c_ptr = &current_floor_ptr->cave[y + ddy_ddd[i]][x + ddx_ddd[i]];
+					c_ptr = &floor_ptr->cave[y + ddy_ddd[i]][x + ddx_ddd[i]];
 
 					/* Feature code (applying "mimic" field) */
 					feat = get_feat_mimic(c_ptr);
