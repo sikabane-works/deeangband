@@ -829,40 +829,40 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 }
 
 
-/* Returns TRUE if we are on the Pattern... */
-static bool pattern_effect(creature_type *cr_ptr)
+// Returns TRUE if we are on the Pattern...
+static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int pattern_type;
 
-	if (!pattern_tile(current_floor_ptr, cr_ptr->fy, cr_ptr->fx)) return FALSE;
+	if (!pattern_tile(floor_ptr, creature_ptr->fy, creature_ptr->fx)) return FALSE;
 
-	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
-	    (cr_ptr->cut > 0) && one_in_(10))
+	if ((race_is_(creature_ptr, RACE_AMBERITE)) &&
+	    (creature_ptr->cut > 0) && one_in_(10))
 	{
-		wreck_the_pattern(current_floor_ptr, cr_ptr);
+		wreck_the_pattern(floor_ptr, creature_ptr);
 	}
 
-	pattern_type = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	pattern_type = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		(void)set_poisoned(cr_ptr, 0);
-		(void)set_image(cr_ptr, 0);
-		(void)set_stun(cr_ptr, 0);
-		(void)set_cut(cr_ptr, 0);
-		(void)set_blind(cr_ptr, 0);
-		(void)set_afraid(cr_ptr, 0);
-		(void)do_res_stat(cr_ptr, STAT_STR);
-		(void)do_res_stat(cr_ptr, STAT_INT);
-		(void)do_res_stat(cr_ptr, STAT_WIS);
-		(void)do_res_stat(cr_ptr, STAT_DEX);
-		(void)do_res_stat(cr_ptr, STAT_CON);
-		(void)do_res_stat(cr_ptr, STAT_CHA);
-		(void)restore_level(cr_ptr);
-		(void)hp_player(cr_ptr, 1000);
+		(void)set_poisoned(creature_ptr, 0);
+		(void)set_image(creature_ptr, 0);
+		(void)set_stun(creature_ptr, 0);
+		(void)set_cut(creature_ptr, 0);
+		(void)set_blind(creature_ptr, 0);
+		(void)set_afraid(creature_ptr, 0);
+		(void)do_res_stat(creature_ptr, STAT_STR);
+		(void)do_res_stat(creature_ptr, STAT_INT);
+		(void)do_res_stat(creature_ptr, STAT_WIS);
+		(void)do_res_stat(creature_ptr, STAT_DEX);
+		(void)do_res_stat(creature_ptr, STAT_CON);
+		(void)do_res_stat(creature_ptr, STAT_CHA);
+		(void)restore_level(creature_ptr);
+		(void)hp_player(creature_ptr, 1000);
 
-		cave_set_feat(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, feat_pattern_old);
+		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
 
 #ifdef JP
 		msg_print("「パターン」のこの部分は他の部分より強力でないようだ。");
@@ -879,30 +879,29 @@ static bool pattern_effect(creature_type *cr_ptr)
 		break;
 
 	case PATTERN_TILE_OLD:
-		/* No effect */
 		break;
 
 	case PATTERN_TILE_TELEPORT:
-		pattern_teleport(cr_ptr);
+		pattern_teleport(creature_ptr);
 		break;
 
 	case PATTERN_TILE_WRECKED:
-		if (!IS_INVULN(cr_ptr))
+		if (!IS_INVULN(creature_ptr))
 #ifdef JP
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
 #endif
 		break;
 
 	default:
-		if (race_is_(cr_ptr, RACE_AMBERITE) && !one_in_(2))
+		if (race_is_(creature_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
-		else if (!IS_INVULN(cr_ptr))
+		else if (!IS_INVULN(creature_ptr))
 #ifdef JP
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", NULL, -1);
 #endif
 		break;
 	}
@@ -1948,14 +1947,14 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		}
 	}
 
-	/* Are we walking the pattern? */
-	if (pattern_effect(cr_ptr))
+	// Are we walking the pattern?
+	if (pattern_effect(current_floor_ptr, cr_ptr))
 	{
 		cave_no_regen = TRUE;
 	}
 	else
 	{
-		/* Regeneration ability */
+		// Regeneration ability
 		if (cr_ptr->regenerate)
 		{
 			regen_amount = regen_amount * 2;
