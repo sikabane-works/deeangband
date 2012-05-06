@@ -1141,7 +1141,7 @@ extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
 extern void move_floor(creature_type *creature_ptr);
 extern void change_floor(floor_type *floor_ptr, creature_type *cr_ptr);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
-extern void reset_cave_creature_reference(floor_type *floor_ptr);
+extern void reset_cave_creature_reference(void);
 extern int get_floor_id(floor_type *floor_ptr);
 
 /* generate.c */

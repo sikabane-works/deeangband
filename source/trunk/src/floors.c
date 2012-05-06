@@ -598,8 +598,7 @@ void move_floor(creature_type *creature_ptr)
 	// Clear all flags
 	creature_ptr->change_floor_mode = 0L;
 
-	reset_cave_creature_reference(old_floor_ptr);
-	reset_cave_creature_reference(new_floor_ptr);
+	reset_cave_creature_reference();
 }
 
 
@@ -983,19 +982,21 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
 
-void reset_cave_creature_reference(floor_type *floor_ptr)
+void reset_cave_creature_reference(void)
 {
-	int i, j;
+	int i, j, k;
 
-	for(i = 0; i < floor_ptr->height; i++)
-		for(j = 0; j < floor_ptr->width; j++)
-			floor_ptr->cave[i][j].creature_idx = 0;
+	for(k = 1; k < floor_max; k++)
+	{
+		floor_type *floor_ptr = &floor_list[k];
+		for(i = 0; i < floor_ptr->height; i++)
+			for(j = 0; j < floor_ptr->width; j++)
+				floor_ptr->cave[i][j].creature_idx = 0;
+	}
 
 	for(i = 1; i < creature_max; i++)
-	{
-		if(!is_in_this_floor(&creature_list[i])) continue;
-		floor_ptr->cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
-	}
+		if(!creature_list[i].floor_id)
+			floor_list[creature_list[i].floor_id].cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
 
 }
 
