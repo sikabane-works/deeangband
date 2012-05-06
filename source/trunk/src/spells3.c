@@ -2043,7 +2043,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 
 bool place_mirror(creature_type *caster_ptr)
 {
-	floor_type *floor_ptr = caster_ptr->floor_id ? &floor_list[caster_ptr->floor_id] : current_floor_ptr;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	if (!cave_clean_bold(floor_ptr, caster_ptr->fy, caster_ptr->fx))
 	{

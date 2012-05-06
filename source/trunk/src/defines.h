@@ -5994,3 +5994,4 @@ extern int PlayerUID;
 
 #define IS_DEAD(CR) ((CR)->chp < 0)
 
+#define get_floor_ptr(CR) ((CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
