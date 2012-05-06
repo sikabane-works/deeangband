@@ -4106,8 +4106,7 @@
 	(cave_have_flag_grid((C), FF_PERMANENT))
 
 
-#define pattern_tile(Y,X) \
-	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PATTERN))
+#define pattern_tile(FLOOR, Y, X) (cave_have_flag_bold((FLOOR), (Y), (X), FF_PATTERN))
 
 /*
  * Does the grid stop disintegration?

@@ -373,7 +373,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 			if (distance(y1, x1, y, x)>2) continue;
 
 			/* ...nor on the Pattern */
-			if (pattern_tile(y, x)) continue;
+			if (pattern_tile(current_floor_ptr, y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
 			if (cave_empty_bold(current_floor_ptr, y, x) && projectable(y, x, y1, x1)) return (TRUE);

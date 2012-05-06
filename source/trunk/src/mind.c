@@ -1684,7 +1684,7 @@ msg_print("その方向にはモンスターはいません。");
 			cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
 
 			if (in_bounds(current_floor_ptr, ny, nx) && cave_empty_bold(current_floor_ptr, ny, nx) &&
-			    !(c_ptr->info & CAVE_OBJECT) && !pattern_tile(ny, nx))
+			    !(c_ptr->info & CAVE_OBJECT) && !pattern_tile(current_floor_ptr, ny, nx))
 			{
 				ty = ny;
 				tx = nx;

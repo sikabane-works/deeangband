@@ -149,7 +149,7 @@ static bool alloc_stairs_aux(floor_type *floor_ptr, int y, int x, int walls)
 
 	/* Require "naked" floor grid */
 	if (!is_floor_grid(c_ptr)) return FALSE;
-	if (pattern_tile(y, x)) return FALSE;
+	if (pattern_tile(floor_ptr, y, x)) return FALSE;
 	if (c_ptr->object_idx || c_ptr->creature_idx) return FALSE;
 
 	/* Require a certain number of adjacent walls */

@@ -822,7 +822,7 @@ static void wreck_the_pattern(creature_type *cr_ptr)
 	{
 		scatter(current_floor_ptr, &r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
-		if (pattern_tile(r_y, r_x) &&
+		if (pattern_tile(current_floor_ptr, r_y, r_x) &&
 		    (f_info[current_floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
 			cave_set_feat(current_floor_ptr, r_y, r_x, feat_pattern_corrupted);
@@ -838,7 +838,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 {
 	int pattern_type;
 
-	if (!pattern_tile(cr_ptr->fy, cr_ptr->fx)) return FALSE;
+	if (!pattern_tile(current_floor_ptr, cr_ptr->fy, cr_ptr->fx)) return FALSE;
 
 	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
 	    (cr_ptr->cut > 0) && one_in_(10))

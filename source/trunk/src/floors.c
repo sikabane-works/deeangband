@@ -285,7 +285,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		if (!cave_empty_bold(floor_ptr, ny, nx)) continue; // Require "empty" floor space
 		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue; // Hack -- no teleport onto glyph of warding
 		if (is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
-		if (pattern_tile(ny, nx)) continue; // ...nor onto the Pattern
+		if (pattern_tile(floor_ptr, ny, nx)) continue; // ...nor onto the Pattern
 
 		/*** It's a good place ***/
 

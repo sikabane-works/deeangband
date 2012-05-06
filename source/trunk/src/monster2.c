@@ -3991,7 +3991,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (!(mode & PM_IGNORE_TERRAIN))
 	{
 		/* Not on the Pattern */
-		if (pattern_tile(y, x)) return max_creature_idx;
+		if (pattern_tile(floor_ptr, y, x)) return max_creature_idx;
 
 		/* Require empty space (if not ghostly) */
 		if (!species_can_enter(y, x, r_ptr, 0)){
@@ -4419,7 +4419,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 				if (!cave_empty_bold2(current_floor_ptr, ny, nx)) continue;
 
 				/* ... nor on the Pattern */
-				if (pattern_tile(ny, nx)) continue;
+				if (pattern_tile(current_floor_ptr, ny, nx)) continue;
 			}
 
 			i = distance(y, x, ny, nx);

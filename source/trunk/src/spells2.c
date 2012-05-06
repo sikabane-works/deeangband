@@ -5646,7 +5646,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							if (is_explosive_rune_grid(&current_floor_ptr->cave[y][x])) continue;
 
 							/* ... nor on the Pattern */
-							if (pattern_tile(y, x)) continue;
+							if (pattern_tile(current_floor_ptr, y, x)) continue;
 
 							/* Important -- Skip "quake" grids */
 							if (map[16+y-cy][16+x-cx]) continue;
