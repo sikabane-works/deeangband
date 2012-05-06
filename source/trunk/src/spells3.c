@@ -2041,10 +2041,11 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	return TRUE;
 }
 
-bool place_mirror(creature_type *cr_ptr)
+bool place_mirror(creature_type *caster_ptr)
 {
-	/* XXX XXX XXX */
-	if (!cave_clean_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx))
+	floor_type *floor_ptr = caster_ptr->floor_id ? &floor_list[caster_ptr->floor_id] : current_floor_ptr;
+
+	if (!cave_clean_bold(floor_ptr, caster_ptr->fy, caster_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2055,20 +2056,14 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 		return FALSE;
 	}
 
-	/* Create a mirror */
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_mirror;
+	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info |= CAVE_OBJECT; // Create a mirror
+	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].mimic = feat_mirror;
+	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info |= CAVE_GLOW; // Turn on the light
 
-	/* Turn on the light */
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_GLOW;
+	note_spot(caster_ptr->fy, caster_ptr->fx); // Notice
+	lite_spot(caster_ptr->fy, caster_ptr->fx); // Redraw
 
-	/* Notice */
-	note_spot(cr_ptr->fy, cr_ptr->fx);
-
-	/* Redraw */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
-
-	update_local_illumination(cr_ptr->fy, cr_ptr->fx);
+	update_local_illumination(caster_ptr->fy, caster_ptr->fx);
 
 	return TRUE;
 }
