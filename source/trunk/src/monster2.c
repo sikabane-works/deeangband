@@ -4853,7 +4853,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		}
 		else
 		{
-			if (!cave_empty_bold(y, x)) continue;
+			if (!cave_empty_bold(floor_ptr, y, x)) continue;
 		}
 
 		/* Accept far away grids */

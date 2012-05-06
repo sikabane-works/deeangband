@@ -376,7 +376,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 			if (pattern_tile(y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
-			if (cave_empty_bold(y, x) && projectable(y, x, y1, x1)) return (TRUE);
+			if (cave_empty_bold(current_floor_ptr, y, x) && projectable(y, x, y1, x1)) return (TRUE);
 		}
 	}
 
@@ -4135,17 +4135,17 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 				for (k = 0; k < 30; k++)
 				{
-					if (!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(cy, cx))
+					if (!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(current_floor_ptr, cy, cx))
 					{
 						int j;
 						for (j = 100; j > 0; j--)
 						{
 							scatter(current_floor_ptr, &cy, &cx, y, x, 2, 0);
-							if (cave_empty_bold(cy, cx)) break;
+							if (cave_empty_bold(current_floor_ptr, cy, cx)) break;
 						}
 						if (!j) break;
 					}
-					if (!cave_empty_bold(cy, cx)) continue;
+					if (!cave_empty_bold(current_floor_ptr, cy, cx)) continue;
 
 					if (summon_named_creature(caster_ptr, current_floor_ptr, cy, cx, MON_NAZGUL, mode))
 					{

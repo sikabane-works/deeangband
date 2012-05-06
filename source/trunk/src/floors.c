@@ -291,7 +291,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		if (!in_bounds(floor_ptr, ny, nx)) continue;
 
 		/* Require "empty" floor space */
-		if (!cave_empty_bold(ny, nx)) continue;
+		if (!cave_empty_bold(floor_ptr, ny, nx)) continue;
 
 		/* Hack -- no teleport onto glyph of warding */
 		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue;

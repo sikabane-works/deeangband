@@ -528,7 +528,7 @@ static void chest_death(bool scatter, int y, int x, s16b object_idx)
 				x = randint0(MAX_WID);
 
 				/* Must be an empty floor. */
-				if (!cave_empty_bold(y, x)) continue;
+				if (!cave_empty_bold(current_floor_ptr, y, x)) continue;
 
 				/* Place the object there. */
 				drop_near(q_ptr, -1, y, x);
@@ -3767,7 +3767,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							if (!player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by monsters */
-							if (!cave_empty_bold(ny, nx)) break;
+							if (!cave_empty_bold(current_floor_ptr, ny, nx)) break;
 
 							current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
 							current_floor_ptr->cave[oy][ox].creature_idx = 0;
