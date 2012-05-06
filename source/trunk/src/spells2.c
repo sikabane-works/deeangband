@@ -7483,7 +7483,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 
 	if (in_bounds(current_floor_ptr, ty, tx)) tm_idx = current_floor_ptr->cave[ty][tx].creature_idx;
 
-	path_n = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	path_n = project_path(path_g, project_length, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
 
 	/* No need to move */

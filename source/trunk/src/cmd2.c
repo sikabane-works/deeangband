@@ -3367,7 +3367,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, project_length, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
 	project_length = 0; /* reset to default */
 

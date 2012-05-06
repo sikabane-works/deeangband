@@ -3019,7 +3019,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				stair_creation(caster_ptr, current_floor_ptr);
+				stair_creation(caster_ptr, floor_ptr);
 			}
 		}
 		break;
@@ -3201,13 +3201,13 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					y = caster_ptr->fy + ddy_ddd[dir];
 					x = caster_ptr->fx + ddx_ddd[dir];
-					c_ptr = &current_floor_ptr->cave[y][x];
+					c_ptr = &floor_ptr->cave[y][x];
 
 					/* Get the monster */
 					m_ptr = &creature_list[c_ptr->creature_idx];
 
 					/* Hack -- attack monsters */
-					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)))
+					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						weapon_attack(caster_ptr, y, x, 0);
 				}
 			}
@@ -3303,7 +3303,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if (cast)
 			{
 				fire_ball(caster_ptr, GF_LITE, 0, dam, rad);
-				wiz_lite(current_floor_ptr, caster_ptr, FALSE);
+				wiz_lite(floor_ptr, caster_ptr, FALSE);
 
 				if (has_cf_creature(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
 				{

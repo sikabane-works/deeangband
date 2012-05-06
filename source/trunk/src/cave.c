@@ -1746,7 +1746,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), current_floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4909,7 +4909,7 @@ bool projectable(int y1, int x1, int y2, int x2)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, (project_length ? project_length : MAX_RANGE), y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, (project_length ? project_length : MAX_RANGE), current_floor_ptr, y1, x1, y2, x2, 0);
 
 	/* Identical grid */
 	if (!grid_n) return TRUE;

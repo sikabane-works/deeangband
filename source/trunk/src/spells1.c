@@ -268,7 +268,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
  */
-int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
+int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg)
 {
 	int y, x;
 
@@ -366,26 +366,26 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
+				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
+				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(current_floor_ptr, y, x)) break;
+			if (!in_bounds(floor_ptr, y, x)) break;
 
 			/* Slant */
 			if (m)
@@ -454,26 +454,26 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
+				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
+				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(current_floor_ptr, y, x)) break;
+			if (!in_bounds(floor_ptr, y, x)) break;
 
 			/* Slant */
 			if (m)
@@ -524,26 +524,26 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(current_floor_ptr, y, x)) break;
+				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
 			else if (!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) break;
+				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial monsters/players */
 			if (flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(current_floor_ptr, y, x))
+				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(current_floor_ptr, y, x)) break;
+			if (!in_bounds(floor_ptr, y, x)) break;
 
 			/* Advance (Y) */
 			y += sy;
@@ -7993,7 +7993,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	/* Calculate the projection path */
 
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), y1, x1, y2, x2, flg);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), current_floor_ptr, y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
 	if(caster_ptr) handle_stuff();
@@ -8088,7 +8088,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				remove_mirror(player_ptr, y,x);
 				next_mirror( &oy,&ox,y,x );
 
-				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE), y, x, oy, ox, flg);
+				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
@@ -8236,14 +8236,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 				path_n = i;
 				second_step =i+1;
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y  , x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y  , x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y-1, x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y-1, x  , flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y-1, x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y  , x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y  , x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y+1, x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y+1, x  , flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), current_floor_ptr, y, x, y+1, x+1, flg);
 			}
 		}
 		for( i = 0; i < path_n ; i++ )
