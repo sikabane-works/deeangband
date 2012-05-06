@@ -7347,7 +7347,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 {
 	int             i;
 	FILE            *fff;
-	creature_type    *m_ptr;
+	creature_type    *pet_ptr;
 	char            pet_name[80];
 	int             t_friends = 0;
 	int             show_upkeep = 0;
@@ -7369,18 +7369,18 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	/* Process the monsters (backwards) */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		/* Access the monster */
-		m_ptr = &creature_list[i];
+		pet_ptr = &creature_list[i]; // Access the monster
+		if(!is_in_this_floor(pet_ptr)) continue;
 
 		/* Ignore "dead" monsters */
-		if (!m_ptr->species_idx) continue;
+		if (!pet_ptr->species_idx) continue;
 
 		/* Calculate "upkeep" for pets */
-		if (is_pet(player_ptr, m_ptr))
+		if (is_pet(player_ptr, pet_ptr))
 		{
 			t_friends++;
-			creature_desc(pet_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-			fprintf(fff, "%s (%s)\n", pet_name, look_mon_desc(m_ptr, 0x00));
+			creature_desc(pet_name, pet_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			fprintf(fff, "%s (%s)\n", pet_name, look_mon_desc(pet_ptr, 0x00));
 		}
 	}
 
