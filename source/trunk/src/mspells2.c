@@ -103,7 +103,7 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		if (flg & PROJECT_DISI)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (cave_stop_disintegration(ny, nx)) break;
+			if (cave_stop_disintegration(current_floor_ptr, ny, nx)) break;
 		}
 		else if (flg & PROJECT_LOS)
 		{

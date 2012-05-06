@@ -366,7 +366,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
@@ -454,7 +454,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
@@ -524,7 +524,7 @@ int project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 
 			if (flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(y, x)) break;
+				if ((n > 0) && cave_stop_disintegration(current_floor_ptr, y, x)) break;
 			}
 			else if (flg & (PROJECT_LOS))
 			{
@@ -7436,7 +7436,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if (cave_stop_disintegration(ty, x1)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -7445,7 +7445,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if (cave_stop_disintegration(ty, x1)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -7461,7 +7461,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if (cave_stop_disintegration(y1, tx)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -7470,7 +7470,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if (cave_stop_disintegration(y1, tx)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -7489,7 +7489,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 	{
 		if (ay == 2)
 		{
-			if (!cave_stop_disintegration(y1 + sy, x1)) return (TRUE);
+			if (!cave_stop_disintegration(current_floor_ptr, y1 + sy, x1)) return (TRUE);
 		}
 	}
 
@@ -7498,7 +7498,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 	{
 		if (ax == 2)
 		{
-			if (!cave_stop_disintegration(y1, x1 + sx)) return (TRUE);
+			if (!cave_stop_disintegration(current_floor_ptr, y1, x1 + sx)) return (TRUE);
 		}
 	}
 
@@ -7534,7 +7534,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if (cave_stop_disintegration(ty, tx)) return (FALSE);
+			if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
 
 			qy += m;
 
@@ -7545,7 +7545,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 			else if (qy > f2)
 			{
 				ty += sy;
-				if (cave_stop_disintegration(ty, tx)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
 				qy -= f1;
 				tx += sx;
 			}
@@ -7581,7 +7581,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if (cave_stop_disintegration(ty, tx)) return (FALSE);
+			if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
 
 			qx += m;
 
@@ -7592,7 +7592,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 			else if (qx > f2)
 			{
 				tx += sx;
-				if (cave_stop_disintegration(ty, tx)) return (FALSE);
+				if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
 				qx -= f1;
 				ty += sy;
 			}
@@ -8283,7 +8283,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		if (flg & PROJECT_DISI)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (cave_stop_disintegration(ny, nx) && (rad > 0)) break;
+			if (cave_stop_disintegration(current_floor_ptr, ny, nx) && (rad > 0)) break;
 		}
 		else if (flg & PROJECT_LOS)
 		{

@@ -4111,10 +4111,10 @@
 /*
  * Does the grid stop disintegration?
  */
-#define cave_stop_disintegration(Y,X) \
-	(!cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PROJECT) && \
-	 (!cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_HURT_DISI) || \
-	  cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PERMANENT)))
+#define cave_stop_disintegration(FLOOR, Y, X) \
+	(!cave_have_flag_bold((FLOOR), (Y), (X), FF_PROJECT) && \
+	 (!cave_have_flag_bold((FLOOR), (Y), (X), FF_HURT_DISI) || \
+	  cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT)))
 
 
 /*

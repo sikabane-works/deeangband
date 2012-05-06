@@ -1015,8 +1015,8 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 		if (count < 0) continue;
 
 		/* Cannot penetrate perm walls */
-		if (!in_bounds(current_floor_ptr, y,x) ||
-		    cave_stop_disintegration(y,x) ||
+		if (!in_bounds(current_floor_ptr, y, x) ||
+		    cave_stop_disintegration(current_floor_ptr, y, x) ||
 		    !in_disintegration_range(ty, tx, y, x))
 			continue;
 
