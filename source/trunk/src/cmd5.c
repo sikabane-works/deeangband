@@ -1431,7 +1431,7 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 	if (old_friend_align != friend_align) player_ptr->creature_update |= (CRU_BONUS);
 }
 
-int calculate_upkeep_servant(creature_type *cr_ptr)
+int calculate_upkeep_servant(creature_type *master_ptr)
 {
 	s32b old_friend_align = friend_align;
 	int m_idx;
@@ -1443,42 +1443,42 @@ int calculate_upkeep_servant(creature_type *cr_ptr)
 
 	for (m_idx = creature_max - 1; m_idx >=1; m_idx--)
 	{
-		creature_type *m_ptr;
+		creature_type *pet_ptr;
 		
-		m_ptr = &creature_list[m_idx];
-		if (!m_ptr->species_idx) continue;
+		pet_ptr = &creature_list[m_idx];
+		if (!pet_ptr->species_idx) continue;
 
-		if (is_pet(player_ptr, m_ptr))
+		if (is_pet(player_ptr, pet_ptr))
 		{
 			total_friends++;
-			if (is_unique_creature(cr_ptr))
+			if (is_unique_creature(master_ptr))
 			{
-				if (cr_ptr->cls_idx == CLASS_CAVALRY)
+				if (master_ptr->cls_idx == CLASS_CAVALRY)
 				{
-					if (cr_ptr->riding == m_idx)
-						total_friend_levels += (m_ptr->lev+5)*2;
-					else if (!have_a_unique && has_cf_creature(m_ptr, CF_RIDING))
-						total_friend_levels += (m_ptr->lev+5)*7/2;
+					if (master_ptr->riding == m_idx)
+						total_friend_levels += (pet_ptr->lev+5)*2;
+					else if (!have_a_unique && has_cf_creature(pet_ptr, CF_RIDING))
+						total_friend_levels += (pet_ptr->lev+5)*7/2;
 					else
-						total_friend_levels += (m_ptr->lev+5)*10;
+						total_friend_levels += (pet_ptr->lev+5)*10;
 					have_a_unique = TRUE;
 				}
 				else
-					total_friend_levels += (m_ptr->lev+5)*10;
+					total_friend_levels += (pet_ptr->lev+5)*10;
 			}
 			else
-				total_friend_levels += m_ptr->lev;
+				total_friend_levels += pet_ptr->lev;
 
 			/* Determine pet alignment */
-			if (is_enemy_of_evil_creature(m_ptr)) friend_align += m_ptr->lev;
-			if (is_enemy_of_good_creature(m_ptr)) friend_align -= m_ptr->lev;
+			if (is_enemy_of_evil_creature(pet_ptr)) friend_align += pet_ptr->lev;
+			if (is_enemy_of_good_creature(pet_ptr)) friend_align -= pet_ptr->lev;
 		}
 	}
-	if (old_friend_align != friend_align) cr_ptr->creature_update |= (CRU_BONUS);
+	if (old_friend_align != friend_align) master_ptr->creature_update |= (CRU_BONUS);
 	if (total_friends)
 	{
 		int upkeep_factor;
-		upkeep_factor = (total_friend_levels - (cr_ptr->lev * 80 / (classkill_info[cr_ptr->cls_idx].pet_upkeep_div)));
+		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (classkill_info[master_ptr->cls_idx].pet_upkeep_div)));
 		if (upkeep_factor < 0) upkeep_factor = 0;
 		if (upkeep_factor > 1000) upkeep_factor = 1000;
 		return upkeep_factor;
@@ -2091,7 +2091,7 @@ static void do_name_pet(creature_type *master_ptr)
 /*
  * Issue a pet command
  */
-void do_cmd_pet(creature_type *cr_ptr)
+void do_cmd_pet(creature_type *master_ptr)
 {
 	int			i = 0;
 	int			num;
@@ -2102,7 +2102,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	char			choice;
 	char			out_val[160];
 	int			pet_ctr;
-	creature_type	*m_ptr;
+	creature_type	*pet_ptr;
 
 	int mode = 0;
 
@@ -2123,10 +2123,10 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 #ifdef JP
 	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "何か奇妙な物" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
+		(pet_t_m_idx ? (master_ptr->image ? "何か奇妙な物" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
 #else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "something strange" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
+		(pet_t_m_idx ? (master_ptr->image ? "something strange" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
 #endif
 	power_desc[num] = target_buf;
 
@@ -2138,7 +2138,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	power_desc[num] = "stay close";
 #endif
 
-	if (cr_ptr->pet_follow_distance == PET_CLOSE_DIST) mode = num;
+	if (master_ptr->pet_follow_distance == PET_CLOSE_DIST) mode = num;
 	powers[num++] = PET_STAY_CLOSE;
 
 #ifdef JP
@@ -2147,7 +2147,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	power_desc[num] = "follow me";
 #endif
 
-	if (cr_ptr->pet_follow_distance == PET_FOLLOW_DIST) mode = num;
+	if (master_ptr->pet_follow_distance == PET_FOLLOW_DIST) mode = num;
 	powers[num++] = PET_FOLLOW_ME;
 
 #ifdef JP
@@ -2156,7 +2156,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	power_desc[num] = "seek and destroy";
 #endif
 
-	if (cr_ptr->pet_follow_distance == PET_DESTROY_DIST) mode = num;
+	if (master_ptr->pet_follow_distance == PET_DESTROY_DIST) mode = num;
 	powers[num++] = PET_SEEK_AND_DESTROY;
 
 #ifdef JP
@@ -2165,7 +2165,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	power_desc[num] = "give me space";
 #endif
 
-	if (cr_ptr->pet_follow_distance == PET_SPACE_DIST) mode = num;
+	if (master_ptr->pet_follow_distance == PET_SPACE_DIST) mode = num;
 	powers[num++] = PET_ALLOW_SPACE;
 
 #ifdef JP
@@ -2174,10 +2174,10 @@ void do_cmd_pet(creature_type *cr_ptr)
 	power_desc[num] = "stay away";
 #endif
 
-	if (cr_ptr->pet_follow_distance == PET_AWAY_DIST) mode = num;
+	if (master_ptr->pet_follow_distance == PET_AWAY_DIST) mode = num;
 	powers[num++] = PET_STAY_AWAY;
 
-	if (cr_ptr->pet_extra_flags & PF_OPEN_DOORS)
+	if (master_ptr->pet_extra_flags & PF_OPEN_DOORS)
 	{
 #ifdef JP
 		power_desc[num] = "ドアを開ける (現在:ON)";
@@ -2195,7 +2195,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_OPEN_DOORS;
 
-	if (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
+	if (master_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
 	{
 #ifdef JP
 		power_desc[num] = "アイテムを拾う (現在:ON)";
@@ -2213,7 +2213,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_TAKE_ITEMS;
 
-	if (cr_ptr->pet_extra_flags & PF_TELEPORT)
+	if (master_ptr->pet_extra_flags & PF_TELEPORT)
 	{
 #ifdef JP
 		power_desc[num] = "テレポート系魔法を使う (現在:ON)";
@@ -2231,7 +2231,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_TELEPORT;
 
-	if (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL)
+	if (master_ptr->pet_extra_flags & PF_ATTACK_SPELL)
 	{
 #ifdef JP
 		power_desc[num] = "攻撃魔法を使う (現在:ON)";
@@ -2249,7 +2249,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_ATTACK_SPELL;
 
-	if (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL)
+	if (master_ptr->pet_extra_flags & PF_SUMMON_SPELL)
 	{
 #ifdef JP
 		power_desc[num] = "召喚魔法を使う (現在:ON)";
@@ -2267,7 +2267,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_SUMMON_SPELL;
 
-	if (cr_ptr->pet_extra_flags & PF_BALL_SPELL)
+	if (master_ptr->pet_extra_flags & PF_BALL_SPELL)
 	{
 #ifdef JP
 		power_desc[num] = "プレイヤーを巻き込む範囲魔法を使う (現在:ON)";
@@ -2285,7 +2285,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 	}
 	powers[num++] = PET_BALL_SPELL;
 
-	if (cr_ptr->riding)
+	if (master_ptr->riding)
 	{
 #ifdef JP
 		power_desc[num] = "ペットから降りる";
@@ -2311,14 +2311,14 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 	powers[num++] = PET_NAME;
 
-	if (cr_ptr->riding)
+	if (master_ptr->riding)
 	{
-		if ((cr_ptr->can_melee[0] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1))) ||
-		    (cr_ptr->can_melee[1] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))))
+		if ((master_ptr->can_melee[0] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_LARM) &&
+		     object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))) ||
+		    (master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
+			 object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 2))))
 		{
-			if (cr_ptr->pet_extra_flags & PF_RYOUTE)
+			if (master_ptr->pet_extra_flags & PF_RYOUTE)
 			{
 #ifdef JP
 				power_desc[num] = "武器を片手で持つ";
@@ -2339,14 +2339,14 @@ void do_cmd_pet(creature_type *cr_ptr)
 		}
 		else
 		{
-			switch (cr_ptr->cls_idx)
+			switch (master_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
+				if (empty_hands(master_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
-					if (cr_ptr->pet_extra_flags & PF_RYOUTE)
+					if (master_ptr->pet_extra_flags & PF_RYOUTE)
 					{
 #ifdef JP
 						power_desc[num] = "片手で格闘する";
@@ -2365,9 +2365,9 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 					powers[num++] = PET_RYOUTE;
 				}
-				else if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+				else if ((empty_hands(master_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(master_ptr, INVEN_SLOT_HAND))
 				{
-					if (cr_ptr->pet_extra_flags & PF_RYOUTE)
+					if (master_ptr->pet_extra_flags & PF_RYOUTE)
 					{
 #ifdef JP
 						power_desc[num] = "格闘を行わない";
@@ -2599,21 +2599,21 @@ void do_cmd_pet(creature_type *cr_ptr)
 #endif
 				break;
 			}
-			do_cmd_pet_dismiss(cr_ptr);
-			(void)calculate_upkeep_servant(cr_ptr);
+			do_cmd_pet_dismiss(master_ptr);
+			(void)calculate_upkeep_servant(master_ptr);
 			break;
 		}
 		case PET_TARGET:
 		{
 			project_length = -1;
-			if (!target_set(cr_ptr, TARGET_KILL)) pet_t_m_idx = 0;
+			if (!target_set(master_ptr, TARGET_KILL)) pet_t_m_idx = 0;
 			else
 			{
 				cave_type *c_ptr = &current_floor_ptr->cave[target_row][target_col];
 				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].ml))
 				{
 					pet_t_m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
-					cr_ptr->pet_follow_distance = PET_DESTROY_DIST;
+					master_ptr->pet_follow_distance = PET_DESTROY_DIST;
 				}
 				else pet_t_m_idx = 0;
 			}
@@ -2624,109 +2624,109 @@ void do_cmd_pet(creature_type *cr_ptr)
 		/* Call pets */
 		case PET_STAY_CLOSE:
 		{
-			cr_ptr->pet_follow_distance = PET_CLOSE_DIST;
+			master_ptr->pet_follow_distance = PET_CLOSE_DIST;
 			pet_t_m_idx = 0;
 			break;
 		}
 		/* "Follow Me" */
 		case PET_FOLLOW_ME:
 		{
-			cr_ptr->pet_follow_distance = PET_FOLLOW_DIST;
+			master_ptr->pet_follow_distance = PET_FOLLOW_DIST;
 			pet_t_m_idx = 0;
 			break;
 		}
 		/* "Seek and destoy" */
 		case PET_SEEK_AND_DESTROY:
 		{
-			cr_ptr->pet_follow_distance = PET_DESTROY_DIST;
+			master_ptr->pet_follow_distance = PET_DESTROY_DIST;
 			break;
 		}
 		/* "Give me space" */
 		case PET_ALLOW_SPACE:
 		{
-			cr_ptr->pet_follow_distance = PET_SPACE_DIST;
+			master_ptr->pet_follow_distance = PET_SPACE_DIST;
 			break;
 		}
 		/* "Stay away" */
 		case PET_STAY_AWAY:
 		{
-			cr_ptr->pet_follow_distance = PET_AWAY_DIST;
+			master_ptr->pet_follow_distance = PET_AWAY_DIST;
 			break;
 		}
 		/* flag - allow pets to open doors */
 		case PET_OPEN_DOORS:
 		{
-			if (cr_ptr->pet_extra_flags & PF_OPEN_DOORS) cr_ptr->pet_extra_flags &= ~(PF_OPEN_DOORS);
-			else cr_ptr->pet_extra_flags |= (PF_OPEN_DOORS);
+			if (master_ptr->pet_extra_flags & PF_OPEN_DOORS) master_ptr->pet_extra_flags &= ~(PF_OPEN_DOORS);
+			else master_ptr->pet_extra_flags |= (PF_OPEN_DOORS);
 			break;
 		}
 		/* flag - allow pets to pickup items */
 		case PET_TAKE_ITEMS:
 		{
-			if (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
+			if (master_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
 			{
-				cr_ptr->pet_extra_flags &= ~(PF_PICKUP_ITEMS);
+				master_ptr->pet_extra_flags &= ~(PF_PICKUP_ITEMS);
 				for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 				{
 					/* Access the monster */
-					m_ptr = &creature_list[pet_ctr];
+					pet_ptr = &creature_list[pet_ctr];
 
-					if (is_pet(player_ptr, m_ptr))
+					if (is_pet(player_ptr, pet_ptr))
 					{
-						creature_drop_carried_objects(m_ptr);
+						creature_drop_carried_objects(pet_ptr);
 					}
 				}
 			}
-			else cr_ptr->pet_extra_flags |= (PF_PICKUP_ITEMS);
+			else master_ptr->pet_extra_flags |= (PF_PICKUP_ITEMS);
 
 			break;
 		}
 		/* flag - allow pets to teleport */
 		case PET_TELEPORT:
 		{
-			if (cr_ptr->pet_extra_flags & PF_TELEPORT) cr_ptr->pet_extra_flags &= ~(PF_TELEPORT);
-			else cr_ptr->pet_extra_flags |= (PF_TELEPORT);
+			if (master_ptr->pet_extra_flags & PF_TELEPORT) master_ptr->pet_extra_flags &= ~(PF_TELEPORT);
+			else master_ptr->pet_extra_flags |= (PF_TELEPORT);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
 		case PET_ATTACK_SPELL:
 		{
-			if (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL) cr_ptr->pet_extra_flags &= ~(PF_ATTACK_SPELL);
-			else cr_ptr->pet_extra_flags |= (PF_ATTACK_SPELL);
+			if (master_ptr->pet_extra_flags & PF_ATTACK_SPELL) master_ptr->pet_extra_flags &= ~(PF_ATTACK_SPELL);
+			else master_ptr->pet_extra_flags |= (PF_ATTACK_SPELL);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
 		case PET_SUMMON_SPELL:
 		{
-			if (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL) cr_ptr->pet_extra_flags &= ~(PF_SUMMON_SPELL);
-			else cr_ptr->pet_extra_flags |= (PF_SUMMON_SPELL);
+			if (master_ptr->pet_extra_flags & PF_SUMMON_SPELL) master_ptr->pet_extra_flags &= ~(PF_SUMMON_SPELL);
+			else master_ptr->pet_extra_flags |= (PF_SUMMON_SPELL);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
 		case PET_BALL_SPELL:
 		{
-			if (cr_ptr->pet_extra_flags & PF_BALL_SPELL) cr_ptr->pet_extra_flags &= ~(PF_BALL_SPELL);
-			else cr_ptr->pet_extra_flags |= (PF_BALL_SPELL);
+			if (master_ptr->pet_extra_flags & PF_BALL_SPELL) master_ptr->pet_extra_flags &= ~(PF_BALL_SPELL);
+			else master_ptr->pet_extra_flags |= (PF_BALL_SPELL);
 			break;
 		}
 
 		case PET_RIDING:
 		{
-			(void)do_riding(cr_ptr, FALSE);
+			(void)do_riding(master_ptr, FALSE);
 			break;
 		}
 
 		case PET_NAME:
 		{
-			do_name_pet(cr_ptr);
+			do_name_pet(master_ptr);
 			break;
 		}
 
 		case PET_RYOUTE:
 		{
-			if (cr_ptr->pet_extra_flags & PF_RYOUTE) cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-			else cr_ptr->pet_extra_flags |= (PF_RYOUTE);
-			cr_ptr->creature_update |= (CRU_BONUS);
+			if (master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+			else master_ptr->pet_extra_flags |= (PF_RYOUTE);
+			master_ptr->creature_update |= (CRU_BONUS);
 			handle_stuff();
 			break;
 		}
