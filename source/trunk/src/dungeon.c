@@ -790,16 +790,12 @@ static void pattern_teleport(creature_type *cr_ptr)
 }
 
 
-static void wreck_the_pattern(creature_type *cr_ptr)
+static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int to_ruin = 0, r_y, r_x;
-	int pattern_type = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	int pattern_type = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
-	if (pattern_type == PATTERN_TILE_WRECKED)
-	{
-		/* Ruined already */
-		return;
-	}
+	if (pattern_type == PATTERN_TILE_WRECKED) return; // Ruined already
 
 #ifdef JP
 	msg_print("パターンを血で汚してしまった！");
@@ -809,27 +805,27 @@ static void wreck_the_pattern(creature_type *cr_ptr)
 	msg_print("Something terrible happens!");
 #endif
 
-	if (!IS_INVULN(cr_ptr))
+	if (!IS_INVULN(creature_ptr))
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", NULL, -1);
 #endif
 
 	to_ruin = randint1(45) + 35;
 
 	while (to_ruin--)
 	{
-		scatter(current_floor_ptr, &r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+		scatter(floor_ptr, &r_y, &r_x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-		if (pattern_tile(current_floor_ptr, r_y, r_x) &&
-		    (f_info[current_floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
+		if (pattern_tile(floor_ptr, r_y, r_x) &&
+		    (f_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
-			cave_set_feat(current_floor_ptr, r_y, r_x, feat_pattern_corrupted);
+			cave_set_feat(floor_ptr, r_y, r_x, feat_pattern_corrupted);
 		}
 	}
 
-	cave_set_feat(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, feat_pattern_corrupted);
+	cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_corrupted);
 }
 
 
@@ -843,7 +839,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
 	    (cr_ptr->cut > 0) && one_in_(10))
 	{
-		wreck_the_pattern(cr_ptr);
+		wreck_the_pattern(current_floor_ptr, cr_ptr);
 	}
 
 	pattern_type = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
