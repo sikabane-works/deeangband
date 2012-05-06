@@ -641,7 +641,7 @@ msg_print("クエストを達成した！");
 	if (create_stairs)
 	{
 		/* Stagger around */
-		while (cave_perma_bold(y, x) || current_floor_ptr->cave[y][x].object_idx || (current_floor_ptr->cave[y][x].info & CAVE_OBJECT) )
+		while (cave_perma_bold(current_floor_ptr, y, x) || current_floor_ptr->cave[y][x].object_idx || (current_floor_ptr->cave[y][x].info & CAVE_OBJECT) )
 		{
 			/* Pick a location */
 			scatter(current_floor_ptr, &ny, &nx, y, x, 1, 0);

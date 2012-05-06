@@ -4087,8 +4087,8 @@
  *
  * Line 1 -- permanent flag
  */
-#define cave_perma_bold(Y,X) \
-	(cave_have_flag_bold(current_floor_ptr, (Y), (X), FF_PERMANENT))
+#define cave_perma_bold(FLOOR, Y, X) \
+	(cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT))
 
 
 /*
@@ -4130,7 +4130,7 @@
  *
  * Note the use of comparison to zero to force a "boolean" result
  */
-#define player_has_los_bold(Y,X) \
+#define player_has_los_bold(Y, X) \
     (((current_floor_ptr->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
 
 
