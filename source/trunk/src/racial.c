@@ -29,7 +29,7 @@ static bool item_tester_hook_convertible(creature_type *cr_ptr, object_type *o_p
  * do_cmd_cast calls this function if the player's class
  * is 'archer'.
  */
-static bool do_cmd_archer(creature_type *cr_ptr)
+static bool do_cmd_archer(creature_type *creature_ptr)
 {
 	int ext=0;
 	char ch;
@@ -40,15 +40,17 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 	char com[80];
 	char o_name[MAX_NLEN];
 
+	floor_type *floor_ptr = creature_ptr->floor_id ? &floor_list[creature_ptr->floor_id] : current_floor_ptr;
+
 	q_ptr = &forge;
 
-	if(cr_ptr->lev >= 20)
+	if(creature_ptr->lev >= 20)
 #ifdef JP
 		sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
 #else
 		sprintf(com, "Create [S]hots, Create [A]rrow or Create [B]olt ?");
 #endif
-	else if(cr_ptr->lev >= 10)
+	else if(creature_ptr->lev >= 10)
 #ifdef JP
 		sprintf(com, "[S]弾, [A]矢:");
 #else
@@ -61,7 +63,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		sprintf(com, "Create [S]hots ?");
 #endif
 
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱してる！");
@@ -71,7 +73,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		return FALSE;
 	}
 
-	if (cr_ptr->blind)
+	if (creature_ptr->blind)
 	{
 #ifdef JP
 		msg_print("目が見えない！");
@@ -92,12 +94,12 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 			ext = 1;
 			break;
 		}
-		if ((ch == 'A' || ch == 'a')&&(cr_ptr->lev >= 10))
+		if ((ch == 'A' || ch == 'a')&&(creature_ptr->lev >= 10))
 		{
 			ext = 2;
 			break;
 		}
-		if ((ch == 'B' || ch == 'b')&&(cr_ptr->lev >= 20))
+		if ((ch == 'B' || ch == 'b')&&(creature_ptr->lev >= 20))
 		{
 			ext = 3;
 			break;
@@ -105,15 +107,16 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 	}
 
 	/**********Create shots*********/
+
 	if (ext == 1)
 	{
 		int x,y, dir;
 		cave_type *c_ptr;
 
-		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
-		c_ptr = &current_floor_ptr->cave[y][x];
+		if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
 		{
@@ -140,14 +143,14 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 			q_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
-			object_prep(q_ptr, lookup_kind(TV_SHOT, m_bonus(1, cr_ptr->lev) + 1), ITEM_FREE_SIZE);
+			object_prep(q_ptr, lookup_kind(TV_SHOT, m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(15,30);
 			object_aware(q_ptr);
 			object_known(q_ptr);
-			apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
+			apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 			q_ptr->discount = 99;
 
-			slot = inven_carry(cr_ptr, q_ptr);
+			slot = inven_carry(creature_ptr, q_ptr);
 
 			object_desc(o_name, q_ptr, 0);
 #ifdef JP
@@ -157,10 +160,10 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 #endif
 
 			/* Auto-inscription */
-			if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
+			if (slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
 
 			/* Destroy the wall */
-			cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
+			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 			update |= (PU_FLOW);
 		}
@@ -180,12 +183,12 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &cr_ptr->inventory[item];
+			q_ptr = &creature_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -198,11 +201,11 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_ARROW, m_bonus(1, cr_ptr->lev)+ 1), ITEM_FREE_SIZE);
+		object_prep(q_ptr, lookup_kind(TV_ARROW, m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(5, 10);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
+		apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
 		q_ptr->discount = 99;
 
@@ -215,21 +218,21 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		if (item >= 0)
 		{
-			inven_item_increase(cr_ptr, item, -1);
-			inven_item_describe(cr_ptr, item);
-			inven_item_optimize(cr_ptr, item);
+			inven_item_increase(creature_ptr, item, -1);
+			inven_item_describe(creature_ptr, item);
+			inven_item_optimize(creature_ptr, item);
 		}
 		else
 		{
 			floor_item_increase(0 - item, -1);
-			floor_item_describe(cr_ptr, 0 - item);
+			floor_item_describe(creature_ptr, 0 - item);
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(cr_ptr, q_ptr);
+		slot = inven_carry(creature_ptr, q_ptr);
 
 		/* Auto-inscription */
-		if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
+		if (slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
 	}
 	/**********Create bolts*********/
 	else if (ext == 3)
@@ -246,12 +249,12 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &cr_ptr->inventory[item];
+			q_ptr = &creature_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -264,11 +267,11 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_BOLT, m_bonus(1, cr_ptr->lev)+1), ITEM_FREE_SIZE);
+		object_prep(q_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(4, 8);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
+		apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
 		q_ptr->discount = 99;
 
@@ -281,21 +284,21 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		if (item >= 0)
 		{
-			inven_item_increase(cr_ptr, item, -1);
-			inven_item_describe(cr_ptr, item);
-			inven_item_optimize(cr_ptr, item);
+			inven_item_increase(creature_ptr, item, -1);
+			inven_item_describe(creature_ptr, item);
+			inven_item_optimize(creature_ptr, item);
 		}
 		else
 		{
 			floor_item_increase(0 - item, -1);
-			floor_item_describe(cr_ptr, 0 - item);
+			floor_item_describe(creature_ptr, 0 - item);
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(cr_ptr, q_ptr);
+		slot = inven_carry(creature_ptr, q_ptr);
 
 		/* Auto-inscription */
-		if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
+		if (slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
 	}
 	return TRUE;
 }
