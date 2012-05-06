@@ -3973,7 +3973,7 @@
    (((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
 // Determines if a map location is currently "on screen" -RAK-
-// Note that "panel_contains(Y,X)" always implies "in_bounds2(current_floor_ptr, Y,X)".
+// Note that "panel_contains(Y,X)" always implies "in_bounds2(FLOOR, Y, X)".
 #define panel_contains(Y,X) \
   (((Y) >= panel_row_min) && ((Y) <= panel_row_max) && \
    ((X) >= panel_col_min) && ((X) <= panel_col_max))
@@ -5231,11 +5231,11 @@ extern int PlayerUID;
 
 
 /* Is "teleport level" ineffective to this target? */
-#define TELE_LEVEL_IS_INEFF(USER, TARGET) \
+#define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \
 	(fight_arena_mode || gamble_arena_mode || \
-	 (inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || \
-	 (((TARGET) <= 0) && (quest_number(current_floor_ptr->floor_level) || (current_floor_ptr->floor_level >= dungeon_info[current_floor_ptr->dun_type].maxdepth)) && \
-	  (current_floor_ptr->floor_level >= 1) && ironman_downward))
+	 (inside_quest && !random_quest_number((FLOOR)->floor_level)) || \
+	 (((TARGET) <= 0) && (quest_number((FLOOR)->floor_level) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
+	  ((FLOOR)->floor_level >= 1) && ironman_downward))
 
 
 /*

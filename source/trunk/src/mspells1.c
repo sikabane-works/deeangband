@@ -1487,7 +1487,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(target_ptr, 0))
+		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(current_floor_ptr, target_ptr, 0))
 		{
 			//TODO f6 &= ~(RF6_TELE_LEVEL);
 		}

@@ -646,7 +646,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	}
 
 	/* No effect in some case */
-	if (TELE_LEVEL_IS_INEFF(cr_ptr, m_idx))
+	if (TELE_LEVEL_IS_INEFF(current_floor_ptr, cr_ptr, m_idx))
 	{
 #ifdef JP
 		if (see_m) msg_print("å¯â Ç™Ç»Ç©Ç¡ÇΩÅB");
