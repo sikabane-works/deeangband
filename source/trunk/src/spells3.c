@@ -1657,7 +1657,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
@@ -1672,7 +1672,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
@@ -1691,7 +1691,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
@@ -1706,7 +1706,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);

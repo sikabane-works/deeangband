@@ -947,14 +947,14 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level <= floor_ptr->floor_level - 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
-			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
+			feat_state(floor_ptr, feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level >= floor_ptr->floor_level + 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
-			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
+			feat_state(floor_ptr, feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 
 

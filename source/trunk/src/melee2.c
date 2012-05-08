@@ -2060,7 +2060,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			if (did_open_door || did_bash_door)
 			{
 				/* Break down the door */
-				if (did_bash_door && ((randint0(100) < 50) || (feat_state(c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
+				if (did_bash_door && ((randint0(100) < 50) || (feat_state(current_floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
 				{
 					cave_alter_feat(current_floor_ptr, ny, nx, FF_BASH);
 

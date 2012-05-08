@@ -4683,9 +4683,9 @@ int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
 		case CONVERT_TYPE_SOLID:
 			return feat_wall_solid;
 		case CONVERT_TYPE_STREAM1:
-			return dungeon_info[current_floor_ptr->dun_type].stream1;
+			return dungeon_info[floor_ptr->dun_type].stream1;
 		case CONVERT_TYPE_STREAM2:
-			return dungeon_info[current_floor_ptr->dun_type].stream2;
+			return dungeon_info[floor_ptr->dun_type].stream2;
 		default:
 			return newfeat;
 		}
@@ -4698,7 +4698,7 @@ int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
  * Take a feature, determine what that feature becomes
  * through applying the given action.
  */
-int feat_state(int feat, int action)
+int feat_state(floor_type *floor_ptr, int feat, int action)
 {
 	feature_type *f_ptr = &f_info[feat];
 	int i;
@@ -4724,7 +4724,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 	int oldfeat = floor_ptr->cave[y][x].feat;
 
 	/* Get the new feat */
-	int newfeat = feat_state(oldfeat, action);
+	int newfeat = feat_state(floor_ptr, oldfeat, action);
 
 	/* No change */
 	if (newfeat == oldfeat) return;

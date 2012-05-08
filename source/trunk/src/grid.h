@@ -163,7 +163,7 @@
 #define place_outer_noperm_bold(FLOOR, Y, X) \
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_outer]; \
-	if (permanent_wall(_f_ptr)) set_cave_feat(FLOOR, Y, X, feat_state(feat_wall_outer, FF_UNPERM)); \
+	if (permanent_wall(_f_ptr)) set_cave_feat(FLOOR, Y, X, feat_state(FLOOR, feat_wall_outer, FF_UNPERM)); \
 	else set_cave_feat(FLOOR, Y, X, feat_wall_outer); \
 	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(FLOOR, Y, X, (CAVE_OUTER | CAVE_VAULT)); \
@@ -173,7 +173,7 @@
 #define place_outer_noperm_grid(C) \
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_outer]; \
-	if (permanent_wall(_f_ptr)) (C)->feat = feat_state(feat_wall_outer, FF_UNPERM); \
+	if (permanent_wall(_f_ptr)) (C)->feat = feat_state(current_floor_ptr, feat_wall_outer, FF_UNPERM); \
 	else (C)->feat = feat_wall_outer; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= (CAVE_OUTER | CAVE_VAULT); \
@@ -216,7 +216,7 @@
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_solid]; \
 	if (((FLOOR)->cave[Y][X].info & CAVE_VAULT) && permanent_wall(_f_ptr)) \
-		set_cave_feat(FLOOR, Y, X, feat_state(feat_wall_solid, FF_UNPERM)); \
+		set_cave_feat(FLOOR, Y, X, feat_state((FLOOR), feat_wall_solid, FF_UNPERM)); \
 	else set_cave_feat(FLOOR, Y, X, feat_wall_solid); \
 	(FLOOR)->cave[Y][X].info &= ~(CAVE_MASK); \
 	add_cave_info(FLOOR, Y, X, CAVE_SOLID); \

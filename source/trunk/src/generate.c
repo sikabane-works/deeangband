@@ -262,7 +262,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			c_ptr->mimic = 0;
 
 			/* Clear previous contents, add stairs */
-			c_ptr->feat = (i < shaft_num) ? feat_state(feat, FF_SHAFT) : feat;
+			c_ptr->feat = (i < shaft_num) ? feat_state(floor_ptr, feat, FF_SHAFT) : feat;
 
 			/* No longer "FLOOR" */
 			c_ptr->info &= ~(CAVE_FLOOR);
@@ -572,7 +572,7 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 		/* Hack -- Decline boundary walls with known treasure  */
 		if ((have_flag(f_ptr->flags, FF_HAS_GOLD) || have_flag(f_ptr->flags, FF_HAS_ITEM)) &&
 		    !have_flag(f_ptr->flags, FF_SECRET))
-			c_ptr->feat = feat_state(c_ptr->feat, FF_ENSECRET);
+			c_ptr->feat = feat_state(current_floor_ptr, c_ptr->feat, FF_ENSECRET);
 
 		/* Set boundary mimic */
 		c_ptr->mimic = c_ptr->feat;

@@ -935,7 +935,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_i
  */
 static bool is_open(int feat)
 {
-	return have_flag(f_info[feat].flags, FF_CLOSE) && (feat != feat_state(feat, FF_CLOSE));
+	return have_flag(f_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
 }
 
 
@@ -1315,7 +1315,7 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 	/* Open door */
 	if (have_flag(f_info[old_feat].flags, FF_CLOSE))
 	{
-		s16b closed_feat = feat_state(old_feat, FF_CLOSE);
+		s16b closed_feat = feat_state(current_floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
 		if ((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
@@ -2282,7 +2282,7 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
-		if ((randint0(100) < 50) || (feat_state(c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
+		if ((randint0(100) < 50) || (feat_state(current_floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 		{
 			cave_alter_feat(current_floor_ptr, y, x, FF_BASH);
 		}
