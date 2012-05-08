@@ -4228,8 +4228,9 @@ static int scent_when = 0;
  * Whenever the age count loops, most of the scent trail is erased and 
  * the age of the remainder is recalculated.
  */
-void update_smell(creature_type *cr_ptr)
+void update_smell(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i, j;
 	int y, x;
 
@@ -4247,12 +4248,12 @@ void update_smell(creature_type *cr_ptr)
 	if (++scent_when == 254)
 	{
 		/* Scan the entire dungeon */
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			for (x = 0; x < current_floor_ptr->width; x++)
+			for (x = 0; x < floor_ptr->width; x++)
 			{
-				int w = current_floor_ptr->cave[y][x].when;
-				current_floor_ptr->cave[y][x].when = (w > 128) ? (w - 128) : 0;
+				int w = floor_ptr->cave[y][x].when;
+				floor_ptr->cave[y][x].when = (w > 128) ? (w - 128) : 0;
 			}
 		}
 
@@ -4269,13 +4270,13 @@ void update_smell(creature_type *cr_ptr)
 			cave_type *c_ptr;
 
 			/* Translate table to map grids */
-			y = i + cr_ptr->fy - 2;
-			x = j + cr_ptr->fx - 2;
+			y = i + creature_ptr->fy - 2;
+			x = j + creature_ptr->fx - 2;
 
 			/* Check Bounds */
-			if (!in_bounds(current_floor_ptr, y, x)) continue;
+			if (!in_bounds(floor_ptr, y, x)) continue;
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Walls, water, and lava cannot hold scent. */
 			if (!cave_have_flag_grid(c_ptr, FF_MOVE) && !is_closed_door(c_ptr->feat)) continue;
