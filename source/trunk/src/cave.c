@@ -385,19 +385,19 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 
 #ifdef COMPLEX_WALL_ILLUMINATION // COMPLEX_WALL_ILLUMINATION
 	// Check for "complex" illumination
-	if ((feat_supports_los(get_feat_mimic(&current_floor_ptr->cave[yy][xx])) &&
-	     (current_floor_ptr->cave[yy][xx].info & CAVE_GLOW)) ||
-	    (feat_supports_los(get_feat_mimic(&current_floor_ptr->cave[y][xx])) &&
-	     (current_floor_ptr->cave[y][xx].info & CAVE_GLOW)) ||
-	    (feat_supports_los(get_feat_mimic(&current_floor_ptr->cave[yy][x])) &&
-	     (current_floor_ptr->cave[yy][x].info & CAVE_GLOW)))
+	if ((feat_supports_los(get_feat_mimic(&floor_ptr->cave[yy][xx])) &&
+	     (floor_ptr->cave[yy][xx].info & CAVE_GLOW)) ||
+	    (feat_supports_los(get_feat_mimic(&floor_ptr->cave[y][xx])) &&
+	     (floor_ptr->cave[y][xx].info & CAVE_GLOW)) ||
+	    (feat_supports_los(get_feat_mimic(&floor_ptr->cave[yy][x])) &&
+	     (floor_ptr->cave[yy][x].info & CAVE_GLOW)))
 	{
 		return TRUE;
 	}
 	else return FALSE;
 
 #else // COMPLEX_WALL_ILLUMINATION
-	return (current_floor_ptr->cave[yy][xx].info & CAVE_GLOW) ? TRUE : FALSE; // Check for "simple" illumination
+	return (floor_ptr->cave[yy][xx].info & CAVE_GLOW) ? TRUE : FALSE; // Check for "simple" illumination
 #endif // COMPLEX_WALL_ILLUMINATION
 }
 
@@ -4120,6 +4120,7 @@ static u16b flow_y = 0;
  */
 void update_flow(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int x, y, d;
 	int flow_head = 1;
 	int flow_tail = 0;
@@ -4128,19 +4129,19 @@ void update_flow(creature_type *creature_ptr)
 	if (temp_n) return;
 
 	/* The last way-point is on the map */
-	if (running && in_bounds(current_floor_ptr, flow_y, flow_x))
+	if (running && in_bounds(floor_ptr, flow_y, flow_x))
 	{
 		/* The way point is in sight - do not update.  (Speedup) */
-		if (current_floor_ptr->cave[flow_y][flow_x].info & CAVE_VIEW) return;
+		if (floor_ptr->cave[flow_y][flow_x].info & CAVE_VIEW) return;
 	}
 
 	/* Erase all of the current flow information */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			current_floor_ptr->cave[y][x].cost = 0;
-			current_floor_ptr->cave[y][x].dist = 0;
+			floor_ptr->cave[y][x].cost = 0;
+			floor_ptr->cave[y][x].dist = 0;
 		}
 	}
 
@@ -4168,8 +4169,8 @@ void update_flow(creature_type *creature_ptr)
 		for (d = 0; d < 8; d++)
 		{
 			int old_head = flow_head;
-			int m = current_floor_ptr->cave[ty][tx].cost + 1;
-			int n = current_floor_ptr->cave[ty][tx].dist + 1;
+			int m = floor_ptr->cave[ty][tx].cost + 1;
+			int n = floor_ptr->cave[ty][tx].dist + 1;
 			cave_type *c_ptr;
 
 			/* Child location */
@@ -4179,7 +4180,7 @@ void update_flow(creature_type *creature_ptr)
 			/* Ignore player's grid */
 			if (creature_bold(creature_ptr, y, x)) continue;
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			if (is_closed_door(c_ptr->feat)) m += 3;
 
