@@ -373,17 +373,18 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 /*
  * Check for "local" illumination
  */
-static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
+static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 {
-	/* Hack -- move towards player */
-	int yy = (y < cr_ptr->fy) ? (y + 1) : (y > cr_ptr->fy) ? (y - 1) : y;
-	int xx = (x < cr_ptr->fx) ? (x + 1) : (x > cr_ptr->fx) ? (x - 1) : x;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* Check for "local" illumination */
+	// Hack -- move towards player
+	int yy = (y < creature_ptr->fy) ? (y + 1) : (y > creature_ptr->fy) ? (y - 1) : y;
+	int xx = (x < creature_ptr->fx) ? (x + 1) : (x > creature_ptr->fx) ? (x - 1) : x;
 
-#ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
+	// Check for "local" illumination
 
-	/* Check for "complex" illumination */
+#ifdef COMPLEX_WALL_ILLUMINATION // COMPLEX_WALL_ILLUMINATION
+	// Check for "complex" illumination
 	if ((feat_supports_los(get_feat_mimic(&current_floor_ptr->cave[yy][xx])) &&
 	     (current_floor_ptr->cave[yy][xx].info & CAVE_GLOW)) ||
 	    (feat_supports_los(get_feat_mimic(&current_floor_ptr->cave[y][xx])) &&
@@ -395,12 +396,9 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 	}
 	else return FALSE;
 
-#else /* COMPLEX_WALL_ILLUMINATION */
-
-	/* Check for "simple" illumination */
-	return (current_floor_ptr->cave[yy][xx].info & CAVE_GLOW) ? TRUE : FALSE;
-
-#endif /* COMPLEX_WALL_ILLUMINATION */
+#else // COMPLEX_WALL_ILLUMINATION
+	return (current_floor_ptr->cave[yy][xx].info & CAVE_GLOW) ? TRUE : FALSE; // Check for "simple" illumination
+#endif // COMPLEX_WALL_ILLUMINATION
 }
 
 
