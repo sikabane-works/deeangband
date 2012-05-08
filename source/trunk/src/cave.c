@@ -2605,7 +2605,7 @@ void update_lite(creature_type *creature_ptr)
 	int i, x, y, min_x, max_x, min_y, max_y;
 	int p = creature_ptr->cur_lite;
 	cave_type *c_ptr;
-	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/*** Special case ***/
 
@@ -2617,7 +2617,7 @@ void update_lite(creature_type *creature_ptr)
 		/* forget_lite(); Perhaps don't need? */
 
 		/* Add it to later visual update */
-		cave_redraw_later(&current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx], creature_ptr->fy, creature_ptr->fx);
+		cave_redraw_later(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx], creature_ptr->fy, creature_ptr->fx);
 	}
 #endif
 
@@ -2630,10 +2630,10 @@ void update_lite(creature_type *creature_ptr)
 		x = lite_x[i];
 
 		/* Mark the grid as not "lite" */
-		current_floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
+		floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
 
 		/* Mark the grid as "seen" */
-		current_floor_ptr->cave[y][x].info |= (CAVE_TEMP);
+		floor_ptr->cave[y][x].info |= (CAVE_TEMP);
 
 		/* Add it to the "seen" set */
 		temp_y[temp_n] = y;
@@ -2651,54 +2651,54 @@ void update_lite(creature_type *creature_ptr)
 	if (p >= 1)
 	{
 		/* Player grid */
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy, creature_ptr->fx);
+		cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 		/* Adjacent grid */
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy+1, creature_ptr->fx);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy-1, creature_ptr->fx);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy, creature_ptr->fx+1);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy, creature_ptr->fx-1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx);
+		cave_lite_hack(floor_ptr, creature_ptr->fy-1, creature_ptr->fx);
+		cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx+1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx-1);
 
 		/* Diagonal grids */
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy+1, creature_ptr->fx+1);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy+1, creature_ptr->fx-1);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy-1, creature_ptr->fx+1);
-		cave_lite_hack(current_floor_ptr, creature_ptr->fy-1, creature_ptr->fx-1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx+1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx-1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy-1, creature_ptr->fx+1);
+		cave_lite_hack(floor_ptr, creature_ptr->fy-1, creature_ptr->fx-1);
 	}
 
 	/* Radius 2 -- lantern radius */
 	if (p >= 2)
 	{
 		/* South of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy + 1, creature_ptr->fx))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+2, creature_ptr->fx);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+2, creature_ptr->fx+1);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+2, creature_ptr->fx-1);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx+1);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx-1);
 		}
 
 		/* North of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy - 1, creature_ptr->fx))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-2, creature_ptr->fx);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-2, creature_ptr->fx+1);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-2, creature_ptr->fx-1);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx+1);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx-1);
 		}
 
 		/* East of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy, creature_ptr->fx + 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx + 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy, creature_ptr->fx+2);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+1, creature_ptr->fx+2);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-1, creature_ptr->fx+2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx+2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx+2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-1, creature_ptr->fx+2);
 		}
 
 		/* West of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy, creature_ptr->fx - 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx - 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy, creature_ptr->fx-2);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+1, creature_ptr->fx-2);
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-1, creature_ptr->fx-2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx-2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx-2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-1, creature_ptr->fx-2);
 		}
 	}
 
@@ -2711,27 +2711,27 @@ void update_lite(creature_type *creature_ptr)
 		if (p > 14) p = 14;
 
 		/* South-East of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy + 1, creature_ptr->fx + 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx + 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+2, creature_ptr->fx+2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx+2);
 		}
 
 		/* South-West of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy + 1, creature_ptr->fx - 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx - 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy+2, creature_ptr->fx-2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx-2);
 		}
 
 		/* North-East of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy - 1, creature_ptr->fx + 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx + 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-2, creature_ptr->fx+2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx+2);
 		}
 
 		/* North-West of the player */
-		if (cave_los_bold(current_floor_ptr, creature_ptr->fy - 1, creature_ptr->fx - 1))
+		if (cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx - 1))
 		{
-			cave_lite_hack(current_floor_ptr, creature_ptr->fy-2, creature_ptr->fx-2);
+			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx-2);
 		}
 
 		/* Maximal north */
@@ -2740,7 +2740,7 @@ void update_lite(creature_type *creature_ptr)
 
 		/* Maximal south */
 		max_y = creature_ptr->fy + p;
-		if (max_y > current_floor_ptr->height-1) max_y = current_floor_ptr->height-1;
+		if (max_y > floor_ptr->height-1) max_y = floor_ptr->height-1;
 
 		/* Maximal west */
 		min_x = creature_ptr->fx - p;
@@ -2748,7 +2748,7 @@ void update_lite(creature_type *creature_ptr)
 
 		/* Maximal east */
 		max_x = creature_ptr->fx + p;
-		if (max_x > current_floor_ptr->width-1) max_x = current_floor_ptr->width-1;
+		if (max_x > floor_ptr->width-1) max_x = floor_ptr->width-1;
 
 		/* Scan the maximal box */
 		for (y = min_y; y <= max_y; y++)
@@ -2768,10 +2768,10 @@ void update_lite(creature_type *creature_ptr)
 				if (d > p) continue;
 
 				/* Viewable, nearby, grids get "torch lit" */
-				if (current_floor_ptr->cave[y][x].info & CAVE_VIEW)
+				if (floor_ptr->cave[y][x].info & CAVE_VIEW)
 				{
 					/* This grid is "torch lit" */
-					cave_lite_hack(current_floor_ptr, y, x);
+					cave_lite_hack(floor_ptr, y, x);
 				}
 			}
 		}
@@ -2786,7 +2786,7 @@ void update_lite(creature_type *creature_ptr)
 		y = lite_y[i];
 		x = lite_x[i];
 
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Update fresh grids */
 		if (c_ptr->info & (CAVE_TEMP)) continue;
@@ -2801,7 +2801,7 @@ void update_lite(creature_type *creature_ptr)
 		y = temp_y[i];
 		x = temp_x[i];
 
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* No longer in the array */
 		c_ptr->info &= ~(CAVE_TEMP);
