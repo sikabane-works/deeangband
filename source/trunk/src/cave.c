@@ -507,7 +507,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		}
 	}
 
-#endif /* COMPLEX_WALL_ILLUMINATION */
+#endif // COMPLEX_WALL_ILLUMINATION
 }
 
 
@@ -1649,15 +1649,16 @@ void lite_spot(int y, int x)
  * of both "lite_spot()" and "print_rel()", and that we use the
  * "lite_spot()" function to display the player grid, if needed.
  */
-void prt_map(creature_type *cr_ptr)
+void prt_map(creature_type *watcher_ptr)
 {
 	int     x, y;
 	int     v;
 
-	/* map bounds */
+	// map bounds
 	s16b xmin, xmax, ymin, ymax;
-
 	int wid, hgt;
+
+	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
@@ -1674,9 +1675,9 @@ void prt_map(creature_type *cr_ptr)
 
 	/* Get bounds */
 	xmin = (0 < panel_col_min) ? panel_col_min : 0;
-	xmax = (current_floor_ptr->width - 1 > panel_col_max) ? panel_col_max : current_floor_ptr->width - 1;
+	xmax = (floor_ptr->width - 1 > panel_col_max) ? panel_col_max : floor_ptr->width - 1;
 	ymin = (0 < panel_row_min) ? panel_row_min : 0;
-	ymax = (current_floor_ptr->height - 1 > panel_row_max) ? panel_row_max : current_floor_ptr->height - 1;
+	ymax = (floor_ptr->height - 1 > panel_row_max) ? panel_row_max : floor_ptr->height - 1;
 
 	/* Bottom section of screen */
 	for (y = 1; y <= ymin - panel_row_prt; y++)
@@ -1705,14 +1706,14 @@ void prt_map(creature_type *cr_ptr)
 			char tc;
 
 			/* Determine what is there */
-			map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
+			map_info(watcher_ptr, y, x, &a, &c, &ta, &tc);
 
 			/* Hack -- fake monochrome */
 			if (!use_graphics)
 			{
 				if (the_world) a = TERM_DARK;
-				else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
-				else if (cr_ptr->wraith_form) a = TERM_L_DARK;
+				else if (IS_INVULN(watcher_ptr) || world_player) a = TERM_WHITE;
+				else if (watcher_ptr->wraith_form) a = TERM_L_DARK;
 			}
 
 			/* Efficiency -- Redraw that grid of the map */
@@ -1721,7 +1722,7 @@ void prt_map(creature_type *cr_ptr)
 	}
 
 	/* Display player */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(watcher_ptr->fy, watcher_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
