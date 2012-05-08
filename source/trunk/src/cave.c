@@ -914,8 +914,8 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  */
 void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 {
-	/* Get the cave */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get the cave
 
 	s16b this_object_idx, next_object_idx = 0;
 
@@ -949,7 +949,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
 			c = f_ptr->x_char[F_LIT_STANDARD];
-			if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+			if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
 			if (wild_mode)
 			{
@@ -989,7 +989,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						/* Use a brightly lit colour/tile */
 						a = f_ptr->x_attr[F_LIT_LITE];
 						c = f_ptr->x_char[F_LIT_LITE];
-						if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_L_BLUE;
+						if (strlen(floor_ptr->cave[y][x].message)) a = TERM_L_BLUE;
 					}
 				}
 
@@ -1039,7 +1039,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
 			c = f_ptr->x_char[F_LIT_STANDARD];
-			if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+			if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
 			if (wild_mode)
 			{
@@ -1050,7 +1050,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
 					c = f_ptr->x_char[F_LIT_DARK];
-					if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+					if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 				}
 			}
 
@@ -1074,7 +1074,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
 					c = f_ptr->x_char[F_LIT_DARK];
-					if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+					if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 				}
 			}
 
@@ -1098,7 +1098,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						/* Use a brightly lit colour/tile */
 						a = f_ptr->x_attr[F_LIT_LITE];
 						c = f_ptr->x_char[F_LIT_LITE];
-						if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_L_BLUE;
+						if (strlen(floor_ptr->cave[y][x].message)) a = TERM_L_BLUE;
 					}
 				}
 
@@ -1111,7 +1111,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
-						if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+						if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 					}
 
 					/* Not glowing */
@@ -1120,7 +1120,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
-						if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+						if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 					}
 
 					/* Not glowing correctly */
@@ -1129,7 +1129,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
-						if (strlen(current_floor_ptr->cave[y][x].message)) a = TERM_BLUE;
+						if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 					}
 				}
 			}
