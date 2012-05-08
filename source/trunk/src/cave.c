@@ -421,7 +421,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 /*
  * Update "local" illumination
  */
-void update_local_illumination(int y, int x)
+void update_local_illumination(floor_type *floor_ptr, int y, int x)
 {
 	int i, yy, xx;
 
@@ -4591,7 +4591,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
-		update_local_illumination(y, x);
+		update_local_illumination(floor_ptr, y, x);
 	}
 
 	/* Check for change to boring grid */
@@ -4612,7 +4612,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
-		update_local_illumination(y, x);
+		update_local_illumination(floor_ptr, y, x);
 
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
@@ -4648,7 +4648,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 				lite_spot(yy, xx);
 			}
 
-			update_local_illumination(yy, xx);
+			update_local_illumination(floor_ptr, yy, xx);
 
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
@@ -4792,7 +4792,7 @@ void remove_mirror(creature_type *player_ptr, int y, int x)
 		/* Update the monster */
 		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
-		update_local_illumination(y, x);
+		update_local_illumination(current_floor_ptr, y, x);
 	}
 
 	/* Notice */

@@ -2063,7 +2063,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	note_spot(caster_ptr->fy, caster_ptr->fx); // Notice
 	lite_spot(caster_ptr->fy, caster_ptr->fx); // Redraw
 
-	update_local_illumination(caster_ptr->fy, caster_ptr->fx);
+	update_local_illumination(floor_ptr, caster_ptr->fy, caster_ptr->fx);
 
 	return TRUE;
 }
