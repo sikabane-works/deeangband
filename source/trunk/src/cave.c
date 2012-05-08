@@ -2908,15 +2908,16 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 /*
  * Add a square to the changes array
  */
-static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
+static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
 
 	/* We trust this grid is in bounds */
-	/* if (!in_bounds2(current_floor_ptr, y, x)) return; */
+	/* if (!in_bounds2(floor_ptr, y, x)) return; */
 
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Want a unlit and undarkened square in view of the player */
 	if ((c_ptr->info & (CAVE_LITE | CAVE_MNLT | CAVE_MNDK | CAVE_VIEW)) != CAVE_VIEW) return;
@@ -2926,38 +2927,38 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 		/* Hack -- Prevent monster dark lite leakage in walls */
 
 		/* Horizontal walls between player and a monster */
-		if (((y < cr_ptr->fy) && (y > mon_fy)) || ((y > cr_ptr->fy) && (y < mon_fy)))
+		if (((y < creature_ptr->fy) && (y > mon_fy)) || ((y > creature_ptr->fy) && (y < mon_fy)))
 		{
-			dpf = cr_ptr->fy - mon_fy;
+			dpf = creature_ptr->fy - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((cr_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((creature_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y, x + 1) && !cave_have_flag_bold(current_floor_ptr, y, x + 1, FF_PROJECT)) return;
+				if (!cave_los_bold(floor_ptr, y, x + 1) && !cave_have_flag_bold(floor_ptr, y, x + 1, FF_PROJECT)) return;
 			}
 			else if (x > midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y, x - 1) && !cave_have_flag_bold(current_floor_ptr, y, x - 1, FF_PROJECT)) return;
+				if (!cave_los_bold(floor_ptr, y, x - 1) && !cave_have_flag_bold(floor_ptr, y, x - 1, FF_PROJECT)) return;
 			}
 		}
 
 		/* Vertical walls between player and a monster */
-		if (((x < cr_ptr->fx) && (x > mon_fx)) || ((x > cr_ptr->fx) && (x < mon_fx)))
+		if (((x < creature_ptr->fx) && (x > mon_fx)) || ((x > creature_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = cr_ptr->fx - mon_fx;
+			dpf = creature_ptr->fx - mon_fx;
 			d = x - mon_fx;
-			midpoint = mon_fy + ((cr_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fy + ((creature_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y + 1, x) && !cave_have_flag_bold(current_floor_ptr, y + 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(floor_ptr, y + 1, x) && !cave_have_flag_bold(floor_ptr, y + 1, x, FF_PROJECT)) return;
 			}
 			else if (y > midpoint)
 			{
-				if (!cave_los_bold(current_floor_ptr, y - 1, x) && !cave_have_flag_bold(current_floor_ptr, y - 1, x, FF_PROJECT)) return;
+				if (!cave_los_bold(floor_ptr, y - 1, x) && !cave_have_flag_bold(floor_ptr, y - 1, x, FF_PROJECT)) return;
 			}
 		}
 	}
