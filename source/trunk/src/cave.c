@@ -402,12 +402,12 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 }
 
 
-#define update_local_illumination_aux(Y, X) \
+#define update_local_illumination_aux(FLOOR, Y, X) \
 { \
 	if (player_has_los_bold((Y), (X))) \
 	{ \
 		/* Update the monster */ \
-		if (current_floor_ptr->cave[(Y)][(X)].creature_idx) update_mon(current_floor_ptr->cave[(Y)][(X)].creature_idx, FALSE); \
+		if ((FLOOR)->cave[(Y)][(X)].creature_idx) update_mon((FLOOR)->cave[(Y)][(X)].creature_idx, FALSE); \
 \
 		/* Notice and redraw */ \
 		note_spot((Y), (X)); \
@@ -431,9 +431,9 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 	{
 		yy = (y < player_ptr->fy) ? (y - 1) : (y + 1);
 		xx = (x < player_ptr->fx) ? (x - 1) : (x + 1);
-		update_local_illumination_aux(yy, xx);
-		update_local_illumination_aux(y, xx);
-		update_local_illumination_aux(yy, x);
+		update_local_illumination_aux(floor_ptr, yy, xx);
+		update_local_illumination_aux(floor_ptr, y, xx);
+		update_local_illumination_aux(floor_ptr, yy, x);
 	}
 	else if (x != player_ptr->fx) /* y == player_ptr->fy */
 	{
@@ -441,12 +441,12 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 		yy = y - 1;
-		update_local_illumination_aux(yy, x);
+		update_local_illumination_aux(floor_ptr, yy, x);
 		yy = y + 1;
-		update_local_illumination_aux(yy, x);
+		update_local_illumination_aux(floor_ptr, yy, x);
 	}
 	else if (y != player_ptr->fy) /* x == player_ptr->fx */
 	{
@@ -454,12 +454,12 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			xx = x + i;
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 		xx = x - 1;
-		update_local_illumination_aux(y, xx);
+		update_local_illumination_aux(floor_ptr, y, xx);
 		xx = x + 1;
-		update_local_illumination_aux(y, xx);
+		update_local_illumination_aux(floor_ptr, y, xx);
 	}
 	else /* Player's grid */
 	{
@@ -467,7 +467,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		{
 			yy = y + ddy_cdd[i];
 			xx = x + ddx_cdd[i];
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 	}
 
@@ -477,7 +477,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 	{
 		yy = (y < player_ptr->fy) ? (y - 1) : (y + 1);
 		xx = (x < player_ptr->fx) ? (x - 1) : (x + 1);
-		update_local_illumination_aux(yy, xx);
+		update_local_illumination_aux(floor_ptr, yy, xx);
 	}
 	else if (x != player_ptr->fx) /* y == player_ptr->fy */
 	{
@@ -485,7 +485,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 	}
 	else if (y != player_ptr->fy) /* x == player_ptr->fx */
@@ -494,7 +494,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		for (i = -1; i <= 1; i++)
 		{
 			xx = x + i;
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 	}
 	else /* Player's grid */
@@ -503,7 +503,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 		{
 			yy = y + ddy_cdd[i];
 			xx = x + ddx_cdd[i];
-			update_local_illumination_aux(yy, xx);
+			update_local_illumination_aux(floor_ptr, yy, xx);
 		}
 	}
 
