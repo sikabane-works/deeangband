@@ -456,7 +456,7 @@ static s16b chest_check(int y, int x)
  * chest is based on the "power" of the chest, which is in turn based
  * on the level on which the chest is generated.
  */
-static void chest_death(bool scatter, int y, int x, s16b object_idx)
+static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b object_idx)
 {
 	int number;
 
@@ -480,12 +480,12 @@ static void chest_death(bool scatter, int y, int x, s16b object_idx)
 		number = 5;
 		small = FALSE;
 		mode |= AM_GREAT;
-		current_floor_ptr->object_level = o_ptr->xtra3;
+		floor_ptr->object_level = o_ptr->xtra3;
 	}
 	else
 	{
 		/* Determine the "value" of the items */
-		current_floor_ptr->object_level = ABS(o_ptr->pval) + 10;
+		floor_ptr->object_level = ABS(o_ptr->pval) + 10;
 	}
 
 	/* Zero pval means empty chest */
@@ -514,7 +514,7 @@ static void chest_death(bool scatter, int y, int x, s16b object_idx)
 		else
 		{
 			/* Make a good object */
-			if (!make_object(q_ptr, mode, 0, current_floor_ptr->object_level)) continue;
+			if (!make_object(q_ptr, mode, 0, floor_ptr->object_level)) continue;
 		}
 
 		/* If chest scatters its contents, pick any floor square. */
@@ -528,7 +528,7 @@ static void chest_death(bool scatter, int y, int x, s16b object_idx)
 				x = randint0(MAX_WID);
 
 				/* Must be an empty floor. */
-				if (!cave_empty_bold(current_floor_ptr, y, x)) continue;
+				if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
 				/* Place the object there. */
 				drop_near(q_ptr, -1, y, x);
@@ -537,21 +537,13 @@ static void chest_death(bool scatter, int y, int x, s16b object_idx)
 				break;
 			}
 		}
-		/* Normally, drop object near the chest. */
-		else drop_near(q_ptr, -1, y, x);
+		else drop_near(q_ptr, -1, y, x); // Normally, drop object near the chest.
 	}
 
-	/* Reset the object level */
-	current_floor_ptr->object_level = current_floor_ptr->base_level;
-
-	/* No longer opening a chest */
-	opening_chest = FALSE;
-
-	/* Empty */
-	o_ptr->pval = 0;
-
-	/* Known */
-	object_known(o_ptr);
+	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
+	opening_chest = FALSE; // No longer opening a chest
+	o_ptr->pval = 0; // Empty
+	object_known(o_ptr); // Known
 }
 
 
@@ -839,7 +831,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 #else
 		msg_print("The contents of the chest scatter all over the dungeon!");
 #endif
-		chest_death(TRUE, y, x, object_idx);
+		chest_death(TRUE, current_floor_ptr, y, x, object_idx);
 		o_ptr->pval = 0;
 	}
 }
@@ -920,7 +912,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_i
 		chest_trap(cr_ptr, y, x, object_idx);
 
 		/* Let the Chest drop items */
-		chest_death(FALSE, y, x, object_idx);
+		chest_death(FALSE, current_floor_ptr, y, x, object_idx);
 	}
 
 	/* Result */
