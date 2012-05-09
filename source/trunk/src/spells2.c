@@ -6044,7 +6044,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
  *
  * Also, process all affected monsters
  */
-static void cave_temp_room_unlite(void)
+static void cave_temp_room_unlite(floor_type *floor_ptr)
 {
 	int i;
 
@@ -6055,7 +6055,7 @@ static void cave_temp_room_unlite(void)
 		int x = temp_x[i];
 		int j;
 
-		cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+		cave_type *c_ptr = &floor_ptr->cave[y][x];
 		bool do_dark = !is_mirror_grid(c_ptr);
 
 		/* No longer in the array */
@@ -6064,16 +6064,16 @@ static void cave_temp_room_unlite(void)
 		/* Darken the grid */
 		if (do_dark)
 		{
-			if (current_floor_ptr->floor_level || !is_daytime())
+			if (floor_ptr->floor_level || !is_daytime())
 			{
 				for (j = 0; j < 9; j++)
 				{
 					int by = y + ddy_ddd[j];
 					int bx = x + ddx_ddd[j];
 
-					if (in_bounds2(current_floor_ptr, by, bx))
+					if (in_bounds2(floor_ptr, by, bx))
 					{
-						cave_type *cc_ptr = &current_floor_ptr->cave[by][bx];
+						cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
 						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
@@ -6108,7 +6108,7 @@ static void cave_temp_room_unlite(void)
 			/* Redraw */
 			lite_spot(y, x);
 
-			update_local_illumination(current_floor_ptr, y, x);
+			update_local_illumination(floor_ptr, y, x);
 		}
 	}
 
@@ -6331,8 +6331,7 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 		cave_temp_unlite_room_aux(caster_ptr, y + 1, x - 1);
 	}
 
-	/* Now, darken them all at once */
-	cave_temp_room_unlite();
+	cave_temp_room_unlite(current_floor_ptr); // Now, darken them all at once
 }
 
 
