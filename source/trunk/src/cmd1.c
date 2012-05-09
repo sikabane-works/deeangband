@@ -3350,8 +3350,8 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	feature_type *cur_f_ptr = &f_info[current_floor_ptr->cave[c_y][c_x].feat];
-	feature_type *new_f_ptr = &f_info[current_floor_ptr->cave[n_y][n_x].feat];
+	feature_type *cur_f_ptr = &f_info[floor_ptr->cave[c_y][c_x].feat];
+	feature_type *new_f_ptr = &f_info[floor_ptr->cave[n_y][n_x].feat];
 	bool is_pattern_tile_cur = have_flag(cur_f_ptr->flags, FF_PATTERN);
 	bool is_pattern_tile_new = have_flag(new_f_ptr->flags, FF_PATTERN);
 	int pattern_type_cur, pattern_type_new;

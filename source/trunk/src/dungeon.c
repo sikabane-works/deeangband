@@ -3396,32 +3396,34 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 /*
  * Handle involuntary movement once every 10 game turns
  */
-static void process_world_aux_movement(creature_type *cr_ptr)
+static void process_world_aux_movement(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	/* Delayed Word-of-Recall */
-	if (cr_ptr->word_recall)
+	if (creature_ptr->word_recall)
 	{
 		/*
 		 * HACK: Autosave BEFORE resetting the recall counter (rr9)
 		 * The player is yanked up/down as soon as
 		 * he loads the autosaved game.
 		 */
-		if (autosave_l && (cr_ptr->word_recall == 1) && !gamble_arena_mode)
+		if (autosave_l && (creature_ptr->word_recall == 1) && !gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
-		cr_ptr->word_recall--;
+		creature_ptr->word_recall--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the recall */
-		if (!cr_ptr->word_recall)
+		if (!creature_ptr->word_recall)
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if (current_floor_ptr->floor_level || inside_quest)
+			if (floor_ptr->floor_level || inside_quest)
 			{
 #ifdef JP
 msg_print("上に引っ張りあげられる感じがする！");
@@ -3429,14 +3431,14 @@ msg_print("上に引っ張りあげられる感じがする！");
 				msg_print("You feel yourself yanked upwards!");
 #endif
 
-				if (current_floor_ptr->dun_type) cr_ptr->recall_dungeon = current_floor_ptr->dun_type;
+				if (floor_ptr->dun_type) creature_ptr->recall_dungeon = floor_ptr->dun_type;
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->floor_level, NULL);
+					do_cmd_write_nikki(NIKKI_RECALL, floor_ptr->floor_level, NULL);
 
-				current_floor_ptr->floor_level = 0;
-				current_floor_ptr->dun_type = 0;
+				floor_ptr->floor_level = 0;
+				floor_ptr->dun_type = 0;
 
-				leave_quest_check(cr_ptr);
+				leave_quest_check(creature_ptr);
 
 				inside_quest = 0;
 
@@ -3450,42 +3452,42 @@ msg_print("下に引きずり降ろされる感じがする！");
 				msg_print("You feel yourself yanked downwards!");
 #endif
 
-				current_floor_ptr->dun_type = cr_ptr->recall_dungeon;
+				floor_ptr->dun_type = creature_ptr->recall_dungeon;
 
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, current_floor_ptr->floor_level, NULL);
+					do_cmd_write_nikki(NIKKI_RECALL, floor_ptr->floor_level, NULL);
 
 				/* New depth */
-				current_floor_ptr->floor_level = max_dlv[current_floor_ptr->dun_type];
-				if (current_floor_ptr->floor_level < 1) current_floor_ptr->floor_level = 1;
+				floor_ptr->floor_level = max_dlv[floor_ptr->dun_type];
+				if (floor_ptr->floor_level < 1) floor_ptr->floor_level = 1;
 
 				/* Nightmare mode makes recall more dangerous */
-				if (curse_of_Iluvatar && !randint0(666) && (current_floor_ptr->dun_type == DUNGEON_ANGBAND))
+				if (curse_of_Iluvatar && !randint0(666) && (floor_ptr->dun_type == DUNGEON_ANGBAND))
 				{
-					if (current_floor_ptr->floor_level < 50)
+					if (floor_ptr->floor_level < 50)
 					{
-						current_floor_ptr->floor_level *= 2;
+						floor_ptr->floor_level *= 2;
 					}
-					else if (current_floor_ptr->floor_level < 99)
+					else if (floor_ptr->floor_level < 99)
 					{
-						current_floor_ptr->floor_level = (current_floor_ptr->floor_level + 99) / 2;
+						floor_ptr->floor_level = (floor_ptr->floor_level + 99) / 2;
 					}
-					else if (current_floor_ptr->floor_level > 100)
+					else if (floor_ptr->floor_level > 100)
 					{
-						current_floor_ptr->floor_level = dungeon_info[current_floor_ptr->dun_type].maxdepth - 1;
+						floor_ptr->floor_level = dungeon_info[floor_ptr->dun_type].maxdepth - 1;
 					}
 				}
 
 				if (wild_mode)
 				{
-					cr_ptr->wy = cr_ptr->fy;
-					cr_ptr->wx = cr_ptr->fx;
+					creature_ptr->wy = creature_ptr->fy;
+					creature_ptr->wx = creature_ptr->fx;
 				}
 				else
 				{
 					/* Save player position */
-					cr_ptr->oldpx = cr_ptr->fx;
-					cr_ptr->oldpy = cr_ptr->fy;
+					creature_ptr->oldpx = creature_ptr->fx;
+					creature_ptr->oldpy = creature_ptr->fy;
 				}
 				wild_mode = FALSE;
 
@@ -3493,12 +3495,12 @@ msg_print("下に引きずり降ろされる感じがする！");
 				 * Clear all saved floors
 				 * and create a first saved floor
 				 */
-				prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
+				prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
 				subject_change_floor = TRUE;
 
-				if (current_floor_ptr->dun_type == DUNGEON_DOD)
+				if (floor_ptr->dun_type == DUNGEON_DOD)
 				{
 					int i;
 
@@ -3506,10 +3508,10 @@ msg_print("下に引きずり降ろされる感じがする！");
 					{
 						if ((quest[i].type == QUEST_TYPE_RANDOM) &&
 						    (quest[i].status == QUEST_STATUS_TAKEN) &&
-						    (quest[i].level < current_floor_ptr->floor_level))
+						    (quest[i].level < floor_ptr->floor_level))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
-							quest[i].complev = (byte)cr_ptr->lev;
+							quest[i].complev = (byte)creature_ptr->lev;
 							//TODO species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 						}
 					}
@@ -3523,24 +3525,24 @@ msg_print("下に引きずり降ろされる感じがする！");
 
 
 	/* Delayed Alter reality */
-	if (cr_ptr->alter_reality)
+	if (creature_ptr->alter_reality)
 	{
-		if (autosave_l && (cr_ptr->alter_reality == 1) && !gamble_arena_mode)
+		if (autosave_l && (creature_ptr->alter_reality == 1) && !gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
-		cr_ptr->alter_reality--;
+		creature_ptr->alter_reality--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the alter reality */
-		if (!cr_ptr->alter_reality)
+		if (!creature_ptr->alter_reality)
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if (!quest_number(current_floor_ptr->floor_level) && current_floor_ptr->floor_level)
+			if (!quest_number(floor_ptr->floor_level) && floor_ptr->floor_level)
 			{
 #ifdef JP
 				msg_print("世界が変わった！");
@@ -3552,7 +3554,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				 * Clear all saved floors
 				 * and create a first saved floor
 				 */
-				prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
+				prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
 				subject_change_floor = TRUE;
