@@ -687,15 +687,15 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 /*
  * Quaff a potion (from the pack or the floor)
  */
-static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
+static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 {
+	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 	int         ident, lev;
 	object_type	*o_ptr;
 	object_type forge;
 	object_type *q_ptr;
 
-
-	/* Take a turn */
+	// Take a turn
 	energy_use = 100;
 
 	if (world_player)
@@ -711,16 +711,16 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 		return;
 	}
 
-	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
-	if (hex_spelling_any(cr_ptr))
+	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if (hex_spelling_any(creature_ptr))
 	{
-		if (!hex_spelling(cr_ptr, HEX_INHAIL)) stop_hex_spell_all(cr_ptr);
+		if (!hex_spelling(creature_ptr, HEX_INHAIL)) stop_hex_spell_all(creature_ptr);
 	}
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -738,19 +738,19 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	/* Single object */
 	q_ptr->number = 1;
 
-	/* Reduce and describe cr_ptr->inventory */
+	/* Reduce and describe creature_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -1);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Reduce and describe floor item */
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -799,7 +799,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 #endif
 
 		case SV_POTION_SLOWNESS:
-			if (set_slow(cr_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+			if (set_slow(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
 		case SV_POTION_SALT_WATER:
@@ -809,22 +809,22 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!(has_cf_creature(cr_ptr, CF_NONLIVING), 
-			      (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
+			if (!(has_cf_creature(creature_ptr, CF_NONLIVING), 
+			      (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
 			{
 				/* Only living creatures get thirsty */
-				(void)set_food(cr_ptr, PY_FOOD_STARVE - 1);
+				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);
 			}
 
-			(void)set_poisoned(cr_ptr, 0);
-			(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 4);
+			(void)set_poisoned(creature_ptr, 0);
+			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 4);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_POISON:
-			if (!(cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr)))
+			if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 			{
-				if (set_poisoned(cr_ptr, cr_ptr->poisoned + randint0(15) + 10))
+				if (set_poisoned(creature_ptr, creature_ptr->poisoned + randint0(15) + 10))
 				{
 					ident = TRUE;
 				}
@@ -832,9 +832,9 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			break;
 
 		case SV_POTION_BLINDNESS:
-			if (!cr_ptr->resist_blind)
+			if (!creature_ptr->resist_blind)
 			{
-				if (set_blind(cr_ptr, cr_ptr->blind + randint0(100) + 100))
+				if (set_blind(creature_ptr, creature_ptr->blind + randint0(100) + 100))
 				{
 					ident = TRUE;
 				}
@@ -842,31 +842,31 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			break;
 
 		case SV_POTION_CONFUSION: /* Booze */
-			if (!cr_ptr->resist_conf)
+			if (!creature_ptr->resist_conf)
 			{
-				cr_ptr->special_attack |= ATTACK_SUIKEN;
-				if (set_confused(cr_ptr, randint0(20) + 15))
+				creature_ptr->special_attack |= ATTACK_SUIKEN;
+				if (set_confused(creature_ptr, randint0(20) + 15))
 				{
 					ident = TRUE;
 				}
 			}
 
-			if (!cr_ptr->resist_chaos)
+			if (!creature_ptr->resist_chaos)
 			{
 				if (one_in_(2))
 				{
-					if (set_image(cr_ptr, cr_ptr->image + randint0(150) + 150))
+					if (set_image(creature_ptr, creature_ptr->image + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}
 				}
-				if (one_in_(13) && (cr_ptr->cls_idx != CLASS_MONK))
+				if (one_in_(13) && (creature_ptr->cls_idx != CLASS_MONK))
 				{
 					ident = TRUE;
-					if (one_in_(3)) lose_all_info(cr_ptr);
-					else wiz_dark(current_floor_ptr, cr_ptr);
-					(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-					wiz_dark(current_floor_ptr, cr_ptr);
+					if (one_in_(3)) lose_all_info(creature_ptr);
+					else wiz_dark(floor_ptr, creature_ptr);
+					(void)teleport_player_aux(creature_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+					wiz_dark(floor_ptr, creature_ptr);
 #ifdef JP
 					msg_print("知らない場所で目が醒めた。頭痛がする。");
 					msg_print("何も思い出せない。どうやってここへ来たのかも分からない！");
@@ -880,7 +880,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			break;
 
 		case SV_POTION_SLEEP:
-			if (!cr_ptr->free_act)
+			if (!creature_ptr->free_act)
 			{
 #ifdef JP
 		msg_print("あなたは眠ってしまった。");
@@ -902,12 +902,12 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 					get_species_num_prep(get_nightmare, NULL);
 
 					/* Have some nightmares */
-					have_nightmare(cr_ptr, get_species_num(MAX_DEPTH));
+					have_nightmare(creature_ptr, get_species_num(MAX_DEPTH));
 
 					/* Remove the monster restriction */
 					get_species_num_prep(NULL, NULL);
 				}
-				if (set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint0(4) + 4))
+				if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(4) + 4))
 				{
 					ident = TRUE;
 				}
@@ -915,14 +915,14 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_LOSE_MEMORIES:
-			if (!cr_ptr->hold_life && (cr_ptr->exp > 0))
+			if (!creature_ptr->hold_life && (creature_ptr->exp > 0))
 			{
 #ifdef JP
 				msg_print("過去の記憶が薄れていく気がする。");
 #else
 				msg_print("You feel your memories fade.");
 #endif
-				lose_exp(cr_ptr, cr_ptr->exp / 4);
+				lose_exp(creature_ptr, creature_ptr->exp / 4);
 				ident = TRUE;
 			}
 			break;
@@ -930,177 +930,177 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_RUINATION:
 #ifdef JP
 			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "破滅の薬", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "破滅の薬", NULL, -1);
 #else
 			msg_print("Your nerves and muscles feel weak and lifeless!");
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
-			(void)dec_stat(cr_ptr, STAT_DEX, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_WIS, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CON, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_STR, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CHA, 25, TRUE);
-			(void)dec_stat(cr_ptr, STAT_INT, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_DEX, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_WIS, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_CON, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_STR, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_CHA, 25, TRUE);
+			(void)dec_stat(creature_ptr, STAT_INT, 25, TRUE);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_STR:
-			if (do_dec_stat(cr_ptr, STAT_STR)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_INT:
-			if (do_dec_stat(cr_ptr, STAT_INT)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_WIS:
-			if (do_dec_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_DEX:
-			if (do_dec_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CON:
-			if (do_dec_stat(cr_ptr, STAT_CON)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CHR:
-			if (do_dec_stat(cr_ptr, STAT_CHA)) ident = TRUE;
+			if (do_dec_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_DETONATIONS:
 #ifdef JP
 			msg_print("体の中で激しい爆発が起きた！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "爆発の薬", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "爆発の薬", NULL, -1);
 #else
 			msg_print("Massive explosions rupture your body!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
-			(void)set_stun(cr_ptr, cr_ptr->stun + 75);
-			(void)set_cut(cr_ptr, cr_ptr->cut + 5000);
+			(void)set_stun(creature_ptr, creature_ptr->stun + 75);
+			(void)set_cut(creature_ptr, creature_ptr->cut + 5000);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_DEATH:
 #ifdef JP
 			msg_print("死の予感が体中を駆けめぐった。");
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
 #else
 			msg_print("A feeling of Death flows through your body.");
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
 
 			ident = TRUE;
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if (set_tim_infra(cr_ptr, cr_ptr->tim_infra + 100 + randint1(100), FALSE))
+			if (set_tim_infra(creature_ptr, creature_ptr->tim_infra + 100 + randint1(100), FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if (set_tim_invis(cr_ptr, cr_ptr->tim_invis + 12 + randint1(12), FALSE))
+			if (set_tim_invis(creature_ptr, creature_ptr->tim_invis + 12 + randint1(12), FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if (set_poisoned(cr_ptr, cr_ptr->poisoned / 2)) ident = TRUE;
+			if (set_poisoned(creature_ptr, creature_ptr->poisoned / 2)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_POISON:
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if (set_afraid(cr_ptr, 0)) ident = TRUE;
+			if (set_afraid(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_SPEED:
-			if (!cr_ptr->fast)
+			if (!creature_ptr->fast)
 			{
-				if (set_fast(cr_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+				if (set_fast(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			}
 			else
 			{
-				(void)set_fast(cr_ptr, cr_ptr->fast + 5, FALSE);
+				(void)set_fast(creature_ptr, creature_ptr->fast + 5, FALSE);
 			}
 			break;
 
 		case SV_POTION_RESIST_HEAT:
-			if (set_oppose_fire(cr_ptr, cr_ptr->oppose_fire + randint1(10) + 10, FALSE))
+			if (set_oppose_fire(creature_ptr, creature_ptr->oppose_fire + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_RESIST_COLD:
-			if (set_oppose_cold(cr_ptr, cr_ptr->oppose_cold + randint1(10) + 10, FALSE))
+			if (set_oppose_cold(creature_ptr, creature_ptr->oppose_cold + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_HEROISM:
-			if (set_afraid(cr_ptr, 0)) ident = TRUE;
-			if (set_hero(cr_ptr, cr_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(cr_ptr, 10)) ident = TRUE;
+			if (set_afraid(creature_ptr, 0)) ident = TRUE;
+			if (set_hero(creature_ptr, creature_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (hp_player(creature_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
-			if (set_afraid(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, cr_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(cr_ptr, 30)) ident = TRUE;
+			if (set_afraid(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, creature_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (hp_player(creature_ptr, 30)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_LIGHT:
-			if (hp_player(cr_ptr, damroll(2, 8))) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, cr_ptr->cut - 10)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, damroll(2, 8))) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, creature_ptr->cut - 10)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
-			if (hp_player(cr_ptr, damroll(4, 8))) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, (cr_ptr->cut / 2) - 50)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, damroll(4, 8))) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, (creature_ptr->cut / 2) - 50)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
-			if (hp_player(cr_ptr, damroll(6, 8))) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, damroll(6, 8))) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_HEALING:
-			if (hp_player(cr_ptr, 300)) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, 300)) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_STAR_HEALING:
-			if (hp_player(cr_ptr, 1200)) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, 1200)) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_LIFE:
@@ -1110,39 +1110,39 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("You feel life flow through your body!");
 #endif
 
-			restore_level(cr_ptr);
-			(void)set_poisoned(cr_ptr, 0);
-			(void)set_blind(cr_ptr, 0);
-			(void)set_confused(cr_ptr, 0);
-			(void)set_image(cr_ptr, 0);
-			(void)set_stun(cr_ptr, 0);
-			(void)set_cut(cr_ptr, 0);
-			(void)do_res_stat(cr_ptr, STAT_STR);
-			(void)do_res_stat(cr_ptr, STAT_CON);
-			(void)do_res_stat(cr_ptr, STAT_DEX);
-			(void)do_res_stat(cr_ptr, STAT_WIS);
-			(void)do_res_stat(cr_ptr, STAT_INT);
-			(void)do_res_stat(cr_ptr, STAT_CHA);
-			(void)set_shero(cr_ptr, 0,TRUE);
-			update_creature(cr_ptr, TRUE);
-			hp_player(cr_ptr, 5000);
+			restore_level(creature_ptr);
+			(void)set_poisoned(creature_ptr, 0);
+			(void)set_blind(creature_ptr, 0);
+			(void)set_confused(creature_ptr, 0);
+			(void)set_image(creature_ptr, 0);
+			(void)set_stun(creature_ptr, 0);
+			(void)set_cut(creature_ptr, 0);
+			(void)do_res_stat(creature_ptr, STAT_STR);
+			(void)do_res_stat(creature_ptr, STAT_CON);
+			(void)do_res_stat(creature_ptr, STAT_DEX);
+			(void)do_res_stat(creature_ptr, STAT_WIS);
+			(void)do_res_stat(creature_ptr, STAT_INT);
+			(void)do_res_stat(creature_ptr, STAT_CHA);
+			(void)set_shero(creature_ptr, 0,TRUE);
+			update_creature(creature_ptr, TRUE);
+			hp_player(creature_ptr, 5000);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_RESTORE_MANA:
-			if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+			if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
 			{
 				int i;
 				for (i = 0; i < EATER_EXT*2; i++)
 				{
-					cr_ptr->magic_num1[i] += (cr_ptr->magic_num2[i] < 10) ? EATER_CHARGE * 3 : cr_ptr->magic_num2[i]*EATER_CHARGE/3;
-					if (cr_ptr->magic_num1[i] > cr_ptr->magic_num2[i]*EATER_CHARGE) cr_ptr->magic_num1[i] = cr_ptr->magic_num2[i]*EATER_CHARGE;
+					creature_ptr->magic_num1[i] += (creature_ptr->magic_num2[i] < 10) ? EATER_CHARGE * 3 : creature_ptr->magic_num2[i]*EATER_CHARGE/3;
+					if (creature_ptr->magic_num1[i] > creature_ptr->magic_num2[i]*EATER_CHARGE) creature_ptr->magic_num1[i] = creature_ptr->magic_num2[i]*EATER_CHARGE;
 				}
 				for (; i < EATER_EXT*3; i++)
 				{
 					int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
-					cr_ptr->magic_num1[i] -= ((cr_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : cr_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-					if (cr_ptr->magic_num1[i] < 0) cr_ptr->magic_num1[i] = 0;
+					creature_ptr->magic_num1[i] -= ((creature_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : creature_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
+					if (creature_ptr->magic_num1[i] < 0) creature_ptr->magic_num1[i] = 0;
 				}
 #ifdef JP
 				msg_print("頭がハッキリとした。");
@@ -1152,10 +1152,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 				play_window |= (PW_PLAYER);
 				ident = TRUE;
 			}
-			else if (cr_ptr->csp < cr_ptr->msp)
+			else if (creature_ptr->csp < creature_ptr->msp)
 			{
-				cr_ptr->csp = cr_ptr->msp;
-				cr_ptr->csp_frac = 0;
+				creature_ptr->csp = creature_ptr->msp;
+				creature_ptr->csp_frac = 0;
 #ifdef JP
 				msg_print("頭がハッキリとした。");
 #else
@@ -1167,68 +1167,68 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 				play_window |= (PW_SPELL);
 				ident = TRUE;
 			}
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_RESTORE_EXP:
-			if (restore_level(cr_ptr)) ident = TRUE;
+			if (restore_level(creature_ptr)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_STR:
-			if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_INT:
-			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_WIS:
-			if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_DEX:
-			if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CON:
-			if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CHR:
-			if (do_res_stat(cr_ptr, STAT_CHA)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_STR:
-			if (do_inc_stat(cr_ptr, STAT_STR)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_INT:
-			if (do_inc_stat(cr_ptr, STAT_INT)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_WIS:
-			if (do_inc_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_DEX:
-			if (do_inc_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CON:
-			if (do_inc_stat(cr_ptr, STAT_CON)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CHR:
-			if (do_inc_stat(cr_ptr, STAT_CHA)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_AUGMENTATION:
-			if (do_inc_stat(cr_ptr, STAT_STR)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_INT)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_WIS)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_DEX)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_CON)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, STAT_CHA)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if (do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_ENLIGHTENMENT:
@@ -1238,7 +1238,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("An image of your surroundings forms in your mind...");
 #endif
 
-			wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+			wiz_lite(floor_ptr, creature_ptr, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1250,17 +1250,17 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 #endif
 
 			msg_print(NULL);
-			wiz_lite(current_floor_ptr, cr_ptr, FALSE);
-			(void)do_inc_stat(cr_ptr, STAT_INT);
-			(void)do_inc_stat(cr_ptr, STAT_WIS);
-			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_treasure(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT);
-			identify_pack(cr_ptr);
-			creature_knowledge(cr_ptr);
+			wiz_lite(floor_ptr, creature_ptr, FALSE);
+			(void)do_inc_stat(creature_ptr, STAT_INT);
+			(void)do_inc_stat(creature_ptr, STAT_WIS);
+			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_treasure(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT);
+			identify_pack(creature_ptr);
+			creature_knowledge(creature_ptr);
 			ident = TRUE;
 			break;
 
@@ -1272,15 +1272,15 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 #endif
 
 			msg_print(NULL);
-			creature_knowledge(cr_ptr);
+			creature_knowledge(creature_ptr);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_EXPERIENCE:
-			if (has_cf_creature(cr_ptr, CF_ANDROID)) break;
-			if (cr_ptr->exp < CREATURE_MAX_EXP)
+			if (has_cf_creature(creature_ptr, CF_ANDROID)) break;
+			if (creature_ptr->exp < CREATURE_MAX_EXP)
 			{
-				s32b ee = (cr_ptr->exp / 2) + 10;
+				s32b ee = (creature_ptr->exp / 2) + 10;
 				if (ee > 100000L) ee = 100000L;
 #ifdef JP
 				msg_print("更に経験を積んだような気がする。");
@@ -1288,40 +1288,40 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 				msg_print("You feel more experienced.");
 #endif
 
-				gain_exp(cr_ptr, ee);
+				gain_exp(creature_ptr, ee);
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_RESISTANCE:
-			(void)set_oppose_acid(cr_ptr, cr_ptr->oppose_acid + randint1(20) + 20, FALSE);
-			(void)set_oppose_elec(cr_ptr, cr_ptr->oppose_elec + randint1(20) + 20, FALSE);
-			(void)set_oppose_fire(cr_ptr, cr_ptr->oppose_fire + randint1(20) + 20, FALSE);
-			(void)set_oppose_cold(cr_ptr, cr_ptr->oppose_cold + randint1(20) + 20, FALSE);
-			(void)set_oppose_pois(cr_ptr, cr_ptr->oppose_pois + randint1(20) + 20, FALSE);
+			(void)set_oppose_acid(creature_ptr, creature_ptr->oppose_acid + randint1(20) + 20, FALSE);
+			(void)set_oppose_elec(creature_ptr, creature_ptr->oppose_elec + randint1(20) + 20, FALSE);
+			(void)set_oppose_fire(creature_ptr, creature_ptr->oppose_fire + randint1(20) + 20, FALSE);
+			(void)set_oppose_cold(creature_ptr, creature_ptr->oppose_cold + randint1(20) + 20, FALSE);
+			(void)set_oppose_pois(creature_ptr, creature_ptr->oppose_pois + randint1(20) + 20, FALSE);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_CURING:
-			if (hp_player(cr_ptr, 50)) ident = TRUE;
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_image(cr_ptr, 0)) ident = TRUE;
+			if (hp_player(creature_ptr, 50)) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_image(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_INVULNERABILITY:
-			(void)set_invuln(cr_ptr, cr_ptr->invuln + randint1(4) + 4, FALSE);
+			(void)set_invuln(creature_ptr, creature_ptr->invuln + randint1(4) + 4, FALSE);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_NEW_LIFE:
-			do_cmd_rerate(cr_ptr, FALSE);
-			get_max_stats(cr_ptr);
-			cr_ptr->creature_update |= CRU_BONUS;
-			if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
+			do_cmd_rerate(creature_ptr, FALSE);
+			get_max_stats(creature_ptr);
+			creature_ptr->creature_update |= CRU_BONUS;
+			if (creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14)
 			{
 #ifdef JP
 msg_print("全ての突然変異が治った。");
@@ -1329,17 +1329,17 @@ msg_print("全ての突然変異が治った。");
 				msg_print("You are cured of all mutations.");
 #endif
 
-				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-				cr_ptr->creature_update |= CRU_BONUS;
+				creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+				creature_ptr->creature_update |= CRU_BONUS;
 				handle_stuff();
-				cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
+				creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
 			}
 			ident = TRUE;
 			break;
 
 		case SV_POTION_NEO_TSUYOSHI:
-			(void)set_image(cr_ptr, 0);
-			(void)set_tsuyoshi(cr_ptr, cr_ptr->tsuyoshi + randint1(100) + 100, FALSE);
+			(void)set_image(creature_ptr, 0);
+			(void)set_tsuyoshi(creature_ptr, creature_ptr->tsuyoshi + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1350,17 +1350,17 @@ msg_print("「オクレ兄さん！」");
 			msg_print("Brother OKURE!");
 #endif
 			msg_print(NULL);
-			cr_ptr->tsuyoshi = 1;
-			(void)set_tsuyoshi(cr_ptr, 0, TRUE);
-			if (!cr_ptr->resist_chaos)
+			creature_ptr->tsuyoshi = 1;
+			(void)set_tsuyoshi(creature_ptr, 0, TRUE);
+			if (!creature_ptr->resist_chaos)
 			{
-				(void)set_image(cr_ptr, 50 + randint1(50));
+				(void)set_image(creature_ptr, 50 + randint1(50));
 			}
 			ident = TRUE;
 			break;
 		
 		case SV_POTION_POLYMORPH:
-			if ((cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14) && one_in_(23))
+			if ((creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14) && one_in_(23))
 			{
 #ifdef JP
 msg_print("全ての突然変異が治った。");
@@ -1368,8 +1368,8 @@ msg_print("全ての突然変異が治った。");
 				msg_print("You are cured of all mutations.");
 #endif
 
-				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-				cr_ptr->creature_update |= CRU_BONUS;
+				creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+				creature_ptr->creature_update |= CRU_BONUS;
 				handle_stuff();
 			}
 			else
@@ -1378,16 +1378,16 @@ msg_print("全ての突然変異が治った。");
 				{
 					if (one_in_(2))
 					{
-						if(gain_random_mutation(cr_ptr, 0, TRUE)) ident = TRUE;
+						if(gain_random_mutation(creature_ptr, 0, TRUE)) ident = TRUE;
 					}
-					else if (lose_mutation(cr_ptr, 0)) ident = TRUE;
+					else if (lose_mutation(creature_ptr, 0)) ident = TRUE;
 				} while(!ident || one_in_(2));
 			}
 			break;
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SKELETON))
+	if (has_cf_creature(creature_ptr, CF_SKELETON))
 	{
 #ifdef JP
 msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
@@ -1395,11 +1395,11 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 		msg_print("Some of the fluid falls through your jaws!");
 #endif
 
-		(void)potion_smash_effect(0, cr_ptr->fy, cr_ptr->fx, q_ptr->k_idx);
+		(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, q_ptr->k_idx);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* The item has been tried */
 	object_tried(q_ptr);
@@ -1408,14 +1408,14 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	if (ident && !object_is_aware(q_ptr))
 	{
 		object_aware(q_ptr);
-		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
-	if(has_cf_creature(cr_ptr, CF_FLASK_DRINKER))
+	if(has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
 	{
 		if (q_ptr->tval == TV_FLASK)
 		{
@@ -1424,20 +1424,20 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 #else
 			msg_print("You replenish yourself with the oil.");
 #endif
-			set_food(cr_ptr, cr_ptr->food + 5000);
+			set_food(creature_ptr, creature_ptr->food + 5000);
 		}
 		else
 		{
-			set_food(cr_ptr, cr_ptr->food + ((q_ptr->pval) / 20));
+			set_food(creature_ptr, creature_ptr->food + ((q_ptr->pval) / 20));
 		}
 	}
 
 	/* Potions can feed the player */
-	switch (cr_ptr->mimic_form)
+	switch (creature_ptr->mimic_form)
 	{
 		/*TODO*/
 	case MIMIC_NONE:
-		switch (cr_ptr->race_idx1)
+		switch (creature_ptr->race_idx1)
 		{
 			case RACE_DEMON:
 			case RACE_BALROG:
@@ -1448,22 +1448,22 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 #else
 				msg_print("You are moistened.");
 #endif
-				set_food(cr_ptr, MIN(cr_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
+				set_food(creature_ptr, MIN(creature_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
 				break;
 			default:
-				(void)set_food(cr_ptr, cr_ptr->food + q_ptr->pval);
+				(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
 				break;
 		}
 		break;
 	case MIMIC_DEMON:
 	case MIMIC_DEMON_LORD:
-		set_food(cr_ptr, cr_ptr->food + ((q_ptr->pval) / 20));
+		set_food(creature_ptr, creature_ptr->food + ((q_ptr->pval) / 20));
 		break;
 	case MIMIC_VAMPIRE:
-		(void)set_food(cr_ptr, cr_ptr->food + (q_ptr->pval / 10));
+		(void)set_food(creature_ptr, creature_ptr->food + (q_ptr->pval / 10));
 		break;
 	default:
-		(void)set_food(cr_ptr, cr_ptr->food + q_ptr->pval);
+		(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
 		break;
 	}
 }
