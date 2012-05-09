@@ -6305,33 +6305,33 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
  */
 void unlite_room(creature_type *caster_ptr, int y1, int x1)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int i, x, y;
 
-	/* Add the initial grid */
-	cave_temp_unlite_room_aux(caster_ptr, y1, x1);
+	cave_temp_unlite_room_aux(caster_ptr, y1, x1); // Add the initial grid
 
-	/* Spread, breadth first */
+	// Spread, breadth first
 	for (i = 0; i < temp_n; i++)
 	{
 		x = temp_x[i], y = temp_y[i];
 
-		/* Walls get dark, but stop darkness */
+		// Walls get dark, but stop darkness
 		if (!cave_pass_dark_bold(y, x)) continue;
 
-		/* Spread adjacent */
+		// Spread adjacent
 		cave_temp_unlite_room_aux(caster_ptr, y + 1, x);
 		cave_temp_unlite_room_aux(caster_ptr, y - 1, x);
 		cave_temp_unlite_room_aux(caster_ptr, y, x + 1);
 		cave_temp_unlite_room_aux(caster_ptr, y, x - 1);
 
-		/* Spread diagonal */
+		// Spread diagonal
 		cave_temp_unlite_room_aux(caster_ptr, y + 1, x + 1);
 		cave_temp_unlite_room_aux(caster_ptr, y - 1, x - 1);
 		cave_temp_unlite_room_aux(caster_ptr, y - 1, x + 1);
 		cave_temp_unlite_room_aux(caster_ptr, y + 1, x - 1);
 	}
 
-	cave_temp_room_unlite(current_floor_ptr); // Now, darken them all at once
+	cave_temp_room_unlite(floor_ptr); // Now, darken them all at once
 }
 
 
