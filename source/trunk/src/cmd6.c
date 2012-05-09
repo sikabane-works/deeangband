@@ -1522,17 +1522,19 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
  * include scrolls with no effects but recharge or identify, which are
  * cancelled before use.  XXX Reading them still takes a turn, though.
  */
-static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
+static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool known)
 {
 	int         k, used_up, ident, lev;
 	object_type *o_ptr;
 	char        Rumor[1024];
 
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1558,7 +1560,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		return;
 	}
 
-	if (cr_ptr->cls_idx == CLASS_BERSERKER)
+	if (creature_ptr->cls_idx == CLASS_BERSERKER)
 	{
 #ifdef JP
 		msg_print("巻物なんて読めない。");
@@ -1568,10 +1570,10 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		return;
 	}
 
-	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
+	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 
 	/* Hex */
-	if (hex_spelling_any(cr_ptr) && ((cr_ptr->lev < 35) || hex_spell_fully(cr_ptr))) stop_hex_spell_all(cr_ptr);
+	if (hex_spelling_any(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
 
 	/* Not identified yet */
 	ident = FALSE;
@@ -1589,11 +1591,11 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 	{
 		case SV_SCROLL_DARKNESS:
 		{
-			if (!(cr_ptr->resist_blind) && !(cr_ptr->resist_dark))
+			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
 			{
-				(void)set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5));
+				(void)set_blind(creature_ptr, creature_ptr->blind + 3 + randint1(5));
 			}
-			if (unlite_area(cr_ptr, 10, 3)) ident = TRUE;
+			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 
@@ -1605,27 +1607,27 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 			msg_print("There is a high pitched humming noise.");
 #endif
 
-			aggravate_creatures(cr_ptr);
+			aggravate_creatures(creature_ptr);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_CURSE_ARMOR:
 		{
-			if (curse_armor(cr_ptr)) ident = TRUE;
+			if (curse_armor(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1))
+			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1))
 			{
-				k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
-				if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 2) && one_in_(2)) k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
+				k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+				if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2) && one_in_(2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
 			}
-			else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 2)) k = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
-			if (k && curse_weapon(cr_ptr, FALSE, k)) ident = TRUE;
+			else if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+			if (k && curse_weapon(creature_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}
 
@@ -1633,7 +1635,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1645,7 +1647,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1655,7 +1657,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1664,7 +1666,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(cr_ptr, cr_ptr->lev, cr_ptr->fy, cr_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
+			if (summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}
@@ -1673,55 +1675,55 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_TRAP_CREATION:
 		{
-			if (trap_creation(cr_ptr, cr_ptr->fy, cr_ptr->fx)) ident = TRUE;
+			if (trap_creation(creature_ptr, creature_ptr->fy, creature_ptr->fx)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_PHASE_DOOR:
 		{
-			teleport_player(cr_ptr, 10, 0L);
+			teleport_player(creature_ptr, 10, 0L);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_TELEPORT:
 		{
-			teleport_player(cr_ptr, 100, 0L);
+			teleport_player(creature_ptr, 100, 0L);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_TELEPORT_LEVEL:
 		{
-			(void)teleport_level(cr_ptr, 0);
+			(void)teleport_level(creature_ptr, 0);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_WORD_OF_RECALL:
 		{
-			if (!word_of_recall(cr_ptr)) used_up = FALSE;
+			if (!word_of_recall(creature_ptr)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_IDENTIFY:
 		{
-			if (!ident_spell(cr_ptr, FALSE)) used_up = FALSE;
+			if (!ident_spell(creature_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_IDENTIFY:
 		{
-			if (!identify_fully(cr_ptr, FALSE)) used_up = FALSE;
+			if (!identify_fully(creature_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_REMOVE_CURSE:
 		{
-			if (remove_curse(cr_ptr))
+			if (remove_curse(creature_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1736,7 +1738,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_STAR_REMOVE_CURSE:
 		{
-			if (remove_all_curse(cr_ptr))
+			if (remove_all_curse(creature_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1751,41 +1753,41 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		case SV_SCROLL_ENCHANT_ARMOR:
 		{
 			ident = TRUE;
-			if (!enchant_spell(cr_ptr, 0, 0, 1)) used_up = FALSE;
+			if (!enchant_spell(creature_ptr, 0, 0, 1)) used_up = FALSE;
 			break;
 		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_HIT:
 		{
-			if (!enchant_spell(cr_ptr, 1, 0, 0)) used_up = FALSE;
+			if (!enchant_spell(creature_ptr, 1, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_DAM:
 		{
-			if (!enchant_spell(cr_ptr, 0, 1, 0)) used_up = FALSE;
+			if (!enchant_spell(creature_ptr, 0, 1, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ENCHANT_ARMOR:
 		{
-			if (!enchant_spell(cr_ptr, 0, 0, randint1(3) + 2)) used_up = FALSE;
+			if (!enchant_spell(creature_ptr, 0, 0, randint1(3) + 2)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ENCHANT_WEAPON:
 		{
-			if (!enchant_spell(cr_ptr, randint1(3), randint1(3), 0)) used_up = FALSE;
+			if (!enchant_spell(creature_ptr, randint1(3), randint1(3), 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_RECHARGING:
 		{
-			if (!recharge(cr_ptr, 130)) used_up = FALSE;
+			if (!recharge(creature_ptr, 130)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -1793,82 +1795,82 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		case SV_SCROLL_MUNDANITY:
 		{
 			ident = TRUE;
-			if (!mundane_spell(cr_ptr, FALSE)) used_up = FALSE;
+			if (!mundane_spell(creature_ptr, FALSE)) used_up = FALSE;
 			break;
 		}
 
 		case SV_SCROLL_LIGHT:
 		{
-			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(creature_ptr, damroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_MAPPING:
 		{
-			map_area(cr_ptr, DETECT_RAD_MAP);
+			map_area(creature_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_GOLD:
 		{
-			if (detect_treasure(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_ITEM:
 		{
-			if (detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_TRAP:
 		{
-			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_DOOR:
 		{
-			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_SATISFY_HUNGER:
 		{
-			if (set_food(cr_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
+			if (set_food(creature_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_BLESSING:
 		{
-			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_MONSTER_CONFUSION:
 		{
-			if (!(cr_ptr->special_attack & ATTACK_CONFUSE))
+			if (!(creature_ptr->special_attack & ATTACK_CONFUSE))
 			{
 #ifdef JP
 				msg_print("手が輝き始めた。");
@@ -1876,7 +1878,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 				msg_print("Your hands begin to glow.");
 #endif
 
-				cr_ptr->special_attack |= ATTACK_CONFUSE;
+				creature_ptr->special_attack |= ATTACK_CONFUSE;
 				play_redraw |= (PR_STATUS);
 				ident = TRUE;
 			}
@@ -1885,27 +1887,27 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
 		{
-			k = 3 * cr_ptr->lev;
-			if (set_protevil(cr_ptr, cr_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
+			k = 3 * creature_ptr->lev;
+			if (set_protevil(creature_ptr, creature_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
 		{
-			warding_glyph(cr_ptr);
+			warding_glyph(creature_ptr);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_TRAP_DOOR_DESTRUCTION:
 		{
-			if (destroy_doors_touch(cr_ptr)) ident = TRUE;
+			if (destroy_doors_touch(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_DESTRUCTION:
 		{
-			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -1920,43 +1922,43 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_DISPEL_UNDEAD:
 		{
-			if (dispel_undead(cr_ptr, 80)) ident = TRUE;
+			if (dispel_undead(creature_ptr, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_IMITATOR) || (cr_ptr->cls_idx == CLASS_MINDCRAFTER) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_ARCHER) || (cr_ptr->cls_idx == CLASS_MAGIC_EATER) || (cr_ptr->cls_idx == CLASS_RED_MAGE) || (cr_ptr->cls_idx == CLASS_SAMURAI) || (cr_ptr->cls_idx == CLASS_BLUE_MAGE) || (cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BERSERKER) || (cr_ptr->cls_idx == CLASS_SMITH) || (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) || (cr_ptr->cls_idx == CLASS_NINJA)) break;
-			cr_ptr->add_spells++;
-			cr_ptr->creature_update |= (CRU_SPELLS);
+			if ((creature_ptr->cls_idx == CLASS_WARRIOR) || (creature_ptr->cls_idx == CLASS_IMITATOR) || (creature_ptr->cls_idx == CLASS_MINDCRAFTER) || (creature_ptr->cls_idx == CLASS_SORCERER) || (creature_ptr->cls_idx == CLASS_ARCHER) || (creature_ptr->cls_idx == CLASS_MAGIC_EATER) || (creature_ptr->cls_idx == CLASS_RED_MAGE) || (creature_ptr->cls_idx == CLASS_SAMURAI) || (creature_ptr->cls_idx == CLASS_BLUE_MAGE) || (creature_ptr->cls_idx == CLASS_CAVALRY) || (creature_ptr->cls_idx == CLASS_BERSERKER) || (creature_ptr->cls_idx == CLASS_SMITH) || (creature_ptr->cls_idx == CLASS_MIRROR_MASTER) || (creature_ptr->cls_idx == CLASS_NINJA)) break;
+			creature_ptr->add_spells++;
+			creature_ptr->creature_update |= (CRU_SPELLS);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_GENOCIDE:
 		{
-			(void)symbol_genocide(cr_ptr, 300, TRUE);
+			(void)symbol_genocide(creature_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_MASS_GENOCIDE:
 		{
-			(void)mass_genocide(cr_ptr, 300, TRUE);
+			(void)mass_genocide(creature_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_ACQUIREMENT:
 		{
-			acquirement(cr_ptr->fy, cr_ptr->fx, 1, TRUE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ACQUIREMENT:
 		{
-			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
@@ -1964,13 +1966,13 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		/* New D'angband scrolls */
 		case SV_SCROLL_FIRE:
 		{
-			fire_ball(cr_ptr, GF_FIRE, 0, 666, 4);
+			fire_ball(creature_ptr, GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if (!(IS_OPPOSE_FIRE(cr_ptr) || cr_ptr->resist_fire || cr_ptr->immune_fire))
+			if (!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || creature_ptr->immune_fire))
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -1980,12 +1982,12 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_ICE:
 		{
-			fire_ball(cr_ptr, GF_ICE, 0, 777, 4);
-			if (!(IS_OPPOSE_COLD(cr_ptr) || cr_ptr->resist_cold || cr_ptr->immune_cold))
+			fire_ball(creature_ptr, GF_ICE, 0, 777, 4);
+			if (!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || creature_ptr->immune_cold))
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -1994,12 +1996,12 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_CHAOS:
 		{
-			fire_ball(cr_ptr, GF_CHAOS, 0, 1000, 4);
-			if (!cr_ptr->resist_chaos)
+			fire_ball(creature_ptr, GF_CHAOS, 0, 1000, 4);
+			if (!creature_ptr->resist_chaos)
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2078,7 +2080,7 @@ msg_print("巻物は煙を立てて消え去った！");
 		case SV_SCROLL_ARTIFACT:
 		{
 			ident = TRUE;
-			if (!artifact_scroll(cr_ptr)) used_up = FALSE;
+			if (!artifact_scroll(creature_ptr)) used_up = FALSE;
 			break;
 		}
 
@@ -2150,7 +2152,7 @@ msg_print("巻物は煙を立てて消え去った！");
 
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* The item was tried */
 	object_tried(o_ptr);
@@ -2159,7 +2161,7 @@ msg_print("巻物は煙を立てて消え去った！");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -2177,16 +2179,16 @@ msg_print("巻物は煙を立てて消え去った！");
 	/* Destroy a scroll in the pack */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -1);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Destroy a scroll on the floor */
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 }
