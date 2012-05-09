@@ -3770,17 +3770,17 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 }
 
-static void monster_arena_result(void)
+static void monster_arena_result(floor_type *floor_ptr)
 {
 	int i2, j2;
 	int win_m_idx = 0;
 	int number_mon = 0;
 
 	/* Count all hostile monsters */
-	for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
-		for (j2 = 0; j2 < current_floor_ptr->height; j2++)
+	for (i2 = 0; i2 < floor_ptr->width; ++i2)
+		for (j2 = 0; j2 < floor_ptr->height; j2++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[j2][i2];
+			cave_type *c_ptr = &floor_ptr->cave[j2][i2];
 
 			if ((c_ptr->creature_idx > 0) && (creature_list[c_ptr->creature_idx].ridden))
 			{
@@ -3986,7 +3986,7 @@ static void process_world(creature_type *cr_ptr)
 	update_dungeon_feeling(cr_ptr);
 
 	/*** Check monster arena ***/
-	if (gamble_arena_mode && !subject_change_floor) monster_arena_result();
+	if (gamble_arena_mode && !subject_change_floor) monster_arena_result(current_floor_ptr);
 
 	/* Every 10 game turns */
 	if (turn % TURNS_PER_TICK) return;
