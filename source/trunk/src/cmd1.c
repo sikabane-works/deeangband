@@ -3526,14 +3526,15 @@ bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
 /*
  * Move the player
  */
-bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
+bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_mode)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	if (wild_mode)
 	{
-		/* add known map */
+		// add known map
 		wilderness[ny][nx].known = TRUE;
 		wilderness[ny - 1][nx - 1].known = TRUE;
 		wilderness[ny + 1][nx + 1].known = TRUE;
@@ -3548,15 +3549,15 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
-		int oy = cr_ptr->fy;
-		int ox = cr_ptr->fx;
-		cave_type *oc_ptr = &current_floor_ptr->cave[oy][ox];
+		int oy = creature_ptr->fy;
+		int ox = creature_ptr->fx;
+		cave_type *oc_ptr = &floor_ptr->cave[oy][ox];
 		int om_idx = oc_ptr->creature_idx;
 		int nm_idx = c_ptr->creature_idx;
 
 		/* Move the player */
-		cr_ptr->fy = ny;
-		cr_ptr->fx = nx;
+		creature_ptr->fy = ny;
+		creature_ptr->fx = nx;
 
 		/* Hack -- For moving monster or riding player's moving */
 		if (!(mpe_mode & MPE_DONT_SWAP_MON))
@@ -3565,7 +3566,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			c_ptr->creature_idx = om_idx;
 			oc_ptr->creature_idx = nm_idx;
 
-			if (om_idx > 0) /* Monster on old spot (or cr_ptr->riding) */
+			if (om_idx > 0) /* Monster on old spot (or creature_ptr->riding) */
 			{
 				creature_type *om_ptr = &creature_list[om_idx];
 				om_ptr->fy = ny;
@@ -3589,11 +3590,11 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		lite_spot(ny, nx);
 
 		/* Check for new panel (redraw map) */
-		verify_panel(cr_ptr);
+		verify_panel(creature_ptr);
 
 		if (mpe_mode & MPE_FORGET_FLOW)
 		{
-			forget_flow(current_floor_ptr);
+			forget_flow(floor_ptr);
 
 			/* Mega-Hack -- Forget the view */
 			update |= (PU_UN_VIEW);
@@ -3609,26 +3610,26 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if ((!cr_ptr->blind && !no_lite(cr_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if ((!creature_ptr->blind && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if (current_floor_ptr->floor_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(current_floor_ptr, cr_ptr);
+		if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(floor_ptr, creature_ptr);
 
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
 
-		if (cr_ptr->cls_idx == CLASS_NINJA)
+		if (creature_ptr->cls_idx == CLASS_NINJA)
 		{
-			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(cr_ptr, FALSE);
-			else if (cr_ptr->cur_lite <= 0) set_superstealth(cr_ptr, TRUE);
+			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(creature_ptr, FALSE);
+			else if (creature_ptr->cur_lite <= 0) set_superstealth(creature_ptr, TRUE);
 		}
 
-		if ((cr_ptr->action == ACTION_HAYAGAKE) &&
+		if ((creature_ptr->action == ACTION_HAYAGAKE) &&
 		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
-		     (!cr_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
+		     (!creature_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 
-			if(is_player(cr_ptr))
+			if(is_player(creature_ptr))
 			{
 #ifdef JP
 				msg_print("ここでは素早く動けない。");
@@ -3637,37 +3638,37 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 #endif
 			}
 			energy_use = 100;
-			set_action(cr_ptr, ACTION_NONE);
+			set_action(creature_ptr, ACTION_NONE);
 		}
 	}
 
 	if (mpe_mode & MPE_ENERGY_USE)
 	{
-		if (music_singing(cr_ptr, MUSIC_WALL))
+		if (music_singing(creature_ptr, MUSIC_WALL))
 		{
-			(void)project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, (60 + cr_ptr->lev), GF_DISINTEGRATE,
+			(void)project(creature_ptr, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
-			if (!creature_bold(cr_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
+			if (!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 
 		/* Spontaneous Searching */
-		if ((cr_ptr->skill_fos >= 50) || (0 == randint0(50 - cr_ptr->skill_fos)))
+		if ((creature_ptr->skill_fos >= 50) || (0 == randint0(50 - creature_ptr->skill_fos)))
 		{
-			search(cr_ptr);
+			search(creature_ptr);
 		}
 
 		/* Continuous Searching */
-		if (cr_ptr->action == ACTION_SEARCH)
+		if (creature_ptr->action == ACTION_SEARCH)
 		{
-			search(cr_ptr);
+			search(creature_ptr);
 		}
 	}
 
 	/* Handle "objects" */
 	if (!(mpe_mode & MPE_DONT_PICKUP))
 	{
-		carry(cr_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
+		carry(creature_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
 	}
 
 	/* Handle "store doors" */
@@ -3709,7 +3710,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		{
 			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, inside_quest, NULL);
 			quest[inside_quest].status = QUEST_STATUS_COMPLETED;
-			quest[inside_quest].complev = (byte)cr_ptr->lev;
+			quest[inside_quest].complev = (byte)creature_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -3719,12 +3720,12 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			msg_print(NULL);
 		}
 
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
-		current_floor_ptr->floor_level = 0;
-		cr_ptr->oldpx = 0;
-		cr_ptr->oldpy = 0;
+		floor_ptr->floor_level = 0;
+		creature_ptr->oldpx = 0;
+		creature_ptr->oldpy = 0;
 
 		subject_change_floor = TRUE;
 	}
@@ -3746,13 +3747,13 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 #endif
 
 			/* Pick a trap */
-			disclose_grid(cr_ptr->fy, cr_ptr->fx);
+			disclose_grid(creature_ptr->fy, creature_ptr->fx);
 		}
 
 		/* Hit the trap */
-		hit_trap(cr_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
+		hit_trap(creature_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if (!creature_bold(cr_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
+		if (!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
@@ -3778,7 +3779,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		}
 	}
 
-	return creature_bold(cr_ptr, ny, nx) && !gameover && !subject_change_floor;
+	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
 
