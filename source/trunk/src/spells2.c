@@ -3534,19 +3534,20 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 	int       x, y;
 	bool      detect = FALSE;
 	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan the current panel */
-	for (y = 1; y < current_floor_ptr->height - 1; y++)
+	for (y = 1; y < floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x <= current_floor_ptr->width - 1; x++)
+		for (x = 1; x <= floor_ptr->width - 1; x++)
 		{
 			int dist = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 			if (dist > range) continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Hack -- Safe */
 			if (flag == FF_TRAP)
