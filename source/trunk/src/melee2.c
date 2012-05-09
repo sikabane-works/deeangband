@@ -1241,6 +1241,7 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 static void process_creature(int m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
+	floor_type       *floor_ptr = get_floor_ptr(creature_ptr); 
 	char creature_name[80];
 
 	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
@@ -1608,7 +1609,7 @@ static void process_creature(int m_idx)
 
 
 	/* Attempt to "multiply" if able and allowed */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (current_floor_ptr->num_repro < MAX_REPRO))
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (floor_ptr->num_repro < MAX_REPRO))
 	{
 		int k, y, x;
 
@@ -1618,9 +1619,9 @@ static void process_creature(int m_idx)
 			for (x = ox - 1; x <= ox + 1; x++)
 			{
 				/* Ignore locations off of edge */
-				if (!in_bounds2(current_floor_ptr, y, x)) continue;
+				if (!in_bounds2(floor_ptr, y, x)) continue;
 
-				if (current_floor_ptr->cave[y][x].creature_idx) k++;
+				if (floor_ptr->cave[y][x].creature_idx) k++;
 			}
 		}
 
@@ -1755,7 +1756,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		/* Give priority to counter attack? */
 		if (creature_ptr->target_y)
 		{
-			int t_m_idx = current_floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
+			int t_m_idx = floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
 
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
@@ -1928,10 +1929,10 @@ msg_format("%^s%s", creature_name, monmessage);
 		nx = ox + ddx[d];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(current_floor_ptr, ny, nx)) continue;
+		if (!in_bounds2(floor_ptr, ny, nx)) continue;
 
 		/* Access that cave grid */
-		c_ptr = &current_floor_ptr->cave[ny][nx];
+		c_ptr = &floor_ptr->cave[ny][nx];
 		f_ptr = &f_info[c_ptr->feat];
 		can_cross = creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0);
 
@@ -2011,7 +2012,7 @@ msg_format("%^s%s", creature_name, monmessage);
 					if (randint0(creature_ptr->chp / 10) > f_ptr->power)
 					{
 						/* Unlock the door */
-						cave_alter_feat(current_floor_ptr, ny, nx, FF_DISARM);
+						cave_alter_feat(floor_ptr, ny, nx, FF_DISARM);
 
 						/* Do not bash the door */
 						may_bash = FALSE;
@@ -2060,9 +2061,9 @@ msg_format("%^s%s", creature_name, monmessage);
 			if (did_open_door || did_bash_door)
 			{
 				/* Break down the door */
-				if (did_bash_door && ((randint0(100) < 50) || (feat_state(current_floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
+				if (did_bash_door && ((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
 				{
-					cave_alter_feat(current_floor_ptr, ny, nx, FF_BASH);
+					cave_alter_feat(floor_ptr, ny, nx, FF_BASH);
 
 					if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
@@ -2078,7 +2079,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				/* Open the door */
 				else
 				{
-					cave_alter_feat(current_floor_ptr, ny, nx, FF_OPEN);
+					cave_alter_feat(floor_ptr, ny, nx, FF_OPEN);
 				}
 
 				f_ptr = &f_info[c_ptr->feat];
@@ -2184,7 +2185,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			}
 
 			/* In anti-melee dungeon, stupid or confused monster takes useless turn */
-			if (do_move && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if (do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (!creature_ptr->confused)
 				{
@@ -2245,7 +2246,7 @@ msg_format("%^s%s", creature_name, monmessage);
 						if (weapon_attack(creature_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
-						else if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
 							if (creature_ptr->confused) return;
 							else if (has_cf_creature(creature_ptr, CF_STUPID))
@@ -2262,7 +2263,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			else if (has_cf_creature(creature_ptr, CF_MOVE_BODY) && !has_cf_creature(creature_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
-				creature_can_cross_terrain(current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
+				creature_can_cross_terrain(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
 			{
 				/* Allow movement */
 				do_move = TRUE;
@@ -2300,7 +2301,7 @@ msg_format("%^s%s", creature_name, monmessage);
 #endif
 			}
 
-			cave_alter_feat(current_floor_ptr, ny, nx, FF_HURT_DISI);
+			cave_alter_feat(floor_ptr, ny, nx, FF_HURT_DISI);
 
 			if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
@@ -2369,7 +2370,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			if (!is_riding_mon)
 			{
 				/* Hack -- Update the old location */
-				current_floor_ptr->cave[oy][ox].creature_idx = c_ptr->creature_idx;
+				floor_ptr->cave[oy][ox].creature_idx = c_ptr->creature_idx;
 
 				/* Mega-Hack -- move the old monster, if any */
 				if (c_ptr->creature_idx)
