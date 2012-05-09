@@ -5378,10 +5378,11 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	bool            hurt = FALSE;
 	cave_type       *c_ptr;
 	bool            map[32][32];
+	floor_type      *floor_ptr = get_floor_ptr(target_ptr);
 
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
@@ -5408,13 +5409,13 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			xx = cx + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(current_floor_ptr, yy, xx)) continue;
+			if (!in_bounds(floor_ptr, yy, xx)) continue;
 
 			/* Skip distant grids */
 			if (distance(cy, cx, yy, xx) > r) continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];
 
 			/* Lose room and vault */
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY | CAVE_UNSAFE);
@@ -5447,12 +5448,12 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			x = target_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
-			if (!cave_empty_bold(current_floor_ptr, y, x)) continue;
+			if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
 			/* Important -- Skip "quake" grids */
 			if (map[16+y-cy][16+x-cx]) continue;
 
-			if (current_floor_ptr->cave[y][x].creature_idx) continue;
+			if (floor_ptr->cave[y][x].creature_idx) continue;
 
 			/* Count "safe" grids */
 			sn++;
@@ -5600,7 +5601,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (!map[16+yy-cy][16+xx-cx]) continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];
 
 			if (c_ptr->creature_idx == target_ptr->riding) continue;
 
@@ -5639,19 +5640,19 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							x = xx + ddx_ddd[i];
 
 							/* Skip non-empty grids */
-							if (!cave_empty_bold(current_floor_ptr, y, x)) continue;
+							if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
 							/* Hack -- no safety on glyph of warding */
-							if (is_glyph_grid(&current_floor_ptr->cave[y][x])) continue;
-							if (is_explosive_rune_grid(&current_floor_ptr->cave[y][x])) continue;
+							if (is_glyph_grid(&floor_ptr->cave[y][x])) continue;
+							if (is_explosive_rune_grid(&floor_ptr->cave[y][x])) continue;
 
 							/* ... nor on the Pattern */
-							if (pattern_tile(current_floor_ptr, y, x)) continue;
+							if (pattern_tile(floor_ptr, y, x)) continue;
 
 							/* Important -- Skip "quake" grids */
 							if (map[16+y-cy][16+x-cx]) continue;
 
-							if (current_floor_ptr->cave[y][x].creature_idx) continue;
+							if (floor_ptr->cave[y][x].creature_idx) continue;
 							if (creature_bold(target_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
@@ -5706,7 +5707,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						}
 
 						/* Delete the monster */
-						delete_creature(current_floor_ptr, yy, xx);
+						delete_creature(floor_ptr, yy, xx);
 
 						/* No longer safe */
 						sn = 0;
@@ -5715,13 +5716,13 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					/* Hack -- Escape from the rock */
 					if (sn)
 					{
-						int m_idx = current_floor_ptr->cave[yy][xx].creature_idx;
+						int m_idx = floor_ptr->cave[yy][xx].creature_idx;
 
 						/* Update the old location */
-						current_floor_ptr->cave[yy][xx].creature_idx = 0;
+						floor_ptr->cave[yy][xx].creature_idx = 0;
 
 						/* Update the new location */
-						current_floor_ptr->cave[sy][sx].creature_idx = m_idx;
+						floor_ptr->cave[sy][sx].creature_idx = m_idx;
 
 						/* Move the monster */
 						m_ptr->fy = sy;
@@ -5742,7 +5743,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	/* Lose monster light */
-	clear_creature_lite(current_floor_ptr);
+	clear_creature_lite(floor_ptr);
 
 	/* Examine the quaked region */
 	for (dy = -r; dy <= r; dy++)
@@ -5757,7 +5758,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (!map[16+yy-cy][16+xx-cx]) continue;
 
 			/* Access the cave grid */
-			c_ptr = &current_floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];
 
 			/* Paranoia -- never affect player */
 			if (creature_bold(target_ptr, yy, xx)) continue;
@@ -5769,34 +5770,34 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				delete_object(yy, xx);
 
 				/* Wall (or floor) type */
-				t = cave_have_flag_bold(current_floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200;
+				t = cave_have_flag_bold(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200;
 
 				/* Granite */
 				if (t < 20)
 				{
 					/* Create granite wall */
-					cave_set_feat(current_floor_ptr, yy, xx, feat_granite);
+					cave_set_feat(floor_ptr, yy, xx, feat_granite);
 				}
 
 				/* Quartz */
 				else if (t < 70)
 				{
 					/* Create quartz vein */
-					cave_set_feat(current_floor_ptr, yy, xx, feat_quartz_vein);
+					cave_set_feat(floor_ptr, yy, xx, feat_quartz_vein);
 				}
 
 				/* Magma */
 				else if (t < 100)
 				{
 					/* Create magma vein */
-					cave_set_feat(current_floor_ptr, yy, xx, feat_magma_vein);
+					cave_set_feat(floor_ptr, yy, xx, feat_magma_vein);
 				}
 
 				/* Floor */
 				else
 				{
 					/* Create floor */
-					cave_set_feat(current_floor_ptr, yy, xx, feat_floor_rand_table[randint0(100)]);
+					cave_set_feat(floor_ptr, yy, xx, feat_floor_rand_table[randint0(100)]);
 				}
 			}
 		}
@@ -5813,16 +5814,16 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			xx = cx + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(current_floor_ptr, yy, xx)) continue;
+			if (!in_bounds(floor_ptr, yy, xx)) continue;
 
 			/* Skip distant grids */
 			if (distance(cy, cx, yy, xx) > r) continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];
 
 			if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-			else if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+			else if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 			{
 				int ii, yyy, xxx;
 				cave_type *cc_ptr;
@@ -5831,8 +5832,8 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				{
 					yyy = yy + ddy_ddd[ii];
 					xxx = xx + ddx_ddd[ii];
-					if (!in_bounds2(current_floor_ptr, yyy, xxx)) continue;
-					cc_ptr = &current_floor_ptr->cave[yyy][xxx];
+					if (!in_bounds2(floor_ptr, yyy, xxx)) continue;
+					cc_ptr = &floor_ptr->cave[yyy][xxx];
 					if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 					{
 						c_ptr->info |= CAVE_GLOW;
@@ -5861,7 +5862,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 	if (target_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (current_floor_ptr->cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
+		if (floor_ptr->cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
 	}
 
 	/* Success */
