@@ -3346,8 +3346,10 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 }
 
 
-bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x)
+bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	feature_type *cur_f_ptr = &f_info[current_floor_ptr->cave[c_y][c_x].feat];
 	feature_type *new_f_ptr = &f_info[current_floor_ptr->cave[n_y][n_x].feat];
 	bool is_pattern_tile_cur = have_flag(cur_f_ptr->flags, FF_PATTERN);
@@ -3361,7 +3363,7 @@ bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x)
 
 	if (pattern_type_new == PATTERN_TILE_START)
 	{
-		if (!is_pattern_tile_cur && !cr_ptr->confused && !cr_ptr->stun && !cr_ptr->image)
+		if (!is_pattern_tile_cur && !creature_ptr->confused && !creature_ptr->stun && !creature_ptr->image)
 		{
 #ifdef JP
 			if (get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))

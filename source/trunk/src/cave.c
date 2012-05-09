@@ -4307,10 +4307,7 @@ void map_area(creature_type *creature_ptr, int range)
 	cave_type       *c_ptr;
 	s16b            feat;
 	feature_type    *f_ptr;
-	floor_type      *floor_ptr;
-
-	if(creature_ptr->floor_id) floor_ptr = &floor_list[creature_ptr->floor_id];
-	else floor_ptr = current_floor_ptr;
+	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
