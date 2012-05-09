@@ -588,7 +588,8 @@ static s16b creature_target_y;
  */
 static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, int y, int x, int dam, int typ)
 {
-	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type      *floor_ptr = get_floor_ptr(aimer_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	feature_type    *f_ptr = &f_info[c_ptr->feat];
 
 	bool obvious = FALSE;
@@ -665,7 +666,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 #else
 			msg_format("A tree %s", message);
 #endif
-			cave_set_feat(current_floor_ptr, y, x, one_in_(3) ? feat_brake : feat_grass);
+			cave_set_feat(floor_ptr, y, x, one_in_(3) ? feat_brake : feat_grass);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -742,7 +743,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the trap */
-				cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
+				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 			}
 
 			/* Locked doors are unlocked */
@@ -751,7 +752,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				s16b old_feat = c_ptr->feat;
 
 				/* Unlock the door */
-				cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
+				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 
 				/* Check line of sound */
 				if (known && (old_feat != c_ptr->feat))
@@ -800,7 +801,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the feature */
-				cave_alter_feat(current_floor_ptr, y, x, FF_TUNNEL);
+				cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
@@ -824,7 +825,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				s16b old_mimic = c_ptr->mimic;
 				feature_type *mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
-				cave_alter_feat(current_floor_ptr, y, x, FF_SPIKE);
+				cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
 
 				c_ptr->mimic = old_mimic;
 
@@ -868,7 +869,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -881,13 +882,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
+			if (!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
-			cave_set_feat(current_floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
+			cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -899,7 +900,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_TRAP:
 		{
 			/* Place a trap */
-			place_trap(current_floor_ptr, y, x);
+			place_trap(floor_ptr, y, x);
 
 			break;
 		}
@@ -908,13 +909,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_TREE:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
+			if (!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
-			cave_set_feat(current_floor_ptr, y, x, feat_tree);
+			cave_set_feat(floor_ptr, y, x, feat_tree);
 
 			/* Observe */
 			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
@@ -926,7 +927,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MAKE_GLYPH:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
+			if (!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Create a glyph */
 			c_ptr->info |= CAVE_OBJECT;
@@ -944,13 +945,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_STONE_WALL:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(current_floor_ptr, y, x)) break;
+			if (!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
 			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Place a wall */
-			cave_set_feat(current_floor_ptr, y, x, feat_granite);
+			cave_set_feat(floor_ptr, y, x, feat_granite);
 
 			break;
 		}
@@ -968,13 +969,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow lava */
-				cave_set_feat(current_floor_ptr, y, x, feat_shallow_lava);
+				cave_set_feat(floor_ptr, y, x, feat_shallow_lava);
 			}
 			/* Deep Lava */
 			else if (dam)
 			{
 				/* Place a deep lava */
-				cave_set_feat(current_floor_ptr, y, x, feat_deep_lava);
+				cave_set_feat(floor_ptr, y, x, feat_deep_lava);
 			}
 			break;
 		}
@@ -991,13 +992,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(current_floor_ptr, y, x, feat_shallow_water);
+				cave_set_feat(floor_ptr, y, x, feat_shallow_water);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(current_floor_ptr, y, x, feat_deep_water);
+				cave_set_feat(floor_ptr, y, x, feat_deep_water);
 			}
 			break;
 		}
@@ -1007,7 +1008,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_LITE:
 		{
 			/* Turn on the light */
-			if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+			if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 			{
 				c_ptr->info |= (CAVE_GLOW);
 
@@ -1017,7 +1018,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(current_floor_ptr, y, x);
+				update_local_illumination(floor_ptr, y, x);
 
 				/* Observe */
 				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
@@ -1045,16 +1046,16 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			/* Turn off the light. */
 			if (do_dark)
 			{
-				if (current_floor_ptr->floor_level || !is_daytime())
+				if (floor_ptr->floor_level || !is_daytime())
 				{
 					for (j = 0; j < 9; j++)
 					{
 						int by = y + ddy_ddd[j];
 						int bx = x + ddx_ddd[j];
 
-						if (in_bounds2(current_floor_ptr, by, bx))
+						if (in_bounds2(floor_ptr, by, bx))
 						{
-							cave_type *cc_ptr = &current_floor_ptr->cave[by][bx];
+							cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
 							if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 							{
@@ -1082,7 +1083,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(current_floor_ptr, y, x);
+				update_local_illumination(floor_ptr, y, x);
 
 				/* Notice */
 				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
@@ -1125,7 +1126,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -1161,7 +1162,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Destroy the wall */
-				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_ROCK);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
 				update |= (PU_FLOW);
@@ -1179,7 +1180,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			/* But not protect monsters and other objects */
 			if (have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
 			{
-				cave_alter_feat(current_floor_ptr, y, x, FF_HURT_DISI);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to GF_KILL_WALL */
 				update |= (PU_FLOW);
@@ -1199,13 +1200,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(current_floor_ptr, y, x, feat_shallow_acid);
+				cave_set_feat(floor_ptr, y, x, feat_shallow_acid);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(current_floor_ptr, y, x, feat_deep_acid);
+				cave_set_feat(floor_ptr, y, x, feat_deep_acid);
 			}
 			break;
 		}
@@ -1222,13 +1223,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
-				cave_set_feat(current_floor_ptr, y, x, feat_shallow_poison);
+				cave_set_feat(floor_ptr, y, x, feat_shallow_poison);
 			}
 			/* Deep Water */
 			else if (dam)
 			{
 				/* Place a deep water */
-				cave_set_feat(current_floor_ptr, y, x, feat_deep_poison);
+				cave_set_feat(floor_ptr, y, x, feat_deep_poison);
 			}
 			break;
 		}
