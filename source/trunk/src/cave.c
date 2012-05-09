@@ -3377,7 +3377,7 @@ void forget_view(floor_type *floor_ptr)
 /*
  * Helper function for "update_view()" below
  *
- * We are checking the "viewability" of grid (y,x) by the player.
+ * We are checking the "viewability" of grid (y,x) by the creature.
  *
  * This function assumes that (y,x) is legal (i.e. on the map).
  *
@@ -3391,7 +3391,7 @@ void forget_view(floor_type *floor_ptr)
  *
  * This function now returns "TRUE" if vision is "blocked" by grid (y,x).
  */
-static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1, int y2, int x2)
+static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, int x1, int y2, int x2)
 {
 	bool f1, f2, v1, v2, z1, z2, wall;
 
@@ -3400,9 +3400,11 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
 	cave_type *g1_c_ptr;
 	cave_type *g2_c_ptr;
 
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	/* Access the grids */
-	g1_c_ptr = &current_floor_ptr->cave[y1][x1];
-	g2_c_ptr = &current_floor_ptr->cave[y2][x2];
+	g1_c_ptr = &floor_ptr->cave[y1][x1];
+	g2_c_ptr = &floor_ptr->cave[y2][x2];
 
 
 	/* Check for walls */
@@ -3422,7 +3424,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
 
 
 	/* Access the grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 
 	/* Check for walls */
@@ -3472,7 +3474,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
 
 
 	/* Hack -- check line of sight */
-	if (los(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, y, x))
+	if (los(floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
 	{
 		cave_view_hack(c_ptr, y, x);
 
