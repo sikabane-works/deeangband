@@ -5072,18 +5072,19 @@ msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
  */
 bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int       y, x, k, t;
 	cave_type *c_ptr;
 	bool      flag = FALSE;
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
 
 	/* Lose monster light */
-	if (!in_generate) clear_creature_lite(current_floor_ptr);
+	if (!in_generate) clear_creature_lite(floor_ptr);
 
 	/* Big area of affect */
 	for (y = (y1 - r); y <= (y1 + r); y++)
@@ -5091,7 +5092,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		for (x = (x1 - r); x <= (x1 + r); x++)
 		{
 			/* Skip illegal grids */
-			if (!in_bounds(current_floor_ptr, y, x)) continue;
+			if (!in_bounds(floor_ptr, y, x)) continue;
 
 			/* Extract the distance */
 			k = distance(y1, x1, y, x);
@@ -5100,7 +5101,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			if (k > r) continue;
 
 			/* Access the grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			// Erase Message
 			c_ptr->message[0] = '\0';
@@ -5138,7 +5139,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				if (in_generate) /* In generation */
 				{
 					/* Delete the monster (if any) */
-					delete_creature(current_floor_ptr, y, x);
+					delete_creature(floor_ptr, y, x);
 				}
 				else if (is_quest_species(r_ptr))
 				{
@@ -5159,7 +5160,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					}
 
 					/* Delete the monster (if any) */
-					delete_creature(current_floor_ptr, y, x);
+					delete_creature(floor_ptr, y, x);
 				}
 			}
 
@@ -5221,22 +5222,22 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					if (t < 20)
 					{
 						/* Create granite wall */
-						cave_set_feat(current_floor_ptr, y, x, feat_granite);
+						cave_set_feat(floor_ptr, y, x, feat_granite);
 					}
 					else if (t < 70)
 					{
 						/* Create quartz vein */
-						cave_set_feat(current_floor_ptr, y, x, feat_quartz_vein);
+						cave_set_feat(floor_ptr, y, x, feat_quartz_vein);
 					}
 					else if (t < 100)
 					{
 						/* Create magma vein */
-						cave_set_feat(current_floor_ptr, y, x, feat_magma_vein);
+						cave_set_feat(floor_ptr, y, x, feat_magma_vein);
 					}
 					else
 					{
 						/* Create floor */
-						cave_set_feat(current_floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
+						cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
 					}
 				}
 				else /* In generation */
@@ -5277,7 +5278,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			for (x = (x1 - r); x <= (x1 + r); x++)
 			{
 				/* Skip illegal grids */
-				if (!in_bounds(current_floor_ptr, y, x)) continue;
+				if (!in_bounds(floor_ptr, y, x)) continue;
 
 				/* Extract the distance */
 				k = distance(y1, x1, y, x);
@@ -5286,10 +5287,10 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				if (k > r) continue;
 
 				/* Access the grid */
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 
 				if (is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-				else if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+				else if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 				{
 					int i, yy, xx;
 					cave_type *cc_ptr;
@@ -5298,8 +5299,8 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					{
 						yy = y + ddy_ddd[i];
 						xx = x + ddx_ddd[i];
-						if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
-						cc_ptr = &current_floor_ptr->cave[yy][xx];
+						if (!in_bounds2(floor_ptr, yy, xx)) continue;
+						cc_ptr = &floor_ptr->cave[yy][xx];
 						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
 							c_ptr->info |= CAVE_GLOW;
@@ -5328,7 +5329,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			}
 		}
 
-		forget_flow(current_floor_ptr);
+		forget_flow(floor_ptr);
 
 		/* Mega-Hack -- Forget the view and lite */
 		update |= (PU_UN_VIEW | PU_UN_LITE);
@@ -5344,7 +5345,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		if (caster_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
+			if (floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
 		}
 	}
 
