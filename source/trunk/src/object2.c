@@ -5892,9 +5892,10 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 	return dam;
 }
 
-/* Examine the grid (xx,yy) and warn the player if there are any danger */
+// Examine the grid (xx,yy) and warn the player if there are any danger
 bool process_warning(creature_type *player_ptr, int xx, int yy)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	int mx, my;
 	cave_type *c_ptr;
 	char o_name[MAX_NLEN];
@@ -5911,9 +5912,9 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			creature_type *m_ptr;
 			species_type *r_ptr;
 
-			if (!in_bounds(current_floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
+			if (!in_bounds(floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
 
-			c_ptr = &current_floor_ptr->cave[my][mx];
+			c_ptr = &floor_ptr->cave[my][mx];
 
 			if (!c_ptr->creature_idx) continue;
 
@@ -5935,7 +5936,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				u32b f5 = 0;
 				u32b f6 = 0;
 
-				if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
+				if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 				{
 					int rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 					int storm_dam = rlev * 4 + 150;
@@ -5974,7 +5975,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			}
 
 			/* Monster melee attacks */
-			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{
@@ -6025,7 +6026,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	}
 	else old_damage = old_damage / 2;
 
-	c_ptr = &current_floor_ptr->cave[yy][xx];
+	c_ptr = &floor_ptr->cave[yy][xx];
 	if (((!easy_disarm && is_trap(c_ptr->feat))
 	    || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
