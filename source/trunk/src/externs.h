@@ -1484,7 +1484,7 @@ extern void brand_weapon(creature_type *cr_ptr, int brand_type);
 extern void call_the_void(creature_type *cr_ptr);
 extern void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los);
 extern void alter_reality(creature_type *cr_ptr);
-extern bool warding_glyph(creature_type *cr_ptr);
+extern bool warding_glyph(creature_type *creature_ptr);
 extern bool place_mirror(creature_type *cr_ptr);
 extern bool explosive_rune(creature_type *cr_ptr);
 extern void identify_pack(creature_type *cr_ptr);
