@@ -5013,10 +5013,12 @@ static cptr do_cmd_feeling_text_lucky[11] =
  * Note that "feeling" is set to zero unless some time has passed.
  * Note that this is done when the level is GENERATED, not entered.
  */
-void do_cmd_feeling(creature_type *cr_ptr)
+void do_cmd_feeling(creature_type *creature_ptr)
 {
-	/* No useful feeling in quests */
-	if (inside_quest && !random_quest_number(current_floor_ptr->floor_level))
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	// No useful feeling in quests
+	if (inside_quest && !random_quest_number(floor_ptr->floor_level))
 	{
 #ifdef JP
 		msg_print("“TŒ^“I‚ÈƒNƒGƒXƒg‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚Ì‚æ‚¤‚¾B");
@@ -5028,7 +5030,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in town */
-	else if (town_num && !current_floor_ptr->floor_level)
+	else if (town_num && !floor_ptr->floor_level)
 	{
 #ifdef JP
 		if (!strcmp(town[town_num].name, "r–ì"))
@@ -5057,7 +5059,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* No useful feeling in the wilderness */
-	else if (!current_floor_ptr->floor_level)
+	else if (!floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("“TŒ^“I‚Èr–ì‚Ì‚æ‚¤‚¾B");
@@ -5069,13 +5071,13 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* Display the feeling */
-	if (has_cf_creature(cr_ptr, CF_GOOD_LUCK))
-		msg_print(do_cmd_feeling_text_lucky[cr_ptr->floor_feeling]);
-	else if (cr_ptr->chara_idx == CHARA_COMBAT ||
-             get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
-		msg_print(do_cmd_feeling_text_combat[cr_ptr->floor_feeling]);
+	if (has_cf_creature(creature_ptr, CF_GOOD_LUCK))
+		msg_print(do_cmd_feeling_text_lucky[creature_ptr->floor_feeling]);
+	else if (creature_ptr->chara_idx == CHARA_COMBAT ||
+             get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+		msg_print(do_cmd_feeling_text_combat[creature_ptr->floor_feeling]);
 	else
-		msg_print(do_cmd_feeling_text[cr_ptr->floor_feeling]);
+		msg_print(do_cmd_feeling_text[creature_ptr->floor_feeling]);
 }
 
 
