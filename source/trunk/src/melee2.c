@@ -370,6 +370,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 {
 	int i, y, x, y1, x1, best;
 
+	floor_type *floor_ptr = get_floor_ptr(mover_ptr);
 	cave_type *c_ptr;
 	bool use_scent = FALSE;
 
@@ -398,7 +399,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if (player_has_los_bold(y1, x1) && projectable(mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Monster grid */
-	c_ptr = &current_floor_ptr->cave[y1][x1];
+	c_ptr = &floor_ptr->cave[y1][x1];
 
 	/* If we can hear noises, advance towards them */
 	if (c_ptr->cost)
@@ -410,7 +411,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	else if (c_ptr->when)
 	{
 		/* Too old smell */
-		if (current_floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
+		if (floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
 
 		use_scent = TRUE;
 		best = 0;
@@ -430,9 +431,9 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(current_floor_ptr, y, x)) continue;
+		if (!in_bounds2(floor_ptr, y, x)) continue;
 
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* We're following a scent trail */
 		if (use_scent)
