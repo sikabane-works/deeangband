@@ -4399,38 +4399,34 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 static bool ignore_avoid_run;
 
-/*
- * Hack -- Check for a "known wall" (see below)
- */
-static int see_wall(creature_type *cr_ptr, int dir, int y, int x)
-{
-	cave_type   *c_ptr;
 
-	/* Get the new location */
+// Hack -- Check for a "known wall" (see below)
+static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
+{
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type  *c_ptr;
+
+	// Get the new location
 	y += ddy[dir];
 	x += ddx[dir];
 
-	/* Illegal grids are not known walls */
-	if (!in_bounds2(current_floor_ptr, y, x)) return (FALSE);
+	if (!in_bounds2(floor_ptr, y, x)) return (FALSE); // Illegal grids are not known walls
+	c_ptr = &floor_ptr->cave[y][x]; // Access grid
 
-	/* Access grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
-
-	/* Must be known to the player */
-	if (c_ptr->info & (CAVE_MARK))
+	if (c_ptr->info & (CAVE_MARK)) // Must be known to the player
 	{
-		/* Feature code (applying "mimic" field) */
+		// Feature code (applying "mimic" field)
 		s16b         feat = get_feat_mimic(c_ptr);
 		feature_type *f_ptr = &f_info[feat];
 
-		/* Wall grids are known walls */
-		if (!player_can_enter(cr_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
+		// Wall grids are known walls
+		if (!player_can_enter(creature_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
 
-		/* Don't run on a tree unless explicitly requested */
+		// Don't run on a tree unless explicitly requested
 		if (have_flag(f_ptr->flags, FF_AVOID_RUN) && !ignore_avoid_run)
 			return TRUE;
 
-		/* Don't run in a wall */
+		// Don't run in a wall
 		if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 			return !have_flag(f_ptr->flags, FF_DOOR);
 	}
