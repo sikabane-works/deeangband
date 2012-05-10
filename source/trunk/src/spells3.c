@@ -1590,8 +1590,9 @@ msg_print("属性付加に失敗した。");
 /*
  * Vanish all walls in this floor
  */
-static bool vanish_dungeon(creature_type *cr_ptr)
+static bool vanish_dungeon(floor_type *floor_ptr)
 {
+
 	int          y, x;
 	cave_type    *c_ptr;
 	feature_type *f_ptr;
@@ -1599,17 +1600,17 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	char         m_name[80];
 
 	/* Prevent vasishing of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
 	{
 		return FALSE;
 	}
 
 	/* Scan all normal grids */
-	for (y = 1; y < current_floor_ptr->height - 1; y++)
+	for (y = 1; y < floor_ptr->height - 1; y++)
 	{
-		for (x = 1; x < current_floor_ptr->width - 1; x++)
+		for (x = 1; x < floor_ptr->width - 1; x++)
 		{
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Seeing true feature code (ignore mimic) */
 			f_ptr = &f_info[c_ptr->feat];
@@ -1641,14 +1642,14 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 			}
 
 			/* Process all walls, doors and patterns */
-			if (have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(current_floor_ptr, y, x, FF_HURT_DISI);
+			if (have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 		}
 	}
 
 	/* Special boundary walls -- Top and bottom */
-	for (x = 0; x < current_floor_ptr->width; x++)
+	for (x = 0; x < floor_ptr->width; x++)
 	{
-		c_ptr = &current_floor_ptr->cave[0][x];
+		c_ptr = &floor_ptr->cave[0][x];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1657,13 +1658,13 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &current_floor_ptr->cave[current_floor_ptr->height - 1][x];
+		c_ptr = &floor_ptr->cave[floor_ptr->height - 1][x];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1672,7 +1673,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
@@ -1680,9 +1681,9 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 	}
 
 	/* Special boundary walls -- Left and right */
-	for (y = 1; y < (current_floor_ptr->height - 1); y++)
+	for (y = 1; y < (floor_ptr->height - 1); y++)
 	{
-		c_ptr = &current_floor_ptr->cave[y][0];
+		c_ptr = &floor_ptr->cave[y][0];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1691,13 +1692,13 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
-		c_ptr = &current_floor_ptr->cave[y][current_floor_ptr->width - 1];
+		c_ptr = &floor_ptr->cave[y][floor_ptr->width - 1];
 		f_ptr = &f_info[c_ptr->mimic];
 
 		/* Lose room and vault */
@@ -1706,7 +1707,7 @@ static bool vanish_dungeon(creature_type *cr_ptr)
 		/* Set boundary mimic if needed */
 		if (c_ptr->mimic && have_flag(f_ptr->flags, FF_HURT_DISI))
 		{
-			c_ptr->mimic = feat_state(current_floor_ptr, c_ptr->mimic, FF_HURT_DISI);
+			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
 			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
@@ -1797,9 +1798,9 @@ void call_the_void(creature_type *cr_ptr)
 		if (one_in_(666))
 		{
 #ifdef JP
-			if (!vanish_dungeon(cr_ptr)) msg_print("ダンジョンは一瞬静まり返った。");
+			if (!vanish_dungeon(current_floor_ptr)) msg_print("ダンジョンは一瞬静まり返った。");
 #else
-			if (!vanish_dungeon(cr_ptr)) msg_print("The dungeon silences a moment.");
+			if (!vanish_dungeon(current_floor_ptr)) msg_print("The dungeon silences a moment.");
 #endif
 		}
 		else
