@@ -743,15 +743,16 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
  *
  * Check for "Quest" completion when a quest monster is killed.
  *
- * Note that only the player can induce "monster_death()" on Uniques.
+ * Note that only the player can induce "creature_death()" on Uniques.
  * Thus (for now) all Quest monsters should be Uniques.
  *
  * Note that monsters can now carry objects, and when a monster dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
-void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
+void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
 {
 	int i, j, y, x;
+	floor_type *floor_ptr = get_floor_ptr(killer_ptr);
 	species_type *r_ptr = &species_info[killed_ptr->species_idx];
 
 	int dump_item = 0;
@@ -853,7 +854,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Prepare to make a prize */
 			object_prep(q_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -921,7 +922,7 @@ msg_print("地面に落とされた。");
 		/* Prepare to make an object */
 		object_prep(q_ptr, lookup_kind(TV_CORPSE, (corpse ? SV_CORPSE : SV_SKELETON)), ITEM_FREE_SIZE);
 
-		apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+		apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 		q_ptr->pval = killed_ptr->species_idx;
 
@@ -976,7 +977,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Blade of Chaos */
 			object_prep(q_ptr, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART | mo_mode, 0);
+			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | mo_mode, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -984,7 +985,7 @@ msg_print("地面に落とされた。");
 		break;
 
 	case MON_RAAL:
-		if (drop_chosen_item && (current_floor_ptr->floor_level > 9))
+		if (drop_chosen_item && (floor_ptr->floor_level > 9))
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -993,13 +994,13 @@ msg_print("地面に落とされた。");
 			object_wipe(q_ptr);
 
 			/* Activate restriction */
-			if ((current_floor_ptr->floor_level > 49) && one_in_(5))
+			if ((floor_ptr->floor_level > 49) && one_in_(5))
 				get_obj_num_hook = kind_is_good_book;
 			else
 				get_obj_num_hook = kind_is_book;
 
 			/* Make a book */
-			make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+			make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1021,9 +1022,9 @@ msg_print("地面に落とされた。");
 
 				do
 				{
-					scatter(current_floor_ptr, &wy, &wx, y, x, 20, 0);
+					scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
 				}
-				while (!(in_bounds(current_floor_ptr, wy, wx) && cave_empty_bold2(current_floor_ptr, wy, wx)) && --attempts);
+				while (!(in_bounds(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
 
 				if (attempts > 0)
 				{
@@ -1158,7 +1159,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Can of Toys */
 			object_prep(q_ptr, lookup_kind(TV_CHEST, SV_CHEST_KANDUME), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1180,7 +1181,7 @@ msg_print("地面に落とされた。");
 		switch (r_ptr->d_char)
 		{
 		case '(':
-			if (current_floor_ptr->floor_level > 0)
+			if (floor_ptr->floor_level > 0)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1192,7 +1193,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_cloak;
 
 				/* Make a cloak */
-				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1200,7 +1201,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '/':
-			if (current_floor_ptr->floor_level > 4)
+			if (floor_ptr->floor_level > 4)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1212,7 +1213,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_polearm;
 
 				/* Make a poleweapon */
-				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1220,7 +1221,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '[':
-			if (current_floor_ptr->floor_level > 19)
+			if (floor_ptr->floor_level > 19)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1232,7 +1233,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_armor;
 
 				/* Make a hard armor */
-				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1240,7 +1241,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '\\':
-			if (current_floor_ptr->floor_level > 4)
+			if (floor_ptr->floor_level > 4)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1252,7 +1253,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_hafted;
 
 				/* Make a hafted weapon */
-				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1272,7 +1273,7 @@ msg_print("地面に落とされた。");
 				get_obj_num_hook = kind_is_sword;
 
 				/* Make a sword */
-				make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level);
+				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1288,14 +1289,14 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (dungeon_info[current_floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
+		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
 		{
-			int k_idx = dungeon_info[current_floor_ptr->dun_type].final_object ? dungeon_info[current_floor_ptr->dun_type].final_object
+			int k_idx = dungeon_info[floor_ptr->dun_type].final_object ? dungeon_info[floor_ptr->dun_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 
-			if (dungeon_info[current_floor_ptr->dun_type].final_artifact)
+			if (dungeon_info[floor_ptr->dun_type].final_artifact)
 			{
-				int a_idx = dungeon_info[current_floor_ptr->dun_type].final_artifact;
+				int a_idx = dungeon_info[floor_ptr->dun_type].final_artifact;
 				artifact_type *a_ptr = &artifact_info[a_idx];
 
 				if (!a_ptr->cur_num)
@@ -1311,7 +1312,7 @@ msg_print("地面に落とされた。");
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
 					/* Prevent rewarding both artifact and "default" object */
-					if (!dungeon_info[current_floor_ptr->dun_type].final_object) k_idx = 0;
+					if (!dungeon_info[floor_ptr->dun_type].final_object) k_idx = 0;
 				}
 			}
 
@@ -1323,15 +1324,15 @@ msg_print("地面に落とされた。");
 				/* Prepare to make a reward */
 				object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
-				apply_magic(killed_ptr, q_ptr, current_floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
 			}
 #ifdef JP
-			msg_format("あなたは%sを制覇した！",d_name+dungeon_info[current_floor_ptr->dun_type].name);
+			msg_format("あなたは%sを制覇した！",d_name+dungeon_info[floor_ptr->dun_type].name);
 #else
-			msg_format("You have conquered %s!",d_name+dungeon_info[current_floor_ptr->dun_type].name);
+			msg_format("You have conquered %s!",d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 		}
 	}
@@ -1347,7 +1348,7 @@ msg_print("地面に落とされた。");
 	coin_type = force_coin;
 
 	/* Average dungeon and monster levels */
-	current_floor_ptr->object_level = (current_floor_ptr->floor_level + r_ptr->level) / 2;
+	floor_ptr->object_level = (floor_ptr->floor_level + r_ptr->level) / 2;
 
 	/* Drop some objects */
 	for (j = 0; j < number; j++)
@@ -1372,7 +1373,7 @@ msg_print("地面に落とされた。");
 		else
 		{
 			/* Make an object */
-			if (!make_object(q_ptr, mo_mode, 0, current_floor_ptr->object_level)) continue;
+			if (!make_object(q_ptr, mo_mode, 0, floor_ptr->object_level)) continue;
 
 			/* XXX XXX XXX */
 			dump_item++;
@@ -1383,7 +1384,7 @@ msg_print("地面に落とされた。");
 	}
 
 	/* Reset the object level */
-	current_floor_ptr->object_level = current_floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->base_level;
 
 	/* Reset "coin" type */
 	coin_type = 0;

@@ -1428,7 +1428,7 @@ static void process_creature(int m_idx)
 			}
 
 			/* Generate treasure, etc */
-			monster_death(player_ptr, &creature_list[m_idx], FALSE);
+			creature_death(player_ptr, &creature_list[m_idx], FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(&creature_list[m_idx]);

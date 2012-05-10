@@ -2083,7 +2083,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			//if (caster_ptr != caster_ptr) monster_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
 			/* Generate treasure, etc */
-			monster_death(player_ptr, target_ptr, FALSE);
+			creature_death(player_ptr, target_ptr, FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(target_ptr);
