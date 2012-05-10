@@ -21,7 +21,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	bool go_up = FALSE;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	cave_type *c_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
+	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	int up_num = 0;
@@ -69,7 +69,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		/* Leaving a quest */
 		if (!inside_quest)
 		{
-			current_floor_ptr->floor_level = 0;
+			floor_ptr->floor_level = 0;
 		}
 
 		/* Leaving */
@@ -82,7 +82,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		return;
 	}
 
-	if (!current_floor_ptr->floor_level)
+	if (!floor_ptr->floor_level)
 	{
 		go_up = TRUE;
 	}
@@ -134,7 +134,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
-		current_floor_ptr->floor_level = 0;
+		floor_ptr->floor_level = 0;
 		up_num = 0;
 	}
 
@@ -158,8 +158,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if (current_floor_ptr->floor_level - up_num < dungeon_info[current_floor_ptr->dun_type].mindepth)
-			up_num = current_floor_ptr->floor_level;
+		if (floor_ptr->floor_level - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
+			up_num = floor_ptr->floor_level;
 	}
 
 #ifdef JP
@@ -172,12 +172,12 @@ void do_cmd_go_up(creature_type *creature_ptr)
 #ifdef JP
 	if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 		msg_print("なんだこの階段は！");
-	else if (up_num == current_floor_ptr->floor_level)
+	else if (up_num == floor_ptr->floor_level)
 		msg_print("地上に戻った。");
 	else
 		msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
-	if (up_num == current_floor_ptr->floor_level)
+	if (up_num == floor_ptr->floor_level)
 		msg_print("You go back to the surface.");
 	else
 		msg_print("You enter a maze of up staircases.");
@@ -191,7 +191,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 void do_cmd_go_down(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	cave_type *c_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
+	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	bool fall_trap = FALSE;
@@ -248,7 +248,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		/* Leaving a quest */
 		if (!inside_quest)
 		{
-			current_floor_ptr->floor_level = 0;
+			floor_ptr->floor_level = 0;
 		}
 
 		/* Leaving */
@@ -262,7 +262,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	{
 		int target_dungeon = 0;
 
-		if (!current_floor_ptr->floor_level)
+		if (!floor_ptr->floor_level)
 		{
 			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->special : DUNGEON_ANGBAND;
 
@@ -289,7 +289,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			/* Save old player position */
 			creature_ptr->oldpx = creature_ptr->fx;
 			creature_ptr->oldpy = creature_ptr->fy;
-			current_floor_ptr->dun_type = (byte)target_dungeon;
+			floor_ptr->dun_type = (byte)target_dungeon;
 
 			/*
 			 * Clear all saved floors
@@ -307,11 +307,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		if (have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;
 		else down_num += 1;
 
-		if (!current_floor_ptr->floor_level)
+		if (!floor_ptr->floor_level)
 		{
 			/* Enter the dungeon just now */
 			creature_ptr->enter_dungeon = TRUE;
-			down_num = dungeon_info[current_floor_ptr->dun_type].mindepth;
+			down_num = dungeon_info[floor_ptr->dun_type].mindepth;
 		}
 
 		if (record_stair)
@@ -339,9 +339,9 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			if (target_dungeon)
 			{
 #ifdef JP
-				msg_format("%sへ入った。", d_text + dungeon_info[current_floor_ptr->dun_type].text);
+				msg_format("%sへ入った。", d_text + dungeon_info[floor_ptr->dun_type].text);
 #else
-				msg_format("You entered %s.", d_text + dungeon_info[current_floor_ptr->dun_type].text);
+				msg_format("You entered %s.", d_text + dungeon_info[floor_ptr->dun_type].text);
 #endif
 			}
 			else
