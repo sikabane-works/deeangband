@@ -1659,10 +1659,12 @@ bool change_panel(int dy, int dx)
  *
  * The map is reprinted if necessary, and "TRUE" is returned.
  */
-void verify_panel(creature_type *cr_ptr)
+void verify_panel(creature_type *creature_ptr)
 {
-	int y = cr_ptr->fy;
-	int x = cr_ptr->fx;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	int y = creature_ptr->fy;
+	int x = creature_ptr->fx;
 	int wid, hgt;
 
 	int prow_min;
@@ -1670,11 +1672,11 @@ void verify_panel(creature_type *cr_ptr)
 	int max_prow_min;
 	int max_pcol_min;
 
-	/* Get size */
+	// Get size
 	get_screen_size(&wid, &hgt);
 
-	max_prow_min = current_floor_ptr->height - hgt;
-	max_pcol_min = current_floor_ptr->width - wid;
+	max_prow_min = floor_ptr->height - hgt;
+	max_pcol_min = floor_ptr->width - wid;
 
 	/* Bounds checking */
 	if (max_prow_min < 0) max_prow_min = 0;
