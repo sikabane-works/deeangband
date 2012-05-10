@@ -3043,6 +3043,8 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
  */
 bool target_set(creature_type *aimer_ptr, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(aimer_ptr);
+
 	int		i, d, m, t, bd;
 	int		y = aimer_ptr->fy;
 	int		x = aimer_ptr->fx;
@@ -3089,7 +3091,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Allow target */
 			if (target_able(aimer_ptr, c_ptr->creature_idx))
@@ -3311,11 +3313,11 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						}
 
 						/* Slide into legality */
-						if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
+						if (x >= floor_ptr->width-1) x = floor_ptr->width - 2;
 						else if (x <= 0) x = 1;
 
 						/* Slide into legality */
-						if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
+						if (y >= floor_ptr->height-1) y = floor_ptr->height- 2;
 						else if (y <= 0) y = 1;
 					}
 				}
@@ -3333,7 +3335,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Default prompt */
 #ifdef JP
@@ -3492,11 +3494,11 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 				}
 
 				/* Slide into legality */
-				if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
+				if (x >= floor_ptr->width-1) x = floor_ptr->width - 2;
 				else if (x <= 0) x = 1;
 
 				/* Slide into legality */
-				if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
+				if (y >= floor_ptr->height-1) y = floor_ptr->height- 2;
 				else if (y <= 0) y = 1;
 			}
 		}
