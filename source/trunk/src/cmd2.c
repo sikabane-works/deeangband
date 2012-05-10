@@ -187,22 +187,19 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	subject_change_floor = TRUE;
 }
 
-
-/*
- * Go down one level
- */
-void do_cmd_go_down(creature_type *cr_ptr)
+// Go down one level
+void do_cmd_go_down(creature_type *creature_ptr)
 {
-	/* Player grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	bool fall_trap = FALSE;
 	int down_num = 0;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
@@ -222,14 +219,14 @@ void do_cmd_go_down(creature_type *cr_ptr)
 	/* Quest entrance */
 	if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 	{
-		do_cmd_quest(cr_ptr);
+		do_cmd_quest(creature_ptr);
 	}
 
 	/* Quest down stairs */
 	else if (have_flag(f_ptr->flags, FF_QUEST))
 	{
 #ifdef JP
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 		else
 			msg_print("‰º‚ÌŠK‚É~‚è‚½B");
@@ -238,7 +235,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 #endif
 
 
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
 
@@ -257,8 +254,8 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		/* Leaving */
 		subject_change_floor = TRUE;
 
-		cr_ptr->oldpx = 0;
-		cr_ptr->oldpy = 0;
+		creature_ptr->oldpx = 0;
+		creature_ptr->oldpy = 0;
 	}
 
 	else
@@ -290,15 +287,15 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			}
 
 			/* Save old player position */
-			cr_ptr->oldpx = cr_ptr->fx;
-			cr_ptr->oldpy = cr_ptr->fy;
+			creature_ptr->oldpx = creature_ptr->fx;
+			creature_ptr->oldpy = creature_ptr->fy;
 			current_floor_ptr->dun_type = (byte)target_dungeon;
 
 			/*
 			 * Clear all saved floors
 			 * and create a first saved floor
 			 */
-			prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
+			prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 		}
 
 		/* Hack -- take a turn */
@@ -313,7 +310,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		if (!current_floor_ptr->floor_level)
 		{
 			/* Enter the dungeon just now */
-			cr_ptr->enter_dungeon = TRUE;
+			creature_ptr->enter_dungeon = TRUE;
 			down_num = dungeon_info[current_floor_ptr->dun_type].mindepth;
 		}
 
@@ -350,7 +347,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
 				else
 					msg_print("ŠK’i‚ð‰º‚è‚ÄV‚½‚È‚é–À‹{‚Ö‚Æ‘«‚ð“¥‚Ý“ü‚ê‚½B");
@@ -366,19 +363,19 @@ void do_cmd_go_down(creature_type *cr_ptr)
 
 		if (fall_trap)
 		{
-			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 		}
 		else
 		{
 			if (have_flag(f_ptr->flags, FF_SHAFT))
 			{
 				/* Create a way back */
-				prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_SHAFT);
+				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_SHAFT);
 			}
 			else
 			{
 				/* Create a way back */
-				prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_DOWN);
+				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN);
 			}
 		}
 	}
