@@ -53,12 +53,8 @@ void set_floor_and_wall(byte type)
 	feat_wall_solid = d_ptr->outer_wall;
 }
 
-
-/*
- * Helper for plasma generation.
- */
-static void perturb_point_mid(int x1, int x2, int x3, int x4,
-			  int xmid, int ymid, int rough, int depth_max)
+// Helper for plasma generation.
+static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int x4, int xmid, int ymid, int rough, int depth_max)
 {
 	/*
 	 * Average the four corners & perturb it a bit.
@@ -66,19 +62,17 @@ static void perturb_point_mid(int x1, int x2, int x3, int x4,
 	 */
 	int tmp2 = rough*2 + 1;
 	int tmp = randint1(tmp2) - (rough + 1);
-
 	int avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
 
-	/* Division always rounds down, so we round up again */
-	if (((x1 + x2 + x3 + x4) % 4) > 1)
-		avg++;
+	// Division always rounds down, so we round up again
+	if (((x1 + x2 + x3 + x4) % 4) > 1) avg++;
 
-	/* Normalize */
+	// Normalize
 	if (avg < 0) avg = 0;
 	if (avg > depth_max) avg = depth_max;
 
-	/* Set the new value. */
-	current_floor_ptr->cave[ymid][xmid].feat = avg;
+	// Set the new value.
+	floor_ptr->cave[ymid][xmid].feat = avg;
 }
 
 
@@ -119,7 +113,7 @@ static void plasma_recursive(int x1, int y1, int x2, int y2,
 	/* Are we done? */
 	if (x1 + 1 == x2) return;
 
-	perturb_point_mid(current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[y1][x2].feat,
+	perturb_point_mid(current_floor_ptr, current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[y1][x2].feat,
 		current_floor_ptr->cave[y2][x2].feat, xmid, ymid, rough, depth_max);
 
 	perturb_point_end(current_floor_ptr, current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y1][x2].feat, current_floor_ptr->cave[ymid][xmid].feat,
