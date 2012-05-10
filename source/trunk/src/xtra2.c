@@ -431,13 +431,11 @@ static bool kind_is_hafted(int k_idx)
 }
 
 
-/*
- * Check for "Quest" completion when a quest monster is killed or charmed.
- */
-void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
+// Check for "Quest" completion when a quest monster is killed or charmed.
+void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(dead_ptr);
 	int i, j, y, x, ny, nx, i2, j2;
-
 	int quest_num;
 
 	bool create_stairs = FALSE;
@@ -447,8 +445,8 @@ void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 	object_type *q_ptr;
 
 	/* Get the location */
-	y = m_ptr->fy;
-	x = m_ptr->fx;
+	y = dead_ptr->fy;
+	x = dead_ptr->fx;
 
 	/* Inside a quest */
 	quest_num = inside_quest;
@@ -467,7 +465,7 @@ void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 				continue;
 
 			/* Quest is not on this level */
-			if ((quest[i].level != current_floor_ptr->floor_level) &&
+			if ((quest[i].level != floor_ptr->floor_level) &&
 			    (quest[i].type != QUEST_TYPE_KILL_ANY_LEVEL))
 				continue;
 
@@ -485,7 +483,7 @@ void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 			if (((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
 			     (quest[i].type == QUEST_TYPE_KILL_ANY_LEVEL) ||
 			     (quest[i].type == QUEST_TYPE_RANDOM)) &&
-			     (quest[i].species_idx == m_ptr->species_idx))
+			     (quest[i].species_idx == dead_ptr->species_idx))
 				break;
 		}
 
@@ -509,7 +507,7 @@ void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)cr_ptr->lev;
+					quest[i].complev = (byte)killer_ptr->lev;
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
@@ -530,13 +528,13 @@ msg_print("クエストを達成した！");
 			{
 				int number_mon = 0;
 
-				if (!is_hostile(m_ptr)) break;
+				if (!is_hostile(dead_ptr)) break;
 
 				/* Count all hostile monsters */
-				for (i2 = 0; i2 < current_floor_ptr->width; ++i2)
-					for (j2 = 0; j2 < current_floor_ptr->height; j2++)
-						if (current_floor_ptr->cave[j2][i2].creature_idx > 0)
-							if (is_hostile(&creature_list[current_floor_ptr->cave[j2][i2].creature_idx])) 
+				for (i2 = 0; i2 < floor_ptr->width; ++i2)
+					for (j2 = 0; j2 < floor_ptr->height; j2++)
+						if (floor_ptr->cave[j2][i2].creature_idx > 0)
+							if (is_hostile(&creature_list[floor_ptr->cave[j2][i2].creature_idx])) 
 								number_mon++;
 
 				if ((number_mon - 1) == 0)
@@ -550,7 +548,7 @@ msg_print("クエストを達成した！");
 					else
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
-						quest[i].complev = (byte)cr_ptr->lev;
+						quest[i].complev = (byte)killer_ptr->lev;
 #ifdef JP
 						msg_print("クエストを達成した！");
 #else
@@ -566,7 +564,7 @@ msg_print("クエストを達成した！");
 			case QUEST_TYPE_RANDOM:
 			{
 				/* Only count valid monsters */
-				if (quest[i].species_idx != m_ptr->species_idx)
+				if (quest[i].species_idx != dead_ptr->species_idx)
 					break;
 
 				quest[i].cur_num++;
@@ -577,7 +575,7 @@ msg_print("クエストを達成した！");
 					if (record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_nikki(NIKKI_RAND_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)cr_ptr->lev;
+					quest[i].complev = (byte)killer_ptr->lev;
 					if (!(quest[i].flags & QUEST_FLAG_PRESET))
 					{
 						create_stairs = TRUE;
@@ -618,7 +616,7 @@ msg_print("クエストを達成した！");
 					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 					 /* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)cr_ptr->lev;
+					quest[i].complev = (byte)killer_ptr->lev;
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
@@ -641,10 +639,10 @@ msg_print("クエストを達成した！");
 	if (create_stairs)
 	{
 		/* Stagger around */
-		while (cave_perma_bold(current_floor_ptr, y, x) || current_floor_ptr->cave[y][x].object_idx || (current_floor_ptr->cave[y][x].info & CAVE_OBJECT) )
+		while (cave_perma_bold(floor_ptr, y, x) || floor_ptr->cave[y][x].object_idx || (floor_ptr->cave[y][x].info & CAVE_OBJECT) )
 		{
 			/* Pick a location */
-			scatter(current_floor_ptr, &ny, &nx, y, x, 1, 0);
+			scatter(floor_ptr, &ny, &nx, y, x, 1, 0);
 
 			/* Stagger */
 			y = ny; x = nx;
@@ -659,7 +657,7 @@ msg_print("魔法の階段が現れた...");
 
 
 		/* Create stairs down */
-		cave_set_feat(current_floor_ptr, y, x, feat_down_stair);
+		cave_set_feat(floor_ptr, y, x, feat_down_stair);
 
 		/* Remember to update everything */
 		update |= (PU_FLOW);
@@ -670,7 +668,7 @@ msg_print("魔法の階段が現れた...");
 	 */
 	if (reward)
 	{
-		for (j = 0; j < (current_floor_ptr->floor_level / 15)+1; j++)
+		for (j = 0; j < (floor_ptr->floor_level / 15)+1; j++)
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -679,7 +677,7 @@ msg_print("魔法の階段が現れた...");
 			object_wipe(q_ptr);
 
 			/* Make a great object */
-			make_object(q_ptr, AM_GOOD | AM_GREAT, 0, current_floor_ptr->object_level);
+			make_object(q_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
