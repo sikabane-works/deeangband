@@ -16,19 +16,19 @@
 /*
  * Go up one level
  */
-void do_cmd_go_up(creature_type *cr_ptr)
+void do_cmd_go_up(creature_type *creature_ptr)
 {
 	bool go_up = FALSE;
 
-	/* Player grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	int up_num = 0;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
@@ -48,7 +48,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	{
 		/* Success */
 #ifdef JP
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("Ç»ÇÒÇæÇ±ÇÃäKíiÇÕÅI");
 		else
 			msg_print("è„ÇÃäKÇ…ìoÇ¡ÇΩÅB");
@@ -56,7 +56,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		msg_print("You enter the up staircase.");
 #endif
 
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
 
@@ -75,8 +75,8 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		/* Leaving */
 		subject_change_floor = TRUE;
 
-		cr_ptr->oldpx = 0;
-		cr_ptr->oldpy = 0;
+		creature_ptr->oldpx = 0;
+		creature_ptr->oldpy = 0;
 
 		/* End the command */
 		return;
@@ -122,7 +122,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	if (inside_quest &&
 	    quest[inside_quest].type == QUEST_TYPE_RANDOM)
 	{
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
 		inside_quest = 0;
 	}
@@ -131,7 +131,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	if (inside_quest &&
 	    quest[inside_quest].type != QUEST_TYPE_RANDOM)
 	{
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
 		current_floor_ptr->floor_level = 0;
@@ -145,14 +145,14 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		if (have_flag(f_ptr->flags, FF_SHAFT))
 		{
 			/* Create a way back */
-			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_SHAFT);
+			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_SHAFT);
 
 			up_num = 2;
 		}
 		else
 		{
 			/* Create a way back */
-			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_UP);
+			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP);
 
 			up_num = 1;
 		}
@@ -170,7 +170,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 
 	/* Success */
 #ifdef JP
-	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+	if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 		msg_print("Ç»ÇÒÇæÇ±ÇÃäKíiÇÕÅI");
 	else if (up_num == current_floor_ptr->floor_level)
 		msg_print("ínè„Ç…ñﬂÇ¡ÇΩÅB");
