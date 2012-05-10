@@ -897,11 +897,11 @@ static void prt_sp(creature_type *cr_ptr)
 }
 
 
-/*
- * Prints depth in stat area
- */
-static void prt_depth(creature_type *cr_ptr)
+
+// Prints depth in stat area
+static void prt_depth(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	char depths[32];
 	int wid, hgt, row_depth, col_depth;
 	byte attr = TERM_WHITE;
@@ -910,7 +910,7 @@ static void prt_depth(creature_type *cr_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
-	if (!current_floor_ptr->floor_level)
+	if (!floor_ptr->floor_level)
 	{
 #ifdef JP
 		strcpy(depths, "’nã");
@@ -918,7 +918,7 @@ static void prt_depth(creature_type *cr_ptr)
 		strcpy(depths, "Surf.");
 #endif
 	}
-	else if (inside_quest && !current_floor_ptr->dun_type)
+	else if (inside_quest && !floor_ptr->dun_type)
 	{
 #ifdef JP
 		strcpy(depths, "’nã");
@@ -929,16 +929,16 @@ static void prt_depth(creature_type *cr_ptr)
 	else
 	{
 #ifdef JP
-		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->floor_level * 50);
-		else (void)sprintf(depths, "%d ŠK", current_floor_ptr->floor_level);
+		if (depth_in_feet) (void)sprintf(depths, "%d ft", floor_ptr->floor_level * 50);
+		else (void)sprintf(depths, "%d ŠK", floor_ptr->floor_level);
 #else
-		if (depth_in_feet) (void)sprintf(depths, "%d ft", current_floor_ptr->floor_level * 50);
-		else (void)sprintf(depths, "Lev %d", current_floor_ptr->floor_level);
+		if (depth_in_feet) (void)sprintf(depths, "%d ft", floor_ptr->floor_level * 50);
+		else (void)sprintf(depths, "Lev %d", floor_ptr->floor_level);
 #endif
 
 
 		/* Get color of level based on feeling  -JSV- */
-		switch (cr_ptr->floor_feeling)
+		switch (creature_ptr->floor_feeling)
 		{
 		case  0: attr = TERM_SLATE;   break; /* Unknown */
 		case  1: attr = TERM_L_BLUE;  break; /* Special */
