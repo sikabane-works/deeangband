@@ -4256,8 +4256,8 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			}
 
 			object_prep(q_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
-			q_ptr->to_h = 3 + randint1(current_floor_ptr->floor_level) % 10;
-			q_ptr->to_d = 3 + randint1(current_floor_ptr->floor_level) % 10;
+			q_ptr->to_h = 3 + randint1(floor_ptr->floor_level) % 10;
+			q_ptr->to_d = 3 + randint1(floor_ptr->floor_level) % 10;
 			one_resistance(q_ptr);
 			q_ptr->name2 = EGO_CHAOTIC;
 
@@ -4352,7 +4352,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
-				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
 			reward = "モンスターを召喚された。";
@@ -4847,7 +4847,7 @@ msg_format("%sは褒美として悪魔の使いをよこした！",species_name + species_info[cr
 			msg_format("%s rewards you with a demonic servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4868,7 +4868,7 @@ msg_format("%sは褒美として使いをよこした！",species_name + species_info[creature
 			msg_format("%s rewards you with a servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, 0, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4889,7 +4889,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_i
 			msg_format("%s rewards you with an undead servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
