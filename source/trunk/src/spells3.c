@@ -1733,15 +1733,16 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 }
 
 
-void call_the_void(creature_type *cr_ptr)
+void call_the_void(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 	cave_type *c_ptr;
 	bool do_call = TRUE;
 
 	for (i = 0; i < 9; i++)
 	{
-		c_ptr = &current_floor_ptr->cave[cr_ptr->fy + ddy_ddd[i]][cr_ptr->fx + ddx_ddd[i]];
+		c_ptr = &floor_ptr->cave[creature_ptr->fy + ddy_ddd[i]][creature_ptr->fx + ddx_ddd[i]];
 
 		if (!cave_have_flag_grid(c_ptr, FF_PROJECT))
 		{
@@ -1758,22 +1759,22 @@ void call_the_void(creature_type *cr_ptr)
 	{
 		for (i = 1; i < 10; i++)
 		{
-			if (i - 5) fire_ball(cr_ptr, GF_ROCKET, i, 175, 2);
+			if (i - 5) fire_ball(creature_ptr, GF_ROCKET, i, 175, 2);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if (i - 5) fire_ball(cr_ptr, GF_MANA, i, 175, 3);
+			if (i - 5) fire_ball(creature_ptr, GF_MANA, i, 175, 3);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if (i - 5) fire_ball(cr_ptr, GF_NUKE, i, 175, 4);
+			if (i - 5) fire_ball(creature_ptr, GF_NUKE, i, 175, 4);
 		}
 	}
 
 	/* Prevent destruction of quest levels and town */
-	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !current_floor_ptr->floor_level)
+	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("地面が揺れた。");
@@ -1786,26 +1787,26 @@ void call_the_void(creature_type *cr_ptr)
 	{
 #ifdef JP
 		msg_format("あなたは%sを壁に近すぎる場所で唱えてしまった！",
-			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
+			((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
 		msg_print("大きな爆発音があった！");
 #else
 		msg_format("You %s the %s too close to a wall!",
-			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
+			((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
 		msg_print("There is a loud explosion!");
 #endif
 
 		if (one_in_(666))
 		{
 #ifdef JP
-			if (!vanish_dungeon(current_floor_ptr)) msg_print("ダンジョンは一瞬静まり返った。");
+			if (!vanish_dungeon(floor_ptr)) msg_print("ダンジョンは一瞬静まり返った。");
 #else
-			if (!vanish_dungeon(current_floor_ptr)) msg_print("The dungeon silences a moment.");
+			if (!vanish_dungeon(floor_ptr)) msg_print("The dungeon silences a moment.");
 #endif
 		}
 		else
 		{
-			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 15 + cr_ptr->lev + randint0(11), FALSE))
+			if (destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 15 + creature_ptr->lev + randint0(11), FALSE))
 #ifdef JP
 				msg_print("ダンジョンが崩壊した...");
 #else
@@ -1821,9 +1822,9 @@ void call_the_void(creature_type *cr_ptr)
 		}
 
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "自殺的な虚無招来", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "自殺的な虚無招来", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
 #endif
 	}
 }
