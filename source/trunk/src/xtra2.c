@@ -3934,8 +3934,9 @@ msg_print("あなたは混乱している。");
 }
 
 
-void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
+void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	object_type *q_ptr;
 	object_type forge;
 	char        wrath_reason[32] = "";
@@ -3954,12 +3955,12 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 	}
 
 
-	if (cr_ptr->lev == 13) nasty_chance = 2;
-	else if (!(cr_ptr->lev % 13)) nasty_chance = 3;
-	else if (!(cr_ptr->lev % 14)) nasty_chance = 12;
+	if (creature_ptr->lev == 13) nasty_chance = 2;
+	else if (!(creature_ptr->lev % 13)) nasty_chance = 3;
+	else if (!(creature_ptr->lev % 14)) nasty_chance = 12;
 
 	//TODO	
-//	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->race_idx1 != RACE_MELNIBONE)
+//	if (one_in_(nasty_chance) && creature_ptr->patron_idx != PATRON_ARIOCH && creature_ptr->race_idx1 != RACE_MELNIBONE)
 		type = randint1(20); /* Allow the 'nasty' effects */
 //	else
 //		type = randint1(15) + 5; /* Or disallow them */
@@ -3968,22 +3969,22 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 	if (type > 20) type = 20;
 	type--;
 
-//	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
+//	if (creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
 //		 type = REW_IGNORE;
 		
 
 #ifdef JP
 sprintf(wrath_reason, "%sの怒り",
-		species_name + species_info[cr_ptr->patron_idx].name);
+		species_name + species_info[creature_ptr->patron_idx].name);
 #else
 	sprintf(wrath_reason, "the Wrath of %s",
-		species_name + species_info[cr_ptr->patron_idx].name);
+		species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 
 	/*TODO
-	effect = player_patrons[cr_ptr->patron_idx].rewards[type];
-	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && effect == REW_POLY_SLF)
+	effect = player_patrons[creature_ptr->patron_idx].rewards[type];
+	if (creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && effect == REW_POLY_SLF)
 		 effect = REW_IGNORE;
 	*/
     effect = REW_IGNORE;
@@ -3992,13 +3993,13 @@ sprintf(wrath_reason, "%sの怒り",
 	{
 #ifdef JP
 msg_format("%^sは褒美としてあなたを突然変異させた。",
-			species_name + species_info[cr_ptr->patron_idx].name);
+			species_name + species_info[creature_ptr->patron_idx].name);
 #else
 		msg_format("%^s rewards you with a mutation!",
-			species_name + species_info[cr_ptr->patron_idx].name);
+			species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-		(void)gain_random_mutation(cr_ptr, 0, TRUE);
+		(void)gain_random_mutation(creature_ptr, 0, TRUE);
 #ifdef JP
 		reward = "変異した。";
 #else
@@ -4012,10 +4013,10 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 		case REW_POLY_SLF:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4024,7 +4025,7 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 			msg_print("'Thou needst a new form, mortal!'");
 #endif
 
-			do_poly_self(cr_ptr);
+			do_poly_self(creature_ptr);
 #ifdef JP
 			reward = "変異した。";
 #else
@@ -4034,10 +4035,10 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 		case REW_GAIN_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4046,7 +4047,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (has_cf_creature(cr_ptr, CF_ANDROID))
+			if (has_cf_creature(creature_ptr, CF_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4054,9 +4055,9 @@ msg_print("「汝は良く行いたり！続けよ！」");
 				msg_print("But, nothing happen.");
 #endif
 			}
-			else if (cr_ptr->exp < CREATURE_MAX_EXP)
+			else if (creature_ptr->exp < CREATURE_MAX_EXP)
 			{
-				s32b ee = (cr_ptr->exp / 2) + 10;
+				s32b ee = (creature_ptr->exp / 2) + 10;
 				if (ee > 100000L) ee = 100000L;
 #ifdef JP
 msg_print("更に経験を積んだような気がする。");
@@ -4064,7 +4065,7 @@ msg_print("更に経験を積んだような気がする。");
 				msg_print("You feel more experienced.");
 #endif
 
-				gain_exp(cr_ptr, ee);
+				gain_exp(creature_ptr, ee);
 #ifdef JP
 				reward = "経験値を得た";
 #else
@@ -4075,10 +4076,10 @@ msg_print("更に経験を積んだような気がする。");
 		case REW_LOSE_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4087,7 +4088,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (has_cf_creature(cr_ptr, CF_ANDROID))
+			if (has_cf_creature(creature_ptr, CF_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4097,7 +4098,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			}
 			else
 			{
-				lose_exp(cr_ptr, cr_ptr->exp / 6);
+				lose_exp(creature_ptr, creature_ptr->exp / 6);
 #ifdef JP
 				reward = "経験値を失った。";
 #else
@@ -4108,10 +4109,10 @@ msg_print("「下僕よ、汝それに値せず。」");
 		case REW_GOOD_OBJ:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s whispers:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4120,7 +4121,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(cr_ptr->fy, cr_ptr->fx, 1, FALSE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4130,10 +4131,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_GREA_OBJ:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4142,7 +4143,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(cr_ptr->fy, cr_ptr->fx, 1, TRUE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -4152,10 +4153,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_CHAOS_WP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4167,7 +4168,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			/* Get local object */
 			q_ptr = &forge;
 			dummy = TV_SWORD;
-			switch (randint1(cr_ptr->lev))
+			switch (randint1(creature_ptr->lev))
 			{
 				case 0: case 1:
 					dummy2 = SV_DAGGER;
@@ -4261,7 +4262,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			q_ptr->name2 = EGO_CHAOTIC;
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
+			(void)drop_near(q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 #ifdef JP
 			reward = "(混沌)の武器を手に入れた。";
 #else
@@ -4271,10 +4272,10 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 		case REW_GOOD_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4283,7 +4284,7 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 			msg_print("'Thy deed hath earned thee a worthy reward.'");
 #endif
 
-			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, FALSE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4293,10 +4294,10 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 		case REW_GREA_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4305,7 +4306,7 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 #endif
 
-			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -4315,10 +4316,10 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 		case REW_TY_CURSE:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s thunders:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4327,7 +4328,7 @@ msg_print("「下僕よ、汝傲慢なり。」");
 			msg_print("'Thou art growing arrogant, mortal.'");
 #endif
 
-			(void)activate_ty_curse(cr_ptr, FALSE, &count);
+			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 #ifdef JP
 			reward = "禍々しい呪いをかけられた。";
 #else
@@ -4337,10 +4338,10 @@ msg_print("「下僕よ、汝傲慢なり。」");
 		case REW_SUMMON_M:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4351,7 +4352,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
-				(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
 			reward = "モンスターを召喚された。";
@@ -4362,10 +4363,10 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 		case REW_H_SUMMON:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4374,7 +4375,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 			msg_print("'Thou needst worthier opponents!'");
 #endif
 
-			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
 			reward = "モンスターを召喚された。";
 #else
@@ -4384,10 +4385,10 @@ msg_print("「汝、より強き敵を必要とせり！」");
 		case REW_DO_HAVOC:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4396,7 +4397,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			call_chaos(cr_ptr);
+			call_chaos(creature_ptr);
 #ifdef JP
 			reward = "カオスの力が渦巻いた。";
 #else
@@ -4406,10 +4407,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GAIN_ABL:
 #ifdef JP
 msg_format("%sの声が鳴り響いた:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s rings out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4419,11 +4420,11 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 #endif
 
 			/*TODO
-			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost < 0))
-				do_inc_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
+			if (one_in_(3) && !(player_patrons[creature_ptr->patron_idx].status_boost < 0))
+				do_inc_stat(creature_ptr, player_patrons[creature_ptr->patron_idx].status_boost);
 			else
 			*/
-				do_inc_stat(cr_ptr, randint0(6));
+				do_inc_stat(creature_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が上がった。";
 #else
@@ -4433,10 +4434,10 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 		case REW_LOSE_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4446,11 +4447,11 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 #endif
 
 			/*TODO
-			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost))
-				do_dec_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
+			if (one_in_(3) && !(player_patrons[creature_ptr->patron_idx].status_boost))
+				do_dec_stat(creature_ptr, player_patrons[creature_ptr->patron_idx].status_boost);
 			else
 			*/
-				(void)do_dec_stat(cr_ptr, randint0(6));
+				(void)do_dec_stat(creature_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
 #else
@@ -4460,10 +4461,10 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 		case REW_RUIN_ABL:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s thunders:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4476,7 +4477,7 @@ msg_print("あなたは以前より弱くなった！");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), TRUE);
+				(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
 			}
 #ifdef JP
 			reward = "全能力値が下がった。";
@@ -4491,8 +4492,8 @@ msg_format("%sの力が触れるのを感じた。",
 			msg_format("You feel the power of %s touch you.",
 #endif
 
-				species_name + species_info[cr_ptr->patron_idx].name);
-			do_poly_wounds(cr_ptr);
+				species_name + species_info[creature_ptr->patron_idx].name);
+			do_poly_wounds(creature_ptr);
 #ifdef JP
 			reward = "傷が変化した。";
 #else
@@ -4502,10 +4503,10 @@ msg_format("%sの力が触れるのを感じた。",
 		case REW_AUGM_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4516,7 +4517,7 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_inc_stat(cr_ptr, dummy);
+				(void)do_inc_stat(creature_ptr, dummy);
 			}
 #ifdef JP
 			reward = "全能力値が上がった。";
@@ -4527,10 +4528,10 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 		case REW_HURT_LOT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4539,8 +4540,8 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 			msg_print("'Suffer, pathetic fool!'");
 #endif
 
-			fire_ball(cr_ptr, GF_DISINTEGRATE, 0, cr_ptr->lev * 4, 4);
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, cr_ptr->lev * 4, wrath_reason, NULL, -1);
+			fire_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 #ifdef JP
 			reward = "分解の球が発生した。";
 #else
@@ -4550,10 +4551,10 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 	   case REW_HEAL_FUL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4562,17 +4563,17 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			msg_print("'Rise, my servant!'");
 #endif
 
-			restore_level(cr_ptr);
-			(void)set_poisoned(cr_ptr, 0);
-			(void)set_blind(cr_ptr, 0);
-			(void)set_confused(cr_ptr, 0);
-			(void)set_image(cr_ptr, 0);
-			(void)set_stun(cr_ptr, 0);
-			(void)set_cut(cr_ptr, 0);
-			hp_player(cr_ptr, 5000);
+			restore_level(creature_ptr);
+			(void)set_poisoned(creature_ptr, 0);
+			(void)set_blind(creature_ptr, 0);
+			(void)set_confused(creature_ptr, 0);
+			(void)set_image(creature_ptr, 0);
+			(void)set_stun(creature_ptr, 0);
+			(void)set_cut(creature_ptr, 0);
+			hp_player(creature_ptr, 5000);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_res_stat(cr_ptr, dummy);
+				(void)do_res_stat(creature_ptr, dummy);
 			}
 #ifdef JP
 			reward = "体力が回復した。";
@@ -4582,14 +4583,14 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			break;
 		case REW_CURSE_WP:
 
-			if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) break;
+			if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
 
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4598,15 +4599,15 @@ msg_print("「汝、武器に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thy weapon.'");
 #endif
 
-			dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
-			if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
+			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+			if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 			{
-				dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
-				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
-					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
+				dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+				if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 			}
-			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
-			(void)curse_weapon(cr_ptr, FALSE, dummy);
+			object_desc(o_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
+			(void)curse_weapon(creature_ptr, FALSE, dummy);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
 #else
@@ -4614,13 +4615,13 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 			break;
 		case REW_CURSE_AR:
-			if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
+			if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4629,8 +4630,8 @@ msg_print("「汝、防具に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
-			(void)curse_armor(cr_ptr);
+			object_desc(o_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+			(void)curse_armor(creature_ptr);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
 #else
@@ -4640,10 +4641,10 @@ msg_print("「汝、防具に頼ることなかれ。」");
 		case REW_PISS_OFF:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s whispers:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4655,7 +4656,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 			switch (randint1(4))
 			{
 				case 1:
-					(void)activate_ty_curse(cr_ptr, FALSE, &count);
+					(void)activate_ty_curse(creature_ptr, FALSE, &count);
 #ifdef JP
 					reward = "禍々しい呪いをかけられた。";
 #else
@@ -4663,7 +4664,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 #endif
 					break;
 				case 2:
-					activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+					activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
 					reward = "モンスターを召喚された。";
 #else
@@ -4673,16 +4674,16 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				case 3:
 					if (one_in_(2))
 					{
-						if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) break;
-						dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
-						if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
+						if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
+						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+						if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 						{
-							dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
-							if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
-								dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
+							dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+							if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
+								dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 						}
-						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
-						(void)curse_weapon(cr_ptr, FALSE, dummy);
+						object_desc(o_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
+						(void)curse_weapon(creature_ptr, FALSE, dummy);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
 #else
@@ -4691,9 +4692,9 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					}
 					else
 					{
-						if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
-						object_desc(o_name, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
-						(void)curse_armor(cr_ptr);
+						if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
+						object_desc(o_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+						(void)curse_armor(creature_ptr);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
 #else
@@ -4704,7 +4705,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				default:
 					for (dummy = 0; dummy < 6; dummy++)
 					{
-						(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), TRUE);
+						(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
 					}
 #ifdef JP
 					reward = "全能力値が下がった。";
@@ -4721,44 +4722,44 @@ msg_format("%sの声が轟き渡った:",
 			msg_format("The voice of %s thunders:",
 #endif
 
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #ifdef JP
 msg_print("「死ぬがよい、下僕よ！」");
 #else
 			msg_print("'Die, mortal!'");
 #endif
 
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, cr_ptr->lev * 4, wrath_reason, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
+				(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
 			}
-			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
-			(void)activate_ty_curse(cr_ptr, FALSE, &count);
+			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			if (one_in_(2))
 			{
 				dummy = 0;
 
-				if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
+				if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 				{
-					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1);
-					if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1 && one_in_(2))
-						dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+					if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1 && one_in_(2))
+						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
 				}
-				else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
-					dummy = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2);
+				else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
 
-				if (dummy) (void)curse_weapon(cr_ptr, FALSE, dummy);
+				if (dummy) (void)curse_weapon(creature_ptr, FALSE, dummy);
 			}
-			if (one_in_(2)) (void)curse_armor(cr_ptr);
+			if (one_in_(2)) (void)curse_armor(creature_ptr);
 			break;
 		case REW_DESTRUCT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4767,7 +4768,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			(void)destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 25, FALSE);
+			(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 25, FALSE);
 #ifdef JP
 			reward = "ダンジョンが*破壊*された。";
 #else
@@ -4777,10 +4778,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GENOCIDE:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4789,7 +4790,7 @@ msg_print("「我、汝の敵を抹殺せん！」");
 			msg_print("'Let me relieve thee of thine oppressors!'");
 #endif
 
-			(void)symbol_genocide(cr_ptr, 0, FALSE);
+			(void)symbol_genocide(creature_ptr, 0, FALSE);
 #ifdef JP
 			reward = "モンスターが抹殺された。";
 #else
@@ -4799,10 +4800,10 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_MASS_GEN:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4811,7 +4812,7 @@ msg_print("「我、汝の敵を抹殺せん！」");
 			msg_print("'Let me relieve thee of thine oppressors!'");
 #endif
 
-			(void)mass_genocide(cr_ptr, 0, FALSE);
+			(void)mass_genocide(creature_ptr, 0, FALSE);
 #ifdef JP
 			reward = "モンスターが抹殺された。";
 #else
@@ -4821,32 +4822,32 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_DISPEL_C:
 #ifdef JP
 msg_format("%sの力が敵を攻撃するのを感じた！",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("You can feel the power of %s assault your enemies!",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			(void)dispel_creatures(cr_ptr, cr_ptr->lev * 4);
+			(void)dispel_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 		case REW_IGNORE:
 #ifdef JP
 msg_format("%sはあなたを無視した。",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("%s ignores you.",
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 			break;
 		case REW_SER_DEMO:
 #ifdef JP
-msg_format("%sは褒美として悪魔の使いをよこした！",species_name + species_info[cr_ptr->patron_idx].name);
+msg_format("%sは褒美として悪魔の使いをよこした！",species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with a demonic servant!",species_name + species_info[cr_ptr->patron_idx].name);
+			msg_format("%s rewards you with a demonic servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4862,12 +4863,12 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_MONS:
 #ifdef JP
-msg_format("%sは褒美として使いをよこした！",species_name + species_info[cr_ptr->patron_idx].name);
+msg_format("%sは褒美として使いをよこした！",species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with a servant!",species_name + species_info[cr_ptr->patron_idx].name);
+			msg_format("%s rewards you with a servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4883,12 +4884,12 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_UNDE:
 #ifdef JP
-msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_info[cr_ptr->patron_idx].name);
+msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with an undead servant!",species_name + species_info[cr_ptr->patron_idx].name);
+			msg_format("%s rewards you with an undead servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -4909,7 +4910,7 @@ msg_format("%sの声がどもった:",
 			msg_format("The voice of %s stammers:",
 #endif
 
-				species_name + species_info[cr_ptr->patron_idx].name);
+				species_name + species_info[creature_ptr->patron_idx].name);
 #ifdef JP
 msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
 #else
