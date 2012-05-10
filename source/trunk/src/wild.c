@@ -82,8 +82,7 @@ static void perturb_point_mid(int x1, int x2, int x3, int x4,
 }
 
 
-static void perturb_point_end(int x1, int x2, int x3,
-			  int xmid, int ymid, int rough, int depth_max)
+static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int xmid, int ymid, int rough, int depth_max)
 {
 	/*
 	 * Average the three corners & perturb it a bit.
@@ -91,18 +90,15 @@ static void perturb_point_end(int x1, int x2, int x3,
 	 */
 	int tmp2 = rough * 2 + 1;
 	int tmp = randint0(tmp2) - rough;
-
 	int avg = ((x1 + x2 + x3) / 3) + tmp;
 
-	/* Division always rounds down, so we round up again */
-	if ((x1 + x2 + x3) % 3) avg++;
+	if ((x1 + x2 + x3) % 3) avg++; // Division always rounds down, so we round up again
 
-	/* Normalize */
+	// Normalize
 	if (avg < 0) avg = 0;
 	if (avg > depth_max) avg = depth_max;
 
-	/* Set the new value. */
-	current_floor_ptr->cave[ymid][xmid].feat = avg;
+	floor_ptr->cave[ymid][xmid].feat = avg; // Set the new value.
 }
 
 
@@ -126,16 +122,16 @@ static void plasma_recursive(int x1, int y1, int x2, int y2,
 	perturb_point_mid(current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[y1][x2].feat,
 		current_floor_ptr->cave[y2][x2].feat, xmid, ymid, rough, depth_max);
 
-	perturb_point_end(current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y1][x2].feat, current_floor_ptr->cave[ymid][xmid].feat,
+	perturb_point_end(current_floor_ptr, current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[y1][x2].feat, current_floor_ptr->cave[ymid][xmid].feat,
 		xmid, y1, rough, depth_max);
 
-	perturb_point_end(current_floor_ptr->cave[y1][x2].feat, current_floor_ptr->cave[y2][x2].feat, current_floor_ptr->cave[ymid][xmid].feat,
+	perturb_point_end(current_floor_ptr, current_floor_ptr->cave[y1][x2].feat, current_floor_ptr->cave[y2][x2].feat, current_floor_ptr->cave[ymid][xmid].feat,
 		x2, ymid, rough, depth_max);
 
-	perturb_point_end(current_floor_ptr->cave[y2][x2].feat, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[ymid][xmid].feat,
+	perturb_point_end(current_floor_ptr, current_floor_ptr->cave[y2][x2].feat, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[ymid][xmid].feat,
 		xmid, y2, rough, depth_max);
 
-	perturb_point_end(current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[ymid][xmid].feat,
+	perturb_point_end(current_floor_ptr, current_floor_ptr->cave[y2][x1].feat, current_floor_ptr->cave[y1][x1].feat, current_floor_ptr->cave[ymid][xmid].feat,
 		x1, ymid, rough, depth_max);
 
 
