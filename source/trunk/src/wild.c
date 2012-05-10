@@ -155,13 +155,13 @@ static void plasma_recursive(int x1, int y1, int x2, int y2,
 static s16b terrain_table[MAX_WILDERNESS][MAX_FEAT_IN_TERRAIN];
 
 
-static void generate_wilderness_area(int terrain, u32b seed, bool border, bool corner)
+static void generate_wilderness_area(floor_type *floor_ptr, int terrain, u32b seed, bool border, bool corner)
 {
 	int x1, y1;
 	int table_size = sizeof(terrain_table[0]) / sizeof(s16b);
-	int roughness = 1; /* The roughness of the level. */
+	int roughness = 1; // The roughness of the level.
 
-	/* Unused */
+	// Unused
 	(void)border;
 
 	/* The outer wall is easy */
@@ -172,7 +172,7 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
 		{
 			for (x1 = 0; x1 < MAX_WID; x1++)
 			{
-				current_floor_ptr->cave[y1][x1].feat = feat_permanent;
+				floor_ptr->cave[y1][x1].feat = feat_permanent;
 			}
 		}
 
@@ -194,7 +194,7 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
 		{
 			for (x1 = 0; x1 < MAX_WID; x1++)
 			{
-				current_floor_ptr->cave[y1][x1].feat = table_size / 2;
+				floor_ptr->cave[y1][x1].feat = table_size / 2;
 			}
 		}
 	}
@@ -204,42 +204,42 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
 	 * ToDo: calculate the medium height of the adjacent
 	 * terrains for every corner.
 	 */
-	current_floor_ptr->cave[1][1].feat = (byte)randint0(table_size);
-	current_floor_ptr->cave[MAX_HGT-2][1].feat = (byte)randint0(table_size);
-	current_floor_ptr->cave[1][MAX_WID-2].feat = (byte)randint0(table_size);
-	current_floor_ptr->cave[MAX_HGT-2][MAX_WID-2].feat = (byte)randint0(table_size);
+	floor_ptr->cave[1][1].feat = (byte)randint0(table_size);
+	floor_ptr->cave[MAX_HGT-2][1].feat = (byte)randint0(table_size);
+	floor_ptr->cave[1][MAX_WID-2].feat = (byte)randint0(table_size);
+	floor_ptr->cave[MAX_HGT-2][MAX_WID-2].feat = (byte)randint0(table_size);
 
 	if (!corner)
 	{
 		/* Hack -- preserve four corners */
-		s16b north_west = current_floor_ptr->cave[1][1].feat;
-		s16b south_west = current_floor_ptr->cave[MAX_HGT - 2][1].feat;
-		s16b north_east = current_floor_ptr->cave[1][MAX_WID - 2].feat;
-		s16b south_east = current_floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
+		s16b north_west = floor_ptr->cave[1][1].feat;
+		s16b south_west = floor_ptr->cave[MAX_HGT - 2][1].feat;
+		s16b north_east = floor_ptr->cave[1][MAX_WID - 2].feat;
+		s16b south_east = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
 		/* x1, y1, x2, y2, num_depths, roughness */
 		plasma_recursive(1, 1, MAX_WID-2, MAX_HGT-2, table_size-1, roughness);
 
 		/* Hack -- copyback four corners */
-		current_floor_ptr->cave[1][1].feat = north_west;
-		current_floor_ptr->cave[MAX_HGT - 2][1].feat = south_west;
-		current_floor_ptr->cave[1][MAX_WID - 2].feat = north_east;
-		current_floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat = south_east;
+		floor_ptr->cave[1][1].feat = north_west;
+		floor_ptr->cave[MAX_HGT - 2][1].feat = south_west;
+		floor_ptr->cave[1][MAX_WID - 2].feat = north_east;
+		floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat = south_east;
 
 		for (y1 = 1; y1 < MAX_HGT - 1; y1++)
 		{
 			for (x1 = 1; x1 < MAX_WID - 1; x1++)
 			{
-				current_floor_ptr->cave[y1][x1].feat = terrain_table[terrain][current_floor_ptr->cave[y1][x1].feat];
+				floor_ptr->cave[y1][x1].feat = terrain_table[terrain][floor_ptr->cave[y1][x1].feat];
 			}
 		}
 	}
 	else /* Hack -- only four corners */
 	{
-		current_floor_ptr->cave[1][1].feat = terrain_table[terrain][current_floor_ptr->cave[1][1].feat];
-		current_floor_ptr->cave[MAX_HGT - 2][1].feat = terrain_table[terrain][current_floor_ptr->cave[MAX_HGT - 2][1].feat];
-		current_floor_ptr->cave[1][MAX_WID - 2].feat = terrain_table[terrain][current_floor_ptr->cave[1][MAX_WID - 2].feat];
-		current_floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat = terrain_table[terrain][current_floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat];
+		floor_ptr->cave[1][1].feat = terrain_table[terrain][floor_ptr->cave[1][1].feat];
+		floor_ptr->cave[MAX_HGT - 2][1].feat = terrain_table[terrain][floor_ptr->cave[MAX_HGT - 2][1].feat];
+		floor_ptr->cave[1][MAX_WID - 2].feat = terrain_table[terrain][floor_ptr->cave[1][MAX_WID - 2].feat];
+		floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat = terrain_table[terrain][floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat];
 	}
 
 	/* Use the complex RNG */
@@ -299,7 +299,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 		int terrain = wilderness[y][x].terrain;
 		u32b seed = wilderness[y][x].seed;
 
-		generate_wilderness_area(terrain, seed, border, corner);
+		generate_wilderness_area(floor_ptr, terrain, seed, border, corner);
 	}
 
 	if (!corner && !wilderness[y][x].town)

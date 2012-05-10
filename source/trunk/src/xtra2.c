@@ -752,7 +752,7 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
 {
 	int i, j, y, x;
-	floor_type *floor_ptr = get_floor_ptr(killer_ptr);
+	floor_type *floor_ptr = get_floor_ptr(killed_ptr);
 	species_type *r_ptr = &species_info[killed_ptr->species_idx];
 
 	int dump_item = 0;
