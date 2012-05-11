@@ -354,11 +354,11 @@ cptr get_ordinal_number_suffix(int num)
 #endif
 
 
-/*
- *   Take note to the diary.
- */
+
+// Take note to the diary.
 errr do_cmd_write_nikki(int type, int num, cptr note)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	int day, hour, min;
 	FILE *fff = NULL;
 	char file_name[80];
@@ -388,7 +388,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		/* Get the quest text */
 		init_flags = INIT_ASSIGN;
 
-		process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, 0, 0);
+		process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, 0, 0);
 
 		/* Reset the old quest number */
 		inside_quest = old_quest;
@@ -423,7 +423,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 	}
 
 
-	if(current_floor_ptr) q_idx = quest_number(current_floor_ptr->floor_level);
+	if(floor_ptr) q_idx = quest_number(floor_ptr->floor_level);
 	else q_idx = 0;
 
 	if (write_level)
@@ -434,7 +434,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #else
 			note_level = "Arane:";
 #endif
-		else if (!current_floor_ptr || !current_floor_ptr->floor_level)
+		else if (!floor_ptr || !floor_ptr->floor_level)
 #ifdef JP
 			note_level = "’nã:";
 #else
@@ -450,9 +450,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		else
 		{
 #ifdef JP
-			sprintf(note_level_buf, "%dŠK(%s):", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+			sprintf(note_level_buf, "%dŠK(%s):", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
 #else
-			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[current_floor_ptr->dun_type].name, current_floor_ptr->floor_level);
+			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level);
 #endif
 			note_level = note_level_buf;
 		}
@@ -546,9 +546,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_MAXDEAPTH:
 		{
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %s‚ÌÅ[ŠK%dŠK‚É“ž’B‚µ‚½B\n", hour, min, note_level, d_name+dungeon_info[current_floor_ptr->dun_type].name, num);
+			fprintf(fff, " %2d:%02d %20s %s‚ÌÅ[ŠK%dŠK‚É“ž’B‚µ‚½B\n", hour, min, note_level, d_name+dungeon_info[floor_ptr->dun_type].name, num);
 #else
-			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 			break;
 		}
@@ -576,11 +576,11 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			else
 			{
 #ifdef JP
-				if (!(current_floor_ptr->floor_level+num)) to = "’nã";
-				else to = format("%dŠK", current_floor_ptr->floor_level+num);
+				if (!(floor_ptr->floor_level+num)) to = "’nã";
+				else to = format("%dŠK", floor_ptr->floor_level+num);
 #else
-				if (!(current_floor_ptr->floor_level+num)) to = "the surface";
-				else to = format("level %d", current_floor_ptr->floor_level+num);
+				if (!(floor_ptr->floor_level+num)) to = "the surface";
+				else to = format("level %d", floor_ptr->floor_level+num);
 #endif
 			}
 
@@ -595,9 +595,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		{
 			if (!num)
 #ifdef JP
-				fprintf(fff, " %2d:%02d %20s ‹AŠÒ‚ðŽg‚Á‚Ä%s‚Ì%dŠK‚Ö‰º‚è‚½B\n", hour, min, note_level, d_name+dungeon_info[current_floor_ptr->dun_type].name, max_dlv[current_floor_ptr->dun_type]);
+				fprintf(fff, " %2d:%02d %20s ‹AŠÒ‚ðŽg‚Á‚Ä%s‚Ì%dŠK‚Ö‰º‚è‚½B\n", hour, min, note_level, d_name+dungeon_info[floor_ptr->dun_type].name, max_dlv[floor_ptr->dun_type]);
 #else
-				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[current_floor_ptr->dun_type], d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dun_type], d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 			else
 #ifdef JP
@@ -684,7 +684,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_WIZ_TELE:
 		{
 			cptr to;
-			if (!current_floor_ptr->floor_level)
+			if (!floor_ptr->floor_level)
 #ifdef JP
 				to = "’nã";
 #else
@@ -692,9 +692,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("%dŠK(%s)", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("level %d of %s", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
@@ -707,7 +707,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_PAT_TELE:
 		{
 			cptr to;
-			if (!current_floor_ptr->floor_level)
+			if (!floor_ptr->floor_level)
 #ifdef JP
 				to = "’nã";
 #else
@@ -715,9 +715,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("%dŠK(%s)", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", current_floor_ptr->floor_level, d_name+dungeon_info[current_floor_ptr->dun_type].name);
+				to = format("level %d of %s", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
