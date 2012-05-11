@@ -900,11 +900,10 @@ static void cast_shuffle(creature_type *cr_ptr)
 }
 
 
-/*
- * Drop 10+1d10 meteor ball at random places near the player
- */
-static void cast_meteor(creature_type *cr_ptr, int dam, int rad)
+// Drop 10+1d10 meteor ball at random places near the player
+static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int i;
 	int b = 10 + randint1(10);
 
@@ -917,19 +916,19 @@ static void cast_meteor(creature_type *cr_ptr, int dam, int rad)
 		{
 			int dy, dx, d;
 
-			x = cr_ptr->fx - 8 + randint0(17);
-			y = cr_ptr->fy - 8 + randint0(17);
+			x = caster_ptr->fx - 8 + randint0(17);
+			y = caster_ptr->fy - 8 + randint0(17);
 
-			dx = (cr_ptr->fx > x) ? (cr_ptr->fx - x) : (x - cr_ptr->fx);
-			dy = (cr_ptr->fy > y) ? (cr_ptr->fy - y) : (y - cr_ptr->fy);
+			dx = (caster_ptr->fx > x) ? (caster_ptr->fx - x) : (x - caster_ptr->fx);
+			dy = (caster_ptr->fy > y) ? (caster_ptr->fy - y) : (y - caster_ptr->fy);
 
 			/* Approximate distance */
 			d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
 			if (d >= 9) continue;
 
-			if (!in_bounds(current_floor_ptr, y, x) || !projectable(cr_ptr->fy, cr_ptr->fx, y, x)
-			    || !cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
+			if (!in_bounds(floor_ptr, y, x) || !projectable(caster_ptr->fy, caster_ptr->fx, y, x)
+			    || !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
 			break;
@@ -937,7 +936,7 @@ static void cast_meteor(creature_type *cr_ptr, int dam, int rad)
 
 		if (count > 20) continue;
 
-		project(cr_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+		project(caster_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 	}
 }
 
