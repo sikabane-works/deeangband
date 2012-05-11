@@ -4705,12 +4705,12 @@ int feat_state(floor_type *floor_ptr, int feat, int action)
 	/* Get the new feature */
 	for (i = 0; i < MAX_FEAT_STATES; i++)
 	{
-		if (f_ptr->state[i].action == action) return conv_dungeon_feat(current_floor_ptr, f_ptr->state[i].result);
+		if (f_ptr->state[i].action == action) return conv_dungeon_feat(floor_ptr, f_ptr->state[i].result);
 	}
 
 	if (have_flag(f_ptr->flags, FF_PERMANENT)) return feat;
 
-	return (feature_action_flags[action] & FAF_DESTROY) ? conv_dungeon_feat(current_floor_ptr, f_ptr->destroyed) : feat;
+	return (feature_action_flags[action] & FAF_DESTROY) ? conv_dungeon_feat(floor_ptr, f_ptr->destroyed) : feat;
 }
 
 /*
@@ -4776,16 +4776,17 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 }
 
 
-/* Remove a mirror */
-void remove_mirror(creature_type *player_ptr, int y, int x)
+// Remove a mirror
+void remove_mirror(creature_type *creature_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Remove the mirror */
 	c_ptr->info &= ~(CAVE_OBJECT);
 	c_ptr->mimic = 0;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
@@ -4793,7 +4794,7 @@ void remove_mirror(creature_type *player_ptr, int y, int x)
 		/* Update the monster */
 		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
-		update_local_illumination(current_floor_ptr, y, x);
+		update_local_illumination(floor_ptr, y, x);
 	}
 
 	/* Notice */
