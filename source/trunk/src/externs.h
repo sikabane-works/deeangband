@@ -1540,18 +1540,18 @@ extern void move_to_black_market(object_type * o_ptr);
 extern void init_stores(void);
 extern void store_create(store_type *st_ptr, store_pre_type *st_pre_ptr);
 
-/* bldg.c */
+// bldg.c
 extern bool get_nightmare(int species_idx);
 extern void have_nightmare(creature_type *watcher_ptr, int species_idx);
 extern void battle_monsters(void);
 extern void do_cmd_bldg(creature_type *cr_ptr);
-extern void do_cmd_quest(creature_type *cr_ptr);
+extern void do_cmd_quest(creature_type *creature_ptr);
 extern void quest_discovery(int q_idx);
 extern int quest_number(int level);
 extern int random_quest_number(int level);
 extern bool tele_town(creature_type *cr_ptr);
 
-/* util.c */
+// util.c
 extern errr path_parse(char *buf, int max, cptr file);
 extern errr path_build(char *buf, int max, cptr path, cptr file);
 extern FILE *my_fopen(cptr file, cptr mode);

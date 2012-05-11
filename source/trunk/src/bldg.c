@@ -4980,15 +4980,13 @@ msg_print("お金が足りません！");
 
 }
 
-
-/*
- * Enter quest level
- */
-void do_cmd_quest(creature_type *cr_ptr)
+// Enter quest level
+void do_cmd_quest(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_QUEST_ENTER))
+	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
 #ifdef JP
 msg_print("ここにはクエストの入口はない。");
@@ -5003,9 +5001,9 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
@@ -5013,13 +5011,13 @@ msg_print("ここにはクエストの入口はない。");
 #endif
 
 		/* Player enters a new quest */
-		cr_ptr->oldpy = 0;
-		cr_ptr->oldpx = 0;
+		creature_ptr->oldpy = 0;
+		creature_ptr->oldpx = 0;
 
-		leave_quest_check(cr_ptr);
+		leave_quest_check(creature_ptr);
 
-		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) current_floor_ptr->floor_level = 1;
-		inside_quest = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].special;
+		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) floor_ptr->floor_level = 1;
+		inside_quest = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
 
 		subject_change_floor = TRUE;
 	}
