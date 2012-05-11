@@ -1757,11 +1757,12 @@ void do_cmd_tunnel(creature_type *cr_ptr)
  *	The code here should be nearly identical to that in
  *	do_cmd_open_test() and do_cmd_open_aux().
  */
-bool easy_open_door(creature_type *cr_ptr, int y, int x)
+bool easy_open_door(creature_type *creature_ptr, int y, int x)
 {
 	int i, j;
 
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Must be a closed door */
@@ -1787,11 +1788,11 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 	else if (f_ptr->power)
 	{
 		/* Disarm factor */
-		i = cr_ptr->skill_dis;
+		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
-		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
+		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1813,13 +1814,13 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 #endif
 
 			/* Open the door */
-			cave_alter_feat(current_floor_ptr, y, x, FF_OPEN);
+			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 
 			/* Sound */
 			sound(SOUND_OPENDOOR);
 
 			/* Experience */
-			gain_exp(cr_ptr, 1);
+			gain_exp(creature_ptr, 1);
 		}
 
 		/* Failure */
@@ -1842,7 +1843,7 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 	else
 	{
 		/* Open the door */
-		cave_alter_feat(current_floor_ptr, y, x, FF_OPEN);
+		cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 
 		/* Sound */
 		sound(SOUND_OPENDOOR);

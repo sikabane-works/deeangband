@@ -1899,7 +1899,7 @@ extern s16b species_window_idx;	/* Species info trackee */
 
 
 /* cmd2.c */
-extern bool easy_open_door(creature_type *cr_ptr, int y, int x);
+extern bool easy_open_door(creature_type *creature_ptr, int y, int x);
 
 #endif /* ALLOW_EASY_OPEN -- TNB */
 
