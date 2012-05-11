@@ -2049,7 +2049,7 @@ extern void do_cmd_spoilers(void);
 /*
  * Hack -- declare external function
  */
-extern void do_cmd_debug(creature_type *cr_ptr);
+extern void do_cmd_debug(creature_type *creature_ptr);
 
 
 
@@ -2057,8 +2057,9 @@ extern void do_cmd_debug(creature_type *cr_ptr);
  * Ask for and parse a "debug command"
  * The "command_arg" may have been set.
  */
-void do_cmd_debug(creature_type *cr_ptr)
+void do_cmd_debug(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int     x, y;
 	char    cmd;
 
@@ -2092,7 +2093,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Cure all maladies */
 	case 'a':
-		do_cmd_wiz_cure_all(cr_ptr);
+		do_cmd_wiz_cure_all(creature_ptr);
 		break;
 
 	case 'A':
@@ -2101,7 +2102,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Teleport to target */
 	case 'b':
-		do_cmd_wiz_bamf(cr_ptr);
+		do_cmd_wiz_bamf(creature_ptr);
 		break;
 
 	case 'B':
@@ -2110,51 +2111,51 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Create any object */
 	case 'c':
-		wiz_create_item(cr_ptr);
+		wiz_create_item(creature_ptr);
 		break;
 
 	/* Create a named artifact */
 	case 'C':
-		wiz_drop_named_art(cr_ptr, command_arg);
+		wiz_drop_named_art(creature_ptr, command_arg);
 		break;
 
 	/* Detect everything */
 	case 'd':
-		detect_all(cr_ptr, DETECT_RAD_ALL * 3);
+		detect_all(creature_ptr, DETECT_RAD_ALL * 3);
 		break;
 
 	/* Dimension_door */
 	case 'D':
-		wiz_dimension_door(cr_ptr);
+		wiz_dimension_door(creature_ptr);
 		break;
 
 	/* Edit character */
 	case 'e':
-		do_cmd_wiz_change(cr_ptr);
+		do_cmd_wiz_change(creature_ptr);
 		break;
 
 	/* Blue Mage Only */
 	case 'E':
-		if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
+		if (creature_ptr->cls_idx == CLASS_BLUE_MAGE)
 		{
-			do_cmd_wiz_blue_mage(cr_ptr);
+			do_cmd_wiz_blue_mage(creature_ptr);
 		}
 		break;
 
 	/* View item info */
 	case 'f':
-		identify_fully(cr_ptr, FALSE);
+		identify_fully(creature_ptr, FALSE);
 		break;
 
 	/* Create desired feature */
 	case 'F':
-		do_cmd_wiz_create_feature(cr_ptr);
+		do_cmd_wiz_create_feature(creature_ptr);
 		break;
 
 	// Good Objects
 	case 'g':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, FALSE, TRUE);
+		acquirement(creature_ptr->fy, creature_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
 	// Put goods list
@@ -2164,28 +2165,28 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Hitpoint rerating */
 	case 'h':
-		do_cmd_rerate(cr_ptr, TRUE);
+		do_cmd_rerate(creature_ptr, TRUE);
 		break;
 
 #ifdef MONSTER_HORDES
 	case 'H':
-		do_cmd_summon_horde(cr_ptr);
+		do_cmd_summon_horde(creature_ptr);
 		break;
 #endif /* MONSTER_HORDES */
 
 	/* Identify */
 	case 'i':
-		(void)ident_spell(cr_ptr, FALSE);
+		(void)ident_spell(creature_ptr, FALSE);
 		break;
 
 	/* Go up or down in the dungeon */
 	case 'j':
-		do_cmd_wiz_jump(cr_ptr);
+		do_cmd_wiz_jump(creature_ptr);
 		break;
 
 	/* Self-Knowledge */
 	case 'k':
-		creature_knowledge(cr_ptr);
+		creature_knowledge(creature_ptr);
 		break;
 
 	/* Learn about objects */
@@ -2195,27 +2196,27 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Magic Mapping */
 	case 'm':
-		map_area(cr_ptr, DETECT_RAD_ALL * 3);
+		map_area(creature_ptr, DETECT_RAD_ALL * 3);
 		break;
 
 	/* Mutation */
 	case 'M':
-		(void)gain_random_mutation(cr_ptr, command_arg, TRUE);
+		(void)gain_random_mutation(creature_ptr, command_arg, TRUE);
 		break;
 
 	/* Specific reward */
 	case 'r':
-		(void)gain_level_reward(cr_ptr, command_arg);
+		(void)gain_level_reward(creature_ptr, command_arg);
 		break;
 
 	/* Summon _friendly_ named monster */
 	case 'N':
-		do_cmd_wiz_named_friendly(cr_ptr, command_arg);
+		do_cmd_wiz_named_friendly(creature_ptr, command_arg);
 		break;
 
 	/* Summon Named Monster */
 	case 'n':
-		do_cmd_wiz_named(cr_ptr, command_arg);
+		do_cmd_wiz_named(creature_ptr, command_arg);
 		break;
 
 	/* Dump option bits usage */
@@ -2225,12 +2226,12 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Object playing routines */
 	case 'o':
-		do_cmd_wiz_play(cr_ptr);
+		do_cmd_wiz_play(creature_ptr);
 		break;
 
 	/* Phase Door */
 	case 'p':
-		teleport_player(cr_ptr, 10, 0L);
+		teleport_player(creature_ptr, 10, 0L);
 		break;
 
 #if 0
@@ -2238,9 +2239,9 @@ void do_cmd_debug(creature_type *cr_ptr)
 	case 'q':
 		for (i = 0; i < max_quests; i++)
 		{
-			if (cr_ptr->quest[i].status == QUEST_STATUS_TAKEN)
+			if (creature_ptr->quest[i].status == QUEST_STATUS_TAKEN)
 			{
-				cr_ptr->quest[i].status++;
+				creature_ptr->quest[i].status++;
 				msg_print("Completed Quest");
 				msg_print(NULL);
 				break;
@@ -2256,25 +2257,25 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Make every dungeon square "known" to test streamers -KMW- */
 	case 'u':
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			for (x = 0; x < current_floor_ptr->width; x++)
+			for (x = 0; x < floor_ptr->width; x++)
 			{
-				current_floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
+				floor_ptr->cave[y][x].info |= (CAVE_GLOW | CAVE_MARK);
 			}
 		}
-		wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+		wiz_lite(floor_ptr, creature_ptr, FALSE);
 		break;
 
 	/* Summon Random Monster(s) */
 	case 's':
 		if (command_arg <= 0) command_arg = 1;
-		do_cmd_wiz_summon(cr_ptr, command_arg);
+		do_cmd_wiz_summon(creature_ptr, command_arg);
 		break;
 
 	// Teleport
 	case 't':
-		teleport_player(cr_ptr, 100, 0L);
+		teleport_player(creature_ptr, 100, 0L);
 		break;
 
 	// Teleport Known Floor
@@ -2285,7 +2286,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 	/* Very Good Objects */
 	case 'v':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, TRUE, TRUE);
+		acquirement(creature_ptr->fy, creature_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
 	/* Very Good Objects 2*/
@@ -2308,30 +2309,30 @@ void do_cmd_debug(creature_type *cr_ptr)
 			tmp_int2 = atoi(tmp_val2);
 
 			object_wipe(&ob);
-			object_prep(&ob, tmp_int2, cr_ptr->size);
-			apply_magic_specified_ego(cr_ptr, &ob, cr_ptr->lev * 2, tmp_int);
-			(void)drop_near(&ob, -1, cr_ptr->fy, cr_ptr->fx);
+			object_prep(&ob, tmp_int2, creature_ptr->size);
+			apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
+			(void)drop_near(&ob, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		break;
 
 	/* Wizard Light the Level */
 	case 'w':
-		wiz_lite(current_floor_ptr, cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));
+		wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->cls_idx == CLASS_NINJA));
 		break;
 
 	/* Increase Experience */
 	case 'x':
-		gain_exp(cr_ptr, command_arg ? command_arg : (cr_ptr->exp + 1));
+		gain_exp(creature_ptr, command_arg ? command_arg : (creature_ptr->exp + 1));
 		break;
 
 	/* Zap Monsters (Genocide) */
 	case 'z':
-		do_cmd_wiz_zap(cr_ptr);
+		do_cmd_wiz_zap(creature_ptr);
 		break;
 
 	/* Zap Monsters (Omnicide) */
 	case 'Z':
-		do_cmd_wiz_zap_all(cr_ptr);
+		do_cmd_wiz_zap_all(creature_ptr);
 		break;
 
 	/* Hack -- whatever I desire */
