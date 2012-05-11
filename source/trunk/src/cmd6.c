@@ -2265,8 +2265,9 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 }
 
 
-static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool magic, bool known)
+static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge, bool magic, bool known)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int k;
 	int ident = FALSE;
 
@@ -2275,23 +2276,23 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 	{
 		case SV_STAFF_DARKNESS:
 		{
-			if (!(cr_ptr->resist_blind) && !(cr_ptr->resist_dark))
+			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
 			{
-				if (set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5))) ident = TRUE;
+				if (set_blind(creature_ptr, creature_ptr->blind + 3 + randint1(5))) ident = TRUE;
 			}
-			if (unlite_area(cr_ptr, 10, 3)) ident = TRUE;
+			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if (set_slow(cr_ptr, cr_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_slow(creature_ptr, creature_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HASTE_MONSTERS:
 		{
-			if (speed_monsters(cr_ptr)) ident = TRUE;
+			if (speed_monsters(creature_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -2299,7 +2300,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -2309,21 +2310,21 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_TELEPORTATION:
 		{
-			teleport_player(cr_ptr, 100, 0L);
+			teleport_player(creature_ptr, 100, 0L);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_IDENTIFY:
 		{
-			if (!ident_spell(cr_ptr, FALSE)) *use_charge = FALSE;
+			if (!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_REMOVE_CURSE:
 		{
-			if (remove_curse(cr_ptr))
+			if (remove_curse(creature_ptr))
 			{
 				if (magic)
 				{
@@ -2333,7 +2334,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				else if (!cr_ptr->blind)
+				else if (!creature_ptr->blind)
 				{
 #ifdef JP
 					msg_print("杖は一瞬ブルーに輝いた...");
@@ -2353,7 +2354,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 			int y, x;
 			int attempts;
 
-			if (!cr_ptr->blind && !magic)
+			if (!creature_ptr->blind && !magic)
 			{
 #ifdef JP
 				msg_print("杖の先が明るく輝いた...");
@@ -2368,14 +2369,14 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 				while (attempts--)
 				{
-					scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+					scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-					if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
+					if (!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
-					if (!creature_bold(cr_ptr, y, x)) break;
+					if (!creature_bold(creature_ptr, y, x)) break;
 				}
 
-				project(cr_ptr, 0, y, x, damroll(6 + cr_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(creature_ptr, 0, y, x, damroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2384,90 +2385,90 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_LITE:
 		{
-			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(creature_ptr, damroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_MAPPING:
 		{
-			map_area(cr_ptr, DETECT_RAD_MAP);
+			map_area(creature_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_GOLD:
 		{
-			if (detect_treasure(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_ITEM:
 		{
-			if (detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_TRAP:
 		{
-			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_DOOR:
 		{
-			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_EVIL:
 		{
-			if (detect_monsters_evil(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (hp_player(cr_ptr, damroll(2, 8))) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, damroll(2, 8))) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_CURING:
 		{
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_image(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_image(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HEALING:
 		{
-			if (hp_player(cr_ptr, 300)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, 300)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_THE_MAGI:
 		{
-			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
-			if (cr_ptr->csp < cr_ptr->msp)
+			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if (creature_ptr->csp < creature_ptr->msp)
 			{
-				cr_ptr->csp = cr_ptr->msp;
-				cr_ptr->csp_frac = 0;
+				creature_ptr->csp = creature_ptr->msp;
+				creature_ptr->csp_frac = 0;
 				ident = TRUE;
 #ifdef JP
 				msg_print("頭がハッキリとした。");
@@ -2479,25 +2480,25 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
 			}
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if (sleep_creatures(cr_ptr)) ident = TRUE;
+			if (sleep_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if (slow_creatures(cr_ptr)) ident = TRUE;
+			if (slow_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SPEED:
 		{
-			if (set_fast(cr_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2510,39 +2511,39 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if (dispel_evil(cr_ptr, 80)) ident = TRUE;
+			if (dispel_evil(creature_ptr, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_POWER:
 		{
-			if (dispel_creatures(cr_ptr, 150)) ident = TRUE;
+			if (dispel_creatures(creature_ptr, 150)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HOLINESS:
 		{
-			if (dispel_evil(cr_ptr, 150)) ident = TRUE;
-			k = 3 * cr_ptr->lev;
-			if (set_protevil(cr_ptr, (magic ? 0 : cr_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_afraid(cr_ptr, 0)) ident = TRUE;
-			if (hp_player(cr_ptr, 50)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
+			if (dispel_evil(creature_ptr, 150)) ident = TRUE;
+			k = 3 * creature_ptr->lev;
+			if (set_protevil(creature_ptr, (magic ? 0 : creature_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_afraid(creature_ptr, 0)) ident = TRUE;
+			if (hp_player(creature_ptr, 50)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_GENOCIDE:
 		{
-			(void)symbol_genocide(cr_ptr, (magic ? cr_ptr->lev + 50 : 200), TRUE);
+			(void)symbol_genocide(creature_ptr, (magic ? creature_ptr->lev + 50 : 200), TRUE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if (earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10))
+			if (earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -2557,7 +2558,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_DESTRUCTION:
 		{
-			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 
 			break;
@@ -2565,7 +2566,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if (animate_dead(NULL, cr_ptr->fy, cr_ptr->fx))
+			if (animate_dead(NULL, creature_ptr->fy, creature_ptr->fx))
 				ident = TRUE;
 
 			break;
@@ -2578,14 +2579,14 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(cr_ptr, 5, cr_ptr->fy, cr_ptr->fx,
+			project(creature_ptr, 5, creature_ptr->fy, creature_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if ((cr_ptr->cls_idx != CLASS_MAGE) && (cr_ptr->cls_idx != CLASS_HIGH_MAGE) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_MAGIC_EATER) && (cr_ptr->cls_idx != CLASS_BLUE_MAGE))
+			if ((creature_ptr->cls_idx != CLASS_MAGE) && (creature_ptr->cls_idx != CLASS_HIGH_MAGE) && (creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_MAGIC_EATER) && (creature_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
-				(void)take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
+				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
 #else
-				(void)take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
+				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
 #endif
 			}
 			ident = TRUE;
