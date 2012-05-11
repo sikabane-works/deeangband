@@ -754,7 +754,7 @@ extern void do_cmd_stay(creature_type *cr_ptr, bool pickup);
 extern void do_cmd_run(creature_type *cr_ptr);
 extern void do_cmd_rest(creature_type *cr_ptr);
 extern void do_cmd_fire(creature_type *cr_ptr);
-extern void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr);
+extern void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr);
 extern void do_cmd_throw(creature_type *cr_ptr);
 extern bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuriken);
 #ifdef TRAVEL

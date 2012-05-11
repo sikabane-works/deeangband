@@ -3250,8 +3250,9 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
  *
  * Note that Bows of "Extra Shots" give an extra shot.
  */
-void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
+void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int dir;
 	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
@@ -3259,9 +3260,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	int cur_dis, visible;
 
 	object_type forge;
-	object_type *q_ptr;
-
-	object_type *o_ptr;
+	object_type *q_ptr, *o_ptr;
 
 	bool hit_body = FALSE;
 
@@ -3277,7 +3276,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
@@ -3285,13 +3284,13 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Cannot shot a single arrow twice */
-	if ((cr_ptr->snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) cr_ptr->snipe_type = SP_NONE;
+	if ((creature_ptr->snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
 
 	/* Describe the object */
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */
-	thits = cr_ptr->num_fire;
+	thits = creature_ptr->num_fire;
 
 	/* Use a base distance */
 	tdis = 10;
@@ -3300,19 +3299,19 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	tdam_base = damroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_d + j_ptr->to_d;
 
 	/* Actually "fire" the object */
-	bonus = (cr_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
+	bonus = (creature_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
-		chance = (cr_ptr->skill_thb + (cr_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
+		chance = (creature_ptr->skill_thb + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
-		chance = (cr_ptr->skill_thb + ((cr_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
+		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
 
 	energy_use = bow_energy(j_ptr->sval);
 	tmul = bow_tmul(j_ptr->sval);
 
 	/* Get extra "power" from "extra might" */
-	if (cr_ptr->xtra_might) tmul++;
+	if (creature_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;
@@ -3322,8 +3321,8 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	tdis = 13 + tmul/80;
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 	{
-		if (cr_ptr->concent)
-			tdis -= (5 - (cr_ptr->concent + 1) / 2);
+		if (creature_ptr->concent)
+			tdis -= (5 - (creature_ptr->concent + 1) / 2);
 		else
 			tdis -= 5;
 	}
@@ -3331,11 +3330,11 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	project_length = tdis + 1;
 
 	/* Get a direction (or cancel) */
-	if (!get_aim_dir(cr_ptr, &dir))
+	if (!get_aim_dir(creature_ptr, &dir))
 	{
 		energy_use = 0;
 
-		if (cr_ptr->snipe_type == SP_AWAY) cr_ptr->snipe_type = SP_NONE;
+		if (creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 
 		/* need not to reset project_length (already did)*/
 
@@ -3343,23 +3342,23 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Predict the "target" location */
-	tx = cr_ptr->fx + 99 * ddx[dir];
-	ty = cr_ptr->fy + 99 * ddy[dir];
+	tx = creature_ptr->fx + 99 * ddx[dir];
+	ty = creature_ptr->fy + 99 * ddy[dir];
 
 	/* Check for "target request" */
-	if ((dir == 5) && target_okay(cr_ptr))
+	if ((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, project_length, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
 	project_length = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
-	if (tx == cr_ptr->fx && ty == cr_ptr->fy)
+	if (tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
 		energy_use = 0;
 
@@ -3371,18 +3370,18 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 	/* Take a (partial) turn */
 	energy_use = (energy_use / thits);
-	cr_ptr->is_fired = TRUE;
+	creature_ptr->is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
-	if (cr_ptr->snipe_type == SP_DOUBLE)  cr_ptr->concent = (cr_ptr->concent + 1) / 2;
+	if (creature_ptr->snipe_type == SP_DOUBLE)  creature_ptr->concent = (creature_ptr->concent + 1) / 2;
 
 	/* Sniper - Repeat shooting when double shots */
-	for (i = 0; i < ((cr_ptr->snipe_type == SP_DOUBLE) ? 2 : 1); i++)
+	for (i = 0; i < ((creature_ptr->snipe_type == SP_DOUBLE) ? 2 : 1); i++)
 	{
 
 	/* Start at the player */
-	y = cr_ptr->fy;
-	x = cr_ptr->fx;
+	y = creature_ptr->fy;
+	x = creature_ptr->fx;
 
 	/* Get local object */
 	q_ptr = &forge;
@@ -3393,12 +3392,12 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	/* Single object */
 	q_ptr->number = 1;
 
-	/* Reduce and describe cr_ptr->inventory */
+	/* Reduce and describe creature_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -1);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Reduce and describe floor item */
@@ -3432,12 +3431,12 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Calculate the new location (see "project()") */
 		ny = y;
 		nx = x;
-		mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
+		mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Shatter Arrow */
-		if (cr_ptr->snipe_type == SP_KILL_WALL)
+		if (creature_ptr->snipe_type == SP_KILL_WALL)
 		{
-			c_ptr = &current_floor_ptr->cave[ny][nx];
+			c_ptr = &floor_ptr->cave[ny][nx];
 
 			if (cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
@@ -3452,7 +3451,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 				/* Destroy the wall */
-				cave_alter_feat(current_floor_ptr, ny, nx, FF_HURT_ROCK);
+				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK);
 
 				hit_body = TRUE;
 				break;
@@ -3460,15 +3459,15 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT) && !current_floor_ptr->cave[ny][nx].creature_idx) break;
+		if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && !floor_ptr->cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
 
 		/* Sniper */
-		if (cr_ptr->snipe_type == SP_LITE)
+		if (creature_ptr->snipe_type == SP_LITE)
 		{
-			current_floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
+			floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 			/* Notice */
 			note_spot(ny, nx);
@@ -3478,13 +3477,13 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny, nx) && creature_can_see_bold(cr_ptr, ny, nx))
+		if (panel_contains(ny, nx) && creature_can_see_bold(creature_ptr, ny, nx))
 		{
 			char c = object_char(q_ptr);
 			byte a = object_attr(q_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
-			print_rel(cr_ptr, c, a, ny, nx);
+			print_rel(creature_ptr, c, a, ny, nx);
 			move_cursor_relative(ny, nx);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
@@ -3500,16 +3499,16 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Sniper */
-		if (cr_ptr->snipe_type == SP_KILL_TRAP)
+		if (creature_ptr->snipe_type == SP_KILL_TRAP)
 		{
-			project(cr_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
+			project(creature_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
 		/* Sniper */
-		if (cr_ptr->snipe_type == SP_EVILNESS)
+		if (creature_ptr->snipe_type == SP_EVILNESS)
 		{
-			current_floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
+			floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
 
 			/* Notice */
 			note_spot(ny, nx);
@@ -3528,10 +3527,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 
 		/* Monster here, Try to hit it */
-		if (current_floor_ptr->cave[y][x].creature_idx)
+		if (floor_ptr->cave[y][x].creature_idx)
 		{
 			int armour;
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -3542,48 +3541,48 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			/* Note the collision */
 			hit_body = TRUE;
 
-			if ((r_ptr->level + 10) > cr_ptr->lev)
+			if ((r_ptr->level + 10) > creature_ptr->lev)
 			{
-				int now_exp = cr_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < skill_info[cr_ptr->cls_idx].w_max[0][j_ptr->sval])
+				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
+				if (now_exp < skill_info[creature_ptr->cls_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
 					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
 					else if (now_exp < WEAPON_EXP_SKILLED) amount = 25;
-					else if ((now_exp < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19)) amount = 10;
-					else if (cr_ptr->lev > 34) amount = 2;
-					cr_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					cr_ptr->creature_update |= (CRU_BONUS);
+					else if ((now_exp < WEAPON_EXP_EXPERT) && (creature_ptr->lev > 19)) amount = 10;
+					else if (creature_ptr->lev > 34) amount = 2;
+					creature_ptr->weapon_exp[0][j_ptr->sval] += amount;
+					creature_ptr->creature_update |= (CRU_BONUS);
 				}
 			}
 
-			if (cr_ptr->riding)
+			if (creature_ptr->riding)
 			{
-				if ((cr_ptr->skill_exp[GINOU_RIDING] < skill_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
-					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[cr_ptr->riding].species_idx].level)
+				if ((creature_ptr->skill_exp[GINOU_RIDING] < skill_info[creature_ptr->cls_idx].s_max[GINOU_RIDING])
+					&& ((creature_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
-					cr_ptr->skill_exp[GINOU_RIDING] += 1;
-					cr_ptr->creature_update |= (CRU_BONUS);
+					creature_ptr->skill_exp[GINOU_RIDING] += 1;
+					creature_ptr->creature_update |= (CRU_BONUS);
 				}
 			}
 
 			/* Some shots have hit bonus */
 			armour = m_ptr->ac + m_ptr->to_a;
-			if (cr_ptr->concent)
+			if (creature_ptr->concent)
 			{
-				armour *= (10 - cr_ptr->concent);
+				armour *= (10 - creature_ptr->concent);
 				armour /= 10;
 			}
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(cr_ptr, chance - cur_dis, armour, m_ptr->ml))
+			if (test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->ml))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
 
 				/* Get extra damage from concentration */
-				if (cr_ptr->concent) tdam = boost_concentration_damage(cr_ptr, tdam);
+				if (creature_ptr->concent) tdam = boost_concentration_damage(creature_ptr, tdam);
 
 				/* Handle unseen monster */
 				if (!visible)
@@ -3615,16 +3614,16 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					if (m_ptr->ml)
 					{
 						/* Hack -- Track this monster race */
-						if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
+						if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this monster */
 						health_track(c_ptr->creature_idx);
 					}
 				}
 
-				if (cr_ptr->snipe_type == SP_NEEDLE)
+				if (creature_ptr->snipe_type == SP_NEEDLE)
 				{
-					if ((randint1(randint1(r_ptr->level / (3 + cr_ptr->concent)) + (8 - cr_ptr->concent)) == 1)
+					if ((randint1(randint1(r_ptr->level / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
 						&& !is_unique_creature(m_ptr) && !is_sub_unique_creature(m_ptr))
 					{
 						char m_name[80];
@@ -3644,8 +3643,8 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				else
 				{
 					/* Apply special damage XXX XXX XXX */
-					tdam = tot_dam_aux_shot(cr_ptr, q_ptr, tdam, m_ptr);
-					tdam = critical_shot(cr_ptr, q_ptr->weight, q_ptr->to_h, tdam);
+					tdam = tot_dam_aux_shot(creature_ptr, q_ptr, tdam, m_ptr);
+					tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_h, tdam);
 
 					/* No negative damage */
 					if (tdam < 0) tdam = 0;
@@ -3661,19 +3660,19 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Sniper */
-				if (cr_ptr->snipe_type == SP_EXPLODE)
+				if (creature_ptr->snipe_type == SP_EXPLODE)
 				{
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
 					sound(SOUND_EXPLODE); /* No explode sound - use breath fire instead */
-					project(cr_ptr, ((cr_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
+					project(creature_ptr, ((creature_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
 					break;
 				}
 
 				/* Sniper */
-				if (cr_ptr->snipe_type == SP_HOLYNESS)
+				if (creature_ptr->snipe_type == SP_HOLYNESS)
 				{
-					current_floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
+					floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 					/* Notice */
 					note_spot(ny, nx);
@@ -3683,7 +3682,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
+				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
@@ -3707,7 +3706,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the monster */
-					if (tdam > 0) anger_creature(cr_ptr, m_ptr);
+					if (tdam > 0) anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
 					if (fear && m_ptr->ml)
@@ -3729,10 +3728,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 
 					}
 
-					set_target(m_ptr, cr_ptr->fy, cr_ptr->fx);
+					set_target(m_ptr, creature_ptr->fy, creature_ptr->fx);
 
 					/* Sniper */
-					if (cr_ptr->snipe_type == SP_RUSH)
+					if (creature_ptr->snipe_type == SP_RUSH)
 					{
 						int n = randint1(5) + 3;
 						int m_idx = c_ptr->creature_idx;
@@ -3745,19 +3744,19 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							if (!n) break;
 
 							/* Calculate the new location (see "project()") */
-							mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
+							mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 							/* Stopped by wilderness boundary */
-							if (!in_bounds2(current_floor_ptr, ny, nx)) break;
+							if (!in_bounds2(floor_ptr, ny, nx)) break;
 
 							/* Stopped by walls/doors */
-							if (!player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0)) break;
+							if (!player_can_enter(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by monsters */
-							if (!cave_empty_bold(current_floor_ptr, ny, nx)) break;
+							if (!cave_empty_bold(floor_ptr, ny, nx)) break;
 
-							current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
-							current_floor_ptr->cave[oy][ox].creature_idx = 0;
+							floor_ptr->cave[ny][nx].creature_idx = m_idx;
+							floor_ptr->cave[oy][ox].creature_idx = 0;
 
 							m_ptr->fx = nx;
 							m_ptr->fy = ny;
@@ -3781,10 +3780,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Sniper */
-			if (cr_ptr->snipe_type == SP_PIERCE)
+			if (creature_ptr->snipe_type == SP_PIERCE)
 			{
-				if(cr_ptr->concent < 1) break;
-				cr_ptr->concent--;
+				if(creature_ptr->concent < 1) break;
+				creature_ptr->concent--;
 				continue;
 			}
 
@@ -3794,11 +3793,11 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(cr_ptr, q_ptr) : 0);
+	j = (hit_body ? breakage_chance(creature_ptr, q_ptr) : 0);
 
 	if (stick_to)
 	{
-		int m_idx = current_floor_ptr->cave[y][x].creature_idx;
+		int m_idx = floor_ptr->cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
 		int object_idx = object_pop();
 
@@ -3834,7 +3833,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		/* Carry object */
 		//TODO
 	}
-	else if (cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT))
+	else if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
 		(void)drop_near(q_ptr, j, y, x);
@@ -3849,7 +3848,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Loose his/her concentration after any shot */
-	if (cr_ptr->concent) reset_concentration(cr_ptr, FALSE);
+	if (creature_ptr->concent) reset_concentration(creature_ptr, FALSE);
 }
 
 
