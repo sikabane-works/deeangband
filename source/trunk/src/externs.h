@@ -746,7 +746,7 @@ extern void do_cmd_open(creature_type *cr_ptr);
 extern void do_cmd_close(creature_type *cr_ptr);
 extern void do_cmd_tunnel(creature_type *cr_ptr);
 extern void do_cmd_disarm(creature_type *cr_ptr);
-extern void do_cmd_bash(creature_type *cr_ptr);
+extern void do_cmd_bash(creature_type *creature_ptr);
 extern void do_cmd_alter(creature_type *cr_ptr);
 extern void do_cmd_spike(creature_type *cr_ptr);
 extern void do_cmd_walk(creature_type *cr_ptr, bool pickup);

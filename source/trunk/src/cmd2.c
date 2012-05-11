@@ -2336,18 +2336,16 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
  *
  * Creatures can also open or bash doors, see elsewhere.
  */
-void do_cmd_bash(creature_type *cr_ptr)
+void do_cmd_bash(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int			y, x, dir;
-
 	cave_type	*c_ptr;
-
 	bool		more = FALSE;
 
-
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -2364,16 +2362,16 @@ void do_cmd_bash(creature_type *cr_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		s16b feat;
 
 		/* Bash location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2405,14 +2403,14 @@ void do_cmd_bash(creature_type *cr_ptr)
 
 
 			/* Attack */
-			weapon_attack(cr_ptr, y, x, 0);
+			weapon_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Bash a closed door */
 		else
 		{
 			/* Bash the door */
-			more = do_cmd_bash_aux(cr_ptr, y, x, dir);
+			more = do_cmd_bash_aux(creature_ptr, y, x, dir);
 		}
 	}
 
