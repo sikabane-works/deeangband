@@ -4600,16 +4600,17 @@ static void forget_travel_flow(floor_type *floor_ptr)
 	}
 }
 
-static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wall)
+static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bool wall)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 	int old_head = flow_head;
 
 	n = n % TRAVEL_UNABLE;
 
 	/* Ignore out of bounds */
-	if (!in_bounds(current_floor_ptr, y, x)) return wall;
+	if (!in_bounds(floor_ptr, y, x)) return wall;
 
 	/* Ignore "pre-stamped" entries */
 	if (travel.cost[y][x] != TRAVEL_UNABLE) return wall;
@@ -4617,8 +4618,8 @@ static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wal
 	/* Ignore "walls" and "rubble" (include "secret doors") */
 	if (have_flag(f_ptr->flags, FF_WALL) ||
 		have_flag(f_ptr->flags, FF_CAN_DIG) ||
-		(have_flag(f_ptr->flags, FF_DOOR) && current_floor_ptr->cave[y][x].mimic) ||
-		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !cr_ptr->levitation))
+		(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic) ||
+		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !creature_ptr->levitation))
 	{
 		if (!wall) return wall;
 	}
