@@ -317,7 +317,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 		symbol_genocide(cr_ptr, plev+50, TRUE);
 	}
 	else if (die < 110) dispel_creatures(cr_ptr, 120);
-	else /* RARE */
+	else // RARE
 	{
 		dispel_creatures(cr_ptr, 150);
 		slow_creatures(cr_ptr);
@@ -327,22 +327,23 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 }
 
 
-static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
+static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 {
-	int plev = cr_ptr->lev;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int plev = creature_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 
 	if (vir)
 	{
-		if (cr_ptr->karmas[vir - 1] > 0)
+		if (creature_ptr->karmas[vir - 1] > 0)
 		{
-			while (randint1(400) < cr_ptr->karmas[vir - 1]) die++;
+			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
 		}
 		else
 		{
-			while (randint1(400) < (0-cr_ptr->karmas[vir - 1])) die--;
+			while (randint1(400) < (0-creature_ptr->karmas[vir - 1])) die--;
 		}
 	}
 
@@ -370,7 +371,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
 
-		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 14)
 	{
@@ -380,7 +381,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
 
-		set_afraid(cr_ptr, cr_ptr->afraid + randint1(4) + 4);
+		set_afraid(creature_ptr, creature_ptr->afraid + randint1(4) + 4);
 	}
 	else if (die < 26)
 	{
@@ -390,95 +391,95 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 		msg_print("Your head is invaded by a horde of gibbering spectral voices...");
 #endif
 
-		set_confused(cr_ptr, cr_ptr->confused + randint1(4) + 4);
+		set_confused(creature_ptr, creature_ptr->confused + randint1(4) + 4);
 	}
 	else if (die < 31)
 	{
-		poly_creature(cr_ptr, dir);
+		poly_creature(creature_ptr, dir);
 	}
 	else if (die < 36)
 	{
-		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
+		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
 	}
 	else if (die < 41)
 	{
-		confuse_creature(cr_ptr, dir, plev);
+		confuse_creature(creature_ptr, dir, plev);
 	}
 	else if (die < 46)
 	{
-		fire_ball(cr_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
+		fire_ball(creature_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
 	}
 	else if (die < 51)
 	{
-		(void)lite_line(cr_ptr, dir);
+		(void)lite_line(creature_ptr, dir);
 	}
 	else if (die < 56)
 	{
-		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_ELEC, dir,
+		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir,
 				  damroll(3+((plev-5)/4),8));
 	}
 	else if (die < 61)
 	{
-		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_COLD, dir,
+		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir,
 				  damroll(5+((plev-5)/4),8));
 	}
 	else if (die < 66)
 	{
-		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_ACID, dir,
+		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir,
 				  damroll(6+((plev-5)/4),8));
 	}
 	else if (die < 71)
 	{
-		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_FIRE, dir,
+		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir,
 				  damroll(8+((plev-5)/4),8));
 	}
 	else if (die < 76)
 	{
-		drain_life(cr_ptr, dir, 75);
+		drain_life(creature_ptr, dir, 75);
 	}
 	else if (die < 81)
 	{
-		fire_ball(cr_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
+		fire_ball(creature_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
 	}
 	else if (die < 86)
 	{
-		fire_ball(cr_ptr, GF_ACID, dir, 40 + plev, 2);
+		fire_ball(creature_ptr, GF_ACID, dir, 40 + plev, 2);
 	}
 	else if (die < 91)
 	{
-		fire_ball(cr_ptr, GF_ICE, dir, 70 + plev, 3);
+		fire_ball(creature_ptr, GF_ICE, dir, 70 + plev, 3);
 	}
 	else if (die < 96)
 	{
-		fire_ball(cr_ptr, GF_FIRE, dir, 80 + plev, 3);
+		fire_ball(creature_ptr, GF_FIRE, dir, 80 + plev, 3);
 	}
 	else if (die < 101)
 	{
-		drain_life(cr_ptr, dir, 100 + plev);
+		drain_life(creature_ptr, dir, 100 + plev);
 	}
 	else if (die < 104)
 	{
-		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 12);
+		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
-		symbol_genocide(cr_ptr, plev+50, TRUE);
+		symbol_genocide(creature_ptr, plev+50, TRUE);
 	}
 	else if (die < 110)
 	{
-		dispel_creatures(cr_ptr, 120);
+		dispel_creatures(creature_ptr, 120);
 	}
 	else
 	{ /* RARE */
-		dispel_creatures(cr_ptr, 150);
-		slow_creatures(cr_ptr);
-		sleep_creatures(cr_ptr);
-		hp_player(cr_ptr, 300);
+		dispel_creatures(creature_ptr, 150);
+		slow_creatures(creature_ptr);
+		sleep_creatures(creature_ptr);
+		hp_player(creature_ptr, 300);
 	}
 
 	if (die < 31)
