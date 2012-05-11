@@ -1994,6 +1994,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 static void do_name_pet(creature_type *master_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(master_ptr);
 	creature_type *pet_ptr;
 	char out_val[20];
 	char m_name[80];
@@ -2008,9 +2009,9 @@ static void do_name_pet(creature_type *master_ptr)
 	}
 	target_pet = old_target_pet;
 
-	if (current_floor_ptr->cave[target_row][target_col].creature_idx)
+	if (floor_ptr->cave[target_row][target_col].creature_idx)
 	{
-		pet_ptr = &creature_list[current_floor_ptr->cave[target_row][target_col].creature_idx];
+		pet_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 
 		if (!is_pet(player_ptr, pet_ptr))
 		{
