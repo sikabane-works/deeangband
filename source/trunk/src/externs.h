@@ -2051,7 +2051,7 @@ extern int boost_concentration_damage(creature_type *cr_ptr, int tdam);
 /* hex.c */
 extern bool stop_hex_spell_all(creature_type *cr_ptr);
 extern bool stop_hex_spell(creature_type *cr_ptr);
-extern void check_hex(creature_type *cr_ptr);
+extern void check_hex(creature_type *creature_ptr);
 extern bool hex_spell_fully(creature_type *cr_ptr);
 extern void revenge_spell(creature_type *cr_ptr);
 extern void revenge_store(creature_type *cr_ptr, int dam);

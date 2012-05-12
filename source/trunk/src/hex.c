@@ -124,8 +124,9 @@ bool stop_hex_spell(creature_type *cr_ptr)
 
 /* Upkeeping hex spells
    Called from dungeon.c */
-void check_hex(creature_type *cr_ptr)
+void check_hex(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	magic_type *s_ptr;
 	int spell;
 	s32b need_mana;
@@ -133,30 +134,30 @@ void check_hex(creature_type *cr_ptr)
 	bool res = FALSE;
 
 	/* Spells spelled by player */
-	if (cr_ptr->realm1 != REALM_HEX) return;
-	if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return;
+	if (creature_ptr->realm1 != REALM_HEX) return;
+	if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
 
-	if (cr_ptr->magic_num1[1])
+	if (creature_ptr->magic_num1[1])
 	{
-		cr_ptr->magic_num1[0] = cr_ptr->magic_num1[1];
-		cr_ptr->magic_num1[1] = 0;
+		creature_ptr->magic_num1[0] = creature_ptr->magic_num1[1];
+		creature_ptr->magic_num1[1] = 0;
 		res = TRUE;
 	}
 
 	/* Stop all spells when anti-magic ability is given */
-	if (cr_ptr->anti_magic)
+	if (creature_ptr->anti_magic)
 	{
-		stop_hex_spell_all(cr_ptr);
+		stop_hex_spell_all(creature_ptr);
 		return;
 	}
 
 	need_mana = 0;
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(cr_ptr, spell))
+		if (hex_spelling(creature_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
-			need_mana += mod_need_mana(cr_ptr, s_ptr->smana, spell, REALM_HEX);
+			need_mana += mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_HEX);
 		}
 	}
 
@@ -164,20 +165,20 @@ void check_hex(creature_type *cr_ptr)
 	/* Culcurates final mana cost */
 	need_mana_frac = 0;
 	s64b_div(&need_mana, &need_mana_frac, 0, 3); /* Divide by 3 */
-	need_mana += (cr_ptr->magic_num2[0] - 1);
+	need_mana += (creature_ptr->magic_num2[0] - 1);
 
 
 	/* Not enough mana */
-	if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	if (s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_hex_spell_all(cr_ptr);
+		stop_hex_spell_all(creature_ptr);
 		return;
 	}
 
 	/* Enough mana */
 	else
 	{
-		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), need_mana, need_mana_frac);
+		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
 		play_redraw |= PR_MANA;
 		if (res)
@@ -187,10 +188,10 @@ void check_hex(creature_type *cr_ptr)
 #else
 			msg_print("You restart spelling.");
 #endif
-			cr_ptr->action = ACTION_SPELL;
+			creature_ptr->action = ACTION_SPELL;
 
 			/* Recalculate bonuses */
-			cr_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
@@ -206,24 +207,24 @@ void check_hex(creature_type *cr_ptr)
 	/* Gain experiences of spelling spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (!hex_spelling(cr_ptr, spell)) continue;
+		if (!hex_spelling(creature_ptr, spell)) continue;
 
-		if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
-			cr_ptr->spell_exp[spell] += 5;
-		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-		{ if (one_in_(2) && (current_floor_ptr->floor_level > 4) && ((current_floor_ptr->floor_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
-		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-		{ if (one_in_(5) && ((current_floor_ptr->floor_level + 5) > cr_ptr->lev) && ((current_floor_ptr->floor_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
-		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-		{ if (one_in_(5) && ((current_floor_ptr->floor_level + 5) > cr_ptr->lev) && (current_floor_ptr->floor_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+		if (creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
+			creature_ptr->spell_exp[spell] += 5;
+		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
+		{ if (one_in_(2) && (floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev)) creature_ptr->spell_exp[spell] += 1; }
+		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
+		{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
+		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
+		{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
 	}
 
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(cr_ptr, spell))
+		if (hex_spelling(creature_ptr, spell))
 		{
-			do_spell(cr_ptr, REALM_HEX, spell, SPELL_CONT);
+			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
 		}
 	}
 }
