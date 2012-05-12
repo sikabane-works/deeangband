@@ -3852,7 +3852,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
  * Mode 7 = summary of various things (part 4)
  * Mode 8 = mutations
  */
-void display_creature_status(int mode, creature_type *cr_ptr)
+void display_creature_status(int mode, creature_type *creature_ptr)
 {
 	int i;
 
@@ -3860,10 +3860,11 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	char	tmp[128];
 	char	tmp2[128];
 
-	race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
-	class_type *cl_ptr = &classkill_info[cr_ptr->cls_idx];
-	creature_chara *ch_ptr = &chara_info[cr_ptr->chara_idx];
-	player_sex *se_ptr = &sex_info[cr_ptr->sex];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	race_type *ir_ptr = &race_info[creature_ptr->race_idx1];
+	class_type *cl_ptr = &classkill_info[creature_ptr->cls_idx];
+	creature_chara *ch_ptr = &chara_info[creature_ptr->chara_idx];
+	player_sex *se_ptr = &sex_info[creature_ptr->sex];
 
 
 
@@ -3880,41 +3881,41 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	if (mode == 0)
 	{
 		/* Name, Sex, Race, Class */
-		if(cr_ptr->chara_idx != INDEX_NONE && cr_ptr->species_idx == MON_STIGMATIC_ONE){ 
+		if(creature_ptr->chara_idx != INDEX_NONE && creature_ptr->species_idx == MON_STIGMATIC_ONE){ 
 #ifdef JP
-		if(!strcmp(cr_ptr->name, "烙印者"))
-			sprintf(tmp, "%s%s〈%s〉", chara_info[cr_ptr->chara_idx].title, chara_info[cr_ptr->chara_idx].no == 1 ? "の":"", cr_ptr->name);
+		if(!strcmp(creature_ptr->name, "烙印者"))
+			sprintf(tmp, "%s%s〈%s〉", chara_info[creature_ptr->chara_idx].title, chara_info[creature_ptr->chara_idx].no == 1 ? "の":"", creature_ptr->name);
 		else
-			sprintf(tmp, "%s%s『%s』", chara_info[cr_ptr->chara_idx].title, chara_info[cr_ptr->chara_idx].no == 1 ? "の":"", cr_ptr->name);
+			sprintf(tmp, "%s%s『%s』", chara_info[creature_ptr->chara_idx].title, chara_info[creature_ptr->chara_idx].no == 1 ? "の":"", creature_ptr->name);
 #else
-			sprintf(tmp, "%s %s", chara_info[cr_ptr->chara_idx].title, cr_ptr->name);
+			sprintf(tmp, "%s %s", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
 #endif
 		}
 		else
 		{
-			sprintf(tmp, "%s", cr_ptr->name);
+			sprintf(tmp, "%s", creature_ptr->name);
 		}
 
 		if(wizard)
 		{
-			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", cr_ptr->creature_idx, cr_ptr->floor_id, cr_ptr->fx, cr_ptr->fy, cr_ptr->name);
+			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->name);
 		}
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(cr_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(creature_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
-		if(cr_ptr->cls_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
+		if(creature_ptr->cls_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(creature_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
-		if(cr_ptr->patron_idx == INDEX_NONE)
+		if(creature_ptr->patron_idx == INDEX_NONE)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
-			display_player_one_line(ENTRY_PATRON, species_name + species_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
+			display_player_one_line(ENTRY_PATRON, species_name + species_info[creature_ptr->patron_idx].name, TERM_L_BLUE);
 		
 
-		authority_desc(buf, cr_ptr);
+		authority_desc(buf, creature_ptr);
 		
 		if(buf[0] == '\0')
 		{
@@ -3931,144 +3932,144 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 		/* D'angband(mertle scale).*/
 #ifdef JP
 
-		if(cr_ptr->race_idx1 != INDEX_NONE){ 
-			display_player_one_line(ENTRY_AGE, format("%u" ,cr_ptr->age), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE){ 
+			display_player_one_line(ENTRY_AGE, format("%u" ,creature_ptr->age), TERM_L_BLUE);
 		}
 		else{
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
 		}
 
-		if(cr_ptr->race_idx1 != INDEX_NONE)
-			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE)
+			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)creature_ptr->sc), TERM_L_BLUE);
 		else
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
 
 		/* Dump character level */
-		display_player_one_line(ENTRY_LEVEL, format("%d/%d", cr_ptr->lev, cr_ptr->max_lev), TERM_L_GREEN);
+		display_player_one_line(ENTRY_LEVEL, format("%d/%d", creature_ptr->lev, creature_ptr->max_lev), TERM_L_GREEN);
 
 		/* Dump hit point */
-		if (cr_ptr->chp >= cr_ptr->mhp) 
-			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_L_GREEN);
-		else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10) 
-			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_YELLOW);
+		if (creature_ptr->chp >= creature_ptr->mhp) 
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", creature_ptr->chp , creature_ptr->mhp), TERM_L_GREEN);
+		else if (creature_ptr->chp > (creature_ptr->mhp * hitpoint_warn) / 10) 
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", creature_ptr->chp , creature_ptr->mhp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_RED);
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", creature_ptr->chp , creature_ptr->mhp), TERM_RED);
 
 		/* Dump mana power */
-		if (cr_ptr->csp >= cr_ptr->msp) 
-			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_L_GREEN);
-		else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10) 
-			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_YELLOW);
+		if (creature_ptr->csp >= creature_ptr->msp) 
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", creature_ptr->csp , creature_ptr->msp), TERM_L_GREEN);
+		else if (creature_ptr->csp > (creature_ptr->msp * mana_warn) / 10) 
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", creature_ptr->csp , creature_ptr->msp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_RED);
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", creature_ptr->csp , creature_ptr->msp), TERM_RED);
 
 
-		if(cr_ptr->dr < 0){
+		if(creature_ptr->dr < 0){
 			display_player_one_line(ENTRY_DIVINE_RANK, format("--[なし]"), TERM_L_DARK);
 		}
-		else if(cr_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[究極神]", cr_ptr->dr), TERM_WHITE);
-		else if(cr_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[超越神]", cr_ptr->dr), TERM_VIOLET);
-		else if(cr_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[上級神]", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[中級神]", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[下級神]", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[半神]", cr_ptr->dr), TERM_YELLOW);
+		else if(creature_ptr->dr >= 26)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[究極神]", creature_ptr->dr), TERM_WHITE);
+		else if(creature_ptr->dr >= 21)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[超越神]", creature_ptr->dr), TERM_VIOLET);
+		else if(creature_ptr->dr >= 16)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[上級神]", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 11)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[中級神]", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 6)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[下級神]", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 1)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[半神]", creature_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[英霊]", cr_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[英霊]", creature_ptr->dr), TERM_RED);
 
 #else
 
-		if(cr_ptr->race_idx1 != INDEX_NONE){ 
-			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE){ 
+			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)creature_ptr->age), TERM_L_BLUE);
 		}
 		else{
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
 		}
 
-		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((cr_ptr->ht*100)/254)), TERM_L_BLUE);
-		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((cr_ptr->wt*10000)/4536)), TERM_L_BLUE);
+		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((creature_ptr->ht*100)/254)), TERM_L_BLUE);
+		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((creature_ptr->wt*10000)/4536)), TERM_L_BLUE);
 
-		if(cr_ptr->race_idx1 != INDEX_NONE){ 
-			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE){ 
+			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)creature_ptr->sc), TERM_L_BLUE);
 		}
 		else{
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
 		}
 
-		if(cr_ptr->dr < 0){
+		if(creature_ptr->dr < 0){
 			display_player_one_line(ENTRY_DIVINE_RANK, format("--[None]"), TERM_L_DARK);
 		}
-		else if(cr_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Ultima", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Over", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Elder", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Middle", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Lesser", cr_ptr->dr), TERM_L_BLUE);
-		else if(cr_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Demi", cr_ptr->dr), TERM_YELLOW);
+		else if(creature_ptr->dr >= 26)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Ultima", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 21)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Over", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 16)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Elder", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 11)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Middle", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 6)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Lesser", creature_ptr->dr), TERM_L_BLUE);
+		else if(creature_ptr->dr >= 1)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Demi", creature_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Hero", cr_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Hero", creature_ptr->dr), TERM_RED);
 
 #endif
 
-		display_player_one_line(ENTRY_GOOD,   format("%3d" ,cr_ptr->good_rank),  TERM_YELLOW);
-		display_player_one_line(ENTRY_EVIL,   format("%3d" ,cr_ptr->evil_rank),  TERM_RED);
-		display_player_one_line(ENTRY_ORDER,  format("%3d" ,cr_ptr->order_rank), TERM_L_BLUE);
-		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos_rank), TERM_VIOLET);
-		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance_rank), TERM_L_GREEN);
+		display_player_one_line(ENTRY_GOOD,   format("%3d" ,creature_ptr->good_rank),  TERM_YELLOW);
+		display_player_one_line(ENTRY_EVIL,   format("%3d" ,creature_ptr->evil_rank),  TERM_RED);
+		display_player_one_line(ENTRY_ORDER,  format("%3d" ,creature_ptr->order_rank), TERM_L_BLUE);
+		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,creature_ptr->chaos_rank), TERM_VIOLET);
+		display_player_one_line(ENTRY_BALANCE,format("%3d" ,creature_ptr->balance_rank), TERM_L_GREEN);
 
-		if     (cr_ptr->ht > 100000000)
-			sprintf(tmp, "%dkm", cr_ptr->ht / 100000);
-		else if(cr_ptr->ht > 10000000)
-			sprintf(tmp, "%d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
-		else if(cr_ptr->ht > 1000000)
-			sprintf(tmp, "%d.%2dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 1000);
-		else if(cr_ptr->ht > 100000)
-			sprintf(tmp, "%dm", cr_ptr->ht / 100);
-		else if(cr_ptr->ht > 10000)
-			sprintf(tmp, "%d.%1dm", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
-		else if(cr_ptr->ht > 1000)
-			sprintf(tmp, "%d.%2dm", cr_ptr->ht / 100, (cr_ptr->ht % 100));
+		if     (creature_ptr->ht > 100000000)
+			sprintf(tmp, "%dkm", creature_ptr->ht / 100000);
+		else if(creature_ptr->ht > 10000000)
+			sprintf(tmp, "%d.%1dkm", creature_ptr->ht / 100000, (creature_ptr->ht % 100000) / 10000);
+		else if(creature_ptr->ht > 1000000)
+			sprintf(tmp, "%d.%2dkm", creature_ptr->ht / 100000, (creature_ptr->ht % 100000) / 1000);
+		else if(creature_ptr->ht > 100000)
+			sprintf(tmp, "%dm", creature_ptr->ht / 100);
+		else if(creature_ptr->ht > 10000)
+			sprintf(tmp, "%d.%1dm", creature_ptr->ht / 100, (creature_ptr->ht % 100) / 10);
+		else if(creature_ptr->ht > 1000)
+			sprintf(tmp, "%d.%2dm", creature_ptr->ht / 100, (creature_ptr->ht % 100));
 		else
-			sprintf(tmp, "%dcm", cr_ptr->ht);
+			sprintf(tmp, "%dcm", creature_ptr->ht);
 
-		if     (cr_ptr->wt > 10000000000000)
-			sprintf(tmp2, "%dMt", cr_ptr->wt / 1000000000000);
-		else if(cr_ptr->wt > 1000000000000)
-			sprintf(tmp2, "%d.%1dMt", cr_ptr->wt / 1000000000, (cr_ptr->wt % 1000000000) / 100000000);
-		else if(cr_ptr->wt > 100000000000)
-			sprintf(tmp2, "%d.%2dMt", cr_ptr->wt / 1000000000, (cr_ptr->wt % 1000000000) / 10000000);
-		else if(cr_ptr->wt > 10000000000)
-			sprintf(tmp2, "%dMt", cr_ptr->wt / 1000000000);
-		else if(cr_ptr->wt > 100000000)
-			sprintf(tmp2, "%d.%1dkt", cr_ptr->wt / 1000000, (cr_ptr->wt % 1000000) / 100000);
-		else if(cr_ptr->wt > 10000000)
-			sprintf(tmp2, "%d.%2dkt", cr_ptr->wt / 1000000, (cr_ptr->wt % 1000000) / 10000);
-		else if(cr_ptr->wt > 1000000)
-			sprintf(tmp2, "%dt", cr_ptr->wt / 1000);
-		else if(cr_ptr->wt > 10000)
-			sprintf(tmp2, "%d.%1dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
-		else if(cr_ptr->wt > 1000)
-			sprintf(tmp2, "%d.%2dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
+		if     (creature_ptr->wt > 10000000000000)
+			sprintf(tmp2, "%dMt", creature_ptr->wt / 1000000000000);
+		else if(creature_ptr->wt > 1000000000000)
+			sprintf(tmp2, "%d.%1dMt", creature_ptr->wt / 1000000000, (creature_ptr->wt % 1000000000) / 100000000);
+		else if(creature_ptr->wt > 100000000000)
+			sprintf(tmp2, "%d.%2dMt", creature_ptr->wt / 1000000000, (creature_ptr->wt % 1000000000) / 10000000);
+		else if(creature_ptr->wt > 10000000000)
+			sprintf(tmp2, "%dMt", creature_ptr->wt / 1000000000);
+		else if(creature_ptr->wt > 100000000)
+			sprintf(tmp2, "%d.%1dkt", creature_ptr->wt / 1000000, (creature_ptr->wt % 1000000) / 100000);
+		else if(creature_ptr->wt > 10000000)
+			sprintf(tmp2, "%d.%2dkt", creature_ptr->wt / 1000000, (creature_ptr->wt % 1000000) / 10000);
+		else if(creature_ptr->wt > 1000000)
+			sprintf(tmp2, "%dt", creature_ptr->wt / 1000);
+		else if(creature_ptr->wt > 10000)
+			sprintf(tmp2, "%d.%1dt", creature_ptr->wt / 1000, (creature_ptr->wt % 1000) / 100);
+		else if(creature_ptr->wt > 1000)
+			sprintf(tmp2, "%d.%2dt", creature_ptr->wt / 1000, (creature_ptr->wt % 1000) / 10);
 		else
-			sprintf(tmp2, "%dkg", cr_ptr->wt);
+			sprintf(tmp2, "%dkg", creature_ptr->wt);
 
-		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", cr_ptr->size, tmp, tmp2), TERM_L_BLUE);
+		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", creature_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
 		/* Display the stats */
 		for (i = 0; i < 6; i++)
 		{
 			/* Special treatment of "injured" stats */
-			if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
+			if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
 			{
 				int value;
 
@@ -4076,7 +4077,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				put_str(stat_names_reduced[i], 3 + i, 58);
 
 				/* Get the current stat */
-				value = cr_ptr->stat_use[i];
+				value = creature_ptr->stat_use[i];
 
 				/* Obtain the current stat (modified) */
 				cnv_stat(value, buf);
@@ -4085,7 +4086,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				c_put_str(TERM_YELLOW, buf, 3 + i, 62);
 
 				/* Acquire the max stat */
-				value = cr_ptr->stat_top[i];
+				value = creature_ptr->stat_top[i];
 
 				/* Obtain the maximum stat (modified) */
 				cnv_stat(value, buf);
@@ -4101,13 +4102,13 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				put_str(stat_names[i], 3 + i, 58);
 
 				/* Obtain the current stat (modified) */
-				cnv_stat(cr_ptr->stat_use[i], buf);
+				cnv_stat(creature_ptr->stat_use[i], buf);
 
 				/* Display the current stat (modified) */
 				c_put_str(TERM_L_GREEN, buf, 3 + i, 62);
 			}
 
-			if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
+			if (creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
 			{
 #ifdef JP
 				c_put_str(TERM_WHITE, "!", 3 + i, 60);
@@ -4118,8 +4119,8 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 		}
 
 		/* Display "various" info */
-		display_player_middle(cr_ptr);
-		display_player_various(cr_ptr);
+		display_player_middle(creature_ptr);
+		display_player_various(creature_ptr);
 
 	}
 
@@ -4136,14 +4137,14 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 
 		for (i = 0; i < HISTORY_ROW; i++)
 		{
-			put_str(cr_ptr->history[i], i + 4, 3);
+			put_str(creature_ptr->history[i], i + 4, 3);
 		}
 
 		*statmsg = '\0';
 
 		if (gameover)
 		{
-			if (cr_ptr->total_winner)
+			if (creature_ptr->total_winner)
 			{
 #ifdef JP
 				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, "Seppuku") ? "切腹" : "引退");
@@ -4151,7 +4152,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif
 			}
-			else if (!current_floor_ptr->floor_level)
+			else if (!floor_ptr->floor_level)
 			{
 #ifdef JP
 				sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(), gameover_from);
@@ -4165,7 +4166,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				/* Bewere that INIT_ASSIGN resets the cur_num. */
 				init_flags = INIT_ASSIGN;
 
-				process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, 0, 0);
+				process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, gameover_from);
@@ -4176,15 +4177,15 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), current_floor_ptr->floor_level, gameover_from);
+				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), floor_ptr->floor_level, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, current_floor_ptr->floor_level, map_name());
+				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, floor_ptr->floor_level, map_name());
 #endif
 			}
 		}
 		else if (floor_generated)
 		{
-			if (!current_floor_ptr->floor_level)
+			if (!floor_ptr->floor_level)
 			{
 #ifdef JP
 				sprintf(statmsg, "…あなたは現在、 %s にいる。", map_name());
@@ -4205,7 +4206,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				/* Get the quest text */
 				init_flags = INIT_SHOW_TEXT;
 
-				process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, 0, 0);
+				process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[inside_quest].name);
@@ -4216,9 +4217,9 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは現在、 %s の %d 階で探索している。", map_name(), current_floor_ptr->floor_level);
+				sprintf(statmsg, "…あなたは現在、 %s の %d 階で探索している。", map_name(), floor_ptr->floor_level);
 #else
-				sprintf(statmsg, "...Now, you are exploring level %d of %s.", current_floor_ptr->floor_level, map_name());
+				sprintf(statmsg, "...Now, you are exploring level %d of %s.", floor_ptr->floor_level, map_name());
 #endif
 			}
 		}
@@ -4244,14 +4245,14 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	else if (mode == 2)
 	{
 		/* Display the inventory */
-		(void)show_item_list(0, cr_ptr, SHOW_ITEM_INVENTORY, NULL);		
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);		
 	}
 
 	else if (mode == 3)
 	{
 		/* Display the inventory */
 
-		(void)show_item_list(0, cr_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
 	}
 
 	/* Special */
@@ -4260,29 +4261,29 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
 		/* Dump the info */
-		display_player_stat_info(cr_ptr);
-		display_player_flag_info1(cr_ptr);
+		display_player_stat_info(creature_ptr);
+		display_player_flag_info1(creature_ptr);
 	}
 
 	/* Special */
 	else if (mode == 5)
 	{
-		display_player_flag_info2(cr_ptr);
+		display_player_flag_info2(creature_ptr);
 	}
 
 	else if (mode == 6)
 	{
-		display_player_flag_info3(cr_ptr);
+		display_player_flag_info3(creature_ptr);
 	}
 
 	else if (mode == 7)
 	{
-		display_player_flag_info4(cr_ptr);
+		display_player_flag_info4(creature_ptr);
 	}
 
 	else if (mode == 8)
 	{
-		do_cmd_knowledge_mutations(cr_ptr);
+		do_cmd_knowledge_mutations(creature_ptr);
 	}
 }
 
