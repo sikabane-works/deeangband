@@ -4969,31 +4969,32 @@ static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
  * XAngband: Prepare the "temp" array for "tget_pt"
  * based on target_set_prepare funciton.
  */
-static void tgt_pt_prepare(creature_type *cr_ptr)
+static void tgt_pt_prepare(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int y, x;
 
-	/* Reset "temp" array */
+	// Reset "temp" array
 	temp_n = 0;
 
 	if (!expand_list) return;
 
-	/* Scan the current panel */
-	for (y = 1; y < current_floor_ptr->height; y++)
+	// Scan the current panel
+	for (y = 1; y < floor_ptr->height; y++)
 	{
-		for (x = 1; x < current_floor_ptr->width; x++)
+		for (x = 1; x < floor_ptr->width; x++)
 		{
-			/* Require "interesting" contents */
-			if (!tgt_pt_accept(cr_ptr, y, x)) continue;
+			// Require "interesting" contents
+			if (!tgt_pt_accept(creature_ptr, y, x)) continue;
 
-			/* Save the location */
+			// Save the location
 			temp_x[temp_n] = x;
 			temp_y[temp_n] = y;
 			temp_n++;
 		}
 	}
 
-	/* Sort the positions */
+	// Sort the positions
 	ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_distance, ang_sort_swap_distance);
 }
 
