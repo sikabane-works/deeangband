@@ -3039,7 +3039,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	bool            mdeath = FALSE;
 	bool            stormbringer = FALSE;
 
-	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	creature_type   *tar_ptr;
 	species_type    *atk_species_ptr;
 	species_type    *tar_species_ptr;
@@ -3047,28 +3048,12 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 	char            target_name[80];
 	char			weapon_name[80];
 
-	/* Player or Enemy */
-	if(player_ptr->fx == x && player_ptr->fy == y && c_ptr->creature_idx)
-	{
-		if(one_in_(2))
-			tar_ptr = player_ptr;
-		else
-			tar_ptr = &creature_list[c_ptr->creature_idx];
-	}
-	else if (player_ptr->fx == x && player_ptr->fy == y)
-	{
-		tar_ptr = player_ptr;
-	}
-	else
-	{
-		tar_ptr = &creature_list[c_ptr->creature_idx];
-	}
+	tar_ptr = &creature_list[c_ptr->creature_idx];
 
 	atk_species_ptr = &species_info[atk_ptr->species_idx];
 	tar_species_ptr = &species_info[tar_ptr->species_idx];
 
-
-	/* Disturb the player */
+	// Disturb the player
 	disturb(player_ptr, 0, 0);
 
 	energy_use = 100;
@@ -3112,7 +3097,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		*/
 	}
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
 #ifdef JP
 		msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
