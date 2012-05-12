@@ -2283,54 +2283,52 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 
 /*
  * Prepare the "temp" array for "target_set"
- *
  * Return the number of target_able monsters in the set.
  */
-static void target_set_prepare(creature_type *cr_ptr, int mode)
+static void target_set_prepare(creature_type *creature_ptr, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int y, x;
 
-	/* Reset "temp" array */
+	// Reset "temp" array
 	temp_n = 0;
 
-	/* Scan the current panel */
+	// Scan the current panel
 	for (y = panel_row_min; y <= panel_row_max; y++)
 	{
 		for (x = panel_col_min; x <= panel_col_max; x++)
 		{
 			cave_type *c_ptr;
 
-			/* Require "interesting" contents */
-			if (!target_set_accept(cr_ptr, y, x)) continue;
+			// Require "interesting" contents
+			if (!target_set_accept(creature_ptr, y, x)) continue;
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
-			/* Require target_able monsters for "TARGET_KILL" */
-			if ((mode & (TARGET_KILL)) && !target_able(cr_ptr, c_ptr->creature_idx)) continue;
+			// Require target_able monsters for "TARGET_KILL"
+			if ((mode & (TARGET_KILL)) && !target_able(creature_ptr, c_ptr->creature_idx)) continue;
+			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(creature_ptr, &creature_list[c_ptr->creature_idx])) continue;
 
-			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(cr_ptr, &creature_list[c_ptr->creature_idx])) continue;
-
-			/* Save the location */
+			// Save the location
 			temp_x[temp_n] = x;
 			temp_y[temp_n] = y;
 			temp_n++;
 		}
 	}
 
-	/* Set the sort hooks */
+	// Set the sort hooks
 	if (mode & (TARGET_KILL))
 	{
-		/* Sort the positions */
+		// Sort the positions
 		ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_distance, ang_sort_swap_distance);
 	}
 	else
 	{
-		/* Look important grids first in Look command */
+		// Look important grids first in Look command
 		ang_sort(temp_x, temp_y, temp_n, ang_sort_comp_importance, ang_sort_swap_distance);
 	}
 
-
-	if (cr_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
+	if (creature_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
 	{
 		byte tmp;
 
@@ -2342,7 +2340,6 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 		temp_x[1] = tmp;
 	}
 }
-
 
 /*
  * Evaluate number of kill needed to gain level
