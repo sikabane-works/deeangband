@@ -3952,8 +3952,9 @@ static bool item_tester_hook_boomerang(creature_type *cr_ptr, object_type *o_ptr
  * to hit bonus of the weapon to have an effect?  Should it ever cause
  * the item to be destroyed?  Should it do any damage at all?
  */
-bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuriken)
+bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int dir, item;
 	int i, j, y, x, ty, tx, prev_y, prev_x;
 	int ny[19], nx[19];
@@ -3981,9 +3982,9 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	bool do_drop = TRUE;
 
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	if (shuriken)
@@ -3992,7 +3993,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	}
 	else if (boomerang)
 	{
-		if(get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		{
 #ifdef JP
 			q = "どの武器を投げますか? ";
@@ -4002,7 +4003,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			s = "You have nothing to throw.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang))
+			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang))
 			{
 				flush();
 				return FALSE;
@@ -4020,7 +4021,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		s = "You have nothing to throw.";
 #endif
 
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang))
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang))
 		{
 			flush();
 			return FALSE;
@@ -4030,7 +4031,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
@@ -4039,7 +4040,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 
 
 	/* Item is cursed */
-	if (object_is_cursed(o_ptr) && cr_ptr->equip_now[item])
+	if (object_is_cursed(o_ptr) && creature_ptr->equip_now[item])
 	{
 		/* Oops */
 #ifdef JP
@@ -4086,7 +4087,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	/* Description */
 	object_desc(o_name, q_ptr, OD_OMIT_PREFIX);
 
-	if (cr_ptr->mighty_throw) mult += 3;
+	if (creature_ptr->mighty_throw) mult += 3;
 
 	/* Extract a "distance multiplier" */
 	/* Changed for 'launcher' mutation */
@@ -4097,29 +4098,29 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	if ((have_flag(flgs, TR_THROW)) || boomerang) div /= 2;
 
 	/* Hack -- Distance -- Reward strength, penalize weight */
-	tdis = (adj_str_blow[cr_ptr->stat_ind[STAT_STR]] + 20) * mul / div;
+	tdis = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] + 20) * mul / div;
 
 	/* Max distance of 10-18 */
 	if (tdis > mul) tdis = mul;
 
 	if (shuriken)
 	{
-		ty = randint0(101)-50+cr_ptr->fy;
-		tx = randint0(101)-50+cr_ptr->fx;
+		ty = randint0(101)-50+creature_ptr->fy;
+		tx = randint0(101)-50+creature_ptr->fx;
 	}
 	else
 	{
 		project_length = tdis + 1;
 
 		/* Get a direction (or cancel) */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		/* Predict the "target" location */
-		tx = cr_ptr->fx + 99 * ddx[dir];
-		ty = cr_ptr->fy + 99 * ddy[dir];
+		tx = creature_ptr->fx + 99 * ddx[dir];
+		ty = creature_ptr->fy + 99 * ddy[dir];
 
 		/* Check for "target request" */
-		if ((dir == 5) && target_okay(cr_ptr))
+		if ((dir == 5) && target_okay(creature_ptr))
 		{
 			tx = target_col;
 			ty = target_row;
@@ -4132,13 +4133,13 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	    (q_ptr->name1 == ART_AEGISFANG) || boomerang)
 		return_when_thrown = TRUE;
 
-	/* Reduce and describe cr_ptr->inventory */
+	/* Reduce and describe creature_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
+		inven_item_increase(creature_ptr, item, -1);
 		if (!return_when_thrown)
-			inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+			inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Reduce and describe floor item */
@@ -4147,7 +4148,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (cr_ptr->equip_now[item])
+	if (creature_ptr->equip_now[item])
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);
@@ -4157,24 +4158,24 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	energy_use = 100;
 
 	/* Rogue and Ninja gets bonus */
-	if ((cr_ptr->cls_idx == CLASS_ROGUE) || (cr_ptr->cls_idx == CLASS_NINJA))
-		energy_use -= cr_ptr->lev;
+	if ((creature_ptr->cls_idx == CLASS_ROGUE) || (creature_ptr->cls_idx == CLASS_NINJA))
+		energy_use -= creature_ptr->lev;
 
 	/* Start at the player */
-	y = cr_ptr->fy;
-	x = cr_ptr->fx;
+	y = creature_ptr->fy;
+	x = creature_ptr->fx;
 
 
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((cr_ptr->cls_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if ((creature_ptr->cls_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */
-	if (have_flag(flgs, TR_THROW)) chance = ((cr_ptr->skill_tht) +
-		((cr_ptr->to_h_b + q_ptr->to_h) * BTH_PLUS_ADJ));
-	else chance = (cr_ptr->skill_tht + (cr_ptr->to_h_b * BTH_PLUS_ADJ));
+	if (have_flag(flgs, TR_THROW)) chance = ((creature_ptr->skill_tht) +
+		((creature_ptr->to_h_b + q_ptr->to_h) * BTH_PLUS_ADJ));
+	else chance = (creature_ptr->skill_tht + (creature_ptr->to_h_b * BTH_PLUS_ADJ));
 
 	if (shuriken) chance *= 2;
 
@@ -4191,23 +4192,23 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		/* Calculate the new location (see "project()") */
 		ny[cur_dis] = y;
 		nx[cur_dis] = x;
-		mmove2(&ny[cur_dis], &nx[cur_dis], cr_ptr->fy, cr_ptr->fx, ty, tx);
+		mmove2(&ny[cur_dis], &nx[cur_dis], creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(current_floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
+		if (!cave_have_flag_bold(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(cr_ptr, q_ptr) || !current_floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
+			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, q_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny[cur_dis], nx[cur_dis]) && creature_can_see_bold(cr_ptr, ny[cur_dis], nx[cur_dis]))
+		if (panel_contains(ny[cur_dis], nx[cur_dis]) && creature_can_see_bold(creature_ptr, ny[cur_dis], nx[cur_dis]))
 		{
 			char c = object_char(q_ptr);
 			byte a = object_attr(q_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
-			print_rel(cr_ptr, c, a, ny[cur_dis], nx[cur_dis]);
+			print_rel(creature_ptr, c, a, ny[cur_dis], nx[cur_dis]);
 			move_cursor_relative(ny[cur_dis], nx[cur_dis]);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
@@ -4234,9 +4235,9 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		cur_dis++;
 
 		/* Monster here, Try to hit it */
-		if (current_floor_ptr->cave[y][x].creature_idx)
+		if (floor_ptr->cave[y][x].creature_idx)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -4248,7 +4249,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(cr_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_a, m_ptr->ml))
+			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_a, m_ptr->ml))
 			{
 				bool fear = FALSE;
 
@@ -4282,7 +4283,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 					if (m_ptr->ml)
 					{
 						/* Hack -- Track this monster race */
-						if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
+						if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this monster */
 						health_track(c_ptr->creature_idx);
@@ -4292,8 +4293,8 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				/* Hack -- Base damage from thrown object */
 				tdam = damroll(q_ptr->dd, q_ptr->ds);
 				/* Apply special damage XXX XXX XXX */
-				tdam = tot_dam_aux(cr_ptr, q_ptr, tdam, m_ptr, 0, TRUE);
-				tdam = critical_shot(cr_ptr, q_ptr->weight, q_ptr->to_h, tdam);
+				tdam = tot_dam_aux(creature_ptr, q_ptr, tdam, m_ptr, 0, TRUE);
+				tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_h, tdam);
 				if (q_ptr->to_d > 0)
 					tdam += q_ptr->to_d;
 				else
@@ -4301,13 +4302,13 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 
 				if (boomerang)
 				{
-					tdam *= (mult+cr_ptr->num_blow[item]);
-					tdam += cr_ptr->to_d_m;
+					tdam *= (mult+creature_ptr->num_blow[item]);
+					tdam += creature_ptr->to_d_m;
 				}
 				else if (have_flag(flgs, TR_THROW))
 				{
 					tdam *= (3+mult);
-					tdam += cr_ptr->to_d_m;
+					tdam += creature_ptr->to_d_m;
 				}
 				else
 				{
@@ -4315,7 +4316,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				}
 				if (shuriken)
 				{
-					tdam += ((cr_ptr->lev+30)*(cr_ptr->lev+30)-900)/55;
+					tdam += ((creature_ptr->lev+30)*(creature_ptr->lev+30)-900)/55;
 				}
 
 				/* No negative damage */
@@ -4331,7 +4332,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, m_ptr), -1);
+				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
@@ -4340,8 +4341,8 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the monster */
-					if ((tdam > 0) && !object_is_potion(cr_ptr, q_ptr))
-						anger_creature(cr_ptr, m_ptr);
+					if ((tdam > 0) && !object_is_potion(creature_ptr, q_ptr))
+						anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
 					if (fear && m_ptr->ml)
@@ -4371,14 +4372,14 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(cr_ptr, q_ptr) : 0);
+	j = (hit_body ? breakage_chance(creature_ptr, q_ptr) : 0);
 
 	/* Figurines transform */
 	if ((q_ptr->tval == TV_FIGURINE) && !(fight_arena_mode))
 	{
 		j = 100;
 
-		if (!(summon_named_creature(0, current_floor_ptr, y, x, q_ptr->pval, !(object_is_cursed(q_ptr)) ? PM_FORCE_PET : 0L)))
+		if (!(summon_named_creature(0, floor_ptr, y, x, q_ptr->pval, !(object_is_cursed(q_ptr)) ? PM_FORCE_PET : 0L)))
 #ifdef JP
 msg_print("人形は捻じ曲がり砕け散ってしまった！");
 #else
@@ -4396,7 +4397,7 @@ msg_print("これはあまり良くない気がする。");
 
 
 	/* Potions smash open */
-	if (object_is_potion(cr_ptr, q_ptr))
+	if (object_is_potion(creature_ptr, q_ptr))
 	{
 		if (hit_body || hit_wall || (randint1(100) < j))
 		{
@@ -4410,22 +4411,22 @@ msg_print("これはあまり良くない気がする。");
 
 			if (potion_smash_effect(0, y, x, q_ptr->k_idx))
 			{
-				creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
+				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
-				if (current_floor_ptr->cave[y][x].creature_idx &&
-				    is_friendly(cr_ptr, &creature_list[current_floor_ptr->cave[y][x].creature_idx]) &&
+				if (floor_ptr->cave[y][x].creature_idx &&
+				    is_friendly(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]) &&
 				    !m_ptr->invuln)
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[current_floor_ptr->cave[y][x].creature_idx], 0);
+					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%sは怒った！", m_name);
 #else
 					msg_format("%^s gets angry!", m_name);
 #endif
 
-					set_hostile(cr_ptr, &creature_list[current_floor_ptr->cave[y][x].creature_idx]);
+					set_hostile(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]);
 				}
 			}
 			do_drop = FALSE;
@@ -4438,7 +4439,7 @@ msg_print("これはあまり良くない気がする。");
 
 	if (return_when_thrown)
 	{
-		int back_chance = randint1(30)+20+((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+		int back_chance = randint1(30)+20+((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
 
@@ -4451,13 +4452,13 @@ msg_print("これはあまり良くない気がする。");
 		{
 			for (i = cur_dis - 1; i > 0; i--)
 			{
-				if (panel_contains(ny[i], nx[i]) && creature_can_see_bold(cr_ptr, ny[i], nx[i]))
+				if (panel_contains(ny[i], nx[i]) && creature_can_see_bold(creature_ptr, ny[i], nx[i]))
 				{
 					char c = object_char(q_ptr);
 					byte a = object_attr(q_ptr);
 
 					/* Draw, Hilite, Fresh, Pause, Erase */
-					print_rel(cr_ptr, c, a, ny[i], nx[i]);
+					print_rel(creature_ptr, c, a, ny[i], nx[i]);
 					move_cursor_relative(ny[i], nx[i]);
 					Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
@@ -4470,7 +4471,7 @@ msg_print("これはあまり良くない気がする。");
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if((back_chance > 37) && !cr_ptr->blind && (item >= 0))
+			if((back_chance > 37) && !creature_ptr->blind && (item >= 0))
 			{
 #ifdef JP
 				msg_format("%sが手元に返ってきた。", o2_name);
@@ -4497,8 +4498,8 @@ msg_print("これはあまり良くない気がする。");
 					msg_format("%s comes back.", o2_name);
 #endif
 				}
-				y = cr_ptr->fy;
-				x = cr_ptr->fx;
+				y = creature_ptr->fy;
+				x = creature_ptr->fx;
 			}
 		}
 		else
@@ -4513,42 +4514,42 @@ msg_print("これはあまり良くない気がする。");
 
 	if (come_back)
 	{
-		if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_ARMS)
+		if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_ARMS)
 		{
 			/* Access the wield slot */
-			o_ptr = &cr_ptr->inventory[item];
+			o_ptr = &creature_ptr->inventory[item];
 
 			/* Wear the new stuff */
 			object_copy(o_ptr, q_ptr);
 
 			/* Increase the weight */
-			calc_inventory_weight(cr_ptr);
+			calc_inventory_weight(creature_ptr);
 
 			/* Increment the equip counter by hand */
-			cr_ptr->equip_cnt++;
+			creature_ptr->equip_cnt++;
 
 			/* Recalculate bonuses */
-			cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+			creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
 			/* Window stuff */
 			play_window |= (PW_EQUIP);
 		}
 		else
 		{
-			inven_carry(cr_ptr, q_ptr);
+			inven_carry(creature_ptr, q_ptr);
 		}
 		do_drop = FALSE;
 	}
 	else if (equiped_item)
 	{
-		kamaenaoshi(cr_ptr, item);
-		calc_android_exp(cr_ptr);
+		kamaenaoshi(creature_ptr, item);
+		calc_android_exp(creature_ptr);
 	}
 
 	/* Drop (or break) near that location */
 	if (do_drop)
 	{
-		if (cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT))
+		if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
 			(void)drop_near(q_ptr, j, y, x);
