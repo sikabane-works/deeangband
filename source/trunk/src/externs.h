@@ -2048,7 +2048,7 @@ extern void do_cmd_snipe(creature_type *cr_ptr);
 extern void do_cmd_snipe_browse(creature_type *cr_ptr);
 extern int boost_concentration_damage(creature_type *cr_ptr, int tdam);
 
-/* hex.c */
+// hex.c
 extern bool stop_hex_spell_all(creature_type *cr_ptr);
 extern bool stop_hex_spell(creature_type *cr_ptr);
 extern void check_hex(creature_type *creature_ptr);
