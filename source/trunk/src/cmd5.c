@@ -2090,11 +2090,11 @@ static void do_name_pet(creature_type *master_ptr)
 	}
 }
 
-/*
- * Issue a pet command
- */
+
+// Issue a pet command
 void do_cmd_pet(creature_type *master_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(master_ptr);
 	int			i = 0;
 	int			num;
 	int			powers[36];
@@ -2611,10 +2611,10 @@ void do_cmd_pet(creature_type *master_ptr)
 			if (!target_set(master_ptr, TARGET_KILL)) pet_t_m_idx = 0;
 			else
 			{
-				cave_type *c_ptr = &current_floor_ptr->cave[target_row][target_col];
+				cave_type *c_ptr = &floor_ptr->cave[target_row][target_col];
 				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].ml))
 				{
-					pet_t_m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
+					pet_t_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 					master_ptr->pet_follow_distance = PET_DESTROY_DIST;
 				}
 				else pet_t_m_idx = 0;
