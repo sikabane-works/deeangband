@@ -5663,11 +5663,12 @@ void do_poly_self(creature_type *cr_ptr)
 // Player died.
 static void you_died(cptr hit_from)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	char tmp[100];
 	char death_message[1024];
 	bool android = has_cf_creature(player_ptr, CF_ANDROID);
 
-			//TODO
+	//TODO
 	/*
 	#ifdef JP       // Ž€‚ñ‚¾Žž‚É‹­§I—¹‚µ‚ÄŽ€‚ð‰ñ”ð‚Å‚«‚È‚­‚µ‚Ä‚Ý‚½ by Habu
 			if (!cheat_save)
@@ -5697,7 +5698,7 @@ static void you_died(cptr hit_from)
 		}
 		else
 		{
-			int q_idx = quest_number(current_floor_ptr->floor_level);
+			int q_idx = quest_number(floor_ptr->floor_level);
 			bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
 			bool winning_seppuku = player_ptr->total_winner && seppuku;
 	
@@ -5742,7 +5743,7 @@ static void you_died(cptr hit_from)
 	#else
 					strcpy(buf,"in the Arena");
 	#endif
-				else if (!current_floor_ptr->floor_level)
+				else if (!floor_ptr->floor_level)
 	#ifdef JP
 					strcpy(buf,"’nã");
 	#else
@@ -5757,9 +5758,9 @@ static void you_died(cptr hit_from)
 	#endif
 				else
 	#ifdef JP
-					sprintf(buf,"%dŠK", current_floor_ptr->floor_level);
+					sprintf(buf,"%dŠK", floor_ptr->floor_level);
 	#else
-					sprintf(buf,"level %d", current_floor_ptr->floor_level);
+					sprintf(buf,"level %d", floor_ptr->floor_level);
 	#endif
 	
 	#ifdef JP
