@@ -1730,11 +1730,10 @@ void prt_map(creature_type *watcher_ptr)
 
 
 
-/*
- * print project path
- */
+// print project path
 void prt_path(creature_type *creature_ptr, int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 	int path_n;
 	u16b path_g[512];
@@ -1745,7 +1744,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), current_floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -1758,7 +1757,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 	{
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
-		cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
+		cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 
 		if (panel_contains(ny, nx))
 		{
