@@ -2072,33 +2072,30 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	return TRUE;
 }
 
-
-/*
- * Leave an "explosive rune" which prevents monster movement
- */
-bool explosive_rune(creature_type *cr_ptr)
+// Leave an "explosive rune" which prevents monster movement
+bool explosive_rune(creature_type *creature_ptr)
 {
-	/* XXX XXX XXX */
-	if (!cave_clean_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx))
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	if (!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
 #ifdef JP
-msg_print("床上のアイテムが呪文を跳ね返した。");
+		msg_print("床上のアイテムが呪文を跳ね返した。");
 #else
 		msg_print("The object resists the spell.");
 #endif
-
 		return FALSE;
 	}
 
-	/* Create a glyph */
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_explosive_rune;
+	// Create a glyph
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info |= CAVE_OBJECT;
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_explosive_rune;
 
-	/* Notice */
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	// Notice
+	note_spot(creature_ptr->fy, creature_ptr->fx);
 	
-	/* Redraw */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	// Redraw
+	lite_spot(creature_ptr->fy, creature_ptr->fx);
 
 	return TRUE;
 }
