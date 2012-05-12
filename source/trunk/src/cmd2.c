@@ -2093,20 +2093,18 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 }
 
 
-/*
- * Disarms a trap, or chest
- */
-void do_cmd_disarm(creature_type *cr_ptr)
+
+// Disarms a trap, or chest
+void do_cmd_disarm(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int y, x, dir;
-
 	s16b object_idx;
-
 	bool more = FALSE;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
@@ -2117,17 +2115,17 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		int num_traps, num_chests;
 
 		/* Count visible traps */
-		num_traps = count_dt(cr_ptr, &y, &x, is_trap, TRUE);
+		num_traps = count_dt(creature_ptr, &y, &x, is_trap, TRUE);
 
 		/* Count chests (trapped) */
-		num_chests = count_chests(cr_ptr, &y, &x, TRUE);
+		num_chests = count_chests(creature_ptr, &y, &x, TRUE);
 
 		/* See if only one target */
 		if (num_traps || num_chests)
 		{
 			bool too_many = (num_traps && num_chests) || (num_traps > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(cr_ptr, y, x);
+			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
 
@@ -2147,17 +2145,17 @@ void do_cmd_disarm(creature_type *cr_ptr)
 	}
 
 	/* Get a direction (or abort) */
-	if (get_rep_dir(cr_ptr, &dir,TRUE))
+	if (get_rep_dir(creature_ptr, &dir,TRUE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
 
 		/* Get location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2178,7 +2176,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->creature_idx && cr_ptr->riding != c_ptr->creature_idx)
+		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -2189,21 +2187,21 @@ void do_cmd_disarm(creature_type *cr_ptr)
 
 
 			/* Attack */
-			weapon_attack(cr_ptr, y, x, 0);
+			weapon_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Disarm chest */
 		else if (object_idx)
 		{
 			/* Disarm the chest */
-			more = do_cmd_disarm_chest(cr_ptr, y, x, object_idx);
+			more = do_cmd_disarm_chest(creature_ptr, y, x, object_idx);
 		}
 
 		/* Disarm trap */
 		else
 		{
 			/* Disarm the trap */
-			more = do_cmd_disarm_aux(cr_ptr, y, x, dir);
+			more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
 		}
 	}
 
