@@ -4740,8 +4740,9 @@ static void run_init(creature_type *cr_ptr, int dir)
  *
  * Return TRUE if the running should be stopped
  */
-static bool run_test(creature_type *cr_ptr)
+static bool run_test(creature_type *creature_ptr)
 {
+	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 	int         prev_dir, new_dir, check_dir = 0;
 	int         row, col;
 	int         i, max, inv;
@@ -4750,22 +4751,21 @@ static bool run_test(creature_type *cr_ptr)
 	s16b        feat;
 	feature_type *f_ptr;
 
-	/* Where we came from */
+	// Where we came from
 	prev_dir = find_prevdir;
 
-
-	/* Range of newly adjacent grids */
+	// Range of newly adjacent grids
 	max = (prev_dir & 0x01) + 1;
 
-	/* break run when leaving trap detected region */
+	// break run when leaving trap detected region
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
 	{
-		/* No duplicate warning */
+		// No duplicate warning
 		detect_trap = FALSE;
 
-		/* You are just on the edge */
-		if (!(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
+		// You are just on the edge
+		if (!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -4793,11 +4793,11 @@ static bool run_test(creature_type *cr_ptr)
 		new_dir = cycle[chome[prev_dir] + i];
 
 		/* New location */
-		row = cr_ptr->fy + ddy[new_dir];
-		col = cr_ptr->fx + ddx[new_dir];
+		row = creature_ptr->fy + ddy[new_dir];
+		col = creature_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
-		c_ptr = &current_floor_ptr->cave[row][col];
+		c_ptr = &floor_ptr->cave[row][col];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -4852,7 +4852,7 @@ static bool run_test(creature_type *cr_ptr)
 				}
 
 				/* Lava */
-				else if (have_flag(f_ptr->flags, FF_LAVA) && (cr_ptr->immune_fire || IS_INVULN(cr_ptr)))
+				else if (have_flag(f_ptr->flags, FF_LAVA) && (creature_ptr->immune_fire || IS_INVULN(creature_ptr)))
 				{
 					/* Ignore */
 					notice = FALSE;
@@ -4860,7 +4860,7 @@ static bool run_test(creature_type *cr_ptr)
 
 				/* Deep water */
 				else if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-				         (cr_ptr->levitation || cr_ptr->can_swim || (cr_ptr->total_weight <= weight_limit(cr_ptr))))
+				         (creature_ptr->levitation || creature_ptr->can_swim || (creature_ptr->total_weight <= weight_limit(creature_ptr))))
 				{
 					/* Ignore */
 					notice = FALSE;
@@ -4875,7 +4875,7 @@ static bool run_test(creature_type *cr_ptr)
 		}
 
 		/* Analyze unknown grids and floors considering mimic */
-		if (inv || !see_wall(cr_ptr, 0, row, col))
+		if (inv || !see_wall(creature_ptr, 0, row, col))
 		{
 			/* Looking for open area */
 			if (find_openarea)
@@ -4944,7 +4944,7 @@ static bool run_test(creature_type *cr_ptr)
 		for (i = -max; i < 0; i++)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cr_ptr, cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
+			if (!see_wall(creature_ptr, cycle[chome[prev_dir] + i], creature_ptr->fy, creature_ptr->fx))
 			{
 				/* Looking to break right */
 				if (find_breakright)
@@ -4968,7 +4968,7 @@ static bool run_test(creature_type *cr_ptr)
 		for (i = max; i > 0; i--)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cr_ptr, cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
+			if (!see_wall(creature_ptr, cycle[chome[prev_dir] + i], creature_ptr->fy, creature_ptr->fx))
 			{
 				/* Looking to break left */
 				if (find_breakleft)
@@ -5022,18 +5022,18 @@ static bool run_test(creature_type *cr_ptr)
 		else
 		{
 			/* Get next location */
-			row = cr_ptr->fy + ddy[option];
-			col = cr_ptr->fx + ddx[option];
+			row = creature_ptr->fy + ddy[option];
+			col = creature_ptr->fx + ddx[option];
 
 			/* Don't see that it is closed off. */
 			/* This could be a potential corner or an intersection. */
-			if (!see_wall(cr_ptr, option, row, col) ||
-			    !see_wall(cr_ptr, check_dir, row, col))
+			if (!see_wall(creature_ptr, option, row, col) ||
+			    !see_wall(creature_ptr, check_dir, row, col))
 			{
 				/* Can not see anything ahead and in the direction we */
 				/* are turning, assume that it is a potential corner. */
-				if (see_nothing(cr_ptr, option, row, col) &&
-				    see_nothing(cr_ptr, option2, row, col))
+				if (see_nothing(creature_ptr, option, row, col) &&
+				    see_nothing(creature_ptr, option2, row, col))
 				{
 					find_current = option;
 					find_prevdir = option2;
@@ -5064,7 +5064,7 @@ static bool run_test(creature_type *cr_ptr)
 	}
 
 	/* About to hit a known wall, stop */
-	if (see_wall(cr_ptr, find_current, cr_ptr->fy, cr_ptr->fx))
+	if (see_wall(creature_ptr, find_current, creature_ptr->fy, creature_ptr->fx))
 	{
 		return (TRUE);
 	}
