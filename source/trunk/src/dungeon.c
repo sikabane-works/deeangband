@@ -3974,9 +3974,10 @@ static void sunrise_and_sunset(void)
 /*
  * Handle certain things once every 10 game turns
  */
-static void process_world(creature_type *cr_ptr)
+static void process_world(void)
 {
 	int day, hour, min;
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
@@ -3984,10 +3985,10 @@ static void process_world(creature_type *cr_ptr)
 	extract_day_hour_min(&day, &hour, &min);
 
 	/* Update dungeon feeling, and announce it if changed */
-	update_dungeon_feeling(cr_ptr);
+	update_dungeon_feeling(player_ptr);
 
 	/*** Check monster arena ***/
-	if (gamble_arena_mode && !subject_change_floor) monster_arena_result(current_floor_ptr);
+	if (gamble_arena_mode && !subject_change_floor) monster_arena_result(floor_ptr);
 
 	/* Every 10 game turns */
 	if (turn % TURNS_PER_TICK) return;
@@ -4015,16 +4016,16 @@ static void process_world(creature_type *cr_ptr)
 	/*** Process the monsters ***/
 
 	/* Check for creature generation. */
-	if (one_in_(dungeon_info[current_floor_ptr->dun_type].max_m_alloc_chance) &&
+	if (one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
 	    !fight_arena_mode && !inside_quest && !gamble_arena_mode)
 	{
 		/* Make a new monster */
-		(void)alloc_creature(current_floor_ptr, cr_ptr, MAX_SIGHT + 5, 0);
+		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !gamble_arena_mode) regen_monsters(cr_ptr);
-	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters(cr_ptr);
+	if (!(turn % (TURNS_PER_TICK*10)) && !gamble_arena_mode) regen_monsters(player_ptr);
+	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters(player_ptr);
 
 	if (!subject_change_floor)
 	{
@@ -4033,7 +4034,7 @@ static void process_world(creature_type *cr_ptr)
 		/* Hack -- Process the counters of monsters if needed */
 		for (i = 0; i < MAX_MTIMED; i++)
 		{
-			if (mproc_max[i] > 0) process_monsters_mtimed(cr_ptr, i);
+			if (mproc_max[i] > 0) process_monsters_mtimed(player_ptr, i);
 		}
 	}
 
@@ -4044,7 +4045,7 @@ static void process_world(creature_type *cr_ptr)
 		if (min != prev_min)
 		{
 			do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
-			determine_today_mon(cr_ptr, FALSE);
+			determine_today_mon(player_ptr, FALSE);
 		}
 	}
 
@@ -4109,7 +4110,7 @@ static void process_world(creature_type *cr_ptr)
 			msg_print("A distant bell tolls many times, fading into an deathly silence.");
 #endif
 
-			activate_ty_curse(cr_ptr, FALSE, &count);
+			activate_ty_curse(player_ptr, FALSE, &count);
 		}
 	}
 
@@ -4118,29 +4119,29 @@ static void process_world(creature_type *cr_ptr)
 
 
 	/* Process timed damage and regeneration */
-	process_world_aux_hp_and_sp(cr_ptr);
+	process_world_aux_hp_and_sp(player_ptr);
 
 	/* Process timeout */
-	process_world_aux_timeout(cr_ptr);
+	process_world_aux_timeout(player_ptr);
 
 	/* Process light */
-	process_world_aux_light(cr_ptr);
+	process_world_aux_light(player_ptr);
 
 	/* Process mutation effects */
-	process_world_aux_mutation(cr_ptr);
+	process_world_aux_mutation(player_ptr);
 
 	/* Process curse effects */
-	process_world_aux_curse(cr_ptr);
+	process_world_aux_curse(player_ptr);
 
 	/* Process recharging */
-	process_world_aux_recharge(cr_ptr);
+	process_world_aux_recharge(player_ptr);
 
 	/* Feel the inventory */
-	sense_inventory1(cr_ptr);
-	sense_inventory2(cr_ptr);
+	sense_inventory1(player_ptr);
+	sense_inventory2(player_ptr);
 
 	/* Involuntary Movement */
-	process_world_aux_movement(cr_ptr);
+	process_world_aux_movement(player_ptr);
 }
 
 
@@ -6073,7 +6074,7 @@ static void turn_loop(bool load_game)
 		if (!playing || gameover) break;
 
 		// Process the world
-		process_world(player_ptr);
+		process_world();
 
 		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
