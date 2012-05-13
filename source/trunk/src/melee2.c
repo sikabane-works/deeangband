@@ -845,13 +845,13 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 }
 
 
-/*
- * Choose "logical" directions for monster movement
- */
+
+// Choose "logical" directions for monster movement
 static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	int          y, ay, x, ax;
 	int          move_val = 0;
 	int          y2 = player_ptr->fy;
@@ -859,18 +859,18 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
-	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
+	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
 	bool         can_pass_wall = (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
 	if (!will_run && nonplayer_ptr->target_y)
 	{
-		int t_m_idx = current_floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
+		int t_m_idx = floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 		/* The monster must be an enemy, and in LOS */
 		if (t_m_idx &&
 		    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
-		    los(current_floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
+		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
 		    projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
 			/* Extract the "pseudo-direction" */
@@ -881,8 +881,8 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_cf_creature(nonplayer_ptr, CF_FRIENDS) &&
-	    ((los(current_floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
-	    (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
+	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
+	    (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
 	 * Animal packs try to get the player out of corridors
@@ -899,9 +899,9 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				int xx = player_ptr->fx + ddx_ddd[i];
 				int yy = player_ptr->fy + ddy_ddd[i];
 
-				if (!in_bounds2(current_floor_ptr, yy, xx)) continue;
+				if (!in_bounds2(floor_ptr, yy, xx)) continue;
 
-				c_ptr = &current_floor_ptr->cave[yy][xx];
+				c_ptr = &floor_ptr->cave[yy][xx];
 
 				/* Check grid */
 				if (creature_can_cross_terrain(c_ptr->feat, player_ptr, 0))
@@ -912,7 +912,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			}
 
 			/* TODO
-			if (current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
+			if (floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
 			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
 			*/
 
@@ -926,7 +926,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		}
 
 		/* Monster groups try to surround the player */
-		if (!done && (current_floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
+		if (!done && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
 		{
 			int i;
 
@@ -947,7 +947,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 					break;
 				}
 
-				if (!in_bounds2(current_floor_ptr, y2, x2)) continue;
+				if (!in_bounds2(floor_ptr, y2, x2)) continue;
 
 				/* Ignore filled grids */
 				if (!creature_can_enter(y2, x2, nonplayer_ptr, 0)) continue;
