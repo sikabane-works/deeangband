@@ -307,7 +307,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 				}
 
 				/* Delete objects */
-				delete_object(ty, tx);
+				delete_object(floor_ptr, ty, tx);
 			}
 
 			/* Clear previous contents, add proper vein type */

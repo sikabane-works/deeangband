@@ -5209,7 +5209,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			}
 
 			/* Delete objects */
-			delete_object(y, x);
+			delete_object(floor_ptr, y, x);
 
 			/* Destroy "non-permanent" grids */
 			if (!cave_perma_grid(c_ptr))
@@ -5769,7 +5769,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if (cave_valid_bold(yy, xx))
 			{
 				/* Delete objects */
-				delete_object(yy, xx);
+				delete_object(floor_ptr, yy, xx);
 
 				/* Wall (or floor) type */
 				t = cave_have_flag_bold(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200;

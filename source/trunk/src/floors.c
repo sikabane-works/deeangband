@@ -875,7 +875,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	}
 
 	/* Destroy all objects in the grid */
-	delete_object(creature_ptr->fy, creature_ptr->fx);
+	delete_object(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	/* Extract current floor data */
 	sf_ptr = &floor_list[creature_ptr->floor_id];

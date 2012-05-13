@@ -1275,7 +1275,7 @@ extern void armour_boost(object_type *o_ptr, int level, int power);
 extern void create_ego(object_type *o_ptr, int level, int ego_id);
 extern void excise_object_idx(int object_idx);
 extern void delete_object_idx(int object_idx);
-extern void delete_object(int y, int x);
+extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
 extern void wipe_object_list(int floor_id);
 extern s16b object_pop(void);

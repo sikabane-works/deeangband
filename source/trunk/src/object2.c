@@ -136,7 +136,7 @@ void delete_object_idx(int object_idx)
 /*
  * Deletes all objects at given location
  */
-void delete_object(int y, int x)
+void delete_object(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
@@ -144,11 +144,10 @@ void delete_object(int y, int x)
 
 
 	/* Refuse "illegal" locations */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
-
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Scan all objects in the grid */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
