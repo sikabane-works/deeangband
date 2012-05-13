@@ -1467,55 +1467,56 @@ static void recharged_notice(object_type *o_ptr)
 }
 
 
-static void check_music(creature_type *cr_ptr)
+static void check_music(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	magic_type *s_ptr;
 	int spell;
 	s32b need_mana;
 	u32b need_mana_frac;
 
 	/* Music singed by player */
-	if (cr_ptr->cls_idx != CLASS_BARD) return;
-	if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return;
+	if (creature_ptr->cls_idx != CLASS_BARD) return;
+	if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
 
-	if (cr_ptr->anti_magic)
+	if (creature_ptr->anti_magic)
 	{
-		stop_singing(cr_ptr);
+		stop_singing(creature_ptr);
 		return;
 	}
 
-	spell = cr_ptr->magic_num2[0];
+	spell = creature_ptr->magic_num2[0];
 	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
 
-	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, REALM_MUSIC);
+	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_MUSIC);
 	need_mana_frac = 0;
 
 	/* Divide by 2 */
 	s64b_RSHIFT(need_mana, need_mana_frac, 1);
 
-	if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	if (s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_singing(cr_ptr);
+		stop_singing(creature_ptr);
 		return;
 	}
 	else
 	{
-		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), need_mana, need_mana_frac);
+		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
 		play_redraw |= PR_MANA;
-		if (cr_ptr->magic_num1[1])
+		if (creature_ptr->magic_num1[1])
 		{
-			cr_ptr->magic_num1[0] = cr_ptr->magic_num1[1];
-			cr_ptr->magic_num1[1] = 0;
+			creature_ptr->magic_num1[0] = creature_ptr->magic_num1[1];
+			creature_ptr->magic_num1[1] = 0;
 #ifdef JP
 			msg_print("‰Ì‚ðÄŠJ‚µ‚½B");
 #else
 			msg_print("You restart singing.");
 #endif
-			cr_ptr->action = ACTION_SING;
+			creature_ptr->action = ACTION_SING;
 
 			/* Recalculate bonuses */
-			cr_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
@@ -1527,17 +1528,17 @@ static void check_music(creature_type *cr_ptr)
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
-	if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
-		cr_ptr->spell_exp[spell] += 5;
-	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-	{ if (one_in_(2) && (current_floor_ptr->floor_level > 4) && ((current_floor_ptr->floor_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
-	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-	{ if (one_in_(5) && ((current_floor_ptr->floor_level + 5) > cr_ptr->lev) && ((current_floor_ptr->floor_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
-	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-	{ if (one_in_(5) && ((current_floor_ptr->floor_level + 5) > cr_ptr->lev) && (current_floor_ptr->floor_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+	if (creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
+		creature_ptr->spell_exp[spell] += 5;
+	else if(creature_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
+	{ if (one_in_(2) && (floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev)) creature_ptr->spell_exp[spell] += 1; }
+	else if(creature_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
+	{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
+	else if(creature_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
+	{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
 
 	/* Do any effects of continual song */
-	do_spell(cr_ptr, REALM_MUSIC, spell, SPELL_CONT);
+	do_spell(creature_ptr, REALM_MUSIC, spell, SPELL_CONT);
 }
 
 
