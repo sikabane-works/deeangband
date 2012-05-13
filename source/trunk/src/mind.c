@@ -1241,23 +1241,24 @@ static int number_of_mirrors( void )
   return val;
 }
 
-static bool cast_mirror_spell(creature_type *cr_ptr, int spell)
+static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 {
-	int             dir;
-	int             plev = cr_ptr->lev;
-	int		tmp;
-	int		x,y;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int dir;
+	int plev = creature_ptr->lev;
+	int tmp;
+	int	x,y;
 
 	/* spell code */
 	switch (spell)
 	{
 	/* mirror of seeing */
 	case 0:
-	  tmp = is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 0;
-	  if( plev + tmp > 4) detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 18) detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 28) set_tim_esp(cr_ptr, plev,FALSE);
-	  if( plev + tmp > 38) map_area(cr_ptr, DETECT_RAD_MAP);
+	  tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
+	  if( plev + tmp > 4) detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 18) detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 28) set_tim_esp(creature_ptr, plev,FALSE);
+	  if( plev + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
 	  if( tmp == 0 && plev < 5 ){
 #ifdef JP
 	    msg_print("鏡がなくて集中できなかった！");
@@ -1269,7 +1270,7 @@ static bool cast_mirror_spell(creature_type *cr_ptr, int spell)
 	/* drip of light */
 	case 1:
 	  if( number_of_mirrors() < 4 + plev/10 ){
-	    place_mirror(cr_ptr);
+	    place_mirror(creature_ptr);
 	  }
 	  else {
 #ifdef JP
@@ -1280,85 +1281,85 @@ msg_format("There are too many mirrors to control!");
 	  }
 	  break;
 	case 2:
-	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  if ( plev > 9 && is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ) {
-	    fire_beam(cr_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
+	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if ( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
+	    fire_beam(creature_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  else {
-	    fire_bolt(cr_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
+	    fire_bolt(creature_ptr, GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  break;
 	/* warped mirror */
 	case 3:
-	  teleport_player(cr_ptr, 10, 0L);
+	  teleport_player(creature_ptr, 10, 0L);
 	  break;
 	/* mirror of light */
 	case 4:
-	  (void)lite_area(cr_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
+	  (void)lite_area(creature_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
 	  break;
 	/* mirror of wandering */
 	case 5:
-	  teleport_player(cr_ptr, plev * 5, 0L);
+	  teleport_player(creature_ptr, plev * 5, 0L);
 	  break;
 	/* robe of dust */
 	case 6:
-	  set_dustrobe(cr_ptr, 20+randint1(20),FALSE);
+	  set_dustrobe(creature_ptr, 20+randint1(20),FALSE);
 	  break;
 	/* banishing mirror */
 	case 7:
-	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  (void)fire_beam(cr_ptr, GF_AWAY_ALL, dir , plev);
+	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  (void)fire_beam(creature_ptr, GF_AWAY_ALL, dir , plev);
 	  break;
 	/* mirror clashing */
 	case 8:
-	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  fire_ball(cr_ptr, GF_SHARDS, dir, damroll(8 + ((plev - 5) / 4), 8),
+	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  fire_ball(creature_ptr, GF_SHARDS, dir, damroll(8 + ((plev - 5) / 4), 8),
 		    (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 	  break;
 	/* mirror sleeping */
 	case 9:
-	  for(x=0;x<current_floor_ptr->width;x++){
-	    for(y=0;y<current_floor_ptr->height;y++){
-	      if (is_mirror_grid(&current_floor_ptr->cave[y][x])) {
-				project(cr_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+	  for(x=0;x<floor_ptr->width;x++){
+	    for(y=0;y<floor_ptr->height;y++){
+	      if (is_mirror_grid(&floor_ptr->cave[y][x])) {
+				project(creature_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 	      }
 	    }
 	  }
 	  break;
 	/* seeker ray */
 	case 10:
-	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  fire_beam(cr_ptr, GF_SEEKER,dir, damroll(11+(plev-5)/4,8));
+	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  fire_beam(creature_ptr, GF_SEEKER,dir, damroll(11+(plev-5)/4,8));
 	  break;
 	/* seal of mirror */
 	case 11:
-	  seal_of_mirror(cr_ptr, plev * 4 + 100);
+	  seal_of_mirror(creature_ptr, plev * 4 + 100);
 	  break;
 	/* shield of water */
 	case 12:
 	  tmp = 20+randint1(20);
-	  set_shield(cr_ptr, tmp, FALSE);
-	  if( plev > 31 )set_tim_reflect(cr_ptr, tmp, FALSE);
-	  if( plev > 39 )set_resist_magic(cr_ptr, tmp,FALSE);
+	  set_shield(creature_ptr, tmp, FALSE);
+	  if( plev > 31 )set_tim_reflect(creature_ptr, tmp, FALSE);
+	  if( plev > 39 )set_resist_magic(creature_ptr, tmp,FALSE);
 	  break;
 	/* super ray */
 	case 13:
-	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  fire_beam(cr_ptr, GF_SUPER_RAY,dir, 150+randint1(2*plev));
+	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  fire_beam(creature_ptr, GF_SUPER_RAY,dir, 150+randint1(2*plev));
 	  break;
 	/* illusion light */
 	case 14:
-	  tmp = is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 3;
-	  slow_creatures(cr_ptr);
-	  stun_creatures(cr_ptr, plev*tmp);
-	  confuse_creatures(cr_ptr, plev*tmp);
-	  turn_creatures(cr_ptr, plev*tmp);
-	  stun_creatures(cr_ptr, plev*tmp);
-	  stasis_creatures(cr_ptr, plev*tmp);
+	  tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 3;
+	  slow_creatures(creature_ptr);
+	  stun_creatures(creature_ptr, plev*tmp);
+	  confuse_creatures(creature_ptr, plev*tmp);
+	  turn_creatures(creature_ptr, plev*tmp);
+	  stun_creatures(creature_ptr, plev*tmp);
+	  stasis_creatures(creature_ptr, plev*tmp);
 	  break;
 	/* mirror shift */
 	case 15:
-	  if( !is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) ){
+	  if( !is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ){
 #ifdef JP
 		msg_print("鏡の国の場所がわからない！");
 #else
@@ -1366,7 +1367,7 @@ msg_format("There are too many mirrors to control!");
 #endif
 		break;
 	  }
-	  alter_reality(cr_ptr);
+	  alter_reality(creature_ptr);
 	  break;
 	/* mirror tunnel */
 	case 16:
@@ -1375,26 +1376,26 @@ msg_format("There are too many mirrors to control!");
 #else
 	  msg_print("Go through the world of mirror...");
 #endif
-	  return mirror_tunnel(cr_ptr);
+	  return mirror_tunnel(creature_ptr);
 
 	/* mirror of recall */
 	case 17:
-		return word_of_recall(cr_ptr);
+		return word_of_recall(creature_ptr);
 	/* multi-shadow */
 	case 18:
-	  set_multishadow(cr_ptr, 6+randint1(6),FALSE);
+	  set_multishadow(creature_ptr, 6+randint1(6),FALSE);
 	  break;
 	/* binding field */
 	case 19:
 #ifdef JP
-	  if(!binding_field(cr_ptr, plev*11+5)) msg_print("適当な鏡を選べなかった！");
+	  if(!binding_field(creature_ptr, plev*11+5)) msg_print("適当な鏡を選べなかった！");
 #else
-	  if(!binding_field(cr_ptr, plev*11+5)) msg_print("You were not able to choose suitable mirrors!");
+	  if(!binding_field(creature_ptr, plev*11+5)) msg_print("You were not able to choose suitable mirrors!");
 #endif
 	  break;
 	/* mirror of Ruffnor */
 	case 20:
-	  (void)set_invuln(cr_ptr, randint1(4)+4,FALSE);
+	  (void)set_invuln(creature_ptr, randint1(4)+4,FALSE);
 	  break;
 	default:
 #ifdef JP
@@ -1404,7 +1405,7 @@ msg_print("なに？");
 #endif
 
 	}
-	cr_ptr->magic_num1[0] = 0;
+	creature_ptr->magic_num1[0] = 0;
 
 	return TRUE;
 }
