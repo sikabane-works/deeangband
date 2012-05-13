@@ -1037,35 +1037,36 @@ msg_print("なに？");
  * do_cmd_cast calls this function if the player's class
  * is 'ForceTrainer'.
  */
-static bool cast_force_spell(creature_type *cr_ptr, int spell)
+static bool cast_force_spell(creature_type *creature_ptr, int spell)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int             dir;
-	int             plev = cr_ptr->lev;
-	int             boost = cr_ptr->magic_num1[0];
+	int             plev = creature_ptr->lev;
+	int             boost = creature_ptr->magic_num1[0];
 
-	if (heavy_armor(cr_ptr)) boost /= 2;
+	if (heavy_armor(creature_ptr)) boost /= 2;
 
 	/* spell code */
 	switch (spell)
 	{
 	case 0:
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(cr_ptr, GF_MISSILE, dir, damroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		fire_ball(creature_ptr, GF_MISSILE, dir, damroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
-		(void)lite_area(cr_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
+		(void)lite_area(creature_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
 		break;
 	case 2:
-		set_tim_levitation(cr_ptr, randint1(30) + 30 + boost / 5, FALSE);
+		set_tim_levitation(creature_ptr, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
 		project_length = plev / 8 + 3;
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fire_beam(cr_ptr, GF_MISSILE, dir, damroll(5 + ((plev - 1) / 5) + boost / 10, 5));
+		fire_beam(creature_ptr, GF_MISSILE, dir, damroll(5 + ((plev - 1) / 5) + boost / 10, 5));
 		break;
 	case 4:
-		set_resist_magic(cr_ptr, randint1(20) + 20 + boost / 5, FALSE);
+		set_resist_magic(creature_ptr, randint1(20) + 20 + boost / 5, FALSE);
 		break;
 	case 5:
 #ifdef JP
@@ -1073,43 +1074,43 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 #else
 		msg_print("You improved the Force.");
 #endif
-		cr_ptr->magic_num1[0] += (70 + plev);
-		cr_ptr->creature_update |= (CRU_BONUS);
-		if (randint1(cr_ptr->magic_num1[0]) > (plev * 4 + 120))
+		creature_ptr->magic_num1[0] += (70 + plev);
+		creature_ptr->creature_update |= (CRU_BONUS);
+		if (randint1(creature_ptr->magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
 			msg_print("気が暴走した！");
 #else
 			msg_print("The Force exploded!");
 #endif
-			fire_ball(cr_ptr, GF_MANA, 0, cr_ptr->magic_num1[0] / 2, 10);
+			fire_ball(creature_ptr, GF_MANA, 0, creature_ptr->magic_num1[0] / 2, 10);
 #ifdef JP
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, cr_ptr->magic_num1[0] / 2, "気の暴走", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "気の暴走", NULL, -1);
 #else
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, cr_ptr->magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
 #endif
 		}
 		else return TRUE;
 		break;
 	case 6:
-		set_tim_sh_touki(cr_ptr, randint1(plev / 2) + 15 + boost / 7, FALSE);
+		set_tim_sh_touki(creature_ptr, randint1(plev / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
 	{
 		int y, x, dam;
 		project_length = 1;
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 		dam = damroll(8 + ((plev - 5) / 4) + boost / 12, 8);
-		fire_beam(cr_ptr, GF_MISSILE, dir, dam);
-		if (current_floor_ptr->cave[y][x].creature_idx)
+		fire_beam(creature_ptr, GF_MISSILE, dir, dam);
+		if (floor_ptr->cave[y][x].creature_idx)
 		{
 			int i;
 			int ty = y, tx = x;
 			int oy = y, ox = x;
-			int m_idx = current_floor_ptr->cave[y][x].creature_idx;
+			int m_idx = floor_ptr->cave[y][x].creature_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 			char m_name[80];
@@ -1130,7 +1131,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(current_floor_ptr, y, x))
+					if (cave_empty_bold(floor_ptr, y, x))
 					{
 						ty = y;
 						tx = x;
@@ -1144,8 +1145,8 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 #else
 					msg_format("You blow %s away!", m_name);
 #endif
-					current_floor_ptr->cave[oy][ox].creature_idx = 0;
-					current_floor_ptr->cave[ty][tx].creature_idx = m_idx;
+					floor_ptr->cave[oy][ox].creature_idx = 0;
+					floor_ptr->cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 
@@ -1161,19 +1162,19 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		break;
 	}
 	case 8:
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(cr_ptr, GF_MISSILE, dir, damroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		fire_ball(creature_ptr, GF_MISSILE, dir, damroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
 		break;
 	case 9:
 	{
 		int m_idx;
 
-		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
+		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		dispel_creature(cr_ptr);
+		if (!projectable(creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		dispel_creature(creature_ptr);
 		break;
 	}
 	case 10:
@@ -1182,7 +1183,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		bool success = FALSE;
 
 		for (i = 0; i < 1 + boost/100; i++)
-			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
+			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
 				success = TRUE;
 		if (success)
 		{
@@ -1203,15 +1204,15 @@ msg_print("御用でございますが、御主人様？");
 		break;
 	}
 	case 11:
-		fire_ball(cr_ptr, GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
+		fire_ball(creature_ptr, GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
 		break;
 	case 12:
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fire_beam(cr_ptr, GF_MANA, dir, damroll(10 + (plev / 2) + boost * 3 / 10, 15));
+		fire_beam(creature_ptr, GF_MANA, dir, damroll(10 + (plev / 2) + boost * 3 / 10, 15));
 		break;
 	case 13:
-		set_lightspeed(cr_ptr, randint1(16) + 16 + boost / 20, FALSE);
+		set_lightspeed(creature_ptr, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
 #ifdef JP
@@ -1221,8 +1222,8 @@ msg_print("なに？");
 #endif
 
 	}
-	cr_ptr->magic_num1[0] = 0;
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	return TRUE;
 }
