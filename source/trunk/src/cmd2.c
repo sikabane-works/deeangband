@@ -4681,15 +4681,16 @@ static void travel_flow(creature_type *cr_ptr, int ty, int tx)
 	flow_head = flow_tail = 0;
 }
 
-void do_cmd_travel(creature_type *cr_ptr)
+void do_cmd_travel(creature_type *creature_ptr)
 {
 	int x, y, i;
 	int dx, dy, sx, sy;
 	feature_type *f_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	if (!tgt_pt(cr_ptr, &x, &y)) return;
+	if (!tgt_pt(creature_ptr, &x, &y)) return;
 
-	if ((x == cr_ptr->fx) && (y == cr_ptr->fy))
+	if ((x == creature_ptr->fx) && (y == creature_ptr->fy))
 	{
 #ifdef JP
 		msg_print("‚·‚Å‚É‚»‚±‚É‚¢‚Ü‚·I");
@@ -4699,12 +4700,12 @@ void do_cmd_travel(creature_type *cr_ptr)
 		return;
 	}
 
-	f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
+	f_ptr = &f_info[floor_ptr->cave[y][x].feat];
 
-	if ((current_floor_ptr->cave[y][x].info & CAVE_MARK) &&
+	if ((floor_ptr->cave[y][x].info & CAVE_MARK) &&
 		(have_flag(f_ptr->flags, FF_WALL) ||
 			have_flag(f_ptr->flags, FF_CAN_DIG) ||
-			(have_flag(f_ptr->flags, FF_DOOR) && current_floor_ptr->cave[y][x].mimic)))
+			(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic)))
 	{
 #ifdef JP
 		msg_print("‚»‚±‚É‚Ís‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñI");
@@ -4717,8 +4718,8 @@ void do_cmd_travel(creature_type *cr_ptr)
 	travel.x = x;
 	travel.y = y;
 
-	forget_travel_flow(current_floor_ptr);
-	travel_flow(cr_ptr, y, x);
+	forget_travel_flow(floor_ptr);
+	travel_flow(creature_ptr, y, x);
 
 	/* Travel till 255 steps */
 	travel.run = 255;
@@ -4727,10 +4728,10 @@ void do_cmd_travel(creature_type *cr_ptr)
 	travel.dir = 0;
 
 	/* Decides first direction */
-	dx = abs(cr_ptr->fx - x);
-	dy = abs(cr_ptr->fy - y);
-	sx = ((x == cr_ptr->fx) || (dx < dy)) ? 0 : ((x > cr_ptr->fx) ? 1 : -1);
-	sy = ((y == cr_ptr->fy) || (dy < dx)) ? 0 : ((y > cr_ptr->fy) ? 1 : -1);
+	dx = abs(creature_ptr->fx - x);
+	dy = abs(creature_ptr->fy - y);
+	sx = ((x == creature_ptr->fx) || (dx < dy)) ? 0 : ((x > creature_ptr->fx) ? 1 : -1);
+	sy = ((y == creature_ptr->fy) || (dy < dx)) ? 0 : ((y > creature_ptr->fy) ? 1 : -1);
 
 	for (i = 1; i <= 9; i++)
 	{
