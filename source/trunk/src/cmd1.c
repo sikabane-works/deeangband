@@ -5133,11 +5133,12 @@ void run_step(creature_type *cr_ptr, int dir)
 
 
 #ifdef TRAVEL
-/*
- * Test for traveling
- */
-static bool travel_test(creature_type *cr_ptr)
+
+// Test for traveling
+static bool travel_test(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	int prev_dir, new_dir, check_dir = 0;
 	int row, col;
 	int i, max;
@@ -5152,20 +5153,20 @@ static bool travel_test(creature_type *cr_ptr)
 
 	for (i = 0; i < 8; i++)
 	{
-		if (travel.cost[cr_ptr->fy+ddy_ddd[i]][cr_ptr->fx+ddx_ddd[i]] < travel.cost[cr_ptr->fy][cr_ptr->fx]) stop = FALSE;
+		if (travel.cost[creature_ptr->fy+ddy_ddd[i]][creature_ptr->fx+ddx_ddd[i]] < travel.cost[creature_ptr->fy][creature_ptr->fx]) stop = FALSE;
 	}
 
 	if (stop) return (TRUE);
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
+	    && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;
 
 		/* You are just on the edge */
-		if (!(current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
+		if (!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -5185,7 +5186,7 @@ static bool travel_test(creature_type *cr_ptr)
 	}
 
 	/* Cannot travel when blind */
-	if (cr_ptr->blind || no_lite(cr_ptr))
+	if (creature_ptr->blind || no_lite(creature_ptr))
 	{
 #ifdef JP
 		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
@@ -5202,11 +5203,11 @@ static bool travel_test(creature_type *cr_ptr)
 		new_dir = cycle[chome[prev_dir] + i];
 
 		/* New location */
-		row = cr_ptr->fy + ddy[new_dir];
-		col = cr_ptr->fx + ddx[new_dir];
+		row = creature_ptr->fy + ddy[new_dir];
+		col = creature_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
-		c_ptr = &current_floor_ptr->cave[row][col];
+		c_ptr = &floor_ptr->cave[row][col];
 
 
 		/* Visible monsters abort running */
