@@ -2079,10 +2079,13 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
  */
 static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
+	// TODO
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+
 	byte *x = (byte*)(u);
 	byte *y = (byte*)(v);
-	cave_type *ca_ptr = &current_floor_ptr->cave[y[a]][x[a]];
-	cave_type *cb_ptr = &current_floor_ptr->cave[y[b]][x[b]];
+	cave_type *ca_ptr = &floor_ptr->cave[y[a]][x[a]];
+	cave_type *cb_ptr = &floor_ptr->cave[y[b]][x[b]];
 	creature_type *ma_ptr = &creature_list[ca_ptr->creature_idx];
 	creature_type *mb_ptr = &creature_list[cb_ptr->creature_idx];
 	species_type *ap_ra_ptr, *ap_rb_ptr;
@@ -2128,8 +2131,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	}
 
 	/* An object get higher priority */
-	if (current_floor_ptr->cave[y[a]][x[a]].object_idx && !current_floor_ptr->cave[y[b]][x[b]].object_idx) return TRUE;
-	if (!current_floor_ptr->cave[y[a]][x[a]].object_idx && current_floor_ptr->cave[y[b]][x[b]].object_idx) return FALSE;
+	if (floor_ptr->cave[y[a]][x[a]].object_idx && !floor_ptr->cave[y[b]][x[b]].object_idx) return TRUE;
+	if (!floor_ptr->cave[y[a]][x[a]].object_idx && floor_ptr->cave[y[b]][x[b]].object_idx) return FALSE;
 
 	/* Priority from the terrain */
 	if (f_info[ca_ptr->feat].priority > f_info[cb_ptr->feat].priority) return TRUE;
