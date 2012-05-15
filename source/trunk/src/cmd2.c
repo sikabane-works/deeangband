@@ -2218,21 +2218,16 @@ void do_cmd_disarm(creature_type *creature_ptr)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
+static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 {
-	/* Get grid */
-	cave_type	*c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get grid
+	feature_type *f_ptr = &f_info[c_ptr->feat]; // Get feature
 
-	/* Get feature */
-	feature_type *f_ptr = &f_info[c_ptr->feat];
-
-	/* Hack -- Bash power based on strength */
-	/* (Ranges from 3 to 20 to 100 to 200) */
-	int bash = adj_str_blow[cr_ptr->stat_ind[STAT_STR]];
-
-	/* Extract door power */
-	int temp = f_ptr->power;
-
+	// Hack -- Bash power based on strength
+	// (Ranges from 3 to 20 to 100 to 200)
+	int bash = adj_str_blow[creature_ptr->stat_ind[STAT_STR]];
+	int temp = f_ptr->power; // Extract door power
 	bool		more = FALSE;
 
 	cptr name = f_name + f_info[get_feat_mimic(c_ptr)].name;
@@ -2250,7 +2245,7 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 	/* Compare bash power to door power XXX XXX XXX */
 	temp = (bash - (temp * 10));
 
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) temp *= 2;
+	if (creature_ptr->cls_idx == CLASS_BERSERKER) temp *= 2;
 
 	/* Hack -- always have a chance */
 	if (temp < 1) temp = 1;
@@ -2269,24 +2264,24 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
-		if ((randint0(100) < 50) || (feat_state(current_floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
+		if ((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 		{
-			cave_alter_feat(current_floor_ptr, y, x, FF_BASH);
+			cave_alter_feat(floor_ptr, y, x, FF_BASH);
 		}
 
 		/* Open the door */
 		else
 		{
-			cave_alter_feat(current_floor_ptr, y, x, FF_OPEN);
+			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 		}
 
 		/* Hack -- Fall through the door */
-		move_creature(cr_ptr, dir, FALSE, FALSE);
+		move_creature(creature_ptr, dir, FALSE, FALSE);
 	}
 
 	/* Saving throw against stun */
-	else if (randint0(100) < adj_dex_safe[cr_ptr->stat_ind[STAT_DEX]] +
-		 cr_ptr->lev)
+	else if (randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] +
+		 creature_ptr->lev)
 	{
 		/* Message */
 #ifdef JP
@@ -2312,7 +2307,7 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 
 
 		/* Hack -- Lose balance ala paralysis */
-		(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 2 + randint0(2));
+		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + randint0(2));
 	}
 
 	/* Result */
