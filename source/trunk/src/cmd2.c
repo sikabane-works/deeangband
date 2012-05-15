@@ -1052,17 +1052,13 @@ static int coords_to_dir(creature_type *cr_ptr, int y, int x)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
+static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i, j;
-
-	/* Get requested grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
-
+	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get requested grid
 	feature_type *f_ptr = &f_info[c_ptr->feat];
-
 	bool more = FALSE;
-
 
 	/* Take a turn */
 	energy_use = 100;
@@ -1085,11 +1081,11 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 	else if (f_ptr->power)
 	{
 		/* Disarm factor */
-		i = cr_ptr->skill_dis;
+		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
-		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
+		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1103,21 +1099,14 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 		/* Success */
 		if (randint0(100) < j)
 		{
-			/* Message */
 #ifdef JP
 			msg_print("Œ®‚ð‚Í‚¸‚µ‚½B");
 #else
 			msg_print("You have picked the lock.");
 #endif
-
-			/* Open the door */
-			cave_alter_feat(current_floor_ptr, y, x, FF_OPEN);
-
-			/* Sound */
-			sound(SOUND_OPENDOOR);
-
-			/* Experience */
-			gain_exp(cr_ptr, 1);
+			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
+			sound(SOUND_OPENDOOR); // Sound
+			gain_exp(creature_ptr, 1); // Experience
 		}
 
 		/* Failure */
@@ -1143,7 +1132,7 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 	else
 	{
 		/* Open the door */
-		cave_alter_feat(current_floor_ptr, y, x, FF_OPEN);
+		cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 
 		/* Sound */
 		sound(SOUND_OPENDOOR);
