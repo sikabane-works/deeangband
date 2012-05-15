@@ -423,7 +423,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 {
 	int i, yy, xx;
 
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 

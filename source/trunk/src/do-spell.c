@@ -594,19 +594,20 @@ void wild_magic(creature_type *cr_ptr, int spell)
 }
 
 
-static void cast_shuffle(creature_type *cr_ptr)
+static void cast_shuffle(creature_type *creature_ptr)
 {
-	int plev = cr_ptr->lev;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int plev = creature_ptr->lev;
 	int dir;
 	int die;
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 	int i;
 
-	/* Card sharks and high mages get a level bonus */
-	if ((cr_ptr->cls_idx == CLASS_ROGUE) ||
-	    (cr_ptr->cls_idx == CLASS_HIGH_MAGE) ||
-	    (cr_ptr->cls_idx == CLASS_SORCERER))
+	// Card sharks and high mages get a level bonus
+	if ((creature_ptr->cls_idx == CLASS_ROGUE) ||
+	    (creature_ptr->cls_idx == CLASS_HIGH_MAGE) ||
+	    (creature_ptr->cls_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
 	else
 		die = randint1(120);
@@ -614,13 +615,13 @@ static void cast_shuffle(creature_type *cr_ptr)
 
 	if (vir)
 	{
-		if (cr_ptr->karmas[vir - 1] > 0)
+		if (creature_ptr->karmas[vir - 1] > 0)
 		{
-			while (randint1(400) < cr_ptr->karmas[vir - 1]) die++;
+			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
 		}
 		else
 		{
-			while (randint1(400) < (0-cr_ptr->karmas[vir - 1])) die--;
+			while (randint1(400) < (0-creature_ptr->karmas[vir - 1])) die--;
 		}
 	}
 
@@ -639,7 +640,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 #endif
 
 		for (i = 0; i < randint1(3); i++)
-			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 	}
 	else if (die < 14)
 	{
@@ -649,7 +650,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("Oh no! It's the Devil!");
 #endif
 
-		summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 18)
 	{
@@ -660,7 +661,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("Oh no! It's the Hanged Man.");
 #endif
 
-		activate_ty_curse(cr_ptr, FALSE, &count);
+		activate_ty_curse(creature_ptr, FALSE, &count);
 	}
 	else if (die < 22)
 	{
@@ -670,7 +671,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the swords of discord.");
 #endif
 
-		aggravate_creatures(cr_ptr);
+		aggravate_creatures(creature_ptr);
 	}
 	else if (die < 26)
 	{
@@ -680,8 +681,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Fool.");
 #endif
 
-		do_dec_stat(cr_ptr, STAT_INT);
-		do_dec_stat(cr_ptr, STAT_WIS);
+		do_dec_stat(creature_ptr, STAT_INT);
+		do_dec_stat(creature_ptr, STAT_WIS);
 	}
 	else if (die < 30)
 	{
@@ -691,7 +692,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a strange monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, FALSE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
+		trump_summoning(creature_ptr, 1, FALSE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
 	}
 	else if (die < 33)
 	{
@@ -701,7 +702,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Moon.");
 #endif
 
-		unlite_area(cr_ptr, 10, 3);
+		unlite_area(creature_ptr, 10, 3);
 	}
 	else if (die < 38)
 	{
@@ -711,7 +712,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Wheel of Fortune.");
 #endif
 
-		wild_magic(cr_ptr, randint0(32));
+		wild_magic(creature_ptr, randint0(32));
 	}
 	else if (die < 40)
 	{
@@ -721,7 +722,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(cr_ptr, 10, TELEPORT_PASSIVE);
+		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if (die < 42)
 	{
@@ -731,7 +732,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's Justice.");
 #endif
 
-		set_blessed(cr_ptr, cr_ptr->lev, FALSE);
+		set_blessed(creature_ptr, creature_ptr->lev, FALSE);
 	}
 	else if (die < 47)
 	{
@@ -741,7 +742,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(cr_ptr, 100, TELEPORT_PASSIVE);
+		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if (die < 52)
 	{
@@ -751,7 +752,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(cr_ptr, 200, TELEPORT_PASSIVE);
+		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if (die < 60)
 	{
@@ -761,7 +762,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Tower.");
 #endif
 
-		wall_breaker(cr_ptr);
+		wall_breaker(creature_ptr);
 	}
 	else if (die < 72)
 	{
@@ -771,7 +772,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's Temperance.");
 #endif
 
-		sleep_creatures_touch(cr_ptr);
+		sleep_creatures_touch(creature_ptr);
 	}
 	else if (die < 80)
 	{
@@ -781,7 +782,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Tower.");
 #endif
 
-		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
+		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 	}
 	else if (die < 82)
 	{
@@ -791,7 +792,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
 	}
 	else if (die < 84)
 	{
@@ -801,7 +802,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
 	}
 	else if (die < 86)
 	{
@@ -811,7 +812,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
 	}
 	else if (die < 88)
 	{
@@ -821,7 +822,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(cr_ptr, 1, TRUE, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
 	}
 	else if (die < 96)
 	{
@@ -831,8 +832,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Lovers.");
 #endif
 
-		if (get_aim_dir(cr_ptr, &dir))
-			charm_creature(cr_ptr, dir, MIN(cr_ptr->lev, 20));
+		if (get_aim_dir(creature_ptr, &dir))
+			charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
 	}
 	else if (die < 101)
 	{
@@ -842,7 +843,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Hermit.");
 #endif
 
-		wall_stone(cr_ptr);
+		wall_stone(creature_ptr);
 	}
 	else if (die < 111)
 	{
@@ -852,8 +853,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Judgement.");
 #endif
 
-		do_cmd_rerate(cr_ptr, FALSE);
-		if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
+		do_cmd_rerate(creature_ptr, FALSE);
+		if (creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14)
 		{
 #ifdef JP
 			msg_print("全ての突然変異が治った。");
@@ -861,8 +862,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 			msg_print("You are cured of all mutations.");
 #endif
 
-			cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
-			cr_ptr->creature_update |= CRU_BONUS;
+			creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+			creature_ptr->creature_update |= CRU_BONUS;
 			handle_stuff();
 		}
 	}
@@ -874,7 +875,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Sun.");
 #endif
 
-		wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+		wiz_lite(floor_ptr, creature_ptr, FALSE);
 	}
 	else
 	{
@@ -884,9 +885,9 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the World.");
 #endif
 
-		if (cr_ptr->exp < CREATURE_MAX_EXP)
+		if (creature_ptr->exp < CREATURE_MAX_EXP)
 		{
-			s32b ee = (cr_ptr->exp / 25) + 1;
+			s32b ee = (creature_ptr->exp / 25) + 1;
 			if (ee > 5000) ee = 5000;
 #ifdef JP
 			msg_print("更に経験を積んだような気がする。");
@@ -894,7 +895,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 			msg_print("You feel more experienced.");
 #endif
 
-			gain_exp(cr_ptr, ee);
+			gain_exp(creature_ptr, ee);
 		}
 	}
 }
