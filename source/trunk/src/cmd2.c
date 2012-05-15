@@ -1345,29 +1345,28 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 }
 
 
-/*
- * Close an open door.
- */
-void do_cmd_close(creature_type *cr_ptr)
+
+// Close an open door.
+void do_cmd_close(creature_type *creature_ptr)
 {
 	int y, x, dir;
-
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	bool more = FALSE;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
-#ifdef ALLOW_EASY_OPEN /* TNB */
+#ifdef ALLOW_EASY_OPEN // TNB
 
 	/* Option: Pick a direction */
 	if (easy_open)
 	{
 		/* Count open doors */
-		if (count_dt(cr_ptr, &y, &x, is_open, FALSE) == 1)
+		if (count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 		{
-			command_dir = coords_to_dir(cr_ptr, y, x);
+			command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
 
@@ -1387,17 +1386,17 @@ void do_cmd_close(creature_type *cr_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
 
 		/* Get requested location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -1427,14 +1426,14 @@ void do_cmd_close(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			weapon_attack(cr_ptr, y, x, 0);
+			weapon_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Close the door */
 		else
 		{
 			/* Close the door */
-			more = do_cmd_close_aux(cr_ptr, y, x);
+			more = do_cmd_close_aux(creature_ptr, y, x);
 		}
 	}
 
