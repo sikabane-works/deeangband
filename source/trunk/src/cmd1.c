@@ -4420,30 +4420,21 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 }
 
 
-/*
- * Hack -- Check for an "unknown corner" (see below)
- */
+// Hack -- Check for an "unknown corner" (see below)
 static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 {
-	/* Get the new location */
+	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
+
+	// Get the new location
 	y += ddy[dir];
 	x += ddx[dir];
 
-	/* Illegal grids are unknown */
-	if (!in_bounds2(current_floor_ptr, y, x)) return (TRUE);
+	if (!in_bounds2(floor_ptr, y, x)) return (TRUE); // Illegal grids are unknown
+	if (floor_ptr->cave[y][x].info & (CAVE_MARK)) return (FALSE); // Memorized grids are always known
+	if (creature_can_see_bold(watcher_ptr, y, x)) return (FALSE); // Viewable door/wall grids are known
 
-	/* Memorized grids are always known */
-	if (current_floor_ptr->cave[y][x].info & (CAVE_MARK)) return (FALSE);
-
-	/* Viewable door/wall grids are known */
-	if (creature_can_see_bold(watcher_ptr, y, x)) return (FALSE);
-
-	/* Default */
 	return (TRUE);
 }
-
-
-
 
 
 /*
