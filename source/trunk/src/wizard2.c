@@ -1661,12 +1661,12 @@ static void do_cmd_wiz_floor_object_list(void)
 	free(ce);
 }
 
-/*
- * Go to any level
- */
-static void do_cmd_wiz_jump(creature_type *cr_ptr)
+// Go to any level
+static void do_cmd_wiz_jump(creature_type *creature_ptr)
 {
-	/* Ask for level */
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	// Ask for level
 	if (command_arg <= 0)
 	{
 		char	ppp[80];
@@ -1674,13 +1674,9 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		char	tmp_val[160];
 		int		tmp_dungeon_level;
 
-		/* Prompt */
+		// Ask for a level
 		sprintf(ppp, "Jump which dungeon : ");
-
-		/* Default */
-		sprintf(tmp_val, "%d", current_floor_ptr->dun_type);
-
-		/* Ask for a level */
+		sprintf(tmp_val, "%d", floor_ptr->dun_type);
 		if (!get_string(ppp, tmp_val, 2)) return;
 
 		tmp_dungeon_level = atoi(tmp_val);
@@ -1690,7 +1686,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
 
 		/* Default */
-		sprintf(tmp_val, "%d", current_floor_ptr->floor_level);
+		sprintf(tmp_val, "%d", floor_ptr->floor_level);
 
 		/* Ask for a level */
 		if (!get_string(ppp, tmp_val, 10)) return;
@@ -1698,14 +1694,14 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 		/* Extract request */
 		command_arg = atoi(tmp_val);
 
-		current_floor_ptr->dun_type = tmp_dungeon_level;
+		floor_ptr->dun_type = tmp_dungeon_level;
 	}
 
 	/* Paranoia */
-	if (command_arg < dungeon_info[current_floor_ptr->dun_type].mindepth) command_arg = 0;
+	if (command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
 
 	/* Paranoia */
-	if (command_arg > dungeon_info[current_floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[current_floor_ptr->dun_type].maxdepth;
+	if (command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[floor_ptr->dun_type].maxdepth;
 
 	/* Accept request */
 	msg_format("You jump to dungeon level %d.", command_arg);
@@ -1713,15 +1709,15 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
-	current_floor_ptr->floor_level = command_arg;
+	floor_ptr->floor_level = command_arg;
 
-	prepare_change_floor_mode(cr_ptr, CFM_RAND_PLACE);
+	prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 
-	if (!current_floor_ptr->floor_level) current_floor_ptr->dun_type = 0;
+	if (!floor_ptr->floor_level) floor_ptr->dun_type = 0;
 	fight_arena_mode = FALSE;
 	wild_mode = FALSE;
 
-	leave_quest_check(cr_ptr);
+	leave_quest_check(creature_ptr);
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_WIZ_TELE,0,NULL);
 
@@ -1729,13 +1725,13 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	energy_use = 0;
 
 	/* Prevent energy_need from being too lower than 0 */
-	cr_ptr->energy_need = 0;
+	creature_ptr->energy_need = 0;
 
 	/*
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
+	prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
