@@ -1480,8 +1480,9 @@ static bool do_cmd_tunnel_test(creature_type *cr_ptr, int y, int x)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
+static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr;
 	feature_type *f_ptr, *mimic_f_ptr;
 	int power;
@@ -1489,13 +1490,13 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 	bool more = FALSE;
 
 	/* Verify legality */
-	if (!do_cmd_tunnel_test(cr_ptr, y, x)) return (FALSE);
+	if (!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
 
 	/* Take a turn */
 	energy_use = 100;
 
 	/* Get grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 	f_ptr = &f_info[c_ptr->feat];
 	power = f_ptr->power;
 
@@ -1534,7 +1535,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 	else if (have_flag(f_ptr->flags, FF_CAN_DIG))
 	{
 		/* Dig */
-		if (cr_ptr->skill_dig > randint0(20 * power))
+		if (creature_ptr->skill_dig > randint0(20 * power))
 		{
 			/* Message */
 #ifdef JP
@@ -1544,7 +1545,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 #endif
 
 			/* Remove the feature */
-			cave_alter_feat(current_floor_ptr, y, x, FF_TUNNEL);
+			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
 
 			/* Update some things */
 			update |= (PU_FLOW);
@@ -1567,7 +1568,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 		bool tree = have_flag(mimic_f_ptr->flags, FF_TREE);
 
 		/* Tunnel */
-		if (cr_ptr->skill_dig > power + randint0(40 * power))
+		if (creature_ptr->skill_dig > power + randint0(40 * power))
 		{
 #ifdef JP
 			if (tree) msg_format("%s‚ðØ‚è•¥‚Á‚½B", name);
@@ -1589,7 +1590,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 			if (have_flag(f_ptr->flags, FF_GLASS)) sound(SOUND_GLASS);
 
 			/* Remove the feature */
-			cave_alter_feat(current_floor_ptr, y, x, FF_TUNNEL);
+			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
 
 		}
 
@@ -1605,7 +1606,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 				msg_format("You chop away at the %s.", name);
 #endif
 				/* Occasional Search XXX XXX */
-				if (randint0(100) < 25) search(cr_ptr);
+				if (randint0(100) < 25) search(creature_ptr);
 			}
 			else
 			{
@@ -1624,7 +1625,7 @@ static bool do_cmd_tunnel_aux(creature_type *cr_ptr, int y, int x)
 	if (is_hidden_door(c_ptr))
 	{
 		/* Occasional Search XXX XXX */
-		if (randint0(100) < 25) search(cr_ptr);
+		if (randint0(100) < 25) search(creature_ptr);
 	}
 
 	/* Result */
