@@ -56,11 +56,10 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 // Will Delete ?
 static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {
-	/* Must be the same as projectable() */
+	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	int i; // Must be the same as projectable()
 
-	int i;
-
-	/* Initial grid */
+	// Initial grid
 	int y = y1;
 	int x = x1;
 
@@ -92,7 +91,7 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 	}
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE, current_floor_ptr, y1, x1, y2, x2, flg);
+	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, flg);
 
 	/* Project along the path */
 	for (i = 0; i < grid_n; ++i)
@@ -103,17 +102,17 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		if (flg & PROJECT_DISI)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (cave_stop_disintegration(current_floor_ptr, ny, nx)) break;
+			if (cave_stop_disintegration(floor_ptr, ny, nx)) break;
 		}
 		else if (flg & PROJECT_LOS)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_los_bold(current_floor_ptr, ny, nx)) break;
+			if (!cave_los_bold(floor_ptr, ny, nx)) break;
 		}
 		else
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT)) break;
+			if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
 		}
 
 		/* Save the "blast epicenter" */
@@ -132,8 +131,8 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		}
 		else if (flg & PROJECT_LOS)
 		{
-			if (los(current_floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (los(current_floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if (los(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if (los(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 		else
 		{
