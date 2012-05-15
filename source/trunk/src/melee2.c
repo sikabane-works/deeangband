@@ -2638,6 +2638,7 @@ void process_creatures(void)
 
 	creature_type   *creature_ptr;
 	species_type    *species_ptr;
+	floor_type      *floor_ptr;
 
 	int             old_species_window_idx;
 
@@ -2690,14 +2691,15 @@ void process_creatures(void)
 	}
 
 
-	/* Process the monsters (backwards) */
+	// Process the monsters (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		/* Access the monster */
+		// Access the creature
 		creature_ptr = &creature_list[i];
 		species_ptr  = &species_info[creature_ptr->species_idx];
+		floor_ptr    = get_floor_ptr(creature_ptr);
 
-		/* Handle "leaving" */
+		// Handle "leaving"
 		if (subject_change_floor) break;
 
 		// Ignore dead or out of floot creatures
@@ -2706,102 +2708,73 @@ void process_creatures(void)
 			continue;
 		if (wild_mode) continue;
 
-		/* Handle "fresh" monsters */
+		// Handle "fresh" monsters
 		if (creature_ptr->mflag & MFLAG_BORN)
 		{
-			/* No longer "fresh" */
 			creature_ptr->mflag &= ~(MFLAG_BORN);
-
-			/* Skip */
 			continue;
 		}
 
-		/* Hack -- Require proximity */
-		if (creature_ptr->cdis >= AAF_LIMIT) continue;
+		if (creature_ptr->cdis >= AAF_LIMIT) continue; // Hack -- Require proximity
 
-
-		/* Access the location */
+		// Access the location
 		fx = creature_ptr->fx;
 		fy = creature_ptr->fy;
 
-		/* Flow by smell is allowed */
-		if (!player_ptr->no_flowed)
-		{
-			creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
-		}
+		// Flow by smell is allowed
+		if (!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
-		/* Assume no move */
-		test = FALSE;
+		test = FALSE; // Assume no move
 
-		/* Handle "sensing radius" */
+		// Handle "sensing radius"
 		if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
-		{
-			/* We can "sense" the player */
 			test = TRUE;
-		}
 
-		/* Handle "sight" and "aggravation" */
-		else if ((creature_ptr->cdis <= MAX_SIGHT) &&
-			(player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
-		{
-			/* We can "see" or "feel" the player */
+		// Handle "sight" and "aggravation"
+		else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
 			test = TRUE;
-		}
 
-#if 0 /* (current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == current_floor_ptr->cave[fy][fx].when) is always FALSE... */
+#if 0 
+		/* (floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) is always FALSE... */
 		/* Hack -- Monsters can "smell" the player from far away */
 		/* Note that most monsters have "aaf" of "20" or so */
 		else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
 			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
-			(current_floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == current_floor_ptr->cave[fy][fx].when) &&
-			(current_floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
-			(current_floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
+			(floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) &&
+			(floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
+			(floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
 		{
 			/* We can "smell" the player */
 			test = TRUE;
 		}
 #endif
+
 		else if (creature_ptr->target_y) test = TRUE;
 
-		/* Do nothing */
+		// Do nothing
 		if (!test) continue;
 
 		speed = creature_ptr->speed;
 
-		// Monsters move quickly in curse of Iluvatar mode
-		if (curse_of_Iluvatar) speed += 5;
+		if (curse_of_Iluvatar) speed += 5; // Monsters move quickly in curse of Iluvatar mode
+		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this monster some energy
+		if (creature_ptr->energy_need > 0) continue; // Not enough energy to move
 
-		/* Give this monster some energy */
-		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed);
+		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
+		hack_m_idx = i; // Save global index
 
-		/* Not enough energy to move */
-		if (creature_ptr->energy_need > 0) continue;
-
-		/* Use up "some" energy */
-		creature_ptr->energy_need += ENERGY_NEED();
-
-		/* Save global index */
-		hack_m_idx = i;
-
-		/* Process the monster */
-		process_creature(i);
+		process_creature(i); // Process the monster
 
 		reset_target(creature_ptr);
 
-		/* Give up flow_by_smell when it might useless */
-		if (player_ptr->no_flowed && one_in_(3))
-			creature_ptr->mflag2 |= MFLAG2_NOFLOW;
+		// Give up flow_by_smell when it might useless
+		if (player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
 
-		/* Hack -- notice death or departure */
-		if (!playing || gameover) break;
-
-		/* Notice leaving */
-		if (subject_change_floor) break;
+		if (!playing || gameover) break; // Hack -- notice death or departure
+		if (subject_change_floor) break; // Notice leaving
 	}
 
-	/* Reset global index */
-	hack_m_idx = 0;
-
+	hack_m_idx = 0; // Reset global index
 
 	/* Tracking a monster race (the same one we were before) */
 	if (species_window_idx && (species_window_idx == old_species_window_idx))
