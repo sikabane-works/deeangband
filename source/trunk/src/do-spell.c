@@ -1182,15 +1182,17 @@ void stop_singing(creature_type *cr_ptr)
 }
 
 
-static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
+static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = cr_ptr->lev;
+	int plev = creature_ptr->lev;
 
 	switch (spell)
 	{
@@ -1211,8 +1213,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
-				set_cut(cr_ptr, cr_ptr->cut - 10);
+				hp_player(creature_ptr, damroll(dice, sides));
+				set_cut(creature_ptr, creature_ptr->cut - 10);
 			}
 		}
 		break;
@@ -1233,7 +1235,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_blessed(cr_ptr, randint1(base) + base, FALSE);
+				set_blessed(creature_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1255,8 +1257,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -1279,7 +1281,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(cr_ptr, damroll(dice, sides), rad);
+				lite_area(creature_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -1300,9 +1302,9 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_traps(cr_ptr, rad, TRUE);
-				detect_doors(cr_ptr, rad);
-				detect_stairs(cr_ptr, rad);
+				detect_traps(creature_ptr, rad, TRUE);
+				detect_doors(creature_ptr, rad);
+				detect_stairs(creature_ptr, rad);
 			}
 		}
 		break;
@@ -1324,8 +1326,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
-				set_cut(cr_ptr, (cr_ptr->cut / 2) - 20);
+				hp_player(creature_ptr, damroll(dice, sides));
+				set_cut(creature_ptr, (creature_ptr->cut / 2) - 20);
 			}
 		}
 		break;
@@ -1342,7 +1344,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(cr_ptr, 0);
+				set_poisoned(creature_ptr, 0);
 			}
 		}
 		break;
@@ -1359,7 +1361,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				set_food(cr_ptr, PY_FOOD_MAX - 1);
+				set_food(creature_ptr, PY_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -1376,7 +1378,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse(cr_ptr))
+				if (remove_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1405,8 +1407,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(sides, dice), 0);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(sides, dice), 0);
 			}
 		}
 		break;
@@ -1428,9 +1430,9 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
-				set_stun(cr_ptr, 0);
-				set_cut(cr_ptr, 0);
+				hp_player(creature_ptr, damroll(dice, sides));
+				set_stun(creature_ptr, 0);
+				set_cut(creature_ptr, 0);
 			}
 		}
 		break;
@@ -1451,8 +1453,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1473,7 +1475,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				map_area(cr_ptr, rad);
+				map_area(creature_ptr, rad);
 			}
 		}
 		break;
@@ -1490,7 +1492,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				turn_undead(cr_ptr);
+				turn_undead(creature_ptr);
 			}
 		}
 		break;
@@ -1511,9 +1513,9 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, heal);
-				set_stun(cr_ptr, 0);
-				set_cut(cr_ptr, 0);
+				hp_player(creature_ptr, heal);
+				set_stun(creature_ptr, 0);
+				set_cut(creature_ptr, 0);
 			}
 		}
 		break;
@@ -1530,7 +1532,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				warding_glyph(cr_ptr);
+				warding_glyph(creature_ptr);
 			}
 		}
 		break;
@@ -1547,7 +1549,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse(cr_ptr))
+				if (remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1571,7 +1573,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(cr_ptr, FALSE)) return NULL;
+				if (!ident_spell(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -1593,7 +1595,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(cr_ptr, damroll(dice, sides));
+				dispel_undead(creature_ptr, damroll(dice, sides));
 			}
 		}
 		break;
@@ -1614,7 +1616,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				charm_creatures(cr_ptr, power);
+				charm_creatures(creature_ptr, power);
 			}
 		}
 		break;
@@ -1636,8 +1638,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -1659,7 +1661,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall(cr_ptr)) return NULL;
+				if (!word_of_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
@@ -1681,7 +1683,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				alter_reality(cr_ptr);
+				alter_reality(creature_ptr);
 			}
 		}
 		break;
@@ -1702,8 +1704,8 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				warding_glyph(cr_ptr);
-				glyph_creation(cr_ptr);
+				warding_glyph(creature_ptr);
+				glyph_creation(creature_ptr);
 			}
 		}
 		break;
@@ -1720,7 +1722,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				current_floor_ptr->num_repro += MAX_REPRO;
+				floor_ptr->num_repro += MAX_REPRO;
 			}
 		}
 		break;
@@ -1741,7 +1743,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_all(cr_ptr, rad);
+				detect_all(creature_ptr, rad);
 			}
 		}
 		break;
@@ -1762,7 +1764,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				mass_genocide_undead(cr_ptr, power, TRUE);
+				mass_genocide_undead(creature_ptr, power, TRUE);
 			}
 		}
 		break;
@@ -1779,7 +1781,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+				wiz_lite(floor_ptr, creature_ptr, FALSE);
 			}
 		}
 		break;
@@ -1796,13 +1798,13 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				do_res_stat(cr_ptr, STAT_STR);
-				do_res_stat(cr_ptr, STAT_INT);
-				do_res_stat(cr_ptr, STAT_WIS);
-				do_res_stat(cr_ptr, STAT_DEX);
-				do_res_stat(cr_ptr, STAT_CON);
-				do_res_stat(cr_ptr, STAT_CHA);
-				restore_level(cr_ptr);
+				do_res_stat(creature_ptr, STAT_STR);
+				do_res_stat(creature_ptr, STAT_INT);
+				do_res_stat(creature_ptr, STAT_WIS);
+				do_res_stat(creature_ptr, STAT_DEX);
+				do_res_stat(creature_ptr, STAT_CON);
+				do_res_stat(creature_ptr, STAT_CHA);
+				restore_level(creature_ptr);
 			}
 		}
 		break;
@@ -1823,9 +1825,9 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, heal);
-				set_stun(cr_ptr, 0);
-				set_cut(cr_ptr, 0);
+				hp_player(creature_ptr, heal);
+				set_stun(creature_ptr, 0);
+				set_cut(creature_ptr, 0);
 			}
 		}
 		break;
@@ -1842,7 +1844,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(cr_ptr, FALSE)) return NULL;
+				if (!identify_fully(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -1864,13 +1866,13 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				int v = randint1(base) + base;
-				set_fast(cr_ptr, v, FALSE);
-				set_oppose_acid(cr_ptr, v, FALSE);
-				set_oppose_elec(cr_ptr, v, FALSE);
-				set_oppose_fire(cr_ptr, v, FALSE);
-				set_oppose_cold(cr_ptr, v, FALSE);
-				set_oppose_pois(cr_ptr, v, FALSE);
-				set_ultimate_res(cr_ptr, v, FALSE);
+				set_fast(creature_ptr, v, FALSE);
+				set_oppose_acid(creature_ptr, v, FALSE);
+				set_oppose_elec(creature_ptr, v, FALSE);
+				set_oppose_fire(creature_ptr, v, FALSE);
+				set_oppose_cold(creature_ptr, v, FALSE);
+				set_oppose_pois(creature_ptr, v, FALSE);
+				set_ultimate_res(creature_ptr, v, FALSE);
 			}
 		}
 		break;
