@@ -680,12 +680,12 @@ put_str("MP 失率 効果", y, x + 33);
 }
 
 
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'imitator'.
- */
+
+// do_cmd_cast calls this function if the player's class
+// is 'imitator'.
 static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool success)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int            dir;
 	int           plev = pseudo_plev(caster_ptr);
 	int     summon_lev = caster_ptr->lev * 2 / 3 + randint1(caster_ptr->lev/2);
@@ -727,7 +727,7 @@ msg_print("かん高い金切り声をあげた。");
 		int m_idx;
 
 		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
+		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
@@ -1353,10 +1353,10 @@ msg_print("無傷の球の呪文を唱えた。");
 		char m_name[80];
 
 		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		if (!current_floor_ptr->cave[target_row][target_col].creature_idx) break;
+		if (!floor_ptr->cave[target_row][target_col].creature_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		m_ptr = &creature_list[current_floor_ptr->cave[target_row][target_col].creature_idx];
+		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
 		if (has_cf_creature(m_ptr, CF_RES_TELE))
@@ -1390,7 +1390,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You command %s to return.", m_name);
 #endif
 
-		teleport_creature_to2(current_floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+		teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
 	case MS_TELE_AWAY:
@@ -1406,7 +1406,7 @@ msg_format("%sを引き戻した。", m_name);
 		char m_name[80];
 
 		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		target_m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
+		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
