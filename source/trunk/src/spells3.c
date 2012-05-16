@@ -897,17 +897,17 @@ int choose_dungeon(cptr note, int y, int x)
 }
 
 
-/*
- * Recall the player to town or dungeon
- */
-bool recall_player(creature_type *cr_ptr, int turns)
+// Recall the player to town or dungeon
+bool recall_player(creature_type *creature_ptr, int turns)
 {
 	/*
 	 * TODO: Recall the player to the last
 	 * visited town when in the wilderness
 	 */
 
-	/* Ironman option */
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	// Ironman option
 	if (fight_arena_mode || ironman_downward)
 	{
 #ifdef JP
@@ -919,7 +919,7 @@ msg_print("‰½‚à‹N‚±‚ç‚È‚©‚Á‚½B");
 		return TRUE;
 	}
 
-	if (current_floor_ptr->floor_level && (max_dlv[current_floor_ptr->dun_type] > current_floor_ptr->floor_level) && !inside_quest && !cr_ptr->word_recall)
+	if (floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !inside_quest && !creature_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -927,19 +927,19 @@ if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 		if (get_check("Reset recall depth? "))
 #endif
 		{
-			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->floor_level;
+			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
 			if (record_maxdepth)
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_TRUMP, current_floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
+				do_cmd_write_nikki(NIKKI_TRUMP, floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
 #else
-				do_cmd_write_nikki(NIKKI_TRUMP, current_floor_ptr->dun_type, "when recall from dungeon");
+				do_cmd_write_nikki(NIKKI_TRUMP, floor_ptr->dun_type, "when recall from dungeon");
 #endif
 		}
 
 	}
-	if (!cr_ptr->word_recall)
+	if (!creature_ptr->word_recall)
 	{
-		if (!current_floor_ptr->floor_level)
+		if (!floor_ptr->floor_level)
 		{
 			int select_dungeon;
 #ifdef JP
@@ -948,9 +948,9 @@ if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 			select_dungeon = choose_dungeon("recall", 2, 14);
 #endif
 			if (!select_dungeon) return FALSE;
-			cr_ptr->recall_dungeon = select_dungeon;
+			creature_ptr->recall_dungeon = select_dungeon;
 		}
-		cr_ptr->word_recall = turns;
+		creature_ptr->word_recall = turns;
 #ifdef JP
 msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
 #else
@@ -961,7 +961,7 @@ msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
 	}
 	else
 	{
-		cr_ptr->word_recall = 0;
+		creature_ptr->word_recall = 0;
 #ifdef JP
 msg_print("’£‚è‚Â‚ß‚½‘å‹C‚ª—¬‚ê‹Ž‚Á‚½...");
 #else
