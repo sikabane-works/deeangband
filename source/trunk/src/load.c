@@ -134,16 +134,16 @@ static byte sf_get(void)
 {
 	byte c, v;
 
-	/* Get a character, decode the value */
+	// Get a character, decode the value
 	c = getc(fff) & 0xFF;
 	v = c ^ xor_byte;
 	xor_byte = c;
 
-	/* Maintain the checksum info */
+	// Maintain the checksum info
 	v_check += v;
 	x_check += xor_byte;
 
-	/* Return the value */
+	// Return the value
 	return (v);
 }
 
@@ -2023,51 +2023,38 @@ note("特別情報をロードしました");
 			return (34);
 		}
 
-		/* Read the ghost info */
+		// Read the ghost info
 		rd_ghost();
-
 		{
 			s32b tmp32s;
-
 			rd_s32b(&tmp32s);
 			strip_bytes(tmp32s);
 		}
 	}
 
-
+/*
 #ifdef VERIFY_CHECKSUMS
 
-	/* Save the checksum */
-	n_v_check = v_check;
-
-	/* Read the old checksum */
-	rd_u32b(&o_v_check);
-
-	/* Verify */
-	if (o_v_check != n_v_check)
+	n_v_check = v_check; // Save the checksum
+	rd_u32b(&o_v_check); // Read the old checksum
+	if (o_v_check != n_v_check) // Verify
 	{
 #ifdef JP
-note("チェックサムがおかしい");
+		note("チェックサムがおかしい");
 #else
 		note("Invalid checksum");
 #endif
-
 		return (11);
 	}
 
+	n_x_check = x_check; // Save the encoded checksum
+	rd_u32b(&o_x_check); // Read the checksum
 
-	/* Save the encoded checksum */
-	n_x_check = x_check;
-
-	/* Read the checksum */
-	rd_u32b(&o_x_check);
-
-
-	/* Verify */
+	// Verify
 	if (o_x_check != n_x_check)
 	{
 #ifdef JP
-note("エンコードされたチェックサムがおかしい");
+		note("エンコードされたチェックサムがおかしい");
 #else
 		note("Invalid encoded checksum");
 #endif
@@ -2076,9 +2063,8 @@ note("エンコードされたチェックサムがおかしい");
 	}
 
 #endif
-
-	/* Success */
-	return (0);
+*/
+	return (0); // Success
 }
 
 

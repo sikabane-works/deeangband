@@ -1074,12 +1074,9 @@ static bool wr_floors(creature_type *player_ptr)
 static bool wr_savefile_new(void)
 {
 	int        i, j;
-
 	u32b              now;
-
 	byte            tmp8u;
 	u16b            tmp16u;
-
 
 	/* Compact the objects */
 	compact_objects(0);
@@ -1575,9 +1572,7 @@ bool save_player(void)
 int load_player(void)
 {
 	int     fd = -1;
-
 	errr    err = 0;
-
 	byte    vvv[4];
 
 #ifdef VERIFY_TIMESTAMP
@@ -1593,10 +1588,8 @@ int load_player(void)
 	/* Paranoia */
 	gameover = FALSE;
 
-
 	/* Allow empty savefile name */
 	if (!savefile[0]) return 0;
-
 
 #if !defined(MACINTOSH) && !defined(WINDOWS) && !defined(VM)
 
@@ -1783,26 +1776,13 @@ int load_player(void)
 		    (VER_MINOR != z_minor) ||
 		    (VER_PATCH != z_patch))
 		{
-			if (z_major == 2 && z_minor == 0 && z_patch == 6)
-			{
 #ifdef JP
-				msg_print("バージョン 2.0.* 用のセーブファイルを変換しました。");
-#else
-				msg_print("Converted a 2.0.* savefile.");
-#endif
-
-			}
-			else
-			{
-				/* Message */
-#ifdef JP
-				msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。",
+			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。",
 				    (z_major > 9) ? z_major-10 : z_major , z_minor, z_patch);
 #else
-				msg_format("Converted a %d.%d.%d savefile.",
+			msg_format("Converted a %d.%d.%d savefile.",
 				    (z_major > 9) ? z_major-10 : z_major , z_minor, z_patch);
 #endif
-			}
 			msg_print(NULL);
 		}
 
@@ -1829,9 +1809,8 @@ int load_player(void)
 			return 0;
 		}
 
-		/* A character was loaded */
+		// A character was loaded
 		character_loaded = TRUE;
-
 		{
 			u32b tmp = counts_read(2);
 			if (tmp > game_load_count)
@@ -1841,7 +1820,7 @@ int load_player(void)
 			counts_write(1, playtime);
 		}
 
-		/* Success */
+		// Success
 		return 0;
 	}
 
@@ -1864,18 +1843,17 @@ int load_player(void)
 #endif
 
 
-	/* Message */
+	// Message
 #ifdef JP
 	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。",
-		   what, (z_major>9) ? z_major - 10 : z_major, z_minor, z_patch);
+		   what, z_major, z_minor, z_patch);
 #else
 	msg_format("Error (%s) reading %d.%d.%d savefile.",
-		   what, (z_major>9) ? z_major - 10 : z_major, z_minor, z_patch);
+		   what, z_major, z_minor, z_patch);
 #endif
 	msg_print(NULL);
 
-	/* Oops */
-	return 2;
+	return 2; // Oops
 }
 
 
