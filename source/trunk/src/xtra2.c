@@ -4931,39 +4931,29 @@ msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
 }
 
 
-/*
- * XAngband: determine if a given location is "interesting"
- * based on target_set_accept function.
- */
-static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
+// XAngband: determine if a given location is "interesting"
+// based on target_set_accept function.
+static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	if (!(in_bounds(floor_ptr, y, x))) return (FALSE); // Bounds
+	if ((y == creature_ptr->fy) && (x == creature_ptr->fx)) return (TRUE); // Player grid is always interesting
+	if (creature_ptr->image) return (FALSE); // Handle hallucination
+	c_ptr = &floor_ptr->cave[y][x]; // Examine the grid
 
-	/* Bounds */
-	if (!(in_bounds(current_floor_ptr, y, x))) return (FALSE);
-
-	/* Player grid is always interesting */
-	if ((y == cr_ptr->fy) && (x == cr_ptr->fx)) return (TRUE);
-
-	/* Handle hallucination */
-	if (cr_ptr->image) return (FALSE);
-
-	/* Examine the grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
-
-	/* Interesting memorized features */
+	// Interesting memorized features
 	if (c_ptr->info & (CAVE_MARK))
 	{
-		/* Notice stairs */
+		// Notice stairs
 		if (cave_have_flag_grid(c_ptr, FF_LESS)) return (TRUE);
 		if (cave_have_flag_grid(c_ptr, FF_MORE)) return (TRUE);
 
-		/* Notice quest features */
+		// Notice quest features
 		if (cave_have_flag_grid(c_ptr, FF_QUEST_ENTER)) return (TRUE);
 		if (cave_have_flag_grid(c_ptr, FF_QUEST_EXIT)) return (TRUE);
 	}
 
-	/* Nope */
 	return (FALSE);
 }
 
