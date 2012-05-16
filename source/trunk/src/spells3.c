@@ -1324,15 +1324,14 @@ msg_print("照明用アイテムは満タンになった。");
 }
 
 
-/*
- * Brand the current weapon
- */
-void brand_weapon(creature_type *cr_ptr, int brand_type)
+// Brand the current weapon
+void brand_weapon(creature_type *creature_ptr, int brand_type)
 {
 	int         item;
 	object_type *o_ptr;
 	cptr        q, s;
 
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Assume enchant weapon */
 	item_tester_no_two_handed = TRUE;
@@ -1346,12 +1345,12 @@ s = "強化できる武器がない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1388,7 +1387,7 @@ act = "は鋭さを増した！";
 #endif
 
 				o_ptr->name2 = EGO_SHARPNESS;
-				o_ptr->pval = m_bonus(5, current_floor_ptr->floor_level) + 1;
+				o_ptr->pval = m_bonus(5, floor_ptr->floor_level) + 1;
 
 				if ((o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2))
 					o_ptr->pval = 2;
@@ -1402,7 +1401,7 @@ act = "は破壊力を増した！";
 #endif
 
 				o_ptr->name2 = EGO_EARTHQUAKES;
-				o_ptr->pval = m_bonus(3, current_floor_ptr->floor_level);
+				o_ptr->pval = m_bonus(3, floor_ptr->floor_level);
 			}
 			break;
 		case 16:
@@ -1568,7 +1567,7 @@ msg_format("あなたの%s%s", o_name, act);
 #endif
 
 
-		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		o_ptr->discount = 99;
 	}
@@ -1583,7 +1582,7 @@ msg_print("属性付加に失敗した。");
 #endif
 
 	}
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 }
 
 
