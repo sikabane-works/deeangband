@@ -1271,19 +1271,17 @@ void do_cmd_open(creature_type *cr_ptr)
 
 /*
  * Perform the basic "close" command
- *
  * Assume destination is an open/broken door
- *
  * Assume there is no monster blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
+static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 {
-	/* Get grid and contents */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
-	s16b      old_feat = c_ptr->feat;
-	bool      more = FALSE;
+	// Get grid and contents
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type  *c_ptr = &floor_ptr->cave[y][x];
+	s16b       old_feat = c_ptr->feat;
+	bool       more = FALSE;
 
 	/* Take a turn */
 	energy_use = 100;
@@ -1293,7 +1291,7 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 	/* Open door */
 	if (have_flag(f_info[old_feat].flags, FF_CLOSE))
 	{
-		s16b closed_feat = feat_state(current_floor_ptr, old_feat, FF_CLOSE);
+		s16b closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
 		if ((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
@@ -1309,7 +1307,7 @@ static bool do_cmd_close_aux(creature_type *cr_ptr, int y, int x)
 		else
 		{
 			/* Close the door */
-			cave_alter_feat(current_floor_ptr, y, x, FF_CLOSE);
+			cave_alter_feat(floor_ptr, y, x, FF_CLOSE);
 
 			/* Broken door */
 			if (old_feat == c_ptr->feat)
