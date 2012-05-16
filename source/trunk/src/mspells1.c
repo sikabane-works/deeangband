@@ -1270,6 +1270,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  */
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
+	floor_type      *floor_ptr = get_floor_ptr(caster_ptr);
 	int             k, thrown_spell = 0, rlev, failrate;
 	int             racial_spell[CF_FLAG_MAX], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
@@ -1307,7 +1308,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check "projectable" */
 	bool direct;
 
-	bool in_no_magic_dungeon = (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && current_floor_ptr->floor_level
+	bool in_no_magic_dungeon = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && floor_ptr->floor_level
 		&& (!inside_quest || is_fixed_quest_idx(inside_quest));
 
 	bool can_use_lite_area = FALSE;
@@ -1343,9 +1344,9 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		y_br_lite = y;
 		x_br_lite = x;
 
-		if (los(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
+		if (los(floor_ptr, caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
 		{
-			feature_type *f_ptr = &f_info[current_floor_ptr->cave[y_br_lite][x_br_lite].feat];
+			feature_type *f_ptr = &f_info[floor_ptr->cave[y_br_lite][x_br_lite].feat];
 
 			if (!have_flag(f_ptr->flags, FF_LOS))
 			{
@@ -1367,7 +1368,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check path */
 	if (projectable(caster_ptr->fy, caster_ptr->fx, y, x))
 	{
-		feature_type *f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
+		feature_type *f_ptr = &f_info[floor_ptr->cave[y][x].feat];
 
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{
@@ -1392,7 +1393,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			success = TRUE;
 		}
 		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
-		    los(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
+		    los(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
@@ -1401,7 +1402,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		{
 			int by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
-			if ((distance(by, bx, y, x) <= 3) && los(current_floor_ptr, by, bx, y, x) && one_in_(5))
+			if ((distance(by, bx, y, x) <= 3) && los(floor_ptr, by, bx, y, x) && one_in_(5))
 			{
 				do_spell = DO_SPELL_BA_LITE;
 				success = TRUE;
@@ -1462,7 +1463,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if (!has_cf_creature(caster_ptr, CF_STUPID))
 		{
-			//TODO if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
+			//TODO if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			//TODO else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
@@ -1487,7 +1488,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(current_floor_ptr, target_ptr, 0))
+		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(floor_ptr, target_ptr, 0))
 		{
 			//TODO f6 &= ~(RF6_TELE_LEVEL);
 		}
@@ -3313,11 +3314,11 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int dummy_x = caster_ptr->fx;
 
 					if (fight_arena_mode || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[current_floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BANOR, mode);
+					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_LUPART, mode);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_LUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -3353,7 +3354,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 							delete_species_idx(&creature_list[k]);
 						}
 					}
-					summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BANORLUPART, mode);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BANORLUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -3380,7 +3381,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_SHURYUUDAN, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_SHURYUUDAN, mode);
 					}
 				}
 #ifdef JP
@@ -3722,7 +3723,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_IE, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_IE, mode);
 					}
 				}
 				break;
@@ -3754,7 +3755,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int num = randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, current_floor_ptr, y, x, MON_LOCKE_CLONE, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_LOCKE_CLONE, mode);
 					}
 				}
 				break;
@@ -4135,19 +4136,19 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 				for (k = 0; k < 30; k++)
 				{
-					if (!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(current_floor_ptr, cy, cx))
+					if (!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
 					{
 						int j;
 						for (j = 100; j > 0; j--)
 						{
-							scatter(current_floor_ptr, &cy, &cx, y, x, 2, 0);
-							if (cave_empty_bold(current_floor_ptr, cy, cx)) break;
+							scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
+							if (cave_empty_bold(floor_ptr, cy, cx)) break;
 						}
 						if (!j) break;
 					}
-					if (!cave_empty_bold(current_floor_ptr, cy, cx)) continue;
+					if (!cave_empty_bold(floor_ptr, cy, cx)) continue;
 
-					if (summon_named_creature(caster_ptr, current_floor_ptr, cy, cx, MON_NAZGUL, mode))
+					if (summon_named_creature(caster_ptr, floor_ptr, cy, cx, MON_NAZGUL, mode))
 					{
 						y = cy;
 						x = cx;

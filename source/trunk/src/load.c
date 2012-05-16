@@ -2032,7 +2032,6 @@ note("特別情報をロードしました");
 		}
 	}
 
-/*
 #ifdef VERIFY_CHECKSUMS
 
 	n_v_check = v_check; // Save the checksum
@@ -2063,7 +2062,7 @@ note("特別情報をロードしました");
 	}
 
 #endif
-*/
+
 	return (0); // Success
 }
 
