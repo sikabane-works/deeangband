@@ -942,31 +942,30 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 }
 
 
-/*
- * Drop 10+1d10 disintegration ball at random places near the target
- */
-static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
+// Drop 10+1d10 disintegration ball at random places near the target
+static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int x, y, tx, ty;
 	int nx, ny;
 	int dir, i;
 	int b = 10 + randint1(10);
 
-	if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+	if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = cr_ptr->fx + 99 * ddx[dir];
-	ty = cr_ptr->fy + 99 * ddy[dir];
+	tx = creature_ptr->fx + 99 * ddx[dir];
+	ty = creature_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay(cr_ptr))
+	if ((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
 	}
 
-	x = cr_ptr->fx;
-	y = cr_ptr->fy;
+	x = creature_ptr->fx;
+	y = creature_ptr->fy;
 
 	while (1)
 	{
@@ -975,16 +974,16 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 
 		ny = y;
 		nx = x;
-		mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
+		mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Stop at maximum range */
-		if (MAX_RANGE <= distance(cr_ptr->fy, cr_ptr->fx, ny, nx)) break;
+		if (MAX_RANGE <= distance(creature_ptr->fy, creature_ptr->fx, ny, nx)) break;
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(current_floor_ptr, ny, nx, FF_PROJECT)) break;
+		if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
 
 		/* Stopped by monsters */
-		if ((dir != 5) && current_floor_ptr->cave[ny][nx].creature_idx != 0) break;
+		if ((dir != 5) && floor_ptr->cave[ny][nx].creature_idx != 0) break;
 
 		/* Save the new location */
 		x = nx;
@@ -1016,12 +1015,12 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 		if (count < 0) continue;
 
 		/* Cannot penetrate perm walls */
-		if (!in_bounds(current_floor_ptr, y, x) ||
-		    cave_stop_disintegration(current_floor_ptr, y, x) ||
+		if (!in_bounds(floor_ptr, y, x) ||
+		    cave_stop_disintegration(floor_ptr, y, x) ||
 		    !in_disintegration_range(ty, tx, y, x))
 			continue;
 
-		project(cr_ptr, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		project(creature_ptr, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	return TRUE;
