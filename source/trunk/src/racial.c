@@ -885,14 +885,15 @@ static void ratial_stop_mouth(creature_type *cr_ptr)
 }
 
 
-static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
+static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 {
-	s16b        plev = cr_ptr->lev;
+	s16b        plev = creature_ptr->lev;
 	int         dir = 0;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	if (command <= -3)
 	{
-		switch (cr_ptr->cls_idx)
+		switch (creature_ptr->cls_idx)
 		{
 		case CLASS_WARRIOR:
 		{
@@ -902,13 +903,13 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			for (i = 0; i < 6; i++)
 			{
 				dir = randint0(8);
-				y = cr_ptr->fy + ddy_ddd[dir];
-				x = cr_ptr->fx + ddx_ddd[dir];
-				c_ptr = &current_floor_ptr->cave[y][x];
+				y = creature_ptr->fy + ddy_ddd[dir];
+				x = creature_ptr->fx + ddx_ddd[dir];
+				c_ptr = &floor_ptr->cave[y][x];
 
 				/* Hack -- attack monsters */
 				if (c_ptr->creature_idx)
-					weapon_attack(cr_ptr, y, x, 0);
+					weapon_attack(creature_ptr, y, x, 0);
 				else
 				{
 #ifdef JP
@@ -921,9 +922,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			break;
 		}
 		case CLASS_HIGH_MAGE:
-		if (cr_ptr->realm1 == REALM_HEX)
+		if (creature_ptr->realm1 == REALM_HEX)
 		{
-			bool retval = stop_hex_spell(cr_ptr);
+			bool retval = stop_hex_spell(creature_ptr);
 			if (retval) energy_use = 10;
 			return (retval);
 		}
@@ -931,20 +932,20 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		/* case CLASS_HIGH_MAGE: */
 		case CLASS_SORCERER:
 		{
-			if (!eat_magic(cr_ptr, cr_ptr->lev * 2)) return FALSE;
+			if (!eat_magic(creature_ptr, creature_ptr->lev * 2)) return FALSE;
 			break;
 		}
 		case CLASS_PRIEST:
 		{
-			if (is_good_realm(cr_ptr->realm1))
+			if (is_good_realm(creature_ptr->realm1))
 			{
-				if (!bless_weapon(cr_ptr)) return FALSE;
+				if (!bless_weapon(creature_ptr)) return FALSE;
 			}
 			else
 			{
-				(void)dispel_creatures(cr_ptr, plev * 4);
-				turn_creatures(cr_ptr, plev * 4);
-				banish_creatures(cr_ptr, plev * 4);
+				(void)dispel_creatures(creature_ptr, plev * 4);
+				turn_creatures(creature_ptr, plev * 4);
+				banish_creatures(creature_ptr, plev * 4);
 			}
 			break;
 		}
@@ -952,19 +953,19 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			int x, y;
 
-			if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
-			y = cr_ptr->fy + ddy[dir];
-			x = cr_ptr->fx + ddx[dir];
-			if (current_floor_ptr->cave[y][x].creature_idx)
+			if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
+			y = creature_ptr->fy + ddy[dir];
+			x = creature_ptr->fx + ddx[dir];
+			if (floor_ptr->cave[y][x].creature_idx)
 			{
-				weapon_attack(cr_ptr, y, x, 0);
-				if (randint0(cr_ptr->skill_dis) < 7)
+				weapon_attack(creature_ptr, y, x, 0);
+				if (randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 					msg_print("うまく逃げられなかった。");
 #else
 					msg_print("You are failed to run away.");
 #endif
-				else teleport_player(cr_ptr, 30, 0L);
+				else teleport_player(creature_ptr, 30, 0L);
 			}
 			else
 			{
@@ -992,8 +993,8 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_PALADIN:
 		{
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_beam(cr_ptr, is_good_realm(cr_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			fire_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
 			          dir, plev * 3);
 			break;
 		}
@@ -1002,17 +1003,17 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 #ifdef JP
-				int gain_sp = take_hit(NULL, cr_ptr, DAMAGE_USELIFE, cr_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
+				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
 #else
-				int gain_sp = take_hit(NULL, cr_ptr, DAMAGE_USELIFE, cr_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
+				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
 				if (gain_sp)
 				{
-					cr_ptr->csp += gain_sp;
-					if (cr_ptr->csp > cr_ptr->msp)
+					creature_ptr->csp += gain_sp;
+					if (creature_ptr->csp > creature_ptr->msp)
 					{
-						cr_ptr->csp = cr_ptr->msp;
-						cr_ptr->csp_frac = 0;
+						creature_ptr->csp = creature_ptr->msp;
+						creature_ptr->csp_frac = 0;
 					}
 				}
 				else
@@ -1024,10 +1025,10 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (cr_ptr->csp >= cr_ptr->lev / 5)
+				if (creature_ptr->csp >= creature_ptr->lev / 5)
 				{
-					cr_ptr->csp -= cr_ptr->lev / 5;
-					hp_player(cr_ptr, cr_ptr->lev);
+					creature_ptr->csp -= creature_ptr->lev / 5;
+					hp_player(creature_ptr, creature_ptr->lev);
 				}
 				else
 #ifdef JP
@@ -1049,16 +1050,16 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 			msg_print("You glare nearby monsters...");
 #endif
-			slow_creatures(cr_ptr);
-			stun_creatures(cr_ptr, cr_ptr->lev * 4);
-			confuse_creatures(cr_ptr, cr_ptr->lev * 4);
-			turn_creatures(cr_ptr, cr_ptr->lev * 4);
-			stasis_creatures(cr_ptr, cr_ptr->lev * 4);
+			slow_creatures(creature_ptr);
+			stun_creatures(creature_ptr, creature_ptr->lev * 4);
+			confuse_creatures(creature_ptr, creature_ptr->lev * 4);
+			turn_creatures(creature_ptr, creature_ptr->lev * 4);
+			stasis_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 		}
 		case CLASS_MONK:
 		{
-			if (!(empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
+			if (!(empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
 #ifdef JP
 				msg_print("素手じゃないとできません。");
@@ -1067,7 +1068,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 				return FALSE;
 			}
-			if (cr_ptr->riding)
+			if (creature_ptr->riding)
 			{
 #ifdef JP
 				msg_print("乗馬中はできません。");
@@ -1079,17 +1080,17 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 			if (command == -3)
 			{
-				if (!choose_kamae(cr_ptr)) return FALSE;
-				cr_ptr->creature_update |= (CRU_BONUS);
+				if (!choose_kamae(creature_ptr)) return FALSE;
+				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 			else if (command == -4)
 			{
 				int x, y;
 
-				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
-				y = cr_ptr->fy + ddy[dir];
-				x = cr_ptr->fx + ddx[dir];
-				if (current_floor_ptr->cave[y][x].creature_idx)
+				if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
+				y = creature_ptr->fy + ddy[dir];
+				x = creature_ptr->fx + ddx[dir];
+				if (floor_ptr->cave[y][x].creature_idx)
 				{
 #ifdef JP
 					if (one_in_(3)) msg_print("あーたたたたたたたたたたたたたたたたたたたたたた！！！");
@@ -1101,13 +1102,13 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					else msg_print("Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!");
 #endif
 
-					weapon_attack(cr_ptr, y, x, 0);
-					if (current_floor_ptr->cave[y][x].creature_idx)
+					weapon_attack(creature_ptr, y, x, 0);
+					if (floor_ptr->cave[y][x].creature_idx)
 					{
 						handle_stuff();
-						weapon_attack(cr_ptr, y, x, 0);
+						weapon_attack(creature_ptr, y, x, 0);
 					}
-					cr_ptr->energy_need += ENERGY_NEED();
+					creature_ptr->energy_need += ENERGY_NEED();
 				}
 				else
 				{
@@ -1140,11 +1141,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You feel your head clear a little.");
 #endif
 
-			cr_ptr->csp += (3 + cr_ptr->lev/20);
-			if (cr_ptr->csp >= cr_ptr->msp)
+			creature_ptr->csp += (3 + creature_ptr->lev/20);
+			if (creature_ptr->csp >= creature_ptr->msp)
 			{
-				cr_ptr->csp = cr_ptr->msp;
-				cr_ptr->csp_frac = 0;
+				creature_ptr->csp = creature_ptr->msp;
+				creature_ptr->csp_frac = 0;
 			}
 
 			/* Redraw mana */
@@ -1155,69 +1156,69 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			if (command == -3)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 				project_length = 1;
-				fire_beam(cr_ptr, GF_PHOTO, dir, 1);
+				fire_beam(creature_ptr, GF_PHOTO, dir, 1);
 			}
 			else if (command == -4)
 			{
-				if (!identify_fully(cr_ptr, FALSE)) return FALSE;
+				if (!identify_fully(creature_ptr, FALSE)) return FALSE;
 			}
 			break;
 		}
 		case CLASS_IMITATOR:
 		{
 			handle_stuff();
-			if (!do_cmd_mane(cr_ptr, TRUE)) return FALSE;
+			if (!do_cmd_mane(creature_ptr, TRUE)) return FALSE;
 			break;
 		}
 		case CLASS_BEASTMASTER:
 		{
 			if (command == -3)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-				(void)fire_ball_hide(cr_ptr, GF_CONTROL_LIVING, dir, cr_ptr->lev, 0);
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				(void)fire_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
 			}
 			else if (command == -4)
 			{
-				project_hack(cr_ptr, GF_CONTROL_LIVING, cr_ptr->lev);
+				project_hack(creature_ptr, GF_CONTROL_LIVING, creature_ptr->lev);
 			}
 			break;
 		}
 		case CLASS_ARCHER:
 		{
-			if (!do_cmd_archer(cr_ptr)) return FALSE;
+			if (!do_cmd_archer(creature_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_MAGIC_EATER:
 		{
-			if (!gain_magic(cr_ptr)) return FALSE;
+			if (!gain_magic(creature_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_BARD:
 		{
 			/* Singing is already stopped */
-			if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return FALSE;
+			if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return FALSE;
 
-			stop_singing(cr_ptr);
+			stop_singing(creature_ptr);
 			energy_use = 10;
 			break;
 		}
 		case CLASS_RED_MAGE:
 		{
-			if (!can_do_cmd_cast(cr_ptr)) return FALSE;
+			if (!can_do_cmd_cast(creature_ptr)) return FALSE;
 			handle_stuff();
-			do_cmd_cast(cr_ptr);
+			do_cmd_cast(creature_ptr);
 			handle_stuff();
-			if (!cr_ptr->paralyzed && can_do_cmd_cast(cr_ptr))
-				do_cmd_cast(cr_ptr);
+			if (!creature_ptr->paralyzed && can_do_cmd_cast(creature_ptr))
+				do_cmd_cast(creature_ptr);
 			break;
 		}
 		case CLASS_SAMURAI:
 		{
 			if (command == -3)
 			{
-				int max_csp = MAX(cr_ptr->msp*4, cr_ptr->lev*5+5);
+				int max_csp = MAX(creature_ptr->msp*4, creature_ptr->lev*5+5);
 
 				if (total_friends)
 				{
@@ -1228,7 +1229,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if (cr_ptr->special_defense & KATA_MASK)
+				if (creature_ptr->special_defense & KATA_MASK)
 				{
 #ifdef JP
 					msg_print("今は構えに集中している。");
@@ -1243,11 +1244,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You concentrate to charge your power.");
 #endif
 
-				cr_ptr->csp += cr_ptr->msp / 2;
-				if (cr_ptr->csp >= max_csp)
+				creature_ptr->csp += creature_ptr->msp / 2;
+				if (creature_ptr->csp >= max_csp)
 				{
-					cr_ptr->csp = max_csp;
-					cr_ptr->csp_frac = 0;
+					creature_ptr->csp = max_csp;
+					creature_ptr->csp_frac = 0;
 				}
 
 				/* Redraw mana */
@@ -1255,7 +1256,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+				if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 				{
 #ifdef JP
 					msg_print("武器を持たないといけません。");
@@ -1264,20 +1265,20 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if (!choose_kata(cr_ptr)) return FALSE;
-				cr_ptr->creature_update |= (CRU_BONUS);
+				if (!choose_kata(creature_ptr)) return FALSE;
+				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 			break;
 		}
 		case CLASS_BLUE_MAGE:
 		{
-			if (cr_ptr->action == ACTION_LEARN)
+			if (creature_ptr->action == ACTION_LEARN)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 			else
 			{
-				set_action(cr_ptr, ACTION_LEARN);
+				set_action(creature_ptr, ACTION_LEARN);
 			}
 			energy_use = 0;
 			break;
@@ -1288,7 +1289,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			creature_type *steed_ptr;
 			int rlev;
 
-			if (cr_ptr->riding)
+			if (creature_ptr->riding)
 			{
 #ifdef JP
 				msg_print("今は乗馬中だ。");
@@ -1297,8 +1298,8 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 				return FALSE;
 			}
-			if (!do_riding(cr_ptr, TRUE)) return TRUE;
-			steed_ptr = &creature_list[cr_ptr->riding];
+			if (!do_riding(creature_ptr, TRUE)) return TRUE;
+			steed_ptr = &creature_list[creature_ptr->riding];
 			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%sに乗った。",steed_name);
@@ -1309,17 +1310,17 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			rlev = steed_ptr->lev;
 			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
-			if ((randint1(cr_ptr->skill_exp[GINOU_RIDING] / 120 + cr_ptr->lev * 2 / 3) > rlev)
+			if ((randint1(creature_ptr->skill_exp[GINOU_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !fight_arena_mode && !gamble_arena_mode
 			    && !has_cf_creature(steed_ptr, CF_GUARDIAN) && !has_cf_creature(steed_ptr, CF_UNIQUE)
-			    && (rlev < cr_ptr->lev * 3 / 2 + randint0(cr_ptr->lev / 5)))
+			    && (rlev < creature_ptr->lev * 3 / 2 + randint0(creature_ptr->lev / 5)))
 			{
 #ifdef JP
 				msg_format("%sを手なずけた。",steed_name);
 #else
 				msg_format("You tame %s.",steed_name);
 #endif
-				set_pet(cr_ptr, steed_ptr);
+				set_pet(creature_ptr, steed_ptr);
 			}
 			else
 			{
@@ -1328,28 +1329,28 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_format("You have thrown off by %s.",steed_name);
 #endif
-				rakuba(cr_ptr, 1, TRUE);
+				rakuba(creature_ptr, 1, TRUE);
 
 				/* Paranoia */
 				/* 落馬処理に失敗してもとにかく乗馬解除 */
-				cr_ptr->riding = 0;
+				creature_ptr->riding = 0;
 			}
 			break;
 		}
 		case CLASS_BERSERKER:
 		{
-			if (!word_of_recall(cr_ptr)) return FALSE;
+			if (!word_of_recall(creature_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_SMITH:
 		{
-			if (cr_ptr->lev > 29)
+			if (creature_ptr->lev > 29)
 			{
-				if (!identify_fully(cr_ptr, TRUE)) return FALSE;
+				if (!identify_fully(creature_ptr, TRUE)) return FALSE;
 			}
 			else
 			{
-				if (!ident_spell(cr_ptr, TRUE)) return FALSE;
+				if (!ident_spell(creature_ptr, TRUE)) return FALSE;
 			}
 			break;
 		}
@@ -1358,7 +1359,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 				/* Explode all mirrors */
-				remove_all_mirrors(cr_ptr, TRUE);
+				remove_all_mirrors(creature_ptr, TRUE);
 			}
 			else if (command == -4)
 			{
@@ -1371,7 +1372,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if (is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]))
+				if (is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]))
 				{
 #ifdef JP
 					msg_print("少し頭がハッキリした。");
@@ -1379,11 +1380,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					msg_print("You feel your head clear a little.");
 #endif
 
-					cr_ptr->csp += (5 + cr_ptr->lev * cr_ptr->lev / 100);
-					if (cr_ptr->csp >= cr_ptr->msp)
+					creature_ptr->csp += (5 + creature_ptr->lev * creature_ptr->lev / 100);
+					if (creature_ptr->csp >= creature_ptr->msp)
 					{
-						cr_ptr->csp = cr_ptr->msp;
-						cr_ptr->csp_frac = 0;
+						creature_ptr->csp = creature_ptr->msp;
+						creature_ptr->csp_frac = 0;
 					}
 
 					/* Redraw mana */
@@ -1402,17 +1403,17 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_NINJA:
 		{
-			if (cr_ptr->action == ACTION_HAYAGAKE)
+			if (creature_ptr->action == ACTION_HAYAGAKE)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 			else
 			{
-				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 				feature_type *f_ptr = &f_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
-				    (!cr_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP)))
+				    (!creature_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP)))
 				{
 #ifdef JP
 					msg_print("ここでは素早く動けない。");
@@ -1422,7 +1423,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				}
 				else
 				{
-					set_action(cr_ptr, ACTION_HAYAGAKE);
+					set_action(creature_ptr, ACTION_HAYAGAKE);
 				}
 			}
 			energy_use = 0;
@@ -1430,27 +1431,27 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		}
 	}
-	else if (cr_ptr->mimic_form)
+	else if (creature_ptr->mimic_form)
 	{
-		switch (cr_ptr->mimic_form)
+		switch (creature_ptr->mimic_form)
 		{
 		case MIMIC_DEMON:
 		case MIMIC_DEMON_LORD:
 		{
 			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(cr_ptr);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
 			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-			fire_ball(cr_ptr, type, dir, plev * 3, -(plev / 15) - 1);
+			fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			break;
 		}
 		case MIMIC_VAMPIRE:
-			if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("なぜか攻撃することができない。");
@@ -1465,12 +1466,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				cave_type *c_ptr;
 
 				/* Only works on adjacent monsters */
-				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
-				y = cr_ptr->fy + ddy[dir];
-				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &current_floor_ptr->cave[y][x];
+				if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
+				y = creature_ptr->fy + ddy[dir];
+				x = creature_ptr->fx + ddx[dir];
+				c_ptr = &floor_ptr->cave[y][x];
 
-				ratial_stop_mouth(cr_ptr);
+				ratial_stop_mouth(creature_ptr);
 
 				if (!c_ptr->creature_idx)
 				{
@@ -1490,11 +1491,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   /* Dmg */
-				if (drain_life(cr_ptr, dir, dummy))
+				if (drain_life(creature_ptr, dir, dummy))
 				{
-					if (cr_ptr->food < PY_FOOD_FULL)
+					if (creature_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(cr_ptr, dummy);
+						(void)hp_player(creature_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("あなたは空腹ではありません。");
@@ -1506,9 +1507,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					/* A Food ration gives 5000 food points (by contrast) */
 					/* Don't ever get more than "Full" this way */
 					/* But if we ARE Gorged,  it won't cure us */
-					dummy = cr_ptr->food + MIN(5000, 100 * dummy);
-					if (cr_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(cr_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
+					if (creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP
@@ -1525,7 +1526,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 	else 
 	{
 
-	switch (cr_ptr->race_idx1)
+	switch (creature_ptr->race_idx1)
 	{
 		case RACE_DWARF:
 #ifdef JP
@@ -1534,9 +1535,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You examine your surroundings.");
 #endif
 
-			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case RACE_HOBBIT:
@@ -1551,7 +1552,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
+				(void)drop_near(q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 #ifdef JP
 				msg_print("食事を料理して作った。");
 #else
@@ -1568,7 +1569,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("Blink!");
 #endif
 
-			teleport_player(cr_ptr, 10, 0L);
+			teleport_player(creature_ptr, 10, 0L);
 			break;
 
 		case RACE_ORC:
@@ -1578,7 +1579,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You play tough.");
 #endif
 
-			(void)set_afraid(cr_ptr, 0);
+			(void)set_afraid(creature_ptr, 0);
 			break;
 
 		case RACE_TROLL:
@@ -1588,9 +1589,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("RAAAGH!");
 #endif
 
-			(void)set_afraid(cr_ptr, 0);
-			(void)set_shero(cr_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(cr_ptr, 30);
+			(void)set_afraid(creature_ptr, 0);
+			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
+			(void)hp_player(creature_ptr, 30);
 			break;
 
 		case RACE_AMBERITE:
@@ -1601,7 +1602,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You start walking around. ");
 #endif
-				alter_reality(cr_ptr);
+				alter_reality(creature_ptr);
 			}
 			else if (command == -2)
 			{
@@ -1611,19 +1612,19 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You picture the Pattern in your mind and walk it...");
 #endif
 
-				(void)set_poisoned(cr_ptr, 0);
-				(void)set_image(cr_ptr, 0);
-				(void)set_stun(cr_ptr, 0);
-				(void)set_cut(cr_ptr, 0);
-				(void)set_blind(cr_ptr, 0);
-				(void)set_afraid(cr_ptr, 0);
-				(void)do_res_stat(cr_ptr, STAT_STR);
-				(void)do_res_stat(cr_ptr, STAT_INT);
-				(void)do_res_stat(cr_ptr, STAT_WIS);
-				(void)do_res_stat(cr_ptr, STAT_DEX);
-				(void)do_res_stat(cr_ptr, STAT_CON);
-				(void)do_res_stat(cr_ptr, STAT_CHA);
-				(void)restore_level(cr_ptr);
+				(void)set_poisoned(creature_ptr, 0);
+				(void)set_image(creature_ptr, 0);
+				(void)set_stun(creature_ptr, 0);
+				(void)set_cut(creature_ptr, 0);
+				(void)set_blind(creature_ptr, 0);
+				(void)set_afraid(creature_ptr, 0);
+				(void)do_res_stat(creature_ptr, STAT_STR);
+				(void)do_res_stat(creature_ptr, STAT_INT);
+				(void)do_res_stat(creature_ptr, STAT_WIS);
+				(void)do_res_stat(creature_ptr, STAT_DEX);
+				(void)do_res_stat(creature_ptr, STAT_CON);
+				(void)do_res_stat(creature_ptr, STAT_CHA);
+				(void)restore_level(creature_ptr);
 			}
 			break;
 
@@ -1634,9 +1635,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("Raaagh!");
 #endif
 
-			(void)set_afraid(cr_ptr, 0);
-			(void)set_shero(cr_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(cr_ptr, 30);
+			(void)set_afraid(creature_ptr, 0);
+			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
+			(void)hp_player(creature_ptr, 30);
 			break;
 
 		case RACE_OGRE:
@@ -1646,12 +1647,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You carefully set an explosive rune...");
 #endif
 
-			explosive_rune(cr_ptr);
+			explosive_rune(creature_ptr);
 			break;
 
 		case RACE_GIANT:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			(void)wall_to_mud(cr_ptr, dir);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			(void)wall_to_mud(creature_ptr, dir);
 			break;
 
 		case RACE_TITAN:
@@ -1665,50 +1666,50 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			break;
 
 		case RACE_CYCLOPS:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("巨大な岩を投げた。");
 #else
 			msg_print("You throw a huge boulder.");
 #endif
 
-			fire_bolt(cr_ptr, GF_MISSILE, dir, (3 * plev) / 2);
+			fire_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
 		case RACE_YEEK:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(cr_ptr);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("身の毛もよだつ叫び声を上げた！");
 #else
 			msg_print("You make a horrible scream!");
 #endif
 
-			(void)fear_creature(cr_ptr, dir, plev);
+			(void)fear_creature(creature_ptr, dir, plev);
 			break;
 
 		case RACE_KLACKON:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(cr_ptr);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("酸を吐いた。");
 #else
 			msg_print("You spit acid.");
 #endif
 
-			if (plev < 25) fire_bolt(cr_ptr, GF_ACID, dir, plev);
-			else fire_ball(cr_ptr, GF_ACID, dir, plev, 2);
+			if (plev < 25) fire_bolt(creature_ptr, GF_ACID, dir, plev);
+			else fire_ball(creature_ptr, GF_ACID, dir, plev, 2);
 			break;
 
 		case RACE_KOBOLD:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("毒のダーツを投げた。");
 #else
 			msg_print("You throw a dart of poison.");
 #endif
 
-			fire_bolt(cr_ptr, GF_POIS, dir, plev);
+			fire_bolt(creature_ptr, GF_POIS, dir, plev);
 			break;
 
 		case RACE_NIBELUNG:
@@ -1718,20 +1719,20 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You examine your surroundings.");
 #endif
 
-			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case RACE_DARK_ELF:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("マジック・ミサイルを放った。");
 #else
 			msg_print("You cast a magic missile.");
 #endif
 
-			fire_bolt_or_beam(cr_ptr, 10, GF_MISSILE, dir,
+			fire_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
 			    damroll(3 + ((plev - 1) / 5), 4));
 			break;
 
@@ -1744,11 +1745,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				cptr Type_desc = ((Type == GF_COLD) ? "cold" : "fire");
 #endif
 
-				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 				if (randint1(100) < plev)
 				{
-					switch (cr_ptr->cls_idx)
+					switch (creature_ptr->cls_idx)
 					{
 						case CLASS_WARRIOR:
 						case CLASS_BERSERKER:
@@ -1930,7 +1931,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					}
 				}
 
-				ratial_stop_mouth(cr_ptr);
+				ratial_stop_mouth(creature_ptr);
 
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。", Type_desc);
@@ -1938,24 +1939,24 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_format("You breathe %s.", Type_desc);
 #endif
 
-				fire_ball(cr_ptr, Type, dir, plev * 2,
+				fire_ball(creature_ptr, Type, dir, plev * 2,
 				    -(plev / 15) - 1);
 			}
 			break;
 
 		case RACE_MIND_FLAYER:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("あなたは集中し、目が赤く輝いた...");
 #else
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			fire_bolt(cr_ptr, GF_PSI, dir, plev);
+			fire_bolt(creature_ptr, GF_PSI, dir, plev);
 			break;
 
 		case RACE_IMP:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			if (plev >= 30)
 			{
 #ifdef JP
@@ -1964,7 +1965,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You cast a ball of fire.");
 #endif
 
-				fire_ball(cr_ptr, GF_FIRE, dir, plev, 2);
+				fire_ball(creature_ptr, GF_FIRE, dir, plev, 2);
 			}
 			else
 			{
@@ -1974,7 +1975,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				fire_bolt(cr_ptr, GF_FIRE, dir, plev);
+				fire_bolt(creature_ptr, GF_FIRE, dir, plev);
 			}
 			break;
 
@@ -1987,11 +1988,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You attempt to restore your lost energies.");
 #endif
 
-			(void)restore_level(cr_ptr);
+			(void)restore_level(creature_ptr);
 			break;
 
 		case RACE_VAMPIRE:
-			if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("なぜか攻撃することができない。");
@@ -2006,12 +2007,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				cave_type *c_ptr;
 
 				//Only works on adjacent monsters
-				if (!get_rep_dir(cr_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
-				y = cr_ptr->fy + ddy[dir];
-				x = cr_ptr->fx + ddx[dir];
-				c_ptr = &current_floor_ptr->cave[y][x];
+				if (!get_rep_dir(creature_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
+				y = creature_ptr->fy + ddy[dir];
+				x = creature_ptr->fx + ddx[dir];
+				c_ptr = &floor_ptr->cave[y][x];
 
-				ratial_stop_mouth(cr_ptr);
+				ratial_stop_mouth(creature_ptr);
 
 				if (!c_ptr->creature_idx)
 				{
@@ -2031,11 +2032,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
-				if (drain_life(cr_ptr, dir, dummy))
+				if (drain_life(creature_ptr, dir, dummy))
 				{
-					if (cr_ptr->food < PY_FOOD_FULL)
+					if (creature_ptr->food < PY_FOOD_FULL)
 						// No heal if we are "full"
-						(void)hp_player(cr_ptr, dummy);
+						(void)hp_player(creature_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("あなたは空腹ではありません。");
@@ -2047,9 +2048,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					// A Food ration gives 5000 food points (by contrast)
 					// Don't ever get more than "Full" this way
 					// But if we ARE Gorged,  it won't cure us
-					dummy = cr_ptr->food + MIN(5000, 100 * dummy);
-					if (cr_ptr->food < PY_FOOD_MAX)   // Not gorged already
-						(void)set_food(cr_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
+					if (creature_ptr->food < PY_FOOD_MAX)   // Not gorged already
+						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP
@@ -2064,8 +2065,8 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 			/*
 		case LICH:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(cr_ptr);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("あなたはおどろおどろしい叫び声をあげた！");
 #else
@@ -2083,33 +2084,33 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You throw some magic dust...");
 #endif
 
-			if (plev < 25) sleep_creatures_touch(cr_ptr);
-			else (void)sleep_creatures(cr_ptr);
+			if (plev < 25) sleep_creatures_touch(creature_ptr);
+			else (void)sleep_creatures(creature_ptr);
 			break;
 
 		case RACE_DEMON:
 		case RACE_BALROG:
 			{
 				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-				ratial_stop_mouth(cr_ptr);
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				ratial_stop_mouth(creature_ptr);
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
 				msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-				fire_ball(cr_ptr, type, dir, plev * 3, -(plev / 15) - 1);
+				fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			}
 			break;
 
 		case RACE_KUTAR:
-			(void)set_tsubureru(cr_ptr, randint1(20) + 30, FALSE);
+			(void)set_tsubureru(creature_ptr, randint1(20) + 30, FALSE);
 			break;
 
 /*TODO
 		case RACE_ANDROID:
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			if (plev < 10)
 			{
 #ifdef JP
@@ -2117,7 +2118,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				fire_bolt(cr_ptr, GF_MISSILE, dir, (plev+1) / 2);
+				fire_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
 			}
 			else if (plev < 25)
 			{
@@ -2126,7 +2127,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				fire_bolt(cr_ptr, GF_MISSILE, dir, plev);
+				fire_bolt(creature_ptr, GF_MISSILE, dir, plev);
 			}
 			else if (plev < 35)
 			{
@@ -2135,7 +2136,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your bazooka.");
 #endif
-				fire_ball(cr_ptr, GF_MISSILE, dir, plev * 2, 2);
+				fire_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
 			}
 			else if (plev < 45)
 			{
@@ -2144,7 +2145,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				fire_beam(cr_ptr, GF_MISSILE, dir, plev * 2);
+				fire_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
 			}
 			else
 			{
@@ -2153,7 +2154,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire a rocket.");
 #endif
-				fire_rocket(cr_ptr, GF_ROCKET, dir, plev * 5, 2);
+				fire_rocket(creature_ptr, GF_ROCKET, dir, plev * 5, 2);
 			}
 			break;
 			*/
