@@ -3264,22 +3264,22 @@ static bool creature_hook_chameleon(int species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-
 void choose_new_species(int m_idx, bool born, int species_idx, int creature_egobject_idx)
 {
 	int oldmhp;
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *creature_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	species_type *r_ptr;
 	char old_m_name[80];
 	bool old_unique = FALSE;
-	int old_species_idx = m_ptr->species_idx;
+	int old_species_idx = creature_ptr->species_idx;
 
-	if (is_unique_species(&species_info[m_ptr->species_idx]))
+	if (is_unique_species(&species_info[creature_ptr->species_idx]))
 		old_unique = TRUE;
 	if (old_unique && (species_idx == MON_CHAMELEON)) species_idx = MON_CHAMELEON_K;
 	r_ptr = &species_info[species_idx];
 
-	creature_desc(old_m_name, m_ptr, 0);
+	creature_desc(old_m_name, creature_ptr, 0);
 
 	if (!species_idx)
 	{
@@ -3293,12 +3293,12 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 
 		if (old_unique)
 			level = species_info[MON_CHAMELEON_K].level;
-		else if (!current_floor_ptr->floor_level)
+		else if (!floor_ptr->floor_level)
 			level = wilderness[player_ptr->wy][player_ptr->wx].level;
 		else
-			level = current_floor_ptr->floor_level;
+			level = floor_ptr->floor_level;
 
-		if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
+		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
 		species_idx = get_species_num(level);
 		r_ptr = &species_info[species_idx];
@@ -3309,20 +3309,20 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 		if (!species_idx) return;
 	}
 
-	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
 
-	m_ptr->species_idx = species_idx;
-	m_ptr->ap_species_idx = species_idx;
+	creature_ptr->species_idx = species_idx;
+	creature_ptr->ap_species_idx = species_idx;
 	update_mon(m_idx, FALSE);
-	lite_spot(m_ptr->fy, m_ptr->fx);
+	lite_spot(creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_egobject_idx == MONEGO_NONE)
 	{
-		m_ptr->creature_egobject_idx = 0;
+		creature_ptr->creature_egobject_idx = 0;
 	}
 	else
 	{
-		m_ptr->creature_egobject_idx = creature_egobject_idx;
+		creature_ptr->creature_egobject_idx = creature_egobject_idx;
 	}
 
 
@@ -3330,16 +3330,16 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
 		update |= (PU_MON_LITE);
 
-	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, TRUE);
 
 	if (born)
 	{
 		/* Sub-alignment of a chameleon */
 		if (is_enemy_of_evil_species(r_ptr) && is_enemy_of_good_species(r_ptr))
 		{
-			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
-			if (is_enemy_of_good_species(r_ptr)) m_ptr->sub_align |= SUB_ALIGN_EVIL;
-			if (is_enemy_of_evil_species(r_ptr)) m_ptr->sub_align |= SUB_ALIGN_GOOD;
+			creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+			if (is_enemy_of_good_species(r_ptr)) creature_ptr->sub_align |= SUB_ALIGN_EVIL;
+			if (is_enemy_of_evil_species(r_ptr)) creature_ptr->sub_align |= SUB_ALIGN_GOOD;
 		}
 		return;
 	}
@@ -3347,13 +3347,13 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 	if (creature_list[m_idx].ridden)
 	{
 		char m_name[80];
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, creature_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
 #else
 		msg_format("Suddenly, %s transforms!", old_m_name);
 #endif
-		if (!has_cf_creature(m_ptr, CF_RIDING))
+		if (!has_cf_creature(creature_ptr, CF_RIDING))
 #ifdef JP
 			if (rakuba(&creature_list[creature_list[m_idx].ridden], 0, TRUE)) msg_print("地面に落とされた。");
 #else
@@ -3361,26 +3361,26 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 #endif
 	}
 
-	oldmhp = m_ptr->mmhp;
+	oldmhp = creature_ptr->mmhp;
 
-	m_ptr->mhp = (long)(m_ptr->mhp * m_ptr->mmhp) / oldmhp;
-	if (m_ptr->mhp < 1) m_ptr->mhp = 1;
-	m_ptr->chp = (long)(m_ptr->chp * m_ptr->mmhp) / oldmhp;
+	creature_ptr->mhp = (long)(creature_ptr->mhp * creature_ptr->mmhp) / oldmhp;
+	if (creature_ptr->mhp < 1) creature_ptr->mhp = 1;
+	creature_ptr->chp = (long)(creature_ptr->chp * creature_ptr->mmhp) / oldmhp;
 
-	m_ptr->stat_use[0] = r_ptr->stat_max[0];
-	m_ptr->stat_use[1] = r_ptr->stat_max[1];
-	m_ptr->stat_use[2] = r_ptr->stat_max[2];
-	m_ptr->stat_use[3] = r_ptr->stat_max[3];
-	m_ptr->stat_use[4] = r_ptr->stat_max[4];
-	m_ptr->stat_use[5] = r_ptr->stat_max[5];
+	creature_ptr->stat_use[0] = r_ptr->stat_max[0];
+	creature_ptr->stat_use[1] = r_ptr->stat_max[1];
+	creature_ptr->stat_use[2] = r_ptr->stat_max[2];
+	creature_ptr->stat_use[3] = r_ptr->stat_max[3];
+	creature_ptr->stat_use[4] = r_ptr->stat_max[4];
+	creature_ptr->stat_use[5] = r_ptr->stat_max[5];
 
-	if(m_ptr->creature_egobject_idx != MONEGO_NONE){
-		m_ptr->stat_use[0] += re_info[creature_egobject_idx].stat[0];
-		m_ptr->stat_use[1] += re_info[creature_egobject_idx].stat[1];
-		m_ptr->stat_use[2] += re_info[creature_egobject_idx].stat[2];
-		m_ptr->stat_use[3] += re_info[creature_egobject_idx].stat[3];
-		m_ptr->stat_use[4] += re_info[creature_egobject_idx].stat[4];
-		m_ptr->stat_use[5] += re_info[creature_egobject_idx].stat[5];
+	if(creature_ptr->creature_egobject_idx != MONEGO_NONE){
+		creature_ptr->stat_use[0] += re_info[creature_egobject_idx].stat[0];
+		creature_ptr->stat_use[1] += re_info[creature_egobject_idx].stat[1];
+		creature_ptr->stat_use[2] += re_info[creature_egobject_idx].stat[2];
+		creature_ptr->stat_use[3] += re_info[creature_egobject_idx].stat[3];
+		creature_ptr->stat_use[4] += re_info[creature_egobject_idx].stat[4];
+		creature_ptr->stat_use[5] += re_info[creature_egobject_idx].stat[5];
 	}
 
 	//TODO Reset Status
