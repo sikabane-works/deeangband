@@ -1412,24 +1412,24 @@ msg_print("なに？");
 }
 
 
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'berserker'.
- */
-static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
+// do_cmd_cast calls this function if the player's class
+// is 'berserker'.
+static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 {
 	int y, x;
 	int dir;
 
-	/* spell code */
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	// spell code
 	switch (spell)
 	{
 	case 0:
-		detect_monsters_mind(cr_ptr, DETECT_RAD_DEFAULT);
+		detect_monsters_mind(creature_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 1:
 	{
-		if (cr_ptr->riding)
+		if (creature_ptr->riding)
 		{
 #ifdef JP
 			msg_print("乗馬中には無理だ。");
@@ -1439,13 +1439,13 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			return FALSE;
 		}
 
-		if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
+		if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 
 		if (dir == 5) return FALSE;
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
-		if (!current_floor_ptr->cave[y][x].creature_idx)
+		if (!floor_ptr->cave[y][x].creature_idx)
 		{
 #ifdef JP
 			msg_print("その方向にはモンスターはいません。");
@@ -1455,33 +1455,33 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			return FALSE;
 		}
 
-		weapon_attack(cr_ptr, y, x, 0);
+		weapon_attack(creature_ptr, y, x, 0);
 
-		if (!player_can_enter(cr_ptr, current_floor_ptr->cave[y][x].feat, 0) || is_trap(current_floor_ptr->cave[y][x].feat))
+		if (!player_can_enter(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 			break;
 
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (player_can_enter(cr_ptr, current_floor_ptr->cave[y][x].feat, 0) && !is_trap(current_floor_ptr->cave[y][x].feat) && !current_floor_ptr->cave[y][x].creature_idx)
+		if (player_can_enter(creature_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
 		{
 			msg_print(NULL);
 
 			/* Move the player */
-			(void)move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+			(void)move_creature_effect(creature_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 		}
 		break;
 	}
 	case 2:
 	{
-		if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
-		move_creature(cr_ptr, dir, easy_disarm, TRUE);
+		if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
+		move_creature(creature_ptr, dir, easy_disarm, TRUE);
 		break;
 	}
 	case 3:
-		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 8+randint0(5));
+		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 8+randint0(5));
 		break;
 	case 4:
 	{
@@ -1490,16 +1490,16 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 
 		for (dir = 0; dir < 8; dir++)
 		{
-			y = cr_ptr->fy + ddy_ddd[dir];
-			x = cr_ptr->fx + ddx_ddd[dir];
-			c_ptr = &current_floor_ptr->cave[y][x];
+			y = creature_ptr->fy + ddy_ddd[dir];
+			x = creature_ptr->fx + ddx_ddd[dir];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Get the monster */
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Hack -- attack monsters */
-			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)))
-				weapon_attack(cr_ptr, y, x, 0);
+			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				weapon_attack(creature_ptr, y, x, 0);
 		}
 		break;
 	}

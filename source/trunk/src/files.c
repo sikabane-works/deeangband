@@ -6931,9 +6931,10 @@ bool (*tombstone_aux)(void) = NULL;
 /*
  * Display a "tomb-stone"
  */
-static void print_tomb(creature_type *cr_ptr)
+static void print_tomb(creature_type *creature_ptr)
 {
 	bool done = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Do we use a special tombstone ? */
 	if (tombstone_aux)
@@ -6986,7 +6987,7 @@ static void print_tomb(creature_type *cr_ptr)
 		}
 
 		/* King or Queen */
-		if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
+		if (creature_ptr->total_winner || (creature_ptr->lev > PY_MAX_LEVEL))
 		{
 #ifdef JP
 			/* ‰p“úØ‚è‘Ö‚¦ */
@@ -6999,10 +7000,10 @@ static void print_tomb(creature_type *cr_ptr)
 		/* Normal */
 		else
 		{
-			p = classkill_info[cr_ptr->cls_idx].title;
+			p = classkill_info[creature_ptr->cls_idx].title;
 		}
 
-		center_string(buf, cr_ptr->name);
+		center_string(buf, creature_ptr->name);
 		put_str(buf, 6, 11);
 
 #ifndef JP
@@ -7013,29 +7014,29 @@ static void print_tomb(creature_type *cr_ptr)
 		center_string(buf, p);
 		put_str(buf, 8, 11);
 
-		center_string(buf, classkill_info[cr_ptr->cls_idx].title);
+		center_string(buf, classkill_info[creature_ptr->cls_idx].title);
 		put_str(buf, 10, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "ƒŒƒxƒ‹: %d", (int)cr_ptr->lev);
+		(void)sprintf(tmp, "ƒŒƒxƒ‹: %d", (int)creature_ptr->lev);
 #else
-		(void)sprintf(tmp, "Level: %d", (int)cr_ptr->lev);
+		(void)sprintf(tmp, "Level: %d", (int)creature_ptr->lev);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 11, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "ŒoŒ±’l: %ld", (long)cr_ptr->exp);
+		(void)sprintf(tmp, "ŒoŒ±’l: %ld", (long)creature_ptr->exp);
 #else
-		(void)sprintf(tmp, "Exp: %ld", (long)cr_ptr->exp);
+		(void)sprintf(tmp, "Exp: %ld", (long)creature_ptr->exp);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "ŠŽ‹à: %ld", (long)cr_ptr->au);
+		(void)sprintf(tmp, "ŠŽ‹à: %ld", (long)creature_ptr->au);
 #else
-		(void)sprintf(tmp, "AU: %ld", (long)cr_ptr->au);
+		(void)sprintf(tmp, "AU: %ld", (long)creature_ptr->au);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
@@ -7098,7 +7099,7 @@ static void print_tomb(creature_type *cr_ptr)
 
 		if (!streq(gameover_from, "ripe") && !streq(gameover_from, "Seppuku"))
 		{
-			if (current_floor_ptr->floor_level == 0)
+			if (floor_ptr->floor_level == 0)
 			{
 				cptr town = town_num ? "ŠX" : "r–ì";
 				if (streq(gameover_from, "“r’†I—¹"))
@@ -7114,18 +7115,18 @@ static void print_tomb(creature_type *cr_ptr)
 			{
 				if (streq(gameover_from, "“r’†I—¹"))
 				{
-					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", current_floor_ptr->floor_level);
+					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", floor_ptr->floor_level);
 				}
 				else
 				{
-					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", current_floor_ptr->floor_level);
+					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", floor_ptr->floor_level);
 				}
 			}
 			center_string(buf, tmp);
 			put_str(buf, 15 + extra_line, 11);
 		}
 #else
-		(void)sprintf(tmp, "Killed on Level %d", current_floor_ptr->floor_level);
+		(void)sprintf(tmp, "Killed on Level %d", floor_ptr->floor_level);
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
@@ -7151,9 +7152,9 @@ static void print_tomb(creature_type *cr_ptr)
 		put_str(buf, 17, 11);
 
 #ifdef JP
-		msg_format("‚³‚æ‚¤‚È‚çA%s!", cr_ptr->name);
+		msg_format("‚³‚æ‚¤‚È‚çA%s!", creature_ptr->name);
 #else
-		msg_format("Goodbye, %s!", cr_ptr->name);
+		msg_format("Goodbye, %s!", creature_ptr->name);
 #endif
 	}
 }
