@@ -692,6 +692,7 @@ static sint *dist_offsets_x[10] =
 static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(avoid_target_ptr);
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -720,9 +721,9 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(current_floor_ptr, y, x)) continue;
+			if (!in_bounds(floor_ptr, y, x)) continue;
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Skip locations in a wall */
 			if (!creature_can_cross_terrain(c_ptr->feat, m_ptr, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
@@ -734,7 +735,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 				if (c_ptr->dist == 0) continue;
 
 				/* Ignore too-distant grids */
-				if (c_ptr->dist > current_floor_ptr->cave[fy][fx].dist + 2 * d) continue;
+				if (c_ptr->dist > floor_ptr->cave[fy][fx].dist + 2 * d) continue;
 			}
 
 			/* Check for absence of shot (more or less) */
