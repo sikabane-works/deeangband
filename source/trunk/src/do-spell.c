@@ -8140,15 +8140,17 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 }
 
 
-static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
+static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = cr_ptr->lev;
+	int plev = creature_ptr->lev;
 
 	switch (spell)
 	{
@@ -8169,9 +8171,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -8192,7 +8194,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_evil(cr_ptr, rad);
+				detect_monsters_evil(creature_ptr, rad);
 			}
 		}
 		break;
@@ -8209,7 +8211,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				set_afraid(cr_ptr, 0);
+				set_afraid(creature_ptr, 0);
 			}
 		}
 		break;
@@ -8230,9 +8232,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fear_creature(cr_ptr, dir, power);
+				fear_creature(creature_ptr, dir, power);
 			}
 		}
 		break;
@@ -8253,7 +8255,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				sleep_creatures_touch(cr_ptr);
+				sleep_creatures_touch(creature_ptr);
 			}
 		}
 		break;
@@ -8274,7 +8276,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(cr_ptr, range, 0L);
+				teleport_player(creature_ptr, range, 0L);
 			}
 		}
 		break;
@@ -8296,8 +8298,8 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_blast(cr_ptr, GF_LITE, dir, dice, sides, 10, 3);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_blast(creature_ptr, GF_LITE, dir, dice, sides, 10, 3);
 			}
 		}
 		break;
@@ -8314,9 +8316,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				set_cut(cr_ptr, 0);
-				set_poisoned(cr_ptr, 0);
-				set_stun(cr_ptr, 0);
+				set_cut(creature_ptr, 0);
+				set_poisoned(creature_ptr, 0);
+				set_stun(creature_ptr, 0);
 			}
 		}
 		break;
@@ -8337,8 +8339,8 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball(cr_ptr, GF_AWAY_EVIL, dir, power, 0);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_ball(creature_ptr, GF_AWAY_EVIL, dir, power, 0);
 			}
 		}
 		break;
@@ -8358,9 +8360,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (cr_ptr->cls_idx == CLASS_PRIEST ||
-			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    cr_ptr->cls_idx == CLASS_SORCERER)
+			if (creature_ptr->cls_idx == CLASS_PRIEST ||
+			    creature_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    creature_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -8370,9 +8372,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_HOLY_FIRE, dir, damroll(dice, sides) + base, rad);
+				fire_ball(creature_ptr, GF_HOLY_FIRE, dir, damroll(dice, sides) + base, rad);
 			}
 		}
 		break;
@@ -8394,9 +8396,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(cr_ptr, randint1(sides));
-				dispel_demons(cr_ptr, randint1(sides));
-				turn_evil(cr_ptr, power);
+				dispel_undead(creature_ptr, randint1(sides));
+				dispel_demons(creature_ptr, randint1(sides));
+				turn_evil(creature_ptr, power);
 			}
 		}
 		break;
@@ -8413,7 +8415,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse(cr_ptr))
+				if (remove_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8441,7 +8443,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(cr_ptr, randint1(base) + base, FALSE);
+				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8463,7 +8465,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_protevil(cr_ptr, randint1(sides) + sides, FALSE);
+				set_protevil(creature_ptr, randint1(sides) + sides, FALSE);
 			}
 		}
 		break;
@@ -8484,8 +8486,8 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_bolt(cr_ptr, GF_ELEC, dir, dam);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				fire_bolt(creature_ptr, GF_ELEC, dir, dam);
 			}
 		}
 		break;
@@ -8511,12 +8513,12 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_evil(cr_ptr, randint1(dam_sides));
-				hp_player(cr_ptr, heal);
-				set_afraid(cr_ptr, 0);
-				set_poisoned(cr_ptr, 0);
-				set_stun(cr_ptr, 0);
-				set_cut(cr_ptr, 0);
+				dispel_evil(creature_ptr, randint1(dam_sides));
+				hp_player(creature_ptr, heal);
+				set_afraid(creature_ptr, 0);
+				set_poisoned(creature_ptr, 0);
+				set_stun(creature_ptr, 0);
+				set_cut(creature_ptr, 0);
 			}
 		}
 		break;
@@ -8533,9 +8535,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				destroy_door(cr_ptr, dir);
+				destroy_door(creature_ptr, dir);
 			}
 		}
 		break;
@@ -8556,8 +8558,8 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				stasis_evil(cr_ptr, dir);
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				stasis_evil(creature_ptr, dir);
 			}
 		}
 		break;
@@ -8578,7 +8580,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_sh_holy(cr_ptr, randint1(base) + base, FALSE);
+				set_tim_sh_holy(creature_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8599,8 +8601,8 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(cr_ptr, randint1(sides));
-				dispel_demons(cr_ptr, randint1(sides));
+				dispel_undead(creature_ptr, randint1(sides));
+				dispel_demons(creature_ptr, randint1(sides));
 			}
 		}
 		break;
@@ -8621,7 +8623,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_evil(cr_ptr, randint1(sides));
+				dispel_evil(creature_ptr, randint1(sides));
 			}
 		}
 		break;
@@ -8638,7 +8640,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(cr_ptr, 13);
+				brand_weapon(creature_ptr, 13);
 			}
 		}
 		break;
@@ -8660,9 +8662,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_LITE, dir, dam, rad);
+				fire_ball(creature_ptr, GF_LITE, dir, dam, rad);
 			}
 		}
 		break;
@@ -8686,7 +8688,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
 				{
 					if (pet)
 					{
@@ -8725,9 +8727,9 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(cr_ptr, randint1(base) + base, FALSE);
-				hp_player(cr_ptr, 10);
-				set_afraid(cr_ptr, 0);
+				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				hp_player(creature_ptr, 10);
+				set_afraid(creature_ptr, 0);
 			}
 		}
 		break;
@@ -8744,7 +8746,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse(cr_ptr))
+				if (remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8772,7 +8774,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (banish_evil(cr_ptr, power))
+				if (banish_evil(creature_ptr, power))
 				{
 #ifdef JP
 					msg_print("神聖な力が邪悪を打ち払った！");
@@ -8800,7 +8802,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -8821,7 +8823,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_eyeeye(cr_ptr, randint1(base) + base, FALSE);
+				set_tim_eyeeye(creature_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8843,7 +8845,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!cast_wrath_of_the_god(cr_ptr, dam, rad)) return NULL;
+				if (!cast_wrath_of_the_god(creature_ptr, dam, rad)) return NULL;
 			}
 		}
 		break;
@@ -8871,14 +8873,14 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
-				dispel_creatures(cr_ptr, d_dam);
-				slow_creatures(cr_ptr);
-				stun_creatures(cr_ptr, power);
-				confuse_creatures(cr_ptr, power);
-				turn_creatures(cr_ptr, power);
-				stasis_creatures(cr_ptr, power);
-				hp_player(cr_ptr, heal);
+				project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
+				dispel_creatures(creature_ptr, d_dam);
+				slow_creatures(creature_ptr);
+				stun_creatures(creature_ptr, power);
+				confuse_creatures(creature_ptr, power);
+				turn_creatures(creature_ptr, power);
+				stasis_creatures(creature_ptr, power);
+				hp_player(creature_ptr, heal);
 			}
 		}
 		break;
@@ -8900,7 +8902,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 				int sp_base = plev;
 
 				int i;
-				crusade(cr_ptr);
+				crusade(creature_ptr);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
@@ -8908,17 +8910,17 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 					while (attempt--)
 					{
-						scatter(current_floor_ptr, &my, &mx, cr_ptr->fy, cr_ptr->fx, 4, 0);
-						if (cave_empty_bold2(current_floor_ptr, my, mx)) break; // Require empty grids
+						scatter(floor_ptr, &my, &mx, creature_ptr->fy, creature_ptr->fx, 4, 0);
+						if (cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 					}
 					if (attempt < 0) continue;
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
 				}
-				set_hero(cr_ptr, randint1(base) + base, FALSE);
-				set_blessed(cr_ptr, randint1(base) + base, FALSE);
-				set_fast(cr_ptr, randint1(sp_sides) + sp_base, FALSE);
-				set_protevil(cr_ptr, randint1(base) + base, FALSE);
-				set_afraid(cr_ptr, 0);
+				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				set_blessed(creature_ptr, randint1(base) + base, FALSE);
+				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
+				set_protevil(creature_ptr, randint1(base) + base, FALSE);
+				set_afraid(creature_ptr, 0);
 			}
 		}
 		break;
