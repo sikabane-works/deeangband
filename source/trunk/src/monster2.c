@@ -4456,9 +4456,8 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 #define GROUP_MAX	32
 
 
-/*
- * Attempt to place a "group" of monsters around the given location
- */
+
+// Attempt to place a "group" of monsters around the given location
 static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
@@ -4518,10 +4517,10 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 		{
 			int mx, my;
 
-			scatter(current_floor_ptr, &my, &mx, hy, hx, 4, 0);
+			scatter(floor_ptr, &my, &mx, hy, hx, 4, 0);
 
 			/* Walls and Monsters block flow */
-			if (!cave_empty_bold2(current_floor_ptr, my, mx)) continue;
+			if (!cave_empty_bold2(floor_ptr, my, mx)) continue;
 
 			/* Attempt to place another monster */
 			if (place_creature_one(summoner_ptr, floor_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
