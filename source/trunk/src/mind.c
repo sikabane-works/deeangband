@@ -1236,9 +1236,9 @@ static int number_of_mirrors(creature_type *creature_ptr)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int x, y;
 	int val = 0;
-	for(x = 0; x < current_floor_ptr->width ; x++ ){
-		for(y = 0; y < current_floor_ptr->height ; y++ ){
-			if(is_mirror_grid(&current_floor_ptr->cave[y][x])) val++;
+	for(x = 0; x < floor_ptr->width ; x++ ){
+		for(y = 0; y < floor_ptr->height ; y++ ){
+			if(is_mirror_grid(&floor_ptr->cave[y][x])) val++;
 		}
 	}
 	return val;
@@ -1800,6 +1800,7 @@ msg_print("‚È‚ÉH");
  */
 void do_cmd_mind(creature_type *cr_ptr)
 {
+	floor_type      *floor_ptr = get_floor_ptr(cr_ptr);
 	int             n = 0,  b = 0;
 	int             chance;
 	int             minfail = 0;
@@ -2082,7 +2083,7 @@ msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ð•ú‚³‚ê‚½I", p);
 			break;
 		case MIND_MIRROR_MASTER:
 			/* Cast the spell */
-			if( is_mirror_grid(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) )on_mirror = TRUE;
+			if( is_mirror_grid(&floor_ptr->cave[cr_ptr->fy][cr_ptr->fx]) )on_mirror = TRUE;
 			cast = cast_mirror_spell(cr_ptr, n);
 			break;
 		case MIND_NINJUTSU:
