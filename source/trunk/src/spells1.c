@@ -22,21 +22,20 @@ static int rakubadam_p;
 
 int project_length = 0;
 
-/*
- * Get another mirror. for SEEKER 
- */
-static void next_mirror( int* next_y , int* next_x , int cury, int curx)
+
+// Get another mirror. for SEEKER 
+static void next_mirror(floor_type *floor_ptr, int* next_y , int* next_x , int cury, int curx)
 {
-	int mirror_x[10],mirror_y[10]; /* ãæÇÕÇ‡Ç¡Ç∆è≠Ç»Ç¢ */
-	int mirror_num=0;              /* ãæÇÃêî */
-	int x,y;
+	int mirror_x[10], mirror_y[10];
+	int mirror_num=0;
+	int x, y;
 	int num;
 
-	for( x=0 ; x < current_floor_ptr->width ; x++ )
+	for( x=0 ; x < floor_ptr->width ; x++ )
 	{
-		for( y=0 ; y < current_floor_ptr->height ; y++ )
+		for( y=0 ; y < floor_ptr->height ; y++ )
 		{
-			if( is_mirror_grid(&current_floor_ptr->cave[y][x])){
+			if( is_mirror_grid(&floor_ptr->cave[y][x])){
 				mirror_y[mirror_num]=y;
 				mirror_x[mirror_num]=x;
 				mirror_num++;
