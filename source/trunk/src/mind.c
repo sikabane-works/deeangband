@@ -1516,47 +1516,46 @@ msg_print("なに？");
 
 
 
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'ninja'.
- */
-static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
+// do_cmd_cast calls this function if the player's class
+// is 'ninja'.
+static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int x, y;
 	int dir;
-	int plev = cr_ptr->lev;
+	int plev = creature_ptr->lev;
 
 	/* spell code */
 	switch (spell)
 	{
 	case 0:
-		(void)unlite_area(cr_ptr, 0, 3);
+		(void)unlite_area(creature_ptr, 0, 3);
 		break;
 	case 1:
 		if (plev > 44)
 		{
-			wiz_lite(current_floor_ptr, cr_ptr, TRUE);
+			wiz_lite(floor_ptr, creature_ptr, TRUE);
 		}
-		detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
+		detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		if (plev > 4)
 		{
-			detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
-			detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
-			detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
+			detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 		}
 		if (plev > 14)
 		{
-			detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT);
+			detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		}
 		break;
 	case 2:
 	{
-		teleport_player(cr_ptr, 10, 0L);
+		teleport_player(creature_ptr, 10, 0L);
 		break;
 	}
 	case 3:
 	{
-		if (!(cr_ptr->special_defense & NINJA_KAWARIMI))
+		if (!(creature_ptr->special_defense & NINJA_KAWARIMI))
 		{
 #ifdef JP
 			msg_print("敵の攻撃に対して敏感になった。");
@@ -1564,25 +1563,25 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 			msg_print("You are now prepare to evade any attacks.");
 #endif
 
-			cr_ptr->special_defense |= NINJA_KAWARIMI;
+			creature_ptr->special_defense |= NINJA_KAWARIMI;
 			play_redraw |= (PR_STATUS);
 		}
 		break;
 	}
 	case 4:
 	{
-		teleport_player(cr_ptr, cr_ptr->lev * 5, 0L);
+		teleport_player(creature_ptr, creature_ptr->lev * 5, 0L);
 		break;
 	}
 	case 5:
 	{
-		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
-		if (current_floor_ptr->cave[y][x].creature_idx)
+		if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
+		if (floor_ptr->cave[y][x].creature_idx)
 		{
-			weapon_attack(cr_ptr, y, x, 0);
-			if (randint0(cr_ptr->skill_dis) < 7)
+			weapon_attack(creature_ptr, y, x, 0);
+			if (randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 msg_print("うまく逃げられなかった。");
 #else
@@ -1590,7 +1589,7 @@ msg_print("うまく逃げられなかった。");
 #endif
 			else
 			{
-				teleport_player(cr_ptr, 30, 0L);
+				teleport_player(creature_ptr, 30, 0L);
 			}
 		}
 		else
@@ -1607,22 +1606,22 @@ msg_print("その方向にはモンスターはいません。");
 	}
 	case 6:
 	{
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		(void)stasis_creature(cr_ptr, dir);
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		(void)stasis_creature(creature_ptr, dir);
 		break;
 	}
 	case 7:
-		return ident_spell(cr_ptr, FALSE);
+		return ident_spell(creature_ptr, FALSE);
 	case 8:
-		set_tim_levitation(cr_ptr, randint1(20) + 20, FALSE);
+		set_tim_levitation(creature_ptr, randint1(20) + 20, FALSE);
 		break;
 	case 9:
-		fire_ball(cr_ptr, GF_FIRE, 0, 50+plev, plev/10+2);
-		teleport_player(cr_ptr, 30, 0L);
-		set_oppose_fire(cr_ptr, plev, FALSE);
+		fire_ball(creature_ptr, GF_FIRE, 0, 50+plev, plev/10+2);
+		teleport_player(creature_ptr, 30, 0L);
+		set_oppose_fire(creature_ptr, plev, FALSE);
 		break;
 	case 10:
-		return rush_attack(cr_ptr, NULL);
+		return rush_attack(creature_ptr, NULL);
 	case 11:
 	{
 		int i;
@@ -1632,7 +1631,7 @@ msg_print("その方向にはモンスターはいません。");
 
 			for (slot = 0; slot < INVEN_TOTAL; slot++)
 			{
-				if (cr_ptr->inventory[slot].tval == TV_SPIKE) break;
+				if (creature_ptr->inventory[slot].tval == TV_SPIKE) break;
 			}
 			if (slot == INVEN_TOTAL)
 			{
@@ -1647,7 +1646,7 @@ msg_print("その方向にはモンスターはいません。");
 			}
 
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
-			do_cmd_throw_aux(cr_ptr, 1, FALSE, slot);
+			do_cmd_throw_aux(creature_ptr, 1, FALSE, slot);
 
 			energy_use = 100;
 		}
@@ -1663,12 +1662,12 @@ msg_print("その方向にはモンスターはいません。");
 		u16b path_g[512];
 		int ty,tx;
 
-		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
-		m_idx = current_floor_ptr->cave[target_row][target_col].creature_idx;
+		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if (!m_idx) break;
-		if (m_idx == cr_ptr->riding) break;
+		if (m_idx == creature_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
+		if (!projectable(creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[m_idx];
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
@@ -1677,26 +1676,26 @@ msg_print("その方向にはモンスターはいません。");
 		msg_format("You pull back %s.", m_name);
 #endif
 
-		path_n = project_path(path_g, MAX_RANGE, current_floor_ptr, target_row, target_col, cr_ptr->fy, cr_ptr->fx, 0);
+		path_n = project_path(path_g, MAX_RANGE, floor_ptr, target_row, target_col, creature_ptr->fy, creature_ptr->fx, 0);
 		ty = target_row, tx = target_col;
 		for (i = 1; i < path_n; i++)
 		{
 			int ny = GRID_Y(path_g[i]);
 			int nx = GRID_X(path_g[i]);
-			cave_type *c_ptr = &current_floor_ptr->cave[ny][nx];
+			cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 
-			if (in_bounds(current_floor_ptr, ny, nx) && cave_empty_bold(current_floor_ptr, ny, nx) &&
-			    !(c_ptr->info & CAVE_OBJECT) && !pattern_tile(current_floor_ptr, ny, nx))
+			if (in_bounds(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
+			    !(c_ptr->info & CAVE_OBJECT) && !pattern_tile(floor_ptr, ny, nx))
 			{
 				ty = ny;
 				tx = nx;
 			}
 		}
 		/* Update the old location */
-		current_floor_ptr->cave[target_row][target_col].creature_idx = 0;
+		floor_ptr->cave[target_row][target_col].creature_idx = 0;
 
 		/* Update the new location */
-		current_floor_ptr->cave[ty][tx].creature_idx = m_idx;
+		floor_ptr->cave[ty][tx].creature_idx = m_idx;
 
 		/* Move the monster */
 		m_ptr->fy = ty;
@@ -1720,7 +1719,7 @@ msg_print("その方向にはモンスターはいません。");
 		if (m_ptr->ml)
 		{
 			/* Auto-Recall if possible and visible */
-			if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
+			if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			/* Track a new monster */
 			health_track(m_idx);
@@ -1729,32 +1728,32 @@ msg_print("その方向にはモンスターはいません。");
 		break;
 	}
 	case 13:
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(cr_ptr, GF_OLD_CONF, dir, plev*3, 3);
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		fire_ball(creature_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
 		project_length = -1;
-		if (!get_aim_dir(cr_ptr, &dir))
+		if (!get_aim_dir(creature_ptr, &dir))
 		{
 			project_length = 0;
 			return FALSE;
 		}
 		project_length = 0;
 
-		(void)teleport_swap(cr_ptr, dir);
+		(void)teleport_swap(creature_ptr, dir);
 		break;
 	case 15:
-		explosive_rune(cr_ptr);
+		explosive_rune(creature_ptr);
 		break;
 	case 16:
-		(void)set_kabenuke(cr_ptr, randint1(plev/2) + plev/2, FALSE);
-		set_oppose_acid(cr_ptr, plev, FALSE);
+		(void)set_kabenuke(creature_ptr, randint1(plev/2) + plev/2, FALSE);
+		set_oppose_acid(creature_ptr, plev, FALSE);
 		break;
 	case 17:
-		fire_ball(cr_ptr, GF_POIS, 0, 75+plev*2/3, plev/5+2);
-		fire_ball(cr_ptr, GF_OLD_DRAIN, 0, 75+plev*2/3, plev/5+2);
-		fire_ball(cr_ptr, GF_CONFUSION, 0, 75+plev*2/3, plev/5+2);
-		teleport_player(cr_ptr, 30, 0L);
+		fire_ball(creature_ptr, GF_POIS, 0, 75+plev*2/3, plev/5+2);
+		fire_ball(creature_ptr, GF_OLD_DRAIN, 0, 75+plev*2/3, plev/5+2);
+		fire_ball(creature_ptr, GF_CONFUSION, 0, 75+plev*2/3, plev/5+2);
+		teleport_player(creature_ptr, 30, 0L);
 		break;
 	case 18:
 	{
@@ -1768,17 +1767,17 @@ msg_print("その方向にはモンスターはいません。");
 
 			while (attempts--)
 			{
-				scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-				if (!creature_bold(cr_ptr, y, x)) break;
+				if (!creature_bold(creature_ptr, y, x)) break;
 			}
-			project(cr_ptr, 0, y, x, damroll(6 + plev / 8, 10), typ,
+			project(creature_ptr, 0, y, x, damroll(6 + plev / 8, 10), typ,
 				(PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 		}
 		break;
 	}
 	case 19:
-		set_multishadow(cr_ptr, 6+randint1(6), FALSE);
+		set_multishadow(creature_ptr, 6+randint1(6), FALSE);
 		break;
 	default:
 #ifdef JP
