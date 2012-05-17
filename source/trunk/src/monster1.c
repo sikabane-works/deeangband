@@ -457,7 +457,8 @@ static bool mon_hook_floor(int species_idx)
 
 creature_hook_type get_creature_hook(void)
 {
-	if (!current_floor_ptr->floor_level && !inside_quest)
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	if (!floor_ptr->floor_level && !inside_quest)
 	{
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
@@ -493,6 +494,7 @@ creature_hook_type get_creature_hook(void)
 
 creature_hook_type get_creature_hook2(int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	feature_type *f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
 
 	/* Set the monster list */
