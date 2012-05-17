@@ -1228,18 +1228,20 @@ msg_print("�ȂɁH");
 	return TRUE;
 }
 
-/* by henkma */
-/* calculate mirrors */
-static int number_of_mirrors( void )
+// by henkma
+// calculate mirrors
+// Fixed by Deskull for D'angband
+static int number_of_mirrors(creature_type *creature_ptr)
 {
-  int x,y;
-  int val=0;
-  for( x=0 ; x < current_floor_ptr->width ; x++ ){
-    for( y=0 ; y < current_floor_ptr->height ; y++ ){
-      if (is_mirror_grid(&current_floor_ptr->cave[y][x])) val++;
-    }
-  }
-  return val;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int x, y;
+	int val = 0;
+	for(x = 0; x < current_floor_ptr->width ; x++ ){
+		for(y = 0; y < current_floor_ptr->height ; y++ ){
+			if(is_mirror_grid(&current_floor_ptr->cave[y][x])) val++;
+		}
+	}
+	return val;
 }
 
 static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
@@ -1268,9 +1270,9 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 #endif
 	  }
 	  break;
-	/* drip of light */
+	// drip of light
 	case 1:
-	  if( number_of_mirrors() < 4 + plev/10 ){
+	  if(number_of_mirrors(creature_ptr) < 4 + plev/10 ){
 	    place_mirror(creature_ptr);
 	  }
 	  else {
