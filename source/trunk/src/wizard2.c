@@ -1769,17 +1769,14 @@ static void do_cmd_wiz_learn(void)
 }
 
 
-/*
- * Summon some creatures
- */
-static void do_cmd_wiz_summon(creature_type *cr_ptr, int num)
+// Summon some creatures
+static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 
 	for (i = 0; i < num; i++)
-	{
-		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
-	}
+		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 }
 
 
