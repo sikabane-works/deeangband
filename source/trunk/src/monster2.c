@@ -1438,12 +1438,12 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	return TRUE;
 }
 
-/*
- * Apply a "monster restriction function" to the "monster allocation table"
- */
+
+// Apply a "monster restriction function" to the "monster allocation table"
 errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2)
 {
 	int i;
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	/* Todo: Check the hooks for non-changes */
 
@@ -1472,7 +1472,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		{
 			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
 			if (is_guardian_species(r_ptr)) continue;
-			if (is_force_depth_species(r_ptr) && current_floor_ptr && (r_ptr->level > current_floor_ptr->floor_level)) continue; // Depth Monsters never appear out of depth
+			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Monsters never appear out of depth
 
 		}
 
@@ -1481,7 +1481,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 
 		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[current_floor_ptr->dun_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}

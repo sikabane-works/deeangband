@@ -8082,12 +8082,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if(project_o(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
-			  /* The target of monsterspell becomes tha mirror(broken) */
+				// The target of monsterspell becomes tha mirror(broken)
 				creature_target_y=(s16b)y;
 				creature_target_x=(s16b)x;
 
-				remove_mirror(player_ptr, y,x);
-				next_mirror( &oy,&ox,y,x );
+				remove_mirror(player_ptr, y, x);
+				next_mirror(floor_ptr, &oy, &ox, y, x);
 
 				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE), floor_ptr, y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
