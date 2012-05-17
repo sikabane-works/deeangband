@@ -7435,7 +7435,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	q_ptr->pval = MON_NINJA;
 
 	/* Drop it in the dungeon */
-	(void)drop_near(q_ptr, -1, y, x);
+	(void)drop_near(current_floor_ptr, q_ptr, -1, y, x);
 
 #ifdef JP
 	if (success) msg_format("%s‚ÍUŒ‚‚ğó‚¯‚é‘O‚É‘f‘‚­g‚ğ‚Ğ‚é‚ª‚¦‚µ‚½B", user_name);

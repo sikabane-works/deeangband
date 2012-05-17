@@ -2700,7 +2700,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				drop_near(q_ptr, -1, caster_ptr->fy, caster_ptr->fx);
+				drop_near(floor_ptr, q_ptr, -1, caster_ptr->fy, caster_ptr->fx);
 			}
 		}
 		break;

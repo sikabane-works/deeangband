@@ -3169,13 +3169,13 @@ bool drop_named_art(creature_type *cr_ptr, int a_idx, int y, int x)
 	(void)create_named_art(cr_ptr, &forge, a_idx);
 
 	/*
-	 * drop_near()内で普通の固定アーティファクトが重ならない性質に依存する.
+	 * drop_near(floor_ptr, )内で普通の固定アーティファクトが重ならない性質に依存する.
 	 * 仮に2個以上存在可能かつ装備品以外の固定アーティファクトが作成されれば
 	 * この関数の返り値は信用できなくなる.
 	 */
 
 	/* Drop the artifact from heaven */
-	return drop_near(&forge, -1, y, x) ? TRUE : FALSE;
+	return drop_near(current_floor_ptr, &forge, -1, y, x) ? TRUE : FALSE;
 }
 
 

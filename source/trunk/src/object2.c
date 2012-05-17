@@ -4073,7 +4073,7 @@ void place_gold(int y, int x)
  * the object can combine, stack, or be placed.  Artifacts will try very
  * hard to be placed, including "teleporting" to a useful grid if needed.
  */
-s16b drop_near(object_type *j_ptr, int chance, int y, int x)
+s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int x)
 {
 	int i, k, d, s;
 
@@ -4161,16 +4161,16 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			tx = x + dx;
 
 			/* Skip illegal grids */
-			if (!in_bounds(current_floor_ptr, ty, tx)) continue;
+			if (!in_bounds(floor_ptr, ty, tx)) continue;
 
 			/* Require line of projection */
 			if (!projectable(y, x, ty, tx)) continue;
 
 			/* Obtain grid */
-			c_ptr = &current_floor_ptr->cave[ty][tx];
+			c_ptr = &floor_ptr->cave[ty][tx];
 
 			/* Require floor space */
-			if (!cave_drop_bold(current_floor_ptr, ty, tx)) continue;
+			if (!cave_drop_bold(floor_ptr, ty, tx)) continue;
 
 			/* No objects */
 			k = 0;
@@ -4258,14 +4258,14 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		tx = rand_spread(bx, 1);
 
 		/* Verify location */
-		if (!in_bounds(current_floor_ptr, ty, tx)) continue;
+		if (!in_bounds(floor_ptr, ty, tx)) continue;
 
 		/* Bounce to that location */
 		by = ty;
 		bx = tx;
 
 		/* Require floor space */
-		if (!cave_drop_bold(current_floor_ptr, by, bx)) continue;
+		if (!cave_drop_bold(floor_ptr, by, bx)) continue;
 
 		/* Okay */
 		flag = TRUE;
@@ -4276,12 +4276,12 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	{
 		int candidates = 0, pick;
 
-		for (ty = 1; ty < current_floor_ptr->height - 1; ty++)
+		for (ty = 1; ty < floor_ptr->height - 1; ty++)
 		{
-			for (tx = 1; tx < current_floor_ptr->width - 1; tx++)
+			for (tx = 1; tx < floor_ptr->width - 1; tx++)
 			{
 				/* A valid space found */
-				if (cave_drop_bold(current_floor_ptr, ty, tx)) candidates++;
+				if (cave_drop_bold(floor_ptr, ty, tx)) candidates++;
 			}
 		}
 
@@ -4320,11 +4320,11 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		/* Choose a random one */
 		pick = randint1(candidates);
 
-		for (ty = 1; ty < current_floor_ptr->height - 1; ty++)
+		for (ty = 1; ty < floor_ptr->height - 1; ty++)
 		{
-			for (tx = 1; tx < current_floor_ptr->width - 1; tx++)
+			for (tx = 1; tx < floor_ptr->width - 1; tx++)
 			{
-				if (cave_drop_bold(current_floor_ptr, ty, tx))
+				if (cave_drop_bold(floor_ptr, ty, tx))
 				{
 					pick--;
 
@@ -4342,7 +4342,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Grid */
-	c_ptr = &current_floor_ptr->cave[by][bx];
+	c_ptr = &floor_ptr->cave[by][bx];
 
 	/* Scan objects in that grid for combination */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -4484,7 +4484,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		}
 
 		/* Drop the object */
-		(void)drop_near(i_ptr, -1, y1, x1);
+		(void)drop_near(current_floor_ptr, i_ptr, -1, y1, x1);
 	}
 }
 
@@ -5320,7 +5320,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
+	(void)drop_near(current_floor_ptr, q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(cr_ptr, item, -amt);

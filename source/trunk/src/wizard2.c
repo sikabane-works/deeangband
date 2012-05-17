@@ -1391,7 +1391,7 @@ static void wiz_create_item(creature_type *cr_ptr)
 	apply_magic(cr_ptr, q_ptr, current_floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
 
 	/* Drop the object from heaven */
-	(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
+	(void)drop_near(current_floor_ptr, q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -2304,7 +2304,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 			object_wipe(&ob);
 			object_prep(&ob, tmp_int2, creature_ptr->size);
 			apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
-			(void)drop_near(&ob, -1, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, &ob, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		break;
 

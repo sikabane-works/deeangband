@@ -565,7 +565,7 @@ msg_print("H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 			object_prep(q_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
 
 			/* Drop the object from heaven */
-			(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
+			(void)drop_near(current_floor_ptr, q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 		}
 		else
 		{

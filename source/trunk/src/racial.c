@@ -1552,7 +1552,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				(void)drop_near(q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+				(void)drop_near(floor_ptr, q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 #ifdef JP
 				msg_print("H–‚ğ—¿—‚µ‚Äì‚Á‚½B");
 #else

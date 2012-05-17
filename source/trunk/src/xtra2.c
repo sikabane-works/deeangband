@@ -680,7 +680,7 @@ msg_print("魔法の階段が現れた...");
 			make_object(q_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 	}
 
@@ -855,7 +855,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 
 		if (arena_number > MAX_ARENA_MONS) arena_number++;
@@ -925,7 +925,7 @@ msg_print("地面に落とされた。");
 		q_ptr->pval = killed_ptr->species_idx;
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, y, x);
+		(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 	}
 
 	/* Drop objects being carried */
@@ -978,7 +978,7 @@ msg_print("地面に落とされた。");
 			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | mo_mode, 0);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 		break;
 
@@ -1001,7 +1001,7 @@ msg_print("地面に落とされた。");
 			make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 		break;
 
@@ -1114,7 +1114,7 @@ msg_print("地面に落とされた。");
 		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT, 0);
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, y, x);
+		(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 
 		/* Get local object */
 		q_ptr = &forge;
@@ -1129,7 +1129,7 @@ msg_print("地面に落とされた。");
 		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT, 0);
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, y, x);
+		(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		break;
 
 	case MON_B_DEATH_SWORD:
@@ -1142,7 +1142,7 @@ msg_print("地面に落とされた。");
 			object_prep(q_ptr, lookup_kind(TV_SWORD, randint1(2)), ITEM_FREE_SIZE);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 		break;
 
@@ -1160,7 +1160,7 @@ msg_print("地面に落とされた。");
 			apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, y, x);
+			(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 		}
 		break;
 
@@ -1194,7 +1194,7 @@ msg_print("地面に落とされた。");
 				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 			break;
 
@@ -1214,7 +1214,7 @@ msg_print("地面に落とされた。");
 				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 			break;
 
@@ -1234,7 +1234,7 @@ msg_print("地面に落とされた。");
 				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 			break;
 
@@ -1254,7 +1254,7 @@ msg_print("地面に落とされた。");
 				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 			break;
 
@@ -1274,7 +1274,7 @@ msg_print("地面に落とされた。");
 				make_object(q_ptr, mo_mode, 0, floor_ptr->object_level);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 			break;
 		}
@@ -1325,7 +1325,7 @@ msg_print("地面に落とされた。");
 				apply_magic(killed_ptr, q_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				/* Drop it in the dungeon */
-				(void)drop_near(q_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 #ifdef JP
 			msg_format("あなたは%sを制覇した！",d_name+dungeon_info[floor_ptr->dun_type].name);
@@ -1378,7 +1378,7 @@ msg_print("地面に落とされた。");
 		}
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, y, x);
+		(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 	}
 
 	/* Reset the object level */
@@ -4263,7 +4263,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			q_ptr->name2 = EGO_CHAOTIC;
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 #ifdef JP
 			reward = "(混沌)の武器を手に入れた。";
 #else

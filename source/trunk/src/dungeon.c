@@ -5381,7 +5381,7 @@ static void pack_overflow(creature_type *cr_ptr)
 #endif
 
 		/* Drop it (carefully) near the player */
-		(void)drop_near(o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
+		(void)drop_near(current_floor_ptr, o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 		/* Modify, Describe, Optimize */
 		inven_item_increase(cr_ptr, INVEN_TOTAL, -255);

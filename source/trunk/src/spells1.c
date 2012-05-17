@@ -2348,7 +2348,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, player_ptr->fy, player_ptr->fx);
+		(void)drop_near(current_floor_ptr, q_ptr, -1, player_ptr->fy, player_ptr->fx);
 	}
 
 	/* Track it */

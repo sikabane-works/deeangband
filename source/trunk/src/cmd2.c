@@ -528,13 +528,13 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 				if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
 				/* Place the object there. */
-				drop_near(q_ptr, -1, y, x);
+				drop_near(floor_ptr, q_ptr, -1, y, x);
 
 				/* Done. */
 				break;
 			}
 		}
-		else drop_near(q_ptr, -1, y, x); // Normally, drop object near the chest.
+		else drop_near(floor_ptr, q_ptr, -1, y, x); // Normally, drop object near the chest.
 	}
 
 	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
@@ -2873,7 +2873,7 @@ void do_cmd_rest(creature_type *cr_ptr)
 /*
  * Determines the odds of an object breaking when thrown at a monster
  *
- * Note that artifacts never break, see the "drop_near()" function.
+ * Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
  */
 static int breakage_chance(creature_type *cr_ptr, object_type *o_ptr)
 {
@@ -3817,12 +3817,12 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	else if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
-		(void)drop_near(q_ptr, j, y, x);
+		(void)drop_near(floor_ptr, q_ptr, j, y, x);
 	}
 	else
 	{
 		/* Drop (or break) near that location */
-		(void)drop_near(q_ptr, j, prev_y, prev_x);
+		(void)drop_near(floor_ptr, q_ptr, j, prev_y, prev_x);
 	}
 
 	/* Sniper - Repeat shooting when double shots */
@@ -4532,12 +4532,12 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 		if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
-			(void)drop_near(q_ptr, j, y, x);
+			(void)drop_near(floor_ptr, q_ptr, j, y, x);
 		}
 		else
 		{
 			/* Drop (or break) near that location */
-			(void)drop_near(q_ptr, j, prev_y, prev_x);
+			(void)drop_near(floor_ptr, q_ptr, j, prev_y, prev_x);
 		}
 	}
 

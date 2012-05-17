@@ -1303,7 +1303,7 @@ extern bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object
 extern void place_object(floor_type *floor_ptr, int y, int x, u32b mode);
 extern bool make_gold(object_type *j_ptr, int value);
 extern void place_gold(int y, int x);
-extern s16b drop_near(object_type *o_ptr, int chance, int y, int x);
+extern s16b drop_near(floor_type *floor_ptr, object_type *o_ptr, int chance, int y, int x);
 extern void acquirement(int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);
 extern s16b choose_random_trap(floor_type *floor_ptr);
