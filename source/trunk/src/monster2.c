@@ -3989,11 +3989,11 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	if (!(mode & PM_IGNORE_TERRAIN))
 	{
-		/* Not on the Pattern */
+		// Not on the Pattern
 		if (pattern_tile(floor_ptr, y, x)) return max_creature_idx;
 
-		/* Require empty space (if not ghostly) */
-		if (!species_can_enter(y, x, r_ptr, 0)){
+		// Require empty space (if not ghostly)
+		if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)){
 			if (cheat_hear)
 			{
 				msg_format("[max_creature_idx: Monster Can't Enter]");
@@ -4408,8 +4408,8 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 			{
 				species_type *r_ptr = &species_info[species_idx];
 
-				/* Require empty space (if not ghostly) */
-				if (!species_can_enter(ny, nx, r_ptr, 0))
+				// Require empty space (if not ghostly)
+				if (!species_can_enter(current_floor_ptr, ny, nx, r_ptr, 0))
 					continue;
 			}
 			else

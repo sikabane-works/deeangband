@@ -524,7 +524,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 					f_ptr = &f_info[c_ptr->feat];
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
-					if (!species_can_enter(y, x, r_ptr, 0)) continue;
+					if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)) continue;
 					if (distance(y, x, player_ptr->fy, player_ptr->fx) < 10) continue;
 					if (c_ptr->info & CAVE_ICKY) continue;
 					else break;
