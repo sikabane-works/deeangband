@@ -3685,19 +3685,19 @@ bool detect_treasure(creature_type *cr_ptr, int range)
 }
 
 
-/*
- * Detect all "gold" objects on the current panel
- */
-bool detect_objects_gold(creature_type *cr_ptr, int range)
+
+// Detect all "gold" objects on the current panel
+bool detect_objects_gold(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
 
 	bool detect = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
-	/* Scan objects */
+	// Scan objects
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
@@ -3713,7 +3713,7 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "gold" objects */
 		if (o_ptr->tval == TV_GOLD)
@@ -3729,7 +3729,7 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 		}
 	}
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3742,7 +3742,7 @@ msg_print("à•ó‚Ì‘¶İ‚ğŠ´‚¶‚Æ‚Á‚½I");
 
 	}
 
-	if (detect_monsters_string(cr_ptr, range, "$"))
+	if (detect_monsters_string(creature_ptr, range, "$"))
 	{
 		detect = TRUE;
 	}

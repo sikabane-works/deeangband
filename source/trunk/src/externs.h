@@ -1352,14 +1352,14 @@ extern int project_length;
 extern bool binding_field(creature_type *caster_ptr, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
-/* spells2.c */
+// spells2.c
 extern void message_pain(int m_idx, int dam);
 extern void creature_knowledge(creature_type *cr_ptr);
 extern bool detect_traps(creature_type *cr_ptr, int range, bool known);
 extern bool detect_doors(creature_type *cr_ptr, int range);
 extern bool detect_stairs(creature_type *cr_ptr, int range);
 extern bool detect_treasure(creature_type *cr_ptr, int range);
-extern bool detect_objects_gold(creature_type *cr_ptr, int range);
+extern bool detect_objects_gold(creature_type *creature_ptr, int range);
 extern bool detect_objects_normal(creature_type *cr_ptr, int range);
 extern bool detect_objects_magic(creature_type *cr_ptr, int range);
 extern bool detect_monsters_normal(creature_type *cr_ptr, int range);
