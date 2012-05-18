@@ -261,11 +261,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 }
 
 
-
-
-/*
- * Search spell castable grid
- */
+// Search spell castable grid
 static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 {
 	int i, y, x, y1, x1, best = 999;
@@ -274,22 +270,23 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	bool can_open_door = FALSE;
 	int now_cost;
 
-	creature_type *nonplayer_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
+	creature_type *creature_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
 	/* Monster location */
-	y1 = nonplayer_ptr->fy;
-	x1 = nonplayer_ptr->fx;
+	y1 = creature_ptr->fy;
+	x1 = creature_ptr->fx;
 
 	/* Monster can already cast spell to player */
 	if (projectable(y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
-	now_cost = current_floor_ptr->cave[y1][x1].cost;
+	now_cost = floor_ptr->cave[y1][x1].cost;
 	if (now_cost == 0) now_cost = 999;
 
 	/* Can monster bash or open doors? */
-	if (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) || has_cf_creature(nonplayer_ptr, CF_OPEN_DOOR))
+	if (has_cf_creature(creature_ptr, CF_BASH_DOOR) || has_cf_creature(creature_ptr, CF_OPEN_DOOR))
 	{
 		can_open_door = TRUE;
 	}
@@ -304,18 +301,18 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(current_floor_ptr, y, x)) continue;
+		if (!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
 		if (creature_bold(player_ptr, y, x)) return (FALSE);
 
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		cost = c_ptr->cost;
 
 		/* Monster cannot kill or pass walls */
-		if (!((has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
-			  (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != player_ptr->riding))))
+		if (!((has_cf_creature(creature_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
+			  (has_cf_creature(creature_ptr, CF_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
