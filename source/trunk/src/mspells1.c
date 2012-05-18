@@ -353,12 +353,11 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 }
 
 
-/*
- * Determine if there is a space near the player in which
- * a summoned creature can appear
- */
+// Determine if there is a space near the player in which
+// a summoned creature can appear
 bool summon_possible(creature_type *target_ptr, int y1, int x1)
 {
+	floor_type *floor_ptr = get_floor_ptr(target_ptr);
 	int y, x;
 
 	/* Start at the player's location, and check 2 grids in each dir */
@@ -367,16 +366,16 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 		for (x = x1 - 2; x <= x1 + 2; x++)
 		{
 			/* Ignore illegal locations */
-			if (!in_bounds(current_floor_ptr, y, x)) continue;
+			if (!in_bounds(floor_ptr, y, x)) continue;
 
 			/* Only check a circular area */
 			if (distance(y1, x1, y, x)>2) continue;
 
 			/* ...nor on the Pattern */
-			if (pattern_tile(current_floor_ptr, y, x)) continue;
+			if (pattern_tile(floor_ptr, y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
-			if (cave_empty_bold(current_floor_ptr, y, x) && projectable(y, x, y1, x1)) return (TRUE);
+			if (cave_empty_bold(floor_ptr, y, x) && projectable(y, x, y1, x1)) return (TRUE);
 		}
 	}
 
