@@ -106,19 +106,20 @@ static void do_cmd_wiz_hack_ben(void)
 
 #ifdef MONSTER_HORDES
 
-/* Summon a horde of monsters */
+// Summon a horde of monsters
 static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
 	int wy = summoner_ptr->fy, wx = summoner_ptr->fx;
 	int attempts = 1000;
+	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
 
 	while (--attempts)
 	{
-		scatter(current_floor_ptr, &wy, &wx, summoner_ptr->fy, summoner_ptr->fx, 3, 0);
-		if (cave_empty_bold(current_floor_ptr, wy, wx)) break;
+		scatter(floor_ptr, &wy, &wx, summoner_ptr->fy, summoner_ptr->fx, 3, 0);
+		if (cave_empty_bold(floor_ptr, wy, wx)) break;
 	}
 
-	(void)alloc_horde(summoner_ptr, current_floor_ptr, wy, wx);
+	(void)alloc_horde(summoner_ptr, floor_ptr, wy, wx);
 }
 
 #endif /* MONSTER_HORDES */
