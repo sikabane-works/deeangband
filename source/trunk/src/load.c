@@ -1361,14 +1361,10 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->upper_floor_id);
 	rd_s16b(&floor_ptr->lower_floor_id);
 
-
 	rd_s16b(&floor_ptr->base_level);
 	rd_s16b(&floor_ptr->num_repro);
-
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
-
-
 
 	/*** Read template for cave_type ***/
 
@@ -1485,12 +1481,10 @@ static errr rd_floors(void)
 	/*** Meta info ***/
 
 	rd_s16b(&floor_max); // Number of floor_id used from birth
-
 	current_floor_ptr = &floor_list[player_ptr->floor_id];
 
 	// Read the current floor data
-	for(i = 1; i < floor_max; i++)
-		err = rd_floor(&floor_list[i]);
+	for(i = 1; i < floor_max; i++) err = rd_floor(&floor_list[i]);
 
 	/*** Error messages ***/
 	switch (err)

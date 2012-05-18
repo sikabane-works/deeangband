@@ -2895,16 +2895,17 @@ u32b weight_limit(creature_type *cr_ptr)
  *
  * This function induces various "status" messages.
  */
-void calc_bonuses(creature_type *cr_ptr, bool message)
+void calc_bonuses(creature_type *creature_ptr, bool message)
 {
 	int             i, j, k, hold;
 	int             new_speed;
 	int             body_size;
 	int             default_hand = 0;
-	int             empty_hands_status = empty_hands(cr_ptr, TRUE);
+	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
 	int             extra_blows[2];
 	int             extra_shots;
 
+	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
 	object_type     *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	bool            omoi = FALSE;
@@ -2918,677 +2919,677 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	bool            riding_levitation = FALSE;
 	s16b this_object_idx, next_object_idx = 0;
 
-	race_type *tmp_rcr_ptr;
-	race_type *tmp_rcr_ptr2;
+	race_type *tmp_rcreature_ptr;
+	race_type *tmp_rcreature_ptr2;
 
 	/* Save the old vision stuff */
-	bool old_telepathy = cr_ptr->telepathy;
-	bool old_esp_animal = cr_ptr->esp_animal;
-	bool old_esp_undead = cr_ptr->esp_undead;
-	bool old_esp_demon = cr_ptr->esp_demon;
-	bool old_esp_orc = cr_ptr->esp_orc;
-	bool old_esp_troll = cr_ptr->esp_troll;
-	bool old_esp_giant = cr_ptr->esp_giant;
-	bool old_esp_dragon = cr_ptr->esp_dragon;
-	bool old_esp_human = cr_ptr->esp_human;
-	bool old_esp_evil = cr_ptr->esp_evil;
-	bool old_esp_good = cr_ptr->esp_good;
-	bool old_esp_nonliving = cr_ptr->esp_nonliving;
-	bool old_esp_unique = cr_ptr->esp_unique;
-	bool old_see_inv = cr_ptr->see_inv;
-	bool old_mighty_throw = cr_ptr->mighty_throw;
+	bool old_telepathy = creature_ptr->telepathy;
+	bool old_esp_animal = creature_ptr->esp_animal;
+	bool old_esp_undead = creature_ptr->esp_undead;
+	bool old_esp_demon = creature_ptr->esp_demon;
+	bool old_esp_orc = creature_ptr->esp_orc;
+	bool old_esp_troll = creature_ptr->esp_troll;
+	bool old_esp_giant = creature_ptr->esp_giant;
+	bool old_esp_dragon = creature_ptr->esp_dragon;
+	bool old_esp_human = creature_ptr->esp_human;
+	bool old_esp_evil = creature_ptr->esp_evil;
+	bool old_esp_good = creature_ptr->esp_good;
+	bool old_esp_nonliving = creature_ptr->esp_nonliving;
+	bool old_esp_unique = creature_ptr->esp_unique;
+	bool old_see_inv = creature_ptr->see_inv;
+	bool old_mighty_throw = creature_ptr->mighty_throw;
 
 	/* Save the old armor class */
-	bool old_dis_ac = (bool)cr_ptr->dis_ac;
-	bool old_dis_to_a = (bool)cr_ptr->dis_to_a;
+	bool old_dis_ac = (bool)creature_ptr->dis_ac;
+	bool old_dis_to_a = (bool)creature_ptr->dis_to_a;
 
-	species_type *species_ptr = &species_info[cr_ptr->species_idx];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	/* Clear extra blows/shots */
 	extra_blows[0] = extra_blows[1] = extra_shots = 0;
 
 	/* Clear the stat modifiers */
-	for (i = 0; i < 6; i++) cr_ptr->stat_add[i] = 0;
+	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0;
 
 	/* Clear the Displayed/Real armor class */
-	cr_ptr->dis_ac = cr_ptr->ac = 0;
+	creature_ptr->dis_ac = creature_ptr->ac = 0;
 
 	/* Clear the Displayed/Real Bonuses */
-	cr_ptr->dis_to_h[0] = cr_ptr->to_h[0] = 0;
-	cr_ptr->dis_to_h[1] = cr_ptr->to_h[1] = 0;
-	cr_ptr->dis_to_d[0] = cr_ptr->to_d[0] = 0;
-	cr_ptr->dis_to_d[1] = cr_ptr->to_d[1] = 0;
-	cr_ptr->dis_to_h_b = cr_ptr->to_h_b = 0;
-	cr_ptr->dis_to_a = cr_ptr->to_a = 0;
-	cr_ptr->to_h_m = 0;
-	cr_ptr->to_d_m = 0;
+	creature_ptr->dis_to_h[0] = creature_ptr->to_h[0] = 0;
+	creature_ptr->dis_to_h[1] = creature_ptr->to_h[1] = 0;
+	creature_ptr->dis_to_d[0] = creature_ptr->to_d[0] = 0;
+	creature_ptr->dis_to_d[1] = creature_ptr->to_d[1] = 0;
+	creature_ptr->dis_to_h_b = creature_ptr->to_h_b = 0;
+	creature_ptr->dis_to_a = creature_ptr->to_a = 0;
+	creature_ptr->to_h_m = 0;
+	creature_ptr->to_d_m = 0;
 
-	cr_ptr->to_m_chance = 0;
+	creature_ptr->to_m_chance = 0;
 
 	/* Clear the Extra Dice Bonuses */
-	cr_ptr->to_dd[0] = cr_ptr->to_ds[0] = 0;
-	cr_ptr->to_dd[1] = cr_ptr->to_ds[1] = 0;
+	creature_ptr->to_dd[0] = creature_ptr->to_ds[0] = 0;
+	creature_ptr->to_dd[1] = creature_ptr->to_ds[1] = 0;
 
 	/* Clear the Activate Rate */
-	cr_ptr->to_ar[0] = cr_ptr->to_ar[0] = 100; 
+	creature_ptr->to_ar[0] = creature_ptr->to_ar[0] = 100; 
 
 	/* Start with "normal" speed */
 	new_speed = 110;
-	if(cr_ptr->dr >= 0) new_speed += adj_dr_speed[cr_ptr->dr];
+	if(creature_ptr->dr >= 0) new_speed += adj_dr_speed[creature_ptr->dr];
 
 	/* Plus AC on Divine Rank */
-	if(cr_ptr->dr >= 0){
-		cr_ptr->dis_to_a += adj_dr_ac[cr_ptr->dr];
-		cr_ptr->to_a += adj_dr_ac[cr_ptr->dr];
+	if(creature_ptr->dr >= 0){
+		creature_ptr->dis_to_a += adj_dr_ac[creature_ptr->dr];
+		creature_ptr->to_a += adj_dr_ac[creature_ptr->dr];
 	}
 
-	if(has_cf_creature(cr_ptr, CF_HUMANOID))
+	if(has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
-		cr_ptr->num_hand = 2;
-		cr_ptr->num_head = 1;
-		cr_ptr->num_tail = 0;
-		cr_ptr->num_foot = 2;
+		creature_ptr->num_hand = 2;
+		creature_ptr->num_head = 1;
+		creature_ptr->num_tail = 0;
+		creature_ptr->num_foot = 2;
 	}
 	else
 	{
-		cr_ptr->num_hand = 0;
-		cr_ptr->num_head = 0;
-		cr_ptr->num_tail = 0;
-		cr_ptr->num_foot = 0;
+		creature_ptr->num_hand = 0;
+		creature_ptr->num_head = 0;
+		creature_ptr->num_tail = 0;
+		creature_ptr->num_foot = 0;
 	}
 
 	/* Start with a single blow per turn */
-	cr_ptr->num_blow[0] = 1;
-	cr_ptr->num_blow[1] = 1;
+	creature_ptr->num_blow[0] = 1;
+	creature_ptr->num_blow[1] = 1;
 
 	/* Start with a single shot per turn */
-	cr_ptr->num_fire = 100;
+	creature_ptr->num_fire = 100;
 
 	/* Reset the "xtra" tval */
-	cr_ptr->tval_xtra = 0;
+	creature_ptr->tval_xtra = 0;
 
 	/* Reset the "ammo" tval */
-	cr_ptr->tval_ammo = 0;
+	creature_ptr->tval_ammo = 0;
 
 	/* Clear all the flags */
-	cr_ptr->cursed = 0L;
-	cr_ptr->bless_blade = FALSE;
-	cr_ptr->xtra_might = FALSE;
-	cr_ptr->impact[0] = FALSE;
-	cr_ptr->impact[1] = FALSE;
-	cr_ptr->pass_wall = FALSE;
-	cr_ptr->kill_wall = FALSE;
-	cr_ptr->dec_mana = FALSE;
-	cr_ptr->easy_spell = FALSE;
-	cr_ptr->heavy_spell = FALSE;
-	cr_ptr->see_inv = FALSE;
-	cr_ptr->free_act = FALSE;
-	cr_ptr->slow_digest = FALSE;
-	cr_ptr->regenerate = FALSE;
-	cr_ptr->can_swim = FALSE;
-	cr_ptr->levitation = FALSE;
-	cr_ptr->hold_life = FALSE;
-	cr_ptr->telepathy = FALSE;
-	cr_ptr->esp_animal = FALSE;
-	cr_ptr->esp_undead = FALSE;
-	cr_ptr->esp_demon = FALSE;
-	cr_ptr->esp_orc = FALSE;
-	cr_ptr->esp_troll = FALSE;
-	cr_ptr->esp_giant = FALSE;
-	cr_ptr->esp_dragon = FALSE;
-	cr_ptr->esp_human = FALSE;
-	cr_ptr->esp_evil = FALSE;
-	cr_ptr->esp_good = FALSE;
-	cr_ptr->esp_nonliving = FALSE;
-	cr_ptr->esp_unique = FALSE;
-	cr_ptr->lite = FALSE;
-	cr_ptr->sustain_str = FALSE;
-	cr_ptr->sustain_int = FALSE;
-	cr_ptr->sustain_wis = FALSE;
-	cr_ptr->sustain_con = FALSE;
-	cr_ptr->sustain_dex = FALSE;
-	cr_ptr->sustain_chr = FALSE;
-	cr_ptr->resist_acid = FALSE;
-	cr_ptr->resist_elec = FALSE;
-	cr_ptr->resist_fire = FALSE;
-	cr_ptr->resist_cold = FALSE;
-	cr_ptr->resist_pois = FALSE;
-	cr_ptr->resist_conf = FALSE;
-	cr_ptr->resist_sound = FALSE;
-	cr_ptr->resist_lite = FALSE;
-	cr_ptr->resist_dark = FALSE;
-	cr_ptr->resist_chaos = FALSE;
-	cr_ptr->resist_disen = FALSE;
-	cr_ptr->resist_shard = FALSE;
-	cr_ptr->resist_nexus = FALSE;
-	cr_ptr->resist_blind = FALSE;
-	cr_ptr->resist_neth = FALSE;
-	cr_ptr->resist_time = FALSE;
-	cr_ptr->resist_fear = FALSE;
-	cr_ptr->reflect = FALSE;
-	cr_ptr->sh_fire = FALSE;
-	cr_ptr->sh_elec = FALSE;
-	cr_ptr->sh_cold = FALSE;
-	cr_ptr->anti_magic = FALSE;
-	cr_ptr->anti_tele = FALSE;
-	cr_ptr->warning = FALSE;
-	cr_ptr->mighty_throw = FALSE;
-	cr_ptr->see_nocto = FALSE;
+	creature_ptr->cursed = 0L;
+	creature_ptr->bless_blade = FALSE;
+	creature_ptr->xtra_might = FALSE;
+	creature_ptr->impact[0] = FALSE;
+	creature_ptr->impact[1] = FALSE;
+	creature_ptr->pass_wall = FALSE;
+	creature_ptr->kill_wall = FALSE;
+	creature_ptr->dec_mana = FALSE;
+	creature_ptr->easy_spell = FALSE;
+	creature_ptr->heavy_spell = FALSE;
+	creature_ptr->see_inv = FALSE;
+	creature_ptr->free_act = FALSE;
+	creature_ptr->slow_digest = FALSE;
+	creature_ptr->regenerate = FALSE;
+	creature_ptr->can_swim = FALSE;
+	creature_ptr->levitation = FALSE;
+	creature_ptr->hold_life = FALSE;
+	creature_ptr->telepathy = FALSE;
+	creature_ptr->esp_animal = FALSE;
+	creature_ptr->esp_undead = FALSE;
+	creature_ptr->esp_demon = FALSE;
+	creature_ptr->esp_orc = FALSE;
+	creature_ptr->esp_troll = FALSE;
+	creature_ptr->esp_giant = FALSE;
+	creature_ptr->esp_dragon = FALSE;
+	creature_ptr->esp_human = FALSE;
+	creature_ptr->esp_evil = FALSE;
+	creature_ptr->esp_good = FALSE;
+	creature_ptr->esp_nonliving = FALSE;
+	creature_ptr->esp_unique = FALSE;
+	creature_ptr->lite = FALSE;
+	creature_ptr->sustain_str = FALSE;
+	creature_ptr->sustain_int = FALSE;
+	creature_ptr->sustain_wis = FALSE;
+	creature_ptr->sustain_con = FALSE;
+	creature_ptr->sustain_dex = FALSE;
+	creature_ptr->sustain_chr = FALSE;
+	creature_ptr->resist_acid = FALSE;
+	creature_ptr->resist_elec = FALSE;
+	creature_ptr->resist_fire = FALSE;
+	creature_ptr->resist_cold = FALSE;
+	creature_ptr->resist_pois = FALSE;
+	creature_ptr->resist_conf = FALSE;
+	creature_ptr->resist_sound = FALSE;
+	creature_ptr->resist_lite = FALSE;
+	creature_ptr->resist_dark = FALSE;
+	creature_ptr->resist_chaos = FALSE;
+	creature_ptr->resist_disen = FALSE;
+	creature_ptr->resist_shard = FALSE;
+	creature_ptr->resist_nexus = FALSE;
+	creature_ptr->resist_blind = FALSE;
+	creature_ptr->resist_neth = FALSE;
+	creature_ptr->resist_time = FALSE;
+	creature_ptr->resist_fear = FALSE;
+	creature_ptr->reflect = FALSE;
+	creature_ptr->sh_fire = FALSE;
+	creature_ptr->sh_elec = FALSE;
+	creature_ptr->sh_cold = FALSE;
+	creature_ptr->anti_magic = FALSE;
+	creature_ptr->anti_tele = FALSE;
+	creature_ptr->warning = FALSE;
+	creature_ptr->mighty_throw = FALSE;
+	creature_ptr->see_nocto = FALSE;
 
-	cr_ptr->immune_acid = FALSE;
-	cr_ptr->immune_elec = FALSE;
-	cr_ptr->immune_fire = FALSE;
-	cr_ptr->immune_cold = FALSE;
+	creature_ptr->immune_acid = FALSE;
+	creature_ptr->immune_elec = FALSE;
+	creature_ptr->immune_fire = FALSE;
+	creature_ptr->immune_cold = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++)
-		cr_ptr->two_handed[i] = -1;
+		creature_ptr->two_handed[i] = -1;
 
-	cr_ptr->can_melee[0] = FALSE;
-	cr_ptr->can_melee[1] = FALSE;
-	cr_ptr->no_flowed = FALSE;
+	creature_ptr->can_melee[0] = FALSE;
+	creature_ptr->can_melee[1] = FALSE;
+	creature_ptr->no_flowed = FALSE;
 
 	for(i = 0; i < STAT_MAX; i++)
-		cr_ptr->stat_mod_max_max[i] = cr_ptr->stat_max_max[i];
+		creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
-	if (cr_ptr->mimic_form) tmp_rcr_ptr = &mimic_info[cr_ptr->mimic_form];
-	else tmp_rcr_ptr = &race_info[cr_ptr->race_idx1];
-	tmp_rcr_ptr2 = &race_info[cr_ptr->race_idx2];
+	if (creature_ptr->mimic_form) tmp_rcreature_ptr = &mimic_info[creature_ptr->mimic_form];
+	else tmp_rcreature_ptr = &race_info[creature_ptr->race_idx1];
+	tmp_rcreature_ptr2 = &race_info[creature_ptr->race_idx2];
 
-	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
+	creature_ptr->size = body_size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 
 	/* Base infravision (purely racial) */
-	cr_ptr->see_infra = tmp_rcr_ptr->infra;
+	creature_ptr->see_infra = tmp_rcreature_ptr->infra;
 	j = 0;
 	k = 1;
 
 
 	/* Base skills */
-	cr_ptr->skill_dis = 5;
-	cr_ptr->skill_dev = 5;
-	cr_ptr->skill_rob = 5 + (body_size - 10) / 2 * 3;
-	cr_ptr->skill_eva = 5 - (body_size - 10) / 2 * 3;
-	cr_ptr->skill_vol = 5;
-	cr_ptr->skill_stl = 3 - body_size / 3;
-	cr_ptr->skill_srh = 10;
-	cr_ptr->skill_fos = 10;
-	cr_ptr->skill_thn = body_size;
-	cr_ptr->skill_thb = 10;
-	cr_ptr->skill_tht = 10;
-	cr_ptr->skill_dig = (body_size - 10) * 2;
+	creature_ptr->skill_dis = 5;
+	creature_ptr->skill_dev = 5;
+	creature_ptr->skill_rob = 5 + (body_size - 10) / 2 * 3;
+	creature_ptr->skill_eva = 5 - (body_size - 10) / 2 * 3;
+	creature_ptr->skill_vol = 5;
+	creature_ptr->skill_stl = 3 - body_size / 3;
+	creature_ptr->skill_srh = 10;
+	creature_ptr->skill_fos = 10;
+	creature_ptr->skill_thn = body_size;
+	creature_ptr->skill_thb = 10;
+	creature_ptr->skill_tht = 10;
+	creature_ptr->skill_dig = (body_size - 10) * 2;
 
 
 	// species adjust
-	cr_ptr->ac += species_ptr->ac;
-	cr_ptr->dis_ac += species_ptr->ac;
+	creature_ptr->ac += species_ptr->ac;
+	creature_ptr->dis_ac += species_ptr->ac;
 	new_speed += species_ptr->speed;
 
 
 
-	if(IS_PURE(cr_ptr))
+	if(IS_PURE(creature_ptr))
 	{
-		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_dis);
-		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_rob);
-		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_eva);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_vol);
-		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_stl;
-		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_srh);
-		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_fos);
-		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race_idx1].r_thn);
-		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_thb);
-		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_thb);
+		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_dis);
+		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_dev);
+		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_rob);
+		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_eva);
+		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_vol);
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_stl;
+		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_srh);
+		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_fos);
+		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_thn);
+		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_thb);
+		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_thb);
 	}
 	else
 	{
-		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_s_dis);
-		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_s_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_s_rob);
-		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_s_eva);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_s_vol);
-		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_s_stl;
-		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_s_srh);
-		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_s_fos);
-		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race_idx1].r_s_thn);
-		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
-		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
+		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_s_dis);
+		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_s_dev);
+		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_s_rob);
+		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_s_eva);
+		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_s_vol);
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_s_stl;
+		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_s_srh);
+		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_s_fos);
+		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_s_thn);
+		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
+		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
 
-		cr_ptr->skill_dis += race_info[cr_ptr->race_idx2].r_s_dis;
-		cr_ptr->skill_dev += race_info[cr_ptr->race_idx2].r_s_dev;
-		cr_ptr->skill_rob += race_info[cr_ptr->race_idx2].r_s_rob;
-		cr_ptr->skill_eva += race_info[cr_ptr->race_idx2].r_s_eva;
-		cr_ptr->skill_vol += race_info[cr_ptr->race_idx2].r_s_vol;
-		cr_ptr->skill_stl += race_info[cr_ptr->race_idx2].r_s_stl;
-		cr_ptr->skill_srh += race_info[cr_ptr->race_idx2].r_s_srh;
-		cr_ptr->skill_fos += race_info[cr_ptr->race_idx2].r_s_fos;
-		cr_ptr->skill_thn += race_info[cr_ptr->race_idx2].r_s_thn;
-		cr_ptr->skill_thb += race_info[cr_ptr->race_idx2].r_s_thb;
-		cr_ptr->skill_tht += race_info[cr_ptr->race_idx2].r_s_thb;
+		creature_ptr->skill_dis += race_info[creature_ptr->race_idx2].r_s_dis;
+		creature_ptr->skill_dev += race_info[creature_ptr->race_idx2].r_s_dev;
+		creature_ptr->skill_rob += race_info[creature_ptr->race_idx2].r_s_rob;
+		creature_ptr->skill_eva += race_info[creature_ptr->race_idx2].r_s_eva;
+		creature_ptr->skill_vol += race_info[creature_ptr->race_idx2].r_s_vol;
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx2].r_s_stl;
+		creature_ptr->skill_srh += race_info[creature_ptr->race_idx2].r_s_srh;
+		creature_ptr->skill_fos += race_info[creature_ptr->race_idx2].r_s_fos;
+		creature_ptr->skill_thn += race_info[creature_ptr->race_idx2].r_s_thn;
+		creature_ptr->skill_thb += race_info[creature_ptr->race_idx2].r_s_thb;
+		creature_ptr->skill_tht += race_info[creature_ptr->race_idx2].r_s_thb;
 
 	}
 
-	if(cr_ptr->cls_idx != INDEX_NONE)
+	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
-		cr_ptr->skill_dis += classkill_info[cr_ptr->cls_idx].c_dis;
-		cr_ptr->skill_dev += classkill_info[cr_ptr->cls_idx].c_dev;
-		cr_ptr->skill_rob += classkill_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_eva += classkill_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_vol += classkill_info[cr_ptr->cls_idx].c_sav;
-		cr_ptr->skill_stl += classkill_info[cr_ptr->cls_idx].c_stl;
-		cr_ptr->skill_srh += classkill_info[cr_ptr->cls_idx].c_srh;
-		cr_ptr->skill_fos += classkill_info[cr_ptr->cls_idx].c_fos;
-		cr_ptr->skill_thn += classkill_info[cr_ptr->cls_idx].c_thn;
-		cr_ptr->skill_thb += classkill_info[cr_ptr->cls_idx].c_thb;
-		cr_ptr->skill_tht += classkill_info[cr_ptr->cls_idx].c_thb;
+		creature_ptr->skill_dis += classkill_info[creature_ptr->cls_idx].c_dis;
+		creature_ptr->skill_dev += classkill_info[creature_ptr->cls_idx].c_dev;
+		creature_ptr->skill_rob += classkill_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_eva += classkill_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_vol += classkill_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_stl += classkill_info[creature_ptr->cls_idx].c_stl;
+		creature_ptr->skill_srh += classkill_info[creature_ptr->cls_idx].c_srh;
+		creature_ptr->skill_fos += classkill_info[creature_ptr->cls_idx].c_fos;
+		creature_ptr->skill_thn += classkill_info[creature_ptr->cls_idx].c_thn;
+		creature_ptr->skill_thb += classkill_info[creature_ptr->cls_idx].c_thb;
+		creature_ptr->skill_tht += classkill_info[creature_ptr->cls_idx].c_thb;
 	}
 	else
 	{
-		cr_ptr->skill_dis += classkill_info[CLASS_TOURIST].c_dis;
-		cr_ptr->skill_dev += classkill_info[CLASS_TOURIST].c_dev;
-		cr_ptr->skill_rob += classkill_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_eva += classkill_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_vol += classkill_info[CLASS_TOURIST].c_sav;
-		cr_ptr->skill_stl += classkill_info[CLASS_TOURIST].c_stl;
-		cr_ptr->skill_srh += classkill_info[CLASS_TOURIST].c_srh;
-		cr_ptr->skill_fos += classkill_info[CLASS_TOURIST].c_fos;
-		cr_ptr->skill_thn += classkill_info[CLASS_TOURIST].c_thn;
-		cr_ptr->skill_thb += classkill_info[CLASS_TOURIST].c_thb;
-		cr_ptr->skill_tht += classkill_info[CLASS_TOURIST].c_thb;
+		creature_ptr->skill_dis += classkill_info[CLASS_TOURIST].c_dis;
+		creature_ptr->skill_dev += classkill_info[CLASS_TOURIST].c_dev;
+		creature_ptr->skill_rob += classkill_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_eva += classkill_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_vol += classkill_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_stl += classkill_info[CLASS_TOURIST].c_stl;
+		creature_ptr->skill_srh += classkill_info[CLASS_TOURIST].c_srh;
+		creature_ptr->skill_fos += classkill_info[CLASS_TOURIST].c_fos;
+		creature_ptr->skill_thn += classkill_info[CLASS_TOURIST].c_thn;
+		creature_ptr->skill_thb += classkill_info[CLASS_TOURIST].c_thb;
+		creature_ptr->skill_tht += classkill_info[CLASS_TOURIST].c_thb;
 	}
 
-	if(cr_ptr->chara_idx != INDEX_NONE)
+	if(creature_ptr->chara_idx != INDEX_NONE)
 	{
-		cr_ptr->skill_dis += chara_info[cr_ptr->chara_idx].a_dis;
-		cr_ptr->skill_dev += chara_info[cr_ptr->chara_idx].a_dev;
-		cr_ptr->skill_rob += chara_info[cr_ptr->chara_idx].a_sav;
-		cr_ptr->skill_eva += chara_info[cr_ptr->chara_idx].a_sav;
-		cr_ptr->skill_vol += chara_info[cr_ptr->chara_idx].a_sav;
-		cr_ptr->skill_stl += chara_info[cr_ptr->chara_idx].a_stl;
-		cr_ptr->skill_srh += chara_info[cr_ptr->chara_idx].a_srh;
-		cr_ptr->skill_fos += chara_info[cr_ptr->chara_idx].a_fos;
-		cr_ptr->skill_thn += chara_info[cr_ptr->chara_idx].a_thn;
-		cr_ptr->skill_thb += chara_info[cr_ptr->chara_idx].a_thb;
-		cr_ptr->skill_tht += chara_info[cr_ptr->chara_idx].a_thb;
+		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
+		creature_ptr->skill_dev += chara_info[creature_ptr->chara_idx].a_dev;
+		creature_ptr->skill_rob += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_eva += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_vol += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_stl += chara_info[creature_ptr->chara_idx].a_stl;
+		creature_ptr->skill_srh += chara_info[creature_ptr->chara_idx].a_srh;
+		creature_ptr->skill_fos += chara_info[creature_ptr->chara_idx].a_fos;
+		creature_ptr->skill_thn += chara_info[creature_ptr->chara_idx].a_thn;
+		creature_ptr->skill_thb += chara_info[creature_ptr->chara_idx].a_thb;
+		creature_ptr->skill_tht += chara_info[creature_ptr->chara_idx].a_thb;
 	}
 
 	for(i = 0; i < max_authorities_idx; i++)
 	{
-		if(HAS_AUTHORITY(cr_ptr, i))
+		if(HAS_AUTHORITY(creature_ptr, i))
 		{
-			cr_ptr->skill_dis += authority_info[i].a_dis;
-			cr_ptr->skill_dev += authority_info[i].a_dev;
-			cr_ptr->skill_rob += authority_info[i].a_sav;
-			cr_ptr->skill_eva += authority_info[i].a_sav;
-			cr_ptr->skill_vol += authority_info[i].a_sav;
-			cr_ptr->skill_stl += authority_info[i].a_stl;
-			cr_ptr->skill_srh += authority_info[i].a_srh;
-			cr_ptr->skill_fos += authority_info[i].a_fos;
-			cr_ptr->skill_thn += authority_info[i].a_thn;
-			cr_ptr->skill_thb += authority_info[i].a_thb;
-			cr_ptr->skill_tht += authority_info[i].a_thb;
+			creature_ptr->skill_dis += authority_info[i].a_dis;
+			creature_ptr->skill_dev += authority_info[i].a_dev;
+			creature_ptr->skill_rob += authority_info[i].a_sav;
+			creature_ptr->skill_eva += authority_info[i].a_sav;
+			creature_ptr->skill_vol += authority_info[i].a_sav;
+			creature_ptr->skill_stl += authority_info[i].a_stl;
+			creature_ptr->skill_srh += authority_info[i].a_srh;
+			creature_ptr->skill_fos += authority_info[i].a_fos;
+			creature_ptr->skill_thn += authority_info[i].a_thn;
+			creature_ptr->skill_thb += authority_info[i].a_thb;
+			creature_ptr->skill_tht += authority_info[i].a_thb;
 		}
 	}
 
-	if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+	if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
 	{
-		creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+		creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
 		if(patron_ptr)
 		{
 			for(i = 0; i < max_authorities_idx; i++)
 			{
 				if(HAS_AUTHORITY(patron_ptr, i))
 				{
-					cr_ptr->skill_dis += authority_info[i].w_dis;
-					cr_ptr->skill_dev += authority_info[i].w_dev;
-					cr_ptr->skill_rob += authority_info[i].w_sav;
-					cr_ptr->skill_eva += authority_info[i].w_sav;
-					cr_ptr->skill_vol += authority_info[i].w_sav;
-					cr_ptr->skill_stl += authority_info[i].w_stl;
-					cr_ptr->skill_srh += authority_info[i].w_srh;
-					cr_ptr->skill_fos += authority_info[i].w_fos;
-					cr_ptr->skill_thn += authority_info[i].w_thn;
-					cr_ptr->skill_thb += authority_info[i].w_thb;
-					cr_ptr->skill_tht += authority_info[i].w_thb;
+					creature_ptr->skill_dis += authority_info[i].w_dis;
+					creature_ptr->skill_dev += authority_info[i].w_dev;
+					creature_ptr->skill_rob += authority_info[i].w_sav;
+					creature_ptr->skill_eva += authority_info[i].w_sav;
+					creature_ptr->skill_vol += authority_info[i].w_sav;
+					creature_ptr->skill_stl += authority_info[i].w_stl;
+					creature_ptr->skill_srh += authority_info[i].w_srh;
+					creature_ptr->skill_fos += authority_info[i].w_fos;
+					creature_ptr->skill_thn += authority_info[i].w_thn;
+					creature_ptr->skill_thb += authority_info[i].w_thb;
+					creature_ptr->skill_tht += authority_info[i].w_thb;
 				}
 			}
 		}
 	}
 
-	if(cr_ptr->dr >= 0)
+	if(creature_ptr->dr >= 0)
 	{
-		cr_ptr->skill_rob += adj_dr_saving[cr_ptr->dr];
-		cr_ptr->skill_eva += adj_dr_saving[cr_ptr->dr];
-		cr_ptr->skill_vol += adj_dr_saving[cr_ptr->dr];
+		creature_ptr->skill_rob += adj_dr_saving[creature_ptr->dr];
+		creature_ptr->skill_eva += adj_dr_saving[creature_ptr->dr];
+		creature_ptr->skill_vol += adj_dr_saving[creature_ptr->dr];
 
 		for(i = 0; i < STAT_MAX; i++)
-			cr_ptr->stat_mod_max_max[i] += cr_ptr->dr / 4 * 10;
+			creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
 	}
 
-	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
+	creature_ptr->see_infra = (creature_ptr->see_infra + j) / k;
 
-	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) cr_ptr->can_melee[0] = TRUE;
-	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 	{
-		cr_ptr->can_melee[1] = TRUE;
-		if (!cr_ptr->can_melee[0]) default_hand = 1;
+		creature_ptr->can_melee[1] = TRUE;
+		if (!creature_ptr->can_melee[0]) default_hand = 1;
 	}
 
-	if (CAN_TWO_HANDS_WIELDING(cr_ptr))
+	if (CAN_TWO_HANDS_WIELDING(creature_ptr))
 	{
-		if (cr_ptr->can_melee[0] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)))
+		if (creature_ptr->can_melee[0] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_LARM) &&
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)))
 		{
-			//TODO cr_ptr->two_handed = TRUE;
+			//TODO creature_ptr->two_handed = TRUE;
 		}
-		else if (cr_ptr->can_melee[1] && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(cr_ptr, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)))
+		else if (creature_ptr->can_melee[1] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_RARM) &&
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)))
 		{
-			//TODO cr_ptr->two_handed = TRUE;
+			//TODO creature_ptr->two_handed = TRUE;
 		}
 		else
 		{
-			switch (cr_ptr->cls_idx)
+			switch (creature_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
+				if (empty_hands(creature_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
-					cr_ptr->can_melee[0] = TRUE;
-					// TODO cr_ptr->two_handed = TRUE;
+					creature_ptr->can_melee[0] = TRUE;
+					// TODO creature_ptr->two_handed = TRUE;
 				}
 				break;
 			}
 		}
 	}
 
-	if (!cr_ptr->can_melee[0] && !cr_ptr->can_melee[1])
+	if (!creature_ptr->can_melee[0] && !creature_ptr->can_melee[1])
 	{
-		if (empty_hands_status & EMPTY_HAND_RARM) cr_ptr->can_melee[0] = TRUE;
+		if (empty_hands_status & EMPTY_HAND_RARM) creature_ptr->can_melee[0] = TRUE;
 		else if (empty_hands_status == EMPTY_HAND_LARM)
 		{
-			cr_ptr->can_melee[1] = TRUE;
+			creature_ptr->can_melee[1] = TRUE;
 			default_hand = 1;
 		}
 	}
 
-	if (cr_ptr->special_defense & KAMAE_MASK)
+	if (creature_ptr->special_defense & KAMAE_MASK)
 	{
 		if (!(empty_hands_status & EMPTY_HAND_RARM))
 		{
-			set_action(cr_ptr, ACTION_NONE);
+			set_action(creature_ptr, ACTION_NONE);
 		}
 	}
 
-	switch (cr_ptr->cls_idx)
+	switch (creature_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
-			if (cr_ptr->lev > 29) cr_ptr->resist_fear = TRUE;
-			if (cr_ptr->lev > 44) cr_ptr->regenerate = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
 			break;
 		case CLASS_PALADIN:
-			if (cr_ptr->lev > 39) cr_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
 			break;
 		case CLASS_CHAOS_WARRIOR:
-			if (cr_ptr->lev > 29) cr_ptr->resist_chaos = TRUE;
-			if (cr_ptr->lev > 39) cr_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->resist_chaos = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
 			break;
 		case CLASS_MINDCRAFTER:
-			if (cr_ptr->lev >  9) cr_ptr->resist_fear = TRUE;
-			if (cr_ptr->lev > 19) cr_ptr->sustain_wis = TRUE;
-			if (cr_ptr->lev > 29) cr_ptr->resist_conf = TRUE;
-			if (cr_ptr->lev > 39) cr_ptr->telepathy = TRUE;
+			if (creature_ptr->lev >  9) creature_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 19) creature_ptr->sustain_wis = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->resist_conf = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->telepathy = TRUE;
 			break;
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 			/* Unencumbered Monks become faster every 10 levels */
-			if (!(heavy_armor(cr_ptr)))
+			if (!(heavy_armor(creature_ptr)))
 			{
-				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
-				      race_is_(cr_ptr, RACE_SPRITE) ||
-				      (cr_ptr->chara_idx == CHARA_MUNCHKIN)))
-					new_speed += (cr_ptr->lev) / 10;
+				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
+				      race_is_(creature_ptr, RACE_SPRITE) ||
+				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+					new_speed += (creature_ptr->lev) / 10;
 
 				/* Free action if unencumbered at level 25 */
-				if  (cr_ptr->lev > 24)
-					cr_ptr->free_act = TRUE;
+				if  (creature_ptr->lev > 24)
+					creature_ptr->free_act = TRUE;
 			}
 			break;
 		case CLASS_SORCERER:
-			cr_ptr->to_a -= 50;
-			cr_ptr->dis_to_a -= 50;
+			creature_ptr->to_a -= 50;
+			creature_ptr->dis_to_a -= 50;
 			break;
 		case CLASS_BARD:
-			cr_ptr->resist_sound = TRUE;
+			creature_ptr->resist_sound = TRUE;
 			break;
 		case CLASS_SAMURAI:
-			if (cr_ptr->lev > 29) cr_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
 			break;
 		case CLASS_BERSERKER:
-			cr_ptr->shero = 1;
-			cr_ptr->sustain_str = TRUE;
-			cr_ptr->sustain_dex = TRUE;
-			cr_ptr->sustain_con = TRUE;
-			cr_ptr->regenerate = TRUE;
-			cr_ptr->free_act = TRUE;
+			creature_ptr->shero = 1;
+			creature_ptr->sustain_str = TRUE;
+			creature_ptr->sustain_dex = TRUE;
+			creature_ptr->sustain_con = TRUE;
+			creature_ptr->regenerate = TRUE;
+			creature_ptr->free_act = TRUE;
 			new_speed += 2;
-			if (cr_ptr->lev > 29) new_speed++;
-			if (cr_ptr->lev > 39) new_speed++;
-			if (cr_ptr->lev > 44) new_speed++;
-			if (cr_ptr->lev > 49) new_speed++;
-			cr_ptr->to_a += 10+cr_ptr->lev/2;
-			cr_ptr->dis_to_a += 10+cr_ptr->lev/2;
-			cr_ptr->skill_dig += (100+cr_ptr->lev*8);
-			if (cr_ptr->lev > 39) cr_ptr->reflect = TRUE;
+			if (creature_ptr->lev > 29) new_speed++;
+			if (creature_ptr->lev > 39) new_speed++;
+			if (creature_ptr->lev > 44) new_speed++;
+			if (creature_ptr->lev > 49) new_speed++;
+			creature_ptr->to_a += 10+creature_ptr->lev/2;
+			creature_ptr->dis_to_a += 10+creature_ptr->lev/2;
+			creature_ptr->skill_dig += (100+creature_ptr->lev*8);
+			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			play_redraw |= PR_STATUS;
 			break;
 		case CLASS_MIRROR_MASTER:
-			if (cr_ptr->lev > 39) cr_ptr->reflect = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			break;
 		case CLASS_NINJA:
 			/* Unencumbered Ninjas become faster every 10 levels */
-			if (heavy_armor(cr_ptr))
+			if (heavy_armor(creature_ptr))
 			{
-				new_speed -= (cr_ptr->lev) / 10;
-				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
+				new_speed -= (creature_ptr->lev) / 10;
+				creature_ptr->skill_stl -= (creature_ptr->lev)/10;
 			}
-			else if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
-			         (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
+			else if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
+			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 			{
 				new_speed += 3;
-				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
-				      race_is_(cr_ptr, RACE_SPRITE) ||
-				      (cr_ptr->chara_idx == CHARA_MUNCHKIN)))
-					new_speed += (cr_ptr->lev) / 10;
-				cr_ptr->skill_stl += (cr_ptr->lev)/10;
+				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
+				      race_is_(creature_ptr, RACE_SPRITE) ||
+				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+					new_speed += (creature_ptr->lev) / 10;
+				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
 				/* Free action if unencumbered at level 25 */
-				if  (cr_ptr->lev > 24)
-					cr_ptr->free_act = TRUE;
+				if  (creature_ptr->lev > 24)
+					creature_ptr->free_act = TRUE;
 			}
-			if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
-			    (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
+			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 			{
-				cr_ptr->to_a += cr_ptr->lev/2+5;
-				cr_ptr->dis_to_a += cr_ptr->lev/2+5;
+				creature_ptr->to_a += creature_ptr->lev/2+5;
+				creature_ptr->dis_to_a += creature_ptr->lev/2+5;
 			}
-			cr_ptr->slow_digest = TRUE;
-			cr_ptr->resist_fear = TRUE;
-			if (cr_ptr->lev > 19) cr_ptr->resist_pois = TRUE;
-			if (cr_ptr->lev > 24) cr_ptr->sustain_dex = TRUE;
-			if (cr_ptr->lev > 29) cr_ptr->see_inv = TRUE;
-			if (cr_ptr->lev > 44)
+			creature_ptr->slow_digest = TRUE;
+			creature_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
+			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
+			if (creature_ptr->lev > 44)
 			{
-				cr_ptr->oppose_pois = 1;
+				creature_ptr->oppose_pois = 1;
 				play_redraw |= PR_STATUS;
 			}
-			cr_ptr->see_nocto = TRUE;
+			creature_ptr->see_nocto = TRUE;
 			break;
 	}
 
 	/***** Races ****/
 
 	// TODO: Mimic Race control to creature.c
-	if (!cr_ptr->mimic_form)
+	if (!creature_ptr->mimic_form)
 	{
-		set_resistance(cr_ptr);
+		set_resistance(creature_ptr);
 
-		if(IS_RACE(cr_ptr, RACE_SPRITE))
+		if(IS_RACE(creature_ptr, RACE_SPRITE))
 		{
-			cr_ptr->levitation = TRUE;
-			new_speed += (cr_ptr->lev) / 10;
+			creature_ptr->levitation = TRUE;
+			new_speed += (creature_ptr->lev) / 10;
 		}
-		if(IS_RACE(cr_ptr, RACE_ENT))
+		if(IS_RACE(creature_ptr, RACE_ENT))
 		{
 			/* Ents dig like maniacs, but only with their hands. */
-			if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx) 
-				cr_ptr->skill_dig += cr_ptr->lev * 10;
+			if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx) 
+				creature_ptr->skill_dig += creature_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_STR]++;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_STR]++;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_STR]++;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_STR]++;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_STR]++;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_STR]++;
 
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_DEX]--;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_DEX]--;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_DEX]--;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_DEX]--;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_DEX]--;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_DEX]--;
 
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_CON]++;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_CON]++;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_CON]++;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_CON]++;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_CON]++;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_CON]++;
 		}
-		if(IS_RACE(cr_ptr, RACE_KLACKON))
+		if(IS_RACE(creature_ptr, RACE_KLACKON))
 		{
-			new_speed += (cr_ptr->lev) / 10;
+			new_speed += (creature_ptr->lev) / 10;
 		}
 		//TODO
 		/*
 			case LICH:
-			cr_ptr->pass_wall = TRUE;
+			creature_ptr->pass_wall = TRUE;
 			break;
 		*/
 	}
 
-	set_unreached_race_level_penalty(cr_ptr);
+	set_unreached_race_level_penalty(creature_ptr);
 
-	if (cr_ptr->ult_res || (cr_ptr->special_defense & KATA_MUSOU))
+	if (creature_ptr->ult_res || (creature_ptr->special_defense & KATA_MUSOU))
 	{
-		cr_ptr->see_inv = TRUE;
-		cr_ptr->free_act = TRUE;
-		cr_ptr->slow_digest = TRUE;
-		cr_ptr->regenerate = TRUE;
-		cr_ptr->levitation = TRUE;
-		cr_ptr->hold_life = TRUE;
-		cr_ptr->telepathy = TRUE;
-		cr_ptr->lite = TRUE;
-		cr_ptr->sustain_str = TRUE;
-		cr_ptr->sustain_int = TRUE;
-		cr_ptr->sustain_wis = TRUE;
-		cr_ptr->sustain_con = TRUE;
-		cr_ptr->sustain_dex = TRUE;
-		cr_ptr->sustain_chr = TRUE;
-		cr_ptr->resist_acid = TRUE;
-		cr_ptr->resist_elec = TRUE;
-		cr_ptr->resist_fire = TRUE;
-		cr_ptr->resist_cold = TRUE;
-		cr_ptr->resist_pois = TRUE;
-		cr_ptr->resist_conf = TRUE;
-		cr_ptr->resist_sound = TRUE;
-		cr_ptr->resist_lite = TRUE;
-		cr_ptr->resist_dark = TRUE;
-		cr_ptr->resist_chaos = TRUE;
-		cr_ptr->resist_disen = TRUE;
-		cr_ptr->resist_shard = TRUE;
-		cr_ptr->resist_nexus = TRUE;
-		cr_ptr->resist_blind = TRUE;
-		cr_ptr->resist_neth = TRUE;
-		cr_ptr->resist_fear = TRUE;
-		cr_ptr->reflect = TRUE;
-		cr_ptr->sh_fire = TRUE;
-		cr_ptr->sh_elec = TRUE;
-		cr_ptr->sh_cold = TRUE;
-		cr_ptr->to_a += 100;
-		cr_ptr->dis_to_a += 100;
+		creature_ptr->see_inv = TRUE;
+		creature_ptr->free_act = TRUE;
+		creature_ptr->slow_digest = TRUE;
+		creature_ptr->regenerate = TRUE;
+		creature_ptr->levitation = TRUE;
+		creature_ptr->hold_life = TRUE;
+		creature_ptr->telepathy = TRUE;
+		creature_ptr->lite = TRUE;
+		creature_ptr->sustain_str = TRUE;
+		creature_ptr->sustain_int = TRUE;
+		creature_ptr->sustain_wis = TRUE;
+		creature_ptr->sustain_con = TRUE;
+		creature_ptr->sustain_dex = TRUE;
+		creature_ptr->sustain_chr = TRUE;
+		creature_ptr->resist_acid = TRUE;
+		creature_ptr->resist_elec = TRUE;
+		creature_ptr->resist_fire = TRUE;
+		creature_ptr->resist_cold = TRUE;
+		creature_ptr->resist_pois = TRUE;
+		creature_ptr->resist_conf = TRUE;
+		creature_ptr->resist_sound = TRUE;
+		creature_ptr->resist_lite = TRUE;
+		creature_ptr->resist_dark = TRUE;
+		creature_ptr->resist_chaos = TRUE;
+		creature_ptr->resist_disen = TRUE;
+		creature_ptr->resist_shard = TRUE;
+		creature_ptr->resist_nexus = TRUE;
+		creature_ptr->resist_blind = TRUE;
+		creature_ptr->resist_neth = TRUE;
+		creature_ptr->resist_fear = TRUE;
+		creature_ptr->reflect = TRUE;
+		creature_ptr->sh_fire = TRUE;
+		creature_ptr->sh_elec = TRUE;
+		creature_ptr->sh_cold = TRUE;
+		creature_ptr->to_a += 100;
+		creature_ptr->dis_to_a += 100;
 	}
 	/* Temporary shield */
-	else if (cr_ptr->tsubureru || cr_ptr->shield || cr_ptr->magicdef)
+	else if (creature_ptr->tsubureru || creature_ptr->shield || creature_ptr->magicdef)
 	{
-		cr_ptr->to_a += 50;
-		cr_ptr->dis_to_a += 50;
+		creature_ptr->to_a += 50;
+		creature_ptr->dis_to_a += 50;
 	}
 
-	if (cr_ptr->tim_res_nether)
+	if (creature_ptr->tim_res_nether)
 	{
-		cr_ptr->resist_neth = TRUE;
+		creature_ptr->resist_neth = TRUE;
 	}
-	if (cr_ptr->tim_sh_fire)
+	if (creature_ptr->tim_sh_fire)
 	{
-		cr_ptr->sh_fire = TRUE;
+		creature_ptr->sh_fire = TRUE;
 	}
-	if (cr_ptr->tim_res_time)
+	if (creature_ptr->tim_res_time)
 	{
-		cr_ptr->resist_time = TRUE;
+		creature_ptr->resist_time = TRUE;
 	}
 
 
 	/* Sexy Gal */
-	if (cr_ptr->chara_idx == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
-	if (cr_ptr->chara_idx == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
-	if (cr_ptr->chara_idx == CHARA_KIREMONO) cr_ptr->to_m_chance -= 3;
-	if (cr_ptr->chara_idx == CHARA_CHARGEMAN) cr_ptr->resist_conf = TRUE;
-	if ((cr_ptr->chara_idx == CHARA_GAMAN) || (cr_ptr->chara_idx == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
+	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
+	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
+	if (creature_ptr->chara_idx == CHARA_KIREMONO) creature_ptr->to_m_chance -= 3;
+	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
+	if ((creature_ptr->chara_idx == CHARA_GAMAN) || (creature_ptr->chara_idx == CHARA_CHIKARA)) creature_ptr->to_m_chance++;
 
 	/* Lucky man */
-	//TODO if (cr_ptr->chara_idx == CHARA_LUCKY) cr_ptr->flags14 |= RF14_GOOD_LUCK;
+	//TODO if (creature_ptr->chara_idx == CHARA_LUCKY) creature_ptr->flags14 |= RF14_GOOD_LUCK;
 
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		cr_ptr->resist_blind = TRUE;
-		cr_ptr->resist_conf  = TRUE;
-		cr_ptr->hold_life = TRUE;
-		if (cr_ptr->cls_idx != CLASS_NINJA) cr_ptr->lite = TRUE;
+		creature_ptr->resist_blind = TRUE;
+		creature_ptr->resist_conf  = TRUE;
+		creature_ptr->hold_life = TRUE;
+		if (creature_ptr->cls_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
 
-		if ((cr_ptr->race_idx1 != RACE_KLACKON) && (cr_ptr->race_idx1 != RACE_SPRITE))
+		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE))
 			/* Munchkin become faster */
-			new_speed += (cr_ptr->lev) / 10 + 5;
+			new_speed += (creature_ptr->lev) / 10 + 5;
 	}
 
-	if (music_singing(cr_ptr, MUSIC_WALL))
+	if (music_singing(creature_ptr, MUSIC_WALL))
 	{
-		cr_ptr->kill_wall = TRUE;
+		creature_ptr->kill_wall = TRUE;
 	}
 
 	/* Hack -- apply racial/class stat maxes */
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(IS_PURE(cr_ptr))
-			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
+		if(IS_PURE(creature_ptr))
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_adj[i];
 		else
 		{
-			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_s_adj[i];
-			cr_ptr->stat_add[i] += tmp_rcr_ptr2->r_s_adj[i];
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_s_adj[i];
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr2->r_s_adj[i];
 		}
 
-		if(cr_ptr->cls_idx != INDEX_NONE)
+		if(creature_ptr->cls_idx != INDEX_NONE)
 		{
-			cr_ptr->stat_add[i] += classkill_info[cr_ptr->cls_idx].c_adj[i];
-			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += classkill_info[cr_ptr->cls_idx].c_adj_b[i];
+			creature_ptr->stat_add[i] += classkill_info[creature_ptr->cls_idx].c_adj[i];
+			if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += classkill_info[creature_ptr->cls_idx].c_adj_b[i];
 		}
 
-		if(cr_ptr->chara_idx != INDEX_NONE)
-			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
+		if(creature_ptr->chara_idx != INDEX_NONE)
+			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i];
 
 		for(j = 0; j < max_authorities_idx; j++)
-			if(HAS_AUTHORITY(cr_ptr, j))
-				cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
+			if(HAS_AUTHORITY(creature_ptr, j))
+				creature_ptr->stat_add[i] += authority_info[j].a_adj[i];
 
-		if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+		if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
 		{
-			creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+			creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
 			if(patron_ptr)
 			{
 				for(j = 0; j < max_authorities_idx; j++)
 					if(HAS_AUTHORITY(patron_ptr, j))
-						cr_ptr->stat_add[i] += authority_info[j].a_adj[i];
+						creature_ptr->stat_add[i] += authority_info[j].a_adj[i];
 			}
 		}
 
@@ -3599,171 +3600,171 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for(i = 0; i < max_creature_flag_idx; i++)
 	{
-		if(has_cf_creature(cr_ptr, i))
+		if(has_cf_creature(creature_ptr, i))
 		{
-			cr_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR];
-			cr_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT];
-			cr_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS];
-			cr_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX];
-			cr_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON];
-			cr_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA];
+			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR];
+			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT];
+			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS];
+			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX];
+			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON];
+			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA];
 
-			cr_ptr->skill_dis += creature_flag_info[i].dis;
-			cr_ptr->skill_dev += creature_flag_info[i].dev;
-			cr_ptr->skill_stl += creature_flag_info[i].stl;
-			cr_ptr->skill_srh += creature_flag_info[i].srh;
-			cr_ptr->skill_dig += creature_flag_info[i].dig;
-			cr_ptr->skill_thb += creature_flag_info[i].thb;
-			cr_ptr->skill_thn += creature_flag_info[i].thn;
-			cr_ptr->skill_tht += creature_flag_info[i].tht;
+			creature_ptr->skill_dis += creature_flag_info[i].dis;
+			creature_ptr->skill_dev += creature_flag_info[i].dev;
+			creature_ptr->skill_stl += creature_flag_info[i].stl;
+			creature_ptr->skill_srh += creature_flag_info[i].srh;
+			creature_ptr->skill_dig += creature_flag_info[i].dig;
+			creature_ptr->skill_thb += creature_flag_info[i].thb;
+			creature_ptr->skill_thn += creature_flag_info[i].thn;
+			creature_ptr->skill_tht += creature_flag_info[i].tht;
 
-			cr_ptr->skill_rob += creature_flag_info[i].rob;
-			cr_ptr->skill_eva += creature_flag_info[i].eva;
-			cr_ptr->skill_vol += creature_flag_info[i].vol;
+			creature_ptr->skill_rob += creature_flag_info[i].rob;
+			creature_ptr->skill_eva += creature_flag_info[i].eva;
+			creature_ptr->skill_vol += creature_flag_info[i].vol;
 
-			cr_ptr->see_infra += creature_flag_info[i].infra;
+			creature_ptr->see_infra += creature_flag_info[i].infra;
 
 		}
 	}
 
 	{
-		if (has_cf_creature(cr_ptr, CF_FLESH_ROT))
+		if (has_cf_creature(creature_ptr, CF_FLESH_ROT))
 		{
-			cr_ptr->regenerate = FALSE;
+			creature_ptr->regenerate = FALSE;
 			/* Cancel innate regeneration */
 		}
 
-		if (has_cf_creature(cr_ptr, CF_MAGIC_RES))
+		if (has_cf_creature(creature_ptr, CF_MAGIC_RES))
 		{
-			cr_ptr->skill_rob += cr_ptr->lev / 5;
-			cr_ptr->skill_eva += cr_ptr->lev / 5;
-			cr_ptr->skill_vol += cr_ptr->lev / 5;
+			creature_ptr->skill_rob += creature_ptr->lev / 5;
+			creature_ptr->skill_eva += creature_ptr->lev / 5;
+			creature_ptr->skill_vol += creature_ptr->lev / 5;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_ELEC_TOUC))
+		if (has_cf_creature(creature_ptr, CF_ELEC_TOUC))
 		{
-			cr_ptr->sh_elec = TRUE;
+			creature_ptr->sh_elec = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_FIRE_BODY))
+		if (has_cf_creature(creature_ptr, CF_FIRE_BODY))
 		{
-			cr_ptr->sh_fire = TRUE;
-			cr_ptr->lite = TRUE;
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->lite = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_WART_SKIN))
+		if (has_cf_creature(creature_ptr, CF_WART_SKIN))
 		{
-			cr_ptr->stat_add[STAT_CHA] -= 2;
-			cr_ptr->to_a += 5;
-			cr_ptr->dis_to_a += 5;
+			creature_ptr->stat_add[STAT_CHA] -= 2;
+			creature_ptr->to_a += 5;
+			creature_ptr->dis_to_a += 5;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SCALES))
+		if (has_cf_creature(creature_ptr, CF_SCALES))
 		{
-			cr_ptr->stat_add[STAT_CHA] -= 1;
-			cr_ptr->to_a += 10;
-			cr_ptr->dis_to_a += 10;
+			creature_ptr->stat_add[STAT_CHA] -= 1;
+			creature_ptr->to_a += 10;
+			creature_ptr->dis_to_a += 10;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_IRON_SKIN))
+		if (has_cf_creature(creature_ptr, CF_IRON_SKIN))
 		{
-			cr_ptr->stat_add[STAT_DEX] -= 1;
-			cr_ptr->to_a += 25;
-			cr_ptr->dis_to_a += 25;
+			creature_ptr->stat_add[STAT_DEX] -= 1;
+			creature_ptr->to_a += 25;
+			creature_ptr->dis_to_a += 25;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_WINGS))
+		if (has_cf_creature(creature_ptr, CF_WINGS))
 		{
-			cr_ptr->levitation = TRUE;
+			creature_ptr->levitation = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_FEARLESS))
+		if (has_cf_creature(creature_ptr, CF_FEARLESS))
 		{
-			cr_ptr->resist_fear = TRUE;
+			creature_ptr->resist_fear = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_REGEN))
+		if (has_cf_creature(creature_ptr, CF_REGEN))
 		{
-			cr_ptr->regenerate = TRUE;
+			creature_ptr->regenerate = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_ESP))
+		if (has_cf_creature(creature_ptr, CF_ESP))
 		{
-			cr_ptr->telepathy = TRUE;
+			creature_ptr->telepathy = TRUE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_LIMBER))
+		if (has_cf_creature(creature_ptr, CF_LIMBER))
 		{
-			cr_ptr->stat_add[STAT_DEX] += 3;
+			creature_ptr->stat_add[STAT_DEX] += 3;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_ARTHRITIS))
+		if (has_cf_creature(creature_ptr, CF_ARTHRITIS))
 		{
-			cr_ptr->stat_add[STAT_DEX] -= 3;
+			creature_ptr->stat_add[STAT_DEX] -= 3;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_MOTION))
+		if (has_cf_creature(creature_ptr, CF_MOTION))
 		{
-			cr_ptr->free_act = TRUE;
-			cr_ptr->skill_stl += 1;
+			creature_ptr->free_act = TRUE;
+			creature_ptr->skill_stl += 1;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_ILL_NORM))
+		if (has_cf_creature(creature_ptr, CF_ILL_NORM))
 		{
-			cr_ptr->stat_add[STAT_CHA] = 0;
+			creature_ptr->stat_add[STAT_CHA] = 0;
 		}
 	}
 
-	if (cr_ptr->tsuyoshi)
+	if (creature_ptr->tsuyoshi)
 	{
-		cr_ptr->stat_add[STAT_STR] += 4;
-		cr_ptr->stat_add[STAT_CON] += 4;
+		creature_ptr->stat_add[STAT_STR] += 4;
+		creature_ptr->stat_add[STAT_CON] += 4;
 	}
 
-	/* Scan the usable cr_ptr->inventory */
+	/* Scan the usable creature_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		int bonus_to_h, bonus_to_d, slot;
 
 		// Skip no equip
-		if (!cr_ptr->equip_now[i]) continue;
+		if (!creature_ptr->equip_now[i]) continue;
 
-		slot = GET_INVEN_SLOT_TYPE(cr_ptr, i);
+		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
 
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
 		/* Extract the item flags */
 		object_flags(o_ptr, flgs);
 
-		cr_ptr->cursed |= (o_ptr->curse_flags & (0xFFFFFFF0L));
-		if (o_ptr->name1 == ART_CHAINSWORD) cr_ptr->cursed |= TRC_CHAINSWORD;
+		creature_ptr->cursed |= (o_ptr->curse_flags & (0xFFFFFFF0L));
+		if (o_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
 
 		/* Affect stats */
-		if (have_flag(flgs, TR_STR)) cr_ptr->stat_add[STAT_STR] += o_ptr->pval;
-		if (have_flag(flgs, TR_INT)) cr_ptr->stat_add[STAT_INT] += o_ptr->pval;
-		if (have_flag(flgs, TR_WIS)) cr_ptr->stat_add[STAT_WIS] += o_ptr->pval;
-		if (have_flag(flgs, TR_DEX)) cr_ptr->stat_add[STAT_DEX] += o_ptr->pval;
-		if (have_flag(flgs, TR_CON)) cr_ptr->stat_add[STAT_CON] += o_ptr->pval;
-		if (have_flag(flgs, TR_CHR)) cr_ptr->stat_add[STAT_CHA] += o_ptr->pval;
+		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += o_ptr->pval;
+		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += o_ptr->pval;
+		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += o_ptr->pval;
+		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += o_ptr->pval;
+		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += o_ptr->pval;
+		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += o_ptr->pval;
 
-		if (have_flag(flgs, TR_MAGIC_MASTERY))    cr_ptr->skill_dev += 8*o_ptr->pval;
+		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8*o_ptr->pval;
 
 		/* Affect stealth */
-		if (have_flag(flgs, TR_STEALTH)) cr_ptr->skill_stl += o_ptr->pval;
+		if (have_flag(flgs, TR_STEALTH)) creature_ptr->skill_stl += o_ptr->pval;
 
 		/* Affect searching ability (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) cr_ptr->skill_srh += (o_ptr->pval * 5);
+		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_srh += (o_ptr->pval * 5);
 
 		/* Affect searching frequency (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) cr_ptr->skill_fos += (o_ptr->pval * 5);
+		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_fos += (o_ptr->pval * 5);
 
 		/* Affect infravision */
-		if (have_flag(flgs, TR_INFRA)) cr_ptr->see_infra += o_ptr->pval;
+		if (have_flag(flgs, TR_INFRA)) creature_ptr->see_infra += o_ptr->pval;
 
 		/* Affect digging (factor of 20) */
-		if (have_flag(flgs, TR_TUNNEL)) cr_ptr->skill_dig += (o_ptr->pval * 20);
+		if (have_flag(flgs, TR_TUNNEL)) creature_ptr->skill_dig += (o_ptr->pval * 20);
 
 		if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
 
@@ -3776,48 +3777,48 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- cause earthquakes */
-		if (have_flag(flgs, TR_IMPACT)) cr_ptr->impact[(i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
+		if (have_flag(flgs, TR_IMPACT)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
 
 		/* Boost shots */
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
 		/* Various flags */
-		if (have_flag(flgs, TR_AGGRAVATE))   cr_ptr->cursed |= TRC_AGGRAVATE;
-		if (have_flag(flgs, TR_DRAIN_EXP))   cr_ptr->cursed |= TRC_DRAIN_EXP;
-		if (have_flag(flgs, TR_TY_CURSE))    cr_ptr->cursed |= TRC_TY_CURSE;
-		if (have_flag(flgs, TR_DEC_MANA))    cr_ptr->dec_mana = TRUE;
-		if (have_flag(flgs, TR_BLESSED))     cr_ptr->bless_blade = TRUE;
-		if (have_flag(flgs, TR_XTRA_MIGHT))  cr_ptr->xtra_might = TRUE;
-		if (have_flag(flgs, TR_SLOW_DIGEST)) cr_ptr->slow_digest = TRUE;
-		if (have_flag(flgs, TR_REGEN))       cr_ptr->regenerate = TRUE;
+		if (have_flag(flgs, TR_AGGRAVATE))   creature_ptr->cursed |= TRC_AGGRAVATE;
+		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
+		if (have_flag(flgs, TR_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
+		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
+		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
+		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
+		if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
+		if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
 
-		if (have_flag(flgs, TR_TELEPATHY))   cr_ptr->telepathy = TRUE;
-		if (have_flag(flgs, TR_ESP_ANIMAL))  cr_ptr->esp_animal = TRUE;
-		if (have_flag(flgs, TR_ESP_UNDEAD))  cr_ptr->esp_undead = TRUE;
-		if (have_flag(flgs, TR_ESP_DEMON))   cr_ptr->esp_demon = TRUE;
-		if (have_flag(flgs, TR_ESP_ORC))     cr_ptr->esp_orc = TRUE;
-		if (have_flag(flgs, TR_ESP_TROLL))   cr_ptr->esp_troll = TRUE;
-		if (have_flag(flgs, TR_ESP_GIANT))   cr_ptr->esp_giant = TRUE;
-		if (have_flag(flgs, TR_ESP_DRAGON))  cr_ptr->esp_dragon = TRUE;
-		if (have_flag(flgs, TR_ESP_HUMAN))   cr_ptr->esp_human = TRUE;
-		if (have_flag(flgs, TR_ESP_EVIL))    cr_ptr->esp_evil = TRUE;
-		if (have_flag(flgs, TR_ESP_GOOD))    cr_ptr->esp_good = TRUE;
-		if (have_flag(flgs, TR_ESP_NONLIVING)) cr_ptr->esp_nonliving = TRUE;
-		if (have_flag(flgs, TR_ESP_UNIQUE))  cr_ptr->esp_unique = TRUE;
+		if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
+		if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
+		if (have_flag(flgs, TR_ESP_UNDEAD))  creature_ptr->esp_undead = TRUE;
+		if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
+		if (have_flag(flgs, TR_ESP_ORC))     creature_ptr->esp_orc = TRUE;
+		if (have_flag(flgs, TR_ESP_TROLL))   creature_ptr->esp_troll = TRUE;
+		if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
+		if (have_flag(flgs, TR_ESP_DRAGON))  creature_ptr->esp_dragon = TRUE;
+		if (have_flag(flgs, TR_ESP_HUMAN))   creature_ptr->esp_human = TRUE;
+		if (have_flag(flgs, TR_ESP_EVIL))    creature_ptr->esp_evil = TRUE;
+		if (have_flag(flgs, TR_ESP_GOOD))    creature_ptr->esp_good = TRUE;
+		if (have_flag(flgs, TR_ESP_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
+		if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
 
-		if (have_flag(flgs, TR_SEE_INVIS))   cr_ptr->see_inv = TRUE;
-		if (have_flag(flgs, TR_LEVITATION))  cr_ptr->levitation = TRUE;
-		if (have_flag(flgs, TR_FREE_ACT))    cr_ptr->free_act = TRUE;
-		if (have_flag(flgs, TR_HOLD_LIFE))   cr_ptr->hold_life = TRUE;
+		if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
+		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
+		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
+		if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
 		if (have_flag(flgs, TR_WARNING)){
 			if (!o_ptr->inscription || !(my_strchr(quark_str(o_ptr->inscription),'$')))
-			  cr_ptr->warning = TRUE;
+			  creature_ptr->warning = TRUE;
 		}
 
 		if (have_flag(flgs, TR_TELEPORT))
 		{
-			if (object_is_cursed(o_ptr)) cr_ptr->cursed |= TRC_TELEPORT;
+			if (object_is_cursed(o_ptr)) creature_ptr->cursed |= TRC_TELEPORT;
 			else
 			{
 				cptr insc = quark_str(o_ptr->inscription);
@@ -3831,70 +3832,70 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				else
 				{
 					/* Controlled random teleportation */
-					cr_ptr->cursed |= TRC_TELEPORT_SELF;
+					creature_ptr->cursed |= TRC_TELEPORT_SELF;
 				}
 			}
 		}
 
 		/* Immunity flags */
-		if (have_flag(flgs, TR_IM_FIRE)) cr_ptr->immune_fire = TRUE;
-		if (have_flag(flgs, TR_IM_ACID)) cr_ptr->immune_acid = TRUE;
-		if (have_flag(flgs, TR_IM_COLD)) cr_ptr->immune_cold = TRUE;
-		if (have_flag(flgs, TR_IM_ELEC)) cr_ptr->immune_elec = TRUE;
+		if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
+		if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
+		if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
+		if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
 
 		/* Resistance flags */
-		if (have_flag(flgs, TR_RES_ACID))   cr_ptr->resist_acid += 1;
-		if (have_flag(flgs, TR_RES_ELEC))   cr_ptr->resist_elec += 1;
-		if (have_flag(flgs, TR_RES_FIRE))   cr_ptr->resist_fire += 1;
-		if (have_flag(flgs, TR_RES_COLD))   cr_ptr->resist_cold += 1;
-		if (have_flag(flgs, TR_RES_POIS))   cr_ptr->resist_pois += 1;
-		if (have_flag(flgs, TR_RES_SOUND))  cr_ptr->resist_sound += 1;
-		if (have_flag(flgs, TR_RES_LITE))   cr_ptr->resist_lite += 1;
-		if (have_flag(flgs, TR_RES_DARK))   cr_ptr->resist_dark += 1;
-		if (have_flag(flgs, TR_RES_CHAOS))  cr_ptr->resist_chaos += 1;
-		if (have_flag(flgs, TR_RES_DISEN))  cr_ptr->resist_disen += 1;
-		if (have_flag(flgs, TR_RES_SHARDS)) cr_ptr->resist_shard += 1;
-		if (have_flag(flgs, TR_RES_NEXUS))  cr_ptr->resist_nexus += 1;
-		if (have_flag(flgs, TR_RES_NETHER)) cr_ptr->resist_neth += 1;
-		if (o_ptr->name2 == EGO_RING_RES_TIME) cr_ptr->resist_time += 1;
+		if (have_flag(flgs, TR_RES_ACID))   creature_ptr->resist_acid += 1;
+		if (have_flag(flgs, TR_RES_ELEC))   creature_ptr->resist_elec += 1;
+		if (have_flag(flgs, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
+		if (have_flag(flgs, TR_RES_COLD))   creature_ptr->resist_cold += 1;
+		if (have_flag(flgs, TR_RES_POIS))   creature_ptr->resist_pois += 1;
+		if (have_flag(flgs, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
+		if (have_flag(flgs, TR_RES_LITE))   creature_ptr->resist_lite += 1;
+		if (have_flag(flgs, TR_RES_DARK))   creature_ptr->resist_dark += 1;
+		if (have_flag(flgs, TR_RES_CHAOS))  creature_ptr->resist_chaos += 1;
+		if (have_flag(flgs, TR_RES_DISEN))  creature_ptr->resist_disen += 1;
+		if (have_flag(flgs, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
+		if (have_flag(flgs, TR_RES_NEXUS))  creature_ptr->resist_nexus += 1;
+		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;
+		if (o_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
 
-		if (have_flag(flgs, TR_RES_FEAR))   cr_ptr->resist_fear = TRUE;
-		if (have_flag(flgs, TR_RES_CONF))   cr_ptr->resist_conf = TRUE;
-		if (have_flag(flgs, TR_RES_BLIND))  cr_ptr->resist_blind = TRUE;
+		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
+		if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
+		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
 
-		if (have_flag(flgs, TR_REFLECT))  cr_ptr->reflect = TRUE;
-		if (have_flag(flgs, TR_SH_FIRE))  cr_ptr->sh_fire = TRUE;
-		if (have_flag(flgs, TR_SH_ELEC))  cr_ptr->sh_elec = TRUE;
-		if (have_flag(flgs, TR_SH_COLD))  cr_ptr->sh_cold = TRUE;
-		if (have_flag(flgs, TR_NO_MAGIC)) cr_ptr->anti_magic = TRUE;
-		if (have_flag(flgs, TR_NO_TELE))  cr_ptr->anti_tele = TRUE;
+		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
+		if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
+		if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
+		if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
+		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
+		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
 
 		/* Sustain flags */
-		if (have_flag(flgs, TR_SUST_STR)) cr_ptr->sustain_str = TRUE;
-		if (have_flag(flgs, TR_SUST_INT)) cr_ptr->sustain_int = TRUE;
-		if (have_flag(flgs, TR_SUST_WIS)) cr_ptr->sustain_wis = TRUE;
-		if (have_flag(flgs, TR_SUST_DEX)) cr_ptr->sustain_dex = TRUE;
-		if (have_flag(flgs, TR_SUST_CON)) cr_ptr->sustain_con = TRUE;
-		if (have_flag(flgs, TR_SUST_CHR)) cr_ptr->sustain_chr = TRUE;
+		if (have_flag(flgs, TR_SUST_STR)) creature_ptr->sustain_str = TRUE;
+		if (have_flag(flgs, TR_SUST_INT)) creature_ptr->sustain_int = TRUE;
+		if (have_flag(flgs, TR_SUST_WIS)) creature_ptr->sustain_wis = TRUE;
+		if (have_flag(flgs, TR_SUST_DEX)) creature_ptr->sustain_dex = TRUE;
+		if (have_flag(flgs, TR_SUST_CON)) creature_ptr->sustain_con = TRUE;
+		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
 
 		if (o_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
 		if (o_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
 
 
-		if (o_ptr->name2 == EGO_RING_THROW) cr_ptr->mighty_throw = TRUE;
-		if (have_flag(flgs, TR_EASY_SPELL)) cr_ptr->easy_spell = TRUE;
-		if (o_ptr->name2 == EGO_AMU_FOOL) cr_ptr->heavy_spell = TRUE;
+		if (o_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
+		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
+		if (o_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
 		if (o_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
 
 		if (o_ptr->curse_flags & TRC_LOW_MAGIC)
 		{
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 			{
-				cr_ptr->to_m_chance += 10;
+				creature_ptr->to_m_chance += 10;
 			}
 			else
 			{
-				cr_ptr->to_m_chance += 3;
+				creature_ptr->to_m_chance += 3;
 			}
 		}
 
@@ -3905,10 +3906,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Apply the bonuses to armor class */
 		/* Apply the mental bonuses to armor class, if known */
 
-		cr_ptr->ac += o_ptr->ac;
-		cr_ptr->dis_ac += o_ptr->ac;
-		cr_ptr->to_a += o_ptr->to_a;
-		if (object_is_known(o_ptr)) cr_ptr->dis_to_a += o_ptr->to_a;
+		creature_ptr->ac += o_ptr->ac;
+		creature_ptr->dis_ac += o_ptr->ac;
+		creature_ptr->to_a += o_ptr->to_a;
+		if (object_is_known(o_ptr)) creature_ptr->dis_to_a += o_ptr->to_a;
 
 		if (o_ptr->curse_flags & TRC_LOW_MELEE)
 		{
@@ -3917,26 +3918,26 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 				{
-					cr_ptr->to_h[slot] -= 15;
-					if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_h[slot] -= 15;
+					creature_ptr->to_h[slot] -= 15;
+					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_h[slot] -= 15;
 				}
 				else
 				{
-					cr_ptr->to_h[slot] -= 5;
-					if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_h[slot] -= 5;
+					creature_ptr->to_h[slot] -= 5;
+					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_h[slot] -= 5;
 				}
 			}
 			else
 			{
 				if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 				{
-					cr_ptr->to_h_b -= 15;
-					if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_h_b -= 15;
+					creature_ptr->to_h_b -= 15;
+					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_h_b -= 15;
 				}
 				else
 				{
-					cr_ptr->to_h_b -= 5;
-					if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_h_b -= 5;
+					creature_ptr->to_h_b -= 5;
+					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_h_b -= 5;
 				}
 			}
 		}
@@ -3945,18 +3946,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		{
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 			{
-				cr_ptr->to_a -= 30;
-				if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_a -= 30;
+				creature_ptr->to_a -= 30;
+				if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_a -= 30;
 			}
 			else
 			{
-				cr_ptr->to_a -= 10;
-				if (o_ptr->ident & IDENT_MENTAL) cr_ptr->dis_to_a -= 10;
+				creature_ptr->to_a -= 10;
+				if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_a -= 10;
 			}
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if (slot == INVEN_SLOT_HAND && get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > i) continue;
+		if (slot == INVEN_SLOT_HAND && get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > i) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
 		if (slot == INVEN_SLOT_BOW) continue;
@@ -3964,7 +3965,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		bonus_to_h = o_ptr->to_h;
 		bonus_to_d = o_ptr->to_d;
 
-		if (cr_ptr->cls_idx == CLASS_NINJA)
+		if (creature_ptr->cls_idx == CLASS_NINJA)
 		{
 			if (o_ptr->to_h > 0) bonus_to_h = (o_ptr->to_h+1)/2;
 			if (o_ptr->to_d > 0) bonus_to_d = (o_ptr->to_d+1)/2;
@@ -3973,200 +3974,200 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* To Bow and Natural attack */
 
 		/* Apply the bonuses to hit/damage */
-		cr_ptr->to_h_b += bonus_to_h;
-		cr_ptr->to_h_m += bonus_to_h;
-		cr_ptr->to_d_m += bonus_to_d;
+		creature_ptr->to_h_b += bonus_to_h;
+		creature_ptr->to_h_m += bonus_to_h;
+		creature_ptr->to_d_m += bonus_to_d;
 
 		/* Apply the mental bonuses tp hit/damage, if known */
-		if (object_is_known(o_ptr)) cr_ptr->dis_to_h_b += bonus_to_h;
+		if (object_is_known(o_ptr)) creature_ptr->dis_to_h_b += bonus_to_h;
 
 		/* To Melee */
-		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING && !cr_ptr->two_handed)
+		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_RING && !creature_ptr->two_handed)
 		{
 			/* Apply the bonuses to hit/damage */
-			cr_ptr->to_h[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
-			cr_ptr->to_d[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
+			creature_ptr->to_h[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
+			creature_ptr->to_d[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
 
 			/* Apply the mental bonuses tp hit/damage, if known */
 			if (object_is_known(o_ptr))
 			{
-				cr_ptr->dis_to_h[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
-				cr_ptr->dis_to_d[get_equipped_slot_idx(cr_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
+				creature_ptr->dis_to_h[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_h;
+				creature_ptr->dis_to_d[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_d;
 			}
 		}
-		else if (cr_ptr->can_melee[0] && cr_ptr->can_melee[1])
+		else if (creature_ptr->can_melee[0] && creature_ptr->can_melee[1])
 		{
 			/* Apply the bonuses to hit/damage */
-			cr_ptr->to_h[0] += (bonus_to_h > 0) ? (bonus_to_h+1)/2 : bonus_to_h;
-			cr_ptr->to_h[1] += (bonus_to_h > 0) ? bonus_to_h/2 : bonus_to_h;
-			cr_ptr->to_d[0] += (bonus_to_d > 0) ? (bonus_to_d+1)/2 : bonus_to_d;
-			cr_ptr->to_d[1] += (bonus_to_d > 0) ? bonus_to_d/2 : bonus_to_d;
+			creature_ptr->to_h[0] += (bonus_to_h > 0) ? (bonus_to_h+1)/2 : bonus_to_h;
+			creature_ptr->to_h[1] += (bonus_to_h > 0) ? bonus_to_h/2 : bonus_to_h;
+			creature_ptr->to_d[0] += (bonus_to_d > 0) ? (bonus_to_d+1)/2 : bonus_to_d;
+			creature_ptr->to_d[1] += (bonus_to_d > 0) ? bonus_to_d/2 : bonus_to_d;
 
 			/* Apply the mental bonuses tp hit/damage, if known */
 			if (object_is_known(o_ptr))
 			{
-				cr_ptr->dis_to_h[0] += (bonus_to_h > 0) ? (bonus_to_h+1)/2 : bonus_to_h;
-				cr_ptr->dis_to_h[1] += (bonus_to_h > 0) ? bonus_to_h/2 : bonus_to_h;
-				cr_ptr->dis_to_d[0] += (bonus_to_d > 0) ? (bonus_to_d+1)/2 : bonus_to_d;
-				cr_ptr->dis_to_d[1] += (bonus_to_d > 0) ? bonus_to_d/2 : bonus_to_d;
+				creature_ptr->dis_to_h[0] += (bonus_to_h > 0) ? (bonus_to_h+1)/2 : bonus_to_h;
+				creature_ptr->dis_to_h[1] += (bonus_to_h > 0) ? bonus_to_h/2 : bonus_to_h;
+				creature_ptr->dis_to_d[0] += (bonus_to_d > 0) ? (bonus_to_d+1)/2 : bonus_to_d;
+				creature_ptr->dis_to_d[1] += (bonus_to_d > 0) ? bonus_to_d/2 : bonus_to_d;
 			}
 		}
 		else
 		{
 			/* Apply the bonuses to hit/damage */
-			cr_ptr->to_h[default_hand] += bonus_to_h;
-			cr_ptr->to_d[default_hand] += bonus_to_d;
+			creature_ptr->to_h[default_hand] += bonus_to_h;
+			creature_ptr->to_d[default_hand] += bonus_to_d;
 
 			/* Apply the mental bonuses to hit/damage, if known */
 			if (object_is_known(o_ptr))
 			{
-				cr_ptr->dis_to_h[default_hand] += bonus_to_h;
-				cr_ptr->dis_to_d[default_hand] += bonus_to_d;
+				creature_ptr->dis_to_h[default_hand] += bonus_to_h;
+				creature_ptr->dis_to_d[default_hand] += bonus_to_d;
 			}
 		}
 	}
 
-	if (old_mighty_throw != cr_ptr->mighty_throw)
+	if (old_mighty_throw != creature_ptr->mighty_throw)
 	{
 		/* Redraw average damege display of Shuriken */
 		play_window |= PW_INVEN;
 	}
 
-	if (cr_ptr->cursed & TRC_TELEPORT) cr_ptr->cursed &= ~(TRC_TELEPORT_SELF);
+	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(cr_ptr))
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
 	{
 		/* TODO Monks get extra ac for armour _not worn_
-		if (!(cr_ptr->inventory[INVEN_SLOT_BODY].k_idx))
+		if (!(creature_ptr->inventory[INVEN_SLOT_BODY].k_idx))
 		{
-			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
-			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
+			creature_ptr->to_a += (creature_ptr->lev * 3) / 2;
+			creature_ptr->dis_to_a += (creature_ptr->lev * 3) / 2;
 		}
-		if (!(cr_ptr->inventory[INVEN_SLOT_OUTER].k_idx) && (cr_ptr->lev > 15))
+		if (!(creature_ptr->inventory[INVEN_SLOT_OUTER].k_idx) && (creature_ptr->lev > 15))
 		{
-			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
-			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
+			creature_ptr->to_a += ((creature_ptr->lev - 13) / 3);
+			creature_ptr->dis_to_a += ((creature_ptr->lev - 13) / 3);
 		}
-		if (!(cr_ptr->inventory[INVEN_SLOT_2NDARM].k_idx) && (cr_ptr->lev > 10))
+		if (!(creature_ptr->inventory[INVEN_SLOT_2NDARM].k_idx) && (creature_ptr->lev > 10))
 		{
-			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
-			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
+			creature_ptr->to_a += ((creature_ptr->lev - 8) / 3);
+			creature_ptr->dis_to_a += ((creature_ptr->lev - 8) / 3);
 		}
-		if (!(cr_ptr->inventory[INVEN_SLOT_1STHEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(creature_ptr->inventory[INVEN_SLOT_1STHEAD].k_idx) && (creature_ptr->lev > 4))
 		{
-			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
-			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
+			creature_ptr->to_a += (creature_ptr->lev - 2) / 3;
+			creature_ptr->dis_to_a += (creature_ptr->lev -2) / 3;
 		}
-		if (!(cr_ptr->inventory[INVEN_SLOT_1STHANDS].k_idx))
+		if (!(creature_ptr->inventory[INVEN_SLOT_1STHANDS].k_idx))
 		{
-			cr_ptr->to_a += (cr_ptr->lev / 2);
-			cr_ptr->dis_to_a += (cr_ptr->lev / 2);
+			creature_ptr->to_a += (creature_ptr->lev / 2);
+			creature_ptr->dis_to_a += (creature_ptr->lev / 2);
 		}
-		if (!(cr_ptr->inventory[INVEN_SLOT_FEET].k_idx))
+		if (!(creature_ptr->inventory[INVEN_SLOT_FEET].k_idx))
 		{
-			cr_ptr->to_a += (cr_ptr->lev / 3);
-			cr_ptr->dis_to_a += (cr_ptr->lev / 3);
+			creature_ptr->to_a += (creature_ptr->lev / 3);
+			creature_ptr->dis_to_a += (creature_ptr->lev / 3);
 		}
 		*/
-		if (cr_ptr->special_defense & KAMAE_BYAKKO)
+		if (creature_ptr->special_defense & KAMAE_BYAKKO)
 		{
-			cr_ptr->stat_add[STAT_STR] += 2;
-			cr_ptr->stat_add[STAT_DEX] += 2;
-			cr_ptr->stat_add[STAT_CON] -= 3;
+			creature_ptr->stat_add[STAT_STR] += 2;
+			creature_ptr->stat_add[STAT_DEX] += 2;
+			creature_ptr->stat_add[STAT_CON] -= 3;
 		}
-		else if (cr_ptr->special_defense & KAMAE_SEIRYU)
+		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
 		{
 		}
-		else if (cr_ptr->special_defense & KAMAE_GENBU)
+		else if (creature_ptr->special_defense & KAMAE_GENBU)
 		{
-			cr_ptr->stat_add[STAT_INT] -= 1;
-			cr_ptr->stat_add[STAT_WIS] -= 1;
-			cr_ptr->stat_add[STAT_DEX] -= 2;
-			cr_ptr->stat_add[STAT_CON] += 3;
+			creature_ptr->stat_add[STAT_INT] -= 1;
+			creature_ptr->stat_add[STAT_WIS] -= 1;
+			creature_ptr->stat_add[STAT_DEX] -= 2;
+			creature_ptr->stat_add[STAT_CON] += 3;
 		}
-		else if (cr_ptr->special_defense & KAMAE_SUZAKU)
+		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		{
-			cr_ptr->stat_add[STAT_STR] -= 2;
-			cr_ptr->stat_add[STAT_INT] += 1;
-			cr_ptr->stat_add[STAT_WIS] += 1;
-			cr_ptr->stat_add[STAT_DEX] += 2;
-			cr_ptr->stat_add[STAT_CON] -= 2;
+			creature_ptr->stat_add[STAT_STR] -= 2;
+			creature_ptr->stat_add[STAT_INT] += 1;
+			creature_ptr->stat_add[STAT_WIS] += 1;
+			creature_ptr->stat_add[STAT_DEX] += 2;
+			creature_ptr->stat_add[STAT_CON] -= 2;
 		}
 	}
 
-	if (cr_ptr->special_defense & KATA_KOUKIJIN)
+	if (creature_ptr->special_defense & KATA_KOUKIJIN)
 	{
 		for (i = 0; i < 6; i++)
-			cr_ptr->stat_add[i] += 5;
-		cr_ptr->to_a -= 50;
-		cr_ptr->dis_to_a -= 50;
+			creature_ptr->stat_add[i] += 5;
+		creature_ptr->to_a -= 50;
+		creature_ptr->dis_to_a -= 50;
 	}
 
 	/* Set Species Blow. */
-	cr_ptr->blow[0] = species_ptr->blow[0];
-	cr_ptr->blow[1] = species_ptr->blow[1];
-	cr_ptr->blow[2] = species_ptr->blow[2];
-	cr_ptr->blow[3] = species_ptr->blow[3];
+	creature_ptr->blow[0] = species_ptr->blow[0];
+	creature_ptr->blow[1] = species_ptr->blow[1];
+	creature_ptr->blow[2] = species_ptr->blow[2];
+	creature_ptr->blow[3] = species_ptr->blow[3];
 
 
 	/* Hack -- aura of fire also provides light */
-	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
+	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
 	/* Racial AC bonus */
-	if(IS_PURE(cr_ptr))
+	if(IS_PURE(creature_ptr))
 	{
-		cr_ptr->to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
-		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		creature_ptr->to_a += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_a += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 	else
 	{
-		cr_ptr->to_a += race_info[cr_ptr->race_idx1].ac_s_base + (race_info[cr_ptr->race_idx1].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
-		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx1].ac_s_base + (race_info[cr_ptr->race_idx1].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
-		cr_ptr->to_a += race_info[cr_ptr->race_idx2].ac_s_base + (race_info[cr_ptr->race_idx2].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
-		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx2].ac_s_base + (race_info[cr_ptr->race_idx2].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		creature_ptr->to_a += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_a += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_a += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_a += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 
 	/* Hex bonuses */
-	if (cr_ptr->realm1 == REALM_HEX)
+	if (creature_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling_any(cr_ptr)) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
-		if (hex_spelling(cr_ptr, HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
-		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[STAT_STR] += 4;
-		if (hex_spelling(cr_ptr, HEX_BUILDING))
+		if (hex_spelling_any(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->magic_num2[0]);
+		if (hex_spelling(creature_ptr, HEX_DETECT_EVIL)) creature_ptr->esp_evil = TRUE;
+		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 4;
+		if (hex_spelling(creature_ptr, HEX_BUILDING))
 		{
-			cr_ptr->stat_add[STAT_STR] += 4;
-			cr_ptr->stat_add[STAT_DEX] += 4;
-			cr_ptr->stat_add[STAT_CON] += 4;
+			creature_ptr->stat_add[STAT_STR] += 4;
+			creature_ptr->stat_add[STAT_DEX] += 4;
+			creature_ptr->stat_add[STAT_CON] += 4;
 		}
-		if (hex_spelling(cr_ptr, HEX_DEMON_AURA))
+		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
-			cr_ptr->sh_fire = TRUE;
-			cr_ptr->regenerate = TRUE;
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->regenerate = TRUE;
 		}
-		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR))
+		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
 		{
-			cr_ptr->sh_cold = TRUE; 
-			cr_ptr->to_a += 30;
-			cr_ptr->dis_to_a += 30;
+			creature_ptr->sh_cold = TRUE; 
+			creature_ptr->to_a += 30;
+			creature_ptr->dis_to_a += 30;
 		}
-		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK))
+		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK))
 		{
-			cr_ptr->sh_elec = TRUE;
+			creature_ptr->sh_elec = TRUE;
 			new_speed += 3;
 		}
 		for (i = 0; i <= INVEN_TOTAL; i++)
 		{
 			int ac = 0;
-			if(!cr_ptr->equip_now[i]) continue; 
-			o_ptr = &cr_ptr->inventory[i];
+			if(!creature_ptr->equip_now[i]) continue; 
+			o_ptr = &creature_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
 			if (!object_is_armour(o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
 			ac += 5;
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;
 			if (o_ptr->curse_flags & TRC_DIVINE_CURSE) ac += 13;
-			cr_ptr->to_a += ac;
-			cr_ptr->dis_to_a += ac;
+			creature_ptr->to_a += ac;
+			creature_ptr->dis_to_a += ac;
 		}
 	}
 
@@ -4176,13 +4177,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		int top, use, ind;
 
 		/* Extract the new "stat_use" value for the stat */
-		top = modify_stat_value(cr_ptr->stat_max[i], cr_ptr->stat_add[i]);
+		top = modify_stat_value(creature_ptr->stat_max[i], creature_ptr->stat_add[i]);
 
 		/* Notice changes */
-		if (cr_ptr->stat_top[i] != top)
+		if (creature_ptr->stat_top[i] != top)
 		{
 			/* Save the new value */
-			cr_ptr->stat_top[i] = top;
+			creature_ptr->stat_top[i] = top;
 
 			/* Redisplay the stats later */
 			play_redraw |= (PR_STATS);
@@ -4193,22 +4194,22 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 		/* Extract the new "stat_use" value for the stat */
-		use = modify_stat_value(cr_ptr->stat_cur[i], cr_ptr->stat_add[i]);
+		use = modify_stat_value(creature_ptr->stat_cur[i], creature_ptr->stat_add[i]);
 
-		if ((i == STAT_CHA) && (has_cf_creature(cr_ptr, CF_ILL_NORM)))
+		if ((i == STAT_CHA) && (has_cf_creature(creature_ptr, CF_ILL_NORM)))
 		{
 			/* 10 to 18/90 charisma, guaranteed, based on level */
-			if (use < 8 + 2 * cr_ptr->lev)
+			if (use < 8 + 2 * creature_ptr->lev)
 			{
-				use = 8 + 2 * cr_ptr->lev;
+				use = 8 + 2 * creature_ptr->lev;
 			}
 		}
 
 		/* Notice changes */
-		if (cr_ptr->stat_use[i] != use)
+		if (creature_ptr->stat_use[i] != use)
 		{
 			/* Save the new value */
-			cr_ptr->stat_use[i] = use;
+			creature_ptr->stat_use[i] = use;
 
 			/* Redisplay the stats later */
 			play_redraw |= (PR_STATS);
@@ -4228,41 +4229,41 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		else ind = (57);
 
 		/* Notice changes */
-		if (cr_ptr->stat_ind[i] != ind)
+		if (creature_ptr->stat_ind[i] != ind)
 		{
 			/* Save the new index */
-			cr_ptr->stat_ind[i] = ind;
+			creature_ptr->stat_ind[i] = ind;
 
 			/* Change in CON affects Hitpoints */
 			if (i == STAT_CON)
 			{
-				cr_ptr->creature_update |= (CRU_HP);
+				creature_ptr->creature_update |= (CRU_HP);
 			}
 
 			/* Change in INT may affect Mana/Spells */
 			else if (i == STAT_INT)
 			{
-				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_INT)
+				if (m_info[creature_ptr->cls_idx].spell_stat == STAT_INT)
 				{
-					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == STAT_WIS)
 			{
-				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_WIS)
+				if (m_info[creature_ptr->cls_idx].spell_stat == STAT_WIS)
 				{
-					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == STAT_CHA)
 			{
-				if (m_info[cr_ptr->cls_idx].spell_stat == STAT_CHA)
+				if (m_info[creature_ptr->cls_idx].spell_stat == STAT_CHA)
 				{
-					cr_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 				}
 			}
 
@@ -4273,302 +4274,302 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Apply temporary "stun" */
-	if (cr_ptr->stun > 50)
+	if (creature_ptr->stun > 50)
 	{
-		cr_ptr->to_h[0] -= 20;
-		cr_ptr->to_h[1] -= 20;
-		cr_ptr->to_h_b  -= 20;
-		cr_ptr->to_h_m  -= 20;
-		cr_ptr->dis_to_h[0] -= 20;
-		cr_ptr->dis_to_h[1] -= 20;
-		cr_ptr->dis_to_h_b  -= 20;
-		cr_ptr->to_d[0] -= 20;
-		cr_ptr->to_d[1] -= 20;
-		cr_ptr->to_d_m -= 20;
-		cr_ptr->dis_to_d[0] -= 20;
-		cr_ptr->dis_to_d[1] -= 20;
+		creature_ptr->to_h[0] -= 20;
+		creature_ptr->to_h[1] -= 20;
+		creature_ptr->to_h_b  -= 20;
+		creature_ptr->to_h_m  -= 20;
+		creature_ptr->dis_to_h[0] -= 20;
+		creature_ptr->dis_to_h[1] -= 20;
+		creature_ptr->dis_to_h_b  -= 20;
+		creature_ptr->to_d[0] -= 20;
+		creature_ptr->to_d[1] -= 20;
+		creature_ptr->to_d_m -= 20;
+		creature_ptr->dis_to_d[0] -= 20;
+		creature_ptr->dis_to_d[1] -= 20;
 	}
-	else if (cr_ptr->stun)
+	else if (creature_ptr->stun)
 	{
-		cr_ptr->to_h[0] -= 5;
-		cr_ptr->to_h[1] -= 5;
-		cr_ptr->to_h_b -= 5;
-		cr_ptr->to_h_m -= 5;
-		cr_ptr->dis_to_h[0] -= 5;
-		cr_ptr->dis_to_h[1] -= 5;
-		cr_ptr->dis_to_h_b -= 5;
-		cr_ptr->to_d[0] -= 5;
-		cr_ptr->to_d[1] -= 5;
-		cr_ptr->to_d_m -= 5;
-		cr_ptr->dis_to_d[0] -= 5;
-		cr_ptr->dis_to_d[1] -= 5;
+		creature_ptr->to_h[0] -= 5;
+		creature_ptr->to_h[1] -= 5;
+		creature_ptr->to_h_b -= 5;
+		creature_ptr->to_h_m -= 5;
+		creature_ptr->dis_to_h[0] -= 5;
+		creature_ptr->dis_to_h[1] -= 5;
+		creature_ptr->dis_to_h_b -= 5;
+		creature_ptr->to_d[0] -= 5;
+		creature_ptr->to_d[1] -= 5;
+		creature_ptr->to_d_m -= 5;
+		creature_ptr->dis_to_d[0] -= 5;
+		creature_ptr->dis_to_d[1] -= 5;
 	}
 
 	/* Wraith form */
-	if (cr_ptr->wraith_form)
+	if (creature_ptr->wraith_form)
 	{
-		cr_ptr->reflect = TRUE;
-		cr_ptr->pass_wall = TRUE;
+		creature_ptr->reflect = TRUE;
+		creature_ptr->pass_wall = TRUE;
 	}
 
-	if (cr_ptr->kabenuke)
+	if (creature_ptr->kabenuke)
 	{
-		cr_ptr->pass_wall = TRUE;
+		creature_ptr->pass_wall = TRUE;
 	}
 
 	/* Temporary blessing */
-	if (IS_BLESSED(cr_ptr))
+	if (IS_BLESSED(creature_ptr))
 	{
-		cr_ptr->to_a += 5;
-		cr_ptr->dis_to_a += 5;
-		cr_ptr->to_h[0] += 10;
-		cr_ptr->to_h[1] += 10;
-		cr_ptr->to_h_b  += 10;
-		cr_ptr->to_h_m  += 10;
-		cr_ptr->dis_to_h[0] += 10;
-		cr_ptr->dis_to_h[1] += 10;
-		cr_ptr->dis_to_h_b += 10;
+		creature_ptr->to_a += 5;
+		creature_ptr->dis_to_a += 5;
+		creature_ptr->to_h[0] += 10;
+		creature_ptr->to_h[1] += 10;
+		creature_ptr->to_h_b  += 10;
+		creature_ptr->to_h_m  += 10;
+		creature_ptr->dis_to_h[0] += 10;
+		creature_ptr->dis_to_h[1] += 10;
+		creature_ptr->dis_to_h_b += 10;
 	}
 
-	if (cr_ptr->magicdef)
+	if (creature_ptr->magicdef)
 	{
-		cr_ptr->resist_blind = TRUE;
-		cr_ptr->resist_conf = TRUE;
-		cr_ptr->reflect = TRUE;
-		cr_ptr->free_act = TRUE;
-		cr_ptr->levitation = TRUE;
+		creature_ptr->resist_blind = TRUE;
+		creature_ptr->resist_conf = TRUE;
+		creature_ptr->reflect = TRUE;
+		creature_ptr->free_act = TRUE;
+		creature_ptr->levitation = TRUE;
 	}
 
 	/* Temporary "Hero" */
-	if (IS_HERO(cr_ptr))
+	if (IS_HERO(creature_ptr))
 	{
-		cr_ptr->to_h[0] += 12;
-		cr_ptr->to_h[1] += 12;
-		cr_ptr->to_h_b  += 12;
-		cr_ptr->to_h_m  += 12;
-		cr_ptr->dis_to_h[0] += 12;
-		cr_ptr->dis_to_h[1] += 12;
-		cr_ptr->dis_to_h_b  += 12;
+		creature_ptr->to_h[0] += 12;
+		creature_ptr->to_h[1] += 12;
+		creature_ptr->to_h_b  += 12;
+		creature_ptr->to_h_m  += 12;
+		creature_ptr->dis_to_h[0] += 12;
+		creature_ptr->dis_to_h[1] += 12;
+		creature_ptr->dis_to_h_b  += 12;
 	}
 
 	/* Temporary "Beserk" */
-	if (cr_ptr->shero)
+	if (creature_ptr->shero)
 	{
-		cr_ptr->to_h[0] += 12;
-		cr_ptr->to_h[1] += 12;
-		cr_ptr->to_h_b  -= 12;
-		cr_ptr->to_h_m  += 12;
-		cr_ptr->to_d[0] += 3+(cr_ptr->lev/5);
-		cr_ptr->to_d[1] += 3+(cr_ptr->lev/5);
-		cr_ptr->to_d_m  += 3+(cr_ptr->lev/5);
-		cr_ptr->dis_to_h[0] += 12;
-		cr_ptr->dis_to_h[1] += 12;
-		cr_ptr->dis_to_h_b  -= 12;
-		cr_ptr->dis_to_d[0] += 3+(cr_ptr->lev/5);
-		cr_ptr->dis_to_d[1] += 3+(cr_ptr->lev/5);
-		cr_ptr->to_a -= 10;
-		cr_ptr->dis_to_a -= 10;
-		cr_ptr->skill_stl -= 7;
-		cr_ptr->skill_dev -= 20;
-		cr_ptr->skill_rob += 20;
-		cr_ptr->skill_eva += 20;
-		cr_ptr->skill_vol -= 30;
-		cr_ptr->skill_srh -= 15;
-		cr_ptr->skill_fos -= 15;
-		cr_ptr->skill_tht -= 20;
-		cr_ptr->skill_dig += 30;
+		creature_ptr->to_h[0] += 12;
+		creature_ptr->to_h[1] += 12;
+		creature_ptr->to_h_b  -= 12;
+		creature_ptr->to_h_m  += 12;
+		creature_ptr->to_d[0] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_d[1] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_d_m  += 3+(creature_ptr->lev/5);
+		creature_ptr->dis_to_h[0] += 12;
+		creature_ptr->dis_to_h[1] += 12;
+		creature_ptr->dis_to_h_b  -= 12;
+		creature_ptr->dis_to_d[0] += 3+(creature_ptr->lev/5);
+		creature_ptr->dis_to_d[1] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_a -= 10;
+		creature_ptr->dis_to_a -= 10;
+		creature_ptr->skill_stl -= 7;
+		creature_ptr->skill_dev -= 20;
+		creature_ptr->skill_rob += 20;
+		creature_ptr->skill_eva += 20;
+		creature_ptr->skill_vol -= 30;
+		creature_ptr->skill_srh -= 15;
+		creature_ptr->skill_fos -= 15;
+		creature_ptr->skill_tht -= 20;
+		creature_ptr->skill_dig += 30;
 	}
 
 	/* Temporary "fast" */
-	if (IS_FAST(cr_ptr))
+	if (IS_FAST(creature_ptr))
 	{
 		new_speed += 10;
 	}
 
 	/* Temporary "slow" */
-	if (cr_ptr->slow)
+	if (creature_ptr->slow)
 	{
 		new_speed -= 10;
 	}
 
 	/* Temporary "telepathy" */
-	if (IS_TIM_ESP(cr_ptr))
+	if (IS_TIM_ESP(creature_ptr))
 	{
-		cr_ptr->telepathy = TRUE;
+		creature_ptr->telepathy = TRUE;
 	}
 
-	if (cr_ptr->ele_immune)
+	if (creature_ptr->ele_immune)
 	{
-		if (cr_ptr->special_defense & DEFENSE_ACID)
-			cr_ptr->immune_acid = TRUE;
-		else if (cr_ptr->special_defense & DEFENSE_ELEC)
-			cr_ptr->immune_elec = TRUE;
-		else if (cr_ptr->special_defense & DEFENSE_FIRE)
-			cr_ptr->immune_fire = TRUE;
-		else if (cr_ptr->special_defense & DEFENSE_COLD)
-			cr_ptr->immune_cold = TRUE;
+		if (creature_ptr->special_defense & DEFENSE_ACID)
+			creature_ptr->immune_acid = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_ELEC)
+			creature_ptr->immune_elec = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_FIRE)
+			creature_ptr->immune_fire = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_COLD)
+			creature_ptr->immune_cold = TRUE;
 	}
 
 	/* Temporary see invisible */
-	if (cr_ptr->tim_invis)
+	if (creature_ptr->tim_invis)
 	{
-		cr_ptr->see_inv = TRUE;
+		creature_ptr->see_inv = TRUE;
 	}
 
 	/* Temporary infravision boost */
-	if (cr_ptr->tim_infra)
+	if (creature_ptr->tim_infra)
 	{
-		cr_ptr->see_infra+=3;
+		creature_ptr->see_infra+=3;
 	}
 
 	/* Temporary regeneration boost */
-	if (cr_ptr->tim_regen)
+	if (creature_ptr->tim_regen)
 	{
-		cr_ptr->regenerate = TRUE;
+		creature_ptr->regenerate = TRUE;
 	}
 
 	/* Temporary levitation */
-	if (cr_ptr->tim_levitation)
+	if (creature_ptr->tim_levitation)
 	{
-		cr_ptr->levitation = TRUE;
+		creature_ptr->levitation = TRUE;
 	}
 
 	/* Temporary reflection */
-	if (cr_ptr->tim_reflect)
+	if (creature_ptr->tim_reflect)
 	{
-		cr_ptr->reflect = TRUE;
+		creature_ptr->reflect = TRUE;
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
-	if (IS_HERO(cr_ptr) || cr_ptr->shero)
+	if (IS_HERO(creature_ptr) || creature_ptr->shero)
 	{
-		cr_ptr->resist_fear = TRUE;
+		creature_ptr->resist_fear = TRUE;
 	}
 
 
 	/* Hack -- Telepathy Change */
-	if (cr_ptr->telepathy != old_telepathy)
+	if (creature_ptr->telepathy != old_telepathy)
 	{
 		update |= (PU_MONSTERS);
 	}
 
-	if ((cr_ptr->esp_animal != old_esp_animal) ||
-	    (cr_ptr->esp_undead != old_esp_undead) ||
-	    (cr_ptr->esp_demon != old_esp_demon) ||
-	    (cr_ptr->esp_orc != old_esp_orc) ||
-	    (cr_ptr->esp_troll != old_esp_troll) ||
-	    (cr_ptr->esp_giant != old_esp_giant) ||
-	    (cr_ptr->esp_dragon != old_esp_dragon) ||
-	    (cr_ptr->esp_human != old_esp_human) ||
-	    (cr_ptr->esp_evil != old_esp_evil) ||
-	    (cr_ptr->esp_good != old_esp_good) ||
-	    (cr_ptr->esp_nonliving != old_esp_nonliving) ||
-	    (cr_ptr->esp_unique != old_esp_unique))
+	if ((creature_ptr->esp_animal != old_esp_animal) ||
+	    (creature_ptr->esp_undead != old_esp_undead) ||
+	    (creature_ptr->esp_demon != old_esp_demon) ||
+	    (creature_ptr->esp_orc != old_esp_orc) ||
+	    (creature_ptr->esp_troll != old_esp_troll) ||
+	    (creature_ptr->esp_giant != old_esp_giant) ||
+	    (creature_ptr->esp_dragon != old_esp_dragon) ||
+	    (creature_ptr->esp_human != old_esp_human) ||
+	    (creature_ptr->esp_evil != old_esp_evil) ||
+	    (creature_ptr->esp_good != old_esp_good) ||
+	    (creature_ptr->esp_nonliving != old_esp_nonliving) ||
+	    (creature_ptr->esp_unique != old_esp_unique))
 	{
 		update |= (PU_MONSTERS);
 	}
 
 	/* Hack -- See Invis Change */
-	if (cr_ptr->see_inv != old_see_inv)
+	if (creature_ptr->see_inv != old_see_inv)
 	{
 		update |= (PU_MONSTERS);
 	}
 
 	/* Bloating slows the player down (a little) */
-	if (cr_ptr->food >= PY_FOOD_MAX) new_speed -= 10;
+	if (creature_ptr->food >= PY_FOOD_MAX) new_speed -= 10;
 
-	if (cr_ptr->special_defense & KAMAE_SUZAKU) new_speed += 10;
+	if (creature_ptr->special_defense & KAMAE_SUZAKU) new_speed += 10;
 
-	if ((cr_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
-	    (cr_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
+	if ((creature_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
+	    (creature_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
 	{
-		cr_ptr->to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
-		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
-		cr_ptr->to_d[default_hand] += cr_ptr->size * (10 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
-		cr_ptr->dis_to_d[default_hand] += cr_ptr->size * (10 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		creature_ptr->to_h[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
+		creature_ptr->dis_to_h[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
+		creature_ptr->to_d[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		creature_ptr->dis_to_d[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
 	}
 
 	//TODO: adjust
 	/*
-	if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1)
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 	{
 		int penalty1, penalty2;
-		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
-		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[].weight) / 8);
-		if ((cr_ptr->inventory[].name1 == ART_QUICKTHORN) && (cr_ptr->inventory[].name1 == ART_TINYTHORN))
+		penalty1 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		penalty2 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		if ((creature_ptr->inventory[].name1 == ART_QUICKTHORN) && (creature_ptr->inventory[].name1 == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
 			new_speed += 7;
-			cr_ptr->to_a += 10;
-			cr_ptr->dis_to_a += 10;
+			creature_ptr->to_a += 10;
+			creature_ptr->dis_to_a += 10;
 		}
 		if (easy_2weapon)
 		{
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
 		}
-		else if ((cr_ptr->inventory[].tval == TV_SWORD) && ((cr_ptr->inventory[].sval == SV_MAIN_GAUCHE) || (cr_ptr->inventory[].sval == SV_WAKIZASHI)))
+		else if ((creature_ptr->inventory[].tval == TV_SWORD) && ((creature_ptr->inventory[].sval == SV_MAIN_GAUCHE) || (creature_ptr->inventory[].sval == SV_WAKIZASHI)))
 		{
 			penalty1 = MAX(0, penalty1 - 10);
 			penalty2 = MAX(0, penalty2 - 10);
 		}
-		if ((cr_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (cr_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
+		if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
 		{
 			penalty1 = MIN(0, penalty1);
 			penalty2 = MIN(0, penalty2);
-			cr_ptr->to_a += 10;
-			cr_ptr->dis_to_a += 10;
+			creature_ptr->to_a += 10;
+			creature_ptr->dis_to_a += 10;
 		}
 		else
 		{
-			if ((cr_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+			if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
 				penalty1 /= 2;
-			if ((cr_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+			if ((creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
 				penalty2 /= 2;
 		}
-		if (cr_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;
-		if (cr_ptr->inventory[].tval == TV_POLEARM) penalty2 += 10;
-		cr_ptr->to_h[0] -= penalty1;
-		cr_ptr->to_h[1] -= penalty2;
-		cr_ptr->dis_to_h[0] -= penalty1;
-		cr_ptr->dis_to_h[1] -= penalty2;
+		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;
+		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty2 += 10;
+		creature_ptr->to_h[0] -= penalty1;
+		creature_ptr->to_h[1] -= penalty2;
+		creature_ptr->dis_to_h[0] -= penalty1;
+		creature_ptr->dis_to_h[1] -= penalty2;
 	}
 	*/
 
 	/* Extract the current weight (in tenth pounds) */
-	j = cr_ptr->total_weight;
+	j = creature_ptr->total_weight;
 
-	if (!cr_ptr->riding)
+	if (!creature_ptr->riding)
 	{
 		/* Extract the "weight limit" (in tenth pounds) */
-		i = (int)weight_limit(cr_ptr);
+		i = (int)weight_limit(creature_ptr);
 	}
 	else
 	{
-		creature_type *riding_m_ptr = &creature_list[cr_ptr->riding];
+		creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
 		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
 		int speed = riding_m_ptr->speed;
 
 		if (riding_m_ptr->speed > 110)
 		{
-			new_speed = 110 + (s16b)((speed - 110) * (cr_ptr->skill_exp[GINOU_RIDING] * 3 + cr_ptr->lev * 160L - 10000L) / (22000L));
+			new_speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
 			if (new_speed < 110) new_speed = 110;
 		}
 		else
 		{
 			new_speed = speed;
 		}
-		new_speed += (cr_ptr->skill_exp[GINOU_RIDING] + cr_ptr->lev *160L)/3200;
+		new_speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L)/3200;
 		if (riding_m_ptr->fast) new_speed += 10;
 		if (riding_m_ptr->slow) new_speed -= 10;
 		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
-		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) cr_ptr->can_swim = TRUE;
+		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
 
-		if (!is_pass_wall_species(riding_r_ptr)) cr_ptr->pass_wall = FALSE;
-		if (is_kill_wall_species(riding_r_ptr)) cr_ptr->kill_wall = TRUE;
+		if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
+		if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
-		if (cr_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (cr_ptr->wt * 3 * (RIDING_EXP_SKILLED - cr_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
+		if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
 
 		/* Extract the "weight limit" */
 		i = 1500 + riding_r_ptr->level * 25;
@@ -4579,55 +4580,55 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (j > i) new_speed -= ((j - i) / (i / 5 + 1));
 
 	/* Searching slows the player down */
-	if (cr_ptr->action == ACTION_SEARCH) new_speed -= 10;
+	if (creature_ptr->action == ACTION_SEARCH) new_speed -= 10;
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
-	cr_ptr->to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_d_m  += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->to_h_m  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->to_h_m  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_a += ((int)(adj_dex_ta[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_d[0] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_d[1] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_d_m  += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h[0] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h[1] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h_b  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h_m  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h[0] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h[1] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h_b  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h_m  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
-	cr_ptr->dis_to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->dis_to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->dis_to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->dis_to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->dis_to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->dis_to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
-	cr_ptr->dis_to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->dis_to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
-	cr_ptr->dis_to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_a += ((int)(adj_dex_ta[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_d[0] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_d[1] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h[0] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h[1] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h_b  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h[0] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h[1] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h_b  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 
 	/* Obtain the "hold" value */
-	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size / 10 * cr_ptr->size / 10;
+	hold = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * creature_ptr->size / 10 * creature_ptr->size / 10;
 
 
 	// Examine the "current bow"
-	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	if(o_ptr->k_idx)
 	{
 		/* Assume not heavy */
-		cr_ptr->heavy_shoot = FALSE;
+		creature_ptr->heavy_shoot = FALSE;
 
 		/* It is hard to carholdry a heavy bow */
 		if (hold < o_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy bow */
-			cr_ptr->to_h_b  += 2 * (hold - o_ptr->weight / 10);
-			cr_ptr->dis_to_h_b  += 2 * (hold - o_ptr->weight / 10);
+			creature_ptr->to_h_b  += 2 * (hold - o_ptr->weight / 10);
+			creature_ptr->dis_to_h_b  += 2 * (hold - o_ptr->weight / 10);
 
 			/* Heavy Bow */
-			cr_ptr->heavy_shoot = TRUE;
+			creature_ptr->heavy_shoot = TRUE;
 		}
 
 		/* Compute "extra shots" if needed */
@@ -4638,7 +4639,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				case SV_SLING:
 				{
-					cr_ptr->tval_ammo = TV_SHOT;
+					creature_ptr->tval_ammo = TV_SHOT;
 					break;
 				}
 
@@ -4646,119 +4647,119 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				case SV_LONG_BOW:
 				case SV_NAMAKE_BOW:
 				{
-					cr_ptr->tval_ammo = TV_ARROW;
+					creature_ptr->tval_ammo = TV_ARROW;
 					break;
 				}
 
 				case SV_LIGHT_XBOW:
 				case SV_HEAVY_XBOW:
 				{
-					cr_ptr->tval_ammo = TV_BOLT;
+					creature_ptr->tval_ammo = TV_BOLT;
 					break;
 				}
 				case SV_CRIMSON:
 				{
-					cr_ptr->tval_ammo = TV_NO_AMMO;
+					creature_ptr->tval_ammo = TV_NO_AMMO;
 					break;
 				}
 			}
 
 			/* Apply special flags */
-			if (o_ptr->k_idx && !cr_ptr->heavy_shoot)
+			if (o_ptr->k_idx && !creature_ptr->heavy_shoot)
 			{
 				/* Extra shots */
-				cr_ptr->num_fire += (extra_shots * 100);
+				creature_ptr->num_fire += (extra_shots * 100);
 
 				/* Hack -- Rangers love Bows */
-				if ((cr_ptr->cls_idx == CLASS_RANGER) &&
-				    (cr_ptr->tval_ammo == TV_ARROW))
+				if ((creature_ptr->cls_idx == CLASS_RANGER) &&
+				    (creature_ptr->tval_ammo == TV_ARROW))
 				{
-					cr_ptr->num_fire += (cr_ptr->lev * 4);
+					creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
-				if ((cr_ptr->cls_idx == CLASS_CAVALRY) &&
-				    (cr_ptr->tval_ammo == TV_ARROW))
+				if ((creature_ptr->cls_idx == CLASS_CAVALRY) &&
+				    (creature_ptr->tval_ammo == TV_ARROW))
 				{
-					cr_ptr->num_fire += (cr_ptr->lev * 3);
+					creature_ptr->num_fire += (creature_ptr->lev * 3);
 				}
 
-				if (cr_ptr->cls_idx == CLASS_ARCHER)
+				if (creature_ptr->cls_idx == CLASS_ARCHER)
 				{
-					if (cr_ptr->tval_ammo == TV_ARROW)
-						cr_ptr->num_fire += ((cr_ptr->lev * 5)+50);
-					else if ((cr_ptr->tval_ammo == TV_BOLT) || (cr_ptr->tval_ammo == TV_SHOT))
-						cr_ptr->num_fire += (cr_ptr->lev * 4);
+					if (creature_ptr->tval_ammo == TV_ARROW)
+						creature_ptr->num_fire += ((creature_ptr->lev * 5)+50);
+					else if ((creature_ptr->tval_ammo == TV_BOLT) || (creature_ptr->tval_ammo == TV_SHOT))
+						creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
 				/*
 				 * Addendum -- also "Reward" high level warriors,
 				 * with _any_ missile weapon -- TY
 				 */
-				if (cr_ptr->cls_idx == CLASS_WARRIOR &&
-				   (cr_ptr->tval_ammo <= TV_BOLT) &&
-				   (cr_ptr->tval_ammo >= TV_SHOT))
+				if (creature_ptr->cls_idx == CLASS_WARRIOR &&
+				   (creature_ptr->tval_ammo <= TV_BOLT) &&
+				   (creature_ptr->tval_ammo >= TV_SHOT))
 				{
-					cr_ptr->num_fire += (cr_ptr->lev * 2);
+					creature_ptr->num_fire += (creature_ptr->lev * 2);
 				}
-				if ((cr_ptr->cls_idx == CLASS_ROGUE) &&
-				    (cr_ptr->tval_ammo == TV_SHOT))
+				if ((creature_ptr->cls_idx == CLASS_ROGUE) &&
+				    (creature_ptr->tval_ammo == TV_SHOT))
 				{
-					cr_ptr->num_fire += (cr_ptr->lev * 4);
+					creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
 				/* Snipers love Cross bows */
-				if ((cr_ptr->cls_idx == CLASS_SNIPER) &&
-					(cr_ptr->tval_ammo == TV_BOLT))
+				if ((creature_ptr->cls_idx == CLASS_SNIPER) &&
+					(creature_ptr->tval_ammo == TV_BOLT))
 				{
-					cr_ptr->to_h_b += (10 + (cr_ptr->lev / 5));
-					cr_ptr->dis_to_h_b += (10 + (cr_ptr->lev / 5));
+					creature_ptr->to_h_b += (10 + (creature_ptr->lev / 5));
+					creature_ptr->dis_to_h_b += (10 + (creature_ptr->lev / 5));
 				}
 			}
 		}
 	}
 
-	if (cr_ptr->two_handed) hold *= 2;
+	if (creature_ptr->two_handed) hold *= 2;
 
 	for(i = 0 ; i < MAX_HANDS ; i++)
 	{
 		/* Examine the "main weapon" */
-		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1 + i);
+		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
 
 		object_flags(o_ptr, flgs);
 
 		/* Assume not heavy */
-		cr_ptr->heavy_wield[i] = FALSE;
-		cr_ptr->icky_wield[i] = FALSE;
-		cr_ptr->riding_wield[i] = FALSE;
+		creature_ptr->heavy_wield[i] = FALSE;
+		creature_ptr->icky_wield[i] = FALSE;
+		creature_ptr->riding_wield[i] = FALSE;
 
-		if (!(get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > i)) {cr_ptr->num_blow[i]=1;continue;}
+		if (!(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > i)) {creature_ptr->num_blow[i]=1;continue;}
 		/* It is hard to hold a heavy weapon */
 		if (hold < o_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy weapon */
-			cr_ptr->to_h[i] += 2 * (hold - o_ptr->weight / 10);
-			cr_ptr->dis_to_h[i] += 2 * (hold - o_ptr->weight / 10);
+			creature_ptr->to_h[i] += 2 * (hold - o_ptr->weight / 10);
+			creature_ptr->dis_to_h[i] += 2 * (hold - o_ptr->weight / 10);
 
 			/* Heavy weapon */
-			cr_ptr->heavy_wield[i] = TRUE;
+			creature_ptr->heavy_wield[i] = TRUE;
 		}
-		else if (cr_ptr->two_handed && (hold < o_ptr->weight/5)) omoi = TRUE;
+		else if (creature_ptr->two_handed && (hold < o_ptr->weight/5)) omoi = TRUE;
 
 		if ((i == 1) && (o_ptr->tval == TV_SWORD) && ((o_ptr->sval == SV_MAIN_GAUCHE) || (o_ptr->sval == SV_WAKIZASHI)))
 		{
-			cr_ptr->to_a += 5;
-			cr_ptr->dis_to_a += 5;
+			creature_ptr->to_a += 5;
+			creature_ptr->dis_to_a += 5;
 		}
 
 		/* Normal weapons */
-		if (o_ptr->k_idx && !cr_ptr->heavy_wield[i])
+		if (o_ptr->k_idx && !creature_ptr->heavy_wield[i])
 		{
 			int str_index, dex_index;
 
 			int num = 0, wgt = 0, mul = 0, div = 0;
 
 			/* Analyze the class */
-			switch (cr_ptr->cls_idx)
+			switch (creature_ptr->cls_idx)
 			{
 				/* Warrior */
 				case CLASS_WARRIOR:
@@ -4824,7 +4825,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 				/* Cavalry */
 				case CLASS_CAVALRY:
-					if ((cr_ptr->riding) && (have_flag(flgs, TR_RIDING))) {num = 5; wgt = 70; mul = 4;}
+					if ((creature_ptr->riding) && (have_flag(flgs, TR_RIDING))) {num = 5; wgt = 70; mul = 4;}
 					else {num = 5; wgt = 100; mul = 3;}
 					break;
 
@@ -4857,326 +4858,326 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Hex - extra mights gives +1 bonus to max blows */
-			if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT) || hex_spelling(cr_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
+			if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
 
 			/* Enforce a minimum "weight" (tenth pounds) */
 			div = ((o_ptr->weight < wgt) ? wgt : o_ptr->weight);
 
 			/* Access the strength vs weight */
-			str_index = (adj_str_blow[cr_ptr->stat_ind[STAT_STR]] * mul / div);
+			str_index = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] * mul / div);
 
-			if (cr_ptr->two_handed && !omoi) str_index++;
-			if (cr_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
+			if (creature_ptr->two_handed && !omoi) str_index++;
+			if (creature_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
 
 			/* Maximal value */
 			if (str_index > 11) str_index = 11;
 
 			/* Index by dexterity */
-			dex_index = (adj_dex_blow[cr_ptr->stat_ind[STAT_DEX]]);
+			dex_index = (adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]]);
 
 			/* Maximal value */
 			if (dex_index > 11) dex_index = 11;
 
 			/* Use the blows table */
-			cr_ptr->num_blow[i] = blows_table[str_index][dex_index];
+			creature_ptr->num_blow[i] = blows_table[str_index][dex_index];
 
 			/* Maximal value */
-			if (cr_ptr->num_blow[i] > num) cr_ptr->num_blow[i] = num;
+			if (creature_ptr->num_blow[i] > num) creature_ptr->num_blow[i] = num;
 
 			/* Add in the "bonus blows" */
-			cr_ptr->num_blow[i] += extra_blows[i];
+			creature_ptr->num_blow[i] += extra_blows[i];
 
 
-			if (cr_ptr->cls_idx == CLASS_WARRIOR) cr_ptr->num_blow[i] += (cr_ptr->lev / 40);
-			else if (cr_ptr->cls_idx == CLASS_BERSERKER)
+			if (creature_ptr->cls_idx == CLASS_WARRIOR) creature_ptr->num_blow[i] += (creature_ptr->lev / 40);
+			else if (creature_ptr->cls_idx == CLASS_BERSERKER)
 			{
-				cr_ptr->num_blow[i] += (cr_ptr->lev / 23);
+				creature_ptr->num_blow[i] += (creature_ptr->lev / 23);
 			}
-			else if ((cr_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (cr_ptr->stat_ind[STAT_DEX] >= 30)) cr_ptr->num_blow[i] ++;
+			else if ((creature_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (creature_ptr->stat_ind[STAT_DEX] >= 30)) creature_ptr->num_blow[i] ++;
 
-			if (cr_ptr->special_defense & KATA_FUUJIN) cr_ptr->num_blow[i] -= 1;
+			if (creature_ptr->special_defense & KATA_FUUJIN) creature_ptr->num_blow[i] -= 1;
 
-			if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) cr_ptr->num_blow[i] = 1;
+			if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) creature_ptr->num_blow[i] = 1;
 
 
 			/* Require at least one blow */
-			if (cr_ptr->num_blow[i] < 1) cr_ptr->num_blow[i] = 1;
+			if (creature_ptr->num_blow[i] < 1) creature_ptr->num_blow[i] = 1;
 
 			/* Boost digging skill by weapon weight */
-			cr_ptr->skill_dig += (o_ptr->weight / 10);
+			creature_ptr->skill_dig += (o_ptr->weight / 10);
 		}
 
 		/* Assume okay */
 		/* Priest weapon penalty for non-blessed edged weapons */
-		if ((cr_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) &&
+		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) &&
 		    ((o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
-			cr_ptr->to_h[i] -= 2;
-			cr_ptr->to_d[i] -= 2;
+			creature_ptr->to_h[i] -= 2;
+			creature_ptr->to_d[i] -= 2;
 
 			/* Reduce the mental bonuses */
-			cr_ptr->dis_to_h[i] -= 2;
-			cr_ptr->dis_to_d[i] -= 2;
+			creature_ptr->dis_to_h[i] -= 2;
+			creature_ptr->dis_to_d[i] -= 2;
 
 			/* Icky weapon */
-			cr_ptr->icky_wield[i] = TRUE;
+			creature_ptr->icky_wield[i] = TRUE;
 		}
-		else if (cr_ptr->cls_idx == CLASS_BERSERKER)
+		else if (creature_ptr->cls_idx == CLASS_BERSERKER)
 		{
-			cr_ptr->to_h[i] += cr_ptr->lev/5;
-			cr_ptr->to_d[i] += cr_ptr->lev/6;
-			cr_ptr->dis_to_h[i] += cr_ptr->lev/5;
-			cr_ptr->dis_to_d[i] += cr_ptr->lev/6;
-			if (((i == 0) && !cr_ptr->can_melee[1]) || cr_ptr->two_handed)
+			creature_ptr->to_h[i] += creature_ptr->lev/5;
+			creature_ptr->to_d[i] += creature_ptr->lev/6;
+			creature_ptr->dis_to_h[i] += creature_ptr->lev/5;
+			creature_ptr->dis_to_d[i] += creature_ptr->lev/6;
+			if (((i == 0) && !creature_ptr->can_melee[1]) || creature_ptr->two_handed)
 			{
-				cr_ptr->to_h[i] += cr_ptr->lev/5;
-				cr_ptr->to_d[i] += cr_ptr->lev/6;
-				cr_ptr->dis_to_h[i] += cr_ptr->lev/5;
-				cr_ptr->dis_to_d[i] += cr_ptr->lev/6;
+				creature_ptr->to_h[i] += creature_ptr->lev/5;
+				creature_ptr->to_d[i] += creature_ptr->lev/6;
+				creature_ptr->dis_to_h[i] += creature_ptr->lev/5;
+				creature_ptr->dis_to_d[i] += creature_ptr->lev/6;
 			}
 		}
-		else if (cr_ptr->cls_idx == CLASS_SORCERER)
+		else if (creature_ptr->cls_idx == CLASS_SORCERER)
 		{
 			if (!((o_ptr->tval == TV_HAFTED) && ((o_ptr->sval == SV_WIZSTAFF) || (o_ptr->sval == SV_NAMAKE_HAMMER))))
 			{
 				/* Reduce the real bonuses */
-				cr_ptr->to_h[i] -= 200;
-				cr_ptr->to_d[i] -= 200;
+				creature_ptr->to_h[i] -= 200;
+				creature_ptr->to_d[i] -= 200;
 
 				/* Reduce the mental bonuses */
-				cr_ptr->dis_to_h[i] -= 200;
-				cr_ptr->dis_to_d[i] -= 200;
+				creature_ptr->dis_to_h[i] -= 200;
+				creature_ptr->dis_to_d[i] -= 200;
 
 				/* Icky weapon */
-				cr_ptr->icky_wield[i] = TRUE;
+				creature_ptr->icky_wield[i] = TRUE;
 			}
 			else
 			{
 				/* Reduce the real bonuses */
-				cr_ptr->to_h[i] -= 30;
-				cr_ptr->to_d[i] -= 10;
+				creature_ptr->to_h[i] -= 30;
+				creature_ptr->to_d[i] -= 10;
 
 				/* Reduce the mental bonuses */
-				cr_ptr->dis_to_h[i] -= 30;
-				cr_ptr->dis_to_d[i] -= 10;
+				creature_ptr->dis_to_h[i] -= 30;
+				creature_ptr->dis_to_d[i] -= 10;
 			}
 		}
 		/* Hex bonuses */
-		if (cr_ptr->realm1 == REALM_HEX)
+		if (creature_ptr->realm1 == REALM_HEX)
 		{
 			if (object_is_cursed(o_ptr))
 			{
-				if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
-				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_h[i] += 7; cr_ptr->dis_to_h[i] += 7; }
-				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_h[i] += 13; cr_ptr->dis_to_h[i] += 13; }
-				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
-				if (hex_spelling(cr_ptr, HEX_RUNESWORD))
+				if (o_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_h[i] += 5; creature_ptr->dis_to_h[i] += 5; }
+				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_h[i] += 7; creature_ptr->dis_to_h[i] += 7; }
+				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_h[i] += 13; creature_ptr->dis_to_h[i] += 13; }
+				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { creature_ptr->to_h[i] += 5; creature_ptr->dis_to_h[i] += 5; }
+				if (hex_spelling(creature_ptr, HEX_RUNESWORD))
 				{
-					if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_d[i] += 5; cr_ptr->dis_to_d[i] += 5; }
-					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_d[i] += 7; cr_ptr->dis_to_d[i] += 7; }
-					if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_d[i] += 13; cr_ptr->dis_to_d[i] += 13; }
+					if (o_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_d[i] += 5; creature_ptr->dis_to_d[i] += 5; }
+					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_d[i] += 7; creature_ptr->dis_to_d[i] += 7; }
+					if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_d[i] += 13; creature_ptr->dis_to_d[i] += 13; }
 				}
 			}
 		}
-		if (cr_ptr->riding)
+		if (creature_ptr->riding)
 		{
 			if ((o_ptr->tval == TV_POLEARM) && ((o_ptr->sval == SV_LANCE) || (o_ptr->sval == SV_HEAVY_LANCE)))
 			{
-				cr_ptr->to_h[i] +=15;
-				cr_ptr->dis_to_h[i] +=15;
-				cr_ptr->to_dd[i] += 2;
+				creature_ptr->to_h[i] +=15;
+				creature_ptr->dis_to_h[i] +=15;
+				creature_ptr->to_dd[i] += 2;
 			}
 			else if (!(have_flag(flgs, TR_RIDING)))
 			{
 				int penalty;
-				if ((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
+				if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
 				{
 					penalty = 5;
 				}
 				else
 				{
-					penalty = species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
 					penalty += 30;
 					if (penalty < 30) penalty = 30;
 				}
-				cr_ptr->to_h[i] -= penalty;
-				cr_ptr->dis_to_h[i] -= penalty;
+				creature_ptr->to_h[i] -= penalty;
+				creature_ptr->dis_to_h[i] -= penalty;
 
 				/* Riding weapon */
-				cr_ptr->riding_wield[i] = TRUE;
+				creature_ptr->riding_wield[i] = TRUE;
 			}
 		}
 	}
 
-	if (cr_ptr->riding)
+	if (creature_ptr->riding)
 	{
 		int penalty = 0;
 
-		cr_ptr->riding_two_handed = FALSE;
+		creature_ptr->riding_two_handed = FALSE;
 
-		if (cr_ptr->two_handed || (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_two_handed = TRUE;
-		else if (cr_ptr->pet_extra_flags & PF_RYOUTE)
+		if (creature_ptr->two_handed || (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE)) creature_ptr->riding_two_handed = TRUE;
+		else if (creature_ptr->pet_extra_flags & PF_RYOUTE)
 		{
-			switch (cr_ptr->cls_idx)
+			switch (creature_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
-					cr_ptr->riding_two_handed = TRUE;
+				if ((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+					creature_ptr->riding_two_handed = TRUE;
 				break;
 			}
 		}
 
-		if ((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
+		if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
 		{
-			if (cr_ptr->tval_ammo != TV_ARROW) penalty = 5;
+			if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
 		}
 		else
 		{
-			penalty = species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+			penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
 			penalty += 30;
 			if (penalty < 30) penalty = 30;
 		}
-		if (cr_ptr->tval_ammo == TV_BOLT) penalty *= 2;
-		cr_ptr->to_h_b -= penalty;
-		cr_ptr->dis_to_h_b -= penalty;
+		if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
+		creature_ptr->to_h_b -= penalty;
+		creature_ptr->dis_to_h_b -= penalty;
 	}
 
 	/* Different calculation for monks with empty hands */
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) &&
-		(empty_hands_status & EMPTY_HAND_RARM) && !cr_ptr->can_melee[1])
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
+		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
 	{
-		int blow_base = cr_ptr->lev + adj_dex_blow[cr_ptr->stat_ind[STAT_DEX]];
-		cr_ptr->num_blow[0] = 0;
+		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
+		creature_ptr->num_blow[0] = 0;
 
-		if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
+		if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
 		{
-			if (blow_base > 18) cr_ptr->num_blow[0]++;
-			if (blow_base > 31) cr_ptr->num_blow[0]++;
-			if (blow_base > 44) cr_ptr->num_blow[0]++;
-			if (blow_base > 58) cr_ptr->num_blow[0]++;
-			if (cr_ptr->magic_num1[0])
+			if (blow_base > 18) creature_ptr->num_blow[0]++;
+			if (blow_base > 31) creature_ptr->num_blow[0]++;
+			if (blow_base > 44) creature_ptr->num_blow[0]++;
+			if (blow_base > 58) creature_ptr->num_blow[0]++;
+			if (creature_ptr->magic_num1[0])
 			{
-				cr_ptr->to_d[0] += (s16b)(cr_ptr->magic_num1[0]/5);
-				cr_ptr->dis_to_d[0] += (s16b)(cr_ptr->magic_num1[0]/5);
+				creature_ptr->to_d[0] += (s16b)(creature_ptr->magic_num1[0]/5);
+				creature_ptr->dis_to_d[0] += (s16b)(creature_ptr->magic_num1[0]/5);
 			}
 		}
 		else
 		{
-			if (blow_base > 12) cr_ptr->num_blow[0]++;
-			if (blow_base > 22) cr_ptr->num_blow[0]++;
-			if (blow_base > 31) cr_ptr->num_blow[0]++;
-			if (blow_base > 39) cr_ptr->num_blow[0]++;
-			if (blow_base > 46) cr_ptr->num_blow[0]++;
-			if (blow_base > 53) cr_ptr->num_blow[0]++;
-			if (blow_base > 59) cr_ptr->num_blow[0]++;
+			if (blow_base > 12) creature_ptr->num_blow[0]++;
+			if (blow_base > 22) creature_ptr->num_blow[0]++;
+			if (blow_base > 31) creature_ptr->num_blow[0]++;
+			if (blow_base > 39) creature_ptr->num_blow[0]++;
+			if (blow_base > 46) creature_ptr->num_blow[0]++;
+			if (blow_base > 53) creature_ptr->num_blow[0]++;
+			if (blow_base > 59) creature_ptr->num_blow[0]++;
 		}
 
-		if (heavy_armor(cr_ptr) && (cr_ptr->cls_idx != CLASS_BERSERKER))
-			cr_ptr->num_blow[0] /= 2;
+		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER))
+			creature_ptr->num_blow[0] /= 2;
 		else
 		{
-			cr_ptr->to_h[0] += (cr_ptr->lev / 3);
-			cr_ptr->dis_to_h[0] += (cr_ptr->lev / 3);
+			creature_ptr->to_h[0] += (creature_ptr->lev / 3);
+			creature_ptr->dis_to_h[0] += (creature_ptr->lev / 3);
 
-			cr_ptr->to_d[0] += (cr_ptr->lev / 6);
-			cr_ptr->dis_to_d[0] += (cr_ptr->lev / 6);
+			creature_ptr->to_d[0] += (creature_ptr->lev / 6);
+			creature_ptr->dis_to_d[0] += (creature_ptr->lev / 6);
 		}
 
-		if (cr_ptr->special_defense & KAMAE_BYAKKO)
+		if (creature_ptr->special_defense & KAMAE_BYAKKO)
 		{
-			cr_ptr->to_a -= 40;
-			cr_ptr->dis_to_a -= 40;
+			creature_ptr->to_a -= 40;
+			creature_ptr->dis_to_a -= 40;
 			
 		}
-		else if (cr_ptr->special_defense & KAMAE_SEIRYU)
+		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
 		{
-			cr_ptr->to_a -= 50;
-			cr_ptr->dis_to_a -= 50;
-			cr_ptr->resist_acid = TRUE;
-			cr_ptr->resist_fire = TRUE;
-			cr_ptr->resist_elec = TRUE;
-			cr_ptr->resist_cold = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->sh_fire = TRUE;
-			cr_ptr->sh_elec = TRUE;
-			cr_ptr->sh_cold = TRUE;
-			cr_ptr->levitation = TRUE;
+			creature_ptr->to_a -= 50;
+			creature_ptr->dis_to_a -= 50;
+			creature_ptr->resist_acid = TRUE;
+			creature_ptr->resist_fire = TRUE;
+			creature_ptr->resist_elec = TRUE;
+			creature_ptr->resist_cold = TRUE;
+			creature_ptr->resist_pois = TRUE;
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->sh_elec = TRUE;
+			creature_ptr->sh_cold = TRUE;
+			creature_ptr->levitation = TRUE;
 		}
-		else if (cr_ptr->special_defense & KAMAE_GENBU)
+		else if (creature_ptr->special_defense & KAMAE_GENBU)
 		{
-			cr_ptr->to_a += (cr_ptr->lev*cr_ptr->lev)/50;
-			cr_ptr->dis_to_a += (cr_ptr->lev*cr_ptr->lev)/50;
-			cr_ptr->reflect = TRUE;
-			cr_ptr->num_blow[0] -= 2;
-			if ((cr_ptr->cls_idx == CLASS_MONK) && (cr_ptr->lev > 42)) cr_ptr->num_blow[0]--;
-			if (cr_ptr->num_blow[0] < 0) cr_ptr->num_blow[0] = 0;
+			creature_ptr->to_a += (creature_ptr->lev*creature_ptr->lev)/50;
+			creature_ptr->dis_to_a += (creature_ptr->lev*creature_ptr->lev)/50;
+			creature_ptr->reflect = TRUE;
+			creature_ptr->num_blow[0] -= 2;
+			if ((creature_ptr->cls_idx == CLASS_MONK) && (creature_ptr->lev > 42)) creature_ptr->num_blow[0]--;
+			if (creature_ptr->num_blow[0] < 0) creature_ptr->num_blow[0] = 0;
 		}
-		else if (cr_ptr->special_defense & KAMAE_SUZAKU)
+		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		{
-			cr_ptr->to_h[0] -= (cr_ptr->lev / 3);
-			cr_ptr->to_d[0] -= (cr_ptr->lev / 6);
+			creature_ptr->to_h[0] -= (creature_ptr->lev / 3);
+			creature_ptr->to_d[0] -= (creature_ptr->lev / 6);
 
-			cr_ptr->dis_to_h[0] -= (cr_ptr->lev / 3);
-			cr_ptr->dis_to_d[0] -= (cr_ptr->lev / 6);
-			cr_ptr->num_blow[0] /= 2;
-			cr_ptr->levitation = TRUE;
+			creature_ptr->dis_to_h[0] -= (creature_ptr->lev / 3);
+			creature_ptr->dis_to_d[0] -= (creature_ptr->lev / 6);
+			creature_ptr->num_blow[0] /= 2;
+			creature_ptr->levitation = TRUE;
 		}
 
-		cr_ptr->num_blow[0] += 1+extra_blows[0];
+		creature_ptr->num_blow[0] += 1+extra_blows[0];
 	}
 
-	if (cr_ptr->riding) cr_ptr->levitation = riding_levitation;
+	if (creature_ptr->riding) creature_ptr->levitation = riding_levitation;
 
 	monk_armour_aux = FALSE;
 
-	if (heavy_armor(cr_ptr))
+	if (heavy_armor(creature_ptr))
 	{
 		monk_armour_aux = TRUE;
 	}
 
 	for (i = 0; i < 2; i++)
 	{
-		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
+		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 		{
-			int tval = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
-			int sval = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->sval;
-			int boost = (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
+			int tval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
+			int sval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->sval;
+			int boost = (creature_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 
-			cr_ptr->to_h[i] += boost > 0 ? boost : 0;
-			cr_ptr->dis_to_h[i] += boost > 0 ? boost : 0;
+			creature_ptr->to_h[i] += boost > 0 ? boost : 0;
+			creature_ptr->dis_to_h[i] += boost > 0 ? boost : 0;
 
-			if ((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER))
+			if ((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER))
 			{
-				if (!skill_info[cr_ptr->cls_idx].w_max[tval][sval])
+				if (!skill_info[creature_ptr->cls_idx].w_max[tval][sval])
 				{
-					cr_ptr->to_h[i] -= 40;
-					cr_ptr->dis_to_h[i] -= 40;
-					cr_ptr->icky_wield[i] = TRUE;
+					creature_ptr->to_h[i] -= 40;
+					creature_ptr->dis_to_h[i] -= 40;
+					creature_ptr->icky_wield[i] = TRUE;
 				}
 			}
-			else if (cr_ptr->cls_idx == CLASS_NINJA)
+			else if (creature_ptr->cls_idx == CLASS_NINJA)
 			{
 				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
-					(get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
+					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
 				{
-					cr_ptr->to_h[i] -= 40;
-					cr_ptr->dis_to_h[i] -= 40;
-					cr_ptr->icky_wield[i] = TRUE;
-					cr_ptr->num_blow[i] /= 2;
-					if (cr_ptr->num_blow[i] < 1) cr_ptr->num_blow[i] = 1;
+					creature_ptr->to_h[i] -= 40;
+					creature_ptr->dis_to_h[i] -= 40;
+					creature_ptr->icky_wield[i] = TRUE;
+					creature_ptr->num_blow[i] /= 2;
+					if (creature_ptr->num_blow[i] < 1) creature_ptr->num_blow[i] = 1;
 				}
 			}
 
-			if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) cr_ptr->good -= 1000;
+			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good -= 1000;
 		}
 	}
 
 	/* Maximum speed is (+99). (internally it's 110 + 99) */
 	/* Temporary lightspeed forces to be maximum speed */
-	if ((cr_ptr->lightspeed && !cr_ptr->riding) || (new_speed > 209))
+	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (new_speed > 209))
 	{
 		new_speed = 209;
 	}
@@ -5185,22 +5186,22 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (new_speed < 11) new_speed = 11;
 
 	/* Display the speed (if needed) */
-	if (cr_ptr->speed != (byte)new_speed)
+	if (creature_ptr->speed != (byte)new_speed)
 	{
-		cr_ptr->speed = (byte)new_speed;
+		creature_ptr->speed = (byte)new_speed;
 		play_redraw |= (PR_SPEED);
 	}
 
 	if (yoiyami)
 	{
-		if (cr_ptr->to_a > (0 - cr_ptr->ac))
-			cr_ptr->to_a = 0 - cr_ptr->ac;
-		if (cr_ptr->dis_to_a > (0 - cr_ptr->dis_ac))
-			cr_ptr->dis_to_a = 0 - cr_ptr->dis_ac;
+		if (creature_ptr->to_a > (0 - creature_ptr->ac))
+			creature_ptr->to_a = 0 - creature_ptr->ac;
+		if (creature_ptr->dis_to_a > (0 - creature_ptr->dis_ac))
+			creature_ptr->dis_to_a = 0 - creature_ptr->dis_ac;
 	}
 
 	/* Redraw armor (if needed) */
-	if ((cr_ptr->dis_ac != old_dis_ac) || (cr_ptr->dis_to_a != old_dis_to_a))
+	if ((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_a != old_dis_to_a))
 	{
 		/* Redraw */
 		play_redraw |= (PR_ARMOR);
@@ -5210,184 +5211,184 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 
-	if (cr_ptr->two_handed && !omoi)
+	if (creature_ptr->two_handed && !omoi)
 	{
 		int bonus_to_h=0, bonus_to_d=0;
-		bonus_to_d = ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128)/2;
-		bonus_to_h = ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+		bonus_to_d = ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
+		bonus_to_h = ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 
-		cr_ptr->to_h[default_hand] += MAX(bonus_to_h,1);
-		cr_ptr->dis_to_h[default_hand] += MAX(bonus_to_h,1);
-		cr_ptr->to_d[default_hand] += MAX(bonus_to_d,1);
-		cr_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
+		creature_ptr->to_h[default_hand] += MAX(bonus_to_h,1);
+		creature_ptr->dis_to_h[default_hand] += MAX(bonus_to_h,1);
+		creature_ptr->to_d[default_hand] += MAX(bonus_to_d,1);
+		creature_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
 	}
 
-	//TODO if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->two_handed = FALSE;
+	//TODO if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(creature_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) creature_ptr->two_handed = FALSE;
 
 	/* Affect Skill -- stealth (bonus one) */
-	cr_ptr->skill_stl += 1;
+	creature_ptr->skill_stl += 1;
 
-	if (IS_TIM_STEALTH(cr_ptr)) cr_ptr->skill_stl += 99;
+	if (IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
 
 	/* Affect Skill -- disarming (DEX and INT) */
-	cr_ptr->skill_dis += adj_dex_dis[cr_ptr->stat_ind[STAT_DEX]];
-	cr_ptr->skill_dis += adj_int_dis[cr_ptr->stat_ind[STAT_INT]];
+	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
+	creature_ptr->skill_dis += adj_int_dis[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- magic devices (INT) */
-	cr_ptr->skill_dev += adj_int_dev[cr_ptr->stat_ind[STAT_INT]];
+	creature_ptr->skill_dev += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- saving throw (WIS) */
-	cr_ptr->skill_rob += (adj_sav[cr_ptr->stat_ind[STAT_STR]] + adj_sav[cr_ptr->stat_ind[STAT_CON]]);
-	cr_ptr->skill_eva += (adj_sav[cr_ptr->stat_ind[STAT_INT]] + adj_sav[cr_ptr->stat_ind[STAT_DEX]]);
-	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[STAT_WIS]] + adj_sav[cr_ptr->stat_ind[STAT_CHA]]);
+	creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
+	creature_ptr->skill_eva += (adj_sav[creature_ptr->stat_ind[STAT_INT]] + adj_sav[creature_ptr->stat_ind[STAT_DEX]]);
+	creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
 
 	/* Affect Skill -- digging (STR) */
-	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[STAT_STR]];
+	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dis += (classkill_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
-	else cr_ptr->skill_dis += (classkill_info[CLASS_TOURIST].x_dis * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dis += (classkill_info[creature_ptr->cls_idx].x_dis * creature_ptr->lev / 10);
+	else creature_ptr->skill_dis += (classkill_info[CLASS_TOURIST].x_dis * creature_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara_idx].a_dis * cr_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_dev += (classkill_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
-	else cr_ptr->skill_dev += (classkill_info[CLASS_TOURIST].x_dev * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dev += (classkill_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
+	else creature_ptr->skill_dev += (classkill_info[CLASS_TOURIST].x_dev * creature_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara_idx].a_dev * cr_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_rob += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_eva += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_vol += (classkill_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	else cr_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_rob += (classkill_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_eva += (classkill_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_vol += (classkill_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (classkill_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_eva += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_stl += (classkill_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
-	else cr_ptr->skill_stl += (classkill_info[CLASS_TOURIST].x_stl * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_stl += (classkill_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
+	else creature_ptr->skill_stl += (classkill_info[CLASS_TOURIST].x_stl * creature_ptr->lev / 10);
 
 	/* Affect Skill -- search ability (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_srh += (classkill_info[cr_ptr->cls_idx].x_srh * cr_ptr->lev / 10);
-	else cr_ptr->skill_srh += (classkill_info[CLASS_TOURIST].x_srh * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_srh += (classkill_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
+	else creature_ptr->skill_srh += (classkill_info[CLASS_TOURIST].x_srh * creature_ptr->lev / 10);
 
 	/* Affect Skill -- search frequency (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_fos += (classkill_info[cr_ptr->cls_idx].x_fos * cr_ptr->lev / 10);
-	else  cr_ptr->skill_fos += (classkill_info[CLASS_TOURIST].x_fos * cr_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_fos += (classkill_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
+	else  creature_ptr->skill_fos += (classkill_info[CLASS_TOURIST].x_fos * creature_ptr->lev / 10);
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thn += (classkill_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
-	else cr_ptr->skill_thn += (classkill_info[CLASS_TOURIST].x_thn * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara_idx].a_thn * cr_ptr->lev / 50);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thn += (classkill_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
+	else creature_ptr->skill_thn += (classkill_info[CLASS_TOURIST].x_thn * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_thb += (classkill_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	else cr_ptr->skill_thb += (classkill_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thb += (classkill_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	else creature_ptr->skill_thb += (classkill_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	if(cr_ptr->cls_idx != INDEX_NONE) cr_ptr->skill_tht += (classkill_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	else cr_ptr->skill_tht += (classkill_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_tht += (classkill_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	else creature_ptr->skill_tht += (classkill_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
 
 
-	if ((race_is_(cr_ptr, RACE_S_FAIRY)) && (cr_ptr->chara_idx != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
+	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
 	{
-		cr_ptr->cursed &= ~(TRC_AGGRAVATE);
-		cr_ptr->skill_stl = MIN(cr_ptr->skill_stl - 3, (cr_ptr->skill_stl + 2) / 2);
+		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
+		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 
 	/* Limit Skill -- stealth from 0 to 30 */
-	if (cr_ptr->skill_stl > 30) cr_ptr->skill_stl = 30;
-	if (cr_ptr->skill_stl < 0) cr_ptr->skill_stl = 0;
+	if (creature_ptr->skill_stl > 30) creature_ptr->skill_stl = 30;
+	if (creature_ptr->skill_stl < 0) creature_ptr->skill_stl = 0;
 
 	/* Limit Skill -- digging from 1 up */
-	if (cr_ptr->skill_dig < 1) cr_ptr->skill_dig = 1;
+	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
 
-	if (cr_ptr->anti_magic && (cr_ptr->skill_rob < (90 + cr_ptr->lev))) cr_ptr->skill_rob = 90 + cr_ptr->lev;
-	if (cr_ptr->anti_magic && (cr_ptr->skill_eva < (90 + cr_ptr->lev))) cr_ptr->skill_eva = 90 + cr_ptr->lev;
-	if (cr_ptr->anti_magic && (cr_ptr->skill_vol < (90 + cr_ptr->lev))) cr_ptr->skill_vol = 90 + cr_ptr->lev;
+	if (creature_ptr->anti_magic && (creature_ptr->skill_rob < (90 + creature_ptr->lev))) creature_ptr->skill_rob = 90 + creature_ptr->lev;
+	if (creature_ptr->anti_magic && (creature_ptr->skill_eva < (90 + creature_ptr->lev))) creature_ptr->skill_eva = 90 + creature_ptr->lev;
+	if (creature_ptr->anti_magic && (creature_ptr->skill_vol < (90 + creature_ptr->lev))) creature_ptr->skill_vol = 90 + creature_ptr->lev;
 
-	if (cr_ptr->tsubureru) cr_ptr->skill_rob = 10;
-	if (cr_ptr->tsubureru) cr_ptr->skill_eva = 10;
-	if (cr_ptr->tsubureru) cr_ptr->skill_vol = 10;
+	if (creature_ptr->tsubureru) creature_ptr->skill_rob = 10;
+	if (creature_ptr->tsubureru) creature_ptr->skill_eva = 10;
+	if (creature_ptr->tsubureru) creature_ptr->skill_vol = 10;
 
-	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_rob < (95 + cr_ptr->lev))) cr_ptr->skill_rob = 95 + cr_ptr->lev;
-	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_eva < (95 + cr_ptr->lev))) cr_ptr->skill_eva = 95 + cr_ptr->lev;
-	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_vol < (95 + cr_ptr->lev))) cr_ptr->skill_vol = 95 + cr_ptr->lev;
+	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_rob < (95 + creature_ptr->lev))) creature_ptr->skill_rob = 95 + creature_ptr->lev;
+	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_eva < (95 + creature_ptr->lev))) creature_ptr->skill_eva = 95 + creature_ptr->lev;
+	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_vol < (95 + creature_ptr->lev))) creature_ptr->skill_vol = 95 + creature_ptr->lev;
 
-	if (down_saving) cr_ptr->skill_rob /= 2;
-	if (down_saving) cr_ptr->skill_eva /= 2;
-	if (down_saving) cr_ptr->skill_vol /= 2;
+	if (down_saving) creature_ptr->skill_rob /= 2;
+	if (down_saving) creature_ptr->skill_eva /= 2;
+	if (down_saving) creature_ptr->skill_vol /= 2;
 
 	/* Hack -- Each elemental immunity includes resistance */
-	if (cr_ptr->immune_acid) cr_ptr->resist_acid = TRUE;
-	if (cr_ptr->immune_elec) cr_ptr->resist_elec = TRUE;
-	if (cr_ptr->immune_fire) cr_ptr->resist_fire = TRUE;
-	if (cr_ptr->immune_cold) cr_ptr->resist_cold = TRUE;
+	if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
+	if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
+	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
+	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
 	/* Set Possible Equipment*/
-	if(cr_ptr->race_idx1 != INDEX_NONE)
-		cr_ptr->possible_equipment = race_info[cr_ptr->race_idx1].possible_equipment;
+	if(creature_ptr->race_idx1 != INDEX_NONE)
+		creature_ptr->possible_equipment = race_info[creature_ptr->race_idx1].possible_equipment;
 	else
-		cr_ptr->possible_equipment = 0;
+		creature_ptr->possible_equipment = 0;
 
 
 
 	/* calc karmas and bonuses */
 	for(i = 0; i < MAX_KARMA; i++)
-		cr_ptr->karmas_cur[i] = cr_ptr->karmas_cur[i];
+		creature_ptr->karmas_cur[i] = creature_ptr->karmas_cur[i];
 
 	for(i = 0; i < MAX_KARMA; i++)
-		cr_ptr->karmas_rank[i] = calc_rank(cr_ptr->karmas_cur[i]);
+		creature_ptr->karmas_rank[i] = calc_rank(creature_ptr->karmas_cur[i]);
 
 
 	/* calc alignments and bonuses */
-	if(cr_ptr->race_idx1 != INDEX_NONE)
+	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
-		cr_ptr->good    = tmp_rcr_ptr->good;
-		cr_ptr->evil    = tmp_rcr_ptr->evil;
-		cr_ptr->order   = tmp_rcr_ptr->order;
-		cr_ptr->chaos   = tmp_rcr_ptr->chaos;
-		cr_ptr->balance = tmp_rcr_ptr->balance;
+		creature_ptr->good    = tmp_rcreature_ptr->good;
+		creature_ptr->evil    = tmp_rcreature_ptr->evil;
+		creature_ptr->order   = tmp_rcreature_ptr->order;
+		creature_ptr->chaos   = tmp_rcreature_ptr->chaos;
+		creature_ptr->balance = tmp_rcreature_ptr->balance;
 	}
 	else
 	{
-		cr_ptr->good    = 0;
-		cr_ptr->evil    = 0;
-		cr_ptr->order   = 0;
-		cr_ptr->chaos   = 0;
-		cr_ptr->balance = 0;
+		creature_ptr->good    = 0;
+		creature_ptr->evil    = 0;
+		creature_ptr->order   = 0;
+		creature_ptr->chaos   = 0;
+		creature_ptr->balance = 0;
 	}
 
 	for(i = 0; i < MAX_KARMA; i++)
 	{
-		cr_ptr->good += cr_ptr->karmas[i] * karma[i].good_adj;
-		cr_ptr->evil += cr_ptr->karmas[i] * karma[i].evil_adj;
-		cr_ptr->order += cr_ptr->karmas[i] * karma[i].order_adj;
-		cr_ptr->chaos += cr_ptr->karmas[i] * karma[i].chaos_adj;
+		creature_ptr->good += creature_ptr->karmas[i] * karma[i].good_adj;
+		creature_ptr->evil += creature_ptr->karmas[i] * karma[i].evil_adj;
+		creature_ptr->order += creature_ptr->karmas[i] * karma[i].order_adj;
+		creature_ptr->chaos += creature_ptr->karmas[i] * karma[i].chaos_adj;
 	}
 
-	cr_ptr->good_rank = calc_rank(cr_ptr->good);
-	cr_ptr->evil_rank = calc_rank(cr_ptr->evil);
-	cr_ptr->order_rank = calc_rank(cr_ptr->order);
-	cr_ptr->chaos_rank = calc_rank(cr_ptr->chaos);
+	creature_ptr->good_rank = calc_rank(creature_ptr->good);
+	creature_ptr->evil_rank = calc_rank(creature_ptr->evil);
+	creature_ptr->order_rank = calc_rank(creature_ptr->order);
+	creature_ptr->chaos_rank = calc_rank(creature_ptr->chaos);
 
-	cr_ptr->balance -= ((cr_ptr->good_rank - cr_ptr->evil_rank) * (cr_ptr->good_rank - cr_ptr->evil_rank) - 100) * 10;
-	cr_ptr->balance -= ((cr_ptr->order_rank - cr_ptr->chaos_rank) * (cr_ptr->order_rank - cr_ptr->chaos_rank) - 100) * 10;
+	creature_ptr->balance -= ((creature_ptr->good_rank - creature_ptr->evil_rank) * (creature_ptr->good_rank - creature_ptr->evil_rank) - 100) * 10;
+	creature_ptr->balance -= ((creature_ptr->order_rank - creature_ptr->chaos_rank) * (creature_ptr->order_rank - creature_ptr->chaos_rank) - 100) * 10;
 
-	cr_ptr->balance_rank = calc_rank(cr_ptr->balance);
+	creature_ptr->balance_rank = calc_rank(creature_ptr->balance);
 
 	/* Take note when "heavy bow" changes */
-	if (cr_ptr->old_heavy_shoot != cr_ptr->heavy_shoot)
+	if (creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{
 		/* Message */
-		if (cr_ptr->heavy_shoot)
+		if (creature_ptr->heavy_shoot)
 		{
 #ifdef JP
 			if(message) msg_print("こんな重い弓を装備しているのは大変だ。");
@@ -5396,7 +5397,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->k_idx)
+		else if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("この弓なら装備していても辛くない。");
@@ -5416,16 +5417,16 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Save it */
-		cr_ptr->old_heavy_shoot = cr_ptr->heavy_shoot;
+		creature_ptr->old_heavy_shoot = creature_ptr->heavy_shoot;
 	}
 
 	for (i = 0 ; i < 2 ; i++)
 	{
 		/* Take note when "heavy weapon" changes */
-		if (cr_ptr->old_heavy_wield[i] != cr_ptr->heavy_wield[i])
+		if (creature_ptr->old_heavy_wield[i] != creature_ptr->heavy_wield[i])
 		{
 			/* Message */
-			if (cr_ptr->heavy_wield[i])
+			if (creature_ptr->heavy_wield[i])
 			{
 #ifdef JP
 				if(message) msg_print("こんな重い武器を装備しているのは大変だ。");
@@ -5434,7 +5435,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら装備していても辛くない。");
@@ -5443,7 +5444,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (cr_ptr->heavy_wield[1-i])
+			else if (creature_ptr->heavy_wield[1-i])
 			{
 #ifdef JP
 				if(message) msg_print("まだ武器が重い。");
@@ -5463,14 +5464,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Save it */
-			cr_ptr->old_heavy_wield[i] = cr_ptr->heavy_wield[i];
+			creature_ptr->old_heavy_wield[i] = creature_ptr->heavy_wield[i];
 		}
 
 		/* Take note when "heavy weapon" changes */
-		if (cr_ptr->old_riding_wield[i] != cr_ptr->riding_wield[i])
+		if (creature_ptr->old_riding_wield[i] != creature_ptr->riding_wield[i])
 		{
 			/* Message */
-			if (cr_ptr->riding_wield[i])
+			if (creature_ptr->riding_wield[i])
 			{
 #ifdef JP
 				if(message) msg_print("この武器は乗馬中に使うにはむかないようだ。");
@@ -5479,7 +5480,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (!cr_ptr->riding)
+			else if (!creature_ptr->riding)
 			{
 #ifdef JP
 				if(message) msg_print("この武器は徒歩で使いやすい。");
@@ -5488,7 +5489,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("これなら乗馬中にぴったりだ。");
@@ -5498,14 +5499,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 			}
 			/* Save it */
-			cr_ptr->old_riding_wield[i] = cr_ptr->riding_wield[i];
+			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
 		}
 
 		/* Take note when "illegal weapon" changes */
-		if (cr_ptr->old_icky_wield[i] != cr_ptr->icky_wield[i])
+		if (creature_ptr->old_icky_wield[i] != creature_ptr->icky_wield[i])
 		{
 			/* Message */
-			if (cr_ptr->icky_wield[i])
+			if (creature_ptr->icky_wield[i])
 			{
 #ifdef JP
 				if(message) msg_print("今の装備はどうも自分にふさわしくない気がする。");
@@ -5513,7 +5514,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if(message) msg_print("You do not feel comfortable with your weapon.");
 #endif
 			}
-			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0)
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
 #ifdef JP
 				if(message) msg_print("今の装備は自分にふさわしい気がする。");
@@ -5533,17 +5534,17 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Save it */
-			cr_ptr->old_icky_wield[i] = cr_ptr->icky_wield[i];
+			creature_ptr->old_icky_wield[i] = creature_ptr->icky_wield[i];
 		}
 	}
 
-	if (cr_ptr->riding && (cr_ptr->old_riding_two_handed != cr_ptr->riding_two_handed))
+	if (creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
 	{
 		/* Message */
-		if (cr_ptr->riding_two_handed)
+		if (creature_ptr->riding_two_handed)
 		{
 #ifdef JP
-		if(message) msg_format("%s馬を操れない。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+		if(message) msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
 #else
 			if(message) msg_print("You are using both hand for fighting, and you can't control a riding pet.");
 #endif
@@ -5551,18 +5552,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		else
 		{
 #ifdef JP
-			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
+			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
 #else
 			if(message) msg_print("You began to control riding pet with one hand.");
 #endif
 		}
 
-		cr_ptr->old_riding_two_handed = cr_ptr->riding_two_handed;
+		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
 	}
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
 	{
-		if (heavy_armor(cr_ptr))
+		if (heavy_armor(creature_ptr))
 		{
 #ifdef JP
             if(message) msg_print("装備が重くてバランスを取れない。");
@@ -5582,13 +5583,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		if ((cr_ptr->inventory[i].tval == TV_NATURE_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_sw = TRUE;
-		if ((cr_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
+		if ((creature_ptr->inventory[i].tval == TV_NATURE_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_sw = TRUE;
+		if ((creature_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
 
-	if(is_in_this_floor(cr_ptr))
+	if(is_in_this_floor(creature_ptr))
 	{
-		for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
 
@@ -5603,21 +5604,21 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if (cr_ptr->pass_wall && !cr_ptr->kill_wall) cr_ptr->no_flowed = TRUE;
-	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->cls_idx == CLASS_SORCERER)))
+	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
+	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_NATURE-1][SPELL_SW];
-		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
+		magic_type *s_ptr = &m_info[creature_ptr->cls_idx].info[REALM_NATURE-1][SPELL_SW];
+		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
-	if (have_kabe && ((cr_ptr->realm1 == REALM_CRAFT) || (cr_ptr->realm2 == REALM_CRAFT) || (cr_ptr->cls_idx == CLASS_SORCERER)))
+	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_CRAFT-1][SPELL_KABE];
-		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
+		magic_type *s_ptr = &m_info[creature_ptr->cls_idx].info[REALM_CRAFT-1][SPELL_KABE];
+		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
 	// TODO: Evasion was adjusted by speed and size.
-	// cr_ptr->skill_eva += (cr_ptr->speed * cr_ptr->size / 5);
+	// creature_ptr->skill_eva += (creature_ptr->speed * creature_ptr->size / 5);
 
 
 }
