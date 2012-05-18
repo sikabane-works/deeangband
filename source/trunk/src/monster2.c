@@ -4380,7 +4380,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ğœ‚³‚ê‚½B");
 
 #define CREATURE_SCAT_MAXD 10
 
-static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, int max_dist)
+static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floor_ptr, int y, int x, int max_dist)
 {
 	int place_x[CREATURE_SCAT_MAXD];
 	int place_y[CREATURE_SCAT_MAXD];
@@ -4399,7 +4399,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 		for (ny = y - max_dist; ny <= y + max_dist; ny++)
 		{
 			/* Ignore annoying locations */
-			if (!in_bounds(current_floor_ptr, ny, nx)) continue;
+			if (!in_bounds(floor_ptr, ny, nx)) continue;
 
 			/* Require "line of projection" */
 			if (!projectable(y, x, ny, nx)) continue;
@@ -4409,16 +4409,16 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, int y, int x, in
 				species_type *r_ptr = &species_info[species_idx];
 
 				// Require empty space (if not ghostly)
-				if (!species_can_enter(current_floor_ptr, ny, nx, r_ptr, 0))
+				if (!species_can_enter(floor_ptr, ny, nx, r_ptr, 0))
 					continue;
 			}
 			else
 			{
 				/* Walls and Monsters block flow */
-				if (!cave_empty_bold2(current_floor_ptr, ny, nx)) continue;
+				if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 				/* ... nor on the Pattern */
-				if (pattern_tile(current_floor_ptr, ny, nx)) continue;
+				if (pattern_tile(floor_ptr, ny, nx)) continue;
 			}
 
 			i = distance(y, x, ny, nx);
@@ -4974,7 +4974,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	else floor_ptr = &floor_list[0];
 
 	if (floor_ptr) return (FALSE);
-	if (!creature_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
+	if (!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
 
 	/* Save the summoner */
 	//summon_specific_who = who;
@@ -5021,7 +5021,7 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
 
 	if (fight_arena_mode) return FALSE;
 
-	if (!creature_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
+	if (!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
 	return place_creature_species(cr_ptr, floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
@@ -5040,7 +5040,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 
 	int y, x;
 
-	if (!creature_scatter(m_ptr->species_idx, &y, &x, m_ptr->fy, m_ptr->fx, 1))
+	if (!creature_scatter(m_ptr->species_idx, &y, &x, floor_ptr, m_ptr->fy, m_ptr->fx, 1))
 		return FALSE;
 
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
