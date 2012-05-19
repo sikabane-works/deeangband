@@ -2410,18 +2410,17 @@ void do_cmd_bash(creature_type *creature_ptr)
  * This command must always take a turn, to prevent free detection
  * of invisible monsters.
  */
-void do_cmd_alter(creature_type *cr_ptr)
+void do_cmd_alter(creature_type *creature_ptr)
 {
 	int			y, x, dir;
-
+	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type	*c_ptr;
-
 	bool		more = FALSE;
 
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -2438,17 +2437,17 @@ void do_cmd_alter(creature_type *cr_ptr)
 	}
 
 	/* Get a direction */
-	if (get_rep_dir(cr_ptr, &dir,TRUE))
+	if (get_rep_dir(creature_ptr, &dir,TRUE))
 	{
 		s16b feat;
 		feature_type *f_ptr;
 
 		/* Get location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2461,37 +2460,37 @@ void do_cmd_alter(creature_type *cr_ptr)
 		if (c_ptr->creature_idx)
 		{
 			/* Attack */
-			weapon_attack(cr_ptr, y, x, 0);
+			weapon_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Locked doors */
 		else if (have_flag(f_ptr->flags, FF_OPEN))
 		{
-			more = do_cmd_open_aux(cr_ptr, y, x);
+			more = do_cmd_open_aux(creature_ptr, y, x);
 		}
 
 		/* Bash jammed doors */
 		else if (have_flag(f_ptr->flags, FF_BASH))
 		{
-			more = do_cmd_bash_aux(cr_ptr, y, x, dir);
+			more = do_cmd_bash_aux(creature_ptr, y, x, dir);
 		}
 
 		/* Tunnel through walls */
 		else if (have_flag(f_ptr->flags, FF_TUNNEL))
 		{
-			more = do_cmd_tunnel_aux(cr_ptr, y, x);
+			more = do_cmd_tunnel_aux(creature_ptr, y, x);
 		}
 
 		/* Close open doors */
 		else if (have_flag(f_ptr->flags, FF_CLOSE))
 		{
-			more = do_cmd_close_aux(cr_ptr, y, x);
+			more = do_cmd_close_aux(creature_ptr, y, x);
 		}
 
 		/* Disarm traps */
 		else if (have_flag(f_ptr->flags, FF_DISARM))
 		{
-			more = do_cmd_disarm_aux(cr_ptr, y, x, dir);
+			more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
 		}
 
 		/* Oops */
