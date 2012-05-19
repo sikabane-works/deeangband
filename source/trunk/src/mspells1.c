@@ -1385,7 +1385,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		bool success = FALSE;
 
 		if (has_cf_creature(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
-		    in_disintegration_range(caster_ptr->fy, caster_ptr->fx, y, x) &&
+		    in_disintegration_range(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;

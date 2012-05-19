@@ -1340,8 +1340,8 @@ extern bool save_player(void);
 extern int load_player(void);
 extern void remove_loc(void);
 
-/* spells1.c */
-extern bool in_disintegration_range(int y1, int x1, int y2, int x2);
+// spells1.c
+extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ);
 extern int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);

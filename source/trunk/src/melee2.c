@@ -100,7 +100,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if ((has_cf_creature(m_ptr, CF_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
 			    (has_cf_creature(m_ptr, CF_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
-				if (!in_disintegration_range(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if (!in_disintegration_range(current_floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 			else
 			{

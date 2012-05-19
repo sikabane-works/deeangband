@@ -7387,7 +7387,7 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
  * Modified version of los() for calculation of disintegration balls.
  * Disintegration effects are stopped by permanent walls.
  */
-bool in_disintegration_range(int y1, int x1, int y2, int x2)
+bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 {
 	/* Delta */
 	int dx, dy;
@@ -7425,7 +7425,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if (!in_bounds(current_floor_ptr, y1, x1)) return (FALSE); */
+	/* if (!in_bounds(floor_ptr, y1, x1)) return (FALSE); */
 
 
 	/* Directly South/North */
@@ -7436,7 +7436,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if (cave_stop_disintegration(current_floor_ptr, ty, x1)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -7445,7 +7445,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if (cave_stop_disintegration(current_floor_ptr, ty, x1)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -7461,7 +7461,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if (cave_stop_disintegration(current_floor_ptr, y1, tx)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -7470,7 +7470,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if (cave_stop_disintegration(current_floor_ptr, y1, tx)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -7489,7 +7489,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 	{
 		if (ay == 2)
 		{
-			if (!cave_stop_disintegration(current_floor_ptr, y1 + sy, x1)) return (TRUE);
+			if (!cave_stop_disintegration(floor_ptr, y1 + sy, x1)) return (TRUE);
 		}
 	}
 
@@ -7498,7 +7498,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 	{
 		if (ax == 2)
 		{
-			if (!cave_stop_disintegration(current_floor_ptr, y1, x1 + sx)) return (TRUE);
+			if (!cave_stop_disintegration(floor_ptr, y1, x1 + sx)) return (TRUE);
 		}
 	}
 
@@ -7534,7 +7534,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
+			if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 
 			qy += m;
 
@@ -7545,7 +7545,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 			else if (qy > f2)
 			{
 				ty += sy;
-				if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 				qy -= f1;
 				tx += sx;
 			}
@@ -7581,7 +7581,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
+			if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 
 			qx += m;
 
@@ -7592,7 +7592,7 @@ bool in_disintegration_range(int y1, int x1, int y2, int x2)
 			else if (qx > f2)
 			{
 				tx += sx;
-				if (cave_stop_disintegration(current_floor_ptr, ty, tx)) return (FALSE);
+				if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 				qx -= f1;
 				ty += sy;
 			}
@@ -7669,7 +7669,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
 						break;
 					case GF_DISINTEGRATE:
 						/* Disintegration are stopped only by perma-walls */
-						if (!in_disintegration_range(by, bx, y, x)) continue;
+						if (!in_disintegration_range(current_floor_ptr, by, bx, y, x)) continue;
 						break;
 					default:
 						/* Ball explosions are stopped by walls */
@@ -8436,7 +8436,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 							break;
 						case GF_DISINTEGRATE:
 							/* Disintegration are stopped only by perma-walls */
-							if (!in_disintegration_range(by, bx, y, x)) continue;
+							if (!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 							break;
 						default:
 							/* Ball explosions are stopped by walls */
