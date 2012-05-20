@@ -4822,12 +4822,9 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 
 /*
  * Attempt to allocate a random monster in the dungeon.
- *
  * Place the monster at least "dis" distance from the player.
- *
  * Use "slp" to choose the initial "sleep" status
- *
- * Use "current_floor_ptr->creature_level" for the monster level
+ * Use "creature_level" for the monster level
  */
 bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
