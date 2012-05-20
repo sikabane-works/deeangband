@@ -1567,13 +1567,11 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 	return (&cr_ptr->inventory[choices[randint0(number)]]);
 }
 
-
-/*
- * Handle timed damage and regeneration every 10 game turns
- */
-static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
+// Handle timed damage and regeneration every 10 game turns
+static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 {
-	feature_type *f_ptr = &f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	feature_type *f_ptr = &f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
 	char creature_name[80];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
@@ -1584,53 +1582,53 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 
 
 	/*** Damage over Time ***/
-	creature_desc(creature_name, cr_ptr, 0);
+	creature_desc(creature_name, creature_ptr, 0);
 
 	/* Take damage from poison */
-	if (cr_ptr->poisoned && !IS_INVULN(cr_ptr))
+	if (creature_ptr->poisoned && !IS_INVULN(creature_ptr))
 {
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
 #endif
 
 	}
 
 	/* Take damage from cuts */
-	if (cr_ptr->cut && !IS_INVULN(cr_ptr))
+	if (creature_ptr->cut && !IS_INVULN(creature_ptr))
 	{
 		int dam;
 
 		/* Mortal wound or Deep Gash */
-		if (cr_ptr->cut > 1000)
+		if (creature_ptr->cut > 1000)
 		{
 			dam = 200;
 		}
 
-		else if (cr_ptr->cut > 200)
+		else if (creature_ptr->cut > 200)
 		{
 			dam = 80;
 		}
 
 		/* Severe cut */
-		else if (cr_ptr->cut > 100)
+		else if (creature_ptr->cut > 100)
 		{
 			dam = 32;
 		}
 
-		else if (cr_ptr->cut > 50)
+		else if (creature_ptr->cut > 50)
 		{
 			dam = 16;
 		}
 
-		else if (cr_ptr->cut > 25)
+		else if (creature_ptr->cut > 25)
 		{
 			dam = 7;
 		}
 
-		else if (cr_ptr->cut > 10)
+		else if (creature_ptr->cut > 10)
 		{
 			dam = 3;
 		}
@@ -1643,39 +1641,39 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
 #endif
 
 	}
 
 
 	/* (Vampires) Take damage from sunlight */
-	if (has_cf_creature(cr_ptr, CF_HURT_LITE))
+	if (has_cf_creature(creature_ptr, CF_HURT_LITE))
 	{
-		if (!current_floor_ptr->floor_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
+		if (!floor_ptr->floor_level && !creature_ptr->resist_lite && !IS_INVULN(creature_ptr) && is_daytime())
 		{
-			if ((current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+			if ((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
 				/* Take damage */
 #ifdef JP
 				msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
 #endif
 
 				cave_no_regen = TRUE;
 			}
 		}
 
-		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1)->tval &&
-			(get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
-		    !cr_ptr->resist_lite)
+		if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->tval &&
+			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
+		    !creature_ptr->resist_lite)
 		{
-			object_type * o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+			object_type * o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 			char o_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -1698,23 +1696,23 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			sprintf(ouch, "wielding %s", o_name);
 #endif
 
-			if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
+			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
 		}
 	}
 
 	if (have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = calc_damage(cr_ptr, randint0(50) + 20, DAMAGE_TYPE_CHAOS, FALSE);;		
+		int damage = calc_damage(creature_ptr, randint0(50) + 20, DAMAGE_TYPE_CHAOS, FALSE);;		
 #ifdef JP
 			msg_print("混沌に身を蝕まれた！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
 			msg_print("The chaos tainted you!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}
 
-	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(cr_ptr) && !cr_ptr->immune_fire)
+	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !creature_ptr->immune_fire)
 	{
 		int damage = 0;
 
@@ -1722,7 +1720,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!cr_ptr->levitation)
+		else if (!creature_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1730,38 +1728,38 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		if (damage)
 		{
 
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
 
-			if (cr_ptr->levitation) damage = damage / 5;
+			if (creature_ptr->levitation) damage = damage / 5;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
-			if (cr_ptr->levitation)
+			if (creature_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
 			{
-				cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
+				cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 #ifdef JP
 				msg_format("%sで火傷した！", name);
 #else
 				msg_format("The %s burns you!", name);
 #endif
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 			}
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(cr_ptr) && !cr_ptr->levitation)
+	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation)
 	{
 		int damage = 0;
 
@@ -1769,15 +1767,15 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!cr_ptr->levitation)
+		else if (!creature_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_POIS, FALSE);
+			cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_POIS, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1786,13 +1784,13 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("you are poisoned by The %s", name);
 #endif
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(cr_ptr) && !cr_ptr->levitation && !cr_ptr->immune_acid)
+	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation && !creature_ptr->immune_acid)
 	{
 		int damage = 0;
 
@@ -1800,15 +1798,15 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!cr_ptr->levitation)
+		else if (!creature_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx])].name;
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ACID, FALSE);
+			cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ACID, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1817,7 +1815,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("you are disolved by The %s", name);
 #endif
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1825,61 +1823,61 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-	    !cr_ptr->levitation && !cr_ptr->can_swim)
+	    !creature_ptr->levitation && !creature_ptr->can_swim)
 	{
-		if (cr_ptr->total_weight > weight_limit(cr_ptr))
+		if (creature_ptr->total_weight > weight_limit(creature_ptr))
 		{
 			/* Take damage */
 #ifdef JP
 			msg_print("溺れている！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->lev), "溺れ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "溺れ", NULL, -1);
 #else
 			msg_print("You are drowning!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->lev), "drowning", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "drowning", NULL, -1);
 #endif
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (cr_ptr->riding)
+	if (creature_ptr->riding)
 	{
-		creature_type *steed_ptr = &creature_list[cr_ptr->riding];
+		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 		int damage;
-		if (has_cf_creature(steed_ptr, CF_AURA_FIRE) && !cr_ptr->immune_fire)
+		if (has_cf_creature(steed_ptr, CF_AURA_FIRE) && !creature_ptr->immune_fire)
 		{
-			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
+			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
 #else
 			msg_print("It's hot!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if (has_cf_creature(steed_ptr, CF_AURA_ELEC) && !cr_ptr->immune_elec)
+		if (has_cf_creature(steed_ptr, CF_AURA_ELEC) && !creature_ptr->immune_elec)
 		{
-			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ELEC, FALSE);
+			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ELEC, FALSE);
 #ifdef JP
 			msg_print("痛い！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
 #else
 			msg_print("It hurts!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if (has_cf_creature(steed_ptr, CF_AURA_COLD) && !cr_ptr->immune_cold)
+		if (has_cf_creature(steed_ptr, CF_AURA_COLD) && !creature_ptr->immune_cold)
 		{
-			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_COLD, FALSE);
+			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
+			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_COLD, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
 #else
 			msg_print("It's cold!");
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
 #endif
 		}
 	}
@@ -1893,14 +1891,14 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	 */
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if (!IS_INVULN(cr_ptr) && !cr_ptr->wraith_form && !cr_ptr->kabenuke &&
-		    ((cr_ptr->chp > (cr_ptr->lev / 5)) || !cr_ptr->pass_wall))
+		if (!IS_INVULN(creature_ptr) && !creature_ptr->wraith_form && !creature_ptr->kabenuke &&
+		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !creature_ptr->pass_wall))
 		{
 			cptr dam_desc;
 
 			cave_no_regen = TRUE;
 
-			if (cr_ptr->pass_wall)
+			if (creature_ptr->pass_wall)
 			{
 #ifdef JP
 				msg_print("体の分子が分解した気がする！");
@@ -1921,7 +1919,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 #endif
 			}
 
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1 + (cr_ptr->lev / 5), dam_desc, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1 + (creature_ptr->lev / 5), dam_desc, NULL, -1);
 		}
 	}
 
@@ -1929,14 +1927,14 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	/*** handle regeneration ***/
 
 	/* Getting Weak */
-	if (cr_ptr->food < PY_FOOD_WEAK)
+	if (creature_ptr->food < PY_FOOD_WEAK)
 	{
 		/* Lower regeneration */
-		if (cr_ptr->food < PY_FOOD_STARVE)
+		if (creature_ptr->food < PY_FOOD_STARVE)
 		{
 			regen_amount = 0;
 		}
-		else if (cr_ptr->food < PY_FOOD_FAINT)
+		else if (creature_ptr->food < PY_FOOD_FAINT)
 		{
 			regen_amount = PY_REGEN_FAINT;
 		}
@@ -1947,22 +1945,22 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	}
 
 	// Are we walking the pattern?
-	if (pattern_effect(current_floor_ptr, cr_ptr))
+	if (pattern_effect(floor_ptr, creature_ptr))
 	{
 		cave_no_regen = TRUE;
 	}
 	else
 	{
 		// Regeneration ability
-		if (cr_ptr->regenerate)
+		if (creature_ptr->regenerate)
 		{
 			regen_amount = regen_amount * 2;
 		}
-		if (cr_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
+		if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
 		{
 			regen_amount /= 2;
 		}
-		if (cr_ptr->cursed & TRC_SLOW_REGEN)
+		if (creature_ptr->cursed & TRC_SLOW_REGEN)
 		{
 			regen_amount /= 5;
 		}
@@ -1970,33 +1968,33 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 
 	/* Searching or Resting */
-	if ((cr_ptr->action == ACTION_SEARCH) || (cr_ptr->action == ACTION_REST))
+	if ((creature_ptr->action == ACTION_SEARCH) || (creature_ptr->action == ACTION_REST))
 	{
 		regen_amount = regen_amount * 2;
 	}
 
-	upkeep_factor = calculate_upkeep_servant(cr_ptr);
+	upkeep_factor = calculate_upkeep_servant(creature_ptr);
 
 	/* No regeneration while special action */
-	if ((cr_ptr->action == ACTION_LEARN) ||
-	    (cr_ptr->action == ACTION_HAYAGAKE) ||
-	    (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if ((creature_ptr->action == ACTION_LEARN) ||
+	    (creature_ptr->action == ACTION_HAYAGAKE) ||
+	    (creature_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		upkeep_factor += 100;
 	}
 
 	/* Regenerate the mana */
 	upkeep_regen = (100 - upkeep_factor) * regen_amount;
-	regenmana(cr_ptr, upkeep_regen);
+	regenmana(creature_ptr, upkeep_regen);
 
 
 	/* Recharge magic eater's power */
-	if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+	if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
 	{
-		regenmagic(cr_ptr, regen_amount);
+		regenmagic(creature_ptr, regen_amount);
 	}
 
-	if ((cr_ptr->csp == 0) && (cr_ptr->csp_frac == 0))
+	if ((creature_ptr->csp == 0) && (creature_ptr->csp_frac == 0))
 	{
 		while (upkeep_factor > 100)
 		{
@@ -2006,9 +2004,9 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			msg_print("Too many pets to control at once!");
 #endif
 			msg_print(NULL);
-			do_cmd_pet_dismiss(cr_ptr);
+			do_cmd_pet_dismiss(creature_ptr);
 
-			upkeep_factor = calculate_upkeep_servant(cr_ptr);
+			upkeep_factor = calculate_upkeep_servant(creature_ptr);
 
 #ifdef JP
 			msg_format("維持ＭＰは %d%%", upkeep_factor);
@@ -2020,18 +2018,18 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	}
 
 	/* Poisoned or cut yields no healing */
-	if (cr_ptr->poisoned) regen_amount = 0;
-	if (cr_ptr->cut) regen_amount = 0;
+	if (creature_ptr->poisoned) regen_amount = 0;
+	if (creature_ptr->cut) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if (cave_no_regen) regen_amount = 0;
 
-	regen_amount = (regen_amount * cr_ptr->mutant_regenerate_mod) / 100;
+	regen_amount = (regen_amount * creature_ptr->mutant_regenerate_mod) / 100;
 
 	/* Regenerate Hit Points if needed */
-	if ((cr_ptr->chp < cr_ptr->mhp) && !cave_no_regen)
+	if ((creature_ptr->chp < creature_ptr->mhp) && !cave_no_regen)
 	{
-		regenhp(cr_ptr, regen_amount);
+		regenhp(creature_ptr, regen_amount);
 	}
 }
 
