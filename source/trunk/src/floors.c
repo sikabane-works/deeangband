@@ -565,7 +565,7 @@ void move_floor(creature_type *creature_ptr)
 		//TODO
 		forget_lite(old_floor_ptr);
 		forget_view(old_floor_ptr);
-		clear_creature_lite(current_floor_ptr);
+		clear_creature_lite(old_floor_ptr);
 	}
 
 	if(is_player(creature_ptr))
