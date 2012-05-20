@@ -325,12 +325,13 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 bool species_hook_dungeon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	if (!is_wild_only_species(r_ptr))
 		return TRUE;
 	else
 	{
-		dungeon_info_type *d_ptr = &dungeon_info[current_floor_ptr->dun_type];
+		dungeon_info_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 //TODO	if ((d_ptr->mflags8 & RF8_WILD_MOUNTAIN) &&
 //		    is_wild_mountain_species(r_ptr)) return TRUE;
 		return FALSE;
@@ -495,7 +496,7 @@ creature_hook_type get_creature_hook(void)
 creature_hook_type get_creature_hook2(int y, int x)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
-	feature_type *f_ptr = &f_info[current_floor_ptr->cave[y][x].feat];
+	feature_type *f_ptr = &f_info[floor_ptr->cave[y][x].feat];
 
 	/* Set the monster list */
 
@@ -709,7 +710,8 @@ bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr,
 
 bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Other creature */
 	if (c_ptr->creature_idx) return FALSE;
