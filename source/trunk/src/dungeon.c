@@ -6641,6 +6641,7 @@ static void accidental_death(void)
 static void play_loop(void)
 {
 	bool load_game = TRUE;
+	floor_type *floor_ptr;
 
 
 	/* Process */
@@ -6650,10 +6651,11 @@ static void play_loop(void)
 
 		if (!floor_generated) move_floor(player_ptr);
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
+		floor_ptr = get_floor_ptr(player_ptr); 
 
 		if (panic_save) panic_save = 0; // TODO
 
-		current_floor_ptr->base_level = current_floor_ptr->floor_level; 	   // Set the base level
+		floor_ptr->base_level = floor_ptr->floor_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -6681,7 +6683,7 @@ static void play_loop(void)
 		disturb(player_ptr, 1, 0);
 
 		// Get index of current quest (if any)
-		quest_num = quest_number(current_floor_ptr->floor_level);
+		quest_num = quest_number(floor_ptr->floor_level);
 
 		// Inside a quest?
 		if (quest_num)
@@ -6691,10 +6693,10 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if ((max_dlv[current_floor_ptr->dun_type] < current_floor_ptr->floor_level) && !inside_quest)
+		if ((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !inside_quest)
 		{
-			max_dlv[current_floor_ptr->dun_type] = current_floor_ptr->floor_level;
-			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, current_floor_ptr->floor_level, NULL);
+			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
+			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, floor_ptr->floor_level, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -6754,23 +6756,23 @@ static void play_loop(void)
 		if (!playing || gameover) return;
 
 		/* Print quest message if appropriate */
-		if (!inside_quest && (current_floor_ptr->dun_type == DUNGEON_DOD))
+		if (!inside_quest && (floor_ptr->dun_type == DUNGEON_DOD))
 		{
-			quest_discovery(random_quest_number(current_floor_ptr->floor_level));
-			inside_quest = random_quest_number(current_floor_ptr->floor_level);
+			quest_discovery(random_quest_number(floor_ptr->floor_level));
+			inside_quest = random_quest_number(floor_ptr->floor_level);
 		}
 
-		if ((current_floor_ptr->floor_level == dungeon_info[current_floor_ptr->dun_type].maxdepth) && dungeon_info[current_floor_ptr->dun_type].final_guardian)
+		if ((floor_ptr->floor_level == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
 		{
-			if (species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].max_num)
+			if (species_info[dungeon_info[floor_ptr->dun_type].final_guardian].max_num)
 #ifdef JP
 				msg_format("‚±‚ÌŠK‚É‚Í%s‚ÌŽå‚Å‚ ‚é%s‚ª±‚ñ‚Å‚¢‚éB",
-					   d_name+dungeon_info[current_floor_ptr->dun_type].name, 
-					   species_name+species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].name);
+					   d_name+dungeon_info[floor_ptr->dun_type].name, 
+					   species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name);
 #else
 				msg_format("%^s lives in this level as the keeper of %s.",
-						   species_name+species_info[dungeon_info[current_floor_ptr->dun_type].final_guardian].name, 
-						   d_name+dungeon_info[current_floor_ptr->dun_type].name);
+						   species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name, 
+						   d_name+dungeon_info[floor_ptr->dun_type].name);
 #endif
 		}
 
@@ -6779,11 +6781,11 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		current_floor_ptr->creature_level = current_floor_ptr->base_level;
-		current_floor_ptr->object_level = current_floor_ptr->base_level;
+		floor_ptr->creature_level = floor_ptr->base_level;
+		floor_ptr->object_level = floor_ptr->base_level;
 
 		if (player_ptr->energy_need > 0 && !gamble_arena_mode &&
-			(current_floor_ptr->floor_level || subject_change_dungeon || fight_arena_mode))
+			(floor_ptr->floor_level || subject_change_dungeon || fight_arena_mode))
 			player_ptr->energy_need = 0;
 
 		/* Not leaving dungeon */
@@ -6822,10 +6824,10 @@ static void play_loop(void)
 		target_who = 0; // Cancel the target
 		health_track(0); // Cancel the health bar
 
-		forget_lite(current_floor_ptr); // Forget the lite and view
-		forget_view(current_floor_ptr);
+		forget_lite(floor_ptr); // Forget the lite and view
+		forget_view(floor_ptr);
 
-		clear_creature_lite(current_floor_ptr); // Forget the view
+		clear_creature_lite(floor_ptr); // Forget the view
 
 		if (!playing && !gameover) break; // Handle "quit and save"
 
