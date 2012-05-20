@@ -1452,6 +1452,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  */
 void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
@@ -1473,7 +1474,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
 	/* Special penalty in the wilderness */
-	if (!current_floor_ptr->floor_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
+	if (!floor_ptr->floor_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
