@@ -1985,7 +1985,8 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 {
 	int		num = 0, k, bonus, chance;
 
-	cave_type       *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	// Access the weapon
@@ -3029,7 +3030,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	if (do_quake)
 	{
 		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
-		if (!current_floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
+		if (!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
 	}
 }
 
