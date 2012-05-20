@@ -3849,11 +3849,11 @@ static void monster_arena_result(floor_type *floor_ptr)
 	}
 }
 
-static void sunrise_and_sunset(void)
+static void sunrise_and_sunset(floor_type *floor_ptr)
 {
 
 	/* While in town/wilderness */
-	if (!current_floor_ptr->floor_level && !inside_quest && !gamble_arena_mode && !fight_arena_mode)
+	if (!floor_ptr->floor_level && !inside_quest && !gamble_arena_mode && !fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3878,12 +3878,12 @@ static void sunrise_and_sunset(void)
 				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
-					for (y = 0; y < current_floor_ptr->height; y++)
+					for (y = 0; y < floor_ptr->height; y++)
 					{
-						for (x = 0; x < current_floor_ptr->width; x++)
+						for (x = 0; x < floor_ptr->width; x++)
 						{
 							/* Get the cave grid */
-							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+							cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 							/* Assume lit */
 							c_ptr->info |= (CAVE_GLOW);
@@ -3913,12 +3913,12 @@ static void sunrise_and_sunset(void)
 				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
-					for (y = 0; y < current_floor_ptr->height; y++)
+					for (y = 0; y < floor_ptr->height; y++)
 					{
-						for (x = 0; x < current_floor_ptr->width; x++)
+						for (x = 0; x < floor_ptr->width; x++)
 						{
 							/* Get the cave grid */
-							cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+							cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 							/* Feature code (applying "mimic" field) */
 							feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
@@ -3941,7 +3941,7 @@ static void sunrise_and_sunset(void)
 						}
 
 						/* Glow deep lava and building entrances */
-						glow_deep_lava_and_bldg(current_floor_ptr);
+						glow_deep_lava_and_bldg(floor_ptr);
 					}
 				}
 			}
@@ -3959,7 +3959,7 @@ static void sunrise_and_sunset(void)
 			/*
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 			*/
 		}
@@ -4005,7 +4005,7 @@ static void process_world(void)
 #endif
 	}
 
-	sunrise_and_sunset();
+	sunrise_and_sunset(floor_ptr);
 
 	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/
 
