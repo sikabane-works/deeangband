@@ -833,15 +833,15 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 }
 
 
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'mindcrafter'.
- */
-static bool cast_mindcrafter_spell(creature_type *cr_ptr, int spell)
+// do_cmd_cast calls this function if the player's class
+// is 'mindcrafter'.
+
+static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 {
-	int             b = 0;
-	int             dir;
-	int             plev = cr_ptr->lev;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int        b = 0;
+	int        dir;
+	int        plev = creature_ptr->lev;
 
 	/* spell code */
 	switch (spell)
@@ -849,27 +849,27 @@ static bool cast_mindcrafter_spell(creature_type *cr_ptr, int spell)
 	case 0:   /* Precog */
 		if (plev > 44)
 		{
-			wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+			wiz_lite(floor_ptr, creature_ptr, FALSE);
 		}
 		else if (plev > 19)
-			map_area(cr_ptr, DETECT_RAD_MAP);
+			map_area(creature_ptr, DETECT_RAD_MAP);
 
 		if (plev < 30)
 		{
-			b = detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
-			if (plev > 14) b |= detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT);
+			b = detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
+			if (plev > 14) b |= detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT);
 			if (plev > 4)  {
-				b |= detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
-				b |= detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+				b |= detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+				b |= detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			}
 		}
 		else
 		{
-			b = detect_all(cr_ptr, DETECT_RAD_DEFAULT);
+			b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 		}
 
 		if ((plev > 24) && (plev < 40))
-			set_tim_esp(cr_ptr, plev, FALSE);
+			set_tim_esp(creature_ptr, plev, FALSE);
 
 #ifdef JP
 if (!b) msg_print("安全な気がする。");
@@ -880,56 +880,56 @@ if (!b) msg_print("安全な気がする。");
 		break;
 	case 1:
 		/* Mindblast */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		if (randint1(100) < plev * 2)
-			fire_beam(cr_ptr, GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)));
+			fire_beam(creature_ptr, GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)));
 		else
-			fire_ball(cr_ptr, GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
+			fire_ball(creature_ptr, GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		break;
 	case 2:
 		/* Minor displace */
-		teleport_player(cr_ptr, 10, 0L);
+		teleport_player(creature_ptr, 10, 0L);
 		break;
 	case 3:
 		/* Major displace */
-		teleport_player(cr_ptr, plev * 5, 0L);
+		teleport_player(creature_ptr, plev * 5, 0L);
 		break;
 	case 4:
 		/* Domination */
 		if (plev < 30)
 		{
-			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-			fire_ball(cr_ptr, GF_DOMINATION, dir, plev, 0);
+			fire_ball(creature_ptr, GF_DOMINATION, dir, plev, 0);
 		}
 		else
 		{
-			charm_creatures(cr_ptr, plev * 2);
+			charm_creatures(creature_ptr, plev * 2);
 		}
 		break;
 	case 5:
 		/* Fist of Force  ---  not 'true' TK  */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fire_ball(cr_ptr, GF_TELEKINESIS, dir, damroll(8 + ((plev - 5) / 4), 8),
+		fire_ball(creature_ptr, GF_TELEKINESIS, dir, damroll(8 + ((plev - 5) / 4), 8),
 			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 	case 6:
 		/* Character Armour */
-		set_shield(cr_ptr, plev, FALSE);
-		if (plev > 14) set_oppose_acid(cr_ptr, plev, FALSE);
-		if (plev > 19) set_oppose_fire(cr_ptr, plev, FALSE);
-		if (plev > 24) set_oppose_cold(cr_ptr, plev, FALSE);
-		if (plev > 29) set_oppose_elec(cr_ptr, plev, FALSE);
-		if (plev > 34) set_oppose_pois(cr_ptr, plev, FALSE);
+		set_shield(creature_ptr, plev, FALSE);
+		if (plev > 14) set_oppose_acid(creature_ptr, plev, FALSE);
+		if (plev > 19) set_oppose_fire(creature_ptr, plev, FALSE);
+		if (plev > 24) set_oppose_cold(creature_ptr, plev, FALSE);
+		if (plev > 29) set_oppose_elec(creature_ptr, plev, FALSE);
+		if (plev > 34) set_oppose_pois(creature_ptr, plev, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
 		if (plev < 25)
-			return psychometry(cr_ptr);
+			return psychometry(creature_ptr);
 		else
-			return ident_spell(cr_ptr, FALSE);
+			return ident_spell(creature_ptr, FALSE);
 	case 8:
 		/* Mindwave */
 #ifdef JP
@@ -939,52 +939,52 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 #endif
 
 		if (plev < 25)
-			project(cr_ptr, 2 + plev / 10, cr_ptr->fy, cr_ptr->fx,
+			project(creature_ptr, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
-			(void)mindblast_creatures(cr_ptr, randint1(plev * ((plev - 5) / 10 + 1)));
+			(void)mindblast_creatures(creature_ptr, randint1(plev * ((plev - 5) / 10 + 1)));
 		break;
 	case 9:
 		/* Adrenaline */
-		set_afraid(cr_ptr, 0);
-		set_stun(cr_ptr, 0);
+		set_afraid(creature_ptr, 0);
+		set_stun(creature_ptr, 0);
 
 		/*
 		 * Only heal when Adrenalin Channeling is not active. We check
 		 * that by checking if the player isn't fast and 'heroed' atm.
 		 */
-		if (!IS_FAST(cr_ptr) || !IS_HERO(cr_ptr))
+		if (!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr))
 		{
-			hp_player(cr_ptr, plev);
+			hp_player(creature_ptr, plev);
 		}
 
 		b = 10 + randint1((plev * 3) / 2);
-		set_hero(cr_ptr, b, FALSE);
+		set_hero(creature_ptr, b, FALSE);
 		/* Haste */
-		(void)set_fast(cr_ptr, b, FALSE);
+		(void)set_fast(creature_ptr, b, FALSE);
 		break;
 	case 10:
 		/* Telekinesis */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fetch(cr_ptr, dir, plev * 15, FALSE);
+		fetch(creature_ptr, dir, plev * 15, FALSE);
 
 		break;
 	case 11:
 		/* Psychic Drain */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		b = damroll(plev / 2, 6);
 
 		/* This is always a radius-0 ball now */
-		if (fire_ball(cr_ptr, GF_PSI_DRAIN, dir, b, 0))
-			cr_ptr->energy_need += (s16b)randint1(150);
+		if (fire_ball(creature_ptr, GF_PSI_DRAIN, dir, b, 0))
+			creature_ptr->energy_need += (s16b)randint1(150);
 		break;
 	case 12:
 		/* psycho-spear */
-		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fire_beam(cr_ptr, GF_PSY_SPEAR, dir, randint1(plev*3)+plev*3);
+		fire_beam(creature_ptr, GF_PSY_SPEAR, dir, randint1(plev*3)+plev*3);
 		break;
 	case 13:
 	{
@@ -1006,7 +1006,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		msg_print(NULL);
 
 		/* Hack */
-		cr_ptr->energy_need -= 1000 + (100 + (s16b)cr_ptr->csp - 50)*TURNS_PER_TICK/10;
+		creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50)*TURNS_PER_TICK/10;
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
