@@ -3220,6 +3220,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
@@ -3232,7 +3233,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 		(r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!species_can_cross_terrain(current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	return TRUE;
 }
@@ -3242,6 +3243,7 @@ static bool creature_hook_chameleon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
@@ -3250,7 +3252,7 @@ static bool creature_hook_chameleon(int species_idx)
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	if (!species_can_cross_terrain(current_floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
+	if (!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
 	if (!is_chameleon_species(old_r_ptr))
@@ -3411,9 +3413,9 @@ static bool creature_hook_tanuki(int species_idx)
 static int initial_r_appearance(int species_idx)
 {
 	int attempts = 1000;
-
 	int ap_species_idx;
-	int min = MIN(current_floor_ptr->base_level-5, 50);
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	int min = MIN(floor_ptr->base_level - 5, 50);
 
 	if (is_tanuki_species(&species_info[species_idx]))
 		return species_idx;
@@ -3422,7 +3424,7 @@ static int initial_r_appearance(int species_idx)
 
 	while (--attempts)
 	{
-		ap_species_idx = get_species_num(current_floor_ptr->base_level + 10);
+		ap_species_idx = get_species_num(floor_ptr->base_level + 10);
 		if (species_info[ap_species_idx].level >= min) return ap_species_idx;
 	}
 
