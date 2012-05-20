@@ -2373,13 +2373,13 @@ static void process_world_aux_light(creature_type *cr_ptr)
 }
 
 
-/*
- * Handle mutation effects once every 10 game turns
- */
-static void process_world_aux_mutation(creature_type *cr_ptr)
+// Handle mutation effects once every 10 game turns
+static void process_world_aux_mutation(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	/* No mutation with effects */
-	if (!cr_ptr->flags13) return;
+	if (!creature_ptr->flags13) return;
 
 	/* No effect on creature arena */
 	if (gamble_arena_mode) return;
@@ -2388,7 +2388,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (wild_mode) return;
 
 
-	if (has_cf_creature(cr_ptr, CF_BERS_RAGE) && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2399,13 +2399,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print("You feel a fit of rage coming over you!");
 #endif
 
-		(void)set_shero(cr_ptr, 10 + randint1(cr_ptr->lev), FALSE);
-		(void)set_afraid(cr_ptr, 0);
+		(void)set_shero(creature_ptr, 10 + randint1(creature_ptr->lev), FALSE);
+		(void)set_afraid(creature_ptr, 0);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_COWARDICE) && (randint1(3000) == 13))
+	if (has_cf_creature(creature_ptr, CF_COWARDICE) && (randint1(3000) == 13))
 	{
-		if (!cr_ptr->resist_fear)
+		if (!creature_ptr->resist_fear)
 		{
 			disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2414,14 +2414,14 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("It's so dark... so scary!");
 #endif
 
-			set_afraid(cr_ptr, cr_ptr->afraid + 13 + randint1(26));
+			set_afraid(creature_ptr, creature_ptr->afraid + 13 + randint1(26));
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
+	if (has_cf_creature(creature_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
 	{
-		if (!cr_ptr->resist_nexus && !has_cf_creature(cr_ptr, CF_VTELEPORT) &&
-		    !cr_ptr->anti_tele)
+		if (!creature_ptr->resist_nexus && !has_cf_creature(creature_ptr, CF_VTELEPORT) &&
+		    !creature_ptr->anti_tele)
 		{
 			disturb(player_ptr, 0, 0);
 
@@ -2433,13 +2433,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 			msg_print(NULL);
-			teleport_player(cr_ptr, 40, TELEPORT_PASSIVE);
+			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
+	if (has_cf_creature(creature_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
 	{
-		if (!cr_ptr->resist_conf && !cr_ptr->resist_chaos)
+		if (!creature_ptr->resist_conf && !creature_ptr->resist_chaos)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
@@ -2451,20 +2451,20 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		}
 
-		if (!cr_ptr->resist_conf)
+		if (!creature_ptr->resist_conf)
 		{
-			(void)set_confused(cr_ptr, cr_ptr->confused + randint0(20) + 15);
+			(void)set_confused(creature_ptr, creature_ptr->confused + randint0(20) + 15);
 		}
 
-		if (!cr_ptr->resist_chaos)
+		if (!creature_ptr->resist_chaos)
 		{
 			if (one_in_(20))
 			{
 				msg_print(NULL);
-				if (one_in_(3)) lose_all_info(cr_ptr);
-				else wiz_dark(current_floor_ptr, cr_ptr);
-				(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-				wiz_dark(current_floor_ptr, cr_ptr);
+				if (one_in_(3)) lose_all_info(creature_ptr);
+				else wiz_dark(floor_ptr, creature_ptr);
+				(void)teleport_player_aux(creature_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+				wiz_dark(floor_ptr, creature_ptr);
 #ifdef JP
 				msg_print("‚ ‚È‚½‚ÍŒ©’m‚ç‚ÊêŠ‚Å–Ú‚ªÁ‚ß‚½...“ª‚ª’É‚¢B");
 				msg_print("‰½‚àŠo‚¦‚Ä‚¢‚È‚¢B‚Ç‚¤‚â‚Á‚Ä‚±‚±‚É—ˆ‚½‚©‚à•ª‚©‚ç‚È‚¢I");
@@ -2484,23 +2484,23 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
 
-					(void)set_image(cr_ptr, cr_ptr->image + randint0(150) + 150);
+					(void)set_image(creature_ptr, creature_ptr->image + randint0(150) + 150);
 				}
 			}
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HALLU) && (randint1(6400) == 42))
+	if (has_cf_creature(creature_ptr, CF_HALLU) && (randint1(6400) == 42))
 	{
-		if (!cr_ptr->resist_chaos)
+		if (!creature_ptr->resist_chaos)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
-			(void)set_image(cr_ptr, cr_ptr->image + randint0(50) + 20);
+			(void)set_image(creature_ptr, creature_ptr->image + randint0(50) + 20);
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_FLATULENT) && (randint1(3000) == 13))
+	if (has_cf_creature(creature_ptr, CF_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(player_ptr, 0, 0);
 
@@ -2511,11 +2511,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		fire_ball(cr_ptr, GF_POIS, 0, cr_ptr->lev, 3);
+		fire_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_PROD_MANA) &&
-	    !cr_ptr->anti_magic && one_in_(9000))
+	if (has_cf_creature(creature_ptr, CF_PROD_MANA) &&
+	    !creature_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
 		disturb(player_ptr, 0, 0);
@@ -2527,12 +2527,12 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		flush();
 		msg_print(NULL);
-		(void)get_hack_dir(cr_ptr, &dire);
-		fire_ball(cr_ptr, GF_MANA, dire, cr_ptr->lev * 2, 3);
+		(void)get_hack_dir(creature_ptr, &dire);
+		fire_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ATT_DEMON) &&
-	    !cr_ptr->anti_magic && (randint1(6666) == 666))
+	if (has_cf_creature(creature_ptr, CF_ATT_DEMON) &&
+	    !creature_ptr->anti_magic && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2540,8 +2540,8 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx,
-				    current_floor_ptr->floor_level, SUMMON_DEMON, mode))
+		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx,
+				    floor_ptr->floor_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Íƒf[ƒ‚ƒ“‚ðˆø‚«Šñ‚¹‚½I");
@@ -2553,7 +2553,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SPEED_FLUX) && one_in_(6000))
+	if (has_cf_creature(creature_ptr, CF_SPEED_FLUX) && one_in_(6000))
 	{
 		disturb(player_ptr, 0, 0);
 		if (one_in_(2))
@@ -2564,13 +2564,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You feel less energetic.");
 #endif
 
-			if (cr_ptr->fast > 0)
+			if (creature_ptr->fast > 0)
 			{
-				set_fast(cr_ptr, 0, TRUE);
+				set_fast(creature_ptr, 0, TRUE);
 			}
 			else
 			{
-				set_slow(cr_ptr, randint1(30) + 10, FALSE);
+				set_slow(creature_ptr, randint1(30) + 10, FALSE);
 			}
 		}
 		else
@@ -2581,18 +2581,18 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You feel more energetic.");
 #endif
 
-			if (cr_ptr->slow > 0)
+			if (creature_ptr->slow > 0)
 			{
-				set_slow(cr_ptr, 0, TRUE);
+				set_slow(creature_ptr, 0, TRUE);
 			}
 			else
 			{
-				set_fast(cr_ptr, randint1(30) + 10, FALSE);
+				set_fast(creature_ptr, randint1(30) + 10, FALSE);
 			}
 		}
 		msg_print(NULL);
 	}
-	if (has_cf_creature(cr_ptr, CF_BANISH_ALL) && one_in_(9000))
+	if (has_cf_creature(creature_ptr, CF_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2601,11 +2601,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print("You suddenly feel almost lonely.");
 #endif
 
-		banish_creatures(cr_ptr, 100);
+		banish_creatures(creature_ptr, 100);
 		msg_print(NULL);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_EAT_LIGHT) && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_EAT_LIGHT) && one_in_(3000))
 	{
 		object_type *o_ptr;
 
@@ -2618,12 +2618,12 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
-		if ((current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+		if ((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
-			hp_player(cr_ptr, 10);
+			hp_player(creature_ptr, 10);
 		}
 
-		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 		/* Absorb some fuel in the current lite */
 		if (o_ptr->tval == TV_LITE)
@@ -2632,7 +2632,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			if (!object_is_fixed_artifact(o_ptr) && (o_ptr->xtra4 > 0))
 			{
 				/* Heal the player a bit */
-				hp_player(cr_ptr, o_ptr->xtra4 / 20);
+				hp_player(creature_ptr, o_ptr->xtra4 / 20);
 
 				/* Decrease life-span of lite */
 				o_ptr->xtra4 /= 2;
@@ -2645,7 +2645,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 
 				/* Notice interesting fuel steps */
-				notice_lite_change(cr_ptr, o_ptr);
+				notice_lite_change(creature_ptr, o_ptr);
 			}
 		}
 
@@ -2653,11 +2653,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		 * Unlite the area (radius 10) around player and
 		 * do 50 points damage to every affected creature
 		 */
-		unlite_area(cr_ptr, 50, 10);
+		unlite_area(creature_ptr, 50, 10);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ATT_ANIMAL) &&
-	    !cr_ptr->anti_magic && one_in_(7000))
+	if (has_cf_creature(creature_ptr, CF_ATT_ANIMAL) &&
+	    !creature_ptr->anti_magic && one_in_(7000))
 	{
 		bool pet = one_in_(3);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2665,7 +2665,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_ANIMAL, mode))
+		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("“®•¨‚ðˆø‚«Šñ‚¹‚½I");
@@ -2677,8 +2677,8 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RAW_CHAOS) &&
-	    !cr_ptr->anti_magic && one_in_(8000))
+	if (has_cf_creature(creature_ptr, CF_RAW_CHAOS) &&
+	    !creature_ptr->anti_magic && one_in_(8000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2688,11 +2688,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		fire_ball(cr_ptr, GF_CHAOS, 0, cr_ptr->lev, 8);
+		fire_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
 	}
-	if (has_cf_creature(cr_ptr, CF_NORMALITY) && one_in_(5000))
+	if (has_cf_creature(creature_ptr, CF_NORMALITY) && one_in_(5000))
 	{
-		if (!lose_mutation(cr_ptr, 0))
+		if (!lose_mutation(creature_ptr, 0))
 #ifdef JP
 			msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 #else
@@ -2700,7 +2700,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if (has_cf_creature(cr_ptr, CF_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_WRAITH) && !creature_ptr->anti_magic && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2710,13 +2710,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		set_wraith_form(cr_ptr, randint1(cr_ptr->lev / 2) + (cr_ptr->lev / 2), FALSE);
+		set_wraith_form(creature_ptr, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
-	if (has_cf_creature(cr_ptr, CF_POLY_WOUND) && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_POLY_WOUND) && one_in_(3000))
 	{
-		do_poly_wounds(cr_ptr);
+		do_poly_wounds(creature_ptr);
 	}
-	if (has_cf_creature(cr_ptr, CF_WASTING) && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_WASTING) && one_in_(3000))
 	{
 		int which_stat = randint0(6);
 		int sustained = FALSE;
@@ -2724,22 +2724,22 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		switch (which_stat)
 		{
 		case STAT_STR:
-			if (cr_ptr->sustain_str) sustained = TRUE;
+			if (creature_ptr->sustain_str) sustained = TRUE;
 			break;
 		case STAT_INT:
-			if (cr_ptr->sustain_int) sustained = TRUE;
+			if (creature_ptr->sustain_int) sustained = TRUE;
 			break;
 		case STAT_WIS:
-			if (cr_ptr->sustain_wis) sustained = TRUE;
+			if (creature_ptr->sustain_wis) sustained = TRUE;
 			break;
 		case STAT_DEX:
-			if (cr_ptr->sustain_dex) sustained = TRUE;
+			if (creature_ptr->sustain_dex) sustained = TRUE;
 			break;
 		case STAT_CON:
-			if (cr_ptr->sustain_con) sustained = TRUE;
+			if (creature_ptr->sustain_con) sustained = TRUE;
 			break;
 		case STAT_CHA:
-			if (cr_ptr->sustain_chr) sustained = TRUE;
+			if (creature_ptr->sustain_chr) sustained = TRUE;
 			break;
 		default:
 #ifdef JP
@@ -2761,11 +2761,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 			msg_print(NULL);
-			(void)dec_stat(cr_ptr, which_stat, randint1(6) + 6, one_in_(3));
+			(void)dec_stat(creature_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
-	if (has_cf_creature(cr_ptr, CF_ATT_DRAGON) &&
-	    !cr_ptr->anti_magic && one_in_(3000))
+	if (has_cf_creature(creature_ptr, CF_ATT_DRAGON) &&
+	    !creature_ptr->anti_magic && one_in_(3000))
 	{
 		bool pet = one_in_(5);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2773,7 +2773,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DRAGON, mode))
+		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ƒhƒ‰ƒSƒ“‚ðˆø‚«Šñ‚¹‚½I");
@@ -2784,10 +2784,10 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			disturb(player_ptr, 0, 0);
 		}
 	}
-	if (has_cf_creature(cr_ptr, CF_WEIRD_MIND) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(creature_ptr, CF_WEIRD_MIND) && !creature_ptr->anti_magic &&
 	    one_in_(3000))
 	{
-		if (cr_ptr->tim_esp > 0)
+		if (creature_ptr->tim_esp > 0)
 		{
 #ifdef JP
 			msg_print("¸_‚É‚à‚â‚ª‚©‚©‚Á‚½I");
@@ -2795,7 +2795,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("Your mind feels cloudy!");
 #endif
 
-			set_tim_esp(cr_ptr, 0, TRUE);
+			set_tim_esp(creature_ptr, 0, TRUE);
 		}
 		else
 		{
@@ -2805,10 +2805,10 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("Your mind expands!");
 #endif
 
-			set_tim_esp(cr_ptr, cr_ptr->lev, FALSE);
+			set_tim_esp(creature_ptr, creature_ptr->lev, FALSE);
 		}
 	}
-	if (has_cf_creature(cr_ptr, CF_NAUSEA) && !cr_ptr->slow_digest &&
+	if (has_cf_creature(creature_ptr, CF_NAUSEA) && !creature_ptr->slow_digest &&
 	    one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2819,18 +2819,18 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		set_food(cr_ptr, PY_FOOD_WEAK);
-		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
-		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
+		set_food(creature_ptr, PY_FOOD_WEAK);
+		if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_WALK_SHAD) &&
-	    !cr_ptr->anti_magic && one_in_(12000) && !fight_arena_mode)
+	if (has_cf_creature(creature_ptr, CF_WALK_SHAD) &&
+	    !creature_ptr->anti_magic && one_in_(12000) && !fight_arena_mode)
 	{
-		alter_reality(cr_ptr);
+		alter_reality(creature_ptr);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_WARNING) && one_in_(1000))
+	if (has_cf_creature(creature_ptr, CF_WARNING) && one_in_(1000))
 	{
 		int danger_amount = 0;
 		int creature;
@@ -2843,9 +2843,9 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			/* Paranoia -- Skip dead monsters */
 			if (!m_ptr->species_idx) continue;
 
-			if (r_ptr->level >= cr_ptr->lev)
+			if (r_ptr->level >= creature_ptr->lev)
 			{
-				danger_amount += r_ptr->level - cr_ptr->lev + 1;
+				danger_amount += r_ptr->level - creature_ptr->lev + 1;
 			}
 		}
 
@@ -2892,7 +2892,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if (has_cf_creature(cr_ptr, CF_INVULN) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(creature_ptr, CF_INVULN) && !creature_ptr->anti_magic &&
 	    one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2903,55 +2903,55 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		(void)set_invuln(cr_ptr, randint1(8) + 8, FALSE);
+		(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
 	}
-	if (has_cf_creature(cr_ptr, CF_SP_TO_HP) && one_in_(2000))
+	if (has_cf_creature(creature_ptr, CF_SP_TO_HP) && one_in_(2000))
 	{
-		int wounds = cr_ptr->mhp - cr_ptr->chp;
+		int wounds = creature_ptr->mhp - creature_ptr->chp;
 
 		if (wounds > 0)
 		{
-			int healing = cr_ptr->csp;
+			int healing = creature_ptr->csp;
 
 			if (healing > wounds)
 			{
 				healing = wounds;
 			}
 
-			hp_player(cr_ptr, healing);
-			cr_ptr->csp -= healing;
+			hp_player(creature_ptr, healing);
+			creature_ptr->csp -= healing;
 
 			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if (has_cf_creature(cr_ptr, CF_HP_TO_SP) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(creature_ptr, CF_HP_TO_SP) && !creature_ptr->anti_magic &&
 	    one_in_(4000))
 	{
-		int wounds = cr_ptr->msp - cr_ptr->csp;
+		int wounds = creature_ptr->msp - creature_ptr->csp;
 
 		if (wounds > 0)
 		{
-			int healing = cr_ptr->chp;
+			int healing = creature_ptr->chp;
 
 			if (healing > wounds)
 			{
 				healing = wounds;
 			}
 
-			cr_ptr->csp += healing;
+			creature_ptr->csp += healing;
 
 			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 #ifdef JP
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, healing, "“ª‚É¸‚Á‚½ŒŒ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "“ª‚É¸‚Á‚½ŒŒ", NULL, -1);
 #else
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", NULL, -1);
 #endif
 
 		}
 	}
-	if (has_cf_creature(cr_ptr, CF_DISARM) && one_in_(10000))
+	if (has_cf_creature(creature_ptr, CF_DISARM) && one_in_(10000))
 	{
 		int i;
 		int slot = 0;
@@ -2960,19 +2960,19 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("‘«‚ª‚à‚Â‚ê‚Ä“]‚ñ‚¾I");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->wt / 6), "“]“|", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "“]“|", NULL, -1);
 #else
 		msg_print("You trip over your own feet!");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->wt / 6), "tripping", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "tripping", NULL, -1);
 #endif
 
 		msg_print(NULL);
 
-		if (i = get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+		if (i = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		{
 			int j = randint0(i);
-			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, j);
-			slot = get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, j);
+			o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
+			slot = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, j);
 		}
 
 		if (slot && !object_is_cursed(o_ptr))
@@ -2982,24 +2982,24 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #else
 			msg_print("You drop your weapon!");
 #endif
-			inven_drop(cr_ptr, slot, 1);
+			inven_drop(creature_ptr, slot, 1);
 		}
 	}
 }
 
 
-/*
- * Handle curse effects once every 10 game turns
- */
-static void process_world_aux_curse(creature_type *cr_ptr)
+// Handle curse effects once every 10 game turns
+static void process_world_aux_curse(creature_type *creature_ptr)
 {
-	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !gamble_arena_mode && !wild_mode)
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !gamble_arena_mode && !wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
 		 * can actually be useful!
 		 */
-		if ((cr_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
+		if ((creature_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
 		{
 			char o_name[MAX_NLEN];
 			object_type *o_ptr;
@@ -3009,10 +3009,10 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
-				o_ptr = &cr_ptr->inventory[i];
+				o_ptr = &creature_ptr->inventory[i];
 
 				// Skip no equip
-				if(!cr_ptr->equip_now[i]) continue;
+				if(!creature_ptr->equip_now[i]) continue;
 
 				/* Skip non-objects */
 				if (!o_ptr->k_idx) continue;
@@ -3031,7 +3031,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				}
 			}
 
-			o_ptr = &cr_ptr->inventory[i_keep];
+			o_ptr = &creature_ptr->inventory[i_keep];
 			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
@@ -3047,7 +3047,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #endif
 			{
 				disturb(player_ptr, 0, 0);
-				teleport_player(cr_ptr, 50, 0L);
+				teleport_player(creature_ptr, 50, 0L);
 			}
 			else
 			{
@@ -3060,7 +3060,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			}
 		}
 		/* Make a chainsword noise */
-		if ((cr_ptr->cursed & TRC_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
+		if ((creature_ptr->cursed & TRC_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 		{
 			char noise[1024];
 #ifdef JP
@@ -3072,28 +3072,28 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			disturb(player_ptr, FALSE, FALSE);
 		}
 		/* TY Curse */
-		if ((cr_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
+		if ((creature_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
 		{
 			int count = 0;
-			(void)activate_ty_curse(cr_ptr, FALSE, &count);
+			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (!has_cf_creature(cr_ptr, CF_ANDROID) && 
-			((cr_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
+		if (!has_cf_creature(creature_ptr, CF_ANDROID) && 
+			((creature_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
-			cr_ptr->exp -= (cr_ptr->lev+1)/2;
-			if (cr_ptr->exp < 0) cr_ptr->exp = 0;
-			cr_ptr->max_exp -= (cr_ptr->lev+1)/2;
-			if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
-			check_experience(cr_ptr);
+			creature_ptr->exp -= (creature_ptr->lev+1)/2;
+			if (creature_ptr->exp < 0) creature_ptr->exp = 0;
+			creature_ptr->max_exp -= (creature_ptr->lev+1)/2;
+			if (creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+			check_experience(creature_ptr);
 		}
 		/* Add light curse (Later) */
-		if ((cr_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
+		if ((creature_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
 			object_type *o_ptr;
 
-			o_ptr = choose_cursed_obj_name(cr_ptr, TRC_ADD_L_CURSE);
+			o_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_L_CURSE);
 
 			new_curse = get_curse(0, o_ptr);
 			if (!(o_ptr->curse_flags & new_curse))
@@ -3110,16 +3110,16 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #endif
 
 				o_ptr->feeling = FEEL_NONE;
-				cr_ptr->creature_update |= (CRU_BONUS);
+				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
 		/* Add heavy curse (Later) */
-		if ((cr_ptr->cursed & TRC_ADD_H_CURSE) && one_in_(2000))
+		if ((creature_ptr->cursed & TRC_ADD_H_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
 			object_type *o_ptr;
 
-			o_ptr = choose_cursed_obj_name(cr_ptr, TRC_ADD_H_CURSE);
+			o_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_H_CURSE);
 
 			new_curse = get_curse(1, o_ptr);
 			if (!(o_ptr->curse_flags & new_curse))
@@ -3137,18 +3137,18 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				cr_ptr->creature_update |= (CRU_BONUS);
+				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
 		/* Call animal */
-		if ((cr_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
+		if ((creature_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_ANIMAL,
+			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%s‚ª“®•¨‚ðˆø‚«Šñ‚¹‚½I", o_name);
 #else
@@ -3159,13 +3159,13 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			}
 		}
 		/* Call demon */
-		if ((cr_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
+		if ((creature_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%s‚ªˆ«–‚‚ðˆø‚«Šñ‚¹‚½I", o_name);
 #else
@@ -3176,14 +3176,14 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			}
 		}
 		/* Call dragon */
-		if ((cr_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
+		if ((creature_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
-			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, SUMMON_DRAGON,
+			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%s‚ªƒhƒ‰ƒSƒ“‚ðˆø‚«Šñ‚¹‚½I", o_name);
 #else
@@ -3193,9 +3193,9 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				disturb(player_ptr, 0, 0);
 			}
 		}
-		if ((cr_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
+		if ((creature_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
 		{
-			if (!cr_ptr->resist_fear)
+			if (!creature_ptr->resist_fear)
 			{
 				disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -3204,55 +3204,55 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				msg_print("It's so dark... so scary!");
 #endif
 
-				set_afraid(cr_ptr, cr_ptr->afraid + 13 + randint1(26));
+				set_afraid(creature_ptr, creature_ptr->afraid + 13 + randint1(26));
 			}
 		}
 		/* Teleport player */
-		if ((cr_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !cr_ptr->anti_tele)
+		if ((creature_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !creature_ptr->anti_tele)
 		{
 			disturb(player_ptr, 0, 0);
 
 			/* Teleport player */
-			teleport_player(cr_ptr, 40, TELEPORT_PASSIVE);
+			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
 		/* Handle HP draining */
-		if ((cr_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
+		if ((creature_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%s‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I", o_name);
 #else
 			msg_format("Your %s drains HP from you!", o_name);
 #endif
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev*2, 100), o_name, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), o_name, NULL, -1);
 		}
 		/* Handle mana draining */
-		if ((cr_ptr->cursed & TRC_DRAIN_MANA) && cr_ptr->csp && one_in_(666))
+		if ((creature_ptr->cursed & TRC_DRAIN_MANA) && creature_ptr->csp && one_in_(666))
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%s‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹zŽû‚µ‚½I", o_name);
 #else
 			msg_format("Your %s drains mana from you!", o_name);
 #endif
-			cr_ptr->csp -= MIN(cr_ptr->lev, 50);
-			if (cr_ptr->csp < 0)
+			creature_ptr->csp -= MIN(creature_ptr->lev, 50);
+			if (creature_ptr->csp < 0)
 			{
-				cr_ptr->csp = 0;
-				cr_ptr->csp_frac = 0;
+				creature_ptr->csp = 0;
+				creature_ptr->csp_frac = 0;
 			}
 			play_redraw |= PR_MANA;
 		}
 	}
 
 	/* Rarely, take damage from the Jewel of Judgement */
-	if (one_in_(999) && !cr_ptr->anti_magic)
+	if (one_in_(999) && !creature_ptr->anti_magic)
 	{
-		object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+		object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 		if (o_ptr->name1 == ART_JUDGE)
 		{
@@ -3262,14 +3262,14 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			else
 				msg_print("‚È‚É‚©‚ª‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
 
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "R”»‚Ì•óÎ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "R”»‚Ì•óÎ", NULL, -1);
 #else
 			if (object_is_known(o_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
 
-			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "the Jewel of Judgement", "", -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "the Jewel of Judgement", "", -1);
 #endif
 		}
 	}
