@@ -5341,20 +5341,22 @@ static bool monster_tsuri(int species_idx)
 }
 
 
-/* Hack -- Pack Overflow */
-static void pack_overflow(creature_type *cr_ptr)
+// Hack -- Pack Overflow
+static void pack_overflow(creature_type *creature_ptr)
 {
-	if (cr_ptr->inventory[INVEN_TOTAL].k_idx)
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	if (creature_ptr->inventory[INVEN_TOTAL].k_idx)
 	{
 		char o_name[MAX_NLEN];
 		object_type *o_ptr;
 
 		/* Is auto-destroy done? */
-		notice_stuff(cr_ptr);
-		if (!cr_ptr->inventory[INVEN_TOTAL].k_idx) return;
+		notice_stuff(creature_ptr);
+		if (!creature_ptr->inventory[INVEN_TOTAL].k_idx) return;
 
 		/* Access the slot to be dropped */
-		o_ptr = &cr_ptr->inventory[INVEN_TOTAL];
+		o_ptr = &creature_ptr->inventory[INVEN_TOTAL];
 
 		/* Disturbing */
 		disturb(player_ptr, 0, 0);
@@ -5377,15 +5379,15 @@ static void pack_overflow(creature_type *cr_ptr)
 #endif
 
 		/* Drop it (carefully) near the player */
-		(void)drop_near(current_floor_ptr, o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
+		(void)drop_near(floor_ptr, o_ptr, 0, creature_ptr->fy, creature_ptr->fx);
 
 		/* Modify, Describe, Optimize */
-		inven_item_increase(cr_ptr, INVEN_TOTAL, -255);
-		inven_item_describe(cr_ptr, INVEN_TOTAL);
-		inven_item_optimize(cr_ptr, INVEN_TOTAL);
+		inven_item_increase(creature_ptr, INVEN_TOTAL, -255);
+		inven_item_describe(creature_ptr, INVEN_TOTAL);
+		inven_item_optimize(creature_ptr, INVEN_TOTAL);
 
-		/* Handle "cr_ptr->creature_update" */
-		notice_stuff(cr_ptr);
+		/* Handle "creature_ptr->creature_update" */
+		notice_stuff(creature_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
