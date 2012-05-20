@@ -6655,11 +6655,10 @@ static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 }
 
 
-/*
- * Check the status of "artifacts"
- */
+// Check the status of "artifacts"
 static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
 	int i, k, z, x, y, n = 0;
 	u16b why = 3;
 	s16b *who;
@@ -6710,11 +6709,11 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	}
 
 	/* Check the dungeon */
-	for (y = 0; y < current_floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++)
 	{
-		for (x = 0; x < current_floor_ptr->width; x++)
+		for (x = 0; x < floor_ptr->width; x++)
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			s16b this_object_idx, next_object_idx = 0;
 
