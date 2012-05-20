@@ -2222,29 +2222,27 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 }
 
 
-/*
- * Hack -- determine if a given location is "interesting"
- */
-static bool target_set_accept(creature_type *cr_ptr, int y, int x)
+// Hack -- determine if a given location is "interesting"
+static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
-	if (!(in_bounds(current_floor_ptr, y, x))) return (FALSE);
+	if (!(in_bounds(floor_ptr, y, x))) return (FALSE);
 	if (wild_mode && !wilderness[y][x].known) return (FALSE);
 
 	/* Player grid is always interesting */
-	if (creature_bold(cr_ptr, y, x)) return (TRUE);
+	if (creature_bold(creature_ptr, y, x)) return (TRUE);
 
 
 	/* Handle hallucination */
-	if (cr_ptr->image) return (FALSE);
+	if (creature_ptr->image) return (FALSE);
 
 
 	/* Examine the grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Visible monsters */
 	if (c_ptr->creature_idx)
