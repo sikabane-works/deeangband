@@ -483,6 +483,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	int i;
 
 	creature_type *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	/* Monster location */
 	fy = m_ptr->fy;
@@ -502,16 +503,16 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		x = fx + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(current_floor_ptr, y, x)) continue;
+		if (!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Don't move toward player */
-		/* if (current_floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
+		/* if (floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
 
 		/* Calculate distance of this grid from our destination */
 		dis = distance(y, x, y1, x1);
 
 		/* Score this grid */
-		s = 5000 / (dis + 3) - 500 / (current_floor_ptr->cave[y][x].dist + 1);
+		s = 5000 / (dis + 3) - 500 / (floor_ptr->cave[y][x].dist + 1);
 
 		/* No negative scores */
 		if (s < 0) s = 0;
