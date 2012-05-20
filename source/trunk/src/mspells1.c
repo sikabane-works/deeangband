@@ -437,15 +437,16 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  */
 bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
 {
-	/* Must be the same as projectable() */
+	floor_type *floor_ptr = get_floor_ptr(target_ptr);
 
+	/* Must be the same as projectable() */
 	int i, y, x;
 
 	int grid_n = 0;
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE, current_floor_ptr, y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -462,9 +463,9 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 		y = GRID_Y(grid_g[i]);
 		x = GRID_X(grid_g[i]);
 
-		if ((current_floor_ptr->cave[y][x].creature_idx > 0) && !((y == y2) && (x == x2)))
+		if ((floor_ptr->cave[y][x].creature_idx > 0) && !((y == y2) && (x == x2)))
 		{
-			creature_type *m_ptr = &creature_list[current_floor_ptr->cave[y][x].creature_idx];
+			creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 			if (friend == is_pet(player_ptr, m_ptr))
 			{
 				return (FALSE);
