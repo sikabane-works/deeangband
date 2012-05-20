@@ -1605,6 +1605,7 @@ void redraw_window(void)
  */
 bool change_panel(int dy, int dx)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	int y, x;
 	int wid, hgt;
 
@@ -1616,11 +1617,11 @@ bool change_panel(int dy, int dx)
 	x = panel_col_min + dx * wid / 2;
 
 	/* Verify the row */
-	if (y > current_floor_ptr->height - hgt) y = current_floor_ptr->height - hgt;
+	if (y > floor_ptr->height - hgt) y = floor_ptr->height - hgt;
 	if (y < 0) y = 0;
 
 	/* Verify the col */
-	if (x > current_floor_ptr->width - wid) x = current_floor_ptr->width - wid;
+	if (x > floor_ptr->width - wid) x = floor_ptr->width - wid;
 	if (x < 0) x = 0;
 
 	/* Handle "changes" */
