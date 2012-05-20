@@ -7051,9 +7051,9 @@ void play_game(bool new_game)
 		char buf[80];
 
 #ifdef JP
-		sprintf(buf, "%s‚É~‚è—§‚Á‚½B", map_name());
+		sprintf(buf, "%s‚É~‚è—§‚Á‚½B", map_name(get_floor_ptr(player_ptr)));
 #else
-		sprintf(buf, "You are standing in the %s.", map_name());
+		sprintf(buf, "You are standing in the %s.", map_name(get_floor_ptr(player_ptr)));
 #endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, buf);
 	}

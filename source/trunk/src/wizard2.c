@@ -1565,7 +1565,7 @@ static void do_cmd_wiz_floor_teleport(void)
 			sprintf(ce[i].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
 				floor_list[i].world_x, floor_list[i].world_y,
 				floor_list[i].width, floor_list[i].height,
-				d_name + dungeon_info[floor_list[i].dun_type].name,
+				map_name(&floor_list[i]),
 				floor_list[i].floor_level);
 			ce[i].cap[72] = '\0'; 
 

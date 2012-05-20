@@ -155,7 +155,7 @@ void prt_time(creature_type *player_ptr)
 }
 
 
-cptr map_name(void)
+cptr map_name(floor_type *floor_ptr)
 {
 	if (inside_quest && is_fixed_quest_idx(inside_quest)
 	    && (quest[inside_quest].flags & QUEST_FLAG_PRESET))
@@ -182,10 +182,10 @@ cptr map_name(void)
 #else
 		return "Monster Arena";
 #endif
-	else if (!current_floor_ptr->floor_level && town_num)
+	else if (!floor_ptr->floor_level && town_num)
 		return town[town_num].name;
 	else
-		return d_name+dungeon_info[current_floor_ptr->dun_type].name;
+		return d_name+dungeon_info[floor_ptr->dun_type].name;
 }
 
 /*
@@ -193,13 +193,14 @@ cptr map_name(void)
  */
 static void prt_dungeon(void)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	cptr dungeon_name;
 	int col;
 
 	/* Dump 13 spaces to clear */
 	c_put_str(TERM_WHITE, "             ", ROW_DUNGEON, COL_DUNGEON);
 
-	dungeon_name = map_name();
+	dungeon_name = map_name(floor_ptr);
 
 	col = COL_DUNGEON + 6 - strlen(dungeon_name)/2;
 	if (col < 0) col = 0;
