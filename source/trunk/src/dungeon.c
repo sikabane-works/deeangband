@@ -685,41 +685,39 @@ static void sense_inventory2(creature_type *cr_ptr)
 
 
 
-/*
- * Go to any level (ripped off from wiz_jump)
- */
-static void pattern_teleport(creature_type *cr_ptr)
+// Go to any level (ripped off from wiz_jump)
+static void pattern_teleport(creature_type *creature_ptr)
 {
 	int min_level = 0;
 	int max_level = 99;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* Ask for level */
+	// Ask for level
 #ifdef JP
 	if (get_check("他の階にテレポートしますか？"))
 #else
 	if (get_check("Teleport level? "))
 #endif
-
 	{
 		char	ppp[80];
 		char	tmp_val[160];
 
 		/* Only downward in ironman mode */
 		if (ironman_downward)
-			min_level = current_floor_ptr->floor_level;
+			min_level = floor_ptr->floor_level;
 
 		/* Maximum level */
-		if (current_floor_ptr->dun_type == DUNGEON_ANGBAND)
+		if (floor_ptr->dun_type == DUNGEON_ANGBAND)
 		{
-			if (current_floor_ptr->floor_level > 100)
+			if (floor_ptr->floor_level > 100)
 				max_level = MAX_DEPTH - 1;
-			else if (current_floor_ptr->floor_level == 100)
+			else if (floor_ptr->floor_level == 100)
 				max_level = 100;
 		}
 		else
 		{
-			max_level = dungeon_info[current_floor_ptr->dun_type].maxdepth;
-			min_level = dungeon_info[current_floor_ptr->dun_type].mindepth;
+			max_level = dungeon_info[floor_ptr->dun_type].maxdepth;
+			min_level = dungeon_info[floor_ptr->dun_type].mindepth;
 		}
 
 		/* Prompt */
@@ -731,7 +729,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 
 
 		/* Default */
-		sprintf(tmp_val, "%d", current_floor_ptr->floor_level);
+		sprintf(tmp_val, "%d", floor_ptr->floor_level);
 
 		/* Ask for a level */
 		if (!get_string(ppp, tmp_val, 10)) return;
@@ -745,7 +743,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 	else if (get_check("Normal teleport? "))
 #endif
 	{
-		teleport_player(cr_ptr, 200, 0L);
+		teleport_player(creature_ptr, 200, 0L);
 		return;
 	}
 	else
@@ -770,9 +768,9 @@ static void pattern_teleport(creature_type *cr_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
-	current_floor_ptr->floor_level = command_arg;
+	floor_ptr->floor_level = command_arg;
 
-	leave_quest_check(cr_ptr);
+	leave_quest_check(creature_ptr);
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_PAT_TELE,0,NULL);
 
@@ -783,7 +781,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	prepare_change_floor_mode(cr_ptr, CFM_FIRST_FLOOR);
+	prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
