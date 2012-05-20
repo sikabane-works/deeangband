@@ -4318,9 +4318,10 @@ extern void do_cmd_borg(void);
  *
  * XXX XXX XXX Make some "blocks"
  */
-static void process_command(creature_type *cr_ptr)
+static void process_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 #ifdef ALLOW_REPEAT /* TNB */
 
@@ -4332,8 +4333,8 @@ static void process_command(creature_type *cr_ptr)
 	now_message = 0;
 
 	/* Sniper */
-	if ((cr_ptr->cls_idx == CLASS_SNIPER) && (cr_ptr->concent))
-		cr_ptr->reset_concent = TRUE;
+	if ((creature_ptr->cls_idx == CLASS_SNIPER) && (creature_ptr->concent))
+		creature_ptr->reset_concent = TRUE;
 
 	/* Parse the command */
 	switch (command_cmd)
@@ -4367,7 +4368,7 @@ msg_print("ウィザードモード解除。");
 #endif
 
 			}
-			else if (enter_wizard_mode(cr_ptr))
+			else if (enter_wizard_mode(creature_ptr))
 			{
 				wizard = TRUE;
 #ifdef JP
@@ -4394,9 +4395,9 @@ msg_print("ウィザードモード突入。");
 		case KTRL('A'):
 		{
 			/* Enter debug mode */
-			if (enter_debug_mode(cr_ptr))
+			if (enter_debug_mode(creature_ptr))
 			{
-				do_cmd_debug(cr_ptr);
+				do_cmd_debug(creature_ptr);
 			}
 			break;
 		}
@@ -4427,42 +4428,42 @@ msg_print("ウィザードモード突入。");
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			if (!wild_mode) do_cmd_wield(cr_ptr);
+			if (!wild_mode) do_cmd_wield(creature_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			if (!wild_mode) do_cmd_takeoff(cr_ptr);
+			if (!wild_mode) do_cmd_takeoff(creature_ptr);
 			break;
 		}
 
 		/* Drop an item */
 		case 'd':
 		{
-			if (!wild_mode) do_cmd_drop(cr_ptr);
+			if (!wild_mode) do_cmd_drop(creature_ptr);
 			break;
 		}
 
 		/* Destroy an item */
 		case 'k':
 		{
-			do_cmd_destroy(cr_ptr);
+			do_cmd_destroy(creature_ptr);
 			break;
 		}
 
 		/* Equipment list */
 		case 'e':
 		{
-			do_cmd_equip(cr_ptr);
+			do_cmd_equip(creature_ptr);
 			break;
 		}
 
 		/* inventory list */
 		case 'i':
 		{
-			do_cmd_inven(cr_ptr);
+			do_cmd_inven(creature_ptr);
 			break;
 		}
 
@@ -4472,7 +4473,7 @@ msg_print("ウィザードモード突入。");
 		/* Identify an object */
 		case 'I':
 		{
-			do_cmd_observe(cr_ptr);
+			do_cmd_observe(creature_ptr);
 			break;
 		}
 
@@ -4489,14 +4490,14 @@ msg_print("ウィザードモード突入。");
 		/* Alter a grid */
 		case '+':
 		{
-			if (!wild_mode) do_cmd_alter(cr_ptr);
+			if (!wild_mode) do_cmd_alter(creature_ptr);
 			break;
 		}
 
 		/* Dig a tunnel */
 		case 'T':
 		{
-			if (!wild_mode) do_cmd_tunnel(cr_ptr);
+			if (!wild_mode) do_cmd_tunnel(creature_ptr);
 			break;
 		}
 
@@ -4505,7 +4506,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(cr_ptr, FALSE);
+			do_cmd_walk(creature_ptr, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4521,7 +4522,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(cr_ptr, TRUE);
+			do_cmd_walk(creature_ptr, TRUE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4538,43 +4539,43 @@ msg_print("ウィザードモード突入。");
 		/* Begin Running -- Arg is Max Distance */
 		case '.':
 		{
-			if (!wild_mode) do_cmd_run(cr_ptr);
+			if (!wild_mode) do_cmd_run(creature_ptr);
 			break;
 		}
 
 		/* Stay still (usually pick things up) */
 		case ',':
 		{
-			do_cmd_stay(cr_ptr, always_pickup);
+			do_cmd_stay(creature_ptr, always_pickup);
 			break;
 		}
 
 		/* Stay still (usually do not pick up) */
 		case 'g':
 		{
-			do_cmd_stay(cr_ptr, !always_pickup);
+			do_cmd_stay(creature_ptr, !always_pickup);
 			break;
 		}
 
 		/* Rest -- Arg is time */
 		case 'R':
 		{
-			do_cmd_rest(cr_ptr);
+			do_cmd_rest(creature_ptr);
 			break;
 		}
 
 		/* Search for traps/doors */
 		case 's':
 		{
-			do_cmd_search(cr_ptr);
+			do_cmd_search(creature_ptr);
 			break;
 		}
 
 		/* Toggle search mode */
 		case 'S':
 		{
-			if (cr_ptr->action == ACTION_SEARCH) set_action(cr_ptr, ACTION_NONE);
-			else set_action(cr_ptr, ACTION_SEARCH);
+			if (creature_ptr->action == ACTION_SEARCH) set_action(creature_ptr, ACTION_NONE);
+			else set_action(creature_ptr, ACTION_SEARCH);
 			break;
 		}
 
@@ -4584,10 +4585,10 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+			cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 			int which = town_store_id[town_num][f_info[c_ptr->feat].subtype];
 			screen_save();
-			store_process(cr_ptr, &st_list[which]);
+			store_process(creature_ptr, &st_list[which]);
 			screen_load();
 			break;
 		}
@@ -4595,21 +4596,21 @@ msg_print("ウィザードモード突入。");
 		/* Enter building -KMW- */
 		case SPECIAL_KEY_BUILDING:
 		{
-			if (!wild_mode) do_cmd_bldg(cr_ptr);
+			if (!wild_mode) do_cmd_bldg(creature_ptr);
 			break;
 		}
 
 		/* Enter quest level -KMW- */
 		case SPECIAL_KEY_QUEST:
 		{
-			if (!wild_mode) do_cmd_quest(cr_ptr);
+			if (!wild_mode) do_cmd_quest(creature_ptr);
 			break;
 		}
 
 		/* Go up staircase */
 		case '<':
 		{
-			if (!wild_mode && !current_floor_ptr->floor_level && !fight_arena_mode && !inside_quest)
+			if (!wild_mode && !floor_ptr->floor_level && !fight_arena_mode && !inside_quest)
 			{
 
 				if (ambush_flag)
@@ -4622,7 +4623,7 @@ msg_print("ウィザードモード突入。");
 					break;
 				}
 
-				if (cr_ptr->food < PY_FOOD_WEAK)
+				if (creature_ptr->food < PY_FOOD_WEAK)
 				{
 #ifdef JP
 					msg_print("その前に食事をとらないと。");
@@ -4632,10 +4633,10 @@ msg_print("ウィザードモード突入。");
 					break;
 				}
 
-				change_wild_mode(cr_ptr);
+				change_wild_mode(creature_ptr);
 			}
 			else
-				do_cmd_go_up(cr_ptr);
+				do_cmd_go_up(creature_ptr);
 			break;
 		}
 
@@ -4643,9 +4644,9 @@ msg_print("ウィザードモード突入。");
 		case '>':
 		{
 			if (wild_mode)
-				change_wild_mode(cr_ptr);
+				change_wild_mode(creature_ptr);
 			else
-				do_cmd_go_down(cr_ptr);
+				do_cmd_go_down(creature_ptr);
 
 			break;
 		}
@@ -4653,35 +4654,35 @@ msg_print("ウィザードモード突入。");
 		/* Open a door or chest */
 		case 'o':
 		{
-			if (!wild_mode) do_cmd_open(cr_ptr);
+			if (!wild_mode) do_cmd_open(creature_ptr);
 			break;
 		}
 
 		/* Close a door */
 		case 'c':
 		{
-			if (!wild_mode) do_cmd_close(cr_ptr);
+			if (!wild_mode) do_cmd_close(creature_ptr);
 			break;
 		}
 
 		/* Jam a door with spikes */
 		case 'j':
 		{
-			if (!wild_mode) do_cmd_spike(cr_ptr);
+			if (!wild_mode) do_cmd_spike(creature_ptr);
 			break;
 		}
 
 		/* Bash a door */
 		case 'B':
 		{
-			if (!wild_mode) do_cmd_bash(cr_ptr);
+			if (!wild_mode) do_cmd_bash(creature_ptr);
 			break;
 		}
 
 		/* Disarm a trap or chest */
 		case 'D':
 		{
-			if (!wild_mode) do_cmd_disarm(cr_ptr);
+			if (!wild_mode) do_cmd_disarm(creature_ptr);
 			break;
 		}
 
@@ -4691,36 +4692,36 @@ msg_print("ウィザードモード突入。");
 		/* Gain new spells/prayers */
 		case 'G':
 		{
-			if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
+			if ((creature_ptr->cls_idx == CLASS_SORCERER) || (creature_ptr->cls_idx == CLASS_RED_MAGE))
 #ifdef JP
 				msg_print("呪文を学習する必要はない！");
 #else
 				msg_print("You don't have to learn spells!");
 #endif
-			else if (cr_ptr->cls_idx == CLASS_SAMURAI)
-				do_cmd_gain_hissatsu(cr_ptr);
-			else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
-				gain_magic(cr_ptr);
+			else if (creature_ptr->cls_idx == CLASS_SAMURAI)
+				do_cmd_gain_hissatsu(creature_ptr);
+			else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+				gain_magic(creature_ptr);
 			else
-				do_cmd_study(cr_ptr);
+				do_cmd_study(creature_ptr);
 			break;
 		}
 
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-			     (cr_ptr->cls_idx == CLASS_BERSERKER) ||
-			     (cr_ptr->cls_idx == CLASS_NINJA) ||
-			     (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) 
-			     ) do_cmd_mind_browse(cr_ptr);
-			else if (cr_ptr->cls_idx == CLASS_SMITH)
-				do_cmd_kaji(cr_ptr, TRUE);
-			else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
-				do_cmd_magic_eater(cr_ptr, TRUE);
-			else if (cr_ptr->cls_idx == CLASS_SNIPER)
-				do_cmd_snipe_browse(cr_ptr);
-			else do_cmd_browse(cr_ptr);
+			if ( (creature_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+			     (creature_ptr->cls_idx == CLASS_BERSERKER) ||
+			     (creature_ptr->cls_idx == CLASS_NINJA) ||
+			     (creature_ptr->cls_idx == CLASS_MIRROR_MASTER) 
+			     ) do_cmd_mind_browse(creature_ptr);
+			else if (creature_ptr->cls_idx == CLASS_SMITH)
+				do_cmd_kaji(creature_ptr, TRUE);
+			else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+				do_cmd_magic_eater(creature_ptr, TRUE);
+			else if (creature_ptr->cls_idx == CLASS_SNIPER)
+				do_cmd_snipe_browse(creature_ptr);
+			else do_cmd_browse(creature_ptr);
 			break;
 		}
 
@@ -4730,7 +4731,7 @@ msg_print("ウィザードモード突入。");
 			/* -KMW- */
 			if (!wild_mode)
 			{
-				if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_ARCHER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
+				if ((creature_ptr->cls_idx == CLASS_WARRIOR) || (creature_ptr->cls_idx == CLASS_ARCHER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
 				{
 #ifdef JP
 					msg_print("呪文を唱えられない！");
@@ -4738,7 +4739,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (current_floor_ptr->floor_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
+				else if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->cls_idx != CLASS_BERSERKER) && (creature_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -4747,7 +4748,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					msg_print(NULL);
 				}
-				else if (cr_ptr->anti_magic && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
+				else if (creature_ptr->anti_magic && (creature_ptr->cls_idx != CLASS_BERSERKER) && (creature_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 
@@ -4755,37 +4756,37 @@ msg_print("ウィザードモード突入。");
 #else
 					cptr which_power = "magic";
 #endif
-					if (cr_ptr->cls_idx == CLASS_MINDCRAFTER)
+					if (creature_ptr->cls_idx == CLASS_MINDCRAFTER)
 #ifdef JP
 						which_power = "超能力";
 #else
 						which_power = "psionic powers";
 #endif
-					else if (cr_ptr->cls_idx == CLASS_IMITATOR)
+					else if (creature_ptr->cls_idx == CLASS_IMITATOR)
 #ifdef JP
 						which_power = "ものまね";
 #else
 						which_power = "imitation";
 #endif
-					else if (cr_ptr->cls_idx == CLASS_SAMURAI)
+					else if (creature_ptr->cls_idx == CLASS_SAMURAI)
 #ifdef JP
 						which_power = "必殺剣";
 #else
 						which_power = "hissatsu";
 #endif
-					else if (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					else if (creature_ptr->cls_idx == CLASS_MIRROR_MASTER)
 #ifdef JP
 						which_power = "鏡魔法";
 #else
 						which_power = "mirror magic";
 #endif
-					else if (cr_ptr->cls_idx == CLASS_NINJA)
+					else if (creature_ptr->cls_idx == CLASS_NINJA)
 #ifdef JP
 						which_power = "忍術";
 #else
 						which_power = "ninjutsu";
 #endif
-					else if (m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK)
+					else if (m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK)
 #ifdef JP
 						which_power = "祈り";
 #else
@@ -4799,7 +4800,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					energy_use = 0;
 				}
-				else if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER))
+				else if (creature_ptr->shero && (creature_ptr->cls_idx != CLASS_BERSERKER))
 				{
 #ifdef JP
 					msg_format("狂戦士化していて頭が回らない！");
@@ -4810,26 +4811,26 @@ msg_print("ウィザードモード突入。");
 				}
 				else
 				{
-					if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-					    (cr_ptr->cls_idx == CLASS_BERSERKER) ||
-					    (cr_ptr->cls_idx == CLASS_NINJA) ||
-					    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					if ((creature_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+					    (creature_ptr->cls_idx == CLASS_BERSERKER) ||
+					    (creature_ptr->cls_idx == CLASS_NINJA) ||
+					    (creature_ptr->cls_idx == CLASS_MIRROR_MASTER)
 					    )
-						do_cmd_mind(cr_ptr);
-					else if (cr_ptr->cls_idx == CLASS_IMITATOR)
-						do_cmd_mane(cr_ptr, FALSE);
-					else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
-						do_cmd_magic_eater(cr_ptr, FALSE);
-					else if (cr_ptr->cls_idx == CLASS_SAMURAI)
-						do_cmd_hissatsu(cr_ptr);
-					else if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
-						do_cmd_cast_learned(cr_ptr);
-					else if (cr_ptr->cls_idx == CLASS_SMITH)
-						do_cmd_kaji(cr_ptr, FALSE);
-					else if (cr_ptr->cls_idx == CLASS_SNIPER)
-						do_cmd_snipe(cr_ptr);
+						do_cmd_mind(creature_ptr);
+					else if (creature_ptr->cls_idx == CLASS_IMITATOR)
+						do_cmd_mane(creature_ptr, FALSE);
+					else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+						do_cmd_magic_eater(creature_ptr, FALSE);
+					else if (creature_ptr->cls_idx == CLASS_SAMURAI)
+						do_cmd_hissatsu(creature_ptr);
+					else if (creature_ptr->cls_idx == CLASS_BLUE_MAGE)
+						do_cmd_cast_learned(creature_ptr);
+					else if (creature_ptr->cls_idx == CLASS_SMITH)
+						do_cmd_kaji(creature_ptr, FALSE);
+					else if (creature_ptr->cls_idx == CLASS_SNIPER)
+						do_cmd_snipe(creature_ptr);
 					else
-						do_cmd_cast(cr_ptr);
+						do_cmd_cast(creature_ptr);
 				}
 			}
 			break;
@@ -4838,7 +4839,7 @@ msg_print("ウィザードモード突入。");
 		/* Issue a pet command */
 		case 'p':
 		{
-			if (!wild_mode) do_cmd_pet(cr_ptr);
+			if (!wild_mode) do_cmd_pet(creature_ptr);
 			break;
 		}
 
@@ -4847,14 +4848,14 @@ msg_print("ウィザードモード突入。");
 		/* Inscribe an object */
 		case '{':
 		{
-			do_cmd_inscribe(cr_ptr);
+			do_cmd_inscribe(creature_ptr);
 			break;
 		}
 
 		/* Uninscribe an object */
 		case '}':
 		{
-			do_cmd_uninscribe(cr_ptr);
+			do_cmd_uninscribe(creature_ptr);
 			break;
 		}
 
@@ -4862,13 +4863,13 @@ msg_print("ウィザードモード突入。");
 
 		case '\'':
 		{
-			do_cmd_inscribe_caves(cr_ptr);
+			do_cmd_inscribe_caves(creature_ptr);
 			break;
 		}
 
 		case KTRL('}'):
 		{
-			do_cmd_uninscribe(cr_ptr);
+			do_cmd_uninscribe(creature_ptr);
 			break;
 		}
 
@@ -4879,7 +4880,7 @@ msg_print("ウィザードモード突入。");
 			if (!wild_mode)
 			{
 			if (!fight_arena_mode)
-				do_cmd_activate(cr_ptr);
+				do_cmd_activate(creature_ptr);
 			else
 			{
 #ifdef JP
@@ -4897,21 +4898,21 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Eat some food */
 		case 'E':
 		{
-			do_cmd_eat_food(cr_ptr);
+			do_cmd_eat_food(creature_ptr);
 			break;
 		}
 
 		/* Fuel your lantern/torch */
 		case 'F':
 		{
-			do_cmd_refill(cr_ptr);
+			do_cmd_refill(creature_ptr);
 			break;
 		}
 
 		/* Fire an item */
 		case 'f':
 		{
-			if (!wild_mode) do_cmd_fire(cr_ptr);
+			if (!wild_mode) do_cmd_fire(creature_ptr);
 			break;
 		}
 
@@ -4920,7 +4921,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-				do_cmd_throw(cr_ptr);
+				do_cmd_throw(creature_ptr);
 			}
 			break;
 		}
@@ -4931,7 +4932,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!fight_arena_mode)
-				do_cmd_aim_wand(cr_ptr);
+				do_cmd_aim_wand(creature_ptr);
 			else
 			{
 #ifdef JP
@@ -4963,11 +4964,11 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && rogue_like_commands)
 			{
-				do_cmd_use(cr_ptr);
+				do_cmd_use(creature_ptr);
 			}
 			else
 			{
-				do_cmd_zap_rod(cr_ptr);
+				do_cmd_zap_rod(creature_ptr);
 			}
 			}
 			break;
@@ -4979,7 +4980,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!fight_arena_mode)
-				do_cmd_quaff_potion(cr_ptr);
+				do_cmd_quaff_potion(creature_ptr);
 			else
 			{
 #ifdef JP
@@ -5000,7 +5001,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!fight_arena_mode)
-				do_cmd_read_scroll(cr_ptr);
+				do_cmd_read_scroll(creature_ptr);
 			else
 			{
 #ifdef JP
@@ -5032,10 +5033,10 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && !rogue_like_commands)
 			{
-				do_cmd_use(cr_ptr);
+				do_cmd_use(creature_ptr);
 			}
 			else
-				do_cmd_use_staff(cr_ptr);
+				do_cmd_use_staff(creature_ptr);
 			}
 			break;
 		}
@@ -5043,7 +5044,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use racial power */
 		case 'U':
 		{
-			if (!wild_mode) do_cmd_racial_power(cr_ptr);
+			if (!wild_mode) do_cmd_racial_power(creature_ptr);
 			break;
 		}
 
@@ -5053,28 +5054,28 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Full dungeon map */
 		case 'M':
 		{
-			do_cmd_view_map(cr_ptr);
+			do_cmd_view_map(creature_ptr);
 			break;
 		}
 
 		/* Locate player on map */
 		case 'L':
 		{
-			do_cmd_locate(cr_ptr);
+			do_cmd_locate(creature_ptr);
 			break;
 		}
 
 		/* Look around */
 		case 'l':
 		{
-			do_cmd_look(cr_ptr);
+			do_cmd_look(creature_ptr);
 			break;
 		}
 
 		/* Target monster or location */
 		case '*':
 		{
-			if (!wild_mode) do_cmd_target(cr_ptr);
+			if (!wild_mode) do_cmd_target(creature_ptr);
 			break;
 		}
 
@@ -5092,14 +5093,14 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Identify symbol */
 		case '/':
 		{
-			do_cmd_query_symbol(cr_ptr);
+			do_cmd_query_symbol(creature_ptr);
 			break;
 		}
 
 		/* Character description */
 		case 'C':
 		{
-			do_cmd_change_name(cr_ptr);
+			do_cmd_change_name(creature_ptr);
 			break;
 		}
 
@@ -5128,7 +5129,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case '_':
 		{
-			do_cmd_edit_autopick(cr_ptr);
+			do_cmd_edit_autopick(creature_ptr);
 			break;
 		}
 
@@ -5183,7 +5184,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			if (!wild_mode) do_cmd_feeling(cr_ptr);
+			if (!wild_mode) do_cmd_feeling(creature_ptr);
 			break;
 		}
 
@@ -5229,7 +5230,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case KTRL('T'):
 		{
-			do_cmd_time(cr_ptr);
+			do_cmd_time(creature_ptr);
 			break;
 		}
 
@@ -5237,27 +5238,27 @@ msg_print("アリーナが魔法を吸収した！");
 		case KTRL('X'):
 		case SPECIAL_KEY_QUIT:
 		{
-			do_cmd_save_and_exit(cr_ptr);
+			do_cmd_save_and_exit(creature_ptr);
 			break;
 		}
 
 		/* Quit (commit suicide) */
 		case 'Q':
 		{
-			do_cmd_suicide(cr_ptr);
+			do_cmd_suicide(creature_ptr);
 			break;
 		}
 
 		case '|':
 		{
-			do_cmd_nikki(cr_ptr);
+			do_cmd_nikki(creature_ptr);
 			break;
 		}
 
 		/* Check artifacts, uniques, objects */
 		case '~':
 		{
-			do_cmd_knowledge(cr_ptr);
+			do_cmd_knowledge(creature_ptr);
 			break;
 		}
 
@@ -5271,7 +5272,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Save "screen dump" */
 		case ')':
 		{
-			do_cmd_save_screen(cr_ptr);
+			do_cmd_save_screen(creature_ptr);
 			break;
 		}
 
@@ -5285,14 +5286,14 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Make random artifact list */
 		case KTRL('V'):
 		{
-			spoil_random_artifact(cr_ptr, "randifact.txt");
+			spoil_random_artifact(creature_ptr, "randifact.txt");
 			break;
 		}
 
 #ifdef TRAVEL
 		case '`':
 		{
-			if (!wild_mode) do_cmd_travel(cr_ptr);
+			if (!wild_mode) do_cmd_travel(creature_ptr);
 			break;
 		}
 #endif
