@@ -385,6 +385,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 // For raised dead
 bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int xx, yy;
 	int y = target_ptr->fy;
 	int x = target_ptr->fx;
@@ -396,10 +397,10 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 		for (yy = y - 5; yy <= y + 5; yy++)
 		{
 			if (distance(y, x, yy, xx) > 5) continue;
-			if (!los(current_floor_ptr, y, x, yy, xx)) continue;
+			if (!los(floor_ptr, y, x, yy, xx)) continue;
 			if (!projectable(y, x, yy, xx)) continue;
 
-			c_ptr = &current_floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];
 			/* Scan the pile of objects */
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
