@@ -841,15 +841,13 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_idx)
+static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
 {
 	int i, j;
-
 	bool flag = TRUE;
-
 	bool more = FALSE;
-
 	object_type *o_ptr = &object_list[object_idx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 
 	/* Take a turn */
@@ -862,11 +860,11 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_i
 		flag = FALSE;
 
 		/* Get the "disarm" factor */
-		i = cr_ptr->skill_dis;
+		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
-		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
+		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the difficulty */
 		j = i - o_ptr->pval;
@@ -883,7 +881,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_i
 			msg_print("You have picked the lock.");
 #endif
 
-			gain_exp(cr_ptr, 1);
+			gain_exp(creature_ptr, 1);
 			flag = TRUE;
 		}
 
@@ -906,10 +904,10 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b object_i
 	if (flag)
 	{
 		/* Apply chest traps, if any */
-		chest_trap(cr_ptr, y, x, object_idx);
+		chest_trap(creature_ptr, y, x, object_idx);
 
 		/* Let the Chest drop items */
-		chest_death(FALSE, current_floor_ptr, y, x, object_idx);
+		chest_death(FALSE, floor_ptr, y, x, object_idx);
 	}
 
 	/* Result */
