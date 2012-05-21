@@ -839,8 +839,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 	/*** Basic info ***/
 
-	/* Dungeon floor specific info follows */
-
+	// Dungeon floor specific info follows
 	wr_s16b(floor_ptr->floor_level);
 	wr_byte(floor_ptr->dun_type);
 	wr_s32b(floor_ptr->world_x);
@@ -870,13 +869,13 @@ static void wr_floor(floor_type *floor_ptr)
 	 *     515 will be "0xff" "0xff" "0x03"
 	 */
 
-	/* Fake max number */
+	// Fake max number
 	max_num_temp = 255;
 
-	/* Allocate the "template" array */
+	// Allocate the "template" array
 	C_MAKE(template, max_num_temp, cave_template_type);
 
-	/* Extract template array */
+	// Extract template array
 	for (y = 0; y < floor_ptr->height; y++)
 	{
 		for (x = 0; x < floor_ptr->width; x++)
@@ -923,20 +922,20 @@ static void wr_floor(floor_type *floor_ptr)
 		}
 	}
 
-	/* Sort by occurrence */
+	// Sort by occurrence
 	ang_sort(template, &dummy_why, num_temp, ang_sort_comp_cave_temp, ang_sort_swap_cave_temp);
 
 	/*** Dump templates ***/
 
-	/* Total templates */
+	// Total templates
 	wr_u16b(num_temp);
 
-	/* Dump the templates */
+	// Dump the templates
 	for (i = 0; i < num_temp; i++)
 	{
 		cave_template_type *ct_ptr = &template[i];
 
-		/* Dump it */
+		// Dump it
 		wr_u16b(ct_ptr->info);
 		wr_s16b(ct_ptr->feat);
 		wr_s16b(ct_ptr->mimic);
@@ -1031,8 +1030,8 @@ static void wr_floor(floor_type *floor_ptr)
 			{
 				wr_s16b(x);
 				wr_s16b(y);
-				floor_ptr->cave[y][x].cx;
-				floor_ptr->cave[y][x].cy;
+				wr_s16b(floor_ptr->cave[y][x].cx);
+				wr_s16b(floor_ptr->cave[y][x].cy);
 			}
 		}
 	}
@@ -1331,6 +1330,7 @@ static bool wr_savefile_new(void)
 
 
 	/* Error in save */
+
 	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;
 
 	/*** Dump the monsters ***/

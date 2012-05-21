@@ -1368,10 +1368,10 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/*** Read template for cave_type ***/
 
-	/* Read the template count */
+	// Read the template count
 	rd_u16b(&limit);
 
-	/* Allocate the "template" array */
+	// Allocate the "template" array
 	C_MAKE(cave_templete_ptr, limit, cave_template_type);
 
 	/* Read the templates */
@@ -1379,29 +1379,27 @@ static errr rd_floor(floor_type *floor_ptr)
 	{
 		cave_template_type *ct_ptr = &cave_templete_ptr[i];
 
-		/* Read it */
+		// Read it
 		rd_u16b(&ct_ptr->info);
 		rd_s16b(&ct_ptr->feat);
 		rd_s16b(&ct_ptr->mimic);
 		rd_s16b(&ct_ptr->special);
 	}
 
-	/* Maximal size */
+	// Maximal size
 	ymax = floor_ptr->height;
 	xmax = floor_ptr->width;
 
 
 	/*** Run length decoding ***/
 
-	/* Load the dungeon data */
+	// Load the dungeon data
 	for (x = y = 0; y < ymax; )
 	{
 		u16b id;
-
-		/* Grab RLE info */
-		rd_byte(&count);
-
+		rd_byte(&count); // Grab RLE info
 		id = 0;
+
 		do 
 		{
 			rd_byte(&tmp8u);
