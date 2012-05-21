@@ -1767,21 +1767,16 @@ int load_player(void)
 	}
 #endif
 
-
-	/* Okay */
+	// Okay
 	if (!err)
 	{
-		/* Give a conversion warning */
-		if ((VER_MAJOR != z_major) ||
-		    (VER_MINOR != z_minor) ||
-		    (VER_PATCH != z_patch))
+		// Give a conversion warning
+		if ((VER_MAJOR != z_major) || (VER_MINOR != z_minor) || (VER_PATCH != z_patch))
 		{
 #ifdef JP
-			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。",
-				    (z_major > 9) ? z_major-10 : z_major , z_minor, z_patch);
+			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", z_major , z_minor, z_patch);
 #else
-			msg_format("Converted a %d.%d.%d savefile.",
-				    (z_major > 9) ? z_major-10 : z_major , z_minor, z_patch);
+			msg_format("Converted a %d.%d.%d savefile.", z_major , z_minor, z_patch);
 #endif
 			msg_print(NULL);
 		}
@@ -1851,7 +1846,7 @@ int load_player(void)
 #endif
 	msg_print(NULL);
 
-	return 2; // Oops
+	return err; // Oops
 }
 
 

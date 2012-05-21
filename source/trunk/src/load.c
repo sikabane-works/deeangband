@@ -1635,20 +1635,18 @@ note("乱数情報をロードしました");
 	if (arg_fiddle) note("Loaded Randomizer Info");
 #endif
 
-
-
-	/* Then the options */
+	// Then the options
 	rd_options();
 #ifdef JP
-note("オプションをロードしました");
+	note("オプションをロードしました");
 #else
 	if (arg_fiddle) note("Loaded Option Flags");
 #endif
 
-	/* Then the "messages" */
+	// Then the "messages"
 	rd_messages();
 #ifdef JP
-note("メッセージをロードしました");
+	note("メッセージをロードしました");
 #else
 	if (arg_fiddle) note("Loaded Messages");
 #endif
@@ -1662,7 +1660,8 @@ note("メッセージをロードしました");
 		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
-	/* TODO NEW CREATURE LORE
+	// TODO NEW CREATURE LORE
+	/*
 #ifdef JP
 	note(format("モンスターの思い出をロードしました:%u", tmp16u));
 #else
@@ -1689,7 +1688,7 @@ note("メッセージをロードしました");
 		creature_type *creature_ptr;
 
 		creature_idx = creature_pop(); // Get a new record
-		if (i != creature_idx) return 162; // Oops
+		// if (i != creature_idx) return 162; // Oops
 		creature_ptr = &creature_list[creature_idx]; // Acquire creature
 		rd_creature(creature_ptr); // Read the monster
 		//cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
@@ -1701,7 +1700,7 @@ note("メッセージをロードしました");
 	// Object Memory
 	rd_u16b(&tmp16u);
 
-	/* Incompatible save files */
+	// Incompatible save files
 	if (tmp16u > max_object_kind_idx)
 	{
 #ifdef JP
@@ -2073,6 +2072,7 @@ errr rd_savefile_new(void)
 	err = rd_savefile_new_aux();
 	if (ferror(fff)) err = -1;
 	my_fclose(fff);
+
 
 	return (err);
 }
