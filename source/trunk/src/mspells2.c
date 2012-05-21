@@ -158,15 +158,14 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 	return TRUE;
 }
 
-/*
- * Get the actual center point of ball spells (rad > 1) (originally from TOband)
- */
+// Get the actual center point of ball spells (rad > 1) (originally from TOband)
 void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *tx, int flg)
 {
 	u16b path_g[128];
 	int  path_n, i;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
-	path_n = project_path(path_g, MAX_RANGE, current_floor_ptr, sy, sx, *ty, *tx, flg);
+	path_n = project_path(path_g, MAX_RANGE, floor_ptr, sy, sx, *ty, *tx, flg);
 
 	*ty = sy;
 	*tx = sx;
@@ -178,7 +177,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 		sx = GRID_X(path_g[i]);
 
 		/* Hack -- Balls explode before reaching walls */
-		if (!cave_have_flag_bold(current_floor_ptr, sy, sx, FF_PROJECT)) break;
+		if (!cave_have_flag_bold(floor_ptr, sy, sx, FF_PROJECT)) break;
 
 		*ty = sy;
 		*tx = sx;
