@@ -254,9 +254,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 }
 
 
-bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
+bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {
-	cave_type    *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type   *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type    *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
@@ -265,27 +266,27 @@ bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mod
 	/* No magical teleporting into vaults and such */
 	if (!(mode & TELEPORT_NONMAGICAL) && (c_ptr->info & CAVE_ICKY)) return FALSE;
 
-	if (c_ptr->creature_idx && (c_ptr->creature_idx != cr_ptr->riding)) return FALSE;
+	if (c_ptr->creature_idx && (c_ptr->creature_idx != creature_ptr->riding)) return FALSE;
 
 	/* don't teleport on a trap. */
 	if (have_flag(f_ptr->flags, FF_HIT_TRAP)) return FALSE;
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!player_can_enter(cr_ptr, c_ptr->feat, 0)) return FALSE;
+		if (!player_can_enter(creature_ptr, c_ptr->feat, 0)) return FALSE;
 
 		if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 		{
-			if (!cr_ptr->levitation && !cr_ptr->can_swim) return FALSE;
+			if (!creature_ptr->levitation && !creature_ptr->can_swim) return FALSE;
 		}
 
-		if (have_flag(f_ptr->flags, FF_LAVA) && !cr_ptr->immune_fire && !IS_INVULN(cr_ptr))
+		if (have_flag(f_ptr->flags, FF_LAVA) && !creature_ptr->immune_fire && !IS_INVULN(creature_ptr))
 		{
 			/* Always forbid deep lava */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Forbid shallow lava when the player don't have levitation */
-			if (!cr_ptr->levitation) return FALSE;
+			if (!creature_ptr->levitation) return FALSE;
 		}
 
 	}
