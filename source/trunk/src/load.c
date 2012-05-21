@@ -1876,12 +1876,9 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		rd_byte((byte *)&wild_mode);
 		rd_byte((byte *)&ambush_flag);
 
-
-
 		/* Size of the wilderness */
 		rd_s32b(&wild_x_size);
 		rd_s32b(&wild_y_size);
-
 
 		/* Incompatible save files */
 		if ((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
@@ -1917,7 +1914,7 @@ note(format("荒野が大きすぎる(X:%u/%u) (Y:%u/%u)！", wild_x_size, max_wild_x, wi
 	}
 
 #ifdef JP
-note("クエスト情報をロードしました");
+	note("クエスト情報をロードしました");
 #else
 	if (arg_fiddle) note("Loaded Quests");
 #endif
@@ -1929,7 +1926,7 @@ note("クエスト情報をロードしました");
 	if (tmp16u > max_artifact_idx)
 	{
 #ifdef JP
-note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));
+		note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));
 #else
 		note(format("Too many (%u) artifacts!", tmp16u));
 #endif
@@ -2023,6 +2020,8 @@ note("特別情報をロードしました");
 			strip_bytes(tmp32s);
 		}
 	}
+
+	reset_cave_creature_reference();
 
 #ifdef VERIFY_CHECKSUMS
 
