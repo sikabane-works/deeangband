@@ -4969,8 +4969,8 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	int x, y, species_idx;
 	floor_type *floor_ptr;
 	
-	if(summoner_ptr) floor_ptr = &floor_list[summoner_ptr->floor_id];
-	else floor_ptr = &floor_list[0];
+	if(summoner_ptr) floor_ptr = get_floor_ptr(summoner_ptr);
+	else floor_ptr = get_floor_ptr(player_ptr);
 
 	if (floor_ptr) return (FALSE);
 	if (!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
@@ -4987,7 +4987,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	get_species_num_prep3(summoner_ptr, get_creature_hook2(y, x), summon_specific_okay);
 
 	/* Pick a monster, using the level calculation */
-	species_idx = get_species_num((current_floor_ptr->floor_level + lev) / 2 + 5);
+	species_idx = get_species_num((floor_ptr->floor_level + lev) / 2 + 5);
 
 	/* Handle failure */
 	if (!species_idx)
@@ -4999,7 +4999,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_creature_species(summoner_ptr, current_floor_ptr, y, x, species_idx, mode))
+	if (!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode))
 	{
 		summon_specific_type = 0;
 		return (FALSE);
