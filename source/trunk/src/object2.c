@@ -3153,6 +3153,7 @@ static bool item_monster_okay(int species_idx)
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
 	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Unused */
 	(void)level;
@@ -3279,7 +3280,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 				r_ptr = &species_info[i];
 
-				check = (current_floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - current_floor_ptr->floor_level) : 0;
+				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
 
 				/* Ignore dead monsters */
 				if (!r_ptr->rarity) continue;
@@ -3326,11 +3327,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique monster race */
 			while (1)
 			{
-				i = get_species_num(current_floor_ptr->floor_level);
+				i = get_species_num(floor_ptr->floor_level);
 
 				r_ptr = &species_info[i];
 
-				check = (current_floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - current_floor_ptr->floor_level) : 0;
+				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
 
 				/* Ignore dead monsters */
 				if (!r_ptr->rarity) continue;
@@ -3410,7 +3411,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			o_ptr->pval = (s16b)randint1(obj_level);
 			if (o_ptr->sval == SV_CHEST_KANDUME) o_ptr->pval = 6;
 
-			o_ptr->xtra3 = current_floor_ptr->floor_level + 5;
+			o_ptr->xtra3 = floor_ptr->floor_level + 5;
 
 			/* Never exceed "difficulty" of 55 to 59 */
 			if (o_ptr->pval > 55) o_ptr->pval = 55 + (byte)randint0(5);
