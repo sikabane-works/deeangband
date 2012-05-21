@@ -825,9 +825,10 @@ void py_pickup_aux(creature_type *cr_ptr, int object_idx)
  * Note that we ONLY handle things that can be picked up.
  * See "move_creature()" for handling of other things.
  */
-void carry(creature_type *cr_ptr, bool pickup)
+void carry(creature_type *creature_ptr, bool pickup)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	int max_len = 0;
 
 	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
@@ -835,7 +836,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	char	o_name[MAX_NLEN];
 
 	/* Recenter the map around the player */
-	verify_panel(cr_ptr);
+	verify_panel(creature_ptr);
 
 	/* Update stuff */
 	update |= (PU_MONSTERS);
@@ -850,20 +851,20 @@ void carry(creature_type *cr_ptr, bool pickup)
 	handle_stuff();
 
 	/* Automatically pickup/destroy/inscribe items */
-	autopick_pickup_items(cr_ptr, c_ptr);
+	autopick_pickup_items(creature_ptr, c_ptr);
 
 
 #ifdef ALLOW_EASY_FLOOR
 
 	if (easy_floor)
 	{
-		py_pickup_floor(cr_ptr, pickup);
+		py_pickup_floor(creature_ptr, pickup);
 		return;
 	}
 
 #endif /* ALLOW_EASY_FLOOR */
 
-	for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 		/* Access the object */
@@ -938,7 +939,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 			sound(SOUND_SELL);
 
 			/* Collect the gold */
-			cr_ptr->au += value;
+			creature_ptr->au += value;
 
 			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
@@ -970,7 +971,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 			}
 
 			/* Note that the pack is too full */
-			else if (!inven_carry_okay(cr_ptr, o_ptr))
+			else if (!inven_carry_okay(creature_ptr, o_ptr))
 			{
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", o_name);
@@ -1002,7 +1003,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 				if (okay)
 				{
 					/* Pick up the object */
-					py_pickup_aux(cr_ptr, this_object_idx);
+					py_pickup_aux(creature_ptr, this_object_idx);
 				}
 			}
 		}

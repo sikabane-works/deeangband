@@ -718,7 +718,7 @@ extern void object_kind_track(int k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
 
-/* cmd1.c */
+// cmd1.c
 extern bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis);
 extern bool test_hit_norm(creature_type *atk_ptr, int chance, int ac, int vis);
 extern s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam);
@@ -726,7 +726,7 @@ extern s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, 
 extern s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_type *tar_ptr, int mode, bool thrown);
 extern void search(creature_type *cr_ptr);
 extern void py_pickup_aux(creature_type *cr_ptr, int object_idx);
-extern void carry(creature_type *cr_ptr, bool pickup);
+extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode);
 extern bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode);
