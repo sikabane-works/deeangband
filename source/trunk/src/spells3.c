@@ -50,8 +50,9 @@ static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, 
  *
  * But allow variation to prevent infinite loops.
  */
-bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
+bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int oy, ox, d, i, min, m_idx;
 	int tries = 0;
 	int ny = 0, nx = 0;
@@ -60,11 +61,11 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 
 
 	/* Paranoia */
-	if (!cr_ptr->species_idx) return (FALSE);
+	if (!creature_ptr->species_idx) return (FALSE);
 
 	/* Save the old location */
-	oy = cr_ptr->fy;
-	ox = cr_ptr->fx;
+	oy = creature_ptr->fy;
+	ox = creature_ptr->fx;
 
 	/* Minimum distance */
 	min = dis / 2;
@@ -90,13 +91,13 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 			}
 
 			/* Ignore illegal locations */
-			if (!in_bounds(current_floor_ptr, ny, nx)) continue;
+			if (!in_bounds(floor_ptr, ny, nx)) continue;
 
-			if (!cave_monster_teleportable_bold(cr_ptr, ny, nx, mode)) continue;
+			if (!cave_monster_teleportable_bold(creature_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
 			if (!(inside_quest || fight_arena_mode))
-				if (current_floor_ptr->cave[ny][nx].info & CAVE_ICKY) continue;
+				if (floor_ptr->cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
 			look = FALSE;
@@ -119,25 +120,25 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	current_floor_ptr->cave[oy][ox].creature_idx = 0;
+	floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/*TODO::!*/
 	for(i = 0; i < 10000; i++)
-		if(&creature_list[i] == cr_ptr)
+		if(&creature_list[i] == creature_ptr)
 		{
 			m_idx = i;
 			break;
 		}
 
 	/* Update the new location */
-	current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
+	floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
-	cr_ptr->fy = ny;
-	cr_ptr->fx = nx;
+	creature_ptr->fy = ny;
+	creature_ptr->fx = nx;
 
 	/* Forget the counter target */
-	reset_target(cr_ptr);
+	reset_target(creature_ptr);
 
 	/* Update the monster (new location) */
 	update_mon(m_idx, TRUE);
@@ -148,7 +149,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(ny, nx);
 
-	if (is_lighting_creature(cr_ptr) || is_darken_creature(cr_ptr))
+	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
 		update |= (PU_MON_LITE);
 
 	return (TRUE);
