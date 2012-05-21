@@ -369,15 +369,16 @@ void compact_objects(int size)
 void wipe_object_list(int floor_id)
 {
 	int i;
+	floor_type *floor_ptr = &floor_list[floor_id];
 
 	object_wipe(&object_null);
 	
-	/* Delete the existing objects */
+	// Delete the existing objects
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *o_ptr = &object_list[i];
 
-		/* Skip dead objects */
+		// Skip dead objects
 		if (!o_ptr->k_idx) continue;
 		if (floor_id && o_ptr->floor_idx != floor_id) continue;
 
@@ -394,7 +395,7 @@ void wipe_object_list(int floor_id)
 
 
 		/* Dungeon */
-		if(current_floor_ptr)
+		if(floor_ptr)
 		{
 			cave_type *c_ptr;
 
@@ -403,7 +404,7 @@ void wipe_object_list(int floor_id)
 			int x = o_ptr->fx;
 
 			/* Access grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Hack -- see above */
 			c_ptr->object_idx = 0;
