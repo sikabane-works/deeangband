@@ -1531,6 +1531,8 @@ void panel_bounds_center(void)
  */
 void resize_map(void)
 {
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+
 	/* Only if the dungeon exists */
 	if (!floor_generated) return;
 	
@@ -1539,8 +1541,8 @@ void resize_map(void)
 	panel_col_max = 0;
 
 	/* Reset the panels */
-	panel_row_min = current_floor_ptr->height;
-	panel_col_min = current_floor_ptr->width;
+	panel_row_min = floor_ptr->height;
+	panel_col_min = floor_ptr->width;
 				
 	verify_panel(player_ptr);
 
@@ -4994,23 +4996,24 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 /*
  * old -- from PsiAngband.
  */
-bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
+bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 {
 	char ch = 0;
 	int d, x, y, n;
 	bool success = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	int wid, hgt;
 
 	/* Get size */
 	get_screen_size(&wid, &hgt);
 
-	x = cr_ptr->fx;
-	y = cr_ptr->fy;
+	x = creature_ptr->fx;
+	y = creature_ptr->fy;
 
 	if (expand_list) 
 	{
-		tgt_pt_prepare(cr_ptr);
+		tgt_pt_prepare(creature_ptr);
 		n = 0;
 	}
 
@@ -5037,7 +5040,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 		case '5':
 		case '0':
 			/* illegal place */
-			if (creature_bold(cr_ptr, y, x)) ch = 0;
+			if (creature_bold(creature_ptr, y, x)) ch = 0;
 
 			/* okay place */
 			else success = TRUE;
@@ -5057,7 +5060,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 
 				while(n < temp_n)	/* Skip stairs which have defferent distance */
 				{
-					cave_type *c_ptr = &current_floor_ptr->cave[temp_y[n]][temp_x[n]];
+					cave_type *c_ptr = &floor_ptr->cave[temp_y[n]][temp_x[n]];
 
 					if (ch == '>')
 					{
@@ -5080,9 +5083,9 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 				if (n == temp_n)	/* Loop out taget list */
 				{
 					n = 0;
-					y = cr_ptr->fy;
-					x = cr_ptr->fx;
-					verify_panel(cr_ptr);	/* Move cursor to player */
+					y = creature_ptr->fy;
+					x = creature_ptr->fx;
+					verify_panel(creature_ptr);	/* Move cursor to player */
 
 					/* Update stuff */
 					update |= (PU_MONSTERS);
@@ -5157,11 +5160,11 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 				}
 
 				/* Slide into legality */
-				if (x >= current_floor_ptr->width-1) x = current_floor_ptr->width - 2;
+				if (x >= floor_ptr->width-1) x = floor_ptr->width - 2;
 				else if (x <= 0) x = 1;
 
 				/* Slide into legality */
-				if (y >= current_floor_ptr->height-1) y = current_floor_ptr->height- 2;
+				if (y >= floor_ptr->height-1) y = floor_ptr->height- 2;
 				else if (y <= 0) y = 1;
 
 			}
@@ -5173,7 +5176,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 	prt("", 0, 0);
 
 	/* Recenter the map around the player */
-	verify_panel(cr_ptr);
+	verify_panel(creature_ptr);
 
 	/* Update stuff */
 	update |= (PU_MONSTERS);

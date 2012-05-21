@@ -1749,7 +1749,7 @@ extern bool get_hack_dir(creature_type *cr_ptr, int *dp);
 extern bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under);
 extern bool get_rep_dir2(creature_type *cr_ptr, int *dp);
 extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
-extern bool tgt_pt (creature_type *cr_ptr, int *x, int *y);
+extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *cr_ptr);
 extern void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg);
 extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
