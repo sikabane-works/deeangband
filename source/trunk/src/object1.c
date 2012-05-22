@@ -5140,7 +5140,7 @@ bool can_get_item(creature_type *cr_ptr)
 		if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], NULL))
 			return TRUE;
 
-	floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
+	floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
 	if (floor_num)
 		return TRUE;
 
@@ -6091,17 +6091,15 @@ if (ver && !verify(creature_ptr, "–{“–‚É", k))
  *		mode & 0x02 -- Marked items only
  *		mode & 0x04 -- Stop after first
  */
-int scan_floor(int *items, int y, int x, int mode)
+int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 {
 	int this_object_idx, next_object_idx;
-
 	int num = 0;
 
-	/* Sanity */
-	if (!in_bounds(current_floor_ptr, y, x)) return 0;
+	if (!in_bounds(floor_ptr, y, x)) return 0; // Sanity
 
 	/* Scan all objects in the grid */
-	for (this_object_idx = current_floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
@@ -6165,7 +6163,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 	len = MAX((*min_width), 20);
 
 	/* Scan for objects in the grid, using item_tester_okay() */
-	floor_num = scan_floor(floor_list, y, x, 0x03);
+	floor_num = scan_floor(floor_list, current_floor_ptr, y, x, 0x03);
 
 	/* Display the floor objects */
 	for (k = 0, i = 0; i < floor_num && i < 23; i++)
@@ -6325,7 +6323,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (prev_tag && command_cmd)
 			{
 				/* Scan all objects in the grid */
-				floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
 
 				/* Look up the tag */
 				if (get_tag_floor(&k, prev_tag, floor_list, floor_num))
@@ -6467,7 +6465,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	if (floor)
 	{
 		/* Scan all objects in the grid */
-		floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
+		floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
 	}
 
 	/* Accept inventory */
@@ -7127,7 +7125,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				object_list[i].next_object_idx = object_idx;
 
 				/* Re-scan floor list */ 
-				floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
 
 				/* Hack -- Fix screen */
 				if (command_see)

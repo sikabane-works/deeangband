@@ -2441,7 +2441,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 	/* Scan all objects in the grid */
 	if (easy_floor)
 	{
-		floor_num = scan_floor(floor_list, y, x, 0x02);
+		floor_num = scan_floor(floor_list, current_floor_ptr, y, x, 0x02);
 
 		if (floor_num)
 		{
