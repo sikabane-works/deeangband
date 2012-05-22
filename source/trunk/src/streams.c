@@ -19,10 +19,9 @@
 #include "grid.h"
 
 
-/*
- * Recursive fractal algorithm to place water through the dungeon.
- */
-static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2, int width)
+
+// Recursive fractal algorithm to place water through the dungeon.
+static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int feat1, int feat2, int width)
 {
 	int dx, dy, length, l, x, y;
 	int changex, changey;
@@ -61,22 +60,20 @@ static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2
 			changey = 0;
 		}
 
-		if (!in_bounds(current_floor_ptr, y1 + dy + changey, x1 + dx + changex))
+		if (!in_bounds(floor_ptr, y1 + dy + changey, x1 + dx + changex))
 		{
 			changex = 0;
 			changey = 0;
 		}
 
-		/* construct river out of two smaller ones */
-		recursive_river(x1, y1, x1 + dx + changex, y1 + dy + changey, feat1, feat2, width);
-		recursive_river(x1 + dx + changex, y1 + dy + changey, x2, y2, feat1, feat2, width);
+		// construct river out of two smaller ones
+		recursive_river(floor_ptr, x1, y1, x1 + dx + changex, y1 + dy + changey, feat1, feat2, width);
+		recursive_river(floor_ptr, x1 + dx + changex, y1 + dy + changey, x2, y2, feat1, feat2, width);
 
-		/* Split the river some of the time - junctions look cool */
+		// Split the river some of the time - junctions look cool
 		if (one_in_(DUN_WAT_CHG) && (width > 0))
 		{
-			recursive_river(x1 + dx + changex, y1 + dy + changey,
-					x1 + 8 * (dx + changex), y1 + 8 * (dy + changey),
-					feat1, feat2, width - 1);
+			recursive_river(floor_ptr, x1 + dx + changex, y1 + dy + changey, x1 + 8 * (dx + changex), y1 + 8 * (dy + changey), feat1, feat2, width - 1);
 		}
 	}
 	else
@@ -95,9 +92,9 @@ static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2
 				{
 					for (tx = x - width - 1; tx <= x + width + 1; tx++)
 					{
-						if (!in_bounds2(current_floor_ptr, ty, tx)) continue;
+						if (!in_bounds2(floor_ptr, ty, tx)) continue;
 
-						c_ptr = &current_floor_ptr->cave[ty][tx];
+						c_ptr = &floor_ptr->cave[ty][tx];
 
 						if (c_ptr->feat == feat1) continue;
 						if (c_ptr->feat == feat2) continue;
@@ -122,7 +119,7 @@ static void recursive_river(int x1, int y1, int x2, int y2, int feat1, int feat2
 						/* Lava terrain glows */
 						if (have_flag(f_info[feat1].flags, FF_LAVA))
 						{
-							if (!(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)) c_ptr->info |= CAVE_GLOW;
+							if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) c_ptr->info |= CAVE_GLOW;
 						}
 
 						/* Hack -- don't teleport here */
@@ -184,7 +181,7 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
 	}
 
 	wid = randint1(DUN_WAT_RNG);
-	recursive_river(x1, y1, x2, y2, feat1, feat2, wid);
+	recursive_river(floor_ptr, x1, y1, x2, y2, feat1, feat2, wid);
 
 	/* Hack - Save the location as a "room" */
 	if (dungeon_ptr->cent_n < CENT_MAX)
