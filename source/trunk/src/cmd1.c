@@ -2389,46 +2389,25 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 			object_flags(o_ptr, flgs);
 
-			/* Select a chaotic effect (50% chance) */
+			// Select a chaotic effect (50% chance)
 			if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
 			{
 				if (one_in_(10))
-
-				if (randint1(5) < 3)
 				{
-					/* Vampiric (20%) */
-					chaos_effect = 1;
-				}
-				else if (one_in_(250))
-				{
-					/* Quake (0.12%) */
-					chaos_effect = 2;
-				}
-				else if (!one_in_(10))
-				{
-					/* Confusion (26.892%) */
-					chaos_effect = 3;
-				}
-				else if (one_in_(2))
-				{
-					/* Teleport away (1.494%) */
-					chaos_effect = 4;
-				}
-				else
-				{
-					/* Polymorph (1.494%) */
-					chaos_effect = 5;
+					if (randint1(5) < 3)   chaos_effect = 1; // Vampiric (20%)
+					else if (one_in_(250)) chaos_effect = 2; // Quake (0.12%)
+					else if (!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
+					else if (one_in_(2))   chaos_effect = 4; // Teleport away (1.494%)
+					else                   chaos_effect = 5; // Polymorph (1.494%)
 				}
 			}
 
-			/* Vampiric drain */
+			// Vampiric drain
 			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
 			{
-				/* Only drain "living" monsters */
-				if (creature_living(tar_ptr))
-					can_drain = TRUE;
-				else
-					can_drain = FALSE;
+				// Only drain "living" monsters
+				if (creature_living(tar_ptr)) can_drain = TRUE;
+				else can_drain = FALSE;
 			}
 
 			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(atk_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
@@ -2690,7 +2669,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				}
 			}
 
-			/* Complex message */
+			// Complex message
 			if (wizard || cheat_xtra)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
@@ -3032,12 +3011,13 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 	}
 
-	/* Mega-Hack -- apply earthquake brand */
+	// Mega-Hack -- apply earthquake brand
 	if (do_quake)
 	{
 		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
 		if (!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
 	}
+
 }
 
 bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
