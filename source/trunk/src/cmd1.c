@@ -3079,8 +3079,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 	atk_species_ptr = &species_info[atk_ptr->species_idx];
 	tar_species_ptr = &species_info[tar_ptr->species_idx];
 
-	// Disturb the player
-	disturb(player_ptr, 0, 0);
+	disturb(player_ptr, 0, 0); // Disturb the player
 
 	energy_use = 100;
 
@@ -3101,11 +3100,8 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if (tar_ptr->ml)
 	{
-		// Auto-Recall if possible and visible
-		if (!atk_ptr->image) species_type_track(tar_ptr->ap_species_idx);
-
-		// Track a new monster
-		health_track(c_ptr->creature_idx);
+		if (!atk_ptr->image) species_type_track(tar_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		health_track(c_ptr->creature_idx); // Track a new monster
 	}
 
 	if (IS_FEMALE(tar_ptr) && has_cf_creature(tar_ptr, CF_HUMANOID) &&
@@ -3133,10 +3129,8 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	/* Stop if friendly */
-	if (!is_hostile(tar_ptr) &&
-	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image ||
-	    atk_ptr->shero || !tar_ptr->ml))
+	// Stop if friendly
+	if (!is_hostile(tar_ptr) && !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || atk_ptr->shero || !tar_ptr->ml))
 	{
 		/*
 		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
@@ -3176,17 +3170,16 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		}
 	}
 
-
-	/* Handle player fear */
-	if (atk_ptr->afraid)
+	if (atk_ptr->afraid) // Handle player fear
 	{
-		/* Message */
-		if (tar_ptr->ml)
+		if (tar_ptr->ml) // Message
+		{
 #ifdef JP
 			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);
 #else
 			msg_format("%s are too afraid to attack %s!", attacker_name, target_name);
 #endif
+		}
 
 		else if(is_player(atk_ptr))
 		{
@@ -3197,15 +3190,11 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 #endif
 		}
 
-		/* Disturb the monster */
-		(void)set_paralyzed(tar_ptr, 0);
-
-		/* Done */
-		return FALSE;
+		(void)set_paralyzed(tar_ptr, 0); // Disturb the monster
+		return FALSE; // Done
 	}
 
-	// Ceased by Iai
-	if (tar_ptr->special_defense & KATA_IAI)
+	if (tar_ptr->special_defense & KATA_IAI) // Ceased by Iai
 	{
 #ifdef JP
 		msg_format("%s‚Í%s‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ğU‚é‚Á‚½B", target_name, attacker_name);
