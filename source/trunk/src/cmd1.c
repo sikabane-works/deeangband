@@ -1976,6 +1976,34 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
 }
 
+static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char weapon_name[100];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
+
+#if JP
+	strcpy(weapon_name, "‘fŽè");
+#else
+	strcpy(weapon_name, "bare hand");
+#endif
+
+	if ((r_ptr->level + 10) > atk_ptr->lev)
+	{
+		// Matrial arts skill mastering
+		if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
+		{
+			if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
+				atk_ptr->skill_exp[GINOU_SUDE] += 40;
+			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
+				atk_ptr->skill_exp[GINOU_SUDE] += 5;
+			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
+				atk_ptr->skill_exp[GINOU_SUDE] += 1;
+			else if ((atk_ptr->lev > 34))
+				if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
+			atk_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+}
 
 /*
  * Player attacks a (poor, defenseless) creature        -RAK-
@@ -2029,7 +2057,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			if (r_ptr->level > (atk_ptr->lev * atk_ptr->lev / 20 + 10)) tmp /= 3;
 			if (tar_ptr->paralyzed && tar_ptr->ml)
 			{
-				/* Can't backstab creatures that we can't see, right? */
+				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
 			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !(tar_ptr->resist_ultimate))
@@ -2050,32 +2078,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		break;
 	}
 
-	if (!o_ptr->k_idx) /* Empty hand */
-	{
-#if JP
-		strcpy(weapon_name, "‘fŽè");
-#else
-		strcpy(weapon_name, "bare hand");
-#endif
-
-		if ((r_ptr->level + 10) > atk_ptr->lev)
-		{
-			// Matrial arts skill mastering
-			if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
-			{
-				if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
-					atk_ptr->skill_exp[GINOU_SUDE] += 40;
-				else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
-					atk_ptr->skill_exp[GINOU_SUDE] += 5;
-				else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
-					atk_ptr->skill_exp[GINOU_SUDE] += 1;
-				else if ((atk_ptr->lev > 34))
-					if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
-				atk_ptr->creature_update |= (CRU_BONUS);
-			}
-		}
-	}
-	else if (object_is_melee_weapon(atk_ptr, o_ptr))
+	if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
 		object_desc(weapon_name, o_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
