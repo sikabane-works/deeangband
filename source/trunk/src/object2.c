@@ -2089,10 +2089,11 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 {
 	int i;
 	int k_idx = 0;
+	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
 
 
 	/* No artifacts in the town */
-	if (!current_floor_ptr->floor_level) return (FALSE);
+	if (!floor_ptr->floor_level) return (FALSE);
 
 	/* Themed object */
 	if (get_obj_num_hook) return (FALSE);
@@ -2112,10 +2113,10 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 		if (!(a_ptr->gen_flags & TRG_INSTA_ART)) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
-		if (a_ptr->level > current_floor_ptr->floor_level)
+		if (a_ptr->level > floor_ptr->floor_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (a_ptr->level - current_floor_ptr->floor_level) * 2;
+			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
@@ -2128,10 +2129,10 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval);
 
 		/* XXX XXX Enforce minimum "object" level (loosely) */
-		if (object_kind_info[k_idx].level > current_floor_ptr->object_level)
+		if (object_kind_info[k_idx].level > floor_ptr->object_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (object_kind_info[k_idx].level - current_floor_ptr->object_level) * 5;
+			int d = (object_kind_info[k_idx].level - floor_ptr->object_level) * 5;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
