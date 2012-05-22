@@ -2666,7 +2666,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 		}
 
-		/* Modify the damage */
+		// Modify the damage
 		k = invuln_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
@@ -2759,13 +2759,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 		}
 
-		/* Anger the monster */
+		// Anger the monster
 		if (k > 0) anger_creature(atk_ptr, tar_ptr);
 
 		touch_zap_player(atk_ptr, tar_ptr);
 
-		/* Are we draining it?  A little note: If the monster is
-		dead, the drain does not work... */
+		// Are we draining it?  A little note: If the monster is dead, the drain does not work...
 
 		if (can_drain && (drain_result > 0))
 		{
@@ -3017,6 +3016,49 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 }
 
+static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char attacker_name[100], target_name[100];
+
+	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
+
+	if(!mdeath)
+	{
+		int prob = 100 * atk_ptr->skill_exp[GINOU_SUDE] / WEAPON_EXP_MASTER;
+		if(tar_ptr->levitation) prob /= 4;
+		if(atk_ptr->size - tar_ptr->size < 10) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 5) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 3) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 1) prob /= 2;
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 50) prob = prob * 3 / 2; 
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 30) prob = prob * 3 / 2; 
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 10) prob = prob * 3 / 2; 
+		if(prob > 95) prob = 95;
+
+		if (atk_ptr->size > tar_ptr->size && randint0(100) < prob)
+		{
+			int k;
+#ifdef JP
+			msg_format("%sは残酷にも%sを踏みつけた！", attacker_name, target_name);
+#else
+			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
+#endif
+			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
+			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+			if (wizard)
+			{
+				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
+			}
+		}
+
+	}
+
+}
+
+
+
 bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 {
 	bool            fear = FALSE;
@@ -3240,39 +3282,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
 	}
 
-	// Tranmpling Attack
-	if(!mdeath)
-	{
-
-		int prob = 100 * atk_ptr->skill_exp[GINOU_SUDE] / WEAPON_EXP_MASTER;
-		if(tar_ptr->levitation) prob /= 4;
-		if(atk_ptr->size - tar_ptr->size < 10) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 5) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 3) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 1) prob /= 2;
-		if(100 * tar_ptr->chp / tar_ptr->mhp < 50) prob = prob * 3 / 2; 
-		if(100 * tar_ptr->chp / tar_ptr->mhp < 30) prob = prob * 3 / 2; 
-		if(100 * tar_ptr->chp / tar_ptr->mhp < 10) prob = prob * 3 / 2; 
-		if(prob > 95) prob = 95;
-
-		if (atk_ptr->size > tar_ptr->size && randint0(100) < prob)
-		{
-			int k;
-#ifdef JP
-			msg_format("%sは残酷にも%sを踏みつけた！", attacker_name, target_name);
-#else
-			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
-#endif
-			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
-			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
-			mdeath = (tar_ptr->species_idx == 0);
-			if (wizard)
-			{
-				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
-			}
-		}
-
-	}
+	// Trampling Attack
 
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
