@@ -6787,7 +6787,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 		case GF_ATTACK:
 		{
 			/* Return this monster's death */
-			//TODO return weapon_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
+			//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */

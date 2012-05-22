@@ -2272,7 +2272,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);
 #else
 		msg_format("Your counterattack to %s!", attacker_name);
 #endif
-		weapon_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
+		melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
 		/* Redraw mana */

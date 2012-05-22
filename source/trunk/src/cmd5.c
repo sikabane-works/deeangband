@@ -1867,7 +1867,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			msg_print("There is a creature in the way!");
 #endif
 
-			weapon_attack(rider_ptr, y, x, 0);
+			melee_attack(rider_ptr, y, x, 0);
 			return FALSE;
 		}
 

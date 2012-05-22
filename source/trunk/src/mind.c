@@ -1457,7 +1457,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			return FALSE;
 		}
 
-		weapon_attack(creature_ptr, y, x, 0);
+		melee_attack(creature_ptr, y, x, 0);
 
 		if (!player_can_enter(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 			break;
@@ -1501,7 +1501,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 			/* Hack -- attack monsters */
 			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
-				weapon_attack(creature_ptr, y, x, 0);
+				melee_attack(creature_ptr, y, x, 0);
 		}
 		break;
 	}
@@ -1582,7 +1582,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		x = creature_ptr->fx + ddx[dir];
 		if (floor_ptr->cave[y][x].creature_idx)
 		{
-			weapon_attack(creature_ptr, y, x, 0);
+			melee_attack(creature_ptr, y, x, 0);
 			if (randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");

@@ -3035,7 +3035,7 @@ static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, in
 	}
 }
 
-bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
+bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 {
 	bool            fear = FALSE;
 	bool            mdeath = FALSE;
@@ -3071,16 +3071,16 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	/* Extract attacker and target name (or "it") */
+	// Extract attacker and target name (or "it")
 	creature_desc(target_name, tar_ptr, 0);
 	creature_desc(attacker_name, atk_ptr, 0);
 
 	if (tar_ptr->ml)
 	{
-		/* Auto-Recall if possible and visible */
+		// Auto-Recall if possible and visible
 		if (!atk_ptr->image) species_type_track(tar_ptr->ap_species_idx);
 
-		/* Track a new monster */
+		// Track a new monster
 		health_track(c_ptr->creature_idx);
 	}
 
@@ -3188,7 +3188,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 #else
 		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
 #endif
-		if (weapon_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if (melee_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	// Ceased by Kawarimi
@@ -4034,7 +4034,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			/* displace? */
 			if ((stormbringer && (randint1(1000) > 666)) || (creature_ptr->cls_idx == CLASS_BERSERKER))
 			{
-				weapon_attack(creature_ptr, y, x, 0);
+				melee_attack(creature_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
 			else if (creature_can_cross_terrain(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, creature_ptr, 0))
@@ -4057,7 +4057,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 		else
 		{
-			weapon_attack(creature_ptr, y, x, 0);
+			melee_attack(creature_ptr, y, x, 0);
 			oktomove = FALSE;
 		}
 	}

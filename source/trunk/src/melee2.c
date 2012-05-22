@@ -1447,7 +1447,7 @@ static void process_creature(int m_idx)
 
 // TODO SYURYUUDAN's Process
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
-//		weapon_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
+//		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !gamble_arena_mode)
 	{
@@ -2200,7 +2200,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				weapon_attack(creature_ptr, ny, nx, 0);
+				melee_attack(creature_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
@@ -2243,7 +2243,7 @@ msg_format("%^s%s", creature_name, monmessage);
 					/* attack */
 					if (y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if (weapon_attack(creature_ptr, ny, nx, 0)) return;
+						if (melee_attack(creature_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)

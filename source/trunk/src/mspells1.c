@@ -3458,7 +3458,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 							set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 						}
 
-						if (target_ptr->riding) weapon_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+						if (target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
 					}
 					break;
 				}

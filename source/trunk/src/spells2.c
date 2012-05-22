@@ -7569,7 +7569,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 
 		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
-		tmp_mdeath = weapon_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
+		tmp_mdeath = melee_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}

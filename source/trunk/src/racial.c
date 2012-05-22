@@ -909,7 +909,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 				/* Hack -- attack monsters */
 				if (c_ptr->creature_idx)
-					weapon_attack(creature_ptr, y, x, 0);
+					melee_attack(creature_ptr, y, x, 0);
 				else
 				{
 #ifdef JP
@@ -958,7 +958,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			x = creature_ptr->fx + ddx[dir];
 			if (floor_ptr->cave[y][x].creature_idx)
 			{
-				weapon_attack(creature_ptr, y, x, 0);
+				melee_attack(creature_ptr, y, x, 0);
 				if (randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 					msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
@@ -1102,11 +1102,11 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 					else msg_print("Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!");
 #endif
 
-					weapon_attack(creature_ptr, y, x, 0);
+					melee_attack(creature_ptr, y, x, 0);
 					if (floor_ptr->cave[y][x].creature_idx)
 					{
 						handle_stuff();
-						weapon_attack(creature_ptr, y, x, 0);
+						melee_attack(creature_ptr, y, x, 0);
 					}
 					creature_ptr->energy_need += ENERGY_NEED();
 				}
