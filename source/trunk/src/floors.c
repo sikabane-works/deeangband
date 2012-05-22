@@ -426,7 +426,7 @@ void move_floor(creature_type *creature_ptr)
 	feature_ptr = &f_info[stair_ptr->feat];
 
 	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
-	remove_all_mirrors(creature_ptr, FALSE);
+	remove_all_mirrors(creature_ptr, old_floor_ptr, FALSE);
 	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	// Search the quest monster index

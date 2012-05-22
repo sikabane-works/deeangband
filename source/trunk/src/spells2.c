@@ -7581,20 +7581,19 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 }
 
 
-/*
- * Remove all mirrors in this floor
- */
-void remove_all_mirrors(creature_type *user_ptr, bool explode)
+
+// Remove all mirrors in this floor
+void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool explode)
 {
 	int x, y;
 
-	for (x = 0; x < current_floor_ptr->width; x++)
+	for (x = 0; x < floor_ptr->width; x++)
 	{
-		for (y = 0; y < current_floor_ptr->height; y++)
+		for (y = 0; y < floor_ptr->height; y++)
 		{
-			if (is_mirror_grid(&current_floor_ptr->cave[y][x]))
+			if (is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
-				remove_mirror(player_ptr, y, x);
+				remove_mirror(user_ptr, y, x);
 				if (explode)
 					project(0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
 						(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);

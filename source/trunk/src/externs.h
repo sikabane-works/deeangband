@@ -1460,7 +1460,7 @@ extern bool eat_magic(creature_type *cr_ptr, int power);
 extern void discharge_minion(creature_type *caster_ptr);
 extern bool kawarimi(creature_type *user_ptr, bool success);
 extern bool rush_attack(creature_type *cr_ptr, bool *mdeath);
-extern void remove_all_mirrors(creature_type *user_ptr, bool explode);
+extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool explode);
 
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
