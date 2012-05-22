@@ -3572,12 +3572,11 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 }
 
 
-/*
- * Count number of adjacent monsters
- */
+// Count number of adjacent monsters
 static int get_monster_crowd_number(int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 	int my = m_ptr->fy;
 	int mx = m_ptr->fx;
 	int i;
@@ -3587,10 +3586,9 @@ static int get_monster_crowd_number(int m_idx)
 	{
 		int ay = my + ddy_ddd[i];
 		int ax = mx + ddx_ddd[i];
+		if (!in_bounds(floor_ptr, ay, ax)) continue;
 
-		if (!in_bounds(current_floor_ptr, ay, ax)) continue;
-
-		/* Count number of monsters */
+		// Count number of monsters
 		if (current_floor_ptr->cave[ay][ax].creature_idx > 0) count++;
  	}
 
