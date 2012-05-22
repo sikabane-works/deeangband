@@ -1982,7 +1982,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
  *
  * If no "weapon" is available, then "punch" the monster one time.
  */
-static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
@@ -3197,7 +3197,6 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if (kawarimi(tar_ptr, TRUE)) return TRUE;
 	}
 
-
 	if (count_melee_slot(atk_ptr))
 	{
 		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < skill_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
@@ -3214,7 +3213,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		}
 	}
 
-	/* Gain riding experience */
+	// Gain riding experience
 	if (atk_ptr->riding)
 	{
 		int cur = atk_ptr->skill_exp[GINOU_RIDING];
@@ -3229,7 +3228,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 			if ((cur / 200 - 5) < targetlevel)
 				inc += 1;
 
-			/* Extra experience */
+			// Extra experience
 			if ((cur / 100) < ridinglevel)
 			{
 				if ((cur / 100 + 15) < ridinglevel)
@@ -3247,8 +3246,8 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-		if (atk_ptr->can_melee[0]) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
-		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 2, mode);
+		if (atk_ptr->can_melee[0]) weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 2, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{
@@ -3256,11 +3255,10 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 	else
 	{
-		weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+		weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
 	}
 
-
-	/* Tranmpling Attack */
+	// Tranmpling Attack
 	if(!mdeath)
 	{
 
