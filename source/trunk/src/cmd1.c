@@ -2351,10 +2351,10 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 	}
 
-	/* Disturb the monster */
+	// Disturb the monster
 	(void)set_paralyzed(tar_ptr, 0);
 
-	/* Extract attacker and target name (or "it") */
+	// Extract attacker and target name (or "it")
 	creature_desc(atk_name, atk_ptr, 0);
 	creature_desc(tar_name, tar_ptr, 0);
 
@@ -3059,35 +3059,37 @@ static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 
 
-bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
+bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
+	int i, n;
+
 	bool            fear = FALSE;
 	bool            mdeath = FALSE;
 	bool            stormbringer = FALSE;
 
-	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	creature_type   *tar_ptr;
+	creature_type   *target_ptr;
 	species_type    *atk_species_ptr;
 	species_type    *tar_species_ptr;
 	char			attacker_name[80];
 	char            target_name[80];
 	char			weapon_name[80];
 
-	tar_ptr = &creature_list[c_ptr->creature_idx];
+	target_ptr = &creature_list[c_ptr->creature_idx];
 
-	atk_species_ptr = &species_info[atk_ptr->species_idx];
-	tar_species_ptr = &species_info[tar_ptr->species_idx];
+	atk_species_ptr = &species_info[attacker_ptr->species_idx];
+	tar_species_ptr = &species_info[target_ptr->species_idx];
 
 	disturb(player_ptr, 0, 0); // Disturb the player
 
 	energy_use = 100;
 
-	if (!count_melee_slot(atk_ptr))
-	    //TODO !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
+	if (!count_melee_slot(attacker_ptr))
+	    //TODO !(attacker_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
 	{
 #ifdef JP
-		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(atk_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+		msg_format("%s‚ðUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
 #else
 		msg_print("You cannot do attacking.");
 #endif
@@ -3095,19 +3097,20 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	// Extract attacker and target name (or "it")
-	creature_desc(target_name, tar_ptr, 0);
-	creature_desc(attacker_name, atk_ptr, 0);
+	creature_desc(target_name, target_ptr, 0);
+	creature_desc(attacker_name, attacker_ptr, 0);
 
-	if (tar_ptr->ml)
+	if (target_ptr->ml)
 	{
-		if (!atk_ptr->image) species_type_track(tar_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new monster
 	}
 
-	if (IS_FEMALE(tar_ptr) && has_cf_creature(tar_ptr, CF_HUMANOID) &&
-	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
+	// Cease by Zantetsu-Ken
+	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
+	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
 	{
-		/*TODO if ((atk_ptr->inventory[].name1 == ART_ZANTETSU) || (atk_ptr->inventory[].name1 == ART_ZANTETSU))
+		/*TODO if ((attacker_ptr->inventory[].name1 == ART_ZANTETSU) || (attacker_ptr->inventory[].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_format("%s‚ÍŽv‚í‚¸‹©‚ñ‚¾BuÙŽÒA‚¨‚È‚²‚ÍŽa‚ê‚ÊIv", attacker_name);
@@ -3119,6 +3122,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 		*/
 	}
 
+	// No melee flag
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
 #ifdef JP
@@ -3130,20 +3134,20 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	// Stop if friendly
-	if (!is_hostile(tar_ptr) && !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || atk_ptr->shero || !tar_ptr->ml))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
 	{
-		/*
-		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
+		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		for(i = 0; i < n; i++)
 		{
-			object_desc(weapon_name, &atk_ptr->inventory[], (OD_NAME_ONLY));
-			stormbringer = TRUE;
+			if (attacker_ptr->inventory[i].name1 == ART_STORMBRINGER)
+			{
+				object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
+				stormbringer = TRUE;
+				break;
+			}
 		}
-		if (atk_ptr->inventory[].name1 == ART_STORMBRINGER)
-		{
-			object_desc(weapon_name, &atk_ptr->inventory[], (OD_NAME_ONLY));
-			stormbringer = TRUE;
-		}
-		*/
+
+		// Attack by Storm-Bringer
 		if (stormbringer)
 		{
 #ifdef JP
@@ -3152,7 +3156,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 			msg_format("%s greedily attacks %s!", weapon_name, target_name);
 #endif
 		}
-		else if (atk_ptr->cls_idx != CLASS_BERSERKER && is_player(atk_ptr))
+		else if (attacker_ptr->cls_idx != CLASS_BERSERKER && is_player(attacker_ptr))
 		{
 #ifdef JP
 			if (!get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
@@ -3168,11 +3172,12 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 				return FALSE;
 			}
 		}
+
 	}
 
-	if (atk_ptr->afraid) // Handle player fear
+	if (attacker_ptr->afraid) // Handle player fear
 	{
-		if (tar_ptr->ml) // Message
+		if (target_ptr->ml) // Message
 		{
 #ifdef JP
 			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ðUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);
@@ -3181,7 +3186,7 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 #endif
 		}
 
-		else if(is_player(atk_ptr))
+		else if(is_player(attacker_ptr))
 		{
 #ifdef JP
 			msg_format ("‚»‚Á‚¿‚É‚Í‰½‚©‹°‚¢‚à‚Ì‚ª‚¢‚éI");
@@ -3190,51 +3195,53 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 #endif
 		}
 
-		(void)set_paralyzed(tar_ptr, 0); // Disturb the monster
+		(void)set_paralyzed(target_ptr, 0); // Disturb the monster
 		return FALSE; // Done
 	}
 
-	if (tar_ptr->special_defense & KATA_IAI) // Ceased by Iai
+	// Ceased by Iai Counter
+	if (target_ptr->special_defense & KATA_IAI)
 	{
 #ifdef JP
 		msg_format("%s‚Í%s‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ðU‚é‚Á‚½B", target_name, attacker_name);
 #else
 		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
 #endif
-		if (melee_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if (melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	// Ceased by Kawarimi
-	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
+	if ((target_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (target_ptr->lev*3/5+20)))
 	{
-		if (kawarimi(tar_ptr, TRUE)) return TRUE;
+		if (kawarimi(target_ptr, TRUE)) return TRUE;
 	}
 
-	if (count_melee_slot(atk_ptr))
+	// Two Sword Fencing
+	if (count_melee_slot(attacker_ptr))
 	{
-		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < skill_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
+		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
 		{
-			if (atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
-				atk_ptr->skill_exp[GINOU_NITOURYU] += 80;
-			else if(atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
-				atk_ptr->skill_exp[GINOU_NITOURYU] += 4;
-			else if(atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
-				atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			else if(atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
-				if (one_in_(3)) atk_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			atk_ptr->creature_update |= (CRU_BONUS);
+			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 4;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
+				if (one_in_(3)) attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
 
 	// Gain riding experience
-	if (atk_ptr->riding)
+	if (attacker_ptr->riding)
 	{
-		int cur = atk_ptr->skill_exp[GINOU_RIDING];
-		int max = skill_info[atk_ptr->cls_idx].s_max[GINOU_RIDING];
+		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
+		int max = skill_info[attacker_ptr->cls_idx].s_max[GINOU_RIDING];
 
 		if (cur < max)
 		{
-			int ridinglevel = species_info[creature_list[atk_ptr->riding].species_idx].level;
+			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
 			int targetlevel = tar_species_ptr->level;
 			int inc = 0;
 
@@ -3250,25 +3257,25 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 					inc += 1;
 			}
 
-			atk_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
-			atk_ptr->creature_update |= (CRU_BONUS);
+			attacker_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
 
 	riding_t_m_idx = c_ptr->creature_idx;
 
-	if(has_cf_creature(atk_ptr, CF_HUMANOID))
+	if(has_cf_creature(attacker_ptr, CF_HUMANOID))
 	{
-		if (atk_ptr->can_melee[0]) weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
-		if (atk_ptr->can_melee[1] && !mdeath) weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 2, mode);
+		if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (attacker_ptr->can_melee[1] && !mdeath) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 2, mode);
 	}
 	else if(atk_species_ptr->blow[0].method)
 	{
-		special_melee(atk_ptr, tar_ptr);
+		special_melee(attacker_ptr, target_ptr);
 	}
 	else
 	{
-		weapon_attack(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+		weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 0, mode);
 	}
 
 	// Trampling Attack
@@ -3276,21 +3283,21 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if (has_cf_creature(atk_ptr, CF_HORNS) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, CF_HORNS, &fear, &mdeath);
-		if (has_cf_creature(atk_ptr, CF_BEAK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, CF_BEAK, &fear, &mdeath);
-		if (has_cf_creature(atk_ptr, CF_SCOR_TAIL) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, CF_SCOR_TAIL, &fear, &mdeath);
-		if (has_cf_creature(atk_ptr, CF_TRUNK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, CF_TRUNK, &fear, &mdeath);
-		if (has_cf_creature(atk_ptr, CF_TENTACLES) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, CF_TENTACLES, &fear, &mdeath);
+		if (has_cf_creature(attacker_ptr, CF_HORNS) && !mdeath)
+			natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &mdeath);
+		if (has_cf_creature(attacker_ptr, CF_BEAK) && !mdeath)
+			natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &mdeath);
+		if (has_cf_creature(attacker_ptr, CF_SCOR_TAIL) && !mdeath)
+			natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &mdeath);
+		if (has_cf_creature(attacker_ptr, CF_TRUNK) && !mdeath)
+			natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &mdeath);
+		if (has_cf_creature(attacker_ptr, CF_TENTACLES) && !mdeath)
+			natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &mdeath);
 	}
 
 
 	/* Hack -- delay fear messages */
-	if (fear && tar_ptr->ml && !mdeath)
+	if (fear && target_ptr->ml && !mdeath)
 	{
 		/* Sound */
 		sound(SOUND_FLEE);
@@ -3304,9 +3311,9 @@ bool melee_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	}
 
-	if ((atk_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
+	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
 	{
-		set_action(atk_ptr, ACTION_NONE);
+		set_action(attacker_ptr, ACTION_NONE);
 	}
 
 	return mdeath;
