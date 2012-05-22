@@ -2181,8 +2181,72 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 		}
 	}
-
 }
+
+
+static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char tar_name[100];
+	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
+
+	// Confusion attack
+	//TODO if ((atk_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(atk_ptr, HEX_CONFUSION))
+	{
+		// Cancel glowing hands
+		if (atk_ptr->special_attack & ATTACK_CONFUSE)
+		{
+			atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
+			if(is_seen(player_ptr, atk_ptr))
+#ifdef JP
+				msg_print("手の輝きがなくなった。");
+#else
+				msg_print("Your hands stop glowing.");
+#endif
+			play_redraw |= (PR_STATUS);
+
+		}
+
+		// Confuse the monster
+		if (has_cf_creature(tar_ptr, CF_NO_CONF))
+		{
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
+
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sには効果がなかった。", tar_name);
+#else
+				msg_format("%^s is unaffected.", tar_name);
+#endif
+
+		}
+		else if (randint0(100) < r_ptr->level)
+		{
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sには効果がなかった。", tar_name);
+#else
+				msg_format("%^s is unaffected.", tar_name);
+#endif
+
+		}
+		else
+		{
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sは混乱したようだ。", tar_name);
+#else
+				msg_format("%^s appears confused.", tar_name);
+#endif
+
+			(void)set_confused(&creature_list[c_ptr->creature_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
+		}
+	}
+}
+
+
+
 
 /*
  * Player attacks a (poor, defenseless) creature        -RAK-
@@ -2792,60 +2856,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		can_drain = FALSE;
 		drain_result = 0;
 
-		/* Confusion attack */
-		if ((atk_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(atk_ptr, HEX_CONFUSION))
-		{
-			/* Cancel glowing hands */
-			if (atk_ptr->special_attack & ATTACK_CONFUSE)
-			{
-				atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
-				if(is_seen(player_ptr, atk_ptr))
-#ifdef JP
-					msg_print("手の輝きがなくなった。");
-#else
-					msg_print("Your hands stop glowing.");
-#endif
-				play_redraw |= (PR_STATUS);
-
-			}
-
-			/* Confuse the monster */
-			if (has_cf_creature(tar_ptr, CF_NO_CONF))
-			{
-				if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
-
-				if(is_seen(player_ptr, tar_ptr))
-#ifdef JP
-					msg_format("%^sには効果がなかった。", tar_name);
-#else
-					msg_format("%^s is unaffected.", tar_name);
-#endif
-
-			}
-			else if (randint0(100) < r_ptr->level)
-			{
-				if(is_seen(player_ptr, tar_ptr))
-#ifdef JP
-					msg_format("%^sには効果がなかった。", tar_name);
-#else
-					msg_format("%^s is unaffected.", tar_name);
-#endif
-
-			}
-			else
-			{
-				if(is_seen(player_ptr, tar_ptr))
-#ifdef JP
-					msg_format("%^sは混乱したようだ。", tar_name);
-#else
-					msg_format("%^s appears confused.", tar_name);
-#endif
-
-				(void)set_confused(&creature_list[c_ptr->creature_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
-			}
-		}
-
-		else if (chaos_effect == 4)
+		if (chaos_effect == 4)
 		{
 			bool resists_tele = FALSE;
 
