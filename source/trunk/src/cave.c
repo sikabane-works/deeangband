@@ -1931,8 +1931,8 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	int **match_autopick_yx;
 	object_type ***object_autopick_yx;
 
-	if(watcher_ptr->floor_id) floor_ptr = &floor_list[watcher_ptr->floor_id];
-	else floor_ptr = current_floor_ptr;
+	if(watcher_ptr->floor_id) floor_ptr = get_floor_ptr(watcher_ptr);
+	else floor_ptr = get_floor_ptr(player_ptr);
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);

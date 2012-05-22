@@ -915,11 +915,9 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 }
 
 
-#if defined(ALLOW_EASY_OPEN) || defined(ALLOW_EASY_DISARM) /* TNB */
+#if defined(ALLOW_EASY_OPEN) || defined(ALLOW_EASY_DISARM) // TNB
 
-/*
- * Return TRUE if the given feature is an open door
- */
+// Return TRUE if the given feature is an open door
 static bool is_open(int feat)
 {
 	return have_flag(f_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
@@ -1345,10 +1343,10 @@ void do_cmd_close(creature_type *creature_ptr)
 
 #ifdef ALLOW_EASY_OPEN // TNB
 
-	/* Option: Pick a direction */
+	// Option: Pick a direction
 	if (easy_open)
 	{
-		/* Count open doors */
+		// Count open doors
 		if (count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 		{
 			command_dir = coords_to_dir(creature_ptr, y, x);
