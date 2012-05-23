@@ -9072,18 +9072,19 @@ bool binding_field(creature_type *caster_ptr, int dam)
 
 void seal_of_mirror(creature_type *caster_ptr, int dam)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	int x,y;
 
-	for( x = 0 ; x < current_floor_ptr->width ; x++ )
+	for( x = 0 ; x < floor_ptr->width ; x++ )
 	{
-		for( y = 0 ; y < current_floor_ptr->height ; y++ )
+		for( y = 0 ; y < floor_ptr->height ; y++ )
 		{
-			if( is_mirror_grid(&current_floor_ptr->cave[y][x]))
+			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
 				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
-					if( !current_floor_ptr->cave[y][x].creature_idx )
+					if( !floor_ptr->cave[y][x].creature_idx )
 					{
 						remove_mirror(player_ptr, y,x);
 					}
