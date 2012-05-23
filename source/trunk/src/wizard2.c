@@ -968,15 +968,13 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
  * counter flags to prevent weirdness.  We use the items to collect
  * statistics on item creation relative to the initial item.
  */
-static void wiz_statistics(object_type *o_ptr)
+static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	u32b i, matches, better, worse, other, correct;
-
 	u32b test_roll = 1000000;
-
 	char ch;
 	cptr quality;
-
 	u32b mode;
 
 	object_type forge;
@@ -1028,8 +1026,7 @@ static void wiz_statistics(object_type *o_ptr)
 		test_roll = MAX(1, test_roll);
 
 		/* Let us know what we are doing */
-		msg_format("Creating a lot of %s items. Base level = %d.",
-					  quality, current_floor_ptr->floor_level);
+		msg_format("Creating a lot of %s items. Base level = %d.", quality, floor_ptr->floor_level);
 		msg_print(NULL);
 
 		/* Set counters to zero */
@@ -1067,7 +1064,7 @@ static void wiz_statistics(object_type *o_ptr)
 			object_wipe(q_ptr);
 
 			/* Create an object */
-			make_object(q_ptr, mode, 0, current_floor_ptr->object_level);
+			make_object(q_ptr, mode, 0, floor_ptr->object_level);
 
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
@@ -1271,7 +1268,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 		if (ch == 's' || ch == 'S')
 		{
-			wiz_statistics(q_ptr);
+			wiz_statistics(cr_ptr, q_ptr);
 		}
 
 		if (ch == 'r' || ch == 'r')
