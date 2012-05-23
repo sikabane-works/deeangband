@@ -5656,46 +5656,45 @@ void notice_stuff(creature_type *cr_ptr)
 	}
 }
 
-
-/*
- * Handle "update"
- */
-void update_creature(creature_type *cr_ptr, bool message)
+// Handle "update"
+void update_creature(creature_type *creature_ptr, bool message)
 {
-	/* Update stuff */
-	if (!cr_ptr->creature_update) return;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	calculate_upkeep_servant(cr_ptr);
-	set_creature_equip(cr_ptr);
+	// Update stuff
+	if (!creature_ptr->creature_update) return;
 
-	if (cr_ptr->creature_update & (CRU_BONUS))
+	calculate_upkeep_servant(creature_ptr);
+	set_creature_equip(creature_ptr);
+
+	if (creature_ptr->creature_update & (CRU_BONUS))
 	{
-		cr_ptr->creature_update &= ~(CRU_BONUS);
-		calc_bonuses(cr_ptr, message);
+		creature_ptr->creature_update &= ~(CRU_BONUS);
+		calc_bonuses(creature_ptr, message);
 	}
 
-	if (cr_ptr->creature_update & (CRU_TORCH))
+	if (creature_ptr->creature_update & (CRU_TORCH))
 	{
 		update &= ~(CRU_TORCH);
-		calc_lite(cr_ptr);
+		calc_lite(creature_ptr);
 	}
 
-	if (cr_ptr->creature_update & (CRU_HP))
+	if (creature_ptr->creature_update & (CRU_HP))
 	{
-		cr_ptr->creature_update &= ~(CRU_HP);
-		calc_hitpoints(cr_ptr, message);
+		creature_ptr->creature_update &= ~(CRU_HP);
+		calc_hitpoints(creature_ptr, message);
 	}
 
-	if (cr_ptr->creature_update & (CRU_MANA))
+	if (creature_ptr->creature_update & (CRU_MANA))
 	{
-		cr_ptr->creature_update &= ~(CRU_MANA);
-		calc_mana(cr_ptr, message);
+		creature_ptr->creature_update &= ~(CRU_MANA);
+		calc_mana(creature_ptr, message);
 	}
 
-	if (cr_ptr->creature_update & (CRU_SPELLS))
+	if (creature_ptr->creature_update & (CRU_SPELLS))
 	{
-		cr_ptr->creature_update &= ~(CRU_SPELLS);
-		calc_spells(cr_ptr, message);
+		creature_ptr->creature_update &= ~(CRU_SPELLS);
+		calc_spells(creature_ptr, message);
 	}
 
 
@@ -5705,32 +5704,32 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_UN_LITE))
 	{
 		update &= ~(PU_UN_LITE);
-		forget_lite(current_floor_ptr);
+		forget_lite(floor_ptr);
 	}
 
 	if (update & (PU_UN_VIEW))
 	{
 		update &= ~(PU_UN_VIEW);
-		forget_view(current_floor_ptr);
+		forget_view(floor_ptr);
 	}
 
 	if (update & (PU_VIEW))
 	{
 		update &= ~(PU_VIEW);
-		update_view(cr_ptr);
+		update_view(creature_ptr);
 	}
 
 	if (update & (PU_LITE))
 	{
 		update &= ~(PU_LITE);
-		update_lite(cr_ptr);
+		update_lite(creature_ptr);
 	}
 
 
 	if (update & (PU_FLOW))
 	{
 		update &= ~(PU_FLOW);
-		update_flow(cr_ptr);
+		update_flow(creature_ptr);
 	}
 
 	if (update & (PU_DISTANCE))
@@ -5746,7 +5745,7 @@ void update_creature(creature_type *cr_ptr, bool message)
 	if (update & (PU_MON_LITE))
 	{
 		update &= ~(PU_MON_LITE);
-		//update_creature_lite(current_floor_ptr);
+		//update_creature_lite(floor_ptr);
 	}
 
 	/*
