@@ -3091,6 +3091,24 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	return FALSE;
 }
 
+static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (count_melee_slot(attacker_ptr))
+	{
+		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < target_ptr->lev))
+		{
+			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 4;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
+				if (one_in_(3)) attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			attacker_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+}
 
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
@@ -3224,22 +3242,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		if (kawarimi(target_ptr, TRUE)) return TRUE;
 	}
 
-	// Gain Two Sword Fencing Skill
-	if (count_melee_slot(attacker_ptr))
-	{
-		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
-		{
-			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 4;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
-				if (one_in_(3)) attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			attacker_ptr->creature_update |= (CRU_BONUS);
-		}
-	}
+	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain Two Sword Fencing Skill
 
 	// Gain riding experience
 	if (attacker_ptr->riding)
