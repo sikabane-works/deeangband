@@ -6174,19 +6174,14 @@ static int next_to_walls_adj(int cy, int cx, bool (*pass_bold)(int, int))
 	return c;
 }
 
-
-/*
- * Aux function -- see below
- */
+// Aux function -- see below
 static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(int, int))
 {
 	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	c_ptr = &floor_ptr->cave[y][x]; // Get the grid
 
-	/* Get the grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
-
-	/* Avoid infinite recursion */
-	if (c_ptr->info & (CAVE_TEMP)) return;
+	if (c_ptr->info & (CAVE_TEMP)) return; // Avoid infinite recursion
 
 	/* Do not "leave" the current room */
 	if (!(c_ptr->info & (CAVE_ROOM)))
@@ -6194,7 +6189,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		if (only_room) return;
 
 		/* Verify */
-		if (!in_bounds2(current_floor_ptr, y, x)) return;
+		if (!in_bounds2(floor_ptr, y, x)) return;
 
 		/* Do not exceed the maximum spell range */
 		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;
@@ -6208,7 +6203,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		 * properly.
 		 * This leaves only a check for 6 bounding walls!
 		 */
-		if (in_bounds(current_floor_ptr, y, x) && pass_bold(y, x) &&
+		if (in_bounds(floor_ptr, y, x) && pass_bold(y, x) &&
 		    (next_to_walls_adj(y, x, pass_bold) == 6) && (next_to_open(y, x, pass_bold) <= 1)) return;
 	}
 
