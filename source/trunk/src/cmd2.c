@@ -928,14 +928,15 @@ static bool is_open(int feat)
  * Return the number of features around (or under) the character.
  * Usually look for doors and floor traps.
  */
-static int count_dt(creature_type *cr_ptr, int *y, int *x, bool (*test)(int feat), bool under)
+static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(int feat), bool under)
 {
 	int d, count, xx, yy;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* Count how many matches */
+	// Count how many matches
 	count = 0;
 
-	/* Check around (and under) the character */
+	// Check around (and under) the character
 	for (d = 0; d < 9; d++)
 	{
 		cave_type *c_ptr;
@@ -945,11 +946,11 @@ static int count_dt(creature_type *cr_ptr, int *y, int *x, bool (*test)(int feat
 		if ((d == 8) && !under) continue;
 
 		/* Extract adjacent (legal) location */
-		yy = cr_ptr->fy + ddy_ddd[d];
-		xx = cr_ptr->fx + ddx_ddd[d];
+		yy = creature_ptr->fy + ddy_ddd[d];
+		xx = creature_ptr->fx + ddx_ddd[d];
 
 		/* Get the cave */
-		c_ptr = &current_floor_ptr->cave[yy][xx];
+		c_ptr = &floor_ptr->cave[yy][xx];
 
 		/* Must have knowledge */
 		if (!(c_ptr->info & (CAVE_MARK))) continue;
