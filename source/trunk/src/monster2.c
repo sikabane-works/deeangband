@@ -1345,13 +1345,13 @@ static bool summon_specific_aux(int species_idx)
 static int chameleon_change_m_idx = 0;
 
 
-/*
- * Some dungeon types restrict the possible monsters.
- * Return TRUE is the monster is OK and FALSE otherwise
- */
+
+// Some dungeon types restrict the possible monsters.
+// Return TRUE is the monster is OK and FALSE otherwise
 static bool restrict_monster_to_dungeon(int species_idx)
 {
-	dungeon_info_type *d_ptr = &dungeon_info[current_floor_ptr->dun_type];
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	dungeon_info_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 	species_type *r_ptr = &species_info[species_idx];
 	//byte a;
 
@@ -1379,7 +1379,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	}
 	if (d_ptr->flags1 & DF1_BEGINNER)
 	{
-		if (r_ptr->level > current_floor_ptr->floor_level)
+		if (r_ptr->level > floor_ptr->floor_level)
 			return FALSE;
 	}
 
