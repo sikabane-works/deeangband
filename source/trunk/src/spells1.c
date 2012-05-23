@@ -1260,6 +1260,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
  */
 static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
@@ -1727,7 +1728,8 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 {
 	int tmp;
 
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -2024,7 +2026,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			x = target_ptr->fx;
 
 			/* Hack -- get new grid */
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 		}
 
 		/* Fear */
@@ -2244,7 +2246,7 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : current_floor_ptr->floor_level), 0, mode);
+				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
@@ -2348,7 +2350,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 
 		/* Drop it in the dungeon */
-		(void)drop_near(current_floor_ptr, q_ptr, -1, player_ptr->fy, player_ptr->fx);
+		(void)drop_near(floor_ptr, q_ptr, -1, player_ptr->fy, player_ptr->fx);
 	}
 
 	/* Track it */
