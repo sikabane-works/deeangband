@@ -1482,7 +1482,7 @@ extern void apply_nexus(creature_type *m_ptr);
 extern void phlogiston(creature_type *cr_ptr);
 extern void brand_weapon(creature_type *cr_ptr, int brand_type);
 extern void call_the_void(creature_type *creature_ptr);
-extern void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los);
+extern void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los);
 extern void alter_reality(creature_type *cr_ptr);
 extern bool warding_glyph(creature_type *creature_ptr);
 extern bool place_mirror(creature_type *cr_ptr);
@@ -1632,7 +1632,7 @@ extern void str_tolower(char *str);
 extern int inkey_special(bool numpad_cursor);
 
 
-/* xtra1.c */
+// xtra1.c
 extern void cnv_stat(int val, char *out_val);
 extern s16b modify_stat_value(int value, int amount);
 extern bool is_daytime(void);

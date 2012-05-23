@@ -1830,19 +1830,17 @@ void call_the_void(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Fetch an item (teleport it right underneath the caster)
- */
-void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los)
+// Fetch an item (teleport it right underneath the caster)
+void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los)
 {
-	int             ty, tx, i;
-	cave_type       *c_ptr;
-	object_type     *o_ptr;
-	char            o_name[MAX_NLEN];
+	int ty, tx, i;
+	cave_type *c_ptr;
+	object_type *o_ptr;
+	char o_name[MAX_NLEN];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Check to see if an object is already there */
-	if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx)
+	if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx)
 	{
 #ifdef JP
 msg_print("自分の足の下にある物は取れません。");
@@ -1854,12 +1852,12 @@ msg_print("自分の足の下にある物は取れません。");
 	}
 
 	/* Use a target */
-	if (dir == 5 && target_okay(cr_ptr))
+	if (dir == 5 && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
 
-		if (distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE)
+		if (distance(creature_ptr->fy, creature_ptr->fx, ty, tx) > MAX_RANGE)
 		{
 #ifdef JP
 msg_print("そんなに遠くにある物は取れません！");
@@ -1870,7 +1868,7 @@ msg_print("そんなに遠くにある物は取れません！");
 			return;
 		}
 
-		c_ptr = &current_floor_ptr->cave[ty][tx];
+		c_ptr = &floor_ptr->cave[ty][tx];
 
 		/* We need an item to fetch */
 		if (!c_ptr->object_idx)
@@ -1909,7 +1907,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 
 				return;
 			}
-			else if (!projectable(cr_ptr->fy, cr_ptr->fx, ty, tx))
+			else if (!projectable(creature_ptr->fy, creature_ptr->fx, ty, tx))
 			{
 #ifdef JP
 				msg_print("そこは壁の向こうです。");
@@ -1924,17 +1922,17 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 	else
 	{
 		/* Use a direction */
-		ty = cr_ptr->fy; /* Where to drop the item */
-		tx = cr_ptr->fx;
+		ty = creature_ptr->fy; /* Where to drop the item */
+		tx = creature_ptr->fx;
 
 		do
 		{
 			ty += ddy[dir];
 			tx += ddx[dir];
-			c_ptr = &current_floor_ptr->cave[ty][tx];
+			c_ptr = &floor_ptr->cave[ty][tx];
 
-			if ((distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE) ||
-				!cave_have_flag_bold(current_floor_ptr, ty, tx, FF_PROJECT)) return;
+			if ((distance(creature_ptr->fy, creature_ptr->fx, ty, tx) > MAX_RANGE) ||
+				!cave_have_flag_bold(floor_ptr, ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->object_idx);
 	}
@@ -1955,10 +1953,10 @@ msg_print("そのアイテムは重過ぎます。");
 
 	i = c_ptr->object_idx;
 	c_ptr->object_idx = o_ptr->next_object_idx;
-	current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx = i; /* 'move' it */
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx = i; /* 'move' it */
 	o_ptr->next_object_idx = 0;
-	o_ptr->fy = (byte)cr_ptr->fy;
-	o_ptr->fx = (byte)cr_ptr->fx;
+	o_ptr->fy = (byte)creature_ptr->fy;
+	o_ptr->fx = (byte)creature_ptr->fx;
 
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -1968,7 +1966,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #endif
 
 
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	note_spot(creature_ptr->fy, creature_ptr->fx);
 	play_redraw |= PR_MAP;
 }
 
