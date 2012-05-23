@@ -3064,6 +3064,34 @@ static bool melee_limitation_field(floor_type *floor_ptr)
 	return FALSE;
 }
 
+static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	int i, n;
+	char attacker_name[100];
+	creature_desc(attacker_name, attacker_ptr, 0);
+
+	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
+	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
+	{
+		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		for(i = 0; i < n; i++)
+		{
+			if (attacker_ptr->inventory[i].name1 == ART_ZANTETSU)
+			{
+#ifdef JP
+				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
+#else
+				msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
+#endif
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	int i, n;
@@ -3111,27 +3139,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		health_track(c_ptr->creature_idx); // Track a new monster
 	}
 
-	// Cease by Zantetsu-Ken
-	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
-	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
-	{
-		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
-		for(i = 0; i < n; i++)
-		{
-			if (attacker_ptr->inventory[i].name1 == ART_ZANTETSU)
-			{
-#ifdef JP
-				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
-#else
-				msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
-#endif
-				return FALSE;
-			}
-		}
-	}
-
-	// No melee flag
-	if(melee_limitation_field(floor_ptr)) return FALSE;
+	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
+	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
 
 	// Stop if friendly
 	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
