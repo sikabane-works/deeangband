@@ -8921,8 +8921,9 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 
 bool binding_field(creature_type *caster_ptr, int dam)
 {
-	int mirror_x[10],mirror_y[10]; /* ‹¾‚Í‚à‚Á‚Æ­‚È‚¢ */
-	int mirror_num=0;              /* ‹¾‚Ì” */
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	int mirror_x[10], mirror_y[10];
+	int mirror_num=0;               // Number of mirror
 	int x,y;
 	int centersign;
 	int x1,x2,y1,y2;
@@ -8937,11 +8938,11 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	creature_target_y=caster_ptr->fy;
 	creature_target_x=caster_ptr->fx;
 
-	for( x=0 ; x < current_floor_ptr->width ; x++ )
+	for( x=0 ; x < floor_ptr->width ; x++ )
 	{
-		for( y=0 ; y < current_floor_ptr->height ; y++ )
+		for( y=0 ; y < floor_ptr->height ; y++ )
 		{
-			if( is_mirror_grid(&current_floor_ptr->cave[y][x]) &&
+			if( is_mirror_grid(&floor_ptr->cave[y][x]) &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
