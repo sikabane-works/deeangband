@@ -1466,7 +1466,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
-extern bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode);
+extern bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_player(creature_type *cr_ptr, int dis, u32b mode);
 extern void teleport_player_away(creature_type *cr_ptr, int dis);
 extern void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode);

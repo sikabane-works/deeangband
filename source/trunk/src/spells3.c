@@ -314,20 +314,21 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 
 #define MAX_TELEPORT_DISTANCE 200
 
-bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
+bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int candidates_at[MAX_TELEPORT_DISTANCE + 1];
 	int total_candidates, cur_candidates;
 	int y = 0, x = 0, min, pick, i;
 
-	int left = MAX(1, cr_ptr->fx - dis);
-	int right = MIN(current_floor_ptr->width - 2, cr_ptr->fx + dis);
-	int top = MAX(1, cr_ptr->fy - dis);
-	int bottom = MIN(current_floor_ptr->height - 2, cr_ptr->fy + dis);
+	int left = MAX(1, creature_ptr->fx - dis);
+	int right = MIN(floor_ptr->width - 2, creature_ptr->fx + dis);
+	int top = MAX(1, creature_ptr->fy - dis);
+	int bottom = MIN(floor_ptr->height - 2, creature_ptr->fy + dis);
 
 	if (wild_mode) return FALSE;
 
-	if (cr_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
+	if (creature_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
 	{
 #ifdef JP
 		msg_print("不思議な力がテレポートを防いだ！");
@@ -354,10 +355,10 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(cr_ptr, y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(creature_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
+			d = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -393,10 +394,10 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(cr_ptr, y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(creature_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
+			d = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -413,18 +414,18 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 		if (!pick) break;
 	}
 
-	if (creature_bold(cr_ptr, y, x)) return FALSE;
+	if (creature_bold(creature_ptr, y, x)) return FALSE;
 
 	/* Sound */
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)))
-		msg_format("『こっちだぁ、%s』", cr_ptr->name);
+	if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)))
+		msg_format("『こっちだぁ、%s』", creature_ptr->name);
 #endif
 
 	/* Move the player */
-	(void)move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(creature_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
 	return TRUE;
 }
