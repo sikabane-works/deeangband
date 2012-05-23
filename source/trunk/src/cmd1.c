@@ -3103,16 +3103,19 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
 	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
 	{
-		/*TODO if ((attacker_ptr->inventory[].name1 == ART_ZANTETSU) || (attacker_ptr->inventory[].name1 == ART_ZANTETSU))
+		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		for(i = 0; i < n; i++)
 		{
+			if (attacker_ptr->inventory[i].name1 == ART_ZANTETSU)
+			{
 #ifdef JP
-			msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
+				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
 #else
-			msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
+				msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
 #endif
-			return FALSE;
+				return FALSE;
+			}
 		}
-		*/
 	}
 
 	// No melee flag
