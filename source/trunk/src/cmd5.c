@@ -1677,29 +1677,30 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	return p_can_enter;
 }
 
-bool rakuba(creature_type *cr_ptr, int dam, bool force)
+bool rakuba(creature_type *creature_ptr, int dam, bool force)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i, y, x, oy, ox;
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[80];
-	creature_type *m_ptr = &creature_list[cr_ptr->riding];
+	creature_type *m_ptr = &creature_list[creature_ptr->riding];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
 
-	if (!cr_ptr->riding) return FALSE;
+	if (!creature_ptr->riding) return FALSE;
 	if (wild_mode) return FALSE;
 
 	if (dam >= 0 || force)
 	{
 		if (!force)
 		{
-			int cur = cr_ptr->skill_exp[GINOU_RIDING];
-			int max = skill_info[cr_ptr->cls_idx].s_max[GINOU_RIDING];
+			int cur = creature_ptr->skill_exp[GINOU_RIDING];
+			int max = skill_info[creature_ptr->cls_idx].s_max[GINOU_RIDING];
 			int ridinglevel = r_ptr->level;
 
 			/* 落馬のしやすさ */
 			int rakubalevel = r_ptr->level;
-			if (cr_ptr->riding_two_handed) rakubalevel += 20;
+			if (creature_ptr->riding_two_handed) rakubalevel += 20;
 
 			if ((cur < max) && (max > 1000) &&
 			    (dam / 2 + ridinglevel) > (cur / 30 + 10))
@@ -1711,13 +1712,13 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 				else
 					inc += 1;
 
-				cr_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+				creature_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
 			}
 
 			/* レベルの低い乗馬からは落馬しにくい */
 			if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
 			{
-				if ((((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY)) && !cr_ptr->riding_two_handed) || !one_in_(cr_ptr->lev*(cr_ptr->riding_two_handed ? 2 : 3) + 30))
+				if ((((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY)) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
 				{
 					return FALSE;
 				}
@@ -1730,17 +1731,17 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 			cave_type *c_ptr;
 
 			/* Access the location */
-			y = cr_ptr->fy + ddy_ddd[i];
-			x = cr_ptr->fx + ddx_ddd[i];
+			y = creature_ptr->fy + ddy_ddd[i];
+			x = creature_ptr->fx + ddx_ddd[i];
 
-			c_ptr = &current_floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];
 
 			if (c_ptr->creature_idx) continue;
 
 			/* Skip non-empty grids */
 			if (!cave_have_flag_grid(c_ptr, FF_MOVE) && !cave_have_flag_grid(c_ptr, FF_CAN_FLY))
 			{
-				if (!player_can_ride_aux(cr_ptr, c_ptr, FALSE)) continue;
+				if (!player_can_ride_aux(creature_ptr, c_ptr, FALSE)) continue;
 			}
 
 			if (cave_have_flag_grid(c_ptr, FF_PATTERN)) continue;
@@ -1759,36 +1760,36 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
 #endif
 			return FALSE;
 		}
 
-		oy = cr_ptr->fy;
-		ox = cr_ptr->fx;
+		oy = creature_ptr->fy;
+		ox = creature_ptr->fx;
 
-		cr_ptr->fy = sy;
-		cr_ptr->fx = sx;
+		creature_ptr->fy = sy;
+		creature_ptr->fx = sx;
 
 		/* Redraw the old spot */
 		lite_spot(oy, ox);
 
 		/* Redraw the new spot */
-		lite_spot(cr_ptr->fy, cr_ptr->fx);
+		lite_spot(creature_ptr->fy, creature_ptr->fx);
 
 		/* Check for new panel */
-		verify_panel(cr_ptr);
+		verify_panel(creature_ptr);
 	}
 
-	cr_ptr->riding = 0;
-	cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-	cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
+	creature_ptr->riding = 0;
+	creature_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+	creature_ptr->riding_two_handed = creature_ptr->old_riding_two_handed = FALSE;
 
-	cr_ptr->creature_update |= (CRU_BONUS);
-	update_creature(cr_ptr, TRUE);
+	creature_ptr->creature_update |= (CRU_BONUS);
+	update_creature(creature_ptr, TRUE);
 
 	/* Update stuff */
 	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
@@ -1801,7 +1802,7 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	/* Update health track of mount */
 	play_redraw |= (PR_UHEALTH);
 
-	if (cr_ptr->levitation && !force)
+	if (creature_ptr->levitation && !force)
 	{
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
@@ -1813,16 +1814,16 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	else
 	{
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
 #endif
 		fall_dam = TRUE;
 	}
 
 	/* Move the player */
 	if (sy && !gameover)
-		(void)move_creature_effect(cr_ptr, cr_ptr->fy, cr_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+		(void)move_creature_effect(creature_ptr, creature_ptr->fy, creature_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return fall_dam;
 }
