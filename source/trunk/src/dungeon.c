@@ -5401,13 +5401,14 @@ static void pack_overflow(creature_type *creature_ptr)
  * must come first just in case somebody manages to corrupt
  * the savefiles by clever use of menu commands or something.
  */
-static void process_player(creature_type *cr_ptr)
+static void process_player(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 
 	/*** Apply energy ***/
 
-	if (cr_ptr->hack_mutation)
+	if (creature_ptr->hack_mutation)
 	{
 #ifdef JP
 msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
@@ -5415,8 +5416,8 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		msg_print("You feel different!");
 #endif
 
-		(void)gain_random_mutation(cr_ptr, 0, TRUE);
-		cr_ptr->hack_mutation = FALSE;
+		(void)gain_random_mutation(creature_ptr, 0, TRUE);
+		creature_ptr->hack_mutation = FALSE;
 	}
 
 	if (gamble_arena_mode)
@@ -5433,18 +5434,18 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			/* Update the monster */
 			update_mon(i, FALSE);
 		}
-		prt_time(cr_ptr);
+		prt_time(creature_ptr);
 	}
 
 	/* Give the player some energy */
-	else if (!(load && cr_ptr->energy_need <= 0))
+	else if (!(load && creature_ptr->energy_need <= 0))
 	{
-		cr_ptr->energy_need -= SPEED_TO_ENERGY(cr_ptr->speed);
+		creature_ptr->energy_need -= SPEED_TO_ENERGY(creature_ptr->speed);
 	}
 
 	/* No turn yet */
-	if (cr_ptr->energy_need > 0) return;
-	if (!command_rep) prt_time(cr_ptr);
+	if (creature_ptr->energy_need > 0) return;
+	if (!command_rep) prt_time(creature_ptr);
 
 	/*** Check for interupts ***/
 
@@ -5455,10 +5456,10 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		if (resting == -1)
 		{
 			/* Stop resting */
-			if ((cr_ptr->chp == cr_ptr->mhp) &&
-			    (cr_ptr->csp >= cr_ptr->msp))
+			if ((creature_ptr->chp == creature_ptr->mhp) &&
+			    (creature_ptr->csp >= creature_ptr->msp))
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 		}
 
@@ -5466,21 +5467,21 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		else if (resting == -2)
 		{
 			/* Stop resting */
-			if ((cr_ptr->chp == cr_ptr->mhp) &&
-			    (cr_ptr->csp >= cr_ptr->msp) &&
-			    !cr_ptr->blind && !cr_ptr->confused &&
-			    !cr_ptr->poisoned && !cr_ptr->afraid &&
-			    !cr_ptr->stun && !cr_ptr->cut &&
-			    !cr_ptr->slow && !cr_ptr->paralyzed &&
-			    !cr_ptr->image && !cr_ptr->word_recall &&
-			    !cr_ptr->alter_reality)
+			if ((creature_ptr->chp == creature_ptr->mhp) &&
+			    (creature_ptr->csp >= creature_ptr->msp) &&
+			    !creature_ptr->blind && !creature_ptr->confused &&
+			    !creature_ptr->poisoned && !creature_ptr->afraid &&
+			    !creature_ptr->stun && !creature_ptr->cut &&
+			    !creature_ptr->slow && !creature_ptr->paralyzed &&
+			    !creature_ptr->image && !creature_ptr->word_recall &&
+			    !creature_ptr->alter_reality)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 		}
 	}
 
-	if (cr_ptr->action == ACTION_FISH)
+	if (creature_ptr->action == ACTION_FISH)
 	{
 		/* Delay */
 		Term_xtra(TERM_XTRA_DELAY, 10);
@@ -5489,17 +5490,17 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			int species_idx;
 			bool success = FALSE;
 			get_species_num_prep(monster_tsuri,NULL);
-			species_idx = get_species_num(current_floor_ptr->floor_level ? current_floor_ptr->floor_level : wilderness[cr_ptr->wy][cr_ptr->wx].level);
+			species_idx = get_species_num(floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
 			{
 				int y, x;
-				y = cr_ptr->fy+ddy[tsuri_dir];
-				x = cr_ptr->fx+ddx[tsuri_dir];
-				if (place_creature_species(cr_ptr, current_floor_ptr, y, x, species_idx, PM_NO_KAGE))
+				y = creature_ptr->fy+ddy[tsuri_dir];
+				x = creature_ptr->fx+ddx[tsuri_dir];
+				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
-					creature_desc(m_name, &creature_list[current_floor_ptr->cave[y][x].creature_idx], 0);
+					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%s‚ª’Þ‚ê‚½I", m_name);
 #else
@@ -5524,7 +5525,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 	if (check_abort)
 	{
 		/* Check for "player abort" (semi-efficiently for resting) */
-		if (running || command_rep || (cr_ptr->action == ACTION_REST) || (cr_ptr->action == ACTION_FISH))
+		if (running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
 		{
 			/* Do not wait */
 			inkey_scan = TRUE;
@@ -5549,9 +5550,9 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 	}
 
-	if (cr_ptr->riding && !cr_ptr->confused && !cr_ptr->blind)
+	if (creature_ptr->riding && !creature_ptr->confused && !creature_ptr->blind)
 	{
-		creature_type *m_ptr = &creature_list[cr_ptr->riding];
+		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		if (m_ptr->paralyzed)
@@ -5559,7 +5560,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_paralyzed(&creature_list[cr_ptr->riding], 0);
+			(void)set_paralyzed(&creature_list[creature_ptr->riding], 0);
 
 			/* Acquire the monster name */
 			creature_desc(m_name, m_ptr, 0);
@@ -5573,8 +5574,8 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (m_ptr->stun)
 		{
 			/* Hack -- Recover from stun */
-			if (set_stun(&creature_list[cr_ptr->riding],
-				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
+			if (set_stun(&creature_list[creature_ptr->riding],
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];
 
@@ -5593,8 +5594,8 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (m_ptr->confused)
 		{
 			/* Hack -- Recover from confusion */
-			if (set_confused(&creature_list[cr_ptr->riding],
-				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
+			if (set_confused(&creature_list[creature_ptr->riding],
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
 			{
 				char m_name[80];
 
@@ -5613,8 +5614,8 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (m_ptr->afraid)
 		{
 			/* Hack -- Recover from fear */
-			if (set_afraid(&creature_list[cr_ptr->riding],
-				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
+			if (set_afraid(&creature_list[creature_ptr->riding],
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
 
@@ -5635,63 +5636,63 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	}
 
 	/* Handle the player song */
-	if (!load) check_music(cr_ptr);
+	if (!load) check_music(creature_ptr);
 
 	/* Hex - Handle the hex spells */
-	if (!load) check_hex(cr_ptr);
-	if (!load) revenge_spell(cr_ptr);
+	if (!load) check_hex(creature_ptr);
+	if (!load) revenge_spell(creature_ptr);
 
 	load = FALSE;
 
 	/* Fast */
-	if (cr_ptr->lightspeed)
+	if (creature_ptr->lightspeed)
 	{
-		(void)set_lightspeed(cr_ptr, cr_ptr->lightspeed - 1, TRUE);
+		(void)set_lightspeed(creature_ptr, creature_ptr->lightspeed - 1, TRUE);
 	}
-	if ((cr_ptr->cls_idx == CLASS_FORCETRAINER) && (cr_ptr->magic_num1[0]))
+	if ((creature_ptr->cls_idx == CLASS_FORCETRAINER) && (creature_ptr->magic_num1[0]))
 	{
-		if (cr_ptr->magic_num1[0] < 40)
+		if (creature_ptr->magic_num1[0] < 40)
 		{
-			cr_ptr->magic_num1[0] = 0;
+			creature_ptr->magic_num1[0] = 0;
 		}
-		else cr_ptr->magic_num1[0] -= 40;
-		cr_ptr->creature_update |= (CRU_BONUS);
+		else creature_ptr->magic_num1[0] -= 40;
+		creature_ptr->creature_update |= (CRU_BONUS);
 	}
-	if (cr_ptr->action == ACTION_LEARN)
+	if (creature_ptr->action == ACTION_LEARN)
 	{
 		s32b cost = 0L;
-		u32b cost_frac = (cr_ptr->msp + 30L) * 256L;
+		u32b cost_frac = (creature_ptr->msp + 30L) * 256L;
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(cost, cost_frac, 16);
 
  
-		if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, cost, cost_frac) < 0)
+		if (s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0)
 		{
 			/* Mana run out */
-			cr_ptr->csp = 0;
-			cr_ptr->csp_frac = 0;
-			set_action(cr_ptr, ACTION_NONE);
+			creature_ptr->csp = 0;
+			creature_ptr->csp_frac = 0;
+			set_action(creature_ptr, ACTION_NONE);
 		}
 		else
 		{
 			/* Reduce mana */
-			s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), cost, cost_frac);
+			s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), cost, cost_frac);
 		}
 		play_redraw |= PR_MANA;
 	}
 
-	if (cr_ptr->special_defense & KATA_MASK)
+	if (creature_ptr->special_defense & KATA_MASK)
 	{
-		if (cr_ptr->special_defense & KATA_MUSOU)
+		if (creature_ptr->special_defense & KATA_MUSOU)
 		{
-			if (cr_ptr->csp < 3)
+			if (creature_ptr->csp < 3)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 			else
 			{
-				cr_ptr->csp -= 2;
+				creature_ptr->csp -= 2;
 				play_redraw |= (PR_MANA);
 			}
 		}
@@ -5700,28 +5701,28 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	/*** Handle actual user input ***/
 
 	/* Repeat until out of energy */
-	while (cr_ptr->energy_need <= 0)
+	while (creature_ptr->energy_need <= 0)
 	{
 		play_window |= PW_PLAYER;
-		cr_ptr->sutemi = FALSE;
-		cr_ptr->counter = FALSE;
-		cr_ptr->now_damaged = FALSE;
+		creature_ptr->sutemi = FALSE;
+		creature_ptr->counter = FALSE;
+		creature_ptr->now_damaged = FALSE;
 
-		/* Handle "cr_ptr->creature_update" */
-		notice_stuff(cr_ptr);
+		/* Handle "creature_ptr->creature_update" */
+		notice_stuff(creature_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Place the cursor on the player */
-		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+		move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
 
 		/* Refresh (optional) */
 		if (fresh_before) Term_fresh();
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow(cr_ptr);
+		pack_overflow(creature_ptr);
 
 
 		/* Hack -- cancel "lurking browse mode" */
@@ -5735,23 +5736,23 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (gamble_arena_mode)
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+			move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
 
 			command_cmd = SPECIAL_KEY_BUILDING;
 
 			/* Process the command */
-			process_command(cr_ptr);
+			process_command(creature_ptr);
 		}
 
 		/* Paralyzed or Knocked Out */
-		else if (cr_ptr->paralyzed || (cr_ptr->stun >= 100))
+		else if (creature_ptr->paralyzed || (creature_ptr->stun >= 100))
 		{
 			/* Take a turn */
 			energy_use = 100;
 		}
 
 		/* Resting */
-		else if (cr_ptr->action == ACTION_REST)
+		else if (creature_ptr->action == ACTION_REST)
 		{
 			/* Timed rest */
 			if (resting > 0)
@@ -5759,7 +5760,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 				/* Reduce rest count */
 				resting--;
 
-				if (!resting) set_action(cr_ptr, ACTION_NONE);
+				if (!resting) set_action(creature_ptr, ACTION_NONE);
 
 				/* Redraw the state */
 				play_redraw |= (PR_STATE);
@@ -5770,7 +5771,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Fishing */
-		else if (cr_ptr->action == ACTION_FISH)
+		else if (creature_ptr->action == ACTION_FISH)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -5780,7 +5781,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		else if (running)
 		{
 			/* Take a step */
-			run_step(cr_ptr, 0);
+			run_step(creature_ptr, 0);
 		}
 
 #ifdef TRAVEL
@@ -5788,7 +5789,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		else if (travel.run)
 		{
 			/* Take a step */
-			travel_step(cr_ptr);
+			travel_step(creature_ptr);
 		}
 #endif
 
@@ -5811,27 +5812,27 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			prt("", 0, 0);
 
 			/* Process the command */
-			process_command(cr_ptr);
+			process_command(creature_ptr);
 		}
 
 		/* Normal command */
 		else
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
+			move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
 
 			can_save = TRUE;
 			/* Get a command (normal) */
-			request_command(cr_ptr, FALSE);
+			request_command(creature_ptr, FALSE);
 			can_save = FALSE;
 
 			/* Process the command */
-			process_command(cr_ptr);
+			process_command(creature_ptr);
 		}
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow(cr_ptr);
+		pack_overflow(creature_ptr);
 
 
 		/*** Clean up ***/
@@ -5843,16 +5844,16 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			if (world_player || energy_use > 400)
 			{
 				/* The Randomness is irrelevant */
-				cr_ptr->energy_need += energy_use * TURNS_PER_TICK / 10;
+				creature_ptr->energy_need += energy_use * TURNS_PER_TICK / 10;
 			}
 			else
 			{
 				/* There is some randomness of needed energy */
-				cr_ptr->energy_need += (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
+				creature_ptr->energy_need += (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
 			}
 
 			/* Hack -- constant hallucination */
-			if (cr_ptr->image) play_redraw |= (PR_MAP);
+			if (creature_ptr->image) play_redraw |= (PR_MAP);
 
 
 			/* Shimmer monsters if needed */
@@ -5942,7 +5943,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							update_mon(i, FALSE);
 
 							if (health_who == i) play_redraw |= (PR_HEALTH);
-							if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);
+							if (creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */
 							lite_spot(m_ptr->fy, m_ptr->fx);
@@ -5950,27 +5951,27 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 					}
 				}
 			}
-			if (cr_ptr->cls_idx == CLASS_IMITATOR)
+			if (creature_ptr->cls_idx == CLASS_IMITATOR)
 			{
-				if (cr_ptr->mane_num > (cr_ptr->lev > 44 ? 3 : cr_ptr->lev > 29 ? 2 : 1))
+				if (creature_ptr->mane_num > (creature_ptr->lev > 44 ? 3 : creature_ptr->lev > 29 ? 2 : 1))
 				{
-					cr_ptr->mane_num--;
-					for (i = 0; i < cr_ptr->mane_num; i++)
+					creature_ptr->mane_num--;
+					for (i = 0; i < creature_ptr->mane_num; i++)
 					{
-						cr_ptr->mane_spell[i] = cr_ptr->mane_spell[i+1];
-						cr_ptr->mane_dam[i] = cr_ptr->mane_dam[i+1];
+						creature_ptr->mane_spell[i] = creature_ptr->mane_spell[i+1];
+						creature_ptr->mane_dam[i] = creature_ptr->mane_dam[i+1];
 					}
 				}
 				new_mane = FALSE;
 				play_redraw |= (PR_IMITATION);
 			}
-			if (cr_ptr->action == ACTION_LEARN)
+			if (creature_ptr->action == ACTION_LEARN)
 			{
 				new_mane = FALSE;
 				play_redraw |= (PR_STATE);
 			}
 
-			if (world_player && (cr_ptr->energy_need > - 1000))
+			if (world_player && (creature_ptr->energy_need > - 1000))
 			{
 				/* Redraw map */
 				play_redraw |= (PR_MAP);
@@ -5988,7 +5989,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 #endif
 				msg_print(NULL);
 				world_player = FALSE;
-				cr_ptr->energy_need = ENERGY_NEED();
+				creature_ptr->energy_need = ENERGY_NEED();
 
 				/* Handle "update" and "play_redraw" and "play_window" */
 				handle_stuff();
@@ -6003,14 +6004,14 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Sniper */
-		if (energy_use && cr_ptr->reset_concent) reset_concentration(cr_ptr, TRUE);
+		if (energy_use && creature_ptr->reset_concent) reset_concentration(creature_ptr, TRUE);
 
 		/* Handle "leaving" */
 		if (subject_change_floor) break;
 	}
 
 	/* Update scent trail */
-	update_smell(cr_ptr);
+	update_smell(creature_ptr);
 }
 
 
