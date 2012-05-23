@@ -3786,7 +3786,7 @@ static bool kind_is_good(int k_idx)
  *
  * This routine plays nasty games to generate the "special artifacts".
  *
- * This routine uses "current_floor_ptr->object_level" for the "generation level".
+ * This routine uses "object_level" for the "generation level".
  *
  * We assume that the given object has been "wiped".
  */
@@ -3942,26 +3942,20 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	}
 }
 
-
-/*
- * Make a treasure object
- *
- * The location must be a legal, clean, floor grid.
- */
-bool make_gold(object_type *j_ptr, int value)
+// Make a treasure object
+// The location must be a legal, clean, floor grid.
+bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value)
 {
 	int i;
-
 	s32b base;
 
-
 	/* Hack -- Pick a Treasure variety */
-	i = ((randint1(current_floor_ptr->object_level + 2) + 2) / 2) - 1;
+	i = ((randint1(floor_ptr->object_level + 2) + 2) / 2) - 1;
 
 	/* Apply "extra" magic */
 	if (one_in_(GREAT_OBJ))
 	{
-		i += randint1(current_floor_ptr->object_level + 1);
+		i += randint1(floor_ptr->object_level + 1);
 	}
 
 	/* Hack -- Creeping Coins only generate "themselves" */
@@ -4021,7 +4015,7 @@ void place_gold(int y, int x)
 	object_wipe(q_ptr);
 
 	/* Make some gold */
-	if (!make_gold(q_ptr, 0)) return;
+	if (!make_gold(current_floor_ptr, q_ptr, 0)) return;
 
 
 	/* Make an object */

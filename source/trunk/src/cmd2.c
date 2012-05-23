@@ -503,8 +503,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		/* Small chests often drop gold */
 		if (small && (randint0(100) < 25))
 		{
-			/* Make some gold */
-			if (!make_gold(q_ptr, 0)) continue;
+			if (!make_gold(floor_ptr, q_ptr, 0)) continue; // Make some gold
 		}
 
 		/* Otherwise drop an item */

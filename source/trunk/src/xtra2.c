@@ -1361,7 +1361,7 @@ msg_print("’n–Ê‚É—‚Æ‚³‚ê‚½B");
 		if (do_gold && (!do_item || (randint0(100) < 50)))
 		{
 			/* Make some gold */
-			if (!make_gold(q_ptr, 0)) continue;
+			if (!make_gold(floor_ptr, q_ptr, 0)) continue;
 
 			/* XXX XXX XXX */
 			dump_gold++;
