@@ -155,11 +155,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	return (TRUE);
 }
 
-
-
-/*
- * Teleport monster next to a grid near the given location
- */
+// Teleport monster next to a grid near the given location
 void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode)
 {
 	int ny, nx, oy, ox, d, i, min;
@@ -167,12 +163,9 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	int dis = 2;
 	bool look = TRUE;
 	creature_type *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
-	/* Paranoia */
-	if (!m_ptr->species_idx) return;
-
-	/* "Skill" test */
-	if (randint1(100) > power) return;
+	if (randint1(100) > power) return; // "Skill" test
 
 	/* Initialize */
 	ny = m_ptr->fy;
@@ -204,12 +197,12 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 			}
 
 			/* Ignore illegal locations */
-			if (!in_bounds(current_floor_ptr, ny, nx)) continue;
+			if (!in_bounds(floor_ptr, ny, nx)) continue;
 
 			if (!cave_monster_teleportable_bold(m_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			/* if (current_floor_ptr->cave[ny][nx].info & (CAVE_ICKY)) continue; */
+			/* if (floor_ptr->cave[ny][nx].info & (CAVE_ICKY)) continue; */
 
 			/* This grid looks good */
 			look = FALSE;
@@ -231,10 +224,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
-	current_floor_ptr->cave[oy][ox].creature_idx = 0;
+	floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/* Update the new location */
-	current_floor_ptr->cave[ny][nx].creature_idx = m_idx;
+	floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the monster */
 	m_ptr->fy = ny;
