@@ -3110,6 +3110,37 @@ static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *t
 	}
 }
 
+static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (attacker_ptr->riding)
+	{
+		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
+		int max = skill_info[attacker_ptr->cls_idx].s_max[GINOU_RIDING];
+
+		if (cur < max)
+		{
+			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
+			int targetlevel = target_ptr->lev;
+			int inc = 0;
+
+			if ((cur / 200 - 5) < targetlevel)
+				inc += 1;
+
+			// Extra experience
+			if ((cur / 100) < ridinglevel)
+			{
+				if ((cur / 100 + 15) < ridinglevel)
+					inc += 1 + (ridinglevel - (cur / 100 + 15));
+				else
+					inc += 1;
+			}
+
+			attacker_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+			attacker_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+}
+
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	int i, n;
@@ -3242,36 +3273,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		if (kawarimi(target_ptr, TRUE)) return TRUE;
 	}
 
-	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain Two Sword Fencing Skill
-
-	// Gain riding experience
-	if (attacker_ptr->riding)
-	{
-		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
-		int max = skill_info[attacker_ptr->cls_idx].s_max[GINOU_RIDING];
-
-		if (cur < max)
-		{
-			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
-			int targetlevel = tar_species_ptr->level;
-			int inc = 0;
-
-			if ((cur / 200 - 5) < targetlevel)
-				inc += 1;
-
-			// Extra experience
-			if ((cur / 100) < ridinglevel)
-			{
-				if ((cur / 100 + 15) < ridinglevel)
-					inc += 1 + (ridinglevel - (cur / 100 + 15));
-				else
-					inc += 1;
-			}
-
-			attacker_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
-			attacker_ptr->creature_update |= (CRU_BONUS);
-		}
-	}
+	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain two sword fencing skill
+	gain_riding_skill(attacker_ptr, target_ptr); // Gain riding experience
 
 	riding_t_m_idx = c_ptr->creature_idx;
 
