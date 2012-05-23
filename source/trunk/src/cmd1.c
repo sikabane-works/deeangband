@@ -2262,7 +2262,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	// Access the weapon
-	object_type     *o_ptr = get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_HAND, hand);
+	object_type     *weapon_ptr = get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_HAND, hand);
 
 	char            atk_name[80];
 	char            tar_name[80];
@@ -2321,9 +2321,9 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		break;
 	}
 
-	if (object_is_melee_weapon(atk_ptr, o_ptr))
+	if (object_is_melee_weapon(atk_ptr, weapon_ptr))
 	{
-		object_desc(weapon_name, o_ptr, OD_NAME_ONLY);
+		object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
 		{
@@ -2359,25 +2359,25 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	creature_desc(tar_name, tar_ptr, 0);
 
 	// Calculate the "attack quality"
-	bonus = atk_ptr->to_h[hand] + o_ptr->to_h;
+	bonus = atk_ptr->to_h[hand] + weapon_ptr->to_h;
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if (mode == HISSATSU_IAI) chance += 60;
 	if (atk_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
 
 	if (atk_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
-	zantetsu_mukou = ((o_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
-	e_j_mukou = ((o_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
+	zantetsu_mukou = ((weapon_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
+	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
 
 	if ((mode == HISSATSU_KYUSHO) || (mode == HISSATSU_MINEUCHI) || (mode == HISSATSU_3DAN) || (mode == HISSATSU_IAI)) num_blow = 1;
 	else if (mode == HISSATSU_COLD) num_blow = atk_ptr->num_blow[hand]+2;
 	else num_blow = atk_ptr->num_blow[hand];
 
 	// Hack -- DOKUBARI always hit once
-	// if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) num_blow = 1;
+	// if ((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) num_blow = 1;
 
 	// Attack once for each legal blow
-	if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 	{
 		int n = count_melee_slot(atk_ptr);
 		if (mode == HISSATSU_3DAN) n *= 2;
@@ -2391,7 +2391,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	// Test for hit
 	if (success_hit)
 	{
-		int vorpal_chance = ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
+		int vorpal_chance = ((weapon_ptr->name1 == ART_VORPAL_BLADE) || (weapon_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
 		sound(SOUND_HIT);
 		if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 		{
@@ -2439,7 +2439,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		/* Hack -- bare hands do one damage */
 		k = 1;
 
-		object_flags(o_ptr, flgs);
+		object_flags(weapon_ptr, flgs);
 
 		// Select a chaotic effect (50% chance)
 		if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
@@ -2467,10 +2467,10 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		else vorpal_cut = FALSE;
 
 		// Handle normal weapon
-		if (o_ptr->k_idx)
+		if (weapon_ptr->k_idx)
 		{
-			k = damroll(o_ptr->dd + atk_ptr->to_dd[hand], o_ptr->ds + atk_ptr->to_ds[hand]);
-			k = tot_dam_aux(atk_ptr, o_ptr, k, tar_ptr, mode, FALSE);
+			k = damroll(weapon_ptr->dd + atk_ptr->to_dd[hand], weapon_ptr->ds + atk_ptr->to_ds[hand]);
+			k = tot_dam_aux(atk_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
 
 			if (backstab)
 			{
@@ -2491,8 +2491,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				do_quake = TRUE;
 			}
 
-			if ((!(o_ptr->tval == TV_SWORD) || !(o_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-				k = critical_norm(atk_ptr, o_ptr->weight, o_ptr->to_h, k, atk_ptr->to_h[hand], mode);
+			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
+				k = critical_norm(atk_ptr, weapon_ptr->weight, weapon_ptr->to_h, k, atk_ptr->to_h[hand], mode);
 
 			drain_result = k;
 
@@ -2500,7 +2500,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				int mult = 2;
 
-				if ((o_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
+				if ((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
 #ifdef JP
@@ -2513,7 +2513,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					}
 				}
 
-				if (o_ptr->name1 == ART_VORPAL_BLADE)
+				if (weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -2540,8 +2540,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 				k *= mult;
 
-				/* Ouch! */
-				if (((tar_ptr->resist_ultimate) ? k/100 : k) > tar_ptr->chp)
+				// Ouch!
+				if (((tar_ptr->resist_ultimate) ? k / 100 : k) > tar_ptr->chp)
 				{
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -2579,21 +2579,18 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				drain_result = drain_result * 3 / 2;
 			}
 
-			k += o_ptr->to_d;
-			drain_result += o_ptr->to_d;
+			k += weapon_ptr->to_d;
+			drain_result += weapon_ptr->to_d;
 		}
 
-		/* Apply the player damage bonuses */
+		// Apply the player damage bonuses
 		k += atk_ptr->to_d[hand];
 		drain_result += atk_ptr->to_d[hand];
 
 		if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(tar_ptr)) k = 0;
 		if ((mode == HISSATSU_SEKIRYUKA) && !atk_ptr->cut) k /= 2;
-
-		/* No negative damage */
-		if (k < 0) k = 0;
-
+		if (k < 0) k = 0; // No negative damage
 		if ((mode == HISSATSU_ZANMA) && !(!creature_living(tar_ptr) && is_enemy_of_good_creature(tar_ptr)))
 		{
 			k = 0;
@@ -2630,8 +2627,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 			if (!has_cf_creature(tar_ptr, CF_NO_STUN))
 			{
-				/* Get stunned */
-				if (tar_ptr->stun)
+				if (tar_ptr->stun) // Get stunned
 				{
 					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -2639,7 +2635,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #else
 						msg_format("%s is more dazed.", tar_name);
 #endif
-
 					tmp /= 2;
 				}
 				else
@@ -2667,8 +2662,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Modify the damage
-		k = invuln_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
-		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
+		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
 			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
 			{
@@ -2732,8 +2727,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		if (drain_result > tar_ptr->chp)
 			drain_result = tar_ptr->chp;
 
-		// Damage, check for fear and death
-		take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1);
+		take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
 
 		if(gameover);
 		{
@@ -2750,7 +2744,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					energy_use = energy_use*num/atk_ptr->num_blow[hand];
 				}
 			}
-			if ((o_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
+			if ((weapon_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
 				if(is_player(atk_ptr))
 #ifdef JP
 					msg_print("‚Ü‚½‚Â‚Ü‚ç‚Ê‚à‚Ì‚ðŽa‚Á‚Ä‚µ‚Ü‚Á‚½DDD");
@@ -2768,12 +2762,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 		if (can_drain && (drain_result > 0))
 		{
-			if (o_ptr->name1 == ART_MURAMASA)
+			if (weapon_ptr->name1 == ART_MURAMASA)
 			{
 				if (is_human)
 				{
-					int to_h = o_ptr->to_h;
-					int to_d = o_ptr->to_d;
+					int to_h = weapon_ptr->to_h;
+					int to_d = weapon_ptr->to_d;
 					int i, flag;
 
 					flag = 1;
@@ -2784,7 +2778,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					for (i = 0; i < to_d + 3; i++) if (one_in_(4)) flag = 0;
 					if (flag) to_d++;
 
-					if (o_ptr->to_h != to_h || o_ptr->to_d != to_d)
+					if (weapon_ptr->to_h != to_h || weapon_ptr->to_d != to_d)
 					{
 						if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
@@ -2792,8 +2786,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #else
 							msg_print("Muramasa sucked blood, and became more powerful!");
 #endif
-						o_ptr->to_h = to_h;
-						o_ptr->to_d = to_d;
+						weapon_ptr->to_h = to_h;
+						weapon_ptr->to_d = to_d;
 					}
 				}
 			}
@@ -2934,7 +2928,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				r_ptr = &species_info[tar_ptr->species_idx];
 			}
 		}
-		else if (o_ptr->name1 == ART_G_HAMMER)
+		else if (weapon_ptr->name1 == ART_G_HAMMER)
 		{
 			creature_type *tar_ptr = &creature_list[c_ptr->creature_idx];
 
@@ -2948,7 +2942,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		backstab = FALSE; /* Clumsy! */
 		fuiuchi = FALSE; /* Clumsy! */
 
-		if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
+		if ((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
 		{
 
 			/* Sound */
@@ -2971,7 +2965,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 			//TODO Death Scythe damage.
 			k = 0;
-
 #ifdef JP
 			take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Ž€‚Ì‘åŠ™", NULL, -1);
 #else
@@ -3172,7 +3165,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				return FALSE;
 			}
 		}
-
 	}
 
 	if (attacker_ptr->afraid) // Handle player fear
@@ -3216,7 +3208,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		if (kawarimi(target_ptr, TRUE)) return TRUE;
 	}
 
-	// Two Sword Fencing
+	// Gain Two Sword Fencing Skill
 	if (count_melee_slot(attacker_ptr))
 	{
 		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
@@ -3275,7 +3267,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 	else
 	{
-		weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 0, mode);
+		weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 
 	// Trampling Attack
