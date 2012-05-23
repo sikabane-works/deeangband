@@ -7450,12 +7450,11 @@ bool kawarimi(creature_type *user_ptr, bool success)
 }
 
 
-/*
- * "Rush Attack" routine for Samurai or Ninja
- * Return value is for checking "done"
- */
-bool rush_attack(creature_type *cr_ptr, bool *mdeath)
+// "Rush Attack" routine for Samurai or Ninja
+// Return value is for checking "done"
+bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int dir;
 	int tx, ty;
 	int tm_idx = 0;
@@ -7467,30 +7466,30 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 	if (mdeath) *mdeath = FALSE;
 
 	project_length = 5;
-	if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
+	if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = cr_ptr->fx + project_length * ddx[dir];
-	ty = cr_ptr->fy + project_length * ddy[dir];
+	tx = creature_ptr->fx + project_length * ddx[dir];
+	ty = creature_ptr->fy + project_length * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay(cr_ptr))
+	if ((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
 	}
 
-	if (in_bounds(current_floor_ptr, ty, tx)) tm_idx = current_floor_ptr->cave[ty][tx].creature_idx;
+	if (in_bounds(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
 
-	path_n = project_path(path_g, project_length, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	path_n = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
 
 	/* No need to move */
 	if (!path_n) return TRUE;
 
 	/* Use ty and tx as to-move point */
-	ty = cr_ptr->fy;
-	tx = cr_ptr->fx;
+	ty = creature_ptr->fy;
+	tx = creature_ptr->fx;
 
 	/* Project along the path */
 	for (i = 0; i < path_n; i++)
@@ -7500,7 +7499,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(current_floor_ptr, ny, nx) && player_can_enter(cr_ptr, current_floor_ptr->cave[ny][nx].feat, 0))
+		if (cave_empty_bold(floor_ptr, ny, nx) && player_can_enter(creature_ptr, floor_ptr->cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;
@@ -7509,7 +7508,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 			continue;
 		}
 
-		if (!current_floor_ptr->cave[ny][nx].creature_idx)
+		if (!floor_ptr->cave[ny][nx].creature_idx)
 		{
 			if (tm_idx)
 			{
@@ -7533,15 +7532,15 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		}
 
 		/* Move player before updating the monster */
-		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
-		update_mon(current_floor_ptr->cave[ny][nx].creature_idx, TRUE);
+		update_mon(floor_ptr->cave[ny][nx].creature_idx, TRUE);
 
 		/* Found a monster */
-		m_ptr = &creature_list[current_floor_ptr->cave[ny][nx].creature_idx];
+		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];
 
-		if (tm_idx != current_floor_ptr->cave[ny][nx].creature_idx)
+		if (tm_idx != floor_ptr->cave[ny][nx].creature_idx)
 		{
 #ifdef JP
 			msg_format("%s%s‚ª—§‚¿‚Ó‚³‚ª‚Á‚Ä‚¢‚éI", tm_idx ? "•Ê‚Ì" : "",
@@ -7550,7 +7549,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another monster" : "a monster") : "someone");
 #endif
 		}
-		else if (!creature_bold(cr_ptr, ty, tx))
+		else if (!creature_bold(creature_ptr, ty, tx))
 		{
 			/* Hold the monster name */
 			char m_name[80];
@@ -7564,14 +7563,14 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 #endif
 		}
 
-		if (!creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
-		tmp_mdeath = melee_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
+		tmp_mdeath = melee_attack(creature_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}
 
-	if (!moved && !creature_bold(cr_ptr, ty, tx)) teleport_creature_to(cr_ptr, ty, tx, TELEPORT_NONMAGICAL);
+	if (!moved && !creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 	if (mdeath) *mdeath = tmp_mdeath;
 	return TRUE;
