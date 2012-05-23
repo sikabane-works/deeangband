@@ -2540,33 +2540,31 @@ static bool get_spike(creature_type *cr_ptr, int *ip)
 }
 
 
-/*
- * Jam a closed door with a spike
- *
- * This command may NOT be repeated
- */
-void do_cmd_spike(creature_type *cr_ptr)
+// Jam a closed door with a spike
+// This command may NOT be repeated
+void do_cmd_spike(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int dir;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		int y, x, item;
 		cave_type *c_ptr;
 		s16b feat;
 
 		/* Get location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid and contents */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
@@ -2584,7 +2582,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 		}
 
 		/* Get a spike */
-		else if (!get_spike(cr_ptr, &item))
+		else if (!get_spike(creature_ptr, &item))
 		{
 			/* Message */
 #ifdef JP
@@ -2608,7 +2606,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			melee_attack(cr_ptr, y, x, 0);
+			melee_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Go for it */
@@ -2624,12 +2622,12 @@ void do_cmd_spike(creature_type *cr_ptr)
 			msg_format("You jam the %s with a spike.", f_name + f_info[feat].name);
 #endif
 
-			cave_alter_feat(current_floor_ptr, y, x, FF_SPIKE);
+			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
 
 			/* Use up, and describe, a single spike, from the bottom */
-			inven_item_increase(cr_ptr, item, -1);
-			inven_item_describe(cr_ptr, item);
-			inven_item_optimize(cr_ptr, item);
+			inven_item_increase(creature_ptr, item, -1);
+			inven_item_describe(creature_ptr, item);
+			inven_item_optimize(creature_ptr, item);
 		}
 	}
 }
