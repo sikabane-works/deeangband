@@ -423,25 +423,26 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 	return TRUE;
 }
 
-void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
+void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int yy, xx;
 
-	/* Save the old location */
-	int oy = cr_ptr->fy;
-	int ox = cr_ptr->fx;
+	// Save the old location
+	int oy = creature_ptr->fy;
+	int ox = creature_ptr->fx;
 
-	if (!teleport_player_aux(cr_ptr, dis, mode)) return;
+	if (!teleport_player_aux(creature_ptr, dis, mode)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = current_floor_ptr->cave[oy+yy][ox+xx].creature_idx;
+			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount may follow */
-			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
+			if (tmp_m_idx && (creature_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &creature_list[tmp_m_idx];
 
@@ -451,7 +452,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 				 */
 				if (has_cf_creature(m_ptr, CF_TPORT) && !has_cf_creature(m_ptr, CF_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, cr_ptr, cr_ptr->fy, cr_ptr->fx, m_ptr->lev, 0L);
+					if (!m_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 				}
 			}
 		}
