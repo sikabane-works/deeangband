@@ -3602,17 +3602,16 @@ static int get_monster_crowd_number(int m_idx)
  */
 #define RATING_BOOST(delta) (delta * delta + 50 * delta)
 
-/*
- * Examine all monsters and unidentified objects,
- * and get the feeling of current dungeon floor
- */
-static byte get_dungeon_feeling(void)
+
+// Examine all monsters and unidentified objects,
+// and get the feeling of current dungeon floor
+static byte get_dungeon_feeling(floor_type *floor_ptr)
 {
 	const int base = 10;
 	int rating = 0;
 	int i;
 
-	if (!current_floor_ptr->floor_level) return 0; // Hack -- no feeling in the town
+	if (!floor_ptr->floor_level) return 0; // Hack -- no feeling in the town
 
 	for (i = 1; i < creature_max; i++) // Examine each monster
 	{
@@ -3628,13 +3627,13 @@ static byte get_dungeon_feeling(void)
 
 		if (is_unique_species(species_ptr)) // Unique monsters
 		{
-			if (species_ptr->level + 10 > current_floor_ptr->floor_level) // Nearly out-of-depth unique monsters
-				delta += (species_ptr->level + 10 - current_floor_ptr->floor_level) * 2 * base; // Boost rating by twice delta-depth
+			if (species_ptr->level + 10 > floor_ptr->floor_level) // Nearly out-of-depth unique monsters
+				delta += (species_ptr->level + 10 - floor_ptr->floor_level) * 2 * base; // Boost rating by twice delta-depth
 		}
 		else
 		{
-			if (species_ptr->level > current_floor_ptr->floor_level) // Out-of-depth monsters
-				delta += (species_ptr->level - current_floor_ptr->floor_level) * base; // Boost rating by delta-depth
+			if (species_ptr->level > floor_ptr->floor_level) // Out-of-depth monsters
+				delta += (species_ptr->level - floor_ptr->floor_level) * base; // Boost rating by delta-depth
 		}
 
 		// Unusually crowded monsters get a little bit of rating boost
@@ -3693,8 +3692,8 @@ static byte get_dungeon_feeling(void)
 		    !object_is_cursed(object_ptr)) delta += 15 * base;
 
 		if (!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
-		    kind_ptr->level > current_floor_ptr->floor_level) // Out-of-depth objects
-			delta += (kind_ptr->level - current_floor_ptr->floor_level) * base; // Rating increase
+		    kind_ptr->level > floor_ptr->floor_level) // Out-of-depth objects
+			delta += (kind_ptr->level - floor_ptr->floor_level) * base; // Rating increase
 
 		rating += RATING_BOOST(delta);
 	}
@@ -3744,7 +3743,7 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 
 
 	/* Get new dungeon feeling */
-	new_feeling = get_dungeon_feeling();
+	new_feeling = get_dungeon_feeling(current_floor_ptr);
 
 	/* Remember last time updated */
 	cr_ptr->feeling_turn = turn;
