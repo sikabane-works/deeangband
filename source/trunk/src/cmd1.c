@@ -3050,7 +3050,19 @@ static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 }
 
-
+static bool melee_limitation_field(floor_type *floor_ptr)
+{
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+	{
+#ifdef JP
+		msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
+#else
+		msg_print("Something prevent you from attacking.");
+#endif
+		return TRUE;
+	}
+	return FALSE;
+}
 
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
@@ -3119,15 +3131,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	// No melee flag
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-	{
-#ifdef JP
-		msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
-#else
-		msg_print("Something prevent you from attacking.");
-#endif
-		return FALSE;
-	}
+	if(melee_limitation_field(floor_ptr)) return FALSE;
 
 	// Stop if friendly
 	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
