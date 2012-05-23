@@ -1872,11 +1872,10 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 }
 
 
-/*
- * Create desired feature
- */
-static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
+// Create desired feature
+static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 {
+	floor_type   *floor_ptr = get_floor_ptr(creature_ptr);
 	static int   prev_feat = 0;
 	static int   prev_mimic = 0;
 	cave_type    *c_ptr;
@@ -1885,9 +1884,9 @@ static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 	int          tmp_feat, tmp_mimic;
 	int          y, x;
 
-	if (!tgt_pt(cr_ptr, &x, &y)) return;
+	if (!tgt_pt(creature_ptr, &x, &y)) return;
 
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Default */
 	sprintf(tmp_val, "%d", prev_feat);
@@ -1919,7 +1918,7 @@ static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 	if (tmp_mimic < 0) tmp_mimic = 0;
 	else if (tmp_mimic >= max_f_idx) tmp_mimic = max_f_idx - 1;
 
-	cave_set_feat(current_floor_ptr, y, x, tmp_feat);
+	cave_set_feat(floor_ptr, y, x, tmp_feat);
 	c_ptr->mimic = tmp_mimic;
 
 	f_ptr = &f_info[get_feat_mimic(c_ptr)];
@@ -2141,7 +2140,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		identify_fully(creature_ptr, FALSE);
 		break;
 
-	/* Create desired feature */
+	// Create desired feature
 	case 'F':
 		do_cmd_wiz_create_feature(creature_ptr);
 		break;
