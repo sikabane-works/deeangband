@@ -7230,21 +7230,22 @@ int summon_cyber(creature_type *cr_ptr, int y, int x)
 }
 
 
-void wall_breaker(creature_type *cr_ptr)
+void wall_breaker(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 	int y, x;
 	int attempts = 1000;
 
-	if (randint1(80 + cr_ptr->lev) < 70)
+	if (randint1(80 + creature_ptr->lev) < 70)
 	{
 		while (attempts--)
 		{
-			scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
+			scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-			if (!cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT)) continue;
+			if (!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
-			if (!creature_bold(cr_ptr, y, x)) break;
+			if (!creature_bold(creature_ptr, y, x)) break;
 		}
 
 		project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
@@ -7252,7 +7253,7 @@ void wall_breaker(creature_type *cr_ptr)
 	}
 	else if (randint1(100) > 30)
 	{
-		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 1);
+		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 1);
 	}
 	else
 	{
@@ -7262,9 +7263,9 @@ void wall_breaker(creature_type *cr_ptr)
 		{
 			while (1)
 			{
-				scatter(current_floor_ptr, &y, &x, cr_ptr->fy, cr_ptr->fx, 10, 0);
+				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
 
-				if (!creature_bold(cr_ptr, y, x)) break;
+				if (!creature_bold(creature_ptr, y, x)) break;
 			}
 
 			project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
