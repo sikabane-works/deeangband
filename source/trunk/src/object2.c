@@ -2166,15 +2166,11 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *o_ptr)
 static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 {
 	int i;
+	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
+	if (!floor_ptr->floor_level) return (FALSE); // No artifacts in the town 
+	if (o_ptr->number != 1) return (FALSE); // Paranoia -- no "plural" artifacts
 
-
-	/* No artifacts in the town */
-	if (!current_floor_ptr->floor_level) return (FALSE);
-
-	/* Paranoia -- no "plural" artifacts */
-	if (o_ptr->number != 1) return (FALSE);
-
-	/* Check the artifact list (skip the "specials") */
+	// Check the artifact list (skip the "specials")
 	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
@@ -2194,10 +2190,10 @@ static bool make_artifact(creature_type *owner_ptr, object_type *o_ptr)
 		if (a_ptr->sval != o_ptr->sval) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
-		if (a_ptr->level > current_floor_ptr->floor_level)
+		if (a_ptr->level > floor_ptr->floor_level)
 		{
 			/* Acquire the "out-of-depth factor" */
-			int d = (a_ptr->level - current_floor_ptr->floor_level) * 2;
+			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
 
 			/* Roll for out-of-depth creation */
 			if (!one_in_(d)) continue;
