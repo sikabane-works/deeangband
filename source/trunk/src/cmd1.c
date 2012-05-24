@@ -3296,12 +3296,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
-
-	// Ceased by Kawarimi
-	if ((target_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (target_ptr->lev*3/5+20)))
-	{
-		if (kawarimi(target_ptr, TRUE)) return TRUE;
-	}
+	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
 	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain two sword fencing skill
 	gain_riding_skill(attacker_ptr, target_ptr); // Gain riding experience
