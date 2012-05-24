@@ -3091,6 +3091,41 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	return FALSE;
 }
 
+static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+
+	if (attacker_ptr->afraid) // Handle player fear
+	{
+		char attacker_name[100];
+		char target_name[100];
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+
+		if (target_ptr->ml) // Message
+		{
+#ifdef JP
+			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ðUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);
+#else
+			msg_format("%s are too afraid to attack %s!", attacker_name, target_name);
+#endif
+		}
+
+		else if(is_player(attacker_ptr))
+		{
+#ifdef JP
+			msg_format ("‚»‚Á‚¿‚É‚Í‰½‚©‹°‚¢‚à‚Ì‚ª‚¢‚éI");
+#else
+			msg_format ("There is something scary in your way!");
+#endif
+		}
+
+		(void)set_paralyzed(target_ptr, 0); // Disturb the monster
+		return TRUE; // Done
+	}
+
+	return FALSE;
+}
+
 static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	if (count_melee_slot(attacker_ptr))
@@ -3232,29 +3267,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		}
 	}
 
-	if (attacker_ptr->afraid) // Handle player fear
-	{
-		if (target_ptr->ml) // Message
-		{
-#ifdef JP
-			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ðUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);
-#else
-			msg_format("%s are too afraid to attack %s!", attacker_name, target_name);
-#endif
-		}
-
-		else if(is_player(attacker_ptr))
-		{
-#ifdef JP
-			msg_format ("‚»‚Á‚¿‚É‚Í‰½‚©‹°‚¢‚à‚Ì‚ª‚¢‚éI");
-#else
-			msg_format ("There is something scary in your way!");
-#endif
-		}
-
-		(void)set_paralyzed(target_ptr, 0); // Disturb the monster
-		return FALSE; // Done
-	}
+	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 
 	// Ceased by Iai Counter
 	if (target_ptr->special_defense & KATA_IAI)
