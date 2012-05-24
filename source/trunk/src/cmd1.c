@@ -3249,9 +3249,10 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
-	bool            fear = FALSE;
-	bool            mdeath = FALSE;
-	bool            stormbringer = FALSE;
+	int i;
+
+	bool fear = FALSE;
+	bool mdeath = FALSE;
 
 	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -3261,25 +3262,18 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char			attacker_name[80];
 	char            target_name[80];
 
+	int             action_point;
+	int             action_list[20];
+	int             action_weight[20];
+	int				action_num;
+
+
 	target_ptr = &creature_list[c_ptr->creature_idx];
 
 	atk_species_ptr = &species_info[attacker_ptr->species_idx];
 	tar_species_ptr = &species_info[target_ptr->species_idx];
 
 	disturb(player_ptr, 0, 0); // Disturb the player
-
-	energy_use = 100;
-
-	if (!count_melee_slot(attacker_ptr))
-	    //TODO !(attacker_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
-	{
-#ifdef JP
-		msg_format("%s‚ğUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
-#else
-		msg_print("You cannot do attacking.");
-#endif
-		return FALSE;
-	}
 
 	// Extract attacker and target name (or "it")
 	creature_desc(target_name, target_ptr, 0);
@@ -3302,6 +3296,31 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	gain_riding_skill(attacker_ptr, target_ptr); // Gain riding experience
 
 	riding_t_m_idx = c_ptr->creature_idx;
+
+	action_point = 100;
+	action_num = 0;
+	energy_use = 100;
+
+	for(i = 0; i < MAX_HANDS; i++)
+	{
+		if(attacker_ptr->can_melee[i])
+		{
+			action_list[action_num] = i;
+			action_weight[action_num] = 10;
+			action_num++;
+		}
+	}
+
+	if(!action_num)
+	{
+#ifdef JP
+		msg_format("%s‚ğUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+#else
+		msg_print("You cannot do attacking.");
+#endif
+		return FALSE;
+	}
+
 
 	if(has_cf_creature(attacker_ptr, CF_HUMANOID))
 	{
