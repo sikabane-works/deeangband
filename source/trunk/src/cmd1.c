@@ -3093,7 +3093,6 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 
 static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-
 	if (attacker_ptr->afraid) // Handle player fear
 	{
 		char attacker_name[100];
@@ -3176,59 +3175,17 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 	}
 }
 
-bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
+static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	int i, n;
-
-	bool            fear = FALSE;
-	bool            mdeath = FALSE;
-	bool            stormbringer = FALSE;
-
-	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
-	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	creature_type   *target_ptr;
-	species_type    *atk_species_ptr;
-	species_type    *tar_species_ptr;
-	char			attacker_name[80];
-	char            target_name[80];
-	char			weapon_name[80];
-
-	target_ptr = &creature_list[c_ptr->creature_idx];
-
-	atk_species_ptr = &species_info[attacker_ptr->species_idx];
-	tar_species_ptr = &species_info[target_ptr->species_idx];
-
-	disturb(player_ptr, 0, 0); // Disturb the player
-
-	energy_use = 100;
-
-	if (!count_melee_slot(attacker_ptr))
-	    //TODO !(attacker_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
-	{
-#ifdef JP
-		msg_format("%s‚ðUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
-#else
-		msg_print("You cannot do attacking.");
-#endif
-		return FALSE;
-	}
-
-	// Extract attacker and target name (or "it")
-	creature_desc(target_name, target_ptr, 0);
-	creature_desc(attacker_name, attacker_ptr, 0);
-
-	if (target_ptr->ml)
-	{
-		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
-		health_track(c_ptr->creature_idx); // Track a new monster
-	}
-
-	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
-	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
-
-	// Stop if friendly
 	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
 	{
+		char attacker_name[100];
+		char target_name[100];
+		char weapon_name[100];
+		int i, n, stormbringer;
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
 		{
@@ -3262,11 +3219,61 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #else
 				msg_format("You stop to avoid hitting %s.", target_name);
 #endif
-				return FALSE;
+				return TRUE;
 			}
 		}
 	}
 
+	return FALSE;
+}
+
+bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
+{
+	bool            fear = FALSE;
+	bool            mdeath = FALSE;
+	bool            stormbringer = FALSE;
+
+	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	creature_type   *target_ptr;
+	species_type    *atk_species_ptr;
+	species_type    *tar_species_ptr;
+	char			attacker_name[80];
+	char            target_name[80];
+
+	target_ptr = &creature_list[c_ptr->creature_idx];
+
+	atk_species_ptr = &species_info[attacker_ptr->species_idx];
+	tar_species_ptr = &species_info[target_ptr->species_idx];
+
+	disturb(player_ptr, 0, 0); // Disturb the player
+
+	energy_use = 100;
+
+	if (!count_melee_slot(attacker_ptr))
+	    //TODO !(attacker_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
+	{
+#ifdef JP
+		msg_format("%s‚ðUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+#else
+		msg_print("You cannot do attacking.");
+#endif
+		return FALSE;
+	}
+
+	// Extract attacker and target name (or "it")
+	creature_desc(target_name, target_ptr, 0);
+	creature_desc(attacker_name, attacker_ptr, 0);
+
+	if (target_ptr->ml)
+	{
+		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		health_track(c_ptr->creature_idx); // Track a new monster
+	}
+
+	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
+	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
+	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 
 	// Ceased by Iai Counter
