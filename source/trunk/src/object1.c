@@ -6262,22 +6262,17 @@ int show_floor(int target_item, int y, int x, int *min_width)
 	return target_item_label;
 }
 
-/*
- * This version of get_item() is called by get_item() when
- * the easy_floor is on.
- */
-bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
+// This version of get_item() is called by get_item() when
+// the easy_floor is on.
+bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr))
 {
-
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';
-
 	int j, k, i1, i2, e1, e2;
-
 	bool done, item;
-
 	bool oops = FALSE;
 
-	/* Extract args */
+	// Extract args
 	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
 	bool inven = (mode & USE_INVEN) ? TRUE : FALSE;
 	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
@@ -6323,7 +6318,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (prev_tag && command_cmd)
 			{
 				/* Scan all objects in the grid */
-				floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
 
 				/* Look up the tag */
 				if (get_tag_floor(&k, prev_tag, floor_list, floor_num))
@@ -6344,7 +6339,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 
 			/* Validate the item */
-			else if (item_tester_okay(cr_ptr, &object_list[0 - (*cp)], hook))
+			else if (item_tester_okay(creature_ptr, &object_list[0 - (*cp)], hook))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6361,9 +6356,9 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(cr_ptr, &k, prev_tag, cr_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if (!cr_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
-				else if (!get_item_okay(cr_ptr, k, hook)) /* Reject */;
+				if (!get_tag(creature_ptr, &k, prev_tag, creature_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if (!creature_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
+				else if (!get_item_okay(creature_ptr, k, hook)) /* Reject */;
 				else
 				{
 					/* Accept that choice */
@@ -6382,7 +6377,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 
 			/* Verify the item */
-			else if (get_item_okay(cr_ptr, *cp, hook))
+			else if (get_item_okay(creature_ptr, *cp, hook))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6409,21 +6404,21 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	item = FALSE;
 
 
-	/* Full cr_ptr->inventory */
+	/* Full creature_ptr->inventory */
 	i1 = 0;
 	i2 = INVEN_TOTAL - 1;
 
-	/* Forbid cr_ptr->inventory */
+	/* Forbid creature_ptr->inventory */
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
-			if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_inven++;
+			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_inven++;
 	}
 
-	/* Restrict cr_ptr->inventory indexes */
-	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i1, hook))) i1++;
-	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i2, hook))) i2--;
+	/* Restrict creature_ptr->inventory indexes */
+	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i1, hook))) i1++;
+	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i2, hook))) i2--;
 
 
 	/* Full equipment */
@@ -6436,24 +6431,24 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if (!cr_ptr->equip_now[j]) continue; // Skip no equipment
-			if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, j) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, &cr_ptr->inventory[j], hook)) max_equip++;
+			if (!creature_ptr->equip_now[j]) continue; // Skip no equipment
+			if (select_ring_slot ? GET_INVEN_SLOT_TYPE(creature_ptr, j) == INVEN_SLOT_RING : item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
 		}
-		if (cr_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
+		if (creature_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
-	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1, hook))) e1++;
-	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2, hook))) e2--;
+	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e1, hook))) e1++;
+	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e2, hook))) e2--;
 
 	/*
-	if (equip && cr_ptr->two_handed && !item_tester_no_two_handed)
+	if (equip && creature_ptr->two_handed && !item_tester_no_two_handed)
 	{
-		if (cr_ptr->can_melee[0])
+		if (creature_ptr->can_melee[0])
 		{
 			if (e2 < INVEN_2) e2 = INVEN_2;
 		}
-		else if (cr_ptr->can_melee[1]) e1 = INVEN_1;
+		else if (creature_ptr->can_melee[1]) e1 = INVEN_1;
 	}
 	*/
 
@@ -6465,7 +6460,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	if (floor)
 	{
 		/* Scan all objects in the grid */
-		floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
+		floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
 	}
 
 	/* Accept inventory */
@@ -6480,7 +6475,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 	/* Require at least one legal choice */
 	if (!allow_inven && !allow_equip && !allow_floor)
 	{
-		/* Cancel cr_ptr->command_see */
+		/* Cancel creature_ptr->command_see */
 		command_see = FALSE;
 
 		/* Oops */
@@ -6505,7 +6500,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			command_wrk = (USE_EQUIP);
 		}
 
-		/* Use cr_ptr->inventory if allowed */
+		/* Use creature_ptr->inventory if allowed */
 		else if (allow_inven)
 		{
 			command_wrk = (USE_INVEN);
@@ -6575,7 +6570,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Redraw windows */
 		window_stuff();
 
-		/* cr_ptr->inventory screen */
+		/* creature_ptr->inventory screen */
 		if (command_wrk == (USE_INVEN))
 		{
 			/* Extract the legal requests */
@@ -6583,7 +6578,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_list(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
+			if (command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
 		}
 
 		/* Equipment screen */
@@ -6594,7 +6589,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(e2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_item_list(menu_line, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
+			if (command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
 		}
 
 		/* Floor screen */
@@ -6608,10 +6603,10 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(k - floor_top);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_floor(menu_line, cr_ptr->fy, cr_ptr->fx, &min_width);
+			if (command_see) get_item_label = show_floor(menu_line, creature_ptr->fy, creature_ptr->fx, &min_width);
 		}
 
-		/* Viewing cr_ptr->inventory */
+		/* Viewing creature_ptr->inventory */
 		if (command_wrk == (USE_INVEN))
 		{
 			/* Begin the prompt */
@@ -7028,14 +7023,14 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				else
 				{
 					/* Validate the item */
-					if (!get_item_okay(cr_ptr, get_item_label, hook))
+					if (!get_item_okay(creature_ptr, get_item_label, hook))
 					{
 						bell();
 						break;
 					}
 
 					/* Allow player to "refuse" certain actions */
-					if (!get_item_allow(cr_ptr, get_item_label))
+					if (!get_item_allow(creature_ptr, get_item_label))
 					{
 						done = TRUE;
 						break;
@@ -7103,7 +7098,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '+':
 			{
 				int i, object_idx;
-				cave_type *c_ptr = &current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 
 				if (command_wrk != (USE_FLOOR)) break;
 
@@ -7125,7 +7120,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				object_list[i].next_object_idx = object_idx;
 
 				/* Re-scan floor list */ 
-				floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
 
 				/* Hack -- Fix screen */
 				if (command_see)
@@ -7214,7 +7209,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(cr_ptr, k))
+						if (!get_item_allow(creature_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7252,21 +7247,21 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				if (command_wrk != USE_FLOOR)
 				{
 					/* Look up the tag */
-					if (!get_tag(cr_ptr, &k, which, command_wrk))
+					if (!get_tag(creature_ptr, &k, which, command_wrk))
 					{
 						bell();
 						break;
 					}
 
 					/* Hack -- Validate the item */
-					if (!cr_ptr->equip_now[k] ? !inven : !equip)
+					if (!creature_ptr->equip_now[k] ? !inven : !equip)
 					{
 						bell();
 						break;
 					}
 
 					/* Validate the item */
-					if (!get_item_okay(cr_ptr, k, hook))
+					if (!get_item_okay(creature_ptr, k, hook))
 					{
 						bell();
 						break;
@@ -7288,7 +7283,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(cr_ptr, k))
+				if (!get_item_allow(creature_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7308,7 +7303,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '\n':
 			case '\r':
 			{
-				/* Choose "default" cr_ptr->inventory item */
+				/* Choose "default" creature_ptr->inventory item */
 				if (command_wrk == (USE_INVEN))
 				{
 					k = ((i1 == i2) ? i1 : -1);
@@ -7329,7 +7324,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(cr_ptr, k))
+						if (!get_item_allow(creature_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7344,14 +7339,14 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(cr_ptr, k))
+				if (!get_item_okay(creature_ptr, k))
 				{
 					bell();
 					break;
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(cr_ptr, k))
+				if (!get_item_allow(creature_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7386,19 +7381,19 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 					bool not_found = FALSE;
 
 					/* Look up the alphabetical tag */
-					if (!get_tag(cr_ptr, &k, which, command_wrk))
+					if (!get_tag(creature_ptr, &k, which, command_wrk))
 					{
 						not_found = TRUE;
 					}
 
 					/* Hack -- Validate the item */
-					else if (!cr_ptr->equip_now[k] ? !inven : !equip)
+					else if (!creature_ptr->equip_now[k] ? !inven : !equip)
 					{
 						not_found = TRUE;
 					}
 
 					/* Validate the item */
-					else if (!get_item_okay(cr_ptr, k, hook))
+					else if (!get_item_okay(creature_ptr, k, hook))
 					{
 						not_found = TRUE;
 					}
@@ -7438,12 +7433,12 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				ver = isupper(which);
 				which = tolower(which);
 
-				/* Convert letter to cr_ptr->inventory index */
+				/* Convert letter to creature_ptr->inventory index */
 				if (command_wrk == (USE_INVEN) || command_wrk == (USE_EQUIP))
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_item(cr_ptr, which);
+					else k = label_to_item(creature_ptr, which);
 				}
 
 				/* Convert letter to floor index */
@@ -7463,7 +7458,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				}
 
 				/* Validate the item */
-				if ((command_wrk != USE_FLOOR) && !get_item_okay(cr_ptr, k, hook))
+				if ((command_wrk != USE_FLOOR) && !get_item_okay(creature_ptr, k, hook))
 				{
 					bell();
 					break;
@@ -7471,7 +7466,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 				/* Verify the item */
 #ifdef JP
-				if (ver && !verify(cr_ptr, "–{“–‚É", k))
+				if (ver && !verify(creature_ptr, "–{“–‚É", k))
 #else
 				if (ver && !verify("Try", k))
 #endif
@@ -7482,7 +7477,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(cr_ptr, k))
+				if (!get_item_allow(creature_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7548,7 +7543,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 }
 
 
-static bool py_pickup_floor_aux(creature_type *cr_ptr)
+static bool py_pickup_floor_aux(creature_type *creature_ptr)
 {
 	s16b this_object_idx;
 
@@ -7565,7 +7560,7 @@ static bool py_pickup_floor_aux(creature_type *cr_ptr)
 	s = "You no longer have any room for the objects on the floor.";
 #endif
 
-	if (get_item(cr_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay))
+	if (get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay))
 	{
 		this_object_idx = 0 - item;
 	}
@@ -7575,7 +7570,7 @@ static bool py_pickup_floor_aux(creature_type *cr_ptr)
 	}
 
 	/* Pick up the object */
-	py_pickup_aux(cr_ptr, this_object_idx);
+	py_pickup_aux(creature_ptr, this_object_idx);
 
 	return (TRUE);
 }

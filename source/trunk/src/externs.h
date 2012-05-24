@@ -1919,7 +1919,7 @@ extern bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir);
 // object1.c
 extern int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode);
 extern int show_floor(int target_item, int y, int x, int *min_width);
-extern bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));
+extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));
 extern void py_pickup_floor(creature_type *cr_ptr, bool pickup);
 
 // variable.c
