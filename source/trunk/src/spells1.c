@@ -2372,7 +2372,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int get_damage;
 	cptr act, note, note_dies;
 
-	cave_type *c_ptr = &current_floor_ptr->cave[target_ptr->fy][target_ptr->fx];
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 
 	int photo = 0;
 
@@ -4961,7 +4962,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 			if (seen) obvious = TRUE;
 
 			/* PSI only works if the monster can see you! -- RG */
-			if (!(los(current_floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
+			if (!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%s‚Í‚ ‚È‚½‚ªŒ©‚¦‚È‚¢‚Ì‚Å‰e‹¿‚³‚ê‚È‚¢I", target_name);
