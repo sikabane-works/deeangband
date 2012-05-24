@@ -3986,12 +3986,12 @@ bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value)
  *
  * The location must be a legal, clean, floor grid.
  */
-void place_gold(int y, int x)
+void place_gold(floor_type *floor_ptr, int y, int x)
 {
 	s16b object_idx;
 
 	/* Acquire grid */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 
 	object_type forge;
@@ -3999,10 +3999,10 @@ void place_gold(int y, int x)
 
 
 	/* Paranoia -- check bounds */
-	if (!in_bounds(current_floor_ptr, y, x)) return;
+	if (!in_bounds(floor_ptr, y, x)) return;
 
 	/* Require floor space */
-	if (!cave_drop_bold(current_floor_ptr, y, x)) return;
+	if (!cave_drop_bold(floor_ptr, y, x)) return;
 
 	/* Avoid stacking on other objects */
 	if (c_ptr->object_idx) return;
@@ -4015,7 +4015,7 @@ void place_gold(int y, int x)
 	object_wipe(q_ptr);
 
 	/* Make some gold */
-	if (!make_gold(current_floor_ptr, q_ptr, 0)) return;
+	if (!make_gold(floor_ptr, q_ptr, 0)) return;
 
 
 	/* Make an object */

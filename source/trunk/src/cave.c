@@ -4740,7 +4740,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 		if (have_flag(old_f_ptr->flags, FF_HAS_GOLD) && !have_flag(f_ptr->flags, FF_HAS_GOLD))
 		{
 			/* Place some gold */
-			place_gold(y, x);
+			place_gold(floor_ptr, y, x);
 			found = TRUE;
 		}
 

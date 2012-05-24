@@ -356,7 +356,7 @@ msg_print("警告！アイテムを配置できません！");
 
 			case ALLOC_TYP_GOLD:
 			{
-				place_gold(y, x);
+				place_gold(floor_ptr, y, x);
 				break;
 			}
 

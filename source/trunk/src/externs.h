@@ -1302,7 +1302,7 @@ extern void weapon_boost(object_type *o_ptr, int level, int power);
 extern bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level);
 extern void place_object(floor_type *floor_ptr, int y, int x, u32b mode);
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value);
-extern void place_gold(int y, int x);
+extern void place_gold(floor_type *floor_ptr, int y, int x);
 extern s16b drop_near(floor_type *floor_ptr, object_type *o_ptr, int chance, int y, int x);
 extern void acquirement(int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);

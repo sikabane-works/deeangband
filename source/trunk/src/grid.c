@@ -350,7 +350,7 @@ msg_print("警告！地下室のアイテムを配置できません！");
 			/* Place gold */
 			else
 			{
-				place_gold(j, k);
+				place_gold(floor_ptr, j, k);
 			}
 
 			/* Placement accomplished */
