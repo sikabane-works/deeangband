@@ -6965,10 +6965,10 @@ void call_chaos(creature_type *cr_ptr)
  * rr9: Stop the nasty things when a Cyberdemon is summoned
  * or the player gets paralyzed.
  */
-bool activate_ty_curse(creature_type *cr_ptr, bool stop_ty, int *count)
+bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int     i = 0, j;
-
 	int flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 
 	j = randint1(34);
@@ -6985,7 +6985,7 @@ msg_print("地面が揺れた...");
 				msg_print("The ground trembles...");
 #endif
 
-				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5 + randint0(10));
+				earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5 + randint0(10));
 				if (!one_in_(6)) break;
 			}
 		case 30: case 31:
@@ -6998,11 +6998,11 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 8, cr_ptr->fy, cr_ptr->fx, dam, GF_MANA, flg, -1);
+				project(0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, flg, -1);
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
 #endif
 				if (!one_in_(6)) break;
 			}
@@ -7015,8 +7015,8 @@ msg_print("周囲の空間が歪んだ！");
 				msg_print("Space warps about you!");
 #endif
 
-				teleport_player(cr_ptr, damroll(10, 10), TELEPORT_PASSIVE);
-				if (randint0(13)) (*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+				teleport_player(creature_ptr, damroll(10, 10), TELEPORT_PASSIVE);
+				if (randint0(13)) (*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 				if (!one_in_(6)) break;
 			}
 		case 34:
@@ -7026,25 +7026,25 @@ msg_print("エネルギーのうねりを感じた！");
 			msg_print("You feel a surge of energy!");
 #endif
 
-			wall_breaker(cr_ptr);
+			wall_breaker(creature_ptr);
 			if (!randint0(7))
 			{
-				project(0, 7, cr_ptr->fy, cr_ptr->fx, 50, GF_KILL_WALL, flg, -1);
+				project(0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, flg, -1);
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
 #endif
 			}
 			if (!one_in_(6)) break;
 		case 1: case 2: case 3: case 16: case 17:
-			aggravate_creatures(cr_ptr);
+			aggravate_creatures(creature_ptr);
 			if (!one_in_(6)) break;
 		case 4: case 5: case 6:
-			(*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+			(*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			if (!one_in_(6)) break;
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, cr_ptr->fy, cr_ptr->fx, current_floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			if (!one_in_(6)) break;
 		case 10: case 11: case 12:
 #ifdef JP
@@ -7053,10 +7053,10 @@ msg_print("生命力が体から吸い取られた気がする！");
 			msg_print("You feel your life draining away...");
 #endif
 
-			lose_exp(cr_ptr, cr_ptr->exp / 16);
+			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if (!one_in_(6)) break;
 		case 13: case 14: case 15: case 19: case 20:
-			if (stop_ty || (cr_ptr->free_act && (randint1(125) < cr_ptr->skill_rob)) || (cr_ptr->cls_idx == CLASS_BERSERKER))
+			if (stop_ty || (creature_ptr->free_act && (randint1(125) < creature_ptr->skill_rob)) || (creature_ptr->cls_idx == CLASS_BERSERKER))
 			{
 				/* Do nothing */ ;
 			}
@@ -7068,15 +7068,15 @@ msg_print("彫像になった気分だ！");
 				msg_print("You feel like a statue!");
 #endif
 
-				if (cr_ptr->free_act)
-					set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(3));
+				if (creature_ptr->free_act)
+					set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(3));
 				else
-					set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(13));
+					set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(13));
 				stop_ty = TRUE;
 			}
 			if (!one_in_(6)) break;
 		case 21: case 22: case 23:
-			(void)do_dec_stat(cr_ptr, randint0(6));
+			(void)do_dec_stat(creature_ptr, randint0(6));
 			if (!one_in_(6)) break;
 		case 24:
 #ifdef JP
@@ -7085,15 +7085,15 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			msg_print("Huh? Who am I? What am I doing here?");
 #endif
 
-			lose_all_info(cr_ptr);
+			lose_all_info(creature_ptr);
 			if (!one_in_(6)) break;
 		case 25:
 			/*
 			 * Only summon Cyberdemons deep in the dungeon.
 			 */
-			if ((current_floor_ptr->floor_level > 65) && !stop_ty)
+			if ((floor_ptr->floor_level > 65) && !stop_ty)
 			{
-				(*count) += summon_cyber(NULL, cr_ptr->fy, cr_ptr->fx);
+				(*count) += summon_cyber(NULL, creature_ptr->fy, creature_ptr->fx);
 				stop_ty = TRUE;
 				break;
 			}
@@ -7103,7 +7103,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			{
 				do
 				{
-					(void)do_dec_stat(cr_ptr, i);
+					(void)do_dec_stat(creature_ptr, i);
 				}
 				while (one_in_(2));
 
