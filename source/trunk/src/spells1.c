@@ -7613,7 +7613,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 // breath shape
-void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ)
+void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ)
 {
 	int by = y1;
 	int bx = x1;
@@ -7652,7 +7652,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
 				for (x = bx - cdis; x <= bx + cdis; x++)
 				{
 					/* Ignore "illegal" locations */
-					if (!in_bounds(current_floor_ptr, y, x)) continue;
+					if (!in_bounds(floor_ptr, y, x)) continue;
 
 					/* Enforce a circular "ripple" */
 					if (distance(y1, x1, y, x) != bdis) continue;
@@ -7665,11 +7665,11 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
 					case GF_LITE:
 					case GF_LITE_WEAK:
 						/* Lights are stopped by opaque terrains */
-						if (!los(current_floor_ptr, by, bx, y, x)) continue;
+						if (!los(floor_ptr, by, bx, y, x)) continue;
 						break;
 					case GF_DISINTEGRATE:
 						/* Disintegration are stopped only by perma-walls */
-						if (!in_disintegration_range(current_floor_ptr, by, bx, y, x)) continue;
+						if (!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 						break;
 					default:
 						/* Ball explosions are stopped by walls */
@@ -8409,7 +8409,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		{
 			flg &= ~(PROJECT_HIDE);
 
-			breath_shape(path_g, dist, &grids, gx, gy, gm, &gm_rad, rad, y1, x1, by, bx, typ);
+			breath_shape(path_g, current_floor_ptr, dist, &grids, gx, gy, gm, &gm_rad, rad, y1, x1, by, bx, typ);
 		}
 		else
 		{

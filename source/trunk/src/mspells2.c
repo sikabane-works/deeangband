@@ -139,7 +139,7 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 	}
 	else
 	{
-		breath_shape(grid_g, grid_n, &grids, gx, gy, gm, &gm_rad, rad, y1, x1, y, x, typ);
+		breath_shape(grid_g, floor_ptr, grid_n, &grids, gx, gy, gm, &gm_rad, rad, y1, x1, y, x, typ);
 
 		for (i = 0; i < grids; i++)
 		{
