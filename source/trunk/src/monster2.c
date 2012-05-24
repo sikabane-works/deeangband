@@ -1492,22 +1492,20 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 }
 
 
-/*
- * Apply a "monster restriction function" to the "monster allocation table"
- */
+// Apply a "monster restriction function" to the "monster allocation table"
 errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 creature_hook, creature_hook_type2 creature_hook2)
 {
 	int i;
 	floor_type *floor_ptr;
 
-	/* Todo: Check the hooks for non-changes */
+	// Todo: Check the hooks for non-changes
 
 	/* Set the new hooks */
 	creature_hook_type2 get_species_num_hook  = creature_hook;
 	creature_hook_type2 get_species_num2_hook = creature_hook2;
 
-	if(summoner_ptr) floor_ptr = &floor_list[summoner_ptr->floor_id];
-	else floor_ptr = current_floor_ptr;
+	if(summoner_ptr) floor_ptr = get_floor_ptr(summoner_ptr);
+	else floor_ptr = get_floor_ptr(player_ptr);
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
