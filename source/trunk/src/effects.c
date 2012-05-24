@@ -2491,20 +2491,20 @@ bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec)
 }
 
 
-bool set_superstealth(creature_type *cr_ptr, bool set)
+bool set_superstealth(creature_type *creature_ptr, bool set)
 {
 	bool notice = FALSE;
 
-	if (IS_DEAD(cr_ptr)) return FALSE;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	if (IS_DEAD(creature_ptr)) return FALSE;
 
-	/* Open */
 	if (set)
 	{
-		if (!(cr_ptr->special_defense & NINJA_S_STEALTH))
+		if (!(creature_ptr->special_defense & NINJA_S_STEALTH))
 		{
-			if (current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT)
+			if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_MNLT)
 			{
-				if(is_seen(player_ptr, cr_ptr))
+				if(is_seen(player_ptr, creature_ptr))
 				{
 #ifdef JP
 					msg_print("“G‚Ì–Ú‚©‚ç”–‚¢‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½B");
@@ -2512,11 +2512,11 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 					msg_print("You are mantled in weak shadow from ordinary eyes.");
 #endif
 				}
-				cr_ptr->monlite = cr_ptr->old_monlite = TRUE;
+				creature_ptr->monlite = creature_ptr->old_monlite = TRUE;
 			}
 			else
 			{
-				if(is_seen(player_ptr, cr_ptr))
+				if(is_seen(player_ptr, creature_ptr))
 				{
 #ifdef JP
 				msg_print("“G‚Ì–Ú‚©‚ç‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½I");
@@ -2524,22 +2524,22 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 				msg_print("You are mantled in shadow from ordinary eyes!");
 #endif
 				}
-				cr_ptr->monlite = cr_ptr->old_monlite = FALSE;
+				creature_ptr->monlite = creature_ptr->old_monlite = FALSE;
 			}
 
 			notice = TRUE;
 
 			/* Use the value */
-			cr_ptr->special_defense |= NINJA_S_STEALTH;
+			creature_ptr->special_defense |= NINJA_S_STEALTH;
 		}
 	}
 
 	/* Shut */
 	else
 	{
-		if (cr_ptr->special_defense & NINJA_S_STEALTH)
+		if (creature_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if(is_seen(player_ptr, cr_ptr))
+			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
 				msg_print("Ä‚Ñ“G‚Ì–Ú‚É‚³‚ç‚³‚ê‚é‚æ‚¤‚É‚È‚Á‚½B");
@@ -2551,7 +2551,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 			notice = TRUE;
 
 			/* Use the value */
-			cr_ptr->special_defense &= ~(NINJA_S_STEALTH);
+			creature_ptr->special_defense &= ~(NINJA_S_STEALTH);
 		}
 	}
 
