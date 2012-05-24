@@ -4694,11 +4694,8 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 }
 
 
-/*
- * Hack -- attempt to place a monster at the given location
- *
- * Attempt to find a monster appropriate to the "current_floor_ptr->creature_level"
- */
+// Hack -- attempt to place a monster at the given location
+// Attempt to find a monster appropriate to the "creature_level"
 bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
@@ -4731,7 +4728,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	int cy = y;
 	int cx = x;
 
-	/* Prepare allocation table */
+	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	while (--attempts)
@@ -4768,7 +4765,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
-		scatter(current_floor_ptr, &cy, &cx, y, x, 5, 0);
+		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
 
 		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 
@@ -4900,14 +4897,10 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 	return (FALSE);
 }
 
-
-
-
-/*
- * Hack -- help decide if a monster race is "okay" to summon
- */
+// Hack -- help decide if a monster race is "okay" to summon
 static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 {
+	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Hack - Only summon dungeon monsters */
@@ -4932,7 +4925,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	if ((summon_specific_who < 0) &&
 	    ((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL))) return FALSE;
 
-	if (is_chameleon_species(r_ptr) && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
+	if (is_chameleon_species(r_ptr) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 
 	return (summon_specific_aux(species_idx));
 }
