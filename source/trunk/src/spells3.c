@@ -506,6 +506,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 {
 	int y, x, dis = 0, ctr = 0;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	if (caster_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
 	{
@@ -526,11 +527,11 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 		{
 			y = rand_spread(ny, dis);
 			x = rand_spread(nx, dis);
-			if (in_bounds(current_floor_ptr, y, x)) break;
+			if (in_bounds(floor_ptr, y, x)) break;
 		}
 
 		/* Accept any grid when wizard mode */
-		if (wizard && !(mode & TELEPORT_PASSIVE) && (!current_floor_ptr->cave[y][x].creature_idx || (current_floor_ptr->cave[y][x].creature_idx == caster_ptr->riding))) break;
+		if (wizard && !(mode & TELEPORT_PASSIVE) && (!floor_ptr->cave[y][x].creature_idx || (floor_ptr->cave[y][x].creature_idx == caster_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
 		if (cave_player_teleportable_bold(caster_ptr, y, x, mode)) break;
