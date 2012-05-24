@@ -7569,7 +7569,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 		return (FALSE);
 	}
 
-	/* Pick up the object */
+	// Pick up the object
 	py_pickup_aux(creature_ptr, this_object_idx);
 
 	return (TRUE);

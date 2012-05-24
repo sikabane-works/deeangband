@@ -7170,25 +7170,22 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
  * (Deskull)
  */
 
-static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
+static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	int k = 0;
 
-	/* Hack -- assume obvious */
-	bool obvious = TRUE;
+	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 
-	/* Player blind-ness */
-	bool blind = (player_ptr->blind ? TRUE : FALSE);
-
-	/* Creature name (for attacker and target) */
-	char atk_name[80];
+	bool obvious = TRUE; // Hack -- assume obvious
+	bool blind = (player_ptr->blind ? TRUE : FALSE); // Player blind-ness
+	char atk_name[80]; // Creature name (for attacker and target)
 
 	/* Hack -- messages */
 	cptr act = NULL;
 
 	int get_damage = 0;
 
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -7246,23 +7243,23 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
 
-	int atk_lev = atk_ptr->lev * 2;
+	int atk_lev = attacker_ptr->lev * 2;
 
 
-	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(atk_name, attacker_ptr, 0);
 
 
 	/* Player is not here */
 	if (!creature_bold(player_ptr, y, x)) return (FALSE);
 
-	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(atk_ptr) && (atk_ptr != &creature_list[player_ptr->riding]))
+	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		if (kawarimi(player_ptr, TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
-	if (is_player(atk_ptr)) return (FALSE);
-	if (atk_ptr == &creature_list[player_ptr->riding]) return (FALSE);
+	if (is_player(attacker_ptr)) return (FALSE);
+	if (attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
 	if ((player_ptr->reflect || ((player_ptr->special_defense & KATA_FUUJIN) && !player_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
@@ -7280,20 +7277,20 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 
 
 		/* Choose 'new' target */
-		if (!is_player(atk_ptr))
+		if (!is_player(attacker_ptr))
 		{
 			do
 			{
-				t_y = atk_ptr->fy - 1 + (byte)randint1(3);
-				t_x = atk_ptr->fx - 1 + (byte)randint1(3);
+				t_y = attacker_ptr->fy - 1 + (byte)randint1(3);
+				t_x = attacker_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(current_floor_ptr, t_y, t_x) && !projectable(player_ptr->fy, player_ptr->fx, t_y, t_x));
+			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
-				t_y = atk_ptr->fy;
-				t_x = atk_ptr->fx;
+				t_y = attacker_ptr->fy;
+				t_x = attacker_ptr->fx;
 			}
 		}
 		else
@@ -7315,13 +7312,13 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
 
-	project_creature_aux(atk_ptr, player_ptr, typ, dam, spell, see_s_msg);
+	project_creature_aux(attacker_ptr, player_ptr, typ, dam, spell, see_s_msg);
 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
 
 	if ((player_ptr->tim_eyeeye || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !gameover && (atk_ptr != NULL))
+		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", atk_name);
@@ -7329,11 +7326,11 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 		char atk_name_self[80];
 
 		/* hisself */
-		creature_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(atk_name_self, attacker_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
-		project(0, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (player_ptr->tim_eyeeye) set_tim_eyeeye(player_ptr, player_ptr->tim_eyeeye-5, TRUE);
 	}
 
@@ -7347,7 +7344,7 @@ static bool project_creature(creature_type *atk_ptr, cptr who_name, int r, int y
 	disturb(player_ptr, 1, 0);
 
 
-	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && atk_ptr && (atk_ptr != &creature_list[player_ptr->riding]))
+	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		(void)kawarimi(player_ptr, FALSE);
 	}
