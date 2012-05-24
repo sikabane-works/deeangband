@@ -6329,17 +6329,14 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 	cave_temp_room_unlite(floor_ptr); // Now, darken them all at once
 }
 
-
-
-/*
- * Hack -- call light around the player
- * Affect all monsters in the projection radius
- */
-bool lite_area(creature_type *cr_ptr, int dam, int rad)
+// Hack -- call light around the player
+// Affect all monsters in the projection radius
+bool lite_area(creature_type *creature_ptr, int dam, int rad)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
 #ifdef JP
 		msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ªŒõ‚ð‹zŽû‚µ‚½B");
@@ -6361,10 +6358,10 @@ bool lite_area(creature_type *cr_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
+	(void)project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
 
 	/* Lite up the room */
-	lite_room(cr_ptr, cr_ptr->fy, cr_ptr->fx);
+	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
