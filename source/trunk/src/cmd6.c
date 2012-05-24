@@ -1952,14 +1952,14 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_ACQUIREMENT:
 		{
-			acquirement(creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
+			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ACQUIREMENT:
 		{
-			acquirement(creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}

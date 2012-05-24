@@ -2148,7 +2148,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 	// Good Objects
 	case 'g':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(creature_ptr->fy, creature_ptr->fx, command_arg, FALSE, TRUE);
+		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
 	// Put goods list
@@ -2279,7 +2279,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 	/* Very Good Objects */
 	case 'v':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(creature_ptr->fy, creature_ptr->fx, command_arg, TRUE, TRUE);
+		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
 	/* Very Good Objects 2*/

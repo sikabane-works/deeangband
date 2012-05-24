@@ -4453,7 +4453,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 /*
  * Scatter some "great" objects near the player
  */
-void acquirement(int y1, int x1, int num, bool great, bool known)
+void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known)
 {
 	object_type *i_ptr;
 	object_type object_type_body;
@@ -4469,7 +4469,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if (!make_object(i_ptr, mode, 0, current_floor_ptr->object_level)) continue;
+		if (!make_object(i_ptr, mode, 0, floor_ptr->object_level)) continue;
 
 		if (known)
 		{
@@ -4478,7 +4478,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		}
 
 		/* Drop the object */
-		(void)drop_near(current_floor_ptr, i_ptr, -1, y1, x1);
+		(void)drop_near(floor_ptr, i_ptr, -1, y1, x1);
 	}
 }
 
