@@ -3227,6 +3227,26 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 	return FALSE;
 }
 
+
+static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (target_ptr->special_defense & KATA_IAI)
+	{
+		char attacker_name[100];
+		char target_name[100];
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+#ifdef JP
+		msg_format("%s‚Í%s‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ðU‚é‚Á‚½B", target_name, attacker_name);
+#else
+		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
+#endif
+		if (melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
+	}
+
+	return FALSE;
+}
+
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	bool            fear = FALSE;
@@ -3275,17 +3295,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
 	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
-
-	// Ceased by Iai Counter
-	if (target_ptr->special_defense & KATA_IAI)
-	{
-#ifdef JP
-		msg_format("%s‚Í%s‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ðU‚é‚Á‚½B", target_name, attacker_name);
-#else
-		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
-#endif
-		if (melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
-	}
+	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 
 	// Ceased by Kawarimi
 	if ((target_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (target_ptr->lev*3/5+20)))
