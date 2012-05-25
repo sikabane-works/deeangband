@@ -4622,14 +4622,14 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			int nx, ny, d = 8;
 
 			/* Pick a location */
-			scatter(current_floor_ptr, &ny, &nx, y, x, d, 0);
+			scatter(floor_ptr, &ny, &nx, y, x, d, 0);
 
 			/* Require empty grids */
-			if (!cave_empty_bold2(current_floor_ptr, ny, nx)) continue;
+			if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 			/* Prepare allocation table */
 			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
-			if(place_creature_one(summoner_ptr, current_floor_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
+			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4678,7 +4678,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_creature_one(summoner_ptr, current_floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_creature_one(summoner_ptr, floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
