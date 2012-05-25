@@ -4819,9 +4819,10 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
 	bool result = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
