@@ -6283,9 +6283,9 @@ static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
 /*
  * Aux function -- see below
  */
-static bool cave_pass_dark_bold(int y, int x)
+static bool cave_pass_dark_bold(floor_type *floor_ptr, int y, int x)
 {
-	return cave_have_flag_bold(current_floor_ptr, y, x, FF_PROJECT);
+	return cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT);
 }
 
 /*
@@ -6293,7 +6293,7 @@ static bool cave_pass_dark_bold(int y, int x)
  */
 static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 {
-	cave_temp_room_aux(caster_ptr, y, x, TRUE, cave_pass_dark_bold);
+	cave_temp_room_aux2(caster_ptr, y, x, TRUE, cave_pass_dark_bold);
 }
 
 
@@ -6356,7 +6356,7 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 		x = temp_x[i], y = temp_y[i];
 
 		// Walls get dark, but stop darkness
-		if (!cave_pass_dark_bold(y, x)) continue;
+		if (!cave_pass_dark_bold(floor_ptr, y, x)) continue;
 
 		// Spread adjacent
 		cave_temp_unlite_room_aux(caster_ptr, y + 1, x);
