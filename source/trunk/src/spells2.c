@@ -6120,7 +6120,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 /*
  * Determine how much contiguous open space this grid is next to
  */
-static int next_to_open(int cy, int cx, bool (*pass_bold)(int, int))
+static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
 
@@ -6134,8 +6134,8 @@ static int next_to_open(int cy, int cx, bool (*pass_bold)(int, int))
 		y = cy + ddy_cdd[i % 8];
 		x = cx + ddx_cdd[i % 8];
 
-		/* Found a wall, break the length */
-		if (!pass_bold(y, x))
+		// Found a wall, break the length
+		if (!pass_bold(floor_ptr, y, x))
 		{
 			/* Track best length */
 			if (len > blen)
@@ -6155,7 +6155,7 @@ static int next_to_open(int cy, int cx, bool (*pass_bold)(int, int))
 }
 
 
-static int next_to_walls_adj(int cy, int cx, bool (*pass_bold)(int, int))
+static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
 
@@ -6168,7 +6168,7 @@ static int next_to_walls_adj(int cy, int cx, bool (*pass_bold)(int, int))
 		y = cy + ddy_ddd[i];
 		x = cx + ddx_ddd[i];
 
-		if (!pass_bold(y, x)) c++;
+		if (!pass_bold(floor_ptr, y, x)) c++;
 	}
 
 	return c;
@@ -6203,8 +6203,53 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		 * properly.
 		 * This leaves only a check for 6 bounding walls!
 		 */
-		if (in_bounds(floor_ptr, y, x) && pass_bold(y, x) &&
-		    (next_to_walls_adj(y, x, pass_bold) == 6) && (next_to_open(y, x, pass_bold) <= 1)) return;
+		if (in_bounds(floor_ptr, y, x) && pass_bold(y, x)) return;
+		//    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
+	}
+
+	/* Paranoia -- verify space */
+	if (temp_n == TEMP_MAX) return;
+
+	/* Mark the grid as "seen" */
+	c_ptr->info |= (CAVE_TEMP);
+
+	/* Add it to the "seen" set */
+	temp_y[temp_n] = y;
+	temp_x[temp_n] = x;
+	temp_n++;
+}
+
+// Aux function -- see below
+static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(floor_type *, int, int))
+{
+	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	c_ptr = &floor_ptr->cave[y][x]; // Get the grid
+
+	if (c_ptr->info & (CAVE_TEMP)) return; // Avoid infinite recursion
+
+	/* Do not "leave" the current room */
+	if (!(c_ptr->info & (CAVE_ROOM)))
+	{
+		if (only_room) return;
+
+		/* Verify */
+		if (!in_bounds2(floor_ptr, y, x)) return;
+
+		/* Do not exceed the maximum spell range */
+		if (distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;
+
+		/* Verify this grid */
+		/*
+		 * The reason why it is ==6 instead of >5 is that 8 is impossible
+		 * due to the check for cave_bold above.
+		 * 7 lights dead-end corridors (you need to do this for the
+		 * checkboard interesting rooms, so that the boundary is lit
+		 * properly.
+		 * This leaves only a check for 6 bounding walls!
+		 */
+		if (in_bounds(floor_ptr, y, x) && pass_bold(floor_ptr, y, x) &&
+		    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
 	/* Paranoia -- verify space */
@@ -6222,9 +6267,9 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 /*
  * Aux function -- see below
  */
-static bool cave_pass_lite_bold(int y, int x)
+static bool cave_pass_lite_bold(floor_type *floor_ptr, int y, int x)
 {
-	return cave_los_bold(current_floor_ptr, y, x);
+	return cave_los_bold(floor_ptr, y, x);
 }
 
 /*
@@ -6232,7 +6277,7 @@ static bool cave_pass_lite_bold(int y, int x)
  */
 static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
 {
-	cave_temp_room_aux(caster_ptr, y, x, FALSE, cave_pass_lite_bold);
+	cave_temp_room_aux2(caster_ptr, y, x, FALSE, cave_pass_lite_bold);
 }
 
 /*
@@ -6270,7 +6315,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 		x = temp_x[i], y = temp_y[i];
 
 		/* Walls get lit, but stop light */
-		if (!cave_pass_lite_bold(y, x)) continue;
+		if (!cave_pass_lite_bold(current_floor_ptr, y, x)) continue;
 
 		/* Spread adjacent */
 		cave_temp_lite_room_aux(creature_ptr, y + 1, x);
