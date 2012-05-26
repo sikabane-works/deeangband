@@ -19,16 +19,17 @@
 #define HURT_CHANCE 16
 
 
-static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
+static bool cave_monster_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {
-	cave_type    *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
 
-	if (c_ptr->creature_idx && (&creature_list[c_ptr->creature_idx] != cr_ptr)) return FALSE;
-	if (creature_bold(cr_ptr, y, x)) return FALSE;
+	if (c_ptr->creature_idx && (&creature_list[c_ptr->creature_idx] != creature_ptr)) return FALSE;
+	if (creature_bold(creature_ptr, y, x)) return FALSE;
 
 	/* Hack -- no teleport onto glyph of warding */
 	if (is_glyph_grid(c_ptr)) return FALSE;
@@ -36,7 +37,7 @@ static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, 
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!creature_can_cross_terrain(c_ptr->feat, cr_ptr, 0)) return FALSE;
+		if (!creature_can_cross_terrain(c_ptr->feat, creature_ptr, 0)) return FALSE;
 	}
 
 	return TRUE;

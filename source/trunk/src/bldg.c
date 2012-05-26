@@ -4280,12 +4280,13 @@ static void building_recharge_all(creature_type *cr_ptr)
 }
 
 
-bool tele_town(creature_type *cr_ptr)
+bool tele_town(creature_type *creature_ptr)
 {
 	int i, x, y;
 	int num = 0;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	if (current_floor_ptr->floor_level)
+	if (floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("この魔法は地上でしか使えない！");
@@ -4312,7 +4313,7 @@ bool tele_town(creature_type *cr_ptr)
 	{
 		char buf[80];
 
-		if ((i == NO_TOWN) || (i == SECRET_TOWN) || (i == town_num) || !(cr_ptr->visit & (1L << (i-1)))) continue;
+		if ((i == NO_TOWN) || (i == SECRET_TOWN) || (i == town_num) || !(creature_ptr->visit & (1L << (i-1)))) continue;
 
 		sprintf(buf,"%c) %-20s", I2A(i-1), town[i].name);
 		prt(buf, 5+i, 5);
@@ -4347,7 +4348,7 @@ bool tele_town(creature_type *cr_ptr)
 			return FALSE;
 		}
 		else if ((i < 'a') || (i > ('a'+max_towns-2))) continue;
-		else if (((i-'a'+1) == town_num) || ((i-'a'+1) == NO_TOWN) || ((i-'a'+1) == SECRET_TOWN) || !(cr_ptr->visit & (1L << (i-'a')))) continue;
+		else if (((i-'a'+1) == town_num) || ((i-'a'+1) == NO_TOWN) || ((i-'a'+1) == SECRET_TOWN) || !(creature_ptr->visit & (1L << (i-'a')))) continue;
 		break;
 	}
 
@@ -4357,15 +4358,15 @@ bool tele_town(creature_type *cr_ptr)
 		{
 			if(wilderness[y][x].town == (i-'a'+1))
 			{
-				cr_ptr->wy = y;
-				cr_ptr->wx = x;
+				creature_ptr->wy = y;
+				creature_ptr->wx = x;
 			}
 		}
 	}
 
 	subject_change_floor = TRUE;
 	leave_bldg = TRUE;
-	cr_ptr->teleport_town = TRUE;
+	creature_ptr->teleport_town = TRUE;
 	screen_load();
 	return TRUE;
 }

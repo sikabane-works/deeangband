@@ -1549,7 +1549,7 @@ extern void do_cmd_quest(creature_type *creature_ptr);
 extern void quest_discovery(int q_idx);
 extern int quest_number(int level);
 extern int random_quest_number(int level);
-extern bool tele_town(creature_type *cr_ptr);
+extern bool tele_town(creature_type *creature_ptr);
 
 // util.c
 extern errr path_parse(char *buf, int max, cptr file);
