@@ -460,36 +460,37 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 }
 
 
-void teleport_player_away(creature_type *cr_ptr, int dis)
+void teleport_player_away(creature_type *creature_ptr, int dis)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int yy, xx;
 
 	/* Save the old location */
-	int oy = cr_ptr->fy;
-	int ox = cr_ptr->fx;
+	int oy = creature_ptr->fy;
+	int ox = creature_ptr->fx;
 
-	if (!teleport_player_aux(cr_ptr, dis, TELEPORT_PASSIVE)) return;
+	if (!teleport_player_aux(creature_ptr, dis, TELEPORT_PASSIVE)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = current_floor_ptr->cave[oy+yy][ox+xx].creature_idx;
+			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A monster except your mount or caster may follow */
-			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx) && (cr_ptr != &creature_list[tmp_m_idx]))
+			if (tmp_m_idx && (creature_ptr->riding != tmp_m_idx) && (creature_ptr != &creature_list[tmp_m_idx]))
 			{
-				creature_type *cr_ptr = &creature_list[tmp_m_idx];
-				species_type *r_ptr = &species_info[cr_ptr->species_idx];
+				creature_type *creature_ptr = &creature_list[tmp_m_idx];
+				species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if (has_cf_creature(cr_ptr, CF_TPORT) && !has_cf_creature(cr_ptr, CF_RES_TELE))
+				if (has_cf_creature(creature_ptr, CF_TPORT) && !has_cf_creature(creature_ptr, CF_RES_TELE))
 				{
-					if (!cr_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, cr_ptr, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
+					if (!creature_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
