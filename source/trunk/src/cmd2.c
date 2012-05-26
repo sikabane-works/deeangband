@@ -408,37 +408,24 @@ void do_cmd_search(creature_type *cr_ptr)
 	search(cr_ptr);
 }
 
-
-/*
- * Determine if a grid contains a chest
- */
-static s16b chest_check(int y, int x)
+// Determine if a grid contains a chest
+static s16b chest_check(floor_type *floor_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
-
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	s16b this_object_idx, next_object_idx = 0;
 
-
-	/* Scan all objects in the grid */
+	// Scan all objects in the grid
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
-
-		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
-
+		o_ptr = &object_list[this_object_idx];    // Acquire object
+		next_object_idx = o_ptr->next_object_idx; // Acquire next object
 		/* Skip unknown chests XXX XXX */
 		/* if (!(o_ptr->marked & OM_FOUND)) continue; */
-
-		/* Check for chest */
-		if (o_ptr->tval == TV_CHEST) return (this_object_idx);
+		if (o_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
 	}
 
-	/* No chest */
-	return (0);
+	return (0); // No chest
 }
 
 
@@ -993,8 +980,7 @@ static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 		int yy = cr_ptr->fy + ddy_ddd[d];
 		int xx = cr_ptr->fx + ddx_ddd[d];
 
-		/* No (visible) chest is there */
-		if ((object_idx = chest_check(yy, xx)) == 0) continue;
+		if ((object_idx = chest_check(current_floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
 		/* Grab the object */
 		o_ptr = &object_list[object_idx];
@@ -1211,8 +1197,7 @@ void do_cmd_open(creature_type *cr_ptr)
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
 
-		/* Check for chest */
-		object_idx = chest_check(y, x);
+		object_idx = chest_check(current_floor_ptr, y, x); // Check for chest
 
 		/* Nothing useful */
 		if (!have_flag(f_info[feat].flags, FF_OPEN) && !object_idx)
@@ -2143,8 +2128,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
 
-		/* Check for chests */
-		object_idx = chest_check(y, x);
+		object_idx = chest_check(floor_ptr, y, x); // Check for chests
 
 		/* Disarm a trap */
 		if (!is_trap(feat) && !object_idx)
