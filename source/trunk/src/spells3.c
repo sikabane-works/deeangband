@@ -5368,14 +5368,15 @@ static s16b poly_species_idx(int pre_species_idx)
 {
 	s16b after_species_idx = pre_species_idx;
 	species_type *species_ptr = &species_info[pre_species_idx];
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	int i, r, lev1, lev2;
 
-	/* Hack -- Uniques/Questors never polymorph */
+	// Hack -- Uniques/Questors never polymorph
 	if (is_unique_species(species_ptr) || is_quest_species(species_ptr))
 		return (pre_species_idx);
 
-	/* Allowable range of "levels" for resulting monster */
+	// Allowable range of "levels" for resulting monster
 	lev1 = species_ptr->level - ((randint1(20) / randint1(9)) + 1);
 	lev2 = species_ptr->level + ((randint1(20) / randint1(9)) + 1);
 
@@ -5383,7 +5384,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	for (i = 0; i < 1000; i++)
 	{
 		/* Pick a new race, using a level calculation */
-		r = get_species_num((current_floor_ptr->floor_level + species_ptr->level) / 2 + 5);
+		r = get_species_num((floor_ptr->floor_level + species_ptr->level) / 2 + 5);
 
 		/* Handle failure */
 		if (!r) break;
