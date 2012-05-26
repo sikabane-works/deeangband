@@ -34,6 +34,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	creature_type *t_ptr;
 
@@ -100,7 +101,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if ((has_cf_creature(m_ptr, CF_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
 			    (has_cf_creature(m_ptr, CF_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
-				if (!in_disintegration_range(current_floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if (!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 			else
 			{
@@ -781,6 +782,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -806,7 +808,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(current_floor_ptr, y, x)) continue;
+			if (!in_bounds(floor_ptr, y, x)) continue;
 
 			/* Skip occupied locations */
 			if (!creature_can_enter(y, x, m_ptr, 0)) continue;

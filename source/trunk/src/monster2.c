@@ -1677,22 +1677,19 @@ static int mysqrt(int n)
  */
 s16b get_species_num(int level)
 {
-	int			i, j, p;
+	int i, j, p;
+	int species_idx;
+	long value, total;
 
-	int			species_idx;
-
-	long		value, total;
-
-	species_type	*r_ptr;
-
-	alloc_entry		*table = alloc_race_table;
+	species_type *r_ptr;
+	alloc_entry *table = alloc_race_table;
 
 	int pls_kakuritu, pls_level;
 	int hoge=mysqrt(level*10000L);
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	if ((dungeon_turn > hoge*(TURNS_PER_TICK*500L)) && !level)
+	if ((dungeon_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
 	{
 		pls_kakuritu = MAX(2, NASTY_MON-((dungeon_turn/(TURNS_PER_TICK*2500L)-hoge/10)));
 		pls_level = MIN(8,3 + dungeon_turn/(TURNS_PER_TICK*20000L)-hoge/40);
