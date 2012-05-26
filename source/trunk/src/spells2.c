@@ -3762,7 +3762,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 
 	bool detect = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -3834,7 +3834,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 
 	bool detect = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
@@ -3919,7 +3919,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 
 	bool flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -3981,7 +3981,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4051,7 +4051,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4126,7 +4126,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4193,7 +4193,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4260,7 +4260,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
@@ -4334,7 +4334,7 @@ cptr desc_monsters = "•Ï‚Èƒ‚ƒ“ƒXƒ^[";
 	cptr desc_monsters = "weird monsters";
 #endif
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan monsters */
 	for (i = 1; i < creature_max; i++)
