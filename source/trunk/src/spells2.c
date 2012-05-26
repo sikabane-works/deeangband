@@ -4661,6 +4661,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
 	creature_type *m_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool         resist = FALSE;
 
@@ -4673,7 +4674,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	else if (m_idx == user_ptr->riding) resist = TRUE;
 
-	else if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode) resist = TRUE;
+	else if ((inside_quest && !random_quest_number(floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode) resist = TRUE;
 
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
 

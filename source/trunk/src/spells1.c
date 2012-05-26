@@ -1261,7 +1261,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
 
