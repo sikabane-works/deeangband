@@ -636,7 +636,7 @@ void search(creature_type *cr_ptr)
 				if (c_ptr->mimic && is_trap(c_ptr->feat))
 				{
 					/* Pick a trap */
-					disclose_grid(y, x);
+					disclose_grid(current_floor_ptr, y, x);
 
 					/* Message */
 #ifdef JP
@@ -660,7 +660,7 @@ void search(creature_type *cr_ptr)
 #endif
 
 					/* Disclose */
-					disclose_grid(y, x);
+					disclose_grid(current_floor_ptr, y, x);
 
 					/* Disturb */
 					disturb(player_ptr, 0, 0);
@@ -3779,7 +3779,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 #endif
 
 			/* Pick a trap */
-			disclose_grid(creature_ptr->fy, creature_ptr->fx);
+			disclose_grid(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 		}
 
 		/* Hit the trap */

@@ -717,7 +717,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			if (is_hidden_door(c_ptr))
 			{
 				/* Pick a door */
-				disclose_grid(y, x);
+				disclose_grid(floor_ptr, y, x);
 
 				/* Check line of sight */
 				if (known)

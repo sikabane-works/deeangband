@@ -4548,17 +4548,15 @@ s16b choose_random_trap(floor_type *floor_ptr)
 	return feat;
 }
 
-/*
- * Disclose an invisible trap
- */
-void disclose_grid(int y, int x)
+// Disclose an invisible trap
+void disclose_grid(floor_type *floor_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	if (cave_have_flag_grid(c_ptr, FF_SECRET))
 	{
 		/* No longer hidden */
-		cave_alter_feat(current_floor_ptr, y, x, FF_SECRET);
+		cave_alter_feat(floor_ptr, y, x, FF_SECRET);
 	}
 	else if (c_ptr->mimic)
 	{

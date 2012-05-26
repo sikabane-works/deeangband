@@ -3568,7 +3568,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 			if (cave_have_flag_grid(c_ptr, flag))
 			{
 				/* Detect secrets */
-				disclose_grid(y, x);
+				disclose_grid(floor_ptr, y, x);
 
 				/* Hack -- Memorize */
 				c_ptr->info |= (CAVE_MARK);

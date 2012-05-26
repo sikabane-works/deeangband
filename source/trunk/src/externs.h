@@ -1307,7 +1307,7 @@ extern s16b drop_near(floor_type *floor_ptr, object_type *o_ptr, int chance, int
 extern void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);
 extern s16b choose_random_trap(floor_type *floor_ptr);
-extern void disclose_grid(int y, int x);
+extern void disclose_grid(floor_type *floor_ptr, int y, int x);
 extern void place_trap(floor_type *floor_ptr, int y, int x);
 extern void inven_item_charges(creature_type *cr_ptr, int item);
 extern void inven_item_describe(creature_type *cr_ptr, int item);
