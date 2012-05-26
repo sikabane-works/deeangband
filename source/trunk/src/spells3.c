@@ -5412,9 +5412,10 @@ static s16b poly_species_idx(int pre_species_idx)
 }
 
 
-bool polymorph_creature(creature_type *cr_ptr, int y, int x)
+bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 	bool polymorphed = FALSE;
 	int new_species_idx;
@@ -5425,7 +5426,7 @@ bool polymorph_creature(creature_type *cr_ptr, int y, int x)
 
 	if (fight_arena_mode || gamble_arena_mode) return (FALSE);
 
-	if ((cr_ptr->riding == c_ptr->creature_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
+	if ((creature_ptr->riding == c_ptr->creature_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 
 	/* Memorize the monster before polymorphing */
 	back_m = *m_ptr;
