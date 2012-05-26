@@ -83,16 +83,16 @@ bool test_hit_norm(creature_type *atk_ptr, int chance, int ac, int vis)
  * Critical hits (from objects thrown by player)
  * Factor in item weight, total plusses, and player level.
  */
-s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam)
+s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 {
 	int i, k;
 
 	/* Extract "shot" power */
-	i = ((cr_ptr->to_h_b + plus) * 4) + (cr_ptr->lev * 2);
+	i = ((creature_ptr->to_h_b + plus) * 4) + (creature_ptr->lev * 2);
 
 	/* Snipers can shot more critically with crossbows */
-	if (cr_ptr->concent) i += ((i * cr_ptr->concent) / 5);
-	if ((cr_ptr->cls_idx == CLASS_SNIPER) && (cr_ptr->tval_ammo == TV_BOLT)) i *= 2;
+	if (creature_ptr->concent) i += ((i * creature_ptr->concent) / 5);
+	if ((creature_ptr->cls_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT)) i *= 2;
 
 	/* Critical hit */
 	if (randint1(5000) <= i)
@@ -141,15 +141,15 @@ s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam)
  *
  * Factor in weapon weight, total plusses, player level.
  */
-s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
+s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
 {
 	int i, k;
 
 	/* Extract "blow" power */
-	i = (weight + (meichuu * 3 + plus * 5) + (cr_ptr->lev * 3));
+	i = (weight + (meichuu * 3 + plus * 5) + (creature_ptr->lev * 3));
 
 	/* Chance */
-	if ((randint1((cr_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
+	if ((randint1((creature_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
 	{
 		k = weight + randint1(650);
 		if ((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
@@ -605,38 +605,37 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 /*
  * Search for hidden things
  */
-void search(creature_type *cr_ptr)
+void search(creature_type *creature_ptr)
 {
 	int y, x, chance;
-
 	s16b this_object_idx, next_object_idx = 0;
-
 	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 
 	/* Start with base search ability */
-	chance = cr_ptr->skill_srh;
+	chance = creature_ptr->skill_srh;
 
 	/* Penalize various conditions */
-	if (cr_ptr->blind || no_lite(cr_ptr)) chance = chance / 10;
-	if (cr_ptr->confused || cr_ptr->image) chance = chance / 10;
+	if (creature_ptr->blind || no_lite(creature_ptr)) chance = chance / 10;
+	if (creature_ptr->confused || creature_ptr->image) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
-	for (y = (cr_ptr->fy - 1); y <= (cr_ptr->fy + 1); y++)
+	for (y = (creature_ptr->fy - 1); y <= (creature_ptr->fy + 1); y++)
 	{
-		for (x = (cr_ptr->fx - 1); x <= (cr_ptr->fx + 1); x++)
+		for (x = (creature_ptr->fx - 1); x <= (creature_ptr->fx + 1); x++)
 		{
 			/* Sometimes, notice things */
 			if (randint0(100) < chance)
 			{
 				/* Access the grid */
-				c_ptr = &current_floor_ptr->cave[y][x];
+				c_ptr = &floor_ptr->cave[y][x];
 
 				/* Invisible trap */
 				if (c_ptr->mimic && is_trap(c_ptr->feat))
 				{
 					/* Pick a trap */
-					disclose_grid(current_floor_ptr, y, x);
+					disclose_grid(floor_ptr, y, x);
 
 					/* Message */
 #ifdef JP
@@ -660,7 +659,7 @@ void search(creature_type *cr_ptr)
 #endif
 
 					/* Disclose */
-					disclose_grid(current_floor_ptr, y, x);
+					disclose_grid(floor_ptr, y, x);
 
 					/* Disturb */
 					disturb(player_ptr, 0, 0);
@@ -713,7 +712,7 @@ void search(creature_type *cr_ptr)
  *
  * Delete the object afterwards.
  */
-void py_pickup_aux(creature_type *cr_ptr, int object_idx)
+void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 {
 	int slot, i;
 
@@ -744,20 +743,20 @@ void py_pickup_aux(creature_type *cr_ptr, int object_idx)
 	hirottakazu = o_ptr->number;
 #endif
 	/* Carry the object */
-	slot = inven_carry(cr_ptr, o_ptr);
+	slot = inven_carry(creature_ptr, o_ptr);
 
 	/* Get the object again */
-	o_ptr = &cr_ptr->inventory[slot];
+	o_ptr = &creature_ptr->inventory[slot];
 
 	/* Delete the object */
 	delete_object_idx(object_idx);
 
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		bool old_known = identify_item(cr_ptr, o_ptr);
+		bool old_known = identify_item(creature_ptr, o_ptr);
 
 		/* Auto-inscription/destroy */
-		autopick_alter_item(cr_ptr, slot, (bool)(destroy_identify && !old_known));
+		autopick_alter_item(creature_ptr, slot, (bool)(destroy_identify && !old_known));
 
 		/* If it is destroyed, don't pick it up */
 		if (o_ptr->marked & OM_AUTODESTROY) return;
@@ -768,11 +767,11 @@ void py_pickup_aux(creature_type *cr_ptr, int object_idx)
 
 	/* Message */
 #ifdef JP
-	if ((o_ptr->name1 == ART_CRIMSON) && (cr_ptr->chara_idx == CHARA_COMBAT))
+	if ((o_ptr->name1 == ART_CRIMSON) && (creature_ptr->chara_idx == CHARA_COMBAT))
 	{
-		msg_format("こうして、%sは『クリムゾン』を手に入れた。", cr_ptr->name);
+		msg_format("こうして、%sは『クリムゾン』を手に入れた。", creature_ptr->name);
 		msg_print("しかし今、『混沌のサーペント』の放ったモンスターが、");
-		msg_format("%sに襲いかかる．．．", cr_ptr->name);
+		msg_format("%sに襲いかかる．．．", creature_ptr->name);
 	}
 	else
 	{
@@ -807,7 +806,7 @@ void py_pickup_aux(creature_type *cr_ptr, int object_idx)
 		{
 			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
-			quest[i].complev = (byte)cr_ptr->lev;
+			quest[i].complev = (byte)creature_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -1016,7 +1015,7 @@ void carry(creature_type *creature_ptr, bool pickup)
  * Always miss 5% of the time, Always hit 5% of the time.
  * Otherwise, match trap power against player armor.
  */
-static int check_hit(creature_type *cr_ptr, int power)
+static int check_hit(creature_type *creature_ptr, int power)
 {
 	int k, ac;
 
@@ -1026,14 +1025,14 @@ static int check_hit(creature_type *cr_ptr, int power)
 	/* Hack -- 5% hit, 5% miss */
 	if (k < 10) return (k < 5);
 
-	if (cr_ptr->chara_idx == CHARA_NAMAKE)
+	if (creature_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (TRUE);
 
 	/* Paranoia -- No power */
 	if (power <= 0) return (FALSE);
 
 	/* Total armor */
-	ac = cr_ptr->ac + cr_ptr->to_a;
+	ac = creature_ptr->ac + creature_ptr->to_a;
 
 	/* Power competes against Armor */
 	if (randint1(power) > ((ac * 3) / 4)) return (TRUE);
@@ -3532,11 +3531,11 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 }
 
 
-bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
+bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feature];
 
-	if (cr_ptr->riding) return creature_can_cross_terrain(feature, &creature_list[cr_ptr->riding], mode | CEM_RIDING);
+	if (creature_ptr->riding) return creature_can_cross_terrain(feature, &creature_list[creature_ptr->riding], mode | CEM_RIDING);
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -3545,9 +3544,9 @@ bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && cr_ptr->levitation) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && cr_ptr->can_swim) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_PASS) && cr_ptr->pass_wall) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && creature_ptr->levitation) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && creature_ptr->can_swim) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_PASS) && creature_ptr->pass_wall) return TRUE;
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
@@ -3815,7 +3814,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 }
 
 
-bool trap_can_be_ignored(creature_type *cr_ptr, int feat)
+bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 {
 	feature_type *f_ptr = &f_info[feat];
 
@@ -3827,28 +3826,28 @@ bool trap_can_be_ignored(creature_type *cr_ptr, int feat)
 	case TRAP_PIT:
 	case TRAP_SPIKED_PIT:
 	case TRAP_POISON_PIT:
-		if (cr_ptr->levitation) return TRUE;
+		if (creature_ptr->levitation) return TRUE;
 		break;
 	case TRAP_TELEPORT:
-		if (cr_ptr->anti_tele) return TRUE;
+		if (creature_ptr->anti_tele) return TRUE;
 		break;
 	case TRAP_FIRE:
-		if (cr_ptr->immune_fire) return TRUE;
+		if (creature_ptr->immune_fire) return TRUE;
 		break;
 	case TRAP_ACID:
-		if (cr_ptr->immune_acid) return TRUE;
+		if (creature_ptr->immune_acid) return TRUE;
 		break;
 	case TRAP_BLIND:
-		if (cr_ptr->resist_blind) return TRUE;
+		if (creature_ptr->resist_blind) return TRUE;
 		break;
 	case TRAP_CONFUSE:
-		if (cr_ptr->resist_conf) return TRUE;
+		if (creature_ptr->resist_conf) return TRUE;
 		break;
 	case TRAP_POISON:
-		if (cr_ptr->resist_pois) return TRUE;
+		if (creature_ptr->resist_pois) return TRUE;
 		break;
 	case TRAP_SLEEP:
-		if (cr_ptr->free_act) return TRUE;
+		if (creature_ptr->free_act) return TRUE;
 		break;
 	}
 
@@ -3881,7 +3880,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	int x = creature_ptr->fx + ddx[dir];
 
 	// Examine the destination
-	floor_type *floor_ptr = creature_ptr->floor_id ? &floor_list[creature_ptr->floor_id] : current_floor_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
@@ -4664,11 +4663,11 @@ static bool find_breakleft;
  *       #x#                 @x#
  *       @p.                  p
  */
-static void run_init(creature_type *cr_ptr, int dir)
+static void run_init(creature_type *creature_ptr, int dir)
 {
 	int             row, col, deepleft, deepright;
 	int             i, shortleft, shortright;
-
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Save the direction */
 	find_current = dir;
@@ -4686,37 +4685,37 @@ static void run_init(creature_type *cr_ptr, int dir)
 	deepleft = deepright = FALSE;
 	shortright = shortleft = FALSE;
 
-	cr_ptr->run_py = cr_ptr->fy;
-	cr_ptr->run_px = cr_ptr->fx;
+	creature_ptr->run_py = creature_ptr->fy;
+	creature_ptr->run_px = creature_ptr->fx;
 
 	/* Find the destination grid */
-	row = cr_ptr->fy + ddy[dir];
-	col = cr_ptr->fx + ddx[dir];
+	row = creature_ptr->fy + ddy[dir];
+	col = creature_ptr->fx + ddx[dir];
 
-	ignore_avoid_run = cave_have_flag_bold(current_floor_ptr, row, col, FF_AVOID_RUN);
+	ignore_avoid_run = cave_have_flag_bold(floor_ptr, row, col, FF_AVOID_RUN);
 
 	/* Extract cycle index */
 	i = chome[dir];
 
 	/* Check for walls */
-	if (see_wall(cr_ptr, cycle[i+1], cr_ptr->fy, cr_ptr->fx))
+	if (see_wall(creature_ptr, cycle[i+1], creature_ptr->fy, creature_ptr->fx))
 	{
 		find_breakleft = TRUE;
 		shortleft = TRUE;
 	}
-	else if (see_wall(cr_ptr, cycle[i+1], row, col))
+	else if (see_wall(creature_ptr, cycle[i+1], row, col))
 	{
 		find_breakleft = TRUE;
 		deepleft = TRUE;
 	}
 
 	/* Check for walls */
-	if (see_wall(cr_ptr, cycle[i-1], cr_ptr->fy, cr_ptr->fx))
+	if (see_wall(creature_ptr, cycle[i-1], creature_ptr->fy, creature_ptr->fx))
 	{
 		find_breakright = TRUE;
 		shortright = TRUE;
 	}
-	else if (see_wall(cr_ptr, cycle[i-1], row, col))
+	else if (see_wall(creature_ptr, cycle[i-1], row, col))
 	{
 		find_breakright = TRUE;
 		deepright = TRUE;
@@ -4742,7 +4741,7 @@ static void run_init(creature_type *cr_ptr, int dir)
 		}
 
 		/* Hack -- allow blunt corridor entry */
-		else if (see_wall(cr_ptr, cycle[i], row, col))
+		else if (see_wall(creature_ptr, cycle[i], row, col))
 		{
 			if (shortleft && !shortright)
 			{
@@ -5100,7 +5099,7 @@ static bool run_test(creature_type *creature_ptr)
 /*
  * Take one step along the current "run" path
  */
-void run_step(creature_type *cr_ptr, int dir)
+void run_step(creature_type *creature_ptr, int dir)
 {
 	/* Start running */
 	if (dir)
@@ -5109,7 +5108,7 @@ void run_step(creature_type *cr_ptr, int dir)
 		ignore_avoid_run = TRUE;
 
 		/* Hack -- do not start silly run */
-		if (see_wall(cr_ptr, dir, cr_ptr->fy, cr_ptr->fx))
+		if (see_wall(creature_ptr, dir, creature_ptr->fy, creature_ptr->fx))
 		{
 			/* Message */
 #ifdef JP
@@ -5126,14 +5125,14 @@ void run_step(creature_type *cr_ptr, int dir)
 		}
 
 		/* Initialize */
-		run_init(cr_ptr, dir);
+		run_init(creature_ptr, dir);
 	}
 
 	/* Keep running */
 	else
 	{
 		/* Update run */
-		if (run_test(cr_ptr))
+		if (run_test(creature_ptr))
 		{
 			/* Disturb */
 			disturb(player_ptr, 0, 0);
@@ -5152,18 +5151,18 @@ void run_step(creature_type *cr_ptr, int dir)
 	/* Move the player, using the "pickup" flag */
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-	move_creature(cr_ptr, find_current, FALSE, FALSE);
+	move_creature(creature_ptr, find_current, FALSE, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
-	move_creature(cr_ptr, find_current, always_pickup, FALSE);
+	move_creature(creature_ptr, find_current, always_pickup, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 
-	if (creature_bold(cr_ptr, cr_ptr->run_py, cr_ptr->run_px))
+	if (creature_bold(creature_ptr, creature_ptr->run_py, creature_ptr->run_px))
 	{
-		cr_ptr->run_py = 0;
-		cr_ptr->run_px = 0;
+		creature_ptr->run_py = 0;
+		creature_ptr->run_px = 0;
 		disturb(player_ptr, 0, 0);
 	}
 }
@@ -5262,19 +5261,18 @@ static bool travel_test(creature_type *creature_ptr)
 }
 
 
-/*
- * Travel command
- */
-void travel_step(creature_type *cr_ptr)
+// Travel command
+void travel_step(creature_type *creature_ptr)
 {
 	int i;
 	int dir = travel.dir;
 	int old_run = travel.run;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	find_prevdir = dir;
 
 	/* disturb */
-	if (travel_test(cr_ptr))
+	if (travel_test(creature_ptr))
 	{
 		if (travel.run == 255)
 		{
@@ -5294,24 +5292,24 @@ void travel_step(creature_type *cr_ptr)
 	{
 		if (i == 5) continue;
 
-		if (travel.cost[cr_ptr->fy+ddy[i]][cr_ptr->fx+ddx[i]] < travel.cost[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]])
+		if (travel.cost[creature_ptr->fy+ddy[i]][creature_ptr->fx+ddx[i]] < travel.cost[creature_ptr->fy+ddy[dir]][creature_ptr->fx+ddx[dir]])
 		{
 			dir = i;
 		}
 	}
 
 	/* Close door */
-	if (!easy_open && is_closed_door(current_floor_ptr->cave[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]].feat))
+	if (!easy_open && is_closed_door(floor_ptr->cave[creature_ptr->fy+ddy[dir]][creature_ptr->fx+ddx[dir]].feat))
 	{
 		disturb(player_ptr, 0, 0);
 		return;
 	}
 
 	travel.dir = dir;
-	move_creature(cr_ptr, dir, always_pickup, easy_disarm);
+	move_creature(creature_ptr, dir, always_pickup, easy_disarm);
 	travel.run = old_run;
 
-	if ((cr_ptr->fy == travel.y) && (cr_ptr->fx == travel.x))
+	if ((creature_ptr->fy == travel.y) && (creature_ptr->fx == travel.x))
 		travel.run = 0;
 	else
 		travel.run--;

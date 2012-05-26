@@ -5887,10 +5887,7 @@ bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, i
 	return TRUE;
 }
 
-
-/*
- * Drop all items carried by a creature
- */
+// Drop all items carried by a creature
 void creature_drop_carried_objects(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
