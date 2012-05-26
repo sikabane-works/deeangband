@@ -587,7 +587,7 @@ struct object_type
 {
 	s16b k_idx;			/* Kind index (zero if "dead") */
 
-	byte floor_idx;		/* floor */
+	byte floor_id;		/* floor */
 	byte fy;			/* Y-position on map, or zero */
 	byte fx;			/* X-position on map, or zero */
 

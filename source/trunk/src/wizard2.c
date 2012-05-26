@@ -1635,7 +1635,7 @@ static void do_cmd_wiz_floor_object_list(void)
 		{
 			object_desc(tmp, &object_list[i], 0);
 			sprintf(ce[i].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i,
-				object_list[i].floor_idx, object_list[i].fx, object_list[i].fy, tmp);
+				object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
 			ce[i].cap[72] = '\0'; 
 
 			ce[i].d_color = TERM_L_DARK;

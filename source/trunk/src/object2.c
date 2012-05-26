@@ -380,7 +380,7 @@ void wipe_object_list(int floor_id)
 
 		// Skip dead objects
 		if (!o_ptr->k_idx) continue;
-		if (floor_id && o_ptr->floor_idx != floor_id) continue;
+		if (floor_id && o_ptr->floor_id != floor_id) continue;
 
 		/* Mega-Hack -- preserve artifacts */
 		if (!floor_generated || preserve_mode)
@@ -3794,6 +3794,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 {
 	int prob, base;
 	byte obj_level;
+	floor_type *floor_ptr = get_floor_ptr(j_ptr);
 
 	/* Chance of "special object" */
 	prob = ((mode & AM_GOOD) ? 10 : 1000);
@@ -3857,8 +3858,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 	if (object_is_fixed_artifact(j_ptr)) obj_level = artifact_info[j_ptr->name1].level;
 
 	/* Notice "okay" out-of-depth objects */
-	if (!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) &&
-		(obj_level > current_floor_ptr->object_level))
+	if (!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) && (obj_level > floor_ptr->object_level))
 	{
 		/* Cheat -- peek at items */
 		if (cheat_peek) object_mention(j_ptr);

@@ -131,7 +131,7 @@ static void wr_item(object_type *o_ptr)
 	wr_s16b(o_ptr->k_idx);
 
 	/* Location */
-	wr_byte(o_ptr->floor_idx);
+	wr_byte(o_ptr->floor_id);
 	wr_byte(o_ptr->fy);
 	wr_byte(o_ptr->fx);
 
