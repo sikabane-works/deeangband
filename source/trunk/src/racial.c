@@ -15,7 +15,7 @@
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
  */
-static bool item_tester_hook_convertible(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_convertible(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if((o_ptr->tval==TV_JUNK) || (o_ptr->tval==TV_SKELETON)) return TRUE;
 
@@ -40,7 +40,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 	char com[80];
 	char o_name[MAX_NLEN];
 
-	floor_type *floor_ptr = creature_ptr->floor_id ? &floor_list[creature_ptr->floor_id] : current_floor_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	q_ptr = &forge;
 
@@ -303,7 +303,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool gain_magic(creature_type *cr_ptr)
+bool gain_magic(creature_type *creature_ptr)
 {
 	int item;
 	int pval;
@@ -321,12 +321,12 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -374,8 +374,8 @@ s = "魔力を取り込めるアイテムがない。";
 
 	if (o_ptr->tval == TV_ROD)
 	{
-		cr_ptr->magic_num2[o_ptr->sval + ext] += o_ptr->number;
-		if (cr_ptr->magic_num2[o_ptr->sval + ext] > 99) cr_ptr->magic_num2[o_ptr->sval + ext] = 99;
+		creature_ptr->magic_num2[o_ptr->sval + ext] += o_ptr->number;
+		if (creature_ptr->magic_num2[o_ptr->sval + ext] > 99) creature_ptr->magic_num2[o_ptr->sval + ext] = 99;
 	}
 	else
 	{
@@ -384,17 +384,17 @@ s = "魔力を取り込めるアイテムがない。";
 		{
 			int gain_num = pval;
 			if (o_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
-			if (cr_ptr->magic_num2[o_ptr->sval + ext])
+			if (creature_ptr->magic_num2[o_ptr->sval + ext])
 			{
 				gain_num *= 256;
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if (gain_num < 1) gain_num = 1;
 			}
-			cr_ptr->magic_num2[o_ptr->sval + ext] += gain_num;
-			if (cr_ptr->magic_num2[o_ptr->sval + ext] > 99) cr_ptr->magic_num2[o_ptr->sval + ext] = 99;
-			cr_ptr->magic_num1[o_ptr->sval + ext] += pval * 0x10000;
-			if (cr_ptr->magic_num1[o_ptr->sval + ext] > 99 * 0x10000) cr_ptr->magic_num1[o_ptr->sval + ext] = 99 * 0x10000;
-			if (cr_ptr->magic_num1[o_ptr->sval + ext] > cr_ptr->magic_num2[o_ptr->sval + ext] * 0x10000) cr_ptr->magic_num1[o_ptr->sval + ext] = cr_ptr->magic_num2[o_ptr->sval + ext] * 0x10000;
+			creature_ptr->magic_num2[o_ptr->sval + ext] += gain_num;
+			if (creature_ptr->magic_num2[o_ptr->sval + ext] > 99) creature_ptr->magic_num2[o_ptr->sval + ext] = 99;
+			creature_ptr->magic_num1[o_ptr->sval + ext] += pval * 0x10000;
+			if (creature_ptr->magic_num1[o_ptr->sval + ext] > 99 * 0x10000) creature_ptr->magic_num1[o_ptr->sval + ext] = 99 * 0x10000;
+			if (creature_ptr->magic_num1[o_ptr->sval + ext] > creature_ptr->magic_num2[o_ptr->sval + ext] * 0x10000) creature_ptr->magic_num1[o_ptr->sval + ext] = creature_ptr->magic_num2[o_ptr->sval + ext] * 0x10000;
 			if (o_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
 		}
 	}
@@ -410,16 +410,16 @@ s = "魔力を取り込めるアイテムがない。";
 	/* Eliminate the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -999);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -999);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */
 	else
 	{
 		floor_item_increase(0 - item, -999);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 	energy_use = 100;
@@ -427,9 +427,11 @@ s = "魔力を取り込めるアイテムがない。";
 }
 
 
-static bool can_do_cmd_cast(creature_type *cr_ptr)
+static bool can_do_cmd_cast(creature_type *creature_ptr)
 {
-	if (current_floor_ptr->floor_level && (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 	{
 #ifdef JP
 		msg_print("ダンジョンが魔法を吸収した！");
@@ -439,7 +441,7 @@ static bool can_do_cmd_cast(creature_type *cr_ptr)
 		msg_print(NULL);
 		return FALSE;
 	}
-	else if (cr_ptr->anti_magic)
+	else if (creature_ptr->anti_magic)
 	{
 #ifdef JP
 		msg_print("反魔法バリアが魔法を邪魔した！");
@@ -448,7 +450,7 @@ static bool can_do_cmd_cast(creature_type *cr_ptr)
 #endif
 		return FALSE;
 	}
-	else if (cr_ptr->shero)
+	else if (creature_ptr->shero)
 	{
 #ifdef JP
 		msg_format("狂戦士化していて頭が回らない！");
@@ -462,14 +464,14 @@ static bool can_do_cmd_cast(creature_type *cr_ptr)
 }
 
 
-static bool choose_kamae(creature_type *cr_ptr)
+static bool choose_kamae(creature_type *creature_ptr)
 {
 	char choice;
 	int new_kamae = 0;
 	int i;
 	char buf[80];
 
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -490,7 +492,7 @@ static bool choose_kamae(creature_type *cr_ptr)
 
 	for (i = 0; i < MAX_KAMAE; i++)
 	{
-		if (cr_ptr->lev >= kamae_shurui[i].min_level)
+		if (creature_ptr->lev >= kamae_shurui[i].min_level)
 		{
 			sprintf(buf," %c) %-12s  %s",I2A(i+1), kamae_shurui[i].desc, kamae_shurui[i].info);
 			prt(buf, 3+i, 20);
@@ -515,9 +517,9 @@ static bool choose_kamae(creature_type *cr_ptr)
 		}
 		else if ((choice == 'a') || (choice == 'A'))
 		{
-			if (cr_ptr->action == ACTION_KAMAE)
+			if (creature_ptr->action == ACTION_KAMAE)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -533,25 +535,25 @@ static bool choose_kamae(creature_type *cr_ptr)
 			new_kamae = 0;
 			break;
 		}
-		else if (((choice == 'c') || (choice == 'C')) && (cr_ptr->lev > 29))
+		else if (((choice == 'c') || (choice == 'C')) && (creature_ptr->lev > 29))
 		{
 			new_kamae = 1;
 			break;
 		}
-		else if (((choice == 'd') || (choice == 'D')) && (cr_ptr->lev > 34))
+		else if (((choice == 'd') || (choice == 'D')) && (creature_ptr->lev > 34))
 		{
 			new_kamae = 2;
 			break;
 		}
-		else if (((choice == 'e') || (choice == 'E')) && (cr_ptr->lev > 39))
+		else if (((choice == 'e') || (choice == 'E')) && (creature_ptr->lev > 39))
 		{
 			new_kamae = 3;
 			break;
 		}
 	}
-	set_action(cr_ptr, ACTION_KAMAE);
+	set_action(creature_ptr, ACTION_KAMAE);
 
-	if (cr_ptr->special_defense & (KAMAE_GENBU << new_kamae))
+	if (creature_ptr->special_defense & (KAMAE_GENBU << new_kamae))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -561,29 +563,29 @@ static bool choose_kamae(creature_type *cr_ptr)
 	}
 	else
 	{
-		cr_ptr->special_defense &= ~(KAMAE_MASK);
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->special_defense &= ~(KAMAE_MASK);
+		creature_ptr->creature_update |= (CRU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
 		msg_format("%sの構えをとった。",kamae_shurui[new_kamae].desc);
 #else
 		msg_format("You assume a posture of %s form.",kamae_shurui[new_kamae].desc);
 #endif
-		cr_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
+		creature_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
 	}
 	play_redraw |= PR_STATE;
 	screen_load();
 	return TRUE;
 }
 
-static bool choose_kata(creature_type *cr_ptr)
+static bool choose_kata(creature_type *creature_ptr)
 {
 	char choice;
 	int new_kata = 0;
 	int i;
 	char buf[80];
 
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -593,7 +595,7 @@ static bool choose_kata(creature_type *cr_ptr)
 		return FALSE;
 	}
 
-	if (cr_ptr->stun)
+	if (creature_ptr->stun)
 	{
 #ifdef JP
 		msg_print("意識がはっきりとしない。");
@@ -603,7 +605,7 @@ static bool choose_kata(creature_type *cr_ptr)
 		return FALSE;
 	}
 
-	if (cr_ptr->afraid)
+	if (creature_ptr->afraid)
 	{
 #ifdef JP
 		msg_print("体が震えて構えられない！");
@@ -624,7 +626,7 @@ static bool choose_kata(creature_type *cr_ptr)
 
 	for (i = 0; i < MAX_KATA; i++)
 	{
-		if (cr_ptr->lev >= kata_shurui[i].min_level)
+		if (creature_ptr->lev >= kata_shurui[i].min_level)
 		{
 #ifdef JP
 			sprintf(buf," %c) %sの型    %s",I2A(i+1), kata_shurui[i].desc, kata_shurui[i].info);
@@ -653,9 +655,9 @@ static bool choose_kata(creature_type *cr_ptr)
 		}
 		else if ((choice == 'a') || (choice == 'A'))
 		{
-			if (cr_ptr->action == ACTION_KATA)
+			if (creature_ptr->action == ACTION_KATA)
 			{
-				set_action(cr_ptr, ACTION_NONE);
+				set_action(creature_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -671,25 +673,25 @@ static bool choose_kata(creature_type *cr_ptr)
 			new_kata = 0;
 			break;
 		}
-		else if (((choice == 'c') || (choice == 'C')) && (cr_ptr->lev > 29))
+		else if (((choice == 'c') || (choice == 'C')) && (creature_ptr->lev > 29))
 		{
 			new_kata = 1;
 			break;
 		}
-		else if (((choice == 'd') || (choice == 'D')) && (cr_ptr->lev > 34))
+		else if (((choice == 'd') || (choice == 'D')) && (creature_ptr->lev > 34))
 		{
 			new_kata = 2;
 			break;
 		}
-		else if (((choice == 'e') || (choice == 'E')) && (cr_ptr->lev > 39))
+		else if (((choice == 'e') || (choice == 'E')) && (creature_ptr->lev > 39))
 		{
 			new_kata = 3;
 			break;
 		}
 	}
-	set_action(cr_ptr, ACTION_KATA);
+	set_action(creature_ptr, ACTION_KATA);
 
-	if (cr_ptr->special_defense & (KATA_IAI << new_kata))
+	if (creature_ptr->special_defense & (KATA_IAI << new_kata))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -699,14 +701,14 @@ static bool choose_kata(creature_type *cr_ptr)
 	}
 	else
 	{
-		cr_ptr->special_defense &= ~(KATA_MASK);
-		cr_ptr->creature_update |= (CRU_BONUS | PU_MONSTERS);
+		creature_ptr->special_defense &= ~(KATA_MASK);
+		creature_ptr->creature_update |= (CRU_BONUS | PU_MONSTERS);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
 #else
 		msg_format("You assume a posture of %s form.",kata_shurui[new_kata].desc);
 #endif
-		cr_ptr->special_defense |= (KATA_IAI << new_kata);
+		creature_ptr->special_defense |= (KATA_IAI << new_kata);
 	}
 	play_redraw |= (PR_STATE);
 	play_redraw |= (PR_STATUS);
@@ -731,7 +733,7 @@ struct power_desc_type
 /*
  * Returns the chance to activate a racial power/mutation
  */
-static int racial_chance(creature_type *cr_ptr, power_desc_type *pd_ptr)
+static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 {
 	s16b min_level  = pd_ptr->level;
 	int  difficulty = pd_ptr->fail;
@@ -739,10 +741,10 @@ static int racial_chance(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	int i;
 	int val;
 	int sum = 0;
-	int stat = cr_ptr->stat_cur[pd_ptr->stat];
+	int stat = creature_ptr->stat_cur[pd_ptr->stat];
 
 	/* No chance for success */
-	if ((cr_ptr->lev < min_level) || cr_ptr->confused)
+	if ((creature_ptr->lev < min_level) || creature_ptr->confused)
 	{
 		return (0);
 	}
@@ -750,13 +752,13 @@ static int racial_chance(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	if (difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if (cr_ptr->stun)
+	if (creature_ptr->stun)
 	{
-		difficulty += cr_ptr->stun;
+		difficulty += creature_ptr->stun;
 	}
-	else if (cr_ptr->lev > min_level)
+	else if (creature_ptr->lev > min_level)
 	{
-		int lev_adj = ((cr_ptr->lev - min_level) / 3);
+		int lev_adj = ((creature_ptr->lev - min_level) / 3);
 		if (lev_adj > 10) lev_adj = 10;
 		difficulty -= lev_adj;
 	}
@@ -786,7 +788,7 @@ static int  racial_cost;
  * Note: return value indicates that we have succesfully used the power
  * 1: Succeeded, 0: Cancelled, -1: Failed
  */
-static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
+static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 {
 	s16b min_level  = pd_ptr->level;
 	int  use_stat   = pd_ptr->stat;
@@ -796,10 +798,10 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	racial_cost = pd_ptr->cost;
 
 	/* Not enough mana - use hp */
-	if (cr_ptr->csp < racial_cost) use_hp = racial_cost - cr_ptr->csp;
+	if (creature_ptr->csp < racial_cost) use_hp = racial_cost - creature_ptr->csp;
 
 	/* Power is not available yet */
-	if (cr_ptr->lev < min_level)
+	if (creature_ptr->lev < min_level)
 	{
 #ifdef JP
 		msg_format("この能力を使用するにはレベル %d に達していなければなりません。", min_level);
@@ -812,7 +814,7 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* Too confused */
-	else if (cr_ptr->confused)
+	else if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していてその能力は使えない。");
@@ -825,7 +827,7 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* Risk death? */
-	else if (cr_ptr->chp < use_hp)
+	else if (creature_ptr->chp < use_hp)
 	{
 #ifdef JP
 		if (!get_check("本当に今の衰弱した状態でこの能力を使いますか？"))
@@ -842,13 +844,13 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 
 	if (difficulty)
 	{
-		if (cr_ptr->stun)
+		if (creature_ptr->stun)
 		{
-			difficulty += cr_ptr->stun;
+			difficulty += creature_ptr->stun;
 		}
-		else if (cr_ptr->lev > min_level)
+		else if (creature_ptr->lev > min_level)
 		{
-			int lev_adj = ((cr_ptr->lev - min_level) / 3);
+			int lev_adj = ((creature_ptr->lev - min_level) / 3);
 			if (lev_adj > 10) lev_adj = 10;
 			difficulty -= lev_adj;
 		}
@@ -860,7 +862,7 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 	energy_use = 100;
 
 	/* Success? */
-	if (randint1(cr_ptr->stat_cur[use_stat]) >=
+	if (randint1(creature_ptr->stat_cur[use_stat]) >=
 	    ((difficulty / 2) + randint1(difficulty / 2)))
 	{
 		return 1;
@@ -878,10 +880,10 @@ static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 
 
 
-static void ratial_stop_mouth(creature_type *cr_ptr)
+static void ratial_stop_mouth(creature_type *creature_ptr)
 {
-	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
-	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
+	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
 
@@ -2175,14 +2177,14 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 /*
  * Allow user to choose a power (racial / mutation) to activate
  */
-void do_cmd_racial_power(creature_type *cr_ptr)
+void do_cmd_racial_power(creature_type *creature_ptr)
 {
 	power_desc_type power_desc[36];
 	int             num, i = 0;
 	int             ask = TRUE;
-	int             lvl = cr_ptr->lev;
+	int             lvl = creature_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = ((cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
+	bool            warrior = ((creature_ptr->cls_idx == CLASS_WARRIOR || creature_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
@@ -2196,7 +2198,7 @@ void do_cmd_racial_power(creature_type *cr_ptr)
 
 	num = 0;
 
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて特殊能力を使えません！");
@@ -2208,15 +2210,15 @@ msg_print("混乱していて特殊能力を使えません！");
 		return;
 	}
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 
 	// Old Monster Only Spells
 
-	if (has_cf_creature(cr_ptr, CF_SHRIEK))
+	if (has_cf_creature(creature_ptr, CF_SHRIEK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "叫ぶ");
@@ -2226,7 +2228,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_SHRIEK;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DISPEL))
+	if (has_cf_creature(creature_ptr, CF_DISPEL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "魔力消去");
@@ -2236,7 +2238,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_DISPEL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_ACID))
+	if (has_cf_creature(creature_ptr, CF_BR_ACID))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "酸のブレス");
@@ -2246,7 +2248,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_ACID;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_ELEC))
+	if (has_cf_creature(creature_ptr, CF_BR_ELEC))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "電撃のブレス");
@@ -2256,7 +2258,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_ELEC;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_FIRE))
+	if (has_cf_creature(creature_ptr, CF_BR_FIRE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "火炎のブレス");
@@ -2266,7 +2268,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_FIRE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_COLD))
+	if (has_cf_creature(creature_ptr, CF_BR_COLD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "冷気のブレス");
@@ -2276,7 +2278,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_COLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_POIS))
+	if (has_cf_creature(creature_ptr, CF_BR_POIS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "毒のブレス");
@@ -2286,7 +2288,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_POIS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_NETH))
+	if (has_cf_creature(creature_ptr, CF_BR_NETH))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "地獄のブレス");
@@ -2296,7 +2298,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_NETH;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_LITE))
+	if (has_cf_creature(creature_ptr, CF_BR_LITE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "閃光のブレス");
@@ -2306,7 +2308,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_NETH;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_DARK))
+	if (has_cf_creature(creature_ptr, CF_BR_DARK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "暗黒のブレス");
@@ -2316,7 +2318,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_DARK;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_CONF))
+	if (has_cf_creature(creature_ptr, CF_BR_CONF))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "混乱のブレス");
@@ -2326,7 +2328,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_CONF;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_SOUN))
+	if (has_cf_creature(creature_ptr, CF_BR_SOUN))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "轟音のブレス");
@@ -2336,7 +2338,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_SOUN;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_CHAO))
+	if (has_cf_creature(creature_ptr, CF_BR_CHAO))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "混沌のブレス");
@@ -2346,7 +2348,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_CHAO;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_DISE))
+	if (has_cf_creature(creature_ptr, CF_BR_DISE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "劣化のブレス");
@@ -2356,7 +2358,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_DISE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_NEXU))
+	if (has_cf_creature(creature_ptr, CF_BR_NEXU))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "因果混乱のブレス");
@@ -2366,7 +2368,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_NEXU;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_TIME))
+	if (has_cf_creature(creature_ptr, CF_BR_TIME))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "時間逆転のブレス");
@@ -2376,7 +2378,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_TIME;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_INER))
+	if (has_cf_creature(creature_ptr, CF_BR_INER))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "遅鈍のブレス");
@@ -2386,7 +2388,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_INER;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_GRAV))
+	if (has_cf_creature(creature_ptr, CF_BR_GRAV))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "重力のブレス");
@@ -2396,7 +2398,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_GRAV;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_SHAR))
+	if (has_cf_creature(creature_ptr, CF_BR_SHAR))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "破片のブレス");
@@ -2406,7 +2408,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_SHAR;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_PLAS))
+	if (has_cf_creature(creature_ptr, CF_BR_PLAS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "プラズマのブレス");
@@ -2416,7 +2418,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_PLAS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_WALL))
+	if (has_cf_creature(creature_ptr, CF_BR_WALL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "フォースのブレス");
@@ -2426,7 +2428,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_WALL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_MANA))
+	if (has_cf_creature(creature_ptr, CF_BR_MANA))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "魔力のブレス");
@@ -2436,7 +2438,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_MANA;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_NUKE))
+	if (has_cf_creature(creature_ptr, CF_BA_NUKE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "放射能球");
@@ -2446,7 +2448,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_NUKE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_NUKE))
+	if (has_cf_creature(creature_ptr, CF_BR_NUKE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "放射能廃棄物のブレス");
@@ -2456,7 +2458,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_NUKE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_CHAO))
+	if (has_cf_creature(creature_ptr, CF_BA_CHAO))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ログルス球");
@@ -2466,7 +2468,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_CHAO;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BR_DISI))
+	if (has_cf_creature(creature_ptr, CF_BR_DISI))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "分解のブレス");
@@ -2476,7 +2478,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_DISI;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_ACID))
+	if (has_cf_creature(creature_ptr, CF_BA_ACID))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アシッド・ボール");
@@ -2486,7 +2488,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_ACID;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_ELEC))
+	if (has_cf_creature(creature_ptr, CF_BA_ELEC))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "サンダー・ボール");
@@ -2496,7 +2498,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_ELEC;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_FIRE))
+	if (has_cf_creature(creature_ptr, CF_BA_FIRE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ファイア・ボール");
@@ -2506,7 +2508,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_FIRE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_COLD))
+	if (has_cf_creature(creature_ptr, CF_BA_COLD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アイス・ボール");
@@ -2516,7 +2518,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_COLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_POIS))
+	if (has_cf_creature(creature_ptr, CF_BA_POIS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "悪臭雲");
@@ -2526,7 +2528,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_COLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_NETH))
+	if (has_cf_creature(creature_ptr, CF_BA_NETH))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "地獄球");
@@ -2536,7 +2538,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_NETH;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_WATE))
+	if (has_cf_creature(creature_ptr, CF_BA_WATE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ウォーター");
@@ -2546,7 +2548,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_WATE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_MANA))
+	if (has_cf_creature(creature_ptr, CF_BA_MANA))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "魔力の嵐");
@@ -2556,7 +2558,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_MANA;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_DARK))
+	if (has_cf_creature(creature_ptr, CF_BA_DARK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "暗黒の嵐");
@@ -2566,7 +2568,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_DARK;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DRAIN_MANA))
+	if (has_cf_creature(creature_ptr, CF_DRAIN_MANA))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "魔力吸収");
@@ -2576,7 +2578,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_DRAIN_MANA;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_MIND_BLAST))
+	if (has_cf_creature(creature_ptr, CF_MIND_BLAST))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "精神攻撃");
@@ -2586,7 +2588,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_MIND_BLAST;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BRAIN_SMASH))
+	if (has_cf_creature(creature_ptr, CF_BRAIN_SMASH))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "脳攻撃");
@@ -2596,7 +2598,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BRAIN_SMASH;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CAUSE_1))
+	if (has_cf_creature(creature_ptr, CF_CAUSE_1))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "軽症");
@@ -2606,7 +2608,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_CAUSE_1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CAUSE_2))
+	if (has_cf_creature(creature_ptr, CF_CAUSE_2))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "重症");
@@ -2616,7 +2618,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_CAUSE_2;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CAUSE_3))
+	if (has_cf_creature(creature_ptr, CF_CAUSE_3))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "致命傷");
@@ -2626,7 +2628,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_CAUSE_3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CAUSE_4))
+	if (has_cf_creature(creature_ptr, CF_CAUSE_4))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "秘孔を突く");
@@ -2636,7 +2638,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_CAUSE_4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_ACID))
+	if (has_cf_creature(creature_ptr, CF_BO_ACID))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アシッド・ボルト");
@@ -2646,7 +2648,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_ACID;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_ACID))
+	if (has_cf_creature(creature_ptr, CF_BO_ACID))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "サンダー・ボルト");
@@ -2656,7 +2658,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_ACID;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_FIRE))
+	if (has_cf_creature(creature_ptr, CF_BO_FIRE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ファイア・ボルト");
@@ -2666,7 +2668,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_FIRE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_COLD))
+	if (has_cf_creature(creature_ptr, CF_BO_COLD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アイス・ボルト");
@@ -2676,7 +2678,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_COLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BA_LITE))
+	if (has_cf_creature(creature_ptr, CF_BA_LITE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "スター・バースト");
@@ -2686,7 +2688,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_LITE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_NETH))
+	if (has_cf_creature(creature_ptr, CF_BO_NETH))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "地獄の矢");
@@ -2696,7 +2698,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_NETH;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_WATE))
+	if (has_cf_creature(creature_ptr, CF_BO_WATE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ウォーター・ボルト");
@@ -2706,7 +2708,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_WATE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_MANA))
+	if (has_cf_creature(creature_ptr, CF_BO_MANA))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "魔力の矢");
@@ -2716,7 +2718,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_MANA;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_PLAS))
+	if (has_cf_creature(creature_ptr, CF_BO_PLAS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "プラズマ・ボルト");
@@ -2726,7 +2728,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_PLAS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BO_ICEE))
+	if (has_cf_creature(creature_ptr, CF_BO_ICEE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "極寒の矢");
@@ -2736,7 +2738,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BO_ICEE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_MISSILE))
+	if (has_cf_creature(creature_ptr, CF_MISSILE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "マジック・ミサイル");
@@ -2746,7 +2748,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_MISSILE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SCARE))
+	if (has_cf_creature(creature_ptr, CF_SCARE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "恐慌");
@@ -2756,7 +2758,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_SCARE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BLIND))
+	if (has_cf_creature(creature_ptr, CF_BLIND))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "盲目");
@@ -2766,7 +2768,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BLIND;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CONF))
+	if (has_cf_creature(creature_ptr, CF_CONF))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "混乱");
@@ -2776,7 +2778,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_CONF;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SLOW))
+	if (has_cf_creature(creature_ptr, CF_SLOW))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "減速");
@@ -2786,7 +2788,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_SLOW;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HOLD))
+	if (has_cf_creature(creature_ptr, CF_HOLD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "スリープ");
@@ -2796,7 +2798,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_HOLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HASTE))
+	if (has_cf_creature(creature_ptr, CF_HASTE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "加速");
@@ -2806,7 +2808,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_HASTE;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HAND_DOOM))
+	if (has_cf_creature(creature_ptr, CF_HAND_DOOM))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "破滅の手");
@@ -2816,7 +2818,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_HAND_DOOM;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HEAL))
+	if (has_cf_creature(creature_ptr, CF_HEAL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "体力回復");
@@ -2826,7 +2828,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_HEAL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_INVULNER))
+	if (has_cf_creature(creature_ptr, CF_INVULNER))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "無傷球");
@@ -2836,7 +2838,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_INVULNER;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_INVULNER))
+	if (has_cf_creature(creature_ptr, CF_INVULNER))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "無傷球");
@@ -2846,7 +2848,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_INVULNER;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_MUTE_BLINK))
+	if (has_cf_creature(creature_ptr, CF_MUTE_BLINK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ショート・テレポート");
@@ -2856,7 +2858,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_MUTE_BLINK;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TPORT))
+	if (has_cf_creature(creature_ptr, CF_TPORT))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "テレポート");
@@ -2866,7 +2868,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TPORT;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_WORLD))
+	if (has_cf_creature(creature_ptr, CF_WORLD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ザ・ワールド");
@@ -2876,7 +2878,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_WORLD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SPECIAL))
+	if (has_cf_creature(creature_ptr, CF_SPECIAL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "特殊行動");
@@ -2886,7 +2888,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_SPECIAL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TELE_TO))
+	if (has_cf_creature(creature_ptr, CF_TELE_TO))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "引きよせる");
@@ -2896,7 +2898,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TELE_TO;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TELE_AWAY))
+	if (has_cf_creature(creature_ptr, CF_TELE_AWAY))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "テレポート・アウェイ");
@@ -2906,7 +2908,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TELE_AWAY;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TELE_LEVEL))
+	if (has_cf_creature(creature_ptr, CF_TELE_LEVEL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "テレポート・レベル");
@@ -2916,7 +2918,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TELE_LEVEL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_PSY_SPEAR))
+	if (has_cf_creature(creature_ptr, CF_PSY_SPEAR))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "光の剣");
@@ -2926,7 +2928,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_PSY_SPEAR;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DARKNESS))
+	if (has_cf_creature(creature_ptr, CF_DARKNESS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "暗闇生成");
@@ -2936,7 +2938,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_DARKNESS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TRAPS))
+	if (has_cf_creature(creature_ptr, CF_TRAPS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "トラップ生成");
@@ -2946,7 +2948,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TRAPS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TRAPS))
+	if (has_cf_creature(creature_ptr, CF_TRAPS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "記憶消去");
@@ -2956,7 +2958,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_TRAPS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RAISE_DEAD))
+	if (has_cf_creature(creature_ptr, CF_RAISE_DEAD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "死者復活");
@@ -2966,7 +2968,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_RAISE_DEAD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_KIN))
+	if (has_cf_creature(creature_ptr, CF_S_KIN))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "同族召喚");
@@ -2976,7 +2978,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_KIN;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_KIN))
+	if (has_cf_creature(creature_ptr, CF_S_KIN))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "サイバーデーモン召喚");
@@ -2986,7 +2988,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_KIN;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_MONSTER))
+	if (has_cf_creature(creature_ptr, CF_S_MONSTER))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "クリーチャー召喚");
@@ -2996,7 +2998,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_MONSTER;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_MONSTERS))
+	if (has_cf_creature(creature_ptr, CF_S_MONSTERS))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "クリーチャー複数召喚");
@@ -3006,7 +3008,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_MONSTERS;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_ANT))
+	if (has_cf_creature(creature_ptr, CF_S_ANT))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アリの召喚");
@@ -3016,7 +3018,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_ANT;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_SPIDER))
+	if (has_cf_creature(creature_ptr, CF_S_SPIDER))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "クモの召喚");
@@ -3026,7 +3028,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_SPIDER;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_HOUND))
+	if (has_cf_creature(creature_ptr, CF_S_HOUND))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ハウンドの召喚");
@@ -3036,7 +3038,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_HOUND;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_HYDRA))
+	if (has_cf_creature(creature_ptr, CF_S_HYDRA))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ヒドラの召喚");
@@ -3046,7 +3048,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_HYDRA;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_ANGEL))
+	if (has_cf_creature(creature_ptr, CF_S_ANGEL))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "天使の召喚");
@@ -3056,7 +3058,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_ANGEL;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_DEMON))
+	if (has_cf_creature(creature_ptr, CF_S_DEMON))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "悪魔の召喚");
@@ -3066,7 +3068,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_DEMON;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_UNDEAD))
+	if (has_cf_creature(creature_ptr, CF_S_UNDEAD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アンデッドの召喚");
@@ -3076,7 +3078,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_UNDEAD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_DRAGON))
+	if (has_cf_creature(creature_ptr, CF_S_DRAGON))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ドラゴンの召喚");
@@ -3086,7 +3088,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_DRAGON;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_HI_UNDEAD))
+	if (has_cf_creature(creature_ptr, CF_S_HI_UNDEAD))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "上級アンデッドの召喚");
@@ -3096,7 +3098,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_HI_UNDEAD;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_HI_DRAGON))
+	if (has_cf_creature(creature_ptr, CF_S_HI_DRAGON))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "古代ドラゴンの召喚");
@@ -3106,7 +3108,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_HI_DRAGON;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_AMBERITES))
+	if (has_cf_creature(creature_ptr, CF_S_AMBERITES))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "アンバーの血族の召喚");
@@ -3116,7 +3118,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_S_AMBERITES;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_S_UNIQUE))
+	if (has_cf_creature(creature_ptr, CF_S_UNIQUE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ユニークの召喚");
@@ -3129,7 +3131,7 @@ msg_print("混乱していて特殊能力を使えません！");
 
 
 	// Old Class Racials
-	if (has_cf_creature(cr_ptr, CF_SWORD_DANCING))
+	if (has_cf_creature(creature_ptr, CF_SWORD_DANCING))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "剣の舞い");
@@ -3144,7 +3146,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_STOP_HEX))
+	if (has_cf_creature(creature_ptr, CF_STOP_HEX))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "詠唱をやめる");
@@ -3158,7 +3160,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BLESS_WEAPON))
+	if (has_cf_creature(creature_ptr, CF_BLESS_WEAPON))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "武器祝福");
@@ -3172,7 +3174,7 @@ strcpy(power_desc[num].name, "武器祝福");
 			power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_EVOCATION))
+	if (has_cf_creature(creature_ptr, CF_EVOCATION))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "召魂");
@@ -3187,7 +3189,7 @@ strcpy(power_desc[num].name, "武器祝福");
 			power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SCAN_CREATURE))
+	if (has_cf_creature(creature_ptr, CF_SCAN_CREATURE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "クリーチャー調査");
@@ -3202,7 +3204,7 @@ strcpy(power_desc[num].name, "武器祝福");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HOLY_LANCE))
+	if (has_cf_creature(creature_ptr, CF_HOLY_LANCE))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "ホーリー・ランス");
@@ -3217,7 +3219,7 @@ strcpy(power_desc[num].name, "武器祝福");
 			power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HELL_LANCE))
+	if (has_cf_creature(creature_ptr, CF_HELL_LANCE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "ヘル・ランス");
@@ -3232,7 +3234,7 @@ strcpy(power_desc[num].name, "武器祝福");
 			power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_HP_TO_SP_INT))
+	if (has_cf_creature(creature_ptr, CF_HP_TO_SP_INT))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "変換: ＨＰ→ＭＰ");
@@ -3247,7 +3249,7 @@ strcpy(power_desc[num].name, "武器祝福");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SP_TO_HP_INT))
+	if (has_cf_creature(creature_ptr, CF_SP_TO_HP_INT))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "変換: ＭＰ→ＨＰ");
@@ -3262,7 +3264,7 @@ strcpy(power_desc[num].name, "変換: ＭＰ→ＨＰ");
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CONFUSING_LIGHT))
+	if (has_cf_creature(creature_ptr, CF_CONFUSING_LIGHT))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "幻惑の光");
@@ -3277,7 +3279,7 @@ strcpy(power_desc[num].name, "幻惑の光");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_POSTURE))
+	if (has_cf_creature(creature_ptr, CF_POSTURE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "構える");
@@ -3291,7 +3293,7 @@ strcpy(power_desc[num].name, "構える");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DOUBLE_ATTACK))
+	if (has_cf_creature(creature_ptr, CF_DOUBLE_ATTACK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "百裂拳");
@@ -3305,7 +3307,7 @@ strcpy(power_desc[num].name, "構える");
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CLEAR_MIND))
+	if (has_cf_creature(creature_ptr, CF_CLEAR_MIND))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "明鏡止水");
@@ -3320,7 +3322,7 @@ strcpy(power_desc[num].name, "明鏡止水");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_TAKE_PHOTO))
+	if (has_cf_creature(creature_ptr, CF_TAKE_PHOTO))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "写真撮影");
@@ -3334,7 +3336,7 @@ strcpy(power_desc[num].name, "写真撮影");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_IDENTIFY_TRUE))
+	if (has_cf_creature(creature_ptr, CF_IDENTIFY_TRUE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "真・鑑定");
@@ -3349,7 +3351,7 @@ strcpy(power_desc[num].name, "写真撮影");
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DOUBLE_REVENGE))
+	if (has_cf_creature(creature_ptr, CF_DOUBLE_REVENGE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "倍返し");
@@ -3364,7 +3366,7 @@ strcpy(power_desc[num].name, "倍返し");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DOMINATE_LIVE))
+	if (has_cf_creature(creature_ptr, CF_DOMINATE_LIVE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "生物支配");
@@ -3373,14 +3375,14 @@ strcpy(power_desc[num].name, "生物支配");
 #endif
 
 		power_desc[num].level = 1;
-		power_desc[num].cost = (cr_ptr->lev+3)/4;
+		power_desc[num].cost = (creature_ptr->lev+3)/4;
 		power_desc[num].stat = STAT_CHA;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 	}
 
 
-	if (has_cf_creature(cr_ptr, CF_DOMINATE_LIVES))
+	if (has_cf_creature(creature_ptr, CF_DOMINATE_LIVES))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "真・生物支配");
@@ -3389,13 +3391,13 @@ strcpy(power_desc[num].name, "真・生物支配");
 #endif
 
 		power_desc[num].level = 30;
-		power_desc[num].cost = (cr_ptr->lev+20)/2;
+		power_desc[num].cost = (creature_ptr->lev+20)/2;
 		power_desc[num].stat = STAT_CHA;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CREATE_AMMO))
+	if (has_cf_creature(creature_ptr, CF_CREATE_AMMO))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "弾/矢の製造");
@@ -3410,7 +3412,7 @@ strcpy(power_desc[num].name, "弾/矢の製造");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ABSORB_MAGIC))
+	if (has_cf_creature(creature_ptr, CF_ABSORB_MAGIC))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "魔力の取り込み");
@@ -3425,7 +3427,7 @@ strcpy(power_desc[num].name, "魔力の取り込み");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_STOP_SINGING))
+	if (has_cf_creature(creature_ptr, CF_STOP_SINGING))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "歌を止める");
@@ -3440,7 +3442,7 @@ strcpy(power_desc[num].name, "歌を止める");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DOUBLE_MAGIC))
+	if (has_cf_creature(creature_ptr, CF_DOUBLE_MAGIC))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "連続魔");
@@ -3455,7 +3457,7 @@ strcpy(power_desc[num].name, "連続魔");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_CONCENTRATION))
+	if (has_cf_creature(creature_ptr, CF_CONCENTRATION))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "気合いため");
@@ -3471,7 +3473,7 @@ strcpy(power_desc[num].name, "気合いため");
 	}
 
 
-	if (has_cf_creature(cr_ptr, CF_POSTURE2))
+	if (has_cf_creature(creature_ptr, CF_POSTURE2))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "型");
@@ -3485,7 +3487,7 @@ strcpy(power_desc[num].name, "型");
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_LEARNING))
+	if (has_cf_creature(creature_ptr, CF_LEARNING))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "ラーニング");
@@ -3500,7 +3502,7 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RODEO))
+	if (has_cf_creature(creature_ptr, CF_RODEO))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "荒馬ならし");
@@ -3515,7 +3517,7 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BREAK_MIRROR))
+	if (has_cf_creature(creature_ptr, CF_BREAK_MIRROR))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "鏡割り");
@@ -3530,7 +3532,7 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_MIRROR_CONC))
+	if (has_cf_creature(creature_ptr, CF_MIRROR_CONC))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "静水");
@@ -3544,7 +3546,7 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -4;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_WEAPON_JUDGE))
+	if (has_cf_creature(creature_ptr, CF_WEAPON_JUDGE))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "目利き");
@@ -3559,7 +3561,7 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -3;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_QUICK_WALK))
+	if (has_cf_creature(creature_ptr, CF_QUICK_WALK))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "速駆け");
@@ -3573,9 +3575,9 @@ strcpy(power_desc[num].name, "ラーニング");
 		power_desc[num++].number = -3;
 	}
 
-	if (cr_ptr->mimic_form)
+	if (creature_ptr->mimic_form)
 	{
-		switch (cr_ptr->mimic_form)
+		switch (creature_ptr->mimic_form)
 		{
 		case MIMIC_DEMON:
 		case MIMIC_DEMON_LORD:
@@ -3608,7 +3610,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 	}
 
 
-	if (has_cf_creature(cr_ptr, CF_DETECT_DOOR_TRAP))
+	if (has_cf_creature(creature_ptr, CF_DETECT_DOOR_TRAP))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "ドアと罠 感知");
@@ -3624,7 +3626,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 	}
 
 
-	if (has_cf_creature(cr_ptr, CF_CREATE_FOOD))
+	if (has_cf_creature(creature_ptr, CF_CREATE_FOOD))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "食糧生成");
@@ -3640,7 +3642,7 @@ strcpy(power_desc[num].name, "食糧生成");
 	}
 
 
-	if (has_cf_creature(cr_ptr, CF_SHADOW_SHIFT))
+	if (has_cf_creature(creature_ptr, CF_SHADOW_SHIFT))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "シャドウ・シフト");
@@ -3655,7 +3657,7 @@ strcpy(power_desc[num].name, "シャドウ・シフト");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_PATTERN_WALK))
+	if (has_cf_creature(creature_ptr, CF_PATTERN_WALK))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "パターン・ウォーク");
@@ -3670,7 +3672,7 @@ strcpy(power_desc[num].name, "シャドウ・シフト");
 			power_desc[num++].number = -2;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_EXPLOSIVE_RUNE))
+	if (has_cf_creature(creature_ptr, CF_EXPLOSIVE_RUNE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "爆発のルーン");
@@ -3685,7 +3687,7 @@ strcpy(power_desc[num].name, "爆発のルーン");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_STONE_TO_MUD))
+	if (has_cf_creature(creature_ptr, CF_STONE_TO_MUD))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "岩石溶解");
@@ -3700,7 +3702,7 @@ strcpy(power_desc[num].name, "岩石溶解");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_THROW_BOULDER))
+	if (has_cf_creature(creature_ptr, CF_THROW_BOULDER))
 	{
 #ifdef JP
 sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
@@ -3715,7 +3717,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SCARE_MONSTER))
+	if (has_cf_creature(creature_ptr, CF_SCARE_MONSTER))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "モンスター恐慌");
@@ -3730,7 +3732,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_POISON_DART))
+	if (has_cf_creature(creature_ptr, CF_POISON_DART))
 	{
 #ifdef JP
 			sprintf(power_desc[num].name, "毒のダーツ (ダメージ %d)", lvl);
@@ -3745,7 +3747,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_STONE_SKIN))
+	if (has_cf_creature(creature_ptr, CF_STONE_SKIN))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
@@ -3760,7 +3762,7 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RESTORE_LIFE))
+	if (has_cf_creature(creature_ptr, CF_RESTORE_LIFE))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "経験値復活");
@@ -3775,7 +3777,7 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_DRAIN_LIFE))
+	if (has_cf_creature(creature_ptr, CF_DRAIN_LIFE))
 	{
 #ifdef JP
 			strcpy(power_desc[num].name, "生命力吸収");
@@ -3790,7 +3792,7 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_SLEEPING_DUST))
+	if (has_cf_creature(creature_ptr, CF_SLEEPING_DUST))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "眠り粉");
@@ -3805,7 +3807,7 @@ strcpy(power_desc[num].name, "眠り粉");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_EXPAND_HLIZN))
+	if (has_cf_creature(creature_ptr, CF_EXPAND_HLIZN))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "横に伸びる");
@@ -3820,7 +3822,7 @@ strcpy(power_desc[num].name, "横に伸びる");
 			power_desc[num++].number = -1;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_RAY_GUN))
+	if (has_cf_creature(creature_ptr, CF_RAY_GUN))
 	{
 #ifdef JP
 				strcpy(power_desc[num].name, "レイガン");
@@ -3829,7 +3831,7 @@ strcpy(power_desc[num].name, "横に伸びる");
 #endif
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BLASTER))
+	if (has_cf_creature(creature_ptr, CF_BLASTER))
 	{
 #ifdef JP
 				strcpy(power_desc[num].name, "ブラスター");
@@ -3841,7 +3843,7 @@ strcpy(power_desc[num].name, "横に伸びる");
 				power_desc[num].fail = 10;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BAZOOKA))
+	if (has_cf_creature(creature_ptr, CF_BAZOOKA))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "バズーカ");
@@ -3854,7 +3856,7 @@ strcpy(power_desc[num].name, "バズーカ");
 				power_desc[num].fail = 12;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_BEAM_CANNON))
+	if (has_cf_creature(creature_ptr, CF_BEAM_CANNON))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "ビームキャノン");
@@ -3867,7 +3869,7 @@ strcpy(power_desc[num].name, "ビームキャノン");
 				power_desc[num].fail = 15;
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ROCKET))
+	if (has_cf_creature(creature_ptr, CF_ROCKET))
 	{
 #ifdef JP
 				strcpy(power_desc[num].name, "ロケット");
@@ -3882,7 +3884,7 @@ strcpy(power_desc[num].name, "ビームキャノン");
 				power_desc[num++].number = -1;
 	}
 
-		if (has_cf_creature(cr_ptr, CF_SPIT_ACID))
+		if (has_cf_creature(creature_ptr, CF_SPIT_ACID))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "酸の唾");
@@ -3897,7 +3899,7 @@ strcpy(power_desc[num].name, "酸の唾");
 			power_desc[num++].number = CF_SPIT_ACID;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_BR_FIRE))
+		if (has_cf_creature(creature_ptr, CF_BR_FIRE))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "炎のブレス");
@@ -3912,7 +3914,7 @@ strcpy(power_desc[num].name, "炎のブレス");
 			power_desc[num++].number = CF_BR_FIRE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_HYPN_GAZE))
+		if (has_cf_creature(creature_ptr, CF_HYPN_GAZE))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "催眠睨み");
@@ -3927,7 +3929,7 @@ strcpy(power_desc[num].name, "催眠睨み");
 			power_desc[num++].number = CF_HYPN_GAZE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_TELEKINES))
+		if (has_cf_creature(creature_ptr, CF_TELEKINES))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "念動力");
@@ -3942,7 +3944,7 @@ strcpy(power_desc[num].name, "念動力");
 			power_desc[num++].number = CF_TELEKINES;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_VTELEPORT))
+		if (has_cf_creature(creature_ptr, CF_VTELEPORT))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "テレポート");
@@ -3957,7 +3959,7 @@ strcpy(power_desc[num].name, "テレポート");
 			power_desc[num++].number = CF_VTELEPORT;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_MIND_BLST))
+		if (has_cf_creature(creature_ptr, CF_MIND_BLST))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "精神攻撃");
@@ -3972,7 +3974,7 @@ strcpy(power_desc[num].name, "精神攻撃");
 			power_desc[num++].number = CF_MIND_BLST;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_RADIATION))
+		if (has_cf_creature(creature_ptr, CF_RADIATION))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "放射能");
@@ -3987,7 +3989,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_RADIATION;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_VAMPIRISM))
+		if (has_cf_creature(creature_ptr, CF_VAMPIRISM))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "吸血ドレイン");
@@ -4002,7 +4004,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_VAMPIRISM;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SMELL_MET))
+		if (has_cf_creature(creature_ptr, CF_SMELL_MET))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "金属嗅覚");
@@ -4017,7 +4019,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_SMELL_MET;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SMELL_MON))
+		if (has_cf_creature(creature_ptr, CF_SMELL_MON))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "敵臭嗅覚");
@@ -4032,7 +4034,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_SMELL_MON;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_BLINK))
+		if (has_cf_creature(creature_ptr, CF_BLINK))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "ショート・テレポート");
@@ -4047,7 +4049,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_BLINK;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_EAT_ROCK))
+		if (has_cf_creature(creature_ptr, CF_EAT_ROCK))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "岩食い");
@@ -4062,7 +4064,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_EAT_ROCK;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SWAP_POS))
+		if (has_cf_creature(creature_ptr, CF_SWAP_POS))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "位置交換");
@@ -4077,7 +4079,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_SWAP_POS;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SHRIEK))
+		if (has_cf_creature(creature_ptr, CF_SHRIEK))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "叫び");
@@ -4092,7 +4094,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_SHRIEK;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_ILLUMINE))
+		if (has_cf_creature(creature_ptr, CF_ILLUMINE))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "照明");
@@ -4107,7 +4109,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_ILLUMINE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_DET_CURSE))
+		if (has_cf_creature(creature_ptr, CF_DET_CURSE))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "呪い感知");
@@ -4122,7 +4124,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_DET_CURSE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_BERSERK))
+		if (has_cf_creature(creature_ptr, CF_BERSERK))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "狂戦士化");
@@ -4137,7 +4139,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_BERSERK;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_POLYMORPH))
+		if (has_cf_creature(creature_ptr, CF_POLYMORPH))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "変身");
@@ -4152,7 +4154,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_POLYMORPH;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_MIDAS_TCH))
+		if (has_cf_creature(creature_ptr, CF_MIDAS_TCH))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "ミダスの手");
@@ -4167,7 +4169,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_MIDAS_TCH;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_GROW_MOLD))
+		if (has_cf_creature(creature_ptr, CF_GROW_MOLD))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "カビ発生");
@@ -4182,7 +4184,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_GROW_MOLD;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_RESIST))
+		if (has_cf_creature(creature_ptr, CF_RESIST))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "エレメント耐性");
@@ -4197,7 +4199,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_RESIST;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_EARTHQUAKE))
+		if (has_cf_creature(creature_ptr, CF_EARTHQUAKE))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "地震");
@@ -4212,7 +4214,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_EARTHQUAKE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_EAT_MAGIC))
+		if (has_cf_creature(creature_ptr, CF_EAT_MAGIC))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "魔力食い");
@@ -4227,7 +4229,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_EAT_MAGIC;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_WEIGH_MAG))
+		if (has_cf_creature(creature_ptr, CF_WEIGH_MAG))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "魔力感知");
@@ -4242,7 +4244,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_WEIGH_MAG;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_STERILITY))
+		if (has_cf_creature(creature_ptr, CF_STERILITY))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "増殖阻止");
@@ -4257,7 +4259,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_STERILITY;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_PANIC_HIT))
+		if (has_cf_creature(creature_ptr, CF_PANIC_HIT))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "ヒット＆アウェイ");
@@ -4272,7 +4274,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_PANIC_HIT;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_DAZZLE))
+		if (has_cf_creature(creature_ptr, CF_DAZZLE))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "眩惑");
@@ -4287,7 +4289,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_DAZZLE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_LASER_EYE))
+		if (has_cf_creature(creature_ptr, CF_LASER_EYE))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "レーザー・アイ");
@@ -4302,7 +4304,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_LASER_EYE;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_RECALL))
+		if (has_cf_creature(creature_ptr, CF_RECALL))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "帰還");
@@ -4317,7 +4319,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_RECALL;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_BANISH))
+		if (has_cf_creature(creature_ptr, CF_BANISH))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "邪悪消滅");
@@ -4332,7 +4334,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_BANISH;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_COLD_TOUCH))
+		if (has_cf_creature(creature_ptr, CF_COLD_TOUCH))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "凍結の手");
@@ -4347,7 +4349,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = CF_COLD_TOUCH;
 		}
 
-		if (has_cf_creature(cr_ptr, CF_LAUNCHER))
+		if (has_cf_creature(creature_ptr, CF_LAUNCHER))
 		{
 #ifdef JP
 			strcpy(power_desc[num].name, "アイテム投げ");
@@ -4504,7 +4506,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 					}
 					strcat(dummy, format("%-23.23s %2d %4d %3d%%",
 						power_desc[ctr].name, power_desc[ctr].level, power_desc[ctr].cost,
-						100 - racial_chance(cr_ptr, &power_desc[ctr])));
+						100 - racial_chance(creature_ptr, &power_desc[ctr])));
 					prt(dummy, y1, x1);
 					ctr++;
 				}
@@ -4591,13 +4593,13 @@ prt("                            Lv   MP 失率                            Lv   MP
 	repeat_push(i);
 	} /*if (!repeat_pull(&i) || ...)*/
 #endif /* ALLOW_REPEAT */
-	switch (racial_aux(cr_ptr, &power_desc[i]))
+	switch (racial_aux(creature_ptr, &power_desc[i]))
 	{
 	case 1:
 		if (power_desc[i].number < 0)
-			cast = cmd_racial_power_aux(cr_ptr, power_desc[i].number);
+			cast = cmd_racial_power_aux(creature_ptr, power_desc[i].number);
 		else
-			cast = mutation_power_aux(cr_ptr,power_desc[i].number);
+			cast = mutation_power_aux(creature_ptr,power_desc[i].number);
 		break;
 	case 0:
 		cast = FALSE;
@@ -4614,17 +4616,17 @@ prt("                            Lv   MP 失率                            Lv   MP
 			int actual_racial_cost = racial_cost / 2 + randint1(racial_cost / 2);
 
 			/* If mana is not enough, player consumes hit point! */
-			if (cr_ptr->csp < actual_racial_cost)
+			if (creature_ptr->csp < actual_racial_cost)
 			{
-				actual_racial_cost -= cr_ptr->csp;
-				cr_ptr->csp = 0;
+				actual_racial_cost -= creature_ptr->csp;
+				creature_ptr->csp = 0;
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, actual_racial_cost, "過度の集中", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "過度の集中", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
 #endif
 			}
-			else cr_ptr->csp -= actual_racial_cost;
+			else creature_ptr->csp -= actual_racial_cost;
 
 			/* Redraw mana and hp */
 			play_redraw |= (PR_HP | PR_MANA);

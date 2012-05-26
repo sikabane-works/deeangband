@@ -1691,8 +1691,8 @@ s16b get_species_num(int level)
 
 	if ((dungeon_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
 	{
-		pls_kakuritu = MAX(2, NASTY_MON-((dungeon_turn/(TURNS_PER_TICK*2500L)-hoge/10)));
-		pls_level = MIN(8,3 + dungeon_turn/(TURNS_PER_TICK*20000L)-hoge/40);
+		pls_kakuritu = MAX(2, NASTY_MON - ((dungeon_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+		pls_level = MIN(8, 3 + dungeon_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
 	}
 	else
 	{
@@ -1702,7 +1702,7 @@ s16b get_species_num(int level)
 
 	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
-		pls_kakuritu = MIN(pls_kakuritu/2, pls_kakuritu-10);
+		pls_kakuritu = MIN(pls_kakuritu / 2, pls_kakuritu - 10);
 		if (pls_kakuritu < 2) pls_kakuritu = 2;
 		pls_level += 2;
 		level += 3;
