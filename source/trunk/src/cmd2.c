@@ -4603,11 +4603,12 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 }
 
 
-static void travel_flow(creature_type *cr_ptr, int ty, int tx)
+static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 {
 	int x, y, d;
 	bool wall = FALSE;
-	feature_type *f_ptr = &f_info[current_floor_ptr->cave[ty][tx].feat];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	feature_type *f_ptr = &f_info[floor_ptr->cave[ty][tx].feat];
 
 	/* Reset the "queue" */
 	flow_head = flow_tail = 0;
@@ -4615,7 +4616,7 @@ static void travel_flow(creature_type *cr_ptr, int ty, int tx)
 	if (!have_flag(f_ptr->flags, FF_MOVE)) wall = TRUE;
 
 	/* Add the player's grid to the queue */
-	wall = travel_flow_aux(cr_ptr, ty, tx, 0, wall);
+	wall = travel_flow_aux(creature_ptr, ty, tx, 0, wall);
 
 	/* Now process the queue */
 	while (flow_head != flow_tail)
@@ -4631,7 +4632,7 @@ static void travel_flow(creature_type *cr_ptr, int ty, int tx)
 		for (d = 0; d < 8; d++)
 		{
 			/* Add that child if "legal" */
-			wall = travel_flow_aux(cr_ptr, y + ddy_ddd[d], x + ddx_ddd[d], travel.cost[y][x] + 1, wall);
+			wall = travel_flow_aux(creature_ptr, y + ddy_ddd[d], x + ddx_ddd[d], travel.cost[y][x] + 1, wall);
 		}
 	}
 
