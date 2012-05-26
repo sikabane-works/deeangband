@@ -2747,65 +2747,66 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
  * SWD: Experimental modification: multiple light sources have additive effect.
  *
  */
-static void calc_lite(creature_type *cr_ptr)
+static void calc_lite(creature_type *creature_ptr)
 {
 	int i;
 	object_type *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	// Assume no light
-	cr_ptr->cur_lite = 0;
+	creature_ptr->cur_lite = 0;
 
 	// Loop through all wielded items
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		// Examine actual lites
-		if (GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_LITE && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
+		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_LITE && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
 		{
 			if (o_ptr->name2 == EGO_LITE_DARKNESS)
 			{
 				if (o_ptr->sval == SV_LITE_TORCH)
 				{
-					cr_ptr->cur_lite -= 2;
+					creature_ptr->cur_lite -= 2;
 				}
 
 				// Lanterns (with fuel) provide more lite
 				else if (o_ptr->sval == SV_LITE_LANTERN)
 				{
-					cr_ptr->cur_lite -= 2;
+					creature_ptr->cur_lite -= 2;
 				}
 
 				else if (o_ptr->sval == SV_LITE_FEANOR)
 				{
-					cr_ptr->cur_lite -= 3;
+					creature_ptr->cur_lite -= 3;
 				}
 			}
 			/* Torches (with fuel) provide some lite */
 			else if ((o_ptr->sval == SV_LITE_TORCH) && (o_ptr->xtra4 > 0))
 			{
-				cr_ptr->cur_lite += 2;
+				creature_ptr->cur_lite += 2;
 			}
 
 			/* Lanterns (with fuel) provide more lite */
 			else if ((o_ptr->sval == SV_LITE_LANTERN) && (o_ptr->xtra4 > 0))
 			{
-				cr_ptr->cur_lite += 2;
+				creature_ptr->cur_lite += 2;
 			}
 
 			else if (o_ptr->sval == SV_LITE_FEANOR || o_ptr->sval == SV_LITE_UDUN)
 			{
-				cr_ptr->cur_lite += 3;
+				creature_ptr->cur_lite += 3;
 			}
 
 			/* Artifact Lites provide permanent, bright, lite */
 			else if (object_is_fixed_artifact(o_ptr))
 			{
-				cr_ptr->cur_lite += 4;
+				creature_ptr->cur_lite += 4;
 			}
 
-			if (o_ptr->name2 == EGO_LITE_SHINE) cr_ptr->cur_lite++;
+			if (o_ptr->name2 == EGO_LITE_SHINE) creature_ptr->cur_lite++;
 		}
 		else
 		{
@@ -2818,8 +2819,8 @@ static void calc_lite(creature_type *cr_ptr)
 			/* does this item glow? */
 			if (have_flag(flgs, TR_LITE))
 			{
-				if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT)) cr_ptr->cur_lite--;
-				else cr_ptr->cur_lite++;
+				if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
+				else creature_ptr->cur_lite++;
 			}
 		}
 
@@ -2827,32 +2828,32 @@ static void calc_lite(creature_type *cr_ptr)
 
 	/* max radius is 14 (was 5) without rewriting other code -- */
 	/* see cave.c:update_lite() and defines.h:LITE_MAX */
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS && cr_ptr->cur_lite > 1)
-		cr_ptr->cur_lite = 1;
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS && creature_ptr->cur_lite > 1)
+		creature_ptr->cur_lite = 1;
 
 	/*
 	 * check if the player doesn't have light radius, 
 	 * but does weakly glow as an intrinsic.
 	 */
-	if (cr_ptr->cur_lite <= 0 && cr_ptr->lite) cr_ptr->cur_lite++;
+	if (creature_ptr->cur_lite <= 0 && creature_ptr->lite) creature_ptr->cur_lite++;
 
-	if (cr_ptr->cur_lite > 14) cr_ptr->cur_lite = 14;
-	if (cr_ptr->cur_lite < 0) cr_ptr->cur_lite = 0;
+	if (creature_ptr->cur_lite > 14) creature_ptr->cur_lite = 14;
+	if (creature_ptr->cur_lite < 0) creature_ptr->cur_lite = 0;
 
 	/* end experimental mods */
 
 	/* Notice changes in the "lite radius" */
-	if (cr_ptr->old_lite != cr_ptr->cur_lite)
+	if (creature_ptr->old_lite != creature_ptr->cur_lite)
 	{
 		/* Update stuff */
 		/* Hack -- PU_MON_LITE for monsters' darkness */
 		update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
 
 		/* Remember the old lite */
-		cr_ptr->old_lite = cr_ptr->cur_lite;
+		creature_ptr->old_lite = creature_ptr->cur_lite;
 
-		if ((cr_ptr->cur_lite > 0) && (cr_ptr->special_defense & NINJA_S_STEALTH))
-			set_superstealth(cr_ptr, FALSE);
+		if ((creature_ptr->cur_lite > 0) && (creature_ptr->special_defense & NINJA_S_STEALTH))
+			set_superstealth(creature_ptr, FALSE);
 	}
 }
 
