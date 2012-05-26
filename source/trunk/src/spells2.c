@@ -4774,9 +4774,10 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	int  i;
 	char typ;
 	bool result = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	/* Prevent genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -4858,9 +4859,10 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 {
 	int  i;
 	bool result = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(current_floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
+	if ((inside_quest && !random_quest_number(floor_ptr->floor_level)) || fight_arena_mode || gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -5959,6 +5961,7 @@ void discharge_minion(creature_type *caster_ptr)
 static void cave_temp_room_lite(creature_type *lite_ptr)
 {
 	int i;
+	floor_type *floor_ptr = get_floor_ptr(lite_ptr);
 
 	/* Clear them all */
 	for (i = 0; i < temp_n; i++)
@@ -5966,7 +5969,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		int y = temp_y[i];
 		int x = temp_x[i];
 
-		cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+		cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 		/* No longer in the array */
 		c_ptr->info &= ~(CAVE_TEMP);
@@ -6025,7 +6028,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		/* Redraw */
 		lite_spot(y, x);
 
-		update_local_illumination(current_floor_ptr, y, x);
+		update_local_illumination(floor_ptr, y, x);
 	}
 
 	/* None left */
@@ -6306,6 +6309,7 @@ static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 void lite_room(creature_type *creature_ptr, int y1, int x1)
 {
 	int i, x, y;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Add the initial grid */
 	cave_temp_lite_room_aux(creature_ptr, y1, x1);
@@ -6316,7 +6320,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 		x = temp_x[i], y = temp_y[i];
 
 		/* Walls get lit, but stop light */
-		if (!cave_pass_lite_bold(current_floor_ptr, y, x)) continue;
+		if (!cave_pass_lite_bold(floor_ptr, y, x)) continue;
 
 		/* Spread adjacent */
 		cave_temp_lite_room_aux(creature_ptr, y + 1, x);
@@ -6336,7 +6340,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 
 	if (creature_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
+		if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
 }
 
