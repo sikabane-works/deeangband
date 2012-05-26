@@ -1680,6 +1680,7 @@ s16b get_species_num(int level)
 	int i, j, p;
 	int species_idx;
 	long value, total;
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	species_type *r_ptr;
 	alloc_entry *table = alloc_race_table;
@@ -1700,7 +1701,7 @@ s16b get_species_num(int level)
 		pls_level = 2;
 	}
 
-	if (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_MAZE)
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
 		pls_kakuritu = MIN(pls_kakuritu / 2, pls_kakuritu - 10);
 		if (pls_kakuritu < 2) pls_kakuritu = 2;
@@ -1709,7 +1710,7 @@ s16b get_species_num(int level)
 	}
 
 	/* Boost the level */
-	if ((level > 0) && !gamble_arena_mode && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth monsters */
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
@@ -2804,8 +2805,8 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 void update_mon(int m_idx, bool full)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	bool do_disturb = disturb_move;
 
@@ -2822,7 +2823,7 @@ void update_mon(int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto;
+	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto;
 
 	/* Do disturb? */
 	if (disturb_high)
@@ -5892,8 +5893,9 @@ bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, i
  */
 void creature_drop_carried_objects(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
 		if(creature_ptr->inventory[i].k_idx)
-			(void)drop_near(current_floor_ptr, &creature_ptr->inventory[i], 25, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, &creature_ptr->inventory[i], 25, creature_ptr->fy, creature_ptr->fx);
 }
