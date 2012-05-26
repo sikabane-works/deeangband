@@ -2424,9 +2424,10 @@ bool show_gold_on_floor = FALSE;
  *
  * This function must handle blindness/hallucination.
  */
-static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr info)
+static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, cptr info)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	s16b this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
 	bool boring = TRUE;
@@ -2441,7 +2442,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 	/* Scan all objects in the grid */
 	if (easy_floor)
 	{
-		floor_num = scan_floor(floor_list, current_floor_ptr, y, x, 0x02);
+		floor_num = scan_floor(floor_list, floor_ptr, y, x, 0x02);
 
 		if (floor_num)
 		{
@@ -2456,7 +2457,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 #endif /* ALLOW_EASY_FLOOR */
 
 	/* Hack -- under the player */
-	if (creature_bold(cr_ptr, y, x))
+	if (creature_bold(creature_ptr, y, x))
 	{
 		/* Description */
 #ifdef JP
@@ -2480,7 +2481,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 	}
 
 	/* Hack -- hallucination */
-	if (cr_ptr->image)
+	if (creature_ptr->image)
 	{
 #ifdef JP
 		cptr name = "何か奇妙な物";
@@ -2571,7 +2572,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			/*** Normal ***/
 
 			/* Describe, and prompt for recall */
-			evaluate_monster_exp(cr_ptr, acount, m_ptr);
+			evaluate_monster_exp(creature_ptr, acount, m_ptr);
 
 #ifdef JP
 			sprintf(out_val, "[%s]%s%s(%s)%s%s [r思 %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
@@ -2611,15 +2612,15 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 		/* Hack -- take account of gender */
 #ifdef JP
-		if (IS_FEMALE(cr_ptr)) s1 = "彼女は";
+		if (IS_FEMALE(creature_ptr)) s1 = "彼女は";
 #else
-		if (IS_FEMALE(cr_ptr)) s1 = "She is ";
+		if (IS_FEMALE(creature_ptr)) s1 = "She is ";
 #endif
 
 #ifdef JP
-		else if (IS_MALE(cr_ptr)) s1 = "彼は";
+		else if (IS_MALE(creature_ptr)) s1 = "彼は";
 #else
-		else if (IS_MALE(cr_ptr)) s1 = "He is ";
+		else if (IS_MALE(creature_ptr)) s1 = "He is ";
 #endif
 
 
@@ -2840,7 +2841,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 	feat = get_feat_mimic(c_ptr);
 
 	/* Require knowledge about grid, or ability to see grid */
-	if (!(c_ptr->info & CAVE_MARK) && !creature_can_see_bold(cr_ptr, y, x))
+	if (!(c_ptr->info & CAVE_MARK) && !creature_can_see_bold(creature_ptr, y, x))
 	{
 		/* Forget feature */
 		feat = feat_none;
@@ -2883,7 +2884,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			/* Get the quest text */
 			init_flags = INIT_SHOW_TEXT;
 
-			process_dungeon_file(current_floor_ptr, "q_info.txt", 0, 0, 0, 0);
+			process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
 			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
