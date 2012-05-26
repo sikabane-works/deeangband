@@ -742,7 +742,7 @@ extern void travel_step(creature_type *cr_ptr);
 extern void do_cmd_go_up(creature_type *creature_ptr);
 extern void do_cmd_go_down(creature_type *creature_ptr);
 extern void do_cmd_search(creature_type *cr_ptr);
-extern void do_cmd_open(creature_type *cr_ptr);
+extern void do_cmd_open(creature_type *creature_ptr);
 extern void do_cmd_close(creature_type *cr_ptr);
 extern void do_cmd_tunnel(creature_type *cr_ptr);
 extern void do_cmd_disarm(creature_type *creature_ptr);

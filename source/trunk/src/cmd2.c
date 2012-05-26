@@ -1131,17 +1131,16 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
  *
  * Unlocking a locked door/chest is worth one experience point.
  */
-void do_cmd_open(creature_type *cr_ptr)
+void do_cmd_open(creature_type *creature_ptr)
 {
 	int y, x, dir;
-
 	s16b object_idx;
-
 	bool more = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 #ifdef ALLOW_EASY_OPEN /* TNB */
@@ -1152,17 +1151,17 @@ void do_cmd_open(creature_type *cr_ptr)
 		int num_doors, num_chests;
 
 		/* Count closed doors (locked or jammed) */
-		num_doors = count_dt(cr_ptr, &y, &x, is_closed_door, FALSE);
+		num_doors = count_dt(creature_ptr, &y, &x, is_closed_door, FALSE);
 
 		/* Count chests (locked) */
-		num_chests = count_chests(cr_ptr, &y, &x, FALSE);
+		num_chests = count_chests(creature_ptr, &y, &x, FALSE);
 
 		/* See if only one target */
 		if (num_doors || num_chests)
 		{
 			bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(cr_ptr, y, x);
+			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
 
@@ -1182,22 +1181,22 @@ void do_cmd_open(creature_type *cr_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir, TRUE))
+	if (get_rep_dir(creature_ptr, &dir, TRUE))
 	{
 		s16b feat;
 		cave_type *c_ptr;
 
 		/* Get requested location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get requested grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
 
-		object_idx = chest_check(current_floor_ptr, y, x); // Check for chest
+		object_idx = chest_check(floor_ptr, y, x); // Check for chest
 
 		/* Nothing useful */
 		if (!have_flag(f_info[feat].flags, FF_OPEN) && !object_idx)
@@ -1212,7 +1211,7 @@ void do_cmd_open(creature_type *cr_ptr)
 		}
 
 		/* Monster in the way */
-		else if (c_ptr->creature_idx && cr_ptr->riding != c_ptr->creature_idx)
+		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -1226,21 +1225,21 @@ void do_cmd_open(creature_type *cr_ptr)
 
 
 			/* Attack */
-			melee_attack(cr_ptr, y, x, 0);
+			melee_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Handle chests */
 		else if (object_idx)
 		{
 			/* Open the chest */
-			more = do_cmd_open_chest(cr_ptr, y, x, object_idx);
+			more = do_cmd_open_chest(creature_ptr, y, x, object_idx);
 		}
 
 		/* Handle doors */
 		else
 		{
 			/* Open the door */
-			more = do_cmd_open_aux(cr_ptr, y, x);
+			more = do_cmd_open_aux(creature_ptr, y, x);
 		}
 	}
 
