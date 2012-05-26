@@ -554,20 +554,21 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 }
 
 
-void teleport_away_followable(creature_type *cr_ptr)
+void teleport_away_followable(creature_type *creature_ptr)
 {
-	int          oldfy = cr_ptr->fy;
-	int          oldfx = cr_ptr->fx;
-	bool         old_ml = cr_ptr->ml;
-	int          old_cdis = cr_ptr->cdis;
+	int oldfy = creature_ptr->fy;
+	int oldfx = creature_ptr->fx;
+	bool old_ml = creature_ptr->ml;
+	int old_cdis = creature_ptr->cdis;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
+	teleport_away(creature_ptr, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !the_world && !gamble_arena_mode && los(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !the_world && !gamble_arena_mode && los(floor_ptr, creature_ptr->fy, creature_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
-		if (has_cf_creature(cr_ptr, CF_VTELEPORT) || (cr_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
+		if (has_cf_creature(creature_ptr, CF_VTELEPORT) || (creature_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
@@ -576,9 +577,9 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
-				o_ptr = &cr_ptr->inventory[i];
+				o_ptr = &creature_ptr->inventory[i];
 
-				if(!cr_ptr->equip_now[i]) continue;
+				if(!creature_ptr->equip_now[i]) continue;
 
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
 				{
@@ -602,15 +603,15 @@ void teleport_away_followable(creature_type *cr_ptr)
 			{
 				if (one_in_(3))
 				{
-					teleport_player(cr_ptr, 200, TELEPORT_PASSIVE);
+					teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 #ifdef JP
 					msg_print("Ž¸”sI");
 #else
 					msg_print("Failed!");
 #endif
 				}
-				else teleport_creature_to(cr_ptr, cr_ptr->fy, cr_ptr->fx, 0L);
-				cr_ptr->energy_need += ENERGY_NEED();
+				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
+				creature_ptr->energy_need += ENERGY_NEED();
 			}
 		}
 	}
