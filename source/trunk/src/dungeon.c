@@ -4319,12 +4319,8 @@ static void process_command(creature_type *creature_ptr)
 	int old_now_message = now_message;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Handle repeating the last command */
 	repeat_check();
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	now_message = 0;
 

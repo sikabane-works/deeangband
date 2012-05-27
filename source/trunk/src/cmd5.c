@@ -70,8 +70,6 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 #endif
 	int menu_line = (use_menu ? 1 : 0);
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Get the spell, if available */
 	if (repeat_pull(sn))
 	{
@@ -82,8 +80,6 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			return (TRUE);
 		}
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	p = spell_category_name(m_info[cr_ptr->cls_idx].spell_book);
 
@@ -324,11 +320,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 	/* Save the choice */
 	(*sn) = spell;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return TRUE;
@@ -387,16 +379,12 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 	int  item;
 	char which;
 
-#ifdef ALLOW_REPEAT
-
 	/* Get the item index */
 	if (repeat_pull(&item) && (item == INVEN_FORCE))
 	{
 		browse_only ? do_cmd_mind_browse(creature_ptr) : do_cmd_mind(creature_ptr);
 		return;
 	}
-
-#endif /* ALLOW_REPEAT */
 
 	/* Show the prompt */
 #ifdef JP
@@ -413,13 +401,7 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 		if (which == ESCAPE) break;
 		else if (which == 'w')
 		{
-
-#ifdef ALLOW_REPEAT
-
 			repeat_push(INVEN_FORCE);
-
-#endif /* ALLOW_REPEAT */
-
 			break;
 		}
 	}
@@ -2394,10 +2376,8 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 	}
 
-#ifdef ALLOW_REPEAT
 	if (!(repeat_pull(&i) && (i >= 0) && (i < num)))
 	{
-#endif /* ALLOW_REPEAT */
 
 	/* Nothing chosen yet */
 	flag = FALSE;
@@ -2577,10 +2557,8 @@ void do_cmd_pet(creature_type *master_ptr)
 		return;
 	}
 
-#ifdef ALLOW_REPEAT
 	repeat_push(i);
 	}
-#endif /* ALLOW_REPEAT */
 
 	switch (powers[i])
 	{

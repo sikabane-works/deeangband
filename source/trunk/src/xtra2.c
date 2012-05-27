@@ -3565,8 +3565,6 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 	/* Hack -- auto-target if requested */
 	if (use_old_target && target_okay(cr_ptr)) dir = 5;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	if (repeat_pull(dp))
 	{
 		/* Confusion? */
@@ -3578,8 +3576,6 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 			dir = *dp;
 		}
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Ask until satisfied */
 	while (!dir)
@@ -3684,12 +3680,8 @@ msg_print("Ç†Ç»ÇΩÇÕç¨óêÇµÇƒÇ¢ÇÈÅB");
 	/* Save direction */
 	(*dp) = dir;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 /*	repeat_push(dir); */
 	repeat_push(command_dir);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* A "valid" direction was entered */
 	return (TRUE);
@@ -3723,15 +3715,11 @@ bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under)
 	/* Global direction */
 	dir = command_dir;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	if (repeat_pull(dp))
 	{
 		dir = *dp;
 /*		return (TRUE); */
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Get a direction */
 	while (!dir)
@@ -3839,12 +3827,8 @@ msg_format("You cannot control %s.", m_name);
 	/* Save direction */
 	(*dp) = dir;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 /*	repeat_push(dir); */
 	repeat_push(command_dir);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);
@@ -3861,15 +3845,11 @@ bool get_rep_dir2(creature_type *cr_ptr, int *dp)
 	/* Global direction */
 	dir = command_dir;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	if (repeat_pull(dp))
 	{
 		dir = *dp;
 /*		return (TRUE); */
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Get a direction */
 	while (!dir)
@@ -3926,12 +3906,8 @@ msg_print("Ç†Ç»ÇΩÇÕç¨óêÇµÇƒÇ¢ÇÈÅB");
 	/* Save direction */
 	(*dp) = dir;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 /*	repeat_push(dir); */
 	repeat_push(command_dir);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);

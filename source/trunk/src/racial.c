@@ -4380,9 +4380,8 @@ strcpy(power_desc[num].name, "•úŽË”\");
 
 		I2A(0), (num <= 26) ? I2A(num - 1) : '0' + num - 27);
 
-#ifdef ALLOW_REPEAT
 if (!repeat_pull(&i) || i<0 || i>=num) {
-#endif /* ALLOW_REPEAT */
+
 	if (use_menu) screen_save();
 	 /* Get a spell from the user */
 
@@ -4589,10 +4588,10 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 		energy_use = 0;
 		return;
 	}
-#ifdef ALLOW_REPEAT
+
 	repeat_push(i);
 	} /*if (!repeat_pull(&i) || ...)*/
-#endif /* ALLOW_REPEAT */
+
 	switch (racial_aux(creature_ptr, &power_desc[i]))
 	{
 	case 1:

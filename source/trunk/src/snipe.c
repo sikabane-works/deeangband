@@ -213,8 +213,6 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	snipe_power     spell;
 	bool            flag, redraw;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
 
 	/* Assume cancelled */
@@ -231,8 +229,6 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 			return (TRUE);
 		}
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Nothing chosen yet */
 	flag = FALSE;
@@ -392,11 +388,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	/* Save the choice */
 	(*sn) = i;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);

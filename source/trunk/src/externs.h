@@ -1868,15 +1868,10 @@ extern void fsetfileinfo(cptr path, u32b fcreator, u32b ftype);
 /* extern int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, ...); */
 #endif
 
-
-#ifdef ALLOW_REPEAT /* TNB */
-
 /* util.c */
 extern void repeat_push(int what);
 extern bool repeat_pull(int *what);
 extern void repeat_check(void);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 /* variable.c */
 extern bool easy_open;

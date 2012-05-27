@@ -52,8 +52,6 @@ cptr            p = "•KŽEŒ•";
 	/* Assume cancelled */
 	*sn = (-1);
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Get the spell, if available */
 	if (repeat_pull(sn))
 	{
@@ -64,8 +62,6 @@ cptr            p = "•KŽEŒ•";
 			return (TRUE);
 		}
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Nothing chosen yet */
 	flag = FALSE;
@@ -323,11 +319,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	/* Save the choice */
 	(*sn) = j;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);

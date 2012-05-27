@@ -524,8 +524,6 @@ static int get_mind_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	/* Assume cancelled */
       *sn = (-1);
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Get the spell, if available */
 	if (repeat_pull(sn))
 	{
@@ -539,8 +537,6 @@ static int get_mind_power(creature_type *cr_ptr, int *sn, bool only_browse)
 			return (TRUE);
 		}
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
       /* Nothing chosen yet */
       flag = FALSE;
@@ -822,11 +818,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	/* Save the choice */
 	(*sn) = i;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);

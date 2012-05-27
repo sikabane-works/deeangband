@@ -284,16 +284,12 @@ cptr            p = "–‚–@";
 	/* No redraw yet */
 	redraw = FALSE;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Get the spell, if available */
 	if (repeat_pull(sn))
 	{
 		/* Success */
 		return (TRUE);
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	if (use_menu)
 	{
@@ -669,11 +665,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 	/* Save the choice */
 	(*sn) = spellnum[i];
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	repeat_push(*sn);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Success */
 	return (TRUE);

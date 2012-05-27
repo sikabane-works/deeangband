@@ -560,11 +560,6 @@
 # define MONSTER_HORDES
 
 /*
- * OPTION: Repeat last command -- TNB
- */
-#define ALLOW_REPEAT
-
-/*
  * OPTION: Make floor stacks easy -- TNB
  */
 #define ALLOW_EASY_FLOOR

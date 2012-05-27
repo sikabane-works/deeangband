@@ -5229,12 +5229,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	int max_inven = 0;
 	int max_equip = 0;
 
-#ifdef ALLOW_REPEAT
-
 	static char prev_tag = '\0';
 	char cur_tag = '\0';
-
-#endif /* ALLOW_REPEAT */
 
 #ifdef ALLOW_EASY_FLOOR /* TNB */
 
@@ -5246,8 +5242,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	if (mode & USE_EQUIP) equip = TRUE;
 	if (mode & USE_INVEN) inven = TRUE;
 	if (mode & USE_FLOOR) floor = TRUE;
-
-#ifdef ALLOW_REPEAT
 
 	/* Get the item index */
 	if (repeat_pull(cp))
@@ -5323,9 +5317,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 		}
 	}
-
-#endif /* ALLOW_REPEAT */
-
 
 	/* Paranoia XXX XXX XXX */
 	msg_print(NULL);
@@ -5879,9 +5870,7 @@ if (other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 				(*cp) = k;
 				item = TRUE;
 				done = TRUE;
-#ifdef ALLOW_REPEAT
 				cur_tag = which;
-#endif /* ALLOW_REPEAT */
 				break;
 			}
 
@@ -5964,9 +5953,7 @@ if (other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 					(*cp) = k;
 					item = TRUE;
 					done = TRUE;
-#ifdef ALLOW_REPEAT
 					cur_tag = which;
-#endif /* ALLOW_REPEAT */
 					break;
 				}
 
@@ -6066,10 +6053,8 @@ if (ver && !verify(creature_ptr, "–{“–‚É", k))
 
 	if (item)
 	{
-#ifdef ALLOW_REPEAT
 		repeat_push(*cp);
 		if (command_cmd) prev_tag = cur_tag;
-#endif /* ALLOW_REPEAT */
 
 		command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 	}
@@ -6295,8 +6280,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	int max_inven = 0;
 	int max_equip = 0;
 
-#ifdef ALLOW_REPEAT
-
 	static char prev_tag = '\0';
 	char cur_tag = '\0';
 
@@ -6389,9 +6372,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 		}
 	}
-
-#endif /* ALLOW_REPEAT */
-
 
 	/* Paranoia XXX XXX XXX */
 	msg_print(NULL);
@@ -7293,9 +7273,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				(*cp) = k;
 				item = TRUE;
 				done = TRUE;
-#ifdef ALLOW_REPEAT
 				cur_tag = which;
-#endif /* ALLOW_REPEAT */
 				break;
 			}
 
@@ -7404,9 +7382,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 						(*cp) = k;
 						item = TRUE;
 						done = TRUE;
-#ifdef ALLOW_REPEAT
 						cur_tag = which;
-#endif /* ALLOW_REPEAT */
 						break;
 					}
 				}
@@ -7422,9 +7398,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 						(*cp) = k;
 						item = TRUE;
 						done = TRUE;
-#ifdef ALLOW_REPEAT
 						cur_tag = which;
-#endif /* ALLOW_REPEAT */
 						break;
 					}
 				}
@@ -7530,11 +7504,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 	if (item)
 	{
-#ifdef ALLOW_REPEAT
 		repeat_push(*cp);
 		if (command_cmd) prev_tag = cur_tag;
-#endif /* ALLOW_REPEAT */
-
 		command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 	}
 

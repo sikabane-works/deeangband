@@ -6727,9 +6727,8 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 	char            out_val[160];
 
 	int menu_line = (use_menu ? 1 : 0);
-
-#ifdef ALLOW_REPEAT
 	int sn;
+
 	if (repeat_pull(&sn))
 	{
 		/* Verify the spell */
@@ -6738,8 +6737,6 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 		else if (sn < EATER_EXT*2 && !(cr_ptr->magic_num1[sn] < EATER_CHARGE))
 			return sn;
 	}
-	
-#endif /* ALLOW_REPEAT */
 
 	for (i = 0; i < 108; i++)
 	{
@@ -7185,10 +7182,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 	screen_load();
 
 	if (!flag) return -1;
-
-#ifdef ALLOW_REPEAT
 	repeat_push(ext+i);
-#endif /* ALLOW_REPEAT */
 	return ext+i;
 }
 

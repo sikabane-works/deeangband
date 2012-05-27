@@ -3777,8 +3777,6 @@ s16b get_quantity(cptr prompt, int max)
 		return (amt);
 	}
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	/* Get the item index */
 	if ((max != 1) && repeat_pull(&amt))
 	{
@@ -3791,8 +3789,6 @@ s16b get_quantity(cptr prompt, int max)
 		/* Use it */
 		return (amt);
 	}
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Build a prompt if needed */
 	if (!prompt)
@@ -3845,11 +3841,7 @@ s16b get_quantity(cptr prompt, int max)
 	/* Enforce the minimum */
 	if (amt < 0) amt = 0;
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 	if (amt) repeat_push(amt);
-
-#endif /* ALLOW_REPEAT -- TNB */
 
 	/* Return the result */
 	return (amt);
@@ -4863,8 +4855,6 @@ int get_keymap_dir(char ch)
 }
 
 
-#ifdef ALLOW_REPEAT /* TNB */
-
 #define REPEAT_MAX		20
 
 /* Number of chars saved */
@@ -4939,9 +4929,6 @@ void repeat_check(void)
 		repeat_push(what);
 	}
 }
-
-#endif /* ALLOW_REPEAT -- TNB */
-
 
 #ifdef SORT_R_INFO
 
