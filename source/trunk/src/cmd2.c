@@ -901,7 +901,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 }
 
 
-#if defined(ALLOW_EASY_OPEN) || defined(ALLOW_EASY_DISARM) // TNB
+#if defined(ALLOW_EASY_DISARM) // TNB
 
 // Return TRUE if the given feature is an open door
 static bool is_open(int feat)
@@ -1022,7 +1022,7 @@ static int coords_to_dir(creature_type *cr_ptr, int y, int x)
 	return d[dx + 1][dy + 1];
 }
 
-#endif /* defined(ALLOW_EASY_OPEN) || defined(ALLOW_EASY_DISARM) -- TNB */
+#endif /* defined(ALLOW_EASY_DISARM) -- TNB */
 
 
 /*
@@ -1143,8 +1143,6 @@ void do_cmd_open(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-#ifdef ALLOW_EASY_OPEN /* TNB */
-
 	/* Option: Pick a direction */
 	if (easy_open)
 	{
@@ -1164,8 +1162,6 @@ void do_cmd_open(creature_type *creature_ptr)
 			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
-
-#endif /* ALLOW_EASY_OPEN -- TNB */
 
 	/* Allow repeated command */
 	if (command_arg)
@@ -1325,8 +1321,6 @@ void do_cmd_close(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-#ifdef ALLOW_EASY_OPEN // TNB
-
 	// Option: Pick a direction
 	if (easy_open)
 	{
@@ -1336,8 +1330,6 @@ void do_cmd_close(creature_type *creature_ptr)
 			command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
-
-#endif /* ALLOW_EASY_OPEN -- TNB */
 
 	/* Allow repeated command */
 	if (command_arg)
@@ -1711,9 +1703,6 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 	if (!more) disturb(player_ptr, 0, 0);
 }
 
-
-#ifdef ALLOW_EASY_OPEN /* TNB */
-
 /*
  * easy_open_door --
  *
@@ -1819,9 +1808,6 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	/* Result */
 	return (TRUE);
 }
-
-#endif /* ALLOW_EASY_OPEN -- TNB */
-
 
 /*
  * Perform the basic "disarm" command

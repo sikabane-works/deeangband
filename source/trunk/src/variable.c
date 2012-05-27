@@ -184,10 +184,7 @@ bool confirm_destroy;	/* Prompt for destruction of known worthless items */
 bool confirm_wear;	/* Confirm to wear/wield known cursed items */
 bool confirm_quest;	/* Prompt before exiting a quest level */
 bool target_pet;	/* Allow targetting pets */
-
-#ifdef ALLOW_EASY_OPEN
 bool easy_open;	/* Automatically open doors */
-#endif
 
 #ifdef ALLOW_EASY_DISARM
 bool easy_disarm;	/* Automatically disarm traps */
@@ -1001,9 +998,7 @@ bool (*get_obj_num_hook)(int k_idx);
 bool monk_armour_aux;
 bool monk_notify_aux;
 
-#ifdef ALLOW_EASY_OPEN /* TNB */
 bool easy_open;
-#endif /* ALLOW_EASY_OPEN -- TNB */
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
 bool easy_disarm;

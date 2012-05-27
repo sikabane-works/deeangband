@@ -3690,7 +3690,6 @@ option_type option_info[] =
 	"target_pet",                   "Allow targetting pets" },
 #endif
 
-#ifdef ALLOW_EASY_OPEN
 #ifdef JP
 	{ &easy_open,                   TRUE,  OPT_PAGE_INPUT, 5, 7,
 	"easy_open",                    "自動的にドアを開ける" },
@@ -3698,7 +3697,6 @@ option_type option_info[] =
 	{ &easy_open,                   TRUE,  OPT_PAGE_INPUT, 5, 7,
 	"easy_open",                    "Automatically open doors" },
 #endif
-#endif /* ALLOW_EASY_OPEN */
 
 #ifdef ALLOW_EASY_DISARM
 #ifdef JP

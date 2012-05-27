@@ -216,10 +216,7 @@ extern bool confirm_destroy;	/* Prompt for destruction of known worthless items 
 extern bool confirm_wear;	/* Confirm to wear/wield known cursed items */
 extern bool confirm_quest;	/* Prompt before exiting a quest level */
 extern bool target_pet;	/* Allow targetting pets */
-
-#ifdef ALLOW_EASY_OPEN
 extern bool easy_open;	/* Automatically open doors */
-#endif
 
 #ifdef ALLOW_EASY_DISARM
 extern bool easy_disarm;	/* Automatically disarm traps */
@@ -1884,8 +1881,6 @@ extern void repeat_check(void);
 
 #endif /* ALLOW_REPEAT -- TNB */
 
-#ifdef ALLOW_EASY_OPEN /* TNB */
-
 /* variable.c */
 extern bool easy_open;
 extern s16b inside_quest;		/* Inside quest level */
@@ -1901,7 +1896,6 @@ extern s16b species_window_idx;	/* Species info trackee */
 /* cmd2.c */
 extern bool easy_open_door(creature_type *creature_ptr, int y, int x);
 
-#endif /* ALLOW_EASY_OPEN -- TNB */
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
