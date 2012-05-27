@@ -3705,8 +3705,6 @@ option_type option_info[] =
 	{ &easy_disarm,                 TRUE,  OPT_PAGE_INPUT, 5, 8,
 	"easy_disarm",                  "Automatically disarm traps" },
 #endif
-
-#ifdef ALLOW_EASY_FLOOR /* TNB */
 #ifdef JP
 	{ &easy_floor,                  FALSE, OPT_PAGE_INPUT, 5, 9,
 	"easy_floor",                   "床上で重なったアイテムをリストする" },
@@ -3714,7 +3712,6 @@ option_type option_info[] =
 	{ &easy_floor,                  FALSE, OPT_PAGE_INPUT, 5, 9,
 	"easy_floor",                   "Display floor stacks in a list" },
 #endif
-#endif /* ALLOW_EASY_FLOOR -- TNB */
 
 #ifdef JP
 	{ &use_command,                 FALSE, OPT_PAGE_INPUT, 5, 10,

@@ -186,9 +186,7 @@ bool confirm_quest;	/* Prompt before exiting a quest level */
 bool target_pet;	/* Allow targetting pets */
 bool easy_open;	/* Automatically open doors */
 bool easy_disarm;	/* Automatically disarm traps */
-#ifdef ALLOW_EASY_FLOOR
 bool easy_floor;	/* Display floor stacks in a list */
-#endif
 
 bool use_command;	/* Allow unified use command */
 bool over_exert;	/* Allow casting spells when short of mana */
@@ -996,9 +994,7 @@ bool monk_notify_aux;
 
 bool easy_open;
 bool easy_disarm;
-#ifdef ALLOW_EASY_FLOOR /* TNB */
 bool easy_floor;
-#endif /* ALLOW_EASY_FLOOR -- TNB */
 
 bool use_command;
 bool center_player;

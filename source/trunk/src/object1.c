@@ -5232,11 +5232,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	static char prev_tag = '\0';
 	char cur_tag = '\0';
 
-#ifdef ALLOW_EASY_FLOOR /* TNB */
-
 	if (easy_floor || use_menu) return get_item_floor(creature_ptr, cp, pmt, str, mode, hook);
-
-#endif /* ALLOW_EASY_FLOOR -- TNB */
 
 	/* Extract args */
 	if (mode & USE_EQUIP) equip = TRUE;
@@ -6062,9 +6058,6 @@ if (ver && !verify(creature_ptr, "–{“–‚É", k))
 	/* Result */
 	return (item);
 }
-
-
-#ifdef ALLOW_EASY_FLOOR
 
 /*
  * scan_floor --
@@ -7803,5 +7796,3 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		}
 	}
 }
-
-#endif /* ALLOW_EASY_FLOOR */

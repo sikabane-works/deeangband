@@ -852,16 +852,11 @@ void carry(creature_type *creature_ptr, bool pickup)
 	/* Automatically pickup/destroy/inscribe items */
 	autopick_pickup_items(creature_ptr, c_ptr);
 
-
-#ifdef ALLOW_EASY_FLOOR
-
 	if (easy_floor)
 	{
 		py_pickup_floor(creature_ptr, pickup);
 		return;
 	}
-
-#endif /* ALLOW_EASY_FLOOR */
 
 	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{

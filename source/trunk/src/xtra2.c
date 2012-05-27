@@ -2436,7 +2436,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	int query = '\001';
 	char out_val[MAX_NLEN+80];
 
-#ifdef ALLOW_EASY_FLOOR
 	int floor_list[23], floor_num = 0;
 
 	/* Scan all objects in the grid */
@@ -2453,8 +2452,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 #endif
 		}
 	}
-
-#endif /* ALLOW_EASY_FLOOR */
 
 	/* Hack -- under the player */
 	if (creature_bold(creature_ptr, y, x))
@@ -2642,8 +2639,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 	}
 
-
-#ifdef ALLOW_EASY_FLOOR
 	if (floor_num)
 	{
 		int min_width = 0;
@@ -2765,7 +2760,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 		/* NOTREACHED */
 	}
-#endif /* ALLOW_EASY_FLOOR */
 
 
 	/* Scan all objects in the grid */

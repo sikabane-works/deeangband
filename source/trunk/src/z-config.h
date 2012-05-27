@@ -556,14 +556,6 @@
 
 /* Zangband options: */
 
-/* Allow hordes of 'similar' monsters */
-# define MONSTER_HORDES
-
-/*
- * OPTION: Make floor stacks easy -- TNB
- */
-#define ALLOW_EASY_FLOOR
-
 /*
  * Check the modification time of *_info.raw files
  * (by Keldon Jones)
