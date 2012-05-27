@@ -3159,14 +3159,13 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 	return TRUE;
 }
 
-/*
- * Create the artifact of the specified number
- */
-bool drop_named_art(creature_type *cr_ptr, int a_idx, int y, int x)
+// Create the artifact of the specified number
+bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x)
 {
 	object_type forge;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	
-	(void)create_named_art(cr_ptr, &forge, a_idx);
+	(void)create_named_art(creature_ptr, &forge, a_idx);
 
 	/*
 	 * drop_near(floor_ptr, )内で普通の固定アーティファクトが重ならない性質に依存する.
@@ -3175,7 +3174,7 @@ bool drop_named_art(creature_type *cr_ptr, int a_idx, int y, int x)
 	 */
 
 	/* Drop the artifact from heaven */
-	return drop_near(current_floor_ptr, &forge, -1, y, x) ? TRUE : FALSE;
+	return drop_near(floor_ptr, &forge, -1, y, x) ? TRUE : FALSE;
 }
 
 

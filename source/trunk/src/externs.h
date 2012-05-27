@@ -1778,9 +1778,9 @@ extern bool activate_random_artifact(creature_type *creature_ptr,  object_type *
 extern void get_bloody_moon_flags(object_type *o_ptr);
 extern void random_artifact_resistance(creature_type *owner_ptr, object_type * o_ptr, artifact_type *a_ptr);
 extern bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx);
-extern bool drop_named_art(creature_type *cr_ptr, int a_idx, int y, int x);
+extern bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x);
 
-/* scores.c */
+// scores.c
 extern void display_scores_aux(int from, int to, int note, high_score *score);
 extern void display_scores(int from, int to);
 extern void kingly(creature_type *player_ptr);
