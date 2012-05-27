@@ -217,10 +217,7 @@ extern bool confirm_wear;	/* Confirm to wear/wield known cursed items */
 extern bool confirm_quest;	/* Prompt before exiting a quest level */
 extern bool target_pet;	/* Allow targetting pets */
 extern bool easy_open;	/* Automatically open doors */
-
-#ifdef ALLOW_EASY_DISARM
 extern bool easy_disarm;	/* Automatically disarm traps */
-#endif
 
 #ifdef ALLOW_EASY_FLOOR
 extern bool easy_floor;	/* Display floor stacks in a list */
@@ -1896,16 +1893,11 @@ extern s16b species_window_idx;	/* Species info trackee */
 /* cmd2.c */
 extern bool easy_open_door(creature_type *creature_ptr, int y, int x);
 
-
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 /* variable.c */
 extern bool easy_disarm;
 
 /* cmd2.c */
 extern bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir);
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 
 
 #ifdef ALLOW_EASY_FLOOR /* TNB */

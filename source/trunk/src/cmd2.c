@@ -900,15 +900,11 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	return (more);
 }
 
-
-#if defined(ALLOW_EASY_DISARM) // TNB
-
 // Return TRUE if the given feature is an open door
 static bool is_open(int feat)
 {
 	return have_flag(f_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
 }
-
 
 /*
  * Return the number of features around (or under) the character.
@@ -1021,9 +1017,6 @@ static int coords_to_dir(creature_type *cr_ptr, int y, int x)
 
 	return d[dx + 1][dy + 1];
 }
-
-#endif /* defined(ALLOW_EASY_DISARM) -- TNB */
-
 
 /*
  * Perform the basic "open" command on doors
@@ -1930,13 +1923,8 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object
  *
  * Returns TRUE if repeated commands may continue
  */
-#ifdef ALLOW_EASY_DISARM /* TNB */
 
 bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
-#else /* ALLOW_EASY_DISARM -- TNB */
-static bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -1988,17 +1976,8 @@ static bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir
 		/* Remove the trap */
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 		/* Move the player onto the trap */
 		move_creature(creature_ptr, dir, easy_disarm, FALSE);
-
-#else /* ALLOW_EASY_DISARM -- TNB */
-
-		/* move the player onto the trap grid */
-		move_creature(creature_ptr, dir, FALSE, FALSE);
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 	}
 
 	/* Failure -- Keep trying */
@@ -2028,17 +2007,8 @@ static bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir
 		msg_format("You set off the %s!", name);
 #endif
 
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 		/* Move the player onto the trap */
 		move_creature(creature_ptr, dir, easy_disarm, FALSE);
-
-#else /* ALLOW_EASY_DISARM -- TNB */
-
-		/* Move the player onto the trap */
-		move_creature(creature_ptr, dir, FALSE, FALSE);
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 	}
 
 	/* Result */
@@ -2060,8 +2030,6 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 	/* Option: Pick a direction */
 	if (easy_disarm)
 	{
@@ -2081,8 +2049,6 @@ void do_cmd_disarm(creature_type *creature_ptr)
 			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 
 	/* Allow repeated command */
 	if (command_arg)

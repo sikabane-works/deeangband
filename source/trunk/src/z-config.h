@@ -565,11 +565,6 @@
 #define ALLOW_REPEAT
 
 /*
- * OPTION: Make disarming traps easy -- TNB
- */
-#define ALLOW_EASY_DISARM
-
-/*
  * OPTION: Make floor stacks easy -- TNB
  */
 #define ALLOW_EASY_FLOOR

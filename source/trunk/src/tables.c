@@ -3698,7 +3698,6 @@ option_type option_info[] =
 	"easy_open",                    "Automatically open doors" },
 #endif
 
-#ifdef ALLOW_EASY_DISARM
 #ifdef JP
 	{ &easy_disarm,                 TRUE,  OPT_PAGE_INPUT, 5, 8,
 	"easy_disarm",                  "é©ìÆìIÇ…„©ÇâèúÇ∑ÇÈ" },
@@ -3706,7 +3705,6 @@ option_type option_info[] =
 	{ &easy_disarm,                 TRUE,  OPT_PAGE_INPUT, 5, 8,
 	"easy_disarm",                  "Automatically disarm traps" },
 #endif
-#endif /* ALLOW_EASY_DISARM */
 
 #ifdef ALLOW_EASY_FLOOR /* TNB */
 #ifdef JP

@@ -4224,8 +4224,6 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if ((creature_ptr->cls_idx != CLASS_RANGER) && !creature_ptr->levitation && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
 	}
 
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 	/* Disarm a visible trap */
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
 	{
@@ -4235,8 +4233,6 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			return;
 		}
 	}
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 
 	/* Player can not walk through "walls" unless in wraith form...*/
 	else if (!p_can_enter && !p_can_kill_walls)
@@ -4396,16 +4392,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		/* Sound */
 		/* sound(SOUND_WALK); */
 
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 		if (do_pickup != always_pickup) mpe_mode |= MPE_DO_PICKUP;
-
-#else /* ALLOW_EASY_DISARM -- TNB */
-
-		if (do_pickup) mpe_mode |= MPE_DO_PICKUP;
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
-
 		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
 
 		/* Move the player */
@@ -5147,15 +5134,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	energy_use = 100;
 
 	/* Move the player, using the "pickup" flag */
-#ifdef ALLOW_EASY_DISARM /* TNB */
-
 	move_creature(creature_ptr, find_current, FALSE, FALSE);
-
-#else /* ALLOW_EASY_DISARM -- TNB */
-
-	move_creature(creature_ptr, find_current, always_pickup, FALSE);
-
-#endif /* ALLOW_EASY_DISARM -- TNB */
 
 	if (creature_bold(creature_ptr, creature_ptr->run_py, creature_ptr->run_px))
 	{
