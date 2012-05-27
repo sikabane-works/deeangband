@@ -1664,23 +1664,24 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 /*
  *  Auto-destroy marked items in inventry and on floor
  */
-void autopick_delayed_alter(creature_type *cr_ptr)
+void autopick_delayed_alter(creature_type *creature_ptr)
 {
 	int item;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* 
 	 * Scan inventry in reverse order to prevent
-	 * skipping after inven_item_optimize(cr_ptr, )
+	 * skipping after inven_item_optimize(creature_ptr, )
 	 */
 	for (item = INVEN_TOTAL - 1; item >= 0 ; item--)
-		autopick_delayed_alter_aux(cr_ptr, item);
+		autopick_delayed_alter_aux(creature_ptr, item);
 
 	/* Scan the pile of objects */
-	item = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx;
+	item = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx;
 	while (item)
 	{
 		int next = object_list[item].next_object_idx;
-		autopick_delayed_alter_aux(cr_ptr, -item);
+		autopick_delayed_alter_aux(creature_ptr, -item);
 		item = next;
 	}
 }
