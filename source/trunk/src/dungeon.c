@@ -4255,59 +4255,6 @@ extern void do_cmd_debug(creature_type *cr_ptr);
 #endif /* ALLOW_WIZARD */
 
 
-#ifdef ALLOW_BORG
-
-/*
- * Verify use of "borg" commands
- */
-static bool enter_borg_mode(creature_type *cr_ptr)
-{
-	/* Ask first time */
-	if (!(noscore & 0x0010))
-	{
-		/* Mention effects */
-#ifdef JP
-		msg_print("ボーグ・コマンドはデバッグと実験のためのコマンドです。 ");
-		msg_print("ボーグ・コマンドを使うとスコアは記録されません。");
-#else
-		msg_print("The borg commands are for debugging and experimenting.");
-		msg_print("The game will not be scored if you use borg commands.");
-#endif
-
-		msg_print(NULL);
-
-		/* Verify request */
-#ifdef JP
-		if (!get_check("本当にボーグ・コマンドを使いますか? "))
-#else
-		if (!get_check("Are you sure you want to use borg commands? "))
-#endif
-		{
-			return (FALSE);
-		}
-
-#ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ボーグ・コマンドを使用してスコアを残せなくなった。");
-#else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to use borg commands.");
-#endif
-		/* Mark savefile */
-		noscore |= 0x0010;
-	}
-
-	/* Success */
-	return (TRUE);
-}
-
-/*
- * Hack -- Declare the Ben Borg
- */
-extern void do_cmd_borg(void);
-
-#endif /* ALLOW_BORG */
-
-
-
 /*
  * Parse and execute the current command
  * Give "Warning" on illegal commands.
@@ -4395,25 +4342,6 @@ msg_print("ウィザードモード突入。");
 		}
 
 #endif /* ALLOW_WIZARD */
-
-
-#ifdef ALLOW_BORG
-
-		/* Special "borg" commands */
-		case KTRL('Z'):
-		{
-			/* Enter borg mode */
-			if (enter_borg_mode())
-			{
-				if (!wild_mode) do_cmd_borg();
-			}
-
-			break;
-		}
-
-#endif /* ALLOW_BORG */
-
-
 
 		/*** inventory Commands ***/
 

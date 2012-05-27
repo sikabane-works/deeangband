@@ -201,7 +201,6 @@
 /*
  * OPTION: Hack -- Compile in support for "Cyborg" mode
  */
-/*#define ALLOW_BORG*/
 
 #ifdef USE_DEBUG
 
@@ -529,7 +528,6 @@
 # undef ALLOW_VISUALS
 # undef ALLOW_MACROS
 # undef ALLOW_OLD_SAVEFILES
-# undef ALLOW_BORG
 # undef ALLOW_WIZARD
 # undef ALLOW_SPOILERS
 # undef ALLOW_TEMPLATES
