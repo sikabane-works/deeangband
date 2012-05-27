@@ -536,11 +536,11 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
  * Exploding chest destroys contents (and traps).
  * Note that the chest itself is never destroyed.
  */
-static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
+static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_idx)
 {
 	int  i, trap;
-
 	object_type *o_ptr = &object_list[object_idx];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	int mon_level = o_ptr->xtra3;
 
@@ -555,13 +555,13 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(cr_ptr, STAT_STR);
+		(void)do_dec_stat(creature_ptr, STAT_STR);
 	}
 
 	/* Lose constitution */
@@ -569,13 +569,13 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(cr_ptr, STAT_CON);
+		(void)do_dec_stat(creature_ptr, STAT_CON);
 	}
 
 	/* Poison */
@@ -587,9 +587,9 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 		msg_print("A puff of green gas surrounds you!");
 #endif
 
-		if (!(cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr)))
+		if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 		{
-			(void)set_poisoned(cr_ptr, cr_ptr->poisoned + 10 + randint1(20));
+			(void)set_poisoned(creature_ptr, creature_ptr->poisoned + 10 + randint1(20));
 		}
 	}
 
@@ -603,9 +603,9 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 #endif
 
 
-		if (!cr_ptr->free_act)
+		if (!creature_ptr->free_act)
 		{
-			(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 10 + randint1(20));
+			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 10 + randint1(20));
 		}
 	}
 
@@ -622,8 +622,8 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 
 		for (i = 0; i < num; i++)
 		{
-			if (randint1(100)<current_floor_ptr->floor_level)
-				activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
+			if (randint1(100) < floor_ptr->floor_level)
+				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 		}
@@ -743,32 +743,32 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if (randint1(100+o_ptr->pval*2) > cr_ptr->skill_rob)
+			if (randint1(100+o_ptr->pval*2) > creature_ptr->skill_rob)
 			{
 #ifdef JP
-				if (one_in_(6)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
 #else
-				if (one_in_(6)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if (one_in_(5)) (void)set_cut(cr_ptr, cr_ptr->cut + 200);
+				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->cut + 200);
 				else if (one_in_(4))
 				{
-					if (!cr_ptr->free_act) 
-						(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 2 + 
+					if (!creature_ptr->free_act) 
+						(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 
-						(void)set_stun(cr_ptr, cr_ptr->stun + 10 + 
+						(void)set_stun(creature_ptr, creature_ptr->stun + 10 + 
 						randint0(100));
 				}
-				else if (one_in_(3)) apply_disenchant(cr_ptr, 0);
+				else if (one_in_(3)) apply_disenchant(creature_ptr, 0);
 				else if (one_in_(2))
 				{
-					(void)do_dec_stat(cr_ptr, STAT_STR);
-					(void)do_dec_stat(cr_ptr, STAT_DEX);
-					(void)do_dec_stat(cr_ptr, STAT_CON);
-					(void)do_dec_stat(cr_ptr, STAT_INT);
-					(void)do_dec_stat(cr_ptr, STAT_WIS);
-					(void)do_dec_stat(cr_ptr, STAT_CHA);
+					(void)do_dec_stat(creature_ptr, STAT_STR);
+					(void)do_dec_stat(creature_ptr, STAT_DEX);
+					(void)do_dec_stat(creature_ptr, STAT_CON);
+					(void)do_dec_stat(creature_ptr, STAT_INT);
+					(void)do_dec_stat(creature_ptr, STAT_WIS);
+					(void)do_dec_stat(creature_ptr, STAT_CHA);
 				}
 				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
 			}
@@ -783,7 +783,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 #else
 		msg_print("An alarm sounds!");
 #endif
-		aggravate_creatures(cr_ptr);
+		aggravate_creatures(creature_ptr);
 	}
 
 	/* Explode */
@@ -800,9 +800,9 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 		o_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
-		take_hit(NULL, cr_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
 #else
-		take_hit(NULL, cr_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", NULL, -1);
 #endif
 
 	}
@@ -814,7 +814,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b object_idx)
 #else
 		msg_print("The contents of the chest scatter all over the dungeon!");
 #endif
-		chest_death(TRUE, current_floor_ptr, y, x, object_idx);
+		chest_death(TRUE, floor_ptr, y, x, object_idx);
 		o_ptr->pval = 0;
 	}
 }
@@ -1946,16 +1946,16 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object
  */
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir)
-
+bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 #else /* ALLOW_EASY_DISARM -- TNB */
-
-static bool do_cmd_disarm_aux(int y, int x, int dir)
+static bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
 	/* Get grid and contents */
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Get feature */
 	feature_type *f_ptr = &f_info[c_ptr->feat];
@@ -1969,7 +1969,7 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 	bool more = FALSE;
 
 	/* Get the "disarm" factor */
-	int i = cr_ptr->skill_dis;
+	int i = creature_ptr->skill_dis;
 
 	int j;
 
@@ -1977,8 +1977,8 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 	energy_use = 100;
 
 	/* Penalize some conditions */
-	if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
-	if (cr_ptr->confused || cr_ptr->image) i = i / 10;
+	if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+	if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - power;
@@ -1997,20 +1997,20 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #endif
 
 		/* Reward */
-		gain_exp(cr_ptr, power);
+		gain_exp(creature_ptr, power);
 
 		/* Remove the trap */
-		cave_alter_feat(current_floor_ptr, y, x, FF_DISARM);
+		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
 		/* Move the player onto the trap */
-		move_creature(cr_ptr, dir, easy_disarm, FALSE);
+		move_creature(creature_ptr, dir, easy_disarm, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
 		/* move the player onto the trap grid */
-		move_creature(cr_ptr, dir, FALSE, FALSE);
+		move_creature(creature_ptr, dir, FALSE, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 	}
@@ -2045,12 +2045,12 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
 		/* Move the player onto the trap */
-		move_creature(cr_ptr, dir, easy_disarm, FALSE);
+		move_creature(creature_ptr, dir, easy_disarm, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
 		/* Move the player onto the trap */
-		move_creature(cr_ptr, dir, FALSE, FALSE);
+		move_creature(creature_ptr, dir, FALSE, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 	}

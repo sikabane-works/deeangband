@@ -4654,9 +4654,8 @@ void aggravate_creatures(creature_type *cr_ptr)
 }
 
 
-/*
- * Delete a non-unique/non-quest monster
- */
+
+// Delete a non-unique/non-quest monster
 bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
