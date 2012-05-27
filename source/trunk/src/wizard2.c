@@ -103,9 +103,6 @@ static void do_cmd_wiz_hack_ben(void)
 }
 
 
-
-#ifdef MONSTER_HORDES
-
 // Summon a horde of monsters
 static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
@@ -121,8 +118,6 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 
 	(void)alloc_horde(summoner_ptr, floor_ptr, wy, wx);
 }
-
-#endif /* MONSTER_HORDES */
 
 
 /*
@@ -2161,11 +2156,9 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_rerate(creature_ptr, TRUE);
 		break;
 
-#ifdef MONSTER_HORDES
 	case 'H':
 		do_cmd_summon_horde(creature_ptr);
 		break;
-#endif /* MONSTER_HORDES */
 
 	/* Identify */
 	case 'i':

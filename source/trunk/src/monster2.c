@@ -4714,9 +4714,6 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	return (FALSE);
 }
 
-
-#ifdef MONSTER_HORDES
-
 bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x)
 {
 	species_type *r_ptr = NULL;
@@ -4773,9 +4770,6 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	return TRUE;
 }
-
-#endif /* MONSTER_HORDES */
-
 
 /*
  * Put the Guardian
@@ -4865,8 +4859,6 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 		return (FALSE);
 	}
 
-
-#ifdef MONSTER_HORDES
 	if (randint1(5000) <= floor_ptr->floor_level)
 	{
 		//TODO: Dungeon Master
@@ -4883,13 +4875,10 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 	}
 	else
 	{
-#endif /* MONSTER_HORDES */
 		/* Attempt to place the monster, allow groups */
 		if (place_creature(NULL, floor_ptr, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
 
-#ifdef MONSTER_HORDES
 	}
-#endif /* MONSTER_HORDES */
 
 	/* Nope */
 	return (FALSE);
