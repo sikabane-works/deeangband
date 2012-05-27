@@ -596,11 +596,6 @@
 
 #ifndef HAVE_CONFIG_H
 
-#ifndef MSDOS
-/*
- * Use world score server
- */
 //#define WORLD_SCORE
-#endif
 
 #endif /* HAVE_CONFIG_H */

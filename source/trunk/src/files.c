@@ -6342,16 +6342,13 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 	if (character_generated) strcpy(old_player_base, player_base);
 
 	/* Cannot be too long */
-#if defined(MACINTOSH) || defined(MSDOS) || defined(USE_EMX) || defined(ACORN) || defined(VM)
-#ifdef MSDOS
-	if (strlen(creature_ptr->name) > 8)
-#else
+#if defined(MACINTOSH) || defined(USE_EMX) || defined(ACORN) || defined(VM)
+
 	if (strlen(creature_ptr->name) > 15)
-#endif
 	{
 		/* Name too long */
 #ifdef JP
-quit_fmt("'%s'という名前は長すぎます！", creature_ptr->name);
+		quit_fmt("'%s'という名前は長すぎます！", creature_ptr->name);
 #else
 		quit_fmt("The name '%s' is too long!", creature_ptr->name);
 #endif
@@ -6430,22 +6427,13 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_p
 			player_base[k++] = '_';
 			i += strlen(PATH_SEP);
 		}
+
 		/* Convert some characters to underscore */
-#ifdef MSDOS
-		else if (my_strchr(" \"*+,./:;<=>?[\\]|", c)) player_base[k++] = '_';
-#elif defined(WINDOWS)
+#if defined(WINDOWS)
 		else if (my_strchr("\"*,/:;<>?\\|", c)) player_base[k++] = '_';
 #endif
 		else if (isprint(c)) player_base[k++] = c;
 	}
-
-#endif
-
-
-#if defined(MSDOS)
-
-	/* Hack -- max length */
-	if (k > 8) k = 8;
 
 #endif
 
