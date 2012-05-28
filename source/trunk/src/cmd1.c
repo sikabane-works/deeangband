@@ -3292,10 +3292,11 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	riding_t_m_idx = c_ptr->creature_idx;
 
-	action_point = 100;
+	action_point = attacker_ptr->skill_thn;
 	action_num = 0;
 	tried_num = 0;
 	energy_use = 100;
+
 
 	do
 	{
@@ -3303,13 +3304,14 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 		for(i = 0; i < MAX_HANDS; i++)
 		{
-			if(attacker_ptr->can_melee[i] )
+			if(attacker_ptr->can_melee[i])
 			{
 				action_list[action_num] = i;
 				action_cost[action_num] = 10;
 				action_num++;
 			}
 		}
+
 		if(!action_num) break;
 
 		if(has_cf_creature(attacker_ptr, CF_HUMANOID))

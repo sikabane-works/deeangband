@@ -4134,7 +4134,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = get_ratity_random(id, rarity, n);
+		creature_ptr->chara_idx = uneven_rand(id, rarity, n);
 		return 0;
 	}
 
@@ -4188,7 +4188,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	}
 	else if(i == -1)
 	{
-		creature_ptr->chara_idx = get_ratity_random(id, rarity, n - 3);
+		creature_ptr->chara_idx = uneven_rand(id, rarity, n - 3);
 		return 0;
 	}
 	else

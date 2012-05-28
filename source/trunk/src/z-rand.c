@@ -397,7 +397,7 @@ u32b Rand_simple(u32b m)
 // D'angband added.
 // Random select by rarity.
 
-int get_ratity_random(int *id_list, int *rarity_list, int num)
+int uneven_rand(int *id_list, int *rarity_list, int num)
 {
 	int i;
 
