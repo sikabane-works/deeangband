@@ -8930,8 +8930,9 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 }
 
 
-static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
+static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
@@ -8947,7 +8948,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 	int dir;
-	int plev = cr_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -8961,7 +8962,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -8970,7 +8971,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You start humming a slow, steady melody...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_SLOW);
+			start_singing(caster_ptr, spell, MUSIC_SLOW);
 		}
 
 		{
@@ -8980,7 +8981,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				slow_creatures(cr_ptr);
+				slow_creatures(caster_ptr);
 			}
 		}
 		break;
@@ -8995,7 +8996,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9004,12 +9005,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("The holy power of the Music of the Ainur enters you...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_BLESS);
+			start_singing(caster_ptr, spell, MUSIC_BLESS);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->blessed)
+			if (!caster_ptr->blessed)
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -9031,7 +9032,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		{
 			int dice = 4 + (plev - 1) / 5;
@@ -9041,9 +9042,9 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_bolt(cr_ptr, GF_SOUND, dir, damroll(dice, sides));
+				fire_bolt(caster_ptr, GF_SOUND, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -9058,7 +9059,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9067,7 +9068,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to bewilder and daze...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_STUN);
+			start_singing(caster_ptr, spell, MUSIC_STUN);
 		}
 
 		{
@@ -9078,7 +9079,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				stun_creatures(cr_ptr, damroll(dice, sides));
+				stun_creatures(caster_ptr, damroll(dice, sides));
 			}
 		}
 
@@ -9094,7 +9095,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9103,7 +9104,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing a song of healing...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_L_LIFE);
+			start_singing(caster_ptr, spell, MUSIC_L_LIFE);
 		}
 
 		{
@@ -9114,7 +9115,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
+				hp_player(caster_ptr, damroll(dice, sides));
 			}
 		}
 
@@ -9130,7 +9131,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		{
 			int dice = 2;
@@ -9147,7 +9148,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("Your uplifting song brings brightness to dark places...");
 #endif
 
-				lite_area(cr_ptr, damroll(dice, sides), rad);
+				lite_area(caster_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -9162,7 +9163,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9171,7 +9172,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You start weaving a fearful pattern...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_FEAR);			
+			start_singing(caster_ptr, spell, MUSIC_FEAR);			
 		}
 
 		{
@@ -9181,7 +9182,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(cr_ptr, GF_TURN_ALL, power);
+				project_hack(caster_ptr, GF_TURN_ALL, power);
 			}
 		}
 
@@ -9197,7 +9198,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9207,18 +9208,18 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			msg_print("You start singing a song of intense fighting...");
 #endif
 
-			(void)hp_player(cr_ptr, 10);
-			(void)set_afraid(cr_ptr, 0);
+			(void)hp_player(caster_ptr, 10);
+			(void)set_afraid(caster_ptr, 0);
 
 			/* Recalculate hitpoints */
-			cr_ptr->creature_update |= (CRU_HP);
+			caster_ptr->creature_update |= (CRU_HP);
 
-			start_singing(cr_ptr, spell, MUSIC_HERO);
+			start_singing(caster_ptr, spell, MUSIC_HERO);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->hero)
+			if (!caster_ptr->hero)
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9226,7 +9227,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				cr_ptr->creature_update |= (CRU_HP);
+				caster_ptr->creature_update |= (CRU_HP);
 			}
 		}
 
@@ -9242,7 +9243,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9253,9 +9254,9 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 			/* Hack -- Initialize the turn count */
-			cr_ptr->magic_num1[2] = 0;
+			caster_ptr->magic_num1[2] = 0;
 
-			start_singing(cr_ptr, spell, MUSIC_DETECT);
+			start_singing(caster_ptr, spell, MUSIC_DETECT);
 		}
 
 		{
@@ -9265,39 +9266,39 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				int count = cr_ptr->magic_num1[2];
+				int count = caster_ptr->magic_num1[2];
 
-				if (count >= 19) wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+				if (count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
 				if (count >= 11)
 				{
-					map_area(cr_ptr, rad);
+					map_area(caster_ptr, rad);
 					if (plev > 39 && count < 19)
-						cr_ptr->magic_num1[2] = count + 1;
+						caster_ptr->magic_num1[2] = count + 1;
 				}
 				if (count >= 6)
 				{
 					/* There are too many hidden treasure.  So... */
 					/* detect_treasure(rad); */
-					detect_objects_gold(cr_ptr, rad);
-					detect_objects_normal(cr_ptr, rad);
+					detect_objects_gold(caster_ptr, rad);
+					detect_objects_normal(caster_ptr, rad);
 
 					if (plev > 24 && count < 11)
-						cr_ptr->magic_num1[2] = count + 1;
+						caster_ptr->magic_num1[2] = count + 1;
 				}
 				if (count >= 3)
 				{
-					detect_monsters_invis(cr_ptr, rad);
-					detect_monsters_normal(cr_ptr, rad);
+					detect_monsters_invis(caster_ptr, rad);
+					detect_monsters_normal(caster_ptr, rad);
 
 					if (plev > 19 && count < 6)
-						cr_ptr->magic_num1[2] = count + 1;
+						caster_ptr->magic_num1[2] = count + 1;
 				}
-				detect_traps(cr_ptr, rad, TRUE);
-				detect_doors(cr_ptr, rad);
-				detect_stairs(cr_ptr, rad);
+				detect_traps(caster_ptr, rad, TRUE);
+				detect_doors(caster_ptr, rad);
+				detect_stairs(caster_ptr, rad);
 
 				if (plev > 14 && count < 3)
-					cr_ptr->magic_num1[2] = count + 1;
+					caster_ptr->magic_num1[2] = count + 1;
 			}
 		}
 
@@ -9313,7 +9314,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9322,7 +9323,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You start singing a song of soul in pain...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_PSI);
+			start_singing(caster_ptr, spell, MUSIC_PSI);
 		}
 
 		{
@@ -9333,7 +9334,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(cr_ptr, GF_PSI, damroll(dice, sides));
+				project_hack(caster_ptr, GF_PSI, damroll(dice, sides));
 			}
 		}
 
@@ -9349,7 +9350,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9358,7 +9359,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You recall the rich lore of the world...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_ID);
+			start_singing(caster_ptr, spell, MUSIC_ID);
 		}
 
 		{
@@ -9372,7 +9373,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
+				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
 			}
 		}
 
@@ -9388,7 +9389,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9397,12 +9398,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("Your song carries you beyond the sight of mortal eyes...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_STEALTH);
+			start_singing(caster_ptr, spell, MUSIC_STEALTH);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->tim_stealth)
+			if (!caster_ptr->tim_stealth)
 			{
 #ifdef JP
 				msg_print("姿がはっきりと見えるようになった。");
@@ -9424,7 +9425,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9433,7 +9434,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to beguile and confuse...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_CONF);
+			start_singing(caster_ptr, spell, MUSIC_CONF);
 		}
 
 		{
@@ -9443,7 +9444,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				confuse_creatures(cr_ptr, power);
+				confuse_creatures(caster_ptr, power);
 			}
 		}
 
@@ -9459,7 +9460,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9468,7 +9469,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("The fury of the Downfall of Numenor lashes out...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_SOUND);
+			start_singing(caster_ptr, spell, MUSIC_SOUND);
 		}
 
 		{
@@ -9479,7 +9480,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(cr_ptr, GF_SOUND, damroll(dice, sides));
+				project_hack(caster_ptr, GF_SOUND, damroll(dice, sides));
 			}
 		}
 
@@ -9496,7 +9497,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
@@ -9506,7 +9507,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The themes of life and revival are woven into your song...");
 #endif
 
-				animate_dead(NULL, cr_ptr->fy, cr_ptr->fx);
+				animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 			}
 		}
 		break;
@@ -9521,7 +9522,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9530,7 +9531,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a slow, soothing melody of imploration...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_CHARM);
+			start_singing(caster_ptr, spell, MUSIC_CHARM);
 		}
 
 		{
@@ -9541,7 +9542,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				charm_creatures(cr_ptr, damroll(dice, sides));
+				charm_creatures(caster_ptr, damroll(dice, sides));
 			}
 		}
 
@@ -9557,7 +9558,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9566,7 +9567,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a violent pattern of sounds to break wall.");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_WALL);
+			start_singing(caster_ptr, spell, MUSIC_WALL);
 		}
 
 		{
@@ -9576,7 +9577,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx,
+				project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx,
 					0, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM | PROJECT_HIDE, -1);
 			}
 		}
@@ -9592,7 +9593,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9601,12 +9602,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You sing a song of perseverance against powers...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_RESIST);
+			start_singing(caster_ptr, spell, MUSIC_RESIST);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->oppose_acid)
+			if (!caster_ptr->oppose_acid)
 			{
 #ifdef JP
 				msg_print("酸への耐性が薄れた気がする。");
@@ -9615,7 +9616,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!cr_ptr->oppose_elec)
+			if (!caster_ptr->oppose_elec)
 			{
 #ifdef JP
 				msg_print("電撃への耐性が薄れた気がする。");
@@ -9624,7 +9625,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!cr_ptr->oppose_fire)
+			if (!caster_ptr->oppose_fire)
 			{
 #ifdef JP
 				msg_print("火への耐性が薄れた気がする。");
@@ -9633,7 +9634,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!cr_ptr->oppose_cold)
+			if (!caster_ptr->oppose_cold)
 			{
 #ifdef JP
 				msg_print("冷気への耐性が薄れた気がする。");
@@ -9642,7 +9643,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!cr_ptr->oppose_pois)
+			if (!caster_ptr->oppose_pois)
 			{
 #ifdef JP
 				msg_print("毒への耐性が薄れた気がする。");
@@ -9664,7 +9665,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9673,12 +9674,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You start singing joyful pop song...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_SPEED);
+			start_singing(caster_ptr, spell, MUSIC_SPEED);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->fast)
+			if (!caster_ptr->fast)
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -9706,7 +9707,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (info) return info_radius(rad);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
@@ -9716,7 +9717,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("Reality whirls wildly as you sing a dizzying melody...");
 #endif
 
-				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
+				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
 			}
 		}
 		break;
@@ -9731,7 +9732,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9740,7 +9741,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You cry out in an ear-wracking voice...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_DISPEL);
+			start_singing(caster_ptr, spell, MUSIC_DISPEL);
 		}
 
 		{
@@ -9751,8 +9752,8 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				dispel_creatures(cr_ptr, randint1(m_sides));
-				dispel_evil(cr_ptr, randint1(e_sides));
+				dispel_creatures(caster_ptr, randint1(m_sides));
+				dispel_evil(caster_ptr, randint1(e_sides));
 			}
 		}
 		break;
@@ -9767,7 +9768,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9776,7 +9777,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You start humming a gentle and attractive song...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_SARUMAN);
+			start_singing(caster_ptr, spell, MUSIC_SARUMAN);
 		}
 
 		{
@@ -9786,8 +9787,8 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				slow_creatures(cr_ptr);
-				sleep_creatures(cr_ptr);
+				slow_creatures(caster_ptr);
+				sleep_creatures(caster_ptr);
 			}
 		}
 
@@ -9809,13 +9810,13 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_beam(cr_ptr, GF_SOUND, dir, damroll(dice, sides));
+				fire_beam(caster_ptr, GF_SOUND, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -9836,7 +9837,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (info) return info_delay(base, sides);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
@@ -9846,7 +9847,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("You sing of the primeval shaping of Middle-earth...");
 #endif
 
-				alter_reality(cr_ptr);
+				alter_reality(caster_ptr);
 			}
 		}
 		break;
@@ -9861,7 +9862,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9870,7 +9871,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to contort and shatter...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_QUAKE);
+			start_singing(caster_ptr, spell, MUSIC_QUAKE);
 		}
 
 		{
@@ -9880,7 +9881,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
+				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 			}
 		}
 
@@ -9897,7 +9898,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9906,7 +9907,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You weave a very slow pattern which is almost likely to stop...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_STASIS);
+			start_singing(caster_ptr, spell, MUSIC_STASIS);
 		}
 
 		{
@@ -9916,7 +9917,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				stasis_creatures(cr_ptr, power);
+				stasis_creatures(caster_ptr, power);
 			}
 		}
 
@@ -9933,7 +9934,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
@@ -9943,7 +9944,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The holy power of the Music is creating sacred field...");
 #endif
 
-				warding_glyph(cr_ptr);
+				warding_glyph(caster_ptr);
 			}
 		}
 		break;
@@ -9958,7 +9959,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -9967,18 +9968,18 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
-			(void)hp_player(cr_ptr, 10);
-			(void)set_afraid(cr_ptr, 0);
+			(void)hp_player(caster_ptr, 10);
+			(void)set_afraid(caster_ptr, 0);
 
 			/* Recalculate hitpoints */
-			cr_ptr->creature_update |= (CRU_HP);
+			caster_ptr->creature_update |= (CRU_HP);
 
-			start_singing(cr_ptr, spell, MUSIC_SHERO);
+			start_singing(caster_ptr, spell, MUSIC_SHERO);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->hero)
+			if (!caster_ptr->hero)
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9986,10 +9987,10 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				cr_ptr->creature_update |= (CRU_HP);
+				caster_ptr->creature_update |= (CRU_HP);
 			}
 
-			if (!cr_ptr->fast)
+			if (!caster_ptr->fast)
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -10007,7 +10008,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				dispel_creatures(cr_ptr, damroll(dice, sides));
+				dispel_creatures(caster_ptr, damroll(dice, sides));
 			}
 		}
 		break;
@@ -10022,7 +10023,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -10031,7 +10032,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing the song...");
 #endif
-			start_singing(cr_ptr, spell, MUSIC_H_LIFE);
+			start_singing(caster_ptr, spell, MUSIC_H_LIFE);
 		}
 
 		{
@@ -10042,9 +10043,9 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
-				set_stun(cr_ptr, 0);
-				set_cut(cr_ptr, 0);
+				hp_player(caster_ptr, damroll(dice, sides));
+				set_stun(caster_ptr, 0);
+				set_cut(caster_ptr, 0);
 			}
 		}
 
@@ -10061,7 +10062,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
@@ -10070,13 +10071,13 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 				msg_print("You strewed light and beauty in the dark as you sing. You feel refreshed.");
 #endif
-				(void)do_res_stat(cr_ptr, STAT_STR);
-				(void)do_res_stat(cr_ptr, STAT_INT);
-				(void)do_res_stat(cr_ptr, STAT_WIS);
-				(void)do_res_stat(cr_ptr, STAT_DEX);
-				(void)do_res_stat(cr_ptr, STAT_CON);
-				(void)do_res_stat(cr_ptr, STAT_CHA);
-				(void)restore_level(cr_ptr);
+				(void)do_res_stat(caster_ptr, STAT_STR);
+				(void)do_res_stat(caster_ptr, STAT_INT);
+				(void)do_res_stat(caster_ptr, STAT_WIS);
+				(void)do_res_stat(caster_ptr, STAT_DEX);
+				(void)do_res_stat(caster_ptr, STAT_CON);
+				(void)do_res_stat(caster_ptr, STAT_CHA);
+				(void)restore_level(caster_ptr);
 			}
 		}
 		break;
@@ -10098,13 +10099,13 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(cr_ptr);
+			if (cast || fail) stop_singing(caster_ptr);
 
 			if (cast)
 			{
-				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
+				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_SOUND, dir, damroll(dice, sides), rad);
+				fire_ball(caster_ptr, GF_SOUND, dir, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -10119,7 +10120,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(cr_ptr);
+		if (cast || fail) stop_singing(caster_ptr);
 
 		if (cast)
 		{
@@ -10138,12 +10139,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-				start_singing(cr_ptr, spell, MUSIC_INVULN);
+				start_singing(caster_ptr, spell, MUSIC_INVULN);
 		}
 
 		if (stop)
 		{
-			if (!cr_ptr->invuln)
+			if (!caster_ptr->invuln)
 			{
 #ifdef JP
 				msg_print("無敵ではなくなった。");
@@ -10176,7 +10177,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	int dir;
 	int plev = caster_ptr->lev;
-	floor_type *floor_ptr = caster_ptr->floor_id ? &floor_list[caster_ptr->floor_id] : current_floor_ptr;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 	switch (spell)
 	{
