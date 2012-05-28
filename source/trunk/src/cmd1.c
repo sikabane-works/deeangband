@@ -3318,7 +3318,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 					if(attacker_ptr->can_melee[i])
 					{
 						action_list[action_num] = i;
-						action_cost[action_num] = 10;
+						action_cost[action_num] = calc_melee_cost(attacker_ptr,
+							get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST));
 						action_weight[action_num] = 10;
 						action_num++;
 					}
@@ -3340,21 +3341,37 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 		if(!action_num) break;
 
-		if(has_cf_creature(attacker_ptr, CF_HUMANOID))
+		i = uneven_rand(action_list, action_weight, action_num);
+
+		switch(i)
 		{
-			if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
-			if (attacker_ptr->can_melee[1] && !mdeath) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 2, mode);
-		}
-		else if(atk_species_ptr->blow[0].method)
-		{
-			special_melee(attacker_ptr, target_ptr);
-		}
-		else
-		{
-			weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
+			case MELEE_TYPE_WEAPON_1ST:
+			case MELEE_TYPE_WEAPON_2ND:
+			case MELEE_TYPE_WEAPON_3RD:
+			case MELEE_TYPE_WEAPON_4TH:
+			case MELEE_TYPE_WEAPON_5TH:
+			case MELEE_TYPE_WEAPON_6TH:
+			case MELEE_TYPE_WEAPON_7TH:
+			case MELEE_TYPE_WEAPON_8TH:
+				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, i + 1, mode);
+				break;
+
+			case MELEE_TYPE_SPECIAL_1ST:
+			case MELEE_TYPE_SPECIAL_2ND:
+			case MELEE_TYPE_SPECIAL_3RD:
+			case MELEE_TYPE_SPECIAL_4TH:
+				special_melee(attacker_ptr, target_ptr);
+				break;
+
+			case MELEE_TYPE_BARE_HAND:
+				break;
+
+			case MELEE_TYPE_STAMP:
+				break;
 		}
 
 		tried_num++;
+		action_point -= action_cost[i];
 
 	} while(tried_num < 10 && mdeath);
 

@@ -1061,12 +1061,12 @@ extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 extern int count_melee_slot(creature_type *creature_ptr);
 extern int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr);
 
-/* do-spell.c */
+// do-spell.c
 extern void stop_singing(creature_type *cr_ptr);
 extern cptr do_spell(creature_type *cr_ptr, int realm, int spell, int mode);
 extern void wild_magic(creature_type *cr_ptr, int spell);
 
-/* dungeon.c */
+// dungeon.c
 extern void leave_quest_check(creature_type *cr_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
