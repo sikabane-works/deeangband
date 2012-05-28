@@ -5029,17 +5029,18 @@ msg_print("ここにはクエストの入口はない。");
 /*
  * Do building commands
  */
-void do_cmd_bldg(creature_type *cr_ptr)
+void do_cmd_bldg(creature_type *creature_ptr)
 {
 	int             i, which;
 	char            command;
 	bool            validcmd;
 	building_type   *bldg;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_BLDG))
+	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
 #ifdef JP
 		msg_print("ここには建物はない。");
@@ -5050,7 +5051,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		return;
 	}
 
-	which = f_info[current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
+	which = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	bldg = &building[which];
 
@@ -5079,7 +5080,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		else
 		{
 			/* Don't save the arena as saved floor */
-			prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
+			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 			fight_arena_mode = FALSE;
 			subject_change_floor = TRUE;
@@ -5096,7 +5097,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	else if (gamble_arena_mode)
 	{
 		/* Don't save the arena as saved floor */
-		prepare_change_floor_mode(cr_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
+		prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 		subject_change_floor = TRUE;
 		gamble_arena_mode = FALSE;
@@ -5111,19 +5112,19 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	}
 	else
 	{
-		cr_ptr->oldpy = cr_ptr->fy;
-		cr_ptr->oldpx = cr_ptr->fx;
+		creature_ptr->oldpy = creature_ptr->fy;
+		creature_ptr->oldpx = creature_ptr->fx;
 	}
 
 	// Forget the lite and view
-	forget_lite(&floor_list[cr_ptr->floor_id]);
-	forget_view(&floor_list[cr_ptr->floor_id]);
+	forget_lite(&floor_list[creature_ptr->floor_id]);
+	forget_view(&floor_list[creature_ptr->floor_id]);
 
 	command_arg = 0;
 	command_rep = 0;
 	command_new = 0;
 
-	show_building(cr_ptr, bldg);
+	show_building(creature_ptr, bldg);
 	leave_bldg = FALSE;
 
 	while (!leave_bldg)
@@ -5131,7 +5132,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		validcmd = FALSE;
 		prt("", 1, 0);
 
-		building_prt_gold(cr_ptr);
+		building_prt_gold(creature_ptr);
 
 		command = inkey();
 
@@ -5156,10 +5157,10 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		}
 
 		if (validcmd)
-			bldg_process_command(cr_ptr, bldg, i);
+			bldg_process_command(creature_ptr, bldg, i);
 
 		/* Notice stuff */
-		notice_stuff(cr_ptr);
+		notice_stuff(creature_ptr);
 
 		/* Handle stuff */
 		handle_stuff();
@@ -5179,7 +5180,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	Term_clear();
 
 	/* Update the visuals */
-	cr_ptr->creature_update |= CRU_BONUS;
+	creature_ptr->creature_update |= CRU_BONUS;
 	update |= (PU_VIEW | PU_MONSTERS | PU_LITE | PU_MON_LITE);
 
 	/* Redraw entire screen */
