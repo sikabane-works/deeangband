@@ -5995,3 +5995,23 @@ extern int PlayerUID;
 #define IS_DEAD(CR) ((CR)->chp < 0)
 
 #define get_floor_ptr(CR) ((CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
+
+
+// Melee type definition
+
+#define MELEE_TYPE_WEAPON_1ST   0
+#define MELEE_TYPE_WEAPON_2ND   1
+#define MELEE_TYPE_WEAPON_3RD   2
+#define MELEE_TYPE_WEAPON_4TH   3
+#define MELEE_TYPE_WEAPON_5TH   4
+#define MELEE_TYPE_WEAPON_6TH   5
+#define MELEE_TYPE_WEAPON_7TH   6
+#define MELEE_TYPE_WEAPON_8TH   7
+#define MELEE_TYPE_SPECIAL_1ST  8
+#define MELEE_TYPE_SPECIAL_2ND  9
+#define MELEE_TYPE_SPECIAL_3RD 10
+#define MELEE_TYPE_SPECIAL_4TH 11
+#define MELEE_TYPE_BARE_HAND   12
+#define MELEE_TYPE_STAMP       13
+#define MELEE_TYPE_MAX         14
+

@@ -3241,6 +3241,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 	return FALSE;
 }
 
+
 bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	int i;
@@ -3257,8 +3258,9 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char            target_name[80];
 
 	int action_point;
-	int action_list[20];
-	int action_cost[20];
+	int action_list[MELEE_TYPE_MAX];
+	int action_cost[MELEE_TYPE_MAX];
+	int action_weight[MELEE_TYPE_MAX];
 	int action_num;
 	int tried_num;
 
@@ -3297,18 +3299,42 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	tried_num = 0;
 	energy_use = 100;
 
-
 	do
 	{
 		action_num = 0;
 
-		for(i = 0; i < MAX_HANDS; i++)
+		for(i = 0; i < MELEE_TYPE_MAX; i++)
 		{
-			if(attacker_ptr->can_melee[i])
+			switch(i)
 			{
-				action_list[action_num] = i;
-				action_cost[action_num] = 10;
-				action_num++;
+				case MELEE_TYPE_WEAPON_1ST:
+				case MELEE_TYPE_WEAPON_2ND:
+				case MELEE_TYPE_WEAPON_3RD:
+				case MELEE_TYPE_WEAPON_4TH:
+				case MELEE_TYPE_WEAPON_5TH:
+				case MELEE_TYPE_WEAPON_6TH:
+				case MELEE_TYPE_WEAPON_7TH:
+				case MELEE_TYPE_WEAPON_8TH:
+					if(attacker_ptr->can_melee[i])
+					{
+						action_list[action_num] = i;
+						action_cost[action_num] = 10;
+						action_weight[action_num] = 10;
+						action_num++;
+					}
+					break;
+
+				case MELEE_TYPE_SPECIAL_1ST:
+				case MELEE_TYPE_SPECIAL_2ND:
+				case MELEE_TYPE_SPECIAL_3RD:
+				case MELEE_TYPE_SPECIAL_4TH:
+					break;
+
+				case MELEE_TYPE_BARE_HAND:
+					break;
+
+				case MELEE_TYPE_STAMP:
+					break;
 			}
 		}
 
