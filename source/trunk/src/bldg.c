@@ -2985,18 +2985,19 @@ sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
 /*
  * Request a quest from the Lord.
  */
-static void castle_quest(creature_type *cr_ptr)
+static void castle_quest(creature_type *creature_ptr)
 {
 	int             q_index = 0;
 	species_type    *r_ptr;
 	quest_type      *q_ptr;
 	cptr            name;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 
 	clear_bldg(4, 18);
 
 	/* Current quest of the building */
-	q_index = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].special;
+	q_index = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
 
 	/* Is there a quest available at the building? */
 	if (!q_index)
