@@ -386,7 +386,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 /*
  * Simple command to "search" for one turn
  */
-void do_cmd_search(creature_type *cr_ptr)
+void do_cmd_search(creature_type *creature_ptr)
 {
 	/* Allow repeated command */
 	if (command_arg)
@@ -405,7 +405,7 @@ void do_cmd_search(creature_type *cr_ptr)
 	energy_use = 100;
 
 	/* Search */
-	search(cr_ptr);
+	search(creature_ptr);
 }
 
 // Determine if a grid contains a chest
@@ -960,7 +960,7 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
  * Return the number of chests around (or under) the character.
  * If requested, count only trapped chests.
  */
-static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
+static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trapped)
 {
 	int d, count, object_idx;
 
@@ -973,8 +973,8 @@ static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 	for (d = 0; d < 9; d++)
 	{
 		/* Extract adjacent (legal) location */
-		int yy = cr_ptr->fy + ddy_ddd[d];
-		int xx = cr_ptr->fx + ddx_ddd[d];
+		int yy = creature_ptr->fy + ddy_ddd[d];
+		int xx = creature_ptr->fx + ddx_ddd[d];
 
 		if ((object_idx = chest_check(current_floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
@@ -1004,13 +1004,13 @@ static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 /*
  * Convert an adjacent location to a direction.
  */
-static int coords_to_dir(creature_type *cr_ptr, int y, int x)
+static int coords_to_dir(creature_type *creature_ptr, int y, int x)
 {
 	int d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
 	int dy, dx;
 
-	dy = y - cr_ptr->fy;
-	dx = x - cr_ptr->fx;
+	dy = y - creature_ptr->fy;
+	dx = x - creature_ptr->fx;
 
 	/* Paranoia */
 	if (ABS(dx) > 1 || ABS(dy) > 1) return (0);
@@ -1397,7 +1397,7 @@ void do_cmd_close(creature_type *creature_ptr)
 /*
  * Determine if a given grid may be "tunneled"
  */
-static bool do_cmd_tunnel_test(creature_type *cr_ptr, int y, int x)
+static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -1605,7 +1605,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
  * Digging is very difficult without a "digger" weapon, but can be
  * accomplished by strong players using heavy weapons.
  */
-void do_cmd_tunnel(creature_type *cr_ptr)
+void do_cmd_tunnel(creature_type *creature_ptr)
 {
 	int			y, x, dir;
 
@@ -1615,9 +1615,9 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 	bool		more = FALSE;
 
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -1634,11 +1634,11 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 	}
 
 	/* Get a direction to tunnel, or Abort */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Get location */
-		y = cr_ptr->fy + ddy[dir];
-		x = cr_ptr->fx + ddx[dir];
+		y = creature_ptr->fy + ddy[dir];
+		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid */
 		c_ptr = &current_floor_ptr->cave[y][x];
@@ -1681,14 +1681,14 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			melee_attack(cr_ptr, y, x, 0);
+			melee_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Try digging */
 		else
 		{
 			/* Tunnel through walls */
-			more = do_cmd_tunnel_aux(cr_ptr, y, x);
+			more = do_cmd_tunnel_aux(creature_ptr, y, x);
 		}
 	}
 
@@ -1811,7 +1811,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
  *
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object_idx)
+static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
 {
 	int i, j;
 
@@ -1824,11 +1824,11 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object
 	energy_use = 100;
 
 	/* Get the "disarm" factor */
-	i = cr_ptr->skill_dis;
+	i = creature_ptr->skill_dis;
 
 	/* Penalize some conditions */
-	if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
-	if (cr_ptr->confused || cr_ptr->image) i = i / 10;
+	if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+	if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - o_ptr->pval;
@@ -1878,7 +1878,7 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object
 		msg_print("You have disarmed the chest.");
 #endif
 
-		gain_exp(cr_ptr, o_ptr->pval);
+		gain_exp(creature_ptr, o_ptr->pval);
 		o_ptr->pval = (0 - o_ptr->pval);
 	}
 
@@ -1906,7 +1906,7 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b object
 #endif
 
 		sound(SOUND_FAIL);
-		chest_trap(cr_ptr, y, x, object_idx);
+		chest_trap(creature_ptr, y, x, object_idx);
 	}
 
 	/* Result */
@@ -2447,14 +2447,14 @@ void do_cmd_alter(creature_type *creature_ptr)
  *
  * XXX XXX XXX Let user choose a pile of spikes, perhaps?
  */
-static bool get_spike(creature_type *cr_ptr, int *ip)
+static bool get_spike(creature_type *creature_ptr, int *ip)
 {
 	int i;
 
 	/* Check every item in the pack */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2572,10 +2572,10 @@ void do_cmd_spike(creature_type *creature_ptr)
 /*
  * Support code for the "Walk" and "Jump" commands
  */
-void do_cmd_walk(creature_type *cr_ptr, bool pickup)
+void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 {
 	int dir;
-
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	bool more = FALSE;
 
 
@@ -2593,36 +2593,36 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Take a turn */
 		energy_use = 100;
 
-		if ((dir != 5) && (cr_ptr->special_defense & KATA_MUSOU))
+		if ((dir != 5) && (creature_ptr->special_defense & KATA_MUSOU))
 		{
-			set_action(cr_ptr, ACTION_NONE);
+			set_action(creature_ptr, ACTION_NONE);
 		}
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
 		if (wild_mode) energy_use *= ((MAX_HGT + MAX_WID) / 2);
-		if (cr_ptr->action == ACTION_HAYAGAKE) energy_use = energy_use * (45-(cr_ptr->lev/2)) / 100;
+		if (creature_ptr->action == ACTION_HAYAGAKE) energy_use = energy_use * (45-(creature_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
-		move_creature(cr_ptr, dir, pickup, FALSE);
+		move_creature(creature_ptr, dir, pickup, FALSE);
 
 		/* Allow more walking */
 		more = TRUE;
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if (wild_mode && !cave_have_flag_bold(current_floor_ptr, cr_ptr->fy, cr_ptr->fx, FF_TOWN))
+	if (wild_mode && !cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
 	{
 
-		int tmp = 120 + cr_ptr->lev*10 - wilderness[cr_ptr->fy][cr_ptr->fx].level + 5;
+		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
 
 		if (tmp < 1) 
 			tmp = 1;
-		if (((wilderness[cr_ptr->fy][cr_ptr->fx].level + 5) > (cr_ptr->lev / 2)) && randint0(tmp) < (21-cr_ptr->skill_stl))
+		if (((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
 		{
 			/* Inform the player of his horrible fate :=) */
 #ifdef JP
@@ -2632,9 +2632,9 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 #endif
 
 			/* Go into large wilderness view */
-			cr_ptr->oldpy = (s16b)randint1(MAX_HGT-2);
-			cr_ptr->oldpx = (s16b)randint1(MAX_WID-2);
-			change_wild_mode(cr_ptr);
+			creature_ptr->oldpy = (s16b)randint1(MAX_HGT-2);
+			creature_ptr->oldpx = (s16b)randint1(MAX_WID-2);
+			change_wild_mode(creature_ptr);
 
 			/* Give first move to monsters */
 			energy_use = 100;
@@ -2653,12 +2653,12 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 /*
  * Start running.
  */
-void do_cmd_run(creature_type *cr_ptr)
+void do_cmd_run(creature_type *creature_ptr)
 {
 	int dir;
 
 	/* Hack -- no running when confused */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて走れない！");
@@ -2669,19 +2669,19 @@ void do_cmd_run(creature_type *cr_ptr)
 		return;
 	}
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(cr_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Hack -- Set the run counter */
 		running = (command_arg ? command_arg : 1000);
 
 		/* First step */
-		run_step(cr_ptr, dir);
+		run_step(creature_ptr, dir);
 	}
 }
 
@@ -2691,7 +2691,7 @@ void do_cmd_run(creature_type *cr_ptr)
  * Stay still.  Search.  Enter stores.
  * Pick up treasure if "pickup" is true.
  */
-void do_cmd_stay(creature_type *cr_ptr, bool pickup)
+void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 {
 	u32b mpe_mode = MPE_STAYING | MPE_ENERGY_USE;
 
@@ -2712,7 +2712,7 @@ void do_cmd_stay(creature_type *cr_ptr, bool pickup)
 	energy_use = 100;
 
 	if (pickup) mpe_mode |= MPE_DO_PICKUP;
-	(void)move_creature_effect(cr_ptr, cr_ptr->fy, cr_ptr->fx, mpe_mode);
+	(void)move_creature_effect(creature_ptr, creature_ptr->fy, creature_ptr->fx, mpe_mode);
 }
 
 
@@ -2720,18 +2720,18 @@ void do_cmd_stay(creature_type *cr_ptr, bool pickup)
 /*
  * Resting allows a player to safely restore his hp	-RAK-
  */
-void do_cmd_rest(creature_type *cr_ptr)
+void do_cmd_rest(creature_type *creature_ptr)
 {
 
-	set_action(cr_ptr, ACTION_NONE);
+	set_action(creature_ptr, ACTION_NONE);
 
-	if ((cr_ptr->cls_idx == CLASS_BARD) && (cr_ptr->magic_num1[0] || cr_ptr->magic_num1[1]))
+	if ((creature_ptr->cls_idx == CLASS_BARD) && (creature_ptr->magic_num1[0] || creature_ptr->magic_num1[1]))
 	{
-		stop_singing(cr_ptr);
+		stop_singing(creature_ptr);
 	}
 
 	/* Hex */
-	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
+	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Prompt for time if needed */
 	if (command_arg <= 0)
@@ -2775,17 +2775,17 @@ void do_cmd_rest(creature_type *cr_ptr)
 	/* Paranoia */
 	if (command_arg > 9999) command_arg = 9999;
 
-	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
+	if (creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
 	energy_use = 100;
 
 	/* Save the rest code */
 	resting = command_arg;
-	cr_ptr->action = ACTION_REST;
+	creature_ptr->action = ACTION_REST;
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Redraw the state */
 	play_redraw |= (PR_STATE);
@@ -2803,20 +2803,20 @@ void do_cmd_rest(creature_type *cr_ptr)
  *
  * Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
  */
-static int breakage_chance(creature_type *cr_ptr, object_type *o_ptr)
+static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
 {
-	int archer_bonus = (cr_ptr->cls_idx == CLASS_ARCHER ? (cr_ptr->lev-1)/7 + 4: 0);
+	int archer_bonus = (creature_ptr->cls_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
-	if (cr_ptr->snipe_type)
+	if (creature_ptr->snipe_type)
 	{
-		if (cr_ptr->snipe_type == SP_KILL_WALL) return (100);
-		if (cr_ptr->snipe_type == SP_EXPLODE) return (100);
-		if (cr_ptr->snipe_type == SP_PIERCE) return (100);
-		if (cr_ptr->snipe_type == SP_FINAL) return (100);
-		if (cr_ptr->snipe_type == SP_NEEDLE) return (100);
-		if (cr_ptr->snipe_type == SP_EVILNESS) return (40);
-		if (cr_ptr->snipe_type == SP_HOLYNESS) return (40);
+		if (creature_ptr->snipe_type == SP_KILL_WALL) return (100);
+		if (creature_ptr->snipe_type == SP_EXPLODE) return (100);
+		if (creature_ptr->snipe_type == SP_PIERCE) return (100);
+		if (creature_ptr->snipe_type == SP_FINAL) return (100);
+		if (creature_ptr->snipe_type == SP_NEEDLE) return (100);
+		if (creature_ptr->snipe_type == SP_EVILNESS) return (40);
+		if (creature_ptr->snipe_type == SP_HOLYNESS) return (40);
 	}
 
 	/* Examine the item type */
@@ -3761,16 +3761,16 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 }
 
 
-void do_cmd_fire(creature_type *cr_ptr)
+void do_cmd_fire(creature_type *creature_ptr)
 {
 	int item;
 	object_type *j_ptr;
 	cptr q, s;
 
-	cr_ptr->is_fired = FALSE;	/* not fired yet */
+	creature_ptr->is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
+	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	/* Require a launcher */
 	if (!j_ptr->tval)
@@ -3796,13 +3796,13 @@ void do_cmd_fire(creature_type *cr_ptr)
 	}
 
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Require proper missile */
-	item_tester_tval = cr_ptr->tval_ammo;
+	item_tester_tval = creature_ptr->tval_ammo;
 
 	/* Get an item */
 #ifdef JP
@@ -3813,36 +3813,36 @@ void do_cmd_fire(creature_type *cr_ptr)
 	s = "You have nothing to fire.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
 	{
 		flush();
 		return;
 	}
 
 	/* Fire the item */
-	do_cmd_fire_aux(cr_ptr, item, j_ptr);
+	do_cmd_fire_aux(creature_ptr, item, j_ptr);
 
-	if (!cr_ptr->is_fired || cr_ptr->cls_idx != CLASS_SNIPER) return;
+	if (!creature_ptr->is_fired || creature_ptr->cls_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
-	if (cr_ptr->snipe_type == SP_AWAY)
+	if (creature_ptr->snipe_type == SP_AWAY)
 	{
-		teleport_player(cr_ptr, 10 + (cr_ptr->concent * 2), 0L);
+		teleport_player(creature_ptr, 10 + (creature_ptr->concent * 2), 0L);
 	}
-	if (cr_ptr->snipe_type == SP_FINAL)
+	if (creature_ptr->snipe_type == SP_FINAL)
 	{
 #ifdef JP
 		msg_print("射撃の反動が体を襲った。");
 #else
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
-		(void)set_slow(cr_ptr, cr_ptr->slow + randint0(7) + 7, FALSE);
-		(void)set_stun(cr_ptr, cr_ptr->stun + randint1(25));
+		(void)set_slow(creature_ptr, creature_ptr->slow + randint0(7) + 7, FALSE);
+		(void)set_stun(creature_ptr, creature_ptr->stun + randint1(25));
 	}
 }
 
 
-static bool item_tester_hook_boomerang(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval==TV_DIGGING) || (o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM) || (o_ptr->tval == TV_HAFTED)) return (TRUE);
 
@@ -4476,9 +4476,9 @@ msg_print("これはあまり良くない気がする。");
 /*
  * Throw an object from the pack or floor.
  */
-void do_cmd_throw(creature_type *cr_ptr)
+void do_cmd_throw(creature_type *creature_ptr)
 {
-	do_cmd_throw_aux(cr_ptr, 1, FALSE, 0);
+	do_cmd_throw_aux(creature_ptr, 1, FALSE, 0);
 }
 
 
