@@ -5018,7 +5018,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	// No useful feeling in quests
-	if (inside_quest && !random_quest_number(floor_ptr->floor_level))
+	if (inside_quest && !random_quest_number(floor_ptr))
 	{
 #ifdef JP
 		msg_print("典型的なクエストのダンジョンのようだ。");

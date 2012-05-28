@@ -6660,8 +6660,8 @@ static void play_loop(void)
 		/* Print quest message if appropriate */
 		if (!inside_quest && (floor_ptr->dun_type == DUNGEON_DOD))
 		{
-			quest_discovery(random_quest_number(floor_ptr->floor_level));
-			inside_quest = random_quest_number(floor_ptr->floor_level);
+			quest_discovery(random_quest_number(floor_ptr));
+			inside_quest = random_quest_number(floor_ptr);
 		}
 
 		if ((floor_ptr->floor_level == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)

@@ -2982,9 +2982,7 @@ sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
 }
 
 
-/*
- * Request a quest from the Lord.
- */
+// Request a quest from the Lord.
 static void castle_quest(creature_type *creature_ptr)
 {
 	int             q_index = 0;
@@ -5307,7 +5305,7 @@ int quest_number(int level)
 	}
 
 	/* Check for random quest */
-	return (random_quest_number(level));
+	return (random_quest_number(current_floor_ptr));
 }
 
 
@@ -5315,17 +5313,17 @@ int quest_number(int level)
  * Return the index of the random quest on this level
  * (or zero)
  */
-int random_quest_number(int level)
+int random_quest_number(floor_type *floor_ptr)
 {
 	int i;
 
-	if (current_floor_ptr->dun_type != DUNGEON_DOD) return 0;
+	if (floor_ptr->dun_type != DUNGEON_DOD) return 0;
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{
 		if ((quest[i].type == QUEST_TYPE_RANDOM) &&
 		    (quest[i].status == QUEST_STATUS_TAKEN) &&
-		    (quest[i].level == level) &&
+			(quest[i].level == floor_ptr->floor_level) &&
 		    (quest[i].dungeon == DUNGEON_DOD))
 		{
 			return i;
