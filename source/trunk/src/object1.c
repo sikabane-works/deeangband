@@ -5132,15 +5132,16 @@ static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_ty
  * Determine whether get_item() can get some item or not
  * assuming mode = (USE_EQUIP | USE_INVEN | USE_FLOOR).
  */
-bool can_get_item(creature_type *cr_ptr)
+bool can_get_item(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
-		if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], NULL))
+		if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], NULL))
 			return TRUE;
 
-	floor_num = scan_floor(floor_list, current_floor_ptr, cr_ptr->fy, cr_ptr->fx, 0x03);
+	floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
 	if (floor_num)
 		return TRUE;
 
