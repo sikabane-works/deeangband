@@ -2220,18 +2220,19 @@ static struct {
 };
 
 
-/* Get prize */
-static bool kankin(creature_type *cr_ptr)
+// Get prize
+static bool kankin(creature_type *creature_ptr)
 {
 	int i, j;
 	bool change = FALSE;
 	char o_name[MAX_NLEN];
 	object_type *o_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* Loop for cr_ptr->inventory and right/left arm */
+	/* Loop for creature_ptr->inventory and right/left arm */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Living Tsuchinoko worthes $1000000 */
 		if ((o_ptr->tval == TV_CAPTURE) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2250,11 +2251,11 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", 1000000L * o_ptr->number);
 #endif
-				cr_ptr->au += 1000000L * o_ptr->number;
+				creature_ptr->au += 1000000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2262,7 +2263,7 @@ static bool kankin(creature_type *cr_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Corpse of Tsuchinoko worthes $200000 */
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2281,11 +2282,11 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", 200000L * o_ptr->number);
 #endif
-				cr_ptr->au += 200000L * o_ptr->number;
+				creature_ptr->au += 200000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2293,7 +2294,7 @@ static bool kankin(creature_type *cr_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Bones of Tsuchinoko worthes $100000 */
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2312,11 +2313,11 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", 100000L * o_ptr->number);
 #endif
-				cr_ptr->au += 100000L * o_ptr->number;
+				creature_ptr->au += 100000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2324,7 +2325,7 @@ static bool kankin(creature_type *cr_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
@@ -2341,11 +2342,11 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", (species_info[today_mon].level * 50 + 100) * o_ptr->number);
 #endif
-				cr_ptr->au += (species_info[today_mon].level * 50 + 100) * o_ptr->number;
+				creature_ptr->au += (species_info[today_mon].level * 50 + 100) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2353,7 +2354,7 @@ static bool kankin(creature_type *cr_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
@@ -2371,11 +2372,11 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", (species_info[today_mon].level * 30 + 60) * o_ptr->number);
 #endif
-				cr_ptr->au += (species_info[today_mon].level * 30 + 60) * o_ptr->number;
+				creature_ptr->au += (species_info[today_mon].level * 30 + 60) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2386,7 +2387,7 @@ static bool kankin(creature_type *cr_ptr)
 		/* Need reverse order --- Positions will be changed in the loop */
 		for (i = INVEN_TOTAL-1; i >= 0; i--)
 		{
-			o_ptr = &cr_ptr->inventory[i];
+			o_ptr = &creature_ptr->inventory[i];
 			if ((o_ptr->tval == TV_CORPSE) && (o_ptr->pval == kubi_species_idx[j]))
 			{
 				char buf[MAX_NLEN+20];
@@ -2407,20 +2408,20 @@ static bool kankin(creature_type *cr_ptr)
 #else
 				msg_format("You get %ldgp.", (species_info[kubi_species_idx[j]].level + 1) * 300 * o_ptr->number);
 #endif
-				cr_ptr->au += (species_info[kubi_species_idx[j]].level+1) * 300 * o_ptr->number;
+				creature_ptr->au += (species_info[kubi_species_idx[j]].level+1) * 300 * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 				kubi_species_idx[j] += 10000;
 
 				change = TRUE;
 #endif /* Obsoleted */
 
 				/* Hand it first */
-				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(cr_ptr, i);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -o_ptr->number);
+				inven_item_describe(creature_ptr, i);
+				inven_item_optimize(creature_ptr, i);
 
 				kubi_species_idx[j] += 10000;
 
@@ -2438,7 +2439,7 @@ static bool kankin(creature_type *cr_ptr)
 
 				/* Prepare to make a prize */
 				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval), ITEM_FREE_SIZE);
-				apply_magic(cr_ptr, &forge, current_floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 				/* Identify it fully */
 				object_aware(&forge);
@@ -2449,7 +2450,7 @@ static bool kankin(creature_type *cr_ptr)
 				 * Since a corpse is handed at first,
 				 * there is at least one empty slot.
 				 */
-				item_new = inven_carry(cr_ptr, &forge);
+				item_new = inven_carry(creature_ptr, &forge);
 
 				/* Describe the object */
 				object_desc(o_name, &forge, 0);
@@ -2460,7 +2461,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 
 				/* Auto-inscription */
-				autopick_alter_item(cr_ptr, item_new, FALSE);
+				autopick_alter_item(creature_ptr, item_new, FALSE);
 
 				/* Handle stuff */
 				handle_stuff();
