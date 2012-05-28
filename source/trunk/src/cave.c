@@ -546,12 +546,13 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 {
 	cave_type *c_ptr;
+	floor_type *floor_ptr = get_floor_ptr(viewer_ptr);
 
 	/* Blind players see nothing */
 	if (viewer_ptr->blind) return FALSE;
 
 	/* Access the cave grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	/* Note that "torch-lite" yields "illumination" */
 	if (c_ptr->info & (CAVE_LITE | CAVE_MNLT)) return TRUE;
