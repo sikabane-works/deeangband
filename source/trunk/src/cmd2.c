@@ -1607,12 +1607,11 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
  */
 void do_cmd_tunnel(creature_type *creature_ptr)
 {
-	int			y, x, dir;
-
-	cave_type	*c_ptr;
+	int y, x, dir;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr;
 	s16b feat;
-
-	bool		more = FALSE;
+	bool more = FALSE;
 
 
 	if (creature_ptr->special_defense & KATA_MUSOU)
@@ -1620,23 +1619,17 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	/* Allow repeated command */
+	// Allow repeated command
 	if (command_arg)
 	{
-		/* Set repeat count */
-		command_rep = command_arg - 1;
-
-		/* Redraw the state */
-		play_redraw |= (PR_STATE);
-
-		/* Cancel the arg */
-		command_arg = 0;
+		command_rep = command_arg - 1; // Set repeat count
+		play_redraw |= (PR_STATE); // Redraw the state
+		command_arg = 0; // Cancel the arg
 	}
 
-	/* Get a direction to tunnel, or Abort */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if (get_rep_dir(creature_ptr, &dir,FALSE)) // Get a direction to tunnel, or Abort
 	{
-		/* Get location */
+		// Get location
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
 
