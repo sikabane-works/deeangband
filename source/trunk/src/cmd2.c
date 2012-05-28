@@ -1613,7 +1613,6 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	s16b feat;
 	bool more = FALSE;
 
-
 	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
