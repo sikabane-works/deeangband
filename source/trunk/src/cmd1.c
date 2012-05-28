@@ -3256,10 +3256,11 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char			attacker_name[80];
 	char            target_name[80];
 
-	int             action_point;
-	int             action_list[20];
-	int             action_weight[20];
-	int				action_num;
+	int action_point;
+	int action_list[20];
+	int action_cost[20];
+	int action_num;
+	int tried_num;
 
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
@@ -3293,19 +3294,43 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	action_point = 100;
 	action_num = 0;
+	tried_num = 0;
 	energy_use = 100;
 
-	for(i = 0; i < MAX_HANDS; i++)
+	do
 	{
-		if(attacker_ptr->can_melee[i])
-		{
-			action_list[action_num] = i;
-			action_weight[action_num] = 10;
-			action_num++;
-		}
-	}
+		action_num = 0;
 
-	if(!action_num)
+		for(i = 0; i < MAX_HANDS; i++)
+		{
+			if(attacker_ptr->can_melee[i] )
+			{
+				action_list[action_num] = i;
+				action_cost[action_num] = 10;
+				action_num++;
+			}
+		}
+		if(!action_num) break;
+
+		if(has_cf_creature(attacker_ptr, CF_HUMANOID))
+		{
+			if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
+			if (attacker_ptr->can_melee[1] && !mdeath) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 2, mode);
+		}
+		else if(atk_species_ptr->blow[0].method)
+		{
+			special_melee(attacker_ptr, target_ptr);
+		}
+		else
+		{
+			weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
+		}
+
+		tried_num++;
+
+	} while(tried_num < 10 && mdeath);
+
+	if(!tried_num)
 	{
 #ifdef JP
 		msg_format("%s‚ðUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
@@ -3313,21 +3338,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		msg_print("You cannot do attacking.");
 #endif
 		return FALSE;
-	}
-
-
-	if(has_cf_creature(attacker_ptr, CF_HUMANOID))
-	{
-		if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
-		if (attacker_ptr->can_melee[1] && !mdeath) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 2, mode);
-	}
-	else if(atk_species_ptr->blow[0].method)
-	{
-		special_melee(attacker_ptr, target_ptr);
-	}
-	else
-	{
-		weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 
 	// Trampling Attack
@@ -3360,7 +3370,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #else
 		msg_format("%^s flees in terror!", target_name);
 #endif
-
 	}
 
 	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
