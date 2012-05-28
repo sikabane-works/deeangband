@@ -1815,11 +1815,12 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	int x, y, dir = 0;
 	cave_type *c_ptr;
 	creature_type *steed_ptr;
+	floor_type *floor_ptr = get_floor_ptr(rider_ptr);
 
 	if (!get_rep_dir2(rider_ptr, &dir)) return FALSE;
 	y = rider_ptr->fy + ddy[dir];
 	x = rider_ptr->fx + ddx[dir];
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &floor_ptr->cave[y][x];
 
 	if (rider_ptr->special_defense & KATA_MUSOU) set_action(rider_ptr, ACTION_NONE);
 
