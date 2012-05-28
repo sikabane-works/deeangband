@@ -1059,6 +1059,7 @@ extern int get_equipped_slot_num(creature_type *creature_ptr, int slot);
 extern object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int num);
 extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num);
 extern int count_melee_slot(creature_type *creature_ptr);
+extern int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr);
 
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);

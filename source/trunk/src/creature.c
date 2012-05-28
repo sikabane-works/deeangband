@@ -2407,3 +2407,8 @@ int count_melee_slot(creature_type *creature_ptr)
 		if(creature_ptr->can_melee[i]) n++;
 	return n;
 }
+
+int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
+{
+	return 10 + weapon_ptr->weight / 10;
+}
