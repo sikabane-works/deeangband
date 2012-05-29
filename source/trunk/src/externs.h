@@ -656,7 +656,7 @@ extern void save_prev_data(creature_type *cr_ptr, species_type *species_ptr);
 extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
 extern void world_wipe(void);
 
-/* cave.c */
+// cave.c
 extern int distance(int y1, int x1, int y2, int x2);
 extern bool is_trap(int feat);
 extern bool is_known_trap(cave_type *c_ptr);
@@ -665,7 +665,7 @@ extern bool is_hidden_door(cave_type *c_ptr);
 extern bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void update_local_illumination(floor_type *floor_ptr, int y, int x);
 extern bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x);
-extern bool cave_valid_bold(int y, int x);
+extern bool cave_valid_bold(floor_type *floor_ptr, int y, int x);
 extern bool no_lite(creature_type *cr_ptr);
 extern void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX]);
 extern void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp);
@@ -1424,7 +1424,7 @@ extern bool animate_dead(creature_type *cr_ptr, int y, int x);
 extern bool sleep_creatures_touch(creature_type *cr_ptr);
 extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count);
 extern int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet);
-extern int summon_cyber(creature_type *cr_ptr, int y, int x);
+extern int summon_cyber(creature_type *summoner_ptr, int y, int x);
 extern void wall_breaker(creature_type *creature_ptr);
 extern bool confuse_creatures(creature_type *caster_ptr, int dam);
 extern bool charm_creatures(creature_type *caster_ptr, int dam);

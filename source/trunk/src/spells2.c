@@ -5768,8 +5768,8 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Paranoia -- never affect player */
 			if (creature_bold(target_ptr, yy, xx)) continue;
 
-			/* Destroy location (if valid) */
-			if (cave_valid_bold(yy, xx))
+			// Destroy location (if valid)
+			if (cave_valid_bold(floor_ptr, yy, xx))
 			{
 				/* Delete objects */
 				delete_object(floor_ptr, yy, xx);
@@ -7249,24 +7249,23 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 	return count;
 }
 
-
-/* ToDo: check */
-int summon_cyber(creature_type *cr_ptr, int y, int x)
+int summon_cyber(creature_type *summoner_ptr, int y, int x)
 {
+	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
 	int i;
-	int max_cyber = (current_floor_ptr->floor_level / 50) + randint1(2);
+	int max_cyber = (floor_ptr->floor_level / 50) + randint1(2);
 	int count = 0;
 	u32b mode = PM_ALLOW_GROUP;
 
-	/* Summoned by a monster */
-	if (cr_ptr)
-		if (is_pet(player_ptr, cr_ptr)) mode |= PM_FORCE_PET;
+	// Summoned by a monster
+	if (summoner_ptr)
+		if (is_pet(player_ptr, summoner_ptr)) mode |= PM_FORCE_PET;
 
 	if (max_cyber > 4) max_cyber = 4;
 
 	for (i = 0; i < max_cyber; i++)
 	{
-		count += summon_specific(cr_ptr, y, x, 100, SUMMON_CYBER, mode);
+		count += summon_specific(summoner_ptr, y, x, 100, SUMMON_CYBER, mode);
 	}
 
 	return count;

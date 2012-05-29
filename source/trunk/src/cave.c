@@ -592,9 +592,9 @@ bool no_lite(creature_type *cr_ptr)
  *
  * Used by destruction spells, and for placing stairs, etc.
  */
-bool cave_valid_bold(int y, int x)
+bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
 
