@@ -140,7 +140,7 @@ static cptr desc_moan[] =
 /*
  * Attack the player via physical attacks.
  */
-bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
+bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead)
 {
 
 	species_type *r_ptr = &species_info[attacker_ptr->species_idx];
@@ -161,7 +161,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	char ddesc[80];
 
 	bool blinked;
-	bool touched = FALSE, fear = FALSE, alive = TRUE;
+	bool touched = FALSE, alive = TRUE;
 	bool explode = FALSE;
 	bool do_silly_attack = (one_in_(2) && target_ptr->image);
 	int get_damage = 0;

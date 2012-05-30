@@ -3247,7 +3247,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	int i;
 
 	bool fear = FALSE;
-	bool mdeath = FALSE;
+	bool dead = FALSE;
 
 	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -3361,23 +3361,23 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_WEAPON_6TH:
 			case MELEE_TYPE_WEAPON_7TH:
 			case MELEE_TYPE_WEAPON_8TH:
-				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &mdeath, i + 1, mode);
+				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + 1, mode);
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:
-				special_melee(attacker_ptr, target_ptr, 0);
+				special_melee(attacker_ptr, target_ptr, 0, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_SPECIAL_2ND:
-				special_melee(attacker_ptr, target_ptr, 1);
+				special_melee(attacker_ptr, target_ptr, 1, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_SPECIAL_3RD:
-				special_melee(attacker_ptr, target_ptr, 2);
+				special_melee(attacker_ptr, target_ptr, 2, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_SPECIAL_4TH:
-				special_melee(attacker_ptr, target_ptr, 3);
+				special_melee(attacker_ptr, target_ptr, 3, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_BARE_HAND:
@@ -3387,23 +3387,23 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				break;
 
 			case MELEE_TYPE_HORNS:
-				natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &mdeath);
+				natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_BEAK:
-				natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &mdeath);
+				natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_SCOR_TAIL:
-				natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &mdeath);
+				natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_TRUNK:
-				natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &mdeath);
+				natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_TENTACLES:
-				natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &mdeath);
+				natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &dead);
 				break;
 
 		}
@@ -3411,7 +3411,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		tried_num++;
 		action_point -= action_cost[i];
 
-	} while(tried_num < 10 && mdeath);
+	} while(tried_num < 10 && dead);
 
 	if(!tried_num)
 	{
@@ -3424,7 +3424,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	/* Hack -- delay fear messages */
-	if (fear && target_ptr->ml && !mdeath)
+	if (fear && target_ptr->ml && !dead)
 	{
 		/* Sound */
 		sound(SOUND_FLEE);
@@ -3437,12 +3437,12 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #endif
 	}
 
-	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
+	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
 	{
 		set_action(attacker_ptr, ACTION_NONE);
 	}
 
-	return mdeath;
+	return dead;
 }
 
 
