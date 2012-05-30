@@ -21,6 +21,7 @@
 void excise_object_idx(int object_idx)
 {
 	object_type *j_ptr;
+	floor_type *floor_ptr;
 
 	s16b this_object_idx, next_object_idx = 0;
 
@@ -29,7 +30,6 @@ void excise_object_idx(int object_idx)
 
 	/* Object */
 	j_ptr = &object_list[object_idx];
-
 
 	/* Monster */
 	if (j_ptr->held_m_idx)
@@ -49,7 +49,8 @@ void excise_object_idx(int object_idx)
 		int x = j_ptr->fx;
 
 		/* Grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		floor_ptr = get_floor_ptr(j_ptr);
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Scan all objects in the grid */
 		for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
