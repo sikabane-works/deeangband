@@ -2560,7 +2560,7 @@ static int store_replacement(store_type *st_ptr, int num)
 			level = rand_range(st_ptr->level / 2, st_ptr->level);
 
 			/* Random item (usually of given level) */
-			i = get_obj_num(level, 0);
+			i = get_obj_num(current_floor_ptr, 0);
 
 			/* Handle failure */
 			if (!i) continue;

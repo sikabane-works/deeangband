@@ -423,7 +423,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 	}
 
 
-	if(floor_ptr) q_idx = quest_number(floor_ptr->floor_level);
+	if(floor_ptr) q_idx = quest_number(floor_ptr);
 	else q_idx = 0;
 
 	if (write_level)

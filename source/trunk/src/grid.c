@@ -102,7 +102,7 @@ void place_random_stairs(floor_type *floor_ptr, int y, int x)
 		down_stairs = FALSE;
 
 	/* Quest-level */
-	if (quest_number(floor_ptr->floor_level) && (floor_ptr->floor_level > 1))
+	if (quest_number(floor_ptr) && (floor_ptr->floor_level > 1))
 		down_stairs = FALSE;
 
 	/* We can't place both */

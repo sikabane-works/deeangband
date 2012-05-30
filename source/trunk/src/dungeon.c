@@ -3539,7 +3539,7 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if (!quest_number(floor_ptr->floor_level) && floor_ptr->floor_level)
+			if (!quest_number(floor_ptr) && floor_ptr->floor_level)
 			{
 #ifdef JP
 				msg_print("¢ŠE‚ª•Ï‚í‚Á‚½I");
@@ -3732,7 +3732,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	if (turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	/* Extract quest number (if any) */
-	quest_num = quest_number(floor_ptr->floor_level);
+	quest_num = quest_number(floor_ptr);
 
 	/* No feeling in a quest */
 	if (quest_num &&
@@ -6585,7 +6585,7 @@ static void play_loop(void)
 		disturb(player_ptr, 1, 0);
 
 		// Get index of current quest (if any)
-		quest_num = quest_number(floor_ptr->floor_level);
+		quest_num = quest_number(floor_ptr);
 
 		// Inside a quest?
 		if (quest_num)

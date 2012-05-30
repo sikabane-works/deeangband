@@ -5698,7 +5698,7 @@ static void you_died(cptr hit_from)
 		}
 		else
 		{
-			int q_idx = quest_number(floor_ptr->floor_level);
+			int q_idx = quest_number(floor_ptr);
 			bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
 			bool winning_seppuku = player_ptr->total_winner && seppuku;
 	

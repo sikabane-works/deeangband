@@ -4050,9 +4050,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 	}
 
-	if (quest_number(floor_ptr->floor_level))
+	if (quest_number(floor_ptr))
 	{
-		int hoge = quest_number(floor_ptr->floor_level);
+		int hoge = quest_number(floor_ptr);
 		if ((quest[hoge].type == QUEST_TYPE_KILL_LEVEL) || (quest[hoge].type == QUEST_TYPE_RANDOM))
 		{
 			if(species_idx == quest[hoge].species_idx)

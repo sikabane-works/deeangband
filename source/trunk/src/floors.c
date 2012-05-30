@@ -768,7 +768,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 				// Create connected stairs
 
 				// No stairs down from Quest
-				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(floor_ptr->floor_level))
+				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(floor_ptr))
 				{
 					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
 				}
@@ -846,7 +846,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	if (ironman_downward) up = FALSE;
 
 	/* Forbid down staircases on quest level */
-	if (quest_number(floor_ptr->floor_level) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
+	if (quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
 
 	/* No effect out of standard dungeon floor */
 	if (!floor_ptr->floor_level || (!up && !down) ||

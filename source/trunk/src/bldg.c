@@ -5285,11 +5285,11 @@ msg_format("’ˆÓ‚µ‚ëI‚±‚ÌŠK‚Í%d‘Ì‚Ì%s‚É‚æ‚Á‚ÄŽç‚ç‚ê‚Ä‚¢‚éI", q_num, name);
 /*
  * Hack -- Check if a level is a "quest" level
  */
-int quest_number(int level)
+int quest_number(floor_type *floor_ptr)
 {
 	int i;
 
-	/* Check quests */
+	// Check quests
 	if (inside_quest)
 		return (inside_quest);
 
@@ -5299,13 +5299,13 @@ int quest_number(int level)
 
 		if ((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
 			!(quest[i].flags & QUEST_FLAG_PRESET) &&
-		    (quest[i].level == level) &&
-		    (quest[i].dungeon == current_floor_ptr->dun_type))
+			(quest[i].level == floor_ptr->floor_level) &&
+		    (quest[i].dungeon == floor_ptr->dun_type))
 			return (i);
 	}
 
-	/* Check for random quest */
-	return (random_quest_number(current_floor_ptr));
+	// Check for random quest
+	return (random_quest_number(floor_ptr));
 }
 
 

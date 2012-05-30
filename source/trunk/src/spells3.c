@@ -716,7 +716,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if (quest_number(floor_ptr->floor_level) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth))
+	else if (quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth))
 	{
 #ifdef JP
 		if (see_m) msg_format("%^s‚Í“Vˆä‚ğ“Ë‚«”j‚Á‚Ä’ˆ‚Ö•‚‚¢‚Ä‚¢‚­B", m_name);

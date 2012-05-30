@@ -179,7 +179,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 	}
 	else if (have_flag(f_ptr->flags, FF_MORE))
 	{
-		int q_idx = quest_number(floor_ptr->floor_level);
+		int q_idx = quest_number(floor_ptr);
 
 		/* No downstairs on quest levels */
 		if (floor_ptr->floor_level > 1 && q_idx)
@@ -194,7 +194,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 		/* No downstairs at the bottom */
 		if (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth) return TRUE;
 
-		if ((floor_ptr->floor_level < dungeon_info[floor_ptr->dun_type].maxdepth-1) && !quest_number(floor_ptr->floor_level+1))
+		if ((floor_ptr->floor_level < dungeon_info[floor_ptr->dun_type].maxdepth-1)) //TODO !quest_number(floor_ptr->floor_level+1))
 			shaft_num = (randint1(num)+1)/2;
 	}
 
@@ -679,7 +679,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	/* Hack -- No destroyed "quest" levels */
-	if (quest_number(floor_ptr->floor_level)) dungeon_ptr->destroyed = FALSE;
+	if (quest_number(floor_ptr)) dungeon_ptr->destroyed = FALSE;
 }
 
 
