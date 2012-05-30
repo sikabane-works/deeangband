@@ -6615,6 +6615,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	cave_type * c_ptr;
 	creature_type * m_ptr;
 	species_type * r_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	if ((dir == 5) && target_okay(creature_ptr))
 	{
@@ -6626,7 +6627,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 		tx = creature_ptr->fx + ddx[dir];
 		ty = creature_ptr->fy + ddy[dir];
 	}
-	c_ptr = &current_floor_ptr->cave[ty][tx];
+	c_ptr = &floor_ptr->cave[ty][tx];
 
 	if (creature_ptr->anti_tele)
 	{
