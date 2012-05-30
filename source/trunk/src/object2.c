@@ -220,7 +220,7 @@ static void compact_objects_aux(int i1, int i2)
 	x = o_ptr->fx;
 
 	/* Acquire grid */
-	c_ptr = &current_floor_ptr->cave[y][x];
+	c_ptr = &get_floor_ptr(o_ptr)->cave[y][x];
 
 	/* Repair grid */
 	if (c_ptr->object_idx == i1)
@@ -546,7 +546,7 @@ s16b get_obj_num(floor_type *floor_ptr, u32b flag)
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
 	/* Boost level */
-	if ((level > 0) && !(dungeon_info[current_floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Occasional "boost" */
 		if (one_in_(GREAT_OBJ))
@@ -3879,7 +3879,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
  *
  * This routine plays nasty games to generate the "special artifacts".
  *
- * This routine uses "current_floor_ptr->object_level" for the "generation level".
+ * This routine uses "object_level" for the "generation level".
  *
  * This routine requires a clean floor grid destination.
  */
@@ -4059,7 +4059,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 /*
  * Let an object fall to the ground at or near a location.
  *
- * The initial location is assumed to be "in_bounds(current_floor_ptr, )".
+ * The initial location is assumed to be "in_bounds()".
  *
  * This function takes a parameter "chance".  This is the percentage
  * chance that the item will "disappear" instead of drop.  If the object
@@ -5263,8 +5263,8 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 {
 	object_type forge;
 	object_type *q_ptr;
-
 	object_type *o_ptr;
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	char o_name[MAX_NLEN];
 
@@ -5317,7 +5317,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(current_floor_ptr, q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
+	(void)drop_near(floor_ptr, q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(cr_ptr, item, -amt);
