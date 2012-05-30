@@ -7449,6 +7449,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_type *q_ptr = &forge;
 	int y, x;
 	char user_name[80];
+	floor_type *floor_ptr = get_floor_ptr(user_ptr);
+
 	creature_desc(user_name, user_ptr, 0);
 
 	if (!(user_ptr->special_defense & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
@@ -7481,7 +7483,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	q_ptr->pval = MON_NINJA;
 
 	/* Drop it in the dungeon */
-	(void)drop_near(current_floor_ptr, q_ptr, -1, y, x);
+	(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 
 #ifdef JP
 	if (success) msg_format("%s‚ÍUŒ‚‚ğó‚¯‚é‘O‚É‘f‘‚­g‚ğ‚Ğ‚é‚ª‚¦‚µ‚½B", user_name);
