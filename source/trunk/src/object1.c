@@ -6142,7 +6142,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	len = MAX((*min_width), 20);
 
 	/* Scan for objects in the grid, using item_tester_okay() */
-	floor_num = scan_floor(floor_list, current_floor_ptr, y, x, 0x03);
+	floor_num = scan_floor(floor_list, floor_ptr, y, x, 0x03);
 
 	/* Display the floor objects */
 	for (k = 0, i = 0; i < floor_num && i < 23; i++)
@@ -7555,12 +7555,13 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 	char o_name[MAX_NLEN];
 	object_type *o_ptr;
 
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 	int floor_num = 0, floor_list[23], floor_object_idx = 0;
 
 	int can_pickup = 0;
 
 	/* Scan the pile of objects */
-	for (this_object_idx = current_floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
