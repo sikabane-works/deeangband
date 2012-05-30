@@ -30,6 +30,7 @@ void excise_object_idx(int object_idx)
 	/* Object */
 	j_ptr = &object_list[object_idx];
 
+
 	/* Monster */
 	if (j_ptr->held_m_idx)
 	{
@@ -184,17 +185,17 @@ static void compact_objects_aux(int i1, int i2)
 	int y, x;
 	cave_type *c_ptr;
 	object_type *o_ptr;
-
+	floor_type *floor_ptr;
 
 	/* Do nothing */
 	if (i1 == i2) return;
-
 
 	/* Repair objects */
 	for (i = 1; i < object_max; i++)
 	{
 		/* Acquire object */
 		o_ptr = &object_list[i];
+		floor_ptr = get_floor_ptr(o_ptr);
 
 		/* Skip "dead" objects */
 		if (!o_ptr->k_idx) continue;
