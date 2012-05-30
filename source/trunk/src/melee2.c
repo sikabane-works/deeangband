@@ -2121,7 +2121,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				do_move = TRUE;
 
 				/* Notice */
-				note_spot(ny, nx);
+				note_spot(floor_ptr, ny, nx);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
@@ -2164,7 +2164,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				c_ptr->info &= ~(CAVE_OBJECT);
 				c_ptr->mimic = 0;
 
-				note_spot(ny, nx);
+				note_spot(floor_ptr, ny, nx);
 				lite_spot(ny, nx);
 
 				if (!creature_ptr->species_idx) return;

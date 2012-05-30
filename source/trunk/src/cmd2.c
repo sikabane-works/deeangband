@@ -3371,7 +3371,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 			/* Notice */
-			note_spot(ny, nx);
+			note_spot(floor_ptr, ny, nx);
 
 			/* Redraw */
 			lite_spot(ny, nx);
@@ -3412,7 +3412,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
 
 			/* Notice */
-			note_spot(ny, nx);
+			note_spot(floor_ptr, ny, nx);
 
 			/* Redraw */
 			lite_spot(ny, nx);
@@ -3576,7 +3576,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
 					/* Notice */
-					note_spot(ny, nx);
+					note_spot(floor_ptr, ny, nx);
 
 					/* Redraw */
 					lite_spot(ny, nx);

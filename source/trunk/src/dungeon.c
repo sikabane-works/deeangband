@@ -3888,7 +3888,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 							if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
 
 							/* Hack -- Notice spot */
-							note_spot(y, x);
+							note_spot(floor_ptr, y, x);
 						}
 					}
 				}
@@ -3931,7 +3931,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 									c_ptr->info &= ~(CAVE_MARK);
 
 									/* Hack -- Notice spot */
-									note_spot(y, x);
+									note_spot(floor_ptr, y, x);
 								}
 							}
 						}

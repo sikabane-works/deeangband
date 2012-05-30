@@ -1014,7 +1014,6 @@ sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].minde
 	sprintf(ppp, "Reset to which level (%d-%d): ", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #endif
 
-
 	/* Default */
 	sprintf(tmp_val, "%d", MAX(current_floor_ptr->floor_level, 1));
 
@@ -1966,7 +1965,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #endif
 
 
-	note_spot(creature_ptr->fy, creature_ptr->fx);
+	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 	play_redraw |= PR_MAP;
 }
 
@@ -2036,7 +2035,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_glyph;
 
 	/* Notice */
-	note_spot(creature_ptr->fy, creature_ptr->fx);
+	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	/* Redraw */
 	lite_spot(creature_ptr->fy, creature_ptr->fx);
@@ -2063,7 +2062,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].mimic = feat_mirror;
 	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info |= CAVE_GLOW; // Turn on the light
 
-	note_spot(caster_ptr->fy, caster_ptr->fx); // Notice
+	note_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx); // Notice
 	lite_spot(caster_ptr->fy, caster_ptr->fx); // Redraw
 
 	update_local_illumination(floor_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -2091,7 +2090,7 @@ bool explosive_rune(creature_type *creature_ptr)
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_explosive_rune;
 
 	// Notice
-	note_spot(creature_ptr->fy, creature_ptr->fx);
+	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 	
 	// Redraw
 	lite_spot(creature_ptr->fy, creature_ptr->fx);

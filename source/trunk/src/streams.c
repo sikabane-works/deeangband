@@ -369,7 +369,7 @@ void place_trees(floor_type *floor_ptr, int x, int y)
 	{
 		for (j = y - 3; j < y + 4; j++)
 		{
-			if (!in_bounds(current_floor_ptr, j, i)) continue;
+			if (!in_bounds(floor_ptr, j, i)) continue;
 			c_ptr = &floor_ptr->cave[j][i];
 
 			if (c_ptr->info & CAVE_ICKY) continue;

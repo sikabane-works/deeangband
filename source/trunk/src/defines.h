@@ -4131,7 +4131,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y, X) \
-    (((current_floor_ptr->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
+    (((get_floor_ptr(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
 
 
 /*

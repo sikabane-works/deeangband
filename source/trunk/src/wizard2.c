@@ -1925,7 +1925,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 		c_ptr->info |= (CAVE_GLOW | CAVE_OBJECT);
 
 	/* Notice */
-	note_spot(y, x);
+	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
 	lite_spot(y, x);

@@ -410,7 +410,7 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 		if ((FLOOR)->cave[(Y)][(X)].creature_idx) update_mon((FLOOR)->cave[(Y)][(X)].creature_idx, FALSE); \
 \
 		/* Notice and redraw */ \
-		note_spot((Y), (X)); \
+		note_spot((FLOOR), (Y), (X)); \
 		lite_spot((Y), (X)); \
 	} \
 }
@@ -1461,7 +1461,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
  * optimized primarily for the most common cases, that is, for the
  * non-marked floor grids.
  */
-void note_spot(int y, int x)
+void note_spot(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
 
@@ -4060,7 +4060,7 @@ void delayed_visual_update(floor_type *floor_ptr)
 		if (!(c_ptr->info & CAVE_REDRAW)) continue;
 
 		/* If required, note */
-		if (c_ptr->info & CAVE_NOTE) note_spot(y, x);
+		if (c_ptr->info & CAVE_NOTE) note_spot(floor_ptr, y, x);
 
 		/* Redraw */
 		lite_spot(y, x);
@@ -4602,7 +4602,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 	/* Notice */
-	note_spot(y, x);
+	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
 	lite_spot(y, x);
@@ -4643,7 +4643,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 				if (cc_ptr->creature_idx) update_mon(cc_ptr->creature_idx, FALSE);
 
 				/* Notice */
-				note_spot(yy, xx);
+				note_spot(floor_ptr, yy, xx);
 
 				/* Redraw */
 				lite_spot(yy, xx);
@@ -4798,7 +4798,7 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Notice */
-	note_spot(y, x);
+	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
 	lite_spot(y, x);
