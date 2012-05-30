@@ -106,12 +106,14 @@ void excise_object_idx(int object_idx)
 void delete_object_idx(int object_idx)
 {
 	object_type *j_ptr;
+	floor_type *floor_ptr;
 
 	/* Excise */
 	excise_object_idx(object_idx);
 
 	/* Object */
 	j_ptr = &object_list[object_idx];
+	floor_ptr = get_floor_ptr(j_ptr);
 
 	/* Dungeon floor */
 	if (!(j_ptr->held_m_idx))
@@ -123,7 +125,7 @@ void delete_object_idx(int object_idx)
 		x = j_ptr->fx;
 
 		/* Visual update */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 	}
 
 	/* Wipe the object */
@@ -172,7 +174,7 @@ void delete_object(floor_type *floor_ptr, int y, int x)
 	c_ptr->object_idx = 0;
 
 	/* Visual update */
-	lite_spot(y, x);
+	lite_spot(floor_ptr, y, x);
 }
 
 
@@ -3932,7 +3934,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 		note_spot(floor_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 	}
 	else
 	{
@@ -4048,7 +4050,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 		note_spot(floor_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 	}
 }
 
@@ -4428,7 +4430,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	note_spot(floor_ptr, by, bx);
 
 	/* Draw the spot */
-	lite_spot(by, bx);
+	lite_spot(floor_ptr, by, bx);
 
 	/* Sound */
 	sound(SOUND_DROP);
@@ -4569,7 +4571,7 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 		note_spot(floor_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 	}
 }
 

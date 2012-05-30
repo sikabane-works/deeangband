@@ -2165,7 +2165,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				c_ptr->mimic = 0;
 
 				note_spot(floor_ptr, ny, nx);
-				lite_spot(ny, nx);
+				lite_spot(floor_ptr, ny, nx);
 
 				if (!creature_ptr->species_idx) return;
 				/* Allow movement */
@@ -2396,10 +2396,10 @@ msg_format("%^s%s", creature_name, monmessage);
 				update_mon(m_idx, TRUE);
 
 				/* Redraw the old grid */
-				lite_spot(oy, ox);
+				lite_spot(floor_ptr, oy, ox);
 
 				/* Redraw the new grid */
-				lite_spot(ny, nx);
+				lite_spot(floor_ptr, ny, nx);
 			}
 			else
 			{
@@ -2615,7 +2615,7 @@ msg_format("%^s%s", creature_name, monmessage);
  * When the player is resting, virtually 90% of the processor time is spent
  * in this function, and its children, "process_creature()" and "make_move()".
  *
- * Most of the rest of the time is spent in "update_view()" and "lite_spot()",
+ * Most of the rest of the time is spent in "update_view()" and "lite_spot(floor_ptr, )",
  * especially when the player is running.
  *
  * Note the special "MFLAG_BORN" flag, which allows us to ignore "fresh"

@@ -411,7 +411,7 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 \
 		/* Notice and redraw */ \
 		note_spot((FLOOR), (Y), (X)); \
-		lite_spot((Y), (X)); \
+		lite_spot(floor_ptr, (Y), (X)); \
 	} \
 }
 
@@ -1611,10 +1611,10 @@ void display_dungeon(creature_type *cr_ptr)
  *
  * This function should only be called on "legal" grids
  */
-void lite_spot(int y, int x)
+void lite_spot(floor_type *floor_ptr, int y, int x)
 {
 	/* Redraw if on screen */
-	if (panel_contains(y, x) && in_bounds2(current_floor_ptr, y, x))
+	if (panel_contains(y, x) && in_bounds2(floor_ptr, y, x))
 	{
 		byte a;
 		char c;
@@ -1647,8 +1647,8 @@ void lite_spot(int y, int x)
  * Prints the map of the dungeon
  *
  * Note that, for efficiency, we contain an "optimized" version
- * of both "lite_spot()" and "print_rel()", and that we use the
- * "lite_spot()" function to display the player grid, if needed.
+ * of both "lite_spot(floor_ptr, )" and "print_rel()", and that we use the
+ * "lite_spot(floor_ptr, )" function to display the player grid, if needed.
  */
 void prt_map(creature_type *watcher_ptr)
 {
@@ -1723,7 +1723,7 @@ void prt_map(creature_type *watcher_ptr)
 	}
 
 	/* Display player */
-	lite_spot(watcher_ptr->fy, watcher_ptr->fx);
+	lite_spot(floor_ptr, watcher_ptr->fy, watcher_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
@@ -2525,7 +2525,7 @@ void forget_lite(floor_type *floor_ptr)
 		floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
 
 		/* Redraw */
-		/* lite_spot(y, x); Perhaps don't need? */
+		/* lite_spot(floor_ptr, y, x); Perhaps don't need? */
 	}
 
 	/* None left */
@@ -2983,7 +2983,7 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
  *
  * The CAVE_TEMP and CAVE_XTRA flag are used to store the state during the
  * updating.  Only squares in view of the player, whos state
- * changes are drawn via lite_spot().
+ * changes are drawn via lite_spot(floor_ptr, ).
  */
 void update_creature_lite(floor_type *floor_ptr)
 {
@@ -4063,7 +4063,7 @@ void delayed_visual_update(floor_type *floor_ptr)
 		if (c_ptr->info & CAVE_NOTE) note_spot(floor_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 
 		/* Hack -- Visual update of monster on this grid */
 		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
@@ -4605,7 +4605,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(y, x);
+	lite_spot(floor_ptr, y, x);
 
 	/* Check if los has changed */
 	if (old_los ^ have_flag(f_ptr->flags, FF_LOS))
@@ -4646,7 +4646,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 				note_spot(floor_ptr, yy, xx);
 
 				/* Redraw */
-				lite_spot(yy, xx);
+				lite_spot(floor_ptr, yy, xx);
 			}
 
 			update_local_illumination(floor_ptr, yy, xx);
@@ -4801,7 +4801,7 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(y, x);
+	lite_spot(floor_ptr, y, x);
 }
 
 

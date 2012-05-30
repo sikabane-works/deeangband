@@ -1928,7 +1928,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	note_spot(floor_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(y, x);
+	lite_spot(floor_ptr, y, x);
 
 	/* Update some things */
 	update |= (PU_FLOW);

@@ -744,7 +744,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	creature_cnt--;
 
 	/* Visual update */
-	lite_spot(y, x);
+	lite_spot(floor_ptr, y, x);
 
 	/* Update some things */
 	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
@@ -3092,7 +3092,7 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = TRUE;
 
 			/* Draw the monster */
-			lite_spot(fy, fx);
+			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
 			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
@@ -3132,7 +3132,7 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = FALSE;
 
 			/* Erase the monster */
-			lite_spot(fy, fx);
+			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
 			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
@@ -3311,7 +3311,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
 	update_mon(m_idx, FALSE);
-	lite_spot(creature_ptr->fy, creature_ptr->fx);
+	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_egobject_idx == MONEGO_NONE)
 	{
@@ -4358,7 +4358,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 		c_ptr->mimic = 0;
 
 		//TODO note_spot(y, x);
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 	}
 
 	//strcpy(creature_ptr->name, species_name + r_ptr->name);

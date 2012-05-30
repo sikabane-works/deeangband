@@ -10573,8 +10573,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					m_ptr->fx = tx;
 	
 					update_mon(m_idx, TRUE);
-					lite_spot(oy, ox);
-					lite_spot(ty, tx);
+					lite_spot(floor_ptr, oy, ox);
+					lite_spot(floor_ptr, ty, tx);
 	
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 						update |= (PU_MON_LITE);
@@ -11034,10 +11034,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				update_mon(m_idx, TRUE);
 	
 				/* Redraw the old spot */
-				lite_spot(y, x);
+				lite_spot(floor_ptr, y, x);
 	
 				/* Redraw the new spot */
-				lite_spot(ny, nx);
+				lite_spot(floor_ptr, ny, nx);
 	
 				/* Player can move forward? */
 				if (player_can_enter(caster_ptr, c_ptr->feat, 0))

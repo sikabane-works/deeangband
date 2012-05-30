@@ -5791,7 +5791,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 					shimmer_creatures = TRUE;
 
 					/* Redraw regardless */
-					lite_spot(m_ptr->fy, m_ptr->fx);
+					lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
 				}
 			}
 
@@ -5849,7 +5849,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							if (creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */
-							lite_spot(m_ptr->fy, m_ptr->fx);
+							lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
 						}
 					}
 				}

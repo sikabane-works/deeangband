@@ -3560,7 +3560,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 					c_ptr->info &= ~(CAVE_UNSAFE);
 
 					/* Redraw */
-					lite_spot(y, x);
+					lite_spot(floor_ptr, y, x);
 				}
 			}
 
@@ -3574,7 +3574,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 				c_ptr->info |= (CAVE_MARK);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(floor_ptr, y, x);
 
 				/* Obvious */
 				detect = TRUE;
@@ -3722,7 +3722,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -3759,6 +3759,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	bool detect = FALSE;
 
@@ -3789,7 +3790,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -3831,11 +3832,11 @@ msg_print("アイテムの存在を感じとった！");
 bool detect_objects_magic(creature_type *cr_ptr, int range)
 {
 	int i, y, x, tv;
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	bool detect = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
-
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
 	{
@@ -3887,7 +3888,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -4946,7 +4947,7 @@ bool probing(void)
 					m_ptr->mflag2 &= ~(MFLAG2_KAGE);
 
 				m_ptr->ap_species_idx = m_ptr->species_idx;
-				lite_spot(m_ptr->fy, m_ptr->fx);
+				lite_spot(current_floor_ptr, m_ptr->fy, m_ptr->fx);
 			}
 			/* Get "the monster" or "something" */
 			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
@@ -5737,10 +5738,10 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						update_mon(m_idx, TRUE);
 
 						/* Redraw the old grid */
-						lite_spot(yy, xx);
+						lite_spot(floor_ptr, yy, xx);
 
 						/* Redraw the new grid */
-						lite_spot(sy, sx);
+						lite_spot(floor_ptr, sy, sx);
 					}
 				}
 			}
@@ -6026,7 +6027,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		note_spot(floor_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(floor_ptr, y, x);
 
 		update_local_illumination(floor_ptr, y, x);
 	}
@@ -6110,7 +6111,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 			}
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(floor_ptr, y, x);
 
 			update_local_illumination(floor_ptr, y, x);
 		}

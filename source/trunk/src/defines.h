@@ -2698,7 +2698,7 @@
 /* Used only after cave generation */
 #define CAVE_XXXX1      0x0200
 #define CAVE_NOTE       0x0400    /* Flag for delayed visual update (needs note_spot()) */
-#define CAVE_REDRAW     0x0800    /* Flag for delayed visual update (needs lite_spot()) */
+#define CAVE_REDRAW     0x0800    /* Flag for delayed visual update (needs lite_spot(floor_ptr, )) */
 #define CAVE_OBJECT     0x1000    /* Mirror, glyph, etc. */
 #define CAVE_UNSAFE     0x2000    /* Might have trap */
 #define CAVE_IN_DETECT  0x4000    /* trap detected area (inner circle only) */

@@ -5415,6 +5415,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 {
 	cptr title = race_info[new_race].title;
 	int  old_race = cr_ptr->race_idx1;
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	if(is_seen(player_ptr, cr_ptr))
 	{
@@ -5462,7 +5463,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	if (old_race != cr_ptr->race_idx1) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(floor_ptr, cr_ptr->fy, cr_ptr->fx);
 }
 
 

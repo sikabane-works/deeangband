@@ -145,10 +145,10 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
-	lite_spot(oy, ox);
+	lite_spot(floor_ptr, oy, ox);
 
 	/* Redraw the new grid */
-	lite_spot(ny, nx);
+	lite_spot(floor_ptr, ny, nx);
 
 	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
 		update |= (PU_MON_LITE);
@@ -238,10 +238,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
-	lite_spot(oy, ox);
+	lite_spot(floor_ptr, oy, ox);
 
 	/* Redraw the new grid */
-	lite_spot(ny, nx);
+	lite_spot(floor_ptr, ny, nx);
 
 	if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 		update |= (PU_MON_LITE);
@@ -2038,7 +2038,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	/* Redraw */
-	lite_spot(creature_ptr->fy, creature_ptr->fx);
+	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	return TRUE;
 }
@@ -2063,7 +2063,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info |= CAVE_GLOW; // Turn on the light
 
 	note_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx); // Notice
-	lite_spot(caster_ptr->fy, caster_ptr->fx); // Redraw
+	lite_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx); // Redraw
 
 	update_local_illumination(floor_ptr, caster_ptr->fy, caster_ptr->fx);
 
@@ -2093,7 +2093,7 @@ bool explosive_rune(creature_type *creature_ptr)
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 	
 	// Redraw
-	lite_spot(creature_ptr->fy, creature_ptr->fx);
+	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	return TRUE;
 }
