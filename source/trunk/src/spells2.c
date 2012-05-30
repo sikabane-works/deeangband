@@ -4898,7 +4898,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 /*
  * Probe nearby monsters
  */
-bool probing(void)
+bool probing(floor_type *floor_ptr)
 {
 	int     i, speed;
 	int cu, cv;
@@ -4947,7 +4947,7 @@ bool probing(void)
 					m_ptr->mflag2 &= ~(MFLAG2_KAGE);
 
 				m_ptr->ap_species_idx = m_ptr->species_idx;
-				lite_spot(current_floor_ptr, m_ptr->fy, m_ptr->fx);
+				lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
 			}
 			/* Get "the monster" or "something" */
 			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);

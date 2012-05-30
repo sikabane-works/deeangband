@@ -2419,7 +2419,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				probing();
+				probing(get_floor_ptr(cr_ptr));
 			}
 		}
 		break;

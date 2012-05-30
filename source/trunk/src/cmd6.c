@@ -2505,7 +2505,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_PROBING:
 		{
-			probing();
+			probing(floor_ptr);
 			ident = TRUE;
 			break;
 		}
@@ -3380,7 +3380,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_PROBING:
 		{
-			probing();
+			probing(get_floor_ptr(cr_ptr));
 			ident = TRUE;
 			break;
 		}
@@ -5037,7 +5037,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-				probing();
+				probing(floor_ptr);
 				identify_fully(creature_ptr, FALSE);
 				o_ptr->timeout = 100;
 				break;
@@ -5700,7 +5700,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				(void)probing();
+				(void)probing(floor_ptr);
 				break;
 			}
 			case ART_CHARMED:

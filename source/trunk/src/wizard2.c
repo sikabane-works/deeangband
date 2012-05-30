@@ -99,7 +99,7 @@ static void do_cmd_wiz_hack_ben(void)
 {
 	/* Oops */
 	msg_print("Oops.");
-	(void)probing();
+	(void)probing(current_floor_ptr);
 }
 
 

@@ -990,7 +990,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You examine your foes...");
 #endif
 
-			probing();
+			probing(floor_ptr);
 			break;
 		}
 		case CLASS_PALADIN:
@@ -1663,7 +1663,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You examine your foes...");
 #endif
 
-			probing();
+			probing(floor_ptr);
 			break;
 
 		case RACE_CYCLOPS:

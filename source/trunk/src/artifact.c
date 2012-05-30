@@ -2848,7 +2848,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-			probing();
+			probing(floor_ptr);
 			identify_fully(creature_ptr, FALSE);
 			o_ptr->timeout = 1000;
 			break;
