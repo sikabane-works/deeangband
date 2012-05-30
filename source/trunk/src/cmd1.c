@@ -3357,10 +3357,19 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:
+				special_melee(attacker_ptr, target_ptr, 0);
+				break;
+
 			case MELEE_TYPE_SPECIAL_2ND:
+				special_melee(attacker_ptr, target_ptr, 1);
+				break;
+
 			case MELEE_TYPE_SPECIAL_3RD:
+				special_melee(attacker_ptr, target_ptr, 2);
+				break;
+
 			case MELEE_TYPE_SPECIAL_4TH:
-				special_melee(attacker_ptr, target_ptr);
+				special_melee(attacker_ptr, target_ptr, 3);
 				break;
 
 			case MELEE_TYPE_BARE_HAND:

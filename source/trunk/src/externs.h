@@ -1161,7 +1161,7 @@ extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
 /* melee1.c */
 /* melee2.c */
-extern bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr);
+extern bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void creature_process_init(void);
