@@ -900,7 +900,7 @@ void kingly(creature_type *player_ptr)
 	bool seppuku = streq(gameover_from, "Seppuku");
 
 	/* Hack -- retire in town */
-	current_floor_ptr->floor_level = 0;
+	player_ptr->depth = 0;
 
 	/* Fake death */
 	if (!seppuku)
