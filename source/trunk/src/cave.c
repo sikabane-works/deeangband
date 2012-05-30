@@ -1564,11 +1564,13 @@ void display_dungeon(creature_type *cr_ptr)
 	byte ta;
 	char tc;
 
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+
 	for (x = cr_ptr->fx - Term->wid / 2 + 1; x <= cr_ptr->fx + Term->wid / 2; x++)
 	{
 		for (y = cr_ptr->fy - Term->hgt / 2 + 1; y <= cr_ptr->fy + Term->hgt / 2; y++)
 		{
-			if (in_bounds2(current_floor_ptr, y, x))
+			if (in_bounds2(floor_ptr, y, x))
 			{
 
 				/* Examine the grid */

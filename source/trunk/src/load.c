@@ -1745,15 +1745,6 @@ note("—”î•ñ‚ðƒ[ƒh‚µ‚Ü‚µ‚½");
 
 		/* Read the item */
 		rd_item(o_ptr);
-
-		/* Access the item location */
-		//TODO cave_ptr = &current_floor_ptr->cave[o_ptr->fy][o_ptr->fx];
-
-		/* Build a stack */
-		//o_ptr->next_object_idx = cave_ptr->object_idx;
-
-		/* Place the object */
-		//cave_ptr->object_idx = object_idx;
 	}
 
 #ifdef JP
