@@ -2393,7 +2393,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  * To simplify various things, a grid may be marked as "CAVE_MARK", meaning
  * that even if the player cannot "see" the grid, he "knows" the terrain in
  * that grid.  This is used to "remember" walls/doors/stairs/floors when they
- * are "seen" or "detected", and also to "memorize" floors, after "wiz_lite(current_floor_ptr, )",
+ * are "seen" or "detected", and also to "memorize" floors, after "wiz_lite()",
  * or when one of the "memorize floor grids" options induces memorization.
  *
  * Objects are "memorized" in a different way, using a special "marked" flag
@@ -3324,7 +3324,7 @@ void clear_creature_lite(floor_type *floor_ptr)
 	for (i = 0; i < mon_lite_n; i++)
 	{
 		/* Point to grid */
-		c_ptr = &current_floor_ptr->cave[mon_lite_y[i]][mon_lite_x[i]];
+		c_ptr = &floor_ptr->cave[mon_lite_y[i]][mon_lite_x[i]];
 
 		/* Clear monster illumination flag */
 		c_ptr->info &= ~(CAVE_MNLT | CAVE_MNDK);
@@ -4042,7 +4042,7 @@ void update_view(creature_type *creature_ptr)
  * Mega-Hack -- Delayed visual update
  * Only used if update_view(), update_lite() or update_creature_lite() was called
  */
-void delayed_visual_update(void)
+void delayed_visual_update(floor_type *floor_ptr)
 {
 	int       i, y, x;
 	cave_type *c_ptr;
@@ -4054,7 +4054,7 @@ void delayed_visual_update(void)
 		x = redraw_x[i];
 
 		/* Access the grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Update only needed grids (prevent multiple updating) */
 		if (!(c_ptr->info & CAVE_REDRAW)) continue;

@@ -5756,7 +5756,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 	if (update & (PU_DELAY_VIS))
 	{
 		update &= ~(PU_DELAY_VIS);
-		delayed_visual_update();
+		delayed_visual_update(floor_ptr);
 	}
 
 	if (update & (PU_MONSTERS))
