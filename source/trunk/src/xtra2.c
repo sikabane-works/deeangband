@@ -2711,7 +2711,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 				/* Display */
 				show_gold_on_floor = TRUE;
-				(void)show_floor(0, y, x, &min_width);
+				(void)show_floor(floor_ptr, 0, y, x, &min_width);
 				show_gold_on_floor = FALSE;
 
 				/* Prompt */

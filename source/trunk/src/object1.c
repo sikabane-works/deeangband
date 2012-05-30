@@ -6113,7 +6113,7 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 /*
  * Display a list of the items on the floor at the given location.
  */
-int show_floor(int target_item, int y, int x, int *min_width)
+int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_width)
 {
 	int i, j, k, l;
 	int col, len;
@@ -6577,7 +6577,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			n2 = I2A(k - floor_top);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_floor(menu_line, creature_ptr->fy, creature_ptr->fx, &min_width);
+			if (command_see) get_item_label = show_floor(floor_ptr, menu_line, creature_ptr->fy, creature_ptr->fx, &min_width);
 		}
 
 		/* Viewing creature_ptr->inventory */
