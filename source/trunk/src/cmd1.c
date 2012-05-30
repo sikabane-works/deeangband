@@ -3336,6 +3336,14 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 				case MELEE_TYPE_STAMP:
 					break;
+
+				case MELEE_TYPE_HORNS:
+				case MELEE_TYPE_BEAK:
+				case MELEE_TYPE_SCOR_TAIL:
+				case MELEE_TYPE_TRUNK:
+				case MELEE_TYPE_TENTACLES:
+					break;
+
 			}
 		}
 
@@ -3377,6 +3385,27 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 			case MELEE_TYPE_STAMP:
 				break;
+
+			case MELEE_TYPE_HORNS:
+				natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &mdeath);
+				break;
+
+			case MELEE_TYPE_BEAK:
+				natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &mdeath);
+				break;
+
+			case MELEE_TYPE_SCOR_TAIL:
+				natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &mdeath);
+				break;
+
+			case MELEE_TYPE_TRUNK:
+				natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &mdeath);
+				break;
+
+			case MELEE_TYPE_TENTACLES:
+				natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &mdeath);
+				break;
+
 		}
 
 		tried_num++;
@@ -3393,24 +3422,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #endif
 		return FALSE;
 	}
-
-	// Trampling Attack
-
-	/* Mutations which yield extra 'natural' attacks */
-	if (!mdeath)
-	{
-		if (has_cf_creature(attacker_ptr, CF_HORNS) && !mdeath)
-			natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &mdeath);
-		if (has_cf_creature(attacker_ptr, CF_BEAK) && !mdeath)
-			natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &mdeath);
-		if (has_cf_creature(attacker_ptr, CF_SCOR_TAIL) && !mdeath)
-			natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &mdeath);
-		if (has_cf_creature(attacker_ptr, CF_TRUNK) && !mdeath)
-			natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &mdeath);
-		if (has_cf_creature(attacker_ptr, CF_TENTACLES) && !mdeath)
-			natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &mdeath);
-	}
-
 
 	/* Hack -- delay fear messages */
 	if (fear && target_ptr->ml && !mdeath)

@@ -6013,5 +6013,9 @@ extern int PlayerUID;
 #define MELEE_TYPE_SPECIAL_4TH 11
 #define MELEE_TYPE_BARE_HAND   12
 #define MELEE_TYPE_STAMP       13
-#define MELEE_TYPE_MAX         14
-
+#define MELEE_TYPE_HORNS       14
+#define MELEE_TYPE_BEAK        15
+#define MELEE_TYPE_SCOR_TAIL   16
+#define MELEE_TYPE_TRUNK       17
+#define MELEE_TYPE_TENTACLES   18
+#define MELEE_TYPE_MAX         19
