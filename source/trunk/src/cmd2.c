@@ -1399,7 +1399,8 @@ void do_cmd_close(creature_type *creature_ptr)
  */
 static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Must have knowledge */
 	if (!(c_ptr->info & CAVE_MARK))
@@ -1633,7 +1634,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		x = creature_ptr->fx + ddx[dir];
 
 		/* Get grid */
-		c_ptr = &current_floor_ptr->cave[y][x];
+		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
