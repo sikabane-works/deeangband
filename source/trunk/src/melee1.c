@@ -161,7 +161,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	char ddesc[80];
 
 	bool blinked;
-	bool touched = FALSE, alive = TRUE;
+	bool touched = FALSE;
 	bool explode = FALSE;
 	bool do_silly_attack = (one_in_(2) && target_ptr->image);
 	int get_damage = 0;
@@ -1903,13 +1903,13 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			if(attacker_ptr->species_idx == 0)
 			{
 				blinked = FALSE;
-				alive = FALSE;
+				*dead = TRUE;
 			}
 		}
 
 		if (touched)
 		{
-			if (target_ptr->sh_fire && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->sh_fire && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 				{
@@ -1928,7 +1928,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 				}
 				else
@@ -1938,7 +1938,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->sh_elec && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->sh_elec && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_ELEC))
 				{
@@ -1957,7 +1957,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 				}
 				else
@@ -1967,7 +1967,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->sh_cold && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->sh_cold && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_COLD))
 				{
@@ -1986,7 +1986,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 				}
 				else
@@ -1997,7 +1997,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* by henkma */
-			if (target_ptr->dustrobe && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->dustrobe && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 				{
@@ -2016,7 +2016,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 				}
 				else
@@ -2031,7 +2031,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->tim_sh_holy && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->tim_sh_holy && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (is_enemy_of_good_creature(target_ptr))
 				{
@@ -2052,7 +2052,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						if(attacker_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
-							alive = FALSE;
+							*dead = TRUE;
 						}
 						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 					}
@@ -2063,7 +2063,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->tim_sh_touki && alive && !IS_DEAD(target_ptr))
+			if (target_ptr->tim_sh_touki && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!(attacker_ptr->resist_ultimate))
 				{
@@ -2082,7 +2082,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 				}
 				else
@@ -2091,7 +2091,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && alive && !IS_DEAD(target_ptr))
+			if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
 				object_type *o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
@@ -2121,7 +2121,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(attacker_ptr->species_idx == 0)
 					{
 						blinked = FALSE;
-						alive = FALSE;
+						*dead = TRUE;
 					}
 					/* TODO
 					else // monster does not dead
@@ -2254,7 +2254,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if (target_ptr->tim_eyeeye) set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 	}
 
-	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && alive && !IS_DEAD(target_ptr) && attacker_ptr->ml && (target_ptr->csp > 7))
+	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->ml && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, attacker_ptr, 0);
@@ -2273,7 +2273,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	}
 
 	/* Blink away */
-	if (blinked && alive && !IS_DEAD(target_ptr))
+	if (blinked && !*dead && !IS_DEAD(target_ptr))
 	{
 		if (teleport_barrier(target_ptr, attacker_ptr))
 		{
