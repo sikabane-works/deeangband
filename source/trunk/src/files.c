@@ -1536,16 +1536,16 @@ errr check_load_init(void)
 }
 
 
-#define ENTRY_ACTION_POWER 0
-#define ENTRY_TWO_HANDS 1
-#define ENTRY_RIGHT_HAND1 2
-#define ENTRY_LEFT_HAND1 3
-#define ENTRY_LEFT_HAND2 4
-#define ENTRY_RIGHT_HAND2 5
-#define ENTRY_POSTURE 6
-#define ENTRY_SHOOT 7
-#define ENTRY_THROW 8
-#define ENTRY_SPEED 9
+#define ENTRY_TWO_HANDS 0
+#define ENTRY_RIGHT_HAND1 1
+#define ENTRY_LEFT_HAND1 2
+#define ENTRY_LEFT_HAND2 3
+#define ENTRY_RIGHT_HAND2 4
+#define ENTRY_POSTURE 5
+#define ENTRY_SHOOT 6
+#define ENTRY_THROW 7
+#define ENTRY_SPEED 8
+#define ENTRY_ACTION_POWER 9
 #define ENTRY_BASE_AC 10
 #define ENTRY_LEVEL 11
 #define ENTRY_CUR_EXP 12
@@ -1610,7 +1610,6 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 11, 30,  0,  0,  0, "Ç`Ço"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 11, 30,  0,  0,  0, ""},
@@ -1619,8 +1618,9 @@ static struct
 	{ 1, 13, 30,  0,  0,  0, ""},
 	{ 1, 15, 30,  0,  0,  0, "éÀåÇ"},
 	{ 1, 16, 30,  0,  0,  0, "ìäù±"},
-	{16, 19, 12,  0,  0,  0, "â¡ë¨ "},
-	{ 1, 19, 14,  0,  0,  0, "Ç`Çb"},
+	{16, 10, 14,  0,  0,  0, "â¡ë¨ "},
+	{16, 11, 14,  0,  0,  0, "çsìÆíl"},
+	{ 1, 10, 14,  0,  0,  0, "Ç`Çb"},
 	{ 1,  6, 13,  0,  0,  0, "ÉåÉxÉã"},
 	{33, 10, 21,  0,  0,  0, "åoå±íl"},
 	{33, 11, 21,  0,  0,  0, "ç≈ëÂåoå±"},
@@ -1669,7 +1669,6 @@ static struct
 };
 #else
 = {
-	{ 1, 11, 30,  0,  0,  0, "Acrion.P"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 11, 30,  0,  0,  0, ""},
@@ -1678,8 +1677,9 @@ static struct
 	{ 1, 13, 30,  0,  0,  0, ""},
 	{ 1, 15, 30,  0,  0,  0, "Shoot"},
 	{ 1, 16, 30,  0,  0,  0, "Throw"},
-	{ 1, 20, 14,  0,  0,  0, "Speed "},
-	{ 1, 19, 14,  0,  0,  0, "AC    "},
+	{16, 10, 14,  0,  0,  0, "Speed"},
+	{16, 11, 14,  0,  0,  0, "Action.P"},
+	{ 1, 10, 14,  0,  0,  0, "AC    "},
 	{ 1,  8, 12,  0,  0,  0, "Level "},
 	{29, 10, 21,  0,  0,  0, "Experience"},
 	{29, 11, 21,  0,  0,  0, "Max Exp"},
@@ -1852,9 +1852,6 @@ static void display_player_middle(creature_type *creature_ptr)
 	int tmul = 0;
 	int e;
 
-	sprintf(buf, "%d", calc_action_power(creature_ptr));
-	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
-
 	/*
 #ifdef JP
 	c_put_str(TERM_WHITE, "éÌï     (ñΩíÜ,à–óÕ)  âÒêî ä˙ë“", 10, 1);
@@ -2000,6 +1997,9 @@ static void display_player_middle(creature_type *creature_ptr)
 	
 		display_player_one_line(ENTRY_SPEED, buf, attr);
 	}
+
+	sprintf(buf, "%d", calc_action_power(creature_ptr));
+	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
 
 	/* Dump experience */
 	if (has_cf_creature(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
