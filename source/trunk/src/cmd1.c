@@ -3329,6 +3329,14 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_SPECIAL_2ND:
 				case MELEE_TYPE_SPECIAL_3RD:
 				case MELEE_TYPE_SPECIAL_4TH:
+					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice);
+					{
+						action_list[action_num] = i;
+						action_cost[action_num] = 20;
+						action_weight[action_num] = 10;
+						action_num++;
+					}
+					break;
 					break;
 
 				case MELEE_TYPE_BARE_HAND:
@@ -3361,23 +3369,14 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_WEAPON_6TH:
 			case MELEE_TYPE_WEAPON_7TH:
 			case MELEE_TYPE_WEAPON_8TH:
-				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + 1, mode);
+				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:
-				special_melee(attacker_ptr, target_ptr, 0, &fear, &dead);
-				break;
-
 			case MELEE_TYPE_SPECIAL_2ND:
-				special_melee(attacker_ptr, target_ptr, 1, &fear, &dead);
-				break;
-
 			case MELEE_TYPE_SPECIAL_3RD:
-				special_melee(attacker_ptr, target_ptr, 2, &fear, &dead);
-				break;
-
 			case MELEE_TYPE_SPECIAL_4TH:
-				special_melee(attacker_ptr, target_ptr, 3, &fear, &dead);
+				special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_BARE_HAND:
