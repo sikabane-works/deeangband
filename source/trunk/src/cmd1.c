@@ -3257,7 +3257,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char			attacker_name[80];
 	char            target_name[80];
 
-	int action_point;
+	int action_power;
 	int action_list[MELEE_TYPE_MAX];
 	int action_cost[MELEE_TYPE_MAX];
 	int action_weight[MELEE_TYPE_MAX];
@@ -3294,7 +3294,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	riding_t_m_idx = c_ptr->creature_idx;
 
-	action_point = attacker_ptr->skill_thn;
+	action_power = calc_action_power(attacker_ptr);
 	action_num = 0;
 	tried_num = 0;
 	energy_use = 100;
@@ -3409,9 +3409,9 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		}
 
 		tried_num++;
-		action_point -= action_cost[i];
+		action_power -= action_cost[i];
 
-	} while(tried_num < 10 && dead);
+	} while(tried_num < 10 && !dead);
 
 	if(!tried_num)
 	{
