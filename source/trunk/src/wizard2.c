@@ -92,17 +92,6 @@ static void wiz_drop_named_art(creature_type* cr_ptr, int a_idx)
 }
 
 
-/*
- * Hack -- quick debugging hook
- */
-static void do_cmd_wiz_hack_ben(void)
-{
-	/* Oops */
-	msg_print("Oops.");
-	(void)probing(current_floor_ptr);
-}
-
-
 // Summon a horde of monsters
 static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
@@ -2323,7 +2312,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Hack -- whatever I desire */
 	case '_':
-		do_cmd_wiz_hack_ben();
+		(void)probing(current_floor_ptr);
 		break;
 
 	/* Not a Wizard Command */
