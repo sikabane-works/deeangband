@@ -2412,3 +2412,8 @@ int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 {
 	return 10 + weapon_ptr->weight / 10;
 }
+
+int calc_action_power(creature_type *creature_ptr)
+{
+	return creature_ptr->skill_thn / 2;
+}

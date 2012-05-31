@@ -1536,7 +1536,7 @@ errr check_load_init(void)
 }
 
 
-#define ENTRY_BARE_HAND 0
+#define ENTRY_ACTION_POWER 0
 #define ENTRY_TWO_HANDS 1
 #define ENTRY_RIGHT_HAND1 2
 #define ENTRY_LEFT_HAND1 3
@@ -1610,12 +1610,12 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 11, 30,  0,  0,  0, "Ši“¬"},
-	{ 1, 11, 30,  0,  0,  0, "•Ší‚P"},
-	{ 1, 11, 30,  0,  0,  0, "•Ší‚P"},
-	{ 1, 11, 30,  0,  0,  0, "•Ší‚P"},
-	{ 1, 12, 30,  0,  0,  0, "•Ší‚Q"},
-	{ 1, 12, 30,  0,  0,  0, "•Ší‚Q"},
+	{ 1, 11, 30,  0,  0,  0, "‚`‚o"},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 12, 30,  0,  0,  0, ""},
+	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 13, 30,  0,  0,  0, ""},
 	{ 1, 15, 30,  0,  0,  0, "ŽËŒ‚"},
 	{ 1, 16, 30,  0,  0,  0, "“Š±"},
@@ -1669,13 +1669,13 @@ static struct
 };
 #else
 = {
-	{ 1, 11, 30,  0,  0,  0, "Bare"},
-	{ 1, 11, 30,  0,  0,  0, "Wep.1"},
-	{ 1, 11, 30,  0,  0,  0, "Wep.1"},
-	{ 1, 11, 30,  0,  0,  0, "Wep.1"},
-	{ 1, 12, 30,  0,  0,  0, "Wep.2"},
-	{ 1, 12, 30,  0,  0,  0, "Wep.2"},
-	{ 1, 13, 30,  0,  0,  0, "Posture"},
+	{ 1, 11, 30,  0,  0,  0, "Acrion.P"},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 12, 30,  0,  0,  0, ""},
+	{ 1, 12, 30,  0,  0,  0, ""},
+	{ 1, 13, 30,  0,  0,  0, ""},
 	{ 1, 15, 30,  0,  0,  0, "Shoot"},
 	{ 1, 16, 30,  0,  0,  0, "Throw"},
 	{ 1, 20, 14,  0,  0,  0, "Speed "},
@@ -1758,7 +1758,7 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 	return;
 }
 
-
+/*
 static void display_player_melee_bonus(creature_type *creature_ptr, int hand, int hand_entry)
 {
 	char buf[160];
@@ -1786,7 +1786,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	else
 	{
 		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + hand);
-		/* Average damage per round */
+		// Average damage per round
 		if (o_ptr->k_idx)
 		{
 			if (object_is_known(o_ptr)) damage += o_ptr->to_d * 100;
@@ -1794,13 +1794,13 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 			object_flags_known(o_ptr, flgs);
 			if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
 			{
-				/* vorpal blade */
+				// vorpal blade
 				basedam *= 5;
 				basedam /= 3;
 			}
 			else if (have_flag(flgs, TR_VORPAL))
 			{
-				/* vorpal flag only */
+				// vorpal flag only
 				basedam *= 11;
 				basedam /= 9;
 			}
@@ -1818,14 +1818,14 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
 	if (damage < 0) damage = 0;
 
-	/* Hack -- add in weapon info if known */
+	// Hack -- add in weapon info if known
 	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
-	/* Melee attacks */
+	// Melee attacks
 	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
 
-	/* Dump the bonuses to hit/dam */
+	// Dump the bonuses to hit/dam
 	if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
 	else if (creature_ptr->two_handed)
@@ -1833,7 +1833,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	else
 		display_player_one_line(hand_entry, buf, TERM_L_BLUE);
 }
-
+*/
 
 /*
  * Prints the following information on the screen.
@@ -1852,6 +1852,10 @@ static void display_player_middle(creature_type *creature_ptr)
 	int tmul = 0;
 	int e;
 
+	sprintf(buf, "%d", calc_action_power(creature_ptr));
+	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
+
+	/*
 #ifdef JP
 	c_put_str(TERM_WHITE, "Ží•Ê    (–½’†,ˆÐ—Í)  ‰ñ” Šú‘Ò", 10, 1);
 #else
@@ -1890,6 +1894,7 @@ static void display_player_middle(creature_type *creature_ptr)
 				display_player_one_line(ENTRY_POSTURE, "none", TERM_YELLOW);
 #endif
 	}
+	*/
 
 	/* Apply weapon bonuses */
 	if(o_ptr->k_idx)
