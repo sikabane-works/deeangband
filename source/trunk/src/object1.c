@@ -4821,6 +4821,10 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	int             wid, hgt;
 	char            inven_label[52 + 1];
 
+	int             slot[INVEN_TOTAL];
+	int             num[INVEN_TOTAL];
+
+
 	/* Starting column */
 	col = 999;
 
@@ -4861,6 +4865,10 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 				}
 
 				if (l > len) len = l; // Maintain the maximum length
+
+				slot[k] = i;
+				num[k] = j;
+
 				k++; // Advance to next "line"
 			}
 		}
@@ -4909,6 +4917,9 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 			/* Maintain the maximum length */
 			if (l > len) len = l;
+
+			slot[k] = GET_INVEN_SLOT_TYPE(cr_ptr, i);
+			num[k] = cr_ptr->equip_now[i];
 
 			/* Advance to next "line" */
 			k++;
@@ -4992,11 +5003,11 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 		// Display the entry itself
 		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK,
-			mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]) , j + 1, cur_col);
+			mention_use(cr_ptr, slot[j], num[j]) , j + 1, cur_col);
 
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
-		/* Display the weight if needed */
+		// Display the weight if needed
 		if (show_weights)
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
