@@ -1250,7 +1250,7 @@ extern cptr item_activation(object_type *o_ptr);
 extern bool screen_object(object_type *o_ptr, u32b mode);
 extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *cr_ptr, int c);
-extern cptr mention_use(creature_type *cr_ptr, int i);
+extern cptr mention_use(creature_type *cr_ptr, int slot, int num);
 extern cptr describe_use(creature_type *cr_ptr, int i);
 extern bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval);
 extern bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));

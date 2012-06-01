@@ -4019,19 +4019,12 @@ extern bool select_ring_slot;
 /*
  * Return a string mentioning how a given item is carried
  */
-cptr mention_use(creature_type *cr_ptr, int i)
+cptr mention_use(creature_type *cr_ptr, int slot, int num)
 {
 	cptr p;
-	int num;
-
-	if(!cr_ptr->equip_now[i])
-	{
-		p = "[ŠŽ]";
-		return p;
-	}
 
 	/* Examine the location */
-	switch (GET_INVEN_SLOT_TYPE(cr_ptr, i))
+	switch (slot)
 	{
 #ifdef JP
 		case INVEN_SLOT_INVENTORY:
@@ -4043,7 +4036,6 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
-			num = cr_ptr->equip_now[i];
 			if(cr_ptr->heavy_wield[num])
 			{
 #ifdef JP
@@ -4055,22 +4047,26 @@ cptr mention_use(creature_type *cr_ptr, int i)
 			}
 			else
 			{
-				if(has_cf_creature(cr_ptr, CF_HUMANOID))
+				switch(num)
 				{
-					if(num == 1) p = " ‰EŽè";
-					if(num == 2) p = " ¶Žè";
-					break;
-				}
-				else
-				{
-					if(num == 1) p = "‘æ‚PŽè";
-					if(num == 2) p = "‘æ‚QŽè";
-					if(num == 3) p = "‘æ‚RŽè";
-					if(num == 4) p = "‘æ‚SŽè";
-					if(num == 5) p = "‘æ‚TŽè";
-					if(num == 6) p = "‘æ‚UŽè";
-					if(num == 7) p = "‘æ‚VŽè";
-					if(num == 8) p = "‘æ‚WŽè";
+					case 1:
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ‰EŽè " : "‘æ‚PŽè";
+					case 2:
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ¶Žè " : "‘æ‚QŽè";
+					case 3:
+						p = "‘æ‚RŽè";
+					case 4:
+						p = "‘æ‚SŽè";
+					case 5:
+						p = "‘æ‚TŽè";
+					case 6:
+						p = "‘æ‚UŽè";
+					case 7:
+						p = "‘æ‚VŽè";
+					case 8:
+						p = "‘æ‚WŽè";
+					default:
+						p = " ŽèH";
 					break;
 				}
 			}
@@ -4081,10 +4077,12 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_SLOT_BOW:
-			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
+			p = "ŽËŒ‚—p";
+//			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
 #else
 		case INVEN_SLOT_BOW:
-			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
+			p = "Shooting";
+//			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 #endif
 
 #ifdef JP
@@ -4511,7 +4509,7 @@ void display_equip(creature_type *cr_ptr)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(cr_ptr, i), i, wid - 15);
+			prt(mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]), i, wid - 15);
 		}
 	}
 
@@ -4983,7 +4981,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		/* Display the entry itself */
-		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, i) , j + 1, cur_col);
+		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		/* Display the weight if needed */
