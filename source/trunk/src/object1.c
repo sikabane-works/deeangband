@@ -4025,7 +4025,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 	cptr p;
 
 #ifdef JP
-	if(!num) return " Š";
+	if(!num) return "Š";
 #else
 	if(!num) return "In pack";
 #endif
@@ -4035,7 +4035,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 	{
 #ifdef JP
 		case INVEN_SLOT_INVENTORY:
-			p = " Š";
+			p = "Š";
 			break;
 #else
 		case INVEN_SLOT_INVENTORY:
@@ -4055,10 +4055,10 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 				switch(num)
 				{
 					case 1:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ‰Eè " : "‘æ‚Pè";
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "‰Eè" : "‘æ‚Pè";
 						break;
 					case 2:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ¶è " : "‘æ‚Qè";
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "¶è" : "‘æ‚Qè";
 						break;
 					case 3:
 						p = "‘æ‚Rè";
@@ -4079,7 +4079,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 						p = "‘æ‚Wè";
 						break;
 					default:
-						p = " èH";
+						p = "èH";
 						break;
 				}
 			}
@@ -4103,7 +4103,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_AMMO:
-			p = " –î’e"; break;
+			p = "–î’e"; break;
 #else
 		case INVEN_SLOT_AMMO:
 			p = "Projectile"; break;
@@ -4111,15 +4111,28 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_RING:
-			p = " w—Ö"; break;
+			switch(num)
+			{
+				case 1:
+					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "‰Ew" : "‘æ‚Pw";
+					break;
+				case 2:
+					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "¶w" : "‘æ‚Qw";
+					break;
+				default:
+					p = "wH";
+					break;
+			}
+			break;
 #else
 		case INVEN_SLOT_RING:
 			p = "1st Ring"; break;
+			break;
 #endif
 
 #ifdef JP
 		case INVEN_SLOT_AMULET:
-			p = " Œì•„"; break;
+			p = "Œì•„"; break;
 #else
 		case INVEN_SLOT_AMULET:
 			p = "Amulet"; break;
@@ -4127,7 +4140,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_LITE:
-			p = " ŒõŒ¹"; break;
+			p = "ŒõŒ¹"; break;
 #else
 		case INVEN_SLOT_LITE:
 			p = "Light source"; break;
@@ -4135,7 +4148,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_INSTRUMENT:
-			p = " ŠyŠí"; break;
+			p = "ŠyŠí"; break;
 #else
 		case INVEN_SLOT_INSTRUMENT:
 			p = "Instrument"; break;
@@ -4143,7 +4156,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_BODY:
-			p = "  ‘Ì"; break;
+			p = "‘Ì"; break;
 #else
 		case INVEN_SLOT_BODY:
 			p = "On body"; break;
@@ -4151,7 +4164,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_OUTER:
-			p = "‘Ì‚Ìã"; break;
+			p = "ãˆß"; break;
 #else
 		case INVEN_SLOT_OUTER:
 			p = "About body"; break;
@@ -4159,7 +4172,37 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_HEAD:
-			p = " “ª•”"; break;
+			switch(num)
+			{
+				case 1:
+					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "“ª•”" : "‘æ‚P“ª";
+					break;
+				case 2:
+					p = "‘æ‚Q“ª";
+					break;
+				case 3:
+					p = "‘æ‚R“ª";
+					break;
+				case 4:
+					p = "‘æ‚S“ª";
+					break;
+				case 5:
+					p = "‘æ‚T“ª";
+					break;
+				case 6:
+					p = "‘æ‚U“ª";
+					break;
+				case 7:
+					p = "‘æ‚V“ª";
+					break;
+				case 8:
+					p = "‘æ‚W“ª";
+					break;
+				default:
+					p = "“ªH";
+					break;
+			}
+			break;
 #else
 		case INVEN_SLOT_HEAD:
 			p = "On head"; break;
@@ -4167,7 +4210,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_ARMS:
-			p = " ˜r•”"; break;
+			p = "˜r•”"; break;
 #else
 		case INVEN_SLOT_ARMS:
 			p = "On hands"; break;
@@ -4175,7 +4218,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_FEET:
-			p = " ‹r•”"; break;
+			p = "‹r•”"; break;
 #else
 		case INVEN_SLOT_FEET:
 			p = "On feet"; break;
@@ -4183,7 +4226,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_TAIL:
-			p = " ”ö•”"; break;
+			p = "”ö•”"; break;
 #else
 		case INVEN_SLOT_TAIL:
 			p = "On tail"; break;
@@ -4941,7 +4984,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		if(flags & SHOW_ITEM_EQUIPMENT)
 		{
 #if JP
-			put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
+			put_str("[‰½‚à‘•”õ‚Å‚«‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
 #else
 			put_str("[No Equipment]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
 #endif
