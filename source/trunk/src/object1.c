@@ -4028,21 +4028,19 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 	{
 #ifdef JP
 		case INVEN_SLOT_INVENTORY:
-			p = " ŠŽ"; break;
+			p = " ŠŽ";
+			break;
 #else
 		case INVEN_SLOT_INVENTORY:
-			p = "In pack"; break;
+			p = "In pack";
+			break;
 #endif
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
 			if(cr_ptr->heavy_wield[num])
 			{
-#ifdef JP
 				p = "‰^”À’†";
-#else
-				p = "Just lifting";
-#endif
 				break;
 			}
 			else
@@ -4051,25 +4049,34 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 				{
 					case 1:
 						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ‰EŽè " : "‘æ‚PŽè";
+						break;
 					case 2:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ¶Žè " : "‘æ‚QŽè";
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "¶Žè " : "‘æ‚QŽè";
+						break;
 					case 3:
 						p = "‘æ‚RŽè";
+						break;
 					case 4:
 						p = "‘æ‚SŽè";
+						break;
 					case 5:
 						p = "‘æ‚TŽè";
+						break;
 					case 6:
 						p = "‘æ‚UŽè";
+						break;
 					case 7:
 						p = "‘æ‚VŽè";
+						break;
 					case 8:
 						p = "‘æ‚WŽè";
+						break;
 					default:
 						p = " ŽèH";
-					break;
+						break;
 				}
 			}
+			break;
 #else
 		case INVEN_SLOT_HAND:
 			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
@@ -4079,10 +4086,12 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 		case INVEN_SLOT_BOW:
 			p = "ŽËŒ‚—p";
 //			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
+			break;
 #else
 		case INVEN_SLOT_BOW:
 			p = "Shooting";
 //			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
+			break;
 #endif
 
 #ifdef JP
