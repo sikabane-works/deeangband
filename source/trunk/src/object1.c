@@ -3988,6 +3988,7 @@ prt("[‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
  */
 char index_to_label(int i)
 {
+	if(i < 0 || i >= INVEN_TOTAL) return '-';
 	return (i < 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
 }
 
@@ -4023,6 +4024,12 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 {
 	cptr p;
 
+#ifdef JP
+	if(!num) return " Š";
+#else
+	if(!num) return "In pack";
+#endif
+
 	/* Examine the location */
 	switch (slot)
 	{
@@ -4051,7 +4058,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ‰Eè " : "‘æ‚Pè";
 						break;
 					case 2:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "¶è " : "‘æ‚Qè";
+						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? " ¶è " : "‘æ‚Qè";
 						break;
 					case 3:
 						p = "‘æ‚Rè";
@@ -4962,14 +4969,8 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 		else
 		{
-			sprintf(tmp_val, "%c)", inven_label[j]); // Prepare an index --(--
+			sprintf(tmp_val, "%c)", index_to_label(i)); // Prepare an index --(--
 		}
-		/*
-		else
-		{
-			sprintf(tmp_val, "%c)", index_to_label(j)); // Prepare an index --(--
-		}
-		*/
 
 		/* Clear the line with the (possibly indented) index */
 		put_str(tmp_val, j + 1, col);
@@ -4989,8 +4990,10 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			cur_col += 2;
 		}
 
-		/* Display the entry itself */
-		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]) , j + 1, cur_col);
+		// Display the entry itself
+		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK,
+			mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]) , j + 1, cur_col);
+
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		/* Display the weight if needed */
