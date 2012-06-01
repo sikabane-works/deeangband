@@ -4117,7 +4117,7 @@ errr parse_creature_flag_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 61
+#define RC_INFO_CSV_COLUMNS 70
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4186,6 +4186,17 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"SUIT_CLASS",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
+
+	"HAND",
+	"RING",
+	"AMULET",
+	"BODY",
+	"OUTER",
+	"HEAD",
+	"ARMS",
+	"FEET",
+	"TAIL",
+
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
@@ -4244,11 +4255,11 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_F_WB		47
 #define RC_INFO_F_WM		48
 #define RC_INFO_P_HITD_M	49
+
 #define RC_INFO_H_HITD_M	50
 #define RC_INFO_P_EXP		51
 #define RC_INFO_H_EXP		52
 #define RC_INFO_SYM			53
-
 #define RC_INFO_AGE			54
 #define RC_INFO_AGE_ADD		55
 #define RC_INFO_P_FLAGS		56
@@ -4256,6 +4267,16 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_SUIT_CLASS	58
 #define RC_INFO_DESCRIPTION		59
 #define RC_INFO_E_DESCRIPTION	60
+
+#define RC_INFO_HAND 61
+#define RC_INFO_RING 62
+#define RC_INFO_AMULET 63
+#define RC_INFO_BODY 64
+#define RC_INFO_OUTER 65
+#define RC_INFO_HEAD 66
+#define RC_INFO_ARMS 67
+#define RC_INFO_FEET 68
+#define RC_INFO_TAIL 69
 
 errr parse_race_info_csv(char *buf, header *head)
 {
@@ -4615,6 +4636,25 @@ errr parse_race_info_csv(char *buf, header *head)
 				if (!add_text(&race_info[n].text, head, tmp, TRUE))
 					return (7);
 #endif
+				break;
+
+			case RC_INFO_HAND:
+				break;
+			case RC_INFO_RING:
+				break;
+			case RC_INFO_AMULET:
+				break;
+			case RC_INFO_BODY:
+				break;
+			case RC_INFO_OUTER:
+				break;
+			case RC_INFO_HEAD:
+				break;
+			case RC_INFO_ARMS:
+				break;
+			case RC_INFO_FEET:
+				break;
+			case RC_INFO_TAIL:
 				break;
 
 			default:

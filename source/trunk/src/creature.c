@@ -2346,7 +2346,7 @@ void set_creature_equip(creature_type *creature_ptr)
 		creature_ptr->item_slot_num[INVEN_SLOT_FEET] = 1;
 		creature_ptr->item_slot_num[INVEN_SLOT_INSTRUMENT] = 1;
 		creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = 1;
+		creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = 0;
 	}
 	else
 	{
