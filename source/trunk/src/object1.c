@@ -4795,7 +4795,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  */
 int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	int             i, j, k, l;
+	int             i, j, k, l, m;
 	int             col, cur_col, len;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
@@ -4820,12 +4820,12 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(i = 0; i < MAX_ITEM_SLOT; i++)
+		for(k = 0, i = 0; i < MAX_ITEM_SLOT; i++)
 		{
 			l = get_equipped_slot_num(cr_ptr, i); 
 			for(j = 0; j < l; j++)
 			{
-				k = get_equipped_slot_idx(cr_ptr, i, j); 
+				m = get_equipped_slot_idx(cr_ptr, i, j); 
 				o_ptr = &cr_ptr->inventory[k];
 				if (!o_ptr->k_idx) continue;
 
@@ -4833,7 +4833,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 				object_desc(o_name, o_ptr, 0);
 
 				/* Save the object index, color, and description */
-				out_index[k] = i;
+				out_index[k] = m;
 				out_color[k] = tval_to_attr[o_ptr->tval % 128];
 
 				/* Grey out charging items */
