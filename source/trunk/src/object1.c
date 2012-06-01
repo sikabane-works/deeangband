@@ -4818,50 +4818,104 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	prepare_label_string(cr_ptr, inven_label, USE_INVEN);
 
-	/* Display item */
-	for (k = 0, i = 0; i < INVEN_TOTAL; i++)
+	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		o_ptr = &cr_ptr->inventory[i];
-
-		/* Is this item acceptable? */
-		if (!o_ptr->k_idx) continue;
-		if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
-		if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
-
-		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
-
-		/* Save the object index, color, and description */
-		out_index[k] = i;
-		out_color[k] = tval_to_attr[o_ptr->tval % 128];
-
-		/* Grey out charging items */
-		if (o_ptr->timeout)
+		for(i = 0; i < MAX_ITEM_SLOT; i++)
 		{
-			out_color[k] = TERM_L_DARK;
+			l = get_equipped_slot_num(cr_ptr, i); 
+			for(j = 0; j < l; j++)
+			{
+				k = get_equipped_slot_idx(cr_ptr, i, j); 
+				o_ptr = &cr_ptr->inventory[k];
+				if (!o_ptr->k_idx) continue;
+
+				/* Describe the object */
+				object_desc(o_name, o_ptr, 0);
+
+				/* Save the object index, color, and description */
+				out_index[k] = i;
+				out_color[k] = tval_to_attr[o_ptr->tval % 128];
+
+				/* Grey out charging items */
+				if (o_ptr->timeout)
+				{
+					out_color[k] = TERM_L_DARK;
+				}
+
+				(void)strcpy(out_desc[k], o_name);
+
+				/* Find the predicted "line length" */
+				l = strlen(out_desc[k]);
+
+				/* Be sure to account for the weight */
+				if (show_weights) l += 15;
+
+				/* Account for icon if displayed */
+				if (show_item_graph)
+				{
+					l += 2;
+					if (use_bigtile) l++;
+				}
+
+				/* Maintain the maximum length */
+				if (l > len) len = l;
+
+				/* Advance to next "line" */
+				k++;
+
+			}
 		}
-
-		(void)strcpy(out_desc[k], o_name);
-
-		/* Find the predicted "line length" */
-		l = strlen(out_desc[k]);
-
-		/* Be sure to account for the weight */
-		if (show_weights) l += 15;
-
-		/* Account for icon if displayed */
-		if (show_item_graph)
-		{
-			l += 2;
-			if (use_bigtile) l++;
-		}
-
-		/* Maintain the maximum length */
-		if (l > len) len = l;
-
-		/* Advance to next "line" */
-		k++;
 	}
+
+	// Display item
+	if(flags & SHOW_ITEM_INVENTORY)
+	{
+		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
+		{
+			o_ptr = &cr_ptr->inventory[i];
+
+			/* Is this item acceptable? */
+			if (!o_ptr->k_idx) continue;
+
+			if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
+			if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
+
+			/* Describe the object */
+			object_desc(o_name, o_ptr, 0);
+
+			/* Save the object index, color, and description */
+			out_index[k] = i;
+			out_color[k] = tval_to_attr[o_ptr->tval % 128];
+
+			/* Grey out charging items */
+			if (o_ptr->timeout)
+			{
+				out_color[k] = TERM_L_DARK;
+			}
+
+			(void)strcpy(out_desc[k], o_name);
+
+			/* Find the predicted "line length" */
+			l = strlen(out_desc[k]);
+
+			/* Be sure to account for the weight */
+			if (show_weights) l += 15;
+
+			/* Account for icon if displayed */
+			if (show_item_graph)
+			{
+				l += 2;
+				if (use_bigtile) l++;
+			}
+
+			/* Maintain the maximum length */
+			if (l > len) len = l;
+
+			/* Advance to next "line" */
+			k++;
+		}
+	}
+
 
 	if(flags & SHOW_ITEM_RIGHT_SET){
 		col = (len > wid - 9) ? 0 : (wid - len - 9);
