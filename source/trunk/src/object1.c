@@ -4795,7 +4795,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  */
 int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	int             i, j, k, l, m;
+	int             i, j, k, l, m, n;
 	int             col, cur_col, len;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
@@ -4822,33 +4822,23 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	{
 		for(k = 0, i = 0; i < MAX_ITEM_SLOT; i++)
 		{
-			l = get_equipped_slot_num(cr_ptr, i); 
-			for(j = 0; j < l; j++)
+			n = get_equipped_slot_num(cr_ptr, i); 
+			for(j = 1; j <= n; j++)
 			{
 				m = get_equipped_slot_idx(cr_ptr, i, j); 
-				o_ptr = &cr_ptr->inventory[k];
-				if (!o_ptr->k_idx) continue;
+				o_ptr = &cr_ptr->inventory[m];
+				object_desc(o_name, o_ptr, 0); // Describe the object
 
-				/* Describe the object */
-				object_desc(o_name, o_ptr, 0);
-
-				/* Save the object index, color, and description */
+				// Save the object index, color, and description
 				out_index[k] = m;
 				out_color[k] = tval_to_attr[o_ptr->tval % 128];
 
-				/* Grey out charging items */
-				if (o_ptr->timeout)
-				{
-					out_color[k] = TERM_L_DARK;
-				}
+				if (o_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
 
 				(void)strcpy(out_desc[k], o_name);
 
-				/* Find the predicted "line length" */
-				l = strlen(out_desc[k]);
-
-				/* Be sure to account for the weight */
-				if (show_weights) l += 15;
+				l = strlen(out_desc[k]); // Find the predicted "line length"
+				if (show_weights) l += 15; // Be sure to account for the weight
 
 				/* Account for icon if displayed */
 				if (show_item_graph)
