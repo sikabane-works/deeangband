@@ -4820,9 +4820,9 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(k = 0, i = 0; i < MAX_ITEM_SLOT; i++)
+		for(k = 0, i = 1; i < MAX_ITEM_SLOT; i++)
 		{
-			n = get_equipped_slot_num(cr_ptr, i); 
+			n = cr_ptr->item_slot_num[i]; 
 			for(j = 1; j <= n; j++)
 			{
 				m = get_equipped_slot_idx(cr_ptr, i, j); 
@@ -4840,19 +4840,14 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 				l = strlen(out_desc[k]); // Find the predicted "line length"
 				if (show_weights) l += 15; // Be sure to account for the weight
 
-				/* Account for icon if displayed */
-				if (show_item_graph)
+				if (show_item_graph) // Account for icon if displayed
 				{
 					l += 2;
 					if (use_bigtile) l++;
 				}
 
-				/* Maintain the maximum length */
-				if (l > len) len = l;
-
-				/* Advance to next "line" */
-				k++;
-
+				if (l > len) len = l; // Maintain the maximum length
+				k++; // Advance to next "line"
 			}
 		}
 	}
@@ -4938,17 +4933,12 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	}
 
 
-	/* Output each entry */
+	// Output each entry
 	for (j = 0; j < k; j++)
 	{
-		/* Get the index */
-		i = out_index[j];
-
-		/* Get the item */
-		o_ptr = &cr_ptr->inventory[i];
-
-		/* Clear the line */
-		prt("", j + 1, col ? col - 2 : col);
+		i = out_index[j]; // Get the index
+		o_ptr = &cr_ptr->inventory[i]; // Get the item
+		prt("", j + 1, col ? col - 2 : col); // Clear the line
 
 		if (use_menu && target_item)
 		{
@@ -4963,16 +4953,16 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else if (i <= INVEN_TOTAL)
-		{
-			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", inven_label[i]);
-		}
 		else
 		{
-			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(i));
+			sprintf(tmp_val, "%c)", inven_label[j]); // Prepare an index --(--
 		}
+		/*
+		else
+		{
+			sprintf(tmp_val, "%c)", index_to_label(j)); // Prepare an index --(--
+		}
+		*/
 
 		/* Clear the line with the (possibly indented) index */
 		put_str(tmp_val, j + 1, col);

@@ -2378,6 +2378,7 @@ int get_equipped_slot_num(creature_type *creature_ptr, int slot)
 	return n;
 }
 
+
 object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int num)
 {
 	int i;
