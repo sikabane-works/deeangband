@@ -1884,6 +1884,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 {
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
@@ -2489,7 +2490,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 
-				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+				wiz_lite(floor_ptr, cr_ptr, FALSE);
 
 				if (!cr_ptr->telepathy)
 				{
@@ -5938,6 +5939,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	int dir;
 	int plev = cr_ptr->lev;
@@ -6637,7 +6639,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				wiz_lite(current_floor_ptr, cr_ptr, FALSE);
+				wiz_lite(floor_ptr, cr_ptr, FALSE);
 
 				if (!cr_ptr->telepathy)
 				{
