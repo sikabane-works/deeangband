@@ -896,7 +896,7 @@ struct player_sex
 
 
 /*
- * Player racial info
+ * Racial info
  */
 
 typedef struct race_type race_type;
@@ -988,7 +988,17 @@ struct race_type
 	creature_flags h_flags;
 
 	char symbol;
-	
+
+	byte slot_hand;
+	byte slot_ring;
+	byte slot_amulet;
+	byte slot_body;
+	byte slot_outer;
+	byte slot_head;
+	byte slot_arms;
+	byte slot_feet;
+	byte slot_tail;
+
 	/*    byte choice_xtra;   */
 };
 

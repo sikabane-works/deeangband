@@ -2328,42 +2328,28 @@ creature_type *find_unique_instance(int n)
 	return NULL;
 }
 
-void set_creature_equip(creature_type *creature_ptr)
+void set_creature_equip_slot_num(creature_type *creature_ptr)
 {
 	int i;
+	race_type *race_ptr = &race_info[creature_ptr->race_idx1];
 
-	if(has_cf_creature(creature_ptr, CF_HUMANOID))
-	{
-		creature_ptr->item_slot_num[INVEN_SLOT_HAND] = 2;
-		creature_ptr->item_slot_num[INVEN_SLOT_BOW] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_RING] = 2;
-		creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_BODY] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_FEET] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_INSTRUMENT] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 1;
-		creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = 0;
-	}
-	else
-	{
-		creature_ptr->item_slot_num[INVEN_SLOT_HAND] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_BOW] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_RING] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_BODY] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_FEET] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_INSTRUMENT] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 0;
-		creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = 0;
-	}
+	creature_ptr->item_slot_num[INVEN_SLOT_HAND] = race_ptr->slot_hand;
+
+	creature_ptr->item_slot_num[INVEN_SLOT_RING] = race_ptr->slot_ring;
+	creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = race_ptr->slot_amulet;
+
+	creature_ptr->item_slot_num[INVEN_SLOT_BODY] = race_ptr->slot_body;
+	creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = race_ptr->slot_outer;
+	creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = race_ptr->slot_head;
+	creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = race_ptr->slot_arms;
+	creature_ptr->item_slot_num[INVEN_SLOT_FEET] = race_ptr->slot_feet;
+	creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = race_ptr->slot_tail;
+
+	creature_ptr->item_slot_num[INVEN_SLOT_BOW] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
+	creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = creature_ptr->item_slot_num[INVEN_SLOT_BOW] ? 1 : 0;
+
+	creature_ptr->item_slot_num[INVEN_SLOT_INSTRUMENT] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
+	creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 1;
 
 	creature_ptr->item_slot_num[INVEN_SLOT_INVENTORY] = INVEN_TOTAL;
 	for(i = INVEN_SLOT_INVENTORY + 1; i < MAX_ITEM_SLOT; i++)

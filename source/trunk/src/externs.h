@@ -1054,7 +1054,7 @@ extern int get_equip_weapon_num(creature_type *cr_ptr);
 
 extern creature_type *find_unique_instance(int n);
 
-extern void set_creature_equip(creature_type *creature_ptr);
+extern void set_creature_equip_slot_num(creature_type *creature_ptr);
 extern int get_equipped_slot_num(creature_type *creature_ptr, int slot);
 extern object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int num);
 extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num);

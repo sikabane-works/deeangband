@@ -4639,22 +4639,48 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_HAND:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_hand = (byte)b;
 				break;
+
 			case RC_INFO_RING:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_ring = (byte)b;
 				break;
+
 			case RC_INFO_AMULET:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_amulet = (byte)b;
 				break;
+
 			case RC_INFO_BODY:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_body = (byte)b;
 				break;
+
 			case RC_INFO_OUTER:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_outer = (byte)b;
 				break;
+
 			case RC_INFO_HEAD:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_head = (byte)b;
 				break;
+
 			case RC_INFO_ARMS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_arms = (byte)b;
 				break;
+
 			case RC_INFO_FEET:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_feet = (byte)b;
 				break;
+
 			case RC_INFO_TAIL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_tail = (byte)b;
 				break;
 
 			default:
