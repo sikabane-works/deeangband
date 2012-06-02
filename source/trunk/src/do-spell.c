@@ -497,6 +497,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 {
 	int counter = 0;
 	int type = SUMMON_BIZARRE1 + randint0(6);
+	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
 
 	if (type < SUMMON_BIZARRE1) type = SUMMON_BIZARRE1;
 	else if (type > SUMMON_BIZARRE6) type = SUMMON_BIZARRE6;
@@ -572,7 +573,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, (current_floor_ptr->floor_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
+			(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, (floor_ptr->floor_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
 		}
 		break;
 	case 36:

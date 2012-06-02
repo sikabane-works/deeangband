@@ -1463,7 +1463,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
  */
 void note_spot(floor_type *floor_ptr, int y, int x)
 {
-	cave_type *c_ptr = &current_floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
 
