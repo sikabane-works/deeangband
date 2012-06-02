@@ -189,22 +189,18 @@ static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 
 static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
-	/* Check for a usable slot */
-	if (WIELD_SLOT(o_ptr) == INVEN_SLOT_HAND) return (TRUE);
-
-	/* Assume not wearable */
-	return (FALSE);
+	if (WIELD_SLOT(o_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
+	return (FALSE); // Assume not wearable
 }
 
 
 bool select_ring_slot = FALSE;
 
-/*
- * Wield or wear a single item from the pack or floor
- */
+
+// Wield or wear a single item from the pack or floor
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int item, slot, i;
+	int item, slot;
 
 	object_type forge;
 	object_type *q_ptr;
@@ -241,8 +237,12 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	q_ptr = &forge;
 
-	// Check the slot
+	// Check the number of slot
 	slot = WIELD_SLOT(o_ptr);
+	if(!slot)
+	{
+		msg_print("ÇªÇÍÇÕëïîıÇ≈Ç´Ç»Ç¢ÅB\n");
+	}
 
 	// Equip Flag
 #ifdef JP
