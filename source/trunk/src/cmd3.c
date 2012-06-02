@@ -214,10 +214,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	int need_switch_wielding = 0;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
-	{
-		set_action(cr_ptr, ACTION_NONE);
-	}
+	if (cr_ptr->special_defense & KATA_MUSOU) set_action(cr_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
