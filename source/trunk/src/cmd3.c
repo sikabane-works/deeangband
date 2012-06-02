@@ -245,6 +245,16 @@ void do_cmd_wield(creature_type *cr_ptr)
 	slot = WIELD_SLOT(o_ptr);
 
 	// Equip Flag
+#ifdef JP
+	q = "Ç«Ç±Ç…ëïîıÇµÇ‹Ç∑Ç©?";
+	s = "Ç®Ç¡Ç∆ÅB";
+#else
+	q = "Equip which hand? ";
+	s = "Oops.";
+#endif
+	if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_melee_weapon)) return;
+
+	/*
 	for(i = 1; i <= cr_ptr->item_slot_num[slot]; i++)
 		if(get_equipped_slot_idx(cr_ptr, slot, i) < 0)
 		{
@@ -255,6 +265,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	if(i > cr_ptr->item_slot_num[slot])
 			msg_format("%dÇ¬ÇÃògÇ™ãÛÇ¢ÇƒÇ¢Ç»Ç©Ç¡ÇΩÅB\n", i);
+	*/
 
 	/* Recalculate bonuses */
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
