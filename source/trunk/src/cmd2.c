@@ -963,8 +963,8 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
 static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trapped)
 {
 	int d, count, object_idx;
-
 	object_type *o_ptr;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Count how many matches */
 	count = 0;
@@ -976,7 +976,7 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 		int yy = creature_ptr->fy + ddy_ddd[d];
 		int xx = creature_ptr->fx + ddx_ddd[d];
 
-		if ((object_idx = chest_check(current_floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
+		if ((object_idx = chest_check(floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
 		/* Grab the object */
 		o_ptr = &object_list[object_idx];
