@@ -635,7 +635,7 @@ void generate_floor_world(floor_type *floor_ptr)
 	}
 
 	// Init the wilderness
-	process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
+	process_dungeon_file(floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
 	// Fill the map
 	for (i = 0; i < max_wild_x; i++)
