@@ -4451,6 +4451,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	int     i, x, y;
 	int     flg = PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE;
 	bool    obvious = FALSE;
+	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 
 	/* Mark all (nearby) monsters */
@@ -4466,7 +4467,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Require line of sight */
-		if (!player_has_los_bold(y, x) || !projectable(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
+		if (!player_has_los_bold(y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
 		/* Mark the monster */
 		m_ptr->mflag |= (MFLAG_TEMP);
