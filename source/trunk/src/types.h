@@ -441,6 +441,17 @@ struct species_type
 	u32b r_flags6;			/* Observed racial flags */
 	/* u32b r_flags7; */			/* Observed racial flags */
 	u32b r_flags10;			/* Observed racial resistance flags */
+
+	byte slot_hand;
+	byte slot_ring;
+	byte slot_amulet;
+	byte slot_body;
+	byte slot_outer;
+	byte slot_head;
+	byte slot_arms;
+	byte slot_feet;
+	byte slot_tail;
+
 };
 
 
