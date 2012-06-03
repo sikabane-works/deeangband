@@ -6990,7 +6990,6 @@ void play_game(bool new_game)
 	if (new_game && ((player_ptr->cls_idx == CLASS_CAVALRY) || (player_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
 		int pet_species_idx = ((player_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
-		species_type *r_ptr = &species_info[pet_species_idx];
 		place_creature_species(player_ptr, get_floor_ptr(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 

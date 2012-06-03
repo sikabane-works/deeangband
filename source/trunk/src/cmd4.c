@@ -7944,8 +7944,7 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 /*
  * Display the monsters in a group.
  */
-static void display_creature_list(int col, int row, int per_page, s16b mon_idx[],
-	int mon_cur, int mon_top, bool visual_only)
+static void display_creature_list(int col, int row, int per_page, s16b mon_idx[], int mon_cur, int mon_top, bool visual_only)
 {
 	int i;
 

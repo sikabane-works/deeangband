@@ -4605,7 +4605,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	if (!(mode & PM_NO_KAGE) && one_in_(333))
 		mode |= PM_KAGE;
 
-	/* Place one monster, or fail */
+	// Place one monster, or fail
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_creature_idx) return (FALSE);
 
@@ -4633,8 +4633,6 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		m_ptr->underling_num[i] -= n;
 		i++;
 	}
-
-
 
 	/* Require the "group" flag */
 	if (!(mode & PM_ALLOW_GROUP)) return (TRUE);
