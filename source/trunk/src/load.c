@@ -1660,15 +1660,6 @@ note("乱数情報をロードしました");
 		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
-	// TODO NEW CREATURE LORE
-	/*
-#ifdef JP
-	note(format("モンスターの思い出をロードしました:%u", tmp16u));
-#else
-	if (arg_fiddle) note("Loaded Monster Memory");
-#endif
-	*/
-
 	// Unique monsters
 	rd_u16b(&unique_max);
 
@@ -1688,11 +1679,8 @@ note("乱数情報をロードしました");
 		creature_type *creature_ptr;
 
 		creature_idx = creature_pop(); // Get a new record
-		// if (i != creature_idx) return 162; // Oops
 		creature_ptr = &creature_list[creature_idx]; // Acquire creature
 		rd_creature(creature_ptr); // Read the monster
-		//cave_ptr = &current_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]; // Access grid
-		//cave_ptr->creature_idx = m_idx; // Mark the location
 
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
