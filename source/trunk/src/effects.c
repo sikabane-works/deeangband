@@ -5923,6 +5923,7 @@ static void you_died(cptr hit_from)
 
 int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
+	floor_type *floor_ptr = get_floor_ptr(tar_ptr);
 	int old_chp = tar_ptr->chp;
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 	bool fear = FALSE;
@@ -6359,10 +6360,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 				if (is_pet(player_ptr, tar_ptr)) mode |= PM_FORCE_PET;
 	
-				/* Delete the monster */
 				delete_species_idx(tar_ptr);
 	
-				if (summon_named_creature(0, current_floor_ptr, dummy_y, dummy_x, MON_BIKETAL, mode))
+				if (summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BIKETAL, mode))
 				{
 	#ifdef JP
 					msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");
