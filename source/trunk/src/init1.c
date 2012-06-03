@@ -3008,7 +3008,7 @@ static int grab_one_authority_flag(species_type *r_ptr, cptr what)
 	return -1;
 }
 
-#define SPECIES_INFO_CSV_COLUMNS 51
+#define SPECIES_INFO_CSV_COLUMNS 60
 static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3062,6 +3062,17 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"E_DESCRIPTION",
 	"FATHER",
 	"MOTHER",
+
+	"HAND",
+	"RING",
+	"AMULET",
+	"BODY",
+	"OUTER",
+	"HEAD",
+	"ARMS",
+	"FEET",
+	"TAIL",
+
 };
 
 static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
@@ -3117,6 +3128,16 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define SPECIES_INFO_E_DESCRIPTION	48
 #define SPECIES_INFO_FATHER	49
 #define SPECIES_INFO_MOTHER	50
+
+#define SPECIES_INFO_HAND 51
+#define SPECIES_INFO_RING 52
+#define SPECIES_INFO_AMULET 53
+#define SPECIES_INFO_BODY 54
+#define SPECIES_INFO_OUTER 55
+#define SPECIES_INFO_HEAD 56
+#define SPECIES_INFO_ARMS 57
+#define SPECIES_INFO_FEET 58
+#define SPECIES_INFO_TAIL 59
 
 errr parse_species_info_csv(char *buf, header *head)
 {
@@ -3580,13 +3601,23 @@ errr parse_species_info_csv(char *buf, header *head)
 				species_info[n].father_idx = (s16b)b;
 				break;
 
-
 			case SPECIES_INFO_MOTHER:
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].mother_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
 				species_info[n].mother_idx = (s16b)b;
+				break;
+
+			case SPECIES_INFO_HAND:
+			case SPECIES_INFO_RING:
+			case SPECIES_INFO_AMULET:
+			case SPECIES_INFO_BODY:
+			case SPECIES_INFO_OUTER:
+			case SPECIES_INFO_HEAD:
+			case SPECIES_INFO_ARMS:
+			case SPECIES_INFO_FEET:
+			case SPECIES_INFO_TAIL:
 				break;
 
 			default:
