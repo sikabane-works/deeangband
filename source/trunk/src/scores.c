@@ -482,6 +482,7 @@ errr top_twenty(creature_type *player_ptr)
 	high_score   the_score;
 
 	time_t ct = time((time_t*)0);
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	errr err;
 
@@ -526,9 +527,9 @@ errr top_twenty(creature_type *player_ptr)
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
-	sprintf(the_score.cur_dun, "%3d", current_floor_ptr->floor_level);
+	sprintf(the_score.cur_dun, "%3d", player_ptr->depth);
 	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
-	sprintf(the_score.max_dun, "%3d", max_dlv[current_floor_ptr->dun_type]);
+	sprintf(the_score.max_dun, "%3d", max_dlv[floor_ptr->dun_type]);
 
 	/* Save the cause of death (31 chars) */
 	if (strlen(gameover_from) >= sizeof(the_score.how))
@@ -597,7 +598,7 @@ errr top_twenty(creature_type *player_ptr)
 errr predict_score(creature_type *player_ptr)
 {
 	int          j;
-
+	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	high_score   the_score;
 
 
@@ -648,9 +649,9 @@ msg_print("スコア・ファイルが使用できません。");
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
-	sprintf(the_score.cur_dun, "%3d", current_floor_ptr->floor_level);
+	sprintf(the_score.cur_dun, "%3d", player_ptr->depth);
 	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
-	sprintf(the_score.max_dun, "%3d", max_dlv[current_floor_ptr->dun_type]);
+	sprintf(the_score.max_dun, "%3d", max_dlv[floor_ptr->dun_type]);
 
 	/* Hack -- no cause of death */
 #ifdef JP
