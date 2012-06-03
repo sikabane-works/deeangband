@@ -2332,18 +2332,19 @@ void set_creature_equip_slot_num(creature_type *creature_ptr)
 {
 	int i;
 	race_type *race_ptr = &race_info[creature_ptr->race_idx1];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	creature_ptr->item_slot_num[INVEN_SLOT_HAND] = race_ptr->slot_hand;
+	creature_ptr->item_slot_num[INVEN_SLOT_HAND] = species_ptr->slot_hand < 0 ? race_ptr->slot_hand : species_ptr->slot_hand;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_RING] = race_ptr->slot_ring;
-	creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = race_ptr->slot_amulet;
+	creature_ptr->item_slot_num[INVEN_SLOT_RING] = species_ptr->slot_ring < 0 ? race_ptr->slot_ring : species_ptr->slot_ring;
+	creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = species_ptr->slot_amulet < 0 ? race_ptr->slot_amulet : species_ptr->slot_amulet;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_BODY] = race_ptr->slot_body;
-	creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = race_ptr->slot_outer;
-	creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = race_ptr->slot_head;
-	creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = race_ptr->slot_arms;
-	creature_ptr->item_slot_num[INVEN_SLOT_FEET] = race_ptr->slot_feet;
-	creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = race_ptr->slot_tail;
+	creature_ptr->item_slot_num[INVEN_SLOT_BODY] = species_ptr->slot_body < 0 ? race_ptr->slot_body : species_ptr->slot_body;
+	creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = species_ptr->slot_outer < 0 ? race_ptr->slot_outer : species_ptr->slot_outer;
+	creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = species_ptr->slot_head < 0 ? race_ptr->slot_head : species_ptr->slot_hand;
+	creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = species_ptr->slot_arms < 0 ? race_ptr->slot_arms : species_ptr->slot_arms;
+	creature_ptr->item_slot_num[INVEN_SLOT_FEET] = species_ptr->slot_feet < 0 ? race_ptr->slot_feet : species_ptr->slot_feet;
+	creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = species_ptr->slot_tail < 0 ? race_ptr->slot_tail : species_ptr->slot_tail;
 
 	creature_ptr->item_slot_num[INVEN_SLOT_BOW] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
 	creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = creature_ptr->item_slot_num[INVEN_SLOT_BOW] ? 1 : 0;
