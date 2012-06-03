@@ -1168,7 +1168,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 
 
-static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, int *yp, int *xp, int f_flag, bool (*path_check)(int, int, int, int))
+static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, int *yp, int *xp, int f_flag, bool (*path_check)(floor_type *, int, int, int, int))
 {
 	int i;
 	int tonari;
@@ -1199,7 +1199,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 		/* Skip this feature */
 		if (!cave_have_flag_grid(c_ptr, f_flag)) continue;
 
-		if (path_check(m_ptr->fy, m_ptr->fx, next_y, next_x))
+		if (path_check(floor_ptr, m_ptr->fy, m_ptr->fx, next_y, next_x))
 		{
 			*yp = next_y;
 			*xp = next_x;
