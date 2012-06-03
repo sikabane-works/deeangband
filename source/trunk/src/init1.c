@@ -6038,7 +6038,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				}
 
 				/* Place it */
-				place_creature_species(NULL, current_floor_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
+				place_creature_species(NULL, floor_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
 				if (clone)
 				{
 					/* clone */

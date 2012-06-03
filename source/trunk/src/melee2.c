@@ -3080,7 +3080,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	the_world = 0;
-	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(current_floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
+	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP
 		msg_print("u‚Í“®‚«‚¾‚·cv");

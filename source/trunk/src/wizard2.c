@@ -2312,7 +2312,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Hack -- whatever I desire */
 	case '_':
-		(void)probing(current_floor_ptr);
+		(void)probing(get_floor_ptr(creature_ptr));
 		break;
 
 	/* Not a Wizard Command */
