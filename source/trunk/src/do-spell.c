@@ -5109,7 +5109,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!reset_recall()) return NULL;
+				if (!reset_recall(cr_ptr)) return NULL;
 			}
 		}
 		break;

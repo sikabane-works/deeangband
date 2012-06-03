@@ -982,7 +982,7 @@ bool word_of_recall(creature_type *cr_ptr)
 }
 
 
-bool reset_recall(void)
+bool reset_recall(creature_type *creature_ptr)
 {
 	int select_dungeon, dummy = 0;
 	char ppp[80];
@@ -1015,7 +1015,7 @@ sprintf(ppp, "‰½ŠK‚ÉƒZƒbƒg‚µ‚Ü‚·‚© (%d-%d):", dungeon_info[select_dungeon].minde
 #endif
 
 	/* Default */
-	sprintf(tmp_val, "%d", MAX(current_floor_ptr->floor_level, 1));
+	sprintf(tmp_val, "%d", MAX(creature_ptr->depth, 1));
 
 	/* Ask for a level */
 	if (get_string(ppp, tmp_val, 10))

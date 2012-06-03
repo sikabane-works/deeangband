@@ -2088,7 +2088,7 @@ msg_print("Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I");
 		case SV_SCROLL_RESET_RECALL:
 		{
 			ident = TRUE;
-			if (!reset_recall()) used_up = FALSE;
+			if (!reset_recall(creature_ptr)) used_up = FALSE;
 			break;
 		}
 	}
