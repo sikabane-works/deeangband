@@ -7285,7 +7285,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 				t_x = attacker_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(player_ptr->fy, player_ptr->fx, t_y, t_x));
+			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
@@ -7671,7 +7671,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 						break;
 					default:
 						/* Ball explosions are stopped by walls */
-						if (!projectable(by, bx, y, x)) continue;
+						if (!projectable(floor_ptr, by, bx, y, x)) continue;
 						break;
 					}
 
@@ -8438,7 +8438,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 							break;
 						default:
 							/* Ball explosions are stopped by walls */
-							if (!projectable(by, bx, y, x)) continue;
+							if (!projectable(floor_ptr, by, bx, y, x)) continue;
 							break;
 						}
 
@@ -8544,7 +8544,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		if(caster_ptr)
 		{
 			see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
-				(is_player(caster_ptr) ? TRUE : (creature_can_see_bold(caster_ptr, y1, x1) && projectable(caster_ptr->fy, caster_ptr->fx, y1, x1)));
+				(is_player(caster_ptr) ? TRUE : (creature_can_see_bold(caster_ptr, y1, x1) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y1, x1)));
 		}
 		else
 		{
@@ -8664,7 +8664,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						t_x = x_saver - 1 + (byte)randint1(3);
 						max_attempts--;
 					}
-					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(y, x, t_y, t_x));
+					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, y, x, t_y, t_x));
 
 					if (max_attempts < 1)
 					{
@@ -8946,7 +8946,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
 			    distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
-			    projectable(caster_ptr->fy, caster_ptr->fx, y, x)
+			    projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)
 			    ){
 				mirror_y[mirror_num]=y;
 				mirror_x[mirror_num]=x;
@@ -8996,7 +8996,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
 					if(!(caster_ptr->blind)
 					   && panel_contains(y,x)){
@@ -9019,7 +9019,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_f(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -9034,7 +9034,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -9049,7 +9049,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}

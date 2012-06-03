@@ -3818,7 +3818,7 @@
 // TODO Check using
 #define is_seen(B, A) \
 	((bool)((A)->ml && (!ignore_unview || gamble_arena_mode || \
-	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable((B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
+	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(get_floor_ptr(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
 #define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)

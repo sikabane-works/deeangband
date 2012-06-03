@@ -4466,7 +4466,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Require line of sight */
-		if (!player_has_los_bold(y, x) || !projectable(caster_ptr->fy, caster_ptr->fx, y, x)) continue;
+		if (!player_has_los_bold(y, x) || !projectable(current_floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
 		/* Mark the monster */
 		m_ptr->mflag |= (MFLAG_TEMP);

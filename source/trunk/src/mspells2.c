@@ -54,7 +54,7 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {
 	floor_type *floor_ptr = get_floor_ptr(target_ptr);
-	int i; // Must be the same as projectable()
+	int i; // Must be the same as projectable(floor_ptr, )
 
 	// Initial grid
 	int y = y1;
@@ -133,8 +133,8 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		}
 		else
 		{
-			if (projectable(y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (projectable(y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if (projectable(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if (projectable(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 	}
 	else

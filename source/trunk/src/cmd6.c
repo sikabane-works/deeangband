@@ -5463,7 +5463,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 						if (!m_ptr->species_idx) continue;
 						if (!((m_ptr->species_idx == MON_SUKE) || (m_ptr->species_idx == MON_KAKU))) continue;
 						if (!los(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
-						if (!projectable(m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
+						if (!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
 						count++;
 						break;
 					}

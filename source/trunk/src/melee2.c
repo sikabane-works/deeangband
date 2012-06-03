@@ -105,7 +105,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			}
 			else
 			{
-				if (!projectable(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if (!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 
 			/* OK -- we've got a target */
@@ -280,7 +280,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	x1 = creature_ptr->fx;
 
 	/* Monster can already cast spell to player */
-	if (projectable(y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
+	if (projectable(floor_ptr, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
 	now_cost = floor_ptr->cave[y1][x1].cost;
@@ -324,7 +324,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 		if (now_cost < cost) continue;
 
-		if (!projectable(x, y, player_ptr->fy, player_ptr->fx)) continue;
+		if (!projectable(floor_ptr, x, y, player_ptr->fy, player_ptr->fx)) continue;
 
 		/* Accept louder sounds */
 		if (best < cost) continue;
@@ -394,7 +394,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
-	if (player_has_los_bold(y1, x1) && projectable(mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
+	if (player_has_los_bold(y1, x1) && projectable(floor_ptr, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Monster grid */
 	c_ptr = &floor_ptr->cave[y1][x1];
@@ -738,7 +738,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			}
 
 			/* Check for absence of shot (more or less) */
-			if (!projectable(avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
+			if (!projectable(floor_ptr, avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, avoid_target_ptr->fy, avoid_target_ptr->fx);
@@ -814,7 +814,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			if (!creature_can_enter(y, x, m_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
-			if (!projectable(player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
+			if (!projectable(floor_ptr, player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, player_ptr->fy, player_ptr->fx);
@@ -872,7 +872,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		if (t_m_idx &&
 		    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
-		    projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
+		    projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
 			/* Extract the "pseudo-direction" */
 			y = nonplayer_ptr->fy - nonplayer_ptr->target_y;
@@ -882,7 +882,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_cf_creature(nonplayer_ptr, CF_FRIENDS) &&
-	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
+	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
 	    (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
@@ -1491,7 +1491,7 @@ static void process_creature(int m_idx)
 				if (see_m)
 				{
 					if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && (creature_ptr->species_idx != MON_GRIP) && (creature_ptr->species_idx != MON_WOLF) && (creature_ptr->species_idx != MON_FANG) &&
-					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
+					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
 					{
 #ifdef JP
 						msg_format("%^s「ピンチだ！退却させてもらう！」", creature_name);
@@ -1696,7 +1696,7 @@ static void process_creature(int m_idx)
 		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
-		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))
+		    projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
 		{
 			char monmessage[1024];
 			cptr filename;
@@ -1763,7 +1763,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
 			    are_enemies(creature_ptr, &creature_list[t_m_idx]) &&
-			    projectable(creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
+			    projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
 				counterattack = TRUE;
 			}
@@ -2413,7 +2413,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			/* Possible disturb */
 			if (creature_ptr->ml &&
 			    (disturb_move ||
-			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
+			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
@@ -3079,7 +3079,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	the_world = 0;
-	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
+	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(current_floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP
 		msg_print("「時は動きだす…」");

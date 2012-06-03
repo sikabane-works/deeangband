@@ -4162,7 +4162,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 			if (!in_bounds(floor_ptr, ty, tx)) continue;
 
 			/* Require line of projection */
-			if (!projectable(y, x, ty, tx)) continue;
+			if (!projectable(floor_ptr, y, x, ty, tx)) continue;
 
 			/* Obtain grid */
 			c_ptr = &floor_ptr->cave[ty][tx];
@@ -5921,7 +5921,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Monster spells (only powerful ones)*/
-			if (projectable(my, mx, yy, xx))
+			if (projectable(floor_ptr, my, mx, yy, xx))
 			{
 				int breath_dam_div3 = m_ptr->chp / 3;
 				int breath_dam_div6 = m_ptr->chp / 6;
