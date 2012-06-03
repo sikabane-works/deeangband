@@ -170,10 +170,10 @@
 	delete_creature(FLOOR, Y, X); \
 }
 
-#define place_outer_noperm_grid(C) \
+#define place_outer_noperm_grid(FLOOR, C) \
 { \
 	feature_type *_f_ptr = &f_info[feat_wall_outer]; \
-	if (permanent_wall(_f_ptr)) (C)->feat = feat_state(current_floor_ptr, feat_wall_outer, FF_UNPERM); \
+	if (permanent_wall(_f_ptr)) (C)->feat = feat_state(FLOOR, feat_wall_outer, FF_UNPERM); \
 	else (C)->feat = feat_wall_outer; \
 	(C)->info &= ~(CAVE_MASK); \
 	(C)->info |= (CAVE_OUTER | CAVE_VAULT); \

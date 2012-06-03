@@ -2697,7 +2697,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			{
 				/* Granite wall (outer) */
 			case '%':
-				place_outer_noperm_grid(c_ptr);
+				place_outer_noperm_grid(floor_ptr, c_ptr);
 				break;
 
 				/* Granite wall (inner) */
