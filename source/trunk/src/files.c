@@ -3844,18 +3844,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 /*
  * Display the character on the screen (various modes)
- *
  * The top one and bottom two lines are left blank.
- *
- * Mode 0 = standard display with skills
- * Mode 1 = history
- * Mode 2 = equipment
- * Mode 3 = inventory
- * Mode 4 = summary of various things (part 1)
- * Mode 5 = summary of various things (part 2)
- * Mode 6 = summary of various things (part 3)
- * Mode 7 = summary of various things (part 4)
- * Mode 8 = mutations
  */
 void display_creature_status(int mode, creature_type *creature_ptr)
 {
@@ -3874,16 +3863,14 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 
 	/* XXX XXX XXX */
-	if (display_mutations)
-		mode = (mode % 9);
-	else
-		mode = (mode % 8);
+	//if (display_mutations)
+	mode = (mode % DISPLAY_CR_STATUS_MAX);
 
 	/* Erase screen */
 	clear_from(0);
 
 	/* Standard */
-	if (mode == 0)
+	if (mode == DISPLAY_CR_STATUS_STANDARD)
 	{
 		/* Name, Sex, Race, Class */
 		if(creature_ptr->chara_idx != INDEX_NONE && creature_ptr->species_idx == MON_STIGMATIC_ONE){ 
@@ -4130,7 +4117,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	}
 
 	/* Display "history" info */
-	else if (mode == 1)
+	else if (mode == DISPLAY_CR_STATUS_HISTORY)
 	{
 		char statmsg[10000];
 
@@ -4247,21 +4234,18 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		}
 	}
 
-	else if (mode == 2)
+	else if (mode == DISPLAY_CR_STATUS_INVENTORY)
 	{
-		/* Display the inventory */
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);		
 	}
 
-	else if (mode == 3)
+	else if (mode == DISPLAY_CR_STATUS_EQUIPMENT)
 	{
-		/* Display the inventory */
-
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
 	}
 
 	/* Special */
-	else if (mode == 4)
+	else if (mode == DISPLAY_CR_STATUS_VARIOUS1)
 	{
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
@@ -4271,22 +4255,22 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	}
 
 	/* Special */
-	else if (mode == 5)
+	else if (mode == DISPLAY_CR_STATUS_VARIOUS2)
 	{
 		display_player_flag_info2(creature_ptr);
 	}
 
-	else if (mode == 6)
+	else if (mode == DISPLAY_CR_STATUS_VARIOUS3)
 	{
 		display_player_flag_info3(creature_ptr);
 	}
 
-	else if (mode == 7)
+	else if (mode == DISPLAY_CR_STATUS_VARIOUS4)
 	{
 		display_player_flag_info4(creature_ptr);
 	}
 
-	else if (mode == 8)
+	else if (mode == DISPLAY_CR_STATUS_MUTATION)
 	{
 		do_cmd_knowledge_mutations(creature_ptr);
 	}
