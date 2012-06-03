@@ -3016,6 +3016,7 @@ void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {
 	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world monster */
+	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	if(the_world) return (FALSE);
 
