@@ -3926,14 +3926,6 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &display_mutations,           FALSE, OPT_PAGE_TEXT, 5, 0,
-	"display_mutations",            "'C'コマンドで突然変異を表示する" },
-#else
-	{ &display_mutations,           FALSE, OPT_PAGE_TEXT, 5, 0,
-	"display_mutations",            "Display mutations in 'C'haracter Display" },
-#endif
-
-#ifdef JP
 	{ &compress_savefile,           FALSE, OPT_PAGE_TEXT, 1, 26,
 	"compress_savefile",            "セーブ・ファイル中のメッセージを圧縮する" },
 #else

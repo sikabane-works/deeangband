@@ -3860,10 +3860,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	creature_chara *ch_ptr = &chara_info[creature_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[creature_ptr->sex];
 
-
-
 	/* XXX XXX XXX */
-	//if (display_mutations)
 	mode = (mode % DISPLAY_CR_STATUS_MAX);
 
 	/* Erase screen */

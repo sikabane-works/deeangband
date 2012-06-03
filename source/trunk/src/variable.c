@@ -222,7 +222,6 @@ bool show_labels;	/* Show labels in object listings */
 bool show_weights;	/* Show weights in object listings */
 bool show_item_graph;	/* Show items graphics */
 bool equippy_chars;	/* Display 'equippy' chars */
-bool display_mutations;	/* Display mutations in 'C'haracter Display */
 bool compress_savefile;	/* Compress messages in savefiles */
 bool abbrev_extra;	/* Describe obj's extra resistances by abbreviation */
 bool abbrev_all;	/* Describe obj's all resistances by abbreviation */

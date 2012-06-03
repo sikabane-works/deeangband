@@ -59,7 +59,6 @@ Y:show_labels
 Y:show_weights
 Y:show_item_graph
 Y:equippy_chars
-Y:display_mutations
 X:compress_savefile
 X:abbrev_extra
 X:abbrev_all
