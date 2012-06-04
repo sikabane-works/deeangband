@@ -37,7 +37,7 @@
  * Compiling this file, and using the resulting executable, requires
  * several extra files not distributed with the standard Angband code.
  * If "USE_GRAPHICS" is defined, then "readdib.h" and "readdib.c" must
- * be placed into "src/", and the "8X8.BMP" bitmap file must be placed
+ * be placed into "src/", and the "oldest.BMP" bitmap file must be placed
  * into "lib/xtra/graf".  In any case, some "*.fon" files (including
  * "8X13.FON" if nothing else) must be placed into "lib/xtra/font/".
  * If "USE_SOUND" is defined, then some special library (for example,
@@ -1571,7 +1571,7 @@ static bool init_graphics(void)
 			wid = 16;
 			hgt = 16;
 
-			name = "16X16.BMP";
+			name = "adambolt.BMP";
 
 			ANGBAND_GRAF = "new";
 		}
@@ -1580,7 +1580,7 @@ static bool init_graphics(void)
 			wid = 16;
 			hgt = 16;
 
-			name = "16X16.BMP";
+			name = "adambolt.BMP";
 
 			ANGBAND_GRAF = "new";
 		}
@@ -1589,7 +1589,7 @@ static bool init_graphics(void)
 			wid = 8;
 			hgt = 8;
 
-			name = "8X8.BMP";
+			name = "oldest.BMP";
 			ANGBAND_GRAF = "old";
 		}
 
@@ -1615,7 +1615,7 @@ static bool init_graphics(void)
 		if (arg_graphics == GRAPHICS_ADAM_BOLT)
 		{
 			/* Access the mask file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "mask.bmp");
+			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "adambolt_mask.bmp");
 
 			/* Load the bitmap or quit */
 			if (!ReadDIB(data[0].w, buf, &infMask))
@@ -1627,7 +1627,7 @@ static bool init_graphics(void)
 		if (arg_graphics == GRAPHICS_DESKULL)
 		{
 			/* Access the mask file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "mask.bmp");
+			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "adambolt_mask.bmp");
 
 			/* Load the bitmap or quit */
 			if (!ReadDIB(data[0].w, buf, &infMask))
