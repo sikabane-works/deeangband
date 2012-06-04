@@ -36,7 +36,7 @@ int distance (int y1, int x1, int y2, int x2)
 	int target = (dy * dy) + (dx * dx);
 
 	/* Approximate distance: hypot(dy,dx) = max(dy,dx) + min(dy,dx) / 2 */
-	int d = (dy > dx) ? (dy + (dx>>1)) : (dx + (dy>>1));
+	int d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
 	int err;
 
