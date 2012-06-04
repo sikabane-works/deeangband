@@ -1577,10 +1577,10 @@ static bool init_graphics(void)
 		}
 		else if (arg_graphics == GRAPHICS_DESKULL)
 		{
-			wid = 16;
-			hgt = 16;
+			wid = 24;
+			hgt = 24;
 
-			name = "adambolt.BMP";
+			name = "deskull.BMP";
 
 			ANGBAND_GRAF = "new";
 		}
@@ -1624,10 +1624,10 @@ static bool init_graphics(void)
 				return (FALSE);
 			}
 		}
-		if (arg_graphics == GRAPHICS_DESKULL)
+		else if (arg_graphics == GRAPHICS_DESKULL)
 		{
 			/* Access the mask file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "adambolt_mask.bmp");
+			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "deskull_mask.bmp");
 
 			/* Load the bitmap or quit */
 			if (!ReadDIB(data[0].w, buf, &infMask))
@@ -3407,21 +3407,14 @@ static void setup_menus(void)
 	}
 
 	/* Menu "Options", disable all */
-	EnableMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_BIGTILE,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_SOUND,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,   MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_BIGTILE,           MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_SOUND,             MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 #ifndef JP
-	EnableMenuItem(hm, IDM_OPTIONS_SAVER,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_SAVER, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 #endif
 
 	/* Menu "Options", Item "Map" */
@@ -3432,23 +3425,15 @@ static void setup_menus(void)
 			       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 
 	/* Menu "Options", update all */
-	CheckMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,
-		      (arg_graphics == GRAPHICS_NONE ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,
-		      (arg_graphics == GRAPHICS_ORIGINAL ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS,
-		      (arg_graphics == GRAPHICS_ADAM_BOLT ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,
-		      (arg_graphics == GRAPHICS_DESKULL ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_BIGTILE,
-		      (arg_bigtile ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_SOUND,
-		      (arg_sound ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_BG,
-		      (use_bg ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,       (arg_graphics == GRAPHICS_NONE ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,   (arg_graphics == GRAPHICS_ORIGINAL ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS, (arg_graphics == GRAPHICS_ADAM_BOLT ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,  (arg_graphics == GRAPHICS_DESKULL ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_BIGTILE, (arg_bigtile ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_SOUND,   (arg_sound ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_BG,      (use_bg ? MF_CHECKED : MF_UNCHECKED));
 #ifndef JP
-	CheckMenuItem(hm, IDM_OPTIONS_SAVER,
-		      (hwndSaver ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_SAVER,   (hwndSaver ? MF_CHECKED : MF_UNCHECKED));
 #endif
 
 #ifdef USE_GRAPHICS
@@ -4019,7 +4004,6 @@ static void process_menus(WORD wCmd)
 		}
 
 		case IDM_OPTIONS_ADAMBOLT_GRAPHICS:
-		case IDM_OPTIONS_DESKULL_GRAPHICS:
 		{
 			/* Paranoia */
 			if (!inkey_flag)
@@ -4039,6 +4023,17 @@ static void process_menus(WORD wCmd)
 				/* Hack -- Force redraw */
 				Term_key_push(KTRL('R'));
 			}
+			break;
+		}
+
+		case IDM_OPTIONS_DESKULL_GRAPHICS:
+		{
+			/* Paranoia */
+			if (!inkey_flag)
+			{
+				plog("You may not do that right now.");
+				break;
+			}
 
 			/* Toggle "arg_graphics" */
 			if (arg_graphics != GRAPHICS_DESKULL)
@@ -4051,7 +4046,6 @@ static void process_menus(WORD wCmd)
 				/* Hack -- Force redraw */
 				Term_key_push(KTRL('R'));
 			}
-
 			break;
 		}
 
