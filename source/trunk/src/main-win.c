@@ -2773,18 +2773,13 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 	hdcSrc = CreateCompatibleDC(hdc);
 	hbmSrcOld = SelectObject(hdcSrc, infGraph.hBitmap);
 
-	if (arg_graphics == GRAPHICS_ADAM_BOLT)
-	{
-		hdcMask = CreateCompatibleDC(hdc);
-		SelectObject(hdcMask, infMask.hBitmap);
-	}
-	else if (arg_graphics == GRAPHICS_DESKULL)
+	if (arg_graphics == GRAPHICS_ADAM_BOLT || arg_graphics == GRAPHICS_DESKULL)
 	{
 		hdcMask = CreateCompatibleDC(hdc);
 		SelectObject(hdcMask, infMask.hBitmap);
 	}
 
-	/* Draw attr/char pairs */
+	// Draw attr/char pairs
 	for (i = 0; i < n; i++, x2 += w2)
 	{
 		byte a = ap[i];
@@ -2841,56 +2836,34 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 			x3 = (tcp[i] & 0x7F) * w1;
 			y3 = (tap[i] & 0x7F) * h1;
 
-			/* Perfect size */
-			if ((w1 == tw2) && (h1 == h2))
+			if ((w1 == tw2) && (h1 == h2)) // Perfect size
 			{
-				/* Copy the terrain picture from the bitmap to the window */
-				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x3, y3, SRCCOPY);
-
-				/* Mask out the tile */
-				BitBlt(hdc, x2, y2, tw2, h2, hdcMask, x1, y1, SRCAND);
-
-				/* Draw the tile */
-				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, SRCPAINT);
+				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x3, y3, SRCCOPY); // Copy the terrain picture from the bitmap to the window
+				BitBlt(hdc, x2, y2, tw2, h2, hdcMask, x1, y1, SRCAND); // Mask out the tile
+				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, SRCPAINT); // Draw the tile
 			}
-
-			/* Need to stretch */
-			else
+			else // Need to stretch
 			{
-				/* Set the correct mode for stretching the tiles */
-				SetStretchBltMode(hdc, COLORONCOLOR);
+				SetStretchBltMode(hdc, COLORONCOLOR); // Set the correct mode for stretching the tiles
+				StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x3, y3, w1, h1, SRCCOPY); // Copy the terrain picture from the bitmap to the window
 
-				/* Copy the terrain picture from the bitmap to the window */
-				StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x3, y3, w1, h1, SRCCOPY);
-
-				/* Only draw if terrain and overlay are different */
-				if ((x1 != x3) || (y1 != y3))
+				if ((x1 != x3) || (y1 != y3)) // Only draw if terrain and overlay are different
 				{
-					/* Mask out the tile */
-					StretchBlt(hdc, x2, y2, tw2, h2, hdcMask, x1, y1, w1, h1, SRCAND);
-
-					/* Draw the tile */
-					StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, w1, h1, SRCPAINT);
+					StretchBlt(hdc, x2, y2, tw2, h2, hdcMask, x1, y1, w1, h1, SRCAND);  // Mask out the tile
+					StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, w1, h1, SRCPAINT); // Draw the tile
 				}
 			}
 		}
 		else
 		{
-			/* Perfect size */
-			if ((w1 == tw2) && (h1 == h2))
-			{
-				/* Copy the picture from the bitmap to the window */
-				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, SRCCOPY);
+			if ((w1 == tw2) && (h1 == h2)) // Perfect size
+			{				
+				BitBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, SRCCOPY); // Copy the picture from the bitmap to the window
 			}
-
-			/* Need to stretch */
-			else
+			else // Need to stretch
 			{
-				/* Set the correct mode for stretching the tiles */
-				SetStretchBltMode(hdc, COLORONCOLOR);
-
-				/* Copy the picture from the bitmap to the window */
-				StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, w1, h1, SRCCOPY);
+				SetStretchBltMode(hdc, COLORONCOLOR); // Set the correct mode for stretching the tiles
+				StretchBlt(hdc, x2, y2, tw2, h2, hdcSrc, x1, y1, w1, h1, SRCCOPY); // Copy the picture from the bitmap to the window
 			}
 		}
 	}
@@ -2924,11 +2897,9 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 static void windows_map(void)
 {
 	term_data *td = &data[0];
-	byte a, c;
+	byte a, c, ta, tc;
 	int x, min_x, max_x;
 	int y, min_y, max_y;
-
-	byte ta, tc;
 
 	/* Only in graphics mode */
 	if (!use_graphics) return;
@@ -2947,33 +2918,26 @@ static void windows_map(void)
 		max_y = current_floor_ptr->height;
 	}
 
-	/* Draw the map */
+	// Draw the map
 	for (x = min_x; x < max_x; x++)
 	{
 		for (y = min_y; y < max_y; y++)
 		{
 			map_info(player_ptr, y, x, &a, (char*)&c, &ta, (char*)&tc);
 
-			/* Ignore non-graphics */
-			if ((a & 0x80) && (c & 0x80))
-			{
-				Term_pict_win(x - min_x, y - min_y, 1, &a, &c, &ta, &tc);
-			}
+			// Ignore non-graphics
+			if ((a & 0x80) && (c & 0x80)) Term_pict_win(x - min_x, y - min_y, 1, &a, &c, &ta, &tc);
 		}
 	}
 
-	/* Hilite the player */
-	Term_curs_win(player_ptr->fx - min_x, player_ptr->fy - min_y);
-
-	/* Wait for a keypress, flush key buffer */
-	Term_inkey(&c, TRUE, TRUE);
+	Term_curs_win(player_ptr->fx - min_x, player_ptr->fy - min_y); // Hilite the player
+	Term_inkey(&c, TRUE, TRUE); // Wait for a keypress, flush key buffer
 	Term_flush();
 
-	/* Switch off the map display */
-	td->map_active = FALSE;
+	
+	td->map_active = FALSE; // Switch off the map display
 
-	/* Restore screen */
-	Term_xtra_win_clear();
+	Term_xtra_win_clear(); // Restore screen
 	Term_redraw();
 }
 
