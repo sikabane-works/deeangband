@@ -1577,8 +1577,8 @@ static bool init_graphics(void)
 		}
 		else if (arg_graphics == GRAPHICS_DESKULL)
 		{
-			wid = 24;
-			hgt = 24;
+			wid = 32;
+			hgt = 32;
 
 			name = "deskull.BMP";
 

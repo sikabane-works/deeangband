@@ -968,8 +968,7 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 	if (fn)
 	{
 		/* Draw pending attr/char pairs */
-		(void)((*Term->pict_hook)(fx, y, fn,
-			&scr_aa[fx], &scr_cc[fx], &scr_taa[fx], &scr_tcc[fx]));
+		(void)((*Term->pict_hook)(fx, y, fn, &scr_aa[fx], &scr_cc[fx], &scr_taa[fx], &scr_tcc[fx]));
 	}
 }
 
@@ -1047,7 +1046,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		/* “Áê•¶š‚Æ‚µ‚ÄMSB‚ª—§‚Á‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é */
 		/* ‚»‚Ìê‡attr‚ÌMSB‚à—§‚Á‚Ä‚¢‚é‚Ì‚Å‚±‚ê‚Å¯•Ê‚·‚é */
 /* check */
-/*		kanji = (iskanji(nc));  */
 		kanji = (iskanji(nc) && !(na & AF_TILE1));
 #endif
 
