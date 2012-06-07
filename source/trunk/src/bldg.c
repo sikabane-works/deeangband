@@ -3352,7 +3352,7 @@ sprintf(tmp_str, "１ターンにつき %d-%d",
 /*
  * Hook to specify "weapon"
  */
-static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_hand(creature_type *cr_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{
@@ -3425,7 +3425,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_melee_weapon))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand))
 	{
 		screen_load();
 		return (FALSE);
@@ -3448,7 +3448,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_melee_weapon))
+	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand))
 	{
 		screen_load();
 		return (FALSE);

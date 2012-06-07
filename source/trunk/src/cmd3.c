@@ -187,15 +187,11 @@ static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_hand(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (WIELD_SLOT(o_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
 	return (FALSE); // Assume not wearable
 }
-
-
-bool select_ring_slot = FALSE;
-
 
 // Wield or wear a single item from the pack or floor
 void do_cmd_wield(creature_type *cr_ptr)
@@ -234,22 +230,15 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	q_ptr = &forge;
 
-	// Check the number of slot
-	slot = WIELD_SLOT(o_ptr);
-	if(!slot)
-	{
-		msg_print("ÇªÇÍÇÕëïîıÇ≈Ç´Ç»Ç¢ÅB\n");
-	}
-
 	// Equip Flag
 #ifdef JP
 	q = "Ç«Ç±Ç…ëïîıÇµÇ‹Ç∑Ç©?";
-	s = "Ç®Ç¡Ç∆ÅB";
+	s = "ÇªÇÍÇÕëïîıÇ≈Ç´Ç»Ç¢ÅB";
 #else
 	q = "Equip which hand? ";
-	s = "Oops.";
+	s = "You can't equip it";
 #endif
-	if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_melee_weapon)) return;
+	if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP_SLOT), item_tester_hook_hand)) return;
 
 	/*
 	for(i = 1; i <= cr_ptr->item_slot_num[slot]; i++)
@@ -293,7 +282,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 			s = "Oops.";
 #endif
 
-			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_melee_weapon)) return;
+			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_hand)) return;
 			if (slot == INVEN_1) need_switch_wielding = INVEN_2;
 		}
 

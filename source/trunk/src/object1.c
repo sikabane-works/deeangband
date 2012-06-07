@@ -4014,8 +4014,6 @@ s16b label_to_item(creature_type *cr_ptr, int c)
 	return (i);
 }
 
-/* See cmd5.c */
-extern bool select_ring_slot;
 
 /*
  * Return a string mentioning how a given item is carried
@@ -4520,16 +4518,6 @@ void display_equip(creature_type *cr_ptr)
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
-
-		/* Is this item "acceptable"? */
-		if (select_ring_slot ? GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING : item_tester_okay(cr_ptr, o_ptr, NULL))
-		{
-			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(i);
-
-			/* Bracket the "index" --(-- */
-			tmp_val[1] = ')';
-		}
 
 		/* Display the index (or blank space) */
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
@@ -5212,16 +5200,9 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
  */
 static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	/* Illegal items */
-	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE);
-
-	if (select_ring_slot) return GET_INVEN_SLOT_TYPE(cr_ptr, i) == INVEN_SLOT_RING;
-
-	/* Verify the item */
-	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook)) return (FALSE);
-
-	/* Assume okay */
-	return (TRUE);
+	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE); // Illegal items
+	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook)) return (FALSE); // Verify the item
+	return (TRUE); // Assume okay
 }
 
 
@@ -5313,6 +5294,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	bool equip = FALSE;
 	bool inven = FALSE;
 	bool floor = FALSE;
+	bool equip_slot = FALSE;
 
 	bool allow_floor = FALSE;
 
@@ -5333,20 +5315,21 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 
 	if (easy_floor || use_menu) return get_item_floor(creature_ptr, cp, pmt, str, mode, hook);
 
-	/* Extract args */
+	// Extract args
 	if (mode & USE_EQUIP) equip = TRUE;
 	if (mode & USE_INVEN) inven = TRUE;
 	if (mode & USE_FLOOR) floor = TRUE;
+	if (mode & USE_EQUIP_SLOT) equip_slot = TRUE;
 
-	/* Get the item index */
+	// Get the item index
 	if (repeat_pull(cp))
 	{
-		/* the_force */
+		// the_force
 		if (select_the_force && (*cp == INVEN_FORCE))
 		{
 			item_tester_tval = 0;
 			hook = NULL;
-			command_cmd = 0; /* Hack -- command_cmd is no longer effective */
+			command_cmd = 0; // Hack -- command_cmd is no longer effective
 			return (TRUE);
 		}
 
@@ -5378,10 +5361,10 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		{
 			if (prev_tag && command_cmd)
 			{
-				/* Look up the tag and validate the item */
-				if (!get_tag(creature_ptr, &k, prev_tag, creature_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if (!creature_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
-				else if (!get_item_okay(creature_ptr, k, hook)) /* Reject */;
+				// Look up the tag and validate the item
+				if (!get_tag(creature_ptr, &k, prev_tag, creature_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN));
+				else if (!creature_ptr->equip_now[*cp] ? !inven : !equip);
+				else if (!get_item_okay(creature_ptr, k, hook));
 				else
 				{
 					/* Accept that choice */
@@ -5436,7 +5419,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_inven++;
 	}
 
-	/* Restrict creature_ptr->inventory indexes */
+	// Restrict inventory indexes
 	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i1, hook))) i1++;
 	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i2, hook))) i2--;
 
@@ -5447,33 +5430,29 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 
 	/* Forbid equipment */
 	if (!equip) e2 = -1;
+
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if(!creature_ptr->equip_now[j]) continue;
-			if(select_ring_slot ? GET_INVEN_SLOT_TYPE(creature_ptr, j) == INVEN_SLOT_RING : item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
+			if(item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (creature_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
-	/* Restrict equipment indexes */
+	// Restrict equipment indexes
 	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e2, hook))) e2--;
 
-	/*
-	if (equip && creature_ptr->two_handed && !item_tester_no_two_handed)
+
+	if (equip_slot)
 	{
-		if (creature_ptr->can_melee[0])
-		{
-			if (e2 < INVEN_2) e2 = INVEN_2;
-		}
-		else if (creature_ptr->can_melee[1]) e1 = INVEN_1;
+
 	}
-	*/
 
 
-	/* Restrict floor usage */
+	// Restrict floor usage
 	if (floor)
 	{
 		/* Scan all objects in the grid */
@@ -5492,17 +5471,12 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 	}
 
-	/* Require at least one legal choice */
+	// Require at least one legal choice
 	if (!allow_floor && (i1 > i2) && (e1 > e2))
 	{
-		/* Cancel creature_ptr->command_see */
-		command_see = FALSE;
-
-		/* Oops */
-		oops = TRUE;
-
-		/* Done */
-		done = TRUE;
+		command_see = FALSE; // Cancel creature_ptr->command_see
+		oops = TRUE; // Oops
+		done = TRUE; // Done
 
 		if (select_the_force) {
 		    *cp = INVEN_FORCE;
@@ -6504,7 +6478,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (!creature_ptr->equip_now[j]) continue; // Skip no equipment
-			if (select_ring_slot ? GET_INVEN_SLOT_TYPE(creature_ptr, j) == INVEN_SLOT_RING : item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
+			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
 		}
 		if (creature_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
