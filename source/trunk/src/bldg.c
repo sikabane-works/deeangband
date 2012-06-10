@@ -3416,10 +3416,10 @@ static bool compare_weapons(creature_type *cr_ptr)
 
 	item_tester_no_two_handed = TRUE;
 
-	/* Get the first weapon */
+	// Get the first weapon
 #ifdef JP
-q = "第一の武器は？";
-s = "比べるものがありません。";
+	q = "第一の武器は？";
+	s = "比べるものがありません。";
 #else
 	q = "What is your first weapon? ";
 	s = "You have nothing to compare.";

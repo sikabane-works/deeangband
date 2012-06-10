@@ -5295,6 +5295,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	bool inven = FALSE;
 	bool floor = FALSE;
 	bool equip_slot = FALSE;
+	bool select_the_force = FALSE;
 
 	bool allow_floor = FALSE;
 
@@ -5302,9 +5303,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 
 	char tmp_val[160];
 	char out_val[160];
-
-	/* See cmd5.c */
-	extern bool select_the_force;
 
 	int menu_line = (use_menu ? 1 : 0);
 	int max_inven = 0;
@@ -5320,6 +5318,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	if (mode & USE_INVEN) inven = TRUE;
 	if (mode & USE_FLOOR) floor = TRUE;
 	if (mode & USE_EQUIP_SLOT) equip_slot = TRUE;
+	if (mode & USE_FORCE) select_the_force = TRUE;
 
 	// Get the item index
 	if (repeat_pull(cp))
@@ -5399,19 +5398,17 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	/* Paranoia XXX XXX XXX */
 	msg_print(NULL);
 
-
 	/* Not done */
 	done = FALSE;
 
 	/* No item selected */
 	item = FALSE;
 
-
-	/* Full creature_ptr->inventory */
+	// Full creature_ptr->inventory
 	i1 = 0;
 	i2 = INVEN_TOTAL - 1;
 
-	/* Forbid creature_ptr->inventory */
+	// Forbid creature_ptr->inventory
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
@@ -5423,12 +5420,11 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i1, hook))) i1++;
 	while ((i1 <= i2) && (!get_item_okay(creature_ptr, i2, hook))) i2--;
 
-
-	/* Full equipment */
+	// Full equipment
 	e1 = 0;
 	e2 = INVEN_TOTAL - 1;
 
-	/* Forbid equipment */
+	// Forbid equipment
 	if (!equip) e2 = -1;
 
 	else if (use_menu)
@@ -5444,13 +5440,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	// Restrict equipment indexes
 	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e1, hook))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(creature_ptr, e2, hook))) e2--;
-
-
-	if (equip_slot)
-	{
-
-	}
-
 
 	// Restrict floor usage
 	if (floor)
@@ -5660,7 +5649,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 #endif
 		}
 
-		/* Indicate legality of the "floor" item */
+		// Indicate legality of the "floor" item
 #ifdef JP
 		if (allow_floor) strcat(out_val, " '-'床上,");
 		if (select_the_force) strcat(out_val, " 'w'練気術,");
@@ -5943,44 +5932,6 @@ if (other_query_flag && !verify(creature_ptr, "本当に", k)) continue;
 				break;
 			}
 
-#if 0
-			case '\n':
-			case '\r':
-			{
-				/* Choose "default" creature_ptr->inventory item */
-				if (!command_wrk)
-				{
-					k = ((i1 == i2) ? i1 : -1);
-				}
-
-				/* Choose "default" equipment item */
-				else
-				{
-					k = ((e1 == e2) ? e1 : -1);
-				}
-
-				/* Validate the item */
-				if (!get_item_okay(creature_ptr, k))
-				{
-					bell();
-					break;
-				}
-
-				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(creature_ptr, k))
-				{
-					done = TRUE;
-					break;
-				}
-
-				/* Accept that choice */
-				(*cp) = k;
-				item = TRUE;
-				done = TRUE;
-				break;
-			}
-#endif
-
 			case 'w':
 			{
 				if (select_the_force) {
@@ -6055,7 +6006,7 @@ if (other_query_flag && !verify(creature_ptr, "本当に", k)) continue;
 
 				/* Verify the item */
 #ifdef JP
-if (ver && !verify(creature_ptr, "本当に", k))
+				if (ver && !verify(creature_ptr, "本当に", k))
 #else
 				if (ver && !verify("Try", k))
 #endif
@@ -6327,6 +6278,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
 	bool inven = (mode & USE_INVEN) ? TRUE : FALSE;
 	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
+	bool select_the_force = (mode & USE_FORCE) ? TRUE : FALSE;
 
 	bool allow_equip = FALSE;
 	bool allow_inven = FALSE;
@@ -6339,8 +6291,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 	int floor_num, floor_list[23], floor_top = 0;
 	int min_width = 0;
-
-	extern bool select_the_force;
 
 	int menu_line = (use_menu ? 1 : 0);
 	int max_inven = 0;

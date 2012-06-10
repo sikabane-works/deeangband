@@ -2823,11 +2823,11 @@
 /*
  * Bit flags for the "get_item" function
  */
-#define USE_EQUIP		0x01	// Allow equiped items
-#define USE_INVEN		0x02	// Allow inven items
-#define USE_FLOOR		0x04	// Allow floor items
-#define USE_EQUIP_SLOT	0x08	// Choice equip slot
-
+#define USE_EQUIP		 0x01	// Allow equiped items
+#define USE_INVEN		 0x02	// Allow inven items
+#define USE_FLOOR		 0x04	// Allow floor items
+#define USE_EQUIP_SLOT	 0x08	// Choice equip slot
+#define USE_FORCE        0x10   // Choice force
 
 /*
  * Bit flags for the "notice" variable

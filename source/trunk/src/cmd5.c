@@ -38,7 +38,6 @@ cptr spell_category_name(int tval)
 	}
 }
 
-
 /*
  * Allow user to choose a spell/prayer from the given book.
  *
@@ -49,9 +48,6 @@ cptr spell_category_name(int tval)
  * The "prompt" should be "cast", "recite", or "study"
  * The "known" should be TRUE for cast/pray, FALSE for study
  */
-
-bool select_the_force = FALSE;
-
 static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool learned, int use_realm)
 {
 	int         i;
@@ -429,6 +425,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 	int		item, sval, use_realm = 0, j, line;
 	int		spell = -1;
 	int		num = 0;
+	int		select_flag = 0;
 
 	byte		spells[64];
 	char            temp[62*4];
@@ -456,12 +453,16 @@ void do_cmd_browse(creature_type *cr_ptr)
 
 	if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
+		select_flag = USE_INVEN | USE_FLOOR | USE_FORCE;
 		if (creature_has_no_spellbooks(cr_ptr))
 		{
 			confirm_use_force(cr_ptr, TRUE);
 			return;
 		}
-		select_the_force = TRUE;
+	}
+	else
+	{
+		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
 	/* Get an item */
@@ -477,15 +478,13 @@ void do_cmd_browse(creature_type *cr_ptr)
 	s = "You have no books that you can read.";
 #endif
 
-	/* Restrict choices to "useful" books */
+	// Restrict choices to "useful" books
 	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->cls_idx].spell_book;
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable))
 	{
-		select_the_force = FALSE;
 		return;
 	}
-	select_the_force = FALSE;
 
 	if (item == INVEN_FORCE) /* the_force */
 	{
@@ -962,6 +961,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	int	increment = 0;
 	int	use_realm;
 	int	need_mana;
+	int select_flag;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cptr prayer;
@@ -1036,7 +1036,11 @@ void do_cmd_cast(creature_type *creature_ptr)
 			confirm_use_force(creature_ptr, FALSE);
 			return;
 		}
-		select_the_force = TRUE;
+		select_flag = USE_INVEN | USE_FLOOR | USE_FORCE;
+	}
+	else
+	{
+		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
 	prayer = spell_category_name(m_info[creature_ptr->cls_idx].spell_book);
@@ -1057,12 +1061,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 	s = "You have no spell books!";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
+	if (!get_item(creature_ptr, &item, q, s, select_flag, NULL))
 	{
-		select_the_force = FALSE;
 		return;
 	}
-	select_the_force = FALSE;
 
 	if (item == INVEN_FORCE) /* the_force */
 	{
