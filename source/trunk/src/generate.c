@@ -1586,7 +1586,6 @@ void generate_floor(floor_type *floor_ptr)
 		if (why) msg_format("Generation restarted (%s)", why);
 #endif
 
-		// TODO Reimplement wiping 
 		wipe_object_list(0);
 		wipe_creature_list(0);
 	}

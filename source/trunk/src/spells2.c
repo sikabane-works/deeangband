@@ -2409,7 +2409,6 @@ info[i++] = "‚ ‚È‚½‚Í_‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 #else
 		info[i++] = "You are resistant to acid.";
 #endif
-
 	}
 
 	if (creature_ptr->immune_elec)
@@ -2439,18 +2438,6 @@ info[i++] = "‚ ‚È‚½‚Í“dŒ‚‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 #endif
 
 	}
-
-	/*TODO
-	if (race_is_(creature_ptr, RACE_ANDROID) && !creature_ptr->immune_elec)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í“dŒ‚‚Éã‚¢B";
-#else
-		info[i++] = "You are susceptible to damage from lightning.";
-#endif
-
-	}
-	*/
 
 	if (creature_ptr->immune_fire)
 	{
@@ -2556,17 +2543,6 @@ info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Éã‚¢B";
 #endif
 
 	}
-
-	// TODO: Immune Darkness
-	/*
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are completely immune to darkness.";
-#endif
-	}
-	*/
 
 	if (creature_ptr->resist_dark)
 	{

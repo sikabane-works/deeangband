@@ -939,9 +939,9 @@ void wipe_creature_list(int floor_id)
 		creature_type *creature_ptr = &creature_list[i];
 		floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 		if (!creature_ptr->species_idx) continue; // Skip dead creature
-		if (floor_id && creature_ptr->floor_id != floor_id) continue; // Skip dead creature
+		if (floor_id && creature_ptr->floor_id != floor_id) continue; // Skip other floor  creature
 		floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
-		(void)WIPE(creature_ptr, creature_type); //Wipe the Monster
+		(void)WIPE(creature_ptr, creature_type); // Wipe the Monster
 	}
 
 	/*
@@ -3609,7 +3609,6 @@ void deal_item(creature_type *creature_ptr)
 		object_wipe(&creature_ptr->inventory[i]);
 	}
 
-	// TODO:  
 	object_level = creature_ptr->lev * 2;
 
 	/* inventory */
@@ -3663,7 +3662,6 @@ void deal_item(creature_type *creature_ptr)
 	// Dealing MagicBook
 	deal_magic_book(creature_ptr);
 
-	//TODO
 	// Dealing Potion
 	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
@@ -4818,17 +4816,17 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 	int			y = 0, x = 0;
 	int         attempts_left = 10000;
 
-	/* Put the Guardian */
+	// Put the Guardian
 	if (alloc_guardian(floor_ptr, FALSE)) return TRUE;
 
-	/* Find a legal, distant, unoccupied, space */
+	// Find a legal, distant, unoccupied, space
 	while (attempts_left--)
 	{
-		/* Pick a location */
+		// Pick a location
 		y = randint0(floor_ptr->height);
 		x = randint0(floor_ptr->width);
 
-		/* Require empty floor grid (was "naked") */
+		// Require empty floor grid (was "naked")
 		if (floor_ptr->floor_level)
 		{
 			if (!cave_empty_bold2(floor_ptr, y, x)) continue;
@@ -4838,7 +4836,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 			if (!cave_empty_bold(floor_ptr, y, x)) continue;
 		}
 
-		/* Accept far away grids */
+		// Accept far away grids
 		if (distance(y, x, player_ptr->fy, player_ptr->fx) > dis) break;
 	}
 
@@ -4847,27 +4845,23 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if (cheat_xtra || cheat_hear)
 		{
 #ifdef JP
-msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
+			msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 #else
 			msg_print("Warning! Could not allocate a new monster. Small level?");
 #endif
-
 		}
-
 		return (FALSE);
 	}
 
 	if (randint1(5000) <= floor_ptr->floor_level)
 	{
-		//TODO: Dungeon Master
-		if (alloc_horde(player_ptr, floor_ptr, y, x))
+		if (alloc_horde(NULL, floor_ptr, y, x))
 		{
 #ifdef JP
-	//		if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
+//			if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
 #else
-	//		if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
+//			if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
 #endif
-
 			return (TRUE);
 		}
 	}
