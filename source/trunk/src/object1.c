@@ -5333,21 +5333,21 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			return (TRUE);
 		}
 
-		/* Floor item? */
+		// Floor item?
 		else if (floor && (*cp < 0))
 		{
 			object_type *o_ptr;
 
-			/* Special index */
+			// Special index
 			k = 0 - (*cp);
 
-			/* Acquire object */
+			// Acquire object
 			o_ptr = &object_list[k];
 
-			/* Validate the item */
+			// Validate the item
 			if (item_tester_okay(creature_ptr, o_ptr, hook))
 			{
-				/* Forget restrictions */
+				// Forget restrictions
 				item_tester_tval = 0;
 				hook = NULL;
 				command_cmd = 0; /* Hack -- command_cmd is no longer effective */

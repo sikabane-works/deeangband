@@ -6933,21 +6933,7 @@ void play_game(bool new_game)
 		}
 	}
 
-
-	// Initialize the town-buildings if necessary
-	/* TODO
-	if ((!current_floor_ptr || !current_floor_ptr->floor_level) && !inside_quest)
-	{
-		// Init the wilderness
-		process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
-
-		// Init the town
-		init_flags = INIT_ONLY_BUILDINGS;
-		process_dungeon_file(current_floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID);
-	}
-	*/
-
-	/* Character is now "complete" */
+	// Character is now "complete"
 	character_generated = TRUE;
 
 	if (new_game)

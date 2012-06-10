@@ -238,7 +238,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 	q = "Equip which hand? ";
 	s = "You can't equip it";
 #endif
-	if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP_SLOT), item_tester_hook_hand)) return;
+
+	if (!get_item(cr_ptr, &slot, q, s, USE_EQUIP_SLOT, item_tester_hook_hand)) return;
 
 	// Recalculate bonuses
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
@@ -459,7 +460,6 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 	}
 }
 
-
 // Take off an item
 void do_cmd_takeoff(creature_type *cr_ptr)
 {
@@ -559,10 +559,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 
 }
 
-
-/*
- * Drop an item
- */
+// Drop an item
 void do_cmd_drop(creature_type *cr_ptr)
 {
 	int item, amt = 1;
