@@ -3713,7 +3713,7 @@ static bool resize_item(creature_type *cr_ptr)
 /*
  * Enchant item
  */
-static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam, int to_ac)
+static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam, int to_ac, int item_tester_tval)
 {
 	int         i, item;
 	bool        okay = FALSE;
@@ -4758,11 +4758,11 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		break;
 	case BACT_ENCHANT_WEAPON:
 		//TODO item_tester_hook = object_allow_enchant_melee_weapon;
-		enchant_item(cr_ptr, bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0, 0);
 		break;
 	case BACT_ENCHANT_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
-		enchant_item(cr_ptr, bcost, 0, 0, 1);
+		enchant_item(cr_ptr, bcost, 0, 0, 1, 0);
 		break;
 	case BACT_RESIZE_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
@@ -4812,11 +4812,10 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		break;
 	case BACT_ENCHANT_ARROWS:
 		//TODO item_tester_hook = item_tester_hook_ammo;
-		enchant_item(cr_ptr, bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0, 0);
 		break;
 	case BACT_ENCHANT_BOW:
-		item_tester_tval = TV_BOW;
-		enchant_item(cr_ptr, bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0, TV_BOW);
 		break;
 	case BACT_RECALL:
 		if (recall_player(cr_ptr, 1)) paid = TRUE;
