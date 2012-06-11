@@ -4341,8 +4341,6 @@ bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte bo
  */
 bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	/* Hack -- allow listing empty slots */
-	if (item_tester_full) return (TRUE);
 
 	/* Require an item */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -4915,7 +4913,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			/* Is this item acceptable? */
 			if (!o_ptr->k_idx) continue;
 
-			if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
+			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook)) continue;
 			if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */

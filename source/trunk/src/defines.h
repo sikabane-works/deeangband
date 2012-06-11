@@ -5981,7 +5981,7 @@ extern int PlayerUID;
 #define SHOW_ITEM_RIGHT_SET 0x00000001
 #define SHOW_ITEM_INVENTORY 0x00000002
 #define SHOW_ITEM_EQUIPMENT 0x00000004
-
+#define SHOW_ITEM_FULL      0x00000008
 
 
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 

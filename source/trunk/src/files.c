@@ -7255,8 +7255,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	if (creature_ptr->equip_cnt)
 	{
 		Term_clear();
-		item_tester_full = TRUE;
-		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 #ifdef JP
 prt("装備していたアイテム: -続く-", 0, 0);
 #else
@@ -7270,8 +7269,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 	if (creature_ptr->inven_cnt)
 	{
 		Term_clear();
-		item_tester_full = TRUE;
-		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 #ifdef JP
 prt("持っていたアイテム: -続く-", 0, 0);
 #else

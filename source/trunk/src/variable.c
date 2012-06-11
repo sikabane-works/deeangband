@@ -965,14 +965,6 @@ cptr ANGBAND_DIR_USER;
  */
 cptr ANGBAND_DIR_XTRA;
 
-
-/*
- * Total Hack -- allow all items to be listed (even empty ones)
- * This is only used by "do_cmd_inven_e()" and is cleared there.
- */
-bool item_tester_full;
-
-
 /*
  * Here is a "pseudo-hook" used during calls to "get_item()" and
  * "show_item_list()" and "show_item_list()", and the choice window routines.

@@ -31,14 +31,8 @@ void do_cmd_inven(creature_type *cr_ptr)
 	/* Save screen */
 	screen_save();
 
-	/* Hack -- show empty slots */
-	item_tester_full = TRUE;
-
 	/* Display the inventory */
-	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
-
-	/* Hack -- hide empty slots */
-	item_tester_full = FALSE;
+	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 
 	format_weight(buf1, cr_ptr->total_weight);
 	format_weight(buf2, weight_limit(cr_ptr));
@@ -103,14 +97,8 @@ void do_cmd_equip(creature_type *cr_ptr)
 	/* Save the screen */
 	screen_save();
 
-	/* Hack -- show empty slots */
-	item_tester_full = TRUE;
-
 	/* Display the equipment */
-	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
-
-	/* Hack -- undo the hack above */
-	item_tester_full = FALSE;
+	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT | SHOW_ITEM_FULL, NULL);
 
 	format_weight(buf1, cr_ptr->total_weight);
 	format_weight(buf2, weight_limit(cr_ptr));
