@@ -991,26 +991,6 @@ bool (*get_obj_num_hook)(int k_idx);
 bool monk_armour_aux;
 bool monk_notify_aux;
 
-bool easy_open;
-bool easy_disarm;
-bool easy_floor;
-
-bool use_command;
-bool center_player;
-bool center_running;
-
-/* Auto-destruction options */
-bool destroy_items;
-bool destroy_feeling;
-bool destroy_identify;
-bool leave_worth;
-bool leave_equip;
-bool leave_wanted;
-bool leave_corpse;
-bool leave_junk;
-bool leave_chest;
-bool leave_special;
-
 /* Nikki */
 bool record_fix_art;
 bool record_rand_art;
