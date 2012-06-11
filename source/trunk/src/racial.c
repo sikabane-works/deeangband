@@ -183,7 +183,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -249,7 +249,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -321,7 +321,7 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

@@ -481,7 +481,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 	// Restrict choices to "useful" books
 	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->cls_idx].spell_book;
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable, 0))
 	{
 		return;
 	}
@@ -639,6 +639,7 @@ void do_cmd_study(creature_type *cr_ptr)
 	int	i, item, sval;
 	int	increment = 0;
 	bool    learned = FALSE;
+	int item_tester_tval;
 
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
@@ -729,7 +730,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_spell)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_spell, item_tester_tval)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1061,7 +1062,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	s = "You have no spell books!";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, select_flag, NULL))
+	if (!get_item(creature_ptr, &item, q, s, select_flag, NULL, item_tester_tval))
 	{
 		return;
 	}

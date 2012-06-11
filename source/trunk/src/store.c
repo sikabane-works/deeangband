@@ -4344,7 +4344,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	}
 
 	// TODO: Restrict store will buy
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

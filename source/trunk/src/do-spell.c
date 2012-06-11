@@ -1063,7 +1063,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer)) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -11571,7 +11571,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You wield no weapons.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow)) return FALSE;
+			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
 
 			o_ptr = &creature_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12036,7 +12036,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2)) return FALSE;
+			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
 
 			o_ptr = &creature_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12332,7 +12332,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You have no cursed equipment.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed)) return FALSE;
+			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed, 0)) return FALSE;
 
 			o_ptr = &creature_ptr->inventory[item];
 			object_flags(o_ptr, f);

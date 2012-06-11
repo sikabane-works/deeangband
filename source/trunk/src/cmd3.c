@@ -209,7 +209,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You have nothing you can wear or wield.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 
 	if (item >= 0) // pack
 		o_ptr = &cr_ptr->inventory[item];
@@ -227,7 +227,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You can't equip it";
 #endif
 
-	if (!get_item(cr_ptr, &slot, q, s, USE_EQUIP_SLOT, item_tester_hook_hand)) return;
+	if (!get_item(cr_ptr, &slot, q, s, USE_EQUIP_SLOT, item_tester_hook_hand, 0)) return;
 
 	// Recalculate bonuses
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
@@ -466,7 +466,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 	s = "You are not wearing anything to take off.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
 
 	if (item >= 0) o_ptr = &cr_ptr->inventory[item]; // Get the item (in the pack)
 	else o_ptr = &object_list[0 - item]; // Get the item (on the floor)
@@ -568,7 +568,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 	s = "You have nothing to drop.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -688,7 +688,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	s = "You have nothing to destroy.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -890,7 +890,7 @@ void do_cmd_observe(creature_type *cr_ptr)
 	s = "You have nothing to examine.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -960,7 +960,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	s = "You have nothing to un-inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1033,7 +1033,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 	s = "You have nothing to inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1202,7 +1202,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1319,7 +1319,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

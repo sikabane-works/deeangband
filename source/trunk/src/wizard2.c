@@ -1201,7 +1201,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

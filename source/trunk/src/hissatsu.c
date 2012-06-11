@@ -474,8 +474,6 @@ msg_print("新しい必殺技を覚えることはできない！");
 		(cr_ptr->new_spells == 1?"":"s"));
 #endif
 
-	item_tester_tval = TV_HISSATSU_BOOK;
-
 	/* Get an item */
 #ifdef JP
 q = "どの書から学びますか? ";
@@ -489,7 +487,7 @@ s = "読める書がない。";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

@@ -1343,7 +1343,7 @@ s = "強化できる武器がない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2240,7 +2240,7 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2522,7 +2522,7 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2611,7 +2611,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour)) return (FALSE);
+	if (!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2826,7 +2826,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2904,7 +2904,7 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3010,7 +3010,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3136,7 +3136,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3458,7 +3458,7 @@ s = "祝福できる武器がありません。";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -3651,7 +3651,7 @@ s = "磨く盾がありません。";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -5081,7 +5081,7 @@ s = "錆止めできるものがありません。";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2)) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -5530,7 +5530,7 @@ s = "魔力を吸収できるアイテムがありません。";
 	s = "You have nothing to drain.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 
 	if (item >= 0)
 	{

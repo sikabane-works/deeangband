@@ -3794,9 +3794,6 @@ void do_cmd_fire(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	/* Require proper missile */
-	item_tester_tval = creature_ptr->tval_ammo;
-
 	/* Get an item */
 #ifdef JP
 	q = "‚Ç‚ê‚ðŒ‚‚¿‚Ü‚·‚©? ";
@@ -3806,7 +3803,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	s = "You have nothing to fire.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, creature_ptr->tval_ammo))
 	{
 		flush();
 		return;
@@ -3904,7 +3901,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			s = "You have nothing to throw.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang))
+			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang, 0))
 			{
 				flush();
 				return FALSE;
@@ -3922,7 +3919,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		s = "You have nothing to throw.";
 #endif
 
-		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang))
+		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang, 0))
 		{
 			flush();
 			return FALSE;

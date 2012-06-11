@@ -3423,7 +3423,7 @@ static bool compare_weapons(creature_type *cr_ptr)
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
 	{
 		screen_load();
 		return (FALSE);
@@ -3444,7 +3444,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand))
+	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
 	{
 		screen_load();
 		return (FALSE);
@@ -3740,7 +3740,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	o_ptr = &cr_ptr->inventory[item];
@@ -3872,7 +3872,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

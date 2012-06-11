@@ -6575,7 +6575,7 @@ static void drain_essence(creature_type *creature_ptr)
 	s = "You have nothing you can extract from.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo2)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo2, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -7206,7 +7206,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -7509,7 +7509,7 @@ static void erase_essence(creature_type *creature_ptr)
 	s = "You have nothing to remove essence.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith2)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith2, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

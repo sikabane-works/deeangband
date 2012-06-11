@@ -678,7 +678,7 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
 
 	/* Eat the object */
 	do_cmd_eat_food_aux(cr_ptr, item);
@@ -1509,7 +1509,7 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
 
 	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(cr_ptr, item);
@@ -2224,7 +2224,6 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 #else
 		msg_print("You have no light to read by.");
 #endif
-
 		return;
 	}
 	if (cr_ptr->confused)
@@ -2234,7 +2233,6 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 #else
 		msg_print("You are too confused!");
 #endif
-
 		return;
 	}
 
@@ -2247,7 +2245,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2813,9 +2811,6 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	/* Restrict choices to wands */
-	item_tester_tval = TV_STAFF;
-
 	/* Get an item */
 #ifdef JP
 	q = "どの杖を使いますか? ";
@@ -2825,7 +2820,7 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 
 	do_cmd_use_staff_aux(cr_ptr, item);
 }
@@ -3297,9 +3292,6 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	int     item;
 	cptr    q, s;
 
-	/* Restrict choices to wands */
-	item_tester_tval = TV_WAND;
-
 	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(cr_ptr, ACTION_NONE);
@@ -3314,7 +3306,7 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
 
 	/* Aim the wand */
 	do_cmd_aim_wand_aux(cr_ptr, item);
@@ -3735,9 +3727,6 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	/* Restrict choices to rods */
-	item_tester_tval = TV_ROD;
-
 	/* Get an item */
 #ifdef JP
 	q = "どのロッドを振りますか? ";
@@ -3747,7 +3736,7 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 
 	/* Zap the rod */
 	do_cmd_zap_rod_aux(cr_ptr, item);
@@ -6515,7 +6504,7 @@ void do_cmd_activate(creature_type *cr_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 
 	/* Activate the item */
 	do_cmd_activate_aux(cr_ptr, item);
@@ -6600,7 +6589,7 @@ s = "使えるものがありません。";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use)) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

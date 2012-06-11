@@ -5277,7 +5277,7 @@ bool can_get_item(creature_type *creature_ptr)
  * We always erase the prompt when we are done, leaving a blank line,
  * or a warning message, if appropriate, if no items are available.
  */
-bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
+bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -7543,7 +7543,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 	s = "You no longer have any room for the objects on the floor.";
 #endif
 
-	if (get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay))
+	if (get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay, 0))
 	{
 		this_object_idx = 0 - item;
 	}
