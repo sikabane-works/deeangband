@@ -427,8 +427,10 @@ void do_cmd_browse(creature_type *cr_ptr)
 	int		num = 0;
 	int		select_flag = 0;
 
-	byte		spells[64];
-	char            temp[62*4];
+	byte	spells[64];
+	char	temp[62*4];
+
+	int item_tester_tval;
 
 	object_type	*o_ptr;
 
