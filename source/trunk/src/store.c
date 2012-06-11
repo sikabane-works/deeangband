@@ -4316,9 +4316,6 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 		q = "Sell which item? ";
 #endif
 
-
-	item_tester_no_two_handed = TRUE;
-
 	/* Get an item */
 	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */
 	if (is_home(st_ptr))

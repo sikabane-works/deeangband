@@ -1302,7 +1302,6 @@ bool psychometry(creature_type *cr_ptr)
 	cptr            q, s;
 	bool okay = FALSE;
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムを調べますか？";

@@ -1198,7 +1198,6 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";

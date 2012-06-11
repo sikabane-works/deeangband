@@ -469,8 +469,6 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 
 	if (cr_ptr->special_defense & KATA_MUSOU) set_action(cr_ptr, ACTION_NONE);
 
-	item_tester_no_two_handed = TRUE;
-
 	// Get an item
 #ifdef JP
 	q = "どれを装備からはずしますか? ";
@@ -573,7 +571,6 @@ void do_cmd_drop(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを落としますか? ";
@@ -892,14 +889,10 @@ msg_print("更に経験を積んだような気がする。");
 void do_cmd_observe(creature_type *cr_ptr)
 {
 	int			item;
-
 	object_type		*o_ptr;
-
 	char		o_name[MAX_NLEN];
-
 	cptr q, s;
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを調べますか? ";
@@ -970,7 +963,6 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムの銘を消しますか? ";
@@ -1044,7 +1036,6 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	item_tester_no_two_handed = TRUE;
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムに銘を刻みますか? ";
@@ -1119,8 +1110,6 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	char tmp[CAVE_MESSAGE_LENGTH];
-
-	item_tester_no_two_handed = TRUE;
 
 	/* Get an item */
 #ifdef JP

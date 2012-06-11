@@ -503,7 +503,6 @@ extern cptr ANGBAND_DIR_SAVE;
 extern cptr ANGBAND_DIR_USER;
 extern cptr ANGBAND_DIR_XTRA;
 extern bool item_tester_full;
-extern bool item_tester_no_two_handed;
 extern byte item_tester_tval;
 extern bool (*get_obj_num_hook)(int k_idx);
 extern bool monk_armour_aux;

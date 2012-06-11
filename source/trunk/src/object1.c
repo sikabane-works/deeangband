@@ -5434,7 +5434,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			if(!creature_ptr->equip_now[j]) continue;
 			if(item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
 		}
-		if (creature_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
 	// Restrict equipment indexes
@@ -6048,8 +6047,6 @@ if (other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 	/* Forget the item_tester_tval restriction */
 	item_tester_tval = 0;
 
-	item_tester_no_two_handed = FALSE;
-
 	/* Forget the hook restriction */
 	hook = NULL;
 
@@ -6430,7 +6427,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			if (!creature_ptr->equip_now[j]) continue; // Skip no equipment
 			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
 		}
-		if (creature_ptr->two_handed && !item_tester_no_two_handed) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
