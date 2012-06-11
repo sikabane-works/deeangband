@@ -4346,13 +4346,15 @@ bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tes
 	if (!o_ptr->k_idx) return (FALSE);
 
 	/* Hack -- ignore "gold" */
+	/* TODO remove
 	if (o_ptr->tval == TV_GOLD)
 	{
-		/* See xtra2.c */
+		// See xtra2.c
 		extern bool show_gold_on_floor;
 
 		if (!show_gold_on_floor) return (FALSE);
 	}
+	*/
 
 	/* Check the tval */
 	if (item_tester_tval)
