@@ -4339,7 +4339,7 @@ bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte bo
 /*
  * Check an item against the item tester info
  */
-bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr))
+bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
 {
 
 	/* Require an item */
@@ -4417,7 +4417,7 @@ void display_inven(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(cr_ptr, o_ptr, NULL))
+		if (item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4602,7 +4602,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4650,7 +4650,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4915,7 +4915,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			/* Is this item acceptable? */
 			if (!o_ptr->k_idx) continue;
 
-			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook)) continue;
+			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook, item_tester_tval)) continue;
 			if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
@@ -5201,7 +5201,7 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
 {
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE); // Illegal items
-	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook)) return (FALSE); // Verify the item
+	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook, item_tester_tval)) return (FALSE); // Verify the item
 	return (TRUE); // Assume okay
 }
 
@@ -5217,7 +5217,7 @@ bool can_get_item(creature_type *creature_ptr)
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
-		if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], NULL))
+		if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], NULL, 0))
 			return TRUE;
 
 	floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
@@ -5344,7 +5344,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			o_ptr = &object_list[k];
 
 			// Validate the item
-			if (item_tester_okay(creature_ptr, o_ptr, hook))
+			if (item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval))
 			{
 				// Forget restrictions
 				item_tester_tval = 0;
@@ -5413,7 +5413,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
-			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_inven++;
+			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_inven++;
 	}
 
 	// Restrict inventory indexes
@@ -5432,7 +5432,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if(!creature_ptr->equip_now[j]) continue;
-			if(item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
+			if(item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_equip++;
 		}
 	}
 
@@ -5455,7 +5455,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			next_object_idx = o_ptr->next_object_idx;
 
 			/* Accept the item on the floor if legal */
-			if (item_tester_okay(creature_ptr, o_ptr, hook) && (o_ptr->marked & OM_FOUND)) allow_floor = TRUE;
+			if (item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval) && (o_ptr->marked & OM_FOUND)) allow_floor = TRUE;
 		}
 	}
 
@@ -5858,7 +5858,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 						next_object_idx = o_ptr->next_object_idx;
 
 						/* Validate the item */
-						if (!item_tester_okay(creature_ptr, o_ptr, hook)) continue;
+						if (!item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval)) continue;
 
 						/* Special index */
 						k = 0 - this_object_idx;
@@ -6109,7 +6109,7 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 		next_object_idx = o_ptr->next_object_idx;
 
 		/* Item tester */
-		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL)) continue;
+		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL, item_tester_tval)) continue;
 
 		/* Marked */
 		if ((mode & 0x02) && !(o_ptr->marked & OM_FOUND)) continue;
@@ -6335,7 +6335,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 
 			/* Validate the item */
-			else if (item_tester_okay(creature_ptr, &object_list[0 - (*cp)], hook))
+			else if (item_tester_okay(creature_ptr, &object_list[0 - (*cp)], hook, item_tester_tval))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6406,7 +6406,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
-			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_inven++;
+			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_inven++;
 	}
 
 	/* Restrict creature_ptr->inventory indexes */
@@ -6425,7 +6425,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
 			if (!creature_ptr->equip_now[j]) continue; // Skip no equipment
-			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook)) max_equip++;
+			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_equip++;
 		}
 	}
 
