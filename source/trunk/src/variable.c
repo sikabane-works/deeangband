@@ -965,12 +965,6 @@ cptr ANGBAND_DIR_USER;
  */
 cptr ANGBAND_DIR_XTRA;
 
-/*
- * Here is a "pseudo-hook" used during calls to "get_item()" and
- * "show_item_list()" and "show_item_list()", and the choice window routines.
- */
-byte item_tester_tval;
-
 
 /*
  * Hack -- function hook to restrict "get_obj_num_prep()" function

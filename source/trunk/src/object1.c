@@ -4417,7 +4417,7 @@ void display_inven(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval))
+		if (item_tester_okay(cr_ptr, o_ptr, NULL, 0))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4602,7 +4602,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4650,7 +4650,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL, item_tester_tval)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4915,7 +4915,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			/* Is this item acceptable? */
 			if (!o_ptr->k_idx) continue;
 
-			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook, item_tester_tval)) continue;
+			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook, 0)) continue;
 			if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
@@ -5311,7 +5311,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	static char prev_tag = '\0';
 	char cur_tag = '\0';
 
-	if (easy_floor || use_menu) return get_item_floor(creature_ptr, cp, pmt, str, mode, hook);
+	if (easy_floor || use_menu) return get_item_floor(creature_ptr, cp, pmt, str, mode, hook, item_tester_tval);
 
 	// Extract args
 	if (mode & USE_EQUIP) equip = TRUE;
@@ -6109,7 +6109,7 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 		next_object_idx = o_ptr->next_object_idx;
 
 		/* Item tester */
-		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL, item_tester_tval)) continue;
+		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL, 0)) continue;
 
 		/* Marked */
 		if ((mode & 0x02) && !(o_ptr->marked & OM_FOUND)) continue;
@@ -6263,7 +6263,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 
 // This version of get_item() is called by get_item() when
 // the easy_floor is on.
-bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr))
+bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';

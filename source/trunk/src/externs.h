@@ -502,7 +502,6 @@ extern cptr ANGBAND_DIR_PREF;
 extern cptr ANGBAND_DIR_SAVE;
 extern cptr ANGBAND_DIR_USER;
 extern cptr ANGBAND_DIR_XTRA;
-extern byte item_tester_tval;
 extern bool (*get_obj_num_hook)(int k_idx);
 extern bool monk_armour_aux;
 extern bool monk_notify_aux;
@@ -1892,7 +1891,7 @@ extern bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir);
 // object1.c
 extern int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode);
 extern int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_width);
-extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));
+extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval);
 extern void py_pickup_floor(creature_type *cr_ptr, bool pickup);
 
 // variable.c

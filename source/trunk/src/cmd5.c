@@ -965,6 +965,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	int	use_realm;
 	int	need_mana;
 	int select_flag;
+	int item_tester_tval;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cptr prayer;

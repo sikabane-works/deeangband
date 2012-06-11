@@ -3639,9 +3639,6 @@ bool pulish_shield(creature_type *cr_ptr)
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 
-	/* Assume enchant weapon */
-	item_tester_tval = TV_SHIELD;
-
 	/* Get an item */
 #ifdef JP
 q = "‚Ç‚Ì‚‚ğ–‚«‚Ü‚·‚©H";
@@ -3651,7 +3648,7 @@ s = "–‚­‚‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
 		return FALSE;
 
 	/* Get the item (in the pack) */

@@ -6888,6 +6888,7 @@ static int choose_essence(void)
 
 static void add_essence(creature_type *creature_ptr, int mode)
 {
+	int item_tester_tval;
 	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 	int item, max_num = 0;
 	int i;
@@ -7206,7 +7207,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook, item_tester_tval)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
