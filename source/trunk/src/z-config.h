@@ -258,11 +258,6 @@
 /* #define SCORE_WIZARDS */
 
 /*
- * Allow "Borgs" to yield "high scores"
- */
-/*#define SCORE_BORGS*/
-
-/*
  * OPTION: Maximum flow depth when using "MONSTER_FLOW"
  */
 #define MONSTER_FLOW_DEPTH 32

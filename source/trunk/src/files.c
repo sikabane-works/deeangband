@@ -7339,7 +7339,7 @@ static bool check_score(creature_type *player_ptr)
 	if (highscore_fd < 0)
 	{
 #ifdef JP
-msg_print("スコア・ファイルが使用できません。");
+		msg_print("スコア・ファイルが使用できません。");
 #else
 		msg_print("Score file unavailable.");
 #endif
@@ -7376,21 +7376,6 @@ msg_print("スコア・ファイルが使用できません。");
 	}
 #endif
 
-#ifndef SCORE_BORGS
-	/* Borg-mode pre-empts scoring */
-	if (noscore & 0x00F0)
-	{
-#ifdef JP
-msg_print("ボーグ・モードではスコアが記録されません。");
-#else
-		msg_print("Score not registered for borgs.");
-#endif
-
-		msg_print(NULL);
-		return FALSE;
-	}
-#endif
-
 	/* Cheaters are not scored */
 	if (noscore & 0xFF00)
 	{
@@ -7406,7 +7391,7 @@ msg_print("ボーグ・モードではスコアが記録されません。");
 
 	/* Interupted */
 #ifdef JP
-if (!player_ptr->total_winner && streq(gameover_from, "強制終了"))
+	if (!player_ptr->total_winner && streq(gameover_from, "強制終了"))
 #else
 	if (!player_ptr->total_winner && streq(gameover_from, "Interrupting"))
 #endif
