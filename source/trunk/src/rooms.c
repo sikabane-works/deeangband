@@ -1758,7 +1758,7 @@ static void vault_prep_clone(floor_type *floor_ptr)
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
-	vault_aux_race = get_species_num(floor_ptr->floor_level + 10);
+	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the monster restriction */
 	get_species_num_prep(NULL, NULL);
@@ -1776,7 +1776,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
-	species_idx = get_species_num(floor_ptr->floor_level + 10);
+	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the monster restriction */
 	get_species_num_prep(NULL, NULL);
@@ -2169,7 +2169,7 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique monsters for the nest.
  *
- * Note that the "get_species_num()" function may (rarely) fail, in which
+ * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which
  * case the nest will be empty.
  *
  * Note that "monster nests" will never contain "unique" monsters.
@@ -2209,7 +2209,7 @@ static bool build_type5(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) monster type */
-			species_idx = get_species_num(floor_ptr->floor_level + 11);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -2373,7 +2373,7 @@ static bool build_type5(floor_type *floor_ptr)
  *   #0000000000000000000#
  *   #####################
  *
- * Note that the monsters in the pit are now chosen by using "get_species_num()"
+ * Note that the monsters in the pit are now chosen by using "get_species_num(floor_ptr, )"
  * to request 16 "appropriate" monsters, sorting them by level, and using
  * the "even" entries in this sorted list for the contents of the pit.
  *
@@ -2387,7 +2387,7 @@ static bool build_type5(floor_type *floor_ptr)
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique monsters for the pit.
  *
- * Note that the "get_species_num()" function may (rarely) fail, in which case
+ * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which case
  * the pit will be empty.
  *
  * Note that "monster pits" will never contain "unique" monsters.
@@ -2428,7 +2428,7 @@ static bool build_type6(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) monster type */
-			species_idx = get_species_num(floor_ptr->floor_level + 11);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -5609,7 +5609,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  *  #                       #
  *  #########################
  *
- * Note that the monsters in the pit are now chosen by using "get_species_num()"
+ * Note that the monsters in the pit are now chosen by using "get_species_num(floor_ptr, )"
  * to request 16 "appropriate" monsters, sorting them by level, and using
  * the "even" entries in this sorted list for the contents of the pit.
  *
@@ -5623,7 +5623,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique monsters for the pit.
  *
- * Note that the "get_species_num()" function may (rarely) fail, in which case
+ * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which case
  * the pit will be empty.
  *
  * Note that "monster pits" will never contain "unique" monsters.
@@ -5696,7 +5696,7 @@ static bool build_type13(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) monster type */
-			species_idx = get_species_num(floor_ptr->floor_level + 0);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 0);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -6086,7 +6086,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
@@ -6151,7 +6151,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Prepare allocation table */
 			get_species_num_prep(vault_aux_lite, NULL);
 
-			species_idx = get_species_num(floor_ptr->floor_level);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 			if (species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
 
 			/* Walls around the breather */
@@ -6216,7 +6216,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];

@@ -1675,12 +1675,11 @@ static int mysqrt(int n)
  * Note that if no monsters are "appropriate", then this function will
  * fail, and return zero, but this should *almost* never happen.
  */
-s16b get_species_num(int level)
+s16b get_species_num(floor_type *floor_ptr, int level)
 {
 	int i, j, p;
 	int species_idx;
 	long value, total;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 
 	species_type *r_ptr;
 	alloc_entry *table = alloc_race_table;
@@ -1690,10 +1689,10 @@ s16b get_species_num(int level)
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	if ((current_floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
+	if ((floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
 	{
-		pls_kakuritu = MAX(2, NASTY_MON - ((current_floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
-		pls_level = MIN(8, 3 + current_floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
+		pls_kakuritu = MAX(2, NASTY_MON - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+		pls_level = MIN(8, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
 	}
 	else
 	{
@@ -3297,7 +3296,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 
 		if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
-		species_idx = get_species_num(level);
+		species_idx = get_species_num(floor_ptr, level);
 		r_ptr = &species_info[species_idx];
 
 		chameleon_change_m_idx = 0;
@@ -3420,7 +3419,7 @@ static int initial_r_appearance(int species_idx)
 
 	while (--attempts)
 	{
-		ap_species_idx = get_species_num(floor_ptr->base_level + 10);
+		ap_species_idx = get_species_num(floor_ptr, floor_ptr->base_level + 10);
 		if (species_info[ap_species_idx].level >= min) return ap_species_idx;
 	}
 
@@ -3523,7 +3522,7 @@ static void deal_food(creature_type *creature_ptr)
 		for (i = rand_range(3,4); i > 0; i--)
 		{
 			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
-			q_ptr->pval = get_species_num(2);
+			q_ptr->pval = get_species_num(current_floor_ptr, 2);
 			q_ptr->number = 1;
 			add_outfit(creature_ptr, q_ptr, 0);
 		}
@@ -4592,7 +4591,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
  * when running a code profiler.
  *
  * Note the use of the new "monster allocation table" code to restrict
- * the "get_species_num()" function to "legal" escort types.
+ * the "get_species_num(floor_ptr, )" function to "legal" escort types.
  */
 bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
@@ -4666,7 +4665,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			get_species_num_prep3(summoner_ptr, get_creature_hook2(ny, nx), place_creature_okay); // TODO
 
 			/* Pick a random race */
-			z = get_species_num(r_ptr->level);
+			z = get_species_num(floor_ptr, r_ptr->level);
 
 			/* Handle failure */
 			if (!z) break;
@@ -4698,7 +4697,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	/* Pick a monster */
-	species_idx = get_species_num(floor_ptr->creature_level);
+	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 
 	/* Handle failure */
 	if (!species_idx) return (FALSE);
@@ -4725,7 +4724,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	while (--attempts)
 	{
 		/* Pick a monster */
-		species_idx = get_species_num(floor_ptr->creature_level);
+		species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 
 		/* Handle failure */
 		if (!species_idx) return (FALSE);
@@ -4929,7 +4928,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
  * five to allow slight increases in monster power.
  *
  * Note that we use the new "monster allocation table" creation code
- * to restrict the "get_species_num()" function to the set of "legal"
+ * to restrict the "get_species_num(floor_ptr, )" function to the set of "legal"
  * monsters, making this function much faster and more reliable.
  *
  * Note that this function may not succeed, though this is very rare.
@@ -4957,7 +4956,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	get_species_num_prep3(summoner_ptr, get_creature_hook2(y, x), summon_specific_okay);
 
 	/* Pick a monster, using the level calculation */
-	species_idx = get_species_num((floor_ptr->floor_level + lev) / 2 + 5);
+	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
 	/* Handle failure */
 	if (!species_idx)

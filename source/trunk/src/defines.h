@@ -575,7 +575,7 @@
 
 /*
  * There is a 1/50 (2%) chance of inflating the requested creature_level
- * during the creation of a monsters (see "get_species_num()" in "monster.c").
+ * during the creation of a monsters (see "get_species_num(floor_ptr, )" in "monster.c").
  * Lower values yield harder monsters more often.
  */
 #define NASTY_MON       50              /* 1/chance of inflated monster level */

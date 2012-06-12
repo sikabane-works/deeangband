@@ -3328,7 +3328,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique monster race */
 			while (1)
 			{
-				i = get_species_num(floor_ptr->floor_level);
+				i = get_species_num(floor_ptr, floor_ptr->floor_level);
 
 				r_ptr = &species_info[i];
 

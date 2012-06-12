@@ -1552,7 +1552,7 @@ msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 					get_species_num_prep(get_nightmare, NULL);
 
 					/* Have some nightmares */
-					have_nightmare(creature_ptr, get_species_num(MAX_DEPTH));
+					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
 					/* Remove the monster restriction */
 					get_species_num_prep(NULL, NULL);

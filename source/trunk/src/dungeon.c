@@ -5392,7 +5392,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			int species_idx;
 			bool success = FALSE;
 			get_species_num_prep(monster_tsuri,NULL);
-			species_idx = get_species_num(floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
 			{
@@ -6121,7 +6121,7 @@ void determine_bounty_uniques(void)
 	{
 		while (1)
 		{
-			kubi_species_idx[i] = get_species_num(MAX_DEPTH - 1);
+			kubi_species_idx[i] = get_species_num(current_floor_ptr, MAX_DEPTH - 1);
 			r_ptr = &species_info[kubi_species_idx[i]];
 
 			if (!is_unique_species(r_ptr)) continue;
@@ -6181,7 +6181,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 
 	while (n < RANDOM_TRY)
 	{
-		today_mon = get_species_num(max_dl);
+		today_mon = get_species_num(current_floor_ptr, max_dl);
 		r_ptr = &species_info[today_mon];
 
 		if (is_unique_species(r_ptr)) continue;

@@ -83,7 +83,7 @@
  * while the "pits" have a collection of monsters of a given type placed
  * around the room in an organized manner (orc, troll, giant, dragon, or
  * demon).  Note that both "nests" and "pits" are now "level dependant",
- * and both make 16 "expensive" calls to the "get_species_num()" function.
+ * and both make 16 "expensive" calls to the "get_species_num(floor_ptr, )" function.
  *
  * Note that the cave grid flags changed in a rather drastic manner
  * for Angband 2.8.0 (and 2.7.9+), in particular, dungeon terrain
