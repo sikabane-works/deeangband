@@ -1909,21 +1909,23 @@ typedef struct {
  */
 typedef struct 
 {
-	s16b base_level;      /* Base dungeon level */
+	s16b base_level;      // Base dungeon level
 	s16b floor_level;
-	s16b creature_level;	/* Current monster creation level */
-	s16b object_level;		/* Current object creation level */
+	s16b creature_level;  // Current creature creation level
+	s16b object_level;    // Current object creation level
 	byte dun_type;
 	s32b world_x;
 	s32b world_y;
-	s32b last_visit;      /* Time count of last visit. 0 for new floor. */
-	u32b visit_mark;      /* Older has always smaller mark. */
-	s16b upper_floor_id;  /* a floor connected with level teleportation */
-	s16b lower_floor_id;  /* a floor connected with level tel. and trap door */
+	s32b last_visit;      // Time count of last visit. 0 for new floor.
+	u32b visit_mark;      // Older has always smaller mark.
+	s16b upper_floor_id;  // a floor connected with level teleportation
+	s16b lower_floor_id;  // a floor connected with level tel. and trap door
 	s16b width;
 	s16b height;
-	s16b num_repro; /* Current reproducer count */
+	s16b num_repro;       // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
+	s32b dungeon_turn;	     // Game turn in dungeon
+	s32b dungeon_turn_limit; // Limit of game turn in dungeon
 } floor_type;
 
 

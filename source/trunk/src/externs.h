@@ -164,8 +164,6 @@ extern s16b running;
 extern s16b resting;
 extern s32b turn;
 extern s32b turn_limit;
-extern s32b dungeon_turn;
-extern s32b dungeon_turn_limit;
 extern s32b old_turn;
 extern s32b old_battle;
 extern bool use_sound;

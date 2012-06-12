@@ -756,9 +756,9 @@ static void wr_extra(void)
 
 	/* Current turn */
 	wr_s32b(turn);
-	wr_s32b(dungeon_turn);
+	wr_s32b(current_floor_ptr->dungeon_turn);
 	wr_s32b(turn_limit);
-	wr_s32b(dungeon_turn_limit);
+	wr_s32b(current_floor_ptr->dungeon_turn_limit);
 	wr_s32b(old_battle);
 	wr_s16b(today_mon);
 

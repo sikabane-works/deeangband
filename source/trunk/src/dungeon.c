@@ -5997,10 +5997,10 @@ static void turn_loop(bool load_game)
 		// Count game turns
 		turn++;
 
-		if (dungeon_turn < dungeon_turn_limit)
+		if (current_floor_ptr->dungeon_turn < current_floor_ptr->dungeon_turn_limit)
 		{
-			if (!wild_mode || wild_regen) dungeon_turn++;
-			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) dungeon_turn++;
+			if (!wild_mode || wild_regen) current_floor_ptr->dungeon_turn++;
+			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) current_floor_ptr->dungeon_turn++;
 		}
 
 		prevent_turn_overflow(player_ptr);

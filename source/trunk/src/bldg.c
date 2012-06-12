@@ -2830,10 +2830,10 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				else do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "stay over night at the inn.");
 #endif
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
-				if (dungeon_turn < dungeon_turn_limit)
+				if (current_floor_ptr->dungeon_turn < current_floor_ptr->dungeon_turn_limit)
 				{
-					dungeon_turn += MIN(turn - oldturn, TURNS_PER_TICK*250);
-					if (dungeon_turn > dungeon_turn_limit) dungeon_turn = dungeon_turn_limit;
+					current_floor_ptr->dungeon_turn += MIN(turn - oldturn, TURNS_PER_TICK*250);
+					if (current_floor_ptr->dungeon_turn > current_floor_ptr->dungeon_turn_limit) current_floor_ptr->dungeon_turn = current_floor_ptr->dungeon_turn_limit;
 				}
 
 				prevent_turn_overflow(cr_ptr);
