@@ -5231,7 +5231,7 @@ prt(" '?' でヘルプが表示されます。", 0, 0);
 
 
 
-static bool monster_tsuri(int species_idx)
+static bool creature_tsuri(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -5391,7 +5391,7 @@ msg_print("何か変わった気がする！");
 		{
 			int species_idx;
 			bool success = FALSE;
-			get_species_num_prep(monster_tsuri,NULL);
+			get_species_num_prep(creature_tsuri, NULL);
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))

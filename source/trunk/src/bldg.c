@@ -1735,9 +1735,10 @@ void battle_monsters(void)
 		for(i = 0; i < 4; i++)
 		{
 			int species_idx, j;
+			get_species_num_prep(vault_aux_battle, NULL);
+
 			while (1)
 			{
-				get_species_num_prep(vault_aux_battle, NULL);
 				gamble_arena_mode = TRUE;
 				species_idx = get_species_num(current_floor_ptr, ave_creature_level);
 				gamble_arena_mode = old_gamble_arena_mode;

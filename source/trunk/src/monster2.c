@@ -1439,7 +1439,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 }
 
 
-// Apply a "monster restriction function" to the "monster allocation table"
+// Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2)
 {
 	int i;
