@@ -7348,7 +7348,6 @@ static bool check_score(creature_type *player_ptr)
 		return FALSE;
 	}
 
-#ifndef SCORE_WIZARDS
 	/* Wizard-mode pre-empts scoring */
 	if (noscore & 0x000F)
 	{
@@ -7360,10 +7359,8 @@ static bool check_score(creature_type *player_ptr)
 		msg_print(NULL);
 		return FALSE;
 	}
-#endif
 
-#ifndef SCORE_WIZARDS
-	/* Wizard-mode pre-empts scoring */
+	/* Unique mode pre-empts scoring */
 	if (noscore & 0x0004)
 	{
 #ifdef JP
@@ -7374,7 +7371,6 @@ static bool check_score(creature_type *player_ptr)
 		msg_print(NULL);
 		return FALSE;
 	}
-#endif
 
 	/* Cheaters are not scored */
 	if (noscore & 0xFF00)

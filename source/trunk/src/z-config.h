@@ -251,12 +251,6 @@
  */
 #define HANDLE_SIGNALS
 
-
-/*
- * Allow "Wizards" to yield "high scores"
- */
-/* #define SCORE_WIZARDS */
-
 /*
  * OPTION: Maximum flow depth when using "MONSTER_FLOW"
  */
