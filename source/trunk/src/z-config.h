@@ -263,13 +263,6 @@
 /*#define SCORE_BORGS*/
 
 /*
- * Allow "Cheaters" to yield "high scores"
- */
-/* #define SCORE_CHEATERS */
-
-
-
-/*
  * OPTION: Maximum flow depth when using "MONSTER_FLOW"
  */
 #define MONSTER_FLOW_DEPTH 32

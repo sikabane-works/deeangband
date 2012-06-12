@@ -7391,12 +7391,11 @@ msg_print("ボーグ・モードではスコアが記録されません。");
 	}
 #endif
 
-#ifndef SCORE_CHEATERS
 	/* Cheaters are not scored */
 	if (noscore & 0xFF00)
 	{
 #ifdef JP
-msg_print("詐欺をやった人はスコアが記録されません。");
+		msg_print("詐欺をやった人はスコアが記録されません。");
 #else
 		msg_print("Score not registered for cheaters.");
 #endif
@@ -7404,7 +7403,6 @@ msg_print("詐欺をやった人はスコアが記録されません。");
 		msg_print(NULL);
 		return FALSE;
 	}
-#endif
 
 	/* Interupted */
 #ifdef JP
