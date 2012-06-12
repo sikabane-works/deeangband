@@ -6411,8 +6411,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#endif
 	
 	}
-
-	#ifdef ALLOW_FEAR
 	
 	/* Mega-Hack -- Pain cancels fear */
 	if (tar_ptr->afraid && (damage > 0))
@@ -6441,9 +6439,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			fear = TRUE;
 		}
 	}
-	
-	#endif
-
 
 	if(fear && !tar_ptr->afraid)
 	{
@@ -6453,8 +6448,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			(((damage >= tar_ptr->chp) && (percentage > 7)) ?
 			20 : ((11 - percentage) * 5))));
 	}
-
-
 
 	/* Hitpoint warning */
 	if (is_player(tar_ptr) && tar_ptr->chp < warning && !gameover)
