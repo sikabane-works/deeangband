@@ -2830,8 +2830,6 @@ void do_cmd_reload_autopick(void)
 	autopick_load_pref(TRUE);
 }
 
-#ifdef ALLOW_MACROS
-
 /*
  * Hack -- append all current macros to the given file
  */
@@ -2938,9 +2936,6 @@ static void do_cmd_macro_aux(char *buf)
 	/* Hack -- display the trigger */
 	Term_addstr(-1, TERM_WHITE, tmp);
 }
-
-#endif
-
 
 /*
  * Hack -- ask for a keymap "trigger" (see below)
@@ -3123,8 +3118,6 @@ void do_cmd_macros(void)
 #else
 		prt("(1) Load a user pref file", 4, 5);
 #endif
-
-#ifdef ALLOW_MACROS
 #ifdef JP
 		prt("(2) ファイルにマクロを追加", 5, 5);
 		prt("(3) マクロの確認", 6, 5);
@@ -3146,8 +3139,6 @@ void do_cmd_macros(void)
 		prt("(9) Remove a keymap", 12, 5);
 		prt("(0) Enter a new action", 13, 5);
 #endif
-
-#endif /* ALLOW_MACROS */
 
 		/* Prompt */
 #ifdef JP
@@ -3218,8 +3209,6 @@ void do_cmd_macros(void)
 #endif
 			}
 		}
-
-#ifdef ALLOW_MACROS
 
 		/* Save macros */
 		else if (i == '2')
@@ -3651,8 +3640,6 @@ void do_cmd_macros(void)
 			/* Extract an action */
 			text_to_ascii(macro__buf, buf);
 		}
-
-#endif /* ALLOW_MACROS */
 
 		/* Oops */
 		else

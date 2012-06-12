@@ -227,11 +227,6 @@
 #define ALLOW_VISUALS
 
 /*
- * OPTION: Allow "do_cmd_macros" at run-time
- */
-#define ALLOW_MACROS
-
-/*
  * OPTION: Allow parsing of the ascii template files in "init.c".
  * This must be defined if you do not have valid binary image files.
  * It should be usually be defined anyway to allow easy "updating".
@@ -491,7 +486,6 @@
 #ifdef ANGBAND_LITE
 # undef ALLOW_COLORS
 # undef ALLOW_VISUALS
-# undef ALLOW_MACROS
 # undef ALLOW_OLD_SAVEFILES
 # undef ALLOW_WIZARD
 # undef ALLOW_SPOILERS
