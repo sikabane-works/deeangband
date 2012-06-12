@@ -200,16 +200,12 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
-#ifdef ALLOW_TERROR
-
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	u16b p_lev, m_lev;
 	u32b p_chp, p_mhp;
 	u32b m_chp, m_mhp;
 	u32b p_val, m_val;
-
-#endif
 
 	/* Friends can be commanded to avoid the player */
 	if (is_pet(player_ptr, m_ptr))
@@ -224,8 +220,6 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 
 	/* All "afraid" monsters will run away */
 	if (m_ptr->afraid) return (TRUE);
-
-#ifdef ALLOW_TERROR
 
 	/* Nearby monsters will not become terrified */
 	if (m_ptr->cdis <= 5) return (FALSE);
@@ -254,8 +248,6 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 
 	/* Strong players scare strong monsters */
 	if (p_val * m_mhp > m_val * p_mhp) return (TRUE);
-
-#endif
 
 	/* Assume no terror */
 	return (FALSE);
