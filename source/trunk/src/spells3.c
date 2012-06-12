@@ -3175,7 +3175,7 @@ s = "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 		else
 		{
 			/* Recharge amount */
-			recharge_amount = (power * damroll(3, 2));
+			recharge_amount = (power * diceroll(3, 2));
 
 			/* Recharge by that amount */
 			if (o_ptr->timeout > recharge_amount)
@@ -3802,7 +3802,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 		case SV_POTION_RUINATION:
 		case SV_POTION_DETONATIONS:
 			dt = GF_SHARDS;
-			dam = damroll(25, 25);
+			dam = diceroll(25, 25);
 			angry = TRUE;
 			break;
 		case SV_POTION_DEATH:
@@ -3816,20 +3816,20 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			break;
 		case SV_POTION_CURE_LIGHT:
 			dt = GF_OLD_HEAL;
-			dam = damroll(2, 3);
+			dam = diceroll(2, 3);
 			break;
 		case SV_POTION_CURE_SERIOUS:
 			dt = GF_OLD_HEAL;
-			dam = damroll(4, 3);
+			dam = diceroll(4, 3);
 			break;
 		case SV_POTION_CURE_CRITICAL:
 		case SV_POTION_CURING:
 			dt = GF_OLD_HEAL;
-			dam = damroll(6, 3);
+			dam = diceroll(6, 3);
 			break;
 		case SV_POTION_HEALING:
 			dt = GF_OLD_HEAL;
-			dam = damroll(10, 10);
+			dam = diceroll(10, 10);
 			break;
 		case SV_POTION_RESTORE_EXP:
 			dt = GF_STAR_HEAL;
@@ -3838,17 +3838,17 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			break;
 		case SV_POTION_LIFE:
 			dt = GF_STAR_HEAL;
-			dam = damroll(50, 50);
+			dam = diceroll(50, 50);
 			radius = 1;
 			break;
 		case SV_POTION_STAR_HEALING:
 			dt = GF_OLD_HEAL;
-			dam = damroll(50, 50);
+			dam = diceroll(50, 50);
 			radius = 1;
 			break;
 		case SV_POTION_RESTORE_MANA:   /* MANA */
 			dt = GF_MANA;
-			dam = damroll(10, 10);
+			dam = diceroll(10, 10);
 			radius = 1;
 			break;
 		default:

@@ -5371,7 +5371,7 @@ void do_poly_wounds(creature_type *cr_ptr)
 	/* Changed to always provide at least _some_ healing */
 	s16b wounds = cr_ptr->cut;
 	s32b hit_p = (cr_ptr->mhp - cr_ptr->chp);
-	s16b change = damroll(cr_ptr->lev, 5);
+	s16b change = diceroll(cr_ptr->lev, 5);
 	bool Nasty_effect = one_in_(5);
 
 	if (!(wounds || hit_p || Nasty_effect)) return;
@@ -5622,10 +5622,10 @@ void do_poly_self(creature_type *cr_ptr)
 			{
 #ifdef JP
 				msg_print("Œ»Ý‚ÌŽp‚Å¶‚«‚Ä‚¢‚­‚Ì‚Í¢“ï‚È‚æ‚¤‚¾I");
-				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), cr_ptr->lev), "’v–½“I‚È“Ë‘R•ÏˆÙ", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), cr_ptr->lev), "’v–½“I‚È“Ë‘R•ÏˆÙ", NULL, -1);
 #else
 				msg_print("You find living difficult in your present form!");
-				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), cr_ptr->lev), "a lethal mutation", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), cr_ptr->lev), "a lethal mutation", NULL, -1);
 #endif
 			}
 			power -= 10;

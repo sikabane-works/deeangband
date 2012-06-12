@@ -755,7 +755,7 @@ msg_print("矢を放った。");
 			damage = 1;
 			if (o_ptr)
 			{
-				damage = damroll(o_ptr->dd, o_ptr->ds)+ o_ptr->to_d;
+				damage = diceroll(o_ptr->dd, o_ptr->ds)+ o_ptr->to_d;
 				if (damage < 1) damage = 1;
 			}
 			fire_bolt(caster_ptr, GF_ARROW, dir, damage);
@@ -976,7 +976,7 @@ else msg_print("放射能球を放った。");
 #else
 			else msg_print("You cast a ball of radiation.");
 #endif
-		damage = plev * 2 + damroll(10, 6);
+		damage = plev * 2 + diceroll(10, 6);
 		fire_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case MS_BR_NUKE:
@@ -996,7 +996,7 @@ else msg_print("純ログルスを放った。");
 #else
 			else msg_print("You invoke a raw Logrus.");
 #endif
-		damage = plev * 4 + damroll(10, 10);
+		damage = plev * 4 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case MS_BR_DISI:
@@ -1056,7 +1056,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 #else
 			else msg_print("You cast a stinking cloud.");
 #endif
-		damage = damroll(12,2);
+		damage = diceroll(12,2);
 		fire_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
 	case MS_BALL_NETHER:
@@ -1066,7 +1066,7 @@ else msg_print("地獄球の呪文を唱えた。");
 #else
 			else msg_print("You cast a nether ball.");
 #endif
-		damage = plev * 2 + 50 + damroll(10, 10);
+		damage = plev * 2 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
 	case MS_BALL_WATER:
@@ -1086,7 +1086,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 #else
 			else msg_print("You invoke a mana storm.");
 #endif
-		damage = plev * 8 + 50 + damroll(10, 10);
+		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case MS_BALL_DARK:
@@ -1096,7 +1096,7 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 #else
 			else msg_print("You invoke a darkness storm.");
 #endif
-		damage = plev * 8 + 50 + damroll(10, 10);
+		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case MS_DRAIN_MANA:
@@ -1105,32 +1105,32 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 		break;
 	case MS_MIND_BLAST:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(7, 7);
+		damage = diceroll(7, 7);
 		fire_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case MS_BRAIN_SMASH:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(12, 12);
+		damage = diceroll(12, 12);
 		fire_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 	case MS_CAUSE_1:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(3, 8);
+		damage = diceroll(3, 8);
 		fire_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
 	case MS_CAUSE_2:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(8, 8);
+		damage = diceroll(8, 8);
 		fire_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
 	case MS_CAUSE_3:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(10, 15);
+		damage = diceroll(10, 15);
 		fire_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
 	case MS_CAUSE_4:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = damroll(15, 15);
+		damage = diceroll(15, 15);
 		fire_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
 	case MS_BOLT_ACID:
@@ -1140,7 +1140,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast an acid bolt.");
 #endif
-		damage = damroll(7, 8) + plev * 2 / 3;
+		damage = diceroll(7, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
 	case MS_BOLT_ELEC:
@@ -1150,7 +1150,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast a lightning bolt.");
 #endif
-		damage = damroll(4, 8) + plev * 2 / 3;
+		damage = diceroll(4, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
 	case MS_BOLT_FIRE:
@@ -1160,7 +1160,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast a fire bolt.");
 #endif
-		damage = damroll(9, 8) + plev * 2 / 3;
+		damage = diceroll(9, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
 	case MS_BOLT_COLD:
@@ -1170,7 +1170,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast a frost bolt.");
 #endif
-		damage = damroll(6, 8) + plev * 2 / 3;
+		damage = diceroll(6, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
 	case MS_STARBURST:
@@ -1181,7 +1181,7 @@ msg_print("スターバーストの呪文を念じた。");
 #else
 			msg_print("You invoke a starburst.");
 #endif
-		damage = plev * 8 + 50 + damroll(10, 10);
+		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case MS_BOLT_NETHER:
@@ -1191,7 +1191,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 #else
 			else msg_print("You cast a nether bolt.");
 #endif
-		damage = 30 + damroll(5, 5) + plev * 8 / 3;
+		damage = 30 + diceroll(5, 5) + plev * 8 / 3;
 		fire_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
 	case MS_BOLT_WATER:
@@ -1201,7 +1201,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast a water bolt.");
 #endif
-		damage = damroll(10, 10) + plev * 2;
+		damage = diceroll(10, 10) + plev * 2;
 		fire_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
 	case MS_BOLT_MANA:
@@ -1221,7 +1221,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
 			else msg_print("You cast a plasma bolt.");
 #endif
-		damage = 10 + damroll(8, 7) + plev * 2;
+		damage = 10 + diceroll(8, 7) + plev * 2;
 		fire_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
 	case MS_BOLT_ICE:
@@ -1231,7 +1231,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 #else
 			else msg_print("You cast a ice bolt.");
 #endif
-		damage = damroll(6, 6) + plev * 2;
+		damage = diceroll(6, 6) + plev * 2;
 		fire_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
 	case MS_MAGIC_MISSILE:
@@ -1241,7 +1241,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
 			else msg_print("You cast a magic missile.");
 #endif
-		damage = damroll(2, 6) + plev * 2 / 3;
+		damage = diceroll(2, 6) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
 	case MS_SCARE:

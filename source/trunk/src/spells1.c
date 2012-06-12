@@ -2200,7 +2200,7 @@ msg_print("地面が揺れた...");
 			case 3: case 4: case 5: case 6:
 				if (!count)
 				{
-					int dam = damroll(10, 10);
+					int dam = diceroll(10, 10);
 #ifdef JP
 msg_print("純粋な魔力の次元への扉が開いた！");
 #else
@@ -2219,7 +2219,7 @@ msg_print("空間が歪んだ！");
 					msg_print("Space warps about you!");
 #endif
 
-					if (target_ptr->species_idx) teleport_away(target_ptr, damroll(10, 10), TELEPORT_PASSIVE);
+					if (target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 					if (one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
@@ -3669,7 +3669,7 @@ note = "には耐性がある！";
 				}
 
 				// 2. stun
-				do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
+				do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 				// Attempt a saving throw
 				if ((is_unique_creature(target_ptr)) ||
@@ -4107,7 +4107,7 @@ note = "は眠り込んでしまった！";
 			{
 				if (!target_ptr->resist_shard)
 				{
-					(void)set_cut(target_ptr, target_ptr->cut + damroll(5, 8));
+					(void)set_cut(target_ptr, target_ptr->cut + diceroll(5, 8));
 				}
 				if (!target_ptr->resist_sound)
 				{
@@ -4838,7 +4838,7 @@ note = "は眠り込んでしまった！";
 			else
 			{
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if (!(target_ptr->multishadow && (turn & 1))) (void)set_cut(target_ptr, target_ptr->cut + damroll(10, 10));
+				if (!(target_ptr->multishadow && (turn & 1))) (void)set_cut(target_ptr, target_ptr->cut + diceroll(10, 10));
 			}
 			break;
 		}
@@ -5182,7 +5182,7 @@ note = "は眠り込んでしまった！";
 							msg_print("Your psychic energy is drained!");
 #endif
 
-							caster_ptr->csp -= damroll(5, dam) / 2;
+							caster_ptr->csp -= diceroll(5, dam) / 2;
 							if (caster_ptr->csp < 0) caster_ptr->csp = 0;
 							play_redraw |= PR_MANA;
 							play_window |= (PW_SPELL);
@@ -5194,7 +5194,7 @@ note = "は眠り込んでしまった！";
 			}
 			else if (dam > 0)
 			{
-				int b = damroll(5, dam) / 4;
+				int b = diceroll(5, dam) / 4;
 #ifdef JP
 				cptr str = (caster_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
 				msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
@@ -5241,7 +5241,7 @@ note = "は眠り込んでしまった！";
 			}
 
 			/* 1. stun */
-			do_stun = damroll((caster_lev / 20) + 3 , dam) + 1;
+			do_stun = diceroll((caster_lev / 20) + 3 , dam) + 1;
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(target_ptr)) ||
@@ -6049,7 +6049,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			/* Get confused later */
-			do_conf = damroll(3, (dam / 2)) + 1;
+			do_conf = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
 			if (is_unique_creature(target_ptr) ||
@@ -6095,7 +6095,7 @@ note = "は眠り込んでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
+			do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(target_ptr)) ||
@@ -6375,7 +6375,7 @@ note = "には耐性がある！";
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				/* Apply some fear */
-				do_fear = damroll(3, (dam / 2)) + 1;
+				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
 				if (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
@@ -6423,7 +6423,7 @@ note = "には耐性がある！";
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Apply some fear */
-				do_fear = damroll(3, (dam / 2)) + 1;
+				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
 				if (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
@@ -6465,7 +6465,7 @@ note = "には耐性がある！";
 			if (seen) obvious = TRUE;
 
 			/* Apply some fear */
-			do_fear = damroll(3, (dam / 2)) + 1;
+			do_fear = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(target_ptr)) ||
@@ -6872,7 +6872,7 @@ msg_format("うまく捕まえられなかった。");
 
 			else if (effect == 2)
 			{
-				do_stun = damroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
+				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
 				if ((is_unique_creature(target_ptr)) ||

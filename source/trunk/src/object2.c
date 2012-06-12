@@ -3854,7 +3854,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 		case TV_BOLT:
 		{
 			if (!j_ptr->name1)
-				j_ptr->number = (byte)damroll(6, 7);
+				j_ptr->number = (byte)diceroll(6, 7);
 		}
 	}
 

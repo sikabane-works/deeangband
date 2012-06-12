@@ -805,9 +805,9 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 
 	if (!IS_INVULN(creature_ptr))
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "パターン損壊", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "corrupting the Pattern", NULL, -1);
 #endif
 
 	to_ruin = randint1(45) + 35;
@@ -897,9 +897,9 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 			return TRUE;
 		else if (!IS_INVULN(creature_ptr))
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "walking the Pattern", NULL, -1);
 #endif
 		break;
 	}

@@ -1238,9 +1238,9 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 
 				if ((spell > 15) && one_in_(6) && !creature_ptr->hold_life)

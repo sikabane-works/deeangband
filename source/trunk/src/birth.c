@@ -2537,8 +2537,8 @@ static void get_history(creature_type *creature_ptr)
 	if(species_ptr->sc) creature_ptr->sc = species_info->sc;
 	else
 	{
-		creature_ptr->sc = damroll(4, 20);
-		if(one_in_(10)) creature_ptr->sc += damroll(1, 60);
+		creature_ptr->sc = diceroll(4, 20);
+		if(one_in_(10)) creature_ptr->sc += diceroll(1, 60);
 	}
 
 }
@@ -2610,7 +2610,7 @@ static void get_money(creature_type *creature_ptr)
 	if (gold < 100) gold = 100;
 
 	// Level Bonus
-	for(i = 1; i < creature_ptr->lev; i++) gold += (damroll(creature_ptr->lev, 6) * creature_ptr->lev / 2);
+	for(i = 1; i < creature_ptr->lev; i++) gold += (diceroll(creature_ptr->lev, 6) * creature_ptr->lev / 2);
 
 	if (creature_ptr->chara_idx == CHARA_NAMAKE)
 		gold /= 2;

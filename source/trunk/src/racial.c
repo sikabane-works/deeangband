@@ -1734,7 +1734,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 
 			fire_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
-			    damroll(3 + ((plev - 1) / 5), 4));
+			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
 		case RACE_DRACONIAN:

@@ -1992,7 +1992,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_MISSILE, dir, damroll(2, 6));
+			fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
 			o_ptr->timeout = 2;
 			break;
 		}
@@ -2020,7 +2020,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_ELEC, dir, damroll(4, 8));
+			fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
 			o_ptr->timeout = (s16b)randint0(5) + 5;
 			break;
 		}
@@ -2034,7 +2034,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_ACID, dir, damroll(5, 8));
+			fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
 			o_ptr->timeout = (s16b)randint0(6) + 6;
 			break;
 		}
@@ -2048,7 +2048,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_COLD, dir, damroll(6, 8));
+			fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
 			o_ptr->timeout = (s16b)randint0(7) + 7;
 			break;
 		}
@@ -2062,7 +2062,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_FIRE, dir, damroll(9, 8));
+			fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 			o_ptr->timeout = (s16b)randint0(8) + 8;
 			break;
 		}
@@ -2610,7 +2610,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 			msg_print("It radiates deep purple...");
 #endif
 
-			hp_player(creature_ptr, damroll(4, 8));
+			hp_player(creature_ptr, diceroll(4, 8));
 			(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
 			o_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
@@ -2801,7 +2801,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 			msg_print("It wells with clear light...");
 #endif
 
-			lite_area(creature_ptr, damroll(2, 15), 3);
+			lite_area(creature_ptr, diceroll(2, 15), 3);
 			o_ptr->timeout = (s16b)randint0(10) + 10;
 			break;
 		}
@@ -2815,7 +2815,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 #endif
 
 			map_area(creature_ptr, DETECT_RAD_MAP);
-			lite_area(creature_ptr, damroll(2, 15), 3);
+			lite_area(creature_ptr, diceroll(2, 15), 3);
 			o_ptr->timeout = (s16b)randint0(50) + 50;
 			break;
 		}

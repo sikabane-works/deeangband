@@ -555,10 +555,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
 		(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -569,10 +569,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
 		(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -746,9 +746,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			if (randint1(100+o_ptr->pval*2) > creature_ptr->skill_rob)
 			{
 #ifdef JP
-				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
 #else
-				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
 				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->cut + 200);
 				else if (one_in_(4))
@@ -800,9 +800,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		o_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", NULL, -1);
+		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "an exploding chest", NULL, -1);
 #endif
 
 	}
@@ -3198,7 +3198,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	tdis = 10;
 
 	/* Base damage from thrown object plus launcher bonus */
-	tdam_base = damroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_d + j_ptr->to_d;
+	tdam_base = diceroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_d + j_ptr->to_d;
 
 	/* Actually "fire" the object */
 	bonus = (creature_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
@@ -4189,7 +4189,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				}
 
 				/* Hack -- Base damage from thrown object */
-				tdam = damroll(q_ptr->dd, q_ptr->ds);
+				tdam = diceroll(q_ptr->dd, q_ptr->ds);
 				/* Apply special damage XXX XXX XXX */
 				tdam = tot_dam_aux(creature_ptr, q_ptr, tdam, m_ptr, 0, TRUE);
 				tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_h, tdam);

@@ -1521,19 +1521,19 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		case TV_FLASK:
 		case TV_LITE:
 		{
-			if (cost <= 5L) size += damroll(3, 5);
-			if (cost <= 20L) size += damroll(3, 5);
-			if (cost <= 50L) size += damroll(2, 2);
+			if (cost <= 5L) size += diceroll(3, 5);
+			if (cost <= 20L) size += diceroll(3, 5);
+			if (cost <= 50L) size += diceroll(2, 2);
 			break;
 		}
 
 		case TV_POTION:
 		case TV_SCROLL:
 		{
-			if (cost <= 60L) size += damroll(3, 5);
-			if (cost <= 240L) size += damroll(1, 5);
-			if (o_ptr->sval == SV_SCROLL_STAR_IDENTIFY) size += damroll(3, 5);
-			if (o_ptr->sval == SV_SCROLL_STAR_REMOVE_CURSE) size += damroll(1, 4);
+			if (cost <= 60L) size += diceroll(3, 5);
+			if (cost <= 240L) size += diceroll(1, 5);
+			if (o_ptr->sval == SV_SCROLL_STAR_IDENTIFY) size += diceroll(3, 5);
+			if (o_ptr->sval == SV_SCROLL_STAR_REMOVE_CURSE) size += diceroll(1, 4);
 			break;
 		}
 
@@ -1551,8 +1551,8 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		case TV_HISSATSU_BOOK:
 		case TV_HEX_BOOK:
 		{
-			if (cost <= 50L) size += damroll(2, 3);
-			if (cost <= 500L) size += damroll(1, 3);
+			if (cost <= 50L) size += diceroll(2, 3);
+			if (cost <= 500L) size += diceroll(1, 3);
 			break;
 		}
 
@@ -1572,8 +1572,8 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		{
 			if (object_is_artifact_aux(o_ptr)) break;
 			if (object_is_ego(o_ptr)) break;
-			if (cost <= 10L) size += damroll(3, 5);
-			if (cost <= 100L) size += damroll(3, 5);
+			if (cost <= 10L) size += diceroll(3, 5);
+			if (cost <= 100L) size += diceroll(3, 5);
 			break;
 		}
 
@@ -1582,16 +1582,16 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			if (cost <= 5L) size += damroll(5, 5);
-			if (cost <= 50L) size += damroll(5, 5);
-			if (cost <= 500L) size += damroll(5, 5);
+			if (cost <= 5L) size += diceroll(5, 5);
+			if (cost <= 50L) size += diceroll(5, 5);
+			if (cost <= 500L) size += diceroll(5, 5);
 			break;
 		}
 
 		case TV_FIGURINE:
 		{
-			if (cost <= 100L) size += damroll(2, 2);
-			if (cost <= 1000L) size += damroll(2, 2);
+			if (cost <= 100L) size += diceroll(2, 2);
+			if (cost <= 1000L) size += diceroll(2, 2);
 			break;
 		}
 
@@ -1614,8 +1614,8 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		{
 			if (is_black_market(st_ptr) && one_in_(3))
 			{
-				if (cost < 1601L) size += damroll(1, 5);
-				else if (cost < 3201L) size += damroll(1, 3);
+				if (cost < 1601L) size += diceroll(1, 5);
+				else if (cost < 3201L) size += diceroll(1, 3);
 			}
 			break;
 		}

@@ -1731,7 +1731,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			//TODO Fix damage calc.
-			dam = damroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
+			dam = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, dam, MS_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -2177,7 +2177,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s casts a ball of radiation.", m_name);
 #endif
 
-			dam = (rlev + damroll(10, 6)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (rlev + diceroll(10, 6)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, MS_BALL_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
@@ -2219,7 +2219,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s invokes a raw Logrus.", m_name);
 #endif
 
-			dam = (has_cf_creature(caster_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ damroll(10, 10);
+			dam = (has_cf_creature(caster_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BALL_CHAOS, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
@@ -2363,7 +2363,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a stinking cloud.", m_name);
 #endif
 
-			dam = damroll(12, 2) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = diceroll(12, 2) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
@@ -2384,7 +2384,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether ball.", m_name);
 #endif
 
-			dam = 50 + damroll(10, 10) + (rlev * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1));
+			dam = 50 + diceroll(10, 10) + (rlev * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1));
 			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
@@ -2431,7 +2431,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s invokes a mana storm.", m_name);
 #endif
 
-			dam = (rlev * 4) + 50 + damroll(10, 10);
+			dam = (rlev * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, MS_BALL_MANA, learnable);
 			break;
 		}
@@ -2451,7 +2451,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s invokes a darkness storm.", m_name);
 #endif
 
-			dam = (rlev * 4) + 50 + damroll(10, 10);
+			dam = (rlev * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, MS_BALL_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
@@ -2491,7 +2491,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 			}
 
-			dam = damroll(7, 7);
+			dam = diceroll(7, 7);
 			breath(y, x, caster_ptr, GF_MIND_BLAST, dam, 0, FALSE, MS_MIND_BLAST, learnable);
 			break;
 		}
@@ -2519,7 +2519,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 			}
 
-			dam = damroll(12, 12);
+			dam = diceroll(12, 12);
 			breath(y, x, caster_ptr, GF_BRAIN_SMASH, dam, 0, FALSE, MS_BRAIN_SMASH, learnable);
 			break;
 		}
@@ -2540,7 +2540,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s points at you and curses.", m_name);
 #endif
 
-			dam = damroll(3, 8);
+			dam = diceroll(3, 8);
 			breath(y, x, caster_ptr, GF_CAUSE_1, dam, 0, FALSE, MS_CAUSE_1, learnable);
 			break;
 		}
@@ -2561,7 +2561,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s points at you and curses horribly.", m_name);
 #endif
 
-			dam = damroll(8, 8);
+			dam = diceroll(8, 8);
 			breath(y, x, caster_ptr, GF_CAUSE_2, dam, 0, FALSE, MS_CAUSE_2, learnable);
 			break;
 		}
@@ -2582,7 +2582,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s points at you, incanting terribly!", m_name);
 #endif
 
-			dam = damroll(10, 15);
+			dam = diceroll(10, 15);
 			breath(y, x, caster_ptr, GF_CAUSE_3, dam, 0, FALSE, MS_CAUSE_3, learnable);
 			break;
 		}
@@ -2603,7 +2603,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s points at you, screaming the word DIE!", m_name);
 #endif
 
-			dam = damroll(15, 15);
+			dam = diceroll(15, 15);
 			breath(y, x, caster_ptr, GF_CAUSE_4, dam, 0, FALSE, MS_CAUSE_4, learnable);
 			break;
 		}
@@ -2624,7 +2624,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a acid bolt.", m_name);
 #endif
 
-			dam = (damroll(7, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(7, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2647,7 +2647,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning bolt.", m_name);
 #endif
 
-			dam = (damroll(4, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(4, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2670,7 +2670,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a fire bolt.", m_name);
 #endif
 
-			dam = (damroll(9, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(9, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2693,7 +2693,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost bolt.", m_name);
 #endif
 
-			dam = (damroll(6, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(6, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2715,7 +2715,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s invokes a starburst.", m_name);
 #endif
 
-			dam = (rlev * 4) + 50 + damroll(10, 10);
+			dam = (rlev * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, MS_STARBURST, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
@@ -2737,7 +2737,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether bolt.", m_name);
 #endif
 
-			dam = 30 + damroll(5, 5) + (rlev * 4) / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3);
+			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3);
 			bolt(caster_ptr, target_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2760,7 +2760,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a water bolt.", m_name);
 #endif
 
-			dam = damroll(10, 10) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(10, 10) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -2804,7 +2804,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a plasma bolt.", m_name);
 #endif
 
-			dam = 10 + damroll(8, 7) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -2826,7 +2826,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an ice bolt.", m_name);
 #endif
 
-			dam = damroll(6, 6) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(6, 6) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2849,7 +2849,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a magic missile.", m_name);
 #endif
 
-			dam = damroll(2, 6) + (rlev / 3);
+			dam = diceroll(2, 6) + (rlev / 3);
 			bolt(caster_ptr, target_ptr, GF_MISSILE, dam, MS_MAGIC_MISSILE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -3415,7 +3415,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #else
 						msg_format("%^s holds you, and drops from the sky.", m_name);
 #endif
-						dam = damroll(4, 8);
+						dam = diceroll(4, 8);
 						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
 						sound(SOUND_FALL);
@@ -3435,7 +3435,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #else
 							msg_print("You crashed into the ground.");
 #endif
-							dam += damroll(6, 8);
+							dam += diceroll(6, 8);
 						}
 
 						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.

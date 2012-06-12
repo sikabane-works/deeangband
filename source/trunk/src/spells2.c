@@ -5515,7 +5515,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 #else
 					msg_print("You are bashed by rubble!");
 #endif
-					damage = damroll(10, 4);
+					damage = diceroll(10, 4);
 					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
 					break;
 				}
@@ -5526,7 +5526,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 #else
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
-					damage = damroll(10, 4);
+					damage = diceroll(10, 4);
 					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
 					break;
 				}
@@ -5660,7 +5660,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 #endif
 
 					/* Take damage from the quake */
-					damage = (sn ? damroll(4, 8) : (m_ptr->chp + 1));
+					damage = (sn ? diceroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Monster is certainly awake */
 					(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
@@ -6574,7 +6574,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 		}
 
 		/* Analyze the "dir" and the "target". */
-		if (!project(0, 0, y, x, damroll(dd, ds), typ, flg, -1))
+		if (!project(0, 0, y, x, diceroll(dd, ds), typ, flg, -1))
 		{
 			result = FALSE;
 		}
@@ -6744,7 +6744,7 @@ bool fire_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, in
 bool lite_line(creature_type *caster_ptr, int dir)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_LITE_WEAK, dir, damroll(6, 8), flg));
+	return (project_hook(caster_ptr, GF_LITE_WEAK, dir, diceroll(6, 8), flg));
 }
 
 
@@ -7020,7 +7020,7 @@ msg_print("’n–Ê‚ª—h‚ê‚½...");
 		case 30: case 31:
 			if (!(*count))
 			{
-				int dam = damroll(10, 10);
+				int dam = diceroll(10, 10);
 #ifdef JP
 msg_print("ƒˆ‚È–‚—Í‚ÌŽŸŒ³‚Ö‚Ì”à‚ªŠJ‚¢‚½I");
 #else
@@ -7044,7 +7044,7 @@ msg_print("ŽüˆÍ‚Ì‹óŠÔ‚ª˜c‚ñ‚¾I");
 				msg_print("Space warps about you!");
 #endif
 
-				teleport_player(creature_ptr, damroll(10, 10), TELEPORT_PASSIVE);
+				teleport_player(creature_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 				if (randint0(13)) (*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 				if (!one_in_(6)) break;
 			}
@@ -7278,7 +7278,7 @@ void wall_breaker(creature_type *creature_ptr)
 	}
 	else
 	{
-		int num = damroll(5, 3);
+		int num = diceroll(5, 3);
 
 		for (i = 0; i < num; i++)
 		{

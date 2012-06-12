@@ -750,7 +750,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		obvious = TRUE;
 
 		/* Roll out the damage */
-		damage = damroll(d_dice, d_side);
+		damage = diceroll(d_dice, d_side);
 
 		/*
 		* Skip the effect when exploding, since the explosion
@@ -1559,7 +1559,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_10:
 			{
-				s32b d = damroll(10, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(10, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -1575,7 +1575,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_20:
 			{
-				s32b d = damroll(20, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -1591,7 +1591,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_40:
 			{
-				s32b d = damroll(40, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -1607,7 +1607,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_80:
 			{
-				s32b d = damroll(80, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -1738,7 +1738,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 		case RBE_EXP_VAMP:
 			{
-				s32b d = damroll(60, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
 				bool resist_drain;
 
 				/* Obvious */
@@ -1773,7 +1773,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if (attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
 
 					/* Heal */
-					attacker_ptr->chp += damroll(4, damage / 6);
+					attacker_ptr->chp += diceroll(4, damage / 6);
 					if (attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
 					/* Redraw (later) if needed */
@@ -1913,7 +1913,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 				{
-					int dam = damroll(2, 6);
+					int dam = diceroll(2, 6);
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -1942,7 +1942,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_ELEC))
 				{
-					int dam = damroll(2, 6);
+					int dam = diceroll(2, 6);
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -1971,7 +1971,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_COLD))
 				{
-					int dam = damroll(2, 6);
+					int dam = diceroll(2, 6);
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -2001,7 +2001,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (!has_cf_creature(attacker_ptr, CF_RES_SHAR))
 				{
-					int dam = damroll(2, 6);
+					int dam = diceroll(2, 6);
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -2037,7 +2037,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if (!(attacker_ptr->resist_ultimate))
 					{
-						int dam = damroll(2, 6);
+						int dam = diceroll(2, 6);
 
 						/* Modify the damage */
 						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -2067,7 +2067,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (!(attacker_ptr->resist_ultimate))
 				{
-					int dam = damroll(2, 6);
+					int dam = diceroll(2, 6);
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);

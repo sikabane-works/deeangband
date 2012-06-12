@@ -167,9 +167,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_WEAKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -180,9 +180,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_SICKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -193,9 +193,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_STUPIDITY:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_INT);
@@ -206,9 +206,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_NAIVETY:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_WIS);
@@ -219,9 +219,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_UNHEALTH:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -232,9 +232,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_DISEASE:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -268,7 +268,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_SERIOUS:
 			{
-				if (hp_player(creature_ptr, damroll(4, 8))) ident = TRUE;
+				if (hp_player(creature_ptr, diceroll(4, 8))) ident = TRUE;
 				break;
 			}
 
@@ -347,7 +347,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 #endif
 
 				(void)set_poisoned(creature_ptr, 0);
-				(void)hp_player(creature_ptr, damroll(4, 8));
+				(void)hp_player(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
 				break;
 			}
@@ -931,10 +931,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_RUINATION:
 #ifdef JP
 			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "破滅の薬", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "破滅の薬", NULL, -1);
 #else
 			msg_print("Your nerves and muscles feel weak and lifeless!");
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
 			(void)dec_stat(creature_ptr, STAT_DEX, 25, TRUE);
@@ -973,10 +973,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_DETONATIONS:
 #ifdef JP
 			msg_print("体の中で激しい爆発が起きた！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "爆発の薬", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
 #else
 			msg_print("Massive explosions rupture your body!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
 			(void)set_stun(creature_ptr, creature_ptr->stun + 75);
@@ -1060,14 +1060,14 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURE_LIGHT:
-			if (hp_player(creature_ptr, damroll(2, 8))) ident = TRUE;
+			if (hp_player(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, creature_ptr->cut - 10)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
-			if (hp_player(creature_ptr, damroll(4, 8))) ident = TRUE;
+			if (hp_player(creature_ptr, diceroll(4, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, (creature_ptr->cut / 2) - 50)) ident = TRUE;
@@ -1075,7 +1075,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
-			if (hp_player(creature_ptr, damroll(6, 8))) ident = TRUE;
+			if (hp_player(creature_ptr, diceroll(6, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
@@ -1802,7 +1802,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_LIGHT:
 		{
-			if (lite_area(creature_ptr, damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -2349,7 +2349,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_STARLITE:
 		{
-			int num = damroll(5, 3);
+			int num = diceroll(5, 3);
 			int y, x;
 			int attempts;
 
@@ -2375,7 +2375,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					if (!creature_bold(creature_ptr, y, x)) break;
 				}
 
-				project(creature_ptr, 0, y, x, damroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(creature_ptr, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2384,7 +2384,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_LITE:
 		{
-			if (lite_area(creature_ptr, damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -2435,7 +2435,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (hp_player(creature_ptr, damroll(2, 8))) ident = TRUE;
+			if (hp_player(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -2857,7 +2857,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 	{
 		case SV_WAND_heal_other_creature:
 		{
-			if (heal_other_creature(cr_ptr, dir, damroll(10, 10))) ident = TRUE;
+			if (heal_other_creature(cr_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
 		}
 
@@ -2955,14 +2955,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_MISSILE, dir, damroll(2 + cr_ptr->lev / 10, 6));
+			fire_bolt_or_beam(cr_ptr, 20, GF_MISSILE, dir, diceroll(2 + cr_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_ACID, dir, diceroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
@@ -2976,14 +2976,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_FIRE, dir, diceroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(cr_ptr, 20, GF_COLD, dir, diceroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
@@ -3102,7 +3102,7 @@ msg_print("ロケットを発射した！");
 
 		case SV_WAND_STRIKING:
 		{
-			fire_bolt(cr_ptr, GF_METEOR, dir, damroll(15 + cr_ptr->lev / 3, 13));
+			fire_bolt(cr_ptr, GF_METEOR, dir, diceroll(15 + cr_ptr->lev / 3, 13));
 			ident = TRUE;
 			break;
 		}
@@ -3352,7 +3352,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_ILLUMINATION:
 		{
-			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(cr_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -3473,28 +3473,28 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_ACID_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_ACID, dir, diceroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_ELEC, dir, damroll(4 + cr_ptr->lev / 9, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_ELEC, dir, diceroll(4 + cr_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_FIRE, dir, diceroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(cr_ptr, 10, GF_COLD, dir, diceroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
@@ -4109,7 +4109,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				msg_print("The phial wells with clear light...");
 #endif
 
-				lite_area(creature_ptr, damroll(2, 15), 3);
+				lite_area(creature_ptr, diceroll(2, 15), 3);
 				o_ptr->timeout = randint0(10) + 10;
 				break;
 			}
@@ -4123,7 +4123,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #endif
 
 				map_area(creature_ptr, DETECT_RAD_MAP);
-				lite_area(creature_ptr, damroll(2, 15), 3);
+				lite_area(creature_ptr, diceroll(2, 15), 3);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -4139,10 +4139,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 #ifdef JP
 				msg_print("その宝石はあなたの体力を奪った...");
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(3,8), "審判の宝石", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(3,8), "審判の宝石", NULL, -1);
 #else
 				msg_print("The Jewel drains your vitality...");
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(3, 8), "the Jewel of Judgement", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "the Jewel of Judgement", NULL, -1);
 #endif
 
 				(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
@@ -4290,7 +4290,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_RAZORBACK:
 			{
-				int num = damroll(5, 3);
+				int num = diceroll(5, 3);
 				int y, x;
 				int attempts;
 
@@ -4548,7 +4548,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_MISSILE, dir, damroll(2, 6));
+				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
 			}
@@ -4562,7 +4562,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			}
@@ -4576,7 +4576,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, damroll(6, 8));
+				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			}
@@ -4590,7 +4590,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			}
@@ -4604,7 +4604,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ACID, dir, damroll(5, 8));
+				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
 			}
@@ -4659,7 +4659,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			}
@@ -4673,7 +4673,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, damroll(6, 8));
+				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			}
@@ -4687,7 +4687,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			}
@@ -4905,7 +4905,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your battle axe radiates deep purple...");
 #endif
 
-				hp_player(creature_ptr, damroll(4, 8));
+				hp_player(creature_ptr, diceroll(4, 8));
 				(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
 				o_ptr->timeout = randint0(3) + 3;
 				break;
@@ -5185,9 +5185,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "危険な秘密", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), "危険な秘密", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "perilous secrets", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), "perilous secrets", NULL, -1);
 #endif
 
 				/* Confusing. */
@@ -5197,9 +5197,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				/* Exercise a little care... */
 				if (one_in_(20))
 #ifdef JP
-					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "危険な秘密", NULL, -1);
+					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "危険な秘密", NULL, -1);
 #else
-					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "perilous secrets", NULL, -1);
+					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "perilous secrets", NULL, -1);
 #endif
 				o_ptr->timeout = 0;
 				break;
@@ -5536,7 +5536,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your sword glows a pale blue...");
 #endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, damroll(12, 8));
+				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(12, 8));
 				o_ptr->timeout = 50;
 				break;
 			}
@@ -5808,7 +5808,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			energy_use = 0;
 			return;
 		}
-		lite_area(creature_ptr, damroll(2, 15), 3);
+		lite_area(creature_ptr, diceroll(2, 15), 3);
 		o_ptr->timeout = randint0(10) + 10;
 
 		/* Window stuff */
@@ -6083,27 +6083,27 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_RING_MAGIC_MIS:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_MISSILE, dir, damroll(2, 6));
+				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
 			case EGO_RING_FIRE_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_FIRE, dir, damroll(9, 8));
+				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			case EGO_RING_COLD_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, damroll(6, 8));
+				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			case EGO_RING_ELEC_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ELEC, dir, damroll(4, 8));
+				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			case EGO_RING_ACID_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ACID, dir, damroll(5, 8));
+				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
 			case EGO_RING_MANA_BOLT:

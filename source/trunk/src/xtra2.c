@@ -804,7 +804,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 			int typ = mbe_info[killed_ptr->blow[i].effect].explode_type;
 			int d_dice = killed_ptr->blow[i].d_dice;
 			int d_side = killed_ptr->blow[i].d_side;
-			int damage = damroll(d_dice, d_side);
+			int damage = diceroll(d_dice, d_side);
 
 			//TODO
 			//project(m_idx, 3, y, x, damage, typ, flg, -1);
@@ -1168,7 +1168,7 @@ msg_print("ínñ Ç…óéÇ∆Ç≥ÇÍÇΩÅB");
 		{
 			/*TODO
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-			(void)project(m_idx, 3, y, x, damroll(20, 10), GF_FIRE, flg, -1);
+			(void)project(m_idx, 3, y, x, diceroll(20, 10), GF_FIRE, flg, -1);
 			*/
 		}
 		break;

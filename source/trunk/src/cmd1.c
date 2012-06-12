@@ -1091,7 +1091,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				sound(SOUND_FALL);
-				dam = damroll(2, 8);
+				dam = diceroll(2, 8);
 #ifdef JP
 				name = "落とし戸";
 #else
@@ -1136,7 +1136,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("You have fallen into a pit!");
 #endif
 
-				dam = damroll(2, 6);
+				dam = diceroll(2, 6);
 #ifdef JP
 				name = "落とし穴";
 #else
@@ -1175,7 +1175,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				name = "a pit trap";
 #endif
 
-				dam = damroll(2, 6);
+				dam = diceroll(2, 6);
 
 				/* Extra spike damage */
 				if (randint0(100) < 50)
@@ -1224,7 +1224,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 
 				/* Base damage */
-				dam = damroll(2, 6);
+				dam = diceroll(2, 6);
 
 #ifdef JP
 				name = "落とし穴";
@@ -1325,7 +1325,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print("You are enveloped in flames!");
 #endif
 
-			dam = damroll(4, 6);
+			dam = diceroll(4, 6);
 #ifdef JP
 			(void)fire_dam(creature_ptr, dam, "炎のトラップ", -1);
 #else
@@ -1343,7 +1343,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print("You are splashed with acid!");
 #endif
 
-			dam = damroll(4, 6);
+			dam = diceroll(4, 6);
 #ifdef JP
 			(void)acid_dam(creature_ptr, dam, "酸のトラップ", -1);
 #else
@@ -1363,7 +1363,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 
-				dam = damroll(1, 4);
+				dam = diceroll(1, 4);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
@@ -1394,7 +1394,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 
-				dam = damroll(1, 4);
+				dam = diceroll(1, 4);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
@@ -1425,7 +1425,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 
-				dam = damroll(1, 4);
+				dam = diceroll(1, 4);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
@@ -1456,7 +1456,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 
-				dam = damroll(1, 4);
+				dam = diceroll(1, 4);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
@@ -1726,7 +1726,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1751,7 +1751,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1777,7 +1777,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1899,7 +1899,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 
-		k = damroll(ddd, dss);
+		k = diceroll(ddd, dss);
 		k = critical_norm(atk_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 
 		/* Apply the player damage bonuses */
@@ -2058,7 +2058,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 		if (atk_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
-		k = damroll(ma_ptr->dd + atk_ptr->to_dd[hand], ma_ptr->ds + atk_ptr->to_ds[hand]);
+		k = diceroll(ma_ptr->dd + atk_ptr->to_dd[hand], ma_ptr->ds + atk_ptr->to_ds[hand]);
 		if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
 		if (ma_ptr->effect == MA_KNEE)
@@ -2463,7 +2463,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		// Handle normal weapon
 		if (weapon_ptr->k_idx)
 		{
-			k = damroll(weapon_ptr->dd + atk_ptr->to_dd[hand], weapon_ptr->ds + atk_ptr->to_ds[hand]);
+			k = diceroll(weapon_ptr->dd + atk_ptr->to_dd[hand], weapon_ptr->ds + atk_ptr->to_ds[hand]);
 			k = tot_dam_aux(atk_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
 
 			if (backstab)
@@ -2789,7 +2789,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				if (drain_result > 5) /* Did we really hurt it? */
 				{
-					drain_heal = damroll(2, drain_result / 6);
+					drain_heal = diceroll(2, drain_result / 6);
 
 					/* Hex */
 					if (hex_spelling(atk_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
@@ -3032,7 +3032,7 @@ static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 #else
 			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
 #endif
-			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
+			k = diceroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 			if (wizard)
 			{

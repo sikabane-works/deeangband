@@ -278,26 +278,26 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 
 	if (die < 8) clone_creature(cr_ptr, dir);
 	else if (die < 14) speed_other_creature(cr_ptr, dir);
-	else if (die < 26) heal_other_creature(cr_ptr, dir, damroll(4, 6));
+	else if (die < 26) heal_other_creature(cr_ptr, dir, diceroll(4, 6));
 	else if (die < 31) poly_creature(cr_ptr, dir);
 	else if (die < 36)
 		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
-				  damroll(3 + ((plev - 1) / 5), 4));
+				  diceroll(3 + ((plev - 1) / 5), 4));
 	else if (die < 41) confuse_creature(cr_ptr, dir, plev);
 	else if (die < 46) fire_ball(cr_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
 	else if (die < 51) (void)lite_line(cr_ptr, dir);
 	else if (die < 56)
 		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_ELEC, dir,
-				  damroll(3 + ((plev - 5) / 4), 8));
+				  diceroll(3 + ((plev - 5) / 4), 8));
 	else if (die < 61)
 		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_COLD, dir,
-				  damroll(5 + ((plev - 5) / 4), 8));
+				  diceroll(5 + ((plev - 5) / 4), 8));
 	else if (die < 66)
 		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_ACID, dir,
-				  damroll(6 + ((plev - 5) / 4), 8));
+				  diceroll(6 + ((plev - 5) / 4), 8));
 	else if (die < 71)
 		fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_FIRE, dir,
-				  damroll(8 + ((plev - 5) / 4), 8));
+				  diceroll(8 + ((plev - 5) / 4), 8));
 	else if (die < 76) drain_life(cr_ptr, dir, 75);
 	else if (die < 81) fire_ball(cr_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
 	else if (die < 86) fire_ball(cr_ptr, GF_ACID, dir, 40 + plev, 2);
@@ -400,7 +400,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	else if (die < 36)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir,
-				  damroll(3 + ((plev - 1) / 5), 4));
+				  diceroll(3 + ((plev - 1) / 5), 4));
 	}
 	else if (die < 41)
 	{
@@ -417,22 +417,22 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	else if (die < 56)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir,
-				  damroll(3+((plev-5)/4),8));
+				  diceroll(3+((plev-5)/4),8));
 	}
 	else if (die < 61)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir,
-				  damroll(5+((plev-5)/4),8));
+				  diceroll(5+((plev-5)/4),8));
 	}
 	else if (die < 66)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir,
-				  damroll(6+((plev-5)/4),8));
+				  diceroll(6+((plev-5)/4),8));
 	}
 	else if (die < 71)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir,
-				  damroll(8+((plev-5)/4),8));
+				  diceroll(8+((plev-5)/4),8));
 	}
 	else if (die < 76)
 	{
@@ -526,7 +526,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 12:
 	case 13:
 	case 14:
-		lite_area(cr_ptr, damroll(2, 3), 2);
+		lite_area(cr_ptr, diceroll(2, 3), 2);
 		break;
 	case 15:
 		destroy_doors_touch(cr_ptr);
@@ -1213,7 +1213,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, damroll(dice, sides));
+				hp_player(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, creature_ptr->cut - 10);
 			}
 		}
@@ -1258,7 +1258,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
-				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -1281,7 +1281,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(creature_ptr, damroll(dice, sides), rad);
+				lite_area(creature_ptr, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -1326,7 +1326,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, damroll(dice, sides));
+				hp_player(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, (creature_ptr->cut / 2) - 20);
 			}
 		}
@@ -1408,7 +1408,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
-				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(sides, dice), 0);
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(sides, dice), 0);
 			}
 		}
 		break;
@@ -1430,7 +1430,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, damroll(dice, sides));
+				hp_player(creature_ptr, diceroll(dice, sides));
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 			}
@@ -1595,7 +1595,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				dispel_undead(creature_ptr, damroll(dice, sides));
+				dispel_undead(creature_ptr, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -1639,7 +1639,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
-				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
+				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -1978,7 +1978,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(cr_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -2650,7 +2650,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_beam(caster_ptr, GF_ELEC, dir, damroll(dice, sides));
+				fire_beam(caster_ptr, GF_ELEC, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -2725,7 +2725,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(caster_ptr, damroll(dice, sides), rad);
+				lite_area(caster_ptr, diceroll(dice, sides), rad);
 
 				if (has_cf_creature(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
 				{
@@ -2736,9 +2736,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "“ú‚ÌŒõ", NULL, -1);
+					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "“ú‚ÌŒõ", NULL, -1);
 #else
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "daylight", NULL, -1);
+					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "daylight", NULL, -1);
 #endif
 				}
 			}
@@ -2808,7 +2808,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(caster_ptr, damroll(dice, sides));
+				hp_player(caster_ptr, diceroll(dice, sides));
 				set_cut(caster_ptr, 0);
 				set_poisoned(caster_ptr, 0);
 			}
@@ -2858,7 +2858,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
-				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_COLD, dir, damroll(dice, sides));
+				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_COLD, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -2907,7 +2907,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
-				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_FIRE, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -3414,7 +3414,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -3458,7 +3458,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(cr_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -3519,7 +3519,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_MISSILE, dir, damroll(dice, sides) + base, rad);
+				fire_ball(cr_ptr, GF_MISSILE, dir, diceroll(dice, sides) + base, rad);
 
 				/*
 				 * Shouldn't actually use GF_MANA, as
@@ -3549,7 +3549,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_FIRE, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -3574,7 +3574,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(cr_ptr, GF_DISINTEGRATE, dir,
-					damroll(dice, sides), 0);
+					diceroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -3641,7 +3641,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_CHAOS, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_CHAOS, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -3693,7 +3693,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(cr_ptr, GF_MANA, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_MANA, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -3830,7 +3830,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				for (dir = 0; dir <= 9; dir++)
-					fire_beam(cr_ptr, GF_ELEC, dir, damroll(dice, sides));
+					fire_beam(cr_ptr, GF_ELEC, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -4016,7 +4016,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_beam(cr_ptr, GF_GRAVITY, dir, damroll(dice, sides));
+				fire_beam(cr_ptr, GF_GRAVITY, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -4247,7 +4247,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 				 * travel to the monster.
 				 */
 
-				fire_ball(cr_ptr, GF_HELL_FIRE, dir, damroll(dice, sides), rad);
+				fire_ball(cr_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides), rad);
 
 				if (one_in_(5))
 				{
@@ -4432,7 +4432,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_OLD_DRAIN, dir, damroll(dice, dice) + base, rad);
+				fire_ball(cr_ptr, GF_OLD_DRAIN, dir, diceroll(dice, dice) + base, rad);
 			}
 		}
 		break;
@@ -4456,7 +4456,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -4541,7 +4541,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				int dam = base + damroll(dice, sides);
+				int dam = base + diceroll(dice, sides);
 
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
@@ -4671,7 +4671,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_DARK, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_DARK, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -5965,7 +5965,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_ELEC, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -6070,7 +6070,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(cr_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -6111,7 +6111,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
+				hp_player(cr_ptr, diceroll(dice, sides));
 				set_cut(cr_ptr, cr_ptr->cut - 10);
 			}
 		}
@@ -6339,7 +6339,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(cr_ptr, damroll(dice, sides));
+				hp_player(cr_ptr, diceroll(dice, sides));
 				set_cut(cr_ptr, (cr_ptr->cut / 2) - 50);
 			}
 		}
@@ -7388,7 +7388,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -7499,7 +7499,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -7557,7 +7557,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_ball(cr_ptr, GF_HELL_FIRE, dir, damroll(dice, sides) + base, rad);
+				fire_ball(cr_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides) + base, rad);
 			}
 		}
 		break;
@@ -7646,7 +7646,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_PLASMA, dir, damroll(dice, sides));
+				fire_bolt_or_beam(cr_ptr, beam_chance(cr_ptr), GF_PLASMA, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -8176,7 +8176,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -8377,7 +8377,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				fire_ball(creature_ptr, GF_HOLY_FIRE, dir, damroll(dice, sides) + base, rad);
+				fire_ball(creature_ptr, GF_HOLY_FIRE, dir, diceroll(dice, sides) + base, rad);
 			}
 		}
 		break;
@@ -9047,7 +9047,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_bolt(caster_ptr, GF_SOUND, dir, damroll(dice, sides));
+				fire_bolt(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -9082,7 +9082,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				stun_creatures(caster_ptr, damroll(dice, sides));
+				stun_creatures(caster_ptr, diceroll(dice, sides));
 			}
 		}
 
@@ -9118,7 +9118,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(caster_ptr, damroll(dice, sides));
+				hp_player(caster_ptr, diceroll(dice, sides));
 			}
 		}
 
@@ -9151,7 +9151,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("Your uplifting song brings brightness to dark places...");
 #endif
 
-				lite_area(caster_ptr, damroll(dice, sides), rad);
+				lite_area(caster_ptr, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -9337,7 +9337,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(caster_ptr, GF_PSI, damroll(dice, sides));
+				project_hack(caster_ptr, GF_PSI, diceroll(dice, sides));
 			}
 		}
 
@@ -9483,7 +9483,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				project_hack(caster_ptr, GF_SOUND, damroll(dice, sides));
+				project_hack(caster_ptr, GF_SOUND, diceroll(dice, sides));
 			}
 		}
 
@@ -9545,7 +9545,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				charm_creatures(caster_ptr, damroll(dice, sides));
+				charm_creatures(caster_ptr, diceroll(dice, sides));
 			}
 		}
 
@@ -9819,7 +9819,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_beam(caster_ptr, GF_SOUND, dir, damroll(dice, sides));
+				fire_beam(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -10011,7 +10011,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				dispel_creatures(caster_ptr, damroll(dice, sides));
+				dispel_creatures(caster_ptr, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -10046,7 +10046,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(caster_ptr, damroll(dice, sides));
+				hp_player(caster_ptr, diceroll(dice, sides));
 				set_stun(caster_ptr, 0);
 				set_cut(caster_ptr, 0);
 			}
@@ -10108,7 +10108,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fire_ball(caster_ptr, GF_SOUND, dir, damroll(dice, sides), rad);
+				fire_ball(caster_ptr, GF_SOUND, dir, diceroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -11482,7 +11482,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, damroll(1, 10));
+			hp_player(creature_ptr, diceroll(1, 10));
 			set_cut(creature_ptr, creature_ptr->cut - 10);
 		}
 		break;
@@ -11789,7 +11789,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, damroll(2, 10));
+			hp_player(creature_ptr, diceroll(2, 10));
 			set_cut(creature_ptr, (creature_ptr->cut / 2) - 10);
 		}
 		break;
@@ -11966,7 +11966,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, damroll(4, 10));
+			hp_player(creature_ptr, diceroll(4, 10));
 			set_stun(creature_ptr, 0);
 			set_cut(creature_ptr, 0);
 			set_poisoned(creature_ptr, 0);
