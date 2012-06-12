@@ -4296,8 +4296,6 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	return 0;
 }
 
-
-#ifdef ALLOW_AUTOROLLER
 static bool get_stat_limits(creature_type *creature_ptr)
 {
 	int i, j, m, cs, os;
@@ -4566,9 +4564,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 
 	return TRUE;
 }
-#endif
 
-#ifdef ALLOW_AUTOROLLER
 static bool get_chara_limits(creature_type *creature_ptr)
 {
 #define MAXITEMS 8
@@ -4873,7 +4869,6 @@ static bool get_chara_limits(creature_type *creature_ptr)
 
 	return TRUE;
 }
-#endif
 
 #define HISTPREF_LIMIT 1024
 static char *histpref_buf = NULL;
@@ -5370,8 +5365,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		screen_load();
 
-#ifdef ALLOW_AUTOROLLER
-
 		/*** Autoroll ***/
 
 		if (autoroller || autochara)
@@ -5390,8 +5383,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		{
 			if (!get_chara_limits(creature_ptr)) return FALSE;
 		}
-
-#endif /* ALLOW_AUTOROLLER */
 
 		/* Clear */
 		clear_from(0);
