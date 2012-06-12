@@ -5923,7 +5923,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
  * This function will not exit until the level is completed,
  * the user dies, or the game is terminated.
  */
-static void turn_loop(bool load_game)
+static void turn_loop(floor_type *floor_ptr, bool load_game)
 {
 
 	/* Main loop */
@@ -5997,10 +5997,10 @@ static void turn_loop(bool load_game)
 		// Count game turns
 		turn++;
 
-		if (current_floor_ptr->floor_turn < current_floor_ptr->floor_turn_limit)
+		if (floor_ptr->floor_turn < floor_ptr->floor_turn_limit)
 		{
-			if (!wild_mode || wild_regen) current_floor_ptr->floor_turn++;
-			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) current_floor_ptr->floor_turn++;
+			if (!wild_mode || wild_regen) floor_ptr->floor_turn++;
+			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) floor_ptr->floor_turn++;
 		}
 
 		prevent_turn_overflow(player_ptr);
@@ -6695,7 +6695,7 @@ static void play_loop(void)
 		/* Initialize monster process */
 		creature_process_init();
 
-		turn_loop(load_game); // Process the level, Turn loop
+		turn_loop(floor_ptr, load_game); // Process the level, Turn loop
 
 		// Inside a quest and non-unique questor?
 		if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
