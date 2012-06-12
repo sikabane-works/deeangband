@@ -1248,9 +1248,7 @@ static void rd_extra(void)
 
 	/* Current turn */
 	rd_s32b(&turn);
-	rd_s32b(&current_floor_ptr->dungeon_turn);
 	rd_s32b(&turn_limit);
-	rd_s32b(&current_floor_ptr->dungeon_turn_limit);
 	rd_s32b(&old_battle);
 	rd_s16b(&today_mon);
 
@@ -1365,6 +1363,9 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->num_repro);
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
+
+	rd_s32b(&floor_ptr->dungeon_turn);
+	rd_s32b(&floor_ptr->dungeon_turn_limit);
 
 	/*** Read template for cave_type ***/
 
