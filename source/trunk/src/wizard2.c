@@ -12,6 +12,33 @@
 
 #include "angband.h"
 
+/*
+ * Strip an "object name" into a buffer
+ */
+void strip_name(char *buf, int k_idx)
+{
+	char *t;
+
+	object_kind *k_ptr = &object_kind_info[k_idx];
+
+	cptr str = (object_kind_name + k_ptr->name);
+
+
+	/* Skip past leading characters */
+	while ((*str == ' ') || (*str == '&')) str++;
+
+	/* Copy useful chars */
+	for (t = buf; *str; str++)
+	{
+#ifdef JP
+		if (iskanji(*str)) {*t++ = *str++; *t++ = *str; continue;}
+#endif
+		if (*str != '~') *t++ = *str;
+	}
+
+	/* Terminate the new name */
+	*t = '\0';
+}
 
 
 /*
@@ -638,36 +665,6 @@ static tval_desc tvals[] =
 	{ TV_WHEEL,             "Wheel"                },
 	{ 0,                    NULL                   }
 };
-
-
-/*
- * Strip an "object name" into a buffer
- */
-void strip_name(char *buf, int k_idx)
-{
-	char *t;
-
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	cptr str = (object_kind_name + k_ptr->name);
-
-
-	/* Skip past leading characters */
-	while ((*str == ' ') || (*str == '&')) str++;
-
-	/* Copy useful chars */
-	for (t = buf; *str; str++)
-	{
-#ifdef JP
-		if (iskanji(*str)) {*t++ = *str++; *t++ = *str; continue;}
-#endif
-		if (*str != '~') *t++ = *str;
-	}
-
-	/* Terminate the new name */
-	*t = '\0';
-}
-
 
 /*
  * Specify tval and sval (type and subtype of object) originally

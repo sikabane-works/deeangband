@@ -196,18 +196,11 @@
  */
 /* #define VERIFY_SAVEFILE */
 
-
-
 /*
  * OPTION: Hack -- Compile in support for "Cyborg" mode
  */
 
 #ifdef USE_DEBUG
-
-/*
- * OPTION: Hack -- Compile in support for "Wizard Commands"
- */
-#define ALLOW_WIZARD
 
 /*
  * OPTION: Hack -- Compile in support for "Spoiler Generation"
