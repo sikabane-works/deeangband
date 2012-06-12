@@ -2609,6 +2609,9 @@ static void get_money(creature_type *creature_ptr)
 	// Minimum 100 gold 
 	if (gold < 100) gold = 100;
 
+	// Level Bonus
+	for(i = 1; i < creature_ptr->lev; i++) gold += (damroll(creature_ptr->lev, 6) * creature_ptr->lev / 2);
+
 	if (creature_ptr->chara_idx == CHARA_NAMAKE)
 		gold /= 2;
 	else if (creature_ptr->chara_idx == CHARA_MUNCHKIN)

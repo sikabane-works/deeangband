@@ -5228,9 +5228,6 @@ prt(" '?' ‚Åƒwƒ‹ƒv‚ª•\¦‚³‚ê‚Ü‚·B", 0, 0);
 		now_message = old_now_message;
 }
 
-
-
-
 static bool creature_tsuri(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
@@ -5240,7 +5237,6 @@ static bool creature_tsuri(int species_idx)
 	else
 		return FALSE;
 }
-
 
 // Hack -- Pack Overflow
 static void pack_overflow(creature_type *creature_ptr)

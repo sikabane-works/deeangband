@@ -1473,7 +1473,6 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
 			if (is_guardian_species(r_ptr)) continue;
 			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Monsters never appear out of depth
-
 		}
 
 		/* Accept this monster */
