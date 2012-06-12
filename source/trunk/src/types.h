@@ -1924,8 +1924,8 @@ typedef struct
 	s16b height;
 	s16b num_repro;       // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
-	s32b dungeon_turn;	     // Game turn in dungeon
-	s32b dungeon_turn_limit; // Limit of game turn in dungeon
+	s32b floor_turn;	     // Game turn in dungeon
+	s32b floor_turn_limit; // Limit of game turn in dungeon
 } floor_type;
 
 

@@ -1364,8 +1364,8 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
 
-	rd_s32b(&floor_ptr->dungeon_turn);
-	rd_s32b(&floor_ptr->dungeon_turn_limit);
+	rd_s32b(&floor_ptr->floor_turn);
+	rd_s32b(&floor_ptr->floor_turn_limit);
 
 	/*** Read template for cave_type ***/
 

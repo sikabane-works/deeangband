@@ -1528,6 +1528,9 @@ void generate_floor(floor_type *floor_ptr)
 {
 	int num;
 
+	floor_ptr->floor_turn = 1;
+	floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
+
 	// Fill the arrays of floors and walls in the good proportions
 	set_floor_and_wall(floor_ptr->dun_type);
 

@@ -1690,10 +1690,10 @@ s16b get_species_num(int level)
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	if ((current_floor_ptr->dungeon_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
+	if ((current_floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
 	{
-		pls_kakuritu = MAX(2, NASTY_MON - ((current_floor_ptr->dungeon_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
-		pls_level = MIN(8, 3 + current_floor_ptr->dungeon_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
+		pls_kakuritu = MAX(2, NASTY_MON - ((current_floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+		pls_level = MIN(8, 3 + current_floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
 	}
 	else
 	{

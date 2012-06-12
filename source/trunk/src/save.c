@@ -852,8 +852,8 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_u16b(floor_ptr->height);
 	wr_u16b(floor_ptr->width);
 
-	wr_s32b(floor_ptr->dungeon_turn);
-	wr_s32b(floor_ptr->dungeon_turn_limit);
+	wr_s32b(floor_ptr->floor_turn);
+	wr_s32b(floor_ptr->floor_turn_limit);
 
 	/*********** Make template for cave_type **********/
 

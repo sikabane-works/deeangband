@@ -2930,9 +2930,6 @@ static void init_turn(creature_type *creature_ptr)
 		turn = 1;
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 	}
-
-	current_floor_ptr->dungeon_turn = 1;
-	current_floor_ptr->dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 }
 
 static int wield_one(creature_type *creature_ptr, int item, u32b flags)
