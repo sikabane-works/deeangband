@@ -967,6 +967,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 	int select_flag;
 	int item_tester_tval;
 
+	bool over_exerted = FALSE;
+
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cptr prayer;
 
@@ -1180,9 +1182,19 @@ msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 
 	}
 
-
 	/* Spell failure chance */
 	chance = spell_chance(creature_ptr, spell, use_realm);
+
+	/* Sufficient mana */
+	if (need_mana <= creature_ptr->csp)
+	{
+		/* Use some mana */
+		creature_ptr->csp -= need_mana;
+	}
+	else
+	{
+		over_exerted = TRUE;
+	}
 
 	/* Failed spell */
 	if (randint0(100) < chance)
@@ -1308,15 +1320,8 @@ msg_print("An infernal sound echoed.");
 	/* Take a turn */
 	energy_use = 100;
 
-	/* Sufficient mana */
-	if (need_mana <= creature_ptr->csp)
-	{
-		/* Use some mana */
-		creature_ptr->csp -= need_mana;
-	}
-
 	/* Over-exert the player */
-	else
+	if(over_exerted)
 	{
 		int oops = need_mana;
 
@@ -1326,7 +1331,7 @@ msg_print("An infernal sound echoed.");
 
 		/* Message */
 #ifdef JP
-msg_print("精神を集中しすぎて気を失ってしまった！");
+		msg_print("精神を集中しすぎて気を失ってしまった！");
 #else
 		msg_print("You faint from the effort!");
 #endif
