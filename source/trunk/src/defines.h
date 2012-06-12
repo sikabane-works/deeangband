@@ -4326,21 +4326,6 @@ extern int PlayerUID;
 
 
 /*
- * Hack -- attempt to reduce various values
- */
-#ifdef ANGBAND_LITE
-# undef MACRO_MAX
-# define MACRO_MAX      128
-# undef QUARK_MAX
-# define QUARK_MAX      128
-# undef MESSAGE_MAX
-# define MESSAGE_MAX    128
-# undef MESSAGE_BUF
-# define MESSAGE_BUF    4096
-#endif
-
-
-/*
  * Buildings actions
  */
 #define BACT_NOTHING                 0
