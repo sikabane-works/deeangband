@@ -243,10 +243,6 @@
 # undef PATH_SEP
 # define PATH_SEP "/"
 #endif
-#ifdef VM
-# undef PATH_SEP
-# define PATH_SEP ""
-#endif
 
 
 /*

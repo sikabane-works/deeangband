@@ -1448,12 +1448,6 @@ bool save_player(void)
 	strcpy(safe, savefile);
 	strcat(safe, ".new");
 
-#ifdef VM
-	/* Hack -- support "flat directory" usage on VM/ESA */
-	strcpy(safe, savefile);
-	strcat(safe, "n");
-#endif /* VM */
-
 	/* Grab permissions */
 	safe_setuid_grab();
 
@@ -1473,12 +1467,6 @@ bool save_player(void)
 		/* Old savefile */
 		strcpy(temp, savefile);
 		strcat(temp, ".old");
-
-#ifdef VM
-		/* Hack -- support "flat directory" usage on VM/ESA */
-		strcpy(temp, savefile);
-		strcat(temp, "o");
-#endif /* VM */
 
 		/* Grab permissions */
 		safe_setuid_grab();
