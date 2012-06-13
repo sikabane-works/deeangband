@@ -210,11 +210,6 @@
 #endif /* USE_DEBUG */
 
 /*
- * OPTION: Allow "do_cmd_colors" at run-time
- */
-#define ALLOW_COLORS
-
-/*
  * OPTION: Allow "do_cmd_visuals" at run-time
  */
 #define ALLOW_VISUALS

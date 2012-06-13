@@ -4515,15 +4515,12 @@ void do_cmd_colors(void)
 		prt("(1) Load a user pref file", 4, 5);
 #endif
 
-#ifdef ALLOW_COLORS
 #ifdef JP
 		prt("(2) カラーの設定をファイルに書き出す", 5, 5);
 		prt("(3) カラーの設定を変更する", 6, 5);
 #else
 		prt("(2) Dump colors", 5, 5);
 		prt("(3) Modify colors", 6, 5);
-#endif
-
 #endif
 
 		/* Prompt */
@@ -4575,8 +4572,6 @@ void do_cmd_colors(void)
 			Term_redraw();
 		}
 
-#ifdef ALLOW_COLORS
-
 		/* Dump colors */
 		else if (i == '2')
 		{
@@ -4589,14 +4584,12 @@ void do_cmd_colors(void)
 			prt("Command: Dump colors", 8, 0);
 #endif
 
-
 			/* Prompt */
 #ifdef JP
 			prt("ファイル: ", 10, 0);
 #else
 			prt("File: ", 10, 0);
 #endif
-
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -4755,8 +4748,6 @@ void do_cmd_colors(void)
 				Term_redraw();
 			}
 		}
-
-#endif
 
 		/* Unknown option */
 		else
