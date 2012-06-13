@@ -184,7 +184,7 @@ static bool item_tester_hook_hand(creature_type *cr_ptr, object_type *o_ptr)
 // Wield or wear a single item from the pack or floor
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int i, n, item, slot;
+	int i, n, item, slot, old_item;
 	object_type forge, *q_ptr, *o_ptr, *old_equipped_ptr;
 
 	cptr act;
@@ -232,6 +232,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 	update_creature(cr_ptr, TRUE);
 
 	old_equipped_ptr = get_equipped_slot_ptr(cr_ptr, object_kind_info[o_ptr->k_idx].slot, n);
+	old_item = get_equipped_slot_idx(cr_ptr, object_kind_info[o_ptr->k_idx].slot, n);
+
 
 	// Prevent wielding into a cursed slot
 	if (object_is_cursed(old_equipped_ptr))
@@ -317,34 +319,19 @@ void do_cmd_wield(creature_type *cr_ptr)
 	}
 
 	energy_use = 100;          // Take a turn
-	q_ptr = &forge;            // Get local object
-	object_copy(q_ptr, o_ptr); // Obtain local object
-	q_ptr->number = 1;         // Modify quantity
 
 	o_ptr->marked |= OM_TOUCHED;   // Player touches it
 	calc_inventory_weight(cr_ptr); // Increase the weight
 	cr_ptr->equip_cnt++;           // Increment the equip counter by hand
+	cr_ptr->equip_now[item] = n;
+	cr_ptr->equip_now[old_item] = 0;
 
-#ifdef JP
-#define STR_WIELD_RARM "%s(%c)を右手に装備した。"
-#define STR_WIELD_LARM "%s(%c)を左手に装備した。"
-#define STR_WIELD_ARMS "%s(%c)を両手で構えた。"
-#else
-#define STR_WIELD_RARM "You are wielding %s (%c) in your right hand."
-#define STR_WIELD_LARM "You are wielding %s (%c) in your left hand."
-#define STR_WIELD_ARMS "You are wielding %s (%c) with both hands."
-#endif
-
-	switch (slot) // Where is the item now
-	{
-		default:
 #ifdef JP
 		act = "%s(%c)を装備した。";
 #else
 		act = "You are wearing %s (%c).";
 #endif
-		break;
-	}
+
 
 	object_desc(o_name, o_ptr, 0); // Describe the result
 	msg_format(act, o_name, index_to_label(slot)); // Message
