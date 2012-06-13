@@ -36,9 +36,7 @@
  *
  * Compiling this file, and using the resulting executable, requires
  * several extra files not distributed with the standard Angband code.
- * If "USE_GRAPHICS" is defined, then "readdib.h" and "readdib.c" must
- * be placed into "src/", and the "oldest.BMP" bitmap file must be placed
- * into "lib/xtra/graf".  In any case, some "*.fon" files (including
+ * In any case, some "*.fon" files (including
  * "8X13.FON" if nothing else) must be placed into "lib/xtra/font/".
  * If "USE_SOUND" is defined, then some special library (for example,
  * "winmm.lib") may need to be linked in, and desired "*.WAV" sound
@@ -280,9 +278,7 @@
 /*
  * Include the support for loading bitmaps
  */
-#ifdef USE_GRAPHICS
 # include "readdib.h"
-#endif
 
 /*
  * Hack -- Fake declarations from "dos.h" XXX XXX XXX
@@ -502,8 +498,6 @@ static HWND hwndSaver;
 #endif /* USE_SAVER */
 
 
-#ifdef USE_GRAPHICS
-
 /*
  * Flag set once "graphics" has been initialized
  */
@@ -518,8 +512,6 @@ static DIBINIT infGraph;
  * The global bitmap mask
  */
 static DIBINIT infMask;
-
-#endif /* USE_GRAPHICS */
 
 
 #ifdef USE_SOUND
@@ -1436,8 +1428,6 @@ static int new_palette(void)
 	lppe = NULL;
 	nEntries = 0;
 
-#ifdef USE_GRAPHICS
-
 	/* Check the bitmap palette */
 	hBmPal = infGraph.hPalette;
 
@@ -1464,8 +1454,6 @@ static int new_palette(void)
 			return (FALSE);
 		}
 	}
-
-#endif /* USE_GRAPHICS */
 
 	/* Size of palette */
 	pLogPalSize = sizeof(LOGPALETTE) + (nEntries + 16) * sizeof(PALETTEENTRY);
@@ -1552,8 +1540,6 @@ static int new_palette(void)
 	return (TRUE);
 }
 
-
-#ifdef USE_GRAPHICS
 /*
  * Initialize graphics
  */
@@ -1659,8 +1645,6 @@ static bool init_graphics(void)
 	/* Result */
 	return (can_use_graphics);
 }
-#endif /* USE_GRAPHICS */
-
 
 #ifdef USE_SOUND
 /*
@@ -2086,8 +2070,6 @@ static errr Term_xtra_win_react(void)
 #endif
 
 
-#ifdef USE_GRAPHICS
-
 	/* Handle "arg_graphics" */
 	if (use_graphics != arg_graphics)
 	{
@@ -2111,8 +2093,6 @@ static errr Term_xtra_win_react(void)
 
 		reset_visuals();
 	}
-
-#endif /* USE_GRAPHICS */
 
 
 	/* Clean up windows */
@@ -2722,8 +2702,6 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 {
 	term_data *td = (term_data*)(Term->data);
 
-#ifdef USE_GRAPHICS
-
 	int i;
 	int x1, y1, w1, h1;
 	int x2, y2, w2, h2, tw2;
@@ -2881,13 +2859,6 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 
 	/* Release */
 	ReleaseDC(td->w, hdc);
-
-#else /* USE_GRAPHICS */
-
-	/* Just erase this grid */
-	return (Term_wipe_win(x, y, n));
-
-#endif /* USE_GRAPHICS */
 
 	/* Success */
 	return 0;
@@ -3400,7 +3371,6 @@ static void setup_menus(void)
 	CheckMenuItem(hm, IDM_OPTIONS_SAVER,   (hwndSaver ? MF_CHECKED : MF_UNCHECKED));
 #endif
 
-#ifdef USE_GRAPHICS
 	/* Menu "Options", Item "Graphics" */
 	EnableMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS, MF_ENABLED);
 	/* Menu "Options", Item "Graphics" */
@@ -3411,7 +3381,6 @@ static void setup_menus(void)
 	EnableMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS, MF_ENABLED);
 	/* Menu "Options", Item "Graphics" */
 	EnableMenuItem(hm, IDM_OPTIONS_BIGTILE, MF_ENABLED);
-#endif /* USE_GRAPHICS */
 
 #ifdef USE_SOUND
 	/* Menu "Options", Item "Sound" */
@@ -5159,14 +5128,11 @@ static void hook_quit(cptr str)
 	}
 
 	/* Free the bitmap stuff */
-#ifdef USE_GRAPHICS
 	if (infGraph.hPalette) DeleteObject(infGraph.hPalette);
 	if (infGraph.hBitmap) DeleteObject(infGraph.hBitmap);
 
 	if (infMask.hPalette) DeleteObject(infMask.hPalette);
 	if (infMask.hBitmap) DeleteObject(infMask.hBitmap);
-
-#endif /* USE_GRAPHICS */
 
 	/*** Free some other stuff ***/
 
@@ -5286,9 +5252,6 @@ static void init_stuff(void)
 	validate_file(path);
 #endif
 
-
-#ifdef USE_GRAPHICS
-
 	/* Build the "graf" path */
 	path_build(path, sizeof(path), ANGBAND_DIR_XTRA, "graf");
 
@@ -5297,9 +5260,6 @@ static void init_stuff(void)
 
 	/* Validate the "graf" directory */
 	validate_dir(ANGBAND_DIR_XTRA_GRAF, TRUE);
-
-#endif /* USE_GRAPHICS */
-
 
 #ifdef USE_SOUND
 

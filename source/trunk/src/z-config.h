@@ -94,7 +94,6 @@
  */
 /* #define USE_TCHARS */
 
-
 /*
  * OPTION: Include "ncurses.h" instead of "curses.h" in "main-gcu.c"
  */
@@ -206,11 +205,6 @@
  * OPTION: Allow the use of "sound" in various places.
  */
 #define USE_SOUND
-
-/*
- * OPTION: Allow the use of "graphics" in various places
- */
-#define USE_GRAPHICS
 
 /*
  * OPTION: Allow the use of "music" in various places
