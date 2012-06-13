@@ -3710,7 +3710,6 @@ static void print_visuals_menu(cptr choice_msg)
 	prt("(0) Load a user pref file", 3, 5);
 #endif
 
-#ifdef ALLOW_VISUALS
 #ifdef JP
 	prt("(1) モンスターの 色/文字 をファイルに書き出す", 4, 5);
 	prt("(2) アイテムの   色/文字 をファイルに書き出す", 5, 5);
@@ -3732,8 +3731,6 @@ static void print_visuals_menu(cptr choice_msg)
 	prt("(8) Change object attr/chars (visual mode)", 11, 5);
 	prt("(9) Change feature attr/chars (visual mode)", 12, 5);
 #endif
-
-#endif /* ALLOW_VISUALS */
 
 #ifdef JP
 	prt("(R) 画面表示方法の初期化", 13, 5);
@@ -3816,8 +3813,6 @@ void do_cmd_visuals(void)
 
 			need_redraw = TRUE;
 			break;
-
-#ifdef ALLOW_VISUALS
 
 		/* Dump monster attr/chars */
 		case '1':
@@ -4438,8 +4433,6 @@ void do_cmd_visuals(void)
 			do_cmd_knowledge_features(&need_redraw, TRUE, -1, &lighting_level);
 			break;
 		}
-
-#endif /* ALLOW_VISUALS */
 
 		/* Reset visuals */
 		case 'R':
