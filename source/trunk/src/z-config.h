@@ -210,21 +210,6 @@
 #endif /* USE_DEBUG */
 
 /*
- * OPTION: Allow parsing of the ascii template files in "init.c".
- * This must be defined if you do not have valid binary image files.
- * It should be usually be defined anyway to allow easy "updating".
- */
-#define ALLOW_TEMPLATES
-
-/*
- * OPTION: Allow loading of pre-2.7.0 savefiles.  Note that it takes
- * about 15K of code in "save-old.c" to parse the old savefile format.
- * Angband 2.8.0 will ignore a lot of info from pre-2.7.0 savefiles.
- */
-#define ALLOW_OLD_SAVEFILES
-
-
-/*
  * OPTION: Handle signals
  */
 #define HANDLE_SIGNALS
@@ -335,7 +320,7 @@
 */
 
 /*
- * OPTION: Capitalize the "usespecies_name" (for "default" player name)
+ * OPTION: Capitalize the "species_name" (for "default" player name)
  * This option is only relevant on SET_UID machines.
  */
 #define CAPITALIZE_USER_NAME
@@ -345,9 +330,9 @@
 /*
  * OPTION: Person to bother if something goes wrong.
  */
-/* #define MAINTAINER	"rr9@angband.org" */
-#define MAINTAINER	"echizen@users.sourceforge.jp"
-
+// #define MAINTAINER "rr9@angband.org"
+// #define MAINTAINER "echizen@users.sourceforge.jp"
+#define MAINTAINER "deskull@users.sourceforge.jp"
 
 #ifdef JP
 #ifndef USE_FONTSET

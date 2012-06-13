@@ -217,10 +217,6 @@ void init_file_paths(char *path)
 }
 
 
-
-#ifdef ALLOW_TEMPLATES
-
-
 /*
  * Hack -- help give useful error messages
  */
@@ -261,9 +257,6 @@ cptr err_str[PARSE_ERROR_MAX] =
 #endif
 
 };
-
-
-#endif /* ALLOW_TEMPLATES */
 
 
 /*
@@ -431,8 +424,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	/* General buffer */
 	char buf[20000];
 
-
-#ifdef ALLOW_TEMPLATES
 
 	/*** Load the binary image file ***/
 
@@ -607,9 +598,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if (text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
 		if (tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-#endif	/* ALLOW_TEMPLATES */
-
-
 		/*** Load the binary image file ***/
 
 		/* Build the filename */
@@ -644,9 +632,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
 #endif
 
-#ifdef ALLOW_TEMPLATES
 	}
-#endif
 
 	if (info) (*info) = head->info_ptr;
 	if (name) (*name) = head->name_ptr;
@@ -680,8 +666,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 	/* General buffer */
 	char buf[1024];
 
-
-#ifdef ALLOW_TEMPLATES
 
 	/*** Load the binary image file ***/
 
@@ -855,8 +839,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		if (text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
 		if (tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-#endif	/* ALLOW_TEMPLATES */
-
 
 		/*** Load the binary image file ***/
 
@@ -892,9 +874,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
 #endif
 
-#ifdef ALLOW_TEMPLATES
 	}
-#endif
 
 	if (info) (*info) = head->info_ptr;
 	if (name) (*name) = head->name_ptr;
@@ -916,15 +896,11 @@ static errr init_f_info(void)
 	/* Init the header */
 	init_header(&f_head, max_f_idx, sizeof(feature_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	f_head.parse_info_txt = parse_f_info;
 
 	/* Save a pointer to the retouch fake tags */
 	f_head.retouch = retouch_f_info;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info("f_info", &f_head,
 			 (void*)&f_info, &f_name, NULL, &f_tag);
@@ -939,12 +915,8 @@ static errr init_object_kind_info(void)
 	/* Init the header */
 	init_header(&object_kind_head, max_object_kind_idx, sizeof(object_kind));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	object_kind_head.parse_info_txt = parse_object_kind_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info2("object_kind_info", &object_kind_head, (void*)&object_kind_info, &object_kind_name, &object_kind_text, NULL, NULL);
 }
@@ -959,12 +931,8 @@ static errr init_artifact_info(void)
 	/* Init the header */
 	init_header(&artifact_head, max_artifact_idx, sizeof(artifact_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	artifact_head.parse_info_txt = parse_artifact_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info2("artifact_info", &artifact_head, (void*)&artifact_info, &artifact_name, &artifact_text, NULL, NULL);
 }
@@ -979,12 +947,8 @@ static errr init_object_ego_info(void)
 	/* Init the header */
 	init_header(&object_ego_head, max_e_idx, sizeof(ego_item_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	object_ego_head.parse_info_txt = parse_object_ego_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info2("object_ego_info", &object_ego_head, (void*)&object_ego_info, &object_ego_name, &object_ego_text, NULL, NULL);
 }
@@ -999,11 +963,9 @@ static errr init_creature_flag_csv(void)
 	// Init the header
 	init_header(&creature_flag_head, max_creature_flag_idx, sizeof(creature_flag_type));
 
-#ifdef ALLOW_TEMPLATES
 	// Save a pointer to the parsing function
 	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
 	creature_flag_head.parse_reprocess = reprocess_creature_flag;
-#endif
 
 	err = init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, &creature_flag_tmp, NULL);
 	if(err) return err;
@@ -1021,12 +983,8 @@ static errr init_species_info_csv(void)
 	/* Init the header */
 	init_header(&species_head, max_species_idx, sizeof(species_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	species_head.parse_info_txt = parse_species_info_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL, NULL);
 
@@ -1041,12 +999,8 @@ static errr init_re_info(void)
 	/* Init the header */
 	init_header(&re_head, max_creature_egobject_idx, sizeof(creature_ego));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	re_head.parse_info_txt = parse_re_info;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info("re_info", &re_head, (void*)&re_info, &re_name, &re_text, NULL);
 }
@@ -1059,12 +1013,8 @@ static errr init_store_pre_info_csv(void)
 	/* Init the header */
 	init_header(&st_head, max_store_idx, sizeof(store_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	st_head.parse_info_txt = parse_store_pre_info_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info2("store_pre_info", &st_head, (void*)&store_pre_info, &stp_name, &stp_text, NULL, NULL);
 
@@ -1079,12 +1029,8 @@ static errr init_rc_info(void)
 	/* Init the header */
 	init_header(&race_head, MAX_RACES, sizeof(race_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	race_head.parse_info_txt = parse_race_info_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL, NULL);
 
@@ -1103,12 +1049,8 @@ static errr init_authority_info(void)
 	/* Init the header */
 	init_header(&authority_head, max_authorities_idx, sizeof(authority_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	authority_head.parse_info_txt = parse_authority_info_csv;
-
-#endif /* ALLOW_TEMPLATES */
 
 	r = init_info2("authority_info", &authority_head, (void*)&authority_info, &authority_name, &authority_text, NULL, NULL);
 
@@ -1123,15 +1065,10 @@ static errr init_dungeon_info(void)
 	/* Init the header */
 	init_header(&d_head, max_d_idx, sizeof(dungeon_info_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	d_head.parse_info_txt = parse_dungeon_info;
 
-#endif /* ALLOW_TEMPLATES */
-
-	return init_info("dungeon_info", &d_head,
-			 (void*)&dungeon_info, &d_name, &d_text, NULL);
+	return init_info("dungeon_info", &d_head, (void*)&dungeon_info, &d_name, &d_text, NULL);
 }
 
 
@@ -1146,15 +1083,10 @@ errr init_v_info(void)
 	/* Init the header */
 	init_header(&v_head, max_v_idx, sizeof(vault_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	v_head.parse_info_txt = parse_v_info;
 
-#endif /* ALLOW_TEMPLATES */
-
-	return init_info("v_info", &v_head,
-			 (void*)&v_info, &v_name, &v_text, NULL);
+	return init_info("v_info", &v_head, (void*)&v_info, &v_name, &v_text, NULL);
 }
 
 
@@ -1166,15 +1098,10 @@ static errr init_skill_info(void)
 	/* Init the header */
 	init_header(&s_head, MAX_CLASS, sizeof(skill_table));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	s_head.parse_info_txt = parse_skill_info;
 
-#endif /* ALLOW_TEMPLATES */
-
-	return init_info("skill_info", &s_head,
-			 (void*)&skill_info, NULL, NULL, NULL);
+	return init_info("skill_info", &s_head, (void*)&skill_info, NULL, NULL, NULL);
 }
 
 
@@ -1186,12 +1113,8 @@ static errr init_m_info(void)
 	/* Init the header */
 	init_header(&m_head, MAX_CLASS, sizeof(magic_table_type));
 
-#ifdef ALLOW_TEMPLATES
-
 	/* Save a pointer to the parsing function */
 	m_head.parse_info_txt = parse_m_info;
-
-#endif /* ALLOW_TEMPLATES */
 
 	return init_info("m_info", &m_head,
 			 (void*)&m_info, NULL, NULL, NULL);

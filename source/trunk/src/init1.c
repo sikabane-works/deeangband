@@ -42,10 +42,7 @@
  * of the platforms that we currently support.
  */
 
-#ifdef ALLOW_TEMPLATES
-
 #include "init.h"
-
 
 static void note(cptr str)
 {
@@ -5569,15 +5566,6 @@ errr parse_dungeon_info(char *buf, header *head)
 	/* Success */
 	return (0);
 }
-
-
-#else	/* ALLOW_TEMPLATES */
-
-#ifdef MACINTOSH
-static int i = 0;
-#endif
-
-#endif	/* ALLOW_TEMPLATES */
 
 
 /* Random dungeon grid effects */

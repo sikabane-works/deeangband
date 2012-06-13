@@ -113,7 +113,6 @@ extern errr get_split_offset(int *split_offset, int *split_size, char *buf, int 
 extern errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
 extern errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
 
-#ifdef ALLOW_TEMPLATES
 extern errr parse_z_info(char *buf, header *head);
 extern errr parse_v_info(char *buf, header *head);
 extern errr parse_f_info(char *buf, header *head);
@@ -145,8 +144,6 @@ extern errr parse_artifact_csv(char *buf, header *head);
  */
 extern int error_idx;
 extern int error_line;
-
-#endif /* ALLOW_TEMPLATES */
 
 
 /*
