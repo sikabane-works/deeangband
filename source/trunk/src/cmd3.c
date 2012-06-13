@@ -184,11 +184,8 @@ static bool item_tester_hook_hand(creature_type *cr_ptr, object_type *o_ptr)
 // Wield or wear a single item from the pack or floor
 void do_cmd_wield(creature_type *cr_ptr)
 {
-	int i, item, slot;
-
-	object_type forge;
-	object_type *q_ptr;
-	object_type *o_ptr;
+	int i, n, item, slot;
+	object_type forge, *q_ptr, *o_ptr, *old_equipped_ptr;
 
 	cptr act;
 
@@ -227,25 +224,28 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You can't equip it";
 #endif
 
-	if (!get_equip_slot(cr_ptr, object_kind_info[o_ptr->k_idx].slot, q, s)) return;
+	n = get_equip_slot(cr_ptr, object_kind_info[o_ptr->k_idx].slot, q, s);
+	if (!n) return;
 
 	// Recalculate bonuses
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 	update_creature(cr_ptr, TRUE);
 
-	return;
+	old_equipped_ptr = get_equipped_slot_ptr(cr_ptr, object_kind_info[o_ptr->k_idx].slot, n);
 
 	// Prevent wielding into a cursed slot
-	if (object_is_cursed(&cr_ptr->inventory[slot]))
+	if (object_is_cursed(old_equipped_ptr))
 	{
-		object_desc(o_name, &cr_ptr->inventory[slot], (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
+		object_desc(o_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 
 		// Message
+/*
 #ifdef JP
 		msg_format("%s%s‚ÍŽô‚í‚ê‚Ä‚¢‚é‚æ‚¤‚¾B", describe_use(cr_ptr, slot) , o_name );
 #else
 		msg_format("The %s you are %s appears to be cursed.", o_name, describe_use(cr_ptr, slot));
 #endif
+*/
 		return; // Cancel the command
 	}
 
@@ -279,7 +279,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	if (need_switch_wielding && !object_is_cursed(&cr_ptr->inventory[need_switch_wielding]))
 	{
-		object_type *slot_o_ptr = &cr_ptr->inventory[slot];
+		object_type *slot_o_ptr = old_equipped_ptr;
 		object_type *switch_o_ptr = &cr_ptr->inventory[need_switch_wielding];
 		object_type object_tmp;
 		object_type *otmcr_ptr = &object_tmp;
