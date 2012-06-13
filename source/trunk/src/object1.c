@@ -5229,7 +5229,37 @@ bool can_get_item(creature_type *creature_ptr)
 
 int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 {
-	return 0;
+	selection se[16];
+	int i, n;
+
+	screen_save();
+	c_put_str(TERM_L_BLUE, r, 1, 1);
+
+	if(creature_ptr->item_slot_num[slot] == 0)
+	{
+		msg_print(s);
+		n = 0;
+	}
+	if(creature_ptr->item_slot_num[slot] == 1)
+	{
+		n = 1;
+	}
+	else
+	{
+		for(i = 1; i < creature_ptr->item_slot_num[slot]; i++)
+		{
+			object_desc(se[i-1].cap, get_equipped_slot_ptr(creature_ptr, slot, i), 0);
+			se[i - 1].code = i;
+			se[i - 1].key = '\0';
+			se[i - 1].d_color = TERM_L_DARK;
+			se[i - 1].l_color = TERM_WHITE;
+		}
+
+		n = get_selection(se, i, 0, 2, 1, i, 30, NULL);
+	}
+	screen_load();
+
+	return n;
 }
 
 
