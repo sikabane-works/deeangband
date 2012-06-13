@@ -1253,6 +1253,7 @@ extern void display_equip(creature_type *cr_ptr);
 extern int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr));
 extern void toggle_inven_equip(void);
 extern bool can_get_item(creature_type *cr_ptr);
+extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s);
 extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval);
 
 // object2.c

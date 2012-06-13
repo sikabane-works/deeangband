@@ -227,7 +227,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You can't equip it";
 #endif
 
-	if (!get_item(cr_ptr, &slot, q, s, USE_EQUIP_SLOT, item_tester_hook_hand, 0)) return;
+	if (!get_equip_slot(cr_ptr, object_kind_info[o_ptr->k_idx].slot, q, s)) return;
 
 	// Recalculate bonuses
 	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);

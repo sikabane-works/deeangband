@@ -5227,6 +5227,12 @@ bool can_get_item(creature_type *creature_ptr)
 	return FALSE;
 }
 
+int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
+{
+	return 0;
+}
+
+
 /*
  * Let the user select an item, save its "index"
  *
@@ -5500,10 +5506,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 	}
 
-
-	/*
-	 * 追加オプション(always_show_list)が設定されている場合は常に一覧を表示する
-	 */
 	if ((always_show_list == TRUE) || use_menu) command_see = TRUE;
 
 	/* Hack -- start out in "display" mode */
@@ -5512,7 +5514,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Save screen */
 		screen_save();
 	}
-
 
 	/* Repeat until done */
 	while (!done)
