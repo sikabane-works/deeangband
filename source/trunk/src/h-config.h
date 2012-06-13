@@ -131,15 +131,6 @@
 #endif
 
 /*
- * Extract the "ATARI" flag from the compiler [cjh]
- */
-#if defined(__atarist) || defined(__atarist__)
-# ifndef ATARI
-#  define ATARI
-# endif
-#endif
-
-/*
  * Extract the "ACORN" flag from the compiler
  */
 #ifdef __riscos
@@ -208,7 +199,7 @@
  */
 #ifdef SET_UID
 # if defined(SYS_III) || defined(SYS_V) || defined(SOLARIS) || \
-     defined(HPUX) || defined(SGI) || defined(ATARI)
+     defined(HPUX) || defined(SGI)
 #  ifndef USG
 #   define USG
 #  endif
