@@ -655,6 +655,9 @@ struct object_type
 	s16b held_m_idx;	/* Monster holding us (if any) */
 
 	s16b creater_idx;	/* Creater */
+
+	byte equipped_slot_type;
+	byte equipped_slot_num;
 };
 
 

@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 42
+#define VER_PATCH 43
 #define VER_EXTRA 0
 
 /*
@@ -5154,6 +5154,8 @@ extern int PlayerUID;
 #define SAVE_ITEM_ART_NAME        0x08000000
 #define SAVE_ITEM_CREATER         0x10000000
 #define SAVE_ITEM_VOLUME          0x20000000
+#define SAVE_ITEM_EQUIPPED_SLOT_TYPE 0x40000000
+#define SAVE_ITEM_EQUIPPED_SLOT_NUM  0x80000000
 
 
 /*

@@ -376,6 +376,10 @@ static void rd_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_CREATER) rd_s16b(&o_ptr->creater_idx);
 	else o_ptr->art_name = 0;
+
+	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
+	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
+
 }
 
 /*

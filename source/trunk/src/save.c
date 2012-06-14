@@ -123,6 +123,8 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->inscription) flags |= SAVE_ITEM_INSCRIPTION;
 	if (o_ptr->art_name) flags |= SAVE_ITEM_ART_NAME;
 	if (o_ptr->creater_idx) flags |= SAVE_ITEM_CREATER;
+	if (o_ptr->equipped_slot_type) flags |= SAVE_ITEM_EQUIPPED_SLOT_TYPE;
+	if (o_ptr->equipped_slot_num) flags |= SAVE_ITEM_EQUIPPED_SLOT_NUM;
 
 	/*** Item save flags ***/
 	wr_u32b(flags);
@@ -186,6 +188,9 @@ static void wr_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_ART_NAME) wr_string(quark_str(o_ptr->art_name));
 
 	if (flags & SAVE_ITEM_CREATER) wr_s16b(o_ptr->creater_idx);
+
+	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) wr_byte(o_ptr->equipped_slot_type);
+	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) wr_byte(o_ptr->equipped_slot_num);
 }
 
 
