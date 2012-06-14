@@ -5588,10 +5588,12 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 	char eraser[100];
 	char line[100];
 
-	if (num <= 0) return -1;
-	if (num <= default_se) return -1;
+	if (num <= 0 || num <= default_se || w < 8) return -1;
 
 	se = default_se;
+
+	// cut up caption
+	for(i = 0; i < num; i++) se_ptr[i].cap[w - 5] = '\0';
 
 	for(i = 0; i < w; i++)
 	{
