@@ -5582,7 +5582,7 @@ int inkey_special(bool numpad_cursor)
 int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*detail)(int), s32b mode)
 {
 	int i, se = 0, page = 1, offset;
-	int page_num = num / h + 1;
+	int page_num = num <= h ? 1 : (num - 1) / h + 1;
 	char buf[100];
 	char c;
 	char eraser[100];
