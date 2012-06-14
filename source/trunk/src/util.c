@@ -5631,12 +5631,12 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 			{
 				c_put_str(TERM_WHITE, ">>", y+i, x);
 				c_put_str(TERM_WHITE, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+6);
 			}
 			else
 			{
 				c_put_str(TERM_L_DARK, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+6);
 			}
 		}
 
