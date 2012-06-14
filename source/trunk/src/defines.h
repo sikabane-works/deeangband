@@ -6019,6 +6019,11 @@ extern int PlayerUID;
 #define DISPLAY_CR_STATUS_MUTATION   8
 #define DISPLAY_CR_STATUS_MAX   9
 
-#define GET_SE_NO_FRAME  0x00000001
+#define GET_SE_NO_FRAME    0x00000001
+#define GET_SE_AUTO_WIDTH  0x00000002
+#define GET_SE_AUTO_HEIGHT 0x00000004
+#define GET_SE_LEFT        0x00000008
+#define GET_SE_CENTER      0x00000010
+#define GET_SE_RIGHT       0x00000020
 
 #define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)

@@ -5582,10 +5582,21 @@ int inkey_special(bool numpad_cursor)
 int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*detail)(int), s32b mode)
 {
 	int i, se = 0, page = 1, offset;
-	int page_num = num <= h ? 1 : (num - 1) / h + 1;
+	int page_num;
 	char buf[100], eraser[100], line[100];
 	char c;
 
+	if(mode & GET_SE_AUTO_WIDTH)
+	{
+		for(i = 0; i < num; i++)
+		{
+			int len = strlen(se_ptr[i].cap) + 10;
+			w = MAX(w, len);
+		}
+	}
+
+
+	page_num = num <= h ? 1 : (num - 1) / h + 1;
 	if (num <= 0 || num <= default_se || w < 8) return -1;
 
 	se = default_se;
