@@ -5590,11 +5590,15 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 	{
 		for(i = 0; i < num; i++)
 		{
-			int len = strlen(se_ptr[i].cap) + 10;
+			int len = strlen(se_ptr[i].cap) + 8;
 			w = MAX(w, len);
 		}
 	}
 
+	if(mode & GET_SE_AUTO_HEIGHT)
+	{
+		h = MAX(h, num + 1);
+	}
 
 	page_num = num <= h ? 1 : (num - 1) / h + 1;
 	if (num <= 0 || num <= default_se || w < 8) return -1;
