@@ -3938,7 +3938,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 
 	/* Item is cursed */
-	if (object_is_cursed(o_ptr) && creature_ptr->equip_now[item])
+	if (object_is_cursed(o_ptr) && IS_EQUIPPED(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
