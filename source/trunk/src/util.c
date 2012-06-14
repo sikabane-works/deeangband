@@ -5603,20 +5603,27 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 
 	while(TRUE)
 	{
-		put_str("+", y-1, x-1);
-		put_str("+", y+h, x-1);
-		put_str("+", y-1, x+w);
-		put_str("+", y+h, x+w);
-		put_str(line, y-1, x);
-		put_str(line, y+h, x);
-
+		if(!(mode & GET_SE_NO_FRAME))
+		{
+			put_str("+", y-1, x-1);
+			put_str("+", y+h, x-1);
+			put_str("+", y-1, x+w);
+			put_str("+", y+h, x+w);
+			put_str(line, y-1, x);
+			put_str(line, y+h, x);
+		}
 
 		for(i = 0; i < h; i++)
 		{
 			offset = h*(page-1)+i;
 			put_str(eraser ,y+i, x);
-			put_str("|" ,y+i, x-1);
-			put_str("|" ,y+i, x+w);
+
+			if(!(mode & GET_SE_NO_FRAME))
+			{
+				put_str("|" ,y+i, x-1);
+				put_str("|" ,y+i, x+w);
+			}
+
 			if(offset >= num) continue; 
 			sprintf(buf, "[%c]", se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
 			if(offset == se)
