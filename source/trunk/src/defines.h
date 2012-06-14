@@ -6020,3 +6020,5 @@ extern int PlayerUID;
 #define DISPLAY_CR_STATUS_MAX   9
 
 #define GET_SE_NO_FRAME  0x00000001
+
+#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot > 0 && (OBJECT)->equipped_slot_num > 0)
