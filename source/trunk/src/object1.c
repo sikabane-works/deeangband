@@ -4556,7 +4556,7 @@ void display_equip(creature_type *cr_ptr)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), cr_ptr->equip_now[i]), i, wid - 15);
+			prt(mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), IS_EQUIPPED(o_ptr)), i, wid - 15);
 		}
 	}
 

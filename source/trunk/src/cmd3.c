@@ -323,8 +323,11 @@ void do_cmd_wield(creature_type *cr_ptr)
 	o_ptr->marked |= OM_TOUCHED;   // Player touches it
 	calc_inventory_weight(cr_ptr); // Increase the weight
 	cr_ptr->equip_cnt++;           // Increment the equip counter by hand
-	cr_ptr->equip_now[item] = n;
-	cr_ptr->equip_now[old_item] = 0;
+
+	o_ptr->equipped_slot_num = n;
+	o_ptr->equipped_slot_type = object_kind_info[o_ptr->k_idx].slot;
+	cr_ptr->inventory[old_item].equipped_slot_num = 0;
+	cr_ptr->inventory[old_item].equipped_slot_type = 0;
 
 #ifdef JP
 		act = "%s(%c)‚ð‘•”õ‚µ‚½B";
@@ -367,7 +370,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 	object_type *o_ptr, *new_o_ptr;
 	char o_name[MAX_NLEN];
 
-	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && cr_ptr->equip_now[item] == 1)
+	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&cr_ptr->inventory[item]) == 1)
 	{
 		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))
 		{

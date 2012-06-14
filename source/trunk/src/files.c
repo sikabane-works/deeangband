@@ -3527,9 +3527,8 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if(!cr_ptr->equip_now[j]) continue;
-
 			o_ptr = &cr_ptr->inventory[j];
+			if(!IS_EQUIPPED(o_ptr)) continue;
 			object_flags_known(o_ptr, flgs);
 			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
 		}

@@ -431,7 +431,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 		if (!q_ptr->k_idx) return (53);
 
 		/* Wield equipment */
-		if (cr_ptr->equip_now[n])
+		if (IS_EQUIPPED(q_ptr))
 		{
 			/* Player touches it */
 			q_ptr->marked |= OM_TOUCHED;
