@@ -1478,7 +1478,7 @@ static void do_cmd_wiz_creature_list(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, creature_max + 1, 0, 1, 1, 22, 78, NULL);
+		i = get_selection(ce, creature_max + 1, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == creature_max) break;
 
 		mode = 0;
@@ -1569,7 +1569,7 @@ static void do_cmd_wiz_floor_teleport(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, floor_max + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL);
+		i = get_selection(ce, floor_max + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
 		if(i == floor_max) break;
 		else
 		{
@@ -1630,7 +1630,7 @@ static void do_cmd_wiz_floor_object_list(void)
 		ce[i].key = ESCAPE;
 		ce[i].code = i;
 
-		i = get_selection(ce, object_max + 1, 0, 1, 1, 22, 78, NULL);
+		i = get_selection(ce, object_max + 1, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == object_max) break;
 
 	}

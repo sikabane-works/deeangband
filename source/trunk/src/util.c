@@ -5579,7 +5579,7 @@ int inkey_special(bool numpad_cursor)
 	return (int)((unsigned char)key);
 }
 
-int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*detail)(int))
+int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*detail)(int), s32b mode)
 {
 	int i, se = 0, page = 1, offset;
 	int page_num = num / h + 1;

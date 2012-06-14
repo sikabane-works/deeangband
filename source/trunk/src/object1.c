@@ -5255,7 +5255,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 			se[i - 1].l_color = TERM_WHITE;
 		}
 
-		n = get_selection(se, slot_num, 0, 2, 20, slot_num, 30, NULL);
+		n = get_selection(se, slot_num, 0, 2, 20, slot_num, 30, NULL, 0);
 	}
 	screen_load();
 
