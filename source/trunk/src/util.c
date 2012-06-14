@@ -5625,7 +5625,8 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 			}
 
 			if(offset >= num) continue; 
-			sprintf(buf, "[%c]", se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
+			sprintf(buf, se_ptr[offset].key == ESCAPE ? "ESC" : "[%c]", se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
+
 			if(offset == se)
 			{
 				c_put_str(TERM_WHITE, ">>", y+i, x);

@@ -5250,13 +5250,24 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		for(i = 1; i <= slot_num; i++)
 		{
 			object_desc(buf, get_equipped_slot_ptr(creature_ptr, slot, i), 0);
-			sprintf(se[i - 1].cap, "%10s %s", mention_use(creature_ptr, slot, i), buf);
+			sprintf(se[i - 1].cap, "%-6s %s", mention_use(creature_ptr, slot, i), buf);
+			se[i - 1].code = i;
 			se[i - 1].key = '\0';
 			se[i - 1].d_color = TERM_L_DARK;
 			se[i - 1].l_color = TERM_WHITE;
 		}
 
-		n = get_selection(se, slot_num, 0, 2, 20, slot_num, 30, NULL, GET_SE_NO_FRAME);
+#if JP
+		strcpy(se[i - 1].cap, "ƒLƒƒƒ“ƒZƒ‹");
+#else
+		strcpy(se[i - 1].cap, "Cancel");
+#endif
+		se[i - 1].code = 0;
+		se[i - 1].key = ESCAPE;
+		se[i - 1].d_color = TERM_L_DARK;
+		se[i - 1].l_color = TERM_WHITE;
+
+		n = get_selection(se, slot_num + 1, 0, 2, 20, slot_num + 1, 30, NULL, GET_SE_NO_FRAME);
 	}
 	screen_load();
 
