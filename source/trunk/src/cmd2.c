@@ -4046,7 +4046,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (creature_ptr->equip_now[item])
+	if (IS_EQUIPPED(o_ptr))
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);

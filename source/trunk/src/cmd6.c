@@ -6546,7 +6546,7 @@ static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
 			/* HACK - only items from the equipment can be activated */
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
-				if(!cr_ptr->equip_now[i]) continue;
+				if(!IS_EQUIPPED(o_ptr)) continue;
 
 				if (&cr_ptr->inventory[i] == o_ptr)
 				{

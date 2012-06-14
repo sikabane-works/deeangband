@@ -4514,7 +4514,7 @@ void display_equip(creature_type *cr_ptr)
 		/* Examine the item */
 		o_ptr = &cr_ptr->inventory[i];
 
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';

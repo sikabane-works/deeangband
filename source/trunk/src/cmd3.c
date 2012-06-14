@@ -571,7 +571,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if (cr_ptr->equip_now[item] && object_is_cursed(o_ptr))
+	if (IS_EQUIPPED(o_ptr) && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -603,7 +603,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 	/* Drop (some of) the item */
 	inven_drop(cr_ptr, item, amt);
 
-	if (cr_ptr->equip_now[item])
+	if (IS_EQUIPPED(o_ptr))
 	{
 		kamaenaoshi(cr_ptr, item);
 		calc_android_exp(cr_ptr);

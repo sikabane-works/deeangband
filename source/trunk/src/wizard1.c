@@ -2897,8 +2897,8 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			/* Skip no equip */
-			if (!cr_ptr->equip_now[i]) continue;
 			q_ptr = &cr_ptr->inventory[i];
+			if (!IS_EQUIPPED(q_ptr)) continue;
 			spoil_random_artifact_aux(q_ptr, j);
 		}
 

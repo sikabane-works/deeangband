@@ -1553,7 +1553,7 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		if (o_ptr->curse_flags & flag)
 		{
@@ -3290,7 +3290,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		// Skip no equip
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

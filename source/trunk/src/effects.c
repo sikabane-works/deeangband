@@ -6550,7 +6550,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		int level = MAX(object_kind_info[o_ptr->k_idx].level - 8, 1);
 		slot = GET_INVEN_SLOT_TYPE(cr_ptr, i);
 
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		if(slot == INVEN_SLOT_RING || slot == INVEN_SLOT_AMULET || slot == INVEN_SLOT_LITE)
 		   continue;

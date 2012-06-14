@@ -2153,7 +2153,7 @@ static int remove_curse_aux(creature_type *cr_ptr, int all)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4872,7 +4872,7 @@ static int minus_ac(creature_type *cr_ptr)
 	/* Pick a (possibly empty) inventory slot */
 	//TODO
 	i = randint0(INVEN_TOTAL);
-	if(!cr_ptr->equip_now[i]) return (FALSE);
+	if(!IS_EQUIPPED(o_ptr)) return (FALSE);
 	o_ptr = &cr_ptr->inventory[i];
 
 	/* Nothing to damage */

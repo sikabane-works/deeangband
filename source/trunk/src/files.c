@@ -2710,10 +2710,10 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	/* Dump equippy chars */
 	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
-		if(!cr_ptr->equip_now[i]) continue;
+		o_ptr = &cr_ptr->inventory[i]; // Object
+
+		if(!IS_EQUIPPED(o_ptr)) continue;
 		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
-		/* Object */
-		o_ptr = &cr_ptr->inventory[i];
 
 		a = object_attr(o_ptr);
 		c = object_char(o_ptr);
@@ -2750,11 +2750,9 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 
 		object_type *o_ptr;
 
-		if(!cr_ptr->equip_now[i]) continue;
+		o_ptr = &cr_ptr->inventory[i]; // object
 
-		/* Object */
-		o_ptr = &cr_ptr->inventory[i];
-
+		if(!IS_EQUIPPED(o_ptr)) continue;
 		if (!o_ptr->k_idx) continue;
 
 		/* Known flags */
@@ -2876,7 +2874,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
 
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 		if((mode & DP_WP) && WIELD_SLOT(o_ptr) != INVEN_SLOT_HAND) continue;
 
 		/* Known flags */
@@ -2934,8 +2932,9 @@ static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
 
 	for(i = 0, n = 0; i < INVEN_TOTAL; i++)
 	{
-		if((mode & DP_WP) && WIELD_SLOT(&cr_ptr->inventory[i]) != INVEN_SLOT_HAND) continue;
-		if(cr_ptr->equip_now[i])
+		object_type *object_ptr = &cr_ptr->inventory[i];
+		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVEN_SLOT_HAND) continue;
+		if(IS_EQUIPPED(object_ptr))
 		{
 			res[n] = list[i];
 			n++;
@@ -3686,7 +3685,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		/* Access object */
 		o_ptr = &cr_ptr->inventory[i];
 
-		if(!cr_ptr->equip_now[i]) continue;
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 
 		/* Acquire "known" flags */
@@ -5290,7 +5289,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			if(!cr_ptr->equip_now[i]) continue;
+			if(!IS_EQUIPPED(&cr_ptr->inventory[i])) continue;
 
 			object_desc(o_name, &cr_ptr->inventory[i], 0);
 			if ((((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) && cr_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2)) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
