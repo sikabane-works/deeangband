@@ -5231,6 +5231,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 {
 	selection se[16];
 	int i, n, slot_num = creature_ptr->item_slot_num[slot];
+	char buf[100];
 
 	screen_save();
 	c_put_str(TERM_L_BLUE, r, 0, 0);
@@ -5248,8 +5249,8 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 	{
 		for(i = 1; i <= slot_num; i++)
 		{
-			object_desc(se[i - 1].cap, get_equipped_slot_ptr(creature_ptr, slot, i), 0);
-			se[i - 1].code = i;
+			object_desc(buf, get_equipped_slot_ptr(creature_ptr, slot, i), 0);
+			sprintf(se[i - 1].cap, "%10s %s", mention_use(creature_ptr, slot, i), buf);
 			se[i - 1].key = '\0';
 			se[i - 1].d_color = TERM_L_DARK;
 			se[i - 1].l_color = TERM_WHITE;

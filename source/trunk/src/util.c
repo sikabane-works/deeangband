@@ -5583,10 +5583,8 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 {
 	int i, se = 0, page = 1, offset;
 	int page_num = num <= h ? 1 : (num - 1) / h + 1;
-	char buf[100];
+	char buf[100], eraser[100], line[100];
 	char c;
-	char eraser[100];
-	char line[100];
 
 	if (num <= 0 || num <= default_se || w < 8) return -1;
 
@@ -5640,8 +5638,12 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+5);
 			}
 		}
-		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
-		c_put_str(TERM_L_BLUE, buf, y+h, x);
+
+		if(page_num > 1)
+		{
+			sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
+			c_put_str(TERM_L_BLUE, buf, y+h, x);
+		}
 
 		if (detail) detail(se_ptr[se].code);
 
