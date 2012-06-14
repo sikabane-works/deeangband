@@ -78,9 +78,8 @@ void creature_knowledge(creature_type *creature_ptr)
 	{
 		u32b tflgs[TR_FLAG_SIZE];
 
-		if(!creature_ptr->equip_now[k]) continue;
-
 		o_ptr = &creature_ptr->inventory[k];
+		if(!IS_EQUIPPED(o_ptr)) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

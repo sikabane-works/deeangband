@@ -6021,4 +6021,4 @@ extern int PlayerUID;
 
 #define GET_SE_NO_FRAME  0x00000001
 
-#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0)
+#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)

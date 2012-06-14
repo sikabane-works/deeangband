@@ -854,7 +854,7 @@ msg_print("更に経験を積んだような気がする。");
 		}
 		}
 
-	if (cr_ptr->equip_now[item]) calc_android_exp(cr_ptr);
+	if (IS_EQUIPPED(o_ptr)) calc_android_exp(cr_ptr);
 }
 
 

@@ -6131,7 +6131,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			// Skip no equip
-			if(owner_ptr->equip_now[i]) continue;
+			if(IS_EQUIPPED(&owner_ptr->inventory[i])) continue;
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
@@ -8213,9 +8213,10 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 					{
 						for(j = 0; j <= INVEN_TOTAL; j++)
 						{
-							if(!creature_ptr->equip_now[j]) continue;
-							identify_item(player_ptr, &creature_ptr->inventory[j]);
-							creature_ptr->inventory[j].ident |= (IDENT_MENTAL);
+							object_type *object_ptr = &creature_ptr->inventory[j];
+							if(!IS_EQUIPPED(object_ptr)) continue;
+							identify_item(player_ptr, object_ptr);
+							object_ptr->ident |= (IDENT_MENTAL);
 						}
 						creature_ptr->creature_update  = CRU_BONUS | CRU_HP | CRU_MANA;
 						update_creature(creature_ptr, FALSE);

@@ -4742,7 +4742,7 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 	if (o_ptr->number) return;
 
 	/* The item is in the pack */
-	if (!cr_ptr->equip_now[item])
+	if (!IS_EQUIPPED(o_ptr))
 	{
 		int i;
 
@@ -5152,9 +5152,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
  */
 s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 {
-	cr_ptr->equip_now[item] = 0;
-	return 0;
-	/*
+	//TODO
 	int slot;
 
 	object_type forge;
@@ -5169,6 +5167,9 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	// Get the item to take off
 	o_ptr = &cr_ptr->inventory[item];
+
+	o_ptr->equipped_slot_type = INVEN_SLOT_INVENTORY;
+	o_ptr->equipped_slot_num = 0;
 
 	// Paranoia
 	if (amt <= 0) return (-1);
@@ -5249,7 +5250,6 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	// Return slot
 	return (slot);
-*/
 }
 
 
@@ -5280,7 +5280,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 	// Take off equipment
 	/*
-	if (cr_ptr->equip_now[item])
+	if (IS_EQUIPPED(o_ptr))
 	{
 		// Take off first
 		item = inven_takeoff(cr_ptr, item, amt);
@@ -5604,7 +5604,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr = &caster_ptr->inventory[i];
-		if (!caster_ptr->equip_now[i]) continue;
+		if (!IS_EQUIPPED(o_ptr)) continue;
 
 		object_flags(o_ptr, flgs);
 		if (have_flag(flgs, TR_WARNING))

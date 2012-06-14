@@ -4636,7 +4636,7 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 		object_type *o_ptr = &guest_ptr->inventory[i];
 
 		/* Skip no equip */
-		if (!guest_ptr->equip_now[i]) continue;
+		if (!IS_EQUIPPED(o_ptr)) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

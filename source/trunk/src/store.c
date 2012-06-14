@@ -4360,7 +4360,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if (cr_ptr->equip_now[item] && object_is_cursed(o_ptr))
+	if (IS_EQUIPPED(o_ptr) && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -4657,7 +4657,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		}
 	}
 
-	if ((choice == 0) && (cr_ptr->equip_now[item]))
+	if ((choice == 0) && (IS_EQUIPPED(o_ptr)))
 	{
 		calc_android_exp(cr_ptr);
 		kamaenaoshi(cr_ptr, item);

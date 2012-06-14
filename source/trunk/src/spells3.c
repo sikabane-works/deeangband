@@ -579,7 +579,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 			{
 				o_ptr = &creature_ptr->inventory[i];
 
-				if(!creature_ptr->equip_now[i]) continue;
+				if(!IS_EQUIPPED(o_ptr)) continue;
 
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
 				{
@@ -1072,10 +1072,10 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	//TODO
 	item = randint1(INVEN_TOTAL);
 
-	if(!cr_ptr->equip_now[item]) return FALSE;
-
-	/* Get the item */
+	// Get the item
 	o_ptr = &cr_ptr->inventory[item];
+
+	if(!IS_EQUIPPED(o_ptr)) return FALSE;
 
 	/* No item, nothing happens */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -2847,7 +2847,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if(cr_ptr->equip_now[item])
+	if(IS_EQUIPPED(o_ptr))
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)ÅB", describe_use(cr_ptr, item), o_name, index_to_label(item));
@@ -3037,7 +3037,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if(cr_ptr->equip_now[item])
+	if(IS_EQUIPPED(o_ptr))
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)ÅB", describe_use(cr_ptr, item), o_name, index_to_label(item));

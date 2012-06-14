@@ -4595,8 +4595,8 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
-		if (cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
-		if (!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
+		if (IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
+		if (!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
 
 		/* Skip empty inscriptions */
 		if (!o_ptr->inscription) continue;
@@ -4640,8 +4640,8 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 
-		if (cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
-		if (!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
+		if (IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
+		if (!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4784,8 +4784,9 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 	{
 		int index;
 		char c;
-		if(!cr_ptr->equip_now[i] && mode != USE_EQUIP) continue;
-		if( cr_ptr->equip_now[i] && mode != USE_INVEN) continue;
+		object_type *o_ptr = &cr_ptr->inventory[i];
+		if(!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
+		if( IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
 
 		c = alphabet_chars[j];
 
@@ -4916,7 +4917,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			if (!o_ptr->k_idx) continue;
 
 			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook, 0)) continue;
-			if (!((cr_ptr->equip_now[i] && (flags & SHOW_ITEM_EQUIPMENT)) || (!cr_ptr->equip_now[i] && (flags & SHOW_ITEM_INVENTORY)))) continue;
+			if (!((IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
 			object_desc(o_name, o_ptr, 0);
@@ -4950,7 +4951,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			if (l > len) len = l;
 
 			slot[k] = GET_INVEN_SLOT_TYPE(cr_ptr, i);
-			num[k] = cr_ptr->equip_now[i];
+			num[k] = IS_EQUIPPED(o_ptr);
 
 			/* Advance to next "line" */
 			k++;
@@ -5033,9 +5034,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		// Display the entry itself
-		c_put_str(cr_ptr->equip_now[i] ? TERM_WHITE : TERM_L_DARK,
-			mention_use(cr_ptr, slot[j], num[j]) , j + 1, cur_col);
-
+		c_put_str(!IS_EQUIPPED(o_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, slot[j], num[j]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		// Display the weight if needed
@@ -5421,8 +5420,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			if (prev_tag && command_cmd)
 			{
 				// Look up the tag and validate the item
-				if (!get_tag(creature_ptr, &k, prev_tag, creature_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN));
-				else if (!creature_ptr->equip_now[*cp] ? !inven : !equip);
+				if (!get_tag(creature_ptr, &k, prev_tag, !IS_EQUIPPED(&creature_ptr->inventory[*cp]) ? USE_EQUIP : USE_INVEN));
+				else if (!!IS_EQUIPPED(&creature_ptr->inventory[*cp]) ? !inven : !equip);
 				else if (!get_item_okay(creature_ptr, k, hook, item_tester_tval));
 				else
 				{
@@ -5491,7 +5490,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if(!creature_ptr->equip_now[j]) continue;
+			if(!IS_EQUIPPED(&creature_ptr->inventory[j])) continue;
 			if(item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_equip++;
 		}
 	}
@@ -5958,7 +5957,7 @@ if (other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 				}
 
 				/* Hack -- Validate the item */
-				if (!creature_ptr->equip_now[k] ? !inven : !equip)
+				if (!!IS_EQUIPPED(&creature_ptr->inventory[k]) ? !inven : !equip)
 				{
 					bell();
 					break;
@@ -6010,7 +6009,7 @@ if (other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 				}
 
 				/* Hack -- Validate the item */
-				else if ((!creature_ptr->equip_now[k]) ? !inven : !equip)
+				else if (!IS_EQUIPPED(&creature_ptr->inventory[k]) ? !inven : !equip)
 				{
 					not_found = TRUE;
 				}
@@ -6404,11 +6403,12 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 		else if (*cp >= 0 && *cp < INVEN_TOTAL)
 		{
+			object_type *object_ptr = &creature_ptr->inventory[*cp];
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(creature_ptr, &k, prev_tag, creature_ptr->equip_now[*cp] ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if (!creature_ptr->equip_now[*cp] ? !inven : !equip) /* Reject */;
+				if (!get_tag(creature_ptr, &k, prev_tag, IS_EQUIPPED(object_ptr) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if (!IS_EQUIPPED(object_ptr) ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(creature_ptr, k, hook, item_tester_tval)) /* Reject */;
 				else
 				{
@@ -6479,7 +6479,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	{
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if (!creature_ptr->equip_now[j]) continue; // Skip no equipment
+			if (!IS_EQUIPPED(&creature_ptr->inventory[j])) continue; // Skip no equipment
 			if (item_tester_okay(creature_ptr, &creature_ptr->inventory[j], hook, item_tester_tval)) max_equip++;
 		}
 	}
@@ -7300,13 +7300,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 						break;
 					}
 
-					/* Hack -- Validate the item */
-					if (!creature_ptr->equip_now[k] ? !inven : !equip)
-					{
-						bell();
-						break;
-					}
-
 					/* Validate the item */
 					if (!get_item_okay(creature_ptr, k, hook, item_tester_tval))
 					{
@@ -7432,7 +7425,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					}
 
 					/* Hack -- Validate the item */
-					else if (!creature_ptr->equip_now[k] ? !inven : !equip)
+					else if (!!IS_EQUIPPED(&creature_ptr->inventory[k]) ? !inven : !equip)
 					{
 						not_found = TRUE;
 					}

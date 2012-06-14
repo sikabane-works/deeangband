@@ -3728,12 +3728,14 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	{
 		int bonus_to_h, bonus_to_d, slot;
 
-		// Skip no equip
-		if (!creature_ptr->equip_now[i]) continue;
 
 		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
 
 		o_ptr = &creature_ptr->inventory[i];
+
+		// Skip no equip
+		if (!IS_EQUIPPED(o_ptr)) continue;
+
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
@@ -4160,8 +4162,8 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		for (i = 0; i <= INVEN_TOTAL; i++)
 		{
 			int ac = 0;
-			if(!creature_ptr->equip_now[i]) continue; 
 			o_ptr = &creature_ptr->inventory[i];
+			if(IS_EQUIPPED(o_ptr)) continue; 
 			if (!o_ptr->k_idx) continue;
 			if (!object_is_armour(o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;

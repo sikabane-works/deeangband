@@ -268,8 +268,8 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	/* Get an object description */
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	/* Message (equipment) */
-	if (cr_ptr->equip_now[slot])
+	// Message (equipment)
+	if(IS_EQUIPPED(o_ptr))
 	{
 #ifdef JP
 msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
@@ -547,7 +547,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if (!cr_ptr->equip_now[i] && (0 != randint0(5))) continue;
+		if (!IS_EQUIPPED(o_ptr) && (0 != randint0(5))) continue;
 
 		/* Good luck */
 		if (has_cf_creature(cr_ptr, CF_GOOD_LUCK) && !randint0(13))
@@ -677,7 +677,7 @@ static void sense_inventory2(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if (!cr_ptr->equip_now[i] && (0 != randint0(5))) continue;
+		if (!IS_EQUIPPED(o_ptr) && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(cr_ptr, i, TRUE);
 	}
@@ -3011,7 +3011,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				o_ptr = &creature_ptr->inventory[i];
 
 				// Skip no equip
-				if(!creature_ptr->equip_now[i]) continue;
+				if(!IS_EQUIPPED(o_ptr)) continue;
 
 				/* Skip non-objects */
 				if (!o_ptr->k_idx) continue;
