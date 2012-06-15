@@ -1472,7 +1472,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 	if (total_friends)
 	{
 		int upkeep_factor;
-		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (classkill_info[master_ptr->cls_idx].pet_upkeep_div)));
+		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (class_info[master_ptr->cls_idx].pet_upkeep_div)));
 		if (upkeep_factor < 0) upkeep_factor = 0;
 		if (upkeep_factor > 1000) upkeep_factor = 1000;
 		return upkeep_factor;

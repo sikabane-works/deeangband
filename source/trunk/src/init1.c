@@ -6621,9 +6621,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = classkill_info[player_ptr->cls_idx].E_title;
+				v = class_info[player_ptr->cls_idx].E_title;
 #else
-				v = classkill_info[player_ptr->cls_idx].title;
+				v = class_info[player_ptr->cls_idx].title;
 #endif
 			}
 

@@ -5444,9 +5444,9 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 
 	/* Hitdice */
 	if (cr_ptr->cls_idx == CLASS_SORCERER)
-		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp/2 + classkill_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp/2 + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 	else
-		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp + classkill_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 
 	do_cmd_rerate(cr_ptr, FALSE);
 

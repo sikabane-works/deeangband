@@ -1024,9 +1024,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = classkill_info[creature_ptr->cls_idx].E_title;
+				v = class_info[creature_ptr->cls_idx].E_title;
 #else
-				v = classkill_info[creature_ptr->cls_idx].title;
+				v = class_info[creature_ptr->cls_idx].title;
 #endif
 			}
 
@@ -3596,12 +3596,12 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		if(cr_ptr->cls_idx != INDEX_NONE)
 		{
-			cl_adj = (int)classkill_info[cr_ptr->cls_idx].c_adj[i];
-			if(cr_ptr->cls_bonus) cl_adj += classkill_info[cr_ptr->cls_idx].c_adj_b[i];
+			cl_adj = (int)class_info[cr_ptr->cls_idx].c_adj[i];
+			if(cr_ptr->cls_bonus) cl_adj += class_info[cr_ptr->cls_idx].c_adj_b[i];
 
 			(void)sprintf(buf, "%+3d", cl_adj);
-			if(classkill_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
-			else if(classkill_info[cr_ptr->cls_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
+			if(class_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
+			else if(class_info[cr_ptr->cls_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 23);
 		}
 		else
@@ -3854,7 +3854,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	race_type *ir_ptr = &race_info[creature_ptr->race_idx1];
-	class_type *cl_ptr = &classkill_info[creature_ptr->cls_idx];
+	class_type *cl_ptr = &class_info[creature_ptr->cls_idx];
 	creature_chara *ch_ptr = &chara_info[creature_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[creature_ptr->sex];
 
@@ -6967,7 +6967,7 @@ static void print_tomb(creature_type *creature_ptr)
 		/* Normal */
 		else
 		{
-			p = classkill_info[creature_ptr->cls_idx].title;
+			p = class_info[creature_ptr->cls_idx].title;
 		}
 
 		center_string(buf, creature_ptr->name);
@@ -6981,7 +6981,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, p);
 		put_str(buf, 8, 11);
 
-		center_string(buf, classkill_info[creature_ptr->cls_idx].title);
+		center_string(buf, class_info[creature_ptr->cls_idx].title);
 		put_str(buf, 10, 11);
 
 #ifdef JP

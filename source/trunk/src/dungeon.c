@@ -6036,7 +6036,7 @@ static void load_all_pref_files(creature_type *cr_ptr)
 	process_pref_file(buf);
 
 	/* Access the "class" pref file */
-	sprintf(buf, "%s.prf", classkill_info[cr_ptr->cls_idx].title);
+	sprintf(buf, "%s.prf", class_info[cr_ptr->cls_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);

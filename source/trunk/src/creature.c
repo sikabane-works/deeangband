@@ -182,13 +182,13 @@ int calc_expfact_sp(species_type *species_ptr)
 	{
 		if(IS_PURE(species_ptr))
 		{
-			expfact = race_info[species_ptr->race_idx1].r_exp + classkill_info[species_ptr->cls_idx].c_exp;
+			expfact = race_info[species_ptr->race_idx1].r_exp + class_info[species_ptr->cls_idx].c_exp;
 		}
 		else
 		{
 			expfact = race_info[species_ptr->race_idx1].r_s_exp +
 					  race_info[species_ptr->race_idx2].r_s_exp +
-					  classkill_info[species_ptr->cls_idx].c_exp;
+					  class_info[species_ptr->cls_idx].c_exp;
 		}
 
 	}
@@ -206,13 +206,13 @@ void set_expfact(creature_type *creature_ptr)
 	else {
 		if(IS_PURE(creature_ptr))
 		{
-			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + classkill_info[creature_ptr->cls_idx].c_exp;
+			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->cls_idx].c_exp;
 		}
 		else
 		{
 			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_s_exp +
 									race_info[creature_ptr->race_idx2].r_s_exp +
-									classkill_info[creature_ptr->cls_idx].c_exp - 100;
+									class_info[creature_ptr->cls_idx].c_exp - 100;
 		}
 
 	}
@@ -239,7 +239,7 @@ void set_hitdice(creature_type * creature_ptr)
 	if (creature_ptr->cls_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
 	if (creature_ptr->cls_idx != INDEX_NONE)
-		creature_ptr->hitdice += classkill_info[creature_ptr->cls_idx].c_mhp;
+		creature_ptr->hitdice += class_info[creature_ptr->cls_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
 	return;	
@@ -378,7 +378,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
 	if (mr_ptr->cls_idx != INDEX_NONE)
-		dice += classkill_info[mr_ptr->cls_idx].c_mhp;
+		dice += class_info[mr_ptr->cls_idx].c_mhp;
 	if (mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
