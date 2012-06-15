@@ -2140,8 +2140,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (!floor_ptr->cave[y[a]][x[a]].object_idx && floor_ptr->cave[y[b]][x[b]].object_idx) return FALSE;
 
 	/* Priority from the terrain */
-	if (f_info[ca_ptr->feat].priority > f_info[cb_ptr->feat].priority) return TRUE;
-	if (f_info[ca_ptr->feat].priority < f_info[cb_ptr->feat].priority) return FALSE;
+	if (feature_info[ca_ptr->feat].priority > feature_info[cb_ptr->feat].priority) return TRUE;
+	if (feature_info[ca_ptr->feat].priority < feature_info[cb_ptr->feat].priority) return FALSE;
 
 	/* If all conditions are same, compare distance */
 	return ang_sort_comp_distance(u, v, a, b);
@@ -2279,7 +2279,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 		if (c_ptr->info & CAVE_OBJECT) return (TRUE);
 
 		/* Feature code (applying "mimic" field) */
-		if (have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_NOTICE)) return TRUE;
+		if (have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_NOTICE)) return TRUE;
 	}
 
 	/* Nope */
@@ -2842,7 +2842,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	}
 
 
-	f_ptr = &f_info[feat];
+	f_ptr = &feature_info[feat];
 
 	/* Terrain feature if needed */
 	if (boring || have_flag(f_ptr->flags, FF_REMEMBER))
@@ -2917,7 +2917,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		}
 		else
 		{
-			name = f_name + f_ptr->name;
+			name = feature_name + f_ptr->name;
 		}
 
 

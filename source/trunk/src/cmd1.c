@@ -1049,7 +1049,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 	/* Get the cave grid */
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	int trap_feat_type = have_flag(f_ptr->flags, FF_TRAP) ? f_ptr->subtype : NOT_TRAP;
 
 #ifdef JP
@@ -3449,8 +3449,8 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	feature_type *cur_f_ptr = &f_info[floor_ptr->cave[c_y][c_x].feat];
-	feature_type *new_f_ptr = &f_info[floor_ptr->cave[n_y][n_x].feat];
+	feature_type *cur_f_ptr = &feature_info[floor_ptr->cave[c_y][c_x].feat];
+	feature_type *new_f_ptr = &feature_info[floor_ptr->cave[n_y][n_x].feat];
 	bool is_pattern_tile_cur = have_flag(cur_f_ptr->flags, FF_PATTERN);
 	bool is_pattern_tile_new = have_flag(new_f_ptr->flags, FF_PATTERN);
 	int pattern_type_cur, pattern_type_new;
@@ -3601,7 +3601,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
 {
-	feature_type *f_ptr = &f_info[feature];
+	feature_type *f_ptr = &feature_info[feature];
 
 	if (creature_ptr->riding) return creature_can_cross_terrain(feature, &creature_list[creature_ptr->riding], mode | CEM_RIDING);
 
@@ -3629,7 +3629,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[ny][nx];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if (wild_mode)
 	{
@@ -3884,7 +3884,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 
 bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 {
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	if (!have_flag(f_ptr->flags, FF_TRAP)) return TRUE;
 
@@ -3950,7 +3950,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	// Examine the destination
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	creature_type *m_ptr;
 
@@ -4220,7 +4220,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			(have_flag(f_ptr->flags, FF_DEEP) || has_cf_creature(creature_ptr, CF_AURA_FIRE)))
 		{
 #ifdef JP
-			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
+			msg_format("%sの上に行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
 			msg_print("Can't swim.");
 #endif
@@ -4231,7 +4231,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		else if (!have_flag(f_ptr->flags, FF_WATER) && has_cf_creature(steed_ptr, CF_AQUATIC))
 		{
 #ifdef JP
-			msg_format("%sから上がれない。", f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name);
+			msg_format("%sから上がれない。", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name);
 #else
 			msg_print("Can't land.");
 #endif
@@ -4242,7 +4242,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		else if (have_flag(f_ptr->flags, FF_LAVA) && !has_cf_creature(steed_ptr, CF_RES_FIRE))
 		{
 #ifdef JP
-			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
+			msg_format("%sの上に行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
 			msg_print("Too hot to go through.");
 #endif
@@ -4272,9 +4272,9 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !creature_ptr->levitation)
 	{
 #ifdef JP
-		msg_format("空を飛ばないと%sの上には行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("空を飛ばないと%sの上には行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-		msg_format("You need to fly to go through the %s.", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("You need to fly to go through the %s.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
 		energy_use = 0;
@@ -4307,8 +4307,8 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 		/* Feature code (applying "mimic" field) */
 		s16b feat = get_feat_mimic(c_ptr);
-		feature_type *mimic_f_ptr = &f_info[feat];
-		cptr name = f_name + mimic_f_ptr->name;
+		feature_type *mimic_f_ptr = &feature_info[feat];
+		cptr name = feature_name + mimic_f_ptr->name;
 
 		oktomove = FALSE;
 
@@ -4470,9 +4470,9 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	if(!creature_ptr->blind && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
-		msg_format("%sにメッセージが刻まれている:", f_name + f_info[c_ptr->feat].name);
+		msg_format("%sにメッセージが刻まれている:", feature_name + feature_info[c_ptr->feat].name);
 #else
-		msg_format("You find the following inscription on %s.", f_name + f_info[c_ptr->feat].name);
+		msg_format("You find the following inscription on %s.", feature_name + feature_info[c_ptr->feat].name);
 #endif
 		msg_format("%s", c_ptr->message);
 	}
@@ -4500,7 +4500,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 	{
 		// Feature code (applying "mimic" field)
 		s16b         feat = get_feat_mimic(c_ptr);
-		feature_type *f_ptr = &f_info[feat];
+		feature_type *f_ptr = &feature_info[feat];
 
 		// Wall grids are known walls
 		if (!player_can_enter(creature_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
@@ -4875,7 +4875,7 @@ static bool run_test(creature_type *creature_ptr)
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
-		f_ptr = &f_info[feat];
+		f_ptr = &feature_info[feat];
 
 		/* Visible monsters abort running */
 		if (c_ptr->creature_idx)

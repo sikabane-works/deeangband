@@ -4006,7 +4006,7 @@ void do_cmd_visuals(void)
 			/* Dump features */
 			for (i = 0; i < max_f_idx; i++)
 			{
-				feature_type *f_ptr = &f_info[i];
+				feature_type *f_ptr = &feature_info[i];
 
 				/* Skip non-entries */
 				if (!f_ptr->name) continue;
@@ -4015,7 +4015,7 @@ void do_cmd_visuals(void)
 				if (f_ptr->mimic != i) continue;
 
 				/* Dump a comment */
-				auto_dump_printf("# %s\n", (f_name + f_ptr->name));
+				auto_dump_printf("# %s\n", (feature_name + f_ptr->name));
 
 				/* Dump the feature attr/char info */
 				auto_dump_printf("F:%d:0x%02X/0x%02X:0x%02X/0x%02X:0x%02X/0x%02X\n\n", i,
@@ -4303,7 +4303,7 @@ void do_cmd_visuals(void)
 			/* Hack -- query until done */
 			while (1)
 			{
-				feature_type *f_ptr = &f_info[f];
+				feature_type *f_ptr = &feature_info[f];
 				char c;
 				int t;
 
@@ -4317,11 +4317,11 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("地形 = %d, 名前 = %s, 明度 = %s",
-						   f, (f_name + f_ptr->name), lighting_level_str[lighting_level]));
+						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Terrain = %d, Name = %s, Lighting = %s",
-						   f, (f_name + f_ptr->name), lighting_level_str[lighting_level]));
+						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
 #endif
 
 				/* Label the Default values */
@@ -4381,7 +4381,7 @@ void do_cmd_visuals(void)
 								break;
 							}
 						}
-						while (!f_info[f].name || (f_info[f].mimic != f));
+						while (!feature_info[f].name || (feature_info[f].mimic != f));
 					}
 					break;
 				case 'a':
@@ -5762,7 +5762,7 @@ static int collect_features(int grp_cur, int *feat_idx, byte mode)
 	for (i = 0; i < max_f_idx; i++)
 	{
 		/* Access the index */
-		feature_type *f_ptr = &f_info[i];
+		feature_type *f_ptr = &feature_info[i];
 
 		/* Skip empty index */
 		if (!f_ptr->name) continue;
@@ -8767,7 +8767,7 @@ static void display_feature_list(int col, int row, int per_page, int *feat_idx,
 		int f_idx = feat_idx[feat_top + i];
 
 		/* Access the index */
-		feature_type *f_ptr = &f_info[f_idx];
+		feature_type *f_ptr = &feature_info[f_idx];
 
 		int row_i = row + i;
 
@@ -8775,13 +8775,13 @@ static void display_feature_list(int col, int row, int per_page, int *feat_idx,
 		attr = ((i + feat_top == feat_cur) ? TERM_L_BLUE : TERM_WHITE);
 
 		/* Display the name */
-		c_prt(attr, f_name + f_ptr->name, row_i, col);
+		c_prt(attr, feature_name + f_ptr->name, row_i, col);
 
 		/* Hack -- visual_list mode */
 		if (per_page == 1)
 		{
 			/* Display lighting level */
-			c_prt(attr, format("(%s)", lighting_level_str[lighting_level]), row_i, col + 1 + strlen(f_name + f_ptr->name));
+			c_prt(attr, format("(%s)", lighting_level_str[lighting_level]), row_i, col + 1 + strlen(feature_name + f_ptr->name));
 
 			c_prt(attr, format("%02x/%02x", f_ptr->x_attr[lighting_level], f_ptr->x_char[lighting_level]), row_i, f_idx_col - ((wizard || visual_only) ? 6 : 2));
 		}
@@ -8878,7 +8878,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 	}
 	else
 	{
-		feature_type *f_ptr = &f_info[direct_f_idx];
+		feature_type *f_ptr = &feature_info[direct_f_idx];
 
 		feat_idx[0] = direct_f_idx;
 		feat_cnt = 1;
@@ -9015,7 +9015,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 #endif
 
 		/* Get the current feature */
-		f_ptr = &f_info[feat_idx[feat_cur]];
+		f_ptr = &feature_info[feat_idx[feat_cur]];
 		cur_attr_ptr = &f_ptr->x_attr[*lighting_level];
 		cur_char_ptr = &f_ptr->x_char[*lighting_level];
 

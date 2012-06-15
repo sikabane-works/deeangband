@@ -1316,7 +1316,7 @@ static void rd_messages(void)
 /* Old hidden trap flag */
 #define CAVE_TRAP       0x8000
 
-/*** Terrain Feature Indexes (see "lib/edit/f_info.txt") ***/
+/*** Terrain Feature Indexes (see "lib/edit/feature_info.txt") ***/
 #define OLD_FEAT_INVIS              0x02
 #define OLD_FEAT_GLYPH              0x03
 #define OLD_FEAT_QUEST_ENTER        0x08

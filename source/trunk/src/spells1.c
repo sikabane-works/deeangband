@@ -589,7 +589,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 {
 	floor_type      *floor_ptr = get_floor_ptr(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	feature_type    *f_ptr = &f_info[c_ptr->feat];
+	feature_type    *f_ptr = &feature_info[c_ptr->feat];
 
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
@@ -822,7 +822,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			if (have_flag(f_ptr->flags, FF_SPIKE))
 			{
 				s16b old_mimic = c_ptr->mimic;
-				feature_type *mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
+				feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 				cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
 
@@ -839,9 +839,9 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				{
 					/* Message */
 #ifdef JP
-					msg_format("%sに何かがつっかえて開かなくなった。", f_name + mimic_f_ptr->name);
+					msg_format("%sに何かがつっかえて開かなくなった。", feature_name + mimic_f_ptr->name);
 #else
-					msg_format("The %s seems stuck.", f_name + mimic_f_ptr->name);
+					msg_format("The %s seems stuck.", feature_name + mimic_f_ptr->name);
 #endif
 
 					obvious = TRUE;
@@ -859,9 +859,9 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (known && (c_ptr->info & (CAVE_MARK)))
 				{
 #ifdef JP
-					msg_format("%sが溶けて泥になった！", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("%sが溶けて泥になった！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-					msg_format("The %s turns into mud!", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("The %s turns into mud!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
 					obvious = TRUE;
@@ -1056,7 +1056,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 						{
 							cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
-							if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
+							if (have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 							{
 								do_dark = FALSE;
 								break;
@@ -1117,9 +1117,9 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP
-					msg_format("%sが割れた！", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("%sが割れた！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-					msg_format("The %s was crashed!", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("The %s was crashed!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 					sound(SOUND_GLASS);
 				}
@@ -1153,9 +1153,9 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				if (known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP
-					msg_format("%sが割れた！", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("%sが割れた！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-					msg_format("The %s was crashed!", f_name + f_info[get_feat_mimic(c_ptr)].name);
+					msg_format("The %s was crashed!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 					sound(SOUND_GLASS);
 				}

@@ -4538,7 +4538,7 @@ s16b choose_random_trap(floor_type *floor_ptr)
 		feat = normal_traps[randint0(MAX_NORMAL_TRAPS)];
 
 		/* Accept non-trapdoors */
-		if (!have_flag(f_info[feat].flags, FF_MORE)) break;
+		if (!have_flag(feature_info[feat].flags, FF_MORE)) break;
 
 		/* Hack -- no trap doors on special levels */
 		if (fight_arena_mode || quest_number(floor_ptr)) continue;

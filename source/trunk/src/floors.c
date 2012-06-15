@@ -305,7 +305,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 /*
  * Is this feature has special meaning (except floor_id) with c_ptr->special?
  */
-#define feat_uses_special(F) (have_flag(f_info[(F)].flags, FF_SPECIAL))
+#define feat_uses_special(F) (have_flag(feature_info[(F)].flags, FF_SPECIAL))
 
 
 /*
@@ -330,7 +330,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 		for (x = 0; x < floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
-			feature_type *f_ptr = &f_info[c_ptr->feat];
+			feature_type *f_ptr = &feature_info[c_ptr->feat];
 			bool ok = FALSE;
 
 			if (creature_ptr->change_floor_mode & CFM_DOWN)
@@ -423,7 +423,7 @@ void move_floor(creature_type *creature_ptr)
 	old_fy = creature_ptr->fy;
 
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-	feature_ptr = &f_info[stair_ptr->feat];
+	feature_ptr = &feature_info[stair_ptr->feat];
 
 	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
 	remove_all_mirrors(creature_ptr, old_floor_ptr, FALSE);

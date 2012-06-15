@@ -766,8 +766,8 @@ magic_table_type *m_info;
 /*
  * The terrain feature arrays
  */
-feature_type *f_info;
-char *f_name;
+feature_type *feature_info;
+char *feature_name;
 char *f_tag;
 
 /*
@@ -1012,7 +1012,7 @@ u16b max_object_kind_idx;
 u16b max_v_idx;
 
 /*
- * Maximum number of terrain features in f_info.txt
+ * Maximum number of terrain features in feature_info.txt
  */
 u16b max_f_idx;
 

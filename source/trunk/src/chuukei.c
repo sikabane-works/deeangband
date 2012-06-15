@@ -279,12 +279,12 @@ void flush_ringbuf(void)
 }
 
 
-static int read_chuukei_prf(cptr prf_name)
+static int read_chuukei_prf(cptr prfeature_name)
 {
 	char buf[1024];
 	FILE *fp;
 
-	path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA, prf_name);
+	path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA, prfeature_name);
 	fp = my_fopen(buf, "r");
 
 	if (!fp) return (-1);
@@ -324,7 +324,7 @@ static int read_chuukei_prf(cptr prf_name)
 	return (0);
 }
 
-int connect_chuukei_server(char *prf_name)
+int connect_chuukei_server(char *prfeature_name)
 {
 #ifndef MACINTOSH
 
@@ -336,7 +336,7 @@ int connect_chuukei_server(char *prf_name)
 	struct sockaddr_in ask;
 	struct hostent *hp;
 
-	if (read_chuukei_prf(prf_name) < 0)
+	if (read_chuukei_prf(prfeature_name) < 0)
 	{
 		printf("Wrong prf file\n");
 		return (-1);
@@ -402,7 +402,7 @@ int connect_chuukei_server(char *prf_name)
 	Boolean			bind	= false;
 	OSStatus 	junk;
 
-	if (read_chuukei_prf(prf_name) < 0){
+	if (read_chuukei_prf(prfeature_name) < 0){
 		printf("Wrong prf file\n");
 		return (-1);
 	}

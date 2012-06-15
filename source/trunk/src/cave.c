@@ -64,7 +64,7 @@ int distance (int y1, int x1, int y2, int x2)
  */
 bool is_trap(int feat)
 {
-	return have_flag(f_info[feat].flags, FF_TRAP);
+	return have_flag(feature_info[feat].flags, FF_TRAP);
 }
 
 
@@ -85,7 +85,7 @@ bool is_known_trap(cave_type *c_ptr)
  */
 bool is_closed_door(int feat)
 {
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	return (have_flag(f_ptr->flags, FF_OPEN) || have_flag(f_ptr->flags, FF_BASH)) &&
 	       !have_flag(f_ptr->flags, FF_MOVE);
@@ -924,7 +924,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	s16b feat = get_feat_mimic(c_ptr);
 
 	/* Access floor */
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	byte a;
 	byte c;
@@ -970,7 +970,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
 
 				/* Access darkness */
-				f_ptr = &f_info[feat];
+				f_ptr = &feature_info[feat];
 
 				/* Char and attr of darkness */
 				a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1022,7 +1022,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
 
 			/* Access darkness */
-			f_ptr = &f_info[feat];
+			f_ptr = &feature_info[feat];
 
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1063,7 +1063,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
 
 					/* Access darkness */
-					f_ptr = &f_info[feat];
+					f_ptr = &feature_info[feat];
 
 					/* Char and attr of darkness */
 					a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1142,7 +1142,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
 
 			/* Access feature */
-			f_ptr = &f_info[feat];
+			f_ptr = &feature_info[feat];
 
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1502,7 +1502,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 	if (!(c_ptr->info & (CAVE_MARK)))
 	{
 		/* Feature code (applying "mimic" field) */
-		feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
+		feature_type *f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 		/* Memorize some "boring" grids */
 		if (!have_flag(f_ptr->flags, FF_REMEMBER))
@@ -1591,7 +1591,7 @@ void display_dungeon(creature_type *cr_ptr)
 				/* Clear out-of-bound tiles */
 
 				/* Access darkness */
-				feature_type *f_ptr = &f_info[feat_none];
+				feature_type *f_ptr = &feature_info[feat_none];
 
 				/* Normal attr */
 				a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -4324,7 +4324,7 @@ void map_area(creature_type *creature_ptr, int range)
 
 			/* Feature code (applying "mimic" field) */
 			feat = get_feat_mimic(c_ptr);
-			f_ptr = &f_info[feat];
+			f_ptr = &feature_info[feat];
 
 			/* All non-walls are "checked" */
 			if (!have_flag(f_ptr->flags, FF_WALL))
@@ -4343,7 +4343,7 @@ void map_area(creature_type *creature_ptr, int range)
 
 					/* Feature code (applying "mimic" field) */
 					feat = get_feat_mimic(c_ptr);
-					f_ptr = &f_info[feat];
+					f_ptr = &feature_info[feat];
 
 					/* Memorize walls (etc) */
 					if (have_flag(f_ptr->flags, FF_REMEMBER))
@@ -4412,7 +4412,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 
 			/* Feature code (applying "mimic" field) */
 			feat = get_feat_mimic(c_ptr);
-			f_ptr = &f_info[feat];
+			f_ptr = &feature_info[feat];
 
 			/* Process all non-walls */
 			if (!have_flag(f_ptr->flags, FF_WALL))
@@ -4427,7 +4427,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 					c_ptr = &floor_ptr->cave[yy][xx];
 
 					/* Feature code (applying "mimic" field) */
-					f_ptr = &f_info[get_feat_mimic(c_ptr)];
+					f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 					/* Perma-lite the grid */
 					if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !ninja)
@@ -4548,7 +4548,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *cr_ptr)
 void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 	bool old_los, old_mirror;
 
 	if (!floor_generated)
@@ -4666,7 +4666,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
 {
-	feature_type *f_ptr = &f_info[newfeat];
+	feature_type *f_ptr = &feature_info[newfeat];
 
 	if (have_flag(f_ptr->flags, FF_CONVERT))
 	{
@@ -4700,7 +4700,7 @@ int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
  */
 int feat_state(floor_type *floor_ptr, int feat, int action)
 {
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 	int i;
 
 	/* Get the new feature */
@@ -4734,8 +4734,8 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 
 	if (!(feature_action_flags[action] & FAF_NO_DROP))
 	{
-		feature_type *old_f_ptr = &f_info[oldfeat];
-		feature_type *f_ptr = &f_info[newfeat];
+		feature_type *old_f_ptr = &feature_info[oldfeat];
+		feature_type *f_ptr = &feature_info[newfeat];
 		bool found = FALSE;
 
 		/* Handle gold */
@@ -4766,7 +4766,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 
 	if (feature_action_flags[action] & FAF_CRASH_GLASS)
 	{
-		feature_type *old_f_ptr = &f_info[oldfeat];
+		feature_type *old_f_ptr = &feature_info[oldfeat];
 
 		if (have_flag(old_f_ptr->flags, FF_GLASS) && floor_generated)
 		{
@@ -4811,7 +4811,7 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
  */
 bool is_mirror_grid(cave_type *c_ptr)
 {
-	if ((c_ptr->info & CAVE_OBJECT) && have_flag(f_info[c_ptr->mimic].flags, FF_MIRROR))
+	if ((c_ptr->info & CAVE_OBJECT) && have_flag(feature_info[c_ptr->mimic].flags, FF_MIRROR))
 		return TRUE;
 	else
 		return FALSE;
@@ -4823,7 +4823,7 @@ bool is_mirror_grid(cave_type *c_ptr)
  */
 bool is_glyph_grid(cave_type *c_ptr)
 {
-	if ((c_ptr->info & CAVE_OBJECT) && have_flag(f_info[c_ptr->mimic].flags, FF_GLYPH))
+	if ((c_ptr->info & CAVE_OBJECT) && have_flag(feature_info[c_ptr->mimic].flags, FF_GLYPH))
 		return TRUE;
 	else
 		return FALSE;
@@ -4835,7 +4835,7 @@ bool is_glyph_grid(cave_type *c_ptr)
  */
 bool is_explosive_rune_grid(cave_type *c_ptr)
 {
-	if ((c_ptr->info & CAVE_OBJECT) && have_flag(f_info[c_ptr->mimic].flags, FF_MINOR_GLYPH))
+	if ((c_ptr->info & CAVE_OBJECT) && have_flag(feature_info[c_ptr->mimic].flags, FF_MINOR_GLYPH))
 		return TRUE;
 	else
 		return FALSE;
@@ -5101,7 +5101,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 
 			// Feature code (applying "mimic" field)
-			if (have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_GLOW))
+			if (have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_GLOW))
 			{
 				for (i = 0; i < 9; i++)
 				{

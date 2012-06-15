@@ -1927,7 +1927,7 @@ msg_format("%^s%s", creature_name, monmessage);
 
 		/* Access that cave grid */
 		c_ptr = &floor_ptr->cave[ny][nx];
-		f_ptr = &f_info[c_ptr->feat];
+		f_ptr = &feature_info[c_ptr->feat];
 		can_cross = creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0);
 
 		/* Access that cave grid's contents */
@@ -2076,7 +2076,7 @@ msg_format("%^s%s", creature_name, monmessage);
 					cave_alter_feat(floor_ptr, ny, nx, FF_OPEN);
 				}
 
-				f_ptr = &f_info[c_ptr->feat];
+				f_ptr = &feature_info[c_ptr->feat];
 
 				/* Handle viewable doors */
 				do_view = TRUE;
@@ -2307,7 +2307,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				return;
 			}
 
-			f_ptr = &f_info[c_ptr->feat];
+			f_ptr = &feature_info[c_ptr->feat];
 
 			/* Note changes to viewable region */
 			do_view = TRUE;

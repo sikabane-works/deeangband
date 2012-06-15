@@ -38,7 +38,7 @@ void reset_visuals(void)
 	/* Extract some info about terrain features */
 	for (i = 0; i < max_f_idx; i++)
 	{
-		feature_type *f_ptr = &f_info[i];
+		feature_type *f_ptr = &feature_info[i];
 
 		/* Assume we will use the underlying values */
 		for (j = 0; j < F_LIT_MAX; j++)

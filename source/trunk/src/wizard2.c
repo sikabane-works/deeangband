@@ -1901,7 +1901,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	cave_set_feat(floor_ptr, y, x, tmp_feat);
 	c_ptr->mimic = tmp_mimic;
 
-	f_ptr = &f_info[get_feat_mimic(c_ptr)];
+	f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 	if (have_flag(f_ptr->flags, FF_GLYPH) ||
 	    have_flag(f_ptr->flags, FF_MINOR_GLYPH))

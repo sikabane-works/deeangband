@@ -167,7 +167,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 	int i;
 	int shaft_num = 0;
 
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	if (have_flag(f_ptr->flags, FF_LESS))
 	{
@@ -521,7 +521,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 					x = randint0(floor_ptr->width);
 
 					c_ptr = &floor_ptr->cave[y][x];
-					f_ptr = &f_info[c_ptr->feat];
+					f_ptr = &feature_info[c_ptr->feat];
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
 					if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)) continue;
@@ -567,7 +567,7 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 	}
 	else
 	{
-		feature_type *f_ptr = &f_info[c_ptr->feat];
+		feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 		/* Hack -- Decline boundary walls with known treasure  */
 		if ((have_flag(f_ptr->flags, FF_HAS_GOLD) || have_flag(f_ptr->flags, FF_HAS_ITEM)) &&
@@ -849,7 +849,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 			if (feat1)
 			{
-				feature_type *f_ptr = &f_info[feat1];
+				feature_type *f_ptr = &feature_info[feat1];
 
 				/* Only add river if matches lake type or if have no lake at all */
 				if (((dungeon_ptr->laketype == LAKE_T_LAVA) && have_flag(f_ptr->flags, FF_LAVA)) ||
@@ -917,7 +917,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 				/* Access the grid */
 				c_ptr = &floor_ptr->cave[y][x];
-				f_ptr = &f_info[c_ptr->feat];
+				f_ptr = &feature_info[c_ptr->feat];
 
 				/* Clear previous contents (if not a lake), add a floor */
 				if (!have_flag(f_ptr->flags, FF_MOVE) || (!have_flag(f_ptr->flags, FF_WATER) && !have_flag(f_ptr->flags, FF_LAVA)))

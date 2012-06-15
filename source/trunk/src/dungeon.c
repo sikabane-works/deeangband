@@ -791,7 +791,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int to_ruin = 0, r_y, r_x;
-	int pattern_type = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
+	int pattern_type = feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	if (pattern_type == PATTERN_TILE_WRECKED) return; // Ruined already
 
@@ -817,7 +817,7 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 		scatter(floor_ptr, &r_y, &r_x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
 		if (pattern_tile(floor_ptr, r_y, r_x) &&
-		    (f_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
+		    (feature_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
 			cave_set_feat(floor_ptr, r_y, r_x, feat_pattern_corrupted);
 		}
@@ -840,7 +840,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		wreck_the_pattern(floor_ptr, creature_ptr);
 	}
 
-	pattern_type = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
+	pattern_type = feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	switch (pattern_type)
 	{
@@ -1570,7 +1570,7 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	feature_type *f_ptr = &f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
+	feature_type *f_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
 	char creature_name[80];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
@@ -1737,15 +1737,15 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
 			{
-				cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+				cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 #ifdef JP
 				msg_format("%sで火傷した！", name);
 #else
@@ -1773,7 +1773,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_POIS, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
@@ -1804,7 +1804,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ACID, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
@@ -3916,7 +3916,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 							cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 							/* Feature code (applying "mimic" field) */
-							feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
+							feature_type *f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 							if (!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
 							    !have_flag(f_ptr->flags, FF_ENTRANCE))
@@ -4486,7 +4486,7 @@ msg_print("ウィザードモード突入。");
 		case SPECIAL_KEY_STORE:
 		{
 			cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-			int which = town_store_id[town_num][f_info[c_ptr->feat].subtype];
+			int which = town_store_id[town_num][feature_info[c_ptr->feat].subtype];
 			screen_save();
 			store_process(creature_ptr, &st_list[which]);
 			screen_load();

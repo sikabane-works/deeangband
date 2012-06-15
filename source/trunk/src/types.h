@@ -62,7 +62,7 @@ struct creature_flags
  * Feature state structure
  *
  * - Action (FF_*)
- * - Result (f_info ID)
+ * - Result (feature_info ID)
  */
 typedef struct feature_state feature_state;
 

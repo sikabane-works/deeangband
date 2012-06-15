@@ -118,7 +118,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		x = creature_ptr->fx + ddx[dir];
 		c_ptr = &floor_ptr->cave[y][x];
 
-		if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
+		if (!have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
 		{
 #ifdef JP
 			msg_print("‚»‚±‚É‚ÍŠâÎ‚ª‚È‚¢B");
@@ -1411,7 +1411,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			else
 			{
 				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-				feature_type *f_ptr = &f_info[c_ptr->feat];
+				feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
 				    (!creature_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP)))

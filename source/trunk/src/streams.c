@@ -117,7 +117,7 @@ static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y
 						c_ptr->mimic = 0;
 
 						/* Lava terrain glows */
-						if (have_flag(f_info[feat1].flags, FF_LAVA))
+						if (have_flag(feature_info[feat1].flags, FF_LAVA))
 						{
 							if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) c_ptr->info |= CAVE_GLOW;
 						}
@@ -210,7 +210,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 	cave_type *c_ptr;
 	feature_type *f_ptr;
 
-	feature_type *streamer_ptr = &f_info[feat];
+	feature_type *streamer_ptr = &feature_info[feat];
 	bool streamer_is_wall = have_flag(streamer_ptr->flags, FF_WALL) && !have_flag(streamer_ptr->flags, FF_PERMANENT);
 	bool streamer_may_have_gold = have_flag(streamer_ptr->flags, FF_MAY_HAVE_GOLD);
 
@@ -242,7 +242,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 
 			/* Access the grid */
 			c_ptr = &floor_ptr->cave[ty][tx];
-			f_ptr = &f_info[c_ptr->feat];
+			f_ptr = &feature_info[c_ptr->feat];
 
 			if (have_flag(f_ptr->flags, FF_MOVE) && (have_flag(f_ptr->flags, FF_WATER) || have_flag(f_ptr->flags, FF_LAVA)))
 				continue;

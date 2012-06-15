@@ -3477,8 +3477,8 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
-				f_ptr = &f_info[c_ptr->feat];
-				mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
+				f_ptr = &feature_info[c_ptr->feat];
+				mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 				mutation_stop_mouth(creature_ptr);
 
@@ -3494,9 +3494,9 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				else if (have_flag(f_ptr->flags, FF_PERMANENT))
 				{
 #ifdef JP
-					msg_format("いてっ！この%sはあなたの歯より硬い！", f_name + mimic_f_ptr->name);
+					msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_f_ptr->name);
 #else
-					msg_format("Ouch!  This %s is harder than your teeth!", f_name + mimic_f_ptr->name);
+					msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_f_ptr->name);
 #endif
 					break;
 				}
@@ -3541,9 +3541,9 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				else
 				{
 #ifdef JP
-					msg_format("この%sはとてもおいしい！", f_name + mimic_f_ptr->name);
+					msg_format("この%sはとてもおいしい！", feature_name + mimic_f_ptr->name);
 #else
-					msg_format("This %s is very filling!", f_name + mimic_f_ptr->name);
+					msg_format("This %s is very filling!", feature_name + mimic_f_ptr->name);
 #endif
 					(void)set_food(creature_ptr, creature_ptr->food + 10000);
 				}

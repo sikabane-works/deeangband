@@ -509,7 +509,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 			else
 			{
 				/* Feature code (applying "mimic" field) */
-				f_ptr = &f_info[get_feat_mimic(c_ptr)];
+				f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 				if (!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
 				    !have_flag(f_ptr->flags, FF_ENTRANCE))
@@ -546,7 +546,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 				c_ptr = &floor_ptr->cave[y][x];
 
 				/* Seeing true feature code (ignore mimic) */
-				f_ptr = &f_info[c_ptr->feat];
+				f_ptr = &feature_info[c_ptr->feat];
 
 				if (have_flag(f_ptr->flags, FF_BLDG))
 				{

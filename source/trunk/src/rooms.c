@@ -117,7 +117,7 @@ static void place_secret_door(floor_type *floor_ptr, int y, int x, int type)
 			/* Floor type terrain cannot hide a door */
 			if (feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
 			{
-				if (have_flag(f_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(f_info[c_ptr->mimic].flags, FF_CAN_FLY))
+				if (have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
 					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}
@@ -5097,7 +5097,7 @@ static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x
 	/* set room flag */
 	c_ptr->info |= CAVE_ROOM;
 
-	f_ptr = &f_info[c_ptr->feat];
+	f_ptr = &feature_info[c_ptr->feat];
 
 	if (is_floor_bold(floor_ptr, y, x))
 	{
@@ -5958,9 +5958,9 @@ static bool build_type14(floor_type *floor_ptr)
 	if (cheat_room)
 	{
 #ifdef JP
-		msg_format("%sの部屋(バグ頻発？)", f_name + f_info[trap].name);
+		msg_format("%sの部屋(バグ頻発？)", feature_name + feature_info[trap].name);
 #else
-		msg_format("Room of %s", f_name + f_info[trap].name);
+		msg_format("Room of %s", feature_name + feature_info[trap].name);
 #endif
 	}
 

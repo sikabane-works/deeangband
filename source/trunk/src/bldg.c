@@ -5044,7 +5044,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		return;
 	}
 
-	which = f_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
+	which = feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	bldg = &building[which];
 

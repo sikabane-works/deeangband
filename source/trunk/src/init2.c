@@ -889,21 +889,21 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 
 /*
- * Initialize the "f_info" array
+ * Initialize the "feature_info" array
  */
-static errr init_f_info(void)
+static errr init_feature_info(void)
 {
 	/* Init the header */
 	init_header(&f_head, max_f_idx, sizeof(feature_type));
 
 	/* Save a pointer to the parsing function */
-	f_head.parse_info_txt = parse_f_info;
+	f_head.parse_info_txt = parse_feature_info;
 
 	/* Save a pointer to the retouch fake tags */
-	f_head.retouch = retouch_f_info;
+	f_head.retouch = retouch_feature_info;
 
-	return init_info("f_info", &f_head,
-			 (void*)&f_info, &f_name, NULL, &f_tag);
+	return init_info("feature_info", &f_head,
+			 (void*)&feature_info, &feature_name, NULL, &f_tag);
 }
 
 
@@ -2024,7 +2024,7 @@ void init_angband(void)
 
 	/* Initialize feature info */
 	note("[Initializing arrays... (features)]");
-	if (init_f_info()) quit("Cannot initialize features");
+	if (init_feature_info()) quit("Cannot initialize features");
 	if (init_feat_variables()) quit("Cannot initialize features");
 
 	/* Initialize object info */

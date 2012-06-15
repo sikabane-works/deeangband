@@ -496,7 +496,7 @@ creature_hook_type get_creature_hook(void)
 creature_hook_type get_creature_hook2(int y, int x)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
-	feature_type *f_ptr = &f_info[floor_ptr->cave[y][x].feat];
+	feature_type *f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
 	/* Set the monster list */
 
@@ -584,7 +584,7 @@ msg_format("%^s‚Í“{‚Á‚½I", m_name);
  */
 bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 {
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -642,7 +642,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
  */
 bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 {
-	feature_type *f_ptr = &f_info[feat];
+	feature_type *f_ptr = &feature_info[feat];
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))

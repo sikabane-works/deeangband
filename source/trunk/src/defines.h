@@ -1088,7 +1088,7 @@
 
 
 /*
- * Number of feats we change to (Excluding default). Used in f_info.txt.
+ * Number of feats we change to (Excluding default). Used in feature_info.txt.
  */
 #define MAX_FEAT_STATES	 8
 
@@ -3995,18 +3995,18 @@
 
 
 #define cave_have_flag_bold(FLOOR, Y, X, INDEX) \
-	(have_flag(f_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
+	(have_flag(feature_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
 
 
 #define cave_have_flag_grid(C,INDEX) \
-	(have_flag(f_info[(C)->feat].flags, (INDEX)))
+	(have_flag(feature_info[(C)->feat].flags, (INDEX)))
 
 
 /*
  * Determine if a "feature" supports "los"
  */
 #define feat_supports_los(F) \
-	(have_flag(f_info[(F)].flags, FF_LOS))
+	(have_flag(feature_info[(F)].flags, FF_LOS))
 
 
 /*
@@ -4143,10 +4143,10 @@
 	 have_flag((F)->flags, FF_PERMANENT))
 
 /*
- * Get feature mimic from f_info[] (applying "mimic" field)
+ * Get feature mimic from feature_info[] (applying "mimic" field)
  */
 #define get_feat_mimic(C) \
-	(f_info[(C)->mimic ? (C)->mimic : (C)->feat].mimic)
+	(feature_info[(C)->mimic ? (C)->mimic : (C)->feat].mimic)
 
 #define update_playtime() \
 {\

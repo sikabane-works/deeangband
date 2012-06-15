@@ -502,7 +502,7 @@ static cptr species_info_blow_effect[] =
 /*
  * Feature info flags
  */
-static cptr f_info_flags[] =
+static cptr feature_info_flags[] =
 {
 	"LOS",
 	"PROJECT",
@@ -1566,7 +1566,7 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < FF_FLAG_MAX; i++)
 	{
-		if (streq(what, f_info_flags[i]))
+		if (streq(what, feature_info_flags[i]))
 		{
 			add_flag(f_ptr->flags, i);
 			return 0;
@@ -1595,7 +1595,7 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 	/* Check flags */
 	for (i = 0; i < FF_FLAG_MAX; i++)
 	{
-		if (streq(what, f_info_flags[i]))
+		if (streq(what, feature_info_flags[i]))
 		{
 			f_ptr->state[count].action = i;
 			return 0;
@@ -1615,9 +1615,9 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 
 
 /*
- * Initialize the "f_info" array, by parsing an ascii "template" file
+ * Initialize the "feature_info" array, by parsing an ascii "template" file
  */
-errr parse_f_info(char *buf, header *head)
+errr parse_feature_info(char *buf, header *head)
 {
 	int i;
 
@@ -1652,7 +1652,7 @@ errr parse_f_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		f_ptr = &f_info[i];
+		f_ptr = &feature_info[i];
 
 		/* Tag name is given */
 		if (s)
@@ -1908,7 +1908,7 @@ s16b f_tag_to_index(cptr str)
 	/* Search for real index corresponding to this fake tag */
 	for (i = 0; i < f_head.info_num; i++)
 	{
-		if (streq(f_tag + f_info[i].tag, str))
+		if (streq(f_tag + feature_info[i].tag, str))
 		{
 			/* Return the index */
 			return (s16b)i;
@@ -1933,7 +1933,7 @@ static void search_real_feat(s16b *feat)
 	/* Search for real index corresponding to this fake tag */
 	for (i = 0; i < f_head.info_num; i++)
 	{
-		if ((-(*feat)) == f_info[i].tag)
+		if ((-(*feat)) == feature_info[i].tag)
 		{
 			/* Record real index */
 			*feat = (s16b)i;
@@ -1951,16 +1951,16 @@ static void search_real_feat(s16b *feat)
 
 
 /*
- * Retouch fake tags of f_info
+ * Retouch fake tags of feature_info
  */
-void retouch_f_info(header *head)
+void retouch_feature_info(header *head)
 {
 	int i;
 
 	/* Convert fake tags to real feat indices */
 	for (i = 0; i < head->info_num; i++)
 	{
-		feature_type *f_ptr = &f_info[i];
+		feature_type *f_ptr = &feature_info[i];
 		int j;
 
 		search_real_feat(&f_ptr->mimic);
@@ -3906,7 +3906,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 
 
 #define CF_INFO_CSV_COLUMNS 28
-static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
+static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"ID2",
@@ -3938,7 +3938,7 @@ static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"SPELL",
 };
 
-static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
+static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
 
 #define CF_INFO_ID		0
 #define CF_INFO_ID2	    1
@@ -3993,18 +3993,18 @@ errr parse_creature_flag_csv(char *buf, header *head)
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, cf_info_csv_list[0]))
+	if(!strcmp(tmp, cfeature_info_csv_list[0]))
 	{
-		cf_info_csv_code[0] = CF_INFO_ID;
+		cfeature_info_csv_code[0] = CF_INFO_ID;
 		for(i = 1; i < CF_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			for(j = 1; j < CF_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, cf_info_csv_list[j]))
+				if(!strcmp(tmp, cfeature_info_csv_list[j]))
 				{
-					cf_info_csv_code[i] = j;
+					cfeature_info_csv_code[i] = j;
 					break;
 				}
 			}
@@ -4030,7 +4030,7 @@ errr parse_creature_flag_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			
 
-			switch(cf_info_csv_code[i])
+			switch(cfeature_info_csv_code[i])
 			{
 				case CF_INFO_ID2:
 					strcpy(creature_flag_info[n].id2, tmp);

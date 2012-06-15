@@ -115,8 +115,8 @@ extern errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func
 
 extern errr parse_z_info(char *buf, header *head);
 extern errr parse_v_info(char *buf, header *head);
-extern errr parse_f_info(char *buf, header *head);
-extern void retouch_f_info(header *head);
+extern errr parse_feature_info(char *buf, header *head);
+extern void retouch_feature_info(header *head);
 extern errr parse_object_kind_info(char *buf, header *head);
 extern errr parse_a_info(char *buf, header *head);
 extern errr parse_e_info(char *buf, header *head);

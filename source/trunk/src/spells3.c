@@ -23,7 +23,7 @@ static bool cave_monster_teleportable_bold(creature_type *creature_ptr, int y, i
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
@@ -252,7 +252,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 {
 	floor_type   *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type    *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
@@ -1610,7 +1610,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Seeing true feature code (ignore mimic) */
-			f_ptr = &f_info[c_ptr->feat];
+			f_ptr = &feature_info[c_ptr->feat];
 
 			/* Lose room and vault */
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
@@ -1647,7 +1647,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	for (x = 0; x < floor_ptr->width; x++)
 	{
 		c_ptr = &floor_ptr->cave[0][x];
-		f_ptr = &f_info[c_ptr->mimic];
+		f_ptr = &feature_info[c_ptr->mimic];
 
 		/* Lose room and vault */
 		c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
@@ -1658,11 +1658,11 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
-			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
+			if (!have_flag(feature_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
 		c_ptr = &floor_ptr->cave[floor_ptr->height - 1][x];
-		f_ptr = &f_info[c_ptr->mimic];
+		f_ptr = &feature_info[c_ptr->mimic];
 
 		/* Lose room and vault */
 		c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
@@ -1673,7 +1673,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
-			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
+			if (!have_flag(feature_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 	}
 
@@ -1681,7 +1681,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	for (y = 1; y < (floor_ptr->height - 1); y++)
 	{
 		c_ptr = &floor_ptr->cave[y][0];
-		f_ptr = &f_info[c_ptr->mimic];
+		f_ptr = &feature_info[c_ptr->mimic];
 
 		/* Lose room and vault */
 		c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
@@ -1692,11 +1692,11 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
-			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
+			if (!have_flag(feature_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 
 		c_ptr = &floor_ptr->cave[y][floor_ptr->width - 1];
-		f_ptr = &f_info[c_ptr->mimic];
+		f_ptr = &feature_info[c_ptr->mimic];
 
 		/* Lose room and vault */
 		c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
@@ -1707,7 +1707,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->mimic = feat_state(floor_ptr, c_ptr->mimic, FF_HURT_DISI);
 
 			/* Check for change to boring grid */
-			if (!have_flag(f_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
+			if (!have_flag(feature_info[c_ptr->mimic].flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 		}
 	}
 
@@ -1743,8 +1743,8 @@ void call_the_void(creature_type *creature_ptr)
 
 		if (!cave_have_flag_grid(c_ptr, FF_PROJECT))
 		{
-			if (!c_ptr->mimic || !have_flag(f_info[c_ptr->mimic].flags, FF_PROJECT) ||
-			    !permanent_wall(&f_info[c_ptr->feat]))
+			if (!c_ptr->mimic || !have_flag(feature_info[c_ptr->mimic].flags, FF_PROJECT) ||
+			    !permanent_wall(&feature_info[c_ptr->feat]))
 			{
 				do_call = FALSE;
 				break;

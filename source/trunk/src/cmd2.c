@@ -22,7 +22,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	int up_num = 0;
 
@@ -192,7 +192,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	bool fall_trap = FALSE;
 	int down_num = 0;
@@ -903,7 +903,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 // Return TRUE if the given feature is an open door
 static bool is_open(int feat)
 {
-	return have_flag(f_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
+	return have_flag(feature_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
 }
 
 /*
@@ -1032,7 +1032,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i, j;
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get requested grid
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	bool more = FALSE;
 
 	/* Take a turn */
@@ -1045,9 +1045,9 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	{
 		/* Stuck */
 #ifdef JP
-		msg_format("%sはがっちりと閉じられているようだ。", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("%sはがっちりと閉じられているようだ。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-		msg_format("The %s appears to be stuck.", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("The %s appears to be stuck.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
 	}
@@ -1188,7 +1188,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		object_idx = chest_check(floor_ptr, y, x); // Check for chest
 
 		/* Nothing useful */
-		if (!have_flag(f_info[feat].flags, FF_OPEN) && !object_idx)
+		if (!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -1258,13 +1258,13 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 	/* Seeing true feature code (ignore mimic) */
 
 	/* Open door */
-	if (have_flag(f_info[old_feat].flags, FF_CLOSE))
+	if (have_flag(feature_info[old_feat].flags, FF_CLOSE))
 	{
 		s16b closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
 		if ((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
-		    (closed_feat != old_feat) && !have_flag(f_info[closed_feat].flags, FF_DROP))
+		    (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))
 		{
 			/* Message */
 #ifdef JP
@@ -1354,7 +1354,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Require open/broken door */
-		if (!have_flag(f_info[feat].flags, FF_CLOSE))
+		if (!have_flag(feature_info[feat].flags, FF_CLOSE))
 		{
 			/* Message */
 #ifdef JP
@@ -1461,13 +1461,13 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 
 	/* Get grid */
 	c_ptr = &floor_ptr->cave[y][x];
-	f_ptr = &f_info[c_ptr->feat];
+	f_ptr = &feature_info[c_ptr->feat];
 	power = f_ptr->power;
 
 	/* Feature code (applying "mimic" field) */
-	mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
+	mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
-	name = f_name + mimic_f_ptr->name;
+	name = feature_name + mimic_f_ptr->name;
 
 	/* Sound */
 	sound(SOUND_DIG);
@@ -1640,7 +1640,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* No tunnelling through doors */
-		if (have_flag(f_info[feat].flags, FF_DOOR))
+		if (have_flag(feature_info[feat].flags, FF_DOOR))
 		{
 			/* Message */
 #ifdef JP
@@ -1651,7 +1651,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		}
 
 		/* No tunnelling through most features */
-		else if (!have_flag(f_info[feat].flags, FF_TUNNEL))
+		else if (!have_flag(feature_info[feat].flags, FF_TUNNEL))
 		{
 #ifdef JP
 			msg_print("そこは掘れない。");
@@ -1705,7 +1705,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	/* Must be a closed door */
 	if (!is_closed_door(c_ptr->feat))
@@ -1719,9 +1719,9 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	{
 		/* Stuck */
 #ifdef JP
-		msg_format("%sはがっちりと閉じられているようだ。", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("%sはがっちりと閉じられているようだ。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #else
-		msg_format("The %s appears to be stuck.", f_name + f_info[get_feat_mimic(c_ptr)].name);
+		msg_format("The %s appears to be stuck.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
 	}
@@ -1925,10 +1925,10 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Get feature */
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	/* Access trap name */
-	cptr name = (f_name + f_ptr->name);
+	cptr name = (feature_name + f_ptr->name);
 
 	/* Extract trap "power" */
 	int power = f_ptr->power;
@@ -2134,7 +2134,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get grid
-	feature_type *f_ptr = &f_info[c_ptr->feat]; // Get feature
+	feature_type *f_ptr = &feature_info[c_ptr->feat]; // Get feature
 
 	// Hack -- Bash power based on strength
 	// (Ranges from 3 to 20 to 100 to 200)
@@ -2142,7 +2142,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	int temp = f_ptr->power; // Extract door power
 	bool		more = FALSE;
 
-	cptr name = f_name + f_info[get_feat_mimic(c_ptr)].name;
+	cptr name = feature_name + feature_info[get_feat_mimic(c_ptr)].name;
 
 	/* Take a turn */
 	energy_use = 100;
@@ -2282,7 +2282,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Nothing useful */
-		if (!have_flag(f_info[feat].flags, FF_BASH))
+		if (!have_flag(feature_info[feat].flags, FF_BASH))
 		{
 			/* Message */
 #ifdef JP
@@ -2375,7 +2375,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
-		f_ptr = &f_info[feat];
+		f_ptr = &feature_info[feat];
 
 		/* Take a turn */
 		energy_use = 100;
@@ -2498,7 +2498,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Require closed door */
-		if (!have_flag(f_info[feat].flags, FF_SPIKE))
+		if (!have_flag(feature_info[feat].flags, FF_SPIKE))
 		{
 			/* Message */
 #ifdef JP
@@ -2545,9 +2545,9 @@ void do_cmd_spike(creature_type *creature_ptr)
 
 			/* Successful jamming */
 #ifdef JP
-			msg_format("%sにくさびを打ち込んだ。", f_name + f_info[feat].name);
+			msg_format("%sにくさびを打ち込んだ。", feature_name + feature_info[feat].name);
 #else
-			msg_format("You jam the %s with a spike.", f_name + f_info[feat].name);
+			msg_format("You jam the %s with a spike.", feature_name + feature_info[feat].name);
 #endif
 
 			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
@@ -4503,7 +4503,7 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &f_info[c_ptr->feat];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	int old_head = flow_head;
 
 	n = n % TRAVEL_UNABLE;
@@ -4550,7 +4550,7 @@ static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 	int x, y, d;
 	bool wall = FALSE;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	feature_type *f_ptr = &f_info[floor_ptr->cave[ty][tx].feat];
+	feature_type *f_ptr = &feature_info[floor_ptr->cave[ty][tx].feat];
 
 	/* Reset the "queue" */
 	flow_head = flow_tail = 0;
@@ -4601,7 +4601,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 		return;
 	}
 
-	f_ptr = &f_info[floor_ptr->cave[y][x].feat];
+	f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
 	if ((floor_ptr->cave[y][x].info & CAVE_MARK) &&
 		(have_flag(f_ptr->flags, FF_WALL) ||

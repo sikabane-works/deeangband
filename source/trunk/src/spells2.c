@@ -5281,7 +5281,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						xx = x + ddx_ddd[i];
 						if (!in_bounds2(floor_ptr, yy, xx)) continue;
 						cc_ptr = &floor_ptr->cave[yy][xx];
-						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
+						if (have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
 							c_ptr->info |= CAVE_GLOW;
 							break;
@@ -5816,7 +5816,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					xxx = xx + ddx_ddd[ii];
 					if (!in_bounds2(floor_ptr, yyy, xxx)) continue;
 					cc_ptr = &floor_ptr->cave[yyy][xxx];
-					if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
+					if (have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 					{
 						c_ptr->info |= CAVE_GLOW;
 						break;
@@ -6056,7 +6056,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 					{
 						cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
-						if (have_flag(f_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
+						if (have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
 							do_dark = FALSE;
 							break;
@@ -6070,7 +6070,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 			c_ptr->info &= ~(CAVE_GLOW);
 
 			/* Hack -- Forget "boring" grids */
-			if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_REMEMBER))
+			if (!have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_REMEMBER))
 			{
 				/* Forget the grid */
 				if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);

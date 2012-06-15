@@ -471,7 +471,7 @@ errr process_pref_file_command(char *buf)
 
 			i = (huge)strtol(zz[0], NULL, 0);
 			if (i >= max_f_idx) return 1;
-			f_ptr = &f_info[i];
+			f_ptr = &feature_info[i];
 
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);

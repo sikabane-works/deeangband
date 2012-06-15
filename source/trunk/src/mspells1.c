@@ -1347,7 +1347,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if (los(floor_ptr, caster_ptr->fy, caster_ptr->fx, y_br_lite, x_br_lite))
 		{
-			feature_type *f_ptr = &f_info[floor_ptr->cave[y_br_lite][x_br_lite].feat];
+			feature_type *f_ptr = &feature_info[floor_ptr->cave[y_br_lite][x_br_lite].feat];
 
 			if (!have_flag(f_ptr->flags, FF_LOS))
 			{
@@ -1369,7 +1369,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Check path */
 	if (projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x))
 	{
-		feature_type *f_ptr = &f_info[floor_ptr->cave[y][x].feat];
+		feature_type *f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{

@@ -1920,9 +1920,9 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if (!player_can_ride_aux(rider_ptr, c_ptr, TRUE))
 		{
 			/* Feature code (applying "mimic" field) */
-			feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
+			feature_type *f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 #ifdef JP
-			msg_format("そのクリーチャーは%sの%sにいる。", f_name + f_ptr->name,
+			msg_format("そのクリーチャーは%sの%sにいる。", feature_name + f_ptr->name,
 			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
 			           "中" : "上");
@@ -1930,7 +1930,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			msg_format("This creature is %s the %s.",
 			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
-			           "in" : "on", f_name + f_ptr->name);
+			           "in" : "on", feature_name + f_ptr->name);
 #endif
 
 			return FALSE;

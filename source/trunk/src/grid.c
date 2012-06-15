@@ -40,7 +40,7 @@ bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 		if (c_ptr->creature_idx) continue;
 		if (floor_ptr->floor_level)
 		{
-			f_ptr = &f_info[c_ptr->feat];
+			f_ptr = &feature_info[c_ptr->feat];
 
 			if (max_attempts > 5000) /* Rule 1 */
 			{
@@ -174,7 +174,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 			/* Floor type terrain cannot hide a door */
 			if (feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
 			{
-				if (have_flag(f_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(f_info[c_ptr->mimic].flags, FF_CAN_FLY))
+				if (have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
 					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}

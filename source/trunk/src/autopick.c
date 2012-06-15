@@ -2906,7 +2906,7 @@ static void prepare_default_pickpref(void)
  * Read an autopick prefence file to memory
  * Prepare default if no user file is found
  */
-static cptr *read_pickpref_text_lines(int *filename_mode_p)
+static cptr *read_pickprefeature_text_lines(int *filename_mode_p)
 {
 	char buf[1024];
 	cptr *lines_list;
@@ -5151,7 +5151,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 #endif
 
 		free_text_lines(tb->lines_list);
-		tb->lines_list = read_pickpref_text_lines(&tb->filename_mode);
+		tb->lines_list = read_pickprefeature_text_lines(&tb->filename_mode);
 		tb->dirty_flags |= DIRTY_ALL | DIRTY_MODE | DIRTY_EXPRESSION;
 		tb->cx = tb->cy = 0;
 		tb->mark = 0;
@@ -6220,7 +6220,7 @@ void do_cmd_edit_autopick(creature_type *cr_ptr)
 	}
 
 	/* Read or initialize whole text */
-	tb->lines_list = read_pickpref_text_lines(&tb->filename_mode);
+	tb->lines_list = read_pickprefeature_text_lines(&tb->filename_mode);
 
 	/* Reset cursor position if needed */
 	for (i = 0; i < tb->cy; i++)
