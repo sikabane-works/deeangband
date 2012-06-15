@@ -5554,12 +5554,6 @@ errr parse_dungeon_info(char *buf, header *head)
 
 	}
 
-	else if (buf[0] == 'Y')
-	{
-		/* Read a string */
-		strncpy(d_ptr->r_char, &buf[2], sizeof(buf - 2));
-	}
-
 	/* Oops */
 	else return (6);
 
