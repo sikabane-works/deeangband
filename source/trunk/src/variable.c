@@ -807,16 +807,17 @@ char *creature_flag_name;
 char *creature_flag_text;
 char *creature_flag_tmp;
 
-/*
- * The race arrays
- */
+// The race arrays
 race_type *race_info;
 char *race_name;
 char *race_text;
 
-/*
- * The artifact arrays
- */
+// The class arrays
+//class_type *class_info;
+char *class_name;
+char *class_text;
+
+// The artifact arrays
 artifact_type *artifact_info;
 char *artifact_name;
 char *artifact_text;

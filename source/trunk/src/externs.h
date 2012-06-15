@@ -86,7 +86,6 @@ extern byte extract_energy[200];
 extern s32b creature_exp[PY_MAX_LEVEL];
 extern s32b creature_exp_a[PY_MAX_LEVEL];
 extern player_sex sex_info[MAX_SEXES];
-extern class_type class_info[MAX_CLASS];
 extern magic_type technic_info[NUM_TECHNIC][32];
 extern creature_chara chara_info[MAX_CHARA];
 extern race_type mimic_info[];
@@ -466,6 +465,10 @@ extern char *creature_flag_tmp;	// for self reference
 extern race_type *race_info;
 extern char *race_name;
 extern char *race_text;
+
+extern class_type class_info[MAX_CLASS];
+extern char *class_name;
+extern char *class_text;
 
 extern authority_type *authority_info;
 extern char *authority_name;

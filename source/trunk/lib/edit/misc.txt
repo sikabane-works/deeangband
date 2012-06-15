@@ -18,7 +18,7 @@ M:C:607
 # Maximum number of species_info.txt
 M:R:1438
 
-# Maximum number of re_info.txt
+# Maximum number of race_ego_info.txt
 M:RE:18
 
 # Maximum number of store in st_info.csv

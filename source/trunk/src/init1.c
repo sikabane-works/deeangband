@@ -4833,6 +4833,134 @@ static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
 #define CL_INFO_EXP     33
 #define CL_INFO_PET_UPKEEP 34
 
+errr parse_class_info_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, CL_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, rc_info_csv_list[0]))
+	{
+		rc_info_csv_code[0] = CL_INFO_ID;
+		for(i = 1; i < CL_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < CL_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, rc_info_csv_list[j]))
+				{
+					rc_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == CL_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize CL:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < CL_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(rc_info_csv_code[i])
+			{
+				case CL_INFO_NAME:
+					break;
+				case CL_INFO_E_NAME:
+					break;
+				case CL_INFO_STR:
+					break;
+				case CL_INFO_INT:
+					break;
+				case CL_INFO_WIS:
+					break;
+				case CL_INFO_DEX:
+					break;
+				case CL_INFO_CON:
+					break;
+				case CL_INFO_CHA:
+					break;
+				case CL_INFO_A_STR:
+					break;
+				case CL_INFO_A_INT:
+					break;
+				case CL_INFO_A_WIS:
+					break;
+				case CL_INFO_A_DEX:
+					break;
+				case CL_INFO_A_CON:
+					break;
+				case CL_INFO_A_CHA:
+					break;
+				case CL_INFO_RARITY:
+					break;
+				case CL_INFO_C_DIS:
+					break;
+				case CL_INFO_C_DEV:
+					break;
+				case CL_INFO_C_SAV:
+					break;
+				case CL_INFO_C_STL:
+					break;
+				case CL_INFO_C_SRH:
+					break;
+				case CL_INFO_C_FOS:
+					break;
+				case CL_INFO_C_THN:
+					break;
+				case CL_INFO_C_THB:
+					break;
+				case CL_INFO_X_DIS:
+					break;
+				case CL_INFO_X_DEV:
+					break;
+				case CL_INFO_X_SAV:
+					break;
+				case CL_INFO_X_STL:
+					break;
+				case CL_INFO_X_SRH:
+					break;
+				case CL_INFO_X_FOS:
+					break;
+				case CL_INFO_X_THN:
+					break;
+				case CL_INFO_X_THB:
+					break;
+				case CL_INFO_HD:
+					break;
+				case CL_INFO_EXP:
+					break;
+				case CL_INFO_PET_UPKEEP:
+					break;
+
+			}
+		}
+	}
+
+	return (0);
+}
+
 
 #define CH_INFO_CSV_COLUMNS 20
 static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
