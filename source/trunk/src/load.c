@@ -1363,11 +1363,12 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->upper_floor_id);
 	rd_s16b(&floor_ptr->lower_floor_id);
 
+	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
+
 	rd_s16b(&floor_ptr->base_level);
 	rd_s16b(&floor_ptr->num_repro);
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
-
 	rd_s32b(&floor_ptr->floor_turn);
 	rd_s32b(&floor_ptr->floor_turn_limit);
 

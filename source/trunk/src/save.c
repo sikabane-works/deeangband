@@ -839,7 +839,6 @@ static void wr_floor(floor_type *floor_ptr)
 	byte count;
 	u16b prev_u16b;
 
-
 	/*** Basic info ***/
 
 	// Dungeon floor specific info follows
@@ -851,6 +850,8 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_u32b(floor_ptr->visit_mark);
 	wr_s16b(floor_ptr->upper_floor_id);
 	wr_s16b(floor_ptr->lower_floor_id);
+
+	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 
 	wr_u16b(floor_ptr->base_level);
 	wr_u16b(floor_ptr->num_repro);

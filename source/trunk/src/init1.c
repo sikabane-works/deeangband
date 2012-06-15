@@ -6285,8 +6285,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		}
 		if(n < MAX_RACES)
 		{
-				for (i = n; i < MAX_RACES ; i++)
-					floor_ptr->race_population[i] = 0;
+			for (i = n; i < MAX_RACES ; i++) floor_ptr->race_population[i] = 0;
 		}
 		return (0);
 
