@@ -7069,7 +7069,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 			}
 			else
 			{
-				s_ptr = &m_info[cr_ptr->cls_idx].info[cr_ptr->realm1 - 1][i];
+				s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm1 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 			spell_exp = cr_ptr->spell_exp[i];
@@ -7103,7 +7103,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 			}
 			else
 			{
-				s_ptr = &m_info[cr_ptr->cls_idx].info[cr_ptr->realm2 - 1][i];
+				s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm2 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 

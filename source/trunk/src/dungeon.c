@@ -4686,7 +4686,7 @@ msg_print("ウィザードモード突入。");
 #else
 						which_power = "ninjutsu";
 #endif
-					else if (m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK)
+					else if (magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK)
 #ifdef JP
 						which_power = "祈り";
 #else

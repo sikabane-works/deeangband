@@ -441,7 +441,7 @@ extern vault_type *v_info;
 extern char *v_name;
 extern char *v_text;
 extern skill_table *skill_info;
-extern magic_table_type *m_info;
+extern magic_table_type *magic_info;
 extern feature_type *feature_info;
 extern char *feature_name;
 extern char *feature_tag;

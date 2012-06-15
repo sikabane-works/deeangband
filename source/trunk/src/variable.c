@@ -761,7 +761,7 @@ skill_table *skill_info;
 /*
  * The magic info
  */
-magic_table_type *m_info;
+magic_table_type *magic_info;
 
 /*
  * The terrain feature arrays

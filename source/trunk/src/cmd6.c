@@ -5146,7 +5146,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!ident_spell(creature_ptr, FALSE)) return;
 
-				if (m_info[creature_ptr->cls_idx].spell_book)
+				if (magic_info[creature_ptr->cls_idx].spell_book)
 				{
 					/* Sufficient mana */
 					if (20 <= creature_ptr->csp)
@@ -6910,14 +6910,14 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 				y1 = ((ctr < EATER_EXT/2) ? y + ctr : y + ctr - EATER_EXT/2);
 				level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 				chance = level * 4 / 5 + 20;
-				chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
+				chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
 				level /= 2;
 				if (cr_ptr->lev > level)
 				{
 					chance -= 3 * (cr_ptr->lev - level);
 				}
 				chance = mod_spell_chance_1(cr_ptr, chance);
-				chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]]);
+				chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]]);
 				/* Stunning makes spells harder */
 				if (cr_ptr->stun > 50) chance += 25;
 				else if (cr_ptr->stun) chance += 15;
@@ -7206,14 +7206,14 @@ msg_print("混乱していて唱えられない！");
 
 	level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
 	level /= 2;
 	if (cr_ptr->lev > level)
 	{
 		chance -= 3 * (cr_ptr->lev - level);
 	}
 	chance = mod_spell_chance_1(cr_ptr, chance);
-	chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]]);
+	chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]]);
 	/* Stunning makes spells harder */
 	if (cr_ptr->stun > 50) chance += 25;
 	else if (cr_ptr->stun) chance += 15;

@@ -77,7 +77,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 		}
 	}
 
-	p = spell_category_name(m_info[cr_ptr->cls_idx].spell_book);
+	p = spell_category_name(magic_info[cr_ptr->cls_idx].spell_book);
 
 	/* Extract spells */
 	for (spell = 0; spell < 32; spell++)
@@ -263,7 +263,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			}
 			else
 			{
-				s_ptr = &m_info[cr_ptr->cls_idx].info[use_realm][spell];
+				s_ptr = &magic_info[cr_ptr->cls_idx].info[use_realm][spell];
 			}
 
 			/* Extract mana consumption rate */
@@ -481,7 +481,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 #endif
 
 	// Restrict choices to "useful" books
-	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->cls_idx].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->cls_idx].spell_book;
 
 	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable, 0))
 	{
@@ -646,7 +646,7 @@ void do_cmd_study(creature_type *cr_ptr)
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
 
-	cptr p = spell_category_name(m_info[cr_ptr->cls_idx].spell_book);
+	cptr p = spell_category_name(magic_info[cr_ptr->cls_idx].spell_book);
 
 	object_type *o_ptr;
 
@@ -717,7 +717,7 @@ msg_format("新しい%sを覚えることはできない！", p);
 
 
 	/* Restrict choices to "useful" books */
-	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->cls_idx].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->cls_idx].spell_book;
 
 	/* Get an item */
 #ifdef JP
@@ -768,7 +768,7 @@ s = "読める本がない。";
 	handle_stuff();
 
 	/* Mage -- Learn a selected spell */
-	if (m_info[cr_ptr->cls_idx].spell_book != TV_LIFE_BOOK)
+	if (magic_info[cr_ptr->cls_idx].spell_book != TV_LIFE_BOOK)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
@@ -907,7 +907,7 @@ s = "読める本がない。";
 		/* Mention the result */
 #ifdef JP
 		/* 英日切り替え機能に対応 */
-		if (m_info[cr_ptr->cls_idx].spell_book == TV_MUSIC_BOOK)
+		if (magic_info[cr_ptr->cls_idx].spell_book == TV_MUSIC_BOOK)
 		{
 			msg_format("%sを学んだ。",
 				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
@@ -1049,10 +1049,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
-	prayer = spell_category_name(m_info[creature_ptr->cls_idx].spell_book);
+	prayer = spell_category_name(magic_info[creature_ptr->cls_idx].spell_book);
 
 	/* Restrict choices to spell books */
-	item_tester_tval = m_info[creature_ptr->cls_idx].spell_book;
+	item_tester_tval = magic_info[creature_ptr->cls_idx].spell_book;
 
 	/* Get an item */
 #ifdef JP
@@ -1110,14 +1110,14 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Ask for a spell */
 #ifdef JP
 	if (!get_spell(creature_ptr, &spell,  
-				((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[creature_ptr->cls_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
+				((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->cls_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
 		       sval, TRUE, realm))
 	{
 		if (spell == -2) msg_format("その本には知っている%sがない。", prayer);
 		return;
 	}
 #else
-	if (!get_spell(creature_ptr, &spell, ((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+	if (!get_spell(creature_ptr, &spell, ((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 		sval, TRUE, realm))
 	{
 		if (spell == -2)
@@ -1149,7 +1149,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	}
 	else
 	{
-		s_ptr = &m_info[creature_ptr->cls_idx].info[realm - 1][spell];
+		s_ptr = &magic_info[creature_ptr->cls_idx].info[realm - 1][spell];
 	}
 
 	/* Extract mana consumption rate */
@@ -1163,10 +1163,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 		/* Warning */
 #ifdef JP
 msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
- ((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
+ ((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
 #else
 		msg_format("You do not have enough mana to %s this %s.",
-			((m_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 			prayer);
 #endif
 
@@ -1291,7 +1291,7 @@ msg_print("An infernal sound echoed.");
 			play_window |= (PW_OBJECT);
 
 		}
-		if (m_info[creature_ptr->cls_idx].spell_xtra & MAGIC_GAIN_EXP)
+		if (magic_info[creature_ptr->cls_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
 			s16b cur_exp = creature_ptr->spell_exp[(increment ? 32 : 0)+spell];
 			s16b exp_gain = 0;

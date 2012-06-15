@@ -1106,18 +1106,18 @@ static errr init_skill_info(void)
 
 
 /*
- * Initialize the "m_info" array
+ * Initialize the "magic_info" array
  */
-static errr init_m_info(void)
+static errr init_magic_info(void)
 {
 	/* Init the header */
 	init_header(&m_head, MAX_CLASS, sizeof(magic_table_type));
 
 	/* Save a pointer to the parsing function */
-	m_head.parse_info_txt = parse_m_info;
+	m_head.parse_info_txt = parse_magic_info;
 
-	return init_info("m_info", &m_head,
-			 (void*)&m_info, NULL, NULL, NULL);
+	return init_info("magic_info", &m_head,
+			 (void*)&magic_info, NULL, NULL, NULL);
 }
 
 
@@ -2065,7 +2065,7 @@ void init_angband(void)
 
 	/* Initialize magic info */
 	note("[Initializing arrays... (magic)]");
-	if (init_m_info()) quit("Cannot initialize magic");
+	if (init_magic_info()) quit("Cannot initialize magic");
 
 	/* Initialize weapon_exp info */
 	note("[Initializing arrays... (skill)]");

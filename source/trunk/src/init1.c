@@ -1354,9 +1354,9 @@ errr parse_skill_info(char *buf, header *head)
 
 
 /*
- * Initialize the "m_info" array, by parsing an ascii "template" file
+ * Initialize the "magic_info" array, by parsing an ascii "template" file
  */
-errr parse_m_info(char *buf, header *head)
+errr parse_magic_info(char *buf, header *head)
 {
 	int i;
 
@@ -1385,7 +1385,7 @@ errr parse_m_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		m_ptr = &m_info[i];
+		m_ptr = &magic_info[i];
 	}
 
 	/* There better be a current m_ptr */
