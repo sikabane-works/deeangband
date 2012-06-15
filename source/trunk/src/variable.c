@@ -711,22 +711,16 @@ char tval_to_char[128];
  */
 cptr keymap_act[KEYMAP_MODES][256];
 
+// pointer current floor
+floor_type *current_floor_ptr = NULL;
 
 
 /*** Player information ***/
 
 /*
- * Static player info record
- */
-creature_type p_body;
-
-/*
  * Pointer to the player info
  */
 creature_type *player_ptr = NULL;
-
-// pointer current floor
-floor_type *current_floor_ptr = NULL;
 
 u32b play_redraw = 0;		/* Normal Redraws (bit flags) */
 u32b play_window = 0;		/* Window Redraws (bit flags) */
