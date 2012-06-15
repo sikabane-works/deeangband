@@ -894,7 +894,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 static errr init_feature_info(void)
 {
 	/* Init the header */
-	init_header(&f_head, max_f_idx, sizeof(feature_type));
+	init_header(&f_head, max_feature_idx, sizeof(feature_type));
 
 	/* Save a pointer to the parsing function */
 	f_head.parse_info_txt = parse_feature_info;
@@ -945,7 +945,7 @@ static errr init_artifact_info(void)
 static errr init_object_ego_info(void)
 {
 	/* Init the header */
-	init_header(&object_ego_head, max_e_idx, sizeof(ego_item_type));
+	init_header(&object_ego_head, max_object_ego_idx, sizeof(ego_item_type));
 
 	/* Save a pointer to the parsing function */
 	object_ego_head.parse_info_txt = parse_object_ego_csv;
@@ -997,7 +997,7 @@ static errr init_species_info_csv(void)
 static errr init_re_info(void)
 {
 	/* Init the header */
-	init_header(&re_head, max_creature_egobject_idx, sizeof(creature_ego));
+	init_header(&re_head, max_creature_ego_idx, sizeof(creature_ego));
 
 	/* Save a pointer to the parsing function */
 	re_head.parse_info_txt = parse_re_info;
@@ -1063,7 +1063,7 @@ static errr init_authority_info(void)
 static errr init_dungeon_info(void)
 {
 	/* Init the header */
-	init_header(&d_head, max_d_idx, sizeof(dungeon_info_type));
+	init_header(&d_head, max_dungeon_idx, sizeof(dungeon_info_type));
 
 	/* Save a pointer to the parsing function */
 	d_head.parse_info_txt = parse_dungeon_info;
@@ -1081,7 +1081,7 @@ static errr init_dungeon_info(void)
 errr init_vault_info(void)
 {
 	/* Init the header */
-	init_header(&v_head, max_v_idx, sizeof(vault_type));
+	init_header(&v_head, max_vault_idx, sizeof(vault_type));
 
 	/* Save a pointer to the parsing function */
 	v_head.parse_info_txt = parse_vault_info;
@@ -1400,7 +1400,7 @@ static errr init_other(void)
 	}
 
 	// Allocate and Wipe the max dungeon level
-	C_MAKE(max_dlv, max_d_idx, s16b);
+	C_MAKE(max_dlv, max_dungeon_idx, s16b);
 
 	/*** Prepare the various "bizarre" arrays ***/
 
@@ -2058,7 +2058,7 @@ void init_angband(void)
 	if (init_dungeon_info()) quit("Cannot initialize dungeon");
 	{
 //		int i;
-//		for (i = 1; i < max_d_idx; i++)
+//		for (i = 1; i < max_dungeon_idx; i++)
 //			if (dungeon_info[i].final_guardian)
 //TODO				species_info[dungeon_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
 	}

@@ -2915,7 +2915,7 @@ static bool build_type7(floor_type *floor_ptr)
 	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
 	{
 		/* Access a random vault record */
-		v_ptr = &vault_info[randint0(max_v_idx)];
+		v_ptr = &vault_info[randint0(max_vault_idx)];
 
 		/* Accept the first lesser vault */
 		if (v_ptr->typ == 7) break;
@@ -3006,7 +3006,7 @@ static bool build_type8(floor_type *floor_ptr)
 	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
 	{
 		/* Access a random vault record */
-		v_ptr = &vault_info[randint0(max_v_idx)];
+		v_ptr = &vault_info[randint0(max_vault_idx)];
 
 		/* Accept the first greater vault */
 		if (v_ptr->typ == 8) break;

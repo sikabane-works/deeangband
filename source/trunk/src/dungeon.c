@@ -6164,7 +6164,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 
 	if (!conv_old)
 	{
-		for (i = 0; i < max_d_idx; i++)
+		for (i = 0; i < max_dungeon_idx; i++)
 		{
 			if (max_dlv[i] < dungeon_info[i].mindepth) continue;
 			if (max_dl < max_dlv[i]) max_dl = max_dlv[i];

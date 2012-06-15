@@ -6314,7 +6314,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				/* Maximum species_idx */
 				if (zz[0][1] == 'E')
 				{
-					max_creature_egobject_idx = atoi(zz[1]);
+					max_creature_ego_idx = atoi(zz[1]);
 				}
 				else
 				{
@@ -6331,13 +6331,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Maximum v_idx */
 			else if (zz[0][0] == 'V')
 			{
-				max_v_idx = atoi(zz[1]);
+				max_vault_idx = atoi(zz[1]);
 			}
 
 			/* Maximum f_idx */
 			else if (zz[0][0] == 'F')
 			{
-				max_f_idx = atoi(zz[1]);
+				max_feature_idx = atoi(zz[1]);
 			}
 
 			/* Maximum a_idx */
@@ -6357,13 +6357,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Maximum e_idx */
 			else if (zz[0][0] == 'E')
 			{
-				max_e_idx = atoi(zz[1]);
+				max_object_ego_idx = atoi(zz[1]);
 			}
 
 			/* Maximum d_idx */
 			else if (zz[0][0] == 'D')
 			{
-				max_d_idx = atoi(zz[1]); 
+				max_dungeon_idx = atoi(zz[1]); 
 			}
 
 			/* Maximum object_idx */

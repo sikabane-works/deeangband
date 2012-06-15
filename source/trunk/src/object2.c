@@ -2231,7 +2231,7 @@ static s16b get_random_ego(u16b slot, bool good)
 
 	long total = 0L;
 	
-	for (i = 1; i < max_e_idx; i++)
+	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
 		
@@ -2244,7 +2244,7 @@ static s16b get_random_ego(u16b slot, bool good)
 
 	value = randint1(total);
 
-	for (i = 1; i < max_e_idx; i++)
+	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
 		
@@ -2257,7 +2257,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	}
 
 	// WARING MESSAGE
-	if(i >= max_e_idx)
+	if(i >= max_object_ego_idx)
 	{
 		i = 0;
 		if(cheat_hear) msg_print("WARING: Ego Selection Failed.\n");

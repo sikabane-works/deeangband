@@ -1713,7 +1713,7 @@ void battle_monsters(void)
 	bool tekitou;
 	bool old_gamble_arena_mode = gamble_arena_mode;
 
-	for (i = 0; i < max_d_idx; i++)
+	for (i = 0; i < max_dungeon_idx; i++)
 		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
 	ave_creature_level = randint1(MIN(max_dl, 122))+5;

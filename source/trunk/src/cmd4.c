@@ -4004,7 +4004,7 @@ void do_cmd_visuals(void)
 #endif
 
 			/* Dump features */
-			for (i = 0; i < max_f_idx; i++)
+			for (i = 0; i < max_feature_idx; i++)
 			{
 				feature_type *f_ptr = &feature_info[i];
 
@@ -4375,7 +4375,7 @@ void do_cmd_visuals(void)
 						int prev_f = f;
 						do
 						{
-							if (!cmd_visuals_aux(i, &f, max_f_idx))
+							if (!cmd_visuals_aux(i, &f, max_feature_idx))
 							{
 								f = prev_f;
 								break;
@@ -5759,7 +5759,7 @@ static int collect_features(int grp_cur, int *feat_idx, byte mode)
 	(void)grp_cur;
 
 	/* Check every feature */
-	for (i = 0; i < max_f_idx; i++)
+	for (i = 0; i < max_feature_idx; i++)
 	{
 		/* Access the index */
 		feature_type *f_ptr = &feature_info[i];
@@ -8850,7 +8850,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 	browser_rows = hgt - 8;
 
 	/* Allocate the "feat_idx" array */
-	C_MAKE(feat_idx, max_f_idx, int);
+	C_MAKE(feat_idx, max_feature_idx, int);
 
 	max = 0;
 	grp_cnt = 0;
@@ -9156,7 +9156,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 	}
 
 	/* Free the "feat_idx" array */
-	C_KILL(feat_idx, max_f_idx, int);
+	C_KILL(feat_idx, max_feature_idx, int);
 }
 
 
@@ -9300,7 +9300,7 @@ static void do_cmd_knowledge_dungeon()
 	
 	if (fff)
 	{
-		for (i = 1; i < max_d_idx; i++)
+		for (i = 1; i < max_dungeon_idx; i++)
 		{
 			bool seiha = FALSE;
 

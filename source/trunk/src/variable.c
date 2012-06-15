@@ -989,7 +989,7 @@ u16b max_species_idx;
 /*
  * Maximum number of monsters in re_info.txt
  */
-u16b max_creature_egobject_idx;
+u16b max_creature_ego_idx;
 
 /*
  * Maximum number of monsters in store_pre_info.txt
@@ -1009,12 +1009,12 @@ u16b max_object_kind_idx;
 /*
  * Maximum number of vaults in vault_info.txt
  */
-u16b max_v_idx;
+u16b max_vault_idx;
 
 /*
  * Maximum number of terrain features in feature_info.txt
  */
-u16b max_f_idx;
+u16b max_feature_idx;
 
 /*
  * Maximum number of artifacts in artifact_info.txt
@@ -1024,12 +1024,12 @@ u16b max_artifact_idx;
 /*
  * Maximum number of ego-items in e_info.txt
  */
-u16b max_e_idx;
+u16b max_object_ego_idx;
 
 /*
  * Maximum number of dungeon in dungeon_info.txt
  */
-u16b max_d_idx;
+u16b max_dungeon_idx;
 
 // Maximum number of objects in the level
 u16b max_object_idx;

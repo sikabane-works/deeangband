@@ -1659,7 +1659,7 @@ static void do_cmd_wiz_jump(creature_type *creature_ptr)
 		if (!get_string(ppp, tmp_val, 2)) return;
 
 		tmp_dungeon_level = atoi(tmp_val);
-		if (!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_d_idx)) tmp_dungeon_level = DUNGEON_DOD;
+		if (!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_dungeon_idx)) tmp_dungeon_level = DUNGEON_DOD;
 
 		/* Prompt */
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
@@ -1881,7 +1881,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	/* Extract */
 	tmp_feat = atoi(tmp_val);
 	if (tmp_feat < 0) tmp_feat = 0;
-	else if (tmp_feat >= max_f_idx) tmp_feat = max_f_idx - 1;
+	else if (tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
 	/* Default */
 	sprintf(tmp_val, "%d", prev_mimic);
@@ -1896,7 +1896,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	/* Extract */
 	tmp_mimic = atoi(tmp_val);
 	if (tmp_mimic < 0) tmp_mimic = 0;
-	else if (tmp_mimic >= max_f_idx) tmp_mimic = max_f_idx - 1;
+	else if (tmp_mimic >= max_feature_idx) tmp_mimic = max_feature_idx - 1;
 
 	cave_set_feat(floor_ptr, y, x, tmp_feat);
 	c_ptr->mimic = tmp_mimic;

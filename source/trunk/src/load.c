@@ -1229,7 +1229,7 @@ static void rd_extra(void)
 	}
 
 
-	max = (byte)max_d_idx;
+	max = (byte)max_dungeon_idx;
 
 	rd_byte(&max);
 

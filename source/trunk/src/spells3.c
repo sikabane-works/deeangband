@@ -833,10 +833,10 @@ int choose_dungeon(cptr note, int y, int x)
 	}
 
 	/* Allocate the "dun" array */
-	C_MAKE(dun, max_d_idx, s16b);
+	C_MAKE(dun, max_dungeon_idx, s16b);
 
 	screen_save();
-	for(i = 1; i < max_d_idx; i++)
+	for(i = 1; i < max_dungeon_idx; i++)
 	{
 		char buf[80];
 		bool seiha = FALSE;
@@ -878,7 +878,7 @@ int choose_dungeon(cptr note, int y, int x)
 		if ((i == ESCAPE) || !num)
 		{
 			/* Free the "dun" array */
-			C_KILL(dun, max_d_idx, s16b);
+			C_KILL(dun, max_dungeon_idx, s16b);
 
 			screen_load();
 			return 0;
@@ -893,7 +893,7 @@ int choose_dungeon(cptr note, int y, int x)
 	screen_load();
 
 	/* Free the "dun" array */
-	C_KILL(dun, max_d_idx, s16b);
+	C_KILL(dun, max_dungeon_idx, s16b);
 
 	return select_dungeon;
 }

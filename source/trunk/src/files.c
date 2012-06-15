@@ -470,7 +470,7 @@ errr process_pref_file_command(char *buf)
 			else if ((num == 4) && !streq(zz[3], "LIT")) return 1;
 
 			i = (huge)strtol(zz[0], NULL, 0);
-			if (i >= max_f_idx) return 1;
+			if (i >= max_feature_idx) return 1;
 			f_ptr = &feature_info[i];
 
 			n1 = strtol(zz[1], NULL, 0);
@@ -4851,7 +4851,7 @@ static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "\n  [Recall Depth]\n\n");
 #endif
 
-	for (y = 1; y < max_d_idx; y++)
+	for (y = 1; y < max_dungeon_idx; y++)
 	{
 		bool seiha = FALSE;
 
@@ -6769,7 +6769,7 @@ long total_points(creature_type *player_ptr)
 
 	if (mult < 5) mult = 5;
 
-	for (i = 0; i < max_d_idx; i++)
+	for (i = 0; i < max_dungeon_idx; i++)
 		if(max_dlv[i] > max_dl)
 			max_dl = max_dlv[i];
 

@@ -823,7 +823,7 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 		return (PARSE_ERROR_UNDEFINED_DIRECTIVE);
 	}
 	
-	for (i = 1; i < max_d_idx; i++)
+	for (i = 1; i < max_dungeon_idx; i++)
 	{
 		if (!dungeon_info[i].maxdepth) continue;
 		wilderness[dungeon_info[i].dy][dungeon_info[i].dx].entrance = i;
