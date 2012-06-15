@@ -5600,6 +5600,16 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		h = MAX(h, num + 1);
 	}
 
+	if(mode & GET_SE_RIGHT)
+	{
+		x = Term->wid - w;
+	}
+
+	if(mode & GET_SE_BOTTOM)
+	{
+		y = Term->hgt - h;
+	}
+
 	page_num = num <= h ? 1 : (num - 1) / h + 1;
 	if (num <= 0 || num <= default_se || w < 8) return -1;
 

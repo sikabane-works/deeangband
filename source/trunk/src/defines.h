@@ -6025,5 +6025,8 @@ extern int PlayerUID;
 #define GET_SE_LEFT        0x00000008
 #define GET_SE_CENTER      0x00000010
 #define GET_SE_RIGHT       0x00000020
+#define GET_SE_TOP         0x00000040
+#define GET_SE_MIDDLE      0x00000080
+#define GET_SE_BOTTOM      0x00000100
 
 #define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)
