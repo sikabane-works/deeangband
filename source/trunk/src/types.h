@@ -442,15 +442,15 @@ struct species_type
 	/* u32b r_flags7; */			/* Observed racial flags */
 	u32b r_flags10;			/* Observed racial resistance flags */
 
-	byte slot_hand;
-	byte slot_ring;
-	byte slot_amulet;
-	byte slot_body;
-	byte slot_outer;
-	byte slot_head;
-	byte slot_arms;
-	byte slot_feet;
-	byte slot_tail;
+	s16b slot_hand;
+	s16b slot_ring;
+	s16b slot_amulet;
+	s16b slot_body;
+	s16b slot_outer;
+	s16b slot_head;
+	s16b slot_arms;
+	s16b slot_feet;
+	s16b slot_tail;
 
 };
 
@@ -1003,15 +1003,15 @@ struct race_type
 
 	char symbol;
 
-	byte slot_hand;
-	byte slot_ring;
-	byte slot_amulet;
-	byte slot_body;
-	byte slot_outer;
-	byte slot_head;
-	byte slot_arms;
-	byte slot_feet;
-	byte slot_tail;
+	s16b slot_hand;
+	s16b slot_ring;
+	s16b slot_amulet;
+	s16b slot_body;
+	s16b slot_outer;
+	s16b slot_head;
+	s16b slot_arms;
+	s16b slot_feet;
+	s16b slot_tail;
 
 	/*    byte choice_xtra;   */
 };
@@ -1190,10 +1190,6 @@ struct creature_type
 	s16b iven_fitting_rate[INVEN_TOTAL]; /* Inventory Fitting Rate */
 	byte equip_now[INVEN_TOTAL];         // equipment flag
 	s16b item_slot_num[MAX_ITEM_SLOT];
-	s16b num_hand;
-	s16b num_head;
-	s16b num_tail;
-	s16b num_foot;
 
 	s32b au;			/* Current Gold */
 

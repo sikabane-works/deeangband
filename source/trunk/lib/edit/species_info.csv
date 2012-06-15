@@ -1,48 +1,48 @@
 ID,NAME,E_NAME,SYM,COL,RACE1,RACE2,SEX,CLASS,PATRON,CHARA,RELM1,RELM2,LEV,RARE,SPELL,EXP,N_EXP,N_MIN,AGE,SC,FATHER,MOTHER,DV,SP,VIS,AC,ALERT,STR,INT,WIS,DEX,CON,CHA,M_HB,M_HM,M_WB,M_WM,F_HB,F_HM,F_WB,F_WM,HAND,RING,AMULET,BODY,OUTER,HEAD,ARMS,FEET,TAIL,BATTLE,UNDERLING,ARTIFACT,FLAG,ACTION,AUTHORITY,DESCRIPTION,E_DESCRIPTION,COMMENT,,,,
-0,烙印者,Stigmatic One,@,w,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,0,1,0,0,0,0,0,0,NONE,NONE,-1,0,0,0,0,10,10,10,10,10,10,0,0,0,0,0,0,0,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,,,,STIGMATIC,,,,,"J0#
+0,烙印者,Stigmatic One,@,w,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,VARIABLE,0,1,0,0,0,0,0,0,NONE,NONE,-1,0,0,0,0,10,10,10,10,10,10,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,STIGMATIC,,,,,"J0#
 D'ang#
 ＠さんに設定を与えてみた",,,,
-1,浮浪児,Urchin,t,D,VARIABLE,VARIABLE,0x02,COMMONER,NONE,ORDINARY,NONE,NONE,0,2,50,0,10,14,0,1,NONE,NONE,-1,0,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,"BEG
+1,浮浪児,Urchin,t,D,VARIABLE,VARIABLE,0x02,COMMONER,NONE,ORDINARY,NONE,NONE,0,2,50,0,10,14,0,1,NONE,NONE,-1,0,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BEG
 TOUCH:EAT_GOLD",,,WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%],,,　彼らは汚らしくて本当に頭に来る奴だ。,they look squalid and thoroughly revolting.,J0# D'and# エゴ名がつくために名称を縮めた。Urchin単体でもクソガキ位の意味はもつらしい。,,,,
-2,やせこけた猫,Scrawny cat,f,U,FELINE,FELINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,5,62,0,1,NONE,NONE,-1,0,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,CLAW:HURT:1d3,,,RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON,,,鋭い爪と哀れな容貌を持ったやせこけた小さなネコだ。,A skinny little furball with sharp claws and a menacing look. ,J0#,,,,
-3,すずめ,Sparrow,B,U,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,0,0,0,1,NONE,NONE,-1,0,30,1,10,4,4,4,5,4,4,15,1,1,0,15,1,1,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BITE:HURT:1d1,,,RAND_25|CAN_FLY|WILD_TOWN|WILD_ONLY|DROP_SKELETON,,,"
+2,やせこけた猫,Scrawny cat,f,U,FELINE,FELINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,5,62,0,1,NONE,NONE,-1,0,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CLAW:HURT:1d3,,,RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON,,,鋭い爪と哀れな容貌を持ったやせこけた小さなネコだ。,A skinny little furball with sharp claws and a menacing look. ,J0#,,,,
+3,すずめ,Sparrow,B,U,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,0,0,0,1,NONE,NONE,-1,0,30,1,10,4,4,4,5,4,4,15,1,1,0,15,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d1,,,RAND_25|CAN_FLY|WILD_TOWN|WILD_ONLY|DROP_SKELETON,,,"
 怒らせなければ全く無害だ。","Utterly harmless, except when angry.",JZ#,,,,
-4,ズアオアトリ,Chaffinch,B,r,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,0,0,0,1,NONE,NONE,-1,0,30,1,10,4,4,4,5,4,4,16,1,1,0,16,1,1,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BITE:HURT:1d3,,,RAND_25|CAN_FLY|WILD_ONLY|WILD_WOOD|WILD_GRASS|DROP_SKELETON,,,頭青花鶏。怒らせなければ全く無害だ。,"Utterly harmless, except when angry.","JZ#(コメント)
+4,ズアオアトリ,Chaffinch,B,r,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,0,0,0,1,NONE,NONE,-1,0,30,1,10,4,4,4,5,4,4,16,1,1,0,16,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d3,,,RAND_25|CAN_FLY|WILD_ONLY|WILD_WOOD|WILD_GRASS|DROP_SKELETON,,,頭青花鶏。怒らせなければ全く無害だ。,"Utterly harmless, except when angry.","JZ#(コメント)
 訳は 紫月閑丸さん",,,,
-5,野うさぎ,Wild rabbit,r,U,RODENT,RODENT,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,200,205,0,1,NONE,NONE,-1,0,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BITE:HURT:1d3,,,RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE,,,肉食ではないが、近付き過ぎると身を守るため攻撃してくる。,"It is not a carnivore, but will defend itself if you stray too close. ",JZ#,,,,
-6,きこり,Woodsman,p,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,18,100,83,0,1,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,"HIT:HURT:1d6
+5,野うさぎ,Wild rabbit,r,U,RODENT,RODENT,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,200,205,0,1,NONE,NONE,-1,0,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d3,,,RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE,,,肉食ではないが、近付き過ぎると身を守るため攻撃してくる。,"It is not a carnivore, but will defend itself if you stray too close. ",JZ#,,,,
+6,きこり,Woodsman,p,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,18,100,83,0,1,NONE,NONE,-1,0,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
 HIT:HURT:1d6",,,WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,鋭く頑丈な斧を持っている。,He has an axe with a sharp and strong edge. ,JZ#,,,,
-7,みすぼらしい子犬,Scruffy little dog,C,U,CANINE,CANINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,6,35,0,1,NONE,NONE,-1,0,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BITE:HURT:1d3,,,RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY,,,ノミの住みかのようなやせた犬で、人が近づくとうなる。,"A thin flea-ridden mutt, growling as you get close. ",J0#,,,,
-8,農夫『マゴット』,Farmer Maggot,h,w,HOBBIT,HOBBIT,0x02,SOLDIER,NONE,PIOUS,NONE,NONE,0,3,50,24,0,0,101,29,NONE,NONE,-1,0,40,10,3,12,9,8,12,12,11,92,0,21,0,92,0,21,0,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,"MOAN
+7,みすぼらしい子犬,Scruffy little dog,C,U,CANINE,CANINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,6,35,0,1,NONE,NONE,-1,0,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d3,,,RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY,,,ノミの住みかのようなやせた犬で、人が近づくとうなる。,"A thin flea-ridden mutt, growling as you get close. ",J0#,,,,
+8,農夫『マゴット』,Farmer Maggot,h,w,HOBBIT,HOBBIT,0x02,SOLDIER,NONE,PIOUS,NONE,NONE,0,3,50,24,0,0,101,29,NONE,NONE,-1,0,40,10,3,12,9,8,12,12,11,92,0,21,0,92,0,21,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"MOAN
 MOAN
 HIT:HURT:1d5","53:1d1
 54:1d1
 55:1d1",ART:232:100%,UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP,,,"　丸い赤ら顔のずんぐりしたホビットが、姿を現しました「マゴットじいさんがどうしたっていうんです？」と、ピピンがたずねました。「あのひとはブランディバック一族のだれとでも仲良くやってますよ。むろん、 黙ってじいさんの土地に入ってくるやつらには、ひどく怖い存在だし、獰猛な犬も 飼ってるけど---だけど、このあたりに住んでいれば,庄境にも近いし、よそより 用心してかからなきゃならないわけですよ。」（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語）","Before you appears a broad thick-set hobbit with a round red face. ""What's wrong with old Maggot?"" asked Pippin. ""He's a good friend to  $all the Brandybucks. Of course he's a terror to trespassers, and keeps ferocious dogs -- but after all, folk down here are near the border and have to be more on their guard.""","J0#
 J0#",,,,
-9,泣きじゃくる白痴,Blubbering idiot,t,W,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO,,,彼らはいつも泣いてばかりいる。,They tend to blubber a lot. ,J0#,,,,
-10,浮浪者,Hippie,t,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,DROOL,,,DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,"
+9,泣きじゃくる白痴,Blubbering idiot,t,W,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO,,,彼らはいつも泣いてばかりいる。,They tend to blubber a lot. ,J0#,,,,
+10,浮浪者,Hippie,t,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,"
 醜い奴等だが、一番の特徴はその醜さではない。",Ugly doesn't begin to describe them.,"http://www.hobo.org を参照。日本人にはよく分からない。
 D'ang#
 上のは2011年現在消滅、最近のWikipediaにホーボーの解説が出ている。
 http://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%83%9C%E3%83%BC
 個人的意向から英訳をHippieに変えた。",,,,
-11,わめくキチガイ,Raving lunatic,t,G,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,8,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO,,,よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？,"Drooling and comical, but then, what do you expect? ",JZ#,,,,
-12,乞食,Beggar,t,U,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,14,0,1,NONE,NONE,-1,0,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BEG,,,DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO,,,"
+11,わめくキチガイ,Raving lunatic,t,G,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,8,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO,,,よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？,"Drooling and comical, but then, what do you expect? ",JZ#,,,,
+12,乞食,Beggar,t,U,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,14,0,1,NONE,NONE,-1,0,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO,,,"
 彼らを見ると、どうしても哀れだという思いを禁じ得ない。",You just can't help feeling sorry for them.,"JO#
 D'ang#
 名称を短縮",,,,
-13,うろつく病人,Prowling leper,t,u,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,50,8,7,8,7,6,6,156,10,42,2,151,10,39,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,"BEG
+13,うろつく病人,Prowling leper,t,u,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,50,8,7,8,7,6,6,156,10,42,2,151,10,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BEG
 TOUCH:DISEASE",,,DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER_EGO,,,彼に触るのは危険な気がする。,You feel it isn't safe to touch him. ,"J0#(コメント)
 「ライ病」という言葉は問題がある、という指摘を受けた。
 私は知識不足でそのことに関しては判断しかねるが、気になる人がいるのならあえて、「ライ病」とする必要もないであろうと思い「病人」にした。
 J0# * leper = ライ病患者
 D'ang#
 名称を短縮、上のコメントについては「ライ病」と症状を固定するよりは所謂「業病」位の意味に意訳する位が、より社会的扱いを顕著にする点では良かったかも知れない。",,,,
-14,闇市の仕入れ人,Agent of black market,t,D,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,44,0,1,NONE,NONE,-1,0,10,8,99,12,9,9,11,11,10,158,10,47,2,152,10,40,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,"HIT:HURT:1d6
+14,闇市の仕入れ人,Agent of black market,t,D,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,44,0,1,NONE,NONE,-1,0,10,8,99,12,9,9,11,11,10,158,10,47,2,152,10,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
 TOUCH:EAT_ITEM",,,DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,彼はブラックマーケットの商品を「拾って」来る。油断した冒険者から...,"He 'finds' new wares for the Black Market. From unwary adventurers... 
 ...","JZ#
 D'ang# 名称を短縮",,,,
-15,鬱陶しい酔っぱらい,"Singing, happy drunk",t,y,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,2 ,2 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,BEG,,,HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,誰でも彼に会えば、酔いを覚ましてあげたいような気になる。,"He makes you glad to be sober.
+15,鬱陶しい酔っぱらい,"Singing, happy drunk",t,y,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,誰でも彼に会えば、酔いを覚ましてあげたいような気になる。,"He makes you glad to be sober.
 ",J0#,,,,
 16,あてどない商人,Aimless merchant,t,o,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,255,9,8,7,8,8,11,160,10,53,2,152,10,47,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d5,,,HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO,,,"町をふらつく典型的なクズで、財布をじゃらじゃらさせて、魅力のアミュレット
 を買おうと町を探し回っている。","The typical ponce around town, with purse jingling, and looking for more 

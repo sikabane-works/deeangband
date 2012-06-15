@@ -3608,47 +3608,47 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_HAND:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_hand = (byte)b;
+				species_info[n].slot_hand = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RING:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_ring = (byte)b;
+				species_info[n].slot_ring = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AMULET:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_amulet = (byte)b;
+				species_info[n].slot_amulet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_BODY:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_body = (byte)b;
+				species_info[n].slot_body = (s16b)b;
 				break;
 
 			case SPECIES_INFO_OUTER:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_outer = (byte)b;
+				species_info[n].slot_outer = (s16b)b;
 				break;
 
 			case SPECIES_INFO_HEAD:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_head = (byte)b;
+				species_info[n].slot_head = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ARMS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_arms = (byte)b;
+				species_info[n].slot_arms = (s16b)b;
 				break;
 
 			case SPECIES_INFO_FEET:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_feet = (byte)b;
+				species_info[n].slot_feet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].slot_tail = (byte)b;
+				species_info[n].slot_tail = (s16b)b;
 				break;
 
 			default:
@@ -4702,47 +4702,47 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_HAND:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_hand = (byte)b;
+				race_info[n].slot_hand = (s16b)b;
 				break;
 
 			case RC_INFO_RING:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_ring = (byte)b;
+				race_info[n].slot_ring = (s16b)b;
 				break;
 
 			case RC_INFO_AMULET:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_amulet = (byte)b;
+				race_info[n].slot_amulet = (s16b)b;
 				break;
 
 			case RC_INFO_BODY:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_body = (byte)b;
+				race_info[n].slot_body = (s16b)b;
 				break;
 
 			case RC_INFO_OUTER:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_outer = (byte)b;
+				race_info[n].slot_outer = (s16b)b;
 				break;
 
 			case RC_INFO_HEAD:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_head = (byte)b;
+				race_info[n].slot_head = (s16b)b;
 				break;
 
 			case RC_INFO_ARMS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_arms = (byte)b;
+				race_info[n].slot_arms = (s16b)b;
 				break;
 
 			case RC_INFO_FEET:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_feet = (byte)b;
+				race_info[n].slot_feet = (s16b)b;
 				break;
 
 			case RC_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].slot_tail = (byte)b;
+				race_info[n].slot_tail = (s16b)b;
 				break;
 
 			default:

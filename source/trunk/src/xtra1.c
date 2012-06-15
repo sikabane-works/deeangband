@@ -2985,21 +2985,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->to_a += adj_dr_ac[creature_ptr->dr];
 	}
 
-	if(has_cf_creature(creature_ptr, CF_HUMANOID))
-	{
-		creature_ptr->num_hand = 2;
-		creature_ptr->num_head = 1;
-		creature_ptr->num_tail = 0;
-		creature_ptr->num_foot = 2;
-	}
-	else
-	{
-		creature_ptr->num_hand = 0;
-		creature_ptr->num_head = 0;
-		creature_ptr->num_tail = 0;
-		creature_ptr->num_foot = 0;
-	}
-
 	/* Start with a single blow per turn */
 	creature_ptr->num_blow[0] = 1;
 	creature_ptr->num_blow[1] = 1;
