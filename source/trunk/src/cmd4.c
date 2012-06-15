@@ -450,9 +450,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		else
 		{
 #ifdef JP
-			sprintf(note_level_buf, "%dŠK(%s):", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
+			sprintf(note_level_buf, "%dŠK(%s):", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #else
-			sprintf(note_level_buf, "%s L%d:", d_name+dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level);
+			sprintf(note_level_buf, "%s L%d:", dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level);
 #endif
 			note_level = note_level_buf;
 		}
@@ -546,18 +546,18 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_MAXDEAPTH:
 		{
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %s‚ÌÅ[ŠK%dŠK‚É“’B‚µ‚½B\n", hour, min, note_level, d_name+dungeon_info[floor_ptr->dun_type].name, num);
+			fprintf(fff, " %2d:%02d %20s %s‚ÌÅ[ŠK%dŠK‚É“’B‚µ‚½B\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name, num);
 #else
-			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, d_name+dungeon_info[floor_ptr->dun_type].name);
+			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 			break;
 		}
 		case NIKKI_TRUMP:
 		{
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %s%s‚ÌÅ[ŠK‚ğ%dŠK‚ÉƒZƒbƒg‚µ‚½B\n", hour, min, note_level, note, d_name + dungeon_info[num].name, max_dlv[num]);
+			fprintf(fff, " %2d:%02d %20s %s%s‚ÌÅ[ŠK‚ğ%dŠK‚ÉƒZƒbƒg‚µ‚½B\n", hour, min, note_level, note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
 #else
-			fprintf(fff, " %2d:%02d %20s reset recall level of %s to %d %s.\n", hour, min, note_level, d_name + dungeon_info[num].name, max_dlv[num], note);
+			fprintf(fff, " %2d:%02d %20s reset recall level of %s to %d %s.\n", hour, min, note_level, dungeon_name + dungeon_info[num].name, max_dlv[num], note);
 #endif
 			break;
 		}
@@ -595,9 +595,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		{
 			if (!num)
 #ifdef JP
-				fprintf(fff, " %2d:%02d %20s ‹AŠÒ‚ğg‚Á‚Ä%s‚Ì%dŠK‚Ö‰º‚è‚½B\n", hour, min, note_level, d_name+dungeon_info[floor_ptr->dun_type].name, max_dlv[floor_ptr->dun_type]);
+				fprintf(fff, " %2d:%02d %20s ‹AŠÒ‚ğg‚Á‚Ä%s‚Ì%dŠK‚Ö‰º‚è‚½B\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name, max_dlv[floor_ptr->dun_type]);
 #else
-				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dun_type], d_name+dungeon_info[floor_ptr->dun_type].name);
+				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dun_type], dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 			else
 #ifdef JP
@@ -692,9 +692,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
+				to = format("%dŠK(%s)", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
+				to = format("level %d of %s", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
@@ -715,9 +715,9 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			else
 #ifdef JP
-				to = format("%dŠK(%s)", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
+				to = format("%dŠK(%s)", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #else
-				to = format("level %d of %s", floor_ptr->floor_level, d_name+dungeon_info[floor_ptr->dun_type].name);
+				to = format("level %d of %s", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 
 #ifdef JP
@@ -9312,9 +9312,9 @@ static void do_cmd_knowledge_dungeon()
 			}
 			else if (max_dlv[i] == dungeon_info[i].maxdepth) seiha = TRUE;
 #ifdef JP
-			fprintf(fff,"%c%-12s :  %3d ŠK\n", seiha ? '!' : ' ', d_name + dungeon_info[i].name, max_dlv[i]);
+			fprintf(fff,"%c%-12s :  %3d ŠK\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
 #else
-			fprintf(fff,"%c%-16s :  level %3d\n", seiha ? '!' : ' ', d_name + dungeon_info[i].name, max_dlv[i]);
+			fprintf(fff,"%c%-16s :  level %3d\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
 #endif
 		}
 	}
@@ -9464,7 +9464,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						r_ptr = &species_info[quest[i].species_idx];
 						d_ptr = &dungeon_info[quest[i].dungeon];
 						strcpy(name, species_name + r_ptr->name);
-						strcpy(dungeon_name, d_name + d_ptr->name);
+						strcpy(dungeon_name, dungeon_name + d_ptr->name);
 
 						if (quest[i].max_num > 1)
 						{
@@ -9487,7 +9487,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 					case QUEST_TYPE_FIND_ARTIFACT:
 						d_ptr = &dungeon_info[quest[i].dungeon];
-						strcpy(dungeon_name, d_name + d_ptr->name);
+						strcpy(dungeon_name, dungeon_name + d_ptr->name);
 						strcpy(name, artifact_name + artifact_info[quest[i].k_idx].name);
 #ifdef JP
 						sprintf(note,"u%sv‚É‚ ‚éu%sv‚ğŒ©‚Â‚¯o‚·B", dungeon_name, name);

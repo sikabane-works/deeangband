@@ -480,8 +480,8 @@ extern char *stp_name;
 extern char *stp_text;
 
 extern dungeon_info_type *dungeon_info;
-extern char *d_name;
-extern char *d_text;
+extern char *dungeon_name;
+extern char *dungeon_text;
 
 extern cptr ANGBAND_SYS;
 extern cptr ANGBAND_KEYBOARD;

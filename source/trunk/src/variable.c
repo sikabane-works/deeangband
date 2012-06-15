@@ -846,8 +846,8 @@ char *authority_text;
  * The dungeon arrays
  */
 dungeon_info_type *dungeon_info;
-char *d_name;
-char *d_text;
+char *dungeon_name;
+char *dungeon_text;
 
 
 /*

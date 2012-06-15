@@ -1328,9 +1328,9 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 				(void)drop_near(floor_ptr, q_ptr, -1, y, x);
 			}
 #ifdef JP
-			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I",d_name+dungeon_info[floor_ptr->dun_type].name);
+			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #else
-			msg_format("You have conquered %s!",d_name+dungeon_info[floor_ptr->dun_type].name);
+			msg_format("You have conquered %s!", dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 		}
 	}
@@ -2898,9 +2898,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		else if (have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
 #ifdef JP
-			name = format("%s(%dŠK‘Š“–)", d_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
+			name = format("%s(%dŠK‘Š“–)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #else
-			name = format("%s(level %d)", d_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
+			name = format("%s(level %d)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #endif
 		}
 		else if (have_flag(f_ptr->flags, FF_TOWN))

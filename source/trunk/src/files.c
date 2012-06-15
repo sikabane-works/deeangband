@@ -4864,9 +4864,9 @@ static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 		else if (max_dlv[y] == dungeon_info[y].maxdepth) seiha = TRUE;
 
 #ifdef JP
-		fprintf(fff, "   %c%-12s: %3d ŠK\n", seiha ? '!' : ' ', d_name+dungeon_info[y].name, max_dlv[y]);
+		fprintf(fff, "   %c%-12s: %3d ŠK\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[y].name, max_dlv[y]);
 #else
-		fprintf(fff, "   %c%-16s: level %3d\n", seiha ? '!' : ' ', d_name+dungeon_info[y].name, max_dlv[y]);
+		fprintf(fff, "   %c%-16s: level %3d\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[y].name, max_dlv[y]);
 #endif
 	}
 }

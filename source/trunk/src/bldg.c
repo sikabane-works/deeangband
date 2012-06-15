@@ -4844,9 +4844,9 @@ msg_print("お金が足りません！");
 		}
 
 #ifdef JP
-		amt = get_quantity(format("%sの何階にテレポートしますか？", d_name + dungeon_info[select_dungeon].name), max_depth);
+		amt = get_quantity(format("%sの何階にテレポートしますか？", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #else
-		amt = get_quantity(format("Teleport to which level of %s? ", d_name + dungeon_info[select_dungeon].name), max_depth);
+		amt = get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #endif
 
 		if (amt > 0)

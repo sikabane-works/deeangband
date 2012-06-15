@@ -278,10 +278,10 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			if (!max_dlv[target_dungeon])
 			{
 #ifdef JP
-				msg_format("ここには%sの入り口(%d階相当)があります", d_name+dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
+				msg_format("ここには%sの入り口(%d階相当)があります", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
 				if (!get_check("本当にこのダンジョンに入りますか？")) return;
 #else
-				msg_format("There is the entrance of %s (Danger level: %d)", d_name+dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
+				msg_format("There is the entrance of %s (Danger level: %d)", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
 				if (!get_check("Do you really get in this dungeon? ")) return;
 #endif
 			}
@@ -339,9 +339,9 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			if (target_dungeon)
 			{
 #ifdef JP
-				msg_format("%sへ入った。", d_text + dungeon_info[floor_ptr->dun_type].text);
+				msg_format("%sへ入った。", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
 #else
-				msg_format("You entered %s.", d_text + dungeon_info[floor_ptr->dun_type].text);
+				msg_format("You entered %s.", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
 #endif
 			}
 			else

@@ -1068,7 +1068,7 @@ static errr init_dungeon_info(void)
 	/* Save a pointer to the parsing function */
 	d_head.parse_info_txt = parse_dungeon_info;
 
-	return init_info("dungeon_info", &d_head, (void*)&dungeon_info, &d_name, &d_text, NULL);
+	return init_info("dungeon_info", &d_head, (void*)&dungeon_info, &dungeon_name, &dungeon_text, NULL);
 }
 
 
