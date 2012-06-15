@@ -1190,9 +1190,9 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 
 
 /*
- * Initialize the "v_info" array, by parsing an ascii "template" file
+ * Initialize the "vault_info" array, by parsing an ascii "template" file
  */
-errr parse_v_info(char *buf, header *head)
+errr parse_vault_info(char *buf, header *head)
 {
 	int i;
 	char *s;
@@ -1228,7 +1228,7 @@ errr parse_v_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		v_ptr = &v_info[i];
+		v_ptr = &vault_info[i];
 
 		/* Store the name */
 		if (!add_name(&v_ptr->name, head, s)) return (7);

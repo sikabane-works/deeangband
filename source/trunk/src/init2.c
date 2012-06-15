@@ -1073,20 +1073,20 @@ static errr init_dungeon_info(void)
 
 
 /*
- * Initialize the "v_info" array
+ * Initialize the "vault_info" array
  *
  * Note that we let each entry have a unique "name" and "text" string,
  * even if the string happens to be empty (everyone has a unique '\0').
  */
-errr init_v_info(void)
+errr init_vault_info(void)
 {
 	/* Init the header */
 	init_header(&v_head, max_v_idx, sizeof(vault_type));
 
 	/* Save a pointer to the parsing function */
-	v_head.parse_info_txt = parse_v_info;
+	v_head.parse_info_txt = parse_vault_info;
 
-	return init_info("v_info", &v_head, (void*)&v_info, &v_name, &v_text, NULL);
+	return init_info("vault_info", &v_head, (void*)&vault_info, &vault_name, &vault_text, NULL);
 }
 
 
@@ -2088,7 +2088,7 @@ void init_angband(void)
 	if (init_quests()) quit("Cannot initialize quests");
 
 	note("[Initializing arrays... (vaults)]");
-	if (init_v_info()) quit("Cannot initialize vaults");
+	if (init_vault_info()) quit("Cannot initialize vaults");
 
 	/* Initialize some other arrays */
 	note("[Initializing arrays... (other)]");

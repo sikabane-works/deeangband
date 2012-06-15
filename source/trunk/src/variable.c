@@ -749,9 +749,9 @@ bool quick_ok;
 /*
  * The vault generation arrays
  */
-vault_type *v_info;
-char *v_name;
-char *v_text;
+vault_type *vault_info;
+char *vault_name;
+char *vault_text;
 
 /*
  * The skill table
@@ -1007,7 +1007,7 @@ u16b max_authority_idx;
 u16b max_object_kind_idx;
 
 /*
- * Maximum number of vaults in v_info.txt
+ * Maximum number of vaults in vault_info.txt
  */
 u16b max_v_idx;
 

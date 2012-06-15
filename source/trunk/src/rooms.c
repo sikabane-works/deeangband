@@ -2900,7 +2900,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 
 /*
- * Type 7 -- simple vaults (see "v_info.txt")
+ * Type 7 -- simple vaults (see "vault_info.txt")
  */
 static bool build_type7(floor_type *floor_ptr)
 {
@@ -2915,7 +2915,7 @@ static bool build_type7(floor_type *floor_ptr)
 	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
 	{
 		/* Access a random vault record */
-		v_ptr = &v_info[randint0(max_v_idx)];
+		v_ptr = &vault_info[randint0(max_v_idx)];
 
 		/* Accept the first lesser vault */
 		if (v_ptr->typ == 7) break;
@@ -2973,25 +2973,25 @@ static bool build_type7(floor_type *floor_ptr)
 	if (!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
 
 #ifdef FORCE_V_IDX
-	v_ptr = &v_info[2];
+	v_ptr = &vault_info[2];
 #endif
 
 	/* Message */
 #ifdef JP
-	if (cheat_room) msg_format("小さな地下室(%s)", v_name + v_ptr->name);
+	if (cheat_room) msg_format("小さな地下室(%s)", vault_name + v_ptr->name);
 #else
-	if (cheat_room) msg_format("Lesser vault (%s)", v_name + v_ptr->name);
+	if (cheat_room) msg_format("Lesser vault (%s)", vault_name + v_ptr->name);
 #endif
 
 	/* Hack -- Build the vault */
-	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
+	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
 
 	return TRUE;
 }
 
 
 /*
- * Type 8 -- greater vaults (see "v_info.txt")
+ * Type 8 -- greater vaults (see "vault_info.txt")
  */
 static bool build_type8(floor_type *floor_ptr)
 {
@@ -3006,7 +3006,7 @@ static bool build_type8(floor_type *floor_ptr)
 	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
 	{
 		/* Access a random vault record */
-		v_ptr = &v_info[randint0(max_v_idx)];
+		v_ptr = &vault_info[randint0(max_v_idx)];
 
 		/* Accept the first greater vault */
 		if (v_ptr->typ == 8) break;
@@ -3070,18 +3070,18 @@ static bool build_type8(floor_type *floor_ptr)
 	if (!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
 
 #ifdef FORCE_V_IDX
-	v_ptr = &v_info[76 + randint1(3)];
+	v_ptr = &vault_info[76 + randint1(3)];
 #endif
 
 	/* Message */
 #ifdef JP
-	if (cheat_room) msg_format("巨大な地下室(%s)", v_name + v_ptr->name);
+	if (cheat_room) msg_format("巨大な地下室(%s)", vault_name + v_ptr->name);
 #else
-	if (cheat_room) msg_format("Greater vault (%s)", v_name + v_ptr->name);
+	if (cheat_room) msg_format("Greater vault (%s)", vault_name + v_ptr->name);
 #endif
 
 	// Hack -- Build the vault
-	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, v_text + v_ptr->text, xoffset, yoffset, transno);
+	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
 
 	return TRUE;
 }

@@ -437,9 +437,9 @@ extern bool unique_play;        // Unique play mode
 
 extern creature_type player_prev;
 extern bool quick_ok;
-extern vault_type *v_info;
-extern char *v_name;
-extern char *v_text;
+extern vault_type *vault_info;
+extern char *vault_name;
+extern char *vault_text;
 extern skill_table *skill_info;
 extern magic_table_type *magic_info;
 extern feature_type *feature_info;
@@ -1143,7 +1143,7 @@ extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int
 /* init2.c */
 extern void init_file_paths(char *path);
 extern cptr err_str[PARSE_ERROR_MAX];
-extern errr init_v_info(void);
+extern errr init_vault_info(void);
 extern errr init_buildings(void);
 extern s16b feature_tag_to_index_in_init(cptr str);
 extern void init_angband(void);
