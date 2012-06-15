@@ -418,7 +418,6 @@ extern creature_type **mproc_list[MAX_MTIMED];
 extern s16b mproc_max[MAX_MTIMED];
 extern u16b max_towns;
 extern town_type *town;
-extern byte race_population[MAX_RACES];
 extern u16b start_point_size;
 extern s16b alloc_kind_size;
 extern alloc_entry *alloc_kind_table;

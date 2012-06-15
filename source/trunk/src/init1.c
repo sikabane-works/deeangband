@@ -6281,12 +6281,12 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		n = tokenize(buf+2, MAX_RACES, zz, 0);
 		for (i = 0; i < n; i++)
 		{
-			race_population[i] = atoi(zz[i]);
+			floor_ptr->race_population[i] = atoi(zz[i]);
 		}
 		if(n < MAX_RACES)
 		{
 				for (i = n; i < MAX_RACES ; i++)
-					race_population[i] = 0;
+					floor_ptr->race_population[i] = 0;
 		}
 		return (0);
 

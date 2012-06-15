@@ -1876,7 +1876,7 @@ struct dungeon_info_type {
 	int obj_great;
 	int obj_good;
 
-	int race_population[MAX_RACES];
+	s16b race_population[MAX_RACES];
 
 	int vault_quest_level[MAX_DUNEGON_FORTLESS];
 	int vault_quest_level_max[MAX_DUNEGON_FORTLESS];
@@ -1925,6 +1925,8 @@ typedef struct
 	cave_type cave[MAX_HGT][MAX_WID];
 	s32b floor_turn;	     // Game turn in dungeon
 	s32b floor_turn_limit; // Limit of game turn in dungeon
+
+	s16b race_population[MAX_RACES];
 } floor_type;
 
 

@@ -668,13 +668,6 @@ u16b start_point_size;
  */
 town_type *town;
 
-
-/*
- * The towns race population
- */
-byte race_population[MAX_RACES];
-
-
 /*
  * The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
  */
