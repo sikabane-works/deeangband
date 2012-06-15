@@ -1901,14 +1901,14 @@ errr parse_feature_info(char *buf, header *head)
 /*
  * Convert a fake tag to a real feat index
  */
-s16b f_tag_to_index(cptr str)
+s16b feature_tag_to_index(cptr str)
 {
 	u16b i;
 
 	/* Search for real index corresponding to this fake tag */
 	for (i = 0; i < f_head.info_num; i++)
 	{
-		if (streq(f_tag + feature_info[i].tag, str))
+		if (streq(feature_tag + feature_info[i].tag, str))
 		{
 			/* Return the index */
 			return (s16b)i;
@@ -1943,9 +1943,9 @@ static void search_real_feat(s16b *feat)
 
 	/* Undefined tag */
 #ifdef JP
-	msg_format("未定義のタグ '%s'。", f_tag + (-(*feat)));
+	msg_format("未定義のタグ '%s'。", feature_tag + (-(*feat)));
 #else
-	msg_format("%s is undefined.", f_tag + (-(*feat)));
+	msg_format("%s is undefined.", feature_tag + (-(*feat)));
 #endif
 }
 
@@ -5412,7 +5412,7 @@ errr parse_dungeon_info(char *buf, header *head)
 		/* Save the values */
 		for (i = 0; i < DUNGEON_FEAT_PROB_NUM; i++)
 		{
-			d_ptr->floor[i].feat = f_tag_to_index(zz[i * 2]);
+			d_ptr->floor[i].feat = feature_tag_to_index(zz[i * 2]);
 			if (d_ptr->floor[i].feat < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 
 			d_ptr->floor[i].percent = atoi(zz[i * 2 + 1]);
@@ -5431,22 +5431,22 @@ errr parse_dungeon_info(char *buf, header *head)
 		/* Save the values */
 		for (i = 0; i < DUNGEON_FEAT_PROB_NUM; i++)
 		{
-			d_ptr->fill[i].feat = f_tag_to_index(zz[i * 2]);
+			d_ptr->fill[i].feat = feature_tag_to_index(zz[i * 2]);
 			if (d_ptr->fill[i].feat < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 
 			d_ptr->fill[i].percent = atoi(zz[i * 2 + 1]);
 		}
 
-		d_ptr->outer_wall = f_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2]);
+		d_ptr->outer_wall = feature_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2]);
 		if (d_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 
-		d_ptr->inner_wall = f_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 1]);
+		d_ptr->inner_wall = feature_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 1]);
 		if (d_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 
-		d_ptr->stream1 = f_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 2]);
+		d_ptr->stream1 = feature_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 2]);
 		if (d_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 
-		d_ptr->stream2 = f_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 3]);
+		d_ptr->stream2 = feature_tag_to_index(zz[DUNGEON_FEAT_PROB_NUM * 2 + 3]);
 		if (d_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 	}
 
@@ -5639,7 +5639,7 @@ static errr parse_line_feature(char *buf)
 				}
 				else
 				{
-					letter[index].trap = f_tag_to_index(zz[7]);
+					letter[index].trap = feature_tag_to_index(zz[7]);
 					if (letter[index].trap < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 				}
 				/* Fall through */
@@ -5708,7 +5708,7 @@ static errr parse_line_feature(char *buf)
 				}
 				else
 				{
-					letter[index].feature = f_tag_to_index(zz[1]);
+					letter[index].feature = feature_tag_to_index(zz[1]);
 					if (letter[index].feature < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 				}
 				break;

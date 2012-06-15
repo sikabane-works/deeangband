@@ -4499,24 +4499,24 @@ void init_normal_traps(void)
 {
 	int cur_trap = 0;
 
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_TRAPDOOR");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_PIT");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_SPIKED_PIT");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_POISON_PIT");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_TY_CURSE");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_TELEPORT");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_FIRE");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_ACID");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_SLOW");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_LOSE_STR");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_LOSE_DEX");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_LOSE_CON");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_BLIND");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_CONFUSE");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_POISON");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_SLEEP");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_TRAPS");
-	normal_traps[cur_trap++] = f_tag_to_index_in_init("TRAP_ALARM");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_TRAPDOOR");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_PIT");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_SPIKED_PIT");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_POISON_PIT");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_TY_CURSE");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_TELEPORT");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_FIRE");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_ACID");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_SLOW");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_LOSE_STR");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_LOSE_DEX");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_LOSE_CON");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_BLIND");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_CONFUSE");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_POISON");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_SLEEP");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_TRAPS");
+	normal_traps[cur_trap++] = feature_tag_to_index_in_init("TRAP_ALARM");
 }
 
 /*

@@ -444,7 +444,7 @@ extern skill_table *skill_info;
 extern magic_table_type *m_info;
 extern feature_type *feature_info;
 extern char *feature_name;
-extern char *f_tag;
+extern char *feature_tag;
 extern object_kind *object_kind_info;
 extern char *object_kind_name;
 extern char *object_kind_text;
@@ -1137,7 +1137,7 @@ extern void generate_floor(floor_type *floor_ptr);
 
 /* init1.c */
 extern byte color_char_to_attr(char c);
-extern s16b f_tag_to_index(cptr str);
+extern s16b feature_tag_to_index(cptr str);
 extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax);
 
 /* init2.c */
@@ -1145,7 +1145,7 @@ extern void init_file_paths(char *path);
 extern cptr err_str[PARSE_ERROR_MAX];
 extern errr init_v_info(void);
 extern errr init_buildings(void);
-extern s16b f_tag_to_index_in_init(cptr str);
+extern s16b feature_tag_to_index_in_init(cptr str);
 extern void init_angband(void);
 extern cptr get_check_sum(void);
 

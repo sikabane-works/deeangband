@@ -768,7 +768,7 @@ magic_table_type *m_info;
  */
 feature_type *feature_info;
 char *feature_name;
-char *f_tag;
+char *feature_tag;
 
 /*
  * The object kind arrays

@@ -903,7 +903,7 @@ static errr init_feature_info(void)
 	f_head.retouch = retouch_feature_info;
 
 	return init_info("feature_info", &f_head,
-			 (void*)&feature_info, &feature_name, NULL, &f_tag);
+			 (void*)&feature_info, &feature_name, NULL, &feature_tag);
 }
 
 
@@ -1213,9 +1213,9 @@ static errr init_quests(void)
 static bool feat_tag_is_not_found = FALSE;
 
 
-s16b f_tag_to_index_in_init(cptr str)
+s16b feature_tag_to_index_in_init(cptr str)
 {
-	s16b feat = f_tag_to_index(str);
+	s16b feat = feature_tag_to_index(str);
 
 	if (feat < 0) feat_tag_is_not_found = TRUE;
 
@@ -1231,25 +1231,25 @@ static errr init_feat_variables(void)
 	int i;
 
 	/* Nothing */
-	feat_none = f_tag_to_index_in_init("NONE");
+	feat_none = feature_tag_to_index_in_init("NONE");
 
 	/* Floor */
-	feat_floor = f_tag_to_index_in_init("FLOOR");
+	feat_floor = feature_tag_to_index_in_init("FLOOR");
 
 	/* Objects */
-	feat_glyph = f_tag_to_index_in_init("GLYPH");
-	feat_explosive_rune = f_tag_to_index_in_init("EXPLOSIVE_RUNE");
-	feat_mirror = f_tag_to_index_in_init("MIRROR");
+	feat_glyph = feature_tag_to_index_in_init("GLYPH");
+	feat_explosive_rune = feature_tag_to_index_in_init("EXPLOSIVE_RUNE");
+	feat_mirror = feature_tag_to_index_in_init("MIRROR");
 
 	/* Doors */
-	feat_door[DOOR_DOOR].open = f_tag_to_index_in_init("OPEN_DOOR");
-	feat_door[DOOR_DOOR].broken = f_tag_to_index_in_init("BROKEN_DOOR");
-	feat_door[DOOR_DOOR].closed = f_tag_to_index_in_init("CLOSED_DOOR");
+	feat_door[DOOR_DOOR].open = feature_tag_to_index_in_init("OPEN_DOOR");
+	feat_door[DOOR_DOOR].broken = feature_tag_to_index_in_init("BROKEN_DOOR");
+	feat_door[DOOR_DOOR].closed = feature_tag_to_index_in_init("CLOSED_DOOR");
 
 	/* Locked doors */
 	for (i = 1; i < MAX_LJ_DOORS; i++)
 	{
-		s16b door = f_tag_to_index(format("LOCKED_DOOR_%d", i));
+		s16b door = feature_tag_to_index(format("LOCKED_DOOR_%d", i));
 		if (door < 0) break;
 		feat_door[DOOR_DOOR].locked[i - 1] = door;
 	}
@@ -1259,7 +1259,7 @@ static errr init_feat_variables(void)
 	/* Jammed doors */
 	for (i = 0; i < MAX_LJ_DOORS; i++)
 	{
-		s16b door = f_tag_to_index(format("JAMMED_DOOR_%d", i));
+		s16b door = feature_tag_to_index(format("JAMMED_DOOR_%d", i));
 		if (door < 0) break;
 		feat_door[DOOR_DOOR].jammed[i] = door;
 	}
@@ -1267,14 +1267,14 @@ static errr init_feat_variables(void)
 	feat_door[DOOR_DOOR].num_jammed = i;
 
 	/* Glass doors */
-	feat_door[DOOR_GLASS_DOOR].open = f_tag_to_index_in_init("OPEN_GLASS_DOOR");
-	feat_door[DOOR_GLASS_DOOR].broken = f_tag_to_index_in_init("BROKEN_GLASS_DOOR");
-	feat_door[DOOR_GLASS_DOOR].closed = f_tag_to_index_in_init("CLOSED_GLASS_DOOR");
+	feat_door[DOOR_GLASS_DOOR].open = feature_tag_to_index_in_init("OPEN_GLASS_DOOR");
+	feat_door[DOOR_GLASS_DOOR].broken = feature_tag_to_index_in_init("BROKEN_GLASS_DOOR");
+	feat_door[DOOR_GLASS_DOOR].closed = feature_tag_to_index_in_init("CLOSED_GLASS_DOOR");
 
 	/* Locked glass doors */
 	for (i = 1; i < MAX_LJ_DOORS; i++)
 	{
-		s16b door = f_tag_to_index(format("LOCKED_GLASS_DOOR_%d", i));
+		s16b door = feature_tag_to_index(format("LOCKED_GLASS_DOOR_%d", i));
 		if (door < 0) break;
 		feat_door[DOOR_GLASS_DOOR].locked[i - 1] = door;
 	}
@@ -1284,7 +1284,7 @@ static errr init_feat_variables(void)
 	/* Jammed glass doors */
 	for (i = 0; i < MAX_LJ_DOORS; i++)
 	{
-		s16b door = f_tag_to_index(format("JAMMED_GLASS_DOOR_%d", i));
+		s16b door = feature_tag_to_index(format("JAMMED_GLASS_DOOR_%d", i));
 		if (door < 0) break;
 		feat_door[DOOR_GLASS_DOOR].jammed[i] = door;
 	}
@@ -1292,82 +1292,82 @@ static errr init_feat_variables(void)
 	feat_door[DOOR_GLASS_DOOR].num_jammed = i;
 
 	/* Curtains */
-	feat_door[DOOR_CURTAIN].open = f_tag_to_index_in_init("OPEN_CURTAIN");
+	feat_door[DOOR_CURTAIN].open = feature_tag_to_index_in_init("OPEN_CURTAIN");
 	feat_door[DOOR_CURTAIN].broken = feat_door[DOOR_CURTAIN].open;
-	feat_door[DOOR_CURTAIN].closed = f_tag_to_index_in_init("CLOSED_CURTAIN");
+	feat_door[DOOR_CURTAIN].closed = feature_tag_to_index_in_init("CLOSED_CURTAIN");
 	feat_door[DOOR_CURTAIN].locked[0] = feat_door[DOOR_CURTAIN].closed;
 	feat_door[DOOR_CURTAIN].num_locked = 1;
 	feat_door[DOOR_CURTAIN].jammed[0] = feat_door[DOOR_CURTAIN].closed;
 	feat_door[DOOR_CURTAIN].num_jammed = 1;
 
 	/* Stairs */
-	feat_up_stair = f_tag_to_index_in_init("UP_STAIR");
-	feat_down_stair = f_tag_to_index_in_init("DOWN_STAIR");
-	feat_entrance = f_tag_to_index_in_init("ENTRANCE");
+	feat_up_stair = feature_tag_to_index_in_init("UP_STAIR");
+	feat_down_stair = feature_tag_to_index_in_init("DOWN_STAIR");
+	feat_entrance = feature_tag_to_index_in_init("ENTRANCE");
 
 	/* Normal traps */
 	init_normal_traps();
 
 	/* Special traps */
-	feat_trap_open = f_tag_to_index_in_init("TRAP_OPEN");
-	feat_trap_armageddon = f_tag_to_index_in_init("TRAP_ARMAGEDDON");
-	feat_trap_piranha = f_tag_to_index_in_init("TRAP_PIRANHA");
-    feat_trap_acid_flow = f_tag_to_index_in_init("TRAP_ACID_FLOW");
-    feat_trap_poison_flow = f_tag_to_index_in_init("TRAP_POISON_FLOW");
+	feat_trap_open = feature_tag_to_index_in_init("TRAP_OPEN");
+	feat_trap_armageddon = feature_tag_to_index_in_init("TRAP_ARMAGEDDON");
+	feat_trap_piranha = feature_tag_to_index_in_init("TRAP_PIRANHA");
+    feat_trap_acid_flow = feature_tag_to_index_in_init("TRAP_ACID_FLOW");
+    feat_trap_poison_flow = feature_tag_to_index_in_init("TRAP_POISON_FLOW");
 
 	/* Rubble */
-	feat_rubble = f_tag_to_index_in_init("RUBBLE");
+	feat_rubble = feature_tag_to_index_in_init("RUBBLE");
 
 	/* Seams */
-	feat_magma_vein = f_tag_to_index_in_init("MAGMA_VEIN");
-	feat_quartz_vein = f_tag_to_index_in_init("QUARTZ_VEIN");
+	feat_magma_vein = feature_tag_to_index_in_init("MAGMA_VEIN");
+	feat_quartz_vein = feature_tag_to_index_in_init("QUARTZ_VEIN");
 
 	/* Walls */
-	feat_granite = f_tag_to_index_in_init("GRANITE");
-	feat_permanent = f_tag_to_index_in_init("PERMANENT");
+	feat_granite = feature_tag_to_index_in_init("GRANITE");
+	feat_permanent = feature_tag_to_index_in_init("PERMANENT");
 
 	/* Glass floor */
-	feat_glass_floor = f_tag_to_index_in_init("GLASS_FLOOR");
+	feat_glass_floor = feature_tag_to_index_in_init("GLASS_FLOOR");
 
 	/* Glass walls */
-	feat_glass_wall = f_tag_to_index_in_init("GLASS_WALL");
-	feat_permanent_glass_wall = f_tag_to_index_in_init("PERMANENT_GLASS_WALL");
+	feat_glass_wall = feature_tag_to_index_in_init("GLASS_WALL");
+	feat_permanent_glass_wall = feature_tag_to_index_in_init("PERMANENT_GLASS_WALL");
 
 	/* Pattern */
-	feat_pattern_start = f_tag_to_index_in_init("PATTERN_START");
-	feat_pattern_1 = f_tag_to_index_in_init("PATTERN_1");
-	feat_pattern_2 = f_tag_to_index_in_init("PATTERN_2");
-	feat_pattern_3 = f_tag_to_index_in_init("PATTERN_3");
-	feat_pattern_4 = f_tag_to_index_in_init("PATTERN_4");
-	feat_pattern_end = f_tag_to_index_in_init("PATTERN_END");
-	feat_pattern_old = f_tag_to_index_in_init("PATTERN_OLD");
-	feat_pattern_exit = f_tag_to_index_in_init("PATTERN_EXIT");
-	feat_pattern_corrupted = f_tag_to_index_in_init("PATTERN_CORRUPTED");
+	feat_pattern_start = feature_tag_to_index_in_init("PATTERN_START");
+	feat_pattern_1 = feature_tag_to_index_in_init("PATTERN_1");
+	feat_pattern_2 = feature_tag_to_index_in_init("PATTERN_2");
+	feat_pattern_3 = feature_tag_to_index_in_init("PATTERN_3");
+	feat_pattern_4 = feature_tag_to_index_in_init("PATTERN_4");
+	feat_pattern_end = feature_tag_to_index_in_init("PATTERN_END");
+	feat_pattern_old = feature_tag_to_index_in_init("PATTERN_OLD");
+	feat_pattern_exit = feature_tag_to_index_in_init("PATTERN_EXIT");
+	feat_pattern_corrupted = feature_tag_to_index_in_init("PATTERN_CORRUPTED");
 
 	/* Various */
-	feat_black_market = f_tag_to_index_in_init("BLACK_MARKET");
-	feat_town = f_tag_to_index_in_init("TOWN");
+	feat_black_market = feature_tag_to_index_in_init("BLACK_MARKET");
+	feat_town = feature_tag_to_index_in_init("TOWN");
 
 	/* Terrains */
-	feat_deep_water = f_tag_to_index_in_init("DEEP_WATER");
-	feat_shallow_water = f_tag_to_index_in_init("SHALLOW_WATER");
-	feat_deep_lava = f_tag_to_index_in_init("DEEP_LAVA");
-	feat_shallow_lava = f_tag_to_index_in_init("SHALLOW_LAVA");
-	feat_deep_poison = f_tag_to_index_in_init("DEEP_POISON_SWAMP");
-	feat_shallow_poison = f_tag_to_index_in_init("SHALLOW_POISON_SWAMP");
-	feat_deep_acid = f_tag_to_index_in_init("DEEP_ACID_SWAMP");
-	feat_shallow_acid = f_tag_to_index_in_init("SHALLOW_ACID_SWAMP");
-	feat_dirt = f_tag_to_index_in_init("DIRT");
-	feat_grass = f_tag_to_index_in_init("GRASS");
-	feat_flower = f_tag_to_index_in_init("FLOWER");
-	feat_brake = f_tag_to_index_in_init("BRAKE");
-	feat_tree = f_tag_to_index_in_init("TREE");
-	feat_mountain = f_tag_to_index_in_init("MOUNTAIN");
-	feat_swamp = f_tag_to_index_in_init("SWAMP");
-	feat_chaos_tainted = f_tag_to_index_in_init("CHAOS_TAINTED");
+	feat_deep_water = feature_tag_to_index_in_init("DEEP_WATER");
+	feat_shallow_water = feature_tag_to_index_in_init("SHALLOW_WATER");
+	feat_deep_lava = feature_tag_to_index_in_init("DEEP_LAVA");
+	feat_shallow_lava = feature_tag_to_index_in_init("SHALLOW_LAVA");
+	feat_deep_poison = feature_tag_to_index_in_init("DEEP_POISON_SWAMP");
+	feat_shallow_poison = feature_tag_to_index_in_init("SHALLOW_POISON_SWAMP");
+	feat_deep_acid = feature_tag_to_index_in_init("DEEP_ACID_SWAMP");
+	feat_shallow_acid = feature_tag_to_index_in_init("SHALLOW_ACID_SWAMP");
+	feat_dirt = feature_tag_to_index_in_init("DIRT");
+	feat_grass = feature_tag_to_index_in_init("GRASS");
+	feat_flower = feature_tag_to_index_in_init("FLOWER");
+	feat_brake = feature_tag_to_index_in_init("BRAKE");
+	feat_tree = feature_tag_to_index_in_init("TREE");
+	feat_mountain = feature_tag_to_index_in_init("MOUNTAIN");
+	feat_swamp = feature_tag_to_index_in_init("SWAMP");
+	feat_chaos_tainted = feature_tag_to_index_in_init("CHAOS_TAINTED");
 
 	/* Unknown grid (not detected) */
-	feat_undetected = f_tag_to_index_in_init("UNDETECTED");
+	feat_undetected = feature_tag_to_index_in_init("UNDETECTED");
 
 	/* Wilderness terrains */
 	init_wilderness_terrains();
