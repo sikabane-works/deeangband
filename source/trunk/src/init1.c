@@ -4886,21 +4886,50 @@ errr parse_class_info_csv(char *buf, header *head)
 			switch(rc_info_csv_code[i])
 			{
 				case CL_INFO_NAME:
+					if (!add_name(&class_info[n].title, head, tmp))
+						return (7);
 					break;
+
 				case CL_INFO_E_NAME:
+#if JP
+					if (!add_name(&class_info[n].E_title, head, tmp))
+						return (7);
+#else
+					if (!add_name(&class_info[n].title, head, tmp))
+						return (7);
+#endif
 					break;
+
 				case CL_INFO_STR:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_STR] = (s16b)b;
 					break;
+
 				case CL_INFO_INT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_INT] = (s16b)b;
 					break;
+
 				case CL_INFO_WIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_WIS] = (s16b)b;
 					break;
+
 				case CL_INFO_DEX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_DEX] = (s16b)b;
 					break;
+
 				case CL_INFO_CON:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_CON] = (s16b)b;
 					break;
+
 				case CL_INFO_CHA:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj[STAT_CHA] = (s16b)b;
 					break;
+
 				case CL_INFO_A_STR:
 					break;
 				case CL_INFO_A_INT:
