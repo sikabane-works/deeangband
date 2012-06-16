@@ -73,7 +73,7 @@ class D_info
 			output += "MIN_M_ALLOC_LEVEL" + '","' + "MIN_M_ALLOC_CHANCE" + '","'
 			output += "D_FLAGS" + '","'
 			output += "C_FLAGS" + '","'
-			output += "R_CHAR" + '","' + "FINAL_OBJECT" + '","' + "FINAL_ARTIFACT" + '","' + "FINAL_GARDIAN" + '","'
+			output += "R_RACE" + '","' + "FINAL_OBJECT" + '","' + "FINAL_ARTIFACT" + '","' + "FINAL_GARDIAN" + '","'
 			output += "SPECIAL_DIV" + '","' + "TUNNEL_PERCENT" + '","' + "OBJ_GREAT" + '","' + "OBJ_GOOD" + '","'
 			output += "RACE_POP" + '","'
 			output += "VAULT_INFO" + '","'
@@ -95,7 +95,7 @@ class D_info
 			output += @stream1 + '","' + @stream2 + '","'
 			output += @mindepth + '","' + @maxdepth + '","' + @min_plev + '","' + @pit + '","' + @nest + '","' + @mode + '","'
 			output += @min_m_alloc_level + '","' + @max_m_alloc_chance + '","'
-			output += @flags + '","'
+			output += @flags[1..-1] + '","'
 			output += @c_flags + '","'
 			output += @r_char + '","' + @final_object + '","' + @final_artifact + '","' + @final_guardian + '","'
 			output += @special_div + '","' + @tunnel_percent + '","' + @obj_great + '","' + @obj_good + '","'
@@ -146,11 +146,15 @@ file1.each do |line|
 		case line[0]
 
 			when 'A'
-				if line[2] == "$" then
-					d.e_text += line[3..-2]
-				else
-					d.text += line[2..-2]
-				end
+				s = line[2..-2].split(":")
+				d.feat_prob_fill += (s[0] + ':' + s[1] + ':' + s[2] + ':' + s[3] + ':' + s[4] + ':' + s[5])
+				d.inner_wall = s[6]
+				d.outer_wall = s[7]
+				d.stream1 = s[8]
+				d.stream2 = s[9]
+
+			when 'L'
+				d.feat_prob_floor = line[2..-2]
 
 			when '#'
 				d.comment += line[0..-2]
@@ -191,8 +195,15 @@ file1.each do |line|
 				d.max_m_alloc_chance = res[7].to_s
 
 			when 'F'
-				d.flags += ("|" + line.sub("\n", "").gsub(" ", "")[2..-1])
-				d.flags = d.flags[1..-1] if d.flags[0] == "|"
+				s = line[2..-1].gsub("\n", "").gsub(" ", "").split("|")
+				p s
+				s.each do |elem|
+					if(elem.index("FINAL_GUARDIAN")) then
+						d.final_guardian = elem.gsub("FINAL_GUARDIAN_", "");
+					else
+						d.flags += ("|" + elem)
+					end
+				end
 
 		end
 end
