@@ -1051,7 +1051,10 @@ static errr init_class_info(void)
 	r = init_info2("class_info", &class_head, (void*)&class_info, &class_name, &class_text, NULL, NULL);
 
 	for(i = 0; i < MAX_CLASS; i++)
+	{
 		class_info[i].title = class_name + class_info[i].name;
+		class_info[i].E_title = class_name + class_info[i].E_name;
+	}
 
 	return r;
 }
