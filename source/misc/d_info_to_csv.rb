@@ -95,7 +95,7 @@ class D_info
 			output += @stream1 + '","' + @stream2 + '","'
 			output += @mindepth + '","' + @maxdepth + '","' + @min_plev + '","' + @pit + '","' + @nest + '","' + @mode + '","'
 			output += @min_m_alloc_level + '","' + @max_m_alloc_chance + '","'
-			output += @flags[1..-1] + '","'
+			output += @flags + '","'
 			output += @c_flags + '","'
 			output += @r_char + '","' + @final_object + '","' + @final_artifact + '","' + @final_guardian + '","'
 			output += @special_div + '","' + @tunnel_percent + '","' + @obj_great + '","' + @obj_good + '","'
@@ -165,6 +165,7 @@ file1.each do |line|
 				res = line.scanf("N:%d:%[^:\n]")
 				d.id = res[0].to_s
 				d.name = res[1]
+				d.flags = ""
 				print d.id + ":" + d.name + "\n"
 
 			when 'E'
@@ -199,9 +200,17 @@ file1.each do |line|
 				p s
 				s.each do |elem|
 					if(elem.index("FINAL_GUARDIAN")) then
-						d.final_guardian = elem.gsub("FINAL_GUARDIAN_", "");
+						d.final_guardian = elem.gsub("FINAL_GUARDIAN_", "")
+					elsif(elem.index("FINAL_OBJECT")) then
+						d.final_object = elem.gsub("FINAL_OBJECT_", "")
+					elsif(elem.index("MONSTER_DIV")) then
+						d.special_div = elem.gsub("MONSTER_DIV_", "")
 					else
-						d.flags += ("|" + elem)
+						if d.flags.length > 0 then
+							d.flags += ("|" + elem)
+						else
+							d.flags = elem
+						end
 					end
 				end
 
