@@ -1098,8 +1098,8 @@ struct player_patron
 
 
 
-typedef struct creature_chara creature_chara;
-struct creature_chara
+typedef struct chara_type chara_type;
+struct chara_type
 {
 	cptr title;			/* Type of chara */
 

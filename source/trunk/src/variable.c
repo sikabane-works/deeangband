@@ -813,10 +813,13 @@ char *race_name;
 char *race_text;
 
 // The class arrays
-//class_type *class_info;
 class_type *class_info;
 char *class_name;
 char *class_text;
+
+chara_type *chara_info;
+char *chara_name;
+char *chara_text;
 
 // The artifact arrays
 artifact_type *artifact_info;

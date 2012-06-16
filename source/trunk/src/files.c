@@ -3855,7 +3855,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	race_type *ir_ptr = &race_info[creature_ptr->race_idx1];
 	class_type *cl_ptr = &class_info[creature_ptr->cls_idx];
-	creature_chara *ch_ptr = &chara_info[creature_ptr->chara_idx];
+	chara_type *ch_ptr = &chara_info[creature_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[creature_ptr->sex];
 
 	/* XXX XXX XXX */

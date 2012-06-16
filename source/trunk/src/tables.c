@@ -2065,9 +2065,6 @@ player_sex sex_info[MAX_SEXES] =
 
 };
 
-creature_chara chara_info[MAX_CHARA];
-
-
 race_type mimic_info[] =
 {
 	{

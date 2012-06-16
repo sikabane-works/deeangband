@@ -4090,7 +4090,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 /*
  * Player Chara
  */
-static bool get_creature_chara(creature_type *creature_ptr, species_type *species_ptr, bool npc)
+static bool get_chara_type(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
@@ -5336,7 +5336,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Character Select
 	//
-	i = get_creature_chara(creature_ptr, species_ptr, auto_generate);
+	i = get_chara_type(creature_ptr, species_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 

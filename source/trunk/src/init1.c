@@ -5185,6 +5185,11 @@ errr parse_chara_info_csv(char *buf, header *head)
 #endif
 					break;
 
+				case CH_INFO_RARITY:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].rarity = (s16b)b;
+					break;
+
 				case CH_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					chara_info[n].a_adj[STAT_STR] = (s16b)b;
@@ -5266,7 +5271,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 
 				case CH_INFO_SEX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
 					chara_info[n].sex = (byte)b;
 					break;
 			}

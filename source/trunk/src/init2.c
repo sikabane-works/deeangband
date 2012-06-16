@@ -271,6 +271,7 @@ header creature_flag_head;
 header species_head;
 header race_head;
 header class_head;
+header chara_head;
 header authority_head;
 header re_head;
 header st_head;
@@ -1052,6 +1053,27 @@ static errr init_class_info(void)
 	{
 		class_info[i].title = class_name + class_info[i].name;
 		class_info[i].E_title = class_name + class_info[i].E_name;
+	}
+
+	return r;
+}
+
+// Initialize the "class_info" array
+static errr init_chara_info(void)
+{
+	int i, r;
+	// Init the header
+	init_header(&chara_head, MAX_CHARA, sizeof(chara_type));
+
+	// Save a pointer to the parsing function
+	chara_head.parse_info_txt = parse_chara_info_csv;
+
+	r = init_info2("chara_info", &chara_head, (void*)&chara_info, &chara_name, &chara_text, NULL, NULL);
+
+	for(i = 0; i < MAX_CHARA; i++)
+	{
+		chara_info[i].title = chara_name + chara_info[i].name;
+		chara_info[i].E_title = chara_name + chara_info[i].E_name;
 	}
 
 	return r;
@@ -2035,7 +2057,7 @@ void init_angband(void)
 	if (init_creature_flag_csv()) quit("Cannot creature flags");
 
 	// Initialize authority info
-	note("[Initializing arrays... (Authorities)]");
+	note("[Initializing arrays... (authorities)]");
 	if (init_authority_info()) quit("Cannot initialize authorities");
 
 	/* Initialize feature info */
@@ -2059,9 +2081,13 @@ void init_angband(void)
 	note("[Initializing arrays... (races)]");
 	if (init_race_info()) quit("Cannot initialize races");
 
-	/* Initialize race info */
+	/* Initialize class info */
 	note("[Initializing arrays... (classes)]");
 	if (init_class_info()) quit("Cannot initialize classes");
+
+	/* Initialize character info */
+	note("[Initializing arrays... (characters)]");
+	if (init_chara_info()) quit("Cannot initialize characters");
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (species)]");
