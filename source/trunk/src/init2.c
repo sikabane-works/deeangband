@@ -477,13 +477,8 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if (tag)  (*tag)  = head->tag_ptr;
 
 		/*** Load the ascii template file ***/
-
-		/* Build the filename */
-
-		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.csv", filename));
-
-		/* Open the file */
-		fp = my_fopen(buf, "r");
+		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.csv", filename)); // Build the filename
+		fp = my_fopen(buf, "r"); // Open the file
 
 		/* Parse it */
 #ifdef JP
