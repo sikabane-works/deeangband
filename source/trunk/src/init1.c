@@ -4886,17 +4886,14 @@ errr parse_class_info_csv(char *buf, header *head)
 			switch(rc_info_csv_code[i])
 			{
 				case CL_INFO_NAME:
-					if (!add_name(&class_info[n].title, head, tmp))
-						return (7);
+					strcpy(class_info[n].title, tmp);
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					if (!add_name(&class_info[n].E_title, head, tmp))
-						return (7);
+					strcpy(class_info[n].E_title, tmp);
 #else
-					if (!add_name(&class_info[n].title, head, tmp))
-						return (7);
+					strcpy(class_info[n].title, tmp);
 #endif
 					break;
 
@@ -4931,58 +4928,134 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_A_STR:
-					break;
-				case CL_INFO_A_INT:
-					break;
-				case CL_INFO_A_WIS:
-					break;
-				case CL_INFO_A_DEX:
-					break;
-				case CL_INFO_A_CON:
-					break;
-				case CL_INFO_A_CHA:
-					break;
-				case CL_INFO_RARITY:
-					break;
-				case CL_INFO_C_DIS:
-					break;
-				case CL_INFO_C_DEV:
-					break;
-				case CL_INFO_C_SAV:
-					break;
-				case CL_INFO_C_STL:
-					break;
-				case CL_INFO_C_SRH:
-					break;
-				case CL_INFO_C_FOS:
-					break;
-				case CL_INFO_C_THN:
-					break;
-				case CL_INFO_C_THB:
-					break;
-				case CL_INFO_X_DIS:
-					break;
-				case CL_INFO_X_DEV:
-					break;
-				case CL_INFO_X_SAV:
-					break;
-				case CL_INFO_X_STL:
-					break;
-				case CL_INFO_X_SRH:
-					break;
-				case CL_INFO_X_FOS:
-					break;
-				case CL_INFO_X_THN:
-					break;
-				case CL_INFO_X_THB:
-					break;
-				case CL_INFO_HD:
-					break;
-				case CL_INFO_EXP:
-					break;
-				case CL_INFO_PET_UPKEEP:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_STR] = (s16b)b;
 					break;
 
+				case CL_INFO_A_INT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_INT] = (s16b)b;
+					break;
+
+				case CL_INFO_A_WIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_WIS] = (s16b)b;
+					break;
+
+				case CL_INFO_A_DEX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_DEX] = (s16b)b;
+					break;
+
+				case CL_INFO_A_CON:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_CON] = (s16b)b;
+					break;
+
+				case CL_INFO_A_CHA:
+					break;
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_adj_b[STAT_CHA] = (s16b)b;
+
+				case CL_INFO_RARITY:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].rarelity = (s16b)b;
+					break;
+
+				case CL_INFO_C_DIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_dis = (s16b)b;
+					break;
+
+				case CL_INFO_C_DEV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_dev = (s16b)b;
+					break;
+
+				case CL_INFO_C_SAV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_sav = (s16b)b;
+					break;
+
+				case CL_INFO_C_STL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_stl = (s16b)b;
+					break;
+
+				case CL_INFO_C_SRH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_srh = (s16b)b;
+					break;
+
+				case CL_INFO_C_FOS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_fos = (s16b)b;
+					break;
+
+				case CL_INFO_C_THN:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_thn = (s16b)b;
+					break;
+
+				case CL_INFO_C_THB:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_thb = (s16b)b;
+					break;
+
+				case CL_INFO_X_DIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_dis = (s16b)b;
+					break;
+
+				case CL_INFO_X_DEV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_dev = (s16b)b;
+					break;
+
+				case CL_INFO_X_SAV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_sav = (s16b)b;
+					break;
+
+				case CL_INFO_X_STL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_stl = (s16b)b;
+					break;
+
+				case CL_INFO_X_SRH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_srh = (s16b)b;
+					break;
+
+				case CL_INFO_X_FOS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_fos = (s16b)b;
+					break;
+
+				case CL_INFO_X_THN:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_thn = (s16b)b;
+					break;
+
+				case CL_INFO_X_THB:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].x_thb = (s16b)b;
+					break;
+
+				case CL_INFO_HD:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_mhp = (s16b)b;
+					break;
+
+				case CL_INFO_EXP:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].c_exp = (s16b)b;
+					break;
+
+				case CL_INFO_PET_UPKEEP:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					class_info[n].pet_upkeep_div = (s16b)b;
+					break;
 			}
 		}
 	}
