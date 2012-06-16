@@ -814,6 +814,7 @@ char *race_text;
 
 // The class arrays
 //class_type *class_info;
+class_type *class_info;
 char *class_name;
 char *class_text;
 

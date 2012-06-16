@@ -466,7 +466,7 @@ extern race_type *race_info;
 extern char *race_name;
 extern char *race_text;
 
-extern class_type class_info[MAX_CLASS];
+extern class_type *class_info;
 extern char *class_name;
 extern char *class_text;
 
