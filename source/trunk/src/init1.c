@@ -5067,9 +5067,13 @@ errr parse_class_info_csv(char *buf, header *head)
 }
 
 
-#define CH_INFO_CSV_COLUMNS 20
+
+#define CH_INFO_CSV_COLUMNS 21
+static int ch_info_csv_code[CH_INFO_CSV_COLUMNS];
+
 static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 {
+	"ID",
 	"NAME",
 	"E_NAME",
 	"RARITY",
@@ -5092,26 +5096,186 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 	"SEX",
 };
 
-#define CH_INFO_NAME    0
-#define CH_INFO_E_NAME  1
-#define CH_INFO_RARITY  2
-#define CH_INFO_STR     3
-#define CH_INFO_INT     4
-#define CH_INFO_WIS     5
-#define CH_INFO_DEX     6
-#define CH_INFO_CON     7
-#define CH_INFO_CHA     8
-#define CH_INFO_C_DIS   9
-#define CH_INFO_C_DEV  10
-#define CH_INFO_C_SAV  11
-#define CH_INFO_C_STL  12
-#define CH_INFO_C_SRH  13
-#define CH_INFO_C_FOS  14
-#define CH_INFO_C_THN  15
-#define CH_INFO_C_THB  16
-#define CH_INFO_HD     17
-#define CH_INFO_JP_NO  18
-#define CH_INFO_SEX    19
+#define CH_INFO_ID      0
+#define CH_INFO_NAME    1
+#define CH_INFO_E_NAME  2
+#define CH_INFO_RARITY  3
+#define CH_INFO_STR     4
+#define CH_INFO_INT     5
+#define CH_INFO_WIS     6
+#define CH_INFO_DEX     7
+#define CH_INFO_CON     8
+#define CH_INFO_CHA     9
+#define CH_INFO_C_DIS  10
+#define CH_INFO_C_DEV  11
+#define CH_INFO_C_SAV  12
+#define CH_INFO_C_STL  13
+#define CH_INFO_C_SRH  14
+#define CH_INFO_C_FOS  15
+#define CH_INFO_C_THN  16
+#define CH_INFO_C_THB  17
+#define CH_INFO_HD     18
+#define CH_INFO_JP_NO  19
+#define CH_INFO_SEX    20
+
+errr parse_chara_info_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, CH_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, ch_info_csv_list[0]))
+	{
+		rc_info_csv_code[0] = CH_INFO_ID;
+		for(i = 1; i < CH_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < CH_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, ch_info_csv_list[j]))
+				{
+					ch_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == CH_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize CH:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < CH_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(ch_info_csv_code[i])
+			{
+				case CH_INFO_NAME:
+					if (!add_name(&chara_info[n].name, head, tmp))
+						return (7);
+					break;
+
+				case CH_INFO_E_NAME:
+#if JP
+					if (!add_name(&chara_info[n].E_name, head, tmp))
+						return (7);
+#else
+					if (!add_name(&chara_info[n].name, head, tmp))
+						return (7);
+#endif
+					break;
+
+				case CH_INFO_STR:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_STR] = (s16b)b;
+					break;
+
+				case CH_INFO_INT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_INT] = (s16b)b;
+					break;
+
+				case CH_INFO_WIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_WIS] = (s16b)b;
+					break;
+
+				case CH_INFO_DEX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_DEX] = (s16b)b;
+					break;
+
+				case CH_INFO_CON:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_CON] = (s16b)b;
+					break;
+
+				case CH_INFO_CHA:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_adj[STAT_CHA] = (s16b)b;
+					break;
+
+				case CH_INFO_C_DIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_dis = (s16b)b;
+					break;
+
+				case CH_INFO_C_DEV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_dev = (s16b)b;
+					break;
+
+				case CH_INFO_C_SAV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_sav = (s16b)b;
+					break;
+
+				case CH_INFO_C_STL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_stl = (s16b)b;
+					break;
+
+				case CH_INFO_C_SRH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_srh = (s16b)b;
+					break;
+
+				case CH_INFO_C_FOS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_fos = (s16b)b;
+					break;
+
+				case CH_INFO_C_THN:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_thn = (s16b)b;
+					break;
+
+				case CH_INFO_C_THB:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_thb = (s16b)b;
+					break;
+
+				case CH_INFO_HD:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].a_mhp = (s16b)b;
+					break;
+
+				case CH_INFO_JP_NO:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].no = (byte)b;
+					break;
+
+				case CH_INFO_SEX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					chara_info[n].sex = (byte)b;
+					break;
+			}
+		}
+	}
+
+	return (0);
+}
+
 
 
 

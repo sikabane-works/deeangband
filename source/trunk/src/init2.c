@@ -1036,9 +1036,7 @@ static errr init_race_info(void)
 	return r;
 }
 
-/*
- * Initialize the "class_info" array
- */
+// Initialize the "class_info" array
 static errr init_class_info(void)
 {
 	int i, r;

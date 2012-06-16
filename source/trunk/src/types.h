@@ -1104,8 +1104,19 @@ struct creature_chara
 	cptr title;			/* Type of chara */
 
 #ifdef JP
-	cptr E_title;		/* ‰pŒê«Ši */
+	cptr E_title;		/* English */
 #endif
+
+	u32b name;			/* Name (offset) */
+#ifdef JP
+	u32b E_name;        /* English (offset) */
+#endif
+
+	u32b text;			/* text (offset) */
+#ifdef JP
+	u32b E_text;        /* English (offset) */
+#endif
+
 	s16b rarity;		/* chara rarerity (Over 100 was no selected on auto select) */
 
 	s16b a_adj[6];		/* chara stat bonuses */
