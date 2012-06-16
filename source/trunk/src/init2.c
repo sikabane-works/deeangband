@@ -1041,7 +1041,7 @@ static errr init_race_info(void)
  */
 static errr init_class_info(void)
 {
-	int r;
+	int i, r;
 	// Init the header
 	init_header(&class_head, MAX_CLASS, sizeof(class_type));
 
@@ -1049,6 +1049,10 @@ static errr init_class_info(void)
 	class_head.parse_info_txt = parse_class_info_csv;
 
 	r = init_info2("class_info", &class_head, (void*)&class_info, &class_name, &class_text, NULL, NULL);
+
+	for(i = 0; i < MAX_CLASS; i++)
+		class_info[i].title = class_name + class_info[i].name;
+
 	return r;
 }
 
@@ -1911,7 +1915,6 @@ void init_angband(void)
 #else
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "news.txt");
 #endif
-
 
 	/* Attempt to open the file */
 	fd = fd_open(buf, O_RDONLY);

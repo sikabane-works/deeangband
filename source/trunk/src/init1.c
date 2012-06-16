@@ -4886,16 +4886,16 @@ errr parse_class_info_csv(char *buf, header *head)
 			switch(cl_info_csv_code[i])
 			{
 				case CL_INFO_NAME:
-					if (!add_name(&class_info[n].title, head, tmp))
+					if (!add_name(&class_info[n].name, head, tmp))
 						return (7);
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					if (!add_name(&class_info[n].E_title, head, tmp))
+					if (!add_name(&class_info[n].E_name, head, tmp))
 						return (7);
 #else
-					if (!add_name(&class_info[n].title, head, tmp))
+					if (!add_name(&class_info[n].name, head, tmp))
 						return (7);
 #endif
 					break;

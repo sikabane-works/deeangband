@@ -1026,10 +1026,20 @@ typedef struct class_type class_type;
 struct class_type
 {
 	cptr title;			/* Type of class */
-
 #ifdef JP
 	cptr E_title;		/* âpåÍêEã∆ */
+
 #endif
+	u32b name;			/* Name (offset) */
+#ifdef JP
+	u32b E_name;        /* English (offset) */
+#endif
+
+	u32b text;			/* text (offset) */
+#ifdef JP
+	u32b E_text;        /* English (offset) */
+#endif
+
 	s16b c_adj[6];		/* Class stat modifier */
 	s16b c_adj_b[6];	/* Class stat bonus */
 
