@@ -1314,7 +1314,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		teleport_player(caster_ptr, plev * 5, 0L);
 		break;
 	case MS_WORLD:
-		world_player = TRUE;
+		caster_ptr->time_stopper = TRUE;
 #ifdef JP
 		msg_print("「時よ！」");
 #else

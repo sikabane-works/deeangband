@@ -1615,6 +1615,7 @@ struct creature_type
 	u32b creature_update;
 
 	u32b change_floor_mode;
+	s16b time_stopper;
 };
 
 // creature_flags_type

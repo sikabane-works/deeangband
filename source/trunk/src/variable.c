@@ -1095,7 +1095,6 @@ int highscore_fd = -1;
 bool can_save = FALSE;        /* Game can be saved */
 
 s16b the_world;
-bool world_player;
 
 s16b battle_mon[4];
 int sel_monster;

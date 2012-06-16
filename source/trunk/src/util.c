@@ -2800,11 +2800,8 @@ static void msg_flush(int x)
 void msg_print(cptr msg)
 {
 	static int p = 0;
-
 	int n;
-
 	char *t;
-
 	char buf[1024];
 
 	if (the_world) return;
@@ -2839,10 +2836,8 @@ void msg_print(cptr msg)
 	/* Paranoia */
 	if (n > 1000) return;
 
-
 	/* Memorize the message */
 	if (character_generated) message_add(msg);
-
 
 	/* Copy it */
 	strcpy(buf, msg);

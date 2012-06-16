@@ -221,7 +221,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	cr_ptr->special_defense = 0L;
 
 	while(cr_ptr->energy_need < 0) cr_ptr->energy_need += ENERGY_NEED();
-	world_player = FALSE;
+	cr_ptr->time_stopper = FALSE;
 
 	if (is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
 	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) cr_ptr->oppose_pois = 1;

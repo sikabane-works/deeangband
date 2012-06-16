@@ -887,7 +887,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		teleport_player(creature_ptr, plev * 5, 0L);
 		break;
 	case MS_WORLD:
-		world_player = TRUE;
+		creature_ptr->time_stopper = TRUE;
 		if (damage == 1 || damage == 2)
 #ifdef JP
 			msg_print("「『ザ・ワールド』！時は止まった！」");

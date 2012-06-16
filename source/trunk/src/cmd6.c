@@ -37,8 +37,8 @@
  * 400 item comparisons, but only occasionally.
  *
  * There may be a BIG problem with any "effect" that can cause "changes"
- * to the cr_ptr->inventory.  For example, a "scroll of recharging" can cause
- * a wand/staff to "disappear", moving the cr_ptr->inventory up.  Luckily, the
+ * to the creature_ptr->inventory.  For example, a "scroll of recharging" can cause
+ * a wand/staff to "disappear", moving the creature_ptr->inventory up.  Luckily, the
  * scrolls all appear BEFORE the staffs/wands, so this is not a problem.
  * But, for example, a "staff of recharging" could cause MAJOR problems.
  * In such a case, it will be best to either (1) "postpone" the effect
@@ -621,12 +621,12 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 /*
  * Hook to determine if an object is eatable
  */
-static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval==TV_FOOD) return TRUE;
 
 #if 0
-	if (race_is_(cr_ptr, RACE_SKELETON))
+	if (race_is_(creature_ptr, RACE_SKELETON))
 	{
 		if (o_ptr->tval == TV_SKELETON ||
 		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
@@ -635,14 +635,14 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 	else 
 #endif
 
-	if (is_undead_creature(cr_ptr))
+	if (is_undead_creature(creature_ptr))
 	{
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
 
-	else if (is_demon_creature(cr_ptr) ||
-		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+	else if (is_demon_creature(creature_ptr) ||
+		 (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
 		    o_ptr->sval == SV_CORPSE &&
@@ -658,15 +658,15 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Eat some food (from the pack or floor)
  */
-void do_cmd_eat_food(creature_type *cr_ptr)
+void do_cmd_eat_food(creature_type *creature_ptr)
 {
 	int         item;
 	cptr        q, s;
 
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -678,10 +678,10 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
 
 	/* Eat the object */
-	do_cmd_eat_food_aux(cr_ptr, item);
+	do_cmd_eat_food_aux(creature_ptr, item);
 }
 
 
@@ -699,7 +699,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	// Take a turn
 	energy_use = 100;
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -1473,11 +1473,11 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 /*
  * Hook to determine if an object can be quaffed
  */
-static bool item_tester_hook_quaff(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval == TV_POTION) return TRUE;
 
-	if (has_cf_creature(cr_ptr, CF_FLASK_DRINKER))
+	if (has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
 	{
 		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
@@ -1490,14 +1490,14 @@ static bool item_tester_hook_quaff(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Quaff some potion (from the pack or floor)
  */
-void do_cmd_quaff_potion(creature_type *cr_ptr)
+void do_cmd_quaff_potion(creature_type *creature_ptr)
 {
 	int  item;
 	cptr q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -1509,10 +1509,10 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
 
 	/* Quaff the potion */
-	do_cmd_quaff_potion_aux(cr_ptr, item);
+	do_cmd_quaff_potion_aux(creature_ptr, item);
 }
 
 
@@ -1548,7 +1548,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	/* Take a turn */
 	energy_use = 100;
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -2195,19 +2195,19 @@ msg_print("巻物は煙を立てて消え去った！");
 }
 
 
-void do_cmd_read_scroll(creature_type *cr_ptr)
+void do_cmd_read_scroll(creature_type *creature_ptr)
 {
 	object_type *o_ptr;
 	int  item;
 	cptr q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Check some conditions */
-	if (cr_ptr->blind)
+	if (creature_ptr->blind)
 	{
 #ifdef JP
 		msg_print("目が見えない。");
@@ -2217,7 +2217,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 
 		return;
 	}
-	if (no_lite(cr_ptr))
+	if (no_lite(creature_ptr))
 	{
 #ifdef JP
 		msg_print("明かりがないので、暗くて読めない。");
@@ -2226,7 +2226,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 #endif
 		return;
 	}
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて読めない。");
@@ -2245,12 +2245,12 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2260,7 +2260,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	}
 
 	/* Read the scroll */
-	do_cmd_read_scroll_aux(cr_ptr, item, object_is_aware(o_ptr));
+	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(o_ptr));
 }
 
 
@@ -2620,7 +2620,7 @@ msg_print("ダンジョンが揺れた。");
  *
  * Hack -- staffs of identify can be "cancelled".
  */
-static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
+static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 {
 	int         ident, chance, lev;
 	object_type *o_ptr;
@@ -2633,7 +2633,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2664,10 +2664,10 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
-	chance = cr_ptr->skill_dev;
+	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (cr_ptr->confused) chance = chance / 2;
+	if (creature_ptr->confused) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -2678,7 +2678,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 		chance = USE_DEVICE;
 	}
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -2692,7 +2692,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (cr_ptr->cls_idx == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->cls_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -2718,7 +2718,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 		o_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 		play_window |= (PW_INVEN);
 
 		return;
@@ -2728,11 +2728,11 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = staff_effect(cr_ptr, o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
+	ident = staff_effect(creature_ptr, o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
 
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Tried the item */
 	object_tried(o_ptr);
@@ -2741,7 +2741,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -2775,8 +2775,8 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 		/* Unstack the used item */
 		o_ptr->number--;
-		calc_inventory_weight(cr_ptr);
-		item = inven_carry(cr_ptr, q_ptr);
+		calc_inventory_weight(creature_ptr);
+		item = inven_carry(creature_ptr, q_ptr);
 
 		/* Message */
 #ifdef JP
@@ -2790,7 +2790,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Describe charges in the pack */
 	if (item >= 0)
 	{
-		inven_item_charges(cr_ptr, item);
+		inven_item_charges(creature_ptr, item);
 	}
 
 	/* Describe charges on the floor */
@@ -2801,14 +2801,14 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 }
 
 
-void do_cmd_use_staff(creature_type *cr_ptr)
+void do_cmd_use_staff(creature_type *creature_ptr)
 {
 	int  item;
 	cptr q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -2820,13 +2820,13 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 
-	do_cmd_use_staff_aux(cr_ptr, item);
+	do_cmd_use_staff_aux(creature_ptr, item);
 }
 
 
-static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
+static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magic)
 {
 	int ident = FALSE;
 
@@ -2839,14 +2839,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		if (vir)
 		{
-			if (cr_ptr->karmas[vir - 1] > 0)
+			if (creature_ptr->karmas[vir - 1] > 0)
 			{
-				while (randint1(300) < cr_ptr->karmas[vir - 1]) sval++;
+				while (randint1(300) < creature_ptr->karmas[vir - 1]) sval++;
 				if (sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
-				while (randint1(300) < (0-cr_ptr->karmas[vir - 1])) sval--;
+				while (randint1(300) < (0-creature_ptr->karmas[vir - 1])) sval--;
 				if (sval < SV_WAND_heal_other_creature) sval = randint0(3) + SV_WAND_heal_other_creature;
 			}
 		}
@@ -2857,43 +2857,43 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 	{
 		case SV_WAND_heal_other_creature:
 		{
-			if (heal_other_creature(cr_ptr, dir, diceroll(10, 10))) ident = TRUE;
+			if (heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_HASTE_MONSTER:
 		{
-			if (speed_other_creature(cr_ptr, dir)) ident = TRUE;
+			if (speed_other_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CLONE_MONSTER:
 		{
-			if (clone_creature(cr_ptr, dir)) ident = TRUE;
+			if (clone_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_TELEPORT_AWAY:
 		{
-			if (teleport_creature(cr_ptr, dir)) ident = TRUE;
+			if (teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DISARMING:
 		{
-			if (disarm_trap(cr_ptr, dir)) ident = TRUE;
+			if (disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_TRAP_DOOR_DEST:
 		{
-			if (destroy_door(cr_ptr, dir)) ident = TRUE;
+			if (destroy_door(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STONE_TO_MUD:
 		{
-			if (wall_to_mud(cr_ptr, dir)) ident = TRUE;
+			if (wall_to_mud(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -2905,113 +2905,113 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 			msg_print("A line of blue shimmering light appears.");
 #endif
 
-			(void)lite_line(cr_ptr, dir);
+			(void)lite_line(creature_ptr, dir);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_SLEEP_MONSTER:
 		{
-			if (sleep_creature(cr_ptr, dir)) ident = TRUE;
+			if (sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_SLOW_MONSTER:
 		{
-			if (slow_creature(cr_ptr, dir)) ident = TRUE;
+			if (slow_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CONFUSE_MONSTER:
 		{
-			if (confuse_creature(cr_ptr, dir, cr_ptr->lev)) ident = TRUE;
+			if (confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FEAR_MONSTER:
 		{
-			if (fear_creature(cr_ptr, dir, cr_ptr->lev)) ident = TRUE;
+			if (fear_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAIN_LIFE:
 		{
-			if (drain_life(cr_ptr, dir, 80 + cr_ptr->lev)) ident = TRUE;
+			if (drain_life(creature_ptr, dir, 80 + creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_POLYMORPH:
 		{
-			if (poly_creature(cr_ptr, dir)) ident = TRUE;
+			if (poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STINKING_CLOUD:
 		{
-			fire_ball(cr_ptr, GF_POIS, dir, 12 + cr_ptr->lev / 4, 2);
+			fire_ball(creature_ptr, GF_POIS, dir, 12 + creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_MISSILE, dir, diceroll(2 + cr_ptr->lev / 10, 6));
+			fire_bolt_or_beam(creature_ptr, 20, GF_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_ACID, dir, diceroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(creature_ptr, 20, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CHARM_MONSTER:
 		{
-			if (charm_creature(cr_ptr, dir, MAX(20, cr_ptr->lev)))
+			if (charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_FIRE, dir, diceroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(creature_ptr, 20, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 20, GF_COLD, dir, diceroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(creature_ptr, 20, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BALL:
 		{
-			fire_ball(cr_ptr, GF_ACID, dir, 60 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(creature_ptr, GF_ACID, dir, 60 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ELEC_BALL:
 		{
-			fire_ball(cr_ptr, GF_ELEC, dir, 40 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(creature_ptr, GF_ELEC, dir, 40 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BALL:
 		{
-			fire_ball(cr_ptr, GF_FIRE, dir, 70 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(creature_ptr, GF_FIRE, dir, 70 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BALL:
 		{
-			fire_ball(cr_ptr, GF_COLD, dir, 50 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(creature_ptr, GF_COLD, dir, 50 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3029,14 +3029,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_DRAGON_FIRE:
 		{
-			fire_ball(cr_ptr, GF_FIRE, dir, 200, -3);
+			fire_ball(creature_ptr, GF_FIRE, dir, 200, -3);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAGON_COLD:
 		{
-			fire_ball(cr_ptr, GF_COLD, dir, 180, -3);
+			fire_ball(creature_ptr, GF_COLD, dir, 180, -3);
 			ident = TRUE;
 			break;
 		}
@@ -3047,31 +3047,31 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 			{
 				case 1:
 				{
-					fire_ball(cr_ptr, GF_ACID, dir, 240, -3);
+					fire_ball(creature_ptr, GF_ACID, dir, 240, -3);
 					break;
 				}
 
 				case 2:
 				{
-					fire_ball(cr_ptr, GF_ELEC, dir, 210, -3);
+					fire_ball(creature_ptr, GF_ELEC, dir, 210, -3);
 					break;
 				}
 
 				case 3:
 				{
-					fire_ball(cr_ptr, GF_FIRE, dir, 240, -3);
+					fire_ball(creature_ptr, GF_FIRE, dir, 240, -3);
 					break;
 				}
 
 				case 4:
 				{
-					fire_ball(cr_ptr, GF_COLD, dir, 210, -3);
+					fire_ball(creature_ptr, GF_COLD, dir, 210, -3);
 					break;
 				}
 
 				default:
 				{
-					fire_ball(cr_ptr, GF_POIS, dir, 180, -3);
+					fire_ball(creature_ptr, GF_POIS, dir, 180, -3);
 					break;
 				}
 			}
@@ -3082,7 +3082,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_DISINTEGRATE:
 		{
-			fire_ball(cr_ptr, GF_DISINTEGRATE, dir, 200 + randint1(cr_ptr->lev * 2), 2);
+			fire_ball(creature_ptr, GF_DISINTEGRATE, dir, 200 + randint1(creature_ptr->lev * 2), 2);
 			ident = TRUE;
 			break;
 		}
@@ -3095,21 +3095,21 @@ msg_print("ロケットを発射した！");
 			msg_print("You launch a rocket!");
 #endif
 
-			fire_rocket(cr_ptr, GF_ROCKET, dir, 250 + cr_ptr->lev * 3, 2);
+			fire_rocket(creature_ptr, GF_ROCKET, dir, 250 + creature_ptr->lev * 3, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STRIKING:
 		{
-			fire_bolt(cr_ptr, GF_METEOR, dir, diceroll(15 + cr_ptr->lev / 3, 13));
+			fire_bolt(creature_ptr, GF_METEOR, dir, diceroll(15 + creature_ptr->lev / 3, 13));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_GENOCIDE:
 		{
-			fire_ball_hide(cr_ptr, GF_GENOCIDE, dir, magic ? cr_ptr->lev + 50 : 250, 0);
+			fire_ball_hide(creature_ptr, GF_GENOCIDE, dir, magic ? creature_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 		}
@@ -3127,7 +3127,7 @@ msg_print("ロケットを発射した！");
  * For simplicity, you cannot use a stack of items from the
  * ground.  This would require too much nasty code.
  *
- * There are no wands which can "destroy" themselves, in the cr_ptr->inventory
+ * There are no wands which can "destroy" themselves, in the creature_ptr->inventory
  * or on the ground, so we can ignore this possibility.  Note that this
  * required giving "wand of wonder" the ability to ignore destruction
  * by electric balls.
@@ -3138,7 +3138,7 @@ msg_print("ロケットを発射した！");
  * basic "bolt" rods, but the basic "ball" wands do the same damage
  * as the basic "ball" rods.
  */
-static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
+static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 {
 	int         lev, ident, chance, dir;
 	object_type *o_ptr;
@@ -3147,7 +3147,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3173,7 +3173,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_heal_other_creature
 				      || o_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
-	if (!get_aim_dir(cr_ptr, &dir))
+	if (!get_aim_dir(creature_ptr, &dir))
 	{
 		target_pet = old_target_pet;
 		return;
@@ -3188,10 +3188,10 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
-	chance = cr_ptr->skill_dev;
+	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (cr_ptr->confused) chance = chance / 2;
+	if (creature_ptr->confused) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -3202,7 +3202,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 		chance = USE_DEVICE;
 	}
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3216,7 +3216,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (cr_ptr->cls_idx == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->cls_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3242,7 +3242,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 		o_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 		play_window |= (PW_INVEN);
 
 		return;
@@ -3251,10 +3251,10 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = wand_effect(cr_ptr, o_ptr->sval, dir, FALSE);
+	ident = wand_effect(creature_ptr, o_ptr->sval, dir, FALSE);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Mark it as tried */
 	object_tried(o_ptr);
@@ -3263,7 +3263,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -3276,7 +3276,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Describe the charges in the pack */
 	if (item >= 0)
 	{
-		inven_item_charges(cr_ptr, item);
+		inven_item_charges(creature_ptr, item);
 	}
 
 	/* Describe the charges on the floor */
@@ -3287,14 +3287,14 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 }
 
 
-void do_cmd_aim_wand(creature_type *cr_ptr)
+void do_cmd_aim_wand(creature_type *creature_ptr)
 {
 	int     item;
 	cptr    q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -3306,14 +3306,14 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
 
 	/* Aim the wand */
-	do_cmd_aim_wand_aux(cr_ptr, item);
+	do_cmd_aim_wand_aux(creature_ptr, item);
 }
 
 
-static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge, bool magic)
+static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_charge, bool magic)
 {
 	int ident = FALSE;
 
@@ -3325,112 +3325,112 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 	{
 		case SV_ROD_DETECT_TRAP:
 		{
-			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
+			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DETECT_DOOR:
 		{
-			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_IDENTIFY:
 		{
-			if (!ident_spell(cr_ptr, FALSE)) *use_charge = FALSE;
+			if (!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_RECALL:
 		{
-			if (!word_of_recall(cr_ptr)) *use_charge = FALSE;
+			if (!word_of_recall(creature_ptr)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ILLUMINATION:
 		{
-			if (lite_area(cr_ptr, diceroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_MAPPING:
 		{
-			map_area(cr_ptr, DETECT_RAD_MAP);
+			map_area(creature_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DETECTION:
 		{
-			detect_all(cr_ptr, DETECT_RAD_DEFAULT);
+			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_PROBING:
 		{
-			probing(get_floor_ptr(cr_ptr));
+			probing(get_floor_ptr(creature_ptr));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_CURING:
 		{
-			if (set_blind(cr_ptr, 0)) ident = TRUE;
-			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
-			if (set_confused(cr_ptr, 0)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_image(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (set_blind(creature_ptr, 0)) ident = TRUE;
+			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if (set_confused(creature_ptr, 0)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_image(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_HEALING:
 		{
-			if (hp_player(cr_ptr, 500)) ident = TRUE;
-			if (set_stun(cr_ptr, 0)) ident = TRUE;
-			if (set_cut(cr_ptr, 0)) ident = TRUE;
-			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(creature_ptr, 500)) ident = TRUE;
+			if (set_stun(creature_ptr, 0)) ident = TRUE;
+			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_RESTORATION:
 		{
-			if (restore_level(cr_ptr)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
-			if (do_res_stat(cr_ptr, STAT_CHA)) ident = TRUE;
+			if (restore_level(creature_ptr)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if (do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SPEED:
 		{
-			if (set_fast(cr_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_PESTICIDE:
 		{
-			if (dispel_creatures(cr_ptr, 4)) ident = TRUE;
+			if (dispel_creatures(creature_ptr, 4)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_TELEPORT_AWAY:
 		{
-			if (teleport_creature(cr_ptr, dir)) ident = TRUE;
+			if (teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DISARMING:
 		{
-			if (disarm_trap(cr_ptr, dir)) ident = TRUE;
+			if (disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3442,107 +3442,107 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 			msg_print("A line of blue shimmering light appears.");
 #endif
 
-			(void)lite_line(cr_ptr, dir);
+			(void)lite_line(creature_ptr, dir);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SLEEP_MONSTER:
 		{
-			if (sleep_creature(cr_ptr, dir)) ident = TRUE;
+			if (sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SLOW_MONSTER:
 		{
-			if (slow_creature(cr_ptr, dir)) ident = TRUE;
+			if (slow_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DRAIN_LIFE:
 		{
-			if (drain_life(cr_ptr, dir, 70 + 3 * cr_ptr->lev / 2)) ident = TRUE;
+			if (drain_life(creature_ptr, dir, 70 + 3 * creature_ptr->lev / 2)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_POLYMORPH:
 		{
-			if (poly_creature(cr_ptr, dir)) ident = TRUE;
+			if (poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ACID_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_ACID, dir, diceroll(6 + cr_ptr->lev / 7, 8));
+			fire_bolt_or_beam(creature_ptr, 10, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_ELEC, dir, diceroll(4 + cr_ptr->lev / 9, 8));
+			fire_bolt_or_beam(creature_ptr, 10, GF_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_FIRE, dir, diceroll(7 + cr_ptr->lev / 6, 8));
+			fire_bolt_or_beam(creature_ptr, 10, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			fire_bolt_or_beam(cr_ptr, 10, GF_COLD, dir, diceroll(5 + cr_ptr->lev / 8, 8));
+			fire_bolt_or_beam(creature_ptr, 10, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ACID_BALL:
 		{
-			fire_ball(cr_ptr, GF_ACID, dir, 60 + cr_ptr->lev, 2);
+			fire_ball(creature_ptr, GF_ACID, dir, 60 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BALL:
 		{
-			fire_ball(cr_ptr, GF_ELEC, dir, 40 + cr_ptr->lev, 2);
+			fire_ball(creature_ptr, GF_ELEC, dir, 40 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BALL:
 		{
-			fire_ball(cr_ptr, GF_FIRE, dir, 70 + cr_ptr->lev, 2);
+			fire_ball(creature_ptr, GF_FIRE, dir, 70 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BALL:
 		{
-			fire_ball(cr_ptr, GF_COLD, dir, 50 + cr_ptr->lev, 2);
+			fire_ball(creature_ptr, GF_COLD, dir, 50 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_HAVOC:
 		{
-			call_chaos(cr_ptr);
+			call_chaos(creature_ptr);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_STONE_TO_MUD:
 		{
-			if (wall_to_mud(cr_ptr, dir)) ident = TRUE;
+			if (wall_to_mud(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_AGGRAVATE:
 		{
-			aggravate_creatures(cr_ptr);
+			aggravate_creatures(creature_ptr);
 			ident = TRUE;
 			break;
 		}
@@ -3560,7 +3560,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
  *
  * pvals are defined for each rod in object_kind_info. -LM-
  */
-static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
+static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 {
 	int ident, chance, lev, fail;
 	int dir = 0;
@@ -3575,7 +3575,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3603,7 +3603,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	     !object_is_aware(o_ptr))
 	{
 		/* Get a direction, allow cancel */
-		if (!get_aim_dir(cr_ptr, &dir)) return;
+		if (!get_aim_dir(creature_ptr, &dir)) return;
 	}
 
 
@@ -3614,10 +3614,10 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	lev = object_kind_info[o_ptr->k_idx].level;
 
 	/* Base chance of success */
-	chance = cr_ptr->skill_dev;
+	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (cr_ptr->confused) chance = chance / 2;
+	if (creature_ptr->confused) chance = chance / 2;
 
 	fail = lev+5;
 	if (chance > fail) fail -= (chance - fail)*2;
@@ -3625,7 +3625,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	if (fail < USE_DEVICE) fail = USE_DEVICE;
 	if (chance < USE_DEVICE) chance = USE_DEVICE;
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3638,7 +3638,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 		return;
 	}
 
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
+	if (creature_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -3694,13 +3694,13 @@ msg_print("そのロッドはまだ充填中です。");
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = rod_effect(cr_ptr, o_ptr->sval, dir, &use_charge, FALSE);
+	ident = rod_effect(creature_ptr, o_ptr->sval, dir, &use_charge, FALSE);
 
 	/* Increase the timeout by the rod kind's pval. -LM- */
 	if (use_charge) o_ptr->timeout += k_ptr->pval;
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Tried the object */
 	object_tried(o_ptr);
@@ -3709,7 +3709,7 @@ msg_print("そのロッドはまだ充填中です。");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -3717,14 +3717,14 @@ msg_print("そのロッドはまだ充填中です。");
 }
 
 
-void do_cmd_zap_rod(creature_type *cr_ptr)
+void do_cmd_zap_rod(creature_type *creature_ptr)
 {
 	int item;
 	cptr q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -3736,17 +3736,17 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 
 	/* Zap the rod */
-	do_cmd_zap_rod_aux(cr_ptr, item);
+	do_cmd_zap_rod_aux(creature_ptr, item);
 }
 
 
 /*
  * Hook to determine if an object is activatable
  */
-static bool item_tester_hook_activate(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *o_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -3767,7 +3767,7 @@ static bool item_tester_hook_activate(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Hack -- activate the ring of power
  */
-void ring_of_power(creature_type *cr_ptr, int dir)
+void ring_of_power(creature_type *creature_ptr, int dir)
 {
 	/* Pick a random effect */
 	switch (randint1(10))
@@ -3785,17 +3785,17 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 			sound(SOUND_EVIL);
 
 			/* Decrease all stats (permanently) */
-			(void)dec_stat(cr_ptr, STAT_STR, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_INT, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_WIS, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_DEX, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CON, 50, TRUE);
-			(void)dec_stat(cr_ptr, STAT_CHA, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_STR, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_INT, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_WIS, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_DEX, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_CON, 50, TRUE);
+			(void)dec_stat(creature_ptr, STAT_CHA, 50, TRUE);
 
 			/* Lose some experience (permanently) */
-			cr_ptr->exp -= (cr_ptr->exp / 4);
-			cr_ptr->max_exp -= (cr_ptr->exp / 4);
-			check_experience(cr_ptr);
+			creature_ptr->exp -= (creature_ptr->exp / 4);
+			creature_ptr->max_exp -= (creature_ptr->exp / 4);
+			check_experience(creature_ptr);
 
 			break;
 		}
@@ -3811,7 +3811,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 
 
 			/* Dispel monsters */
-			dispel_creatures(cr_ptr, 1000);
+			dispel_creatures(creature_ptr, 1000);
 
 			break;
 		}
@@ -3821,7 +3821,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 		case 6:
 		{
 			/* Mana Ball */
-			fire_ball(cr_ptr, GF_MANA, dir, 600, 3);
+			fire_ball(creature_ptr, GF_MANA, dir, 600, 3);
 
 			break;
 		}
@@ -3832,7 +3832,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 		case 10:
 		{
 			/* Mana Bolt */
-			fire_bolt(cr_ptr, GF_MANA, dir, 500);
+			fire_bolt(creature_ptr, GF_MANA, dir, 500);
 
 			break;
 		}
@@ -4020,7 +4020,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if (fail < USE_DEVICE) fail = USE_DEVICE;
 	if (chance < USE_DEVICE) chance = USE_DEVICE;
 
-	if (world_player)
+	if (creature_ptr->time_stopper)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -6482,15 +6482,15 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 }
 
 
-void do_cmd_activate(creature_type *cr_ptr)
+void do_cmd_activate(creature_type *creature_ptr)
 {
 	int     item;
 	cptr    q, s;
 
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Prepare the hook */
@@ -6504,22 +6504,22 @@ void do_cmd_activate(creature_type *cr_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 
 	/* Activate the item */
-	do_cmd_activate_aux(cr_ptr, item);
+	do_cmd_activate_aux(creature_ptr, item);
 }
 
 
 /*
  * Hook to determine if an object is useable
  */
-static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_use(creature_type *creature_ptr, object_type *o_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Ammo */
-	if (o_ptr->tval == cr_ptr->tval_ammo)
+	if (o_ptr->tval == creature_ptr->tval_ammo)
 		return (TRUE);
 
 	/* Useable object */
@@ -6548,7 +6548,7 @@ static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
 			{
 				if(!IS_EQUIPPED(o_ptr)) continue;
 
-				if (&cr_ptr->inventory[i] == o_ptr)
+				if (&creature_ptr->inventory[i] == o_ptr)
 				{
 					/* Extract the flags */
 					object_flags(o_ptr, flgs);
@@ -6569,15 +6569,15 @@ static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
  * Use an item
  * XXX - Add actions for other item types
  */
-void do_cmd_use(creature_type *cr_ptr)
+void do_cmd_use(creature_type *creature_ptr)
 {
 	int         item;
 	object_type *o_ptr;
 	cptr        q, s;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -6589,12 +6589,12 @@ s = "使えるものがありません。";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 	/* Get the item (on the floor) */
 	else
@@ -6607,42 +6607,42 @@ s = "使えるものがありません。";
 		/* Spike a door */
 		case TV_SPIKE:
 		{
-			do_cmd_spike(cr_ptr);
+			do_cmd_spike(creature_ptr);
 			break;
 		}
 
 		/* Eat some food */
 		case TV_FOOD:
 		{
-			do_cmd_eat_food_aux(cr_ptr, item);
+			do_cmd_eat_food_aux(creature_ptr, item);
 			break;
 		}
 
 		/* Aim a wand */
 		case TV_WAND:
 		{
-			do_cmd_aim_wand_aux(cr_ptr, item);
+			do_cmd_aim_wand_aux(creature_ptr, item);
 			break;
 		}
 
 		/* Use a staff */
 		case TV_STAFF:
 		{
-			do_cmd_use_staff_aux(cr_ptr, item);
+			do_cmd_use_staff_aux(creature_ptr, item);
 			break;
 		}
 
 		/* Zap a rod */
 		case TV_ROD:
 		{
-			do_cmd_zap_rod_aux(cr_ptr, item);
+			do_cmd_zap_rod_aux(creature_ptr, item);
 			break;
 		}
 
 		/* Quaff a potion */
 		case TV_POTION:
 		{
-			do_cmd_quaff_potion_aux(cr_ptr, item);
+			do_cmd_quaff_potion_aux(creature_ptr, item);
 			break;
 		}
 
@@ -6650,7 +6650,7 @@ s = "使えるものがありません。";
 		case TV_SCROLL:
 		{
 			/* Check some conditions */
-			if (cr_ptr->blind)
+			if (creature_ptr->blind)
 			{
 #ifdef JP
 msg_print("目が見えない。");
@@ -6660,7 +6660,7 @@ msg_print("目が見えない。");
 
 				return;
 			}
-			if (no_lite(cr_ptr))
+			if (no_lite(creature_ptr))
 			{
 #ifdef JP
 msg_print("明かりがないので、暗くて読めない。");
@@ -6670,7 +6670,7 @@ msg_print("明かりがないので、暗くて読めない。");
 
 				return;
 			}
-			if (cr_ptr->confused)
+			if (creature_ptr->confused)
 			{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -6681,7 +6681,7 @@ msg_print("混乱していて読めない！");
 				return;
 			}
 
-		  do_cmd_read_scroll_aux(cr_ptr, item, TRUE);
+		  do_cmd_read_scroll_aux(creature_ptr, item, TRUE);
 		  break;
 		}
 
@@ -6690,20 +6690,20 @@ msg_print("混乱していて読めない！");
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			do_cmd_fire_aux(cr_ptr, item, get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1));
+			do_cmd_fire_aux(creature_ptr, item, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1));
 			break;
 		}
 
 		/* Activate an artifact */
 		default:
 		{
-			do_cmd_activate_aux(cr_ptr, item);
+			do_cmd_activate_aux(creature_ptr, item);
 			break;
 		}
 	}
 }
 
-static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
+static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 {
 	int ext=0;
 	char choice;
@@ -6718,15 +6718,15 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 	if (repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if (sn >= EATER_EXT*2 && !(cr_ptr->magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (cr_ptr->magic_num2[sn] - 1) * EATER_ROD_CHARGE))
+		if (sn >= EATER_EXT*2 && !(creature_ptr->magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->magic_num2[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
-		else if (sn < EATER_EXT*2 && !(cr_ptr->magic_num1[sn] < EATER_CHARGE))
+		else if (sn < EATER_EXT*2 && !(creature_ptr->magic_num1[sn] < EATER_CHARGE))
 			return sn;
 	}
 
 	for (i = 0; i < 108; i++)
 	{
-		if (cr_ptr->magic_num2[i]) break;
+		if (creature_ptr->magic_num2[i]) break;
 	}
 	if (i == 108)
 	{
@@ -6820,7 +6820,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 	}
 	for (i = ext; i < ext + EATER_EXT; i++)
 	{
-		if (cr_ptr->magic_num2[i])
+		if (creature_ptr->magic_num2[i])
 		{
 			if (use_menu) menu_line = i-ext+1;
 			break;
@@ -6881,7 +6881,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			/* Print list */
 			for (ctr = 0; ctr < EATER_EXT; ctr++)
 			{
-				if (!cr_ptr->magic_num2[ctr+ext]) continue;
+				if (!creature_ptr->magic_num2[ctr+ext]) continue;
 
 				k_idx = lookup_kind(tval, ctr);
 
@@ -6910,21 +6910,21 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 				y1 = ((ctr < EATER_EXT/2) ? y + ctr : y + ctr - EATER_EXT/2);
 				level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 				chance = level * 4 / 5 + 20;
-				chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+				chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]] - 1);
 				level /= 2;
-				if (cr_ptr->lev > level)
+				if (creature_ptr->lev > level)
 				{
-					chance -= 3 * (cr_ptr->lev - level);
+					chance -= 3 * (creature_ptr->lev - level);
 				}
-				chance = mod_spell_chance_1(cr_ptr, chance);
-				chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]]);
+				chance = mod_spell_chance_1(creature_ptr, chance);
+				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]]);
 				/* Stunning makes spells harder */
-				if (cr_ptr->stun > 50) chance += 25;
-				else if (cr_ptr->stun) chance += 15;
+				if (creature_ptr->stun > 50) chance += 25;
+				else if (creature_ptr->stun) chance += 15;
 
 				if (chance > 95) chance = 95;
 
-				chance = mod_spell_chance_2(cr_ptr, chance);
+				chance = mod_spell_chance_2(creature_ptr, chance);
 
 				col = TERM_WHITE;
 
@@ -6939,15 +6939,15 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 							       " %-22.22s   (%2d/%2d) %3d%%",
 #endif
 							       object_kind_name + object_kind_info[k_idx].name, 
-							       cr_ptr->magic_num1[ctr+ext] ? 
-							       (cr_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
-							       cr_ptr->magic_num2[ctr+ext], chance));
-						if (cr_ptr->magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (cr_ptr->magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
+							       creature_ptr->magic_num1[ctr+ext] ? 
+							       (creature_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
+							       creature_ptr->magic_num2[ctr+ext], chance));
+						if (creature_ptr->magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (creature_ptr->magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
 					}
 					else
 					{
-						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(cr_ptr->magic_num1[ctr+ext]/EATER_CHARGE), cr_ptr->magic_num2[ctr+ext], chance));
-						if (cr_ptr->magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
+						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(creature_ptr->magic_num1[ctr+ext]/EATER_CHARGE), creature_ptr->magic_num2[ctr+ext], chance));
+						if (creature_ptr->magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
 					}
 				}
 				else
@@ -6976,7 +6976,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 					{
 						menu_line += EATER_EXT - 1;
 						if (menu_line > EATER_EXT) menu_line -= EATER_EXT;
-					} while(!cr_ptr->magic_num2[menu_line+ext-1]);
+					} while(!creature_ptr->magic_num2[menu_line+ext-1]);
 					break;
 				}
 
@@ -6988,7 +6988,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 					{
 						menu_line++;
 						if (menu_line > EATER_EXT) menu_line -= EATER_EXT;
-					} while(!cr_ptr->magic_num2[menu_line+ext-1]);
+					} while(!creature_ptr->magic_num2[menu_line+ext-1]);
 					break;
 				}
 
@@ -7007,7 +7007,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 						reverse = TRUE;
 					}
 					else menu_line+=EATER_EXT/2;
-					while(!cr_ptr->magic_num2[menu_line+ext-1])
+					while(!creature_ptr->magic_num2[menu_line+ext-1])
 					{
 						if (reverse)
 						{
@@ -7079,7 +7079,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i > EATER_EXT) || !cr_ptr->magic_num2[i+ext])
+		if ((i < 0) || (i > EATER_EXT) || !creature_ptr->magic_num2[i+ext])
 		{
 			bell();
 			continue;
@@ -7104,7 +7104,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			}
 			if (tval == TV_ROD)
 			{
-				if (cr_ptr->magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (cr_ptr->magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
+				if (creature_ptr->magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法はまだ充填している最中だ。");
@@ -7118,7 +7118,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 			}
 			else
 			{
-				if (cr_ptr->magic_num1[ext+i] < EATER_CHARGE)
+				if (creature_ptr->magic_num1[ext+i] < EATER_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法は使用回数が切れている。");
@@ -7176,13 +7176,13 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 /*
  *  Use eaten rod, wand or staff
  */
-void do_cmd_magic_eater(creature_type *cr_ptr, bool only_browse)
+void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 {
 	int item, chance, level, k_idx, tval, sval;
 	bool use_charge = TRUE;
 
 	/* Not when confused */
-	if (!only_browse && cr_ptr->confused)
+	if (!only_browse && creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -7193,7 +7193,7 @@ msg_print("混乱していて唱えられない！");
 		return;
 	}
 
-	item = select_magic_eater(cr_ptr, only_browse);
+	item = select_magic_eater(creature_ptr, only_browse);
 	if (item == -1)
 	{
 		energy_use = 0;
@@ -7206,21 +7206,21 @@ msg_print("混乱していて唱えられない！");
 
 	level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]] - 1);
 	level /= 2;
-	if (cr_ptr->lev > level)
+	if (creature_ptr->lev > level)
 	{
-		chance -= 3 * (cr_ptr->lev - level);
+		chance -= 3 * (creature_ptr->lev - level);
 	}
-	chance = mod_spell_chance_1(cr_ptr, chance);
-	chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]]);
+	chance = mod_spell_chance_1(creature_ptr, chance);
+	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]]);
 	/* Stunning makes spells harder */
-	if (cr_ptr->stun > 50) chance += 25;
-	else if (cr_ptr->stun) chance += 15;
+	if (creature_ptr->stun > 50) chance += 25;
+	else if (creature_ptr->stun) chance += 15;
 
 	if (chance > 95) chance = 95;
 
-	chance = mod_spell_chance_2(cr_ptr, chance);
+	chance = mod_spell_chance_2(creature_ptr, chance);
 
 	if (randint0(100) < chance)
 	{
@@ -7244,22 +7244,22 @@ msg_print("呪文をうまく唱えられなかった！");
 		if (tval == TV_ROD)
 		{
 			if ((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
-				if (!get_aim_dir(cr_ptr, &dir)) return;
-			rod_effect(cr_ptr, sval, dir, &use_charge, TRUE);
+				if (!get_aim_dir(creature_ptr, &dir)) return;
+			rod_effect(creature_ptr, sval, dir, &use_charge, TRUE);
 			if (!use_charge) return;
 		}
 		else if (tval == TV_WAND)
 		{
-			if (!get_aim_dir(cr_ptr, &dir)) return;
-			wand_effect(cr_ptr, sval, dir, TRUE);
+			if (!get_aim_dir(creature_ptr, &dir)) return;
+			wand_effect(creature_ptr, sval, dir, TRUE);
 		}
 		else
 		{
-			staff_effect(cr_ptr, sval, &use_charge, TRUE, TRUE);
+			staff_effect(creature_ptr, sval, &use_charge, TRUE, TRUE);
 			if (!use_charge) return;
 		}
 	}
 	energy_use = 100;
-	if (tval == TV_ROD) cr_ptr->magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
-	else cr_ptr->magic_num1[item] -= EATER_CHARGE;
+	if (tval == TV_ROD) creature_ptr->magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
+	else creature_ptr->magic_num1[item] -= EATER_CHARGE;
 }

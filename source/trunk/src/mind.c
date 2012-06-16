@@ -980,7 +980,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		break;
 	case 13:
 	{
-		if (world_player)
+		if (creature_ptr->time_stopper)
 		{
 #ifdef JP
 			msg_print("既に時は止まっている。");
@@ -989,7 +989,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 #endif
 			return (FALSE);
 		}
-		world_player = TRUE;
+		creature_ptr->time_stopper = TRUE;
 #ifdef JP
 		msg_print("「時よ！」");
 #else

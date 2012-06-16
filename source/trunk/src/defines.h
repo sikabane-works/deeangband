@@ -298,7 +298,7 @@
 
 /* Hallucination stuff */
 #ifdef JP
-#define MAX_SILLY_ATTACK 41
+#define MAX_SILLY_ATTACK 43
 #else
 #define MAX_SILLY_ATTACK 29
 #endif

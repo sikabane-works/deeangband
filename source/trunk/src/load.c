@@ -1938,7 +1938,7 @@ note("伝説のアイテムをロードしました");
 	/* Read the extra stuff */
 	rd_creature(player_ptr);
 	rd_extra();
-	if (player_ptr->energy_need < -999) world_player = TRUE;
+	if (player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
 
 #ifdef JP
 note("特別情報をロードしました");

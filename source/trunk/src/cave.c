@@ -1408,7 +1408,7 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
 		if (!use_graphics)
 		{
 			if (the_world) a = TERM_DARK;
-			else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+			else if (IS_INVULN(cr_ptr) || cr_ptr->time_stopper) a = TERM_WHITE;
 			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 		}
 
@@ -1579,7 +1579,7 @@ void display_dungeon(creature_type *cr_ptr)
 				if (!use_graphics)
 				{
 					if (the_world) a = TERM_DARK;
-					else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+					else if (IS_INVULN(cr_ptr) || cr_ptr->time_stopper) a = TERM_WHITE;
 					else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 				}
 
@@ -1630,7 +1630,7 @@ void lite_spot(floor_type *floor_ptr, int y, int x)
 		if (!use_graphics)
 		{
 			if (the_world) a = TERM_DARK;
-			else if (IS_INVULN(player_ptr) || world_player) a = TERM_WHITE;
+			else if (IS_INVULN(player_ptr) || player_ptr->time_stopper) a = TERM_WHITE;
 			else if (player_ptr->wraith_form) a = TERM_L_DARK;
 
 		}
@@ -1714,7 +1714,7 @@ void prt_map(creature_type *watcher_ptr)
 			if (!use_graphics)
 			{
 				if (the_world) a = TERM_DARK;
-				else if (IS_INVULN(watcher_ptr) || world_player) a = TERM_WHITE;
+				else if (IS_INVULN(watcher_ptr) || watcher_ptr->time_stopper) a = TERM_WHITE;
 				else if (watcher_ptr->wraith_form) a = TERM_L_DARK;
 			}
 
@@ -1785,7 +1785,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 			if (!use_graphics)
 			{
 				if (the_world) a = TERM_DARK;
-				else if (IS_INVULN(creature_ptr) || world_player) a = TERM_WHITE;
+				else if (IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
 				else if (creature_ptr->wraith_form) a = TERM_L_DARK;
 			}
 
@@ -2109,7 +2109,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 			if (!use_graphics)
 			{
 				if (the_world) ta = TERM_DARK;
-				else if (IS_INVULN(watcher_ptr) || world_player) ta = TERM_WHITE;
+				else if (IS_INVULN(watcher_ptr) || watcher_ptr->time_stopper) ta = TERM_WHITE;
 			}
 
 			/* Add the character */
