@@ -270,6 +270,7 @@ header object_ego_head;
 header creature_flag_head;
 header species_head;
 header race_head;
+header class_head;
 header authority_head;
 header re_head;
 header st_head;
@@ -1023,7 +1024,7 @@ static errr init_store_pre_info_csv(void)
 /*
  * Initialize the "rc_info" array
  */
-static errr init_rc_info(void)
+static errr init_race_info(void)
 {
 	int i, r;
 	/* Init the header */
@@ -1037,6 +1038,22 @@ static errr init_rc_info(void)
 	for(i = 0; i < MAX_RACES; i++)
 		race_info[i].title = race_name + race_info[i].name;
 
+	return r;
+}
+
+/*
+ * Initialize the "class_info" array
+ */
+static errr init_class_info(void)
+{
+	int r;
+	// Init the header
+	init_header(&class_head, MAX_CLASS, sizeof(class_type));
+
+	// Save a pointer to the parsing function
+	class_head.parse_info_txt = parse_class_info_csv;
+
+	r = init_info2("class_info", &class_head, (void*)&class_info, &class_name, &class_text, NULL, NULL);
 	return r;
 }
 
@@ -2041,11 +2058,15 @@ void init_angband(void)
 
 	/* Initialize race info */
 	note("[Initializing arrays... (races)]");
-	if (init_rc_info()) quit("Cannot initialize races");
+	if (init_race_info()) quit("Cannot initialize races");
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (species)]");
 	if (init_species_info_csv()) quit("Cannot initialize species");
+
+	/* Initialize race info */
+	note("[Initializing arrays... (classes)]");
+	if (init_class_info()) quit("Cannot initialize classes");
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");

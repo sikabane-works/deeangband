@@ -4846,7 +4846,7 @@ errr parse_class_info_csv(char *buf, header *head)
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, rc_info_csv_list[0]))
+	if(!strcmp(tmp, cl_info_csv_list[0]))
 	{
 		rc_info_csv_code[0] = CL_INFO_ID;
 		for(i = 1; i < CL_INFO_CSV_COLUMNS; i++)
@@ -4855,9 +4855,9 @@ errr parse_class_info_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			for(j = 1; j < CL_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, rc_info_csv_list[j]))
+				if(!strcmp(tmp, cl_info_csv_list[j]))
 				{
-					rc_info_csv_code[i] = j;
+					cl_info_csv_code[i] = j;
 					break;
 				}
 			}
@@ -4883,17 +4883,20 @@ errr parse_class_info_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			
 
-			switch(rc_info_csv_code[i])
+			switch(cl_info_csv_code[i])
 			{
 				case CL_INFO_NAME:
-					strcpy(class_info[n].title, tmp);
+					if (!add_name(&class_info[n].title, head, tmp))
+						return (7);
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					strcpy(class_info[n].E_title, tmp);
+					if (!add_name(&class_info[n].E_title, head, tmp))
+						return (7);
 #else
-					strcpy(class_info[n].title, tmp);
+					if (!add_name(&class_info[n].title, head, tmp))
+						return (7);
 #endif
 					break;
 
@@ -5054,7 +5057,7 @@ errr parse_class_info_csv(char *buf, header *head)
 
 				case CL_INFO_PET_UPKEEP:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					class_info[n].pet_upkeep_div = (s16b)b;
+					class_info[n].pet_upkeep_div = (byte)b;
 					break;
 			}
 		}
