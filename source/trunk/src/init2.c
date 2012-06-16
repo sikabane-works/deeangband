@@ -2058,13 +2058,13 @@ void init_angband(void)
 	note("[Initializing arrays... (races)]");
 	if (init_race_info()) quit("Cannot initialize races");
 
-	/* Initialize creature info */
-	note("[Initializing arrays... (species)]");
-	if (init_species_info_csv()) quit("Cannot initialize species");
-
 	/* Initialize race info */
 	note("[Initializing arrays... (classes)]");
 	if (init_class_info()) quit("Cannot initialize classes");
+
+	/* Initialize creature info */
+	note("[Initializing arrays... (species)]");
+	if (init_species_info_csv()) quit("Cannot initialize species");
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
