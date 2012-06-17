@@ -5315,7 +5315,7 @@ static cptr du_info_csv_list[DU_INFO_CSV_COLUMNS] =
 	"R_RACE",
 	"FINAL_OBJECT",
 	"FINAL_ARTIFACT",
-	"FINAL_GARDIAN",
+	"FINAL_GUARDIAN",
 	"SPECIAL_DIV",
 	"TUNNEL_PERCENT",
 	"OBJ_GREAT",
@@ -5354,7 +5354,7 @@ enum DUNGEON_INFO {
 	R_RACE,
 	FINAL_OBJECT,
 	FINAL_ARTIFACT,
-	FINAL_GARDIAN,
+	FINAL_GUARDIAN,
 	SPECIAL_DIV,
 	TUNNEL_PERCENT,
 	OBJ_GREAT,
@@ -5476,7 +5476,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case MIN_PLEV:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					dungeon_info[n].min_plev = (s16b)b;
+					dungeon_info[n].min_plev = (byte)b;
 					break;
 
 				case PIT:
@@ -5508,12 +5508,18 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case FINAL_OBJECT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].final_object = (s16b)b;
 					break;
 
 				case FINAL_ARTIFACT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
-				case FINAL_GARDIAN:
+				case FINAL_GUARDIAN:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
 				case SPECIAL_DIV:
