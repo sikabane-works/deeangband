@@ -185,24 +185,32 @@ file1.each do |line|
 				d.dx = res[1].to_s
 
 			when 'W'
-				res = line.scanf("W:%d:%d:%d:%d:%d:%d:%d:%d:%s:%s\n")
+				res = line.scanf("W:%d:%d:%d:%d:%d:%d:%d:%d:%6s:%6s\n")
 				d.mindepth = res[0].to_s
 				d.maxdepth = res[1].to_s
 				d.min_plev = res[2].to_s
-				d.pit = res[3].to_s
-				d.nest = res[4].to_s
-				d.mode = res[5].to_s
-				d.min_m_alloc_level = res[6].to_s
-				d.max_m_alloc_chance = res[7].to_s
+				mode = res[3]
+				d.mode = "NONE" if mode == 0
+				d.mode = "AND" if mode == 1
+				d.mode = "NAND" if mode == 2
+				d.mode = "OR" if mode == 3
+				d.mode = "NOR" if mode == 4
+				d.min_m_alloc_level = res[4].to_s
+				d.max_m_alloc_chance = res[5].to_s
+				d.obj_good = res[6].to_s
+				d.obj_great = res[7].to_s
+				d.pit = res[8].to_s
+				d.nest = res[9].to_s
 
 			when 'F'
 				s = line[2..-1].gsub("\n", "").gsub(" ", "").split("|")
-				p s
 				s.each do |elem|
 					if(elem.index("FINAL_GUARDIAN")) then
 						d.final_guardian = elem.gsub("FINAL_GUARDIAN_", "")
 					elsif(elem.index("FINAL_OBJECT")) then
 						d.final_object = elem.gsub("FINAL_OBJECT_", "")
+					elsif(elem.index("FINAL_ARTIFACT")) then
+						d.final_artifact = elem.gsub("FINAL_ARTIFACT_", "")
 					elsif(elem.index("MONSTER_DIV")) then
 						d.special_div = elem.gsub("MONSTER_DIV_", "")
 					else
