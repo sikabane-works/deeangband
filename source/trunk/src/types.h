@@ -238,6 +238,7 @@ struct ego_item_type
 	u32b name;			/* Name (offset) */
 	u32b text;			/* Text (offset) */
 
+	s16b ap_cost;		// AP cost
 	byte slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 

@@ -2686,7 +2686,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 
-#define OBJECT_EGO_INFO_CSV_COLUMNS 15
+#define OBJECT_EGO_INFO_CSV_COLUMNS 16
 static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2704,6 +2704,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"COST",
 	"FLAG",
 	"COMMENT",
+	"AP_COST",
 };
 
 #define OBJECT_EGO_INFO_ID       0
@@ -2721,6 +2722,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_COST    12
 #define OBJECT_EGO_INFO_FLAG    13
 #define OBJECT_EGO_INFO_COMMENT 14
+#define OBJECT_EGO_INFO_AP_COST 15
 
 static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
@@ -2883,6 +2885,13 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_COMMENT:
+				break;
+
+			case OBJECT_EGO_INFO_AP_COST:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].ap_cost = (s16b)b;
+				else
+					object_ego_info[n].ap_cost = 0;
 				break;
 
 			default:

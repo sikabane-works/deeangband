@@ -1,189 +1,189 @@
-ID,NAME,E_NAME,SLOT,RATING,MAX_HIT,MAX_DAM,MAX_AC,PVAL,DEPTH,RARITY,WEIGHT,COST,FLAG,COMMENT
-4,耐酸の,of Resist Acid,BODY,16,,,,,0,12,0,1000,RES_ACID|IGNORE_ACID,"# File: e_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ## This file is used to initialize the ""lib/raw/e_info.raw"" file, which is# used to initialize the ""ego-item"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/e_info.raw"" file.# The ego-item indexes are defined in ""defines.h"", and must not be changed.# Ego-items 1-63 are ""armor"", and 64-127 are ""weapons""# Note that every ""ego-item"" type has a different ""index"", and can only be# created from items that belong to a certain ""slot"" in the equipment, if# one assumes that ""ammo"" belongs to an imaginary slot (23).  However, it# is possible for several ""ego-item"" types to have the same ""textual name"",# such as with ""Armor of Resistance"" and ""HAND of Resistance"".# === Understanding e_info.txt ===# N: serial number : ego type# X: inventory slot : rating# C: max to-hit : max to-dam : max to-ac : pval# W: depth : rarity : weight : cost# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item.# 'X' is for extra information - inventory slot and rating. Slots# range from 23 (for ammunition) to 35 (for boots). Rating affects# level feelings.# 'C' is for creation bonusses - maximum to-hit, to-dam, to-ac, and# pval. Cursed ego-items will negate the given value.# 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)### Body Armor ###"
-5,耐電の,of Resist Lightning,BODY,10,,,,,0,12,0,400,RES_ELEC|IGNORE_ELEC,
-6,耐火の,of Resist Fire,BODY,14,,,,,0,9,0,800,RES_FIRE|IGNORE_FIRE,
-7,耐冷の,of Resist Cold,BODY,12,,,,,0,9,0,600,RES_COLD|IGNORE_COLD,
-8,全耐性の,of Resistance,BODY,20,0,0,10,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,# OnePower
-9,エルフの,of Elvenkind,BODY,25,0,0,10,3,0,18,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
-10,(ドワーフ),(Dwarven),BODY,5,0,0,12,3,0,18,0,1500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# OnePower
-11,永続の,of Permanence,BODY,30,0,0,10,0,0,0,0,30000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
-12,宵闇の,of The Twilight,BODY,99,0,0,0,0,0,0,0,100000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# 13 (unused)# 14 (unused)# 15 (unused)### HANDs ###
-16,耐酸の,of Resist Acid,HAND,16,,,,,0,18,0,1000,RES_ACID|IGNORE_ACID,
-17,耐電の,of Resist Lightning,HAND,10,,,,,0,7,0,400,RES_ELEC|IGNORE_ELEC,
-18,耐火の,of Resist Fire,HAND,14,,,,,0,9,0,800,RES_FIRE|IGNORE_FIRE,
-19,耐冷の,of Resist Cold,HAND,12,,,,,0,7,0,600,RES_COLD|IGNORE_COLD,
-20,全耐性の,of Resistance,HAND,20,0,0,10,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#JZ#
-21,反射の,of Reflection,HAND,20,0,0,5,0,0,18,0,8000,IGNORE_ELEC|IGNORE_ACID|IGNORE_COLD|IGNORE_FIRE,
-22,光と影の,of Night and Day,HAND,18,0,0,5,0,0,18,0,8000,RES_LITE|RES_DARK,### Crowns and Helms ###
-23,闇の,of Darkness,HEAD,6,,,,,0,18,0,800,LITE|RES_DARK,
-24,知能の,of Intelligence,HEAD,13,0,0,0,2,0,18,0,500,INT|SUST_INT,
-25,賢明の,of Wisdom,HEAD,13,0,0,0,2,0,18,0,500,WIS|SUST_WIS,
-26,美貌の,of Beauty,HEAD,8,0,0,0,4,0,18,0,1000,CHR|SUST_CHR,# OneAbility#J0##J0# 名前の訳は都々目さんによる#J0#
-27,賢者の,of the Magi,HEAD,15,0,0,0,3,0,36,0,15000,XTRA_H_RES|XTRA_POWER,
-28,力の,of Might,HEAD,19,0,0,0,3,0,36,0,10000,STR|DEX|CON|SUST_STR|SUST_DEX|SUST_CON|FREE_ACT|XTRA_H_RES,
-29,尊厳の,of Lordliness,HEAD,17,0,0,0,3,0,18,0,10000,WIS|CHR|SUST_WIS|SUST_CHR|XTRA_H_RES,
-30,鋭敏の,of Seeing,HEAD,8,0,0,0,6,0,18,0,1000,SEARCH|RES_BLIND|SEE_INVIS,
-31,赤外線視力の,of Infravision,HEAD,11,0,0,0,8,0,9,0,500,INFRA|HIDE_TYPE,
-32,光の,of Light,HEAD,6,,,,,0,18,0,500,LITE|RES_LITE,
-33,テレパシーの,of Telepathy,HEAD,20,,,,,0,18,0,15000,,#F:TELEPATHY
-34,急速回復の,of Regeneration,HEAD,10,,,,,0,36,0,1500,REGEN,
-35,テレポートの,of Teleportation,HEAD,0,,,,,0,36,0,0,TELEPORT,
-36,無知の,of Stupidity,HEAD,0,0,0,0,5,0,18,0,0,INT,
-37,愚鈍の,of Naivety,HEAD,0,0,0,0,5,0,18,0,0,WIS,
-38,醜悪の,of Ugliness,HEAD,0,0,0,0,5,0,36,0,0,CHR,
-39,疾病の,of Sickliness,HEAD,0,0,0,0,5,0,36,0,0,STR|DEX|CON,### Cloaks ###
-40,守りの,of Protection,OUTER,10,0,0,10,0,0,5,0,500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#J0##J0# 岸さんの訳です#J0#
-41,忍びの,of Stealth,OUTER,10,0,0,0,3,0,5,0,500,STEALTH,# OnePower
-42,至福の地アマンの,of Aman,OUTER,20,0,0,20,3,0,36,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,"# Aura, Fire#JZ#"
-43,灼熱の,of Immolation,OUTER,16,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_FIRE|SH_FIRE|RES_FIRE,#J0##J0# felicia.x さんの訳です#J0#
-44,束縛の,of Enveloping,OUTER,0,10,10,0,0,0,36,0,0,SHOW_MODS,
-45,いじめられの,of Vulnerability,OUTER,0,0,0,50,0,0,36,0,0,AGGRAVATE,
-46,いらつきの,of Irritation,OUTER,0,15,15,0,0,0,36,0,0,AGGRAVATE|SHOW_MODS,"# Aura, Electricity#JZ#"
-47,電撃の,of Electricity,OUTER,16,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_ELEC|SH_ELEC|RES_ELEC,### Gloves ###
-48,麻痺知らずの,of Free Action,ARMS,11,,,,,0,4,0,1000,FREE_ACT,
-49,殺戮の,of Slaying,ARMS,17,8,8,0,0,0,6,0,2500,SHOW_MODS,
-50,俊敏の,of Agility,ARMS,14,0,0,0,5,0,9,0,1000,DEX|HIDE_TYPE,
-51,腕力の,of Power,ARMS,22,5,5,0,5,0,18,0,8000,STR|SHOW_MODS|HIDE_TYPE|XTRA_H_RES,
-52,源氏の,of Genji,ARMS,30,8,0,0,3,0,36,0,50000,DEX|SHOW_MODS|HIDE_TYPE,
-53,魔力支配の,of Magic Mastery,ARMS,17,0,0,0,4,0,7,0,2000,MAGIC_MASTERY|HIDE_TYPE,
-54,脆弱の,of Weakness,ARMS,0,0,0,0,10,0,36,0,0,STR,
-55,不器用の,of Clumsiness,ARMS,0,0,0,0,10,0,36,0,0,DEX,### Boots ####JZ#
-56,浮遊の,of Levitation,FEET,7,,,,,0,4,0,250,LEVITATION,#J0##J0# 岸さんの訳です#J0#
-57,忍びの,of Stealth,FEET,16,0,0,0,3,0,6,0,500,STEALTH,
-58,麻痺知らずの,of Free Action,FEET,15,,,,,0,9,0,1000,FREE_ACT,
-59,スピードの,of Speed,FEET,25,0,0,0,10,0,36,0,100000,SPEED|HIDE_TYPE,
-60,跳躍の,of Jumping,FEET,15,,,,,0,9,0,1000,ACTIVATE,
-61,騒音の,of Noise,FEET,0,,,,,0,36,0,0,AGGRAVATE,
-62,のろまの,of Slowness,FEET,0,0,0,0,5,0,36,0,0,SPEED,
-63,厄介者の,of Annoyance,FEET,0,0,0,0,10,0,36,0,0,SPEED|AGGRAVATE,### Weapons #### OneSustain
-64,(聖戦者),(Holy Avenger),HAND,30,6,6,4,4,0,36,0,20000,SEE_INVIS|BLESSED|RES_FEAR|ONE_SUSTAIN,# OneSustain
-65,(防衛者),(Defender),HAND,25,4,4,8,4,0,36,0,10000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# OneAbility
-66,(祝福),(Blessed),HAND,20,0,0,0,3,0,36,0,5000,BLESSED|XTRA_POWER,# 67 (unused)
-68,西方国の,of Westernesse,HAND,20,5,5,0,2,0,36,0,15000,FREE_ACT|SEE_INVIS,
-69,追加攻撃の,of Extra Attacks,HAND,20,0,0,0,3,0,18,0,10000,BLOWS,
-70,殺戮の,of Slaying,HAND,15,0,0,0,0,0,18,0,500,,
-71,理力の,of Force,HAND,15,3,3,0,2,0,18,0,12000,FORCE_WEAPON|SEE_INVIS,"# The ""Elemental"" brands (4) (6)"
-72,溶解の,of Melting,HAND,15,,,,,0,36,0,8000,BRAND_ACID|RES_ACID|IGNORE_ACID,
-73,電撃の,of Shocking,HAND,20,,,,,0,36,0,4500,BRAND_ELEC|RES_ELEC|IGNORE_ELEC,
-74,焼棄の,of Burning,HAND,20,,,,,0,36,0,3000,BRAND_FIRE|RES_FIRE|IGNORE_FIRE|LITE,
-75,凍結の,of Freezing,HAND,15,,,,,0,36,0,2500,BRAND_COLD|RES_COLD|IGNORE_COLD,#JZ#
-76,毒殺の,of Venom,HAND,20,,,,,0,36,0,4500,BRAND_POIS|RES_POIS,#JZ#
-77,(混沌),(Chaotic),HAND,28,,,,,0,36,0,10000,CHAOTIC|RES_CHAOS|IGNORE_ELEC|IGNORE_ACID|IGNORE_FIRE|XTRA_RES,#JZ#
-78,切れ味の,of Sharpness,HAND,20,,,,,0,18,0,5000,VORPAL|TUNNEL,#JZ#
-79,地震の,of Earthquakes,HAND,20,0,0,0,3,0,18,0,4000,TUNNEL|IMPACT|ACTIVATE,"# The ""Slay"" brands (8)"
-80,アニマルスレイヤーの,of Slay Animal,HAND,18,,,,,0,23,0,3500,SLAY_ANIMAL,
-81,滅邪の,of Slay Evil,HAND,18,,,,,0,23,0,3500,SLAY_EVIL,
-82,アンデッドスレイヤーの,of Slay Undead,HAND,18,,,,,0,23,0,3500,SLAY_UNDEAD|HOLD_LIFE,
-83,デーモンスレイヤーの,of Slay Demon,HAND,14,,,,,0,23,0,2500,SLAY_DEMON,
-84,オークスレイヤーの,of Slay Orc,HAND,10,,,,,0,15,0,2500,SLAY_ORC,
-85,トロルスレイヤーの,of Slay Troll,HAND,10,,,,,0,15,0,2500,SLAY_TROLL,
-86,ジャイアントスレイヤーの,of Slay Giant,HAND,14,,,,,0,15,0,2500,SLAY_GIANT,
-87,ドラゴンスレイヤーの,of Slay Dragon,HAND,18,,,,,0,23,0,3500,SLAY_DRAGON|XTRA_E_RES,"# The ""Kill"" brands (8)"
-88,*アニマルスレイヤー*の,of *Slay* Animal,HAND,20,0,0,0,2,0,90,0,6000,INT|KILL_ANIMAL|REGEN|ESP_ANIMAL,
-89,*滅邪*の,of *Slay* Evil,HAND,20,0,0,0,2,0,90,0,5000,WIS|SLAY_EVIL|BLESSED|RES_FEAR|ESP_EVIL,
-90,*アンデッドスレイヤー*の,of *Slay* Undead,HAND,24,0,0,0,2,0,90,0,8000,WIS|KILL_UNDEAD|SEE_INVIS|RES_NETHER|ESP_UNDEAD,
-91,*デーモンスレイヤー*の,of *Slay* Demon,HAND,16,0,0,0,2,0,90,0,4000,INT|KILL_DEMON|ESP_DEMON,
-92,*オークスレイヤー*の,of *Slay* Orc,HAND,14,0,0,0,2,0,60,0,4000,DEX|KILL_ORC|ESP_ORC,
-93,*トロルスレイヤー*の,of *Slay* Troll,HAND,14,0,0,0,2,0,60,0,4000,STR|KILL_TROLL|ESP_TROLL,
-94,*ジャイアントスレイヤー*の,of *Slay* Giant,HAND,16,0,0,0,2,0,60,0,4000,STR|KILL_GIANT|ESP_GIANT,
-95,*ドラゴンスレイヤー*の,of *Slay* Dragon,HAND,24,0,0,0,1,0,90,0,6000,CON|SLAY_DRAGON|KILL_DRAGON|XTRA_E_RES|XTRA_D_RES|ESP_DRAGON,#JZ#
-96,(吸血),(Vampiric),HAND,25,,,,,0,18,0,10000,VAMPIRIC|HOLD_LIFE,
-97,虹色の,of Prism,HAND,25,,,,,0,36,0,10000,IGNORE_FIRE|IGNORE_COLD|IGNORE_ELEC,#JZ#
-98,(トランプ),(Trump Weapon),HAND,22,4,4,0,2,0,18,0,7000,REGEN|SLOW_DIGEST|RES_NEXUS|ACTIVATE|XTRA_H_RES,#JZ#
-99,(パターン),(Pattern Weapon),HAND,26,6,6,0,2,0,36,0,25000,FREE_ACT|SEE_INVIS|XTRA_H_RES,#J0##J0# 岸さんの訳です#J0#
-100,穴掘りの,of Digging,HAND,4,0,0,0,5,0,0,0,500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,
-101,人喰いの,of Slay Human,HAND,10,,,,,0,23,0,2500,SLAY_HUMAN,
-102,モルグルの,of Morgul,HAND,30,22,22,0,0,0,36,0,18000,BRAND_POIS|ESP_HUMAN|DRAIN_EXP,
-103,*人喰い*の,of *Slay* Human,HAND,16,0,0,0,2,0,60,0,4000,DEX|KILL_HUMAN|ESP_HUMAN,### Missile Launchers ###
-104,高精度の,of Accuracy,BOW,10,10,5,0,0,0,5,0,1000,,
-105,高速度の,of Velocity,BOW,10,5,10,0,0,0,5,0,1000,,# 106 (unused)# 107 (unused)
-108,強力射の,of Extra Might,BOW,20,2,4,0,0,0,18,0,10000,XTRA_MIGHT|XTRA_RES,
-109,強速射の,of Extra Shots,BOW,20,4,2,0,0,0,18,0,10000,XTRA_SHOTS,# 110 (unused)# 111 (unused)### Ammo ###
-112,アニマルキラーの,of Hurt Animal,AMMO,10,,,,,0,18,0,25,SLAY_ANIMAL,
-113,破邪の,of Hurt Evil,AMMO,10,,,,,0,18,0,25,SLAY_EVIL,
-114,聖なる,of Holy Might,AMMO,20,5,5,0,0,0,36,0,60,IGNORE_FIRE|IGNORE_ACID,
-115,邪悪なる,of Evil Power,AMMO,20,5,5,0,0,0,36,0,60,IGNORE_FIRE|IGNORE_ACID,# 115 (unused)# 116 (unused)# 117 (unused)# 118 (unused)
-119,ドラゴンキラーの,of Hurt Dragon,AMMO,10,,,,,0,36,0,35,SLAY_DRAGON,
-120,殺戮の,of Slaying,AMMO,15,10,10,0,0,0,36,0,20,,
-121,電撃の,of Shocking,AMMO,10,,,,,0,36,0,30,BRAND_ELEC|IGNORE_ELEC,
-122,火炎の,of Flame,AMMO,10,,,,,0,36,0,30,BRAND_FIRE|IGNORE_FIRE,
-123,冷気の,of Frost,AMMO,10,,,,,0,36,0,25,BRAND_COLD|IGNORE_COLD,
-124,殺傷の,of Wounding,AMMO,5,5,5,0,0,0,12,0,20,,
-125,陰口の,of Backbiting,AMMO,0,50,50,0,0,0,36,0,0,,### Special Broken Items #### Destroyed Weapon
-126,(不良品),(Shattered),HAND,0,5,5,0,0,0,0,0,0,,# Destroyed Body Armor
-127,(粗悪品),(Blasted),BODY,0,0,0,10,0,0,0,0,0,,"# Aura, Coldly#JZ#"
-128,極寒の,of Freezing,OUTER,16,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_COLD|SH_COLD|RES_COLD,
-129,蝙蝠の,of the Bat,OUTER,20,-7,-7,-5,5,50,36,0,10000,SPEED|LEVITATION|RES_DARK|SEE_INVIS|INFRA|STEALTH|HIDE_TYPE,# Ego Lite
-140,光明の,of Extra Light,LITE,5,0,0,0,0,0,9,0,200,,
-141,イルミネーションの,of Illumination,LITE,20,0,0,0,0,30,36,0,3000,ACTIVATE,
-142,灼熱の,of Immolation,LITE,20,0,0,0,0,0,36,0,3000,SH_FIRE|IGNORE_FIRE,
-143,暗視の,of Infravision,LITE,5,0,0,0,3,0,18,0,300,INFRA,
-144,長持ちの,of Duration,LITE,10,0,0,0,0,0,9,0,100,,
-145,暗闇の,of Darkness,LITE,0,0,0,0,0,0,36,0,0,,
-146,不朽の眼の,of Immortal Eye,LITE,20,0,0,0,0,0,36,0,4000,RES_BLIND|SEE_INVIS,# Ego Ring
-150,勇気の,and Heroism,RING,10,0,0,0,0,5,0,0,300,ACTIVATE,
-151,殺戮の,and Slaying,RING,10,4,4,0,0,0,0,0,300,,
-152,大防御の,(Extra Armor),RING,5,0,0,8,0,0,0,0,300,,
-153,魔法の矢の,and Magic Missile,RING,5,0,0,0,0,2,0,0,200,ACTIVATE,
-154,火炎の矢の,and Fire bolt,RING,5,0,0,0,0,10,0,0,700,ACTIVATE,
-155,冷気の矢の,and Frost bolt,RING,5,0,0,0,0,9,0,0,600,ACTIVATE,
-156,電撃の矢の,and Lightning bolt,RING,5,0,0,0,0,7,0,0,400,ACTIVATE,
-157,酸の矢の,and Acid bolt,RING,5,0,0,0,0,8,0,0,500,ACTIVATE,
-158,魔力の矢の,and Mana bolt,RING,10,0,0,0,0,50,0,0,1500,ACTIVATE,
-159,火球の,and Fire ball,RING,10,0,0,0,0,40,0,0,1500,ACTIVATE,
-160,ブリザードの,and Blizzard,RING,10,0,0,0,0,40,0,0,1500,ACTIVATE,
-161,雷球の,and Ball Lightning,RING,10,0,0,0,0,40,0,0,1500,ACTIVATE,
-162,酸の球の,and Acid ball,RING,10,0,0,0,0,40,0,0,1500,ACTIVATE,
-163,魔力の嵐の,and Mana Storm,RING,25,0,0,0,0,100,0,0,8000,ACTIVATE,
-164,ドラゴンの火炎の,and Dragon's Flame,RING,20,0,0,0,0,70,0,0,5000,ACTIVATE,
-165,ドラゴンの冷気の,and Dragon's Frost,RING,20,0,0,0,0,70,0,0,5000,ACTIVATE,
-166,二段加速の,and Haste,RING,20,0,0,0,0,90,0,0,30000,ACTIVATE,
-167,狂戦士の,of Berserker,RING,15,0,0,0,0,30,0,0,2000,ACTIVATE,
-168,狩人の,of Hunter,RING,10,0,0,0,3,30,0,0,8000,STEALTH,
-169,強力投擲の,and Power Throwing,RING,5,0,0,0,0,30,0,0,500,,
-170,活力の,and Regeneration,RING,5,0,0,0,0,30,0,0,800,REGEN,
-171,輝きの,and Light,RING,5,0,0,0,0,30,0,0,500,LITE,
-172,完全モンスター感知の,and *Detect* Monster,RING,5,0,0,0,0,30,0,0,1000,ACTIVATE,
-173,忍びの,and Stealth,RING,5,0,0,0,0,30,0,0,500,STEALTH,
-174,怪物飛ばしの,and Teleport Other,RING,10,0,0,0,0,45,0,0,2000,ACTIVATE,
-175,精度の,and Accuracy,RING,5,5,0,0,0,30,0,0,500,,
-176,ダメージの,and Damage,RING,5,0,5,0,0,30,0,0,500,,
-177,耐光の,and Resist Light,RING,10,0,0,0,0,30,0,0,2000,RES_LITE,
-178,耐暗の,and Resist Darkness,RING,10,0,0,0,0,30,0,0,2000,RES_DARK,
-179,魔道師の,and Wizardry,RING,10,0,0,0,0,30,0,0,1500,EASY_SPELL,
-180,究極無敵銀河最強の,of the Mightiest in the Galaxy,RING,30,0,0,15,0,100,0,0,50000,ACTIVATE,
-181,経験値吸収の,and Experience Drain,RING,0,0,0,0,0,0,0,0,0,DRAIN_EXP|CURSED|HEAVY_CURSE,
-182,非暴力の,of Pacifist,RING,0,20,20,0,3,0,0,0,0,CURSED|HEAVY_CURSE|STR|DEX,
-183,反感の,and Aggravate,RING,0,0,0,0,0,0,0,0,0,AGGRAVATE|CURSED|HEAVY_CURSE,
-184,怨念の,and Ancient Foul Curse,RING,0,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,
-185,耐時間逆転の,and Resist Time,RING,25,0,0,0,0,30,0,0,7500,,
-186,不安定の,and Random Teleportation,RING,3,0,0,0,0,30,0,0,100,TELEPORT,
-187,アルビノの,and Albino,RING,0,0,0,20,3,0,0,0,0,CURSED|HEAVY_CURSE|CON,# Ego Amulet
-210,遅消化の,and Slow Digestion,AMULET,5,0,0,0,0,30,0,0,200,SLOW_DIGEST,
-211,暗視の,and Infravision,AMULET,5,0,0,0,3,30,0,0,500,INFRA,
-212,可視透明の,and See Invisible,AMULET,5,0,0,0,0,30,0,0,500,SEE_INVIS,
-213,生命力保持の,and Hold Life,AMULET,5,0,0,0,0,30,0,0,1000,HOLD_LIFE,
-214,経験値吸収の,and Experience Drain,AMULET,0,0,0,0,0,0,0,0,0,DRAIN_EXP|CURSED|HEAVY_CURSE,
-215,無知の,and Stupidity,RING,0,0,0,0,3,30,0,0,0,INT|CURSED|HEAVY_CURSE,
-216,反感の,and Aggravate,AMULET,0,0,0,0,0,0,0,0,0,AGGRAVATE|CURSED|HEAVY_CURSE,
-217,怨念の,and Ancient Foul Curse,AMULET,0,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,
-218,守りの,and Protection,AMULET,5,0,0,8,0,0,0,0,200,,
-219,知識の,and Lore,AMULET,15,0,0,0,0,60,0,0,8000,ACTIVATE,
-220,魅惑の,and Monster Turning,AMULET,15,0,0,0,0,40,0,0,2000,ACTIVATE,
-221,忍びの,and Stealth,AMULET,10,0,0,0,0,0,0,0,500,STEALTH,
-222,跳躍の,and Jumping,AMULET,5,0,0,0,0,5,0,0,500,ACTIVATE,
-223,転移の,at Will,AMULET,5,0,0,0,0,10,0,0,1000,ACTIVATE,
-224,次元の,and Dimension Door,AMULET,30,0,0,0,0,100,0,0,30000,ACTIVATE,
-225,(防衛者),(Defender),AMULET,25,0,0,8,4,0,0,0,20000,STEALTH|LEVITATION|REGEN|FREE_ACT|SEE_INVIS,
-226,耐火の,and Resist Fire,AMULET,5,0,0,0,0,0,0,0,500,RES_FIRE,
-227,*耐火*の,and *Resist* Fire,AMULET,15,0,0,0,0,80,0,0,5000,RES_FIRE|ACTIVATE,
-228,耐冷の,and Resist Cold,AMULET,5,0,0,0,0,0,0,0,500,RES_COLD,
-229,*耐冷*の,and *Resist* Cold,AMULET,15,0,0,0,0,80,0,0,5000,RES_COLD|ACTIVATE,
-230,耐電の,and Resist Lightning,AMULET,5,0,0,0,0,0,0,0,500,RES_ELEC,
-231,*耐電*の,and *Resist* Lightning,AMULET,15,0,0,0,0,80,0,0,5000,RES_ELEC|ACTIVATE,
-232,耐酸の,and Resist Acid,AMULET,5,0,0,0,0,0,0,0,500,RES_ACID,
-233,*耐酸*の,and *Resist* Acid,AMULET,15,0,0,0,0,80,0,0,5000,RES_ACID|ACTIVATE,
-234,浮遊の,and Levitation,AMULET,5,0,0,0,0,0,0,0,1000,LEVITATION,
-235,大,of High Rank,AMULET,15,0,0,5,5,0,0,0,10000,RES_BLIND|RES_CONF|WARNING|EASY_SPELL,
-236,感知の,and Detection,AMULET,20,0,0,0,3,0,0,0,2000,SEARCH|ACTIVATE,
-237,愚者の,and Naivety,RING,0,0,0,0,3,29,0,0,0,WIS|CHR|CURSED|HEAVY_CURSE,
+ID,NAME,E_NAME,SLOT,RATING,AP_COST,MAX_HIT,MAX_DAM,MAX_AC,PVAL,DEPTH,RARITY,WEIGHT,COST,FLAG,COMMENT
+4,耐酸の,of Resist Acid,BODY,16,100,,,,,0,12,0,1000,RES_ACID|IGNORE_ACID,"# File: e_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ## This file is used to initialize the ""lib/raw/e_info.raw"" file, which is# used to initialize the ""ego-item"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/e_info.raw"" file.# The ego-item indexes are defined in ""defines.h"", and must not be changed.# Ego-items 1-63 are ""armor"", and 64-127 are ""weapons""# Note that every ""ego-item"" type has a different ""index"", and can only be# created from items that belong to a certain ""slot"" in the equipment, if# one assumes that ""ammo"" belongs to an imaginary slot (23).  However, it# is possible for several ""ego-item"" types to have the same ""textual name"",# such as with ""Armor of Resistance"" and ""HAND of Resistance"".# === Understanding e_info.txt ===# N: serial number : ego type# X: inventory slot : rating# C: max to-hit : max to-dam : max to-ac : pval# W: depth : rarity : weight : cost# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item.# 'X' is for extra information - inventory slot and rating. Slots# range from 23 (for ammunition) to 35 (for boots). Rating affects# level feelings.# 'C' is for creation bonusses - maximum to-hit, to-dam, to-ac, and# pval. Cursed ego-items will negate the given value.# 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)### Body Armor ###"
+5,耐電の,of Resist Lightning,BODY,10,100,,,,,0,12,0,400,RES_ELEC|IGNORE_ELEC,
+6,耐火の,of Resist Fire,BODY,14,100,,,,,0,9,0,800,RES_FIRE|IGNORE_FIRE,
+7,耐冷の,of Resist Cold,BODY,12,100,,,,,0,9,0,600,RES_COLD|IGNORE_COLD,
+8,全耐性の,of Resistance,BODY,20,100,0,0,10,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,# OnePower
+9,エルフの,of Elvenkind,BODY,25,100,0,0,10,3,0,18,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
+10,(ドワーフ),(Dwarven),BODY,5,100,0,0,12,3,0,18,0,1500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# OnePower
+11,永続の,of Permanence,BODY,30,100,0,0,10,0,0,0,0,30000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
+12,宵闇の,of The Twilight,BODY,99,100,0,0,0,0,0,0,0,100000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# 13 (unused)# 14 (unused)# 15 (unused)### HANDs ###
+16,耐酸の,of Resist Acid,HAND,16,100,,,,,0,18,0,1000,RES_ACID|IGNORE_ACID,
+17,耐電の,of Resist Lightning,HAND,10,100,,,,,0,7,0,400,RES_ELEC|IGNORE_ELEC,
+18,耐火の,of Resist Fire,HAND,14,100,,,,,0,9,0,800,RES_FIRE|IGNORE_FIRE,
+19,耐冷の,of Resist Cold,HAND,12,100,,,,,0,7,0,600,RES_COLD|IGNORE_COLD,
+20,全耐性の,of Resistance,HAND,20,100,0,0,10,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#JZ#
+21,反射の,of Reflection,HAND,20,100,0,0,5,0,0,18,0,8000,IGNORE_ELEC|IGNORE_ACID|IGNORE_COLD|IGNORE_FIRE,
+22,光と影の,of Night and Day,HAND,18,100,0,0,5,0,0,18,0,8000,RES_LITE|RES_DARK,### Crowns and Helms ###
+23,闇の,of Darkness,HEAD,6,100,,,,,0,18,0,800,LITE|RES_DARK,
+24,知能の,of Intelligence,HEAD,13,100,0,0,0,2,0,18,0,500,INT|SUST_INT,
+25,賢明の,of Wisdom,HEAD,13,100,0,0,0,2,0,18,0,500,WIS|SUST_WIS,
+26,美貌の,of Beauty,HEAD,8,100,0,0,0,4,0,18,0,1000,CHR|SUST_CHR,# OneAbility#J0##J0# 名前の訳は都々目さんによる#J0#
+27,賢者の,of the Magi,HEAD,15,100,0,0,0,3,0,36,0,15000,XTRA_H_RES|XTRA_POWER,
+28,力の,of Might,HEAD,19,100,0,0,0,3,0,36,0,10000,STR|DEX|CON|SUST_STR|SUST_DEX|SUST_CON|FREE_ACT|XTRA_H_RES,
+29,尊厳の,of Lordliness,HEAD,17,100,0,0,0,3,0,18,0,10000,WIS|CHR|SUST_WIS|SUST_CHR|XTRA_H_RES,
+30,鋭敏の,of Seeing,HEAD,8,100,0,0,0,6,0,18,0,1000,SEARCH|RES_BLIND|SEE_INVIS,
+31,赤外線視力の,of Infravision,HEAD,11,100,0,0,0,8,0,9,0,500,INFRA|HIDE_TYPE,
+32,光の,of Light,HEAD,6,100,,,,,0,18,0,500,LITE|RES_LITE,
+33,テレパシーの,of Telepathy,HEAD,20,100,,,,,0,18,0,15000,,#F:TELEPATHY
+34,急速回復の,of Regeneration,HEAD,10,100,,,,,0,36,0,1500,REGEN,
+35,テレポートの,of Teleportation,HEAD,0,100,,,,,0,36,0,0,TELEPORT,
+36,無知の,of Stupidity,HEAD,0,100,0,0,0,5,0,18,0,0,INT,
+37,愚鈍の,of Naivety,HEAD,0,100,0,0,0,5,0,18,0,0,WIS,
+38,醜悪の,of Ugliness,HEAD,0,100,0,0,0,5,0,36,0,0,CHR,
+39,疾病の,of Sickliness,HEAD,0,100,0,0,0,5,0,36,0,0,STR|DEX|CON,### Cloaks ###
+40,守りの,of Protection,OUTER,10,100,0,0,10,0,0,5,0,500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#J0##J0# 岸さんの訳です#J0#
+41,忍びの,of Stealth,OUTER,10,100,0,0,0,3,0,5,0,500,STEALTH,# OnePower
+42,至福の地アマンの,of Aman,OUTER,20,100,0,0,20,3,0,36,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,"# Aura, Fire#JZ#"
+43,灼熱の,of Immolation,OUTER,16,100,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_FIRE|SH_FIRE|RES_FIRE,#J0##J0# felicia.x さんの訳です#J0#
+44,束縛の,of Enveloping,OUTER,0,100,10,10,0,0,0,36,0,0,SHOW_MODS,
+45,いじめられの,of Vulnerability,OUTER,0,100,0,0,50,0,0,36,0,0,AGGRAVATE,
+46,いらつきの,of Irritation,OUTER,0,100,15,15,0,0,0,36,0,0,AGGRAVATE|SHOW_MODS,"# Aura, Electricity#JZ#"
+47,電撃の,of Electricity,OUTER,16,100,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_ELEC|SH_ELEC|RES_ELEC,### Gloves ###
+48,麻痺知らずの,of Free Action,ARMS,11,100,,,,,0,4,0,1000,FREE_ACT,
+49,殺戮の,of Slaying,ARMS,17,100,8,8,0,0,0,6,0,2500,SHOW_MODS,
+50,俊敏の,of Agility,ARMS,14,100,0,0,0,5,0,9,0,1000,DEX|HIDE_TYPE,
+51,腕力の,of Power,ARMS,22,100,5,5,0,5,0,18,0,8000,STR|SHOW_MODS|HIDE_TYPE|XTRA_H_RES,
+52,源氏の,of Genji,ARMS,30,100,8,0,0,3,0,36,0,50000,DEX|SHOW_MODS|HIDE_TYPE,
+53,魔力支配の,of Magic Mastery,ARMS,17,100,0,0,0,4,0,7,0,2000,MAGIC_MASTERY|HIDE_TYPE,
+54,脆弱の,of Weakness,ARMS,0,100,0,0,0,10,0,36,0,0,STR,
+55,不器用の,of Clumsiness,ARMS,0,100,0,0,0,10,0,36,0,0,DEX,### Boots ####JZ#
+56,浮遊の,of Levitation,FEET,7,100,,,,,0,4,0,250,LEVITATION,#J0##J0# 岸さんの訳です#J0#
+57,忍びの,of Stealth,FEET,16,100,0,0,0,3,0,6,0,500,STEALTH,
+58,麻痺知らずの,of Free Action,FEET,15,100,,,,,0,9,0,1000,FREE_ACT,
+59,スピードの,of Speed,FEET,25,100,0,0,0,10,0,36,0,100000,SPEED|HIDE_TYPE,
+60,跳躍の,of Jumping,FEET,15,100,,,,,0,9,0,1000,ACTIVATE,
+61,騒音の,of Noise,FEET,0,100,,,,,0,36,0,0,AGGRAVATE,
+62,のろまの,of Slowness,FEET,0,100,0,0,0,5,0,36,0,0,SPEED,
+63,厄介者の,of Annoyance,FEET,0,100,0,0,0,10,0,36,0,0,SPEED|AGGRAVATE,### Weapons #### OneSustain
+64,(聖戦者),(Holy Avenger),HAND,30,100,6,6,4,4,0,36,0,20000,SEE_INVIS|BLESSED|RES_FEAR|ONE_SUSTAIN,# OneSustain
+65,(防衛者),(Defender),HAND,25,100,4,4,8,4,0,36,0,10000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,# OneAbility
+66,(祝福),(Blessed),HAND,20,100,0,0,0,3,0,36,0,5000,BLESSED|XTRA_POWER,# 67 (unused)
+68,西方国の,of Westernesse,HAND,20,100,5,5,0,2,0,36,0,15000,FREE_ACT|SEE_INVIS,
+69,追加攻撃の,of Extra Attacks,HAND,20,100,0,0,0,3,0,18,0,10000,BLOWS,
+70,殺戮の,of Slaying,HAND,15,100,0,0,0,0,0,18,0,500,,
+71,理力の,of Force,HAND,15,100,3,3,0,2,0,18,0,12000,FORCE_WEAPON|SEE_INVIS,"# The ""Elemental"" brands (4) (6)"
+72,溶解の,of Melting,HAND,15,100,,,,,0,36,0,8000,BRAND_ACID|RES_ACID|IGNORE_ACID,
+73,電撃の,of Shocking,HAND,20,100,,,,,0,36,0,4500,BRAND_ELEC|RES_ELEC|IGNORE_ELEC,
+74,焼棄の,of Burning,HAND,20,100,,,,,0,36,0,3000,BRAND_FIRE|RES_FIRE|IGNORE_FIRE|LITE,
+75,凍結の,of Freezing,HAND,15,100,,,,,0,36,0,2500,BRAND_COLD|RES_COLD|IGNORE_COLD,#JZ#
+76,毒殺の,of Venom,HAND,20,100,,,,,0,36,0,4500,BRAND_POIS|RES_POIS,#JZ#
+77,(混沌),(Chaotic),HAND,28,100,,,,,0,36,0,10000,CHAOTIC|RES_CHAOS|IGNORE_ELEC|IGNORE_ACID|IGNORE_FIRE|XTRA_RES,#JZ#
+78,切れ味の,of Sharpness,HAND,20,100,,,,,0,18,0,5000,VORPAL|TUNNEL,#JZ#
+79,地震の,of Earthquakes,HAND,20,100,0,0,0,3,0,18,0,4000,TUNNEL|IMPACT|ACTIVATE,"# The ""Slay"" brands (8)"
+80,アニマルスレイヤーの,of Slay Animal,HAND,18,100,,,,,0,23,0,3500,SLAY_ANIMAL,
+81,滅邪の,of Slay Evil,HAND,18,100,,,,,0,23,0,3500,SLAY_EVIL,
+82,アンデッドスレイヤーの,of Slay Undead,HAND,18,100,,,,,0,23,0,3500,SLAY_UNDEAD|HOLD_LIFE,
+83,デーモンスレイヤーの,of Slay Demon,HAND,14,100,,,,,0,23,0,2500,SLAY_DEMON,
+84,オークスレイヤーの,of Slay Orc,HAND,10,100,,,,,0,15,0,2500,SLAY_ORC,
+85,トロルスレイヤーの,of Slay Troll,HAND,10,100,,,,,0,15,0,2500,SLAY_TROLL,
+86,ジャイアントスレイヤーの,of Slay Giant,HAND,14,100,,,,,0,15,0,2500,SLAY_GIANT,
+87,ドラゴンスレイヤーの,of Slay Dragon,HAND,18,100,,,,,0,23,0,3500,SLAY_DRAGON|XTRA_E_RES,"# The ""Kill"" brands (8)"
+88,*アニマルスレイヤー*の,of *Slay* Animal,HAND,20,100,0,0,0,2,0,90,0,6000,INT|KILL_ANIMAL|REGEN|ESP_ANIMAL,
+89,*滅邪*の,of *Slay* Evil,HAND,20,100,0,0,0,2,0,90,0,5000,WIS|SLAY_EVIL|BLESSED|RES_FEAR|ESP_EVIL,
+90,*アンデッドスレイヤー*の,of *Slay* Undead,HAND,24,100,0,0,0,2,0,90,0,8000,WIS|KILL_UNDEAD|SEE_INVIS|RES_NETHER|ESP_UNDEAD,
+91,*デーモンスレイヤー*の,of *Slay* Demon,HAND,16,100,0,0,0,2,0,90,0,4000,INT|KILL_DEMON|ESP_DEMON,
+92,*オークスレイヤー*の,of *Slay* Orc,HAND,14,100,0,0,0,2,0,60,0,4000,DEX|KILL_ORC|ESP_ORC,
+93,*トロルスレイヤー*の,of *Slay* Troll,HAND,14,100,0,0,0,2,0,60,0,4000,STR|KILL_TROLL|ESP_TROLL,
+94,*ジャイアントスレイヤー*の,of *Slay* Giant,HAND,16,100,0,0,0,2,0,60,0,4000,STR|KILL_GIANT|ESP_GIANT,
+95,*ドラゴンスレイヤー*の,of *Slay* Dragon,HAND,24,100,0,0,0,1,0,90,0,6000,CON|SLAY_DRAGON|KILL_DRAGON|XTRA_E_RES|XTRA_D_RES|ESP_DRAGON,#JZ#
+96,(吸血),(Vampiric),HAND,25,100,,,,,0,18,0,10000,VAMPIRIC|HOLD_LIFE,
+97,虹色の,of Prism,HAND,25,100,,,,,0,36,0,10000,IGNORE_FIRE|IGNORE_COLD|IGNORE_ELEC,#JZ#
+98,(トランプ),(Trump Weapon),HAND,22,100,4,4,0,2,0,18,0,7000,REGEN|SLOW_DIGEST|RES_NEXUS|ACTIVATE|XTRA_H_RES,#JZ#
+99,(パターン),(Pattern Weapon),HAND,26,100,6,6,0,2,0,36,0,25000,FREE_ACT|SEE_INVIS|XTRA_H_RES,#J0##J0# 岸さんの訳です#J0#
+100,穴掘りの,of Digging,HAND,4,100,0,0,0,5,0,0,0,500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,
+101,人喰いの,of Slay Human,HAND,10,100,,,,,0,23,0,2500,SLAY_HUMAN,
+102,モルグルの,of Morgul,HAND,30,100,22,22,0,0,0,36,0,18000,BRAND_POIS|ESP_HUMAN|DRAIN_EXP,
+103,*人喰い*の,of *Slay* Human,HAND,16,100,0,0,0,2,0,60,0,4000,DEX|KILL_HUMAN|ESP_HUMAN,### Missile Launchers ###
+104,高精度の,of Accuracy,BOW,10,100,10,5,0,0,0,5,0,1000,,
+105,高速度の,of Velocity,BOW,10,100,5,10,0,0,0,5,0,1000,,# 106 (unused)# 107 (unused)
+108,強力射の,of Extra Might,BOW,20,100,2,4,0,0,0,18,0,10000,XTRA_MIGHT|XTRA_RES,
+109,強速射の,of Extra Shots,BOW,20,100,4,2,0,0,0,18,0,10000,XTRA_SHOTS,# 110 (unused)# 111 (unused)### Ammo ###
+112,アニマルキラーの,of Hurt Animal,AMMO,10,100,,,,,0,18,0,25,SLAY_ANIMAL,
+113,破邪の,of Hurt Evil,AMMO,10,100,,,,,0,18,0,25,SLAY_EVIL,
+114,聖なる,of Holy Might,AMMO,20,100,5,5,0,0,0,36,0,60,IGNORE_FIRE|IGNORE_ACID,
+115,邪悪なる,of Evil Power,AMMO,20,100,5,5,0,0,0,36,0,60,IGNORE_FIRE|IGNORE_ACID,# 115 (unused)# 116 (unused)# 117 (unused)# 118 (unused)
+119,ドラゴンキラーの,of Hurt Dragon,AMMO,10,100,,,,,0,36,0,35,SLAY_DRAGON,
+120,殺戮の,of Slaying,AMMO,15,100,10,10,0,0,0,36,0,20,,
+121,電撃の,of Shocking,AMMO,10,100,,,,,0,36,0,30,BRAND_ELEC|IGNORE_ELEC,
+122,火炎の,of Flame,AMMO,10,100,,,,,0,36,0,30,BRAND_FIRE|IGNORE_FIRE,
+123,冷気の,of Frost,AMMO,10,100,,,,,0,36,0,25,BRAND_COLD|IGNORE_COLD,
+124,殺傷の,of Wounding,AMMO,5,100,5,5,0,0,0,12,0,20,,
+125,陰口の,of Backbiting,AMMO,0,100,50,50,0,0,0,36,0,0,,### Special Broken Items #### Destroyed Weapon
+126,(不良品),(Shattered),HAND,0,100,5,5,0,0,0,0,0,0,,# Destroyed Body Armor
+127,(粗悪品),(Blasted),BODY,0,100,0,0,10,0,0,0,0,0,,"# Aura, Coldly#JZ#"
+128,極寒の,of Freezing,OUTER,16,100,0,0,4,0,0,36,0,4000,IGNORE_ACID|IGNORE_COLD|SH_COLD|RES_COLD,
+129,蝙蝠の,of the Bat,OUTER,20,100,-7,-7,-5,5,50,36,0,10000,SPEED|LEVITATION|RES_DARK|SEE_INVIS|INFRA|STEALTH|HIDE_TYPE,# Ego Lite
+140,光明の,of Extra Light,LITE,5,100,0,0,0,0,0,9,0,200,,
+141,イルミネーションの,of Illumination,LITE,20,100,0,0,0,0,30,36,0,3000,ACTIVATE,
+142,灼熱の,of Immolation,LITE,20,100,0,0,0,0,0,36,0,3000,SH_FIRE|IGNORE_FIRE,
+143,暗視の,of Infravision,LITE,5,100,0,0,0,3,0,18,0,300,INFRA,
+144,長持ちの,of Duration,LITE,10,100,0,0,0,0,0,9,0,100,,
+145,暗闇の,of Darkness,LITE,0,100,0,0,0,0,0,36,0,0,,
+146,不朽の眼の,of Immortal Eye,LITE,20,100,0,0,0,0,0,36,0,4000,RES_BLIND|SEE_INVIS,# Ego Ring
+150,勇気の,and Heroism,RING,10,100,0,0,0,0,5,0,0,300,ACTIVATE,
+151,殺戮の,and Slaying,RING,10,100,4,4,0,0,0,0,0,300,,
+152,大防御の,(Extra Armor),RING,5,100,0,0,8,0,0,0,0,300,,
+153,魔法の矢の,and Magic Missile,RING,5,100,0,0,0,0,2,0,0,200,ACTIVATE,
+154,火炎の矢の,and Fire bolt,RING,5,100,0,0,0,0,10,0,0,700,ACTIVATE,
+155,冷気の矢の,and Frost bolt,RING,5,100,0,0,0,0,9,0,0,600,ACTIVATE,
+156,電撃の矢の,and Lightning bolt,RING,5,100,0,0,0,0,7,0,0,400,ACTIVATE,
+157,酸の矢の,and Acid bolt,RING,5,100,0,0,0,0,8,0,0,500,ACTIVATE,
+158,魔力の矢の,and Mana bolt,RING,10,100,0,0,0,0,50,0,0,1500,ACTIVATE,
+159,火球の,and Fire ball,RING,10,100,0,0,0,0,40,0,0,1500,ACTIVATE,
+160,ブリザードの,and Blizzard,RING,10,100,0,0,0,0,40,0,0,1500,ACTIVATE,
+161,雷球の,and Ball Lightning,RING,10,100,0,0,0,0,40,0,0,1500,ACTIVATE,
+162,酸の球の,and Acid ball,RING,10,100,0,0,0,0,40,0,0,1500,ACTIVATE,
+163,魔力の嵐の,and Mana Storm,RING,25,100,0,0,0,0,100,0,0,8000,ACTIVATE,
+164,ドラゴンの火炎の,and Dragon's Flame,RING,20,100,0,0,0,0,70,0,0,5000,ACTIVATE,
+165,ドラゴンの冷気の,and Dragon's Frost,RING,20,100,0,0,0,0,70,0,0,5000,ACTIVATE,
+166,二段加速の,and Haste,RING,20,100,0,0,0,0,90,0,0,30000,ACTIVATE,
+167,狂戦士の,of Berserker,RING,15,100,0,0,0,0,30,0,0,2000,ACTIVATE,
+168,狩人の,of Hunter,RING,10,100,0,0,0,3,30,0,0,8000,STEALTH,
+169,強力投擲の,and Power Throwing,RING,5,100,0,0,0,0,30,0,0,500,,
+170,活力の,and Regeneration,RING,5,100,0,0,0,0,30,0,0,800,REGEN,
+171,輝きの,and Light,RING,5,100,0,0,0,0,30,0,0,500,LITE,
+172,完全モンスター感知の,and *Detect* Monster,RING,5,100,0,0,0,0,30,0,0,1000,ACTIVATE,
+173,忍びの,and Stealth,RING,5,100,0,0,0,0,30,0,0,500,STEALTH,
+174,怪物飛ばしの,and Teleport Other,RING,10,100,0,0,0,0,45,0,0,2000,ACTIVATE,
+175,精度の,and Accuracy,RING,5,100,5,0,0,0,30,0,0,500,,
+176,ダメージの,and Damage,RING,5,100,0,5,0,0,30,0,0,500,,
+177,耐光の,and Resist Light,RING,10,100,0,0,0,0,30,0,0,2000,RES_LITE,
+178,耐暗の,and Resist Darkness,RING,10,100,0,0,0,0,30,0,0,2000,RES_DARK,
+179,魔道師の,and Wizardry,RING,10,100,0,0,0,0,30,0,0,1500,EASY_SPELL,
+180,究極無敵銀河最強の,of the Mightiest in the Galaxy,RING,30,100,0,0,15,0,100,0,0,50000,ACTIVATE,
+181,経験値吸収の,and Experience Drain,RING,0,100,0,0,0,0,0,0,0,0,DRAIN_EXP|CURSED|HEAVY_CURSE,
+182,非暴力の,of Pacifist,RING,0,100,20,20,0,3,0,0,0,0,CURSED|HEAVY_CURSE|STR|DEX,
+183,反感の,and Aggravate,RING,0,100,0,0,0,0,0,0,0,0,AGGRAVATE|CURSED|HEAVY_CURSE,
+184,怨念の,and Ancient Foul Curse,RING,0,100,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,
+185,耐時間逆転の,and Resist Time,RING,25,100,0,0,0,0,30,0,0,7500,,
+186,不安定の,and Random Teleportation,RING,3,100,0,0,0,0,30,0,0,100,TELEPORT,
+187,アルビノの,and Albino,RING,0,100,0,0,20,3,0,0,0,0,CURSED|HEAVY_CURSE|CON,# Ego Amulet
+210,遅消化の,and Slow Digestion,AMULET,5,100,0,0,0,0,30,0,0,200,SLOW_DIGEST,
+211,暗視の,and Infravision,AMULET,5,100,0,0,0,3,30,0,0,500,INFRA,
+212,可視透明の,and See Invisible,AMULET,5,100,0,0,0,0,30,0,0,500,SEE_INVIS,
+213,生命力保持の,and Hold Life,AMULET,5,100,0,0,0,0,30,0,0,1000,HOLD_LIFE,
+214,経験値吸収の,and Experience Drain,AMULET,0,100,0,0,0,0,0,0,0,0,DRAIN_EXP|CURSED|HEAVY_CURSE,
+215,無知の,and Stupidity,RING,0,100,0,0,0,3,30,0,0,0,INT|CURSED|HEAVY_CURSE,
+216,反感の,and Aggravate,AMULET,0,100,0,0,0,0,0,0,0,0,AGGRAVATE|CURSED|HEAVY_CURSE,
+217,怨念の,and Ancient Foul Curse,AMULET,0,100,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,
+218,守りの,and Protection,AMULET,5,100,0,0,8,0,0,0,0,200,,
+219,知識の,and Lore,AMULET,15,100,0,0,0,0,60,0,0,8000,ACTIVATE,
+220,魅惑の,and Monster Turning,AMULET,15,100,0,0,0,0,40,0,0,2000,ACTIVATE,
+221,忍びの,and Stealth,AMULET,10,100,0,0,0,0,0,0,0,500,STEALTH,
+222,跳躍の,and Jumping,AMULET,5,100,0,0,0,0,5,0,0,500,ACTIVATE,
+223,転移の,at Will,AMULET,5,100,0,0,0,0,10,0,0,1000,ACTIVATE,
+224,次元の,and Dimension Door,AMULET,30,100,0,0,0,0,100,0,0,30000,ACTIVATE,
+225,(防衛者),(Defender),AMULET,25,100,0,0,8,4,0,0,0,20000,STEALTH|LEVITATION|REGEN|FREE_ACT|SEE_INVIS,
+226,耐火の,and Resist Fire,AMULET,5,100,0,0,0,0,0,0,0,500,RES_FIRE,
+227,*耐火*の,and *Resist* Fire,AMULET,15,100,0,0,0,0,80,0,0,5000,RES_FIRE|ACTIVATE,
+228,耐冷の,and Resist Cold,AMULET,5,100,0,0,0,0,0,0,0,500,RES_COLD,
+229,*耐冷*の,and *Resist* Cold,AMULET,15,100,0,0,0,0,80,0,0,5000,RES_COLD|ACTIVATE,
+230,耐電の,and Resist Lightning,AMULET,5,100,0,0,0,0,0,0,0,500,RES_ELEC,
+231,*耐電*の,and *Resist* Lightning,AMULET,15,100,0,0,0,0,80,0,0,5000,RES_ELEC|ACTIVATE,
+232,耐酸の,and Resist Acid,AMULET,5,100,0,0,0,0,0,0,0,500,RES_ACID,
+233,*耐酸*の,and *Resist* Acid,AMULET,15,100,0,0,0,0,80,0,0,5000,RES_ACID|ACTIVATE,
+234,浮遊の,and Levitation,AMULET,5,100,0,0,0,0,0,0,0,1000,LEVITATION,
+235,大,of High Rank,AMULET,15,100,0,0,5,5,0,0,0,10000,RES_BLIND|RES_CONF|WARNING|EASY_SPELL,
+236,感知の,and Detection,AMULET,20,100,0,0,0,3,0,0,0,2000,SEARCH|ACTIVATE,
+237,愚者の,and Naivety,RING,0,100,0,0,0,3,29,0,0,0,WIS|CHR|CURSED|HEAVY_CURSE,
