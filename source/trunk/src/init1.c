@@ -4261,7 +4261,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 
 };
 
-static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
+static enum DUNGEON_INFO rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 
 #define RC_INFO_ID			0
 #define RC_INFO_COMMON		1
@@ -5328,43 +5328,200 @@ static cptr du_info_csv_list[DU_INFO_CSV_COLUMNS] =
 };
 
 enum DUNGEON_INFO {
-ID,
-NAME,
-E_NAME,
-DY,
-DX,
-TEXT,
-E_TEXT,
-FEAT_PROB_FLOOR,
-FEAT_PROB_FILL,
-OUTER_WALL,
-INNER_WALL,
-STREAM1,
-STREAM2,
-MINDEPTH,
-MAXDEPTH,
-MIN_PLEV,
-PIT,
-NEST,
-MODE,
-MIN_M_ALLOC_LEVEL,
-MIN_M_ALLOC_CHANCE,
-D_FLAGS,
-C_FLAGS,
-R_RACE,
-FINAL_OBJECT,
-FINAL_ARTIFACT,
-FINAL_GARDIAN,
-SPECIAL_DIV,
-TUNNEL_PERCENT,
-OBJ_GREAT,
-OBJ_GOOD,
-RACE_POP,
-VAULT_INFO,
-PORTAL_INFO,
-COMMENT,
+	ID,
+	NAME,
+	E_NAME,
+	DY,
+	DX,
+	TEXT,
+	E_TEXT,
+	FEAT_PROB_FLOOR,
+	FEAT_PROB_FILL,
+	OUTER_WALL,
+	INNER_WALL,
+	STREAM1,
+	STREAM2,
+	MINDEPTH,
+	MAXDEPTH,
+	MIN_PLEV,
+	PIT,
+	NEST,
+	MODE,
+	MIN_M_ALLOC_LEVEL,
+	MIN_M_ALLOC_CHANCE,
+	D_FLAGS,
+	C_FLAGS,
+	R_RACE,
+	FINAL_OBJECT,
+	FINAL_ARTIFACT,
+	FINAL_GARDIAN,
+	SPECIAL_DIV,
+	TUNNEL_PERCENT,
+	OBJ_GREAT,
+	OBJ_GOOD,
+	RACE_POP,
+	VAULT_INFO,
+	PORTAL_INFO,
+	COMMENT,
 };
 
+errr parse_dungeon_info_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, DU_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, du_info_csv_list[0]))
+	{
+		rc_info_csv_code[0] = ID;
+		for(i = 1; i < DU_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < DU_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, du_info_csv_list[j]))
+				{
+					du_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == DU_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize CH:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < DU_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+			switch(du_info_csv_code[i])
+			{
+				case NAME:
+					break;
+
+				case E_NAME:
+					break;
+
+				case DY:
+					break;
+
+				case DX:
+					break;
+
+				case TEXT:
+					break;
+
+				case E_TEXT:
+					break;
+
+				case FEAT_PROB_FLOOR:
+					break;
+
+				case FEAT_PROB_FILL:
+					break;
+
+				case OUTER_WALL:
+					break;
+
+				case INNER_WALL:
+					break;
+
+				case STREAM1:
+					break;
+
+				case STREAM2:
+					break;
+
+				case MINDEPTH:
+					break;
+
+				case MAXDEPTH:
+					break;
+
+				case MIN_PLEV:
+					break;
+
+				case PIT:
+					break;
+
+				case NEST:
+					break;
+
+				case MODE:
+					break;
+
+				case MIN_M_ALLOC_LEVEL:
+					break;
+
+				case MIN_M_ALLOC_CHANCE:
+					break;
+
+				case D_FLAGS:
+					break;
+
+				case C_FLAGS:
+					break;
+
+				case R_RACE:
+					break;
+
+				case FINAL_OBJECT:
+					break;
+
+				case FINAL_ARTIFACT:
+					break;
+
+				case FINAL_GARDIAN:
+					break;
+
+				case SPECIAL_DIV:
+					break;
+
+				case TUNNEL_PERCENT:
+					break;
+
+				case OBJ_GREAT:
+					break;
+
+				case OBJ_GOOD:
+					break;
+
+				case RACE_POP:
+					break;
+
+				case VAULT_INFO:
+					break;
+
+				case PORTAL_INFO:
+					break;
+
+				case COMMENT:
+					break;
+			}
+		}
+	}
+	return(0);
+}
 
 
 #define AU_INFO_CSV_COLUMNS 38
