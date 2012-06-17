@@ -5480,9 +5480,13 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case PIT:
+					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+					dungeon_info[n].pit = (s16b)b;
 					break;
 
 				case NEST:
+					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+					dungeon_info[n].nest = (s16b)b;
 					break;
 
 				case MODE:
@@ -5523,15 +5527,21 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case SPECIAL_DIV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].special_div = (byte)b;
 					break;
 
 				case TUNNEL_PERCENT:
 					break;
 
 				case OBJ_GREAT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].obj_great = (byte)b;
 					break;
 
 				case OBJ_GOOD:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].obj_good = (byte)b;
 					break;
 
 				case RACE_POP:
