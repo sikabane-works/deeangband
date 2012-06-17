@@ -5389,6 +5389,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 	char *zz[10];
+	char *s, *t;
 
 	if(get_split_offset(split, size, buf, DU_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -5422,7 +5423,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize CH:%d]", n);
+		sprintf(nt, "[Initialize DU:%d]", n);
 
 
 		note(nt);
@@ -5467,7 +5468,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case FEAT_PROB_FLOOR:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2 + 4, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2 + 4)) return (1); // Scan for the values
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
 					d_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->floor[0].percent = atoi(zz[1]);
 					d_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
@@ -5477,7 +5478,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case FEAT_PROB_FILL:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2 + 4, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2 + 4)) return (1); // Scan for the values
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
 					d_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->fill[0].percent = atoi(zz[1]);
 					d_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
@@ -5550,7 +5551,25 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case D_FLAGS:
-					if (0 != grab_one_dungeon_flag(d_ptr, tmp)) return (5); // Parse this entry
+					/* Parse every entry */
+					for (s = tmp; *s; )
+					{
+						/* Find the end of this entry */
+						for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+
+						/* Nuke and skip any dividers */
+						if (*t)
+						{
+							*t++ = '\0';
+							while (*t == ' ' || *t == '|') t++;
+						}
+
+						/* Parse this entry */
+						if (0 != grab_one_dungeon_flag(d_ptr, s)) return (5);
+
+						/* Start the next entry */
+						s = t;
+					}
 					break;
 
 				case C_FLAGS:

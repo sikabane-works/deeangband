@@ -112,6 +112,7 @@ extern errr parse_a_info(char *buf, header *head);
 extern errr parse_e_info(char *buf, header *head);
 extern errr parse_re_info(char *buf, header *head);
 extern errr parse_dungeon_info(char *buf, header *head);
+extern errr parse_dungeon_info_csv(char *buf, header *head);
 extern errr parse_skill_info(char *buf, header *head);
 extern errr parse_magic_info(char *buf, header *head);
 
