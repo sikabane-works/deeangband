@@ -1864,6 +1864,9 @@ struct dungeon_info_type {
 	u32b name;		/* Name */
 	u32b text;		/* Description */
 
+	u32b E_name;		/* Name */
+	u32b E_text;		/* Description */
+
 	byte dy;
 	byte dx;
 

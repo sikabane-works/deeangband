@@ -5309,7 +5309,7 @@ static cptr du_info_csv_list[DU_INFO_CSV_COLUMNS] =
 	"MODE",
 	"MIN_M_ALLOC_LEVEL",
 
-	"MIN_M_ALLOC_CHANCE",
+	"MAX_M_ALLOC_CHANCE",
 	"D_FLAGS",
 	"C_FLAGS",
 	"R_RACE",
@@ -5348,7 +5348,7 @@ enum DUNGEON_INFO {
 	NEST,
 	MODE,
 	MIN_M_ALLOC_LEVEL,
-	MIN_M_ALLOC_CHANCE,
+	MAX_M_ALLOC_CHANCE,
 	D_FLAGS,
 	C_FLAGS,
 	R_RACE,
@@ -5417,21 +5417,33 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			switch(du_info_csv_code[i])
 			{
 				case NAME:
+					if (!add_name(&dungeon_info[n].name, head, tmp))
+						return (7);
 					break;
 
 				case E_NAME:
+					if (!add_name(&dungeon_info[n].E_name, head, tmp))
+						return (7);
 					break;
 
 				case DY:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].dy = (byte)b;
 					break;
 
 				case DX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].dx = (byte)b;
 					break;
 
 				case TEXT:
+					if (!add_name(&dungeon_info[n].text, head, tmp))
+						return (7);
 					break;
 
 				case E_TEXT:
+					if (!add_name(&dungeon_info[n].E_text, head, tmp))
+						return (7);
 					break;
 
 				case FEAT_PROB_FLOOR:
@@ -5453,12 +5465,18 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case MINDEPTH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].mindepth = (s16b)b;
 					break;
 
 				case MAXDEPTH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].maxdepth = (s16b)b;
 					break;
 
 				case MIN_PLEV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].min_plev = (s16b)b;
 					break;
 
 				case PIT:
@@ -5471,9 +5489,13 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case MIN_M_ALLOC_LEVEL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].min_m_alloc_level = (s16b)b;
 					break;
 
-				case MIN_M_ALLOC_CHANCE:
+				case MAX_M_ALLOC_CHANCE:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].max_m_alloc_chance = (s16b)b;
 					break;
 
 				case D_FLAGS:
