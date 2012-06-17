@@ -224,6 +224,8 @@ struct artifact_type
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
 	s16b xtra5;			/* Extra info */
+
+	s16b ap_rate;		// AP rate
 };
 
 
@@ -238,7 +240,7 @@ struct ego_item_type
 	u32b name;			/* Name (offset) */
 	u32b text;			/* Text (offset) */
 
-	s16b ap_cost;		// AP cost
+	s16b ap_rate;		// AP rate
 	byte slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 

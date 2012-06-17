@@ -2390,7 +2390,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 
 
-#define ARTIFACT_INFO_CSV_COLUMNS 21
+#define ARTIFACT_INFO_CSV_COLUMNS 22
 static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2414,6 +2414,7 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"E_DESCRIPTION",
 	"COMMENT",
 	"SIZE_UPPER",
+	"AP_RATE",
 };
 
 #define ARTIFACT_INFO_ID             0
@@ -2427,7 +2428,6 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 #define ARTIFACT_INFO_WEIGHT         8
 #define ARTIFACT_INFO_COST           9
 #define ARTIFACT_INFO_SIZE_LOWER    10
-#define ARTIFACT_INFO_SIZE_UPPER    20
 #define ARTIFACT_INFO_BASE_AC       11
 #define ARTIFACT_INFO_BASE_DAMAGE   12
 #define ARTIFACT_INFO_PLUS_HIT      13
@@ -2437,6 +2437,8 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 #define ARTIFACT_INFO_DESCRIPTION   17
 #define ARTIFACT_INFO_E_DESCRIPTION 18
 #define ARTIFACT_INFO_COMMENT       19
+#define ARTIFACT_INFO_SIZE_UPPER    20
+#define ARTIFACT_INFO_AP_RATE       21
 
 static int artifact_info_csv_code[ARTIFACT_INFO_CSV_COLUMNS];
 errr parse_artifact_csv(char *buf, header *head)
@@ -2642,6 +2644,13 @@ errr parse_artifact_csv(char *buf, header *head)
 			case ARTIFACT_INFO_COMMENT:
 				break;
 
+			case ARTIFACT_INFO_AP_RATE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].to_d = (s16b)b;
+				else
+					artifact_info[n].to_d = 0;
+				break;
+
 			default:
 				return (1);
 
@@ -2704,7 +2713,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"COST",
 	"FLAG",
 	"COMMENT",
-	"AP_COST",
+	"AP_RATE",
 };
 
 #define OBJECT_EGO_INFO_ID       0
@@ -2722,7 +2731,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_COST    12
 #define OBJECT_EGO_INFO_FLAG    13
 #define OBJECT_EGO_INFO_COMMENT 14
-#define OBJECT_EGO_INFO_AP_COST 15
+#define OBJECT_EGO_INFO_AP_RATE 15
 
 static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
@@ -2887,11 +2896,11 @@ errr parse_object_ego_csv(char *buf, header *head)
 			case OBJECT_EGO_INFO_COMMENT:
 				break;
 
-			case OBJECT_EGO_INFO_AP_COST:
+			case OBJECT_EGO_INFO_AP_RATE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_info[n].ap_cost = (s16b)b;
+					object_ego_info[n].ap_rate = (s16b)b;
 				else
-					object_ego_info[n].ap_cost = 0;
+					object_ego_info[n].ap_rate = 0;
 				break;
 
 			default:
