@@ -2038,34 +2038,34 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 };
 
 enum OBJECT_KIND_INFO {
-  ID,
-  NAME,
-  UI_NAME,
-  E_NAME,
-  E_UI_NAME,
-  SYMBOL,
-  COLOR,
-  TVAL,
-  SVAL,
-  PVAL,
-  DEPTH,
-  RARITY,
-  WEIGHT,
-  COST,
-  BASE_AC,
-  BASE_DAMAGE,
-  PLUS_HIT,
-  PLUS_DAM,
-  PLUS_AC,
-  ADD_DEPTH_RARITY,
-  FLAGS,
-  DESCRIPTION,
-  E_DESCRIPTION,
-  COMMENT,
-  MIN_SIZE,
-  MAX_SIZE,
-  SLOT,
-  AP_RATE,
+  OK_INFO_ID,
+  OK_INFO_NAME,
+  OK_INFO_UI_NAME,
+  OK_INFO_E_NAME,
+  OK_INFO_E_UI_NAME,
+  OK_INFO_SYMBOL,
+  OK_INFO_COLOR,
+  OK_INFO_TVAL,
+  OK_INFO_SVAL,
+  OK_INFO_PVAL,
+  OK_INFO_DEPTH,
+  OK_INFO_RARITY,
+  OK_INFO_WEIGHT,
+  OK_INFO_COST,
+  OK_INFO_BASE_AC,
+  OK_INFO_BASE_DAMAGE,
+  OK_INFO_PLUS_HIT,
+  OK_INFO_PLUS_DAM,
+  OK_INFO_PLUS_AC,
+  OK_INFO_ADD_DEPTH_RARITY,
+  OK_INFO_FLAGS,
+  OK_INFO_DESCRIPTION,
+  OK_INFO_E_DESCRIPTION,
+  OK_INFO_COMMENT,
+  OK_INFO_MIN_SIZE,
+  OK_INFO_MAX_SIZE,
+  OK_INFO_SLOT,
+  OK_INFO_AP_RATE,
 };
 /*
  * Initialize the "object_kind_info" array, by parsing an ascii "template" file
@@ -2088,7 +2088,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, object_kind_info_csv_list[0]))
 	{
-		object_kind_info_csv_code[0] = ID;
+		object_kind_info_csv_code[0] = OK_INFO_ID;
 		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
@@ -2125,31 +2125,31 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			switch(object_kind_info_csv_code[i])
 			{
-			case NAME:
+			case OK_INFO_NAME:
 				if(!add_name(&object_kind_info[n].name, head, tmp))
 					return (7);
 				break;
 
-			case UI_NAME:
+			case OK_INFO_UI_NAME:
 				if(!add_name(&object_kind_info[n].flavospecies_name, head, tmp))
 					return (7);
 				break;
 
-			case E_NAME:
+			case OK_INFO_E_NAME:
 				break;
 
-			case E_UI_NAME:
+			case OK_INFO_E_UI_NAME:
 				break;
 
-			case SYMBOL:
+			case OK_INFO_SYMBOL:
 				object_kind_info[n].d_char = (byte)tmp[0];
 				break;
 
-			case COLOR:
+			case OK_INFO_COLOR:
 				object_kind_info[n].d_attr = color_char_to_attr(tmp[0]);
 				break;
 
-			case TVAL:
+			case OK_INFO_TVAL:
 				for(j = 0; j <= 127; j++)
 				{
 					if(streq(tval_flags[j], tmp))
@@ -2167,56 +2167,56 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case SVAL:
+			case OK_INFO_SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].sval = (byte)b;
 				else
 					object_kind_info[n].sval = 0;
 				break;
 
-			case PVAL:
+			case OK_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].pval = (byte)b;
 				else
 					object_kind_info[n].pval = 0;
 				break;
 
-			case DEPTH:
+			case OK_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].level = (byte)b;
 				else
 					object_kind_info[n].level = 0;
 				break;
 
-			case RARITY:
+			case OK_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].extra = (byte)b;
 				else
 					object_kind_info[n].extra = 0;
 				break;
 
-			case WEIGHT:
+			case OK_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].weight = (s16b)b;
 				else
 					object_kind_info[n].weight = 0;
 				break;
 
-			case COST:
+			case OK_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].cost = (s32b)b;
 				else
 					object_kind_info[n].cost = 0;
 				break;
 
-			case BASE_AC:
+			case OK_INFO_BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].ac = (byte)b;
 				else
 					object_kind_info[n].ac = 0;
 				break;
 
-			case BASE_DAMAGE:
+			case OK_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
 					object_kind_info[n].dd = (byte)b;
@@ -2229,28 +2229,28 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case PLUS_HIT:
+			case OK_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_h = (s16b)b;
 				else
 					object_kind_info[n].to_h = 0;
 				break;
 
-			case PLUS_DAM:
+			case OK_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_d = (s16b)b;
 				else
 					object_kind_info[n].to_d = 0;
 				break;
 
-			case PLUS_AC:
+			case OK_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_a = (s16b)b;
 				else
 					object_kind_info[n].to_a = 0;
 				break;
 
-			case ADD_DEPTH_RARITY:
+			case OK_INFO_ADD_DEPTH_RARITY:
 				/* XXX XXX XXX Simply read each number following a colon */
 				for (j = 0, s = tmp; s; ++j)
 				{
@@ -2275,7 +2275,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case FLAGS:
+			case OK_INFO_FLAGS:
 				if(!strlen(tmp)) break;
 				s = tmp;
 				/* Parse every entry textually */
@@ -2300,33 +2300,33 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case DESCRIPTION:
+			case OK_INFO_DESCRIPTION:
 				/* Store the text */
 				if (!add_text(&object_kind_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
 
-			case E_DESCRIPTION:
+			case OK_INFO_E_DESCRIPTION:
 				break;
 
-			case COMMENT:
+			case OK_INFO_COMMENT:
 				break;
 
-			case MIN_SIZE:
+			case OK_INFO_MIN_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].min_size = (s16b)b;
 				else
 					object_kind_info[n].min_size = 0;
 				break;
 
-			case MAX_SIZE:
+			case OK_INFO_MAX_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].max_size = (s16b)b;
 				else
 					object_kind_info[n].max_size = 0;
 				break;
 
-			case SLOT:
+			case OK_INFO_SLOT:
 				for(j = 0; j < MAX_ITEM_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
@@ -2339,7 +2339,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					return (1);
 				break;
 
-			case AP_RATE:
+			case OK_INFO_AP_RATE:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].ap_rate = (s16b)b;
 				else
