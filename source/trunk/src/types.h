@@ -128,6 +128,7 @@ struct object_kind
 	s16b to_d;			/* Bonus to damage */
 	s16b to_a;			/* Bonus to armor */
 
+	s16b ap_rate;		// AP rate
 	s16b ac;			/* Base armor */
 
 	byte dd, ds;		/* Damage dice/sides */

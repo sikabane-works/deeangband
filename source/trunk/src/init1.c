@@ -2004,7 +2004,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 }
 
 
-#define OBJECT_KIND_INFO_CSV_COLUMNS 27
+#define OBJECT_KIND_INFO_CSV_COLUMNS 28
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2034,40 +2034,43 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"MIN_SIZE",
 	"MAX_SIZE",
 	"SLOT",
+	"AP_RATE"
 };
 
-#define OBJECT_KIND_INFO_ID         0
-#define OBJECT_KIND_INFO_NAME       1
-#define OBJECT_KIND_INFO_UI_NAME    2
-#define OBJECT_KIND_INFO_E_NAME     3
-#define OBJECT_KIND_INFO_E_UI_NAME  4
-#define OBJECT_KIND_INFO_SYMBOL     5
-#define OBJECT_KIND_INFO_COLOR      6
-#define OBJECT_KIND_INFO_TVAL       7
-#define OBJECT_KIND_INFO_SVAL       8
-#define OBJECT_KIND_INFO_PVAL       9
-#define OBJECT_KIND_INFO_DEPTH     10
-#define OBJECT_KIND_INFO_RARITY    11
-#define OBJECT_KIND_INFO_WEIGHT    12
-#define OBJECT_KIND_INFO_COST      13
-#define OBJECT_KIND_INFO_BASE_AC   14
-#define OBJECT_KIND_INFO_BASE_DAMAGE 15
-#define OBJECT_KIND_INFO_PLUS_HIT  16
-#define OBJECT_KIND_INFO_PLUS_DAM  17
-#define OBJECT_KIND_INFO_PLUS_AC   18
-#define OBJECT_KIND_INFO_ADD_DEPTH_RARITY 19
-#define OBJECT_KIND_INFO_FLAGS     20
-#define OBJECT_KIND_INFO_DESCRIPTION 21
-#define OBJECT_KIND_INFO_E_DESCRIPTION 22
-#define OBJECT_KIND_INFO_COMMENT       23
-#define OBJECT_KIND_INFO_MIN_SIZE      24
-#define OBJECT_KIND_INFO_MAX_SIZE      25
-#define OBJECT_KIND_INFO_SLOT          26
-
+enum OBJECT_KIND_INFO {
+  ID,
+  NAME,
+  UI_NAME,
+  E_NAME,
+  E_UI_NAME,
+  SYMBOL,
+  COLOR,
+  TVAL,
+  SVAL,
+  PVAL,
+  DEPTH,
+  RARITY,
+  WEIGHT,
+  COST,
+  BASE_AC,
+  BASE_DAMAGE,
+  PLUS_HIT,
+  PLUS_DAM,
+  PLUS_AC,
+  ADD_DEPTH_RARITY,
+  FLAGS,
+  DESCRIPTION,
+  E_DESCRIPTION,
+  COMMENT,
+  MIN_SIZE,
+  MAX_SIZE,
+  SLOT,
+  AP_RATE,
+};
 /*
  * Initialize the "object_kind_info" array, by parsing an ascii "template" file
  */
-static int object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
+static enum OBJECT_KIND_INFO object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLUMNS];
 
 errr parse_object_kind_csv(char *buf, header *head)
 {
@@ -2085,7 +2088,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, object_kind_info_csv_list[0]))
 	{
-		object_kind_info_csv_code[0] = OBJECT_KIND_INFO_ID;
+		object_kind_info_csv_code[0] = ID;
 		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
@@ -2122,31 +2125,31 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			switch(object_kind_info_csv_code[i])
 			{
-			case OBJECT_KIND_INFO_NAME:
+			case NAME:
 				if(!add_name(&object_kind_info[n].name, head, tmp))
 					return (7);
 				break;
 
-			case OBJECT_KIND_INFO_UI_NAME:
+			case UI_NAME:
 				if(!add_name(&object_kind_info[n].flavospecies_name, head, tmp))
 					return (7);
 				break;
 
-			case OBJECT_KIND_INFO_E_NAME:
+			case E_NAME:
 				break;
 
-			case OBJECT_KIND_INFO_E_UI_NAME:
+			case E_UI_NAME:
 				break;
 
-			case OBJECT_KIND_INFO_SYMBOL:
+			case SYMBOL:
 				object_kind_info[n].d_char = (byte)tmp[0];
 				break;
 
-			case OBJECT_KIND_INFO_COLOR:
+			case COLOR:
 				object_kind_info[n].d_attr = color_char_to_attr(tmp[0]);
 				break;
 
-			case OBJECT_KIND_INFO_TVAL:
+			case TVAL:
 				for(j = 0; j <= 127; j++)
 				{
 					if(streq(tval_flags[j], tmp))
@@ -2164,56 +2167,56 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case OBJECT_KIND_INFO_SVAL:
+			case SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].sval = (byte)b;
 				else
 					object_kind_info[n].sval = 0;
 				break;
 
-			case OBJECT_KIND_INFO_PVAL:
+			case PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].pval = (byte)b;
 				else
 					object_kind_info[n].pval = 0;
 				break;
 
-			case OBJECT_KIND_INFO_DEPTH:
+			case DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].level = (byte)b;
 				else
 					object_kind_info[n].level = 0;
 				break;
 
-			case OBJECT_KIND_INFO_RARITY:
+			case RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].extra = (byte)b;
 				else
 					object_kind_info[n].extra = 0;
 				break;
 
-			case OBJECT_KIND_INFO_WEIGHT:
+			case WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].weight = (s16b)b;
 				else
 					object_kind_info[n].weight = 0;
 				break;
 
-			case OBJECT_KIND_INFO_COST:
+			case COST:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].cost = (s32b)b;
 				else
 					object_kind_info[n].cost = 0;
 				break;
 
-			case OBJECT_KIND_INFO_BASE_AC:
+			case BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].ac = (byte)b;
 				else
 					object_kind_info[n].ac = 0;
 				break;
 
-			case OBJECT_KIND_INFO_BASE_DAMAGE:
+			case BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
 					object_kind_info[n].dd = (byte)b;
@@ -2226,28 +2229,28 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case OBJECT_KIND_INFO_PLUS_HIT:
+			case PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_h = (s16b)b;
 				else
 					object_kind_info[n].to_h = 0;
 				break;
 
-			case OBJECT_KIND_INFO_PLUS_DAM:
+			case PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_d = (s16b)b;
 				else
 					object_kind_info[n].to_d = 0;
 				break;
 
-			case OBJECT_KIND_INFO_PLUS_AC:
+			case PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].to_a = (s16b)b;
 				else
 					object_kind_info[n].to_a = 0;
 				break;
 
-			case OBJECT_KIND_INFO_ADD_DEPTH_RARITY:
+			case ADD_DEPTH_RARITY:
 				/* XXX XXX XXX Simply read each number following a colon */
 				for (j = 0, s = tmp; s; ++j)
 				{
@@ -2272,7 +2275,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case OBJECT_KIND_INFO_FLAGS:
+			case FLAGS:
 				if(!strlen(tmp)) break;
 				s = tmp;
 				/* Parse every entry textually */
@@ -2297,33 +2300,33 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				break;
 
-			case OBJECT_KIND_INFO_DESCRIPTION:
+			case DESCRIPTION:
 				/* Store the text */
 				if (!add_text(&object_kind_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
 
-			case OBJECT_KIND_INFO_E_DESCRIPTION:
+			case E_DESCRIPTION:
 				break;
 
-			case OBJECT_KIND_INFO_COMMENT:
+			case COMMENT:
 				break;
 
-			case OBJECT_KIND_INFO_MIN_SIZE:
+			case MIN_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].min_size = (s16b)b;
 				else
 					object_kind_info[n].min_size = 0;
 				break;
 
-			case OBJECT_KIND_INFO_MAX_SIZE:
+			case MAX_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
 					object_kind_info[n].max_size = (s16b)b;
 				else
 					object_kind_info[n].max_size = 0;
 				break;
 
-			case OBJECT_KIND_INFO_SLOT:
+			case SLOT:
 				for(j = 0; j < MAX_ITEM_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
@@ -2334,6 +2337,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 				}
 				if(j == MAX_ITEM_SLOT)
 					return (1);
+				break;
+
+			case AP_RATE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_info[n].ap_rate = (s16b)b;
+				else
+					object_kind_info[n].ap_rate = 100;
 				break;
 
 			default:
@@ -5346,41 +5356,41 @@ static cptr du_info_csv_list[DU_INFO_CSV_COLUMNS] =
 };
 
 enum DUNGEON_INFO {
-	ID,
-	NAME,
-	E_NAME,
-	DY,
-	DX,
-	TEXT,
-	E_TEXT,
-	FEAT_PROB_FLOOR,
-	FEAT_PROB_FILL,
-	OUTER_WALL,
-	INNER_WALL,
-	STREAM1,
-	STREAM2,
-	MINDEPTH,
-	MAXDEPTH,
-	MIN_PLEV,
-	PIT,
-	NEST,
-	MODE,
-	MIN_M_ALLOC_LEVEL,
-	MAX_M_ALLOC_CHANCE,
-	D_FLAGS,
-	C_FLAGS,
-	R_RACE,
-	FINAL_OBJECT,
-	FINAL_ARTIFACT,
-	FINAL_GUARDIAN,
-	SPECIAL_DIV,
-	TUNNEL_PERCENT,
-	OBJ_GREAT,
-	OBJ_GOOD,
-	RACE_POP,
-	VAULT_INFO,
-	PORTAL_INFO,
-	COMMENT,
+	DU_INFO_ID,
+	DU_INFO_NAME,
+	DU_INFO_E_NAME,
+	DU_INFO_DY,
+	DU_INFO_DX,
+	DU_INFO_TEXT,
+	DU_INFO_E_TEXT,
+	DU_INFO_FEAT_PROB_FLOOR,
+	DU_INFO_FEAT_PROB_FILL,
+	DU_INFO_OUTER_WALL,
+	DU_INFO_INNER_WALL,
+	DU_INFO_STREAM1,
+	DU_INFO_STREAM2,
+	DU_INFO_MINDEPTH,
+	DU_INFO_MAXDEPTH,
+	DU_INFO_MIN_PLEV,
+	DU_INFO_PIT,
+	DU_INFO_NEST,
+	DU_INFO_MODE,
+	DU_INFO_MIN_M_ALLOC_LEVEL,
+	DU_INFO_MAX_M_ALLOC_CHANCE,
+	DU_INFO_D_FLAGS,
+	DU_INFO_C_FLAGS,
+	DU_INFO_R_RACE,
+	DU_INFO_FINAL_OBJECT,
+	DU_INFO_FINAL_ARTIFACT,
+	DU_INFO_FINAL_GUARDIAN,
+	DU_INFO_SPECIAL_DIV,
+	DU_INFO_TUNNEL_PERCENT,
+	DU_INFO_OBJ_GREAT,
+	DU_INFO_OBJ_GOOD,
+	DU_INFO_RACE_POP,
+	DU_INFO_VAULT_INFO,
+	DU_INFO_PORTAL_INFO,
+	DU_INFO_COMMENT,
 };
 
 errr parse_dungeon_info_csv(char *buf, header *head)
@@ -5400,7 +5410,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, du_info_csv_list[0]))
 	{
-		rc_info_csv_code[0] = ID;
+		rc_info_csv_code[0] = DU_INFO_ID;
 		for(i = 1; i < DU_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
@@ -5437,37 +5447,37 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			
 			switch(du_info_csv_code[i])
 			{
-				case NAME:
+				case DU_INFO_NAME:
 					if (!add_name(&dungeon_info[n].name, head, tmp))
 						return (7);
 					break;
 
-				case E_NAME:
+				case DU_INFO_E_NAME:
 					if (!add_name(&dungeon_info[n].E_name, head, tmp))
 						return (7);
 					break;
 
-				case DY:
+				case DU_INFO_DY:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].dy = (byte)b;
 					break;
 
-				case DX:
+				case DU_INFO_DX:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].dx = (byte)b;
 					break;
 
-				case TEXT:
+				case DU_INFO_TEXT:
 					if (!add_name(&dungeon_info[n].text, head, tmp))
 						return (7);
 					break;
 
-				case E_TEXT:
+				case DU_INFO_E_TEXT:
 					if (!add_name(&dungeon_info[n].E_text, head, tmp))
 						return (7);
 					break;
 
-				case FEAT_PROB_FLOOR:
+				case DU_INFO_FEAT_PROB_FLOOR:
 					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
 					d_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->floor[0].percent = atoi(zz[1]);
@@ -5477,7 +5487,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					d_ptr->floor[2].percent = atoi(zz[5]);
 					break;
 
-				case FEAT_PROB_FILL:
+				case DU_INFO_FEAT_PROB_FILL:
 					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
 					d_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->fill[0].percent = atoi(zz[1]);
@@ -5487,52 +5497,52 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					d_ptr->fill[2].percent = atoi(zz[5]);
 					break;
 
-				case OUTER_WALL:
+				case DU_INFO_OUTER_WALL:
 					d_ptr->outer_wall = feature_tag_to_index(tmp);
 					if (d_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
-				case INNER_WALL:
+				case DU_INFO_INNER_WALL:
 					d_ptr->inner_wall = feature_tag_to_index(tmp);
 					if (d_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
-				case STREAM1:
+				case DU_INFO_STREAM1:
 					d_ptr->stream1 = feature_tag_to_index(tmp);
 					if (d_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
-				case STREAM2:
+				case DU_INFO_STREAM2:
 					d_ptr->stream2 = feature_tag_to_index(tmp);
 					if (d_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
-				case MINDEPTH:
+				case DU_INFO_MINDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].mindepth = (s16b)b;
 					break;
 
-				case MAXDEPTH:
+				case DU_INFO_MAXDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].maxdepth = (s16b)b;
 					break;
 
-				case MIN_PLEV:
+				case DU_INFO_MIN_PLEV:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].min_plev = (byte)b;
 					break;
 
-				case PIT:
+				case DU_INFO_PIT:
 					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
 					dungeon_info[n].pit = (s16b)b;
 					break;
 
-				case NEST:
+				case DU_INFO_NEST:
 					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
 					dungeon_info[n].nest = (s16b)b;
 					break;
 
-				case MODE:
+				case DU_INFO_MODE:
 					if(strcmp(tmp, "NONE") == 0) d_ptr->mode = DUNGEON_MODE_NONE;
 					if(strcmp(tmp, "AND") == 0) d_ptr->mode = DUNGEON_MODE_AND;
 					if(strcmp(tmp, "NAND") == 0) d_ptr->mode = DUNGEON_MODE_NAND;
@@ -5540,17 +5550,17 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					if(strcmp(tmp, "NOR") == 0) d_ptr->mode = DUNGEON_MODE_NOR;
 					break;
 
-				case MIN_M_ALLOC_LEVEL:
+				case DU_INFO_MIN_M_ALLOC_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].min_m_alloc_level = (s16b)b;
 					break;
 
-				case MAX_M_ALLOC_CHANCE:
+				case DU_INFO_MAX_M_ALLOC_CHANCE:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].max_m_alloc_chance = (s16b)b;
 					break;
 
-				case D_FLAGS:
+				case DU_INFO_D_FLAGS:
 					/* Parse every entry */
 					for (s = tmp; *s; )
 					{
@@ -5572,57 +5582,57 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					}
 					break;
 
-				case C_FLAGS:
+				case DU_INFO_C_FLAGS:
 					break;
 
-				case R_RACE:
+				case DU_INFO_R_RACE:
 					break;
 
-				case FINAL_OBJECT:
+				case DU_INFO_FINAL_OBJECT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].final_object = (s16b)b;
 					break;
 
-				case FINAL_ARTIFACT:
+				case DU_INFO_FINAL_ARTIFACT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
-				case FINAL_GUARDIAN:
+				case DU_INFO_FINAL_GUARDIAN:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
-				case SPECIAL_DIV:
+				case DU_INFO_SPECIAL_DIV:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].special_div = (byte)b;
 					break;
 
-				case TUNNEL_PERCENT:
+				case DU_INFO_TUNNEL_PERCENT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].tunnel_percent = (byte)b;
 					break;
 
-				case OBJ_GREAT:
+				case DU_INFO_OBJ_GREAT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].obj_great = (byte)b;
 					break;
 
-				case OBJ_GOOD:
+				case DU_INFO_OBJ_GOOD:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					dungeon_info[n].obj_good = (byte)b;
 					break;
 
-				case RACE_POP:
+				case DU_INFO_RACE_POP:
 					break;
 
-				case VAULT_INFO:
+				case DU_INFO_VAULT_INFO:
 					break;
 
-				case PORTAL_INFO:
+				case DU_INFO_PORTAL_INFO:
 					break;
 
-				case COMMENT:
+				case DU_INFO_COMMENT:
 					break;
 			}
 		}
