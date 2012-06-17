@@ -1884,21 +1884,21 @@ struct dungeon_type {
 	s16b nest;
 	byte mode;		/* Mode of combinaison of the monster flags */
 
-	int min_m_alloc_level;	/* Minimal number of monsters per level */
-	int max_m_alloc_chance;	/* There is a 1/max_m_alloc_chance chance per round of creating a new monster */
+	s16b min_m_alloc_level;	/* Minimal number of monsters per level */
+	s16b max_m_alloc_chance;	/* There is a 1/max_m_alloc_chance chance per round of creating a new monster */
 
 	u32b flags1;		/* Flags 1 */
 
 	creature_flags c_flags;
 
-	int final_object;	/* The object you'll find at the bottom */
-	int final_artifact;	/* The artifact you'll find at the bottom */
-	int final_guardian;	/* The artifact's guardian. If an artifact is specified, then it's NEEDED */
+	s16b final_object;	/* The object you'll find at the bottom */
+	s16b final_artifact;	/* The artifact you'll find at the bottom */
+	s16b final_guardian;	/* The artifact's guardian. If an artifact is specified, then it's NEEDED */
 
 	byte special_div;	/* % of monsters affected by the flags/races allowed, to add some variety */
-	int tunnel_percent;
-	int obj_great;
-	int obj_good;
+	s16b tunnel_percent;
+	s16b obj_great;
+	s16b obj_good;
 
 	s16b race_population[MAX_RACES];
 

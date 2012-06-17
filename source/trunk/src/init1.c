@@ -5300,7 +5300,6 @@ static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 	return (1);
 }
 
-
 #define DU_INFO_CSV_COLUMNS 35
 static int du_info_csv_code[DU_INFO_CSV_COLUMNS];
 
@@ -5389,6 +5388,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 	int split[80], size[80];
 	int i, j, b;
 	char tmp[10000], nt[80];
+	char *zz[10];
 
 	if(get_split_offset(split, size, buf, DU_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -5467,9 +5467,23 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case FEAT_PROB_FLOOR:
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2 + 4, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2 + 4)) return (1); // Scan for the values
+					d_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
+					d_ptr->floor[0].percent = atoi(zz[1]);
+					d_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
+					d_ptr->floor[1].percent = atoi(zz[3]);
+					d_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
+					d_ptr->floor[2].percent = atoi(zz[5]);
 					break;
 
 				case FEAT_PROB_FILL:
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2 + 4, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2 + 4)) return (1); // Scan for the values
+					d_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
+					d_ptr->fill[0].percent = atoi(zz[1]);
+					d_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
+					d_ptr->fill[1].percent = atoi(zz[3]);
+					d_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
+					d_ptr->fill[2].percent = atoi(zz[5]);
 					break;
 
 				case OUTER_WALL:
@@ -5518,6 +5532,11 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case MODE:
+					if(strcmp(tmp, "NONE") == 0) d_ptr->mode = DUNGEON_MODE_NONE;
+					if(strcmp(tmp, "AND") == 0) d_ptr->mode = DUNGEON_MODE_AND;
+					if(strcmp(tmp, "NAND") == 0) d_ptr->mode = DUNGEON_MODE_NAND;
+					if(strcmp(tmp, "OR") == 0) d_ptr->mode = DUNGEON_MODE_OR;
+					if(strcmp(tmp, "NOR") == 0) d_ptr->mode = DUNGEON_MODE_NOR;
 					break;
 
 				case MIN_M_ALLOC_LEVEL:
@@ -5561,6 +5580,8 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case TUNNEL_PERCENT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					dungeon_info[n].tunnel_percent = (byte)b;
 					break;
 
 				case OBJ_GREAT:
