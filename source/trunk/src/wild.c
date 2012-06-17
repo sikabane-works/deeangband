@@ -37,7 +37,7 @@ static void set_floor_and_wall_aux(s16b feat_type[100], feat_prob prob[DUNGEON_F
 void set_floor_and_wall(byte type)
 {
 	static byte cur_type = 255;
-	dungeon_info_type *d_ptr;
+	dungeon_type *d_ptr;
 
 	/* Already filled */
 	if (cur_type == type) return;

@@ -1859,8 +1859,8 @@ feat_prob;
 
 
 /* A structure for the != dungeon types */
-typedef struct dungeon_info_type dungeon_info_type;
-struct dungeon_info_type {
+typedef struct dungeon_type dungeon_type;
+struct dungeon_type {
 	u32b name;		/* Name */
 	u32b text;		/* Description */
 

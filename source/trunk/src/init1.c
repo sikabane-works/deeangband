@@ -1079,8 +1079,7 @@ byte color_char_to_attr(char c)
 /*
  * Initialize an "*_info" array, by parsing an ascii "template" file
  */
-errr init_info_txt(FILE *fp, char *buf, header *head,
-		   parse_info_txt_func parse_info_txt_line)
+errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line)
 {
 	errr err;
 
@@ -5282,6 +5281,26 @@ errr parse_chara_info_csv(char *buf, header *head)
 }
 
 
+/*
+ * Grab one flag for a dungeon type from a textual string
+ */
+static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
+{
+	if (grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
+		return 0;
+
+	/* Oops */
+#ifdef JP
+	msg_format("未知のダンジョン・フラグ '%s'。", what);
+#else
+	msg_format("Unknown dungeon type flag '%s'.", what);
+#endif
+
+	/* Failure */
+	return (1);
+}
+
+
 #define DU_INFO_CSV_COLUMNS 35
 static int du_info_csv_code[DU_INFO_CSV_COLUMNS];
 
@@ -5410,6 +5429,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 		for(i = 1; i < DU_INFO_CSV_COLUMNS; i++)
 		{
+			dungeon_type *d_ptr = &dungeon_info[n];
 			
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
@@ -5453,15 +5473,23 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case OUTER_WALL:
+					d_ptr->outer_wall = feature_tag_to_index(tmp);
+					if (d_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case INNER_WALL:
+					d_ptr->inner_wall = feature_tag_to_index(tmp);
+					if (d_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case STREAM1:
+					d_ptr->stream1 = feature_tag_to_index(tmp);
+					if (d_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case STREAM2:
+					d_ptr->stream2 = feature_tag_to_index(tmp);
+					if (d_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case MINDEPTH:
@@ -5503,6 +5531,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case D_FLAGS:
+					if (0 != grab_one_dungeon_flag(d_ptr, tmp)) return (5); // Parse this entry
 					break;
 
 				case C_FLAGS:
@@ -5899,29 +5928,6 @@ errr parse_authority_info_csv(char *buf, header *head)
 }
 
 
-
-
-
-
-/*
- * Grab one flag for a dungeon type from a textual string
- */
-static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
-{
-	if (grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
-		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知のダンジョン・フラグ '%s'。", what);
-#else
-	msg_format("Unknown dungeon type flag '%s'.", what);
-#endif
-
-	/* Failure */
-	return (1);
-}
-
 /*
  * Initialize the "dungeon_info" array, by parsing an ascii "template" file
  */
@@ -5932,7 +5938,7 @@ errr parse_dungeon_info(char *buf, header *head)
 	char *s, *t;
 
 	/* Current entry */
-	static dungeon_info_type *d_ptr = NULL;
+	static dungeon_type *d_ptr = NULL;
 
 
 	/* Process 'N' for "New/Number/Name" */

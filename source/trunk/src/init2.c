@@ -1102,7 +1102,7 @@ static errr init_authority_info(void)
 static errr init_dungeon_info(void)
 {
 	/* Init the header */
-	init_header(&d_head, max_dungeon_idx, sizeof(dungeon_info_type));
+	init_header(&d_head, max_dungeon_idx, sizeof(dungeon_type));
 
 	/* Save a pointer to the parsing function */
 	d_head.parse_info_txt = parse_dungeon_info;

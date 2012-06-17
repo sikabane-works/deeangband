@@ -850,7 +850,7 @@ char *authority_text;
 /*
  * The dungeon arrays
  */
-dungeon_info_type *dungeon_info;
+dungeon_type *dungeon_info;
 char *dungeon_name;
 char *dungeon_text;
 

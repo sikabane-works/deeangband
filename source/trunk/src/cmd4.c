@@ -9411,7 +9411,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	char dungeon_name[80];
 	char name[80];
 	species_type *r_ptr;
-	dungeon_info_type *d_ptr;
+	dungeon_type *d_ptr;
 	int i;
 	int rand_level = 100;
 	int total = 0;

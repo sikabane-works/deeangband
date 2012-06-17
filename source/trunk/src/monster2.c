@@ -1351,7 +1351,7 @@ static int chameleon_change_m_idx = 0;
 static bool restrict_monster_to_dungeon(int species_idx)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
-	dungeon_info_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
+	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 	species_type *r_ptr = &species_info[species_idx];
 	//byte a;
 

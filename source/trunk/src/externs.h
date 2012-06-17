@@ -485,7 +485,7 @@ extern store_pre_type *store_pre_info;
 extern char *stp_name;
 extern char *stp_text;
 
-extern dungeon_info_type *dungeon_info;
+extern dungeon_type *dungeon_info;
 extern char *dungeon_name;
 extern char *dungeon_text;
 
