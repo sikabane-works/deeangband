@@ -4167,82 +4167,49 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 		if ((i == STAT_CHA) && (has_cf_creature(creature_ptr, CF_ILL_NORM)))
 		{
-			/* 10 to 18/90 charisma, guaranteed, based on level */
-			if (use < 8 + 2 * creature_ptr->lev)
+			// 10.0 to 34.0 charisma, guaranteed, based on level
+			if (use < 100 + 4 * creature_ptr->lev)
 			{
-				use = 8 + 2 * creature_ptr->lev;
+				use = 100 + 4 * creature_ptr->lev;
 			}
 		}
 
-		/* Notice changes */
+		// Notice changes
 		if (creature_ptr->stat_use[i] != use)
 		{
-			/* Save the new value */
-			creature_ptr->stat_use[i] = use;
-
-			/* Redisplay the stats later */
-			play_redraw |= (PR_STATS);
-
-			/* Window stuff */
-			play_window |= (PW_PLAYER);
+			creature_ptr->stat_use[i] = use; // Save the new value
+			play_redraw |= (PR_STATS);  // Redisplay the stats later
+			play_window |= (PW_PLAYER); // Window stuff
 		}
 
+		ind = use / 10;
 
-		/* Values: 3, 4, ..., 17 */
-		if (use <= 18) ind = (use - 3);
-
-		/* Ranges: 18/00-18/09, ..., 18/210-18/219 */
-		else if (use <= 18+419) ind = (15 + (use - 18) / 10);
-
-		/* Range: 18/220+ */
-		else ind = (57);
-
-		/* Notice changes */
+		// Notice changes
 		if (creature_ptr->stat_ind[i] != ind)
 		{
-			/* Save the new index */
-			creature_ptr->stat_ind[i] = ind;
+			creature_ptr->stat_ind[i] = ind; // Save the new index
+			if (i == STAT_CON) creature_ptr->creature_update |= (CRU_HP); // Change in CON affects Hitpoints
 
-			/* Change in CON affects Hitpoints */
-			if (i == STAT_CON)
-			{
-				creature_ptr->creature_update |= (CRU_HP);
-			}
-
-			/* Change in INT may affect Mana/Spells */
-			else if (i == STAT_INT)
+			else if (i == STAT_INT) // Change in INT may affect Mana/Spells
 			{
 				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_INT)
-				{
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-				}
 			}
-
-			/* Change in WIS may affect Mana/Spells */
-			else if (i == STAT_WIS)
+			else if (i == STAT_WIS) // Change in WIS may affect Mana/Spells
 			{
 				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_WIS)
-				{
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-				}
 			}
-
-			/* Change in WIS may affect Mana/Spells */
-			else if (i == STAT_CHA)
+			else if (i == STAT_CHA) // Change in WIS may affect Mana/Spells
 			{
 				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_CHA)
-				{
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-				}
 			}
-
-			/* Window stuff */
-			play_window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER); // Window stuff
 		}
 	}
 
-
-	/* Apply temporary "stun" */
+	// Apply temporary "stun"
 	if (creature_ptr->stun > 50)
 	{
 		creature_ptr->to_h[0] -= 20;
@@ -4274,7 +4241,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->dis_to_d[1] -= 5;
 	}
 
-	/* Wraith form */
+	// Wraith form
 	if (creature_ptr->wraith_form)
 	{
 		creature_ptr->reflect = TRUE;
