@@ -4795,7 +4795,7 @@ bool inc_stat(creature_type *cr_ptr, int stat)
 		}
 
 		/* Gain 1/6 to 1/3 of distance to 18/100 */
-		else if (value < (cr_ptr->stat_mod_max_max[stat]-2))
+		else if (value < (cr_ptr->stat_mod_max_max[stat] - 2))
 		{
 			/* Approximate gain value */
 			gain = (((cr_ptr->stat_mod_max_max[stat]) - value) / 2 + 3) / 2;

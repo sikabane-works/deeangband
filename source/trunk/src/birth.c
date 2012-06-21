@@ -2589,7 +2589,7 @@ static void set_age(creature_type *creature_ptr)
  */
 static void get_money(creature_type *creature_ptr)
 {
-	int i, gold;
+	int gold;
 
 	// Starting gold
 	gold = randint1(100) + 300;

@@ -3362,17 +3362,17 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx) 
 				creature_ptr->skill_dig += creature_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
-			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_STR]++;
-			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_STR]++;
-			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_STR]++;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_STR] += 10;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_STR] += 10;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_STR] += 10;
 
-			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_DEX]--;
-			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_DEX]--;
-			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_DEX]--;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_DEX] -= 10;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_DEX] -= 10;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_DEX] -= 10;
 
-			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_CON]++;
-			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_CON]++;
-			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_CON]++;
+			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_CON] += 10;
+			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_CON] += 10;
+			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_CON] += 10;
 		}
 		if(IS_RACE(creature_ptr, RACE_KLACKON))
 		{
@@ -3572,21 +3572,21 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 		if (has_cf_creature(creature_ptr, CF_WART_SKIN))
 		{
-			creature_ptr->stat_add[STAT_CHA] -= 2;
+			creature_ptr->stat_add[STAT_CHA] -= 20;
 			creature_ptr->to_a += 5;
 			creature_ptr->dis_to_a += 5;
 		}
 
 		if (has_cf_creature(creature_ptr, CF_SCALES))
 		{
-			creature_ptr->stat_add[STAT_CHA] -= 1;
+			creature_ptr->stat_add[STAT_CHA] -= 10;
 			creature_ptr->to_a += 10;
 			creature_ptr->dis_to_a += 10;
 		}
 
 		if (has_cf_creature(creature_ptr, CF_IRON_SKIN))
 		{
-			creature_ptr->stat_add[STAT_DEX] -= 1;
+			creature_ptr->stat_add[STAT_DEX] -= 10;
 			creature_ptr->to_a += 25;
 			creature_ptr->dis_to_a += 25;
 		}
@@ -3613,12 +3613,12 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 		if (has_cf_creature(creature_ptr, CF_LIMBER))
 		{
-			creature_ptr->stat_add[STAT_DEX] += 3;
+			creature_ptr->stat_add[STAT_DEX] += 30;
 		}
 
 		if (has_cf_creature(creature_ptr, CF_ARTHRITIS))
 		{
-			creature_ptr->stat_add[STAT_DEX] -= 3;
+			creature_ptr->stat_add[STAT_DEX] -= 30;
 		}
 
 		if (has_cf_creature(creature_ptr, CF_MOTION))
@@ -3635,8 +3635,8 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->tsuyoshi)
 	{
-		creature_ptr->stat_add[STAT_STR] += 4;
-		creature_ptr->stat_add[STAT_CON] += 4;
+		creature_ptr->stat_add[STAT_STR] += 40;
+		creature_ptr->stat_add[STAT_CON] += 40;
 	}
 
 	/* Scan the usable creature_ptr->inventory */
@@ -3662,12 +3662,12 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		if (o_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
 
 		/* Affect stats */
-		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += o_ptr->pval;
-		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += o_ptr->pval;
-		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += o_ptr->pval;
-		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += o_ptr->pval;
-		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += o_ptr->pval;
-		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += o_ptr->pval;
+		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += o_ptr->pval * 10;
+		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += o_ptr->pval * 10;
+		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += o_ptr->pval * 10;
+		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += o_ptr->pval * 10;
+		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += o_ptr->pval * 10;
+		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += o_ptr->pval * 10;
 
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8*o_ptr->pval;
 
@@ -3991,39 +3991,38 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		*/
 		if (creature_ptr->special_defense & KAMAE_BYAKKO)
 		{
-			creature_ptr->stat_add[STAT_STR] += 2;
-			creature_ptr->stat_add[STAT_DEX] += 2;
-			creature_ptr->stat_add[STAT_CON] -= 3;
+			creature_ptr->stat_add[STAT_STR] += 20;
+			creature_ptr->stat_add[STAT_DEX] += 20;
+			creature_ptr->stat_add[STAT_CON] -= 30;
 		}
 		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
 		{
 		}
 		else if (creature_ptr->special_defense & KAMAE_GENBU)
 		{
-			creature_ptr->stat_add[STAT_INT] -= 1;
-			creature_ptr->stat_add[STAT_WIS] -= 1;
-			creature_ptr->stat_add[STAT_DEX] -= 2;
-			creature_ptr->stat_add[STAT_CON] += 3;
+			creature_ptr->stat_add[STAT_INT] -= 10;
+			creature_ptr->stat_add[STAT_WIS] -= 10;
+			creature_ptr->stat_add[STAT_DEX] -= 20;
+			creature_ptr->stat_add[STAT_CON] += 30;
 		}
 		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		{
-			creature_ptr->stat_add[STAT_STR] -= 2;
-			creature_ptr->stat_add[STAT_INT] += 1;
-			creature_ptr->stat_add[STAT_WIS] += 1;
-			creature_ptr->stat_add[STAT_DEX] += 2;
-			creature_ptr->stat_add[STAT_CON] -= 2;
+			creature_ptr->stat_add[STAT_STR] -= 20;
+			creature_ptr->stat_add[STAT_INT] += 10;
+			creature_ptr->stat_add[STAT_WIS] += 10;
+			creature_ptr->stat_add[STAT_DEX] += 20;
+			creature_ptr->stat_add[STAT_CON] -= 20;
 		}
 	}
 
 	if (creature_ptr->special_defense & KATA_KOUKIJIN)
 	{
-		for (i = 0; i < 6; i++)
-			creature_ptr->stat_add[i] += 5;
+		for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
 		creature_ptr->to_a -= 50;
 		creature_ptr->dis_to_a -= 50;
 	}
 
-	/* Set Species Blow. */
+	// Set Species Blow.
 	creature_ptr->blow[0] = species_ptr->blow[0];
 	creature_ptr->blow[1] = species_ptr->blow[1];
 	creature_ptr->blow[2] = species_ptr->blow[2];
@@ -4047,17 +4046,17 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->dis_to_a += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 
-	/* Hex bonuses */
+	// Hex bonuses
 	if (creature_ptr->realm1 == REALM_HEX)
 	{
 		if (hex_spelling_any(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->magic_num2[0]);
 		if (hex_spelling(creature_ptr, HEX_DETECT_EVIL)) creature_ptr->esp_evil = TRUE;
-		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 4;
+		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 40;
 		if (hex_spelling(creature_ptr, HEX_BUILDING))
 		{
-			creature_ptr->stat_add[STAT_STR] += 4;
-			creature_ptr->stat_add[STAT_DEX] += 4;
-			creature_ptr->stat_add[STAT_CON] += 4;
+			creature_ptr->stat_add[STAT_STR] += 40;
+			creature_ptr->stat_add[STAT_DEX] += 40;
+			creature_ptr->stat_add[STAT_CON] += 40;
 		}
 		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
