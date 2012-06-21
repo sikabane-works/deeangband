@@ -24,55 +24,6 @@ void cnv_stat(int val, char *out_val)
 	sprintf(out_val, " %3d.%01d", val / STAT_FRACTION, val % STAT_FRACTION);
 }
 
-/*
- * Modify a stat value by a "modifier", return new value
- *
- * Stats go up: 3,4,...,17,18,18/10,18/20,...,18/220
- * Or even: 18/13, 18/23, 18/33, ..., 18/220
- *
- * Stats go down: 18/220, 18/210,..., 18/10, 18, 17, ..., 3
- * Or even: 18/13, 18/03, 18, 17, ..., 3
- */
-s16b modify_stat_value(int value, int amount)
-{
-	int    i;
-
-	/* Reward */
-	if (amount > 0)
-	{
-		/* Apply each point */
-		for (i = 0; i < amount; i++)
-		{
-			/* One point at a time */
-			if (value < 18) value++;
-
-			/* Ten "points" at a time */
-			else value += 10;
-		}
-	}
-
-	/* Penalty */
-	else if (amount < 0)
-	{
-		/* Apply each point */
-		for (i = 0; i < (0 - amount); i++)
-		{
-			/* Ten points at a time */
-			if (value >= 18+10) value -= 10;
-
-			/* Hack -- prevent weirdness */
-			else if (value > 18) value = 18;
-
-			/* One point at a time */
-			else if (value > 3) value--;
-		}
-	}
-
-	/* Return new value */
-	return (value);
-}
-
-
 
 /*
  * Print character info at given row, column in a 13 char field
@@ -4145,33 +4096,21 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	{
 		int top, use, ind;
 
-		/* Extract the new "stat_use" value for the stat */
-		top = modify_stat_value(creature_ptr->stat_max[i], creature_ptr->stat_add[i]);
-
-		/* Notice changes */
-		if (creature_ptr->stat_top[i] != top)
+		// Extract the new "stat_use" value for the stat
+		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
+		if (creature_ptr->stat_top[i] != top) // Notice changes
 		{
-			/* Save the new value */
-			creature_ptr->stat_top[i] = top;
-
-			/* Redisplay the stats later */
-			play_redraw |= (PR_STATS);
-
-			/* Window stuff */
-			play_window |= (PW_PLAYER);
+			creature_ptr->stat_top[i] = top; // Save the new value
+			play_redraw |= (PR_STATS); // Redisplay the stats later
+			play_window |= (PW_PLAYER); // Window stuff
 		}
 
-
-		/* Extract the new "stat_use" value for the stat */
-		use = modify_stat_value(creature_ptr->stat_cur[i], creature_ptr->stat_add[i]);
-
+		// Extract the new "stat_use" value for the stat
+		use = creature_ptr->stat_cur[i] + creature_ptr->stat_add[i];
 		if ((i == STAT_CHA) && (has_cf_creature(creature_ptr, CF_ILL_NORM)))
 		{
 			// 10.0 to 34.0 charisma, guaranteed, based on level
-			if (use < 100 + 4 * creature_ptr->lev)
-			{
-				use = 100 + 4 * creature_ptr->lev;
-			}
+			if (use < 100 + 4 * creature_ptr->lev) use = 100 + 4 * creature_ptr->lev;
 		}
 
 		// Notice changes
