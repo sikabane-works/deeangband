@@ -2593,25 +2593,8 @@ static void get_money(creature_type *creature_ptr)
 
 	// Starting gold
 	gold = randint1(100) + 300;
-
-	if (creature_ptr->cls_idx == CLASS_TOURIST)
-	  gold += 2000;
-
-	// Process the stats
-	for (i = 0; i < 6; i++)
-	{
-		// Mega-Hack -- reduce gold for high stats
-		if (creature_ptr->stat_max[i] >= 230) gold -= 300;
-		else if (creature_ptr->stat_max[i] >= 200) gold -= 200;
-		else if (creature_ptr->stat_max[i] > 180) gold -= 150;
-		else gold -= (creature_ptr->stat_max[i]);
-	}
-
-	// Minimum 100 gold 
+	if (creature_ptr->cls_idx == CLASS_TOURIST) gold += 2000;
 	if (gold < 100) gold = 100;
-
-	// Level Bonus
-	for(i = 1; i < creature_ptr->lev; i++) gold += (diceroll(creature_ptr->lev, 6) * creature_ptr->lev / 2);
 
 	if (creature_ptr->chara_idx == CHARA_NAMAKE)
 		gold /= 2;
@@ -2619,8 +2602,7 @@ static void get_money(creature_type *creature_ptr)
 		gold = 10000000;
 	if (has_cf_creature(creature_ptr, CF_ANDROID)) gold /= 5;
 
-	// Level and social class calc
-	gold += creature_ptr->sc * (creature_ptr->lev * creature_ptr->lev + 5) / 2;
+	gold += creature_ptr->sc * (creature_ptr->lev * creature_ptr->lev + 5) / 2; // Level and social class calc
 
 	// Save the gold
 	creature_ptr->au = gold;
@@ -2657,12 +2639,11 @@ static void birth_put_stats(creature_type *creature_ptr)
 			/* Obtain the current stat */
 			m = adjust_stat(creature_ptr->stat_max[i], j);
 
-			/* Put the stat */
+			// Put the stat
 			cnv_stat(m, buf);
-			c_put_str(TERM_L_GREEN, buf, 3+i, col+24);
+			c_put_str(TERM_L_GREEN, buf, 3 + i, col + 24);
 
-			/* Put the percent */
-			if (stat_match[i])
+			if (stat_match[i]) // Put the percent
 			{
 				if (stat_match[i] > 1000000L)
 				{

@@ -12275,16 +12275,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
 				{
-					if (creature_ptr->stat_cur[i] < 18)
-						creature_ptr->stat_cur[i]++;
-					else
-						creature_ptr->stat_cur[i] += 10;
-
-					if (creature_ptr->stat_cur[i] > creature_ptr->stat_max[i])
-						creature_ptr->stat_cur[i] = creature_ptr->stat_max[i];
-
-					/* Recalculate bonuses */
-					creature_ptr->creature_update |= (CRU_BONUS);
+					creature_ptr->stat_cur[i] += 10;
+					if (creature_ptr->stat_cur[i] > creature_ptr->stat_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_max[i];
+					creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
 
 					flag = TRUE;
 				}

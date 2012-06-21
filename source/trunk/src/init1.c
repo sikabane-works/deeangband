@@ -3374,38 +3374,38 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_STR] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_STR] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_STR] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_STR] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_INT] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_INT] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_INT] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_INT] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_WIS] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_WIS] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_DEX] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_DEX] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_CON] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_CON] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_CON] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_CON] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[STAT_CHA] = (s16b)b * 10;
-				species_info[n].stat_max_max[STAT_CHA] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
+				species_info[n].stat_max_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_M_HB:

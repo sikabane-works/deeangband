@@ -2136,11 +2136,9 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get grid
 	feature_type *f_ptr = &feature_info[c_ptr->feat]; // Get feature
 
-	// Hack -- Bash power based on strength
-	// (Ranges from 3 to 20 to 100 to 200)
 	int bash = adj_str_blow[creature_ptr->stat_ind[STAT_STR]];
 	int temp = f_ptr->power; // Extract door power
-	bool		more = FALSE;
+	bool more = FALSE;
 
 	cptr name = feature_name + feature_info[get_feat_mimic(c_ptr)].name;
 
