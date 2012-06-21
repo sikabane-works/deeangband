@@ -2671,7 +2671,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			{
 				if (!has_cf_creature(watcher_ptr, CF_MORONIC))
 				{
-					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
+					if ((watcher_ptr->stat_use[STAT_INT] < 40) && (watcher_ptr->stat_use[STAT_WIS] < 40))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");

@@ -769,6 +769,9 @@
 #define STAT_CON   4
 #define STAT_CHA   5
 #define STAT_MAX   6
+#define STAT_FRACTION 10
+
+
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */

@@ -2337,66 +2337,67 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 {
 	int i;
 
-	/* Roll and verify some stats */
+	// Roll and verify some stats
 	while (TRUE)
 	{
 		int sum = 0;
 
-		/* Roll some dice */
+		// Roll some dice
 		for (i = 0; i < 2; i++)
 		{
-			s32b tmp = randint0(60*60*60);
+			s32b tmp = randint0(60 * 60 * 60);
 			int val;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
+			// Extract 5 + 1d3 + 1d4 + 1d5
 			val = 5 + 3;
 			val += tmp % 3; tmp /= 3;
 			val += tmp % 4; tmp /= 4;
 			val += tmp % 5; tmp /= 5;
 
-			/* Save that value */
+			// Save that value
 			sum += val;
-			creature_ptr->stat_cur[3*i] = creature_ptr->stat_max[3*i] = val;
+			creature_ptr->stat_cur[3 * i] = creature_ptr->stat_max[3 * i] = val;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
+			// Extract 5 + 1d3 + 1d4 + 1d5
 			val = 5 + 3;
 			val += tmp % 3; tmp /= 3;
 			val += tmp % 4; tmp /= 4;
 			val += tmp % 5; tmp /= 5;
 
-			/* Save that value */
+			// Save that value
 			sum += val;
-			creature_ptr->stat_cur[3*i+1] = creature_ptr->stat_max[3*i+1] = val;
+			creature_ptr->stat_cur[3 * i + 1] = creature_ptr->stat_max[3 * i + 1] = val * STAT_FRACTION;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
+			// Extract 5 + 1d3 + 1d4 + 1d5
 			val = 5 + 3;
 			val += tmp % 3; tmp /= 3;
 			val += tmp % 4; tmp /= 4;
 			val += tmp;
 
-			/* Save that value */
+			// Save that value
 			sum += val;
-			creature_ptr->stat_cur[3*i+2] = creature_ptr->stat_max[3*i+2] = val;
+			creature_ptr->stat_cur[3 * i + 2] = creature_ptr->stat_max[3 * i + 2] = val * STAT_FRACTION;
 		}
 
-		/* Verify totals */
-		if ((sum > 42+5*6) && (sum < 57+5*6))
+		// Verify totals
+		if ((sum > 42 + 5 * 6) && (sum < 57 + 5 * 6))
 		{
 			for(i = 0; i < STAT_MAX; i++)
 			{
-				creature_ptr->stat_cur[i] += (species_ptr->stat_max[i] / 10 - 10);
-				if(creature_ptr->stat_cur[i] < 3) creature_ptr->stat_cur[i] = 3;
-				if(creature_ptr->stat_cur[i] > 18) creature_ptr->stat_cur[i] = 18 + (creature_ptr->stat_cur[i] - 18) * 10;
+				creature_ptr->stat_cur[i] += species_ptr->stat_max[i] - 100;
+				if(creature_ptr->stat_cur[i] < 30) creature_ptr->stat_cur[i] = 30;
 				creature_ptr->stat_max[i] = creature_ptr->stat_cur[i];
 			}
 			break;
 		}
-		/* 57 was 54... I hate 'magic numbers' :< TY */
+
+		// 57 was 54... I hate 'magic numbers' :< TY
+		// Agree. Deskull
 	}
 
 	for(i = 0; i < STAT_MAX; i++)
 	{
-		if(creature_ptr->stat_cur[i] < 3) msg_print("Warning: Out Range Status Point.");
+		if(creature_ptr->stat_cur[i] < 30) msg_print("Warning: Out Range Status Point.");
 	}
 
 }
@@ -2600,10 +2601,10 @@ static void get_money(creature_type *creature_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		// Mega-Hack -- reduce gold for high stats
-		if (creature_ptr->stat_max[i] >= 18 + 50) gold -= 300;
-		else if (creature_ptr->stat_max[i] >= 18 + 20) gold -= 200;
-		else if (creature_ptr->stat_max[i] > 18) gold -= 150;
-		else gold -= (creature_ptr->stat_max[i] - 8) * 10;
+		if (creature_ptr->stat_max[i] >= 230) gold -= 300;
+		else if (creature_ptr->stat_max[i] >= 200) gold -= 200;
+		else if (creature_ptr->stat_max[i] > 180) gold -= 150;
+		else gold -= (creature_ptr->stat_max[i]);
 	}
 
 	// Minimum 100 gold 
@@ -5465,20 +5466,20 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				int j, m;
 
 				/* Label stats */
-				put_str(stat_names[i], 3+i, col);
+				put_str(stat_names[i], 3 + i, col);
 
 				/* Race/Class/Species bonus */
 				if(IS_PURE(creature_ptr))
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
 						class_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] / 10 - 10;
+						species_ptr->stat_max[i] /  STAT_FRACTION - 10;
 				else
 					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
 						race_info[creature_ptr->race_idx2].r_s_adj[i] +
 						class_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] / 10 - 10;
+						species_ptr->stat_max[i] /  STAT_FRACTION - 10;
 
 
 				/* Obtain the current stat */

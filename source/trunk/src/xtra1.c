@@ -21,28 +21,8 @@
  */
 void cnv_stat(int val, char *out_val)
 {
-	/* Above 18 */
-	if (val > 18)
-	{
-		int bonus = (val - 18);
-
-		if (bonus >= 420)
-		{
-			sprintf(out_val, "  ****");
-		}
-		else
-		{
-			sprintf(out_val, "  %02d.%01d", (18 + bonus / 10),  bonus % 10);
-		}
-	}
-
-	/* From 3 to 18 */
-	else
-	{
-		sprintf(out_val, "  %2d.0", val);
-	}
+	sprintf(out_val, " %3d.%01d", val / STAT_FRACTION, val % STAT_FRACTION);
 }
-
 
 /*
  * Modify a stat value by a "modifier", return new value
