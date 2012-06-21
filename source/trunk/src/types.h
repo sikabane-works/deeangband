@@ -1237,10 +1237,14 @@ struct creature_type
 
 	s16b max_plv;		/* Max Player Level */
 
-	s16b stat_max[6];	/* Current "maximal" stat values */
-	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
-	s16b stat_mod_max_max[6];	/* modified Maximal "maximal" stat values by divine rank*/
-	s16b stat_cur[6];	/* Current "natural" stat values */
+	s16b stat_cur[STAT_MAX];           // Current "natural" stat values
+	s16b stat_max[STAT_MAX];	        // Current "maximal" stat values
+	s16b stat_max_max[STAT_MAX];	    // Maximal "maximal" stat values
+	s16b stat_mod_max_max[STAT_MAX];	// Modified Maximal "maximal" stat values by divine rank
+	s16b stat_use[STAT_MAX];           // Current modified stats
+	s16b stat_top[STAT_MAX];           // Maximal modified stats
+	s16b stat_add[STAT_MAX];           // Modifiers to stat values
+	s16b stat_ind[STAT_MAX];           // Indexes into stat tables
 
 	s16b learned_spells;
 	s16b add_spells;
@@ -1411,9 +1415,6 @@ struct creature_type
 
 	s16b cur_lite;		/* Radius of lite (if any) */
 
-	s16b stat_use[6];	/* Current modified stats */
-	s16b stat_top[6];	/* Maximal modified stats */
-
 	bool sutemi;
 	bool counter;
 
@@ -1436,9 +1437,6 @@ struct creature_type
 
 	u32b equipping_weight;	/* Total weight being carried */
 	u32b carrying_weight;	/* Total weight being carried */
-
-	s16b stat_add[6];	/* Modifiers to stat values */
-	s16b stat_ind[6];	/* Indexes into stat tables */
 
 	s16b resist_acid;	/* Resist acid */
 	s16b resist_elec;	/* Resist lightning */
