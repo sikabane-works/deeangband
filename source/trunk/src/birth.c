@@ -2713,7 +2713,7 @@ void creature_wipe(creature_type *creature_ptr)
 	}
 
 	/* No weight */
-	creature_ptr->total_weight = 0;
+	creature_ptr->carrying_weight = 0;
 
 	/* No items */
 	creature_ptr->inven_cnt = 0;

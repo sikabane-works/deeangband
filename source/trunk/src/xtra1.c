@@ -4527,7 +4527,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	*/
 
 	/* Extract the current weight (in tenth pounds) */
-	j = creature_ptr->total_weight;
+	j = creature_ptr->carrying_weight;
 
 	if (!creature_ptr->riding)
 	{

@@ -1434,7 +1434,8 @@ struct creature_type
 
 	/*** Extracted fields ***/
 
-	u32b total_weight;	/* Total weight being carried */
+	u32b equipping_weight;	/* Total weight being carried */
+	u32b carrying_weight;	/* Total weight being carried */
 
 	s16b stat_add[6];	/* Modifiers to stat values */
 	s16b stat_ind[6];	/* Indexes into stat tables */

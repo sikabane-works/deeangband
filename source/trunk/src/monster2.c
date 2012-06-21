@@ -3598,7 +3598,7 @@ void deal_item(creature_type *creature_ptr)
 	u32b mo_mode = 0L;
 	int object_level;
 
-	creature_ptr->total_weight = 0;
+	creature_ptr->carrying_weight = 0;
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
 

@@ -8410,12 +8410,12 @@ void calc_inventory_weight(creature_type *creature_ptr)
 	int i;
 	object_type *o_ptr;
 
-	creature_ptr->total_weight = 0;
+	creature_ptr->carrying_weight = 0;
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &creature_ptr->inventory[i];
-		creature_ptr->total_weight += (o_ptr->weight * o_ptr->number);
+		creature_ptr->carrying_weight += (o_ptr->weight * o_ptr->number);
 	}
 
 }

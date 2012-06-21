@@ -4934,7 +4934,7 @@ static bool run_test(creature_type *creature_ptr)
 
 				/* Deep water */
 				else if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-				         (creature_ptr->levitation || creature_ptr->can_swim || (creature_ptr->total_weight <= weight_limit(creature_ptr))))
+				         (creature_ptr->levitation || creature_ptr->can_swim || (creature_ptr->carrying_weight <= weight_limit(creature_ptr))))
 				{
 					/* Ignore */
 					notice = FALSE;

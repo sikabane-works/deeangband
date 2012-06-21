@@ -401,7 +401,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 	object_type *q_ptr;
 
 	/* No weight */
-	cr_ptr->total_weight = 0;
+	cr_ptr->carrying_weight = 0;
 
 	/* No items */
 	cr_ptr->inven_cnt = 0;
