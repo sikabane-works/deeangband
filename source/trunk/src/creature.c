@@ -2305,10 +2305,9 @@ bool has_status(creature_type *creature_ptr, int stat)
 	return FALSE;
 }
 
-int calc_weapon_weight_limit(creature_type *cr_ptr)
+int calc_weapon_weight_limit(creature_type *creature_ptr)
 {
-	int hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size;
-	if (cr_ptr->two_handed) hold *= 2;
+	int hold = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * creature_ptr->size / 10 * creature_ptr->size / 10;
 	return hold;
 }
 

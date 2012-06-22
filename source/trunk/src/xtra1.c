@@ -4483,10 +4483,8 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->dis_to_h[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->dis_to_h_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
-
 	/* Obtain the "hold" value */
-	hold = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * creature_ptr->size / 10 * creature_ptr->size / 10;
-
+	hold = calc_weapon_weight_limit(creature_ptr);
 
 	// Examine the "current bow"
 	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
