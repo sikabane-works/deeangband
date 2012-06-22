@@ -1536,8 +1536,8 @@ errr check_load_init(void)
 }
 
 
-#define ENTRY_TWO_HANDS 0
-#define ENTRY_RIGHT_HAND1 1
+#define ENTRY_CARRYING_WEIGHT 0
+#define ENTRY_EQUIPPING_WEIGHT 1
 #define ENTRY_LEFT_HAND1 2
 #define ENTRY_LEFT_HAND2 3
 #define ENTRY_RIGHT_HAND2 4
@@ -1559,7 +1559,7 @@ errr check_load_init(void)
 #define ENTRY_SKILL_FIGHT 20
 #define ENTRY_SKILL_SHOOT 21
 #define ENTRY_SKILL_ROBUSTNESS 22
-#define ENTRY_skill_evaLITY 23
+#define ENTRY_SKILL_EVALITY 23
 #define ENTRY_SKILL_VOLITION 24
 #define ENTRY_SKILL_STEALTH 25
 #define ENTRY_SKILL_PERCEP 26
@@ -1610,8 +1610,8 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 11, 30,  0,  0,  0, ""},
-	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 13, 30,  0,  0,  0, "ŠŽd—Ê"},
+	{ 1, 14, 30,  0,  0,  0, "‘•”õd—Ê"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
@@ -1669,8 +1669,8 @@ static struct
 };
 #else
 = {
-	{ 1, 11, 30,  0,  0,  0, ""},
-	{ 1, 11, 30,  0,  0,  0, ""},
+	{ 1, 13, 30,  0,  0,  0, "Carrying"},
+	{ 1, 14, 30,  0,  0,  0, "Equipping"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
@@ -1840,7 +1840,7 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
  */
 static void display_player_middle(creature_type *creature_ptr)
 {
-	char buf[160];
+	char buf[160], buf1[30], buf2[30];
 
 	/* Base skill */
 	int show_tohit = creature_ptr->dis_to_h_b;
@@ -1921,6 +1921,17 @@ static void display_player_middle(creature_type *creature_ptr)
 
 	/* Dump the armor class */
 	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_a), TERM_L_BLUE);
+
+	format_weight(buf1, creature_ptr->carrying_weight);
+	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
+	display_player_one_line(ENTRY_CARRYING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2,
+		creature_ptr->carrying_weight * 100 / calc_carrying_weight_limit(creature_ptr)), TERM_L_BLUE);
+
+	format_weight(buf1, creature_ptr->equipping_weight);
+	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
+	display_player_one_line(ENTRY_EQUIPPING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2,
+		creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr)), TERM_L_BLUE);
+
 
 	/* Dump speed */
 	{
@@ -2274,7 +2285,7 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
 
 	desc = likert(xagi, 5);
-	display_player_one_line(ENTRY_skill_evaLITY, desc, likert_color);
+	display_player_one_line(ENTRY_SKILL_EVALITY, desc, likert_color);
 
 	desc = likert(xvol, 5);
 	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
