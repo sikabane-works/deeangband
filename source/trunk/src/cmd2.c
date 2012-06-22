@@ -3211,7 +3211,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Get extra "power" from "extra might" */
 	if (creature_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;
@@ -4335,7 +4335,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (return_when_thrown)
 	{
-		int back_chance = randint1(30) + 20 + ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
 

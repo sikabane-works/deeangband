@@ -2799,9 +2799,9 @@ u32b weight_limit(creature_type *cr_ptr)
 
 	// Weight limit based only on strength
 	// Constant was 100
-	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 25;
+	i = (u32b)adj_str_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
 	i *= cr_ptr->size / 10 * cr_ptr->size / 10 * cr_ptr->size / 10;
-	i += (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 25;
+	i += (u32b)adj_str_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
 	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
 	// Return the result
@@ -4459,29 +4459,29 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->action == ACTION_SEARCH) new_speed -= 10;
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
-	creature_ptr->to_a += ((int)(adj_dex_ta[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_d[0] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_d[1] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_d_m  += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_h[0] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_h[1] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_h_b  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_h_m  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_h[0] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_h[1] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_h_b  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_h_m  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_a += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_d[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_d[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_d_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_h[0] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_h_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
-	creature_ptr->dis_to_a += ((int)(adj_dex_ta[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_d[0] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_d[1] += ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_h[0] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_h[1] += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_h_b  += ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_h[0] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_h[1] += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_h_b  += ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_a += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_d[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_d[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_h[0] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_h_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 
 	/* Obtain the "hold" value */
@@ -5090,8 +5090,8 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->two_handed && !omoi)
 	{
 		int bonus_to_h=0, bonus_to_d=0;
-		bonus_to_d = ((int)(adj_str_td[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
-		bonus_to_h = ((int)(adj_str_th[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_th[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		bonus_to_d = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
+		bonus_to_h = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 
 		creature_ptr->to_h[default_hand] += MAX(bonus_to_h,1);
 		creature_ptr->dis_to_h[default_hand] += MAX(bonus_to_h,1);

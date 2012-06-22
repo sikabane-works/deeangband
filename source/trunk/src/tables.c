@@ -684,7 +684,7 @@ byte adj_int_dis[] =
 /*
  * Stat Table (DEX) -- bonus to ac (plus 128)
  */
-byte adj_dex_ta[] =
+byte adj_dex_to_ac[] =
 {
 	128 + -4    /* 3 */,
 	128 + -3    /* 4 */,
@@ -750,7 +750,7 @@ byte adj_dex_ta[] =
 /*
  * Stat Table (STR) -- bonus to dam (plus 128)
  */
-byte adj_str_td[] =
+byte adj_str_to_damage[] =
 {
 	128 + -2    /* 3 */,
 	128 + -2    /* 4 */,
@@ -816,7 +816,7 @@ byte adj_str_td[] =
 /*
  * Stat Table (DEX) -- bonus to hit (plus 128)
  */
-byte adj_dex_th[] =
+byte adj_dex_to_hit[] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -882,7 +882,7 @@ byte adj_dex_th[] =
 /*
  * Stat Table (STR) -- bonus to hit (plus 128)
  */
-byte adj_str_th[] =
+byte adj_str_to_hit[] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -948,7 +948,7 @@ byte adj_str_th[] =
 /*
  * Stat Table (STR) -- weight limit in deca-pounds
  */
-byte adj_str_wgt[] =
+byte adj_str_weight[] =
 {
 	10      /* 3 */,
 	11      /* 4 */,
