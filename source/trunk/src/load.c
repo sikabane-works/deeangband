@@ -402,6 +402,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 
 	/* No weight */
 	cr_ptr->carrying_weight = 0;
+	cr_ptr->equipping_weight = 0;
 
 	/* No items */
 	cr_ptr->inven_cnt = 0;
@@ -440,7 +441,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			calc_inventory_weight(cr_ptr);
+			set_inventory_weight(cr_ptr);
 
 			/* One more item */
 			cr_ptr->equip_cnt++;
@@ -474,7 +475,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			calc_inventory_weight(cr_ptr);
+			set_inventory_weight(cr_ptr);
 
 			/* One more item */
 			cr_ptr->inven_cnt++;

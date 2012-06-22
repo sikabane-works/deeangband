@@ -2940,7 +2940,7 @@ s = "Žg‚¦‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 		o_ptr->next_object_idx = next_object_idx;
 		o_ptr->marked = marked;
 		o_ptr->inscription = inscription;
-		calc_inventory_weight(cr_ptr);
+		set_inventory_weight(cr_ptr);
 	}
 	calc_android_exp(cr_ptr);
 
@@ -5610,7 +5610,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 
 					/* Unstack the used item */
 					o_ptr->number--;
-					calc_inventory_weight(cr_ptr);
+					set_inventory_weight(cr_ptr);
 					item = inven_carry(cr_ptr, q_ptr);
 
 					/* Message */

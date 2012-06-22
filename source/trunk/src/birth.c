@@ -2687,6 +2687,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	/* No weight */
 	creature_ptr->carrying_weight = 0;
+	creature_ptr->equipping_weight = 0;
 
 	/* No items */
 	creature_ptr->inven_cnt = 0;
@@ -2954,7 +2955,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	object_copy(o_ptr, i_ptr); 
  
 	/* Increase the weight */ 
-	calc_inventory_weight(creature_ptr);
+	set_inventory_weight(creature_ptr);
  
 	/* Increment the equip counter by hand */ 
 	creature_ptr->equip_cnt++;

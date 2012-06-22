@@ -4419,7 +4419,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			object_copy(o_ptr, q_ptr);
 
 			/* Increase the weight */
-			calc_inventory_weight(creature_ptr);
+			set_inventory_weight(creature_ptr);
 
 			/* Increment the equip counter by hand */
 			creature_ptr->equip_cnt++;

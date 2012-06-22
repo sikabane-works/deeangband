@@ -1281,7 +1281,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 		/* Recalcurate object's weight */
 		if (item >= 0)
 		{
-			calc_inventory_weight(cr_ptr);
+			set_inventory_weight(cr_ptr);
 		}
 
 		/* Change */

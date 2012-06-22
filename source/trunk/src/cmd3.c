@@ -100,18 +100,18 @@ void do_cmd_equip(creature_type *cr_ptr)
 	/* Display the equipment */
 	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT | SHOW_ITEM_FULL, NULL);
 
-	format_weight(buf1, cr_ptr->carrying_weight);
-	format_weight(buf2, calc_carrying_weight_limit(cr_ptr));
+	format_weight(buf1, cr_ptr->equipping_weight);
+	format_weight(buf2, calc_equipping_weight_limit(cr_ptr));
 
 	/* Build a prompt */
 #ifdef JP
 	sprintf(out_val, "装備重量： %s/%s (%ld%%). コマンド: ",
 		buf1, buf2,
-	    (cr_ptr->carrying_weight * 100) / calc_carrying_weight_limit(cr_ptr));
+	    (cr_ptr->equipping_weight * 100) / calc_equipping_weight_limit(cr_ptr));
 #else
 	sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ",
 		buf1, buf2,
-	    (cr_ptr->carrying_weight * 100) / calc_carrying_weight_limit(cr_ptr));
+	    (cr_ptr->equipping_weight * 100) / calc_equipping_weight_limit(cr_ptr));
 #endif
 
 
@@ -321,13 +321,14 @@ void do_cmd_wield(creature_type *cr_ptr)
 	energy_use = 100;          // Take a turn
 
 	o_ptr->marked |= OM_TOUCHED;   // Player touches it
-	calc_inventory_weight(cr_ptr); // Increase the weight
 	cr_ptr->equip_cnt++;           // Increment the equip counter by hand
 
 	o_ptr->equipped_slot_num = n;
 	o_ptr->equipped_slot_type = object_kind_info[o_ptr->k_idx].slot;
 	cr_ptr->inventory[old_item].equipped_slot_num = 0;
 	cr_ptr->inventory[old_item].equipped_slot_type = 0;
+
+	set_inventory_weight(cr_ptr); // Increase the weight
 
 #ifdef JP
 		act = "%s(%c)を装備した。";
@@ -381,7 +382,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 			{
 				new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
-				calc_inventory_weight(cr_ptr);
+				set_inventory_weight(cr_ptr);
 				inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2), -((int)o_ptr->number));
 				inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2));
 				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
@@ -426,7 +427,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		{
 			new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
 			object_copy(new_o_ptr, o_ptr);
-			calc_inventory_weight(cr_ptr);
+			set_inventory_weight(cr_ptr);
 			inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1), -((int)o_ptr->number));
 			inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1));
 #ifdef JP

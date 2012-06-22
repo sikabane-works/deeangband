@@ -2319,8 +2319,6 @@ u32b calc_carrying_weight_limit(creature_type *cr_ptr)
 	// Constant was 100
 	i = (u32b)adj_str_carrying_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
 	i *= cr_ptr->size / 10 * cr_ptr->size / 10;
-	i += (u32b)adj_str_carrying_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
 	// Return the result
 	return i;

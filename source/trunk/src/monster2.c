@@ -3599,6 +3599,7 @@ void deal_item(creature_type *creature_ptr)
 	int object_level;
 
 	creature_ptr->carrying_weight = 0;
+	creature_ptr->equipping_weight = 0;
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
 

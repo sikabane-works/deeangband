@@ -4697,7 +4697,7 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		o_ptr->number += num;
 
 		/* Add the weight */
-		calc_inventory_weight(cr_ptr);
+		set_inventory_weight(cr_ptr);
 
 		/* Recalculate bonuses */
 		cr_ptr->creature_update |= (CRU_BONUS);
@@ -5045,7 +5045,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 			object_absorb(j_ptr, o_ptr);
 
 			/* Increase the weight */
-			calc_inventory_weight(cr_ptr);
+			set_inventory_weight(cr_ptr);
 
 			/* Recalculate bonuses */
 			cr_ptr->creature_update |= (CRU_BONUS);
@@ -5121,7 +5121,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	j_ptr->marked = OM_TOUCHED;
 
 	/* Increase the weight */
-	calc_inventory_weight(cr_ptr);
+	set_inventory_weight(cr_ptr);
 
 	/* Count the items */
 	cr_ptr->inven_cnt++;
@@ -6644,7 +6644,7 @@ static void drain_essence(creature_type *creature_ptr)
 	o_ptr->marked=marked;
 	o_ptr->number = number;
 	if (o_ptr->tval == TV_DRAG_ARMOR) o_ptr->timeout = old_timeout;
-	if (item >= 0) calc_inventory_weight(creature_ptr);
+	if (item >= 0) set_inventory_weight(creature_ptr);
 	o_ptr->ident |= (IDENT_MENTAL);
 	object_aware(o_ptr);
 	object_known(o_ptr);
@@ -8405,17 +8405,19 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 
 }
 
-void calc_inventory_weight(creature_type *creature_ptr)
+void set_inventory_weight(creature_type *creature_ptr)
 {
 	int i;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
+	creature_ptr->equipping_weight = 0;
 	creature_ptr->carrying_weight = 0;
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
-		creature_ptr->carrying_weight += (o_ptr->weight * o_ptr->number);
+		object_ptr = &creature_ptr->inventory[i];
+		creature_ptr->carrying_weight += (object_ptr->weight * object_ptr->number);
+		if(IS_EQUIPPED(object_ptr)) creature_ptr->equipping_weight += (object_ptr->weight * object_ptr->number);
 	}
 
 }
