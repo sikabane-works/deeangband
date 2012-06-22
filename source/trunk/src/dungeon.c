@@ -1824,7 +1824,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", o_name);
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
 	    !creature_ptr->levitation && !creature_ptr->can_swim)
 	{
-		if (creature_ptr->carrying_weight > weight_limit(creature_ptr))
+		if (creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
 		{
 			/* Take damage */
 #ifdef JP

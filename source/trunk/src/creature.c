@@ -2305,10 +2305,25 @@ bool has_status(creature_type *creature_ptr, int stat)
 	return FALSE;
 }
 
-int calc_weapon_weight_limit(creature_type *creature_ptr)
+u32b calc_equipping_weight_limit(creature_type *creature_ptr)
 {
 	int hold = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * creature_ptr->size / 10 * creature_ptr->size / 10;
 	return hold;
+}
+
+u32b calc_carrying_weight_limit(creature_type *cr_ptr)
+{
+	u32b i;
+
+	// Weight limit based only on strength
+	// Constant was 100
+	i = (u32b)adj_str_carrying_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
+	i *= cr_ptr->size / 10 * cr_ptr->size / 10;
+	i += (u32b)adj_str_carrying_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
+	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
+
+	// Return the result
+	return i;
 }
 
 int get_equip_weapon_num(creature_type *cr_ptr)

@@ -2788,26 +2788,6 @@ static void calc_lite(creature_type *creature_ptr)
 	}
 }
 
-
-
-/*
- * Computes current weight limit.
- */
-u32b weight_limit(creature_type *cr_ptr)
-{
-	u32b i;
-
-	// Weight limit based only on strength
-	// Constant was 100
-	i = (u32b)adj_str_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
-	i *= cr_ptr->size / 10 * cr_ptr->size / 10 * cr_ptr->size / 10;
-	i += (u32b)adj_str_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
-
-	// Return the result
-	return i;
-}
-
 /*
  * Calculate the players current "state", taking into account
  * not only race/class intrinsics, but also objects being worn
@@ -4419,7 +4399,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	if (!creature_ptr->riding)
 	{
 		/* Extract the "weight limit" (in tenth pounds) */
-		i = (int)weight_limit(creature_ptr);
+		i = (int)calc_carrying_weight_limit(creature_ptr);
 	}
 	else
 	{
@@ -4483,8 +4463,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->dis_to_h[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->dis_to_h_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
-	/* Obtain the "hold" value */
-	hold = calc_weapon_weight_limit(creature_ptr);
+	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
 	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);

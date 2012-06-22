@@ -67,7 +67,7 @@ extern byte adj_dex_to_ac[];
 extern byte adj_str_to_damage[];
 extern byte adj_dex_to_hit[];
 extern byte adj_str_to_hit[];
-extern byte adj_str_weight[];
+extern byte adj_str_carrying_weight[];
 extern byte adj_str_hold[];
 extern byte adj_str_dig[];
 extern byte adj_str_blow[];
@@ -1047,8 +1047,8 @@ extern bool has_magic_power(creature_type *creature_ptr);
 extern bool has_status(creature_type *creature_ptr, int stat);
 
 extern int get_equip_weapon_num(creature_type *cr_ptr);
-extern int calc_weapon_weight_limit(creature_type *creature_ptr);
-extern int get_equip_weapon_num(creature_type *cr_ptr);
+extern u32b calc_equipping_weight_limit(creature_type *creature_ptr);
+extern u32b calc_carrying_weight_limit(creature_type *cr_ptr);
 
 extern creature_type *find_unique_instance(int n);
 
@@ -1629,7 +1629,6 @@ extern bool is_daytime(void);
 extern void extract_day_hour_min(int *day, int *hour, int *min);
 extern void prt_time(creature_type *player_ptr);
 extern cptr map_name(floor_type *floor_ptr);
-extern u32b weight_limit(creature_type *cr_ptr);
 extern void calc_bonuses(creature_type *crrature_ptr, bool message);
 extern void notice_stuff(creature_type *cr_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);

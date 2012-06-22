@@ -948,7 +948,7 @@ byte adj_str_to_hit[] =
 /*
  * Stat Table (STR) -- weight limit in deca-pounds
  */
-byte adj_str_weight[] =
+byte adj_str_carrying_weight[] =
 {
 	10      /* 3 */,
 	11      /* 4 */,
