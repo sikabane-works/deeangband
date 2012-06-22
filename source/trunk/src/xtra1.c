@@ -2979,15 +2979,11 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->immune_fire = FALSE;
 	creature_ptr->immune_cold = FALSE;
 
-	for(i = 0; i < INVEN_TOTAL; i++)
-		creature_ptr->two_handed[i] = -1;
-
-	creature_ptr->can_melee[0] = FALSE;
-	creature_ptr->can_melee[1] = FALSE;
+	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
+	for(i = 0; i < MAX_HANDS; i++) creature_ptr->can_melee[i] = FALSE;
 	creature_ptr->no_flowed = FALSE;
 
-	for(i = 0; i < STAT_MAX; i++)
-		creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
+	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
 	if (creature_ptr->mimic_form) tmp_rcreature_ptr = &mimic_info[creature_ptr->mimic_form];
 	else tmp_rcreature_ptr = &race_info[creature_ptr->race_idx1];
@@ -2995,13 +2991,12 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 	creature_ptr->size = body_size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 
-	/* Base infravision (purely racial) */
+	// Base infravision (purely racial)
 	creature_ptr->see_infra = tmp_rcreature_ptr->infra;
 	j = 0;
 	k = 1;
 
-
-	/* Base skills */
+	// Base skills
 	creature_ptr->skill_dis = 5;
 	creature_ptr->skill_dev = 5;
 	creature_ptr->skill_rob = 5 + (body_size - 10) / 2 * 3;
@@ -3015,13 +3010,10 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->skill_tht = 10;
 	creature_ptr->skill_dig = (body_size - 10) * 2;
 
-
 	// species adjust
 	creature_ptr->ac += species_ptr->ac;
 	creature_ptr->dis_ac += species_ptr->ac;
 	new_speed += species_ptr->speed;
-
-
 
 	if(IS_PURE(creature_ptr))
 	{
