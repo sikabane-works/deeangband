@@ -186,11 +186,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 {
 	int i, n, item, slot, old_item;
 	object_type forge, *q_ptr, *o_ptr, *old_equipped_ptr;
-
 	cptr act;
-
 	char o_name[MAX_NLEN];
-
 	cptr q, s;
 
 	int need_switch_wielding = 0;

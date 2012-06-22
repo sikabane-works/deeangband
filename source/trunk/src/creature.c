@@ -2307,20 +2307,15 @@ bool has_status(creature_type *creature_ptr, int stat)
 
 u32b calc_equipping_weight_limit(creature_type *creature_ptr)
 {
-	int hold = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * creature_ptr->size / 10 * creature_ptr->size / 10;
-	return hold;
+	u32b i = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * 15;
+	i *= creature_ptr->size / 10 * creature_ptr->size / 10;
+	return i;
 }
 
-u32b calc_carrying_weight_limit(creature_type *cr_ptr)
+u32b calc_carrying_weight_limit(creature_type *creature_ptr)
 {
-	u32b i;
-
-	// Weight limit based only on strength
-	// Constant was 100
-	i = (u32b)adj_str_carrying_weight[cr_ptr->stat_ind[STAT_STR]] * 25;
-	i *= cr_ptr->size / 10 * cr_ptr->size / 10;
-
-	// Return the result
+	u32b i = (u32b)adj_str_carrying_weight[creature_ptr->stat_ind[STAT_STR]] * 25;
+	i *= creature_ptr->size / 10 * creature_ptr->size / 10;
 	return i;
 }
 
