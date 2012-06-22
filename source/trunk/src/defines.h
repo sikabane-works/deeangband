@@ -770,6 +770,8 @@
 #define STAT_CHA   5
 #define STAT_MAX   6
 #define STAT_FRACTION 10
+#define STAT_VALUE_MIN   30
+#define STAT_VALUE_MAX   600
 
 
 /*

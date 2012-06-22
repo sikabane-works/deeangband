@@ -3539,14 +3539,14 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			{
 				case STAT_STR:
 				case STAT_CON:
-					if (cr_ptr->lev > 25) r_adj++;
-					if (cr_ptr->lev > 40) r_adj++;
-					if (cr_ptr->lev > 45) r_adj++;
+					if (cr_ptr->lev > 25) r_adj += 10;
+					if (cr_ptr->lev > 40) r_adj += 10;
+					if (cr_ptr->lev > 45) r_adj += 10;
 					break;
 				case STAT_DEX:
-					if (cr_ptr->lev > 25) r_adj--;
-					if (cr_ptr->lev > 40) r_adj--;
-					if (cr_ptr->lev > 45) r_adj--;
+					if (cr_ptr->lev > 25) r_adj -= 10;
+					if (cr_ptr->lev > 40) r_adj -= 10;
+					if (cr_ptr->lev > 45) r_adj -= 10;
 					break;
 			}
 		}
@@ -3554,8 +3554,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - base_lev, i);
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
-			/* Reduced name of stat */
-			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1);
+			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1); // Reduced name of stat
 		else
 			c_put_str(TERM_WHITE, stat_names[i], row + i+1, stat_col+1);
 
@@ -3566,9 +3565,9 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
 		{
 #ifdef JP
-			c_put_str(TERM_WHITE, "!", row + i+1, stat_col + 6);
+			c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 9);
 #else
-			c_put_str(TERM_WHITE, "!", row + i+1, stat_col + 4);
+			c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 4);
 #endif
 		}
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));

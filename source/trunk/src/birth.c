@@ -2382,12 +2382,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 		// Verify totals
 		if ((sum > 42 + 5 * 6) && (sum < 57 + 5 * 6))
 		{
-			for(i = 0; i < STAT_MAX; i++)
-			{
-				creature_ptr->stat_cur[i] += species_ptr->stat_max[i] - 100;
-				if(creature_ptr->stat_cur[i] < 30) creature_ptr->stat_cur[i] = 30;
-				creature_ptr->stat_max[i] = creature_ptr->stat_cur[i];
-			}
+			for(i = 0; i < STAT_MAX; i++) if(creature_ptr->stat_cur[i] < 30) creature_ptr->stat_cur[i] = 30;
 			break;
 		}
 
