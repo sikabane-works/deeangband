@@ -3914,8 +3914,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 
 
-		/* Age, Height, Weight, Social */
-		/* D'angband(mertle scale).*/
+		// Age, Height, Weight, Social
+		// D'angband(mertle scale).
 #ifdef JP
 
 		if(creature_ptr->race_idx1 != INDEX_NONE){ 
@@ -3930,10 +3930,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		else
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
 
-		/* Dump character level */
+		// Dump character level
 		display_player_one_line(ENTRY_LEVEL, format("%d/%d", creature_ptr->lev, creature_ptr->max_lev), TERM_L_GREEN);
 
-		/* Dump hit point */
+		// Dump hit point
 		if (creature_ptr->chp >= creature_ptr->mhp) 
 			display_player_one_line(ENTRY_HP, format("%6d/%6d", creature_ptr->chp , creature_ptr->mhp), TERM_L_GREEN);
 		else if (creature_ptr->chp > (creature_ptr->mhp * hitpoint_warn) / 10) 
@@ -3941,7 +3941,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		else
 			display_player_one_line(ENTRY_HP, format("%6d/%6d", creature_ptr->chp , creature_ptr->mhp), TERM_RED);
 
-		/* Dump mana power */
+		// Dump mana power
 		if (creature_ptr->csp >= creature_ptr->msp) 
 			display_player_one_line(ENTRY_SP, format("%4d/%4d", creature_ptr->csp , creature_ptr->msp), TERM_L_GREEN);
 		else if (creature_ptr->csp > (creature_ptr->msp * mana_warn) / 10) 
@@ -3950,9 +3950,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			display_player_one_line(ENTRY_SP, format("%4d/%4d", creature_ptr->csp , creature_ptr->msp), TERM_RED);
 
 
-		if(creature_ptr->dr < 0){
+		if(creature_ptr->dr < 0)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("--[‚È‚µ]"), TERM_L_DARK);
-		}
 		else if(creature_ptr->dr >= 26)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[‹†‹É_]", creature_ptr->dr), TERM_WHITE);
 		else if(creature_ptr->dr >= 21)
@@ -3970,12 +3969,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 #else
 
-		if(creature_ptr->race_idx1 != INDEX_NONE){ 
+		if(creature_ptr->race_idx1 != INDEX_NONE)
 			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)creature_ptr->age), TERM_L_BLUE);
-		}
-		else{
+		else
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
-		}
 
 		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((creature_ptr->ht*100)/254)), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((creature_ptr->wt*10000)/4536)), TERM_L_BLUE);
@@ -3987,9 +3984,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
 		}
 
-		if(creature_ptr->dr < 0){
+		if(creature_ptr->dr < 0)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("--[None]"), TERM_L_DARK);
-		}
 		else if(creature_ptr->dr >= 26)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Ultima", creature_ptr->dr), TERM_L_BLUE);
 		else if(creature_ptr->dr >= 21)

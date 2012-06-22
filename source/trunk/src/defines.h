@@ -772,7 +772,7 @@
 #define STAT_FRACTION 10
 #define STAT_VALUE_MIN   30
 #define STAT_VALUE_MAX   600
-
+#define STAT_VALUE_BASE_MAX_MAX 240
 
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)

@@ -2356,7 +2356,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 
 			// Save that value
 			sum += val;
-			creature_ptr->stat_cur[3 * i] = creature_ptr->stat_max[3 * i] = val;
+			creature_ptr->stat_cur[3 * i] = creature_ptr->stat_max[3 * i] = val * STAT_FRACTION;
 
 			// Extract 5 + 1d3 + 1d4 + 1d5
 			val = 5 + 3;
@@ -2422,14 +2422,11 @@ void get_max_stats(creature_type *creature_ptr)
 	/* Acquire the stats */
 	for (i = 0; i < 6; i++)
 	{
-		j = 18 + 60 + dice[i]*10;
-
-		/* Save that value */
+		j = STAT_VALUE_BASE_MAX_MAX + dice[i]*10;
+		// Save that value
 		creature_ptr->stat_max_max[i] = j;
-		if (creature_ptr->stat_max[i] > j)
-			creature_ptr->stat_max[i] = j;
-		if (creature_ptr->stat_cur[i] > j)
-			creature_ptr->stat_cur[i] = j;
+		if (creature_ptr->stat_max[i] > j) creature_ptr->stat_max[i] = j;
+		if (creature_ptr->stat_cur[i] > j) creature_ptr->stat_cur[i] = j;
 	}
 	creature_ptr->knowledge &= ~(KNOW_STAT);
 

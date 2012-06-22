@@ -3358,10 +3358,11 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		}
 		if(IS_RACE(creature_ptr, RACE_ENT))
 		{
-			/* Ents dig like maniacs, but only with their hands. */
+			// Ents dig like maniacs, but only with their hands.
 			if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx) 
 				creature_ptr->skill_dig += creature_ptr->lev * 10;
-			/* Ents get tougher and stronger as they age, but lose dexterity. */
+
+			// Ents get tougher and stronger as they age, but lose dexterity.
 			if (creature_ptr->lev > 25) creature_ptr->stat_add[STAT_STR] += 10;
 			if (creature_ptr->lev > 40) creature_ptr->stat_add[STAT_STR] += 10;
 			if (creature_ptr->lev > 45) creature_ptr->stat_add[STAT_STR] += 10;
