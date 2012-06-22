@@ -2465,6 +2465,7 @@ info[i++] = "‚ ‚È‚½‚Í‰Î‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
+	/*TODO
 	if (race_is_(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
 	{
 #ifdef JP
@@ -2474,6 +2475,7 @@ info[i++] = "‚ ‚È‚½‚Í‰Î‚Éã‚¢B";
 #endif
 
 	}
+	*/
 
 	if (creature_ptr->immune_cold)
 	{

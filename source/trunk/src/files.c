@@ -3502,7 +3502,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	// Display the stats
 	for (i = 0; i < 6; i++)
 	{
-		int r_adj, cl_adj, p_adj = 0, base_lev = (race_info[cr_ptr->race_idx1].lev + race_info[cr_ptr->race_idx2].lev) / 2;
+		int r_adj, cl_adj, p_adj = 0;
 
 		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
@@ -3540,19 +3540,19 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			{
 				case STAT_STR:
 				case STAT_CON:
-					if (cr_ptr->lev > 25) r_adj += 10;
-					if (cr_ptr->lev > 40) r_adj += 10;
-					if (cr_ptr->lev > 45) r_adj += 10;
+					if (cr_ptr->lev > 25) r_adj += 1;
+					if (cr_ptr->lev > 40) r_adj += 1;
+					if (cr_ptr->lev > 45) r_adj += 1;
 					break;
 				case STAT_DEX:
-					if (cr_ptr->lev > 25) r_adj -= 10;
-					if (cr_ptr->lev > 40) r_adj -= 10;
-					if (cr_ptr->lev > 45) r_adj -= 10;
+					if (cr_ptr->lev > 25) r_adj -= 1;
+					if (cr_ptr->lev > 40) r_adj -= 1;
+					if (cr_ptr->lev > 45) r_adj -= 1;
 					break;
 			}
 		}
 
-		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - base_lev, i);
+		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - cr_ptr->lev, i);
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1); // Reduced name of stat

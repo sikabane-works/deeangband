@@ -3328,6 +3328,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			creature_ptr->levitation = TRUE;
 			new_speed += (creature_ptr->lev) / 10;
 		}
+
 		if(IS_RACE(creature_ptr, RACE_ENT))
 		{
 			// Ents dig like maniacs, but only with their hands.
