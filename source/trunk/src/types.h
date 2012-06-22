@@ -1627,6 +1627,8 @@ typedef struct creature_flag_type creature_flag_type;
 struct creature_flag_type
 {
 	char id2[50];
+	s16b pre_id;
+	s16b anti_id;
 	char title[50];
 	char e_title[50];
 	byte is_spell;

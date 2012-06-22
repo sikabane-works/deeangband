@@ -3559,9 +3559,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		else
 			c_put_str(TERM_WHITE, stat_names[i], row + i+1, stat_col+1);
 
-
-		// Internal "natural" max value.  Maxes at 18/100
-		// This is useful to see if you are maxed out
+		// Internal "natural" max value.  Maxes at 18/100 This is useful to see if you are maxed out
 		cnv_stat(cr_ptr->stat_max[i], buf);
 		if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
 		{
