@@ -1014,7 +1014,7 @@ byte adj_str_carrying_weight[] =
 /*
  * Stat Table (STR) -- weapon weight limit in pounds
  */
-byte adj_str_hold[] =
+byte adj_str_equipping_weight[] =
 {
 	4      /* 3 */,
 	5      /* 4 */,

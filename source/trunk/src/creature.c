@@ -2307,7 +2307,7 @@ bool has_status(creature_type *creature_ptr, int stat)
 
 u32b calc_equipping_weight_limit(creature_type *creature_ptr)
 {
-	u32b i = adj_str_hold[creature_ptr->stat_ind[STAT_STR]] * 15;
+	u32b i = (u32b)adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] * 15;
 	i *= creature_ptr->size / 10 * creature_ptr->size / 10;
 	return i;
 }

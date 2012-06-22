@@ -3835,6 +3835,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 {
 	int i;
 
+	char	buf1[20], buf2[20], out_val[60];
 	char	buf[80];
 	char	tmp[128];
 	char	tmp2[128];
@@ -4215,11 +4216,39 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	else if (mode == DISPLAY_CR_STATUS_INVENTORY)
 	{
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);		
+		format_weight(buf1, creature_ptr->carrying_weight);
+		format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
+
+#ifdef JP
+		sprintf(out_val, "所持重量： %s/%s (%ld%%)",
+			buf1, buf2,
+		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
+#else
+		sprintf(out_val, "Carrying Weight %s/%s (%ld%%). Command: ",
+			buf1, buf2,
+		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
+#endif
+
+		prt(out_val, 0, 0);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_EQUIPMENT)
 	{
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
+		format_weight(buf1, creature_ptr->equipping_weight);
+		format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
+
+#ifdef JP
+		sprintf(out_val, "装備重量： %s/%s (%ld%%)",
+			buf1, buf2,
+		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
+#else
+		sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ",
+			buf1, buf2,
+		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
+#endif
+
+		prt(out_val, 0, 0);
 	}
 
 	/* Special */

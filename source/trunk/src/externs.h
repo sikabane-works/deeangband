@@ -68,7 +68,7 @@ extern byte adj_str_to_damage[];
 extern byte adj_dex_to_hit[];
 extern byte adj_str_to_hit[];
 extern byte adj_str_carrying_weight[];
-extern byte adj_str_hold[];
+extern byte adj_str_equipping_weight[];
 extern byte adj_str_dig[];
 extern byte adj_str_blow[];
 extern byte adj_dex_blow[];
