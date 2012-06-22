@@ -580,41 +580,41 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 688,#の等身大フィギュア,,& Full Scale Otaku Figure~ of #,,?,y,INVENTORY,STATUE,13,0,40,0,225,100,25000,0,0,0,1d1,0,0,0,40/3,,,,
 643,#の写真,,& Photograph~ of #,,~,s,INVENTORY,STATUE,50,0,0,0,0,100,0,0,0,0,1d1,0,0,0,0/255,,,,
 30,折れたダガー,,& Broken Dagger~,,|,D,HAND,SWORD,1,0,0,0,2,100,1,0,0,0,1d1,-2,-4,0,0/1,SHOW_MODS,,,
-47,折れた剣,,& Broken Sword~,,|,D,HAND,SWORD,2,0,0,0,13,100,2,0,0,0,1d2,-2,-4,0,0/1,SHOW_MODS,柄の上でギザギザに折れている。,"Above the hilt, a foot of steel rises, ending in a jagged edge.",##### Hafted Weapons #####
-43,ダガー,,& Dagger~,,|,W,HAND,SWORD,4,0,0,0,8,100,10,0,0,0,1d4,0,0,0,0/1:5/1:10/1:20/1,SHOW_MODS,先端が鋭い両刃の短剣だ。,A two-edged knife with a sharp point.,
-38,マン・ゴーシュ,,& Main Gauche~,,|,W,HAND,SWORD,5,0,3,0,11,100,25,0,0,0,1d5,0,0,0,3/1,SHOW_MODS,拳を防御する大きな鍔を持つ短い剣。主に決闘で防御用の短剣として用いられる。,"A short thrusting blade with a large guard, primarily used in duels.",
-525,短刀,,& Tanto~,,|,W,HAND,SWORD,6,0,3,0,9,100,30,0,0,0,1d5,0,0,0,3/2,SHOW_MODS,,,#JZ#
-44,レイピア,,& Rapier~,,|,W,HAND,SWORD,7,0,5,0,15,100,42,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,突きに用いる長く細い刀身を持つ剣。主に決闘に用いられる。,"A long, thin thrusting blade, mainly used in duels.",
-46,スモール・ソード,,& Small Sword~,,|,W,HAND,SWORD,8,0,5,0,25,100,48,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,ロングソードを少し短くしたような剣だ。,"A smaller version of the longsword, perfectly sized for Hobbits.",
-554,バゼラード,,& Basillard~,,|,w,HAND,SWORD,9,0,15,0,25,100,220,0,0,0,1d8,0,0,0,15/3,SHOW_MODS,,,#JZ#
-35,ショート・ソード,,& Short Sword~,,|,W,HAND,SWORD,10,0,5,0,25,100,90,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,主に突く用途に用いる短い剣だ。,A short thrusting sword.,
-45,サーベル,,& Sabre~,,|,W,HAND,SWORD,11,0,5,0,25,100,50,0,0,0,1d7,0,0,0,5/1,SHOW_MODS|RIDING,軽い少し曲った刃を持ち、切る事も突く事もできる。馬上及び決闘においてよく使われる。,"A light, somewhat curved blade that can be used to thrust or slash; familiar to horseman and duelists alike.",
-39,カットラス,,& Cutlass~,,|,W,HAND,SWORD,12,0,5,0,30,100,85,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,大きな曲った刀身と手をカバーする網状の柄を備えた剣だ。船員に良く用いられる。,"A large, curved chopper with a basket hilt, well known to seamen.",
-549,脇差し,,& Wakizashi~,,|,W,HAND,SWORD,13,0,15,0,30,100,210,0,0,0,2d4,0,0,0,15/3,SHOW_MODS,,,#JZ#
-544,クォピス,,& Khopesh~,,|,W,HAND,SWORD,14,0,10,0,30,100,190,0,0,0,2d4,0,0,0,10/2,SHOW_MODS,,,#JZ#
-33,タルワール,,& Tulwar~,,|,W,HAND,SWORD,15,0,5,0,30,100,200,0,0,0,2d4,0,0,0,5/1,SHOW_MODS|RIDING,,,
-34,ブロード・ソード,,& Broad Sword~,,|,W,HAND,SWORD,16,0,10,0,50,100,255,0,0,0,2d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,重く広い刀身と頑丈な柄を持った両刃の直刀だ。,"A heavy, double-edged sword with a strong grip.",
-42,ロング・ソード,,& Long Sword~,,|,W,HAND,SWORD,17,0,10,0,50,100,300,0,0,0,2d5,0,0,0,10/1:20/1,SHOW_MODS|RIDING,十字の形に2本の柄が付いた長い両刃の直刀だ。,"A long, straight, two-edged blade, with two hand guards projecting out from the hilt to form a perfect cross.",
-32,シミター,,& Scimitar~,,|,W,HAND,SWORD,18,0,10,0,55,100,250,0,0,0,2d5,0,0,0,10/1,SHOW_MODS,斬る用途に特化した三日月のような刀身を持つ片刃の剣だ。,A single-edged slashing sword with a blade like a crescent.,
-555,忍者刀,,& Ninjato~,,|,s,HAND,SWORD,19,0,15,0,20,100,265,0,0,0,1d9,0,0,0,15/2,SHOW_MODS,,,#JZ#
-41,カタナ,,& Katana~,,|,W,HAND,SWORD,20,0,20,0,45,100,400,0,0,0,3d4,0,0,0,20/1,SHOW_MODS,長い柄と微妙に曲った刃を持つ切れ味に優れた片刃の剣だ。,A slightly curved long-handled slashing sword with a single-edged blade and a chisel tip.,
-31,バスタード・ソード,,& Bastard Sword~,,|,W,HAND,SWORD,21,0,15,0,75,100,350,0,0,0,3d4,0,0,0,15/1,SHOW_MODS,片手半剣とも呼ばれる。通常のロングソードよりも長い両刃の直刀だ。,Also known as the hand-and-a-half blade.  A larger-than-normal straight-sided sword with two cutting edges.,
-548,青龍刀,,& Falchion~,,|,W,HAND,SWORD,22,0,40,0,80,100,500,0,0,0,4d5,0,0,0,40/3,SHOW_MODS|RIDING,,,#JZ#
-546,クレイモア,,& Claymore~,,|,W,HAND,SWORD,23,0,40,0,90,100,600,0,0,0,2d8,0,0,0,40/2,SHOW_MODS,,,#JZ#
-547,エスパドン,,& Espadon~,,|,W,HAND,SWORD,24,0,40,0,90,100,600,0,0,0,2d9,0,0,0,40/3,SHOW_MODS,,,#JZ#
-37,グレート・ソード,,& Two-Handed Sword~,,|,W,HAND,SWORD,25,0,30,0,120,100,775,0,0,0,3d6,0,0,0,30/1:40/1,SHOW_MODS,非常に大きな両刃の直刀で、これを片手で持てる者はほとんどいない。,"A great, double-edged broadsword which few can wield in one hand.",
-545,フランベルジュ,,& Flamberge~,,|,W,HAND,SWORD,26,0,40,0,110,100,600,0,0,0,3d7,0,0,0,40/2,SHOW_MODS,,,#JZ#
-29,野太刀,,& No-dachi~,,|,W,HAND,SWORD,27,0,35,0,100,100,579,0,0,0,5d4,0,0,0,35/3,SHOW_MODS,,,
-40,首切りソード,,& Executioner's Sword~,,|,r,HAND,SWORD,28,0,40,0,140,100,850,0,0,0,4d5,0,0,0,40/1,SHOW_MODS,胴体から頭を綺麗に切り落とす為に作られた、巨大な曲った刃を持つ剣だ。,"A giant, curved blade designed to cleave the head cleanly from the body.",
-524,ツヴァイハンダー,,& Zweihander~,,|,w,HAND,SWORD,29,0,40,0,150,100,580,0,0,0,4d6,0,0,0,40/3,SHOW_MODS,,,#JZ#
-36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,SWORD,30,0,70,0,100,100,4000,0,0,0,6d5,0,0,0,70/8,RES_CHAOS|SHOW_MODS,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
-565,ダイヤモンド・エッジ,,& Diamond Edge~,,|,w,HAND,SWORD,31,4,90,0,80,100,50000,0,0,0,7d5,10,10,0,90/16,SHOW_MODS|VORPAL|TUNNEL,,,
+47,折れた剣,,& Broken Sword~,,|,D,HAND,SWORD,2,0,0,0,8,100,2,0,0,0,1d2,-2,-4,0,0/1,SHOW_MODS,柄の上でギザギザに折れている。,"Above the hilt, a foot of steel rises, ending in a jagged edge.",##### Hafted Weapons #####
+43,ダガー,,& Dagger~,,|,W,HAND,SWORD,4,0,0,0,4,100,10,0,0,0,1d4,0,0,0,0/1:5/1:10/1:20/1,SHOW_MODS,先端が鋭い両刃の短剣だ。,A two-edged knife with a sharp point.,
+38,マン・ゴーシュ,,& Main Gauche~,,|,W,HAND,SWORD,5,0,3,0,6,100,25,0,0,0,1d5,0,0,0,3/1,SHOW_MODS,拳を防御する大きな鍔を持つ短い剣。主に決闘で防御用の短剣として用いられる。,"A short thrusting blade with a large guard, primarily used in duels.",
+525,短刀,,& Tanto~,,|,W,HAND,SWORD,6,0,3,0,4,100,30,0,0,0,1d5,0,0,0,3/2,SHOW_MODS,,,#JZ#
+44,レイピア,,& Rapier~,,|,W,HAND,SWORD,7,0,5,0,8,100,42,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,突きに用いる長く細い刀身を持つ剣。主に決闘に用いられる。,"A long, thin thrusting blade, mainly used in duels.",
+46,スモール・ソード,,& Small Sword~,,|,W,HAND,SWORD,8,0,5,0,11,100,48,0,0,0,1d6,0,0,0,5/1,SHOW_MODS,ロングソードを少し短くしたような剣だ。,"A smaller version of the longsword, perfectly sized for Hobbits.",
+554,バゼラード,,& Basillard~,,|,w,HAND,SWORD,9,0,15,0,13,100,220,0,0,0,1d8,0,0,0,15/3,SHOW_MODS,,,#JZ#
+35,ショート・ソード,,& Short Sword~,,|,W,HAND,SWORD,10,0,5,0,14,100,90,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,主に突く用途に用いる短い剣だ。,A short thrusting sword.,
+45,サーベル,,& Sabre~,,|,W,HAND,SWORD,11,0,5,0,15,100,50,0,0,0,1d7,0,0,0,5/1,SHOW_MODS|RIDING,軽い少し曲った刃を持ち、切る事も突く事もできる。馬上及び決闘においてよく使われる。,"A light, somewhat curved blade that can be used to thrust or slash; familiar to horseman and duelists alike.",
+39,カットラス,,& Cutlass~,,|,W,HAND,SWORD,12,0,5,0,12,100,85,0,0,0,1d7,0,0,0,5/1,SHOW_MODS,大きな曲った刀身と手をカバーする網状の柄を備えた剣だ。船員に良く用いられる。,"A large, curved chopper with a basket hilt, well known to seamen.",
+549,脇差し,,& Wakizashi~,,|,W,HAND,SWORD,13,0,15,0,10,100,210,0,0,0,2d4,0,0,0,15/3,SHOW_MODS,,,#JZ#
+544,クォピス,,& Khopesh~,,|,W,HAND,SWORD,14,0,10,0,11,100,190,0,0,0,2d4,0,0,0,10/2,SHOW_MODS,,,#JZ#
+33,タルワール,,& Tulwar~,,|,W,HAND,SWORD,15,0,5,0,18,100,200,0,0,0,2d4,0,0,0,5/1,SHOW_MODS|RIDING,,,
+34,ブロード・ソード,,& Broad Sword~,,|,W,HAND,SWORD,16,0,10,0,22,100,255,0,0,0,2d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,重く広い刀身と頑丈な柄を持った両刃の直刀だ。,"A heavy, double-edged sword with a strong grip.",
+42,ロング・ソード,,& Long Sword~,,|,W,HAND,SWORD,17,0,10,0,20,100,300,0,0,0,2d5,0,0,0,10/1:20/1,SHOW_MODS|RIDING,十字の形に2本の柄が付いた長い両刃の直刀だ。,"A long, straight, two-edged blade, with two hand guards projecting out from the hilt to form a perfect cross.",
+32,シミター,,& Scimitar~,,|,W,HAND,SWORD,18,0,10,0,21,100,250,0,0,0,2d5,0,0,0,10/1,SHOW_MODS,斬る用途に特化した三日月のような刀身を持つ片刃の剣だ。,A single-edged slashing sword with a blade like a crescent.,
+555,忍者刀,,& Ninjato~,,|,s,HAND,SWORD,19,0,15,0,10,100,265,0,0,0,1d9,0,0,0,15/2,SHOW_MODS,,,#JZ#
+41,カタナ,,& Katana~,,|,W,HAND,SWORD,20,0,20,0,20,100,400,0,0,0,3d4,0,0,0,20/1,SHOW_MODS,長い柄と微妙に曲った刃を持つ切れ味に優れた片刃の剣だ。,A slightly curved long-handled slashing sword with a single-edged blade and a chisel tip.,
+31,バスタード・ソード,,& Bastard Sword~,,|,W,HAND,SWORD,21,0,15,0,28,100,350,0,0,0,3d4,0,0,0,15/1,SHOW_MODS,片手半剣とも呼ばれる。通常のロングソードよりも長い両刃の直刀だ。,Also known as the hand-and-a-half blade.  A larger-than-normal straight-sided sword with two cutting edges.,
+548,青龍刀,,& Falchion~,,|,W,HAND,SWORD,22,0,40,0,30,100,500,0,0,0,4d5,0,0,0,40/3,SHOW_MODS|RIDING,,,#JZ#
+546,クレイモア,,& Claymore~,,|,W,HAND,SWORD,23,0,40,0,28,100,600,0,0,0,2d8,0,0,0,40/2,SHOW_MODS,,,#JZ#
+547,エスパドン,,& Espadon~,,|,W,HAND,SWORD,24,0,40,0,33,100,600,0,0,0,2d9,0,0,0,40/3,SHOW_MODS,,,#JZ#
+37,グレート・ソード,,& Two-Handed Sword~,,|,W,HAND,SWORD,25,0,30,0,35,100,775,0,0,0,3d6,0,0,0,30/1:40/1,SHOW_MODS,非常に大きな両刃の直刀で、これを片手で持てる者はほとんどいない。,"A great, double-edged broadsword which few can wield in one hand.",
+545,フランベルジュ,,& Flamberge~,,|,W,HAND,SWORD,26,0,40,0,30,100,600,0,0,0,3d7,0,0,0,40/2,SHOW_MODS,,,#JZ#
+29,野太刀,,& No-dachi~,,|,W,HAND,SWORD,27,0,35,0,35,100,579,0,0,0,5d4,0,0,0,35/3,SHOW_MODS,,,
+40,首切りソード,,& Executioner's Sword~,,|,r,HAND,SWORD,28,0,40,0,45,100,850,0,0,0,4d5,0,0,0,40/1,SHOW_MODS,胴体から頭を綺麗に切り落とす為に作られた、巨大な曲った刃を持つ剣だ。,"A giant, curved blade designed to cleave the head cleanly from the body.",
+524,ツヴァイハンダー,,& Zweihander~,,|,w,HAND,SWORD,29,0,40,0,45,100,580,0,0,0,4d6,0,0,0,40/3,SHOW_MODS,,,#JZ#
+36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,SWORD,30,0,70,0,55,100,4000,0,0,0,6d5,0,0,0,70/8,RES_CHAOS|SHOW_MODS,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
+565,ダイヤモンド・エッジ,,& Diamond Edge~,,|,w,HAND,SWORD,31,4,90,0,70,100,50000,0,0,0,7d5,10,10,0,90/16,SHOW_MODS|VORPAL|TUNNEL,,,
 592,毒針,,& Poison Needle~,,|,g,HAND,SWORD,32,0,0,0,5,100,2000,0,0,0,1d1,0,0,0,30/6,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,,
-635,隼の剣,,& Falcon Sword~,,|,y,HAND,SWORD,33,1,55,0,20,100,3500,0,0,0,1d6,0,0,0,65/8,SHOW_MODS|BLOWS,,,#JP#
-689,ウルクの直剣,,& Uruk Straight Sword,,|,U,HAND,SWORD,34,0,38,0,140,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",
-690,ウルクの両手大剣,,& Uruk Two-Handed Sword,,|,U,HAND,SWORD,35,0,38,0,290,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,ウルク達の体格と膂力で両手に振るうことを念頭においたと思われる、鉄塊のごとき両広刃の大剣だ。ウルク諸氏族の歴史の中でも特に彼等よりさらに巨大なオログや竜と争ってきた者達が、彼等に対抗するためにしばしば用いた。,,
+635,隼の剣,,& Falcon Sword~,,|,y,HAND,SWORD,33,1,55,0,8,100,3500,0,0,0,1d6,0,0,0,65/8,SHOW_MODS|BLOWS,,,#JP#
+689,ウルクの直剣,,& Uruk Straight Sword,,|,U,HAND,SWORD,34,0,38,0,80,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,東方の定住系ウルク諸氏族が利用する剣だ。人間には大きすぎるが、彼等のほとんどは男女を問わず幼少からこれを振るう訓練を重ねている。,"A heavy, double-edged sword with a strong grip.",
+690,ウルクの両手大剣,,& Uruk Two-Handed Sword,,|,U,HAND,SWORD,35,0,38,0,190,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,ウルク達の体格と膂力で両手に振るうことを念頭においたと思われる、鉄塊のごとき両広刃の大剣だ。ウルク諸氏族の歴史の中でも特に彼等よりさらに巨大なオログや竜と争ってきた者達が、彼等に対抗するためにしばしば用いた。,,
 695,バルログの波状剣,,& Balrog Flamberge,,|,U,HAND,SWORD,36,0,38,0,450,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,メルコールについたマイアの鍛冶師、鍛冶の司アウレの高弟アンガセイスが、バルログの姿を取っている同志達のために数多く打った両刃の大剣だ。メルコールも絶賛した彼の技の最たる物の一つであるこの一品は、炎のように波打つ刃が残酷にも美しく、エルフ達にとっては伝承に残るほどの脅威となった。,,
-697,フィーンドの大鉈,,& Fiend Greatmachete,,|,U,HAND,SWORD,37,0,38,0,540,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,地獄の支配階級たるフィーンド達の中でも貪欲な一派でよく愛用される巨大な鉈だ。屈曲した形状が定命の者を骨ごとすり潰すのに適している。,,
+697,フィーンドの大鉈,,& Fiend Greatmachete,,|,U,HAND,SWORD,37,0,38,0,680,100,255,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,地獄の支配階級たるフィーンド達の中でも貪欲な一派でよく愛用される巨大な鉈だ。屈曲した形状が定命の者を骨ごとすり潰すのに適している。,,
 678,尾飾り,,Tail Bard~,,(,R,TAIL,TAIL,0,0,3,0,36,100,18,0,0,4,0d0,0,0,0,3/1,,尻尾を持つ知的な種族が装備する飾り布だ。,A bard equiped by intelligent race having tail.,
 679,皮製尾甲,,Tail Lether~,,(,U,TAIL,TAIL,1,0,3,0,36,100,18,0,0,4,0d0,0,0,0,3/1,,尻尾を持つ知的な種族が装備する皮製のよろいだ。,A lether armour equiped by intelligent race having tail.,
 680,鎖かたびら尾甲,,Tail Chain Mail~,,(,W,TAIL,TAIL,2,0,3,0,36,100,18,0,0,4,0d0,0,0,0,3/1,,尻尾を持つ知的な種族が装備する鎖かたびらのよろいだ。,A chain mail equiped by intelligent race having tail.,
