@@ -2671,10 +2671,10 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			{
 				if (!has_cf_creature(watcher_ptr, CF_MORONIC))
 				{
-					if ((watcher_ptr->stat_use[STAT_INT] < 40) && (watcher_ptr->stat_use[STAT_WIS] < 40))
+					if ((watcher_ptr->stat_use[STAT_INT] <= STAT_VALUE_MIN) && (watcher_ptr->stat_use[STAT_WIS] < STAT_VALUE_MIN))
 					{
 #ifdef JP
-msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
+						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
 #else
 						msg_print("You turn into an utter moron!");
 #endif
@@ -2682,7 +2682,7 @@ msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
 					else
 					{
 #ifdef JP
-msg_print("あなたは完璧な馬鹿になった！");
+						msg_print("あなたは完璧な馬鹿になった！");
 #else
 						msg_print("You turn into an utter moron!");
 #endif
@@ -2691,7 +2691,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 					if (has_cf_creature(watcher_ptr, CF_HYPER_INT))
 					{
 #ifdef JP
-msg_print("あなたの脳は生体コンピュータではなくなった。");
+						msg_print("あなたの脳は生体コンピュータではなくなった。");
 #else
 						msg_print("Your brain is no longer a living computer.");
 #endif

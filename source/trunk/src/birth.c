@@ -2382,7 +2382,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 		// Verify totals
 		if ((sum > 42 + 5 * 6) && (sum < 57 + 5 * 6))
 		{
-			for(i = 0; i < STAT_MAX; i++) if(creature_ptr->stat_cur[i] < 30) creature_ptr->stat_cur[i] = 30;
+			for(i = 0; i < STAT_MAX; i++) if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN) creature_ptr->stat_cur[i] = STAT_VALUE_MIN;
 			break;
 		}
 
@@ -2392,7 +2392,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 
 	for(i = 0; i < STAT_MAX; i++)
 	{
-		if(creature_ptr->stat_cur[i] < 30) msg_print("Warning: Out Range Status Point.");
+		if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN) msg_print("Warning: Out Range Status Point.");
 	}
 
 }
@@ -2400,7 +2400,6 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 void get_max_stats(creature_type *creature_ptr)
 {
 	int		i, j;
-
 	int		dice[6];
 
 	/* Roll and verify some stats */
@@ -5449,13 +5448,13 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
 						class_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] /  STAT_FRACTION - 10;
+						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 				else
 					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
 						race_info[creature_ptr->race_idx2].r_s_adj[i] +
 						class_info[creature_ptr->cls_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] /  STAT_FRACTION - 10;
+						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 
 
 				/* Obtain the current stat */

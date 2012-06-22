@@ -2387,9 +2387,9 @@ static void spoil_species_info(cptr fname)
 
 		/* Base Status */
 		sprintf(buf, "\n=== STR:%2d INT:%2d WIS:%2d DEX:%2d CON:%2d CHR:%2d\n=== ",
-		        species_ptr->stat_max[STAT_STR] / 10, species_ptr->stat_max[STAT_INT] / 10,
-		        species_ptr->stat_max[STAT_WIS] / 10, species_ptr->stat_max[STAT_DEX] / 10,
-		        species_ptr->stat_max[STAT_CON] / 10, species_ptr->stat_max[STAT_CHA] / 10);
+		        species_ptr->stat_max[STAT_STR] / STAT_FRACTION, species_ptr->stat_max[STAT_INT] / STAT_FRACTION,
+		        species_ptr->stat_max[STAT_WIS] / STAT_FRACTION, species_ptr->stat_max[STAT_DEX] / STAT_FRACTION,
+		        species_ptr->stat_max[STAT_CON] / STAT_FRACTION, species_ptr->stat_max[STAT_CHA] / STAT_FRACTION);
 		spoil_out(buf);
 
 

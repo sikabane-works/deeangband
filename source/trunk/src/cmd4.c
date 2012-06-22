@@ -9377,7 +9377,7 @@ static void do_cmd_knowledge_stat(creature_type *cr_ptr)
 			if ((cr_ptr->knowledge & KNOW_STAT) || cr_ptr->stat_max[v_nr] == cr_ptr->stat_max_max[v_nr])
 			{
 				int n = cr_ptr->stat_mod_max_max[v_nr];
-				fprintf(fff, "%s %2d.%d\n", stat_names[v_nr], n / 10, n % 10);
+				fprintf(fff, "%s %2d.%d\n", stat_names[v_nr], n / STAT_FRACTION, n % STAT_FRACTION);
 			}
 			else fprintf(fff, "%s ???\n", stat_names[v_nr]);
 		}

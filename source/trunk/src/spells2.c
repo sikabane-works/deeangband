@@ -102,8 +102,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	{
 		char stat_desc[80];
 		int n = creature_ptr->stat_mod_max_max[v_nr];
-		sprintf(stat_desc, "%s %2d.%d", stat_names[v_nr], n / 10, n % 10 );
-
+		sprintf(stat_desc, "%s %2d.%d", stat_names[v_nr], n / STAT_FRACTION, n % STAT_FRACTION);
 		strcpy(s_string[v_nr], stat_desc);
 
 		info[i++] = s_string[v_nr];
@@ -4952,11 +4951,15 @@ bool probing(floor_type *floor_ptr)
 #ifdef JP
 sprintf(buf,"%s ‘®«:%s «•Ê:%s HP:%d/%d AC:%d ‘¬“x:%s%d ˜r:%d ’m:%d Œ«:%d Ší:%d ‘Ï:%d –£:%d ŒoŒ±:",
 		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_a, (speed > 0) ? "+" : "", speed,
-		m_ptr->stat_use[0] / 10, m_ptr->stat_use[1] / 10, m_ptr->stat_use[2] / 10, m_ptr->stat_use[3] / 10, m_ptr->stat_use[4] / 10, m_ptr->stat_use[5] / 10);
+		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
+		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
+		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #else
 sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
 		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_a, (speed > 0) ? "+" : "", speed,
-		m_ptr->stat_use[0] / 10, m_ptr->stat_use[1] / 10, m_ptr->stat_use[2] / 10, m_ptr->stat_use[3] / 10, m_ptr->stat_use[4] / 10, m_ptr->stat_use[5] / 10);
+		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
+		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
+		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #endif
 			if (r_ptr->next_species_idx)
 			{
