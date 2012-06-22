@@ -3463,23 +3463,15 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	int i, j, e_adj;
 	int stat_col, stat;
 	int row, col;
-
 	object_type *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
-
 	byte a;
 	char c;
-
 	char buf[80];
+	stat_col = 0; // Column
+	row = 2;      // Row
 
-
-	/* Column */
-	stat_col = 0;
-
-	/* Row */
-	row = 2;
-
-	/* Print out the labels for the columns */
+	// Print out the labels for the columns
 #ifdef JP
 	c_put_str(TERM_WHITE, "”\—Í", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Šî–{", row, stat_col+7);
@@ -3496,8 +3488,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	c_put_str(TERM_YELLOW, "Current", row, stat_col+39);
 #endif
 
-
-	/* Display the stats */
+	// Display the stats
 	for (i = 0; i < 6; i++)
 	{
 		int r_adj, cl_adj, p_adj = 0, base_lev = (race_info[cr_ptr->race_idx1].lev + race_info[cr_ptr->race_idx2].lev) / 2;
@@ -3522,8 +3513,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 				r_adj += creature_flag_info[j].adj[i];
 		}
 
-		/* Calculate equipment adjustment */
-		e_adj = 0;
+		e_adj = 0; // Calculate equipment adjustment
 
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
@@ -3559,8 +3549,8 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_WHITE, stat_names[i], row + i+1, stat_col+1);
 
 
-		/* Internal "natural" max value.  Maxes at 18/100 */
-		/* This is useful to see if you are maxed out */
+		// Internal "natural" max value.  Maxes at 18/100
+		// This is useful to see if you are maxed out
 		cnv_stat(cr_ptr->stat_max[i], buf);
 		if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
 		{
@@ -3665,8 +3655,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 	}
 
-	/* Column */
-	col = stat_col + 49;
+	col = stat_col + 49; // Column
 
 	/* Header and Footer */
 	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row, col);
@@ -3684,7 +3673,6 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		o_ptr = &cr_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
-
 
 		/* Acquire "known" flags */
 		object_flags_known(o_ptr, flgs);

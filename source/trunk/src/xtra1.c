@@ -3294,9 +3294,9 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (creature_ptr->lev > 39) new_speed++;
 			if (creature_ptr->lev > 44) new_speed++;
 			if (creature_ptr->lev > 49) new_speed++;
-			creature_ptr->to_a += 10+creature_ptr->lev/2;
-			creature_ptr->dis_to_a += 10+creature_ptr->lev/2;
-			creature_ptr->skill_dig += (100+creature_ptr->lev*8);
+			creature_ptr->to_a += 10 + creature_ptr->lev / 2;
+			creature_ptr->dis_to_a += 10 + creature_ptr->lev / 2;
+			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
 			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			play_redraw |= PR_STATUS;
 			break;
@@ -3304,7 +3304,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			break;
 		case CLASS_NINJA:
-			/* Unencumbered Ninjas become faster every 10 levels */
+			// Unencumbered Ninjas become faster every 10 levels
 			if (heavy_armor(creature_ptr))
 			{
 				new_speed -= (creature_ptr->lev) / 10;
@@ -3481,25 +3481,26 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	for (i = 0; i < 6; i++)
 	{
 		if(IS_PURE(creature_ptr))
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_adj[i];
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_adj[i] * 10;
 		else
 		{
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_s_adj[i];
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr2->r_s_adj[i];
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_s_adj[i] * 10;
+			creature_ptr->stat_add[i] += tmp_rcreature_ptr2->r_s_adj[i] * 10;
 		}
 
 		if(creature_ptr->cls_idx != INDEX_NONE)
 		{
-			creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i];
-			if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i];
+			creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i] * 10;
+			if(creature_ptr->cls_bonus)
+				creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
 		}
 
 		if(creature_ptr->chara_idx != INDEX_NONE)
-			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i];
+			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
 
 		for(j = 0; j < max_authorities_idx; j++)
 			if(HAS_AUTHORITY(creature_ptr, j))
-				creature_ptr->stat_add[i] += authority_info[j].a_adj[i];
+				creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
 
 		if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
 		{
@@ -3508,7 +3509,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			{
 				for(j = 0; j < max_authorities_idx; j++)
 					if(HAS_AUTHORITY(patron_ptr, j))
-						creature_ptr->stat_add[i] += authority_info[j].a_adj[i];
+						creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
 			}
 		}
 
@@ -3521,12 +3522,12 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	{
 		if(has_cf_creature(creature_ptr, i))
 		{
-			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR];
-			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT];
-			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS];
-			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX];
-			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON];
-			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA];
+			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR] * 10;
+			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT] * 10;
+			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS] * 10;
+			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX] * 10;
+			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON] * 10;
+			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA] * 10;
 
 			creature_ptr->skill_dis += creature_flag_info[i].dis;
 			creature_ptr->skill_dev += creature_flag_info[i].dev;
