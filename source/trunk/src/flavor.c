@@ -2445,8 +2445,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
 			t = object_desc_num(t, o_ptr->ac);
-			t = object_desc_chr(t, ',');
 			t = object_desc_int(t, o_ptr->to_ac);
+			t = object_desc_chr(t, ',');
+			t = object_desc_num(t, o_ptr->ev);
+			t = object_desc_int(t, o_ptr->to_ev);
 			t = object_desc_chr(t, b2);
 		}
 
@@ -2456,6 +2458,8 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
 			t = object_desc_int(t, o_ptr->to_ac);
+			t = object_desc_chr(t, ',');
+			t = object_desc_int(t, o_ptr->to_ev);
 			t = object_desc_chr(t, b2);
 		}
 	}
@@ -2466,6 +2470,8 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, b1);
 		t = object_desc_num(t, o_ptr->ac);
+			t = object_desc_chr(t, ',');
+		t = object_desc_num(t, o_ptr->ev);
 		t = object_desc_chr(t, b2);
 	}
 
