@@ -718,23 +718,16 @@ static void prt_gold(creature_type *cr_ptr)
 
 
 /*
- * Prints current AC
+ * Prints current AC and ev
  */
-static void prt_ac(creature_type *cr_ptr)
+static void prt_ac_ev(creature_type *cr_ptr)
 {
 	char tmp[32];
-
-#ifdef JP
-/* AC ‚Ì•\Ž¦•ûŽ®‚ð•ÏX‚µ‚Ä‚¢‚é */
-	put_str("  AC (     )", ROW_AC, COL_AC);
+	put_str(" AC(     )  EV(     )", ROW_AC, COL_AC);
 	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_ac);
-	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 6);
-#else
-	put_str("Cur AC ", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_ac);
-	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 7);
-#endif
-
+	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 4);
+	sprintf(tmp, "%5d", cr_ptr->dis_ev + cr_ptr->dis_to_ev);
+	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 15);
 }
 
 
@@ -1545,7 +1538,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 	for (i = 0; i < 6; i++) prt_stat(cr_ptr, i);
 
 	/* Armor */
-	prt_ac(cr_ptr);
+	prt_ac_ev(cr_ptr);
 
 	/* Hitpoints */
 	prt_hp(cr_ptr);
@@ -5688,7 +5681,7 @@ void redraw_stuff()
 	if (play_redraw & (PR_ARMOR))
 	{
 		play_redraw &= ~(PR_ARMOR);
-		prt_ac(player_ptr);
+		prt_ac_ev(player_ptr);
 	}
 
 	if (play_redraw & (PR_HP))

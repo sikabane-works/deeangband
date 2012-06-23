@@ -1547,55 +1547,56 @@ errr check_load_init(void)
 #define ENTRY_SPEED 8
 #define ENTRY_ACTION_POWER 9
 #define ENTRY_BASE_AC 10
-#define ENTRY_LEVEL 11
-#define ENTRY_CUR_EXP 12
-#define ENTRY_MAX_EXP 13
-#define ENTRY_EXP_TO_ADV 14
-#define ENTRY_GOLD 15
-#define ENTRY_DAY 16
-#define ENTRY_HP 17
-#define ENTRY_SP 18
-#define ENTRY_PLAY_TIME 19
-#define ENTRY_SKILL_FIGHT 20
-#define ENTRY_SKILL_SHOOT 21
-#define ENTRY_SKILL_ROBUSTNESS 22
-#define ENTRY_SKILL_EVALITY 23
-#define ENTRY_SKILL_VOLITION 24
-#define ENTRY_SKILL_STEALTH 25
-#define ENTRY_SKILL_PERCEP 26
-#define ENTRY_SKILL_SEARCH 27
-#define ENTRY_SKILL_DISARM 28
-#define ENTRY_SKILL_DEVICE 29
-#define ENTRY_BLOWS 30
-#define ENTRY_SHOTS 31
-#define ENTRY_AVG_DMG 32
-#define ENTRY_INFRA 33
+#define ENTRY_BASE_EV 11
+#define ENTRY_LEVEL 12
+#define ENTRY_CUR_EXP 13
+#define ENTRY_MAX_EXP 14
+#define ENTRY_EXP_TO_ADV 15
+#define ENTRY_GOLD 16
+#define ENTRY_DAY 17
+#define ENTRY_HP 18
+#define ENTRY_SP 19
+#define ENTRY_PLAY_TIME 20
+#define ENTRY_SKILL_FIGHT 21
+#define ENTRY_SKILL_SHOOT 22
+#define ENTRY_SKILL_ROBUSTNESS 23
+#define ENTRY_SKILL_EVALITY 24
+#define ENTRY_SKILL_VOLITION 25
+#define ENTRY_SKILL_STEALTH 26
+#define ENTRY_SKILL_PERCEP 27
+#define ENTRY_SKILL_SEARCH 28
+#define ENTRY_SKILL_DISARM 29
+#define ENTRY_SKILL_DEVICE 30
+#define ENTRY_BLOWS 31
+#define ENTRY_SHOTS 32
+#define ENTRY_AVG_DMG 33
+#define ENTRY_INFRA 34
 
-#define ENTRY_NAME 34
-#define ENTRY_SEX 35
-#define ENTRY_RACE 36
-#define ENTRY_CLASS 37
-#define ENTRY_REALM 38
-#define ENTRY_PATRON 39
-#define ENTRY_AGE 40
-#define ENTRY_HEIGHT 41
-#define ENTRY_WEIGHT 42
-#define ENTRY_SOCIAL 43
-#define ENTRY_ALIGN 44
+#define ENTRY_NAME 35
+#define ENTRY_SEX 36
+#define ENTRY_RACE 37
+#define ENTRY_CLASS 38
+#define ENTRY_REALM 39
+#define ENTRY_PATRON 40
+#define ENTRY_AGE 41
+#define ENTRY_HEIGHT 42
+#define ENTRY_WEIGHT 43
+#define ENTRY_SOCIAL 44
+#define ENTRY_ALIGN 45
 
-#define ENTRY_EXP_ANDR 45
-#define ENTRY_EXP_TO_ADV_ANDR 46
-#define ENTRY_SIZE 47
-#define ENTRY_DIVINE_RANK 48
-#define ENTRY_SKILL_DIGGING 49
+#define ENTRY_EXP_ANDR 46
+#define ENTRY_EXP_TO_ADV_ANDR 47
+#define ENTRY_SIZE 48
+#define ENTRY_DIVINE_RANK 49
+#define ENTRY_SKILL_DIGGING 50
 
-#define ENTRY_GOOD 50
-#define ENTRY_EVIL 51
-#define ENTRY_ORDER 52
-#define ENTRY_CHAOS 53
-#define ENTRY_BALANCE 54
+#define ENTRY_GOOD 51
+#define ENTRY_EVIL 52
+#define ENTRY_ORDER 53
+#define ENTRY_CHAOS 54
+#define ENTRY_BALANCE 55
 
-#define ENTRY_AUTH 55
+#define ENTRY_AUTH 56
 
 
 static struct
@@ -1621,6 +1622,7 @@ static struct
 	{16, 10, 14,  0,  0,  0, "‰Á‘¬ "},
 	{16, 11, 14,  0,  0,  0, "s“®’l"},
 	{ 1, 10, 14,  0,  0,  0, "‚`‚b"},
+	{ 1, 11, 14,  0,  0,  0, "‚d‚u"},
 	{ 1,  6, 13,  0,  0,  0, "ƒŒƒxƒ‹"},
 	{33, 10, 21,  0,  0,  0, "ŒoŒ±’l"},
 	{33, 11, 21,  0,  0,  0, "Å‘åŒoŒ±"},
@@ -1680,6 +1682,7 @@ static struct
 	{16, 10, 14,  0,  0,  0, "Speed"},
 	{16, 11, 14,  0,  0,  0, "Action.P"},
 	{ 1, 10, 14,  0,  0,  0, "AC    "},
+	{ 1, 11, 14,  0,  0,  0, "EV    "},
 	{ 1,  8, 12,  0,  0,  0, "Level "},
 	{29, 10, 21,  0,  0,  0, "Experience"},
 	{29, 11, 21,  0,  0,  0, "Max Exp"},
@@ -1919,8 +1922,9 @@ static void display_player_middle(creature_type *creature_ptr)
 		}
 	}
 
-	/* Dump the armor class */
+	// Dump the armor class and evasion
 	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_ac), TERM_L_BLUE);
+	display_player_one_line(ENTRY_BASE_EV, format("[%d,%+d]", creature_ptr->dis_ev, creature_ptr->dis_to_ev), TERM_L_BLUE);
 
 	format_weight(buf1, creature_ptr->carrying_weight);
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
