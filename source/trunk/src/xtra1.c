@@ -716,10 +716,7 @@ static void prt_gold(creature_type *cr_ptr)
 }
 
 
-
-/*
- * Prints current AC and ev
- */
+// Prints current AC and EV
 static void prt_ac_ev(creature_type *cr_ptr)
 {
 	char tmp[32];
@@ -730,44 +727,24 @@ static void prt_ac_ev(creature_type *cr_ptr)
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 15);
 }
 
-
 /*
  * Prints Cur/Max hit points
  */
 static void prt_hp(creature_type *cr_ptr)
 {
-/* ヒットポイントの表示方法を変更 */
-	char tmp[32];
-  
+	char tmp[32]; 
 	byte color;
-  
-	/* タイトル */
-/*	put_str(" ＨＰ・ＭＰ", ROW_HPMP, COL_HPMP); */
 
 	put_str("HP", ROW_CURHP, COL_CURHP);
-
-	/* 現在のヒットポイント */
 	sprintf(tmp, "%5ld", cr_ptr->chp);
 
-	if (cr_ptr->chp >= cr_ptr->mhp)
-	{
-		color = TERM_L_GREEN;
-	}
-	else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10)
-	{
-		color = TERM_YELLOW;
-	}
-	else
-	{
-		color = TERM_RED;
-	}
+	if (cr_ptr->chp >= cr_ptr->mhp) color = TERM_L_GREEN;
+	else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10) color = TERM_YELLOW;
+	else color = TERM_RED;
 
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 2);
 
-	/* 区切り */
 	put_str("/", ROW_CURHP, COL_CURHP + 7);
-
-	/* 最大ヒットポイント */
 	sprintf(tmp, "%5ld", cr_ptr->mhp);
 	color = TERM_L_GREEN;
 
@@ -780,12 +757,8 @@ static void prt_hp(creature_type *cr_ptr)
  */
 static void prt_sp(creature_type *cr_ptr)
 {
-/* マジックポイントの表示方法を変更している */
 	char tmp[32];
 	byte color;
-
-	/* タイトル */
-/*	put_str(" ＭＰ / 最大", ROW_MAXSP, COL_MAXSP); */
 
 #ifdef JP
 	put_str("MP", ROW_CURSP, COL_CURSP);
@@ -793,28 +766,15 @@ static void prt_sp(creature_type *cr_ptr)
 	put_str("SP", ROW_CURSP, COL_CURSP);
 #endif
 
-	/* 現在のマジックポイント */
 	sprintf(tmp, "%5ld", cr_ptr->csp);
 
-	if (cr_ptr->csp >= cr_ptr->msp)
-	{
-		color = TERM_L_GREEN;
-	}
-	else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10)
-	{
-		color = TERM_YELLOW;
-	}
-	else
-	{
-		color = TERM_RED;
-	}
-
+	if (cr_ptr->csp >= cr_ptr->msp) color = TERM_L_GREEN;
+	else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10) color = TERM_YELLOW;
+	else color = TERM_RED;
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 2);
 
-	/* 区切り */
-	put_str( "/", ROW_CURSP, COL_CURSP + 7 );
+	put_str( "/", ROW_CURSP, COL_CURSP + 7);
 
-	/* 最大マジックポイント */
 	sprintf(tmp, "%5d", cr_ptr->msp);
 	color = TERM_L_GREEN;
 

@@ -2004,7 +2004,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 }
 
 
-#define OBJECT_KIND_INFO_CSV_COLUMNS 28
+#define OBJECT_KIND_INFO_CSV_COLUMNS 29
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2022,6 +2022,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"WEIGHT",
 	"COST",
 	"BASE_AC",
+	"BASE_EV",
 	"BASE_DAMAGE",
 	"PLUS_HIT",
 	"PLUS_DAM",
@@ -2053,6 +2054,7 @@ enum OBJECT_KIND_INFO {
   OK_INFO_WEIGHT,
   OK_INFO_COST,
   OK_INFO_BASE_AC,
+  OK_INFO_BASE_EV,
   OK_INFO_BASE_DAMAGE,
   OK_INFO_PLUS_HIT,
   OK_INFO_PLUS_DAM,
@@ -2214,6 +2216,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_info[n].ac = (byte)b;
 				else
 					object_kind_info[n].ac = 0;
+				break;
+
+			case OK_INFO_BASE_EV:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_info[n].ev = (byte)b;
+				else
+					object_kind_info[n].ev = 0;
 				break;
 
 			case OK_INFO_BASE_DAMAGE:
