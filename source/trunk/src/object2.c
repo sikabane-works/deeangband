@@ -3653,6 +3653,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 			if (e_ptr->max_to_hit) o_ptr->to_hit -= (s16b)randint1(e_ptr->max_to_hit);
 			if (e_ptr->max_to_damage) o_ptr->to_damage -= (s16b)randint1(e_ptr->max_to_damage);
 			if (e_ptr->max_to_ac) o_ptr->to_ac -= (s16b)randint1(e_ptr->max_to_ac);
+			if (e_ptr->max_to_ac) o_ptr->to_ev -= (s16b)randint1(e_ptr->max_to_ev);
 
 			/* Hack -- obtain pval */
 			if (e_ptr->max_pval) o_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
@@ -7861,6 +7862,13 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 		if (e_ptr->max_to_ac > 127)
 			o_ptr->to_ac -= (s16b)randint1(256-e_ptr->max_to_ac);
 		else o_ptr->to_ac += (s16b)randint1(e_ptr->max_to_ac);
+	}
+
+	if (e_ptr->max_to_ev)
+	{
+		if (e_ptr->max_to_ev > 127)
+			o_ptr->to_ev -= (s16b)randint1(256-e_ptr->max_to_ev);
+		else o_ptr->to_ev += (s16b)randint1(e_ptr->max_to_ev);
 	}
 
 	// Hack -- obtain pval

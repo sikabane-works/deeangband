@@ -2704,7 +2704,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 
-#define OBJECT_EGO_INFO_CSV_COLUMNS 16
+#define OBJECT_EGO_INFO_CSV_COLUMNS 17
 static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2715,6 +2715,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"MAX_HIT",
 	"MAX_DAM",
 	"MAX_AC",
+	"MAX_EV",
 	"PVAL",
 	"DEPTH",
 	"RARITY",
@@ -2733,14 +2734,15 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_MAX_HIT  5
 #define OBJECT_EGO_INFO_MAX_DAM  6
 #define OBJECT_EGO_INFO_MAX_AC   7
-#define OBJECT_EGO_INFO_PVAL     8
-#define OBJECT_EGO_INFO_DEPTH    9
-#define OBJECT_EGO_INFO_RARITY  10
-#define OBJECT_EGO_INFO_WEIGHT  11
-#define OBJECT_EGO_INFO_COST    12
-#define OBJECT_EGO_INFO_FLAG    13
-#define OBJECT_EGO_INFO_COMMENT 14
-#define OBJECT_EGO_INFO_AP_RATE 15
+#define OBJECT_EGO_INFO_MAX_EV   8
+#define OBJECT_EGO_INFO_PVAL     9
+#define OBJECT_EGO_INFO_DEPTH   10
+#define OBJECT_EGO_INFO_RARITY  11
+#define OBJECT_EGO_INFO_WEIGHT  12
+#define OBJECT_EGO_INFO_COST    13
+#define OBJECT_EGO_INFO_FLAG    14
+#define OBJECT_EGO_INFO_COMMENT 15
+#define OBJECT_EGO_INFO_AP_RATE 16
 
 static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
@@ -2845,6 +2847,13 @@ errr parse_object_ego_csv(char *buf, header *head)
 					object_ego_info[n].max_to_ac = (byte)b;
 				else
 					object_ego_info[n].max_to_ac = 0;
+				break;
+
+			case OBJECT_EGO_INFO_MAX_EV:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_to_ev = (byte)b;
+				else
+					object_ego_info[n].max_to_ev = 0;
 				break;
 
 			case OBJECT_EGO_INFO_PVAL:

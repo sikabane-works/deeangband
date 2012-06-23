@@ -248,9 +248,10 @@ struct ego_item_type
 	byte level;			/* Minimum level */
 	byte rarity;		/* Object rarity */
 
-	byte max_to_hit;		/* Maximum to-hit bonus */
-	byte max_to_damage;		/* Maximum to-dam bonus */
-	byte max_to_ac;		/* Maximum to-ac bonus */
+	byte max_to_hit;		// Maximum to-hit bonus
+	byte max_to_damage;		// Maximum to-dam bonus
+	byte max_to_ac;			// Maximum to-ac bonus
+	byte max_to_ev;			// Maximum to-ac bonus
 
 	byte max_pval;		/* Maximum pval */
 
