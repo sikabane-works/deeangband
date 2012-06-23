@@ -12,6 +12,1709 @@
 
 #include "angband.h"
 
+#define MAX_VAMPIRIC_DRAIN 50
+
+
+
+static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
+{
+	int aura_damage = 0;
+	species_type *species_ptr = &species_info[tar_ptr->species_idx];
+
+	if (has_cf_creature(tar_ptr, CF_AURA_FIRE))
+	{
+		if (!atk_ptr->immune_fire)
+		{
+			char aura_dam[80];
+
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+
+#ifdef JP
+			msg_print("突然とても熱くなった！");
+#else
+			msg_print("You are suddenly very hot!");
+#endif
+
+			aura_damage = calc_damage(atk_ptr, aura_damage, DAMAGE_TYPE_FIRE, FALSE);
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_FIRE);
+			handle_stuff();
+		}
+	}
+
+	if (has_cf_creature(tar_ptr, CF_AURA_COLD))
+	{
+		if (!atk_ptr->immune_cold)
+		{
+			char aura_dam[80];
+
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+
+#ifdef JP
+			msg_print("突然とても寒くなった！");
+#else
+			msg_print("You are suddenly very cold!");
+#endif
+
+			if (IS_OPPOSE_COLD(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
+
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_COLD);
+			handle_stuff();
+		}
+	}
+
+	if (has_cf_creature(tar_ptr, CF_AURA_ELEC))
+	{
+		if (!atk_ptr->immune_elec)
+		{
+			char aura_dam[80];
+
+			aura_damage = diceroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+
+			if (has_cf_creature(atk_ptr, CF_ANDROID)) aura_damage += aura_damage / 3;
+			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (atk_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
+
+#ifdef JP
+			msg_print("電撃をくらった！");
+#else
+			msg_print("You get zapped!");
+#endif
+
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_ELEC);
+			handle_stuff();
+		}
+	}
+}
+
+
+/*
+ * Player attacks a (poor, defenseless) creature        -RAK-
+ *
+ * If no "weapon" is available, then "punch" the monster one time.
+ */
+static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	int		num = 0, k, bonus, chance;
+
+	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
+
+	// Access the weapon
+	object_type     *weapon_ptr = get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_HAND, hand);
+
+	char            atk_name[80];
+	char            tar_name[80];
+	char			weapon_name[80];
+
+	bool            success_hit = FALSE;
+	bool            backstab = FALSE;
+	bool            vorpal_cut = FALSE;
+	int             chaos_effect = 0;
+	bool            stab_fleeing = FALSE;
+	bool            fuiuchi = FALSE;
+	bool            tramping = FALSE;
+	bool            do_quake = FALSE;
+	bool            weak = FALSE;
+	bool            drain_msg = TRUE;
+	int             drain_result = 0, drain_heal = 0;
+	bool            can_drain = FALSE;
+	int             num_blow;
+	int             drain_left = MAX_VAMPIRIC_DRAIN;
+	u32b flgs[TR_FLAG_SIZE]; /* A massive hack -- life-draining weapons */
+	bool            is_human = (r_ptr->d_char == 'p');
+	bool            is_lowlevel = (r_ptr->level < (atk_ptr->lev - 15));
+	bool            zantetsu_mukou, e_j_mukou;
+	bool monk_attack = FALSE;
+
+	switch (atk_ptr->cls_idx)
+	{
+	case CLASS_ROGUE:
+	case CLASS_NINJA:
+		if (get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) > hand && !atk_ptr->icky_wield[hand])
+		{
+			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
+			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+			if (atk_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
+			if (r_ptr->level > (atk_ptr->lev * atk_ptr->lev / 20 + 10)) tmp /= 3;
+			if (tar_ptr->paralyzed && tar_ptr->ml)
+			{
+				// Can't backstab creatures that we can't see, right?
+				backstab = TRUE;
+			}
+			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !(tar_ptr->resist_ultimate))
+			{
+				fuiuchi = TRUE;
+			}
+			else if (tar_ptr->afraid && tar_ptr->ml)
+			{
+				stab_fleeing = TRUE;
+			}
+		}
+		break;
+
+	case CLASS_MONK:
+	case CLASS_FORCETRAINER:
+	case CLASS_BERSERKER:
+		if ((empty_hands(atk_ptr, TRUE) & EMPTY_HAND_RARM) && !atk_ptr->riding) monk_attack = TRUE;
+		break;
+	}
+
+	if (object_is_melee_weapon(atk_ptr, weapon_ptr))
+	{
+		object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
+		// Weapon skill mastering
+		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
+		{
+			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
+			int sval = atk_ptr->inventory[hand].sval;
+			int now_exp = atk_ptr->weapon_exp[tval][sval];
+			if (now_exp < skill_info[atk_ptr->cls_idx].w_max[tval][sval])
+			{
+				int amount = 0;
+				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
+				else if (now_exp < WEAPON_EXP_SKILLED) amount = 10;
+				else if ((now_exp < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19)) amount = 1;
+				else if ((atk_ptr->lev > 34) && one_in_(2)) amount = 1;
+				atk_ptr->weapon_exp[tval][sval] += amount;
+				atk_ptr->creature_update |= (CRU_BONUS);
+			}
+		}
+	}
+	else
+	{
+#if JP
+		strcpy(weapon_name, "何か");
+#else
+		strcpy(weapon_name, "someone");
+#endif
+	}
+
+	// Disturb the monster
+	(void)set_paralyzed(tar_ptr, 0);
+
+	// Extract attacker and target name (or "it")
+	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(tar_name, tar_ptr, 0);
+
+	// Calculate the "attack quality"
+	bonus = atk_ptr->to_hit[hand] + weapon_ptr->to_hit;
+	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
+	if (mode == HISSATSU_IAI) chance += 60;
+	if (atk_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
+
+	if (atk_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
+
+	zantetsu_mukou = ((weapon_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
+	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
+
+	if ((mode == HISSATSU_KYUSHO) || (mode == HISSATSU_MINEUCHI) || (mode == HISSATSU_3DAN) || (mode == HISSATSU_IAI)) num_blow = 1;
+	else if (mode == HISSATSU_COLD) num_blow = atk_ptr->num_blow[hand]+2;
+	else num_blow = atk_ptr->num_blow[hand];
+
+	// Hack -- DOKUBARI always hit once
+	// if ((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) num_blow = 1;
+
+	// Attack once for each legal blow
+	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+	{
+		int n = count_melee_slot(atk_ptr);
+		if (mode == HISSATSU_3DAN) n *= 2;
+		success_hit = one_in_(n);
+	}
+	else if ((atk_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
+	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
+
+	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
+
+	// Test for hit
+	if (success_hit)
+	{
+		int vorpal_chance = ((weapon_ptr->name1 == ART_VORPAL_BLADE) || (weapon_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
+		sound(SOUND_HIT);
+		if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+		{
+#ifdef JP
+			if (backstab)
+			{
+				msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", atk_name, tar_name);
+			}
+			else if (fuiuchi)
+			{
+				msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", atk_name, tar_name);
+			}
+			else if (stab_fleeing)
+			{
+				msg_format("%sは逃げる%sを背中から突き刺した！", atk_name, tar_name);
+			}
+			else if (!monk_attack)
+			{
+				msg_format("%sは%sで%sを攻撃した。", atk_name, weapon_name, tar_name);
+			}
+#else
+			if (backstab)
+			{
+				//TODO
+				msg_format("%s cruelly stab the helpless, sleeping %s!", atk_name, tar_name);
+			}
+			else if (fuiuchi)
+			{
+				//TODO
+				msg_format("%s make surprise attack, and hit %s with a powerful blow!", atk_name, tar_name);
+			}
+			else if (stab_fleeing)
+			{
+				//TODO
+				msg_format("%s backstab the fleeing %s!", atk_name, tar_name);
+			}
+			else if (!monk_attack)
+			{
+				//TODO
+				msg_format("%s hit %s by %s.", atk_name, tar_name, weapon_name);
+			}
+#endif
+		}
+
+		/* Hack -- bare hands do one damage */
+		k = 1;
+
+		object_flags(weapon_ptr, flgs);
+
+		// Select a chaotic effect (50% chance)
+		if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
+		{
+			if (one_in_(10))
+			{
+				if (randint1(5) < 3)   chaos_effect = 1; // Vampiric (20%)
+				else if (one_in_(250)) chaos_effect = 2; // Quake (0.12%)
+				else if (!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
+				else if (one_in_(2))   chaos_effect = 4; // Teleport away (1.494%)
+				else                   chaos_effect = 5; // Polymorph (1.494%)
+			}
+		}
+
+		// Vampiric drain
+		if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
+		{
+			// Only drain "living" monsters
+			if (creature_living(tar_ptr)) can_drain = TRUE;
+			else can_drain = FALSE;
+		}
+
+		if ((have_flag(flgs, TR_VORPAL) || hex_spelling(atk_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+			vorpal_cut = TRUE;
+		else vorpal_cut = FALSE;
+
+		// Handle normal weapon
+		if (weapon_ptr->k_idx)
+		{
+			k = diceroll(weapon_ptr->dd + atk_ptr->to_damaged[hand], weapon_ptr->ds + atk_ptr->to_damages[hand]);
+			k = tot_dam_aux(atk_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
+
+			if (backstab)
+			{
+				k *= (3 + (atk_ptr->lev / 20));
+			}
+			else if (fuiuchi)
+			{
+				k = k*(5+(atk_ptr->lev*2/25))/2;
+			}
+			else if (stab_fleeing)
+			{
+				k = (3 * k) / 2;
+			}
+
+			if ((atk_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
+				(chaos_effect == 2) || (mode == HISSATSU_QUAKE))
+			{
+				do_quake = TRUE;
+			}
+
+			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
+				k = critical_norm(atk_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, atk_ptr->to_hit[hand], mode);
+
+			drain_result = k;
+
+			if (vorpal_cut)
+			{
+				int mult = 2;
+
+				if ((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
+				{
+					char chainsword_noise[1024];
+#ifdef JP
+					if (!get_rnd_line("chainswd_j.txt", 0, chainsword_noise))
+#else
+					if (!get_rnd_line("chainswd.txt", 0, chainsword_noise))
+#endif
+					{
+						msg_print(chainsword_noise);
+					}
+				}
+
+				if (weapon_ptr->name1 == ART_VORPAL_BLADE)
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_print("目にも止まらぬヴォーパルブレード、手錬の早業！");
+#else
+						msg_print("Your Vorpal Blade goes snicker-snack!");
+#endif
+				}
+				else
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%sをグッサリ切り裂いた！", tar_name);
+#else
+						msg_format("Your weapon cuts deep into %s!", tar_name);
+#endif
+				}
+
+				/* Try to increase the damage */
+				while (one_in_(vorpal_chance))
+				{
+					mult++;
+				}
+
+				k *= mult;
+
+				// Ouch!
+				if (((tar_ptr->resist_ultimate) ? k / 100 : k) > tar_ptr->chp)
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%sを真っ二つにした！", tar_name);
+#else
+						msg_format("You cut %s in half!", tar_name);
+#endif
+				}
+				else
+				{
+					switch (mult)
+					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+						{
+#ifdef JP
+					case 2: msg_format("%sを斬った！", tar_name); break;
+					case 3: msg_format("%sをぶった斬った！", tar_name); break;
+					case 4: msg_format("%sをメッタ斬りにした！", tar_name); break;
+					case 5: msg_format("%sをメッタメタに斬った！", tar_name); break;
+					case 6: msg_format("%sを刺身にした！", tar_name); break;
+					case 7: msg_format("%sを斬って斬って斬りまくった！", tar_name); break;
+					default: msg_format("%sを細切れにした！", tar_name); break;
+#else
+					case 2: msg_format("You gouge %s!", tar_name); break;
+					case 3: msg_format("You maim %s!", tar_name); break;
+					case 4: msg_format("You carve %s!", tar_name); break;
+					case 5: msg_format("You cleave %s!", tar_name); break;
+					case 6: msg_format("You smite %s!", tar_name); break;
+					case 7: msg_format("You eviscerate %s!", tar_name); break;
+					default: msg_format("You shred %s!", tar_name); break;
+#endif
+						}
+					}
+				}
+				drain_result = drain_result * 3 / 2;
+			}
+
+			k += weapon_ptr->to_damage;
+			drain_result += weapon_ptr->to_damage;
+		}
+
+		// Apply the player damage bonuses
+		k += atk_ptr->to_damage[hand];
+		drain_result += atk_ptr->to_damage[hand];
+
+		if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
+		if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(tar_ptr)) k = 0;
+		if ((mode == HISSATSU_SEKIRYUKA) && !atk_ptr->cut) k /= 2;
+		if (k < 0) k = 0; // No negative damage
+		if ((mode == HISSATSU_ZANMA) && !(!creature_living(tar_ptr) && is_enemy_of_good_creature(tar_ptr)))
+		{
+			k = 0;
+		}
+
+		if (zantetsu_mukou)
+		{
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_print("こんな軟らかいものは切れん！");
+#else
+				msg_print("You cannot cut such a elastic thing!");
+#endif
+			k = 0;
+		}
+
+		if (e_j_mukou)
+		{
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_print("蜘蛛は苦手だ！");
+#else
+				msg_print("Spiders are difficult for you to deal with!");
+#endif
+			k /= 2;
+		}
+
+		if (mode == HISSATSU_MINEUCHI)
+		{
+			int tmp = (10 + randint1(15) + atk_ptr->lev / 5);
+
+			k = 0;
+			anger_creature(atk_ptr, tar_ptr);
+
+			if (!has_cf_creature(tar_ptr, CF_NO_STUN))
+			{
+				if (tar_ptr->stun) // Get stunned
+				{
+					if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%sはひどくもうろうとした。", tar_name);
+#else
+						msg_format("%s is more dazed.", tar_name);
+#endif
+					tmp /= 2;
+				}
+				else
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%s はもうろうとした。", tar_name);
+#else
+						msg_format("%s is dazed.", tar_name);
+#endif
+				}
+
+				/* Apply stun */
+				(void)set_stun(&creature_list[c_ptr->creature_idx], tar_ptr->stun + tmp);
+			}
+			else
+			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+					msg_format("%s には効果がなかった。", tar_name);
+#else
+					msg_format("%s is not effected.", tar_name);
+#endif
+			}
+		}
+
+		// Modify the damage
+		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
+		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+		{
+			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
+			{
+				k = tar_ptr->chp + 1;
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+					msg_format("%sの急所を突き刺した！", tar_name);
+#else
+					msg_format("You hit %s on a fatal spot!", tar_name);
+#endif
+			}
+			else k = 1;
+		}
+		else if ((atk_ptr->cls_idx == CLASS_NINJA) && get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
+		{
+			if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
+			{
+				k *= 5;
+				drain_result *= 2;
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+					msg_format("刃が%sに深々と突き刺さった！", tar_name);
+#else
+					msg_format("You critically injured %s!", tar_name);
+#endif
+			}
+			else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr)))
+			{
+				if (is_unique_creature(tar_ptr) || is_sub_unique_creature(tar_ptr) || (tar_ptr->chp >= tar_ptr->mhp/2))
+				{
+					k = MAX(k*5, tar_ptr->chp/2);
+					drain_result *= 2;
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%sに致命傷を負わせた！", tar_name);
+#else
+						msg_format("You fatally injured %s!", tar_name);
+#endif
+				}
+				else
+				{
+					k = tar_ptr->chp + 1;
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("刃が%sの急所を貫いた！", tar_name);
+#else
+						msg_format("You hit %s on a fatal spot!", tar_name);
+#endif
+				}
+			}
+		}
+
+		// Complex message
+		if (wizard || cheat_xtra)
+		{
+			msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
+		}
+
+		if (k <= 0) can_drain = FALSE;
+
+		if (drain_result > tar_ptr->chp)
+			drain_result = tar_ptr->chp;
+
+		take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
+
+		if(gameover);
+		{
+			*mdeath = TRUE;
+			if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
+			{
+				if (count_melee_slot(atk_ptr) >= 2)
+				{
+					if (hand) energy_use = energy_use*3/5+energy_use*num*2/(atk_ptr->num_blow[hand]*5);
+					else energy_use = energy_use*num*3/(atk_ptr->num_blow[hand]*5);
+				}
+				else
+				{
+					energy_use = energy_use*num/atk_ptr->num_blow[hand];
+				}
+			}
+			if ((weapon_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
+				if(is_player(atk_ptr))
+#ifdef JP
+					msg_print("またつまらぬものを斬ってしまった．．．");
+#else
+					msg_print("Sigh... Another trifling thing I've cut....");
+#endif
+		}
+
+		// Anger the monster
+		if (k > 0) anger_creature(atk_ptr, tar_ptr);
+
+		touch_zap_player(atk_ptr, tar_ptr);
+
+		// Are we draining it?  A little note: If the monster is dead, the drain does not work...
+
+		if (can_drain && (drain_result > 0))
+		{
+			if (weapon_ptr->name1 == ART_MURAMASA)
+			{
+				if (is_human)
+				{
+					int to_hit = weapon_ptr->to_hit;
+					int to_damage = weapon_ptr->to_damage;
+					int i, flag;
+
+					flag = 1;
+					for (i = 0; i < to_hit + 3; i++) if (one_in_(4)) flag = 0;
+					if (flag) to_hit++;
+
+					flag = 1;
+					for (i = 0; i < to_damage + 3; i++) if (one_in_(4)) flag = 0;
+					if (flag) to_damage++;
+
+					if (weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
+					{
+						if(is_seen(player_ptr, atk_ptr))
+#ifdef JP
+							msg_print("妖刀は血を吸って強くなった！");
+#else
+							msg_print("Muramasa sucked blood, and became more powerful!");
+#endif
+						weapon_ptr->to_hit = to_hit;
+						weapon_ptr->to_damage = to_damage;
+					}
+				}
+			}
+			else
+			{
+				if (drain_result > 5) /* Did we really hurt it? */
+				{
+					drain_heal = diceroll(2, drain_result / 6);
+
+					/* Hex */
+					if (hex_spelling(atk_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+
+					if (cheat_xtra)
+					{
+#ifdef JP
+						msg_format("Draining left: %d", drain_left);
+#else
+						msg_format("Draining left: %d", drain_left);
+#endif
+
+					}
+
+					if (drain_left)
+					{
+						if (drain_heal < drain_left)
+						{
+							drain_left -= drain_heal;
+						}
+						else
+						{
+							drain_heal = drain_left;
+							drain_left = 0;
+						}
+
+						if (drain_msg)
+						{
+							if(is_seen(player_ptr, atk_ptr))
+#ifdef JP
+								msg_format("刃が%sから生命力を吸い取った！", tar_name);
+#else
+								msg_format("Your weapon drains life from %s!", tar_name);
+#endif
+
+							drain_msg = FALSE;
+						}
+
+						drain_heal = (drain_heal * atk_ptr->mutant_regenerate_mod) / 100;
+
+						hp_player(atk_ptr, drain_heal);
+						/* We get to keep some of it! */
+					}
+				}
+			}
+			tar_ptr->mhp -= (k+7)/8;
+			if (tar_ptr->chp > tar_ptr->mhp) tar_ptr->chp = tar_ptr->mhp;
+			if (tar_ptr->mhp < 1) tar_ptr->mhp = 1;
+			weak = TRUE;
+		}
+		can_drain = FALSE;
+		drain_result = 0;
+
+		if (chaos_effect == 4)
+		{
+			bool resists_tele = FALSE;
+
+			if (has_cf_creature(tar_ptr, CF_RES_TELE))
+			{
+				if (is_unique_creature(tar_ptr))
+				{
+					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
+#ifdef JP
+					msg_format("%^sには効果がなかった。", tar_name);
+#else
+					msg_format("%^s is unaffected!", tar_name);
+#endif
+
+					resists_tele = TRUE;
+				}
+				else if (r_ptr->level > randint1(100))
+				{
+					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
+#ifdef JP
+					msg_format("%^sは抵抗力を持っている！", tar_name);
+#else
+					msg_format("%^s resists!", tar_name);
+#endif
+
+					resists_tele = TRUE;
+				}
+			}
+
+			if (!resists_tele)
+			{
+#ifdef JP
+				msg_format("%^sは消えた！", tar_name);
+#else
+				msg_format("%^s disappears!", tar_name);
+#endif
+
+				teleport_away(&creature_list[c_ptr->creature_idx], 50, TELEPORT_PASSIVE);
+				num = num_blow + 1; /* Can't hit it anymore! */
+				*mdeath = TRUE;
+			}
+		}
+
+		else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
+		{
+			if (!(is_unique_creature(tar_ptr) || is_quest_creature(tar_ptr)) &&
+				!has_cf_creature(tar_ptr, CF_RES_CHAO))
+			{
+				if (polymorph_creature(atk_ptr, y, x))
+				{
+#ifdef JP
+					msg_format("%^sは変化した！", tar_name);
+#else
+					msg_format("%^s changes!", tar_name);
+#endif
+
+					*fear = FALSE;
+					weak = FALSE;
+				}
+				else
+				{
+#ifdef JP
+					msg_format("%^sには効果がなかった。", tar_name);
+#else
+					msg_format("%^s is unaffected.", tar_name);
+#endif
+				}
+
+				/* Hack -- Get new monster */
+				tar_ptr = &creature_list[c_ptr->creature_idx];
+
+				/* Oops, we need a different name... */
+				creature_desc(tar_name, tar_ptr, 0);
+
+				/* Hack -- Get new race */
+				r_ptr = &species_info[tar_ptr->species_idx];
+			}
+		}
+		else if (weapon_ptr->name1 == ART_G_HAMMER)
+		{
+			creature_type *tar_ptr = &creature_list[c_ptr->creature_idx];
+
+			//TODO reimplement get item process.
+		}
+	}
+
+	/* Player misses */
+	else
+	{
+		backstab = FALSE; /* Clumsy! */
+		fuiuchi = FALSE; /* Clumsy! */
+
+		if ((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
+		{
+
+			/* Sound */
+			sound(SOUND_HIT);
+
+			/* Message */
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+			{
+#ifdef JP
+				msg_format("%sは%sの攻撃をかわした。", tar_name, atk_name);
+#else
+				msg_format("%^s misses %s.", tar_name, atk_name);
+#endif
+#ifdef JP
+				msg_print("振り回した大鎌が自分自身に返ってきた！");
+#else
+				msg_print("Your scythe returns to you!");
+#endif
+			}
+
+			//TODO Death Scythe damage.
+			k = 0;
+#ifdef JP
+			take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
+#else
+			take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+#endif
+
+			redraw_stuff();
+		}
+		else
+		{
+			/* Sound */
+			sound(SOUND_MISS);
+
+			/* Message */
+#ifdef JP
+
+			msg_format("%sは%sの攻撃をかわした。", tar_name, atk_name);
+#else
+			msg_format("%^s misses %s.", tar_name, atk_name);
+#endif
+		}
+	}
+	backstab = FALSE;
+	fuiuchi = FALSE;
+
+
+	if (weak && !(*mdeath))
+	{
+#ifdef JP
+		msg_format("%sは弱くなったようだ。", tar_name);
+#else
+		msg_format("%^s seems weakened.", tar_name);
+#endif
+	}
+
+	// Mega-Hack -- apply earthquake brand
+	if (do_quake)
+	{
+		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
+		if (!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
+	}
+
+}
+
+
+static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int attack, bool *fear, bool *mdeath)
+{
+	int             k, bonus, chance;
+	int             n_weight = 0;
+	char            target_name[80];
+
+	int             dss, ddd;
+
+	cptr            atk_desc;
+
+	switch (attack)
+	{
+		case CF_SCOR_TAIL:
+			dss = 3;
+			ddd = 7;
+			n_weight = 5;
+#ifdef JP
+			atk_desc = "尻尾";
+#else
+			atk_desc = "tail";
+#endif
+
+			break;
+		case CF_HORNS:
+			dss = 2;
+			ddd = 6;
+			n_weight = 15;
+#ifdef JP
+			atk_desc = "角";
+#else
+			atk_desc = "horns";
+#endif
+
+			break;
+		case CF_BEAK:
+			dss = 2;
+			ddd = 4;
+			n_weight = 5;
+#ifdef JP
+			atk_desc = "クチバシ";
+#else
+			atk_desc = "beak";
+#endif
+
+			break;
+		case CF_TRUNK:
+			dss = 1;
+			ddd = 4;
+			n_weight = 35;
+#ifdef JP
+			atk_desc = "象の鼻";
+#else
+			atk_desc = "trunk";
+#endif
+
+			break;
+		case CF_TENTACLES:
+			dss = 2;
+			ddd = 5;
+			n_weight = 5;
+#ifdef JP
+			atk_desc = "触手";
+#else
+			atk_desc = "tentacles";
+#endif
+
+			break;
+		default:
+			dss = ddd = n_weight = 1;
+#ifdef JP
+			atk_desc = "未定義の部位";
+#else
+			atk_desc = "undefined body part";
+#endif
+
+	}
+
+	/* Extract monster name (or "it") */
+	creature_desc(target_name, tar_ptr, 0);
+
+
+	/* Calculate the "attack quality" */
+	bonus = atk_ptr->to_hit_m;
+	bonus += (atk_ptr->lev * 6 / 5);
+	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
+
+	/* Test for hit */
+	if ((!has_cf_creature(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
+	{
+		/* Sound */
+		sound(SOUND_HIT);
+
+#ifdef JP
+		msg_format("%sを%sで攻撃した。", target_name, atk_desc);
+#else
+		msg_format("You hit %s with your %s.", target_name, atk_desc);
+#endif
+
+
+		k = diceroll(ddd, dss);
+		k = critical_norm(atk_ptr, n_weight, bonus, k, (s16b)bonus, 0);
+
+		/* Apply the player damage bonuses */
+		k += atk_ptr->to_damage_m;
+
+		/* No negative damage */
+		if (k < 0) k = 0;
+
+		/* Modify the damage */
+		k = invuln_damage_mod(tar_ptr, k, FALSE);
+
+		/* Complex message */
+		if (wizard)
+		{
+			msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
+		}
+
+		/* Anger the monster */
+		if (k > 0) anger_creature(atk_ptr, tar_ptr);
+
+		/* Damage, check for fear and mdeath */
+		switch (attack)
+		{
+			case CF_SCOR_TAIL:
+				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
+				break;
+			case CF_HORNS:
+				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				break;
+			case CF_BEAK:
+				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				break;
+			case CF_TRUNK:
+				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				break;
+			case CF_TENTACLES:
+				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				break;
+			default:
+				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+		}
+		*mdeath = (tar_ptr->species_idx == 0);
+		touch_zap_player(atk_ptr, tar_ptr);
+	}
+	/* Player misses */
+	else
+	{
+		/* Sound */
+		sound(SOUND_MISS);
+
+		/* Message */
+		if(is_player(atk_ptr))
+		{
+#ifdef JP
+			msg_format("ミス！ %sにかわされた。", target_name);
+#else
+			msg_format("You miss %s.", target_name);
+#endif
+		}
+
+	}
+}
+
+
+
+static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
+{
+	creature_type    *m_ptr = &creature_list[m_idx];
+	species_type    *r_ptr = &species_info[m_ptr->species_idx];
+}
+
+
+static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char weapon_name[100], atk_name[100], tar_name[100];
+	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
+	bool monk_attack = FALSE;
+	int k;
+
+#if JP
+	strcpy(weapon_name, "素手");
+#else
+	strcpy(weapon_name, "bare hand");
+#endif
+
+	if ((r_ptr->level + 10) > atk_ptr->lev)
+	{
+		// Matrial arts skill mastering
+		if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
+		{
+			if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
+				atk_ptr->skill_exp[GINOU_SUDE] += 40;
+			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
+				atk_ptr->skill_exp[GINOU_SUDE] += 5;
+			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
+				atk_ptr->skill_exp[GINOU_SUDE] += 1;
+			else if ((atk_ptr->lev > 34))
+				if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
+			atk_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+
+	if (monk_attack)
+	{
+		int special_effect = 0, stun_effect = 0, times = 0, max_times;
+		int min_level = 1;
+		martial_arts *ma_ptr = &ma_blows[0], *old_ptr = &ma_blows[0];
+		int resist_stun = 0;
+		int weight = 8;
+
+		if (has_cf_creature(tar_ptr, CF_UNIQUE)) resist_stun += 88;
+		if (has_cf_creature(tar_ptr, CF_NO_STUN)) resist_stun += 66;
+		if (has_cf_creature(tar_ptr, CF_NO_CONF)) resist_stun += 33;
+		if (has_cf_creature(tar_ptr, CF_NO_SLEEP)) resist_stun += 33;
+		if (is_undead_creature(tar_ptr) || has_cf_creature(tar_ptr, CF_NONLIVING))
+			resist_stun += 66;
+
+		if (atk_ptr->special_defense & KAMAE_BYAKKO)
+			max_times = (atk_ptr->lev < 3 ? 1 : atk_ptr->lev / 3);
+		else if (atk_ptr->special_defense & KAMAE_SUZAKU)
+			max_times = 1;
+		else if (atk_ptr->special_defense & KAMAE_GENBU)
+			max_times = 1;
+		else
+			max_times = (atk_ptr->lev < 7 ? 1 : atk_ptr->lev / 7);
+		/* Attempt 'times' */
+		for (times = 0; times < max_times; times++)
+		{
+			do
+			{
+				ma_ptr = &ma_blows[randint0(MAX_MA)];
+				if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+				else min_level = ma_ptr->min_level;
+			}
+			while ((min_level > atk_ptr->lev) || (randint1(atk_ptr->lev) < ma_ptr->chance));
+
+			/* keep the highest level attack available we found */
+			if ((ma_ptr->min_level > old_ptr->min_level) && !atk_ptr->stun && !atk_ptr->confused)
+			{
+				old_ptr = ma_ptr;
+
+				if (wizard && cheat_xtra)
+				{
+#ifdef JP
+					msg_print("攻撃を再選択しました。");
+#else
+					msg_print("Attack re-selected.");
+#endif
+				}
+			}
+			else
+			{
+				ma_ptr = old_ptr;
+			}
+		}
+
+		if (atk_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+		else min_level = ma_ptr->min_level;
+		k = diceroll(ma_ptr->dd + atk_ptr->to_damaged[hand], ma_ptr->ds + atk_ptr->to_damages[hand]);
+		if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
+
+		if (ma_ptr->effect == MA_KNEE)
+		{
+			if (IS_MALE(tar_ptr))
+			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				{
+#ifdef JP
+					msg_format("%sは%sに金的膝蹴りをくらわした！", atk_name, tar_name);
+#else
+					//TODO
+					msg_format("%s hit %s in the groin with your knee!", atk_name, tar_name);
+#endif
+
+					sound(SOUND_PAIN);
+					special_effect = MA_KNEE;
+				}
+			}
+			else
+			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					msg_format(ma_ptr->desc, atk_name, tar_name);
+			}
+		}
+
+		else if (ma_ptr->effect == MA_SLOW)
+		{
+			if (!((is_never_move_species(r_ptr)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
+			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				{
+#ifdef JP
+					msg_format("%sは%sの足首に関節蹴りをくらわした！", atk_name, tar_name);
+#else
+					//TODO
+					msg_format("You kick %s in the ankle.", tar_name);
+#endif
+				}
+				special_effect = MA_SLOW;
+			}
+			else if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, tar_name);
+		}
+		else
+		{
+			if (ma_ptr->effect)
+			{
+				stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
+			}
+
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
+		}
+
+		if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
+		if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (atk_ptr->magic_num1[0]))
+		{
+			weight += (atk_ptr->magic_num1[0]/30);
+			if (weight > 20) weight = 20;
+		}
+
+		k = critical_norm(atk_ptr, atk_ptr->lev * weight, min_level, k, atk_ptr->to_hit[0], 0);
+
+		if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		{
+#ifdef JP
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
+#else
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", tar_name);
+#endif
+
+			stun_effect = 7 + randint1(13);
+			resist_stun /= 3;
+		}
+
+		else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		{
+			if (!is_unique_creature(tar_ptr) &&
+			    (randint1(atk_ptr->lev) > r_ptr->level) &&
+			    tar_ptr->speed > 60)
+			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+					msg_format("%^sは足をひきずり始めた。", tar_name);
+#else
+					msg_format("%^s starts limping slower.", tar_name);
+#endif
+
+				tar_ptr->speed -= 10;
+			}
+		}
+
+		if (stun_effect && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		{
+			if (atk_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
+			{
+				if (set_stun(&creature_list[c_ptr->creature_idx], stun_effect + tar_ptr->stun))
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%^sはフラフラになった。", tar_name);
+#else
+						msg_format("%^s is stunned.", tar_name);
+#endif
+				}
+				else
+				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%^sはさらにフラフラになった。", tar_name);
+#else
+						msg_format("%^s is more stunned.", tar_name);
+#endif
+				}
+			}
+		}
+	}
+}
+
+
+
+static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char tar_name[100];
+	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
+
+	// Confusion attack
+	//TODO if ((atk_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(atk_ptr, HEX_CONFUSION))
+	{
+		// Cancel glowing hands
+		if (atk_ptr->special_attack & ATTACK_CONFUSE)
+		{
+			atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
+			if(is_seen(player_ptr, atk_ptr))
+#ifdef JP
+				msg_print("手の輝きがなくなった。");
+#else
+				msg_print("Your hands stop glowing.");
+#endif
+			play_redraw |= (PR_STATUS);
+
+		}
+
+		// Confuse the monster
+		if (has_cf_creature(tar_ptr, CF_NO_CONF))
+		{
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
+
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sには効果がなかった。", tar_name);
+#else
+				msg_format("%^s is unaffected.", tar_name);
+#endif
+
+		}
+		else if (randint0(100) < r_ptr->level)
+		{
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sには効果がなかった。", tar_name);
+#else
+				msg_format("%^s is unaffected.", tar_name);
+#endif
+
+		}
+		else
+		{
+			if(is_seen(player_ptr, tar_ptr))
+#ifdef JP
+				msg_format("%^sは混乱したようだ。", tar_name);
+#else
+				msg_format("%^s appears confused.", tar_name);
+#endif
+
+			(void)set_confused(&creature_list[c_ptr->creature_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
+		}
+	}
+}
+
+
+
+
+
+static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	int i, n;
+	char attacker_name[100];
+	creature_desc(attacker_name, attacker_ptr, 0);
+
+	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
+	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
+	{
+		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		for(i = 0; i < n; i++)
+		{
+			if (attacker_ptr->inventory[i].name1 == ART_ZANTETSU)
+			{
+#ifdef JP
+				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
+#else
+				msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
+#endif
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (attacker_ptr->afraid) // Handle player fear
+	{
+		char attacker_name[100];
+		char target_name[100];
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+
+		if (target_ptr->ml) // Message
+		{
+#ifdef JP
+			msg_format("%sは怯えていて%sを攻撃できない！", attacker_name, target_name);
+#else
+			msg_format("%s are too afraid to attack %s!", attacker_name, target_name);
+#endif
+		}
+
+		else if(is_player(attacker_ptr))
+		{
+#ifdef JP
+			msg_format ("そっちには何か恐いものがいる！");
+#else
+			msg_format ("There is something scary in your way!");
+#endif
+		}
+
+		(void)set_paralyzed(target_ptr, 0); // Disturb the monster
+		return TRUE; // Done
+	}
+
+	return FALSE;
+}
+
+
+
+static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (count_melee_slot(attacker_ptr))
+	{
+		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < target_ptr->lev))
+		{
+			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 4;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
+				attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
+				if (one_in_(3)) attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			attacker_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+}
+
+static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (attacker_ptr->riding)
+	{
+		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
+		int max = skill_info[attacker_ptr->cls_idx].s_max[GINOU_RIDING];
+
+		if (cur < max)
+		{
+			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
+			int targetlevel = target_ptr->lev;
+			int inc = 0;
+
+			if ((cur / 200 - 5) < targetlevel)
+				inc += 1;
+
+			// Extra experience
+			if ((cur / 100) < ridinglevel)
+			{
+				if ((cur / 100 + 15) < ridinglevel)
+					inc += 1 + (ridinglevel - (cur / 100 + 15));
+				else
+					inc += 1;
+			}
+
+			attacker_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+			attacker_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+}
+
+
+static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
+	{
+		char attacker_name[100];
+		char target_name[100];
+		char weapon_name[100];
+		int i, n, stormbringer;
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+
+		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		for(i = 0; i < n; i++)
+		{
+			if (attacker_ptr->inventory[i].name1 == ART_STORMBRINGER)
+			{
+				object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
+				stormbringer = TRUE;
+				break;
+			}
+		}
+
+		// Attack by Storm-Bringer
+		if (stormbringer)
+		{
+#ifdef JP
+			msg_format("%sは強欲に%sを攻撃した！", weapon_name, target_name);
+#else
+			msg_format("%s greedily attacks %s!", weapon_name, target_name);
+#endif
+		}
+		else if (attacker_ptr->cls_idx != CLASS_BERSERKER && is_player(attacker_ptr))
+		{
+#ifdef JP
+			if (!get_check("本当に攻撃しますか？"))
+#else
+			if (!get_check("Really hit it? "))
+#endif
+			{
+#ifdef JP
+				msg_format("%sを攻撃するのを止めた。", target_name);
+#else
+				msg_format("You stop to avoid hitting %s.", target_name);
+#endif
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	if (target_ptr->special_defense & KATA_IAI)
+	{
+		char attacker_name[100];
+		char target_name[100];
+		creature_desc(attacker_name, attacker_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
+#ifdef JP
+		msg_format("%sは%sが襲いかかる前に素早く武器を振るった。", target_name, attacker_name);
+#else
+		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
+#endif
+		if (melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+static bool melee_limitation_field(floor_type *floor_ptr)
+{
+	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+	{
+#ifdef JP
+		msg_print("なぜか攻撃することができない。");
+#else
+		msg_print("Something prevent you from attacking.");
+#endif
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
+
+bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
+{
+	int i;
+
+	bool fear = FALSE;
+	bool dead = FALSE;
+
+	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	creature_type   *target_ptr;
+	species_type    *atk_species_ptr;
+	species_type    *tar_species_ptr;
+	char			attacker_name[80];
+	char            target_name[80];
+
+	int action_power;
+	int action_list[MELEE_TYPE_MAX];
+	int action_cost[MELEE_TYPE_MAX];
+	int action_weight[MELEE_TYPE_MAX];
+	int action_num;
+	int tried_num;
+
+
+	target_ptr = &creature_list[c_ptr->creature_idx];
+
+	atk_species_ptr = &species_info[attacker_ptr->species_idx];
+	tar_species_ptr = &species_info[target_ptr->species_idx];
+
+	disturb(player_ptr, 0, 0); // Disturb the player
+
+	// Extract attacker and target name (or "it")
+	creature_desc(target_name, target_ptr, 0);
+	creature_desc(attacker_name, attacker_ptr, 0);
+
+	if (target_ptr->ml)
+	{
+		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		health_track(c_ptr->creature_idx); // Track a new monster
+	}
+
+	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
+	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
+	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
+	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
+	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
+	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
+
+	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain two sword fencing skill
+	gain_riding_skill(attacker_ptr, target_ptr); // Gain riding experience
+
+	riding_t_m_idx = c_ptr->creature_idx;
+
+	action_power = calc_action_power(attacker_ptr);
+	action_num = 0;
+	tried_num = 0;
+	energy_use = 100;
+
+	do
+	{
+		action_num = 0;
+
+		for(i = 0; i < MELEE_TYPE_MAX; i++)
+		{
+			switch(i)
+			{
+				case MELEE_TYPE_WEAPON_1ST:
+				case MELEE_TYPE_WEAPON_2ND:
+				case MELEE_TYPE_WEAPON_3RD:
+				case MELEE_TYPE_WEAPON_4TH:
+				case MELEE_TYPE_WEAPON_5TH:
+				case MELEE_TYPE_WEAPON_6TH:
+				case MELEE_TYPE_WEAPON_7TH:
+				case MELEE_TYPE_WEAPON_8TH:
+					if(attacker_ptr->can_melee[i])
+					{
+						action_list[action_num] = i;
+						action_cost[action_num] = calc_melee_cost(attacker_ptr,
+							get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST));
+						action_weight[action_num] = 10;
+						action_num++;
+					}
+					break;
+
+				case MELEE_TYPE_SPECIAL_1ST:
+				case MELEE_TYPE_SPECIAL_2ND:
+				case MELEE_TYPE_SPECIAL_3RD:
+				case MELEE_TYPE_SPECIAL_4TH:
+					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice);
+					{
+						action_list[action_num] = i;
+						action_cost[action_num] = 20;
+						action_weight[action_num] = 10;
+						action_num++;
+					}
+					break;
+					break;
+
+				case MELEE_TYPE_BARE_HAND:
+					break;
+
+				case MELEE_TYPE_STAMP:
+					break;
+
+				case MELEE_TYPE_HORNS:
+				case MELEE_TYPE_BEAK:
+				case MELEE_TYPE_SCOR_TAIL:
+				case MELEE_TYPE_TRUNK:
+				case MELEE_TYPE_TENTACLES:
+					break;
+
+			}
+		}
+
+		if(!action_num) break;
+
+		i = uneven_rand(action_list, action_weight, action_num);
+
+		switch(i)
+		{
+			case MELEE_TYPE_WEAPON_1ST:
+			case MELEE_TYPE_WEAPON_2ND:
+			case MELEE_TYPE_WEAPON_3RD:
+			case MELEE_TYPE_WEAPON_4TH:
+			case MELEE_TYPE_WEAPON_5TH:
+			case MELEE_TYPE_WEAPON_6TH:
+			case MELEE_TYPE_WEAPON_7TH:
+			case MELEE_TYPE_WEAPON_8TH:
+				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
+				break;
+
+			case MELEE_TYPE_SPECIAL_1ST:
+			case MELEE_TYPE_SPECIAL_2ND:
+			case MELEE_TYPE_SPECIAL_3RD:
+			case MELEE_TYPE_SPECIAL_4TH:
+				special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST, &fear, &dead);
+				break;
+
+			case MELEE_TYPE_BARE_HAND:
+				break;
+
+			case MELEE_TYPE_STAMP:
+				break;
+
+			case MELEE_TYPE_HORNS:
+				natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &dead);
+				break;
+
+			case MELEE_TYPE_BEAK:
+				natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &dead);
+				break;
+
+			case MELEE_TYPE_SCOR_TAIL:
+				natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &dead);
+				break;
+
+			case MELEE_TYPE_TRUNK:
+				natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &dead);
+				break;
+
+			case MELEE_TYPE_TENTACLES:
+				natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &dead);
+				break;
+
+		}
+
+		tried_num++;
+		action_power -= action_cost[i];
+
+	} while(tried_num < 10 && !dead);
+
+	if(!tried_num)
+	{
+#ifdef JP
+		msg_format("%sを攻撃できない。", (!empty_hands(attacker_ptr, FALSE)) ? "両手がふさがって" : "");
+#else
+		msg_print("You cannot do attacking.");
+#endif
+		return FALSE;
+	}
+
+	/* Hack -- delay fear messages */
+	if (fear && target_ptr->ml && !dead)
+	{
+		/* Sound */
+		sound(SOUND_FLEE);
+
+		/* Message */
+#ifdef JP
+		msg_format("%^sは恐怖して逃げ出した！", target_name);
+#else
+		msg_format("%^s flees in terror!", target_name);
+#endif
+	}
+
+	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
+	{
+		set_action(attacker_ptr, ACTION_NONE);
+	}
+
+	return dead;
+}
+
+
+
 
 /*
  * Critical blow.  All hits that do 95% of total possible damage,
@@ -2308,4 +4011,46 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	/* Assume we attacked */
 	return (TRUE);
+}
+
+
+static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+{
+	char attacker_name[100], target_name[100];
+
+	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
+
+	if(!mdeath)
+	{
+		int prob = 100 * atk_ptr->skill_exp[GINOU_SUDE] / WEAPON_EXP_MASTER;
+		if(tar_ptr->levitation) prob /= 4;
+		if(atk_ptr->size - tar_ptr->size < 10) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 5) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 3) prob /= 2;
+		if(atk_ptr->size - tar_ptr->size < 1) prob /= 2;
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 50) prob = prob * 3 / 2; 
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 30) prob = prob * 3 / 2; 
+		if(100 * tar_ptr->chp / tar_ptr->mhp < 10) prob = prob * 3 / 2; 
+		if(prob > 95) prob = 95;
+
+		if (atk_ptr->size > tar_ptr->size && randint0(100) < prob)
+		{
+			int k;
+#ifdef JP
+			msg_format("%sは残酷にも%sを踏みつけた！", attacker_name, target_name);
+#else
+			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
+#endif
+			k = diceroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
+			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+			if (wizard)
+			{
+				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
+			}
+		}
+
+	}
+
 }

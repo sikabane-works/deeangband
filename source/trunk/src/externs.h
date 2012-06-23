@@ -715,7 +715,6 @@ extern s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, cr
 extern void search(creature_type *cr_ptr);
 extern void py_pickup_aux(creature_type *cr_ptr, int object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
-extern bool melee_attack(creature_type *atk_ptr, int y, int x, int mode);
 extern bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode);
 extern bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_mode);
@@ -1159,6 +1158,8 @@ extern errr rd_savefile_new(void);
 extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
 /* melee1.c */
+extern bool melee_attack(creature_type *atk_ptr, int y, int x, int mode);
+
 /* melee2.c */
 extern bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
