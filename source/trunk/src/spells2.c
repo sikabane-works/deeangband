@@ -581,7 +581,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 			if (plev > 39)
 			{
 #ifdef JP
-info[i++] = "あなたはランダムな方向に対して数回攻撃することができる。(75 MP)";
+				info[i++] = "あなたはランダムな方向に対して数回攻撃することができる。(75 MP)";
 #else
 				info[i++] = "You can attack some random directions at a time (cost 75).";
 #endif
@@ -594,7 +594,7 @@ info[i++] = "あなたはランダムな方向に対して数回攻撃することができる。(75 MP)";
 			if (plev > 24)
 			{
 #ifdef JP
-info[i++] = "あなたはアイテムの魔力を吸収することができる。(1 MP)";
+				info[i++] = "あなたはアイテムの魔力を吸収することができる。(1 MP)";
 #else
 				info[i++] = "You can absorb charges from an item (cost 1).";
 #endif
@@ -606,7 +606,7 @@ info[i++] = "あなたはアイテムの魔力を吸収することができる。(1 MP)";
 				if (plev > 34)
 				{
 #ifdef JP
-info[i++] = "あなたは武器を祝福することができる。(70 MP)";
+					info[i++] = "あなたは武器を祝福することができる。(70 MP)";
 #else
 					info[i++] = "You can bless a weapon (cost 70).";
 #endif
@@ -617,7 +617,7 @@ info[i++] = "あなたは武器を祝福することができる。(70 MP)";
 				if (plev > 41)
 				{
 #ifdef JP
-info[i++] = "あなたは周りのすべてのモンスターを攻撃することができる。(40 MP)";
+					info[i++] = "あなたは周りのすべてのモンスターを攻撃することができる。(40 MP)";
 #else
 					info[i++] = "You can damages all monsters in sight (cost 40).";
 #endif
@@ -628,7 +628,7 @@ info[i++] = "あなたは周りのすべてのモンスターを攻撃することができる。(40 MP)";
 			if (plev > 7)
 			{
 #ifdef JP
-info[i++] = "あなたは攻撃して即座に逃げることができる。(12 MP)";
+				info[i++] = "あなたは攻撃して即座に逃げることができる。(12 MP)";
 #else
 				info[i++] = "You can hit a monster and teleport at a time (cost 12).";
 #endif
