@@ -2399,7 +2399,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 
 
-#define ARTIFACT_INFO_CSV_COLUMNS 22
+#define ARTIFACT_INFO_CSV_COLUMNS 24
 static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2414,10 +2414,12 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"COST",
 	"SIZE_LOWER",
 	"BASE_AC",
+	"BASE_EV",
 	"BASE_DAMAGE",
 	"PLUS_HIT",
 	"PLUS_DAM",
 	"PLUS_AC",
+	"PLUS_EV",
 	"FLAGS",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
@@ -2438,16 +2440,18 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 #define ARTIFACT_INFO_COST           9
 #define ARTIFACT_INFO_SIZE_LOWER    10
 #define ARTIFACT_INFO_BASE_AC       11
-#define ARTIFACT_INFO_BASE_DAMAGE   12
-#define ARTIFACT_INFO_PLUS_HIT      13
-#define ARTIFACT_INFO_PLUS_DAM      14
-#define ARTIFACT_INFO_PLUS_AC       15
-#define ARTIFACT_INFO_FLAGS         16
-#define ARTIFACT_INFO_DESCRIPTION   17
-#define ARTIFACT_INFO_E_DESCRIPTION 18
-#define ARTIFACT_INFO_COMMENT       19
-#define ARTIFACT_INFO_SIZE_UPPER    20
-#define ARTIFACT_INFO_AP_RATE       21
+#define ARTIFACT_INFO_BASE_EV       12
+#define ARTIFACT_INFO_BASE_DAMAGE   13
+#define ARTIFACT_INFO_PLUS_HIT      14
+#define ARTIFACT_INFO_PLUS_DAM      15
+#define ARTIFACT_INFO_PLUS_AC       16
+#define ARTIFACT_INFO_PLUS_EV       17
+#define ARTIFACT_INFO_FLAGS         18
+#define ARTIFACT_INFO_DESCRIPTION   19
+#define ARTIFACT_INFO_E_DESCRIPTION 20
+#define ARTIFACT_INFO_COMMENT       21
+#define ARTIFACT_INFO_SIZE_UPPER    22
+#define ARTIFACT_INFO_AP_RATE       23
 
 static int artifact_info_csv_code[ARTIFACT_INFO_CSV_COLUMNS];
 errr parse_artifact_csv(char *buf, header *head)
@@ -2583,6 +2587,13 @@ errr parse_artifact_csv(char *buf, header *head)
 					artifact_info[n].ac = 0;
 				break;
 
+			case ARTIFACT_INFO_BASE_EV:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].ev = (s16b)b;
+				else
+					artifact_info[n].ev = 0;
+				break;
+
 			case ARTIFACT_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
@@ -2615,6 +2626,13 @@ errr parse_artifact_csv(char *buf, header *head)
 					artifact_info[n].to_ac = (s16b)b;
 				else
 					artifact_info[n].to_ac = 0;
+				break;
+
+			case ARTIFACT_INFO_PLUS_EV:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].to_ev = (s16b)b;
+				else
+					artifact_info[n].to_ev = 0;
 				break;
 
 			case ARTIFACT_INFO_FLAGS:

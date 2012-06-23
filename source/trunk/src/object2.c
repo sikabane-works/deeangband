@@ -3569,14 +3569,16 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		if (floor_generated)
 			a_ptr->floor_id = owner_ptr->floor_id;
 
-		/* Extract the other fields */
+		// Extract the other fields
 		o_ptr->pval = a_ptr->pval;
 		o_ptr->ac = a_ptr->ac;
+		o_ptr->ev = a_ptr->ev;
 		o_ptr->size_lower = a_ptr->size_lower; 
 		o_ptr->size_upper = a_ptr->size_upper; 
 		o_ptr->dd = a_ptr->dd;
 		o_ptr->ds = a_ptr->ds;
 		o_ptr->to_ac = a_ptr->to_ac;
+		o_ptr->to_ev = a_ptr->to_ev;
 		o_ptr->to_hit = a_ptr->to_hit;
 		o_ptr->to_damage = a_ptr->to_damage;
 		ave = a_ptr->size_lower + a_ptr->size_upper;

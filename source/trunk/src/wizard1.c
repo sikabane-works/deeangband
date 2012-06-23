@@ -1599,9 +1599,11 @@ static bool make_fake_artifact(object_type *o_ptr, int name1)
 	/* Extract the fields */
 	o_ptr->pval = a_ptr->pval;
 	o_ptr->ac = a_ptr->ac;
+	o_ptr->ev = a_ptr->ev;
 	o_ptr->dd = a_ptr->dd;
 	o_ptr->ds = a_ptr->ds;
 	o_ptr->to_ac = a_ptr->to_ac;
+	o_ptr->to_ev = a_ptr->to_ev;
 	o_ptr->to_hit = a_ptr->to_hit;
 	o_ptr->to_damage = a_ptr->to_damage;
 	o_ptr->weight = a_ptr->weight;

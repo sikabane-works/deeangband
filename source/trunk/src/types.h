@@ -193,14 +193,16 @@ struct artifact_type
 
 	s16b pval;			/* Artifact extra info */
 
-	s16b to_hit;			/* Bonus to hit */
-	s16b to_damage;			/* Bonus to damage */
-	s16b to_ac;			/* Bonus to armor */
+	s16b to_hit;			// Bonus to hit
+	s16b to_damage;			// Bonus to damage
+	s16b to_ac;				// Bonus to armor
+	s16b to_ev;				// Bonus to armor
 
 	s16b size_lower;		/* Regular body size */
 	s16b size_upper;		/* Regular body size */
 
-	s16b ac;			/* Base armor */
+	s16b ac;			// Base armor
+	s16b ev;			// Base evasion
 
 	byte dd, ds;		/* Damage when hits */
 
