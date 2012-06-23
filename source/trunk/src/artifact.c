@@ -180,9 +180,9 @@ void one_ability(object_type *o_ptr)
 static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 {
 	if (o_ptr->pval > 0) o_ptr->pval = 0 - (o_ptr->pval + (s16b)randint1(4));
-	if (o_ptr->to_a > 0) o_ptr->to_a = 0 - (o_ptr->to_a + (s16b)randint1(4));
-	if (o_ptr->to_h > 0) o_ptr->to_h = 0 - (o_ptr->to_h + (s16b)randint1(4));
-	if (o_ptr->to_d > 0) o_ptr->to_d = 0 - (o_ptr->to_d + (s16b)randint1(4));
+	if (o_ptr->to_ac > 0) o_ptr->to_ac = 0 - (o_ptr->to_ac + (s16b)randint1(4));
+	if (o_ptr->to_hit > 0) o_ptr->to_hit = 0 - (o_ptr->to_hit + (s16b)randint1(4));
+	if (o_ptr->to_damage > 0) o_ptr->to_damage = 0 - (o_ptr->to_damage + (s16b)randint1(4));
 
 	o_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
 	remove_flag(o_ptr->art_flags, TR_BLESSED);
@@ -890,7 +890,7 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact
 				random_misc(cr_ptr, o_ptr, artifact_bias);
 			else
 			{
-				o_ptr->to_a = 4 + (s16b)randint1(11);
+				o_ptr->to_ac = 4 + (s16b)randint1(11);
 			}
 			break;
 		case 27:
@@ -906,8 +906,8 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact
 				bonus_h /= 2;
 				bonus_d /= 2;
 			}
-			o_ptr->to_h += (s16b)bonus_h;
-			o_ptr->to_d += (s16b)bonus_d;
+			o_ptr->to_hit += (s16b)bonus_h;
+			o_ptr->to_damage += (s16b)bonus_d;
 			break;
 		}
 		case 30:
@@ -1807,11 +1807,11 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 
 	/* give it some plusses... */
 	if (object_is_armour(o_ptr))
-		o_ptr->to_a += (s16b)randint1(o_ptr->to_a > 19 ? 1 : 20 - o_ptr->to_a);
+		o_ptr->to_ac += (s16b)randint1(o_ptr->to_ac > 19 ? 1 : 20 - o_ptr->to_ac);
 	else if (object_is_weapon_ammo(o_ptr))
 	{
-		o_ptr->to_h += (s16b)randint1(o_ptr->to_h > 19 ? 1 : 20 - o_ptr->to_h);
-		o_ptr->to_d += (s16b)randint1(o_ptr->to_d > 19 ? 1 : 20 - o_ptr->to_d);
+		o_ptr->to_hit += (s16b)randint1(o_ptr->to_hit > 19 ? 1 : 20 - o_ptr->to_hit);
+		o_ptr->to_damage += (s16b)randint1(o_ptr->to_damage > 19 ? 1 : 20 - o_ptr->to_damage);
 		if ((have_flag(o_ptr->art_flags, TR_WIS)) && (o_ptr->pval > 0)) add_flag(o_ptr->art_flags, TR_BLESSED);
 	}
 
@@ -1835,17 +1835,17 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 
 	if (object_is_armour(o_ptr))
 	{
-		while ((o_ptr->to_d + o_ptr->to_h) > 20)
+		while ((o_ptr->to_damage + o_ptr->to_hit) > 20)
 		{
-			if (one_in_(o_ptr->to_d) && one_in_(o_ptr->to_h)) break;
-			o_ptr->to_d -= (s16b)randint0(3);
-			o_ptr->to_h -= (s16b)randint0(3);
+			if (one_in_(o_ptr->to_damage) && one_in_(o_ptr->to_hit)) break;
+			o_ptr->to_damage -= (s16b)randint0(3);
+			o_ptr->to_hit -= (s16b)randint0(3);
 		}
-		while ((o_ptr->to_d+o_ptr->to_h) > 10)
+		while ((o_ptr->to_damage+o_ptr->to_hit) > 10)
 		{
-			if (one_in_(o_ptr->to_d) || one_in_(o_ptr->to_h)) break;
-			o_ptr->to_d -= (s16b)randint0(3);
-			o_ptr->to_h -= (s16b)randint0(3);
+			if (one_in_(o_ptr->to_damage) || one_in_(o_ptr->to_hit)) break;
+			o_ptr->to_damage -= (s16b)randint0(3);
+			o_ptr->to_hit -= (s16b)randint0(3);
 		}
 	}
 
@@ -1853,8 +1853,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI))
 	{
-		o_ptr->to_h = 0;
-		o_ptr->to_d = 0;
+		o_ptr->to_hit = 0;
+		o_ptr->to_damage = 0;
 		remove_flag(o_ptr->art_flags, TR_BLOWS);
 		remove_flag(o_ptr->art_flags, TR_FORCE_WEAPON);
 		remove_flag(o_ptr->art_flags, TR_SLAY_ANIMAL);
@@ -3137,9 +3137,9 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 	q_ptr->size_upper = a_ptr->size_upper; 
 	q_ptr->dd = a_ptr->dd;
 	q_ptr->ds = a_ptr->ds;
-	q_ptr->to_a = a_ptr->to_a;
-	q_ptr->to_h = a_ptr->to_h;
-	q_ptr->to_d = a_ptr->to_d;
+	q_ptr->to_ac = a_ptr->to_ac;
+	q_ptr->to_hit = a_ptr->to_hit;
+	q_ptr->to_damage = a_ptr->to_damage;
 	q_ptr->weight = a_ptr->weight;
 	q_ptr->xtra1 = a_ptr->xtra1;
 	q_ptr->xtra2 = a_ptr->xtra2;

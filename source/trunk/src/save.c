@@ -100,9 +100,9 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->name1) flags |= SAVE_ITEM_NAME1;
 	if (o_ptr->name2) flags |= SAVE_ITEM_NAME2;
 	if (o_ptr->timeout) flags |= SAVE_ITEM_TIMEOUT;
-	if (o_ptr->to_h) flags |= SAVE_ITEM_TO_H;
-	if (o_ptr->to_d) flags |= SAVE_ITEM_TO_D;
-	if (o_ptr->to_a) flags |= SAVE_ITEM_TO_A;
+	if (o_ptr->to_hit) flags |= SAVE_ITEM_TO_H;
+	if (o_ptr->to_damage) flags |= SAVE_ITEM_TO_D;
+	if (o_ptr->to_ac) flags |= SAVE_ITEM_TO_A;
 	if (o_ptr->ac) flags |= SAVE_ITEM_AC;
 	if (o_ptr->dd) flags |= SAVE_ITEM_DD;
 	if (o_ptr->ds) flags |= SAVE_ITEM_DS;
@@ -149,9 +149,9 @@ static void wr_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_NAME2) wr_u16b(o_ptr->name2);
 	if (flags & SAVE_ITEM_TIMEOUT) wr_s32b(o_ptr->timeout);
 
-	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_h);
-	if (flags & SAVE_ITEM_TO_D) wr_s16b(o_ptr->to_d);
-	if (flags & SAVE_ITEM_TO_A) wr_s16b(o_ptr->to_a);
+	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_hit);
+	if (flags & SAVE_ITEM_TO_D) wr_s16b(o_ptr->to_damage);
+	if (flags & SAVE_ITEM_TO_A) wr_s16b(o_ptr->to_ac);
 	wr_s16b(o_ptr->size_upper);	
 	wr_s16b(o_ptr->size_lower);	
 	wr_s16b(o_ptr->to_size);	

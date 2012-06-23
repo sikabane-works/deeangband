@@ -3858,7 +3858,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 			(tv == TV_MUSIC_BOOK) ||
 			(tv == TV_HISSATSU_BOOK) ||
 			(tv == TV_HEX_BOOK) ||
-		    ((o_ptr->to_a > 0) || (o_ptr->to_h + o_ptr->to_d > 0)))
+		    ((o_ptr->to_ac > 0) || (o_ptr->to_hit + o_ptr->to_damage > 0)))
 		{
 			/* Memorize the item */
 			o_ptr->marked |= OM_FOUND;
@@ -4952,13 +4952,13 @@ bool probing(floor_type *floor_ptr)
 			/* Describe the monster */
 #ifdef JP
 sprintf(buf,"%s ‘®«:%s «•Ê:%s HP:%d/%d AC:%d ‘¬“x:%s%d ˜r:%d ’m:%d Œ«:%d Ší:%d ‘Ï:%d –£:%d ŒoŒ±:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_a, (speed > 0) ? "+" : "", speed,
+		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
 		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
 		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #else
 sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_a, (speed > 0) ? "+" : "", speed,
+		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
 		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
 		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);

@@ -1462,7 +1462,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			else            basenm = "& # Ring~";
 #endif
 
-			if (!k_ptr->to_h && !k_ptr->to_d && (o_ptr->to_h || o_ptr->to_d)) show_weapon = TRUE;
+			if (!k_ptr->to_hit && !k_ptr->to_damage && (o_ptr->to_hit || o_ptr->to_damage)) show_weapon = TRUE;
 
 			break;
 		}
@@ -2270,7 +2270,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if (o_ptr->to_h && o_ptr->to_d) show_weapon = TRUE;
+	if (o_ptr->to_hit && o_ptr->to_damage) show_weapon = TRUE;
 
 	/* Display the item like armour */
 	if (o_ptr->ac) show_armour = TRUE;
@@ -2339,27 +2339,27 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, o_ptr->to_h);
+			t = object_desc_int(t, o_ptr->to_hit);
 			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, o_ptr->to_d);
+			t = object_desc_int(t, o_ptr->to_damage);
 			t = object_desc_chr(t, p2);
 		}
 
 		/* Show the tohit if needed */
-		else if (o_ptr->to_h)
+		else if (o_ptr->to_hit)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, o_ptr->to_h);
+			t = object_desc_int(t, o_ptr->to_hit);
 			t = object_desc_chr(t, p2);
 		}
 
 		/* Show the todam if needed */
-		else if (o_ptr->to_d)
+		else if (o_ptr->to_damage)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, o_ptr->to_d);
+			t = object_desc_int(t, o_ptr->to_damage);
 			t = object_desc_chr(t, p2);
 		}
 	}
@@ -2375,15 +2375,15 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		s16b energy_fire = bow_energy(bow_ptr->sval);
 
 		// See if the bow is "known" - then set damage bonus
-		if (object_is_known(bow_ptr)) avgdam += (bow_ptr->to_d * 10);
+		if (object_is_known(bow_ptr)) avgdam += (bow_ptr->to_damage * 10);
 
 		// Effect of ammo
-		if (known) avgdam += (o_ptr->to_d * 10);
+		if (known) avgdam += (o_ptr->to_damage * 10);
 
 		// Get extra "power" from "extra might"
 		if (owner_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_to_damage[owner_ptr->stat_ind[STAT_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_to_damageamage[owner_ptr->stat_ind[STAT_STR]]) - 128);
 
 		// Launcher multiplier
 		avgdam *= tmul;
@@ -2446,16 +2446,16 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			t = object_desc_chr(t, b1);
 			t = object_desc_num(t, o_ptr->ac);
 			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, o_ptr->to_a);
+			t = object_desc_int(t, o_ptr->to_ac);
 			t = object_desc_chr(t, b2);
 		}
 
 		/* No base armor, but does increase armor */
-		else if (o_ptr->to_a)
+		else if (o_ptr->to_ac)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
-			t = object_desc_int(t, o_ptr->to_a);
+			t = object_desc_int(t, o_ptr->to_ac);
 			t = object_desc_chr(t, b2);
 		}
 	}

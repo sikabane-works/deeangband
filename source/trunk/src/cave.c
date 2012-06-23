@@ -1837,7 +1837,7 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	byte attr;
 
 	object_desc(buf, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
-	attr = tval_to_attr[o_ptr->tval % 128];
+	attr = tval_to_acttr[o_ptr->tval % 128];
 
 	if (watcher_ptr->image)
 	{

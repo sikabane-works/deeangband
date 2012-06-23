@@ -750,7 +750,7 @@ byte adj_dex_to_ac[] =
 /*
  * Stat Table (STR) -- bonus to dam (plus 128)
  */
-byte adj_str_to_damage[] =
+byte adj_str_to_damageamage[] =
 {
 	128 + -2    /* 3 */,
 	128 + -2    /* 4 */,
@@ -816,7 +816,7 @@ byte adj_str_to_damage[] =
 /*
  * Stat Table (DEX) -- bonus to hit (plus 128)
  */
-byte adj_dex_to_hit[] =
+byte adj_dex_to_hitit[] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -882,7 +882,7 @@ byte adj_dex_to_hit[] =
 /*
  * Stat Table (STR) -- bonus to hit (plus 128)
  */
-byte adj_str_to_hit[] =
+byte adj_str_to_hitit[] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,

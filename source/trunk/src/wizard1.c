@@ -279,9 +279,9 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 
 	/* Cancel bonuses */
 	q_ptr->pval = 0;
-	q_ptr->to_a = 0;
-	q_ptr->to_h = 0;
-	q_ptr->to_d = 0;
+	q_ptr->to_ac = 0;
+	q_ptr->to_hit = 0;
+	q_ptr->to_damage = 0;
 
 
 	/* Level */
@@ -1601,9 +1601,9 @@ static bool make_fake_artifact(object_type *o_ptr, int name1)
 	o_ptr->ac = a_ptr->ac;
 	o_ptr->dd = a_ptr->dd;
 	o_ptr->ds = a_ptr->ds;
-	o_ptr->to_a = a_ptr->to_a;
-	o_ptr->to_h = a_ptr->to_h;
-	o_ptr->to_d = a_ptr->to_d;
+	o_ptr->to_ac = a_ptr->to_ac;
+	o_ptr->to_hit = a_ptr->to_hit;
+	o_ptr->to_damage = a_ptr->to_damage;
 	o_ptr->weight = a_ptr->weight;
 
 	/* Success */

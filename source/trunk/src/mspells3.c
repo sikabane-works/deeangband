@@ -89,7 +89,7 @@ static void learnedungeon_info(creature_type *cr_ptr, char *p, int power)
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)
-				sprintf(p, " %s%dd%d+%d", s_dam, o_ptr->dd, o_ptr->ds, o_ptr->to_d);
+				sprintf(p, " %s%dd%d+%d", s_dam, o_ptr->dd, o_ptr->ds, o_ptr->to_damage);
 			break;
 		}
 		case MS_BR_ACID:
@@ -755,7 +755,7 @@ msg_print("–î‚ð•ú‚Á‚½B");
 			damage = 1;
 			if (o_ptr)
 			{
-				damage = diceroll(o_ptr->dd, o_ptr->ds)+ o_ptr->to_d;
+				damage = diceroll(o_ptr->dd, o_ptr->ds)+ o_ptr->to_damage;
 				if (damage < 1) damage = 1;
 			}
 			fire_bolt(caster_ptr, GF_ARROW, dir, damage);

@@ -1004,7 +1004,7 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 /*
  * Convert an adjacent location to a direction.
  */
-static int coords_to_dir(creature_type *creature_ptr, int y, int x)
+static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
 {
 	int d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
 	int dy, dx;
@@ -1152,7 +1152,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		{
 			bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
+			if (!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
@@ -1320,7 +1320,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		// Count open doors
 		if (count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 		{
-			command_dir = coords_to_dir(creature_ptr, y, x);
+			command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
@@ -2039,7 +2039,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		{
 			bool too_many = (num_traps && num_chests) || (num_traps > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
+			if (!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
@@ -3196,10 +3196,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	tdis = 10;
 
 	/* Base damage from thrown object plus launcher bonus */
-	tdam_base = diceroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_d + j_ptr->to_d;
+	tdam_base = diceroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_damage + j_ptr->to_damage;
 
 	/* Actually "fire" the object */
-	bonus = (creature_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
+	bonus = (creature_ptr->to_hit_b + o_ptr->to_hit + j_ptr->to_hit);
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 		chance = (creature_ptr->skill_thb + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
@@ -3211,7 +3211,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Get extra "power" from "extra might" */
 	if (creature_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;
@@ -3468,7 +3468,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Some shots have hit bonus */
-			armour = m_ptr->ac + m_ptr->to_a;
+			armour = m_ptr->ac + m_ptr->to_ac;
 			if (creature_ptr->concent)
 			{
 				armour *= (10 - creature_ptr->concent);
@@ -3544,7 +3544,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				{
 					/* Apply special damage XXX XXX XXX */
 					tdam = tot_dam_aux_shot(creature_ptr, q_ptr, tdam, m_ptr);
-					tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_h, tdam);
+					tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_hit, tdam);
 
 					/* No negative damage */
 					if (tdam < 0) tdam = 0;
@@ -4070,8 +4070,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	/* Chance of hitting */
 	if (have_flag(flgs, TR_THROW)) chance = ((creature_ptr->skill_tht) +
-		((creature_ptr->to_h_b + q_ptr->to_h) * BTH_PLUS_ADJ));
-	else chance = (creature_ptr->skill_tht + (creature_ptr->to_h_b * BTH_PLUS_ADJ));
+		((creature_ptr->to_hit_b + q_ptr->to_hit) * BTH_PLUS_ADJ));
+	else chance = (creature_ptr->skill_tht + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
 
 	if (shuriken) chance *= 2;
 
@@ -4145,7 +4145,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_a, m_ptr->ml))
+			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->ml))
 			{
 				bool fear = FALSE;
 
@@ -4190,21 +4190,21 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				tdam = diceroll(q_ptr->dd, q_ptr->ds);
 				/* Apply special damage XXX XXX XXX */
 				tdam = tot_dam_aux(creature_ptr, q_ptr, tdam, m_ptr, 0, TRUE);
-				tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_h, tdam);
-				if (q_ptr->to_d > 0)
-					tdam += q_ptr->to_d;
+				tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_hit, tdam);
+				if (q_ptr->to_damage > 0)
+					tdam += q_ptr->to_damage;
 				else
-					tdam += -q_ptr->to_d;
+					tdam += -q_ptr->to_damage;
 
 				if (boomerang)
 				{
 					tdam *= (mult+creature_ptr->num_blow[item]);
-					tdam += creature_ptr->to_d_m;
+					tdam += creature_ptr->to_damage_m;
 				}
 				else if (have_flag(flgs, TR_THROW))
 				{
 					tdam *= (3+mult);
-					tdam += creature_ptr->to_d_m;
+					tdam += creature_ptr->to_damage_m;
 				}
 				else
 				{
@@ -4335,7 +4335,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (return_when_thrown)
 	{
-		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hitit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
 

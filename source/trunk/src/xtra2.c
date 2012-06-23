@@ -4230,8 +4230,8 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			}
 
 			object_prep(q_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
-			q_ptr->to_h = 3 + randint1(floor_ptr->floor_level) % 10;
-			q_ptr->to_d = 3 + randint1(floor_ptr->floor_level) % 10;
+			q_ptr->to_hit = 3 + randint1(floor_ptr->floor_level) % 10;
+			q_ptr->to_damage = 3 + randint1(floor_ptr->floor_level) % 10;
 			one_resistance(q_ptr);
 			q_ptr->name2 = EGO_CHAOTIC;
 

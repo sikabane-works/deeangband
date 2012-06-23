@@ -1081,9 +1081,9 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 		}
 		else
 		{
-			if (o_ptr->to_h < entry->bonus &&
-			    o_ptr->to_d < entry->bonus &&
-			    o_ptr->to_a < entry->bonus &&
+			if (o_ptr->to_hit < entry->bonus &&
+			    o_ptr->to_damage < entry->bonus &&
+			    o_ptr->to_ac < entry->bonus &&
 			    o_ptr->pval < entry->bonus)
 				return FALSE;
 		}
@@ -1125,7 +1125,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 				return FALSE;
 
 			/* Average are not okay */
-			if (o_ptr->to_a <= 0 && (o_ptr->to_h + o_ptr->to_d) <= 0)
+			if (o_ptr->to_ac <= 0 && (o_ptr->to_hit + o_ptr->to_damage) <= 0)
 				return FALSE;
 		}
 
@@ -1208,7 +1208,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 				return FALSE;
 
 			/* Good are not okay */
-			if (o_ptr->to_a > 0 || (o_ptr->to_h + o_ptr->to_d) > 0)
+			if (o_ptr->to_ac > 0 || (o_ptr->to_hit + o_ptr->to_damage) > 0)
 				return FALSE;
 		}
 

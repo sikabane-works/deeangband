@@ -1698,9 +1698,9 @@ static bool store_object_similar(object_type *o_ptr, object_type *j_ptr)
 	if ((o_ptr->pval != j_ptr->pval) && (o_ptr->tval != TV_WAND) && (o_ptr->tval != TV_ROD)) return (0);
 
 	/* Require many identical values */
-	if (o_ptr->to_h != j_ptr->to_h) return (0);
-	if (o_ptr->to_d != j_ptr->to_d) return (0);
-	if (o_ptr->to_a != j_ptr->to_a) return (0);
+	if (o_ptr->to_hit != j_ptr->to_hit) return (0);
+	if (o_ptr->to_damage != j_ptr->to_damage) return (0);
+	if (o_ptr->to_ac != j_ptr->to_ac) return (0);
 
 	/* Require identical "ego-item" names */
 	if (o_ptr->name2 != j_ptr->name2) return (0);
@@ -2467,9 +2467,9 @@ static bool black_market_crap(store_type *st_ptr, object_type *o_ptr)
 	if (object_is_ego(o_ptr)) return (FALSE);
 
 	/* Good items are never crap */
-	if (o_ptr->to_a > 0) return (FALSE);
-	if (o_ptr->to_h > 0) return (FALSE);
-	if (o_ptr->to_d > 0) return (FALSE);
+	if (o_ptr->to_ac > 0) return (FALSE);
+	if (o_ptr->to_hit > 0) return (FALSE);
+	if (o_ptr->to_damage > 0) return (FALSE);
 
 	/* Check all stores */
 	//TODO
@@ -2766,7 +2766,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
 		o_name[maxwid] = '\0';
-		c_put_str(tval_to_attr[o_ptr->tval], o_name, i+6, cur_col);
+		c_put_str(tval_to_acttr[o_ptr->tval], o_name, i+6, cur_col);
 
 		/* Show weights */
 		if (show_weights)
@@ -2796,7 +2796,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		/* Describe the object (fully) */
 		object_desc(o_name, o_ptr, 0);
 		o_name[maxwid] = '\0';
-		c_put_str(tval_to_attr[o_ptr->tval], o_name, i+6, cur_col);
+		c_put_str(tval_to_acttr[o_ptr->tval], o_name, i+6, cur_col);
 
 		/* Show weights */
 		if (show_weights)

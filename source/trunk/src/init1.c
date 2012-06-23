@@ -1045,7 +1045,7 @@ static bool add_tag(s16b *offset, header *head, cptr buf)
  * Convert a "color letter" into an "actual" color
  * The colors are: dwsorgbuDWvyRGBU, as shown below
  */
-byte color_char_to_attr(char c)
+byte color_char_to_acttr(char c)
 {
 	switch (c)
 	{
@@ -1730,7 +1730,7 @@ errr parse_feature_info(char *buf, header *head)
 		char_tmp[F_LIT_STANDARD] = buf[2];
 
 		/* Extract the color */
-		s_attr = color_char_to_attr(buf[4]);
+		s_attr = color_char_to_acttr(buf[4]);
 
 		/* Paranoia */
 		if (s_attr > 127) return (1);
@@ -1768,7 +1768,7 @@ errr parse_feature_info(char *buf, header *head)
 						break;
 					default:
 						/* Extract the color */
-						f_ptr->d_attr[j] = color_char_to_attr(attr_lite_tmp[j - F_LIT_NS_BEGIN]);
+						f_ptr->d_attr[j] = color_char_to_acttr(attr_lite_tmp[j - F_LIT_NS_BEGIN]);
 						if (f_ptr->d_attr[j] > 127) return 1;
 						break;
 					}
@@ -2146,7 +2146,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_COLOR:
-				object_kind_info[n].d_attr = color_char_to_attr(tmp[0]);
+				object_kind_info[n].d_attr = color_char_to_acttr(tmp[0]);
 				break;
 
 			case OK_INFO_TVAL:
@@ -2231,23 +2231,23 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OK_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_h = (s16b)b;
+					object_kind_info[n].to_hit = (s16b)b;
 				else
-					object_kind_info[n].to_h = 0;
+					object_kind_info[n].to_hit = 0;
 				break;
 
 			case OK_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_d = (s16b)b;
+					object_kind_info[n].to_damage = (s16b)b;
 				else
-					object_kind_info[n].to_d = 0;
+					object_kind_info[n].to_damage = 0;
 				break;
 
 			case OK_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_a = (s16b)b;
+					object_kind_info[n].to_ac = (s16b)b;
 				else
-					object_kind_info[n].to_a = 0;
+					object_kind_info[n].to_ac = 0;
 				break;
 
 			case OK_INFO_ADD_DEPTH_RARITY:
@@ -2589,23 +2589,23 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_h = (s16b)b;
+					artifact_info[n].to_hit = (s16b)b;
 				else
-					artifact_info[n].to_h = 0;
+					artifact_info[n].to_hit = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_d = (s16b)b;
+					artifact_info[n].to_damage = (s16b)b;
 				else
-					artifact_info[n].to_d = 0;
+					artifact_info[n].to_damage = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_a = (s16b)b;
+					artifact_info[n].to_ac = (s16b)b;
 				else
-					artifact_info[n].to_a = 0;
+					artifact_info[n].to_ac = 0;
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
@@ -2646,9 +2646,9 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_AP_RATE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_d = (s16b)b;
+					artifact_info[n].to_damage = (s16b)b;
 				else
-					artifact_info[n].to_d = 0;
+					artifact_info[n].to_damage = 0;
 				break;
 
 			default:
@@ -2819,23 +2819,23 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			case OBJECT_EGO_INFO_MAX_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_info[n].max_to_h = (byte)b;
+					object_ego_info[n].max_to_hit = (byte)b;
 				else
-					object_ego_info[n].max_to_h = 0;
+					object_ego_info[n].max_to_hit = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_info[n].max_to_d = (byte)b;
+					object_ego_info[n].max_to_damage = (byte)b;
 				else
-					object_ego_info[n].max_to_d = 0;
+					object_ego_info[n].max_to_damage = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_info[n].max_to_a = (byte)b;
+					object_ego_info[n].max_to_ac = (byte)b;
 				else
-					object_ego_info[n].max_to_a = 0;
+					object_ego_info[n].max_to_ac = 0;
 				break;
 
 			case OBJECT_EGO_INFO_PVAL:
@@ -3247,8 +3247,8 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_COL:
-				species_info[n].d_attr = color_char_to_attr(tmp[0]);
-				species_info[n].x_attr = color_char_to_attr(tmp[0]);
+				species_info[n].d_attr = color_char_to_acttr(tmp[0]);
+				species_info[n].x_attr = color_char_to_acttr(tmp[0]);
 				break;
 
 			case SPECIES_INFO_RACE1:

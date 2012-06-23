@@ -72,7 +72,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 	i = (power + (level * 3));
 
 	/* Total armor */
-	ac = target_ptr->ac + target_ptr->to_a;
+	ac = target_ptr->ac + target_ptr->to_ac;
 	if (target_ptr->special_attack & ATTACK_SUIKEN) ac += (target_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
@@ -227,7 +227,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	power = mbe_info[effect].power;
 
 	/* Total armor */
-	ac = target_ptr->ac + target_ptr->to_a;
+	ac = target_ptr->ac + target_ptr->to_ac;
 
 	/* Monster hits player */
 	if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->stun))
@@ -2100,8 +2100,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if (o_ptr->k_idx)
 					{
-						int basedam = ((o_ptr->dd + target_ptr->to_dd[0]) * (o_ptr->ds + target_ptr->to_ds[0] + 1));
-						dam = basedam / 2 + o_ptr->to_d + target_ptr->to_d[0];
+						int basedam = ((o_ptr->dd + target_ptr->to_damaged[0]) * (o_ptr->ds + target_ptr->to_damages[0] + 1));
+						dam = basedam / 2 + o_ptr->to_damage + target_ptr->to_damage[0];
 					}
 
 					/* Cursed armor makes damages doubled */

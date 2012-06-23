@@ -10924,7 +10924,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
 				o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
-				damage = o_ptr->to_d * 100;
+				damage = o_ptr->to_damage * 100;
 				object_flags(o_ptr, flgs);
 				if ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD))
 				{
@@ -11278,7 +11278,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
 				o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
-				damage = o_ptr->to_d * 100;
+				damage = o_ptr->to_damage * 100;
 				object_flags(o_ptr, flgs);
 				if ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD))
 				{
@@ -11293,7 +11293,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					basedam /= 9;
 				}
 				damage += basedam;
-				damage += caster_ptr->to_d[i] * 100;
+				damage += caster_ptr->to_damage[i] * 100;
 				damage *= caster_ptr->num_blow[i];
 				total_damage += (damage / 100);
 			}
@@ -11437,7 +11437,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "祝福により攻撃精度と防御力が上がる。";
 #else
 		if (name) return "Evily blessing";
-		if (desc) return "Attempts to increase +to_hit of a weapon and AC";
+		if (desc) return "Attempts to increase +to_hitit of a weapon and AC";
 #endif
 		if (cast)
 		{
@@ -11593,20 +11593,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				if (one_in_(3))
 				{
-					if (o_ptr->to_d > 0)
+					if (o_ptr->to_damage > 0)
 					{
-						o_ptr->to_d -= randint1(3) % 2;
-						if (o_ptr->to_d < 0) o_ptr->to_d = 0;
+						o_ptr->to_damage -= randint1(3) % 2;
+						if (o_ptr->to_damage < 0) o_ptr->to_damage = 0;
 					}
-					if (o_ptr->to_h > 0)
+					if (o_ptr->to_hit > 0)
 					{
-						o_ptr->to_h -= randint1(3) % 2;
-						if (o_ptr->to_h < 0) o_ptr->to_h = 0;
+						o_ptr->to_hit -= randint1(3) % 2;
+						if (o_ptr->to_hit < 0) o_ptr->to_hit = 0;
 					}
-					if (o_ptr->to_a > 0)
+					if (o_ptr->to_ac > 0)
 					{
-						o_ptr->to_a -= randint1(3) % 2;
-						if (o_ptr->to_a < 0) o_ptr->to_a = 0;
+						o_ptr->to_ac -= randint1(3) % 2;
+						if (o_ptr->to_ac < 0) o_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", o_name);
@@ -12058,20 +12058,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				if (one_in_(3))
 				{
-					if (o_ptr->to_d > 0)
+					if (o_ptr->to_damage > 0)
 					{
-						o_ptr->to_d -= randint1(3) % 2;
-						if (o_ptr->to_d < 0) o_ptr->to_d = 0;
+						o_ptr->to_damage -= randint1(3) % 2;
+						if (o_ptr->to_damage < 0) o_ptr->to_damage = 0;
 					}
-					if (o_ptr->to_h > 0)
+					if (o_ptr->to_hit > 0)
 					{
-						o_ptr->to_h -= randint1(3) % 2;
-						if (o_ptr->to_h < 0) o_ptr->to_h = 0;
+						o_ptr->to_hit -= randint1(3) % 2;
+						if (o_ptr->to_hit < 0) o_ptr->to_hit = 0;
 					}
-					if (o_ptr->to_a > 0)
+					if (o_ptr->to_ac > 0)
 					{
-						o_ptr->to_a -= randint1(3) % 2;
-						if (o_ptr->to_a < 0) o_ptr->to_a = 0;
+						o_ptr->to_ac -= randint1(3) % 2;
+						if (o_ptr->to_ac < 0) o_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", o_name);

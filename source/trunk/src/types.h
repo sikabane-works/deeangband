@@ -124,9 +124,9 @@ struct object_kind
 
 	s16b pval;			/* Object extra info */
 
-	s16b to_h;			/* Bonus to hit */
-	s16b to_d;			/* Bonus to damage */
-	s16b to_a;			/* Bonus to armor */
+	s16b to_hit;			/* Bonus to hit */
+	s16b to_damage;			/* Bonus to damage */
+	s16b to_ac;			/* Bonus to armor */
 
 	s16b ap_rate;		// AP rate
 	s16b ac;			/* Base armor */
@@ -192,9 +192,9 @@ struct artifact_type
 
 	s16b pval;			/* Artifact extra info */
 
-	s16b to_h;			/* Bonus to hit */
-	s16b to_d;			/* Bonus to damage */
-	s16b to_a;			/* Bonus to armor */
+	s16b to_hit;			/* Bonus to hit */
+	s16b to_damage;			/* Bonus to damage */
+	s16b to_ac;			/* Bonus to armor */
 
 	s16b size_lower;		/* Regular body size */
 	s16b size_upper;		/* Regular body size */
@@ -247,9 +247,9 @@ struct ego_item_type
 	byte level;			/* Minimum level */
 	byte rarity;		/* Object rarity */
 
-	byte max_to_h;		/* Maximum to-hit bonus */
-	byte max_to_d;		/* Maximum to-dam bonus */
-	byte max_to_a;		/* Maximum to-ac bonus */
+	byte max_to_hit;		/* Maximum to-hit bonus */
+	byte max_to_damage;		/* Maximum to-dam bonus */
+	byte max_to_ac;		/* Maximum to-ac bonus */
 
 	byte max_pval;		/* Maximum pval */
 
@@ -627,9 +627,9 @@ struct object_type
 	s16b xtra4;			/* Extra info */
 	s16b xtra5;			/* Extra info */
 
-	s16b to_h;			/* Plusses to hit */
-	s16b to_d;			/* Plusses to damage */
-	s16b to_a;			/* Plusses to AC */
+	s16b to_hit;			/* Plusses to hit */
+	s16b to_damage;			/* Plusses to damage */
+	s16b to_ac;			/* Plusses to AC */
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */
@@ -1523,23 +1523,25 @@ struct creature_type
 
 	s32b regist_rate[RR_MAX]; 
 
-	s16b to_dd[MAX_HANDS]; /* Extra dice/sides */
-	s16b to_ds[MAX_HANDS];
-	s16b to_ar[MAX_HANDS]; /* Active rate*/
+	s16b to_damaged[MAX_HANDS]; /* Extra dice/sides */
+	s16b to_damages[MAX_HANDS];
+	s16b to_acr[MAX_HANDS]; /* Active rate*/
 
-	s16b dis_to_h[MAX_HANDS];	/* Known bonus to hit (wield) */
-	s16b dis_to_h_b;	/* Known bonus to hit (bow) */
-	s16b dis_to_d[MAX_HANDS];	/* Known bonus to dam (wield) */
-	s16b dis_to_a;		/* Known bonus to ac */
+	s16b dis_to_hit[MAX_HANDS];	/* Known bonus to hit (wield) */
+	s16b dis_to_hit_b;	/* Known bonus to hit (bow) */
+	s16b dis_to_damage[MAX_HANDS];	/* Known bonus to dam (wield) */
+	s16b dis_to_ac;		// Known bonus to ac
+	s16b dis_to_ev;		// Known bonus to ev
 
-	s16b dis_ac;		/* Known base ac */
+	s16b dis_ac;		// Known base ac
+	s16b dis_ev;		// Known base ac
 
-	s16b to_h[MAX_HANDS];	/* Bonus to hit (wield) */
-	s16b to_h_b;			/* Bonus to hit (bow) */
-	s16b to_h_m;			/* Bonus to hit (misc) */
-	s16b to_d[MAX_HANDS];	/* Bonus to dam (wield) */
-	s16b to_d_m;			/* Bonus to dam (misc) */
-	s16b to_a;			/* Bonus to ac */
+	s16b to_hit[MAX_HANDS];	/* Bonus to hit (wield) */
+	s16b to_hit_b;			/* Bonus to hit (bow) */
+	s16b to_hit_m;			/* Bonus to hit (misc) */
+	s16b to_damage[MAX_HANDS];	/* Bonus to dam (wield) */
+	s16b to_damage_m;			/* Bonus to dam (misc) */
+	s16b to_ac;			/* Bonus to ac */
 
 	s16b to_m_chance;		/* Minusses to cast chance */
 

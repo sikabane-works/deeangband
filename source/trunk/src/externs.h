@@ -64,9 +64,9 @@ extern int adj_sav[];
 extern byte adj_dex_dis[];
 extern byte adj_int_dis[];
 extern byte adj_dex_to_ac[];
-extern byte adj_str_to_damage[];
-extern byte adj_dex_to_hit[];
-extern byte adj_str_to_hit[];
+extern byte adj_str_to_damageamage[];
+extern byte adj_dex_to_hitit[];
+extern byte adj_str_to_hitit[];
 extern byte adj_str_carrying_weight[];
 extern byte adj_str_equipping_weight[];
 extern byte adj_str_dig[];
@@ -421,9 +421,9 @@ extern s16b alloc_kind_size;
 extern alloc_entry *alloc_kind_table;
 extern s16b alloc_race_size;
 extern alloc_entry *alloc_race_table;
-extern byte misc_to_attr[256];
+extern byte misc_to_acttr[256];
 extern char misc_to_char[256];
-extern byte tval_to_attr[128];
+extern byte tval_to_acttr[128];
 extern char tval_to_char[128];
 extern cptr keymap_act[KEYMAP_MODES][256];
 extern creature_type *player_ptr;     // New Reference Pointer
@@ -1141,7 +1141,7 @@ extern void clear_cave(floor_type *floor_ptr);
 extern void generate_floor(floor_type *floor_ptr);
 
 /* init1.c */
-extern byte color_char_to_attr(char c);
+extern byte color_char_to_acttr(char c);
 extern s16b feature_tag_to_index(cptr str);
 extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax);
 
@@ -1566,7 +1566,7 @@ extern void flush(void);
 extern void bell(void);
 extern void sound(int num);
 extern void move_cursor(int row, int col);
-extern void text_to_ascii(char *buf, cptr str);
+extern void text_to_acscii(char *buf, cptr str);
 extern void ascii_to_text(char *buf, cptr str);
 extern errr macro_add(cptr pat, cptr act);
 extern sint macro_find_exact(cptr pat);

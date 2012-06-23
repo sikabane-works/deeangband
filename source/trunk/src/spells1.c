@@ -219,7 +219,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 	k = spell_color(typ);
 
 	/* Obtain attr/char */
-	a = misc_to_attr[base + k];
+	a = misc_to_acttr[base + k];
 	c = misc_to_char[base + k];
 
 	/* Create pict */

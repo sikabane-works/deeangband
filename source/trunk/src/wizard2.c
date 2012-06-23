@@ -552,7 +552,7 @@ static void wiz_display_item(object_type *o_ptr)
 		   o_ptr->ac, o_ptr->dd, o_ptr->ds), 5, j);
 
 	prt(format("pval = %-5d  toac = %-5d  tohit = %-4d  todam = %-4d",
-		   o_ptr->pval, o_ptr->to_a, o_ptr->to_h, o_ptr->to_d), 6, j);
+		   o_ptr->pval, o_ptr->to_ac, o_ptr->to_hit, o_ptr->to_damage), 6, j);
 
 	prt(format("name1 = %-4d  name2 = %-4d  cost = %ld",
 		   o_ptr->name1, o_ptr->name2, (long)object_value_real(o_ptr)), 7, j);
@@ -788,22 +788,22 @@ static void wiz_tweak_item(creature_type *cr_ptr, object_type *o_ptr)
 	o_ptr->pval = atoi(tmp_val);
 	wiz_display_item(o_ptr);
 
-	p = "Enter new 'to_a' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_a);
+	p = "Enter new 'to_ac' setting: ";
+	sprintf(tmp_val, "%d", o_ptr->to_ac);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_a = atoi(tmp_val);
+	o_ptr->to_ac = atoi(tmp_val);
 	wiz_display_item(o_ptr);
 
-	p = "Enter new 'to_h' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_h);
+	p = "Enter new 'to_hit' setting: ";
+	sprintf(tmp_val, "%d", o_ptr->to_hit);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_h = atoi(tmp_val);
+	o_ptr->to_hit = atoi(tmp_val);
 	wiz_display_item(o_ptr);
 
-	p = "Enter new 'to_d' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_d);
+	p = "Enter new 'to_damage' setting: ";
+	sprintf(tmp_val, "%d", o_ptr->to_damage);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_d = atoi(tmp_val);
+	o_ptr->to_damage = atoi(tmp_val);
 	wiz_display_item(o_ptr);
 }
 
@@ -1061,9 +1061,9 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 			/* Check for match */
 			if ((q_ptr->pval == o_ptr->pval) &&
-				 (q_ptr->to_a == o_ptr->to_a) &&
-				 (q_ptr->to_h == o_ptr->to_h) &&
-				 (q_ptr->to_d == o_ptr->to_d) &&
+				 (q_ptr->to_ac == o_ptr->to_ac) &&
+				 (q_ptr->to_hit == o_ptr->to_hit) &&
+				 (q_ptr->to_damage == o_ptr->to_damage) &&
 				 (q_ptr->name1 == o_ptr->name1))
 			{
 				matches++;
@@ -1071,18 +1071,18 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 			/* Check for better */
 			else if ((q_ptr->pval >= o_ptr->pval) &&
-						(q_ptr->to_a >= o_ptr->to_a) &&
-						(q_ptr->to_h >= o_ptr->to_h) &&
-						(q_ptr->to_d >= o_ptr->to_d))
+						(q_ptr->to_ac >= o_ptr->to_ac) &&
+						(q_ptr->to_hit >= o_ptr->to_hit) &&
+						(q_ptr->to_damage >= o_ptr->to_damage))
 			{
 				better++;
 			}
 
 			/* Check for worse */
 			else if ((q_ptr->pval <= o_ptr->pval) &&
-						(q_ptr->to_a <= o_ptr->to_a) &&
-						(q_ptr->to_h <= o_ptr->to_h) &&
-						(q_ptr->to_d <= o_ptr->to_d))
+						(q_ptr->to_ac <= o_ptr->to_ac) &&
+						(q_ptr->to_hit <= o_ptr->to_hit) &&
+						(q_ptr->to_damage <= o_ptr->to_damage))
 			{
 				worse++;
 			}

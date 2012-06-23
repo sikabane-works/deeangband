@@ -4436,7 +4436,7 @@ void display_inven(creature_type *cr_ptr)
 		n = strlen(o_name);
 
 		/* Get a color */
-		attr = tval_to_attr[o_ptr->tval % 128];
+		attr = tval_to_acttr[o_ptr->tval % 128];
 		if (attr == TERM_DARK) attr = TERM_WHITE;
 
 		/* Grey out charging items */
@@ -4524,7 +4524,7 @@ void display_equip(creature_type *cr_ptr)
 
 		/* Obtain an item description */
 		object_desc(o_name, o_ptr, 0);
-		attr = tval_to_attr[o_ptr->tval % 128];
+		attr = tval_to_acttr[o_ptr->tval % 128];
 
 		/* Obtain the length of the description */
 		n = strlen(o_name);
@@ -4881,7 +4881,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 				// Save the object index, color, and description
 				out_index[k] = m;
-				out_color[k] = tval_to_attr[o_ptr->tval % 128];
+				out_color[k] = tval_to_acttr[o_ptr->tval % 128];
 
 				if (o_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
 
@@ -4924,7 +4924,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 			/* Save the object index, color, and description */
 			out_index[k] = i;
-			out_color[k] = tval_to_attr[o_ptr->tval % 128];
+			out_color[k] = tval_to_acttr[o_ptr->tval % 128];
 
 			/* Grey out charging items */
 			if (o_ptr->timeout)
@@ -5262,8 +5262,8 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 			}
 			else
 			{
-				se[i - 1].d_color = tval_to_attr[object_ptr->tval % 128];
-				se[i - 1].l_color = tval_to_attr[object_ptr->tval % 128];
+				se[i - 1].d_color = tval_to_acttr[object_ptr->tval % 128];
+				se[i - 1].l_color = tval_to_acttr[object_ptr->tval % 128];
 			}
 
 		}
@@ -6230,7 +6230,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		out_index[k] = i;
 
 		/* Acquire inventory color */
-		out_color[k] = tval_to_attr[o_ptr->tval & 0x7F];
+		out_color[k] = tval_to_acttr[o_ptr->tval & 0x7F];
 
 		/* Save the object description */
 		strcpy(out_desc[k], o_name);

@@ -88,7 +88,7 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 	int i, k;
 
 	/* Extract "shot" power */
-	i = ((creature_ptr->to_h_b + plus) * 4) + (creature_ptr->lev * 2);
+	i = ((creature_ptr->to_hit_b + plus) * 4) + (creature_ptr->lev * 2);
 
 	/* Snipers can shot more critically with crossbows */
 	if (creature_ptr->concent) i += ((i * creature_ptr->concent) / 5);
@@ -1027,7 +1027,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	if (power <= 0) return (FALSE);
 
 	/* Total armor */
-	ac = creature_ptr->ac + creature_ptr->to_a;
+	ac = creature_ptr->ac + creature_ptr->to_ac;
 
 	/* Power competes against Armor */
 	if (randint1(power) > ((ac * 3) / 4)) return (TRUE);
@@ -1882,12 +1882,12 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 
 	/* Calculate the "attack quality" */
-	bonus = atk_ptr->to_h_m;
+	bonus = atk_ptr->to_hit_m;
 	bonus += (atk_ptr->lev * 6 / 5);
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!has_cf_creature(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
+	if ((!has_cf_creature(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -1903,7 +1903,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		k = critical_norm(atk_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 
 		/* Apply the player damage bonuses */
-		k += atk_ptr->to_d_m;
+		k += atk_ptr->to_damage_m;
 
 		/* No negative damage */
 		if (k < 0) k = 0;
@@ -2058,7 +2058,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 		if (atk_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
-		k = diceroll(ma_ptr->dd + atk_ptr->to_dd[hand], ma_ptr->ds + atk_ptr->to_ds[hand]);
+		k = diceroll(ma_ptr->dd + atk_ptr->to_damaged[hand], ma_ptr->ds + atk_ptr->to_damages[hand]);
 		if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
 		if (ma_ptr->effect == MA_KNEE)
@@ -2119,9 +2119,9 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			if (weight > 20) weight = 20;
 		}
 
-		k = critical_norm(atk_ptr, atk_ptr->lev * weight, min_level, k, atk_ptr->to_h[0], 0);
+		k = critical_norm(atk_ptr, atk_ptr->lev * weight, min_level, k, atk_ptr->to_hit[0], 0);
 
-		if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
+		if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
 #ifdef JP
 			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s‚Í‹ê’É‚É‚¤‚ß‚¢‚Ä‚¢‚éI", tar_name);
@@ -2133,7 +2133,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			resist_stun /= 3;
 		}
 
-		else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
+		else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
 			if (!is_unique_creature(tar_ptr) &&
 			    (randint1(atk_ptr->lev) > r_ptr->level) &&
@@ -2150,7 +2150,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 		}
 
-		if (stun_effect && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
+		if (stun_effect && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
 			if (atk_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 			{
@@ -2353,7 +2353,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	creature_desc(tar_name, tar_ptr, 0);
 
 	// Calculate the "attack quality"
-	bonus = atk_ptr->to_h[hand] + weapon_ptr->to_h;
+	bonus = atk_ptr->to_hit[hand] + weapon_ptr->to_hit;
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if (mode == HISSATSU_IAI) chance += 60;
 	if (atk_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
@@ -2378,7 +2378,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		success_hit = one_in_(n);
 	}
 	else if ((atk_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
-	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml);
+	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -2463,7 +2463,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		// Handle normal weapon
 		if (weapon_ptr->k_idx)
 		{
-			k = diceroll(weapon_ptr->dd + atk_ptr->to_dd[hand], weapon_ptr->ds + atk_ptr->to_ds[hand]);
+			k = diceroll(weapon_ptr->dd + atk_ptr->to_damaged[hand], weapon_ptr->ds + atk_ptr->to_damages[hand]);
 			k = tot_dam_aux(atk_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
 
 			if (backstab)
@@ -2486,7 +2486,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 
 			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-				k = critical_norm(atk_ptr, weapon_ptr->weight, weapon_ptr->to_h, k, atk_ptr->to_h[hand], mode);
+				k = critical_norm(atk_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, atk_ptr->to_hit[hand], mode);
 
 			drain_result = k;
 
@@ -2573,13 +2573,13 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				drain_result = drain_result * 3 / 2;
 			}
 
-			k += weapon_ptr->to_d;
-			drain_result += weapon_ptr->to_d;
+			k += weapon_ptr->to_damage;
+			drain_result += weapon_ptr->to_damage;
 		}
 
 		// Apply the player damage bonuses
-		k += atk_ptr->to_d[hand];
-		drain_result += atk_ptr->to_d[hand];
+		k += atk_ptr->to_damage[hand];
+		drain_result += atk_ptr->to_damage[hand];
 
 		if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(tar_ptr)) k = 0;
@@ -2760,19 +2760,19 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				if (is_human)
 				{
-					int to_h = weapon_ptr->to_h;
-					int to_d = weapon_ptr->to_d;
+					int to_hit = weapon_ptr->to_hit;
+					int to_damage = weapon_ptr->to_damage;
 					int i, flag;
 
 					flag = 1;
-					for (i = 0; i < to_h + 3; i++) if (one_in_(4)) flag = 0;
-					if (flag) to_h++;
+					for (i = 0; i < to_hit + 3; i++) if (one_in_(4)) flag = 0;
+					if (flag) to_hit++;
 
 					flag = 1;
-					for (i = 0; i < to_d + 3; i++) if (one_in_(4)) flag = 0;
-					if (flag) to_d++;
+					for (i = 0; i < to_damage + 3; i++) if (one_in_(4)) flag = 0;
+					if (flag) to_damage++;
 
-					if (weapon_ptr->to_h != to_h || weapon_ptr->to_d != to_d)
+					if (weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
 					{
 						if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
@@ -2780,8 +2780,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #else
 							msg_print("Muramasa sucked blood, and became more powerful!");
 #endif
-						weapon_ptr->to_h = to_h;
-						weapon_ptr->to_d = to_d;
+						weapon_ptr->to_hit = to_hit;
+						weapon_ptr->to_damage = to_damage;
 					}
 				}
 			}

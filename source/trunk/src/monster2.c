@@ -1348,7 +1348,7 @@ static int chameleon_change_m_idx = 0;
 
 // Some dungeon types restrict the possible monsters.
 // Return TRUE is the monster is OK and FALSE otherwise
-static bool restrict_monster_to_dungeon(int species_idx)
+static bool restrict_monster_to_damageungeon(int species_idx)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
@@ -1478,7 +1478,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
+		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1541,7 +1541,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
+		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1602,7 +1602,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !gamble_arena_mode)
+		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -4365,7 +4365,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 	if (cheat_hear)
 	{
 		msg_format("[%s L%d AC%d HW%d/%d S%d]", creature_ptr->name, creature_ptr->lev,
-			creature_ptr->ac + creature_ptr->to_a, creature_ptr->ht, creature_ptr->wt, creature_ptr->sex);
+			creature_ptr->ac + creature_ptr->to_ac, creature_ptr->ht, creature_ptr->wt, creature_ptr->sex);
 	}
 
 	/* Success */

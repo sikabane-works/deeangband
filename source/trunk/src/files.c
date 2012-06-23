@@ -518,7 +518,7 @@ errr process_pref_file_command(char *buf)
 			j = (byte)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
-			misc_to_attr[j] = n1;
+			misc_to_acttr[j] = n1;
 			misc_to_char[j] = n2;
 			return 0;
 		}
@@ -550,14 +550,14 @@ errr process_pref_file_command(char *buf)
 		{
 			j = (byte)strtol(zz[0], NULL, 0) % 128;
 			n1 = strtol(zz[1], NULL, 0);
-			if (n1) tval_to_attr[j] = n1;
+			if (n1) tval_to_acttr[j] = n1;
 			return 0;
 		}
 		break;
 
 	/* Process "A:<str>" -- save an "action" for later */
 	case 'A':
-		text_to_ascii(macro__buf, buf+2);
+		text_to_acscii(macro__buf, buf+2);
 		return 0;
 
 	/* Process "P:<str>" -- normal macro */
@@ -565,7 +565,7 @@ errr process_pref_file_command(char *buf)
 	{
 		char tmp[1024];
 
-		text_to_ascii(tmp, buf+2);
+		text_to_acscii(tmp, buf+2);
 		macro_add(tmp, macro__buf);
 		return 0;
 	}
@@ -581,7 +581,7 @@ errr process_pref_file_command(char *buf)
 		mode = strtol(zz[0], NULL, 0);
 		if ((mode < 0) || (mode >= KEYMAP_MODES)) return 1;
 
-		text_to_ascii(tmp, zz[1]);
+		text_to_acscii(tmp, zz[1]);
 		if (!tmp[0] || tmp[1]) return 1;
 		i = (byte)(tmp[0]);
 
@@ -1762,16 +1762,16 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 static void display_player_melee_bonus(creature_type *creature_ptr, int hand, int hand_entry)
 {
 	char buf[160];
-	int show_tohit = creature_ptr->dis_to_h[hand];
-	int show_todam = creature_ptr->dis_to_d[hand];
-	int show_activerate = creature_ptr->to_ar[hand];
+	int show_tohit = creature_ptr->dis_to_hit[hand];
+	int show_todam = creature_ptr->dis_to_damage[hand];
+	int show_activerate = creature_ptr->to_acr[hand];
 	int show_blows;
 	int blows = creature_ptr->num_blow[hand];
 	int damage, basedam, av_dam;
 	u32b flgs[TR_FLAG_SIZE];
 	object_type *o_ptr;
 	
-	damage = creature_ptr->dis_to_d[hand] * 100;
+	damage = creature_ptr->dis_to_damage[hand] * 100;
 	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
 		int level = creature_ptr->lev;
@@ -1789,8 +1789,8 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 		// Average damage per round
 		if (o_ptr->k_idx)
 		{
-			if (object_is_known(o_ptr)) damage += o_ptr->to_d * 100;
-			basedam = ((o_ptr->dd + creature_ptr->to_dd[hand]) * (o_ptr->ds + creature_ptr->to_ds[hand] + 1)) * 50;
+			if (object_is_known(o_ptr)) damage += o_ptr->to_damage * 100;
+			basedam = ((o_ptr->dd + creature_ptr->to_damaged[hand]) * (o_ptr->ds + creature_ptr->to_damages[hand] + 1)) * 50;
 			object_flags_known(o_ptr, flgs);
 			if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
 			{
@@ -1819,8 +1819,8 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 	if (damage < 0) damage = 0;
 
 	// Hack -- add in weapon info if known
-	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
-	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
+	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_hit;
+	if (object_is_known(o_ptr)) show_todam += o_ptr->to_damage;
 
 	// Melee attacks
 	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
@@ -1843,7 +1843,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	char buf[160], buf1[30], buf2[30];
 
 	/* Base skill */
-	int show_tohit = creature_ptr->dis_to_h_b;
+	int show_tohit = creature_ptr->dis_to_hit_b;
 	int show_todam = 0;
 
 	/* Range weapon */
@@ -1896,8 +1896,8 @@ static void display_player_middle(creature_type *creature_ptr)
 	/* Apply weapon bonuses */
 	if(o_ptr->k_idx)
 	{
-		if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
-		if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
+		if (object_is_known(o_ptr)) show_tohit += o_ptr->to_hit;
+		if (object_is_known(o_ptr)) show_todam += o_ptr->to_damage;
 
 		if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
 			show_tohit += creature_ptr->weapon_exp[0][o_ptr->sval] / 400;
@@ -1915,12 +1915,12 @@ static void display_player_middle(creature_type *creature_ptr)
 			/* Get extra "power" from "extra might" */
 			if (creature_ptr->xtra_might) tmul++;
 
-			tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+			tmul = tmul * (100 + (int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 		}
 	}
 
 	/* Dump the armor class */
-	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_a), TERM_L_BLUE);
+	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_ac), TERM_L_BLUE);
 
 	format_weight(buf1, creature_ptr->carrying_weight);
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
@@ -2221,14 +2221,14 @@ static void display_player_various(creature_type * cr_ptr)
 	if (has_cf_creature(cr_ptr, CF_TRUNK))     muta_att++;
 	if (has_cf_creature(cr_ptr, CF_TENTACLES)) muta_att++;
 
-	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
+	xthn = cr_ptr->skill_thn + (cr_ptr->to_hit_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
 	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
 
-	tmp = cr_ptr->to_h_b;
+	tmp = cr_ptr->to_hit_b;
 
-	tmp += o_ptr->to_h;
+	tmp += o_ptr->to_hit;
 	/* If the player is wielding one? */
 	if (o_ptr->k_idx)
 	{
@@ -5644,7 +5644,7 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 				i += sizeof(tag_str)-1;
 
 				/* Get tag color */
-				color = color_char_to_attr(str[i]);
+				color = color_char_to_acttr(str[i]);
 
 				/* Illegal color tag */
 				if (color == 255 || str[i+1] == '\0')
@@ -7324,7 +7324,7 @@ prt("Ž‚Á‚Ä‚¢‚½ƒAƒCƒeƒ€: -‘±‚­-", 0, 0);
 
 					// Display object description
 					object_desc(o_name, o_ptr, 0);
-					c_put_str(tval_to_attr[o_ptr->tval], o_name, j+2, 7);
+					c_put_str(tval_to_acttr[o_ptr->tval], o_name, j+2, 7);
 				}
 
 				// Caption

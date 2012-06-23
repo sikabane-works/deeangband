@@ -1277,10 +1277,10 @@ s32b object_value_real(object_type *o_ptr)
 		case TV_AMULET:
 		{
 			/* Hack -- negative bonuses are bad */
-			if (o_ptr->to_h + o_ptr->to_d + o_ptr->to_a < 0) return (0L);
+			if (o_ptr->to_hit + o_ptr->to_damage + o_ptr->to_ac < 0) return (0L);
 
 			/* Give credit for bonuses */
-			value += ((o_ptr->to_h + o_ptr->to_d + o_ptr->to_a) * 200L);
+			value += ((o_ptr->to_hit + o_ptr->to_damage + o_ptr->to_ac) * 200L);
 
 			/* Done */
 			break;
@@ -1298,10 +1298,10 @@ s32b object_value_real(object_type *o_ptr)
 		case TV_DRAG_ARMOR:
 		{
 			/* Hack -- negative armor bonus */
-			if (o_ptr->to_a < 0) return (0L);
+			if (o_ptr->to_ac < 0) return (0L);
 
 			/* Give credit for bonuses */
-			value += (((o_ptr->to_h - k_ptr->to_h) + (o_ptr->to_d - k_ptr->to_d)) * 200L + (o_ptr->to_a) * 100L);
+			value += (((o_ptr->to_hit - k_ptr->to_hit) + (o_ptr->to_damage - k_ptr->to_damage)) * 200L + (o_ptr->to_ac) * 100L);
 
 			/* Done */
 			break;
@@ -1315,10 +1315,10 @@ s32b object_value_real(object_type *o_ptr)
 		case TV_POLEARM:
 		{
 			/* Hack -- negative hit/damage bonuses */
-			if (o_ptr->to_h + o_ptr->to_d < 0) return (0L);
+			if (o_ptr->to_hit + o_ptr->to_damage < 0) return (0L);
 
 			/* Factor in the bonuses */
-			value += ((o_ptr->to_h + o_ptr->to_d + o_ptr->to_a) * 100L);
+			value += ((o_ptr->to_hit + o_ptr->to_damage + o_ptr->to_ac) * 100L);
 
 			/* Hack -- Factor in extra damage dice and sides */
 			value += (o_ptr->dd - k_ptr->dd) * o_ptr->ds * 250L;
@@ -1334,10 +1334,10 @@ s32b object_value_real(object_type *o_ptr)
 		case TV_BOLT:
 		{
 			/* Hack -- negative hit/damage bonuses */
-			if (o_ptr->to_h + o_ptr->to_d < 0) return (0L);
+			if (o_ptr->to_hit + o_ptr->to_damage < 0) return (0L);
 
 			/* Factor in the bonuses */
-			value += ((o_ptr->to_h + o_ptr->to_d) * 5L);
+			value += ((o_ptr->to_hit + o_ptr->to_damage) * 5L);
 
 			/* Hack -- Factor in extra damage dice and sides */
 			value += (o_ptr->dd - k_ptr->dd) * o_ptr->ds * 5L;
@@ -1676,9 +1676,9 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 			if (o_ptr->feeling != j_ptr->feeling) return 0;
 
 			/* Require identical "bonuses" */
-			if (o_ptr->to_h != j_ptr->to_h) return 0;
-			if (o_ptr->to_d != j_ptr->to_d) return 0;
-			if (o_ptr->to_a != j_ptr->to_a) return 0;
+			if (o_ptr->to_hit != j_ptr->to_hit) return 0;
+			if (o_ptr->to_damage != j_ptr->to_damage) return 0;
+			if (o_ptr->to_ac != j_ptr->to_ac) return 0;
 
 			/* Require identical "pval" code */
 			if (o_ptr->pval != j_ptr->pval) return 0;
@@ -1911,9 +1911,9 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	o_ptr->number = 1;
 
 	/* Default magic */
-	o_ptr->to_h = k_ptr->to_h;
-	o_ptr->to_d = k_ptr->to_d;
-	o_ptr->to_a = k_ptr->to_a;
+	o_ptr->to_hit = k_ptr->to_hit;
+	o_ptr->to_damage = k_ptr->to_damage;
+	o_ptr->to_ac = k_ptr->to_ac;
 
 	/* Default power */
 	o_ptr->ac = k_ptr->ac;
@@ -2441,7 +2441,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					while (one_in_(4));
 
 					/* Bonus to armor class */
-					o_ptr->to_a = 10 + (s16b)randint1(5) + m_bonus(10, level);
+					o_ptr->to_ac = 10 + (s16b)randint1(5) + m_bonus(10, level);
 				}
 				break;
 
@@ -2480,7 +2480,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_RING_ELEC:
 				{
 					/* Bonus to armor class */
-					o_ptr->to_a = 5 + (s16b)randint1(5) + m_bonus(10, level);
+					o_ptr->to_ac = 5 + (s16b)randint1(5) + m_bonus(10, level);
 					break;
 				}
 
@@ -2511,7 +2511,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					o_ptr->curse_flags |= TRC_CURSED;
 
 					/* Penalize */
-					o_ptr->to_a = 0 - (5 + m_bonus(10, level));
+					o_ptr->to_ac = 0 - (5 + m_bonus(10, level));
 					o_ptr->pval = 0 - (1 + m_bonus(5, level));
 					if (power > 0) power = 0 - power;
 
@@ -2522,7 +2522,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_RING_DAMAGE:
 				{
 					/* Bonus to damage */
-					o_ptr->to_d = 1 + (s16b)randint1(5) + m_bonus(16, level);
+					o_ptr->to_damage = 1 + (s16b)randint1(5) + m_bonus(16, level);
 
 					/* Cursed */
 					if (power < 0)
@@ -2534,7 +2534,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						o_ptr->curse_flags |= TRC_CURSED;
 
 						/* Reverse bonus */
-						o_ptr->to_d = 0 - o_ptr->to_d;
+						o_ptr->to_damage = 0 - o_ptr->to_damage;
 					}
 
 					break;
@@ -2544,7 +2544,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_RING_ACCURACY:
 				{
 					/* Bonus to hit */
-					o_ptr->to_h = 1 + (s16b)randint1(5) + m_bonus(16, level);
+					o_ptr->to_hit = 1 + (s16b)randint1(5) + m_bonus(16, level);
 
 					/* Cursed */
 					if (power < 0)
@@ -2556,7 +2556,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						o_ptr->curse_flags |= TRC_CURSED;
 
 						/* Reverse tohit */
-						o_ptr->to_h = 0 - o_ptr->to_h;
+						o_ptr->to_hit = 0 - o_ptr->to_hit;
 					}
 
 					break;
@@ -2566,7 +2566,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_RING_PROTECTION:
 				{
 					/* Bonus to armor class */
-					o_ptr->to_a = 5 + (s16b)randint1(8) + m_bonus(10, level);
+					o_ptr->to_ac = 5 + (s16b)randint1(8) + m_bonus(10, level);
 
 					/* Cursed */
 					if (power < 0)
@@ -2578,7 +2578,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						o_ptr->curse_flags |= TRC_CURSED;
 
 						/* Reverse toac */
-						o_ptr->to_a = 0 - o_ptr->to_a;
+						o_ptr->to_ac = 0 - o_ptr->to_ac;
 					}
 
 					break;
@@ -2588,8 +2588,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_RING_SLAYING:
 				{
 					/* Bonus to damage and to hit */
-					o_ptr->to_d = (s16b)randint1(5) + m_bonus(12, level);
-					o_ptr->to_h = (s16b)randint1(5) + m_bonus(12, level);
+					o_ptr->to_damage = (s16b)randint1(5) + m_bonus(12, level);
+					o_ptr->to_hit = (s16b)randint1(5) + m_bonus(12, level);
 
 					/* Cursed */
 					if (power < 0)
@@ -2601,8 +2601,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						o_ptr->curse_flags |= TRC_CURSED;
 
 						/* Reverse bonuses */
-						o_ptr->to_h = 0 - o_ptr->to_h;
-						o_ptr->to_d = 0 - o_ptr->to_d;
+						o_ptr->to_hit = 0 - o_ptr->to_hit;
+						o_ptr->to_damage = 0 - o_ptr->to_damage;
 					}
 
 					break;
@@ -2671,19 +2671,19 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						o_ptr->name2 = EGO_RING_TELEPORT;
 						break;
 					case 9: case 10:
-						if (o_ptr->to_h) break;
+						if (o_ptr->to_hit) break;
 						o_ptr->name2 = EGO_RING_TO_H;
 						break;
 					case 11: case 12:
-						if (o_ptr->to_d) break;
+						if (o_ptr->to_damage) break;
 						o_ptr->name2 = EGO_RING_TO_D;
 						break;
 					case 13:
-						if ((o_ptr->to_h) || (o_ptr->to_d)) break;
+						if ((o_ptr->to_hit) || (o_ptr->to_damage)) break;
 						o_ptr->name2 = EGO_RING_SLAY;
 						break;
 					case 14:
-						if ((have_flag(k_ptr->flags, TR_STR)) || o_ptr->to_h || o_ptr->to_d) break;
+						if ((have_flag(k_ptr->flags, TR_STR)) || o_ptr->to_hit || o_ptr->to_damage) break;
 						o_ptr->name2 = EGO_RING_WIZARD;
 						break;
 					case 15:
@@ -2737,13 +2737,13 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 							else
 							{
 								o_ptr->name2 = EGO_RING_BERSERKER;
-								o_ptr->to_h -= 2+(s16b)randint1(4);
-								o_ptr->to_d += 2+(s16b)randint1(4);
+								o_ptr->to_hit -= 2+(s16b)randint1(4);
+								o_ptr->to_damage += 2+(s16b)randint1(4);
 							}
 							break;
 						case SV_RING_PROTECTION:
 							o_ptr->name2 = EGO_RING_SUPER_AC;
-							o_ptr->to_a += 7 + m_bonus(5, level);
+							o_ptr->to_ac += 7 + m_bonus(5, level);
 							break;
 						case SV_RING_RES_FEAR:
 							o_ptr->name2 = EGO_RING_HERO;
@@ -2797,9 +2797,9 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			}
 			else if ((power == -2) && one_in_(2))
 			{
-				if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-				if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-				if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
+				if (o_ptr->to_hit > 0) o_ptr->to_hit = 0-o_ptr->to_hit;
+				if (o_ptr->to_damage > 0) o_ptr->to_damage = 0-o_ptr->to_damage;
+				if (o_ptr->to_ac > 0) o_ptr->to_ac = 0-o_ptr->to_ac;
 				if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
 				o_ptr->art_flags[0] = 0;
 				o_ptr->art_flags[1] = 0;
@@ -2928,7 +2928,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_AMULET_THE_MAGI:
 				{
 					o_ptr->pval = (s16b)randint1(5) + m_bonus(5, level);
-					o_ptr->to_a = (s16b)randint1(5) + m_bonus(5, level);
+					o_ptr->to_ac = (s16b)randint1(5) + m_bonus(5, level);
 
 					/* gain one low ESP */
 					add_esp_weak(o_ptr, FALSE);
@@ -2950,7 +2950,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 					/* Penalize */
 					o_ptr->pval = 0 - ((s16b)randint1(5) + m_bonus(5, level));
-					o_ptr->to_a = 0 - ((s16b)randint1(5) + m_bonus(5, level));
+					o_ptr->to_ac = 0 - ((s16b)randint1(5) + m_bonus(5, level));
 					if (power > 0) power = 0 - power;
 
 					break;
@@ -3083,9 +3083,9 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			}
 			else if ((power == -2) && one_in_(2))
 			{
-				if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-				if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-				if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
+				if (o_ptr->to_hit > 0) o_ptr->to_hit = 0-o_ptr->to_hit;
+				if (o_ptr->to_damage > 0) o_ptr->to_damage = 0-o_ptr->to_damage;
+				if (o_ptr->to_ac > 0) o_ptr->to_ac = 0-o_ptr->to_ac;
 				if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
 				o_ptr->art_flags[0] = 0;
 				o_ptr->art_flags[1] = 0;
@@ -3575,9 +3575,9 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		o_ptr->size_upper = a_ptr->size_upper; 
 		o_ptr->dd = a_ptr->dd;
 		o_ptr->ds = a_ptr->ds;
-		o_ptr->to_a = a_ptr->to_a;
-		o_ptr->to_h = a_ptr->to_h;
-		o_ptr->to_d = a_ptr->to_d;
+		o_ptr->to_ac = a_ptr->to_ac;
+		o_ptr->to_hit = a_ptr->to_hit;
+		o_ptr->to_damage = a_ptr->to_damage;
 		ave = a_ptr->size_lower + a_ptr->size_upper;
 		//TODO adjust weight if(o_ptr->fitting_size) o_ptr->weight = a_ptr->weight * ave / 5 * ave / 5;
 		o_ptr->weight = a_ptr->weight;
@@ -3649,9 +3649,9 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr))
 		{
 			/* Hack -- obtain bonuses */
-			if (e_ptr->max_to_h) o_ptr->to_h -= (s16b)randint1(e_ptr->max_to_h);
-			if (e_ptr->max_to_d) o_ptr->to_d -= (s16b)randint1(e_ptr->max_to_d);
-			if (e_ptr->max_to_a) o_ptr->to_a -= (s16b)randint1(e_ptr->max_to_a);
+			if (e_ptr->max_to_hit) o_ptr->to_hit -= (s16b)randint1(e_ptr->max_to_hit);
+			if (e_ptr->max_to_damage) o_ptr->to_damage -= (s16b)randint1(e_ptr->max_to_damage);
+			if (e_ptr->max_to_ac) o_ptr->to_ac -= (s16b)randint1(e_ptr->max_to_ac);
 
 			/* Hack -- obtain pval */
 			if (e_ptr->max_pval) o_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
@@ -3722,7 +3722,7 @@ static bool kind_is_good(int k_idx)
 		case TV_HELM:
 		case TV_CROWN:
 		{
-			if (k_ptr->to_a < 0) return (FALSE);
+			if (k_ptr->to_ac < 0) return (FALSE);
 			return (TRUE);
 		}
 
@@ -3733,8 +3733,8 @@ static bool kind_is_good(int k_idx)
 		case TV_POLEARM:
 		case TV_DIGGING:
 		{
-			if (k_ptr->to_h < 0) return (FALSE);
-			if (k_ptr->to_d < 0) return (FALSE);
+			if (k_ptr->to_hit < 0) return (FALSE);
+			if (k_ptr->to_damage < 0) return (FALSE);
 			return (TRUE);
 		}
 
@@ -4985,8 +4985,8 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *o_ptr, s32b o_val
 	case TV_ARROW:
 	case TV_BOLT:
 		/* Objects sort by increasing hit/damage bonuses */
-		if (o_ptr->to_h + o_ptr->to_d < j_ptr->to_h + j_ptr->to_d) return TRUE;
-		if (o_ptr->to_h + o_ptr->to_d > j_ptr->to_h + j_ptr->to_d) return FALSE;
+		if (o_ptr->to_hit + o_ptr->to_damage < j_ptr->to_hit + j_ptr->to_damage) return TRUE;
+		if (o_ptr->to_hit + o_ptr->to_damage > j_ptr->to_hit + j_ptr->to_damage) return FALSE;
 		break;
 
 	/* Hack:  otherwise identical rods sort by
@@ -5825,7 +5825,7 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 
 	if (blow_ptr->method != RBM_EXPLODE)
 	{
-		int ac = target_ptr->ac + target_ptr->to_a;
+		int ac = target_ptr->ac + target_ptr->to_ac;
 
 		switch (blow_ptr->effect)
 		{
@@ -6556,7 +6556,7 @@ static void drain_essence(creature_type *creature_ptr)
 	int i, item;
 	int dec = 4;
 	bool observe = FALSE;
-	int old_ds, old_dd, old_to_h, old_to_d, old_ac, old_to_a, old_pval, old_name2, old_timeout;
+	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
 	u32b old_flgs[TR_FLAG_SIZE], new_flgs[TR_FLAG_SIZE];
 	object_type *o_ptr;
 	cptr            q, s;
@@ -6614,10 +6614,10 @@ static void drain_essence(creature_type *creature_ptr)
 	if (have_flag(old_flgs, TR_KILL_GIANT)) add_flag(old_flgs, TR_SLAY_GIANT);
 	if (have_flag(old_flgs, TR_KILL_HUMAN)) add_flag(old_flgs, TR_SLAY_HUMAN);
 
-	old_to_a = o_ptr->to_a;
+	old_to_ac = o_ptr->to_ac;
 	old_ac = o_ptr->ac;
-	old_to_h = o_ptr->to_h;
-	old_to_d = o_ptr->to_d;
+	old_to_hit = o_ptr->to_hit;
+	old_to_damage = o_ptr->to_damage;
 	old_ds = o_ptr->ds;
 	old_dd = o_ptr->dd;
 	old_pval = o_ptr->pval;
@@ -6724,10 +6724,10 @@ static void drain_essence(creature_type *creature_ptr)
 
 		if (old_dd > o_ptr->dd) drain_value[TR_ES_ATTACK] += (old_dd-o_ptr->dd)*10;
 	}
-	if (old_to_h > o_ptr->to_h) drain_value[TR_ES_ATTACK] += (old_to_h-o_ptr->to_h)*10;
-	if (old_to_d > o_ptr->to_d) drain_value[TR_ES_ATTACK] += (old_to_d-o_ptr->to_d)*10;
+	if (old_to_hit > o_ptr->to_hit) drain_value[TR_ES_ATTACK] += (old_to_hit-o_ptr->to_hit)*10;
+	if (old_to_damage > o_ptr->to_damage) drain_value[TR_ES_ATTACK] += (old_to_damage-o_ptr->to_damage)*10;
 	if (old_ac > o_ptr->ac) drain_value[TR_ES_AC] += (old_ac-o_ptr->ac)*10;
-	if (old_to_a > o_ptr->to_a) drain_value[TR_ES_AC] += (old_to_a-o_ptr->to_a)*10;
+	if (old_to_ac > o_ptr->to_ac) drain_value[TR_ES_AC] += (old_to_ac-o_ptr->to_ac)*10;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
 	{
@@ -7336,7 +7336,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			char tmp_val[160];
 			int val;
-			int get_to_h, get_to_d;
+			int get_to_hit, get_to_damage;
 
 			strcpy(tmp_val, "1");
 #ifdef JP
@@ -7362,16 +7362,16 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 				return;
 			}
-			get_to_h = ((val+1)/2+randint0(val/2+1));
-			get_to_d = ((val+1)/2+randint0(val/2+1));
-			o_ptr->xtra4 = (get_to_h<<8)+get_to_d;
-			o_ptr->to_h += get_to_h;
-			o_ptr->to_d += get_to_d;
+			get_to_hit = ((val+1)/2+randint0(val/2+1));
+			get_to_damage = ((val+1)/2+randint0(val/2+1));
+			o_ptr->xtra4 = (get_to_hit<<8)+get_to_damage;
+			o_ptr->to_hit += get_to_hit;
+			o_ptr->to_damage += get_to_damage;
 		}
 		creature_ptr->magic_num1[es_ptr->essence] -= use_essence;
 		if (es_ptr->add == ESSENCE_ATTACK)
 		{
-			if ((o_ptr->to_h >= creature_ptr->lev/5+5) && (o_ptr->to_d >= creature_ptr->lev/5+5))
+			if ((o_ptr->to_hit >= creature_ptr->lev/5+5) && (o_ptr->to_damage >= creature_ptr->lev/5+5))
 			{
 #ifdef JP
 				msg_print("‰ü—Ç‚ÉŽ¸”s‚µ‚½B");
@@ -7383,13 +7383,13 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			}
 			else
 			{
-				if (o_ptr->to_h < creature_ptr->lev/5+5) o_ptr->to_h++;
-				if (o_ptr->to_d < creature_ptr->lev/5+5) o_ptr->to_d++;
+				if (o_ptr->to_hit < creature_ptr->lev/5+5) o_ptr->to_hit++;
+				if (o_ptr->to_damage < creature_ptr->lev/5+5) o_ptr->to_damage++;
 			}
 		}
 		else if (es_ptr->add == ESSENCE_AC)
 		{
-			if (o_ptr->to_a >= creature_ptr->lev/5+5)
+			if (o_ptr->to_ac >= creature_ptr->lev/5+5)
 			{
 #ifdef JP
 				msg_print("‰ü—Ç‚ÉŽ¸”s‚µ‚½B");
@@ -7401,7 +7401,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			}
 			else
 			{
-				if (o_ptr->to_a < creature_ptr->lev/5+5) o_ptr->to_a++;
+				if (o_ptr->to_ac < creature_ptr->lev/5+5) o_ptr->to_ac++;
 			}
 		}
 		else
@@ -7535,11 +7535,11 @@ static void erase_essence(creature_type *creature_ptr)
 
 	if (o_ptr->xtra3 == 1+ESSENCE_SLAY_GLOVE)
 	{
-		o_ptr->to_h -= (o_ptr->xtra4>>8);
-		o_ptr->to_d -= (o_ptr->xtra4 & 0x000f);
+		o_ptr->to_hit -= (o_ptr->xtra4>>8);
+		o_ptr->to_damage -= (o_ptr->xtra4 & 0x000f);
 		o_ptr->xtra4 = 0;
-		if (o_ptr->to_h < 0) o_ptr->to_h = 0;
-		if (o_ptr->to_d < 0) o_ptr->to_d = 0;
+		if (o_ptr->to_hit < 0) o_ptr->to_hit = 0;
+		if (o_ptr->to_damage < 0) o_ptr->to_damage = 0;
 	}
 	o_ptr->xtra3 = 0;
 	object_flags(o_ptr, flgs);
@@ -7762,15 +7762,15 @@ void weapon_boost(object_type *o_ptr, int level, int power)
 	if (power > 0)
 	{
 		/* Enchant */
-		o_ptr->to_h += tohit1;
-		o_ptr->to_d += todam1;
+		o_ptr->to_hit += tohit1;
+		o_ptr->to_damage += todam1;
 
 		/* Very good */
 		if (power > 1)
 		{
 			/* Enchant again */
-			o_ptr->to_h += tohit2;
-			o_ptr->to_d += todam2;
+			o_ptr->to_hit += tohit2;
+			o_ptr->to_damage += todam2;
 		}
 	}
 
@@ -7778,19 +7778,19 @@ void weapon_boost(object_type *o_ptr, int level, int power)
 	else if (power < 0)
 	{
 		/* Penalize */
-		o_ptr->to_h -= tohit1;
-		o_ptr->to_d -= todam1;
+		o_ptr->to_hit -= tohit1;
+		o_ptr->to_damage -= todam1;
 
 		/* Very cursed */
 		if (power < -1)
 		{
 			/* Penalize again */
-			o_ptr->to_h -= tohit2;
-			o_ptr->to_d -= todam2;
+			o_ptr->to_hit -= tohit2;
+			o_ptr->to_damage -= todam2;
 		}
 
 		/* Cursed (if "bad") */
-		if (o_ptr->to_h + o_ptr->to_d < 0) o_ptr->curse_flags |= TRC_CURSED;
+		if (o_ptr->to_hit + o_ptr->to_damage < 0) o_ptr->curse_flags |= TRC_CURSED;
 	}
 }
 
@@ -7804,13 +7804,13 @@ void armour_boost(object_type *o_ptr, int level, int power)
 	if (power > 0)
 	{
 		/* Enchant */
-		o_ptr->to_a += toac1;
+		o_ptr->to_ac += toac1;
 
 		/* Very good */
 		if (power > 1)
 		{
 			/* Enchant again */
-			o_ptr->to_a += toac2;
+			o_ptr->to_ac += toac2;
 		}
 	}
 
@@ -7818,17 +7818,17 @@ void armour_boost(object_type *o_ptr, int level, int power)
 	else if (power < 0)
 	{
 		/* Penalize */
-		o_ptr->to_a -= toac1;
+		o_ptr->to_ac -= toac1;
 
 		/* Very cursed */
 		if (power < -1)
 		{
 			/* Penalize again */
-			o_ptr->to_a -= toac2;
+			o_ptr->to_ac -= toac2;
 		}
 
 		/* Cursed (if "bad") */
-		if (o_ptr->to_a < 0) o_ptr->curse_flags |= TRC_CURSED;
+		if (o_ptr->to_ac < 0) o_ptr->curse_flags |= TRC_CURSED;
 	}
 }
 
@@ -7841,25 +7841,25 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
 
 	// Hack -- obtain bonuses
-	if (e_ptr->max_to_h)
+	if (e_ptr->max_to_hit)
 	{
-		if (e_ptr->max_to_h > 127)
-			o_ptr->to_h -= (s16b)randint1(256-e_ptr->max_to_h);
-		else o_ptr->to_h += (s16b)randint1(e_ptr->max_to_h);
+		if (e_ptr->max_to_hit > 127)
+			o_ptr->to_hit -= (s16b)randint1(256-e_ptr->max_to_hit);
+		else o_ptr->to_hit += (s16b)randint1(e_ptr->max_to_hit);
 	}
 
-	if (e_ptr->max_to_d)
+	if (e_ptr->max_to_damage)
 	{
-		if (e_ptr->max_to_d > 127)
-			o_ptr->to_d -= (s16b)randint1(256-e_ptr->max_to_d);
-			else o_ptr->to_d += (s16b)randint1(e_ptr->max_to_d);
+		if (e_ptr->max_to_damage > 127)
+			o_ptr->to_damage -= (s16b)randint1(256-e_ptr->max_to_damage);
+			else o_ptr->to_damage += (s16b)randint1(e_ptr->max_to_damage);
 	}
 
-	if (e_ptr->max_to_a)
+	if (e_ptr->max_to_ac)
 	{
-		if (e_ptr->max_to_a > 127)
-			o_ptr->to_a -= (s16b)randint1(256-e_ptr->max_to_a);
-		else o_ptr->to_a += (s16b)randint1(e_ptr->max_to_a);
+		if (e_ptr->max_to_ac > 127)
+			o_ptr->to_ac -= (s16b)randint1(256-e_ptr->max_to_ac);
+		else o_ptr->to_ac += (s16b)randint1(e_ptr->max_to_ac);
 	}
 
 	// Hack -- obtain pval
@@ -7930,7 +7930,7 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 			o_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
 			o_ptr->sval = SV_YOIYAMI_ROBE;
 			o_ptr->ac = 0;
-			o_ptr->to_a = 0;
+			o_ptr->to_ac = 0;
 			break;
 
 		case EGO_ENDURE_ACID:
@@ -8017,8 +8017,8 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 		case EGO_AURA_COLD:
 			break;
 		case EGO_BAT:
-			o_ptr->to_d -= 6;
-			o_ptr->to_h -= 6;
+			o_ptr->to_damage -= 6;
+			o_ptr->to_hit -= 6;
 			break;
 		case EGO_FREE_ACTION:
 			break;

@@ -1175,7 +1175,7 @@ static int my_strnicmp(cptr a, cptr b, int n)
 }
 
 
-static void triggespecies_text_to_ascii(char **bufptr, cptr *strptr)
+static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 {
 	char *s = *bufptr;
 	cptr str = *strptr;
@@ -1272,7 +1272,7 @@ static void triggespecies_text_to_ascii(char **bufptr, cptr *strptr)
  * parsing "\xFF" into a (signed) char.  Whoever thought of making
  * the "sign" of a "char" undefined is a complete moron.  Oh well.
  */
-void text_to_ascii(char *buf, cptr str)
+void text_to_acscii(char *buf, cptr str)
 {
 	char *s = buf;
 
@@ -1291,7 +1291,7 @@ void text_to_ascii(char *buf, cptr str)
 			/* Macro Trigger */
 			if (*str == '[')
 			{
-				triggespecies_text_to_ascii(&s, &str);
+				triggespecies_text_to_acscii(&s, &str);
 			}
 			else
 

@@ -1776,7 +1776,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	switch(type)
 	{
 	case DAMAGE_TYPE_MELEE:
-		t = (250 - creature_ptr->ac - creature_ptr->to_a) * 1000 / 2500;
+		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 2500;
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:

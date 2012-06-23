@@ -1066,7 +1066,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	int             t = 0, item;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
-	int to_h, to_d, to_a, pval;
+	int to_hit, to_damage, to_ac, pval;
 
 	/* Pick a random slot */
 	//TODO
@@ -1085,7 +1085,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 		return FALSE;
 
 	/* Nothing to disenchant */
-	if ((o_ptr->to_h <= 0) && (o_ptr->to_d <= 0) && (o_ptr->to_a <= 0) && (o_ptr->pval <= 1))
+	if ((o_ptr->to_hit <= 0) && (o_ptr->to_damage <= 0) && (o_ptr->to_ac <= 0) && (o_ptr->pval <= 1))
 	{
 		/* Nothing to notice */
 		return (FALSE);
@@ -1115,29 +1115,29 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 
 
 	/* Memorize old value */
-	to_h = o_ptr->to_h;
-	to_d = o_ptr->to_d;
-	to_a = o_ptr->to_a;
+	to_hit = o_ptr->to_hit;
+	to_damage = o_ptr->to_damage;
+	to_ac = o_ptr->to_ac;
 	pval = o_ptr->pval;
 
 	/* Disenchant tohit */
-	if (o_ptr->to_h > 0) o_ptr->to_h--;
-	if ((o_ptr->to_h > 5) && (randint0(100) < 20)) o_ptr->to_h--;
+	if (o_ptr->to_hit > 0) o_ptr->to_hit--;
+	if ((o_ptr->to_hit > 5) && (randint0(100) < 20)) o_ptr->to_hit--;
 
 	/* Disenchant todam */
-	if (o_ptr->to_d > 0) o_ptr->to_d--;
-	if ((o_ptr->to_d > 5) && (randint0(100) < 20)) o_ptr->to_d--;
+	if (o_ptr->to_damage > 0) o_ptr->to_damage--;
+	if ((o_ptr->to_damage > 5) && (randint0(100) < 20)) o_ptr->to_damage--;
 
 	/* Disenchant toac */
-	if (o_ptr->to_a > 0) o_ptr->to_a--;
-	if ((o_ptr->to_a > 5) && (randint0(100) < 20)) o_ptr->to_a--;
+	if (o_ptr->to_ac > 0) o_ptr->to_ac--;
+	if ((o_ptr->to_ac > 5) && (randint0(100) < 20)) o_ptr->to_ac--;
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
 	if ((o_ptr->pval > 1) && one_in_(13) && !(mode & 0x01)) o_ptr->pval--;
 
-	if ((to_h != o_ptr->to_h) || (to_d != o_ptr->to_d) ||
-	    (to_a != o_ptr->to_a) || (pval != o_ptr->pval))
+	if ((to_hit != o_ptr->to_hit) || (to_damage != o_ptr->to_damage) ||
+	    (to_ac != o_ptr->to_ac) || (pval != o_ptr->pval))
 	{
 		/* Message */
 #ifdef JP
@@ -2422,17 +2422,17 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 		/* Enchant to hit */
 		if (eflag & ENCH_TOHIT)
 		{
-			if (o_ptr->to_h < 0) chance = 0;
-			else if (o_ptr->to_h > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_h];
+			if (o_ptr->to_hit < 0) chance = 0;
+			else if (o_ptr->to_hit > 15) chance = 1000;
+			else chance = enchant_table[o_ptr->to_hit];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_h++;
+				o_ptr->to_hit++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_h >= 0)
+				if (o_ptr->to_hit >= 0)
 					break_curse(o_ptr);
 			}
 		}
@@ -2440,17 +2440,17 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 		/* Enchant to damage */
 		if (eflag & ENCH_TODAM)
 		{
-			if (o_ptr->to_d < 0) chance = 0;
-			else if (o_ptr->to_d > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_d];
+			if (o_ptr->to_damage < 0) chance = 0;
+			else if (o_ptr->to_damage > 15) chance = 1000;
+			else chance = enchant_table[o_ptr->to_damage];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_d++;
+				o_ptr->to_damage++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_d >= 0)
+				if (o_ptr->to_damage >= 0)
 					break_curse(o_ptr);
 			}
 		}
@@ -2458,17 +2458,17 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 		/* Enchant to armor class */
 		if (eflag & ENCH_TOAC)
 		{
-			if (o_ptr->to_a < 0) chance = 0;
-			else if (o_ptr->to_a > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_a];
+			if (o_ptr->to_ac < 0) chance = 0;
+			else if (o_ptr->to_ac > 15) chance = 1000;
+			else chance = enchant_table[o_ptr->to_ac];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_a++;
+				o_ptr->to_ac++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_a >= 0)
+				if (o_ptr->to_ac >= 0)
 					break_curse(o_ptr);
 			}
 		}
@@ -3570,31 +3570,31 @@ msg_print("その武器は祝福を嫌っている！");
 
 
 		/* Disenchant tohit */
-		if (o_ptr->to_h > 0)
+		if (o_ptr->to_hit > 0)
 		{
-			o_ptr->to_h--;
+			o_ptr->to_hit--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_h > 5) && (randint0(100) < 33)) o_ptr->to_h--;
+		if ((o_ptr->to_hit > 5) && (randint0(100) < 33)) o_ptr->to_hit--;
 
 		/* Disenchant todam */
-		if (o_ptr->to_d > 0)
+		if (o_ptr->to_damage > 0)
 		{
-			o_ptr->to_d--;
+			o_ptr->to_damage--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_d > 5) && (randint0(100) < 33)) o_ptr->to_d--;
+		if ((o_ptr->to_damage > 5) && (randint0(100) < 33)) o_ptr->to_damage--;
 
 		/* Disenchant toac */
-		if (o_ptr->to_a > 0)
+		if (o_ptr->to_ac > 0)
 		{
-			o_ptr->to_a--;
+			o_ptr->to_ac--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_a > 5) && (randint0(100) < 33)) o_ptr->to_a--;
+		if ((o_ptr->to_ac > 5) && (randint0(100) < 33)) o_ptr->to_ac--;
 
 		if (dis_happened)
 		{
@@ -4881,7 +4881,7 @@ static int minus_ac(creature_type *cr_ptr)
 	if (!object_is_armour(o_ptr)) return (FALSE);
 
 	/* No damage left to be done */
-	if (o_ptr->ac + o_ptr->to_a <= 0) return (FALSE);
+	if (o_ptr->ac + o_ptr->to_ac <= 0) return (FALSE);
 
 
 	/* Describe */
@@ -4912,7 +4912,7 @@ msg_format("%sがダメージを受けた！", o_name);
 
 
 	/* Damage the item */
-	o_ptr->to_a--;
+	o_ptr->to_ac--;
 
 	/* Calculate bonuses */
 	cr_ptr->creature_update |= (CRU_BONUS);
@@ -5098,7 +5098,7 @@ s = "錆止めできるものがありません。";
 
 	add_flag(o_ptr->art_flags, TR_IGNORE_ACID);
 
-	if ((o_ptr->to_a < 0) && !object_is_cursed(o_ptr))
+	if ((o_ptr->to_ac < 0) && !object_is_cursed(o_ptr))
 	{
 #ifdef JP
 msg_format("%sは新品同様になった！",o_name);
@@ -5108,7 +5108,7 @@ msg_format("%sは新品同様になった！",o_name);
 			((o_ptr->number > 1) ? "" : "s"));
 #endif
 
-		o_ptr->to_a = 0;
+		o_ptr->to_ac = 0;
 	}
 
 #ifdef JP
@@ -5174,9 +5174,9 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		/* Blast the armor */
 		o_ptr->name1 = 0;
 		o_ptr->name2 = EGO_BLASTED;
-		o_ptr->to_a = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_h = 0;
-		o_ptr->to_d = 0;
+		o_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		o_ptr->to_hit = 0;
+		o_ptr->to_damage = 0;
 		o_ptr->ac = 0;
 		o_ptr->dd = 0;
 		o_ptr->ds = 0;
@@ -5250,9 +5250,9 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		/* Shatter the weapon */
 		o_ptr->name1 = 0;
 		o_ptr->name2 = EGO_SHATTERED;
-		o_ptr->to_h = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_d = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_a = 0;
+		o_ptr->to_hit = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		o_ptr->to_damage = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		o_ptr->to_ac = 0;
 		o_ptr->ac = 0;
 		o_ptr->dd = 0;
 		o_ptr->ds = 0;

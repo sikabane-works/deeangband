@@ -156,10 +156,10 @@ static byte value_check_aux1(creature_type *creature_ptr, object_type *o_ptr)
 	if ((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) return FEEL_AVERAGE;
 
 	/* Good "armor" bonus */
-	if (o_ptr->to_a > 0) return FEEL_GOOD;
+	if (o_ptr->to_ac > 0) return FEEL_GOOD;
 
 	/* Good "weapon" bonus */
-	if (o_ptr->to_h + o_ptr->to_d > 0) return FEEL_GOOD;
+	if (o_ptr->to_hit + o_ptr->to_damage > 0) return FEEL_GOOD;
 
 	/* Default to "average" */
 	return FEEL_AVERAGE;
@@ -184,10 +184,10 @@ static byte value_check_aux2(creature_type *creature_ptr, object_type *o_ptr)
 	if (object_is_ego(o_ptr)) return FEEL_UNCURSED;
 
 	/* Good armor bonus */
-	if (o_ptr->to_a > 0) return FEEL_UNCURSED;
+	if (o_ptr->to_ac > 0) return FEEL_UNCURSED;
 
 	/* Good weapon bonuses */
-	if (o_ptr->to_h + o_ptr->to_d > 0) return FEEL_UNCURSED;
+	if (o_ptr->to_hit + o_ptr->to_damage > 0) return FEEL_UNCURSED;
 
 	/* No feeling */
 	return FEEL_NONE;

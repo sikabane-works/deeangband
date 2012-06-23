@@ -1322,7 +1322,7 @@ static void load_prefs(void)
  * When given an empty buffer, or a buffer containing only "whitespace", we
  * will return no tokens.  We will never extract more than "num" tokens.
  *
- * By running a token through the "text_to_ascii()" function, you can allow
+ * By running a token through the "text_to_acscii()" function, you can allow
  * that token to include (encoded) whitespace, using "\s" to encode spaces.
  *
  * We save pointers to the tokens in "tokens", and return the number found.

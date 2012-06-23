@@ -3355,7 +3355,7 @@ void do_cmd_macros(void)
 			if (askfor(tmp, 80))
 			{
 				/* Convert to ascii */
-				text_to_ascii(macro__buf, tmp);
+				text_to_acscii(macro__buf, tmp);
 
 				/* Link the macro */
 				macro_add(buf, macro__buf);
@@ -3549,7 +3549,7 @@ void do_cmd_macros(void)
 			if (askfor(tmp, 80))
 			{
 				/* Convert to ascii */
-				text_to_ascii(macro__buf, tmp);
+				text_to_acscii(macro__buf, tmp);
 
 				/* Free old keymap */
 				string_free(keymap_act[mode][(byte)(buf[0])]);
@@ -3638,7 +3638,7 @@ void do_cmd_macros(void)
 			if (!askfor(buf, 80)) continue;
 
 			/* Extract an action */
-			text_to_ascii(macro__buf, buf);
+			text_to_acscii(macro__buf, buf);
 		}
 
 		/* Oops */

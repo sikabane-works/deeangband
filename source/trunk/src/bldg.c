@@ -3155,8 +3155,8 @@ static void compare_weapon_aux2(creature_type *cr_ptr, object_type *o_ptr, int n
 	char tmp_str[80];
 
 	/* Effective dices */
-	int eff_dd = o_ptr->dd + cr_ptr->to_dd[0];
-	int eff_ds = o_ptr->ds + cr_ptr->to_ds[0];
+	int eff_dd = o_ptr->dd + cr_ptr->to_damaged[0];
+	int eff_ds = o_ptr->ds + cr_ptr->to_damages[0];
 
 	/* Print the intro text */
 	c_put_str(color, attr, r, c);
@@ -3168,8 +3168,8 @@ sprintf(tmp_str, "‚Pƒ^[ƒ“: %d-%d ƒ_ƒ[ƒW",
 	sprintf(tmp_str, "Attack: %d-%d damage",
 #endif
 
-	    (numblows * (mult * eff_dd / 60 + o_ptr->to_d + cr_ptr->to_d[0])),
-	    (numblows * (mult * eff_ds * eff_dd / 60 + o_ptr->to_d + cr_ptr->to_d[0])));
+	    (numblows * (mult * eff_dd / 60 + o_ptr->to_damage + cr_ptr->to_damage[0])),
+	    (numblows * (mult * eff_ds * eff_dd / 60 + o_ptr->to_damage + cr_ptr->to_damage[0])));
 
 	/* Print the damage */
 	put_str(tmp_str, r, c + 8);
@@ -3257,10 +3257,10 @@ static void compare_weapon_aux1(creature_type *cr_ptr, object_type *o_ptr, int c
 
 }
 
-static int hit_chance(creature_type *cr_ptr, int to_h, int ac)
+static int hit_chance(creature_type *cr_ptr, int to_hit, int ac)
 {
 	int chance = 0;
-	int meichuu = cr_ptr->skill_thn + (cr_ptr->to_h[0] + to_h) * BTH_PLUS_ADJ;
+	int meichuu = cr_ptr->skill_thn + (cr_ptr->to_hit[0] + to_hit) * BTH_PLUS_ADJ;
 
 	if (meichuu <= 0) return 5;
 
@@ -3277,7 +3277,7 @@ static int hit_chance(creature_type *cr_ptr, int to_h, int ac)
  * Displays all info about a weapon
  *
  * Only accurate for the current weapon, because it includes
- * various info about the player's +to_dam and number of blows.
+ * various info about the player's +to_damageam and number of blows.
  */
 static void list_weapon(creature_type *cr_ptr, object_type *o_ptr, int row, int col)
 {
@@ -3285,8 +3285,8 @@ static void list_weapon(creature_type *cr_ptr, object_type *o_ptr, int row, int 
 	char tmp_str[80];
 
 	/* Effective dices */
-	int eff_dd = o_ptr->dd + cr_ptr->to_dd[0];
-	int eff_ds = o_ptr->ds + cr_ptr->to_ds[0];
+	int eff_dd = o_ptr->dd + cr_ptr->to_damaged[0];
+	int eff_ds = o_ptr->ds + cr_ptr->to_damages[0];
 
 	/* Print the weapon name */
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -3301,7 +3301,7 @@ sprintf(tmp_str, "UŒ‚‰ñ”: %d", cr_ptr->num_blow[0]);
 
 	put_str(tmp_str, row+1, col);
 
-	/* Print to_hit and to_dam of the weapon */
+	/* Print to_hitit and to_damageam of the weapon */
 #ifdef JP
 sprintf(tmp_str, "–½’†—¦:  0  50 100 150 200 (“G‚ÌAC)");
 #else
@@ -3312,9 +3312,9 @@ sprintf(tmp_str, "To Hit:  0  50 100 150 200 (AC)");
 
 	/* Print the weapons base damage dice */
 #ifdef JP
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(cr_ptr, o_ptr->to_h, 0), hit_chance(cr_ptr, o_ptr->to_h, 50), hit_chance(cr_ptr, o_ptr->to_h, 100), hit_chance(cr_ptr, o_ptr->to_h, 150), hit_chance(cr_ptr, o_ptr->to_h, 200));
+sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(cr_ptr, o_ptr->to_hit, 0), hit_chance(cr_ptr, o_ptr->to_hit, 50), hit_chance(cr_ptr, o_ptr->to_hit, 100), hit_chance(cr_ptr, o_ptr->to_hit, 150), hit_chance(cr_ptr, o_ptr->to_hit, 200));
 #else
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(cr_ptr, o_ptr->to_h, 0), hit_chance(cr_ptr, o_ptr->to_h, 50), hit_chance(cr_ptr, o_ptr->to_h, 100), hit_chance(cr_ptr, o_ptr->to_h, 150), hit_chance(cr_ptr, o_ptr->to_h, 200));
+sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(cr_ptr, o_ptr->to_hit, 0), hit_chance(cr_ptr, o_ptr->to_hit, 50), hit_chance(cr_ptr, o_ptr->to_hit, 100), hit_chance(cr_ptr, o_ptr->to_hit, 150), hit_chance(cr_ptr, o_ptr->to_hit, 200));
 #endif
 
 	put_str(tmp_str, row+3, col);
@@ -3333,8 +3333,8 @@ sprintf(tmp_str, "UŒ‚ˆê‰ñ‚É‚Â‚« %d-%d",
 	sprintf(tmp_str, "One Strike: %d-%d damage",
 #endif
 
-	    eff_dd + o_ptr->to_d + cr_ptr->to_d[0],
-	    eff_ds * eff_dd + o_ptr->to_d + cr_ptr->to_d[0]);
+	    eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0],
+	    eff_ds * eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]);
 	put_str(tmp_str, row+6, col+1);
 
 	/* Damage for the complete attack (if all blows hit) */
@@ -3344,8 +3344,8 @@ sprintf(tmp_str, "‚Pƒ^[ƒ“‚É‚Â‚« %d-%d",
 	sprintf(tmp_str, "One Attack: %d-%d damage",
 #endif
 
-	    cr_ptr->num_blow[0] * (eff_dd + o_ptr->to_d + cr_ptr->to_d[0]),
-	    cr_ptr->num_blow[0] * (eff_ds * eff_dd + o_ptr->to_d + cr_ptr->to_d[0]));
+	    cr_ptr->num_blow[0] * (eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]),
+	    cr_ptr->num_blow[0] * (eff_ds * eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]));
 	put_str(tmp_str, row+7, col+1);
 }
 
@@ -3714,7 +3714,7 @@ static bool resize_item(creature_type *cr_ptr)
 /*
  * Enchant item
  */
-static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam, int to_ac, int item_tester_tval)
+static bool enchant_item(creature_type *cr_ptr, int cost, int to_hitit, int to_damageam, int to_ac, int item_tester_tval)
 {
 	int         i, item;
 	bool        okay = FALSE;
@@ -3760,9 +3760,9 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	}
 
 	/* Enchant to hit */
-	for (i = 0; i < to_hit; i++)
+	for (i = 0; i < to_hitit; i++)
 	{
-		if (o_ptr->to_h < maxenchant)
+		if (o_ptr->to_hit < maxenchant)
 		{
 			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
 			{
@@ -3773,9 +3773,9 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	}
 
 	/* Enchant to damage */
-	for (i = 0; i < to_dam; i++)
+	for (i = 0; i < to_damageam; i++)
 	{
-		if (o_ptr->to_d < maxenchant)
+		if (o_ptr->to_damage < maxenchant)
 		{
 			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
 			{
@@ -3788,7 +3788,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	/* Enchant to AC */
 	for (i = 0; i < to_ac; i++)
 	{
-		if (o_ptr->to_a < maxenchant)
+		if (o_ptr->to_ac < maxenchant)
 		{
 			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
 			{
@@ -4903,7 +4903,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		paid = tele_town(cr_ptr);
 		break;
 	case BACT_EVAL_AC:
-		paid = eval_ac(cr_ptr->dis_ac + cr_ptr->dis_to_a);
+		paid = eval_ac(cr_ptr->dis_ac + cr_ptr->dis_to_ac);
 		break;
 	}
 

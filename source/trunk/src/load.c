@@ -302,12 +302,12 @@ static void rd_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_TIMEOUT) rd_s32b(&o_ptr->timeout);
 	else o_ptr->timeout = 0;
 
-	if (flags & SAVE_ITEM_TO_H) rd_s16b(&o_ptr->to_h);
-	else o_ptr->to_h = 0;
-	if (flags & SAVE_ITEM_TO_D) rd_s16b(&o_ptr->to_d);
-	else o_ptr->to_d = 0;
-	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_a);
-	else o_ptr->to_a = 0;
+	if (flags & SAVE_ITEM_TO_H) rd_s16b(&o_ptr->to_hit);
+	else o_ptr->to_hit = 0;
+	if (flags & SAVE_ITEM_TO_D) rd_s16b(&o_ptr->to_damage);
+	else o_ptr->to_damage = 0;
+	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_ac);
+	else o_ptr->to_ac = 0;
 	rd_s16b(&o_ptr->size_upper);
 	rd_s16b(&o_ptr->size_lower);
 	rd_s16b(&o_ptr->to_size);
