@@ -1652,6 +1652,11 @@ struct creature_flag_type
 	s32b text;
 	s32b E_text;
 	creature_flags flags;
+
+	s16b base_level;
+	s16b mp_cost;
+	s16b use_stat;
+	s16b fail;
 };
 
 

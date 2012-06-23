@@ -3932,7 +3932,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define CF_INFO_CSV_COLUMNS 30
+#define CF_INFO_CSV_COLUMNS 34
 static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3965,6 +3965,10 @@ static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"SPELL",
 	"PRE_ID",
 	"ANTI_ID",
+	"BASE_LEVEL",
+	"MP_COST",
+	"USE_STAT",
+	"FAIL",
 };
 
 static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
@@ -3999,6 +4003,10 @@ static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_SPELL	27
 #define CF_INFO_PRE_ID	28
 #define CF_INFO_ANTI_ID	29
+#define CF_INFO_BASE_LEVEL	30
+#define CF_INFO_MP_COST	31
+#define CF_INFO_USE_STAT	32
+#define CF_INFO_FAIL	33
 
 errr reprocess_creature_flag(header *head)
 {
@@ -4207,6 +4215,26 @@ errr parse_creature_flag_csv(char *buf, header *head)
 				case CF_INFO_ANTI_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					creature_flag_info[n].anti_id = (s16b)b;
+				break;
+
+				case CF_INFO_BASE_LEVEL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].base_level = (s16b)b;
+				break;
+
+				case CF_INFO_MP_COST:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].mp_cost = (s16b)b;
+				break;
+
+				case CF_INFO_USE_STAT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].use_stat = (s16b)b;
+				break;
+
+				case CF_INFO_FAIL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].fail = (s16b)b;
 				break;
 
 			default:
