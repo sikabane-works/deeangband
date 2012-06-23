@@ -1611,15 +1611,15 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 14, 30,  0,  0,  0, "所持重量"},
-	{ 1, 13, 30,  0,  0,  0, "装備重量"},
+	{ 1, 13, 30,  0,  0,  0, "所持重量"},
+	{ 1, 12, 30,  0,  0,  0, "装備重量"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 13, 30,  0,  0,  0, ""},
 	{ 1, 15, 30,  0,  0,  0, "射撃"},
 	{ 1, 16, 30,  0,  0,  0, "投擲"},
-	{16, 10, 14,  0,  0,  0, "加速 "},
+	{16, 10, 14,  0,  0,  0, "加速"},
 	{16, 11, 14,  0,  0,  0, "行動値"},
 	{ 1, 10, 14,  0,  0,  0, "ＡＣ"},
 	{ 1, 11, 14,  0,  0,  0, "ＥＶ"},
@@ -1671,8 +1671,8 @@ static struct
 };
 #else
 = {
-	{ 1, 14, 30,  0,  0,  0, "Carrying"},
-	{ 1, 13, 30,  0,  0,  0, "Equipping"},
+	{ 1, 13, 30,  0,  0,  0, "Carrying"},
+	{ 1, 12, 30,  0,  0,  0, "Equipping"},
 	{ 1, 11, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
 	{ 1, 12, 30,  0,  0,  0, ""},
@@ -1855,13 +1855,13 @@ static void display_player_middle(creature_type *creature_ptr)
 	int tmul = 0;
 	int e;
 
-	/*
 #ifdef JP
-	c_put_str(TERM_WHITE, "種別    (命中,威力)  回数 期待", 10, 1);
+	c_put_str(TERM_WHITE, "種別    命中 威力   行動コスト", 14, 1);
 #else
-	c_put_str(TERM_WHITE, "Type    (Hit ,Dam )  Num  ExpV", 10, 1);
+	c_put_str(TERM_WHITE, "Type    Hit  Damage     APCost", 14, 1);
 #endif
 
+	/*
 	if (creature_ptr->can_melee[0])
 	{
 		display_player_melee_bonus(creature_ptr, 0, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
@@ -2013,7 +2013,7 @@ static void display_player_middle(creature_type *creature_ptr)
 		display_player_one_line(ENTRY_SPEED, buf, attr);
 	}
 
-	sprintf(buf, "%d", calc_action_power(creature_ptr));
+	sprintf(buf, "%d ", calc_action_power(creature_ptr));
 	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
 
 	/* Dump experience */
