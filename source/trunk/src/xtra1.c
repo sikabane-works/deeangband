@@ -2861,19 +2861,21 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	/* Clear extra blows/shots */
 	extra_blows[0] = extra_blows[1] = extra_shots = 0;
 
-	/* Clear the stat modifiers */
+	// Clear the stat modifiers
 	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0;
 
-	/* Clear the Displayed/Real armor class */
+	// Clear the Displayed/Real armor class and evasion
 	creature_ptr->dis_ac = creature_ptr->ac = 0;
+	creature_ptr->dis_ev = creature_ptr->ev = 0;
 
-	/* Clear the Displayed/Real Bonuses */
+	// Clear the Displayed/Real Bonuses
 	creature_ptr->dis_to_hit[0] = creature_ptr->to_hit[0] = 0;
 	creature_ptr->dis_to_hit[1] = creature_ptr->to_hit[1] = 0;
 	creature_ptr->dis_to_damage[0] = creature_ptr->to_damage[0] = 0;
 	creature_ptr->dis_to_damage[1] = creature_ptr->to_damage[1] = 0;
 	creature_ptr->dis_to_hit_b = creature_ptr->to_hit_b = 0;
 	creature_ptr->dis_to_ac = creature_ptr->to_ac = 0;
+	creature_ptr->dis_to_ev = creature_ptr->to_ev = 0;
 	creature_ptr->to_hit_m = 0;
 	creature_ptr->to_damage_m = 0;
 

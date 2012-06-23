@@ -1541,7 +1541,8 @@ struct creature_type
 	s16b to_hit_m;			/* Bonus to hit (misc) */
 	s16b to_damage[MAX_HANDS];	/* Bonus to dam (wield) */
 	s16b to_damage_m;			/* Bonus to dam (misc) */
-	s16b to_ac;			/* Bonus to ac */
+	s16b to_ac;			// Bonus to ac
+	s16b to_ev;         // Known base ac
 
 	s16b to_m_chance;		/* Minusses to cast chance */
 
@@ -1549,7 +1550,8 @@ struct creature_type
 	bool can_melee[MAX_HANDS];
 	bool no_flowed;
 
-	s16b ac;			/* Base ac */
+	s16b ac;			// Base ac
+	s16b ev;			// Base ev
 
 	s16b see_infra;		/* Infravision range */
 
