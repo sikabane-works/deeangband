@@ -383,9 +383,9 @@ static void rd_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
 
-	rd_s16b(&o_ptr->size_upper);
-	rd_s16b(&o_ptr->size_lower);
-	rd_s16b(&o_ptr->to_size);
+	if (flags2 & SAVE_ITEM_SIZE_UPPER) rd_s16b(&o_ptr->size_upper);
+	if (flags2 & SAVE_ITEM_SIZE_LOWER) rd_s16b(&o_ptr->size_lower);
+	if (flags2 & SAVE_ITEM_TO_SIZE) rd_s16b(&o_ptr->to_size);
 
 }
 

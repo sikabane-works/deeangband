@@ -126,8 +126,11 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->creater_idx) flags |= SAVE_ITEM_CREATER;
 	if (o_ptr->equipped_slot_type) flags |= SAVE_ITEM_EQUIPPED_SLOT_TYPE;
 	if (o_ptr->equipped_slot_num) flags |= SAVE_ITEM_EQUIPPED_SLOT_NUM;
-	if (o_ptr->to_ev) flags |= SAVE_ITEM_TO_E;
-	if (o_ptr->ev) flags |= SAVE_ITEM_EV;
+	if (o_ptr->to_ev) flags2 |= SAVE_ITEM_TO_E;
+	if (o_ptr->ev) flags2 |= SAVE_ITEM_EV;
+	if (o_ptr->size_upper) flags2 |= SAVE_ITEM_SIZE_UPPER;
+	if (o_ptr->size_lower) flags2 |= SAVE_ITEM_SIZE_LOWER;
+	if (o_ptr->to_size) flags2 |= SAVE_ITEM_TO_SIZE;
 
 	/*** Item save flags ***/
 	wr_u32b(flags);
@@ -196,9 +199,9 @@ static void wr_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) wr_byte(o_ptr->equipped_slot_type);
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) wr_byte(o_ptr->equipped_slot_num);
 
-	wr_s16b(o_ptr->size_upper);	
-	wr_s16b(o_ptr->size_lower);	
-	wr_s16b(o_ptr->to_size);	
+	if (flags2 & SAVE_ITEM_SIZE_UPPER) wr_s16b(o_ptr->size_upper);
+	if (flags2 & SAVE_ITEM_SIZE_LOWER) wr_s16b(o_ptr->size_lower);
+	if (flags2 & SAVE_ITEM_TO_SIZE) wr_s16b(o_ptr->to_size);
 }
 
 

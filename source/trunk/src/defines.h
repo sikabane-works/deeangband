@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 45
+#define VER_PATCH 46
 #define VER_EXTRA 0
 
 /*
@@ -5164,6 +5164,9 @@ extern int PlayerUID;
 // Second
 #define SAVE_ITEM_TO_E            0x00000001
 #define SAVE_ITEM_EV              0x00000002
+#define SAVE_ITEM_SIZE_UPPER      0x00000004
+#define SAVE_ITEM_SIZE_LOWER      0x00000008
+#define SAVE_ITEM_TO_SIZE         0x00000010
 
 
 /*
