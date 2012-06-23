@@ -628,15 +628,17 @@ struct object_type
 	s16b xtra4;			/* Extra info */
 	s16b xtra5;			/* Extra info */
 
-	s16b to_hit;			/* Plusses to hit */
-	s16b to_damage;			/* Plusses to damage */
-	s16b to_ac;			/* Plusses to AC */
+	s16b to_hit;		// Plusses to hit
+	s16b to_damage;		// Plusses to damage
+	s16b to_ac;			// Plusses to AC
+	s16b to_ev;			// Plusses to EV
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */
 	s16b to_size;		/* Plusses to size */
 
-	s16b ac;			/* Normal AC */
+	s16b ac;			// Normal AC
+	s16b ev;			// Normal EV
 
 	byte dd, ds;		/* Damage dice/sides */
 

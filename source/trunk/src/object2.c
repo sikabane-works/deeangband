@@ -1917,6 +1917,7 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 
 	/* Default power */
 	o_ptr->ac = k_ptr->ac;
+	o_ptr->ev = k_ptr->ev;
 	o_ptr->dd = k_ptr->dd;
 	o_ptr->ds = k_ptr->ds;
 
