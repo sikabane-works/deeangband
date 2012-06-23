@@ -48,7 +48,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 44
+#define VER_PATCH 45
 #define VER_EXTRA 0
 
 /*
@@ -5126,9 +5126,8 @@ extern int PlayerUID;
 #define SLF_NO_KILL      0x0002  /* Don't kill temporal files */
 
 
-/*
- * Flags for wr_item()/rd_item()
- */
+// Flags for wr_item()/rd_item()
+// First
 #define SAVE_ITEM_PVAL            0x00000001
 #define SAVE_ITEM_DISCOUNT        0x00000002
 #define SAVE_ITEM_NUMBER          0x00000004
@@ -5161,6 +5160,10 @@ extern int PlayerUID;
 #define SAVE_ITEM_VOLUME          0x20000000
 #define SAVE_ITEM_EQUIPPED_SLOT_TYPE 0x40000000
 #define SAVE_ITEM_EQUIPPED_SLOT_NUM  0x80000000
+
+// Second
+#define SAVE_ITEM_TO_E            0x00000001
+#define SAVE_ITEM_EV              0x00000002
 
 
 /*

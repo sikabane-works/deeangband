@@ -260,11 +260,12 @@ static void strip_bytes(int n)
 static void rd_item(object_type *o_ptr)
 {
 	object_kind *k_ptr;
-	u32b flags;
+	u32b flags, flags2;
 	char buf[128];
 
 	/*** Item save flags ***/
 	rd_u32b(&flags);
+	rd_u32b(&flags2);
 
 	/*** Read un-obvious elements ***/
 	/* Kind */
@@ -306,13 +307,15 @@ static void rd_item(object_type *o_ptr)
 	else o_ptr->to_hit = 0;
 	if (flags & SAVE_ITEM_TO_D) rd_s16b(&o_ptr->to_damage);
 	else o_ptr->to_damage = 0;
+
 	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_ac);
 	else o_ptr->to_ac = 0;
-	rd_s16b(&o_ptr->size_upper);
-	rd_s16b(&o_ptr->size_lower);
-	rd_s16b(&o_ptr->to_size);
-
 	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
+	else o_ptr->ac = 0;
+
+	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->ac);
+	else o_ptr->ac = 0;
+	if (flags2 & SAVE_ITEM_EV) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
 
 	if (flags & SAVE_ITEM_DD) rd_byte(&o_ptr->dd);
@@ -379,6 +382,10 @@ static void rd_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
+
+	rd_s16b(&o_ptr->size_upper);
+	rd_s16b(&o_ptr->size_lower);
+	rd_s16b(&o_ptr->to_size);
 
 }
 

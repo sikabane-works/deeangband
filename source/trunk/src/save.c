@@ -91,7 +91,8 @@ static void wr_string(cptr str)
  */
 static void wr_item(object_type *o_ptr)
 {
-	u32b flags = 0x00000000;
+	u32b flags  = 0x00000000;
+	u32b flags2 = 0x00000000;
 
 	if (o_ptr->pval) flags |= SAVE_ITEM_PVAL;
 	if (o_ptr->discount) flags |= SAVE_ITEM_DISCOUNT;
@@ -125,9 +126,12 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->creater_idx) flags |= SAVE_ITEM_CREATER;
 	if (o_ptr->equipped_slot_type) flags |= SAVE_ITEM_EQUIPPED_SLOT_TYPE;
 	if (o_ptr->equipped_slot_num) flags |= SAVE_ITEM_EQUIPPED_SLOT_NUM;
+	if (o_ptr->to_ev) flags |= SAVE_ITEM_TO_E;
+	if (o_ptr->ev) flags |= SAVE_ITEM_EV;
 
 	/*** Item save flags ***/
 	wr_u32b(flags);
+	wr_u32b(flags2);
 
 	/*** Write only un-obvious elements ***/
 	wr_s16b(o_ptr->k_idx);
@@ -152,9 +156,9 @@ static void wr_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_hit);
 	if (flags & SAVE_ITEM_TO_D) wr_s16b(o_ptr->to_damage);
 	if (flags & SAVE_ITEM_TO_A) wr_s16b(o_ptr->to_ac);
-	wr_s16b(o_ptr->size_upper);	
-	wr_s16b(o_ptr->size_lower);	
-	wr_s16b(o_ptr->to_size);	
+
+	if (flags2 & SAVE_ITEM_TO_E) wr_s16b(o_ptr->ac);
+	if (flags2 & SAVE_ITEM_EV) wr_s16b(o_ptr->ac);
 
 	if (flags & SAVE_ITEM_AC) wr_s16b(o_ptr->ac);
 	if (flags & SAVE_ITEM_DD) wr_byte(o_ptr->dd);
@@ -191,6 +195,10 @@ static void wr_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) wr_byte(o_ptr->equipped_slot_type);
 	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) wr_byte(o_ptr->equipped_slot_num);
+
+	wr_s16b(o_ptr->size_upper);	
+	wr_s16b(o_ptr->size_lower);	
+	wr_s16b(o_ptr->to_size);	
 }
 
 
