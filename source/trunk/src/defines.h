@@ -3607,26 +3607,29 @@
  */
 
 #define RBM_NONE         0
-
 #define RBM_HIT          1
 #define RBM_TOUCH        2
 #define RBM_PUNCH        3
 #define RBM_KICK         4
+
 #define RBM_CLAW         5
 #define RBM_BITE         6
 #define RBM_STING        7
 #define RBM_SLASH        8
 #define RBM_BUTT         9
+
 #define RBM_CRUSH       10
 #define RBM_CHARGE      11
 #define RBM_CRAWL       12
 #define RBM_DROOL       13
 #define RBM_SPIT        14
+
 #define RBM_XXX4        15
 #define RBM_BEG         16
 #define RBM_INSULT      17
 #define RBM_MOAN        18
 #define RBM_SHOW        19
+
 #define RBM_SHOOT       20
 
 #define RBM_NONDEX_ATTACK 21
