@@ -2935,7 +2935,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->immune_cold = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
-	for(i = 0; i < MAX_HANDS; i++) creature_ptr->can_melee[i] = FALSE;
+	for(i = 0; i < MAX_WEAPONS; i++) creature_ptr->can_melee[i] = FALSE;
 	creature_ptr->no_flowed = FALSE;
 
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
@@ -4521,7 +4521,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->two_handed) hold *= 2;
 
-	for(i = 0 ; i < MAX_HANDS ; i++)
+	for(i = 0 ; i < MAX_WEAPONS ; i++)
 	{
 		/* Examine the "main weapon" */
 		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
@@ -5849,7 +5849,7 @@ s16b empty_hands(creature_type *cr_ptr, bool riding_control)
 	s16b status = 0x0000, least_zero_bit;
 	int i;
 
-	for(i = 0; i < MAX_HANDS; i++)
+	for(i = 0; i < MAX_WEAPONS; i++)
 		if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i)->k_idx) status |= 0x0001 << i;
 
 	if (riding_control && status && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))

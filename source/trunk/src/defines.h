@@ -226,12 +226,9 @@
 
 #define MAX_ITEM_SLOT       14
 
-
-/*
- * Maximum number of creature hands.
- */
-#define MAX_HANDS            8
-
+// Maximum number of creature melee methods.
+#define MAX_WEAPONS            8
+#define MAX_SPECIAL_BLOWS      4
 
 /* Number of entries in the sanity-blast descriptions */
 #define MAX_SAN_HORROR   20

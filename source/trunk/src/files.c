@@ -1863,18 +1863,21 @@ static void display_player_middle(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, "Type    Hit  Damage     APCost", 14, 1);
 #endif
 
-	for(i = 0; i < MAX_HANDS; i++)
+	for(i = 0; i < MAX_WEAPONS; i++)
 	{
 		if(creature_ptr->can_melee[i])
 		{
 			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
 			j = calc_melee_cost(creature_ptr, weapon_ptr);
 			Term_queue_bigchar(15 + melee_num, 1, object_attr(weapon_ptr), object_char(weapon_ptr), 0, 0);
-
 			c_put_str(TERM_WHITE, mention_use(creature_ptr, INVEN_SLOT_HAND, i + 1), 15 + melee_num, 4);
 			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
 			melee_num++;
 		}
+	}
+
+	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
+	{
 	}
 
 	/*

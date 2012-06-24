@@ -402,7 +402,7 @@ struct species_type
 
 	creature_flags flags;
 
-	species_blow blow[4];	/* Up to four blows per round */
+	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
 	s16b next_species_idx;
 	u32b next_exp;
@@ -439,7 +439,7 @@ struct species_type
 
 	byte r_cast_spell;		/* Max number of other spells seen */
 
-	byte r_blows[4];		/* Number of times each blow type was seen */
+	byte r_blows[MAX_SPECIAL_BLOWS];		/* Number of times each blow type was seen */
 
 	u32b r_flags1;			/* Observed racial flags */
 	u32b r_flags2;			/* Observed racial flags */
@@ -1401,10 +1401,10 @@ struct creature_type
 
 	bool old_cumber_armor;
 	bool old_cumber_glove;
-	bool old_heavy_wield[MAX_HANDS];
+	bool old_heavy_wield[MAX_WEAPONS];
 	bool old_heavy_shoot;
-	bool old_icky_wield[MAX_HANDS];
-	bool old_riding_wield[MAX_HANDS];
+	bool old_icky_wield[MAX_WEAPONS];
+	bool old_riding_wield[MAX_WEAPONS];
 	bool old_riding_two_handed;
 	bool old_monlite;
 
@@ -1412,10 +1412,10 @@ struct creature_type
 
 	bool cumber_armor;	/* Mana draining armor */
 	bool cumber_glove;	/* Mana draining gloves */
-	bool heavy_wield[MAX_HANDS];	/* Heavy weapon */
+	bool heavy_wield[MAX_WEAPONS];	/* Heavy weapon */
 	bool heavy_shoot;	/* Heavy shooter */
-	bool icky_wield[MAX_HANDS];	/* Icky weapon */
-	bool riding_wield[MAX_HANDS];	/* Riding weapon */
+	bool icky_wield[MAX_WEAPONS];	/* Icky weapon */
+	bool riding_wield[MAX_WEAPONS];	/* Riding weapon */
 	bool riding_two_handed;	/* Riding weapon */
 	bool monlite;
 
@@ -1517,7 +1517,7 @@ struct creature_type
 	bool slow_digest;	/* Slower digestion */
 	bool bless_blade;	/* Blessed blade */
 	bool xtra_might;	/* Extra might bow */
-	bool impact[MAX_HANDS];		/* Earthquake blows */
+	bool impact[MAX_WEAPONS];		/* Earthquake blows */
 	bool pass_wall;     /* Permanent wraithform */
 	bool kill_wall;
 	bool dec_mana;
@@ -1529,23 +1529,23 @@ struct creature_type
 
 	s32b regist_rate[RR_MAX]; 
 
-	s16b to_damaged[MAX_HANDS]; /* Extra dice/sides */
-	s16b to_damages[MAX_HANDS];
-	s16b to_acr[MAX_HANDS]; /* Active rate*/
+	s16b to_damaged[MAX_WEAPONS]; /* Extra dice/sides */
+	s16b to_damages[MAX_WEAPONS];
+	s16b to_acr[MAX_WEAPONS]; /* Active rate*/
 
-	s16b dis_to_hit[MAX_HANDS];	/* Known bonus to hit (wield) */
+	s16b dis_to_hit[MAX_WEAPONS];	/* Known bonus to hit (wield) */
 	s16b dis_to_hit_b;	/* Known bonus to hit (bow) */
-	s16b dis_to_damage[MAX_HANDS];	/* Known bonus to dam (wield) */
+	s16b dis_to_damage[MAX_WEAPONS];	/* Known bonus to dam (wield) */
 	s16b dis_to_ac;		// Known bonus to ac
 	s16b dis_to_ev;		// Known bonus to ev
 
 	s16b dis_ac;		// Known base ac
 	s16b dis_ev;		// Known base ac
 
-	s16b to_hit[MAX_HANDS];	/* Bonus to hit (wield) */
+	s16b to_hit[MAX_WEAPONS];	/* Bonus to hit (wield) */
 	s16b to_hit_b;			/* Bonus to hit (bow) */
 	s16b to_hit_m;			/* Bonus to hit (misc) */
-	s16b to_damage[MAX_HANDS];	/* Bonus to dam (wield) */
+	s16b to_damage[MAX_WEAPONS];	/* Bonus to dam (wield) */
 	s16b to_damage_m;			/* Bonus to dam (misc) */
 	s16b to_ac;			// Bonus to ac
 	s16b to_ev;         // Known base ac
@@ -1553,7 +1553,7 @@ struct creature_type
 	s16b to_m_chance;		/* Minusses to cast chance */
 
 	byte two_handed[INVEN_TOTAL];      /* each Two-handed slot */
-	bool can_melee[MAX_HANDS];
+	bool can_melee[MAX_WEAPONS];
 	bool no_flowed;
 
 	s16b ac;			// Base ac
@@ -1574,7 +1574,7 @@ struct creature_type
 	s16b skill_tht;		/* Skill: To hit (throwing) */
 	s16b skill_dig;		/* Skill: Digging */
 
-	s16b num_blow[MAX_HANDS];	/* Number of blows */
+	s16b num_blow[MAX_WEAPONS];	/* Number of blows */
 	s16b num_fire;		/* Number of shots */
 
 	byte tval_xtra;		/* Correct xtra tval */
@@ -1612,7 +1612,7 @@ struct creature_type
 
 	u32b possible_equipment;     /* Possible Equipment*/
 
-	species_blow blow[4];	/* Up to four blows per round */
+	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
 	u16b start_wx;			// Starting Wilderness_X
 	u16b start_wy;			// Statring Wilderness_Y
