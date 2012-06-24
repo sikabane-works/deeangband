@@ -3209,6 +3209,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	char tmp[20000], nt[80];
 	int b, ub;
 	u32b flags;
+	char atk_method[80], atk_effect[80];
 
 	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -3488,65 +3489,55 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
+					int am = 0, ae = 0;
 
 					if (k == 4) return (1);
 
-					/* Analyze the first field */
-					for (s = t = tmp + offset; *t && (*t != ':') && (*t != '\n'); t++);  // loop
+					for(s = &tmp[offset]; *s != '\n'; s++);
+					*s = '\0';
 
-					/* Terminate the field (if necessary) */
-					if (*t == ':') *t++ = '\0';
-					if (*t == '\n')
-					{
-						*t++ = '\0';
-						k++;
-						continue;
+					n1 = n2 = 0;
+					atk_method[0] = '\0';
+					atk_effect[0] = '\0';
+
+					if((tmp + offset, "%[^:]:%[^:]:%dd%d|", atk_method, atk_effect, &n1, &n2) != 4) {
+						if(num = sscanf(tmp + offset, "%[^:\n]:%[^:]|", atk_method, atk_effect) != 2) {
+							if(num = sscanf(tmp + offset, "%[^:]|", atk_method) != 1)
+								return (1);
+						}
 					}
+
+					/*
+					if(num = sscanf(tmp + offset, "%[^:]:%[^:]:%dd%d", atk_method, atk_effect, &n1, &n2) == 4) {}
+					else if(num = sscanf(tmp + offset, "%[^:\n]:%[^:]", atk_method, atk_effect) == 2) {}
+					else if(num = sscanf(tmp + offset, "%[^:]", atk_method) == 1) {}
+					else
+						return (1);
+					*/
 
 					/* Analyze the method */
-					for (n1 = 0; species_info_blow_method[n1]; n1++) if (streq(s, species_info_blow_method[n1])) break;
-
-					/* Invalid method */
-					if (!species_info_blow_method[n1]) return (1);
-
-					/* Analyze the second field */
-					for (s = t; *t && (*t != ':') && (*t != '\n'); t++); //loop
-
-					/* Terminate the field (if necessary) */
-					if (*t == ':') *t++ = '\0';
-					if (*t == '\n')
-					{
-						*t++ = '\0';
-						k++;
-						continue;
-					}
+					for (am = 0; species_info_blow_method[am]; am++) if (streq(atk_method, species_info_blow_method[am])) break;
+					if (!species_info_blow_method[am])
+						return (1);
 
 					/* Analyze effect */
-					for (n2 = 0; species_info_blow_effect[n2]; n2++) if (streq(s, species_info_blow_effect[n2])) break;
-
-					/* Invalid effect */
-					if (!species_info_blow_effect[n2]) return (1);
-
-					/* Analyze the third field */
-					for (s = t; *t && (*t != 'd'); t++) /* loop */;
-
-					/* Terminate the field (if necessary) */
-					if (*t == 'd') *t++ = '\0';
+					for (ae = 0; species_info_blow_effect[ae]; ae++) if (streq(atk_effect, species_info_blow_effect[ae])) break;
+					if (!species_info_blow_effect[ae])
+						return (1);
 
 					/* Save the method */
-					species_info[n].blow[k].method = n1;
+					species_info[n].blow[k].method = am;
 
 					/* Save the effect */
-					species_info[n].blow[k].effect = n2;
+					species_info[n].blow[k].effect = ae;
 
 					/* Extract the damage dice and sides */
-					species_info[n].blow[k].d_dice = atoi(s);
-					species_info[n].blow[k].d_side = atoi(t);
+					species_info[n].blow[k].d_dice = n1;
+					species_info[n].blow[k].d_side = n2;
 
 					k++;
 
-					while(tmp[offset] != '\n' && tmp[offset]) offset++;
-					if(tmp[offset] == '\n') offset++;
+					while(tmp[offset]) offset++;
 				}
 				break;
 
@@ -3565,8 +3556,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
 					if(tmp[offset]) offset++;
 				}
-
-				break;
+			break;
 
 			case SPECIES_INFO_ARTIFACT:
 				offset = 0;
