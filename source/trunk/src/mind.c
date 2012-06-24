@@ -1442,7 +1442,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		if (!floor_ptr->cave[y][x].creature_idx)
 		{
 #ifdef JP
-			msg_print("その方向にはモンスターはいません。");
+			msg_print("その方向にはクリーチャーはいません。");
 #else
 			msg_print("There is no monster.");
 #endif
@@ -1589,7 +1589,7 @@ msg_print("うまく逃げられなかった。");
 		else
 		{
 #ifdef JP
-msg_print("その方向にはモンスターはいません。");
+msg_print("その方向にはクリーチャーはいません。");
 #else
 			msg_print("You don't see any monster in this direction");
 #endif

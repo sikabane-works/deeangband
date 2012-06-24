@@ -798,7 +798,7 @@ void compact_creatures(int size)
 
 	/* Message (only if compacting) */
 #ifdef JP
-	if (size) msg_print("モンスター情報を圧縮しています...");
+	if (size) msg_print("クリーチャー情報を圧縮しています...");
 #else
 	if (size) msg_print("Compacting monsters...");
 #endif
@@ -4844,7 +4844,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if (cheat_xtra || cheat_hear)
 		{
 #ifdef JP
-			msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
+			msg_print("警告！新たなクリーチャーを配置できません。小さい階ですか？");
 #else
 			msg_print("Warning! Could not allocate a new monster. Small level?");
 #endif
@@ -4857,7 +4857,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if (alloc_horde(NULL, floor_ptr, y, x))
 		{
 #ifdef JP
-//			if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
+//			if (cheat_hear) msg_format("クリーチャーの大群(%c)", summon_kin_type);
 #else
 //			if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
 #endif

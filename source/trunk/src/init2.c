@@ -1757,7 +1757,7 @@ static errr init_alloc(void)
 
 	/* Paranoia */
 #ifdef JP
-	if (!num[0]) quit("町のモンスターがない！");
+	if (!num[0]) quit("町のクリーチャーがない！");
 #else
 	if (!num[0]) quit("No town monsters!");
 #endif

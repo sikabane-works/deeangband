@@ -92,7 +92,7 @@ static char KEY_DICE[] =  "以上の";
 static char KEY_MORE_BONUS[] =  "修正値";
 static char KEY_MORE_BONUS2[] =  "以上の";
 static char KEY_WANTED[] = "賞金首の";
-static char KEY_UNIQUE[] = "ユニーク・モンスターの";
+static char KEY_UNIQUE[] = "ユニーク・クリーチャーの";
 static char KEY_HUMAN[] = "人間の";
 static char KEY_UNREADABLE[] = "読めない";
 static char KEY_REALM1[] = "第一領域の";
@@ -2297,7 +2297,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE))
 	{
-		before_str[before_n++] = "ユニークモンスターの";
+		before_str[before_n++] = "ユニーククリーチャーの";
 		body_str = "死体や骨";
 	}
 
@@ -4009,7 +4009,7 @@ static char MN_BOOSTED[] = "ダイス目の違う (武器)";
 static char MN_MORE_DICE[] = "ダイス目 # 以上の (武器)";
 static char MN_MORE_BONUS[] = "修正値 # 以上の (指輪等)";
 static char MN_WANTED[] = "賞金首の (死体)";
-static char MN_UNIQUE[] = "ユニーク・モンスターの (死体)";
+static char MN_UNIQUE[] = "ユニーク・クリーチャーの (死体)";
 static char MN_HUMAN[] = "人間の (死体)";
 static char MN_UNREADABLE[] = "読めない (魔法書)";
 static char MN_REALM1[] = "第一領域の (魔法書)";

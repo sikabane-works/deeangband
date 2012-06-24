@@ -1529,7 +1529,7 @@ msg_print("仲間を召喚した。");
 			{
 				if (!pet)
 #ifdef JP
-msg_print("召喚されたモンスターは怒っている！");
+msg_print("召喚されたクリーチャーは怒っている！");
 #else
 msg_print("The summoned monster is angry!");
 #endif
@@ -1544,7 +1544,7 @@ msg_print("The summoned monster is angry!");
 	{
 		int k;
 #ifdef JP
-msg_print("モンスターを召喚した！");
+msg_print("クリーチャーを召喚した！");
 #else
 			msg_print("You summon monsters!");
 #endif
@@ -1553,7 +1553,7 @@ msg_print("モンスターを召喚した！");
 			{
 				if (!pet)
 #ifdef JP
-msg_print("召喚されたモンスターは怒っている！");
+msg_print("召喚されたクリーチャーは怒っている！");
 #else
 msg_print("Summoned monsters are angry!");
 #endif
@@ -1842,7 +1842,7 @@ msg_print("特別な強敵を召喚した！");
 				count++;
 				if (!pet)
 #ifdef JP
-msg_print("召喚されたユニーク・モンスターは怒っている！");
+msg_print("召喚されたユニーク・クリーチャーは怒っている！");
 #else
 msg_print("Summoned special opponents are angry!");
 #endif

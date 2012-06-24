@@ -361,7 +361,7 @@ info[i++] = "あなたは石の壁を壊すことができる。(10 MP)";
 		case RACE_TITAN:
 			if (plev > 34)
 #ifdef JP
-info[i++] = "あなたはモンスターをスキャンすることができる。(20 MP)";
+info[i++] = "あなたはクリーチャーをスキャンすることができる。(20 MP)";
 #else
 				info[i++] = "You can probe monsters (cost 20).";
 #endif
@@ -617,7 +617,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 				if (plev > 41)
 				{
 #ifdef JP
-					info[i++] = "あなたは周りのすべてのモンスターを攻撃することができる。(40 MP)";
+					info[i++] = "あなたは周りのすべてのクリーチャーを攻撃することができる。(40 MP)";
 #else
 					info[i++] = "You can damages all monsters in sight (cost 40).";
 #endif
@@ -749,14 +749,14 @@ info[i++] = "あなたは怪物の特殊攻撃をダメージ2倍でまねることができる。(100 MP)";
 			break;
 		case CLASS_BEASTMASTER:
 #ifdef JP
-info[i++] = "あなたは1体の生命のあるモンスターを支配することができる。(レベル/4 MP)";
+info[i++] = "あなたは1体の生命のあるクリーチャーを支配することができる。(レベル/4 MP)";
 #else
 			info[i++] = "You can dominate a monster (cost level/4).";
 #endif
 			if (plev > 29)
 			{
 #ifdef JP
-info[i++] = "あなたは視界内の生命のあるモンスターを支配することができる。((レベル+20)/2 MP)";
+info[i++] = "あなたは視界内の生命のあるクリーチャーを支配することができる。((レベル+20)/2 MP)";
 #else
 				info[i++] = "You can dominate living monsters in sight (cost (level+20)/4).";
 #endif
@@ -807,7 +807,7 @@ info[i++] = "あなたは相手に使われた魔法を学ぶことができる。";
 			if (plev > 9)
 			{
 #ifdef JP
-info[i++] = "あなたはモンスターに乗って無理矢理ペットにすることができる。";
+info[i++] = "あなたはクリーチャーに乗って無理矢理ペットにすることができる。";
 #else
 				info[i++] = "You can ride on a hostile monster forcibly to turn it into pet.";
 #endif
@@ -933,7 +933,7 @@ info[i++] = "あなたは近くにある貴金属をかぎ分けることができる。";
 		if (has_cf_creature(creature_ptr, CF_SMELL_MON))
 		{
 #ifdef JP
-info[i++] = "あなたは近くのモンスターの存在をかぎ分けることができる。";
+info[i++] = "あなたは近くのクリーチャーの存在をかぎ分けることができる。";
 #else
 			info[i++] = "You can smell nearby monsters.";
 #endif
@@ -1113,7 +1113,7 @@ info[i++] = "あなたは街とダンジョンの間を行き来することができる。";
 		if (has_cf_creature(creature_ptr, CF_BANISH))
 		{
 #ifdef JP
-info[i++] = "あなたは邪悪なモンスターを地獄に落とすことができる。";
+info[i++] = "あなたは邪悪なクリーチャーを地獄に落とすことができる。";
 #else
 			info[i++] = "You can send evil creatures directly to Hell.";
 #endif
@@ -1252,7 +1252,7 @@ info[i++] = "あなたはランダムに早く動いたり遅く動いたりする。";
 		if (has_cf_creature(creature_ptr, CF_BANISH_ALL))
 		{
 #ifdef JP
-info[i++] = "あなたは時々近くのモンスターを消滅させる。";
+info[i++] = "あなたは時々近くのクリーチャーを消滅させる。";
 #else
 			info[i++] = "You sometimes cause nearby creatures to vanish.";
 #endif
@@ -1780,7 +1780,7 @@ info[i++] = "あなたは邪悪な怨念に包まれている。";
 	if (creature_ptr->cursed & TRC_AGGRAVATE)
 	{
 #ifdef JP
-info[i++] = "あなたはモンスターを怒らせている。";
+info[i++] = "あなたはクリーチャーを怒らせている。";
 #else
 		info[i++] = "You aggravate monsters.";
 #endif
@@ -2087,7 +2087,7 @@ info[i++] = "あなたの瞳は赤外線に敏感である。";
 	if (creature_ptr->see_inv)
 	{
 #ifdef JP
-info[i++] = "あなたは透明なモンスターを見ることができる。";
+info[i++] = "あなたは透明なクリーチャーを見ることができる。";
 #else
 		info[i++] = "You can see invisible creatures.";
 #endif
@@ -3223,7 +3223,7 @@ static cptr report_magic_durations[] =
 "長い間",
 "非常に長い間",
 "信じ難いほど長い間",
-"モンスターを攻撃するまで"
+"クリーチャーを攻撃するまで"
 #else
 	"for a short time",
 	"for a little while",
@@ -3938,7 +3938,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("モンスターの存在を感じとった！");
+msg_print("クリーチャーの存在を感じとった！");
 #else
 		msg_print("You sense the presence of monsters!");
 #endif
@@ -4150,7 +4150,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("自然でないモンスターの存在を感じた！");
+msg_print("自然でないクリーチャーの存在を感じた！");
 #else
 		msg_print("You sense the presence of unnatural beings!");
 #endif
@@ -4286,7 +4286,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("モンスターの存在を感じとった！");
+msg_print("クリーチャーの存在を感じとった！");
 #else
 		msg_print("You sense the presence of monsters!");
 #endif
@@ -4306,7 +4306,7 @@ bool detect_monsters_xxx(creature_type *cr_ptr, int range, u32b match_flag)
 	int  i, y, x;
 	bool flag = FALSE;
 #ifdef JP
-cptr desc_monsters = "変なモンスター";
+cptr desc_monsters = "変なクリーチャー";
 #else
 	cptr desc_monsters = "weird monsters";
 #endif
@@ -4762,7 +4762,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 	/* Mega-Hack -- Get a monster symbol */
 #ifdef JP
-	while (!get_com("どの種類(文字)のモンスターを抹殺しますか: ", &typ, FALSE)) ;
+	while (!get_com("どの種類(文字)のクリーチャーを抹殺しますか: ", &typ, FALSE)) ;
 #else
 	while (!get_com("Choose a monster race (by symbol) to genocide: ", &typ, FALSE)) ;
 #endif
@@ -7577,7 +7577,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		{
 #ifdef JP
 			msg_format("%s%sが立ちふさがっている！", tm_idx ? "別の" : "",
-				   m_ptr->ml ? "モンスター" : "何か");
+				   m_ptr->ml ? "クリーチャー" : "何か");
 #else
 			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another monster" : "a monster") : "someone");
 #endif

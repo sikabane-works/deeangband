@@ -4329,7 +4329,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
-			reward = "モンスターを召喚された。";
+			reward = "クリーチャーを召喚された。";
 #else
 			reward = "summoning hostile monsters";
 #endif
@@ -4351,7 +4351,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
-			reward = "モンスターを召喚された。";
+			reward = "クリーチャーを召喚された。";
 #else
 			reward = "summoning many hostile monsters";
 #endif
@@ -4630,7 +4630,7 @@ msg_format("%sの声が鳴り響いた:",
 				case 2:
 					activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
-					reward = "モンスターを召喚された。";
+					reward = "クリーチャーを召喚された。";
 #else
 					reward = "summoning hostile monsters";
 #endif
@@ -4756,7 +4756,7 @@ msg_format("%sの声が鳴り響いた:",
 
 			(void)symbol_genocide(creature_ptr, 0, FALSE);
 #ifdef JP
-			reward = "モンスターが抹殺された。";
+			reward = "クリーチャーが抹殺された。";
 #else
 			reward = "genociding monsters";
 #endif
@@ -4778,7 +4778,7 @@ msg_format("%sの声が鳴り響いた:",
 
 			(void)mass_genocide(creature_ptr, 0, FALSE);
 #ifdef JP
-			reward = "モンスターが抹殺された。";
+			reward = "クリーチャーが抹殺された。";
 #else
 			reward = "genociding nearby monsters";
 #endif
@@ -4840,7 +4840,7 @@ msg_format("%sはあなたを無視した。",
 #endif
 			else
 #ifdef JP
-				reward = "モンスターがペットになった。";
+				reward = "クリーチャーがペットになった。";
 #else
 				reward = "a servant";
 #endif

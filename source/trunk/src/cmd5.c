@@ -2013,7 +2013,7 @@ static void do_name_pet(creature_type *master_ptr)
 		{
 			/* Message */
 #ifdef JP
-			msg_print("そのモンスターはペットではない。");
+			msg_print("そのクリーチャーはペットではない。");
 #else
 			msg_format("This monster is not a pet.");
 #endif
@@ -2022,7 +2022,7 @@ static void do_name_pet(creature_type *master_ptr)
 		if (is_unique_species(&species_info[pet_ptr->species_idx]))
 		{
 #ifdef JP
-			msg_print("そのモンスターの名前は変えられない！");
+			msg_print("そのクリーチャーの名前は変えられない！");
 #else
 			msg_format("You cannot change name of this monster!");
 #endif

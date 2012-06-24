@@ -1958,7 +1958,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 		clear_bldg(4, 10);
 
 #ifdef JP
-		prt("モンスター                                                     倍率", 4, 4);
+		prt("クリーチャー                                                     倍率", 4, 4);
 #else
 		prt("Monsters                                                       Odds", 4, 4);
 #endif
@@ -5063,7 +5063,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		if (!arena_settled)
 		{
 #ifdef JP
-			prt("ゲートは閉まっている。モンスターがあなたを待っている！", 0, 0);
+			prt("ゲートは閉まっている。クリーチャーがあなたを待っている！", 0, 0);
 #else
 			prt("The gates are closed.  The monster awaits!", 0, 0);
 #endif

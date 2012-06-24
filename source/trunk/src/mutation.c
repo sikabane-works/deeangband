@@ -121,7 +121,7 @@ muta_desc = "金属の匂いを嗅ぎ分けられるようになった。";
 			muta_class = &(cr_ptr->flags12);
 			muta_which = CF_SMELL_MON;
 #ifdef JP
-muta_desc = "モンスターの臭いを嗅ぎ分けられるようになった。";
+muta_desc = "クリーチャーの臭いを嗅ぎ分けられるようになった。";
 #else
 			muta_desc = "You smell filthy monsters.";
 #endif
@@ -1431,7 +1431,7 @@ muta_desc = "金属の臭いを嗅げなくなった。";
 			muta_class = &(cr_ptr->flags12);
 			muta_which = CF_SMELL_MON;
 #ifdef JP
-muta_desc = "不潔なモンスターの臭いを嗅げなくなった。";
+muta_desc = "不潔なクリーチャーの臭いを嗅げなくなった。";
 #else
 			muta_desc = "You no longer smell filthy monsters.";
 #endif
@@ -2420,7 +2420,7 @@ fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_SMELL_MON))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは近くのモンスターの存在をかぎ分けることができる。\n");
+fprintf(OutFile, " あなたは近くのクリーチャーの存在をかぎ分けることができる。\n");
 #else
 			fprintf(OutFile, " You can smell nearby monsters.\n");
 #endif
@@ -2600,7 +2600,7 @@ fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
 		if (has_cf_creature(cr_ptr, CF_BANISH))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは邪悪なモンスターを地獄に落とすことができる。\n");
+fprintf(OutFile, " あなたは邪悪なクリーチャーを地獄に落とすことができる。\n");
 #else
 			fprintf(OutFile, " You can send evil creatures directly to Hell.\n");
 #endif
@@ -2739,7 +2739,7 @@ fprintf(OutFile, " あなたはランダムに早く動いたり遅く動いたりする。\n");
 		if (has_cf_creature(cr_ptr, CF_BANISH_ALL))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは時々近くのモンスターを消滅させる。\n");
+fprintf(OutFile, " あなたは時々近くのクリーチャーを消滅させる。\n");
 #else
 			fprintf(OutFile, " You sometimes cause nearby creatures to vanish.\n");
 #endif
@@ -3702,7 +3702,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				else
 				{
 #ifdef JP
-					msg_print("その方向にはモンスターはいません。");
+					msg_print("その方向にはクリーチャーはいません。");
 #else
 					msg_print("You don't see any monster in this direction");
 #endif
@@ -3771,7 +3771,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					/* Delete the monster, rather than killing it. */
 					delete_species_idx(&creature_list[c_ptr->creature_idx]);
 #ifdef JP
-					msg_print("その邪悪なモンスターは硫黄臭い煙とともに消え去った！");
+					msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");
 #else
 					msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
 #endif

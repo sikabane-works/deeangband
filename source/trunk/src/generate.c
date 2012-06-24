@@ -1044,7 +1044,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		else if (cheat_hear)
 		{
 #ifdef JP
-			msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
+			msg_format("クリーチャー数基本値を %d から %d に減らします", small_tester, i);
 #else
 			msg_format("Reduced monsters base from %d to %d", small_tester, i);
 #endif
@@ -1571,7 +1571,7 @@ void generate_floor(floor_type *floor_ptr)
 		else if (creature_max >= max_creature_idx)
 		{
 #ifdef JP
-			why = "モンスターが多すぎる";
+			why = "クリーチャーが多すぎる";
 #else
 			why = "too many monsters";
 #endif

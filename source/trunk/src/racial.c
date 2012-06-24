@@ -972,7 +972,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			else
 			{
 #ifdef JP
-				msg_print("その方向にはモンスターはいません。");
+				msg_print("その方向にはクリーチャーはいません。");
 #else
 				msg_print("You don't see any monster in this direction");
 #endif
@@ -1115,7 +1115,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				else
 				{
 #ifdef JP
-					msg_print("その方向にはモンスターはいません。");
+					msg_print("その方向にはクリーチャーはいません。");
 #else
 					msg_print("You don't see any monster in this direction");
 #endif
@@ -3720,7 +3720,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 	if (has_cf_creature(creature_ptr, CF_SCARE_MONSTER))
 	{
 #ifdef JP
-			strcpy(power_desc[num].name, "モンスター恐慌");
+			strcpy(power_desc[num].name, "クリーチャー恐慌");
 #else
 			strcpy(power_desc[num].name, "Scare Monster");
 #endif

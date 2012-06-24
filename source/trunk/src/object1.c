@@ -593,7 +593,7 @@ return "善良退散 (level*5) : 300+d300 ターン毎";
 			case ACT_CONFUSE:
 			{
 #ifdef JP
-return "パニック・モンスター : 15 ターン毎";
+return "パニック・クリーチャー : 15 ターン毎";
 #else
 				return "confuse monster every 15 turns";
 #endif
@@ -602,7 +602,7 @@ return "パニック・モンスター : 15 ターン毎";
 			case ACT_SLEEP:
 			{
 #ifdef JP
-return "周囲のモンスターを眠らせる : 55 ターン毎";
+return "周囲のクリーチャーを眠らせる : 55 ターン毎";
 #else
 				return "sleep nearby monsters every 55 turns";
 #endif
@@ -683,7 +683,7 @@ return "アンデッド従属 : 333 ターン毎";
 			case ACT_CHARM_OTHER:
 			{
 #ifdef JP
-return "モンスター魅了 : 400 ターン毎";
+return "クリーチャー魅了 : 400 ターン毎";
 #else
 				return "charm monster every 400 turns";
 #endif
@@ -1396,7 +1396,7 @@ return "テレポート : 45 ターン毎";
 		case ART_TOTILA:
 		{
 #ifdef JP
-return "パニック・モンスター : 15 ターン毎";
+return "パニック・クリーチャー : 15 ターン毎";
 #else
 			return "confuse monster every 15 turns";
 #endif
@@ -1616,7 +1616,7 @@ return "信じ難いこと : 450+d450 ターン毎";
 		case ART_PALANTIR:
 		{
 #ifdef JP
-return "この階にいるユニークモンスターを表示 : 200ターン毎";
+return "この階にいるユニーククリーチャーを表示 : 200ターン毎";
 #else
 			return "list of the uniques on the level every 200 turns";
 #endif
@@ -1640,7 +1640,7 @@ return "害虫の駆除 : 55+d55ターン毎";
 		case ART_BOROMIR:
 		{
 #ifdef JP
-return "モンスター恐慌 : 40+d40ターン毎";
+return "クリーチャー恐慌 : 40+d40ターン毎";
 #else
 			return "frighten monsters every 40+d40 turns";
 #endif
@@ -2062,7 +2062,7 @@ return "冷気のブレス (200) : 250 ターン毎";
 #endif
 			case EGO_RING_M_DETECT:
 #ifdef JP
-return "全モンスター感知 : 150 ターン毎";
+return "全クリーチャー感知 : 150 ターン毎";
 #else
 				return "detect all monsters every 150 turns";
 #endif
@@ -2141,7 +2141,7 @@ return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
 #endif
 			case EGO_AMU_CHARM:
 #ifdef JP
-				return "モンスター魅了 : 200 ターン毎";
+				return "クリーチャー魅了 : 200 ターン毎";
 #else
 				return "charm monster every 200 turns";
 #endif
@@ -2209,7 +2209,7 @@ return "ペット呼び寄せ : 100+d100ターン毎";
 	if (o_ptr->tval == TV_CAPTURE)
 	{
 #ifdef JP
-return "モンスターを捕える、又は解放する。";
+return "クリーチャーを捕える、又は解放する。";
 #else
 		return "captures or releases a monster.";
 #endif
@@ -3382,7 +3382,7 @@ info[i++] = "それは永遠の明かりを授ける(半径に+1)。";
 	if (have_flag(flgs, TR_SEE_INVIS))
 	{
 #ifdef JP
-info[i++] = "それは透明なモンスターを見ることを可能にする。";
+info[i++] = "それは透明なクリーチャーを見ることを可能にする。";
 #else
 		info[i++] = "It allows you to see invisible monsters.";
 #endif
@@ -3666,7 +3666,7 @@ info[i++] = "それは太古の禍々しい怨念が宿っている。";
 	if ((have_flag(flgs, TR_AGGRAVATE)) || (o_ptr->curse_flags & TRC_AGGRAVATE))
 	{
 #ifdef JP
-info[i++] = "それは付近のモンスターを怒らせる。";
+info[i++] = "それは付近のクリーチャーを怒らせる。";
 #else
 		info[i++] = "It aggravates nearby creatures.";
 #endif

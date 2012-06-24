@@ -1207,7 +1207,7 @@ void do_cmd_open(creature_type *creature_ptr)
 
 			/* Message */
 #ifdef JP
-		msg_print("モンスターが立ちふさがっている！");
+		msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif
@@ -1372,7 +1372,7 @@ void do_cmd_close(creature_type *creature_ptr)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif
@@ -1668,7 +1668,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif
@@ -2091,7 +2091,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		{
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif
@@ -2299,7 +2299,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif
@@ -2526,7 +2526,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
+			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a monster in the way!");
 #endif

@@ -1519,7 +1519,7 @@ static errr rd_floors(void)
 
 	case 161:
 #ifdef JP
-		note("モンスターの配列が大きすぎる！");
+		note("クリーチャーの配列が大きすぎる！");
 #else
 		note("Too many monster entries!");
 #endif
@@ -1527,7 +1527,7 @@ static errr rd_floors(void)
 
 	case 162:
 #ifdef JP
-		note("モンスター配置エラー");
+		note("クリーチャー配置エラー");
 #else
 		note("Monster allocation error");
 #endif

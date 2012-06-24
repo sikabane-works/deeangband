@@ -2562,9 +2562,9 @@ racial_power racial_powers[MAX_MONSPELLS] =
 {  3,   1,  25,   12,  20, STAT_INT,  "マジック・ミサイル"},
 {  5,   3,  35,    0,  20, STAT_INT,  "恐慌"},
 { 10,   5,  40,    0,  20, STAT_INT,  "盲目"},
-{ 10,   5,  40,    0,  20, STAT_INT,  "パニック・モンスター"},
-{ 10,   5,  40,    0,  20, STAT_INT,  "スロウ・モンスター"},
-{ 10,   5,  40,    0,  20, STAT_INT,  "スリープ・モンスター"},
+{ 10,   5,  40,    0,  20, STAT_INT,  "パニック・クリーチャー"},
+{ 10,   5,  40,    0,  20, STAT_INT,  "スロウ・クリーチャー"},
+{ 10,   5,  40,    0,  20, STAT_INT,  "スリープ・クリーチャー"},
 { 20,  10,  70,    0,  40, STAT_INT,  "スピード"},
 { 45, 120,  95,    0,  60, STAT_INT,  "破滅の手"},
 { 20,  15,  70,    0,  20, STAT_WIS,  "体力回復"},
@@ -2583,8 +2583,8 @@ racial_power racial_powers[MAX_MONSPELLS] =
 { 30,  30,  70,    0,  40, STAT_INT,  "死者復活"},
 { 40,  70,  85,    0,  45, STAT_INT,  "援軍を呼ぶ"},
 { 45,  90,  90,    0,  50, STAT_INT,  "サイバーデーモンの召喚"},
-{ 25,  20,  65,    0,  30, STAT_INT,  "モンスターの召喚"},
-{ 35,  30,  75,    0,  40, STAT_INT,  "複数のモンスターの召喚"},
+{ 25,  20,  65,    0,  30, STAT_INT,  "クリーチャーの召喚"},
+{ 35,  30,  75,    0,  40, STAT_INT,  "複数のクリーチャーの召喚"},
 { 25,  25,  65,    0,  25, STAT_INT,  "アリの召喚"},
 { 25,  20,  60,    0,  25, STAT_INT,  "蜘蛛の召喚"},
 { 35,  26,  75,    0,  40, STAT_INT,  "ハウンドの召喚"},
@@ -2596,7 +2596,7 @@ racial_power racial_powers[MAX_MONSPELLS] =
 { 43,  85,  85,    0,  45, STAT_INT,  "上級アンデッドの召喚"},
 { 46,  90,  85,    0,  45, STAT_INT,  "古代ドラゴンの召喚"},
 { 48, 120,  90,    0,  50, STAT_INT,  "アンバーの王族の召喚"},
-{ 50, 150,  95,    0,  50, STAT_INT,  "ユニークモンスターの召喚"},
+{ 50, 150,  95,    0,  50, STAT_INT,  "ユニーククリーチャーの召喚"},
 #else
 {  1,   1,  10,    0,  15, STAT_CON,  "shriek"},
 { 10,   4,  35,   89,  40, STAT_INT,  "something"},
@@ -2714,7 +2714,7 @@ cptr racial_powers_short[MAX_MONSPELLS] = {
 
 	"加速", "破滅の手", "体力回復", "無傷の球", "ショートテレポート", "テレポート", "時を止める", "何か",
 	"引きよせる", "テレポートアウェイ", "テレポートレベル", "光の剣", "暗闇", "トラップ創造", "記憶喪失", "死者復活",
-	"援軍", "サイバーデーモン", "モンスター", "複数のモンスター", "蟻", "蜘蛛", "ハウンド", "ヒドラ",
+	"援軍", "サイバーデーモン", "クリーチャー", "複数のクリーチャー", "蟻", "蜘蛛", "ハウンド", "ヒドラ",
 	"天使", "悪魔", "アンデッド", "ドラゴン", "上級アンデッド", "古代ドラゴン", "アンバーの王族", "ユニーク"
 
 #else
@@ -2864,7 +2864,7 @@ cptr window_flag_desc[32] =
 #endif
 
 #ifdef JP
-	"モンスターの思い出",
+	"クリーチャーの思い出",
 #else
 	"Display monster recall",
 #endif
@@ -3301,7 +3301,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &ignore_unview,               FALSE, OPT_PAGE_TEXT, 2, 13,
-	"ignore_unview",                "視界外のモンスターの行動を表示しない" },
+	"ignore_unview",                "視界外のクリーチャーの行動を表示しない" },
 #else
 	{ &ignore_unview,               FALSE, OPT_PAGE_TEXT, 2, 13,
 	"ignore_unview",                "Ignore whenever any monster does" },
@@ -3443,7 +3443,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &disturb_move,                FALSE, OPT_PAGE_DISTURBANCE, 0, 20,
-	"disturb_move",                 "どこのモンスターが動いても行動を中止する" },
+	"disturb_move",                 "どこのクリーチャーが動いても行動を中止する" },
 #else
 	{ &disturb_move,                FALSE, OPT_PAGE_DISTURBANCE, 0, 20,
 	"disturb_move",                 "Disturb whenever any monster moves" },
@@ -3451,7 +3451,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &disturb_high,                FALSE, OPT_PAGE_DISTURBANCE, 1, 3,
-	"disturb_high",                 "レベルの高いモンスターが動いたら行動を中止する" },
+	"disturb_high",                 "レベルの高いクリーチャーが動いたら行動を中止する" },
 #else
 	{ &disturb_high,                FALSE, OPT_PAGE_DISTURBANCE, 1, 3,
 	"disturb_high",                 "Disturb whenever high-level monster moves" },
@@ -3459,7 +3459,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &disturb_near,                TRUE,  OPT_PAGE_DISTURBANCE, 0, 21,
-	"disturb_near",                 "視界内のモンスターが動いたら行動を中止する" },
+	"disturb_near",                 "視界内のクリーチャーが動いたら行動を中止する" },
 #else
 	{ &disturb_near,                TRUE,  OPT_PAGE_DISTURBANCE, 0, 21,
 	"disturb_near",                 "Disturb whenever viewable monster moves" },
@@ -3533,7 +3533,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &smart_learn,                 TRUE,  OPT_PAGE_BIRTH, 1, 14,
-	"smart_learn",                  "モンスターは失敗を学習する(*)" },
+	"smart_learn",                  "クリーチャーは失敗を学習する(*)" },
 #else
 	{ &smart_learn,                 TRUE,  OPT_PAGE_BIRTH, 1, 14,
 	"smart_learn",                  "Monsters learn from their mistakes (*)" },
@@ -3541,7 +3541,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &smart_cheat,                 FALSE, OPT_PAGE_BIRTH, 1, 15,
-	"smart_cheat",                  "モンスターはプレイヤーの弱みを突く(*)" },
+	"smart_cheat",                  "クリーチャーはプレイヤーの弱みを突く(*)" },
 #else
 	{ &smart_cheat,                 FALSE, OPT_PAGE_BIRTH, 1, 15,
 	"smart_cheat",                  "Monsters exploit players weaknesses (*)" },
@@ -3721,7 +3721,7 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &record_destroy_uniq,         TRUE,  OPT_PAGE_PLAYRECORD, 4, 13,
-	"record_destroy_uniq",          "ユニークモンスターを倒したときを記録する" },
+	"record_destroy_uniq",          "ユニーククリーチャーを倒したときを記録する" },
 #else
 	{ &record_destroy_uniq,         TRUE,  OPT_PAGE_PLAYRECORD, 4, 13,
 	"record_destroy_uniq",          "Record when destroy unique monster" },

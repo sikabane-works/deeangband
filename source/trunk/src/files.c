@@ -5169,7 +5169,7 @@ static void dump_aux_creatures(FILE *fff)
 	u16b why = 2;
 
 #ifdef JP
-	fprintf(fff, "\n  [倒したモンスター]\n\n");
+	fprintf(fff, "\n  [倒したクリーチャー]\n\n");
 #else
 	fprintf(fff, "\n  [Defeated Monsters]\n\n");
 #endif
@@ -5233,7 +5233,7 @@ static void dump_aux_creatures(FILE *fff)
 	else /* if (uniq_total > 0) */
 	{
 #ifdef JP
-		fprintf(fff, "%ld体のユニーク・モンスターを含む、合計%ld体の敵を倒しています。\n", uniq_total, norm_total); 
+		fprintf(fff, "%ld体のユニーク・クリーチャーを含む、合計%ld体の敵を倒しています。\n", uniq_total, norm_total); 
 #else
 		fprintf(fff, "You have defeated %ld %s including %ld unique monster%s in total.\n", norm_total, norm_total == 1 ? "enemy" : "enemies", uniq_total, (uniq_total == 1 ? "" : "s"));
 #endif
@@ -5242,7 +5242,7 @@ static void dump_aux_creatures(FILE *fff)
 		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook);
 
 #ifdef JP
-		fprintf(fff, "\n《上位%ld体のユニーク・モンスター》\n", MIN(uniq_total, 10));
+		fprintf(fff, "\n《上位%ld体のユニーク・クリーチャー》\n", MIN(uniq_total, 10));
 #else
 		fprintf(fff, "\n< Unique monsters top %ld >\n", MIN(uniq_total, 10));
 #endif

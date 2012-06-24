@@ -3852,7 +3852,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でモンスターを召喚した！", m_name);
+			else msg_format("%^sが魔法でクリーチャーを召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons monsters!", m_name);
 #endif

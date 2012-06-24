@@ -1096,7 +1096,7 @@ msg_print("仲間を召喚した。");
 		int k;
 		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("モンスターを召喚した！");
+msg_print("クリーチャーを召喚した！");
 #else
 			msg_print("You summon monsters!");
 #endif

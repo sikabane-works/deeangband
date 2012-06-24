@@ -846,7 +846,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 					break;
 				case RECORD_NAMED_PET_COMPACT:
 #ifdef JP
-					fprintf(fff, "%sがモンスター情報圧縮によって消え去った。\n", note);
+					fprintf(fff, "%sがクリーチャー情報圧縮によって消え去った。\n", note);
 #else
 					fprintf(fff, "%s was made disappeared by compacting monsters.\n", note);
 #endif
@@ -1608,7 +1608,7 @@ static option_type cheat_info[CHEAT_MAX] =
 
 	{ &cheat_hear,		FALSE,	255,	0x02, 0x00,
 #ifdef JP
-	"cheat_hear",		"モンスターの生成をのぞき見る"
+	"cheat_hear",		"クリーチャーの生成をのぞき見る"
 #else
 	"cheat_hear",		"Peek into monster creation"
 #endif
@@ -1632,7 +1632,7 @@ static option_type cheat_info[CHEAT_MAX] =
 
 	{ &cheat_know,		FALSE,	255,	0x10, 0x00,
 #ifdef JP
-	"cheat_know",		"完全なモンスターの思い出を知る"
+	"cheat_know",		"完全なクリーチャーの思い出を知る"
 #else
 	"cheat_know",		"Know complete monster info"
 #endif
@@ -3711,13 +3711,13 @@ static void print_visuals_menu(cptr choice_msg)
 #endif
 
 #ifdef JP
-	prt("(1) モンスターの 色/文字 をファイルに書き出す", 4, 5);
+	prt("(1) クリーチャーの 色/文字 をファイルに書き出す", 4, 5);
 	prt("(2) アイテムの   色/文字 をファイルに書き出す", 5, 5);
 	prt("(3) 地形の       色/文字 をファイルに書き出す", 6, 5);
-	prt("(4) モンスターの 色/文字 を変更する (数値操作)", 7, 5);
+	prt("(4) クリーチャーの 色/文字 を変更する (数値操作)", 7, 5);
 	prt("(5) アイテムの   色/文字 を変更する (数値操作)", 8, 5);
 	prt("(6) 地形の       色/文字 を変更する (数値操作)", 9, 5);
-	prt("(7) モンスターの 色/文字 を変更する (シンボルエディタ)", 10, 5);
+	prt("(7) クリーチャーの 色/文字 を変更する (シンボルエディタ)", 10, 5);
 	prt("(8) アイテムの   色/文字 を変更する (シンボルエディタ)", 11, 5);
 	prt("(9) 地形の       色/文字 を変更する (シンボルエディタ)", 12, 5);
 #else
@@ -3821,7 +3821,7 @@ void do_cmd_visuals(void)
 
 			/* Prompt */
 #ifdef JP
-			prt("コマンド: モンスターの[色/文字]をファイルに書き出します", 15, 0);
+			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
 #else
 			prt("Command: Dump monster attr/chars", 15, 0);
 #endif
@@ -3847,7 +3847,7 @@ void do_cmd_visuals(void)
 
 			/* Start dumping */
 #ifdef JP
-			auto_dump_printf("\n# モンスターの[色/文字]の設定\n\n");
+			auto_dump_printf("\n# クリーチャーの[色/文字]の設定\n\n");
 #else
 			auto_dump_printf("\n# Monster attr/char definitions\n\n");
 #endif
@@ -3873,7 +3873,7 @@ void do_cmd_visuals(void)
 
 			/* Message */
 #ifdef JP
-			msg_print("モンスターの[色/文字]をファイルに書き出しました。");
+			msg_print("クリーチャーの[色/文字]をファイルに書き出しました。");
 #else
 			msg_print("Dumped monster attr/chars.");
 #endif
@@ -4041,7 +4041,7 @@ void do_cmd_visuals(void)
 		case '4':
 		{
 #ifdef JP
-			static cptr choice_msg = "モンスターの[色/文字]を変更します";
+			static cptr choice_msg = "クリーチャーの[色/文字]を変更します";
 #else
 			static cptr choice_msg = "Change monster attr/chars";
 #endif
@@ -4068,7 +4068,7 @@ void do_cmd_visuals(void)
 				/* Label the object */
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
-					    format("モンスター = %d, 名前 = %-40.40s",
+					    format("クリーチャー = %d, 名前 = %-40.40s",
 						   r, (species_name + r_ptr->name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
@@ -5056,11 +5056,11 @@ void do_cmd_feeling(creature_type *creature_ptr)
 /*
  * Description of each monster group.
  */
-static cptr monster_group_text[] = 
+static cptr creature_group_text[] = 
 {
 #ifdef JP
 	"ユニーク",	/* "Uniques" */
-	"乗馬可能なモンスター",	/* "Riding" */
+	"乗馬可能なクリーチャー",	/* "Riding" */
 	"賞金首", /* "Wanted */
 	"アンバーの王族", /* "Ambertite" */
 	"アリ",
@@ -5150,9 +5150,9 @@ static cptr monster_group_text[] =
 	"職業可変",
 #else
 	"Uniques",
-	"Ridable monsters",
-	"Wanted monsters",
-	"Ambertite",
+	"Ridable creature",
+	"Wanted creature",
+	"Amberite",
 	"Ant",
 	"Bat",
 	"Centipede",
@@ -5164,7 +5164,7 @@ static cptr monster_group_text[] =
 	"Icky Thing",
 	"Jelly",
 	"Kobold",
-	"Aquatic monster",
+	"Aquatic creature",
 	"Mold",
 	"Naga",
 	"Orc",
@@ -6953,7 +6953,7 @@ static void do_cmd_knowledge_uniques(void)
 
 	/* Display the file contents */
 #ifdef JP
-	show_file(TRUE, file_name, "まだ生きているユニーク・モンスター", 0, 0);
+	show_file(TRUE, file_name, "まだ生きているユニーク・クリーチャー", 0, 0);
 #else
 	show_file(TRUE, file_name, "Alive Uniques", 0, 0);
 #endif
@@ -8012,10 +8012,10 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 		mode = visual_only ? 0x03 : 0x01;
 
 		/* Check every group */
-		for (i = 0; monster_group_text[i] != NULL; i++)
+		for (i = 0; creature_group_text[i] != NULL; i++)
 		{
 			/* Measure the label */
-			len = strlen(monster_group_text[i]);
+			len = strlen(creature_group_text[i]);
 
 			/* Save the maximum length */
 			if (len > max) max = len;
@@ -8064,7 +8064,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			clear_from(0);
 
 #ifdef JP
-			prt(format("%s - モンスター", !visual_only ? "知識" : "表示"), 2, 0);
+			prt(format("%s - クリーチャー", !visual_only ? "知識" : "表示"), 2, 0);
 			if (direct_species_idx < 0) prt("グループ", 4, 0);
 			prt("名前", 4, max + 3);
 			if (wizard || visual_only) prt("Idx", 4, 62);
@@ -8102,7 +8102,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			if (grp_cur >= grp_top + browser_rows) grp_top = grp_cur - browser_rows + 1;
 
 			/* Display a list of monster groups */
-			display_group_list(0, 6, max, browser_rows, grp_idx, monster_group_text, grp_cur, grp_top);
+			display_group_list(0, 6, max, browser_rows, grp_idx, creature_group_text, grp_cur, grp_top);
 
 			if (old_grp_cur != grp_cur)
 			{
@@ -9506,7 +9506,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 					case QUEST_TYPE_KILL_NUMBER:
 #ifdef JP
-						sprintf(note,"%d 体のモンスターを倒す。(あと %d 体)",
+						sprintf(note,"%d 体のクリーチャーを倒す。(あと %d 体)",
 							quest[i].max_num, quest[i].max_num - quest[i].cur_num);
 #else
 						sprintf(note,"Kill %d monsters, have killed %d.",
@@ -9516,7 +9516,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 					case QUEST_TYPE_KILL_ALL:
 #ifdef JP
-						sprintf(note,"全てのモンスターを倒す。");
+						sprintf(note,"全てのクリーチャーを倒す。");
 #else
 						sprintf(note,"Kill all monsters.");
 #endif
@@ -10138,8 +10138,8 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 		{
 			prt("(1) 既知の伝説のアイテム                 の一覧", 6, 5);
 			prt("(2) 既知のアイテム                       の一覧", 7, 5);
-			prt("(3) 既知の生きているユニーク・モンスター の一覧", 8, 5);
-			prt("(4) 既知のモンスター                     の一覧", 9, 5);
+			prt("(3) 既知の生きているユニーク・クリーチャー の一覧", 8, 5);
+			prt("(4) 既知のクリーチャー                     の一覧", 9, 5);
 			prt("(5) 倒した敵の数                         の一覧", 10, 5);
 			prt("(6) 賞金首                               の一覧", 11, 5);
 			prt("(7) 現在のペット                         の一覧", 12, 5);

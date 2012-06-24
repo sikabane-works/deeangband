@@ -768,7 +768,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	if ((o_ptr->name1 == ART_CRIMSON) && (creature_ptr->chara_idx == CHARA_COMBAT))
 	{
 		msg_format("こうして、%sは『クリムゾン』を手に入れた。", creature_ptr->name);
-		msg_print("しかし今、『混沌のサーペント』の放ったモンスターが、");
+		msg_print("しかし今、『混沌のサーペント』の放ったクリーチャーが、");
 		msg_format("%sに襲いかかる．．．", creature_ptr->name);
 	}
 	else

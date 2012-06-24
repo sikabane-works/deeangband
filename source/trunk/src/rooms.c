@@ -2554,7 +2554,7 @@ static bool build_type6(floor_type *floor_ptr)
 	{
 		/* Room type */
 #ifdef JP
-		msg_format("モンスター部屋(pit)(%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
+		msg_format("クリーチャー部屋(pit)(%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #else
 		msg_format("Monster pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #endif
