@@ -2309,6 +2309,7 @@ u32b calc_equipping_weight_limit(creature_type *creature_ptr)
 {
 	u32b i = (u32b)adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] * 15;
 	i *= creature_ptr->size / 10 * creature_ptr->size / 10;
+	if(i <= 0) i = 1;
 	return i;
 }
 
@@ -2316,6 +2317,7 @@ u32b calc_carrying_weight_limit(creature_type *creature_ptr)
 {
 	u32b i = (u32b)adj_str_carrying_weight[creature_ptr->stat_ind[STAT_STR]] * 25;
 	i *= creature_ptr->size / 10 * creature_ptr->size / 10;
+	if(i <= 0) i = 1;
 	return i;
 }
 

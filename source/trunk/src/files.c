@@ -1867,10 +1867,11 @@ static void display_player_middle(creature_type *creature_ptr)
 	{
 		if(creature_ptr->can_melee[i])
 		{
-			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
+			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i + 1);
 			j = calc_melee_cost(creature_ptr, weapon_ptr);
-			Term_queue_bigchar(15 + melee_num, 1, object_attr(weapon_ptr), object_char(weapon_ptr), 0, 0);
-			c_put_str(TERM_WHITE, mention_use(creature_ptr, INVEN_SLOT_HAND, i + 1), 15 + melee_num, 4);
+			c_put_str(TERM_WHITE, mention_use(creature_ptr, INVEN_SLOT_HAND, i + 1), 15 + melee_num, 1);
+			c_put_str(TERM_YELLOW, format("%+4d", creature_ptr->to_hit[i]), 15 + melee_num, 9);
+			c_put_str(TERM_YELLOW, format("%dd%d%+d", weapon_ptr->dd, weapon_ptr->ds, creature_ptr->to_damage[i]), 15 + melee_num, 14);
 			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
 			melee_num++;
 		}
@@ -1878,6 +1879,9 @@ static void display_player_middle(creature_type *creature_ptr)
 
 	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
 	{
+		if(creature_ptr->blow[i].method)
+		{
+		}
 	}
 
 	/*
