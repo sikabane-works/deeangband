@@ -3637,6 +3637,7 @@
 #define RBM_WAIL        24
 #define RBM_SPORE       25
 
+#define MAX_RBM         26
 
 /*
  * New monster blow effects

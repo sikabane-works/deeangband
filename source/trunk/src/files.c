@@ -1838,6 +1838,39 @@ static void display_player_melee_bonus(creature_type *creature_ptr, int hand, in
 }
 */
 
+cptr rbm_name[MAX_RBM] = 
+{
+	"‚È‚µ",
+	"‰£‘Å",
+	"ÚG",
+	"Œ",
+	"’Ü",
+
+	"Šš‚İ",
+	"h“Ë",
+	"aŒ‚",
+	"Šp",
+	"“ËŒ‚",
+
+	"¿‹‘",
+	"”‡‚¤",
+	"‚æ‚¾‚ê",
+	"‘Ì‰t",
+	"‚È‚µ",
+
+	"‚½‚©‚è",
+	"•J",
+	"™ï‚«",
+	"ƒVƒ‡[TIME",
+	"ËŒ‚",
+
+	"•ßH",
+	"”š”­",
+	"‹Ã‹",
+	"‹©‚Ñ",
+	"•òd",
+};
+
 /*
  * Prints the following information on the screen.
  */

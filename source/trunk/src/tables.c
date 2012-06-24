@@ -13,7 +13,6 @@
 #include "angband.h"
 
 
-
 /*
  * Global array for looping through the "keypad directions"
  */
