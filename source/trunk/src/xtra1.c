@@ -151,16 +151,18 @@ static void prt_stat(creature_type *cr_ptr, int stat)
 {
 	char tmp[32];
 
-	/* Display "injured" stat */
-	if (cr_ptr->stat_cur[stat] < cr_ptr->stat_max[stat])
+	if (!has_status(cr_ptr, stat))
+	{
+		put_str(stat_names[stat], ROW_STAT + stat, 0);
+		c_put_str(TERM_L_DARK, "------", ROW_STAT + stat, COL_STAT + 6);
+	}
+	else if (cr_ptr->stat_cur[stat] < cr_ptr->stat_max[stat]) // Display "injured" stat
 	{
 		put_str(stat_names_reduced[stat], ROW_STAT + stat, 0);
 		cnv_stat(cr_ptr->stat_use[stat], tmp);
 		c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
-
-	/* Display "healthy" stat */
-	else
+	else // Display "healthy" stat
 	{
 		put_str(stat_names[stat], ROW_STAT + stat, 0);
 		cnv_stat(cr_ptr->stat_use[stat], tmp);
