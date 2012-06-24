@@ -3487,33 +3487,27 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_BATTLE:				
 				offset = 0;
+				num = strlen(tmp);
 				k = 0;
-				while(tmp[offset]) {
+				while(offset < num) {
 					int am = 0, ae = 0;
 
-					if (k == 4) return (1);
+					if (k == 4)
+						return (1);
 
-					for(s = &tmp[offset]; *s != '\n'; s++);
+					for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
 					*s = '\0';
 
 					n1 = n2 = 0;
 					atk_method[0] = '\0';
 					atk_effect[0] = '\0';
 
-					if((tmp + offset, "%[^:]:%[^:]:%dd%d|", atk_method, atk_effect, &n1, &n2) != 4) {
-						if(num = sscanf(tmp + offset, "%[^:\n]:%[^:]|", atk_method, atk_effect) != 2) {
-							if(num = sscanf(tmp + offset, "%[^:]|", atk_method) != 1)
+					if(sscanf(tmp + offset, "%[^:]:%[^:]:%dd%d", atk_method, atk_effect, &n1, &n2) != 4) {
+						if(sscanf(tmp + offset, "%[^:\n]:%[^:]", atk_method, atk_effect) != 2) {
+							if(sscanf(tmp + offset, "%[^:]", atk_method) != 1)
 								return (1);
 						}
 					}
-
-					/*
-					if(num = sscanf(tmp + offset, "%[^:]:%[^:]:%dd%d", atk_method, atk_effect, &n1, &n2) == 4) {}
-					else if(num = sscanf(tmp + offset, "%[^:\n]:%[^:]", atk_method, atk_effect) == 2) {}
-					else if(num = sscanf(tmp + offset, "%[^:]", atk_method) == 1) {}
-					else
-						return (1);
-					*/
 
 					/* Analyze the method */
 					for (am = 0; species_info_blow_method[am]; am++) if (streq(atk_method, species_info_blow_method[am])) break;
@@ -3538,6 +3532,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					k++;
 
 					while(tmp[offset]) offset++;
+					offset++;
 				}
 				break;
 
