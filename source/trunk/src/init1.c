@@ -3492,33 +3492,37 @@ errr parse_species_info_csv(char *buf, header *head)
 					if (k == 4) return (1);
 
 					/* Analyze the first field */
-					for (s = t = tmp + offset; *t && (*t != ':') && (*t != '\n'); t++) /* loop */;
+					for (s = t = tmp + offset; *t && (*t != ':') && (*t != '\n'); t++);  // loop
 
 					/* Terminate the field (if necessary) */
 					if (*t == ':') *t++ = '\0';
-					if (*t == '\n') *t = '\0';
+					if (*t == '\n')
+					{
+						*t++ = '\0';
+						k++;
+						continue;
+					}
 
 					/* Analyze the method */
-					for (n1 = 0; species_info_blow_method[n1]; n1++)
-					{
-						if (streq(s, species_info_blow_method[n1])) break;
-					}
+					for (n1 = 0; species_info_blow_method[n1]; n1++) if (streq(s, species_info_blow_method[n1])) break;
 
 					/* Invalid method */
 					if (!species_info_blow_method[n1]) return (1);
 
 					/* Analyze the second field */
-					for (s = t; *t && (*t != ':') && (*t != '\n'); t++) /* loop */;
+					for (s = t; *t && (*t != ':') && (*t != '\n'); t++); //loop
 
 					/* Terminate the field (if necessary) */
 					if (*t == ':') *t++ = '\0';
-					if (*t == '\n') *t = '\0';
+					if (*t == '\n')
+					{
+						*t++ = '\0';
+						k++;
+						continue;
+					}
 
 					/* Analyze effect */
-					for (n2 = 0; species_info_blow_effect[n2]; n2++)
-					{
-						if (streq(s, species_info_blow_effect[n2])) break;
-					}
+					for (n2 = 0; species_info_blow_effect[n2]; n2++) if (streq(s, species_info_blow_effect[n2])) break;
 
 					/* Invalid effect */
 					if (!species_info_blow_effect[n2]) return (1);
@@ -3542,7 +3546,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					k++;
 
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
-					if(tmp[offset]) offset++;
+					if(tmp[offset] == '\n') offset++;
 				}
 				break;
 
@@ -3590,7 +3594,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 					else return(1);		
 
-					if (k == MAX_UNDERLINGS) return (1);
+					if (k == INVEN_TOTAL) return (1);
 
 					species_info[n].artifact_id[k] = id;
 					species_info[n].artifact_ego[k] = ego;

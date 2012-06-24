@@ -506,16 +506,16 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 			cptr oops;
 
 #ifdef JP
-			/* Error string */
+			// Error string
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
 
-			/* Oops */
+			// Oops
 			msg_format("'%s.csv'ファイルの %d 行目にエラー。", filename, error_line);
 			msg_format("レコード %d は '%s' エラーがあります。", error_idx, oops);
 			msg_format("構文 '%s'。", buf);
 			msg_print(NULL);
 
-			/* Quit */
+			// Quit
 			quit(format("'%s.csv'ファイルにエラー", filename));
 #else
 			/* Error string */
