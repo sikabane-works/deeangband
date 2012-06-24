@@ -3554,7 +3554,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 #ifdef JP
 	c_put_str(TERM_WHITE, "”\—Í", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Šî–{", row, stat_col+7);
-	c_put_str(TERM_WHITE, " ŒÀŠE", row, stat_col+14);
+	c_put_str(TERM_WHITE, "  ŒÀŠE", row, stat_col+14);
 	c_put_str(TERM_WHITE, " Ží E _ « ‘• ", row, stat_col+20);
 	c_put_str(TERM_L_GREEN, "‡Œv", row, stat_col+38);
 	c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+44);
@@ -3622,27 +3622,42 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - cr_ptr->lev, i);
 		
-		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
+		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i] && has_status(cr_ptr, i))
 			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1); // Reduced name of stat
 		else
 			c_put_str(TERM_WHITE, stat_names[i], row + i+1, stat_col+1);
 
 		// Internal "natural" max value.  Maxes at 18/100 This is useful to see if you are maxed out
-		cnv_stat(cr_ptr->stat_max[i], buf);
-		if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
+		if(has_status(cr_ptr, i))
 		{
+			cnv_stat(cr_ptr->stat_max[i], buf);
+			if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
+			{
 #ifdef JP
-			c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 9);
+				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 9);
 #else
-			c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 4);
+				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 4);
 #endif
+			}
+			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 		}
-		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
+		else
+		{
+			c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 7);
+		}
 
 
-		if(cr_ptr->knowledge & KNOW_HPRATE) cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
-		else strcpy(buf, "????");
-		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 19 - strlen(buf));
+		if(has_status(cr_ptr, i))
+		{
+			if(cr_ptr->knowledge & KNOW_HPRATE) cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
+			else strcpy(buf, "????");
+			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 20 - strlen(buf));
+		}
+		else
+		{
+			c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 14);
+		}
+
 
 
 		/* Race, class, and equipment modifiers */
