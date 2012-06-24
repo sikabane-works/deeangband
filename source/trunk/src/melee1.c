@@ -1587,8 +1587,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 					if(attacker_ptr->can_melee[i])
 					{
 						action_list[action_num] = i;
-						action_cost[action_num] = calc_melee_cost(attacker_ptr,
-							get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST));
+						action_cost[action_num] = calc_melee_cost(attacker_ptr, get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST));
 						action_weight[action_num] = 10;
 						action_num++;
 					}
@@ -1638,7 +1637,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_WEAPON_6TH:
 			case MELEE_TYPE_WEAPON_7TH:
 			case MELEE_TYPE_WEAPON_8TH:
-				if (attacker_ptr->can_melee[0]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
+				if (attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:

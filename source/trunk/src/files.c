@@ -1845,21 +1845,33 @@ static void display_player_middle(creature_type *creature_ptr)
 {
 	char buf[160], buf1[30], buf2[30];
 
-	/* Base skill */
+	int melee_num = 0;
+
+	// Base skill
 	int show_tohit = creature_ptr->dis_to_hit_b;
 	int show_todam = 0;
 
-	/* Range weapon */
-	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	// Range weapon
+	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	int tmul = 0;
-	int e;
+	int i, j, e;
 
 #ifdef JP
 	c_put_str(TERM_WHITE, "種別    命中 威力   行動コスト", 14, 1);
 #else
 	c_put_str(TERM_WHITE, "Type    Hit  Damage     APCost", 14, 1);
 #endif
+
+	for(i = 0; i < MAX_HANDS; i++)
+	{
+		if(creature_ptr->can_melee[i])
+		{
+			j = calc_melee_cost(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST));
+			c_put_str(TERM_YELLOW, format("                           %3d", j), 15 + melee_num, 1);
+			melee_num++;
+		}
+	}
 
 	/*
 	if (creature_ptr->can_melee[0])
@@ -1897,23 +1909,23 @@ static void display_player_middle(creature_type *creature_ptr)
 	*/
 
 	/* Apply weapon bonuses */
-	if(o_ptr->k_idx)
+	if(bow_ptr->k_idx)
 	{
-		if (object_is_known(o_ptr)) show_tohit += o_ptr->to_hit;
-		if (object_is_known(o_ptr)) show_todam += o_ptr->to_damage;
+		if (object_is_known(bow_ptr)) show_tohit += bow_ptr->to_hit;
+		if (object_is_known(bow_ptr)) show_todam += bow_ptr->to_damage;
 
-		if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
-			show_tohit += creature_ptr->weapon_exp[0][o_ptr->sval] / 400;
+		if ((bow_ptr->sval == SV_LIGHT_XBOW) || (bow_ptr->sval == SV_HEAVY_XBOW))
+			show_tohit += creature_ptr->weapon_exp[0][bow_ptr->sval] / 400;
 		else
-			show_tohit += (creature_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
+			show_tohit += (creature_ptr->weapon_exp[0][bow_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 		/* Range attacks */
 		display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
 		display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
 
-		if (o_ptr->k_idx)
+		if (bow_ptr->k_idx)
 		{
-			tmul = bow_tmul(o_ptr->sval);
+			tmul = bow_tmul(bow_ptr->sval);
 
 			/* Get extra "power" from "extra might" */
 			if (creature_ptr->xtra_might) tmul++;
