@@ -3147,16 +3147,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
-	if (!creature_ptr->can_melee[0] && !creature_ptr->can_melee[1])
-	{
-		if (empty_hands_status & EMPTY_HAND_RARM) creature_ptr->can_melee[0] = TRUE;
-		else if (empty_hands_status == EMPTY_HAND_LARM)
-		{
-			creature_ptr->can_melee[1] = TRUE;
-			default_hand = 1;
-		}
-	}
-
 	if (creature_ptr->special_defense & KAMAE_MASK)
 	{
 		if (!(empty_hands_status & EMPTY_HAND_RARM))

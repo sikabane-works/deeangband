@@ -1868,7 +1868,7 @@ cptr rbm_name[MAX_RBM] =
 	"”š”­",
 	"‹ÃŽ‹",
 	"‹©‚Ñ",
-	"•òŽd",
+	"–EŽq",
 };
 
 /*
@@ -1914,6 +1914,11 @@ static void display_player_middle(creature_type *creature_ptr)
 	{
 		if(creature_ptr->blow[i].method)
 		{
+			j = 15;
+			c_put_str(TERM_WHITE, rbm_name[creature_ptr->blow[i].method], 15 + melee_num, 1);
+			c_put_str(TERM_YELLOW, format("+???"), 15 + melee_num, 9);
+			c_put_str(TERM_YELLOW, format("%dd%d", creature_ptr->blow[i].d_dice, creature_ptr->blow[i].d_side), 15 + melee_num, 14);
+			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
 		}
 	}
 
