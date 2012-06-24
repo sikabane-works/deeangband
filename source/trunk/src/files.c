@@ -2656,7 +2656,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 {
 	int i;
 
-	/* Clear */
+	// Clear
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
@@ -4146,44 +4146,27 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		/* Display the stats */
 		for (i = 0; i < 6; i++)
 		{
-			/* Special treatment of "injured" stats */
-			if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
+			if(!has_status(creature_ptr, i))
 			{
-				int value;
-
-				/* Use lowercase stat name */
-				put_str(stat_names_reduced[i], 3 + i, 58);
-
-				/* Get the current stat */
-				value = creature_ptr->stat_use[i];
-
-				/* Obtain the current stat (modified) */
-				cnv_stat(value, buf);
-
-				/* Display the current stat (modified) */
-				c_put_str(TERM_YELLOW, buf, 3 + i, 62);
-
-				/* Acquire the max stat */
-				value = creature_ptr->stat_top[i];
-
-				/* Obtain the maximum stat (modified) */
-				cnv_stat(value, buf);
-
-				/* Display the maximum stat (modified) */
-				c_put_str(TERM_L_GREEN, buf, 3 + i, 69);
+				put_str(stat_names[i], 3 + i, 58); // Assume uppercase stat name
+				c_put_str(TERM_L_DARK, "------", 3 + i, 63); // Display the current stat (void)
 			}
-
-			/* Normal treatment of "normal" stats */
-			else
+			else if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i]) // Special treatment of "injured" stats
 			{
-				/* Assume uppercase stat name */
-				put_str(stat_names[i], 3 + i, 58);
-
-				/* Obtain the current stat (modified) */
-				cnv_stat(creature_ptr->stat_use[i], buf);
-
-				/* Display the current stat (modified) */
-				c_put_str(TERM_L_GREEN, buf, 3 + i, 62);
+				int value;				
+				put_str(stat_names_reduced[i], 3 + i, 58); // Use lowercase stat name
+				value = creature_ptr->stat_use[i]; // Get the current stat
+				cnv_stat(value, buf); // Obtain the current stat (modified)
+				c_put_str(TERM_YELLOW, buf, 3 + i, 63); // Display the current stat (modified)
+				value = creature_ptr->stat_top[i]; // Acquire the max stat
+				cnv_stat(value, buf); // Obtain the maximum stat (modified)
+				c_put_str(TERM_L_GREEN, buf, 3 + i, 70); // Display the maximum stat (modified)
+			}
+			else // Normal treatment of "normal" stats
+			{
+				put_str(stat_names[i], 3 + i, 58); // Assume uppercase stat name
+				cnv_stat(creature_ptr->stat_use[i], buf); // Obtain the current stat (modified)
+				c_put_str(TERM_L_GREEN, buf, 3 + i, 63); // Display the current stat (modified)
 			}
 
 			if (creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
