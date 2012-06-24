@@ -1675,13 +1675,11 @@ static bool vault_aux_battle(int species_idx)
 
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Decline town monsters */
-/*	if (!species_hook_dungeon(species_idx)) return FALSE; */
+	
+/*	if (!species_hook_dungeon(species_idx)) return FALSE; // Decline town creatures */
 
-	/* Decline unique monsters */
-	if (is_unique_species(r_ptr)) return (FALSE);
-//	if has_cf_creature(creature_ptr, CF_NAZGUL) return (FALSE);
-
+	
+	if (is_unique_species(r_ptr)) return (FALSE); // Decline unique creatures
 	if (is_never_move_species(r_ptr)) return (FALSE);
 	if (is_multiply_species(r_ptr)) return (FALSE);
 	if (is_quantum_species(r_ptr)) return (FALSE);
@@ -1702,7 +1700,7 @@ static bool vault_aux_battle(int species_idx)
 	return (TRUE);
 }
 
-void battle_monsters(void)
+void battle_creatures(void)
 {
 	//TODO :: NEW CALCULATION
 
@@ -1934,7 +1932,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 
 	if ((turn - old_battle) > TURNS_PER_TICK*250)
 	{
-		battle_monsters();
+		battle_creatures();
 		old_battle = turn;
 	}
 

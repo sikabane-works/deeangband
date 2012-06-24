@@ -2821,7 +2821,7 @@ void determine_random_questor(quest_type *q_ptr)
 	while (1)
 	{
 		/*
-		 * Random monster 5 - 10 levels out of depth
+		 * Random creatures 5 - 10 levels out of depth
 		 * (depending on level)
 		 */
 		species_idx = get_species_num(current_floor_ptr, q_ptr->level + 5 + randint1(q_ptr->level / 10));
@@ -2836,7 +2836,7 @@ void determine_random_questor(quest_type *q_ptr)
 		if (no_questor_or_bounty_uniques(species_idx)) continue;
 
 		/*
-		 * Accept monsters that are 2 - 6 levels
+		 * Accept creatures that are 2 - 6 levels
 		 * out of depth depending on the quest level
 		 */
 		if (r_ptr->level > (q_ptr->level + (q_ptr->level / 20))) break;
@@ -5844,11 +5844,11 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 	int id;
 	creature_type *creature_ptr;
 
-	// Make a new monster
+	// Make a new creature
 	id = creature_pop();
 	if (!id) return NULL;
 
-	// Get a new monster record
+	// Get a new creature record
 	creature_ptr = &creature_list[id];
 
 	if(c_ptr) c_ptr->creature_idx = id;

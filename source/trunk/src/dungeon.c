@@ -3789,7 +3789,7 @@ static void monster_arena_result(floor_type *floor_ptr)
 		msg_print("They have kill each other at the same time.");
 #endif
 		msg_print(NULL);
-		battle_monsters();
+		battle_creatures();
 	}
 	else if ((number_mon-1) == 0)
 	{
@@ -3829,7 +3829,7 @@ static void monster_arena_result(floor_type *floor_ptr)
 #endif
 		}
 		msg_print(NULL);
-		battle_monsters();
+		battle_creatures();
 	}
 	else if (turn - old_turn == 150*TURNS_PER_TICK)
 	{
@@ -3840,7 +3840,7 @@ static void monster_arena_result(floor_type *floor_ptr)
 #endif
 		player_ptr->au += kakekin;
 		msg_print(NULL);
-		battle_monsters();
+		battle_creatures();
 	}
 }
 
@@ -6633,7 +6633,7 @@ static void play_loop(void)
 			if (load_game)
 			{
 				player_ptr->energy_need = 0;
-				battle_monsters();
+				battle_creatures();
 			}
 			else
 			{
@@ -7062,7 +7062,7 @@ void world_wipe()
 	cheat_save = FALSE;
 
 	// Reset monster arena
-	battle_monsters();
+	battle_creatures();
 
 	// Start with no artifacts made yet
 	for (i = 0; i < max_artifact_idx; i++)

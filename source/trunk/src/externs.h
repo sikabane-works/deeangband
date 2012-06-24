@@ -1535,7 +1535,7 @@ extern void store_create(store_type *st_ptr, store_pre_type *st_pre_ptr);
 // bldg.c
 extern bool get_nightmare(int species_idx);
 extern void have_nightmare(creature_type *watcher_ptr, int species_idx);
-extern void battle_monsters(void);
+extern void battle_creatures(void);
 extern void do_cmd_bldg(creature_type *creature_ptr);
 extern void do_cmd_quest(creature_type *creature_ptr);
 extern void quest_discovery(int q_idx);

@@ -2079,7 +2079,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		break;
 
 	case 'B':
-		battle_monsters();
+		battle_creatures();
 		break;
 
 	/* Create any object */
