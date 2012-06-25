@@ -3129,7 +3129,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
  *
  * You must use slings + pebbles/shots, bows + arrows, xbows + bolts.
  *
- * See "calc_bonuses()" for more calculations and such.
+ * See "set_creature_bonuses()" for more calculations and such.
  *
  * Note that "firing" a missile is MUCH better than "throwing" it.
  *

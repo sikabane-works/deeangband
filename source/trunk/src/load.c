@@ -1185,7 +1185,7 @@ static void rd_creature(creature_type *cr_ptr)
 
 	// Update
 	set_experience(cr_ptr);
-	calc_bonuses(cr_ptr, FALSE);
+	set_creature_bonuses(cr_ptr, FALSE);
 
 }
 

@@ -1627,7 +1627,7 @@ extern bool is_daytime(void);
 extern void extract_day_hour_min(int *day, int *hour, int *min);
 extern void prt_time(creature_type *player_ptr);
 extern cptr map_name(floor_type *floor_ptr);
-extern void calc_bonuses(creature_type *crrature_ptr, bool message);
+extern void set_creature_bonuses(creature_type *crrature_ptr, bool message);
 extern void notice_stuff(creature_type *cr_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);
 extern void redraw_stuff(void);

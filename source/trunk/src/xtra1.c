@@ -2763,7 +2763,7 @@ static void calc_lite(creature_type *creature_ptr)
  *
  * This function induces various "status" messages.
  */
-void calc_bonuses(creature_type *creature_ptr, bool message)
+void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
 	int             i, j, k, hold;
 	int             new_speed;
@@ -3159,19 +3159,23 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
 			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
 			break;
+
 		case CLASS_PALADIN:
 			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
 			break;
+
 		case CLASS_CHAOS_WARRIOR:
 			if (creature_ptr->lev > 29) creature_ptr->resist_chaos = TRUE;
 			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
 			break;
+
 		case CLASS_MINDCRAFTER:
 			if (creature_ptr->lev >  9) creature_ptr->resist_fear = TRUE;
 			if (creature_ptr->lev > 19) creature_ptr->sustain_wis = TRUE;
 			if (creature_ptr->lev > 29) creature_ptr->resist_conf = TRUE;
 			if (creature_ptr->lev > 39) creature_ptr->telepathy = TRUE;
 			break;
+
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 			/* Unencumbered Monks become faster every 10 levels */
@@ -3187,16 +3191,20 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 					creature_ptr->free_act = TRUE;
 			}
 			break;
+
 		case CLASS_SORCERER:
 			creature_ptr->to_ac -= 50;
 			creature_ptr->dis_to_ac -= 50;
 			break;
+
 		case CLASS_BARD:
 			creature_ptr->resist_sound = TRUE;
 			break;
+
 		case CLASS_SAMURAI:
 			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
 			break;
+
 		case CLASS_BERSERKER:
 			creature_ptr->shero = 1;
 			creature_ptr->sustain_str = TRUE;
@@ -3215,9 +3223,11 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			play_redraw |= PR_STATUS;
 			break;
+
 		case CLASS_MIRROR_MASTER:
 			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			break;
+
 		case CLASS_NINJA:
 			// Unencumbered Ninjas become faster every 10 levels
 			if (heavy_armor(creature_ptr))
@@ -3247,6 +3257,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			}
 			creature_ptr->slow_digest = TRUE;
 			creature_ptr->resist_fear = TRUE;
+
 			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
 			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
 			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
@@ -5391,7 +5402,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 	if (creature_ptr->creature_update & (CRU_BONUS))
 	{
 		creature_ptr->creature_update &= ~(CRU_BONUS);
-		calc_bonuses(creature_ptr, message);
+		set_creature_bonuses(creature_ptr, message);
 	}
 
 	if (creature_ptr->creature_update & (CRU_TORCH))

@@ -2331,7 +2331,7 @@ static int adjust_stat(int value, int amount)
 /*
  * Roll for a characters stats
  *
- * For efficiency, we include a chunk of "calc_bonuses()".
+ * For efficiency, we include a chunk of "set_creature_bonuses()".
  */
 static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 {
@@ -5577,7 +5577,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		get_extra(creature_ptr, TRUE);
 
 		// Deal Item
-		calc_bonuses(creature_ptr, FALSE);
+		set_creature_bonuses(creature_ptr, FALSE);
 		set_experience(creature_ptr);
 
 		deal_item(creature_ptr);
@@ -5590,7 +5590,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		{
 
 			set_experience(creature_ptr);
-			calc_bonuses(creature_ptr, FALSE);
+			set_creature_bonuses(creature_ptr, FALSE);
 
 			// Calculate the bonuses and hitpoints
 			// Update stuff 

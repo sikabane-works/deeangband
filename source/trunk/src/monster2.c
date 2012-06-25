@@ -2799,7 +2799,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * "disturb_near" (creature which is "easily" viewable moves in some
  * way).  Note that "moves" includes "appears" and "disappears".
  */
-//TODO  Marge to calc_bonuses
+//TODO  Marge to set_creature_bonuses
 void update_mon(int m_idx, bool full)
 {
 	creature_type *m_ptr = &creature_list[m_idx];

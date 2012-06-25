@@ -1655,7 +1655,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 		cr_ptr->riding_two_handed = cr_ptr->old_riding_two_handed = FALSE;
 	}
 
-	calc_bonuses(cr_ptr, TRUE);
+	set_creature_bonuses(cr_ptr, TRUE);
 
 	p_can_enter = player_can_enter(cr_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
@@ -1665,7 +1665,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	cr_ptr->riding_two_handed = old_riding_two_handed;
 	cr_ptr->old_riding_two_handed = old_old_riding_two_handed;
 
-	calc_bonuses(cr_ptr, TRUE);
+	set_creature_bonuses(cr_ptr, TRUE);
 
 	return p_can_enter;
 }
