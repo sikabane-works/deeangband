@@ -2860,6 +2860,185 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	}
 }
 
+
+static void set_status_bonuses(creature_type *creature_ptr)
+{
+	// Apply temporary "stun"
+	if (creature_ptr->stun > 50)
+	{
+		creature_ptr->to_hit[0] -= 20;
+		creature_ptr->to_hit[1] -= 20;
+		creature_ptr->to_hit_b  -= 20;
+		creature_ptr->to_hit_m  -= 20;
+		creature_ptr->dis_to_hit[0] -= 20;
+		creature_ptr->dis_to_hit[1] -= 20;
+		creature_ptr->dis_to_hit_b  -= 20;
+		creature_ptr->to_damage[0] -= 20;
+		creature_ptr->to_damage[1] -= 20;
+		creature_ptr->to_damage_m -= 20;
+		creature_ptr->dis_to_damage[0] -= 20;
+		creature_ptr->dis_to_damage[1] -= 20;
+	}
+	else if (creature_ptr->stun)
+	{
+		creature_ptr->to_hit[0] -= 5;
+		creature_ptr->to_hit[1] -= 5;
+		creature_ptr->to_hit_b -= 5;
+		creature_ptr->to_hit_m -= 5;
+		creature_ptr->dis_to_hit[0] -= 5;
+		creature_ptr->dis_to_hit[1] -= 5;
+		creature_ptr->dis_to_hit_b -= 5;
+		creature_ptr->to_damage[0] -= 5;
+		creature_ptr->to_damage[1] -= 5;
+		creature_ptr->to_damage_m -= 5;
+		creature_ptr->dis_to_damage[0] -= 5;
+		creature_ptr->dis_to_damage[1] -= 5;
+	}
+
+	// Wraith form
+	if (creature_ptr->wraith_form)
+	{
+		creature_ptr->reflect = TRUE;
+		creature_ptr->pass_wall = TRUE;
+	}
+
+	if (creature_ptr->kabenuke)
+	{
+		creature_ptr->pass_wall = TRUE;
+	}
+
+	/* Temporary blessing */
+	if (IS_BLESSED(creature_ptr))
+	{
+		creature_ptr->to_ac += 5;
+		creature_ptr->dis_to_ac += 5;
+		creature_ptr->to_hit[0] += 10;
+		creature_ptr->to_hit[1] += 10;
+		creature_ptr->to_hit_b  += 10;
+		creature_ptr->to_hit_m  += 10;
+		creature_ptr->dis_to_hit[0] += 10;
+		creature_ptr->dis_to_hit[1] += 10;
+		creature_ptr->dis_to_hit_b += 10;
+	}
+
+	if (creature_ptr->magicdef)
+	{
+		creature_ptr->resist_blind = TRUE;
+		creature_ptr->resist_conf = TRUE;
+		creature_ptr->reflect = TRUE;
+		creature_ptr->free_act = TRUE;
+		creature_ptr->levitation = TRUE;
+	}
+
+	/* Temporary "Hero" */
+	if (IS_HERO(creature_ptr))
+	{
+		creature_ptr->to_hit[0] += 12;
+		creature_ptr->to_hit[1] += 12;
+		creature_ptr->to_hit_b  += 12;
+		creature_ptr->to_hit_m  += 12;
+		creature_ptr->dis_to_hit[0] += 12;
+		creature_ptr->dis_to_hit[1] += 12;
+		creature_ptr->dis_to_hit_b  += 12;
+	}
+
+	/* Temporary "Beserk" */
+	if (creature_ptr->shero)
+	{
+		creature_ptr->to_hit[0] += 12;
+		creature_ptr->to_hit[1] += 12;
+		creature_ptr->to_hit_b  -= 12;
+		creature_ptr->to_hit_m  += 12;
+		creature_ptr->to_damage[0] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_damage[1] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_damage_m  += 3+(creature_ptr->lev/5);
+		creature_ptr->dis_to_hit[0] += 12;
+		creature_ptr->dis_to_hit[1] += 12;
+		creature_ptr->dis_to_hit_b  -= 12;
+		creature_ptr->dis_to_damage[0] += 3+(creature_ptr->lev/5);
+		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
+		creature_ptr->to_ac -= 10;
+		creature_ptr->dis_to_ac -= 10;
+		creature_ptr->skill_stl -= 7;
+		creature_ptr->skill_dev -= 20;
+		creature_ptr->skill_rob += 20;
+		creature_ptr->skill_eva += 20;
+		creature_ptr->skill_vol -= 30;
+		creature_ptr->skill_srh -= 15;
+		creature_ptr->skill_fos -= 15;
+		creature_ptr->skill_tht -= 20;
+		creature_ptr->skill_dig += 30;
+	}
+
+	/* Temporary "fast" */
+	if (IS_FAST(creature_ptr))
+	{
+		creature_ptr->speed += 10;
+	}
+
+	/* Temporary "slow" */
+	if (creature_ptr->slow)
+	{
+		creature_ptr->speed -= 10;
+	}
+
+	/* Temporary "telepathy" */
+	if (IS_TIM_ESP(creature_ptr))
+	{
+		creature_ptr->telepathy = TRUE;
+	}
+
+	if (creature_ptr->ele_immune)
+	{
+		if (creature_ptr->special_defense & DEFENSE_ACID)
+			creature_ptr->immune_acid = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_ELEC)
+			creature_ptr->immune_elec = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_FIRE)
+			creature_ptr->immune_fire = TRUE;
+		else if (creature_ptr->special_defense & DEFENSE_COLD)
+			creature_ptr->immune_cold = TRUE;
+	}
+
+	/* Temporary see invisible */
+	if (creature_ptr->tim_invis)
+	{
+		creature_ptr->see_inv = TRUE;
+	}
+
+	/* Temporary infravision boost */
+	if (creature_ptr->tim_infra)
+	{
+		creature_ptr->see_infra+=3;
+	}
+
+	/* Temporary regeneration boost */
+	if (creature_ptr->tim_regen)
+	{
+		creature_ptr->regenerate = TRUE;
+	}
+
+	/* Temporary levitation */
+	if (creature_ptr->tim_levitation)
+	{
+		creature_ptr->levitation = TRUE;
+	}
+
+	/* Temporary reflection */
+	if (creature_ptr->tim_reflect)
+	{
+		creature_ptr->reflect = TRUE;
+	}
+
+	/* Hack -- Hero/Shero -> Res fear */
+	if (IS_HERO(creature_ptr) || creature_ptr->shero)
+	{
+		creature_ptr->resist_fear = TRUE;
+	}
+
+}
+
+
 /*
  * Calculate the players current "state", taking into account
  * not only race/class intrinsics, but also objects being worn
@@ -4058,179 +4237,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
-	// Apply temporary "stun"
-	if (creature_ptr->stun > 50)
-	{
-		creature_ptr->to_hit[0] -= 20;
-		creature_ptr->to_hit[1] -= 20;
-		creature_ptr->to_hit_b  -= 20;
-		creature_ptr->to_hit_m  -= 20;
-		creature_ptr->dis_to_hit[0] -= 20;
-		creature_ptr->dis_to_hit[1] -= 20;
-		creature_ptr->dis_to_hit_b  -= 20;
-		creature_ptr->to_damage[0] -= 20;
-		creature_ptr->to_damage[1] -= 20;
-		creature_ptr->to_damage_m -= 20;
-		creature_ptr->dis_to_damage[0] -= 20;
-		creature_ptr->dis_to_damage[1] -= 20;
-	}
-	else if (creature_ptr->stun)
-	{
-		creature_ptr->to_hit[0] -= 5;
-		creature_ptr->to_hit[1] -= 5;
-		creature_ptr->to_hit_b -= 5;
-		creature_ptr->to_hit_m -= 5;
-		creature_ptr->dis_to_hit[0] -= 5;
-		creature_ptr->dis_to_hit[1] -= 5;
-		creature_ptr->dis_to_hit_b -= 5;
-		creature_ptr->to_damage[0] -= 5;
-		creature_ptr->to_damage[1] -= 5;
-		creature_ptr->to_damage_m -= 5;
-		creature_ptr->dis_to_damage[0] -= 5;
-		creature_ptr->dis_to_damage[1] -= 5;
-	}
-
-	// Wraith form
-	if (creature_ptr->wraith_form)
-	{
-		creature_ptr->reflect = TRUE;
-		creature_ptr->pass_wall = TRUE;
-	}
-
-	if (creature_ptr->kabenuke)
-	{
-		creature_ptr->pass_wall = TRUE;
-	}
-
-	/* Temporary blessing */
-	if (IS_BLESSED(creature_ptr))
-	{
-		creature_ptr->to_ac += 5;
-		creature_ptr->dis_to_ac += 5;
-		creature_ptr->to_hit[0] += 10;
-		creature_ptr->to_hit[1] += 10;
-		creature_ptr->to_hit_b  += 10;
-		creature_ptr->to_hit_m  += 10;
-		creature_ptr->dis_to_hit[0] += 10;
-		creature_ptr->dis_to_hit[1] += 10;
-		creature_ptr->dis_to_hit_b += 10;
-	}
-
-	if (creature_ptr->magicdef)
-	{
-		creature_ptr->resist_blind = TRUE;
-		creature_ptr->resist_conf = TRUE;
-		creature_ptr->reflect = TRUE;
-		creature_ptr->free_act = TRUE;
-		creature_ptr->levitation = TRUE;
-	}
-
-	/* Temporary "Hero" */
-	if (IS_HERO(creature_ptr))
-	{
-		creature_ptr->to_hit[0] += 12;
-		creature_ptr->to_hit[1] += 12;
-		creature_ptr->to_hit_b  += 12;
-		creature_ptr->to_hit_m  += 12;
-		creature_ptr->dis_to_hit[0] += 12;
-		creature_ptr->dis_to_hit[1] += 12;
-		creature_ptr->dis_to_hit_b  += 12;
-	}
-
-	/* Temporary "Beserk" */
-	if (creature_ptr->shero)
-	{
-		creature_ptr->to_hit[0] += 12;
-		creature_ptr->to_hit[1] += 12;
-		creature_ptr->to_hit_b  -= 12;
-		creature_ptr->to_hit_m  += 12;
-		creature_ptr->to_damage[0] += 3+(creature_ptr->lev/5);
-		creature_ptr->to_damage[1] += 3+(creature_ptr->lev/5);
-		creature_ptr->to_damage_m  += 3+(creature_ptr->lev/5);
-		creature_ptr->dis_to_hit[0] += 12;
-		creature_ptr->dis_to_hit[1] += 12;
-		creature_ptr->dis_to_hit_b  -= 12;
-		creature_ptr->dis_to_damage[0] += 3+(creature_ptr->lev/5);
-		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
-		creature_ptr->to_ac -= 10;
-		creature_ptr->dis_to_ac -= 10;
-		creature_ptr->skill_stl -= 7;
-		creature_ptr->skill_dev -= 20;
-		creature_ptr->skill_rob += 20;
-		creature_ptr->skill_eva += 20;
-		creature_ptr->skill_vol -= 30;
-		creature_ptr->skill_srh -= 15;
-		creature_ptr->skill_fos -= 15;
-		creature_ptr->skill_tht -= 20;
-		creature_ptr->skill_dig += 30;
-	}
-
-	/* Temporary "fast" */
-	if (IS_FAST(creature_ptr))
-	{
-		creature_ptr->speed += 10;
-	}
-
-	/* Temporary "slow" */
-	if (creature_ptr->slow)
-	{
-		creature_ptr->speed -= 10;
-	}
-
-	/* Temporary "telepathy" */
-	if (IS_TIM_ESP(creature_ptr))
-	{
-		creature_ptr->telepathy = TRUE;
-	}
-
-	if (creature_ptr->ele_immune)
-	{
-		if (creature_ptr->special_defense & DEFENSE_ACID)
-			creature_ptr->immune_acid = TRUE;
-		else if (creature_ptr->special_defense & DEFENSE_ELEC)
-			creature_ptr->immune_elec = TRUE;
-		else if (creature_ptr->special_defense & DEFENSE_FIRE)
-			creature_ptr->immune_fire = TRUE;
-		else if (creature_ptr->special_defense & DEFENSE_COLD)
-			creature_ptr->immune_cold = TRUE;
-	}
-
-	/* Temporary see invisible */
-	if (creature_ptr->tim_invis)
-	{
-		creature_ptr->see_inv = TRUE;
-	}
-
-	/* Temporary infravision boost */
-	if (creature_ptr->tim_infra)
-	{
-		creature_ptr->see_infra+=3;
-	}
-
-	/* Temporary regeneration boost */
-	if (creature_ptr->tim_regen)
-	{
-		creature_ptr->regenerate = TRUE;
-	}
-
-	/* Temporary levitation */
-	if (creature_ptr->tim_levitation)
-	{
-		creature_ptr->levitation = TRUE;
-	}
-
-	/* Temporary reflection */
-	if (creature_ptr->tim_reflect)
-	{
-		creature_ptr->reflect = TRUE;
-	}
-
-	/* Hack -- Hero/Shero -> Res fear */
-	if (IS_HERO(creature_ptr) || creature_ptr->shero)
-	{
-		creature_ptr->resist_fear = TRUE;
-	}
-
+	set_status_bonuses(creature_ptr);
 
 	/* Hack -- Telepathy Change */
 	if (creature_ptr->telepathy != old_telepathy)
@@ -4259,6 +4266,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	{
 		update |= (PU_MONSTERS);
 	}
+
 
 	/* Bloating slows the player down (a little) */
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10;
@@ -5070,7 +5078,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->possible_equipment = race_info[creature_ptr->race_idx1].possible_equipment;
 	else
 		creature_ptr->possible_equipment = 0;
-
 
 
 	/* calc karmas and bonuses */

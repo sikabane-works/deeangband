@@ -1628,7 +1628,7 @@ struct creature_type
 
 	u32b change_floor_mode;
 	s16b time_stopper;
-	int tsuri_dir;
+	byte tsuri_dir;
 };
 
 // creature_flags_type
