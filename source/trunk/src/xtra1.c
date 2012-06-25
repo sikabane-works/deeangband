@@ -4672,14 +4672,10 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			if (dex_index > 11) dex_index = 11;
 
 			/* Use the blows table */
-			creature_ptr->num_blow[i] = blows_table[str_index][dex_index];
+			creature_ptr->num_blow[i] = 1;
 
 			/* Maximal value */
 			if (creature_ptr->num_blow[i] > num) creature_ptr->num_blow[i] = num;
-
-			/* Add in the "bonus blows" */
-			creature_ptr->num_blow[i] += extra_blows[i];
-
 
 			if (creature_ptr->cls_idx == CLASS_WARRIOR) creature_ptr->num_blow[i] += (creature_ptr->lev / 40);
 			else if (creature_ptr->cls_idx == CLASS_BERSERKER)
