@@ -202,7 +202,7 @@ static bool trump_summoning(creature_type *cr_ptr, int num, bool pet, int y, int
 		/* Become pet */
 		mode |= PM_FORCE_PET;
 
-		/* Only sometimes allow unique monster */
+		/* Only sometimes allow unique creature */
 		if (mode & PM_ALLOW_UNIQUE)
 		{
 			/* Forbid often */
@@ -215,7 +215,7 @@ static bool trump_summoning(creature_type *cr_ptr, int num, bool pet, int y, int
 	}
 	else
 	{
-		/* Prevent taming, allow unique monster */
+		/* Prevent taming, allow unique creature */
 		mode |= PM_NO_PET;
 
 		/* Behave as if they appear by themselfs */
@@ -690,7 +690,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("奇妙なクリーチャーの絵だ。");
 #else
-		msg_print("It's the picture of a strange monster.");
+		msg_print("It's the picture of a strange creature.");
 #endif
 
 		trump_summoning(creature_ptr, 1, FALSE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
@@ -790,7 +790,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
 #else
-		msg_print("It's the picture of a friendly monster.");
+		msg_print("It's the picture of a friendly creature.");
 #endif
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
@@ -800,7 +800,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
 #else
-		msg_print("It's the picture of a friendly monster.");
+		msg_print("It's the picture of a friendly creature.");
 #endif
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
@@ -810,7 +810,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
 #else
-		msg_print("It's the picture of a friendly monster.");
+		msg_print("It's the picture of a friendly creature.");
 #endif
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
@@ -820,7 +820,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
 #else
-		msg_print("It's the picture of a friendly monster.");
+		msg_print("It's the picture of a friendly creature.");
 #endif
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
@@ -983,7 +983,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 		/* Stopped by walls/doors */
 		if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
 
-		/* Stopped by monsters */
+		/* Stopped by creatures */
 		if ((dir != 5) && floor_ptr->cave[ny][nx].creature_idx != 0) break;
 
 		/* Save the new location */
@@ -1246,7 +1246,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "1体のクリーチャーに小ダメージを与える。抵抗されると無効。";
 #else
 		if (name) return "Cause Light Wounds";
-		if (desc) return "Wounds a monster a little unless resisted.";
+		if (desc) return "Wounds a creature a little unless resisted.";
 #endif
     
 		{
@@ -1396,7 +1396,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "1体のクリーチャーに中ダメージを与える。抵抗されると無効。";
 #else
 		if (name) return "Cause Medium Wounds";
-		if (desc) return "Wounds a monster unless resisted.";
+		if (desc) return "Wounds a creature unless resisted.";
 #endif
     
 		{
@@ -1486,7 +1486,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のアンデッドを恐怖させる。抵抗されると無効。";
 #else
 		if (name) return "Turn Undead";
-		if (desc) return "Attempts to scare undead monsters in sight.";
+		if (desc) return "Attempts to scare undead creatures in sight.";
 #endif
     
 		{
@@ -1526,7 +1526,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
 #else
 		if (name) return "Glyph of Warding";
-		if (desc) return "Sets a glyph on the floor beneath you. Monsters cannot attack you if you are on a glyph, but can try to break glyph.";
+		if (desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
     
 		{
@@ -1584,7 +1584,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのアンデッドにダメージを与える。";
 #else
 		if (name) return "Dispel Undead";
-		if (desc) return "Damages all undead monsters in sight.";
+		if (desc) return "Damages all undead creatures in sight.";
 #endif
     
 		{
@@ -1606,7 +1606,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
 		if (name) return "Day of the Dove";
-		if (desc) return "Attempts to charm all monsters in sight.";
+		if (desc) return "Attempts to charm all creatures in sight.";
 #endif
     
 		{
@@ -1627,7 +1627,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "1体のクリーチャーに大ダメージを与える。抵抗されると無効。";
 #else
 		if (name) return "Cause Critical Wounds";
-		if (desc) return "Wounds a monster critically unless resisted.";
+		if (desc) return "Wounds a creature critically unless resisted.";
 #endif
     
 		{
@@ -1733,7 +1733,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
 		if (name) return "Detection";
-		if (desc) return "Detects all monsters, traps, doors, stairs, treasures and items in your vicinity.";
+		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
 
 		{
@@ -1754,7 +1754,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "自分の周囲にいるアンデッドを現在の階から消し去る。抵抗されると無効。";
 #else
 		if (name) return "Annihilate Undead";
-		if (desc) return "Eliminates all nearby undead monsters, exhausting you.  Powerful or unique monsters may be able to resist.";
+		if (desc) return "Eliminates all nearby undead creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
     
 		{
@@ -1900,8 +1900,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "クリーチャー感知";
 		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Monsters";
-		if (desc) return "Detects all monsters in your vicinity unless invisible.";
+		if (name) return "Detect Creatures";
+		if (desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
@@ -1911,7 +1911,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(cr_ptr, rad);
+				detect_creatures_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -1988,8 +1988,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "パニック・クリーチャー";
 		if (desc) return "クリーチャー1体を混乱させる。抵抗されると無効。";
 #else
-		if (name) return "Confuse Monster";
-		if (desc) return "Attempts to confuse a monster.";
+		if (name) return "Confuse Creature";
+		if (desc) return "Attempts to confuse a creature.";
 #endif
     
 		{
@@ -2032,8 +2032,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "スリープ・クリーチャー";
 		if (desc) return "クリーチャー1体を眠らせる。抵抗されると無効。";
 #else
-		if (name) return "Sleep Monster";
-		if (desc) return "Attempts to sleep a monster.";
+		if (name) return "Sleep Creature";
+		if (desc) return "Attempts to sleep a creature.";
 #endif
     
 		{
@@ -2114,8 +2114,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "スロウ・クリーチャー";
 		if (desc) return "クリーチャー1体を減速さる。抵抗されると無効。";
 #else
-		if (name) return "Slow Monster";
-		if (desc) return "Attempts to slow a monster.";
+		if (name) return "Slow Creature";
+		if (desc) return "Attempts to slow a creature.";
 #endif
     
 		{
@@ -2138,7 +2138,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを眠らせる。抵抗されると無効。";
 #else
 		if (name) return "Mass Sleep";
-		if (desc) return "Attempts to sleep all monsters in sight.";
+		if (desc) return "Attempts to sleep all creatures in sight.";
 #endif
     
 		{
@@ -2159,7 +2159,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
 		if (name) return "Teleport Away";
-		if (desc) return "Teleports all monsters on the line away unless resisted.";
+		if (desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
@@ -2204,7 +2204,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
 		if (name) return "Detection True";
-		if (desc) return "Detects all monsters, traps, doors, stairs, treasures and items in your vicinity.";
+		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
@@ -2264,8 +2264,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "チャーム・クリーチャー";
 		if (desc) return "クリーチャー1体を魅了する。抵抗されると無効。";
 #else
-		if (name) return "Charm Monster";
-		if (desc) return "Attempts to charm a monster.";
+		if (name) return "Charm Creature";
+		if (desc) return "Attempts to charm a creature.";
 #endif
     
 		{
@@ -2415,7 +2415,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャーの属性、残り体力、最大体力、スピード、正体を知る。";
 #else
 		if (name) return "Probing";
-		if (desc) return "Proves all monsters' alignment, HP, speed and their true character.";
+		if (desc) return "Proves all creatures' alignment, HP, speed and their true character.";
 #endif
     
 		{
@@ -2432,7 +2432,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "自分のいる床の上に、クリーチャーが通ると爆発してダメージを与えるルーンを描く。";
 #else
 		if (name) return "Explosive Rune";
-		if (desc) return "Sets a glyph under you. The glyph will explode when a monster moves on it.";
+		if (desc) return "Sets a glyph under you. The glyph will explode when a creature moves on it.";
 #endif
     
 		{
@@ -2505,8 +2505,8 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "魅了の視線";
 		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
-		if (name) return "Charm monsters";
-		if (desc) return "Attempts to charm all monsters in sight.";
+		if (name) return "Charm creatures";
+		if (desc) return "Attempts to charm all creatures in sight.";
 #endif
     
 		{
@@ -2544,7 +2544,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
 		if (name) return "Banishment";
-		if (desc) return "Teleports all monsters in sight away unless resisted.";
+		if (desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
     
 		{
@@ -2613,7 +2613,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
 		if (name) return "Detect Creatures";
-		if (desc) return "Detects all monsters in your vicinity unless invisible.";
+		if (desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
@@ -2623,7 +2623,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(caster_ptr, rad);
+				detect_creatures_normal(caster_ptr, rad);
 			}
 		}
 		break;
@@ -2869,7 +2869,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "周辺の地形を感知し、近くの罠、扉、階段、全てのクリーチャーを感知する。";
 #else
 		if (name) return "Nature Awareness";
-		if (desc) return "Maps nearby area. Detects all monsters, traps, doors and stairs.";
+		if (desc) return "Maps nearby area. Detects all creatures, traps, doors and stairs.";
 #endif
     
 		{
@@ -2884,7 +2884,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 				detect_traps(caster_ptr, rad2, TRUE);
 				detect_doors(caster_ptr, rad2);
 				detect_stairs(caster_ptr, rad2);
-				detect_monsters_normal(caster_ptr, rad2);
+				detect_creatures_normal(caster_ptr, rad2);
 			}
 		}
 		break;
@@ -2918,7 +2918,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
 #else
 		if (name) return "Ray of Sunlight";
-		if (desc) return "Fires a beam of light which damages to light-sensitive monsters.";
+		if (desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
     
 		{
@@ -2947,7 +2947,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
 #else
 		if (name) return "Entangle";
-		if (desc) return "Attempts to slow all monsters in sight.";
+		if (desc) return "Attempts to slow all creatures in sight.";
 #endif
     
 		{
@@ -3191,7 +3191,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "全方向に向かって攻撃する。";
 #else
 		if (name) return "Cyclone";
-		if (desc) return "Attacks all adjacent monsters.";
+		if (desc) return "Attacks all adjacent creatures.";
 #endif
     
 		{
@@ -3207,10 +3207,10 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 					x = caster_ptr->fx + ddx_ddd[dir];
 					c_ptr = &floor_ptr->cave[y][x];
 
-					/* Get the monster */
+					/* Get the creature */
 					m_ptr = &creature_list[c_ptr->creature_idx];
 
-					/* Hack -- attack monsters */
+					/* Hack -- attack creatures */
 					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(caster_ptr, y, x, 0);
 				}
@@ -3350,7 +3350,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "近くの全てのクリーチャーにダメージを与え、地震を起こし、自分を中心とした分解の球を発生させる。";
 #else
 		if (name) return "Nature's Wrath";
-		if (desc) return "Damages all monsters in sight. Makes quake. Generates disintegration ball centered on you.";
+		if (desc) return "Damages all creatures in sight. Makes quake. Generates disintegration ball centered on you.";
 #endif
     
 		{
@@ -3469,7 +3469,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "相手を混乱させる攻撃をできるようにする。";
 #else
 		if (name) return "Touch of Confusion";
-		if (desc) return "Attempts to confuse the next monster that you hit.";
+		if (desc) return "Attempts to confuse the next creature that you hit.";
 #endif
     
 		{
@@ -3728,7 +3728,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
 		if (name) return "Teleport Other";
-		if (desc) return "Teleports all monsters on the line away unless resisted.";
+		if (desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
@@ -3795,7 +3795,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体を変身させる。抵抗されると無効。";
 #else
 		if (name) return "Polymorph Other";
-		if (desc) return "Attempts to polymorph a monster.";
+		if (desc) return "Attempts to polymorph a creature.";
 #endif
     
 		{
@@ -4204,7 +4204,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの生命のないクリーチャーを感知する。";
 #else
 		if (name) return "Detect Unlife";
-		if (desc) return "Detects all nonliving monsters in your vicinity.";
+		if (desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
     
 		{
@@ -4214,7 +4214,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_nonliving(cr_ptr, rad);
+				detect_creatures_nonliving(cr_ptr, rad);
 			}
 		}
 		break;
@@ -4225,7 +4225,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "ごく小さな邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
 		if (name) return "Malediction";
-		if (desc) return "Fires a tiny ball of evil power which hurts good monsters greatly.";
+		if (desc) return "Fires a tiny ball of evil power which hurts good creatures greatly.";
 #endif
     
 		{
@@ -4243,8 +4243,8 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 				 * A radius-0 ball may (1) be aimed at
 				 * objects etc., and will affect them;
 				 * (2) may be aimed at ANY visible
-				 * monster, unlike a 'bolt' which must
-				 * travel to the monster.
+				 * creature, unlike a 'bolt' which must
+				 * travel to the creature.
 				 */
 
 				fire_ball(cr_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides), rad);
@@ -4273,7 +4273,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの邪悪なクリーチャーを感知する。";
 #else
 		if (name) return "Detect Evil";
-		if (desc) return "Detects all evil monsters in your vicinity.";
+		if (desc) return "Detects all evil creatures in your vicinity.";
 #endif
     
 		{
@@ -4283,7 +4283,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_evil(cr_ptr, rad);
+				detect_creatures_evil(cr_ptr, rad);
 			}
 		}
 		break;
@@ -4318,7 +4318,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "1体のクリーチャーを眠らせる。抵抗されると無効。";
 #else
 		if (name) return "Black Sleep";
-		if (desc) return "Attempts to sleep a monster.";
+		if (desc) return "Attempts to sleep a creature.";
 #endif
     
 		{
@@ -4362,7 +4362,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
 #else
 		if (name) return "Horrify";
-		if (desc) return "Attempts to scare and stun a monster.";
+		if (desc) return "Attempts to scare and stun a creature.";
 #endif
     
 		{
@@ -4386,7 +4386,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "アンデッド1体を魅了する。抵抗されると無効。";
 #else
 		if (name) return "Enslave Undead";
-		if (desc) return "Attempts to charm an undead monster.";
+		if (desc) return "Attempts to charm an undead creature.";
 #endif
     
 		{
@@ -4409,7 +4409,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "生命のある者に効果のある球を放つ。";
 #else
 		if (name) return "Orb of Entropy";
-		if (desc) return "Fires a ball which damages living monsters.";
+		if (desc) return "Fires a ball which damages living creatures.";
 #endif
     
 		{
@@ -4489,7 +4489,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体を消し去る。経験値やアイテムは手に入らない。抵抗されると無効。";
 #else
 		if (name) return "Genocide One";
-		if (desc) return "Attempts to vanish a monster.";
+		if (desc) return "Attempts to vanish a creature.";
 #endif
     
 		{
@@ -4529,7 +4529,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって満腹度が上がる。";
 #else
 		if (name) return "Vampiric Drain";
-		if (desc) return "Absorbs some HP from a monster and gives them to you. You will also gain nutritional sustenance from this.";
+		if (desc) return "Absorbs some HP from a creature and gives them to you. You will also gain nutritional sustenance from this.";
 #endif
     
 		{
@@ -4593,7 +4593,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "指定した文字のクリーチャーを現在の階から消し去る。抵抗されると無効。";
 #else
 		if (name) return "Genocide";
-		if (desc) return "Eliminates an entire class of monster, exhausting you.  Powerful or unique monsters may resist.";
+		if (desc) return "Eliminates an entire class of creature, exhausting you.  Powerful or unique creatures may resist.";
 #endif
     
 		{
@@ -4725,7 +4725,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって体力が回復する。";
 #else
 		if (name) return "Vampirism True";
-		if (desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a monster and gives them to you.";
+		if (desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a creature and gives them to you.";
 #endif
     
 		{
@@ -4754,7 +4754,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "視界内の生命のあるクリーチャーにダメージを与える。";
 #else
 		if (name) return "Nether Wave";
-		if (desc) return "Damages all living monsters in sight.";
+		if (desc) return "Damages all living creatures in sight.";
 #endif
     
 		{
@@ -4818,7 +4818,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "1体のアンデッドを召喚する。";
 #else
 		if (name) return "Raise the Dead";
-		if (desc) return "Summons an undead monster.";
+		if (desc) return "Summons an undead creature.";
 #endif
     
 		{
@@ -4935,7 +4935,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "自分の周囲にいるクリーチャーを現在の階から消し去る。抵抗されると無効。";
 #else
 		if (name) return "Mass Genocide";
-		if (desc) return "Eliminates all nearby monsters, exhausting you.  Powerful or unique monsters may be able to resist.";
+		if (desc) return "Eliminates all nearby creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
     
 		{
@@ -4956,7 +4956,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "邪悪な力を持つ宝珠を放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
 		if (name) return "Hellfire";
-		if (desc) return "Fires a powerful ball of evil power. Hurts good monsters greatly.";
+		if (desc) return "Fires a powerful ball of evil power. Hurts good creatures greatly.";
 #endif
     
 		{
@@ -5163,7 +5163,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
 		if (name) return "Teleport Away";
-		if (desc) return "Teleports all monsters on the line away unless resisted.";
+		if (desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
@@ -5244,7 +5244,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "複数の爆発するクリーチャーを召喚する。";
 #else
 		if (name) return "Trump Kamikaze";
-		if (desc) return "Summons monsters which explode by itself.";
+		if (desc) return "Summons creatures which explode by itself.";
 #endif
     
 		{
@@ -5324,8 +5324,8 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "スピード・クリーチャー";
 		if (desc) return "クリーチャー1体を加速させる。";
 #else
-		if (name) return "Haste Monster";
-		if (desc) return "Hastes a monster.";
+		if (name) return "Haste Creature";
+		if (desc) return "Hastes a creature.";
 #endif
     
 		{
@@ -5426,7 +5426,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
 		if (name) return "Banish";
-		if (desc) return "Teleports all monsters in sight away unless resisted.";
+		if (desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
     
 		{
@@ -5447,7 +5447,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "1体のクリーチャーと位置を交換する。";
 #else
 		if (name) return "Swap Position";
-		if (desc) return "Swap positions of you and a monster.";
+		if (desc) return "Swap positions of you and a creature.";
 #endif
     
 		{
@@ -5476,7 +5476,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "1体のアンデッドを召喚する。";
 #else
 		if (name) return "Trump Undead";
-		if (desc) return "Summons an undead monster.";
+		if (desc) return "Summons an undead creature.";
 #endif
     
 		{
@@ -5541,8 +5541,8 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "クリーチャーのカード";
 		if (desc) return "複数のクリーチャーを召喚する。";
 #else
-		if (name) return "Trump Monsters";
-		if (desc) return "Summons some monsters.";
+		if (name) return "Trump Creatures";
+		if (desc) return "Summons some creatures.";
 #endif
     
 		{
@@ -5700,7 +5700,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
 		if (name) return "Trump Divination";
-		if (desc) return "Detects all monsters, traps, doors, stairs, treasures and items in your vicinity.";
+		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
@@ -5737,8 +5737,8 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "回復クリーチャー";
 		if (desc) return "クリーチャー1体の体力を回復させる。";
 #else
-		if (name) return "Heal Monster";
-		if (desc) return "Heal a monster.";
+		if (name) return "Heal Creature";
+		if (desc) return "Heal a creature.";
 #endif
     
 		{
@@ -5995,7 +5995,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの透明なクリーチャーを感知する。";
 #else
 		if (name) return "Detect Invisibility";
-		if (desc) return "Detects all invisible monsters in your vicinity.";
+		if (desc) return "Detects all invisible creatures in your vicinity.";
 #endif
     
 		{
@@ -6005,7 +6005,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_invis(cr_ptr, rad);
+				detect_creatures_invis(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6015,8 +6015,8 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		if (name) return "クリーチャー感知";
 		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Monsters";
-		if (desc) return "Detects all monsters in your vicinity unless invisible.";
+		if (name) return "Detect Creatures";
+		if (desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
@@ -6026,7 +6026,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(cr_ptr, rad);
+				detect_creatures_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6414,7 +6414,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
 #else
 		if (name) return "Ray of Light";
-		if (desc) return "Fires a beam of light which damages to light-sensitive monsters.";
+		if (desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
     
 		{
@@ -6528,7 +6528,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
 		if (name) return "Teleport Away";
-		if (desc) return "Teleports all monsters on the line away unless resisted.";
+		if (desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
@@ -6585,7 +6585,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
 		if (name) return "Detection";
-		if (desc) return "Detects all monsters, traps, doors, stairs, treasures and items in your vicinity.";
+		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
@@ -6943,7 +6943,7 @@ static cptr do_craft_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
 #else
 		if (name) return "Protection from Evil";
-		if (desc) return "Gives aura which protect you from evil monster's physical attack.";
+		if (desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
     
 		{
@@ -7399,7 +7399,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "近くの生命のないクリーチャーを感知する。";
 #else
 		if (name) return "Detect Unlife";
-		if (desc) return "Detects all nonliving monsters in your vicinity.";
+		if (desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
     
 		{
@@ -7409,7 +7409,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_nonliving(cr_ptr, rad);
+				detect_creatures_nonliving(cr_ptr, rad);
 			}
 		}
 		break;
@@ -7462,7 +7462,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
 #else
 		if (name) return "Horrify";
-		if (desc) return "Attempts to scare and stun a monster.";
+		if (desc) return "Attempts to scare and stun a creature.";
 #endif
     
 		{
@@ -7534,7 +7534,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
 		if (name) return "Hellish Flame";
-		if (desc) return "Fires a ball of evil power. Hurts good monsters greatly.";
+		if (desc) return "Fires a ball of evil power. Hurts good creatures greatly.";
 #endif
     
 		{
@@ -7897,7 +7897,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーにダメージを与える。善良なクリーチャーに特に大きなダメージを与える。";
 #else
 		if (name) return "Nather Wave";
-		if (desc) return "Damages all monsters in sight. Hurts good monsters greatly.";
+		if (desc) return "Damages all creatures in sight. Hurts good creatures greatly.";
 #endif
     
 		{
@@ -7943,7 +7943,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "破滅の手を放つ。食らったクリーチャーはそのときのHPの半分前後のダメージを受ける。";
 #else
 		if (name) return "Doom Hand";
-		if (desc) return "Attempts to make a monster's HP almost half.";
+		if (desc) return "Attempts to make a creature's HP almost half.";
 #endif
     
 		{
@@ -8094,7 +8094,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		if (desc) return "自分がダメージを受けることによって対象に呪いをかけ、ダメージを与え様々な効果を引き起こす。";
 #else
 		if (name) return "Bloody Curse";
-		if (desc) return "Puts blood curse which damages and causes various effects on a monster. You also take damage.";
+		if (desc) return "Puts blood curse which damages and causes various effects on a creature. You also take damage.";
 #endif
     
 		{
@@ -8187,7 +8187,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "近くの邪悪なクリーチャーを感知する。";
 #else
 		if (name) return "Detect Evil";
-		if (desc) return "Detects all evil monsters in your vicinity.";
+		if (desc) return "Detects all evil creatures in your vicinity.";
 #endif
     
 		{
@@ -8197,7 +8197,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_evil(creature_ptr, rad);
+				detect_creatures_evil(creature_ptr, rad);
 			}
 		}
 		break;
@@ -8224,8 +8224,8 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (name) return "威圧";
 		if (desc) return "クリーチャー1体を恐怖させる。抵抗されると無効。";
 #else
-		if (name) return "Scare Monster";
-		if (desc) return "Attempts to scare a monster.";
+		if (name) return "Scare Creature";
+		if (desc) return "Attempts to scare a creature.";
 #endif
     
 		{
@@ -8248,7 +8248,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "隣接した全てのクリーチャーを眠らせる。抵抗されると無効。";
 #else
 		if (name) return "Sanctuary";
-		if (desc) return "Attempts to sleep monsters in the adjacent squares.";
+		if (desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
     
 		{
@@ -8332,7 +8332,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "邪悪なクリーチャー1体をテレポートさせる。抵抗されると無効。";
 #else
 		if (name) return "Scatter Evil";
-		if (desc) return "Attempts to teleport an evil monster away.";
+		if (desc) return "Attempts to teleport an evil creature away.";
 #endif
     
 		{
@@ -8354,7 +8354,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "聖なる力をもつ宝珠を放つ。邪悪なクリーチャーに対して大きなダメージを与えるが、善良なクリーチャーには効果がない。";
 #else
 		if (name) return "Holy Orb";
-		if (desc) return "Fires a ball with holy power. Hurts evil monsters greatly, but don't effect good monsters.";
+		if (desc) return "Fires a ball with holy power. Hurts evil creatures greatly, but don't effect good creatures.";
 #endif
     
 		{
@@ -8388,7 +8388,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのアンデッド及び悪魔にダメージを与え、邪悪なクリーチャーを恐怖させる。";
 #else
 		if (name) return "Exorcism";
-		if (desc) return "Damages all undead and demons in sight, and scares all evil monsters in sight.";
+		if (desc) return "Damages all undead and demons in sight, and scares all evil creatures in sight.";
 #endif
     
 		{
@@ -8457,7 +8457,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
 #else
 		if (name) return "Protection from Evil";
-		if (desc) return "Gives aura which protect you from evil monster's physical attack.";
+		if (desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
     
 		{
@@ -8501,7 +8501,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の邪悪な存在に大きなダメージを与え、体力を回復し、毒、恐怖、朦朧状態、負傷から全快する。";
 #else
 		if (name) return "Holy Word";
-		if (desc) return "Damages all evil monsters in sight, heals HP somewhat, and completely heals poison, fear, stun and cut status.";
+		if (desc) return "Damages all evil creatures in sight, heals HP somewhat, and completely heals poison, fear, stun and cut status.";
 #endif
     
 		{
@@ -8551,7 +8551,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "邪悪なクリーチャーの動きを止める。";
 #else
 		if (name) return "Arrest";
-		if (desc) return "Attempts to paralyze an evil monster.";
+		if (desc) return "Attempts to paralyze an evil creature.";
 #endif
     
 		{
@@ -8573,7 +8573,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "一定時間、邪悪なクリーチャーを傷つける聖なるオーラを得る。";
 #else
 		if (name) return "Holy Aura";
-		if (desc) return "Gives aura of holy power which injures evil monsters which attacked you for a while.";
+		if (desc) return "Gives aura of holy power which injures evil creatures which attacked you for a while.";
 #endif
     
 		{
@@ -8616,7 +8616,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の全ての邪悪なクリーチャーにダメージを与える。";
 #else
 		if (name) return "Dispel Evil";
-		if (desc) return "Damages all evil monsters in sight.";
+		if (desc) return "Damages all evil creatures in sight.";
 #endif
     
 		{
@@ -8637,7 +8637,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "通常の武器に滅邪の属性をつける。";
 #else
 		if (name) return "Holy Blade";
-		if (desc) return "Makes current weapon especially deadly against evil monsters.";
+		if (desc) return "Makes current weapon especially deadly against evil creatures.";
 #endif
     
 		{
@@ -8767,7 +8767,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の全ての邪悪なクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
 		if (name) return "Banish Evil";
-		if (desc) return "Teleports all evil monsters in sight away unless resisted.";
+		if (desc) return "Teleports all evil creatures in sight away unless resisted.";
 #endif
     
 		{
@@ -8816,7 +8816,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "一定時間、自分がダメージを受けたときに攻撃を行ったクリーチャーに対して同等のダメージを与える。";
 #else
 		if (name) return "An Eye for an Eye";
-		if (desc) return "Gives special aura for a while. When you are attacked by a monster, the monster are injured with same amount of damage as you take.";
+		if (desc) return "Gives special aura for a while. When you are attacked by a creature, the creature are injured with same amount of damage as you take.";
 #endif
     
 		{
@@ -8859,7 +8859,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "隣接するクリーチャーに聖なるダメージを与え、視界内のクリーチャーにダメージ、減速、朦朧、混乱、恐怖、眠りを与える。さらに体力を回復する。";
 #else
 		if (name) return "Divine Intervention";
-		if (desc) return "Damages all adjacent monsters with holy power. Damages and attempt to slow, stun, confuse, scare and freeze all monsters in sight. And heals HP.";
+		if (desc) return "Damages all adjacent creatures with holy power. Damages and attempt to slow, stun, confuse, scare and freeze all creatures in sight. And heals HP.";
 #endif
     
 		{
@@ -8894,7 +8894,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内の善良なクリーチャーをペットにしようとし、ならなかった場合及び善良でないクリーチャーを恐怖させる。さらに多数の加速された騎士を召喚し、ヒーロー、祝福、加速、対邪悪結界を得る。";
 #else
 		if (name) return "Crusade";
-		if (desc) return "Attempts to charm all good monsters in sight, and scare all non-charmed monsters, and summons great number of knights, and gives heroism, bless, speed and protection from evil.";
+		if (desc) return "Attempts to charm all good creatures in sight, and scare all non-charmed creatures, and summons great number of knights, and gives heroism, bless, speed and protection from evil.";
 #endif
     
 		{
@@ -8961,7 +8961,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
 #else
 		if (name) return "Song of Holding";
-		if (desc) return "Attempts to slow all monsters in sight.";
+		if (desc) return "Attempts to slow all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9058,7 +9058,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを朦朧させる。抵抗されると無効。";
 #else
 		if (name) return "Stun Pattern";
-		if (desc) return "Attempts to stun all monsters in sight.";
+		if (desc) return "Attempts to stun all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9162,7 +9162,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを恐怖させる。抵抗されると無効。";
 #else
 		if (name) return "Song of Fear";
-		if (desc) return "Attempts to scare all monsters in sight.";
+		if (desc) return "Attempts to scare all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9242,7 +9242,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "近くの罠/扉/階段を感知する。レベル15で全てのクリーチャー、20で財宝とアイテムを感知できるようになる。レベル25で周辺の地形を感知し、40でその階全体を永久に照らし、ダンジョン内のすべてのアイテムを感知する。この効果は歌い続けることで順に起こる。";
 #else
 		if (name) return "Clairaudience";
-		if (desc) return "Detects traps, doors and stairs in your vicinity. And detects all monsters at level 15, treasures and items at level 20. Maps nearby area at level 25. Lights and know the whole level at level 40. These effects occurs by turns while this song continues.";
+		if (desc) return "Detects traps, doors and stairs in your vicinity. And detects all creatures at level 15, treasures and items at level 20. Maps nearby area at level 25. Lights and know the whole level at level 40. These effects occurs by turns while this song continues.";
 #endif
     
 		/* Stop singing before start another */
@@ -9290,8 +9290,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 				if (count >= 3)
 				{
-					detect_monsters_invis(caster_ptr, rad);
-					detect_monsters_normal(caster_ptr, rad);
+					detect_creatures_invis(caster_ptr, rad);
+					detect_creatures_normal(caster_ptr, rad);
 
 					if (plev > 19 && count < 6)
 						caster_ptr->magic_num1[2] = count + 1;
@@ -9313,7 +9313,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーに対して精神攻撃を行う。";
 #else
 		if (name) return "Soul Shriek";
-		if (desc) return "Damages all monsters in sight with PSI damages.";
+		if (desc) return "Damages all creatures in sight with PSI damages.";
 #endif
 
 		/* Stop singing before start another */
@@ -9424,7 +9424,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを混乱させる。抵抗されると無効。";
 #else
 		if (name) return "Illusion Pattern";
-		if (desc) return "Attempts to confuse all monsters in sight.";
+		if (desc) return "Attempts to confuse all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9459,7 +9459,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーに対して轟音攻撃を行う。";
 #else
 		if (name) return "Doomcall";
-		if (desc) return "Damages all monsters in sight with booming sound.";
+		if (desc) return "Damages all creatures in sight with booming sound.";
 #endif
     
 		/* Stop singing before start another */
@@ -9521,7 +9521,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
 		if (name) return "Fellowship Chant";
-		if (desc) return "Attempts to charm all monsters in sight.";
+		if (desc) return "Attempts to charm all creatures in sight.";
 #endif
 
 		/* Stop singing before start another */
@@ -9700,7 +9700,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "近くのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
 		if (name) return "World Contortion";
-		if (desc) return "Teleports all nearby monsters away unless resisted.";
+		if (desc) return "Teleports all nearby creatures away unless resisted.";
 #endif
     
 		{
@@ -9731,7 +9731,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーにダメージを与える。邪悪なクリーチャーに特に大きなダメージを与える。";
 #else
 		if (name) return "Dispelling chant";
-		if (desc) return "Damages all monsters in sight. Hurts evil monsters greatly.";
+		if (desc) return "Damages all creatures in sight. Hurts evil creatures greatly.";
 #endif
     
 		/* Stop singing before start another */
@@ -9767,7 +9767,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを減速させ、眠らせようとする。抵抗されると無効。";
 #else
 		if (name) return "The Voice of Saruman";
-		if (desc) return "Attempts to slow and sleep all monsters in sight.";
+		if (desc) return "Attempts to slow and sleep all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9897,7 +9897,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全てのクリーチャーを麻痺させようとする。抵抗されると無効。";
 #else
 		if (name) return "Stationary Shriek";
-		if (desc) return "Attempts to freeze all monsters in sight.";
+		if (desc) return "Attempts to freeze all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -9932,7 +9932,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
 #else
 		if (name) return "Endurance";
-		if (desc) return "Sets a glyph on the floor beneath you. Monsters cannot attack you if you are on a glyph, but can try to break glyph.";
+		if (desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
     
 		{
@@ -9958,7 +9958,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "加速し、ヒーロー気分になり、視界内の全てのクリーチャーにダメージを与える。";
 #else
 		if (name) return "The Hero's Poem";
-		if (desc) return "Hastes you. Gives heroism. Damages all monsters in sight.";
+		if (desc) return "Hastes you. Gives heroism. Damages all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
@@ -10190,7 +10190,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "2マス離れたところにいるクリーチャーを攻撃する。";
 #else
 		if (name) return "Tobi-Izuna";
-		if (desc) return "Attacks a two squares distant monster.";
+		if (desc) return "Attacks a two squares distant creature.";
 #endif
     
 		if (cast)
@@ -10280,7 +10280,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "火炎耐性のないクリーチャーに大ダメージを与える。";
 #else
 		if (name) return "Burning Strike";
-		if (desc) return "Attacks a monster with more damage unless it has resistance to fire.";
+		if (desc) return "Attacks a creature with more damage unless it has resistance to fire.";
 #endif
     
 		if (cast)
@@ -10300,7 +10300,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10313,12 +10313,12 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "近くの思考することができるクリーチャーを感知する。";
 #else
 		if (name) return "Detect Ferocity";
-		if (desc) return "Detects all monsters except mindless in your vicinity.";
+		if (desc) return "Detects all creatures except mindless in your vicinity.";
 #endif
     
 		if (cast)
 		{
-			detect_monsters_mind(caster_ptr, DETECT_RAD_DEFAULT);
+			detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
 		}
 		break;
 
@@ -10328,7 +10328,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "相手にダメージを与えないが、朦朧とさせる。";
 #else
 		if (name) return "Strike to Stun";
-		if (desc) return "Attempts to stun a monster in the adjacent.";
+		if (desc) return "Attempts to stun a creature in the adjacent.";
 #endif
     
 		if (cast)
@@ -10348,7 +10348,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10361,7 +10361,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "相手に攻撃されたときに反撃する。反撃するたびにMPを消費。";
 #else
 		if (name) return "Counter";
-		if (desc) return "Prepares to counterattack. When attack by a monster, strikes back using SP each time.";
+		if (desc) return "Prepares to counterattack. When attack by a creature, strikes back using SP each time.";
 #endif
     
 		if (cast)
@@ -10390,7 +10390,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "攻撃した後、反対側に抜ける。";
 #else
 		if (name) return "Harainuke";
-		if (desc) return "Attacks monster with your weapons normally, then move through counter side of the monster.";
+		if (desc) return "Attacks creature with your weapons normally, then move through counter side of the creature.";
 #endif
     
 		if (cast)
@@ -10418,7 +10418,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10447,7 +10447,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "毒耐性のないクリーチャーに大ダメージを与える。";
 #else
 		if (name) return "Serpent's Tongue";
-		if (desc) return "Attacks a monster with more damage unless it has resistance to poison.";
+		if (desc) return "Attacks a creature with more damage unless it has resistance to poison.";
 #endif
     
 		if (cast)
@@ -10467,7 +10467,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10480,7 +10480,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "生命のない邪悪なクリーチャーに大ダメージを与えるが、他のクリーチャーには全く効果がない。";
 #else
 		if (name) return "Zammaken";
-		if (desc) return "Attacks an evil unliving monster with great damage. No effect to other  monsters.";
+		if (desc) return "Attacks an evil unliving creature with great damage. No effect to other  creatures.";
 #endif
     
 		if (cast)
@@ -10500,7 +10500,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10513,7 +10513,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "攻撃した相手を後方へ吹き飛ばす。";
 #else
 		if (name) return "Wind Blast";
-		if (desc) return "Attacks an adjacent monster, and blow it away.";
+		if (desc) return "Attacks an adjacent creature, and blow it away.";
 #endif
     
 		if (cast)
@@ -10533,7 +10533,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10614,7 +10614,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "岩を壊し、岩石系のクリーチャーに大ダメージを与える。";
 #else
 		if (name) return "Rock Smash";
-		if (desc) return "Breaks rock. Or greatly damage a monster made by rocks.";
+		if (desc) return "Breaks rock. Or greatly damage a creature made by rocks.";
 #endif
     
 		if (cast)
@@ -10646,7 +10646,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "攻撃回数が増え、冷気耐性のないクリーチャーに大ダメージを与える。";
 #else
 		if (name) return "Midare-Setsugekka";
-		if (desc) return "Attacks a monster with increased number of attacks and more damage unless it has resistance to cold.";
+		if (desc) return "Attacks a creature with increased number of attacks and more damage unless it has resistance to cold.";
 #endif
     
 		if (cast)
@@ -10666,7 +10666,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10679,7 +10679,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "クリーチャーを一撃で倒す攻撃を繰り出す。失敗すると1点しかダメージを与えられない。";
 #else
 		if (name) return "Spot Aiming";
-		if (desc) return "Attempts to kill a monster instantly. If failed cause only 1HP of damage.";
+		if (desc) return "Attempts to kill a creature instantly. If failed cause only 1HP of damage.";
 #endif
     
 		if (cast)
@@ -10699,7 +10699,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10712,7 +10712,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "会心の一撃で攻撃する。攻撃がかわされやすい。";
 #else
 		if (name) return "Majingiri";
-		if (desc) return "Attempts to attack with critical hit. But this attack is easy to evade for a monster.";
+		if (desc) return "Attempts to attack with critical hit. But this attack is easy to evade for a creature.";
 #endif
     
 		if (cast)
@@ -10732,7 +10732,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10765,7 +10765,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10779,7 +10779,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "電撃耐性のないクリーチャーに非常に大きいダメージを与える。";
 #else
 		if (name) return "Lightning Eagle";
-		if (desc) return "Attacks a monster with more damage unless it has resistance to electricity.";
+		if (desc) return "Attacks a creature with more damage unless it has resistance to electricity.";
 #endif
     
 		if (cast)
@@ -10799,7 +10799,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -10812,7 +10812,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "素早く相手に近寄り攻撃する。";
 #else
 		if (name) return "Rush Attack";
-		if (desc) return "Steps close to a monster and attacks at a time.";
+		if (desc) return "Steps close to a creature and attacks at a time.";
 #endif
     
 		if (cast)
@@ -10827,7 +10827,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "自分自身も傷を作りつつ、その傷が深いほど大きい威力で全方向の敵を攻撃できる。生きていないクリーチャーには効果がない。";
 #else
 		if (name) return "Bloody Maelstrom";
-		if (desc) return "Attacks all adjacent monsters with power corresponding to your cut status. Then increases your cut status. No effect to unliving monsters.";
+		if (desc) return "Attacks all adjacent creatures with power corresponding to your cut status. Then increases your cut status. No effect to unliving creatures.";
 #endif
     
 		if (cast)
@@ -10848,10 +10848,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				x = caster_ptr->fx + ddx_ddd[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 	
-				/* Get the monster */
+				/* Get the creature */
 				m_ptr = &creature_list[c_ptr->creature_idx];
 	
-				/* Hack -- attack monsters */
+				/* Hack -- attack creatures */
 				if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				{
 					if (!creature_living(m_ptr))
@@ -10953,7 +10953,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の全クリーチャーに対して轟音の攻撃を行う。さらに、近くにいるクリーチャーを怒らせる。";
 #else
 		if (name) return "War Cry";
-		if (desc) return "Damages all monsters in sight with sound. Aggravate nearby monsters.";
+		if (desc) return "Damages all creatures in sight with sound. Aggravate nearby creatures.";
 #endif
     
 		if (cast)
@@ -11003,7 +11003,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 					msg_print("その方向にはクリーチャーはいません。");
 #else
-					msg_print("There is no monster.");
+					msg_print("There is no creature.");
 #endif
 					return NULL;
 				}
@@ -11013,7 +11013,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					return "";
 				}
 	
-				/* Monster is dead? */
+				/* Creature is dead? */
 				if (!c_ptr->creature_idx) break;
 	
 				ny = y + ddy[dir];
@@ -11021,7 +11021,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				m_idx = c_ptr->creature_idx;
 				m_ptr = &creature_list[m_idx];
 	
-				/* Monster cannot move back? */
+				/* Creature cannot move back? */
 				if (!creature_can_enter(ny, nx, m_ptr, 0))
 				{
 					/* -more- */
@@ -11065,7 +11065,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "攻撃した相手の体力を吸いとり、自分の体力を回復させる。生命を持たないクリーチャーには通じない。";
 #else
 		if (name) return "Vampire's Fang";
-		if (desc) return "Attacks with vampiric strikes which absorbs HP from a monster and gives them to you. No effect to unliving monsters.";
+		if (desc) return "Attacks with vampiric strikes which absorbs HP from a creature and gives them to you. No effect to unliving creatures.";
 #endif
     
 		if (cast)
@@ -11085,7 +11085,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 					msg_print("その方向にはクリーチャーはいません。");
 #else
-					msg_print("There is no monster.");
+					msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -11098,7 +11098,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の起きている全クリーチャーに朦朧、混乱、眠りを与えようとする。";
 #else
 		if (name) return "Moon Dazzling";
-		if (desc) return "Attempts to stun, confuse and sleep all waking monsters.";
+		if (desc) return "Attempts to stun, confuse and sleep all waking creatures.";
 #endif
     
 		if (cast)
@@ -11120,12 +11120,12 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "連続して入身でクリーチャーを攻撃する。攻撃するたびにMPを消費。MPがなくなるか、クリーチャーを倒せなかったら百人斬りは終了する。";
 #else
 		if (name) return "Hundred Slaughter";
-		if (desc) return "Performs a series of rush attacks. The series continues while killing each monster in a time and SP remains.";
+		if (desc) return "Performs a series of rush attacks. The series continues while killing each creature in a time and SP remains.";
 #endif
     
 		if (cast)
 		{
-			const int mana_cost_per_monster = 8;
+			const int mana_cost_per_creature = 8;
 			bool new = TRUE;
 			bool mdeath;
 
@@ -11139,7 +11139,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					new = FALSE;
 				}
 				else
-					caster_ptr->csp -= mana_cost_per_monster;
+					caster_ptr->csp -= mana_cost_per_creature;
 
 				if (!mdeath) break;
 				command_dir = 0;
@@ -11147,7 +11147,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				play_redraw |= PR_MANA;
 				handle_stuff();
 			}
-			while (caster_ptr->csp > mana_cost_per_monster);
+			while (caster_ptr->csp > mana_cost_per_creature);
 
 			if (new) return NULL;
 	
@@ -11162,7 +11162,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "視界内の場所を指定して、その場所と自分の間にいる全クリーチャーを攻撃し、その場所に移動する。";
 #else
 		if (name) return "Dragonic Flash";
-		if (desc) return "Runs toward given location while attacking all monsters on the path.";
+		if (desc) return "Runs toward given location while attacking all creatures on the path.";
 #endif
     
 		if (cast)
@@ -11229,7 +11229,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 	msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("You don't see any monster in this direction");
+				msg_print("You don't see any creature in this direction");
 #endif
 				return NULL;
 			}
@@ -11242,7 +11242,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "強力な攻撃を行い、近くの場所にも効果が及ぶ。";
 #else
 		if (name) return "Kofuku-Zettousei";
-		if (desc) return "Performs a powerful attack which even effect nearby monsters.";
+		if (desc) return "Performs a powerful attack which even effect nearby creatures.";
 #endif
     
 		if (cast)
@@ -11307,7 +11307,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if (desc) return "自分もダメージをくらうが、相手に非常に大きなダメージを与える。アンデッドには特に効果がある。";
 #else
 		if (name) return "Keiun-Kininken";
-		if (desc) return "Attacks a monster with extremely powerful damage. But you also takes some damages. Hurts a undead monster greatly.";
+		if (desc) return "Attacks a creature with extremely powerful damage. But you also takes some damages. Hurts a undead creature greatly.";
 #endif
     
 		if (cast)
@@ -11327,7 +11327,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("There is no monster.");
+				msg_print("There is no creature.");
 #endif
 				return NULL;
 			}
@@ -11519,7 +11519,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーに微弱量の毒のダメージを与える。";
 #else
 		if (name) return "Stinking mist";
-		if (desc) return "Deals few damages of poison to all monsters in your sight.";
+		if (desc) return "Deals few damages of poison to all creatures in your sight.";
 #endif
 		power = plev / 2 + 5;
 		if (info) return info_damage(1, power, 0);
@@ -11660,7 +11660,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "周囲の邪悪なクリーチャーを感知する。";
 #else
 		if (name) return "Evil detection";
-		if (desc) return "Detects evil monsters.";
+		if (desc) return "Detects evil creatures.";
 #endif
 		if (info) return info_range(MAX_SIGHT);
 		if (cast)
@@ -11817,7 +11817,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーに微弱量の生命力吸収のダメージを与える。与えたダメージの分、体力が回復する。";
 #else
 		if (name) return "Vampiric mist";
-		if (desc) return "Deals few dameges of drain life to all monsters in your sight.";
+		if (desc) return "Deals few dameges of drain life to all creatures in your sight.";
 #endif
 		power = (plev / 2) + 5;
 		if (info) return info_damage(1, power, 0);
@@ -11862,7 +11862,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "攻撃した際クリーチャーを混乱させる。";
 #else
 		if (name) return "Touch of confusion";
-		if (desc) return "Confuses a monster when you attack.";
+		if (desc) return "Confuses a creature when you attack.";
 #endif
 		if (cast)
 		{
@@ -11906,7 +11906,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーのテレポートを阻害するバリアを張る。";
 #else
 		if (name) return "Anti teleport barrier";
-		if (desc) return "Obstructs all teleportations by monsters in your sight.";
+		if (desc) return "Obstructs all teleportations by creatures in your sight.";
 #endif
 		power = plev * 3 / 2;
 		if (info) return info_power(power);
@@ -12189,7 +12189,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーに精神ダメージ与え、魔力を吸い取る。";
 #else
 		if (name) return "Pains to mana";
-		if (desc) return "Deals psychic damages to all monsters in sight, and drains some mana.";
+		if (desc) return "Deals psychic damages to all creatures in sight, and drains some mana.";
 #endif
 		power = plev * 3 / 2;
 		if (info) return info_damage(1, power, 0);
@@ -12205,7 +12205,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "打撃や魔法で受けたダメージを、攻撃元のクリーチャーにも与える。";
 #else
 		if (name) return "Eye for an eye";
-		if (desc) return "Returns same damage which you got to the monster which damaged you.";
+		if (desc) return "Returns same damage which you got to the creature which damaged you.";
 #endif
 		if (cast)
 		{
@@ -12224,7 +12224,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "その階の増殖するクリーチャーの増殖を阻止する。";
 #else
 		if (name) return "Anti multiply barrier";
-		if (desc) return "Obstructs all multiplying by monsters in entire floor.";
+		if (desc) return "Obstructs all multiplying by creatures in entire floor.";
 #endif
 		if (cast)
 		{
@@ -12399,7 +12399,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーを朦朧とさせる。";
 #else
 		if (name) return "Word of stun";
-		if (desc) return "Stuns all monsters in your sight.";
+		if (desc) return "Stuns all creatures in your sight.";
 #endif
 		power = plev * 4;
 		if (info) return info_power(power);
@@ -12415,7 +12415,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "クリーチャーの隣のマスに瞬間移動する。";
 #else
 		if (name) return "Moving into shadow";
-		if (desc) return "Teleports you close to a monster.";
+		if (desc) return "Teleports you close to a creature.";
 #endif
 		if (cast)
 		{
@@ -12473,7 +12473,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "視界内のクリーチャーの魔法を阻害するバリアを張る。";
 #else
 		if (name) return "Anti magic barrier";
-		if (desc) return "Obstructs all magic spell of monsters in your sight.";
+		if (desc) return "Obstructs all magic spell of creatures in your sight.";
 #endif
 		power = plev * 3 / 2;
 		if (info) return info_power(power);

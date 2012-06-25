@@ -251,7 +251,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  *
  * In particular, the "PROJECT_STOP" and "PROJECT_THRU" flags have the same
  * semantics as they do for the "project" function, namely, that the path
- * will stop as soon as it hits a monster, or that the path will continue
+ * will stop as soon as it hits a creature, or that the path will continue
  * through the destination grid, respectively.
  *
  * The "PROJECT_JUMP" flag, which for the "project()" function means to
@@ -377,7 +377,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
-			/* Sometimes stop at non-initial monsters/players */
+			/* Sometimes stop at non-initial creatures/players */
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
@@ -465,7 +465,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
-			/* Sometimes stop at non-initial monsters/players */
+			/* Sometimes stop at non-initial creatures/players */
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
@@ -535,7 +535,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
-			/* Sometimes stop at non-initial monsters/players */
+			/* Sometimes stop at non-initial creatures/players */
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
@@ -559,12 +559,12 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 
 
 /*
- * Mega-Hack -- track "affected" monsters (see "project()" comments)
+ * Mega-Hack -- track "affected" creatures (see "project()" comments)
  */
 static int project_m_n;
 static int project_m_x;
 static int project_m_y;
-/* Mega-Hack -- monsters target */
+/* Mega-Hack -- creatures target */
 static s16b creature_target_x;
 static s16b creature_target_y;
 
@@ -1022,7 +1022,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Observe */
 				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
-				/* Mega-Hack -- Update the monster in the affected grid */
+				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
 				if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
@@ -1087,7 +1087,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				/* Notice */
 				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
-				/* Mega-Hack -- Update the monster in the affected grid */
+				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
 				if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 			}
@@ -1176,7 +1176,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				remove_mirror(player_ptr, y, x);
 
 			/* Permanent features don't get effect */
-			/* But not protect monsters and other objects */
+			/* But not protect creatures and other objects */
 			if (have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
 			{
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
@@ -1673,9 +1673,9 @@ msg_format("%sは%s", o_name, note_kill);
 /*
  * Helper function for "project()" below.
  *
- * Handle a beam/bolt/ball causing damage to a monster.
+ * Handle a beam/bolt/ball causing damage to a creature.
  *
- * This routine takes a "source monster" (by index) which is mostly used to
+ * This routine takes a "source creature" (by index) which is mostly used to
  * determine if the player is causing the damage, and a "radius" (see below),
  * which is used to decrease the power of explosions with distance, and a
  * location, via integers which are modified by certain types of attacks
@@ -1687,7 +1687,7 @@ msg_format("%sは%s", o_name, note_kill);
  * taking a "zero" damage, and can even take "parameters" to attacks (like
  * confuse) by accepting a "damage", using it to calculate the effect, and
  * then setting the damage to zero.  Note that the "damage" parameter is
- * divided by the radius, so monsters not at the "epicenter" will not take
+ * divided by the radius, so creatures not at the "epicenter" will not take
  * as much damage (or whatever)...
  *
  * Note that "polymorph" is dangerous, since a failure in "place_creature()"'
@@ -1698,7 +1698,7 @@ msg_format("%sは%s", o_name, note_kill);
  * Just "casting" a substance (i.e. plasma) does not make you immune, you must
  * actually be "made" of that substance, or "breathe" big balls of it.
  *
- * We assume that "Plasma" monsters, and "Plasma" breathers, are immune
+ * We assume that "Plasma" creatures, and "Plasma" breathers, are immune
  * to plasma.
  *
  * We assume "Nether" is an evil, necromantic force, so it doesn't hurt undead,
@@ -1717,7 +1717,7 @@ msg_format("%sは%s", o_name, note_kill);
  *     gives something simple.
  *
  * In this function, "result" messages are postponed until the end, where
- * the "note" string is appended to the monster name, if not NULL.  So,
+ * the "note" string is appended to the creature name, if not NULL.  So,
  * to make a spell have "no effect" just set "note" to NULL.  You should
  * also set "notice" to FALSE, or the player will learn what the spell does.
  *
@@ -1734,7 +1734,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	/* Is the monster "seen"? */
+	/* Is the creature "seen"? */
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
@@ -1746,7 +1746,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;
 
-	/* Gets the monster angry at the source of the effect? */
+	/* Gets the creature angry at the source of the effect? */
 	bool get_angry = FALSE;
 
 	/* Polymorph setting (true or false) */
@@ -1775,7 +1775,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 	bool heal_leper = FALSE;
 
-	/* Hold the monster name */
+	/* Hold the creature name */
 	char target_name[80];
 
 #ifndef JP
@@ -1806,19 +1806,19 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	if ((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((target_ptr->species_idx == MON_SUKE) || (target_ptr->species_idx == MON_KAKU))) return FALSE;
 
-	/* Don't affect already death monsters */
-	/* Prevents problems with chain reactions of exploding monsters */
+	/* Don't affect already death creatures */
+	/* Prevents problems with chain reactions of exploding creatures */
 	if (target_ptr->chp < 0) return (FALSE);
 
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
 
 
-	/* Get the monster name (BEFORE polymorphing) */
+	/* Get the creature name (BEFORE polymorphing) */
 	creature_desc(target_name, target_ptr, 0);
 
 #ifndef JP
-	/* Get the monster possessive ("his"/"her"/"its") */
+	/* Get the creature possessive ("his"/"her"/"its") */
 	creature_desc(m_poss, target_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
@@ -1845,15 +1845,15 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	/* Absolutely no effect */
 	if (skipped) return (FALSE);
 
-	/* "Unique" monsters cannot be polymorphed */
+	/* "Unique" creatures cannot be polymorphed */
 	if (is_unique_creature(target_ptr)) do_poly = FALSE;
 
-	/* Quest monsters cannot be polymorphed */
+	/* Quest creatures cannot be polymorphed */
 	if (is_quest_creature(target_ptr)) do_poly = FALSE;
 
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
-	/* "Unique" and "quest" monsters can only be "killed" by the player. */
+	/* "Unique" and "quest" creatures can only be "killed" by the player. */
 	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_cf_creature(target_ptr, CF_NAZGUL) && !gamble_arena_mode)
 	{
 		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
@@ -1969,7 +1969,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			get_angry = TRUE;
 		}
 
-		/* Mega-Hack -- Handle "polymorph" -- monsters get a saving throw */
+		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
 		if (do_poly && (randint1(90) > species_ptr->level))
 		{
 			if (polymorph_creature(player_ptr, y, x))
@@ -1977,7 +1977,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
-				/* Monster polymorphs */
+				/* Creature polymorphs */
 #ifdef JP
 				note = "が変身した！";
 #else
@@ -1997,7 +1997,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 #endif
 			}
 
-			/* Hack -- Get new monster */
+			/* Hack -- Get new creature */
 			target_ptr = target_ptr;
 
 			/* Hack -- Get new race */
@@ -2045,20 +2045,20 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		/* Drain mana does nothing */
 	}
 
-	/* If another monster did the damage, hurt the monster by hand */
+	/* If another creature did the damage, hurt the creature by hand */
 	else if (caster_ptr != caster_ptr)
 	{
 		/* Redraw (later) if needed */
 		if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 		if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
-		/* Wake the monster up */
+		/* Wake the creature up */
 		(void)set_paralyzed(target_ptr, 0);
 
-		/* Hurt the monster */
+		/* Hurt the creature */
 		target_ptr->chp -= dam;
 
-		/* Dead monster */
+		/* Dead creature */
 		if (target_ptr->chp < 0)
 		{
 			bool sad = FALSE;
@@ -2081,12 +2081,12 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			}
 
 			//TODO
-			//if (caster_ptr != caster_ptr) monster_gain_exp(caster_ptr, who, target_ptr->species_idx);
+			//if (caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
 			/* Generate treasure, etc */
 			creature_death(player_ptr, target_ptr, FALSE);
 
-			/* Delete the monster */
+			/* Delete the creature */
 			delete_species_idx(target_ptr);
 
 			if (sad)
@@ -2099,7 +2099,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			}
 		}
 
-		/* Damaged monster */
+		/* Damaged creature */
 		else
 		{
 			/* Give detailed messages if visible or destroyed */
@@ -2144,13 +2144,13 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	{
 		bool fear = FALSE;
 
-		/* Hurt the monster, check for fear and death */
+		/* Hurt the creature, check for fear and death */
 		take_hit(caster_ptr, target_ptr, 0, dam, NULL, note_dies, -1);
 
-		/* Damaged monster */
+		/* Damaged creature */
 		if(target_ptr->species_idx != 0)
 		{
-			/* HACK - anger the monster before showing the sleep message */
+			/* HACK - anger the creature before showing the sleep message */
 			if (do_sleep) anger_creature(caster_ptr, target_ptr);
 
 			/* Give detailed messages if visible or destroyed */
@@ -2168,7 +2168,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 				message_pain(c_ptr->creature_idx, dam);
 			}
 
-			/* Anger monsters */
+			/* Anger creatures */
 			if (((dam > 0) || get_angry) && !do_sleep)
 				anger_creature(caster_ptr, target_ptr);
 
@@ -2296,14 +2296,14 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 	/* XXX XXX XXX Verify this code */
 
-	/* Update the monster */
+	/* Update the creature */
 	if (target_ptr->species_idx) update_mon(c_ptr->creature_idx, FALSE);
 
-	/* Redraw the monster grid */
+	/* Redraw the creature grid */
 	lite_spot(floor_ptr, y, x);
 
 
-	/* Update monster recall window */
+	/* Update creature recall window */
 	if ((species_window_idx == target_ptr->species_idx) && (seen || !target_ptr->species_idx))
 	{
 		/* Window stuff */
@@ -2395,7 +2395,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	/* Were the effects "obvious" (if seen)? */
 	bool obvious = FALSE;
 
-	/* Is the monster "seen"? */
+	/* Is the creature "seen"? */
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
@@ -2430,14 +2430,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	if (!is_player(caster_ptr))
 	{
-		/* Get the source monster */
-		/* Extract the monster level */
+		/* Get the source creature */
+		/* Extract the creature level */
 		rlev = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
 
-		/* Get the monster name */
+		/* Get the creature name */
 		creature_desc(caster_name, caster_ptr, 0);
 
-		/* Get the monster's real name (gotten before polymorph!) */
+		/* Get the creature's real name (gotten before polymorph!) */
 		//TODO ? strcpy(killer, who_name);
 	}
 	else
@@ -3264,13 +3264,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				// Powerful monsters can resist
+				// Powerful creatures can resist
 				if ((is_unique_creature(target_ptr)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
 				}
-				// Normal monsters slow down
+				// Normal creatures slow down
 				else
 				{
 					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
@@ -3649,13 +3649,13 @@ note = "には耐性がある！";
 			else
 			{
 				// 1. slowness
-				// Powerful monsters can resist
+				// Powerful creatures can resist
 				if ((is_unique_creature(target_ptr)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
 				}
-				// Normal monsters slow down
+				// Normal creatures slow down
 				else
 				{
 					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
@@ -3819,7 +3819,7 @@ note_dies = "は蒸発した！";
 			dam = 0;
 			break;
 		}
-		/* Speed Monster (Ignore "dam")
+		/* Speed Creature (Ignore "dam")
 		case GF_OLD_SPEED:
 		{
 			if (seen) obvious = TRUE;
@@ -3851,7 +3851,7 @@ note_dies = "は蒸発した！";
 			(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
 			break;
 		}
-		/* Slow Monster (Use "dam" as "power")
+		/* Slow Creature (Use "dam" as "power")
 		case GF_OLD_SLOW:
 		{
 			if (seen) obvious = TRUE;
@@ -3867,7 +3867,7 @@ note_dies = "は蒸発した！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			// Powerful monsters can resist
+			// Powerful creatures can resist
 			if ((is_unique_creature(target_ptr)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3880,7 +3880,7 @@ note = "には効果がなかった！";
 				obvious = FALSE;
 			}
 
-			// Normal monsters slow down
+			// Normal creatures slow down
 			else
 			{
 				if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
@@ -3923,7 +3923,7 @@ note = "には効果がなかった！";
 				/* Have some nightmares */
 				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
-				/* Remove the monster restriction */
+				/* Remove the creature restriction */
 				get_species_num_prep(NULL, NULL);
 			}
 
@@ -4210,7 +4210,7 @@ note = "は眠り込んでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (!monster_living(species_ptr))
+			if (!species_living(species_ptr))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr))
 					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
@@ -4290,7 +4290,7 @@ note = "は眠り込んでしまった！";
 
 				if (caster_ptr != NULL)
 				{
-					/* Heal the monster */
+					/* Heal the creature */
 					if (caster_ptr->chp < caster_ptr->mhp)
 					{
 						/* Heal */
@@ -4338,7 +4338,7 @@ note = "は眠り込んでしまった！";
 			{
 				if (caster_ptr > 0)
 				{
-					// Heal the monster
+					// Heal the creature
 					if (caster_ptr->chp < caster_ptr->mhp)
 					{
 						// Heal
@@ -4352,7 +4352,7 @@ note = "は眠り込んでしまった！";
 						// Special message
 						if (see_s_msg)
 						{
-							// Get the monster name
+							// Get the creature name
 							creature_desc(killer, caster_ptr, 0);
 #ifdef JP
 							msg_format("%^sは気分が良さそうだ。", killer);
@@ -4961,7 +4961,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			/* PSI only works if the monster can see you! -- RG */
+			/* PSI only works if the creature can see you! -- RG */
 			if (!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
@@ -5400,7 +5400,7 @@ note = "は眠り込んでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (!monster_living(species_ptr))
+			if (!species_living(species_ptr))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr))
 					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
@@ -5420,7 +5420,7 @@ note = "は眠り込んでしまった！";
 		}
 
 
-		/* Polymorph monster (Use "dam" as "power") */
+		/* Polymorph creature (Use "dam" as "power") */
 		case GF_OLD_POLY:
 		{
 			if (seen) obvious = TRUE;
@@ -5439,7 +5439,7 @@ note = "は眠り込んでしまった！";
 			/* Attempt to polymorph (see below) */
 			do_poly = TRUE;
 
-			/* Powerful monsters can resist */
+			/* Powerful creatures can resist */
 			if ((is_unique_creature(target_ptr)) ||
 			    (is_quest_creature(target_ptr)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -5461,7 +5461,7 @@ note = "は眠り込んでしまった！";
 		}
 
 
-		/* Clone monsters (Ignore "dam") */
+		/* Clone creatures (Ignore "dam") */
 		case GF_OLD_CLONE:
 		{
 			if (seen) obvious = TRUE;
@@ -5498,7 +5498,7 @@ note = "は眠り込んでしまった！";
 		}
 
 
-		/* Heal Monster (use "dam" as amount of healing) */
+		/* Heal Creature (use "dam" as amount of healing) */
 		case GF_STAR_HEAL:
 		{
 			if (seen) obvious = TRUE;
@@ -5618,7 +5618,7 @@ note = "は眠り込んでしまった！";
 			break;
 		}
 
-		/* Charm monster */
+		/* Charm creature */
 		case GF_CHARM:
 		{
 			int vir;
@@ -6312,7 +6312,7 @@ note = "には耐性がある！";
 		}
 
 
-		/* Teleport monster (Use "dam" as "power") */
+		/* Teleport creature (Use "dam" as "power") */
 		case GF_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
@@ -6453,7 +6453,7 @@ note = "には耐性がある！";
 		}
 
 
-		/* Turn monster (Use "dam" as "power") */
+		/* Turn creature (Use "dam" as "power") */
 		case GF_TURN_ALL:
 		{
 			if (target_ptr->resist_ultimate)
@@ -6693,7 +6693,7 @@ note = "には耐性がある！";
 			break;
 		}
 
-		/* Dispel monster */
+		/* Dispel creature */
 		case GF_DISP_ALL:
 		{
 			if (target_ptr->resist_ultimate)
@@ -6718,7 +6718,7 @@ note = "には耐性がある！";
 			break;
 		}
 
-		/* Capture monster */
+		/* Capture creature */
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
@@ -6757,7 +6757,7 @@ note = "には耐性がある！";
 #else
 				msg_format("You capture %^s!", target_name);
 #endif
-				//TODO: capture monster status
+				//TODO: capture creature status
 				if (c_ptr->creature_idx == player_ptr->riding)
 				{
 					if (rakuba(player_ptr, -1, FALSE))
@@ -6789,7 +6789,7 @@ msg_format("うまく捕まえられなかった。");
 		/* Attack (Use "dam" as attack type) */
 		case GF_ATTACK:
 		{
-			/* Return this monster's death */
+			/* Return this creature's death */
 			//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		}
 
@@ -6843,7 +6843,7 @@ msg_format("うまく捕まえられなかった。");
 
 			if (effect == 1)
 			{
-				/* Powerful monsters can resist */
+				/* Powerful creatures can resist */
 				if ((is_unique_creature(target_ptr)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
@@ -6856,7 +6856,7 @@ msg_format("うまく捕まえられなかった。");
 					obvious = FALSE;
 				}
 
-				/* Normal monsters slow down */
+				/* Normal creatures slow down */
 				else
 				{
 					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
@@ -7150,11 +7150,11 @@ note = "には効果がなかった。";
  *
  * Handle a beam/bolt/ball causing damage to the player.
  *
- * This routine takes a "source monster" (by index), a "distance", a default
+ * This routine takes a "source creature" (by index), a "distance", a default
  * "damage", and a "damage type".  See "project_creature()" above.
  *
  * If "rad" is non-zero, then the blast was centered elsewhere, and the damage
- * is reduced (see "project_creature()" above).  This can happen if a monster breathes
+ * is reduced (see "project_creature()" above).  This can happen if a creature breathes
  * at the player and hits a wall instead.
  *
  * NOTE (Zangband): 'Bolt' attacks can be reflected back, so we need
@@ -7190,7 +7190,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	/* Is the monster "seen"? */
+	/* Is the creature "seen"? */
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
@@ -7202,7 +7202,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;
 
-	/* Gets the monster angry at the source of the effect? */
+	/* Gets the creature angry at the source of the effect? */
 	bool get_angry = FALSE;
 
 	/* Polymorph setting (true or false) */
@@ -7702,19 +7702,19 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  * Generic "beam"/"bolt"/"ball" projection routine.
  *
  * Input:
- *   who: Index of "source" monster (zero for "player")
+ *   who: Index of "source" creature (zero for "player")
  *   rad: Radius of explosion (0 = beam/bolt, 1 to 9 = ball)
  *   y,x: Target location (or location to travel "towards")
- *   dam: Base damage roll to apply to affected monsters (or player)
- *   typ: Type of damage to apply to monsters (and objects)
+ *   dam: Base damage roll to apply to affected creatures (or player)
+ *   typ: Type of damage to apply to creatures (and objects)
  *   flg: Extra bit flags (see PROJECT_xxxx in "defines.h")
  *
  * Return:
  *   TRUE if any "effects" of the projection were observed, else FALSE
  *
- * Allows a monster (or player) to project a beam/bolt/ball of a given kind
+ * Allows a creature (or player) to project a beam/bolt/ball of a given kind
  * towards a given location (optionally passing over the heads of interposing
- * monsters), and have it do a given amount of damage to the monsters (and
+ * creatures), and have it do a given amount of damage to the creatures (and
  * optionally objects) within the given radius of the final location.
  *
  * A "bolt" travels from source to target and affects only the target grid.
@@ -7723,21 +7723,21 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  *   affecting everything within the given radius of the target location.
  *
  * Traditionally, a "bolt" does not affect anything on the ground, and does
- * not pass over the heads of interposing monsters, much like a traditional
- * missile, and will "stop" abruptly at the "target" even if no monster is
+ * not pass over the heads of interposing creatures, much like a traditional
+ * missile, and will "stop" abruptly at the "target" even if no creature is
  * positioned there, while a "ball", on the other hand, passes over the heads
- * of monsters between the source and target, and affects everything except
- * the source monster which lies within the final radius, while a "beam"
- * affects every monster between the source and target, except for the casting
- * monster (or player), and rarely affects things on the ground.
+ * of creatures between the source and target, and affects everything except
+ * the source creature which lies within the final radius, while a "beam"
+ * affects every creature between the source and target, except for the casting
+ * creature (or player), and rarely affects things on the ground.
  *
  * Two special flags allow us to use this function in special ways, the
  * "PROJECT_HIDE" flag allows us to perform "invisible" projections, while
  * the "PROJECT_JUMP" flag allows us to affect a specific grid, without
- * actually projecting from the source monster (or player).
+ * actually projecting from the source creature (or player).
  *
- * The player will only get "experience" for monsters killed by himself
- * Unique monsters can only be destroyed by attacks from the player
+ * The player will only get "experience" for creatures killed by himself
+ * Unique creatures can only be destroyed by attacks from the player
  *
  * Only 256 grids can be affected per projection, limiting the effective
  * "radius" of standard ball attacks to nine units (diameter nineteen).
@@ -7751,7 +7751,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  *
  * Bolts and Beams explode INSIDE walls, so that they can destroy doors.
  *
- * Balls must explode BEFORE hitting walls, or they would affect monsters
+ * Balls must explode BEFORE hitting walls, or they would affect creatures
  * on both sides of a wall.  Some bug reports indicate that this is still
  * happening in 2.7.8 for Windows, though it appears to be impossible.
  *
@@ -7759,7 +7759,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  * More importantly, this lets us do "explosions" from the "inside" out.
  * This results in a more logical distribution of "blast" treasure.
  * It also produces a better (in my opinion) animation of the explosion.
- * It could be (but is not) used to have the treasure dropped by monsters
+ * It could be (but is not) used to have the treasure dropped by creatures
  * in the middle of the explosion fall "outwards", and then be damaged by
  * the blast as it spreads outwards towards the treasure drop location.
  *
@@ -7770,15 +7770,15 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  * efficiency, since this function is not a bottleneck in the code.
  *
  * We apply the blast effect from ground zero outwards, in several passes,
- * first affecting features, then objects, then monsters, then the player.
- * This allows walls to be removed before checking the object or monster
- * in the wall, and protects objects which are dropped by monsters killed
+ * first affecting features, then objects, then creatures, then the player.
+ * This allows walls to be removed before checking the object or creature
+ * in the wall, and protects objects which are dropped by creatures killed
  * in the blast, and allows the player to see all affects before he is
  * killed or teleported away.  The semantics of this method are open to
  * various interpretations, but they seem to work well in practice.
  *
  * We process the blast area from ground-zero outwards to allow for better
- * distribution of treasure dropped by monsters, and because it provides a
+ * distribution of treasure dropped by creatures, and because it provides a
  * pleasing visual effect at low cost.
  *
  * Note that the damage done by "ball" explosions decreases with distance.
@@ -7829,8 +7829,8 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  *
  * Hack -- we assume that every "projection" is "self-illuminating".
  *
- * Hack -- when only a single monster is affected, we automatically track
- * (and recall) that monster, unless "PROJECT_JUMP" is used.
+ * Hack -- when only a single creature is affected, we automatically track
+ * (and recall) that creature, unless "PROJECT_JUMP" is used.
  *
  * Note that all projections now "explode" at their final destination, even
  * if they were being projected at a more distant destination.  This means
@@ -7851,7 +7851,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	int dist_hack = 0;
 
-	int y_saver, x_saver; /* For reflecting monsters */
+	int y_saver, x_saver; /* For reflecting creatures */
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
@@ -7920,7 +7920,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		jump = TRUE;
 	}
 
-	/* Start at monster */
+	/* Start at creature */
 	if(!caster_ptr)
 	{
 		x1 = x;
@@ -8080,7 +8080,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if(project_o(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
-				// The target of monsterspell becomes tha mirror(broken)
+				// The target of creaturespell becomes tha mirror(broken)
 				creature_target_y=(s16b)y;
 				creature_target_x=(s16b)x;
 
@@ -8222,7 +8222,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 			if( is_mirror_grid(&floor_ptr->cave[y][x]) && !second_step )
 			{
-			  /* The target of monsterspell becomes tha mirror(broken) */
+			  /* The target of creaturespell becomes tha mirror(broken) */
 				creature_target_y=(s16b)y;
 				creature_target_x=(s16b)x;
 
@@ -8621,7 +8621,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	}
 
 
-	/* Check monsters */
+	/* Check creatures */
 	if (flg & (PROJECT_KILL))
 	{
 		/* Mega-Hack */
@@ -8632,7 +8632,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		/* Start with "dist" of zero */
 		dist = 0;
 
-		/* Scan for monsters */
+		/* Scan for creatures */
 		for (i = 0; i < grids; i++)
 		{
 			int effective_dist;
@@ -8692,7 +8692,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					/* The bolt is reflected */
 					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, t_y, t_x, dam, typ, flg, monspell);
 
-					/* Don't affect the monster any longer */
+					/* Don't affect the creature any longer */
 					continue;
 				}
 			}
@@ -8709,7 +8709,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 
-			/* There is the riding player on this monster */
+			/* There is the riding player on this creature */
 			if (caster_ptr && player_ptr->riding && creature_bold(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
@@ -8747,7 +8747,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				 * Otherwise this grid is not the
 				 * original target, it means that line
 				 * of fire is obstructed by this
-				 * monster.
+				 * creature.
 				 */
 				/*
 				 * A beam or bolt will hit either
@@ -8780,12 +8780,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 			}
 
-			/* Affect the monster in the grid */
+			/* Affect the creature in the grid */
 			if (project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, monspell)) notice = TRUE;
 		}
 
 
-		/* Player affected one monster (without "jumping") */
+		/* Player affected one creature (without "jumping") */
 		if (is_player(caster_ptr) && (project_m_n == 1) && !jump)
 		{
 			/* Location */
@@ -8934,7 +8934,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	int point_x[3];
 	int point_y[3];
 
-	/* Default target of monsterspell is player */
+	/* Default target of creaturespell is player */
 	creature_target_y=caster_ptr->fy;
 	creature_target_x=caster_ptr->fx;
 

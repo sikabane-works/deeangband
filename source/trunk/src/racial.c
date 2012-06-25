@@ -909,7 +909,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				x = creature_ptr->fx + ddx_ddd[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				/* Hack -- attack monsters */
+				/* Hack -- attack creatures */
 				if (c_ptr->creature_idx)
 					melee_attack(creature_ptr, y, x, 0);
 				else
@@ -974,7 +974,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
 #else
-				msg_print("You don't see any monster in this direction");
+				msg_print("You don't see any creature in this direction");
 #endif
 
 				msg_print(NULL);
@@ -1050,7 +1050,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 #ifdef JP
 			msg_print("辺りを睨んだ...");
 #else
-			msg_print("You glare nearby monsters...");
+			msg_print("You glare nearby creatures...");
 #endif
 			slow_creatures(creature_ptr);
 			stun_creatures(creature_ptr, creature_ptr->lev * 4);
@@ -1117,7 +1117,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 #ifdef JP
 					msg_print("その方向にはクリーチャーはいません。");
 #else
-					msg_print("You don't see any monster in this direction");
+					msg_print("You don't see any creature in this direction");
 #endif
 
 					msg_print(NULL);
@@ -1466,7 +1466,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				int y, x, dummy = 0;
 				cave_type *c_ptr;
 
-				/* Only works on adjacent monsters */
+				/* Only works on adjacent creatures */
 				if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
@@ -2007,7 +2007,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				int y, x, dummy = 0;
 				cave_type *c_ptr;
 
-				//Only works on adjacent monsters
+				//Only works on adjacent creatures
 				if (!get_rep_dir(creature_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
@@ -2216,7 +2216,7 @@ msg_print("混乱していて特殊能力を使えません！");
 	}
 
 
-	// Old Monster Only Spells
+	// Old Creature Only Spells
 
 	if (has_cf_creature(creature_ptr, CF_SHRIEK))
 	{
@@ -3722,7 +3722,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 #ifdef JP
 			strcpy(power_desc[num].name, "クリーチャー恐慌");
 #else
-			strcpy(power_desc[num].name, "Scare Monster");
+			strcpy(power_desc[num].name, "Scare Creature");
 #endif
 
 			power_desc[num].level = 15;
@@ -4024,7 +4024,7 @@ strcpy(power_desc[num].name, "放射能");
 #ifdef JP
 			strcpy(power_desc[num].name, "敵臭嗅覚");
 #else
-			strcpy(power_desc[num].name, "Smell Monsters");
+			strcpy(power_desc[num].name, "Smell Creatures");
 #endif
 
 			power_desc[num].level = 5;

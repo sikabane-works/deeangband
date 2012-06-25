@@ -363,7 +363,7 @@ info[i++] = "あなたは石の壁を壊すことができる。(10 MP)";
 #ifdef JP
 info[i++] = "あなたはクリーチャーをスキャンすることができる。(20 MP)";
 #else
-				info[i++] = "You can probe monsters (cost 20).";
+				info[i++] = "You can probe creatures (cost 20).";
 #endif
 
 			break;
@@ -619,7 +619,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 #ifdef JP
 					info[i++] = "あなたは周りのすべてのクリーチャーを攻撃することができる。(40 MP)";
 #else
-					info[i++] = "You can damages all monsters in sight (cost 40).";
+					info[i++] = "You can damages all creatures in sight (cost 40).";
 #endif
 				}
 			}
@@ -630,7 +630,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 #ifdef JP
 				info[i++] = "あなたは攻撃して即座に逃げることができる。(12 MP)";
 #else
-				info[i++] = "You can hit a monster and teleport at a time (cost 12).";
+				info[i++] = "You can hit a creature and teleport at a time (cost 12).";
 #endif
 			}
 			break;
@@ -640,7 +640,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 #ifdef JP
 info[i++] = "あなたは怪物を調査することができる。(20 MP)";
 #else
-				info[i++] = "You can prove monsters (cost 20).";
+				info[i++] = "You can prove creatures (cost 20).";
 #endif
 			}
 			break;
@@ -689,7 +689,7 @@ info[i++] = "あなたはＭＰをＨＰに変換することができる。(0 MP)";
 #ifdef JP
 info[i++] = "あなたは周囲に怪物を惑わす光を発生させることができる。(50 MP)";
 #else
-				info[i++] = "You can radiate light which confuses nearby monsters (cost 50).";
+				info[i++] = "You can radiate light which confuses nearby creatures (cost 50).";
 #endif
 			}
 			break;
@@ -743,7 +743,7 @@ info[i++] = "あなたはアイテムを完全に鑑定することができる。(20 MP)";
 #ifdef JP
 info[i++] = "あなたは怪物の特殊攻撃をダメージ2倍でまねることができる。(100 MP)";
 #else
-				info[i++] = "You can imitate monster's special attacks with double damage (cost 100).";
+				info[i++] = "You can imitate creature's special attacks with double damage (cost 100).";
 #endif
 			}
 			break;
@@ -751,14 +751,14 @@ info[i++] = "あなたは怪物の特殊攻撃をダメージ2倍でまねることができる。(100 MP)";
 #ifdef JP
 info[i++] = "あなたは1体の生命のあるクリーチャーを支配することができる。(レベル/4 MP)";
 #else
-			info[i++] = "You can dominate a monster (cost level/4).";
+			info[i++] = "You can dominate a creature (cost level/4).";
 #endif
 			if (plev > 29)
 			{
 #ifdef JP
 info[i++] = "あなたは視界内の生命のあるクリーチャーを支配することができる。((レベル+20)/2 MP)";
 #else
-				info[i++] = "You can dominate living monsters in sight (cost (level+20)/4).";
+				info[i++] = "You can dominate living creatures in sight (cost (level+20)/4).";
 #endif
 			}
 			break;
@@ -809,7 +809,7 @@ info[i++] = "あなたは相手に使われた魔法を学ぶことができる。";
 #ifdef JP
 info[i++] = "あなたはクリーチャーに乗って無理矢理ペットにすることができる。";
 #else
-				info[i++] = "You can ride on a hostile monster forcibly to turn it into pet.";
+				info[i++] = "You can ride on a hostile creature forcibly to turn it into pet.";
 #endif
 			}
 			break;
@@ -935,7 +935,7 @@ info[i++] = "あなたは近くにある貴金属をかぎ分けることができる。";
 #ifdef JP
 info[i++] = "あなたは近くのクリーチャーの存在をかぎ分けることができる。";
 #else
-			info[i++] = "You can smell nearby monsters.";
+			info[i++] = "You can smell nearby creatures.";
 #endif
 
 		}
@@ -1782,7 +1782,7 @@ info[i++] = "あなたは邪悪な怨念に包まれている。";
 #ifdef JP
 info[i++] = "あなたはクリーチャーを怒らせている。";
 #else
-		info[i++] = "You aggravate monsters.";
+		info[i++] = "You aggravate creatures.";
 #endif
 
 	}
@@ -2242,7 +2242,7 @@ info[i++] = "あなたは活動する無生物体の存在を感じる能力を持っている。";
 #ifdef JP
 info[i++] = "あなたは特別な強敵の存在を感じる能力を持っている。";
 #else
-		info[i++] = "You sense unique monsters.";
+		info[i++] = "You sense unique creatures.";
 #endif
 
 	}
@@ -3232,7 +3232,7 @@ static cptr report_magic_durations[] =
 	"for a long time",
 	"for a very long time",
 	"for an incredibly long time",
-	"until you hit a monster"
+	"until you hit a creature"
 #endif
 
 };
@@ -3718,7 +3718,7 @@ msg_print("財宝の存在を感じとった！");
 
 	}
 
-	if (detect_monsters_string(creature_ptr, range, "$"))
+	if (detect_creatures_string(creature_ptr, range, "$"))
 	{
 		detect = TRUE;
 	}
@@ -3786,7 +3786,7 @@ msg_print("アイテムの存在を感じとった！");
 
 	}
 
-	if (detect_monsters_string(cr_ptr, range, "!=?|/`"))
+	if (detect_creatures_string(cr_ptr, range, "!=?|/`"))
 	{
 		detect = TRUE;
 	}
@@ -3888,9 +3888,9 @@ msg_print("魔法のアイテムの存在を感じとった！");
 
 
 /*
- * Detect all "normal" monsters on the current panel
+ * Detect all "normal" creatures on the current panel
  */
-bool detect_monsters_normal(creature_type *cr_ptr, int range)
+bool detect_creatures_normal(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 
@@ -3898,32 +3898,32 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect all non-invisible monsters */
+		/* Detect all non-invisible creatures */
 		if (!has_cf_creature(m_ptr, CF_INVISIBLE) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -3940,7 +3940,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 #ifdef JP
 msg_print("クリーチャーの存在を感じとった！");
 #else
-		msg_print("You sense the presence of monsters!");
+		msg_print("You sense the presence of creatures!");
 #endif
 
 	}
@@ -3951,35 +3951,35 @@ msg_print("クリーチャーの存在を感じとった！");
 
 
 /*
- * Detect all "invisible" monsters around the player
+ * Detect all "invisible" creatures around the player
  */
-bool detect_monsters_invis(creature_type *cr_ptr, int range)
+bool detect_creatures_invis(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect invisible monsters */
+		/* Detect invisible creatures */
 		if (has_cf_creature(m_ptr, CF_INVISIBLE))
 		{
-			/* Update monster recall window */
+			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
@@ -3989,10 +3989,10 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4021,32 +4021,32 @@ msg_print("透明な生物の存在を感じとった！");
 
 
 /*
- * Detect all "evil" monsters on current panel
+ * Detect all "evil" creatures on current panel
  */
-bool detect_monsters_evil(creature_type *cr_ptr, int range)
+bool detect_creatures_evil(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect evil monsters */
+		/* Detect evil creatures */
 		if (is_enemy_of_good_creature(m_ptr))
 		{
 			if (is_original_ap(m_ptr))
@@ -4054,7 +4054,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 				/* Take note that they are evil */
 				//r_ptr->r_flags3 |= (RF3_EVIL);
 
-				/* Update monster recall window */
+				/* Update creature recall window */
 				if (species_window_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
@@ -4065,10 +4065,10 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4096,35 +4096,35 @@ msg_print("邪悪なる生物の存在を感じとった！");
 
 
 /*
- * Detect all "nonliving", "undead" or "demonic" monsters on current panel
+ * Detect all "nonliving", "undead" or "demonic" creatures on current panel
  */
-bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
+bool detect_creatures_nonliving(creature_type *cr_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect non-living monsters */
+		/* Detect non-living creatures */
 		if (!creature_living(cr_ptr))
 		{
-			/* Update monster recall window */
+			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
@@ -4134,10 +4134,10 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4163,35 +4163,35 @@ msg_print("自然でないクリーチャーの存在を感じた！");
 
 
 /*
- * Detect all monsters it has mind on current panel
+ * Detect all creatures it has mind on current panel
  */
-bool detect_monsters_mind(creature_type *cr_ptr, int range)
+bool detect_creatures_mind(creature_type *cr_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect non-living monsters */
+		/* Detect non-living creatures */
 		if (!has_cf_creature(m_ptr, CF_EMPTY_MIND))
 		{
-			/* Update monster recall window */
+			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
@@ -4201,10 +4201,10 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4230,35 +4230,35 @@ msg_print("殺気を感じとった！");
 
 
 /*
- * Detect all (string) monsters on current panel
+ * Detect all (string) creatures on current panel
  */
-bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
+bool detect_creatures_string(creature_type *cr_ptr, int range, cptr Match)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect monsters with the same symbol */
+		/* Detect creatures with the same symbol */
 		if (my_strchr(Match, r_ptr->d_char))
 		{
-			/* Update monster recall window */
+			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
@@ -4268,10 +4268,10 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4288,7 +4288,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 #ifdef JP
 msg_print("クリーチャーの存在を感じとった！");
 #else
-		msg_print("You sense the presence of monsters!");
+		msg_print("You sense the presence of creatures!");
 #endif
 
 	}
@@ -4299,37 +4299,37 @@ msg_print("クリーチャーの存在を感じとった！");
 
 
 /*
- * A "generic" detect monsters routine, tagged to flags3
+ * A "generic" detect creatures routine, tagged to flags3
  */
-bool detect_monsters_xxx(creature_type *cr_ptr, int range, u32b match_flag)
+bool detect_creatures_xxx(creature_type *cr_ptr, int range, u32b match_flag)
 {
 	int  i, y, x;
 	bool flag = FALSE;
 #ifdef JP
-cptr desc_monsters = "変なクリーチャー";
+cptr desc_creatures = "変なクリーチャー";
 #else
-	cptr desc_monsters = "weird monsters";
+	cptr desc_creatures = "weird creatures";
 #endif
 
 	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan monsters */
+	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby monsters */
+		/* Only detect nearby creatures */
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
-		/* Detect evil monsters */
+		/* Detect evil creatures */
 		//TODO if (r_ptr->flags3 & (match_flag))
 		if(1)
 		{
@@ -4338,7 +4338,7 @@ cptr desc_monsters = "変なクリーチャー";
 				/* Take note that they are something */
 				r_ptr->r_flags3 |= (match_flag);
 
-				/* Update monster recall window */
+				/* Update creature recall window */
 				if (species_window_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
@@ -4349,10 +4349,10 @@ cptr desc_monsters = "変なクリーチャー";
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 
 			/* Detect */
@@ -4367,18 +4367,18 @@ cptr desc_monsters = "変なクリーチャー";
 		{
 			default:
 #ifdef JP
-				desc_monsters = "敵";
+				desc_creatures = "敵";
 #else
-				desc_monsters = "the enemy";
+				desc_creatures = "the enemy";
 #endif
 				break;
 		}
 
 		/* Describe result */
 #ifdef JP
-msg_format("%sの存在を感じとった！", desc_monsters);
+msg_format("%sの存在を感じとった！", desc_creatures);
 #else
-		msg_format("You sense the presence of %s!", desc_monsters);
+		msg_format("You sense the presence of %s!", desc_creatures);
 #endif
 
 		msg_print(NULL);
@@ -4406,8 +4406,8 @@ bool detect_all(creature_type *cr_ptr, int range)
 
 	if (detect_objects_gold(cr_ptr, range)) detect = TRUE;
 	if (detect_objects_normal(cr_ptr, range)) detect = TRUE;
-	if (detect_monsters_invis(cr_ptr, range)) detect = TRUE;
-	if (detect_monsters_normal(cr_ptr, range)) detect = TRUE;
+	if (detect_creatures_invis(cr_ptr, range)) detect = TRUE;
+	if (detect_creatures_normal(cr_ptr, range)) detect = TRUE;
 
 	/* Result */
 	return (detect);
@@ -4415,11 +4415,11 @@ bool detect_all(creature_type *cr_ptr, int range)
 
 
 /*
- * Apply a "project()" directly to all viewable monsters
+ * Apply a "project()" directly to all viewable creatures
  *
- * Note that affected monsters are NOT auto-tracked by this usage.
+ * Note that affected creatures are NOT auto-tracked by this usage.
  *
- * To avoid misbehavior when monster deaths have side-effects,
+ * To avoid misbehavior when creature deaths have side-effects,
  * this is done in two passes. -- JDL
  */
 bool project_hack(creature_type *caster_ptr, int typ, int dam)
@@ -4430,12 +4430,12 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 
 
-	/* Mark all (nearby) monsters */
+	/* Mark all (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Location */
@@ -4445,16 +4445,16 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		/* Require line of sight */
 		if (!player_has_los_bold(y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
-		/* Mark the monster */
+		/* Mark the creature */
 		m_ptr->mflag |= (MFLAG_TEMP);
 	}
 
-	/* Affect all marked monsters */
+	/* Affect all marked creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip unmarked monsters */
+		/* Skip unmarked creatures */
 		if (!(m_ptr->mflag & (MFLAG_TEMP))) continue;
 
 		/* Remove mark */
@@ -4464,7 +4464,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Jump directly to the target monster */
+		/* Jump directly to the target creature */
 		if (project(caster_ptr, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
 	}
 
@@ -4474,15 +4474,15 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 
 
 /*
- * Speed monsters
+ * Speed creatures
  */
-bool speed_monsters(creature_type *caster_ptr)
+bool speed_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SPEED, caster_ptr->lev));
 }
 
 /*
- * Slow monsters
+ * Slow creatures
  */
 bool slow_creatures(creature_type *caster_ptr)
 {
@@ -4490,7 +4490,7 @@ bool slow_creatures(creature_type *caster_ptr)
 }
 
 /*
- * Sleep monsters
+ * Sleep creatures
  */
 bool sleep_creatures(creature_type *caster_ptr)
 {
@@ -4499,7 +4499,7 @@ bool sleep_creatures(creature_type *caster_ptr)
 
 
 /*
- * Banish evil monsters
+ * Banish evil creatures
  */
 bool banish_evil(creature_type *caster_ptr, int dist)
 {
@@ -4518,7 +4518,7 @@ bool turn_undead(creature_type *caster_ptr)
 
 
 /*
- * Dispel undead monsters
+ * Dispel undead creatures
  */
 bool dispel_undead(creature_type *caster_ptr, int dam)
 {
@@ -4527,7 +4527,7 @@ bool dispel_undead(creature_type *caster_ptr, int dam)
 }
 
 /*
- * Dispel evil monsters
+ * Dispel evil creatures
  */
 bool dispel_evil(creature_type *caster_ptr, int dam)
 {
@@ -4535,7 +4535,7 @@ bool dispel_evil(creature_type *caster_ptr, int dam)
 }
 
 /*
- * Dispel good monsters
+ * Dispel good creatures
  */
 bool dispel_good(creature_type *caster_ptr, int dam)
 {
@@ -4551,7 +4551,7 @@ bool dispel_creatures(creature_type *caster_ptr, int dam)
 }
 
 /*
- * Dispel 'living' monsters
+ * Dispel 'living' creatures
  */
 bool dispel_living(creature_type *caster_ptr, int dam)
 {
@@ -4577,7 +4577,7 @@ bool crusade(creature_type *cr_ptr)
 
 
 /*
- * Wake up all monsters, and speed up "los" monsters.
+ * Wake up all creatures, and speed up "los" creatures.
  */
 void aggravate_creatures(creature_type *cr_ptr)
 {
@@ -4591,13 +4591,13 @@ void aggravate_creatures(creature_type *cr_ptr)
 	{
 		creature_type    *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		/* Skip aggravating monster (or player) */
+		/* Skip aggravating creature (or player) */
 		if (m_ptr == cr_ptr) continue;
 
-		/* Wake up nearby sleeping monsters */
+		/* Wake up nearby sleeping creatures */
 		if (m_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
@@ -4609,7 +4609,7 @@ void aggravate_creatures(creature_type *cr_ptr)
 			if (!is_pet(player_ptr, m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
 		}
 
-		/* Speed up monsters in line of sight */
+		/* Speed up creatures in line of sight */
 		if (player_has_los_bold(m_ptr->fy, m_ptr->fx))
 		{
 			if (!is_pet(player_ptr, m_ptr))
@@ -4633,7 +4633,7 @@ void aggravate_creatures(creature_type *cr_ptr)
 
 
 
-// Delete a non-unique/non-quest monster
+// Delete a non-unique/non-quest creature
 bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
@@ -4644,7 +4644,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	if (is_pet(player_ptr, m_ptr) && !player_cast) return FALSE;
 
-	/* Hack -- Skip Unique Monsters or Quest Monsters */
+	/* Hack -- Skip Unique Creatures or Quest Creatures */
 	if ((is_quest_species(r_ptr)) || is_unique_species(r_ptr)) resist = TRUE;
 
 	else if (is_sub_unique_species(r_ptr)) resist = TRUE;
@@ -4657,7 +4657,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	else if (player_cast && (m_ptr->mflag2 & MFLAG2_NOGENO)) resist = TRUE;
 
-	/* Delete the monster */
+	/* Delete the creature */
 	else
 	{
 		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
@@ -4745,7 +4745,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 
 /*
- * Delete all non-unique/non-quest monsters of a given "type" from the level
+ * Delete all non-unique/non-quest creatures of a given "type" from the level
  */
 bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
@@ -4760,23 +4760,23 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		return (FALSE);
 	}
 
-	/* Mega-Hack -- Get a monster symbol */
+	/* Mega-Hack -- Get a creature symbol */
 #ifdef JP
 	while (!get_com("どの種類(文字)のクリーチャーを抹殺しますか: ", &typ, FALSE)) ;
 #else
-	while (!get_com("Choose a monster race (by symbol) to genocide: ", &typ, FALSE)) ;
+	while (!get_com("Choose a creature race (by symbol) to genocide: ", &typ, FALSE)) ;
 #endif
 
-	/* Delete the monsters of that "type" */
+	/* Delete the creatures of that "type" */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		/* Skip "wrong" monsters */
+		/* Skip "wrong" creatures */
 		if (r_ptr->d_char != typ) continue;
 
 		/* Take note */
@@ -4792,7 +4792,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 
 /*
- * Delete all nearby (non-unique) monsters
+ * Delete all nearby (non-unique) creatures
  */
 bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
@@ -4806,15 +4806,15 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		return (FALSE);
 	}
 
-	/* Delete the (nearby) monsters */
+	/* Delete the (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		/* Skip distant monsters */
+		/* Skip distant creatures */
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 
 		/* Note effect */
@@ -4845,18 +4845,18 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 		return (FALSE);
 	}
 
-	/* Delete the (nearby) monsters */
+	/* Delete the (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		if (!is_undead_species(r_ptr)) continue;
 
-		/* Skip distant monsters */
+		/* Skip distant creatures */
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 
 		/* Note effect */
@@ -4873,7 +4873,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 
 
 /*
- * Probe nearby monsters
+ * Probe nearby creatures
  */
 bool probing(floor_type *floor_ptr)
 {
@@ -4889,19 +4889,19 @@ bool probing(floor_type *floor_ptr)
 	Term->scr->cu = 0;
 	Term->scr->cv = 1;
 
-	/* Probe all (nearby) monsters */
+	/* Probe all (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Require line of sight */
 		if (!player_has_los_bold(m_ptr->fy, m_ptr->fx)) continue;
 
-		/* Probe visible monsters */
+		/* Probe visible creatures */
 		if (m_ptr->ml)
 		{
 			char m_name[80];
@@ -4926,14 +4926,14 @@ bool probing(floor_type *floor_ptr)
 				m_ptr->ap_species_idx = m_ptr->species_idx;
 				lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
 			}
-			/* Get "the monster" or "something" */
+			/* Get "the creature" or "something" */
 			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed - 110;
 			if (m_ptr->fast) speed += 10;
 			if (m_ptr->slow) speed -= 10;
 
-			/* Get the monster's alignment */
+			/* Get the creature's alignment */
 			/* TODO: New Alignment View */
 			align = "----";
 
@@ -4949,7 +4949,7 @@ bool probing(floor_type *floor_ptr)
 			else if(m_ptr->sex == SEX_NONE) sex = "Asexual";
 #endif
 
-			/* Describe the monster */
+			/* Describe the creature */
 #ifdef JP
 sprintf(buf,"%s 属性:%s 性別:%s HP:%d/%d AC:%d 速度:%s%d 腕:%d 知:%d 賢:%d 器:%d 耐:%d 魅:%d 経験:",
 		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
@@ -4998,12 +4998,12 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 
 			Term_erase(0, 0, 255);
 
-			/* Learn everything about this monster */
+			/* Learn everything about this creature */
 			if (lore_do_probe(m_ptr->species_idx))
 			{
 				char buf[80];
 
-				/* Get base name of monster */
+				/* Get base name of creature */
 				strcpy(buf, (species_name + r_ptr->name));
 
 #ifdef JP
@@ -5050,7 +5050,7 @@ msg_print("これで全部です。");
 /*
  * The spell of destruction
  *
- * This spell "deletes" monsters (instead of "killing" them).
+ * This spell "deletes" creatures (instead of "killing" them).
  *
  * Later we may use one function for both "destruction" and
  * "earthquake" by using the "full" to select "destruction".
@@ -5068,7 +5068,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		return (FALSE);
 	}
 
-	/* Lose monster light */
+	/* Lose creature light */
 	if (!in_generate) clear_creature_lite(floor_ptr);
 
 	/* Big area of affect */
@@ -5123,15 +5123,15 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 				if (in_generate) /* In generation */
 				{
-					/* Delete the monster (if any) */
+					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, y, x);
 				}
 				else if (is_quest_species(r_ptr))
 				{
-					/* Heal the monster */
+					/* Heal the creature */
 					m_ptr->chp = m_ptr->mhp;
 
-					/* Try to teleport away quest monsters */
+					/* Try to teleport away quest creatures */
 					if (!teleport_away(&creature_list[c_ptr->creature_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
 				}
 				else
@@ -5144,7 +5144,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
 					}
 
-					/* Delete the monster (if any) */
+					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, y, x);
 				}
 			}
@@ -5347,15 +5347,15 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
  * The player will take damage and "jump" into a safe grid if possible,
  * otherwise, he will "tunnel" through the rubble instantaneously.
  *
- * Monsters will take damage, and "jump" into a safe grid if possible,
+ * Creatures will take damage, and "jump" into a safe grid if possible,
  * otherwise they will be "buried" in the rubble, disappearing from
  * the level in the same way that they do when genocided.
  *
- * Note that thus the player and monsters (except eaters of walls and
+ * Note that thus the player and creatures (except eaters of walls and
  * passers through walls) will never occupy the same grid as a wall.
- * Note that as of now (2.7.8) no monster may occupy a "wall" grid, even
- * for a single turn, unless that monster can pass_walls or kill_walls.
- * This has allowed massive simplification of the "monster" code.
+ * Note that as of now (2.7.8) no creature may occupy a "wall" grid, even
+ * for a single turn, unless that creature can pass_walls or kill_walls.
+ * This has allowed massive simplification of the "creature" code.
  */
 bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 {
@@ -5553,7 +5553,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				char m_name[80];
 				creature_type *m_ptr = &creature_list[m_idx];
 
-				/* Get the monster's real name */
+				/* Get the creature's real name */
 				creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
@@ -5592,22 +5592,22 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 			if (c_ptr->creature_idx == target_ptr->riding) continue;
 
-			/* Process monsters */
+			/* Process creatures */
 			if (c_ptr->creature_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-				/* Quest monsters */
+				/* Quest creatures */
 				if (is_quest_species(r_ptr))
 				{
-					/* No wall on quest monsters */
+					/* No wall on quest creatures */
 					map[16+yy-cy][16+xx-cx] = FALSE;
 
 					continue;
 				}
 
-				/* Most monsters cannot co-exist with rock */
+				/* Most creatures cannot co-exist with rock */
 				if (!is_kill_wall_species(r_ptr) &&
 				    !is_pass_wall_species(r_ptr))
 				{
@@ -5616,7 +5616,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					/* Assume not safe */
 					sn = 0;
 
-					/* Monster can move to escape the wall */
+					/* Creature can move to escape the wall */
 					if (!(is_never_move_species(r_ptr)))
 					{
 						/* Look for safety */
@@ -5653,7 +5653,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						}
 					}
 
-					/* Describe the monster */
+					/* Describe the creature */
 					creature_desc(m_name, m_ptr, 0);
 
 					/* Scream in pain */
@@ -5666,13 +5666,13 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					/* Take damage from the quake */
 					damage = (sn ? diceroll(4, 8) : (m_ptr->chp + 1));
 
-					/* Monster is certainly awake */
+					/* Creature is certainly awake */
 					(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
 
-					/* Delete (not kill) "dead" monsters */
+					/* Delete (not kill) "dead" creatures */
 					if (m_ptr->chp < 0)
 					{
 						/* Message */
@@ -5693,7 +5693,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							}
 						}
 
-						/* Delete the monster */
+						/* Delete the creature */
 						delete_creature(floor_ptr, yy, xx);
 
 						/* No longer safe */
@@ -5711,11 +5711,11 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						/* Update the new location */
 						floor_ptr->cave[sy][sx].creature_idx = m_idx;
 
-						/* Move the monster */
+						/* Move the creature */
 						m_ptr->fy = sy;
 						m_ptr->fx = sx;
 
-						/* Update the monster (new location) */
+						/* Update the creature (new location) */
 						update_mon(m_idx, TRUE);
 
 						/* Redraw the old grid */
@@ -5729,7 +5729,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
-	/* Lose monster light */
+	/* Lose creature light */
 	clear_creature_lite(floor_ptr);
 
 	/* Examine the quaked region */
@@ -5934,11 +5934,11 @@ void discharge_minion(creature_type *caster_ptr)
  *
  * Dark grids are illuminated.
  *
- * Also, process all affected monsters.
+ * Also, process all affected creatures.
  *
- * SMART monsters always wake up when illuminated
- * NORMAL monsters wake up 1/4 the time when illuminated
- * STUPID monsters wake up 1/10 the time when illuminated
+ * SMART creatures always wake up when illuminated
+ * NORMAL creatures wake up 1/4 the time when illuminated
+ * STUPID creatures wake up 1/10 the time when illuminated
  */
 static void cave_temp_room_lite(creature_type *lite_ptr)
 {
@@ -5962,7 +5962,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		/* Perma-Lite */
 		c_ptr->info |= (CAVE_GLOW);
 
-		/* Process affected monsters */
+		/* Process affected creatures */
 		if (c_ptr->creature_idx)
 		{
 			int chance = 25;
@@ -5971,16 +5971,16 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(c_ptr->creature_idx, FALSE);
 
-			/* Stupid monsters rarely wake up */
+			/* Stupid creatures rarely wake up */
 			if (has_cf_creature(m_ptr, CF_STUPID)) chance = 10;
 
-			/* Smart monsters always wake up */
+			/* Smart creatures always wake up */
 			if (has_cf_creature(m_ptr, CF_SMART)) chance = 100;
 
-			/* Sometimes monsters wake up */
+			/* Sometimes creatures wake up */
 			if (m_ptr->paralyzed && (randint0(100) < chance))
 			{
 				/* Wake up! */
@@ -5991,7 +5991,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 				{
 					char m_name[80];
 
-					/* Acquire the monster name */
+					/* Acquire the creature name */
 					creature_desc(m_name, m_ptr, 0);
 
 					/* Dump a message */
@@ -6028,7 +6028,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
  *
  * This routine is used (only) by "unlite_room()"
  *
- * Also, process all affected monsters
+ * Also, process all affected creatures
  */
 static void cave_temp_room_unlite(floor_type *floor_ptr)
 {
@@ -6084,10 +6084,10 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 				note_spot(floor_ptr, y, x);
 			}
 
-			/* Process affected monsters */
+			/* Process affected creatures */
 			if (c_ptr->creature_idx)
 			{
-				/* Update the monster */
+				/* Update the creature */
 				update_mon(c_ptr->creature_idx, FALSE);
 			}
 
@@ -6362,7 +6362,7 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 }
 
 // Hack -- call light around the player
-// Affect all monsters in the projection radius
+// Affect all creatures in the projection radius
 bool lite_area(creature_type *creature_ptr, int dam, int rad)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -6402,7 +6402,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 
 /*
  * Hack -- call darkness around the player
- * Affect all monsters in the projection radius
+ * Affect all creatures in the projection radius
  */
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
@@ -6433,9 +6433,9 @@ msg_print("暗闇が辺りを覆った。");
 
 /*
  * Cast a ball spell
- * Stop if we hit a monster, act as a "ball"
- * Allow "target" mode to pass over monsters
- * Affect grids, objects, and monsters
+ * Stop if we hit a creature, act as a "ball"
+ * Allow "target" mode to pass over creatures
+ * Affect grids, objects, and creatures
  */
 bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
@@ -6463,9 +6463,9 @@ bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 
 /*
  * Cast a ball spell
- * Stop if we hit a monster, act as a "ball"
- * Allow "target" mode to pass over monsters
- * Affect grids, objects, and monsters
+ * Stop if we hit a creature, act as a "ball"
+ * Allow "target" mode to pass over creatures
+ * Affect grids, objects, and creatures
  */
 bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
@@ -6491,9 +6491,9 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 
 /*
  * Cast a ball spell
- * Stop if we hit a monster, act as a "ball"
- * Allow "target" mode to pass over monsters
- * Affect grids, objects, and monsters
+ * Stop if we hit a creature, act as a "ball"
+ * Allow "target" mode to pass over creatures
+ * Affect grids, objects, and creatures
  */
 bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
@@ -6519,7 +6519,7 @@ bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 
 
 /*
- * Cast a meteor spell, defined as a ball spell cast by an arbitary monster, 
+ * Cast a meteor spell, defined as a ball spell cast by an arbitary creature, 
  * player, or outside source, that starts out at an arbitrary location, and 
  * leaving no trail from the "caster" to the target.  This function is 
  * especially useful for bombardments and similar. -LM-
@@ -6668,7 +6668,7 @@ msg_print("失敗した。");
 
 	sound(SOUND_TELEPORT);
 
-	/* Swap the player and monster */
+	/* Swap the player and creature */
 	(void)move_creature_effect(creature_ptr, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
 	/* Success */
@@ -6704,8 +6704,8 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 
 /*
  * Cast a bolt spell.
- * Stop if we hit a monster, as a "bolt".
- * Affect monsters and grids (not objects).
+ * Stop if we hit a creature, as a "bolt".
+ * Affect creatures and grids (not objects).
  */
 bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
 {
@@ -6716,8 +6716,8 @@ bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
 
 /*
  * Cast a beam spell.
- * Pass through monsters, as a "beam".
- * Affect monsters, grids and objects.
+ * Pass through creatures, as a "beam".
+ * Affect creatures, grids and objects.
  */
 bool fire_beam(creature_type *caster_ptr, int typ, int dir, int dam)
 {
@@ -7240,7 +7240,7 @@ int summon_cyber(creature_type *summoner_ptr, int y, int x)
 	int count = 0;
 	u32b mode = PM_ALLOW_GROUP;
 
-	// Summoned by a monster
+	// Summoned by a creature
 	if (summoner_ptr)
 		if (is_pet(player_ptr, summoner_ptr)) mode |= PM_FORCE_PET;
 
@@ -7301,7 +7301,7 @@ void wall_breaker(creature_type *creature_ptr)
 
 
 /*
- * Confuse monsters
+ * Confuse creatures
  */
 bool confuse_creatures(creature_type *caster_ptr, int dam)
 {
@@ -7310,7 +7310,7 @@ bool confuse_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Charm monsters
+ * Charm creatures
  */
 bool charm_creatures(creature_type *caster_ptr, int dam)
 {
@@ -7328,7 +7328,7 @@ bool charm_animals(creature_type *caster_ptr, int dam)
 
 
 /*
- * Stun monsters
+ * Stun creatures
  */
 bool stun_creatures(creature_type *caster_ptr, int dam)
 {
@@ -7337,7 +7337,7 @@ bool stun_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Stasis monsters
+ * Stasis creatures
  */
 bool stasis_creatures(creature_type *caster_ptr, int dam)
 {
@@ -7346,7 +7346,7 @@ bool stasis_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Mindblast monsters
+ * Mindblast creatures
  */
 bool mindblast_creatures(creature_type *caster_ptr, int dam)
 {
@@ -7355,7 +7355,7 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Banish all monsters
+ * Banish all creatures
  */
 bool banish_creatures(creature_type *caster_ptr, int dist)
 {
@@ -7382,7 +7382,7 @@ bool turn_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Death-ray all monsters (note: OBSCENELY powerful)
+ * Death-ray all creatures (note: OBSCENELY powerful)
  */
 bool deathray_creatures(creature_type *caster_ptr)
 {
@@ -7564,13 +7564,13 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 			break;
 		}
 
-		/* Move player before updating the monster */
+		/* Move player before updating the creature */
 		if (!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
-		/* Update the monster */
+		/* Update the creature */
 		update_mon(floor_ptr->cave[ny][nx].creature_idx, TRUE);
 
-		/* Found a monster */
+		/* Found a creature */
 		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];
 
 		if (tm_idx != floor_ptr->cave[ny][nx].creature_idx)
@@ -7579,15 +7579,15 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 			msg_format("%s%sが立ちふさがっている！", tm_idx ? "別の" : "",
 				   m_ptr->ml ? "クリーチャー" : "何か");
 #else
-			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another monster" : "a monster") : "someone");
+			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another creature" : "a creature") : "someone");
 #endif
 		}
 		else if (!creature_bold(creature_ptr, ty, tx))
 		{
-			/* Hold the monster name */
+			/* Hold the creature name */
 			char m_name[80];
 
-			/* Get the monster name (BEFORE polymorphing) */
+			/* Get the creature name (BEFORE polymorphing) */
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("素早く%sの懐に入り込んだ！", m_name);

@@ -282,14 +282,14 @@ void check_experience(creature_type *cr_ptr)
 
 
 /*
- * Hack -- Return the "automatic coin type" of a monster race
+ * Hack -- Return the "automatic coin type" of a creature race
  * Used to allocate proper treasure when "Creeping coins" die
  *
- * XXX XXX XXX Note the use of actual "monster names"
+ * XXX XXX XXX Note the use of actual "creature names"
  */
 static int get_coin_type(int species_idx)
 {
-	/* Analyze monsters */
+	/* Analyze creatures */
 	switch (species_idx)
 	{
 	case MON_COPPER_COINS: return 2;
@@ -431,7 +431,7 @@ static bool kind_is_hafted(int k_idx)
 }
 
 
-// Check for "Quest" completion when a quest monster is killed or charmed.
+// Check for "Quest" completion when a quest creature is killed or charmed.
 void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(dead_ptr);
@@ -469,7 +469,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 			    (quest[i].type != QUEST_TYPE_KILL_ANY_LEVEL))
 				continue;
 
-			/* Not a "kill monster" quest */
+			/* Not a "kill creature" quest */
 			if ((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) ||
 			    (quest[i].type == QUEST_TYPE_FIND_EXIT))
 				continue;
@@ -530,7 +530,7 @@ msg_print("クエストを達成した！");
 
 				if (!is_hostile(dead_ptr)) break;
 
-				/* Count all hostile monsters */
+				/* Count all hostile creatures */
 				for (i2 = 0; i2 < floor_ptr->width; ++i2)
 					for (j2 = 0; j2 < floor_ptr->height; j2++)
 						if (floor_ptr->cave[j2][i2].creature_idx > 0)
@@ -563,7 +563,7 @@ msg_print("クエストを達成した！");
 			case QUEST_TYPE_KILL_LEVEL:
 			case QUEST_TYPE_RANDOM:
 			{
-				/* Only count valid monsters */
+				/* Only count valid creatures */
 				if (quest[i].species_idx != dead_ptr->species_idx)
 					break;
 
@@ -690,11 +690,11 @@ msg_print("魔法の階段が現れた...");
 
 
 /*
- * Return monster death string
+ * Return creature death string
  */
 cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 {
-	/* Some monsters get "destroyed" */
+	/* Some creatures get "destroyed" */
 	if (!creature_living(dead_ptr))
 	{
 		int i;
@@ -734,17 +734,17 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 
 
 /*
- * Handle the "death" of a monster.
+ * Handle the "death" of a creature.
  *
- * Disperse treasures centered at the monster location based on the
- * various flags contained in the monster flags fields.
+ * Disperse treasures centered at the creature location based on the
+ * various flags contained in the creature flags fields.
  *
- * Check for "Quest" completion when a quest monster is killed.
+ * Check for "Quest" completion when a quest creature is killed.
  *
  * Note that only the player can induce "creature_death()" on Uniques.
- * Thus (for now) all Quest monsters should be Uniques.
+ * Thus (for now) all Quest creatures should be Uniques.
  *
- * Note that monsters can now carry objects, and when a monster dies,
+ * Note that creatures can now carry objects, and when a creature dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
 void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
@@ -795,7 +795,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		do_cmd_write_nikki(NIKKI_NAMED_PET, 3, m_name);
 	}
 
-	/* Let monsters explode! */
+	/* Let creatures explode! */
 	for (i = 0; i < 4; i++)
 	{
 		if (killed_ptr->blow[i].method == RBM_EXPLODE)
@@ -864,7 +864,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 		{
 			char m_name[80];
 			
-			/* Extract monster name */
+			/* Extract creature name */
 			creature_desc(m_name, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(NIKKI_ARENA, arena_number, m_name);
@@ -1345,7 +1345,7 @@ msg_print("地面に落とされた。");
 	/* Hack -- handle creeping coins */
 	coin_type = force_coin;
 
-	/* Average dungeon and monster levels */
+	/* Average dungeon and creature levels */
 	floor_ptr->object_level = (floor_ptr->floor_level + r_ptr->level) / 2;
 
 	/* Drop some objects */
@@ -1395,13 +1395,13 @@ msg_print("地面に落とされた。");
 		lore_treasure(killed_ptr, dump_item, dump_gold);
 	}
 
-	/* Only process "Quest Monsters" */
+	/* Only process "Quest Creatures" */
 	if (!is_quest_creature(killed_ptr)) return;
 	if (gamble_arena_mode) return;
 }
 
 /*
- * Modify the physical damage done to the monster.
+ * Modify the physical damage done to the creature.
  * (for example when it's invulnerable or shielded)
  *
  * ToDo: Accept a damage-type to calculate the modified damage from
@@ -1448,7 +1448,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * unless we carefully choose orders of multiplication and division.
  *
  * Get the coefficient first, and multiply (potentially huge) base
- * experience point of a monster later.
+ * experience point of a creature later.
  */
 void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 {
@@ -1464,7 +1464,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	if (is_pet(player_ptr, tar_ptr) || gamble_arena_mode) return;
 
 	/*
-	 * - Ratio of monster's level to player's level effects
+	 * - Ratio of creature's level to player's level effects
 	 * - Varying speed effects
 	 * - Get a fraction in proportion of damage point
 	 */
@@ -1770,7 +1770,7 @@ void verify_panel(creature_type *creature_ptr)
 
 
 /*
- * Monster health description
+ * Creature health description
  */
 cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 {
@@ -1781,13 +1781,13 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	cptr attitude;
 	cptr clone;
 
-	/* Determine if the monster is "living" */
+	/* Determine if the creature is "living" */
 	living = creature_living(m_ptr);
 
 	/* Calculate a health "percentage" */
 	perc = 100L * m_ptr->chp / m_ptr->mhp;
 
-	/* Healthy monsters */
+	/* Healthy creatures */
 	if (m_ptr->chp >= m_ptr->mhp)
 	{
 		/* No damage */
@@ -1871,7 +1871,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	}
 
 
-	/* Clone monster? */
+	/* Clone creature? */
 	if (m_ptr->smart & SM_CLONED)
 	{
 		clone = ", clone";
@@ -1881,7 +1881,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 		clone = "";
 	}
 
-	/* Display monster's level --- idea borrowed from ToME */
+	/* Display creature's level --- idea borrowed from ToME */
 	if (ap_r_ptr->r_tkills && !(m_ptr->mflag2 & MFLAG2_KAGE))
 	{
 		if (cheat_hear)
@@ -1970,13 +1970,13 @@ void ang_sort(vptr u, vptr v, int n,
 
 
 /*
- * Determine is a monster makes a reasonable target
+ * Determine is a creature makes a reasonable target
  *
  * The concept of "targeting" was stolen from "Morgul" (?)
  *
- * The player can target any location, or any "target-able" monster.
+ * The player can target any location, or any "target-able" creature.
  *
- * Currently, a monster is "target_able" if it is visible, and if
+ * Currently, a creature is "target_able" if it is visible, and if
  * the player can hit it with a projection, and the player is not
  * hallucinating.  This allows use of "use closest target" macros.
  *
@@ -1988,18 +1988,18 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* Monster must be alive */
+	/* Creature must be alive */
 	if (!m_ptr->species_idx) return (FALSE);
 
 	/* Hack -- no targeting hallucinations */
 	if (creature_ptr->image) return (FALSE);
 
-	/* Monster must be visible */
+	/* Creature must be visible */
 	if (!m_ptr->ml) return (FALSE);
 
 	if (creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
 
-	/* Monster must be projectable */
+	/* Creature must be projectable */
 	if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
 
 	/* XXX XXX XXX Hack -- Never target trappers */
@@ -2030,7 +2030,7 @@ bool target_okay(creature_type *creature_ptr)
 		{
 			creature_type *m_ptr = &creature_list[target_who];
 
-			/* Acquire monster location */
+			/* Acquire creature location */
 			target_row = m_ptr->fy;
 			target_col = m_ptr->fx;
 
@@ -2080,7 +2080,7 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
  * Sorting hook -- comp function -- by importance level of grids
  *
  * We use "u" and "v" to point to arrays of "x" and "y" positions,
- * and sort the arrays by level of monster
+ * and sort the arrays by level of creature
  */
 static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
@@ -2099,7 +2099,7 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (y[a] == player_ptr->fy && x[a] == player_ptr->fx) return TRUE;
 	if (y[b] == player_ptr->fy && x[b] == player_ptr->fx) return FALSE;
 
-	/* Extract monster race */
+	/* Extract creature race */
 	if (ca_ptr->creature_idx && ma_ptr->ml) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
 	else ap_ra_ptr = NULL;
 	if (cb_ptr->creature_idx && mb_ptr->ml) ap_rb_ptr = &species_info[mb_ptr->ap_species_idx];
@@ -2108,10 +2108,10 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (ap_ra_ptr && !ap_rb_ptr) return TRUE;
 	if (!ap_ra_ptr && ap_rb_ptr) return FALSE;
 
-	/* Compare two monsters */
+	/* Compare two creatures */
 	if (ap_ra_ptr && ap_rb_ptr)
 	{
-		/* Unique monsters first */
+		/* Unique creatures first */
 		if (is_unique_species(ap_ra_ptr) && !is_unique_species(ap_rb_ptr)) return TRUE;
 		if (!is_unique_species(ap_ra_ptr) && is_unique_species(ap_rb_ptr)) return FALSE;
 
@@ -2119,11 +2119,11 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 		if ((ma_ptr->mflag2 & MFLAG2_KAGE) && !(mb_ptr->mflag2 & MFLAG2_KAGE)) return TRUE;
 		if (!(ma_ptr->mflag2 & MFLAG2_KAGE) && (mb_ptr->mflag2 & MFLAG2_KAGE)) return FALSE;
 
- 		/* Unknown monsters first */
+ 		/* Unknown creatures first */
 		if (!ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills) return TRUE;
 		if (ap_ra_ptr->r_tkills && !ap_rb_ptr->r_tkills) return FALSE;
 
-		/* Higher level monsters first (if known) */
+		/* Higher level creatures first (if known) */
 		if (ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills)
 		{
 			if (ap_ra_ptr->level > ap_rb_ptr->level) return TRUE;
@@ -2248,12 +2248,12 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	/* Examine the grid */
 	c_ptr = &floor_ptr->cave[y][x];
 
-	/* Visible monsters */
+	/* Visible creatures */
 	if (c_ptr->creature_idx)
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
-		/* Visible monsters */
+		/* Visible creatures */
 		if (m_ptr->ml) return (TRUE);
 	}
 
@@ -2289,7 +2289,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 
 /*
  * Prepare the "temp" array for "target_set"
- * Return the number of target_able monsters in the set.
+ * Return the number of target_able creatures in the set.
  */
 static void target_set_prepare(creature_type *creature_ptr, int mode)
 {
@@ -2311,7 +2311,7 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 
 			c_ptr = &floor_ptr->cave[y][x];
 
-			// Require target_able monsters for "TARGET_KILL"
+			// Require target_able creatures for "TARGET_KILL"
 			if ((mode & (TARGET_KILL)) && !target_able(creature_ptr, c_ptr->creature_idx)) continue;
 			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(creature_ptr, &creature_list[c_ptr->creature_idx])) continue;
 
@@ -2350,7 +2350,7 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 /*
  * Evaluate number of kill needed to gain level
  */
-static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_type *target_ptr)
+static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature_type *target_ptr)
 {
 	species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
 	u32b num;
@@ -2372,7 +2372,7 @@ static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_
 	}
 
 
-	/* The monster's experience point (assuming average monster speed) */
+	/* The creature's experience point (assuming average creature speed) */
 	exp_mon = ap_r_ptr->exp * ap_r_ptr->level;
 	exp_mon_frac = 0;
 	s64b_div(&exp_mon, &exp_mon_frac, 0, (player_ptr->max_plv + 2));
@@ -2387,14 +2387,14 @@ static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_
 	s64b_sub(&exp_adv, &exp_adv_frac, player_ptr->exp, player_ptr->exp_frac);
 
 
-	/* You need to kill at least one monster to get any experience */
+	/* You need to kill at least one creature to get any experience */
 	s64b_add(&exp_adv, &exp_adv_frac, exp_mon, exp_mon_frac);
 	s64b_sub(&exp_adv, &exp_adv_frac, 0, 1);
 
-	/* Extract number of monsters needed */
+	/* Extract number of creatures needed */
 	s64b_div(&exp_adv, &exp_adv_frac, exp_mon, exp_mon_frac);
 
-	/* If 999 or more monsters needed, only display "999". */
+	/* If 999 or more creatures needed, only display "999". */
 	num = MIN(999, exp_adv_frac);
 
 	/* Display the number */
@@ -2412,10 +2412,10 @@ static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_
  *
  * The "info" argument contains the "commands" which should be shown
  * inside the "[xxx]" text.  This string must never be empty, or grids
- * containing monsters will be displayed with an extra comma.
+ * containing creatures will be displayed with an extra comma.
  *
- * Note that if a monster is in the grid, we update both the monster
- * recall info and the health bar info to track that monster.
+ * Note that if a creature is in the grid, we update both the creature
+ * recall info and the health bar info to track that creature.
  *
  * Eventually, we may allow multiple objects per grid, or objects
  * and terrain features in the same grid. XXX XXX XXX
@@ -2504,7 +2504,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	}
 
 
-	/* Actual monsters */
+	/* Actual creatures */
 	if (c_ptr->creature_idx && creature_list[c_ptr->creature_idx].ml)
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
@@ -2515,13 +2515,13 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Not boring */
 		boring = FALSE;
 
-		/* Get the monster name ("a kobold") */
+		/* Get the creature name ("a kobold") */
 		creature_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-		/* Hack -- track this monster race */
+		/* Hack -- track this creature race */
 		species_type_track(m_ptr->ap_species_idx);
 
-		/* Hack -- health bar for this monster */
+		/* Hack -- health bar for this creature */
 		health_track(c_ptr->creature_idx);
 
 		/* Hack -- handle stuff */
@@ -2567,7 +2567,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/*** Normal ***/
 
 			/* Describe, and prompt for recall */
-			evaluate_monster_exp(creature_ptr, acount, m_ptr);
+			evaluate_creature_exp(creature_ptr, acount, m_ptr);
 
 #ifdef JP
 			sprintf(out_val, "[%s]%s%s(%s)%s%s [r思 %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
@@ -3019,7 +3019,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
  * move through the "interesting" grids in a sequential manner, or
  * can enter "location" mode, and use the direction keys to move one
  * grid at a time in any direction.  The "t" (set target) command will
- * only target a monster (as opposed to a location) if the monster is
+ * only target a creature (as opposed to a location) if the creature is
  * target_able and the "interesting" mode is being used.
  *
  * The current grid is described using the "look" method above, and
@@ -3227,11 +3227,11 @@ strcpy(info, "q止 p自 o現 +次 -前");
 			/* Hack -- move around */
 			if (d)
 			{
-				/* Modified to scroll to monster */
+				/* Modified to scroll to creature */
 				int y2 = panel_row_min;
 				int x2 = panel_col_min;
 
-				/* Find a new monster */
+				/* Find a new creature */
 				i = target_pick(temp_y[m], temp_x[m], ddy[d], ddx[d]);
 
 				/* Request to target past last interesting grid */
@@ -3249,7 +3249,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						/* Look at interesting grids */
 						flag = TRUE;
 
-						/* Find a new monster */
+						/* Find a new creature */
 						i = target_pick(v, u, ddy[d], ddx[d]);
 
 						/* Use that grid */
@@ -3419,7 +3419,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					m = 0;
 					bd = 999;
 
-					/* Pick a nearby monster */
+					/* Pick a nearby creature */
 					for (i = 0; i < temp_n; i++)
 					{
 						t = distance(y, x, temp_y[i], temp_x[i]);
@@ -4331,7 +4331,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 #ifdef JP
 			reward = "クリーチャーを召喚された。";
 #else
-			reward = "summoning hostile monsters";
+			reward = "summoning hostile creatures";
 #endif
 			break;
 		case REW_H_SUMMON:
@@ -4353,7 +4353,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 #ifdef JP
 			reward = "クリーチャーを召喚された。";
 #else
-			reward = "summoning many hostile monsters";
+			reward = "summoning many hostile creatures";
 #endif
 			break;
 		case REW_DO_HAVOC:
@@ -4632,7 +4632,7 @@ msg_format("%sの声が鳴り響いた:",
 #ifdef JP
 					reward = "クリーチャーを召喚された。";
 #else
-					reward = "summoning hostile monsters";
+					reward = "summoning hostile creatures";
 #endif
 					break;
 				case 3:
@@ -4758,7 +4758,7 @@ msg_format("%sの声が鳴り響いた:",
 #ifdef JP
 			reward = "クリーチャーが抹殺された。";
 #else
-			reward = "genociding monsters";
+			reward = "genociding creatures";
 #endif
 			break;
 		case REW_MASS_GEN:
@@ -4780,7 +4780,7 @@ msg_format("%sの声が鳴り響いた:",
 #ifdef JP
 			reward = "クリーチャーが抹殺された。";
 #else
-			reward = "genociding nearby monsters";
+			reward = "genociding nearby creatures";
 #endif
 			break;
 		case REW_DISPEL_C:

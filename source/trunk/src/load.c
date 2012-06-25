@@ -27,7 +27,7 @@
  * object flavors, the visual attr/char mappings, or anything else which
  * is initialized *after* or *during* the "load character" function.
  *
- * This file assumes that the monster/object records are initialized
+ * This file assumes that the creature/object records are initialized
  * to zero, and the race/kind tables have been loaded correctly.  The
  * order of object stacks is currently not saved in the savefiles, but
  * the "next" pointers are saved, so all necessary knowledge is present.
@@ -40,7 +40,7 @@
  * Consider changing the "globe of invulnerability" code so that it
  * takes some form of "maximum damage to protect from" in addition to
  * the existing "number of turns to protect for", and where each hit
- * by a monster will reduce the shield by that amount.
+ * by a creature will reduce the shield by that amount.
  *
  * XXX XXX XXX
  */
@@ -48,7 +48,7 @@
 
 
 /*
- * Maximum number of tries for selection of a proper quest monster
+ * Maximum number of tries for selection of a proper quest creature
  */
 #define MAX_TRIES 100
 
@@ -342,7 +342,7 @@ static void rd_item(object_type *o_ptr)
 	if (flags & SAVE_ITEM_CURSE_FLAGS) rd_u32b(&o_ptr->curse_flags);
 	else o_ptr->curse_flags = 0;
 
-	/* Monster holding object */
+	/* Creature holding object */
 	if (flags & SAVE_ITEM_HELD_M_IDX) rd_s16b(&o_ptr->held_m_idx);
 	else o_ptr->held_m_idx = 0;
 
@@ -494,7 +494,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 }
 
 /*
- * Old monster bit flags of racial resistances
+ * Old creature bit flags of racial resistances
  */
 #define RF3_IM_ACID         0x00010000  /* Resist acid a lot */
 #define RF3_IM_ELEC         0x00020000  /* Resist elec a lot */
@@ -1345,7 +1345,7 @@ static void rd_messages(void)
 /*
  * Read the saved floor
  *
- * The monsters/objects must be loaded in the same order
+ * The creatures/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
 static errr rd_floor(floor_type *floor_ptr)
@@ -1479,7 +1479,7 @@ static errr rd_floor(floor_type *floor_ptr)
 /*
  * Read the dungeon (new method)
  *
- * The monsters/objects must be loaded in the same order
+ * The creatures/objects must be loaded in the same order
  * that they were stored, since the actual indexes matter.
  */
 static errr rd_floors(void)
@@ -1521,7 +1521,7 @@ static errr rd_floors(void)
 #ifdef JP
 		note("クリーチャーの配列が大きすぎる！");
 #else
-		note("Too many monster entries!");
+		note("Too many creature entries!");
 #endif
 		break;
 
@@ -1529,7 +1529,7 @@ static errr rd_floors(void)
 #ifdef JP
 		note("クリーチャー配置エラー");
 #else
-		note("Monster allocation error");
+		note("Creature allocation error");
 #endif
 		break;
 
@@ -1674,12 +1674,12 @@ note("乱数情報をロードしました");
 		else if (has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
-	// Unique monsters
+	// Unique creatures
 	rd_u16b(&unique_max);
 
 	/*** Creatures ***/
 
-	// Read the monster count
+	// Read the creature count
 	rd_u16b(&limit);
 	if (limit > max_creature_idx) return 161;
 
@@ -1694,7 +1694,7 @@ note("乱数情報をロードしました");
 
 		creature_idx = creature_pop(); // Get a new record
 		creature_ptr = &creature_list[creature_idx]; // Acquire creature
-		rd_creature(creature_ptr); // Read the monster
+		rd_creature(creature_ptr); // Read the creature
 
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
@@ -1825,7 +1825,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					rd_s16b(&quest[i].max_num);
 					rd_s16b(&quest[i].type);
 
-					/* Load quest monster index */
+					/* Load quest creature index */
 					rd_s16b(&quest[i].species_idx);
 
 					if ((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))

@@ -268,7 +268,7 @@ struct ego_item_type
 
 
 /*
- * Monster blow structure
+ * Creature blow structure
  *
  *	- Method (RBM_*)
  *	- Effect (RBE_*)
@@ -297,22 +297,22 @@ struct mbe_info_type
 
 
 /*
- * Monster "race" information, including racial memories
+ * Creature "race" information, including racial memories
  *
  * Note that "d_attr" and "d_char" are used for MORE than "visual" stuff.
  *
  * Note that "x_attr" and "x_char" are used ONLY for "visual" stuff.
  *
- * Note that "cur_num" (and "max_num") represent the number of monsters
+ * Note that "cur_num" (and "max_num") represent the number of creatures
  * of the given race currently on (and allowed on) the current level.
- * This information yields the "dead" flag for Unique monsters.
+ * This information yields the "dead" flag for Unique creatures.
  *
  * Note that "max_num" is reset when a new player is created.
  * Note that "cur_num" is reset when a new level is created.
  *
  * Note that several of these fields, related to "recall", can be
  * scrapped if space becomes an issue, resulting in less "complete"
- * monster recall (no knowledge of spells, etc).  All of the "recall"
+ * creature recall (no knowledge of spells, etc).  All of the "recall"
  * fields have a special prefix to aid in searching for them.
  */
 /*
@@ -343,7 +343,7 @@ struct species_type
 	s16b father_idx;
 	s16b mother_idx;
 	s16b chara_idx;                 /* Chara index */
-	s16b creature_egobject_idx;		    /* Monster ego index */
+	s16b creature_egobject_idx;		    /* Creature ego index */
 
 	s16b realm1;       /* First magic realm */
 	s16b realm2;       /* Second magic realm */
@@ -410,23 +410,23 @@ struct species_type
 	byte level;				/* Level of creature */
 	byte rarity;			/* Rarity of creature */
 
-	byte d_attr;			/* Default monster attribute */
-	byte d_char;			/* Default monster character */
+	byte d_attr;			/* Default creature attribute */
+	byte d_char;			/* Default creature character */
 
-	byte x_attr;			/* Desired monster attribute */
-	byte x_char;			/* Desired monster character */
+	byte x_attr;			/* Desired creature attribute */
+	byte x_char;			/* Desired creature character */
 
 	byte max_num;			/* Maximum population allowed per level */
-	byte cur_num;			/* Monster population on current level */
+	byte cur_num;			/* Creature population on current level */
 
-	s16b floor_id;          /* Location of unique monster */
+	s16b floor_id;          /* Location of unique creature */
 
-	s16b r_sights;			/* Count sightings of this monster */
-	s16b r_deaths;			/* Count deaths from this monster */
+	s16b r_sights;			/* Count sightings of this creature */
+	s16b r_deaths;			/* Count deaths from this creature */
 
-	s16b r_pkills;			/* Count visible monsters killed in this life */
-	s16b r_akills;			/* Count all monsters killed in this life */
-	s16b r_tkills;			/* Count monsters killed in all lives */
+	s16b r_pkills;			/* Count visible creatures killed in this life */
+	s16b r_akills;			/* Count all creatures killed in this life */
+	s16b r_tkills;			/* Count creatures killed in all lives */
 
 	byte r_wake;			/* Number of times woken up (?) */
 	byte r_ignore;			/* Number of times ignored (?) */
@@ -525,14 +525,14 @@ struct skill_table
  *
  * The "object_idx" and "m_idx" fields are very interesting.  There are
  * many places in the code where we need quick access to the actual
- * monster or object(s) in a given cave grid.  The easiest way to
- * do this is to simply keep the index of the monster and object
+ * creature or object(s) in a given cave grid.  The easiest way to
+ * do this is to simply keep the index of the creature and object
  * (if any) with the grid, but this takes 198*66*4 bytes of memory.
  * Several other methods come to mind, which require only half this
  * amound of memory, but they all seem rather complicated, and would
  * probably add enough code that the savings would be lost.  So for
  * these reasons, we simply store an index into the "object_list" and
- * "creature_list" arrays, using "zero" when no monster/object is present.
+ * "creature_list" arrays, using "zero" when no creature/object is present.
  *
  * Note that "object_idx" is the index of the top object in a stack of
  * objects, using the "next_object_idx" field of objects (see below) to
@@ -596,7 +596,7 @@ struct coord
  * in game terms, represents a "stack" of objects in the same grid.
  *
  *
- * The "held_m_idx" field is used to indicate which monster, if any,
+ * The "held_m_idx" field is used to indicate which creature, if any,
  * is holding the object.  Objects being held have "ix=0" and "iy=0".
  */
 
@@ -662,7 +662,7 @@ struct object_type
 
 	s16b next_object_idx;	/* Next object in stack (if any) */
 
-	s16b held_m_idx;	/* Monster holding us (if any) */
+	s16b held_m_idx;	/* Creature holding us (if any) */
 
 	s16b creater_idx;	/* Creater */
 
@@ -672,7 +672,7 @@ struct object_type
 
 
 /*
- * An entry for the object/monster allocation functions
+ * An entry for the object/creature allocation functions
  *
  * Pass 1 is determined from allocation information
  * Pass 2 is determined from allocation restriction
@@ -742,13 +742,13 @@ struct quest_type
 
 	char name[60];          /* Quest name */
 	s16b level;             /* Dungeon level */
-	s16b species_idx;             /* Monster race */
+	s16b species_idx;             /* Creature race */
 
 	s16b cur_num;           /* Number killed */
 	s16b max_num;           /* Number required */
 
 	s16b k_idx;             /* object index */
-	s16b num_mon;           /* number of monsters on level */
+	s16b num_mon;           /* number of creatures on level */
 
 	byte flags;             /* quest flags */
 	byte dungeon;           /* quest dungeon */
@@ -1182,7 +1182,7 @@ struct creature_type
 	s16b ap_species_idx;		// Species appearance index //
 	s16b creature_egobject_idx;		// Ego index //
 	s16b starting_idx;			// Starting indx	
-	byte sub_align;		    /* Sub-alignment for a neutral monster */
+	byte sub_align;		    /* Sub-alignment for a neutral creature */
 	u32b sub_race[8];       /* Sub-Race flags */
 	u32b authority[8];      /* Autority flags*/
 	s16b sex;				/* Sex index */
@@ -1593,15 +1593,15 @@ struct creature_type
 
 	byte cdis;		/* Current dis from player */
 
-	byte mflag;		/* Extra monster flags */
-	byte mflag2;	/* Extra monster flags */
+	byte mflag;		/* Extra creature flags */
+	byte mflag2;	/* Extra creature flags */
 
-	bool ml;		/* Monster is "visible" */
+	bool ml;		/* Creature is "visible" */
 
 	s16b target_y;		/* Can attack !los player */
 	s16b target_x;		/* Can attack !los player */
 
-	u16b nickname;		/* Monster's Nickname */
+	u16b nickname;		/* Creature's Nickname */
 
 	u32b smart;			/* Field for "smart_learn" */
 
@@ -1902,10 +1902,10 @@ struct dungeon_type {
 	byte min_plev;         /* Minimal plev needed to enter -- it's an anti-cheating mesure */
 	s16b pit;
 	s16b nest;
-	byte mode;		/* Mode of combinaison of the monster flags */
+	byte mode;		/* Mode of combinaison of the creature flags */
 
-	s16b min_m_alloc_level;	/* Minimal number of monsters per level */
-	s16b max_m_alloc_chance;	/* There is a 1/max_m_alloc_chance chance per round of creating a new monster */
+	s16b min_m_alloc_level;	/* Minimal number of creatures per level */
+	s16b max_m_alloc_chance;	/* There is a 1/max_m_alloc_chance chance per round of creating a new creature */
 
 	u32b flags1;		/* Flags 1 */
 
@@ -1915,7 +1915,7 @@ struct dungeon_type {
 	s16b final_artifact;	/* The artifact you'll find at the bottom */
 	s16b final_guardian;	/* The artifact's guardian. If an artifact is specified, then it's NEEDED */
 
-	byte special_div;	/* % of monsters affected by the flags/races allowed, to add some variety */
+	byte special_div;	/* % of creatures affected by the flags/races allowed, to add some variety */
 	s16b tunnel_percent;
 	s16b obj_great;
 	s16b obj_good;
@@ -1992,7 +1992,7 @@ typedef struct
  */
 typedef struct
 {
-	s16b species_idx; /* Monster (0 means victory prizing) */
+	s16b species_idx; /* Creature (0 means victory prizing) */
 	byte tval;  /* tval of prize (0 means no prize) */
 	byte sval;  /* sval of prize */
 } arena_type;

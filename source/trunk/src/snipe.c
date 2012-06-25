@@ -38,14 +38,14 @@ static const char *snipe_tips[MAX_SNIPE_POWERS] =
 	"Shot an allow able to shatter rocks.",
 	"Deals extra damege of ice.",
 	"An allow rushes away a target.",
-	"An allow pierces some monsters.",
-	"Deals more damage to good monsters.",
-	"Deals more damage to evil monsters.",
-	"An allow explodes when it hits a monster.",
+	"An allow pierces some creatures.",
+	"Deals more damage to good creatures.",
+	"Deals more damage to evil creatures.",
+	"An allow explodes when it hits a creature.",
 	"Shot allows twice.",
 	"Deals extra damege of lightning.",
 	"Deals quick death or 1 damage.",
-	"Deals great damage to all monsters, and some side effects to you.",
+	"Deals great damage to all creatures, and some side effects to you.",
 #endif
 };
 

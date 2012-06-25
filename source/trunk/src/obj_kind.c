@@ -22,7 +22,7 @@ bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
 	/* Tsuchinoko */
 	if (o_ptr->pval == MON_TSUCHINOKO) return TRUE;
 
-	/* Unique monster */
+	/* Unique creature */
 	for (i = 0; i < MAX_KUBI; i++)
 		if (o_ptr->pval == kubi_species_idx[i]) break;
 	if (i < MAX_KUBI) return TRUE;

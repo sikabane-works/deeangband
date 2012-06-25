@@ -1531,7 +1531,7 @@ msg_print("仲間を召喚した。");
 #ifdef JP
 msg_print("召喚されたクリーチャーは怒っている！");
 #else
-msg_print("The summoned monster is angry!");
+msg_print("The summoned creature is angry!");
 #endif
 			}
 			else
@@ -1546,7 +1546,7 @@ msg_print("The summoned monster is angry!");
 #ifdef JP
 msg_print("クリーチャーを召喚した！");
 #else
-			msg_print("You summon monsters!");
+			msg_print("You summon creatures!");
 #endif
 		for (k = 0;k < plev / 15 + 2; k++)
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
@@ -1555,7 +1555,7 @@ msg_print("クリーチャーを召喚した！");
 #ifdef JP
 msg_print("召喚されたクリーチャーは怒っている！");
 #else
-msg_print("Summoned monsters are angry!");
+msg_print("Summoned creatures are angry!");
 #endif
 			}
 			else
@@ -2075,7 +2075,7 @@ void learn_spell(creature_type *cr_ptr, int monspell)
 
 
 /*
- * Extract monster spells mask for the given mode
+ * Extract creature spells mask for the given mode
  */
 void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode)
 {

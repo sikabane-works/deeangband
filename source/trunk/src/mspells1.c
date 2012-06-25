@@ -8,35 +8,35 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: Monster spells (attack player) */
+/* Purpose: Creature spells (attack player) */
 
 #include "angband.h"
 
 
 /*
- * And now for Intelligent monster attacks (including spells).
+ * And now for Intelligent creature attacks (including spells).
  *
  * Original idea and code by "DRS" (David Reeves Sward).
  * Major modifications by "BEN" (Ben Harrison).
  *
- * Give monsters more intelligent attack/spell selection based on
+ * Give creatures more intelligent attack/spell selection based on
  * observations of previous attacks on the player, and/or by allowing
- * the monster to "cheat" and know the player status.
+ * the creature to "cheat" and know the player status.
  *
  * Maintain an idea of the player status, and use that information
  * to occasionally eliminate "ineffective" spell attacks.  We could
  * also eliminate ineffective normal attacks, but there is no reason
- * for the monster to do this, since he gains no benefit.
- * Note that MINDLESS monsters are not allowed to use this code.
- * And non-INTELLIGENT monsters only use it partially effectively.
+ * for the creature to do this, since he gains no benefit.
+ * Note that MINDLESS creatures are not allowed to use this code.
+ * And non-INTELLIGENT creatures only use it partially effectively.
  *
  * Actually learn what the player resists, and use that information
  * to remove attacks or spells before using them.  This will require
- * much less space, if I am not mistaken.  Thus, each monster gets a
+ * much less space, if I am not mistaken.  Thus, each creature gets a
  * set of 32 bit flags, "smart", build from the various "SM_*" flags.
  *
  * This has the added advantage that attacks and spells are related.
- * The "smart_learn" option means that the monster "learns" the flags
+ * The "smart_learn" option means that the creature "learns" the flags
  * that should be set, and "smart_cheat" means that he "knows" them.
  * So "smart_cheat" means that the "smart" field is always up to date,
  * while "smart_learn" means that the "smart" field is slowly learned.
@@ -50,7 +50,7 @@
  */
 static bool int_outof(species_type *r_ptr, int prob)
 {
-	/* Non-Smart monsters are half as "smart" */
+	/* Non-Smart creatures are half as "smart" */
 	if (!is_smart_species(r_ptr)) prob = prob / 2;
 
 	/* Roll the dice */
@@ -424,15 +424,15 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 
 /*
  * Originally, it was possible for a friendly to shoot another friendly.
- * Change it so a "clean shot" means no equally friendly monster is
+ * Change it so a "clean shot" means no equally friendly creature is
  * between the attacker and target.
  */
 /*
  * Determine if a bolt spell will hit the player.
  *
  * This is exactly like "projectable", but it will
- * return FALSE if a monster is in the way.
- * no equally friendly monster is
+ * return FALSE if a creature is in the way.
+ * no equally friendly creature is
  * between the attacker and target.
  */
 bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
@@ -483,8 +483,8 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 
 /*
  * Cast a bolt at the player
- * Stop if we hit a monster
- * Affect monsters and the player
+ * Stop if we hit a creature
+ * Affect creatures and the player
  */
 static void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
@@ -505,8 +505,8 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
 
 /*
  * Cast a breath (or ball) attack at the player
- * Pass over any monsters that may be in the way
- * Affect grids, objects, monsters, and the player
+ * Pass over any creatures that may be in the way
+ * Affect grids, objects, creatures, and the player
  */
 static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
 {
@@ -833,7 +833,7 @@ static bool spell_dispel(byte spell)
 
 
 /*
- * Check should monster cast dispel spell.
+ * Check should creature cast dispel spell.
  */
 bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 {
@@ -932,13 +932,13 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 
 
 /*
- * Have a monster choose a spell from a list of "useful" spells.
+ * Have a creature choose a spell from a list of "useful" spells.
  *
  * Note that this list does NOT include spells that will just hit
- * other monsters, and the list is restricted when the monster is
+ * other creatures, and the list is restricted when the creature is
  * "desperate".  Should that be the job of this function instead?
  *
- * Stupid monsters will just pick a spell randomly.  Smart monsters
+ * Stupid creatures will just pick a spell randomly.  Smart creatures
  * will choose more "intelligently".
  *
  * Use the helper functions above to put spells into categories.
@@ -965,7 +965,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 	int i;
 
-	/* Stupid monsters choose randomly */
+	/* Stupid creatures choose randomly */
 	if (has_cf_creature(caster_ptr, CF_STUPID))
 	{
 		/* Pick at random */
@@ -1228,11 +1228,11 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  * XXX XXX XXX Note that several effects should really not be "seen"
  * if the player is blind.  See also "effects.c" for other "mistakes".
  *
- * Perhaps monsters should breathe at locations *near* the player,
+ * Perhaps creatures should breathe at locations *near* the player,
  * since this would allow them to inflict "partial" damage.
  *
- * Perhaps smart monsters should decline to use "bolt" spells if
- * there is a monster in the way, unless they wish to kill it.
+ * Perhaps smart creatures should decline to use "bolt" spells if
+ * there is a creature in the way, unless they wish to kill it.
  *
  * Note that, to allow the use of the "track_target" option at some
  * later time, certain non-optimal things are done in the code below,
@@ -1243,15 +1243,15 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  * with those values being initialized with the player location.
  *
  * It will not be possible to "correctly" handle the case in which a
- * monster attempts to attack a location which is thought to contain
+ * creature attempts to attack a location which is thought to contain
  * the player, but which in fact is nowhere near the player, since this
  * might induce all sorts of messages about the attack itself, and about
  * the effects of the attack, which the player might or might not be in
  * a position to observe.  Thus, for simplicity, it is probably best to
- * only allow "faulty" attacks by a monster if one of the important grids
+ * only allow "faulty" attacks by a creature if one of the important grids
  * (probably the initial or final grid) is in fact in view of the player.
  * It may be necessary to actually prevent spell attacks except when the
- * monster actually has line of sight to the player.  Note that a monster
+ * creature actually has line of sight to the player.  Note that a creature
  * could be left in a bizarre situation after the player ducked behind a
  * pillar and then teleported away, for example.
  *
@@ -1262,11 +1262,11 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  * and to allow the use of the "track_target" option in the future.
  *
  * Note that this function attempts to optimize the use of spells for the
- * cases in which the monster has no spells, or has spells but cannot use
+ * cases in which the creature has no spells, or has spells but cannot use
  * them, or has spells but they will have no "useful" effect.  Note that
  * this function has been an efficiency bottleneck in the past.
  *
- * Note the special "MFLAG_NICE" flag, which prevents a monster from using
+ * Note the special "MFLAG_NICE" flag, which prevents a creature from using
  * any spell attacks until the player has had a single chance to move.
  */
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
@@ -1443,7 +1443,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	reset_target(caster_ptr);
 
-	/* Extract the monster level */
+	/* Extract the creature level */
 	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 
 	/* Forbid inate attacks sometimes */
@@ -1574,11 +1574,11 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Stop if player is leaving */
 	if (subject_change_floor) return (FALSE);
 
-	/* Get the monster name (or "it") */
+	/* Get the creature name (or "it") */
 	creature_desc(m_name, caster_ptr, 0x00);
 
 #ifndef JP
-	/* Get the monster possessive ("his"/"her"/"its") */
+	/* Get the creature possessive ("his"/"her"/"its") */
 	creature_desc(m_poss, caster_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
@@ -1617,7 +1617,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Calculate spell failure rate */
 	failrate = 25 - (rlev + 3) / 4;
 
-	/* Hack -- Stupid monsters will never fail (for jellies and such) */
+	/* Hack -- Stupid creatures will never fail (for jellies and such) */
 	if (has_cf_creature(caster_ptr, CF_STUPID)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
@@ -3854,7 +3854,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #ifdef JP
 			else msg_format("%^sが魔法でクリーチャーを召喚した！", m_name);
 #else
-			else msg_format("%^s magically summons monsters!", m_name);
+			else msg_format("%^s magically summons creatures!", m_name);
 #endif
 
 			for (k = 0; k < s_num_6; k++)
@@ -4346,7 +4346,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 		}
 	}
 
-	/* Remember what the monster did to us */
+	/* Remember what the creature did to us */
 	if (can_remember)
 	{
 		/* Inate spell */
@@ -4372,7 +4372,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 	}
 
 
-	/* Always take note of monsters that kill you */
+	/* Always take note of creatures that kill you */
 	if (gameover && (r_ptr->r_deaths < MAX_SHORT) && !fight_arena_mode)
 	{
 		r_ptr->r_deaths++; /* Ignore appearance difference */

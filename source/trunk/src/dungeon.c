@@ -871,7 +871,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		/*
 		 * We could make the healing effect of the
 		 * Pattern center one-time only to avoid various kinds
-		 * of abuse, like luring the win monster into fighting you
+		 * of abuse, like luring the win creature into fighting you
 		 * in the middle of the pattern...
 		 */
 		break;
@@ -1091,11 +1091,11 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 
 
 /*
- * Regenerate the monsters (once per 100 game turns)
+ * Regenerate the creatures (once per 100 game turns)
  *
- * XXX XXX XXX Should probably be done during monster turns.
+ * XXX XXX XXX Should probably be done during creature turns.
  */
-static void regen_monsters(creature_type *creature_ptr)
+static void regen_creatures(creature_type *creature_ptr)
 {
 	int i, frac;
 
@@ -1103,12 +1103,12 @@ static void regen_monsters(creature_type *creature_ptr)
 	/* Regenerate everyone */
 	for (i = 1; i < creature_max; i++)
 	{
-		/* Check the i'th monster */
+		/* Check the i'th creature */
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Allow regeneration (if needed) */
@@ -1120,7 +1120,7 @@ static void regen_monsters(creature_type *creature_ptr)
 			/* Hack -- Minimal regeneration rate */
 			if (!frac) if (one_in_(2)) frac = 1;
 
-			/* Hack -- Some monsters regenerate quickly */
+			/* Hack -- Some creatures regenerate quickly */
 			if (has_cf_creature(creature_ptr, CF_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
@@ -1138,11 +1138,11 @@ static void regen_monsters(creature_type *creature_ptr)
 
 
 /*
- * Regenerate the captured monsters (once per 30 game turns)
+ * Regenerate the captured creatures (once per 30 game turns)
  *
- * XXX XXX XXX Should probably be done during monster turns.
+ * XXX XXX XXX Should probably be done during creature turns.
  */
-static void regen_captured_monsters(creature_type *creature_ptr)
+static void regen_captured_creatures(creature_type *creature_ptr)
 {
 	int i, frac;
 	bool heal = FALSE;
@@ -1170,7 +1170,7 @@ static void regen_captured_monsters(creature_type *creature_ptr)
 			/* Hack -- Minimal regeneration rate */
 			if (!frac) if (one_in_(2)) frac = 1;
 
-			/* Hack -- Some monsters regenerate quickly */
+			/* Hack -- Some creatures regenerate quickly */
 			if (has_cf_creature(creature_ptr, CF_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
@@ -2839,7 +2839,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			creature_type    *m_ptr = &creature_list[creature];
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
-			/* Paranoia -- Skip dead monsters */
+			/* Paranoia -- Skip dead creatures */
 			if (!m_ptr->species_idx) continue;
 
 			if (r_ptr->level >= creature_ptr->lev)
@@ -3571,8 +3571,8 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 }
 
 
-// Count number of adjacent monsters
-static int get_monster_crowd_number(int m_idx)
+// Count number of adjacent creatures
+static int get_creature_crowd_number(int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = get_floor_ptr(m_ptr);
@@ -3587,7 +3587,7 @@ static int get_monster_crowd_number(int m_idx)
 		int ax = mx + ddx_ddd[i];
 		if (!in_bounds(floor_ptr, ay, ax)) continue;
 
-		// Count number of monsters
+		// Count number of creatures
 		if (floor_ptr->cave[ay][ax].creature_idx > 0) count++;
  	}
 
@@ -3602,7 +3602,7 @@ static int get_monster_crowd_number(int m_idx)
 #define RATING_BOOST(delta) (delta * delta + 50 * delta)
 
 
-// Examine all monsters and unidentified objects,
+// Examine all creatures and unidentified objects,
 // and get the feeling of current dungeon floor
 static byte get_dungeon_feeling(floor_type *floor_ptr)
 {
@@ -3612,34 +3612,34 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 
 	if (!floor_ptr->floor_level) return 0; // Hack -- no feeling in the town
 
-	for (i = 1; i < creature_max; i++) // Examine each monster
+	for (i = 1; i < creature_max; i++) // Examine each creature
 	{
 		creature_type *creature_ptr = &creature_list[i];
 		species_type *species_ptr;
 		int delta = 0;
 
 		if(!is_in_this_floor(creature_ptr)) continue;
-		if(!creature_ptr->species_idx) continue; // Skip dead monsters
+		if(!creature_ptr->species_idx) continue; // Skip dead creatures
 		if(is_pet(player_ptr, creature_ptr)) continue; // Ignore pet
 
 		species_ptr = &species_info[creature_ptr->species_idx];
 
-		if (is_unique_species(species_ptr)) // Unique monsters
+		if (is_unique_species(species_ptr)) // Unique creatures
 		{
-			if (species_ptr->level + 10 > floor_ptr->floor_level) // Nearly out-of-depth unique monsters
+			if (species_ptr->level + 10 > floor_ptr->floor_level) // Nearly out-of-depth unique creatures
 				delta += (species_ptr->level + 10 - floor_ptr->floor_level) * 2 * base; // Boost rating by twice delta-depth
 		}
 		else
 		{
-			if (species_ptr->level > floor_ptr->floor_level) // Out-of-depth monsters
+			if (species_ptr->level > floor_ptr->floor_level) // Out-of-depth creatures
 				delta += (species_ptr->level - floor_ptr->floor_level) * base; // Boost rating by delta-depth
 		}
 
-		// Unusually crowded monsters get a little bit of rating boost
+		// Unusually crowded creatures get a little bit of rating boost
 		if (has_cf_creature(creature_ptr, CF_FRIENDS))
-			if (5 <= get_monster_crowd_number(i)) delta += 1;
+			if (5 <= get_creature_crowd_number(i)) delta += 1;
 		else
-			if (2 <= get_monster_crowd_number(i)) delta += 1;
+			if (2 <= get_creature_crowd_number(i)) delta += 1;
 
 		rating += RATING_BOOST(delta);
 	}
@@ -3762,13 +3762,13 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 }
 
-static void monster_arena_result(floor_type *floor_ptr)
+static void creature_arena_result(floor_type *floor_ptr)
 {
 	int i2, j2;
 	int win_m_idx = 0;
 	int number_mon = 0;
 
-	/* Count all hostile monsters */
+	/* Count all hostile creatures */
 	for (i2 = 0; i2 < floor_ptr->width; ++i2)
 		for (j2 = 0; j2 < floor_ptr->height; j2++)
 		{
@@ -3806,7 +3806,7 @@ static void monster_arena_result(floor_type *floor_ptr)
 #endif
 		msg_print(NULL);
 
-		if (win_m_idx == (sel_monster+1))
+		if (win_m_idx == (sel_creature+1))
 		{
 #ifdef JP
 			msg_print("‚¨‚ß‚Å‚Æ‚¤‚²‚´‚¢‚Ü‚·B");
@@ -3978,8 +3978,8 @@ static void process_world(void)
 	/* Update dungeon feeling, and announce it if changed */
 	update_dungeon_feeling(player_ptr);
 
-	/*** Check monster arena ***/
-	if (gamble_arena_mode && !subject_change_floor) monster_arena_result(floor_ptr);
+	/*** Check creature arena ***/
+	if (gamble_arena_mode && !subject_change_floor) creature_arena_result(floor_ptr);
 
 	/* Every 10 game turns */
 	if (turn % TURNS_PER_TICK) return;
@@ -4004,28 +4004,28 @@ static void process_world(void)
 
 	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/
 
-	/*** Process the monsters ***/
+	/*** Process the creatures ***/
 
 	/* Check for creature generation. */
 	if (one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
 	    !fight_arena_mode && !inside_quest && !gamble_arena_mode)
 	{
-		/* Make a new monster */
+		/* Make a new creature */
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !gamble_arena_mode) regen_monsters(player_ptr);
-	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters(player_ptr);
+	if (!(turn % (TURNS_PER_TICK*10)) && !gamble_arena_mode) regen_creatures(player_ptr);
+	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_creatures(player_ptr);
 
 	if (!subject_change_floor)
 	{
 		int i;
 
-		/* Hack -- Process the counters of monsters if needed */
+		/* Hack -- Process the counters of creatures if needed */
 		for (i = 0; i < MAX_MTIMED; i++)
 		{
-			if (mproc_max[i] > 0) process_monsters_mtimed(player_ptr, i);
+			if (mproc_max[i] > 0) process_creatures_mtimed(player_ptr, i);
 		}
 	}
 
@@ -4972,7 +4972,7 @@ msg_print("ƒAƒŠ[ƒi‚ª–‚–@‚ð‹zŽû‚µ‚½I");
 			break;
 		}
 
-		/* Target monster or location */
+		/* Target creature or location */
 		case '*':
 		{
 			if (!wild_mode) do_cmd_target(creature_ptr);
@@ -5326,10 +5326,10 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 
 			if (!m_ptr->species_idx) continue;
 
-			/* Hack -- Detect monster */
+			/* Hack -- Detect creature */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
-			/* Update the monster */
+			/* Update the creature */
 			update_mon(i, FALSE);
 		}
 		prt_time(creature_ptr);
@@ -5460,7 +5460,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			/* Recover fully */
 			(void)set_paralyzed(&creature_list[creature_ptr->riding], 0);
 
-			/* Acquire the monster name */
+			/* Acquire the creature name */
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%^s‚ð‹N‚±‚µ‚½B", m_name);
@@ -5477,7 +5477,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			{
 				char m_name[80];
 
-				/* Acquire the monster name */
+				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
@@ -5497,7 +5497,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			{
 				char m_name[80];
 
-				/* Acquire the monster name */
+				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
@@ -5517,7 +5517,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			{
 				char m_name[80];
 
-				/* Acquire the monster name */
+				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
@@ -5754,31 +5754,31 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			if (creature_ptr->image) play_redraw |= (PR_MAP);
 
 
-			/* Shimmer monsters if needed */
+			/* Shimmer creatures if needed */
 			if (shimmer_creatures)
 			{
 				/* Clear the flag */
 				shimmer_creatures = FALSE;
 
-				/* Shimmer multi-hued monsters */
+				/* Shimmer multi-hued creatures */
 				for (i = 1; i < creature_max; i++)
 				{
 					creature_type *m_ptr;
 					species_type *r_ptr;
 
-					/* Access monster */
+					/* Access creature */
 					m_ptr = &creature_list[i];
 
-					/* Skip dead monsters */
+					/* Skip dead creatures */
 					if (!m_ptr->species_idx) continue;
 
-					/* Skip unseen monsters */
+					/* Skip unseen creatures */
 					if (!m_ptr->ml) continue;
 
-					/* Access the monster race */
+					/* Access the creature race */
 					r_ptr = &species_info[m_ptr->ap_species_idx];
 
-					/* Skip non-multi-hued monsters */
+					/* Skip non-multi-hued creatures */
 					if (!has_cf_creature(m_ptr, CF_ATTR_MULTI) && !has_cf_creature(m_ptr, CF_SHAPECHANGER))
 						continue;
 
@@ -5791,7 +5791,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			}
 
 
-			/* Handle monster detection */
+			/* Handle creature detection */
 			if (repair_creatures)
 			{
 				/* Reset the flag */
@@ -5802,20 +5802,20 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 				{
 					creature_type *m_ptr;
 
-					/* Access monster */
+					/* Access creature */
 					m_ptr = &creature_list[i];
 
-					/* Skip dead monsters */
+					/* Skip dead creatures */
 					if (!m_ptr->species_idx) continue;
 
-					/* Nice monsters get mean */
+					/* Nice creatures get mean */
 					if (m_ptr->mflag & MFLAG_NICE)
 					{
-						/* Nice monsters get mean */
+						/* Nice creatures get mean */
 						m_ptr->mflag &= ~(MFLAG_NICE);
 					}
 
-					/* Handle memorized monsters */
+					/* Handle memorized creatures */
 					if (m_ptr->mflag2 & MFLAG2_MARK)
 					{
 						/* Maintain detection */
@@ -5837,7 +5837,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							/* Assume invisible */
 							m_ptr->ml = FALSE;
 
-							/* Update the monster */
+							/* Update the creature */
 							update_mon(i, FALSE);
 
 							if (health_who == i) play_redraw |= (PR_HEALTH);
@@ -5951,7 +5951,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		// Hack -- Notice death or departure
 		if (!playing || gameover) break;
 
-		// Process all of the monsters in this floor.
+		// Process all of the creatures in this floor.
 		process_creatures();
 
 		// Handle "player_ptr->creature_update"
@@ -6152,7 +6152,7 @@ void determine_bounty_uniques(void)
 
 
 /*
- * Determine today's bounty monster
+ * Determine today's bounty creature
  * Note: conv_old is used if loaded 0.0.3 or older save file
  */
 void determine_today_mon(creature_type * creature_ptr, bool conv_old)
@@ -6410,7 +6410,7 @@ static void new_game_setting(void)
 	object_kind_info_reset();
 
 	/* 
-	 * Wipe monsters in old dungeon
+	 * Wipe creatures in old dungeon
 	 * This wipe destroys value of creature_list[].cur_num .
 	 */
 	wipe_creature_list(0);
@@ -6585,7 +6585,7 @@ static void play_loop(void)
 		// Inside a quest?
 		if (quest_num)
 		{
-			/* Mark the quest monster */
+			/* Mark the quest creature */
 			//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
 		}
 
@@ -6688,7 +6688,7 @@ static void play_loop(void)
 		/* Not leaving dungeon */
 		subject_change_dungeon = FALSE;
 
-		/* Initialize monster process */
+		/* Initialize creature process */
 		creature_process_init();
 
 		turn_loop(floor_ptr, load_game); // Process the level, Turn loop
@@ -6696,14 +6696,14 @@ static void play_loop(void)
 		// Inside a quest and non-unique questor?
 		if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
 		{
-			// Un-mark the quest monster
+			// Un-mark the quest creature
 			// TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
 		}
 
 		// Not save-and-quit and not dead?
 		if (playing && !gameover)
 		{
-			// Maintain Unique monsters and artifact, save current
+			// Maintain Unique creatures and artifact, save current
 			// floor, then prepare next floor
 			//TODO move_floor(player_ptr);
 
@@ -7061,7 +7061,7 @@ void world_wipe()
 	cheat_live = FALSE;
 	cheat_save = FALSE;
 
-	// Reset monster arena
+	// Reset creature arena
 	battle_creatures();
 
 	// Start with no artifacts made yet
@@ -7071,7 +7071,7 @@ void world_wipe()
 		a_ptr->cur_num = 0;
 	}
 
-	// Reset the "monsters"
+	// Reset the "creatures"
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];

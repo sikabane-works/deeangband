@@ -178,7 +178,7 @@ static void wr_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_CURSE_FLAGS) wr_u32b(o_ptr->curse_flags);
 
-	/* Held by monster index */
+	/* Held by creature index */
 	if (flags & SAVE_ITEM_HELD_M_IDX) wr_s16b(o_ptr->held_m_idx);
 
 	/* Extra information */
@@ -797,7 +797,7 @@ static void wr_extra(void)
 
 
 /*
- * hook function to sort monsters by level
+ * hook function to sort creatures by level
  */
 static bool ang_sort_comp_cave_temp(vptr u, vptr v, int a, int b)
 {
@@ -1090,7 +1090,7 @@ static bool wr_savefile_new(void)
 
 	/* Compact the objects */
 	compact_objects(0);
-	/* Compact the monsters */
+	/* Compact the creatures */
 	compact_creatures(0);
 
 	/* Guess at the current time */
@@ -1185,15 +1185,15 @@ static bool wr_savefile_new(void)
 		wr_string(message_str((s16b)i));
 	}
 
-	/* Unique monsters */
+	/* Unique creatures */
 	wr_u16b(unique_max);
 
 	/*** Dump the creatures ***/
 
-	/* Total monsters */
+	/* Total creatures */
 	wr_u16b(creature_max);
 
-	/* Dump the monsters */
+	/* Dump the creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
@@ -1344,12 +1344,12 @@ static bool wr_savefile_new(void)
 
 	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;
 
-	/*** Dump the monsters ***/
+	/*** Dump the creatures ***/
 
-	/* Total monsters */
+	/* Total creatures */
 	wr_u16b(creature_max);
 
-	/* Dump the monsters */
+	/* Dump the creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];

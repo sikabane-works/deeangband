@@ -13,7 +13,7 @@
 #include "angband.h"
 
 /*
- * Determine if the player "hits" a monster (normal combat).
+ * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
 bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis)
@@ -32,7 +32,7 @@ bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis)
 	/* Never hit */
 	if (chance <= 0) return (FALSE);
 
-	/* Invisible monsters are harder to hit */
+	/* Invisible creatures are harder to hit */
 	if (!vis) chance = (chance + 1) / 2;
 
 	/* Power competes against armor */
@@ -45,7 +45,7 @@ bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis)
 
 
 /*
- * Determine if the player "hits" a monster (normal combat).
+ * Determine if the player "hits" a creature (normal combat).
  *
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
@@ -210,7 +210,7 @@ s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s
 
 
 /*
- * Extract the "total damage" from a given object hitting a given monster.
+ * Extract the "total damage" from a given object hitting a given creature.
  *
  * Note that "flasks of oil" do NOT do fire damage, although they
  * certainly could be made to do so.  XXX XXX
@@ -1552,7 +1552,7 @@ msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
-					/* Remove the monster restriction */
+					/* Remove the creature restriction */
 					get_species_num_prep(NULL, NULL);
 				}
 				(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(10) + 5);
@@ -1925,14 +1925,14 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		creature_ptr->fy = ny;
 		creature_ptr->fx = nx;
 
-		/* Hack -- For moving monster or riding player's moving */
+		/* Hack -- For moving creature or riding player's moving */
 		if (!(mpe_mode & MPE_DONT_SWAP_MON))
 		{
-			/* Swap two monsters */
+			/* Swap two creatures */
 			c_ptr->creature_idx = om_idx;
 			oc_ptr->creature_idx = nm_idx;
 
-			if (om_idx > 0) /* Monster on old spot (or creature_ptr->riding) */
+			if (om_idx > 0) /* Creature on old spot (or creature_ptr->riding) */
 			{
 				creature_type *om_ptr = &creature_list[om_idx];
 				om_ptr->fy = ny;
@@ -1940,7 +1940,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 				update_mon(om_idx, TRUE);
 			}
 
-			if (nm_idx > 0) /* Monster on new spot */
+			if (nm_idx > 0) /* Creature on new spot */
 			{
 				creature_type *nm_ptr = &creature_list[nm_idx];
 				nm_ptr->fy = oy;
@@ -2205,8 +2205,8 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
  * This routine should (probably) always induce energy expenditure.
  *
  * Note that moving will *always* take a turn, and will *always* hit
- * any monster which might be in the destination grid.  Previously,
- * moving into walls was "free" and did NOT hit invisible monsters.
+ * any creature which might be in the destination grid.  Previously,
+ * moving into walls was "free" and did NOT hit invisible creatures.
  */
 void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
 {
@@ -2369,7 +2369,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		p_can_enter = FALSE;
 	}
 
-	/* Get the monster */
+	/* Get the creature */
 	m_ptr = &creature_list[c_ptr->creature_idx];
 
 	/*
@@ -2383,7 +2383,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		(!p_can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
 		!have_flag(f_ptr->flags, FF_PERMANENT);
 
-	/* Hack -- attack monsters */
+	/* Hack -- attack creatures */
 	if (c_ptr->creature_idx && (m_ptr->ml || p_can_enter || p_can_kill_walls))
 	{
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -2394,10 +2394,10 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		    has_cf_creature(creature_ptr, CF_BERS_RAGE) && creature_ptr->shero) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
-			/* Disturb the monster */
+			/* Disturb the creature */
 			(void)set_paralyzed(m_ptr, 0);
 
-			/* Extract monster name (or "it") */
+			/* Extract creature name (or "it") */
 			creature_desc(m_name, m_ptr, 0);
 
 			if (m_ptr->ml)
@@ -2405,7 +2405,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				/* Auto-Recall if possible and visible */
 				if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
-				/* Track a new monster */
+				/* Track a new creature */
 				health_track(c_ptr->creature_idx);
 			}
 
@@ -2457,7 +2457,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			char m_name[80];
 
-			/* Acquire the monster name */
+			/* Acquire the creature name */
 			creature_desc(m_name, steed_ptr, 0);
 
 			/* Dump a message */
@@ -2890,7 +2890,7 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
  *                      !!!
  *
  * You STOP if any of the new squares are interesting in any way:
- * for example, if they contain visible monsters or treasure.
+ * for example, if they contain visible creatures or treasure.
  *
  * You STOP if any of the newly adjacent squares seem to be open,
  * and you are also looking for a break on that side. (that is,
@@ -3144,12 +3144,12 @@ static bool run_test(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 		f_ptr = &feature_info[feat];
 
-		/* Visible monsters abort running */
+		/* Visible creatures abort running */
 		if (c_ptr->creature_idx)
 		{
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
-			/* Visible monster */
+			/* Visible creature */
 			if (m_ptr->ml) return (TRUE);
 		}
 
@@ -3558,12 +3558,12 @@ static bool travel_test(creature_type *creature_ptr)
 		c_ptr = &floor_ptr->cave[row][col];
 
 
-		/* Visible monsters abort running */
+		/* Visible creatures abort running */
 		if (c_ptr->creature_idx)
 		{
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
-			/* Visible monster */
+			/* Visible creature */
 			if (m_ptr->ml) return (TRUE);
 		}
 	}

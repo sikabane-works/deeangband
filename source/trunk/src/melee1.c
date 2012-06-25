@@ -1,6 +1,6 @@
 /* File: melee1.c */
 
-/* Purpose: Monster attacks */
+/* Purpose: Creature attacks */
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
@@ -104,7 +104,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 /*
  * Player attacks a (poor, defenseless) creature        -RAK-
  *
- * If no "weapon" is available, then "punch" the monster one time.
+ * If no "weapon" is available, then "punch" the creature one time.
  */
 static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
@@ -204,7 +204,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 	}
 
-	// Disturb the monster
+	// Disturb the creature
 	(void)set_paralyzed(tar_ptr, 0);
 
 	// Extract attacker and target name (or "it")
@@ -310,7 +310,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		// Vampiric drain
 		if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
 		{
-			// Only drain "living" monsters
+			// Only drain "living" creatures
 			if (creature_living(tar_ptr)) can_drain = TRUE;
 			else can_drain = FALSE;
 		}
@@ -606,12 +606,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 		}
 
-		// Anger the monster
+		// Anger the creature
 		if (k > 0) anger_creature(atk_ptr, tar_ptr);
 
 		touch_zap_player(atk_ptr, tar_ptr);
 
-		// Are we draining it?  A little note: If the monster is dead, the drain does not work...
+		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 
 		if (can_drain && (drain_result > 0))
 		{
@@ -771,7 +771,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 				}
 
-				/* Hack -- Get new monster */
+				/* Hack -- Get new creature */
 				tar_ptr = &creature_list[c_ptr->creature_idx];
 
 				/* Oops, we need a different name... */
@@ -940,7 +940,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 	}
 
-	/* Extract monster name (or "it") */
+	/* Extract creature name (or "it") */
 	creature_desc(target_name, tar_ptr, 0);
 
 
@@ -980,7 +980,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 			msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
 		}
 
-		/* Anger the monster */
+		/* Anger the creature */
 		if (k > 0) anger_creature(atk_ptr, tar_ptr);
 
 		/* Damage, check for fear and mdeath */
@@ -1268,7 +1268,7 @@ static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 		}
 
-		// Confuse the monster
+		// Confuse the creature
 		if (has_cf_creature(tar_ptr, CF_NO_CONF))
 		{
 			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
@@ -1363,7 +1363,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 		}
 
-		(void)set_paralyzed(target_ptr, 0); // Disturb the monster
+		(void)set_paralyzed(target_ptr, 0); // Disturb the creature
 		return TRUE; // Done
 	}
 
@@ -1548,7 +1548,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	if (target_ptr->ml)
 	{
 		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
-		health_track(c_ptr->creature_idx); // Track a new monster
+		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
 	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
@@ -1720,7 +1720,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
  * and which also do at least 20 damage, or, sometimes, N damage.
  * This is used only to determine "cuts" and "stuns".
  */
-static int monster_critical(int dice, int sides, int dam)
+static int creature_critical(int dice, int sides, int dam)
 {
 	int max = 0;
 	int total = dice * sides;
@@ -1754,9 +1754,9 @@ static int monster_critical(int dice, int sides, int dam)
 
 
 /*
- * Determine if a monster attack against the player succeeds.
+ * Determine if a creature attack against the player succeeds.
  * Always miss 5% of the time, Always hit 5% of the time.
- * Otherwise, match monster power against player armor.
+ * Otherwise, match creature power against player armor.
  */
 static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 {
@@ -1892,11 +1892,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* ...nor if friendly */
 	if (!is_hostile(attacker_ptr)) return FALSE;
 
-	/* Extract the effective monster level */
+	/* Extract the effective creature level */
 	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 
 
-	/* Get the monster name (or "it") */
+	/* Get the creature name (or "it") */
 	creature_desc(attacker_name, attacker_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
 
@@ -1931,7 +1931,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* Total armor */
 	ac = target_ptr->ac + target_ptr->to_ac;
 
-	/* Monster hits player */
+	/* Creature hits player */
 	if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->stun))
 	{
 		/* Always disturbing */
@@ -2596,7 +2596,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Obvious */
 						obvious = TRUE;
 
-						/* Heal the monster */
+						/* Heal the creature */
 						attacker_ptr->chp += heal;
 
 						/* Redraw (later) if needed */
@@ -2625,7 +2625,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				/* Confused monsters cannot steal successfully. -LM-*/
+				/* Confused creatures cannot steal successfully. -LM-*/
 				if (attacker_ptr->confused) break;
 
 				if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
@@ -2706,7 +2706,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				/* Confused monsters cannot steal successfully. -LM-*/
+				/* Confused creatures cannot steal successfully. -LM-*/
 				if (attacker_ptr->confused) break;
 
 				if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
@@ -2795,7 +2795,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Forget mark */
 						j_ptr->marked = OM_TOUCHED;
 
-						/* Memorize monster */
+						/* Memorize creature */
 						//TODO j_ptr->held_m_idx = m_idx;
 					}
 
@@ -3250,7 +3250,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				/* Radius 8 earthquake centered at the monster */
+				/* Radius 8 earthquake centered at the creature */
 				if (damage > 23 || explode)
 				{
 					//TODO earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
@@ -3553,7 +3553,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			int k = 0;
 
 			/* Critical hit (zero if non-critical) */
-			tmp = monster_critical(d_dice, d_side, damage);
+			tmp = creature_critical(d_dice, d_side, damage);
 
 			/* Roll for damage */
 			switch (tmp)
@@ -3578,7 +3578,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			int k = 0;
 
 			/* Critical hit (zero if non-critical) */
-			tmp = monster_critical(d_dice, d_side, damage);
+			tmp = creature_critical(d_dice, d_side, damage);
 
 			/* Roll for damage */
 			switch (tmp)
@@ -3826,7 +3826,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						*dead = TRUE;
 					}
 					/* TODO
-					else // monster does not dead
+					else // creature does not dead
 					{
 					int j;
 					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
@@ -3859,7 +3859,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-	/* Monster missed player */
+	/* Creature missed player */
 	else
 	{
 		/* Analyze failed attacks */
@@ -3878,7 +3878,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBM_ENGULF:
 		case RBM_CHARGE:
 
-			/* Visible monsters */
+			/* Visible creatures */
 			if (attacker_ptr->ml)
 			{
 				/* Disturbing */
@@ -3903,7 +3903,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	}
 
 
-	/* Analyze "visible" monsters only */
+	/* Analyze "visible" creatures only */
 	if (is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
 	{
 		/* Count "obvious" attacks (and ones that cause damage) */

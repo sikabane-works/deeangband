@@ -325,7 +325,7 @@
 /*
  * Maximum dungeon level.  The player can never reach this level
  * in the dungeon, and this value is used for various calculations
- * involving object and monster creation.  It must be at least 100.
+ * involving object and creature creation.  It must be at least 100.
  * Setting it below 128 may prevent the creation of some objects.
  */
 #define MAX_DEPTH       128
@@ -346,7 +346,7 @@
 
 /*
  * Maximum size of the "mon_lite" array (see "cave.c")
- * Note that the "view radius" will NEVER exceed 20, monster illumination
+ * Note that the "view radius" will NEVER exceed 20, creature illumination
  * flags are dependent on CAVE_VIEW, and even if the "view" was octagonal,
  * we would never require more than 1520 entries in the array.
  */
@@ -365,7 +365,7 @@
  * of "update_view()" and "update_lite()".  We must also be as large as the
  * largest illuminatable room, but no room is larger than 800 grids.  We
  * must also be large enough to allow "good enough" use as a circular queue,
- * to calculate monster flow, but note that the flow code is "paranoid".
+ * to calculate creature flow, but note that the flow code is "paranoid".
  */
 //TODO::
 //#define TEMP_MAX 2298
@@ -572,10 +572,10 @@
 
 /*
  * There is a 1/50 (2%) chance of inflating the requested creature_level
- * during the creation of a monsters (see "get_species_num(floor_ptr, )" in "monster.c").
- * Lower values yield harder monsters more often.
+ * during the creation of a creatures (see "get_species_num(floor_ptr, )" in "creature.c").
+ * Lower values yield harder creatures more often.
  */
-#define NASTY_MON       50              /* 1/chance of inflated monster level */
+#define NASTY_MON       50              /* 1/chance of inflated creature level */
 
 /* 1/x chance of hurting even if invulnerable! */
 #define PENETRATE_INVULNERABILITY 13
@@ -614,10 +614,10 @@
 
 
 /*
- * A monster can only "multiply" (reproduce) if there are fewer than 100
- * monsters on the level capable of such spontaneous reproduction.  This
+ * A creature can only "multiply" (reproduce) if there are fewer than 100
+ * creatures on the level capable of such spontaneous reproduction.  This
  * is a hack which prevents the "creature_list[]" array from exploding due to
- * reproducing monsters.  Messy, but necessary.
+ * reproducing creatures.  Messy, but necessary.
  */
 #define MAX_REPRO       100
 
@@ -1959,7 +1959,7 @@
 #define TV_FIGURINE      8      /* Magical figurines */
 #define TV_STATUE        9      /* Statue, what a silly object... */
 #define TV_CORPSE       10      /* Corpses and Skeletons, specific */
-#define TV_CAPTURE      11      /* Monster ball */
+#define TV_CAPTURE      11      /* Creature ball */
 #define TV_NO_AMMO      15      /* Ammo for crimson */
 #define TV_SHOT         16      /* Ammo for slings */
 #define TV_ARROW        17      /* Ammo for bows */
@@ -2685,8 +2685,8 @@
 #define CAVE_VIEW       0x0020    /* view flag */
 #define CAVE_TEMP       0x0040    /* temp flag */
 #define CAVE_XTRA       0x0080    /* misc flag */
-#define CAVE_MNLT       0x0100    /* Illuminated by monster */
-#define CAVE_MNDK       0x8000    /* Darken by monster */
+#define CAVE_MNLT       0x0100    /* Illuminated by creature */
+#define CAVE_MNDK       0x8000    /* Darken by creature */
 
 /* Used only while cave generation */
 #define CAVE_FLOOR      0x0200
@@ -2714,18 +2714,18 @@
  *   JUMP: Jump directly to the target location (this is a hack)
  *   BEAM: Work as a beam weapon (affect every grid passed through)
  *   THRU: Continue "through" the target (used for "bolts"/"beams")
- *   STOP: Stop as soon as we hit a monster (used for "bolts")
+ *   STOP: Stop as soon as we hit a creature (used for "bolts")
  *   GRID: Affect each grid in the "blast area" in some way
  *   ITEM: Affect each object in the "blast area" in some way
- *   KILL: Affect each monster in the "blast area" in some way
+ *   KILL: Affect each creature in the "blast area" in some way
  *   HIDE: Hack -- disable "visual" feedback from projection
  *   DISI: Disintegrate non-permanent features
  *   PLAYER: Main target is player (used for riding player)
- *   AIMED: Target is only player or monster, so don't affect another.
+ *   AIMED: Target is only player or creature, so don't affect another.
  *          Depend on PROJECT_PLAYER.
  *          (used for minimum (rad == 0) balls on riding player)
  *   REFLECTABLE: Refrectable spell attacks (used for "bolts")
- *   NO_HANGEKI: Avoid counter attacks of monsters
+ *   NO_HANGEKI: Avoid counter attacks of creatures
  *   PATH: Only used for printing project path
  *   FAST: Hide "visual" of flying bolts until blast
  */
@@ -2765,7 +2765,7 @@
 /*
  * Bit flags for the "target_set" function XXX XXX XXX
  *
- *      KILL: Target monsters
+ *      KILL: Target creatures
  *      LOOK: Describe grid fully
  *      XTRA: Currently unused flag
  *      GRID: Select from all grids
@@ -2859,9 +2859,9 @@
 /* xxx (many) */
 #define PU_VIEW         0x00100000L     // Update view
 #define PU_LITE         0x00200000L     // Update lite
-#define PU_MON_LITE     0x00400000L     // Monster illumination
+#define PU_MON_LITE     0x00400000L     // Creature illumination
 #define PU_DELAY_VIS    0x00800000L     // Mega-Hack -- Delayed visual update
-#define PU_MONSTERS     0x01000000L     // Update monsters
+#define PU_MONSTERS     0x01000000L     // Update creatures
 #define PU_DISTANCE     0x02000000L     // Update distances
 /* xxx */
 #define PU_FLOW         0x10000000L     // Update flow
@@ -2915,7 +2915,7 @@
 /* xxx */
 #define PW_MESSAGE      0x00000040L     /* Display messages */
 #define PW_OVERHEAD     0x00000080L     /* Display overhead view */
-#define PW_MONSTER      0x00000100L     /* Display monster recall */
+#define PW_MONSTER      0x00000100L     /* Display creature recall */
 #define PW_OBJECT       0x00000200L     /* Display object recall */
 #define PW_DUNGEON      0x00000400L     /* Display dungeon view */
 #define PW_SNAPSHOT     0x00000800L     /* Display snap-shot */
@@ -2943,12 +2943,12 @@
 /* Bit flags for creature_desc() */
 #define MD_OBJECTIVE       0x00000001 /* Objective (or Reflexive) */
 #define MD_POSSESSIVE      0x00000002 /* Possessive (or Reflexive) */
-#define MD_INDEF_HIDDEN    0x00000004 /* Use indefinites for hidden monsters ("something") */
-#define MD_INDEF_VISIBLE   0x00000008 /* Use indefinites for visible monsters ("a kobold") */
-#define MD_PRON_HIDDEN     0x00000010 /* Pronominalize hidden monsters */
-#define MD_PRON_VISIBLE    0x00000020 /* Pronominalize visible monsters */
-#define MD_ASSUME_HIDDEN   0x00000040 /* Assume the monster is hidden */
-#define MD_ASSUME_VISIBLE  0x00000080 /* Assume the monster is visible */
+#define MD_INDEF_HIDDEN    0x00000004 /* Use indefinites for hidden creatures ("something") */
+#define MD_INDEF_VISIBLE   0x00000008 /* Use indefinites for visible creatures ("a kobold") */
+#define MD_PRON_HIDDEN     0x00000010 /* Pronominalize hidden creatures */
+#define MD_PRON_VISIBLE    0x00000020 /* Pronominalize visible creatures */
+#define MD_ASSUME_HIDDEN   0x00000040 /* Assume the creature is hidden */
+#define MD_ASSUME_VISIBLE  0x00000080 /* Assume the creature is visible */
 #define MD_TRUE_NAME       0x00000100 /* Chameleon's true name */
 #define MD_IGNORE_HALLU    0x00000200 /* Ignore hallucination, and penetrate shape change */
 #define MD_IGNORE_EGO_DESC 0x00000400 /* Add ego description */
@@ -3305,22 +3305,22 @@
 
 
 /*
- * Special Monster Flags (all temporary)
+ * Special Creature Flags (all temporary)
  */
-#define MFLAG_VIEW      0x01    /* Monster is in line of sight */
-#define MFLAG_TEMP      0x02    /* Monster is marked for project_hack() */
+#define MFLAG_VIEW      0x01    /* Creature is in line of sight */
+#define MFLAG_TEMP      0x02    /* Creature is marked for project_hack() */
 #define MFLAG_XXX2      0x04    /* (unused) */
 #define MFLAG_XXX3      0x08    /* (unused) */
-#define MFLAG_BORN      0x10    /* Monster is still being born */
-#define MFLAG_NICE      0x20    /* Monster is still being nice */
+#define MFLAG_BORN      0x10    /* Creature is still being born */
+#define MFLAG_NICE      0x20    /* Creature is still being nice */
 
-#define MFLAG2_KAGE      0x01    /* Monster is kage */
-#define MFLAG2_NOPET     0x02    /* Cannot make monster pet */
+#define MFLAG2_KAGE      0x01    /* Creature is kage */
+#define MFLAG2_NOPET     0x02    /* Cannot make creature pet */
 #define MFLAG2_NOGENO    0x04    /* Cannot genocide */
-#define MFLAG2_CHAMELEON 0x08    /* Monster is chameleon */
-#define MFLAG2_NOFLOW    0x10    /* Monster is in no_flow_by_smell mode */
-#define MFLAG2_SHOW      0x20    /* Monster is recently memorized */
-#define MFLAG2_MARK      0x40    /* Monster is currently memorized */
+#define MFLAG2_CHAMELEON 0x08    /* Creature is chameleon */
+#define MFLAG2_NOFLOW    0x10    /* Creature is in no_flow_by_smell mode */
+#define MFLAG2_SHOW      0x20    /* Creature is recently memorized */
+#define MFLAG2_MARK      0x40    /* Creature is currently memorized */
 
 
 /*
@@ -3450,7 +3450,7 @@
 #define TR_ACTIVATE            88     /* Item can be activated */
 #define TR_DRAIN_EXP           89     /* Item drains Experience */
 #define TR_TELEPORT            90     /* Item teleports player */
-#define TR_AGGRAVATE           91     /* Item aggravates monsters */
+#define TR_AGGRAVATE           91     /* Item aggravates creatures */
 #define TR_BLESSED             92     /* Item is Blessed */
 #define TR_ES_ATTACK           93     /* Fake flag for Smith */
 #define TR_ES_AC               94     /* Fake flag for Smith */
@@ -3599,11 +3599,11 @@
 #define GON_UNCURSED 0x00000200  /* Select in uncursed equipment */
 #define GON_ITEM     0x00000400  /* Normal Items  */
 
-/*** Monster blow constants ***/
+/*** Creature blow constants ***/
 
 
 /*
- * New monster blow methods
+ * New creature blow methods
  */
 
 #define RBM_NONE         0
@@ -3643,7 +3643,7 @@
 #define MAX_RBM         26
 
 /*
- * New monster blow effects
+ * New creature blow effects
  */
 #define RBE_HURT         1
 #define RBE_POISON       2
@@ -3680,13 +3680,13 @@
 #define RBE_SUPERHURT   33
 
 
-/*** Monster flag values (hard-coded) ***/
+/*** Creature flag values (hard-coded) ***/
 
 #define CREATURE_FLAGS_MAX 19
 
 
 /*
- * New monster race bit flags
+ * New creature race bit flags
  */
 #define RF4_SHRIEK          0x00000001  /* Shriek for help */
 #define RF4_XXX1            0x00000002  /* XXX */
@@ -3722,7 +3722,7 @@
 #define RF4_BR_DISI         0x80000000  /* Breathe Disintegration */
 
 /*
- * New monster race bit flags
+ * New creature race bit flags
  */
 #define RF5_BA_ACID         0x00000001  /* Acid Ball */
 #define RF5_BA_ELEC         0x00000002  /* Elec Ball */
@@ -3758,7 +3758,7 @@
 #define RF5_HOLD            0x80000000  /* Paralyze Player */
 
 /*
- * New monster race bit flags
+ * New creature race bit flags
  */
 #define RF6_HASTE           0x00000001  /* Speed self */
 #define RF6_HAND_DOOM       0x00000002  /* Hand of Doom */
@@ -3768,7 +3768,7 @@
 #define RF6_TPORT           0x00000020  /* Teleport Long */
 #define RF6_WORLD           0x00000040  /* world */
 #define RF6_SPECIAL         0x00000080  /* Special Attack */
-#define RF6_TELE_TO         0x00000100  /* Move player to monster */
+#define RF6_TELE_TO         0x00000100  /* Move player to creature */
 #define RF6_TELE_AWAY       0x00000200  /* Move player far away */
 #define RF6_TELE_LEVEL      0x00000400  /* Move player vertically */
 #define RF6_PSY_SPEAR       0x00000800  /* Psyco-spear */
@@ -3778,8 +3778,8 @@
 #define RF6_RAISE_DEAD      0x00008000  /* Raise Dead */
 #define RF6_S_KIN           0x00010000  /* Summon "kin" */
 #define RF6_S_CYBER         0x00020000  /* Summon Cyberdemons! */
-#define RF6_S_MONSTER       0x00040000  /* Summon Monster */
-#define RF6_S_MONSTERS      0x00080000  /* Summon Monsters */
+#define RF6_S_MONSTER       0x00040000  /* Summon Creature */
+#define RF6_S_MONSTERS      0x00080000  /* Summon Creatures */
 #define RF6_S_ANT           0x00100000  /* Summon Ants */
 #define RF6_S_SPIDER        0x00200000  /* Summon Spiders */
 #define RF6_S_HOUND         0x00400000  /* Summon Hounds */
@@ -3791,7 +3791,7 @@
 #define RF6_S_HI_UNDEAD     0x10000000  /* Summon Greater Undead */
 #define RF6_S_HI_DRAGON     0x20000000  /* Summon Ancient Dragon */
 #define RF6_S_AMBERITES     0x40000000  /* Summon Amberites */
-#define RF6_S_UNIQUE        0x80000000  /* Summon Unique Monster */
+#define RF6_S_UNIQUE        0x80000000  /* Summon Unique Creature */
 
 
 
@@ -3812,7 +3812,7 @@
 #define is_hostile(A) \
 	 (bool)((is_friendly(player_ptr, A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
 
-/* Hack -- Determine monster race appearance index is same as race index */
+/* Hack -- Determine creature race appearance index is same as race index */
 #define is_original_ap(A) \
 	 (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
 
@@ -3820,7 +3820,7 @@
 	 (bool)((A)->ml && !(WHO)->image && ((A)->ap_species_idx == (A)->species_idx))
 
 /*
- * Is the monster seen by the player?
+ * Is the creature seen by the player?
  */
 // TODO Check using
 #define is_seen(B, A) \
@@ -4052,10 +4052,10 @@
 
 /*
  * Determine if a "legal" grid is an "empty" floor grid
- * Determine if monsters are allowed to move into a grid
+ * Determine if creatures are allowed to move into a grid
  *
  * Line 1 -- forbid non-placement grids
- * Line 2 -- forbid normal monsters
+ * Line 2 -- forbid normal creatures
  * Line 3 -- forbid the player
  */
 #define cave_empty_bold(FLOOR, Y, X) \
@@ -4066,7 +4066,7 @@
 
 /*
  * Determine if a "legal" grid is an "empty" floor grid
- * Determine if monster generation is allowed in a grid
+ * Determine if creature generation is allowed in a grid
  *
  * Line 1 -- forbid non-empty grids
  * Line 2 -- forbid trees while dungeon generation
@@ -4080,7 +4080,7 @@
  * Determine if a "legal" grid is an "naked" floor grid
  *
  * Line 1 -- forbid non-clean gird
- * Line 2 -- forbid monsters
+ * Line 2 -- forbid creatures
  * Line 3 -- forbid the player
  */
 #define cave_naked_bold(FLOOR, Y, X) \
@@ -4243,25 +4243,25 @@ extern int PlayerUID;
 #define SOUND_SELL	    27
 #define SOUND_WARN	    28
 #define SOUND_ROCKET    29 /* Somebody's shooting rockets */
-#define SOUND_N_KILL    30 /* The player kills a non-living/undead monster */
+#define SOUND_N_KILL    30 /* The player kills a non-living/undead creature */
 #define SOUND_U_KILL    31 /* The player kills a unique */
 #define SOUND_QUEST     32 /* The player has just completed a quest */
 #define SOUND_HEAL      33 /* The player was healed a little bit */
 #define SOUND_X_HEAL    34 /* The player was healed full health */
-#define SOUND_BITE      35 /* A monster bites you */
-#define SOUND_CLAW      36 /* A monster claws you */
-#define SOUND_M_SPELL   37 /* A monster casts a miscellaneous spell */
-#define SOUND_SUMMON    38 /* A monster casts a summoning spell  */
-#define SOUND_BREATH    39 /* A monster breathes */
-#define SOUND_BALL      40 /* A monster casts a ball / bolt spell */
-#define SOUND_M_HEAL    41 /* A monster heals itself somehow */
-#define SOUND_ATK_SPELL 42 /* A monster casts a misc. offensive spell */
+#define SOUND_BITE      35 /* A creature bites you */
+#define SOUND_CLAW      36 /* A creature claws you */
+#define SOUND_M_SPELL   37 /* A creature casts a miscellaneous spell */
+#define SOUND_SUMMON    38 /* A creature casts a summoning spell  */
+#define SOUND_BREATH    39 /* A creature breathes */
+#define SOUND_BALL      40 /* A creature casts a ball / bolt spell */
+#define SOUND_M_HEAL    41 /* A creature heals itself somehow */
+#define SOUND_ATK_SPELL 42 /* A creature casts a misc. offensive spell */
 #define SOUND_EVIL      43 /* Something nasty has just happened! */
-#define SOUND_TOUCH     44 /* A monster touches you */
-#define SOUND_STING     45 /* A monster stings you */
-#define SOUND_CRUSH     46 /* A monster crushes / envelopes you */
-#define SOUND_SLIME     47 /* A monster drools/spits/etc on you */
-#define SOUND_WAIL      48 /* A monster wails */
+#define SOUND_TOUCH     44 /* A creature touches you */
+#define SOUND_STING     45 /* A creature stings you */
+#define SOUND_CRUSH     46 /* A creature crushes / envelopes you */
+#define SOUND_SLIME     47 /* A creature drools/spits/etc on you */
+#define SOUND_WAIL      48 /* A creature wails */
 #define SOUND_WINNER    49 /* Just won the game! */
 #define SOUND_FIRE      50 /* An item was burned  */
 #define SOUND_ACID      51 /* An item was destroyed by acid */
@@ -4269,13 +4269,13 @@ extern int PlayerUID;
 #define SOUND_COLD      53 /* An item was shattered */
 #define SOUND_ILLEGAL   54 /* Illegal command attempted */
 #define SOUND_FAIL      55 /* Fail to get a spell off / activate an item */
-#define SOUND_WAKEUP    56 /* A monster wakes up */
+#define SOUND_WAKEUP    56 /* A creature wakes up */
 #define SOUND_INVULN    57 /* Invulnerability! */
 #define SOUND_FALL      58 /* Falling through a trapdoor... */
-#define SOUND_PAIN      59 /* A monster is in pain! */
+#define SOUND_PAIN      59 /* A creature is in pain! */
 #define SOUND_DESTITEM  60 /* An item was destroyed by misc. means */
-#define SOUND_MOAN      61 /* A monster makes a moan/beg/insult attack */
-#define SOUND_SHOW      62 /* A monster makes a "show" attack */
+#define SOUND_MOAN      61 /* A creature makes a moan/beg/insult attack */
+#define SOUND_SHOW      62 /* A creature makes a "show" attack */
 #define SOUND_UNUSED    63 /* (no sound for gaze attacks) */
 #define SOUND_EXPLODE   64 /* Something (or somebody) explodes */
 #define SOUND_GLASS     65 /* A glass feature was crashed */
@@ -4569,7 +4569,7 @@ extern int PlayerUID;
 #define DETECT_RAD_MAP     30
 #define DETECT_RAD_ALL     255
 
-/* Monster Spells */
+/* Creature Spells */
 #define MS_SHRIEK         0
 #define MS_XXX1           1
 #define MS_DISPEL         2
@@ -5171,7 +5171,7 @@ extern int PlayerUID;
 
 
 /*
- * Flags for wr_monster()/rd_monster()
+ * Flags for wr_creature()/rd_creature()
  */
 #define SAVE_MON_AP_species_idx     0x00000001
 #define SAVE_MON_SUB_ALIGN    0x00000002
@@ -5208,7 +5208,7 @@ extern int PlayerUID;
 
 #define race_is_(C, A) (!C->mimic_form && (C->race_idx1 == A))
 
-/* Sub-alignment flags for neutral monsters */
+/* Sub-alignment flags for neutral creatures */
 #define SUB_ALIGN_NEUTRAL 0x0000
 #define SUB_ALIGN_EVIL    0x0001
 #define SUB_ALIGN_GOOD    0x0002
@@ -5278,13 +5278,13 @@ extern int PlayerUID;
 #define MPE_DONT_SWAP_MON 0x00000080
 
 
-#define MTIMED_CSLEEP   0 /* Monster is sleeping */
-#define MTIMED_FAST     1 /* Monster is temporarily fast */
-#define MTIMED_SLOW     2 /* Monster is temporarily slow */
-#define MTIMED_STUNNED  3 /* Monster is stunned */
-#define MTIMED_CONFUSED 4 /* Monster is confused */
-#define MTIMED_MONFEAR  5 /* Monster is afraid */
-#define MTIMED_INVULNER 6 /* Monster is temporarily invulnerable */
+#define MTIMED_CSLEEP   0 /* Creature is sleeping */
+#define MTIMED_FAST     1 /* Creature is temporarily fast */
+#define MTIMED_SLOW     2 /* Creature is temporarily slow */
+#define MTIMED_STUNNED  3 /* Creature is stunned */
+#define MTIMED_CONFUSED 4 /* Creature is confused */
+#define MTIMED_MONFEAR  5 /* Creature is afraid */
+#define MTIMED_INVULNER 6 /* Creature is temporarily invulnerable */
 
 #define MAX_MTIMED      7
 

@@ -136,10 +136,10 @@ s16b coin_type;			/* Hack -- force coin type */
 
 bool opening_chest;		/* Hack -- prevent chest generation */
 
-bool shimmer_creatures;	/* Hack -- optimize multi-hued monsters */
+bool shimmer_creatures;	/* Hack -- optimize multi-hued creatures */
 bool shimmer_objects;	/* Hack -- optimize multi-hued objects */
 
-bool repair_creatures;	/* Hack -- optimize detect monsters */
+bool repair_creatures;	/* Hack -- optimize detect creatures */
 bool repair_objects;	/* Hack -- optimize detect objects */
 
 s16b inven_nxt;			/* Hack -- unused */
@@ -147,8 +147,8 @@ s16b inven_nxt;			/* Hack -- unused */
 s16b object_max = 1;			/* Number of allocated objects */
 s16b object_cnt = 0;			/* Number of live objects */
 
-s16b creature_max = 1;			/* Number of allocated monsters */
-s16b creature_cnt = 0;			/* Number of live monsters */
+s16b creature_max = 1;			/* Number of allocated creatures */
+s16b creature_cnt = 0;			/* Number of live creatures */
 
 s16b hack_m_idx = 0;	/* Hack -- see "process_creatures()" */
 s16b hack_m_idx_ii = 0;
@@ -204,7 +204,7 @@ bool view_torch_grids;	/* Map remembers all torch-lit grids */
 bool view_unsafe_grids;	/* Map marked by detect traps */
 bool view_reduce_view;	/* Reduce view-radius in town */
 bool fresh_before;	/* Flush output while continuous command */
-bool fresh_after;	/* Flush output after monster's move */
+bool fresh_after;	/* Flush output after creature's move */
 bool fresh_message;	/* Flush output after every message */
 bool hilite_player;	/* Hilite the player with the cursor */
 bool display_path;	/* Display actual path before shooting */
@@ -224,7 +224,7 @@ bool compress_savefile;	/* Compress messages in savefiles */
 bool abbrev_extra;	/* Describe obj's extra resistances by abbreviation */
 bool abbrev_all;	/* Describe obj's all resistances by abbreviation */
 bool exp_need;	/* Show the experience needed for next level */
-bool ignore_unview;	/* Ignore whenever any monster does */
+bool ignore_unview;	/* Ignore whenever any creature does */
 
 
 /*** Game-Play Options ***/
@@ -253,9 +253,9 @@ bool find_cut;	/* Run past known corners */
 bool check_abort;	/* Check for user abort while continuous command */
 bool flush_failure;	/* Flush input on various failures */
 bool flush_disturb;	/* Flush input whenever disturbed */
-bool disturb_move;	/* Disturb whenever any monster moves */
-bool disturb_high;	/* Disturb whenever high-level monster moves */
-bool disturb_near;	/* Disturb whenever viewable monster moves */
+bool disturb_move;	/* Disturb whenever any creature moves */
+bool disturb_high;	/* Disturb whenever high-level creature moves */
+bool disturb_near;	/* Disturb whenever viewable creature moves */
 bool disturb_pets;	/* Disturb when visible pets move */
 bool disturb_panel;	/* Disturb whenever map panel changes */
 bool disturb_state;	/* Disturb whenever player state changes */
@@ -268,8 +268,8 @@ bool alert_trap_detect;	/* Alert when leaving trap detected area */
 /*** Birth Options ***/
 
 bool manual_haggle;	/* Manually haggle in stores */
-bool smart_learn;	/* Monsters learn from their mistakes (*) */
-bool smart_cheat;	/* Monsters exploit players weaknesses (*) */
+bool smart_learn;	/* Creatures learn from their mistakes (*) */
+bool smart_cheat;	/* Creatures exploit players weaknesses (*) */
 bool ironman_shops;	/* Stores are permanently closed (*) */
 bool ironman_small_levels;	/* Always create unusually small dungeon levels (*) */
 bool ironman_downward;	/* Disable recall and use of up stairs (*) */
@@ -299,7 +299,7 @@ bool leave_special;	/* Auto-destroyer leaves items your race/class needs */
 
 bool record_fix_art;	/* Record fixed artifacts */
 bool record_rand_art;	/* Record random artifacts */
-bool record_destroy_uniq;	/* Record when destroy unique monster */
+bool record_destroy_uniq;	/* Record when destroy unique creature */
 bool record_fix_quest;	/* Record fixed quests */
 bool record_rand_quest;	/* Record random quests */
 bool record_maxdepth;	/* Record movements to deepest level */
@@ -315,10 +315,10 @@ bool record_named_pet;	/* Record informations of named pets */
 /* Cheating options */
 
 bool cheat_peek;	/* Peek into object creation */
-bool cheat_hear;	/* Peek into monster creation */
+bool cheat_hear;	/* Peek into creature creation */
 bool cheat_room;	/* Peek into dungeon creation */
 bool cheat_xtra;	/* Peek into something else */
-bool cheat_know;	/* Know complete monster info */
+bool cheat_know;	/* Know complete creature info */
 bool cheat_live;	/* Allow player to avoid death */
 bool cheat_save;	/* Ask for saving death */
 
@@ -635,7 +635,7 @@ object_type *object_list;
 object_type object_null;
 
 /*
- * The array of dungeon monsters [max_creature_idx]
+ * The array of dungeon creatures [max_creature_idx]
  */
 creature_type *creature_list;
 
@@ -647,10 +647,10 @@ store_type *st_list;
 
 
 /*
- * The array to process dungeon monsters [max_creature_idx]
+ * The array to process dungeon creatures [max_creature_idx]
  */
 creature_type **mproc_list[MAX_MTIMED];
-s16b mproc_max[MAX_MTIMED]; /* Number of monsters to be processed */
+s16b mproc_max[MAX_MTIMED]; /* Number of creatures to be processed */
 
 
 /*
@@ -731,7 +731,7 @@ bool wild_mode = FALSE;
 bool fight_arena_mode = FALSE;		/* inside arena? */
 bool gamble_arena_mode = FALSE;		/* inside tougijou? */
 s16b town_num = 0;			/* Current town number */
-s16b arena_number = 0;		/* monster number in arena -KMW- */
+s16b arena_number = 0;		/* creature number in arena -KMW- */
 bool detect_trap;               /* Whether on trap-safe grids */
 
 s16b species_window_idx;	/* Species info trackee */
@@ -827,7 +827,7 @@ char *artifact_name;
 char *artifact_text;
 
 /*
- * The monster ego arrays
+ * The creature ego arrays
  */
 creature_ego *re_info;
 char *re_name;
@@ -987,22 +987,22 @@ building_type building[MAX_BLDG];
 u16b max_quests;
 
 /*
- * Maximum number of monsters in species_info.txt
+ * Maximum number of creatures in species_info.txt
  */
 u16b max_species_idx;
 
 /*
- * Maximum number of monsters in re_info.txt
+ * Maximum number of creatures in re_info.txt
  */
 u16b max_creature_ego_idx;
 
 /*
- * Maximum number of monsters in store_pre_info.txt
+ * Maximum number of creatures in store_pre_info.txt
  */
 u16b max_store_idx;
 
 /*
- * Maximum number of monsters in authority_info.txt
+ * Maximum number of creatures in authority_info.txt
  */
 u16b max_authority_idx;
 
@@ -1043,7 +1043,7 @@ u16b max_object_idx;
 // Maximum number of creature_flags
 u16b max_creature_flag_idx;
 
-// Maximum number of monsters in simulate
+// Maximum number of creatures in simulate
 u16b max_creature_idx;
 
 // Maximum number of store pre info in the world
@@ -1097,7 +1097,7 @@ bool can_save = FALSE;        /* Game can be saved */
 s16b the_world;
 
 s16b battle_mon[4];
-int sel_monster;
+int sel_creature;
 int battle_odds;
 int kakekin;
 u32b mon_odds[4];

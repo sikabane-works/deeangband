@@ -52,7 +52,7 @@ static void note(cptr str)
 }
 
 
-/*** Monster CSV List ***/
+/*** Creature CSV List ***/
 
 
 //
@@ -457,7 +457,7 @@ static cptr species_info_blow_method[] =
 
 
 /*
- * Monster Blow Effects
+ * Creature Blow Effects
  */
 static cptr species_info_blow_effect[] =
 {
@@ -628,7 +628,7 @@ static cptr feature_info_flags[] =
 
 
 /*
- * Monster authority flags
+ * Creature authority flags
  */
 static cptr authority_str_id;
 
@@ -3243,7 +3243,7 @@ errr parse_species_info_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize Monster:%d]", n);
+		sprintf(nt, "[Initialize Creature:%d]", n);
 
 		species_info[n].species_idx = n;
 		species_info[n].ap_species_idx = n;
@@ -6397,7 +6397,7 @@ typedef struct dungeon_grid dungeon_grid;
 struct dungeon_grid
 {
 	int		feature;		/* Terrain feature */
-	int		monster;		/* Monster */
+	int		creature;		/* Creature */
 	int		object;			/* Object */
 	int		ego;			/* Ego-Item */
 	int		artifact;		/* Artifact */
@@ -6412,7 +6412,7 @@ static dungeon_grid letter[255];
 
 
 /*
- * Process "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid
+ * Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid
  */
 static errr parse_line_feature(char *buf)
 {
@@ -6430,7 +6430,7 @@ static errr parse_line_feature(char *buf)
 
 		/* Reset the info for the letter */
 		letter[index].feature = feat_none;
-		letter[index].monster = 0;
+		letter[index].creature = 0;
 		letter[index].object = 0;
 		letter[index].ego = 0;
 		letter[index].artifact = 0;
@@ -6493,21 +6493,21 @@ static errr parse_line_feature(char *buf)
 					letter[index].object = atoi(zz[4]);
 				}
 				/* Fall through */
-			/* Monster */
+			/* Creature */
 			case 4:
 				if (zz[3][0] == '*')
 				{
 					letter[index].random |= RANDOM_MONSTER;
-					if (zz[3][1]) letter[index].monster = atoi(zz[3] + 1);
+					if (zz[3][1]) letter[index].creature = atoi(zz[3] + 1);
 				}
 				else if (zz[3][0] == 'c')
 				{
 					if (!zz[3][1]) return PARSE_ERROR_GENERIC;
-					letter[index].monster = - atoi(zz[3] + 1);
+					letter[index].creature = - atoi(zz[3] + 1);
 				}
 				else
 				{
-					letter[index].monster = atoi(zz[3]);
+					letter[index].creature = atoi(zz[3]);
 				}
 				/* Fall through */
 			/* Cave info */
@@ -6719,7 +6719,7 @@ static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 	o_ptr->fy = y;
 	o_ptr->fx = x;
 
-	// No monster
+	// No creature
 	o_ptr->held_m_idx = 0;
 
 	// Build a stack
@@ -6760,7 +6760,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax));
 	}
 
-	/* Process "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
+	/* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
 	if (buf[0] == 'F')
 	{
 		return parse_line_feature(buf);
@@ -6789,7 +6789,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 //			c_ptr->special = 11;
 
 			int object_index = letter[idx].object;
-			int monster_index = letter[idx].monster;
+			int creature_index = letter[idx].creature;
 			int random = letter[idx].random;
 			int artifact_index = letter[idx].artifact;
 
@@ -6802,53 +6802,53 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Cave info */
 			c_ptr->info = letter[idx].cave_info;
 
-			/* Create a monster */
+			/* Create a creature */
 			if (random & RANDOM_MONSTER)
 			{
-				floor_ptr->creature_level = floor_ptr->base_level + monster_index;
+				floor_ptr->creature_level = floor_ptr->base_level + creature_index;
 				place_creature(NULL, floor_ptr, *y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 				floor_ptr->creature_level = floor_ptr->base_level;
 			}
-			else if (monster_index)
+			else if (creature_index)
 			{
 				int old_cur_num, old_max_num;
 				bool clone = FALSE;
 
-				if (monster_index < 0)
+				if (creature_index < 0)
 				{
-					monster_index = -monster_index;
+					creature_index = -creature_index;
 					clone = TRUE;
 				}
-				old_cur_num = species_info[monster_index].cur_num;
-				old_max_num = species_info[monster_index].max_num;
+				old_cur_num = species_info[creature_index].cur_num;
+				old_max_num = species_info[creature_index].max_num;
 
 				/* Make alive again */
-				if (is_unique_species(&species_info[monster_index]))
+				if (is_unique_species(&species_info[creature_index]))
 				{
-					species_info[monster_index].cur_num = 0;
-					species_info[monster_index].max_num = 1;
+					species_info[creature_index].cur_num = 0;
+					species_info[creature_index].max_num = 1;
 				}
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (has_cf(&species_info[monster_index].flags, CF_NAZGUL))
+				else if (has_cf(&species_info[creature_index].flags, CF_NAZGUL))
 				{
-					if (species_info[monster_index].cur_num == species_info[monster_index].max_num)
+					if (species_info[creature_index].cur_num == species_info[creature_index].max_num)
 					{
-						species_info[monster_index].max_num++;
+						species_info[creature_index].max_num++;
 					}
 				}
 
 				/* Place it */
-				place_creature_species(NULL, floor_ptr, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
+				place_creature_species(NULL, floor_ptr, *y, *x, creature_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
 				if (clone)
 				{
 					/* clone */
 					creature_list[hack_m_idx_ii].smart |= SM_CLONED;
 
-					/* Make alive again for real unique monster */
-					species_info[monster_index].cur_num = old_cur_num;
-					species_info[monster_index].max_num = old_max_num;
+					/* Make alive again for real unique creature */
+					species_info[creature_index].cur_num = old_cur_num;
+					species_info[creature_index].max_num = old_max_num;
 				}
 			}
 
@@ -7059,7 +7059,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				{
 					int y, x;
 
-					/* Delete the monster (if any) */
+					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, player_ptr->fy, player_ptr->fx);
 
 					y = atoi(zz[0]);
@@ -7688,16 +7688,16 @@ void write_species_info_txt(void)
 
 	for (z = -1; z < alloc_race_size; z++)
 	{
-		/* Output the monsters in order */
+		/* Output the creatures in order */
 		i = (z >= 0) ? alloc_race_table[z].index : 0;
 
-		/* Acquire the monster */
+		/* Acquire the creature */
 		r_ptr = &species_info[i];
 
-		/* Ignore empty monsters */
+		/* Ignore empty creatures */
 		if (!strlen(species_name + r_ptr->name)) continue;
 
-		/* Ignore useless monsters */
+		/* Ignore useless creatures */
 		if (i && !r_ptr->speed) continue;
 
 		/* Write a note if necessary */
@@ -7706,12 +7706,12 @@ void write_species_info_txt(void)
 			/* Note the town */
 			if (!r_ptr->level)
 			{
-				fprintf(fff, "\n##### Town monsters #####\n\n");
+				fprintf(fff, "\n##### Town creatures #####\n\n");
 			}
 			/* Note the dungeon */
 			else
 			{
-				fprintf(fff, "\n##### Normal monsters #####\n\n");
+				fprintf(fff, "\n##### Normal creatures #####\n\n");
 			}
 
 			/* Record the change */

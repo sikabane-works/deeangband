@@ -233,7 +233,7 @@ extern bool view_torch_grids;	/* Map remembers all torch-lit grids */
 extern bool view_unsafe_grids;	/* Map marked by detect traps */
 extern bool view_reduce_view;	/* Reduce view-radius in town */
 extern bool fresh_before;	/* Flush output while continuous command */
-extern bool fresh_after;	/* Flush output after monster's move */
+extern bool fresh_after;	/* Flush output after creature's move */
 extern bool fresh_message;	/* Flush output after every message */
 extern bool hilite_player;	/* Hilite the player with the cursor */
 extern bool display_path;	/* Display actual path before shooting */
@@ -253,7 +253,7 @@ extern bool compress_savefile;	/* Compress messages in savefiles */
 extern bool abbrev_extra;	/* Describe obj's extra resistances by abbreviation */
 extern bool abbrev_all;	/* Describe obj's all resistances by abbreviation */
 extern bool exp_need;	/* Show the experience needed for next level */
-extern bool ignore_unview;	/* Ignore whenever any monster does */
+extern bool ignore_unview;	/* Ignore whenever any creature does */
 
 
 /*** Game-Play Options ***/
@@ -282,9 +282,9 @@ extern bool find_cut;	/* Run past known corners */
 extern bool check_abort;	/* Check for user abort while continuous command */
 extern bool flush_failure;	/* Flush input on various failures */
 extern bool flush_disturb;	/* Flush input whenever disturbed */
-extern bool disturb_move;	/* Disturb whenever any monster moves */
-extern bool disturb_high;	/* Disturb whenever high-level monster moves */
-extern bool disturb_near;	/* Disturb whenever viewable monster moves */
+extern bool disturb_move;	/* Disturb whenever any creature moves */
+extern bool disturb_high;	/* Disturb whenever high-level creature moves */
+extern bool disturb_near;	/* Disturb whenever viewable creature moves */
 extern bool disturb_pets;	/* Disturb when visible pets move */
 extern bool disturb_panel;	/* Disturb whenever map panel changes */
 extern bool disturb_state;	/* Disturb whenever player state changes */
@@ -297,8 +297,8 @@ extern bool alert_trap_detect;	/* Alert when leaving trap detected area */
 /*** Birth Options ***/
 
 extern bool manual_haggle;	/* Manually haggle in stores */
-extern bool smart_learn;	/* Monsters learn from their mistakes (*) */
-extern bool smart_cheat;	/* Monsters exploit players weaknesses (*) */
+extern bool smart_learn;	/* Creatures learn from their mistakes (*) */
+extern bool smart_cheat;	/* Creatures exploit players weaknesses (*) */
 extern bool ironman_shops;	/* Stores are permanently closed (*) */
 extern bool ironman_small_levels;	/* Always create unusually small dungeon levels (*) */
 extern bool ironman_downward;	/* Disable recall and use of up stairs (*) */
@@ -328,7 +328,7 @@ extern bool leave_special;	/* Auto-destroyer leaves items your race/class needs 
 
 extern bool record_fix_art;	/* Record fixed artifacts */
 extern bool record_rand_art;	/* Record random artifacts */
-extern bool record_destroy_uniq;	/* Record when destroy unique monster */
+extern bool record_destroy_uniq;	/* Record when destroy unique creature */
 extern bool record_fix_quest;	/* Record fixed quests */
 extern bool record_rand_quest;	/* Record random quests */
 extern bool record_maxdepth;	/* Record movements to deepest level */
@@ -540,7 +540,7 @@ extern int highscore_fd;
 extern bool can_save;
 extern s16b the_world;
 extern s16b battle_mon[4];
-extern int sel_monster;
+extern int sel_creature;
 extern int battle_odds;
 extern int kakekin;
 extern u32b mon_odds[4];
@@ -1165,20 +1165,20 @@ extern bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr, int ap
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void creature_process_init(void);
-extern void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx);
+extern void process_creatures_mtimed(creature_type *cr_ptr, int mtimed_idx);
 extern u32b get_curse(int power, object_type *o_ptr);
 extern void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance);
 extern bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player);
-extern void monster_gain_exp(int m_idx, int s_idx);
+extern void creature_gain_exp(int m_idx, int s_idx);
 extern void mproc_add(creature_type *cr_ptr, int mproc_type);
 extern void mproc_remove(creature_type *cr_ptr, int mproc_type);
 
 
-/* monster1.c */
+/* creature1.c */
 extern void roff_top(int species_idx);
 extern void screen_roff(creature_type *creature_ptr);
 extern void display_roff(int species_idx);
-extern void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str));
+extern void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str));
 extern void create_name(int type, char *name);
 extern bool species_hook_dungeon(int species_idx);
 
@@ -1194,12 +1194,12 @@ extern bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type 
 extern bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode);
 extern bool are_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr);
-extern bool monster_living(species_type *r_ptr);
+extern bool species_living(species_type *r_ptr);
 extern bool creature_living(creature_type *creature_ptr);
 extern bool no_questor_or_bounty_uniques(int species_idx);
 
 
-/* monster2.c */
+/* creature2.c */
 extern cptr horror_desc[MAX_SAN_HORROR];
 extern cptr funny_desc[MAX_SAN_FUNNY];
 extern cptr funny_comments[MAX_SAN_COMMENT];
@@ -1354,16 +1354,16 @@ extern bool detect_treasure(creature_type *cr_ptr, int range);
 extern bool detect_objects_gold(creature_type *creature_ptr, int range);
 extern bool detect_objects_normal(creature_type *cr_ptr, int range);
 extern bool detect_objects_magic(creature_type *cr_ptr, int range);
-extern bool detect_monsters_normal(creature_type *cr_ptr, int range);
-extern bool detect_monsters_invis(creature_type *cr_ptr, int range);
-extern bool detect_monsters_evil(creature_type *cr_ptr, int range);
-extern bool detect_monsters_xxx(creature_type *cr_ptr, int range, u32b match_flag);
-extern bool detect_monsters_string(creature_type *cr_ptr, int range, cptr);
-extern bool detect_monsters_nonliving(creature_type *cr_ptr, int range);
-extern bool detect_monsters_mind(creature_type *cr_ptr, int range);
+extern bool detect_creatures_normal(creature_type *cr_ptr, int range);
+extern bool detect_creatures_invis(creature_type *cr_ptr, int range);
+extern bool detect_creatures_evil(creature_type *cr_ptr, int range);
+extern bool detect_creatures_xxx(creature_type *cr_ptr, int range, u32b match_flag);
+extern bool detect_creatures_string(creature_type *cr_ptr, int range, cptr);
+extern bool detect_creatures_nonliving(creature_type *cr_ptr, int range);
+extern bool detect_creatures_mind(creature_type *cr_ptr, int range);
 extern bool detect_all(creature_type *cr_ptr, int range);
 extern bool wall_stone(creature_type *caster_ptr);
-extern bool speed_monsters(creature_type *caster_ptr);
+extern bool speed_creatures(creature_type *caster_ptr);
 extern bool slow_creatures(creature_type *caster_ptr);
 extern bool sleep_creatures(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *cr_ptr);
@@ -1876,7 +1876,7 @@ extern bool wild_mode;
 extern bool fight_arena_mode;		/* Is character inside arena? */
 extern bool gamble_arena_mode;		/* Is character inside tougijou? */
 extern s16b town_num;			/* Current town number */
-extern s16b arena_number;		/* monster number in arena -KMW- */
+extern s16b arena_number;		/* creature number in arena -KMW- */
 
 extern s16b species_window_idx;	/* Species info trackee */
 

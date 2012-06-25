@@ -111,7 +111,7 @@ cptr map_name(floor_type *floor_ptr)
 #ifdef JP
 		return "“¬‹Zê";
 #else
-		return "Monster Arena";
+		return "Creature Arena";
 #endif
 	else if (!floor_ptr->floor_level && town_num)
 		return town[town_num].name;
@@ -1365,18 +1365,18 @@ static void prt_stun(creature_type *cr_ptr)
 
 
 /*
- * Redraw the "monster health bar"	-DRS-
+ * Redraw the "creature health bar"	-DRS-
  * Rather extensive modifications by	-BEN-
  *
- * The "monster health bar" provides visual feedback on the "health"
- * of the monster currently being "tracked".  There are several ways
- * to "track" a monster, including targetting it, attacking it, and
+ * The "creature health bar" provides visual feedback on the "health"
+ * of the creature currently being "tracked".  There are several ways
+ * to "track" a creature, including targetting it, attacking it, and
  * affecting it (and nobody else) with a ranged attack.
  *
- * Display the monster health bar (affectionately known as the
+ * Display the creature health bar (affectionately known as the
  * "health-o-meter").  Clear health bar if nothing is being tracked.
- * Auto-track current target monster when bored.  Note that the
- * health-bar stops tracking any monster that "disappears".
+ * Auto-track current target creature when bored.  Note that the
+ * health-bar stops tracking any creature that "disappears".
  */
 static void health_redraw(creature_type *cr_ptr, bool riding)
 {
@@ -1410,28 +1410,28 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 	}
 
 
-	/* Tracking an unseen monster */
+	/* Tracking an unseen creature */
 	if (!m_ptr->ml)
 	{
-		/* Indicate that the monster health is "unknown" */
+		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
-	/* Tracking a hallucinatory monster */
+	/* Tracking a hallucinatory creature */
 	else if (cr_ptr->image)
 	{
-		/* Indicate that the monster health is "unknown" */
+		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
-	/* Tracking a dead monster (???) */
+	/* Tracking a dead creature (???) */
 	else if (m_ptr->chp < 0)
 	{
-		/* Indicate that the monster health is "unknown" */
+		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
-	/* Tracking a visible monster */
+	/* Tracking a visible creature */
 	else
 	{
 		/* Extract the "percent" of health */
@@ -1809,9 +1809,9 @@ static void fix_dungeon(creature_type *creature_ptr)
 
 
 /*
- * Hack -- display monster recall in sub-windows
+ * Hack -- display creature recall in sub-windows
  */
-static void fix_monster(creature_type *cr_ptr)
+static void fix_creature(creature_type *cr_ptr)
 {
 	int j;
 
@@ -1829,7 +1829,7 @@ static void fix_monster(creature_type *cr_ptr)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Display monster race info */
+		/* Display creature race info */
 		if (species_window_idx) display_roff(species_window_idx);
 
 		/* Fresh */
@@ -1862,7 +1862,7 @@ static void fix_object(creature_type *creature_ptr)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Display monster race info */
+		/* Display creature race info */
 		if (play_window_object_kind_idx) display_koff(creature_ptr, play_window_object_kind_idx);
 
 		/* Fresh */
@@ -2732,7 +2732,7 @@ static void calc_lite(creature_type *creature_ptr)
 	if (creature_ptr->old_lite != creature_ptr->cur_lite)
 	{
 		/* Update stuff */
-		/* Hack -- PU_MON_LITE for monsters' darkness */
+		/* Hack -- PU_MON_LITE for creatures' darkness */
 		update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
 
 		/* Remember the old lite */
@@ -5804,11 +5804,11 @@ void window_stuff(void)
 		fix_dungeon(player_ptr);
 	}
 
-	/* Display monster recall */
+	/* Display creature recall */
 	if (play_window & (PW_MONSTER))
 	{
 		play_window &= ~(PW_MONSTER);
-		fix_monster(player_ptr);
+		fix_creature(player_ptr);
 	}
 
 	/* Display object recall */

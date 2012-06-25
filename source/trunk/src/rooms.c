@@ -27,8 +27,8 @@
  *
  * Level 101 and below use the values for level 100.
  *
- * Rooms with lots of monsters or loot may not be generated if the
- * object or monster lists are already nearly full.  Rooms will not
+ * Rooms with lots of creatures or loot may not be generated if the
+ * object or creature lists are already nearly full.  Rooms will not
  * appear above their minimum depth.  Tiny levels will not have space
  * for all the rooms you ask for.
  */
@@ -462,15 +462,15 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
  *   2 -- overlapping
  *   3 -- cross shaped
  *   4 -- large room with features
- *   5 -- monster nests
- *   6 -- monster pits
+ *   5 -- creature nests
+ *   6 -- creature pits
  *   7 -- simple vaults
  *   8 -- greater vaults
  *   9 -- fractal caves
  *  10 -- random vaults
  *  11 -- circular rooms
  *  12 -- crypts
- *  13 -- trapped monster pits
+ *  13 -- trapped creature pits
  *  14 -- trapped room
  */
 
@@ -1151,7 +1151,7 @@ static bool build_type4(floor_type *floor_ptr)
 	/* Inner room variations */
 	switch (randint1(5))
 	{
-		/* Just an inner room with a monster */
+		/* Just an inner room with a creature */
 		case 1:
 		{
 			/* Place a secret door */
@@ -1163,7 +1163,7 @@ static bool build_type4(floor_type *floor_ptr)
 				case 4: place_secret_door(floor_ptr, yval, x2 + 1, DOOR_DEFAULT); break;
 			}
 
-			/* Place a monster in the room */
+			/* Place a creature in the room */
 			vault_creatures(floor_ptr, yval, xval, 1);
 
 			break;
@@ -1201,7 +1201,7 @@ static bool build_type4(floor_type *floor_ptr)
 				case 4: place_locked_door(floor_ptr, yval, xval + 1); break;
 			}
 
-			/* Monsters to guard the "treasure" */
+			/* Creatures to guard the "treasure" */
 			vault_creatures(floor_ptr, yval, xval, randint1(3) + 2);
 
 			/* Object (80%) */
@@ -1289,7 +1289,7 @@ static bool build_type4(floor_type *floor_ptr)
 				place_secret_door(floor_ptr, yval - 3 + (randint1(2) * 2), xval - 3, door_type);
 				place_secret_door(floor_ptr, yval - 3 + (randint1(2) * 2), xval + 3, door_type);
 
-				/* Monsters */
+				/* Creatures */
 				vault_creatures(floor_ptr, yval, xval - 2, randint1(2));
 				vault_creatures(floor_ptr, yval, xval + 2, randint1(2));
 
@@ -1326,7 +1326,7 @@ static bool build_type4(floor_type *floor_ptr)
 				}
 			}
 
-			/* Monsters just love mazes. */
+			/* Creatures just love mazes. */
 			vault_creatures(floor_ptr, yval, xval - 5, randint1(3));
 			vault_creatures(floor_ptr, yval, xval + 5, randint1(3));
 
@@ -1380,7 +1380,7 @@ static bool build_type4(floor_type *floor_ptr)
 			/* Treasure, centered at the center of the cross */
 			vault_objects(floor_ptr, yval, xval, 2 + randint1(2));
 
-			/* Gotta have some monsters. */
+			/* Gotta have some creatures. */
 			vault_creatures(floor_ptr, yval + 1, xval - 4, randint1(4));
 			vault_creatures(floor_ptr, yval + 1, xval + 4, randint1(4));
 			vault_creatures(floor_ptr, yval - 1, xval - 4, randint1(4));
@@ -1395,20 +1395,20 @@ static bool build_type4(floor_type *floor_ptr)
 
 
 /*
- * The following functions are used to determine if the given monster
- * is appropriate for inclusion in a monster nest or monster pit or
+ * The following functions are used to determine if the given creature
+ * is appropriate for inclusion in a creature nest or creature pit or
  * the given type.
  *
- * None of the pits/nests are allowed to include "unique" monsters.
+ * None of the pits/nests are allowed to include "unique" creatures.
  */
 
 
 /*
- * Monster validation macro
+ * Creature validation macro
  *
- * Line 1 -- forbid town monsters
+ * Line 1 -- forbid town creatures
  * Line 2 -- forbid uniques
- * Line 3 -- forbid aquatic monsters
+ * Line 3 -- forbid aquatic creatures
  */
 #define vault_creature_okay(I) \
 	(species_hook_dungeon(I) && \
@@ -1418,18 +1418,18 @@ static bool build_type4(floor_type *floor_ptr)
 	 !is_aquatic_species(&species_info[I]))
 
 
-/* Race index for "monster pit (clone)" */
+/* Race index for "creature pit (clone)" */
 static int vault_aux_race;
 
-/* Race index for "monster pit (symbol clone)" */
+/* Race index for "creature pit (symbol clone)" */
 static char vault_aux_char;
 
-/* Breath mask for "monster pit (dragon)" */
+/* Breath mask for "creature pit (dragon)" */
 static u32b vault_aux_dragon_mask4;
 
 
 /*
- * Helper monster selection function
+ * Helper creature selection function
  */
 static bool vault_aux_simple(int species_idx)
 {
@@ -1439,13 +1439,13 @@ static bool vault_aux_simple(int species_idx)
 
 
 /*
- * Helper function for "monster nest (jelly)"
+ * Helper function for "creature nest (jelly)"
  */
 static bool vault_aux_jelly(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
@@ -1462,13 +1462,13 @@ static bool vault_aux_jelly(int species_idx)
 
 
 /*
- * Helper function for "monster nest (animal)"
+ * Helper function for "creature nest (animal)"
  */
 static bool vault_aux_animal(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require "animal" flag */
@@ -1480,13 +1480,13 @@ static bool vault_aux_animal(int species_idx)
 
 
 /*
- * Helper function for "monster nest (undead)"
+ * Helper function for "creature nest (undead)"
  */
 static bool vault_aux_undead(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require Undead */
@@ -1498,7 +1498,7 @@ static bool vault_aux_undead(int species_idx)
 
 
 /*
- * Helper function for "monster nest (chapel)"
+ * Helper function for "creature nest (chapel)"
  */
 static bool vault_aux_chapel_g(int species_idx)
 {
@@ -1530,13 +1530,13 @@ static bool vault_aux_chapel_g(int species_idx)
 
 
 /*
- * Helper function for "monster nest (kennel)"
+ * Helper function for "creature nest (kennel)"
  */
 static bool vault_aux_kennel(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require a Zephyr Hound or a dog */
@@ -1548,13 +1548,13 @@ static bool vault_aux_kennel(int species_idx)
 
 
 /*
- * Helper function for "monster nest (mimic)"
+ * Helper function for "creature nest (mimic)"
  */
 static bool vault_aux_mimic(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require mimic */
@@ -1565,11 +1565,11 @@ static bool vault_aux_mimic(int species_idx)
 }
 
 /*
- * Helper function for "monster nest (clone)"
+ * Helper function for "creature nest (clone)"
  */
 static bool vault_aux_clone(int species_idx)
 {
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	return (species_idx == vault_aux_race);
@@ -1577,13 +1577,13 @@ static bool vault_aux_clone(int species_idx)
 
 
 /*
- * Helper function for "monster nest (symbol clone)"
+ * Helper function for "creature nest (symbol clone)"
  */
 static bool vault_aux_symbol_e(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
@@ -1599,13 +1599,13 @@ static bool vault_aux_symbol_e(int species_idx)
 
 
 /*
- * Helper function for "monster nest (symbol clone)"
+ * Helper function for "creature nest (symbol clone)"
  */
 static bool vault_aux_symbol_g(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
@@ -1621,13 +1621,13 @@ static bool vault_aux_symbol_g(int species_idx)
 
 
 /*
- * Helper function for "monster pit (orc)"
+ * Helper function for "creature pit (orc)"
  */
 static bool vault_aux_orc(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require orc */
@@ -1642,13 +1642,13 @@ static bool vault_aux_orc(int species_idx)
 
 
 /*
- * Helper function for "monster pit (troll)"
+ * Helper function for "creature pit (troll)"
  */
 static bool vault_aux_troll(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require troll */
@@ -1663,13 +1663,13 @@ static bool vault_aux_troll(int species_idx)
 
 
 /*
- * Helper function for "monster pit (giant)"
+ * Helper function for "creature pit (giant)"
  */
 static bool vault_aux_giant(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require giant */
@@ -1686,13 +1686,13 @@ static bool vault_aux_giant(int species_idx)
 
 
 /*
- * Helper function for "monster pit (dragon)"
+ * Helper function for "creature pit (dragon)"
  */
 static bool vault_aux_dragon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require dragon */
@@ -1710,13 +1710,13 @@ static bool vault_aux_dragon(int species_idx)
 
 
 /*
- * Helper function for "monster pit (demon)"
+ * Helper function for "creature pit (demon)"
  */
 static bool vault_aux_demon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
@@ -1730,13 +1730,13 @@ static bool vault_aux_demon(int species_idx)
 
 
 /*
- * Helper function for "monster pit (lovecraftian)"
+ * Helper function for "creature pit (lovecraftian)"
  */
 static bool vault_aux_cthulhu(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_kill_body_species(r_ptr) && !is_never_blow_species(r_ptr)) return (FALSE);
@@ -1750,35 +1750,35 @@ static bool vault_aux_cthulhu(int species_idx)
 
 
 /*
- * Helper function for "monster pit (clone)"
+ * Helper function for "creature pit (clone)"
  */
 static void vault_prep_clone(floor_type *floor_ptr)
 {
-	/* Apply the monster restriction */
+	/* Apply the creature restriction */
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
-	/* Remove the monster restriction */
+	/* Remove the creature restriction */
 	get_species_num_prep(NULL, NULL);
 }
 
 
 /*
- * Helper function for "monster pit (symbol clone)"
+ * Helper function for "creature pit (symbol clone)"
  */
 static void vault_prep_symbol(floor_type *floor_ptr)
 {
 	int species_idx;
 
-	/* Apply the monster restriction */
+	/* Apply the creature restriction */
 	get_species_num_prep(vault_aux_simple, NULL);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
-	/* Remove the monster restriction */
+	/* Remove the creature restriction */
 	get_species_num_prep(NULL, NULL);
 
 	/* Extract the symbol */
@@ -1787,7 +1787,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 
 
 /*
- * Helper function for "monster pit (dragon)"
+ * Helper function for "creature pit (dragon)"
  */
 static void vault_prep_dragon(floor_type *floor_ptr)
 {
@@ -1860,7 +1860,7 @@ static void vault_prep_dragon(floor_type *floor_ptr)
 
 
 /*
- * Helper function for "monster pit (dark elf)"
+ * Helper function for "creature pit (dark elf)"
  */
 static bool vault_aux_dark_elf(int species_idx)
 {
@@ -1872,7 +1872,7 @@ static bool vault_aux_dark_elf(int species_idx)
 		MON_D_ELF_SORC, MON_D_ELF_SHADE, 0,
 	};
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require dark elves */
@@ -2090,7 +2090,7 @@ static cptr pit_subtype_string(int type, bool nest)
 }
 
 
-/* A struct for nest monster information with cheat_hear */
+/* A struct for nest creature information with cheat_hear */
 typedef struct
 {
 	s16b species_idx;
@@ -2100,7 +2100,7 @@ nest_info_type;
 
 
 /*
- * Comp function for sorting nest monster information
+ * Comp function for sorting nest creature information
  */
 static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 {
@@ -2136,7 +2136,7 @@ static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 
 
 /*
- * Swap function for sorting nest monster information
+ * Swap function for sorting nest creature information
  */
 static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
 {
@@ -2156,23 +2156,23 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
 #define NUM_NEST_MON_TYPE 64
 
 /*
- * Type 5 -- Monster nests
+ * Type 5 -- Creature nests
  *
- * A monster nest is a "big" room, with an "inner" room, containing
- * a "collection" of monsters of a given type strewn about the room.
+ * A creature nest is a "big" room, with an "inner" room, containing
+ * a "collection" of creatures of a given type strewn about the room.
  *
- * The monsters are chosen from a set of 64 randomly selected monster
+ * The creatures are chosen from a set of 64 randomly selected creature
  * races, to allow the nest creation to fail instead of having "holes".
  *
  * Note the use of the "get_species_num_prep()" function, and the special
- * "get_species_num_hook()" restriction function, to prepare the "monster
+ * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
- * "appropriate" non-unique monsters for the nest.
+ * "appropriate" non-unique creatures for the nest.
  *
  * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which
  * case the nest will be empty.
  *
- * Note that "monster nests" will never contain "unique" monsters.
+ * Note that "creature nests" will never contain "unique" creatures.
  */
 static bool build_type5(floor_type *floor_ptr)
 {
@@ -2200,7 +2200,7 @@ static bool build_type5(floor_type *floor_ptr)
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
-	/* Pick some monster types */
+	/* Pick some creature types */
 	for (i = 0; i < NUM_NEST_MON_TYPE; i++)
 	{
 		int species_idx = 0, attempts = 100;
@@ -2208,14 +2208,14 @@ static bool build_type5(floor_type *floor_ptr)
 
 		while (attempts--)
 		{
-			/* Get a (hard) monster type */
+			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (creature_has_hostile_align(&align, player_ptr)) continue;
 
-			/* Accept this monster */
+			/* Accept this creature */
 			break;
 		}
 
@@ -2315,10 +2315,10 @@ static bool build_type5(floor_type *floor_ptr)
 	if (cheat_room)
 	{
 		/* Room type */
-		msg_format("[Monster nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
+		msg_format("[Creature nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
 	}
 
-	/* Place some monsters */
+	/* Place some creatures */
 	for (y = y1; y <= y2; y++)
 	{
 		for (x = x1; x <= x2; x++)
@@ -2328,7 +2328,7 @@ static bool build_type5(floor_type *floor_ptr)
 			i = randint0(NUM_NEST_MON_TYPE);
 			species_idx = nest_info[i].species_idx;
 
-			/* Place that "random" monster (no groups) */
+			/* Place that "random" creature (no groups) */
 			(void)place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
 
 			nest_info[i].used = TRUE;
@@ -2357,13 +2357,13 @@ static bool build_type5(floor_type *floor_ptr)
 
 
 /*
- * Type 6 -- Monster pits
+ * Type 6 -- Creature pits
  *
- * A monster pit is a "big" room, with an "inner" room, containing
- * a "collection" of monsters of a given type organized in the room.
+ * A creature pit is a "big" room, with an "inner" room, containing
+ * a "collection" of creatures of a given type organized in the room.
  *
- * The inside room in a monster pit appears as shown below, where the
- * actual monsters in each location depend on the type of the pit
+ * The inside room in a creature pit appears as shown below, where the
+ * actual creatures in each location depend on the type of the pit
  *
  *   #####################
  *   #0000000000000000000#
@@ -2373,8 +2373,8 @@ static bool build_type5(floor_type *floor_ptr)
  *   #0000000000000000000#
  *   #####################
  *
- * Note that the monsters in the pit are now chosen by using "get_species_num(floor_ptr, )"
- * to request 16 "appropriate" monsters, sorting them by level, and using
+ * Note that the creatures in the pit are now chosen by using "get_species_num(floor_ptr, )"
+ * to request 16 "appropriate" creatures, sorting them by level, and using
  * the "even" entries in this sorted list for the contents of the pit.
  *
  * Hack -- all of the "dragons" in a "dragon" pit must be the same "color",
@@ -2383,14 +2383,14 @@ static bool build_type5(floor_type *floor_ptr)
  * be present in many of the dragon pits, if they have the proper breath.
  *
  * Note the use of the "get_species_num_prep()" function, and the special
- * "get_species_num_hook()" restriction function, to prepare the "monster
+ * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
- * "appropriate" non-unique monsters for the pit.
+ * "appropriate" non-unique creatures for the pit.
  *
  * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which case
  * the pit will be empty.
  *
- * Note that "monster pits" will never contain "unique" monsters.
+ * Note that "creature pits" will never contain "unique" creatures.
  */
 static bool build_type6(floor_type *floor_ptr)
 {
@@ -2419,7 +2419,7 @@ static bool build_type6(floor_type *floor_ptr)
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
-	/* Pick some monster types */
+	/* Pick some creature types */
 	for (i = 0; i < 16; i++)
 	{
 		int species_idx = 0, attempts = 100;
@@ -2427,14 +2427,14 @@ static bool build_type6(floor_type *floor_ptr)
 
 		while (attempts--)
 		{
-			/* Get a (hard) monster type */
+			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (creature_has_hostile_align(&align, player_ptr)) continue;
 
-			/* Accept this monster */
+			/* Accept this creature */
 			break;
 		}
 
@@ -2556,7 +2556,7 @@ static bool build_type6(floor_type *floor_ptr)
 #ifdef JP
 		msg_format("クリーチャー部屋(pit)(%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #else
-		msg_format("Monster pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
+		msg_format("Creature pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #endif
 	}
 
@@ -2573,7 +2573,7 @@ static bool build_type6(floor_type *floor_ptr)
 		}
 	}
 
-	/* Center monster */
+	/* Center creature */
 	place_creature_species(NULL, floor_ptr, yval, xval, what[7], PM_NO_KAGE);
 	place_creature_species(NULL, floor_ptr, yval, xval+1, what[6], PM_NO_KAGE);
 	place_creature_species(NULL, floor_ptr, yval, xval-1, what[6], PM_NO_KAGE);
@@ -2801,7 +2801,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 	}
 
 
-	/* Place dungeon monsters and objects */
+	/* Place dungeon creatures and objects */
 	for (t = data, dy = 0; dy < ymax; dy++)
 	{
 		for (dx = 0; dx < xmax; dx++, t++)
@@ -2833,7 +2833,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			/* Analyze the symbol */
 			switch (*t)
 			{
-				/* Monster */
+				/* Creature */
 				case '&':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
@@ -2842,7 +2842,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					break;
 				}
 
-				/* Meaner monster */
+				/* Meaner creature */
 				case '@':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 11;
@@ -2851,7 +2851,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					break;
 				}
 
-				/* Meaner monster, plus treasure */
+				/* Meaner creature, plus treasure */
 				case '9':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
@@ -2863,7 +2863,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					break;
 				}
 
-				/* Nasty monster and treasure */
+				/* Nasty creature and treasure */
 				case '8':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
@@ -2875,7 +2875,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					break;
 				}
 
-				/* Monster and/or object */
+				/* Creature and/or object */
 				case ',':
 				{
 					if (randint0(100) < 50)
@@ -4085,7 +4085,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 
 
 /*
- * Routine that fills the empty areas of a room with treasure and monsters.
+ * Routine that fills the empty areas of a room with treasure and creatures.
  */
 static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2, int difficulty)
 {
@@ -4117,7 +4117,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				/* The smaller 'value' is, the better the stuff */
 				if (value < 0)
 				{
-					/* Meanest monster + treasure */
+					/* Meanest creature + treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
 					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
@@ -4127,7 +4127,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				}
 				else if (value < 5)
 				{
-					/* Mean monster +treasure */
+					/* Mean creature +treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 20;
 					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
@@ -4137,7 +4137,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				}
 				else if (value < 10)
 				{
-					/* Monster */
+					/* Creature */
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
 					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
@@ -4148,7 +4148,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 
 					/*
 					 * (Want some of the vault to be empty
-					 * so have room for group monsters.
+					 * so have room for group creatures.
 					 * This is used in the hack above to lower
 					 * the density of stuff in the vault.)
 					 */
@@ -4167,7 +4167,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				}
 				else if (value < 30)
 				{
-					/* Monster and trap */
+					/* Creature and trap */
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
 					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
@@ -4175,7 +4175,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				}
 				else if (value < 40)
 				{
-					/* Monster or object */
+					/* Creature or object */
 					if (randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
@@ -4198,7 +4198,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Various Stuff */
 
-					/* 20% monster, 40% trap, 20% object, 20% blank space */
+					/* 20% creature, 40% trap, 20% object, 20% blank space */
 					if (randint0(100) < 20)
 					{
 						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
@@ -4358,7 +4358,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		add_door(floor_ptr, x, y);
 	}
 
-	/* Fill with monsters and treasure, low difficulty */
+	/* Fill with creatures and treasure, low difficulty */
 	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5));
 }
 
@@ -4481,7 +4481,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 		add_door(floor_ptr, x1, y1);
 	}
 
-	/* Fill with monsters and treasure, high difficulty */
+	/* Fill with creatures and treasure, high difficulty */
 	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 2, y0 - yhsize + 1, y0 - yhsize + ysize - 2, randint1(5) + 5);
 }
 
@@ -4531,7 +4531,7 @@ static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, in
 		}
 	}
 
-	/* Fill with monsters and treasure, low difficulty */
+	/* Fill with creatures and treasure, low difficulty */
 	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
 }
 
@@ -4541,7 +4541,7 @@ static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, in
  * maze vault uses two routines:
  *    r_visit - a recursive routine that builds the labyrinth
  *    build_maze_vault - a driver routine that calls r_visit and adds
- *                   monsters, traps and treasure
+ *                   creatures, traps and treasure
  *
  * The labyrinth is built by creating a spanning tree of a graph.
  * The graph vertices are at
@@ -4694,7 +4694,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 	/* traverse the graph to create a spaning tree, pick a random root */
 	r_visit(floor_ptr, y1, x1, y2, x2, randint0(num_vertices), 0, visited);
 
-	/* Fill with monsters and treasure, low difficulty */
+	/* Fill with creatures and treasure, low difficulty */
 	if (is_vault) fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(5));
 
 	C_KILL(visited, num_vertices, int);
@@ -4819,7 +4819,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		place_inner_bold(floor_ptr, y2 + 1, x1 + x);
 	}
 
-	/* Fill with monsters and treasure, highest difficulty */
+	/* Fill with creatures and treasure, highest difficulty */
 	fill_treasure(floor_ptr, x1, x2, y1, y2, 10);
 
 	C_KILL(visited, num_vertices, int);
@@ -5070,7 +5070,7 @@ static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* Make the castle */
 	build_recursive_room(floor_ptr, x1, y1, x2, y2, randint1(5));
 
-	/* Fill with monsters and treasure, low difficulty */
+	/* Fill with creatures and treasure, low difficulty */
 	fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(3));
 }
 
@@ -5361,7 +5361,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 		build_small_room(floor_ptr, x0 + randint0(xsize - 4) - xsize / 2 + 2, y0 + randint0(ysize - 4) - ysize / 2 + 2);
 	}
 
-	/* Fill with monsters and treasure, low difficulty */
+	/* Fill with creatures and treasure, low difficulty */
 	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
 }
 #endif /* ALLOW_CAVERNS_AND_LAKES */
@@ -5567,16 +5567,16 @@ static bool build_type12(floor_type *floor_ptr)
 
 
 /*
- * Helper function for "trapped monster pit"
+ * Helper function for "trapped creature pit"
  */
 static bool vault_aux_trapped_pit(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	/* No wall passing monster */
+	/* No wall passing creature */
 	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return (FALSE);
 
 	/* Okay */
@@ -5585,15 +5585,15 @@ static bool vault_aux_trapped_pit(int species_idx)
 
 
 /*
- * Type 13 -- Trapped monster pits
+ * Type 13 -- Trapped creature pits
  *
- * A trapped monster pit is a "big" room with a straight corridor in
+ * A trapped creature pit is a "big" room with a straight corridor in
  * which wall opening traps are placed, and with two "inner" rooms
- * containing a "collection" of monsters of a given type organized in
+ * containing a "collection" of creatures of a given type organized in
  * the room.
  *
- * The trapped monster pit appears as shown below, where the actual
- * monsters in each location depend on the type of the pit
+ * The trapped creature pit appears as shown below, where the actual
+ * creatures in each location depend on the type of the pit
  *
  *  #########################
  *  #                       #
@@ -5609,8 +5609,8 @@ static bool vault_aux_trapped_pit(int species_idx)
  *  #                       #
  *  #########################
  *
- * Note that the monsters in the pit are now chosen by using "get_species_num(floor_ptr, )"
- * to request 16 "appropriate" monsters, sorting them by level, and using
+ * Note that the creatures in the pit are now chosen by using "get_species_num(floor_ptr, )"
+ * to request 16 "appropriate" creatures, sorting them by level, and using
  * the "even" entries in this sorted list for the contents of the pit.
  *
  * Hack -- all of the "dragons" in a "dragon" pit must be the same "color",
@@ -5619,14 +5619,14 @@ static bool vault_aux_trapped_pit(int species_idx)
  * be present in many of the dragon pits, if they have the proper breath.
  *
  * Note the use of the "get_species_num_prep()" function, and the special
- * "get_species_num_hook()" restriction function, to prepare the "monster
+ * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
- * "appropriate" non-unique monsters for the pit.
+ * "appropriate" non-unique creatures for the pit.
  *
  * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which case
  * the pit will be empty.
  *
- * Note that "monster pits" will never contain "unique" monsters.
+ * Note that "creature pits" will never contain "unique" creatures.
  */
 static bool build_type13(floor_type *floor_ptr)
 {
@@ -5687,7 +5687,7 @@ static bool build_type13(floor_type *floor_ptr)
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
-	/* Pick some monster types */
+	/* Pick some creature types */
 	for (i = 0; i < 16; i++)
 	{
 		int species_idx = 0, attempts = 100;
@@ -5695,14 +5695,14 @@ static bool build_type13(floor_type *floor_ptr)
 
 		while (attempts--)
 		{
-			/* Get a (hard) monster type */
+			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 0);
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (creature_has_hostile_align(&align, player_ptr)) continue;
 
-			/* Accept this monster */
+			/* Accept this creature */
 			break;
 		}
 
@@ -5975,16 +5975,16 @@ static bool vault_aux_lite(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require lite attack */
 	if (!has_cf(&r_ptr->flags, CF_BR_LITE) && !has_cf(&r_ptr->flags, CF_BA_LITE)) return FALSE;
 
-	/* No wall passing monsters */
+	/* No wall passing creatures */
 	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return FALSE;
 
-	/* No disintegrating monsters */
+	/* No disintegrating creatures */
 	if (has_cf(&r_ptr->flags, CF_BR_DISI)) return FALSE;
 
 	return TRUE;
@@ -5997,7 +5997,7 @@ static bool vault_aux_shards(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the monster */
+	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require shards breath attack */
@@ -6265,7 +6265,7 @@ static bool build_type15(floor_type *floor_ptr)
  * Attempt to build a room of the given type at the given block
  *
  * Note that we restrict the number of "crowded" rooms to reduce
- * the chance of overflowing the monster list during level creation.
+ * the chance of overflowing the creature list during level creation.
  */
 static bool room_build(floor_type *floor_ptr, int typ)
 {
@@ -6476,7 +6476,7 @@ bool generate_rooms(floor_type *floor_ptr)
 				case ROOM_T_NEST:
 				case ROOM_T_TRAP_PIT:
 
-					/* Avoid too many monsters */
+					/* Avoid too many creatures */
 					if (++crowded >= 2)
 					{
 						room_num[ROOM_T_PIT] = 0;

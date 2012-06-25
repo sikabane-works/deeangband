@@ -8,7 +8,7 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: Monster spells and movement */
+/* Purpose: Creature spells and movement */
 
 /*
 * This file has several additions to it by Keldon Jones (keldon@umr.edu)
@@ -57,7 +57,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 		}
 		else start = creature_max + 1;
 
-		/* Scan thru all monsters */
+		/* Scan thru all creatures */
 		for (i = start; ((i < start + creature_max) && (i > start - creature_max)); i+=plus)
 		{
 			int dummy = (i % creature_max);
@@ -67,10 +67,10 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			t_idx = dummy;
 			t_ptr = &creature_list[t_idx];
 
-			/* The monster itself isn't a target */
+			/* The creature itself isn't a target */
 			if (t_ptr == m_ptr) continue;
 
-			/* Paranoia -- Skip dead monsters */
+			/* Paranoia -- Skip dead creatures */
 			if (!t_ptr->species_idx) continue;
 
 			if (is_pet(player_ptr, m_ptr))
@@ -94,10 +94,10 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 				if (r_ptr->aaf < t_ptr->cdis) continue;
 			}
 
-			/* Monster must be 'an enemy' */
+			/* Creature must be 'an enemy' */
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
-			/* Monster must be projectable if we can't pass through walls */
+			/* Creature must be projectable if we can't pass through walls */
 			if ((has_cf_creature(m_ptr, CF_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
 			    (has_cf_creature(m_ptr, CF_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
@@ -178,15 +178,15 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 		mm[2] = 2;
 	}
 
-	/* Found a monster */
+	/* Found a creature */
 	return TRUE;
 }
 
 
 /*
- * Returns whether a given monster will try to run from the player.
+ * Returns whether a given creature will try to run from the player.
  *
- * Monsters will attempt to avoid very powerful players.  See below.
+ * Creatures will attempt to avoid very powerful players.  See below.
  *
  * Because this function is called so often, little details are important
  * for efficiency.  Like not using "mod" or "div" when possible.  And
@@ -215,19 +215,19 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 				  (m_ptr->cdis <= (0 - creature_ptr->pet_follow_distance)));
 	}
 
-	/* Keep monsters from running too far away */
+	/* Keep creatures from running too far away */
 	if (m_ptr->cdis > MAX_SIGHT + 5) return (FALSE);
 
-	/* All "afraid" monsters will run away */
+	/* All "afraid" creatures will run away */
 	if (m_ptr->afraid) return (TRUE);
 
-	/* Nearby monsters will not become terrified */
+	/* Nearby creatures will not become terrified */
 	if (m_ptr->cdis <= 5) return (FALSE);
 
 	/* Examine player power (level) */
 	p_lev = creature_ptr->lev;
 
-	/* Examine monster power (level plus morale) */
+	/* Examine creature power (level plus morale) */
 	m_lev = r_ptr->level + (m_idx & 0x08) + 25;
 
 	/* Optimize extreme cases below */
@@ -238,7 +238,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	p_chp = creature_ptr->chp;
 	p_mhp = creature_ptr->mhp;
 
-	/* Examine monster health */
+	/* Examine creature health */
 	m_chp = m_ptr->chp;
 	m_mhp = m_ptr->mhp;
 
@@ -246,7 +246,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	p_val = (p_lev * p_mhp) + (p_chp << 2); /* div p_mhp */
 	m_val = (m_lev * m_mhp) + (m_chp << 2); /* div m_mhp */
 
-	/* Strong players scare strong monsters */
+	/* Strong players scare strong creatures */
 	if (p_val * m_mhp > m_val * p_mhp) return (TRUE);
 
 	/* Assume no terror */
@@ -267,18 +267,18 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
-	/* Monster location */
+	/* Creature location */
 	y1 = creature_ptr->fy;
 	x1 = creature_ptr->fx;
 
-	/* Monster can already cast spell to player */
+	/* Creature can already cast spell to player */
 	if (projectable(floor_ptr, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
 	now_cost = floor_ptr->cave[y1][x1].cost;
 	if (now_cost == 0) now_cost = 999;
 
-	/* Can monster bash or open doors? */
+	/* Can creature bash or open doors? */
 	if (has_cf_creature(creature_ptr, CF_BASH_DOOR) || has_cf_creature(creature_ptr, CF_OPEN_DOOR))
 	{
 		can_open_door = TRUE;
@@ -303,7 +303,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 		cost = c_ptr->cost;
 
-		/* Monster cannot kill or pass walls */
+		/* Creature cannot kill or pass walls */
 		if (!((has_cf_creature(creature_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
 			  (has_cf_creature(creature_ptr, CF_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
@@ -311,7 +311,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
 		}
 
-		/* Hack -- for kill or pass wall monster.. */
+		/* Hack -- for kill or pass wall creature.. */
 		if (cost == 0) cost = 998;
 
 		if (now_cost < cost) continue;
@@ -343,15 +343,15 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
  * Prefer "non-diagonal" directions, but twiddle them a little
  * to angle slightly towards the player's actual location.
  *
- * Allow very perceptive monsters to track old "spoor" left by
+ * Allow very perceptive creatures to track old "spoor" left by
  * previous locations occupied by the player.  This will tend
- * to have monsters end up either near the player or on a grid
+ * to have creatures end up either near the player or on a grid
  * recently occupied by the player (and left via "teleport").
  *
- * Note that if "smell" is turned on, all monsters get vicious.
+ * Note that if "smell" is turned on, all creatures get vicious.
  *
  * Also note that teleporting away from a location will cause
- * the monsters who were chasing you to converge on that location
+ * the creatures who were chasing you to converge on that location
  * as long as you are still near enough to "annoy" them without
  * being close enough to chase directly.  I have no idea what will
  * happen if you combine "smell" with low "aaf" values.
@@ -367,28 +367,28 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 
-	/* Can monster cast attack spell? */
+	/* Can creature cast attack spell? */
 	if (has_attack_skill_flags(&r_ptr->flags))
 	{
 		/* Can move spell castable grid? */
 		if (get_moves_aux2(m_idx, yp, xp)) return (TRUE);
 	}
 
-	/* Monster can't flow */
+	/* Creature can't flow */
 	if (no_flow) return (FALSE);
 
-	/* Monster can go through rocks */
+	/* Creature can go through rocks */
 	if (has_cf_creature(nonplayer_ptr, CF_PASS_WALL) && ((m_idx != mover_ptr->riding) || mover_ptr->pass_wall)) return (FALSE);
 	if (has_cf_creature(nonplayer_ptr, CF_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
 
-	/* Monster location */
+	/* Creature location */
 	y1 = nonplayer_ptr->fy;
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
 	if (player_has_los_bold(y1, x1) && projectable(floor_ptr, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
-	/* Monster grid */
+	/* Creature grid */
 	c_ptr = &floor_ptr->cave[y1][x1];
 
 	/* If we can hear noises, advance towards them */
@@ -465,8 +465,8 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 /*
 * Provide a location to flee to, but give the player a wide berth.
 *
-* A monster may wish to flee to a location that is behind the player,
-* but instead of heading directly for it, the monster should "swerve"
+* A creature may wish to flee to a location that is behind the player,
+* but instead of heading directly for it, the creature should "swerve"
 * around the player so that he has a smaller chance of getting hit.
 */
 static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
@@ -478,7 +478,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
-	/* Monster location */
+	/* Creature location */
 	fy = m_ptr->fy;
 	fx = m_ptr->fx;
 
@@ -668,14 +668,14 @@ static sint *dist_offsets_x[10] =
 };
 
 /*
-* Choose a "safe" location near a monster for it to run toward.
+* Choose a "safe" location near a creature for it to run toward.
 *
 * A location is "safe" if it can be reached quickly and the player
 * is not able to fire into it (it isn't a "clean shot").  So, this will
-* cause monsters to "duck" behind walls.  Hopefully, monsters will also
+* cause creatures to "duck" behind walls.  Hopefully, creatures will also
 * try to run towards corridor openings if they are in a room.
 *
-* This function may take lots of CPU time if lots of monsters are
+* This function may take lots of CPU time if lots of creatures are
 * fleeing.
 *
 * Return TRUE if a safe location is available.
@@ -719,7 +719,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			/* Skip locations in a wall */
 			if (!creature_can_cross_terrain(c_ptr->feat, m_ptr, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
-			/* Check for "availability" (if monsters can flow) */
+			/* Check for "availability" (if creatures can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
 			{
 				/* Ignore grids very far from the player */
@@ -763,9 +763,9 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 
 
 /*
- * Choose a good hiding place near a monster for it to run toward.
+ * Choose a good hiding place near a creature for it to run toward.
  *
- * Pack monsters will use this to "ambush" the player and lure him out
+ * Pack creatures will use this to "ambush" the player and lure him out
  * of corridors into open space so they can swarm him.
  *
  * Return TRUE if a good location is available.
@@ -839,7 +839,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 
 
 
-// Choose "logical" directions for monster movement
+// Choose "logical" directions for creature movement
 static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
@@ -855,12 +855,12 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
 	bool         can_pass_wall = (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
 
-	/* Counter attack to an enemy monster */
+	/* Counter attack to an enemy creature */
 	if (!will_run && nonplayer_ptr->target_y)
 	{
 		int t_m_idx = floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
-		/* The monster must be an enemy, and in LOS */
+		/* The creature must be an enemy, and in LOS */
 		if (t_m_idx &&
 		    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
@@ -918,7 +918,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			}
 		}
 
-		/* Monster groups try to surround the player */
+		/* Creature groups try to surround the player */
 		if (!done && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
 		{
 			int i;
@@ -1207,28 +1207,28 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 }
 
 /*
- * Process a monster
+ * Process a creature
  *
- * The monster is known to be within 100 grids of the player
+ * The creature is known to be within 100 grids of the player
  *
- * In several cases, we directly update the monster lore
+ * In several cases, we directly update the creature lore
  *
- * Note that a monster is only allowed to "reproduce" if there
- * are a limited number of "reproducing" monsters on the current
+ * Note that a creature is only allowed to "reproduce" if there
+ * are a limited number of "reproducing" creatures on the current
  * level.  This should prevent the level from being "swamped" by
- * reproducing monsters.  It also allows a large mass of mice to
+ * reproducing creatures.  It also allows a large mass of mice to
  * prevent a louse from multiplying, but this is a small price to
  * pay for a simple multiplication method.
  *
- * XXX Monster fear is slightly odd, in particular, monsters will
+ * XXX Creature fear is slightly odd, in particular, creatures will
  * fixate on opening a door even if they cannot open it.  Actually,
- * the same thing happens to normal monsters when they hit a door
+ * the same thing happens to normal creatures when they hit a door
  *
- * XXX XXX XXX In addition, monsters which *cannot* open or bash
+ * XXX XXX XXX In addition, creatures which *cannot* open or bash
  * down a door will still stand there trying to open it...
  *
- * XXX Technically, need to check for monster in the way
- * combined with that monster being in a wall (or door?)
+ * XXX Technically, need to check for creature in the way
+ * combined with that creature being in a wall (or door?)
  *
  * A "direction" of "5" means "pick a random direction".
  */
@@ -1362,7 +1362,7 @@ static void process_creature(int m_idx)
 		if (player_ptr->monlite) tmp /= 3;
 		if (player_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
 		if (r_ptr->level > (player_ptr->lev*player_ptr->lev/20+10)) tmp /= 3;
-		// Low-level monsters will find it difficult to locate the player.
+		// Low-level creatures will find it difficult to locate the player.
 		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
 	}
 
@@ -1372,7 +1372,7 @@ static void process_creature(int m_idx)
 		// Its parent have gone, it also goes away.
 		if (see_m)
 		{
-			// Acquire the monster name
+			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ÍÁ‚¦‹Ž‚Á‚½I", creature_name);
@@ -1387,13 +1387,13 @@ static void process_creature(int m_idx)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
-		// Delete the monster
+		// Delete the creature
 		delete_species_idx(&creature_list[m_idx]);
 
 		return;
 	}
 
-	/* Quantum monsters are odd */
+	/* Quantum creatures are odd */
 	if (has_cf_creature(creature_ptr, CF_QUANTUM))
 	{
 		/* Sometimes skip move */
@@ -1409,7 +1409,7 @@ static void process_creature(int m_idx)
 
 			if (see_m)
 			{
-				/* Acquire the monster name */
+				/* Acquire the creature name */
 				creature_desc(creature_name, creature_ptr, 0);
 
 				/* Oops */
@@ -1423,7 +1423,7 @@ static void process_creature(int m_idx)
 			/* Generate treasure, etc */
 			creature_death(player_ptr, &creature_list[m_idx], FALSE);
 
-			/* Delete the monster */
+			/* Delete the creature */
 			delete_species_idx(&creature_list[m_idx]);
 
 			if (sad)
@@ -1537,7 +1537,7 @@ static void process_creature(int m_idx)
 		// Notice the "waking up"
 		if (creature_ptr->ml)
 		{
-			// Acquire the monster name
+			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
 
 			// Dump a message
@@ -1607,7 +1607,7 @@ static void process_creature(int m_idx)
 	{
 		int k, y, x;
 
-		/* Count the adjacent monsters */
+		/* Count the adjacent creatures */
 		for (k = 0, y = oy - 1; y <= oy + 1; y++)
 		{
 			for (x = ox - 1; x <= ox + 1; x++)
@@ -1671,7 +1671,7 @@ static void process_creature(int m_idx)
 
 	if (!gamble_arena_mode)
 	{
-		/* Hack! "Cyber" monster makes noise... */
+		/* Hack! "Cyber" creature makes noise... */
 		if (creature_ptr->ap_species_idx == MON_CYBER &&
 		    one_in_(CYBERNOISE) &&
 		    !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
@@ -1684,7 +1684,7 @@ static void process_creature(int m_idx)
 #endif
 		}
 
-		/* Some monsters can speak */
+		/* Some creatures can speak */
 		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
@@ -1693,7 +1693,7 @@ static void process_creature(int m_idx)
 			char monmessage[1024];
 			cptr filename;
 
-			/* Acquire the monster name/poss */
+			/* Acquire the creature name/poss */
 			if (creature_ptr->ml)
 				creature_desc(creature_name, creature_ptr, 0);
 			else
@@ -1703,7 +1703,7 @@ static void process_creature(int m_idx)
 				strcpy(creature_name, "It");
 #endif
 
-			/* Select the file for monster quotes */
+			/* Select the file for creature quotes */
 			if (creature_ptr->afraid)
 #ifdef JP
 				filename = "monfear_j.txt";
@@ -1728,7 +1728,7 @@ static void process_creature(int m_idx)
 #else
 				filename = "monspeak.txt";
 #endif
-			/* Get the monster line */
+			/* Get the creature line */
 			if (get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
 			{
 				/* Say something */
@@ -1752,7 +1752,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		{
 			int t_m_idx = floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
 
-			/* The monster must be an enemy, and projectable */
+			/* The creature must be an enemy, and projectable */
 			if (t_m_idx &&
 			    are_enemies(creature_ptr, &creature_list[t_m_idx]) &&
 			    projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
@@ -1847,7 +1847,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		/* Do we want to find the player? */
 		bool lonely = (!avoid && (creature_ptr->cdis > player_ptr->pet_follow_distance));
 
-		/* Should we find the player if we can't find a monster? */
+		/* Should we find the player if we can't find a creature? */
 		bool distant = (creature_ptr->cdis > PET_SEEK_DIST);
 
 		/* by default, move randomly */
@@ -1877,7 +1877,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		}
 	}
 
-	/* Friendly monster movement */
+	/* Friendly creature movement */
 	else if (!is_hostile(creature_ptr))
 	{
 		/* by default, move randomly */
@@ -1939,13 +1939,13 @@ msg_format("%^s%s", creature_name, monmessage);
 			do_move = TRUE;
 		}
 
-		/* Possibly a monster to attack */
+		/* Possibly a creature to attack */
 		else if (c_ptr->creature_idx)
 		{
 			do_move = TRUE;
 		}
 
-		/* Monster destroys walls (and doors) */
+		/* Creature destroys walls (and doors) */
 		else if (has_cf_creature(creature_ptr, CF_KILL_WALL) &&
 		         (can_cross ? !have_flag(f_ptr->flags, FF_LOS) : !is_riding_mon) &&
 		         have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT) &&
@@ -1955,7 +1955,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			do_move = TRUE;
 			if (!can_cross) must_alter_to_move = TRUE;
 
-			/* Monster destroyed a wall (later) */
+			/* Creature destroyed a wall (later) */
 			did_kill_wall = TRUE;
 		}
 
@@ -1965,11 +1965,11 @@ msg_format("%^s%s", creature_name, monmessage);
 			/* Go ahead and move */
 			do_move = TRUE;
 
-			/* Monster moves through walls (and doors) */
+			/* Creature moves through walls (and doors) */
 			if (has_cf_creature(creature_ptr, CF_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
-				/* Monster went through a wall */
+				/* Creature went through a wall */
 				did_pass_wall = TRUE;
 			}
 		}
@@ -2168,7 +2168,7 @@ msg_format("%^s%s", creature_name, monmessage);
 		/* The player is in the way */
 		if (do_move && creature_bold(player_ptr, ny, nx))
 		{
-			/* Some monsters never attack */
+			/* Some creatures never attack */
 			if (has_cf_creature(creature_ptr, CF_NEVER_BLOW))
 			{
 				/* Hack -- memorize lack of attacks */
@@ -2178,7 +2178,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				do_move = FALSE;
 			}
 
-			/* In anti-melee dungeon, stupid or confused monster takes useless turn */
+			/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 			if (do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (!creature_ptr->confused)
@@ -2213,7 +2213,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			}
 		}
 
-		/* A monster is in the way */
+		/* A creature is in the way */
 		if (do_move && c_ptr->creature_idx)
 		{
 			species_type *z_ptr = &species_info[y_ptr->species_idx];
@@ -2239,7 +2239,7 @@ msg_format("%^s%s", creature_name, monmessage);
 					{
 						if (melee_attack(creature_ptr, ny, nx, 0)) return;
 
-						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
+						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
 							if (creature_ptr->confused) return;
@@ -2253,7 +2253,7 @@ msg_format("%^s%s", creature_name, monmessage);
 				}
 			}
 
-			/* Push past weaker monsters (unless leaving a wall) */
+			/* Push past weaker creatures (unless leaving a wall) */
 			else if (has_cf_creature(creature_ptr, CF_MOVE_BODY) && !has_cf_creature(creature_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
@@ -2262,10 +2262,10 @@ msg_format("%^s%s", creature_name, monmessage);
 				/* Allow movement */
 				do_move = TRUE;
 
-				/* Monster pushed past another monster */
+				/* Creature pushed past another creature */
 				did_move_body = TRUE;
 
-				/* Wake up the moved monster */
+				/* Wake up the moved creature */
 				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 				/* XXX XXX XXX Message */
@@ -2326,9 +2326,9 @@ msg_format("%^s%s", creature_name, monmessage);
 		}
 
 		/*
-		 * Check if monster can cross terrain
+		 * Check if creature can cross terrain
 		 * This is checked after the normal attacks
-		 * to allow monsters to attack an enemy,
+		 * to allow creatures to attack an enemy,
 		 * even if it can't enter the terrain.
 		 */
 		if (do_move && !can_cross && !did_kill_wall && !did_bash_door)
@@ -2337,7 +2337,7 @@ msg_format("%^s%s", creature_name, monmessage);
 			do_move = FALSE;
 		}
 
-		/* Some monsters never move */
+		/* Some creatures never move */
 		if (do_move && has_cf_creature(creature_ptr, CF_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
@@ -2366,25 +2366,25 @@ msg_format("%^s%s", creature_name, monmessage);
 				/* Hack -- Update the old location */
 				floor_ptr->cave[oy][ox].creature_idx = c_ptr->creature_idx;
 
-				/* Mega-Hack -- move the old monster, if any */
+				/* Mega-Hack -- move the old creature, if any */
 				if (c_ptr->creature_idx)
 				{
-					/* Move the old monster */
+					/* Move the old creature */
 					y_ptr->fy = oy;
 					y_ptr->fx = ox;
 
-					/* Update the old monster */
+					/* Update the old creature */
 					update_mon(c_ptr->creature_idx, TRUE);
 				}
 
 				/* Hack -- Update the new location */
 				c_ptr->creature_idx = m_idx;
 
-				/* Move the monster */
+				/* Move the creature */
 				creature_ptr->fy = ny;
 				creature_ptr->fx = nx;
 
-				/* Update the monster */
+				/* Update the creature */
 				update_mon(m_idx, TRUE);
 
 				/* Redraw the old grid */
@@ -2448,7 +2448,7 @@ msg_format("%^s%s", creature_name, monmessage);
 					/* Acquire the object name */
 					object_desc(o_name, o_ptr, 0);
 
-					/* Acquire the monster name */
+					/* Acquire the creature name */
 					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
@@ -2495,7 +2495,7 @@ msg_format("%^s%s", creature_name, monmessage);
 						/* Forget location */
 						o_ptr->fy = o_ptr->fx = 0;
 
-						/* Memorize monster */
+						/* Memorize creature */
 						o_ptr->held_m_idx = m_idx;
 					}
 
@@ -2563,45 +2563,45 @@ msg_format("%^s%s", creature_name, monmessage);
 		update |= (PU_MON_LITE);
 	}
 
-	/* Learn things from observable monster */
+	/* Learn things from observable creature */
 	if (is_original_ap_and_seen(player_ptr, creature_ptr))
 	{
-		/* Monster opened a door */
+		/* Creature opened a door */
 		if (did_open_door) reveal_creature_info(creature_ptr, CF_OPEN_DOOR);
 
-		/* Monster bashed a door */
+		/* Creature bashed a door */
 		if (did_bash_door) reveal_creature_info(creature_ptr, CF_BASH_DOOR);
 
-		/* Monster tried to pick something up */
+		/* Creature tried to pick something up */
 		if (did_take_item) reveal_creature_info(creature_ptr, CF_TAKE_ITEM);
 
-		/* Monster tried to crush something */
+		/* Creature tried to crush something */
 		if (did_kill_item) reveal_creature_info(creature_ptr, CF_KILL_ITEM);
 
-		/* Monster pushed past another monster */
+		/* Creature pushed past another creature */
 		if (did_move_body) reveal_creature_info(creature_ptr, CF_MOVE_BODY);
 
-		/* Monster passed through a wall */
+		/* Creature passed through a wall */
 		if (did_pass_wall) reveal_creature_info(creature_ptr, CF_PASS_WALL);
 
-		/* Monster destroyed a wall */
+		/* Creature destroyed a wall */
 		if (did_pass_wall) reveal_creature_info(creature_ptr, CF_KILL_WALL);
 	}
 
 }
 
 /*
- * Process all the "live" monsters, once per game turn.
+ * Process all the "live" creatures, once per game turn.
  *
- * During each game turn, we scan through the list of all the "live" monsters,
- * (backwards, so we can excise any "freshly dead" monsters), energizing each
- * monster, and allowing fully energized monsters to move, attack, pass, etc.
+ * During each game turn, we scan through the list of all the "live" creatures,
+ * (backwards, so we can excise any "freshly dead" creatures), energizing each
+ * creature, and allowing fully energized creatures to move, attack, pass, etc.
  *
- * Note that monsters can never move in the monster array (except when the
+ * Note that creatures can never move in the creature array (except when the
  * "compact_creatures()" function is called by "dungeon()" or "save_player()").
  *
  * This function is responsible for at least half of the processor time
- * on a normal system with a "normal" amount of monsters and a player doing
+ * on a normal system with a "normal" amount of creatures and a player doing
  * normal things.
  *
  * When the player is resting, virtually 90% of the processor time is spent
@@ -2611,15 +2611,15 @@ msg_format("%^s%s", creature_name, monmessage);
  * especially when the player is running.
  *
  * Note the special "MFLAG_BORN" flag, which allows us to ignore "fresh"
- * monsters while they are still being "born".  A monster is "fresh" only
+ * creatures while they are still being "born".  A creature is "fresh" only
  * during the turn in which it is created, and we use the "hack_m_idx" to
- * determine if the monster is yet to be processed during the current turn.
+ * determine if the creature is yet to be processed during the current turn.
  *
  * Note the special "MFLAG_NICE" flag, which allows the player to get one
- * move before any "nasty" monsters get to use their spell attacks.
+ * move before any "nasty" creatures get to use their spell attacks.
  *
- * Note that when the "knowledge" about the currently tracked monster
- * changes (flags, attacks, spells), we induce a redraw of the monster
+ * Note that when the "knowledge" about the currently tracked creature
+ * changes (flags, attacks, spells), we induce a redraw of the creature
  * recall window.
  */
 void process_creatures(void)
@@ -2652,7 +2652,7 @@ void process_creatures(void)
 
 	int speed;
 
-	/* Clear monster fighting indicator */
+	/* Clear creature fighting indicator */
 	mon_fight = FALSE;
 
 	/* Memorize old race */
@@ -2661,7 +2661,7 @@ void process_creatures(void)
 	/* Acquire knowledge */
 	if (species_window_idx)
 	{
-		/* Acquire current monster */
+		/* Acquire current creature */
 		species_ptr = &species_info[species_window_idx];
 
 		/* Memorize flags */
@@ -2684,7 +2684,7 @@ void process_creatures(void)
 	}
 
 
-	// Process the monsters (backwards)
+	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		// Access the creature
@@ -2701,7 +2701,7 @@ void process_creatures(void)
 			continue;
 		if (wild_mode) continue;
 
-		// Handle "fresh" monsters
+		// Handle "fresh" creatures
 		if (creature_ptr->mflag & MFLAG_BORN)
 		{
 			creature_ptr->mflag &= ~(MFLAG_BORN);
@@ -2729,8 +2729,8 @@ void process_creatures(void)
 
 #if 0 
 		/* (floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) is always FALSE... */
-		/* Hack -- Monsters can "smell" the player from far away */
-		/* Note that most monsters have "aaf" of "20" or so */
+		/* Hack -- Creatures can "smell" the player from far away */
+		/* Note that most creatures have "aaf" of "20" or so */
 		else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
 			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
 			(floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) &&
@@ -2749,14 +2749,14 @@ void process_creatures(void)
 
 		speed = creature_ptr->speed;
 
-		if (curse_of_Iluvatar) speed += 5; // Monsters move quickly in curse of Iluvatar mode
-		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this monster some energy
+		if (curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
+		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 		if (creature_ptr->energy_need > 0) continue; // Not enough energy to move
 
 		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 		hack_m_idx = i; // Save global index
 
-		process_creature(i); // Process the monster
+		process_creature(i); // Process the creature
 
 		reset_target(creature_ptr);
 
@@ -2769,10 +2769,10 @@ void process_creatures(void)
 
 	hack_m_idx = 0; // Reset global index
 
-	/* Tracking a monster race (the same one we were before) */
+	/* Tracking a creature race (the same one we were before) */
 	if (species_window_idx && (species_window_idx == old_species_window_idx))
 	{
-		/* Acquire monster race */
+		/* Acquire creature race */
 		species_ptr = &species_info[species_window_idx];
 
 		/* Check for knowledge change */
@@ -2854,7 +2854,7 @@ void creature_process_init(void)
 }
 
 
-static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_type *cr_ptr, int mtimed_idx)
+static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *cr_ptr, int mtimed_idx)
 {
 
 	switch (mtimed_idx)
@@ -2893,10 +2893,10 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 		{
 			u32b notice = randint0(1024);
 
-			/* Nightmare monsters are more alert */
+			/* Nightmare creatures are more alert */
 			if (curse_of_Iluvatar) notice /= 2;
 
-			/* Hack -- See if monster "notices" player */
+			/* Hack -- See if creature "notices" player */
 			if ((notice * notice * notice) <= csleep_noise)
 			{
 				/* Hack -- amount of "waking" */
@@ -2907,7 +2907,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 				d = (d * SPEED_TO_ENERGY(watcher_ptr->speed)) / 10;
 				if (d < 0) d = 1;
 
-				/* Monster wakes up "a little bit" */
+				/* Creature wakes up "a little bit" */
 
 				/* Still asleep */
 				if (!set_paralyzed(cr_ptr, cr_ptr->paralyzed - d))
@@ -2928,7 +2928,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 					{
 						char m_name[80];
 
-						/* Acquire the monster name */
+						/* Acquire the creature name */
 						creature_desc(m_name, cr_ptr, 0);
 
 						/* Dump a message */
@@ -2986,28 +2986,28 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 
 
 /*
- * Process the counters of monsters (once per 10 game turns)
+ * Process the counters of creatures (once per 10 game turns)
  *
- * These functions are to process monsters' counters same as player's.
+ * These functions are to process creatures' counters same as player's.
  */
-void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
+void process_creatures_mtimed(creature_type *cr_ptr, int mtimed_idx)
 {
 	int  i;
 	creature_type **cur_mproc_list = mproc_list[mtimed_idx];
 
 
-	/* Process the monsters (backwards) */
+	/* Process the creatures (backwards) */
 	for (i = mproc_max[mtimed_idx] - 1; i >= 0; i--)
 	{
-		/* Access the monster */
-		process_monsters_mtimed_aux(cr_ptr, cur_mproc_list[i], mtimed_idx);
+		/* Access the creature */
+		process_creatures_mtimed_aux(cr_ptr, cur_mproc_list[i], mtimed_idx);
 	}
 }
 
 
 bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {
-	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world monster */
+	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world creature */
 	floor_type *floor_ptr = get_floor_ptr(m_ptr);
 
 	if(the_world) return (FALSE);
@@ -3034,7 +3034,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		msg_print(NULL);
 	}
 
-	// This monster cast spells
+	// This creature cast spells
 	the_world = hack_m_idx;
 
 	if (vs_player) do_cmd_redraw();

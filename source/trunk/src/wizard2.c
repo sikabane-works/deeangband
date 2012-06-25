@@ -119,7 +119,7 @@ static void wiz_drop_named_art(creature_type* cr_ptr, int a_idx)
 }
 
 
-// Summon a horde of monsters
+// Summon a horde of creatures
 static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
 	int wy = summoner_ptr->fy, wx = summoner_ptr->fx;
@@ -1785,7 +1785,7 @@ static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_i
 
 
 /*
- * Hack -- Delete all nearby monsters
+ * Hack -- Delete all nearby creatures
  */
 static void do_cmd_wiz_zap(creature_type *cr_ptr)
 {
@@ -1797,13 +1797,13 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
 		if (i == cr_ptr->riding) continue;
 
-		/* Delete nearby monsters */
+		/* Delete nearby creatures */
 		if (m_ptr->cdis <= MAX_SIGHT)
 		{
 			if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
@@ -1821,7 +1821,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 
 
 /*
- * Hack -- Delete all monsters
+ * Hack -- Delete all creatures
  */
 static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 {
@@ -1832,7 +1832,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead monsters */
+		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
@@ -1846,7 +1846,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 		}
 
-		/* Delete this monster */
+		/* Delete this creature */
 		delete_species_idx(&creature_list[i]);
 	}
 }
@@ -2180,12 +2180,12 @@ void do_cmd_debug(creature_type *creature_ptr)
 		(void)gain_level_reward(creature_ptr, command_arg);
 		break;
 
-	/* Summon _friendly_ named monster */
+	/* Summon _friendly_ named creature */
 	case 'N':
 		do_cmd_wiz_named_friendly(creature_ptr, command_arg);
 		break;
 
-	/* Summon Named Monster */
+	/* Summon Named Creature */
 	case 'n':
 		do_cmd_wiz_named(creature_ptr, command_arg);
 		break;
@@ -2238,7 +2238,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		wiz_lite(floor_ptr, creature_ptr, FALSE);
 		break;
 
-	/* Summon Random Monster(s) */
+	/* Summon Random Creature(s) */
 	case 's':
 		if (command_arg <= 0) command_arg = 1;
 		do_cmd_wiz_summon(creature_ptr, command_arg);
@@ -2296,12 +2296,12 @@ void do_cmd_debug(creature_type *creature_ptr)
 		gain_exp(creature_ptr, command_arg ? command_arg : (creature_ptr->exp + 1));
 		break;
 
-	/* Zap Monsters (Genocide) */
+	/* Zap Creatures (Genocide) */
 	case 'z':
 		do_cmd_wiz_zap(creature_ptr);
 		break;
 
-	/* Zap Monsters (Omnicide) */
+	/* Zap Creatures (Omnicide) */
 	case 'Z':
 		do_cmd_wiz_zap_all(creature_ptr);
 		break;

@@ -848,7 +848,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #ifdef JP
 					fprintf(fff, "%sがクリーチャー情報圧縮によって消え去った。\n", note);
 #else
-					fprintf(fff, "%s was made disappeared by compacting monsters.\n", note);
+					fprintf(fff, "%s was made disappeared by compacting creatures.\n", note);
 #endif
 					break;
 				case RECORD_NAMED_PET_LOSE_PARENT:
@@ -1610,7 +1610,7 @@ static option_type cheat_info[CHEAT_MAX] =
 #ifdef JP
 	"cheat_hear",		"クリーチャーの生成をのぞき見る"
 #else
-	"cheat_hear",		"Peek into monster creation"
+	"cheat_hear",		"Peek into creature creation"
 #endif
 	},
 
@@ -1634,7 +1634,7 @@ static option_type cheat_info[CHEAT_MAX] =
 #ifdef JP
 	"cheat_know",		"完全なクリーチャーの思い出を知る"
 #else
-	"cheat_know",		"Know complete monster info"
+	"cheat_know",		"Know complete creature info"
 #endif
 	},
 
@@ -3721,13 +3721,13 @@ static void print_visuals_menu(cptr choice_msg)
 	prt("(8) アイテムの   色/文字 を変更する (シンボルエディタ)", 11, 5);
 	prt("(9) 地形の       色/文字 を変更する (シンボルエディタ)", 12, 5);
 #else
-	prt("(1) Dump monster attr/chars", 4, 5);
+	prt("(1) Dump creature attr/chars", 4, 5);
 	prt("(2) Dump object attr/chars", 5, 5);
 	prt("(3) Dump feature attr/chars", 6, 5);
-	prt("(4) Change monster attr/chars (numeric operation)", 7, 5);
+	prt("(4) Change creature attr/chars (numeric operation)", 7, 5);
 	prt("(5) Change object attr/chars (numeric operation)", 8, 5);
 	prt("(6) Change feature attr/chars (numeric operation)", 9, 5);
-	prt("(7) Change monster attr/chars (visual mode)", 10, 5);
+	prt("(7) Change creature attr/chars (visual mode)", 10, 5);
 	prt("(8) Change object attr/chars (visual mode)", 11, 5);
 	prt("(9) Change feature attr/chars (visual mode)", 12, 5);
 #endif
@@ -3814,16 +3814,16 @@ void do_cmd_visuals(void)
 			need_redraw = TRUE;
 			break;
 
-		/* Dump monster attr/chars */
+		/* Dump creature attr/chars */
 		case '1':
 		{
-			static cptr mark = "Monster attr/chars";
+			static cptr mark = "Creature attr/chars";
 
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
 #else
-			prt("Command: Dump monster attr/chars", 15, 0);
+			prt("Command: Dump creature attr/chars", 15, 0);
 #endif
 
 			/* Prompt */
@@ -3849,10 +3849,10 @@ void do_cmd_visuals(void)
 #ifdef JP
 			auto_dump_printf("\n# クリーチャーの[色/文字]の設定\n\n");
 #else
-			auto_dump_printf("\n# Monster attr/char definitions\n\n");
+			auto_dump_printf("\n# Creature attr/char definitions\n\n");
 #endif
 
-			/* Dump monsters */
+			/* Dump creatures */
 			for (i = 0; i < max_species_idx; i++)
 			{
 				species_type *r_ptr = &species_info[i];
@@ -3863,7 +3863,7 @@ void do_cmd_visuals(void)
 				/* Dump a comment */
 				auto_dump_printf("# %s\n", (species_name + r_ptr->name));
 
-				/* Dump the monster attr/char info */
+				/* Dump the creature attr/char info */
 				auto_dump_printf("R:%d:0x%02X/0x%02X\n\n", i,
 					(byte)(r_ptr->x_attr), (byte)(r_ptr->x_char));
 			}
@@ -3875,7 +3875,7 @@ void do_cmd_visuals(void)
 #ifdef JP
 			msg_print("クリーチャーの[色/文字]をファイルに書き出しました。");
 #else
-			msg_print("Dumped monster attr/chars.");
+			msg_print("Dumped creature attr/chars.");
 #endif
 
 			break;
@@ -4037,13 +4037,13 @@ void do_cmd_visuals(void)
 			break;
 		}
 
-		/* Modify monster attr/chars (numeric operation) */
+		/* Modify creature attr/chars (numeric operation) */
 		case '4':
 		{
 #ifdef JP
 			static cptr choice_msg = "クリーチャーの[色/文字]を変更します";
 #else
-			static cptr choice_msg = "Change monster attr/chars";
+			static cptr choice_msg = "Change creature attr/chars";
 #endif
 			static int r = 0;
 
@@ -4072,7 +4072,7 @@ void do_cmd_visuals(void)
 						   r, (species_name + r_ptr->name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
-					    format("Monster = %d, Name = %-40.40s",
+					    format("Creature = %d, Name = %-40.40s",
 						   r, (species_name + r_ptr->name)));
 #endif
 
@@ -4416,7 +4416,7 @@ void do_cmd_visuals(void)
 			break;
 		}
 
-		/* Modify monster attr/chars (visual mode) */
+		/* Modify creature attr/chars (visual mode) */
 		case '7':
 			do_cmd_knowledge_creatures(&need_redraw, TRUE, -1);
 			break;
@@ -4631,7 +4631,7 @@ void do_cmd_colors(void)
 				auto_dump_printf("# Color '%s'\n", name);
 #endif
 
-				/* Dump the monster attr/char info */
+				/* Dump the creature attr/char info */
 				auto_dump_printf("V:%d:0x%02X:0x%02X:0x%02X:0x%02X\n\n",
 					i, kv, rv, gv, bv);
 			}
@@ -5054,7 +5054,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 
 
 /*
- * Description of each monster group.
+ * Description of each creature group.
  */
 static cptr creature_group_text[] = 
 {
@@ -5244,7 +5244,7 @@ static cptr creature_group_text[] =
 
 
 /*
- * Symbols of monsters in each group. Note the "Uniques" group
+ * Symbols of creatures in each group. Note the "Uniques" group
  * is handled differently.
  */
 static cptr creature_group_char[] =
@@ -5389,8 +5389,8 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
 
 
 /*
- * Build a list of monster indexes in the given group. Return the number
- * of monsters in the group.
+ * Build a list of creature indexes in the given group. Return the number
+ * of creatures in the group.
  *
  * mode & 0x01 : check for non-empty group
  * mode & 0x02 : visual operation only
@@ -5438,7 +5438,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 		/* Skip empty race */
 		if (!r_ptr->name) continue ;
 
-		/* Require known monsters */
+		/* Require known creatures */
 		if (!(mode & 0x02) && !cheat_know && !r_ptr->r_sights) continue;
 
 		if (grp_unique)
@@ -5504,7 +5504,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 	/* Terminate the list */
 	creature_idx[mon_cnt] = -1;
 
-	/* Sort by monster level */
+	/* Sort by creature level */
 	ang_sort(creature_idx, &dummy_why, mon_cnt, ang_sort_comp_creature_exp, ang_sort_swap_hook);
 
 	/* Return the number of races */
@@ -5513,7 +5513,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 
 
 /*
- * Description of each monster group.
+ * Description of each creature group.
  */
 static cptr object_group_text[] = 
 {
@@ -5787,8 +5787,8 @@ static int collect_features(int grp_cur, int *feat_idx, byte mode)
 
 #if 0
 /*
- * Build a list of monster indexes in the given group. Return the number
- * of monsters in the group.
+ * Build a list of creature indexes in the given group. Return the number
+ * of creatures in the group.
  */
 static int collect_artifacts(int grp_cur, int object_idx[])
 {
@@ -6546,7 +6546,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 /*
  * Sorting hook -- Comp function -- see below
  *
- * We use "u" to point to array of monster indexes,
+ * We use "u" to point to array of creature indexes,
  * and "v" to select the type of sorting to perform on "u".
  */
 static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
@@ -6573,7 +6573,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 	}
 
 
-	/* Sort by monster level */
+	/* Sort by creature level */
 	if (*why >= 2)
 	{
 		/* Extract levels */
@@ -6586,7 +6586,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 	}
 
 
-	/* Sort by monster experience */
+	/* Sort by creature experience */
 	if (*why >= 1)
 	{
 		/* Extract experience */
@@ -6607,7 +6607,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 /*
  * Sorting hook -- Swap function -- see below
  *
- * We use "u" to point to array of monster indexes,
+ * We use "u" to point to array of creature indexes,
  * and "v" to select the type of sorting to perform.
  */
 static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
@@ -6734,7 +6734,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		if (okay[k]) who[n++] = k;
 	}
 
-	/* Sort the array by dungeon depth of monsters */
+	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_art_comp, ang_sort_art_swap);
 
 	/* Scan the artifacts */
@@ -6846,7 +6846,7 @@ static void do_cmd_knowledge_uniques(void)
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, s16b);
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i];
@@ -6854,7 +6854,7 @@ static void do_cmd_knowledge_uniques(void)
 
 		if (!r_ptr->name) continue;
 
-		/* Require unique monsters */
+		/* Require unique creatures */
 		if (!is_unique_species(r_ptr)) continue;
 
 		/* Only display "known" uniques */
@@ -6878,11 +6878,11 @@ static void do_cmd_knowledge_uniques(void)
 		}
 		else n_alive_surface++;
 
-		/* Collect "appropriate" monsters */
+		/* Collect "appropriate" creatures */
 		who[n++] = i;
 	}
 
-	/* Sort the array by dungeon depth of monsters */
+	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	if (n_alive_surface)
@@ -6932,7 +6932,7 @@ static void do_cmd_knowledge_uniques(void)
 #endif
 	}
 
-	/* Scan the monster races */
+	/* Scan the creature races */
 	for (k = 0; k < n; k++)
 	{
 		species_type *r_ptr = &species_info[who[k]];
@@ -7190,7 +7190,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
 
 
 /*
- * Pluralize a monster name
+ * Pluralize a creature name
  */
 void plural_aux(char *Name)
 {
@@ -7338,13 +7338,13 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	    return;
 	}
 
-	/* Process the monsters (backwards) */
+	/* Process the creatures (backwards) */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		pet_ptr = &creature_list[i]; // Access the monster
+		pet_ptr = &creature_list[i]; // Access the creature
 		if(!is_in_this_floor(pet_ptr)) continue;
 
-		/* Ignore "dead" monsters */
+		/* Ignore "dead" creatures */
 		if (!pet_ptr->species_idx) continue;
 
 		/* Calculate "upkeep" for pets */
@@ -7421,7 +7421,7 @@ static void do_cmd_knowledge_kill_count(void)
 	C_MAKE(who, max_species_idx, s16b);
 
 	{
-		/* Monsters slain */
+		/* Creatures slain */
 		int kk;
 
 		for (kk = 1; kk < max_species_idx; kk++)
@@ -7464,19 +7464,19 @@ static void do_cmd_knowledge_kill_count(void)
 
 	Total = 0;
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i];
 
-		/* Use that monster */
+		/* Use that creature */
 		if (r_ptr->name) who[n++] = i;
 	}
 
-	/* Sort the array by dungeon depth of monsters */
+	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
-	/* Scan the monster races */
+	/* Scan the creature races */
 	for (k = 0; k < n; k++)
 	{
 		species_type *r_ptr = &species_info[who[k]];
@@ -7913,7 +7913,7 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 
 
 /*
- * Display the monsters in a group.
+ * Display the creatures in a group.
  */
 static void display_creature_list(int col, int row, int per_page, s16b mon_idx[], int mon_cur, int mon_top, bool visual_only)
 {
@@ -7973,7 +7973,7 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 
 
 /*
- * Display known monsters.
+ * Display known creatures.
  */
 static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx)
 {
@@ -8020,10 +8020,10 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			/* Save the maximum length */
 			if (len > max) max = len;
 
-			/* See if any monsters are known */
+			/* See if any creatures are known */
 			if ((creature_group_char[i] == ((char *) -1L)) || collect_creatures(i, mon_idx, mode))
 			{
-				/* Build a list of groups with known monsters */
+				/* Build a list of groups with known creatures */
 				grp_idx[grp_cnt++] = i;
 			}
 		}
@@ -8071,7 +8071,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			prt("文字", 4, 67);
 			if (!visual_only) prt("殺害数", 4, 72);
 #else
-			prt(format("%s - monsters", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
+			prt(format("%s - creatures", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if (direct_species_idx < 0) prt("Group", 4, 0);
 			prt("Name", 4, max + 3);
 			if (wizard || visual_only) prt("Idx", 4, 62);
@@ -8101,18 +8101,18 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			if (grp_cur < grp_top) grp_top = grp_cur;
 			if (grp_cur >= grp_top + browser_rows) grp_top = grp_cur - browser_rows + 1;
 
-			/* Display a list of monster groups */
+			/* Display a list of creature groups */
 			display_group_list(0, 6, max, browser_rows, grp_idx, creature_group_text, grp_cur, grp_top);
 
 			if (old_grp_cur != grp_cur)
 			{
 				old_grp_cur = grp_cur;
 
-				/* Get a list of monsters in the current group */
+				/* Get a list of creatures in the current group */
 				mon_cnt = collect_creatures(grp_idx[grp_cur], mon_idx, mode);
 			}
 
-			/* Scroll monster list */
+			/* Scroll creature list */
 			while (mon_cur < mon_top)
 				mon_top = MAX(0, mon_top - browser_rows/2);
 			while (mon_cur >= mon_top + browser_rows)
@@ -8121,7 +8121,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 		if (!visual_list)
 		{
-			/* Display a list of monsters in the current group */
+			/* Display a list of creatures in the current group */
 			display_creature_list(max + 3, 6, browser_rows, mon_idx, mon_cur, mon_top, visual_only);
 		}
 		else
@@ -8131,7 +8131,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			/* Display a creature name */
 			display_creature_list(max + 3, 6, 1, mon_idx, mon_cur, mon_top, visual_only);
 
-			/* Display visual list below first monster */
+			/* Display visual list below first creature */
 			display_visual_list(max + 3, 7, browser_rows-1, wid - (max + 3), attr_top, char_left);
 		}
 
@@ -8150,12 +8150,12 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			hgt - 1, 0);
 #endif
 
-		/* Get the current monster */
+		/* Get the current creature */
 		r_ptr = &species_info[mon_idx[mon_cur]];
 
 		if (!visual_only)
 		{
-			/* Mega Hack -- track this monster race */
+			/* Mega Hack -- track this creature race */
 			if (mon_cnt) species_type_track(mon_idx[mon_cur]);
 
 			/* Hack -- handle stuff */
@@ -8504,10 +8504,10 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			/* Save the maximum length */
 			if (len > max) max = len;
 
-			/* See if any monsters are known */
+			/* See if any creatures are known */
 			if (collect_objects(i, object_idx, mode))
 			{
-				/* Build a list of groups with known monsters */
+				/* Build a list of groups with known creatures */
 				grp_idx[grp_cnt++] = i;
 			}
 		}
@@ -9161,7 +9161,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 
 
 /*
- * List wanted monsters
+ * List wanted creatures
  */
 static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 {
@@ -9194,7 +9194,7 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 #else
 		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : "unknown"));
 		fprintf(fff, "\n");
-		fprintf(fff, "List of wanted monsters\n");
+		fprintf(fff, "List of wanted creatures\n");
 #endif
 		fprintf(fff, "----------------------------------------------\n");
 
@@ -9213,7 +9213,7 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 #ifdef JP
 			fprintf(fff,"\n%s\n", "賞金首はもう残っていません。");
 #else
-			fprintf(fff,"\n%s\n", "There is no more wanted monster.");
+			fprintf(fff,"\n%s\n", "There is no more wanted creature.");
 #endif
 		}
 	}
@@ -9225,7 +9225,7 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 #ifdef JP
 	show_file(TRUE, file_name, "賞金首の一覧", 0, 0);
 #else
-	show_file(TRUE, file_name, "Wanted monsters", 0, 0);
+	show_file(TRUE, file_name, "Wanted creatures", 0, 0);
 #endif
 
 	
@@ -9509,7 +9509,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						sprintf(note,"%d 体のクリーチャーを倒す。(あと %d 体)",
 							quest[i].max_num, quest[i].max_num - quest[i].cur_num);
 #else
-						sprintf(note,"Kill %d monsters, have killed %d.",
+						sprintf(note,"Kill %d creatures, have killed %d.",
 							quest[i].max_num, quest[i].cur_num);
 #endif
 						break;
@@ -9518,7 +9518,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 #ifdef JP
 						sprintf(note,"全てのクリーチャーを倒す。");
 #else
-						sprintf(note,"Kill all monsters.");
+						sprintf(note,"Kill all creatures.");
 #endif
 						break;
 					}
@@ -10165,9 +10165,9 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			prt("(1) Display known artifacts", 6, 5);
 			prt("(2) Display known objects", 7, 5);
 			prt("(3) Display remaining uniques", 8, 5);
-			prt("(4) Display known monster", 9, 5);
+			prt("(4) Display known creature", 9, 5);
 			prt("(5) Display kill count", 10, 5);
-			if (!vanilla_town) prt("(6) Display wanted monsters", 11, 5);
+			if (!vanilla_town) prt("(6) Display wanted creatures", 11, 5);
 			prt("(7) Display current pets", 12, 5);
 			prt("(8) Display home inventory", 13, 5);
 			prt("(9) Display *identified* equip.", 14, 5);
@@ -10221,7 +10221,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 		case '3': /* Uniques */
 			do_cmd_knowledge_uniques();
 			break;
-		case '4': /* Monsters */
+		case '4': /* Creatures */
 			do_cmd_knowledge_creatures(&need_redraw, FALSE, -1);
 			break;
 		case '5': /* Kill count  */

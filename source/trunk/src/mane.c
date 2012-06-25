@@ -1098,7 +1098,7 @@ msg_print("仲間を召喚した。");
 #ifdef JP
 msg_print("クリーチャーを召喚した！");
 #else
-			msg_print("You summon monsters!");
+			msg_print("You summon creatures!");
 #endif
 		for (k = 0;k < 6; k++)
 			summon_specific(NULL, target_row, target_col, plev, 0, (mode | u_mode));

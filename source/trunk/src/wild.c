@@ -259,7 +259,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 	/* Set the dungeon level */
 	floor_ptr->floor_level = 0;
 
-	/* Set the monster generation level */
+	/* Set the creature generation level */
 	floor_ptr->creature_level = floor_ptr->base_level;
 
 	/* Set the object generation level */
@@ -1057,7 +1057,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 #ifdef JP
 		msg_print("敵がすぐ近くにいるときは広域マップに入れない！");
 #else
-		msg_print("You cannot enter global map, since there is some monsters nearby!");
+		msg_print("You cannot enter global map, since there is some creatures nearby!");
 #endif
 		energy_use = 0;
 		return FALSE;

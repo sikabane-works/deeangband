@@ -77,10 +77,10 @@
  * connect to another room, in a giant cycle, thus requiring at least two
  * bizarre occurances to create an isolated section of the dungeon.
  *
- * Note that (2.7.9) monster pits have been split into monster "nests"
- * and monster "pits".  The "nests" have a collection of monsters of a
+ * Note that (2.7.9) creature pits have been split into creature "nests"
+ * and creature "pits".  The "nests" have a collection of creatures of a
  * given type strewn randomly around the room (jelly, animal, or undead),
- * while the "pits" have a collection of monsters of a given type placed
+ * while the "pits" have a collection of creatures of a given type placed
  * around the room in an organized manner (orc, troll, giant, dragon, or
  * demon).  Note that both "nests" and "pits" are now "level dependant",
  * and both make 16 "expensive" calls to the "get_species_num(floor_ptr, )" function.
@@ -186,7 +186,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 		{
 			species_type *r_ptr = &species_info[quest[q_idx].species_idx];
 
-			/* The quest monster(s) is still alive? */
+			/* The quest creature(s) is still alive? */
 			if (!(is_unique_species(r_ptr)) || 0 < r_ptr->max_num)
 				return TRUE;
 		}
@@ -473,7 +473,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 {
 	int i;
 
-	/* Handle the quest monster placements */
+	/* Handle the quest creature placements */
 	for (i = 0; i < max_quests; i++)
 	{
 		species_type *r_ptr;
@@ -493,7 +493,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 
 		r_ptr = &species_info[quest[i].species_idx];
 
-		/* Hack -- "unique" monsters must be "unique" */
+		/* Hack -- "unique" creatures must be "unique" */
 		if ((is_unique_species(r_ptr)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num)) continue;
 
@@ -533,7 +533,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				/* Failed to place */
 				if (!l) return FALSE;
 
-				/* Try to place the monster */
+				/* Try to place the creature */
 				if (place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode))
 				{
 					/* Success */
@@ -1028,7 +1028,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	if (k > 10) k = 10;
 	if (k < 2) k = 2;
 
-	/* Pick a base number of monsters */
+	/* Pick a base number of creatures */
 	i = dungeon_info[floor_ptr->dun_type].min_m_alloc_level;
 
 	/* To make small levels a bit more playable */
@@ -1046,7 +1046,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 #ifdef JP
 			msg_format("クリーチャー数基本値を %d から %d に減らします", small_tester, i);
 #else
-			msg_format("Reduced monsters base from %d to %d", small_tester, i);
+			msg_format("Reduced creatures base from %d to %d", small_tester, i);
 #endif
 
 		}
@@ -1054,7 +1054,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	i += randint1(8);
 
-	/* Put some monsters in the dungeon */
+	/* Put some creatures in the dungeon */
 	for (i = i + k; i > 0; i--)
 	{
 		(void)alloc_creature(floor_ptr, player_ptr, 0, PM_ALLOW_SLEEP);
@@ -1258,7 +1258,7 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_monster_arena(floor_type *floor_ptr)
+static void generate_floor_creature_arena(floor_type *floor_ptr)
 {
 	int y, x, i;
 	int qy = 0;
@@ -1295,8 +1295,8 @@ static void generate_floor_monster_arena(floor_type *floor_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		if (!m_ptr->species_idx) continue;
-		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW); // Hack -- Detect monster
-		update_mon(i, FALSE); // Update the monster
+		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW); // Hack -- Detect creature
+		update_mon(i, FALSE); // Update the creature
 	}
 }
 
@@ -1512,7 +1512,7 @@ void clear_cave(floor_type *floor_ptr)
 
 	// Set the base level
 	floor_ptr->base_level = floor_ptr->floor_level;
-	// Reset the monster generation level
+	// Reset the creature generation level
 	floor_ptr->creature_level = floor_ptr->base_level;
 	// Reset the object generation level
 	floor_ptr->object_level = floor_ptr->base_level;
@@ -1545,7 +1545,7 @@ void generate_floor(floor_type *floor_ptr)
 		if(fight_arena_mode)
 			generate_floor_arena(floor_ptr, 41, 41); // fight arena
 		else if(gamble_arena_mode)
-			generate_floor_monster_arena(floor_ptr); // gamble arena
+			generate_floor_creature_arena(floor_ptr); // gamble arena
 		else if(inside_quest)
 			generate_floor_quest(floor_ptr); // quest
 		else if(wild_mode)
@@ -1567,13 +1567,13 @@ void generate_floor(floor_type *floor_ptr)
 			okay = FALSE;
 		}
 
-		// Prevent monster over-flow
+		// Prevent creature over-flow
 		else if (creature_max >= max_creature_idx)
 		{
 #ifdef JP
 			why = "クリーチャーが多すぎる";
 #else
-			why = "too many monsters";
+			why = "too many creatures";
 #endif
 
 			okay = FALSE;

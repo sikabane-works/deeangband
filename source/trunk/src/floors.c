@@ -203,7 +203,7 @@ static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 }
 
 /*
- * Hack -- Update location of unique monsters and artifacts
+ * Hack -- Update location of unique creatures and artifacts
  *
  * The r_ptr->floor_id and a_ptr->floor_id are not updated correctly
  * while new floor creation since dungeons may be re-created by
@@ -213,19 +213,19 @@ static void update_unique_artifact(s16b cur_floor_id)
 {
 	int i;
 
-	/* Maintain unique monsters */
+	/* Maintain unique creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		species_type *r_ptr;
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		/* Extract real monster race */
+		/* Extract real creature race */
 		r_ptr = real_species_ptr(m_ptr);
 
-		/* Memorize location of the unique monster */
+		/* Memorize location of the unique creature */
 		if (is_unique_species(r_ptr) || has_cf(&r_ptr->flags, CF_NAZGUL))
 		{
 			r_ptr->floor_id = cur_floor_id;
@@ -250,7 +250,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 
 
 /*
- * When a monster is at a place where player will return,
+ * When a creature is at a place where player will return,
  * Get out of the my way!
  */
 static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
@@ -261,7 +261,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 	int ox = creature_ptr->fx;
 	int mover_idx = floor_ptr->cave[oy][ox].creature_idx;
 
-	if (!mover_idx) return; // Nothing to do if no monster
+	if (!mover_idx) return; // Nothing to do if no creature
 	if (&creature_list[mover_idx] == creature_ptr) return; // it's yourself 
 
 	while (TRUE) // Look until done
@@ -293,7 +293,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		floor_ptr->cave[oy][ox].creature_idx = 0; // Update the old location
 		floor_ptr->cave[ny][nx].creature_idx = mover_idx; // Update the new location
 
-		// Move the monster
+		// Move the creature
 		mover_ptr->fy = ny;
 		mover_ptr->fx = nx; 
 
@@ -406,7 +406,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 }
 
 /*
- * Maintain quest monsters, mark next floor_id at stairs, save current
+ * Maintain quest creatures, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
 void move_floor(creature_type *creature_ptr)
@@ -429,7 +429,7 @@ void move_floor(creature_type *creature_ptr)
 	remove_all_mirrors(creature_ptr, old_floor_ptr, FALSE);
 	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
-	// Search the quest monster index
+	// Search the quest creature index
 	for (i = 0; i < max_quests; i++)
 	{
 		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
@@ -671,7 +671,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 				sf_ptr->upper_floor_id = 0;
 		}
 
-		// Maintain monsters and artifacts
+		// Maintain creatures and artifacts
 		if (loaded)
 		{
 			int i;
@@ -707,7 +707,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 
 			(void)place_quest_creatures(cr_ptr);
 
-			// Place some random monsters
+			// Place some random creatures
 			alloc_times = absence_ticks / alloc_chance;
 
 			if (randint0(alloc_chance) < (absence_ticks % alloc_chance))
@@ -715,7 +715,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 
 			for (i = 0; i < alloc_times; i++)
 			{
-				// Make a (group of) new monster
+				// Make a (group of) new creature
 				(void)alloc_creature(floor_ptr, cr_ptr, 0, 0);
 			}
 		}

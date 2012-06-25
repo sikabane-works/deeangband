@@ -8,7 +8,7 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: Monster spells (attack monster) */
+/* Purpose: Creature spells (attack creature) */
 
 #include "angband.h"
 
@@ -185,9 +185,9 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 }
 
 /*
- * Check should monster cast dispel spell at other monster.
+ * Check should creature cast dispel spell at other creature.
  */
-static bool dispel_check_monster(creature_type *tar_ptr)
+static bool dispel_check_creature(creature_type *tar_ptr)
 {
 	/* Invulnabilty */
 	if (tar_ptr->invuln) return TRUE;
@@ -198,7 +198,7 @@ static bool dispel_check_monster(creature_type *tar_ptr)
 		if (tar_ptr->fast) return TRUE;
 	}
 
-	/*TODO  Riding monster */
+	/*TODO  Riding creature */
 
 	/* No need to cast dispel spell */
 	return FALSE;

@@ -1699,7 +1699,7 @@ static void spoil_artifact(cptr fname)
 
 
 /*
- * Create a spoiler file for monsters   -BEN-
+ * Create a spoiler file for creatures   -BEN-
  */
 static void spoil_species_desc(cptr fname)
 {
@@ -1750,7 +1750,7 @@ static void spoil_species_desc(cptr fname)
 	C_MAKE(who, max_species_idx, s16b);
 
 	/* Dump the header */
-	fprintf(fff, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
+	fprintf(fff, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
 		VER_MAJOR, VER_MINOR, VER_PATCH);
 	fprintf(fff, "---------------------------------------------\n\n");
 
@@ -1764,16 +1764,16 @@ static void spoil_species_desc(cptr fname)
 		"-----");
 
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];
 
-		/* Use that monster */
+		/* Use that creature */
 		if (species_ptr->name) who[n++] = i;
 	}
 
-	/* Sort the array by dungeon depth of monsters */
+	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	/* Scan again */
@@ -2061,7 +2061,7 @@ static void spoil_species_desc(cptr fname)
 
 
 /*
- * Monster spoilers by: smchorse@ringer.cs.utsa.edu (Shawn McHorse)
+ * Creature spoilers by: smchorse@ringer.cs.utsa.edu (Shawn McHorse)
  *
  * Primarily based on code already in mon-desc.c, mostly by -BEN-
  */
@@ -2246,7 +2246,7 @@ static void roff_func(byte attr, cptr str)
 
 
 /*
- * Create a spoiler file for monsters (-SHAWN-)
+ * Create a spoiler file for creatures (-SHAWN-)
  */
 static void spoil_species_info(cptr fname)
 {
@@ -2276,7 +2276,7 @@ static void spoil_species_info(cptr fname)
 
 
 	/* Dump the header */
-	sprintf(buf, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
+	sprintf(buf, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
 	     VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
@@ -2285,21 +2285,21 @@ static void spoil_species_info(cptr fname)
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, s16b);
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];
 
-		/* Use that monster */
+		/* Use that creature */
 		if (species_ptr->name) who[n++] = i;
 	}
 
-	/* Sort the array by dungeon depth of monsters */
+	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 
 	/*
-	 * List all monsters in order
+	 * List all creatures in order
 	 */
 	for (l = 0; l < n; l++)
 	{
@@ -2419,8 +2419,8 @@ static void spoil_species_info(cptr fname)
 
 		spoil_out("\n");
 
-		/* Reuse the code of monster recall. */
-		output_monster_spoiler(who[l], roff_func);
+		/* Reuse the code of creature recall. */
+		output_creature_spoiler(who[l], roff_func);
 
 		spoil_out(NULL);
 	}
@@ -2503,11 +2503,11 @@ static bool ang_sort_comp_evol_tree(vptr u, vptr v, int a, int b)
 	if (w1 && !w2) return TRUE;
 	if (!w1 && w2) return FALSE;
 
-	/* Sort by monster level */
+	/* Sort by creature level */
 	if (r1_ptr->level < r2_ptr->level) return TRUE;
 	if (r1_ptr->level > r2_ptr->level) return FALSE;
 
-	/* Sort by monster experience */
+	/* Sort by creature experience */
 	if (r1_ptr->exp < r2_ptr->exp) return TRUE;
 	if (r1_ptr->exp > r2_ptr->exp) return FALSE;
 
@@ -2535,7 +2535,7 @@ static void ang_sort_swap_evol_tree(vptr u, vptr v, int a, int b)
 
 
 /*
- * Print monsters' evolution information to file
+ * Print creatures' evolution information to file
  */
 static void spoil_species_evol(cptr fname)
 {
@@ -2561,7 +2561,7 @@ static void spoil_species_evol(cptr fname)
 	}
 
 	/* Dump the header */
-	sprintf(buf, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
+	sprintf(buf, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
 	     VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
@@ -2698,9 +2698,9 @@ void do_cmd_spoilers(void)
 		/* Prompt for a file */
 		prt("(1) Brief Object Info (obj-desc.spo)", 5, 5);
 		prt("(2) Brief Artifact Info (artifact.spo)", 6, 5);
-		prt("(3) Brief Monster Info (mon-desc.spo)", 7, 5);
-		prt("(4) Full Monster Info (mon-info.spo)", 8, 5);
-		prt("(5) Monster Evolution Info (mon-evol.spo)", 9, 5);
+		prt("(3) Brief Creature Info (mon-desc.spo)", 7, 5);
+		prt("(4) Full Creature Info (mon-info.spo)", 8, 5);
+		prt("(5) Creature Evolution Info (mon-evol.spo)", 9, 5);
 
 		/* Prompt */
 #ifdef JP

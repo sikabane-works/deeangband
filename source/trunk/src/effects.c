@@ -6168,7 +6168,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else if(has_cf(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num--;
 			}
 	
-			/* Count all monsters killed */
+			/* Count all creatures killed */
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
@@ -6186,7 +6186,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				species_type_track(tar_ptr->ap_species_idx);
 			}
 	
-			/* Extract monster name */
+			/* Extract creature name */
 			creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 		
 			if (has_cf_creature(tar_ptr, CF_CAN_SPEAK))
@@ -6244,7 +6244,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				msg_format("%^s%s", tar_name, note);
 			}
 	
-			/* Death by physical attack -- invisible monster */
+			/* Death by physical attack -- invisible creature */
 			else if (!tar_ptr->ml)
 			{
 				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
@@ -6263,7 +6263,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			}
 	
-			/* Death by Physical attack -- non-living monster */
+			/* Death by Physical attack -- non-living creature */
 			else if (!creature_living(atk_ptr))
 			{
 				int i;
@@ -6298,7 +6298,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				}
 			}
 	
-			/* Death by Physical attack -- living monster */
+			/* Death by Physical attack -- living creature */
 			else
 			{
 				if(atk_ptr)
@@ -6373,7 +6373,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 			else
 			{
-				/* Delete the monster */
+				/* Delete the creature */
 				delete_species_idx(tar_ptr);
 			}
 	
@@ -6386,7 +6386,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Not afraid */
 			fear = FALSE;
 	
-			/* Monster is dead */
+			/* Creature is dead */
 			return (TRUE);
 		}
 		
@@ -6395,7 +6395,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		{
 			char tar_name[80];
 	
-			/* Extract monster name */
+			/* Extract creature name */
 			creature_desc(tar_name, tar_ptr, 0);
 	
 			if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
@@ -6423,7 +6423,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 	}
 	
-	/* Sometimes a monster gets scared by damage */
+	/* Sometimes a creature gets scared by damage */
 	if (!tar_ptr->afraid && !has_cf_creature(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
 	{
 		/* Percentage of fully healthy */

@@ -262,7 +262,7 @@ mind_power mind_powers[5] =
       {  5,  3,  30, "Kawarimi"},
       {  7,  8,  35, "Absconding"},
       {  8, 10,  35, "Hit and Away"},
-      { 10, 10,  40, "Bind Monster"},
+      { 10, 10,  40, "Bind Creature"},
       { 12, 12,  70, "Ancient Knowledge"},
       { 15, 10,  50, "Floating"},
       { 17, 12,  45, "Hide in Flame"},
@@ -848,8 +848,8 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 
 		if (plev < 30)
 		{
-			b = detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
-			if (plev > 14) b |= detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT);
+			b = detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
+			if (plev > 14) b |= detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
 			if (plev > 4)  {
 				b |= detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
 				b |= detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
@@ -1250,8 +1250,8 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	/* mirror of seeing */
 	case 0:
 	  tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
-	  if( plev + tmp > 4) detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 18) detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 28) set_tim_esp(creature_ptr, plev,FALSE);
 	  if( plev + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
 	  if( tmp == 0 && plev < 5 ){
@@ -1419,7 +1419,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		detect_monsters_mind(creature_ptr, DETECT_RAD_DEFAULT);
+		detect_creatures_mind(creature_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 1:
 	{
@@ -1444,7 +1444,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 #ifdef JP
 			msg_print("その方向にはクリーチャーはいません。");
 #else
-			msg_print("There is no monster.");
+			msg_print("There is no creature.");
 #endif
 			return FALSE;
 		}
@@ -1488,10 +1488,10 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			x = creature_ptr->fx + ddx_ddd[dir];
 			c_ptr = &floor_ptr->cave[y][x];
 
-			/* Get the monster */
+			/* Get the creature */
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
-			/* Hack -- attack monsters */
+			/* Hack -- attack creatures */
 			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				melee_attack(creature_ptr, y, x, 0);
 		}
@@ -1530,7 +1530,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		{
 			wiz_lite(floor_ptr, creature_ptr, TRUE);
 		}
-		detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
+		detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		if (plev > 4)
 		{
 			detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
@@ -1591,7 +1591,7 @@ msg_print("うまく逃げられなかった。");
 #ifdef JP
 msg_print("その方向にはクリーチャーはいません。");
 #else
-			msg_print("You don't see any monster in this direction");
+			msg_print("You don't see any creature in this direction");
 #endif
 
 			msg_print(NULL);
@@ -1691,14 +1691,14 @@ msg_print("その方向にはクリーチャーはいません。");
 		/* Update the new location */
 		floor_ptr->cave[ty][tx].creature_idx = m_idx;
 
-		/* Move the monster */
+		/* Move the creature */
 		m_ptr->fy = ty;
 		m_ptr->fx = tx;
 
-		/* Wake the monster up */
+		/* Wake the creature up */
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
-		/* Update the monster (new location) */
+		/* Update the creature (new location) */
 		update_mon(m_idx, TRUE);
 
 		/* Redraw the old grid */
@@ -1715,7 +1715,7 @@ msg_print("その方向にはクリーチャーはいません。");
 			/* Auto-Recall if possible and visible */
 			if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
-			/* Track a new monster */
+			/* Track a new creature */
 			health_track(m_idx);
 		}
 

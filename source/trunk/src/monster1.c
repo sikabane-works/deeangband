@@ -1,4 +1,4 @@
-/* File: monster1.c */
+/* File: creature1.c */
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
@@ -8,7 +8,7 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: describe monsters (using monster memory) */
+/* Purpose: describe creatures (using creature memory) */
 
 #include "angband.h"
 
@@ -57,13 +57,13 @@ static bool know_armour(int species_idx)
 
 	if (cheat_know) return (TRUE);
 
-	/* Normal monsters */
+	/* Normal creatures */
 	if (kills > 304 / (4 + level)) return (TRUE);
 
 	/* Skip non-uniques */
 	if (!(is_unique_species(r_ptr))) return (FALSE);
 
-	/* Unique monsters */
+	/* Unique creatures */
 	if (kills > 304 / (38 + (5 * level) / 4)) return (TRUE);
 
 	/* Assume false */
@@ -73,7 +73,7 @@ static bool know_armour(int species_idx)
 
 /*
  * Determine if the "damage" of the given attack is known
- * the higher the level of the monster, the fewer the attacks you need,
+ * the higher the level of the creature, the fewer the attacks you need,
  * the more damage an attack does, the more attacks you need
  */
 
@@ -93,13 +93,13 @@ static bool know_damage(int species_idx, int i)
 
 	if (d >= ((4+level)*MAX_UCHAR)/80) d = ((4+level)*MAX_UCHAR-1)/80;
 
-	/* Normal monsters */
+	/* Normal creatures */
 	if ((4 + level) * a > 80 * d) return (TRUE);
 
 	/* Skip non-uniques */
 	if (!(is_unique_species(r_ptr))) return (FALSE);
 
-	/* Unique monsters */
+	/* Unique creatures */
 	if ((4 + level) * (2 * a) > 80 * d) return (TRUE);
 
 	/* Assume false */
@@ -120,7 +120,7 @@ static void hooked_roff(cptr str)
 
 
 /*
- * Hack -- display monster information using "hooked_roff()"
+ * Hack -- display creature information using "hooked_roff()"
  *
  * This function should only be called with the cursor placed at the
  * left edge of the screen, on a cleared line, in which the recall is
@@ -157,7 +157,7 @@ static void roff_aux(species_type *species_ptr, int mode)
 
 
 /*
- * Hack -- Display the "name" and "attr/chars" of a monster race
+ * Hack -- Display the "name" and "attr/chars" of a creature race
  */
 void roff_top(int species_idx)
 {
@@ -219,7 +219,7 @@ void roff_top(int species_idx)
 
 
 /*
- * Hack -- describe the given monster race at the top of the screen
+ * Hack -- describe the given creature race at the top of the screen
  */
 void screen_roff(creature_type *creature_ptr)
 {
@@ -283,7 +283,7 @@ void screen_roff(creature_type *creature_ptr)
 
 
 /*
- * Hack -- describe the given monster race in the current "term" window
+ * Hack -- describe the given creature race in the current "term" window
  */
 void display_roff(int species_idx)
 {
@@ -301,23 +301,23 @@ void display_roff(int species_idx)
 
 	hook_c_roff = c_roff;
 
-	/* Recall monster */
+	/* Recall creature */
 	roff_aux(&species_info[species_idx], 0);
 
-	/* Describe monster */
+	/* Describe creature */
 	roff_top(species_idx);
 }
 
 
 
 /*
- * Hack -- output description of the given monster race
+ * Hack -- output description of the given creature race
  */
-void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str))
+void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str))
 {
 	hook_c_roff = roff_func;
 
-	/* Recall monster */
+	/* Recall creature */
 	roff_aux(&species_info[species_idx], 0x03);
 }
 
@@ -498,7 +498,7 @@ creature_hook_type get_creature_hook2(int y, int x)
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	feature_type *f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
-	/* Set the monster list */
+	/* Set the creature list */
 
 	/* Water */
 	if (have_flag(f_ptr->flags, FF_WATER))
@@ -544,7 +544,7 @@ void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 }
 
 /*
- * Makes the monster hostile towards the player
+ * Makes the creature hostile towards the player
  */
 void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 {
@@ -558,7 +558,7 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 
 
 /*
- * Anger the monster
+ * Anger the creature
  */
 void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 {
@@ -580,7 +580,7 @@ msg_format("%^s‚Í“{‚Á‚½I", m_name);
 
 
 /*
- * Check if monster can cross terrain
+ * Check if creature can cross terrain
  */
 bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 {
@@ -609,7 +609,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
-	/* Some monsters can walk on mountains */
+	/* Some creatures can walk on mountains */
 	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_species(r_ptr)) return TRUE;
 
 	/* Water */
@@ -625,7 +625,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 		}
 	}
 
-	/* Aquatic monster into non-water? */
+	/* Aquatic creature into non-water? */
 	else if (is_aquatic_species(r_ptr)) return FALSE;
 
 	/* Lava */
@@ -638,7 +638,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 }
 
 /*
- * Check if monster can cross terrain
+ * Check if creature can cross terrain
  */
 bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 {
@@ -667,7 +667,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
-	/* Some monsters can walk on mountains */
+	/* Some creatures can walk on mountains */
 	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_creature(cr_ptr)) return TRUE;
 
 	/* Water */
@@ -683,7 +683,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 		}
 	}
 
-	/* Aquatic monster into non-water? */
+	/* Aquatic creature into non-water? */
 	else if (is_aquatic_creature(cr_ptr)) return FALSE;
 
 	/* Lava */
@@ -722,7 +722,7 @@ bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
 
 
 /*
- * Check if this monster has "hostile" alignment (aux)
+ * Check if this creature has "hostile" alignment (aux)
  */
 static bool check_hostile_align(byte sub_align1, byte sub_align2)
 {
@@ -740,7 +740,7 @@ static bool check_hostile_align(byte sub_align1, byte sub_align2)
 
 
 /*
- * Check if two monsters are enemies
+ * Check if two creatures are enemies
  */
 bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
@@ -787,12 +787,12 @@ bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *targe
 
 
 /*
- * Is the monster "alive"?
+ * Is the creature "alive"?
  *
- * Used to determine the message to print for a killed monster.
+ * Used to determine the message to print for a killed creature.
  * ("dies", "destroyed")
  */
-bool monster_living(species_type *r_ptr)
+bool species_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
 	if (is_non_living_species(r_ptr) || is_undead_species(r_ptr)) return FALSE;
@@ -814,7 +814,7 @@ bool creature_living(creature_type *creature_ptr)
 
 
 /*
- * Is this monster declined to be questor or bounty?
+ * Is this creature declined to be questor or bounty?
  */
 bool no_questor_or_bounty_uniques(int species_idx)
 {

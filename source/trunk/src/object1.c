@@ -26,7 +26,7 @@
  * "user pref file" based on the current setting of the "use_graphics"
  * flag.  This is useful for switching "graphics" on/off.
  *
- * The features, objects, and monsters, should all be encoded in the
+ * The features, objects, and creatures, should all be encoded in the
  * relevant "font.pref" and/or "graf.prf" files.  XXX XXX XXX
  *
  * The "prefs" parameter is no longer meaningful.  XXX XXX XXX
@@ -58,7 +58,7 @@ void reset_visuals(void)
 		k_ptr->x_char = k_ptr->d_char;
 	}
 
-	/* Extract default attr/char code for monsters */
+	/* Extract default attr/char code for creatures */
 	for (i = 0; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i];
@@ -595,7 +595,7 @@ return "善良退散 (level*5) : 300+d300 ターン毎";
 #ifdef JP
 return "パニック・クリーチャー : 15 ターン毎";
 #else
-				return "confuse monster every 15 turns";
+				return "confuse creature every 15 turns";
 #endif
 
 			}
@@ -604,7 +604,7 @@ return "パニック・クリーチャー : 15 ターン毎";
 #ifdef JP
 return "周囲のクリーチャーを眠らせる : 55 ターン毎";
 #else
-				return "sleep nearby monsters every 55 turns";
+				return "sleep nearby creatures every 55 turns";
 #endif
 
 			}
@@ -685,7 +685,7 @@ return "アンデッド従属 : 333 ターン毎";
 #ifdef JP
 return "クリーチャー魅了 : 400 ターン毎";
 #else
-				return "charm monster every 400 turns";
+				return "charm creature every 400 turns";
 #endif
 
 			}
@@ -1398,7 +1398,7 @@ return "テレポート : 45 ターン毎";
 #ifdef JP
 return "パニック・クリーチャー : 15 ターン毎";
 #else
-			return "confuse monster every 15 turns";
+			return "confuse creature every 15 turns";
 #endif
 
 		}
@@ -1642,7 +1642,7 @@ return "害虫の駆除 : 55+d55ターン毎";
 #ifdef JP
 return "クリーチャー恐慌 : 40+d40ターン毎";
 #else
-			return "frighten monsters every 40+d40 turns";
+			return "frighten creatures every 40+d40 turns";
 #endif
 		}
 		case ART_HIMRING:
@@ -2064,7 +2064,7 @@ return "冷気のブレス (200) : 250 ターン毎";
 #ifdef JP
 return "全クリーチャー感知 : 150 ターン毎";
 #else
-				return "detect all monsters every 150 turns";
+				return "detect all creatures every 150 turns";
 #endif
 			case EGO_RING_D_SPEED:
 #ifdef JP
@@ -2143,7 +2143,7 @@ return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
 #ifdef JP
 				return "クリーチャー魅了 : 200 ターン毎";
 #else
-				return "charm monster every 200 turns";
+				return "charm creature every 200 turns";
 #endif
 			case EGO_AMU_JUMP:
 #ifdef JP
@@ -2211,7 +2211,7 @@ return "ペット呼び寄せ : 100+d100ターン毎";
 #ifdef JP
 return "クリーチャーを捕える、又は解放する。";
 #else
-		return "captures or releases a monster.";
+		return "captures or releases a creature.";
 #endif
 	}
 
@@ -2434,7 +2434,7 @@ info[i++] = "それを装備した者は吸血鬼になる。";
 #ifdef JP
 info[i++] = "それは相手を一撃で倒すことがある。";
 #else
-		info[i++] = "It will attempt to kill a monster instantly.";
+		info[i++] = "It will attempt to kill a creature instantly.";
 #endif
 
 	}
@@ -2998,7 +2998,7 @@ info[i++] = "それはアンデッドに対して聖なる力を発揮する。";
 #ifdef JP
 info[i++] = "それは邪悪なる存在にとっての天敵である。";
 #else
-		info[i++] = "It is a great bane of evil monsters.";
+		info[i++] = "It is a great bane of evil creatures.";
 #endif
 
 	}
@@ -3017,7 +3017,7 @@ info[i++] = "それは邪悪なる存在に対して聖なる力で攻撃する。";
 #ifdef JP
 info[i++] = "それは善良なる存在にとっての天敵である。";
 #else
-		info[i++] = "It is a great bane of good monsters.";
+		info[i++] = "It is a great bane of good creatures.";
 #endif
 
 	}
@@ -3074,7 +3074,7 @@ info[i++] = "それは人間に対して特に恐るべき力を発揮する。";
 #ifdef JP
 info[i++] = "それは使用者の魔力を使って攻撃する。";
 #else
-		info[i++] = "It powerfully strikes at a monster using your mana.";
+		info[i++] = "It powerfully strikes at a creature using your mana.";
 #endif
 
 	}
@@ -3384,7 +3384,7 @@ info[i++] = "それは永遠の明かりを授ける(半径に+1)。";
 #ifdef JP
 info[i++] = "それは透明なクリーチャーを見ることを可能にする。";
 #else
-		info[i++] = "It allows you to see invisible monsters.";
+		info[i++] = "It allows you to see invisible creatures.";
 #endif
 
 	}
@@ -3501,7 +3501,7 @@ info[i++] = "それは活動する無生物体を感知する。";
 #ifdef JP
 info[i++] = "それは特別な強敵を感知する。";
 #else
-		info[i++] = "It senses unique monsters.";
+		info[i++] = "It senses unique creatures.";
 #endif
 
 	}
@@ -4249,7 +4249,7 @@ cptr describe_use(creature_type *cr_ptr, int i)
 #ifdef JP
 		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->two_handed && cr_ptr->can_melee[0]) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
 #else
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP

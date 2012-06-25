@@ -905,7 +905,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
-					/* Remove the monster restriction */
+					/* Remove the creature restriction */
 					get_species_num_prep(NULL, NULL);
 				}
 				if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(4) + 4))
@@ -1841,7 +1841,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
@@ -2291,7 +2291,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_HASTE_MONSTERS:
 		{
-			if (speed_monsters(creature_ptr)) ident = TRUE;
+			if (speed_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -2423,13 +2423,13 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_EVIL:
 		{
-			if (detect_monsters_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_creatures_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
@@ -3810,7 +3810,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 #endif
 
 
-			/* Dispel monsters */
+			/* Dispel creatures */
 			dispel_creatures(creature_ptr, 1000);
 
 			break;
@@ -5113,13 +5113,13 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Some strange places show up in your mind. And you see ...");
 #endif
 
-				/* Process the monsters (backwards) */
+				/* Process the creatures (backwards) */
 				for (i = creature_max - 1; i >= 1; i--)
 				{
-					/* Access the monster */
+					/* Access the creature */
 					m_ptr = &creature_list[i];
 
-					/* Ignore "dead" monsters */
+					/* Ignore "dead" creatures */
 					if (!m_ptr->species_idx) continue;
 
 					r_ptr = &species_info[m_ptr->species_idx];
@@ -6157,8 +6157,8 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				else o_ptr->timeout = 250;
 				break;
 			case EGO_RING_M_DETECT:
-				(void)detect_monsters_invis(creature_ptr, 255);
-				(void)detect_monsters_normal(creature_ptr, 255);
+				(void)detect_creatures_invis(creature_ptr, 255);
+				(void)detect_creatures_normal(creature_ptr, 255);
 				o_ptr->timeout = 150;
 				break;
 			case EGO_RING_D_SPEED:
@@ -6308,7 +6308,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			/* Allocate the "who" array */
 			C_MAKE(who, max_creature_idx, u16b);
 
-			/* Process the monsters (backwards) */
+			/* Process the creatures (backwards) */
 			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				if (is_pet(player_ptr, &creature_list[pet_ctr]) && (creature_ptr->riding != pet_ctr))
@@ -6317,7 +6317,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
 
-			/* Process the monsters (backwards) */
+			/* Process the creatures (backwards) */
 			for (i = 0; i < max_pet; i++)
 			{
 				pet_ctr = who[i];
@@ -6345,7 +6345,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			if(fire_ball(creature_ptr, GF_CAPTURE, dir, 0, 0))
 			{
-				//TODO: Capture monster status.
+				//TODO: Capture creature status.
 
 				/*
 				if (cap_nickname)

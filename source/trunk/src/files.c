@@ -354,14 +354,14 @@ static named_num gf_desc[] =
  * Note the use of "strtol()" to allow all "integers" to be encoded
  * in decimal, hexidecimal, or octal form.
  *
- * Note that "monster zero" is used for the "player" attr/char, "object
+ * Note that "creature zero" is used for the "player" attr/char, "object
  * zero" will be used for the "stack" attr/char, and "feature zero" is
  * used for the "nothing" attr/char.
  *
  * Parse another file recursively, see below for details
  *   %:<filename>
  *
- * Specify the attr/char values for "monsters" by race index
+ * Specify the attr/char values for "creatures" by race index
  *   R:<num>:<a>:<c>
  *
  * Specify the attr/char values for "objects" by kind index
@@ -425,7 +425,7 @@ errr process_pref_file_command(char *buf)
 		add_history_from_pref_line(buf + 2);
 		return 0;
 
-	/* Process "R:<num>:<a>/<c>" -- attr/char for monster races */
+	/* Process "R:<num>:<a>/<c>" -- attr/char for creature races */
 	case 'R':
 		if (tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
@@ -5158,26 +5158,26 @@ static void dump_aux_arena(FILE *fff)
  */
 static void dump_aux_creatures(FILE *fff)
 {
-	/* Monsters slain */
+	/* Creatures slain */
 
 	int k;
 	long uniq_total = 0;
 	long norm_total = 0;
 	s16b *who;
 
-	/* Sort by monster level */
+	/* Sort by creature level */
 	u16b why = 2;
 
 #ifdef JP
 	fprintf(fff, "\n  [倒したクリーチャー]\n\n");
 #else
-	fprintf(fff, "\n  [Defeated Monsters]\n\n");
+	fprintf(fff, "\n  [Defeated Creatures]\n\n");
 #endif
 
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, s16b);
 
-	/* Count monster kills */
+	/* Count creature kills */
 	for (k = 1; k < max_species_idx; k++)
 	{
 		species_type *r_ptr = &species_info[k];
@@ -5185,7 +5185,7 @@ static void dump_aux_creatures(FILE *fff)
 		/* Ignore unused index */
  		if (!r_ptr->name) continue;
 
-		/* Unique monsters */
+		/* Unique creatures */
 		if (is_unique_species(r_ptr))
 		{
 			bool dead = (r_ptr->max_num == 0);
@@ -5193,12 +5193,12 @@ static void dump_aux_creatures(FILE *fff)
 			{
 				norm_total++;
 
-				/* Add a unique monster to the list */
+				/* Add a unique creature to the list */
 				who[uniq_total++] = k;
 			}
 		}
 
-		/* Normal monsters */
+		/* Normal creatures */
 		else
 		{
 			if (r_ptr->r_pkills > 0)
@@ -5209,7 +5209,7 @@ static void dump_aux_creatures(FILE *fff)
 	}
 
 
-	/* No monsters is defeated */
+	/* No creatures is defeated */
 	if (norm_total < 1)
 	{
 #ifdef JP
@@ -5219,7 +5219,7 @@ static void dump_aux_creatures(FILE *fff)
 #endif
 	}
 
-	/* Defeated more than one normal monsters */
+	/* Defeated more than one normal creatures */
 	else if (uniq_total == 0)
 	{
 #ifdef JP
@@ -5229,22 +5229,22 @@ static void dump_aux_creatures(FILE *fff)
 #endif
 	}
 
-	/* Defeated more than one unique monsters */
+	/* Defeated more than one unique creatures */
 	else /* if (uniq_total > 0) */
 	{
 #ifdef JP
 		fprintf(fff, "%ld体のユニーク・クリーチャーを含む、合計%ld体の敵を倒しています。\n", uniq_total, norm_total); 
 #else
-		fprintf(fff, "You have defeated %ld %s including %ld unique monster%s in total.\n", norm_total, norm_total == 1 ? "enemy" : "enemies", uniq_total, (uniq_total == 1 ? "" : "s"));
+		fprintf(fff, "You have defeated %ld %s including %ld unique creature%s in total.\n", norm_total, norm_total == 1 ? "enemy" : "enemies", uniq_total, (uniq_total == 1 ? "" : "s"));
 #endif
 
-		/* Sort the array by dungeon depth of monsters */
+		/* Sort the array by dungeon depth of creatures */
 		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook);
 
 #ifdef JP
 		fprintf(fff, "\n《上位%ld体のユニーク・クリーチャー》\n", MIN(uniq_total, 10));
 #else
-		fprintf(fff, "\n< Unique monsters top %ld >\n", MIN(uniq_total, 10));
+		fprintf(fff, "\n< Unique creatures top %ld >\n", MIN(uniq_total, 10));
 #endif
 
 		/* Print top 10 */
@@ -6827,7 +6827,7 @@ msg_print("自動セーブ中");
 	/* Update stuff */
 	//TODO update_creature(creature_ptr, TRUE);
 
-	/* Initialize monster process */
+	/* Initialize creature process */
 	creature_process_init();
 }
 
@@ -7713,7 +7713,7 @@ void exit_game_panic(creature_type *player_ptr)
 
 /*
  * Get a random line from a file
- * Based on the monster speech patch by Matt Graham,
+ * Based on the creature speech patch by Matt Graham,
  */
 errr get_rnd_line(cptr file_name, int entry, char *output)
 {
@@ -7732,7 +7732,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 	/* Failed */
 	if (!fp) return -1;
 
-	/* Find the entry of the monster */
+	/* Find the entry of the creature */
 	while (TRUE)
 	{
 		/* Get a line from the file */
@@ -7758,7 +7758,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 				{
 					if (IS_FEMALE(&species_info[entry])) break;
 				}
-				/* Get the monster number */
+				/* Get the creature number */
 				else if (sscanf(&(buf[2]), "%d", &test) != EOF)
 				{
 					/* Is it the right number? */

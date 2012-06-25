@@ -19,7 +19,7 @@
 #define HURT_CHANCE 16
 
 
-static bool cave_monster_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
+static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -45,9 +45,9 @@ static bool cave_monster_teleportable_bold(creature_type *creature_ptr, int y, i
 
 
 /*
- * Teleport a monster, normally up to "dis" grids away.
+ * Teleport a creature, normally up to "dis" grids away.
  *
- * Attempt to move the monster at least "dis/2" grids away.
+ * Attempt to move the creature at least "dis/2" grids away.
  *
  * But allow variation to prevent infinite loops.
  */
@@ -94,7 +94,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 			/* Ignore illegal locations */
 			if (!in_bounds(floor_ptr, ny, nx)) continue;
 
-			if (!cave_monster_teleportable_bold(creature_ptr, ny, nx, mode)) continue;
+			if (!cave_creature_teleportable_bold(creature_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
 			if (!(inside_quest || fight_arena_mode))
@@ -134,14 +134,14 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	/* Update the new location */
 	floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
-	/* Move the monster */
+	/* Move the creature */
 	creature_ptr->fy = ny;
 	creature_ptr->fx = nx;
 
 	/* Forget the counter target */
 	reset_target(creature_ptr);
 
-	/* Update the monster (new location) */
+	/* Update the creature (new location) */
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
@@ -156,7 +156,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	return (TRUE);
 }
 
-// Teleport monster next to a grid near the given location
+// Teleport creature next to a grid near the given location
 void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode)
 {
 	int ny, nx, oy, ox, d, i, min;
@@ -200,7 +200,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 			/* Ignore illegal locations */
 			if (!in_bounds(floor_ptr, ny, nx)) continue;
 
-			if (!cave_monster_teleportable_bold(m_ptr, ny, nx, mode)) continue;
+			if (!cave_creature_teleportable_bold(m_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
 			/* if (floor_ptr->cave[ny][nx].info & (CAVE_ICKY)) continue; */
@@ -230,11 +230,11 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	/* Update the new location */
 	floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
-	/* Move the monster */
+	/* Move the creature */
 	m_ptr->fy = ny;
 	m_ptr->fx = nx;
 
-	/* Update the monster (new location) */
+	/* Update the creature (new location) */
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
@@ -435,14 +435,14 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 
 	if (!teleport_player_aux(creature_ptr, dis, mode)) return;
 
-	/* Monsters with teleport ability may follow the player */
+	/* Creatures with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
 			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
-			/* A monster except your mount may follow */
+			/* A creature except your mount may follow */
 			if (tmp_m_idx && (creature_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &creature_list[tmp_m_idx];
@@ -472,14 +472,14 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 
 	if (!teleport_player_aux(creature_ptr, dis, TELEPORT_PASSIVE)) return;
 
-	/* Monsters with teleport ability may follow the player */
+	/* Creatures with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
 			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
-			/* A monster except your mount or caster may follow */
+			/* A creature except your mount or caster may follow */
 			if (tmp_m_idx && (creature_ptr->riding != tmp_m_idx) && (creature_ptr != &creature_list[tmp_m_idx]))
 			{
 				creature_type *creature_ptr = &creature_list[tmp_m_idx];
@@ -637,11 +637,11 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 		strcpy(m_name, "you");
 #endif
 	}
-	else /* To monster */
+	else /* To creature */
 	{
 		creature_type *m_ptr = &creature_list[m_idx];
 
-		/* Get the monster name (or "it") */
+		/* Get the creature name (or "it") */
 		creature_desc(m_name, m_ptr, 0);
 
 		see_m = is_seen(creature_ptr, m_ptr);
@@ -785,7 +785,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 		}
 	}
 
-	/* Monster level teleportation is simple deleting now */
+	/* Creature level teleportation is simple deleting now */
 	if (m_idx > 0)
 	{
 		creature_type *m_ptr = &creature_list[m_idx];
@@ -1080,7 +1080,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	/* No item, nothing happens */
 	if (!o_ptr->k_idx) return (FALSE);
 
-	/* Disenchant equipments only -- No disenchant on monster ball */
+	/* Disenchant equipments only -- No disenchant on creature ball */
 	if (!object_is_weapon_armour_ammo(o_ptr))
 		return FALSE;
 
@@ -1433,7 +1433,7 @@ act = "は酸に覆われた！";
 #ifdef JP
 act = "は邪悪なる怪物を求めている！";
 #else
-			act = "seems to be looking for evil monsters!";
+			act = "seems to be looking for evil creatures!";
 #endif
 
 			o_ptr->name2 = EGO_SLAY_EVIL;
@@ -1617,7 +1617,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
-			/* Awake monster */
+			/* Awake creature */
 			if (c_ptr->creature_idx && m_ptr->paralyzed)
 			{
 				/* Reset sleep counter */
@@ -1626,7 +1626,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 				/* Notice the "waking up" */
 				if (m_ptr->ml)
 				{
-					/* Acquire the monster name */
+					/* Acquire the creature name */
 					creature_desc(m_name, m_ptr, 0);
 
 					/* Dump a message */
@@ -2009,7 +2009,7 @@ void alter_reality(creature_type *cr_ptr)
 
 
 /*
- * Leave a "glyph of warding" which prevents monster movement
+ * Leave a "glyph of warding" which prevents creature movement
  */
 bool warding_glyph(creature_type *creature_ptr)
 {
@@ -2067,7 +2067,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	return TRUE;
 }
 
-// Leave an "explosive rune" which prevents monster movement
+// Leave an "explosive rune" which prevents creature movement
 bool explosive_rune(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -3708,7 +3708,7 @@ msg_print("失敗した。");
  * Potions "smash open" and cause an area effect when
  * (1) they are shattered while in the player's inventory,
  * due to cold (etc) attacks;
- * (2) they are thrown at a monster, or obstacle;
+ * (2) they are thrown at a creature, or obstacle;
  * (3) they are shattered by a "cold ball" or other such spell
  * while lying on the floor.
  *
@@ -5355,7 +5355,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	if (is_unique_species(species_ptr) || is_quest_species(species_ptr))
 		return (pre_species_idx);
 
-	// Allowable range of "levels" for resulting monster
+	// Allowable range of "levels" for resulting creature
 	lev1 = species_ptr->level - ((randint1(20) / randint1(9)) + 1);
 	lev2 = species_ptr->level + ((randint1(20) / randint1(9)) + 1);
 
@@ -5371,10 +5371,10 @@ static s16b poly_species_idx(int pre_species_idx)
 		/* Obtain race */
 		species_ptr = &species_info[r];
 
-		/* Ignore unique monsters */
+		/* Ignore unique creatures */
 		if (is_unique_species(species_ptr)) continue;
 
-		/* Ignore monsters with incompatible levels */
+		/* Ignore creatures with incompatible levels */
 		if ((species_ptr->level < lev1) || (species_ptr->level > lev2)) continue;
 
 		/* Use that index */
@@ -5405,10 +5405,10 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 
 	if ((creature_ptr->riding == c_ptr->creature_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 
-	/* Memorize the monster before polymorphing */
+	/* Memorize the creature before polymorphing */
 	back_m = *m_ptr;
 
-	/* Pick a "new" monster race */
+	/* Pick a "new" creature race */
 	new_species_idx = poly_species_idx(old_species_idx);
 
 	/* Handle polymorph */
@@ -5417,7 +5417,7 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 		u32b mode = 0L;
 		s16b next_object_idx = 0;
 
-		/* Get the monsters attitude */
+		/* Get the creatures attitude */
 		if (is_friendly(player_ptr, m_ptr)) mode |= PM_FORCE_FRIENDLY;
 		if (is_pet(player_ptr, m_ptr)) mode |= PM_FORCE_PET;
 		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;

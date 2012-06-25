@@ -609,7 +609,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 	}
 
-	/* Summon monsters */
+	/* Summon creatures */
 	if (trap & (CHEST_SUMMON))
 	{
 		int num = 2 + randint1(3);
@@ -775,7 +775,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 	}
 
-	/* Aggravate monsters. */
+	/* Aggravate creatures. */
 	if (trap & (CHEST_ALARM))
 	{
 #ifdef JP
@@ -823,7 +823,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 /*
  * Attempt to open the given chest at the given location
  *
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  *
  * Returns TRUE if repeated commands may continue
  */
@@ -1023,7 +1023,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
  *
  * Assume destination is a closed/locked/jammed door
  *
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  *
  * Returns TRUE if repeated commands may continue
  */
@@ -1199,7 +1199,7 @@ void do_cmd_open(creature_type *creature_ptr)
 
 		}
 
-		/* Monster in the way */
+		/* Creature in the way */
 		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
@@ -1209,7 +1209,7 @@ void do_cmd_open(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 
@@ -1241,7 +1241,7 @@ void do_cmd_open(creature_type *creature_ptr)
 /*
  * Perform the basic "close" command
  * Assume destination is an open/broken door
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
@@ -1364,7 +1364,7 @@ void do_cmd_close(creature_type *creature_ptr)
 #endif
 		}
 
-		/* Monster in the way */
+		/* Creature in the way */
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
@@ -1374,7 +1374,7 @@ void do_cmd_close(creature_type *creature_ptr)
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 			/* Attack */
@@ -1438,7 +1438,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 /*
  * Perform the basic "tunnel" command
  *
- * Assumes that no monster is blocking the destination
+ * Assumes that no creature is blocking the destination
  *
  * Do not use twall anymore
  *
@@ -1600,7 +1600,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 /*
  * Tunnels through "walls" (including rubble and closed doors)
  *
- * Note that you must tunnel in order to hit invisible monsters
+ * Note that you must tunnel in order to hit invisible creatures
  * in walls, though moving into walls still takes a turn anyway.
  *
  * Digging is very difficult without a "digger" weapon, but can be
@@ -1660,7 +1660,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 #endif
 		}
 
-		/* A monster is in the way */
+		/* A creature is in the way */
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
@@ -1670,7 +1670,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 			/* Attack */
@@ -1800,7 +1800,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
  *
  * Assume destination is a visible trap
  *
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  *
  * Returns TRUE if repeated commands may continue
  */
@@ -1912,7 +1912,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
  *
  * Assume destination is a visible trap
  *
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  *
  * Returns TRUE if repeated commands may continue
  */
@@ -2086,14 +2086,14 @@ void do_cmd_disarm(creature_type *creature_ptr)
 
 		}
 
-		/* Monster in the way */
+		/* Creature in the way */
 		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Message */
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 
@@ -2126,7 +2126,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
  *
  * Assume destination is a closed/locked/jammed door
  *
- * Assume there is no monster blocking the destination
+ * Assume there is no creature blocking the destination
  *
  * Returns TRUE if repeated commands may continue
  */
@@ -2291,7 +2291,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 
 		}
 
-		/* Monster in the way */
+		/* Creature in the way */
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
@@ -2301,7 +2301,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 
@@ -2325,12 +2325,12 @@ void do_cmd_bash(creature_type *creature_ptr)
 /*
  * Manipulate an adjacent grid in some way
  *
- * Attack monsters, tunnel through walls, disarm traps, open doors.
+ * Attack creatures, tunnel through walls, disarm traps, open doors.
  *
  * Consider confusion XXX XXX XXX
  *
  * This command must always take a turn, to prevent free detection
- * of invisible monsters.
+ * of invisible creatures.
  */
 void do_cmd_alter(creature_type *creature_ptr)
 {
@@ -2378,7 +2378,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 		/* Take a turn */
 		energy_use = 100;
 
-		/* Attack monsters */
+		/* Attack creatures */
 		if (c_ptr->creature_idx)
 		{
 			/* Attack */
@@ -2518,7 +2518,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 #endif
 		}
 
-		/* Is a monster in the way? */
+		/* Is a creature in the way? */
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
@@ -2528,7 +2528,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
-			msg_print("There is a monster in the way!");
+			msg_print("There is a creature in the way!");
 #endif
 
 			/* Attack */
@@ -2627,7 +2627,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 			creature_ptr->oldpx = (s16b)randint1(MAX_WID-2);
 			change_wild_mode(creature_ptr);
 
-			/* Give first move to monsters */
+			/* Give first move to creatures */
 			energy_use = 100;
 
 			/* HACk -- set the encouter flag for the wilderness generation */
@@ -2790,7 +2790,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 
 /*
- * Determines the odds of an object breaking when thrown at a monster
+ * Determines the odds of an object breaking when thrown at a creature
  *
  * Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
  */
@@ -3133,9 +3133,9 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
  *
  * Note that "firing" a missile is MUCH better than "throwing" it.
  *
- * Note: "unseen" monsters are very hard to hit.
+ * Note: "unseen" creatures are very hard to hit.
  *
- * Objects are more likely to break if they "attempt" to hit a monster.
+ * Objects are more likely to break if they "attempt" to hit a creature.
  *
  * Rangers (with Bows) and Anyone (with "Extra Shots") get extra shots.
  *
@@ -3426,7 +3426,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		y = ny;
 
 
-		/* Monster here, Try to hit it */
+		/* Creature here, Try to hit it */
 		if (floor_ptr->cave[y][x].creature_idx)
 		{
 			int armour;
@@ -3484,10 +3484,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* Get extra damage from concentration */
 				if (creature_ptr->concent) tdam = boost_concentration_damage(creature_ptr, tdam);
 
-				/* Handle unseen monster */
+				/* Handle unseen creature */
 				if (!visible)
 				{
-					/* Invisible monster */
+					/* Invisible creature */
 #ifdef JP
 					msg_format("%sが敵を捕捉した。", o_name);
 #else
@@ -3496,12 +3496,12 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 				}
 
-				/* Handle visible monster */
+				/* Handle visible creature */
 				else
 				{
 					char m_name[80];
 
-					/* Get "the monster" or "it" */
+					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
 
 					/* Message */
@@ -3513,10 +3513,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 					if (m_ptr->ml)
 					{
-						/* Hack -- Track this monster race */
+						/* Hack -- Track this creature race */
 						if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
-						/* Hack -- Track this monster */
+						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
 					}
 				}
@@ -3528,7 +3528,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					{
 						char m_name[80];
 
-						/* Get "the monster" or "it" */
+						/* Get "the creature" or "it" */
 						creature_desc(m_name, m_ptr, 0);
 
 						tdam = m_ptr->chp + 1;
@@ -3581,7 +3581,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					lite_spot(floor_ptr, ny, nx);
 				}
 
-				/* Hit the monster, check for death */
+				/* Hit the creature, check for death */
 				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
@@ -3605,7 +3605,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					/* Message */
 					message_pain(c_ptr->creature_idx, tdam);
 
-					/* Anger the monster */
+					/* Anger the creature */
 					if (tdam > 0) anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
@@ -3616,7 +3616,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 						/* Sound */
 						sound(SOUND_FLEE);
 
-						/* Get the monster name (or "it") */
+						/* Get the creature name (or "it") */
 						creature_desc(m_name, m_ptr, 0);
 
 						/* Message */
@@ -3652,7 +3652,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							/* Stopped by walls/doors */
 							if (!player_can_enter(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
 
-							/* Stopped by monsters */
+							/* Stopped by creatures */
 							if (!cave_empty_bold(floor_ptr, ny, nx)) break;
 
 							floor_ptr->cave[ny][nx].creature_idx = m_idx;
@@ -3661,7 +3661,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							m_ptr->fx = nx;
 							m_ptr->fy = ny;
 
-							/* Update the monster (new location) */
+							/* Update the creature (new location) */
 							update_mon(c_ptr->creature_idx, TRUE);
 
 							lite_spot(floor_ptr, ny, nx);
@@ -3724,7 +3724,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Forget location */
 		o_ptr->fy = o_ptr->fx = 0;
 
-		/* Memorize monster */
+		/* Memorize creature */
 		o_ptr->held_m_idx = m_idx;
 
 		/* Build a stack */
@@ -3842,7 +3842,7 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
 /*
  * Throw an object from the pack or floor.
  *
- * Note: "unseen" monsters are very hard to hit.
+ * Note: "unseen" creatures are very hard to hit.
  *
  * Should throwing a weapon do full damage?  Should it allow the magic
  * to hit bonus of the weapon to have an effect?  Should it ever cause
@@ -4130,7 +4130,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		/* Advance the distance */
 		cur_dis++;
 
-		/* Monster here, Try to hit it */
+		/* Creature here, Try to hit it */
 		if (floor_ptr->cave[y][x].creature_idx)
 		{
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -4149,10 +4149,10 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			{
 				bool fear = FALSE;
 
-				/* Handle unseen monster */
+				/* Handle unseen creature */
 				if (!visible)
 				{
-					/* Invisible monster */
+					/* Invisible creature */
 #ifdef JP
 					msg_format("%sが敵を捕捉した。", o_name);
 #else
@@ -4161,12 +4161,12 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 				}
 
-				/* Handle visible monster */
+				/* Handle visible creature */
 				else
 				{
 					char m_name[80];
 
-					/* Get "the monster" or "it" */
+					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
 
 					/* Message */
@@ -4178,10 +4178,10 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 					if (m_ptr->ml)
 					{
-						/* Hack -- Track this monster race */
+						/* Hack -- Track this creature race */
 						if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
-						/* Hack -- Track this monster */
+						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
 					}
 				}
@@ -4227,7 +4227,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}
 
-				/* Hit the monster, check for death */
+				/* Hit the creature, check for death */
 				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
@@ -4236,7 +4236,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					/* Message */
 					message_pain(c_ptr->creature_idx, tdam);
 
-					/* Anger the monster */
+					/* Anger the creature */
 					if ((tdam > 0) && !object_is_potion(creature_ptr, q_ptr))
 						anger_creature(creature_ptr, m_ptr);
 
@@ -4248,7 +4248,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 						/* Sound */
 						sound(SOUND_FLEE);
 
-						/* Get the monster name (or "it") */
+						/* Get the creature name (or "it") */
 						creature_desc(m_name, m_ptr, 0);
 
 						/* Message */

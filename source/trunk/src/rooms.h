@@ -31,8 +31,8 @@
 #define ROOM_T_OVERLAP        1	 /* Overlapping */
 #define ROOM_T_CROSS          2	 /* Crossed */
 #define ROOM_T_INNER_FEAT     3	 /* Large */
-#define ROOM_T_NEST           4	 /* Monster nest */
-#define ROOM_T_PIT            5	 /* Monster pit */
+#define ROOM_T_NEST           4	 /* Creature nest */
+#define ROOM_T_PIT            5	 /* Creature pit */
 #define ROOM_T_LESSER_VAULT   6	 /* Lesser vault */
 #define ROOM_T_GREATER_VAULT  7	 /* Greater vault */
 #define ROOM_T_FRACAVE        8	 /* Fractal cave */

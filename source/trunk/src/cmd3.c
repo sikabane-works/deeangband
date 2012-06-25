@@ -1612,7 +1612,7 @@ void do_cmd_locate(creature_type *cr_ptr)
 /*
  * Sorting hook -- Comp function -- see below
  *
- * We use "u" to point to array of monster indexes,
+ * We use "u" to point to array of creature indexes,
  * and "v" to select the type of sorting to perform on "u".
  */
 bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
@@ -1652,7 +1652,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	}
 
 
-	/* Sort by monster level */
+	/* Sort by creature level */
 	if (*why >= 2)
 	{
 		/* Extract levels */
@@ -1665,7 +1665,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	}
 
 
-	/* Sort by monster experience */
+	/* Sort by creature experience */
 	if (*why >= 1)
 	{
 		/* Extract experience */
@@ -1686,7 +1686,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 /*
  * Sorting hook -- Swap function -- see below
  *
- * We use "u" to point to array of monster indexes,
+ * We use "u" to point to array of creature indexes,
  * and "v" to select the type of sorting to perform.
  */
 void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
@@ -1707,12 +1707,12 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 
 
 /*
- * Identify a character, allow recall of monsters
+ * Identify a character, allow recall of creatures
  *
- * Several "special" responses recall "multiple" monsters:
- *   ^A (all monsters)
- *   ^U (all unique monsters)
- *   ^N (all non-unique monsters)
+ * Several "special" responses recall "multiple" creatures:
+ *   ^A (all creatures)
+ *   ^U (all unique creatures)
+ *   ^N (all non-unique creatures)
  *
  * The responses may be sorted in several ways, see below.
  *
@@ -1801,7 +1801,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 #ifdef JP
 		sprintf(buf, "名前:%sにマッチ",temp);
 #else
-		sprintf(buf, "Monsters with a name \"%s\"",temp);
+		sprintf(buf, "Creatures with a name \"%s\"",temp);
 #endif
 	}
 	else if (ident_info[i])

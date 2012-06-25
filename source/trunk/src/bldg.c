@@ -1960,7 +1960,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 #ifdef JP
 		prt("クリーチャー                                                     倍率", 4, 4);
 #else
-		prt("Monsters                                                       Odds", 4, 4);
+		prt("Creatures                                                       Odds", 4, 4);
 #endif
 		for (i=0;i<4;i++)
 		{
@@ -1991,8 +1991,8 @@ static bool kakutoujou(creature_type *cr_ptr)
 			}
 			if (i >= '1' && i <= '4')
 			{
-				sel_monster = i-'1';
-				battle_odds = mon_odds[sel_monster];
+				sel_creature = i-'1';
+				battle_odds = mon_odds[sel_creature];
 				break;
 			}
 			else bell();
@@ -2000,7 +2000,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 
 		clear_bldg(4,4);
 		for (i=0;i<4;i++)
-			if (i !=sel_monster) clear_bldg(i+5,i+5);
+			if (i !=sel_creature) clear_bldg(i+5,i+5);
 
 		maxbet = cr_ptr->lev * 200;
 
@@ -2093,7 +2093,7 @@ static void today_target(creature_type *cr_ptr)
 #ifdef JP
 c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 #else
-	prt("Wanted monster that changes from day to day", 5, 10);
+	prt("Wanted creature that changes from day to day", 5, 10);
 #endif
 #ifdef JP
 	sprintf(buf,"ターゲット： %s",species_name + r_ptr->name);
@@ -2144,8 +2144,8 @@ static void shoukinkubi(void)
 	prt("死体を持ち帰れば報酬を差し上げます。",4 ,10);
 c_put_str(TERM_YELLOW, "現在の賞金首", 6, 10);
 #else
-	prt("Offer a prize when you bring a wanted monster's corpse",4 ,10);
-c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
+	prt("Offer a prize when you bring a wanted creature's corpse",4 ,10);
+c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
 #endif
 
 	for (i = 0; i < MAX_KUBI; i++)
@@ -2490,7 +2490,7 @@ bool get_nightmare(int species_idx)
 	/* Require eldritch horrors */
 	if (!is_eldritch_horror_species(r_ptr)) return (FALSE);
 
-	/* Accept this monster */
+	/* Accept this creature */
 	return (TRUE);
 }
 
@@ -2859,7 +2859,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 						if (!one_in_(3)) break;
 					}
 
-					/* Remove the monster restriction */
+					/* Remove the creature restriction */
 					get_species_num_prep(NULL, NULL);
 
 #ifdef JP
@@ -3060,7 +3060,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 		{
 			if (q_ptr->species_idx == 0)
 			{
-				/* Random monster at least 5 - 10 levels out of deep */
+				/* Random creature at least 5 - 10 levels out of deep */
 				q_ptr->species_idx = get_species_num(floor_ptr, q_ptr->level + 4 + randint1(6));
 			}
 
@@ -3074,7 +3074,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 
 			if (q_ptr->max_num == 0)
 			{
-				/* Random monster number */
+				/* Random creature number */
 				if (randint1(10) > 7)
 					q_ptr->max_num = 1;
 				else
@@ -3175,7 +3175,7 @@ sprintf(tmp_str, "１ターン: %d-%d ダメージ",
 
 
 /*
- * Show the damage figures for the various monster types
+ * Show the damage figures for the various creature types
  *
  * Only accurate for the current weapon, because it includes
  * the current number of blows for the player.
@@ -3488,7 +3488,7 @@ s = "比べるものがありません。";
 #ifdef JP
 put_str("(一番高いダメージが適用されます。複数の倍打効果は足し算されません。)", row + 4, 0);
 #else
-	put_str("(Only highest damage applies per monster. Special damage not cumulative.)", row + 4, 0);
+	put_str("(Only highest damage applies per creature. Special damage not cumulative.)", row + 4, 0);
 #endif
 
 #ifdef JP
@@ -3534,8 +3534,8 @@ static bool eval_ac(int iAC)
 		"'attack' and 'shatter' type melee attacks, "
 		"and has no effect against any other types such as 'poison'.\n \n"
 		"'Dodge Rate' indicates the success rate on dodging the "
-		"monster's melee attacks.  "
-		"It is depend on the level of the monster and your AC.\n \n"
+		"creature's melee attacks.  "
+		"It is depend on the level of the creature and your AC.\n \n"
 		"'Average Damage' indicates the expected amount of damage "
 		"when you are attacked by normal melee attacks with power=100.";
 #endif
@@ -3567,7 +3567,7 @@ static bool eval_ac(int iAC)
 	put_str(format("Protection rate : %3d%%", protection), row++, 0);
 	row++;
 
-	put_str("Level of Monster:", row + 0, 0);
+	put_str("Level of Creature:", row + 0, 0);
 	put_str("Dodge Rate      :", row + 1, 0);
 	put_str("Average Damage  :", row + 2, 0);
 #endif
@@ -4464,7 +4464,7 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 #ifdef JP
 		sprintf(buf, "名前:%sにマッチ",temp);
 #else
-		sprintf(buf, "Monsters with a name \"%s\"",temp);
+		sprintf(buf, "Creatures with a name \"%s\"",temp);
 #endif
 	}
 	else if (ident_info[i])
@@ -5065,7 +5065,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 #ifdef JP
 			prt("ゲートは閉まっている。クリーチャーがあなたを待っている！", 0, 0);
 #else
-			prt("The gates are closed.  The monster awaits!", 0, 0);
+			prt("The gates are closed.  The creature awaits!", 0, 0);
 #endif
 		}
 		else
@@ -5093,7 +5093,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		subject_change_floor = TRUE;
 		gamble_arena_mode = FALSE;
 
-		/* Re-enter the monster arena */
+		/* Re-enter the creature arena */
 		command_new = SPECIAL_KEY_BUILDING;
 
 		/* No energy needed to re-enter the arena */
@@ -5240,7 +5240,7 @@ void quest_discovery(int q_idx)
 	{
 		/* Unique */
 
-		/* Hack -- "unique" monsters must be "unique" */
+		/* Hack -- "unique" creatures must be "unique" */
 		if (is_unique_species(r_ptr) && (0 == r_ptr->max_num))
 		{
 #ifdef JP
@@ -5262,7 +5262,7 @@ void quest_discovery(int q_idx)
 	}
 	else
 	{
-		/* Normal monsters */
+		/* Normal creatures */
 #ifdef JP
 msg_format("注意しろ！この階は%d体の%sによって守られている！", q_num, name);
 #else

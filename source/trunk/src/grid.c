@@ -17,7 +17,7 @@
 
 
 /*
- * Returns random co-ordinates for player/monster/object
+ * Returns random co-ordinates for player/creature/object
  */
 bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
@@ -424,14 +424,14 @@ void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num)
 
 
 /*
- * Hack -- Place some sleeping monsters near the given location
+ * Hack -- Place some sleeping creatures near the given location
  */
 void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 {
 	int k, i, y, x;
 	cave_type *c_ptr;
 
-	/* Try to summon "num" monsters "near" the given location */
+	/* Try to summon "num" creatures "near" the given location */
 	for (k = 0; k < num; k++)
 	{
 		/* Try nine locations */
@@ -446,7 +446,7 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 			c_ptr = &floor_ptr->cave[y][x];
 			if (!cave_empty_grid(c_ptr)) continue;
 
-			/* Place the monster (allow groups) */
+			/* Place the creature (allow groups) */
 			floor_ptr->creature_level = floor_ptr->base_level + 2;
 			(void)place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 			floor_ptr->creature_level = floor_ptr->base_level;

@@ -1,4 +1,4 @@
-/* File: monster2.c */
+/* File: creature2.c */
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
@@ -8,7 +8,7 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: misc code for monsters */
+/* Purpose: misc code for creatures */
 
 #include "angband.h"
 
@@ -669,7 +669,7 @@ void reset_target(creature_type *m_ptr)
 
 
 /*
- *  Extract monster race pointer of a monster's true form
+ *  Extract creature race pointer of a creature's true form
  */
 species_type *real_species_ptr(creature_type *m_ptr)
 {
@@ -690,9 +690,9 @@ species_type *real_species_ptr(creature_type *m_ptr)
 
 
 /*
- * Delete a monster by index.
+ * Delete a creature by index.
  *
- * When a monster is deleted, all of its objects are deleted.
+ * When a creature is deleted, all of its objects are deleted.
  */
 void delete_species_idx(creature_type *creature_ptr)
 {
@@ -722,25 +722,25 @@ void delete_species_idx(creature_type *creature_ptr)
 	if (creature_ptr->invuln) (void)set_invuln(creature_ptr, 0, FALSE);
 
 
-	/* Hack -- remove target monster */
+	/* Hack -- remove target creature */
 	if (creature_ptr == &creature_list[target_who]) target_who = 0;
 
-	/* Hack -- remove tracked monster */
+	/* Hack -- remove tracked creature */
 	if (creature_ptr == &creature_list[health_who]) health_track(0);
 
 	if (&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
 	if (&creature_list[riding_t_m_idx] == creature_ptr) riding_t_m_idx = 0;
 	if (&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
-	/* Monster is gone */
+	/* Creature is gone */
 	floor_ptr->cave[y][x].creature_idx = 0;
 
 	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
 
-	/* Wipe the Monster */
+	/* Wipe the Creature */
 	(void)WIPE(creature_ptr, creature_type);
 
-	/* Count monsters */
+	/* Count creatures */
 	creature_cnt--;
 
 	/* Visual update */
@@ -753,7 +753,7 @@ void delete_species_idx(creature_type *creature_ptr)
 
 
 /*
- * Delete the monster, if any, at a given location
+ * Delete the creature, if any, at a given location
  */
 void delete_creature(floor_type *floor_ptr, int y, int x)
 {
@@ -765,7 +765,7 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
 
-	/* Delete the monster (if any) */
+	/* Delete the creature (if any) */
 	if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 }
 
@@ -780,15 +780,15 @@ static void move_creature_object(int i1, int i2)
 
 
 /*
- * Compact and Reorder the monster list
+ * Compact and Reorder the creature list
  *
  * This function can be very dangerous, use with caution!
  *
- * When actually "compacting" monsters, we base the saving throw
- * on a combination of monster level, distance from player, and
+ * When actually "compacting" creatures, we base the saving throw
+ * on a combination of creature level, distance from player, and
  * current "desperation".
  *
- * After "compacting" (if needed), we "reorder" the monsters into a more
+ * After "compacting" (if needed), we "reorder" the creatures into a more
  * compact order, and we reset the allocation info, and the "live" array.
  */
 void compact_creatures(int size)
@@ -800,7 +800,7 @@ void compact_creatures(int size)
 #ifdef JP
 	if (size) msg_print("クリーチャー情報を圧縮しています...");
 #else
-	if (size) msg_print("Compacting monsters...");
+	if (size) msg_print("Compacting creatures...");
 #endif
 
 	return;
@@ -814,34 +814,34 @@ void compact_creatures(int size)
 		/* Get closer each iteration */
 		cur_dis = 5 * (20 - cnt);
 
-		/* Check all the monsters */
+		/* Check all the creatures */
 		for (i = 1; i < creature_max; i++)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-			/* Paranoia -- skip "dead" monsters */
+			/* Paranoia -- skip "dead" creatures */
 			if (!m_ptr->species_idx) continue;
 
-			/* Hack -- High level monsters start out "immune" */
+			/* Hack -- High level creatures start out "immune" */
 			if (r_ptr->level > cur_lev) continue;
 
 			if (creature_list[i].ridden || creature_list[i].riding) continue;
 
-			/* Ignore nearby monsters */
+			/* Ignore nearby creatures */
 			if ((cur_dis > 0) && (m_ptr->cdis < cur_dis)) continue;
 
 			/* Saving throw chance */
 			chance = 90;
 
-			/* Only compact "Quest" Monsters in emergencies */
+			/* Only compact "Quest" Creatures in emergencies */
 			if ((is_quest_species(r_ptr)) && (cnt < 1000)) chance = 100;
 
-			/* Try not to compact Unique Monsters */
+			/* Try not to compact Unique Creatures */
 			if (is_unique_species(r_ptr)) chance = 100;
 
-			/* All monsters get a saving throw */
+			/* All creatures get a saving throw */
 			if (randint0(100) < chance) continue;
 
 			if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
@@ -852,24 +852,24 @@ void compact_creatures(int size)
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
-			/* Delete the monster */
+			/* Delete the creature */
 			delete_species_idx(m_ptr);
 
-			/* Count the monster */
+			/* Count the creature */
 			num++;
 		}
 	}
 
-	/* Excise dead monsters (backwards!) */
+	/* Excise dead creatures (backwards!) */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		/* Get the i'th monster */
+		/* Get the i'th creature */
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip real monsters */
+		/* Skip real creatures */
 		if (m_ptr->species_idx) continue;
 
-		/* Move last monster into open hole */
+		/* Move last creature into open hole */
 		move_creature_object(creature_max - 1, i);
 
 		/* Compress "creature_max" */
@@ -905,7 +905,7 @@ void birth_uniques(void)
 
 
 /*
- * Delete/Remove all the monsters when the player leaves the level
+ * Delete/Remove all the creatures when the player leaves the level
  *
  * This is an efficient method of simulating multiple calls to the
  * "delete_creature()" function, with no visual effects.
@@ -933,7 +933,7 @@ void wipe_creature_list(int floor_id)
 		}
 	}
 
-	/* Delete all the monsters */
+	/* Delete all the creatures */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		creature_type *creature_ptr = &creature_list[i];
@@ -941,16 +941,16 @@ void wipe_creature_list(int floor_id)
 		if (!creature_ptr->species_idx) continue; // Skip dead creature
 		if (floor_id && creature_ptr->floor_id != floor_id) continue; // Skip other floor  creature
 		floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
-		(void)WIPE(creature_ptr, creature_type); // Wipe the Monster
+		(void)WIPE(creature_ptr, creature_type); // Wipe the Creature
 	}
 
 	/*
-	 * Wiping racial counters of all monsters and incrementing of racial
-	 * counters of monsters in party_mon[] are required to prevent multiple
-	 * generation of unique monster who is the minion of player.
+	 * Wiping racial counters of all creatures and incrementing of racial
+	 * counters of creatures in party_mon[] are required to prevent multiple
+	 * generation of unique creature who is the minion of player.
 	 */
 
-	/* Hack -- Wipe the racial counter of all monster races */
+	/* Hack -- Wipe the racial counter of all creature races */
 	for (i = 1; i < max_species_idx; i++) species_info[i].cur_num = 0;
 
 	/* Reset "creature_max" and "creature_cnt" */
@@ -971,7 +971,7 @@ void wipe_creature_list(int floor_id)
 
 
 /*
- * Acquires and returns the index of a "free" monster.
+ * Acquires and returns the index of a "free" creature.
  *
  * This routine should almost never fail, but it *can* happen.
  */
@@ -979,7 +979,7 @@ s16b creature_pop(void)
 {
 	int i;
 
-	/* Recycle dead monsters */
+	/* Recycle dead creatures */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *creature_ptr;
@@ -1032,7 +1032,7 @@ static int summon_specific_type = 0;
 
 
 /*
- * Hack -- the index of the summoning monster
+ * Hack -- the index of the summoning creature
  */
 static int summon_specific_who = -1;
 
@@ -1215,13 +1215,13 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_HI_DRAGON_LIVING:
 		{
-			okay = ((r_ptr->d_char == 'D') && monster_living(r_ptr));
+			okay = ((r_ptr->d_char == 'D') && species_living(r_ptr));
 			break;
 		}
 
 		case SUMMON_LIVING:
 		{
-			okay = monster_living(r_ptr);
+			okay = species_living(r_ptr);
 			break;
 		}
 
@@ -1275,7 +1275,7 @@ static bool summon_specific_aux(int species_idx)
 
 			for (i = 0; i < 4; i++)
 				if (r_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
-			okay = (okay && monster_living(r_ptr));
+			okay = (okay && species_living(r_ptr));
 			break;
 		}
 
@@ -1346,9 +1346,9 @@ static int chameleon_change_m_idx = 0;
 
 
 
-// Some dungeon types restrict the possible monsters.
-// Return TRUE is the monster is OK and FALSE otherwise
-static bool restrict_monster_to_damageungeon(int species_idx)
+// Some dungeon types restrict the possible creatures.
+// Return TRUE is the creature is OK and FALSE otherwise
+static bool restrict_creature_to_damageungeon(int species_idx)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
@@ -1462,7 +1462,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
 
-		/* Skip monsters which don't pass the restriction */
+		/* Skip creatures which don't pass the restriction */
 		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
 		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))))
 			continue;
@@ -1472,13 +1472,13 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		{
 			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
 			if (is_guardian_species(r_ptr)) continue;
-			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Monsters never appear out of depth
+			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
-		/* Accept this monster */
+		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
+		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1491,7 +1491,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 }
 
 
-// Apply a "monster restriction function" to the "monster allocation table"
+// Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 creature_hook, creature_hook_type2 creature_hook2)
 {
 	int i;
@@ -1517,7 +1517,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
 
-		/* Skip monsters which don't pass the restriction */
+		/* Skip creatures which don't pass the restriction */
 		if ((get_species_num_hook  && !((*get_species_num_hook) (summoner_ptr, entry->index))) ||
 		    (get_species_num2_hook && !((*get_species_num2_hook)(summoner_ptr, entry->index))))
 			continue;
@@ -1532,16 +1532,16 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 			if (is_guardian_species(r_ptr))
 				continue;
 
-			/* Depth Monsters never appear out of depth */
+			/* Depth Creatures never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
 			    (r_ptr->level > floor_ptr->floor_level))
 				continue;
 		}
 
-		/* Accept this monster */
+		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
+		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1555,7 +1555,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 
 
 
-// Apply a "monster restriction function" to the "monster allocation table"
+// Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type2 creature_hook2)
 {
 	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
@@ -1578,7 +1578,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
 
-		/* Skip monsters which don't pass the restriction */
+		/* Skip creatures which don't pass the restriction */
 		if ((get_species_num_hook  && !((*get_species_num_hook) (entry->index))) ||
 		    (get_species_num2_hook && !((*get_species_num2_hook)(summoner_ptr, entry->index))))
 			continue;
@@ -1593,16 +1593,16 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 			if (is_guardian_species(r_ptr))
 				continue;
 
-			/* Depth Monsters never appear out of depth */
+			/* Depth Creatures never appear out of depth */
 			if (is_force_depth_species(r_ptr) &&
 			    (r_ptr->level > floor_ptr->floor_level))
 				continue;
 		}
 
-		/* Accept this monster */
+		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_damageungeon(entry->index) && !gamble_arena_mode)
+		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1653,25 +1653,25 @@ static int mysqrt(int n)
 }
 
 /*
- * Choose a monster race that seems "appropriate" to the given level
+ * Choose a creature race that seems "appropriate" to the given level
  *
- * This function uses the "prob2" field of the "monster allocation table",
+ * This function uses the "prob2" field of the "creature allocation table",
  * and various local information, to calculate the "prob3" field of the
- * same table, which is then used to choose an "appropriate" monster, in
+ * same table, which is then used to choose an "appropriate" creature, in
  * a relatively efficient manner.
  *
- * Note that "town" monsters will *only* be created in the town, and
- * "normal" monsters will *never* be created in the town, unless the
+ * Note that "town" creatures will *only* be created in the town, and
+ * "normal" creatures will *never* be created in the town, unless the
  * "level" is "modified", for example, by polymorph or summoning.
  *
  * There is a small chance (1/50) of "boosting" the given depth by
  * a small amount (up to four levels), except in the town.
  *
- * It is (slightly) more likely to acquire a monster of the given level
- * than one of a lower level.  This is done by choosing several monsters
+ * It is (slightly) more likely to acquire a creature of the given level
+ * than one of a lower level.  This is done by choosing several creatures
  * appropriate to the given level and keeping the "hardest" one.
  *
- * Note that if no monsters are "appropriate", then this function will
+ * Note that if no creatures are "appropriate", then this function will
  * fail, and return zero, but this should *almost* never happen.
  */
 s16b get_species_num(floor_type *floor_ptr, int level)
@@ -1710,7 +1710,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	/* Boost the level */
 	if ((level > 0) && !gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
-		/* Nightmare mode allows more out-of depth monsters */
+		/* Nightmare mode allows more out-of depth creatures */
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
 		{
 			/* What a bizarre calculation */
@@ -1718,7 +1718,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		}
 		else
 		{
-			/* Occasional "nasty" monster */
+			/* Occasional "nasty" creature */
 			if (!randint0(pls_kakuritu))
 			{
 				/* Pick a level bonus */
@@ -1728,7 +1728,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 				level += d;
 			}
 
-			/* Occasional "nasty" monster */
+			/* Occasional "nasty" creature */
 			if (!randint0(pls_kakuritu))
 			{
 				/* Pick a level bonus */
@@ -1747,13 +1747,13 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	/* Process probabilities */
 	for (i = 0; i < alloc_race_size; i++)
 	{
-		/* Monsters are sorted by depth */
+		/* Creatures are sorted by depth */
 		if (table[i].level > level) break;
 
 		/* Default */
 		table[i].prob3 = 0;
 
-		/* Access the "species_idx" of the chosen monster */
+		/* Access the "species_idx" of the chosen creature */
 		species_idx = table[i].index;
 
 		/* Access the actual race */
@@ -1764,7 +1764,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 		if (!gamble_arena_mode && !chameleon_change_m_idx)
 		{
-			/* Hack -- "unique" monsters must be "unique" */
+			/* Hack -- "unique" creatures must be "unique" */
 			if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
@@ -1790,14 +1790,14 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		total += table[i].prob3;
 	}
 
-	/* No legal monsters */
+	/* No legal creatures */
 	if (total <= 0) return (0);
 
 
-	/* Pick a monster */
+	/* Pick a creature */
 	value = randint0(total);
 
-	/* Find the monster */
+	/* Find the creature */
 	for (i = 0; i < alloc_race_size; i++)
 	{
 		/* Found the entry */
@@ -1811,16 +1811,16 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	/* Power boost */
 	p = randint0(100);
 
-	/* Try for a "harder" monster once (50%) or twice (10%) */
+	/* Try for a "harder" creature once (50%) or twice (10%) */
 	if (p < 60)
 	{
 		/* Save old */
 		j = i;
 
-		/* Pick a monster */
+		/* Pick a creature */
 		value = randint0(total);
 
-		/* Find the monster */
+		/* Find the creature */
 		for (i = 0; i < alloc_race_size; i++)
 		{
 			/* Found the entry */
@@ -1834,16 +1834,16 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		if (table[i].level < table[j].level) i = j;
 	}
 
-	/* Try for a "harder" monster twice (10%) */
+	/* Try for a "harder" creature twice (10%) */
 	if (p < 10)
 	{
 		/* Save old */
 		j = i;
 
-		/* Pick a monster */
+		/* Pick a creature */
 		value = randint0(total);
 
-		/* Find the monster */
+		/* Find the creature */
 		for (i = 0; i < alloc_race_size; i++)
 		{
 			/* Found the entry */
@@ -1866,14 +1866,14 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 
 /*
- * Build a string describing a monster in some way.
+ * Build a string describing a creature in some way.
  *
- * We can correctly describe monsters based on their visibility.
- * We can force all monsters to be treated as visible or invisible.
+ * We can correctly describe creatures based on their visibility.
+ * We can force all creatures to be treated as visible or invisible.
  * We can build nominatives, objectives, possessives, or reflexives.
- * We can selectively pronominalize hidden, visible, or all monsters.
- * We can use definite or indefinite descriptions for hidden monsters.
- * We can use definite or indefinite descriptions for visible monsters.
+ * We can selectively pronominalize hidden, visible, or all creatures.
+ * We can use definite or indefinite descriptions for hidden creatures.
+ * We can use definite or indefinite descriptions for visible creatures.
  *
  * Pronominalization involves the gender whenever possible and allowed,
  * so that by cleverly requesting pronominalization / visibility, you
@@ -1881,26 +1881,26 @@ s16b get_species_num(floor_type *floor_ptr, int level)
  *
  * Reflexives are acquired by requesting Objective plus Possessive.
  *
- * If no m_ptr arg is given (?), the monster is assumed to be hidden,
+ * If no m_ptr arg is given (?), the creature is assumed to be hidden,
  * unless the "Assume Visible" mode is requested.
  *
  * If no r_ptr arg is given, it is extracted from m_ptr and species_info
- * If neither m_ptr nor r_ptr is given, the monster is assumed to
+ * If neither m_ptr nor r_ptr is given, the creature is assumed to
  * be neuter, singular, and hidden (unless "Assume Visible" is set),
  * in which case you may be in trouble... :-)
  *
- * I am assuming that no monster name is more than 70 characters long,
+ * I am assuming that no creature name is more than 70 characters long,
  * so that "char desc[80];" is sufficiently large for any result.
  *
  * Mode Flags:
  *  MD_OBJECTIVE       --> Objective (or Reflexive)
  *  MD_POSSESSIVE      --> Possessive (or Reflexive)
- *  MD_INDEF_HIDDEN    --> Use indefinites for hidden monsters ("something")
- *  MD_INDEF_VISIBLE   --> Use indefinites for visible monsters ("a kobold")
- *  MD_PRON_HIDDEN     --> Pronominalize hidden monsters
- *  MD_PRON_VISIBLE    --> Pronominalize visible monsters
- *  MD_ASSUME_HIDDEN   --> Assume the monster is hidden
- *  MD_ASSUME_VISIBLE  --> Assume the monster is visible
+ *  MD_INDEF_HIDDEN    --> Use indefinites for hidden creatures ("something")
+ *  MD_INDEF_VISIBLE   --> Use indefinites for visible creatures ("a kobold")
+ *  MD_PRON_HIDDEN     --> Pronominalize hidden creatures
+ *  MD_PRON_VISIBLE    --> Pronominalize visible creatures
+ *  MD_ASSUME_HIDDEN   --> Assume the creature is hidden
+ *  MD_ASSUME_VISIBLE  --> Assume the creature is visible
  *  MD_TRUE_NAME       --> Chameleon's true name
  *  MD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
  *  MD_IGNORE_EGO_DESC --> Ignore Ego description
@@ -1986,10 +1986,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	pron = (creature_ptr && ((seen && (mode & MD_PRON_VISIBLE)) || (!seen && (mode & MD_PRON_HIDDEN))));
 
 
-	/* First, try using pronouns, or describing hidden monsters */
+	/* First, try using pronouns, or describing hidden creatures */
 	if (!seen || pron)
 	{
-		/* an encoding of the monster "sex" */
+		/* an encoding of the creature "sex" */
 		int kind = 0x00;
 
 		/* Extract the gender (if applicable) */
@@ -2082,10 +2082,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	}
 
 
-	/* Handle visible monsters, "reflexive" request */
+	/* Handle visible creatures, "reflexive" request */
 	else if ((mode & (MD_POSSESSIVE | MD_OBJECTIVE)) == (MD_POSSESSIVE | MD_OBJECTIVE))
 	{
-		/* The monster is visible, so use its gender */
+		/* The creature is visible, so use its gender */
 #ifdef JP
 		if (IS_FEMALE(creature_ptr)) strcpy(desc, "彼女自身");
 		else if (IS_MALE(creature_ptr)) strcpy(desc, "彼自身");
@@ -2098,7 +2098,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	}
 
 
-	/* Handle all other visible monster requests */
+	/* Handle all other visible creature requests */
 	else
 	{
 		/* Tanuki? */
@@ -2145,10 +2145,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #endif
 			}
 
-			/* Inside monster arena, and it is not your mount */
+			/* Inside creature arena, and it is not your mount */
 			else if (gamble_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
 			{
-				/* It is a fake unique monster */
+				/* It is a fake unique creature */
 #ifdef JP
 				(void)sprintf(desc, "%sもどき", name);
 #else
@@ -2165,12 +2165,12 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			}
 		}
 
-		/* It could be an indefinite monster */
+		/* It could be an indefinite creature */
 		else if (mode & MD_INDEF_VISIBLE)
 		{
 			/* XXX Check plurality for "some" */
 
-			/* Indefinite monsters need an indefinite article */
+			/* Indefinite creatures need an indefinite article */
 #ifdef JP
 			(void)strcpy(desc, "");
 #else
@@ -2182,10 +2182,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
 
-		/* It could be a normal, definite, monster */
+		/* It could be a normal, definite, creature */
 		else
 		{
-			/* Definite monsters need a definite article */
+			/* Definite creatures need a definite article */
 			if (is_pet(playespecies_ptr, creature_ptr))
 #ifdef JP
 				(void)strcpy(desc, "あなたの");
@@ -2322,7 +2322,7 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 
 
 /*
- * Learn about a monster (by "probing" it)
+ * Learn about a creature (by "probing" it)
  *
  * Return the number of new flags learnt.  -Mogami-
  */
@@ -2413,7 +2413,7 @@ int lore_do_probe(int species_idx)
 	if (!(r_ptr->r_xtra1 & MR1_SINKA)) n++;
 	r_ptr->r_xtra1 |= MR1_SINKA;
 
-	/* Update monster recall window */
+	/* Update creature recall window */
 	if (species_window_idx == species_idx)
 	{
 		/* Window stuff */
@@ -2426,30 +2426,30 @@ int lore_do_probe(int species_idx)
 
 
 /*
- * Take note that the given monster just dropped some treasure
+ * Take note that the given creature just dropped some treasure
  *
  * Note that learning the "GOOD"/"GREAT" flags gives information
- * about the treasure (even when the monster is killed for the first
+ * about the treasure (even when the creature is killed for the first
  * time, such as uniques, and the treasure has not been examined yet).
  *
  * This "indirect" method is used to prevent the player from learning
- * exactly how much treasure a monster can drop from observing only
+ * exactly how much treasure a creature can drop from observing only
  * a single example of a drop.  This method actually observes how much
  * gold and items are dropped, and remembers that information to be
- * described later by the monster recall code.
+ * described later by the creature recall code.
  */
 void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 {
 	species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
-	/* If the monster doesn't have original appearance, don't note */
+	/* If the creature doesn't have original appearance, don't note */
 	if (!is_original_ap(cr_ptr)) return;
 
 	/* Note the number of things dropped */
 	if (num_item > r_ptr->r_drop_item) r_ptr->r_drop_item = num_item;
 	if (num_gold > r_ptr->r_drop_gold) r_ptr->r_drop_gold = num_gold;
 
-	/* Update monster recall window */
+	/* Update creature recall window */
 	if (species_window_idx == cr_ptr->species_idx)
 	{
 		/* Window stuff */
@@ -2741,62 +2741,62 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 
 
 /*
- * This function updates the monster record of the given monster
+ * This function updates the creature record of the given creature
  *
  * This involves extracting the distance to the player (if requested),
  * and then checking for visibility (natural, infravision, see-invis,
- * telepathy), updating the monster visibility flag, redrawing (or
- * erasing) the monster when its visibility changes, and taking note
- * of any interesting monster flags (cold-blooded, invisible, etc).
+ * telepathy), updating the creature visibility flag, redrawing (or
+ * erasing) the creature when its visibility changes, and taking note
+ * of any interesting creature flags (cold-blooded, invisible, etc).
  *
- * Note the new "mflag" field which encodes several monster state flags,
- * including "view" for when the monster is currently in line of sight,
- * and "mark" for when the monster is currently visible via detection.
+ * Note the new "mflag" field which encodes several creature state flags,
+ * including "view" for when the creature is currently in line of sight,
+ * and "mark" for when the creature is currently visible via detection.
  *
- * The only monster fields that are changed here are "cdis" (the
+ * The only creature fields that are changed here are "cdis" (the
  * distance from the player), "ml" (visible to the player), and
  * "mflag" (to maintain the "MFLAG_VIEW" flag).
  *
  * Note the special "update_creatures()" function which can be used to
- * call this function once for every monster.
+ * call this function once for every creature.
  *
  * Note the "full" flag which requests that the "cdis" field be updated,
- * this is only needed when the monster (or the player) has moved.
+ * this is only needed when the creature (or the player) has moved.
  *
- * Every time a monster moves, we must call this function for that
- * monster, and update the distance, and the visibility.  Every time
- * the player moves, we must call this function for every monster, and
+ * Every time a creature moves, we must call this function for that
+ * creature, and update the distance, and the visibility.  Every time
+ * the player moves, we must call this function for every creature, and
  * update the distance, and the visibility.  Whenever the player "state"
  * changes in certain ways ("blindness", "infravision", "telepathy",
- * and "see invisible"), we must call this function for every monster,
+ * and "see invisible"), we must call this function for every creature,
  * and update the visibility.
  *
  * Routines that change the "illumination" of a grid must also call this
- * function for any monster in that grid, since the "visibility" of some
- * monsters may be based on the illumination of their grid.
+ * function for any creature in that grid, since the "visibility" of some
+ * creatures may be based on the illumination of their grid.
  *
- * Note that this function is called once per monster every time the
+ * Note that this function is called once per creature every time the
  * player moves.  When the player is running, this function is one
  * of the primary bottlenecks, along with "update_view()" and the
  * "process_creatures()" code, so efficiency is important.
  *
  * Note the optimized "inline" version of the "distance()" function.
  *
- * A monster is "visible" to the player if (1) it has been detected
+ * A creature is "visible" to the player if (1) it has been detected
  * by the player, (2) it is close to the player and the player has
  * telepathy, or (3) it is close to the player, and in line of sight
  * of the player, and it is "illuminated" by some combination of
- * infravision, torch light, or permanent light (invisible monsters
+ * infravision, torch light, or permanent light (invisible creatures
  * are only affected by "light" if the player can see invisible).
  *
- * Monsters which are not on the current panel may be "visible" to
+ * Creatures which are not on the current panel may be "visible" to
  * the player, and their descriptions will include an "offscreen"
- * reference.  Currently, offscreen monsters cannot be targetted
+ * reference.  Currently, offscreen creatures cannot be targetted
  * or viewed directly, but old targets will remain set.  XXX XXX
  *
  * The player can choose to be disturbed by several things, including
- * "disturb_move" (monster which is viewable moves in some way), and
- * "disturb_near" (monster which is "easily" viewable moves in some
+ * "disturb_move" (creature which is viewable moves in some way), and
+ * "disturb_near" (creature which is "easily" viewable moves in some
  * way).  Note that "moves" includes "appears" and "disappears".
  */
 //TODO  Marge to calc_bonuses
@@ -3026,14 +3026,14 @@ void update_mon(int m_idx, bool full)
 			/* Use "infravision" */
 			if (d <= player_ptr->see_infra)
 			{
-				/* Handle "cold blooded" monsters */
+				/* Handle "cold blooded" creatures */
 				if (has_cf_creature(m_ptr, CF_COLD_BLOOD) || !has_cf_creature(m_ptr, CF_AURA_FIRE))
 				{
 					/* Take note */
 					do_cold_blood = TRUE;
 				}
 
-				/* Handle "warm blooded" monsters */
+				/* Handle "warm blooded" creatures */
 				else
 				{
 					/* Easy to see */
@@ -3044,7 +3044,7 @@ void update_mon(int m_idx, bool full)
 			/* Use "illumination" */
 			if (creature_can_see_bold(player_ptr, fy, fx))
 			{
-				/* Handle "invisible" monsters */
+				/* Handle "invisible" creatures */
 				if (has_cf_creature(m_ptr, CF_INVISIBLE))
 				{
 					/* Take note */
@@ -3058,7 +3058,7 @@ void update_mon(int m_idx, bool full)
 					}
 				}
 
-				/* Handle "normal" monsters */
+				/* Handle "normal" creatures */
 				else
 				{
 					/* Easy to see */
@@ -3080,7 +3080,7 @@ void update_mon(int m_idx, bool full)
 	}
 
 
-	/* The monster is now visible */
+	/* The creature is now visible */
 	if (flag)
 	{
 		/* It was previously unseen */
@@ -3089,7 +3089,7 @@ void update_mon(int m_idx, bool full)
 			/* Mark as visible */
 			m_ptr->ml = TRUE;
 
-			/* Draw the monster */
+			/* Draw the creature */
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
@@ -3120,7 +3120,7 @@ void update_mon(int m_idx, bool full)
 		}
 	}
 
-	/* The monster is not visible */
+	/* The creature is not visible */
 	else
 	{
 		/* It was previously seen */
@@ -3129,7 +3129,7 @@ void update_mon(int m_idx, bool full)
 			/* Mark as not visible */
 			m_ptr->ml = FALSE;
 
-			/* Erase the monster */
+			/* Erase the creature */
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
@@ -3146,7 +3146,7 @@ void update_mon(int m_idx, bool full)
 	}
 
 
-	/* The monster is now easily visible */
+	/* The creature is now easily visible */
 	if (easy)
 	{
 		/* Change */
@@ -3164,7 +3164,7 @@ void update_mon(int m_idx, bool full)
 		}
 	}
 
-	/* The monster is not easily visible */
+	/* The creature is not easily visible */
 	else
 	{
 		/* Change */
@@ -3186,28 +3186,28 @@ void update_mon(int m_idx, bool full)
 
 
 /*
- * This function simply updates all the (non-dead) monsters (see above).
+ * This function simply updates all the (non-dead) creatures (see above).
  */
 void update_creatures(bool full)
 {
 	int i;
 
-	/* Update each (live) monster */
+	/* Update each (live) creature */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip dead monsters */
+		/* Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		/* Update the monster */
+		/* Update the creature */
 		update_mon(i, full);
 	}
 }
 
 
 /*
- * Hack -- the index of the summoning monster
+ * Hack -- the index of the summoning creature
  */
 static bool creature_hook_chameleon_lord(int species_idx)
 {
@@ -3402,7 +3402,7 @@ static bool creature_hook_tanuki(int species_idx)
 
 
 /*
- *  Set initial racial appearance of a monster
+ *  Set initial racial appearance of a creature
  */
 static int initial_r_appearance(int species_idx)
 {
@@ -3967,7 +3967,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if (cheat_hear)
 		{
-			msg_format("[max_creature_idx: Invalid Monster Race]");
+			msg_format("[max_creature_idx: Invalid Creature Race]");
 		}
 		return (max_creature_idx);
 	}
@@ -3977,7 +3977,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if (cheat_hear)
 		{
-			msg_format("[max_creature_idx: Invalid Monster Name]");
+			msg_format("[max_creature_idx: Invalid Creature Name]");
 		}
 		return (max_creature_idx);
 	}
@@ -3991,7 +3991,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)){
 			if (cheat_hear)
 			{
-				msg_format("[max_creature_idx: Monster Can't Enter]");
+				msg_format("[max_creature_idx: Creature Can't Enter]");
 			}
 			return max_creature_idx;
 		}
@@ -4000,13 +4000,13 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	// TO DO DEBUG.
 	if (!gamble_arena_mode)
 	{
-		/* Hack -- "unique" monsters must be "unique" */
+		/* Hack -- "unique" creatures must be "unique" */
 		if (((is_unique_species(r_ptr)) || has_cf(&r_ptr->flags, CF_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
 			{
-				msg_format("[max_creature_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique creature must be unique.]");
 			}
 
 			/* Cannot create */
@@ -4018,7 +4018,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		{
 			if (cheat_hear)
 			{
-				msg_format("[max_creature_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique creature must be unique.]");
 			}
 			return (max_creature_idx);
 		}
@@ -4029,12 +4029,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			if (species_info[MON_LUPART].cur_num > 0) return max_creature_idx;
 			if (cheat_hear)
 			{
-				msg_format("[max_creature_idx: Unique monster must be unique.]");
+				msg_format("[max_creature_idx: Unique creature must be unique.]");
 			}
 
 		}
 
-		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
+		/* Depth creatures may NOT be created out of depth, unless in Nightmare mode */
 		if (is_force_depth_species(r_ptr) && (floor_ptr->floor_level < r_ptr->level) &&
 		    (!curse_of_Iluvatar || (is_quest_species(r_ptr))))
 		{
@@ -4057,7 +4057,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 				int number_mon, i2, j2;
 				number_mon = 0;
 
-				/* Count all quest monsters */
+				/* Count all quest creatures */
 				for (i2 = 0; i2 < floor_ptr->width; ++i2)
 					for (j2 = 0; j2 < floor_ptr->height; j2++)
 						if (floor_ptr->cave[j2][i2].creature_idx > 0)
@@ -4119,7 +4119,7 @@ msg_print("守りのルーンが壊れた！");
 		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
-	/* Sub-alignment of a monster */
+	/* Sub-alignment of a creature */
 	if (summoner_ptr && !is_player(summoner_ptr) && !(is_enemy_of_evil_creature(summoner_ptr) && is_enemy_of_good_creature(summoner_ptr)))
 		creature_ptr->sub_align = summoner_ptr->sub_align;
 	else
@@ -4129,7 +4129,7 @@ msg_print("守りのルーンが壊れた！");
 		if (is_enemy_of_evil_creature(creature_ptr)) creature_ptr->sub_align |= SUB_ALIGN_GOOD;
 	}
 
-	// Place the monster at the location
+	// Place the creature at the location
 	creature_ptr->floor_id = get_floor_id(floor_ptr);
 	creature_ptr->depth = floor_ptr->floor_level;
 	creature_ptr->fy = y;
@@ -4200,24 +4200,24 @@ msg_print("守りのルーンが壊れた！");
 	}
 	else
 	{
-		/* Nightmare monsters are more prepared */
+		/* Nightmare creatures are more prepared */
 		creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
 	}
 
-	/* Force monster to wait for player, unless in Nightmare mode */
+	/* Force creature to wait for player, unless in Nightmare mode */
 	if (has_cf_creature(creature_ptr, CF_FORCE_SLEEP) && !curse_of_Iluvatar)
 	{
-		/* Monster is still being nice */
+		/* Creature is still being nice */
 		creature_ptr->mflag |= (MFLAG_NICE);
 
-		/* Must repair monsters */
+		/* Must repair creatures */
 		repair_creatures = TRUE;
 	}
 
 	/* Hack -- see "process_creatures()" */
 	if (c_ptr->creature_idx < hack_m_idx)
 	{
-		/* Monster is still being born */
+		/* Creature is still being born */
 		creature_ptr->mflag |= (MFLAG_BORN);
 	}
 
@@ -4228,15 +4228,15 @@ msg_print("守りのルーンが壊れた！");
 		update |= (PU_MON_LITE);
 */
 
-	/* Update the monster */
+	/* Update the creature */
 	update_mon(c_ptr->creature_idx, TRUE);
 
-	/* Count the monsters on the level */
+	/* Count the creatures on the level */
 	real_species_ptr(creature_ptr)->cur_num++;
 
 	/*
-	 * Memorize location of the unique monster in saved floors.
-	 * A unique monster move from old saved floor.
+	 * Memorize location of the unique creature in saved floors.
+	 * A unique creature move from old saved floor.
 	 */
 /*TODO
 	if (floor_generated &&
@@ -4247,7 +4247,7 @@ msg_print("守りのルーンが壊れた！");
 	/* Hack -- Count the number of "reproducers" */
 	if (has_cf_creature(creature_ptr, CF_MULTIPLY)) floor_ptr->num_repro++;
 
-	/* Hack -- Notice new multi-hued monsters */
+	/* Hack -- Notice new multi-hued creatures */
 	{
 		if (has_cf_creature(creature_ptr, CF_ATTR_MULTI) || has_cf_creature(creature_ptr, CF_SHAPECHANGER))
 			shimmer_creatures = TRUE;
@@ -4409,7 +4409,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 			}
 			else
 			{
-				/* Walls and Monsters block flow */
+				/* Walls and Creatures block flow */
 				if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 				/* ... nor on the Pattern */
@@ -4446,13 +4446,13 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 
 
 /*
- * Maximum size of a group of monsters
+ * Maximum size of a group of creatures
  */
 #define GROUP_MAX	32
 
 
 
-// Attempt to place a "group" of monsters around the given location
+// Attempt to place a "group" of creatures around the given location
 static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
@@ -4469,14 +4469,14 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	/* Pick a group size */
 	total = randint1(10);
 
-	/* Hard monsters, small groups */
+	/* Hard creatures, small groups */
 	if (r_ptr->level > floor_ptr->floor_level)
 	{
 		extra = r_ptr->level - floor_ptr->floor_level;
 		extra = 0 - randint1(extra);
 	}
 
-	/* Easy monsters, large groups */
+	/* Easy creatures, large groups */
 	else if (r_ptr->level < floor_ptr->floor_level)
 	{
 		extra = floor_ptr->floor_level - r_ptr->level;
@@ -4495,12 +4495,12 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	/* Maximum size */
 	if (total > GROUP_MAX) total = GROUP_MAX;
 
-	/* Start on the monster */
+	/* Start on the creature */
 	hack_n = 1;
 	hack_x[0] = x;
 	hack_y[0] = y;
 
-	/* Puddle monsters, breadth first, up to total */
+	/* Puddle creatures, breadth first, up to total */
 	for (n = 0; (n < hack_n) && (hack_n < total); n++)
 	{
 		/* Grab the location */
@@ -4514,10 +4514,10 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 
 			scatter(floor_ptr, &my, &mx, hy, hx, 4, 0);
 
-			/* Walls and Monsters block flow */
+			/* Walls and Creatures block flow */
 			if (!cave_empty_bold2(floor_ptr, my, mx)) continue;
 
-			/* Attempt to place another monster */
+			/* Attempt to place another creature */
 			if (place_creature_one(summoner_ptr, floor_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_creature_idx)
 			{
 				/* Add it to the "hack" set */
@@ -4555,13 +4555,13 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	/* Require similar "race" */
 	if (z_ptr->d_char != r_ptr->d_char) return (FALSE);
 
-	/* Skip more advanced monsters */
+	/* Skip more advanced creatures */
 	if (z_ptr->level > r_ptr->level) return (FALSE);
 
-	/* Skip unique monsters */
+	/* Skip unique creatures */
 	if (is_unique_species(z_ptr)) return (FALSE);
 
-	/* Paranoia -- Skip identical monsters */
+	/* Paranoia -- Skip identical creatures */
 	if (place_species_idx == species_idx) return (FALSE);
 
 	/* Skip different alignment */
@@ -4576,21 +4576,21 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 
 
 /*
- * Attempt to place a monster of the given race at the given location
+ * Attempt to place a creature of the given race at the given location
  *
- * Note that certain monsters are now marked as requiring "friends".
- * These monsters, if successfully placed, and if the "grp" parameter
- * is TRUE, will be surrounded by a "group" of identical monsters.
+ * Note that certain creatures are now marked as requiring "friends".
+ * These creatures, if successfully placed, and if the "grp" parameter
+ * is TRUE, will be surrounded by a "group" of identical creatures.
  *
- * Note that certain monsters are now marked as requiring an "escort",
- * which is a collection of monsters with similar "race" but lower level.
+ * Note that certain creatures are now marked as requiring an "escort",
+ * which is a collection of creatures with similar "race" but lower level.
  *
- * Some monsters induce a fake "group" flag on their escorts.
+ * Some creatures induce a fake "group" flag on their escorts.
  *
  * Note the "bizarre" use of non-recursion to prevent annoying output
  * when running a code profiler.
  *
- * Note the use of the new "monster allocation table" code to restrict
+ * Note the use of the new "creature allocation table" code to restrict
  * the "get_species_num(floor_ptr, )" function to "legal" escort types.
  */
 bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
@@ -4602,7 +4602,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	if (!(mode & PM_NO_KAGE) && one_in_(333))
 		mode |= PM_KAGE;
 
-	// Place one monster, or fail
+	// Place one creature, or fail
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_creature_idx) return (FALSE);
 
@@ -4636,7 +4636,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 	place_creature_m_idx = hack_m_idx_ii;
 
-	/* Friends for certain monsters */
+	/* Friends for certain creatures */
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
@@ -4644,7 +4644,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	}
 
 
-	/* Escorts for certain monsters */
+	/* Escorts for certain creatures */
 	if (is_escort_species(r_ptr))
 	{
 		/* Set the escort index */
@@ -4676,7 +4676,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			/* Place a "group" of escorts if needed */
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
-				/* Place a group of monsters */
+				/* Place a group of creatures */
 				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);
 			}
 		}
@@ -4687,8 +4687,8 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 }
 
 
-// Hack -- attempt to place a monster at the given location
-// Attempt to find a monster appropriate to the "creature_level"
+// Hack -- attempt to place a creature at the given location
+// Attempt to find a creature appropriate to the "creature_level"
 bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
@@ -4696,13 +4696,13 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	/* Prepare allocation table */
 	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
-	/* Pick a monster */
+	/* Pick a creature */
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 
 	/* Handle failure */
 	if (!species_idx) return (FALSE);
 
-	/* Attempt to place the monster */
+	/* Attempt to place the creature */
 	if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
 
 	/* Oops */
@@ -4723,7 +4723,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	while (--attempts)
 	{
-		/* Pick a monster */
+		/* Pick a creature */
 		species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 
 		/* Handle failure */
@@ -4742,7 +4742,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	while (--attempts)
 	{
-		/* Attempt to place the monster */
+		/* Attempt to place the creature */
 		if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
 	}
 
@@ -4805,10 +4805,10 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 
 
 /*
- * Attempt to allocate a random monster in the dungeon.
- * Place the monster at least "dis" distance from the player.
+ * Attempt to allocate a random creature in the dungeon.
+ * Place the creature at least "dis" distance from the player.
  * Use "slp" to choose the initial "sleep" status
- * Use "creature_level" for the monster level
+ * Use "creature_level" for the creature level
  */
 bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
@@ -4846,7 +4846,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 #ifdef JP
 			msg_print("警告！新たなクリーチャーを配置できません。小さい階ですか？");
 #else
-			msg_print("Warning! Could not allocate a new monster. Small level?");
+			msg_print("Warning! Could not allocate a new creature. Small level?");
 #endif
 		}
 		return (FALSE);
@@ -4859,14 +4859,14 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 #ifdef JP
 //			if (cheat_hear) msg_format("クリーチャーの大群(%c)", summon_kin_type);
 #else
-//			if (cheat_hear) msg_format("Monster horde (%c).", summon_kin_type);
+//			if (cheat_hear) msg_format("Creature horde (%c).", summon_kin_type);
 #endif
 			return (TRUE);
 		}
 	}
 	else
 	{
-		/* Attempt to place the monster, allow groups */
+		/* Attempt to place the creature, allow groups */
 		if (place_creature(NULL, floor_ptr, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
 
 	}
@@ -4875,16 +4875,16 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 	return (FALSE);
 }
 
-// Hack -- help decide if a monster race is "okay" to summon
+// Hack -- help decide if a creature race is "okay" to summon
 static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 {
 	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Hack - Only summon dungeon monsters */
+	/* Hack - Only summon dungeon creatures */
 	if (!species_hook_dungeon(species_idx)) return (FALSE);
 
-	/* Hack -- identify the summoning monster */
+	/* Hack -- identify the summoning creature */
 	if (summon_specific_who > 0)
 	{
 		creature_type *m_ptr = &creature_list[summon_specific_who];
@@ -4910,26 +4910,26 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 
 
 /*
- * Place a monster (of the specified "type") near the given
- * location.  Return TRUE if a monster was actually summoned.
+ * Place a creature (of the specified "type") near the given
+ * location.  Return TRUE if a creature was actually summoned.
  *
- * We will attempt to place the monster up to 10 times before giving up.
+ * We will attempt to place the creature up to 10 times before giving up.
  *
  * Note: SUMMON_UNIQUE and SUMMON_AMBERITES will summon Unique's
  * Note: SUMMON_HI_UNDEAD and SUMMON_HI_DRAGON may summon Unique's
  * Note: None of the other summon codes will ever summon Unique's.
  *
- * This function has been changed.  We now take the "monster level"
- * of the summoning monster as a parameter, and use that, along with
+ * This function has been changed.  We now take the "creature level"
+ * of the summoning creature as a parameter, and use that, along with
  * the current dungeon level, to help determine the level of the
- * desired monster.  Note that this is an upper bound, and also
- * tends to "prefer" monsters of that level.  Currently, we use
- * the average of the dungeon and monster levels, and then add
- * five to allow slight increases in monster power.
+ * desired creature.  Note that this is an upper bound, and also
+ * tends to "prefer" creatures of that level.  Currently, we use
+ * the average of the dungeon and creature levels, and then add
+ * five to allow slight increases in creature power.
  *
- * Note that we use the new "monster allocation table" creation code
+ * Note that we use the new "creature allocation table" creation code
  * to restrict the "get_species_num(floor_ptr, )" function to the set of "legal"
- * monsters, making this function much faster and more reliable.
+ * creatures, making this function much faster and more reliable.
  *
  * Note that this function may not succeed, though this is very rare.
  */
@@ -4955,7 +4955,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	/* Prepare allocation table */
 	get_species_num_prep3(summoner_ptr, get_creature_hook2(y, x), summon_specific_okay);
 
-	/* Pick a monster, using the level calculation */
+	/* Pick a creature, using the level calculation */
 	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
 	/* Handle failure */
@@ -4967,7 +4967,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
-	/* Attempt to place the monster (awake, allow groups) */
+	/* Attempt to place the creature (awake, allow groups) */
 	if (!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode))
 	{
 		summon_specific_type = 0;
@@ -4984,7 +4984,7 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
 {
 	int x, y;
 
-	/* Prevent illegal monsters */
+	/* Prevent illegal creatures */
 	if (species_idx >= max_species_idx) return FALSE;
 
 	if (fight_arena_mode) return FALSE;
@@ -4997,7 +4997,7 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
 
 
 /*
- * Let the given monster attempt to reproduce.
+ * Let the given creature attempt to reproduce.
  *
  * Note that "reproduction" REQUIRES empty space.
  */
@@ -5013,7 +5013,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
-	/* Create a new monster (awake, no groups) */
+	/* Create a new creature (awake, no groups) */
 	if (!place_creature_species(&creature_list[m_idx], floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
@@ -5032,7 +5032,7 @@ bool multiply_creature(int m_idx, bool clone, u32b mode)
 
 
 /*
- * Dump a message describing a monster's reaction to damage
+ * Dump a message describing a creature's reaction to damage
  *
  * Technically should attempt to treat "Beholder"'s as jelly's
  */
@@ -5047,7 +5047,7 @@ void message_pain(int m_idx, int dam)
 	char m_name[80];
 
 
-	/* Get the monster name */
+	/* Get the creature name */
 	creature_desc(m_name, m_ptr, 0);
 
 	/* Notice non-damage */
@@ -5666,7 +5666,7 @@ msg_format("%^sはかすかにうめいた。", m_name);
 
 	}
 
-	/* One type of monsters (ignore,squeal,shriek) */
+	/* One type of creatures (ignore,squeal,shriek) */
 	else if (my_strchr("Xbilqrt", r_ptr->d_char))
 	{
 #ifdef JP
@@ -5703,7 +5703,7 @@ msg_format("%^sはかすかにうめいた。", m_name);
 
 	}
 
-	/* Another type of monsters (shrug,cry,scream) */
+	/* Another type of creatures (shrug,cry,scream) */
 	else
 	{
 #ifdef JP

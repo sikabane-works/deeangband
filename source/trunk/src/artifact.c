@@ -2234,7 +2234,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * o_ptr)
 
 					m_ptr = &creature_list[c_ptr->creature_idx]; // Get the creature
 
-					// Hack -- attack monsters
+					// Hack -- attack creatures
 					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(creature_ptr, y, x, 0);
 				}

@@ -31,12 +31,12 @@ void excise_object_idx(int object_idx)
 	/* Object */
 	j_ptr = &object_list[object_idx];
 
-	/* Monster */
+	/* Creature */
 	if (j_ptr->held_m_idx)
 	{
 		creature_type *m_ptr;
 
-		/* Monster */
+		/* Creature */
 		m_ptr = &creature_list[j_ptr->held_m_idx];
 	}
 
@@ -296,19 +296,19 @@ void compact_objects(int size)
 			/* Hack -- High level objects start out "immune" */
 			if (object_kind_info[o_ptr->k_idx].level > cur_lev) continue;
 
-			/* Monster */
+			/* Creature */
 			if (o_ptr->held_m_idx)
 			{
 				creature_type *m_ptr;
 
-				/* Acquire monster */
+				/* Acquire creature */
 				m_ptr = &creature_list[o_ptr->held_m_idx];
 
 				/* Get the location */
 				y = m_ptr->fy;
 				x = m_ptr->fx;
 
-				/* Monsters protect their objects */
+				/* Creatures protect their objects */
 				if (randint0(100) < 90) continue;
 			}
 
@@ -365,9 +365,9 @@ void compact_objects(int size)
  * Note -- we do NOT visually reflect these (irrelevant) changes
  *
  * Hack -- we clear the "c_ptr->object_idx" field for every grid,
- * and the "m_ptr->next_object_idx" field for every monster, since
+ * and the "m_ptr->next_object_idx" field for every creature, since
  * we know we are clearing every object.  Technically, we only
- * clear those fields for grids/monsters containing objects,
+ * clear those fields for grids/creatures containing objects,
  * and we clear it once for every such object.
  */
 void wipe_object_list(int floor_id)
@@ -829,7 +829,7 @@ static s32b object_value_base(object_type *o_ptr)
 		/* Un-aware Amulets */
 		case TV_AMULET: return (45L);
 
-		/* Figurines, relative to monster level */
+		/* Figurines, relative to creature level */
 		case TV_FIGURINE:
 		{
 			int level = species_info[o_ptr->pval].level;
@@ -1347,7 +1347,7 @@ s32b object_value_real(object_type *o_ptr)
 			break;
 		}
 
-		/* Figurines, relative to monster level */
+		/* Figurines, relative to creature level */
 		case TV_FIGURINE:
 		{
 			int level = species_info[o_ptr->pval].level;
@@ -1590,7 +1590,7 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 		case TV_FIGURINE:
 		case TV_CORPSE:
 		{
-			/* Same monster */
+			/* Same creature */
 			if (o_ptr->pval != j_ptr->pval) return 0;
 
 			/* Assume okay */
@@ -3130,7 +3130,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 /*
  * Hack -- help pick an item type
  */
-static bool item_monster_okay(int species_idx)
+static bool item_creature_okay(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -3272,25 +3272,25 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 			species_type *r_ptr;
 
-			/* Pick a random non-unique monster race */
+			/* Pick a random non-unique creature race */
 			while (1)
 			{
 				i = randint1(max_species_idx - 1);
 
-				if (!item_monster_okay(i)) continue;
+				if (!item_creature_okay(i)) continue;
 				if (i == MON_TSUCHINOKO) continue;
 
 				r_ptr = &species_info[i];
 
 				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
 
-				/* Ignore dead monsters */
+				/* Ignore dead creatures */
 				if (!r_ptr->rarity) continue;
 
-				/* Ignore uncommon monsters */
+				/* Ignore uncommon creatures */
 				if (r_ptr->rarity > 100) continue;
 
-				/* Prefer less out-of-depth monsters */
+				/* Prefer less out-of-depth creatures */
 				if (randint0(check)) continue;
 
 				break;
@@ -3323,10 +3323,10 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 			species_type *r_ptr;
 
-			/* Hack -- Remove the monster restriction */
-			get_species_num_prep(item_monster_okay, NULL);
+			/* Hack -- Remove the creature restriction */
+			get_species_num_prep(item_creature_okay, NULL);
 
-			/* Pick a random non-unique monster race */
+			/* Pick a random non-unique creature race */
 			while (1)
 			{
 				i = get_species_num(floor_ptr, floor_ptr->floor_level);
@@ -3335,14 +3335,14 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
 
-				/* Ignore dead monsters */
+				/* Ignore dead creatures */
 				if (!r_ptr->rarity) continue;
 
-				/* Ignore corpseless monsters */
+				/* Ignore corpseless creatures */
 				if (o_ptr->sval == SV_SKELETON && !is_drop_skeleton_species(r_ptr)) continue;
 				if (o_ptr->sval =- SV_CORPSE && !is_drop_corpse_species(r_ptr)) continue;
 
-				/* Prefer less out-of-depth monsters */
+				/* Prefer less out-of-depth creatures */
 				if (randint0(check)) continue;
 
 				break;
@@ -3372,14 +3372,14 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 			species_type *r_ptr;
 
-			/* Pick a random monster race */
+			/* Pick a random creature race */
 			while (1)
 			{
 				i = randint1(max_species_idx - 1);
 
 				r_ptr = &species_info[i];
 
-				/* Ignore dead monsters */
+				/* Ignore dead creatures */
 				if (!r_ptr->rarity) continue;
 
 				break;
@@ -4417,7 +4417,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		j_ptr->fy = by;
 		j_ptr->fx = bx;
 
-		/* No monster */
+		/* No creature */
 		j_ptr->held_m_idx = 0;
 
 		/* Build a stack */
@@ -5115,7 +5115,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	/* Forget stack */
 	j_ptr->next_object_idx = 0;
 
-	/* Forget monster */
+	/* Forget creature */
 	j_ptr->held_m_idx = 0;
 
 	/* Forget location */
@@ -5924,7 +5924,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 			r_ptr = &species_info[m_ptr->species_idx];
 
-			/* Monster spells (only powerful ones)*/
+			/* Creature spells (only powerful ones)*/
 			if (projectable(floor_ptr, my, mx, yy, xx))
 			{
 				int breath_dam_div3 = m_ptr->chp / 3;
@@ -5973,7 +5973,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				if (has_cf_creature(m_ptr, CF_BR_DISI)) spell_dam_estimation(m_ptr, player_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
 			}
 
-			/* Monster melee attacks */
+			/* Creature melee attacks */
 			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
@@ -5993,7 +5993,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				}
 			}
 
-			/* Contribution from this monster */
+			/* Contribution from this creature */
 			dam_max += dam_max0;
 		}
 	}

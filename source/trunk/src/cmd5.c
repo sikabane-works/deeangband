@@ -1501,7 +1501,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	/* Allocate the "who" array */
 	C_MAKE(who, max_creature_idx, u16b);
 
-	/* Process the monsters (backwards) */
+	/* Process the creatures (backwards) */
 	for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 	{
 		if (is_pet(player_ptr, &creature_list[pet_ctr]))
@@ -1510,7 +1510,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 
 	ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet_dismiss, ang_sort_swap_hook);
 
-	/* Process the monsters (backwards) */
+	/* Process the creatures (backwards) */
 	for (i = 0; i < max_pet; i++)
 	{
 		bool delete_this;
@@ -1518,7 +1518,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 		char buf[80];
 		bool kakunin;
 
-		/* Access the monster */
+		/* Access the creature */
 		pet_ctr = who[i];
 		m_ptr = &creature_list[pet_ctr];
 
@@ -1528,7 +1528,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 
 		if (!all_pets)
 		{
-			/* Hack -- health bar for this monster */
+			/* Hack -- health bar for this creature */
 			health_track(pet_ctr);
 
 			/* Hack -- handle stuff */
@@ -2015,7 +2015,7 @@ static void do_name_pet(creature_type *master_ptr)
 #ifdef JP
 			msg_print("そのクリーチャーはペットではない。");
 #else
-			msg_format("This monster is not a pet.");
+			msg_format("This creature is not a pet.");
 #endif
 			return;
 		}
@@ -2024,7 +2024,7 @@ static void do_name_pet(creature_type *master_ptr)
 #ifdef JP
 			msg_print("そのクリーチャーの名前は変えられない！");
 #else
-			msg_format("You cannot change name of this monster!");
+			msg_format("You cannot change name of this creature!");
 #endif
 			return;
 		}
@@ -2661,7 +2661,7 @@ void do_cmd_pet(creature_type *master_ptr)
 				master_ptr->pet_extra_flags &= ~(PF_PICKUP_ITEMS);
 				for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 				{
-					/* Access the monster */
+					/* Access the creature */
 					pet_ptr = &creature_list[pet_ctr];
 
 					if (is_pet(player_ptr, pet_ptr))

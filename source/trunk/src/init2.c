@@ -1434,7 +1434,7 @@ static errr init_other(void)
 	C_MAKE(creature_list, max_creature_idx, creature_type);
 	player_ptr = &creature_list[1];
 
-	// Allocate and Wipe the monster process list
+	// Allocate and Wipe the creature process list
 	for (i = 0; i < MAX_MTIMED; i++)
 	{
 		C_MAKE(mproc_list[i], max_creature_idx, creature_type *);
@@ -1667,7 +1667,7 @@ static errr init_alloc(void)
 	/* Allocate the "species_info" array */
 	C_MAKE(elements, max_species_idx, tag_type);
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		elements[i].tag = species_info[i].level;
@@ -1676,7 +1676,7 @@ static errr init_alloc(void)
 
 	tag_sort(elements, max_species_idx);
 
-	/*** Initialize monster allocation info ***/
+	/*** Initialize creature allocation info ***/
 
 	/* Size of "alloc_race_table" */
 	alloc_race_size = max_species_idx;
@@ -1684,7 +1684,7 @@ static errr init_alloc(void)
 	/* Allocate the alloc_race_table */
 	C_MAKE(alloc_race_table, alloc_race_size, alloc_entry);
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
@@ -1720,7 +1720,7 @@ static errr init_alloc(void)
 	s16b num[MAX_DEPTH];
 	s16b aux[MAX_DEPTH];
 
-	/*** Analyze monster allocation info ***/
+	/*** Analyze creature allocation info ***/
 
 	/* Clear the "aux" array */
 	C_WIPE(&aux, MAX_DEPTH, s16b);
@@ -1731,13 +1731,13 @@ static errr init_alloc(void)
 	/* Size of "alloc_race_table" */
 	alloc_race_size = 0;
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
 		r_ptr = &species_info[i];
 
-		/* Legal monsters */
+		/* Legal creatures */
 		if (r_ptr->rarity)
 		{
 			/* Count the entries */
@@ -1759,12 +1759,12 @@ static errr init_alloc(void)
 #ifdef JP
 	if (!num[0]) quit("町のクリーチャーがない！");
 #else
-	if (!num[0]) quit("No town monsters!");
+	if (!num[0]) quit("No town creatures!");
 #endif
 
 
 
-	/*** Initialize monster allocation info ***/
+	/*** Initialize creature allocation info ***/
 
 	/* Allocate the alloc_race_table */
 	C_MAKE(alloc_race_table, alloc_race_size, alloc_entry);
@@ -1772,7 +1772,7 @@ static errr init_alloc(void)
 	/* Access the table entry */
 	table = alloc_race_table;
 
-	/* Scan the monsters */
+	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
@@ -2095,11 +2095,11 @@ void init_angband(void)
 	note("[Initializing arrays... (species)]");
 	if (init_species_info_csv()) quit("Cannot initialize species");
 
-	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
-	if (init_re_info()) quit("Cannot initialize monster's ego");
+	/* Initialize creature ego info */	note("[Initializing arrays... (creature's ego)]");
+	if (init_re_info()) quit("Cannot initialize creature's ego");
 
 	/* Initialize store info */	note("[Initializing arrays... (store)]");
-	if (init_store_pre_info_csv()) quit("Cannot initialize monster's ego");
+	if (init_store_pre_info_csv()) quit("Cannot initialize creature's ego");
 
 	/* Initialize dungeon info */
 	note("[Initializing arrays... (dungeon)]");

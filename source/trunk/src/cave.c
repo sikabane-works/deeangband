@@ -406,7 +406,7 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 { \
 	if (player_has_los_bold((Y), (X))) \
 	{ \
-		/* Update the monster */ \
+		/* Update the creature */ \
 		if ((FLOOR)->cave[(Y)][(X)].creature_idx) update_mon((FLOOR)->cave[(Y)][(X)].creature_idx, FALSE); \
 \
 		/* Notice and redraw */ \
@@ -536,7 +536,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
  * "CAVE_GLOW" are "illuminated" from all sides.  This is correct for all cases
  * except "vaults" and the "buildings" in town.  But the town is a hack anyway,
  * and the player has more important things on his mind when he is attacking a
- * monster vault.  It is annoying, but an extremely important optimization.
+ * creature vault.  It is annoying, but an extremely important optimization.
  *
  * Note that "glowing walls" are only considered to be "illuminated" if the
  * grid which is next to the wall in the direction of the player is also a
@@ -625,9 +625,9 @@ bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Hack -- Legal monster codes
+ * Hack -- Legal creature codes
  */
-static char image_monster_hack[] = \
+static char image_creature_hack[] = \
 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 /*
@@ -636,7 +636,7 @@ static char image_monster_hack[] = \
 static char image_object_hack[] = "?/|\\\"!$()_-=[]{},~";
 
 /*
- * Mega-Hack -- Hallucinatory monster
+ * Mega-Hack -- Hallucinatory creature
  */
 static void image_creature(byte *ap, char *cp)
 {
@@ -653,7 +653,7 @@ static void image_creature(byte *ap, char *cp)
 	{
 		*cp = (one_in_(25) ?
 		       image_object_hack[randint0(sizeof(image_object_hack) - 1)] :
-		       image_monster_hack[randint0(sizeof(image_monster_hack) - 1)]);
+		       image_creature_hack[randint0(sizeof(image_creature_hack) - 1)]);
 
 		/* Random color */
 		*ap = (byte_hack)randint1(15);
@@ -691,7 +691,7 @@ static void image_object(byte *ap, char *cp)
  */
 static void image_random(byte *ap, char *cp)
 {
-	/* Normally, assume monsters */
+	/* Normally, assume creatures */
 	if (randint0(100) < 75)
 	{
 		image_creature(ap, cp);
@@ -789,7 +789,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
 }
 
 
-/* Is this grid "darkened" by monster? */
+/* Is this grid "darkened" by creature? */
 #define darkened_grid(PLAYER, C) \
 	((((C)->info & (CAVE_VIEW | CAVE_LITE | CAVE_MNLT | CAVE_MNDK)) == (CAVE_VIEW | CAVE_MNDK)) && \
 	!(PLAYER)->see_nocto)
@@ -800,26 +800,26 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  *
  * Basically, we "paint" the chosen attr/char in several passes, starting
  * with any known "terrain features" (defaulting to darkness), then adding
- * any known "objects", and finally, adding any known "monsters".  This
+ * any known "objects", and finally, adding any known "creatures".  This
  * is not the fastest method but since most of the calls to this function
- * are made for grids with no monsters or objects, it is fast enough.
+ * are made for grids with no creatures or objects, it is fast enough.
  *
  * Note that this function, if used on the grid containing the "player",
  * will return the attr/char of the grid underneath the player, and not
  * the actual player attr/char itself, allowing a lot of optimization
  * in various "display" functions.
  *
- * Note that the "zero" entry in the feature/object/monster arrays are
- * used to provide "special" attr/char codes, with "monster zero" being
+ * Note that the "zero" entry in the feature/object/creature arrays are
+ * used to provide "special" attr/char codes, with "creature zero" being
  * used for the player attr/char, "object zero" being used for the "stack"
  * attr/char, and "feature zero" being used for the "nothing" attr/char,
  * though this function makes use of only "feature zero".
  *
- * Note that monsters can have some "special" flags, including "ATTR_MULTI",
+ * Note that creatures can have some "special" flags, including "ATTR_MULTI",
  * which means their color changes, and "ATTR_CLEAR", which means they take
  * the color of whatever is under them, and "CHAR_CLEAR", which means that
  * they take the symbol of whatever is under them.  Technically, the flag
- * "CHAR_MULTI" is supposed to indicate that a monster looks strange when
+ * "CHAR_MULTI" is supposed to indicate that a creature looks strange when
  * examined, but this flag is currently ignored.
  *
  * Currently, we do nothing with multi-hued objects, because there are
@@ -829,9 +829,9 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * in "cave.c" would have to be updated to create the shimmer effect.
  *
  * Note the effects of hallucination.  Objects always appear as random
- * "objects", monsters as random "monsters", and normal grids occasionally
- * appear as random "monsters" or "objects", but note that these random
- * "monsters" and "objects" are really just "colored ascii symbols".
+ * "objects", creatures as random "creatures", and normal grids occasionally
+ * appear as random "creatures" or "objects", but note that these random
+ * "creatures" and "objects" are really just "colored ascii symbols".
  *
  * Note that "floors" and "invisible traps" (and "zero" features) are
  * drawn as "floors" using a special check for optimization purposes,
@@ -900,7 +900,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * Note that bizarre things must be done when the "attr" and/or "char"
  * codes have the "high-bit" set, since these values are used to encode
  * various "special" pictures in some versions, and certain situations,
- * such as "multi-hued" or "clear" monsters, cause the attr/char codes
+ * such as "multi-hued" or "clear" creatures, cause the attr/char codes
  * to be "scrambled" in various ways.
  *
  * Note that eventually we may use the "&" symbol for embedded treasure,
@@ -941,7 +941,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		 * - Can see grids with CAVE_MARK.
 		 * - Can see grids with CAVE_LITE or CAVE_MNLT.
 		 *   (Such grids also have CAVE_VIEW)
-		 * - Can see grids with CAVE_VIEW unless darkened by monsters.
+		 * - Can see grids with CAVE_VIEW unless darkened by creatures.
 		 */
 		if (!watcher_ptr->blind && ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
 		    ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || watcher_ptr->see_nocto))))
@@ -1221,12 +1221,12 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	}
 
 
-	/* Handle monsters */
+	/* Handle creatures */
 	if (c_ptr->creature_idx && display_autopick == 0 )
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
-		/* Visible monster */
+		/* Visible creature */
 		if (m_ptr->ml)
 		{
 			species_type *r_ptr = &species_info[m_ptr->ap_species_idx];
@@ -1237,7 +1237,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			if (watcher_ptr->image)
 			{
 				/*
-				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
+				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
 				if (has_cf_creature(m_ptr, CF_CHAR_CLEAR) && has_cf_creature(m_ptr, CF_ATTR_CLEAR))
@@ -1246,28 +1246,28 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				}
 				else
 				{
-					/* Hallucinatory monster */
+					/* Hallucinatory creature */
 					image_creature(ap, cp);
 				}
 			}
 			else
 			{
-				/* Monster attr/char */
+				/* Creature attr/char */
 				a = r_ptr->x_attr;
 				c = r_ptr->x_char;
 
-				/* Normal monsters */
+				/* Normal creatures */
 				if (!has_cf_creature(m_ptr, CF_ATTR_SEMIRAND) && !has_cf_creature(m_ptr, CF_ATTR_MULTI) &&
 					!has_cf_creature(m_ptr, CF_SHAPECHANGER) && !has_cf_creature(m_ptr, CF_CHAR_CLEAR) &&
 					!has_cf_creature(m_ptr, CF_ATTR_CLEAR))
 				{
-					/* Desired monster attr/char */
+					/* Desired creature attr/char */
 					*ap = a;
 					*cp = c;
 				}
 
 				/*
-				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
+				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
 				else if (has_cf_creature(m_ptr, CF_ATTR_CLEAR) && has_cf_creature(m_ptr, CF_CHAR_CLEAR))
@@ -1277,7 +1277,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 
 				else
 				{
-					/***  Monster's attr  ***/
+					/***  Creature's attr  ***/
 					if (has_cf_creature(m_ptr, CF_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
 					{
 						/* Clear-attr */
@@ -1309,7 +1309,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						*ap = a;
 					}
 
-					/***  Monster's char  ***/
+					/***  Creature's char  ***/
 					if (has_cf_creature(m_ptr, CF_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
 					{
 						/* Clear-char */
@@ -1327,7 +1327,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						{
 							*cp = (one_in_(25) ?
 							       image_object_hack[randint0(sizeof(image_object_hack) - 1)] :
-							       image_monster_hack[randint0(sizeof(image_monster_hack) - 1)]);
+							       image_creature_hack[randint0(sizeof(image_creature_hack) - 1)]);
 						}
 					}
 					else
@@ -2299,7 +2299,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  *
  * One of the major bottlenecks in previous versions of Angband was in
  * the calculation of "line of sight" from the player to various grids,
- * such as monsters.  This was such a nasty bottleneck that a lot of
+ * such as creatures.  This was such a nasty bottleneck that a lot of
  * silly things were done to reduce the dependancy on "line of sight",
  * for example, you could not "see" any grids in a lit room until you
  * actually entered the room, and there were all kinds of bizarre grid
@@ -2340,10 +2340,10 @@ void do_cmd_view_map(creature_type *creature_ptr)
  *
  * I wouldn't be surprised if slight modifications to the "update_view()"
  * function would allow us to determine "reverse line-of-sight" as well
- * as "normal line-of-sight", which would allow monsters to use a more
+ * as "normal line-of-sight", which would allow creatures to use a more
  * "correct" calculation to determine if they can "see" the player.  For
- * now, monsters simply "cheat" somewhat and assume that if the player
- * has "line of sight" to the monster, then the monster can "pretend"
+ * now, creatures simply "cheat" somewhat and assume that if the player
+ * has "line of sight" to the creature, then the creature can "pretend"
  * that it has "line of sight" to the player.
  *
  *
@@ -2380,7 +2380,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  *
  * The "CAVE_TEMP" flag, and the array of "CAVE_TEMP" grids, is also used
  * for various other purposes, such as spreading lite or darkness during
- * "lite_room()" / "unlite_room()", and for calculating monster flow.
+ * "lite_room()" / "unlite_room()", and for calculating creature flow.
  *
  *
  * Any grid can be marked as "CAVE_GLOW" which means that the grid itself is
@@ -2445,11 +2445,11 @@ void do_cmd_view_map(creature_type *creature_ptr)
  *
  * In the "best" case (say, a normal stretch of corridor), the algorithm
  * makes one check for each viewable grid, and makes no calls to "los()".
- * So running in corridors is very fast, and if a lot of monsters are
+ * So running in corridors is very fast, and if a lot of creatures are
  * nearby, it is much faster than the old methods.
  *
  * Note that resting, most normal commands, and several forms of running,
- * plus all commands executed near large groups of monsters, are strictly
+ * plus all commands executed near large groups of creatures, are strictly
  * more efficient with "update_view()" that with the old "compute los() on
  * demand" method, primarily because once the "field of view" has been
  * calculated, it does not have to be recalculated until the player moves
@@ -2463,7 +2463,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  *
  * The algorithm seems to only call "los()" from zero to ten times, usually
  * only when coming down a corridor into a room, or standing in a room, just
- * misaligned with a corridor.  So if, say, there are five "nearby" monsters,
+ * misaligned with a corridor.  So if, say, there are five "nearby" creatures,
  * we will be reducing the calls to "los()".
  *
  * I am thinking in terms of an algorithm that "walks" from the central point
@@ -2843,9 +2843,9 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 
 	if (!cave_los_grid(c_ptr))
 	{
-		/* Hack -- Prevent monster lite leakage in walls */
+		/* Hack -- Prevent creature lite leakage in walls */
 
-		/* Horizontal walls between player and a monster */
+		/* Horizontal walls between player and a creature */
 		if (((y < cr_ptr->fy) && (y > mon_fy)) || ((y > cr_ptr->fy) && (y < mon_fy)))
 		{
 			dpf = cr_ptr->fy - mon_fy;
@@ -2864,7 +2864,7 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 
 		}
 
-		/* Vertical walls between player and a monster */
+		/* Vertical walls between player and a creature */
 		if (((x < cr_ptr->fx) && (x > mon_fx)) || ((x > cr_ptr->fx) && (x < mon_fx)))
 		{
 			dpf = cr_ptr->fx - mon_fx;
@@ -2925,9 +2925,9 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 
 	if (!cave_los_grid(c_ptr) && !cave_have_flag_grid(c_ptr, FF_PROJECT))
 	{
-		/* Hack -- Prevent monster dark lite leakage in walls */
+		/* Hack -- Prevent creature dark lite leakage in walls */
 
-		/* Horizontal walls between player and a monster */
+		/* Horizontal walls between player and a creature */
 		if (((y < creature_ptr->fy) && (y > mon_fy)) || ((y > creature_ptr->fy) && (y < mon_fy)))
 		{
 			dpf = creature_ptr->fy - mon_fy;
@@ -2945,7 +2945,7 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 			}
 		}
 
-		/* Vertical walls between player and a monster */
+		/* Vertical walls between player and a creature */
 		if (((x < creature_ptr->fx) && (x > mon_fx)) || ((x > creature_ptr->fx) && (x < mon_fx)))
 		{
 			dpf = creature_ptr->fx - mon_fx;
@@ -3321,13 +3321,13 @@ void clear_creature_lite(floor_type *floor_ptr)
 	int i;
 	cave_type *c_ptr;
 
-	/* Clear all monster lit squares */
+	/* Clear all creature lit squares */
 	for (i = 0; i < mon_lite_n; i++)
 	{
 		/* Point to grid */
 		c_ptr = &floor_ptr->cave[mon_lite_y[i]][mon_lite_x[i]];
 
-		/* Clear monster illumination flag */
+		/* Clear creature illumination flag */
 		c_ptr->info &= ~(CAVE_MNLT | CAVE_MNDK);
 	}
 
@@ -3576,7 +3576,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
  * and the "simple" version of this function was just not fast enough.  I am
  * more than willing to replace this function with a simpler one, if it is
  * equally efficient, and especially willing if the new function happens to
- * derive "reverse-line-of-sight" at the same time, since currently monsters
+ * derive "reverse-line-of-sight" at the same time, since currently creatures
  * just use an optimized hack of "you see me, so I see you", and then use the
  * actual "projectable(floor_ptr, )" function to check spell attacks.
  */
@@ -4066,7 +4066,7 @@ void delayed_visual_update(floor_type *floor_ptr)
 		/* Redraw */
 		lite_spot(floor_ptr, y, x);
 
-		/* Hack -- Visual update of monster on this grid */
+		/* Hack -- Visual update of creature on this grid */
 		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 		/* No longer in the array */
@@ -4218,11 +4218,11 @@ void update_flow(creature_type *creature_ptr)
 static int scent_when = 0;
 
 /*
- * Characters leave scent trails for perceptive monsters to track.
+ * Characters leave scent trails for perceptive creatures to track.
  *
  * Smell is rather more limited than sound.  Many creatures cannot use 
  * it at all, it doesn't extend very far outwards from the character's 
- * current position, and monsters can use it to home in the character, 
+ * current position, and creatures can use it to home in the character, 
  * but not to run away from him.
  *
  * Smell is valued according to age.  When a character takes his turn, 
@@ -4599,7 +4599,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	/* Check for change to boring grid */
 	if (!have_flag(f_ptr->flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 
-	/* Update the monster */
+	/* Update the creature */
 	if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 	/* Notice */
@@ -4640,7 +4640,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 			if (player_has_los_grid(cc_ptr))
 			{
-				/* Update the monster */
+				/* Update the creature */
 				if (cc_ptr->creature_idx) update_mon(cc_ptr->creature_idx, FALSE);
 
 				/* Notice */
@@ -4792,7 +4792,7 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
-		/* Update the monster */
+		/* Update the creature */
 		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
 
 		update_local_illumination(floor_ptr, y, x);
@@ -4900,7 +4900,7 @@ void mmove2(int *y, int *x, int y1, int x1, int y2, int x2)
 
 /*
  * Determine if a bolt spell cast from (y1,x1) to (y2,x2) will arrive
- * at the final destination, assuming no monster gets in the way.
+ * at the final destination, assuming no creature gets in the way.
  *
  * This is slightly (but significantly) different from "los(y1,x1,y2,x2)".
  */
@@ -4973,7 +4973,7 @@ void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int m
 
 
 /*
- * Track a new monster
+ * Track a new creature
  */
 void health_track(int m_idx)
 {
@@ -4987,11 +4987,11 @@ void health_track(int m_idx)
 
 
 /*
- * Hack -- track the given monster race
+ * Hack -- track the given creature race
  */
 void species_type_track(int species_idx)
 {
-	/* Save this monster ID */
+	/* Save this creature ID */
 	species_window_idx = species_idx;
 
 	/* Window stuff */
@@ -5060,7 +5060,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		/* Calculate torch radius */
 		player_ptr->creature_update |= (CRU_TORCH);
 
-		/* Update monster flow */
+		/* Update creature flow */
 		update |= (PU_FLOW);
 	}
 

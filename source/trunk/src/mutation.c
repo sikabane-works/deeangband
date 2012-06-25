@@ -123,7 +123,7 @@ muta_desc = "金属の匂いを嗅ぎ分けられるようになった。";
 #ifdef JP
 muta_desc = "クリーチャーの臭いを嗅ぎ分けられるようになった。";
 #else
-			muta_desc = "You smell filthy monsters.";
+			muta_desc = "You smell filthy creatures.";
 #endif
 
 			break;
@@ -1433,7 +1433,7 @@ muta_desc = "金属の臭いを嗅げなくなった。";
 #ifdef JP
 muta_desc = "不潔なクリーチャーの臭いを嗅げなくなった。";
 #else
-			muta_desc = "You no longer smell filthy monsters.";
+			muta_desc = "You no longer smell filthy creatures.";
 #endif
 
 			break;
@@ -2422,7 +2422,7 @@ fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 #ifdef JP
 fprintf(OutFile, " あなたは近くのクリーチャーの存在をかぎ分けることができる。\n");
 #else
-			fprintf(OutFile, " You can smell nearby monsters.\n");
+			fprintf(OutFile, " You can smell nearby creatures.\n");
 #endif
 
 		}
@@ -3395,7 +3395,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				int x, y, dummy;
 				cave_type *c_ptr;
 
-				/* Only works on adjacent monsters */
+				/* Only works on adjacent creatures */
 				if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
@@ -3460,7 +3460,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case CF_SMELL_MON:
 			mutation_stop_mouth(creature_ptr);
-			(void)detect_monsters_normal(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case CF_BLINK:
@@ -3704,7 +3704,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #ifdef JP
 					msg_print("その方向にはクリーチャーはいません。");
 #else
-					msg_print("You don't see any monster in this direction");
+					msg_print("You don't see any creature in this direction");
 #endif
 
 					msg_print(NULL);
@@ -3768,7 +3768,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 						do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 					}
 
-					/* Delete the monster, rather than killing it. */
+					/* Delete the creature, rather than killing it. */
 					delete_species_idx(&creature_list[c_ptr->creature_idx]);
 #ifdef JP
 					msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");

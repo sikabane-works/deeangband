@@ -434,7 +434,7 @@
 
 /*
  * Use the new sorting routines for creation
- * of the monster allocation table
+ * of the creature allocation table
  */
 #define SORT_R_INFO
 

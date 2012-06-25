@@ -1851,7 +1851,7 @@ arena_type arena_info[MAX_ARENA_MONS + 2] =
  * furthur increases in speed are more or less pointless,
  * except to balance out heavy inventory.
  *
- * Note that currently the fastest monster is "Fast (+30)".
+ * Note that currently the fastest creature is "Fast (+30)".
  *
  * It should be possible to lower the energy threshhold from
  * 100 units to 50 units, though this may interact badly with
@@ -2680,8 +2680,8 @@ racial_power racial_powers[MAX_MONSPELLS] =
 { 30,  30,  70,    0,  40, STAT_INT,  "raise dead"},
 { 40,  70,  85,    0,  45, STAT_INT,  "summon aid"},
 { 45,  90,  90,    0,  50, STAT_INT,  "summon Cyberdemons"},
-{ 25,  20,  65,    0,  30, STAT_INT,  "summon a monster"},
-{ 35,  30,  75,    0,  40, STAT_INT,  "summon monsters"},
+{ 25,  20,  65,    0,  30, STAT_INT,  "summon a creature"},
+{ 35,  30,  75,    0,  40, STAT_INT,  "summon creatures"},
 { 25,  25,  65,    0,  25, STAT_INT,  "summon ants"},
 { 25,  20,  60,    0,  25, STAT_INT,  "summon spiders"},
 { 35,  26,  75,    0,  40, STAT_INT,  "summon hounds"},
@@ -2693,7 +2693,7 @@ racial_power racial_powers[MAX_MONSPELLS] =
 { 43,  85,  85,    0,  45, STAT_INT,  "summon Greater Undead"},
 { 46,  90,  85,    0,  45, STAT_INT,  "summon Ancient Dragon"},
 { 48, 120,  90,    0,  50, STAT_INT,  "summon Lords of Amber"},
-{ 50, 150,  95,    0,  50, STAT_INT,  "summon Unique Monsters"},
+{ 50, 150,  95,    0,  50, STAT_INT,  "summon Unique Creatures"},
 #endif
 
 };
@@ -2731,8 +2731,8 @@ cptr racial_powers_short[MAX_MONSPELLS] = {
 
 	"Speed", "Hand of doom", "Heal-self", "Invulnerable", "Blink", "Teleport", "The world", "Something",
 	"Teleport to", "Teleport away", "Teleport level", "Psycho-spear", "Create darkness", "Create traps", "Amnesia", "Raise dead",
-	"Aid", "Cyberdeamons", "A monster", "Monsters", "Ants", "Spiders", "Hounds", "Hydras",
-	"Angel", "Daemon", "Undead", "Dragon", "Greater Undead", "Ancient Dragon", "Lords of Amber", "Unique monsters"
+	"Aid", "Cyberdeamons", "A creature", "Creatures", "Ants", "Spiders", "Hounds", "Hydras",
+	"Angel", "Daemon", "Undead", "Dragon", "Greater Undead", "Ancient Dragon", "Lords of Amber", "Unique creatures"
 
 #endif
 };
@@ -2866,7 +2866,7 @@ cptr window_flag_desc[32] =
 #ifdef JP
 	"クリーチャーの思い出",
 #else
-	"Display monster recall",
+	"Display creature recall",
 #endif
 
 #ifdef JP
@@ -3174,7 +3174,7 @@ option_type option_info[] =
 	"fresh_after",                  "コマンド後に画面を常に再描画し続ける" },
 #else
 	{ &fresh_after,                 FALSE, OPT_PAGE_MAPSCREEN, 1, 24,
-	"fresh_after",                  "Flush output after monster's move" },
+	"fresh_after",                  "Flush output after creature's move" },
 #endif
 
 #ifdef JP
@@ -3304,7 +3304,7 @@ option_type option_info[] =
 	"ignore_unview",                "視界外のクリーチャーの行動を表示しない" },
 #else
 	{ &ignore_unview,               FALSE, OPT_PAGE_TEXT, 2, 13,
-	"ignore_unview",                "Ignore whenever any monster does" },
+	"ignore_unview",                "Ignore whenever any creature does" },
 #endif
 
 	/*** Game-Play ***/
@@ -3446,7 +3446,7 @@ option_type option_info[] =
 	"disturb_move",                 "どこのクリーチャーが動いても行動を中止する" },
 #else
 	{ &disturb_move,                FALSE, OPT_PAGE_DISTURBANCE, 0, 20,
-	"disturb_move",                 "Disturb whenever any monster moves" },
+	"disturb_move",                 "Disturb whenever any creature moves" },
 #endif
 
 #ifdef JP
@@ -3454,7 +3454,7 @@ option_type option_info[] =
 	"disturb_high",                 "レベルの高いクリーチャーが動いたら行動を中止する" },
 #else
 	{ &disturb_high,                FALSE, OPT_PAGE_DISTURBANCE, 1, 3,
-	"disturb_high",                 "Disturb whenever high-level monster moves" },
+	"disturb_high",                 "Disturb whenever high-level creature moves" },
 #endif
 
 #ifdef JP
@@ -3462,7 +3462,7 @@ option_type option_info[] =
 	"disturb_near",                 "視界内のクリーチャーが動いたら行動を中止する" },
 #else
 	{ &disturb_near,                TRUE,  OPT_PAGE_DISTURBANCE, 0, 21,
-	"disturb_near",                 "Disturb whenever viewable monster moves" },
+	"disturb_near",                 "Disturb whenever viewable creature moves" },
 #endif
 
 #ifdef JP
@@ -3536,7 +3536,7 @@ option_type option_info[] =
 	"smart_learn",                  "クリーチャーは失敗を学習する(*)" },
 #else
 	{ &smart_learn,                 TRUE,  OPT_PAGE_BIRTH, 1, 14,
-	"smart_learn",                  "Monsters learn from their mistakes (*)" },
+	"smart_learn",                  "Creatures learn from their mistakes (*)" },
 #endif
 
 #ifdef JP
@@ -3544,7 +3544,7 @@ option_type option_info[] =
 	"smart_cheat",                  "クリーチャーはプレイヤーの弱みを突く(*)" },
 #else
 	{ &smart_cheat,                 FALSE, OPT_PAGE_BIRTH, 1, 15,
-	"smart_cheat",                  "Monsters exploit players weaknesses (*)" },
+	"smart_cheat",                  "Creatures exploit players weaknesses (*)" },
 #endif
 
 #ifdef JP
@@ -3724,7 +3724,7 @@ option_type option_info[] =
 	"record_destroy_uniq",          "ユニーククリーチャーを倒したときを記録する" },
 #else
 	{ &record_destroy_uniq,         TRUE,  OPT_PAGE_PLAYRECORD, 4, 13,
-	"record_destroy_uniq",          "Record when destroy unique monster" },
+	"record_destroy_uniq",          "Record when destroy unique creature" },
 #endif
 
 #ifdef JP
@@ -4237,7 +4237,7 @@ cptr ident_info[] =
 	"':An open door",
 	"(:Soft armor",
 	"):A shield",
-	"*:A vein with treasure or a ball monster",
+	"*:A vein with treasure or a ball creature",
 	"+:A closed door",
 	",:Food (or mushroom patch)",
 	"-:A wand (or rod)",
@@ -4303,7 +4303,7 @@ cptr ident_info[] =
 	"i:Icky Thing",
 	"j:Jelly",
 	"k:Kobold",
-	"l:Aquatic monster",
+	"l:Aquatic creature",
 	"m:Mold",
 	"n:Naga",
 	"o:Orc",
@@ -4329,7 +4329,7 @@ cptr ident_info[] =
 
 
 /*
- * The table of monsters' blow effects
+ * The table of creatures' blow effects
  */
 mbe_info_type mbe_info[] =
 {

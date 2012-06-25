@@ -50,7 +50,7 @@ typedef errr (*parse_reprocess_func)(header *head);
  * these arrays below.  Normally, I try to avoid using unsigned values,
  * since they can cause all sorts of bizarre problems, but I have no
  * choice here, at least, until the "race" array is split into "normal"
- * and "unique" monsters, which may or may not actually help.
+ * and "unique" creatures, which may or may not actually help.
  *
  * Note that, on some machines, for example, the Macintosh, the standard
  * "read()" and "write()" functions cannot handle more than 32767 bytes
