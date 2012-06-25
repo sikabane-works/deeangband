@@ -3211,7 +3211,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Get extra "power" from "extra might" */
 	if (creature_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;

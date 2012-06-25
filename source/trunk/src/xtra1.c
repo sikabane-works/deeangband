@@ -4376,9 +4376,9 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
 	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_damage[0] += ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_damage[1] += ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_damage_m  += ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_damage[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_damage[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->to_hit[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->to_hit[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
@@ -4390,8 +4390,8 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
 	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_damage[0] += ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_damage[1] += ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_damage[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_damage[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->dis_to_hit[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->dis_to_hit[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
@@ -4954,7 +4954,7 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->two_handed && !omoi)
 	{
 		int bonus_to_hit=0, bonus_to_damage=0;
-		bonus_to_damage = ((int)(adj_str_to_damageamage[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
+		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
 		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 
 		creature_ptr->to_hit[default_hand] += MAX(bonus_to_hit,1);

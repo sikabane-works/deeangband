@@ -64,7 +64,7 @@ extern int adj_sav[];
 extern byte adj_dex_dis[];
 extern byte adj_int_dis[];
 extern byte adj_dex_to_ac[];
-extern byte adj_str_to_damageamage[];
+extern byte adj_str_to_damage[];
 extern byte adj_dex_to_hit[];
 extern byte adj_str_to_hit[];
 extern byte adj_str_carrying_weight[];

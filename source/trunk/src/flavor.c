@@ -2383,7 +2383,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		// Get extra "power" from "extra might"
 		if (owner_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_to_damageamage[owner_ptr->stat_ind[STAT_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_to_damage[owner_ptr->stat_ind[STAT_STR]]) - 128);
 
 		// Launcher multiplier
 		avgdam *= tmul;

@@ -749,7 +749,7 @@ byte adj_dex_to_ac[STAT_TABLE_SIZE] =
 /*
  * Stat Table (STR) -- bonus to dam (plus 128)
  */
-byte adj_str_to_damageamage[STAT_TABLE_SIZE] =
+byte adj_str_to_damage[STAT_TABLE_SIZE] =
 {
 	128 + -2    /* 3 */,
 	128 + -2    /* 4 */,
