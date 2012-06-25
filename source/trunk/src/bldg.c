@@ -1219,7 +1219,7 @@ static int do_poker(void)
 #undef SUIT_OF
 #undef NUM_OF
 #undef IS_JOKER
-/* end of poker codes --Koka */
+// end of poker codes --Koka
 
 /*
  * gamble_comm
@@ -1239,9 +1239,9 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 
 	if (cmd == BACT_GAMBLE_RULES)
 	{
-		/* Peruse the gambling help file */
+		// Peruse the gambling help file
 #ifdef JP
-(void)show_file(TRUE, "jgambling.txt", NULL, 0, 0);
+		(void)show_file(TRUE, "jgambling.txt", NULL, 0, 0);
 #else
 		(void)show_file(TRUE, "gambling.txt", NULL, 0, 0);
 #endif
@@ -1273,7 +1273,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 		/* Get the wager */
 		strcpy(out_val, "");
 #ifdef JP
-sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
+		sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
 #else
 		sprintf(tmp_str,"Your wager (1-%ld) ? ", maxbet);
 #endif
@@ -1294,7 +1294,7 @@ sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
 			if (wager > cr_ptr->au)
 			{
 #ifdef JP
-msg_print("おい！金が足りないじゃないか！出ていけ！");
+				msg_print("おい！金が足りないじゃないか！出ていけ！");
 #else
 				msg_print("Hey! You don't have the gold - get out of here!");
 #endif
@@ -1306,7 +1306,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 			else if (wager > maxbet)
 			{
 #ifdef JP
-msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
+				msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
 #else
 				msg_format("I'll take %ld gold of that. Keep the rest.", maxbet);
 #endif
@@ -1316,7 +1316,7 @@ msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
 			else if (wager < 1)
 			{
 #ifdef JP
-msg_print("ＯＫ、１ゴールドからはじめよう。");
+				msg_print("ＯＫ、１ゴールドからはじめよう。");
 #else
 				msg_print("Ok, we'll start with 1 gold.");
 #endif
@@ -1330,7 +1330,7 @@ msg_print("ＯＫ、１ゴールドからはじめよう。");
 			oldgold = cr_ptr->au;
 
 #ifdef JP
-sprintf(tmp_str, "ゲーム前の所持金: %9ld", oldgold);
+			sprintf(tmp_str, "ゲーム前の所持金: %9ld", oldgold);
 #else
 			sprintf(tmp_str, "Gold before game: %9ld", oldgold);
 #endif
@@ -1338,15 +1338,14 @@ sprintf(tmp_str, "ゲーム前の所持金: %9ld", oldgold);
 			prt(tmp_str, 20, 2);
 
 #ifdef JP
-sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
+			sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
 #else
 			sprintf(tmp_str, "Current Wager:    %9ld", wager);
 #endif
 
 			prt(tmp_str, 21, 2);
 
-			/* Prevent savefile-scumming of the casino */
-/*			Rand_quick = TRUE; */
+			// Prevent savefile-scumming of the casino
 			Rand_value = (u32b)time(NULL);
 
 			do
@@ -1361,7 +1360,7 @@ sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
 				{
 				 case BACT_IN_BETWEEN: /* Game of In-Between */
 #ifdef JP
-c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
+					c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
 #else
 					c_put_str(TERM_GREEN, "In Between", 5, 2);
 #endif
@@ -1372,14 +1371,14 @@ c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
 					roll2 = randint1(10);
 					choice = randint1(10);
 #ifdef JP
-sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
+					sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
 #else
 					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
 #endif
 
 					prt(tmp_str, 8, 3);
 #ifdef JP
-sprintf(tmp_str, "赤ダイス: %d", choice);
+					sprintf(tmp_str, "赤ダイス: %d", choice);
 #else
 					sprintf(tmp_str, "Red die: %d", choice);
 #endif
@@ -1391,7 +1390,7 @@ sprintf(tmp_str, "赤ダイス: %d", choice);
 					break;
 				case BACT_CRAPS:  /* Game of Craps */
 #ifdef JP
-c_put_str(TERM_GREEN, "クラップス", 5, 2);
+					c_put_str(TERM_GREEN, "クラップス", 5, 2);
 #else
 					c_put_str(TERM_GREEN, "Craps", 5, 2);
 #endif
@@ -1403,7 +1402,7 @@ c_put_str(TERM_GREEN, "クラップス", 5, 2);
 					roll3 = roll1 +  roll2;
 					choice = roll3;
 #ifdef JP
-sprintf(tmp_str, "１振りめ: %d %d      Total: %d", roll1, 
+					sprintf(tmp_str, "１振りめ: %d %d      Total: %d", roll1, 
 #else
 					sprintf(tmp_str, "First roll: %d %d    Total: %d", roll1,
 #endif
@@ -1418,7 +1417,7 @@ sprintf(tmp_str, "１振りめ: %d %d      Total: %d", roll1,
 						do
 						{
 #ifdef JP
-msg_print("なにかキーを押すともう一回振ります。");
+							msg_print("なにかキーを押すともう一回振ります。");
 #else
 							msg_print("Hit any key to roll again");
 #endif
@@ -1429,7 +1428,7 @@ msg_print("なにかキーを押すともう一回振ります。");
 							roll3 = roll1 +  roll2;
 
 #ifdef JP
-sprintf(tmp_str, "出目: %d %d          合計:      %d",
+							sprintf(tmp_str, "出目: %d %d          合計:      %d",
 #else
 							sprintf(tmp_str, "Roll result: %d %d   Total:     %d",
 #endif
@@ -1447,7 +1446,7 @@ sprintf(tmp_str, "出目: %d %d          合計:      %d",
 					win = FALSE;
 					odds = 9;
 #ifdef JP
-c_put_str(TERM_GREEN, "ルーレット", 5, 2);
+					c_put_str(TERM_GREEN, "ルーレット", 5, 2);
 #else
 					c_put_str(TERM_GREEN, "Wheel", 5, 2);
 #endif
@@ -1456,7 +1455,7 @@ c_put_str(TERM_GREEN, "ルーレット", 5, 2);
 					prt("--------------------------------", 8, 3);
 					strcpy(out_val, "");
 #ifdef JP
-get_string("何番？ (0-9): ", out_val, 32);
+					get_string("何番？ (0-9): ", out_val, 32);
 #else
 					get_string("Pick a number (0-9): ", out_val, 32);
 #endif
@@ -1466,7 +1465,7 @@ get_string("何番？ (0-9): ", out_val, 32);
 					if (choice < 0)
 					{
 #ifdef JP
-msg_print("0番にしとくぜ。");
+						msg_print("0番にしとくぜ。");
 #else
 						msg_print("I'll put you down for 0.");
 #endif
@@ -1476,7 +1475,7 @@ msg_print("0番にしとくぜ。");
 					else if (choice > 9)
 					{
 #ifdef JP
-msg_print("ＯＫ、9番にしとくぜ。");
+						msg_print("ＯＫ、9番にしとくぜ。");
 #else
 						msg_print("Ok, I'll put you down for 9.");
 #endif
@@ -1486,7 +1485,7 @@ msg_print("ＯＫ、9番にしとくぜ。");
 					msg_print(NULL);
 					roll1 = randint0(10);
 #ifdef JP
-sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
+					sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
 #else
 					sprintf(tmp_str, "The wheel spins to a stop and the winner is %d",
 #endif
@@ -1501,7 +1500,7 @@ sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
 
 				case BACT_DICE_SLOTS: /* The Dice Slots */
 #ifdef JP
-c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
+					c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
 					c_put_str(TERM_YELLOW, "レモン   レモン            2", 6, 37);
 					c_put_str(TERM_YELLOW, "レモン   レモン   レモン   5", 7, 37);
 					c_put_str(TERM_ORANGE, "オレンジ オレンジ オレンジ 10", 8, 37);
@@ -1584,14 +1583,14 @@ c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
 				if (win)
 				{
 #ifdef JP
-prt("あなたの勝ち", 16, 37);
+					prt("あなたの勝ち", 16, 37);
 #else
 					prt("YOU WON", 16, 37);
 #endif
 
 					cr_ptr->au += odds * wager;
 #ifdef JP
-sprintf(tmp_str, "倍率: %d", odds);
+					sprintf(tmp_str, "倍率: %d", odds);
 #else
 					sprintf(tmp_str, "Payoff: %d", odds);
 #endif
@@ -1601,7 +1600,7 @@ sprintf(tmp_str, "倍率: %d", odds);
 				else
 				{
 #ifdef JP
-prt("あなたの負け", 16, 37);
+					prt("あなたの負け", 16, 37);
 #else
 					prt("You Lost", 16, 37);
 #endif
@@ -1609,14 +1608,14 @@ prt("あなたの負け", 16, 37);
 					prt("", 17, 37);
 				}
 #ifdef JP
-sprintf(tmp_str, "現在の所持金:     %9ld", cr_ptr->au);
+				sprintf(tmp_str, "現在の所持金:     %9ld", cr_ptr->au);
 #else
 				sprintf(tmp_str, "Current Gold:     %9ld", cr_ptr->au);
 #endif
 
 				prt(tmp_str, 22, 2);
 #ifdef JP
-prt("もう一度(Y/N)？", 18, 37);
+				prt("もう一度(Y/N)？", 18, 37);
 #else
 				prt("Again(Y/N)?", 18, 37);
 #endif
@@ -1629,7 +1628,7 @@ prt("もう一度(Y/N)？", 18, 37);
 				if (wager > cr_ptr->au)
 				{
 #ifdef JP
-msg_print("おい！金が足りないじゃないか！ここから出て行け！");
+					msg_print("おい！金が足りないじゃないか！ここから出て行け！");
 #else
 					msg_print("Hey! You don't have the gold - get out of here!");
 #endif
@@ -1648,7 +1647,7 @@ msg_print("おい！金が足りないじゃないか！ここから出て行け！");
 			if (cr_ptr->au >= oldgold)
 			{
 #ifdef JP
-msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
+				msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
 #else
 				msg_print("You came out a winner! We'll win next time, I'm sure.");
 #endif
@@ -1656,7 +1655,7 @@ msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
 			else
 			{
 #ifdef JP
-msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
+				msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
 #else
 				msg_print("You lost gold! Haha, better head home.");
 #endif
@@ -1674,10 +1673,6 @@ static bool vault_aux_battle(int species_idx)
 	int dam = 0;
 
 	species_type *r_ptr = &species_info[species_idx];
-
-	
-/*	if (!species_hook_dungeon(species_idx)) return FALSE; // Decline town creatures */
-
 	
 	if (is_unique_species(r_ptr)) return (FALSE); // Decline unique creatures
 	if (is_never_move_species(r_ptr)) return (FALSE);
@@ -1757,7 +1752,7 @@ void battle_creatures(void)
 			if (species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
-		for (i=0;i<4;i++)
+		for (i = 0; i < 4; i++)
 		{
 			species_type *r_ptr = &species_info[battle_mon[i]];
 			int num_taisei = 0;
@@ -1998,9 +1993,9 @@ static bool kakutoujou(creature_type *cr_ptr)
 			else bell();
 		}
 
-		clear_bldg(4,4);
-		for (i=0;i<4;i++)
-			if (i !=sel_creature) clear_bldg(i+5,i+5);
+		clear_bldg(4, 4);
+		for(i = 0; i < 4; i++)
+			if (i != sel_creature) clear_bldg(i + 5, i + 5);
 
 		maxbet = cr_ptr->lev * 200;
 
@@ -2010,7 +2005,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 		/* Get the wager */
 		strcpy(out_val, "");
 #ifdef JP
-sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
+		sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
 #else
 		sprintf(tmp_str,"Your wager (1-%ld) ? ", maxbet);
 #endif
