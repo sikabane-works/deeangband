@@ -1474,7 +1474,7 @@ byte adj_con_mhp[STAT_TABLE_SIZE] =
 /*
  * Stat Table (DR) -- plus maximum of hit dices)
  */
-int adj_dr_mhp[] =
+int adj_dr_mhp[DR_TABLE_SIZE] =
 {
 	1, /* 0 */
 
@@ -1520,7 +1520,7 @@ int adj_dr_mhp[] =
 /*
  * Stat Table (DR) -- plus saving)
  */
-int adj_dr_saving[] =
+int adj_dr_saving[DR_TABLE_SIZE] =
 {
 	5, /* 0 */
 
@@ -1565,7 +1565,7 @@ int adj_dr_saving[] =
 /*
  * Stat Table (DR) -- plus speed)
  */
-int adj_dr_speed[] =
+int adj_dr_speed[DR_TABLE_SIZE] =
 {
 	0, /* 0 */
 
@@ -1611,7 +1611,7 @@ int adj_dr_speed[] =
 /*
  * Stat Table (DR) -- plus AC)
  */
-int adj_dr_ac[] =
+int adj_dr_ac[DR_TABLE_SIZE] =
 {
 	10, /* 0 */
 

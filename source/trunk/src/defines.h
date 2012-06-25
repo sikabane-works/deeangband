@@ -230,13 +230,13 @@
 #define MAX_WEAPONS            8
 #define MAX_SPECIAL_BLOWS      4
 
-/* Number of entries in the sanity-blast descriptions */
+// Number of entries in the sanity-blast descriptions
 #define MAX_SAN_HORROR   20
 #define MAX_SAN_DELIGHT  20
 #define MAX_SAN_FUNNY    22
 #define MAX_SAN_COMMENT  5
 
-/* Chaos Warrior: Reward types: */
+// Chaos Warrior: Reward types:
 #define REW_POLY_SLF    1
 #define REW_GAIN_EXP    2
 #define REW_LOSE_EXP    3
@@ -276,15 +276,15 @@
 
 /* TRAITS */
 
-/* TRAIT TYPES */
+// TRAIT TYPES
 #define TRAITTYPE_MUTATION            0
 #define TRAITTYPE_UNDEAD              10
 #define TRAITTYPE_ELDAR_LINGAGE       20
 #define TRAITTYPE_DRAGONBONE_LINGAGE  21
 #define TRAITTYPE_GREAT_ANCESTOR      22
 
-
 #define STAT_TABLE_SIZE 58
+#define DR_TABLE_SIZE 31
 
 // Monk martial arts...
 #define MAX_MA 17
