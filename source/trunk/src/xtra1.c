@@ -2743,6 +2743,123 @@ static void calc_lite(creature_type *creature_ptr)
 	}
 }
 
+static void set_class_bonuses(creature_type *creature_ptr)
+{
+	switch (creature_ptr->cls_idx)
+	{
+		case CLASS_WARRIOR:
+			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
+			break;
+
+		case CLASS_PALADIN:
+			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
+			break;
+
+		case CLASS_CHAOS_WARRIOR:
+			if (creature_ptr->lev > 29) creature_ptr->resist_chaos = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
+			break;
+
+		case CLASS_MINDCRAFTER:
+			if (creature_ptr->lev >  9) creature_ptr->resist_fear = TRUE;
+			if (creature_ptr->lev > 19) creature_ptr->sustain_wis = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->resist_conf = TRUE;
+			if (creature_ptr->lev > 39) creature_ptr->telepathy = TRUE;
+			break;
+
+		case CLASS_MONK:
+		case CLASS_FORCETRAINER:
+			/* Unencumbered Monks become faster every 10 levels */
+			if (!(heavy_armor(creature_ptr)))
+			{
+				if (!(race_is_(creature_ptr, RACE_KLACKON) || race_is_(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+					creature_ptr->speed += (creature_ptr->lev) / 10;
+
+				// Free action if unencumbered at level 25
+				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE;
+			}
+			break;
+
+		case CLASS_SORCERER:
+			creature_ptr->to_ac -= 50;
+			creature_ptr->dis_to_ac -= 50;
+			break;
+
+		case CLASS_BARD:
+			creature_ptr->resist_sound = TRUE;
+			break;
+
+		case CLASS_SAMURAI:
+			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
+			break;
+
+		case CLASS_BERSERKER:
+			creature_ptr->shero = 1;
+			creature_ptr->sustain_str = TRUE;
+			creature_ptr->sustain_dex = TRUE;
+			creature_ptr->sustain_con = TRUE;
+			creature_ptr->regenerate = TRUE;
+			creature_ptr->free_act = TRUE;
+			creature_ptr->speed += 2;
+			if (creature_ptr->lev > 29) creature_ptr->speed++;
+			if (creature_ptr->lev > 39) creature_ptr->speed++;
+			if (creature_ptr->lev > 44) creature_ptr->speed++;
+			if (creature_ptr->lev > 49) creature_ptr->speed++;
+			creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
+			creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
+			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
+			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
+			play_redraw |= PR_STATUS;
+			break;
+
+		case CLASS_MIRROR_MASTER:
+			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
+			break;
+
+		case CLASS_NINJA:
+			// Unencumbered Ninjas become faster every 10 levels
+			if (heavy_armor(creature_ptr))
+			{
+				creature_ptr->speed -= (creature_ptr->lev) / 10;
+				creature_ptr->skill_stl -= (creature_ptr->lev)/10;
+			}
+			else if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
+			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
+			{
+				creature_ptr->speed += 3;
+				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
+				      race_is_(creature_ptr, RACE_SPRITE) ||
+				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+					creature_ptr->speed += (creature_ptr->lev) / 10;
+				creature_ptr->skill_stl += (creature_ptr->lev)/10;
+
+				/* Free action if unencumbered at level 25 */
+				if  (creature_ptr->lev > 24)
+					creature_ptr->free_act = TRUE;
+			}
+			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
+			{
+				creature_ptr->to_ac += creature_ptr->lev/2+5;
+				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
+			}
+			creature_ptr->slow_digest = TRUE;
+			creature_ptr->resist_fear = TRUE;
+
+			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
+			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
+			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
+			if (creature_ptr->lev > 44)
+			{
+				creature_ptr->oppose_pois = 1;
+				play_redraw |= PR_STATUS;
+			}
+			creature_ptr->see_nocto = TRUE;
+			break;
+	}
+}
+
 /*
  * Calculate the players current "state", taking into account
  * not only race/class intrinsics, but also objects being worn
@@ -3153,122 +3270,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
-	switch (creature_ptr->cls_idx)
-	{
-		case CLASS_WARRIOR:
-			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
-			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
-			break;
-
-		case CLASS_PALADIN:
-			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
-			break;
-
-		case CLASS_CHAOS_WARRIOR:
-			if (creature_ptr->lev > 29) creature_ptr->resist_chaos = TRUE;
-			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
-			break;
-
-		case CLASS_MINDCRAFTER:
-			if (creature_ptr->lev >  9) creature_ptr->resist_fear = TRUE;
-			if (creature_ptr->lev > 19) creature_ptr->sustain_wis = TRUE;
-			if (creature_ptr->lev > 29) creature_ptr->resist_conf = TRUE;
-			if (creature_ptr->lev > 39) creature_ptr->telepathy = TRUE;
-			break;
-
-		case CLASS_MONK:
-		case CLASS_FORCETRAINER:
-			/* Unencumbered Monks become faster every 10 levels */
-			if (!(heavy_armor(creature_ptr)))
-			{
-				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
-				      race_is_(creature_ptr, RACE_SPRITE) ||
-				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
-					new_speed += (creature_ptr->lev) / 10;
-
-				/* Free action if unencumbered at level 25 */
-				if  (creature_ptr->lev > 24)
-					creature_ptr->free_act = TRUE;
-			}
-			break;
-
-		case CLASS_SORCERER:
-			creature_ptr->to_ac -= 50;
-			creature_ptr->dis_to_ac -= 50;
-			break;
-
-		case CLASS_BARD:
-			creature_ptr->resist_sound = TRUE;
-			break;
-
-		case CLASS_SAMURAI:
-			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
-			break;
-
-		case CLASS_BERSERKER:
-			creature_ptr->shero = 1;
-			creature_ptr->sustain_str = TRUE;
-			creature_ptr->sustain_dex = TRUE;
-			creature_ptr->sustain_con = TRUE;
-			creature_ptr->regenerate = TRUE;
-			creature_ptr->free_act = TRUE;
-			new_speed += 2;
-			if (creature_ptr->lev > 29) new_speed++;
-			if (creature_ptr->lev > 39) new_speed++;
-			if (creature_ptr->lev > 44) new_speed++;
-			if (creature_ptr->lev > 49) new_speed++;
-			creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
-			creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
-			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
-			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
-			play_redraw |= PR_STATUS;
-			break;
-
-		case CLASS_MIRROR_MASTER:
-			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
-			break;
-
-		case CLASS_NINJA:
-			// Unencumbered Ninjas become faster every 10 levels
-			if (heavy_armor(creature_ptr))
-			{
-				new_speed -= (creature_ptr->lev) / 10;
-				creature_ptr->skill_stl -= (creature_ptr->lev)/10;
-			}
-			else if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
-			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
-			{
-				new_speed += 3;
-				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
-				      race_is_(creature_ptr, RACE_SPRITE) ||
-				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
-					new_speed += (creature_ptr->lev) / 10;
-				creature_ptr->skill_stl += (creature_ptr->lev)/10;
-
-				/* Free action if unencumbered at level 25 */
-				if  (creature_ptr->lev > 24)
-					creature_ptr->free_act = TRUE;
-			}
-			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
-			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
-			{
-				creature_ptr->to_ac += creature_ptr->lev/2+5;
-				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
-			}
-			creature_ptr->slow_digest = TRUE;
-			creature_ptr->resist_fear = TRUE;
-
-			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
-			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
-			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
-			if (creature_ptr->lev > 44)
-			{
-				creature_ptr->oppose_pois = 1;
-				play_redraw |= PR_STATUS;
-			}
-			creature_ptr->see_nocto = TRUE;
-			break;
-	}
+	set_class_bonuses(creature_ptr);
 
 	/***** Races ****/
 
@@ -5352,7 +5354,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	// TODO: Evasion was adjusted by speed and size.
 	// creature_ptr->skill_eva += (creature_ptr->speed * creature_ptr->size / 5);
-
 
 }
 
