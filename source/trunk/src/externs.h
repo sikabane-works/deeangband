@@ -102,7 +102,6 @@ extern cptr stat_names_reduced[6];
 extern cptr window_flag_desc[32];
 extern option_type option_info[];
 extern martial_arts ma_blows[MAX_MA];
-extern int monk_ave_damage[PY_MAX_LEVEL+1][3];
 extern cptr game_inscriptions[];
 extern kamae kamae_shurui[MAX_KAMAE];
 extern kamae kata_shurui[MAX_KATA];
