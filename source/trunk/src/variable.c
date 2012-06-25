@@ -1116,8 +1116,6 @@ u32b start_time;
 u16b panic_save;	  /* Panic save */
 u16b noscore;		  /* Cheating flags */
 
-int tsuri_dir;
-
 bool sukekaku;
 bool new_mane;
 

@@ -5333,7 +5333,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (!get_rep_dir2(creature_ptr, &dir)) return;
 				y = creature_ptr->fy+ddy[dir];
 				x = creature_ptr->fx+ddx[dir];
-				tsuri_dir = dir;
+				creature_ptr->tsuri_dir = dir;
 				if (!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
 				{
 #ifdef JP

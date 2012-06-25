@@ -553,7 +553,6 @@ extern u32b start_time;
 extern u16b panic_save;	  /* Panic save */
 extern u16b noscore;		  /* Cheating flags */
 
-extern int tsuri_dir;
 extern bool sukekaku;
 extern bool new_mane;
 extern bool mon_fight;

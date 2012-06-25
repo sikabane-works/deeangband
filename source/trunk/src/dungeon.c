@@ -5393,8 +5393,8 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			if (species_idx && one_in_(2))
 			{
 				int y, x;
-				y = creature_ptr->fy+ddy[tsuri_dir];
-				x = creature_ptr->fx+ddx[tsuri_dir];
+				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
+				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
 				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
