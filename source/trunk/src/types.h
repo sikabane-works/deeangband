@@ -1580,7 +1580,7 @@ struct creature_type
 
 	byte tval_ammo;		/* Correct ammo tval */
 
-	byte speed;		/* speed */
+	s16b speed;		/* speed */
 
 	byte fy;		/* Y location on map */
 	byte fx;		/* X location on map */

@@ -3421,8 +3421,7 @@ s = "”ä‚×‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	if (o1_ptr != i_ptr)
 		object_copy(i_ptr, o1_ptr);
 
-	/* Get the new values */
-	set_creature_bonuses(cr_ptr, TRUE);
+	set_creature_bonuses(cr_ptr, TRUE); // Get the new values
 
 	/* List the new values */
 	list_weapon(cr_ptr, o1_ptr, row, 2);
@@ -3434,11 +3433,9 @@ s = "”ä‚×‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	else
 		object_copy(i_ptr, &orig_weapon);
 
-	/* Get the new values */
-	set_creature_bonuses(cr_ptr, TRUE);
+	set_creature_bonuses(cr_ptr, TRUE); // Get the new values
+	list_weapon(cr_ptr, o2_ptr, row, 40); // List the new values
 
-	/* List the new values */
-	list_weapon(cr_ptr, o2_ptr, row, 40);
 	compare_weapon_aux1(cr_ptr, o2_ptr, 40, row + 8);
 
 	/* Copy back the original weapon into the weapon slot */

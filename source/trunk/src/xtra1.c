@@ -2770,14 +2770,11 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
-			/* Unencumbered Monks become faster every 10 levels */
-			if (!(heavy_armor(creature_ptr)))
+			if (!(heavy_armor(creature_ptr))) // Unencumbered Monks become faster every 10 levels
 			{
 				if (!(race_is_(creature_ptr, RACE_KLACKON) || race_is_(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
-
-				// Free action if unencumbered at level 25
-				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE;
+				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE; // Free action if unencumbered at level 25
 			}
 			break;
 
@@ -2802,13 +2799,16 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->regenerate = TRUE;
 			creature_ptr->free_act = TRUE;
 			creature_ptr->speed += 2;
+
 			if (creature_ptr->lev > 29) creature_ptr->speed++;
 			if (creature_ptr->lev > 39) creature_ptr->speed++;
 			if (creature_ptr->lev > 44) creature_ptr->speed++;
 			if (creature_ptr->lev > 49) creature_ptr->speed++;
+
 			creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
 			creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
 			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
+
 			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
 			play_redraw |= PR_STATUS;
 			break;
@@ -2883,7 +2883,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
 	int             i, j, k, hold;
-	int             new_speed;
 	int             body_size;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
@@ -2950,7 +2949,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->dis_to_ev = creature_ptr->to_ev = 0;
 	creature_ptr->to_hit_m = 0;
 	creature_ptr->to_damage_m = 0;
-
 	creature_ptr->to_m_chance = 0;
 
 	/* Clear the Extra Dice Bonuses */
@@ -2961,8 +2959,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->to_acr[0] = creature_ptr->to_acr[0] = 100; 
 
 	/* Start with "normal" speed */
-	new_speed = 110;
-	if(creature_ptr->dr >= 0) new_speed += adj_dr_speed[creature_ptr->dr];
+	creature_ptr->speed = 110;
+	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];
 
 	/* Plus AC on Divine Rank */
 	if(creature_ptr->dr >= 0){
@@ -3083,7 +3081,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	// species adjust
 	creature_ptr->ac += species_ptr->ac;
 	creature_ptr->dis_ac += species_ptr->ac;
-	new_speed += species_ptr->speed;
+	creature_ptr->speed += species_ptr->speed;
 
 	if(IS_PURE(creature_ptr))
 	{
@@ -3282,12 +3280,12 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if(IS_RACE(creature_ptr, RACE_SPRITE))
 		{
 			creature_ptr->levitation = TRUE;
-			new_speed += (creature_ptr->lev) / 10;
+			creature_ptr->speed += (creature_ptr->lev) / 10;
 		}
 
 		if(IS_RACE(creature_ptr, RACE_KLACKON))
 		{
-			new_speed += (creature_ptr->lev) / 10;
+			creature_ptr->speed += (creature_ptr->lev) / 10;
 		}
 
 		//TODO
@@ -3379,7 +3377,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE))
 			/* Munchkin become faster */
-			new_speed += (creature_ptr->lev) / 10 + 5;
+			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
 
 	if (music_singing(creature_ptr, MUSIC_WALL))
@@ -3599,7 +3597,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		/* Affect digging (factor of 20) */
 		if (have_flag(flgs, TR_TUNNEL)) creature_ptr->skill_dig += (o_ptr->pval * 20);
 
-		if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
+		if (have_flag(flgs, TR_SPEED)) creature_ptr->speed += o_ptr->pval;
 
 		/* Affect blows */
 		if (have_flag(flgs, TR_BLOWS))
@@ -3985,7 +3983,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK))
 		{
 			creature_ptr->sh_elec = TRUE;
-			new_speed += 3;
+			creature_ptr->speed += 3;
 		}
 		for (i = 0; i <= INVEN_TOTAL; i++)
 		{
@@ -4170,13 +4168,13 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Temporary "fast" */
 	if (IS_FAST(creature_ptr))
 	{
-		new_speed += 10;
+		creature_ptr->speed += 10;
 	}
 
 	/* Temporary "slow" */
 	if (creature_ptr->slow)
 	{
-		new_speed -= 10;
+		creature_ptr->speed -= 10;
 	}
 
 	/* Temporary "telepathy" */
@@ -4263,9 +4261,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	}
 
 	/* Bloating slows the player down (a little) */
-	if (creature_ptr->food >= PY_FOOD_MAX) new_speed -= 10;
+	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10;
 
-	if (creature_ptr->special_defense & KAMAE_SUZAKU) new_speed += 10;
+	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 
 	if ((creature_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
 	    (creature_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
@@ -4287,7 +4285,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
-			new_speed += 7;
+			creature_ptr->speed += 7;
 			creature_ptr->to_ac += 10;
 			creature_ptr->dis_to_ac += 10;
 		}
@@ -4340,16 +4338,16 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 		if (riding_m_ptr->speed > 110)
 		{
-			new_speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
-			if (new_speed < 110) new_speed = 110;
+			creature_ptr->speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
+			if (creature_ptr->speed < 110) creature_ptr->speed = 110;
 		}
 		else
 		{
-			new_speed = speed;
+			creature_ptr->speed = speed;
 		}
-		new_speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L)/3200;
-		if (riding_m_ptr->fast) new_speed += 10;
-		if (riding_m_ptr->slow) new_speed -= 10;
+		creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
+		if (riding_m_ptr->fast) creature_ptr->speed += 10;
+		if (riding_m_ptr->slow) creature_ptr->speed -= 10;
 		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
 		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
 
@@ -4364,10 +4362,10 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	/* XXX XXX XXX Apply "encumbrance" from weight */
 	//TODO CHECK
-	if (j > i) new_speed -= ((j - i) / (i / 5 + 1));
+	if (j > i) creature_ptr->speed -= ((j - i) / (i / 5 + 1));
 
 	/* Searching slows the player down */
-	if (creature_ptr->action == ACTION_SEARCH) new_speed -= 10;
+	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
 	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
@@ -4912,18 +4910,18 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	/* Maximum speed is (+99). (internally it's 110 + 99) */
 	/* Temporary lightspeed forces to be maximum speed */
-	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (new_speed > 209))
+	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (creature_ptr->speed > 209))
 	{
-		new_speed = 209;
+		creature_ptr->speed = 209;
 	}
 
 	/* Minimum speed is (-99). (internally it's 110 - 99) */
-	if (new_speed < 11) new_speed = 11;
+	if (creature_ptr->speed < 11) creature_ptr->speed = 11;
 
 	/* Display the speed (if needed) */
-	if (creature_ptr->speed != (byte)new_speed)
+	if (creature_ptr->speed != (byte)creature_ptr->speed)
 	{
-		creature_ptr->speed = (byte)new_speed;
+		creature_ptr->speed = (byte)creature_ptr->speed;
 		play_redraw |= (PR_SPEED);
 	}
 
