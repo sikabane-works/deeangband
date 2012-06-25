@@ -155,7 +155,7 @@ byte adj_mag_study[STAT_TABLE_SIZE] =
 /*
  * Stat Table (INT/WIS) -- extra 1/4-mana-points per level
  */
-byte adj_mag_mana[] =
+byte adj_mag_mana[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */,
 	0       /* 4 */,
@@ -221,7 +221,7 @@ byte adj_mag_mana[] =
 /*
  * Stat Table (INT/WIS) -- Minimum failure rate (percentage)
  */
-byte adj_mag_fail[] =
+byte adj_mag_fail[STAT_TABLE_SIZE] =
 {
 	99      /* 3 */,
 	99      /* 4 */,
@@ -287,7 +287,7 @@ byte adj_mag_fail[] =
 /*
  * Stat Table (INT/WIS) -- Various things
  */
-byte adj_mag_stat[] =
+byte adj_mag_stat[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */,
 	0       /* 4 */,
@@ -353,7 +353,7 @@ byte adj_mag_stat[] =
 /*
  * Stat Table (CHR) -- payment percentages
  */
-byte adj_chr_gold[] =
+byte adj_chr_gold[STAT_TABLE_SIZE] =
 {
 	130     /* 3 */,
 	125     /* 4 */,
@@ -419,7 +419,7 @@ byte adj_chr_gold[] =
 /*
  * Stat Table (INT) -- Magic devices
  */
-byte adj_int_dev[] =
+byte adj_int_dev[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */,
 	0       /* 4 */,
@@ -485,7 +485,7 @@ byte adj_int_dev[] =
 /*
  * Stat Table -- Saving throw
  */
-int adj_sav[] =
+int adj_sav[STAT_TABLE_SIZE] =
 {
 	-10     /* 3 */,
 	-9      /* 4 */,
@@ -551,7 +551,7 @@ int adj_sav[] =
 /*
  * Stat Table (DEX) -- disarming
  */
-byte adj_dex_dis[] =
+byte adj_dex_dis[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */,
 	0       /* 4 */,
@@ -617,7 +617,7 @@ byte adj_dex_dis[] =
 /*
  * Stat Table (INT) -- disarming
  */
-byte adj_int_dis[] =
+byte adj_int_dis[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */,
 	0       /* 4 */,
@@ -683,7 +683,7 @@ byte adj_int_dis[] =
 /*
  * Stat Table (DEX) -- bonus to ac (plus 128)
  */
-byte adj_dex_to_ac[] =
+byte adj_dex_to_ac[STAT_TABLE_SIZE] =
 {
 	128 + -4    /* 3 */,
 	128 + -3    /* 4 */,
@@ -749,7 +749,7 @@ byte adj_dex_to_ac[] =
 /*
  * Stat Table (STR) -- bonus to dam (plus 128)
  */
-byte adj_str_to_damageamage[] =
+byte adj_str_to_damageamage[STAT_TABLE_SIZE] =
 {
 	128 + -2    /* 3 */,
 	128 + -2    /* 4 */,
@@ -815,7 +815,7 @@ byte adj_str_to_damageamage[] =
 /*
  * Stat Table (DEX) -- bonus to hit (plus 128)
  */
-byte adj_dex_to_hitit[] =
+byte adj_dex_to_hitit[STAT_TABLE_SIZE] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -881,7 +881,7 @@ byte adj_dex_to_hitit[] =
 /*
  * Stat Table (STR) -- bonus to hit (plus 128)
  */
-byte adj_str_to_hitit[] =
+byte adj_str_to_hitit[STAT_TABLE_SIZE] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -947,7 +947,7 @@ byte adj_str_to_hitit[] =
 /*
  * Stat Table (STR) -- weight limit in deca-pounds
  */
-byte adj_str_carrying_weight[] =
+byte adj_str_carrying_weight[STAT_TABLE_SIZE] =
 {
 	10      /* 3 */,
 	11      /* 4 */,
@@ -1013,7 +1013,7 @@ byte adj_str_carrying_weight[] =
 /*
  * Stat Table (STR) -- weapon weight limit in pounds
  */
-byte adj_str_equipping_weight[] =
+byte adj_str_equipping_weight[STAT_TABLE_SIZE] =
 {
 	4      /* 3 */,
 	5      /* 4 */,
@@ -1079,7 +1079,7 @@ byte adj_str_equipping_weight[] =
 /*
  * Stat Table (STR) -- digging value
  */
-byte adj_str_dig[] =
+byte adj_str_dig[STAT_TABLE_SIZE] =
 {
 	0      /* 3 */, 
 	0      /* 4 */, 
@@ -1145,7 +1145,7 @@ byte adj_str_dig[] =
 /*
  * Stat Table (STR) -- help index into the "blow" table
  */
-byte adj_str_blow[] =
+byte adj_str_blow[STAT_TABLE_SIZE] =
 {
 	3     /* 3 */, 
 	4     /* 4 */, 
@@ -1211,7 +1211,7 @@ byte adj_str_blow[] =
 /*
  * Stat Table (DEX) -- index into the "blow" table
  */
-byte adj_dex_blow[] =
+byte adj_dex_blow[STAT_TABLE_SIZE] =
 {
 	0      /* 3 */, 
 	0      /* 4 */, 
@@ -1277,7 +1277,7 @@ byte adj_dex_blow[] =
 /*
  * Stat Table (DEX) -- chance of avoiding "theft" and "falling"
  */
-byte adj_dex_safe[] =
+byte adj_dex_safe[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */, 
 	1       /* 4 */, 
@@ -1343,7 +1343,7 @@ byte adj_dex_safe[] =
 /*
  * Stat Table (CON) -- base regeneration rate
  */
-byte adj_con_fix[] =
+byte adj_con_fix[STAT_TABLE_SIZE] =
 {
 	0       /* 3 */, 
 	0       /* 4 */, 
@@ -1409,7 +1409,7 @@ byte adj_con_fix[] =
 /*
  * Stat Table (CON) -- extra 1/4-hitpoints per level (plus 128)
  */
-byte adj_con_mhp[] =
+byte adj_con_mhp[STAT_TABLE_SIZE] =
 {
 	128 + -16 /* 3.0 */,
 	128 + -14 /* 4.0 */,
@@ -1658,7 +1658,7 @@ int adj_dr_ac[] =
 /*
  * Stat Table (CHR) -- charm
  */
-byte adj_chr_chm[] =
+byte adj_chr_chm[STAT_TABLE_SIZE] =
 {
 	0      /* 3 */, 
 	0      /* 4 */, 
