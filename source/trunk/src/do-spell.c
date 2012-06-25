@@ -11435,7 +11435,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (desc) return "j•Ÿ‚É‚æ‚èUŒ‚¸“x‚Æ–hŒä—Í‚ªã‚ª‚éB";
 #else
 		if (name) return "Evily blessing";
-		if (desc) return "Attempts to increase +to_hitit of a weapon and AC";
+		if (desc) return "Attempts to increase +to_hit of a weapon and AC";
 #endif
 		if (cast)
 		{

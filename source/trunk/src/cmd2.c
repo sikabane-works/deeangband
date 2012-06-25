@@ -4334,7 +4334,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (return_when_thrown)
 	{
-		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hitit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
 

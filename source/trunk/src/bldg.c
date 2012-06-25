@@ -3292,7 +3292,7 @@ static void list_weapon(creature_type *cr_ptr, object_type *o_ptr, int row, int 
 
 	put_str(tmp_str, row+1, col);
 
-	/* Print to_hitit and to_damageam of the weapon */
+	/* Print to_hit and to_damageam of the weapon */
 #ifdef JP
 sprintf(tmp_str, "–½’†—¦:  0  50 100 150 200 (“G‚ÌAC)");
 #else
@@ -3695,7 +3695,7 @@ static bool resize_item(creature_type *cr_ptr)
 /*
  * Enchant item
  */
-static bool enchant_item(creature_type *cr_ptr, int cost, int to_hitit, int to_damageam, int to_ac, int item_tester_tval)
+static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_damageam, int to_ac, int item_tester_tval)
 {
 	int         i, item;
 	bool        okay = FALSE;
@@ -3741,7 +3741,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hitit, int to_d
 	}
 
 	/* Enchant to hit */
-	for (i = 0; i < to_hitit; i++)
+	for (i = 0; i < to_hit; i++)
 	{
 		if (o_ptr->to_hit < maxenchant)
 		{

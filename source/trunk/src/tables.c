@@ -815,7 +815,7 @@ byte adj_str_to_damageamage[STAT_TABLE_SIZE] =
 /*
  * Stat Table (DEX) -- bonus to hit (plus 128)
  */
-byte adj_dex_to_hitit[STAT_TABLE_SIZE] =
+byte adj_dex_to_hit[STAT_TABLE_SIZE] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
@@ -881,7 +881,7 @@ byte adj_dex_to_hitit[STAT_TABLE_SIZE] =
 /*
  * Stat Table (STR) -- bonus to hit (plus 128)
  */
-byte adj_str_to_hitit[STAT_TABLE_SIZE] =
+byte adj_str_to_hit[STAT_TABLE_SIZE] =
 {
 	128 + -3    /* 3 */,
 	128 + -2    /* 4 */,
