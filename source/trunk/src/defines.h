@@ -284,16 +284,17 @@
 #define TRAITTYPE_GREAT_ANCESTOR      22
 
 
+#define STAT_TABLE_SIZE 58
 
-/* Monk martial arts... */
-# define MAX_MA 17
-# define MA_KNEE 1
-# define MA_SLOW 2
+// Monk martial arts...
+#define MAX_MA 17
+#define MA_KNEE 1
+#define MA_SLOW 2
 
-/* Mindcraft */
+// Mindcraft
 #define MAX_MIND_POWERS  21
 
-/* Hallucination stuff */
+// Hallucination stuff
 #ifdef JP
 #define MAX_SILLY_ATTACK 43
 #else

@@ -89,7 +89,7 @@ cptr color_char = "dwsorgbuDWvyRGBU";
 /*
  * Stat Table (INT/WIS) -- Number of half-spells per level
  */
-byte adj_mag_study[] =
+byte adj_mag_study[STAT_TABLE_SIZE] =
 {
 	0	/* 3 */,
 	0	/* 4 */,
