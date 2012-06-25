@@ -1,20 +1,18 @@
-/* File: bldg.c */
+// File: bldg.c
 
-/*
- * Purpose: Building commands
- * Created by Ken Wigle for Kangband - a variant of Angband 2.8.3
- * -KMW-
- *
- * Rewritten for Kangband 2.8.3i using Kamband's version of
- * bldg.c as written by Ivan Tkatchev
- *
- * Changed for ZAngband by Robert Ruehlmann
- * Changed fot D'angband by Deskull
- */
+// Purpose: Building commands
+// Created by Ken Wigle for Kangband - a variant of Angband 2.8.3
+// -KMW-
+//
+// Rewritten for Kangband 2.8.3i using Kamband's version of
+// bldg.c as written by Ivan Tkatchev
+//
+// Changed for ZAngband by Robert Ruehlmann
+// Changed for D'angband by Deskull
 
 #include "angband.h"
 
-/* hack as in leave_store in store.c */
+// hack as in leave_store in store.c
 static bool leave_bldg = FALSE;
 
 static bool is_owner(creature_type *cr_ptr, building_type *bldg)
@@ -77,10 +75,8 @@ static bool is_member(creature_type *cr_ptr, building_type *bldg)
  */
 static void clear_bldg(int min_row, int max_row)
 {
-	int   i;
-
-	for (i = min_row; i <= max_row; i++)
-		prt("", i, 0);
+	int i;
+	for (i = min_row; i <= max_row; i++) prt("", i, 0);
 }
 
 static void building_prt_gold(creature_type *cr_ptr)
@@ -88,11 +84,10 @@ static void building_prt_gold(creature_type *cr_ptr)
 	char tmp_str[80];
 
 #ifdef JP
-prt("手持ちのお金: ", 23,53);
+	prt("手持ちのお金: ", 23,53);
 #else
 	prt("Gold Remaining: ", 23, 53);
 #endif
-
 
 	sprintf(tmp_str, "%9ld", (long)cr_ptr->au);
 	prt(tmp_str, 23, 68);
@@ -115,7 +110,6 @@ static void show_building(creature_type *cr_ptr, building_type* bldg)
 	sprintf(tmp_str, "%s (%s)", bldg->ownespecies_name, bldg->owner_race);
 	prt(tmp_str, 3, 5);
 
-
 	for (i = 0; i < 8; i++)
 	{
 		if (bldg->letters[i])
@@ -132,21 +126,19 @@ static void show_building(creature_type *cr_ptr, building_type* bldg)
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
-sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 #else
 					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
 #endif
-
 				}
 				else
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
-sprintf(buff, "($%ld)", bldg->other_costs[i]);
+					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 #else
 					sprintf(buff, "(%ldgp)", bldg->other_costs[i]);
 #endif
-
 				}
 			}
 			else if (bldg->action_restr[i] == 1)
@@ -155,7 +147,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
-strcpy(buff, "(閉店)");
+					strcpy(buff, "(閉店)");
 #else
 					strcpy(buff, "(closed)");
 #endif
@@ -171,7 +163,7 @@ strcpy(buff, "(閉店)");
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
-sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 #else
 					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
 #endif
@@ -181,7 +173,7 @@ sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
-sprintf(buff, "($%ld)", bldg->other_costs[i]);
+					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 #else
 					sprintf(buff, "(%ldgp)", bldg->other_costs[i]);
 #endif
@@ -194,7 +186,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
-strcpy(buff, "(閉店)");
+					strcpy(buff, "(閉店)");
 #else
 					strcpy(buff, "(closed)");
 #endif
@@ -204,7 +196,7 @@ strcpy(buff, "(閉店)");
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
-sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 #else
 					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
 #endif
@@ -223,13 +215,12 @@ sprintf(buff, "($%ld)", bldg->member_costs[i]);
 	}
 
 #ifdef JP
-prt(" ESC) 建物を出る", 23, 0);
+	prt(" ESC) 建物を出る", 23, 0);
 #else
 	prt(" ESC) Exit building", 23, 0);
 #endif
 
 }
-
 
 /*
  * arena commands
@@ -239,7 +230,6 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 	species_type    *r_ptr;
 	cptr            name;
 
-
 	switch (cmd)
 	{
 		case BACT_ARENA:
@@ -247,9 +237,9 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 			{
 				clear_bldg(5, 19);
 #ifdef JP
-prt("アリーナの優勝者！", 5, 0);
-prt("おめでとう！あなたは全ての敵を倒しました。", 7, 0); 
-prt("賞金として $1,000,000 が与えられます。", 8, 0);
+				prt("アリーナの優勝者！", 5, 0);
+				prt("おめでとう！あなたは全ての敵を倒しました。", 7, 0); 
+				prt("賞金として $1,000,000 が与えられます。", 8, 0);
 #else
 				prt("               Arena Victor!", 5, 0);
 				prt("Congratulations!  You have defeated all before you.", 7, 0);
@@ -260,7 +250,7 @@ prt("賞金として $1,000,000 が与えられます。", 8, 0);
 				prt("", 11, 0);
 				cr_ptr->au += 1000000L;
 #ifdef JP
-msg_print("スペースキーで続行");
+				msg_print("スペースキーで続行");
 #else
 				msg_print("Press the space bar to continue");
 #endif
@@ -273,7 +263,7 @@ msg_print("スペースキーで続行");
 				if (arena_number < MAX_ARENA_MONS+2)
 				{
 #ifdef JP
-msg_print("君のために最強の挑戦者を用意しておいた。");
+					msg_print("君のために最強の挑戦者を用意しておいた。");
 #else
 					msg_print("The strongest challenger is waiting for you.");
 #endif
@@ -298,7 +288,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 					else
 					{
 #ifdef JP
-msg_print("残念だ。");
+						msg_print("残念だ。");
 #else
 						msg_print("We are disappointed.");
 #endif
@@ -307,7 +297,7 @@ msg_print("残念だ。");
 				else
 				{
 #ifdef JP
-msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
+					msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
 #else
 					msg_print("You enter the arena briefly and bask in your glory.");
 #endif
@@ -318,11 +308,10 @@ msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
 			else if (cr_ptr->riding && (cr_ptr->cls_idx != CLASS_BEASTMASTER) && (cr_ptr->cls_idx != CLASS_CAVALRY))
 			{
 #ifdef JP
-msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
+				msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 #else
 				msg_print("You don't have permission to enter with pet.");
 #endif
-
 				msg_print(NULL);
 			}
 			else
@@ -338,10 +327,11 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 				leave_bldg = TRUE;
 			}
 			break;
+
 		case BACT_POSTER:
 			if (arena_number == MAX_ARENA_MONS)
 #ifdef JP
-msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
+				msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
 #else
 				msg_print("You are victorious. Enter the arena for the ceremony.");
 #endif
@@ -349,7 +339,7 @@ msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
 			else if (arena_number > MAX_ARENA_MONS)
 			{
 #ifdef JP
-msg_print("あなたはすべての敵に勝利した。");
+				msg_print("あなたはすべての敵に勝利した。");
 #else
 				msg_print("You have won against all foes.");
 #endif
@@ -359,28 +349,22 @@ msg_print("あなたはすべての敵に勝利した。");
 				r_ptr = &species_info[arena_info[arena_number].species_idx];
 				name = (species_name + r_ptr->name);
 #ifdef JP
-msg_format("%s に挑戦するものはいないか？", name);
+				msg_format("%s に挑戦するものはいないか？", name);
 #else
 				msg_format("Do I hear any challenges against: %s", name);
 #endif
 			}
 			break;
+
 		case BACT_ARENA_RULES:
-
-			/* Save screen */
-			screen_save();
-
-			/* Peruse the arena help file */
+			screen_save(); // Save screen
+			// Peruse the arena help file
 #ifdef JP
-(void)show_file(TRUE, "arena_j.txt", NULL, 0, 0);
+			(void)show_file(TRUE, "arena_j.txt", NULL, 0, 0);
 #else
 			(void)show_file(TRUE, "arena.txt", NULL, 0, 0);
 #endif
-
-
-			/* Load screen */
-			screen_load();
-
+			screen_load(); // Load screen
 			break;
 	}
 }
