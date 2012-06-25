@@ -2853,10 +2853,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
 	}
 
-	/* Start with a single blow per turn */
-	creature_ptr->num_blow[0] = 1;
-	creature_ptr->num_blow[1] = 1;
-
 	/* Start with a single shot per turn */
 	creature_ptr->num_fire = 100;
 
@@ -4525,7 +4521,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->icky_wield[i] = FALSE;
 		creature_ptr->riding_wield[i] = FALSE;
 
-		if (!(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > i)) {creature_ptr->num_blow[i]=1;continue;}
 		/* It is hard to hold a heavy weapon */
 		if (hold < o_ptr->weight / 10)
 		{
@@ -4670,27 +4665,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 			/* Maximal value */
 			if (dex_index > 11) dex_index = 11;
-
-			/* Use the blows table */
-			creature_ptr->num_blow[i] = 1;
-
-			/* Maximal value */
-			if (creature_ptr->num_blow[i] > num) creature_ptr->num_blow[i] = num;
-
-			if (creature_ptr->cls_idx == CLASS_WARRIOR) creature_ptr->num_blow[i] += (creature_ptr->lev / 40);
-			else if (creature_ptr->cls_idx == CLASS_BERSERKER)
-			{
-				creature_ptr->num_blow[i] += (creature_ptr->lev / 23);
-			}
-			else if ((creature_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (creature_ptr->stat_ind[STAT_DEX] >= 30)) creature_ptr->num_blow[i] ++;
-
-			if (creature_ptr->special_defense & KATA_FUUJIN) creature_ptr->num_blow[i] -= 1;
-
-			if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) creature_ptr->num_blow[i] = 1;
-
-
-			/* Require at least one blow */
-			if (creature_ptr->num_blow[i] < 1) creature_ptr->num_blow[i] = 1;
 
 			/* Boost digging skill by weapon weight */
 			creature_ptr->skill_dig += (o_ptr->weight / 10);
@@ -4839,33 +4813,17 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
 	{
 		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
-		creature_ptr->num_blow[0] = 0;
 
 		if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
 		{
-			if (blow_base > 18) creature_ptr->num_blow[0]++;
-			if (blow_base > 31) creature_ptr->num_blow[0]++;
-			if (blow_base > 44) creature_ptr->num_blow[0]++;
-			if (blow_base > 58) creature_ptr->num_blow[0]++;
 			if (creature_ptr->magic_num1[0])
 			{
 				creature_ptr->to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
 				creature_ptr->dis_to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
 			}
 		}
-		else
-		{
-			if (blow_base > 12) creature_ptr->num_blow[0]++;
-			if (blow_base > 22) creature_ptr->num_blow[0]++;
-			if (blow_base > 31) creature_ptr->num_blow[0]++;
-			if (blow_base > 39) creature_ptr->num_blow[0]++;
-			if (blow_base > 46) creature_ptr->num_blow[0]++;
-			if (blow_base > 53) creature_ptr->num_blow[0]++;
-			if (blow_base > 59) creature_ptr->num_blow[0]++;
-		}
 
-		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER))
-			creature_ptr->num_blow[0] /= 2;
+		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER));
 		else
 		{
 			creature_ptr->to_hit[0] += (creature_ptr->lev / 3);
@@ -4900,9 +4858,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			creature_ptr->reflect = TRUE;
-			creature_ptr->num_blow[0] -= 2;
-			if ((creature_ptr->cls_idx == CLASS_MONK) && (creature_ptr->lev > 42)) creature_ptr->num_blow[0]--;
-			if (creature_ptr->num_blow[0] < 0) creature_ptr->num_blow[0] = 0;
 		}
 		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		{
@@ -4911,11 +4866,9 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 
 			creature_ptr->dis_to_hit[0] -= (creature_ptr->lev / 3);
 			creature_ptr->dis_to_damage[0] -= (creature_ptr->lev / 6);
-			creature_ptr->num_blow[0] /= 2;
 			creature_ptr->levitation = TRUE;
 		}
 
-		creature_ptr->num_blow[0] += 1+extra_blows[0];
 	}
 
 	if (creature_ptr->riding) creature_ptr->levitation = riding_levitation;
@@ -4955,8 +4908,6 @@ void calc_bonuses(creature_type *creature_ptr, bool message)
 					creature_ptr->to_hit[i] -= 40;
 					creature_ptr->dis_to_hit[i] -= 40;
 					creature_ptr->icky_wield[i] = TRUE;
-					creature_ptr->num_blow[i] /= 2;
-					if (creature_ptr->num_blow[i] < 1) creature_ptr->num_blow[i] = 1;
 				}
 			}
 

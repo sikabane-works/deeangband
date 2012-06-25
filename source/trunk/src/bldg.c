@@ -3184,7 +3184,7 @@ static void compare_weapon_aux1(creature_type *cr_ptr, object_type *o_ptr, int c
 {
 	int mult = 60;
 	u32b flgs[TR_FLAG_SIZE];
-	int blow = cr_ptr->num_blow[0];
+	int blow = 1;
 	bool print_force_weapon = FALSE;
 
 	/* Get the flags of the weapon */
@@ -3290,13 +3290,6 @@ static void list_weapon(creature_type *cr_ptr, object_type *o_ptr, int row, int 
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 	c_put_str(TERM_YELLOW, o_name, row, col);
 
-	/* Print the player's number of blows */
-#ifdef JP
-sprintf(tmp_str, "UŒ‚‰ñ”: %d", cr_ptr->num_blow[0]);
-#else
-	sprintf(tmp_str, "Number of Blows: %d", cr_ptr->num_blow[0]);
-#endif
-
 	put_str(tmp_str, row+1, col);
 
 	/* Print to_hitit and to_damageam of the weapon */
@@ -3335,16 +3328,6 @@ sprintf(tmp_str, "UŒ‚ˆê‰ñ‚É‚Â‚« %d-%d",
 	    eff_ds * eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]);
 	put_str(tmp_str, row+6, col+1);
 
-	/* Damage for the complete attack (if all blows hit) */
-#ifdef JP
-sprintf(tmp_str, "‚Pƒ^[ƒ“‚É‚Â‚« %d-%d",
-#else
-	sprintf(tmp_str, "One Attack: %d-%d damage",
-#endif
-
-	    cr_ptr->num_blow[0] * (eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]),
-	    cr_ptr->num_blow[0] * (eff_ds * eff_dd + o_ptr->to_damage + cr_ptr->to_damage[0]));
-	put_str(tmp_str, row+7, col+1);
 }
 
 

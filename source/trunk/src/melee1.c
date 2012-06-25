@@ -133,7 +133,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	bool            drain_msg = TRUE;
 	int             drain_result = 0, drain_heal = 0;
 	bool            can_drain = FALSE;
-	int             num_blow;
 	int             drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[TR_FLAG_SIZE]; /* A massive hack -- life-draining weapons */
 	bool            is_human = (r_ptr->d_char == 'p');
@@ -221,13 +220,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 	zantetsu_mukou = ((weapon_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
 	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
-
-	if ((mode == HISSATSU_KYUSHO) || (mode == HISSATSU_MINEUCHI) || (mode == HISSATSU_3DAN) || (mode == HISSATSU_IAI)) num_blow = 1;
-	else if (mode == HISSATSU_COLD) num_blow = atk_ptr->num_blow[hand]+2;
-	else num_blow = atk_ptr->num_blow[hand];
-
-	// Hack -- DOKUBARI always hit once
-	// if ((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) num_blow = 1;
 
 	// Attack once for each legal blow
 	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
@@ -543,7 +535,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					msg_format("You critically injured %s!", tar_name);
 #endif
 			}
-			else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr)))
+
+			else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr)))
 			{
 				if (is_unique_creature(tar_ptr) || is_sub_unique_creature(tar_ptr) || (tar_ptr->chp >= tar_ptr->mhp/2))
 				{
@@ -587,15 +580,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			*mdeath = TRUE;
 			if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
 			{
-				if (count_melee_slot(atk_ptr) >= 2)
-				{
-					if (hand) energy_use = energy_use*3/5+energy_use*num*2/(atk_ptr->num_blow[hand]*5);
-					else energy_use = energy_use*num*3/(atk_ptr->num_blow[hand]*5);
-				}
-				else
-				{
-					energy_use = energy_use*num/atk_ptr->num_blow[hand];
-				}
+				//TODO
 			}
 			if ((weapon_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
 				if(is_player(atk_ptr))
@@ -741,7 +726,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 #endif
 
 				teleport_away(&creature_list[c_ptr->creature_idx], 50, TELEPORT_PASSIVE);
-				num = num_blow + 1; /* Can't hit it anymore! */
 				*mdeath = TRUE;
 			}
 		}

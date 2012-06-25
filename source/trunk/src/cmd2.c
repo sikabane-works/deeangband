@@ -4198,7 +4198,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 				if (boomerang)
 				{
-					tdam *= (mult+creature_ptr->num_blow[item]);
 					tdam += creature_ptr->to_damage_m;
 				}
 				else if (have_flag(flgs, TR_THROW))

@@ -10939,7 +10939,6 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					basedam /= 9;
 				}
 				damage += basedam;
-				damage *= caster_ptr->num_blow[i];
 				total_damage += damage / 200;
 				if (i) total_damage = total_damage*7/10;
 			}
@@ -11294,7 +11293,6 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 				damage += basedam;
 				damage += caster_ptr->to_damage[i] * 100;
-				damage *= caster_ptr->num_blow[i];
 				total_damage += (damage / 100);
 			}
 			project(caster_ptr, (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
