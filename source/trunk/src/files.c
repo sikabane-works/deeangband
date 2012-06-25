@@ -3525,24 +3525,6 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
 		}
 
-		if (race_is_(cr_ptr, RACE_ENT))
-		{
-			switch (i)
-			{
-				case STAT_STR:
-				case STAT_CON:
-					if (cr_ptr->lev > 25) r_adj += 1;
-					if (cr_ptr->lev > 40) r_adj += 1;
-					if (cr_ptr->lev > 45) r_adj += 1;
-					break;
-				case STAT_DEX:
-					if (cr_ptr->lev > 25) r_adj -= 1;
-					if (cr_ptr->lev > 40) r_adj -= 1;
-					if (cr_ptr->lev > 45) r_adj -= 1;
-					break;
-			}
-		}
-
 		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - cr_ptr->lev, i);
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i] && has_status(cr_ptr, i))
