@@ -3347,79 +3347,11 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 }
 
-
-
-
-/*
- * Calculate the players current "state", taking into account
- * not only race/class intrinsics, but also objects being worn
- * and temporary spell effects.
- *
- * See also calc_mana() and calc_hitpoints().
- *
- * Take note of the new "speed code", in particular, a very strong
- * player will start slowing down as soon as he reaches 150 pounds,
- * but not until he reaches 450 pounds will he be half as fast as
- * a normal kobold.  This both hurts and helps the player, hurts
- * because in the old days a player could just avoid 300 pounds,
- * and helps because now carrying 300 pounds is not very painful.
- *
- * The "weapon" and "bow" do *not* add to the bonuses to hit or to
- * damage, since that would affect non-combat things.  These values
- * are actually added in later, at the appropriate place.
- *
- * This function induces various "status" messages.
- */
-void set_creature_bonuses(creature_type *creature_ptr, bool message)
+static void wipe_creature_calculation_status(creature_type *creature_ptr)
 {
-	int             i, j, k, hold;
-	int             body_size;
-	int             default_hand = 0;
-	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
-	int             extra_shots = FALSE;
+	int i;
 
-	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
-	object_type     *o_ptr;
-	u32b flgs[TR_FLAG_SIZE];
-	bool            omoi = FALSE;
-	bool            yoiyami = FALSE;
-	bool            down_saving = FALSE;
-#if 0
-	bool            have_dd_s = FALSE, have_dd_t = FALSE;
-#endif
-	bool            have_sw = FALSE, have_kabe = FALSE;
-	bool            easy_2weapon = FALSE;
-	bool            riding_levitation = FALSE;
-	s16b this_object_idx, next_object_idx = 0;
-
-	race_type *tmp_rcreature_ptr;
-	race_type *tmp_rcreature_ptr2;
-
-	/* Save the old vision stuff */
-	bool old_telepathy = creature_ptr->telepathy;
-	bool old_esp_animal = creature_ptr->esp_animal;
-	bool old_esp_undead = creature_ptr->esp_undead;
-	bool old_esp_demon = creature_ptr->esp_demon;
-	bool old_esp_orc = creature_ptr->esp_orc;
-	bool old_esp_troll = creature_ptr->esp_troll;
-	bool old_esp_giant = creature_ptr->esp_giant;
-	bool old_esp_dragon = creature_ptr->esp_dragon;
-	bool old_esp_human = creature_ptr->esp_human;
-	bool old_esp_evil = creature_ptr->esp_evil;
-	bool old_esp_good = creature_ptr->esp_good;
-	bool old_esp_nonliving = creature_ptr->esp_nonliving;
-	bool old_esp_unique = creature_ptr->esp_unique;
-	bool old_see_inv = creature_ptr->see_inv;
-	bool old_mighty_throw = creature_ptr->mighty_throw;
-
-	/* Save the old armor class */
-	bool old_dis_ac = (bool)creature_ptr->dis_ac;
-	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
-
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
-
-	// Clear the stat modifiers
-	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0;
+	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0; // Clear the stat modifiers
 
 	// Clear the Displayed/Real armor class and evasion
 	creature_ptr->dis_ac = creature_ptr->ac = 0;
@@ -3437,33 +3369,27 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->to_damage_m = 0;
 	creature_ptr->to_m_chance = 0;
 
-	/* Clear the Extra Dice Bonuses */
+	// Clear the Extra Dice Bonuses
 	creature_ptr->to_damaged[0] = creature_ptr->to_damages[0] = 0;
 	creature_ptr->to_damaged[1] = creature_ptr->to_damages[1] = 0;
 
-	/* Clear the Activate Rate */
+	// Clear the Activate Rate
 	creature_ptr->to_acr[0] = creature_ptr->to_acr[0] = 100; 
 
-	/* Start with "normal" speed */
+	// Start with "normal" speed
 	creature_ptr->speed = 110;
 	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];
 
-	/* Plus AC on Divine Rank */
-	if(creature_ptr->dr >= 0){
-		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
-		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
-	}
-
-	/* Start with a single shot per turn */
+	// Start with a single shot per turn
 	creature_ptr->num_fire = 100;
 
-	/* Reset the "xtra" tval */
+	// Reset the "xtra" tval
 	creature_ptr->tval_xtra = 0;
 
-	/* Reset the "ammo" tval */
+	// Reset the "ammo" tval
 	creature_ptr->tval_ammo = 0;
 
-	/* Clear all the flags */
+	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
 	creature_ptr->xtra_might = FALSE;
@@ -3537,6 +3463,79 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	for(i = 0; i < MAX_WEAPONS; i++) creature_ptr->can_melee[i] = FALSE;
 	creature_ptr->no_flowed = FALSE;
 
+}
+
+
+/*
+ * Calculate the players current "state", taking into account
+ * not only race/class intrinsics, but also objects being worn
+ * and temporary spell effects.
+ *
+ * See also calc_mana() and calc_hitpoints().
+ *
+ * Take note of the new "speed code", in particular, a very strong
+ * player will start slowing down as soon as he reaches 150 pounds,
+ * but not until he reaches 450 pounds will he be half as fast as
+ * a normal kobold.  This both hurts and helps the player, hurts
+ * because in the old days a player could just avoid 300 pounds,
+ * and helps because now carrying 300 pounds is not very painful.
+ *
+ * The "weapon" and "bow" do *not* add to the bonuses to hit or to
+ * damage, since that would affect non-combat things.  These values
+ * are actually added in later, at the appropriate place.
+ *
+ * This function induces various "status" messages.
+ */
+void set_creature_bonuses(creature_type *creature_ptr, bool message)
+{
+	int             i, j, k, hold;
+	int             body_size;
+	int             default_hand = 0;
+	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
+	int             extra_shots = FALSE;
+
+	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
+	object_type     *o_ptr;
+	u32b flgs[TR_FLAG_SIZE];
+	bool            omoi = FALSE;
+	bool            yoiyami = FALSE;
+	bool            down_saving = FALSE;
+#if 0
+	bool            have_dd_s = FALSE, have_dd_t = FALSE;
+#endif
+	bool            have_sw = FALSE, have_kabe = FALSE;
+	bool            easy_2weapon = FALSE;
+	bool            riding_levitation = FALSE;
+	s16b this_object_idx, next_object_idx = 0;
+
+	race_type *tmp_rcreature_ptr;
+	race_type *tmp_rcreature_ptr2;
+
+	// Save the old vision stuff
+	bool old_telepathy = creature_ptr->telepathy;
+	bool old_esp_animal = creature_ptr->esp_animal;
+	bool old_esp_undead = creature_ptr->esp_undead;
+	bool old_esp_demon = creature_ptr->esp_demon;
+	bool old_esp_orc = creature_ptr->esp_orc;
+	bool old_esp_troll = creature_ptr->esp_troll;
+	bool old_esp_giant = creature_ptr->esp_giant;
+	bool old_esp_dragon = creature_ptr->esp_dragon;
+	bool old_esp_human = creature_ptr->esp_human;
+	bool old_esp_evil = creature_ptr->esp_evil;
+	bool old_esp_good = creature_ptr->esp_good;
+	bool old_esp_nonliving = creature_ptr->esp_nonliving;
+	bool old_esp_unique = creature_ptr->esp_unique;
+	bool old_see_inv = creature_ptr->see_inv;
+	bool old_mighty_throw = creature_ptr->mighty_throw;
+
+	// Save the old armor class
+	bool old_dis_ac = (bool)creature_ptr->dis_ac;
+	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
+
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+
+	wipe_creature_calculation_status(creature_ptr);
+
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
 	if (creature_ptr->mimic_form) tmp_rcreature_ptr = &mimic_info[creature_ptr->mimic_form];
@@ -3568,6 +3567,12 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->ac += species_ptr->ac;
 	creature_ptr->dis_ac += species_ptr->ac;
 	creature_ptr->speed += species_ptr->speed;
+
+	// Plus AC on Divine Rank
+	if(creature_ptr->dr >= 0){
+		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
+		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
+	}
 
 	if(IS_PURE(creature_ptr))
 	{
