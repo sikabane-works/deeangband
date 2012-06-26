@@ -3525,6 +3525,210 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 }
 
+static void creature_bonuses_message(creature_type *creature_ptr)
+{
+	int i;
+
+	/* Take note when "heavy bow" changes */
+	if (creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
+	{
+		/* Message */
+		if (creature_ptr->heavy_shoot)
+		{
+#ifdef JP
+			msg_print("こんな重い弓を装備しているのは大変だ。");
+#else
+			msg_print("You have trouble wielding such a heavy bow.");
+#endif
+
+		}
+		else if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->k_idx)
+		{
+#ifdef JP
+			msg_print("この弓なら装備していても辛くない。");
+#else
+			msg_print("You have no trouble wielding your bow.");
+#endif
+
+		}
+		else
+		{
+#ifdef JP
+			msg_print("重い弓を装備からはずして体が楽になった。");
+#else
+			msg_print("You feel relieved to put down your heavy bow.");
+#endif
+
+		}
+
+		/* Save it */
+		creature_ptr->old_heavy_shoot = creature_ptr->heavy_shoot;
+	}
+
+	for (i = 0 ; i < MAX_WEAPONS ; i++)
+	{
+		/* Take note when "heavy weapon" changes */
+		if (creature_ptr->old_heavy_wield[i] != creature_ptr->heavy_wield[i])
+		{
+			/* Message */
+			if (creature_ptr->heavy_wield[i])
+			{
+#ifdef JP
+				msg_print("こんな重い武器を装備しているのは大変だ。");
+#else
+				msg_print("You have trouble wielding such a heavy weapon.");
+#endif
+
+			}
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
+			{
+#ifdef JP
+				msg_print("これなら装備していても辛くない。");
+#else
+				msg_print("You have no trouble wielding your weapon.");
+#endif
+
+			}
+			else if (creature_ptr->heavy_wield[1-i])
+			{
+#ifdef JP
+				msg_print("まだ武器が重い。");
+#else
+				msg_print("You have still trouble wielding a heavy weapon.");
+#endif
+
+			}
+			else
+			{
+#ifdef JP
+				msg_print("重い武器を装備からはずして体が楽になった。");
+#else
+				msg_print("You feel relieved to put down your heavy weapon.");
+#endif
+
+			}
+
+			/* Save it */
+			creature_ptr->old_heavy_wield[i] = creature_ptr->heavy_wield[i];
+		}
+
+		/* Take note when "heavy weapon" changes */
+		if (creature_ptr->old_riding_wield[i] != creature_ptr->riding_wield[i])
+		{
+			/* Message */
+			if (creature_ptr->riding_wield[i])
+			{
+#ifdef JP
+				msg_print("この武器は乗馬中に使うにはむかないようだ。");
+#else
+				msg_print("This weapon is not suitable for use while riding.");
+#endif
+
+			}
+			else if (!creature_ptr->riding)
+			{
+#ifdef JP
+				msg_print("この武器は徒歩で使いやすい。");
+#else
+				msg_print("This weapon was not suitable for use while riding.");
+#endif
+
+			}
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
+			{
+#ifdef JP
+				msg_print("これなら乗馬中にぴったりだ。");
+#else
+				msg_print("This weapon is suitable for use while riding.");
+#endif
+
+			}
+			/* Save it */
+			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
+		}
+
+		/* Take note when "illegal weapon" changes */
+		if (creature_ptr->old_icky_wield[i] != creature_ptr->icky_wield[i])
+		{
+			/* Message */
+			if (creature_ptr->icky_wield[i])
+			{
+#ifdef JP
+				msg_print("今の装備はどうも自分にふさわしくない気がする。");
+#else
+				msg_print("You do not feel comfortable with your weapon.");
+#endif
+			}
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
+			{
+#ifdef JP
+				msg_print("今の装備は自分にふさわしい気がする。");
+#else
+				msg_print("You feel comfortable with your weapon.");
+#endif
+
+			}
+			else
+			{
+#ifdef JP
+				msg_print("装備をはずしたら随分と気が楽になった。");
+#else
+				msg_print("You feel more comfortable after removing your weapon.");
+#endif
+
+			}
+
+			/* Save it */
+			creature_ptr->old_icky_wield[i] = creature_ptr->icky_wield[i];
+		}
+	}
+
+	if (creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
+	{
+		/* Message */
+		if (creature_ptr->riding_two_handed)
+		{
+#ifdef JP
+		msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+#else
+			msg_print("You are using both hand for fighting, and you can't control a riding pet.");
+#endif
+		}
+		else
+		{
+#ifdef JP
+			msg_format("%s馬を操れるようになった。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
+#else
+			msg_print("You began to control riding pet with one hand.");
+#endif
+		}
+
+		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
+	}
+
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
+	{
+		if (heavy_armor(creature_ptr))
+		{
+#ifdef JP
+            msg_print("装備が重くてバランスを取れない。");
+#else
+			msg_print("The weight of your armor disrupts your balance.");
+#endif
+		}
+		else
+#ifdef JP
+            msg_print("バランスがとれるようになった。");
+#else
+			msg_print("You regain your balance.");
+#endif
+
+		monk_notify_aux = monk_armour_aux;
+	}
+
+}
+
+
 
 /*
  * Calculate the players current "state", taking into account
@@ -5098,202 +5302,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	creature_ptr->balance_rank = calc_rank(creature_ptr->balance);
 
-	/* Take note when "heavy bow" changes */
-	if (creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
-	{
-		/* Message */
-		if (creature_ptr->heavy_shoot)
-		{
-#ifdef JP
-			if(message) msg_print("こんな重い弓を装備しているのは大変だ。");
-#else
-			if(message) msg_print("You have trouble wielding such a heavy bow.");
-#endif
-
-		}
-		else if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->k_idx)
-		{
-#ifdef JP
-			if(message) msg_print("この弓なら装備していても辛くない。");
-#else
-			if(message) msg_print("You have no trouble wielding your bow.");
-#endif
-
-		}
-		else
-		{
-#ifdef JP
-			if(message) msg_print("重い弓を装備からはずして体が楽になった。");
-#else
-			if(message) msg_print("You feel relieved to put down your heavy bow.");
-#endif
-
-		}
-
-		/* Save it */
-		creature_ptr->old_heavy_shoot = creature_ptr->heavy_shoot;
-	}
-
-	for (i = 0 ; i < 2 ; i++)
-	{
-		/* Take note when "heavy weapon" changes */
-		if (creature_ptr->old_heavy_wield[i] != creature_ptr->heavy_wield[i])
-		{
-			/* Message */
-			if (creature_ptr->heavy_wield[i])
-			{
-#ifdef JP
-				if(message) msg_print("こんな重い武器を装備しているのは大変だ。");
-#else
-				if(message) msg_print("You have trouble wielding such a heavy weapon.");
-#endif
-
-			}
-			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				if(message) msg_print("これなら装備していても辛くない。");
-#else
-				if(message) msg_print("You have no trouble wielding your weapon.");
-#endif
-
-			}
-			else if (creature_ptr->heavy_wield[1-i])
-			{
-#ifdef JP
-				if(message) msg_print("まだ武器が重い。");
-#else
-				if(message) msg_print("You have still trouble wielding a heavy weapon.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				if(message) msg_print("重い武器を装備からはずして体が楽になった。");
-#else
-				if(message) msg_print("You feel relieved to put down your heavy weapon.");
-#endif
-
-			}
-
-			/* Save it */
-			creature_ptr->old_heavy_wield[i] = creature_ptr->heavy_wield[i];
-		}
-
-		/* Take note when "heavy weapon" changes */
-		if (creature_ptr->old_riding_wield[i] != creature_ptr->riding_wield[i])
-		{
-			/* Message */
-			if (creature_ptr->riding_wield[i])
-			{
-#ifdef JP
-				if(message) msg_print("この武器は乗馬中に使うにはむかないようだ。");
-#else
-				if(message) msg_print("This weapon is not suitable for use while riding.");
-#endif
-
-			}
-			else if (!creature_ptr->riding)
-			{
-#ifdef JP
-				if(message) msg_print("この武器は徒歩で使いやすい。");
-#else
-				if(message) msg_print("This weapon was not suitable for use while riding.");
-#endif
-
-			}
-			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				if(message) msg_print("これなら乗馬中にぴったりだ。");
-#else
-				if(message) msg_print("This weapon is suitable for use while riding.");
-#endif
-
-			}
-			/* Save it */
-			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
-		}
-
-		/* Take note when "illegal weapon" changes */
-		if (creature_ptr->old_icky_wield[i] != creature_ptr->icky_wield[i])
-		{
-			/* Message */
-			if (creature_ptr->icky_wield[i])
-			{
-#ifdef JP
-				if(message) msg_print("今の装備はどうも自分にふさわしくない気がする。");
-#else
-				if(message) msg_print("You do not feel comfortable with your weapon.");
-#endif
-			}
-			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				if(message) msg_print("今の装備は自分にふさわしい気がする。");
-#else
-				if(message) msg_print("You feel comfortable with your weapon.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				if(message) msg_print("装備をはずしたら随分と気が楽になった。");
-#else
-				if(message) msg_print("You feel more comfortable after removing your weapon.");
-#endif
-
-			}
-
-			/* Save it */
-			creature_ptr->old_icky_wield[i] = creature_ptr->icky_wield[i];
-		}
-	}
-
-	if (creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
-	{
-		/* Message */
-		if (creature_ptr->riding_two_handed)
-		{
-#ifdef JP
-		if(message) msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
-#else
-			if(message) msg_print("You are using both hand for fighting, and you can't control a riding pet.");
-#endif
-		}
-		else
-		{
-#ifdef JP
-			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
-#else
-			if(message) msg_print("You began to control riding pet with one hand.");
-#endif
-		}
-
-		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
-	}
-
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
-	{
-		if (heavy_armor(creature_ptr))
-		{
-#ifdef JP
-            if(message) msg_print("装備が重くてバランスを取れない。");
-#else
-			if(message) msg_print("The weight of your armor disrupts your balance.");
-#endif
-		}
-		else
-#ifdef JP
-            if(message) msg_print("バランスがとれるようになった。");
-#else
-			if(message) msg_print("You regain your balance.");
-#endif
-
-		monk_notify_aux = monk_armour_aux;
-	}
+	if(message) creature_bonuses_message(creature_ptr);
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
