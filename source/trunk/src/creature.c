@@ -2407,7 +2407,7 @@ int count_melee_slot(creature_type *creature_ptr)
 
 int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 {
-	return 10 + weapon_ptr->weight / 10;
+	return (adj_dex_action_point[creature_ptr->stat_ind[STAT_DEX]] + weapon_ptr->weight) / 10;
 }
 
 int calc_action_power(creature_type *creature_ptr)
