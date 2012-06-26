@@ -2743,6 +2743,39 @@ static void calc_lite(creature_type *creature_ptr)
 	}
 }
 
+
+static void set_race_bonuses(creature_type *creature_ptr)
+{
+	/***** Races ****/
+
+	// TODO: Mimic Race control to creature.c
+	if (!creature_ptr->mimic_form)
+	{
+		set_resistance(creature_ptr);
+
+		if(IS_RACE(creature_ptr, RACE_SPRITE))
+		{
+			creature_ptr->levitation = TRUE;
+			creature_ptr->speed += (creature_ptr->lev) / 10;
+		}
+
+		if(IS_RACE(creature_ptr, RACE_KLACKON))
+		{
+			creature_ptr->speed += (creature_ptr->lev) / 10;
+		}
+
+		//TODO
+		/*
+			case LICH:
+			creature_ptr->pass_wall = TRUE;
+			break;
+		*/
+	}
+
+	set_unreached_race_level_penalty(creature_ptr);
+}
+
+
 static void set_class_bonuses(creature_type *creature_ptr)
 {
 	switch (creature_ptr->cls_idx)
@@ -4153,35 +4186,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
+	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
-
-	/***** Races ****/
-
-	// TODO: Mimic Race control to creature.c
-	if (!creature_ptr->mimic_form)
-	{
-		set_resistance(creature_ptr);
-
-		if(IS_RACE(creature_ptr, RACE_SPRITE))
-		{
-			creature_ptr->levitation = TRUE;
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
-
-		if(IS_RACE(creature_ptr, RACE_KLACKON))
-		{
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
-
-		//TODO
-		/*
-			case LICH:
-			creature_ptr->pass_wall = TRUE;
-			break;
-		*/
-	}
-
-	set_unreached_race_level_penalty(creature_ptr);
 
 	/* Sexy Gal */
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
@@ -4204,6 +4210,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 			/* Munchkin become faster */
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
+
 
 	if (music_singing(creature_ptr, MUSIC_WALL))
 	{
