@@ -2894,6 +2894,31 @@ static void set_class_bonuses(creature_type *creature_ptr)
 }
 
 
+static void set_character_bonuses(creature_type *creature_ptr)
+{
+	/* Sexy Gal */
+	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
+	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
+	if (creature_ptr->chara_idx == CHARA_KIREMONO) creature_ptr->to_m_chance -= 3;
+	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
+	if ((creature_ptr->chara_idx == CHARA_GAMAN) || (creature_ptr->chara_idx == CHARA_CHIKARA)) creature_ptr->to_m_chance++;
+
+	/* Lucky man */
+	//TODO if (creature_ptr->chara_idx == CHARA_LUCKY) creature_ptr->flags14 |= RF14_GOOD_LUCK;
+
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
+	{
+		creature_ptr->resist_blind = TRUE;
+		creature_ptr->resist_conf  = TRUE;
+		creature_ptr->hold_life = TRUE;
+		if (creature_ptr->cls_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
+
+		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE))
+			/* Munchkin become faster */
+			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
+	}
+}
+
 static void set_status_bonuses(creature_type *creature_ptr)
 {
 	// Apply temporary "stun"
@@ -4188,28 +4213,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
+	set_character_bonuses(creature_ptr);
 
-	/* Sexy Gal */
-	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
-	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
-	if (creature_ptr->chara_idx == CHARA_KIREMONO) creature_ptr->to_m_chance -= 3;
-	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
-	if ((creature_ptr->chara_idx == CHARA_GAMAN) || (creature_ptr->chara_idx == CHARA_CHIKARA)) creature_ptr->to_m_chance++;
-
-	/* Lucky man */
-	//TODO if (creature_ptr->chara_idx == CHARA_LUCKY) creature_ptr->flags14 |= RF14_GOOD_LUCK;
-
-	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
-	{
-		creature_ptr->resist_blind = TRUE;
-		creature_ptr->resist_conf  = TRUE;
-		creature_ptr->hold_life = TRUE;
-		if (creature_ptr->cls_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
-
-		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE))
-			/* Munchkin become faster */
-			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
-	}
 
 
 	if (music_singing(creature_ptr, MUSIC_WALL))
