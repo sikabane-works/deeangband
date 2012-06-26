@@ -3096,6 +3096,12 @@ static void set_status_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_time = TRUE;
 	}
 
+	if (creature_ptr->tsuyoshi)
+	{
+		creature_ptr->stat_add[STAT_STR] += 40;
+		creature_ptr->stat_add[STAT_CON] += 40;
+	}
+
 }
 
 
@@ -3729,6 +3735,130 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 }
 
 
+static void set_trait_bonuses(creature_type *creature_ptr)
+{
+	int i;
+
+	for(i = 0; i < max_creature_flag_idx; i++)
+	{
+		if(has_cf_creature(creature_ptr, i))
+		{
+			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR] * 10;
+			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT] * 10;
+			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS] * 10;
+			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX] * 10;
+			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON] * 10;
+			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA] * 10;
+
+			creature_ptr->skill_dis += creature_flag_info[i].dis;
+			creature_ptr->skill_dev += creature_flag_info[i].dev;
+			creature_ptr->skill_stl += creature_flag_info[i].stl;
+			creature_ptr->skill_srh += creature_flag_info[i].srh;
+			creature_ptr->skill_dig += creature_flag_info[i].dig;
+			creature_ptr->skill_thb += creature_flag_info[i].thb;
+			creature_ptr->skill_thn += creature_flag_info[i].thn;
+			creature_ptr->skill_tht += creature_flag_info[i].tht;
+
+			creature_ptr->skill_rob += creature_flag_info[i].rob;
+			creature_ptr->skill_eva += creature_flag_info[i].eva;
+			creature_ptr->skill_vol += creature_flag_info[i].vol;
+
+			creature_ptr->see_infra += creature_flag_info[i].infra;
+
+		}
+	}
+
+	{
+		if (has_cf_creature(creature_ptr, CF_FLESH_ROT))
+		{
+			creature_ptr->regenerate = FALSE;
+			/* Cancel innate regeneration */
+		}
+
+		if (has_cf_creature(creature_ptr, CF_MAGIC_RES))
+		{
+			creature_ptr->skill_rob += creature_ptr->lev / 5;
+			creature_ptr->skill_eva += creature_ptr->lev / 5;
+			creature_ptr->skill_vol += creature_ptr->lev / 5;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_ELEC_TOUC))
+		{
+			creature_ptr->sh_elec = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_FIRE_BODY))
+		{
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->lite = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_WART_SKIN))
+		{
+			creature_ptr->stat_add[STAT_CHA] -= 20;
+			creature_ptr->to_ac += 5;
+			creature_ptr->dis_to_ac += 5;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_SCALES))
+		{
+			creature_ptr->stat_add[STAT_CHA] -= 10;
+			creature_ptr->to_ac += 10;
+			creature_ptr->dis_to_ac += 10;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_IRON_SKIN))
+		{
+			creature_ptr->stat_add[STAT_DEX] -= 10;
+			creature_ptr->to_ac += 25;
+			creature_ptr->dis_to_ac += 25;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_WINGS))
+		{
+			creature_ptr->levitation = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_FEARLESS))
+		{
+			creature_ptr->resist_fear = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_REGEN))
+		{
+			creature_ptr->regenerate = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_ESP))
+		{
+			creature_ptr->telepathy = TRUE;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_LIMBER))
+		{
+			creature_ptr->stat_add[STAT_DEX] += 30;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_ARTHRITIS))
+		{
+			creature_ptr->stat_add[STAT_DEX] -= 30;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_MOTION))
+		{
+			creature_ptr->free_act = TRUE;
+			creature_ptr->skill_stl += 1;
+		}
+
+		if (has_cf_creature(creature_ptr, CF_ILL_NORM))
+		{
+			creature_ptr->stat_add[STAT_CHA] = 0;
+		}
+	}
+
+}
+
+
 
 /*
  * Calculate the players current "state", taking into account
@@ -4119,131 +4249,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	}
 
-
-
-
-	for(i = 0; i < max_creature_flag_idx; i++)
-	{
-		if(has_cf_creature(creature_ptr, i))
-		{
-			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR] * 10;
-			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT] * 10;
-			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS] * 10;
-			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX] * 10;
-			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON] * 10;
-			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA] * 10;
-
-			creature_ptr->skill_dis += creature_flag_info[i].dis;
-			creature_ptr->skill_dev += creature_flag_info[i].dev;
-			creature_ptr->skill_stl += creature_flag_info[i].stl;
-			creature_ptr->skill_srh += creature_flag_info[i].srh;
-			creature_ptr->skill_dig += creature_flag_info[i].dig;
-			creature_ptr->skill_thb += creature_flag_info[i].thb;
-			creature_ptr->skill_thn += creature_flag_info[i].thn;
-			creature_ptr->skill_tht += creature_flag_info[i].tht;
-
-			creature_ptr->skill_rob += creature_flag_info[i].rob;
-			creature_ptr->skill_eva += creature_flag_info[i].eva;
-			creature_ptr->skill_vol += creature_flag_info[i].vol;
-
-			creature_ptr->see_infra += creature_flag_info[i].infra;
-
-		}
-	}
-
-	{
-		if (has_cf_creature(creature_ptr, CF_FLESH_ROT))
-		{
-			creature_ptr->regenerate = FALSE;
-			/* Cancel innate regeneration */
-		}
-
-		if (has_cf_creature(creature_ptr, CF_MAGIC_RES))
-		{
-			creature_ptr->skill_rob += creature_ptr->lev / 5;
-			creature_ptr->skill_eva += creature_ptr->lev / 5;
-			creature_ptr->skill_vol += creature_ptr->lev / 5;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_ELEC_TOUC))
-		{
-			creature_ptr->sh_elec = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_FIRE_BODY))
-		{
-			creature_ptr->sh_fire = TRUE;
-			creature_ptr->lite = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_WART_SKIN))
-		{
-			creature_ptr->stat_add[STAT_CHA] -= 20;
-			creature_ptr->to_ac += 5;
-			creature_ptr->dis_to_ac += 5;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_SCALES))
-		{
-			creature_ptr->stat_add[STAT_CHA] -= 10;
-			creature_ptr->to_ac += 10;
-			creature_ptr->dis_to_ac += 10;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_IRON_SKIN))
-		{
-			creature_ptr->stat_add[STAT_DEX] -= 10;
-			creature_ptr->to_ac += 25;
-			creature_ptr->dis_to_ac += 25;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_WINGS))
-		{
-			creature_ptr->levitation = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_FEARLESS))
-		{
-			creature_ptr->resist_fear = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_REGEN))
-		{
-			creature_ptr->regenerate = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_ESP))
-		{
-			creature_ptr->telepathy = TRUE;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_LIMBER))
-		{
-			creature_ptr->stat_add[STAT_DEX] += 30;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_ARTHRITIS))
-		{
-			creature_ptr->stat_add[STAT_DEX] -= 30;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_MOTION))
-		{
-			creature_ptr->free_act = TRUE;
-			creature_ptr->skill_stl += 1;
-		}
-
-		if (has_cf_creature(creature_ptr, CF_ILL_NORM))
-		{
-			creature_ptr->stat_add[STAT_CHA] = 0;
-		}
-	}
-
-	if (creature_ptr->tsuyoshi)
-	{
-		creature_ptr->stat_add[STAT_STR] += 40;
-		creature_ptr->stat_add[STAT_CON] += 40;
-	}
+	set_trait_bonuses(creature_ptr);
 
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 
