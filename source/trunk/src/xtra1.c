@@ -3039,6 +3039,317 @@ static void set_status_bonuses(creature_type *creature_ptr)
 }
 
 
+static void set_inventory_bonuses(creature_type *creature_ptr)
+{
+	int i;
+	object_type *object_ptr;
+	int bonus_to_hit, bonus_to_damage, slot;
+	u32b flgs[TR_FLAG_SIZE];
+	int default_hand = 1;
+	bool yoiyami = FALSE, easy_2weapon = FALSE, down_saving = FALSE, extra_shots = FALSE; // TODO
+
+	for (i = 0; i < INVEN_TOTAL; i++)
+	{
+		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
+		object_ptr = &creature_ptr->inventory[i];
+
+		if (!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
+		if (!object_ptr->k_idx) continue; // Skip non-objects
+
+		/* Extract the item flags */
+		object_flags(object_ptr, flgs);
+
+		creature_ptr->cursed |= (object_ptr->curse_flags & (0xFFFFFFF0L));
+		if (object_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
+
+		/* Affect stats */
+		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += object_ptr->pval * 10;
+		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += object_ptr->pval * 10;
+		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += object_ptr->pval * 10;
+		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += object_ptr->pval * 10;
+		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += object_ptr->pval * 10;
+		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += object_ptr->pval * 10;
+
+		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8*object_ptr->pval;
+
+		/* Affect stealth */
+		if (have_flag(flgs, TR_STEALTH)) creature_ptr->skill_stl += object_ptr->pval;
+
+		/* Affect searching ability (factor of five) */
+		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_srh += (object_ptr->pval * 5);
+
+		/* Affect searching frequency (factor of five) */
+		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_fos += (object_ptr->pval * 5);
+
+		/* Affect infravision */
+		if (have_flag(flgs, TR_INFRA)) creature_ptr->see_infra += object_ptr->pval;
+
+		/* Affect digging (factor of 20) */
+		if (have_flag(flgs, TR_TUNNEL)) creature_ptr->skill_dig += (object_ptr->pval * 20);
+
+		if (have_flag(flgs, TR_SPEED)) creature_ptr->speed += object_ptr->pval;
+
+		/* Affect blows */
+		if (have_flag(flgs, TR_BLOWS))
+		{
+			//TODO adjust
+		}
+
+		/* Hack -- cause earthquakes */
+		if (have_flag(flgs, TR_IMPACT)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
+
+		/* Boost shots */
+		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
+
+		/* Various flags */
+		if (have_flag(flgs, TR_AGGRAVATE))   creature_ptr->cursed |= TRC_AGGRAVATE;
+		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
+		if (have_flag(flgs, TR_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
+		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
+		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
+		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
+		if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
+		if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
+
+		if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
+		if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
+		if (have_flag(flgs, TR_ESP_UNDEAD))  creature_ptr->esp_undead = TRUE;
+		if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
+		if (have_flag(flgs, TR_ESP_ORC))     creature_ptr->esp_orc = TRUE;
+		if (have_flag(flgs, TR_ESP_TROLL))   creature_ptr->esp_troll = TRUE;
+		if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
+		if (have_flag(flgs, TR_ESP_DRAGON))  creature_ptr->esp_dragon = TRUE;
+		if (have_flag(flgs, TR_ESP_HUMAN))   creature_ptr->esp_human = TRUE;
+		if (have_flag(flgs, TR_ESP_EVIL))    creature_ptr->esp_evil = TRUE;
+		if (have_flag(flgs, TR_ESP_GOOD))    creature_ptr->esp_good = TRUE;
+		if (have_flag(flgs, TR_ESP_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
+		if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
+
+		if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
+		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
+		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
+		if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
+
+		if (have_flag(flgs, TR_WARNING)){
+			if (!object_ptr->inscription || !(my_strchr(quark_str(object_ptr->inscription),'$')))
+			  creature_ptr->warning = TRUE;
+		}
+
+		if (have_flag(flgs, TR_TELEPORT))
+		{
+			if (object_is_cursed(object_ptr)) creature_ptr->cursed |= TRC_TELEPORT;
+			else
+			{
+				cptr insc = quark_str(object_ptr->inscription);
+
+				if (object_ptr->inscription && my_strchr(insc, '.'))
+				{
+					/*
+					 * {.} will stop random teleportation.
+					 */
+				}
+				else
+				{
+					/* Controlled random teleportation */
+					creature_ptr->cursed |= TRC_TELEPORT_SELF;
+				}
+			}
+		}
+
+		/* Immunity flags */
+		if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
+		if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
+		if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
+		if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
+
+		/* Resistance flags */
+		if (have_flag(flgs, TR_RES_ACID))   creature_ptr->resist_acid += 1;
+		if (have_flag(flgs, TR_RES_ELEC))   creature_ptr->resist_elec += 1;
+		if (have_flag(flgs, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
+		if (have_flag(flgs, TR_RES_COLD))   creature_ptr->resist_cold += 1;
+		if (have_flag(flgs, TR_RES_POIS))   creature_ptr->resist_pois += 1;
+		if (have_flag(flgs, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
+		if (have_flag(flgs, TR_RES_LITE))   creature_ptr->resist_lite += 1;
+		if (have_flag(flgs, TR_RES_DARK))   creature_ptr->resist_dark += 1;
+		if (have_flag(flgs, TR_RES_CHAOS))  creature_ptr->resist_chaos += 1;
+		if (have_flag(flgs, TR_RES_DISEN))  creature_ptr->resist_disen += 1;
+		if (have_flag(flgs, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
+		if (have_flag(flgs, TR_RES_NEXUS))  creature_ptr->resist_nexus += 1;
+		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;
+		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
+
+		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
+		if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
+		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
+
+		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
+		if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
+		if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
+		if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
+		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
+		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
+
+		/* Sustain flags */
+		if (have_flag(flgs, TR_SUST_STR)) creature_ptr->sustain_str = TRUE;
+		if (have_flag(flgs, TR_SUST_INT)) creature_ptr->sustain_int = TRUE;
+		if (have_flag(flgs, TR_SUST_WIS)) creature_ptr->sustain_wis = TRUE;
+		if (have_flag(flgs, TR_SUST_DEX)) creature_ptr->sustain_dex = TRUE;
+		if (have_flag(flgs, TR_SUST_CON)) creature_ptr->sustain_con = TRUE;
+		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
+
+		if (object_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
+		if (object_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
+
+		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
+		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
+		if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
+		if (object_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
+
+		if (object_ptr->curse_flags & TRC_LOW_MAGIC)
+		{
+			if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+			{
+				creature_ptr->to_m_chance += 10;
+			}
+			else
+			{
+				creature_ptr->to_m_chance += 3;
+			}
+		}
+
+		if (object_ptr->tval == TV_CAPTURE) continue;
+
+		/* Modify the base armor class */
+		/* The base armor class is always known */
+		/* Apply the bonuses to armor class */
+		/* Apply the mental bonuses to armor class, if known */
+
+		creature_ptr->ac += object_ptr->ac;
+		creature_ptr->dis_ac += object_ptr->ac;
+		creature_ptr->to_ac += object_ptr->to_ac;
+		if (object_is_known(object_ptr)) creature_ptr->dis_to_ac += object_ptr->to_ac;
+
+		if (object_ptr->curse_flags & TRC_LOW_MELEE)
+		{
+			int slot = i - 0; //TODO 
+			if (slot < 2)
+			{
+				if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+				{
+					creature_ptr->to_hit[slot] -= 15;
+					if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit[slot] -= 15;
+				}
+				else
+				{
+					creature_ptr->to_hit[slot] -= 5;
+					if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit[slot] -= 5;
+				}
+			}
+			else
+			{
+				if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+				{
+					creature_ptr->to_hit_b -= 15;
+					if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit_b -= 15;
+				}
+				else
+				{
+					creature_ptr->to_hit_b -= 5;
+					if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit_b -= 5;
+				}
+			}
+		}
+
+		if (object_ptr->curse_flags & TRC_LOW_AC)
+		{
+			if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+			{
+				creature_ptr->to_ac -= 30;
+				if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_ac -= 30;
+			}
+			else
+			{
+				creature_ptr->to_ac -= 10;
+				if (object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_ac -= 10;
+			}
+		}
+
+		/* Hack -- do not apply "weapon" bonuses */
+		if (slot == INVEN_SLOT_HAND && get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > i) continue;
+
+		/* Hack -- do not apply "bow" bonuses */
+		if (slot == INVEN_SLOT_BOW) continue;
+
+		bonus_to_hit = object_ptr->to_hit;
+		bonus_to_damage = object_ptr->to_damage;
+
+		if (creature_ptr->cls_idx == CLASS_NINJA)
+		{
+			if (object_ptr->to_hit > 0) bonus_to_hit = (object_ptr->to_hit+1)/2;
+			if (object_ptr->to_damage > 0) bonus_to_damage = (object_ptr->to_damage+1)/2;
+		}
+
+		/* To Bow and Natural attack */
+
+		/* Apply the bonuses to hit/damage */
+		creature_ptr->to_hit_b += bonus_to_hit;
+		creature_ptr->to_hit_m += bonus_to_hit;
+		creature_ptr->to_damage_m += bonus_to_damage;
+
+		/* Apply the mental bonuses tp hit/damage, if known */
+		if (object_is_known(object_ptr)) creature_ptr->dis_to_hit_b += bonus_to_hit;
+
+		/* To Melee */
+		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_RING && !creature_ptr->two_handed)
+		{
+			/* Apply the bonuses to hit/damage */
+			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
+			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
+
+			/* Apply the mental bonuses tp hit/damage, if known */
+			if (object_is_known(object_ptr))
+			{
+				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
+				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
+			}
+		}
+		else if (creature_ptr->can_melee[0] && creature_ptr->can_melee[1])
+		{
+			/* Apply the bonuses to hit/damage */
+			creature_ptr->to_hit[0] += (bonus_to_hit > 0) ? (bonus_to_hit+1)/2 : bonus_to_hit;
+			creature_ptr->to_hit[1] += (bonus_to_hit > 0) ? bonus_to_hit/2 : bonus_to_hit;
+			creature_ptr->to_damage[0] += (bonus_to_damage > 0) ? (bonus_to_damage+1)/2 : bonus_to_damage;
+			creature_ptr->to_damage[1] += (bonus_to_damage > 0) ? bonus_to_damage/2 : bonus_to_damage;
+
+			/* Apply the mental bonuses tp hit/damage, if known */
+			if (object_is_known(object_ptr))
+			{
+				creature_ptr->dis_to_hit[0] += (bonus_to_hit > 0) ? (bonus_to_hit+1)/2 : bonus_to_hit;
+				creature_ptr->dis_to_hit[1] += (bonus_to_hit > 0) ? bonus_to_hit/2 : bonus_to_hit;
+				creature_ptr->dis_to_damage[0] += (bonus_to_damage > 0) ? (bonus_to_damage+1)/2 : bonus_to_damage;
+				creature_ptr->dis_to_damage[1] += (bonus_to_damage > 0) ? bonus_to_damage/2 : bonus_to_damage;
+			}
+		}
+		else
+		{
+			/* Apply the bonuses to hit/damage */
+			creature_ptr->to_hit[default_hand] += bonus_to_hit;
+			creature_ptr->to_damage[default_hand] += bonus_to_damage;
+
+			/* Apply the mental bonuses to hit/damage, if known */
+			if (object_is_known(object_ptr))
+			{
+				creature_ptr->dis_to_hit[default_hand] += bonus_to_hit;
+				creature_ptr->dis_to_damage[default_hand] += bonus_to_damage;
+			}
+		}
+	}
+
+}
+
+
+
+
 /*
  * Calculate the players current "state", taking into account
  * not only race/class intrinsics, but also objects being worn
@@ -3065,8 +3376,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	int             body_size;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
-	int             extra_blows[2];
-	int             extra_shots;
+	int             extra_shots = FALSE;
 
 	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
 	object_type     *o_ptr;
@@ -3107,9 +3417,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
-
-	/* Clear extra blows/shots */
-	extra_blows[0] = extra_blows[1] = extra_shots = 0;
 
 	// Clear the stat modifiers
 	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0;
@@ -3729,313 +4036,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->stat_add[STAT_CON] += 40;
 	}
 
-	/* Scan the usable creature_ptr->inventory */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		int bonus_to_hit, bonus_to_damage, slot;
-
-
-		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
-
-		o_ptr = &creature_ptr->inventory[i];
-
-		// Skip no equip
-		if (!IS_EQUIPPED(o_ptr)) continue;
-
-		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
-
-		/* Extract the item flags */
-		object_flags(o_ptr, flgs);
-
-		creature_ptr->cursed |= (o_ptr->curse_flags & (0xFFFFFFF0L));
-		if (o_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
-
-		/* Affect stats */
-		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += o_ptr->pval * 10;
-		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += o_ptr->pval * 10;
-		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += o_ptr->pval * 10;
-		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += o_ptr->pval * 10;
-		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += o_ptr->pval * 10;
-		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += o_ptr->pval * 10;
-
-		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8*o_ptr->pval;
-
-		/* Affect stealth */
-		if (have_flag(flgs, TR_STEALTH)) creature_ptr->skill_stl += o_ptr->pval;
-
-		/* Affect searching ability (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_srh += (o_ptr->pval * 5);
-
-		/* Affect searching frequency (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_fos += (o_ptr->pval * 5);
-
-		/* Affect infravision */
-		if (have_flag(flgs, TR_INFRA)) creature_ptr->see_infra += o_ptr->pval;
-
-		/* Affect digging (factor of 20) */
-		if (have_flag(flgs, TR_TUNNEL)) creature_ptr->skill_dig += (o_ptr->pval * 20);
-
-		if (have_flag(flgs, TR_SPEED)) creature_ptr->speed += o_ptr->pval;
-
-		/* Affect blows */
-		if (have_flag(flgs, TR_BLOWS))
-		{
-			//TODO adjust
-			extra_blows[0] += o_ptr->pval;
-			extra_blows[1] += o_ptr->pval;
-		}
-
-		/* Hack -- cause earthquakes */
-		if (have_flag(flgs, TR_IMPACT)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
-
-		/* Boost shots */
-		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
-
-		/* Various flags */
-		if (have_flag(flgs, TR_AGGRAVATE))   creature_ptr->cursed |= TRC_AGGRAVATE;
-		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
-		if (have_flag(flgs, TR_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
-		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
-		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
-		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
-		if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
-		if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
-
-		if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
-		if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
-		if (have_flag(flgs, TR_ESP_UNDEAD))  creature_ptr->esp_undead = TRUE;
-		if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
-		if (have_flag(flgs, TR_ESP_ORC))     creature_ptr->esp_orc = TRUE;
-		if (have_flag(flgs, TR_ESP_TROLL))   creature_ptr->esp_troll = TRUE;
-		if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
-		if (have_flag(flgs, TR_ESP_DRAGON))  creature_ptr->esp_dragon = TRUE;
-		if (have_flag(flgs, TR_ESP_HUMAN))   creature_ptr->esp_human = TRUE;
-		if (have_flag(flgs, TR_ESP_EVIL))    creature_ptr->esp_evil = TRUE;
-		if (have_flag(flgs, TR_ESP_GOOD))    creature_ptr->esp_good = TRUE;
-		if (have_flag(flgs, TR_ESP_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
-		if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
-
-		if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
-		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
-		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
-		if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
-
-		if (have_flag(flgs, TR_WARNING)){
-			if (!o_ptr->inscription || !(my_strchr(quark_str(o_ptr->inscription),'$')))
-			  creature_ptr->warning = TRUE;
-		}
-
-		if (have_flag(flgs, TR_TELEPORT))
-		{
-			if (object_is_cursed(o_ptr)) creature_ptr->cursed |= TRC_TELEPORT;
-			else
-			{
-				cptr insc = quark_str(o_ptr->inscription);
-
-				if (o_ptr->inscription && my_strchr(insc, '.'))
-				{
-					/*
-					 * {.} will stop random teleportation.
-					 */
-				}
-				else
-				{
-					/* Controlled random teleportation */
-					creature_ptr->cursed |= TRC_TELEPORT_SELF;
-				}
-			}
-		}
-
-		/* Immunity flags */
-		if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
-		if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
-		if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
-		if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
-
-		/* Resistance flags */
-		if (have_flag(flgs, TR_RES_ACID))   creature_ptr->resist_acid += 1;
-		if (have_flag(flgs, TR_RES_ELEC))   creature_ptr->resist_elec += 1;
-		if (have_flag(flgs, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
-		if (have_flag(flgs, TR_RES_COLD))   creature_ptr->resist_cold += 1;
-		if (have_flag(flgs, TR_RES_POIS))   creature_ptr->resist_pois += 1;
-		if (have_flag(flgs, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
-		if (have_flag(flgs, TR_RES_LITE))   creature_ptr->resist_lite += 1;
-		if (have_flag(flgs, TR_RES_DARK))   creature_ptr->resist_dark += 1;
-		if (have_flag(flgs, TR_RES_CHAOS))  creature_ptr->resist_chaos += 1;
-		if (have_flag(flgs, TR_RES_DISEN))  creature_ptr->resist_disen += 1;
-		if (have_flag(flgs, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
-		if (have_flag(flgs, TR_RES_NEXUS))  creature_ptr->resist_nexus += 1;
-		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;
-		if (o_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
-
-		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
-		if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
-		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
-
-		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
-		if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
-		if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
-		if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
-		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
-		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
-
-		/* Sustain flags */
-		if (have_flag(flgs, TR_SUST_STR)) creature_ptr->sustain_str = TRUE;
-		if (have_flag(flgs, TR_SUST_INT)) creature_ptr->sustain_int = TRUE;
-		if (have_flag(flgs, TR_SUST_WIS)) creature_ptr->sustain_wis = TRUE;
-		if (have_flag(flgs, TR_SUST_DEX)) creature_ptr->sustain_dex = TRUE;
-		if (have_flag(flgs, TR_SUST_CON)) creature_ptr->sustain_con = TRUE;
-		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
-
-		if (o_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
-		if (o_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
-
-
-		if (o_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
-		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
-		if (o_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
-		if (o_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
-
-		if (o_ptr->curse_flags & TRC_LOW_MAGIC)
-		{
-			if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
-			{
-				creature_ptr->to_m_chance += 10;
-			}
-			else
-			{
-				creature_ptr->to_m_chance += 3;
-			}
-		}
-
-		if (o_ptr->tval == TV_CAPTURE) continue;
-
-		/* Modify the base armor class */
-		/* The base armor class is always known */
-		/* Apply the bonuses to armor class */
-		/* Apply the mental bonuses to armor class, if known */
-
-		creature_ptr->ac += o_ptr->ac;
-		creature_ptr->dis_ac += o_ptr->ac;
-		creature_ptr->to_ac += o_ptr->to_ac;
-		if (object_is_known(o_ptr)) creature_ptr->dis_to_ac += o_ptr->to_ac;
-
-		if (o_ptr->curse_flags & TRC_LOW_MELEE)
-		{
-			int slot = i - 0; //TODO 
-			if (slot < 2)
-			{
-				if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
-				{
-					creature_ptr->to_hit[slot] -= 15;
-					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit[slot] -= 15;
-				}
-				else
-				{
-					creature_ptr->to_hit[slot] -= 5;
-					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit[slot] -= 5;
-				}
-			}
-			else
-			{
-				if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
-				{
-					creature_ptr->to_hit_b -= 15;
-					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit_b -= 15;
-				}
-				else
-				{
-					creature_ptr->to_hit_b -= 5;
-					if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit_b -= 5;
-				}
-			}
-		}
-
-		if (o_ptr->curse_flags & TRC_LOW_AC)
-		{
-			if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
-			{
-				creature_ptr->to_ac -= 30;
-				if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_ac -= 30;
-			}
-			else
-			{
-				creature_ptr->to_ac -= 10;
-				if (o_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_ac -= 10;
-			}
-		}
-
-		/* Hack -- do not apply "weapon" bonuses */
-		if (slot == INVEN_SLOT_HAND && get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > i) continue;
-
-		/* Hack -- do not apply "bow" bonuses */
-		if (slot == INVEN_SLOT_BOW) continue;
-
-		bonus_to_hit = o_ptr->to_hit;
-		bonus_to_damage = o_ptr->to_damage;
-
-		if (creature_ptr->cls_idx == CLASS_NINJA)
-		{
-			if (o_ptr->to_hit > 0) bonus_to_hit = (o_ptr->to_hit+1)/2;
-			if (o_ptr->to_damage > 0) bonus_to_damage = (o_ptr->to_damage+1)/2;
-		}
-
-		/* To Bow and Natural attack */
-
-		/* Apply the bonuses to hit/damage */
-		creature_ptr->to_hit_b += bonus_to_hit;
-		creature_ptr->to_hit_m += bonus_to_hit;
-		creature_ptr->to_damage_m += bonus_to_damage;
-
-		/* Apply the mental bonuses tp hit/damage, if known */
-		if (object_is_known(o_ptr)) creature_ptr->dis_to_hit_b += bonus_to_hit;
-
-		/* To Melee */
-		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_RING && !creature_ptr->two_handed)
-		{
-			/* Apply the bonuses to hit/damage */
-			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
-			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
-
-			/* Apply the mental bonuses tp hit/damage, if known */
-			if (object_is_known(o_ptr))
-			{
-				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
-				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
-			}
-		}
-		else if (creature_ptr->can_melee[0] && creature_ptr->can_melee[1])
-		{
-			/* Apply the bonuses to hit/damage */
-			creature_ptr->to_hit[0] += (bonus_to_hit > 0) ? (bonus_to_hit+1)/2 : bonus_to_hit;
-			creature_ptr->to_hit[1] += (bonus_to_hit > 0) ? bonus_to_hit/2 : bonus_to_hit;
-			creature_ptr->to_damage[0] += (bonus_to_damage > 0) ? (bonus_to_damage+1)/2 : bonus_to_damage;
-			creature_ptr->to_damage[1] += (bonus_to_damage > 0) ? bonus_to_damage/2 : bonus_to_damage;
-
-			/* Apply the mental bonuses tp hit/damage, if known */
-			if (object_is_known(o_ptr))
-			{
-				creature_ptr->dis_to_hit[0] += (bonus_to_hit > 0) ? (bonus_to_hit+1)/2 : bonus_to_hit;
-				creature_ptr->dis_to_hit[1] += (bonus_to_hit > 0) ? bonus_to_hit/2 : bonus_to_hit;
-				creature_ptr->dis_to_damage[0] += (bonus_to_damage > 0) ? (bonus_to_damage+1)/2 : bonus_to_damage;
-				creature_ptr->dis_to_damage[1] += (bonus_to_damage > 0) ? bonus_to_damage/2 : bonus_to_damage;
-			}
-		}
-		else
-		{
-			/* Apply the bonuses to hit/damage */
-			creature_ptr->to_hit[default_hand] += bonus_to_hit;
-			creature_ptr->to_damage[default_hand] += bonus_to_damage;
-
-			/* Apply the mental bonuses to hit/damage, if known */
-			if (object_is_known(o_ptr))
-			{
-				creature_ptr->dis_to_hit[default_hand] += bonus_to_hit;
-				creature_ptr->dis_to_damage[default_hand] += bonus_to_damage;
-			}
-		}
-	}
+	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 
 	if (old_mighty_throw != creature_ptr->mighty_throw)
 	{
@@ -4239,36 +4240,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	set_status_bonuses(creature_ptr);
 
-	/* Hack -- Telepathy Change */
-	if (creature_ptr->telepathy != old_telepathy)
-	{
-		update |= (PU_MONSTERS);
-	}
-
-	if ((creature_ptr->esp_animal != old_esp_animal) ||
-	    (creature_ptr->esp_undead != old_esp_undead) ||
-	    (creature_ptr->esp_demon != old_esp_demon) ||
-	    (creature_ptr->esp_orc != old_esp_orc) ||
-	    (creature_ptr->esp_troll != old_esp_troll) ||
-	    (creature_ptr->esp_giant != old_esp_giant) ||
-	    (creature_ptr->esp_dragon != old_esp_dragon) ||
-	    (creature_ptr->esp_human != old_esp_human) ||
-	    (creature_ptr->esp_evil != old_esp_evil) ||
-	    (creature_ptr->esp_good != old_esp_good) ||
-	    (creature_ptr->esp_nonliving != old_esp_nonliving) ||
-	    (creature_ptr->esp_unique != old_esp_unique))
-	{
-		update |= (PU_MONSTERS);
-	}
-
-	/* Hack -- See Invis Change */
-	if (creature_ptr->see_inv != old_see_inv)
-	{
-		update |= (PU_MONSTERS);
-	}
-
-
-	/* Bloating slows the player down (a little) */
+	// Bloating slows the player down (a little)
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10;
 
 	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
@@ -4457,7 +4429,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 			/* Apply special flags */
 			if (o_ptr->k_idx && !creature_ptr->heavy_shoot)
 			{
-				/* Extra shots */
+				// TODO Extra shots
 				creature_ptr->num_fire += (extra_shots * 100);
 
 				/* Hack -- Rangers love Bows */
@@ -4643,7 +4615,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 				/* None */
 				default:
 					num = 4; wgt = 100; mul = 3; break;
-
 			}
 
 			/* Hex - extra mights gives +1 bonus to max blows */
@@ -4673,8 +4644,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 		/* Assume okay */
 		/* Priest weapon penalty for non-blessed edged weapons */
-		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) &&
-		    ((o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM)))
+		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
 			creature_ptr->to_hit[i] -= 2;
@@ -5037,7 +5007,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	else creature_ptr->skill_tht += (class_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
 	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
 
-
 	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
 	{
 		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
@@ -5359,6 +5328,34 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	// TODO: Evasion was adjusted by speed and size.
 	// creature_ptr->skill_eva += (creature_ptr->speed * creature_ptr->size / 5);
+
+	// Hack -- Telepathy Change
+	if (creature_ptr->telepathy != old_telepathy)
+	{
+		update |= (PU_MONSTERS);
+	}
+
+	if ((creature_ptr->esp_animal != old_esp_animal) ||
+	    (creature_ptr->esp_undead != old_esp_undead) ||
+	    (creature_ptr->esp_demon != old_esp_demon) ||
+	    (creature_ptr->esp_orc != old_esp_orc) ||
+	    (creature_ptr->esp_troll != old_esp_troll) ||
+	    (creature_ptr->esp_giant != old_esp_giant) ||
+	    (creature_ptr->esp_dragon != old_esp_dragon) ||
+	    (creature_ptr->esp_human != old_esp_human) ||
+	    (creature_ptr->esp_evil != old_esp_evil) ||
+	    (creature_ptr->esp_good != old_esp_good) ||
+	    (creature_ptr->esp_nonliving != old_esp_nonliving) ||
+	    (creature_ptr->esp_unique != old_esp_unique))
+	{
+		update |= (PU_MONSTERS);
+	}
+
+	// Hack -- See Invis Change
+	if (creature_ptr->see_inv != old_see_inv)
+	{
+		update |= (PU_MONSTERS);
+	}
 
 }
 
