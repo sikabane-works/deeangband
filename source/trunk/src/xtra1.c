@@ -2919,6 +2919,79 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	}
 }
 
+static void set_posture_bonuses(creature_type *creature_ptr)
+{
+	int i;
+
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
+	{
+		/* TODO Monks get extra ac for armour _not worn_
+		if (!(creature_ptr->inventory[INVEN_SLOT_BODY].k_idx))
+		{
+			creature_ptr->to_ac += (creature_ptr->lev * 3) / 2;
+			creature_ptr->dis_to_ac += (creature_ptr->lev * 3) / 2;
+		}
+		if (!(creature_ptr->inventory[INVEN_SLOT_OUTER].k_idx) && (creature_ptr->lev > 15))
+		{
+			creature_ptr->to_ac += ((creature_ptr->lev - 13) / 3);
+			creature_ptr->dis_to_ac += ((creature_ptr->lev - 13) / 3);
+		}
+		if (!(creature_ptr->inventory[INVEN_SLOT_2NDARM].k_idx) && (creature_ptr->lev > 10))
+		{
+			creature_ptr->to_ac += ((creature_ptr->lev - 8) / 3);
+			creature_ptr->dis_to_ac += ((creature_ptr->lev - 8) / 3);
+		}
+		if (!(creature_ptr->inventory[INVEN_SLOT_1STHEAD].k_idx) && (creature_ptr->lev > 4))
+		{
+			creature_ptr->to_ac += (creature_ptr->lev - 2) / 3;
+			creature_ptr->dis_to_ac += (creature_ptr->lev -2) / 3;
+		}
+		if (!(creature_ptr->inventory[INVEN_SLOT_1STHANDS].k_idx))
+		{
+			creature_ptr->to_ac += (creature_ptr->lev / 2);
+			creature_ptr->dis_to_ac += (creature_ptr->lev / 2);
+		}
+		if (!(creature_ptr->inventory[INVEN_SLOT_FEET].k_idx))
+		{
+			creature_ptr->to_ac += (creature_ptr->lev / 3);
+			creature_ptr->dis_to_ac += (creature_ptr->lev / 3);
+		}
+		*/
+		if (creature_ptr->special_defense & KAMAE_BYAKKO)
+		{
+			creature_ptr->stat_add[STAT_STR] += 20;
+			creature_ptr->stat_add[STAT_DEX] += 20;
+			creature_ptr->stat_add[STAT_CON] -= 30;
+		}
+		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
+		{
+		}
+		else if (creature_ptr->special_defense & KAMAE_GENBU)
+		{
+			creature_ptr->stat_add[STAT_INT] -= 10;
+			creature_ptr->stat_add[STAT_WIS] -= 10;
+			creature_ptr->stat_add[STAT_DEX] -= 20;
+			creature_ptr->stat_add[STAT_CON] += 30;
+		}
+		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
+		{
+			creature_ptr->stat_add[STAT_STR] -= 20;
+			creature_ptr->stat_add[STAT_INT] += 10;
+			creature_ptr->stat_add[STAT_WIS] += 10;
+			creature_ptr->stat_add[STAT_DEX] += 20;
+			creature_ptr->stat_add[STAT_CON] -= 20;
+		}
+	}
+
+	if (creature_ptr->special_defense & KATA_KOUKIJIN)
+	{
+		for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
+		creature_ptr->to_ac -= 50;
+		creature_ptr->dis_to_ac -= 50;
+	}
+}
+
+
 static void set_status_bonuses(creature_type *creature_ptr)
 {
 	// Apply temporary "stun"
@@ -4273,79 +4346,13 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
-	{
-		/* TODO Monks get extra ac for armour _not worn_
-		if (!(creature_ptr->inventory[INVEN_SLOT_BODY].k_idx))
-		{
-			creature_ptr->to_ac += (creature_ptr->lev * 3) / 2;
-			creature_ptr->dis_to_ac += (creature_ptr->lev * 3) / 2;
-		}
-		if (!(creature_ptr->inventory[INVEN_SLOT_OUTER].k_idx) && (creature_ptr->lev > 15))
-		{
-			creature_ptr->to_ac += ((creature_ptr->lev - 13) / 3);
-			creature_ptr->dis_to_ac += ((creature_ptr->lev - 13) / 3);
-		}
-		if (!(creature_ptr->inventory[INVEN_SLOT_2NDARM].k_idx) && (creature_ptr->lev > 10))
-		{
-			creature_ptr->to_ac += ((creature_ptr->lev - 8) / 3);
-			creature_ptr->dis_to_ac += ((creature_ptr->lev - 8) / 3);
-		}
-		if (!(creature_ptr->inventory[INVEN_SLOT_1STHEAD].k_idx) && (creature_ptr->lev > 4))
-		{
-			creature_ptr->to_ac += (creature_ptr->lev - 2) / 3;
-			creature_ptr->dis_to_ac += (creature_ptr->lev -2) / 3;
-		}
-		if (!(creature_ptr->inventory[INVEN_SLOT_1STHANDS].k_idx))
-		{
-			creature_ptr->to_ac += (creature_ptr->lev / 2);
-			creature_ptr->dis_to_ac += (creature_ptr->lev / 2);
-		}
-		if (!(creature_ptr->inventory[INVEN_SLOT_FEET].k_idx))
-		{
-			creature_ptr->to_ac += (creature_ptr->lev / 3);
-			creature_ptr->dis_to_ac += (creature_ptr->lev / 3);
-		}
-		*/
-		if (creature_ptr->special_defense & KAMAE_BYAKKO)
-		{
-			creature_ptr->stat_add[STAT_STR] += 20;
-			creature_ptr->stat_add[STAT_DEX] += 20;
-			creature_ptr->stat_add[STAT_CON] -= 30;
-		}
-		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
-		{
-		}
-		else if (creature_ptr->special_defense & KAMAE_GENBU)
-		{
-			creature_ptr->stat_add[STAT_INT] -= 10;
-			creature_ptr->stat_add[STAT_WIS] -= 10;
-			creature_ptr->stat_add[STAT_DEX] -= 20;
-			creature_ptr->stat_add[STAT_CON] += 30;
-		}
-		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
-		{
-			creature_ptr->stat_add[STAT_STR] -= 20;
-			creature_ptr->stat_add[STAT_INT] += 10;
-			creature_ptr->stat_add[STAT_WIS] += 10;
-			creature_ptr->stat_add[STAT_DEX] += 20;
-			creature_ptr->stat_add[STAT_CON] -= 20;
-		}
-	}
-
-	if (creature_ptr->special_defense & KATA_KOUKIJIN)
-	{
-		for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
-		creature_ptr->to_ac -= 50;
-		creature_ptr->dis_to_ac -= 50;
-	}
+	set_posture_bonuses(creature_ptr);
 
 	// Set Species Blow.
 	creature_ptr->blow[0] = species_ptr->blow[0];
 	creature_ptr->blow[1] = species_ptr->blow[1];
 	creature_ptr->blow[2] = species_ptr->blow[2];
 	creature_ptr->blow[3] = species_ptr->blow[3];
-
 
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
