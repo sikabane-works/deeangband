@@ -51,19 +51,14 @@
 #define VER_PATCH 46
 #define VER_EXTRA 0
 
-/*
- * Number of Trying for random search
- */
-#define RANDOM_TRY  100000
 
+#define RANDOM_TRY  100000 // Number of Trying for random search
+#define PERCENTAGE  100
 
-/*
- * Back Ground Color (Windows)
- */
+// Back Ground Color (Windows)
 #define WINDOWS_BK_COLOR_R  0
 #define WINDOWS_BK_COLOR_G  0
 #define WINDOWS_BK_COLOR_B  0
-
 
 /*
  * Number of grids in each block (vertically)
@@ -77,7 +72,6 @@
  */
 #define BLOCK_WID	11
 
-
 /*
  * Number of grids in each panel (vertically)
  * Must be a multiple of BLOCK_HGT
@@ -90,18 +84,17 @@
  */
 #define PANEL_WID	33
 
-
 /*
  * Number of grids used to display the dungeon (vertically).
  * Must be a multiple of 11, probably hard-coded to 22. (to hengband)
  */
-#define SCREEN_HGT      20
+#define SCREEN_HGT	20
 
 /*
  * Number of grids used to display the dungeon (horizontally).
  * Must be a multiple of 33, probably hard-coded to 66. (to hengband)
  */
-#define SCREEN_WID      20
+#define SCREEN_WID	20
 
 
 /*

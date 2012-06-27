@@ -81,6 +81,7 @@ extern int adj_dr_saving[DR_TABLE_SIZE];
 extern int adj_dr_speed[DR_TABLE_SIZE];
 extern int adj_dr_ac[DR_TABLE_SIZE];
 extern byte adj_chr_chm[STAT_TABLE_SIZE];
+extern s16b adj_weight_action_point[PERCENTAGE / 5 + 1];
 extern arena_type arena_info[MAX_ARENA_MONS + 2];
 extern byte extract_energy[200];
 extern s32b creature_exp[PY_MAX_LEVEL];

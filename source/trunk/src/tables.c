@@ -86,9 +86,7 @@ char listsym[] =
 cptr color_char = "dwsorgbuDWvyRGBU";
 
 
-/*
- * Stat Table (INT/WIS) -- Number of half-spells per level
- */
+// Base Action point
 s16b adj_dex_action_point[STAT_TABLE_SIZE] =
 {
 	400	/* 3 */,
@@ -150,6 +148,37 @@ s16b adj_dex_action_point[STAT_TABLE_SIZE] =
 	 34	/* 59 */,
 	 33	/* 60 */,
 };
+
+s16b adj_weight_action_point[PERCENTAGE / 5 + 1] =
+{
+	100,  // 00-04%
+	102,  // 05-09%
+	105,  // 10-14%
+	110,  // 15-19%
+	120,  // 20-24%
+
+	140,  // 25-29%
+	160,  // 30-34%
+	190,  // 35-39%
+	240,  // 40-44%
+	300,  // 45-49%
+
+	360,  // 50-54%
+	420,  // 55-59%
+	500,  // 60-64%
+	600,  // 65-69%
+	700,  // 70-74%
+
+	800,  // 75-79%
+	900,  // 80-84%
+	1000, // 85-89%
+	1200, // 90-94%
+	1400, // 95-99%
+
+	1400, // 100%
+};
+
+
 
 
 /*
