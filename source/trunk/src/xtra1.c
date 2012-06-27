@@ -3994,9 +3994,116 @@ static void set_weapon_status(creature_type *creature_ptr)
 	int i, hold;
 	object_type *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
+	int extra_shots = 0;
 	bool omoi;
 
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
+
+	// Examine the "current bow"
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+
+	if(object_ptr->k_idx)
+	{
+		/* Assume not heavy */
+		creature_ptr->heavy_shoot = FALSE;
+
+		/* It is hard to carholdry a heavy bow */
+		if (hold < object_ptr->weight / 10)
+		{
+			/* Hard to wield a heavy bow */
+			creature_ptr->to_hit_b  += 2 * (hold - object_ptr->weight / 10);
+			creature_ptr->dis_to_hit_b  += 2 * (hold - object_ptr->weight / 10);
+
+			/* Heavy Bow */
+			creature_ptr->heavy_shoot = TRUE;
+		}
+
+		/* Compute "extra shots" if needed */
+		if (object_ptr->k_idx)
+		{
+			/* Analyze the launcher */
+			switch (object_ptr->sval)
+			{
+				case SV_SLING:
+				{
+					creature_ptr->tval_ammo = TV_SHOT;
+					break;
+				}
+
+				case SV_SHORT_BOW:
+				case SV_LONG_BOW:
+				case SV_NAMAKE_BOW:
+				{
+					creature_ptr->tval_ammo = TV_ARROW;
+					break;
+				}
+
+				case SV_LIGHT_XBOW:
+				case SV_HEAVY_XBOW:
+				{
+					creature_ptr->tval_ammo = TV_BOLT;
+					break;
+				}
+				case SV_CRIMSON:
+				{
+					creature_ptr->tval_ammo = TV_NO_AMMO;
+					break;
+				}
+			}
+
+			/* Apply special flags */
+			if (object_ptr->k_idx && !creature_ptr->heavy_shoot)
+			{
+				// TODO Extra shots
+				creature_ptr->num_fire += (extra_shots * 100);
+
+				/* Hack -- Rangers love Bows */
+				if ((creature_ptr->cls_idx == CLASS_RANGER) &&
+				    (creature_ptr->tval_ammo == TV_ARROW))
+				{
+					creature_ptr->num_fire += (creature_ptr->lev * 4);
+				}
+
+				if ((creature_ptr->cls_idx == CLASS_CAVALRY) &&
+				    (creature_ptr->tval_ammo == TV_ARROW))
+				{
+					creature_ptr->num_fire += (creature_ptr->lev * 3);
+				}
+
+				if (creature_ptr->cls_idx == CLASS_ARCHER)
+				{
+					if (creature_ptr->tval_ammo == TV_ARROW)
+						creature_ptr->num_fire += ((creature_ptr->lev * 5)+50);
+					else if ((creature_ptr->tval_ammo == TV_BOLT) || (creature_ptr->tval_ammo == TV_SHOT))
+						creature_ptr->num_fire += (creature_ptr->lev * 4);
+				}
+
+				/*
+				 * Addendum -- also "Reward" high level warriors,
+				 * with _any_ missile weapon -- TY
+				 */
+				if (creature_ptr->cls_idx == CLASS_WARRIOR &&
+				   (creature_ptr->tval_ammo <= TV_BOLT) &&
+				   (creature_ptr->tval_ammo >= TV_SHOT))
+				{
+					creature_ptr->num_fire += (creature_ptr->lev * 2);
+				}
+				if ((creature_ptr->cls_idx == CLASS_ROGUE) &&
+				    (creature_ptr->tval_ammo == TV_SHOT))
+				{
+					creature_ptr->num_fire += (creature_ptr->lev * 4);
+				}
+
+				/* Snipers love Cross bows */
+				if ((creature_ptr->cls_idx == CLASS_SNIPER) &&
+					(creature_ptr->tval_ammo == TV_BOLT))
+				{
+					creature_ptr->to_hit_b += (10 + (creature_ptr->lev / 5));
+					creature_ptr->dis_to_hit_b += (10 + (creature_ptr->lev / 5));
+				}
+			}
+		}
+	}
 
 	for(i = 0 ; i < MAX_WEAPONS ; i++)
 	{
@@ -4286,7 +4393,7 @@ static void set_weapon_status(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	int             i, j, k, hold;
+	int             i, j, k;
 	int             body_size;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
@@ -4877,113 +4984,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
-	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
-
-	// Examine the "current bow"
-	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
-
-	if(o_ptr->k_idx)
-	{
-		/* Assume not heavy */
-		creature_ptr->heavy_shoot = FALSE;
-
-		/* It is hard to carholdry a heavy bow */
-		if (hold < o_ptr->weight / 10)
-		{
-			/* Hard to wield a heavy bow */
-			creature_ptr->to_hit_b  += 2 * (hold - o_ptr->weight / 10);
-			creature_ptr->dis_to_hit_b  += 2 * (hold - o_ptr->weight / 10);
-
-			/* Heavy Bow */
-			creature_ptr->heavy_shoot = TRUE;
-		}
-
-		/* Compute "extra shots" if needed */
-		if (o_ptr->k_idx)
-		{
-			/* Analyze the launcher */
-			switch (o_ptr->sval)
-			{
-				case SV_SLING:
-				{
-					creature_ptr->tval_ammo = TV_SHOT;
-					break;
-				}
-
-				case SV_SHORT_BOW:
-				case SV_LONG_BOW:
-				case SV_NAMAKE_BOW:
-				{
-					creature_ptr->tval_ammo = TV_ARROW;
-					break;
-				}
-
-				case SV_LIGHT_XBOW:
-				case SV_HEAVY_XBOW:
-				{
-					creature_ptr->tval_ammo = TV_BOLT;
-					break;
-				}
-				case SV_CRIMSON:
-				{
-					creature_ptr->tval_ammo = TV_NO_AMMO;
-					break;
-				}
-			}
-
-			/* Apply special flags */
-			if (o_ptr->k_idx && !creature_ptr->heavy_shoot)
-			{
-				// TODO Extra shots
-				creature_ptr->num_fire += (extra_shots * 100);
-
-				/* Hack -- Rangers love Bows */
-				if ((creature_ptr->cls_idx == CLASS_RANGER) &&
-				    (creature_ptr->tval_ammo == TV_ARROW))
-				{
-					creature_ptr->num_fire += (creature_ptr->lev * 4);
-				}
-
-				if ((creature_ptr->cls_idx == CLASS_CAVALRY) &&
-				    (creature_ptr->tval_ammo == TV_ARROW))
-				{
-					creature_ptr->num_fire += (creature_ptr->lev * 3);
-				}
-
-				if (creature_ptr->cls_idx == CLASS_ARCHER)
-				{
-					if (creature_ptr->tval_ammo == TV_ARROW)
-						creature_ptr->num_fire += ((creature_ptr->lev * 5)+50);
-					else if ((creature_ptr->tval_ammo == TV_BOLT) || (creature_ptr->tval_ammo == TV_SHOT))
-						creature_ptr->num_fire += (creature_ptr->lev * 4);
-				}
-
-				/*
-				 * Addendum -- also "Reward" high level warriors,
-				 * with _any_ missile weapon -- TY
-				 */
-				if (creature_ptr->cls_idx == CLASS_WARRIOR &&
-				   (creature_ptr->tval_ammo <= TV_BOLT) &&
-				   (creature_ptr->tval_ammo >= TV_SHOT))
-				{
-					creature_ptr->num_fire += (creature_ptr->lev * 2);
-				}
-				if ((creature_ptr->cls_idx == CLASS_ROGUE) &&
-				    (creature_ptr->tval_ammo == TV_SHOT))
-				{
-					creature_ptr->num_fire += (creature_ptr->lev * 4);
-				}
-
-				/* Snipers love Cross bows */
-				if ((creature_ptr->cls_idx == CLASS_SNIPER) &&
-					(creature_ptr->tval_ammo == TV_BOLT))
-				{
-					creature_ptr->to_hit_b += (10 + (creature_ptr->lev / 5));
-					creature_ptr->dis_to_hit_b += (10 + (creature_ptr->lev / 5));
-				}
-			}
-		}
-	}
 
 	set_weapon_status(creature_ptr);
 
