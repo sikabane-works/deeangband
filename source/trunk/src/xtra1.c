@@ -3986,6 +3986,279 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_add[STAT_CHA] = 0;
 		}
 	}
+}
+
+
+static void set_weapon_status(creature_type *creature_ptr)
+{
+	int i, hold;
+	object_type *object_ptr;
+	u32b flgs[TR_FLAG_SIZE];
+	bool omoi;
+
+	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
+
+	for(i = 0 ; i < MAX_WEAPONS ; i++)
+	{
+		/* Examine the "main weapon" */
+		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
+
+		object_flags(object_ptr, flgs);
+
+		/* Assume not heavy */
+		creature_ptr->heavy_wield[i] = FALSE;
+		creature_ptr->icky_wield[i] = FALSE;
+		creature_ptr->riding_wield[i] = FALSE;
+
+		/* It is hard to hold a heavy weapon */
+		if (hold < object_ptr->weight / 10)
+		{
+			/* Hard to wield a heavy weapon */
+			creature_ptr->to_hit[i] += 2 * (hold - object_ptr->weight / 10);
+			creature_ptr->dis_to_hit[i] += 2 * (hold - object_ptr->weight / 10);
+
+			/* Heavy weapon */
+			creature_ptr->heavy_wield[i] = TRUE;
+		}
+		else if (creature_ptr->two_handed && (hold < object_ptr->weight/5)) omoi = TRUE;
+
+		if ((i == 1) && (object_ptr->tval == TV_SWORD) && ((object_ptr->sval == SV_MAIN_GAUCHE) || (object_ptr->sval == SV_WAKIZASHI)))
+		{
+			creature_ptr->to_ac += 5;
+			creature_ptr->dis_to_ac += 5;
+		}
+
+		/* Normal weapons */
+		if (object_ptr->k_idx && !creature_ptr->heavy_wield[i])
+		{
+			int str_index, dex_index;
+
+			int num = 0, wgt = 0, mul = 0, div = 0;
+
+			/* Analyze the class */
+			switch (creature_ptr->cls_idx)
+			{
+				/* Warrior */
+				case CLASS_WARRIOR:
+					num = 6; wgt = 70; mul = 5; break;
+
+				/* Berserker */
+				case CLASS_BERSERKER:
+					num = 6; wgt = 70; mul = 7; break;
+
+				/* Mage */
+				case CLASS_MAGE:
+				case CLASS_HIGH_MAGE:
+				case CLASS_BLUE_MAGE:
+					num = 3; wgt = 100; mul = 2; break;
+
+				/* Priest, Mindcrafter, Magic-Eater */
+				case CLASS_PRIEST:
+				case CLASS_MAGIC_EATER:
+				case CLASS_MINDCRAFTER:
+					num = 5; wgt = 100; mul = 3; break;
+
+				/* Rogue */
+				case CLASS_ROGUE:
+					num = 5; wgt = 40; mul = 3; break;
+
+				/* Ranger */
+				case CLASS_RANGER:
+					num = 5; wgt = 70; mul = 4; break;
+
+				/* Paladin */
+				case CLASS_PALADIN:
+				case CLASS_SAMURAI:
+					num = 5; wgt = 70; mul = 4; break;
+
+				/* Weaponsmith */
+				case CLASS_SMITH:
+					num = 5; wgt = 150; mul = 5; break;
+
+				/* Warrior-Mage */
+				case CLASS_WARRIOR_MAGE:
+				case CLASS_RED_MAGE:
+					num = 5; wgt = 70; mul = 3; break;
+
+				/* Chaos Warrior */
+				case CLASS_CHAOS_WARRIOR:
+					num = 5; wgt = 70; mul = 4; break;
+
+				/* Monk */
+				case CLASS_MONK:
+					num = 5; wgt = 60; mul = 3; break;
+
+				/* Tourist */
+				case CLASS_TOURIST:
+					num = 4; wgt = 100; mul = 3; break;
+
+				/* Imitator */
+				case CLASS_IMITATOR:
+					num = 5; wgt = 70; mul = 4; break;
+
+				/* Beastmaster */
+				case CLASS_BEASTMASTER:
+					num = 5; wgt = 70; mul = 3; break;
+
+				/* Cavalry */
+				case CLASS_CAVALRY:
+					if ((creature_ptr->riding) && (have_flag(flgs, TR_RIDING))) {num = 5; wgt = 70; mul = 4;}
+					else {num = 5; wgt = 100; mul = 3;}
+					break;
+
+				/* Sorcerer */
+				case CLASS_SORCERER:
+					num = 1; wgt = 1; mul = 1; break;
+
+				/* Archer, Bard */
+				case CLASS_ARCHER:
+				case CLASS_BARD:
+					num = 4; wgt = 70; mul = 2; break;
+
+				/* ForceTrainer */
+				case CLASS_FORCETRAINER:
+					num = 4; wgt = 60; mul = 2; break;
+
+				/* Mirror Master, Sniper */
+				case CLASS_MIRROR_MASTER:
+				case CLASS_SNIPER:
+					num = 3; wgt = 100; mul = 3; break;
+
+				/* Ninja */
+				case CLASS_NINJA:
+					num = 4; wgt = 20; mul = 1; break;
+
+				/* None */
+				default:
+					num = 4; wgt = 100; mul = 3; break;
+			}
+
+			/* Hex - extra mights gives +1 bonus to max blows */
+			if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
+
+			/* Enforce a minimum "weight" (tenth pounds) */
+			div = ((object_ptr->weight < wgt) ? wgt : object_ptr->weight);
+
+			/* Access the strength vs weight */
+			str_index = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] * mul / div);
+
+			if (creature_ptr->two_handed && !omoi) str_index++;
+			if (creature_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
+
+			/* Maximal value */
+			if (str_index > 11) str_index = 11;
+
+			/* Index by dexterity */
+			dex_index = (adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]]);
+
+			/* Maximal value */
+			if (dex_index > 11) dex_index = 11;
+
+			/* Boost digging skill by weapon weight */
+			creature_ptr->skill_dig += (object_ptr->weight / 10);
+		}
+
+		/* Assume okay */
+		/* Priest weapon penalty for non-blessed edged weapons */
+		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
+		{
+			/* Reduce the real bonuses */
+			creature_ptr->to_hit[i] -= 2;
+			creature_ptr->to_damage[i] -= 2;
+
+			/* Reduce the mental bonuses */
+			creature_ptr->dis_to_hit[i] -= 2;
+			creature_ptr->dis_to_damage[i] -= 2;
+
+			/* Icky weapon */
+			creature_ptr->icky_wield[i] = TRUE;
+		}
+		else if (creature_ptr->cls_idx == CLASS_BERSERKER)
+		{
+			creature_ptr->to_hit[i] += creature_ptr->lev/5;
+			creature_ptr->to_damage[i] += creature_ptr->lev/6;
+			creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
+			creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
+			if (((i == 0) && !creature_ptr->can_melee[1]) || creature_ptr->two_handed)
+			{
+				creature_ptr->to_hit[i] += creature_ptr->lev/5;
+				creature_ptr->to_damage[i] += creature_ptr->lev/6;
+				creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
+				creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
+			}
+		}
+		else if (creature_ptr->cls_idx == CLASS_SORCERER)
+		{
+			if (!((object_ptr->tval == TV_HAFTED) && ((object_ptr->sval == SV_WIZSTAFF) || (object_ptr->sval == SV_NAMAKE_HAMMER))))
+			{
+				/* Reduce the real bonuses */
+				creature_ptr->to_hit[i] -= 200;
+				creature_ptr->to_damage[i] -= 200;
+
+				/* Reduce the mental bonuses */
+				creature_ptr->dis_to_hit[i] -= 200;
+				creature_ptr->dis_to_damage[i] -= 200;
+
+				/* Icky weapon */
+				creature_ptr->icky_wield[i] = TRUE;
+			}
+			else
+			{
+				/* Reduce the real bonuses */
+				creature_ptr->to_hit[i] -= 30;
+				creature_ptr->to_damage[i] -= 10;
+
+				/* Reduce the mental bonuses */
+				creature_ptr->dis_to_hit[i] -= 30;
+				creature_ptr->dis_to_damage[i] -= 10;
+			}
+		}
+		/* Hex bonuses */
+		if (creature_ptr->realm1 == REALM_HEX)
+		{
+			if (object_is_cursed(object_ptr))
+			{
+				if (object_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if (object_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
+				if (object_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
+				if (object_ptr->curse_flags & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if (hex_spelling(creature_ptr, HEX_RUNESWORD))
+				{
+					if (object_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
+					if (object_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
+					if (object_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
+				}
+			}
+		}
+		if (creature_ptr->riding)
+		{
+			if ((object_ptr->tval == TV_POLEARM) && ((object_ptr->sval == SV_LANCE) || (object_ptr->sval == SV_HEAVY_LANCE)))
+			{
+				creature_ptr->to_hit[i] +=15;
+				creature_ptr->dis_to_hit[i] +=15;
+				creature_ptr->to_damaged[i] += 2;
+			}
+			else if (!(have_flag(flgs, TR_RIDING)))
+			{
+				int penalty;
+				if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+				{
+					penalty = 5;
+				}
+				else
+				{
+					penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty += 30;
+					if (penalty < 30) penalty = 30;
+				}
+				creature_ptr->to_hit[i] -= penalty;
+				creature_ptr->dis_to_hit[i] -= penalty;
+
+				/* Riding weapon */
+				creature_ptr->riding_wield[i] = TRUE;
+			}
+		}
+	}
 
 }
 
@@ -4021,7 +4294,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
 	object_type     *o_ptr;
-	u32b flgs[TR_FLAG_SIZE];
 	bool            omoi = FALSE;
 	bool            yoiyami = FALSE;
 	bool            down_saving = FALSE;
@@ -4714,269 +4986,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
-	if (creature_ptr->two_handed) hold *= 2;
-
-	for(i = 0 ; i < MAX_WEAPONS ; i++)
-	{
-		/* Examine the "main weapon" */
-		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
-
-		object_flags(o_ptr, flgs);
-
-		/* Assume not heavy */
-		creature_ptr->heavy_wield[i] = FALSE;
-		creature_ptr->icky_wield[i] = FALSE;
-		creature_ptr->riding_wield[i] = FALSE;
-
-		/* It is hard to hold a heavy weapon */
-		if (hold < o_ptr->weight / 10)
-		{
-			/* Hard to wield a heavy weapon */
-			creature_ptr->to_hit[i] += 2 * (hold - o_ptr->weight / 10);
-			creature_ptr->dis_to_hit[i] += 2 * (hold - o_ptr->weight / 10);
-
-			/* Heavy weapon */
-			creature_ptr->heavy_wield[i] = TRUE;
-		}
-		else if (creature_ptr->two_handed && (hold < o_ptr->weight/5)) omoi = TRUE;
-
-		if ((i == 1) && (o_ptr->tval == TV_SWORD) && ((o_ptr->sval == SV_MAIN_GAUCHE) || (o_ptr->sval == SV_WAKIZASHI)))
-		{
-			creature_ptr->to_ac += 5;
-			creature_ptr->dis_to_ac += 5;
-		}
-
-		/* Normal weapons */
-		if (o_ptr->k_idx && !creature_ptr->heavy_wield[i])
-		{
-			int str_index, dex_index;
-
-			int num = 0, wgt = 0, mul = 0, div = 0;
-
-			/* Analyze the class */
-			switch (creature_ptr->cls_idx)
-			{
-				/* Warrior */
-				case CLASS_WARRIOR:
-					num = 6; wgt = 70; mul = 5; break;
-
-				/* Berserker */
-				case CLASS_BERSERKER:
-					num = 6; wgt = 70; mul = 7; break;
-
-				/* Mage */
-				case CLASS_MAGE:
-				case CLASS_HIGH_MAGE:
-				case CLASS_BLUE_MAGE:
-					num = 3; wgt = 100; mul = 2; break;
-
-				/* Priest, Mindcrafter, Magic-Eater */
-				case CLASS_PRIEST:
-				case CLASS_MAGIC_EATER:
-				case CLASS_MINDCRAFTER:
-					num = 5; wgt = 100; mul = 3; break;
-
-				/* Rogue */
-				case CLASS_ROGUE:
-					num = 5; wgt = 40; mul = 3; break;
-
-				/* Ranger */
-				case CLASS_RANGER:
-					num = 5; wgt = 70; mul = 4; break;
-
-				/* Paladin */
-				case CLASS_PALADIN:
-				case CLASS_SAMURAI:
-					num = 5; wgt = 70; mul = 4; break;
-
-				/* Weaponsmith */
-				case CLASS_SMITH:
-					num = 5; wgt = 150; mul = 5; break;
-
-				/* Warrior-Mage */
-				case CLASS_WARRIOR_MAGE:
-				case CLASS_RED_MAGE:
-					num = 5; wgt = 70; mul = 3; break;
-
-				/* Chaos Warrior */
-				case CLASS_CHAOS_WARRIOR:
-					num = 5; wgt = 70; mul = 4; break;
-
-				/* Monk */
-				case CLASS_MONK:
-					num = 5; wgt = 60; mul = 3; break;
-
-				/* Tourist */
-				case CLASS_TOURIST:
-					num = 4; wgt = 100; mul = 3; break;
-
-				/* Imitator */
-				case CLASS_IMITATOR:
-					num = 5; wgt = 70; mul = 4; break;
-
-				/* Beastmaster */
-				case CLASS_BEASTMASTER:
-					num = 5; wgt = 70; mul = 3; break;
-
-				/* Cavalry */
-				case CLASS_CAVALRY:
-					if ((creature_ptr->riding) && (have_flag(flgs, TR_RIDING))) {num = 5; wgt = 70; mul = 4;}
-					else {num = 5; wgt = 100; mul = 3;}
-					break;
-
-				/* Sorcerer */
-				case CLASS_SORCERER:
-					num = 1; wgt = 1; mul = 1; break;
-
-				/* Archer, Bard */
-				case CLASS_ARCHER:
-				case CLASS_BARD:
-					num = 4; wgt = 70; mul = 2; break;
-
-				/* ForceTrainer */
-				case CLASS_FORCETRAINER:
-					num = 4; wgt = 60; mul = 2; break;
-
-				/* Mirror Master, Sniper */
-				case CLASS_MIRROR_MASTER:
-				case CLASS_SNIPER:
-					num = 3; wgt = 100; mul = 3; break;
-
-				/* Ninja */
-				case CLASS_NINJA:
-					num = 4; wgt = 20; mul = 1; break;
-
-				/* None */
-				default:
-					num = 4; wgt = 100; mul = 3; break;
-			}
-
-			/* Hex - extra mights gives +1 bonus to max blows */
-			if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
-
-			/* Enforce a minimum "weight" (tenth pounds) */
-			div = ((o_ptr->weight < wgt) ? wgt : o_ptr->weight);
-
-			/* Access the strength vs weight */
-			str_index = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] * mul / div);
-
-			if (creature_ptr->two_handed && !omoi) str_index++;
-			if (creature_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
-
-			/* Maximal value */
-			if (str_index > 11) str_index = 11;
-
-			/* Index by dexterity */
-			dex_index = (adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]]);
-
-			/* Maximal value */
-			if (dex_index > 11) dex_index = 11;
-
-			/* Boost digging skill by weapon weight */
-			creature_ptr->skill_dig += (o_ptr->weight / 10);
-		}
-
-		/* Assume okay */
-		/* Priest weapon penalty for non-blessed edged weapons */
-		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM)))
-		{
-			/* Reduce the real bonuses */
-			creature_ptr->to_hit[i] -= 2;
-			creature_ptr->to_damage[i] -= 2;
-
-			/* Reduce the mental bonuses */
-			creature_ptr->dis_to_hit[i] -= 2;
-			creature_ptr->dis_to_damage[i] -= 2;
-
-			/* Icky weapon */
-			creature_ptr->icky_wield[i] = TRUE;
-		}
-		else if (creature_ptr->cls_idx == CLASS_BERSERKER)
-		{
-			creature_ptr->to_hit[i] += creature_ptr->lev/5;
-			creature_ptr->to_damage[i] += creature_ptr->lev/6;
-			creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
-			creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
-			if (((i == 0) && !creature_ptr->can_melee[1]) || creature_ptr->two_handed)
-			{
-				creature_ptr->to_hit[i] += creature_ptr->lev/5;
-				creature_ptr->to_damage[i] += creature_ptr->lev/6;
-				creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
-				creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
-			}
-		}
-		else if (creature_ptr->cls_idx == CLASS_SORCERER)
-		{
-			if (!((o_ptr->tval == TV_HAFTED) && ((o_ptr->sval == SV_WIZSTAFF) || (o_ptr->sval == SV_NAMAKE_HAMMER))))
-			{
-				/* Reduce the real bonuses */
-				creature_ptr->to_hit[i] -= 200;
-				creature_ptr->to_damage[i] -= 200;
-
-				/* Reduce the mental bonuses */
-				creature_ptr->dis_to_hit[i] -= 200;
-				creature_ptr->dis_to_damage[i] -= 200;
-
-				/* Icky weapon */
-				creature_ptr->icky_wield[i] = TRUE;
-			}
-			else
-			{
-				/* Reduce the real bonuses */
-				creature_ptr->to_hit[i] -= 30;
-				creature_ptr->to_damage[i] -= 10;
-
-				/* Reduce the mental bonuses */
-				creature_ptr->dis_to_hit[i] -= 30;
-				creature_ptr->dis_to_damage[i] -= 10;
-			}
-		}
-		/* Hex bonuses */
-		if (creature_ptr->realm1 == REALM_HEX)
-		{
-			if (object_is_cursed(o_ptr))
-			{
-				if (o_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
-				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
-				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
-				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
-				if (hex_spelling(creature_ptr, HEX_RUNESWORD))
-				{
-					if (o_ptr->curse_flags & (TRC_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
-					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
-					if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
-				}
-			}
-		}
-		if (creature_ptr->riding)
-		{
-			if ((o_ptr->tval == TV_POLEARM) && ((o_ptr->sval == SV_LANCE) || (o_ptr->sval == SV_HEAVY_LANCE)))
-			{
-				creature_ptr->to_hit[i] +=15;
-				creature_ptr->dis_to_hit[i] +=15;
-				creature_ptr->to_damaged[i] += 2;
-			}
-			else if (!(have_flag(flgs, TR_RIDING)))
-			{
-				int penalty;
-				if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
-				{
-					penalty = 5;
-				}
-				else
-				{
-					penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
-					penalty += 30;
-					if (penalty < 30) penalty = 30;
-				}
-				creature_ptr->to_hit[i] -= penalty;
-				creature_ptr->dis_to_hit[i] -= penalty;
-
-				/* Riding weapon */
-				creature_ptr->riding_wield[i] = TRUE;
-			}
-		}
-	}
+	set_weapon_status(creature_ptr);
 
 	if (creature_ptr->riding)
 	{
