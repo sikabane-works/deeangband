@@ -4854,28 +4854,27 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
+	for(i = 0; i < MAX_WEAPONS; i++)
+	{
+	creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+
+	creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	}
+
 	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_damage[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_damage[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit[0] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
 	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_damage[0] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_damage[1] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_hit[0] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit[1] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit[0] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_hit[1] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
