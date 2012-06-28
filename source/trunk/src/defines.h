@@ -216,8 +216,9 @@
 #define INVEN_SLOT_INSTRUMENT 11
 #define INVEN_SLOT_LITE       12
 #define INVEN_SLOT_TAIL       13
+#define INVEN_SLOT_INTAKE     14
 
-#define MAX_ITEM_SLOT       14
+#define MAX_ITEM_SLOT       15
 
 // Maximum number of creature melee methods.
 #define MAX_WEAPONS            8

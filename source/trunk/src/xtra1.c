@@ -5349,12 +5349,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
 			object_type *o_ptr;
-
-			/* Acquire object */
-			o_ptr = &object_list[this_object_idx];
-
-			/* Acquire next object */
-			next_object_idx = o_ptr->next_object_idx;
+			o_ptr = &object_list[this_object_idx]; // Acquire object
+			next_object_idx = o_ptr->next_object_idx; // Acquire next object
 
 			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
 			if ((o_ptr->tval == TV_CRAFT_BOOK) && (o_ptr->sval == 2)) have_kabe = TRUE;
