@@ -4111,6 +4111,43 @@ static void set_weapon_status(creature_type *creature_ptr)
 	// Examine the "current bow"
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
+
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
+	{
+		creature_ptr->can_melee[1] = TRUE;
+		if (!creature_ptr->can_melee[0]) default_hand = 1;
+	}
+
+	if (CAN_TWO_HANDS_WIELDING(creature_ptr))
+	{
+		if (creature_ptr->can_melee[0] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_LARM) &&
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)))
+		{
+			//TODO creature_ptr->two_handed = TRUE;
+		}
+		else if (creature_ptr->can_melee[1] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_RARM) &&
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)))
+		{
+			//TODO creature_ptr->two_handed = TRUE;
+		}
+		else
+		{
+			switch (creature_ptr->cls_idx)
+			{
+			case CLASS_MONK:
+			case CLASS_FORCETRAINER:
+			case CLASS_BERSERKER:
+				if (empty_hands(creature_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
+				{
+					creature_ptr->can_melee[0] = TRUE;
+					// TODO creature_ptr->two_handed = TRUE;
+				}
+				break;
+			}
+		}
+	}
+
 	if(object_ptr->k_idx)
 	{
 		/* Assume not heavy */
@@ -4650,47 +4687,10 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->skill_tht = 10;
 	creature_ptr->skill_dig = (body_size - 10) * 2;
 
-
-	set_divine_bonuses(creature_ptr);
-
 	creature_ptr->see_infra = (creature_ptr->see_infra + j) / k;
 
-	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
-	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
-	{
-		creature_ptr->can_melee[1] = TRUE;
-		if (!creature_ptr->can_melee[0]) default_hand = 1;
-	}
 
-	if (CAN_TWO_HANDS_WIELDING(creature_ptr))
-	{
-		if (creature_ptr->can_melee[0] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)))
-		{
-			//TODO creature_ptr->two_handed = TRUE;
-		}
-		else if (creature_ptr->can_melee[1] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)))
-		{
-			//TODO creature_ptr->two_handed = TRUE;
-		}
-		else
-		{
-			switch (creature_ptr->cls_idx)
-			{
-			case CLASS_MONK:
-			case CLASS_FORCETRAINER:
-			case CLASS_BERSERKER:
-				if (empty_hands(creature_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
-				{
-					creature_ptr->can_melee[0] = TRUE;
-					// TODO creature_ptr->two_handed = TRUE;
-				}
-				break;
-			}
-		}
-	}
-
+	set_divine_bonuses(creature_ptr);
 	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
