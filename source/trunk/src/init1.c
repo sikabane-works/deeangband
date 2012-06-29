@@ -4273,7 +4273,7 @@ errr parse_creature_flag_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 70
+#define RC_INFO_CSV_COLUMNS 71
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4352,6 +4352,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"ARMS",
 	"FEET",
 	"TAIL",
+	"INTAKE",
 
 };
 
@@ -4433,6 +4434,7 @@ static enum DUNGEON_INFO rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_ARMS 67
 #define RC_INFO_FEET 68
 #define RC_INFO_TAIL 69
+#define RC_INFO_INTAKE 70
 
 errr parse_race_info_csv(char *buf, header *head)
 {
@@ -4837,6 +4839,11 @@ errr parse_race_info_csv(char *buf, header *head)
 			case RC_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].slot_tail = (s16b)b;
+				break;
+
+			case RC_INFO_INTAKE:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].slot_intake = (s16b)b;
 				break;
 
 			default:
