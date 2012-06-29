@@ -2748,6 +2748,47 @@ static void set_race_bonuses(creature_type *creature_ptr)
 {
 	/***** Races ****/
 
+	if(IS_PURE(creature_ptr))
+	{
+		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_dis);
+		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_dev);
+		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_rob);
+		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_eva);
+		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_vol);
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_stl;
+		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_srh);
+		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_fos);
+		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_thn);
+		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_thb);
+		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_thb);
+	}
+	else
+	{
+		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_s_dis);
+		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_s_dev);
+		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_s_rob);
+		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_s_eva);
+		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_s_vol);
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_s_stl;
+		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_s_srh);
+		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_s_fos);
+		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_s_thn);
+		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
+		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
+
+		creature_ptr->skill_dis += race_info[creature_ptr->race_idx2].r_s_dis;
+		creature_ptr->skill_dev += race_info[creature_ptr->race_idx2].r_s_dev;
+		creature_ptr->skill_rob += race_info[creature_ptr->race_idx2].r_s_rob;
+		creature_ptr->skill_eva += race_info[creature_ptr->race_idx2].r_s_eva;
+		creature_ptr->skill_vol += race_info[creature_ptr->race_idx2].r_s_vol;
+		creature_ptr->skill_stl += race_info[creature_ptr->race_idx2].r_s_stl;
+		creature_ptr->skill_srh += race_info[creature_ptr->race_idx2].r_s_srh;
+		creature_ptr->skill_fos += race_info[creature_ptr->race_idx2].r_s_fos;
+		creature_ptr->skill_thn += race_info[creature_ptr->race_idx2].r_s_thn;
+		creature_ptr->skill_thb += race_info[creature_ptr->race_idx2].r_s_thb;
+		creature_ptr->skill_tht += race_info[creature_ptr->race_idx2].r_s_thb;
+	}
+
 	// TODO: Mimic Race control to creature.c
 	if (!creature_ptr->mimic_form)
 	{
@@ -2778,6 +2819,36 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 static void set_class_bonuses(creature_type *creature_ptr)
 {
+
+	if(creature_ptr->cls_idx != INDEX_NONE)
+	{
+		creature_ptr->skill_dis += class_info[creature_ptr->cls_idx].c_dis;
+		creature_ptr->skill_dev += class_info[creature_ptr->cls_idx].c_dev;
+		creature_ptr->skill_rob += class_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_eva += class_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_vol += class_info[creature_ptr->cls_idx].c_sav;
+		creature_ptr->skill_stl += class_info[creature_ptr->cls_idx].c_stl;
+		creature_ptr->skill_srh += class_info[creature_ptr->cls_idx].c_srh;
+		creature_ptr->skill_fos += class_info[creature_ptr->cls_idx].c_fos;
+		creature_ptr->skill_thn += class_info[creature_ptr->cls_idx].c_thn;
+		creature_ptr->skill_thb += class_info[creature_ptr->cls_idx].c_thb;
+		creature_ptr->skill_tht += class_info[creature_ptr->cls_idx].c_thb;
+	}
+	else
+	{
+		creature_ptr->skill_dis += class_info[CLASS_TOURIST].c_dis;
+		creature_ptr->skill_dev += class_info[CLASS_TOURIST].c_dev;
+		creature_ptr->skill_rob += class_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_eva += class_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_vol += class_info[CLASS_TOURIST].c_sav;
+		creature_ptr->skill_stl += class_info[CLASS_TOURIST].c_stl;
+		creature_ptr->skill_srh += class_info[CLASS_TOURIST].c_srh;
+		creature_ptr->skill_fos += class_info[CLASS_TOURIST].c_fos;
+		creature_ptr->skill_thn += class_info[CLASS_TOURIST].c_thn;
+		creature_ptr->skill_thb += class_info[CLASS_TOURIST].c_thb;
+		creature_ptr->skill_tht += class_info[CLASS_TOURIST].c_thb;
+	}
+
 	switch (creature_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
@@ -2896,6 +2967,21 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 static void set_character_bonuses(creature_type *creature_ptr)
 {
+	if(creature_ptr->chara_idx != INDEX_NONE)
+	{
+		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
+		creature_ptr->skill_dev += chara_info[creature_ptr->chara_idx].a_dev;
+		creature_ptr->skill_rob += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_eva += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_vol += chara_info[creature_ptr->chara_idx].a_sav;
+		creature_ptr->skill_stl += chara_info[creature_ptr->chara_idx].a_stl;
+		creature_ptr->skill_srh += chara_info[creature_ptr->chara_idx].a_srh;
+		creature_ptr->skill_fos += chara_info[creature_ptr->chara_idx].a_fos;
+		creature_ptr->skill_thn += chara_info[creature_ptr->chara_idx].a_thn;
+		creature_ptr->skill_thb += chara_info[creature_ptr->chara_idx].a_thb;
+		creature_ptr->skill_tht += chara_info[creature_ptr->chara_idx].a_thb;
+	}
+
 	/* Sexy Gal */
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
 	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
@@ -4476,92 +4562,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(creature_ptr->dr >= 0){
 		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
 		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
-	}
-
-	if(IS_PURE(creature_ptr))
-	{
-		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_dis);
-		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_dev);
-		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_rob);
-		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_eva);
-		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_vol);
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_stl;
-		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_srh);
-		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_fos);
-		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_thn);
-		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_thb);
-		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_thb);
-	}
-	else
-	{
-		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_s_dis);
-		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_s_dev);
-		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_s_rob);
-		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_s_eva);
-		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_s_vol);
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_s_stl;
-		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_s_srh);
-		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_s_fos);
-		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_s_thn);
-		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
-		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
-
-		creature_ptr->skill_dis += race_info[creature_ptr->race_idx2].r_s_dis;
-		creature_ptr->skill_dev += race_info[creature_ptr->race_idx2].r_s_dev;
-		creature_ptr->skill_rob += race_info[creature_ptr->race_idx2].r_s_rob;
-		creature_ptr->skill_eva += race_info[creature_ptr->race_idx2].r_s_eva;
-		creature_ptr->skill_vol += race_info[creature_ptr->race_idx2].r_s_vol;
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx2].r_s_stl;
-		creature_ptr->skill_srh += race_info[creature_ptr->race_idx2].r_s_srh;
-		creature_ptr->skill_fos += race_info[creature_ptr->race_idx2].r_s_fos;
-		creature_ptr->skill_thn += race_info[creature_ptr->race_idx2].r_s_thn;
-		creature_ptr->skill_thb += race_info[creature_ptr->race_idx2].r_s_thb;
-		creature_ptr->skill_tht += race_info[creature_ptr->race_idx2].r_s_thb;
-
-	}
-
-	if(creature_ptr->cls_idx != INDEX_NONE)
-	{
-		creature_ptr->skill_dis += class_info[creature_ptr->cls_idx].c_dis;
-		creature_ptr->skill_dev += class_info[creature_ptr->cls_idx].c_dev;
-		creature_ptr->skill_rob += class_info[creature_ptr->cls_idx].c_sav;
-		creature_ptr->skill_eva += class_info[creature_ptr->cls_idx].c_sav;
-		creature_ptr->skill_vol += class_info[creature_ptr->cls_idx].c_sav;
-		creature_ptr->skill_stl += class_info[creature_ptr->cls_idx].c_stl;
-		creature_ptr->skill_srh += class_info[creature_ptr->cls_idx].c_srh;
-		creature_ptr->skill_fos += class_info[creature_ptr->cls_idx].c_fos;
-		creature_ptr->skill_thn += class_info[creature_ptr->cls_idx].c_thn;
-		creature_ptr->skill_thb += class_info[creature_ptr->cls_idx].c_thb;
-		creature_ptr->skill_tht += class_info[creature_ptr->cls_idx].c_thb;
-	}
-	else
-	{
-		creature_ptr->skill_dis += class_info[CLASS_TOURIST].c_dis;
-		creature_ptr->skill_dev += class_info[CLASS_TOURIST].c_dev;
-		creature_ptr->skill_rob += class_info[CLASS_TOURIST].c_sav;
-		creature_ptr->skill_eva += class_info[CLASS_TOURIST].c_sav;
-		creature_ptr->skill_vol += class_info[CLASS_TOURIST].c_sav;
-		creature_ptr->skill_stl += class_info[CLASS_TOURIST].c_stl;
-		creature_ptr->skill_srh += class_info[CLASS_TOURIST].c_srh;
-		creature_ptr->skill_fos += class_info[CLASS_TOURIST].c_fos;
-		creature_ptr->skill_thn += class_info[CLASS_TOURIST].c_thn;
-		creature_ptr->skill_thb += class_info[CLASS_TOURIST].c_thb;
-		creature_ptr->skill_tht += class_info[CLASS_TOURIST].c_thb;
-	}
-
-	if(creature_ptr->chara_idx != INDEX_NONE)
-	{
-		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
-		creature_ptr->skill_dev += chara_info[creature_ptr->chara_idx].a_dev;
-		creature_ptr->skill_rob += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_eva += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_vol += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_stl += chara_info[creature_ptr->chara_idx].a_stl;
-		creature_ptr->skill_srh += chara_info[creature_ptr->chara_idx].a_srh;
-		creature_ptr->skill_fos += chara_info[creature_ptr->chara_idx].a_fos;
-		creature_ptr->skill_thn += chara_info[creature_ptr->chara_idx].a_thn;
-		creature_ptr->skill_thb += chara_info[creature_ptr->chara_idx].a_thb;
-		creature_ptr->skill_tht += chara_info[creature_ptr->chara_idx].a_thb;
 	}
 
 	for(i = 0; i < max_authorities_idx; i++)
