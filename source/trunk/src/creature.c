@@ -2355,6 +2355,7 @@ void set_creature_equip_slot_num(creature_type *creature_ptr)
 	creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = species_ptr->slot_arms < 0 ? race_ptr->slot_arms : species_ptr->slot_arms;
 	creature_ptr->item_slot_num[INVEN_SLOT_FEET] = species_ptr->slot_feet < 0 ? race_ptr->slot_feet : species_ptr->slot_feet;
 	creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = species_ptr->slot_tail < 0 ? race_ptr->slot_tail : species_ptr->slot_tail;
+	creature_ptr->item_slot_num[INVEN_SLOT_INTAKE] = species_ptr->slot_intake < 0 ? race_ptr->slot_intake : species_ptr->slot_intake;
 
 	creature_ptr->item_slot_num[INVEN_SLOT_BOW] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
 	creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = creature_ptr->item_slot_num[INVEN_SLOT_BOW] ? 1 : 0;

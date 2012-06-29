@@ -1023,6 +1023,7 @@ struct race_type
 	s16b slot_arms;
 	s16b slot_feet;
 	s16b slot_tail;
+	s16b slot_intake;
 
 	/*    byte choice_xtra;   */
 };

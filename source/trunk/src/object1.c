@@ -4229,6 +4229,15 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 		case INVEN_SLOT_TAIL:
 			p = "On tail"; break;
 #endif
+
+#ifdef JP
+		case INVEN_SLOT_INTAKE:
+			p = "‘Ì“à"; break;
+#else
+		case INVEN_SLOT_INTAKE:
+			p = "Intake"; break;
+#endif
+
 	}
 
 	/* Return the result */
