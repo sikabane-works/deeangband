@@ -4567,7 +4567,25 @@ static void set_weapon_status(creature_type *creature_ptr)
 
 static void set_divine_bonuses(creature_type *creature_ptr)
 {
-	int i;
+	int i, j;
+
+	for(i = 0; i < STAT_MAX; i++)
+	{
+		for(j = 0; j < max_authorities_idx; j++)
+			if(HAS_AUTHORITY(creature_ptr, j))
+				creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
+
+		if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
+		{
+			creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
+			if(patron_ptr)
+			{
+				for(j = 0; j < max_authorities_idx; j++)
+					if(HAS_AUTHORITY(patron_ptr, j))
+						creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
+			}
+		}
+	}
 
 	// Plus AC on Divine Rank
 	if(creature_ptr->dr >= 0){
@@ -4800,20 +4818,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if(creature_ptr->chara_idx != INDEX_NONE)
 			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
 
-		for(j = 0; j < max_authorities_idx; j++)
-			if(HAS_AUTHORITY(creature_ptr, j))
-				creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
-
-		if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
-		{
-			creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
-			if(patron_ptr)
-			{
-				for(j = 0; j < max_authorities_idx; j++)
-					if(HAS_AUTHORITY(patron_ptr, j))
-						creature_ptr->stat_add[i] += authority_info[j].a_adj[i] * 10;
-			}
-		}
 
 	}
 
