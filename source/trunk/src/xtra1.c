@@ -4103,6 +4103,8 @@ static void set_weapon_status(creature_type *creature_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	int extra_shots = 0;
 	bool omoi;
+	int default_hand = 1;
+	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
@@ -4473,6 +4475,16 @@ static void set_weapon_status(creature_type *creature_ptr)
 			}
 		}
 	}
+
+	if ((creature_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
+	    (creature_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
+	{
+		creature_ptr->to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
+		creature_ptr->dis_to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
+		creature_ptr->to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		creature_ptr->dis_to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+	}
+
 }
 
 static void set_divine_bonuses(creature_type *creature_ptr)
@@ -4867,14 +4879,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 
-	if ((creature_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
-	    (creature_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
-	{
-		creature_ptr->to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
-		creature_ptr->dis_to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
-		creature_ptr->to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
-		creature_ptr->dis_to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
-	}
 
 	//TODO: adjust
 	/*
