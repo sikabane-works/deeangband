@@ -4452,6 +4452,70 @@ static void set_weapon_status(creature_type *creature_ptr)
 			}
 		}
 	}
+}
+
+static void set_divine_bonuses(creature_type *creature_ptr)
+{
+	int i;
+
+	// Plus AC on Divine Rank
+	if(creature_ptr->dr >= 0){
+		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
+		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
+	}
+
+	for(i = 0; i < max_authorities_idx; i++)
+	{
+		if(HAS_AUTHORITY(creature_ptr, i))
+		{
+			creature_ptr->skill_dis += authority_info[i].a_dis;
+			creature_ptr->skill_dev += authority_info[i].a_dev;
+			creature_ptr->skill_rob += authority_info[i].a_sav;
+			creature_ptr->skill_eva += authority_info[i].a_sav;
+			creature_ptr->skill_vol += authority_info[i].a_sav;
+			creature_ptr->skill_stl += authority_info[i].a_stl;
+			creature_ptr->skill_srh += authority_info[i].a_srh;
+			creature_ptr->skill_fos += authority_info[i].a_fos;
+			creature_ptr->skill_thn += authority_info[i].a_thn;
+			creature_ptr->skill_thb += authority_info[i].a_thb;
+			creature_ptr->skill_tht += authority_info[i].a_thb;
+		}
+	}
+
+	if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
+	{
+		creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
+		if(patron_ptr)
+		{
+			for(i = 0; i < max_authorities_idx; i++)
+			{
+				if(HAS_AUTHORITY(patron_ptr, i))
+				{
+					creature_ptr->skill_dis += authority_info[i].w_dis;
+					creature_ptr->skill_dev += authority_info[i].w_dev;
+					creature_ptr->skill_rob += authority_info[i].w_sav;
+					creature_ptr->skill_eva += authority_info[i].w_sav;
+					creature_ptr->skill_vol += authority_info[i].w_sav;
+					creature_ptr->skill_stl += authority_info[i].w_stl;
+					creature_ptr->skill_srh += authority_info[i].w_srh;
+					creature_ptr->skill_fos += authority_info[i].w_fos;
+					creature_ptr->skill_thn += authority_info[i].w_thn;
+					creature_ptr->skill_thb += authority_info[i].w_thb;
+					creature_ptr->skill_tht += authority_info[i].w_thb;
+				}
+			}
+		}
+	}
+
+	if(creature_ptr->dr >= 0)
+	{
+		creature_ptr->skill_rob += adj_dr_saving[creature_ptr->dr];
+		creature_ptr->skill_eva += adj_dr_saving[creature_ptr->dr];
+		creature_ptr->skill_vol += adj_dr_saving[creature_ptr->dr];
+
+		for(i = 0; i < STAT_MAX; i++)
+			creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
+	}
 
 }
 
@@ -4558,64 +4622,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->dis_ac += species_ptr->ac;
 	creature_ptr->speed += species_ptr->speed;
 
-	// Plus AC on Divine Rank
-	if(creature_ptr->dr >= 0){
-		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
-		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
-	}
-
-	for(i = 0; i < max_authorities_idx; i++)
-	{
-		if(HAS_AUTHORITY(creature_ptr, i))
-		{
-			creature_ptr->skill_dis += authority_info[i].a_dis;
-			creature_ptr->skill_dev += authority_info[i].a_dev;
-			creature_ptr->skill_rob += authority_info[i].a_sav;
-			creature_ptr->skill_eva += authority_info[i].a_sav;
-			creature_ptr->skill_vol += authority_info[i].a_sav;
-			creature_ptr->skill_stl += authority_info[i].a_stl;
-			creature_ptr->skill_srh += authority_info[i].a_srh;
-			creature_ptr->skill_fos += authority_info[i].a_fos;
-			creature_ptr->skill_thn += authority_info[i].a_thn;
-			creature_ptr->skill_thb += authority_info[i].a_thb;
-			creature_ptr->skill_tht += authority_info[i].a_thb;
-		}
-	}
-
-	if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
-	{
-		creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
-		if(patron_ptr)
-		{
-			for(i = 0; i < max_authorities_idx; i++)
-			{
-				if(HAS_AUTHORITY(patron_ptr, i))
-				{
-					creature_ptr->skill_dis += authority_info[i].w_dis;
-					creature_ptr->skill_dev += authority_info[i].w_dev;
-					creature_ptr->skill_rob += authority_info[i].w_sav;
-					creature_ptr->skill_eva += authority_info[i].w_sav;
-					creature_ptr->skill_vol += authority_info[i].w_sav;
-					creature_ptr->skill_stl += authority_info[i].w_stl;
-					creature_ptr->skill_srh += authority_info[i].w_srh;
-					creature_ptr->skill_fos += authority_info[i].w_fos;
-					creature_ptr->skill_thn += authority_info[i].w_thn;
-					creature_ptr->skill_thb += authority_info[i].w_thb;
-					creature_ptr->skill_tht += authority_info[i].w_thb;
-				}
-			}
-		}
-	}
-
-	if(creature_ptr->dr >= 0)
-	{
-		creature_ptr->skill_rob += adj_dr_saving[creature_ptr->dr];
-		creature_ptr->skill_eva += adj_dr_saving[creature_ptr->dr];
-		creature_ptr->skill_vol += adj_dr_saving[creature_ptr->dr];
-
-		for(i = 0; i < STAT_MAX; i++)
-			creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
-	}
+	set_divine_bonuses(creature_ptr);
 
 	creature_ptr->see_infra = (creature_ptr->see_infra + j) / k;
 
