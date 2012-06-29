@@ -4105,12 +4105,18 @@ static void set_weapon_status(creature_type *creature_ptr)
 	bool omoi;
 	int default_hand = 1;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
+	// Set Species Blow.
+	creature_ptr->blow[0] = species_ptr->blow[0];
+	creature_ptr->blow[1] = species_ptr->blow[1];
+	creature_ptr->blow[2] = species_ptr->blow[2];
+	creature_ptr->blow[3] = species_ptr->blow[3];
 
 	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
 	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
@@ -4747,12 +4753,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
 	set_posture_bonuses(creature_ptr);
-
-	// Set Species Blow.
-	creature_ptr->blow[0] = species_ptr->blow[0];
-	creature_ptr->blow[1] = species_ptr->blow[1];
-	creature_ptr->blow[2] = species_ptr->blow[2];
-	creature_ptr->blow[3] = species_ptr->blow[3];
 
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
