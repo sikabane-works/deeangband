@@ -2747,8 +2747,25 @@ static void calc_lite(creature_type *creature_ptr)
 static void set_race_bonuses(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+	int i;
+	race_type *tmp_race_ptr;
+	race_type *tmp_race_ptr2;
+
+	tmp_race_ptr = &race_info[creature_ptr->race_idx1];
+	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
 	/***** Races ****/
+
+	for (i = 0; i < 6; i++)
+	{
+		if(IS_PURE(creature_ptr))
+			creature_ptr->stat_add[i] += tmp_race_ptr->r_adj[i] * 10;
+		else
+		{
+			creature_ptr->stat_add[i] += tmp_race_ptr->r_s_adj[i] * 10;
+			creature_ptr->stat_add[i] += tmp_race_ptr2->r_s_adj[i] * 10;
+		}
+	}
 
 	if(IS_PURE(creature_ptr))
 	{
@@ -2827,6 +2844,17 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 static void set_class_bonuses(creature_type *creature_ptr)
 {
+	int i;
+
+	for (i = 0; i < 6; i++)
+	{
+		if(creature_ptr->cls_idx != INDEX_NONE)
+		{
+			creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i] * 10;
+			if(creature_ptr->cls_bonus)
+				creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
+		}
+	}
 
 	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
@@ -2975,6 +3003,15 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 static void set_character_bonuses(creature_type *creature_ptr)
 {
+	int i;
+
+	for (i = 0; i < 6; i++)
+	{
+		if(creature_ptr->chara_idx != INDEX_NONE)
+			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
+
+	}
+
 	if(creature_ptr->chara_idx != INDEX_NONE)
 	{
 		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
@@ -4779,8 +4816,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	bool            riding_levitation = FALSE;
 	s16b this_object_idx, next_object_idx = 0;
 
-	race_type *tmp_rcreature_ptr;
-	race_type *tmp_rcreature_ptr2;
+	race_type *tmp_race_ptr;
+	race_type *tmp_race_ptr2;
 
 	// Save the old vision stuff
 	bool old_telepathy = creature_ptr->telepathy;
@@ -4809,14 +4846,14 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
-	if (creature_ptr->mimic_form) tmp_rcreature_ptr = &mimic_info[creature_ptr->mimic_form];
-	else tmp_rcreature_ptr = &race_info[creature_ptr->race_idx1];
-	tmp_rcreature_ptr2 = &race_info[creature_ptr->race_idx2];
+	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
+	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
+	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
 	creature_ptr->size = body_size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 
 	// Base infravision (purely racial)
-	creature_ptr->see_infra = tmp_rcreature_ptr->infra;
+	creature_ptr->see_infra = tmp_race_ptr->infra;
 	j = 0;
 	k = 1;
 
@@ -4841,31 +4878,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
-
-	/* Hack -- apply racial/class stat maxes */
-	/* Apply the racial modifiers */
-	for (i = 0; i < 6; i++)
-	{
-		if(IS_PURE(creature_ptr))
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_adj[i] * 10;
-		else
-		{
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr->r_s_adj[i] * 10;
-			creature_ptr->stat_add[i] += tmp_rcreature_ptr2->r_s_adj[i] * 10;
-		}
-
-		if(creature_ptr->cls_idx != INDEX_NONE)
-		{
-			creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i] * 10;
-			if(creature_ptr->cls_bonus)
-				creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
-		}
-
-		if(creature_ptr->chara_idx != INDEX_NONE)
-			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
-
-
-	}
 
 	set_trait_bonuses(creature_ptr);
 
@@ -5331,11 +5343,11 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* calc alignments and bonuses */
 	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
-		creature_ptr->good    = tmp_rcreature_ptr->good;
-		creature_ptr->evil    = tmp_rcreature_ptr->evil;
-		creature_ptr->order   = tmp_rcreature_ptr->order;
-		creature_ptr->chaos   = tmp_rcreature_ptr->chaos;
-		creature_ptr->balance = tmp_rcreature_ptr->balance;
+		creature_ptr->good    = tmp_race_ptr->good;
+		creature_ptr->evil    = tmp_race_ptr->evil;
+		creature_ptr->order   = tmp_race_ptr->order;
+		creature_ptr->chaos   = tmp_race_ptr->chaos;
+		creature_ptr->balance = tmp_race_ptr->balance;
 	}
 	else
 	{
