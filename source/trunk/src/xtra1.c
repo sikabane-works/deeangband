@@ -3097,6 +3097,55 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 
 static void set_status_bonuses(creature_type *creature_ptr)
 {
+	int i;
+	object_type *object_ptr;
+
+
+	// Hex bonuses
+	if (creature_ptr->realm1 == REALM_HEX)
+	{
+		if (hex_spelling_any(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->magic_num2[0]);
+		if (hex_spelling(creature_ptr, HEX_DETECT_EVIL)) creature_ptr->esp_evil = TRUE;
+		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 40;
+		if (hex_spelling(creature_ptr, HEX_BUILDING))
+		{
+			creature_ptr->stat_add[STAT_STR] += 40;
+			creature_ptr->stat_add[STAT_DEX] += 40;
+			creature_ptr->stat_add[STAT_CON] += 40;
+		}
+		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
+		{
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->regenerate = TRUE;
+		}
+		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
+		{
+			creature_ptr->sh_cold = TRUE; 
+			creature_ptr->to_ac += 30;
+			creature_ptr->dis_to_ac += 30;
+		}
+		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK))
+		{
+			creature_ptr->sh_elec = TRUE;
+			creature_ptr->speed += 3;
+		}
+
+		for (i = 0; i <= INVEN_TOTAL; i++)
+		{
+			int ac = 0;
+			object_ptr = &creature_ptr->inventory[i];
+			if(IS_EQUIPPED(object_ptr)) continue; 
+			if (!object_ptr->k_idx) continue;
+			if (!object_is_armour(object_ptr)) continue;
+			if (!object_is_cursed(object_ptr)) continue;
+			ac += 5;
+			if (object_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;
+			if (object_ptr->curse_flags & TRC_DIVINE_CURSE) ac += 13;
+			creature_ptr->to_ac += ac;
+			creature_ptr->dis_to_ac += ac;
+		}
+	}
+
 	// Apply temporary "stun"
 	if (creature_ptr->stun > 50)
 	{
@@ -4721,13 +4770,10 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	int             extra_shots = FALSE;
 
 	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
-	object_type     *o_ptr;
+
 	bool            omoi = FALSE;
 	bool            yoiyami = FALSE;
 	bool            down_saving = FALSE;
-#if 0
-	bool            have_dd_s = FALSE, have_dd_t = FALSE;
-#endif
 	bool            have_sw = FALSE, have_kabe = FALSE;
 	bool            easy_2weapon = FALSE;
 	bool            riding_levitation = FALSE;
@@ -4850,50 +4896,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 		creature_ptr->to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-	}
-
-	// Hex bonuses
-	if (creature_ptr->realm1 == REALM_HEX)
-	{
-		if (hex_spelling_any(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->magic_num2[0]);
-		if (hex_spelling(creature_ptr, HEX_DETECT_EVIL)) creature_ptr->esp_evil = TRUE;
-		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 40;
-		if (hex_spelling(creature_ptr, HEX_BUILDING))
-		{
-			creature_ptr->stat_add[STAT_STR] += 40;
-			creature_ptr->stat_add[STAT_DEX] += 40;
-			creature_ptr->stat_add[STAT_CON] += 40;
-		}
-		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
-		{
-			creature_ptr->sh_fire = TRUE;
-			creature_ptr->regenerate = TRUE;
-		}
-		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
-		{
-			creature_ptr->sh_cold = TRUE; 
-			creature_ptr->to_ac += 30;
-			creature_ptr->dis_to_ac += 30;
-		}
-		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK))
-		{
-			creature_ptr->sh_elec = TRUE;
-			creature_ptr->speed += 3;
-		}
-		for (i = 0; i <= INVEN_TOTAL; i++)
-		{
-			int ac = 0;
-			o_ptr = &creature_ptr->inventory[i];
-			if(IS_EQUIPPED(o_ptr)) continue; 
-			if (!o_ptr->k_idx) continue;
-			if (!object_is_armour(o_ptr)) continue;
-			if (!object_is_cursed(o_ptr)) continue;
-			ac += 5;
-			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;
-			if (o_ptr->curse_flags & TRC_DIVINE_CURSE) ac += 13;
-			creature_ptr->to_ac += ac;
-			creature_ptr->dis_to_ac += ac;
-		}
 	}
 
 	/* Calculate stats */
