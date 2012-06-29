@@ -2808,6 +2808,20 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_tht += race_info[creature_ptr->race_idx2].r_s_thb;
 	}
 
+	// AC bonus
+	if(IS_PURE(creature_ptr))
+	{
+		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+	}
+	else
+	{
+		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+	}
+
 	// TODO: Mimic Race control to creature.c
 	if (!creature_ptr->mimic_form)
 	{
@@ -4649,6 +4663,30 @@ static void set_weapon_status(creature_type *creature_ptr)
 		}
 	}
 
+	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
+	for(i = 0; i < MAX_WEAPONS; i++)
+	{
+		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+
+		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	}
+
+	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+
+	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
+	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+
 }
 
 static void set_divine_bonuses(creature_type *creature_ptr)
@@ -4873,14 +4911,11 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	creature_ptr->see_infra = (creature_ptr->see_infra + j) / k;
 
-
 	set_divine_bonuses(creature_ptr);
 	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
-
 	set_trait_bonuses(creature_ptr);
-
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 
 	if (old_mighty_throw != creature_ptr->mighty_throw)
@@ -4895,20 +4930,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
-
-	/* Racial AC bonus */
-	if(IS_PURE(creature_ptr))
-	{
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-	}
-	else
-	{
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-	}
 
 	/* Calculate stats */
 	for (i = 0; i < 6; i++)
@@ -5034,31 +5055,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	/* Searching slows the player down */
 	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
-
-	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
-	for(i = 0; i < MAX_WEAPONS; i++)
-	{
-	creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-
-	creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	}
-
-	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-
-	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
-	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-
 
 	set_weapon_status(creature_ptr);
 
