@@ -2746,6 +2746,8 @@ static void calc_lite(creature_type *creature_ptr)
 
 static void set_race_bonuses(creature_type *creature_ptr)
 {
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+
 	/***** Races ****/
 
 	if(IS_PURE(creature_ptr))
@@ -2814,6 +2816,12 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	}
 
 	set_unreached_race_level_penalty(creature_ptr);
+
+	// Species
+	creature_ptr->ac += species_ptr->ac;
+	creature_ptr->dis_ac += species_ptr->ac;
+	creature_ptr->speed += species_ptr->speed;
+
 }
 
 
@@ -3008,6 +3016,15 @@ static void set_character_bonuses(creature_type *creature_ptr)
 static void set_posture_bonuses(creature_type *creature_ptr)
 {
 	int i;
+	int empty_hands_status = empty_hands(creature_ptr, TRUE);
+
+	if (creature_ptr->special_defense & KAMAE_MASK)
+	{
+		if (!(empty_hands_status & EMPTY_HAND_RARM))
+		{
+			set_action(creature_ptr, ACTION_NONE);
+		}
+	}
 
 	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
 	{
@@ -3319,6 +3336,10 @@ static void set_status_bonuses(creature_type *creature_ptr)
 		creature_ptr->stat_add[STAT_CON] += 40;
 	}
 
+	if (music_singing(creature_ptr, MUSIC_WALL))
+	{
+		creature_ptr->kill_wall = TRUE;
+	}
 }
 
 
@@ -4617,10 +4638,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->skill_tht = 10;
 	creature_ptr->skill_dig = (body_size - 10) * 2;
 
-	// species adjust
-	creature_ptr->ac += species_ptr->ac;
-	creature_ptr->dis_ac += species_ptr->ac;
-	creature_ptr->speed += species_ptr->speed;
 
 	set_divine_bonuses(creature_ptr);
 
@@ -4662,24 +4679,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		}
 	}
 
-	if (creature_ptr->special_defense & KAMAE_MASK)
-	{
-		if (!(empty_hands_status & EMPTY_HAND_RARM))
-		{
-			set_action(creature_ptr, ACTION_NONE);
-		}
-	}
-
 	set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
-
-
-
-	if (music_singing(creature_ptr, MUSIC_WALL))
-	{
-		creature_ptr->kill_wall = TRUE;
-	}
 
 	/* Hack -- apply racial/class stat maxes */
 	/* Apply the racial modifiers */
