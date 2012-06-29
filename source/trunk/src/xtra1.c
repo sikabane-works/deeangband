@@ -3145,6 +3145,67 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 	}
 }
 
+static void set_status_table_indexes(creature_type *creature_ptr)
+{
+	int i;
+
+	/* Calculate stats */
+	for (i = 0; i < 6; i++)
+	{
+		int top, use, ind;
+
+		// Extract the new "stat_use" value for the stat
+		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
+		if (creature_ptr->stat_top[i] != top) // Notice changes
+		{
+			creature_ptr->stat_top[i] = top; // Save the new value
+			play_redraw |= (PR_STATS); // Redisplay the stats later
+			play_window |= (PW_PLAYER); // Window stuff
+		}
+
+		// Extract the new "stat_use" value for the stat
+		use = creature_ptr->stat_cur[i] + creature_ptr->stat_add[i];
+		if ((i == STAT_CHA) && (has_cf_creature(creature_ptr, CF_ILL_NORM)))
+		{
+			// 10.0 to 34.0 charisma, guaranteed, based on level
+			if (use < 100 + 4 * creature_ptr->lev) use = 100 + 4 * creature_ptr->lev;
+		}
+
+		// Notice changes
+		if (creature_ptr->stat_use[i] != use)
+		{
+			creature_ptr->stat_use[i] = use; // Save the new value
+			play_redraw |= (PR_STATS);  // Redisplay the stats later
+			play_window |= (PW_PLAYER); // Window stuff
+		}
+
+		ind = use / 10;
+
+		// Notice changes
+		if (creature_ptr->stat_ind[i] != ind)
+		{
+			creature_ptr->stat_ind[i] = ind; // Save the new index
+			if (i == STAT_CON) creature_ptr->creature_update |= (CRU_HP); // Change in CON affects Hitpoints
+
+			else if (i == STAT_INT) // Change in INT may affect Mana/Spells
+			{
+				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_INT)
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+			}
+			else if (i == STAT_WIS) // Change in WIS may affect Mana/Spells
+			{
+				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_WIS)
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+			}
+			else if (i == STAT_CHA) // Change in WIS may affect Mana/Spells
+			{
+				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_CHA)
+					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+			}
+			play_window |= (PW_PLAYER); // Window stuff
+		}
+	}
+}
 
 static void set_status_bonuses(creature_type *creature_ptr)
 {
@@ -4931,62 +4992,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
-	/* Calculate stats */
-	for (i = 0; i < 6; i++)
-	{
-		int top, use, ind;
-
-		// Extract the new "stat_use" value for the stat
-		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
-		if (creature_ptr->stat_top[i] != top) // Notice changes
-		{
-			creature_ptr->stat_top[i] = top; // Save the new value
-			play_redraw |= (PR_STATS); // Redisplay the stats later
-			play_window |= (PW_PLAYER); // Window stuff
-		}
-
-		// Extract the new "stat_use" value for the stat
-		use = creature_ptr->stat_cur[i] + creature_ptr->stat_add[i];
-		if ((i == STAT_CHA) && (has_cf_creature(creature_ptr, CF_ILL_NORM)))
-		{
-			// 10.0 to 34.0 charisma, guaranteed, based on level
-			if (use < 100 + 4 * creature_ptr->lev) use = 100 + 4 * creature_ptr->lev;
-		}
-
-		// Notice changes
-		if (creature_ptr->stat_use[i] != use)
-		{
-			creature_ptr->stat_use[i] = use; // Save the new value
-			play_redraw |= (PR_STATS);  // Redisplay the stats later
-			play_window |= (PW_PLAYER); // Window stuff
-		}
-
-		ind = use / 10;
-
-		// Notice changes
-		if (creature_ptr->stat_ind[i] != ind)
-		{
-			creature_ptr->stat_ind[i] = ind; // Save the new index
-			if (i == STAT_CON) creature_ptr->creature_update |= (CRU_HP); // Change in CON affects Hitpoints
-
-			else if (i == STAT_INT) // Change in INT may affect Mana/Spells
-			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_INT)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-			}
-			else if (i == STAT_WIS) // Change in WIS may affect Mana/Spells
-			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_WIS)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-			}
-			else if (i == STAT_CHA) // Change in WIS may affect Mana/Spells
-			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_CHA)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
-			}
-			play_window |= (PW_PLAYER); // Window stuff
-		}
-	}
+	set_status_table_indexes(creature_ptr);
 
 	set_status_bonuses(creature_ptr);
 
