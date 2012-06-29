@@ -4631,6 +4631,48 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 }
 
 
+static void set_riding_bonuses(creature_type *creature_ptr)
+{
+	int i, j;
+	bool riding_levitation;
+
+	j = creature_ptr->carrying_weight;
+
+	if (!creature_ptr->riding)
+	{
+		i = (int)calc_carrying_weight_limit(creature_ptr); // Extract the "weight limit" (in tenth pounds)
+	}
+	else
+	{
+		creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
+		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
+		int speed = riding_m_ptr->speed;
+
+		if (riding_m_ptr->speed > 110)
+		{
+			creature_ptr->speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
+			if (creature_ptr->speed < 110) creature_ptr->speed = 110;
+		}
+		else
+		{
+			creature_ptr->speed = speed;
+		}
+		creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
+		if (riding_m_ptr->fast) creature_ptr->speed += 10;
+		if (riding_m_ptr->slow) creature_ptr->speed -= 10;
+		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
+		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
+
+		if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
+		if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
+
+		if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
+
+		i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
+	}
+}
+
+
 
 /*
  * Calculate the players current "state", taking into account
@@ -4966,40 +5008,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Extract the current weight (in tenth pounds) */
 	j = creature_ptr->carrying_weight;
 
-	if (!creature_ptr->riding)
-	{
-		/* Extract the "weight limit" (in tenth pounds) */
-		i = (int)calc_carrying_weight_limit(creature_ptr);
-	}
-	else
-	{
-		creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
-		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
-		int speed = riding_m_ptr->speed;
-
-		if (riding_m_ptr->speed > 110)
-		{
-			creature_ptr->speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
-			if (creature_ptr->speed < 110) creature_ptr->speed = 110;
-		}
-		else
-		{
-			creature_ptr->speed = speed;
-		}
-		creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
-		if (riding_m_ptr->fast) creature_ptr->speed += 10;
-		if (riding_m_ptr->slow) creature_ptr->speed -= 10;
-		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
-		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
-
-		if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
-		if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
-
-		if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
-
-		/* Extract the "weight limit" */
-		i = 1500 + riding_r_ptr->level * 25;
-	}
+	set_riding_bonuses(creature_ptr);
 
 	/* XXX XXX XXX Apply "encumbrance" from weight */
 	//TODO CHECK
