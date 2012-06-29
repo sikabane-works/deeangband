@@ -4528,6 +4528,41 @@ static void set_weapon_status(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
 	}
 
+	for (i = 0; i < MAX_WEAPONS; i++)
+	{
+		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
+		{
+			int tval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
+			int sval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->sval;
+			int boost = (creature_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
+
+			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
+			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
+
+			if ((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER))
+			{
+				if (!skill_info[creature_ptr->cls_idx].w_max[tval][sval])
+				{
+					creature_ptr->to_hit[i] -= 40;
+					creature_ptr->dis_to_hit[i] -= 40;
+					creature_ptr->icky_wield[i] = TRUE;
+				}
+			}
+			else if (creature_ptr->cls_idx == CLASS_NINJA)
+			{
+				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
+					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
+				{
+					creature_ptr->to_hit[i] -= 40;
+					creature_ptr->dis_to_hit[i] -= 40;
+					creature_ptr->icky_wield[i] = TRUE;
+				}
+			}
+
+			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good -= 1000;
+		}
+	}
+
 }
 
 static void set_divine_bonuses(creature_type *creature_ptr)
@@ -5105,41 +5140,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (heavy_armor(creature_ptr))
 	{
 		monk_armour_aux = TRUE;
-	}
-
-	for (i = 0; i < 2; i++)
-	{
-		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-		{
-			int tval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
-			int sval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->sval;
-			int boost = (creature_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
-
-			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
-			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
-
-			if ((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER))
-			{
-				if (!skill_info[creature_ptr->cls_idx].w_max[tval][sval])
-				{
-					creature_ptr->to_hit[i] -= 40;
-					creature_ptr->dis_to_hit[i] -= 40;
-					creature_ptr->icky_wield[i] = TRUE;
-				}
-			}
-			else if (creature_ptr->cls_idx == CLASS_NINJA)
-			{
-				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
-					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
-				{
-					creature_ptr->to_hit[i] -= 40;
-					creature_ptr->dis_to_hit[i] -= 40;
-					creature_ptr->icky_wield[i] = TRUE;
-				}
-			}
-
-			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good -= 1000;
-		}
 	}
 
 	/* Maximum speed is (+99). (internally it's 110 + 99) */
