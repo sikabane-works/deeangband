@@ -3449,6 +3449,11 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 
 }
 
+static void display_player_trait(creature_type *cr_ptr)
+{
+	c_put_str(TERM_YELLOW, "あなたには特別な特性がない", 1, 1);
+}
+
 static void display_player_underings(creature_type *cr_ptr)
 {
 	c_put_str(TERM_YELLOW, "あなたには従僕がいない", 1, 1);
@@ -4279,7 +4284,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 	else if (mode == DISPLAY_CR_STATUS_MUTATION)
 	{
-		do_cmd_knowledge_mutations(creature_ptr);
+		display_player_trait(creature_ptr);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_UNDERINGS)
@@ -6030,7 +6035,7 @@ sprintf(caption, "スポイラー・ファイル'%s'", name);
 		{
 			/* Wait for it */
 #ifdef JP
-prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
+			prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
 #else
 			prt("[Press ESC to exit.]", hgt - 1, 0);
 #endif

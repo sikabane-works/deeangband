@@ -2339,7 +2339,7 @@ void dump_mutations(creature_type *cr_ptr, FILE *OutFile)
 		if (has_cf_creature(cr_ptr, CF_SPIT_ACID))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
+			fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
 #else
 			fprintf(OutFile, " You can spit acid (dam lvl).\n");
 #endif
@@ -2348,7 +2348,7 @@ fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
 		if (has_cf_creature(cr_ptr, CF_BR_FIRE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n");
+			fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n");
 #else
 			fprintf(OutFile, " You can breathe fire (dam lvl * 2).\n");
 #endif
@@ -2357,7 +2357,7 @@ fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n")
 		if (has_cf_creature(cr_ptr, CF_HYPN_GAZE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
+			fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
 #else
 			fprintf(OutFile, " Your gaze is hypnotic.\n");
 #endif
@@ -2366,7 +2366,7 @@ fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
 		if (has_cf_creature(cr_ptr, CF_TELEKINES))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは念動力をもっている。\n");
+			fprintf(OutFile, " あなたは念動力をもっている。\n");
 #else
 			fprintf(OutFile, " You are telekinetic.\n");
 #endif
@@ -2375,7 +2375,7 @@ fprintf(OutFile, " あなたは念動力をもっている。\n");
 		if (has_cf_creature(cr_ptr, CF_VTELEPORT))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
+			fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
 #else
 			fprintf(OutFile, " You can teleport at will.\n");
 #endif
@@ -2384,7 +2384,7 @@ fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
 		if (has_cf_creature(cr_ptr, CF_MIND_BLST))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
+			fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
 #else
 			fprintf(OutFile, " You can Mind Blast your enemies.\n");
 #endif
@@ -2393,7 +2393,7 @@ fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
 		if (has_cf_creature(cr_ptr, CF_RADIATION))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
+			fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
 #else
 			fprintf(OutFile, " You can emit hard radiation at will.\n");
 #endif
@@ -2402,7 +2402,7 @@ fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
 		if (has_cf_creature(cr_ptr, CF_VAMPIRISM))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n");
+			fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n");
 #else
 			fprintf(OutFile, " You can drain life from a foe like a vampire.\n");
 #endif
@@ -2411,7 +2411,7 @@ fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n"
 		if (has_cf_creature(cr_ptr, CF_SMELL_MET))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
+			fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 #else
 			fprintf(OutFile, " You can smell nearby precious metal.\n");
 #endif
@@ -2420,7 +2420,7 @@ fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_SMELL_MON))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは近くのクリーチャーの存在をかぎ分けることができる。\n");
+			fprintf(OutFile, " あなたは近くのクリーチャーの存在をかぎ分けることができる。\n");
 #else
 			fprintf(OutFile, " You can smell nearby creatures.\n");
 #endif
@@ -2429,7 +2429,7 @@ fprintf(OutFile, " あなたは近くのクリーチャーの存在をかぎ分けることができる。\n"
 		if (has_cf_creature(cr_ptr, CF_BLINK))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
+			fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
 #else
 			fprintf(OutFile, " You can teleport yourself short distances.\n");
 #endif
@@ -2438,7 +2438,7 @@ fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
 		if (has_cf_creature(cr_ptr, CF_EAT_ROCK))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
+			fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
 #else
 			fprintf(OutFile, " You can consume solid rock.\n");
 #endif
@@ -2447,7 +2447,7 @@ fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_SWAP_POS))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
+			fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
 #else
 			fprintf(OutFile, " You can switch locations with another being.\n");
 #endif
@@ -2456,7 +2456,7 @@ fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_SHRIEK))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
+			fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
 #else
 			fprintf(OutFile, " You can emit a horrible shriek.\n");
 #endif
@@ -2465,7 +2465,7 @@ fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
 		if (has_cf_creature(cr_ptr, CF_ILLUMINE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
+			fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
 #else
 			fprintf(OutFile, " You can emit bright light.\n");
 #endif
@@ -2474,7 +2474,7 @@ fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
 		if (has_cf_creature(cr_ptr, CF_DET_CURSE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
+			fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
 #else
 			fprintf(OutFile, " You can feel the danger of evil magic.\n");
 #endif
@@ -2483,7 +2483,7 @@ fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_BERSERK))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
+			fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
 #else
 			fprintf(OutFile, " You can drive yourself into a berserk frenzy.\n");
 #endif
@@ -2492,7 +2492,7 @@ fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_POLYMORPH))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
+			fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
 #else
 			fprintf(OutFile, " You can polymorph yourself at will.\n");
 #endif
@@ -2501,7 +2501,7 @@ fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
 		if (has_cf_creature(cr_ptr, CF_MIDAS_TCH))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
+			fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
 #else
 			fprintf(OutFile, " You can turn ordinary items to gold.\n");
 #endif
@@ -2510,7 +2510,7 @@ fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_GROW_MOLD))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
+			fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
 #else
 			fprintf(OutFile, " You can cause mold to grow near you.\n");
 #endif
@@ -2519,7 +2519,7 @@ fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
 		if (has_cf_creature(cr_ptr, CF_RESIST))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
+			fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
 #else
 			fprintf(OutFile, " You can harden yourself to the ravages of the elements.\n");
 #endif
@@ -2528,7 +2528,7 @@ fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_EARTHQUAKE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
+			fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
 #else
 			fprintf(OutFile, " You can bring down the dungeon around your ears.\n");
 #endif
@@ -2537,7 +2537,7 @@ fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_EAT_MAGIC))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
+			fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
 #else
 			fprintf(OutFile, " You can consume magic energy for your own use.\n");
 #endif
@@ -2546,7 +2546,7 @@ fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
 		if (has_cf_creature(cr_ptr, CF_WEIGH_MAG))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
+			fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
 #else
 			fprintf(OutFile, " You can feel the strength of the magics affecting you.\n");
 #endif
@@ -2555,7 +2555,7 @@ fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_STERILITY))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
+			fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
 #else
 			fprintf(OutFile, " You can cause mass impotence.\n");
 #endif
@@ -2564,7 +2564,7 @@ fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
 		if (has_cf_creature(cr_ptr, CF_PANIC_HIT))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
+			fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
 #else
 			fprintf(OutFile, " You can run for your life after hitting something.\n");
 #endif
@@ -2573,7 +2573,7 @@ fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_DAZZLE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 \n");
+			fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 \n");
 #else
 			fprintf(OutFile, " You can emit confusing, blinding radiation.\n");
 #endif
@@ -2582,7 +2582,7 @@ fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 
 		if (has_cf_creature(cr_ptr, CF_LASER_EYE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
+			fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
 #else
 			fprintf(OutFile, " Your eyes can fire laser beams.\n");
 #endif
@@ -2591,7 +2591,7 @@ fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
 		if (has_cf_creature(cr_ptr, CF_RECALL))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
+			fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
 #else
 			fprintf(OutFile, " You can travel between town and the depths.\n");
 #endif
@@ -2600,7 +2600,7 @@ fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
 		if (has_cf_creature(cr_ptr, CF_BANISH))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは邪悪なクリーチャーを地獄に落とすことができる。\n");
+			fprintf(OutFile, " あなたは邪悪なクリーチャーを地獄に落とすことができる。\n");
 #else
 			fprintf(OutFile, " You can send evil creatures directly to Hell.\n");
 #endif
@@ -2609,7 +2609,7 @@ fprintf(OutFile, " あなたは邪悪なクリーチャーを地獄に落とすことができる。\n");
 		if (has_cf_creature(cr_ptr, CF_COLD_TOUCH))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
+			fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
 #else
 			fprintf(OutFile, " You can freeze things with a touch.\n");
 #endif
@@ -2618,7 +2618,7 @@ fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_LAUNCHER))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
+			fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
 #else
 			fprintf(OutFile, " You can hurl objects with great force.\n");
 #endif
@@ -2631,7 +2631,7 @@ fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
 		if (has_cf_creature(cr_ptr, CF_BERS_RAGE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
+			fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
 #else
 			fprintf(OutFile, " You are subject to berserker fits.\n");
 #endif
@@ -2640,7 +2640,7 @@ fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
 		if (has_cf_creature(cr_ptr, CF_COWARDICE))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたは時々臆病になる。\n");
+			fprintf(OutFile, " あなたは時々臆病になる。\n");
 #else
 			fprintf(OutFile, " You are subject to cowardice.\n");
 #endif
@@ -2649,7 +2649,7 @@ fprintf(OutFile, " あなたは時々臆病になる。\n");
 		if (has_cf_creature(cr_ptr, CF_RTELEPORT))
 		{
 #ifdef JP
-fprintf(OutFile, " あなたはランダムにテレポートする。\n");
+			fprintf(OutFile, " あなたはランダムにテレポートする。\n");
 #else
 			fprintf(OutFile, " You are teleporting randomly.\n");
 #endif
@@ -3235,7 +3235,6 @@ void do_cmd_knowledge_mutations(creature_type *cr_ptr)
 #else
 	show_file(TRUE, file_name, "Mutations", 0, 0);
 #endif
-
 
 	/* Remove the file */
 	fd_kill(file_name);
