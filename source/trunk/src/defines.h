@@ -467,9 +467,7 @@
 /*
  * Extract energy from speed (Assumes that SPEED is unsigned)
  */
-#define SPEED_TO_ENERGY(SPEED) \
-	(((SPEED) > 199) ? 199 : extract_energy[(SPEED + 100)])
-
+#define SPEED_TO_ENERGY(SPEED) (((SPEED) > 199) ? 199 : extract_energy[(SPEED + 100)])
 
 /*
  * Misc constants
@@ -620,11 +618,11 @@
 /*
  * Player constants
  */
-#define CREATURE_MAX_EXP      99999999L       /* Maximum exp */
-#define PY_MAX_GOLD     999999999L      /* Maximum gold */
-#define PY_MAX_LEVEL    60              /* Maximum level */
-#define PY_MORTAL_LIMIT_LEVEL 30        /* Limit Level of Mortal */
-#define PY_DIVINE_LIMIT_LEVEL 30        /* Limit Level of Divine */
+#define CREATURE_MAX_EXP 99999999L       /* Maximum exp */
+#define PY_MAX_GOLD      999999999L      /* Maximum gold */
+#define PY_MAX_LEVEL     60              /* Maximum level */
+#define PY_MORTAL_LIMIT_LEVEL 30         /* Limit Level of Mortal */
+#define PY_DIVINE_LIMIT_LEVEL 30         /* Limit Level of Divine */
 
 /*
  * Player "food" crucial values
@@ -958,22 +956,22 @@
 #define MAX_CLASS               31
 
 
-#define CHARA_FUTUU	  0
-#define CHARA_CHIKARA	  1
+#define CHARA_FUTUU	    0
+#define CHARA_CHIKARA	1
 #define CHARA_KIREMONO  2
 #define CHARA_SHIAWASE  3
-#define CHARA_SUBASI	  4
-#define CHARA_INOCHI	  5
-#define CHARA_COMBAT	  6
-#define CHARA_NAMAKE	  7
-#define CHARA_SEXY	  8
-#define CHARA_LUCKY	  9
-#define CHARA_GAMAN	  10
+#define CHARA_SUBASI	4
+#define CHARA_INOCHI	5
+#define CHARA_COMBAT	6
+#define CHARA_NAMAKE	7
+#define CHARA_SEXY		8
+#define CHARA_LUCKY		9
+#define CHARA_GAMAN		10
 #define CHARA_MUNCHKIN  11
 #define CHARA_CHARGEMAN 12
 #define CHARA_POWERLESS 13
-#define CHARA_IGNORANT 14
-#define CHARA_IMBECILE 15
+#define CHARA_IGNORANT	14
+#define CHARA_IMBECILE	15
 #define CHARA_SLOWWITTED 16
 #define CHARA_WEAK 17
 #define CHARA_UGLY 18
