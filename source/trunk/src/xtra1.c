@@ -2853,6 +2853,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	creature_ptr->dis_ac += species_ptr->ac;
 	creature_ptr->speed += species_ptr->speed;
 
+	// Base infravision (purely racial)
+	creature_ptr->see_infra += MAX(tmp_race_ptr->infra, tmp_race_ptr2->infra);
 }
 
 
@@ -3111,6 +3113,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 static void set_posture_bonuses(creature_type *creature_ptr)
 {
 	int i;
+	u32b limit;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
 	if (creature_ptr->special_defense & KAMAE_MASK)
@@ -3187,6 +3190,10 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac -= 50;
 		creature_ptr->dis_to_ac -= 50;
 	}
+
+	limit = calc_carrying_weight_limit(creature_ptr);
+	if (creature_ptr->carrying_weight > limit) creature_ptr->speed -= (s16b)((creature_ptr->carrying_weight - limit) / (limit / 5 + 1));
+
 }
 
 static void set_status_table_indexes(creature_type *creature_ptr)
@@ -5151,7 +5158,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	int             i, j, k;
+	int             i;
 	int             body_size;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
@@ -5190,11 +5197,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	creature_ptr->size = body_size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 
-	// Base infravision (purely racial)
-	creature_ptr->see_infra = tmp_race_ptr->infra;
-	j = 0;
-	k = 1;
-
 	// Base skills
 	creature_ptr->skill_dis = 5;
 	creature_ptr->skill_dev = 5;
@@ -5208,8 +5210,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	creature_ptr->skill_thb = 10;
 	creature_ptr->skill_tht = 10;
 	creature_ptr->skill_dig = (body_size - 10) * 2;
-
-	creature_ptr->see_infra = (creature_ptr->see_infra + j) / k;
+	creature_ptr->see_infra = 0;
 
 	set_divine_bonuses(creature_ptr);
 	set_race_bonuses(creature_ptr);
@@ -5217,7 +5218,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_character_bonuses(creature_ptr);
 	set_trait_bonuses(creature_ptr);
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
-	set_posture_bonuses(creature_ptr);
 	set_status_table_indexes(creature_ptr);
 	set_status_bonuses(creature_ptr);
 
@@ -5235,15 +5235,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
 	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 
-
-	/* Extract the current weight (in tenth pounds) */
-	j = creature_ptr->carrying_weight;
-
 	set_riding_bonuses(creature_ptr);
-
-	/* XXX XXX XXX Apply "encumbrance" from weight */
-	//TODO CHECK
-	if (j > i) creature_ptr->speed -= ((j - i) / (i / 5 + 1));
+	set_posture_bonuses(creature_ptr);
 
 	/* Searching slows the player down */
 	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
