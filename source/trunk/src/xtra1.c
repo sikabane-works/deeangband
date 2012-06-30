@@ -3994,8 +3994,8 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < MAX_WEAPONS; i++) creature_ptr->can_melee[i] = FALSE;
-	creature_ptr->no_flowed = FALSE;
 
+	creature_ptr->no_flowed = FALSE;
 }
 
 static void set_karma_bonuses(creature_type *creature_ptr)
@@ -5383,15 +5383,16 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	}
 
 	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
+
 	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_NATURE-1][SPELL_SW];
+		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_NATURE - 1][SPELL_SW];
 		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
 	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_CRAFT-1][SPELL_KABE];
+		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_CRAFT - 1][SPELL_KABE];
 		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 

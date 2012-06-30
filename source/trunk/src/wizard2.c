@@ -336,7 +336,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		/* Prompt */
-		sprintf(ppp, "%s (%d-%d): ", STAT_VALUE_MIN, stat_names[i], cr_ptr->stat_mod_max_max[i]);
+		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, cr_ptr->stat_mod_max_max[i]);
 
 		/* Default */
 		sprintf(tmp_val, "%d", cr_ptr->stat_max[i]);
