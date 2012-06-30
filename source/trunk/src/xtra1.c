@@ -3479,6 +3479,20 @@ static void set_status_bonuses(creature_type *creature_ptr)
 	}
 
 	if (IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
+
+	if (creature_ptr->anti_magic)
+	{
+		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
+		creature_ptr->skill_eva += 20 + creature_ptr->lev * 5;
+		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
+	}
+
+	if (creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef)
+	{
+		creature_ptr->skill_rob += 95 + creature_ptr->lev;
+		creature_ptr->skill_eva += 95 + creature_ptr->lev;
+	    creature_ptr->skill_vol += 95 + creature_ptr->lev;
+	}
 }
 
 
@@ -5187,7 +5201,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	wipe_creature_calculation_status(creature_ptr);
 
-
 	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
 	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
@@ -5257,19 +5270,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 
-	if (creature_ptr->anti_magic)
-	{
-		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
-		creature_ptr->skill_eva += 20 + creature_ptr->lev * 5;
-		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
-	}
-
-	if (creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef)
-	{
-		if (creature_ptr->skill_rob < (95 + creature_ptr->lev)) creature_ptr->skill_rob = 95 + creature_ptr->lev;
-		if (creature_ptr->skill_eva < (95 + creature_ptr->lev)) creature_ptr->skill_eva = 95 + creature_ptr->lev;
-	    if (creature_ptr->skill_vol < (95 + creature_ptr->lev)) creature_ptr->skill_vol = 95 + creature_ptr->lev;
-	}
 
 	set_karma_bonuses(creature_ptr);
 	set_flow_flag(creature_ptr);
