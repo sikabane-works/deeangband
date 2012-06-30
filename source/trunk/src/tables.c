@@ -1862,9 +1862,6 @@ arena_type arena_info[MAX_ARENA_MONS + 2] =
 
 
 /*
- * This table allows quick conversion from "speed" to "energy"
- * The basic function WAS ((S>=110) ? (S-110) : (100 / (120-S)))
- * Note that table access is *much* quicker than computation.
  *
  * Note that the table has been changed at high speeds.  From
  * "Slow (-40)" to "Fast (+30)" is pretty much unchanged, but

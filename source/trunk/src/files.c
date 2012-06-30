@@ -1924,13 +1924,14 @@ static void display_player_middle(creature_type *creature_ptr)
 		creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr)), TERM_L_BLUE);
 
 
+
 	// Dump speed
 	{
 		int tmp_speed = 0;
 		byte attr;
 		int i;
 
-		i = creature_ptr->speed - 110;
+		i = creature_ptr->speed;
 
 		/* Hack -- Visually "undo" the Search Mode Slowdown */
 		if (creature_ptr->action == ACTION_SEARCH) i += 10;
