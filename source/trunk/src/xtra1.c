@@ -2838,8 +2838,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i] * 10;
-		if(creature_ptr->cls_bonus)
-			creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
+		if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
 	}
 
 	creature_ptr->skill_dis += class_info[creature_ptr->cls_idx].c_dis;
@@ -2968,47 +2967,26 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			break;
 	}
 
-	/* Affect Skill -- saving throw (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	// Affect Skill (Level, by Class)
+	creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_dev += (class_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
+	creature_ptr->skill_stl += (class_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
+	creature_ptr->skill_srh += (class_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
+	creature_ptr->skill_fos += (class_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
+	creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
+	creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
 
-	/* Affect Skill -- magic devices (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dev += (class_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
-
-
-	/* Affect Skill -- stealth (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_stl += (class_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
-
-	/* Affect Skill -- search ability (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_srh += (class_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
-
-	/* Affect Skill -- search frequency (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_fos += (class_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
-
-	/* Affect Skill -- combat (normal) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
-
-	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
-
-	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
 }
-
 
 static void set_character_bonuses(creature_type *creature_ptr)
 {
 	int i;
 
-	for (i = 0; i < 6; i++)
-	{
-		if(creature_ptr->chara_idx != INDEX_NONE)
-			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
-	}
+	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
 
-	if(creature_ptr->chara_idx != INDEX_NONE)
-	{
 		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
 		creature_ptr->skill_dev += chara_info[creature_ptr->chara_idx].a_dev;
 		creature_ptr->skill_rob += chara_info[creature_ptr->chara_idx].a_sav;
@@ -3020,17 +2998,12 @@ static void set_character_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thn += chara_info[creature_ptr->chara_idx].a_thn;
 		creature_ptr->skill_thb += chara_info[creature_ptr->chara_idx].a_thb;
 		creature_ptr->skill_tht += chara_info[creature_ptr->chara_idx].a_thb;
-	}
 
-	/* Sexy Gal */
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
 	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
 	if (creature_ptr->chara_idx == CHARA_KIREMONO) creature_ptr->to_m_chance -= 3;
 	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
 	if ((creature_ptr->chara_idx == CHARA_GAMAN) || (creature_ptr->chara_idx == CHARA_CHIKARA)) creature_ptr->to_m_chance++;
-
-	/* Lucky man */
-	//TODO if (creature_ptr->chara_idx == CHARA_LUCKY) creature_ptr->flags14 |= RF14_GOOD_LUCK;
 
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
@@ -3039,18 +3012,17 @@ static void set_character_bonuses(creature_type *creature_ptr)
 		creature_ptr->hold_life = TRUE;
 		if (creature_ptr->cls_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
 
-		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE))
-			/* Munchkin become faster */
+		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE)) // Munchkin become faster
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
 
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
+	creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
+	creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
 }
 
 static void set_posture_bonuses(creature_type *creature_ptr)
@@ -5168,7 +5140,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if(creature_ptr->race_idx1 != INDEX_NONE) set_race_bonuses(creature_ptr);
 	if(creature_ptr->cls_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
-	set_character_bonuses(creature_ptr);
+	if(creature_ptr->chara_idx != INDEX_NONE) set_character_bonuses(creature_ptr);
 	set_trait_bonuses(creature_ptr);
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 	set_status_table_indexes(creature_ptr);
