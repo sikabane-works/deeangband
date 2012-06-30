@@ -5109,9 +5109,12 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
 	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
-	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE; // Hack -- aura of fire also provides light
-}
+	 // Hack -- aura of fire also provides light
+	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
+	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
+
+}
 static void set_flow_flag(creature_type *creature_ptr)
 {
 	int i;
@@ -5186,24 +5189,15 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	bool            easy_2weapon = FALSE;
 	bool            riding_levitation = FALSE;
 
-	race_type *tmp_race_ptr;
-	race_type *tmp_race_ptr2;
-
 	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_mighty_throw = creature_ptr->mighty_throw;
-
-	// Save the old armor class
 	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	wipe_creature_calculation_status(creature_ptr);
-
-	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
-	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
-	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
 	initialize_bonuses(creature_ptr);
 	set_divine_bonuses(creature_ptr);
@@ -5218,8 +5212,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_status_bonuses(creature_ptr);
 
 	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
-
-	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
 
