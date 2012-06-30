@@ -5010,26 +5010,16 @@ static void dump_aux_arena(FILE *fff)
 {
 	if (arena_number < 0)
 	{
-		if (arena_number <= ARENA_DEFEATED_OLD_VER)
-		{
 #ifdef JP
-			fprintf(fff, "\n “¬‹Zê: ”s–k\n");
+		fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
+			species_name + species_info[arena_info[-1 - arena_number].species_idx].name);
 #else
-			fprintf(fff, "\n Arena: Defeated\n");
+		fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
+			species_name + species_info[arena_info[-1 - arena_number].species_idx].name,
+			-arena_number, get_ordinal_number_suffix(-arena_number));
 #endif
-		}
-		else
-		{
-#ifdef JP
-			fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
-				species_name + species_info[arena_info[-1 - arena_number].species_idx].name);
-#else
-			fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
-				species_name + species_info[arena_info[-1 - arena_number].species_idx].name,
-				-arena_number, get_ordinal_number_suffix(-arena_number));
-#endif
-		}
 	}
+
 	else if (arena_number > MAX_ARENA_MONS + 2)
 	{
 #ifdef JP
@@ -5038,6 +5028,7 @@ static void dump_aux_arena(FILE *fff)
 		fprintf(fff, "\n Arena: True Champion\n");
 #endif
 	}
+
 	else if (arena_number > MAX_ARENA_MONS - 1)
 	{
 #ifdef JP
@@ -5046,6 +5037,7 @@ static void dump_aux_arena(FILE *fff)
 		fprintf(fff, "\n Arena: Champion\n");
 #endif
 	}
+
 	else
 	{
 #ifdef JP

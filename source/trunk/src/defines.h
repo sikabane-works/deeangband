@@ -113,22 +113,12 @@
 #define QUEST_AOY           18
 
 // Arena constants
-#define MAX_ARENA_MONS		39	/* -KMW- */
-#define ARENA_DEFEATED_OLD_VER (-(MAX_SHORT))
+#define MAX_ARENA_MONS		39
 
-/*
- * Total number of stores (see "store.c", etc)
- */
+// Total number of stores (see "store.c", etc)
 #define MAX_STORES      10
 
-/*
- * Number of buildings
- */
-#define MAX_BLDG		32
-
-/*
- * Store types
- */
+// Store types
 #define STORE_GENERAL   0
 #define STORE_ARMOURY   1
 #define STORE_WEAPON    2
@@ -140,6 +130,9 @@
 #define STORE_BOOK      8
 #define STORE_MUSEUM    9
 #define STORE_ART      10
+
+// Number of buildings
+#define MAX_BLDG		32
 
 #define ST1_YOUR_HOME			0x00000001
 #define ST1_MUSEUM				0x00000002
@@ -166,17 +159,11 @@
 #define BUILDING_MEMBER     1
 #define BUILDING_OWNER      2
 
-
 #define MAX_PLAYER_STAUS_DISPLAY 8
 
-/*
- * Maximum number of creature "sex" types (see "table.c", etc)
- */
-#define MAX_SEXES            4
 
 
 // Inventory slot difinition
-
 #define MAX_INVENTORY_SLOT       15
 
 enum INVENTORY_SLOT
@@ -901,16 +888,16 @@ enum MELEE_TYPE
 #define RACE_GREAT_OLD_ONE     86
 #define RACE_REPTILIA          87
 
-/*
- * Maximum number of player "race" types (see "table.c", etc)
- */
-#define MAX_RACES              88
+// Maximum number of player "race" types (see "table.c", etc)
+#define MAX_RACES                 88
 #define MAX_HALF_RACE_DESCRIPTION 15
 
+// Maximum number of creature "sex" types (see "table.c", etc)
+#define MAX_SEXES            4
 
-/*
- * Player class constants (hard-coded by save-files, arrays, etc)
- */
+// Maximum number of creature "class" types (see "table.c", etc)
+#define MAX_CLASS               31
+
 #define CLASS_NONE               0
 #define CLASS_WARRIOR            1
 #define CLASS_MAGE               2
@@ -943,9 +930,7 @@ enum MELEE_TYPE
 #define CLASS_COMMONER          29
 #define CLASS_SOLDIER           30
 
-// Maximum number of creature "class" types (see "table.c", etc)
-#define MAX_CLASS               31
-
+#define MAX_CHARA       19
 
 #define CHARA_FUTUU	    0
 #define CHARA_CHIKARA	1
@@ -967,7 +952,6 @@ enum MELEE_TYPE
 #define CHARA_WEAK 17
 #define CHARA_UGLY 18
 
-#define MAX_CHARA       19
 
 
 #define AUTHORITY_FIRE1   0
