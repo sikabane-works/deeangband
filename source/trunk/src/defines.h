@@ -402,20 +402,11 @@ enum MELEE_TYPE
 #define MESSAGE_BUF     32768
 
 
-/*
- * Maximum value storable in a "byte" (hard-coded)
- */
-#define MAX_UCHAR       255
 
-/*
- * Maximum value storable in a "s16b" (hard-coded)
- */
-#define MAX_SHORT       32767
+#define MAX_UCHAR       255   // Maximum value storable in a "byte" (hard-coded)
+#define MAX_SHORT       32767 // Maximum value storable in a "s16b" (hard-coded)
 
-/*
- * Maximum length of object's name
- */
-#define MAX_NLEN        160
+#define MAX_NLEN        160   // Maximum length of object's name
 
 // Special internal key
 #define SPECIAL_KEY_QUEST    255
@@ -431,25 +422,23 @@ enum MELEE_TYPE
 #define STORE_MAX_KEEP_PERCENT  75      /* Max slots to "always" keep full */
 #define STORE_TICKS     1000            /* Number of ticks between turnovers */
 
-// Random energy
+// Creature Status limitation
 #define ENERGY_NEED() (randnor(100, 25))
-#define MAX_SPEED +99
-#define MIN_SPEED -99
+#define MAX_SPEED   +99
+#define MIN_SPEED   -99
 #define MAX_STEALTH 100
 #define MIN_STEALTH   0
+#define SPEED_TO_ENERGY(SPEED) (((SPEED) > 199) ? 199 : extract_energy[(SPEED + 100)])
+#define CREATURE_MAX_EXP 99999999L       // Maximum exp
+#define PY_MAX_GOLD      999999999L      // Maximum gold
+#define PY_MORTAL_LIMIT_LEVEL 30         // Limit Level of Mortal
+#define PY_DIVINE_LIMIT_LEVEL 30         // Limit Level of Divine
+#define PY_MAX_LEVEL (PY_MORTAL_LIMIT_LEVEL + PY_DIVINE_LIMIT_LEVEL) // Maximum level
 
 // on creature generating
 #define EXP_STAND_RATE 1500
 
-
-/*
- * Extract energy from speed (Assumes that SPEED is unsigned)
- */
-#define SPEED_TO_ENERGY(SPEED) (((SPEED) > 199) ? 199 : extract_energy[(SPEED + 100)])
-
-/*
- * Misc constants
- */
+// Misc constants
 #define TOWN_DAWN          10000    /* Number of ticks from dawn to dawn XXX */
 #define TURNS_PER_TICK     10L      /* Number of energy-gain-turns per ticks */
 #define MAX_DAYS           20000    /* Maximum days */
@@ -463,11 +452,7 @@ enum MELEE_TYPE
 #define MAX_UNDERLINGS     12       /* Max Underling Types */
 #define A_DAY              (TURNS_PER_TICK * TOWN_DAWN)
 
-
-
-
-/* "Biases" for random artifact gen */
-
+// "Biases" for random artifact gen
 #define BIAS_ELEC            1
 #define BIAS_POIS            2
 #define BIAS_FIRE            3
@@ -490,7 +475,6 @@ enum MELEE_TYPE
 
 
 /*** Pet constants ***/
-
 
 /*
  * Commands
@@ -592,15 +576,6 @@ enum MELEE_TYPE
  */
 #define MAX_REPRO       100
 
-
-/*
- * Player constants
- */
-#define CREATURE_MAX_EXP 99999999L       /* Maximum exp */
-#define PY_MAX_GOLD      999999999L      /* Maximum gold */
-#define PY_MAX_LEVEL     60              /* Maximum level */
-#define PY_MORTAL_LIMIT_LEVEL 30         /* Limit Level of Mortal */
-#define PY_DIVINE_LIMIT_LEVEL 30         /* Limit Level of Divine */
 
 /*
  * Player "food" crucial values
