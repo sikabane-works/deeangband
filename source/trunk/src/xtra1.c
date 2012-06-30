@@ -5079,6 +5079,22 @@ static void initialize_bonuses(creature_type *creature_ptr)
 	creature_ptr->see_infra = 0;
 }
 
+static void fix_creature_status(creature_type *creature_ptr)
+{
+	if (creature_ptr->speed > MAX_SPEED) creature_ptr->speed = MAX_SPEED;
+	if (creature_ptr->speed < MIN_SPEED) creature_ptr->speed = MIN_SPEED;
+
+	if (creature_ptr->skill_stl > MAX_STEALTH) creature_ptr->skill_stl = MAX_STEALTH;
+	if (creature_ptr->skill_stl < MIN_STEALTH) creature_ptr->skill_stl = MIN_STEALTH;
+
+	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
+
+	// Hack -- Each elemental immunity includes resistance
+	if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
+	if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
+	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
+	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
+}
 
 
 
@@ -5179,14 +5195,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		monk_armour_aux = TRUE;
 	}
 
-	if (creature_ptr->speed > MAX_SPEED) creature_ptr->speed = MAX_SPEED;
-	if (creature_ptr->speed < MIN_SPEED) creature_ptr->speed = MIN_SPEED;
-
-	if (creature_ptr->skill_stl > MAX_STEALTH) creature_ptr->skill_stl = MAX_STEALTH;
-	if (creature_ptr->skill_stl < MIN_STEALTH) creature_ptr->skill_stl = MIN_STEALTH;
-
-	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
-
 	play_redraw |= (PR_SPEED); // TODO
 
 	if (yoiyami)
@@ -5220,7 +5228,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 
-
 	if (creature_ptr->anti_magic)
 	{
 		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
@@ -5234,12 +5241,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if (creature_ptr->skill_eva < (95 + creature_ptr->lev)) creature_ptr->skill_eva = 95 + creature_ptr->lev;
 	    if (creature_ptr->skill_vol < (95 + creature_ptr->lev)) creature_ptr->skill_vol = 95 + creature_ptr->lev;
 	}
-
-	/* Hack -- Each elemental immunity includes resistance */
-	if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
-	if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
-	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
-	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
 	set_karma_bonuses(creature_ptr);
 
@@ -5281,6 +5282,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	// Hack -- See Invis Change
 	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy)
 		update |= (PU_MONSTERS);
+
+	fix_creature_status(creature_ptr);
 }
 
 
