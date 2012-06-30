@@ -5159,7 +5159,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
 	int             i;
-	int             body_size;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
 	int             extra_shots = FALSE;
@@ -5195,21 +5194,21 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
-	creature_ptr->size = body_size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
+	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
 
 	// Base skills
 	creature_ptr->skill_dis = 5;
 	creature_ptr->skill_dev = 5;
-	creature_ptr->skill_rob = 5 + (body_size - 10) / 2 * 3;
-	creature_ptr->skill_eva = 5 - (body_size - 10) / 2 * 3;
+	creature_ptr->skill_rob = 5 + (creature_ptr->size - 10) / 2 * 3;
+	creature_ptr->skill_eva = 5 - (creature_ptr->size - 10) / 2 * 3;
 	creature_ptr->skill_vol = 5;
-	creature_ptr->skill_stl = 3 - body_size / 3;
+	creature_ptr->skill_stl = 3 - creature_ptr->size / 3;
 	creature_ptr->skill_srh = 10;
 	creature_ptr->skill_fos = 10;
-	creature_ptr->skill_thn = body_size;
+	creature_ptr->skill_thn = creature_ptr->size;
 	creature_ptr->skill_thb = 10;
 	creature_ptr->skill_tht = 10;
-	creature_ptr->skill_dig = (body_size - 10) * 2;
+	creature_ptr->skill_dig = (creature_ptr->size - 10) * 2;
 	creature_ptr->see_infra = 0;
 
 	set_divine_bonuses(creature_ptr);
