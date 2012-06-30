@@ -426,9 +426,6 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		/* Save */
 		cr_ptr->max_exp = tmp_long;
 		cr_ptr->exp = tmp_long;
-
-		/* Update */
-		check_experience(cr_ptr);
 	}
 
 	/* Query */
