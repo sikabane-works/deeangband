@@ -2968,6 +2968,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	}
 
 	// Affect Skill (Level, by Class)
+	creature_ptr->skill_dis += (class_info[creature_ptr->cls_idx].x_dis * creature_ptr->lev / 10);
 	creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
 	creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
 	creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
@@ -2978,7 +2979,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
 	creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
 	creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
-
 }
 
 static void set_character_bonuses(creature_type *creature_ptr)
@@ -5232,9 +5232,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
 
-	/* Affect Skill -- disarming (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dis += (class_info[creature_ptr->cls_idx].x_dis * creature_ptr->lev / 10);
-	else creature_ptr->skill_dis += (class_info[CLASS_TOURIST].x_dis * creature_ptr->lev / 10);
 
 	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
 
@@ -5308,21 +5305,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
-	// TODO: Evasion was adjusted by speed and size.
-	// creature_ptr->skill_eva += (creature_ptr->speed * creature_ptr->size / 5);
-
-	// TODO: Hack -- Telepathy Change
-	if (creature_ptr->telepathy != old_telepathy)
-	{
-		update |= (PU_MONSTERS);
-	}
-
 	// Hack -- See Invis Change
-	if (creature_ptr->see_inv != old_see_inv)
-	{
+	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy)
 		update |= (PU_MONSTERS);
-	}
-
 }
 
 
