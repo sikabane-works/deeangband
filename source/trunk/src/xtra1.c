@@ -3194,6 +3194,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 	limit = calc_carrying_weight_limit(creature_ptr);
 	if (creature_ptr->carrying_weight > limit) creature_ptr->speed -= (s16b)((creature_ptr->carrying_weight - limit) / (limit / 5 + 1));
 
+	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 }
 
 static void set_status_table_indexes(creature_type *creature_ptr)
@@ -3727,6 +3728,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
 		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
 		if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
+
 		if (object_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
 
 		if (object_ptr->curse_flags & TRC_LOW_MAGIC)
@@ -3867,6 +3869,13 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 				creature_ptr->dis_to_damage[default_hand] += bonus_to_damage;
 			}
 		}
+	}
+
+	if (down_saving)
+	{
+		creature_ptr->skill_rob -= creature_ptr->lev;
+		creature_ptr->skill_eva -= creature_ptr->lev;
+		creature_ptr->skill_vol -= creature_ptr->lev;
 	}
 
 }
@@ -5188,7 +5197,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	bool            omoi = FALSE;
 	bool            yoiyami = FALSE;
-	bool            down_saving = FALSE;
 	bool            have_sw = FALSE, have_kabe = FALSE;
 	bool            easy_2weapon = FALSE;
 	bool            riding_levitation = FALSE;
@@ -5234,11 +5242,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
-	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 
 	set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
@@ -5333,17 +5339,19 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Limit Skill -- digging from 1 up */
 	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
 
-	if (creature_ptr->anti_magic && (creature_ptr->skill_rob < (90 + creature_ptr->lev))) creature_ptr->skill_rob = 90 + creature_ptr->lev;
-	if (creature_ptr->anti_magic && (creature_ptr->skill_eva < (90 + creature_ptr->lev))) creature_ptr->skill_eva = 90 + creature_ptr->lev;
-	if (creature_ptr->anti_magic && (creature_ptr->skill_vol < (90 + creature_ptr->lev))) creature_ptr->skill_vol = 90 + creature_ptr->lev;
+	if (creature_ptr->anti_magic)
+	{
+		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
+		creature_ptr->skill_eva += 20 + creature_ptr->lev * 5;
+		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
+	}
 
-	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_rob < (95 + creature_ptr->lev))) creature_ptr->skill_rob = 95 + creature_ptr->lev;
-	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_eva < (95 + creature_ptr->lev))) creature_ptr->skill_eva = 95 + creature_ptr->lev;
-	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_vol < (95 + creature_ptr->lev))) creature_ptr->skill_vol = 95 + creature_ptr->lev;
-
-	if (down_saving) creature_ptr->skill_rob /= 2;
-	if (down_saving) creature_ptr->skill_eva /= 2;
-	if (down_saving) creature_ptr->skill_vol /= 2;
+	if (creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef)
+	{
+		if (creature_ptr->skill_rob < (95 + creature_ptr->lev)) creature_ptr->skill_rob = 95 + creature_ptr->lev;
+		if (creature_ptr->skill_eva < (95 + creature_ptr->lev)) creature_ptr->skill_eva = 95 + creature_ptr->lev;
+	    if (creature_ptr->skill_vol < (95 + creature_ptr->lev)) creature_ptr->skill_vol = 95 + creature_ptr->lev;
+	}
 
 	/* Hack -- Each elemental immunity includes resistance */
 	if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
