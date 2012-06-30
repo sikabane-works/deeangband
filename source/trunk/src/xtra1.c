@@ -3856,17 +3856,12 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 {
 	int i;
 
-	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0; // Clear the stat modifiers
+	for(i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0; // Clear the stat modifiers
 
 	// Clear the Displayed/Real armor class and evasion
 	creature_ptr->dis_ac = creature_ptr->ac = 0;
 	creature_ptr->dis_ev = creature_ptr->ev = 0;
 
-	// Clear the Displayed/Real Bonuses
-	creature_ptr->dis_to_hit[0] = creature_ptr->to_hit[0] = 0;
-	creature_ptr->dis_to_hit[1] = creature_ptr->to_hit[1] = 0;
-	creature_ptr->dis_to_damage[0] = creature_ptr->to_damage[0] = 0;
-	creature_ptr->dis_to_damage[1] = creature_ptr->to_damage[1] = 0;
 	creature_ptr->dis_to_hit_b = creature_ptr->to_hit_b = 0;
 	creature_ptr->dis_to_ac = creature_ptr->to_ac = 0;
 	creature_ptr->dis_to_ev = creature_ptr->to_ev = 0;
@@ -3874,16 +3869,20 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->to_damage_m = 0;
 	creature_ptr->to_m_chance = 0;
 
-	// Clear the Extra Dice Bonuses
-	creature_ptr->to_damaged[0] = creature_ptr->to_damages[0] = 0;
-	creature_ptr->to_damaged[1] = creature_ptr->to_damages[1] = 0;
+	for(i = 0; i < MAX_WEAPONS; i++)
+	{
+		creature_ptr->dis_to_hit[i] = creature_ptr->to_hit[i] = 0;
+		creature_ptr->dis_to_damage[i] = creature_ptr->to_damage[i] = 0;
+		creature_ptr->to_damaged[i] = creature_ptr->to_damages[i] = 0;
+		creature_ptr->impact[i] = FALSE;
+		creature_ptr->can_melee[i] = FALSE;
+	}
 
 	// Clear the Activate Rate
 	creature_ptr->to_acr[0] = creature_ptr->to_acr[0] = 100; 
 
 	// Start with "normal" speed
-	creature_ptr->speed = 110;
-	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];
+	creature_ptr->speed = 0;
 
 	// Start with a single shot per turn
 	creature_ptr->num_fire = 100;
@@ -3898,8 +3897,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
 	creature_ptr->xtra_might = FALSE;
-	creature_ptr->impact[0] = FALSE;
-	creature_ptr->impact[1] = FALSE;
 	creature_ptr->pass_wall = FALSE;
 	creature_ptr->kill_wall = FALSE;
 	creature_ptr->dec_mana = FALSE;
@@ -3965,7 +3962,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->immune_cold = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
-	for(i = 0; i < MAX_WEAPONS; i++) creature_ptr->can_melee[i] = FALSE;
+	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
 	creature_ptr->no_flowed = FALSE;
 }
@@ -5035,6 +5032,7 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
 	}
 
+	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];
 }
 
 
@@ -5182,23 +5180,23 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	bool old_mighty_throw = creature_ptr->mighty_throw;
 
 	// Save the old armor class
-	bool old_dis_ac = (bool)creature_ptr->dis_ac;
+	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	wipe_creature_calculation_status(creature_ptr);
 
-	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
 	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
 	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
 	initialize_bonuses(creature_ptr);
-
 	set_divine_bonuses(creature_ptr);
+
 	if(creature_ptr->race_idx1 != INDEX_NONE) set_race_bonuses(creature_ptr);
+
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
 	set_trait_bonuses(creature_ptr);
