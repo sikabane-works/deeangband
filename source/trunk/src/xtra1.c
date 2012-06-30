@@ -2547,7 +2547,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	byte tmp_hitdice;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
-	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[STAT_CON]]) - 128) * cr_ptr->lev / 4;
+	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[STAT_CON]])) * cr_ptr->lev / 4;
 
 	/* Divine Bonuses */
 	if(cr_ptr->dr >= 0){
@@ -4896,26 +4896,26 @@ static void set_melee_status(creature_type *creature_ptr)
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
 	for(i = 0; i < MAX_WEAPONS; i++)
 	{
-		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-		creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-		creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
+		creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
+		creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
-		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
+		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
+		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 	}
 
-	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
-	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
+	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
+	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
+	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
+	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
-	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
-	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
+	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
+	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
+	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
 	/* Different calculation for monks with empty hands */
 	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
@@ -5296,8 +5296,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->two_handed && !omoi)
 	{
 		int bonus_to_hit = 0, bonus_to_damage = 0;
-		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
-		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
+		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) )/2;
+		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) ) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
 
 		creature_ptr->to_hit[default_hand] += MAX(bonus_to_hit,1);
 		creature_ptr->dis_to_hit[default_hand] += MAX(bonus_to_hit,1);
