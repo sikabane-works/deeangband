@@ -4929,7 +4929,7 @@ bool probing(floor_type *floor_ptr)
 			/* Get "the creature" or "something" */
 			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
 
-			speed = m_ptr->speed - 110;
+			speed = m_ptr->speed;
 			if (m_ptr->fast) speed += 10;
 			if (m_ptr->slow) speed -= 10;
 

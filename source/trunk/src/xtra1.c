@@ -1143,7 +1143,7 @@ static void prt_speed(creature_type *cr_ptr)
 	if (cr_ptr->action == ACTION_SEARCH && !cr_ptr->lightspeed) i += 10;
 
 	/* Fast */
-	if (i > 110)
+	if (i > 0)
 	{
 		if (cr_ptr->riding)
 		{
@@ -1156,15 +1156,15 @@ static void prt_speed(creature_type *cr_ptr)
 		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
-		sprintf(buf, "%s(+%d)", (cr_ptr->riding ? "乗馬" : "加速"), (i - 110));
+		sprintf(buf, "%s(%+d)", (cr_ptr->riding ? "乗馬" : "加速"), i);
 #else
-		sprintf(buf, "Fast(+%d)", (i - 110));
+		sprintf(buf, "Fast(%+d)", i);
 #endif
 
 	}
 
 	/* Slow */
-	else if (i < 110)
+	else if (i < 0)
 	{
 		if (cr_ptr->riding)
 		{
@@ -1177,11 +1177,12 @@ static void prt_speed(creature_type *cr_ptr)
 		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
 #ifdef JP
-		sprintf(buf, "%s(-%d)", (cr_ptr->riding ? "乗馬" : "減速"), (110 - i));
+		sprintf(buf, "%s(%+d)", (cr_ptr->riding ? "乗馬" : "減速"), i);
 #else
-		sprintf(buf, "Slow(-%d)", (110 - i));
+		sprintf(buf, "Slow(%+d)", i);
 #endif
 	}
+
 	else if (cr_ptr->riding)
 	{
 		attr = TERM_GREEN;
@@ -2581,7 +2582,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->cls_idx == CLASS_BERSERKER)
 	{
-		mhp = mhp * (110+(((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110))/100;
+		mhp = mhp * (110+ (((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110)) / 100;
 	}
 
 	/* Always have at least one hitpoint per level */
@@ -3879,7 +3880,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	}
 
 	// Clear the Activate Rate
-	creature_ptr->to_acr[0] = creature_ptr->to_acr[0] = 100; 
+	creature_ptr->to_acr[0] = 100; 
 
 	// Start with "normal" speed
 	creature_ptr->speed = 0;
@@ -5053,10 +5054,10 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
 		int speed = riding_m_ptr->speed;
 
-		if (riding_m_ptr->speed > 110)
+		if (riding_m_ptr->speed > 0)
 		{
-			creature_ptr->speed = 110 + (s16b)((speed - 110) * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
-			if (creature_ptr->speed < 110) creature_ptr->speed = 110;
+			creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
+			if (creature_ptr->speed < 0) creature_ptr->speed = 0;
 		}
 		else
 		{
@@ -5233,15 +5234,15 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		monk_armour_aux = TRUE;
 	}
 
-	/* Maximum speed is (+99). (internally it's 110 + 99) */
+	/* Maximum speed is (+99) */
 	/* Temporary lightspeed forces to be maximum speed */
-	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (creature_ptr->speed > 209))
+	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (creature_ptr->speed > 99))
 	{
-		creature_ptr->speed = 209;
+		creature_ptr->speed = 99;
 	}
 
 	/* Minimum speed is (-99). (internally it's 110 - 99) */
-	if (creature_ptr->speed < 11) creature_ptr->speed = 11;
+	if (creature_ptr->speed < -99) creature_ptr->speed = -99;
 
 	play_redraw |= (PR_SPEED); // TODO
 

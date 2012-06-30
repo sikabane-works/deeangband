@@ -1924,7 +1924,7 @@ static void display_player_middle(creature_type *creature_ptr)
 		creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr)), TERM_L_BLUE);
 
 
-	/* Dump speed */
+	// Dump speed
 	{
 		int tmp_speed = 0;
 		byte attr;
