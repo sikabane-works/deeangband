@@ -5118,6 +5118,11 @@ static void fix_creature_status(creature_type *creature_ptr)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
+	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
+	{
+		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
+		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
+	}
 }
 static void set_flow_flag(creature_type *creature_ptr)
 {
@@ -5184,22 +5189,14 @@ static void set_flow_flag(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	int             default_hand = 0;
-	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
-	int             extra_shots = FALSE;
 
-	bool            omoi = FALSE;
 	bool            yoiyami = FALSE;
-	bool            easy_2weapon = FALSE;
-	bool            riding_levitation = FALSE;
 
 	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_mighty_throw = creature_ptr->mighty_throw;
 	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
-
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	wipe_creature_calculation_status(creature_ptr);
 
@@ -5215,23 +5212,10 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_status_table_indexes(creature_ptr);
 	set_status_bonuses(creature_ptr);
 
-	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
-
-
 	set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
 
 	set_melee_status(creature_ptr);
-
-
-	monk_armour_aux = FALSE;
-
-	if (heavy_armor(creature_ptr))
-	{
-		monk_armour_aux = TRUE;
-	}
-
-	play_redraw |= (PR_SPEED); // TODO
 
 	if (yoiyami)
 	{
@@ -5239,42 +5223,24 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
 	}
 
-	/* Redraw armor (if needed) */
+	set_karma_bonuses(creature_ptr);
+	set_flow_flag(creature_ptr);
+	fix_creature_status(creature_ptr);
+
+	if(message) creature_bonuses_message(creature_ptr);
+
+	// Hack -- See Invis Change
+	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy) update |= (PU_MONSTERS);
+	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
+	play_redraw |= (PR_SPEED); // TODO
+
+	// Redraw armor (if needed)
 	if ((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
 		play_redraw |= (PR_ARMOR);  // Redraw
 		play_window |= (PW_PLAYER); // Window stuff
 	}
 
-	if (creature_ptr->two_handed && !omoi)
-	{
-		int bonus_to_hit = 0, bonus_to_damage = 0;
-		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) )/2;
-		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) ) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-
-		creature_ptr->to_hit[default_hand]        += MAX(bonus_to_hit,1);
-		creature_ptr->dis_to_hit[default_hand]    += MAX(bonus_to_hit,1);
-		creature_ptr->to_damage[default_hand]     += MAX(bonus_to_damage,1);
-		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
-	}
-
-	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
-	{
-		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
-		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
-	}
-
-
-	set_karma_bonuses(creature_ptr);
-	set_flow_flag(creature_ptr);
-
-	if(message) creature_bonuses_message(creature_ptr);
-
-	// Hack -- See Invis Change
-	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy)
-		update |= (PU_MONSTERS);
-
-	fix_creature_status(creature_ptr);
 }
 
 
