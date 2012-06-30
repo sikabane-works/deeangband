@@ -5002,7 +5002,7 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 static void set_riding_bonuses(creature_type *creature_ptr)
 {
 	int i, j;
-	bool riding_levitation;
+	bool riding_levitation = FALSE;
 
 	j = creature_ptr->carrying_weight;
 
@@ -5134,7 +5134,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 static void set_flow_flag(creature_type *creature_ptr)
 {
 	int i;
-	bool have_sw, have_kabe;
+	bool have_sw = FALSE, have_kabe = FALSE;
 	s16b this_object_idx, next_object_idx = 0;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
