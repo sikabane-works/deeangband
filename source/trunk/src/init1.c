@@ -252,7 +252,7 @@ static cptr realm_flags[MAX_REALM]=
 //
 // Equip Slot Flags
 //
-static cptr equip_slot_flags[MAX_ITEM_SLOT] =
+static cptr equip_slot_flags[MAX_INVENTORY_SLOT] =
 {
 	"INVENTORY",
 	"HAND",
@@ -2336,7 +2336,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_SLOT:
-				for(j = 0; j < MAX_ITEM_SLOT; j++)
+				for(j = 0; j < MAX_INVENTORY_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
@@ -2344,7 +2344,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_ITEM_SLOT)
+				if(j == MAX_INVENTORY_SLOT)
 					return (1);
 				break;
 
@@ -2827,7 +2827,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_SLOT:
-				for(j = 0; j < MAX_ITEM_SLOT; j++)
+				for(j = 0; j < MAX_INVENTORY_SLOT; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
@@ -2835,7 +2835,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_ITEM_SLOT)
+				if(j == MAX_INVENTORY_SLOT)
 					return (1);
 				break;
 

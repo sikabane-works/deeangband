@@ -39,10 +39,12 @@
  * You have been warned.
  */
 
+// 2012 Deskull modified.
+// Recent environments haven't been depend on constant screen.
+// So we reset size parameter at will.
 
-/*
- * Name of the version/variant
- */
+
+// Name of the version/variant
 #define VERSION_NAME "D\'angband"
 
 #define VERSION   0
@@ -88,23 +90,15 @@
 #define SCREEN_HGT	20
 #define SCREEN_WID	20
 
-// Number of min screen.
+// Number of min and max screen.
 #define MIN_SCREEN_WID 2
 #define MIN_SCREEN_HGT 2
+#define MAX_SCREEN_WID 12
+#define MAX_SCREEN_HGT 12
 
-/*
- * Maximum dungeon height in grids, must be a multiple of SCREEN_HGT,
- * probably hard-coded to SCREEN_HGT * 3.
- * old .. 66
- */
-#define MAX_HGT         240
-
-/*
- * Maximum dungeon width in grids, must be a multiple of SCREEN_WID,
- * probably hard-coded to SCREEN_WID * 3.
- * old .. 198
- */
-#define MAX_WID         240
+// Maximum dungeon height in grids, must be a multiple of SCREEN_HGT and SCREEN_WID,
+#define MAX_HGT (SCREEN_HGT * MAX_SCREEN_HGT)
+#define MAX_WID (SCREEN_WID * MAX_SCREEN_WID)
 
 // Starting points
 #define STARTING_MAX	15
@@ -115,16 +109,12 @@
 
 /* Check is the quest index is "fixed" */
 #define is_fixed_quest_idx(Q_IDX) (((Q_IDX) < MIN_RANDOM_QUEST) || ((Q_IDX) > MAX_RANDOM_QUEST))
-
 #define QUEST_SERPENT        9
 #define QUEST_AOY           18
 
-/*
- * Arena constants
- */
+// Arena constants
 #define MAX_ARENA_MONS		39	/* -KMW- */
 #define ARENA_DEFEATED_OLD_VER (-(MAX_SHORT))
-
 
 /*
  * Total number of stores (see "store.c", etc)
@@ -185,24 +175,28 @@
 #define MAX_SEXES            4
 
 
-#define INVEN_SLOT_INVENTORY  0
-#define INVEN_SLOT_HAND       1
-#define INVEN_SLOT_BOW        2
-#define INVEN_SLOT_AMMO       3
-#define INVEN_SLOT_RING       4
-#define INVEN_SLOT_AMULET     5
-#define INVEN_SLOT_BODY       6
-#define INVEN_SLOT_OUTER      7
-#define INVEN_SLOT_HEAD       8
-#define INVEN_SLOT_ARMS       9
-#define INVEN_SLOT_FEET       10
-#define INVEN_SLOT_INSTRUMENT 11
-#define INVEN_SLOT_LITE       12
-#define INVEN_SLOT_TAIL       13
-#define INVEN_SLOT_INTAKE     14
+// Inventory slot difinition
 
-#define MAX_ITEM_SLOT       15
+#define MAX_INVENTORY_SLOT       15
 
+enum INVENTORY_SLOT
+{
+  INVEN_SLOT_INVENTORY,
+  INVEN_SLOT_HAND,
+  INVEN_SLOT_BOW,
+  INVEN_SLOT_AMMO,
+  INVEN_SLOT_RING,
+  INVEN_SLOT_AMULET,
+  INVEN_SLOT_BODY,
+  INVEN_SLOT_OUTER,
+  INVEN_SLOT_HEAD,
+  INVEN_SLOT_ARMS,
+  INVEN_SLOT_FEET,
+  INVEN_SLOT_INSTRUMENT,
+  INVEN_SLOT_LITE,
+  INVEN_SLOT_TAIL,
+  INVEN_SLOT_INTAKE,
+};
 
 // Maximum number of creature melee definition
 

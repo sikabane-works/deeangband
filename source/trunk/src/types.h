@@ -1221,7 +1221,7 @@ struct creature_type
 	object_type inventory[INVEN_TOTAL];  /* Inventory */
 	s16b iven_fitting_rate[INVEN_TOTAL]; /* Inventory Fitting Rate */
 	byte equip_now[INVEN_TOTAL];         // equipment flag
-	s16b item_slot_num[MAX_ITEM_SLOT];
+	s16b item_slot_num[MAX_INVENTORY_SLOT];
 
 	s32b au;			/* Current Gold */
 

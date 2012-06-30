@@ -4879,7 +4879,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(k = 0, i = 1; i < MAX_ITEM_SLOT; i++)
+		for(k = 0, i = 1; i < MAX_INVENTORY_SLOT; i++)
 		{
 			n = cr_ptr->item_slot_num[i]; 
 			for(j = 1; j <= n; j++)
