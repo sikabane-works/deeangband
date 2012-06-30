@@ -3116,8 +3116,8 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 {
 	int i;
 
-	/* Calculate stats */
-	for (i = 0; i < 6; i++)
+	// Calculate stats
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		int top, use, ind;
 
@@ -3172,6 +3172,21 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 			play_window |= (PW_PLAYER); // Window stuff
 		}
 	}
+
+	/* Affect Skill -- disarming (DEX and INT) */
+	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
+	creature_ptr->skill_dis += adj_int_dis[creature_ptr->stat_ind[STAT_INT]];
+
+	/* Affect Skill -- magic devices (INT) */
+	creature_ptr->skill_dev += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
+
+	/* Affect Skill -- saving throw (WIS) */
+	creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
+	creature_ptr->skill_eva += (adj_sav[creature_ptr->stat_ind[STAT_INT]] + adj_sav[creature_ptr->stat_ind[STAT_DEX]]);
+	creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
+
+	/* Affect Skill -- digging (STR) */
+	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
 }
 
 static void set_status_bonuses(creature_type *creature_ptr)
@@ -5216,21 +5231,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->to_damage[default_hand] += MAX(bonus_to_damage,1);
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
-
-	/* Affect Skill -- disarming (DEX and INT) */
-	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
-	creature_ptr->skill_dis += adj_int_dis[creature_ptr->stat_ind[STAT_INT]];
-
-	/* Affect Skill -- magic devices (INT) */
-	creature_ptr->skill_dev += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
-
-	/* Affect Skill -- saving throw (WIS) */
-	creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
-	creature_ptr->skill_eva += (adj_sav[creature_ptr->stat_ind[STAT_INT]] + adj_sav[creature_ptr->stat_ind[STAT_DEX]]);
-	creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
-
-	/* Affect Skill -- digging (STR) */
-	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
 	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dis += (class_info[creature_ptr->cls_idx].x_dis * creature_ptr->lev / 10);
