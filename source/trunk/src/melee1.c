@@ -1511,9 +1511,9 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char            target_name[80];
 
 	int action_power;
-	int action_list[MELEE_TYPE_MAX];
-	int action_cost[MELEE_TYPE_MAX];
-	int action_weight[MELEE_TYPE_MAX];
+	int action_list[MAX_MELEE_TYPE];
+	int action_cost[MAX_MELEE_TYPE];
+	int action_weight[MAX_MELEE_TYPE];
 	int action_num;
 	int tried_num;
 
@@ -1556,7 +1556,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	{
 		action_num = 0;
 
-		for(i = 0; i < MELEE_TYPE_MAX; i++)
+		for(i = 0; i < MAX_MELEE_TYPE; i++)
 		{
 			switch(i)
 			{
