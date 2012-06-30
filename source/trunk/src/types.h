@@ -1525,6 +1525,7 @@ struct creature_type
 	bool dec_mana;
 	bool easy_spell;
 	bool heavy_spell;
+	bool easy_multi_weapon;
 	bool warning;
 	bool mighty_throw;
 	bool see_nocto;		/* Noctovision */
@@ -1843,29 +1844,20 @@ typedef struct high_score high_score;
 struct high_score
 {
 	char what[8];		/* Version info (string) */
-
 	char pts[10];		/* Total Score (number) */
-
 	char gold[10];		/* Total Gold (number) */
-
 	char turns[10];		/* Turns Taken (number) */
-
 	char day[10];		/* Time stamp (string) */
-
 	char who[100];		/* Player Name (string) */
-
 	char uid[8];		/* Player UID (number) */
-
 	char sex[2];		/* Player Sex (string) */
 	char p_r[3];		/* Player Race (number) */
 	char p_c[3];		/* Player Class (number) */
 	char p_a[3];		/* Player CHARA (number) */
-
 	char cur_lev[4];		/* Current Player Level (number) */
 	char cur_dun[4];		/* Current Dungeon Level (number) */
 	char max_lev[4];		/* Max Player Level (number) */
 	char max_dun[4];		/* Max Dungeon Level (number) */
-
 	char how[40];		/* Method of death (string) */
 };
 

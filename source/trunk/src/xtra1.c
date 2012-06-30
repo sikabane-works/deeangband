@@ -3505,7 +3505,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[TR_FLAG_SIZE];
 	int default_hand = 1;
-	bool dusk_enchant = FALSE, easy_2weapon = FALSE, down_saving = FALSE, extra_shots = FALSE; // TODO
+	bool down_saving = FALSE, extra_shots = FALSE; // TODO
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -3657,7 +3657,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
 
 		if (object_ptr->name2 == EGO_YOIYAMI) creature_ptr->dusk_enchant = TRUE;
-		if (object_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
+		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
 		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
 		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
@@ -4490,7 +4490,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->to_ac += 10;
 			creature_ptr->dis_to_ac += 10;
 		}
-		if (easy_2weapon)
+		if (creature_ptr->easy_multi_weapon)
 		{
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
@@ -5196,7 +5196,6 @@ static void set_flow_flag(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-
 	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_mighty_throw = creature_ptr->mighty_throw;
