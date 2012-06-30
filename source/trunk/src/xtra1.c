@@ -4318,7 +4318,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 }
 
 
-static void set_weapon_status(creature_type *creature_ptr)
+static void set_melee_status(creature_type *creature_ptr)
 {
 	int i, hold;
 	object_type *object_ptr;
@@ -4807,6 +4807,69 @@ static void set_weapon_status(creature_type *creature_ptr)
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
+	/* Different calculation for monks with empty hands */
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
+		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
+	{
+		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
+
+		if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
+		{
+			if (creature_ptr->magic_num1[0])
+			{
+				creature_ptr->to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
+				creature_ptr->dis_to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
+			}
+		}
+
+		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER));
+		else
+		{
+			creature_ptr->to_hit[0] += (creature_ptr->lev / 3);
+			creature_ptr->dis_to_hit[0] += (creature_ptr->lev / 3);
+
+			creature_ptr->to_damage[0] += (creature_ptr->lev / 6);
+			creature_ptr->dis_to_damage[0] += (creature_ptr->lev / 6);
+		}
+
+		if (creature_ptr->special_defense & KAMAE_BYAKKO)
+		{
+			creature_ptr->to_ac -= 40;
+			creature_ptr->dis_to_ac -= 40;
+			
+		}
+		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
+		{
+			creature_ptr->to_ac -= 50;
+			creature_ptr->dis_to_ac -= 50;
+			creature_ptr->resist_acid = TRUE;
+			creature_ptr->resist_fire = TRUE;
+			creature_ptr->resist_elec = TRUE;
+			creature_ptr->resist_cold = TRUE;
+			creature_ptr->resist_pois = TRUE;
+			creature_ptr->sh_fire = TRUE;
+			creature_ptr->sh_elec = TRUE;
+			creature_ptr->sh_cold = TRUE;
+			creature_ptr->levitation = TRUE;
+		}
+		else if (creature_ptr->special_defense & KAMAE_GENBU)
+		{
+			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
+			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
+			creature_ptr->reflect = TRUE;
+		}
+		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
+		{
+			creature_ptr->to_hit[0] -= (creature_ptr->lev / 3);
+			creature_ptr->to_damage[0] -= (creature_ptr->lev / 6);
+
+			creature_ptr->dis_to_hit[0] -= (creature_ptr->lev / 3);
+			creature_ptr->dis_to_damage[0] -= (creature_ptr->lev / 6);
+			creature_ptr->levitation = TRUE;
+		}
+
+	}
+
 }
 
 static void set_divine_bonuses(creature_type *creature_ptr)
@@ -5157,71 +5220,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Searching slows the player down */
 	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
 
-	set_weapon_status(creature_ptr);
-
-
-	/* Different calculation for monks with empty hands */
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
-		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
-	{
-		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
-
-		if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
-		{
-			if (creature_ptr->magic_num1[0])
-			{
-				creature_ptr->to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
-				creature_ptr->dis_to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
-			}
-		}
-
-		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER));
-		else
-		{
-			creature_ptr->to_hit[0] += (creature_ptr->lev / 3);
-			creature_ptr->dis_to_hit[0] += (creature_ptr->lev / 3);
-
-			creature_ptr->to_damage[0] += (creature_ptr->lev / 6);
-			creature_ptr->dis_to_damage[0] += (creature_ptr->lev / 6);
-		}
-
-		if (creature_ptr->special_defense & KAMAE_BYAKKO)
-		{
-			creature_ptr->to_ac -= 40;
-			creature_ptr->dis_to_ac -= 40;
-			
-		}
-		else if (creature_ptr->special_defense & KAMAE_SEIRYU)
-		{
-			creature_ptr->to_ac -= 50;
-			creature_ptr->dis_to_ac -= 50;
-			creature_ptr->resist_acid = TRUE;
-			creature_ptr->resist_fire = TRUE;
-			creature_ptr->resist_elec = TRUE;
-			creature_ptr->resist_cold = TRUE;
-			creature_ptr->resist_pois = TRUE;
-			creature_ptr->sh_fire = TRUE;
-			creature_ptr->sh_elec = TRUE;
-			creature_ptr->sh_cold = TRUE;
-			creature_ptr->levitation = TRUE;
-		}
-		else if (creature_ptr->special_defense & KAMAE_GENBU)
-		{
-			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
-			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
-			creature_ptr->reflect = TRUE;
-		}
-		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
-		{
-			creature_ptr->to_hit[0] -= (creature_ptr->lev / 3);
-			creature_ptr->to_damage[0] -= (creature_ptr->lev / 6);
-
-			creature_ptr->dis_to_hit[0] -= (creature_ptr->lev / 3);
-			creature_ptr->dis_to_damage[0] -= (creature_ptr->lev / 6);
-			creature_ptr->levitation = TRUE;
-		}
-
-	}
+	set_melee_status(creature_ptr);
 
 	if (creature_ptr->riding) creature_ptr->levitation = riding_levitation;
 
