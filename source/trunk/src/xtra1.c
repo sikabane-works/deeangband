@@ -3097,20 +3097,20 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_add[STAT_WIS] += 10;
 			creature_ptr->stat_add[STAT_DEX] += 20;
 			creature_ptr->stat_add[STAT_CON] -= 20;
+			creature_ptr->speed += 10;
 		}
 	}
 
 	if (creature_ptr->special_defense & KATA_KOUKIJIN)
 	{
-		for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
+		for(i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
 		creature_ptr->to_ac -= 50;
 		creature_ptr->dis_to_ac -= 50;
 	}
 
 	limit = calc_carrying_weight_limit(creature_ptr);
 	if (creature_ptr->carrying_weight > limit) creature_ptr->speed -= (s16b)((creature_ptr->carrying_weight - limit) / (limit / 5 + 1));
-
-	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
+	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10; // Searching slows the player down
 }
 
 static void set_status_table_indexes(creature_type *creature_ptr)
@@ -5094,6 +5094,8 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
 	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
 	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
+
+	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE; // Hack -- aura of fire also provides light
 }
 
 
@@ -5166,23 +5168,14 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_status_table_indexes(creature_ptr);
 	set_status_bonuses(creature_ptr);
 
-	if (old_mighty_throw != creature_ptr->mighty_throw)
-	{
-		/* Redraw average damege display of Shuriken */
-		play_window |= PW_INVEN;
-	}
+	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	/* Hack -- aura of fire also provides light */
-	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
 
 	set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
-
-	/* Searching slows the player down */
-	if (creature_ptr->action == ACTION_SEARCH) creature_ptr->speed -= 10;
 
 	set_melee_status(creature_ptr);
 
