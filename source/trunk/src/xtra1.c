@@ -5170,20 +5170,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	race_type *tmp_race_ptr;
 	race_type *tmp_race_ptr2;
 
-	// Save the old vision stuff
 	bool old_telepathy = creature_ptr->telepathy;
-	bool old_esp_animal = creature_ptr->esp_animal;
-	bool old_esp_undead = creature_ptr->esp_undead;
-	bool old_esp_demon = creature_ptr->esp_demon;
-	bool old_esp_orc = creature_ptr->esp_orc;
-	bool old_esp_troll = creature_ptr->esp_troll;
-	bool old_esp_giant = creature_ptr->esp_giant;
-	bool old_esp_dragon = creature_ptr->esp_dragon;
-	bool old_esp_human = creature_ptr->esp_human;
-	bool old_esp_evil = creature_ptr->esp_evil;
-	bool old_esp_good = creature_ptr->esp_good;
-	bool old_esp_nonliving = creature_ptr->esp_nonliving;
-	bool old_esp_unique = creature_ptr->esp_unique;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_mighty_throw = creature_ptr->mighty_throw;
 
@@ -5282,12 +5269,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	/* Minimum speed is (-99). (internally it's 110 - 99) */
 	if (creature_ptr->speed < 11) creature_ptr->speed = 11;
 
-	/* Display the speed (if needed) */
-	if (creature_ptr->speed != (byte)creature_ptr->speed)
-	{
-		creature_ptr->speed = (byte)creature_ptr->speed;
-		play_redraw |= (PR_SPEED);
-	}
+	play_redraw |= (PR_SPEED); // TODO
 
 	if (yoiyami)
 	{
@@ -5307,10 +5289,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		play_window |= (PW_PLAYER);
 	}
 
-
 	if (creature_ptr->two_handed && !omoi)
 	{
-		int bonus_to_hit=0, bonus_to_damage=0;
+		int bonus_to_hit = 0, bonus_to_damage = 0;
 		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128)/2;
 		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 
@@ -5319,7 +5300,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->to_damage[default_hand] += MAX(bonus_to_damage,1);
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
-
 
 	/* Affect Skill -- disarming (DEX and INT) */
 	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
@@ -5392,7 +5372,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 			next_object_idx = o_ptr->next_object_idx; // Acquire next object
 
 			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
-			if ((o_ptr->tval == TV_CRAFT_BOOK) && (o_ptr->sval == 2)) have_kabe = TRUE;
+			if ((o_ptr->tval == TV_CRAFT_BOOK)  && (o_ptr->sval == 2)) have_kabe = TRUE;
 		}
 	}
 
@@ -5412,24 +5392,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	// TODO: Evasion was adjusted by speed and size.
 	// creature_ptr->skill_eva += (creature_ptr->speed * creature_ptr->size / 5);
 
-	// Hack -- Telepathy Change
+	// TODO: Hack -- Telepathy Change
 	if (creature_ptr->telepathy != old_telepathy)
-	{
-		update |= (PU_MONSTERS);
-	}
-
-	if ((creature_ptr->esp_animal != old_esp_animal) ||
-	    (creature_ptr->esp_undead != old_esp_undead) ||
-	    (creature_ptr->esp_demon != old_esp_demon) ||
-	    (creature_ptr->esp_orc != old_esp_orc) ||
-	    (creature_ptr->esp_troll != old_esp_troll) ||
-	    (creature_ptr->esp_giant != old_esp_giant) ||
-	    (creature_ptr->esp_dragon != old_esp_dragon) ||
-	    (creature_ptr->esp_human != old_esp_human) ||
-	    (creature_ptr->esp_evil != old_esp_evil) ||
-	    (creature_ptr->esp_good != old_esp_good) ||
-	    (creature_ptr->esp_nonliving != old_esp_nonliving) ||
-	    (creature_ptr->esp_unique != old_esp_unique))
 	{
 		update |= (PU_MONSTERS);
 	}
