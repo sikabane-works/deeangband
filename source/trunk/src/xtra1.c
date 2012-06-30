@@ -3016,6 +3016,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
 
+	creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
 	creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
 	creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
 	creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
@@ -3346,23 +3347,10 @@ static void set_status_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dig += 30;
 	}
 
-	/* Temporary "fast" */
-	if (IS_FAST(creature_ptr))
-	{
-		creature_ptr->speed += 10;
-	}
-
-	/* Temporary "slow" */
-	if (creature_ptr->slow)
-	{
-		creature_ptr->speed -= 10;
-	}
-
-	/* Temporary "telepathy" */
-	if (IS_TIM_ESP(creature_ptr))
-	{
-		creature_ptr->telepathy = TRUE;
-	}
+	if (IS_FAST(creature_ptr)) creature_ptr->speed += 10;
+	if (creature_ptr->lightspeed && !creature_ptr->riding) creature_ptr->speed += 40;
+	if (creature_ptr->slow) creature_ptr->speed -= 10;
+	if (IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
 	if (creature_ptr->ele_immune)
 	{
@@ -5156,6 +5144,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(creature_ptr->race_idx1 != INDEX_NONE) set_race_bonuses(creature_ptr);
 	if(creature_ptr->cls_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
 	if(creature_ptr->chara_idx != INDEX_NONE) set_character_bonuses(creature_ptr);
+
 	set_trait_bonuses(creature_ptr);
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 	set_status_table_indexes(creature_ptr);
@@ -5190,16 +5179,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		monk_armour_aux = TRUE;
 	}
 
-	/* Maximum speed is (+99) */
-	/* Temporary lightspeed forces to be maximum speed */
-	if ((creature_ptr->lightspeed && !creature_ptr->riding) || (creature_ptr->speed > 99))
-	{
-		creature_ptr->speed = 99;
-	}
-
-	/* Minimum speed is (-99). (internally it's 110 - 99) */
-	if (creature_ptr->speed < -99) creature_ptr->speed = -99;
-
+	if (creature_ptr->speed > MAX_SPEED) creature_ptr->speed = MAX_SPEED;
+	if (creature_ptr->speed < MIN_SPEED) creature_ptr->speed = MIN_SPEED;
 	play_redraw |= (PR_SPEED); // TODO
 
 	if (yoiyami)
@@ -5231,9 +5212,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->to_damage[default_hand] += MAX(bonus_to_damage,1);
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
-
-
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
 
 	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
 	{

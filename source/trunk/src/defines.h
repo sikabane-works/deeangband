@@ -84,25 +84,13 @@
  */
 #define PANEL_WID	33
 
-/*
- * Number of grids used to display the dungeon (vertically).
- * Must be a multiple of 11, probably hard-coded to 22. (to hengband)
- */
+// Number of grids used to display the dungeon (vertically and horizontally).
 #define SCREEN_HGT	20
-
-/*
- * Number of grids used to display the dungeon (horizontally).
- * Must be a multiple of 33, probably hard-coded to 66. (to hengband)
- */
 #define SCREEN_WID	20
 
-
-/*
- * Number of min screen.
- */
+// Number of min screen.
 #define MIN_SCREEN_WID 2
 #define MIN_SCREEN_HGT 2
-
 
 /*
  * Maximum dungeon height in grids, must be a multiple of SCREEN_HGT,
@@ -118,15 +106,10 @@
  */
 #define MAX_WID         240
 
-
-/*
- * Start Wilderness
- */
+// Starting points
 #define STARTING_MAX	15
 
-/*
- * Quest constants
- */
+// Quest constants
 #define MIN_RANDOM_QUEST    40
 #define MAX_RANDOM_QUEST    49
 
@@ -230,7 +213,7 @@
 #define MAX_SAN_FUNNY    22
 #define MAX_SAN_COMMENT  5
 
-// Chaos Warrior: Reward types:
+// Reward types
 #define REW_POLY_SLF    1
 #define REW_GAIN_EXP    2
 #define REW_LOSE_EXP    3
@@ -310,27 +293,17 @@
 #define FAKE_TAG_SIZE         50 * 1024L
 #define FAKE_TMP_BUFFER_SIZE 300 * 1024L
 
-
-/*
- * Maximum number of high scores in the high score file
- */
+// Maximum number of high scores in the high score file
 #define MAX_HISCORES    999
 
-
-/*
- * Maximum dungeon level.  The player can never reach this level
- * in the dungeon, and this value is used for various calculations
- * involving object and creature creation.  It must be at least 100.
- * Setting it below 128 may prevent the creation of some objects.
- */
+// Maximum dungeon level.  The player can never reach this level
+// in the dungeon, and this value is used for various calculations
+// involving object and creature creation.  It must be at least 100.
+// Setting it below 128 may prevent the creation of some objects.
 #define MAX_DEPTH       128
 
-
-/*
- * Maximum number of saved floors.
- */
+// Maximum number of saved floors.
 #define MAX_FLOORS       20
-
 
 /*
  * Maximum size of the "lite" array (see "cave.c")
@@ -362,8 +335,6 @@
  * must also be large enough to allow "good enough" use as a circular queue,
  * to calculate creature flow, but note that the flow code is "paranoid".
  */
-//TODO::
-//#define TEMP_MAX 2298
 #define TEMP_MAX 5000
 
 /*
@@ -372,8 +343,6 @@
  * We must also be as large as two times of the largest view area.
  * Note that maximum view grids are 1149 entries.
  */
-//TODO::
-//#define REDRAW_MAX 2298
 #define REDRAW_MAX 5000
 
 
@@ -435,17 +404,13 @@
  */
 #define MAX_NLEN        160
 
-/*
- * Special internal key
- */
+// Special internal key
 #define SPECIAL_KEY_QUEST    255
 #define SPECIAL_KEY_BUILDING 254
 #define SPECIAL_KEY_STORE    253
 #define SPECIAL_KEY_QUIT     252
 
-/*
- * Store constants
- */
+// Store constants
 #define STORE_INVEN_MAX 24              /* Max number of discrete objs in inven */
 #define STORE_CHOICES   48              /* Number of items to choose stock from */
 #define STORE_TURNOVER  9               /* Normal shop turnover, per day */
@@ -453,14 +418,12 @@
 #define STORE_MAX_KEEP_PERCENT  75      /* Max slots to "always" keep full */
 #define STORE_TICKS     1000            /* Number of ticks between turnovers */
 
-
-/*
- * Random energy
- */
+// Random energy
 #define ENERGY_NEED() (randnor(100, 25))
+#define MAX_SPEED +99
+#define MIN_SPEED -99
 
 // on creature generating
-
 #define EXP_STAND_RATE 1500
 
 
