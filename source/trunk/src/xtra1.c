@@ -3936,6 +3936,61 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 }
 
+static void set_karma_bonuses(creature_type *creature_ptr)
+{
+	int i;
+
+	race_type *tmp_race_ptr, *tmp_race_ptr2;
+
+	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
+	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
+	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
+
+	/* calc karmas and bonuses */
+	for(i = 0; i < MAX_KARMA; i++)
+		creature_ptr->karmas_cur[i] = creature_ptr->karmas_cur[i];
+
+	for(i = 0; i < MAX_KARMA; i++)
+		creature_ptr->karmas_rank[i] = calc_rank(creature_ptr->karmas_cur[i]);
+
+	// calc alignments and bonuses
+	if(creature_ptr->race_idx1 != INDEX_NONE)
+	{
+		creature_ptr->good    = tmp_race_ptr->good;
+		creature_ptr->evil    = tmp_race_ptr->evil;
+		creature_ptr->order   = tmp_race_ptr->order;
+		creature_ptr->chaos   = tmp_race_ptr->chaos;
+		creature_ptr->balance = tmp_race_ptr->balance;
+	}
+	else
+	{
+		creature_ptr->good    = 0;
+		creature_ptr->evil    = 0;
+		creature_ptr->order   = 0;
+		creature_ptr->chaos   = 0;
+		creature_ptr->balance = 0;
+	}
+
+	for(i = 0; i < MAX_KARMA; i++)
+	{
+		creature_ptr->good += creature_ptr->karmas[i] * karma[i].good_adj;
+		creature_ptr->evil += creature_ptr->karmas[i] * karma[i].evil_adj;
+		creature_ptr->order += creature_ptr->karmas[i] * karma[i].order_adj;
+		creature_ptr->chaos += creature_ptr->karmas[i] * karma[i].chaos_adj;
+	}
+
+	if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good -= 1000;
+
+	creature_ptr->good_rank = calc_rank(creature_ptr->good);
+	creature_ptr->evil_rank = calc_rank(creature_ptr->evil);
+	creature_ptr->order_rank = calc_rank(creature_ptr->order);
+	creature_ptr->chaos_rank = calc_rank(creature_ptr->chaos);
+
+	creature_ptr->balance -= ((creature_ptr->good_rank - creature_ptr->evil_rank) * (creature_ptr->good_rank - creature_ptr->evil_rank) - 100) * 10;
+	creature_ptr->balance -= ((creature_ptr->order_rank - creature_ptr->chaos_rank) * (creature_ptr->order_rank - creature_ptr->chaos_rank) - 100) * 10;
+	creature_ptr->balance_rank = calc_rank(creature_ptr->balance);
+}
+
 static void creature_bonuses_message(creature_type *creature_ptr)
 {
 	int i;
@@ -4725,8 +4780,6 @@ static void set_weapon_status(creature_type *creature_ptr)
 					creature_ptr->icky_wield[i] = TRUE;
 				}
 			}
-
-			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good -= 1000;
 		}
 	}
 
@@ -5337,50 +5390,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	else
 		creature_ptr->possible_equipment = 0;
 
-
-	/* calc karmas and bonuses */
-	for(i = 0; i < MAX_KARMA; i++)
-		creature_ptr->karmas_cur[i] = creature_ptr->karmas_cur[i];
-
-	for(i = 0; i < MAX_KARMA; i++)
-		creature_ptr->karmas_rank[i] = calc_rank(creature_ptr->karmas_cur[i]);
-
-
-	/* calc alignments and bonuses */
-	if(creature_ptr->race_idx1 != INDEX_NONE)
-	{
-		creature_ptr->good    = tmp_race_ptr->good;
-		creature_ptr->evil    = tmp_race_ptr->evil;
-		creature_ptr->order   = tmp_race_ptr->order;
-		creature_ptr->chaos   = tmp_race_ptr->chaos;
-		creature_ptr->balance = tmp_race_ptr->balance;
-	}
-	else
-	{
-		creature_ptr->good    = 0;
-		creature_ptr->evil    = 0;
-		creature_ptr->order   = 0;
-		creature_ptr->chaos   = 0;
-		creature_ptr->balance = 0;
-	}
-
-	for(i = 0; i < MAX_KARMA; i++)
-	{
-		creature_ptr->good += creature_ptr->karmas[i] * karma[i].good_adj;
-		creature_ptr->evil += creature_ptr->karmas[i] * karma[i].evil_adj;
-		creature_ptr->order += creature_ptr->karmas[i] * karma[i].order_adj;
-		creature_ptr->chaos += creature_ptr->karmas[i] * karma[i].chaos_adj;
-	}
-
-	creature_ptr->good_rank = calc_rank(creature_ptr->good);
-	creature_ptr->evil_rank = calc_rank(creature_ptr->evil);
-	creature_ptr->order_rank = calc_rank(creature_ptr->order);
-	creature_ptr->chaos_rank = calc_rank(creature_ptr->chaos);
-
-	creature_ptr->balance -= ((creature_ptr->good_rank - creature_ptr->evil_rank) * (creature_ptr->good_rank - creature_ptr->evil_rank) - 100) * 10;
-	creature_ptr->balance -= ((creature_ptr->order_rank - creature_ptr->chaos_rank) * (creature_ptr->order_rank - creature_ptr->chaos_rank) - 100) * 10;
-
-	creature_ptr->balance_rank = calc_rank(creature_ptr->balance);
+	set_karma_bonuses(creature_ptr);
 
 	if(message) creature_bonuses_message(creature_ptr);
 
