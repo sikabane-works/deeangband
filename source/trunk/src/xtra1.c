@@ -5373,12 +5373,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
 	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
-	/* Set Possible Equipment*/
-	if(creature_ptr->race_idx1 != INDEX_NONE)
-		creature_ptr->possible_equipment = race_info[creature_ptr->race_idx1].possible_equipment;
-	else
-		creature_ptr->possible_equipment = 0;
-
 	set_karma_bonuses(creature_ptr);
 
 	if(message) creature_bonuses_message(creature_ptr);

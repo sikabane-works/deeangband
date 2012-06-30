@@ -1007,7 +1007,6 @@ struct race_type
 	int ac_s_plus;
 
 	u32b choice;        /* Legal class choices */
-	u32b possible_equipment;     /* Possible Equipment*/
 
 	creature_flags p_flags;
 	creature_flags h_flags;
@@ -1610,8 +1609,6 @@ struct creature_type
 
 	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
 	u16b underling_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
-
-	u32b possible_equipment;     /* Possible Equipment*/
 
 	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
