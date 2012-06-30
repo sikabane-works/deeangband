@@ -3212,7 +3212,6 @@ static void set_status_bonuses(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 
-
 	// Hex bonuses
 	if (creature_ptr->realm1 == REALM_HEX)
 	{
@@ -3500,6 +3499,13 @@ static void set_status_bonuses(creature_type *creature_ptr)
 	if (music_singing(creature_ptr, MUSIC_WALL))
 	{
 		creature_ptr->kill_wall = TRUE;
+	}
+
+	if (creature_ptr->tsubureru)
+	{
+		creature_ptr->skill_rob = 10;
+		creature_ptr->skill_eva = 10;
+		creature_ptr->skill_vol = 10;
 	}
 }
 
@@ -4873,6 +4879,42 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 
 		i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
 	}
+
+	if (creature_ptr->riding)
+	{
+		int penalty = 0;
+
+		creature_ptr->riding_two_handed = FALSE;
+
+		if (creature_ptr->two_handed || (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE)) creature_ptr->riding_two_handed = TRUE;
+		else if (creature_ptr->pet_extra_flags & PF_RYOUTE)
+		{
+			switch (creature_ptr->cls_idx)
+			{
+			case CLASS_MONK:
+			case CLASS_FORCETRAINER:
+			case CLASS_BERSERKER:
+				if ((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+					creature_ptr->riding_two_handed = TRUE;
+				break;
+			}
+		}
+
+		if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+		{
+			if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
+		}
+		else
+		{
+			penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
+			penalty += 30;
+			if (penalty < 30) penalty = 30;
+		}
+		if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
+		creature_ptr->to_hit_b -= penalty;
+		creature_ptr->dis_to_hit_b -= penalty;
+	}
+
 }
 
 
@@ -5064,40 +5106,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	set_weapon_status(creature_ptr);
 
-	if (creature_ptr->riding)
-	{
-		int penalty = 0;
-
-		creature_ptr->riding_two_handed = FALSE;
-
-		if (creature_ptr->two_handed || (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE)) creature_ptr->riding_two_handed = TRUE;
-		else if (creature_ptr->pet_extra_flags & PF_RYOUTE)
-		{
-			switch (creature_ptr->cls_idx)
-			{
-			case CLASS_MONK:
-			case CLASS_FORCETRAINER:
-			case CLASS_BERSERKER:
-				if ((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
-					creature_ptr->riding_two_handed = TRUE;
-				break;
-			}
-		}
-
-		if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
-		{
-			if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
-		}
-		else
-		{
-			penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
-			penalty += 30;
-			if (penalty < 30) penalty = 30;
-		}
-		if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
-		creature_ptr->to_hit_b -= penalty;
-		creature_ptr->dis_to_hit_b -= penalty;
-	}
 
 	/* Different calculation for monks with empty hands */
 	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
@@ -5308,10 +5316,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if (creature_ptr->anti_magic && (creature_ptr->skill_rob < (90 + creature_ptr->lev))) creature_ptr->skill_rob = 90 + creature_ptr->lev;
 	if (creature_ptr->anti_magic && (creature_ptr->skill_eva < (90 + creature_ptr->lev))) creature_ptr->skill_eva = 90 + creature_ptr->lev;
 	if (creature_ptr->anti_magic && (creature_ptr->skill_vol < (90 + creature_ptr->lev))) creature_ptr->skill_vol = 90 + creature_ptr->lev;
-
-	if (creature_ptr->tsubureru) creature_ptr->skill_rob = 10;
-	if (creature_ptr->tsubureru) creature_ptr->skill_eva = 10;
-	if (creature_ptr->tsubureru) creature_ptr->skill_vol = 10;
 
 	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_rob < (95 + creature_ptr->lev))) creature_ptr->skill_rob = 95 + creature_ptr->lev;
 	if ((creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef) && (creature_ptr->skill_eva < (95 + creature_ptr->lev))) creature_ptr->skill_eva = 95 + creature_ptr->lev;
