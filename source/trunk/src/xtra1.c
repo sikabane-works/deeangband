@@ -5098,6 +5098,47 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE; // Hack -- aura of fire also provides light
 }
 
+static void set_flow_flag(creature_type *creature_ptr)
+{
+	int i;
+	bool have_sw, have_kabe;
+	s16b this_object_idx, next_object_idx = 0;
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+
+	for (i = 0; i < INVEN_TOTAL; i++)
+	{
+		if ((creature_ptr->inventory[i].tval == TV_NATURE_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_sw = TRUE;
+		if ((creature_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
+	}
+
+	if(is_in_this_floor(creature_ptr))
+	{
+		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+		{
+			object_type *o_ptr;
+			o_ptr = &object_list[this_object_idx]; // Acquire object
+			next_object_idx = o_ptr->next_object_idx; // Acquire next object
+
+			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
+			if ((o_ptr->tval == TV_CRAFT_BOOK)  && (o_ptr->sval == 2)) have_kabe = TRUE;
+		}
+	}
+
+	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
+
+	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->cls_idx == CLASS_SORCERER)))
+	{
+		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_NATURE - 1][SPELL_SW];
+		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
+	}
+
+	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->cls_idx == CLASS_SORCERER)))
+	{
+		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_CRAFT - 1][SPELL_KABE];
+		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
+	}
+
+}
 
 
 /*
@@ -5122,19 +5163,14 @@ static void fix_creature_status(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	int             i;
 	int             default_hand = 0;
 	int             empty_hands_status = empty_hands(creature_ptr, TRUE);
 	int             extra_shots = FALSE;
 
-	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
-
 	bool            omoi = FALSE;
 	bool            yoiyami = FALSE;
-	bool            have_sw = FALSE, have_kabe = FALSE;
 	bool            easy_2weapon = FALSE;
 	bool            riding_levitation = FALSE;
-	s16b this_object_idx, next_object_idx = 0;
 
 	race_type *tmp_race_ptr;
 	race_type *tmp_race_ptr2;
@@ -5236,41 +5272,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	}
 
 	set_karma_bonuses(creature_ptr);
+	set_flow_flag(creature_ptr);
 
 	if(message) creature_bonuses_message(creature_ptr);
-
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		if ((creature_ptr->inventory[i].tval == TV_NATURE_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_sw = TRUE;
-		if ((creature_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
-	}
-
-	if(is_in_this_floor(creature_ptr))
-	{
-		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
-		{
-			object_type *o_ptr;
-			o_ptr = &object_list[this_object_idx]; // Acquire object
-			next_object_idx = o_ptr->next_object_idx; // Acquire next object
-
-			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
-			if ((o_ptr->tval == TV_CRAFT_BOOK)  && (o_ptr->sval == 2)) have_kabe = TRUE;
-		}
-	}
-
-	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
-
-	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->cls_idx == CLASS_SORCERER)))
-	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_NATURE - 1][SPELL_SW];
-		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
-	}
-
-	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->cls_idx == CLASS_SORCERER)))
-	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_CRAFT - 1][SPELL_KABE];
-		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
-	}
 
 	// Hack -- See Invis Change
 	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy)
