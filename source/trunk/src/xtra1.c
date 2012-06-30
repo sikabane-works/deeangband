@@ -5131,8 +5131,29 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_hit_b -= penalty;
 		creature_ptr->dis_to_hit_b -= penalty;
 	}
-
 }
+
+
+static void initialize_bonuses(creature_type *creature_ptr)
+{
+	// Base skills
+	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
+
+	creature_ptr->skill_dis = 5;
+	creature_ptr->skill_dev = 5;
+	creature_ptr->skill_rob = 5 + (creature_ptr->size - 10) / 2 * 3;
+	creature_ptr->skill_eva = 5 - (creature_ptr->size - 10) / 2 * 3;
+	creature_ptr->skill_vol = 5;
+	creature_ptr->skill_stl = 3 - creature_ptr->size / 3;
+	creature_ptr->skill_srh = 10;
+	creature_ptr->skill_fos = 10;
+	creature_ptr->skill_thn = creature_ptr->size;
+	creature_ptr->skill_thb = 10;
+	creature_ptr->skill_tht = 10;
+	creature_ptr->skill_dig = (creature_ptr->size - 10) * 2;
+	creature_ptr->see_infra = 0;
+}
+
 
 
 
@@ -5194,22 +5215,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
-	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
-
-	// Base skills
-	creature_ptr->skill_dis = 5;
-	creature_ptr->skill_dev = 5;
-	creature_ptr->skill_rob = 5 + (creature_ptr->size - 10) / 2 * 3;
-	creature_ptr->skill_eva = 5 - (creature_ptr->size - 10) / 2 * 3;
-	creature_ptr->skill_vol = 5;
-	creature_ptr->skill_stl = 3 - creature_ptr->size / 3;
-	creature_ptr->skill_srh = 10;
-	creature_ptr->skill_fos = 10;
-	creature_ptr->skill_thn = creature_ptr->size;
-	creature_ptr->skill_thb = 10;
-	creature_ptr->skill_tht = 10;
-	creature_ptr->skill_dig = (creature_ptr->size - 10) * 2;
-	creature_ptr->see_infra = 0;
+	initialize_bonuses(creature_ptr);
 
 	set_divine_bonuses(creature_ptr);
 	set_race_bonuses(creature_ptr);
