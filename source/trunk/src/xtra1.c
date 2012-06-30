@@ -5003,77 +5003,67 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 {
 	int i, j;
 	bool riding_levitation = FALSE;
+	creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
+	species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
+	int speed = riding_m_ptr->speed;
+	int penalty = 0;
 
 	j = creature_ptr->carrying_weight;
 
-	if (!creature_ptr->riding)
+
+	if (riding_m_ptr->speed > 0)
 	{
-		i = (int)calc_carrying_weight_limit(creature_ptr); // Extract the "weight limit" (in tenth pounds)
+		creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
+		if (creature_ptr->speed < 0) creature_ptr->speed = 0;
 	}
 	else
 	{
-		creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
-		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
-		int speed = riding_m_ptr->speed;
-
-		if (riding_m_ptr->speed > 0)
-		{
-			creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
-			if (creature_ptr->speed < 0) creature_ptr->speed = 0;
-		}
-		else
-		{
-			creature_ptr->speed = speed;
-		}
-		creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
-		if (riding_m_ptr->fast) creature_ptr->speed += 10;
-		if (riding_m_ptr->slow) creature_ptr->speed -= 10;
-		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
-		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
-
-		if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
-		if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
-
-		if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
-
-		i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
+		creature_ptr->speed = speed;
 	}
 
-	if (creature_ptr->riding)
+	creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
+	if (riding_m_ptr->fast) creature_ptr->speed += 10;
+	if (riding_m_ptr->slow) creature_ptr->speed -= 10;
+	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
+	if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
+
+	if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
+	if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
+
+	if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
+
+	i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
+
+	creature_ptr->riding_two_handed = FALSE;
+
+	if (creature_ptr->two_handed || (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE)) creature_ptr->riding_two_handed = TRUE;
+
+	if (creature_ptr->pet_extra_flags & PF_RYOUTE)
 	{
-		int penalty = 0;
-
-		creature_ptr->riding_two_handed = FALSE;
-
-		if (creature_ptr->two_handed || (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE)) creature_ptr->riding_two_handed = TRUE;
-		else if (creature_ptr->pet_extra_flags & PF_RYOUTE)
+		switch (creature_ptr->cls_idx)
 		{
-			switch (creature_ptr->cls_idx)
-			{
-			case CLASS_MONK:
-			case CLASS_FORCETRAINER:
-			case CLASS_BERSERKER:
-				if ((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
-					creature_ptr->riding_two_handed = TRUE;
-				break;
-			}
+		case CLASS_MONK:
+		case CLASS_FORCETRAINER:
+		case CLASS_BERSERKER:
+			if ((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+				creature_ptr->riding_two_handed = TRUE;
+			break;
 		}
-
-		if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
-		{
-			if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
-		}
-		else
-		{
-			penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
-			penalty += 30;
-			if (penalty < 30) penalty = 30;
-		}
-		if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
-		creature_ptr->to_hit_b -= penalty;
-		creature_ptr->dis_to_hit_b -= penalty;
 	}
 
+	if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+	{
+		if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
+	}
+	else
+	{
+		penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
+		penalty += 30;
+		if (penalty < 30) penalty = 30;
+	}
+	if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
+	creature_ptr->to_hit_b -= penalty;
+	creature_ptr->dis_to_hit_b -= penalty;
 	creature_ptr->levitation = riding_levitation;
 }
 
@@ -5216,7 +5206,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_status_table_indexes(creature_ptr);
 	set_status_bonuses(creature_ptr);
 
-	set_riding_bonuses(creature_ptr);
+	if (creature_ptr->riding) set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
 
 	set_melee_status(creature_ptr);
