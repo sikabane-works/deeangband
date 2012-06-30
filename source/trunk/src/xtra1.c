@@ -3195,6 +3195,8 @@ static void set_status_bonuses(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 
+	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down
+
 	// Hex bonuses
 	if (creature_ptr->realm1 == REALM_HEX)
 	{
@@ -5070,6 +5072,8 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_hit_b -= penalty;
 		creature_ptr->dis_to_hit_b -= penalty;
 	}
+
+	creature_ptr->levitation = riding_levitation;
 }
 
 
@@ -5213,14 +5217,12 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 
-	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
 
 	set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
 
 	set_melee_status(creature_ptr);
 
-	if (creature_ptr->riding) creature_ptr->levitation = riding_levitation;
 
 	monk_armour_aux = FALSE;
 
