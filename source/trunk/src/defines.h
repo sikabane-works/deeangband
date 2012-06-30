@@ -727,9 +727,8 @@ enum MELEE_TYPE
 #define INDEX_NONE      30000
 #define INDEX_VARIABLE  30001
 
-/*
- * Indexes of the various "stats" (hard-coded by savefiles, etc).
- */
+
+// Indexes of the various "stats" (hard-coded by savefiles, etc).
 #define STAT_STR   0
 #define STAT_INT   1
 #define STAT_WIS   2
@@ -1332,7 +1331,7 @@ enum MELEE_TYPE
 
 /*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
-/* Lites */
+// Lites
 #define ART_GALADRIEL            1
 #define ART_ELENDIL              2
 #define ART_JUDGE                3
@@ -1341,7 +1340,7 @@ enum MELEE_TYPE
 #define ART_STONE_LORE           17
 #define ART_FLY_STONE            147
 
-/* Amulets */
+// Amulets
 #define ART_CARLAMMAS            4
 #define ART_INGWE                5
 #define ART_DWARVES              6
@@ -4254,54 +4253,49 @@ extern int PlayerUID;
 #define SOUND_MAX 66
 
 #define MAX_KARMA 34
-
-#define KARMA_IDEAL	    0
-#define KARMA_PRAGMATIC 1
-#define KARMA_HARMONY   2
-#define KARMA_ALOOFNESS 3
-#define KARMA_TEMPERATE 4
-#define KARMA_INDULGENT 5
-#define KARMA_CHASTE    6
-#define KARMA_PASSION   7
-#define KARMA_MERCY     8
-#define KARMA_CRUELTY   9
-#define KARMA_HONEST    10
-#define KARMA_CLEVER    11
-#define KARMA_FORGIVING 12
-#define KARMA_AVENGE    13
-#define KARMA_GENEROUS  14
-#define KARMA_GREED     15
-#define KARMA_MODEST    16
-#define KARMA_PROUD     17
-#define KARMA_TRSUTING  18
-#define KARMA_SUSPICION 19
-#define KARMA_ZEALOTRY  20
-#define KARMA_SCEPTICISM 21
-#define KARMA_DELIGENT  22
-#define KARMA_IDLENESS  23
-#define KARMA_CREATION  24
-#define KARMA_DESTRUCTION 25
-#define KARMA_PLEASURE 26
-#define KARMA_PAIN 27
-#define KARMA_WEALTH 28
-#define KARMA_PRESITIGE 29
-#define KARMA_ERUDITION 30
-#define KARMA_BRAVE 31
-#define KARMA_DISCRETION 32
-#define KARMA_FORTUNE 33
-#define KARMA_NONE 255
-
 #define KARMA_CALC_PLUS 0
 
+enum KARMA_TYPE
+{
+  KARMA_IDEAL	    = 0,
+  KARMA_PRAGMATIC   = 1,
+  KARMA_HARMONY     = 2,
+  KARMA_ALOOFNESS   = 3,
+  KARMA_TEMPERATE   = 4,
+  KARMA_INDULGENT   = 5,
+  KARMA_CHASTE      = 6,
+  KARMA_PASSION     = 7,
+  KARMA_MERCY       = 8,
+  KARMA_CRUELTY     = 9,
+  KARMA_HONEST      = 10,
+  KARMA_CLEVER      = 11,
+  KARMA_FORGIVING   = 12,
+  KARMA_AVENGE      = 13,
+  KARMA_GENEROUS    = 14,
+  KARMA_GREED       = 15,
+  KARMA_MODEST      = 16,
+  KARMA_PROUD       = 17,
+  KARMA_TRSUTING    = 18,
+  KARMA_SUSPICION   = 19,
+  KARMA_ZEALOTRY    = 20,
+  KARMA_SCEPTICISM  = 21,
+  KARMA_DELIGENT    = 22,
+  KARMA_IDLENESS    = 23,
+  KARMA_CREATION    = 24,
+  KARMA_DESTRUCTION = 25,
+  KARMA_PLEASURE    = 26,
+  KARMA_PAIN        = 27,
+  KARMA_WEALTH      = 28,
+  KARMA_PRESITIGE   = 29,
+  KARMA_ERUDITION   = 30,
+  KARMA_BRAVE       = 31,
+  KARMA_DISCRETION  = 32,
+  KARMA_FORTUNE     = 33,
+  KARMA_NONE        = 255,
+};
 
 
-
-/*** Hack ***/
-
-
-/*
- * Buildings actions
- */
+// Buildings actions
 #define BACT_NOTHING                 0
 #define BACT_RESEARCH_ITEM           1
 #define BACT_TOWN_HISTORY            2
@@ -4353,9 +4347,7 @@ extern int PlayerUID;
 #define BACT_STORE                  48
 #define MAX_BACT                    49
 
-/*
- * Quest status
- */
+// Quest status
 #define QUEST_STATUS_UNTAKEN         0
 #define QUEST_STATUS_TAKEN           1
 #define QUEST_STATUS_COMPLETED       2
@@ -4364,9 +4356,7 @@ extern int PlayerUID;
 #define QUEST_STATUS_FAILED          5
 #define QUEST_STATUS_FAILED_DONE     6
 
-/*
- * Quest type
- */
+// Quest type
 #define QUEST_TYPE_KILL_LEVEL                1
 #define QUEST_TYPE_KILL_ANY_LEVEL            2
 #define QUEST_TYPE_FIND_ARTIFACT             3
@@ -4375,9 +4365,7 @@ extern int PlayerUID;
 #define QUEST_TYPE_KILL_ALL                  6
 #define QUEST_TYPE_RANDOM                    7
 
-/*
- * Initialization flags
- */
+// Initialization flags
 #define INIT_SHOW_TEXT          0x01
 #define INIT_ASSIGN             0x02
 #define INIT_CREATE_DUNGEON     0x04
@@ -5875,9 +5863,6 @@ extern int PlayerUID;
 #define CF_ANIMAL           575
 #define CF_UNDEAD           576
 
-
-
-
 #define CF_FLAG_MAX 1000
 
 
@@ -5986,3 +5971,5 @@ extern int PlayerUID;
 #define GET_SE_BOTTOM      0x00000100
 
 #define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)
+
+
