@@ -3505,7 +3505,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[TR_FLAG_SIZE];
 	int default_hand = 1;
-	bool yoiyami = FALSE, easy_2weapon = FALSE, down_saving = FALSE, extra_shots = FALSE; // TODO
+	bool dusk_enchant = FALSE, easy_2weapon = FALSE, down_saving = FALSE, extra_shots = FALSE; // TODO
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -3656,7 +3656,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_SUST_CON)) creature_ptr->sustain_con = TRUE;
 		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
 
-		if (object_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
+		if (object_ptr->name2 == EGO_YOIYAMI) creature_ptr->dusk_enchant = TRUE;
 		if (object_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
 
 		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
@@ -3917,6 +3917,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->warning = FALSE;
 	creature_ptr->mighty_throw = FALSE;
 	creature_ptr->see_nocto = FALSE;
+	creature_ptr->dusk_enchant = FALSE;
 
 	creature_ptr->immune_acid = FALSE;
 	creature_ptr->immune_elec = FALSE;
@@ -5123,6 +5124,12 @@ static void fix_creature_status(creature_type *creature_ptr)
 		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
+
+	if (creature_ptr->dusk_enchant)
+	{
+		if (creature_ptr->to_ac > (0 - creature_ptr->ac))         creature_ptr->to_ac     = 0 - creature_ptr->ac;
+		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
+	}
 }
 static void set_flow_flag(creature_type *creature_ptr)
 {
@@ -5190,8 +5197,6 @@ static void set_flow_flag(creature_type *creature_ptr)
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
 
-	bool            yoiyami = FALSE;
-
 	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_mighty_throw = creature_ptr->mighty_throw;
@@ -5216,12 +5221,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_posture_bonuses(creature_ptr);
 
 	set_melee_status(creature_ptr);
-
-	if (yoiyami)
-	{
-		if (creature_ptr->to_ac > (0 - creature_ptr->ac))         creature_ptr->to_ac     = 0 - creature_ptr->ac;
-		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
-	}
 
 	set_karma_bonuses(creature_ptr);
 	set_flow_flag(creature_ptr);
