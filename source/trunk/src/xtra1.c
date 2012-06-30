@@ -2746,104 +2746,77 @@ static void calc_lite(creature_type *creature_ptr)
 
 static void set_race_bonuses(creature_type *creature_ptr)
 {
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	int i;
-	race_type *tmp_race_ptr;
-	race_type *tmp_race_ptr2;
 
-	tmp_race_ptr = &race_info[creature_ptr->race_idx1];
-	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
-
-	/***** Races ****/
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+	race_type *race1_ptr  = &race_info[creature_ptr->race_idx1];
+	race_type *race2_ptr = &race_info[creature_ptr->race_idx2];
 
 	for (i = 0; i < 6; i++)
 	{
 		if(IS_PURE(creature_ptr))
-			creature_ptr->stat_add[i] += tmp_race_ptr->r_adj[i] * 10;
+			creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * 10;
 		else
 		{
-			creature_ptr->stat_add[i] += tmp_race_ptr->r_s_adj[i] * 10;
-			creature_ptr->stat_add[i] += tmp_race_ptr2->r_s_adj[i] * 10;
+			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * 10;
+			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * 10;
 		}
 	}
 
 	if(IS_PURE(creature_ptr))
 	{
-		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_dis);
-		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_dev);
-		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_rob);
-		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_eva);
-		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_vol);
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_stl;
-		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_srh);
-		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_fos);
-		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_thn);
-		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_thb);
-		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_thb);
+		creature_ptr->skill_dis += (-5 + race1_ptr->r_dis);
+		creature_ptr->skill_dev += (-5 + race1_ptr->r_dev);
+		creature_ptr->skill_rob += (-5 + race1_ptr->r_rob);
+		creature_ptr->skill_eva += (-5 + race1_ptr->r_eva);
+		creature_ptr->skill_vol += (-5 + race1_ptr->r_vol);
+		creature_ptr->skill_stl += race1_ptr->r_stl;
+		creature_ptr->skill_srh += (-10 + race1_ptr->r_srh);
+		creature_ptr->skill_fos += (-10 + race1_ptr->r_fos);
+		creature_ptr->skill_thn += (-10 + race1_ptr->r_thn);
+		creature_ptr->skill_thb += (-10 + race1_ptr->r_thb);
+		creature_ptr->skill_tht += (-10 + race1_ptr->r_thb);
 	}
 	else
 	{
-		creature_ptr->skill_dis += (-5 + race_info[creature_ptr->race_idx1].r_s_dis);
-		creature_ptr->skill_dev += (-5 + race_info[creature_ptr->race_idx1].r_s_dev);
-		creature_ptr->skill_rob += (-5 + race_info[creature_ptr->race_idx1].r_s_rob);
-		creature_ptr->skill_eva += (-5 + race_info[creature_ptr->race_idx1].r_s_eva);
-		creature_ptr->skill_vol += (-5 + race_info[creature_ptr->race_idx1].r_s_vol);
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx1].r_s_stl;
-		creature_ptr->skill_srh += (-10 + race_info[creature_ptr->race_idx1].r_s_srh);
-		creature_ptr->skill_fos += (-10 + race_info[creature_ptr->race_idx1].r_s_fos);
-		creature_ptr->skill_thn += (-10 + race_info[creature_ptr->race_idx1].r_s_thn);
-		creature_ptr->skill_thb += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
-		creature_ptr->skill_tht += (-10 + race_info[creature_ptr->race_idx1].r_s_thb);
-
-		creature_ptr->skill_dis += race_info[creature_ptr->race_idx2].r_s_dis;
-		creature_ptr->skill_dev += race_info[creature_ptr->race_idx2].r_s_dev;
-		creature_ptr->skill_rob += race_info[creature_ptr->race_idx2].r_s_rob;
-		creature_ptr->skill_eva += race_info[creature_ptr->race_idx2].r_s_eva;
-		creature_ptr->skill_vol += race_info[creature_ptr->race_idx2].r_s_vol;
-		creature_ptr->skill_stl += race_info[creature_ptr->race_idx2].r_s_stl;
-		creature_ptr->skill_srh += race_info[creature_ptr->race_idx2].r_s_srh;
-		creature_ptr->skill_fos += race_info[creature_ptr->race_idx2].r_s_fos;
-		creature_ptr->skill_thn += race_info[creature_ptr->race_idx2].r_s_thn;
-		creature_ptr->skill_thb += race_info[creature_ptr->race_idx2].r_s_thb;
-		creature_ptr->skill_tht += race_info[creature_ptr->race_idx2].r_s_thb;
+		creature_ptr->skill_dis += (-5 + race1_ptr->r_s_dis + race2_ptr->r_s_dis);
+		creature_ptr->skill_dev += (-5 + race1_ptr->r_s_dev + race2_ptr->r_s_dis);
+		creature_ptr->skill_rob += (-5 + race1_ptr->r_s_rob + race2_ptr->r_s_dis);
+		creature_ptr->skill_eva += (-5 + race1_ptr->r_s_eva + race2_ptr->r_s_dis);
+		creature_ptr->skill_vol += (-5 + race1_ptr->r_s_vol + race2_ptr->r_s_dis);
+		creature_ptr->skill_stl += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
+		creature_ptr->skill_srh += (-10 + race1_ptr->r_s_srh + race2_ptr->r_s_dis);
+		creature_ptr->skill_fos += (-10 + race1_ptr->r_s_fos + race2_ptr->r_s_dis);
+		creature_ptr->skill_thn += (-10 + race1_ptr->r_s_thn + race2_ptr->r_s_dis);
+		creature_ptr->skill_thb += (-10 + race1_ptr->r_s_thb + race2_ptr->r_s_dis);
+		creature_ptr->skill_tht += (-10 + race1_ptr->r_s_thb + race2_ptr->r_s_dis);
 	}
 
 	// AC bonus
 	if(IS_PURE(creature_ptr))
 	{
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_base + (race_info[creature_ptr->race_idx1].ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 	else
 	{
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx1].ac_s_base + (race_info[creature_ptr->race_idx1].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race_info[creature_ptr->race_idx2].ac_s_base + (race_info[creature_ptr->race_idx2].ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 
-	// TODO: Mimic Race control to creature.c
-	if (!creature_ptr->mimic_form)
+	set_resistance(creature_ptr);
+
+	if(IS_RACE(creature_ptr, RACE_SPRITE))
 	{
-		set_resistance(creature_ptr);
+		creature_ptr->levitation = TRUE;
+		creature_ptr->speed += (creature_ptr->lev) / 10;
+	}
 
-		if(IS_RACE(creature_ptr, RACE_SPRITE))
-		{
-			creature_ptr->levitation = TRUE;
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
-
-		if(IS_RACE(creature_ptr, RACE_KLACKON))
-		{
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
-
-		//TODO
-		/*
-			case LICH:
-			creature_ptr->pass_wall = TRUE;
-			break;
-		*/
+	if(IS_RACE(creature_ptr, RACE_KLACKON))
+	{
+		creature_ptr->speed += (creature_ptr->lev) / 10;
 	}
 
 	set_unreached_race_level_penalty(creature_ptr);
@@ -2853,8 +2826,7 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	creature_ptr->dis_ac += species_ptr->ac;
 	creature_ptr->speed += species_ptr->speed;
 
-	// Base infravision (purely racial)
-	creature_ptr->see_infra += MAX(tmp_race_ptr->infra, tmp_race_ptr2->infra);
+	creature_ptr->see_infra += MAX(race1_ptr->infra, race1_ptr->infra); // Base infravision (purely racial)
 }
 
 
@@ -5226,7 +5198,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	initialize_bonuses(creature_ptr);
 
 	set_divine_bonuses(creature_ptr);
-	set_race_bonuses(creature_ptr);
+	if(creature_ptr->race_idx1 != INDEX_NONE) set_race_bonuses(creature_ptr);
 	set_class_bonuses(creature_ptr);
 	set_character_bonuses(creature_ptr);
 	set_trait_bonuses(creature_ptr);
