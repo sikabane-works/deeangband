@@ -3012,6 +3012,46 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->see_nocto = TRUE;
 			break;
 	}
+
+	/* Affect Skill -- saving throw (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
+	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
+
+	/* Affect Skill -- magic devices (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dev += (class_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
+	else creature_ptr->skill_dev += (class_info[CLASS_TOURIST].x_dev * creature_ptr->lev / 10);
+
+	/* Affect Skill -- stealth (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_stl += (class_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
+	else creature_ptr->skill_stl += (class_info[CLASS_TOURIST].x_stl * creature_ptr->lev / 10);
+
+	/* Affect Skill -- search ability (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_srh += (class_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
+	else creature_ptr->skill_srh += (class_info[CLASS_TOURIST].x_srh * creature_ptr->lev / 10);
+
+	/* Affect Skill -- search frequency (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_fos += (class_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
+	else  creature_ptr->skill_fos += (class_info[CLASS_TOURIST].x_fos * creature_ptr->lev / 10);
+
+	/* Affect Skill -- combat (normal) (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
+	else creature_ptr->skill_thn += (class_info[CLASS_TOURIST].x_thn * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
+
+	/* Affect Skill -- combat (shooting) (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	else creature_ptr->skill_thb += (class_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
+
+	/* Affect Skill -- combat (throwing) (Level, by Class) */
+	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	else creature_ptr->skill_tht += (class_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
+
 }
 
 
@@ -3023,7 +3063,6 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	{
 		if(creature_ptr->chara_idx != INDEX_NONE)
 			creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
-
 	}
 
 	if(creature_ptr->chara_idx != INDEX_NONE)
@@ -3062,6 +3101,11 @@ static void set_character_bonuses(creature_type *creature_ptr)
 			/* Munchkin become faster */
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
+
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
+	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
 }
 
 static void set_posture_bonuses(creature_type *creature_ptr)
@@ -3503,10 +3547,12 @@ static void set_status_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->tsubureru)
 	{
-		creature_ptr->skill_rob = 10;
-		creature_ptr->skill_eva = 10;
-		creature_ptr->skill_vol = 10;
+		creature_ptr->skill_rob /= 2;
+		creature_ptr->skill_eva /= 2;
+		creature_ptr->skill_vol /= 2;
 	}
+
+	if (IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
 }
 
 
@@ -4481,6 +4527,54 @@ static void set_melee_status(creature_type *creature_ptr)
 
 	for(i = 0 ; i < MAX_WEAPONS ; i++)
 	{
+	//TODO: adjust
+	/*
+	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
+	{
+		int penalty1, penalty2;
+		penalty1 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		penalty2 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		if ((creature_ptr->inventory[].name1 == ART_QUICKTHORN) && (creature_ptr->inventory[].name1 == ART_TINYTHORN))
+		{
+			penalty1 = penalty1 / 2 - 5;
+			penalty2 = penalty2 / 2 - 5;
+			creature_ptr->speed += 7;
+			creature_ptr->to_ac += 10;
+			creature_ptr->dis_to_ac += 10;
+		}
+		if (easy_2weapon)
+		{
+			if (penalty1 > 0) penalty1 /= 2;
+			if (penalty2 > 0) penalty2 /= 2;
+		}
+		else if ((creature_ptr->inventory[].tval == TV_SWORD) && ((creature_ptr->inventory[].sval == SV_MAIN_GAUCHE) || (creature_ptr->inventory[].sval == SV_WAKIZASHI)))
+		{
+			penalty1 = MAX(0, penalty1 - 10);
+			penalty2 = MAX(0, penalty2 - 10);
+		}
+		if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
+		{
+			penalty1 = MIN(0, penalty1);
+			penalty2 = MIN(0, penalty2);
+			creature_ptr->to_ac += 10;
+			creature_ptr->dis_to_ac += 10;
+		}
+		else
+		{
+			if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+				penalty1 /= 2;
+			if ((creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+				penalty2 /= 2;
+		}
+		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;
+		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty2 += 10;
+		creature_ptr->to_hit[0] -= penalty1;
+		creature_ptr->to_hit[1] -= penalty2;
+		creature_ptr->dis_to_hit[0] -= penalty1;
+		creature_ptr->dis_to_hit[1] -= penalty2;
+	}
+	*/
+
 		/* Examine the "main weapon" */
 		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
 
@@ -5136,6 +5230,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_character_bonuses(creature_ptr);
 	set_trait_bonuses(creature_ptr);
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
+	set_posture_bonuses(creature_ptr);
+	set_status_table_indexes(creature_ptr);
+	set_status_bonuses(creature_ptr);
 
 	if (old_mighty_throw != creature_ptr->mighty_throw)
 	{
@@ -5145,68 +5242,12 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	set_posture_bonuses(creature_ptr);
 
 	/* Hack -- aura of fire also provides light */
 	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
-
-	set_status_table_indexes(creature_ptr);
-
-	set_status_bonuses(creature_ptr);
-
-	// Bloating slows the player down (a little)
-	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10;
-
+	if (creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down (a little)
 	if (creature_ptr->special_defense & KAMAE_SUZAKU) creature_ptr->speed += 10;
 
-
-	//TODO: adjust
-	/*
-	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
-	{
-		int penalty1, penalty2;
-		penalty1 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
-		penalty2 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
-		if ((creature_ptr->inventory[].name1 == ART_QUICKTHORN) && (creature_ptr->inventory[].name1 == ART_TINYTHORN))
-		{
-			penalty1 = penalty1 / 2 - 5;
-			penalty2 = penalty2 / 2 - 5;
-			creature_ptr->speed += 7;
-			creature_ptr->to_ac += 10;
-			creature_ptr->dis_to_ac += 10;
-		}
-		if (easy_2weapon)
-		{
-			if (penalty1 > 0) penalty1 /= 2;
-			if (penalty2 > 0) penalty2 /= 2;
-		}
-		else if ((creature_ptr->inventory[].tval == TV_SWORD) && ((creature_ptr->inventory[].sval == SV_MAIN_GAUCHE) || (creature_ptr->inventory[].sval == SV_WAKIZASHI)))
-		{
-			penalty1 = MAX(0, penalty1 - 10);
-			penalty2 = MAX(0, penalty2 - 10);
-		}
-		if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
-		{
-			penalty1 = MIN(0, penalty1);
-			penalty2 = MIN(0, penalty2);
-			creature_ptr->to_ac += 10;
-			creature_ptr->dis_to_ac += 10;
-		}
-		else
-		{
-			if ((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
-				penalty1 /= 2;
-			if ((creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
-				penalty2 /= 2;
-		}
-		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;
-		if (creature_ptr->inventory[].tval == TV_POLEARM) penalty2 += 10;
-		creature_ptr->to_hit[0] -= penalty1;
-		creature_ptr->to_hit[1] -= penalty2;
-		creature_ptr->dis_to_hit[0] -= penalty1;
-		creature_ptr->dis_to_hit[1] -= penalty2;
-	}
-	*/
 
 	/* Extract the current weight (in tenth pounds) */
 	j = creature_ptr->carrying_weight;
@@ -5279,12 +5320,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
 
-	//TODO if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(creature_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) creature_ptr->two_handed = FALSE;
-
-	/* Affect Skill -- stealth (bonus one) */
-	creature_ptr->skill_stl += 1;
-
-	if (IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
 
 	/* Affect Skill -- disarming (DEX and INT) */
 	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
@@ -5306,51 +5341,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	else creature_ptr->skill_dis += (class_info[CLASS_TOURIST].x_dis * creature_ptr->lev / 10);
 
 	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
-
-	/* Affect Skill -- magic devices (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_dev += (class_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
-	else creature_ptr->skill_dev += (class_info[CLASS_TOURIST].x_dev * creature_ptr->lev / 10);
-
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
-
-	/* Affect Skill -- saving throw (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	else creature_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * creature_ptr->lev / 10);
-
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-
-	/* Affect Skill -- stealth (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_stl += (class_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
-	else creature_ptr->skill_stl += (class_info[CLASS_TOURIST].x_stl * creature_ptr->lev / 10);
-
-	/* Affect Skill -- search ability (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_srh += (class_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
-	else creature_ptr->skill_srh += (class_info[CLASS_TOURIST].x_srh * creature_ptr->lev / 10);
-
-	/* Affect Skill -- search frequency (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_fos += (class_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
-	else  creature_ptr->skill_fos += (class_info[CLASS_TOURIST].x_fos * creature_ptr->lev / 10);
-
-	/* Affect Skill -- combat (normal) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
-	else creature_ptr->skill_thn += (class_info[CLASS_TOURIST].x_thn * creature_ptr->lev / 10);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
-
-	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
-	else creature_ptr->skill_thb += (class_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
-
-	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	if(creature_ptr->cls_idx != INDEX_NONE) creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
-	else creature_ptr->skill_tht += (class_info[CLASS_TOURIST].x_thb * creature_ptr->lev / 10);
-	if(creature_ptr->chara_idx != INDEX_NONE) creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
 
 	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
 	{
