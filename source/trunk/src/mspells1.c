@@ -1562,8 +1562,8 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Extract the "inate" spells */
-	for(k = 0; k < max_creature_flag_idx; k++)
-		if (creature_flag_info[k].is_spell && has_cf_creature(caster_ptr, k)) racial_spell[num++] = k;
+	for(k = 0; k < max_trait_idx; k++)
+		if (trait_info[k].is_spell && has_cf_creature(caster_ptr, k)) racial_spell[num++] = k;
 
 	/* No spells left */
 	if (!num) return (FALSE);

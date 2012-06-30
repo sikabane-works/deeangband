@@ -1688,7 +1688,7 @@ void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
 	return;
 }
 
-void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
+void set_traits(traits *flags_ptr, int type, int low, int high)
 {
 	flags_ptr->add_lev[type] = low;
 	flags_ptr->remove_lev[type] = high;
@@ -1706,7 +1706,7 @@ void reveal_creature_info(creature_type *creature_ptr, int type)
 
 
 
-bool has_cf(creature_flags *cf_ptr, int type)
+bool has_cf(traits *cf_ptr, int type)
 {
 	return cf_ptr->add_lev[type];
 }
@@ -2088,7 +2088,7 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(st_level - creature_ptr->lev, i) * STAT_FRACTION;
 }
 
-bool has_breath_flags(creature_flags *flags_ptr)
+bool has_breath_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_BR_FIRE)) return TRUE;
 	if(has_cf(flags_ptr, CF_BR_COLD)) return TRUE;
@@ -2113,7 +2113,7 @@ bool has_breath_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_summon_flags(creature_flags *flags_ptr)
+bool has_summon_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_S_KIN)) return TRUE;
 	if(has_cf(flags_ptr, CF_S_CYBER)) return TRUE;
@@ -2134,7 +2134,7 @@ bool has_summon_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_big_ball_flags(creature_flags *flags_ptr)
+bool has_big_ball_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_BA_CHAO)) return TRUE;
 	if(has_cf(flags_ptr, CF_BA_DARK)) return TRUE;
@@ -2144,7 +2144,7 @@ bool has_big_ball_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_ball_flags(creature_flags *flags_ptr)
+bool has_ball_flags(traits *flags_ptr)
 {
 	if(has_big_ball_flags(flags_ptr)) return TRUE;
 	if(has_breath_flags(flags_ptr)) return TRUE;
@@ -2159,13 +2159,13 @@ bool has_ball_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_beam_flags(creature_flags *flags_ptr)
+bool has_beam_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_PSY_SPEAR)) return TRUE;	
 	return FALSE;
 }
 
-bool has_bolt_flags(creature_flags *flags_ptr)
+bool has_bolt_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_ROCKET)) return TRUE;	
 	if(has_cf(flags_ptr, CF_SHOOT)) return TRUE;	
@@ -2182,7 +2182,7 @@ bool has_bolt_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_intelligence_skill_flags(creature_flags *flags_ptr)
+bool has_intelligence_skill_flags(traits *flags_ptr)
 {
 	if(has_summon_flags(flags_ptr)) return TRUE;
 	if(has_cf(flags_ptr, CF_DISPEL)) return TRUE;	
@@ -2202,7 +2202,7 @@ bool has_intelligence_skill_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_riding_disable_skill_flags(creature_flags *flags_ptr)
+bool has_riding_disable_skill_flags(traits *flags_ptr)
 {
 	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	
 	if(has_cf(flags_ptr, CF_BLINK)) return TRUE;	
@@ -2214,7 +2214,7 @@ bool has_riding_disable_skill_flags(creature_flags *flags_ptr)
 }
 
 
-bool has_attack_skill_flags(creature_flags *flags_ptr)
+bool has_attack_skill_flags(traits *flags_ptr)
 {
 	if(has_bolt_flags(flags_ptr)) return TRUE;
 	if(has_beam_flags(flags_ptr)) return TRUE;
@@ -2242,7 +2242,7 @@ bool has_attack_skill_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_indirect_skill_flags(creature_flags *flags_ptr)
+bool has_indirect_skill_flags(traits *flags_ptr)
 {
 	if(has_summon_flags(flags_ptr)) return TRUE;
 	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	
@@ -2256,7 +2256,7 @@ bool has_indirect_skill_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
-bool has_non_magic_skill_flags(creature_flags *flags_ptr)
+bool has_non_magic_skill_flags(traits *flags_ptr)
 {
 	if(has_breath_flags(flags_ptr)) return TRUE;
 	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	

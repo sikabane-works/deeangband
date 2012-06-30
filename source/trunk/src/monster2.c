@@ -3665,7 +3665,7 @@ void deal_item(creature_type *creature_ptr)
 	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
 	//TODO
-	// Food depend on creature_flags
+	// Food depend on traits
 	if(is_player(creature_ptr)) deal_food(creature_ptr);
 
 	if(is_player(creature_ptr)) deal_lite(creature_ptr);

@@ -48,8 +48,8 @@
 /*
  * Creature flags
  */
-typedef struct creature_flags creature_flags;
-struct creature_flags
+typedef struct traits traits;
+struct traits
 {
 	byte add_lev[CF_FLAG_MAX];
 	byte remove_lev[CF_FLAG_MAX];
@@ -400,7 +400,7 @@ struct species_type
 
 	byte freq_spell;		/* Spell frequency */
 
-	creature_flags flags;
+	traits flags;
 
 	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
@@ -1008,8 +1008,8 @@ struct race_type
 
 	u32b choice;        /* Legal class choices */
 
-	creature_flags p_flags;
-	creature_flags h_flags;
+	traits p_flags;
+	traits h_flags;
 
 	char symbol;
 
@@ -1612,8 +1612,8 @@ struct creature_type
 
 	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
-	u16b start_wx;			// Starting Wilderness_X
-	u16b start_wy;			// Statring Wilderness_Y
+	u16b start_wx; // Starting Wilderness_X
+	u16b start_wy; // Statring Wilderness_Y
 
 	byte snipe_type;
 	bool is_fired;
@@ -1630,10 +1630,10 @@ struct creature_type
 	byte tsuri_dir;
 };
 
-// creature_flags_type
-typedef struct creature_flag_type creature_flag_type;
+// traits_type
+typedef struct trait_type trait_type;
 
-struct creature_flag_type
+struct trait_type
 {
 	char id2[50];
 	s16b pre_id;
@@ -1660,7 +1660,7 @@ struct creature_flag_type
 	s16b speed;
 	s32b text;
 	s32b E_text;
-	creature_flags flags;
+	traits flags;
 
 	s16b base_level;
 	s16b mp_cost;
@@ -1908,7 +1908,7 @@ struct dungeon_type {
 
 	u32b flags1;		/* Flags 1 */
 
-	creature_flags c_flags;
+	traits c_flags;
 
 	s16b final_object;	/* The object you'll find at the bottom */
 	s16b final_artifact;	/* The artifact you'll find at the bottom */
@@ -2096,16 +2096,6 @@ typedef struct karma_type {
 	int calc_type;
 	int anti_karma;
 } karma_type;
-
-
-typedef struct trait_type {
-	cptr title;			/* Name */
-#ifdef JP
-	cptr E_title;		/* English Name */
-#endif
-	byte type;			/* Trait Type*/
-} trait_type;
-
 
 typedef struct starting_type {
 	char name[80];

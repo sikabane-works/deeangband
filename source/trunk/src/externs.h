@@ -456,10 +456,10 @@ extern species_type *species_info;
 extern char *species_name;
 extern char *species_text;
 
-extern creature_flag_type *creature_flag_info;
-extern char *creature_flag_name;
-extern char *creature_flag_text;
-extern char *creature_flag_tmp;	// for self reference
+extern trait_type *trait_info;
+extern char *trait_name;
+extern char *trait_text;
+extern char *trait_tmp;	// for self reference
 
 extern race_type *race_info;
 extern char *race_name;
@@ -523,7 +523,7 @@ extern u16b max_object_ego_idx;
 extern u16b max_dungeon_idx;
 extern u16b max_object_idx;
 extern u16b max_creature_idx;
-extern u16b max_creature_flag_idx;
+extern u16b max_trait_idx;
 extern u16b max_st_idx;
 extern s32b max_wild_x;
 extern s32b max_wild_y;
@@ -1015,12 +1015,12 @@ extern bool is_random_walker_25_species(species_type *species_ptr);
 extern bool is_random_walker_50_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
-extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
+extern void set_traits(traits *flags_ptr, int type, int low, int high);
 
 extern void reveal_species_info(species_type *species_ptr, int type);
 extern void reveal_creature_info(creature_type *creature_ptr, int type);
 
-extern bool has_cf(creature_flags *cf_ptr, int type);
+extern bool has_cf(traits *cf_ptr, int type);
 extern bool has_cf_creature(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 
@@ -1029,17 +1029,17 @@ extern int calc_base_divine_rank(creature_type *cr_ptr);
 extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
 extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
-extern bool has_breath_flags(creature_flags *flags_ptr);
-extern bool has_summon_flags(creature_flags *flags_ptr);
-extern bool has_big_ball_flags(creature_flags *flags_ptr);
-extern bool has_ball_flags(creature_flags *flags_ptr);
-extern bool has_beam_flags(creature_flags *flags_ptr);
-extern bool has_bolt_flags(creature_flags *flags_ptr);
-extern bool has_intelligence_skill_flags(creature_flags *flags_ptr);
-extern bool has_riding_disable_skill_flags(creature_flags *flags_ptr);
-extern bool has_attack_skill_flags(creature_flags *flags_ptr);
-extern bool has_indirect_skill_flags(creature_flags *flags_ptr);
-extern bool has_non_magic_skill_flags(creature_flags *flags_ptr);
+extern bool has_breath_flags(traits *flags_ptr);
+extern bool has_summon_flags(traits *flags_ptr);
+extern bool has_big_ball_flags(traits *flags_ptr);
+extern bool has_ball_flags(traits *flags_ptr);
+extern bool has_beam_flags(traits *flags_ptr);
+extern bool has_bolt_flags(traits *flags_ptr);
+extern bool has_intelligence_skill_flags(traits *flags_ptr);
+extern bool has_riding_disable_skill_flags(traits *flags_ptr);
+extern bool has_attack_skill_flags(traits *flags_ptr);
+extern bool has_indirect_skill_flags(traits *flags_ptr);
+extern bool has_non_magic_skill_flags(traits *flags_ptr);
 extern bool has_magic_power(creature_type *creature_ptr);
 
 extern bool has_status(creature_type *creature_ptr, int stat);

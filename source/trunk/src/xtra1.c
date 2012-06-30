@@ -4245,31 +4245,31 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 {
 	int i;
 
-	for(i = 0; i < max_creature_flag_idx; i++)
+	for(i = 0; i < max_trait_idx; i++)
 	{
 		if(has_cf_creature(creature_ptr, i))
 		{
-			creature_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR] * 10;
-			creature_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT] * 10;
-			creature_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS] * 10;
-			creature_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX] * 10;
-			creature_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON] * 10;
-			creature_ptr->stat_add[STAT_CHA] += creature_flag_info[i].adj[STAT_CHA] * 10;
+			creature_ptr->stat_add[STAT_STR] += trait_info[i].adj[STAT_STR] * 10;
+			creature_ptr->stat_add[STAT_INT] += trait_info[i].adj[STAT_INT] * 10;
+			creature_ptr->stat_add[STAT_WIS] += trait_info[i].adj[STAT_WIS] * 10;
+			creature_ptr->stat_add[STAT_DEX] += trait_info[i].adj[STAT_DEX] * 10;
+			creature_ptr->stat_add[STAT_CON] += trait_info[i].adj[STAT_CON] * 10;
+			creature_ptr->stat_add[STAT_CHA] += trait_info[i].adj[STAT_CHA] * 10;
 
-			creature_ptr->skill_dis += creature_flag_info[i].dis;
-			creature_ptr->skill_dev += creature_flag_info[i].dev;
-			creature_ptr->skill_stl += creature_flag_info[i].stl;
-			creature_ptr->skill_srh += creature_flag_info[i].srh;
-			creature_ptr->skill_dig += creature_flag_info[i].dig;
-			creature_ptr->skill_thb += creature_flag_info[i].thb;
-			creature_ptr->skill_thn += creature_flag_info[i].thn;
-			creature_ptr->skill_tht += creature_flag_info[i].tht;
+			creature_ptr->skill_dis += trait_info[i].dis;
+			creature_ptr->skill_dev += trait_info[i].dev;
+			creature_ptr->skill_stl += trait_info[i].stl;
+			creature_ptr->skill_srh += trait_info[i].srh;
+			creature_ptr->skill_dig += trait_info[i].dig;
+			creature_ptr->skill_thb += trait_info[i].thb;
+			creature_ptr->skill_thn += trait_info[i].thn;
+			creature_ptr->skill_tht += trait_info[i].tht;
 
-			creature_ptr->skill_rob += creature_flag_info[i].rob;
-			creature_ptr->skill_eva += creature_flag_info[i].eva;
-			creature_ptr->skill_vol += creature_flag_info[i].vol;
+			creature_ptr->skill_rob += trait_info[i].rob;
+			creature_ptr->skill_eva += trait_info[i].eva;
+			creature_ptr->skill_vol += trait_info[i].vol;
 
-			creature_ptr->see_infra += creature_flag_info[i].infra;
+			creature_ptr->see_infra += trait_info[i].infra;
 
 		}
 	}

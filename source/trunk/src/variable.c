@@ -802,10 +802,10 @@ char *species_text;
 /*
  * The creature flags arrays
  */
-creature_flag_type *creature_flag_info;
-char *creature_flag_name;
-char *creature_flag_text;
-char *creature_flag_tmp;
+trait_type *trait_info;
+char *trait_name;
+char *trait_text;
+char *trait_tmp;
 
 // The race arrays
 race_type *race_info;
@@ -1040,8 +1040,8 @@ u16b max_dungeon_idx;
 u16b max_object_idx;
 
 
-// Maximum number of creature_flags
-u16b max_creature_flag_idx;
+// Maximum number of traits
+u16b max_trait_idx;
 
 // Maximum number of creatures in simulate
 u16b max_creature_idx;

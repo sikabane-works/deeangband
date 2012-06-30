@@ -267,7 +267,7 @@ header f_head;
 header object_kind_head;
 header artifact_head;
 header object_ego_head;
-header creature_flag_head;
+header trait_head;
 header species_head;
 header race_head;
 header class_head;
@@ -953,20 +953,20 @@ static errr init_object_ego_info(void)
 }
 
 
-// Initialize the "creature_flag_info" array
+// Initialize the "trait_info" array
 // 2012 Added by Deskull
-static errr init_creature_flag_csv(void)
+static errr init_trait_csv(void)
 {
 	int err;
 
 	// Init the header
-	init_header(&creature_flag_head, max_creature_flag_idx, sizeof(creature_flag_type));
+	init_header(&trait_head, max_trait_idx, sizeof(trait_type));
 
 	// Save a pointer to the parsing function
-	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
-	creature_flag_head.parse_reprocess = reprocess_creature_flag;
+	trait_head.parse_info_txt = parse_trait_csv;
+	trait_head.parse_reprocess = reprocess_trait;
 
-	err = init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, &creature_flag_tmp, NULL);
+	err = init_info2("trait_info", &trait_head, (void*)&trait_info, &trait_name, &trait_text, &trait_tmp, NULL);
 	if(err) return err;
 
 	return 0;
@@ -2056,7 +2056,7 @@ void init_angband(void)
 
 	// Initialize creature flags
 	note("[Initializing values... (creature flags)]");
-	if (init_creature_flag_csv()) quit("Cannot creature flags");
+	if (init_trait_csv()) quit("Cannot creature flags");
 
 	// Initialize authority info
 	note("[Initializing arrays... (authorities)]");

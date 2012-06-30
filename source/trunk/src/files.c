@@ -3509,10 +3509,10 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			}
 		}
 
-		for(j = 0; j < max_creature_flag_idx; j++)
+		for(j = 0; j < max_trait_idx; j++)
 		{
 			if(has_cf_creature(cr_ptr, j))
-				r_adj += creature_flag_info[j].adj[i];
+				r_adj += trait_info[j].adj[i];
 		}
 
 		e_adj = 0; // Calculate equipment adjustment

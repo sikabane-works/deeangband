@@ -1535,14 +1535,14 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 
 
 
-static errr grab_one_creature_flag(creature_flags *cf_ptr, cptr what, byte add, byte remove, byte prob)
+static errr grab_one_trait(traits *cf_ptr, cptr what, byte add, byte remove, byte prob)
 {
 	int i;
 
 	/* Check flags */
 	for (i = 0; i < CF_FLAG_MAX; i++)
 	{
-		if (streq(what, creature_flag_info[i].id2))
+		if (streq(what, trait_info[i].id2))
 		{
 			cf_ptr->add_lev[i] = add;
 			cf_ptr->remove_lev[i] = remove;
@@ -2974,7 +2974,7 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 /*
  * Grab one (basic) flag in a species_type from a textual string
  */
-static errr grab_one_race_flags(creature_flags *flag_ptr, cptr what, byte add, byte remove)
+static errr grab_one_race_flags(traits *flag_ptr, cptr what, byte add, byte remove)
 {
 
 
@@ -2990,7 +2990,7 @@ static errr grab_one_race_flags(creature_flags *flag_ptr, cptr what, byte add, b
 	return (1);
 }
 
-static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
+static errr traits_splits(traits *flags_ptr, char *tmp)
 {
 	char flagname[80];
 	char flag_aux[80];
@@ -3038,7 +3038,7 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 		}
 
 		/* Parse this entry */
-		if (grab_one_creature_flag(flags_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
+		if (grab_one_trait(flags_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
 			return (PARSE_ERROR_INVALID_FLAG);
 
 		/* Start the next entry */
@@ -3599,7 +3599,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_FLAG:
 			case SPECIES_INFO_ACTION:
-				if(0 != creature_flags_splits(&species_info[n].flags, tmp))
+				if(0 != traits_splits(&species_info[n].flags, tmp))
 					return (1);
 				break;
 
@@ -4033,18 +4033,18 @@ static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_USE_STAT	32
 #define CF_INFO_FAIL	33
 
-errr reprocess_creature_flag(header *head)
+errr reprocess_trait(header *head)
 {
 	int i;
-	for(i = 0; i < max_creature_flag_idx; i++)
+	for(i = 0; i < max_trait_idx; i++)
 	{
-		creature_flags_splits(&creature_flag_info[i].flags, head->tmp_ptr);
+		traits_splits(&trait_info[i].flags, head->tmp_ptr);
 	}
 
 	return 0;
 }
 
-errr parse_creature_flag_csv(char *buf, header *head)
+errr parse_trait_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j, b;
@@ -4097,169 +4097,169 @@ errr parse_creature_flag_csv(char *buf, header *head)
 			switch(cfeature_info_csv_code[i])
 			{
 				case CF_INFO_ID2:
-					strcpy(creature_flag_info[n].id2, tmp);
+					strcpy(trait_info[n].id2, tmp);
 				break;
 
 				case CF_INFO_NAME:
-					strcpy(creature_flag_info[n].title, tmp);
+					strcpy(trait_info[n].title, tmp);
 				break;
 
 				case CF_INFO_E_NAME:
-					strcpy(creature_flag_info[n].e_title, tmp);
+					strcpy(trait_info[n].e_title, tmp);
 				break;
 
 				case CF_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_STR] = (s16b)b;
+					trait_info[n].adj[STAT_STR] = (s16b)b;
 				break;
 
 				case CF_INFO_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_INT] = (s16b)b;
+					trait_info[n].adj[STAT_INT] = (s16b)b;
 				break;
 
 				case CF_INFO_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_WIS] = (s16b)b;
+					trait_info[n].adj[STAT_WIS] = (s16b)b;
 				break;
 
 				case CF_INFO_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_DEX] = (s16b)b;
+					trait_info[n].adj[STAT_DEX] = (s16b)b;
 				break;
 
 				case CF_INFO_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_CON] = (s16b)b;
+					trait_info[n].adj[STAT_CON] = (s16b)b;
 				break;
 
 				case CF_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].adj[STAT_CHA] = (s16b)b;
+					trait_info[n].adj[STAT_CHA] = (s16b)b;
 				break;
 
 				case CF_INFO_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].dis = (s16b)b;
+					trait_info[n].dis = (s16b)b;
 				break;
 
 				case CF_INFO_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].dev = (s16b)b;
+					trait_info[n].dev = (s16b)b;
 				break;
 
 				case CF_INFO_ROB:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].rob = (s16b)b;
+					trait_info[n].rob = (s16b)b;
 				break;
 
 				case CF_INFO_EVA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].eva = (s16b)b;
+					trait_info[n].eva = (s16b)b;
 				break;
 
 				case CF_INFO_VOL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].vol = (s16b)b;
+					trait_info[n].vol = (s16b)b;
 				break;
 
 				case CF_INFO_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].stl = (s16b)b;
+					trait_info[n].stl = (s16b)b;
 				break;
 
 				case CF_INFO_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].srh = (s16b)b;
+					trait_info[n].srh = (s16b)b;
 				break;
 
 				case CF_INFO_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].fos = (s16b)b;
+					trait_info[n].fos = (s16b)b;
 				break;
 
 				case CF_INFO_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].thn = (s16b)b;
+					trait_info[n].thn = (s16b)b;
 				break;
 
 				case CF_INFO_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].thb = (s16b)b;
+					trait_info[n].thb = (s16b)b;
 				break;
 
 				case CF_INFO_INFRA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].infra = (s16b)b;
+					trait_info[n].infra = (s16b)b;
 				break;
 
 				case CF_INFO_HITD_M:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].hitd_m = (s16b)b;
+					trait_info[n].hitd_m = (s16b)b;
 				break;
 
 				case CF_INFO_EXP:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].exp = (s16b)b;
+					trait_info[n].exp = (s16b)b;
 				break;
 
 				case CF_INFO_FLAGS:
-					strcpy(&creature_flag_tmp[n], tmp);
+					strcpy(&trait_tmp[n], tmp);
 				break;
 
 				case CF_INFO_SPEED:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].speed = (s16b)b;
+					trait_info[n].speed = (s16b)b;
 				break;
 
 				case CF_INFO_DESCRIPTION:
-					if (!add_text(&creature_flag_info[n].text, head, tmp, TRUE))
+					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
 						return (7);
 					break;
 
 				case CF_INFO_E_DESCRIPTION:
 #if JP
-					if (!add_text(&creature_flag_info[n].E_text, head, tmp, TRUE))
+					if (!add_text(&trait_info[n].E_text, head, tmp, TRUE))
 						return (7);
 #else
-					if (!add_text(&creature_flag_info[n].text, head, tmp, TRUE))
+					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
 						return (7);
 #endif
 				break;
 
 				case CF_INFO_SPELL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].is_spell = (byte)b;
+					trait_info[n].is_spell = (byte)b;
 				break;
 
 				case CF_INFO_PRE_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].pre_id = (s16b)b;
+					trait_info[n].pre_id = (s16b)b;
 				break;
 
 				case CF_INFO_ANTI_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].anti_id = (s16b)b;
+					trait_info[n].anti_id = (s16b)b;
 				break;
 
 				case CF_INFO_BASE_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].base_level = (s16b)b;
+					trait_info[n].base_level = (s16b)b;
 				break;
 
 				case CF_INFO_MP_COST:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].mp_cost = (s16b)b;
+					trait_info[n].mp_cost = (s16b)b;
 				break;
 
 				case CF_INFO_USE_STAT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].use_stat = (s16b)b;
+					trait_info[n].use_stat = (s16b)b;
 				break;
 
 				case CF_INFO_FAIL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
-					creature_flag_info[n].fail = (s16b)b;
+					trait_info[n].fail = (s16b)b;
 				break;
 
 			default:
@@ -4768,12 +4768,12 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_FLAGS:
-				if(0 != creature_flags_splits(&race_info[n].p_flags, tmp))
+				if(0 != traits_splits(&race_info[n].p_flags, tmp))
 					return (1);
 				break;
 
 			case RC_INFO_H_FLAGS:
-				if(0 != creature_flags_splits(&race_info[n].h_flags, tmp))
+				if(0 != traits_splits(&race_info[n].h_flags, tmp))
 					return (1);
 				break;
 
@@ -6358,7 +6358,7 @@ errr parse_dungeon_info(char *buf, header *head)
 	/* Process 'M' for "Creature Flags" (multiple lines) */
 	else if (buf[0] == 'M')
 	{
-		if(0 != creature_flags_splits(&d_ptr->c_flags, &buf[2]))
+		if(0 != traits_splits(&d_ptr->c_flags, &buf[2]))
 			return (1);
 	}
 
@@ -7202,7 +7202,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Maximum m_idx */
 			else if (zz[0][0] == 'C')
 			{
-				max_creature_flag_idx = atoi(zz[1]);
+				max_trait_idx = atoi(zz[1]);
 			}
 
 			/* Wilderness size */
