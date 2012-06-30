@@ -3449,6 +3449,10 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 
 }
 
+static void display_player_underings(creature_type *cr_ptr)
+{
+	c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í]–l‚ª‚¢‚È‚¢", 1, 1);
+}
 
 /*
  * Special display, part 2b
@@ -4277,6 +4281,12 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	{
 		do_cmd_knowledge_mutations(creature_ptr);
 	}
+
+	else if (mode == DISPLAY_CR_STATUS_UNDERINGS)
+	{
+		display_player_underings(creature_ptr);
+	}
+
 }
 
 
