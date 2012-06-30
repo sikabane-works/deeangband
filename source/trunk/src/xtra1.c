@@ -5181,24 +5181,25 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	if (creature_ptr->speed > MAX_SPEED) creature_ptr->speed = MAX_SPEED;
 	if (creature_ptr->speed < MIN_SPEED) creature_ptr->speed = MIN_SPEED;
+
+	if (creature_ptr->skill_stl > MAX_STEALTH) creature_ptr->skill_stl = MAX_STEALTH;
+	if (creature_ptr->skill_stl < MIN_STEALTH) creature_ptr->skill_stl = MIN_STEALTH;
+
+	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
+
 	play_redraw |= (PR_SPEED); // TODO
 
 	if (yoiyami)
 	{
-		if (creature_ptr->to_ac > (0 - creature_ptr->ac))
-			creature_ptr->to_ac = 0 - creature_ptr->ac;
-		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac))
-			creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
+		if (creature_ptr->to_ac > (0 - creature_ptr->ac))         creature_ptr->to_ac     = 0 - creature_ptr->ac;
+		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
 	}
 
 	/* Redraw armor (if needed) */
 	if ((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
-		/* Redraw */
-		play_redraw |= (PR_ARMOR);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
+		play_redraw |= (PR_ARMOR);  // Redraw
+		play_window |= (PW_PLAYER); // Window stuff
 	}
 
 	if (creature_ptr->two_handed && !omoi)
@@ -5207,9 +5208,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		bonus_to_damage = ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) )/2;
 		bonus_to_hit = ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) ) + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
 
-		creature_ptr->to_hit[default_hand] += MAX(bonus_to_hit,1);
-		creature_ptr->dis_to_hit[default_hand] += MAX(bonus_to_hit,1);
-		creature_ptr->to_damage[default_hand] += MAX(bonus_to_damage,1);
+		creature_ptr->to_hit[default_hand]        += MAX(bonus_to_hit,1);
+		creature_ptr->dis_to_hit[default_hand]    += MAX(bonus_to_hit,1);
+		creature_ptr->to_damage[default_hand]     += MAX(bonus_to_damage,1);
 		creature_ptr->dis_to_damage[default_hand] += MAX(bonus_to_damage,1);
 	}
 
@@ -5219,12 +5220,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 
-	/* Limit Skill -- stealth from 0 to 30 */
-	if (creature_ptr->skill_stl > 30) creature_ptr->skill_stl = 30;
-	if (creature_ptr->skill_stl < 0) creature_ptr->skill_stl = 0;
-
-	/* Limit Skill -- digging from 1 up */
-	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
 
 	if (creature_ptr->anti_magic)
 	{

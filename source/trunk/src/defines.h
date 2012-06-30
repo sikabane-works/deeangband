@@ -422,6 +422,9 @@
 #define ENERGY_NEED() (randnor(100, 25))
 #define MAX_SPEED +99
 #define MIN_SPEED -99
+#define MAX_STEALTH 100
+#define MIN_STEALTH   0
+
 
 // on creature generating
 #define EXP_STAND_RATE 1500
