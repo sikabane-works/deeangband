@@ -2952,7 +2952,7 @@ static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
 /*
  * Special display, part 1
  */
-static void display_player_flag_info1(creature_type *cr_ptr)
+static void display_creature_flag_info1(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3165,7 +3165,7 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 /*
  * Special display, part 2
  */
-static void display_player_flag_info2(creature_type *cr_ptr)
+static void display_creature_flag_info2(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3225,7 +3225,7 @@ static void display_player_flag_info2(creature_type *cr_ptr)
 /*
  * Special display, part 3
  */
-static void display_player_flag_info3(creature_type *cr_ptr)
+static void display_creature_flag_info3(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3347,7 +3347,7 @@ static void display_player_flag_info3(creature_type *cr_ptr)
 
 }
 
-static void display_player_flag_info4(creature_type *cr_ptr)
+static void display_creature_flag_info4(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3449,7 +3449,7 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 
 }
 
-static void display_player_trait(creature_type *creature_ptr)
+static void display_creature_trait(creature_type *creature_ptr)
 {
 #if JP
 	c_put_str(TERM_YELLOW, "Ç†Ç»ÇΩÇ…ÇÕì¡ï Ç»ì¡ê´Ç™Ç»Ç¢", 1, 1);
@@ -3458,7 +3458,7 @@ static void display_player_trait(creature_type *creature_ptr)
 #endif
 }
 
-static void display_player_underings(creature_type *creature_ptr)
+static void display_creature_underings(creature_type *creature_ptr)
 {
 	int i, type_num = 0, total = 0;
 	char buf[100];
@@ -4297,33 +4297,33 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 		/* Dump the info */
 		display_player_stat_info(creature_ptr);
-		display_player_flag_info1(creature_ptr);
+		display_creature_flag_info1(creature_ptr);
 	}
 
 	/* Special */
 	else if (mode == DISPLAY_CR_STATUS_VARIOUS2)
 	{
-		display_player_flag_info2(creature_ptr);
+		display_creature_flag_info2(creature_ptr);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_VARIOUS3)
 	{
-		display_player_flag_info3(creature_ptr);
+		display_creature_flag_info3(creature_ptr);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_VARIOUS4)
 	{
-		display_player_flag_info4(creature_ptr);
+		display_creature_flag_info4(creature_ptr);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_MUTATION)
 	{
-		display_player_trait(creature_ptr);
+		display_creature_trait(creature_ptr);
 	}
 
 	else if (mode == DISPLAY_CR_STATUS_UNDERINGS)
 	{
-		display_player_underings(creature_ptr);
+		display_creature_underings(creature_ptr);
 	}
 
 }
