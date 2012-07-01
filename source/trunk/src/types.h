@@ -1662,6 +1662,10 @@ struct trait_type
 	s16b speed;
 	s32b text;
 	s32b E_text;
+	s32b get_text;
+	s32b E_get_text;
+	s32b lost_text;
+	s32b E_lost_text;
 	traits flags;
 
 	s16b base_level;

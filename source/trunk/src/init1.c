@@ -4226,13 +4226,8 @@ errr parse_trait_csv(char *buf, header *head)
 					break;
 
 				case CF_INFO_E_DESCRIPTION:
-#if JP
 					if (!add_text(&trait_info[n].E_text, head, tmp, TRUE))
 						return (7);
-#else
-					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
-						return (7);
-#endif
 				break;
 
 				case CF_INFO_SPELL:
@@ -4271,15 +4266,27 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case CF_INFO_GET_DESC:
+					if (!add_text(&trait_info[n].get_text, head, tmp, TRUE))
+						return (7);
+					break;
 				break;
 
 				case CF_INFO_E_GET_DESC:
+					if (!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
+						return (7);
+					break;
 				break;
 
 				case CF_INFO_LOST_DESC:
+					if (!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
+						return (7);
+					break;
 				break;
 
 				case CF_INFO_E_LOST_DESC:
+					if (!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
+						return (7);
+					break;
 				break;
 
 				default:
