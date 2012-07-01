@@ -3462,11 +3462,14 @@ static void display_player_underings(creature_type *creature_ptr)
 {
 	int i, type_num = 0, total = 0;
 	char buf[100];
+	char master_name[100];
+
+	creature_desc(master_name, creature_ptr, 0);
 
 	for(i = 0; i < MAX_UNDERLINGS; i++)
 	{
 		if(!creature_ptr->underling_num[i]) break;
-		sprintf(buf, "%40s x%d", species_name + species_info[creature_ptr->underling_id[i]].name, creature_ptr->underling_num[i]);
+		sprintf(buf, "%-40s x%d", species_name + species_info[creature_ptr->underling_id[i]].name, creature_ptr->underling_num[i]);
 		c_put_str(TERM_WHITE, buf, 2 + type_num, 6);
 		type_num++;
 		total += creature_ptr->underling_num[i];
@@ -3475,17 +3478,17 @@ static void display_player_underings(creature_type *creature_ptr)
 	if(!type_num)
 	{
 #if JP
-		c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í]–l‚ª‚¢‚È‚¢", 1, 1);
+		c_put_str(TERM_YELLOW, format("%s‚É‚Í]–l‚ª‚¢‚È‚¢", master_name), 1, 1);
 #elif
-		c_put_str(TERM_YELLOW, "You have no servant", 1, 1);
+		c_put_str(TERM_YELLOW, format("%s have no servant", master_name), 1, 1);
 #endif
 	}
 	else
 	{
 #if JP
-		c_put_str(TERM_YELLOW, format("‚ ‚È‚½‚É‚Í%dí—ŞA%d‘Ì‚Ì]–l‚ª‚¢‚é", type_num, total), 1, 1);
+		c_put_str(TERM_YELLOW, format("%s‚É‚Í%dí—ŞA%d‘Ì‚Ì]–l‚ª‚¢‚é", master_name, type_num, total), 1, 1);
 #elif
-		c_put_str(TERM_YELLOW, format("You have %d species, %d servants", type_num, total), 1, 1);
+		c_put_str(TERM_YELLOW, format("%s have %d species, %d servants", master_name, type_num, total), 1, 1);
 #endif
 	}
 }
