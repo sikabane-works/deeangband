@@ -2734,10 +2734,6 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	}
 }
 
-/*
- *
- */
-
 static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 {
 	int i;
@@ -5308,12 +5304,12 @@ static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
 	if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
 	{
 #ifdef JP
-		fprintf(fff, "\n\n  [“Ë‘R•ÏˆÙ]\n\n");
+		fprintf(fff, "\n\n  [“Á«]\n\n");
 #else
-		fprintf(fff, "\n\n  [Mutations]\n\n");
+		fprintf(fff, "\n\n  [Trait]\n\n");
 #endif
 
-		dump_mutations(cr_ptr, fff);
+		dump_traits(cr_ptr, fff);
 	}
 }
 
