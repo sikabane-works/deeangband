@@ -3449,14 +3449,45 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 
 }
 
-static void display_player_trait(creature_type *cr_ptr)
+static void display_player_trait(creature_type *creature_ptr)
 {
+#if JP
 	c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í“Á•Ê‚È“Á«‚ª‚È‚¢", 1, 1);
+#elif
+	c_put_str(TERM_YELLOW, "You have no trait", 1, 1);
+#endif
 }
 
-static void display_player_underings(creature_type *cr_ptr)
+static void display_player_underings(creature_type *creature_ptr)
 {
-	c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í]–l‚ª‚¢‚È‚¢", 1, 1);
+	int i, type_num = 0, total = 0;
+	char buf[100];
+
+	for(i = 0; i < MAX_UNDERLINGS; i++)
+	{
+		if(!creature_ptr->underling_num[i]) break;
+		sprintf(buf, "%40s x%d", species_name + species_info[creature_ptr->underling_id[i]].name, creature_ptr->underling_num[i]);
+		c_put_str(TERM_WHITE, buf, 1, 1);
+		type_num++;
+		total += creature_ptr->underling_num[i];
+	}
+
+	if(!type_num)
+	{
+#if JP
+		c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í]–l‚ª‚¢‚È‚¢", 1, 1);
+#elif
+		c_put_str(TERM_YELLOW, "You have no servant", 1, 1);
+#endif
+	}
+	else
+	{
+#if JP
+		c_put_str(TERM_YELLOW, format("‚ ‚È‚½‚É‚Í%dí—ŞA%d‘Ì‚Ì]–l‚ª‚¢‚é", type_num, total), 1, 1);
+#elif
+		c_put_str(TERM_YELLOW, format("You have %d species, %d servants", type_num, total), 1, 1);
+#endif
+	}
 }
 
 /*
