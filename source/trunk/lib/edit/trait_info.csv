@@ -103,95 +103,95 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 101,XXX2,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 102,XXX3,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 103,XXX4,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-104,BR_ACID,-1,-1,酸のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-105,BR_ELEC,-1,-1,電撃のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-106,BR_FIRE,-1,-1,火炎のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-107,BR_COLD,-1,-1,冷気のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-108,BR_POIS,-1,-1,毒のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-109,BR_NETH,-1,-1,地獄のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-110,BR_LITE,-1,-1,閃光のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-111,BR_DARK,-1,-1,暗黒のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-112,BR_CONF,-1,-1,混乱のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-113,BR_SOUN,-1,-1,轟音のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-114,BR_CHAO,-1,-1,カオスのブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-115,BR_DISE,-1,-1,劣化のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-116,BR_NEXU,-1,-1,因果混乱のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-117,BR_TIME,-1,-1,時間逆転のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-118,BR_INER,-1,-1,遅鈍のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-119,BR_GRAV,-1,-1,重力のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-120,BR_SHAR,-1,-1,破片のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-121,BR_PLAS,-1,-1,プラズマのブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-122,BR_WALL,-1,-1,フォースのブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-123,BR_MANA,-1,-1,魔力のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-124,BA_NUKE,-1,-1,放射能球,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-125,BR_NUKE,-1,-1,放射能のブレス,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-126,BA_CHAO,-1,-1,ログルス球,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-127,BR_DISI,-1,-1,未定義,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-128,BA_ACID,-1,-1,アシッド・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-129,BA_ELEC,-1,-1,サンダー・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-130,BA_FIRE,-1,-1,ファイアー・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-131,BA_COLD,-1,-1,アイス・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-132,BA_POIS,-1,-1,悪臭雲,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-133,BA_NETH,-1,-1,地獄球,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-134,BA_WATE,-1,-1,ウォーター・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-135,BA_MANA,-1,-1,魔力の嵐,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-136,BA_DARK,-1,-1,暗黒の嵐,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-137,DRAIN_MANA,-1,-1,未定義,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-138,MIND_BLAST,-1,-1,未定義,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-139,BRAIN_SMASH,-1,-1,未定義,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-140,CAUSE_1,-1,-1,軽症の呪い,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-141,CAUSE_2,-1,-1,重症の呪い,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-142,CAUSE_3,-1,-1,致命傷の呪い,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-143,CAUSE_4,-1,-1,秘孔を突く,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-144,BO_ACID,-1,-1,アシッド・ボルト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-145,BO_ELEC,-1,-1,サンダー・ボルト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-146,BO_FIRE,-1,-1,ファイア・ボルト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-147,BO_COLD,-1,-1,アイス・ボルト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-148,BA_LITE,-1,-1,スターバースト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-149,BO_NETH,-1,-1,地獄球,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-150,BO_WATE,-1,-1,ウォーター・ボール,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-151,BO_MANA,-1,-1,魔力の矢,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-152,BO_PLAS,-1,-1,プラズマ・ボルト,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-153,BO_ICEE,-1,-1,極寒の矢,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-154,MISSILE,-1,-1,マジック・ミサイル,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-155,SCARE,-1,-1,恐慌,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-156,BLIND,-1,-1,盲目,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-157,CONF,-1,-1,混乱,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-158,SLOW,-1,-1,減速,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-159,HOLD,-1,-1,麻痺,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-160,HASTE,-1,-1,加速,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-161,HAND_DOOM,-1,-1,破滅の手,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-162,HEAL,-1,-1,回復,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-163,INVULNER,-1,-1,無傷球,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-164,BLINK,-1,-1,ショート・テレポート,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-165,TPORT,-1,-1,テレポート,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-166,WORLD,-1,-1,時間停止,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-167,SPECIAL,-1,-1,特別な行動,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-168,TELE_TO,-1,-1,引き寄せ,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-169,TELE_AWAY,-1,-1,テレポート・アウェイ,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-170,TELE_LEVEL,-1,-1,テレポート・レベル,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-171,PSY_SPEAR,-1,-1,光の剣,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-172,DARKNESS,-1,-1,暗闇生成,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-173,TRAPS,-1,-1,トラップ生成,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-174,FORGET,-1,-1,忘却,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-175,ANIM_DEAD,-1,-1,死者復活,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-176,S_KIN,-1,-1,同族召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-177,S_CYBER,-1,-1,サイバーデーモン召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-178,S_MONSTER,-1,-1,モンスター召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-179,S_MONSTERS,-1,-1,モンスター複数召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-180,S_ANT,-1,-1,アリ召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-181,S_SPIDER,-1,-1,クモ召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-182,S_HOUND,-1,-1,ハウンド召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-183,S_HYDRA,-1,-1,ヒドラ召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-184,S_ANGEL,-1,-1,天使召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-185,S_DEMON,-1,-1,悪魔召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-186,S_UNDEAD,-1,-1,アンデッド召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-187,S_DRAGON,-1,-1,ドラゴン召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-188,S_HI_UNDEAD,-1,-1,上級アンデッド召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-189,S_HI_DRAGON,-1,-1,古代ドラゴン召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-190,S_AMBERITES,-1,-1,アンバーの王族召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-191,S_UNIQUE,-1,-1,ユニーク召喚,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-192,AQUATIC,-1,-1,水棲生物,Undefined,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+104,BR_ACID,-1,-1,酸のブレス,Breath Acid,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+105,BR_ELEC,-1,-1,電撃のブレス,Breath Lighting,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+106,BR_FIRE,-1,-1,火炎のブレス,Breath Fire,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+107,BR_COLD,-1,-1,冷気のブレス,Breath Cold,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+108,BR_POIS,-1,-1,毒のブレス,Breath Poison,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+109,BR_NETH,-1,-1,地獄のブレス,Breath Nether,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+110,BR_LITE,-1,-1,閃光のブレス,Breath Light,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+111,BR_DARK,-1,-1,暗黒のブレス,Breath Dark,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+112,BR_CONF,-1,-1,混乱のブレス,Breath Confusion,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+113,BR_SOUN,-1,-1,轟音のブレス,Breath Sound,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+114,BR_CHAO,-1,-1,混沌のブレス,Breath Chaos,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+115,BR_DISE,-1,-1,劣化のブレス,Breath Disenchant,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+116,BR_NEXU,-1,-1,因果混乱のブレス,Breath Nexus,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+117,BR_TIME,-1,-1,時間逆転のブレス,Breath Time,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+118,BR_INER,-1,-1,遅鈍のブレス,Breath Inartia,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+119,BR_GRAV,-1,-1,重力のブレス,Breath Gravity,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+120,BR_SHAR,-1,-1,破片のブレス,Breath Shard,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+121,BR_PLAS,-1,-1,プラズマのブレス,Breath Plasma,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+122,BR_WALL,-1,-1,フォースのブレス,Breath Force,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+123,BR_MANA,-1,-1,魔力のブレス,Breath Mana,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+124,BA_NUKE,-1,-1,放射能球,Nuke Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+125,BR_NUKE,-1,-1,放射能廃棄物のブレス,Breath Nuke,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+126,BA_CHAO,-1,-1,ログルス球,Raw Logrus,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+127,BR_DISI,-1,-1,分解のブレス,Breath Disintegrate,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+128,BA_ACID,-1,-1,アシッド・ボール,Acid Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+129,BA_ELEC,-1,-1,サンダー・ボール,Lighting Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+130,BA_FIRE,-1,-1,ファイア・ボール,Fire Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+131,BA_COLD,-1,-1,アイス・ボール,Frost Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+132,BA_POIS,-1,-1,悪臭雲,Stinking Croud,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+133,BA_NETH,-1,-1,地獄球,Nether Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+134,BA_WATE,-1,-1,ウォーター,Water Ball,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+135,BA_MANA,-1,-1,魔力の嵐,Mana Storm,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+136,BA_DARK,-1,-1,暗黒の嵐,Darkness Storm,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+137,DRAIN_MANA,-1,-1,魔力吸収,Drain Mana,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+138,MIND_BLAST,-1,-1,精神攻撃,Mind Blast,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+139,BRAIN_SMASH,-1,-1,脳攻撃,Brain Shash,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+140,CAUSE_1,-1,-1,軽症,Cause Light Wounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+141,CAUSE_2,-1,-1,重症,Cause Heavy Wounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+142,CAUSE_3,-1,-1,致命傷,Cause Critical Wounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+143,CAUSE_4,-1,-1,秘孔を突く,Cause Mortal Wounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+144,BO_ACID,-1,-1,アシッド・ボルト,Acid Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+145,BO_ELEC,-1,-1,サンダー・ボルト,Lightning Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+146,BO_FIRE,-1,-1,ファイア・ボルト,Fire Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+147,BO_COLD,-1,-1,アイス・ボルト,Frost Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+148,BA_LITE,-1,-1,スター・バースト,starburst,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+149,BO_NETH,-1,-1,地獄の矢,Nether Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+150,BO_WATE,-1,-1,ウォーター・ボルト,Water Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+151,BO_MANA,-1,-1,魔力の矢,Mana Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+152,BO_PLAS,-1,-1,プラズマ・ボルト,Plasma Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+153,BO_ICEE,-1,-1,極寒の矢,ICE Bolt,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+154,MISSILE,-1,-1,マジック・ミサイル,Magic Missile,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+155,SCARE,-1,-1,恐慌,Scare,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+156,BLIND,-1,-1,盲目,Blind,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+157,CONF,-1,-1,混乱,Confusion,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+158,SLOW,-1,-1,減速,Slow,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+159,HOLD,-1,-1,スリープ,Sleep,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+160,HASTE,-1,-1,加速,Haste,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+161,HAND_DOOM,-1,-1,破滅の手,Hand of Doom,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+162,HEAL,-1,-1,体力回復,Healing,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+163,INVULNER,-1,-1,無傷球,Make Invulnerable,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+164,BLINK,-1,-1,ショート・テレポート,Blink,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+165,TPORT,-1,-1,テレポート,Teleport,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+166,WORLD,-1,-1,ザ・ワールド,The World,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+167,SPECIAL,-1,-1,特殊行動,Special Action,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+168,TELE_TO,-1,-1,引きよせる,Teleport To,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+169,TELE_AWAY,-1,-1,テレポート・アウェイ,Teleport Away,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+170,TELE_LEVEL,-1,-1,テレポート・レベル,Teleport Level,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+171,PSY_SPEAR,-1,-1,光の剣,Psycho Spear,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+172,DARKNESS,-1,-1,暗闇生成,Create Darkness,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+173,TRAPS,-1,-1,トラップ生成,Create Traps,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+174,FORGET,-1,-1,記憶消去,Cause Amnesia,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+175,ANIM_DEAD,-1,-1,死者復活,Raise Dead,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+176,S_KIN,-1,-1,同族召喚,Summon Aid,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+177,S_CYBER,-1,-1,サイバーデーモン召喚,Summon Cyberdemons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+178,S_MONSTER,-1,-1,クリーチャー召喚,Summon Creature,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+179,S_MONSTERS,-1,-1,クリーチャー複数召喚,Summon Creatures,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+180,S_ANT,-1,-1,アリの召喚,Summon Ants,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+181,S_SPIDER,-1,-1,クモの召喚,Summon Spiders,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+182,S_HOUND,-1,-1,ハウンドの召喚,Summon Hounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+183,S_HYDRA,-1,-1,ヒドラの召喚,Summon Hydras,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+184,S_ANGEL,-1,-1,天使の召喚,Summon Angels,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+185,S_DEMON,-1,-1,悪魔の召喚,Summon Demons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+186,S_UNDEAD,-1,-1,アンデッドの召喚,Summon Undeads,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+187,S_DRAGON,-1,-1,ドラゴンの召喚,Summon Dragons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+188,S_HI_UNDEAD,-1,-1,上級アンデッドの召喚,Summon Greater Undead,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+189,S_HI_DRAGON,-1,-1,古代ドラゴンの召喚,Summon Ancient Dragon,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+190,S_AMBERITES,-1,-1,アンバーの血族の召喚,Summon Amberites,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+191,S_UNIQUE,-1,-1,ユニークの召喚,Summon Uniques,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+192,AQUATIC,-1,-1,水棲生物,Aquatic Creature,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 193,CAN_SWIM,-1,-1,潜行可能,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 194,CAN_FLY,-1,-1,飛行可能,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 195,FRIENDLY,-1,-1,友好的,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
@@ -351,38 +351,38 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 349,XXX,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 350,XXX,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 351,XXX,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-352,SPIT_ACID,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは酸を吹きかけることができる。(ダメージ レベルX1) ,You can spit acid (dam lvl). ,酸を吐く能力を得た。,You gain the ability to spit acid.,酸を吹きかける能力を失った。,You lose the ability to spit acid.
-353,BR_FIRE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは炎のブレスを吐くことができる。(ダメージ レベルX2) ,You can breathe fire (dam lvl * 2). ,火を吐く能力を得た。,You gain the ability to breathe fire.,炎のブレスを吐く能力を失った。,You lose the ability to breathe fire.
-354,HYPN_GAZE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの睨みは催眠効果をもつ。 ,Your gaze is hypnotic. ,催眠眼の能力を得た。,Your eyes look mesmerizing...,あなたの目はつまらない目になった。,Your eyes look uninteresting.
-355,TELEKINES,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは念動力をもっている。 ,You are telekinetic. ,物体を念動力で動かす能力を得た。,You gain the ability to move objects telekinetically.,念動力で物を動かす能力を失った。,You lose the ability to move objects telekinetically.
-356,VTELEPORT,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思でテレポートできる。 ,You can teleport at will. ,自分の意思でテレポートする能力を得た。,You gain the power of teleportation at will.,自分の意思でテレポートする能力を失った。,You lose the power of teleportation at will.
-357,MIND_BLST,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは敵を精神攻撃できる。 ,You can Mind Blast your enemies. ,精神攻撃の能力を得た。,You gain the power of Mind Blast.,精神攻撃の能力を失った。,You lose the power of Mind Blast.
-358,RADIATION,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思で放射能を発生することができる。 ,You can emit hard radiation at will. ,あなたは強い放射線を発生し始めた。,You start emitting hard radiation.,あなたは放射能を発生しなくなった。,You stop emitting hard radiation.
-359,VAMPIRISM,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは吸血鬼のように敵から生命力を吸収することができる。 ,You can drain life from a foe like a vampire. ,生命力を吸収できるようになった。,You become vampiric.,吸血の能力を失った。,You are no longer vampiric.
-360,SMELL_MET,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは近くにある貴金属をかぎ分けることができる。 ,You can smell nearby precious metal. ,金属の匂いを嗅ぎ分けられるようになった。,You smell a metallic odor.,金属の臭いを嗅げなくなった。,You no longer smell a metallic odor.
-361,SMELL_MON,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは近くのクリーチャーの存在をかぎ分けることができる。 ,You can smell nearby creatures. ,クリーチャーの臭いを嗅ぎ分けられるようになった。,You smell filthy creatures.,不潔なクリーチャーの臭いを嗅げなくなった。,You no longer smell filthy creatures.
-362,BLINK,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは短い距離をテレポートできる。 ,You can teleport yourself short distances. ,近距離テレポートの能力を得た。,You gain the power of minor teleportation.,近距離テレポートの能力を失った。,You lose the power of minor teleportation.
-363,EAT_ROCK,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは硬い岩を食べることができる。 ,You can consume solid rock. ,壁が美味しそうに見える。,The walls look delicious.,壁は美味しそうに見えなくなった。,The walls look unappetizing.
-364,SWAP_POS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは他の者と場所を入れ替わることができる。 ,You can switch locations with another being. ,他人の靴で一マイル歩くような気分がする。,You feel like walking a mile in someone else's shoes.,あなたは自分の靴に留まる感じがする。,You feel like staying in your own shoes.
-365,SHRIEK,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは身の毛もよだつ叫び声を発することができる。 ,You can emit a horrible shriek. ,あなたの声は相当強くなった。,Your vocal cords get much tougher.,あなたの声質は弱くなった。,Your vocal cords get much weaker.
-366,ILLUMINE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは明るい光を放つことができる。 ,You can emit bright light. ,あなたは光り輝いて部屋を明るくするようになった。,You can light up rooms with your presence.,部屋を明るく照らすことが出来なくなった。,You can no longer light up rooms with your presence.
-367,DET_CURSE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは邪悪な魔法の危険を感じとることができる。 ,You can feel the danger of evil magic. ,邪悪な魔法を感知できるようになった。,You can feel evil magics.,邪悪な魔法を感じられなくなった。,You can no longer feel evil magics.
-368,BERSERK,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思で狂乱戦闘状態になることができる。 ,You can drive yourself into a berserk frenzy. ,制御できる激情を感じる。,You feel a controlled rage.,制御できる激情を感じなくなった。,You no longer feel a controlled rage.
-369,POLYMORPH,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意志で変化できる。 ,You can polymorph yourself at will. ,体が変異しやすくなった。,Your body seems mutable.,あなたの体は安定したように見える。,Your body seems stable.
-370,MIDAS_TCH,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは通常アイテムを金に変えることができる。 ,You can turn ordinary items to gold. ,「ミダス王の手」の能力を得た。,You gain the Midas touch.,ミダスの手の能力を失った。,You lose the Midas touch.
-371,GROW_MOLD,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは周囲にキノコを生やすことができる。 ,You can cause mold to grow near you. ,突然カビに親しみを覚えた。,You feel a sudden affinity for mold.,突然カビが嫌いになった。,You feel a sudden dislike for mold.
-372,RESIST,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは元素の攻撃に対して身を硬くすることができる。 ,You can harden yourself to the ravages of the elements. ,あなたは自分自身を守れる気がする。,You feel like you can protect yourself.,傷つき易くなった気がする。,You feel like you might be vulnerable.
-373,EARTHQUAKE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは周囲のダンジョンを崩壊させることができる。 ,You can bring down the dungeon around your ears. ,ダンジョンを破壊する能力を得た。,You gain the ability to wreck the dungeon.,ダンジョンを壊す能力を失った。,You lose the ability to wreck the dungeon.
-374,EAT_MAGIC,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは魔法のエネルギーを自分の物として使用できる。 ,You can consume magic energy for your own use. ,魔法のアイテムが美味そうに見える。,Your magic items look delicious.,魔法のアイテムはもう美味しそうに見えなくなった。,Your magic items no longer look delicious.
-375,WEIGH_MAG,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分に影響を与える魔法の力を感じることができる。 ,You can feel the strength of the magics affecting you. ,あなたは周囲にある魔法をより良く理解できる気がする。,You feel you can better understand the magic around you.,魔力を感じられなくなった。,You no longer sense magic.
-376,STERILITY,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは集団的生殖不能を起こすことができる。 ,You can cause mass impotence. ,周りの全ての者に頭痛を起こすことができる。,You can give everything around you a headache.,たくさんの安堵の吐息が聞こえた。,You hear a massed sigh of relief.
-377,PANIC_HIT,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは攻撃した後身を守るため逃げることができる。 ,You can run for your life after hitting something. ,突然、泥棒の気分が分かるようになった。,You suddenly understand how thieves feel.,あちこちへ跳べる気分がなくなった。,You no longer feel jumpy.
-378,DAZZLE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは混乱と盲目を引き起こす放射能を発生することができる。 ,"You can emit confusing, blinding radiation. ",眩い閃光を発する能力を得た。,You gain the ability to emit dazzling lights.,まばゆい閃光を発する能力を失った。,You lose the ability to emit dazzling lights.
-379,LASER_EYE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは目からレーザー光線を発射することができる。 ,Your eyes can fire laser beams. ,あなたの目は一瞬焼け付いた。,Your eyes burn for a moment.,眼が少しの間焼き付いて、痛みが和らいだ。,"Your eyes burn for a moment, then feel soothed."
-380,RECALL,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは街とダンジョンの間を行き来することができる。 ,You can travel between town and the depths. ,少しだけホームシックになったが、すぐ直った。,"You feel briefly homesick, but it passes.",少しの間ホームシックになった。,You feel briefly homesick.
-381,BANISH,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは邪悪なクリーチャーを地獄に落とすことができる。 ,You can send evil creatures directly to Hell. ,神聖な怒りの力に満たされた。,You feel a holy wrath fill you.,神聖な怒りの力を感じなくなった。,You no longer feel a holy wrath.
-382,COLD_TOUCH,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは物を触って凍らせることができる。 ,You can freeze things with a touch. ,あなたの両手はとても冷たくなった。,Your hands get very cold.,手が暖かくなった。,Your hands warm up.
-383,LAUNCHER,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはアイテムを力強く投げることができる。 ,You can hurl objects with great force. ,あなたの物を投げる手はかなり強くなった気がする。,Your throwing arm feels much stronger.,物を投げる手が弱くなった気がする。,Your throwing arm feels much weaker.
+352,SPIT_ACID,-1,-1,酸の唾,Spit Acid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは酸を吹きかけることができる。(ダメージ レベルX1) ,You can spit acid (dam lvl). ,酸を吐く能力を得た。,You gain the ability to spit acid.,酸を吹きかける能力を失った。,You lose the ability to spit acid.
+353,BR_FIRE,-1,-1,炎のブレス,Fire Breath,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは炎のブレスを吐くことができる。(ダメージ レベルX2) ,You can breathe fire (dam lvl * 2). ,火を吐く能力を得た。,You gain the ability to breathe fire.,炎のブレスを吐く能力を失った。,You lose the ability to breathe fire.
+354,HYPN_GAZE,-1,-1,催眠睨み,Hypnotic Gaze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの睨みは催眠効果をもつ。 ,Your gaze is hypnotic. ,催眠眼の能力を得た。,Your eyes look mesmerizing...,あなたの目はつまらない目になった。,Your eyes look uninteresting.
+355,TELEKINES,-1,-1,念動力,Telekinesis,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは念動力をもっている。 ,You are telekinetic. ,物体を念動力で動かす能力を得た。,You gain the ability to move objects telekinetically.,念動力で物を動かす能力を失った。,You lose the ability to move objects telekinetically.
+356,VTELEPORT,-1,-1,テレポート,Teleport,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思でテレポートできる。 ,You can teleport at will. ,自分の意思でテレポートする能力を得た。,You gain the power of teleportation at will.,自分の意思でテレポートする能力を失った。,You lose the power of teleportation at will.
+357,MIND_BLST,-1,-1,精神攻撃,Mind Blast,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは敵を精神攻撃できる。 ,You can Mind Blast your enemies. ,精神攻撃の能力を得た。,You gain the power of Mind Blast.,精神攻撃の能力を失った。,You lose the power of Mind Blast.
+358,RADIATION,-1,-1,放射能,Emit Radiation,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思で放射能を発生することができる。 ,You can emit hard radiation at will. ,あなたは強い放射線を発生し始めた。,You start emitting hard radiation.,あなたは放射能を発生しなくなった。,You stop emitting hard radiation.
+359,VAMPIRISM,-1,-1,吸血ドレイン,Vampiric Drain,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは吸血鬼のように敵から生命力を吸収することができる。 ,You can drain life from a foe like a vampire. ,生命力を吸収できるようになった。,You become vampiric.,吸血の能力を失った。,You are no longer vampiric.
+360,SMELL_MET,-1,-1,金属嗅覚,Smell Metal,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは近くにある貴金属をかぎ分けることができる。 ,You can smell nearby precious metal. ,金属の匂いを嗅ぎ分けられるようになった。,You smell a metallic odor.,金属の臭いを嗅げなくなった。,You no longer smell a metallic odor.
+361,SMELL_MON,-1,-1,敵臭嗅覚,Smell Creatures,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは近くのクリーチャーの存在をかぎ分けることができる。 ,You can smell nearby creatures. ,クリーチャーの臭いを嗅ぎ分けられるようになった。,You smell filthy creatures.,不潔なクリーチャーの臭いを嗅げなくなった。,You no longer smell filthy creatures.
+362,BLINK,-1,-1,ショート・テレポート,Blink,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは短い距離をテレポートできる。 ,You can teleport yourself short distances. ,近距離テレポートの能力を得た。,You gain the power of minor teleportation.,近距離テレポートの能力を失った。,You lose the power of minor teleportation.
+363,EAT_ROCK,-1,-1,岩食い,Eat Rock,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは硬い岩を食べることができる。 ,You can consume solid rock. ,壁が美味しそうに見える。,The walls look delicious.,壁は美味しそうに見えなくなった。,The walls look unappetizing.
+364,SWAP_POS,-1,-1,位置交換,Swap Position,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは他の者と場所を入れ替わることができる。 ,You can switch locations with another being. ,他人の靴で一マイル歩くような気分がする。,You feel like walking a mile in someone else's shoes.,あなたは自分の靴に留まる感じがする。,You feel like staying in your own shoes.
+365,SHRIEK,-1,-1,叫び,Shriek,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは身の毛もよだつ叫び声を発することができる。 ,You can emit a horrible shriek. ,あなたの声は相当強くなった。,Your vocal cords get much tougher.,あなたの声質は弱くなった。,Your vocal cords get much weaker.
+366,ILLUMINE,-1,-1,照明,Illuminate,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは明るい光を放つことができる。 ,You can emit bright light. ,あなたは光り輝いて部屋を明るくするようになった。,You can light up rooms with your presence.,部屋を明るく照らすことが出来なくなった。,You can no longer light up rooms with your presence.
+367,DET_CURSE,-1,-1,呪い感知,Detect Curses,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは邪悪な魔法の危険を感じとることができる。 ,You can feel the danger of evil magic. ,邪悪な魔法を感知できるようになった。,You can feel evil magics.,邪悪な魔法を感じられなくなった。,You can no longer feel evil magics.
+368,BERSERK,-1,-1,狂戦士化,Berserk,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意思で狂乱戦闘状態になることができる。 ,You can drive yourself into a berserk frenzy. ,制御できる激情を感じる。,You feel a controlled rage.,制御できる激情を感じなくなった。,You no longer feel a controlled rage.
+369,POLYMORPH,-1,-1,変身,Polymorph,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分の意志で変化できる。 ,You can polymorph yourself at will. ,体が変異しやすくなった。,Your body seems mutable.,あなたの体は安定したように見える。,Your body seems stable.
+370,MIDAS_TCH,-1,-1,ミダスの手,Midas Touch,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは通常アイテムを金に変えることができる。 ,You can turn ordinary items to gold. ,「ミダス王の手」の能力を得た。,You gain the Midas touch.,ミダスの手の能力を失った。,You lose the Midas touch.
+371,GROW_MOLD,-1,-1,カビ発生,Grow Mold,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは周囲にキノコを生やすことができる。 ,You can cause mold to grow near you. ,突然カビに親しみを覚えた。,You feel a sudden affinity for mold.,突然カビが嫌いになった。,You feel a sudden dislike for mold.
+372,RESIST,-1,-1,エレメント耐性,Resist Elements,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは元素の攻撃に対して身を硬くすることができる。 ,You can harden yourself to the ravages of the elements. ,あなたは自分自身を守れる気がする。,You feel like you can protect yourself.,傷つき易くなった気がする。,You feel like you might be vulnerable.
+373,EARTHQUAKE,-1,-1,地震,Earthquake,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは周囲のダンジョンを崩壊させることができる。 ,You can bring down the dungeon around your ears. ,ダンジョンを破壊する能力を得た。,You gain the ability to wreck the dungeon.,ダンジョンを壊す能力を失った。,You lose the ability to wreck the dungeon.
+374,EAT_MAGIC,-1,-1,魔力食い,Eat Magic,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは魔法のエネルギーを自分の物として使用できる。 ,You can consume magic energy for your own use. ,魔法のアイテムが美味そうに見える。,Your magic items look delicious.,魔法のアイテムはもう美味しそうに見えなくなった。,Your magic items no longer look delicious.
+375,WEIGH_MAG,-1,-1,魔力感知,Weigh Magic,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは自分に影響を与える魔法の力を感じることができる。 ,You can feel the strength of the magics affecting you. ,あなたは周囲にある魔法をより良く理解できる気がする。,You feel you can better understand the magic around you.,魔力を感じられなくなった。,You no longer sense magic.
+376,STERILITY,-1,-1,増殖阻止,Sterilize,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは集団的生殖不能を起こすことができる。 ,You can cause mass impotence. ,周りの全ての者に頭痛を起こすことができる。,You can give everything around you a headache.,たくさんの安堵の吐息が聞こえた。,You hear a massed sigh of relief.
+377,PANIC_HIT,-1,-1,ヒット＆アウェイ,Panic Hit,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは攻撃した後身を守るため逃げることができる。 ,You can run for your life after hitting something. ,突然、泥棒の気分が分かるようになった。,You suddenly understand how thieves feel.,あちこちへ跳べる気分がなくなった。,You no longer feel jumpy.
+378,DAZZLE,-1,-1,眩惑,Dazzle,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは混乱と盲目を引き起こす放射能を発生することができる。 ,"You can emit confusing, blinding radiation. ",眩い閃光を発する能力を得た。,You gain the ability to emit dazzling lights.,まばゆい閃光を発する能力を失った。,You lose the ability to emit dazzling lights.
+379,LASER_EYE,-1,-1,レーザー・アイ,Laser Eye,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは目からレーザー光線を発射することができる。 ,Your eyes can fire laser beams. ,あなたの目は一瞬焼け付いた。,Your eyes burn for a moment.,眼が少しの間焼き付いて、痛みが和らいだ。,"Your eyes burn for a moment, then feel soothed."
+380,RECALL,-1,-1,帰還,Recall,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは街とダンジョンの間を行き来することができる。 ,You can travel between town and the depths. ,少しだけホームシックになったが、すぐ直った。,"You feel briefly homesick, but it passes.",少しの間ホームシックになった。,You feel briefly homesick.
+381,BANISH,-1,-1,邪悪消滅,Banish Evil,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは邪悪なクリーチャーを地獄に落とすことができる。 ,You can send evil creatures directly to Hell. ,神聖な怒りの力に満たされた。,You feel a holy wrath fill you.,神聖な怒りの力を感じなくなった。,You no longer feel a holy wrath.
+382,COLD_TOUCH,-1,-1,凍結の手,Cold Touch,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは物を触って凍らせることができる。 ,You can freeze things with a touch. ,あなたの両手はとても冷たくなった。,Your hands get very cold.,手が暖かくなった。,Your hands warm up.
+383,LAUNCHER,-1,-1,アイテム投げ,Throw Object,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはアイテムを力強く投げることができる。 ,You can hurl objects with great force. ,あなたの物を投げる手はかなり強くなった気がする。,Your throwing arm feels much stronger.,物を投げる手が弱くなった気がする。,Your throwing arm feels much weaker.
 384,BERS_RAGE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは狂戦士化の発作を起こす。 ,You are subject to berserker fits. ,あなたは狂暴化の発作を起こすようになった！,You become subject to fits of berserk rage!,凶暴化の発作にさらされなくなった！,You are no longer subject to fits of berserk rage!
 385,COWARDICE,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは時々臆病になる。 ,You are subject to cowardice. ,信じられないくらい臆病になった！,You become an incredible coward!,もう信じがたいほど臆病ではなくなった！,You are no longer an incredible coward!
 386,RTELEPORT,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはランダムにテレポートする。 ,You are teleporting randomly. ,あなたの位置は非常に不確定になった。,Your position seems very uncertain...,あなたの位置はより確定的になった。,Your position seems more certain.
