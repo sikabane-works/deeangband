@@ -10227,7 +10227,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_stat(cr_ptr);
 			break;
 		case 'b': /* Mutations */
-			do_cmd_knowledge_mutations(cr_ptr);
+			do_cmd_knowledge_traits(cr_ptr);
 			break;
 		case 'c': /* weapon-exp */
 			do_cmd_knowledge_weapon_exp(cr_ptr);

@@ -2337,11 +2337,8 @@ void dump_traits(creature_type *cr_ptr, FILE *OutFile)
 	//TODO
 }
 
-
-/*
- * List mutations we have...
- */
-void do_cmd_knowledge_mutations(creature_type *cr_ptr)
+// List traits we have...
+void do_cmd_knowledge_traits(creature_type *cr_ptr)
 {
 	FILE *fff;
 	char file_name[1024];

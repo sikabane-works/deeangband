@@ -3957,7 +3957,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define CF_INFO_CSV_COLUMNS 34
+#define CF_INFO_CSV_COLUMNS 38
 static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3994,6 +3994,10 @@ static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"MP_COST",
 	"USE_STAT",
 	"FAIL",
+	"GET_DESC",
+	"E_GET_DESC",
+	"LOST_DESC",
+	"E_LOST_DESC",
 };
 
 static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
@@ -4032,6 +4036,10 @@ static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_MP_COST	31
 #define CF_INFO_USE_STAT	32
 #define CF_INFO_FAIL	33
+#define CF_INFO_GET_DESC	34
+#define CF_INFO_E_GET_DESC	35
+#define CF_INFO_LOST_DESC	36
+#define CF_INFO_E_LOST_DESC	37
 
 errr reprocess_trait(header *head)
 {
@@ -4262,8 +4270,20 @@ errr parse_trait_csv(char *buf, header *head)
 					trait_info[n].fail = (s16b)b;
 				break;
 
-			default:
-				return (1);
+				case CF_INFO_GET_DESC:
+				break;
+
+				case CF_INFO_E_GET_DESC:
+				break;
+
+				case CF_INFO_LOST_DESC:
+				break;
+
+				case CF_INFO_E_LOST_DESC:
+				break;
+
+				default:
+					return (1);
 
 			}
 		}
