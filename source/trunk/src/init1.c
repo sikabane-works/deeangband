@@ -3957,8 +3957,8 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define CF_INFO_CSV_COLUMNS 38
-static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
+#define TRAIT_INFO_CSV_COLUMNS 38
+static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"ID2",
@@ -4000,46 +4000,46 @@ static cptr cfeature_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"E_LOST_DESC",
 };
 
-static int cfeature_info_csv_code[CF_INFO_CSV_COLUMNS];
+static int cfeature_info_csv_code[TRAIT_INFO_CSV_COLUMNS];
 
-#define CF_INFO_ID		0
-#define CF_INFO_ID2	    1
-#define CF_INFO_NAME	2
-#define CF_INFO_E_NAME	3
-#define CF_INFO_STR	4
-#define CF_INFO_INT	5
-#define CF_INFO_WIS	6
-#define CF_INFO_DEX	7
-#define CF_INFO_CON	8
-#define CF_INFO_CHA	9
-#define CF_INFO_DIS	10
-#define CF_INFO_DEV	11
-#define CF_INFO_ROB	12
-#define CF_INFO_EVA	13
-#define CF_INFO_VOL	14
-#define CF_INFO_STL	15
-#define CF_INFO_SRH	16
-#define CF_INFO_FOS	17
-#define CF_INFO_THN	18
-#define CF_INFO_THB	19
-#define CF_INFO_INFRA	20
-#define CF_INFO_HITD_M	21
-#define CF_INFO_EXP	22
-#define CF_INFO_FLAGS	23
-#define CF_INFO_SPEED	24
-#define CF_INFO_DESCRIPTION	25
-#define CF_INFO_E_DESCRIPTION	26
-#define CF_INFO_SPELL	27
-#define CF_INFO_PRE_ID	28
-#define CF_INFO_ANTI_ID	29
-#define CF_INFO_BASE_LEVEL	30
-#define CF_INFO_MP_COST	31
-#define CF_INFO_USE_STAT	32
-#define CF_INFO_FAIL	33
-#define CF_INFO_GET_DESC	34
-#define CF_INFO_E_GET_DESC	35
-#define CF_INFO_LOST_DESC	36
-#define CF_INFO_E_LOST_DESC	37
+#define TRAIT_INFO_ID		0
+#define TRAIT_INFO_ID2	    1
+#define TRAIT_INFO_NAME	2
+#define TRAIT_INFO_E_NAME	3
+#define TRAIT_INFO_STR	4
+#define TRAIT_INFO_INT	5
+#define TRAIT_INFO_WIS	6
+#define TRAIT_INFO_DEX	7
+#define TRAIT_INFO_CON	8
+#define TRAIT_INFO_CHA	9
+#define TRAIT_INFO_DIS	10
+#define TRAIT_INFO_DEV	11
+#define TRAIT_INFO_ROB	12
+#define TRAIT_INFO_EVA	13
+#define TRAIT_INFO_VOL	14
+#define TRAIT_INFO_STL	15
+#define TRAIT_INFO_SRH	16
+#define TRAIT_INFO_FOS	17
+#define TRAIT_INFO_THN	18
+#define TRAIT_INFO_THB	19
+#define TRAIT_INFO_INFRA	20
+#define TRAIT_INFO_HITD_M	21
+#define TRAIT_INFO_EXP	22
+#define TRAIT_INFO_FLAGS	23
+#define TRAIT_INFO_SPEED	24
+#define TRAIT_INFO_DESCRIPTION	25
+#define TRAIT_INFO_E_DESCRIPTION	26
+#define TRAIT_INFO_SPELL	27
+#define TRAIT_INFO_PRE_ID	28
+#define TRAIT_INFO_ANTI_ID	29
+#define TRAIT_INFO_BASE_LEVEL	30
+#define TRAIT_INFO_MP_COST	31
+#define TRAIT_INFO_USE_STAT	32
+#define TRAIT_INFO_FAIL	33
+#define TRAIT_INFO_GET_DESC	34
+#define TRAIT_INFO_E_GET_DESC	35
+#define TRAIT_INFO_LOST_DESC	36
+#define TRAIT_INFO_E_LOST_DESC	37
 
 errr reprocess_trait(header *head)
 {
@@ -4058,7 +4058,7 @@ errr parse_trait_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 
-	if(get_split_offset(split, size, buf, CF_INFO_CSV_COLUMNS, ',', '"')){
+	if(get_split_offset(split, size, buf, TRAIT_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
 	}
 
@@ -4067,12 +4067,12 @@ errr parse_trait_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, cfeature_info_csv_list[0]))
 	{
-		cfeature_info_csv_code[0] = CF_INFO_ID;
-		for(i = 1; i < CF_INFO_CSV_COLUMNS; i++)
+		cfeature_info_csv_code[0] = TRAIT_INFO_ID;
+		for(i = 1; i < TRAIT_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
-			for(j = 1; j < CF_INFO_CSV_COLUMNS; j++)
+			for(j = 1; j < TRAIT_INFO_CSV_COLUMNS; j++)
 			{
 				if(!strcmp(tmp, cfeature_info_csv_list[j]))
 				{
@@ -4080,7 +4080,7 @@ errr parse_trait_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == CF_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == TRAIT_INFO_CSV_COLUMNS) return (11); /* ERROR */
 		}
 		return 0;
 	}
@@ -4095,7 +4095,7 @@ errr parse_trait_csv(char *buf, header *head)
 
 		note(nt);
 
-		for(i = 1; i < CF_INFO_CSV_COLUMNS; i++)
+		for(i = 1; i < TRAIT_INFO_CSV_COLUMNS; i++)
 		{
 			
 			strncpy(tmp, buf + split[i], size[i]);
@@ -4104,186 +4104,186 @@ errr parse_trait_csv(char *buf, header *head)
 
 			switch(cfeature_info_csv_code[i])
 			{
-				case CF_INFO_ID2:
+				case TRAIT_INFO_ID2:
 					strcpy(trait_info[n].id2, tmp);
 				break;
 
-				case CF_INFO_NAME:
+				case TRAIT_INFO_NAME:
 					strcpy(trait_info[n].title, tmp);
 				break;
 
-				case CF_INFO_E_NAME:
+				case TRAIT_INFO_E_NAME:
 					strcpy(trait_info[n].e_title, tmp);
 				break;
 
-				case CF_INFO_STR:
+				case TRAIT_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_STR] = (s16b)b;
 				break;
 
-				case CF_INFO_INT:
+				case TRAIT_INFO_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_INT] = (s16b)b;
 				break;
 
-				case CF_INFO_WIS:
+				case TRAIT_INFO_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_WIS] = (s16b)b;
 				break;
 
-				case CF_INFO_DEX:
+				case TRAIT_INFO_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_DEX] = (s16b)b;
 				break;
 
-				case CF_INFO_CON:
+				case TRAIT_INFO_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_CON] = (s16b)b;
 				break;
 
-				case CF_INFO_CHA:
+				case TRAIT_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].adj[STAT_CHA] = (s16b)b;
 				break;
 
-				case CF_INFO_DIS:
+				case TRAIT_INFO_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].dis = (s16b)b;
 				break;
 
-				case CF_INFO_DEV:
+				case TRAIT_INFO_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].dev = (s16b)b;
 				break;
 
-				case CF_INFO_ROB:
+				case TRAIT_INFO_ROB:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].rob = (s16b)b;
 				break;
 
-				case CF_INFO_EVA:
+				case TRAIT_INFO_EVA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].eva = (s16b)b;
 				break;
 
-				case CF_INFO_VOL:
+				case TRAIT_INFO_VOL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].vol = (s16b)b;
 				break;
 
-				case CF_INFO_STL:
+				case TRAIT_INFO_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].stl = (s16b)b;
 				break;
 
-				case CF_INFO_SRH:
+				case TRAIT_INFO_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].srh = (s16b)b;
 				break;
 
-				case CF_INFO_FOS:
+				case TRAIT_INFO_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].fos = (s16b)b;
 				break;
 
-				case CF_INFO_THN:
+				case TRAIT_INFO_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].thn = (s16b)b;
 				break;
 
-				case CF_INFO_THB:
+				case TRAIT_INFO_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].thb = (s16b)b;
 				break;
 
-				case CF_INFO_INFRA:
+				case TRAIT_INFO_INFRA:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].infra = (s16b)b;
 				break;
 
-				case CF_INFO_HITD_M:
+				case TRAIT_INFO_HITD_M:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].hitd_m = (s16b)b;
 				break;
 
-				case CF_INFO_EXP:
+				case TRAIT_INFO_EXP:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].exp = (s16b)b;
 				break;
 
-				case CF_INFO_FLAGS:
+				case TRAIT_INFO_FLAGS:
 					strcpy(&trait_tmp[n], tmp);
 				break;
 
-				case CF_INFO_SPEED:
+				case TRAIT_INFO_SPEED:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].speed = (s16b)b;
 				break;
 
-				case CF_INFO_DESCRIPTION:
+				case TRAIT_INFO_DESCRIPTION:
 					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
 						return (7);
 					break;
 
-				case CF_INFO_E_DESCRIPTION:
+				case TRAIT_INFO_E_DESCRIPTION:
 					if (!add_text(&trait_info[n].E_text, head, tmp, TRUE))
 						return (7);
 				break;
 
-				case CF_INFO_SPELL:
+				case TRAIT_INFO_SPELL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].is_spell = (byte)b;
 				break;
 
-				case CF_INFO_PRE_ID:
+				case TRAIT_INFO_PRE_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].pre_id = (s16b)b;
 				break;
 
-				case CF_INFO_ANTI_ID:
+				case TRAIT_INFO_ANTI_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].anti_id = (s16b)b;
 				break;
 
-				case CF_INFO_BASE_LEVEL:
+				case TRAIT_INFO_BASE_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].base_level = (s16b)b;
 				break;
 
-				case CF_INFO_MP_COST:
+				case TRAIT_INFO_MP_COST:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].mp_cost = (s16b)b;
 				break;
 
-				case CF_INFO_USE_STAT:
+				case TRAIT_INFO_USE_STAT:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].use_stat = (s16b)b;
 				break;
 
-				case CF_INFO_FAIL:
+				case TRAIT_INFO_FAIL:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
 					trait_info[n].fail = (s16b)b;
 				break;
 
-				case CF_INFO_GET_DESC:
+				case TRAIT_INFO_GET_DESC:
 					if (!add_text(&trait_info[n].get_text, head, tmp, TRUE))
 						return (7);
 					break;
 				break;
 
-				case CF_INFO_E_GET_DESC:
+				case TRAIT_INFO_E_GET_DESC:
 					if (!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
 						return (7);
 					break;
 				break;
 
-				case CF_INFO_LOST_DESC:
+				case TRAIT_INFO_LOST_DESC:
 					if (!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
 						return (7);
 					break;
 				break;
 
-				case CF_INFO_E_LOST_DESC:
+				case TRAIT_INFO_E_LOST_DESC:
 					if (!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
 						return (7);
 					break;
