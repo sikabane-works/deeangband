@@ -2920,7 +2920,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						msg_print("Your body is twisted by chaos!");
 #endif
 
-						(void)gain_random_mutation(target_ptr, 0, TRUE);
+						(void)gain_trait(target_ptr, 0, TRUE);
 					}
 				}
 				if (!target_ptr->resist_neth && !target_ptr->resist_chaos)

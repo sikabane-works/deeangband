@@ -1379,9 +1379,9 @@ msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ª¡‚Á‚½B");
 				{
 					if (one_in_(2))
 					{
-						if(gain_random_mutation(creature_ptr, 0, TRUE)) ident = TRUE;
+						if(gain_trait(creature_ptr, 0, TRUE)) ident = TRUE;
 					}
-					else if (lose_mutation(creature_ptr, 0)) ident = TRUE;
+					else if (lose_trait(creature_ptr, 0)) ident = TRUE;
 				} while(!ident || one_in_(2));
 			}
 			break;

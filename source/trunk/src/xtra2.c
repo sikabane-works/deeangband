@@ -250,7 +250,7 @@ void check_experience(creature_type *cr_ptr)
 				msg_print("You feel different...");
 #endif
 			}
-			(void)gain_random_mutation(cr_ptr, 0, is_player(cr_ptr));
+			(void)gain_trait(cr_ptr, 0, is_player(cr_ptr));
 			level_mutation = FALSE;
 		}
 
@@ -3973,7 +3973,7 @@ msg_format("%^s‚Í–J”ü‚Æ‚µ‚Ä‚ ‚È‚½‚ğ“Ë‘R•ÏˆÙ‚³‚¹‚½B",
 			species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-		(void)gain_random_mutation(creature_ptr, 0, TRUE);
+		(void)gain_trait(creature_ptr, 0, TRUE);
 #ifdef JP
 		reward = "•ÏˆÙ‚µ‚½B";
 #else

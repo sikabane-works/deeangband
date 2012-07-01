@@ -5563,7 +5563,7 @@ void do_poly_self(creature_type *cr_ptr)
 			/* Polymorph into a less mutated form */
 			power -= 10;
 
-			if (!lose_mutation(cr_ptr, 0))
+			if (!lose_trait(cr_ptr, 0))
 #ifdef JP
 				msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 #else
@@ -5643,7 +5643,7 @@ void do_poly_self(creature_type *cr_ptr)
 	while ((power > randint0(15)) && one_in_(3))
 	{
 		power -= 7;
-		(void)gain_random_mutation(cr_ptr, 0, TRUE);
+		(void)gain_trait(cr_ptr, 0, TRUE);
 	}
 
 	if (power > randint0(5))

@@ -2169,7 +2169,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Mutation */
 	case 'M':
-		(void)gain_random_mutation(creature_ptr, command_arg, TRUE);
+		(void)gain_trait(creature_ptr, command_arg, TRUE);
 		break;
 
 	/* Specific reward */
