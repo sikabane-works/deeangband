@@ -53,6 +53,12 @@ void set_sex(creature_type *creature_ptr)
 void set_underlings(creature_type *creature_ptr, species_type *species_ptr)
 {
 	int i;
+	for(i = 0; i < MAX_UNDERLINGS; i++)
+	{
+		if(!species_ptr->underling_id[i]) break;
+		creature_ptr->underling_id[i] = species_ptr->underling_id[i];
+		creature_ptr->underling_num[i] = diceroll(species_ptr->underling_d_num[i], species_ptr->underling_d_side[i]);
+	}
 }
 
 /*

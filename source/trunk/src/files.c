@@ -3467,7 +3467,7 @@ static void display_player_underings(creature_type *creature_ptr)
 	{
 		if(!creature_ptr->underling_num[i]) break;
 		sprintf(buf, "%40s x%d", species_name + species_info[creature_ptr->underling_id[i]].name, creature_ptr->underling_num[i]);
-		c_put_str(TERM_WHITE, buf, 1, 1);
+		c_put_str(TERM_WHITE, buf, 2 + type_num, 6);
 		type_num++;
 		total += creature_ptr->underling_num[i];
 	}
