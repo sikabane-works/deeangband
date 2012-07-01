@@ -1247,14 +1247,11 @@ void do_cmd_change_name(creature_type *cr_ptr)
 	{
 		update_playtime();
 
+		mode %= DISPLAY_CR_STATUS_MAX;
+
 		/* Display the player */
 		display_creature_status(mode, cr_ptr);
 
-		if (mode == MAX_PLAYER_STAUS_DISPLAY)
-		{
-			mode = 0;
-			display_creature_status(mode, cr_ptr);
-		}
 
 		/* Prompt */
 #ifdef JP
@@ -1265,24 +1262,16 @@ void do_cmd_change_name(creature_type *cr_ptr)
 			"['c' to change name, 'f' to file, 'h' to change mode, or ESC]");
 #endif
 
+		c = inkey(); // Query
+		if (c == ESCAPE) break; // Exit
 
-		/* Query */
-		c = inkey();
-
-		/* Exit */
-		if (c == ESCAPE) break;
-
-		/* Change name */
-		if (c == 'c')
+		if (c == 'c') // Change name
 		{
 			get_name(cr_ptr);
-
-			/* Process the player name */
-			set_creature_name(FALSE, cr_ptr);
+			set_creature_name(FALSE, cr_ptr); // Process the player name
 		}
 
-		/* File dump */
-		else if (c == 'f')
+		else if (c == 'f') // File dump
 		{
 			sprintf(tmp, "%s.txt", player_base);
 #ifdef JP
@@ -1290,7 +1279,6 @@ void do_cmd_change_name(creature_type *cr_ptr)
 #else
 			if (get_string("File name: ", tmp, 80))
 #endif
-
 			{
 				if (tmp[0] && (tmp[0] != ' '))
 				{
@@ -1299,20 +1287,9 @@ void do_cmd_change_name(creature_type *cr_ptr)
 			}
 		}
 
-		/* Toggle mode */
-		else if (c == 'h')
-		{
-			mode++;
-		}
-
-		/* Oops */
-		else
-		{
-			bell();
-		}
-
-		/* Flush messages */
-		msg_print(NULL);
+		else if (c == 'h') mode++; // Toggle mode
+		else bell(); // Oops
+		msg_print(NULL); // Flush messages
 	}
 
 	/* Restore the screen */

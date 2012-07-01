@@ -159,10 +159,6 @@
 #define BUILDING_MEMBER     1
 #define BUILDING_OWNER      2
 
-#define MAX_PLAYER_STAUS_DISPLAY 8
-
-
-
 // Inventory slot difinition
 #define MAX_INVENTORY_SLOT       15
 

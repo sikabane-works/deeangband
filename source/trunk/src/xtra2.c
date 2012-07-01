@@ -5484,7 +5484,7 @@ void display_creature_dump(creature_type *cr_ptr)
 		/* Display the player */
 		display_creature_status(m, cr_ptr);
 
-		if (m == MAX_PLAYER_STAUS_DISPLAY)
+		if (m == DISPLAY_CR_STATUS_MAX)
 		{
 			m = 0;
 			display_creature_status(m, cr_ptr);

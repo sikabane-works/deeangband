@@ -4969,7 +4969,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 				/* Display the player */
 				//display_creature_status(mode, cr_ptr);
 
-				if (mode == MAX_PLAYER_STAUS_DISPLAY)
+				if (mode == DISPLAY_CR_STATUS_MAX)
 				{
 					mode = 0;
 					//display_creature_status(mode, cr_ptr);
