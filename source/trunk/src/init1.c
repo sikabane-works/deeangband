@@ -3810,8 +3810,19 @@ errr parse_re_info(char *buf, header *head)
 	return (0);
 }
 
+enum ST_INFO
+{
+  ST_INFO_ID,
+  ST_INFO_NAME,
+  ST_INFO_E_NAME,
+  ST_INFO_OWNER,
+  ST_INFO_SIZE,
+  ST_INFO_WEALTH,
+  ST_INFO_FLAGS,
+  ST_INFO_LEVEL,
+  ST_INFO_CSV_COLUMNS
+};
 
-#define ST_INFO_CSV_COLUMNS 8
 static cptr store_pre_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3825,15 +3836,6 @@ static cptr store_pre_info_csv_list[ST_INFO_CSV_COLUMNS] =
 };
 
 static int store_pre_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
-
-#define ST_INFO_ID			0
-#define ST_INFO_NAME		1
-#define ST_INFO_E_NAME		2
-#define ST_INFO_OWNER		3
-#define ST_INFO_SIZE		4
-#define ST_INFO_WEALTH		5
-#define ST_INFO_FLAGS		6
-#define ST_INFO_LEVEL		7
 
 errr parse_store_pre_info_csv(char *buf, header *head)
 {
