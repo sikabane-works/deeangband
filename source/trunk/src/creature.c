@@ -50,6 +50,11 @@ void set_sex(creature_type *creature_ptr)
 	//TODO non-unique's some flags effect
 }
 
+void set_underlings(creature_type *creature_ptr, species_type *species_ptr)
+{
+	int i;
+}
+
 /*
  * Set Creature's height and weight
  */

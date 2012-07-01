@@ -5403,6 +5403,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_exp(creature_ptr, species_ptr);                  // Roll for exp
 			set_height_weight(creature_ptr);        // Roll for height and weight
 
+			set_underlings(creature_ptr, species_ptr);
+
 			get_history(creature_ptr);              // Roll for social class
 		}
 
