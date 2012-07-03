@@ -2968,9 +2968,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
-				/* Free action if unencumbered at level 25 */
-				if  (creature_ptr->lev > 24)
-					creature_ptr->free_act = TRUE;
+				// Free action if unencumbered at level 25
+				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE;
 			}
 			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
 			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
@@ -3010,20 +3009,21 @@ static void set_class_bonuses(creature_type *creature_ptr)
 static void set_character_bonuses(creature_type *creature_ptr)
 {
 	int i;
+	chara_type *chara_ptr = &chara_info[creature_ptr->chara_idx];
 
-	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += chara_info[creature_ptr->chara_idx].a_adj[i] * 10;
+	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += chara_ptr->a_adj[i] * STAT_FRACTION;
 
-		creature_ptr->skill_dis += chara_info[creature_ptr->chara_idx].a_dis;
-		creature_ptr->skill_dev += chara_info[creature_ptr->chara_idx].a_dev;
-		creature_ptr->skill_rob += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_eva += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_vol += chara_info[creature_ptr->chara_idx].a_sav;
-		creature_ptr->skill_stl += chara_info[creature_ptr->chara_idx].a_stl;
-		creature_ptr->skill_srh += chara_info[creature_ptr->chara_idx].a_srh;
-		creature_ptr->skill_fos += chara_info[creature_ptr->chara_idx].a_fos;
-		creature_ptr->skill_thn += chara_info[creature_ptr->chara_idx].a_thn;
-		creature_ptr->skill_thb += chara_info[creature_ptr->chara_idx].a_thb;
-		creature_ptr->skill_tht += chara_info[creature_ptr->chara_idx].a_thb;
+	creature_ptr->skill_dis += chara_ptr->a_dis;
+	creature_ptr->skill_dev += chara_ptr->a_dev;
+	creature_ptr->skill_rob += chara_ptr->a_sav;
+	creature_ptr->skill_eva += chara_ptr->a_sav;
+	creature_ptr->skill_vol += chara_ptr->a_sav;
+	creature_ptr->skill_stl += chara_ptr->a_stl;
+	creature_ptr->skill_srh += chara_ptr->a_srh;
+	creature_ptr->skill_fos += chara_ptr->a_fos;
+	creature_ptr->skill_thn += chara_ptr->a_thn;
+	creature_ptr->skill_thb += chara_ptr->a_thb;
+	creature_ptr->skill_tht += chara_ptr->a_thb;
 
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
 	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
@@ -3042,14 +3042,14 @@ static void set_character_bonuses(creature_type *creature_ptr)
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
 	}
 
-	creature_ptr->skill_dis += (chara_info[creature_ptr->chara_idx].a_dis * creature_ptr->lev / 50);
-	creature_ptr->skill_dev += (chara_info[creature_ptr->chara_idx].a_dev * creature_ptr->lev / 50);
-	creature_ptr->skill_rob += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	creature_ptr->skill_eva += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	creature_ptr->skill_vol += (chara_info[creature_ptr->chara_idx].a_sav * creature_ptr->lev / 50);
-	creature_ptr->skill_thn += (chara_info[creature_ptr->chara_idx].a_thn * creature_ptr->lev / 50);
-	creature_ptr->skill_thb += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
-	creature_ptr->skill_tht += (chara_info[creature_ptr->chara_idx].a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_dis += (chara_ptr->a_dis * creature_ptr->lev / 50);
+	creature_ptr->skill_dev += (chara_ptr->a_dev * creature_ptr->lev / 50);
+	creature_ptr->skill_rob += (chara_ptr->a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_eva += (chara_ptr->a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_vol += (chara_ptr->a_sav * creature_ptr->lev / 50);
+	creature_ptr->skill_thn += (chara_ptr->a_thn * creature_ptr->lev / 50);
+	creature_ptr->skill_thb += (chara_ptr->a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_tht += (chara_ptr->a_thb * creature_ptr->lev / 50);
 }
 
 static void set_posture_bonuses(creature_type *creature_ptr)
