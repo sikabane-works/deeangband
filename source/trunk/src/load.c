@@ -950,8 +950,9 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->ap_species_idx);
 	rd_s16b(&cr_ptr->race_idx1);
 	rd_s16b(&cr_ptr->race_idx2);
+	rd_s16b(&cr_ptr->mimic_race_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
-	rd_s16b(&cr_ptr->creature_egobject_idx);
+	rd_s16b(&cr_ptr->creature_ego_idx);
 	rd_s16b(&cr_ptr->cls_idx);
 	rd_s16b(&cr_ptr->chara_idx);
 	rd_s16b(&cr_ptr->starting_idx);

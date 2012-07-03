@@ -343,7 +343,7 @@ struct species_type
 	s16b father_idx;
 	s16b mother_idx;
 	s16b chara_idx;                 /* Chara index */
-	s16b creature_egobject_idx;		    /* Creature ego index */
+	s16b creature_ego_idx;		    /* Creature ego index */
 
 	s16b realm1;       /* First magic realm */
 	s16b realm2;       /* Second magic realm */
@@ -1177,11 +1177,12 @@ struct creature_type
 	s16b oldpy;		/* Previous player location -KMW- */
 	s16b oldpx;		/* Previous player location -KMW- */
 
-	s16b race_idx1;			    // Intelligence race index //
-	s16b race_idx2;			    // Intelligence race index //
-	s16b species_idx;			// Species index //
-	s16b ap_species_idx;		// Species appearance index //
-	s16b creature_egobject_idx;		// Ego index //
+	s16b race_idx1;			    // Race index
+	s16b race_idx2;			    // Race index
+	s16b mimic_race_idx;		// Mimic Race index
+	s16b species_idx;			// Species index
+	s16b ap_species_idx;		// Species appearance index
+	s16b creature_ego_idx;		// Ego index
 	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    /* Sub-alignment for a neutral creature */
 	u32b sub_race[8];       /* Sub-Race flags */

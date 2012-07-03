@@ -479,8 +479,9 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->ap_species_idx);
 	wr_s16b(cr_ptr->race_idx1);
 	wr_s16b(cr_ptr->race_idx2);
+	wr_s16b(cr_ptr->mimic_race_idx);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
-	wr_s16b(cr_ptr->creature_egobject_idx);
+	wr_s16b(cr_ptr->creature_ego_idx);
 	wr_s16b(cr_ptr->cls_idx);
 	wr_s16b(cr_ptr->chara_idx);
 	wr_s16b(cr_ptr->starting_idx);

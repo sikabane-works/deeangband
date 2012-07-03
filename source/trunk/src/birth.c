@@ -2765,6 +2765,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	creature_ptr->race_idx1 = INDEX_NONE;
 	creature_ptr->race_idx2 = INDEX_NONE;
+	creature_ptr->mimic_race_idx = INDEX_NONE;
 	creature_ptr->sex = SEX_UNDEFINED;
 	creature_ptr->cls_idx = INDEX_NONE;
 	creature_ptr->chara_idx = INDEX_NONE;

@@ -2299,8 +2299,8 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 		(void)strcat(desc, tmp);
 	}
 
-	else if(creature_ptr->creature_egobject_idx != MONEGO_NONE){
-		(void)strcat(desc, re_name + re_info[creature_ptr->creature_egobject_idx].name);
+	else if(creature_ptr->creature_ego_idx != MONEGO_NONE){
+		(void)strcat(desc, re_name + re_info[creature_ptr->creature_ego_idx].name);
 	}
 
 }
@@ -3259,7 +3259,7 @@ static bool creature_hook_chameleon(int species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-void choose_new_species(int m_idx, bool born, int species_idx, int creature_egobject_idx)
+void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx)
 {
 	int oldmhp;
 	creature_type *creature_ptr = &creature_list[m_idx];
@@ -3311,13 +3311,13 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 	update_mon(m_idx, FALSE);
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
-	if(creature_egobject_idx == MONEGO_NONE)
+	if(creature_ego_idx == MONEGO_NONE)
 	{
-		creature_ptr->creature_egobject_idx = 0;
+		creature_ptr->creature_ego_idx = 0;
 	}
 	else
 	{
-		creature_ptr->creature_egobject_idx = creature_egobject_idx;
+		creature_ptr->creature_ego_idx = creature_ego_idx;
 	}
 
 
@@ -3369,13 +3369,13 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_egob
 	creature_ptr->stat_use[4] = r_ptr->stat_max[4];
 	creature_ptr->stat_use[5] = r_ptr->stat_max[5];
 
-	if(creature_ptr->creature_egobject_idx != MONEGO_NONE){
-		creature_ptr->stat_use[0] += re_info[creature_egobject_idx].stat[0];
-		creature_ptr->stat_use[1] += re_info[creature_egobject_idx].stat[1];
-		creature_ptr->stat_use[2] += re_info[creature_egobject_idx].stat[2];
-		creature_ptr->stat_use[3] += re_info[creature_egobject_idx].stat[3];
-		creature_ptr->stat_use[4] += re_info[creature_egobject_idx].stat[4];
-		creature_ptr->stat_use[5] += re_info[creature_egobject_idx].stat[5];
+	if(creature_ptr->creature_ego_idx != MONEGO_NONE){
+		creature_ptr->stat_use[0] += re_info[creature_ego_idx].stat[0];
+		creature_ptr->stat_use[1] += re_info[creature_ego_idx].stat[1];
+		creature_ptr->stat_use[2] += re_info[creature_ego_idx].stat[2];
+		creature_ptr->stat_use[3] += re_info[creature_ego_idx].stat[3];
+		creature_ptr->stat_use[4] += re_info[creature_ego_idx].stat[4];
+		creature_ptr->stat_use[5] += re_info[creature_ego_idx].stat[5];
 	}
 
 	//TODO Reset Status
@@ -3866,7 +3866,7 @@ void deal_item(creature_type *creature_ptr)
 
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_egobject_idx, u32b mode)
+static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
@@ -3889,7 +3889,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	rpc_selected = INDEX_NONE;
 	rps_selected = INDEX_NONE;
 
-	if(creature_egobject_idx == MONEGO_NORMAL)
+	if(creature_ego_idx == MONEGO_NORMAL)
 	{
 		if(is_force_lesser_species(r_ptr)){
 			int n;
@@ -3903,7 +3903,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 	}
 	else{
-		re_selected = creature_egobject_idx;
+		re_selected = creature_ego_idx;
 	}
 
 	// set intelligence race
