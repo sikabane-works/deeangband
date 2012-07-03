@@ -1031,7 +1031,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	/* Pick a base number of creatures */
 	i = dungeon_info[floor_ptr->dun_type].min_m_alloc_level;
 
-	/* To make small levels a bit more playable */
+	// To make small levels a bit more playable
 	if (floor_ptr->height < MAX_HGT || floor_ptr->width < MAX_WID)
 	{
 		int small_tester = i;
@@ -1048,21 +1048,17 @@ static bool create_cave_structure(floor_type *floor_ptr)
 #else
 			msg_format("Reduced creatures base from %d to %d", small_tester, i);
 #endif
-
 		}
 	}
 
+	// Put some creatures in the dungeon
 	i += randint1(8);
+	for (i = i + k; i > 0; i--) (void)alloc_creature(floor_ptr, player_ptr, 0, PM_ALLOW_SLEEP);
 
-	/* Put some creatures in the dungeon */
-	for (i = i + k; i > 0; i--)
-	{
-		(void)alloc_creature(floor_ptr, player_ptr, 0, PM_ALLOW_SLEEP);
-	}
+	// Place some traps in the dungeon
+	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
-	/* Place some traps in the dungeon *	alloc_object(floor_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
-
-	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
+	// Put some rubble in corridors (except NO_CAVE dungeon (Castle))
 	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(floor_ptr, player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	// Mega Hack -- No object at first level of deeper dungeon
@@ -1078,15 +1074,14 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
-	// Set back to default
-	floor_ptr->object_level = floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->base_level; // Set back to default
 
-	// Put the Guardian
-	if (!alloc_guardian(floor_ptr, TRUE)) return FALSE;
+	
+	if (!alloc_guardian(floor_ptr, TRUE)) return FALSE; // Put the Guardian
 
 	if (dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > floor_ptr->floor_level)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
-		/* Lite the cave */
+		// Lite the cave
 		for (y = 0; y < floor_ptr->height; y++)
 		{
 			for (x = 0; x < floor_ptr->width; x++)

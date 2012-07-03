@@ -24,36 +24,37 @@ int project_length = 0;
 
 
 // Get another mirror. for SEEKER 
-static void next_mirror(floor_type *floor_ptr, int* next_y , int* next_x , int cury, int curx)
+static void next_mirror(floor_type *floor_ptr, int* next_y, int* next_x, int cury, int curx)
 {
 	int mirror_x[10], mirror_y[10];
 	int mirror_num=0;
 	int x, y;
 	int num;
 
-	for( x=0 ; x < floor_ptr->width ; x++ )
+	for(x = 0; x < floor_ptr->width; x++)
 	{
-		for( y=0 ; y < floor_ptr->height ; y++ )
+		for(y = 0; y < floor_ptr->height; y++)
 		{
 			if( is_mirror_grid(&floor_ptr->cave[y][x])){
-				mirror_y[mirror_num]=y;
-				mirror_x[mirror_num]=x;
+				mirror_y[mirror_num] = y;
+				mirror_x[mirror_num] = x;
 				mirror_num++;
 			}
 		}
 	}
-	if( mirror_num )
+
+	if(mirror_num)
 	{
-		num=randint0(mirror_num);
-		*next_y=mirror_y[num];
-		*next_x=mirror_x[num];
+		num = randint0(mirror_num);
+		*next_y = mirror_y[num];
+		*next_x = mirror_x[num];
 		return;
 	}
-	*next_y=cury+randint0(5)-2;
-	*next_x=curx+randint0(5)-2;
+	*next_y = cury + randint0(5) - 2;
+	*next_x = curx + randint0(5) - 2;
 	return;
 }
-		
+
 /*
  * Get a legal "multi-hued" color for drawing "spells"
  */
