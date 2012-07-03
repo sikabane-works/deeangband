@@ -959,9 +959,9 @@ static void do_cmd_disp_nikki(creature_type *cr_ptr)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
-	if (cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_MONK || cr_ptr->cls_idx == CLASS_SAMURAI || cr_ptr->cls_idx == CLASS_BERSERKER)
+	if (cr_ptr->class_idx == CLASS_WARRIOR || cr_ptr->class_idx == CLASS_MONK || cr_ptr->class_idx == CLASS_SAMURAI || cr_ptr->class_idx == CLASS_BERSERKER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)]);
-	else if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER)
+	else if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)+1]);
 	else strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-2)+1]);
 
@@ -5451,7 +5451,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 
 		else if (cls != 255)
 		{
-			if (r_ptr->cls_idx != cls) continue;
+			if (r_ptr->class_idx != cls) continue;
 		}
 
 		else if (ego == 1)
@@ -6980,7 +6980,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 					weapon_exp = cr_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
-					if (weapon_exp >= skill_info[cr_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
+					if (weapon_exp >= skill_info[cr_ptr->class_idx].w_max[4 - i][num]) fprintf(fff, "!");
 					else fprintf(fff, " ");
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
@@ -7046,7 +7046,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm1 - 1][i];
+				s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 			spell_exp = cr_ptr->spell_exp[i];
@@ -7080,7 +7080,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm2 - 1][i];
+				s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 
@@ -7143,7 +7143,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
 	{
 		skill_exp = cr_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);
-		if (skill_exp >= skill_info[cr_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
+		if (skill_exp >= skill_info[cr_ptr->class_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, "%s", exp_level_str[(i == GINOU_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
 		if (cheat_xtra) fprintf(fff, " %d", skill_exp);

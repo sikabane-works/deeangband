@@ -895,7 +895,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 	if (command <= -3)
 	{
-		switch (creature_ptr->cls_idx)
+		switch (creature_ptr->class_idx)
 		{
 		case CLASS_WARRIOR:
 		{
@@ -1750,7 +1750,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 				if (randint1(100) < plev)
 				{
-					switch (creature_ptr->cls_idx)
+					switch (creature_ptr->class_idx)
 					{
 						case CLASS_WARRIOR:
 						case CLASS_BERSERKER:
@@ -2184,7 +2184,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	int             ask = TRUE;
 	int             lvl = creature_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = ((creature_ptr->cls_idx == CLASS_WARRIOR || creature_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
+	bool            warrior = ((creature_ptr->class_idx == CLASS_WARRIOR || creature_ptr->class_idx == CLASS_BERSERKER) ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);

@@ -224,8 +224,8 @@ void reset_tim_flags(creature_type *cr_ptr)
 	cr_ptr->time_stopper = FALSE;
 
 	if (is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
-	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) cr_ptr->oppose_pois = 1;
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) cr_ptr->shero = 1;
+	if ((cr_ptr->class_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) cr_ptr->oppose_pois = 1;
+	if (cr_ptr->class_idx == CLASS_BERSERKER) cr_ptr->shero = 1;
 
 	if (cr_ptr->riding)
 	{
@@ -234,7 +234,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 		(void)set_invuln(&creature_list[cr_ptr->riding], 0, FALSE);
 	}
 
-	if (cr_ptr->cls_idx == CLASS_BARD)
+	if (cr_ptr->class_idx == CLASS_BARD)
 	{
 		cr_ptr->magic_num1[0] = 0;
 		cr_ptr->magic_num2[0] = 0;
@@ -1741,7 +1741,7 @@ bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 
 	if (IS_DEAD(cr_ptr)) return FALSE;
 
-	if (cr_ptr->cls_idx == CLASS_BERSERKER) v = 1;
+	if (cr_ptr->class_idx == CLASS_BERSERKER) v = 1;
 	/* Open */
 	if (v)
 	{
@@ -3906,7 +3906,7 @@ bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) v = 1;
+	if ((cr_ptr->class_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) v = 1;
 	if (IS_DEAD(cr_ptr)) return FALSE;
 
 	/* Open */
@@ -3987,7 +3987,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 	//TODO
 	if(is_player(cr_ptr))
 	{
-	if (has_cf_creature(cr_ptr, CF_NO_STUN) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
+	if (has_cf_creature(cr_ptr, CF_NO_STUN) || ((cr_ptr->class_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
 	if (cr_ptr->stun > 100)
@@ -5443,10 +5443,10 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	set_height_weight(cr_ptr);
 
 	/* Hitdice */
-	if (cr_ptr->cls_idx == CLASS_SORCERER)
-		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp/2 + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+	if (cr_ptr->class_idx == CLASS_SORCERER)
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp/2 + class_info[cr_ptr->class_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 	else
-		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp + class_info[cr_ptr->class_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 
 	do_cmd_rerate(cr_ptr, FALSE);
 

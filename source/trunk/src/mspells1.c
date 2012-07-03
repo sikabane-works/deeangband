@@ -857,7 +857,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->dustrobe) return (TRUE);
 
 	/* Berserk Strength */
-	if (tar_ptr->shero && (tar_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
+	if (tar_ptr->shero && (tar_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Demon Lord */
 	if (tar_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
@@ -892,7 +892,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 
 	if (has_cf_creature(caster_ptr, CF_BR_POIS) || has_cf_creature(caster_ptr, CF_BR_NUKE))
 	{
-		if (!((tar_ptr->cls_idx == CLASS_NINJA) && caster_ptr->lev > 44))
+		if (!((tar_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
 		{
 			if (tar_ptr->oppose_pois || music_singing(caster_ptr, MUSIC_RESIST)) return (TRUE);
 			if (tar_ptr->special_defense & DEFENSE_POIS) return (TRUE);
@@ -1456,7 +1456,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	if (has_cf_creature(target_ptr, CF_DARKNESS))
 	{
-		if ((target_ptr->cls_idx == CLASS_NINJA) &&
+		if ((target_ptr->class_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(caster_ptr) &&
 			!is_undead_creature(caster_ptr) && 
 		    !is_darken_creature(caster_ptr))
@@ -1465,7 +1465,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		if (!has_cf_creature(caster_ptr, CF_STUPID))
 		{
 			//TODO if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
-			//TODO else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
+			//TODO else if ((target_ptr->class_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
@@ -4323,7 +4323,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 		learn_spell(target_ptr, thrown_spell - 96);
 	}
 
-	if (seen && maneable && !the_world && (target_ptr->cls_idx == CLASS_IMITATOR))
+	if (seen && maneable && !the_world && (target_ptr->class_idx == CLASS_IMITATOR))
 	{
 		if (thrown_spell != CF_SPECIAL)
 		{

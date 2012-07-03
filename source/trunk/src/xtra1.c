@@ -1230,7 +1230,7 @@ static void prt_imitation(creature_type *cr_ptr)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (cr_ptr->cls_idx == CLASS_IMITATOR)
+	if (cr_ptr->class_idx == CLASS_IMITATOR)
 	{
 		if (cr_ptr->mane_num)
 		{
@@ -1896,33 +1896,33 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	cptr p;
 
 	/* Hack -- must be literate */
-	if (!magic_info[cr_ptr->cls_idx].spell_book) return;
+	if (!magic_info[cr_ptr->class_idx].spell_book) return;
 
 	/* Hack -- wait for creation */
 	if (!character_generated) return;
 
-	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
+	if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
 	{
 		cr_ptr->new_spells = 0;
 		return;
 	}
 
-	p = spell_category_name(magic_info[cr_ptr->cls_idx].spell_book);
+	p = spell_category_name(magic_info[cr_ptr->class_idx].spell_book);
 
 	/* Determine the number of spells allowed */
-	levels = cr_ptr->lev - magic_info[cr_ptr->cls_idx].spell_first + 1;
+	levels = cr_ptr->lev - magic_info[cr_ptr->class_idx].spell_first + 1;
 
 	/* Hack -- no negative spells */
 	if (levels < 0) levels = 0;
 
 	/* Extract total allowed spells */
-	num_allowed = (adj_mag_study[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] * levels / 2);
+	num_allowed = (adj_mag_study[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] * levels / 2);
 
-	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (magic_info[cr_ptr->cls_idx].spell_book != TV_LIFE_BOOK))
+	if ((cr_ptr->class_idx != CLASS_SAMURAI) && (magic_info[cr_ptr->class_idx].spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
-	if (cr_ptr->cls_idx == CLASS_SAMURAI)
+	if (cr_ptr->class_idx == CLASS_SAMURAI)
 	{
 		num_allowed = 32;
 	}
@@ -1931,7 +1931,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		num_allowed = (num_allowed+1)/2;
 		if (num_allowed>(32+bonus)) num_allowed = 32+bonus;
 	}
-	else if ((cr_ptr->cls_idx == CLASS_MAGE) || (cr_ptr->cls_idx == CLASS_PRIEST))
+	else if ((cr_ptr->class_idx == CLASS_MAGE) || (cr_ptr->class_idx == CLASS_PRIEST))
 	{
 		if (num_allowed>(96+bonus)) num_allowed = 96+bonus;
 	}
@@ -1978,9 +1978,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j < 32)
-			s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm1-1][j];
+			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we are allowed to know */
 		if (s_ptr->slevel <= cr_ptr->lev) continue;
@@ -2114,9 +2114,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j<32)
-			s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm1-1][j];
+			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we cannot remember */
 		if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2173,7 +2173,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		for (j = 0; j < 32; j++)
 		{
 			if (!is_magic(cr_ptr->realm1)) s_ptr = &technic_info[cr_ptr->realm1-MIN_TECHNIC][j];
-			else s_ptr = &magic_info[cr_ptr->cls_idx].info[cr_ptr->realm1-1][j];
+			else s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
 
 			/* Skip spells we cannot remember */
 			if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2188,7 +2188,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 			k++;
 		}
 		if (k>32) k = 32;
-		if ((cr_ptr->new_spells > k) && ((magic_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) || (magic_info[cr_ptr->cls_idx].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
+		if ((cr_ptr->new_spells > k) && ((magic_info[cr_ptr->class_idx].spell_book == TV_LIFE_BOOK) || (magic_info[cr_ptr->class_idx].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
 	}
 
 	if (cr_ptr->new_spells < 0) cr_ptr->new_spells = 0;
@@ -2240,11 +2240,11 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 	levels = cr_ptr->lev;
 
-	switch(cr_ptr->cls_idx)
+	switch(cr_ptr->class_idx)
 	{
 		case CLASS_SAMURAI:
-			msp = (adj_mag_mana[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] + 10) * 2;
-			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->cls_idx].spell_stat] / 20);
+			msp = (adj_mag_mana[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] + 10) * 2;
+			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->class_idx].spell_stat] / 20);
 			break;
 
 		default:
@@ -2254,17 +2254,17 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 			/* Hack -- usually add one mana */
 			msp++;
 
-			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->cls_idx].spell_stat] / 20);
+			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->class_idx].spell_stat] / 20);
 
 			if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp / 2;
 
 			/* Hack: High mages have a 25% mana bonus */
-			if (msp && (cr_ptr->cls_idx == CLASS_MAGE)) msp += msp / 6;
-			if (msp && (cr_ptr->cls_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
+			if (msp && (cr_ptr->class_idx == CLASS_MAGE)) msp += msp / 6;
+			if (msp && (cr_ptr->class_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
 	}
 
 	/* Only mages are affected */
-	if (magic_info[cr_ptr->cls_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
+	if (magic_info[cr_ptr->class_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 
@@ -2309,7 +2309,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	cur_wgt += cr_ptr->inventory[].weight;
 
 	// Subtract a percentage of maximum mana.
-	switch (cr_ptr->cls_idx)
+	switch (cr_ptr->class_idx)
 	{
 		// For these classes, mana is halved if armour 
 		// is 30 pounds over their weight limit.
@@ -2373,7 +2373,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	*/
 
 	/* Determine the weight allowance */
-	max_wgt = magic_info[cr_ptr->cls_idx].spell_weight;
+	max_wgt = magic_info[cr_ptr->class_idx].spell_weight;
 
 	/* Heavy armor penalizes mana by a percentage.  -LM- */
 	if ((cur_wgt - max_wgt) > 0)
@@ -2382,7 +2382,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		cr_ptr->cumber_armor = TRUE;
 
 		/* Subtract a percentage of maximum mana. */
-		switch (cr_ptr->cls_idx)
+		switch (cr_ptr->class_idx)
 		{
 			/* For these classes, mana is halved if armour 
 			 * is 30 pounds over their weight limit. */
@@ -2455,7 +2455,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	if (cr_ptr->msp != msp)
 	{
 		/* Enforce maximum */
-		if ((cr_ptr->csp >= msp) && (cr_ptr->cls_idx != CLASS_SAMURAI))
+		if ((cr_ptr->csp >= msp) && (cr_ptr->class_idx != CLASS_SAMURAI))
 		{
 			cr_ptr->csp = msp;
 			cr_ptr->csp_frac = 0;
@@ -2560,16 +2560,16 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->mimic_form)
 	{
-		if (cr_ptr->cls_idx == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
+		if (cr_ptr->class_idx == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
 		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
 
-		if (cr_ptr->cls_idx != INDEX_NONE) tmp_hitdice += class_info[cr_ptr->cls_idx].c_mhp;
+		if (cr_ptr->class_idx != INDEX_NONE) tmp_hitdice += class_info[cr_ptr->class_idx].c_mhp;
 		if (cr_ptr->chara_idx != INDEX_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
 
 		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
 	}
 
-	if (cr_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->class_idx == CLASS_SORCERER)
 	{
 		if (cr_ptr->lev < 30)
 			mhp = (mhp * (45+cr_ptr->lev) / 100);
@@ -2580,7 +2580,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	mhp += bonus;
 
-	if (cr_ptr->cls_idx == CLASS_BERSERKER)
+	if (cr_ptr->class_idx == CLASS_BERSERKER)
 	{
 		mhp = mhp * (110+ (((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110)) / 100;
 	}
@@ -2590,7 +2590,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	/* Factor in the hero / superhero settings */
 	if (IS_HERO(cr_ptr)) mhp += 10;
-	if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER)) mhp += 30;
+	if (cr_ptr->shero && (cr_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
 	if (cr_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
@@ -2859,7 +2859,7 @@ static void set_race_bonuses(creature_type *creature_ptr)
 static void set_class_bonuses(creature_type *creature_ptr)
 {
 	int i;
-	class_type *class_ptr = &class_info[creature_ptr->cls_idx];
+	class_type *class_ptr = &class_info[creature_ptr->class_idx];
 
 	for (i = 0; i < 6; i++)
 	{
@@ -2879,7 +2879,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_thb += class_ptr->c_thb;
 	creature_ptr->skill_tht += class_ptr->c_thb;
 
-	switch (creature_ptr->cls_idx)
+	switch (creature_ptr->class_idx)
 	{
 		case CLASS_WARRIOR:
 			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
@@ -3036,7 +3036,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_blind = TRUE;
 		creature_ptr->resist_conf  = TRUE;
 		creature_ptr->hold_life = TRUE;
-		if (creature_ptr->cls_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
+		if (creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
 
 		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE)) // Munchkin become faster
 			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
@@ -3066,7 +3066,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
+	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
 	{
 		/* TODO Monks get extra ac for armour _not worn_
 		if (!(creature_ptr->inventory[INVEN_SLOT_BODY].k_idx))
@@ -3183,17 +3183,17 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 
 			else if (i == STAT_INT) // Change in INT may affect Mana/Spells
 			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_INT)
+				if (magic_info[creature_ptr->class_idx].spell_stat == STAT_INT)
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 			}
 			else if (i == STAT_WIS) // Change in WIS may affect Mana/Spells
 			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_WIS)
+				if (magic_info[creature_ptr->class_idx].spell_stat == STAT_WIS)
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 			}
 			else if (i == STAT_CHA) // Change in WIS may affect Mana/Spells
 			{
-				if (magic_info[creature_ptr->cls_idx].spell_stat == STAT_CHA)
+				if (magic_info[creature_ptr->class_idx].spell_stat == STAT_CHA)
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 			}
 			play_window |= (PW_PLAYER); // Window stuff
@@ -3769,7 +3769,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		bonus_to_hit = object_ptr->to_hit;
 		bonus_to_damage = object_ptr->to_damage;
 
-		if (creature_ptr->cls_idx == CLASS_NINJA)
+		if (creature_ptr->class_idx == CLASS_NINJA)
 		{
 			if (object_ptr->to_hit > 0) bonus_to_hit = (object_ptr->to_hit+1)/2;
 			if (object_ptr->to_damage > 0) bonus_to_damage = (object_ptr->to_damage+1)/2;
@@ -4179,7 +4179,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
 	}
 
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
+	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
 	{
 		if (heavy_armor(creature_ptr))
 		{
@@ -4368,7 +4368,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 		else
 		{
-			switch (creature_ptr->cls_idx)
+			switch (creature_ptr->class_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
@@ -4439,19 +4439,19 @@ static void set_melee_status(creature_type *creature_ptr)
 				creature_ptr->num_fire += (extra_shots * 100);
 
 				/* Hack -- Rangers love Bows */
-				if ((creature_ptr->cls_idx == CLASS_RANGER) &&
+				if ((creature_ptr->class_idx == CLASS_RANGER) &&
 				    (creature_ptr->tval_ammo == TV_ARROW))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
-				if ((creature_ptr->cls_idx == CLASS_CAVALRY) &&
+				if ((creature_ptr->class_idx == CLASS_CAVALRY) &&
 				    (creature_ptr->tval_ammo == TV_ARROW))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 3);
 				}
 
-				if (creature_ptr->cls_idx == CLASS_ARCHER)
+				if (creature_ptr->class_idx == CLASS_ARCHER)
 				{
 					if (creature_ptr->tval_ammo == TV_ARROW)
 						creature_ptr->num_fire += ((creature_ptr->lev * 5)+50);
@@ -4463,20 +4463,20 @@ static void set_melee_status(creature_type *creature_ptr)
 				 * Addendum -- also "Reward" high level warriors,
 				 * with _any_ missile weapon -- TY
 				 */
-				if (creature_ptr->cls_idx == CLASS_WARRIOR &&
+				if (creature_ptr->class_idx == CLASS_WARRIOR &&
 				   (creature_ptr->tval_ammo <= TV_BOLT) &&
 				   (creature_ptr->tval_ammo >= TV_SHOT))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 2);
 				}
-				if ((creature_ptr->cls_idx == CLASS_ROGUE) &&
+				if ((creature_ptr->class_idx == CLASS_ROGUE) &&
 				    (creature_ptr->tval_ammo == TV_SHOT))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
 				/* Snipers love Cross bows */
-				if ((creature_ptr->cls_idx == CLASS_SNIPER) &&
+				if ((creature_ptr->class_idx == CLASS_SNIPER) &&
 					(creature_ptr->tval_ammo == TV_BOLT))
 				{
 					creature_ptr->to_hit_b += (10 + (creature_ptr->lev / 5));
@@ -4572,7 +4572,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			int num = 0, wgt = 0, mul = 0, div = 0;
 
 			/* Analyze the class */
-			switch (creature_ptr->cls_idx)
+			switch (creature_ptr->class_idx)
 			{
 				/* Warrior */
 				case CLASS_WARRIOR:
@@ -4679,7 +4679,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			str_index = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] * mul / div);
 
 			if (creature_ptr->two_handed && !omoi) str_index++;
-			if (creature_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
+			if (creature_ptr->class_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
 
 			/* Maximal value */
 			if (str_index > 11) str_index = 11;
@@ -4696,7 +4696,7 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		/* Assume okay */
 		/* Priest weapon penalty for non-blessed edged weapons */
-		if ((creature_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
+		if ((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
 			creature_ptr->to_hit[i] -= 2;
@@ -4709,7 +4709,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			/* Icky weapon */
 			creature_ptr->icky_wield[i] = TRUE;
 		}
-		else if (creature_ptr->cls_idx == CLASS_BERSERKER)
+		else if (creature_ptr->class_idx == CLASS_BERSERKER)
 		{
 			creature_ptr->to_hit[i] += creature_ptr->lev/5;
 			creature_ptr->to_damage[i] += creature_ptr->lev/6;
@@ -4723,7 +4723,7 @@ static void set_melee_status(creature_type *creature_ptr)
 				creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
 			}
 		}
-		else if (creature_ptr->cls_idx == CLASS_SORCERER)
+		else if (creature_ptr->class_idx == CLASS_SORCERER)
 		{
 			if (!((object_ptr->tval == TV_HAFTED) && ((object_ptr->sval == SV_WIZSTAFF) || (object_ptr->sval == SV_NAMAKE_HAMMER))))
 			{
@@ -4777,7 +4777,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			else if (!(have_flag(flgs, TR_RIDING)))
 			{
 				int penalty;
-				if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+				if ((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 				{
 					penalty = 5;
 				}
@@ -4816,16 +4816,16 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
 			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
 
-			if ((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER))
+			if ((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER))
 			{
-				if (!skill_info[creature_ptr->cls_idx].w_max[tval][sval])
+				if (!skill_info[creature_ptr->class_idx].w_max[tval][sval])
 				{
 					creature_ptr->to_hit[i] -= 40;
 					creature_ptr->dis_to_hit[i] -= 40;
 					creature_ptr->icky_wield[i] = TRUE;
 				}
 			}
-			else if (creature_ptr->cls_idx == CLASS_NINJA)
+			else if (creature_ptr->class_idx == CLASS_NINJA)
 			{
 				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
 					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
@@ -4863,12 +4863,12 @@ static void set_melee_status(creature_type *creature_ptr)
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
 	/* Different calculation for monks with empty hands */
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_BERSERKER)) &&
+	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_BERSERKER)) &&
 		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
 	{
 		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
 
-		if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
+		if (creature_ptr->class_idx == CLASS_FORCETRAINER)
 		{
 			if (creature_ptr->magic_num1[0])
 			{
@@ -4877,7 +4877,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			}
 		}
 
-		if (heavy_armor(creature_ptr) && (creature_ptr->cls_idx != CLASS_BERSERKER));
+		if (heavy_armor(creature_ptr) && (creature_ptr->class_idx != CLASS_BERSERKER));
 		else
 		{
 			creature_ptr->to_hit[0] += (creature_ptr->lev / 3);
@@ -5053,7 +5053,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->pet_extra_flags & PF_RYOUTE)
 	{
-		switch (creature_ptr->cls_idx)
+		switch (creature_ptr->class_idx)
 		{
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
@@ -5064,7 +5064,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	if ((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+	if ((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 	{
 		if (creature_ptr->tval_ammo != TV_ARROW) penalty = 5;
 	}
@@ -5162,15 +5162,15 @@ static void set_flow_flag(creature_type *creature_ptr)
 
 	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
 
-	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->cls_idx == CLASS_SORCERER)))
+	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->class_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_NATURE - 1][SPELL_SW];
+		magic_type *s_ptr = &magic_info[creature_ptr->class_idx].info[REALM_NATURE - 1][SPELL_SW];
 		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
-	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->cls_idx == CLASS_SORCERER)))
+	if (have_kabe && ((creature_ptr->realm1 == REALM_CRAFT) || (creature_ptr->realm2 == REALM_CRAFT) || (creature_ptr->class_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &magic_info[creature_ptr->cls_idx].info[REALM_CRAFT - 1][SPELL_KABE];
+		magic_type *s_ptr = &magic_info[creature_ptr->class_idx].info[REALM_CRAFT - 1][SPELL_KABE];
 		if (creature_ptr->lev >= s_ptr->slevel) creature_ptr->no_flowed = TRUE;
 	}
 
@@ -5213,7 +5213,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_race_bonuses(creature_ptr);
 	set_unreached_race_level_penalty(creature_ptr);
 
-	if(creature_ptr->cls_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
+	if(creature_ptr->class_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
 	if(creature_ptr->chara_idx != INDEX_NONE) set_character_bonuses(creature_ptr);
 
 	set_trait_bonuses(creature_ptr);
@@ -5542,7 +5542,7 @@ void redraw_stuff()
 		prt_speed(player_ptr);
 	}
 
-	if (player_ptr->cls_idx == CLASS_IMITATOR)
+	if (player_ptr->class_idx == CLASS_IMITATOR)
 	{
 		if (play_redraw & (PR_IMITATION))
 		{
@@ -5688,7 +5688,7 @@ bool heavy_armor(creature_type *cr_ptr)
 {
 	u16b monk_arm_wgt = 0;
 
-	if ((cr_ptr->cls_idx != CLASS_MONK) && (cr_ptr->cls_idx != CLASS_FORCETRAINER) && (cr_ptr->cls_idx != CLASS_NINJA)) return FALSE;
+	if ((cr_ptr->class_idx != CLASS_MONK) && (cr_ptr->class_idx != CLASS_FORCETRAINER) && (cr_ptr->class_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
 	//TODO
@@ -5891,7 +5891,7 @@ cptr get_class_desc(creature_type *cr_ptr){
 	char name[80];
 	name[0] = '\0';
 
-	strcat(name, class_info[cr_ptr->cls_idx].title);
+	strcat(name, class_info[cr_ptr->class_idx].title);
 
 	if(has_cf_creature(cr_ptr, CF_PUELLA_MAGI))
 	{

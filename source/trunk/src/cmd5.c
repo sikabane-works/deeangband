@@ -77,7 +77,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 		}
 	}
 
-	p = spell_category_name(magic_info[cr_ptr->cls_idx].spell_book);
+	p = spell_category_name(magic_info[cr_ptr->class_idx].spell_book);
 
 	/* Extract spells */
 	for (spell = 0; spell < 32; spell++)
@@ -105,9 +105,9 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 
 	/* No "okay" spells */
 	if (!okay) return (FALSE);
-	if (((use_realm) != cr_ptr->realm1) && ((use_realm) != cr_ptr->realm2) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE)) return FALSE;
-	if (((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
-	if ((cr_ptr->cls_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
+	if (((use_realm) != cr_ptr->realm1) && ((use_realm) != cr_ptr->realm2) && (cr_ptr->class_idx != CLASS_SORCERER) && (cr_ptr->class_idx != CLASS_RED_MAGE)) return FALSE;
+	if (((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
+	if ((cr_ptr->class_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
 
 	/* Assume cancelled */
 	*sn = (-1);
@@ -263,7 +263,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->cls_idx].info[use_realm][spell];
+				s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
 			}
 
 			/* Extract mana consumption rate */
@@ -325,9 +325,9 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 
 static bool item_tester_learn_spell(creature_type *cr_ptr, object_type *o_ptr)
 {
-	s32b choices = realm_choices2[cr_ptr->cls_idx];
+	s32b choices = realm_choices2[cr_ptr->class_idx];
 
-	if (cr_ptr->cls_idx == CLASS_PRIEST)
+	if (cr_ptr->class_idx == CLASS_PRIEST)
 	{
 		if (is_good_realm(cr_ptr->realm1))
 		{
@@ -340,7 +340,7 @@ static bool item_tester_learn_spell(creature_type *cr_ptr, object_type *o_ptr)
 	}
 
 	if ((o_ptr->tval < TV_LIFE_BOOK) || (o_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
-	if ((o_ptr->tval == TV_MUSIC_BOOK) && (cr_ptr->cls_idx == CLASS_BARD)) return (TRUE);
+	if ((o_ptr->tval == TV_MUSIC_BOOK) && (cr_ptr->class_idx == CLASS_BARD)) return (TRUE);
 	else if (!is_magic(tval2realm(o_ptr->tval))) return FALSE;
 	if ((REALM1_BOOK(cr_ptr) == o_ptr->tval) || (REALM2_BOOK(cr_ptr) == o_ptr->tval)) return (TRUE);
 	if (choices & (0x0001 << (tval2realm(o_ptr->tval) - 1))) return (TRUE);
@@ -437,7 +437,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 	cptr q, s;
 
 	/* Warriors are illiterate */
-	if (!(cr_ptr->realm1 || cr_ptr->realm2) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE))
+	if (!(cr_ptr->realm1 || cr_ptr->realm2) && (cr_ptr->class_idx != CLASS_SORCERER) && (cr_ptr->class_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("本を読むことができない！");
@@ -453,7 +453,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
+	if (cr_ptr->class_idx == CLASS_FORCETRAINER)
 	{
 		select_flag = USE_INVEN | USE_FLOOR | USE_FORCE;
 		if (creature_has_no_spellbooks(cr_ptr))
@@ -481,7 +481,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 #endif
 
 	// Restrict choices to "useful" books
-	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->cls_idx].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->class_idx].spell_book;
 
 	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable, 0))
 	{
@@ -646,7 +646,7 @@ void do_cmd_study(creature_type *cr_ptr)
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
 
-	cptr p = spell_category_name(magic_info[cr_ptr->cls_idx].spell_book);
+	cptr p = spell_category_name(magic_info[cr_ptr->class_idx].spell_book);
 
 	object_type *o_ptr;
 
@@ -717,7 +717,7 @@ msg_format("新しい%sを覚えることはできない！", p);
 
 
 	/* Restrict choices to "useful" books */
-	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->cls_idx].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[cr_ptr->class_idx].spell_book;
 
 	/* Get an item */
 #ifdef JP
@@ -768,7 +768,7 @@ s = "読める本がない。";
 	handle_stuff();
 
 	/* Mage -- Learn a selected spell */
-	if (magic_info[cr_ptr->cls_idx].spell_book != TV_LIFE_BOOK)
+	if (magic_info[cr_ptr->class_idx].spell_book != TV_LIFE_BOOK)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
@@ -907,7 +907,7 @@ s = "読める本がない。";
 		/* Mention the result */
 #ifdef JP
 		/* 英日切り替え機能に対応 */
-		if (magic_info[cr_ptr->cls_idx].spell_book == TV_MUSIC_BOOK)
+		if (magic_info[cr_ptr->class_idx].spell_book == TV_MUSIC_BOOK)
 		{
 			msg_format("%sを学んだ。",
 				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
@@ -979,7 +979,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	cptr q, s;
 
 	/* Require spell ability */
-	if (!creature_ptr->realm1 && (creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_RED_MAGE))
+	if (!creature_ptr->realm1 && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("呪文を唱えられない！");
@@ -993,7 +993,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Require lite */
 	if (creature_ptr->blind || no_lite(creature_ptr))
 	{
-		if (creature_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(creature_ptr, FALSE);
+		if (creature_ptr->class_idx == CLASS_FORCETRAINER) confirm_use_force(creature_ptr, FALSE);
 		else
 		{
 #ifdef JP
@@ -1035,7 +1035,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 	}
 
-	if (creature_ptr->cls_idx == CLASS_FORCETRAINER)
+	if (creature_ptr->class_idx == CLASS_FORCETRAINER)
 	{
 		if (creature_has_no_spellbooks(creature_ptr))
 		{
@@ -1049,10 +1049,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
-	prayer = spell_category_name(magic_info[creature_ptr->cls_idx].spell_book);
+	prayer = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
 
 	/* Restrict choices to spell books */
-	item_tester_tval = magic_info[creature_ptr->cls_idx].spell_book;
+	item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
 	/* Get an item */
 #ifdef JP
@@ -1093,7 +1093,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if ((creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(creature_ptr))) increment = 32;
+	if ((creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(creature_ptr))) increment = 32;
 
 
 	/* Track the object kind */
@@ -1102,7 +1102,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((creature_ptr->cls_idx == CLASS_SORCERER) || (creature_ptr->cls_idx == CLASS_RED_MAGE))
+	if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 		realm = o_ptr->tval - TV_LIFE_BOOK + 1;
 	else if (increment) realm = creature_ptr->realm2;
 	else realm = creature_ptr->realm1;
@@ -1110,14 +1110,14 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Ask for a spell */
 #ifdef JP
 	if (!get_spell(creature_ptr, &spell,  
-				((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->cls_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
+				((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
 		       sval, TRUE, realm))
 	{
 		if (spell == -2) msg_format("その本には知っている%sがない。", prayer);
 		return;
 	}
 #else
-	if (!get_spell(creature_ptr, &spell, ((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+	if (!get_spell(creature_ptr, &spell, ((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 		sval, TRUE, realm))
 	{
 		if (spell == -2)
@@ -1149,7 +1149,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	}
 	else
 	{
-		s_ptr = &magic_info[creature_ptr->cls_idx].info[realm - 1][spell];
+		s_ptr = &magic_info[creature_ptr->class_idx].info[realm - 1][spell];
 	}
 
 	/* Extract mana consumption rate */
@@ -1163,10 +1163,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 		/* Warning */
 #ifdef JP
 msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
- ((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
+ ((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
 #else
 		msg_format("You do not have enough mana to %s this %s.",
-			((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 			prayer);
 #endif
 
@@ -1269,8 +1269,8 @@ msg_print("An infernal sound echoed.");
 		if (!(increment ?
 		    (creature_ptr->spell_worked2 & (1L << spell)) :
 		    (creature_ptr->spell_worked1 & (1L << spell)))
-		    && (creature_ptr->cls_idx != CLASS_SORCERER)
-		    && (creature_ptr->cls_idx != CLASS_RED_MAGE))
+		    && (creature_ptr->class_idx != CLASS_SORCERER)
+		    && (creature_ptr->class_idx != CLASS_RED_MAGE))
 		{
 			int e = s_ptr->sexp;
 
@@ -1291,7 +1291,7 @@ msg_print("An infernal sound echoed.");
 			play_window |= (PW_OBJECT);
 
 		}
-		if (magic_info[creature_ptr->cls_idx].spell_xtra & MAGIC_GAIN_EXP)
+		if (magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
 			s16b cur_exp = creature_ptr->spell_exp[(increment ? 32 : 0)+spell];
 			s16b exp_gain = 0;
@@ -1447,7 +1447,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 			total_friends++;
 			if (is_unique_creature(master_ptr))
 			{
-				if (master_ptr->cls_idx == CLASS_CAVALRY)
+				if (master_ptr->class_idx == CLASS_CAVALRY)
 				{
 					if (master_ptr->riding == m_idx)
 						total_friend_levels += (pet_ptr->lev+5)*2;
@@ -1472,7 +1472,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 	if (total_friends)
 	{
 		int upkeep_factor;
-		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (class_info[master_ptr->cls_idx].pet_upkeep_div)));
+		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (class_info[master_ptr->class_idx].pet_upkeep_div)));
 		if (upkeep_factor < 0) upkeep_factor = 0;
 		if (upkeep_factor > 1000) upkeep_factor = 1000;
 		return upkeep_factor;
@@ -1688,7 +1688,7 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 		if (!force)
 		{
 			int cur = creature_ptr->skill_exp[GINOU_RIDING];
-			int max = skill_info[creature_ptr->cls_idx].s_max[GINOU_RIDING];
+			int max = skill_info[creature_ptr->class_idx].s_max[GINOU_RIDING];
 			int ridinglevel = r_ptr->level;
 
 			/* 落馬のしやすさ */
@@ -1711,7 +1711,7 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 			/* レベルの低い乗馬からは落馬しにくい */
 			if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
 			{
-				if ((((creature_ptr->cls_idx == CLASS_BEASTMASTER) || (creature_ptr->cls_idx == CLASS_CAVALRY)) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
+				if ((((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY)) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
 				{
 					return FALSE;
 				}
@@ -2336,7 +2336,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 		else
 		{
-			switch (master_ptr->cls_idx)
+			switch (master_ptr->class_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:

@@ -193,18 +193,18 @@ int calc_expfact_sp(species_type *species_ptr)
 	{
 		if(IS_PURE(species_ptr))
 		{
-			expfact = race_info[species_ptr->race_idx1].r_exp + class_info[species_ptr->cls_idx].c_exp;
+			expfact = race_info[species_ptr->race_idx1].r_exp + class_info[species_ptr->class_idx].c_exp;
 		}
 		else
 		{
 			expfact = race_info[species_ptr->race_idx1].r_s_exp +
 					  race_info[species_ptr->race_idx2].r_s_exp +
-					  class_info[species_ptr->cls_idx].c_exp;
+					  class_info[species_ptr->class_idx].c_exp;
 		}
 
 	}
 
-	if (((species_ptr->cls_idx == CLASS_MONK) || (species_ptr->cls_idx == CLASS_FORCETRAINER) || (species_ptr->cls_idx == CLASS_NINJA)) && ((species_ptr->race_idx1 == RACE_KLACKON) || (species_ptr->race_idx1 == RACE_SPRITE)))
+	if (((species_ptr->class_idx == CLASS_MONK) || (species_ptr->class_idx == CLASS_FORCETRAINER) || (species_ptr->class_idx == CLASS_NINJA)) && ((species_ptr->race_idx1 == RACE_KLACKON) || (species_ptr->race_idx1 == RACE_SPRITE)))
 		expfact -= 15;
 
 	return expfact;
@@ -217,18 +217,18 @@ void set_expfact(creature_type *creature_ptr)
 	else {
 		if(IS_PURE(creature_ptr))
 		{
-			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->cls_idx].c_exp;
+			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->class_idx].c_exp;
 		}
 		else
 		{
 			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_s_exp +
 									race_info[creature_ptr->race_idx2].r_s_exp +
-									class_info[creature_ptr->cls_idx].c_exp - 100;
+									class_info[creature_ptr->class_idx].c_exp - 100;
 		}
 
 	}
 
-	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && ((creature_ptr->race_idx1 == RACE_KLACKON) || (creature_ptr->race_idx1 == RACE_SPRITE)))
+	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_NINJA)) && ((creature_ptr->race_idx1 == RACE_KLACKON) || (creature_ptr->race_idx1 == RACE_SPRITE)))
 		creature_ptr->expfact -= 15;
 }
 
@@ -247,10 +247,10 @@ void set_hitdice(creature_type * creature_ptr)
 	creature_ptr->hitdice = creature_ptr->size >= 10 ? 5 + creature_ptr->size / 2 : creature_ptr->size;
 	if (creature_ptr->race_idx1 != INDEX_NONE)
 		creature_ptr->hitdice += race_info[creature_ptr->race_idx1].r_mhp;
-	if (creature_ptr->cls_idx == CLASS_SORCERER)
+	if (creature_ptr->class_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
-	if (creature_ptr->cls_idx != INDEX_NONE)
-		creature_ptr->hitdice += class_info[creature_ptr->cls_idx].c_mhp;
+	if (creature_ptr->class_idx != INDEX_NONE)
+		creature_ptr->hitdice += class_info[creature_ptr->class_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
 	return;	
@@ -386,10 +386,10 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	dice = size >= 10 ? 5 + size / 2 : size;
 	if (mr_ptr->race_idx1 != INDEX_NONE)
 		dice += race_info[mr_ptr->race_idx1].r_mhp;
-	if (mr_ptr->cls_idx == CLASS_SORCERER)
+	if (mr_ptr->class_idx == CLASS_SORCERER)
 		dice /= 2;
-	if (mr_ptr->cls_idx != INDEX_NONE)
-		dice += class_info[mr_ptr->cls_idx].c_mhp;
+	if (mr_ptr->class_idx != INDEX_NONE)
+		dice += class_info[mr_ptr->class_idx].c_mhp;
 	if (mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
@@ -448,8 +448,8 @@ void initialize_skill(creature_type *creature_ptr)
 {
 	int i,j, tmp_cls;
 
-	if(creature_ptr->cls_idx != INDEX_NONE)
-		tmp_cls = creature_ptr->cls_idx;
+	if(creature_ptr->class_idx != INDEX_NONE)
+		tmp_cls = creature_ptr->class_idx;
 	else
 		tmp_cls = CLASS_TOURIST;
 
@@ -1576,7 +1576,7 @@ bool is_variable_race_species(species_type *species_ptr)
 
 bool is_variable_class_species(species_type *species_ptr)
 {
-	return species_ptr->cls_idx == INDEX_VARIABLE;
+	return species_ptr->class_idx == INDEX_VARIABLE;
 }
 
 bool is_variable_patron_species(species_type *species_ptr)

@@ -1980,7 +1980,7 @@ static void put_initial_status(creature_type *creature_ptr)
 #else
 		put_str("Class :                                                                         ", 2, 1);
 #endif
-	if(creature_ptr->cls_idx != INDEX_NONE)
+	if(creature_ptr->class_idx != INDEX_NONE)
 	{
 		cls = get_class_desc(creature_ptr);
 		c_put_str(TERM_L_BLUE, cls, 2, 9);
@@ -2235,7 +2235,7 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 	{
 		creature_ptr->realm1 = REALM_NONE;
 		creature_ptr->realm2 = 255;
-		i = choose_realm(realm_choices1[creature_ptr->cls_idx], npc);
+		i = choose_realm(realm_choices1[creature_ptr->class_idx], npc);
 
 		if(i == -2)
 			return -2;
@@ -2264,7 +2264,7 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 		
 		/* Select the second realm */
 		creature_ptr->realm2 = REALM_NONE;
-		i = choose_realm(realm_choices2[creature_ptr->cls_idx] & ~(1 << (creature_ptr->realm1 - 1)), npc);
+		i = choose_realm(realm_choices2[creature_ptr->class_idx] & ~(1 << (creature_ptr->realm1 - 1)), npc);
 		if(i == -2)
 			return -2;
 		else if(i == -3)
@@ -2584,7 +2584,7 @@ static void get_money(creature_type *creature_ptr)
 
 	// Starting gold
 	gold = randint1(100) + 300;
-	if (creature_ptr->cls_idx == CLASS_TOURIST) gold += 2000;
+	if (creature_ptr->class_idx == CLASS_TOURIST) gold += 2000;
 	if (gold < 100) gold = 100;
 
 	if (creature_ptr->chara_idx == CHARA_NAMAKE)
@@ -2626,7 +2626,7 @@ static void birth_put_stats(creature_type *creature_ptr)
 			else
 				j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 
-			j += class_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
+			j += class_info[creature_ptr->class_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
 			/* Obtain the current stat */
 			m = adjust_stat(creature_ptr->stat_max[i], j);
 
@@ -2704,7 +2704,7 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->food = PY_FOOD_FULL - 1;
 
 	/* Wipe the spells */
-	if (creature_ptr->cls_idx == CLASS_SORCERER)
+	if (creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		creature_ptr->spell_learned1 = creature_ptr->spell_learned2 = 0xffffffffL;
 		creature_ptr->spell_worked1 = creature_ptr->spell_worked2 = 0xffffffffL;
@@ -2767,7 +2767,7 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->race_idx2 = INDEX_NONE;
 	creature_ptr->mimic_race_idx = INDEX_NONE;
 	creature_ptr->sex = SEX_UNDEFINED;
-	creature_ptr->cls_idx = INDEX_NONE;
+	creature_ptr->class_idx = INDEX_NONE;
 	creature_ptr->chara_idx = INDEX_NONE;
 	creature_ptr->patron_idx = INDEX_NONE;
 	creature_ptr->realm1 = REALM_NONE;
@@ -3851,9 +3851,9 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	int i, n;
 	selection ce[MAX_CLASS+3];
 
-	if(species_ptr->cls_idx != INDEX_VARIABLE)
+	if(species_ptr->class_idx != INDEX_VARIABLE)
 	{
-		creature_ptr->cls_idx = species_ptr->cls_idx;
+		creature_ptr->class_idx = species_ptr->class_idx;
 		return 0;
 	}
 
@@ -3885,7 +3885,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->cls_idx = ce[randint0(n)].code;
+		creature_ptr->class_idx = ce[randint0(n)].code;
 		return 0;
 	}
 
@@ -3932,12 +3932,12 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(i >= 0)
 	{
-		creature_ptr->cls_idx = i;
+		creature_ptr->class_idx = i;
 		return 0;
 	}
 	else if(i == -1)
 	{
-		creature_ptr->cls_idx = ce[randint0(n - 3)].code;
+		creature_ptr->class_idx = ce[randint0(n - 3)].code;
 		return 0;
 	}
 	else
@@ -4310,7 +4310,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		else
 			j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 		
-		j += class_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
+		j += class_info[creature_ptr->class_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -4364,7 +4364,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		/* Prepare a prompt */
 		//TODO
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
-			stat_names[i], cval[i], race_info[creature_ptr->race_idx1].r_adj[i], class_info[creature_ptr->cls_idx].c_adj[i],
+			stat_names[i], cval[i], race_info[creature_ptr->race_idx1].r_adj[i], class_info[creature_ptr->class_idx].c_adj[i],
 			chara_info[creature_ptr->chara_idx].a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
@@ -4401,7 +4401,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			else
 			{
 				/* Race/Class bonus */
-				j = race_info[creature_ptr->race_idx1].r_adj[cs] + class_info[creature_ptr->cls_idx].c_adj[cs] + chara_info[creature_ptr->chara_idx].a_adj[cs];
+				j = race_info[creature_ptr->race_idx1].r_adj[cs] + class_info[creature_ptr->class_idx].c_adj[cs] + chara_info[creature_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -4429,7 +4429,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
 					stat_names[cs], cval[cs], race_info[creature_ptr->race_idx1].r_adj[cs],
-					class_info[creature_ptr->cls_idx].c_adj[cs], chara_info[creature_ptr->chara_idx].a_adj[cs], inp);
+					class_info[creature_ptr->class_idx].c_adj[cs], chara_info[creature_ptr->chara_idx].a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
 			os = cs;
@@ -5447,13 +5447,13 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				/* Race/Class/Species bonus */
 				if(IS_PURE(creature_ptr))
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
-						class_info[creature_ptr->cls_idx].c_adj[i] +
+						class_info[creature_ptr->class_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 				else
 					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
 						race_info[creature_ptr->race_idx2].r_s_adj[i] +
-						class_info[creature_ptr->cls_idx].c_adj[i] +
+						class_info[creature_ptr->class_idx].c_adj[i] +
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 
@@ -5610,7 +5610,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_creature_sp_percent(creature_ptr, 100);
 
 			/* Sexy gal gets bonus to maximum weapon skill of whip */
-			if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+			if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->class_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 			if(auto_generate) break;
 
@@ -5904,9 +5904,9 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 	#ifdef JP
-		sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", class_info[creature_ptr->cls_idx].title);
+		sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", class_info[creature_ptr->class_idx].title);
 	#else
-		sprintf(buf,"                            choose %s class.", class_info[creature_ptr->cls_idx].title);
+		sprintf(buf,"                            choose %s class.", class_info[creature_ptr->class_idx].title);
 	#endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -5956,12 +5956,12 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(class_jouhou[creature_ptr->cls_idx], 78, temp, sizeof(temp));
+	roff_to_buf(class_jouhou[creature_ptr->class_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "E‹Æ: %s\n", class_info[creature_ptr->cls_idx].title);
+	fprintf(fff, "E‹Æ: %s\n", class_info[creature_ptr->class_idx].title);
 #else
-	fprintf(fff, "Class: %s\n", class_info[creature_ptr->cls_idx].title);
+	fprintf(fff, "Class: %s\n", class_info[creature_ptr->class_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)

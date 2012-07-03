@@ -174,9 +174,9 @@ static cptr info_weight(int weight)
  */
 static int beam_chance(creature_type *cr_ptr)
 {
-	if (cr_ptr->cls_idx == CLASS_MAGE)
+	if (cr_ptr->class_idx == CLASS_MAGE)
 		return cr_ptr->lev;
-	if (cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER)
 		return cr_ptr->lev + 10;
 
 	return cr_ptr->lev / 2;
@@ -606,9 +606,9 @@ static void cast_shuffle(creature_type *creature_ptr)
 	int i;
 
 	// Card sharks and high mages get a level bonus
-	if ((creature_ptr->cls_idx == CLASS_ROGUE) ||
-	    (creature_ptr->cls_idx == CLASS_HIGH_MAGE) ||
-	    (creature_ptr->cls_idx == CLASS_SORCERER))
+	if ((creature_ptr->class_idx == CLASS_ROGUE) ||
+	    (creature_ptr->class_idx == CLASS_HIGH_MAGE) ||
+	    (creature_ptr->class_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
 	else
 		die = randint1(120);
@@ -1152,7 +1152,7 @@ static void start_singing(creature_type *cr_ptr, int spell, int song)
  */
 void stop_singing(creature_type *cr_ptr)
 {
-	if (cr_ptr->cls_idx != CLASS_BARD) return;
+	if (cr_ptr->class_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
 	if (cr_ptr->magic_num1[1])
@@ -3505,9 +3505,9 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (cr_ptr->cls_idx == CLASS_MAGE ||
-			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    cr_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->class_idx == CLASS_MAGE ||
+			    cr_ptr->class_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -4418,9 +4418,9 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (cr_ptr->cls_idx == CLASS_MAGE ||
-			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    cr_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->class_idx == CLASS_MAGE ||
+			    cr_ptr->class_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -5266,7 +5266,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 					y = cr_ptr->fy;
 				}
 
-				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_KAMIKAZE_LIVING;
 				else
 					type = SUMMON_KAMIKAZE;
@@ -5556,7 +5556,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_LIVING;
 				else
 					type = 0;
@@ -5901,7 +5901,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int type;
 
-				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_HI_DRAGON_LIVING;
 				else
 					type = SUMMON_HI_DRAGON;
@@ -7543,9 +7543,9 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (cr_ptr->cls_idx == CLASS_MAGE ||
-			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    cr_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->class_idx == CLASS_MAGE ||
+			    cr_ptr->class_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -8363,9 +8363,9 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (creature_ptr->cls_idx == CLASS_PRIEST ||
-			    creature_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    creature_ptr->cls_idx == CLASS_SORCERER)
+			if (creature_ptr->class_idx == CLASS_PRIEST ||
+			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
+			    creature_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;

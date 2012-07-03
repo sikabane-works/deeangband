@@ -4332,11 +4332,11 @@ cptr describe_use(creature_type *cr_ptr, int i)
 bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval)
 {
 	if (book_tval < TV_LIFE_BOOK) return FALSE;
-	if (cr_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->class_idx == CLASS_SORCERER)
 	{
 		return is_magic(tval2realm(book_tval));
 	}
-	else if (cr_ptr->cls_idx == CLASS_RED_MAGE)
+	else if (cr_ptr->class_idx == CLASS_RED_MAGE)
 	{
 		if (is_magic(tval2realm(book_tval)))
 			return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));

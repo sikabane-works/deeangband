@@ -522,7 +522,7 @@ errr top_twenty(creature_type *player_ptr)
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);
-	sprintf(the_score.p_c, "%2d", player_ptr->cls_idx);
+	sprintf(the_score.p_c, "%2d", player_ptr->class_idx);
 	sprintf(the_score.p_a, "%2d", player_ptr->chara_idx);
 
 	/* Save the level and such */
@@ -644,7 +644,7 @@ msg_print("スコア・ファイルが使用できません。");
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);
-	sprintf(the_score.p_c, "%2d", player_ptr->cls_idx);
+	sprintf(the_score.p_c, "%2d", player_ptr->class_idx);
 	sprintf(the_score.p_a, "%2d", player_ptr->chara_idx);
 
 	/* Save the level and such */

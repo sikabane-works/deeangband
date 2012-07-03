@@ -17,7 +17,7 @@ static bool leave_bldg = FALSE;
 
 static bool is_owner(creature_type *cr_ptr, building_type *bldg)
 {
-	if (bldg->member_class[cr_ptr->cls_idx] == BUILDING_OWNER)
+	if (bldg->member_class[cr_ptr->class_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
@@ -39,7 +39,7 @@ static bool is_owner(creature_type *cr_ptr, building_type *bldg)
 
 static bool is_member(creature_type *cr_ptr, building_type *bldg)
 {
-	if (bldg->member_class[cr_ptr->cls_idx])
+	if (bldg->member_class[cr_ptr->class_idx])
 	{
 		return (TRUE);
 	}
@@ -56,7 +56,7 @@ static bool is_member(creature_type *cr_ptr, building_type *bldg)
 	}
 
 
-	if (cr_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->class_idx == CLASS_SORCERER)
 	{
 		int i;
 		bool OK = FALSE;
@@ -305,7 +305,7 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 					msg_print(NULL);
 				}
 			}
-			else if (cr_ptr->riding && (cr_ptr->cls_idx != CLASS_BEASTMASTER) && (cr_ptr->cls_idx != CLASS_CAVALRY))
+			else if (cr_ptr->riding && (cr_ptr->class_idx != CLASS_BEASTMASTER) && (cr_ptr->class_idx != CLASS_CAVALRY))
 			{
 #ifdef JP
 				msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
@@ -2856,7 +2856,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					cr_ptr->stun = 0;
 					cr_ptr->chp = cr_ptr->mhp;
 					cr_ptr->csp = cr_ptr->msp;
-					if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+					if (cr_ptr->class_idx == CLASS_MAGIC_EATER)
 					{
 						int i;
 						for (i = 0; i < 72; i++)
@@ -3169,7 +3169,7 @@ static void compare_weapon_aux1(creature_type *cr_ptr, object_type *o_ptr, int c
 	/* Get the flags of the weapon */
 	object_flags(o_ptr, flgs);
 
-	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+	if ((cr_ptr->class_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 	{
 		mult = mult * 7 / 2;
 		print_force_weapon = TRUE;
@@ -4885,7 +4885,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || has_cf_creature(cr_ptr, CF_CHAOS_GIFT))
+		if ((cr_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_cf_creature(cr_ptr, CF_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", species_name + species_info[cr_ptr->patron_idx].name);

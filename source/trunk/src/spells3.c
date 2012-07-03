@@ -568,7 +568,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 	{
 		bool follow = FALSE;
 
-		if (has_cf_creature(creature_ptr, CF_VTELEPORT) || (creature_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
+		if (has_cf_creature(creature_ptr, CF_VTELEPORT) || (creature_ptr->class_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
@@ -1784,12 +1784,12 @@ void call_the_void(creature_type *creature_ptr)
 	{
 #ifdef JP
 		msg_format("あなたは%sを壁に近すぎる場所で唱えてしまった！",
-			((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
+			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
 		msg_print("大きな爆発音があった！");
 #else
 		msg_format("You %s the %s too close to a wall!",
-			((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			((magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
+			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
 		msg_print("There is a loud explosion!");
 #endif
 
@@ -3277,7 +3277,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER || cr_ptr->cls_idx == CLASS_MAGIC_EATER || cr_ptr->cls_idx == CLASS_BLUE_MAGE)
+			if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER || cr_ptr->class_idx == CLASS_MAGIC_EATER || cr_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)
@@ -3884,22 +3884,22 @@ void display_spell_list(creature_type *cr_ptr)
 	clear_from(0);
 
 	/* They have too many spells to list */
-	if (cr_ptr->cls_idx == CLASS_SORCERER) return;
-	if (cr_ptr->cls_idx == CLASS_RED_MAGE) return;
+	if (cr_ptr->class_idx == CLASS_SORCERER) return;
+	if (cr_ptr->class_idx == CLASS_RED_MAGE) return;
 
 	/* Snipers */
-	if (cr_ptr->cls_idx == CLASS_SNIPER)
+	if (cr_ptr->class_idx == CLASS_SNIPER)
 	{
 		display_snipe_list(cr_ptr);
 		return;
 	}
 
 	/* mind.c type classes */
-	if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-	    (cr_ptr->cls_idx == CLASS_BERSERKER) ||
-	    (cr_ptr->cls_idx == CLASS_NINJA) ||
-	    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) ||
-	    (cr_ptr->cls_idx == CLASS_FORCETRAINER))
+	if ((cr_ptr->class_idx == CLASS_MINDCRAFTER) ||
+	    (cr_ptr->class_idx == CLASS_BERSERKER) ||
+	    (cr_ptr->class_idx == CLASS_NINJA) ||
+	    (cr_ptr->class_idx == CLASS_MIRROR_MASTER) ||
+	    (cr_ptr->class_idx == CLASS_FORCETRAINER))
 	{
 		int             i;
 		int             y = 1;
@@ -3923,7 +3923,7 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 		put_str("Lv Mana Fail Info", y, x + 35);
 #endif
 
-		switch(cr_ptr->cls_idx)
+		switch(cr_ptr->class_idx)
 		{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
@@ -3949,7 +3949,7 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			chance -= 3 * (cr_ptr->lev - spell.min_lev);
 
 			/* Reduce failure rate by INT/WIS adjustment */
-			chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+			chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
 
 			if (!use_hp)
 			{
@@ -3971,7 +3971,7 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			}
 
 			/* Extract the minimum failure rate */
-			minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]];
+			minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
 
 			/* Minimum failure rate */
 			if (chance < minfail) chance = minfail;
@@ -4027,7 +4027,7 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->cls_idx].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
+				s_ptr = &magic_info[cr_ptr->class_idx].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
 			}
 
 			strcpy(name, do_spell(cr_ptr, (j < 1) ? cr_ptr->realm1 : cr_ptr->realm2, i % 32, SPELL_NAME));
@@ -4096,8 +4096,8 @@ strcpy(name, "(判読不能)");
  */
 s16b experience_of_spell(creature_type *cr_ptr, int spell, int use_realm)
 {
-	if (cr_ptr->cls_idx == CLASS_SORCERER) return SPELL_EXP_MASTER;
-	else if (cr_ptr->cls_idx == CLASS_RED_MAGE) return SPELL_EXP_SKILLED;
+	if (cr_ptr->class_idx == CLASS_SORCERER) return SPELL_EXP_MASTER;
+	else if (cr_ptr->class_idx == CLASS_RED_MAGE) return SPELL_EXP_SKILLED;
 	else if (use_realm == cr_ptr->realm1) return cr_ptr->spell_exp[spell];
 	else if (use_realm == cr_ptr->realm2) return cr_ptr->spell_exp[spell + 32];
 	else return 0;
@@ -4181,11 +4181,11 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	int             chance, minfail;
 	magic_type      *s_ptr;
 	int             need_mana;
-	int penalty = (magic_info[cr_ptr->cls_idx].spell_stat == STAT_WIS) ? 10 : 4;
+	int penalty = (magic_info[cr_ptr->class_idx].spell_stat == STAT_WIS) ? 10 : 4;
 
 
 	/* Paranoia -- must be literate */
-	if (!magic_info[cr_ptr->cls_idx].spell_book) return (100);
+	if (!magic_info[cr_ptr->class_idx].spell_book) return (100);
 
 	if (use_realm == REALM_HISSATSU) return 0;
 
@@ -4196,7 +4196,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	}
 	else
 	{
-		s_ptr = &magic_info[cr_ptr->cls_idx].info[use_realm][spell];
+		s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
 	}
 
 	/* Extract the base spell failure rate */
@@ -4206,7 +4206,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	chance -= 3 * (cr_ptr->lev - s_ptr->slevel);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
 
 	if (cr_ptr->riding)
 		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
@@ -4220,23 +4220,23 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 		chance += 5 * (need_mana - cr_ptr->csp);
 	}
 
-	if ((use_realm != cr_ptr->realm1) && ((cr_ptr->cls_idx == CLASS_MAGE) || (cr_ptr->cls_idx == CLASS_PRIEST))) chance += 5;
+	if ((use_realm != cr_ptr->realm1) && ((cr_ptr->class_idx == CLASS_MAGE) || (cr_ptr->class_idx == CLASS_PRIEST))) chance += 5;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
 
 	/*
 	 * Non mage/priest characters never get too good
 	 * (added high mage, mindcrafter)
 	 */
-	if (magic_info[cr_ptr->cls_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
+	if (magic_info[cr_ptr->class_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
 	{
 		if (minfail < 5) minfail = 5;
 	}
 
 	/* Hack -- Priest prayer penalty for "edged" weapons  -DGK */
-	if (((cr_ptr->cls_idx == CLASS_PRIEST) || (cr_ptr->cls_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[0]) chance += 25;
-	if (((cr_ptr->cls_idx == CLASS_PRIEST) || (cr_ptr->cls_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[1]) chance += 25;
+	if (((cr_ptr->class_idx == CLASS_PRIEST) || (cr_ptr->class_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[0]) chance += 25;
+	if (((cr_ptr->class_idx == CLASS_PRIEST) || (cr_ptr->class_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[1]) chance += 25;
 
 	chance = mod_spell_chance_1(cr_ptr, chance);
 
@@ -4265,7 +4265,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	if (chance > 95) chance = 95;
 
 	if ((use_realm == cr_ptr->realm1) || (use_realm == cr_ptr->realm2)
-	    || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
+	    || (cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
 	{
 		s16b exp = experience_of_spell(cr_ptr, spell, use_realm);
 		if (exp >= SPELL_EXP_EXPERT) chance--;
@@ -4294,7 +4294,7 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 	}
 	else
 	{
-		s_ptr = &magic_info[cr_ptr->cls_idx].info[use_realm][spell];
+		s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
 	}
 
 	/* Spell is illegal */
@@ -4309,8 +4309,8 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 		return (FALSE);
 	}
 
-	if (cr_ptr->cls_idx == CLASS_SORCERER) return (TRUE);
-	if (cr_ptr->cls_idx == CLASS_RED_MAGE) return (TRUE);
+	if (cr_ptr->class_idx == CLASS_SORCERER) return (TRUE);
+	if (cr_ptr->class_idx == CLASS_RED_MAGE) return (TRUE);
 
 	/* Spell is learned */
 	if ((use_realm == cr_ptr->realm2) ?
@@ -4374,7 +4374,7 @@ put_str(buf, y, x + 29);
 	put_str(buf, y, x + 29);
 #endif
 
-	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)) increment = 0;
+	if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE)) increment = 0;
 	else if (use_realm == cr_ptr->realm1) increment = 0;
 	else if (use_realm == cr_ptr->realm2) increment = 32;
 
@@ -4391,7 +4391,7 @@ put_str(buf, y, x + 29);
 		}
 		else
 		{
-			s_ptr = &magic_info[cr_ptr->cls_idx].info[use_realm][spell];
+			s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
 		}
 
 		if (use_realm == REALM_HISSATSU)
@@ -4410,7 +4410,7 @@ put_str(buf, y, x + 29);
 			if (!increment && (exp_level == EXP_LEVEL_MASTER)) max = TRUE;
 			else if ((increment == 32) && (exp_level >= EXP_LEVEL_EXPERT)) max = TRUE;
 			else if (s_ptr->slevel >= 99) max = TRUE;
-			else if ((cr_ptr->cls_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
+			else if ((cr_ptr->class_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
 
 			strncpy(ryakuji, exp_level_str[exp_level], 4);
 			ryakuji[3] = ']';
@@ -4454,7 +4454,7 @@ strcat(out_val, format("%-30s", "(判読不能)"));
 		line_attr = TERM_WHITE;
 
 		/* Analyze the spell */
-		if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
+		if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
 		{
 			if (s_ptr->slevel > cr_ptr->max_plv)
 			{
@@ -5665,7 +5665,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER || cr_ptr->cls_idx == CLASS_MAGIC_EATER || cr_ptr->cls_idx == CLASS_BLUE_MAGE)
+			if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER || cr_ptr->class_idx == CLASS_MAGIC_EATER || cr_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)

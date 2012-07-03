@@ -378,14 +378,14 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		for (i = 0;i < 64;i++)
 		{
 			cr_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (cr_ptr->weapon_exp[j][i] > skill_info[cr_ptr->cls_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = skill_info[cr_ptr->cls_idx].w_max[j][i];
+			if (cr_ptr->weapon_exp[j][i] > skill_info[cr_ptr->class_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = skill_info[cr_ptr->class_idx].w_max[j][i];
 		}
 	}
 
 	for (j = 0; j < 10; j++)
 	{
 		cr_ptr->skill_exp[j] = tmp_s16b;
-		if (cr_ptr->skill_exp[j] > skill_info[cr_ptr->cls_idx].s_max[j]) cr_ptr->skill_exp[j] = skill_info[cr_ptr->cls_idx].s_max[j];
+		if (cr_ptr->skill_exp[j] > skill_info[cr_ptr->class_idx].s_max[j]) cr_ptr->skill_exp[j] = skill_info[cr_ptr->class_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)
@@ -2106,7 +2106,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Blue Mage Only */
 	case 'E':
-		if (creature_ptr->cls_idx == CLASS_BLUE_MAGE)
+		if (creature_ptr->class_idx == CLASS_BLUE_MAGE)
 		{
 			do_cmd_wiz_blue_mage(creature_ptr);
 		}
@@ -2285,7 +2285,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Wizard Light the Level */
 	case 'w':
-		wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->cls_idx == CLASS_NINJA));
+		wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->class_idx == CLASS_NINJA));
 		break;
 
 	/* Increase Experience */

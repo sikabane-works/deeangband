@@ -890,7 +890,7 @@ static void load_quick_start(species_type *species_ptr)
 	rd_s16b(&species_ptr->race_idx1);
 	rd_s16b(&species_ptr->race_idx2);
 	for (i = 0; i < 8; i++) rd_u32b(&species_ptr->sub_race[i]);
-	rd_s16b(&species_ptr->cls_idx);
+	rd_s16b(&species_ptr->class_idx);
 	rd_s16b(&species_ptr->chara_idx);
 	rd_s16b(&species_ptr->realm1);
 	rd_s16b(&species_ptr->realm2);
@@ -953,7 +953,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->mimic_race_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
 	rd_s16b(&cr_ptr->creature_ego_idx);
-	rd_s16b(&cr_ptr->cls_idx);
+	rd_s16b(&cr_ptr->class_idx);
 	rd_s16b(&cr_ptr->chara_idx);
 	rd_s16b(&cr_ptr->starting_idx);
 	rd_s16b(&cr_ptr->sex);
@@ -1955,7 +1955,7 @@ note("“Á•Êî•ñ‚ðƒ[ƒh‚µ‚Ü‚µ‚½");
 	if (arg_fiddle) note("Loaded extra information");
 #endif
 
-	if (player_ptr->cls_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
+	if (player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	/* Read number of towns */
 	rd_u16b(&tmp16u);

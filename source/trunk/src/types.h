@@ -338,7 +338,7 @@ struct species_type
 	s16b race_idx2;                 /* Race index 2*/
 	u32b sub_race[8];               /* Sub-Race index */
 	s16b sex;                       /* Sex index */
-	s16b cls_idx;                   /* Class index */
+	s16b class_idx;                   /* Class index */
 	s16b patron_idx;
 	s16b father_idx;
 	s16b mother_idx;
@@ -1189,7 +1189,7 @@ struct creature_type
 	u32b authority[8];      /* Autority flags*/
 	s16b sex;				/* Sex index */
 	bool sexual_penalty;	/* Sexual penalty flag*/
-	s16b cls_idx;		    /* Class index */
+	s16b class_idx;		    /* Class index */
 	bool cls_bonus;	        /* Class bonus flag*/
 	s16b chara_idx;		    /* chara index */
 	s16b patron_idx;		/* Patron index */

@@ -2308,12 +2308,12 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_type *species_ptr)
 {
 
-	if(creature_ptr->cls_idx == INDEX_VARIABLE){
+	if(creature_ptr->class_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
-		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[species_ptr->class_idx].title);
 #else
-		(void)strcat(desc, class_info[species_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[species_ptr->class_idx].title);
 #endif
 	}
 
@@ -3554,7 +3554,7 @@ static void deal_lite(creature_type *creature_ptr)
 
 	if (has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
-		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->class_idx != CLASS_NINJA))
 		{
 			// Hack -- Give the player scrolls of DARKNESS!
 			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
@@ -3562,7 +3562,7 @@ static void deal_lite(creature_type *creature_ptr)
 			add_outfit(creature_ptr, q_ptr, 0);
 		}
 
-		else if (creature_ptr->cls_idx != CLASS_NINJA)
+		else if (creature_ptr->class_idx != CLASS_NINJA)
 		{
 			// Hack -- Give the player some torches
 			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
@@ -3689,7 +3689,7 @@ void deal_item(creature_type *creature_ptr)
 	q_ptr = &forge;
 
 	// Item depend on Class
-	if ((creature_ptr->cls_idx == CLASS_RANGER) || (creature_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
+	if ((creature_ptr->class_idx == CLASS_RANGER) || (creature_ptr->class_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3697,7 +3697,7 @@ void deal_item(creature_type *creature_ptr)
 		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
 	}
 
-	if (creature_ptr->cls_idx == CLASS_RANGER)
+	if (creature_ptr->class_idx == CLASS_RANGER)
 	{
 		q_ptr = &forge;
 		/* Hack -- Give the player some arrows */
@@ -3705,7 +3705,7 @@ void deal_item(creature_type *creature_ptr)
 		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
 	}
 
-	else if (creature_ptr->cls_idx == CLASS_ARCHER)
+	else if (creature_ptr->class_idx == CLASS_ARCHER)
 	{
 		q_ptr = &forge;
 		/* Hack -- Give the player some arrows */
@@ -3713,7 +3713,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr->number = (byte)rand_range(15, 20);
 		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
 	}
-	else if (creature_ptr->cls_idx == CLASS_HIGH_MAGE)
+	else if (creature_ptr->class_idx == CLASS_HIGH_MAGE)
 	{
 		/* Hack -- Give the player some arrows */
 		q_ptr = &forge;
@@ -3723,7 +3723,7 @@ void deal_item(creature_type *creature_ptr)
 
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
-	else if (creature_ptr->cls_idx == CLASS_SORCERER)
+	else if (creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK + MAX_MAGIC - 1; i++)
 		{
@@ -3735,7 +3735,7 @@ void deal_item(creature_type *creature_ptr)
 
 		}
 	}
-	else if (creature_ptr->cls_idx == CLASS_TOURIST)
+	else if (creature_ptr->class_idx == CLASS_TOURIST)
 	{
 		if (creature_ptr->chara_idx != CHARA_SEXY)
 		{
@@ -3772,7 +3772,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr->number = (byte)rand_range(2, 4);
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
-	else if (creature_ptr->cls_idx == CLASS_NINJA)
+	else if (creature_ptr->class_idx == CLASS_NINJA)
 	{
 		/* Hack -- Give the player some arrows */
 		q_ptr = &forge;
@@ -3781,7 +3781,7 @@ void deal_item(creature_type *creature_ptr)
 
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
-	else if (creature_ptr->cls_idx == CLASS_SNIPER)
+	else if (creature_ptr->class_idx == CLASS_SNIPER)
 	{
 		/* Hack -- Give the player some bolts */
 		q_ptr = &forge;
@@ -3792,13 +3792,13 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Give the player three useful objects */
-	if(creature_ptr->cls_idx != INDEX_NONE && has_cf_creature(creature_ptr, CF_HUMANOID))
+	if(creature_ptr->class_idx != INDEX_NONE && has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
 		for (i = 0; i < 10; i++)
 		{
 			/* Look up standard equipment */
-			tv = class_equipment_init[creature_ptr->cls_idx][i][0];
-			sv = class_equipment_init[creature_ptr->cls_idx][i][1];
+			tv = class_equipment_init[creature_ptr->class_idx][i][0];
+			sv = class_equipment_init[creature_ptr->class_idx][i][1];
 			if(tv == 0) continue;
 
 			if (has_cf_creature(creature_ptr, CF_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
@@ -3828,7 +3828,7 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(q_ptr, lookup_kind(tv, sv), creature_ptr->size);
 
 			/* Assassins begin the game with a poisoned dagger */
-			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->cls_idx == CLASS_ROGUE &&
+			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE &&
 				creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
 			{
 				q_ptr->name2 = EGO_BRAND_POIS;
@@ -3842,8 +3842,8 @@ void deal_item(creature_type *creature_ptr)
 
 	if(creature_ptr->chara_idx == CHARA_SEXY)
 	{
-		class_equipment_init[creature_ptr->cls_idx][2][0] = TV_HAFTED;
-		class_equipment_init[creature_ptr->cls_idx][2][1] = SV_WHIP;
+		class_equipment_init[creature_ptr->class_idx][2][0] = TV_HAFTED;
+		class_equipment_init[creature_ptr->class_idx][2][1] = SV_WHIP;
 	}
 
 	/* Hack -- make aware of the water */
@@ -3929,7 +3929,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 	else
 	{
-		rpc_selected = r_ptr->cls_idx;
+		rpc_selected = r_ptr->class_idx;
 	}
 
 	// set character

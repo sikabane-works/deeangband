@@ -2155,7 +2155,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Compare bash power to door power XXX XXX XXX */
 	temp = (bash - (temp * 10));
 
-	if (creature_ptr->cls_idx == CLASS_BERSERKER) temp *= 2;
+	if (creature_ptr->class_idx == CLASS_BERSERKER) temp *= 2;
 
 	/* Hack -- always have a chance */
 	if (temp < 1) temp = 1;
@@ -2716,7 +2716,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	set_action(creature_ptr, ACTION_NONE);
 
-	if ((creature_ptr->cls_idx == CLASS_BARD) && (creature_ptr->magic_num1[0] || creature_ptr->magic_num1[1]))
+	if ((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->magic_num1[0] || creature_ptr->magic_num1[1]))
 	{
 		stop_singing(creature_ptr);
 	}
@@ -2796,7 +2796,7 @@ void do_cmd_rest(creature_type *creature_ptr)
  */
 static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
 {
-	int archer_bonus = (creature_ptr->cls_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
+	int archer_bonus = (creature_ptr->class_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
 	if (creature_ptr->snipe_type)
@@ -3444,7 +3444,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			if ((r_ptr->level + 10) > creature_ptr->lev)
 			{
 				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < skill_info[creature_ptr->cls_idx].w_max[0][j_ptr->sval])
+				if (now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
 					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -3458,7 +3458,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 			if (creature_ptr->riding)
 			{
-				if ((creature_ptr->skill_exp[GINOU_RIDING] < skill_info[creature_ptr->cls_idx].s_max[GINOU_RIDING])
+				if ((creature_ptr->skill_exp[GINOU_RIDING] < skill_info[creature_ptr->class_idx].s_max[GINOU_RIDING])
 					&& ((creature_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
@@ -3810,7 +3810,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	/* Fire the item */
 	do_cmd_fire_aux(creature_ptr, item, j_ptr);
 
-	if (!creature_ptr->is_fired || creature_ptr->cls_idx != CLASS_SNIPER) return;
+	if (!creature_ptr->is_fired || creature_ptr->class_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
 	if (creature_ptr->snipe_type == SP_AWAY)
@@ -4054,7 +4054,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	energy_use = 100;
 
 	/* Rogue and Ninja gets bonus */
-	if ((creature_ptr->cls_idx == CLASS_ROGUE) || (creature_ptr->cls_idx == CLASS_NINJA))
+	if ((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_NINJA))
 		energy_use -= creature_ptr->lev;
 
 	/* Start at the player */
@@ -4065,7 +4065,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((creature_ptr->cls_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if ((creature_ptr->class_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */

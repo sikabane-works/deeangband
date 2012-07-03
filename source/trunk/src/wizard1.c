@@ -1833,11 +1833,11 @@ static void spoil_species_desc(cptr fname)
 			stat[j] = species_ptr->stat_max[j] / 10;
 			if(species_ptr->race_idx1 != INDEX_NONE)
 				stat[j] += race_info[species_ptr->race_idx1].r_adj[j];
-			if(species_ptr->cls_idx != INDEX_NONE)
-				stat[j] += class_info[species_ptr->cls_idx].c_adj[j];
+			if(species_ptr->class_idx != INDEX_NONE)
+				stat[j] += class_info[species_ptr->class_idx].c_adj[j];
 			/* TODO
 			if(species_ptr->patron_idx != INDEX_NONE)
-				stat[j] += player_patrons[species_ptr->cls_idx].p_adj[j];*/
+				stat[j] += player_patrons[species_ptr->class_idx].p_adj[j];*/
 			if(species_ptr->chara_idx != INDEX_NONE)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
@@ -1978,10 +1978,10 @@ static void spoil_species_desc(cptr fname)
 #endif
 
 		}
-		else if(species_ptr->cls_idx < MAX_CLASS)
+		else if(species_ptr->class_idx < MAX_CLASS)
 		{
 			strcat(trait, "/E‹Æ:");
-			strcat(trait, class_info[species_ptr->cls_idx].title);
+			strcat(trait, class_info[species_ptr->class_idx].title);
 		}
 
 		if(is_variable_chara_species(species_ptr)) 

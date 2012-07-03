@@ -90,7 +90,7 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 
 	/* Snipers can shot more critically with crossbows */
 	if (creature_ptr->concent) i += ((i * creature_ptr->concent) / 5);
-	if ((creature_ptr->cls_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT)) i *= 2;
+	if ((creature_ptr->class_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT)) i *= 2;
 
 	/* Critical hit */
 	if (randint1(5000) <= i)
@@ -147,7 +147,7 @@ s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s
 	i = (weight + (meichuu * 3 + plus * 5) + (creature_ptr->lev * 3));
 
 	/* Chance */
-	if ((randint1((creature_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
+	if ((randint1((creature_ptr->class_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
 	{
 		k = weight + randint1(650);
 		if ((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
@@ -584,7 +584,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = 60;
 			}
-			if ((atk_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (atk_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+			if ((atk_ptr->class_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (atk_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 			{
 				atk_ptr->csp -= (1+(o_ptr->dd * o_ptr->ds / 5));
 				play_redraw |= (PR_MANA);
@@ -1984,7 +1984,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
 
-		if (creature_ptr->cls_idx == CLASS_NINJA)
+		if (creature_ptr->class_idx == CLASS_NINJA)
 		{
 			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(creature_ptr, FALSE);
 			else if (creature_ptr->cur_lite <= 0) set_superstealth(creature_ptr, TRUE);
@@ -2410,7 +2410,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			}
 
 			/* displace? */
-			if ((stormbringer && (randint1(1000) > 666)) || (creature_ptr->cls_idx == CLASS_BERSERKER))
+			if ((stormbringer && (randint1(1000) > 666)) || (creature_ptr->class_idx == CLASS_BERSERKER))
 			{
 				melee_attack(creature_ptr, y, x, 0);
 				oktomove = FALSE;
@@ -2556,7 +2556,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
 	{
-		if ((creature_ptr->cls_idx != CLASS_RANGER) && !creature_ptr->levitation && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
+		if ((creature_ptr->class_idx != CLASS_RANGER) && !creature_ptr->levitation && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
 	}
 
 	/* Disarm a visible trap */

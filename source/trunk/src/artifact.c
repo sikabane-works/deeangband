@@ -194,7 +194,7 @@ static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 	if (one_in_(2)) add_flag(o_ptr->art_flags, TR_TELEPORT);
 	else if (one_in_(3)) add_flag(o_ptr->art_flags, TR_NO_TELE);
 
-	if ((cr_ptr->cls_idx != CLASS_WARRIOR) && (cr_ptr->cls_idx != CLASS_ARCHER) && (cr_ptr->cls_idx != CLASS_CAVALRY) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH) && one_in_(3))
+	if ((cr_ptr->class_idx != CLASS_WARRIOR) && (cr_ptr->class_idx != CLASS_ARCHER) && (cr_ptr->class_idx != CLASS_CAVALRY) && (cr_ptr->class_idx != CLASS_BERSERKER) && (cr_ptr->class_idx != CLASS_SMITH) && one_in_(3))
 		add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 }
 
@@ -1647,7 +1647,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 
 	if (a_scroll && one_in_(4) && owner_ptr)
 	{
-		switch (owner_ptr->cls_idx)
+		switch (owner_ptr->class_idx)
 		{
 			case CLASS_WARRIOR:
 			case CLASS_BERSERKER:
@@ -3043,7 +3043,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, ar
 
 	if (o_ptr->name1 == ART_TERROR) /* Terror Mask is for warriors... */
 	{
-		if (owner_ptr->cls_idx == CLASS_WARRIOR || owner_ptr->cls_idx == CLASS_ARCHER || owner_ptr->cls_idx == CLASS_CAVALRY || owner_ptr->cls_idx == CLASS_BERSERKER)
+		if (owner_ptr->class_idx == CLASS_WARRIOR || owner_ptr->class_idx == CLASS_ARCHER || owner_ptr->class_idx == CLASS_CAVALRY || owner_ptr->class_idx == CLASS_BERSERKER)
 		{
 			give_power = TRUE;
 			give_resistance = TRUE;
@@ -3061,7 +3061,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, ar
 
 	if (o_ptr->name1 == ART_MURAMASA)
 	{
-		if (owner_ptr->cls_idx != CLASS_SAMURAI)
+		if (owner_ptr->class_idx != CLASS_SAMURAI)
 		{
 			add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 			o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -3070,7 +3070,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, ar
 
 	if (o_ptr->name1 == ART_XIAOLONG)
 	{
-		if (owner_ptr->cls_idx == CLASS_MONK)
+		if (owner_ptr->class_idx == CLASS_MONK)
 			add_flag(o_ptr->art_flags, TR_BLOWS);
 	}
 

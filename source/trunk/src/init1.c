@@ -3306,10 +3306,10 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_CLASS:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].cls_idx = (s16b)b;
+					species_info[n].class_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, class_flags, tmp, FALSE)) return (1);
-				species_info[n].cls_idx = (s16b)b;
+				species_info[n].class_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
@@ -7487,9 +7487,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = class_info[player_ptr->cls_idx].E_title;
+				v = class_info[player_ptr->class_idx].E_title;
 #else
-				v = class_info[player_ptr->cls_idx].title;
+				v = class_info[player_ptr->class_idx].title;
 #endif
 			}
 

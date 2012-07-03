@@ -861,7 +861,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 						ident = TRUE;
 					}
 				}
-				if (one_in_(13) && (creature_ptr->cls_idx != CLASS_MONK))
+				if (one_in_(13) && (creature_ptr->class_idx != CLASS_MONK))
 				{
 					ident = TRUE;
 					if (one_in_(3)) lose_all_info(creature_ptr);
@@ -1131,7 +1131,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RESTORE_MANA:
-			if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+			if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 			{
 				int i;
 				for (i = 0; i < EATER_EXT*2; i++)
@@ -1561,7 +1561,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		return;
 	}
 
-	if (creature_ptr->cls_idx == CLASS_BERSERKER)
+	if (creature_ptr->class_idx == CLASS_BERSERKER)
 	{
 #ifdef JP
 		msg_print("巻物なんて読めない。");
@@ -1929,7 +1929,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((creature_ptr->cls_idx == CLASS_WARRIOR) || (creature_ptr->cls_idx == CLASS_IMITATOR) || (creature_ptr->cls_idx == CLASS_MINDCRAFTER) || (creature_ptr->cls_idx == CLASS_SORCERER) || (creature_ptr->cls_idx == CLASS_ARCHER) || (creature_ptr->cls_idx == CLASS_MAGIC_EATER) || (creature_ptr->cls_idx == CLASS_RED_MAGE) || (creature_ptr->cls_idx == CLASS_SAMURAI) || (creature_ptr->cls_idx == CLASS_BLUE_MAGE) || (creature_ptr->cls_idx == CLASS_CAVALRY) || (creature_ptr->cls_idx == CLASS_BERSERKER) || (creature_ptr->cls_idx == CLASS_SMITH) || (creature_ptr->cls_idx == CLASS_MIRROR_MASTER) || (creature_ptr->cls_idx == CLASS_NINJA)) break;
+			if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_IMITATOR) || (creature_ptr->class_idx == CLASS_MINDCRAFTER) || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_MAGIC_EATER) || (creature_ptr->class_idx == CLASS_RED_MAGE) || (creature_ptr->class_idx == CLASS_SAMURAI) || (creature_ptr->class_idx == CLASS_BLUE_MAGE) || (creature_ptr->class_idx == CLASS_CAVALRY) || (creature_ptr->class_idx == CLASS_BERSERKER) || (creature_ptr->class_idx == CLASS_SMITH) || (creature_ptr->class_idx == CLASS_MIRROR_MASTER) || (creature_ptr->class_idx == CLASS_NINJA)) break;
 			creature_ptr->add_spells++;
 			creature_ptr->creature_update |= (CRU_SPELLS);
 			ident = TRUE;
@@ -2580,7 +2580,7 @@ msg_print("ダンジョンが揺れた。");
 #endif
 			project(creature_ptr, 5, creature_ptr->fy, creature_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if ((creature_ptr->cls_idx != CLASS_MAGE) && (creature_ptr->cls_idx != CLASS_HIGH_MAGE) && (creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_MAGIC_EATER) && (creature_ptr->cls_idx != CLASS_BLUE_MAGE))
+			if ((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
 				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
@@ -2692,7 +2692,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->cls_idx == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3216,7 +3216,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->cls_idx == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3638,7 +3638,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if (creature_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
+	if (creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -4033,7 +4033,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if (creature_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
+	if (creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -5084,7 +5084,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					ty = target_row;
 				}
 
-				if (creature_ptr->cls_idx == CLASS_ARCHER)
+				if (creature_ptr->class_idx == CLASS_ARCHER)
 				{
 					/* Extra shot at level 10 */
 					if (creature_ptr->lev >= 10) num++;
@@ -5146,7 +5146,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!ident_spell(creature_ptr, FALSE)) return;
 
-				if (magic_info[creature_ptr->cls_idx].spell_book)
+				if (magic_info[creature_ptr->class_idx].spell_book)
 				{
 					/* Sufficient mana */
 					if (20 <= creature_ptr->csp)
@@ -5699,7 +5699,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your pendant glows pale...");
 #endif
-				if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+				if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				{
 					int i;
 					for (i = 0; i < EATER_EXT*2; i++)
@@ -6910,14 +6910,14 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				y1 = ((ctr < EATER_EXT/2) ? y + ctr : y + ctr - EATER_EXT/2);
 				level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 				chance = level * 4 / 5 + 20;
-				chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]] - 1);
+				chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 				level /= 2;
 				if (creature_ptr->lev > level)
 				{
 					chance -= 3 * (creature_ptr->lev - level);
 				}
 				chance = mod_spell_chance_1(creature_ptr, chance);
-				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]]);
+				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 				/* Stunning makes spells harder */
 				if (creature_ptr->stun > 50) chance += 25;
 				else if (creature_ptr->stun) chance += 15;
@@ -7206,14 +7206,14 @@ msg_print("混乱していて唱えられない！");
 
 	level = (tval == TV_ROD ? object_kind_info[k_idx].level * 5 / 6 - 5 : object_kind_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
-	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 	level /= 2;
 	if (creature_ptr->lev > level)
 	{
 		chance -= 3 * (creature_ptr->lev - level);
 	}
 	chance = mod_spell_chance_1(creature_ptr, chance);
-	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->cls_idx].spell_stat]]);
+	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 	/* Stunning makes spells harder */
 	if (creature_ptr->stun > 50) chance += 25;
 	else if (creature_ptr->stun) chance += 15;

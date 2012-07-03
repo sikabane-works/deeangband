@@ -140,7 +140,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	bool            zantetsu_mukou, e_j_mukou;
 	bool monk_attack = FALSE;
 
-	switch (atk_ptr->cls_idx)
+	switch (atk_ptr->class_idx)
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
@@ -177,12 +177,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	{
 		object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
-		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
+		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->class_idx != INDEX_NONE)
 		{
 			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = atk_ptr->inventory[hand].sval;
 			int now_exp = atk_ptr->weapon_exp[tval][sval];
-			if (now_exp < skill_info[atk_ptr->cls_idx].w_max[tval][sval])
+			if (now_exp < skill_info[atk_ptr->class_idx].w_max[tval][sval])
 			{
 				int amount = 0;
 				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -228,7 +228,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		if (mode == HISSATSU_3DAN) n *= 2;
 		success_hit = one_in_(n);
 	}
-	else if ((atk_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
+	else if ((atk_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
 	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
@@ -507,7 +507,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Modify the damage
-		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
+		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
 		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
 			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
@@ -522,7 +522,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 			else k = 1;
 		}
-		else if ((atk_ptr->cls_idx == CLASS_NINJA) && get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
+		else if ((atk_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
 		{
 			if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 			{
@@ -578,7 +578,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		if(gameover);
 		{
 			*mdeath = TRUE;
-			if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
+			if ((atk_ptr->class_idx == CLASS_BERSERKER) && energy_use)
 			{
 				//TODO
 			}
@@ -1037,7 +1037,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 	if ((r_ptr->level + 10) > atk_ptr->lev)
 	{
 		// Matrial arts skill mastering
-		if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
+		if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->class_idx].s_max[GINOU_SUDE])
 		{
 			if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
 				atk_ptr->skill_exp[GINOU_SUDE] += 40;
@@ -1080,7 +1080,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			do
 			{
 				ma_ptr = &ma_blows[randint0(MAX_MA)];
-				if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+				if ((atk_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
 				else min_level = ma_ptr->min_level;
 			}
 			while ((min_level > atk_ptr->lev) || (randint1(atk_ptr->lev) < ma_ptr->chance));
@@ -1105,7 +1105,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 		}
 
-		if (atk_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+		if (atk_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
 		k = diceroll(ma_ptr->dd + atk_ptr->to_damaged[hand], ma_ptr->ds + atk_ptr->to_damages[hand]);
 		if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
@@ -1162,7 +1162,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 		}
 
 		if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
-		if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (atk_ptr->magic_num1[0]))
+		if ((atk_ptr->class_idx == CLASS_FORCETRAINER) && (atk_ptr->magic_num1[0]))
 		{
 			weight += (atk_ptr->magic_num1[0]/30);
 			if (weight > 20) weight = 20;
@@ -1360,7 +1360,7 @@ static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *t
 {
 	if (count_melee_slot(attacker_ptr))
 	{
-		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < target_ptr->lev))
+		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->class_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < target_ptr->lev))
 		{
 			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
 				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
@@ -1380,7 +1380,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 	if (attacker_ptr->riding)
 	{
 		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
-		int max = skill_info[attacker_ptr->cls_idx].s_max[GINOU_RIDING];
+		int max = skill_info[attacker_ptr->class_idx].s_max[GINOU_RIDING];
 
 		if (cur < max)
 		{
@@ -1438,7 +1438,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 			msg_format("%s greedily attacks %s!", weapon_name, target_name);
 #endif
 		}
-		else if (attacker_ptr->cls_idx != CLASS_BERSERKER && is_player(attacker_ptr))
+		else if (attacker_ptr->class_idx != CLASS_BERSERKER && is_player(attacker_ptr))
 		{
 #ifdef JP
 			if (!get_check("ñ{ìñÇ…çUåÇÇµÇ‹Ç∑Ç©ÅH"))

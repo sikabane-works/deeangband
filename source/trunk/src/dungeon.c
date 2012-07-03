@@ -340,7 +340,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	if (creature_ptr->confused) return;
 
 	/* Analyze the class */
-	switch (creature_ptr->cls_idx)
+	switch (creature_ptr->class_idx)
 	{
 		case CLASS_WARRIOR:
 		case CLASS_ARCHER:
@@ -573,7 +573,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	if (creature_ptr->confused) return;
 
 	/* Analyze the class */
-	switch (creature_ptr->cls_idx)
+	switch (creature_ptr->class_idx)
 	{
 		case CLASS_WARRIOR:
 		case CLASS_ARCHER:
@@ -1473,7 +1473,7 @@ static void check_music(creature_type *creature_ptr)
 	u32b need_mana_frac;
 
 	/* Music singed by player */
-	if (creature_ptr->cls_idx != CLASS_BARD) return;
+	if (creature_ptr->class_idx != CLASS_BARD) return;
 	if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
 
 	if (creature_ptr->anti_magic)
@@ -1988,7 +1988,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 
 
 	/* Recharge magic eater's power */
-	if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+	if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		regenmagic(creature_ptr, regen_amount);
 	}
@@ -4271,7 +4271,7 @@ static void process_command(creature_type *creature_ptr)
 	now_message = 0;
 
 	/* Sniper */
-	if ((creature_ptr->cls_idx == CLASS_SNIPER) && (creature_ptr->concent))
+	if ((creature_ptr->class_idx == CLASS_SNIPER) && (creature_ptr->concent))
 		creature_ptr->reset_concent = TRUE;
 
 	/* Parse the command */
@@ -4592,15 +4592,15 @@ msg_print("ウィザードモード突入。");
 		/* Gain new spells/prayers */
 		case 'G':
 		{
-			if ((creature_ptr->cls_idx == CLASS_SORCERER) || (creature_ptr->cls_idx == CLASS_RED_MAGE))
+			if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 #ifdef JP
 				msg_print("呪文を学習する必要はない！");
 #else
 				msg_print("You don't have to learn spells!");
 #endif
-			else if (creature_ptr->cls_idx == CLASS_SAMURAI)
+			else if (creature_ptr->class_idx == CLASS_SAMURAI)
 				do_cmd_gain_hissatsu(creature_ptr);
-			else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+			else if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				gain_magic(creature_ptr);
 			else
 				do_cmd_study(creature_ptr);
@@ -4610,16 +4610,16 @@ msg_print("ウィザードモード突入。");
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (creature_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-			     (creature_ptr->cls_idx == CLASS_BERSERKER) ||
-			     (creature_ptr->cls_idx == CLASS_NINJA) ||
-			     (creature_ptr->cls_idx == CLASS_MIRROR_MASTER) 
+			if ( (creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
+			     (creature_ptr->class_idx == CLASS_BERSERKER) ||
+			     (creature_ptr->class_idx == CLASS_NINJA) ||
+			     (creature_ptr->class_idx == CLASS_MIRROR_MASTER) 
 			     ) do_cmd_mind_browse(creature_ptr);
-			else if (creature_ptr->cls_idx == CLASS_SMITH)
+			else if (creature_ptr->class_idx == CLASS_SMITH)
 				do_cmd_kaji(creature_ptr, TRUE);
-			else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+			else if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(creature_ptr, TRUE);
-			else if (creature_ptr->cls_idx == CLASS_SNIPER)
+			else if (creature_ptr->class_idx == CLASS_SNIPER)
 				do_cmd_snipe_browse(creature_ptr);
 			else do_cmd_browse(creature_ptr);
 			break;
@@ -4631,7 +4631,7 @@ msg_print("ウィザードモード突入。");
 			/* -KMW- */
 			if (!wild_mode)
 			{
-				if ((creature_ptr->cls_idx == CLASS_WARRIOR) || (creature_ptr->cls_idx == CLASS_ARCHER) || (creature_ptr->cls_idx == CLASS_CAVALRY))
+				if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 				{
 #ifdef JP
 					msg_print("呪文を唱えられない！");
@@ -4639,7 +4639,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->cls_idx != CLASS_BERSERKER) && (creature_ptr->cls_idx != CLASS_SMITH))
+				else if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -4648,7 +4648,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					msg_print(NULL);
 				}
-				else if (creature_ptr->anti_magic && (creature_ptr->cls_idx != CLASS_BERSERKER) && (creature_ptr->cls_idx != CLASS_SMITH))
+				else if (creature_ptr->anti_magic && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
 #ifdef JP
 
@@ -4656,37 +4656,37 @@ msg_print("ウィザードモード突入。");
 #else
 					cptr which_power = "magic";
 #endif
-					if (creature_ptr->cls_idx == CLASS_MINDCRAFTER)
+					if (creature_ptr->class_idx == CLASS_MINDCRAFTER)
 #ifdef JP
 						which_power = "超能力";
 #else
 						which_power = "psionic powers";
 #endif
-					else if (creature_ptr->cls_idx == CLASS_IMITATOR)
+					else if (creature_ptr->class_idx == CLASS_IMITATOR)
 #ifdef JP
 						which_power = "ものまね";
 #else
 						which_power = "imitation";
 #endif
-					else if (creature_ptr->cls_idx == CLASS_SAMURAI)
+					else if (creature_ptr->class_idx == CLASS_SAMURAI)
 #ifdef JP
 						which_power = "必殺剣";
 #else
 						which_power = "hissatsu";
 #endif
-					else if (creature_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					else if (creature_ptr->class_idx == CLASS_MIRROR_MASTER)
 #ifdef JP
 						which_power = "鏡魔法";
 #else
 						which_power = "mirror magic";
 #endif
-					else if (creature_ptr->cls_idx == CLASS_NINJA)
+					else if (creature_ptr->class_idx == CLASS_NINJA)
 #ifdef JP
 						which_power = "忍術";
 #else
 						which_power = "ninjutsu";
 #endif
-					else if (magic_info[creature_ptr->cls_idx].spell_book == TV_LIFE_BOOK)
+					else if (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK)
 #ifdef JP
 						which_power = "祈り";
 #else
@@ -4700,7 +4700,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					energy_use = 0;
 				}
-				else if (creature_ptr->shero && (creature_ptr->cls_idx != CLASS_BERSERKER))
+				else if (creature_ptr->shero && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
 #ifdef JP
 					msg_format("狂戦士化していて頭が回らない！");
@@ -4711,23 +4711,23 @@ msg_print("ウィザードモード突入。");
 				}
 				else
 				{
-					if ((creature_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-					    (creature_ptr->cls_idx == CLASS_BERSERKER) ||
-					    (creature_ptr->cls_idx == CLASS_NINJA) ||
-					    (creature_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					if ((creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
+					    (creature_ptr->class_idx == CLASS_BERSERKER) ||
+					    (creature_ptr->class_idx == CLASS_NINJA) ||
+					    (creature_ptr->class_idx == CLASS_MIRROR_MASTER)
 					    )
 						do_cmd_mind(creature_ptr);
-					else if (creature_ptr->cls_idx == CLASS_IMITATOR)
+					else if (creature_ptr->class_idx == CLASS_IMITATOR)
 						do_cmd_mane(creature_ptr, FALSE);
-					else if (creature_ptr->cls_idx == CLASS_MAGIC_EATER)
+					else if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 						do_cmd_magic_eater(creature_ptr, FALSE);
-					else if (creature_ptr->cls_idx == CLASS_SAMURAI)
+					else if (creature_ptr->class_idx == CLASS_SAMURAI)
 						do_cmd_hissatsu(creature_ptr);
-					else if (creature_ptr->cls_idx == CLASS_BLUE_MAGE)
+					else if (creature_ptr->class_idx == CLASS_BLUE_MAGE)
 						do_cmd_cast_learned(creature_ptr);
-					else if (creature_ptr->cls_idx == CLASS_SMITH)
+					else if (creature_ptr->class_idx == CLASS_SMITH)
 						do_cmd_kaji(creature_ptr, FALSE);
-					else if (creature_ptr->cls_idx == CLASS_SNIPER)
+					else if (creature_ptr->class_idx == CLASS_SNIPER)
 						do_cmd_snipe(creature_ptr);
 					else
 						do_cmd_cast(creature_ptr);
@@ -5547,7 +5547,7 @@ msg_print("中断しました。");
 	{
 		(void)set_lightspeed(creature_ptr, creature_ptr->lightspeed - 1, TRUE);
 	}
-	if ((creature_ptr->cls_idx == CLASS_FORCETRAINER) && (creature_ptr->magic_num1[0]))
+	if ((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->magic_num1[0]))
 	{
 		if (creature_ptr->magic_num1[0] < 40)
 		{
@@ -5849,7 +5849,7 @@ msg_print("中断しました。");
 					}
 				}
 			}
-			if (creature_ptr->cls_idx == CLASS_IMITATOR)
+			if (creature_ptr->class_idx == CLASS_IMITATOR)
 			{
 				if (creature_ptr->mane_num > (creature_ptr->lev > 44 ? 3 : creature_ptr->lev > 29 ? 2 : 1))
 				{
@@ -6036,7 +6036,7 @@ static void load_all_pref_files(creature_type *creature_ptr)
 	process_pref_file(buf);
 
 	/* Access the "class" pref file */
-	sprintf(buf, "%s.prf", class_info[creature_ptr->cls_idx].title);
+	sprintf(buf, "%s.prf", class_info[creature_ptr->class_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);
@@ -6222,7 +6222,7 @@ static void cheat_death(void)
 	player_ptr->chp = player_ptr->mhp;
 	player_ptr->chp_frac = 0;
 
-	if (player_ptr->cls_idx == CLASS_MAGIC_EATER)
+	if (player_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		for (i = 0; i < EATER_EXT*2; i++)
 		{
@@ -6646,7 +6646,7 @@ static void play_loop(void)
 			}
 		}
 
-		if ((player_ptr->cls_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
+		if ((player_ptr->class_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
 			player_ptr->magic_num1[0] = MUSIC_DETECT;
 
 		/* Hack -- notice death or departure */
@@ -6968,9 +6968,9 @@ void play_game(bool new_game)
 
 	if (has_cf_creature(player_ptr, CF_ANDROID)) calc_android_exp(player_ptr);
 
-	if (new_game && ((player_ptr->cls_idx == CLASS_CAVALRY) || (player_ptr->cls_idx == CLASS_BEASTMASTER)))
+	if (new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
-		int pet_species_idx = ((player_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
+		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		place_creature_species(player_ptr, get_floor_ptr(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 

@@ -5075,16 +5075,16 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (guest_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-			     (guest_ptr->cls_idx == CLASS_BERSERKER) ||
-			     (guest_ptr->cls_idx == CLASS_NINJA) ||
-			     (guest_ptr->cls_idx == CLASS_MIRROR_MASTER) 
+			if ( (guest_ptr->class_idx == CLASS_MINDCRAFTER) ||
+			     (guest_ptr->class_idx == CLASS_BERSERKER) ||
+			     (guest_ptr->class_idx == CLASS_NINJA) ||
+			     (guest_ptr->class_idx == CLASS_MIRROR_MASTER) 
 			     ) do_cmd_mind_browse(guest_ptr);
-			else if (guest_ptr->cls_idx == CLASS_SMITH)
+			else if (guest_ptr->class_idx == CLASS_SMITH)
 				do_cmd_kaji(guest_ptr, TRUE);
-			else if (guest_ptr->cls_idx == CLASS_MAGIC_EATER)
+			else if (guest_ptr->class_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(guest_ptr, TRUE);
-			else if (guest_ptr->cls_idx == CLASS_SNIPER)
+			else if (guest_ptr->class_idx == CLASS_SNIPER)
 				do_cmd_snipe_browse(guest_ptr);
 			else do_cmd_browse(guest_ptr);
 			break;

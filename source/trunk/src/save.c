@@ -424,7 +424,7 @@ static void save_quick_start(species_type *species_ptr)
 	wr_s16b(species_ptr->race_idx1);
 	wr_s16b(species_ptr->race_idx2);
 	for (i = 0; i < 8; i++) wr_u32b(species_ptr->sub_race[i]);
-	wr_s16b(species_ptr->cls_idx);
+	wr_s16b(species_ptr->class_idx);
 	wr_s16b(species_ptr->chara_idx);
 	wr_s16b(species_ptr->realm1);
 	wr_s16b(species_ptr->realm2);
@@ -482,7 +482,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->mimic_race_idx);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
 	wr_s16b(cr_ptr->creature_ego_idx);
-	wr_s16b(cr_ptr->cls_idx);
+	wr_s16b(cr_ptr->class_idx);
 	wr_s16b(cr_ptr->chara_idx);
 	wr_s16b(cr_ptr->starting_idx);
 	wr_s16b(cr_ptr->sex);

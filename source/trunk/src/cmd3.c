@@ -473,7 +473,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 			return;
 			}
 		}
-		else if (cr_ptr->cls_idx != CLASS_BERSERKER)
+		else if (cr_ptr->class_idx != CLASS_BERSERKER)
 		{
 #ifdef JP
 			msg_print("‚Ó[‚ÞA‚Ç‚¤‚â‚çŽô‚í‚ê‚Ä‚¢‚é‚æ‚¤‚¾B");
@@ -822,11 +822,11 @@ void do_cmd_destroy(creature_type *cr_ptr)
 		if (has_cf_creature(cr_ptr, CF_ANDROID))
 		{
 		}
-		else if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_BERSERKER))
+		else if ((cr_ptr->class_idx == CLASS_WARRIOR) || (cr_ptr->class_idx == CLASS_BERSERKER))
 		{
 			gain_expr = TRUE;
 		}
-		else if (cr_ptr->cls_idx == CLASS_PALADIN)
+		else if (cr_ptr->class_idx == CLASS_PALADIN)
 		{
 			if (is_good_realm(cr_ptr->realm1))
 			{

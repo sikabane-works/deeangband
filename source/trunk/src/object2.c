@@ -5566,9 +5566,9 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	}
 	else
 	{
-		if ((creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_RED_MAGE)) return;
+		if ((creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE)) return;
 		if (!is_magic(use_realm)) return;
-		if ((creature_ptr->cls_idx == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
+		if ((creature_ptr->class_idx == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
 	}
 
 	/* Display spells in readible books */

@@ -456,7 +456,7 @@ static int get_mind_power(creature_type *cr_ptr, int *sn, bool only_browse)
       int             use_mind;
       int menu_line = (use_menu ? 1 : 0);
 
-      switch(cr_ptr->cls_idx)
+      switch(cr_ptr->class_idx)
 	{
 	case CLASS_MINDCRAFTER:
 	  {
@@ -670,7 +670,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						chance -= 3 * (plev - spell.min_lev);
 
 						/* Reduce failure rate by INT/WIS adjustment */
-						chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+						chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
 
 						if (use_mind == MIND_KI)
 						{
@@ -696,7 +696,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						chance += cr_ptr->to_m_chance;
 
 						/* Extract the minimum failure rate */
-						minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]];
+						minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
 
 						/* Minimum failure rate */
 						if (chance < minfail) chance = minfail;
@@ -1822,7 +1822,7 @@ msg_print("混乱していて集中できない！");
 	if (!get_mind_power(cr_ptr, &n, FALSE)) return;
 
 #ifdef JP
-	switch(cr_ptr->cls_idx)
+	switch(cr_ptr->class_idx)
 	{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;p = "精神";break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;p = "気";break;
@@ -1832,7 +1832,7 @@ msg_print("混乱していて集中できない！");
 		default:                use_mind = 0;p = "超能力";break;
 	}
 #else
-	switch(cr_ptr->cls_idx)
+	switch(cr_ptr->class_idx)
 	{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
@@ -1905,7 +1905,7 @@ if (!get_check("それでも挑戦しますか? ")) return;
 		chance += cr_ptr->to_m_chance;
 
 		/* Reduce failure rate by INT/WIS adjustment */
-		chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]] - 1);
+		chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
 
 		/* Not enough mana to cast */
 		if ((mana_cost > cr_ptr->csp) && (use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
@@ -1914,7 +1914,7 @@ if (!get_check("それでも挑戦しますか? ")) return;
 		}
 
 		/* Extract the minimum failure rate */
-		minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->cls_idx].spell_stat]];
+		minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
 
 		/* Minimum failure rate */
 		if (chance < minfail) chance = minfail;
@@ -2098,7 +2098,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	/* Take a turn */
 	energy_use = 100;
 	/* teleport from mirror costs small energy */
-	if( on_mirror && cr_ptr->cls_idx == CLASS_MIRROR_MASTER )
+	if( on_mirror && cr_ptr->class_idx == CLASS_MIRROR_MASTER )
 	{
 	  if( n==3 || n==5 || n==7 || n==16 )energy_use = 50;
 	}
@@ -2189,11 +2189,11 @@ void do_cmd_mind_browse(creature_type *cr_ptr)
 	char temp[62*5];
 	int use_mind = 0;
 
-	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
-	else if (cr_ptr->cls_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
-	else if (cr_ptr->cls_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
-	else if (cr_ptr->cls_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
-	else if (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
+	if (cr_ptr->class_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
+	else if (cr_ptr->class_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
+	else if (cr_ptr->class_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
+	else if (cr_ptr->class_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
+	else if (cr_ptr->class_idx == CLASS_MIRROR_MASTER)
 	  use_mind = MIND_MIRROR_MASTER;
 
 	screen_save();

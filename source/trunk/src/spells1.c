@@ -5196,10 +5196,10 @@ note = "は眠り込んでしまった！";
 			{
 				int b = diceroll(5, dam) / 4;
 #ifdef JP
-				cptr str = (caster_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
 				msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
 #else
-				cptr str = (caster_ptr->cls_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
 				msg_format("You convert %s%s pain into %s!",
 				    target_name, (seen ? "'s" : "s"), str);
 #endif
@@ -6735,7 +6735,7 @@ note = "には耐性がある！";
 			}
 
 			if (is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
-			else if ((caster_ptr->cls_idx == CLASS_BEASTMASTER) && creature_living(target_ptr))
+			else if ((caster_ptr->class_idx == CLASS_BEASTMASTER) && creature_living(target_ptr))
 				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
 			else
 				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
