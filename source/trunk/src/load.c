@@ -1229,7 +1229,7 @@ static void rd_extra(void)
 	rd_byte(&tmp8u);
 
 
-	/* Was cr_ptr->rewards[MAX_BACT] */
+	/* Was cr_ptr->rewards[BACT_MAX] */
 	rd_s16b(&tmp16s);
 	for (i = 0; i < tmp16s; i++)
 	{
