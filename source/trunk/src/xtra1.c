@@ -3216,7 +3216,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
 }
 
-static void set_status_bonuses(creature_type *creature_ptr)
+static void set_state_bonuses(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
@@ -5095,7 +5095,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 }
 
 
-static void initialize_bonuses(creature_type *creature_ptr)
+static void set_size_bonuses(creature_type *creature_ptr)
 {
 	// Base skills
 	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
@@ -5207,7 +5207,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	wipe_creature_calculation_status(creature_ptr);
 
-	initialize_bonuses(creature_ptr);
+	set_size_bonuses(creature_ptr);
 	set_divine_bonuses(creature_ptr);
 
 	set_race_bonuses(creature_ptr);
@@ -5219,7 +5219,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_trait_bonuses(creature_ptr);
 	set_inventory_bonuses(creature_ptr); // Scan the usable inventory
 	set_status_table_indexes(creature_ptr);
-	set_status_bonuses(creature_ptr);
+	set_state_bonuses(creature_ptr);
 
 	if (creature_ptr->riding) set_riding_bonuses(creature_ptr);
 	set_posture_bonuses(creature_ptr);
