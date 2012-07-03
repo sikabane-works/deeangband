@@ -5889,8 +5889,8 @@ enum KARMA_TYPE
 
 #define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
 #define IS_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) || (CR)->race_idx2 == (IDX))
-
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
+#define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE)
 
 
 #define CAMP_PLAYER   0

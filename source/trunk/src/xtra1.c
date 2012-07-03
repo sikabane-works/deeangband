@@ -2752,10 +2752,13 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	race_type *race1_ptr  = &race_info[creature_ptr->race_idx1];
 	race_type *race2_ptr = &race_info[creature_ptr->race_idx2];
+	race_type *mimic_ptr = &race_info[creature_ptr->mimic_race_idx];
 
 	for (i = 0; i < 6; i++)
 	{
-		if(IS_PURE(creature_ptr))
+		if(IS_MIMICED(creature_ptr))
+			creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * 10;
+		else if(IS_PURE(creature_ptr))
 			creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * 10;
 		else
 		{
@@ -2764,6 +2767,20 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		}
 	}
 
+	if(IS_MIMICED(creature_ptr))
+	{
+		creature_ptr->skill_dis += (-5 + mimic_ptr->r_dis);
+		creature_ptr->skill_dev += (-5 + mimic_ptr->r_dev);
+		creature_ptr->skill_rob += (-5 + mimic_ptr->r_rob);
+		creature_ptr->skill_eva += (-5 + mimic_ptr->r_eva);
+		creature_ptr->skill_vol += (-5 + mimic_ptr->r_vol);
+		creature_ptr->skill_stl += mimic_ptr->r_stl;
+		creature_ptr->skill_srh += (-10 + mimic_ptr->r_srh);
+		creature_ptr->skill_fos += (-10 + mimic_ptr->r_fos);
+		creature_ptr->skill_thn += (-10 + mimic_ptr->r_thn);
+		creature_ptr->skill_thb += (-10 + mimic_ptr->r_thb);
+		creature_ptr->skill_tht += (-10 + mimic_ptr->r_thb);
+	}
 	if(IS_PURE(creature_ptr))
 	{
 		creature_ptr->skill_dis += (-5 + race1_ptr->r_dis);
