@@ -4142,71 +4142,76 @@ extern int PlayerUID;
  *
  * Some "sound" constants for "Term_xtra(TERM_XTRA_SOUND, val)"
  */
-#define SOUND_HIT        1
-#define SOUND_MISS       2
-#define SOUND_FLEE       3
-#define SOUND_DROP       4
-#define SOUND_KILL       5
-#define SOUND_LEVEL      6
-#define SOUND_DEATH      7
-#define SOUND_STUDY      8
-#define SOUND_TELEPORT   9
-#define SOUND_SHOOT     10
-#define SOUND_QUAFF     11
-#define SOUND_ZAP       12
-#define SOUND_WALK      13
-#define SOUND_TPOTHER   14
-#define SOUND_HITWALL   15
-#define SOUND_EAT       16
-#define SOUND_STORE1    17
-#define SOUND_STORE2    18
-#define SOUND_STORE3    19
-#define SOUND_STORE4    20
-#define SOUND_DIG       21
-#define SOUND_OPENDOOR  22
-#define SOUND_SHUTDOOR  23
-#define SOUND_TPLEVEL   24
-#define SOUND_SCROLL	25
-#define SOUND_BUY	    26
-#define SOUND_SELL	    27
-#define SOUND_WARN	    28
-#define SOUND_ROCKET    29 /* Somebody's shooting rockets */
-#define SOUND_N_KILL    30 /* The player kills a non-living/undead creature */
-#define SOUND_U_KILL    31 /* The player kills a unique */
-#define SOUND_QUEST     32 /* The player has just completed a quest */
-#define SOUND_HEAL      33 /* The player was healed a little bit */
-#define SOUND_X_HEAL    34 /* The player was healed full health */
-#define SOUND_BITE      35 /* A creature bites you */
-#define SOUND_CLAW      36 /* A creature claws you */
-#define SOUND_M_SPELL   37 /* A creature casts a miscellaneous spell */
-#define SOUND_SUMMON    38 /* A creature casts a summoning spell  */
-#define SOUND_BREATH    39 /* A creature breathes */
-#define SOUND_BALL      40 /* A creature casts a ball / bolt spell */
-#define SOUND_M_HEAL    41 /* A creature heals itself somehow */
-#define SOUND_ATK_SPELL 42 /* A creature casts a misc. offensive spell */
-#define SOUND_EVIL      43 /* Something nasty has just happened! */
-#define SOUND_TOUCH     44 /* A creature touches you */
-#define SOUND_STING     45 /* A creature stings you */
-#define SOUND_CRUSH     46 /* A creature crushes / envelopes you */
-#define SOUND_SLIME     47 /* A creature drools/spits/etc on you */
-#define SOUND_WAIL      48 /* A creature wails */
-#define SOUND_WINNER    49 /* Just won the game! */
-#define SOUND_FIRE      50 /* An item was burned  */
-#define SOUND_ACID      51 /* An item was destroyed by acid */
-#define SOUND_ELEC      52 /* An item was destroyed by electricity */
-#define SOUND_COLD      53 /* An item was shattered */
-#define SOUND_ILLEGAL   54 /* Illegal command attempted */
-#define SOUND_FAIL      55 /* Fail to get a spell off / activate an item */
-#define SOUND_WAKEUP    56 /* A creature wakes up */
-#define SOUND_INVULN    57 /* Invulnerability! */
-#define SOUND_FALL      58 /* Falling through a trapdoor... */
-#define SOUND_PAIN      59 /* A creature is in pain! */
-#define SOUND_DESTITEM  60 /* An item was destroyed by misc. means */
-#define SOUND_MOAN      61 /* A creature makes a moan/beg/insult attack */
-#define SOUND_SHOW      62 /* A creature makes a "show" attack */
-#define SOUND_UNUSED    63 /* (no sound for gaze attacks) */
-#define SOUND_EXPLODE   64 /* Something (or somebody) explodes */
-#define SOUND_GLASS     65 /* A glass feature was crashed */
+
+enum SOUND
+{
+  SOUND_HIT,
+  SOUND_MISS,
+  SOUND_FLEE,
+  SOUND_DROP,
+  SOUND_KILL,
+  SOUND_LEVEL,
+  SOUND_DEATH,
+  SOUND_STUDY,
+  SOUND_TELEPORT,
+  SOUND_SHOOT,
+  SOUND_QUAFF,
+  SOUND_ZAP,
+  SOUND_WALK,
+  SOUND_TPOTHER,
+  SOUND_HITWALL,
+  SOUND_EAT,
+  SOUND_STORE1,
+  SOUND_STORE2,
+  SOUND_STORE3,
+  SOUND_STORE4,
+  SOUND_DIG,
+  SOUND_OPENDOOR,
+  SOUND_SHUTDOOR,
+  SOUND_TPLEVEL,
+  SOUND_SCROLL,
+  SOUND_BUY,
+  SOUND_SELL,
+  SOUND_WARN,
+  SOUND_ROCKET,		  
+  SOUND_N_KILL,		  
+  SOUND_U_KILL,		  
+  SOUND_QUEST,		  
+  SOUND_HEAL,		  
+  SOUND_X_HEAL,		  
+  SOUND_BITE,		  
+  SOUND_CLAW,		  
+  SOUND_M_SPELL,  
+  SOUND_SUMMON,	  
+  SOUND_BREATH,	  
+  SOUND_BALL,	  
+  SOUND_M_HEAL,	  
+  SOUND_ATK_SPELL,	  
+  SOUND_EVIL,		  
+  SOUND_TOUCH,		  
+  SOUND_STING,		  
+  SOUND_CRUSH,		  
+  SOUND_SLIME,		  
+  SOUND_WAIL,		  
+  SOUND_WINNER,		  
+  SOUND_FIRE,		  
+  SOUND_ACID,		  
+  SOUND_ELEC,		  
+  SOUND_COLD,		  
+  SOUND_ILLEGAL,	  
+  SOUND_FAIL,		  
+  SOUND_WAKEUP,		  
+  SOUND_INVULN,		  
+  SOUND_FALL,		  
+  SOUND_PAIN,		  
+  SOUND_DESTITEM,	  
+  SOUND_MOAN,		  
+  SOUND_SHOW,		  
+  SOUND_UNUSED,		  
+  SOUND_EXPLODE,	  
+  SOUND_GLASS,		  
+};
+
 
 /*
  * Mega-Hack -- maximum known sounds
