@@ -4260,7 +4260,15 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_USE_STAT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) {
+						if (streq(tmp, "STR")) trait_info[n].use_stat = STAT_STR;
+						else if (streq(tmp, "INT")) trait_info[n].use_stat = STAT_INT;
+						else if (streq(tmp, "WIS")) trait_info[n].use_stat = STAT_WIS;
+						else if (streq(tmp, "DEX")) trait_info[n].use_stat = STAT_DEX;
+						else if (streq(tmp, "CON")) trait_info[n].use_stat = STAT_CON;
+						else if (streq(tmp, "CHA")) trait_info[n].use_stat = STAT_CHA;
+						else return (5);
+					}
 					trait_info[n].use_stat = (s16b)b;
 				break;
 
