@@ -2769,45 +2769,47 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 	if(IS_MIMICED(creature_ptr))
 	{
-		creature_ptr->skill_dis += (-5 + mimic_ptr->r_dis);
-		creature_ptr->skill_dev += (-5 + mimic_ptr->r_dev);
-		creature_ptr->skill_rob += (-5 + mimic_ptr->r_rob);
-		creature_ptr->skill_eva += (-5 + mimic_ptr->r_eva);
-		creature_ptr->skill_vol += (-5 + mimic_ptr->r_vol);
+		creature_ptr->skill_dis += mimic_ptr->r_dis;
+		creature_ptr->skill_dev += mimic_ptr->r_dev;
+		creature_ptr->skill_rob += mimic_ptr->r_rob;
+		creature_ptr->skill_eva += mimic_ptr->r_eva;
+		creature_ptr->skill_vol += mimic_ptr->r_vol;
 		creature_ptr->skill_stl += mimic_ptr->r_stl;
-		creature_ptr->skill_srh += (-10 + mimic_ptr->r_srh);
-		creature_ptr->skill_fos += (-10 + mimic_ptr->r_fos);
-		creature_ptr->skill_thn += (-10 + mimic_ptr->r_thn);
-		creature_ptr->skill_thb += (-10 + mimic_ptr->r_thb);
-		creature_ptr->skill_tht += (-10 + mimic_ptr->r_thb);
+		creature_ptr->skill_srh += mimic_ptr->r_srh;
+		creature_ptr->skill_fos += mimic_ptr->r_fos;
+		creature_ptr->skill_thn += mimic_ptr->r_thn;
+		creature_ptr->skill_thb += mimic_ptr->r_thb;
+		creature_ptr->skill_tht += mimic_ptr->r_thb;
 	}
+
 	if(IS_PURE(creature_ptr))
 	{
-		creature_ptr->skill_dis += (-5 + race1_ptr->r_dis);
-		creature_ptr->skill_dev += (-5 + race1_ptr->r_dev);
-		creature_ptr->skill_rob += (-5 + race1_ptr->r_rob);
-		creature_ptr->skill_eva += (-5 + race1_ptr->r_eva);
-		creature_ptr->skill_vol += (-5 + race1_ptr->r_vol);
+		creature_ptr->skill_dis += race1_ptr->r_dis;
+		creature_ptr->skill_dev += race1_ptr->r_dev;
+		creature_ptr->skill_rob += race1_ptr->r_rob;
+		creature_ptr->skill_eva += race1_ptr->r_eva;
+		creature_ptr->skill_vol += race1_ptr->r_vol;
 		creature_ptr->skill_stl += race1_ptr->r_stl;
-		creature_ptr->skill_srh += (-10 + race1_ptr->r_srh);
-		creature_ptr->skill_fos += (-10 + race1_ptr->r_fos);
-		creature_ptr->skill_thn += (-10 + race1_ptr->r_thn);
-		creature_ptr->skill_thb += (-10 + race1_ptr->r_thb);
-		creature_ptr->skill_tht += (-10 + race1_ptr->r_thb);
+		creature_ptr->skill_srh += race1_ptr->r_srh;
+		creature_ptr->skill_fos += race1_ptr->r_fos;
+		creature_ptr->skill_thn += race1_ptr->r_thn;
+		creature_ptr->skill_thb += race1_ptr->r_thb;
+		creature_ptr->skill_tht += race1_ptr->r_thb;
 	}
+
 	else
 	{
-		creature_ptr->skill_dis += (-5 + race1_ptr->r_s_dis + race2_ptr->r_s_dis);
-		creature_ptr->skill_dev += (-5 + race1_ptr->r_s_dev + race2_ptr->r_s_dis);
-		creature_ptr->skill_rob += (-5 + race1_ptr->r_s_rob + race2_ptr->r_s_dis);
-		creature_ptr->skill_eva += (-5 + race1_ptr->r_s_eva + race2_ptr->r_s_dis);
-		creature_ptr->skill_vol += (-5 + race1_ptr->r_s_vol + race2_ptr->r_s_dis);
+		creature_ptr->skill_dis += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
+		creature_ptr->skill_dev += race1_ptr->r_s_dev + race2_ptr->r_s_dev;
+		creature_ptr->skill_rob += race1_ptr->r_s_rob + race2_ptr->r_s_rob;
+		creature_ptr->skill_eva += race1_ptr->r_s_eva + race2_ptr->r_s_eva;
+		creature_ptr->skill_vol += race1_ptr->r_s_vol + race2_ptr->r_s_vol;
 		creature_ptr->skill_stl += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
-		creature_ptr->skill_srh += (-10 + race1_ptr->r_s_srh + race2_ptr->r_s_dis);
-		creature_ptr->skill_fos += (-10 + race1_ptr->r_s_fos + race2_ptr->r_s_dis);
-		creature_ptr->skill_thn += (-10 + race1_ptr->r_s_thn + race2_ptr->r_s_dis);
-		creature_ptr->skill_thb += (-10 + race1_ptr->r_s_thb + race2_ptr->r_s_dis);
-		creature_ptr->skill_tht += (-10 + race1_ptr->r_s_thb + race2_ptr->r_s_dis);
+		creature_ptr->skill_srh += race1_ptr->r_s_srh + race2_ptr->r_s_srh;
+		creature_ptr->skill_fos += race1_ptr->r_s_fos + race2_ptr->r_s_fos;
+		creature_ptr->skill_thn += race1_ptr->r_s_thn + race2_ptr->r_s_thn;
+		creature_ptr->skill_thb += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
+		creature_ptr->skill_tht += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 	}
 
 	// AC bonus
@@ -3857,20 +3859,10 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 		creature_ptr->can_melee[i] = FALSE;
 	}
 
-	// Clear the Activate Rate
-	creature_ptr->to_acr[0] = 100; 
-
-	// Start with "normal" speed
-	creature_ptr->speed = 0;
-
-	// Start with a single shot per turn
-	creature_ptr->num_fire = 100;
-
-	// Reset the "xtra" tval
-	creature_ptr->tval_xtra = 0;
-
-	// Reset the "ammo" tval
-	creature_ptr->tval_ammo = 0;
+	creature_ptr->speed = 0;		// Start with "normal" speed
+	creature_ptr->num_fire = 100;	// Start with a single shot per turn
+	creature_ptr->tval_xtra = 0;	// Reset the "xtra" tval
+	creature_ptr->tval_ammo = 0;	// Reset the "ammo" tval
 
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
@@ -3957,12 +3949,9 @@ static void set_karma_bonuses(creature_type *creature_ptr)
 	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
-	/* calc karmas and bonuses */
-	for(i = 0; i < MAX_KARMA; i++)
-		creature_ptr->karmas_cur[i] = creature_ptr->karmas_cur[i];
-
-	for(i = 0; i < MAX_KARMA; i++)
-		creature_ptr->karmas_rank[i] = calc_rank(creature_ptr->karmas_cur[i]);
+	// calc karmas and bonuses
+	for(i = 0; i < MAX_KARMA; i++) creature_ptr->karmas_cur[i] = creature_ptr->karmas_cur[i];
+	for(i = 0; i < MAX_KARMA; i++) creature_ptr->karmas_rank[i] = calc_rank(creature_ptr->karmas_cur[i]);
 
 	// calc alignments and bonuses
 	if(creature_ptr->race_idx1 != INDEX_NONE)
