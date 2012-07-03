@@ -2060,12 +2060,14 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 int calc_base_level(creature_type *creature_ptr)
 {
 	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
+	if(IS_MIMICED(creature_ptr)) return race_info[creature_ptr->mimic_race_idx].lev;
 	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
 }
 
 int calc_base_divine_rank(creature_type *creature_ptr)
 {
 	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
+	if(IS_MIMICED(creature_ptr)) return race_info[creature_ptr->mimic_race_idx].dr;
 	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
 }
 

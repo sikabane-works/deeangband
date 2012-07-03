@@ -8,6 +8,8 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
+// 2012 Deskull modified.
+
 /* Purpose: Wizard commands */
 
 #include "angband.h"
@@ -51,10 +53,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 	/* Rerate */
 	set_base_hp(cr_ptr);
 
-	percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
-		(2 * cr_ptr->hitdice +
-		((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
-
+	percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) / (2 * cr_ptr->hitdice + ((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 
 	/* Update and redraw hitpoints */
 	cr_ptr->creature_update |= (CRU_HP);
