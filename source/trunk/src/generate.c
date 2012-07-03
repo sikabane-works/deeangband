@@ -987,7 +987,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	{
 		if (dungeon_info[floor_ptr->dun_type].stream2)
 		{
-			/* Hack -- Add some quartz streamers */
+			// Hack -- Add some quartz streamers
 			for (i = 0; i < DUN_STR_QUA; i++)
 			{
 				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream2, DUN_STR_QC);
@@ -996,7 +996,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 		if (dungeon_info[floor_ptr->dun_type].stream1)
 		{
-			/* Hack -- Add some magma streamers */
+			// Hack -- Add some magma streamers
 			for (i = 0; i < DUN_STR_MAG; i++)
 			{
 				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream1, DUN_STR_MC);
@@ -1004,31 +1004,30 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 	}
 
-	/* Special boundary walls -- Top and bottom */
+	// Special boundary walls -- Top and bottom
 	for (x = 0; x < floor_ptr->width; x++)
 	{
 		set_bound_perm_wall(&floor_ptr->cave[0][x]);
 		set_bound_perm_wall(&floor_ptr->cave[floor_ptr->height - 1][x]);
 	}
 
-	/* Special boundary walls -- Left and right */
+	// Special boundary walls -- Left and right
 	for (y = 1; y < (floor_ptr->height - 1); y++)
 	{
 		set_bound_perm_wall(&floor_ptr->cave[y][0]);
 		set_bound_perm_wall(&floor_ptr->cave[y][floor_ptr->width - 1]);
 	}
 
-	/* Determine the character location */
-	if (!new_player_spot(floor_ptr, player_ptr)) return FALSE;
+	if (!new_player_spot(floor_ptr, player_ptr)) return FALSE; // Determine the character location
 
-	if (!place_quest_creatures(floor_ptr, player_ptr)) return FALSE;
+	if (!place_quest_creatures(floor_ptr, player_ptr)) return FALSE; // Set Quest Creature
 
-	/* Basic "amount" */
+	// Basic "amount"
 	k = (floor_ptr->floor_level / 3);
 	if (k > 10) k = 10;
 	if (k < 2) k = 2;
 
-	/* Pick a base number of creatures */
+	// Pick a base number of creatures
 	i = dungeon_info[floor_ptr->dun_type].min_m_alloc_level;
 
 	// To make small levels a bit more playable
@@ -1062,10 +1061,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(floor_ptr, player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	// Mega Hack -- No object at first level of deeper dungeon
-	if (player_ptr->enter_dungeon && floor_ptr->floor_level > 1)
-	{
-		floor_ptr->object_level = 1; // No stair scum!
-	}
+	if (player_ptr->enter_dungeon && floor_ptr->floor_level > 1) floor_ptr->object_level = 1; // No stair scum!
 
 	// Put some objects in rooms
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
@@ -1076,7 +1072,6 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	floor_ptr->object_level = floor_ptr->base_level; // Set back to default
 
-	
 	if (!alloc_guardian(floor_ptr, TRUE)) return FALSE; // Put the Guardian
 
 	if (dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > floor_ptr->floor_level)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))

@@ -738,22 +738,22 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* Close it */
 		my_fclose(fp);
 
-		/* Errors */
+		// Errors
 		if (err)
 		{
 			cptr oops;
 
 #ifdef JP
-			/* Error string */
+			// Error string
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
 
-			/* Oops */
+			// Oops
 			msg_format("'%s.txt'ファイルの %d 行目にエラー。", filename, error_line);
 			msg_format("レコード %d は '%s' エラーがあります。", error_idx, oops);
 			msg_format("構文 '%s'。", buf);
 			msg_print(NULL);
 
-			/* Quit */
+			// Quit
 			quit(format("'%s.txt'ファイルにエラー", filename));
 #else
 			/* Error string */
