@@ -165,6 +165,7 @@ static cptr race_flags[MAX_RACES] =
 	"FUNGUS",
 	"GREAT_OLD_ONE",
 	"REPTILIA",
+	"FIEND_LORD",
 };
 
 static cptr class_flags[MAX_CLASS]=

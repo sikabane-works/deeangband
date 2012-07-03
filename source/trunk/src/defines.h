@@ -857,9 +857,10 @@ enum MELEE_TYPE
 #define RACE_FUNGUS            85
 #define RACE_GREAT_OLD_ONE     86
 #define RACE_REPTILIA          87
+#define RACE_FIEND_LORD        88
 
 // Maximum number of player "race" types (see "table.c", etc)
-#define MAX_RACES                 88
+#define MAX_RACES                 89
 #define MAX_HALF_RACE_DESCRIPTION 15
 
 // Maximum number of creature "sex" types (see "table.c", etc)
