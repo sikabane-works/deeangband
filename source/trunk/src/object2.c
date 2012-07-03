@@ -5753,22 +5753,11 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_DEATH_RAY:
-		if (target_ptr->mimic_form)
+		if(has_cf_creature(caster_ptr, CF_NONLIVING) && is_undead_creature(caster_ptr))
 		{
-			if (mimic_info[target_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)
-			{
-				dam = 0;
-				ignore_wraith_form = TRUE;
-			}
-		}
-		else
-		{
-			if(has_cf_creature(caster_ptr, CF_NONLIVING) && is_undead_creature(caster_ptr))
-			{
-				dam = 0;
-				ignore_wraith_form = TRUE;
-				break;
-			}
+			dam = 0;
+			ignore_wraith_form = TRUE;
+			break;
 		}
 		break;
 

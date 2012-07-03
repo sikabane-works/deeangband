@@ -3535,19 +3535,11 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	{
 		int r_adj, cl_adj, p_adj = 0;
 
-		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
-		else{
-			if(IS_PURE(cr_ptr))
-				r_adj = race_info[cr_ptr->race_idx1].r_adj[i];
-			else
-			{
-				r_adj = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
-			}
-			for(j = 0; j < MAX_RACES; j++){
-				if(get_subrace(cr_ptr, j))
-					r_adj += race_info[j].r_s_adj[i];
-			}
-		}
+		//TODO MIMIC
+		if(IS_PURE(cr_ptr))
+			r_adj = race_info[cr_ptr->race_idx1].r_adj[i];
+		else
+			r_adj = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
 
 		for(j = 0; j < max_trait_idx; j++)
 		{

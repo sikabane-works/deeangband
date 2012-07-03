@@ -2545,7 +2545,6 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 static void calc_hitpoints(creature_type *cr_ptr, bool message)
 {
 	int bonus, mhp;
-	byte tmp_hitdice;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
 	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[STAT_CON]])) * cr_ptr->lev / 4;
@@ -2558,17 +2557,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	/* Calculate hitpoints */
 	mhp = cr_ptr->base_hp[cr_ptr->lev - 1];
 
-	if (cr_ptr->mimic_form)
-	{
-		if (cr_ptr->class_idx == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
-		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
-
-		if (cr_ptr->class_idx != INDEX_NONE) tmp_hitdice += class_info[cr_ptr->class_idx].c_mhp;
-		if (cr_ptr->chara_idx != INDEX_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
-
-		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
-	}
-
+	// TODO MIMIC FORM
 	if (cr_ptr->class_idx == CLASS_SORCERER)
 	{
 		if (cr_ptr->lev < 30)
@@ -3966,8 +3955,7 @@ static void set_karma_bonuses(creature_type *creature_ptr)
 
 	race_type *tmp_race_ptr, *tmp_race_ptr2;
 
-	if (creature_ptr->mimic_form) tmp_race_ptr = &mimic_info[creature_ptr->mimic_form];
-	else tmp_race_ptr = &race_info[creature_ptr->race_idx1];
+	tmp_race_ptr = &race_info[creature_ptr->race_idx1];
 	tmp_race_ptr2 = &race_info[creature_ptr->race_idx2];
 
 	// calc karmas and bonuses

@@ -3438,18 +3438,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
 				/* Heal the attacker? */
-				if (target_ptr->mimic_form)
+				if(has_cf_creature(target_ptr, CF_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
 				{
-					if (mimic_info[target_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)
-						resist_drain = TRUE;
-				}
-				else
-				{
-					if(has_cf_creature(target_ptr, CF_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
-					{
-						resist_drain = TRUE;
-						break;
-					}
+					resist_drain = TRUE;
+					break;
 				}
 
 				if ((damage > 5) && !resist_drain)

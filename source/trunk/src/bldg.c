@@ -2553,19 +2553,6 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 
 	}
-	else
-	{
-		/* Demons may make a saving throw */
-		if (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)
-		{
-			if (saving_throw(20 + watcher_ptr->lev)) return;
-		}
-		/* Undead may make a saving throw */
-		else if (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD)
-		{
-			if (saving_throw(10 + watcher_ptr->lev)) return;
-		}
-	}
 
 	/* Mind blast */
 	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))

@@ -2512,7 +2512,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		/* Something frightening happens... */
 
-		if (is_demon_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+		if (is_demon_creature(watcher_ptr))
 		{
 #ifdef JP
 			msg_format("%s%s‚ÌŠç‚ªŠ_ŠÔŒ©‚¦‚½B",
@@ -2536,12 +2536,12 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		reveal_creature_info(m_ptr, CF_ELDRITCH_HORROR);
 
 		/* Demon characters are unaffected */
-		if (is_demon_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
+		if (is_demon_creature(watcher_ptr)) return;
 
 		if (wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */
-		if (is_undead_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD))
+		if (is_undead_creature(watcher_ptr))
 		{
 			if (saving_throw(25 + watcher_ptr->lev)) return;
 		}

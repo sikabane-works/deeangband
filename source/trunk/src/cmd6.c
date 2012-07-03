@@ -516,8 +516,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if ((is_demon_creature(creature_ptr) ||
-		 (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
+	else if (is_demon_creature(creature_ptr) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", species_info[o_ptr->pval].d_char)))
 	{
@@ -578,8 +577,7 @@ msg_print("H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿AÁ‚¦‚½I");
 
 		}
 	}
-	else if (has_cf_creature(creature_ptr, CF_NONLIVING) || is_undead_creature(creature_ptr) || is_demon_creature(creature_ptr) ||
-		    (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
+	else if (has_cf_creature(creature_ptr, CF_NONLIVING) || is_undead_creature(creature_ptr) || is_demon_creature(creature_ptr))
 	{
 #ifdef JP
 msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
@@ -641,8 +639,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 			return TRUE;
 	}
 
-	else if (is_demon_creature(creature_ptr) ||
-		 (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+	else if (is_demon_creature(creature_ptr))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
 		    o_ptr->sval == SV_CORPSE &&
@@ -810,8 +807,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!(has_cf_creature(creature_ptr, CF_NONLIVING), 
-			      (mimic_info[creature_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
+			if (!has_cf_creature(creature_ptr, CF_NONLIVING))
 			{
 				/* Only living creatures get thirsty */
 				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);

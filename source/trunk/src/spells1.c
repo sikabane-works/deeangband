@@ -4175,24 +4175,14 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 			if (fuzzy) msg_print("You are hit by something extremely cold!");
 #endif
 
-
-			if (target_ptr->mimic_form)
-			{
-				if (!(mimic_info[target_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
-					get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			}
+			/* Some races are immune */
+			if(is_undead_creature(target_ptr) || is_demon_creature(target_ptr) || has_cf_creature(target_ptr, CF_NONLIVING))
+				dam = 0;
 			else
-			{
-				/* Some races are immune */
-				if(is_undead_creature(target_ptr) || is_demon_creature(target_ptr) || has_cf_creature(target_ptr, CF_NONLIVING))
-					dam = 0;
-				else
-					get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-					break;
-				}
-			}
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			break;
+		}
 
 		/* Death Ray
 		case GF_DEATH_RAY:

@@ -88,7 +88,6 @@ extern s32b creature_exp[PY_MAX_LEVEL];
 extern s32b creature_exp_a[PY_MAX_LEVEL];
 extern player_sex sex_info[MAX_SEXES];
 extern magic_type technic_info[NUM_TECHNIC][32];
-extern race_type mimic_info[];
 extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
 extern s32b realm_choices2[];
