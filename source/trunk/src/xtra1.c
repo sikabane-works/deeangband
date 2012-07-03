@@ -2813,6 +2813,11 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	}
 
 	// AC bonus
+	if(IS_MIMICED(creature_ptr))
+	{
+		creature_ptr->to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->dis_to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+	}
 	if(IS_PURE(creature_ptr))
 	{
 		creature_ptr->to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
@@ -2828,25 +2833,26 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 	set_resistance(creature_ptr);
 
-	if(IS_RACE(creature_ptr, RACE_SPRITE))
+	if(!IS_MIMICED(creature_ptr))
 	{
-		creature_ptr->levitation = TRUE;
-		creature_ptr->speed += (creature_ptr->lev) / 10;
-	}
+		if(IS_RACE(creature_ptr, RACE_SPRITE))
+		{
+			creature_ptr->levitation = TRUE;
+			creature_ptr->speed += (creature_ptr->lev) / 10;
+		}
 
-	if(IS_RACE(creature_ptr, RACE_KLACKON))
-	{
-		creature_ptr->speed += (creature_ptr->lev) / 10;
+		if(IS_RACE(creature_ptr, RACE_KLACKON))
+		{
+			creature_ptr->speed += (creature_ptr->lev) / 10;
+		}
 	}
-
-	set_unreached_race_level_penalty(creature_ptr);
 
 	// Species
 	creature_ptr->ac += species_ptr->ac;
 	creature_ptr->dis_ac += species_ptr->ac;
 	creature_ptr->speed += species_ptr->speed;
 
-	creature_ptr->see_infra += MAX(race1_ptr->infra, race1_ptr->infra); // Base infravision (purely racial)
+	creature_ptr->see_infra += MAX(race1_ptr->infra, race2_ptr->infra); // Base infravision (purely racial)
 }
 
 
@@ -5203,7 +5209,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	initialize_bonuses(creature_ptr);
 	set_divine_bonuses(creature_ptr);
 
-	if(creature_ptr->race_idx1 != INDEX_NONE) set_race_bonuses(creature_ptr);
+	set_race_bonuses(creature_ptr);
+	set_unreached_race_level_penalty(creature_ptr);
+
 	if(creature_ptr->cls_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
 	if(creature_ptr->chara_idx != INDEX_NONE) set_character_bonuses(creature_ptr);
 
