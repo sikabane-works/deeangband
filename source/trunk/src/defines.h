@@ -763,9 +763,13 @@ enum MELEE_TYPE
 
 #define RATE_OF_HALF_RACE       80
 
-/*
- * Player race constants (hard-coded by save-files, arrays, etc)
- */
+// Maximum number of creature setting type
+#define MAX_RACES	89
+#define MAX_CLASS	31
+#define MAX_CHARA	19
+#define MAX_SEXES	4
+#define MAX_HALF_RACE_DESCRIPTION 15
+
 #define RACE_HUMAN              0
 #define RACE_ELF                1
 #define RACE_DWARF              2
@@ -859,16 +863,6 @@ enum MELEE_TYPE
 #define RACE_REPTILIA          87
 #define RACE_FIEND_LORD        88
 
-// Maximum number of player "race" types (see "table.c", etc)
-#define MAX_RACES                 89
-#define MAX_HALF_RACE_DESCRIPTION 15
-
-// Maximum number of creature "sex" types (see "table.c", etc)
-#define MAX_SEXES            4
-
-// Maximum number of creature "class" types (see "table.c", etc)
-#define MAX_CLASS               31
-
 #define CLASS_NONE               0
 #define CLASS_WARRIOR            1
 #define CLASS_MAGE               2
@@ -901,8 +895,6 @@ enum MELEE_TYPE
 #define CLASS_COMMONER          29
 #define CLASS_SOLDIER           30
 
-#define MAX_CHARA       19
-
 #define CHARA_FUTUU	    0
 #define CHARA_CHIKARA	1
 #define CHARA_KIREMONO  2
@@ -920,8 +912,8 @@ enum MELEE_TYPE
 #define CHARA_IGNORANT	14
 #define CHARA_IMBECILE	15
 #define CHARA_SLOWWITTED 16
-#define CHARA_WEAK 17
-#define CHARA_UGLY 18
+#define CHARA_WEAK		17
+#define CHARA_UGLY		18
 
 
 
@@ -1028,15 +1020,12 @@ enum MELEE_TYPE
 #define MAX_COL_STATBAR         (-26)
 
 
-/*
- * Number of feats we change to (Excluding default). Used in feature_info.txt.
- */
+
+// Number of feats we change to (Excluding default). Used in feature_info.txt.
 #define MAX_FEAT_STATES	 8
 
 
-/*
- * Wilderness terrains
- */
+// Wilderness terrains
 #define TERRAIN_EDGE             0 /* Edge of the World */
 #define TERRAIN_TOWN             1 /* Town */
 #define TERRAIN_DEEP_WATER       2 /* Deep water */
