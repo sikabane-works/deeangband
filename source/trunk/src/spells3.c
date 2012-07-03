@@ -4209,7 +4209,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
 
 	if (cr_ptr->riding)
-		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
+		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[SKILL_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);

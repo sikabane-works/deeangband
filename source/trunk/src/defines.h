@@ -4377,9 +4377,8 @@ enum KARMA_TYPE
  */
 #define TOKENIZE_CHECKQUOTE 0x01  /* Special handling of single quotes */
 
-/*
- * Parse errors
- */
+
+// Parse errors
 enum PARSE_ERROR
 {
 	PARSE_ERROR_NONE,
@@ -4397,18 +4396,19 @@ enum PARSE_ERROR
 	PARSE_ERROR_MAX,
 };
 
-#define GINOU_SUDE       0
-#define GINOU_NITOURYU   1
-#define GINOU_RIDING      2
+// Skill
+#define SKILL_MARTIAL_ARTS	0
+#define SKILL_MULTI_WEAPON	1
+#define SKILL_RIDING		2
 
-/* Proficiency level */
+// Proficiency level
 #define EXP_LEVEL_UNSKILLED 0
 #define EXP_LEVEL_BEGINNER  1
 #define EXP_LEVEL_SKILLED   2
 #define EXP_LEVEL_EXPERT    3
 #define EXP_LEVEL_MASTER    4
 
-/* Proficiency of weapons and misc. skills (except riding) */
+// Proficiency of weapons and misc. skills (except riding)
 #define WEAPON_EXP_UNSKILLED     0
 #define WEAPON_EXP_BEGINNER   4000
 #define WEAPON_EXP_SKILLED    6000

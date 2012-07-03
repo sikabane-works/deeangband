@@ -5473,7 +5473,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		{
 			/* Hack -- Recover from stun */
 			if (set_stun(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];
 
@@ -5493,7 +5493,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		{
 			/* Hack -- Recover from confusion */
 			if (set_confused(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->confused - 1)))
 			{
 				char m_name[80];
 
@@ -5513,7 +5513,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		{
 			/* Hack -- Recover from fear */
 			if (set_afraid(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
 

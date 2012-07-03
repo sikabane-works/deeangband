@@ -3458,11 +3458,11 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 			if (creature_ptr->riding)
 			{
-				if ((creature_ptr->skill_exp[GINOU_RIDING] < skill_info[creature_ptr->class_idx].s_max[GINOU_RIDING])
-					&& ((creature_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
+				if ((creature_ptr->skill_exp[SKILL_RIDING] < skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING])
+					&& ((creature_ptr->skill_exp[SKILL_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
-					creature_ptr->skill_exp[GINOU_RIDING] += 1;
+					creature_ptr->skill_exp[SKILL_RIDING] += 1;
 					creature_ptr->creature_update |= (CRU_BONUS);
 				}
 			}

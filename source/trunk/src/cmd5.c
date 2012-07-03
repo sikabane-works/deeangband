@@ -1687,8 +1687,8 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 	{
 		if (!force)
 		{
-			int cur = creature_ptr->skill_exp[GINOU_RIDING];
-			int max = skill_info[creature_ptr->class_idx].s_max[GINOU_RIDING];
+			int cur = creature_ptr->skill_exp[SKILL_RIDING];
+			int max = skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING];
 			int ridinglevel = r_ptr->level;
 
 			/* 落馬のしやすさ */
@@ -1705,7 +1705,7 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 				else
 					inc += 1;
 
-				creature_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+				creature_ptr->skill_exp[SKILL_RIDING] = MIN(max, cur + inc);
 			}
 
 			/* レベルの低い乗馬からは落馬しにくい */
@@ -1935,7 +1935,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 			return FALSE;
 		}
-		if (species_info[steed_ptr->species_idx].level > randint1((rider_ptr->skill_exp[GINOU_RIDING] / 50 + rider_ptr->lev / 2 + 20)))
+		if (species_info[steed_ptr->species_idx].level > randint1((rider_ptr->skill_exp[SKILL_RIDING] / 50 + rider_ptr->lev / 2 + 20)))
 		{
 #ifdef JP
 			msg_print("うまく乗れなかった。");

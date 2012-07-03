@@ -1037,16 +1037,16 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 	if ((r_ptr->level + 10) > atk_ptr->lev)
 	{
 		// Matrial arts skill mastering
-		if (atk_ptr->skill_exp[GINOU_SUDE] < skill_info[atk_ptr->class_idx].s_max[GINOU_SUDE])
+		if (atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[atk_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
 		{
-			if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
-				atk_ptr->skill_exp[GINOU_SUDE] += 40;
-			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
-				atk_ptr->skill_exp[GINOU_SUDE] += 5;
-			else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
-				atk_ptr->skill_exp[GINOU_SUDE] += 1;
+			if (atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
+				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 40;
+			else if ((atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
+				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 5;
+			else if ((atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
+				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
 			else if ((atk_ptr->lev > 34))
-				if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
+				if (one_in_(3)) atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
 			atk_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
@@ -1360,16 +1360,16 @@ static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *t
 {
 	if (count_melee_slot(attacker_ptr))
 	{
-		if ((attacker_ptr->skill_exp[GINOU_NITOURYU] < skill_info[attacker_ptr->class_idx].s_max[GINOU_NITOURYU]) && ((attacker_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < target_ptr->lev))
+		if ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MULTI_WEAPON]) && ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] - 1000) / 200 < target_ptr->lev))
 		{
-			if (attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 80;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 4;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
-				attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			else if(attacker_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
-				if (one_in_(3)) attacker_ptr->skill_exp[GINOU_NITOURYU] += 1;
+			if (attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_BEGINNER)
+				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 80;
+			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_SKILLED)
+				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 4;
+			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_EXPERT)
+				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
+			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_MASTER)
+				if (one_in_(3)) attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
 			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
@@ -1379,8 +1379,8 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 {
 	if (attacker_ptr->riding)
 	{
-		int cur = attacker_ptr->skill_exp[GINOU_RIDING];
-		int max = skill_info[attacker_ptr->class_idx].s_max[GINOU_RIDING];
+		int cur = attacker_ptr->skill_exp[SKILL_RIDING];
+		int max = skill_info[attacker_ptr->class_idx].s_max[SKILL_RIDING];
 
 		if (cur < max)
 		{
@@ -1400,7 +1400,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 					inc += 1;
 			}
 
-			attacker_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+			attacker_ptr->skill_exp[SKILL_RIDING] = MIN(max, cur + inc);
 			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
@@ -3999,7 +3999,7 @@ static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 	if(!mdeath)
 	{
-		int prob = 100 * atk_ptr->skill_exp[GINOU_SUDE] / WEAPON_EXP_MASTER;
+		int prob = 100 * atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] / WEAPON_EXP_MASTER;
 		if(tar_ptr->levitation) prob /= 4;
 		if(atk_ptr->size - tar_ptr->size < 10) prob /= 2;
 		if(atk_ptr->size - tar_ptr->size < 5) prob /= 2;

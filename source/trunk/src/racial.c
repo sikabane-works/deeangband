@@ -1312,7 +1312,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			rlev = steed_ptr->lev;
 			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
-			if ((randint1(creature_ptr->skill_exp[GINOU_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
+			if ((randint1(creature_ptr->skill_exp[SKILL_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !fight_arena_mode && !gamble_arena_mode
 			    && !has_cf_creature(steed_ptr, CF_GUARDIAN) && !has_cf_creature(steed_ptr, CF_UNIQUE)
 			    && (rlev < creature_ptr->lev * 3 / 2 + randint0(creature_ptr->lev / 5)))

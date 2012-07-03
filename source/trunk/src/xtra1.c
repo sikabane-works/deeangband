@@ -4495,8 +4495,8 @@ static void set_melee_status(creature_type *creature_ptr)
 	if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 	{
 		int penalty1, penalty2;
-		penalty1 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
-		penalty2 = ((100 - creature_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		penalty1 = ((100 - creature_ptr->skill_exp[SKILL_MULTI_WEAPON] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
+		penalty2 = ((100 - creature_ptr->skill_exp[SKILL_MULTI_WEAPON] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
 		if ((creature_ptr->inventory[].name1 == ART_QUICKTHORN) && (creature_ptr->inventory[].name1 == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
@@ -4785,7 +4785,7 @@ static void set_melee_status(creature_type *creature_ptr)
 				}
 				else
 				{
-					penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 80;
 					penalty += 30;
 					if (penalty < 30) penalty = 30;
 				}
@@ -4801,10 +4801,10 @@ static void set_melee_status(creature_type *creature_ptr)
 	if ((creature_ptr->can_melee[0] && (empty_hands_status & EMPTY_HAND_RARM)) ||
 	    (creature_ptr->can_melee[1] && (empty_hands_status & EMPTY_HAND_LARM)))
 	{
-		creature_ptr->to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
-		creature_ptr->dis_to_hit[default_hand] += (creature_ptr->skill_exp[GINOU_SUDE]) / 200;
-		creature_ptr->to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
-		creature_ptr->dis_to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		creature_ptr->to_hit[default_hand] += (creature_ptr->skill_exp[SKILL_MARTIAL_ARTS]) / 200;
+		creature_ptr->dis_to_hit[default_hand] += (creature_ptr->skill_exp[SKILL_MARTIAL_ARTS]) / 200;
+		creature_ptr->to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[SKILL_MARTIAL_ARTS]) / 200) / 100;
+		creature_ptr->dis_to_damage[default_hand] += creature_ptr->size * (10 + (creature_ptr->skill_exp[SKILL_MARTIAL_ARTS]) / 200) / 100;
 	}
 
 	for (i = 0; i < MAX_WEAPONS; i++)
@@ -5028,7 +5028,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 
 	if (riding_m_ptr->speed > 0)
 	{
-		creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[GINOU_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
+		creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[SKILL_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
 		if (creature_ptr->speed < 0) creature_ptr->speed = 0;
 	}
 	else
@@ -5036,7 +5036,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		creature_ptr->speed = speed;
 	}
 
-	creature_ptr->speed += (creature_ptr->skill_exp[GINOU_RIDING] + creature_ptr->lev *160L) / 3200;
+	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
 	if (riding_m_ptr->fast) creature_ptr->speed += 10;
 	if (riding_m_ptr->slow) creature_ptr->speed -= 10;
 	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
@@ -5045,7 +5045,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
 	if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
-	if (creature_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;
+	if (creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
 
 	i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
 
@@ -5072,7 +5072,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 	else
 	{
-		penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[GINOU_RIDING] / 80;
+		penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 80;
 		penalty += 30;
 		if (penalty < 30) penalty = 30;
 	}
