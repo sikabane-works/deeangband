@@ -2094,9 +2094,7 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 	int i, st_level;
 
 	st_level = calc_base_level(creature_ptr);
-
-	for(i = 0; i < STAT_MAX; i++)
-		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(st_level - creature_ptr->lev, i) * STAT_FRACTION;
+	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(st_level - creature_ptr->lev, i) * STAT_FRACTION;
 }
 
 bool has_breath_flags(traits *flags_ptr)

@@ -2757,13 +2757,13 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		if(IS_MIMICED(creature_ptr))
-			creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * 10;
+			creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * STAT_FRACTION;
 		else if(IS_PURE(creature_ptr))
-			creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * 10;
+			creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * STAT_FRACTION;
 		else
 		{
-			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * 10;
-			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * 10;
+			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * STAT_FRACTION;
+			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * STAT_FRACTION;
 		}
 	}
 
@@ -2859,24 +2859,25 @@ static void set_race_bonuses(creature_type *creature_ptr)
 static void set_class_bonuses(creature_type *creature_ptr)
 {
 	int i;
+	class_type *class_ptr = &class_info[creature_ptr->cls_idx];
 
 	for (i = 0; i < 6; i++)
 	{
-		creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj[i] * 10;
-		if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_info[creature_ptr->cls_idx].c_adj_b[i] * 10;
+		creature_ptr->stat_add[i] += class_ptr->c_adj[i] * STAT_FRACTION;
+		if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_ptr->c_adj_b[i] * STAT_FRACTION;
 	}
 
-	creature_ptr->skill_dis += class_info[creature_ptr->cls_idx].c_dis;
-	creature_ptr->skill_dev += class_info[creature_ptr->cls_idx].c_dev;
-	creature_ptr->skill_rob += class_info[creature_ptr->cls_idx].c_sav;
-	creature_ptr->skill_eva += class_info[creature_ptr->cls_idx].c_sav;
-	creature_ptr->skill_vol += class_info[creature_ptr->cls_idx].c_sav;
-	creature_ptr->skill_stl += class_info[creature_ptr->cls_idx].c_stl;
-	creature_ptr->skill_srh += class_info[creature_ptr->cls_idx].c_srh;
-	creature_ptr->skill_fos += class_info[creature_ptr->cls_idx].c_fos;
-	creature_ptr->skill_thn += class_info[creature_ptr->cls_idx].c_thn;
-	creature_ptr->skill_thb += class_info[creature_ptr->cls_idx].c_thb;
-	creature_ptr->skill_tht += class_info[creature_ptr->cls_idx].c_thb;
+	creature_ptr->skill_dis += class_ptr->c_dis;
+	creature_ptr->skill_dev += class_ptr->c_dev;
+	creature_ptr->skill_rob += class_ptr->c_sav;
+	creature_ptr->skill_eva += class_ptr->c_sav;
+	creature_ptr->skill_vol += class_ptr->c_sav;
+	creature_ptr->skill_stl += class_ptr->c_stl;
+	creature_ptr->skill_srh += class_ptr->c_srh;
+	creature_ptr->skill_fos += class_ptr->c_fos;
+	creature_ptr->skill_thn += class_ptr->c_thn;
+	creature_ptr->skill_thb += class_ptr->c_thb;
+	creature_ptr->skill_tht += class_ptr->c_thb;
 
 	switch (creature_ptr->cls_idx)
 	{
@@ -2993,17 +2994,17 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	}
 
 	// Affect Skill (Level, by Class)
-	creature_ptr->skill_dis += (class_info[creature_ptr->cls_idx].x_dis * creature_ptr->lev / 10);
-	creature_ptr->skill_rob += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	creature_ptr->skill_eva += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	creature_ptr->skill_vol += (class_info[creature_ptr->cls_idx].x_sav * creature_ptr->lev / 10);
-	creature_ptr->skill_dev += (class_info[creature_ptr->cls_idx].x_dev * creature_ptr->lev / 10);
-	creature_ptr->skill_stl += (class_info[creature_ptr->cls_idx].x_stl * creature_ptr->lev / 10);
-	creature_ptr->skill_srh += (class_info[creature_ptr->cls_idx].x_srh * creature_ptr->lev / 10);
-	creature_ptr->skill_fos += (class_info[creature_ptr->cls_idx].x_fos * creature_ptr->lev / 10);
-	creature_ptr->skill_thn += (class_info[creature_ptr->cls_idx].x_thn * creature_ptr->lev / 10);
-	creature_ptr->skill_thb += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
-	creature_ptr->skill_tht += (class_info[creature_ptr->cls_idx].x_thb * creature_ptr->lev / 10);
+	creature_ptr->skill_dis += (class_ptr->x_dis * creature_ptr->lev / 10);
+	creature_ptr->skill_rob += (class_ptr->x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_eva += (class_ptr->x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_vol += (class_ptr->x_sav * creature_ptr->lev / 10);
+	creature_ptr->skill_dev += (class_ptr->x_dev * creature_ptr->lev / 10);
+	creature_ptr->skill_stl += (class_ptr->x_stl * creature_ptr->lev / 10);
+	creature_ptr->skill_srh += (class_ptr->x_srh * creature_ptr->lev / 10);
+	creature_ptr->skill_fos += (class_ptr->x_fos * creature_ptr->lev / 10);
+	creature_ptr->skill_thn += (class_ptr->x_thn * creature_ptr->lev / 10);
+	creature_ptr->skill_thb += (class_ptr->x_thb * creature_ptr->lev / 10);
+	creature_ptr->skill_tht += (class_ptr->x_thb * creature_ptr->lev / 10);
 }
 
 static void set_character_bonuses(creature_type *creature_ptr)
