@@ -3871,6 +3871,20 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->tval_xtra = 0;	// Reset the "xtra" tval
 	creature_ptr->tval_ammo = 0;	// Reset the "ammo" tval
 
+	creature_ptr->skill_dis = 0;
+	creature_ptr->skill_dev = 0;
+	creature_ptr->skill_rob = 0;
+	creature_ptr->skill_eva = 0;
+	creature_ptr->skill_vol = 0;
+	creature_ptr->skill_stl = 0;
+	creature_ptr->skill_srh = 0;
+	creature_ptr->skill_fos = 0;
+	creature_ptr->skill_thn = 0;
+	creature_ptr->skill_thb = 0;
+	creature_ptr->skill_tht = 0;
+	creature_ptr->skill_dig = 0;
+	creature_ptr->see_infra = 0;
+
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
@@ -5085,20 +5099,6 @@ static void initialize_bonuses(creature_type *creature_ptr)
 {
 	// Base skills
 	creature_ptr->size = calc_bodysize(creature_ptr->ht, creature_ptr->wt);
-
-	creature_ptr->skill_dis = 5;
-	creature_ptr->skill_dev = 5;
-	creature_ptr->skill_rob = 5 + (creature_ptr->size - 10) / 2 * 3;
-	creature_ptr->skill_eva = 5 - (creature_ptr->size - 10) / 2 * 3;
-	creature_ptr->skill_vol = 5;
-	creature_ptr->skill_stl = 3 - creature_ptr->size / 3;
-	creature_ptr->skill_srh = 10;
-	creature_ptr->skill_fos = 10;
-	creature_ptr->skill_thn = creature_ptr->size;
-	creature_ptr->skill_thb = 10;
-	creature_ptr->skill_tht = 10;
-	creature_ptr->skill_dig = (creature_ptr->size - 10) * 2;
-	creature_ptr->see_infra = 0;
 }
 
 static void fix_creature_status(creature_type *creature_ptr)
@@ -5213,7 +5213,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	set_race_bonuses(creature_ptr);
 	set_unreached_race_level_penalty(creature_ptr);
 
-	if(creature_ptr->class_idx != INDEX_NONE)   set_class_bonuses(creature_ptr);
+	if(creature_ptr->class_idx != INDEX_NONE) set_class_bonuses(creature_ptr);
 	if(creature_ptr->chara_idx != INDEX_NONE) set_character_bonuses(creature_ptr);
 
 	set_trait_bonuses(creature_ptr);
