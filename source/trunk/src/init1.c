@@ -2104,7 +2104,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -2484,7 +2484,7 @@ errr parse_artifact_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == ARTIFACT_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == ARTIFACT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -2793,7 +2793,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -4085,7 +4085,7 @@ errr parse_trait_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == TRAIT_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == TRAIT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -4504,7 +4504,7 @@ errr parse_race_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == RC_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == RC_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -5002,7 +5002,7 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == CL_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == CL_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -5287,7 +5287,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == CH_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == CH_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
@@ -5555,7 +5555,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == DU_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == DU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return 0;
 	}
@@ -5888,7 +5888,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == AU_INFO_CSV_COLUMNS) return (11); /* ERROR */
+			if(j == AU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
 		return 0;
 	}
