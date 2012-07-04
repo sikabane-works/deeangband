@@ -173,9 +173,10 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		break;
 	}
 
+	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
+
 	if (object_is_melee_weapon(atk_ptr, weapon_ptr))
 	{
-		object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->class_idx != INDEX_NONE)
 		{
@@ -195,14 +196,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 			*/
 		}
-	}
-	else
-	{
-#if JP
-		strcpy(weapon_name, "‰½‚©");
-#else
-		strcpy(weapon_name, "someone");
-#endif
 	}
 
 	// Disturb the creature
