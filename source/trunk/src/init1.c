@@ -1231,7 +1231,7 @@ errr parse_vault_info(char *buf, header *head)
 		v_ptr = &vault_info[i];
 
 		/* Store the name */
-		if (!add_name(&v_ptr->name, head, s)) return (7);
+		if (!add_name(&v_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
 	/* There better be a current v_ptr */
@@ -1244,7 +1244,7 @@ errr parse_vault_info(char *buf, header *head)
 		s = buf+2;
 
 		/* Store the text */
-		if (!add_text(&v_ptr->text, head, s, FALSE)) return (7);
+		if (!add_text(&v_ptr->text, head, s, FALSE)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
 	/* Process 'X' for "Extra info" (one line only) */
@@ -1658,7 +1658,7 @@ errr parse_feature_info(char *buf, header *head)
 		if (s)
 		{
 			/* Store the tag */
-			if (!add_tag(&f_ptr->tag, head, s)) return (7);
+			if (!add_tag(&f_ptr->tag, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 		}
 
 		/* Default "mimic" */
@@ -1678,7 +1678,7 @@ errr parse_feature_info(char *buf, header *head)
 	else if (buf[0] == 'J')
 	{
 		/* Store the name */
-		if (!add_name(&f_ptr->name, head, buf+2)) return (7);
+		if (!add_name(&f_ptr->name, head, buf+2)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
 	else if (buf[0] == 'E')
@@ -1697,7 +1697,7 @@ errr parse_feature_info(char *buf, header *head)
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&f_ptr->name, head, s)) return (7);
+		if (!add_name(&f_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #endif
 
@@ -2130,12 +2130,12 @@ errr parse_object_kind_csv(char *buf, header *head)
 			{
 			case OK_INFO_NAME:
 				if(!add_name(&object_kind_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case OK_INFO_UI_NAME:
 				if(!add_name(&object_kind_info[n].flavospecies_name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case OK_INFO_E_NAME:
@@ -2313,7 +2313,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 			case OK_INFO_DESCRIPTION:
 				/* Store the text */
 				if (!add_text(&object_kind_info[n].text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case OK_INFO_E_DESCRIPTION:
@@ -2512,7 +2512,7 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_NAME:
 				if(!add_name(&artifact_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case ARTIFACT_INFO_E_NAME:
@@ -2663,7 +2663,7 @@ errr parse_artifact_csv(char *buf, header *head)
 			case ARTIFACT_INFO_DESCRIPTION:
 				/* Store the text */
 				if (!add_text(&artifact_info[n].text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case ARTIFACT_INFO_E_DESCRIPTION:
@@ -2821,7 +2821,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 			case OBJECT_EGO_INFO_NAME:
 				if(!add_name(&object_ego_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case OBJECT_EGO_INFO_E_NAME:
@@ -3265,17 +3265,17 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_NAME:
 #if JP
 				if (!add_name(&species_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case SPECIES_INFO_E_NAME:
 #if JP
 				if (!add_name(&species_info[n].E_name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 				if (!add_name(&species_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -3606,12 +3606,12 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_DESCRIPTION:
 				if (!add_text(&species_info[n].text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_E_DESCRIPTION:
 				if (!add_text(&species_info[n].E_text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_AUTHORITY:
@@ -3758,7 +3758,7 @@ errr parse_re_info(char *buf, header *head)
 		re_ptr->name = 0;
 #ifdef JP
 		/* Store the name */
-		if (!add_name(&re_ptr->name, head, s)) return (7);
+		if (!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 	}
 
@@ -3774,7 +3774,7 @@ errr parse_re_info(char *buf, header *head)
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&re_ptr->E_name, head, s)) return (7);
+		if (!add_name(&re_ptr->E_name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #else
 	else if (buf[0] == 'E')
@@ -3783,7 +3783,7 @@ errr parse_re_info(char *buf, header *head)
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&re_ptr->name, head, s)) return (7);
+		if (!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #endif
 
@@ -3895,17 +3895,17 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 			case ST_INFO_NAME:
 #if JP
 				if (!add_name(&store_pre_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case ST_INFO_E_NAME:
 #if JP
 				if (!add_name(&store_pre_info[n].E_name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 				if (!add_name(&store_pre_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -4227,12 +4227,12 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_DESCRIPTION:
 					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case TRAIT_INFO_E_DESCRIPTION:
 					if (!add_text(&trait_info[n].E_text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 				case TRAIT_INFO_SPELL:
@@ -4280,25 +4280,25 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_GET_DESC:
 					if (!add_text(&trait_info[n].get_text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_GET_DESC:
 					if (!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_LOST_DESC:
 					if (!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_LOST_DESC:
 					if (!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
@@ -4537,16 +4537,16 @@ errr parse_race_info_csv(char *buf, header *head)
 			case RC_INFO_NAME:
 
 				if (!add_name(&race_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case RC_INFO_E_NAME:
 #if JP
 				if (!add_name(&race_info[n].E_name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 				if (!add_name(&race_info[n].name, head, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -4822,17 +4822,17 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_DESCRIPTION:
 				if (!add_text(&race_info[n].text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 
 			case RC_INFO_E_DESCRIPTION:
 #if JP
 				if (!add_text(&race_info[n].E_text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 				if (!add_text(&race_info[n].text, head, tmp, TRUE))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -5028,16 +5028,16 @@ errr parse_class_info_csv(char *buf, header *head)
 			{
 				case CL_INFO_NAME:
 					if (!add_name(&class_info[n].name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
 					if (!add_name(&class_info[n].E_name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 					if (!add_name(&class_info[n].name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 
@@ -5313,16 +5313,16 @@ errr parse_chara_info_csv(char *buf, header *head)
 			{
 				case CH_INFO_NAME:
 					if (!add_name(&chara_info[n].name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_NAME:
 #if JP
 					if (!add_name(&chara_info[n].E_name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
 					if (!add_name(&chara_info[n].name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 
@@ -5581,12 +5581,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			{
 				case DU_INFO_NAME:
 					if (!add_name(&dungeon_info[n].name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_NAME:
 					if (!add_name(&dungeon_info[n].E_name, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_DY:
@@ -5601,12 +5601,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_TEXT:
 					if (!add_name(&dungeon_info[n].text, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_TEXT:
 					if (!add_name(&dungeon_info[n].E_text, head, tmp))
-						return (7);
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_FEAT_PROB_FLOOR:
@@ -5915,16 +5915,14 @@ errr parse_authority_info_csv(char *buf, header *head)
 			case AU_INFO_NAME:
 
 				if (!strcpy(authority_info[n].title, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case AU_INFO_E_NAME:
 #if JP
-				if (!strcpy(authority_info[n].E_title, tmp))
-					return (7);
+				if (!strcpy(authority_info[n].E_title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!strcpy(&authority_info[n].title, tmp))
-					return (7);
+				if (!strcpy(&authority_info[n].title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -6085,7 +6083,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 
 			case AU_INFO_ID_E:
 				if (!strcpy(authority_info[n].id_e, tmp))
-					return (7);
+					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case AU_INFO_DV:
