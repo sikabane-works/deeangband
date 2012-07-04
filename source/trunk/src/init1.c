@@ -1138,7 +1138,7 @@ errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 	if (head->text_size) head->text_size++;
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1183,7 +1183,7 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 	if (head->text_size) head->text_size++;
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1267,7 +1267,7 @@ errr parse_vault_info(char *buf, header *head)
 	else	return (6);
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1349,7 +1349,7 @@ errr parse_skill_info(char *buf, header *head)
 	else return (6);
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1477,7 +1477,7 @@ errr parse_magic_info(char *buf, header *head)
 	else return (6);
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1894,7 +1894,7 @@ errr parse_feature_info(char *buf, header *head)
 	else	return (6);
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -1985,7 +1985,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(k_ptr->flags, i);
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -2363,7 +2363,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 /*
@@ -2379,7 +2379,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(a_ptr->flags, i);
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -2686,7 +2686,7 @@ errr parse_artifact_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 /*
@@ -2702,7 +2702,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 		if (streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(e_ptr->flags, i);
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -2947,7 +2947,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 /*
@@ -3710,7 +3710,7 @@ errr parse_species_info_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 /*
@@ -3808,7 +3808,7 @@ errr parse_re_info(char *buf, header *head)
 
 
 	/* Success */
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 enum ST_INFO
@@ -3956,7 +3956,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 enum TRAIT_INFO
@@ -4309,7 +4309,7 @@ errr parse_trait_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -4893,7 +4893,7 @@ errr parse_race_info_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 #define CL_INFO_CSV_COLUMNS 35
@@ -5204,7 +5204,7 @@ errr parse_class_info_csv(char *buf, header *head)
 		}
 	}
 
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -5419,7 +5419,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 		}
 	}
 
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -6106,7 +6106,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 		}
 		
 	}
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 /* Random dungeon grid effects */
@@ -6147,7 +6147,7 @@ static errr parse_line_feature(char *buf)
 	char *zz[9];
 
 
-	if (init_flags & INIT_ONLY_BUILDINGS) return (0);
+	if (init_flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 	/* Tokenize the line */
 	if ((num = tokenize(buf+2, 9, zz, 0)) > 1)
@@ -6255,7 +6255,7 @@ static errr parse_line_feature(char *buf)
 				break;
 		}
 
-		return (0);
+		return PARSE_ERROR_NONE;
 	}
 
 	return PARSE_ERROR_GENERIC;
@@ -6421,7 +6421,7 @@ static errr parse_line_building(char *buf)
 		}
 	}
 
-	return (0);
+	return PARSE_ERROR_NONE;
 }
 
 
@@ -6468,13 +6468,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 
 	/* Skip "empty" lines */
-	if (!buf[0]) return (0);
+	if (!buf[0]) return PARSE_ERROR_NONE;
 
 	/* Skip "blank" lines */
-	if (isspace(buf[0])) return (0);
+	if (isspace(buf[0])) return PARSE_ERROR_NONE;
 
 	/* Skip comments */
-	if (buf[0] == '#') return (0);
+	if (buf[0] == '#') return PARSE_ERROR_NONE;
 
 	/* Require "?:*" format */
 	if (buf[1] != ':') return PARSE_ERROR_GENERIC;
@@ -6504,7 +6504,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Length of the text */
 		int len = strlen(s);
 
-		if (init_flags & INIT_ONLY_BUILDINGS) return (0);
+		if (init_flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 		for (*x = xmin, i = 0; ((*x < xmax) && (i < len)); (*x)++, s++, i++)
 		{
@@ -6673,7 +6673,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 		(*y)++;
 
-		return (0);
+		return PARSE_ERROR_NONE;
 	}
 
 	/* Process "Q:<number>:<command>:... -- quest info */
@@ -6726,7 +6726,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				a_ptr = &artifact_info[q_ptr->k_idx];
 				a_ptr->gen_flags |= TRG_QUESTITEM;
 			}
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 
 		/* Process "Q:<q_index>:N:<name>" -- quest name */
@@ -6737,7 +6737,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				strcpy(q_ptr->name, zz[2]);
 			}
 
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 
 		/* Process "Q:<q_index>:T:<text>" -- quest description line */
@@ -6749,7 +6749,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				questp_text_line++;
 			}
 
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -6804,7 +6804,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			}
 		}
 
-		return (0);
+		return PARSE_ERROR_NONE;
 	}
 
 	/* Process "B:<Index>:<Command>:..." -- Building definition */
@@ -6828,7 +6828,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		{
 			for (i = n; i < MAX_RACES ; i++) floor_ptr->race_population[i] = 0;
 		}
-		return (0);
+		return PARSE_ERROR_NONE;
 
 	}
 
@@ -6946,13 +6946,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				}
 			}
 
-			return (0);
+			return PARSE_ERROR_NONE;
 		}
 	}
 
-
-
-	/* Failure */
 	return PARSE_ERROR_GENERIC;
 }
 
