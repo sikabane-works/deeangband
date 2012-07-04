@@ -5773,7 +5773,49 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 }
 
 
-#define AU_INFO_CSV_COLUMNS 38
+enum AUTHORITY_INFO
+{
+	AU_INFO_ID,
+	AU_INFO_NAME,
+	AU_INFO_E_NAME,
+	AU_INFO_A_STR,
+	AU_INFO_A_INT,
+	AU_INFO_A_WIS,
+	AU_INFO_A_DEX,
+	AU_INFO_A_CON,
+	AU_INFO_A_CHA,
+	AU_INFO_W_STR,
+	AU_INFO_W_INT,
+	AU_INFO_W_WIS,
+	AU_INFO_W_DEX,
+	AU_INFO_W_CON,
+	AU_INFO_W_CHA,
+	AU_INFO_A_DIS,
+	AU_INFO_A_DEV,
+	AU_INFO_A_SAV,
+	AU_INFO_A_STL,
+	AU_INFO_A_SRH,
+	AU_INFO_A_FOS,
+	AU_INFO_A_THN,
+	AU_INFO_A_THB,
+	AU_INFO_A_MHP,
+	AU_INFO_W_DIS,
+	AU_INFO_W_DEV,
+	AU_INFO_W_SAV,
+	AU_INFO_W_STL,
+	AU_INFO_W_SRH,
+	AU_INFO_W_FOS,
+	AU_INFO_W_THN,
+	AU_INFO_W_THB,
+	AU_INFO_W_MHP,
+	AU_INFO_RANK,
+	AU_INFO_ID_E,
+	AU_INFO_DV,
+	AU_INFO_CP,
+	AU_INFO_FLAGS,
+	AU_INFO_CSV_COLUMNS
+};
+
 static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -5815,46 +5857,6 @@ static cptr au_info_csv_list[AU_INFO_CSV_COLUMNS] =
     "CAP",
     "FLAGS",
 };
-
-#define AU_INFO_ID       0
-#define AU_INFO_NAME     1
-#define AU_INFO_E_NAME   2
-#define AU_INFO_A_STR    3
-#define AU_INFO_A_INT    4
-#define AU_INFO_A_WIS    5
-#define AU_INFO_A_DEX    6
-#define AU_INFO_A_CON    7
-#define AU_INFO_A_CHA    8
-#define AU_INFO_W_STR    9
-#define AU_INFO_W_INT    10
-#define AU_INFO_W_WIS    11
-#define AU_INFO_W_DEX    12
-#define AU_INFO_W_CON    13
-#define AU_INFO_W_CHA    14
-#define AU_INFO_A_DIS    15
-#define AU_INFO_A_DEV    16
-#define AU_INFO_A_SAV    17
-#define AU_INFO_A_STL    18
-#define AU_INFO_A_SRH    19
-#define AU_INFO_A_FOS    20
-#define AU_INFO_A_THN    21
-#define AU_INFO_A_THB    22
-#define AU_INFO_A_MHP    23
-#define AU_INFO_W_DIS    24
-#define AU_INFO_W_DEV    25
-#define AU_INFO_W_SAV    26
-#define AU_INFO_W_STL    27
-#define AU_INFO_W_SRH    28
-#define AU_INFO_W_FOS    29
-#define AU_INFO_W_THN    30
-#define AU_INFO_W_THB    31
-#define AU_INFO_W_MHP    32
-#define AU_INFO_RANK     33
-#define AU_INFO_ID_E     34
-#define AU_INFO_DV       35
-#define AU_INFO_CP       36
-#define AU_INFO_FLAGS    37
-
 
 static int au_info_csv_code[AU_INFO_CSV_COLUMNS];
 
