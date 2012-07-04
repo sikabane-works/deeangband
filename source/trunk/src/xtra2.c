@@ -5425,7 +5425,6 @@ void show_alignment(char* buf, creature_type *cr_ptr)
 	sprintf(buf, "Good[%d]/Evil[%d]/Order[%d]/Chaos[%d]/Balance[%d]",
 		cr_ptr->good_rank, cr_ptr->evil_rank, cr_ptr->order_rank, cr_ptr->chaos_rank, cr_ptr->balance_rank);
 #endif
-
 }
 
 
