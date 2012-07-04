@@ -1207,13 +1207,13 @@ errr parse_vault_info(char *buf, header *head)
 		s = my_strchr(buf+2, ':');
 
 		/* Verify that colon */
-		if (!s) return (1);
+		if (!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
 		/* Paranoia -- require a name */
-		if (!*s) return (1);
+		if (!*s) return PARSE_ERROR_GENERIC;
 
 		/* Get the index */
 		i = atoi(buf+2);
@@ -1254,7 +1254,7 @@ errr parse_vault_info(char *buf, header *head)
 
 		/* Scan for the values */
 		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
-			&typ, &rat, &hgt, &wid)) return (1);
+			&typ, &rat, &hgt, &wid)) return PARSE_ERROR_GENERIC;
 
 		/* Save the values */
 		v_ptr->typ = typ;
@@ -1317,7 +1317,7 @@ errr parse_skill_info(char *buf, header *head)
 
 		/* Scan for the values */
 		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
-				&tval, &sval, &start, &max)) return (1);
+				&tval, &sval, &start, &max)) return PARSE_ERROR_GENERIC;
 
 		if (start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
 			|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
@@ -1334,7 +1334,7 @@ errr parse_skill_info(char *buf, header *head)
 
 		/* Scan for the values */
 		if (3 != sscanf(buf+2, "%d:%d:%d",
-				&num, &start, &max)) return (1);
+				&num, &start, &max)) return PARSE_ERROR_GENERIC;
 
 		if (start < WEAPON_EXP_UNSKILLED || start > WEAPON_EXP_MASTER
 			|| max < WEAPON_EXP_UNSKILLED || max > WEAPON_EXP_MASTER) return (8);
@@ -1401,7 +1401,7 @@ errr parse_magic_info(char *buf, header *head)
 		s = my_strchr(buf+2, ':');
 
 		/* Verify that colon */
-		if (!s) return (1);
+		if (!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
@@ -1421,7 +1421,7 @@ errr parse_magic_info(char *buf, header *head)
 		s = my_strchr(s, ':');
 
 		/* Verify that colon */
-		if (!s) return (1);
+		if (!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
@@ -1437,7 +1437,7 @@ errr parse_magic_info(char *buf, header *head)
 
 		/* Scan for the values */
 		if (4 != sscanf(s, "%x:%d:%d:%d",
-				(uint *)&xtra, &type, &first, &weight))	return (1);
+				(uint *)&xtra, &type, &first, &weight))	return PARSE_ERROR_GENERIC;
 
 		m_ptr->spell_xtra = xtra;
 		m_ptr->spell_type = type;
@@ -1451,7 +1451,7 @@ errr parse_magic_info(char *buf, header *head)
 	{
 		/* Scan for the values */
 		if (2 != sscanf(buf+2, "%d:%d",
-				&realm, &readable)) return (1);
+				&realm, &readable)) return PARSE_ERROR_GENERIC;
 
 		magic_idx = 0;
 	}
@@ -1460,10 +1460,10 @@ errr parse_magic_info(char *buf, header *head)
 	{
 		int level, mana, fail, exp;
 
-		if (!readable) return (1);
+		if (!readable) return PARSE_ERROR_GENERIC;
 		/* Scan for the values */
 		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
-				&level, &mana, &fail, &exp)) return (1);
+				&level, &mana, &fail, &exp)) return PARSE_ERROR_GENERIC;
 
 		m_ptr->info[realm][magic_idx].slevel = level;
 		m_ptr->info[realm][magic_idx].smana = mana;
@@ -1722,10 +1722,10 @@ errr parse_feature_info(char *buf, header *head)
 		char char_tmp[F_LIT_MAX];
 
 		/* Paranoia */
-		if (buf[1] != ':') return (1);
-		if (!buf[2]) return (1);
-		if (buf[3] != ':') return (1);
-		if (!buf[4]) return (1);
+		if (buf[1] != ':') return PARSE_ERROR_GENERIC;
+		if (!buf[2]) return PARSE_ERROR_GENERIC;
+		if (buf[3] != ':') return PARSE_ERROR_GENERIC;
+		if (!buf[4]) return PARSE_ERROR_GENERIC;
 
 		/* Extract the char */
 		char_tmp[F_LIT_STANDARD] = buf[2];
@@ -1734,7 +1734,7 @@ errr parse_feature_info(char *buf, header *head)
 		s_attr = color_char_to_acttr(buf[4]);
 
 		/* Paranoia */
-		if (s_attr > 127) return (1);
+		if (s_attr > 127) return PARSE_ERROR_GENERIC;
 
 		/* Save the standard values */
 		f_ptr->d_attr[F_LIT_STANDARD] = s_attr;
@@ -2001,7 +2001,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 
 
 	/* Error */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 
@@ -2083,7 +2083,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, OBJECT_KIND_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -2346,7 +2346,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					}
 				}
 				if(j == MAX_INVENTORY_SLOT)
-					return (1);
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case OK_INFO_AP_RATE:
@@ -2357,7 +2357,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			default:
-				return (1);
+				return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -2395,7 +2395,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 
 	/* Error */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 
@@ -2463,7 +2463,7 @@ errr parse_artifact_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, ARTIFACT_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -2680,7 +2680,7 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			default:
-				return (1);
+				return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -2718,7 +2718,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 	/* Error */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 
@@ -2772,7 +2772,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, OBJECT_EGO_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -2837,7 +2837,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 				}
 				if(j == MAX_INVENTORY_SLOT)
-					return (1);
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case OBJECT_EGO_INFO_RATING:
@@ -2941,7 +2941,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			default:
-				return (1);
+				return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -2967,7 +2967,7 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 
 
 	/* Failure */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 
 }
 
@@ -2988,7 +2988,7 @@ static errr grab_one_race_flags(traits *flag_ptr, cptr what, byte add, byte remo
 
 
 	/* Failure */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 static errr traits_splits(traits *flags_ptr, char *tmp)
@@ -3029,7 +3029,7 @@ static errr traits_splits(traits *flags_ptr, char *tmp)
 				b = 1;
 				c = PY_MAX_LEVEL + 1;
 			}
-			else return(1);
+			else return PARSE_ERROR_GENERIC;
 		}
 
 		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
@@ -3213,7 +3213,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	char atk_method[80], atk_effect[80];
 
 	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -3234,7 +3234,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == SPECIES_INFO_CSV_COLUMNS) return (1); /* ERROR */
+			if(j == SPECIES_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
 		}
 		return 0;
 	}
@@ -3293,7 +3293,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].race_idx1 = (s16b)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].race_idx1 = (s16b)b;
 				break;
 
@@ -3301,7 +3301,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].race_idx2 = (s16b)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].race_idx2 = (s16b)b;
 				break;
 
@@ -3309,7 +3309,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].class_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, class_flags, tmp, FALSE)) return (1);
+					if(grab_one_index(&b, class_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
 				species_info[n].class_idx = (s16b)b;
 				break;
 
@@ -3317,7 +3317,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].patron_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].patron_idx = (s16b)b;
 				break;
 
@@ -3325,7 +3325,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].chara_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, chara_flags, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, chara_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].chara_idx = (s16b)b;
 				break;
 
@@ -3333,7 +3333,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
 				species_info[n].realm1 = (s16b)b;
 				break;
 
@@ -3341,148 +3341,148 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm2 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
 				species_info[n].realm2 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_LEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].level = (byte)b;
 				break;
 
 			case SPECIES_INFO_RARE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].rarity = (byte)b;
 				break;
 
 			case SPECIES_INFO_SPELL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].freq_spell = (byte)b;
 				break;
 
 			case SPECIES_INFO_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].exp = (s32b)b;
 				break;
 
 			case SPECIES_INFO_N_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].next_exp = (u32b)b;
 				break;
 
 			case SPECIES_INFO_N_MIN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].next_species_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AGE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].age = (s32b)b;
 				break;
 
 			case SPECIES_INFO_SC:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].sc = (s16b)b;
 				break;
 
 			case SPECIES_INFO_DV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].dr = (s16b)b;
 				break;
 
 			case SPECIES_INFO_SP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].speed = (s16b)b;
 				break;
 
 			case SPECIES_INFO_IS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].sleep = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AC:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].ac = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ALERT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].aaf = (byte)b;
 				break;
 
 			case SPECIES_INFO_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_STR] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_STR] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_INT] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_INT] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_CON] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_CON] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].stat_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
 				species_info[n].stat_max_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_M_HB:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].m_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_HM:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].m_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WB:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].m_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WM:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].m_m_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HB:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].f_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HM:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].f_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WB:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].f_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WM:
-				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].f_m_wt = (u32b)ub;
 				break;
 
@@ -3494,7 +3494,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					int am = 0, ae = 0;
 
 					if (k == 4)
-						return (1);
+						return PARSE_ERROR_GENERIC;
 
 					for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
 					*s = '\0';
@@ -3506,19 +3506,19 @@ errr parse_species_info_csv(char *buf, header *head)
 					if(sscanf(tmp + offset, "%[^:]:%[^:]:%dd%d", atk_method, atk_effect, &n1, &n2) != 4) {
 						if(sscanf(tmp + offset, "%[^:\n]:%[^:]", atk_method, atk_effect) != 2) {
 							if(sscanf(tmp + offset, "%[^:]", atk_method) != 1)
-								return (1);
+								return PARSE_ERROR_GENERIC;
 						}
 					}
 
 					/* Analyze the method */
 					for (am = 0; species_info_blow_method[am]; am++) if (streq(atk_method, species_info_blow_method[am])) break;
 					if (!species_info_blow_method[am])
-						return (1);
+						return PARSE_ERROR_GENERIC;
 
 					/* Analyze effect */
 					for (ae = 0; species_info_blow_effect[ae]; ae++) if (streq(atk_effect, species_info_blow_effect[ae])) break;
 					if (!species_info_blow_effect[ae])
-						return (1);
+						return PARSE_ERROR_GENERIC;
 
 					/* Save the method */
 					species_info[n].blow[k].method = am;
@@ -3541,9 +3541,9 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
-					if (3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return(1);		
+					if (3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return PARSE_ERROR_GENERIC;		
 
-					if (k == MAX_UNDERLINGS) return (1);
+					if (k == MAX_UNDERLINGS) return PARSE_ERROR_GENERIC;
 
 					species_info[n].underling_id[k] = id;
 					species_info[n].underling_d_num[k] = num;
@@ -3578,9 +3578,9 @@ errr parse_species_info_csv(char *buf, header *head)
 					{
 						flags = AM_GREAT;
 					}
-					else return(1);		
+					else return PARSE_ERROR_GENERIC;		
 
-					if (k == INVEN_TOTAL) return (1);
+					if (k == INVEN_TOTAL) return PARSE_ERROR_GENERIC;
 
 					species_info[n].artifact_id[k] = id;
 					species_info[n].artifact_ego[k] = ego;
@@ -3601,7 +3601,7 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_FLAG:
 			case SPECIES_INFO_ACTION:
 				if(0 != traits_splits(&species_info[n].flags, tmp))
-					return (1);
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case SPECIES_INFO_DESCRIPTION:
@@ -3639,7 +3639,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_SEX:
-				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp, TRUE)) return (1);
+				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].sex = (s16b)b;
 				break;
 
@@ -3647,7 +3647,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].father_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].father_idx = (s16b)b;
 				break;
 
@@ -3655,57 +3655,57 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].mother_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_info[n].mother_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_HAND:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_hand = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RING:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_ring = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AMULET:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_amulet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_BODY:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_body = (s16b)b;
 				break;
 
 			case SPECIES_INFO_OUTER:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_outer = (s16b)b;
 				break;
 
 			case SPECIES_INFO_HEAD:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_head = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ARMS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_arms = (s16b)b;
 				break;
 
 			case SPECIES_INFO_FEET:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_feet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_TAIL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_tail = (s16b)b;
 				break;
 
 			default:
-				return (1); // Error
+				return PARSE_ERROR_GENERIC; // Error
 			}
 		}
 		
@@ -3731,13 +3731,13 @@ errr parse_re_info(char *buf, header *head)
 		s = my_strchr(buf+2, ':');
 
 			/* Verify that colon */
-		if (!s) return (1);
+		if (!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 #ifdef JP
 		/* Paranoia -- require a name */
-		if (!*s) return (1);
+		if (!*s) return PARSE_ERROR_GENERIC;
 #endif
 
 		/* Get the index */
@@ -3792,7 +3792,7 @@ errr parse_re_info(char *buf, header *head)
 	{
 		int k[6];
 		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
-				&k[0], &k[1], &k[2], &k[3], &k[4], &k[5])) return (1);
+				&k[0], &k[1], &k[2], &k[3], &k[4], &k[5])) return PARSE_ERROR_GENERIC;
 		
 		re_ptr->stat[STAT_STR] = k[0];
 		re_ptr->stat[STAT_INT] = k[1];
@@ -3846,7 +3846,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 	char *s, *t;
 
 	if(get_split_offset(split, size, buf, ST_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -3867,7 +3867,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == ST_INFO_CSV_COLUMNS) return (1); /* ERROR */
+			if(j == ST_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
 		}
 		return 0;
 	}
@@ -3910,22 +3910,22 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 				break;
 
 			case ST_INFO_OWNER:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				store_pre_info[n].owner_id = (s16b)b;
 				break;
 
 			case ST_INFO_SIZE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				store_pre_info[n].size = (u16b)b;
 				break;
 
 			case ST_INFO_WEALTH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				store_pre_info[n].wealth = (s32b)b;
 				break;
 
 			case ST_INFO_LEVEL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				store_pre_info[n].level = (byte)b;
 				break;
 
@@ -4064,7 +4064,7 @@ errr parse_trait_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, TRAIT_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -4122,97 +4122,97 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_STR:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_STR] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_INT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_INT] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_WIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_WIS] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DEX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_DEX] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_CON:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_CON] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_CHA:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].adj[STAT_CHA] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].dis = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DEV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].dev = (s16b)b;
 				break;
 
 				case TRAIT_INFO_ROB:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].rob = (s16b)b;
 				break;
 
 				case TRAIT_INFO_EVA:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].eva = (s16b)b;
 				break;
 
 				case TRAIT_INFO_VOL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].vol = (s16b)b;
 				break;
 
 				case TRAIT_INFO_STL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].stl = (s16b)b;
 				break;
 
 				case TRAIT_INFO_SRH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].srh = (s16b)b;
 				break;
 
 				case TRAIT_INFO_FOS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].fos = (s16b)b;
 				break;
 
 				case TRAIT_INFO_THN:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].thn = (s16b)b;
 				break;
 
 				case TRAIT_INFO_THB:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].thb = (s16b)b;
 				break;
 
 				case TRAIT_INFO_INFRA:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].infra = (s16b)b;
 				break;
 
 				case TRAIT_INFO_HITD_M:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].hitd_m = (s16b)b;
 				break;
 
 				case TRAIT_INFO_EXP:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].exp = (s16b)b;
 				break;
 
@@ -4221,7 +4221,7 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_SPEED:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].speed = (s16b)b;
 				break;
 
@@ -4236,27 +4236,27 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_SPELL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].is_spell = (byte)b;
 				break;
 
 				case TRAIT_INFO_PRE_ID:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].pre_id = (s16b)b;
 				break;
 
 				case TRAIT_INFO_ANTI_ID:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].anti_id = (s16b)b;
 				break;
 
 				case TRAIT_INFO_BASE_LEVEL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].base_level = (s16b)b;
 				break;
 
 				case TRAIT_INFO_MP_COST:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].mp_cost = (s16b)b;
 				break;
 
@@ -4274,7 +4274,7 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_FAIL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].fail = (s16b)b;
 				break;
 
@@ -4303,7 +4303,7 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				default:
-					return (1);
+					return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -4483,7 +4483,7 @@ errr parse_race_info_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -4530,7 +4530,7 @@ errr parse_race_info_csv(char *buf, header *head)
 			{
 
 			case RC_INFO_COMMON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].race_category = (byte)b;
 				break;
 
@@ -4551,227 +4551,227 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SEX:
-				if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+				if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].sex_flag = (byte)b;
 				break;
 
 			case RC_INFO_LEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].lev = (s16b)b;
 				break;
 
 			case RC_INFO_DR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].dr = (s16b)b;
 				break;
 
 			case RC_INFO_P_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_P_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_P_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_H_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_H_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_H_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_dis = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_dev = (s16b)b;
 				break;
 
 			case RC_INFO_P_ROB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_rob = (s16b)b;
 				break;
 
 			case RC_INFO_P_EVA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_eva = (s16b)b;
 				break;
 
 			case RC_INFO_P_VOL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_vol = (s16b)b;
 				break;
 
 			case RC_INFO_P_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_stl = (s16b)b;
 				break;
 
 			case RC_INFO_P_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_srh = (s16b)b;
 				break;
 
 			case RC_INFO_P_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_fos = (s16b)b;
 				break;
 
 			case RC_INFO_P_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_thn = (s16b)b;
 				break;
 
 			case RC_INFO_P_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_thb = (s16b)b;
 				break;
 
 			case RC_INFO_P_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_H_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_dis = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_dev = (s16b)b;
 				break;
 
 			case RC_INFO_H_ROB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_rob = (s16b)b;
 				break;
 
 			case RC_INFO_H_EVA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_eva = (s16b)b;
 				break;
 
 			case RC_INFO_H_VOL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_vol = (s16b)b;
 				break;
 
 			case RC_INFO_H_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_stl = (s16b)b;
 				break;
 
 			case RC_INFO_H_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_srh = (s16b)b;
 				break;
 
 			case RC_INFO_H_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_fos = (s16b)b;
 				break;
 
 			case RC_INFO_H_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_thn = (s16b)b;
 				break;
 
 			case RC_INFO_H_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_thb = (s16b)b;
 				break;
 
 			case RC_INFO_H_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_M_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].m_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].m_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].m_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_M_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].m_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].f_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].f_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].f_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].f_m_wt = (s32b)b;
 				break;
 
@@ -4784,12 +4784,12 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_exp = (s16b)b;
 				break;
 
 			case RC_INFO_H_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].r_s_exp = (s16b)b;
 				break;
 
@@ -4798,23 +4798,23 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_AGE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].b_age = (s32b)b;
 				break;
 
 			case RC_INFO_AGE_ADD:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].m_age = (s32b)b;
 				break;
 
 			case RC_INFO_P_FLAGS:
 				if(0 != traits_splits(&race_info[n].p_flags, tmp))
-					return (1);
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case RC_INFO_H_FLAGS:
 				if(0 != traits_splits(&race_info[n].h_flags, tmp))
-					return (1);
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case RC_INFO_SUIT_CLASS:
@@ -4837,57 +4837,57 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_HAND:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_hand = (s16b)b;
 				break;
 
 			case RC_INFO_RING:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_ring = (s16b)b;
 				break;
 
 			case RC_INFO_AMULET:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_amulet = (s16b)b;
 				break;
 
 			case RC_INFO_BODY:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_body = (s16b)b;
 				break;
 
 			case RC_INFO_OUTER:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_outer = (s16b)b;
 				break;
 
 			case RC_INFO_HEAD:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_head = (s16b)b;
 				break;
 
 			case RC_INFO_ARMS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_arms = (s16b)b;
 				break;
 
 			case RC_INFO_FEET:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_feet = (s16b)b;
 				break;
 
 			case RC_INFO_TAIL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_tail = (s16b)b;
 				break;
 
 			case RC_INFO_INTAKE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_info[n].slot_intake = (s16b)b;
 				break;
 
 			default:
-				return (1);
+				return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -4981,7 +4981,7 @@ errr parse_class_info_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, CL_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -5042,162 +5042,162 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_STR:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_STR] = (s16b)b;
 					break;
 
 				case CL_INFO_INT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_INT] = (s16b)b;
 					break;
 
 				case CL_INFO_WIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_WIS] = (s16b)b;
 					break;
 
 				case CL_INFO_DEX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_DEX] = (s16b)b;
 					break;
 
 				case CL_INFO_CON:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_CON] = (s16b)b;
 					break;
 
 				case CL_INFO_CHA:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj[STAT_CHA] = (s16b)b;
 					break;
 
 				case CL_INFO_A_STR:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_STR] = (s16b)b;
 					break;
 
 				case CL_INFO_A_INT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_INT] = (s16b)b;
 					break;
 
 				case CL_INFO_A_WIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_WIS] = (s16b)b;
 					break;
 
 				case CL_INFO_A_DEX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_DEX] = (s16b)b;
 					break;
 
 				case CL_INFO_A_CON:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_CON] = (s16b)b;
 					break;
 
 				case CL_INFO_A_CHA:
 					break;
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_adj_b[STAT_CHA] = (s16b)b;
 
 				case CL_INFO_RARITY:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].rarelity = (s16b)b;
 					break;
 
 				case CL_INFO_C_DIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_dis = (s16b)b;
 					break;
 
 				case CL_INFO_C_DEV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_dev = (s16b)b;
 					break;
 
 				case CL_INFO_C_SAV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_sav = (s16b)b;
 					break;
 
 				case CL_INFO_C_STL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_stl = (s16b)b;
 					break;
 
 				case CL_INFO_C_SRH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_srh = (s16b)b;
 					break;
 
 				case CL_INFO_C_FOS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_fos = (s16b)b;
 					break;
 
 				case CL_INFO_C_THN:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_thn = (s16b)b;
 					break;
 
 				case CL_INFO_C_THB:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_thb = (s16b)b;
 					break;
 
 				case CL_INFO_X_DIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_dis = (s16b)b;
 					break;
 
 				case CL_INFO_X_DEV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_dev = (s16b)b;
 					break;
 
 				case CL_INFO_X_SAV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_sav = (s16b)b;
 					break;
 
 				case CL_INFO_X_STL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_stl = (s16b)b;
 					break;
 
 				case CL_INFO_X_SRH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_srh = (s16b)b;
 					break;
 
 				case CL_INFO_X_FOS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_fos = (s16b)b;
 					break;
 
 				case CL_INFO_X_THN:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_thn = (s16b)b;
 					break;
 
 				case CL_INFO_X_THB:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].x_thb = (s16b)b;
 					break;
 
 				case CL_INFO_HD:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_mhp = (s16b)b;
 					break;
 
 				case CL_INFO_EXP:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].c_exp = (s16b)b;
 					break;
 
 				case CL_INFO_PET_UPKEEP:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].pet_upkeep_div = (byte)b;
 					break;
 			}
@@ -5266,7 +5266,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, CH_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -5327,92 +5327,92 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 
 				case CH_INFO_RARITY:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].rarity = (s16b)b;
 					break;
 
 				case CH_INFO_STR:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_STR] = (s16b)b;
 					break;
 
 				case CH_INFO_INT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_INT] = (s16b)b;
 					break;
 
 				case CH_INFO_WIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_WIS] = (s16b)b;
 					break;
 
 				case CH_INFO_DEX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_DEX] = (s16b)b;
 					break;
 
 				case CH_INFO_CON:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_CON] = (s16b)b;
 					break;
 
 				case CH_INFO_CHA:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_adj[STAT_CHA] = (s16b)b;
 					break;
 
 				case CH_INFO_C_DIS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_dis = (s16b)b;
 					break;
 
 				case CH_INFO_C_DEV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_dev = (s16b)b;
 					break;
 
 				case CH_INFO_C_SAV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_sav = (s16b)b;
 					break;
 
 				case CH_INFO_C_STL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_stl = (s16b)b;
 					break;
 
 				case CH_INFO_C_SRH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_srh = (s16b)b;
 					break;
 
 				case CH_INFO_C_FOS:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_fos = (s16b)b;
 					break;
 
 				case CH_INFO_C_THN:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_thn = (s16b)b;
 					break;
 
 				case CH_INFO_C_THB:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_thb = (s16b)b;
 					break;
 
 				case CH_INFO_HD:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].a_mhp = (s16b)b;
 					break;
 
 				case CH_INFO_JP_NO:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].no = (byte)b;
 					break;
 
 				case CH_INFO_SEX:
-					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].sex = (byte)b;
 					break;
 			}
@@ -5439,7 +5439,7 @@ static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 #endif
 
 	/* Failure */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 #define DU_INFO_CSV_COLUMNS 35
@@ -5534,7 +5534,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 	char *s, *t;
 
 	if(get_split_offset(split, size, buf, DU_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -5590,12 +5590,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_DY:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].dy = (byte)b;
 					break;
 
 				case DU_INFO_DX:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].dx = (byte)b;
 					break;
 
@@ -5610,7 +5610,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_FEAT_PROB_FLOOR:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					d_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->floor[0].percent = atoi(zz[1]);
 					d_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
@@ -5620,7 +5620,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_FEAT_PROB_FILL:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return (1); // Scan for the values
+					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					d_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
 					d_ptr->fill[0].percent = atoi(zz[1]);
 					d_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
@@ -5650,27 +5650,27 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_MINDEPTH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].mindepth = (s16b)b;
 					break;
 
 				case DU_INFO_MAXDEPTH:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].maxdepth = (s16b)b;
 					break;
 
 				case DU_INFO_MIN_PLEV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].min_plev = (byte)b;
 					break;
 
 				case DU_INFO_PIT:
-					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].pit = (s16b)b;
 					break;
 
 				case DU_INFO_NEST:
-					if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].nest = (s16b)b;
 					break;
 
@@ -5683,12 +5683,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_MIN_M_ALLOC_LEVEL:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].min_m_alloc_level = (s16b)b;
 					break;
 
 				case DU_INFO_MAX_M_ALLOC_CHANCE:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].max_m_alloc_chance = (s16b)b;
 					break;
 
@@ -5721,37 +5721,37 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_FINAL_OBJECT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].final_object = (s16b)b;
 					break;
 
 				case DU_INFO_FINAL_ARTIFACT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
 				case DU_INFO_FINAL_GUARDIAN:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].final_artifact = (s16b)b;
 					break;
 
 				case DU_INFO_SPECIAL_DIV:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].special_div = (byte)b;
 					break;
 
 				case DU_INFO_TUNNEL_PERCENT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].tunnel_percent = (byte)b;
 					break;
 
 				case DU_INFO_OBJ_GREAT:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].obj_great = (byte)b;
 					break;
 
 				case DU_INFO_OBJ_GOOD:
-					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					dungeon_info[n].obj_good = (byte)b;
 					break;
 
@@ -5867,7 +5867,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, AU_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
+		return PARSE_ERROR_GENERIC;
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
@@ -5927,157 +5927,157 @@ errr parse_authority_info_csv(char *buf, header *head)
 				break;
 
 			case AU_INFO_A_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case AU_INFO_A_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case AU_INFO_A_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case AU_INFO_A_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case AU_INFO_A_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case AU_INFO_A_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case AU_INFO_W_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case AU_INFO_W_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case AU_INFO_W_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case AU_INFO_W_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case AU_INFO_W_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case AU_INFO_W_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case AU_INFO_A_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_dis = (s16b)b;
 				break;
 
 			case AU_INFO_A_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_dev = (s16b)b;
 				break;
 
 			case AU_INFO_A_SAV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_sav = (s16b)b;
 				break;
 
 			case AU_INFO_A_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_stl = (s16b)b;
 				break;
 
 			case AU_INFO_A_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_srh = (s16b)b;
 				break;
 
 			case AU_INFO_A_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_fos = (s16b)b;
 				break;
 
 			case AU_INFO_A_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_thn = (s16b)b;
 				break;
 
 			case AU_INFO_A_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_thb = (s16b)b;
 				break;
 
 			case AU_INFO_A_MHP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].a_mhp = (s16b)b;
 				break;
 
 			case AU_INFO_W_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_dis = (s16b)b;
 				break;
 
 			case AU_INFO_W_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_dev = (s16b)b;
 				break;
 
 			case AU_INFO_W_SAV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_sav = (s16b)b;
 				break;
 
 			case AU_INFO_W_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_stl = (s16b)b;
 				break;
 
 			case AU_INFO_W_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_srh = (s16b)b;
 				break;
 
 			case AU_INFO_W_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_fos = (s16b)b;
 				break;
 
 			case AU_INFO_W_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_thn = (s16b)b;
 				break;
 
 			case AU_INFO_W_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_thb = (s16b)b;
 				break;
 
 			case AU_INFO_W_MHP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].w_mhp = (s16b)b;
 				break;
 
 			case AU_INFO_RANK:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].rank = (byte)b;
 				break;
 
@@ -6087,12 +6087,12 @@ errr parse_authority_info_csv(char *buf, header *head)
 				break;
 
 			case AU_INFO_DV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].dv = (s16b)b;
 				break;
 
 			case AU_INFO_CP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				authority_info[n].cp = (s16b)b;
 				break;
 
@@ -6100,7 +6100,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 				break;
 
 			default:
-				return (1);
+				return PARSE_ERROR_GENERIC;
 
 			}
 		}
@@ -6258,7 +6258,7 @@ static errr parse_line_feature(char *buf)
 		return (0);
 	}
 
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 
@@ -6288,13 +6288,13 @@ static errr parse_line_building(char *buf)
 	s = my_strchr(s, ':');
 
 	/* Verify that colon */
-	if (!s) return (1);
+	if (!s) return PARSE_ERROR_GENERIC;
 
 	/* Nuke the colon, advance to the sub-index */
 	*s++ = '\0';
 
 	/* Paranoia -- require a sub-index */
-	if (!*s) return (1);
+	if (!*s) return PARSE_ERROR_GENERIC;
 
 	/* Building definition sub-index */
 	switch (s[0])
@@ -6477,7 +6477,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	if (buf[0] == '#') return (0);
 
 	/* Require "?:*" format */
-	if (buf[1] != ':') return (1);
+	if (buf[1] != ':') return PARSE_ERROR_GENERIC;
 
 
 	/* Process "%:<fname>" */
@@ -6953,7 +6953,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 
 	/* Failure */
-	return (1);
+	return PARSE_ERROR_GENERIC;
 }
 
 
