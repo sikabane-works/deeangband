@@ -372,6 +372,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	if (tmp_s16b < WEAPON_EXP_UNSKILLED) tmp_s16b = WEAPON_EXP_UNSKILLED;
 	if (tmp_s16b > WEAPON_EXP_MASTER) tmp_s16b = WEAPON_EXP_MASTER;
 
+	/*
 	for (j = 0; j <= TV_WEAPON_END - TV_WEAPON_BEGIN; j++)
 	{
 		for (i = 0;i < 64;i++)
@@ -380,6 +381,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 			if (cr_ptr->weapon_exp[j][i] > skill_info[cr_ptr->class_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = skill_info[cr_ptr->class_idx].w_max[j][i];
 		}
 	}
+	*/
 
 	for (j = 0; j < 10; j++)
 	{

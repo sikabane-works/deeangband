@@ -3444,6 +3444,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			if ((r_ptr->level + 10) > creature_ptr->lev)
 			{
 				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
+				/*
 				if (now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
@@ -3454,6 +3455,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					creature_ptr->weapon_exp[0][j_ptr->sval] += amount;
 					creature_ptr->creature_update |= (CRU_BONUS);
 				}
+				*/
 			}
 
 			if (creature_ptr->riding)

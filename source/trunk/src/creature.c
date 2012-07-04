@@ -460,13 +460,15 @@ void initialize_skill(creature_type *creature_ptr)
 		else creature_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
 	}
 
-	for (i = 0; i < 5; i++)
-		for (j = 0; j < 64; j++)
-			creature_ptr->weapon_exp[i][j] = skill_info[tmp_cls].w_start[i][j];
-	if ((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
-	{
-		creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
-	}
+//TODO
+//	for (i = 0; i < 5; i++)
+//		for (j = 0; j < 64; j++)
+//			creature_ptr->weapon_exp[i][j] = skill_info[tmp_cls].w_start[i][j];
+
+//	if ((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+//	{
+//		creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
+//	}
 
 	for (i = 0; i < 10; i++)
 		creature_ptr->skill_exp[i] = skill_info[tmp_cls].s_start[i];

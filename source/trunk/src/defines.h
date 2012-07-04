@@ -4362,6 +4362,7 @@ enum QUEST_TYPE
 #define GRAPHICS_ORIGINAL   1
 #define GRAPHICS_ADAM_BOLT  2
 #define GRAPHICS_DESKULL    3
+
 /*
  * Modes for the random name generator
  */
@@ -4430,14 +4431,14 @@ enum PARSE_ERROR
 #define WEAPON_EXP_EXPERT     7000
 #define WEAPON_EXP_MASTER     8000
 
-/* Proficiency of riding */
+// Proficiency of riding
 #define RIDING_EXP_UNSKILLED     0
 #define RIDING_EXP_BEGINNER    500
 #define RIDING_EXP_SKILLED    2000
 #define RIDING_EXP_EXPERT     5000
 #define RIDING_EXP_MASTER     8000
 
-/* Proficiency of spells */
+// Proficiency of spells
 #define SPELL_EXP_UNSKILLED      0
 #define SPELL_EXP_BEGINNER     900
 #define SPELL_EXP_SKILLED     1200

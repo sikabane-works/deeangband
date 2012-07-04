@@ -1323,8 +1323,8 @@ errr parse_skill_info(char *buf, header *head)
 			|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
 
 		/* Save the values */
-		s_ptr->w_start[tval][sval] = exp_conv_table[start];
-		s_ptr->w_max[tval][sval] = exp_conv_table[max];
+		//s_ptr->w_start[tval][sval] = exp_conv_table[start];
+		//s_ptr->w_max[tval][sval] = exp_conv_table[max];
 	}
 
 	/* Process 'S' for "Skill exp" */

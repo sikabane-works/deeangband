@@ -5609,8 +5609,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				set_creature_hp_percent(creature_ptr, 100);
 			set_creature_sp_percent(creature_ptr, 100);
 
-			/* Sexy gal gets bonus to maximum weapon skill of whip */
-			if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->class_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+			// Sexy gal gets bonus to maximum weapon skill of whip
+			// TODO if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->class_idx].w_max[TV_HAFTED - TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 			if(auto_generate) break;
 

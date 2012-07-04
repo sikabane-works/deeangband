@@ -63,8 +63,10 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 		/* Icky to wield? */
+		/*
 		if (!(skill_info[cr_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
 			return FALSE;
+		*/
 		break;
 
 	case CLASS_BEASTMASTER:
@@ -82,8 +84,10 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 
 	case CLASS_NINJA:
 		/* Icky to wield? */
+		/*
 		if (skill_info[cr_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
 			return FALSE;
+		*/
 		break;
 
 	default:

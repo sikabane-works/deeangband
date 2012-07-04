@@ -4820,15 +4820,18 @@ static void set_melee_status(creature_type *creature_ptr)
 
 			if ((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER))
 			{
+				/*
 				if (!skill_info[creature_ptr->class_idx].w_max[tval][sval])
 				{
 					creature_ptr->to_hit[i] -= 40;
 					creature_ptr->dis_to_hit[i] -= 40;
 					creature_ptr->icky_wield[i] = TRUE;
 				}
+				*/
 			}
 			else if (creature_ptr->class_idx == CLASS_NINJA)
 			{
+				/*
 				if ((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
 					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
 				{
@@ -4836,6 +4839,7 @@ static void set_melee_status(creature_type *creature_ptr)
 					creature_ptr->dis_to_hit[i] -= 40;
 					creature_ptr->icky_wield[i] = TRUE;
 				}
+				*/
 			}
 		}
 	}
