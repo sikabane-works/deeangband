@@ -446,7 +446,7 @@ void set_resistance(creature_type *creature_ptr)
 
 void initialize_skill(creature_type *creature_ptr)
 {
-	int i,j, tmp_cls;
+	int i, tmp_cls;
 
 	if(creature_ptr->class_idx != INDEX_NONE)
 		tmp_cls = creature_ptr->class_idx;
