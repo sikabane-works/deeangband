@@ -2418,13 +2418,19 @@ int count_melee_slot(creature_type *creature_ptr)
 	return n;
 }
 
-int calc_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
+int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 {
 	int ind = weapon_ptr->weight * 100 / calc_equipping_weight_limit(creature_ptr) / 5;
 	if (ind < 0) ind = 0;
 	if (ind > PERCENTAGE / 5) ind = PERCENTAGE / 5;
 	return (adj_dex_action_point[creature_ptr->stat_ind[STAT_DEX]] * adj_weight_action_point[ind]) / 1000;
 }
+
+int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr)
+{
+	return 10;
+}
+
 
 int calc_action_power(creature_type *creature_ptr)
 {
