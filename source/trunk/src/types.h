@@ -1528,9 +1528,15 @@ struct creature_type
 
 	s32b regist_rate[RR_MAX]; 
 
-	s16b to_damaged[MAX_WEAPONS]; /* Extra dice/sides */
+	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides
 	s16b to_damages[MAX_WEAPONS];
-	s16b to_acr[MAX_WEAPONS]; /* Active rate*/
+	s16b to_action_cost[MAX_WEAPONS];		// Action point
+	s16b to_action_priority[MAX_WEAPONS];	// Action priority
+	s16b to_hit[MAX_WEAPONS];		// Bonus to hit (wield)
+	s16b to_hit_b;					// Bonus to hit (bow)
+	s16b to_hit_m;					// Bonus to hit (misc)
+	s16b to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
+	s16b to_damage_m;				// Bonus to dam (misc)
 
 	s16b dis_to_hit[MAX_WEAPONS];	/* Known bonus to hit (wield) */
 	s16b dis_to_hit_b;	/* Known bonus to hit (bow) */
@@ -1540,14 +1546,8 @@ struct creature_type
 
 	s16b dis_ac;		// Known base ac
 	s16b dis_ev;		// Known base ac
-
-	s16b to_hit[MAX_WEAPONS];	/* Bonus to hit (wield) */
-	s16b to_hit_b;			/* Bonus to hit (bow) */
-	s16b to_hit_m;			/* Bonus to hit (misc) */
-	s16b to_damage[MAX_WEAPONS];	/* Bonus to dam (wield) */
-	s16b to_damage_m;			/* Bonus to dam (misc) */
 	s16b to_ac;			// Bonus to ac
-	s16b to_ev;         // Known base ac
+	s16b to_ev;			// Known base ac
 
 	s16b to_m_chance;		/* Minusses to cast chance */
 

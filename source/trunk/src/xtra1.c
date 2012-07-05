@@ -430,74 +430,33 @@ static void prt_status(creature_type *cr_ptr)
 
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
-	/* Tsuyoshi  */
-	if (cr_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);
-
-	/* Hallucinating */
-	if (cr_ptr->image) ADD_FLG(BAR_HALLUCINATION);
-
-	/* Blindness */
-	if (cr_ptr->blind) ADD_FLG(BAR_BLINDNESS);
-
-	/* Paralysis */
-	if (cr_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);
-
-	/* Confusion */
-	if (cr_ptr->confused) ADD_FLG(BAR_CONFUSE);
-
-	/* Posioned */
-	if (cr_ptr->poisoned) ADD_FLG(BAR_POISONED);
-
-	/* Times see-invisible */
-	if (cr_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);
-
-	/* Timed esp */
-	if (IS_TIM_ESP(cr_ptr)) ADD_FLG(BAR_TELEPATHY);
-
-	/* Timed regenerate */
-	if (cr_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);
-
-	/* Timed infra-vision */
-	if (cr_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);
-
-	/* Protection from evil */
-	if (cr_ptr->protevil) ADD_FLG(BAR_PROTEVIL);
-
-	/* Invulnerability */
-	if (IS_INVULN(cr_ptr)) ADD_FLG(BAR_INVULN);
-
-	/* Wraith form */
-	if (cr_ptr->wraith_form) ADD_FLG(BAR_WRAITH);
-
-	/* Kabenuke */
-	if (cr_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);
-
+	if (cr_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
+	if (cr_ptr->image) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
+	if (cr_ptr->blind) ADD_FLG(BAR_BLINDNESS);			// Blindness
+	if (cr_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
+	if (cr_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
+	if (cr_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
+	if (cr_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
+	if (IS_TIM_ESP(cr_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
+	if (cr_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	if (cr_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
+	if (cr_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
+	if (IS_INVULN(cr_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
+	if (cr_ptr->wraith_form) ADD_FLG(BAR_WRAITH);		// Wraith form
+	if (cr_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if (cr_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
-
-	/* Heroism */
-	if (IS_HERO(cr_ptr)) ADD_FLG(BAR_HEROISM);
-
-	/* Super Heroism / berserk */
-	if (cr_ptr->shero) ADD_FLG(BAR_BERSERK);
-
-	/* Blessed */
-	if (IS_BLESSED(cr_ptr)) ADD_FLG(BAR_BLESSED);
-
-	/* Shield */
-	if (cr_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);
-
+	if (IS_HERO(cr_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
+	if (cr_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
+	if (IS_BLESSED(cr_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
+	if (cr_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
 	if (cr_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
-
 	if (cr_ptr->shield) ADD_FLG(BAR_STONESKIN);
-	
 	if (cr_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
-	/* Oppose Acid */
-	if (cr_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID);
+	if (cr_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
 	if (IS_OPPOSE_ACID(cr_ptr)) ADD_FLG(BAR_RESACID);
 
-	/* Oppose Lightning */
-	if (cr_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC);
+	if (cr_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
 	if (IS_OPPOSE_ELEC(cr_ptr)) ADD_FLG(BAR_RESELEC);
 
 	/* Oppose Fire */
@@ -4010,8 +3969,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	/* Take note when "heavy bow" changes */
 	if (creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{
-		/* Message */
-		if (creature_ptr->heavy_shoot)
+		if (creature_ptr->heavy_shoot) // Message
 		{
 #ifdef JP
 			msg_print("‚±‚ñ‚Èd‚¢‹|‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Ì‚Í‘å•Ï‚¾B");
@@ -4491,7 +4449,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 	}
 
-	for(i = 0 ; i < MAX_WEAPONS ; i++)
+	for(i = 0; i < MAX_WEAPONS; i++)
 	{
 	//TODO: adjust
 	/*
@@ -4574,8 +4532,8 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->skill_dig += (object_ptr->weight / 10); // Boost digging skill by weapon weight
 		}
 
-		/* Assume okay */
-		/* Priest weapon penalty for non-blessed edged weapons */
+		// Assume okay
+		// Priest weapon penalty for non-blessed edged weapons
 		if ((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
