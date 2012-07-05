@@ -1057,6 +1057,8 @@ extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 extern int count_melee_slot(creature_type *creature_ptr);
 extern int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr);
 extern int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr);
+extern int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr);
+extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_action_power(creature_type *creature_ptr);
 
 // do-spell.c

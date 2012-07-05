@@ -1494,7 +1494,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	creature_type   *target_ptr;
 	species_type    *atk_species_ptr;
 	species_type    *tar_species_ptr;
-	object_type		*weapon_ptr;
+	object_type			*weapon_ptr;
+	special_blow_type	*special_ptr;
 	char			attacker_name[80];
 	char            target_name[80];
 
@@ -1504,7 +1505,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	int action_weight[MAX_MELEE_TYPE];
 	int action_num;
 	int tried_num;
-
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
 
@@ -1561,7 +1561,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 						weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
 						action_list[action_num] = i;
 						action_cost[action_num] = calc_weapon_melee_cost(attacker_ptr, weapon_ptr);
-						action_weight[action_num] = calc_weapon_melee_cost(attacker_ptr, weapon_ptr);
+						action_weight[action_num] = calc_weapon_melee_priority(attacker_ptr, weapon_ptr);
 						action_num++;
 					}
 					break;
@@ -1572,9 +1572,10 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_SPECIAL_4TH:
 					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice);
 					{
+						special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
 						action_list[action_num] = i;
-						action_cost[action_num] = 20;
-						action_weight[action_num] = 10;
+						action_cost[action_num] = calc_special_melee_cost(attacker_ptr, special_ptr);
+						action_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
 						action_num++;
 					}
 					break;
