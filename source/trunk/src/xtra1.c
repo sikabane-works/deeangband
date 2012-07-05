@@ -4291,7 +4291,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 static void set_melee_status(creature_type *creature_ptr)
 {
 	int i, hold;
-	object_type *object_ptr;
+	object_type *object_ptr, *weapon_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	int extra_shots = 0;
 	bool omoi;
@@ -4645,10 +4645,12 @@ static void set_melee_status(creature_type *creature_ptr)
 
 	for (i = 0; i < MAX_WEAPONS; i++)
 	{
+		weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i + 1); 
+
 		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 		{
-			int tval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->tval - TV_WEAPON_BEGIN;
-			int sval = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->sval;
+			int tval = weapon_ptr->tval - TV_WEAPON_BEGIN;
+			int sval = weapon_ptr->sval;
 			int boost = (creature_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 
 			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
@@ -4677,6 +4679,10 @@ static void set_melee_status(creature_type *creature_ptr)
 				}
 				*/
 			}
+
+			creature_ptr->action_cost[MELLE_WEAPON_INDEX + i] = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
+			creature_ptr->action_priority[MELLE_WEAPON_INDEX + i] = calc_weapon_melee_priority(creature_ptr, weapon_ptr);
+
 		}
 	}
 
@@ -4690,6 +4696,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
 		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
 		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+
 	}
 
 	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );

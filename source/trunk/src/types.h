@@ -1530,8 +1530,6 @@ struct creature_type
 
 	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides
 	s16b to_damages[MAX_WEAPONS];
-	s16b to_action_cost[MAX_WEAPONS];		// Action point
-	s16b to_action_priority[MAX_WEAPONS];	// Action priority
 	s16b to_hit[MAX_WEAPONS];		// Bonus to hit (wield)
 	s16b to_hit_b;					// Bonus to hit (bow)
 	s16b to_hit_m;					// Bonus to hit (misc)
@@ -1552,7 +1550,11 @@ struct creature_type
 	s16b to_m_chance;		/* Minusses to cast chance */
 
 	byte two_handed[INVEN_TOTAL];      /* each Two-handed slot */
-	bool can_melee[MAX_WEAPONS];
+
+	bool can_melee[MAX_MELEE_TYPE];
+	s16b action_cost[MAX_MELEE_TYPE];		// Action point
+	s16b action_priority[MAX_MELEE_TYPE];	// Action priority
+
 	bool no_flowed;
 
 	s16b ac;			// Base ac

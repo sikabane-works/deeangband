@@ -1560,7 +1560,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 					{
 						weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
 						action_list[action_num] = i;
-						action_cost[action_num] = calc_weapon_melee_cost(attacker_ptr, weapon_ptr);
 						action_weight[action_num] = calc_weapon_melee_priority(attacker_ptr, weapon_ptr);
 						action_num++;
 					}
