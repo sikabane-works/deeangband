@@ -3364,15 +3364,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Advance the distance */
 		cur_dis++;
 
-		/* Sniper */
-		if (creature_ptr->snipe_type == SP_LITE)
+		if (creature_ptr->snipe_type == SP_LITE) // Sniper
 		{
 			floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
-
-			/* Notice */
 			note_spot(floor_ptr, ny, nx);
-
-			/* Redraw */
 			lite_spot(floor_ptr, ny, nx);
 		}
 
@@ -3555,11 +3550,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					tdam = invuln_damage_mod(m_ptr, tdam, FALSE);
 				}
 
-				/* Complex message */
-				if (wizard || cheat_xtra)
-				{
-					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
-				}
+				// Wizard message
+				if (wizard || cheat_xtra) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 
 				/* Sniper */
 				if (creature_ptr->snipe_type == SP_EXPLODE)

@@ -100,7 +100,6 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 	}
 }
 
-
 /*
  * Player attacks a (poor, defenseless) creature        -RAK-
  *
@@ -164,12 +163,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				stab_fleeing = TRUE;
 			}
 		}
-		break;
-
-	case CLASS_MONK:
-	case CLASS_FORCETRAINER:
-	case CLASS_BERSERKER:
-		if ((empty_hands(atk_ptr, TRUE) & EMPTY_HAND_RARM) && !atk_ptr->riding) monk_attack = TRUE;
 		break;
 	}
 
@@ -397,21 +390,21 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 						{
 #ifdef JP
-					case 2: msg_format("%s‚ðŽa‚Á‚½I", tar_name); break;
-					case 3: msg_format("%s‚ð‚Ô‚Á‚½Ža‚Á‚½I", tar_name); break;
-					case 4: msg_format("%s‚ðƒƒbƒ^Ža‚è‚É‚µ‚½I", tar_name); break;
-					case 5: msg_format("%s‚ðƒƒbƒ^ƒƒ^‚ÉŽa‚Á‚½I", tar_name); break;
-					case 6: msg_format("%s‚ðŽhg‚É‚µ‚½I", tar_name); break;
-					case 7: msg_format("%s‚ðŽa‚Á‚ÄŽa‚Á‚ÄŽa‚è‚Ü‚­‚Á‚½I", tar_name); break;
-					default: msg_format("%s‚ð×Ø‚ê‚É‚µ‚½I", tar_name); break;
+							case 2: msg_format("%s‚ðŽa‚Á‚½I", tar_name); break;
+							case 3: msg_format("%s‚ð‚Ô‚Á‚½Ža‚Á‚½I", tar_name); break;
+							case 4: msg_format("%s‚ðƒƒbƒ^Ža‚è‚É‚µ‚½I", tar_name); break;
+							case 5: msg_format("%s‚ðƒƒbƒ^ƒƒ^‚ÉŽa‚Á‚½I", tar_name); break;
+							case 6: msg_format("%s‚ðŽhg‚É‚µ‚½I", tar_name); break;
+							case 7: msg_format("%s‚ðŽa‚Á‚ÄŽa‚Á‚ÄŽa‚è‚Ü‚­‚Á‚½I", tar_name); break;
+							default: msg_format("%s‚ð×Ø‚ê‚É‚µ‚½I", tar_name); break;
 #else
-					case 2: msg_format("You gouge %s!", tar_name); break;
-					case 3: msg_format("You maim %s!", tar_name); break;
-					case 4: msg_format("You carve %s!", tar_name); break;
-					case 5: msg_format("You cleave %s!", tar_name); break;
-					case 6: msg_format("You smite %s!", tar_name); break;
-					case 7: msg_format("You eviscerate %s!", tar_name); break;
-					default: msg_format("You shred %s!", tar_name); break;
+							case 2: msg_format("You gouge %s!", tar_name); break;
+							case 3: msg_format("You maim %s!", tar_name); break;
+							case 4: msg_format("You carve %s!", tar_name); break;
+							case 5: msg_format("You cleave %s!", tar_name); break;
+							case 6: msg_format("You smite %s!", tar_name); break;
+							case 7: msg_format("You eviscerate %s!", tar_name); break;
+							default: msg_format("You shred %s!", tar_name); break;
 #endif
 						}
 					}
@@ -1022,6 +1015,15 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 	bool monk_attack = FALSE;
 	int k;
+
+	switch(atk_ptr->class_idx)
+	{
+		case CLASS_MONK:
+		case CLASS_FORCETRAINER:
+		case CLASS_BERSERKER:
+			if ((empty_hands(atk_ptr, TRUE) & EMPTY_HAND_RARM) && !atk_ptr->riding) monk_attack = TRUE;
+			break;
+	}
 
 #if JP
 	strcpy(weapon_name, "‘fŽè");
