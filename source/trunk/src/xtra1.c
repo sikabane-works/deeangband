@@ -4566,35 +4566,9 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac += 5;
 		}
 
-		// Hex - extra mights gives +1 bonus to max blows
-		//TODO if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
-
-		/* Normal weapons */
 		if (object_ptr->k_idx && !creature_ptr->heavy_wield[i])
 		{
-			int str_index, dex_index;
-			int num = 4, wgt = 100, mul = 3, div = 0; // old feature
-
-			/* Enforce a minimum "weight" (tenth pounds) */
-			div = ((object_ptr->weight < wgt) ? wgt : object_ptr->weight);
-
-			/* Access the strength vs weight */
-			str_index = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] * mul / div);
-
-			if (creature_ptr->two_handed && !omoi) str_index++;
-			if (creature_ptr->class_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
-
-			/* Maximal value */
-			if (str_index > 11) str_index = 11;
-
-			/* Index by dexterity */
-			dex_index = (adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]]);
-
-			/* Maximal value */
-			if (dex_index > 11) dex_index = 11;
-
-			/* Boost digging skill by weapon weight */
-			creature_ptr->skill_dig += (object_ptr->weight / 10);
+			creature_ptr->skill_dig += (object_ptr->weight / 10); // Boost digging skill by weapon weight
 		}
 
 		/* Assume okay */

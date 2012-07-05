@@ -2443,6 +2443,16 @@ int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *
 
 int calc_action_power(creature_type *creature_ptr)
 {
-	return creature_ptr->skill_thn / 2;
+	int point;
+
+	point = creature_ptr->skill_thn / 2;
+
+	// Hex - extra mights gives to action_point
+	if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING))
+	{ 
+		point += (point * 6 / 5);
+	}
+
+	return point;
 }
 
