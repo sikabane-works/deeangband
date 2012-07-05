@@ -137,7 +137,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	bool            is_human = (r_ptr->d_char == 'p');
 	bool            is_lowlevel = (r_ptr->level < (atk_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;
-	bool monk_attack = FALSE;
 
 	switch (atk_ptr->class_idx)
 	{
@@ -241,10 +240,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				msg_format("%s‚Í“¦‚°‚é%s‚ğ”w’†‚©‚ç“Ë‚«h‚µ‚½I", atk_name, tar_name);
 			}
-			else if (!monk_attack)
-			{
-				msg_format("%s‚Í%s‚Å%s‚ğUŒ‚‚µ‚½B", atk_name, weapon_name, tar_name);
-			}
 #else
 			if (backstab)
 			{
@@ -260,11 +255,6 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				//TODO
 				msg_format("%s backstab the fleeing %s!", atk_name, tar_name);
-			}
-			else if (!monk_attack)
-			{
-				//TODO
-				msg_format("%s hit %s by %s.", atk_name, tar_name, weapon_name);
 			}
 #endif
 		}
