@@ -276,9 +276,9 @@ struct ego_item_type
  *	- Damage Sides
  */
 
-typedef struct species_blow species_blow;
+typedef struct special_blow_type special_blow_type;
 
-struct species_blow
+struct special_blow_type
 {
 	byte method;
 	byte effect;
@@ -402,7 +402,7 @@ struct species_type
 
 	traits flags;
 
-	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
+	special_blow_type blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
 	s16b next_species_idx;
 	u32b next_exp;
@@ -1608,7 +1608,7 @@ struct creature_type
 	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
 	u16b underling_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
 
-	species_blow blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
+	special_blow_type blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
 	u16b start_wx; // Starting Wilderness_X
 	u16b start_wy; // Statring Wilderness_Y

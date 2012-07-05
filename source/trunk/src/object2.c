@@ -5809,7 +5809,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 }
 
 /* Calculate blow damages */
-static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, species_blow *blow_ptr)
+static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
 	//TODO: apply New Feature
 	int  dam = blow_ptr->d_dice * blow_ptr->d_side;

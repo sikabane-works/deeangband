@@ -7390,7 +7390,7 @@ void write_species_info_txt(void)
 
 	species_type *r_ptr;
 
-	species_blow *b_ptr;
+	special_blow_type *b_ptr;
 
 	FILE *fff = fopen("output.txt", "wt");
 
