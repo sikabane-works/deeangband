@@ -1791,6 +1791,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
  */
 static void vault_prep_dragon(floor_type *floor_ptr)
 {
+#if 0
 	/* Pick dragon type */
 	switch (randint0(6))
 	{
@@ -1856,6 +1857,7 @@ static void vault_prep_dragon(floor_type *floor_ptr)
 			break;
 		}
 	}
+#endif
 }
 
 
@@ -2062,6 +2064,9 @@ static cptr pit_subtype_string(int type, bool nest)
 		case PIT_TYPE_DRAGON:
 			switch (vault_aux_dragon_mask4)
 			{
+				//TODO
+#if 0
+
 #ifdef JP
 			case RF4_BR_ACID: strcpy(inner_buf, "(é_)");   break;
 			case RF4_BR_ELEC: strcpy(inner_buf, "(àÓç»)"); break;
@@ -2080,6 +2085,7 @@ static cptr pit_subtype_string(int type, bool nest)
 			case (RF4_BR_ACID | RF4_BR_ELEC | RF4_BR_FIRE | RF4_BR_COLD | RF4_BR_POIS):
 				strcpy(inner_buf, "(multi-hued)"); break;
 			default: strcpy(inner_buf, "(undefined)"); break;
+#endif
 #endif
 			}
 			break;

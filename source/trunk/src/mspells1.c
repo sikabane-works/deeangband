@@ -137,7 +137,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	/* Nothing known */
 	if (!smart) return;
 
-
+/*
 	if (smart & SM_IMM_ACID)
 	{
 		f4 &= ~(RF4_BR_ACID);
@@ -233,7 +233,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		if (int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_POIS);
 		if (int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_POIS);
 	}
-
+*/
 
 	if (smart & (SM_RES_NETH))
 	{
@@ -253,11 +253,13 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		*/
 	}
 
+/*
 	if (smart & (SM_RES_LITE))
 	{
 		if (int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_LITE);
 		if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_LITE);
 	}
+*/
 
 	if (smart & (SM_RES_DARK))
 	{
@@ -280,6 +282,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		f5 &= ~(RF5_SCARE);
 	}
 
+/*
 	if (smart & (SM_RES_CONF))
 	{
 		f5 &= ~(RF5_CONF);
@@ -343,6 +346,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	{
 		f5 &= ~(RF5_DRAIN_MANA);
 	}
+	*/
 
 	/* XXX XXX XXX No spells left? */
 	/* if (!f4 && !f5 && !f6) ... */
