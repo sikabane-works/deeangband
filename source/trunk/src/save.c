@@ -159,11 +159,10 @@ static void wr_object(object_type *o_ptr)
 	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_hit);
 	if (flags & SAVE_ITEM_TO_D) wr_s16b(o_ptr->to_damage);
 	if (flags & SAVE_ITEM_TO_A) wr_s16b(o_ptr->to_ac);
-
-	if (flags2 & SAVE_ITEM_TO_E) wr_s16b(o_ptr->ac);
-	if (flags2 & SAVE_ITEM_EV) wr_s16b(o_ptr->ac);
+	if (flags2 & SAVE_ITEM_TO_E) wr_s16b(o_ptr->to_ev);
 
 	if (flags & SAVE_ITEM_AC) wr_s16b(o_ptr->ac);
+	if (flags2 & SAVE_ITEM_EV) wr_s16b(o_ptr->ev);
 	if (flags & SAVE_ITEM_DD) wr_byte(o_ptr->dd);
 	if (flags & SAVE_ITEM_DS) wr_byte(o_ptr->ds);
 

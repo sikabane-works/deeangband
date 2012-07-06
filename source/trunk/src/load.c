@@ -257,7 +257,7 @@ static void strip_bytes(int n)
 /*
  * Read an object
  */
-static void rd_item(object_type *o_ptr)
+static void rd_object(object_type *o_ptr)
 {
 	object_kind *k_ptr;
 	u32b flags, flags2;
@@ -307,17 +307,15 @@ static void rd_item(object_type *o_ptr)
 	else o_ptr->to_hit = 0;
 	if (flags & SAVE_ITEM_TO_D) rd_s16b(&o_ptr->to_damage);
 	else o_ptr->to_damage = 0;
-
 	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_ac);
 	else o_ptr->to_ac = 0;
-	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
+	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
 
-	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->ac);
+	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
 	if (flags2 & SAVE_ITEM_EV) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
-
 	if (flags & SAVE_ITEM_DD) rd_byte(&o_ptr->dd);
 	else o_ptr->dd = 0;
 	if (flags & SAVE_ITEM_DS) rd_byte(&o_ptr->ds);
@@ -351,10 +349,8 @@ static void rd_item(object_type *o_ptr)
 	else o_ptr->xtra1 = 0;
 	if (flags & SAVE_ITEM_XTRA2) rd_byte(&o_ptr->xtra2);
 	else o_ptr->xtra2 = 0;
-
 	if (flags & SAVE_ITEM_XTRA3) rd_byte(&o_ptr->xtra3);
 	else o_ptr->xtra3 = 0;
-
 	if (flags & SAVE_ITEM_XTRA4) rd_s16b(&o_ptr->xtra4);
 	else o_ptr->xtra4 = 0;
 	if (flags & SAVE_ITEM_XTRA5) rd_s16b(&o_ptr->xtra5);
@@ -433,7 +429,7 @@ static errr rd_inventory(creature_type *cr_ptr)
 		object_wipe(q_ptr);
 
 		/* Read the item */
-		rd_item(q_ptr);
+		rd_object(q_ptr);
 
 		/* Hack -- verify item */
 		if (!q_ptr->k_idx) return (53);
@@ -650,7 +646,7 @@ static errr rd_store(store_type *st_ptr)
 		object_wipe(q_ptr);
 
 		/* Read the item */
-		rd_item(q_ptr);
+		rd_object(q_ptr);
 
 		/* Acquire valid items */
 		if (st_ptr->stock_num < st_ptr->stock_size)
@@ -924,7 +920,7 @@ static void load_quick_start(species_type *species_ptr)
 
 static void rd_creature(creature_type *cr_ptr)
 {
-	int i, j;
+	int i;
 	char buf[1024];
 
 	byte tmp8u;
@@ -1747,7 +1743,7 @@ note("—”î•ñ‚ğƒ[ƒh‚µ‚Ü‚µ‚½");
 		o_ptr = &object_list[object_idx];
 
 		/* Read the item */
-		rd_item(o_ptr);
+		rd_object(o_ptr);
 	}
 
 #ifdef JP

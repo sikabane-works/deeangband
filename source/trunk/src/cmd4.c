@@ -6946,12 +6946,9 @@ static void do_cmd_knowledge_uniques(void)
  */
 static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 {
-	int i, j, num, weapon_exp;
-
+	int i, j, num;
 	FILE *fff;
-
 	char file_name[1024];
-	char tmp[30];
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);

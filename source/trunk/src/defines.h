@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 49
+#define VER_PATCH 50
 
 #define VER_EXTRA 0
 
@@ -5082,7 +5082,7 @@ enum SKILL_LIST
 #define SLF_NO_KILL      0x0002  /* Don't kill temporal files */
 
 
-// Flags for wr_object()/rd_item()
+// Flags for wr_object()/rd_object()
 // First
 #define SAVE_ITEM_PVAL            0x00000001
 #define SAVE_ITEM_DISCOUNT        0x00000002
