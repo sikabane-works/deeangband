@@ -2466,7 +2466,7 @@ info[i++] = "あなたは火への耐性を持っている。";
 	}
 
 	/*TODO
-	if (race_is_(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
+	if (IS_RACE(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
 	{
 #ifdef JP
 info[i++] = "あなたは火に弱い。";
@@ -2610,7 +2610,7 @@ info[i++] = "あなたは因果混乱の攻撃への耐性を持っている。";
 
 	//TODO
 	/*
-	if (race_is_(creature_ptr, RACE_LICH))
+	if (IS_RACE(creature_ptr, RACE_LICH))
 	{
 #ifdef JP
 info[i++] = "あなたは地獄の力を吸収できる。";

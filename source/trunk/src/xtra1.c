@@ -2857,7 +2857,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 		case CLASS_FORCETRAINER:
 			if (!(heavy_armor(creature_ptr))) // Unencumbered Monks become faster every 10 levels
 			{
-				if (!(race_is_(creature_ptr, RACE_KLACKON) || race_is_(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+				if (!(IS_RACE(creature_ptr, RACE_KLACKON) || IS_RACE(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE; // Free action if unencumbered at level 25
 			}
@@ -2913,8 +2913,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
-				if (!(race_is_(creature_ptr, RACE_KLACKON) ||
-				      race_is_(creature_ptr, RACE_SPRITE) ||
+				if (!(IS_RACE(creature_ptr, RACE_KLACKON) ||
+				      IS_RACE(creature_ptr, RACE_SPRITE) ||
 				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
@@ -4957,7 +4957,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	if ((race_is_(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
+	if ((IS_RACE(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
 	{
 		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);

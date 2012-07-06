@@ -5158,14 +5158,10 @@ enum SKILL_LIST
 #define MIMIC_DEMON_LORD 2
 #define MIMIC_VAMPIRE    3
 
-
 #define MIMIC_FLAGS choice
 #define MIMIC_IS_NONLIVING 0x00000001
 #define MIMIC_IS_DEMON     0x00000002
 #define MIMIC_IS_UNDEAD    0x00000004
-
-
-#define race_is_(C, A) (!C->mimic_form && (C->race_idx1 == A))
 
 /* Sub-alignment flags for neutral creatures */
 #define SUB_ALIGN_NEUTRAL 0x0000

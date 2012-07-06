@@ -238,7 +238,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	if (smart & (SM_RES_NETH))
 	{
 		/*
-		if (race_is_(caster_ptr, RACE_LICH))
+		if (IS_RACE(caster_ptr, RACE_LICH))
 		{
 			f4 &= ~(RF4_BR_NETH);
 			f5 &= ~(RF5_BA_NETH);
@@ -262,7 +262,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	if (smart & (SM_RES_DARK))
 	{
 		/*
-		if (race_is_(caster_ptr, RACE_VAMPIRE))
+		if (IS_RACE(caster_ptr, RACE_VAMPIRE))
 		{
 			f4 &= ~(RF4_BR_DARK);
 			f5 &= ~(RF5_BA_DARK);

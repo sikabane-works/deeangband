@@ -624,7 +624,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 	if (o_ptr->tval==TV_FOOD) return TRUE;
 
 #if 0
-	if (race_is_(creature_ptr, RACE_SKELETON))
+	if (IS_RACE(creature_ptr, RACE_SKELETON))
 	{
 		if (o_ptr->tval == TV_SKELETON ||
 		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))

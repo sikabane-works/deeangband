@@ -2604,7 +2604,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	if (IS_FAST(cr_ptr) || cr_ptr->slow)
 		add_flag(flgs, TR_SPEED);
 
-	if (IS_OPPOSE_ACID(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ACID) && !(race_is_(cr_ptr, RACE_YEEK) && (cr_ptr->lev > 19)))
+	if (IS_OPPOSE_ACID(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(cr_ptr, RACE_YEEK) && (cr_ptr->lev > 19)))
 		add_flag(flgs, TR_RES_ACID);
 	if (IS_OPPOSE_ELEC(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ELEC))
 		add_flag(flgs, TR_RES_ELEC);
@@ -2782,14 +2782,14 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* TODO 
-	if (race_is_(cr_ptr, RACE_LICH))
+	if (IS_RACE(cr_ptr, RACE_LICH))
 		add_flag(flgs, TR_RES_NETHER);
-	if (cr_ptr->mimic_form == MIMIC_VAMPIRE || race_is_(cr_ptr, RACE_VAMPIRE))
+	if (cr_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(cr_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TR_RES_DARK);
 	*/
 	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD)
 		add_flag(flgs, TR_RES_FIRE);
-	else if (race_is_(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
+	else if (IS_RACE(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
 		add_flag(flgs, TR_RES_ACID);
 }
 
@@ -2830,10 +2830,10 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 	if (has_cf_creature(cr_ptr, CF_ANDROID))
 		add_flag(flgs, TR_RES_ELEC);
-	if (race_is_(cr_ptr, RACE_ENT))
+	if (IS_RACE(cr_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);
 	/*TODO
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || race_is_(cr_ptr, RACE_S_FAIRY) ||
+	if (IS_RACE(cr_ptr, RACE_VAMPIRE) || IS_RACE(cr_ptr, RACE_S_FAIRY) ||
 	    (cr_ptr->mimic_form == MIMIC_VAMPIRE))
 		add_flag(flgs, TR_RES_LITE);
 		*/

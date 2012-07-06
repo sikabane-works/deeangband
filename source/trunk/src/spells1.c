@@ -3316,7 +3316,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				dam *= 2;
 			}
-			else if (race_is_(target_ptr, RACE_S_FAIRY))
+			else if (IS_RACE(target_ptr, RACE_S_FAIRY))
 			{
 				dam = dam * 4 / 3;
 			}

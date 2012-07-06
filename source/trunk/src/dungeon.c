@@ -834,7 +834,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 
 	if (!pattern_tile(floor_ptr, creature_ptr->fy, creature_ptr->fx)) return FALSE;
 
-	if ((race_is_(creature_ptr, RACE_AMBERITE)) &&
+	if ((IS_RACE(creature_ptr, RACE_AMBERITE)) &&
 	    (creature_ptr->cut > 0) && one_in_(10))
 	{
 		wreck_the_pattern(floor_ptr, creature_ptr);
@@ -893,7 +893,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		break;
 
 	default:
-		if (race_is_(creature_ptr, RACE_AMBERITE) && !one_in_(2))
+		if (IS_RACE(creature_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
 		else if (!IS_INVULN(creature_ptr))
 #ifdef JP
