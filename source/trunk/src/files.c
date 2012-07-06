@@ -1918,23 +1918,22 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_BASE_EV, format("[%d,%+d]", creature_ptr->dis_ev, creature_ptr->dis_to_ev), TERM_L_BLUE);
 
 	percentage = creature_ptr->carrying_weight * 100 / calc_carrying_weight_limit(creature_ptr);
-	if(percentage <= 25) attr = TERM_L_BLUE;
-	else if(percentage <= 50) attr = TERM_L_GREEN;
-	else if(percentage <= 100) attr = TERM_YELLOW;
+	if(percentage <= WEIGHT_LIMIT_LIGHT) attr = TERM_L_BLUE;
+	else if(percentage <= WEIGHT_LIMIT_MIDDLE) attr = TERM_L_GREEN;
+	else if(percentage <= WEIGHT_LIMIT_HEAVY) attr = TERM_YELLOW;
 	else attr = TERM_L_RED;
 	format_weight(buf1, creature_ptr->carrying_weight);
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 	display_player_one_line(ENTRY_CARRYING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2, percentage), attr);
 
 	percentage = creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr);
-	if(percentage <= 25) attr = TERM_L_BLUE;
-	else if(percentage <= 50) attr = TERM_L_GREEN;
-	else if(percentage <= 100) attr = TERM_YELLOW;
+	if(percentage <= WEIGHT_LIMIT_LIGHT) attr = TERM_L_BLUE;
+	else if(percentage <= WEIGHT_LIMIT_MIDDLE) attr = TERM_L_GREEN;
+	else if(percentage <= WEIGHT_LIMIT_HEAVY) attr = TERM_YELLOW;
 	else attr = TERM_L_RED;
 	format_weight(buf1, creature_ptr->equipping_weight);
 	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 	display_player_one_line(ENTRY_EQUIPPING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2, percentage), attr);
-
 
 	// Dump speed
 	{
@@ -1944,8 +1943,7 @@ static void display_player_middle(creature_type *creature_ptr)
 
 		i = creature_ptr->speed;
 
-		/* Hack -- Visually "undo" the Search Mode Slowdown */
-		if (creature_ptr->action == ACTION_SEARCH) i += 10;
+		if (creature_ptr->action == ACTION_SEARCH) i += 10; // Hack -- Visually "undo" the Search Mode Slowdown
 
 		if (i > 0)
 		{
@@ -1972,13 +1970,14 @@ static void display_player_middle(creature_type *creature_ptr)
 		if (!creature_ptr->riding)
 		{
 			if (IS_FAST(creature_ptr)) tmp_speed += 10;
-			if (creature_ptr->slow) tmp_speed -= 10;
-			if (creature_ptr->lightspeed) tmp_speed = 99;
+			if (IS_SLOW(creature_ptr)) tmp_speed -= 10;
+			if (IS_LIGHTSPEED(creature_ptr)) tmp_speed = 99;
 		}
 		else
 		{
-			if (creature_list[creature_ptr->riding].fast) tmp_speed += 10;
-			if (creature_list[creature_ptr->riding].slow) tmp_speed -= 10;
+			if (IS_FAST(&creature_list[creature_ptr->riding])) tmp_speed += 10;
+			if (IS_FAST(&creature_list[creature_ptr->riding])) tmp_speed -= 10;
+			if (IS_LIGHTSPEED(creature_ptr)) tmp_speed = 99;
 		}
 
 		if (tmp_speed)

@@ -431,6 +431,10 @@ enum MELEE_TYPE
 #define PY_MORTAL_LIMIT_LEVEL 30         // Limit Level of Mortal
 #define PY_DIVINE_LIMIT_LEVEL 30         // Limit Level of Divine
 #define PY_MAX_LEVEL (PY_MORTAL_LIMIT_LEVEL + PY_DIVINE_LIMIT_LEVEL) // Maximum level
+#define WEIGHT_LIMIT_LIGHT	25
+#define WEIGHT_LIMIT_MIDDLE	50
+#define WEIGHT_LIMIT_HEAVY	100
+
 
 // on creature generating
 #define EXP_STAND_RATE 1500
@@ -5171,10 +5175,11 @@ enum SKILL_LIST
 #define SUB_ALIGN_CHAOS   0x0008
 #define SUB_ALIGN_BALANCE 0x0010
 
-/* Temporary flags macro */
-#define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
-#define IS_INVULN(C) (C->invuln || music_singing(C, MUSIC_INVULN))
-#define IS_HERO(C) (C->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
+// Temporary flags macro
+#define IS_FAST(C) ((C)->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
+#define IS_SLOW(C) ((C)->slow)
+#define IS_INVULN(C) ((C)->invuln || music_singing(C, MUSIC_INVULN))
+#define IS_HERO(C) ((C)->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
 #define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
 #define IS_OPPOSE_ACID(C) (C->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_ELEC(C) (C->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
@@ -5183,7 +5188,7 @@ enum SKILL_LIST
 #define IS_OPPOSE_POIS(C) (C->oppose_pois || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_TIM_ESP(C) (C->tim_esp || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C) (C->tim_stealth || music_singing(C, MUSIC_STEALTH))
-
+#define IS_LIGHTSPEED(C) (C->lightspeed)
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \
