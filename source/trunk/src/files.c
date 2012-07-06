@@ -1889,10 +1889,12 @@ static void display_player_middle(creature_type *creature_ptr)
 		if (object_is_known(bow_ptr)) show_tohit += bow_ptr->to_hit;
 		if (object_is_known(bow_ptr)) show_todam += bow_ptr->to_damage;
 
+		/*
 		if ((bow_ptr->sval == SV_LIGHT_XBOW) || (bow_ptr->sval == SV_HEAVY_XBOW))
 			show_tohit += creature_ptr->weapon_exp[0][bow_ptr->sval] / 400;
 		else
 			show_tohit += (creature_ptr->weapon_exp[0][bow_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
+		*/
 
 		/* Range attacks */
 		display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);

@@ -3156,7 +3156,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	int dir;
 	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
-	int bonus, chance;
+	int bonus, chance = 0;
 	int cur_dis, visible;
 
 	object_type forge;
@@ -3200,10 +3200,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	/* Actually "fire" the object */
 	bonus = (creature_ptr->to_hit_b + o_ptr->to_hit + j_ptr->to_hit);
+
+	/* TODO
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 		chance = (creature_ptr->skill_thb + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
 		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
+	*/
 
 	energy_use = bow_energy(j_ptr->sval);
 	tmul = bow_tmul(j_ptr->sval);
@@ -3438,8 +3441,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 			if ((r_ptr->level + 10) > creature_ptr->lev)
 			{
-				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
 				/*
+				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
 				if (now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;

@@ -1348,7 +1348,7 @@ struct creature_type
 	byte spell_order[64];	  /* order spells learned/remembered/forgotten */
 
 	s16b spell_exp[64];       /* Proficiency of spells */
-	s16b weapon_exp[5][64];   /* Proficiency of weapons */
+	//s16b weapon_exp[5][64];   /* Proficiency of weapons */
 	s16b skill_exp[10];       /* Proficiency of misc. skill */
 
 	s32b magic_num1[108];     /* Array for non-spellbook type magic */

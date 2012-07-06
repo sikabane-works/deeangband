@@ -6977,6 +6977,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 				{
 					if ((k_ptr->tval == TV_BOW) && (k_ptr->sval == SV_CRIMSON)) continue;
 
+					/*TODO 
 					weapon_exp = cr_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
@@ -6985,6 +6986,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
 					fprintf(fff, "\n");
+					*/
 					break;
 				}
 			}

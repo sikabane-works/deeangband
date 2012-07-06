@@ -174,8 +174,8 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		{
 			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = atk_ptr->inventory[hand].sval;
-			int now_exp = atk_ptr->weapon_exp[tval][sval];
 			/*
+			int now_exp = atk_ptr->weapon_exp[tval][sval];
 			if (now_exp < skill_info[atk_ptr->class_idx].w_max[tval][sval])
 			{
 				int amount = 0;

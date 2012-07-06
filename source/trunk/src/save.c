@@ -458,7 +458,7 @@ static void save_quick_start(species_type *species_ptr)
 
 static void wr_creature(creature_type *cr_ptr)
 {
-	int i,j;
+	int i;
 	u16b tmp16u;
 
 	wr_u32b(cr_ptr->creature_idx);
@@ -556,7 +556,7 @@ static void wr_creature(creature_type *cr_ptr)
 
 	for (i = 0; i < 8; i++) wr_s32b(cr_ptr->authority[i]);
 	for (i = 0; i < 64; i++) wr_s16b(cr_ptr->spell_exp[i]);
-	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(cr_ptr->weapon_exp[i][j]);
+	// for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(cr_ptr->weapon_exp[i][j]);
 	for (i = 0; i < 10; i++) wr_s16b(cr_ptr->skill_exp[i]);
 	for (i = 0; i < 108; i++) wr_s32b(cr_ptr->magic_num1[i]);
 	for (i = 0; i < 108; i++) wr_byte(cr_ptr->magic_num2[i]);
