@@ -3612,48 +3612,9 @@ enum MELEE_TYPE
 #define RBE_DR_MANA     32
 #define RBE_SUPERHURT   33
 
-
 /*** Creature flag values (hard-coded) ***/
 
 #define CREATURE_FLAGS_MAX 19
-
-/*
- * New creature race bit flags
- */
-#define RF6_HASTE           0x00000001  /* Speed self */
-#define RF6_HAND_DOOM       0x00000002  /* Hand of Doom */
-#define RF6_HEAL            0x00000004  /* Heal self */
-#define RF6_INVULNER        0x00000008  /* INVULNERABILITY! */
-#define RF6_BLINK           0x00000010  /* Teleport Short */
-#define RF6_TPORT           0x00000020  /* Teleport Long */
-#define RF6_WORLD           0x00000040  /* world */
-#define RF6_SPECIAL         0x00000080  /* Special Attack */
-#define RF6_TELE_TO         0x00000100  /* Move player to creature */
-#define RF6_TELE_AWAY       0x00000200  /* Move player far away */
-#define RF6_TELE_LEVEL      0x00000400  /* Move player vertically */
-#define RF6_PSY_SPEAR       0x00000800  /* Psyco-spear */
-#define RF6_DARKNESS        0x00001000  /* Create Darkness */
-#define RF6_TRAPS           0x00002000  /* Create Traps */
-#define RF6_FORGET          0x00004000  /* Cause amnesia */
-#define RF6_RAISE_DEAD      0x00008000  /* Raise Dead */
-#define RF6_S_KIN           0x00010000  /* Summon "kin" */
-#define RF6_S_CYBER         0x00020000  /* Summon Cyberdemons! */
-#define RF6_S_MONSTER       0x00040000  /* Summon Creature */
-#define RF6_S_MONSTERS      0x00080000  /* Summon Creatures */
-#define RF6_S_ANT           0x00100000  /* Summon Ants */
-#define RF6_S_SPIDER        0x00200000  /* Summon Spiders */
-#define RF6_S_HOUND         0x00400000  /* Summon Hounds */
-#define RF6_S_HYDRA         0x00800000  /* Summon Hydras */
-#define RF6_S_ANGEL         0x01000000  /* Summon Angel */
-#define RF6_S_DEMON         0x02000000  /* Summon Demon */
-#define RF6_S_UNDEAD        0x04000000  /* Summon Undead */
-#define RF6_S_DRAGON        0x08000000  /* Summon Dragon */
-#define RF6_S_HI_UNDEAD     0x10000000  /* Summon Greater Undead */
-#define RF6_S_HI_DRAGON     0x20000000  /* Summon Ancient Dragon */
-#define RF6_S_AMBERITES     0x40000000  /* Summon Amberites */
-#define RF6_S_UNIQUE        0x80000000  /* Summon Unique Creature */
-
-
 
 /*
  * Hack -- effective elemental and poison immunity mask
