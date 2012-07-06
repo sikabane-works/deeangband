@@ -3617,44 +3617,6 @@ enum MELEE_TYPE
 
 #define CREATURE_FLAGS_MAX 19
 
-
-
-/*
- * New creature race bit flags
- */
-#define RF5_BA_ACID         0x00000001  /* Acid Ball */
-#define RF5_BA_ELEC         0x00000002  /* Elec Ball */
-#define RF5_BA_FIRE         0x00000004  /* Fire Ball */
-#define RF5_BA_COLD         0x00000008  /* Cold Ball */
-#define RF5_BA_POIS         0x00000010  /* Poison Ball */
-#define RF5_BA_NETH         0x00000020  /* Nether Ball */
-#define RF5_BA_WATE         0x00000040  /* Water Ball */
-#define RF5_BA_MANA         0x00000080  /* Mana Storm */
-#define RF5_BA_DARK         0x00000100  /* Darkness Storm */
-#define RF5_DRAIN_MANA      0x00000200  /* Drain Mana */
-#define RF5_MIND_BLAST      0x00000400  /* Blast Mind */
-#define RF5_BRAIN_SMASH     0x00000800  /* Smash Brain */
-#define RF5_CAUSE_1         0x00001000  /* Cause Light Wound */
-#define RF5_CAUSE_2         0x00002000  /* Cause Serious Wound */
-#define RF5_CAUSE_3         0x00004000  /* Cause Critical Wound */
-#define RF5_CAUSE_4         0x00008000  /* Cause Mortal Wound */
-#define RF5_BO_ACID         0x00010000  /* Acid Bolt */
-#define RF5_BO_ELEC         0x00020000  /* Elec Bolt (unused) */
-#define RF5_BO_FIRE         0x00040000  /* Fire Bolt */
-#define RF5_BO_COLD         0x00080000  /* Cold Bolt */
-#define RF5_BA_LITE         0x00100000  /* StarBurst */
-#define RF5_BO_NETH         0x00200000  /* Nether Bolt */
-#define RF5_BO_WATE         0x00400000  /* Water Bolt */
-#define RF5_BO_MANA         0x00800000  /* Mana Bolt */
-#define RF5_BO_PLAS         0x01000000  /* Plasma Bolt */
-#define RF5_BO_ICEE         0x02000000  /* Ice Bolt */
-#define RF5_MISSILE         0x04000000  /* Magic Missile */
-#define RF5_SCARE           0x08000000  /* Frighten Player */
-#define RF5_BLIND           0x10000000  /* Blind Player */
-#define RF5_CONF            0x20000000  /* Confuse Player */
-#define RF5_SLOW            0x40000000  /* Slow Player */
-#define RF5_HOLD            0x80000000  /* Paralyze Player */
-
 /*
  * New creature race bit flags
  */

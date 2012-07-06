@@ -277,10 +277,12 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		*/
 	}
 
+	/*
 	if (smart & (SM_RES_FEAR))
 	{
 		f5 &= ~(RF5_SCARE);
 	}
+	*/
 
 /*
 	if (smart & (SM_RES_CONF))
