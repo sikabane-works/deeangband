@@ -309,13 +309,13 @@ static void rd_object(object_type *o_ptr)
 	else o_ptr->to_damage = 0;
 	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_ac);
 	else o_ptr->to_ac = 0;
-	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->ac);
-	else o_ptr->ac = 0;
+	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->to_ev);
+	else o_ptr->to_ev = 0;
 
 	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
-	if (flags2 & SAVE_ITEM_EV) rd_s16b(&o_ptr->ac);
-	else o_ptr->ac = 0;
+	if (flags2 & SAVE_ITEM_EV) rd_s16b(&o_ptr->ev);
+	else o_ptr->ev = 0;
 	if (flags & SAVE_ITEM_DD) rd_byte(&o_ptr->dd);
 	else o_ptr->dd = 0;
 	if (flags & SAVE_ITEM_DS) rd_byte(&o_ptr->ds);
