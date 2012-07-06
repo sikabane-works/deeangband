@@ -89,7 +89,7 @@ static void wr_string(cptr str)
 /*
  * Write an "item" record
  */
-static void wr_item(object_type *o_ptr)
+static void wr_object(object_type *o_ptr)
 {
 	u32b flags  = 0x00000000;
 	u32b flags2 = 0x00000000;
@@ -260,7 +260,7 @@ static void wr_store(store_type *st_ptr)
 	for (j = 0; j < st_ptr->stock_num; j++)
 	{
 		/* Save each item in stock */
-		wr_item(&st_ptr->stock[j]);
+		wr_object(&st_ptr->stock[j]);
 	}
 
 	/* Save the stock */
@@ -519,7 +519,7 @@ static void wr_creature(creature_type *cr_ptr)
 		wr_u16b((u16b)i);
 
 		/* Dump object */
-		wr_item(o_ptr);
+		wr_object(o_ptr);
 	}
 
 	/* Add a sentinel */
@@ -1219,7 +1219,7 @@ static bool wr_savefile_new(void)
 		object_type *o_ptr = &object_list[i];
 
 		/* Dump it */
-		wr_item(o_ptr);
+		wr_object(o_ptr);
 	}
 
 	/* Dump the towns */

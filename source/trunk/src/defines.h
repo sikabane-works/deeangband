@@ -51,6 +51,7 @@
 #define VER_MAJOR 0
 #define VER_MINOR 3
 #define VER_PATCH 49
+
 #define VER_EXTRA 0
 
 
@@ -5081,7 +5082,7 @@ enum SKILL_LIST
 #define SLF_NO_KILL      0x0002  /* Don't kill temporal files */
 
 
-// Flags for wr_item()/rd_item()
+// Flags for wr_object()/rd_item()
 // First
 #define SAVE_ITEM_PVAL            0x00000001
 #define SAVE_ITEM_DISCOUNT        0x00000002
@@ -5127,7 +5128,7 @@ enum SKILL_LIST
 /*
  * Flags for wr_creature()/rd_creature()
  */
-#define SAVE_MON_AP_species_idx     0x00000001
+#define SAVE_MON_AP_SPECIES_IDX     0x00000001
 #define SAVE_MON_SUB_ALIGN    0x00000002
 #define SAVE_MON_CSLEEP       0x00000004
 #define SAVE_MON_FAST         0x00000008
