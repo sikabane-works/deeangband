@@ -286,10 +286,7 @@ static errr wr_randomizer(void)
 	wr_u16b(Rand_place);
 
 	/* State */
-	for (i = 0; i < RAND_DEG; i++)
-	{
-		wr_u32b(Rand_state[i]);
-	}
+	for (i = 0; i < RAND_DEG; i++) wr_u32b(Rand_state[i]);
 
 	/* Success */
 	return (0);
@@ -1088,14 +1085,9 @@ static bool wr_savefile_new(void)
 	byte            tmp8u;
 	u16b            tmp16u;
 
-	/* Compact the objects */
-	compact_objects(0);
-	/* Compact the creatures */
-	compact_creatures(0);
-
-	/* Guess at the current time */
-	now = (u32b)time((time_t *)0);
-
+	compact_objects(0);		// Compact the objects
+	compact_creatures(0);	// Compact the creatures
+	now = (u32b)time((time_t *)0); // Guess at the current time
 
 	/* Note the operating system */
 	sf_system = 0L;
@@ -1136,7 +1128,6 @@ static bool wr_savefile_new(void)
 	/* Operating system */
 	wr_u32b(sf_system);
 
-
 	/* Time file last saved */
 	wr_u32b(sf_when);
 
@@ -1146,80 +1137,49 @@ static bool wr_savefile_new(void)
 	/* Number of times saved */
 	wr_u16b(sf_saves);
 
-
 	/* Space */
 	wr_u32b(0L);
 	wr_u16b(0);
 	wr_byte(0);
 
 #ifdef JP
-# ifdef EUC
-	/* EUC kanji code */
-	wr_byte(2);
-# endif
-# ifdef SJIS
-	/* SJIS kanji code */
-	wr_byte(3);
-# endif
+#ifdef EUC
+	wr_byte(2); // EUC kanji code
+#endif
+#ifdef SJIS
+	wr_byte(3); // SJIS kanji code
+#endif
 #else
-	/* ASCII */
-	wr_byte(1);
+	wr_byte(1); // ASCII
 #endif
 
-	/* Write the RNG state */
-	wr_randomizer();
+	wr_randomizer();	// Write the RNG state
+	wr_options();		// Write the boolean "options"
 
-
-	/* Write the boolean "options" */
-	wr_options();
-
-
-	/* Dump the number of "messages" */
+	// Dump the number of "messages"
 	tmp16u = message_num();
 	if (compress_savefile && (tmp16u > 40)) tmp16u = 40;
 	wr_u16b(tmp16u);
 
-	/* Dump the messages (oldest first!) */
-	for (i = tmp16u - 1; i >= 0; i--)
-	{
-		wr_string(message_str((s16b)i));
-	}
-
-	/* Unique creatures */
-	wr_u16b(unique_max);
+	
+	for(i = tmp16u - 1; i >= 0; i--) wr_string(message_str((s16b)i)); // Dump the messages (oldest first!)
 
 	/*** Dump the creatures ***/
+	wr_u16b(unique_max); // Unique creatures
+	wr_u16b(creature_max); // Total creatures
+	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
 
-	/* Total creatures */
-	wr_u16b(creature_max);
-
-	/* Dump the creatures */
-	for (i = 1; i < creature_max; i++)
-	{
-		creature_type *m_ptr = &creature_list[i];
-
-		/* Dump it */
-		wr_creature(m_ptr);
-	}
-
-	/* Dump the object memory */
+	// Dump the object memory
 	tmp16u = max_object_kind_idx;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) wr_xtra(i);
 
 	/*** Dump objects ***/
 
-	/* Total objects */
-	wr_u16b(object_max);
+	wr_u16b(object_max); // Total objects
 
-	/* Dump the objects */
-	for (i = 1; i < object_max; i++)
-	{
-		object_type *o_ptr = &object_list[i];
-
-		/* Dump it */
-		wr_object(o_ptr);
-	}
+	// Dump the objects
+	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
 
 	/* Dump the towns */
 	tmp16u = max_towns;

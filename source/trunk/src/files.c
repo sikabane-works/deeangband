@@ -1802,8 +1802,10 @@ cptr rbm_name[MAX_RBM] =
 static void display_player_middle(creature_type *creature_ptr)
 {
 	char buf[160], buf1[30], buf2[30];
+	byte attr;
 
 	int melee_num = 0;
+	int percentage;
 
 	// Base skill
 	int show_tohit = creature_ptr->dis_to_hit_b;
@@ -1915,16 +1917,23 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", creature_ptr->dis_ac, creature_ptr->dis_to_ac), TERM_L_BLUE);
 	display_player_one_line(ENTRY_BASE_EV, format("[%d,%+d]", creature_ptr->dis_ev, creature_ptr->dis_to_ev), TERM_L_BLUE);
 
+	percentage = creature_ptr->carrying_weight * 100 / calc_carrying_weight_limit(creature_ptr);
+	if(percentage <= 25) attr = TERM_L_BLUE;
+	else if(percentage <= 50) attr = TERM_L_GREEN;
+	else if(percentage <= 100) attr = TERM_YELLOW;
+	else attr = TERM_L_RED;
 	format_weight(buf1, creature_ptr->carrying_weight);
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
-	display_player_one_line(ENTRY_CARRYING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2,
-		creature_ptr->carrying_weight * 100 / calc_carrying_weight_limit(creature_ptr)), TERM_L_BLUE);
+	display_player_one_line(ENTRY_CARRYING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2, percentage), attr);
 
+	percentage = creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr);
+	if(percentage <= 25) attr = TERM_L_BLUE;
+	else if(percentage <= 50) attr = TERM_L_GREEN;
+	else if(percentage <= 100) attr = TERM_YELLOW;
+	else attr = TERM_L_RED;
 	format_weight(buf1, creature_ptr->equipping_weight);
 	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
-	display_player_one_line(ENTRY_EQUIPPING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2,
-		creature_ptr->equipping_weight * 100 / calc_equipping_weight_limit(creature_ptr)), TERM_L_BLUE);
-
+	display_player_one_line(ENTRY_EQUIPPING_WEIGHT, format("%s/%s(%3d%%)", buf1, buf2, percentage), attr);
 
 
 	// Dump speed
@@ -2049,7 +2058,6 @@ static void display_player_middle(creature_type *creature_ptr)
 #endif
 	}
 	display_player_one_line(ENTRY_DAY, buf, TERM_L_GREEN);
-
 
 	/* Dump play time */
 	display_player_one_line(ENTRY_PLAY_TIME, format("%.2lu:%.2lu:%.2lu", playtime/(60*60), (playtime/60)%60, playtime%60), TERM_L_GREEN);
