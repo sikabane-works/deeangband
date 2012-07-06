@@ -377,7 +377,6 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 				msg_print("You are no longer transformed.");
 #endif
 			}
-			if (cr_ptr->mimic_form == MIMIC_DEMON) set_oppose_fire(cr_ptr, 0, TRUE);
 			cr_ptr->mimic_form=0;
 			notice = TRUE;
 			p = 0;
@@ -3765,8 +3764,6 @@ bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (IS_DEAD(cr_ptr)) return FALSE;
 
-	if ((is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) || (cr_ptr->mimic_form == MIMIC_DEMON)) v = 1;
-	/* Open */
 	if (v)
 	{
 		if (cr_ptr->oppose_fire && !do_dec)

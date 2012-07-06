@@ -1429,30 +1429,22 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 		}
 	}
 
-	/* Potions can feed the player */
-	switch (creature_ptr->mimic_form)
+	if(IS_RACE(creature_ptr, RACE_ENT))
 	{
-		/*TODO*/
-	case MIMIC_NONE:
-		switch (creature_ptr->race_idx1)
-		{
-			case RACE_DEMON:
-			case RACE_BALROG:
-				break;
-			case RACE_ENT:
 #ifdef JP
-				msg_print("…•ª‚ðŽæ‚èž‚ñ‚¾B");
+		msg_print("…•ª‚ðŽæ‚èž‚ñ‚¾B");
 #else
-				msg_print("You are moistened.");
+		msg_print("You are moistened.");
 #endif
-				set_food(creature_ptr, MIN(creature_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
-				break;
-			default:
-				(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
-				break;
-		}
-		break;
-	case MIMIC_DEMON:
+		set_food(creature_ptr, MIN(creature_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
+	}
+	else
+	{
+		(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
+	}
+
+	//TODO
+	/*
 	case MIMIC_DEMON_LORD:
 		set_food(creature_ptr, creature_ptr->food + ((q_ptr->pval) / 20));
 		break;
@@ -1463,6 +1455,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 		(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
 		break;
 	}
+	*/
 }
 
 

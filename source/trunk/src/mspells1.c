@@ -859,9 +859,6 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	/* Berserk Strength */
 	if (tar_ptr->shero && (tar_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
-	/* Demon Lord */
-	if (tar_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
-
 	/* Elemental resistances */
 	if (has_cf_creature(caster_ptr, CF_BR_ACID))
 	{

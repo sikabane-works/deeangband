@@ -5149,15 +5149,6 @@ enum SKILL_LIST
 #define SAVE_MON_NICKNAME     0x00004000
 #define SAVE_MON_PARENT       0x00008000
 
-
-/*
- * Constant for kinds of mimic
- */
-#define MIMIC_NONE       0
-#define MIMIC_DEMON      1
-#define MIMIC_DEMON_LORD 2
-#define MIMIC_VAMPIRE    3
-
 /* Sub-alignment flags for neutral creatures */
 #define SUB_ALIGN_NEUTRAL 0x0000
 #define SUB_ALIGN_EVIL    0x0001

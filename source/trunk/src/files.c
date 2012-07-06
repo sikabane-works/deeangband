@@ -2411,52 +2411,6 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		break; /* Do nothing */
 	}
 
-	/* Races */
-	if (cr_ptr->mimic_form)
-	{
-		switch(cr_ptr->mimic_form)
-		{
-		case MIMIC_DEMON:
-			add_flag(flgs, TR_HOLD_LIFE);
-			add_flag(flgs, TR_RES_CHAOS);
-			add_flag(flgs, TR_RES_NETHER);
-			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_SEE_INVIS);
-			add_flag(flgs, TR_SPEED);
-			break;
-		case MIMIC_DEMON_LORD:
-			add_flag(flgs, TR_HOLD_LIFE);
-			add_flag(flgs, TR_RES_CHAOS);
-			add_flag(flgs, TR_RES_NETHER);
-			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_RES_COLD);
-			add_flag(flgs, TR_RES_ELEC);
-			add_flag(flgs, TR_RES_ACID);
-			add_flag(flgs, TR_RES_POIS);
-			add_flag(flgs, TR_RES_CONF);
-			add_flag(flgs, TR_RES_DISEN);
-			add_flag(flgs, TR_RES_NEXUS);
-			add_flag(flgs, TR_RES_FEAR);
-			add_flag(flgs, TR_IM_FIRE);
-			add_flag(flgs, TR_SH_FIRE);
-			add_flag(flgs, TR_SEE_INVIS);
-			add_flag(flgs, TR_TELEPATHY);
-			add_flag(flgs, TR_LEVITATION);
-			add_flag(flgs, TR_SPEED);
-			break;
-		case MIMIC_VAMPIRE:
-			add_flag(flgs, TR_HOLD_LIFE);
-			add_flag(flgs, TR_RES_DARK);
-			add_flag(flgs, TR_RES_NETHER);
-			if (cr_ptr->class_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
-			add_flag(flgs, TR_RES_POIS);
-			add_flag(flgs, TR_RES_COLD);
-			add_flag(flgs, TR_SEE_INVIS);
-			add_flag(flgs, TR_SPEED);
-			break;
-		}
-	}
-
 	switch (cr_ptr->race_idx1)
 	{
 	case RACE_KLACKON:
@@ -2786,10 +2740,10 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_RES_NETHER);
 	if (cr_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(cr_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TR_RES_DARK);
-	*/
 	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD)
 		add_flag(flgs, TR_RES_FIRE);
-	else if (IS_RACE(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
+	*/
+	if (IS_RACE(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
 		add_flag(flgs, TR_RES_ACID);
 }
 

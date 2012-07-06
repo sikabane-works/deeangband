@@ -232,6 +232,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	/* Racial powers... */
 	if (creature_ptr->mimic_form)
 	{
+		/*
 		switch (creature_ptr->mimic_form)
 		{
 			case MIMIC_DEMON:
@@ -258,6 +259,7 @@ sprintf(Dummy, "‚ ‚È‚½‚Í“G‚©‚ç %d-%d HP ‚Ì¶–½—Í‚ğ‹zû‚Å‚«‚éB(%d MP)",
 			}
 			break;
 		}
+		*/
 	}
 	else
 	{

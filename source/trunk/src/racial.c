@@ -1434,6 +1434,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 	}
 	else if (creature_ptr->mimic_form)
 	{
+		/*
 		switch (creature_ptr->mimic_form)
 		{
 		case MIMIC_DEMON:
@@ -1466,8 +1467,8 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				int y, x, dummy = 0;
 				cave_type *c_ptr;
 
-				/* Only works on adjacent creatures */
-				if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
+				// Only works on adjacent creatures
+				if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;   // was get_aim_dir
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
@@ -1491,11 +1492,11 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You grin and bare your fangs...");
 #endif
 
-				dummy = plev + randint1(plev) * MAX(1, plev / 10);   /* Dmg */
+				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
 				if (drain_life(creature_ptr, dir, dummy))
 				{
 					if (creature_ptr->food < PY_FOOD_FULL)
-						/* No heal if we are "full" */
+						// No heal if we are "full"
 						(void)hp_player(creature_ptr, dummy);
 					else
 #ifdef JP
@@ -1504,12 +1505,12 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 						msg_print("You were not hungry.");
 #endif
 
-					/* Gain nutritional sustenance: 150/hp drained */
-					/* A Food ration gives 5000 food points (by contrast) */
-					/* Don't ever get more than "Full" this way */
-					/* But if we ARE Gorged,  it won't cure us */
+					// Gain nutritional sustenance: 150/hp drained
+					// A Food ration gives 5000 food points (by contrast)
+					// Don't ever get more than "Full" this way
+					// But if we ARE Gorged,  it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if (creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+					if (creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
@@ -1522,6 +1523,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+		*/
 	}
 
 	else 

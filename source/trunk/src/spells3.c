@@ -5833,26 +5833,6 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode)
 {
 	bool pet = (bool)(mode & PM_FORCE_PET);
-	char kin_symbol;
 	if (!pet) mode |= PM_NO_PET;
-
-	switch (cr_ptr->mimic_form)
-	{
-	case MIMIC_NONE:
-		switch (cr_ptr->race_idx1)
-			kin_symbol = race_info[cr_ptr->race_idx1].symbol;
-		break;
-	case MIMIC_DEMON:
-		if (one_in_(13)) kin_symbol = 'U';
-		else kin_symbol = 'u';
-		break;
-	case MIMIC_DEMON_LORD:
-		kin_symbol = 'U';
-		break;
-	case MIMIC_VAMPIRE:
-		kin_symbol = 'V';
-		break;
-	}	
-
 	return summon_specific((pet ? cr_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }

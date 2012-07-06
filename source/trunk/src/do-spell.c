@@ -4907,7 +4907,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(cr_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
+				//TODO set_mimic(cr_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
 			}
 		}
 		break;
@@ -7886,7 +7886,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
+				//TODO set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
 			}
 		}
 		break;
@@ -8133,7 +8133,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
+				//TODO set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
 			}
 		}
 		break;
