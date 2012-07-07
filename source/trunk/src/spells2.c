@@ -218,49 +218,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		info[i++] = Dummy2[4];
 	}
 
-	if (has_cf_creature(creature_ptr, CF_POWERFUL))
-	{
-#ifdef JP
-			info[i++] = "あなたはあらゆるレイシャルパワーを強力に扱うことができる。";
-#else
-			info[i++] = "You can use every racial power strongly.";
-#endif
 
-	}
-
-
-	/* Racial powers... */
-	if (creature_ptr->mimic_form)
-	{
-		/*
-		switch (creature_ptr->mimic_form)
-		{
-			case MIMIC_DEMON:
-			case MIMIC_DEMON_LORD:
-#ifdef JP
-sprintf(Dummy, "あなたは %d ダメージの地獄か火炎のブレスを吐くことができる。(%d MP)", 3 * plev, 10+plev/3);
-#else
-				sprintf(Dummy, "You can nether breathe, dam. %d (cost %d).", 3 * plev, 10+plev/3);
-#endif
-
-				info[i++] = Dummy;
-			break;
-		case MIMIC_VAMPIRE:
-			if (plev > 1)
-			{
-#ifdef JP
-sprintf(Dummy, "あなたは敵から %d-%d HP の生命力を吸収できる。(%d MP)",
-#else
-				sprintf(Dummy, "You can steal life from a foe, dam. %d-%d (cost %d).",
-#endif
-
-				    plev + MAX(1, plev / 10), plev + plev * MAX(1, plev / 10), 1 + (plev / 3));
-				info[i++] = Dummy;
-			}
-			break;
-		}
-		*/
-	}
 
 
 	if (creature_ptr->blind)

@@ -549,7 +549,7 @@ bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 	floor_type *floor_ptr = get_floor_ptr(viewer_ptr);
 
 	/* Blind players see nothing */
-	if (viewer_ptr->blind) return FALSE;
+	if (IS_BLIND(viewer_ptr)) return FALSE;
 
 	/* Access the cave grid */
 	c_ptr = &floor_ptr->cave[y][x];
