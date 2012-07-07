@@ -615,7 +615,7 @@ void search(creature_type *creature_ptr)
 	chance = creature_ptr->skill_srh;
 
 	/* Penalize various conditions */
-	if (creature_ptr->blind || no_lite(creature_ptr)) chance = chance / 10;
+	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) chance = chance / 10;
 	if (creature_ptr->confused || creature_ptr->image) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
@@ -1485,7 +1485,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if (!creature_ptr->resist_blind)
 			{
-				(void)set_blind(creature_ptr, creature_ptr->blind + randint0(50) + 25);
+				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(50) + 25);
 			}
 			break;
 		}
@@ -1976,7 +1976,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if ((!creature_ptr->blind && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if ((!IS_BLIND(creature_ptr) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
 		if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(floor_ptr, creature_ptr);
@@ -2734,7 +2734,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		(void)move_creature_effect(creature_ptr, y, x, mpe_mode);
 	}
 
-	if(!creature_ptr->blind && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
+	if(!IS_BLIND(creature_ptr) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
 		msg_format("%sにメッセージが刻まれている:", feature_name + feature_info[c_ptr->feat].name);
@@ -3534,7 +3534,7 @@ static bool travel_test(creature_type *creature_ptr)
 	}
 
 	/* Cannot travel when blind */
-	if (creature_ptr->blind || no_lite(creature_ptr))
+	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr))
 	{
 #ifdef JP
 		msg_print("目が見えない！");

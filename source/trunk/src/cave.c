@@ -943,7 +943,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		 *   (Such grids also have CAVE_VIEW)
 		 * - Can see grids with CAVE_VIEW unless darkened by creatures.
 		 */
-		if (!watcher_ptr->blind && ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
+		if (!IS_BLIND(watcher_ptr) && ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
 		    ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || watcher_ptr->see_nocto))))
 		{
 			/* Normal attr/char */
@@ -1045,7 +1045,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
-				if (view_granite_lite && (watcher_ptr->blind || !is_daytime()))
+				if (view_granite_lite && (IS_BLIND(watcher_ptr) || !is_daytime()))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1055,7 +1055,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(watcher_ptr, c_ptr) && !watcher_ptr->blind)
+			else if (darkened_grid(watcher_ptr, c_ptr) && !IS_BLIND(watcher_ptr))
 			{
 				if (have_flag(f_ptr->flags, FF_LOS) && have_flag(f_ptr->flags, FF_PROJECT))
 				{
@@ -1082,7 +1082,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			else if (view_granite_lite)
 			{
 				/* Handle "blind" */
-				if (watcher_ptr->blind)
+				if (IS_BLIND(watcher_ptr))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1468,7 +1468,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 
 
 	/* Blind players see nothing */
-	if (player_ptr->blind) return;
+	if (IS_BLIND(player_ptr)) return;
 
 	/* Analyze non-torch-lit grids */
 	if (!(c_ptr->info & (CAVE_LITE | CAVE_MNLT)))

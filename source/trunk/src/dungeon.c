@@ -1204,7 +1204,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *o_ptr)
 	}
 
 	/* Hack -- Special treatment when blind */
-	if (creature_ptr->blind)
+	if (IS_BLIND(creature_ptr))
 	{
 		/* Hack -- save some light for later */
 		if (o_ptr->xtra4 == 0) o_ptr->xtra4++;
@@ -2055,9 +2055,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Blindness */
-	if (creature_ptr->blind)
+	if (IS_BLIND(creature_ptr))
 	{
-		(void)set_blind(creature_ptr, creature_ptr->blind - dec_count);
+		(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) - dec_count);
 	}
 
 	/* Times see-invisible */
@@ -5367,7 +5367,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 			/* Stop resting */
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
-			    !creature_ptr->blind && !creature_ptr->confused &&
+			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
 			    !creature_ptr->poisoned && !creature_ptr->afraid &&
 			    !creature_ptr->stun && !creature_ptr->cut &&
 			    !creature_ptr->slow && !creature_ptr->paralyzed &&
@@ -5448,7 +5448,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 	}
 
-	if (creature_ptr->riding && !creature_ptr->confused && !creature_ptr->blind)
+	if (creature_ptr->riding && !creature_ptr->confused && !IS_BLIND(creature_ptr))
 	{
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];

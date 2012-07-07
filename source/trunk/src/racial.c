@@ -73,7 +73,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (creature_ptr->blind)
+	if (IS_BLIND(creature_ptr))
 	{
 #ifdef JP
 		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");

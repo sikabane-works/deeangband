@@ -164,7 +164,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	cr_ptr->fast = 0;            /* Timed -- Fast */
 	cr_ptr->lightspeed = 0;
 	cr_ptr->slow = 0;            /* Timed -- Slow */
-	cr_ptr->blind = 0;           /* Timed -- Blindness */
+	IS_BLIND(cr_ptr) = 0;           /* Timed -- Blindness */
 	cr_ptr->paralyzed = 0;       /* Timed -- Paralysis */
 	cr_ptr->confused = 0;        /* Timed -- Confusion */
 	cr_ptr->afraid = 0;          /* Timed -- Fear */
@@ -407,7 +407,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 }
 
 /*
- * Set "cr_ptr->blind", notice observable changes
+ * Set "IS_BLIND(cr_ptr)", notice observable changes
  *
  * Note the use of "PU_UN_LITE" and "PU_UN_VIEW", which is needed to
  * memorize any terrain features which suddenly become "visible".
@@ -428,7 +428,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->blind)
+		if (!IS_BLIND(cr_ptr))
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
@@ -457,7 +457,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (cr_ptr->blind)
+		if (IS_BLIND(cr_ptr))
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
@@ -483,7 +483,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	}
 
 	/* Use the value */
-	cr_ptr->blind = v;
+	IS_BLIND(cr_ptr) = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

@@ -849,7 +849,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
 		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the difficulty */
@@ -1059,7 +1059,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
 		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
@@ -1733,7 +1733,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
 		if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
@@ -1820,7 +1820,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	i = creature_ptr->skill_dis;
 
 	/* Penalize some conditions */
-	if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
 	if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */
@@ -1944,7 +1944,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	energy_use = 100;
 
 	/* Penalize some conditions */
-	if (creature_ptr->blind || no_lite(creature_ptr)) i = i / 10;
+	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
 	if (creature_ptr->confused || creature_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */
@@ -4363,7 +4363,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if((back_chance > 37) && !creature_ptr->blind && (item >= 0))
+			if((back_chance > 37) && !IS_BLIND(creature_ptr) && (item >= 0))
 			{
 #ifdef JP
 				msg_format("%s‚ªèŒ³‚É•Ô‚Á‚Ä‚«‚½B", o2_name);

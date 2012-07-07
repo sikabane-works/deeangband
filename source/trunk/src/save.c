@@ -589,7 +589,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->sc);
 	wr_s16b(cr_ptr->concent);
 
-	wr_s16b(cr_ptr->blind);
+	wr_s16b(IS_BLIND(cr_ptr));
 	wr_s16b(cr_ptr->paralyzed);
 	wr_s16b(cr_ptr->confused);
 	wr_s16b(cr_ptr->food);

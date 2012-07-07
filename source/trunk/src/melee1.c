@@ -2858,7 +2858,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if (o_ptr->xtra4 < 1) o_ptr->xtra4 = 1;
 
 					/* Notice */
-					if (!target_ptr->blind)
+					if (!IS_BLIND(target_ptr))
 					{
 #ifdef JP
 						msg_print("明かりが暗くなってしまった。");
@@ -2981,7 +2981,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "blind" */
 				if (!target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
 				{
-					if (set_blind(target_ptr, target_ptr->blind + 10 + randint1(rlev)))
+					if (set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
 					{
 #ifdef JP
 						if (attacker_ptr->species_idx == MON_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");

@@ -791,7 +791,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 		// You see stairs blocked
 		else if ((cr_ptr->change_floor_mode & CFM_NO_RETURN) && (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP)))
 		{
-			if (!cr_ptr->blind)
+			if (!IS_BLIND(cr_ptr))
 			{
 #ifdef JP
 				msg_print("“Ë‘RŠK’i‚ªÇ‚ª‚ê‚Ä‚µ‚Ü‚Á‚½B");

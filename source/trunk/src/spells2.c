@@ -221,7 +221,7 @@ void creature_knowledge(creature_type *creature_ptr)
 
 
 
-	if (creature_ptr->blind)
+	if (IS_BLIND(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは目が見えない。";
@@ -1765,9 +1765,9 @@ void report_magics(creature_type *cr_ptr)
 	int     info2[128];
 
 
-	if (cr_ptr->blind)
+	if (IS_BLIND(cr_ptr))
 	{
-		info2[i]  = report_magics_aux(cr_ptr->blind);
+		info2[i]  = report_magics_aux(IS_BLIND(cr_ptr));
 #ifdef JP
 info[i++] = "あなたは目が見えない。";
 #else
@@ -4895,7 +4895,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	/* Hack -- Message */
-	if (!player_ptr->blind)
+	if (!IS_BLIND(player_ptr))
 	{
 #ifdef JP
 		msg_print("白い光が辺りを覆った。");
@@ -4925,7 +4925,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	/* Hack -- Message */
-	if (!player_ptr->blind)
+	if (!IS_BLIND(player_ptr))
 	{
 #ifdef JP
 msg_print("暗闇が辺りを覆った。");
@@ -5954,7 +5954,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if (!(user_ptr->special_defense & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
 
 	if (gameover) return FALSE;
-	if (user_ptr->confused || user_ptr->blind || user_ptr->paralyzed || user_ptr->image) return FALSE;
+	if (user_ptr->confused || IS_BLIND(user_ptr) || user_ptr->paralyzed || user_ptr->image) return FALSE;
 	if (randint0(200) < user_ptr->stun) return FALSE;
 
 	if (!success && one_in_(3))

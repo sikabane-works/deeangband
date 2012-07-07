@@ -432,7 +432,7 @@ static void prt_status(creature_type *cr_ptr)
 
 	if (cr_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if (cr_ptr->image) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
-	if (cr_ptr->blind) ADD_FLG(BAR_BLINDNESS);			// Blindness
+	if (IS_BLIND(cr_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
 	if (cr_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if (cr_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if (cr_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned

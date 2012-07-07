@@ -108,7 +108,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!creature_ptr->resist_blind)
 				{
-					if (set_blind(creature_ptr, creature_ptr->blind + randint0(200) + 200))
+					if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(200) + 200))
 					{
 						ident = TRUE;
 					}
@@ -831,7 +831,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_BLINDNESS:
 			if (!creature_ptr->resist_blind)
 			{
-				if (set_blind(creature_ptr, creature_ptr->blind + randint0(100) + 100))
+				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(100) + 100))
 				{
 					ident = TRUE;
 				}
@@ -1583,7 +1583,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
 			{
-				(void)set_blind(creature_ptr, creature_ptr->blind + 3 + randint1(5));
+				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5));
 			}
 			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
@@ -2196,7 +2196,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	}
 
 	/* Check some conditions */
-	if (creature_ptr->blind)
+	if (IS_BLIND(creature_ptr))
 	{
 #ifdef JP
 		msg_print("目が見えない。");
@@ -2266,7 +2266,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
 			{
-				if (set_blind(creature_ptr, creature_ptr->blind + 3 + randint1(5))) ident = TRUE;
+				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5))) ident = TRUE;
 			}
 			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
@@ -2322,7 +2322,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				else if (!creature_ptr->blind)
+				else if (!IS_BLIND(creature_ptr))
 				{
 #ifdef JP
 					msg_print("杖は一瞬ブルーに輝いた...");
@@ -2342,7 +2342,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			int y, x;
 			int attempts;
 
-			if (!creature_ptr->blind && !magic)
+			if (!IS_BLIND(creature_ptr) && !magic)
 			{
 #ifdef JP
 				msg_print("杖の先が明るく輝いた...");
@@ -6639,7 +6639,7 @@ s = "使えるものがありません。";
 		case TV_SCROLL:
 		{
 			/* Check some conditions */
-			if (creature_ptr->blind)
+			if (IS_BLIND(creature_ptr))
 			{
 #ifdef JP
 msg_print("目が見えない。");

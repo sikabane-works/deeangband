@@ -3011,7 +3011,7 @@ void update_mon(int m_idx, bool full)
 		}
 
 		/* Normal line of sight, and not blind */
-		if (player_has_los_bold(fy, fx) && !player_ptr->blind)
+		if (player_has_los_bold(fy, fx) && !IS_BLIND(player_ptr))
 		{
 			bool do_invisible = FALSE;
 			bool do_cold_blood = FALSE;

@@ -768,7 +768,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!aimer_ptr->blind && player_has_los_bold(y, x))
+			if (!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -805,7 +805,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!aimer_ptr->blind && player_has_los_bold(y, x))
+			if (!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -2391,7 +2391,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Is the player blind? */
-	bool blind = (player_ptr->blind ? TRUE : FALSE);
+	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
 
 	/* Were the effects "obvious" (if seen)? */
 	bool obvious = FALSE;
@@ -3303,7 +3303,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_blind(target_ptr, target_ptr->blind + randint1(5) + 2);
+				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
 			if (has_cf_creature(target_ptr, CF_HURT_LITE))
@@ -3409,7 +3409,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_blind(target_ptr, target_ptr->blind + randint1(5) + 2);
+				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -4537,7 +4537,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				{
 					if (!target_ptr->resist_blind)
 					{
-						(void)set_blind(target_ptr, target_ptr->blind + 8 + randint0(8));
+						(void)set_blind(target_ptr, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}
 					if (!target_ptr->resist_conf)
 					{
@@ -7168,7 +7168,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 
 	bool obvious = TRUE; // Hack -- assume obvious
-	bool blind = (player_ptr->blind ? TRUE : FALSE); // Player blind-ness
+	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE); // Player blind-ness
 	char atk_name[80]; // Creature name (for attacker and target)
 
 	/* Hack -- messages */
@@ -7252,7 +7252,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	if (is_player(attacker_ptr)) return (FALSE);
 	if (attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if ((player_ptr->reflect || ((player_ptr->special_defense & KATA_FUUJIN) && !player_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if ((player_ptr->reflect || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
@@ -7859,7 +7859,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	bool breath = FALSE;
 
 	/* Is the player blind? */
-	bool blind = (player_ptr->blind ? TRUE : FALSE);
+	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
 
 	bool old_hide = FALSE;
 
@@ -8989,7 +8989,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			{
 				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
-					if(!(caster_ptr->blind)
+					if(!(IS_BLIND(caster_ptr))
 					   && panel_contains(y,x)){
 					  p = bolt_pict(y,x,y,x, GF_MANA );
 					  print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);

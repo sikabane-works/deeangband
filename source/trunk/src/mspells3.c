@@ -2054,7 +2054,7 @@ void learn_spell(creature_type *cr_ptr, int monspell)
 	if (cr_ptr->action != ACTION_LEARN) return;
 	if (monspell < 0) return; /* Paranoia */
 	if (cr_ptr->magic_num2[monspell]) return;
-	if (cr_ptr->confused || cr_ptr->blind || cr_ptr->image || cr_ptr->stun || cr_ptr->paralyzed) return;
+	if (cr_ptr->confused || IS_BLIND(cr_ptr) || cr_ptr->image || cr_ptr->stun || cr_ptr->paralyzed) return;
 	if (randint1(cr_ptr->lev + 70) > racial_powers[monspell].level + 40)
 	{
 		cr_ptr->magic_num2[monspell] = 1;
