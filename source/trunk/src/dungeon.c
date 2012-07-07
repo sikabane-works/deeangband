@@ -5335,14 +5335,6 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		prt_time(creature_ptr);
 	}
 
-	/* Give the player some energy */
-	else if (!(load && creature_ptr->energy_need <= 0))
-	{
-		creature_ptr->energy_need -= SPEED_TO_ENERGY(creature_ptr->speed);
-	}
-
-	/* No turn yet */
-	if (creature_ptr->energy_need > 0) return;
 	if (!command_rep) prt_time(creature_ptr);
 
 	/*** Check for interupts ***/

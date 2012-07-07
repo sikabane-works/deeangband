@@ -2672,10 +2672,8 @@ void process_creatures(void)
 		if (subject_change_floor) break;
 
 		// Ignore dead or out of floot creatures
-		if (!creature_ptr->species_idx) continue;
-		if (!is_in_this_floor(creature_ptr))
-			continue;
-		if (wild_mode) continue;
+		if (!is_in_this_floor(creature_ptr)) continue;
+		if (!is_player(creature_ptr) && wild_mode) continue;
 
 		// Handle "fresh" creatures
 		if (creature_ptr->mflag & MFLAG_BORN)
