@@ -5299,7 +5299,7 @@ static void pack_overflow(creature_type *creature_ptr)
  * must come first just in case somebody manages to corrupt
  * the savefiles by clever use of menu commands or something.
  */
-static void process_player(creature_type *creature_ptr)
+void process_player(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i;
@@ -5932,9 +5932,6 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		if (object_cnt + 32 > max_object_idx) compact_objects(64);
 		if (object_cnt + 32 < object_max) compact_objects(0);
 		*/
-
-		// Process the player
-		process_player(player_ptr);
 
 		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);

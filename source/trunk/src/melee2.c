@@ -1702,9 +1702,7 @@ static void process_creature(int m_idx)
 	if (!gamble_arena_mode)
 	{
 		/* Hack! "Cyber" creature makes noise... */
-		if (creature_ptr->ap_species_idx == MON_CYBER &&
-		    one_in_(CYBERNOISE) &&
-		    !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
+		if (creature_ptr->ap_species_idx == MON_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
 		{
 			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
 #ifdef JP
@@ -1721,7 +1719,7 @@ static void process_creature(int m_idx)
 		}
 	}
 
-	/* Try to cast spell occasionally */
+	// Try to cast spell occasionally
 	if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 	{
 		bool counterattack = FALSE;
@@ -1761,12 +1759,11 @@ static void process_creature(int m_idx)
 		}
 	}
 
-	/* Hack -- Assume no movement */
+	// Hack -- Assume no movement
 	mm[0] = mm[1] = mm[2] = mm[3] = 0;
 	mm[4] = mm[5] = mm[6] = mm[7] = 0;
 
-
-	/* Confused -- 100% random */
+	// Confused -- 100% random
 	if (creature_ptr->confused || !aware)
 	{
 		/* Try four "random" directions */
@@ -2735,7 +2732,8 @@ void process_creatures(void)
 		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 		hack_m_idx = i; // Save global index
 
-		process_creature(i); // Process the creature
+		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
+		else process_creature(i); // Process non player creature
 
 		reset_target(creature_ptr);
 

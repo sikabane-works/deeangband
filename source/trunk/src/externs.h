@@ -2054,3 +2054,6 @@ extern byte start_hour;
 extern byte start_min;
 
 bool detect_trap;
+
+
+extern void process_player(creature_type *creature_ptr);
