@@ -1330,6 +1330,38 @@ static void creature_food_digest(creature_type *creature_ptr)
 	}
 }
 
+static void do_scatting_creature(creature_type *creature_ptr)
+{
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+
+	if (has_cf_creature(creature_ptr, CF_SPECIAL))
+	{
+		/* Hack -- Ohmu scatters molds! */
+		if (creature_ptr->species_idx == MON_OHMU)
+		{
+			if (!fight_arena_mode && !gamble_arena_mode)
+			{
+				if (species_ptr->freq_spell && (randint1(100) <= species_ptr->freq_spell))
+				{
+					int  k, count = 0;
+					int  rlev = ((creature_ptr->lev >= 1) ? creature_ptr->lev : 1);
+					u32b p_mode = is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0L;
+
+					for (k = 0; k < 6; k++)
+					{
+						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
+						{
+							if (creature_list[hack_m_idx_ii].ml) count++;
+						}
+					}
+
+					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_SPECIAL);
+				}
+			}
+		}
+	}
+}
+
 static void do_quantum_creature_feature(creature_type *creature_ptr)
 {
 	char creature_name[100];
@@ -1627,7 +1659,6 @@ static void process_creature(int m_idx)
 	oy = creature_ptr->fy;
 	ox = creature_ptr->fx;
 
-
 	/* Attempt to "multiply" if able and allowed */
 	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (floor_ptr->num_repro < MAX_REPRO))
 	{
@@ -1666,34 +1697,7 @@ static void process_creature(int m_idx)
 		}
 	}
 
-
-	if (has_cf_creature(creature_ptr, CF_SPECIAL))
-	{
-		/* Hack -- Ohmu scatters molds! */
-		if (creature_ptr->species_idx == MON_OHMU)
-		{
-			if (!fight_arena_mode && !gamble_arena_mode)
-			{
-				if (r_ptr->freq_spell && (randint1(100) <= r_ptr->freq_spell))
-				{
-					int  k, count = 0;
-					int  rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
-					u32b p_mode = is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0L;
-
-					for (k = 0; k < 6; k++)
-					{
-						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
-						{
-							if (creature_list[hack_m_idx_ii].ml) count++;
-						}
-					}
-
-					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_SPECIAL);
-				}
-			}
-		}
-	}
-
+	do_scatting_creature(creature_ptr);
 
 	if (!gamble_arena_mode)
 	{
