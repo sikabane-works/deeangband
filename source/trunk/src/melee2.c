@@ -2727,11 +2727,15 @@ void process_creatures(void)
 		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 		if (creature_ptr->energy_need > 0) continue; // Not enough energy to move
 
-		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 		hack_m_idx = i; // Save global index
 
 		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
-		else process_creature(i); // Process non player creature
+		else 
+		{
+			process_creature(i); // Process non player creature
+			creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
+		}
+
 
 		reset_target(creature_ptr);
 
