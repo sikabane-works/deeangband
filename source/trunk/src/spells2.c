@@ -153,7 +153,7 @@ void creature_knowledge(creature_type *creature_ptr)
 #endif
 	}
 
-	if(gameover)
+	if(IS_DEAD(creature_ptr))
 	{
 #ifdef JP
 		info[i++] = "‚ ‚È‚½‚ÍŽ€‚ñ‚Å‚¢‚é";
