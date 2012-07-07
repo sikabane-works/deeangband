@@ -17,8 +17,8 @@
 #define HURT_CHANCE 16
 
 
-static int rakubadam_m;
-static int rakubadam_p;
+static int do_thrown_from_ridingdam_m;
+static int do_thrown_from_ridingdam_p;
 
 int project_length = 0;
 
@@ -2329,7 +2329,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 	if (player_ptr->riding && (player_ptr->riding == c_ptr->creature_idx) && (dam > 0))
 	{
 		if (target_ptr->chp > target_ptr->mhp/3) dam = (dam + 1) / 2;
-		rakubadam_m = (dam > 200) ? 200 : dam;
+		do_thrown_from_ridingdam_m = (dam > 200) ? 200 : dam;
 	}
 
 
@@ -6751,7 +6751,7 @@ note = "には耐性がある！";
 				//TODO: capture creature status
 				if (c_ptr->creature_idx == player_ptr->riding)
 				{
-					if (rakuba(player_ptr, -1, FALSE))
+					if (do_thrown_from_riding(player_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -7327,7 +7327,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	if (player_ptr->riding && dam > 0)
 	{
-		rakubadam_p = (dam > 200) ? 200 : dam;
+		do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
 	}
 
 
@@ -7892,8 +7892,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	/* Initialize by null string */
 	who_name[0] = '\0';
 
-	rakubadam_p = 0;
-	rakubadam_m = 0;
+	do_thrown_from_ridingdam_p = 0;
+	do_thrown_from_ridingdam_m = 0;
 
 	/* Default target */
 	creature_target_y = player_ptr->fy;
@@ -8882,9 +8882,9 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 
-		if (rakubadam_m > 0)
+		if (do_thrown_from_ridingdam_m > 0)
 		{
-			if (rakuba(caster_ptr, rakubadam_m, FALSE))
+			if (do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE))
 			{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
@@ -8893,9 +8893,9 @@ msg_format("%^sに振り落とされた！", m_name);
 #endif
 			}
 		}
-		if (player_ptr->riding && rakubadam_p > 0)
+		if (player_ptr->riding && do_thrown_from_ridingdam_p > 0)
 		{
-			if(rakuba(caster_ptr, rakubadam_p, FALSE))
+			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE))
 			{
 #ifdef JP
 msg_format("%^sから落ちてしまった！", m_name);

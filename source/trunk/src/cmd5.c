@@ -1670,7 +1670,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 	return p_can_enter;
 }
 
-bool rakuba(creature_type *creature_ptr, int dam, bool force)
+bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int i, y, x, oy, ox;
@@ -1692,8 +1692,8 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 			int ridinglevel = r_ptr->level;
 
 			/* 落馬のしやすさ */
-			int rakubalevel = r_ptr->level;
-			if (creature_ptr->riding_two_handed) rakubalevel += 20;
+			int do_thrown_from_ridinglevel = r_ptr->level;
+			if (creature_ptr->riding_two_handed) do_thrown_from_ridinglevel += 20;
 
 			if ((cur < max) && (max > 1000) &&
 			    (dam / 2 + ridinglevel) > (cur / 30 + 10))
@@ -1709,7 +1709,7 @@ bool rakuba(creature_type *creature_ptr, int dam, bool force)
 			}
 
 			/* レベルの低い乗馬からは落馬しにくい */
-			if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
+			if (randint0(dam / 2 + do_thrown_from_ridinglevel * 2) < cur / 30 + 10)
 			{
 				if ((((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY)) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
 				{

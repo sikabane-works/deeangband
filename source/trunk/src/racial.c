@@ -1331,7 +1331,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_format("You have thrown off by %s.",steed_name);
 #endif
-				rakuba(creature_ptr, 1, TRUE);
+				do_thrown_from_riding(creature_ptr, 1, TRUE);
 
 				/* Paranoia */
 				/* —”nˆ—‚É¸”s‚µ‚Ä‚à‚Æ‚É‚©‚­æ”n‰ğœ */

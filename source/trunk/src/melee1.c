@@ -3886,7 +3886,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
-		if (rakuba(target_ptr, (damage > 200) ? 200 : damage, FALSE))
+		if (do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 		{
 #ifdef JP
 			msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);

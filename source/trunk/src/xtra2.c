@@ -873,7 +873,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 
 	if (killed_ptr == &creature_list[slayer_ptr->riding])
 	{
-		if (rakuba(slayer_ptr, -1, FALSE))
+		if (do_thrown_from_riding(slayer_ptr, -1, FALSE))
 		{
 #ifdef JP
 msg_print("地面に落とされた。");

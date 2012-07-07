@@ -1442,7 +1442,7 @@ static void process_creature(int m_idx)
 
 	if (is_riding_mon && !has_cf_creature(creature_ptr, CF_CAN_FLY))
 	{
-		if (rakuba(player_ptr, 0, TRUE))
+		if (do_thrown_from_riding(player_ptr, 0, TRUE))
 		{
 #ifdef JP
 			msg_print("地面に落とされた。");
@@ -1532,7 +1532,7 @@ static void process_creature(int m_idx)
 #else
 					msg_format("%^s succeeded to escape from your restriction!", creature_name);
 #endif
-					if (rakuba(player_ptr, -1, FALSE))
+					if (do_thrown_from_riding(player_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -1562,7 +1562,7 @@ static void process_creature(int m_idx)
 #endif
 				}
 
-				if (is_riding_mon && rakuba(player_ptr, -1, FALSE))
+				if (is_riding_mon && do_thrown_from_riding(player_ptr, -1, FALSE))
 				{
 #ifdef JP
 					msg_print("地面に落とされた。");
