@@ -6190,7 +6190,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				char line_got[1024];
 	
-				/* Dump a message */
+				// Dump a message
 	#ifdef JP
 				if (!get_rnd_line("mondeath_j.txt", tar_ptr->species_idx, line_got))
 	#else
@@ -6202,7 +6202,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#ifdef WORLD_SCORE
 				if (tar_ptr->species_idx == MON_SERPENT)
 				{
-					/* Make screen dump */
+					// Make screen dump
 					screen_dump = make_screen_dump();
 				}
 	#endif

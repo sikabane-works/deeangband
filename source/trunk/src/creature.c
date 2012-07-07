@@ -981,18 +981,6 @@ bool is_no_sleep_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_NO_SLEEP]);
 }
 
-
-
-bool can_speak_creature(creature_type *creature_ptr)
-{
-	return has_cf_creature(creature_ptr, CF_CAN_SPEAK);	
-}
-
-bool can_speak_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[CF_CAN_SPEAK]);
-}
-
 bool is_eldritch_horror_creature(creature_type *creature_ptr)
 {
 	return has_cf_creature(creature_ptr, CF_ELDRITCH_HORROR);	

@@ -1206,6 +1206,60 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
+static void creature_speaking(creature_type *creature_ptr)
+{
+	char monmessage[1024];
+	cptr filename;
+	char creature_name[100];
+
+	// Acquire the creature name/poss
+	if (creature_ptr->ml)
+		creature_desc(creature_name, creature_ptr, 0);
+	else
+#ifdef JP
+		strcpy(creature_name, "‰½Ò‚©");
+#else
+		strcpy(creature_name, "It");
+#endif
+
+	/* Select the file for creature quotes */
+	if (creature_ptr->afraid)
+#ifdef JP
+		filename = "monfear_j.txt";
+#else
+		filename = "monfear.txt";
+#endif
+	else if (is_pet(player_ptr, creature_ptr))
+#ifdef JP
+		filename = "monpet_j.txt";
+#else
+		filename = "monpet.txt";
+#endif
+	else if (is_friendly(player_ptr, creature_ptr))
+#ifdef JP
+		filename = "monfrien_j.txt";
+#else
+		filename = "monfrien.txt";
+#endif
+	else
+#ifdef JP
+		filename = "monspeak_j.txt";
+#else
+		filename = "monspeak.txt";
+#endif
+	/* Get the creature line */
+	if (get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
+	{
+		/* Say something */
+#ifdef JP
+		msg_format("%^s%s", creature_name, monmessage);
+#else
+		msg_format("%^s %s", creature_name, monmessage);
+#endif
+
+	}
+}
+
 /*
  * Process a creature
  *
@@ -1684,61 +1738,10 @@ static void process_creature(int m_idx)
 #endif
 		}
 
-		/* Some creatures can speak */
-		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware &&
-		    one_in_(SPEAK_CHANCE) &&
-		    player_has_los_bold(oy, ox) &&
-		    projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
+		// Some creatures can speak
+		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
 		{
-			char monmessage[1024];
-			cptr filename;
-
-			/* Acquire the creature name/poss */
-			if (creature_ptr->ml)
-				creature_desc(creature_name, creature_ptr, 0);
-			else
-#ifdef JP
-				strcpy(creature_name, "‚»‚ê");
-#else
-				strcpy(creature_name, "It");
-#endif
-
-			/* Select the file for creature quotes */
-			if (creature_ptr->afraid)
-#ifdef JP
-				filename = "monfear_j.txt";
-#else
-				filename = "monfear.txt";
-#endif
-			else if (is_pet(player_ptr, creature_ptr))
-#ifdef JP
-				filename = "monpet_j.txt";
-#else
-				filename = "monpet.txt";
-#endif
-			else if (is_friendly(player_ptr, creature_ptr))
-#ifdef JP
-				filename = "monfrien_j.txt";
-#else
-				filename = "monfrien.txt";
-#endif
-			else
-#ifdef JP
-				filename = "monspeak_j.txt";
-#else
-				filename = "monspeak.txt";
-#endif
-			/* Get the creature line */
-			if (get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
-			{
-				/* Say something */
-#ifdef JP
-msg_format("%^s%s", creature_name, monmessage);
-#else
-				msg_format("%^s %s", creature_name, monmessage);
-#endif
-
-			}
+			creature_speaking(creature_ptr);
 		}
 	}
 
