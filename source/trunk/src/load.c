@@ -1058,7 +1058,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->sc);
 	rd_s16b(&cr_ptr->concent);
 
-	rd_s16b(&IS_BLIND(cr_ptr));
+	rd_s16b(&cr_ptr->blind);
 	rd_s16b(&cr_ptr->paralyzed);
 	rd_s16b(&cr_ptr->confused);
 	rd_s16b(&cr_ptr->food);

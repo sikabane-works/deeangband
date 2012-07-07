@@ -164,7 +164,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	cr_ptr->fast = 0;            /* Timed -- Fast */
 	cr_ptr->lightspeed = 0;
 	cr_ptr->slow = 0;            /* Timed -- Slow */
-	IS_BLIND(cr_ptr) = 0;           /* Timed -- Blindness */
+	cr_ptr->blind = 0;           /* Timed -- Blindness */
 	cr_ptr->paralyzed = 0;       /* Timed -- Paralysis */
 	cr_ptr->confused = 0;        /* Timed -- Confusion */
 	cr_ptr->afraid = 0;          /* Timed -- Fear */
@@ -483,7 +483,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	}
 
 	/* Use the value */
-	IS_BLIND(cr_ptr) = v;
+	cr_ptr->blind = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
