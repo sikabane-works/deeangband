@@ -5808,7 +5808,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	if (dam > *max) *max = dam;
 }
 
-/* Calculate blow damages */
+// Calculate blow damages
 static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
 	//TODO: apply New Feature
