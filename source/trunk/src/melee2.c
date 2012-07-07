@@ -1587,21 +1587,15 @@ static void process_creature(int m_idx)
 		}
 	}
 
-	/* Handle "stun" */
-	if (creature_ptr->stun)
-	{
-		/* Sometimes skip move */
-		if (one_in_(2)) return;
-	}
+	//TODO move old player feature of stun.
 
 	if (is_riding_mon)
 	{
 		player_ptr->creature_update |= (CRU_BONUS);
 	}
 
-	/* No one wants to be your friend if you're aggravating */
-	if (is_friendly(player_ptr, creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE))
-		gets_angry = TRUE;
+	// No one wants to be your friend if you're aggravating
+	if (is_friendly(player_ptr, creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE)) gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, creature_ptr) &&
