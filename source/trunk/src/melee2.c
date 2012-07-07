@@ -1505,6 +1505,8 @@ static void process_creature(int m_idx)
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
+// TODO Riding pinch
+/*
 	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_cf_creature(creature_ptr, CF_NAZGUL)) && !gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
@@ -1525,44 +1527,12 @@ static void process_creature(int m_idx)
 			}
 			else
 			{
-				if (is_riding_mon)
-				{
 #ifdef JP
-					msg_format("%sはあなたの束縛から脱出した。", creature_name);
+				msg_format("%sはあなたの束縛から脱出した。", creature_name);
 #else
-					msg_format("%^s succeeded to escape from your restriction!", creature_name);
+				msg_format("%^s succeeded to escape from your restriction!", creature_name);
 #endif
-					if (do_thrown_from_riding(player_ptr, -1, FALSE))
-					{
-#ifdef JP
-						msg_print("地面に落とされた。");
-#else
-						msg_print("You have fallen from riding pet.");
-#endif
-					}
-				}
-
-				if (see_m)
-				{
-					if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && (creature_ptr->species_idx != MON_GRIP) && (creature_ptr->species_idx != MON_WOLF) && (creature_ptr->species_idx != MON_FANG) &&
-					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
-					{
-#ifdef JP
-						msg_format("%^s「ピンチだ！退却させてもらう！」", creature_name);
-#else
-						msg_format("%^s says 'It is the pinch! I will retreat'.", creature_name);
-#endif
-					}
-#ifdef JP
-					msg_format("%^sがテレポート・レベルの巻物を読んだ。", creature_name);
-					msg_format("%^sが消え去った。", creature_name);
-#else
-					msg_format("%^s read a scroll of teleport level.", creature_name);
-					msg_format("%^s disappears.", creature_name);
-#endif
-				}
-
-				if (is_riding_mon && do_thrown_from_riding(player_ptr, -1, FALSE))
+				if (do_thrown_from_riding(player_ptr, -1, FALSE))
 				{
 #ifdef JP
 					msg_print("地面に落とされた。");
@@ -1573,7 +1543,6 @@ static void process_creature(int m_idx)
 
 				// Check for quest completion
 				check_quest_completion(player_ptr, creature_ptr);
-
 				delete_species_idx(&creature_list[m_idx]);
 
 				return;
@@ -1585,6 +1554,7 @@ static void process_creature(int m_idx)
 			if (is_riding_mon) riding_pinch = 0;
 		}
 	}
+*/
 
 	// Handle "sleep"
 	if (creature_ptr->paralyzed)
