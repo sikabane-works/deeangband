@@ -5854,3 +5854,4 @@ enum DISPLAY_CR_STATUS
 #define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)
 
 
+#define QUANTUM_CREATURE_VANISH_CHANCE 60

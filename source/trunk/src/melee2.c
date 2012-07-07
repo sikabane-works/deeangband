@@ -1295,6 +1295,50 @@ static void creature_food_digest(creature_type *creature_ptr)
 	}
 }
 
+static void do_quantum_creature_feature(creature_type *creature_ptr)
+{
+	char creature_name[100];
+	bool see_m = is_seen(player_ptr, creature_ptr);
+
+	// Sometimes die
+	if (!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !is_unique_creature(creature_ptr))
+	{
+		bool sad = FALSE;
+
+		if (is_pet(player_ptr, creature_ptr) && !(creature_ptr->ml))
+			sad = TRUE;
+
+		if (see_m)
+		{
+			// Acquire the creature name
+			creature_desc(creature_name, creature_ptr, 0);
+#ifdef JP
+			msg_format("%sは消え去った！", creature_name);
+#else
+			msg_format("%^s disappears!", creature_name);
+#endif
+		}
+
+		// Generate treasure, etc
+		creature_death(player_ptr, creature_ptr, FALSE);
+
+		// Delete the creature
+		delete_species_idx(creature_ptr);
+
+		if (sad)
+		{
+#ifdef JP
+			msg_print("少しの間悲しい気分になった。");
+#else
+			msg_print("You feel sad for a moment.");
+#endif
+		}
+
+		return;
+	}
+
+}
+
 
 /*
  * Process a creature
@@ -1452,51 +1496,8 @@ static void process_creature(int m_idx)
 		return;
 	}
 
-	/* Quantum creatures are odd */
-	if (has_cf_creature(creature_ptr, CF_QUANTUM))
-	{
-		/* Sometimes skip move */
-		if (!randint0(2)) return;
-
-		/* Sometimes die */
-		if (!randint0((m_idx % 100) + 10) && !is_unique_creature(creature_ptr))
-		{
-			bool sad = FALSE;
-
-			if (is_pet(player_ptr, creature_ptr) && !(creature_ptr->ml))
-				sad = TRUE;
-
-			if (see_m)
-			{
-				/* Acquire the creature name */
-				creature_desc(creature_name, creature_ptr, 0);
-
-				/* Oops */
-#ifdef JP
-				msg_format("%sは消え去った！", creature_name);
-#else
-				msg_format("%^s disappears!", creature_name);
-#endif
-			}
-
-			/* Generate treasure, etc */
-			creature_death(player_ptr, &creature_list[m_idx], FALSE);
-
-			/* Delete the creature */
-			delete_species_idx(&creature_list[m_idx]);
-
-			if (sad)
-			{
-#ifdef JP
-				msg_print("少しの間悲しい気分になった。");
-#else
-				msg_print("You feel sad for a moment.");
-#endif
-			}
-
-			return;
-		}
-	}
+	// Quantum creatures are odd
+	if (has_cf_creature(creature_ptr, CF_QUANTUM)) do_quantum_creature_feature(creature_ptr);
 
 // TODO SYURYUUDAN's Process
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
