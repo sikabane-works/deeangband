@@ -1260,6 +1260,41 @@ static void creature_speaking(creature_type *creature_ptr)
 	}
 }
 
+static void creature_lack_food(creature_type *creature_ptr)
+{
+	if ((creature_ptr->food < PY_FOOD_FAINT))
+	{
+		// Faint occasionally
+		if (!creature_ptr->paralyzed && (randint0(100) < 10))
+		{
+			// Message
+#ifdef JP
+			msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
+#else
+			msg_print("You faint from the lack of food.");
+#endif
+			disturb(player_ptr, 1, 0);
+
+			// Hack -- faint (bypass free action)
+			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 1 + randint0(5));
+		}
+
+		// Starve to death (slowly)
+		if (creature_ptr->food < PY_FOOD_STARVE)
+		{
+			// Calculate damage
+			int dam = (PY_FOOD_STARVE - creature_ptr->food) / 10;
+
+			// Take damage
+#ifdef JP
+			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‚¦", NULL, -1);
+#else
+			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
+#endif
+		}
+	}
+}
+
 static void creature_food_digest(creature_type *creature_ptr)
 {
 	if (!gamble_arena_mode)
@@ -1402,41 +1437,8 @@ static void process_creature(int m_idx)
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
-	// food digest
-	creature_food_digest(creature_ptr);
-
-	// Getting Faint
-	if ((creature_ptr->food < PY_FOOD_FAINT))
-	{
-		// Faint occasionally
-		if (!creature_ptr->paralyzed && (randint0(100) < 10))
-		{
-			// Message
-#ifdef JP
-			msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
-#else
-			msg_print("You faint from the lack of food.");
-#endif
-			disturb(player_ptr, 1, 0);
-
-			// Hack -- faint (bypass free action)
-			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 1 + randint0(5));
-		}
-
-		// Starve to death (slowly)
-		if (creature_ptr->food < PY_FOOD_STARVE)
-		{
-			// Calculate damage
-			int dam = (PY_FOOD_STARVE - creature_ptr->food) / 10;
-
-			// Take damage
-#ifdef JP
-			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‚¦", NULL, -1);
-#else
-			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
-#endif
-		}
-	}
+	creature_food_digest(creature_ptr); // food digest
+	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
 	if (is_riding_mon && !has_cf_creature(creature_ptr, CF_CAN_FLY))
 	{
