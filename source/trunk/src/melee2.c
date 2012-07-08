@@ -1515,9 +1515,6 @@ static void process_nonplayer(int m_idx)
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
-	creature_food_digest(creature_ptr); // food digest
-	creature_lack_food(creature_ptr); // Getting Faint from lack food
-
 	if (is_riding_mon && !has_cf_creature(creature_ptr, CF_CAN_FLY))
 	{
 		if (do_thrown_from_riding(player_ptr, 0, TRUE))
@@ -2643,6 +2640,8 @@ static void process_creature(int i)
 
 	do_multiply_creature(creature_ptr);
 	do_scatting_creature(creature_ptr);
+	creature_food_digest(creature_ptr); // food digest
+	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else
