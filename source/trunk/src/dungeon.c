@@ -5252,6 +5252,49 @@ void do_creature_mutation(creature_type *creature_ptr)
 	}
 }
 
+void do_creature_fishing(creature_type *creature_ptr)
+{
+	if (creature_ptr->action == ACTION_FISH)
+	{
+		floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+		Term_xtra(TERM_XTRA_DELAY, 10);
+		if (one_in_(1000))
+		{
+			int species_idx;
+			bool success = FALSE;
+			get_species_num_prep(creature_tsuri, NULL);
+			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
+			msg_print(NULL);
+			if (species_idx && one_in_(2))
+			{
+				int y, x;
+				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
+				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
+				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PM_NO_KAGE))
+				{
+					char m_name[80];
+					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
+#ifdef JP
+					msg_format("%sが釣れた！", m_name);
+#else
+					msg_format("You have a good catch!", m_name);
+#endif
+					success = TRUE;
+				}
+			}
+			if (!success)
+			{
+#ifdef JP
+				msg_print("餌だけ食われてしまった！くっそ～！");
+#else
+				msg_print("Damn!  The fish stole your bait!");
+#endif
+			}
+			disturb(player_ptr, 0, 0);
+		}
+	}
+}
+
 // Hack -- Pack Overflow
 static void pack_overflow(creature_type *creature_ptr)
 {
@@ -5370,46 +5413,6 @@ void process_player(creature_type *creature_ptr)
 			{
 				set_action(creature_ptr, ACTION_NONE);
 			}
-		}
-	}
-
-	if (creature_ptr->action == ACTION_FISH)
-	{
-		/* Delay */
-		Term_xtra(TERM_XTRA_DELAY, 10);
-		if (one_in_(1000))
-		{
-			int species_idx;
-			bool success = FALSE;
-			get_species_num_prep(creature_tsuri, NULL);
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
-			msg_print(NULL);
-			if (species_idx && one_in_(2))
-			{
-				int y, x;
-				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
-				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
-				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PM_NO_KAGE))
-				{
-					char m_name[80];
-					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-#ifdef JP
-					msg_format("%sが釣れた！", m_name);
-#else
-					msg_format("You have a good catch!", m_name);
-#endif
-					success = TRUE;
-				}
-			}
-			if (!success)
-			{
-#ifdef JP
-				msg_print("餌だけ食われてしまった！くっそ～！");
-#else
-				msg_print("Damn!  The fish stole your bait!");
-#endif
-			}
-			disturb(player_ptr, 0, 0);
 		}
 	}
 

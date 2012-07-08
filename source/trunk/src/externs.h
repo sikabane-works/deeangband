@@ -2056,3 +2056,4 @@ extern bool detect_trap;
 
 extern void process_player(creature_type *creature_ptr);
 extern void do_creature_mutation(creature_type *creature_ptr);
+extern void do_creature_fishing(creature_type *creature_ptr);
