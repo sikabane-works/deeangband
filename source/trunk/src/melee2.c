@@ -2638,9 +2638,12 @@ static void process_creature(int i)
 
 	hack_m_idx = i; // Save global index
 
+	gamble_arena_limitation();
+
 	do_creature_mutation(creature_ptr);
 	do_multiply_creature(creature_ptr);
 	do_scatting_creature(creature_ptr);
+
 	creature_food_digest(creature_ptr); // food digest
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 

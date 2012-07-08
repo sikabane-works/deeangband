@@ -5295,6 +5295,29 @@ void do_creature_fishing(creature_type *creature_ptr)
 	}
 }
 
+void gamble_arena_limitation(void)
+{
+	int i;
+	if (gamble_arena_mode)
+	{
+		for(i = 1; i < creature_max; i++)
+		{
+			creature_type *m_ptr = &creature_list[i];
+
+			if (!m_ptr->species_idx) continue;
+
+			/* Hack -- Detect creature */
+			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+
+			/* Update the creature */
+			update_mon(i, FALSE);
+		}
+
+		prt_time(player_ptr);
+	}
+}
+
+
 // Hack -- Pack Overflow
 static void pack_overflow(creature_type *creature_ptr)
 {
@@ -5362,23 +5385,6 @@ void process_player(creature_type *creature_ptr)
 	int i;
 
 	/*** Apply energy ***/
-
-	if (gamble_arena_mode)
-	{
-		for(i = 1; i < creature_max; i++)
-		{
-			creature_type *m_ptr = &creature_list[i];
-
-			if (!m_ptr->species_idx) continue;
-
-			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
-
-			/* Update the creature */
-			update_mon(i, FALSE);
-		}
-		prt_time(creature_ptr);
-	}
 
 	if (!command_rep) prt_time(creature_ptr);
 
