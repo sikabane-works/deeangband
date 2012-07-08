@@ -5238,6 +5238,20 @@ static bool creature_tsuri(int species_idx)
 		return FALSE;
 }
 
+void do_creature_mutation(creature_type *creature_ptr)
+{
+	if (creature_ptr->hack_mutation)
+	{
+#ifdef JP
+		msg_print("何か変わった気がする！");
+#else
+		msg_print("You feel different!");
+#endif
+		(void)gain_trait(creature_ptr, 0, TRUE);
+		creature_ptr->hack_mutation = FALSE;
+	}
+}
+
 // Hack -- Pack Overflow
 static void pack_overflow(creature_type *creature_ptr)
 {
@@ -5305,18 +5319,6 @@ void process_player(creature_type *creature_ptr)
 	int i;
 
 	/*** Apply energy ***/
-
-	if (creature_ptr->hack_mutation)
-	{
-#ifdef JP
-msg_print("何か変わった気がする！");
-#else
-		msg_print("You feel different!");
-#endif
-
-		(void)gain_trait(creature_ptr, 0, TRUE);
-		creature_ptr->hack_mutation = FALSE;
-	}
 
 	if (gamble_arena_mode)
 	{
