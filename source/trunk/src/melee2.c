@@ -1407,14 +1407,8 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 }
 
 
-static void process_creature(creature_type *creature_ptr)
-{
-	return;
-}
-
-
 /*
- * Process a creature
+ * Process a non-player
  *
  * The creature is known to be within 100 grids of the player
  *
@@ -2572,6 +2566,22 @@ static void process_nonplayer(int m_idx)
 
 }
 
+
+static void process_creature(creature_type *creature_ptr, int i)
+{
+	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
+	else 
+	{
+		process_nonplayer(i); // Process non player creature
+		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
+	}
+
+	reset_target(creature_ptr);
+
+	return;
+}
+
+
 /*
  * Process all the "live" creatures, once per game turn.
  *
@@ -2735,16 +2745,7 @@ void process_creatures(void)
 
 		hack_m_idx = i; // Save global index
 
-		process_creature(creature_ptr);
-
-		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
-		else 
-		{
-			process_nonplayer(i); // Process non player creature
-			creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
-		}
-
-		reset_target(creature_ptr);
+		process_creature(creature_ptr, i);
 
 		// Give up flow_by_smell when it might useless
 		if (player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
