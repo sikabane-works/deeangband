@@ -1601,9 +1601,6 @@ static void process_nonplayer(int m_idx)
 		return;
 	}
 
-	// Quantum creatures are odd
-	if (has_cf_creature(creature_ptr, CF_QUANTUM)) do_quantum_creature_feature(creature_ptr);
-
 // TODO SYURYUUDAN's Process
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
@@ -2656,6 +2653,8 @@ static void process_creature(int i)
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
 	do_creature_speaking(creature_ptr);
+
+	if (has_cf_creature(creature_ptr, CF_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else
