@@ -3307,7 +3307,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			switch (caster_ptr->species_idx)
 			{
 			case MON_OHMU:
-				/* Moved to process_creature(), like multiplication */
+				/* Moved to process_nonplayer(), like multiplication */
 				return FALSE;
 
 			case MON_BANORLUPART:

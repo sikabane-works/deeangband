@@ -1433,7 +1433,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
  *
  * A "direction" of "5" means "pick a random direction".
  */
-static void process_creature(int m_idx)
+static void process_nonplayer(int m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
 	floor_type       *floor_ptr = get_floor_ptr(creature_ptr); 
@@ -2581,7 +2581,7 @@ static void process_creature(int m_idx)
  * normal things.
  *
  * When the player is resting, virtually 90% of the processor time is spent
- * in this function, and its children, "process_creature()" and "make_move()".
+ * in this function, and its children, "process_nonplayer()" and "make_move()".
  *
  * Most of the rest of the time is spent in "update_view()" and "lite_spot(floor_ptr, )",
  * especially when the player is running.
@@ -2732,7 +2732,7 @@ void process_creatures(void)
 		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 		else 
 		{
-			process_creature(i); // Process non player creature
+			process_nonplayer(i); // Process non player creature
 			creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 		}
 
@@ -3021,7 +3021,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		// TODO the world process process_creature(the_world);
+		// TODO the world process process_nonplayer(the_world);
 
 		reset_target(m_ptr);
 
