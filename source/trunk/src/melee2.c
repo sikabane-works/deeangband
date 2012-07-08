@@ -2637,7 +2637,6 @@ static void process_creature(int i)
 
 	if (curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
-
 	if (creature_ptr->energy_need > 0) return; // Not enough energy to move
 
 	hack_m_idx = i; // Save global index
@@ -2646,11 +2645,12 @@ static void process_creature(int i)
 	do_scatting_creature(creature_ptr);
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
-	else 
+	else
 	{
 		process_nonplayer(i); // Process non player creature
 		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 	}
+
 
 	reset_target(creature_ptr);
 
