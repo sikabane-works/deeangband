@@ -2569,6 +2569,17 @@ static void process_nonplayer(int m_idx)
 
 static void process_creature(creature_type *creature_ptr, int i)
 {
+	int speed;
+
+	speed = creature_ptr->speed;
+
+	if (curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
+	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
+
+	if (creature_ptr->energy_need > 0) return; // Not enough energy to move
+
+	hack_m_idx = i; // Save global index
+
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else 
 	{
@@ -2641,8 +2652,6 @@ void process_creatures(void)
 	byte    old_r_blows3 = 0;
 
 	byte    old_r_cast_spell = 0;
-
-	int speed;
 
 	/* Clear creature fighting indicator */
 	mon_fight = FALSE;
@@ -2727,8 +2736,7 @@ void process_creatures(void)
 			(floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
 			(floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
 		{
-			/* We can "smell" the player */
-			test = TRUE;
+			test = TRUE; // We can "smell" the player
 		}
 #endif
 
@@ -2736,14 +2744,6 @@ void process_creatures(void)
 
 		// Do nothing
 		if (!test) continue;
-
-		speed = creature_ptr->speed;
-
-		if (curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
-		creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
-		if (creature_ptr->energy_need > 0) continue; // Not enough energy to move
-
-		hack_m_idx = i; // Save global index
 
 		process_creature(creature_ptr, i);
 
