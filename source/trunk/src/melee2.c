@@ -1407,6 +1407,12 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 }
 
 
+static void process_creature(creature_type *creature_ptr)
+{
+	return;
+}
+
+
 /*
  * Process a creature
  *
@@ -2729,13 +2735,14 @@ void process_creatures(void)
 
 		hack_m_idx = i; // Save global index
 
+		process_creature(creature_ptr);
+
 		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 		else 
 		{
 			process_nonplayer(i); // Process non player creature
 			creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 		}
-
 
 		reset_target(creature_ptr);
 
