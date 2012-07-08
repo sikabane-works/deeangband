@@ -1452,6 +1452,34 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 
 }
 
+static void do_creature_speaking(creature_type *creature_ptr)
+{
+	if (!gamble_arena_mode)
+	{
+		floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+		int oy = creature_ptr->fy;
+		int	ox = creature_ptr->fx;
+		bool aware = TRUE;
+
+		// Hack! "Cyber" creature makes noise...
+		if (creature_ptr->ap_species_idx == MON_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
+		{
+			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
+#ifdef JP
+			msg_print("重厚な足音が聞こえた。");
+#else
+			msg_print("You hear heavy steps.");
+#endif
+		}
+
+		// Some creatures can speak
+		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
+		{
+			creature_speaking(creature_ptr);
+		}
+	}
+}
+
 
 /*
  * Process a non-player
@@ -1538,10 +1566,10 @@ static void process_nonplayer(int m_idx)
 	// Players hidden in shadow are almost imperceptable. -LM-
 	if (player_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		int tmp = player_ptr->lev*6+(player_ptr->skill_stl+10)*4;
+		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
 		if (player_ptr->monlite) tmp /= 3;
 		if (player_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
-		if (r_ptr->level > (player_ptr->lev*player_ptr->lev/20+10)) tmp /= 3;
+		if (r_ptr->level > (player_ptr->lev * player_ptr->lev / 20 + 10)) tmp /= 3;
 		// Low-level creatures will find it difficult to locate the player.
 		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
 	}
@@ -1701,26 +1729,6 @@ static void process_nonplayer(int m_idx)
 	// Get the origin
 	oy = creature_ptr->fy;
 	ox = creature_ptr->fx;
-
-	if (!gamble_arena_mode)
-	{
-		/* Hack! "Cyber" creature makes noise... */
-		if (creature_ptr->ap_species_idx == MON_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
-		{
-			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
-#ifdef JP
-			msg_print("重厚な足音が聞こえた。");
-#else
-			msg_print("You hear heavy steps.");
-#endif
-		}
-
-		// Some creatures can speak
-		if (has_cf_creature(creature_ptr, CF_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
-		{
-			creature_speaking(creature_ptr);
-		}
-	}
 
 	// Try to cast spell occasionally
 	if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
@@ -2646,6 +2654,8 @@ static void process_creature(int i)
 
 	creature_food_digest(creature_ptr); // food digest
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
+
+	do_creature_speaking(creature_ptr);
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else
