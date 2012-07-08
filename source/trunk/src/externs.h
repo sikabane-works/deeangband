@@ -1235,7 +1235,7 @@ extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
 extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode);
 extern bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode);
-extern bool multiply_creature(int m_idx, bool clone, u32b mode);
+extern bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx);
 extern bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x);
@@ -2031,7 +2031,7 @@ extern void revenge_spell(creature_type *cr_ptr);
 extern void revenge_store(creature_type *cr_ptr, int dam);
 extern bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool magic_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
-extern bool multiply_barrier(creature_type *cr_ptr, int m_idx);
+extern bool multiply_barrier(creature_type *creature_ptr, creature_type *target_ptr);
 
 extern starting_type starting_point[STARTING_MAX];
 extern half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION];

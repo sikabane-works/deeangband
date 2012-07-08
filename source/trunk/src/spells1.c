@@ -5471,7 +5471,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				target_ptr->chp = target_ptr->mhp;
 
 				/* Attempt to clone. */
-				if (multiply_creature(c_ptr->creature_idx, TRUE, 0L))
+				if (multiply_creature(&creature_list[c_ptr->creature_idx], TRUE, 0L))
 				{
 #ifdef JP
 					note = "‚ª•ª—ô‚µ‚½I";

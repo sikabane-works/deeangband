@@ -285,14 +285,10 @@ bool magic_barrier(creature_type *cast_ptr, creature_type *tar_ptr)
 	return TRUE;
 }
 
-
-bool multiply_barrier(creature_type *cr_ptr, int m_idx)
+bool multiply_barrier(creature_type *creature_ptr, creature_type *target_ptr)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
-
-	if (!hex_spelling(cr_ptr, HEX_ANTI_MULTI)) return FALSE;
-	if ((cr_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if (!hex_spelling(creature_ptr, HEX_ANTI_MULTI)) return FALSE;
+	if (creature_ptr->lev < randint1(target_ptr->lev)) return FALSE;
 
 	return TRUE;
 }

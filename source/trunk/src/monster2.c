@@ -5001,24 +5001,23 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
  *
  * Note that "reproduction" REQUIRES empty space.
  */
-bool multiply_creature(int m_idx, bool clone, u32b mode)
+bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 {
-	creature_type  *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = &floor_list[m_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	int y, x;
 
-	if (!creature_scatter(m_ptr->species_idx, &y, &x, floor_ptr, m_ptr->fy, m_ptr->fx, 1))
+	if (!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
 		return FALSE;
 
-	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
+	if (creature_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new creature (awake, no groups) */
-	if (!place_creature_species(&creature_list[m_idx], floor_ptr, y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
-	if (clone || (m_ptr->smart & SM_CLONED))
+	if (clone || (creature_ptr->smart & SM_CLONED))
 	{
 		creature_list[hack_m_idx_ii].smart |= SM_CLONED;
 		creature_list[hack_m_idx_ii].mflag2 |= MFLAG2_NOPET;

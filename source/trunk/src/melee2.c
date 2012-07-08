@@ -1330,6 +1330,52 @@ static void creature_food_digest(creature_type *creature_ptr)
 	}
 }
 
+static void do_multiply_creature(creature_type *creature_ptr)
+{
+	// Attempt to "multiply" if able and allowed
+	if (has_cf_creature(creature_ptr, CF_MULTIPLY))
+	{
+		floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+		int k, y, x;
+		int oy = creature_ptr->fy;
+		int ox = creature_ptr->fx;
+
+		if(floor_ptr->num_repro < MAX_REPRO) return;
+
+		/* Count the adjacent creatures */
+		for (k = 0, y = oy - 1; y <= oy + 1; y++)
+		{
+			for (x = ox - 1; x <= ox + 1; x++)
+			{
+				/* Ignore locations off of edge */
+				if (!in_bounds2(floor_ptr, y, x)) continue;
+
+				if (floor_ptr->cave[y][x].creature_idx) k++;
+			}
+		}
+
+		/* Hex */
+		if (multiply_barrier(player_ptr, creature_ptr)) k = 8;
+
+		/* Hack -- multiply slower in crowded areas */
+		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
+		{
+			// Try to multiply
+			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0)))
+			{
+				/* Take note if visible */
+				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
+				{
+					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
+				}
+
+				/* Multiplying takes energy */
+				return;
+			}
+		}
+	}
+}
+
 static void do_scatting_creature(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
@@ -1606,7 +1652,7 @@ static void process_nonplayer(int m_idx)
 
 			// Dump a message
 #ifdef JP
-			msg_format("%^sが目を覚ました。", creature_name);
+			msg_format("%^sは目を覚ました。", creature_name);
 #else
 			msg_format("%^s wakes up.", creature_name);
 #endif
@@ -1655,48 +1701,11 @@ static void process_nonplayer(int m_idx)
 		set_hostile(player_ptr, creature_ptr);
 	}
 
-	/* Get the origin */
+	// Get the origin
 	oy = creature_ptr->fy;
 	ox = creature_ptr->fx;
 
-	/* Attempt to "multiply" if able and allowed */
-	if (has_cf_creature(creature_ptr, CF_MULTIPLY) && (floor_ptr->num_repro < MAX_REPRO))
-	{
-		int k, y, x;
-
-		/* Count the adjacent creatures */
-		for (k = 0, y = oy - 1; y <= oy + 1; y++)
-		{
-			for (x = ox - 1; x <= ox + 1; x++)
-			{
-				/* Ignore locations off of edge */
-				if (!in_bounds2(floor_ptr, y, x)) continue;
-
-				if (floor_ptr->cave[y][x].creature_idx) k++;
-			}
-		}
-
-		/* Hex */
-		if (multiply_barrier(player_ptr, m_idx)) k = 8;
-
-		/* Hack -- multiply slower in crowded areas */
-		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
-		{
-			/* Try to multiply */
-			if (multiply_creature(m_idx, FALSE, (is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0)))
-			{
-				/* Take note if visible */
-				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
-				{
-					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
-				}
-
-				/* Multiplying takes energy */
-				return;
-			}
-		}
-	}
-
+	do_multiply_creature(creature_ptr);
 	do_scatting_creature(creature_ptr);
 
 	if (!gamble_arena_mode)
@@ -2575,8 +2584,8 @@ static void process_creature(int i)
 
 	// Access the creature
 	creature_type *creature_ptr = &creature_list[i];
-	species_type *species_ptr  = &species_info[creature_ptr->species_idx];
-	floor_type   *floor_ptr    = get_floor_ptr(creature_ptr);
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 
 	// Ignore dead or out of floot creatures
 	if (!is_in_this_floor(creature_ptr)) return;
@@ -2736,12 +2745,9 @@ void process_creatures(void)
 		old_r_cast_spell = species_ptr->r_cast_spell;
 	}
 
-
 	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		if (subject_change_floor) break; // Handle "leaving"
-
 		process_creature(i);
 
 		if (!playing || gameover) break; // Hack -- notice death or departure
