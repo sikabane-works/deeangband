@@ -2567,9 +2567,65 @@ static void process_nonplayer(int m_idx)
 }
 
 
-static void process_creature(creature_type *creature_ptr, int i)
+static void process_creature(int i)
 {
 	int speed;
+	bool test;
+	int fx, fy;
+
+	// Access the creature
+	creature_type *creature_ptr = &creature_list[i];
+	species_type *species_ptr  = &species_info[creature_ptr->species_idx];
+	floor_type   *floor_ptr    = get_floor_ptr(creature_ptr);
+
+	// Ignore dead or out of floot creatures
+	if (!is_in_this_floor(creature_ptr)) return;
+	if (!is_player(creature_ptr) && wild_mode) return;
+
+	// Handle "fresh" creatures
+	if (creature_ptr->mflag & MFLAG_BORN)
+	{
+		creature_ptr->mflag &= ~(MFLAG_BORN);
+		return;
+	}
+
+	if (creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
+
+	// Access the location
+	fx = creature_ptr->fx;
+	fy = creature_ptr->fy;
+
+	// Flow by smell is allowed
+	if (!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+
+	test = FALSE; // Assume no move
+
+	// Handle "sensing radius"
+	if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
+		test = TRUE;
+
+	// Handle "sight" and "aggravation"
+	else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
+		test = TRUE;
+
+#if 0 
+	/* (floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) is always FALSE... */
+	/* Hack -- Creatures can "smell" the player from far away */
+	/* Note that most creatures have "aaf" of "20" or so */
+	else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
+		cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
+		(floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) &&
+		(floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
+		(floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
+	{
+		test = TRUE; // We can "smell" the player
+	}
+#endif
+
+	else if (creature_ptr->target_y) test = TRUE;
+
+	// Do nothing
+	if (!test) return;
 
 	speed = creature_ptr->speed;
 
@@ -2588,6 +2644,9 @@ static void process_creature(creature_type *creature_ptr, int i)
 	}
 
 	reset_target(creature_ptr);
+
+	// Give up flow_by_smell when it might useless
+	if (player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 	return;
 }
@@ -2628,14 +2687,7 @@ static void process_creature(creature_type *creature_ptr, int i)
 void process_creatures(void)
 {
 	int             i;
-	int             fx, fy;
-
-	bool            test;
-
-	creature_type   *creature_ptr;
 	species_type    *species_ptr;
-	floor_type      *floor_ptr;
-
 	int             old_species_window_idx;
 
 	u32b    old_r_flags1 = 0L;
@@ -2688,67 +2740,9 @@ void process_creatures(void)
 	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		// Access the creature
-		creature_ptr = &creature_list[i];
-		species_ptr  = &species_info[creature_ptr->species_idx];
-		floor_ptr    = get_floor_ptr(creature_ptr);
+		if (subject_change_floor) break; // Handle "leaving"
 
-		// Handle "leaving"
-		if (subject_change_floor) break;
-
-		// Ignore dead or out of floot creatures
-		if (!is_in_this_floor(creature_ptr)) continue;
-		if (!is_player(creature_ptr) && wild_mode) continue;
-
-		// Handle "fresh" creatures
-		if (creature_ptr->mflag & MFLAG_BORN)
-		{
-			creature_ptr->mflag &= ~(MFLAG_BORN);
-			continue;
-		}
-
-		if (creature_ptr->cdis >= AAF_LIMIT) continue; // Hack -- Require proximity
-
-		// Access the location
-		fx = creature_ptr->fx;
-		fy = creature_ptr->fy;
-
-		// Flow by smell is allowed
-		if (!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
-
-		test = FALSE; // Assume no move
-
-		// Handle "sensing radius"
-		if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
-			test = TRUE;
-
-		// Handle "sight" and "aggravation"
-		else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
-			test = TRUE;
-
-#if 0 
-		/* (floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) is always FALSE... */
-		/* Hack -- Creatures can "smell" the player from far away */
-		/* Note that most creatures have "aaf" of "20" or so */
-		else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
-			cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
-			(floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) &&
-			(floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
-			(floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
-		{
-			test = TRUE; // We can "smell" the player
-		}
-#endif
-
-		else if (creature_ptr->target_y) test = TRUE;
-
-		// Do nothing
-		if (!test) continue;
-
-		process_creature(creature_ptr, i);
-
-		// Give up flow_by_smell when it might useless
-		if (player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
+		process_creature(i);
 
 		if (!playing || gameover) break; // Hack -- notice death or departure
 		if (subject_change_floor) break; // Notice leaving
