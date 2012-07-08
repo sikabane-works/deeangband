@@ -5371,86 +5371,8 @@ static void pack_overflow(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Process the player
- *
- * Notice the annoying code to handle "pack overflow", which
- * must come first just in case somebody manages to corrupt
- * the savefiles by clever use of menu commands or something.
- */
-void process_player(creature_type *creature_ptr)
+void do_creature_riding_control(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	int i;
-
-	/*** Apply energy ***/
-
-	if (!command_rep) prt_time(creature_ptr);
-
-	/*** Check for interupts ***/
-
-	/* Complete resting */
-	if (resting < 0)
-	{
-		/* Basic resting */
-		if (resting == -1)
-		{
-			/* Stop resting */
-			if ((creature_ptr->chp == creature_ptr->mhp) &&
-			    (creature_ptr->csp >= creature_ptr->msp))
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-		}
-
-		/* Complete resting */
-		else if (resting == -2)
-		{
-			/* Stop resting */
-			if ((creature_ptr->chp == creature_ptr->mhp) &&
-			    (creature_ptr->csp >= creature_ptr->msp) &&
-			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
-			    !creature_ptr->poisoned && !creature_ptr->afraid &&
-			    !creature_ptr->stun && !creature_ptr->cut &&
-			    !creature_ptr->slow && !creature_ptr->paralyzed &&
-			    !creature_ptr->image && !creature_ptr->word_recall &&
-			    !creature_ptr->alter_reality)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-		}
-	}
-
-	/* Handle "abort" */
-	if (check_abort)
-	{
-		/* Check for "player abort" (semi-efficiently for resting) */
-		if (running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
-		{
-			/* Do not wait */
-			inkey_scan = TRUE;
-
-			/* Check for a key */
-			if (inkey())
-			{
-				/* Flush input */
-				flush();
-
-				/* Disturb */
-				disturb(player_ptr, 0, 0);
-
-				/* Hack -- Show a Message */
-#ifdef JP
-msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
-#else
-				msg_print("Canceled.");
-#endif
-
-			}
-		}
-	}
-
 	if (creature_ptr->riding && !creature_ptr->confused && !IS_BLIND(creature_ptr))
 	{
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
@@ -5534,6 +5456,87 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
+	}
+}
+
+
+/*
+ * Process the player
+ *
+ * Notice the annoying code to handle "pack overflow", which
+ * must come first just in case somebody manages to corrupt
+ * the savefiles by clever use of menu commands or something.
+ */
+void process_player(creature_type *creature_ptr)
+{
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	int i;
+
+	/*** Apply energy ***/
+
+	if (!command_rep) prt_time(creature_ptr);
+
+	/*** Check for interupts ***/
+
+	/* Complete resting */
+	if (resting < 0)
+	{
+		/* Basic resting */
+		if (resting == -1)
+		{
+			/* Stop resting */
+			if ((creature_ptr->chp == creature_ptr->mhp) &&
+			    (creature_ptr->csp >= creature_ptr->msp))
+			{
+				set_action(creature_ptr, ACTION_NONE);
+			}
+		}
+
+		/* Complete resting */
+		else if (resting == -2)
+		{
+			/* Stop resting */
+			if ((creature_ptr->chp == creature_ptr->mhp) &&
+			    (creature_ptr->csp >= creature_ptr->msp) &&
+			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
+			    !creature_ptr->poisoned && !creature_ptr->afraid &&
+			    !creature_ptr->stun && !creature_ptr->cut &&
+			    !creature_ptr->slow && !creature_ptr->paralyzed &&
+			    !creature_ptr->image && !creature_ptr->word_recall &&
+			    !creature_ptr->alter_reality)
+			{
+				set_action(creature_ptr, ACTION_NONE);
+			}
+		}
+	}
+
+	/* Handle "abort" */
+	if (check_abort)
+	{
+		/* Check for "player abort" (semi-efficiently for resting) */
+		if (running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
+		{
+			/* Do not wait */
+			inkey_scan = TRUE;
+
+			/* Check for a key */
+			if (inkey())
+			{
+				/* Flush input */
+				flush();
+
+				/* Disturb */
+				disturb(player_ptr, 0, 0);
+
+				/* Hack -- Show a Message */
+#ifdef JP
+msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
+#else
+				msg_print("Canceled.");
+#endif
+
+			}
+		}
 	}
 
 	/* Handle the player song */
