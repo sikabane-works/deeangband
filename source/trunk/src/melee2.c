@@ -1705,9 +1705,6 @@ static void process_nonplayer(int m_idx)
 	oy = creature_ptr->fy;
 	ox = creature_ptr->fx;
 
-	do_multiply_creature(creature_ptr);
-	do_scatting_creature(creature_ptr);
-
 	if (!gamble_arena_mode)
 	{
 		/* Hack! "Cyber" creature makes noise... */
@@ -2644,6 +2641,9 @@ static void process_creature(int i)
 	if (creature_ptr->energy_need > 0) return; // Not enough energy to move
 
 	hack_m_idx = i; // Save global index
+
+	do_multiply_creature(creature_ptr);
+	do_scatting_creature(creature_ptr);
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else 
