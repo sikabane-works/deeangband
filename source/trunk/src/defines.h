@@ -3549,78 +3549,85 @@ enum AUTHORITY_TYPE
  * New creature blow methods
  */
 
-#define RBM_NONE         0
-#define RBM_HIT          1
-#define RBM_TOUCH        2
-#define RBM_PUNCH        3
-#define RBM_KICK         4
+enum RBM_TYPE
+{
+	RBM_NONE,
+	RBM_HIT,
+	RBM_TOUCH,
+	RBM_PUNCH,
+	RBM_KICK,
 
-#define RBM_CLAW         5
-#define RBM_BITE         6
-#define RBM_STING        7
-#define RBM_SLASH        8
-#define RBM_BUTT         9
+	RBM_CLAW,
+	RBM_BITE,
+	RBM_STING,
+	RBM_SLASH,
+	RBM_BUTT,
 
-#define RBM_CRUSH       10
-#define RBM_CHARGE      11
-#define RBM_CRAWL       12
-#define RBM_DROOL       13
-#define RBM_SPIT        14
+	RBM_CRUSH,
+	RBM_CHARGE,
+	RBM_CRAWL,
+	RBM_DROOL,
+	RBM_SPIT,
 
-#define RBM_XXX4        15
-#define RBM_BEG         16
-#define RBM_INSULT      17
-#define RBM_MOAN        18
-#define RBM_SHOW        19
+	RBM_XXX4,
+	RBM_BEG,
+	RBM_INSULT,
+	RBM_MOAN,
+	RBM_SHOW,
 
-#define RBM_SHOOT       20
+	RBM_SHOOT,
+	RBM_NONDEX_ATTACK,
 
-#define RBM_NONDEX_ATTACK 21
+	RBM_ENGULF,
+	RBM_EXPLODE,
+	RBM_GAZE,
+	RBM_WAIL,
+	RBM_SPORE,
 
-#define RBM_ENGULF      21
-#define RBM_EXPLODE     22
-#define RBM_GAZE        23
-#define RBM_WAIL        24
-#define RBM_SPORE       25
-
-#define MAX_RBM         26
+	MAX_RBM,
+};
 
 /*
  * New creature blow effects
  */
-#define RBE_HURT         1
-#define RBE_POISON       2
-#define RBE_UN_BONUS     3
-#define RBE_UN_POWER     4
-#define RBE_EAT_GOLD     5
-#define RBE_EAT_ITEM     6
-#define RBE_EAT_FOOD     7
-#define RBE_EAT_LITE     8
-#define RBE_ACID         9
-#define RBE_ELEC        10
-#define RBE_FIRE        11
-#define RBE_COLD        12
-#define RBE_BLIND       13
-#define RBE_CONFUSE     14
-#define RBE_TERRIFY     15
-#define RBE_PARALYZE    16
-#define RBE_LOSE_STR    17
-#define RBE_LOSE_INT    18
-#define RBE_LOSE_WIS    19
-#define RBE_LOSE_DEX    20
-#define RBE_LOSE_CON    21
-#define RBE_LOSE_CHR    22
-#define RBE_LOSE_ALL    23
-#define RBE_SHATTER     24
-#define RBE_EXP_10      25
-#define RBE_EXP_20      26
-#define RBE_EXP_40      27
-#define RBE_EXP_80      28
-#define RBE_DISEASE     29
-#define RBE_TIME        30
-#define RBE_EXP_VAMP    31
-#define RBE_DR_MANA     32
-#define RBE_SUPERHURT   33
+enum RBE_TYPE
+{
+	RBE_NONE,
+	RBE_HURT,
+	RBE_POISON,
+	RBE_UN_BONUS,
+	RBE_UN_POWER,
+	RBE_EAT_GOLD,
+	RBE_EAT_ITEM,
+	RBE_EAT_FOOD,
+	RBE_EAT_LITE,
+	RBE_ACID,
+	RBE_ELEC,
+	RBE_FIRE,
+	RBE_COLD,
+	RBE_BLIND,
+	RBE_CONFUSE,
+	RBE_TERRIFY,
+	RBE_PARALYZE,
+	RBE_LOSE_STR,
+	RBE_LOSE_INT,
+	RBE_LOSE_WIS,
+	RBE_LOSE_DEX,
+	RBE_LOSE_CON,
+	RBE_LOSE_CHR,
+	RBE_LOSE_ALL,
+	RBE_SHATTER,
+	RBE_EXP_10,
+	RBE_EXP_20,
+	RBE_EXP_40,
+	RBE_EXP_80,
+	RBE_DISEASE,
+	RBE_TIME,
+	RBE_EXP_VAMP,
+	RBE_DR_MANA,
+	RBE_SUPERHURT,
+};
+
 
 /*** Creature flag values (hard-coded) ***/
 
@@ -4048,78 +4055,79 @@ extern int PlayerUID;
 
 enum SOUND
 {
-  SOUND_HIT,
-  SOUND_MISS,
-  SOUND_FLEE,
-  SOUND_DROP,
-  SOUND_KILL,
-  SOUND_LEVEL,
-  SOUND_DEATH,
-  SOUND_STUDY,
-  SOUND_TELEPORT,
-  SOUND_SHOOT,
-  SOUND_QUAFF,
-  SOUND_ZAP,
-  SOUND_WALK,
-  SOUND_TPOTHER,
-  SOUND_HITWALL,
-  SOUND_EAT,
-  SOUND_STORE1,
-  SOUND_STORE2,
-  SOUND_STORE3,
-  SOUND_STORE4,
-  SOUND_DIG,
-  SOUND_OPENDOOR,
-  SOUND_SHUTDOOR,
-  SOUND_TPLEVEL,
-  SOUND_SCROLL,
-  SOUND_BUY,
-  SOUND_SELL,
-  SOUND_WARN,
-  SOUND_ROCKET,		  
-  SOUND_N_KILL,		  
-  SOUND_U_KILL,		  
-  SOUND_QUEST,		  
-  SOUND_HEAL,		  
-  SOUND_X_HEAL,		  
-  SOUND_BITE,		  
-  SOUND_CLAW,		  
-  SOUND_M_SPELL,  
-  SOUND_SUMMON,	  
-  SOUND_BREATH,	  
-  SOUND_BALL,	  
-  SOUND_M_HEAL,	  
-  SOUND_ATK_SPELL,	  
-  SOUND_EVIL,		  
-  SOUND_TOUCH,		  
-  SOUND_STING,		  
-  SOUND_CRUSH,		  
-  SOUND_SLIME,		  
-  SOUND_WAIL,		  
-  SOUND_WINNER,		  
-  SOUND_FIRE,		  
-  SOUND_ACID,		  
-  SOUND_ELEC,		  
-  SOUND_COLD,		  
-  SOUND_ILLEGAL,	  
-  SOUND_FAIL,		  
-  SOUND_WAKEUP,		  
-  SOUND_INVULN,		  
-  SOUND_FALL,		  
-  SOUND_PAIN,		  
-  SOUND_DESTITEM,	  
-  SOUND_MOAN,		  
-  SOUND_SHOW,		  
-  SOUND_UNUSED,		  
-  SOUND_EXPLODE,	  
-  SOUND_GLASS,		  
+	SOUND_NONE,
+	SOUND_HIT,
+	SOUND_MISS,
+	SOUND_FLEE,
+	SOUND_DROP,
+	SOUND_KILL,
+	SOUND_LEVEL,
+	SOUND_DEATH,
+	SOUND_STUDY,
+	SOUND_TELEPORT,
+	SOUND_SHOOT,
+	SOUND_QUAFF,
+	SOUND_ZAP,
+	SOUND_WALK,
+	SOUND_TPOTHER,
+	SOUND_HITWALL,
+	SOUND_EAT,
+	SOUND_STORE1,
+	SOUND_STORE2,
+	SOUND_STORE3,
+	SOUND_STORE4,
+	SOUND_DIG,
+	SOUND_OPENDOOR,
+	SOUND_SHUTDOOR,
+	SOUND_TPLEVEL,
+	SOUND_SCROLL,
+	SOUND_BUY,
+	SOUND_SELL,
+	SOUND_WARN,
+	SOUND_ROCKET,
+	SOUND_N_KILL,
+	SOUND_U_KILL,
+	SOUND_QUEST,
+	SOUND_HEAL,
+	SOUND_X_HEAL,
+	SOUND_BITE,
+	SOUND_CLAW,
+	SOUND_M_SPELL,
+	SOUND_SUMMON,
+	SOUND_BREATH,
+	SOUND_BALL,
+	SOUND_M_HEAL,
+	SOUND_ATK_SPELL,
+	SOUND_EVIL,
+	SOUND_TOUCH,
+	SOUND_STING,
+	SOUND_CRUSH,
+	SOUND_SLIME,
+	SOUND_WAIL,
+	SOUND_WINNER,
+	SOUND_FIRE,
+	SOUND_ACID,
+	SOUND_ELEC,
+	SOUND_COLD,
+	SOUND_ILLEGAL,
+	SOUND_FAIL,
+	SOUND_WAKEUP,
+	SOUND_INVULN,
+	SOUND_FALL,
+	SOUND_PAIN,
+	SOUND_DESTITEM,
+	SOUND_MOAN,
+	SOUND_SHOW,
+	SOUND_UNUSED,
+	SOUND_EXPLODE,
+	SOUND_GLASS,
+	SOUND_MAX
 };
 
 
 /*
  * Mega-Hack -- maximum known sounds
  */
-#define SOUND_MAX 66
 
 #define KARMA_CALC_PLUS 0
 

@@ -2436,7 +2436,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Apply appropriate damage */
 		switch (effect)
 		{
-		case 0:
+		case RBE_NONE:
 			{
 				/* Hack -- Assume obvious */
 				obvious = TRUE;
@@ -2465,6 +2465,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					break;
 				}
 			}
+
 		case RBE_HURT:
 			{
 				/* Obvious */
