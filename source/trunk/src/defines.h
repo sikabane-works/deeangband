@@ -775,98 +775,101 @@ enum MELEE_TYPE
 #define MAX_SEXES	4
 #define MAX_HALF_RACE_DESCRIPTION 15
 
-#define RACE_HUMAN              0
-#define RACE_ELF                1
-#define RACE_DWARF              2
-#define RACE_HOBBIT             3
-#define RACE_GNOME              4
-#define RACE_BARBARIAN          5
-#define RACE_DUNADAN            6
-#define RACE_MELNIBONE          7
-#define RACE_AMBERITE           8
-#define RACE_CHAOSIAN           9
-#define RACE_DARK_ELF          10
-#define RACE_ELDAR             11
-#define RACE_AVARI             12
-#define RACE_KOBOLD            13
-#define RACE_NIBELUNG          14
-#define RACE_SPRITE            15
-#define RACE_S_FAIRY           16
-#define RACE_WAREFOLK          17
-#define RACE_SKAVEN            18
-#define RACE_LIZARDMAN         19
-#define RACE_BEASTMAN          20
-#define RACE_MINOTAUR          21
-#define RACE_NAGA              22
-#define RACE_MARFOLK           23
-#define RACE_CENTAUR           24
-#define RACE_ENT               25
-#define RACE_ORC               26
-#define RACE_URUK              27
-#define RACE_TROLL             28
-#define RACE_OLOG              29
-#define RACE_OGRE              30
-#define RACE_GIANT             31
-#define RACE_CYCLOPS           32
-#define RACE_TITAN             33
-#define RACE_YEEK              34
-#define RACE_KLACKON           35
-#define RACE_MIND_FLAYER       36
-#define RACE_DRACONIAN         37
-#define RACE_SAIYAN            38
-#define RACE_KUTAR             39
-#define RACE_JURAL             40
-#define RACE_EWOK              41
-#define RACE_ANGEL             42
-#define RACE_IMP               43
-#define RACE_DEMON             44
-#define RACE_MAIAR             45
-#define RACE_DEEP_ONE          46
-#define RACE_ELDER_ONE         47
-#define RACE_MI_GO             48
-#define RACE_FLYING_POLYP      49
-#define RACE_SHOGGOTH          50
-#define RACE_YITH              51
+enum RACE_TYPE
+{
+	RACE_HUMAN,
+	RACE_ELF,
+	RACE_DWARF,
+	RACE_HOBBIT,
+	RACE_GNOME,
+	RACE_BARBARIAN,
+	RACE_DUNADAN,
+	RACE_MELNIBONE,
+	RACE_AMBERITE,
+	RACE_CHAOSIAN,
+	RACE_DARK_ELF,
+	RACE_ELDAR,
+	RACE_AVARI,
+	RACE_KOBOLD,
+	RACE_NIBELUNG,
+	RACE_SPRITE,
+	RACE_S_FAIRY,
+	RACE_WAREFOLK,
+	RACE_SKAVEN,
+	RACE_LIZARDMAN,
+	RACE_BEASTMAN,
+	RACE_MINOTAUR,
+	RACE_NAGA,
+	RACE_MARFOLK,
+	RACE_CENTAUR,
+	RACE_ENT,
+	RACE_ORC,
+	RACE_URUK,
+	RACE_TROLL,
+	RACE_OLOG,
+	RACE_OGRE,
+	RACE_GIANT,
+	RACE_CYCLOPS,
+	RACE_TITAN,
+	RACE_YEEK,
+	RACE_KLACKON,
+	RACE_MIND_FLAYER,
+	RACE_DRACONIAN,
+	RACE_SAIYAN,
+	RACE_KUTAR,
+	RACE_JURAL,
+	RACE_EWOK,
+	RACE_ANGEL,
+	RACE_IMP,
+	RACE_DEMON,
+	RACE_MAIAR,
+	RACE_DEEP_ONE,
+	RACE_ELDER_ONE,
+	RACE_MI_GO,
+	RACE_FLYING_POLYP,
+	RACE_SHOGGOTH,
+	RACE_YITH,
 
-#define RACE_ISTARI            52
-#define RACE_BALROG            53
-#define RACE_DRAGON            54
-#define RACE_GIANT_APE         55
-#define RACE_SUPER_SAIYAN      56
+	RACE_ISTARI,
+	RACE_BALROG,
+	RACE_DRAGON,
+	RACE_GIANT_APE,
+	RACE_SUPER_SAIYAN,
 
-#define RACE_HORSE             57
-#define RACE_ANT               58
-#define RACE_BAT               59
-#define RACE_CENTIPETE         60
+	RACE_HORSE,
+	RACE_ANT,
+	RACE_BAT,
+	RACE_CENTIPETE,
 
-#define RACE_FLOATING_EYE      61
-#define RACE_FELINE            62
-#define RACE_ICKY              63
-#define RACE_JELLY             64
-#define RACE_AQUARIC_MONSTER   65
-#define RACE_MOLD              66
-#define RACE_QUADRUPED         67
-#define RACE_RODENT            68
-#define RACE_VORTEX            69
-#define RACE_WORM              70
-#define RACE_MIMIC             71
-#define RACE_BIRD              72
-#define RACE_CANINE            73
-#define RACE_ELEMENTAL         74
-#define RACE_INSECT            75
-#define RACE_SNAKE             76
-#define RACE_SHADOW            77
-#define RACE_QUYLTHLUG         78
-#define RACE_SPIDER            79
-#define RACE_CRUSTACEA         80
-#define RACE_WRAITH            81
-#define RACE_XORN              82
-#define RACE_YETI              83
-#define RACE_ZEPHYR_HOUND      84
-#define RACE_FUNGUS            85
-#define RACE_GREAT_OLD_ONE     86
-#define RACE_REPTILIA          87
-#define RACE_FIEND_LORD        88
+	RACE_FLOATING_EYE,
+	RACE_FELINE,
+	RACE_ICKY,
+	RACE_JELLY,
+	RACE_AQUARIC_MONSTER,
+	RACE_MOLD,
+	RACE_QUADRUPED,
+	RACE_RODENT,
+	RACE_VORTEX,
+	RACE_WORM,
+	RACE_MIMIC,
+	RACE_BIRD,
+	RACE_CANINE,
+	RACE_ELEMENTAL,
+	RACE_INSECT,
+	RACE_SNAKE,
+	RACE_SHADOW,
+	RACE_QUYLTHLUG,
+	RACE_SPIDER,
+	RACE_CRUSTACEA,
+	RACE_WRAITH,
+	RACE_XORN,
+	RACE_YETI,
+	RACE_ZEPHYR_HOUND,
+	RACE_FUNGUS,
+	RACE_GREAT_OLD_ONE,
+	RACE_REPTILIA,
+	RACE_FIEND_LORD,
+};
 
 #define CLASS_NONE               0
 #define CLASS_WARRIOR            1
