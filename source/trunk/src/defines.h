@@ -3476,7 +3476,7 @@ enum OBJECT_TRAIT
 
 #define TRC_CURSED              0x00000001L
 #define TRC_HEAVY_CURSE         0x00000002L
-#define TRC_DIVINE_CURSE         0x00000004L
+#define TRC_DIVINE_CURSE        0x00000004L
 #define TRC_XXX1                0x00000008L
 #define TRC_TY_CURSE            0x00000010L
 #define TRC_AGGRAVATE           0x00000020L
@@ -4376,7 +4376,6 @@ enum SKILL_LIST
 #define SPELL_EXP_MASTER      1600
 
 #define NO_TOWN 255
-#define SECRET_TOWN 5
 
 #define NIKKI_HIGAWARI     0
 #define NIKKI_BUNSHOU      1

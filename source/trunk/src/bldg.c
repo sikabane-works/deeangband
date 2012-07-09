@@ -4252,7 +4252,7 @@ bool tele_town(creature_type *creature_ptr)
 	{
 		char buf[80];
 
-		if ((i == NO_TOWN) || (i == SECRET_TOWN) || (i == town_num) || !(creature_ptr->visit & (1L << (i-1)))) continue;
+		if ((i == NO_TOWN) || (i == town_num) || !(creature_ptr->visit & (1L << (i-1)))) continue;
 
 		sprintf(buf,"%c) %-20s", I2A(i-1), town[i].name);
 		prt(buf, 5+i, 5);
@@ -4287,7 +4287,7 @@ bool tele_town(creature_type *creature_ptr)
 			return FALSE;
 		}
 		else if ((i < 'a') || (i > ('a'+max_towns-2))) continue;
-		else if (((i-'a'+1) == town_num) || ((i-'a'+1) == NO_TOWN) || ((i-'a'+1) == SECRET_TOWN) || !(creature_ptr->visit & (1L << (i-'a')))) continue;
+		else if (((i-'a'+1) == town_num) || ((i-'a'+1) == NO_TOWN) || !(creature_ptr->visit & (1L << (i-'a')))) continue;
 		break;
 	}
 
