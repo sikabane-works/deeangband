@@ -232,7 +232,7 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 
 	switch (cmd)
 	{
-		case BACT_ARENA:
+		case BUILDING_FUNCTION_ARENA:
 			if (arena_number == MAX_ARENA_MONS)
 			{
 				clear_bldg(5, 19);
@@ -328,7 +328,7 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 			}
 			break;
 
-		case BACT_POSTER:
+		case BUILDING_FUNCTION_POSTER:
 			if (arena_number == MAX_ARENA_MONS)
 #ifdef JP
 				msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
@@ -356,7 +356,7 @@ static void arena_comm(creature_type *cr_ptr, int cmd)
 			}
 			break;
 
-		case BACT_ARENA_RULES:
+		case BUILDING_FUNCTION_ARENA_RULES:
 			screen_save(); // Save screen
 			// Peruse the arena help file
 #ifdef JP
@@ -1221,7 +1221,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 
 	screen_save();
 
-	if (cmd == BACT_GAMBLE_RULES)
+	if (cmd == BUILDING_FUNCTION_GAMBLE_RULES)
 	{
 		// Peruse the gambling help file
 #ifdef JP
@@ -1342,7 +1342,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 				cr_ptr->au -= wager;
 				switch (cmd)
 				{
-				 case BACT_IN_BETWEEN: /* Game of In-Between */
+				 case BUILDING_FUNCTION_IN_BETWEEN: /* Game of In-Between */
 #ifdef JP
 					c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
 #else
@@ -1372,7 +1372,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 						((choice < roll1) && (choice > roll2)))
 						win = TRUE;
 					break;
-				case BACT_CRAPS:  /* Game of Craps */
+				case BUILDING_FUNCTION_CRAPS:  /* Game of Craps */
 #ifdef JP
 					c_put_str(TERM_GREEN, "クラップス", 5, 2);
 #else
@@ -1426,7 +1426,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 						} while ((win != TRUE) && (win != FALSE));
 					break;
 
-				case BACT_SPIN_WHEEL:  /* Spin the Wheel Game */
+				case BUILDING_FUNCTION_SPIN_WHEEL:  /* Spin the Wheel Game */
 					win = FALSE;
 					odds = 9;
 #ifdef JP
@@ -1482,7 +1482,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 						win = TRUE;
 					break;
 
-				case BACT_DICE_SLOTS: /* The Dice Slots */
+				case BUILDING_FUNCTION_DICE_SLOTS: /* The Dice Slots */
 #ifdef JP
 					c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
 					c_put_str(TERM_YELLOW, "レモン   レモン            2", 6, 37);
@@ -1557,7 +1557,7 @@ static bool gamble_comm(creature_type *cr_ptr, int cmd)
 						odds = 2;
 					}
 					break;
-				case BACT_POKER:
+				case BUILDING_FUNCTION_POKER:
 					win = FALSE;
 					odds = do_poker();
 					if (odds) win = TRUE;
@@ -2746,7 +2746,7 @@ static bool inn_comm(creature_type *cr_ptr, int cmd)
 {
 	switch (cmd)
 	{
-		case BACT_FOOD: /* Buy food & drink */
+		case BUILDING_FUNCTION_FOOD: /* Buy food & drink */
 			if (cr_ptr->food >= PY_FOOD_FULL)
 			{
 #ifdef JP
@@ -2766,7 +2766,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 			break;
 
-		case BACT_REST: /* Rest for the night */
+		case BUILDING_FUNCTION_REST: /* Rest for the night */
 			if ((cr_ptr->poisoned) || (cr_ptr->cut))
 			{
 #ifdef JP
@@ -2880,7 +2880,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			}
 			break;
 
-		case BACT_RUMORS: /* Listen for rumors */
+		case BUILDING_FUNCTION_RUMORS: /* Listen for rumors */
 			{
 				char Rumor[1024];
 
@@ -4639,7 +4639,7 @@ msg_print("それを選択する権利はありません！");
 	}
 
 	/* check gold (HACK - Recharge uses variable costs) */
-	if ((bact != BACT_RECHARGE) &&
+	if ((bact != BUILDING_FUNCTION_RECHARGE) &&
 	    (((bldg->member_costs[i] > cr_ptr->au) && is_owner(cr_ptr, bldg)) ||
 	     ((bldg->other_costs[i] > cr_ptr->au) && !is_owner(cr_ptr, bldg))))
 	{
@@ -4653,73 +4653,73 @@ msg_print("お金が足りません！");
 
 	switch (bact)
 	{
-	case BACT_NOTHING:
+	case BUILDING_FUNCTION_NOTHING:
 		/* Do nothing */
 		break;
-	case BACT_STORE:
+	case BUILDING_FUNCTION_STORE:
 		store_process(cr_ptr, &st_list[bldg->action_misc[i]]);
 		show_building(cr_ptr, bldg);
 		break;
-	case BACT_RESEARCH_ITEM:
+	case BUILDING_FUNCTION_RESEARCH_ITEM:
 		paid = identify_fully(cr_ptr, FALSE);
 		break;
-	case BACT_TOWN_HISTORY:
+	case BUILDING_FUNCTION_TOWN_HISTORY:
 		town_history();
 		break;
-	case BACT_RACE_LEGENDS:
+	case BUILDING_FUNCTION_RACE_LEGENDS:
 		race_legends(cr_ptr);
 		break;
-	case BACT_QUEST:
+	case BUILDING_FUNCTION_QUEST:
 		castle_quest(cr_ptr);
 		break;
-	case BACT_KING_LEGENDS:
-	case BACT_ARENA_LEGENDS:
-	case BACT_LEGENDS:
+	case BUILDING_FUNCTION_KING_LEGENDS:
+	case BUILDING_FUNCTION_ARENA_LEGENDS:
+	case BUILDING_FUNCTION_LEGENDS:
 		show_highclass(cr_ptr);
 		break;
-	case BACT_POSTER:
-	case BACT_ARENA_RULES:
-	case BACT_ARENA:
+	case BUILDING_FUNCTION_POSTER:
+	case BUILDING_FUNCTION_ARENA_RULES:
+	case BUILDING_FUNCTION_ARENA:
 		arena_comm(cr_ptr, bact);
 		break;
-	case BACT_IN_BETWEEN:
-	case BACT_CRAPS:
-	case BACT_SPIN_WHEEL:
-	case BACT_DICE_SLOTS:
-	case BACT_GAMBLE_RULES:
-	case BACT_POKER:
+	case BUILDING_FUNCTION_IN_BETWEEN:
+	case BUILDING_FUNCTION_CRAPS:
+	case BUILDING_FUNCTION_SPIN_WHEEL:
+	case BUILDING_FUNCTION_DICE_SLOTS:
+	case BUILDING_FUNCTION_GAMBLE_RULES:
+	case BUILDING_FUNCTION_POKER:
 		gamble_comm(cr_ptr, bact);
 		break;
-	case BACT_REST:
-	case BACT_RUMORS:
-	case BACT_FOOD:
+	case BUILDING_FUNCTION_REST:
+	case BUILDING_FUNCTION_RUMORS:
+	case BUILDING_FUNCTION_FOOD:
 		paid = inn_comm(cr_ptr, bact);
 		break;
-	case BACT_RESEARCH_MONSTER:
+	case BUILDING_FUNCTION_RESEARCH_MONSTER:
 		paid = research_creature(cr_ptr);
 		break;
-	case BACT_COMPARE_WEAPONS:
+	case BUILDING_FUNCTION_COMPARE_WEAPONS:
 		paid = compare_weapons(cr_ptr);
 		break;
-	case BACT_ENCHANT_WEAPON:
+	case BUILDING_FUNCTION_ENCHANT_WEAPON:
 		//TODO item_tester_hook = object_allow_enchant_melee_weapon;
 		enchant_item(cr_ptr, bcost, 1, 1, 0, 0);
 		break;
-	case BACT_ENCHANT_ARMOR:
+	case BUILDING_FUNCTION_ENCHANT_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
 		enchant_item(cr_ptr, bcost, 0, 0, 1, 0);
 		break;
-	case BACT_RESIZE_ARMOR:
+	case BUILDING_FUNCTION_RESIZE_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
 		//resize_item(cr_ptr);
 		break;
-	case BACT_RECHARGE:
+	case BUILDING_FUNCTION_RECHARGE:
 		building_recharge(cr_ptr);
 		break;
-	case BACT_RECHARGE_ALL:
+	case BUILDING_FUNCTION_RECHARGE_ALL:
 		building_recharge_all(cr_ptr);
 		break;
-	case BACT_IDENTS: /* needs work */
+	case BUILDING_FUNCTION_IDENTS: /* needs work */
 #ifdef JP
 		if (!get_check("持ち物を全て鑑定してよろしいですか？")) break;
 		identify_pack(cr_ptr);
@@ -4732,13 +4732,13 @@ msg_print("お金が足りません！");
 
 		paid = TRUE;
 		break;
-	case BACT_IDENT_ONE: /* needs work */
+	case BUILDING_FUNCTION_IDENT_ONE: /* needs work */
 		paid = ident_spell(cr_ptr, FALSE);
 		break;
-	case BACT_LEARN:
+	case BUILDING_FUNCTION_LEARN:
 		do_cmd_study(cr_ptr);
 		break;
-	case BACT_HEALING: /* needs work */
+	case BUILDING_FUNCTION_HEALING: /* needs work */
 		hp_player(cr_ptr, 200);
 		set_poisoned(cr_ptr, 0);
 		set_blind(cr_ptr, 0);
@@ -4747,7 +4747,7 @@ msg_print("お金が足りません！");
 		set_stun(cr_ptr, 0);
 		paid = TRUE;
 		break;
-	case BACT_RESTORE: /* needs work */
+	case BUILDING_FUNCTION_RESTORE: /* needs work */
 		if (do_res_stat(cr_ptr, STAT_STR)) paid = TRUE;
 		if (do_res_stat(cr_ptr, STAT_INT)) paid = TRUE;
 		if (do_res_stat(cr_ptr, STAT_WIS)) paid = TRUE;
@@ -4755,17 +4755,17 @@ msg_print("お金が足りません！");
 		if (do_res_stat(cr_ptr, STAT_CON)) paid = TRUE;
 		if (do_res_stat(cr_ptr, STAT_CHA)) paid = TRUE;
 		break;
-	case BACT_ENCHANT_ARROWS:
+	case BUILDING_FUNCTION_ENCHANT_ARROWS:
 		//TODO item_tester_hook = item_tester_hook_ammo;
 		enchant_item(cr_ptr, bcost, 1, 1, 0, 0);
 		break;
-	case BACT_ENCHANT_BOW:
+	case BUILDING_FUNCTION_ENCHANT_BOW:
 		enchant_item(cr_ptr, bcost, 1, 1, 0, TV_BOW);
 		break;
-	case BACT_RECALL:
+	case BUILDING_FUNCTION_RECALL:
 		if (recall_player(cr_ptr, 1)) paid = TRUE;
 		break;
-	case BACT_TELEPORT_LEVEL:
+	case BUILDING_FUNCTION_TELEPORT_LEVEL:
 	{
 		int select_dungeon;
 		int max_depth;
@@ -4815,26 +4815,26 @@ msg_print("お金が足りません！");
 		}
 		break;
 	}
-	case BACT_LOSE_MUTATION:
+	case BUILDING_FUNCTION_LOSE_MUTATION:
 		msg_print("(再実装中)");
 		/*TODO :: reimplement*/
 		break;
-	case BACT_BATTLE:
+	case BUILDING_FUNCTION_BATTLE:
 		kakutoujou(cr_ptr);
 		break;
-	case BACT_TSUCHINOKO:
+	case BUILDING_FUNCTION_TSUCHINOKO:
 		tsuchinoko();
 		break;
-	case BACT_KUBI:
+	case BUILDING_FUNCTION_KUBI:
 		shoukinkubi();
 		break;
-	case BACT_TARGET:
+	case BUILDING_FUNCTION_TARGET:
 		today_target(cr_ptr);
 		break;
-	case BACT_KANKIN:
+	case BUILDING_FUNCTION_KANKIN:
 		kankin(cr_ptr);
 		break;
-	case BACT_HEIKOUKA:
+	case BUILDING_FUNCTION_HEIKOUKA:
 #ifdef JP
 		msg_print("平衡化の儀式を行なった。");
 #else
@@ -4843,10 +4843,10 @@ msg_print("お金が足りません！");
 		/*TODO:: Delete feature? */
 		paid = TRUE;
 		break;
-	case BACT_TELE_TOWN:
+	case BUILDING_FUNCTION_TELE_TOWN:
 		paid = tele_town(cr_ptr);
 		break;
-	case BACT_EVAL_AC:
+	case BUILDING_FUNCTION_EVAL_AC:
 		paid = eval_ac(cr_ptr->dis_ac + cr_ptr->dis_to_ac);
 		break;
 	}
