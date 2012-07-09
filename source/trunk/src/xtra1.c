@@ -5709,14 +5709,9 @@ cptr desc_race_name(creature_type *cr_ptr){
 
 	strcat(name, subname);
 
-#if JP
-	if(cr_ptr->sex != SEX_UNDEFINED)
-	{
-		strcat(name, "(");
-		strcat(name, sex_info[cr_ptr->sex].title);
-		strcat(name, ")");
-	}
-#endif
+	strcat(name, "(");
+	strcat(name, sex_info[cr_ptr->sex].title);
+	strcat(name, ")");
 
 	return format("%s", name);
 }

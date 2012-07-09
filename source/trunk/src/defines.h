@@ -724,7 +724,7 @@ enum MELEE_TYPE
 #define SEX_FEMALE              0x01
 #define SEX_MALE                0x02
 #define SEX_INTERSEX            0x03 // (SEX_MALE || SEX_FEMALE)
-#define SEX_UNDEFINED           0xFF
+#define MAX_SEXES	4
 
 #define IS_NOSEX(PTR)          ((PTR)->sex == SEX_NONE)
 #define IS_MALE(PTR)           ((PTR)->sex & SEX_MALE)
@@ -769,7 +769,6 @@ enum MELEE_TYPE
 #define RATE_OF_HALF_RACE       80
 
 // Maximum number of creature setting type
-#define MAX_SEXES	4
 #define MAX_HALF_RACE_DESCRIPTION 15
 
 enum RACE_TYPE
