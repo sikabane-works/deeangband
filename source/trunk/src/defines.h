@@ -2952,18 +2952,19 @@ enum AUTHORITY_TYPE
 #define MAX_KATA 4
 #define KATA_MASK (KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 
-
-#define ACTION_NONE     0
-#define ACTION_SEARCH   1
-#define ACTION_REST     2
-#define ACTION_LEARN    3
-#define ACTION_FISH     4
-#define ACTION_KAMAE    5
-#define ACTION_KATA     6
-#define ACTION_SING     7
-#define ACTION_HAYAGAKE 8
-#define ACTION_SPELL    9
-
+enum CREATURE_ACTION
+{
+	ACTION_NONE,
+	ACTION_SEARCH,
+	ACTION_REST,
+	ACTION_LEARN,
+	ACTION_FISH,
+	ACTION_KAMAE,
+	ACTION_KATA,
+	ACTION_SING,
+	ACTION_HAYAGAKE,
+	ACTION_SPELL
+};
 
 /* Empty hand status */
 #define EMPTY_HAND_NONE 0x0000 /* Both hands are used */
