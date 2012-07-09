@@ -2759,7 +2759,7 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->mane_num = 0;
 
 	/* Reset karmas*/
-	for (i = 0; i < 8; i++) creature_ptr->karmas[i] = 0;
+	for (i = 0; i < MAX_KARMA; i++) creature_ptr->karmas[i] = 0;
 
 	creature_ptr->recall_dungeon = DUNGEON_GALGALS;
 
