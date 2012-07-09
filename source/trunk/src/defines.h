@@ -3300,134 +3300,139 @@ enum SPELL_ATTACK_TYPE
 #define is_pval_flag(INDEX) ((TR_STR <= (INDEX) && (INDEX) <= TR_MAGIC_MASTERY) || (TR_STEALTH <= (INDEX) && (INDEX) <= TR_BLOWS))
 #define have_pval_flags(ARRAY) !!((ARRAY)[0] & (0x00003f7f))
 
+enum OBJECT_TRAIT
+{
+	TR_STR,
+	TR_INT,
+	TR_WIS,
+	TR_DEX,
+	TR_CON,
+	TR_CHR,
+	TR_MAGIC_MASTERY,
+	TR_FORCE_WEAPON,
+	TR_STEALTH,
+	TR_SEARCH,
+	TR_INFRA,
+	TR_TUNNEL,
+	TR_SPEED,
+	TR_BLOWS,
+	TR_CHAOTIC,
+	TR_VAMPIRIC,
+	TR_SLAY_ANIMAL,
+	TR_SLAY_EVIL,
+	TR_SLAY_GOOD,
+	TR_SLAY_UNDEAD,
+	TR_SLAY_DEMON,
+	TR_SLAY_ORC,
+	TR_SLAY_TROLL,
+	TR_SLAY_GIANT,
+	TR_SLAY_DRAGON,
+	TR_KILL_DRAGON,
+	TR_VORPAL,
+	TR_IMPACT,
+	TR_BRAND_POIS,
+	TR_BRAND_ACID,
+	TR_BRAND_ELEC,
+	TR_BRAND_FIRE,
+	TR_BRAND_COLD,
 
-#define TR_STR                 0      /* STR += "pval" */
-#define TR_INT                 1      /* INT += "pval" */
-#define TR_WIS                 2      /* WIS += "pval" */
-#define TR_DEX                 3      /* DEX += "pval" */
-#define TR_CON                 4      /* CON += "pval" */
-#define TR_CHR                 5      /* CHR += "pval" */
-#define TR_MAGIC_MASTERY       6      /* Later */
-#define TR_FORCE_WEAPON        7      /* Later */
-#define TR_STEALTH             8      /* Stealth += "pval" */
-#define TR_SEARCH              9      /* Search += "pval" */
-#define TR_INFRA               10     /* Infra += "pval" */
-#define TR_TUNNEL              11     /* Tunnel += "pval" */
-#define TR_SPEED               12     /* Speed += "pval" */
-#define TR_BLOWS               13     /* Blows += "pval" */
-#define TR_CHAOTIC             14
-#define TR_VAMPIRIC            15
-#define TR_SLAY_ANIMAL         16
-#define TR_SLAY_EVIL           17
-#define TR_SLAY_GOOD           118
-#define TR_SLAY_UNDEAD         18
-#define TR_SLAY_DEMON          19
-#define TR_SLAY_ORC            20
-#define TR_SLAY_TROLL          21
-#define TR_SLAY_GIANT          22
-#define TR_SLAY_DRAGON         23
-#define TR_KILL_DRAGON         24     /* Execute Dragon */
-#define TR_VORPAL              25     /* Later */
-#define TR_IMPACT              26     /* Cause Earthquakes */
-#define TR_BRAND_POIS          27
-#define TR_BRAND_ACID          28
-#define TR_BRAND_ELEC          29
-#define TR_BRAND_FIRE          30
-#define TR_BRAND_COLD          31
+	TR_SUST_STR,
+	TR_SUST_INT,
+	TR_SUST_WIS,
+	TR_SUST_DEX,
+	TR_SUST_CON,
+	TR_SUST_CHR,
+	TR_RIDING,
+	TR_EASY_SPELL,
+	TR_IM_ACID,
+	TR_IM_ELEC,
+	TR_IM_FIRE,
+	TR_IM_COLD,
+	TR_THROW,
+	TR_REFLECT,
+	TR_FREE_ACT,
+	TR_HOLD_LIFE,
+	TR_RES_ACID,
+	TR_RES_ELEC,
+	TR_RES_FIRE,
+	TR_RES_COLD,
+	TR_RES_POIS,
+	TR_RES_FEAR,
+	TR_RES_LITE,
+	TR_RES_DARK,
+	TR_RES_BLIND,
+	TR_RES_CONF,
+	TR_RES_SOUND,
+	TR_RES_SHARDS,
+	TR_RES_NETHER,
+	TR_RES_NEXUS,
+	TR_RES_CHAOS,
+	TR_RES_DISEN,
 
-#define TR_SUST_STR            32
-#define TR_SUST_INT            33
-#define TR_SUST_WIS            34
-#define TR_SUST_DEX            35
-#define TR_SUST_CON            36
-#define TR_SUST_CHR            37
-#define TR_RIDING              38
-#define TR_EASY_SPELL          39
-#define TR_IM_ACID             40
-#define TR_IM_ELEC             41
-#define TR_IM_FIRE             42
-#define TR_IM_COLD             43
-#define TR_THROW               44     /* Later */
-#define TR_REFLECT             45     /* Reflect 'bolts' */
-#define TR_FREE_ACT            46     /* Free Action */
-#define TR_HOLD_LIFE           47     /* Hold Life */
-#define TR_RES_ACID            48
-#define TR_RES_ELEC            49
-#define TR_RES_FIRE            50
-#define TR_RES_COLD            51
-#define TR_RES_POIS            52
-#define TR_RES_FEAR            53     /* Added for Zangband */
-#define TR_RES_LITE            54
-#define TR_RES_DARK            55
-#define TR_RES_BLIND           56
-#define TR_RES_CONF            57
-#define TR_RES_SOUND           58
-#define TR_RES_SHARDS          59
-#define TR_RES_NETHER          60
-#define TR_RES_NEXUS           61
-#define TR_RES_CHAOS           62
-#define TR_RES_DISEN           63
+	TR_SH_FIRE,
+	TR_SH_ELEC,
+	TR_SLAY_HUMAN,
+	TR_SH_COLD,
+	TR_NO_TELE,
+	TR_NO_MAGIC,
+	TR_DEC_MANA,
+	TR_TY_CURSE,
+	TR_WARNING,
+	TR_HIDE_TYPE,
+	TR_SHOW_MODS,
+	TR_XXX2,
+	TR_LEVITATION,
+	TR_LITE,
+	TR_SEE_INVIS,
+	TR_TELEPATHY,
+	TR_SLOW_DIGEST,
+	TR_REGEN,
+	TR_XTRA_MIGHT,
+	TR_XTRA_SHOTS,
+	TR_IGNORE_ACID,
+	TR_IGNORE_ELEC,
+	TR_IGNORE_FIRE,
+	TR_IGNORE_COLD,
+	TR_ACTIVATE,
+	TR_DRAIN_EXP,
+	TR_TELEPORT,
+	TR_AGGRAVATE,
+	TR_BLESSED,
+	TR_ES_ATTACK,
+	TR_ES_AC,
+	TR_XXX1,
 
-#define TR_SH_FIRE             64     /* Immolation (Fire) */
-#define TR_SH_ELEC             65     /* Electric Sheath */
-#define TR_SLAY_HUMAN          66     /* Slay human */
-#define TR_SH_COLD             67     /* cold aura */
-#define TR_NO_TELE             68     /* Anti-teleportation */
-#define TR_NO_MAGIC            69     /* Anti-magic */
-#define TR_DEC_MANA            70     /* ??? */
-#define TR_TY_CURSE            71     /* The Ancient Curse */
-#define TR_WARNING             72     /* Warning */
-#define TR_HIDE_TYPE           73     /* Hide "pval" description */
-#define TR_SHOW_MODS           74     /* Always show Tohit/Todam */
-#define TR_XXX1                75     /* XXX1 */
-#define TR_LEVITATION          76     /* Feather Falling */
-#define TR_LITE                77     /* Permanent Light */
-#define TR_SEE_INVIS           78     /* See Invisible */
-#define TR_TELEPATHY           79     /* Telepathy */
-#define TR_SLOW_DIGEST         80     /* Item slows down digestion */
-#define TR_REGEN               81     /* Item induces regeneration */
-#define TR_XTRA_MIGHT          82     /* Bows get extra multiplier */
-#define TR_XTRA_SHOTS          83     /* Bows get extra shots */
-#define TR_IGNORE_ACID         84     /* Item ignores Acid Damage */
-#define TR_IGNORE_ELEC         85     /* Item ignores Elec Damage */
-#define TR_IGNORE_FIRE         86     /* Item ignores Fire Damage */
-#define TR_IGNORE_COLD         87     /* Item ignores Cold Damage */
-#define TR_ACTIVATE            88     /* Item can be activated */
-#define TR_DRAIN_EXP           89     /* Item drains Experience */
-#define TR_TELEPORT            90     /* Item teleports player */
-#define TR_AGGRAVATE           91     /* Item aggravates creatures */
-#define TR_BLESSED             92     /* Item is Blessed */
-#define TR_ES_ATTACK           93     /* Fake flag for Smith */
-#define TR_ES_AC               94     /* Fake flag for Smith */
-#define TR_XXX5                95
+	TR_KILL_ANIMAL,
+	TR_KILL_EVIL,
+	TR_KILL_GOOD,
+	TR_KILL_UNDEAD,
+	TR_KILL_DEMON,
+	TR_KILL_ORC,
+	TR_KILL_TROLL,
+	TR_KILL_GIANT,
+	TR_KILL_HUMAN,
+	TR_ESP_ANIMAL,
+	TR_ESP_UNDEAD,
+	TR_ESP_DEMON,
+	TR_ESP_ORC,
+	TR_ESP_TROLL,
+	TR_ESP_GIANT,
+	TR_ESP_DRAGON,
+	TR_ESP_HUMAN,
+	TR_ESP_EVIL,
+	TR_ESP_GOOD,
+	TR_ESP_NONLIVING,
+	TR_ESP_UNIQUE,
+	TR_FULL_NAME,
+	TR_FIXED_FLAVOR,
+	TR_NO_LIMIT_LITE,
 
-#define TR_KILL_ANIMAL         96
-#define TR_KILL_EVIL           97
-#define TR_KILL_GOOD           119
-#define TR_KILL_UNDEAD         98
-#define TR_KILL_DEMON          99
-#define TR_KILL_ORC            100
-#define TR_KILL_TROLL          101
-#define TR_KILL_GIANT          102
-#define TR_KILL_HUMAN          103
-#define TR_ESP_ANIMAL          104
-#define TR_ESP_UNDEAD          105
-#define TR_ESP_DEMON           106
-#define TR_ESP_ORC             107
-#define TR_ESP_TROLL           108
-#define TR_ESP_GIANT           109
-#define TR_ESP_DRAGON          110
-#define TR_ESP_HUMAN           111
-#define TR_ESP_EVIL            112
-#define TR_ESP_GOOD            113
-#define TR_ESP_NONLIVING       114
-#define TR_ESP_UNIQUE          115
-#define TR_FULL_NAME           116
-#define TR_FIXED_FLAVOR        117
-#define TR_NO_LIMIT_LITE       120
+	TR_FLAG_MAX,
+	TR_FLAG_SIZE
+};
 
-#define TR_FLAG_MAX            121
-#define TR_FLAG_SIZE           4
+
+#define TR_FLAG_SIZE           (TR_FLAG_MAX / 32) + 1
 
 #define RR_RES_ACID            0
 #define RR_RES_ELEC            1
