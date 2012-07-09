@@ -584,7 +584,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 						char m_name[80];
 
 						creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
-						do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
+						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 					}
 
 					/* Delete the creature, rather than killing it. */

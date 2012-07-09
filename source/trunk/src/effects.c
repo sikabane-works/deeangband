@@ -5692,7 +5692,7 @@ static void you_died(cptr hit_from)
 			msg_format("You are beaten by %s.", tar_name);
 #endif
 			msg_print(NULL);
-			if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - arena_number, tar_name);
+			if (record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, tar_name);
 		}
 		else
 		{
@@ -5727,9 +5727,9 @@ static void you_died(cptr hit_from)
 			if (winning_seppuku)
 			{
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "勝利の後切腹した。");
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "勝利の後切腹した。");
 #else
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "did Seppuku after the winning.");
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
 #endif
 			}
 			else
@@ -5766,15 +5766,15 @@ static void you_died(cptr hit_from)
 	#else
 				sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 	#endif
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
 			}
 	
 	#ifdef JP
-			do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ゲームオーバー --------");
+			do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
 	#else
-			do_cmd_write_nikki(NIKKI_GAMESTART, 1, "--------   Game  Over   --------");
+			do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
 	#endif
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "\n\n\n\n");
+			do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	
 			flush();
 	
@@ -6229,7 +6229,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#else
 				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(Clone)" : "");
 	#endif
-				do_cmd_write_nikki(NIKKI_UNIQUE, 0, note_buf);
+				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}
 	
 			/* Make a sound */
@@ -6468,7 +6468,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#else
 			sprintf(tmp,"A critical situation because of %s.",hit_from);
 	#endif
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
 		}
 	
 		if (auto_more)

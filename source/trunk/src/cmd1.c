@@ -802,7 +802,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 		    (quest[i].status == QUEST_STATUS_TAKEN) &&
 			   (quest[i].k_idx == o_ptr->name1))
 		{
-			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
+			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
 #ifdef JP
@@ -1103,9 +1103,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					do_cmd_save_game(TRUE);
 
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "—Ž‚Æ‚µŒË‚É—Ž‚¿‚½");
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "—Ž‚Æ‚µŒË‚É—Ž‚¿‚½");
 #else
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "You have fallen through a trap door!");
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "You have fallen through a trap door!");
 #endif
 				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
@@ -2074,7 +2074,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 	{
 		if (quest[inside_quest].type == QUEST_TYPE_FIND_EXIT)
 		{
-			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, inside_quest, NULL);
+			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, inside_quest, NULL);
 			quest[inside_quest].status = QUEST_STATUS_COMPLETED;
 			quest[inside_quest].complev = (byte)creature_ptr->lev;
 #ifdef JP

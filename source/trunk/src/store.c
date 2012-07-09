@@ -3870,10 +3870,10 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 				strcpy(record_o_name, o_name);
 				record_turn = turn;
 
-				if (record_buy) do_cmd_write_nikki(NIKKI_BUY, 0, o_name);
+				if (record_buy) do_cmd_write_nikki(DIARY_BUY, 0, o_name);
 				object_desc(o_name, o_ptr, OD_NAME_ONLY);
 				if(record_rand_art && o_ptr->art_name)
-					do_cmd_write_nikki(NIKKI_ART, 0, o_name);
+					do_cmd_write_nikki(DIARY_ART, 0, o_name);
 
 				/* Erase the inscription */
 				j_ptr->inscription = 0;
@@ -4279,7 +4279,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			msg_format("You sold %s for %ld gold.", o_name, (long)price);
 #endif
 
-			if (record_sell) do_cmd_write_nikki(NIKKI_SELL, 0, o_name);
+			if (record_sell) do_cmd_write_nikki(DIARY_SELL, 0, o_name);
 
 			if (!((o_ptr->tval == TV_FIGURINE) && (value > 0)))
 			{

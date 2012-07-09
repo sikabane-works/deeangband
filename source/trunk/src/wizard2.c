@@ -1696,7 +1696,7 @@ static void do_cmd_wiz_jump(creature_type *creature_ptr)
 
 	leave_quest_check(creature_ptr);
 
-	if (record_stair) do_cmd_write_nikki(NIKKI_WIZ_TELE,0,NULL);
+	if (record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
 
 	inside_quest = 0;
 	energy_use = 0;
@@ -1809,7 +1809,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 				char m_name[80];
 
 				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
-				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
+				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 			}
 
 			delete_species_idx(&creature_list[i]);
@@ -1841,7 +1841,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 			char m_name[80];
 
 			creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
-			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 		}
 
 		/* Delete this creature */

@@ -374,11 +374,11 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	if (disable_nikki) return(-1);
 
-	if (type == NIKKI_FIX_QUEST_C ||
-	    type == NIKKI_FIX_QUEST_F ||
-	    type == NIKKI_RAND_QUEST_C ||
-	    type == NIKKI_RAND_QUEST_F ||
-	    type == NIKKI_TO_QUEST)
+	if (type == DIARY_FIX_QUEST_C ||
+	    type == DIARY_FIX_QUEST_F ||
+	    type == DIARY_RAND_QUEST_C ||
+	    type == DIARY_RAND_QUEST_F ||
+	    type == DIARY_TO_QUEST)
 	{
 		int old_quest;
 
@@ -460,7 +460,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	switch(type)
 	{
-		case NIKKI_HIGAWARI:
+		case DIARY_HIGAWARI:
 		{
 #ifdef JP
 			if (day < MAX_DAYS) fprintf(fff, "%d日目\n", day);
@@ -472,7 +472,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			do_level = FALSE;
 			break;
 		}
-		case NIKKI_BUNSHOU:
+		case DIARY_BUNSHOU:
 		{
 			if (num)
 			{
@@ -483,7 +483,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 				fprintf(fff, " %2d:%02d %20s %s\n",hour, min, note_level, note);
 			break;
 		}
-		case NIKKI_ART:
+		case DIARY_ART:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sを発見した。\n", hour, min, note_level, note);
@@ -492,7 +492,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_UNIQUE:
+		case DIARY_UNIQUE:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sを倒した。\n", hour, min, note_level, note);
@@ -501,7 +501,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_FIX_QUEST_C:
+		case DIARY_FIX_QUEST_C:
 		{
 			if (quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
@@ -511,7 +511,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_FIX_QUEST_F:
+		case DIARY_FIX_QUEST_F:
 		{
 			if (quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
@@ -521,7 +521,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_RAND_QUEST_C:
+		case DIARY_RAND_QUEST_C:
 		{
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
@@ -532,7 +532,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_RAND_QUEST_F:
+		case DIARY_RAND_QUEST_F:
 		{
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
@@ -543,7 +543,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_MAXDEAPTH:
+		case DIARY_MAXDEAPTH:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name, num);
@@ -552,7 +552,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_TRUMP:
+		case DIARY_TRUMP:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %s%sの最深階を%d階にセットした。\n", hour, min, note_level, note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
@@ -561,7 +561,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_STAIR:
+		case DIARY_STAIR:
 		{
 			cptr to;
 			if (q_idx && (is_fixed_quest_idx(q_idx)
@@ -591,7 +591,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_RECALL:
+		case DIARY_RECALL:
 		{
 			if (!num)
 #ifdef JP
@@ -607,7 +607,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_TO_QUEST:
+		case DIARY_TO_QUEST:
 		{
 			if (quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
@@ -617,7 +617,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_TELE_LEV:
+		case DIARY_TELE_LEV:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s レベル・テレポートで脱出した。\n", hour, min, note_level);
@@ -626,7 +626,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_BUY:
+		case DIARY_BUY:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sを購入した。\n", hour, min, note_level, note);
@@ -635,7 +635,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_SELL:
+		case DIARY_SELL:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sを売却した。\n", hour, min, note_level, note);
@@ -644,7 +644,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_ARENA:
+		case DIARY_ARENA:
 		{
 			if (num < 0)
 			{
@@ -672,7 +672,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			}
 			break;
 		}
-		case NIKKI_HANMEI:
+		case DIARY_HANMEI:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sを識別した。\n", hour, min, note_level, note);
@@ -681,7 +681,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_WIZ_TELE:
+		case DIARY_WIZ_TELE:
 		{
 			cptr to;
 			if (!floor_ptr->floor_level)
@@ -704,7 +704,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_PAT_TELE:
+		case DIARY_PAT_TELE:
 		{
 			cptr to;
 			if (!floor_ptr->floor_level)
@@ -727,7 +727,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_LEVELUP:
+		case DIARY_LEVELUP:
 		{
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s レベルが%dに上がった。\n", hour, min, note_level, num);
@@ -736,7 +736,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 #endif
 			break;
 		}
-		case NIKKI_GAMESTART:
+		case DIARY_GAMESTART:
 		{
 			time_t ct = time((time_t*)0);
 			do_level = FALSE;
@@ -748,7 +748,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 				fprintf(fff, " %2d:%02d %20s %s %s",hour, min, note_level, note, ctime(&ct));
 			break;
 		}
-		case NIKKI_NAMED_PET:
+		case DIARY_NAMED_PET:
 		{
 			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			switch (num)
@@ -990,7 +990,7 @@ static void do_cmd_bunshou(void)
 	{
 		strcpy(bunshou, tmp);
 
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, bunshou);
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, bunshou);
 	}
 }
 
@@ -1015,7 +1015,7 @@ static void do_cmd_last_get(void)
 #else
 	sprintf(buf,"descover %s.", record_o_name);
 #endif
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 0, buf);
+	do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
 	turn = turn_tmp;
 }
 
@@ -1733,9 +1733,9 @@ static void do_cmd_options_cheat(cptr info)
 			{
 				if(!noscore)
 #ifdef JP
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
+					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
 #else
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up sending score to use cheating options.");
+					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up sending score to use cheating options.");
 #endif
 				noscore |= (cheat_info[k].o_set * 256 + cheat_info[k].o_bit);
 				(*cheat_info[k].o_var) = TRUE;

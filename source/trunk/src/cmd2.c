@@ -163,9 +163,9 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 
 #ifdef JP
-	if (record_stair) do_cmd_write_nikki(NIKKI_STAIR, 0-up_num, "ŠK’i‚ğã‚Á‚½");
+	if (record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "ŠK’i‚ğã‚Á‚½");
 #else
-	if (record_stair) do_cmd_write_nikki(NIKKI_STAIR, 0-up_num, "climbed up the stairs to");
+	if (record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
 #endif
 
 	/* Success */
@@ -317,11 +317,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		if (record_stair)
 		{
 #ifdef JP
-			if (fall_trap) do_cmd_write_nikki(NIKKI_STAIR, down_num, "—‚Æ‚µŒË‚É—‚¿‚½");
-			else do_cmd_write_nikki(NIKKI_STAIR, down_num, "ŠK’i‚ğ‰º‚è‚½");
+			if (fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "—‚Æ‚µŒË‚É—‚¿‚½");
+			else do_cmd_write_nikki(DIARY_STAIR, down_num, "ŠK’i‚ğ‰º‚è‚½");
 #else
-			if (fall_trap) do_cmd_write_nikki(NIKKI_STAIR, down_num, "fell through a trap door");
-			else do_cmd_write_nikki(NIKKI_STAIR, down_num, "climbed down the stairs to");
+			if (fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "fell through a trap door");
+			else do_cmd_write_nikki(DIARY_STAIR, down_num, "climbed down the stairs to");
 #endif
 		}
 

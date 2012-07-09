@@ -772,7 +772,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 
 	leave_quest_check(creature_ptr);
 
-	if (record_stair) do_cmd_write_nikki(NIKKI_PAT_TELE,0,NULL);
+	if (record_stair) do_cmd_write_nikki(DIARY_PAT_TELE,0,NULL);
 
 	inside_quest = 0;
 	energy_use = 0;
@@ -1270,13 +1270,13 @@ void leave_quest_check(creature_type *creature_ptr)
 		{
 			//TODO species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
 			if (record_rand_quest)
-				do_cmd_write_nikki(NIKKI_RAND_QUEST_F, leaving_quest, NULL);
+				do_cmd_write_nikki(DIARY_RAND_QUEST_F, leaving_quest, NULL);
 
 			/* Floor of random quest will be blocked */
 			prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
 		}
 		else if (record_fix_quest)
-			do_cmd_write_nikki(NIKKI_FIX_QUEST_F, leaving_quest, NULL);
+			do_cmd_write_nikki(DIARY_FIX_QUEST_F, leaving_quest, NULL);
 	}
 }
 
@@ -3429,7 +3429,7 @@ msg_print("上に引っ張りあげられる感じがする！");
 
 				if (floor_ptr->dun_type) creature_ptr->recall_dungeon = floor_ptr->dun_type;
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_nikki(DIARY_RECALL, floor_ptr->floor_level, NULL);
 
 				floor_ptr->floor_level = 0;
 				floor_ptr->dun_type = 0;
@@ -3451,7 +3451,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				floor_ptr->dun_type = creature_ptr->recall_dungeon;
 
 				if (record_stair)
-					do_cmd_write_nikki(NIKKI_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_nikki(DIARY_RECALL, floor_ptr->floor_level, NULL);
 
 				/* New depth */
 				floor_ptr->floor_level = max_dlv[floor_ptr->dun_type];
@@ -4035,7 +4035,7 @@ static void process_world(void)
 	{
 		if (min != prev_min)
 		{
-			do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
+			do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
 			determine_today_mon(player_ptr, FALSE);
 		}
 	}
@@ -4178,9 +4178,9 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 		}
 
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
 #else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to enter wizard mode.");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up recording score to enter wizard mode.");
 #endif
 		/* Mark savefile */
 		noscore |= 0x0002;
@@ -4234,9 +4234,9 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 		}
 
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "デバッグモードに突入してスコアを残せなくなった。");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "デバッグモードに突入してスコアを残せなくなった。");
 #else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up sending score to use debug commands.");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up sending score to use debug commands.");
 #endif
 		/* Mark savefile */
 		noscore |= 0x0008;
@@ -6309,9 +6309,9 @@ static void cheat_death(void)
 	subject_change_floor = TRUE;
 
 #ifdef JP
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            しかし、生き返った。");
+	do_cmd_write_nikki(DIARY_BUNSHOU, 1, "                            しかし、生き返った。");
 #else
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            but revived.");
+	do_cmd_write_nikki(DIARY_BUNSHOU, 1, "                            but revived.");
 #endif
 
 	// Prepare next floor
@@ -6430,9 +6430,9 @@ static void new_game_setting(void)
 			species = MON_STIGMATIC_ONE;
 			unique_play = FALSE;
 #ifdef JP
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印者〉モードを選択した");
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "〈烙印者〉モードを選択した");
 #else
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select Stigmatic One mode.");
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "select Stigmatic One mode.");
 #endif
 		}
 		else
@@ -6441,9 +6441,9 @@ static void new_game_setting(void)
 			species = select_unique_species();
 			unique_play = TRUE;
 #ifdef JP
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ユニークモードを選択した");
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ユニークモードを選択した");
 #else
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select unique mode.");
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "select unique mode.");
 #endif
 			/* Mark savefile */
 			noscore |= 0x0010;
@@ -6596,7 +6596,7 @@ static void play_loop(void)
 		if ((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !inside_quest)
 		{
 			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
-			if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, floor_ptr->floor_level, NULL);
+			if (record_maxdepth) do_cmd_write_nikki(DIARY_MAXDEAPTH, floor_ptr->floor_level, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -6879,9 +6879,9 @@ void play_game(bool new_game)
 	{
 		write_level = FALSE;
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "                            ----ゲーム再開----");
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "                            ----ゲーム再開----");
 #else
-		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "                            ---- Restart Game ----");
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "                            ---- Restart Game ----");
 #endif
 	}
 
@@ -6943,7 +6943,7 @@ void play_game(bool new_game)
 #else
 		sprintf(buf, "You are standing in the %s.", map_name(get_floor_ptr(player_ptr)));
 #endif
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, buf);
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
 	}
 
 	/* Start game */

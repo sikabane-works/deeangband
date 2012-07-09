@@ -4556,9 +4556,9 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				if (player_ptr->chp < 0) gameover = FALSE;
 
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ƒQ[ƒ€’†’f----");
+				do_cmd_write_nikki(DIARY_GAMESTART, 0, "----ƒQ[ƒ€’†’f----");
 #else
-				do_cmd_write_nikki(NIKKI_GAMESTART, 0, "---- Save and Exit Game ----");
+				do_cmd_write_nikki(DIARY_GAMESTART, 0, "---- Save and Exit Game ----");
 #endif
 
 				/* Hardcode panic save */

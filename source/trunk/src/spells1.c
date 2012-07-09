@@ -2134,7 +2134,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			char m2_name[80];
 
 			creature_desc(m2_name, target_ptr, MD_INDEF_VISIBLE);
-			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
 		delete_species_idx(target_ptr);

@@ -135,7 +135,7 @@ void check_experience(creature_type *cr_ptr)
 			}
 			level_inc_stat = TRUE;
 
-			do_cmd_write_nikki(NIKKI_LEVELUP, cr_ptr->lev, NULL);
+			do_cmd_write_nikki(DIARY_LEVELUP, cr_ptr->lev, NULL);
 		}
 
 		/* Sound */
@@ -504,7 +504,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 				if (quest[i].cur_num >= quest[i].num_mon)
 				{
-					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
+					if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)killer_ptr->lev;
@@ -539,7 +539,7 @@ msg_print("クエストを達成した！");
 
 				if ((number_mon - 1) == 0)
 				{
-					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
+					if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed */
 					if (quest[i].flags & QUEST_FLAG_SILENT)
 					{
@@ -571,8 +571,8 @@ msg_print("クエストを達成した！");
 
 				if (quest[i].cur_num >= quest[i].max_num)
 				{
-					if (record_fix_quest && (quest[i].type == QUEST_TYPE_KILL_LEVEL)) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
-					if (record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_nikki(NIKKI_RAND_QUEST_C, i, NULL);
+					if (record_fix_quest && (quest[i].type == QUEST_TYPE_KILL_LEVEL)) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
+					if (record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_nikki(DIARY_RAND_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)killer_ptr->lev;
@@ -613,7 +613,7 @@ msg_print("クエストを達成した！");
 				quest[i].cur_num++;
 				if (quest[i].cur_num >= quest[i].max_num)
 				{
-					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
+					if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 					 /* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)killer_ptr->lev;
@@ -792,7 +792,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		char m_name[80];
 
 		creature_desc(m_name, killed_ptr, MD_INDEF_VISIBLE);
-		do_cmd_write_nikki(NIKKI_NAMED_PET, 3, m_name);
+		do_cmd_write_nikki(DIARY_NAMED_PET, 3, m_name);
 	}
 
 	/* Let creatures explode! */
@@ -867,7 +867,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Extract creature name */
 			creature_desc(m_name, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
-			do_cmd_write_nikki(NIKKI_ARENA, arena_number, m_name);
+			do_cmd_write_nikki(DIARY_ARENA, arena_number, m_name);
 		}
 	}
 
@@ -4886,9 +4886,9 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_i
 	if (reward)
 	{
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, format("パトロンの報酬で%s", reward));
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, format("パトロンの報酬で%s", reward));
 #else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, format("The patron rewards you with %s.", reward));
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, format("The patron rewards you with %s.", reward));
 #endif
 	}
 }

@@ -1313,7 +1313,7 @@ static void generate_floor_quest(floor_type *floor_ptr)
 	floor_ptr->object_level = floor_ptr->base_level;
 	floor_ptr->creature_level = floor_ptr->base_level;
 
-	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
+	if (record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, inside_quest, NULL);
 
 	/* Prepare allocation table */
 	get_species_num_prep(get_creature_hook(), NULL);

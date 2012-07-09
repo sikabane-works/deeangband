@@ -1592,7 +1592,7 @@ static void process_nonplayer(int m_idx)
 		if (record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
 			creature_desc(creature_name, creature_ptr, MD_INDEF_VISIBLE);
-			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
 		// Delete the creature

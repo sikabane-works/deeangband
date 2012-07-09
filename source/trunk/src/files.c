@@ -6623,13 +6623,13 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	if (!cr_ptr->total_winner)
 	{
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
-		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ゲームオーバー --------");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
 #else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up all hope to commit suicide.");
-		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "--------   Game  Over   --------");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up all hope to commit suicide.");
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
 #endif
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "\n\n\n\n");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
 	/* Cause of death */
@@ -6740,9 +6740,9 @@ void do_cmd_save_and_exit(creature_type *creature_ptr)
 	/* Leaving */
 	subject_change_floor = TRUE;
 #ifdef JP
-	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ゲーム中断----");
+	do_cmd_write_nikki(DIARY_GAMESTART, 0, "----ゲーム中断----");
 #else
-	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "---- Save and Exit Game ----");
+	do_cmd_write_nikki(DIARY_GAMESTART, 0, "---- Save and Exit Game ----");
 #endif
 }
 
@@ -8101,9 +8101,9 @@ static void handle_signal_abort(int sig)
 
 
 #ifdef JP
-	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ゲーム異常終了----");
+	do_cmd_write_nikki(DIARY_GAMESTART, 0, "----ゲーム異常終了----");
 #else
-	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "---- Panic Save and Abort Game ----");
+	do_cmd_write_nikki(DIARY_GAMESTART, 0, "---- Panic Save and Abort Game ----");
 #endif
 
 	/* Flush output */

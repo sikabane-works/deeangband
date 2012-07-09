@@ -2789,10 +2789,10 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "宿屋に泊まった。");
+				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
 #else
-				if ((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "stay over daytime at the inn.");
-				else do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "stay over night at the inn.");
+				if ((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
+				else do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over night at the inn.");
 #endif
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
 				if (current_floor_ptr->floor_turn < current_floor_ptr->floor_turn_limit)
@@ -2803,7 +2803,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 				prevent_turn_overflow(cr_ptr);
 
-				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
+				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
 				cr_ptr->chp = cr_ptr->mhp;
 
 				if (curse_of_Iluvatar)
@@ -2830,10 +2830,10 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "悪夢にうなされてよく眠れなかった。");
+					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "悪夢にうなされてよく眠れなかった。");
 #else
 					msg_print("You awake screaming.");
-					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "be troubled by a nightmare.");
+					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "be troubled by a nightmare.");
 #endif
 				}
 				else
@@ -2860,20 +2860,20 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、夕方を迎えた。");
-						do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "夕方を迎えた。");
+						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "夕方を迎えた。");
 #else
 						msg_print("You awake refreshed for the evening.");
-						do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "awake refreshed.");
+						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 					else
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、新たな日を迎えた。");
-						do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "すがすがしい朝を迎えた。");
+						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
 #else
 						msg_print("You awake refreshed for the new day.");
-						do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "awake refreshed.");
+						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 				}
@@ -4800,9 +4800,9 @@ msg_print("お金が足りません！");
 			max_dlv[cr_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if (record_maxdepth)
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "トランプタワーで");
+				do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "トランプタワーで");
 #else
-			do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "at Trump Tower");
+			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "at Trump Tower");
 #endif
 #ifdef JP
 			msg_print("回りの大気が張りつめてきた...");
@@ -4867,9 +4867,9 @@ msg_print("お金が足りません！");
 		play_redraw |= (PR_TITLE);
 
 #ifdef JP
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
 #else
-		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
 		if ((cr_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_cf_creature(cr_ptr, CF_CHAOS_GIFT))

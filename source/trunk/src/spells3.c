@@ -696,7 +696,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 				creature_ptr->oldpx = creature_ptr->fx;
 			}
 
-			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
+			if (record_stair) do_cmd_write_nikki(DIARY_TELE_LEV, 1, NULL);
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -727,7 +727,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 
 		if (m_idx <= 0) /* To player */
 		{
-			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, -1, NULL);
+			if (record_stair) do_cmd_write_nikki(DIARY_TELE_LEV, -1, NULL);
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -751,7 +751,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 
 		if (m_idx <= 0) /* To player */
 		{
-			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, -1, NULL);
+			if (record_stair) do_cmd_write_nikki(DIARY_TELE_LEV, -1, NULL);
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -774,7 +774,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 			/* Never reach this code on the surface */
 			/* if (!floor_ptr->floor_level) floor_ptr->dun_type = creature_ptr->recall_dungeon; */
 
-			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
+			if (record_stair) do_cmd_write_nikki(DIARY_TELE_LEV, 1, NULL);
 
 			if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -798,7 +798,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 			char m2_name[80];
 
 			creature_desc(m2_name, m_ptr, MD_INDEF_VISIBLE);
-			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
 		delete_species_idx(&creature_list[m_idx]);
@@ -932,9 +932,9 @@ if (get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
 			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
 			if (record_maxdepth)
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_TRUMP, floor_ptr->dun_type, "帰還のときに");
+				do_cmd_write_nikki(DIARY_TRUMP, floor_ptr->dun_type, "帰還のときに");
 #else
-				do_cmd_write_nikki(NIKKI_TRUMP, floor_ptr->dun_type, "when recall from dungeon");
+				do_cmd_write_nikki(DIARY_TRUMP, floor_ptr->dun_type, "when recall from dungeon");
 #endif
 		}
 
@@ -1034,9 +1034,9 @@ sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].minde
 
 		if (record_maxdepth)
 #ifdef JP
-			do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "フロア・リセットで");
+			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "フロア・リセットで");
 #else
-			do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "using a scroll of reset recall");
+			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "using a scroll of reset recall");
 #endif
 					/* Accept request */
 #ifdef JP
@@ -2758,9 +2758,9 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 
 	if(record_fix_art && !old_known && object_is_fixed_artifact(o_ptr))
-		do_cmd_write_nikki(NIKKI_ART, 0, o_name);
+		do_cmd_write_nikki(DIARY_ART, 0, o_name);
 	if(record_rand_art && !old_known && o_ptr->art_name)
-		do_cmd_write_nikki(NIKKI_ART, 0, o_name);
+		do_cmd_write_nikki(DIARY_ART, 0, o_name);
 
 	return old_known;
 }
