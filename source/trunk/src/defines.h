@@ -3029,111 +3029,113 @@ enum AUTHORITY_TYPE
 /*
  * Spell types used by project(), and related functions.
  */
-#define GF_ELEC         1
-#define GF_POIS         2
-#define GF_ACID         3
-#define GF_COLD         4
-#define GF_FIRE         5
-#define GF_PSY_SPEAR    9
-#define GF_MISSILE      10
-#define GF_ARROW        11
-#define GF_PLASMA       12
-/* Replaced with GF_HOLY_FIRE and GF_HELL_FIRE */
-/* #define GF_HOLY_ORB     13 */
-#define GF_WATER        14
-#define GF_LITE         15
-#define GF_DARK         16
-#define GF_LITE_WEAK    17
-#define GF_DARK_WEAK    18
-#define GF_SHARDS       20
-#define GF_SOUND        21
-#define GF_CONFUSION    22
-#define GF_FORCE        23
-#define GF_INERTIA      24
-#define GF_MANA         26
-#define GF_METEOR       27
-#define GF_ICE          28
-#define GF_CHAOS        30
-#define GF_NETHER       31
-#define GF_DISENCHANT   32
-#define GF_NEXUS        33
-#define GF_TIME         34
-#define GF_GRAVITY      35
-#define GF_KILL_WALL    40
-#define GF_KILL_DOOR    41
-#define GF_KILL_TRAP    42
-#define GF_MAKE_WALL    45
-#define GF_MAKE_DOOR    46
-#define GF_MAKE_TRAP    47
-#define GF_MAKE_TREE    48
-#define GF_OLD_CLONE    51
-#define GF_OLD_POLY             52
-#define GF_OLD_HEAL             53
-#define GF_OLD_SPEED    54
-#define GF_OLD_SLOW             55
-#define GF_OLD_CONF             56
-#define GF_OLD_SLEEP    57
-#define GF_OLD_DRAIN    58
-#define GF_AWAY_UNDEAD  61
-#define GF_AWAY_EVIL    62
-#define GF_AWAY_ALL     63
-#define GF_TURN_UNDEAD  64
-#define GF_TURN_EVIL    65
-#define GF_TURN_ALL     66
-#define GF_DISP_UNDEAD  67
-#define GF_DISP_EVIL    68
-#define GF_DISP_ALL 69
-#define GF_DISP_DEMON   70      /* New types for Zangband begin here... */
-#define GF_DISP_LIVING  71
-#define GF_ROCKET       72
-#define GF_NUKE         73
-#define GF_MAKE_GLYPH   74
-#define GF_STASIS       75
-#define GF_STONE_WALL   76
-#define GF_DEATH_RAY    77
-#define GF_STUN         78
-#define GF_HOLY_FIRE    79
-#define GF_HELL_FIRE    80
-#define GF_DISINTEGRATE 81
-#define GF_CHARM        82
-#define GF_CONTROL_UNDEAD   83
-#define GF_CONTROL_ANIMAL   84
-#define GF_PSI         85
-#define GF_PSI_DRAIN   86
-#define GF_TELEKINESIS  87
-#define GF_JAM_DOOR     88
-#define GF_DOMINATION   89
-#define GF_DISP_GOOD    90
-#define GF_DRAIN_MANA   91
-#define GF_MIND_BLAST   92
-#define GF_BRAIN_SMASH  93
-#define GF_CAUSE_1      94
-#define GF_CAUSE_2      95
-#define GF_CAUSE_3      96
-#define GF_CAUSE_4      97
-#define GF_HAND_DOOM    98
-#define GF_CAPTURE      99
-#define GF_ANIM_DEAD   100
-#define GF_CONTROL_LIVING   101
-#define GF_IDENTIFY    102
-#define GF_ATTACK      103
-#define GF_ENGETSU     104
-#define GF_GENOCIDE    105
-#define GF_PHOTO       106
-#define GF_CONTROL_DEMON   107
-#define GF_LAVA_FLOW   108
-#define GF_BLOOD_CURSE 109
-#define GF_SEEKER 110
-#define GF_SUPER_RAY 111
-#define GF_STAR_HEAL 112
-#define GF_WATER_FLOW   113
-#define GF_CRUSADE     114
-#define GF_STASIS_EVIL 115
-#define GF_WOUNDS      116
-#define GF_ACID_FLOW   117
-#define GF_POISON_FLOW   118
+enum SPELL_ATTACK_TYPE
+{
+	GF_ELEC,
+	GF_POIS,
+	GF_ACID,
+	GF_COLD,
+	GF_FIRE,
+	GF_PSY_SPEAR,
+	GF_MISSILE,
+	GF_ARROW,
+	GF_PLASMA,
+	GF_HOLY_ORB,
+	GF_WATER,
+	GF_LITE,
+	GF_DARK,
+	GF_LITE_WEAK,
+	GF_DARK_WEAK,
+	GF_SHARDS,
+	GF_SOUND,
+	GF_CONFUSION,
+	GF_FORCE,
+	GF_INERTIA,
+	GF_MANA,
+	GF_METEOR,
+	GF_ICE,
+	GF_CHAOS,
+	GF_NETHER,
+	GF_DISENCHANT,
+	GF_NEXUS,
+	GF_TIME,
+	GF_GRAVITY,
+	GF_KILL_WALL,
+	GF_KILL_DOOR,
+	GF_KILL_TRAP,
+	GF_MAKE_WALL,
+	GF_MAKE_DOOR,
+	GF_MAKE_TRAP,
+	GF_MAKE_TREE,
+	GF_OLD_CLONE,
+	GF_OLD_POLY,
+	GF_OLD_HEAL,
+	GF_OLD_SPEED,
+	GF_OLD_SLOW,
+	GF_OLD_CONF,
+	GF_OLD_SLEEP,
+	GF_OLD_DRAIN,
+	GF_AWAY_UNDEAD,
+	GF_AWAY_EVIL,
+	GF_AWAY_ALL,
+	GF_TURN_UNDEAD,
+	GF_TURN_EVIL,
+	GF_TURN_ALL,
+	GF_DISP_UNDEAD,
+	GF_DISP_EVIL,
+	GF_DISP_ALL,
+	GF_DISP_DEMON,
+	GF_DISP_LIVING,
+	GF_ROCKET,
+	GF_NUKE,
+	GF_MAKE_GLYPH,
+	GF_STASIS,
+	GF_STONE_WALL,
+	GF_DEATH_RAY,
+	GF_STUN,
+	GF_HOLY_FIRE,
+	GF_HELL_FIRE,
+	GF_DISINTEGRATE,
+	GF_CHARM,
+	GF_CONTROL_UNDEAD,
+	GF_CONTROL_ANIMAL,
+	GF_PSI,
+	GF_PSI_DRAIN,
+	GF_TELEKINESIS,
+	GF_JAM_DOOR,
+	GF_DOMINATION,
+	GF_DISP_GOOD,
+	GF_DRAIN_MANA,
+	GF_MIND_BLAST,
+	GF_BRAIN_SMASH,
+	GF_CAUSE_1,
+	GF_CAUSE_2,
+	GF_CAUSE_3,
+	GF_CAUSE_4,
+	GF_HAND_DOOM,
+	GF_CAPTURE,
+	GF_ANIM_DEAD,
+	GF_CONTROL_LIVING,
+	GF_IDENTIFY,
+	GF_ATTACK,
+	GF_ENGETSU,
+	GF_GENOCIDE,
+	GF_PHOTO,
+	GF_CONTROL_DEMON,
+	GF_LAVA_FLOW,
+	GF_BLOOD_CURSE,
+	GF_SEEKER,
+	GF_SUPER_RAY,
+	GF_STAR_HEAL,
+	GF_WATER_FLOW,
+	GF_CRUSADE,
+	GF_STASIS_EVIL,
+	GF_WOUNDS,
+	GF_ACID_FLOW,
+	GF_POISON_FLOW,
 
-#define MAX_GF				119
+	MAX_GF,
+};
 
 /*
  * Some things which induce learning
@@ -3641,21 +3643,14 @@ enum RBE_TYPE
 //TODO
 #define is_friendly(player_ptr, A) FALSE
 
-#define is_friendly_idx(IDX) \
-	 (bool)((IDX) > 0 && is_friendly(playet_ptr, &creature_list[(IDX)]))
+#define is_friendly_idx(IDX) (bool)((IDX) > 0 && is_friendly(playet_ptr, &creature_list[(IDX)]))
 
-#define is_pet(B, A) \
-	 (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)
+#define is_pet(B, A) (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)
+#define is_hostile(A) (bool)((is_friendly(player_ptr, A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
 
-#define is_hostile(A) \
-	 (bool)((is_friendly(player_ptr, A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
-
-/* Hack -- Determine creature race appearance index is same as race index */
-#define is_original_ap(A) \
-	 (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
-
-#define is_original_ap_and_seen(WHO, A) \
-	 (bool)((A)->ml && !(WHO)->image && ((A)->ap_species_idx == (A)->species_idx))
+// Hack -- Determine creature race appearance index is same as race index
+#define is_original_ap(A) (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
+#define is_original_ap_and_seen(WHO, A) (bool)((A)->ml && !(WHO)->image && ((A)->ap_species_idx == (A)->species_idx))
 
 /*
  * Is the creature seen by the player?
