@@ -10137,7 +10137,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 		
 				// Update creatures
-				update |= (PU_MONSTERS);
+				caster_ptr->creature_update |= (PU_MONSTERS);
 		
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10158,7 +10158,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 
 				// Update creatures
-				update |= (PU_MONSTERS);
+				caster_ptr->creature_update |= (PU_MONSTERS);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10580,7 +10580,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					lite_spot(floor_ptr, ty, tx);
 	
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						update |= (PU_MON_LITE);
+						caster_ptr->creature_update |= (PU_MON_LITE);
 				}
 			}
 		}
@@ -10636,7 +10636,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
-			update |= (PU_FLOW);
+			caster_ptr->creature_update |= (PU_FLOW);
 		}
 		break;
 
