@@ -117,6 +117,7 @@ extern cptr ident_info[];
 extern mbe_info_type mbe_info[];
 extern byte feature_action_flags[FF_FLAG_MAX];
 extern byte race_crossing[MAX_RACES][MAX_RACES];
+extern object_id prize_list[MAX_KUBI];
 
 /* variable.c */
 extern cptr copyright[5];

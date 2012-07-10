@@ -1815,11 +1815,11 @@ static bool kakutoujou(creature_type *cr_ptr)
 		clear_bldg(4, 10);
 
 #ifdef JP
-		prt("クリーチャー                                                     倍率", 4, 4);
+		prt("クリーチャー                                                    倍率", 4, 4);
 #else
 		prt("Creatures                                                       Odds", 4, 4);
 #endif
-		for (i=0;i<4;i++)
+		for (i = 0; i < 4; i++)
 		{
 			char buf[80];
 			species_type *r_ptr = &species_info[battle_mon[i]];
@@ -1947,15 +1947,18 @@ static void today_target(creature_type *cr_ptr)
 	species_type *r_ptr = &species_info[today_mon];
 
 	clear_bldg(4,18);
+
 #ifdef JP
-c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
+	c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 #else
 	prt("Wanted creature that changes from day to day", 5, 10);
 #endif
+
 #ifdef JP
 	sprintf(buf,"ターゲット： %s",species_name + r_ptr->name);
 #else
 	sprintf(buf,"target: %s",species_name + r_ptr->name);
+
 #endif
 	c_put_str(TERM_YELLOW, buf, 6, 10);
 #ifdef JP
@@ -1964,11 +1967,13 @@ c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 	sprintf(buf,"corpse   ---- $%d",r_ptr->level * 50 + 100);
 #endif
 	prt(buf, 8, 10);
+
 #ifdef JP
 	sprintf(buf,"骨   ---- $%d",r_ptr->level * 30 + 60);
 #else
 	sprintf(buf,"skeleton ---- $%d",r_ptr->level * 30 + 60);
 #endif
+
 	prt(buf, 9, 10);
 }
 
@@ -1999,10 +2004,10 @@ static void shoukinkubi(void)
 
 #ifdef JP
 	prt("死体を持ち帰れば報酬を差し上げます。",4 ,10);
-c_put_str(TERM_YELLOW, "現在の賞金首", 6, 10);
+	c_put_str(TERM_YELLOW, "現在の賞金首", 6, 10);
 #else
 	prt("Offer a prize when you bring a wanted creature's corpse",4 ,10);
-c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
+	c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
 #endif
 
 	for (i = 0; i < MAX_KUBI; i++)
@@ -2042,39 +2047,6 @@ c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
 		}
 	}
 }
-
-
-/* List of prize object */
-static struct {
-	s16b tval;
-	s16b sval;
-} prize_list[MAX_KUBI] = 
-{
-	{TV_POTION, SV_POTION_CURING},
-	{TV_POTION, SV_POTION_SPEED},
-	{TV_POTION, SV_POTION_SPEED},
-	{TV_POTION, SV_POTION_RESISTANCE},
-	{TV_POTION, SV_POTION_ENLIGHTENMENT},
-
-	{TV_POTION, SV_POTION_HEALING},
-	{TV_POTION, SV_POTION_RESTORE_MANA},
-	{TV_SCROLL, SV_SCROLL_STAR_DESTRUCTION},
-	{TV_POTION, SV_POTION_STAR_ENLIGHTENMENT},
-	{TV_SCROLL, SV_SCROLL_SUMMON_PET},
-
-	{TV_SCROLL, SV_SCROLL_GENOCIDE},
-	{TV_POTION, SV_POTION_STAR_HEALING},
-	{TV_POTION, SV_POTION_STAR_HEALING},
-	{TV_POTION, SV_POTION_NEW_LIFE},
-	{TV_SCROLL, SV_SCROLL_MASS_GENOCIDE},
-
-	{TV_POTION, SV_POTION_LIFE},
-	{TV_POTION, SV_POTION_LIFE},
-	{TV_POTION, SV_POTION_AUGMENTATION},
-	{TV_POTION, SV_POTION_INVULNERABILITY},
-	{TV_SCROLL, SV_SCROLL_ARTIFACT},
-};
-
 
 // Get prize
 static bool kankin(creature_type *creature_ptr)

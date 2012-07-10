@@ -2112,3 +2112,7 @@ typedef struct half_race_description {
 	char title[80];
 } half_race_description;
 
+typedef struct object_id {
+	s16b tval;
+	s16b sval; 
+} object_id;
