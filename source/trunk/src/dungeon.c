@@ -1519,7 +1519,7 @@ static void check_music(creature_type *creature_ptr)
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
-			creature_ptr->creature_update |= (PU_MONSTERS);
+			update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
