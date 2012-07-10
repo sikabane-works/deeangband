@@ -1600,45 +1600,16 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		int dam;
 
-		/* Mortal wound or Deep Gash */
-		if (creature_ptr->cut > 1000)
-		{
-			dam = 200;
-		}
+		// Mortal wound or Deep Gash
+		if (creature_ptr->cut > 1000) dam = 200;
+		else if (creature_ptr->cut > 200) dam = 80;
+		else if (creature_ptr->cut > 100) dam = 32;
+		else if (creature_ptr->cut > 50) dam = 16;
+		else if (creature_ptr->cut > 25) dam = 7;
+		else if (creature_ptr->cut > 10) dam = 3;
+		else dam = 1;
 
-		else if (creature_ptr->cut > 200)
-		{
-			dam = 80;
-		}
-
-		/* Severe cut */
-		else if (creature_ptr->cut > 100)
-		{
-			dam = 32;
-		}
-
-		else if (creature_ptr->cut > 50)
-		{
-			dam = 16;
-		}
-
-		else if (creature_ptr->cut > 25)
-		{
-			dam = 7;
-		}
-
-		else if (creature_ptr->cut > 10)
-		{
-			dam = 3;
-		}
-
-		/* Other cuts */
-		else
-		{
-			dam = 1;
-		}
-
-		/* Take damage */
+		// Take damage
 #ifdef JP
 		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "’v–½", NULL, -1);
 #else
@@ -1922,25 +1893,15 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", o_name);
 		}
 	}
 
-
 	/*** handle regeneration ***/
 
-	/* Getting Weak */
+	// Getting Weak
 	if (creature_ptr->food < PY_FOOD_WEAK)
 	{
-		/* Lower regeneration */
-		if (creature_ptr->food < PY_FOOD_STARVE)
-		{
-			regen_amount = 0;
-		}
-		else if (creature_ptr->food < PY_FOOD_FAINT)
-		{
-			regen_amount = PY_REGEN_FAINT;
-		}
-		else
-		{
-			regen_amount = PY_REGEN_WEAK;
-		}
+		// Lower regeneration
+		if (creature_ptr->food < PY_FOOD_STARVE) regen_amount = 0;
+		else if (creature_ptr->food < PY_FOOD_FAINT) regen_amount = PY_REGEN_FAINT;
+		else regen_amount = PY_REGEN_WEAK;
 	}
 
 	// Are we walking the pattern?
@@ -1951,26 +1912,13 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", o_name);
 	else
 	{
 		// Regeneration ability
-		if (creature_ptr->regenerate)
-		{
-			regen_amount = regen_amount * 2;
-		}
-		if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
-		{
-			regen_amount /= 2;
-		}
-		if (creature_ptr->cursed & TRC_SLOW_REGEN)
-		{
-			regen_amount /= 5;
-		}
+		if (creature_ptr->regenerate) regen_amount = regen_amount * 2;
+		if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
+		if (creature_ptr->cursed & TRC_SLOW_REGEN) regen_amount /= 5;
 	}
-
 
 	/* Searching or Resting */
-	if ((creature_ptr->action == ACTION_SEARCH) || (creature_ptr->action == ACTION_REST))
-	{
-		regen_amount = regen_amount * 2;
-	}
+	if ((creature_ptr->action == ACTION_SEARCH) || (creature_ptr->action == ACTION_REST)) regen_amount = regen_amount * 2;
 
 	upkeep_factor = calculate_upkeep_servant(creature_ptr);
 
