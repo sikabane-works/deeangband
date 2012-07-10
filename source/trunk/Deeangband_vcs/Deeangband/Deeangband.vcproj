@@ -463,6 +463,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\enums.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\externs.h"
 				>
 			</File>

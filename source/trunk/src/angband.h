@@ -42,6 +42,7 @@
  * Now, include the define's, the type's, and the extern's
  */
 #include "defines.h"
+#include "enums.h"
 #include "types.h"
 #include "externs.h"
 
