@@ -8067,10 +8067,6 @@ void create_ego(object_type *o_ptr, int level, int ego_id)
 		armour_boost(o_ptr, level, ITEM_RANK_GREAT);
 	}
 
-
-	// Limitation
-	if (o_ptr->dd > 9) o_ptr->dd = 9;
-
 }
 
 void set_inventory_weight(creature_type *creature_ptr)
