@@ -471,6 +471,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\game-constants.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\generate.h"
 				>
 			</File>
