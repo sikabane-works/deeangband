@@ -2049,7 +2049,7 @@
 
 
 /* The "sval" codes for TV_WAND */
-#define SV_WAND_heal_other_creature             0
+#define SV_WAND_HEAL_OTHER_CREATURE      0
 #define SV_WAND_HASTE_MONSTER            1
 #define SV_WAND_CLONE_MONSTER            2
 #define SV_WAND_TELEPORT_AWAY            3
@@ -2741,25 +2741,6 @@
 #define DAMAGE_ATTACK   4
 #define DAMAGE_NOESCAPE 5
 #define DAMAGE_USELIFE  6
-
-
-/*
- * Game generated inscription indices. These are stored in the object,
- * and are used to index the string array from tables.c.
- */
-
-#define FEEL_NONE              0
-#define FEEL_BROKEN            1
-#define FEEL_TERRIBLE          2
-#define FEEL_WORTHLESS         3
-#define FEEL_CURSED            4
-#define FEEL_UNCURSED          5
-#define FEEL_AVERAGE           6
-#define FEEL_GOOD              7
-#define FEEL_EXCELLENT         8
-#define FEEL_SPECIAL           9
-
-#define FEEL_MAX               9
 
 /*
  * Hack -- special "xtra" object powers

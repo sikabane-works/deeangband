@@ -1541,7 +1541,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 			 cr_ptr->class_idx == CLASS_CAVALRY)
 		{
 			if (o_ptr->tval == TV_WAND &&
-			    o_ptr->sval == SV_WAND_heal_other_creature && object_is_aware(o_ptr))
+			    o_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE && object_is_aware(o_ptr))
 				return FALSE;
 		}
 	}

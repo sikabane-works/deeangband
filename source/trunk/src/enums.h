@@ -939,3 +939,21 @@ enum DISPLAY_CR_STATUS
 	DISPLAY_CR_STATUS_MAX
 };
 
+/*
+ * Game generated inscription indices. These are stored in the object,
+ * and are used to index the string array from tables.c.
+ */
+enum OBJECT_FEELING
+{
+	FEEL_NONE,
+	FEEL_BROKEN,
+	FEEL_TERRIBLE,
+	FEEL_WORTHLESS,
+	FEEL_CURSED,
+	FEEL_UNCURSED,
+	FEEL_AVERAGE,
+	FEEL_GOOD,
+	FEEL_EXCELLENT,
+	FEEL_SPECIAL,
+	MAX_FEEL,
+};

@@ -397,9 +397,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 
 	/* Food can feed the player */
-	if (has_cf_creature(creature_ptr, CF_VAMPIRE))
+	if (has_cf_creature(creature_ptr, CF_BLOOD_DRINKER))
 	{
-		/* Reduced nutritional benefit */
+		// Reduced nutritional benefit
 		(void)set_food(creature_ptr, creature_ptr->food + (o_ptr->pval / 10));
 #ifdef JP
 msg_print("‚ ‚È‚½‚Ì‚æ‚¤‚ÈŽÒ‚É‚Æ‚Á‚ÄH—Æ‚È‚Ç‹Í‚©‚È‰h—{‚É‚µ‚©‚È‚ç‚È‚¢B");
@@ -407,7 +407,7 @@ msg_print("‚ ‚È‚½‚Ì‚æ‚¤‚ÈŽÒ‚É‚Æ‚Á‚ÄH—Æ‚È‚Ç‹Í‚©‚È‰h—{‚É‚µ‚©‚È‚ç‚È‚¢B");
 		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
 #endif
 
-		if (creature_ptr->food < PY_FOOD_ALERT)   /* Hungry */
+		if (creature_ptr->food < PY_FOOD_ALERT)   // Hungry
 #ifdef JP
 msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #else
@@ -2836,7 +2836,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			else
 			{
 				while (randint1(300) < (0-creature_ptr->karmas[vir - 1])) sval--;
-				if (sval < SV_WAND_heal_other_creature) sval = randint0(3) + SV_WAND_heal_other_creature;
+				if (sval < SV_WAND_HEAL_OTHER_CREATURE) sval = randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
 			}
 		}
 	}
@@ -2844,7 +2844,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 	/* Analyze the wand */
 	switch (sval)
 	{
-		case SV_WAND_heal_other_creature:
+		case SV_WAND_HEAL_OTHER_CREATURE:
 		{
 			if (heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
@@ -3159,7 +3159,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 
 	/* Allow direction to be cancelled for free */
-	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_heal_other_creature
+	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
 				      || o_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
 	if (!get_aim_dir(creature_ptr, &dir))

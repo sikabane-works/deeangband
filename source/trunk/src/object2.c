@@ -4668,7 +4668,7 @@ void inven_item_describe(creature_type *cr_ptr, int item)
 	else
 	{
 		/* アイテム名を英日切り替え機能対応 */
-		msg_format("まだ %sを持っている。", o_name);
+		msg_format("まだ%sを持っている。", o_name);
 	}
 #else
 	msg_format("You have %s.", o_name);
@@ -4849,7 +4849,7 @@ void floor_item_describe(creature_type *creature_type, int item)
 	}
 	else
 	{
-		msg_format("床上には、まだ %sがある。", o_name);
+		msg_format("床上には、まだ%sがある。", o_name);
 	}
 #else
 	msg_format("You see %s.", o_name);
