@@ -6330,7 +6330,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 			if (is_unique_creature(tar_ptr) && !(tar_ptr->smart & SM_CLONED))
 			{
-				for (i = 0; i < MAX_KUBI; i++)
+				for (i = 0; i < MAX_BOUNTY; i++)
 				{
 					if ((kubi_species_idx[i] == tar_ptr->species_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
 					{

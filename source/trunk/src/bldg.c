@@ -2010,7 +2010,7 @@ static void shoukinkubi(void)
 	c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
 #endif
 
-	for (i = 0; i < MAX_KUBI; i++)
+	for (i = 0; i < MAX_BOUNTY; i++)
 	{
 		byte color;
 		cptr done_mark;
@@ -2034,7 +2034,7 @@ static void shoukinkubi(void)
 		c_prt(color, format("%s %s", species_name + r_ptr->name, done_mark), y+7, 10);
 
 		y = (y+1) % 10;
-		if (!y && (i < MAX_KUBI -1))
+		if (!y && (i < MAX_BOUNTY -1))
 		{
 #ifdef JP
 			prt("‰½‚©ƒL[‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢", 0, 0);
@@ -2210,7 +2210,7 @@ static bool kankin(creature_type *creature_ptr)
 		}
 	}
 
-	for (j = 0; j < MAX_KUBI; j++)
+	for (j = 0; j < MAX_BOUNTY; j++)
 	{
 		/* Need reverse order --- Positions will be changed in the loop */
 		for (i = INVEN_TOTAL-1; i >= 0; i--)
@@ -2254,7 +2254,7 @@ static bool kankin(creature_type *creature_ptr)
 				kubi_species_idx[j] += 10000;
 
 				/* Count number of unique corpses already handed */
-				for (num = 0, k = 0; k < MAX_KUBI; k++)
+				for (num = 0, k = 0; k < MAX_BOUNTY; k++)
 				{
 					if (kubi_species_idx[k] >= 10000) num++;
 				}

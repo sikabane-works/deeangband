@@ -95,3 +95,6 @@
 #define SPELL_EXP_SKILLED     1200
 #define SPELL_EXP_EXPERT      1400
 #define SPELL_EXP_MASTER      1600
+
+
+#define MAX_BOUNTY 20

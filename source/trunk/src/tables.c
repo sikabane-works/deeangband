@@ -4749,7 +4749,7 @@ int divine_capacity[PY_DIVINE_LIMIT_LEVEL + 1] =
 };
 
 /* List of prize object */
-struct object_id prize_list[MAX_KUBI] = 
+struct object_id prize_list[MAX_BOUNTY] = 
 {
 	{TV_POTION, SV_POTION_CURING},
 	{TV_POTION, SV_POTION_SPEED},

@@ -23,9 +23,9 @@ bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
 	if (o_ptr->pval == MON_TSUCHINOKO) return TRUE;
 
 	/* Unique creature */
-	for (i = 0; i < MAX_KUBI; i++)
+	for (i = 0; i < MAX_BOUNTY; i++)
 		if (o_ptr->pval == kubi_species_idx[i]) break;
-	if (i < MAX_KUBI) return TRUE;
+	if (i < MAX_BOUNTY) return TRUE;
 
 	/* Not wanted */
 	return FALSE;

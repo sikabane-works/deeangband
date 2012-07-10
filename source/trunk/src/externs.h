@@ -117,7 +117,7 @@ extern cptr ident_info[];
 extern mbe_info_type mbe_info[];
 extern byte feature_action_flags[FF_FLAG_MAX];
 extern byte race_crossing[MAX_RACES][MAX_RACES];
-extern object_id prize_list[MAX_KUBI];
+extern object_id prize_list[MAX_BOUNTY];
 
 /* variable.c */
 extern cptr copyright[5];
@@ -546,7 +546,7 @@ extern int kakekin;
 extern u32b mon_odds[4];
 extern int pet_t_m_idx;
 extern int riding_t_m_idx;
-extern s16b kubi_species_idx[MAX_KUBI];
+extern s16b kubi_species_idx[MAX_BOUNTY];
 extern s16b today_mon;
 extern bool write_level;
 extern u32b playtime;

@@ -6116,7 +6116,7 @@ void determine_bounty_uniques(void)
 	species_type *r_ptr;
 
 	get_species_num_prep(NULL, NULL);
-	for (i = 0; i < MAX_KUBI; i++)
+	for (i = 0; i < MAX_BOUNTY; i++)
 	{
 		while (1)
 		{
@@ -6139,9 +6139,9 @@ void determine_bounty_uniques(void)
 	}
 
 	/* Sort them */
-	for (i = 0; i < MAX_KUBI - 1; i++)
+	for (i = 0; i < MAX_BOUNTY - 1; i++)
 	{
-		for (j = i; j < MAX_KUBI; j++)
+		for (j = i; j < MAX_BOUNTY; j++)
 		{
 			if (species_info[kubi_species_idx[i]].level > species_info[kubi_species_idx[j]].level)
 			{

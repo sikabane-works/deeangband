@@ -1201,7 +1201,7 @@ static void rd_extra(void)
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
 
-	for (i = 0; i < MAX_KUBI; i++)
+	for (i = 0; i < MAX_BOUNTY; i++)
 	{
 		rd_s16b(&kubi_species_idx[i]);
 	}

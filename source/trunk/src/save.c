@@ -724,7 +724,7 @@ static void wr_extra(void)
 	if (noscore) quick_ok = FALSE;
 	wr_byte((byte) quick_ok);
 
-	for (i = 0; i < MAX_KUBI; i++)
+	for (i = 0; i < MAX_BOUNTY; i++)
 	{
 		wr_s16b(kubi_species_idx[i]);
 	}

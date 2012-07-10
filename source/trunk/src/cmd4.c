@@ -5432,7 +5432,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 		{
 			bool wanted = FALSE;
 			int j;
-			for (j = 0; j < MAX_KUBI; j++)
+			for (j = 0; j < MAX_BOUNTY; j++)
 			{
 				if (kubi_species_idx[j] == i || kubi_species_idx[j] - 10000 == i ||
 					(today_mon && today_mon == i))
@@ -9174,7 +9174,7 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 #endif
 		fprintf(fff, "----------------------------------------------\n");
 
-		for (i = 0; i < MAX_KUBI; i++)
+		for (i = 0; i < MAX_BOUNTY; i++)
 		{
 			if (kubi_species_idx[i] <= 10000)
 			{
