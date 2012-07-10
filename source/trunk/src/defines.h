@@ -500,34 +500,6 @@
 
 
 /*
- * A creature can only "multiply" (reproduce) if there are fewer than 100
- * creatures on the level capable of such spontaneous reproduction.  This
- * is a hack which prevents the "creature_list[]" array from exploding due to
- * reproducing creatures.  Messy, but necessary.
- */
-#define MAX_REPRO       100
-
-
-/*
- * Player "food" crucial values
- */
-#define PY_FOOD_MAX     15000   /* Food value (Bloated) */
-#define PY_FOOD_FULL    10000   /* Food value (Normal) */
-#define PY_FOOD_ALERT   2000    /* Food value (Hungry) */
-#define PY_FOOD_WEAK    1000    /* Food value (Weak) */
-#define PY_FOOD_FAINT   500     /* Food value (Fainting) */
-#define PY_FOOD_STARVE  100     /* Food value (Starving) */
-
-/*
- * Player regeneration constants
- */
-#define PY_REGEN_NORMAL         197     /* Regen factor*2^16 when full */
-#define PY_REGEN_WEAK           98      /* Regen factor*2^16 when weak */
-#define PY_REGEN_FAINT          33      /* Regen factor*2^16 when fainting */
-#define PY_REGEN_HPBASE         1442    /* Min amount hp regen*2^16 */
-#define PY_REGEN_MNBASE         524     /* Min amount mana regen*2^16 */
-
-/*
  * Possible realms that can be chosen;
  * currently used only by birth.c and tables.c
  */
@@ -593,10 +565,7 @@
 #define REALM1_BOOK(WHO)     ((WHO)->realm1 + TV_LIFE_BOOK - 1)
 #define REALM2_BOOK(WHO)     ((WHO)->realm2 + TV_LIFE_BOOK - 1)
 
-
-/*
- * Mode constant for do_spell()
- */
+// Mode constant for do_spell()
 #define SPELL_NAME   0
 #define SPELL_DESC   1
 #define SPELL_INFO   2
@@ -606,21 +575,6 @@
 #define SPELL_CONT   6
 
 
-/*
- * Maximum number of "normal" pack slots, and the index of the "overflow"
- * slot, which can hold an item, but only temporarily, since it causes the
- * pack to "overflow", dropping the "last" item onto the ground.  Since this
- * value is used as an actual slot, it must be less than "INVEN_1STARM" (below).
- * Note that "INVEN_TOTAL" is probably hard-coded by its use in savefiles, and
- * by the fact that the screen can only show 23 items plus a one-line prompt.
-
- // TODO; this comment is too old.
- */
-
-/*
- * Total number of inventory slots (hard-coded).
- */
-#define INVEN_TOTAL      48
 
 /*
  * Fake inventory slot for selecting force (hard-coded).
@@ -643,9 +597,6 @@
 #define STAT_CHA   5
 #define STAT_MAX   6
 #define STAT_FRACTION 10
-#define STAT_VALUE_MIN   30
-#define STAT_VALUE_MAX   600
-#define STAT_VALUE_BASE_MAX_MAX 240
 
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
@@ -1313,7 +1264,10 @@
 /* xxx */
 /* xxx */
 
-/* Body Armor */
+#define EGO_000
+#define EGO_001
+#define EGO_002
+#define EGO_003
 #define EGO_RESIST_ACID         4
 #define EGO_RESIST_ELEC         5
 #define EGO_RESIST_FIRE         6
@@ -1323,9 +1277,9 @@
 #define EGO_DWARVEN             10
 #define EGO_PERMANENCE          11
 #define EGO_YOIYAMI             12
-/* xxx */
-/* xxx */
-/* xxx */
+#define EGO_013
+#define EGO_014
+#define EGO_015
 
 /* Shields */
 #define EGO_ENDURE_ACID         16
@@ -1364,8 +1318,6 @@
 #define EGO_VULNERABILITY       45
 #define EGO_IRRITATION          46
 #define EGO_AURA_ELEC           47
-#define EGO_AURA_COLD          128
-#define EGO_BAT                129
 
 /* Gloves */
 #define EGO_FREE_ACTION         48
@@ -1391,6 +1343,7 @@
 #define EGO_HA                  64
 #define EGO_DF                  65
 #define EGO_BLESS_BLADE         66
+#define EGO         67
 
 /* xxx */
 #define EGO_WEST                68
@@ -1457,6 +1410,8 @@
 #define EGO_BACKBITING          125
 #define EGO_SHATTERED           126
 #define EGO_BLASTED             127
+#define EGO_AURA_COLD          128
+#define EGO_BAT                129
 
 #define EGO_LITE_SHINE          140
 #define EGO_LITE_ILLUMINATION   141
