@@ -4210,7 +4210,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 
 /*
- * Set creature_ptr->cut", notice observable changes
+ * Set cut, notice observable changes
  *
  * Note the special code to only notice "range" changes.
  */

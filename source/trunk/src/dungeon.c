@@ -834,8 +834,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 
 	if (!pattern_tile(floor_ptr, creature_ptr->fy, creature_ptr->fx)) return FALSE;
 
-	if ((IS_RACE(creature_ptr, RACE_AMBERITE)) &&
-	    (creature_ptr->cut > 0) && one_in_(10))
+	if ((IS_RACE(creature_ptr, RACE_AMBERITE)) && (IS_WOUND(creature_ptr)) && one_in_(10))
 	{
 		wreck_the_pattern(floor_ptr, creature_ptr);
 	}
@@ -1596,7 +1595,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 	/* Take damage from cuts */
-	if (creature_ptr->cut && !IS_INVULN(creature_ptr))
+	if (IS_WOUND(creature_ptr) && !IS_INVULN(creature_ptr))
 	{
 		int dam;
 
@@ -1966,7 +1965,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÄ‚«Å‚ª‚µ‚½I", o_name);
 
 	/* Poisoned or cut yields no healing */
 	if (creature_ptr->poisoned) regen_amount = 0;
-	if (creature_ptr->cut) regen_amount = 0;
+	if (IS_WOUND(creature_ptr)) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if (cave_no_regen) regen_amount = 0;
@@ -2273,7 +2272,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Cut */
-	if (creature_ptr->cut)
+	if (IS_WOUND(creature_ptr))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
@@ -5442,7 +5441,7 @@ void process_player(creature_type *creature_ptr)
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
 			    !creature_ptr->poisoned && !creature_ptr->afraid &&
-			    !creature_ptr->stun && !creature_ptr->cut &&
+			    !creature_ptr->stun && !IS_WOUND(creature_ptr) &&
 			    !creature_ptr->slow && !creature_ptr->paralyzed &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&
 			    !creature_ptr->alter_reality)

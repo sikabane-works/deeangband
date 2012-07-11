@@ -4096,7 +4096,8 @@ extern int PlayerUID;
 #define IS_LIGHTSPEED(C)	((C)->lightspeed)
 #define IS_BLIND(C)			((C)->blind > 0)
 #define IS_POISONED(C)		((C)->poisoned)
-#define IS_HALLUCINATION(C) ((C)->blind > 0)
+#define IS_HALLUCINATION(C) ((C)->image > 0)
+#define IS_WOUND(C)			((C)->cut > 0)
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \

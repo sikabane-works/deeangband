@@ -570,7 +570,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = MIN(60, mult+30);
 			}
-			if ((mode == HISSATSU_SEKIRYUKA) && atk_ptr->cut && creature_living(atk_ptr))
+			if ((mode == HISSATSU_SEKIRYUKA) && IS_WOUND(atk_ptr) && creature_living(atk_ptr))
 			{
 				int tmp = MIN(100, MAX(10, atk_ptr->cut / 10));
 				if (mult < tmp) mult = tmp;

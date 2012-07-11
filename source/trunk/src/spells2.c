@@ -248,7 +248,7 @@ info[i++] = "‚ ‚È‚½‚Í‹°•|‚ÉN‚³‚ê‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->cut)
+	if (IS_WOUND(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍoŒŒ‚µ‚Ä‚¢‚éB";
