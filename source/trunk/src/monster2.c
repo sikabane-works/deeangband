@@ -1948,7 +1948,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	else name = (species_name + species_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
-	if (player_ptr->image && !(mode & MD_IGNORE_HALLU))
+	if (IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU))
 	{
 		if (one_in_(2))
 		{
@@ -2123,7 +2123,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((is_unique_species(species_ptr)) && !(player_ptr->image && !(mode & MD_IGNORE_HALLU)))
+		if ((is_unique_species(species_ptr)) && !(IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
@@ -2489,7 +2489,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (randint1(100) > power) return;
 		if (saving_throw(watcher_ptr->skill_rob - power)) return; // Save, no adverse effects
 
-		if (watcher_ptr->image)
+		if (IS_HALLUCINATION(watcher_ptr))
 		{
 			/* Something silly happens... */
 #ifdef JP
@@ -2564,7 +2564,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		}
 		if (!watcher_ptr->resist_chaos && one_in_(3))
 		{
-			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2592,7 +2592,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if (!watcher_ptr->resist_chaos)
 		{
-			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2873,7 +2873,7 @@ void update_mon(int m_idx, bool full)
 				/* Detectable */
 				flag = TRUE;
 
-				if (is_original_ap(m_ptr) && !player_ptr->image)
+				if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
 				{
 					if (has_cf_creature(m_ptr, CF_SMART)) reveal_creature_info(m_ptr, CF_SMART);;
 					if (has_cf_creature(m_ptr, CF_SMART)) reveal_creature_info(m_ptr, CF_STUPID);;
@@ -2900,7 +2900,7 @@ void update_mon(int m_idx, bool full)
 						/* Detectable */
 						flag = TRUE;
 
-						if (is_original_ap(m_ptr) && !player_ptr->image)
+						if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
 						{
 							/* Memorize flags */
 							reveal_creature_info(m_ptr, CF_WEIRD_MIND);
@@ -2916,7 +2916,7 @@ void update_mon(int m_idx, bool full)
 					/* Detectable */
 					flag = TRUE;
 
-					if (is_original_ap(m_ptr) && !player_ptr->image)
+					if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
 					{
 						/* Hack -- Memorize mental flags */
 						reveal_creature_info(m_ptr, CF_SMART);
@@ -3069,7 +3069,7 @@ void update_mon(int m_idx, bool full)
 			/* Visible */
 			if (flag)
 			{
-				if (is_original_ap(m_ptr) && !player_ptr->image)
+				if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
 				{
 					/* Memorize flags */
 					reveal_creature_info(m_ptr, CF_INVISIBLE);
@@ -3097,7 +3097,7 @@ void update_mon(int m_idx, bool full)
 			if (player_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
-			if (!player_ptr->image)
+			if (!IS_HALLUCINATION(player_ptr))
 			{
 				if ((m_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
 					species_info[MON_KAGE].r_sights++;

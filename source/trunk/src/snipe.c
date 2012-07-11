@@ -560,7 +560,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	}
 
 	/* not if hullucinated */
-	if (cr_ptr->image)
+	if (IS_HALLUCINATION(cr_ptr))
 	{
 #ifdef JP
 		msg_print("Œ¶Šo‚ªŒ©‚¦‚ÄW’†‚Å‚«‚È‚¢I");

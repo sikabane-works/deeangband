@@ -275,7 +275,7 @@ info[i++] = "あなたは毒に侵されている。";
 #endif
 
 	}
-	if (creature_ptr->image)
+	if (IS_HALLUCINATION(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは幻覚を見ている。";
@@ -1805,9 +1805,9 @@ info[i++] = "あなたは毒に侵されている。";
 #endif
 
 	}
-	if (cr_ptr->image)
+	if (IS_HALLUCINATION(cr_ptr))
 	{
-		info2[i]  = report_magics_aux(cr_ptr->image);
+		info2[i]  = report_magics_aux(IS_HALLUCINATION(cr_ptr));
 #ifdef JP
 info[i++] = "あなたは幻覚を見ている。";
 #else

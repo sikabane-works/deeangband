@@ -964,7 +964,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->image", notice observable changes
+ * Set "IS_HALLUCINATION(creature_ptr)", notice observable changes
  *
  * Note that we must redraw the map when hallucination changes.
  */
@@ -988,7 +988,7 @@ bool set_image(creature_type *creature_ptr, int v)
 	if (v)
 	{
 		set_tsuyoshi(creature_ptr, 0, TRUE);
-		if (!creature_ptr->image)
+		if (!IS_HALLUCINATION(creature_ptr))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1010,7 +1010,7 @@ bool set_image(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->image)
+		if (IS_HALLUCINATION(creature_ptr))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -6169,7 +6169,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if ((tar_ptr->ml && !atk_ptr->image) || is_unique_creature(tar_ptr))
+			if ((tar_ptr->ml && !IS_HALLUCINATION(atk_ptr)) || is_unique_creature(tar_ptr))
 			{
 				/* Count kills this life */
 				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
@@ -6456,7 +6456,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 		if (record_danger && (old_chp > warning))
 		{
-			if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
+			if (IS_HALLUCINATION(tar_ptr) && damage_type == DAMAGE_ATTACK)
 	#ifdef JP
 				hit_from = "‰½‚©";
 	#else

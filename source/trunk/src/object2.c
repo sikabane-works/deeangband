@@ -7579,7 +7579,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 			return;
 		}
-		if (creature_ptr->image)
+		if (IS_HALLUCINATION(creature_ptr))
 		{
 #ifdef JP
 			msg_print("‚¤‚Ü‚­Œ©‚¦‚È‚­‚Äì‹Æ‚Å‚«‚È‚¢I");

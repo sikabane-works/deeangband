@@ -1287,7 +1287,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if (IS_FEMALE(target_ptr) && has_cf_creature(target_ptr, CF_HUMANOID) &&
-	    !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || !target_ptr->ml))
+	    !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->ml))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1396,7 +1396,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || attacker_ptr->image || attacker_ptr->shero || !target_ptr->ml))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->ml))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1519,7 +1519,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	if (target_ptr->ml)
 	{
-		if (!attacker_ptr->image) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		if (!IS_HALLUCINATION(attacker_ptr)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
@@ -1838,7 +1838,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	bool blinked;
 	bool touched = FALSE;
 	bool explode = FALSE;
-	bool do_silly_attack = (one_in_(2) && target_ptr->image);
+	bool do_silly_attack = (one_in_(2) && IS_HALLUCINATION(target_ptr));
 	int get_damage = 0;
 
 	bool obvious = FALSE;

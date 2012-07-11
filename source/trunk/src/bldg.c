@@ -2358,7 +2358,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		return;
 	}
 
-	if (watcher_ptr->image)
+	if (IS_HALLUCINATION(watcher_ptr))
 	{
 		/* Something silly happens... */
 #ifdef JP
@@ -2413,7 +2413,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		if (!watcher_ptr->resist_chaos && one_in_(3) && watcher_ptr->chara_idx == CHARA_CHARGEMAN)
 		{
-			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2447,7 +2447,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		if (!watcher_ptr->resist_chaos)
 		{
-			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}

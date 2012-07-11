@@ -144,7 +144,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!creature_ptr->resist_chaos)
 				{
-					if (set_image(creature_ptr, creature_ptr->image + randint0(250) + 250))
+					if (set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}
@@ -852,7 +852,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			{
 				if (one_in_(2))
 				{
-					if (set_image(creature_ptr, creature_ptr->image + randint0(150) + 150))
+					if (set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}

@@ -616,7 +616,7 @@ void search(creature_type *creature_ptr)
 
 	/* Penalize various conditions */
 	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) chance = chance / 10;
-	if (creature_ptr->confused || creature_ptr->image) chance = chance / 10;
+	if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
 	for (y = (creature_ptr->fy - 1); y <= (creature_ptr->fy + 1); y++)
@@ -1729,7 +1729,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 	if (pattern_type_new == PATTERN_TILE_START)
 	{
-		if (!is_pattern_tile_cur && !creature_ptr->confused && !creature_ptr->stun && !creature_ptr->image)
+		if (!is_pattern_tile_cur && !creature_ptr->confused && !creature_ptr->stun && !IS_HALLUCINATION(creature_ptr))
 		{
 #ifdef JP
 			if (get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
@@ -2390,7 +2390,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
-		    !(creature_ptr->confused || creature_ptr->image || !m_ptr->ml || creature_ptr->stun ||
+		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->ml || creature_ptr->stun ||
 		    has_cf_creature(creature_ptr, CF_BERS_RAGE) && creature_ptr->shero) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
@@ -2403,7 +2403,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			if (m_ptr->ml)
 			{
 				/* Auto-Recall if possible and visible */
-				if (!creature_ptr->image) species_type_track(m_ptr->ap_species_idx);
+				if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
 
 				/* Track a new creature */
 				health_track(c_ptr->creature_idx);
@@ -2622,7 +2622,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				msg_print("You cannot go any more.");
 #endif
 
-				if (!(creature_ptr->confused || creature_ptr->stun || creature_ptr->image))
+				if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
 					energy_use = 0;
 			}
 
@@ -2644,7 +2644,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				 * a wall _if_ you are confused, stunned or blind; but
 				 * typing mistakes should not cost you a turn...
 				 */
-				if (!(creature_ptr->confused || creature_ptr->stun || creature_ptr->image))
+				if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
 					energy_use = 0;
 			}
 		}
@@ -2671,7 +2671,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Normal movement */
 	if (oktomove && !pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
 	{
-		if (!(creature_ptr->confused || creature_ptr->stun || creature_ptr->image))
+		if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
 		{
 			energy_use = 0;
 		}

@@ -601,7 +601,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->cut);
 	wr_s16b(cr_ptr->stun);
 	wr_s16b(cr_ptr->poisoned);
-	wr_s16b(cr_ptr->image);
+	wr_s16b(IS_HALLUCINATION(cr_ptr));
 	wr_s16b(cr_ptr->protevil);
 	wr_s16b(cr_ptr->invuln);
 	wr_s16b(cr_ptr->ult_res);
