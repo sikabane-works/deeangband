@@ -4896,7 +4896,46 @@ errr parse_race_info_csv(char *buf, header *head)
 	return PARSE_ERROR_NONE;
 }
 
-#define CL_INFO_CSV_COLUMNS 35
+
+enum CLASS_INFO {
+	CL_INFO_ID,
+	CL_INFO_NAME,
+	CL_INFO_E_NAME,
+	CL_INFO_STR,
+	CL_INFO_INT,
+	CL_INFO_WIS,
+	CL_INFO_DEX,
+	CL_INFO_CON,
+	CL_INFO_CHA,
+	CL_INFO_A_STR,
+	CL_INFO_A_INT,
+	CL_INFO_A_WIS,
+	CL_INFO_A_DEX,
+	CL_INFO_A_CON,
+	CL_INFO_A_CHA,
+	CL_INFO_RARITY,
+	CL_INFO_C_DIS,
+	CL_INFO_C_DEV,
+	CL_INFO_C_SAV,
+	CL_INFO_C_STL,
+	CL_INFO_C_SRH,
+	CL_INFO_C_FOS,
+	CL_INFO_C_THN,
+	CL_INFO_C_THB,
+	CL_INFO_X_DIS,
+	CL_INFO_X_DEV,
+	CL_INFO_X_SAV,
+	CL_INFO_X_STL,
+	CL_INFO_X_SRH,
+	CL_INFO_X_FOS,
+	CL_INFO_X_THN,
+	CL_INFO_X_THB,
+	CL_INFO_HD,
+	CL_INFO_EXP,
+	CL_INFO_PET_UPKEEP,
+	CL_INFO_CSV_COLUMNS,
+};
+
 static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4935,44 +4974,7 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 	"EXP",
 	"PET_UPKEEP"
 };
-
 static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
-
-#define CL_INFO_ID      0
-#define CL_INFO_NAME    1
-#define CL_INFO_E_NAME  2
-#define CL_INFO_STR     3
-#define CL_INFO_INT     4
-#define CL_INFO_WIS     5
-#define CL_INFO_DEX     6
-#define CL_INFO_CON     7
-#define CL_INFO_CHA     8
-#define CL_INFO_A_STR   9
-#define CL_INFO_A_INT   10
-#define CL_INFO_A_WIS   11
-#define CL_INFO_A_DEX   12
-#define CL_INFO_A_CON   13
-#define CL_INFO_A_CHA   14
-#define CL_INFO_RARITY  15
-#define CL_INFO_C_DIS   16
-#define CL_INFO_C_DEV   17
-#define CL_INFO_C_SAV   18
-#define CL_INFO_C_STL   19
-#define CL_INFO_C_SRH   20
-#define CL_INFO_C_FOS   21
-#define CL_INFO_C_THN   22
-#define CL_INFO_C_THB   23
-#define CL_INFO_X_DIS   24
-#define CL_INFO_X_DEV   25
-#define CL_INFO_X_SAV   26
-#define CL_INFO_X_STL   27
-#define CL_INFO_X_SRH   28
-#define CL_INFO_X_FOS   29
-#define CL_INFO_X_THN   30
-#define CL_INFO_X_THB   31
-#define CL_INFO_HD      32
-#define CL_INFO_EXP     33
-#define CL_INFO_PET_UPKEEP 34
 
 errr parse_class_info_csv(char *buf, header *head)
 {
