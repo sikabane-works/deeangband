@@ -74,7 +74,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 
 
 	/* Too stupid to know anything */
-	if (has_cf_creature(caster_ptr, CF_STUPID)) return;
+	if (has_trait(caster_ptr, CF_STUPID)) return;
 
 
 	/* Must be cheating or learning */
@@ -519,7 +519,7 @@ static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp,
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
 	/* Determine the radius of the blast */
-	if ((rad < 1) && breath) rad = has_cf_creature(caster_ptr, CF_POWERFUL) ? 3 : 2;
+	if ((rad < 1) && breath) rad = has_trait(caster_ptr, CF_POWERFUL) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
@@ -866,13 +866,13 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->shero && (tar_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Elemental resistances */
-	if (has_cf_creature(caster_ptr, CF_BR_ACID))
+	if (has_trait(caster_ptr, CF_BR_ACID))
 	{
 		if (!tar_ptr->immune_acid && (tar_ptr->oppose_acid || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
-	if (has_cf_creature(caster_ptr, CF_BR_FIRE))
+	if (has_trait(caster_ptr, CF_BR_FIRE))
 	{
 		if (!(is_demon_creature(tar_ptr) && tar_ptr->lev > 44))
 		{
@@ -881,19 +881,19 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (has_cf_creature(caster_ptr, CF_BR_ELEC))
+	if (has_trait(caster_ptr, CF_BR_ELEC))
 	{
 		if (!tar_ptr->immune_elec && (tar_ptr->oppose_elec || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
-	if (has_cf_creature(caster_ptr, CF_BR_COLD))
+	if (has_trait(caster_ptr, CF_BR_COLD))
 	{
 		if (!tar_ptr->immune_cold && (tar_ptr->oppose_cold || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 
-	if (has_cf_creature(caster_ptr, CF_BR_POIS) || has_cf_creature(caster_ptr, CF_BR_NUKE))
+	if (has_trait(caster_ptr, CF_BR_POIS) || has_trait(caster_ptr, CF_BR_NUKE))
 	{
 		if (!((tar_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
 		{
@@ -909,11 +909,11 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->tsuyoshi) return (TRUE);
 
 	/* Elemental Brands */
-	if ((tar_ptr->special_attack & ATTACK_ACID) && !has_cf_creature(tar_ptr, CF_RES_ACID)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_FIRE) && !has_cf_creature(tar_ptr, CF_RES_FIRE)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_ELEC) && !has_cf_creature(tar_ptr, CF_RES_ELEC)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_COLD) && !has_cf_creature(tar_ptr, CF_RES_COLD)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_POIS) && !has_cf_creature(tar_ptr, CF_RES_POIS)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ACID) && !has_trait(tar_ptr, CF_RES_ACID)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_FIRE) && !has_trait(tar_ptr, CF_RES_FIRE)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ELEC) && !has_trait(tar_ptr, CF_RES_ELEC)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_COLD) && !has_trait(tar_ptr, CF_RES_COLD)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_POIS) && !has_trait(tar_ptr, CF_RES_POIS)) return (TRUE);
 
 	/* Speed */
 	if (tar_ptr->speed < 145)
@@ -969,7 +969,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	int i;
 
 	/* Stupid creatures choose randomly */
-	if (has_cf_creature(caster_ptr, CF_STUPID))
+	if (has_trait(caster_ptr, CF_STUPID))
 	{
 		/* Pick at random */
 		return (spells[randint0(num)]);
@@ -1343,7 +1343,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if ((caster_ptr->cdis > MAX_RANGE) && !caster_ptr->target_y) return (FALSE);
 
 	/* Check path for lite breath */
-	if (has_cf_creature(target_ptr, CF_BR_LITE))
+	if (has_trait(target_ptr, CF_BR_LITE))
 	{
 		y_br_lite = y;
 		x_br_lite = x;
@@ -1362,7 +1362,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO else if (!adjacent_grid_check(caster_ptr, &y_br_lite, &x_br_lite, FF_LOS, los)) f4 &= ~(RF4_BR_LITE);
 
 		/* Don't breath lite to the wall if impossible */
-		if (!has_cf_creature(target_ptr, CF_BR_LITE))
+		if (!has_trait(target_ptr, CF_BR_LITE))
 		{
 			y_br_lite = 0;
 			x_br_lite = 0;
@@ -1377,10 +1377,10 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{
 			/* Breath disintegration to the wall if possible */
-			if (has_cf_creature(target_ptr, CF_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
+			if (has_trait(target_ptr, CF_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
 
 			/* Breath lite to the transparent wall if possible */
-			else if (has_cf_creature(target_ptr, CF_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
+			else if (has_trait(target_ptr, CF_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
 		}
 	}
 
@@ -1389,20 +1389,20 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		bool success = FALSE;
 
-		if (has_cf_creature(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
+		if (has_trait(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    in_disintegration_range(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(floor_ptr, y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
 		}
-		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
+		else if (has_trait(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    los(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
 		}
-		else if (has_cf_creature(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
+		else if (has_trait(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
 		{
 			int by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
@@ -1457,7 +1457,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO f6 &= ~(RF6_NOMAGIC_MASK);
 	}
 
-	if (has_cf_creature(target_ptr, CF_DARKNESS))
+	if (has_trait(target_ptr, CF_DARKNESS))
 	{
 		if ((target_ptr->class_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(caster_ptr) &&
@@ -1465,21 +1465,21 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		    !is_darken_creature(caster_ptr))
 			can_use_lite_area = TRUE;
 
-		if (!has_cf_creature(caster_ptr, CF_STUPID))
+		if (!has_trait(caster_ptr, CF_STUPID))
 		{
 			//TODO if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			//TODO else if ((target_ptr->class_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !has_cf_creature(caster_ptr, CF_STUPID))
+	if (in_no_magic_dungeon && !has_trait(caster_ptr, CF_STUPID))
 	{
 		//TODO f4 &= (RF4_NOMAGIC_MASK);
 		//TODO f5 &= (RF5_NOMAGIC_MASK);
 		//TODO f6 &= (RF6_NOMAGIC_MASK);
 	}
 
-	if (has_cf_creature(caster_ptr, CF_SMART))
+	if (has_trait(caster_ptr, CF_SMART))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((caster_ptr->chp < caster_ptr->mhp / 10) &&
@@ -1492,7 +1492,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(floor_ptr, target_ptr, 0))
+		if (has_trait(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(floor_ptr, target_ptr, 0))
 		{
 			//TODO f6 &= ~(RF6_TELE_LEVEL);
 		}
@@ -1516,7 +1516,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* No spells left */
 	//TODO if (!f4 && !f5 && !f6) return (FALSE);
 
-	if (!has_cf_creature(caster_ptr, CF_STUPID))
+	if (!has_trait(caster_ptr, CF_STUPID))
 	{
 		//TODO if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
 
@@ -1545,14 +1545,14 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO }
 
 		/* Check for a possible raise dead */
-		if (has_cf_creature(caster_ptr, CF_RAISE_DEAD) && !raise_possible(caster_ptr, target_ptr))
+		if (has_trait(caster_ptr, CF_RAISE_DEAD) && !raise_possible(caster_ptr, target_ptr))
 		{
 			/* Remove raise dead spell */
 			//TODO f6 &= ~(RF6_RAISE_DEAD);
 		}
 
 		/* Special moves restriction */
-		if (has_cf_creature(caster_ptr, CF_SPECIAL))
+		if (has_trait(caster_ptr, CF_SPECIAL))
 		{
 			if ((caster_ptr->species_idx == MON_ROLENTO) && !summon_possible(target_ptr, y, x))
 			{
@@ -1566,7 +1566,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	/* Extract the "inate" spells */
 	for(k = 0; k < max_trait_idx; k++)
-		if (trait_info[k].is_spell && has_cf_creature(caster_ptr, k)) racial_spell[num++] = k;
+		if (trait_info[k].is_spell && has_trait(caster_ptr, k)) racial_spell[num++] = k;
 
 	/* No spells left */
 	if (!num) return (FALSE);
@@ -1621,7 +1621,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	failrate = 25 - (rlev + 3) / 4;
 
 	/* Hack -- Stupid creatures will never fail (for jellies and such) */
-	if (has_cf_creature(caster_ptr, CF_STUPID)) failrate = 0;
+	if (has_trait(caster_ptr, CF_STUPID)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
 	// TODO Distinction of spell failure_rate
@@ -2180,7 +2180,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s casts a ball of radiation.", m_name);
 #endif
 
-			dam = (rlev + diceroll(10, 6)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, MS_BALL_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
@@ -2222,7 +2222,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s invokes a raw Logrus.", m_name);
 #endif
 
-			dam = (has_cf_creature(caster_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
+			dam = (has_trait(caster_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BALL_CHAOS, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
@@ -2264,7 +2264,7 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an acid ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3) + 15) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, MS_BALL_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
@@ -2285,7 +2285,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 8) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
@@ -2324,7 +2324,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 			}
 
-			dam = (randint1(rlev * 7 / 2) + 10) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, MS_BALL_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
@@ -2345,7 +2345,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 10) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
@@ -2366,7 +2366,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a stinking cloud.", m_name);
 #endif
 
-			dam = diceroll(12, 2) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = diceroll(12, 2) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
@@ -2387,7 +2387,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether ball.", m_name);
 #endif
 
-			dam = 50 + diceroll(10, 10) + (rlev * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1));
+			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1));
 			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
@@ -2414,7 +2414,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (has_cf_creature(caster_ptr, CF_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
+			dam = (has_trait(caster_ptr, CF_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
 			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
 			break;
 		}
@@ -2627,7 +2627,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a acid bolt.", m_name);
 #endif
 
-			dam = (diceroll(7, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2650,7 +2650,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning bolt.", m_name);
 #endif
 
-			dam = (diceroll(4, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2673,7 +2673,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a fire bolt.", m_name);
 #endif
 
-			dam = (diceroll(9, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2696,7 +2696,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost bolt.", m_name);
 #endif
 
-			dam = (diceroll(6, 8) + (rlev / 3)) * (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2740,7 +2740,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether bolt.", m_name);
 #endif
 
-			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3);
+			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3);
 			bolt(caster_ptr, target_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -2763,7 +2763,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a water bolt.", m_name);
 #endif
 
-			dam = diceroll(10, 10) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -2807,7 +2807,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a plasma bolt.", m_name);
 #endif
 
-			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -2829,7 +2829,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an ice bolt.", m_name);
 #endif
 
-			dam = diceroll(6, 6) + (rlev * 3 / (has_cf_creature(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
@@ -3567,7 +3567,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s throw a Psycho-Spear.", m_name);
 #endif
 
-			dam = has_cf_creature(caster_ptr, CF_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
+			dam = has_trait(caster_ptr, CF_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
 			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
 			break;
 		}

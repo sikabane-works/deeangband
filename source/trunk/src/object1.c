@@ -4053,10 +4053,10 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 				switch(num)
 				{
 					case 1:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "右手" : "第１手";
+						p = has_trait(cr_ptr, CF_HUMANOID) ? "右手" : "第１手";
 						break;
 					case 2:
-						p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "左手" : "第２手";
+						p = has_trait(cr_ptr, CF_HUMANOID) ? "左手" : "第２手";
 						break;
 					case 3:
 						p = "第３手";
@@ -4112,10 +4112,10 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 			switch(num)
 			{
 				case 1:
-					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "右指" : "第１指";
+					p = has_trait(cr_ptr, CF_HUMANOID) ? "右指" : "第１指";
 					break;
 				case 2:
-					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "左指" : "第２指";
+					p = has_trait(cr_ptr, CF_HUMANOID) ? "左指" : "第２指";
 					break;
 				default:
 					p = "指？";
@@ -4173,7 +4173,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 			switch(num)
 			{
 				case 1:
-					p = has_cf_creature(cr_ptr, CF_HUMANOID) ? "頭部" : "第１頭";
+					p = has_trait(cr_ptr, CF_HUMANOID) ? "頭部" : "第１頭";
 					break;
 				case 2:
 					p = "第２頭";
@@ -4256,7 +4256,7 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->two_handed && cr_ptr->can_melee[0]) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
+		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->two_handed && cr_ptr->can_melee[0]) ? "両手に装備している" : (has_trait(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
 #else
 		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
 #endif
@@ -4268,9 +4268,9 @@ cptr describe_use(creature_type *cr_ptr, int i)
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
+		case INVEN_SLOT_RING: p = (has_trait(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
 #else
-		case INVEN_SLOT_RING: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
+		case INVEN_SLOT_RING: p = (has_trait(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
 
 #ifdef JP

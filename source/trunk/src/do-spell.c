@@ -2727,7 +2727,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				lite_area(caster_ptr, diceroll(dice, sides), rad);
 
-				if (has_cf_creature(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
+				if (has_trait(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("“ú‚ÌŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");
@@ -3309,7 +3309,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 				fire_ball(caster_ptr, GF_LITE, 0, dam, rad);
 				wiz_lite(floor_ptr, caster_ptr, FALSE);
 
-				if (has_cf_creature(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
+				if (has_trait(caster_ptr, CF_HURT_LITE) && !caster_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("“úŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");

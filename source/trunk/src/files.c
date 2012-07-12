@@ -1853,12 +1853,12 @@ static void display_player_middle(creature_type *creature_ptr)
 	/*
 	if (creature_ptr->can_melee[0])
 	{
-		display_player_melee_bonus(creature_ptr, 0, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
+		display_player_melee_bonus(creature_ptr, 0, has_trait(creature_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
 	}
 
 	if (creature_ptr->can_melee[1])
 	{
-		display_player_melee_bonus(creature_ptr, 1, has_cf_creature(creature_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
+		display_player_melee_bonus(creature_ptr, 1, has_trait(creature_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
 	}
 	else if ((creature_ptr->class_idx == CLASS_MONK) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
@@ -2015,7 +2015,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
 
 	/* Dump experience */
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
+	if (has_trait(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
 	if (creature_ptr->exp >= creature_ptr->max_exp)
@@ -2024,18 +2024,18 @@ static void display_player_middle(creature_type *creature_ptr)
 		display_player_one_line(e, format("%ld", creature_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (has_cf_creature(creature_ptr, CF_ANDROID))
+	if (has_trait(creature_ptr, CF_ANDROID))
 		/* Nothing */;
 	else
 		display_player_one_line(ENTRY_MAX_EXP, format("%ld", creature_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (has_trait(creature_ptr, CF_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
 	if (creature_ptr->lev >= creature_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (has_cf_creature(creature_ptr, CF_ANDROID))
+	else if (has_trait(creature_ptr, CF_ANDROID))
 		display_player_one_line(e, format("%ld", (s32b)(creature_exp_a[creature_ptr->lev - 1] * creature_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
 		display_player_one_line(e, format("%ld", (s32b)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L)), TERM_L_GREEN);
@@ -2216,11 +2216,11 @@ static void display_player_various(creature_type * cr_ptr)
 
 	object_type		*o_ptr;
 
-	if (has_cf_creature(cr_ptr, CF_HORNS))     muta_att++;
-	if (has_cf_creature(cr_ptr, CF_SCOR_TAIL)) muta_att++;
-	if (has_cf_creature(cr_ptr, CF_BEAK))      muta_att++;
-	if (has_cf_creature(cr_ptr, CF_TRUNK))     muta_att++;
-	if (has_cf_creature(cr_ptr, CF_TENTACLES)) muta_att++;
+	if (has_trait(cr_ptr, CF_HORNS))     muta_att++;
+	if (has_trait(cr_ptr, CF_SCOR_TAIL)) muta_att++;
+	if (has_trait(cr_ptr, CF_BEAK))      muta_att++;
+	if (has_trait(cr_ptr, CF_TRUNK))     muta_att++;
+	if (has_trait(cr_ptr, CF_TENTACLES)) muta_att++;
 
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_hit_m * BTH_PLUS_ADJ);
 
@@ -2425,50 +2425,50 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		; /* Do nothing */
 	}
 
-	if (has_cf_creature(cr_ptr, CF_FLESH_ROT))
+	if (has_trait(cr_ptr, CF_FLESH_ROT))
 	{
 		remove_flag(flgs, TR_REGEN);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_XTRA_FAT) ||
-		has_cf_creature(cr_ptr, CF_XTRA_LEGS) ||
-		has_cf_creature(cr_ptr, CF_SHORT_LEG) )
+	if (has_trait(cr_ptr, CF_XTRA_FAT) ||
+		has_trait(cr_ptr, CF_XTRA_LEGS) ||
+		has_trait(cr_ptr, CF_SHORT_LEG) )
 	{
 		add_flag(flgs, TR_SPEED);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ELEC_TOUC))
+	if (has_trait(cr_ptr, CF_ELEC_TOUC))
 	{
 		add_flag(flgs, TR_SH_ELEC);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_FIRE_BODY))
+	if (has_trait(cr_ptr, CF_FIRE_BODY))
 	{
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_LITE);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_WINGS))
+	if (has_trait(cr_ptr, CF_WINGS))
 	{
 		add_flag(flgs, TR_LEVITATION);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_FEARLESS))
+	if (has_trait(cr_ptr, CF_FEARLESS))
 	{
 		add_flag(flgs, TR_RES_FEAR);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_REGEN))
+	if (has_trait(cr_ptr, CF_REGEN))
 	{
 		add_flag(flgs, TR_REGEN);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_ESP))
+	if (has_trait(cr_ptr, CF_ESP))
 	{
 		add_flag(flgs, TR_TELEPATHY);
 	}
 
-	if (has_cf_creature(cr_ptr, CF_MOTION))
+	if (has_trait(cr_ptr, CF_MOTION))
 	{
 		add_flag(flgs, TR_FREE_ACT);
 	}
@@ -2775,14 +2775,14 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (has_cf_creature(cr_ptr, CF_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if (has_trait(cr_ptr, CF_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);
 		add_flag(flgs, TR_RES_FIRE);
 		add_flag(flgs, TR_RES_COLD);
 	}
-	if (has_cf_creature(cr_ptr, CF_ANDROID))
+	if (has_trait(cr_ptr, CF_ANDROID))
 		add_flag(flgs, TR_RES_ELEC);
 	if (IS_RACE(cr_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);
@@ -2972,11 +2972,11 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 	//acid
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_ACID))
+	if (has_trait(cr_ptr, CF_RES_ACID))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
-	if (has_cf_creature(cr_ptr, CF_OPP_ACID))
+	if (has_trait(cr_ptr, CF_OPP_ACID))
 		c_put_str(TERM_YELLOW, "#", row + 0, col + 31);
-	if (has_cf_creature(cr_ptr, CF_IM_ACID))
+	if (has_trait(cr_ptr, CF_IM_ACID))
 		c_put_str(TERM_YELLOW, "*", row + 0, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ACID))
 		c_put_str(TERM_WHITE, "*", row + 0, col + 31);
@@ -2985,16 +2985,16 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 	//elec
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_ELEC))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
-	if (has_cf_creature(cr_ptr, CF_RES_ELEC))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
-	if (has_cf_creature(cr_ptr, CF_IM_ELEC))
+	if (has_trait(cr_ptr, CF_RES_ELEC))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
+	if (has_trait(cr_ptr, CF_RES_ELEC))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
+	if (has_trait(cr_ptr, CF_IM_ELEC))
 		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
 
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ELEC))
 		c_put_str(TERM_WHITE, "*", row + 1, col + 31);
-	if (has_cf_creature(cr_ptr, CF_HURT_ELEC))
+	if (has_trait(cr_ptr, CF_HURT_ELEC))
 		c_put_str(TERM_RED, "v", row + 1, col + 31);
 
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
@@ -3002,15 +3002,15 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 	//fire
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_FIRE))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
-	if (has_cf_creature(cr_ptr, CF_RES_FIRE))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
-	if (has_cf_creature(cr_ptr, CF_IM_FIRE))
+	if (has_trait(cr_ptr, CF_RES_FIRE))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
+	if (has_trait(cr_ptr, CF_RES_FIRE))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
+	if (has_trait(cr_ptr, CF_IM_FIRE))
 		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_FIRE))
 		c_put_str(TERM_WHITE, "*", row + 2, col + 31);
-	if (has_cf_creature(cr_ptr, CF_HURT_FIRE))
+	if (has_trait(cr_ptr, CF_HURT_FIRE))
 		c_put_str(TERM_RED, "v", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 2, col + 33);
 
@@ -3019,45 +3019,45 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_COLD))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
-	if (has_cf_creature(cr_ptr, CF_OPP_COLD))
-		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
-	if (has_cf_creature(cr_ptr, CF_IM_COLD))
+	if (has_trait(cr_ptr, CF_RES_COLD))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
+	if (has_trait(cr_ptr, CF_OPP_COLD))
+		c_put_str((byte)(has_trait(cr_ptr, CF_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
+	if (has_trait(cr_ptr, CF_IM_COLD))
 		c_put_str(TERM_YELLOW, "*", row + 3, col * 31);
 	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_COLD))
 		c_put_str(TERM_WHITE, "*", row + 3, col + 31);
-	if (has_cf_creature(cr_ptr, CF_HURT_COLD))
+	if (has_trait(cr_ptr, CF_HURT_COLD))
 		c_put_str(TERM_RED, "v", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
 	//pois
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_POIS))
+	if (has_trait(cr_ptr, CF_RES_POIS))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
-	if (has_cf_creature(cr_ptr, CF_OPP_POIS))
+	if (has_trait(cr_ptr, CF_OPP_POIS))
 		c_put_str(TERM_YELLOW, "#", row + 4, col + 31);
-	if (has_cf_creature(cr_ptr, CF_IM_POIS))
+	if (has_trait(cr_ptr, CF_IM_POIS))
 		c_put_str(TERM_YELLOW, "*", row + 4, col * 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 	//lite
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_LITE))
+	if (has_trait(cr_ptr, CF_RES_LITE))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_DARK))
+	if (has_trait(cr_ptr, CF_RES_DARK))
 		c_put_str(TERM_WHITE, "+", row + 6, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_SHAR))
+	if (has_trait(cr_ptr, CF_RES_SHAR))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+7, col + 33);
 
@@ -3090,31 +3090,31 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_SOUN))
+	if (has_trait(cr_ptr, CF_RES_SOUN))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_NETH))
+	if (has_trait(cr_ptr, CF_RES_NETH))
 		c_put_str(TERM_WHITE, "+", row + 1, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_NEXU))
+	if (has_trait(cr_ptr, CF_RES_NEXU))
 		c_put_str(TERM_WHITE, "+", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_CHAOS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_CHAO))
+	if (has_trait(cr_ptr, CF_RES_CHAO))
 		c_put_str(TERM_WHITE, "+", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_cf_creature(cr_ptr, CF_RES_DISE))
+	if (has_trait(cr_ptr, CF_RES_DISE))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
@@ -3506,7 +3506,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		for(j = 0; j < max_trait_idx; j++)
 		{
-			if(has_cf_creature(cr_ptr, j))
+			if(has_trait(cr_ptr, j))
 				r_adj += trait_info[j].adj[i];
 		}
 
@@ -3757,37 +3757,37 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 			if (stat == STAT_STR)
 			{
-				if (has_cf_creature(cr_ptr, CF_HYPER_STR)) dummy += 4;
-				if (has_cf_creature(cr_ptr, CF_PUNY)) dummy -= 4;
+				if (has_trait(cr_ptr, CF_HYPER_STR)) dummy += 4;
+				if (has_trait(cr_ptr, CF_PUNY)) dummy -= 4;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
-				if (has_cf_creature(cr_ptr, CF_HYPER_INT)) dummy += 4;
-				if (has_cf_creature(cr_ptr, CF_MORONIC)) dummy -= 4;
+				if (has_trait(cr_ptr, CF_HYPER_INT)) dummy += 4;
+				if (has_trait(cr_ptr, CF_MORONIC)) dummy -= 4;
 			}
 			else if (stat == STAT_DEX)
 			{
-				if (has_cf_creature(cr_ptr, CF_IRON_SKIN)) dummy -= 1;
-				if (has_cf_creature(cr_ptr, CF_LIMBER)) dummy += 3;
-				if (has_cf_creature(cr_ptr, CF_ARTHRITIS)) dummy -= 3;
+				if (has_trait(cr_ptr, CF_IRON_SKIN)) dummy -= 1;
+				if (has_trait(cr_ptr, CF_LIMBER)) dummy += 3;
+				if (has_trait(cr_ptr, CF_ARTHRITIS)) dummy -= 3;
 			}
 			else if (stat == STAT_CON)
 			{
-				if (has_cf_creature(cr_ptr, CF_RESILIENT)) dummy += 4;
-				if (has_cf_creature(cr_ptr, CF_XTRA_FAT)) dummy += 2;
-				if (has_cf_creature(cr_ptr, CF_ALBINO)) dummy -= 4;
-				if (has_cf_creature(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
+				if (has_trait(cr_ptr, CF_RESILIENT)) dummy += 4;
+				if (has_trait(cr_ptr, CF_XTRA_FAT)) dummy += 2;
+				if (has_trait(cr_ptr, CF_ALBINO)) dummy -= 4;
+				if (has_trait(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_CHA)
 			{
-				if (has_cf_creature(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
-				if (has_cf_creature(cr_ptr, CF_BLANK_FAC)) dummy -= 1;
-				if (has_cf_creature(cr_ptr, CF_FLESH_ROT)) dummy -= 1;
-				if (has_cf_creature(cr_ptr, CF_SCALES)) dummy -= 1;
-				if (has_cf_creature(cr_ptr, CF_WART_SKIN)) dummy -= 2;
-				if (has_cf_creature(cr_ptr, CF_ILL_NORM)) dummy = 0;
+				if (has_trait(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
+				if (has_trait(cr_ptr, CF_BLANK_FAC)) dummy -= 1;
+				if (has_trait(cr_ptr, CF_FLESH_ROT)) dummy -= 1;
+				if (has_trait(cr_ptr, CF_SCALES)) dummy -= 1;
+				if (has_trait(cr_ptr, CF_WART_SKIN)) dummy -= 2;
+				if (has_trait(cr_ptr, CF_ILL_NORM)) dummy = 0;
 			}
 
 			/* Boost */

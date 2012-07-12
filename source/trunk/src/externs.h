@@ -1020,7 +1020,7 @@ extern void reveal_species_info(species_type *species_ptr, int type);
 extern void reveal_creature_info(creature_type *creature_ptr, int type);
 
 extern bool has_trait_from_species(traits *cf_ptr, int type);
-extern bool has_cf_creature(creature_type *creature_ptr, int type);
+extern bool has_trait(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 
 extern int calc_base_level(creature_type *cr_ptr);

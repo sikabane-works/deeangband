@@ -689,7 +689,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		if (!has_cf_creature(cr_ptr, CF_RES_FIRE)) return FALSE;
+		if (!has_trait(cr_ptr, CF_RES_FIRE)) return FALSE;
 	}
 
 	return TRUE;

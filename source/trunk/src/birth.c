@@ -2591,7 +2591,7 @@ static void get_money(creature_type *creature_ptr)
 		gold /= 2;
 	else if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) gold /= 5;
+	if (has_trait(creature_ptr, CF_ANDROID)) gold /= 5;
 
 	gold += creature_ptr->sc * (creature_ptr->lev * creature_ptr->lev + 5) / 2; // Level and social class calc
 

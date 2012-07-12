@@ -933,7 +933,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
-		if (has_cf_creature(m_ptr, CF_RES_TELE))
+		if (has_trait(m_ptr, CF_RES_TELE))
 		{
 			if ((is_unique_species(r_ptr)) || (m_ptr->resist_ultimate))
 			{
@@ -993,7 +993,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 		msg_format("You gesture at %^s's feet.", m_name);
 #endif
 
-		if (has_cf_creature(m_ptr, CF_RES_NEXU) || has_cf_creature(m_ptr, CF_RES_TELE) ||
+		if (has_trait(m_ptr, CF_RES_NEXU) || has_trait(m_ptr, CF_RES_TELE) ||
 			(is_quest_creature(m_ptr)) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP

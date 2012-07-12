@@ -1855,7 +1855,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
-	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_cf_creature(target_ptr, CF_NAZGUL) && !gamble_arena_mode)
+	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_trait(target_ptr, CF_NAZGUL) && !gamble_arena_mode)
 	{
 		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
@@ -1879,7 +1879,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	{
 		/* Sound and Impact resisters never stun */
 		if (do_stun &&
-		    !(has_cf_creature(target_ptr, CF_RES_SOUN) || has_cf_creature(target_ptr, CF_RES_WALL)) && !has_cf_creature(target_ptr, CF_NO_STUN))
+		    !(has_trait(target_ptr, CF_RES_SOUN) || has_trait(target_ptr, CF_RES_WALL)) && !has_trait(target_ptr, CF_NO_STUN))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;
@@ -1914,7 +1914,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		}
 
 		/* Confusion and Chaos resisters (and sleepers) never confuse */
-		if (do_conf && !has_cf_creature(target_ptr, CF_NO_CONF) && !has_cf_creature(target_ptr, CF_RES_CHAO))
+		if (do_conf && !has_trait(target_ptr, CF_NO_CONF) && !has_trait(target_ptr, CF_RES_CHAO))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;
@@ -3306,7 +3306,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
-			if (has_cf_creature(target_ptr, CF_HURT_LITE))
+			if (has_trait(target_ptr, CF_HURT_LITE))
 			{
 #ifdef JP
 				if (!(target_ptr->multishadow && (turn & 1))) msg_print("光で肉体が焦がされた！");
@@ -3362,7 +3362,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (has_cf_creature(target_ptr, CF_RES_LITE))
+			if (has_trait(target_ptr, CF_RES_LITE))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -3430,7 +3430,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (has_cf_creature(target_ptr, CF_RES_DARK))
+			if (has_trait(target_ptr, CF_RES_DARK))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -3473,7 +3473,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					case 1: case 2: case 3: case 4: case 5:
 					{
-						if (has_cf_creature(target_ptr, CF_ANDROID)) break;
+						if (has_trait(target_ptr, CF_ANDROID)) break;
 #ifdef JP
 						msg_format("%sの時の流れが逆戻りしたようだ。", target_name);
 #else
@@ -3950,12 +3950,12 @@ note = "には効果がなかった！";
 				break;
 			}
 			// Attempt a saving throw
-			if (has_cf_creature(target_ptr, CF_UNIQUE) ||
-			    has_cf_creature(target_ptr, CF_NO_SLEEP) ||
+			if (has_trait(target_ptr, CF_UNIQUE) ||
+			    has_trait(target_ptr, CF_NO_SLEEP) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				// Memorize a flag
-				if (has_cf_creature(target_ptr, CF_NO_SLEEP))
+				if (has_trait(target_ptr, CF_NO_SLEEP))
 				{
 				}
 
@@ -4141,7 +4141,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			//TODO do_stun = (randint1(15) + 1) / (r + 1);
-			if (has_cf_creature(target_ptr, CF_RES_COLD))
+			if (has_trait(target_ptr, CF_RES_COLD))
 			{
 #ifdef JP
 				note = "にはかなり耐性がある。";
@@ -4177,7 +4177,7 @@ note = "は眠り込んでしまった！";
 #endif
 
 			/* Some races are immune */
-			if(is_undead_creature(target_ptr) || is_demon_creature(target_ptr) || has_cf_creature(target_ptr, CF_NONLIVING))
+			if(is_undead_creature(target_ptr) || is_demon_creature(target_ptr) || has_trait(target_ptr, CF_NONLIVING))
 				dam = 0;
 			else
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -4204,7 +4204,7 @@ note = "は眠り込んでしまった！";
 			if (!species_living(species_ptr))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr))
-					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
+					 has_trait(target_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
 				note = "には完全な耐性がある。";
@@ -4448,11 +4448,11 @@ note = "は眠り込んでしまった！";
 
 			// Attempt a saving throw
 			if (is_unique_creature(target_ptr) ||
-				has_cf_creature(target_ptr, CF_NO_CONF) ||
+				has_trait(target_ptr, CF_NO_CONF) ||
 			   (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
 				// Memorize a flag
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -4463,7 +4463,7 @@ note = "は眠り込んでしまった！";
 #endif
 				dam = 0;
 			}
-			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			else if (has_trait(target_ptr, CF_EMPTY_MIND))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
 #ifdef JP
@@ -4473,7 +4473,7 @@ note = "は眠り込んでしまった！";
 #endif
 				dam = 0;
 			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
+			else if (has_trait(target_ptr, CF_WEIRD_MIND))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
 #ifdef JP
@@ -4587,11 +4587,11 @@ note = "は眠り込んでしまった！";
 
 			// Attempt a saving throw 
 			if (is_unique_creature(target_ptr) ||
-				has_cf_creature(target_ptr, CF_NO_CONF) ||
+				has_trait(target_ptr, CF_NO_CONF) ||
 				 (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
 				// Memorize a flag
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -4602,7 +4602,7 @@ note = "は眠り込んでしまった！";
 #endif
 				dam = 0;
 			}
-			else if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			else if (has_trait(target_ptr, CF_EMPTY_MIND))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
 #ifdef JP
@@ -4612,7 +4612,7 @@ note = "は眠り込んでしまった！";
 #endif
 				dam = 0;
 			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND))
+			else if (has_trait(target_ptr, CF_WEIRD_MIND))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_WEIRD_MIND);
 #ifdef JP
@@ -4975,7 +4975,7 @@ note = "は眠り込んでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			if (has_trait(target_ptr, CF_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -4986,7 +4986,7 @@ note = "は眠り込んでしまった！";
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_EMPTY_MIND);
 
 			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND) || has_cf_creature(target_ptr, CF_STUPID) ||
+			else if (has_trait(target_ptr, CF_WEIRD_MIND) || has_trait(target_ptr, CF_STUPID) ||
 			         is_animal_creature(target_ptr) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
@@ -5042,7 +5042,7 @@ note = "は眠り込んでしまった！";
 									break;
 								case 3:
 								{
-									if (has_cf_creature(target_ptr, CF_NO_FEAR))
+									if (has_trait(target_ptr, CF_NO_FEAR))
 #ifdef JP
 										note = "には効果がなかった。";
 #else
@@ -5113,7 +5113,7 @@ note = "は眠り込んでしまった！";
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			if (has_trait(target_ptr, CF_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -5123,7 +5123,7 @@ note = "は眠り込んでしまった！";
 #endif
 
 			}
-			else if (has_cf_creature(target_ptr, CF_WEIRD_MIND) || has_cf_creature(target_ptr, CF_STUPID) || 
+			else if (has_trait(target_ptr, CF_WEIRD_MIND) || has_trait(target_ptr, CF_STUPID) || 
 			         is_animal_creature(target_ptr) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
@@ -5265,11 +5265,11 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if (has_cf_creature(target_ptr, CF_QUESTOR) || has_cf_creature(target_ptr, CF_UNIQUE) || has_cf_creature(target_ptr, CF_NO_CONF) ||
+			if (has_trait(target_ptr, CF_QUESTOR) || has_trait(target_ptr, CF_UNIQUE) || has_trait(target_ptr, CF_NO_CONF) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -5317,7 +5317,7 @@ note = "は眠り込んでしまった！";
 								break;
 							default:
 							{
-								if (has_cf_creature(target_ptr, CF_NO_FEAR))
+								if (has_trait(target_ptr, CF_NO_FEAR))
 #ifdef JP
 									note = "には効果がなかった。";
 #else
@@ -5394,7 +5394,7 @@ note = "は眠り込んでしまった！";
 			if (!species_living(species_ptr))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr))
-					 has_cf_creature(target_ptr, INFO_TYPE_RACE);
+					 has_trait(target_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5457,7 +5457,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_cf_creature(target_ptr, CF_NAZGUL)|| is_sub_unique_creature(target_ptr))
+			if ((fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_trait(target_ptr, CF_NAZGUL)|| is_sub_unique_creature(target_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5645,17 +5645,17 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL))
+			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
 			if (is_quest_creature(target_ptr) ||
-			    has_cf_creature(target_ptr, CF_NO_CONF) ||
+			    has_trait(target_ptr, CF_NO_CONF) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -5728,7 +5728,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL))
+			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5803,7 +5803,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL))
+			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5881,18 +5881,18 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL))
+			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
 			if ( is_quest_creature(target_ptr) ||
 			    !is_animal_creature(target_ptr) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 has_cf_creature(target_ptr, CF_NO_CONF) ||
+				 has_trait(target_ptr, CF_NO_CONF) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -5958,7 +5958,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if (has_cf_creature(target_ptr, CF_NO_CONF)) dam -= 30;
+			if (has_trait(target_ptr, CF_NO_CONF)) dam -= 30;
 			if (dam < 1) dam = 1;
 #ifdef JP
 			msg_format("%sを見つめた。",target_name);
@@ -5977,7 +5977,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL))
+			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -6044,11 +6044,11 @@ note = "は眠り込んでしまった！";
 
 			/* Attempt a saving throw */
 			if (is_unique_creature(target_ptr) ||
-			    has_cf_creature(target_ptr, CF_NO_CONF) ||
+			    has_trait(target_ptr, CF_NO_CONF) ||
 			   (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_cf_creature(target_ptr, CF_NO_CONF))
+				if (has_trait(target_ptr, CF_NO_CONF))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_CONF);
 				}
@@ -6201,7 +6201,7 @@ note = "は眠り込んでしまった！";
 			{
 				bool resists_tele = FALSE;
 
-				if (has_cf_creature(target_ptr, CF_RES_TELE))
+				if (has_trait(target_ptr, CF_RES_TELE))
 				{
 					if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
 					{
@@ -6256,7 +6256,7 @@ note = "は眠り込んでしまった！";
 			{
 				bool resists_tele = FALSE;
 
-				if (has_cf_creature(target_ptr, CF_RES_TELE))
+				if (has_trait(target_ptr, CF_RES_TELE))
 				{
 					if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
 					{
@@ -6307,7 +6307,7 @@ note = "には耐性がある！";
 		case GF_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
-			if (has_cf_creature(target_ptr, CF_RES_TELE))
+			if (has_trait(target_ptr, CF_RES_TELE))
 			{
 				if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
 				{
@@ -6460,7 +6460,7 @@ note = "には耐性がある！";
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(target_ptr)) ||
-			    (has_cf_creature(target_ptr, CF_NO_FEAR)) ||
+			    (has_trait(target_ptr, CF_NO_FEAR)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
@@ -6714,7 +6714,7 @@ note = "には耐性がある！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-			    (is_unique_creature(target_ptr)) || has_cf_creature(target_ptr, CF_NAZGUL) || is_sub_unique_creature(target_ptr) || (is_quest_creature(target_ptr)) || target_ptr->parent_m_idx)
+			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, CF_NAZGUL) || is_sub_unique_creature(target_ptr) || (is_quest_creature(target_ptr)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",target_name);
@@ -6803,7 +6803,7 @@ msg_format("うまく捕まえられなかった。");
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
 				break;
 			}
-			if (has_cf_creature(target_ptr, CF_EMPTY_MIND))
+			if (has_trait(target_ptr, CF_EMPTY_MIND))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -6887,11 +6887,11 @@ msg_format("うまく捕まえられなかった。");
 			{
 				/* Attempt a saving throw */
 				if (is_unique_creature(target_ptr) ||
-				    has_cf_creature(target_ptr, CF_NO_SLEEP) ||
+				    has_trait(target_ptr, CF_NO_SLEEP) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Memorize a flag */
-					if (has_cf_creature(target_ptr, CF_NO_SLEEP))
+					if (has_trait(target_ptr, CF_NO_SLEEP))
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_NO_SLEEP);
 					}
@@ -7032,7 +7032,7 @@ msg_format("うまく捕まえられなかった。");
 
 			if (is_enemy_of_evil_creature(target_ptr) && !fight_arena_mode)
 			{
-				if (has_cf_creature(target_ptr, CF_NO_CONF)) dam -= 50;
+				if (has_trait(target_ptr, CF_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;
 
 				/* No need to tame your pet */
@@ -7077,7 +7077,7 @@ msg_format("うまく捕まえられなかった。");
 
 			if (!success)
 			{
-				if (!has_cf_creature(target_ptr, CF_NO_FEAR))
+				if (!has_trait(target_ptr, CF_NO_FEAR))
 				{
 					do_fear = randint1(90)+10;
 				}
@@ -8641,7 +8641,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
+				if ((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, CF_REFLECTING) &&
 				    ((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{

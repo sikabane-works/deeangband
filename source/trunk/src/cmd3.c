@@ -262,8 +262,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 	}
 
 	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) &&
-		!has_cf_creature(cr_ptr, CF_VAMPIRE) && !has_cf_creature(cr_ptr, CF_LICH) &&
-		!has_cf_creature(cr_ptr, CF_SKELETON) && !has_cf_creature(cr_ptr, CF_NONLIVING))
+		!has_trait(cr_ptr, CF_VAMPIRE) && !has_trait(cr_ptr, CF_LICH) &&
+		!has_trait(cr_ptr, CF_SKELETON) && !has_trait(cr_ptr, CF_NONLIVING))
 	{
 		char dummy[MAX_NLEN+80];
 		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
@@ -350,7 +350,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	}
 
 	// The Stone Mask make the player turn into a vampire!
-	if ((o_ptr->name1 == ART_STONEMASK) && !has_cf_creature(cr_ptr, CF_VAMPIRE) && !has_cf_creature(cr_ptr, CF_NONLIVING))
+	if ((o_ptr->name1 == ART_STONEMASK) && !has_trait(cr_ptr, CF_VAMPIRE) && !has_trait(cr_ptr, CF_NONLIVING))
 	{
 		// TODO: ADD Vampire Flag 
 	}
@@ -390,9 +390,9 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 #endif
 				 else
 #ifdef JP
-					msg_format("%sを%sで構えた。", o_name, (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手"));
+					msg_format("%sを%sで構えた。", o_name, (has_trait(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手"));
 #else
-					msg_format("You are wielding %s in your %s hand.", o_name, (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "left":"right"));
+					msg_format("You are wielding %s in your %s hand.", o_name, (has_trait(cr_ptr, CF_LEFT_HANDER) ? "left":"right"));
 #endif
 			}
 			else
@@ -819,7 +819,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	{
 		bool gain_expr = FALSE;
 
-		if (has_cf_creature(cr_ptr, CF_ANDROID))
+		if (has_trait(cr_ptr, CF_ANDROID))
 		{
 		}
 		else if ((cr_ptr->class_idx == CLASS_WARRIOR) || (cr_ptr->class_idx == CLASS_BERSERKER))

@@ -432,7 +432,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
-				if (has_cf_creature(creature_ptr, CF_ANDROID))
+				if (has_trait(creature_ptr, CF_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが不能に陥った。", name);
@@ -461,7 +461,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
-				if (has_cf_creature(creature_ptr, CF_ANDROID))
+				if (has_trait(creature_ptr, CF_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが復旧した。", name);
@@ -3984,7 +3984,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	//TODO
 	if(is_player(creature_ptr))
 	{
-	if (has_cf_creature(creature_ptr, CF_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
+	if (has_trait(creature_ptr, CF_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
 	if (creature_ptr->stun > 100)
@@ -4224,7 +4224,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 	if (IS_DEAD(creature_ptr)) return FALSE;
 
-	if (is_undead_creature(creature_ptr) && has_cf_creature(creature_ptr, CF_NONLIVING))
+	if (is_undead_creature(creature_ptr) && has_trait(creature_ptr, CF_NONLIVING))
 		v = 0;
 
 	/* Mortal wound */
@@ -4449,7 +4449,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
-				msg_format("やっと%s。", has_cf_creature(creature_ptr, CF_ANDROID) ? "怪我が直った" : "出血が止まった");
+				msg_format("やっと%s。", has_trait(creature_ptr, CF_ANDROID) ? "怪我が直った" : "出血が止まった");
 #else
 				msg_print("You are no longer bleeding.");
 #endif
@@ -5477,7 +5477,7 @@ void do_poly_self(creature_type *creature_ptr)
 #endif
 	}
 
-	if ((power > randint0(20)) && one_in_(3) && (!has_cf_creature(creature_ptr, CF_ANDROID)))
+	if ((power > randint0(20)) && one_in_(3) && (!has_trait(creature_ptr, CF_ANDROID)))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -5602,7 +5602,7 @@ void do_poly_self(creature_type *creature_ptr)
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("%sの構成が変化した！", has_cf_creature(creature_ptr, CF_ANDROID) ? "機械" : "内臓");
+			msg_format("%sの構成が変化した！", has_trait(creature_ptr, CF_ANDROID) ? "機械" : "内臓");
 #else
 			msg_print("Your internal organs are rearranged!");
 #endif
@@ -5664,7 +5664,7 @@ static void you_died(cptr hit_from)
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	char tmp[100];
 	char death_message[1024];
-	bool android = has_cf_creature(player_ptr, CF_ANDROID);
+	bool android = has_trait(player_ptr, CF_ANDROID);
 
 	//TODO
 	/*
@@ -5941,10 +5941,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	if(tar_ptr) creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 	else tar_name[0] = '\0';
 
-	if (!has_cf_creature(tar_ptr, CF_KILL_EXP))
+	if (!has_trait(tar_ptr, CF_KILL_EXP))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
-		if (has_cf_creature(tar_ptr, CF_HEAL)) expdam = (expdam+1) * 2 / 3;
+		if (has_trait(tar_ptr, CF_HEAL)) expdam = (expdam+1) * 2 / 3;
 
 		if(atk_ptr) get_exp_from_mon(atk_ptr, expdam, tar_ptr);
 
@@ -5969,7 +5969,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (&creature_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if(atk_ptr && has_cf_creature(atk_ptr, CF_BLUFF))
+	if(atk_ptr && has_trait(atk_ptr, CF_BLUFF))
 	{
 		return 0;
 	}
@@ -6118,7 +6118,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->chp < 0)
 		{
 	
-			if (has_cf_creature(tar_ptr, CF_TANUKI))
+			if (has_trait(tar_ptr, CF_TANUKI))
 			{
 				/* You might have unmasked Tanuki first time */
 				r_ptr = &species_info[tar_ptr->species_idx];
@@ -6186,7 +6186,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Extract creature name */
 			creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 		
-			if (has_cf_creature(tar_ptr, CF_CAN_SPEAK))
+			if (has_trait(tar_ptr, CF_CAN_SPEAK))
 			{
 				char line_got[1024];
 	
@@ -6375,7 +6375,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Prevent bug of chaos patron's reward */
-			if (has_cf_creature(tar_ptr, CF_KILL_EXP))
+			if (has_trait(tar_ptr, CF_KILL_EXP))
 				get_exp_from_mon(atk_ptr, (long)tar_ptr->mhp*2, tar_ptr);
 			else
 				get_exp_from_mon(atk_ptr, ((long)tar_ptr->mhp+1L) * 9L / 10L, tar_ptr);
@@ -6421,7 +6421,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 	
 	/* Sometimes a creature gets scared by damage */
-	if (!tar_ptr->afraid && !has_cf_creature(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
+	if (!tar_ptr->afraid && !has_trait(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
@@ -6502,7 +6502,7 @@ void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 {
 	if (IS_DEAD(creature_ptr)) return;
 
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) return;
+	if (has_trait(creature_ptr, CF_ANDROID)) return;
 
 	/* Gain some experience */
 	s64b_add(&(creature_ptr->exp), &(creature_ptr->exp_frac), amount, amount_frac);
@@ -6536,7 +6536,7 @@ void calc_android_exp(creature_type *creature_ptr)
 	u32b total_exp = 0;
 	if (IS_DEAD(creature_ptr)) return;
 
-	if (!has_cf_creature(creature_ptr, CF_ANDROID)) return;
+	if (!has_trait(creature_ptr, CF_ANDROID)) return;
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -6639,7 +6639,7 @@ void calc_android_exp(creature_type *creature_ptr)
  */
 void lose_exp(creature_type *creature_ptr, s32b amount)
 {
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) return;
+	if (has_trait(creature_ptr, CF_ANDROID)) return;
 
 	/* Never drop below zero experience */
 	if (amount > creature_ptr->exp) amount = creature_ptr->exp;
@@ -6659,7 +6659,7 @@ void lose_exp(creature_type *creature_ptr, s32b amount)
 bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (has_cf_creature(creature_ptr, CF_ANDROID)) return FALSE;
+	if (has_trait(creature_ptr, CF_ANDROID)) return FALSE;
 
 	if (creature_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{

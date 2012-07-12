@@ -1240,7 +1240,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				if (has_cf_creature(m_ptr, CF_CHAR_CLEAR) && has_cf_creature(m_ptr, CF_ATTR_CLEAR))
+				if (has_trait(m_ptr, CF_CHAR_CLEAR) && has_trait(m_ptr, CF_ATTR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1257,9 +1257,9 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				c = r_ptr->x_char;
 
 				/* Normal creatures */
-				if (!has_cf_creature(m_ptr, CF_ATTR_SEMIRAND) && !has_cf_creature(m_ptr, CF_ATTR_MULTI) &&
-					!has_cf_creature(m_ptr, CF_SHAPECHANGER) && !has_cf_creature(m_ptr, CF_CHAR_CLEAR) &&
-					!has_cf_creature(m_ptr, CF_ATTR_CLEAR))
+				if (!has_trait(m_ptr, CF_ATTR_SEMIRAND) && !has_trait(m_ptr, CF_ATTR_MULTI) &&
+					!has_trait(m_ptr, CF_SHAPECHANGER) && !has_trait(m_ptr, CF_CHAR_CLEAR) &&
+					!has_trait(m_ptr, CF_ATTR_CLEAR))
 				{
 					/* Desired creature attr/char */
 					*ap = a;
@@ -1270,7 +1270,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				else if (has_cf_creature(m_ptr, CF_ATTR_CLEAR) && has_cf_creature(m_ptr, CF_CHAR_CLEAR))
+				else if (has_trait(m_ptr, CF_ATTR_CLEAR) && has_trait(m_ptr, CF_CHAR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1278,15 +1278,15 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				else
 				{
 					/***  Creature's attr  ***/
-					if (has_cf_creature(m_ptr, CF_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
+					if (has_trait(m_ptr, CF_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
 					{
 						/* Clear-attr */
 						/* Do nothing */
 					}
-					else if (has_cf_creature(m_ptr, CF_ATTR_MULTI) && !use_graphics)
+					else if (has_trait(m_ptr, CF_ATTR_MULTI) && !use_graphics)
 					{
 						/* Multi-hued attr */
-						if (has_cf_creature(m_ptr, CF_ATTR_ANY)) *ap = (byte_hack)randint1(15);
+						if (has_trait(m_ptr, CF_ATTR_ANY)) *ap = (byte_hack)randint1(15);
 						else switch (randint1(7))
 						{
 						case 1: *ap = TERM_RED;     break;
@@ -1298,7 +1298,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						case 7: *ap = TERM_GREEN;   break;
 						}
 					}
-					else if (has_cf_creature(m_ptr, CF_ATTR_SEMIRAND) && !use_graphics)
+					else if (has_trait(m_ptr, CF_ATTR_SEMIRAND) && !use_graphics)
 					{
 						/* Use semi-random attr (usually mimics' colors vary) */
 						*ap = c_ptr->creature_idx % 15 + 1;
@@ -1310,12 +1310,12 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					}
 
 					/***  Creature's char  ***/
-					if (has_cf_creature(m_ptr, CF_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
+					if (has_trait(m_ptr, CF_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
 					{
 						/* Clear-char */
 						/* Do nothing */
 					}
-					else if (has_cf_creature(m_ptr, CF_SHAPECHANGER))
+					else if (has_trait(m_ptr, CF_SHAPECHANGER))
 					{
 						if (use_graphics)
 						{
@@ -3042,16 +3042,16 @@ void update_creature_lite(floor_type *floor_ptr)
 			rad = 0;
 
 			/* Note the radii are cumulative */
-			if (has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_HAS_LITE_1)) rad++;
-			if (has_cf_creature(creature_ptr, CF_SELF_LITE_2) || has_cf_creature(creature_ptr, CF_HAS_LITE_2)) rad += 2;
-			if (has_cf_creature(creature_ptr, CF_SELF_DARK_1) || has_cf_creature(creature_ptr, CF_HAS_DARK_1)) rad--;
-			if (has_cf_creature(creature_ptr, CF_SELF_DARK_2) || has_cf_creature(creature_ptr, CF_HAS_DARK_2)) rad -= 2;
+			if (has_trait(creature_ptr, CF_SELF_LITE_1) || has_trait(creature_ptr, CF_HAS_LITE_1)) rad++;
+			if (has_trait(creature_ptr, CF_SELF_LITE_2) || has_trait(creature_ptr, CF_HAS_LITE_2)) rad += 2;
+			if (has_trait(creature_ptr, CF_SELF_DARK_1) || has_trait(creature_ptr, CF_HAS_DARK_1)) rad--;
+			if (has_trait(creature_ptr, CF_SELF_DARK_2) || has_trait(creature_ptr, CF_HAS_DARK_2)) rad -= 2;
 
 			/* Exit if has no light */
 			if (!rad) continue;
 			else if (rad > 0)
 			{
-				if (!(has_cf_creature(creature_ptr, CF_SELF_LITE_1) || has_cf_creature(creature_ptr, CF_SELF_LITE_2)) && 
+				if (!(has_trait(creature_ptr, CF_SELF_LITE_1) || has_trait(creature_ptr, CF_SELF_LITE_2)) && 
 					(creature_ptr->paralyzed || (!floor_ptr->floor_level && is_daytime()) || gamble_arena_mode)) continue;
 				if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = mon_lite_hack;
@@ -3059,7 +3059,7 @@ void update_creature_lite(floor_type *floor_ptr)
 			}
 			else
 			{
-				if (!(has_cf_creature(creature_ptr, CF_SELF_DARK_1) || has_cf_creature(creature_ptr, CF_SELF_DARK_2)) && (creature_ptr->paralyzed || (!floor_ptr->floor_level && !is_daytime()))) continue;
+				if (!(has_trait(creature_ptr, CF_SELF_DARK_1) || has_trait(creature_ptr, CF_SELF_DARK_2)) && (creature_ptr->paralyzed || (!floor_ptr->floor_level && !is_daytime()))) continue;
 				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */

@@ -447,7 +447,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 					reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
 				/* Otherwise, take the damage */
-				if(!has_cf_creature(tar_ptr, CF_RES_ACID))
+				if(!has_trait(tar_ptr, CF_RES_ACID))
 				{
 					if (mult < 25) mult = 25;
 				}
@@ -539,7 +539,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if(!has_cf_creature(tar_ptr, CF_RES_POIS))
+				if(!has_trait(tar_ptr, CF_RES_POIS))
 				{
 				}
 				/* Otherwise, take the damage */
@@ -2391,7 +2391,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->ml || creature_ptr->stun ||
-		    has_cf_creature(creature_ptr, CF_BERS_RAGE) && creature_ptr->shero) &&
+		    has_trait(creature_ptr, CF_BERS_RAGE) && creature_ptr->shero) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the creature */
@@ -2442,7 +2442,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	if (oktomove && creature_ptr->riding)
 	{
-		if (has_cf_creature(steed_ptr, CF_NEVER_MOVE))
+		if (has_trait(steed_ptr, CF_NEVER_MOVE))
 		{
 #ifdef JP
 			msg_print("動けない！");
@@ -2474,17 +2474,17 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_cf_creature(steed_ptr, CF_CAN_FLY))
+		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait(steed_ptr, CF_CAN_FLY))
 		{
 			/* Allow moving */
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_cf_creature(steed_ptr, CF_CAN_SWIM))
+		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(steed_ptr, CF_CAN_SWIM))
 		{
 			/* Allow moving */
 		}
 		else if (have_flag(f_ptr->flags, FF_WATER) &&
-			!has_cf_creature(steed_ptr, CF_AQUATIC) &&
-			(have_flag(f_ptr->flags, FF_DEEP) || has_cf_creature(creature_ptr, CF_AURA_FIRE)))
+			!has_trait(steed_ptr, CF_AQUATIC) &&
+			(have_flag(f_ptr->flags, FF_DEEP) || has_trait(creature_ptr, CF_AURA_FIRE)))
 		{
 #ifdef JP
 			msg_format("%sの上に行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
@@ -2495,7 +2495,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
-		else if (!have_flag(f_ptr->flags, FF_WATER) && has_cf_creature(steed_ptr, CF_AQUATIC))
+		else if (!have_flag(f_ptr->flags, FF_WATER) && has_trait(steed_ptr, CF_AQUATIC))
 		{
 #ifdef JP
 			msg_format("%sから上がれない。", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name);
@@ -2506,7 +2506,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_LAVA) && !has_cf_creature(steed_ptr, CF_RES_FIRE))
+		else if (have_flag(f_ptr->flags, FF_LAVA) && !has_trait(steed_ptr, CF_RES_FIRE))
 		{
 #ifdef JP
 			msg_format("%sの上に行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
