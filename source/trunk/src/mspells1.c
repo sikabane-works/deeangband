@@ -1080,7 +1080,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_cf(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !the_world)
+	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_from_species(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !the_world)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);

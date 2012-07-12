@@ -6576,7 +6576,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (has_cf(&species_info[creature_index].flags, CF_NAZGUL))
+				else if (has_trait_from_species(&species_info[creature_index].flags, CF_NAZGUL))
 				{
 					if (species_info[creature_index].cur_num == species_info[creature_index].max_num)
 					{

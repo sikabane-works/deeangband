@@ -3983,7 +3983,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 
 		if(IS_PURE_RACE(creature_ptr, RACE_ISTARI))
 		{
-			if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
+			if(!has_trait_from_species(&species_info[i].flags, CF_AMAN)) continue;		
 		}
 
 		strcpy(pt[n].cap, species_name + species_info[i].name);

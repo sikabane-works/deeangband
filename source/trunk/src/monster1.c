@@ -435,7 +435,7 @@ static bool mon_hook_lava(int species_idx)
 
 	if (!species_hook_dungeon(species_idx)) return FALSE;
 
-	if ((has_cf(&r_ptr->flags, CF_RES_FIRE) ||
+	if ((has_trait_from_species(&r_ptr->flags, CF_RES_FIRE) ||
 	     can_fly_species(r_ptr)) &&
 	    !is_aura_cold_species(r_ptr))
 		return TRUE;
@@ -631,7 +631,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		if (!has_cf(&r_ptr->flags, CF_RES_FIRE)) return FALSE;
+		if (!has_trait_from_species(&r_ptr->flags, CF_RES_FIRE)) return FALSE;
 	}
 
 	return TRUE;

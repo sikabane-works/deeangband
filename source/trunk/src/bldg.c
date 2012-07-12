@@ -1740,11 +1740,11 @@ void battle_creatures(void)
 		{
 			species_type *r_ptr = &species_info[battle_mon[i]];
 			int num_taisei = 0;
-			if(has_cf(&r_ptr->flags, CF_RES_ACID)) num_taisei++;
-			if(has_cf(&r_ptr->flags, CF_RES_ELEC)) num_taisei++;
-			if(has_cf(&r_ptr->flags, CF_RES_FIRE)) num_taisei++;
-			if(has_cf(&r_ptr->flags, CF_RES_COLD)) num_taisei++;
-			if(has_cf(&r_ptr->flags, CF_RES_POIS)) num_taisei++;
+			if(has_trait_from_species(&r_ptr->flags, CF_RES_ACID)) num_taisei++;
+			if(has_trait_from_species(&r_ptr->flags, CF_RES_ELEC)) num_taisei++;
+			if(has_trait_from_species(&r_ptr->flags, CF_RES_FIRE)) num_taisei++;
+			if(has_trait_from_species(&r_ptr->flags, CF_RES_COLD)) num_taisei++;
+			if(has_trait_from_species(&r_ptr->flags, CF_RES_POIS)) num_taisei++;
 
 			power[i] = 3;
 
@@ -1754,15 +1754,15 @@ void battle_creatures(void)
 				power[i] = power[i] * (r_ptr->speed - 20) / 100;
 			if (num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;
-			else if (has_cf(&r_ptr->flags, CF_INVULNER))
+			else if (has_trait_from_species(&r_ptr->flags, CF_INVULNER))
 				power[i] = power[i] * 4 / 3;
-			else if (has_cf(&r_ptr->flags, CF_HEAL))
+			else if (has_trait_from_species(&r_ptr->flags, CF_HEAL))
 				power[i] = power[i] * 4 / 3;
-			else if (has_cf(&r_ptr->flags, CF_DRAIN_MANA))
+			else if (has_trait_from_species(&r_ptr->flags, CF_DRAIN_MANA))
 				power[i] = power[i] * 11 / 10;
-			if (has_cf(&r_ptr->flags, CF_RAND_25))
+			if (has_trait_from_species(&r_ptr->flags, CF_RAND_25))
 				power[i] = power[i] * 9 / 10;
-			if (has_cf(&r_ptr->flags, CF_RAND_50))
+			if (has_trait_from_species(&r_ptr->flags, CF_RAND_50))
 				power[i] = power[i] * 9 / 10;
 
 			if(power[i] <= 0) power[i] = 1;
