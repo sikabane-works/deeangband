@@ -1,6 +1,10 @@
 
 // 2012 D'angband  game-contants.h
 
+#define SPEAK_CHANCE 8
+#define GRINDNOISE 20
+#define CYBERNOISE 20
+
 #define MAX_SPEED   +99
 #define MIN_SPEED   -99
 #define MAX_STEALTH 100
