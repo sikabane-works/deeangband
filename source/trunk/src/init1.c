@@ -5204,6 +5204,11 @@ errr parse_class_info_csv(char *buf, header *head)
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_info[n].pet_upkeep_div = (byte)b;
 					break;
+
+				case CL_INFO_FLAGS:
+					if(0 != traits_splits(&class_info[n].flags, tmp))
+						return PARSE_ERROR_GENERIC;
+					break;
 			}
 		}
 	}
@@ -5235,6 +5240,7 @@ enum CHARA_INFO {
 	CH_INFO_HD,
 	CH_INFO_JP_NO,
 	CH_INFO_SEX,
+	CH_INFO_FLAGS,
 	CH_INFO_CSV_COLUMNS
 };
 
@@ -5263,6 +5269,7 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 	"HD",
 	"JP_NO",
 	"SEX",
+	"FLAGS",
 };
 
 errr parse_chara_info_csv(char *buf, header *head)
@@ -5420,6 +5427,11 @@ errr parse_chara_info_csv(char *buf, header *head)
 				case CH_INFO_SEX:
 					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].sex = (byte)b;
+					break;
+
+				case CH_INFO_FLAGS:
+					if(0 != traits_splits(&chara_info[n].flags, tmp))
+						return PARSE_ERROR_GENERIC;
 					break;
 			}
 		}

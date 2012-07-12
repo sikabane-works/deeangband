@@ -1073,6 +1073,8 @@ struct class_type
 	s16b c_exp;			/* Class experience factor */
 
 	byte pet_upkeep_div; /* Pet upkeep divider */
+
+	traits flags;
 };
 
 typedef struct player_patron player_patron;
@@ -1140,6 +1142,8 @@ struct chara_type
 
 	byte no;			/* Japanese "no" */
 	byte sex;			/* seibetu seigen */
+
+	traits flags;
 };
 
 
