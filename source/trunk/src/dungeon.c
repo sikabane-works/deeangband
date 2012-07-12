@@ -6125,7 +6125,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		r_ptr = &species_info[today_mon];
 
 		if (is_unique_species(r_ptr)) continue;
-		if (has_trait_from_species(&r_ptr->flags, CF_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
+		if (has_trait_raw(&r_ptr->flags, CF_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
 		if (is_multiply_species(r_ptr)) continue;
 		if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
@@ -7023,7 +7023,7 @@ void world_wipe()
 		species_ptr->cur_num = 0; // Hack -- Reset the counter
 		species_ptr->max_num = 100; // Hack -- Reset the max counter
 		if (is_unique_species(species_ptr)) species_ptr->max_num = 1; // Hack -- Reset the max counter
-		else if (has_trait_from_species(&species_ptr->flags, CF_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
+		else if (has_trait_raw(&species_ptr->flags, CF_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 
 		species_ptr->r_pkills = 0; // Clear visible kills in this life
 		species_ptr->r_akills = 0; // Clear all kills in this life

@@ -6162,7 +6162,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				}
 	
 				/* When the player kills a Nazgul, it stays dead */
-				else if(has_trait_from_species(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num--;
+				else if(has_trait_raw(&r_ptr->flags, CF_NAZGUL)) r_ptr->max_num--;
 			}
 	
 			/* Count all creatures killed */

@@ -1177,7 +1177,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_CYBER:
 		{
-			okay = ((r_ptr->d_char == 'U') && has_trait_from_species(&r_ptr->flags, CF_ROCKET));
+			okay = ((r_ptr->d_char == 'U') && has_trait_raw(&r_ptr->flags, CF_ROCKET));
 			break;
 		}
 
@@ -1369,12 +1369,12 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	{
 		if (species_idx == MON_CHAMELEON) return TRUE;
 		if (!(has_bolt_flags(&r_ptr->flags) || has_beam_flags(&r_ptr->flags) || has_ball_flags(&r_ptr->flags) || 
-			has_trait_from_species(&r_ptr->flags, CF_CAUSE_1) || 
-			has_trait_from_species(&r_ptr->flags, CF_CAUSE_2) || 
-			has_trait_from_species(&r_ptr->flags, CF_CAUSE_3) || 
-			has_trait_from_species(&r_ptr->flags, CF_CAUSE_4) || 
-			has_trait_from_species(&r_ptr->flags, CF_MIND_BLAST) || 
-			has_trait_from_species(&r_ptr->flags, CF_BRAIN_SMASH)))
+			has_trait_raw(&r_ptr->flags, CF_CAUSE_1) || 
+			has_trait_raw(&r_ptr->flags, CF_CAUSE_2) || 
+			has_trait_raw(&r_ptr->flags, CF_CAUSE_3) || 
+			has_trait_raw(&r_ptr->flags, CF_CAUSE_4) || 
+			has_trait_raw(&r_ptr->flags, CF_MIND_BLAST) || 
+			has_trait_raw(&r_ptr->flags, CF_BRAIN_SMASH)))
 			return FALSE;
 	}
 	if (d_ptr->flags1 & DF1_BEGINNER)
@@ -1392,8 +1392,8 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	case DUNGEON_MODE_AND:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(has_trait_from_species(&d_ptr->c_flags, a)
-				&& !has_trait_from_species(&r_ptr->flags, a)) return FALSE; 
+			if(has_trait_raw(&d_ptr->c_flags, a)
+				&& !has_trait_raw(&r_ptr->flags, a)) return FALSE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return FALSE;
@@ -1403,8 +1403,8 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	case DUNGEON_MODE_NAND:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(has_trait_from_species(&d_ptr->c_flags, a)
-				&& !has_trait_from_species(&r_ptr->flags, a)) return TRUE; 
+			if(has_trait_raw(&d_ptr->c_flags, a)
+				&& !has_trait_raw(&r_ptr->flags, a)) return TRUE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return TRUE;
@@ -1414,8 +1414,8 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	case DUNGEON_MODE_OR:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(has_trait_from_species(&d_ptr->c_flags, a)
-				&& has_trait_from_species(&r_ptr->flags, a)) return TRUE; 
+			if(has_trait_raw(&d_ptr->c_flags, a)
+				&& has_trait_raw(&r_ptr->flags, a)) return TRUE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return TRUE;
@@ -1425,8 +1425,8 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	case DUNGEON_MODE_NOR:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(has_trait_from_species(&d_ptr->c_flags, a)
-				&& has_trait_from_species(&r_ptr->flags, a)) return FALSE; 
+			if(has_trait_raw(&d_ptr->c_flags, a)
+				&& has_trait_raw(&r_ptr->flags, a)) return FALSE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return FALSE;
@@ -1765,7 +1765,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		if (!gamble_arena_mode && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" creatures must be "unique" */
-			if (((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL)) &&
+			if (((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
 				continue;
@@ -4001,7 +4001,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (!gamble_arena_mode)
 	{
 		/* Hack -- "unique" creatures must be "unique" */
-		if (((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL)) &&
+		if (((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -4097,7 +4097,7 @@ msg_print("守りのルーンが壊れた！");
 		else return max_creature_idx;
 	}
 
-	if ((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	{
 	creature_type cr;
@@ -4240,7 +4240,7 @@ msg_print("守りのルーンが壊れた！");
 	 */
 /*TODO
 	if (floor_generated &&
-	    ((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL)))
+	    ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL)))
 		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
 */
 
@@ -4898,10 +4898,10 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((is_unique_species(r_ptr)) || has_trait_from_species(&r_ptr->flags, CF_NAZGUL))) return FALSE;
+	    ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, CF_NAZGUL))) return FALSE;
 
 	if (is_chameleon_species(r_ptr) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 

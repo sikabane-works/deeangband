@@ -1414,7 +1414,7 @@ static bool build_type4(floor_type *floor_ptr)
 	(species_hook_dungeon(I) && \
 	 !is_unique_species(&species_info[I]) && \
 	 !is_sub_unique_species(&species_info[I]) && \
-	 !has_trait_from_species(&species_info[I].flags, CF_RES_ALL) && \
+	 !has_trait_raw(&species_info[I].flags, CF_RES_ALL) && \
 	 !is_aquatic_species(&species_info[I]))
 
 
@@ -5985,13 +5985,13 @@ static bool vault_aux_lite(int species_idx)
 	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require lite attack */
-	if (!has_trait_from_species(&r_ptr->flags, CF_BR_LITE) && !has_trait_from_species(&r_ptr->flags, CF_BA_LITE)) return FALSE;
+	if (!has_trait_raw(&r_ptr->flags, CF_BR_LITE) && !has_trait_raw(&r_ptr->flags, CF_BA_LITE)) return FALSE;
 
 	/* No wall passing creatures */
 	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return FALSE;
 
 	/* No disintegrating creatures */
-	if (has_trait_from_species(&r_ptr->flags, CF_BR_DISI)) return FALSE;
+	if (has_trait_raw(&r_ptr->flags, CF_BR_DISI)) return FALSE;
 
 	return TRUE;
 }
@@ -6007,7 +6007,7 @@ static bool vault_aux_shards(int species_idx)
 	if (!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require shards breath attack */
-	if (!has_trait_from_species(&r_ptr->flags, CF_BR_SHAR)) return FALSE;
+	if (!has_trait_raw(&r_ptr->flags, CF_BR_SHAR)) return FALSE;
 
 	return TRUE;
 }
