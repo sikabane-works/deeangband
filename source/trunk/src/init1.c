@@ -5213,7 +5213,31 @@ errr parse_class_info_csv(char *buf, header *head)
 
 
 
-#define CH_INFO_CSV_COLUMNS 21
+enum CHARA_INFO {
+	CH_INFO_ID,
+	CH_INFO_NAME,
+	CH_INFO_E_NAME,
+	CH_INFO_RARITY,
+	CH_INFO_STR,
+	CH_INFO_INT,
+	CH_INFO_WIS,
+	CH_INFO_DEX,
+	CH_INFO_CON,
+	CH_INFO_CHA,
+	CH_INFO_C_DIS,
+	CH_INFO_C_DEV,
+	CH_INFO_C_SAV,
+	CH_INFO_C_STL,
+	CH_INFO_C_SRH,
+	CH_INFO_C_FOS,
+	CH_INFO_C_THN,
+	CH_INFO_C_THB,
+	CH_INFO_HD,
+	CH_INFO_JP_NO,
+	CH_INFO_SEX,
+	CH_INFO_CSV_COLUMNS
+};
+
 static int ch_info_csv_code[CH_INFO_CSV_COLUMNS];
 
 static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
@@ -5240,28 +5264,6 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 	"JP_NO",
 	"SEX",
 };
-
-#define CH_INFO_ID      0
-#define CH_INFO_NAME    1
-#define CH_INFO_E_NAME  2
-#define CH_INFO_RARITY  3
-#define CH_INFO_STR     4
-#define CH_INFO_INT     5
-#define CH_INFO_WIS     6
-#define CH_INFO_DEX     7
-#define CH_INFO_CON     8
-#define CH_INFO_CHA     9
-#define CH_INFO_C_DIS  10
-#define CH_INFO_C_DEV  11
-#define CH_INFO_C_SAV  12
-#define CH_INFO_C_STL  13
-#define CH_INFO_C_SRH  14
-#define CH_INFO_C_FOS  15
-#define CH_INFO_C_THN  16
-#define CH_INFO_C_THB  17
-#define CH_INFO_HD     18
-#define CH_INFO_JP_NO  19
-#define CH_INFO_SEX    20
 
 errr parse_chara_info_csv(char *buf, header *head)
 {
