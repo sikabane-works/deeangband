@@ -4933,6 +4933,7 @@ enum CLASS_INFO {
 	CL_INFO_HD,
 	CL_INFO_EXP,
 	CL_INFO_PET_UPKEEP,
+	CL_INFO_FLAGS,
 	CL_INFO_CSV_COLUMNS,
 };
 
@@ -4972,7 +4973,8 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 	"X_THB",
 	"HD",
 	"EXP",
-	"PET_UPKEEP"
+	"PET_UPKEEP",
+	"FLAGS"
 };
 static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
 
