@@ -1744,7 +1744,6 @@ bool has_trait(creature_type *creature_ptr, int type)
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
 	{
 		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		species_ptr->flags;
 		if(species_ptr->flags.add_lev[type] != 0 && 
 		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
 		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
@@ -1756,7 +1755,6 @@ bool has_trait(creature_type *creature_ptr, int type)
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
 	{
 		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		species_ptr->flags;
 		if(species_ptr->flags.add_lev[type] != 0 && 
 		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
 		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
@@ -1764,7 +1762,29 @@ bool has_trait(creature_type *creature_ptr, int type)
 			return TRUE;
 		}
 	}
-			
+
+	if(creature_ptr->class_idx != INDEX_NONE)
+	{
+		class_type *class_ptr = &class_info[creature_ptr->class_idx];
+		if(class_ptr->flags.add_lev[type] != 0 && 
+		   class_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+		   class_ptr->flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+
+	if(creature_ptr->chara_idx != INDEX_NONE)
+	{
+		chara_type *chara_ptr = &chara_info[creature_ptr->chara_idx];
+		if(chara_ptr->flags.add_lev[type] != 0 && 
+		   chara_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+		   chara_ptr->flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+
 	return FALSE;
 }
 
