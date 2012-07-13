@@ -1705,16 +1705,13 @@ void reveal_creature_info(creature_type *creature_ptr, int type)
 	//TODO
 }
 
-
-
 bool has_trait_raw(traits *cf_ptr, int type)
 {
 	return cf_ptr->add_lev[type];
 }
 
-bool has_trait(creature_type *creature_ptr, int type)
+bool has_trait_from_race(creature_type *creature_ptr, int type)
 {
-
 	if(IS_PURE(creature_ptr))
 	{
 		if(race_info[creature_ptr->race_idx1].p_flags.add_lev[type] != 0 && 
@@ -1740,6 +1737,13 @@ bool has_trait(creature_type *creature_ptr, int type)
 			return TRUE;
 		}
 	}
+
+	return FALSE;
+}
+
+bool has_trait(creature_type *creature_ptr, int type)
+{
+	if(has_trait_from_race(creature_ptr, type)) return TRUE;
 
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
 	{
