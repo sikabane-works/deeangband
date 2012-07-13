@@ -1772,10 +1772,8 @@ bool has_trait_from_class(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-bool has_trait(creature_type *creature_ptr, int type)
+bool has_trait_from_chara(creature_type *creature_ptr, int type)
 {
-	if(has_trait_from_race(creature_ptr, type)) return TRUE;
-
 	if(creature_ptr->chara_idx != INDEX_NONE)
 	{
 		chara_type *chara_ptr = &chara_info[creature_ptr->chara_idx];
@@ -1786,7 +1784,14 @@ bool has_trait(creature_type *creature_ptr, int type)
 			return TRUE;
 		}
 	}
+	return FALSE;
+}
 
+bool has_trait(creature_type *creature_ptr, int type)
+{
+	if(has_trait_from_race(creature_ptr, type)) return TRUE;
+	if(has_trait_from_class(creature_ptr, type)) return TRUE;
+	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;
 
 	return FALSE;

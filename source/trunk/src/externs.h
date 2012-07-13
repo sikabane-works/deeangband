@@ -1023,6 +1023,7 @@ extern bool has_trait_raw(traits *cf_ptr, int type);
 extern bool has_trait_from_race(creature_type *creature_ptr, int type);
 extern bool has_trait_from_species(creature_type *creature_ptr, int type);
 extern bool has_trait_from_class(creature_type *creature_ptr, int type);
+extern bool has_trait_from_chara(creature_type *creature_ptr, int type);
 extern bool has_trait(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 
