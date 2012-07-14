@@ -1740,11 +1740,11 @@ void battle_creatures(void)
 		{
 			species_type *r_ptr = &species_info[battle_mon[i]];
 			int num_taisei = 0;
-			if(has_trait_raw(&r_ptr->flags, CF_RES_ACID)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, CF_RES_ELEC)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, CF_RES_FIRE)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, CF_RES_COLD)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, CF_RES_POIS)) num_taisei++;
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ACID)) num_taisei++;
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ELEC)) num_taisei++;
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE)) num_taisei++;
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_COLD)) num_taisei++;
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_POIS)) num_taisei++;
 
 			power[i] = 3;
 
@@ -1754,15 +1754,15 @@ void battle_creatures(void)
 				power[i] = power[i] * (r_ptr->speed - 20) / 100;
 			if (num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;
-			else if (has_trait_raw(&r_ptr->flags, CF_INVULNER))
+			else if (has_trait_raw(&r_ptr->flags, TRAIT_INVULNER))
 				power[i] = power[i] * 4 / 3;
-			else if (has_trait_raw(&r_ptr->flags, CF_HEAL))
+			else if (has_trait_raw(&r_ptr->flags, TRAIT_HEAL))
 				power[i] = power[i] * 4 / 3;
-			else if (has_trait_raw(&r_ptr->flags, CF_DRAIN_MANA))
+			else if (has_trait_raw(&r_ptr->flags, TRAIT_DRAIN_MANA))
 				power[i] = power[i] * 11 / 10;
-			if (has_trait_raw(&r_ptr->flags, CF_RAND_25))
+			if (has_trait_raw(&r_ptr->flags, TRAIT_RAND_25))
 				power[i] = power[i] * 9 / 10;
-			if (has_trait_raw(&r_ptr->flags, CF_RAND_50))
+			if (has_trait_raw(&r_ptr->flags, TRAIT_RAND_50))
 				power[i] = power[i] * 9 / 10;
 
 			if(power[i] <= 0) power[i] = 1;
@@ -2388,7 +2388,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
 
-	reveal_species_info(eldritch_ptr, CF_ELDRITCH_HORROR);
+	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 	if (!watcher_ptr->mimic_form)
 	{
@@ -2469,9 +2469,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if (has_trait(watcher_ptr, CF_MORONIC) && has_trait(watcher_ptr, CF_BERS_RAGE) &&
-		(has_trait(watcher_ptr, CF_COWARDICE) || watcher_ptr->resist_fear) &&
-		(has_trait(watcher_ptr, CF_HALLU) || watcher_ptr->resist_chaos))
+	if (has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
+		(has_trait(watcher_ptr, TRAIT_COWARDICE) || watcher_ptr->resist_fear) &&
+		(has_trait(watcher_ptr, TRAIT_HALLU) || watcher_ptr->resist_chaos))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2483,7 +2483,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!has_trait(watcher_ptr, CF_MORONIC))
+				if (!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
 					if ((watcher_ptr->stat_use[STAT_INT] <= STAT_VALUE_MIN) && (watcher_ptr->stat_use[STAT_WIS] < STAT_VALUE_MIN))
 					{
@@ -2502,7 +2502,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 #endif
 					}
 
-					if (has_trait(watcher_ptr, CF_HYPER_INT))
+					if (has_trait(watcher_ptr, TRAIT_HYPER_INT))
 					{
 #ifdef JP
 						msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2519,7 +2519,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			}
 			case 2:
 			{
-				if (!has_trait(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2529,7 +2529,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (has_trait(watcher_ptr, CF_FEARLESS))
+					if (has_trait(watcher_ptr, TRAIT_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2547,7 +2547,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			}
 			case 3:
 			{
-				if (!has_trait(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
+				if (!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2562,7 +2562,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 			}
 			default:
 			{
-				if (!has_trait(watcher_ptr, CF_BERS_RAGE))
+				if (!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -4722,7 +4722,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((cr_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_trait(cr_ptr, CF_CHAOS_GIFT))
+		if ((cr_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_trait(cr_ptr, TRAIT_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", species_name + species_info[cr_ptr->patron_idx].name);

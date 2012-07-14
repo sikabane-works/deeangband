@@ -1541,7 +1541,7 @@ static errr grab_one_trait(traits *cf_ptr, cptr what, byte add, byte remove, byt
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < CF_FLAG_MAX; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
 		if (streq(what, trait_info[i].id2))
 		{
@@ -6576,7 +6576,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (has_trait_raw(&species_info[creature_index].flags, CF_NAZGUL))
+				else if (has_trait_raw(&species_info[creature_index].flags, TRAIT_NAZGUL))
 				{
 					if (species_info[creature_index].cur_num == species_info[creature_index].max_num)
 					{

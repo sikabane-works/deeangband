@@ -1451,7 +1451,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 				{
 					if (master_ptr->riding == m_idx)
 						total_friend_levels += (pet_ptr->lev+5)*2;
-					else if (!have_a_unique && has_trait(pet_ptr, CF_RIDING))
+					else if (!have_a_unique && has_trait(pet_ptr, TRAIT_RIDING))
 						total_friend_levels += (pet_ptr->lev+5)*7/2;
 					else
 						total_friend_levels += (pet_ptr->lev+5)*10;
@@ -1904,7 +1904,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 			return FALSE;
 		}
-		if (!has_trait(steed_ptr, CF_RIDING))
+		if (!has_trait(steed_ptr, TRAIT_RIDING))
 		{
 #ifdef JP
 			msg_print("そのクリーチャーには乗れなさそうだ。");

@@ -397,7 +397,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 
 	/* Food can feed the player */
-	if (has_trait(creature_ptr, CF_BLOOD_DRINKER))
+	if (has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
 	{
 		// Reduced nutritional benefit
 		(void)set_food(creature_ptr, creature_ptr->food + (o_ptr->pval / 10));
@@ -532,7 +532,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #endif
 		(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 	}
-	else if (has_trait(creature_ptr, CF_SKELETON))
+	else if (has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 #if 0
 		if (o_ptr->tval == TV_SKELETON ||
@@ -577,7 +577,7 @@ msg_print("H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿AÁ‚¦‚½I");
 
 		}
 	}
-	else if (has_trait(creature_ptr, CF_NONLIVING) || is_undead_creature(creature_ptr) || is_demon_creature(creature_ptr))
+	else if (has_trait(creature_ptr, TRAIT_NONLIVING) || is_undead_creature(creature_ptr) || is_demon_creature(creature_ptr))
 	{
 #ifdef JP
 msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
@@ -807,7 +807,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!has_trait(creature_ptr, CF_NONLIVING))
+			if (!has_trait(creature_ptr, TRAIT_NONLIVING))
 			{
 				/* Only living creatures get thirsty */
 				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);
@@ -1274,7 +1274,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_EXPERIENCE:
-			if (has_trait(creature_ptr, CF_ANDROID)) break;
+			if (has_trait(creature_ptr, TRAIT_ANDROID)) break;
 			if (creature_ptr->exp < CREATURE_MAX_EXP)
 			{
 				s32b ee = (creature_ptr->exp / 2) + 10;
@@ -1384,7 +1384,7 @@ msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ªŽ¡‚Á‚½B");
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_SKELETON))
+	if (has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 #ifdef JP
 msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
@@ -1412,7 +1412,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
-	if(has_trait(creature_ptr, CF_FLASK_DRINKER))
+	if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
 		if (q_ptr->tval == TV_FLASK)
 		{
@@ -1466,7 +1466,7 @@ static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *o_p
 {
 	if (o_ptr->tval == TV_POTION) return TRUE;
 
-	if (has_trait(creature_ptr, CF_FLASK_DRINKER))
+	if (has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
 		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
@@ -5538,7 +5538,7 @@ msg_print("‚ ‚È‚½‚Ì‘„‚Í“d‹C‚ÅƒXƒp[ƒN‚µ‚Ä‚¢‚é...");
 #endif
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
-				if (has_trait(creature_ptr, CF_ANDROID)) calc_android_exp(creature_ptr);
+				if (has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;
 			}

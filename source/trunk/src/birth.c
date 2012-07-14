@@ -2591,7 +2591,7 @@ static void get_money(creature_type *creature_ptr)
 		gold /= 2;
 	else if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (has_trait(creature_ptr, CF_ANDROID)) gold /= 5;
+	if (has_trait(creature_ptr, TRAIT_ANDROID)) gold /= 5;
 
 	gold += creature_ptr->sc * (creature_ptr->lev * creature_ptr->lev + 5) / 2; // Level and social class calc
 
@@ -3983,7 +3983,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 
 		if(IS_PURE_RACE(creature_ptr, RACE_ISTARI))
 		{
-			if(!has_trait_raw(&species_info[i].flags, CF_AMAN)) continue;		
+			if(!has_trait_raw(&species_info[i].flags, TRAIT_AMAN)) continue;		
 		}
 
 		strcpy(pt[n].cap, species_name + species_info[i].name);

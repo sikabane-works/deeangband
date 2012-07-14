@@ -74,7 +74,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 
 
 	/* Too stupid to know anything */
-	if (has_trait(caster_ptr, CF_STUPID)) return;
+	if (has_trait(caster_ptr, TRAIT_STUPID)) return;
 
 
 	/* Must be cheating or learning */
@@ -519,7 +519,7 @@ static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp,
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
 	/* Determine the radius of the blast */
-	if ((rad < 1) && breath) rad = has_trait(caster_ptr, CF_POWERFUL) ? 3 : 2;
+	if ((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
@@ -866,13 +866,13 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->shero && (tar_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Elemental resistances */
-	if (has_trait(caster_ptr, CF_BR_ACID))
+	if (has_trait(caster_ptr, TRAIT_BR_ACID))
 	{
 		if (!tar_ptr->immune_acid && (tar_ptr->oppose_acid || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
-	if (has_trait(caster_ptr, CF_BR_FIRE))
+	if (has_trait(caster_ptr, TRAIT_BR_FIRE))
 	{
 		if (!(is_demon_creature(tar_ptr) && tar_ptr->lev > 44))
 		{
@@ -881,19 +881,19 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (has_trait(caster_ptr, CF_BR_ELEC))
+	if (has_trait(caster_ptr, TRAIT_BR_ELEC))
 	{
 		if (!tar_ptr->immune_elec && (tar_ptr->oppose_elec || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
-	if (has_trait(caster_ptr, CF_BR_COLD))
+	if (has_trait(caster_ptr, TRAIT_BR_COLD))
 	{
 		if (!tar_ptr->immune_cold && (tar_ptr->oppose_cold || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 		if (tar_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 
-	if (has_trait(caster_ptr, CF_BR_POIS) || has_trait(caster_ptr, CF_BR_NUKE))
+	if (has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
 	{
 		if (!((tar_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
 		{
@@ -909,11 +909,11 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
 	if (tar_ptr->tsuyoshi) return (TRUE);
 
 	/* Elemental Brands */
-	if ((tar_ptr->special_attack & ATTACK_ACID) && !has_trait(tar_ptr, CF_RES_ACID)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_FIRE) && !has_trait(tar_ptr, CF_RES_FIRE)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_ELEC) && !has_trait(tar_ptr, CF_RES_ELEC)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_COLD) && !has_trait(tar_ptr, CF_RES_COLD)) return (TRUE);
-	if ((tar_ptr->special_attack & ATTACK_POIS) && !has_trait(tar_ptr, CF_RES_POIS)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ACID) && !has_trait(tar_ptr, TRAIT_RES_ACID)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_FIRE) && !has_trait(tar_ptr, TRAIT_RES_FIRE)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ELEC) && !has_trait(tar_ptr, TRAIT_RES_ELEC)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_COLD) && !has_trait(tar_ptr, TRAIT_RES_COLD)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_POIS) && !has_trait(tar_ptr, TRAIT_RES_POIS)) return (TRUE);
 
 	/* Speed */
 	if (tar_ptr->speed < 145)
@@ -969,7 +969,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	int i;
 
 	/* Stupid creatures choose randomly */
-	if (has_trait(caster_ptr, CF_STUPID))
+	if (has_trait(caster_ptr, TRAIT_STUPID))
 	{
 		/* Pick at random */
 		return (spells[randint0(num)]);
@@ -1080,7 +1080,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !the_world)
+	if ((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&r_ptr->flags, TRAIT_TRAPS)) && (randint0(100) < 75) && !the_world)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);
@@ -1276,7 +1276,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	floor_type      *floor_ptr = get_floor_ptr(caster_ptr);
 	int             k, thrown_spell = 0, rlev, failrate;
-	int             racial_spell[CF_FLAG_MAX], num = 0;
+	int             racial_spell[TRAIT_FLAG_MAX], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP
@@ -1343,7 +1343,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if ((caster_ptr->cdis > MAX_RANGE) && !caster_ptr->target_y) return (FALSE);
 
 	/* Check path for lite breath */
-	if (has_trait(target_ptr, CF_BR_LITE))
+	if (has_trait(target_ptr, TRAIT_BR_LITE))
 	{
 		y_br_lite = y;
 		x_br_lite = x;
@@ -1362,7 +1362,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO else if (!adjacent_grid_check(caster_ptr, &y_br_lite, &x_br_lite, FF_LOS, los)) f4 &= ~(RF4_BR_LITE);
 
 		/* Don't breath lite to the wall if impossible */
-		if (!has_trait(target_ptr, CF_BR_LITE))
+		if (!has_trait(target_ptr, TRAIT_BR_LITE))
 		{
 			y_br_lite = 0;
 			x_br_lite = 0;
@@ -1377,10 +1377,10 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{
 			/* Breath disintegration to the wall if possible */
-			if (has_trait(target_ptr, CF_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
+			if (has_trait(target_ptr, TRAIT_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
 
 			/* Breath lite to the transparent wall if possible */
-			else if (has_trait(target_ptr, CF_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
+			else if (has_trait(target_ptr, TRAIT_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
 		}
 	}
 
@@ -1389,20 +1389,20 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		bool success = FALSE;
 
-		if (has_trait(target_ptr, CF_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
+		if (has_trait(target_ptr, TRAIT_BR_DISI) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    in_disintegration_range(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(floor_ptr, y, x, caster_ptr->fy, caster_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
 		}
-		else if (has_trait(target_ptr, CF_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
+		else if (has_trait(target_ptr, TRAIT_BR_LITE) && (caster_ptr->cdis < MAX_RANGE/2) &&
 		    los(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
 		}
-		else if (has_trait(target_ptr, CF_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
+		else if (has_trait(target_ptr, TRAIT_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
 		{
 			int by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
@@ -1457,7 +1457,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO f6 &= ~(RF6_NOMAGIC_MASK);
 	}
 
-	if (has_trait(target_ptr, CF_DARKNESS))
+	if (has_trait(target_ptr, TRAIT_DARKNESS))
 	{
 		if ((target_ptr->class_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(caster_ptr) &&
@@ -1465,21 +1465,21 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		    !is_darken_creature(caster_ptr))
 			can_use_lite_area = TRUE;
 
-		if (!has_trait(caster_ptr, CF_STUPID))
+		if (!has_trait(caster_ptr, TRAIT_STUPID))
 		{
 			//TODO if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			//TODO else if ((target_ptr->class_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !has_trait(caster_ptr, CF_STUPID))
+	if (in_no_magic_dungeon && !has_trait(caster_ptr, TRAIT_STUPID))
 	{
 		//TODO f4 &= (RF4_NOMAGIC_MASK);
 		//TODO f5 &= (RF5_NOMAGIC_MASK);
 		//TODO f6 &= (RF6_NOMAGIC_MASK);
 	}
 
-	if (has_trait(caster_ptr, CF_SMART))
+	if (has_trait(caster_ptr, TRAIT_SMART))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((caster_ptr->chp < caster_ptr->mhp / 10) &&
@@ -1492,7 +1492,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if (has_trait(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(floor_ptr, target_ptr, 0))
+		if (has_trait(target_ptr, TRAIT_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(floor_ptr, target_ptr, 0))
 		{
 			//TODO f6 &= ~(RF6_TELE_LEVEL);
 		}
@@ -1516,7 +1516,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* No spells left */
 	//TODO if (!f4 && !f5 && !f6) return (FALSE);
 
-	if (!has_trait(caster_ptr, CF_STUPID))
+	if (!has_trait(caster_ptr, TRAIT_STUPID))
 	{
 		//TODO if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
 
@@ -1545,14 +1545,14 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO }
 
 		/* Check for a possible raise dead */
-		if (has_trait(caster_ptr, CF_RAISE_DEAD) && !raise_possible(caster_ptr, target_ptr))
+		if (has_trait(caster_ptr, TRAIT_ANIM_DEAD) && !raise_possible(caster_ptr, target_ptr))
 		{
 			/* Remove raise dead spell */
 			//TODO f6 &= ~(RF6_RAISE_DEAD);
 		}
 
 		/* Special moves restriction */
-		if (has_trait(caster_ptr, CF_SPECIAL))
+		if (has_trait(caster_ptr, TRAIT_SPECIAL))
 		{
 			if ((caster_ptr->species_idx == MON_ROLENTO) && !summon_possible(target_ptr, y, x))
 			{
@@ -1599,15 +1599,15 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		break;
 
 	case DO_SPELL_BR_LITE:
-		thrown_spell = CF_BR_LITE;
+		thrown_spell = TRAIT_BR_LITE;
 		break;
 
 	case DO_SPELL_BR_DISI:
-		thrown_spell = CF_BR_DISI;
+		thrown_spell = TRAIT_BR_DISI;
 		break;
 
 	case DO_SPELL_BA_LITE:
-		thrown_spell = CF_BA_LITE;
+		thrown_spell = TRAIT_BA_LITE;
 		break;
 
 	default:
@@ -1621,7 +1621,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	failrate = 25 - (rlev + 3) / 4;
 
 	/* Hack -- Stupid creatures will never fail (for jellies and such) */
-	if (has_trait(caster_ptr, CF_STUPID)) failrate = 0;
+	if (has_trait(caster_ptr, TRAIT_STUPID)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
 	// TODO Distinction of spell failure_rate
@@ -1658,7 +1658,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Cast the spell. */
 	switch (thrown_spell)
 	{
-		case CF_SHRIEK:
+		case TRAIT_SHRIEK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1671,7 +1671,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_DISPEL:
+		case TRAIT_DISPEL:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -1695,7 +1695,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_ROCKET:
+		case TRAIT_ROCKET:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1717,7 +1717,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_SHOOT:
+		case TRAIT_SHOOT:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -1740,7 +1740,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_ACID:
+		case TRAIT_BR_ACID:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1761,7 +1761,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_ELEC:
+		case TRAIT_BR_ELEC:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1782,7 +1782,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_FIRE:
+		case TRAIT_BR_FIRE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1803,7 +1803,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_COLD:
+		case TRAIT_BR_COLD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1824,7 +1824,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_POIS:
+		case TRAIT_BR_POIS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1845,7 +1845,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_NETH:
+		case TRAIT_BR_NETH:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1866,7 +1866,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_LITE:
+		case TRAIT_BR_LITE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1887,7 +1887,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_DARK:
+		case TRAIT_BR_DARK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1908,7 +1908,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_CONF:
+		case TRAIT_BR_CONF:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1929,7 +1929,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_SOUN:
+		case TRAIT_BR_SOUN:
 		{
 			disturb(player_ptr, 1, 0);
 			if (caster_ptr->species_idx == MON_JAIAN)
@@ -1956,7 +1956,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_CHAO:
+		case TRAIT_BR_CHAO:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1977,7 +1977,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_DISE:
+		case TRAIT_BR_DISE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -1998,7 +1998,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_NEXU:
+		case TRAIT_BR_NEXU:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2019,7 +2019,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_TIME:
+		case TRAIT_BR_TIME:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2039,7 +2039,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_INER:
+		case TRAIT_BR_INER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2059,7 +2059,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_GRAV:
+		case TRAIT_BR_GRAV:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2079,7 +2079,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_SHAR:
+		case TRAIT_BR_SHAR:
 		{
 			disturb(player_ptr, 1, 0);
 			if (caster_ptr->species_idx == MON_BOTEI)
@@ -2106,7 +2106,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_PLAS:
+		case TRAIT_BR_PLAS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2126,7 +2126,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_WALL:
+		case TRAIT_BR_WALL:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2146,7 +2146,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BR_MANA:
+		case TRAIT_BR_MANA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2165,7 +2165,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BA_NUKE:
+		case TRAIT_BA_NUKE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2180,13 +2180,13 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s casts a ball of radiation.", m_name);
 #endif
 
-			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, MS_BALL_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
 
-		case CF_BR_NUKE:
+		case TRAIT_BR_NUKE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2207,7 +2207,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case CF_BA_CHAO:
+		case TRAIT_BA_CHAO:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2222,13 +2222,13 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s invokes a raw Logrus.", m_name);
 #endif
 
-			dam = (has_trait(caster_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
+			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BALL_CHAOS, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
 
-		case CF_BR_DISI:
+		case TRAIT_BR_DISI:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2249,7 +2249,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 		}
 
 
-		case CF_BA_ACID:
+		case TRAIT_BA_ACID:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2264,13 +2264,13 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an acid ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, MS_BALL_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
 
-		case CF_BA_ELEC:
+		case TRAIT_BA_ELEC:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2285,13 +2285,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
 
-		case CF_BA_FIRE:
+		case TRAIT_BA_FIRE:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -2324,13 +2324,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 			}
 
-			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, MS_BALL_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
 		}
 
-		case CF_BA_COLD:
+		case TRAIT_BA_COLD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2345,13 +2345,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
 
-		case CF_BA_POIS:
+		case TRAIT_BA_POIS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2366,13 +2366,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a stinking cloud.", m_name);
 #endif
 
-			dam = diceroll(12, 2) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
 
-		case CF_BA_NETH:
+		case TRAIT_BA_NETH:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2387,13 +2387,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether ball.", m_name);
 #endif
 
-			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1));
+			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
 			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
 
-		case CF_BA_WATE:
+		case TRAIT_BA_WATE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2414,12 +2414,12 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (has_trait(caster_ptr, CF_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
+			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
 			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
 			break;
 		}
 
-		case CF_BA_MANA:
+		case TRAIT_BA_MANA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2439,7 +2439,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BA_DARK:
+		case TRAIT_BA_DARK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2460,7 +2460,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_DRAIN_MANA:
+		case TRAIT_DRAIN_MANA:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2471,7 +2471,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_MIND_BLAST:
+		case TRAIT_MIND_BLAST:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2499,7 +2499,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BRAIN_SMASH:
+		case TRAIT_BRAIN_SMASH:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2527,7 +2527,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_CAUSE_1:
+		case TRAIT_CAUSE_1:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2548,7 +2548,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_CAUSE_2:
+		case TRAIT_CAUSE_2:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2569,7 +2569,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_CAUSE_3:
+		case TRAIT_CAUSE_3:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2590,7 +2590,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_CAUSE_4:
+		case TRAIT_CAUSE_4:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2611,7 +2611,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BO_ACID:
+		case TRAIT_BO_ACID:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2627,14 +2627,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a acid bolt.", m_name);
 #endif
 
-			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_ELEC:
+		case TRAIT_BO_ELEC:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2650,14 +2650,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning bolt.", m_name);
 #endif
 
-			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_FIRE:
+		case TRAIT_BO_FIRE:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2673,14 +2673,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a fire bolt.", m_name);
 #endif
 
-			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_COLD:
+		case TRAIT_BO_COLD:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2696,14 +2696,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost bolt.", m_name);
 #endif
 
-			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 1);
+			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BA_LITE:
+		case TRAIT_BA_LITE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -2724,7 +2724,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BO_NETH:
+		case TRAIT_BO_NETH:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2740,14 +2740,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether bolt.", m_name);
 #endif
 
-			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3);
+			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
 			bolt(caster_ptr, target_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_WATE:
+		case TRAIT_BO_WATE:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2763,13 +2763,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a water bolt.", m_name);
 #endif
 
-			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_MANA:
+		case TRAIT_BO_MANA:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2791,7 +2791,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BO_PLAS:
+		case TRAIT_BO_PLAS:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2807,13 +2807,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a plasma bolt.", m_name);
 #endif
 
-			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_BO_ICEE:
+		case TRAIT_BO_ICEE:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2829,14 +2829,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an ice bolt.", m_name);
 #endif
 
-			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, CF_POWERFUL) ? 2 : 3));
+			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case CF_MISSILE:
+		case TRAIT_MISSILE:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2858,7 +2858,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_SCARE:
+		case TRAIT_SCARE:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2901,7 +2901,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BLIND:
+		case TRAIT_BLIND:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2944,7 +2944,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_CONF:
+		case TRAIT_CONF:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -2987,7 +2987,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_SLOW:
+		case TRAIT_SLOW:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3024,7 +3024,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_HOLD:
+		case TRAIT_HOLD:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3067,7 +3067,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_HASTE:
+		case TRAIT_HASTE:
 		{
 			disturb(player_ptr, 1, 0);
 			if (blind)
@@ -3101,7 +3101,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_HAND_DOOM:
+		case TRAIT_HAND_DOOM:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3115,7 +3115,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_HEAL:
+		case TRAIT_HEAL:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -3213,7 +3213,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_INVULNER:
+		case TRAIT_INVULNER:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -3241,7 +3241,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_BLINK:
+		case TRAIT_BLINK:
 		{
 			disturb(player_ptr, 1, 0);
 			if (teleport_barrier(target_ptr, caster_ptr))
@@ -3265,7 +3265,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_TPORT:
+		case TRAIT_TPORT:
 		{
 			disturb(player_ptr, 1, 0);
 			if (teleport_barrier(target_ptr, caster_ptr))
@@ -3288,7 +3288,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_WORLD:
+		case TRAIT_WORLD:
 		{
 			int who = 0;
 			disturb(player_ptr, 1, 0);
@@ -3299,7 +3299,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_SPECIAL:
+		case TRAIT_SPECIAL:
 		{
 			int k;
 
@@ -3472,7 +3472,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_TELE_TO:
+		case TRAIT_TELE_TO:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3487,7 +3487,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_TELE_AWAY:
+		case TRAIT_TELE_AWAY:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3508,7 +3508,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_TELE_LEVEL:
+		case TRAIT_TELE_LEVEL:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3551,7 +3551,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_PSY_SPEAR:
+		case TRAIT_PSY_SPEAR:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3567,12 +3567,12 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s throw a Psycho-Spear.", m_name);
 #endif
 
-			dam = has_trait(caster_ptr, CF_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
+			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
 			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
 			break;
 		}
 
-		case CF_DARKNESS:
+		case TRAIT_DARKNESS:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3599,7 +3599,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_TRAPS:
+		case TRAIT_TRAPS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3619,7 +3619,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_FORGET:
+		case TRAIT_FORGET:
 		{
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -3652,7 +3652,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-	case CF_RAISE_DEAD:
+	case TRAIT_ANIM_DEAD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3670,7 +3670,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_KIN:
+		case TRAIT_S_KIN:
 		{
 			disturb(player_ptr, 1, 0);
 			if (caster_ptr->species_idx == MON_SERPENT || caster_ptr->species_idx == MON_ZOMBI_SERPENT)
@@ -3792,7 +3792,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_CYBER:
+		case TRAIT_S_CYBER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3817,7 +3817,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_MONSTER:
+		case TRAIT_S_MONSTER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3845,7 +3845,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_MONSTERS:
+		case TRAIT_S_MONSTERS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3873,7 +3873,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_ANT:
+		case TRAIT_S_ANT:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3901,7 +3901,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_SPIDER:
+		case TRAIT_S_SPIDER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3929,7 +3929,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_HOUND:
+		case TRAIT_S_HOUND:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3957,7 +3957,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_HYDRA:
+		case TRAIT_S_HYDRA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -3985,7 +3985,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_ANGEL:
+		case TRAIT_S_ANGEL:
 		{
 			int num = 1;
 
@@ -4032,7 +4032,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_DEMON:
+		case TRAIT_S_DEMON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -4060,7 +4060,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_UNDEAD:
+		case TRAIT_S_UNDEAD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -4088,7 +4088,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_DRAGON:
+		case TRAIT_S_DRAGON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -4116,7 +4116,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_HI_UNDEAD:
+		case TRAIT_S_HI_UNDEAD:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -4210,7 +4210,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_HI_DRAGON:
+		case TRAIT_S_HI_DRAGON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -4241,7 +4241,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_AMBERITES:
+		case TRAIT_S_AMBERITES:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
@@ -4274,7 +4274,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		case CF_S_UNIQUE:
+		case TRAIT_S_UNIQUE:
 		{
 			bool uniques_are_summoned = FALSE;
 			int non_unique_type = SUMMON_HI_UNDEAD;
@@ -4328,7 +4328,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 	if (seen && maneable && !the_world && (target_ptr->class_idx == CLASS_IMITATOR))
 	{
-		if (thrown_spell != CF_SPECIAL)
+		if (thrown_spell != TRAIT_SPECIAL)
 		{
 			if (target_ptr->mane_num == MAX_MANE)
 			{

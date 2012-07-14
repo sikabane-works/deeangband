@@ -1203,7 +1203,7 @@ void do_cmd_redraw(void)
 	handle_stuff();
 
 	/*
-	if (has_trait(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
+	if (has_trait(cr_ptr, TRAIT_ANDROID)) calc_android_exp(cr_ptr);
 	*/
 
 	/* Redraw every window */
@@ -5019,7 +5019,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	}
 
 	/* Display the feeling */
-	if (has_trait(creature_ptr, CF_GOOD_LUCK))
+	if (has_trait(creature_ptr, TRAIT_GOOD_LUCK))
 		msg_print(do_cmd_feeling_text_lucky[creature_ptr->floor_feeling]);
 	else if (creature_ptr->chara_idx == CHARA_COMBAT ||
              get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)

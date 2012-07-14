@@ -632,7 +632,7 @@ static void prt_exp(creature_type *cr_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(has_trait(cr_ptr, CF_ANDROID)))
+	if ((!exp_need)||(has_trait(cr_ptr, TRAIT_ANDROID)))
 	{
 		(void)sprintf(out_val, "%9ld", (long)cr_ptr->exp);
 	}
@@ -650,7 +650,7 @@ static void prt_exp(creature_type *cr_ptr)
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
-		if (has_trait(cr_ptr, CF_ANDROID)) put_str("Cst ", ROW_EXP, 0);
+		if (has_trait(cr_ptr, TRAIT_ANDROID)) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP", ROW_EXP, COL_EXP);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 3);
 
@@ -3112,7 +3112,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 
 		// Extract the new "stat_use" value for the stat
 		use = creature_ptr->stat_cur[i] + creature_ptr->stat_add[i];
-		if ((i == STAT_CHA) && (has_trait(creature_ptr, CF_ILL_NORM)))
+		if ((i == STAT_CHA) && (has_trait(creature_ptr, TRAIT_ILL_NORM)))
 		{
 			// 10.0 to 34.0 charisma, guaranteed, based on level
 			if (use < 100 + 4 * creature_ptr->lev) use = 100 + 4 * creature_ptr->lev;
@@ -4201,88 +4201,88 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 	}
 
 	{
-		if (has_trait(creature_ptr, CF_FLESH_ROT))
+		if (has_trait(creature_ptr, TRAIT_FLESH_ROT))
 		{
 			creature_ptr->regenerate = FALSE;
 			/* Cancel innate regeneration */
 		}
 
-		if (has_trait(creature_ptr, CF_MAGIC_RES))
+		if (has_trait(creature_ptr, TRAIT_MAGIC_RES))
 		{
 			creature_ptr->skill_rob += creature_ptr->lev / 5;
 			creature_ptr->skill_eva += creature_ptr->lev / 5;
 			creature_ptr->skill_vol += creature_ptr->lev / 5;
 		}
 
-		if (has_trait(creature_ptr, CF_ELEC_TOUC))
+		if (has_trait(creature_ptr, TRAIT_ELEC_TOUC))
 		{
 			creature_ptr->sh_elec = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_FIRE_BODY))
+		if (has_trait(creature_ptr, TRAIT_FIRE_BODY))
 		{
 			creature_ptr->sh_fire = TRUE;
 			creature_ptr->lite = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_WART_SKIN))
+		if (has_trait(creature_ptr, TRAIT_WART_SKIN))
 		{
 			creature_ptr->stat_add[STAT_CHA] -= 20;
 			creature_ptr->to_ac += 5;
 			creature_ptr->dis_to_ac += 5;
 		}
 
-		if (has_trait(creature_ptr, CF_SCALES))
+		if (has_trait(creature_ptr, TRAIT_SCALES))
 		{
 			creature_ptr->stat_add[STAT_CHA] -= 10;
 			creature_ptr->to_ac += 10;
 			creature_ptr->dis_to_ac += 10;
 		}
 
-		if (has_trait(creature_ptr, CF_IRON_SKIN))
+		if (has_trait(creature_ptr, TRAIT_IRON_SKIN))
 		{
 			creature_ptr->stat_add[STAT_DEX] -= 10;
 			creature_ptr->to_ac += 25;
 			creature_ptr->dis_to_ac += 25;
 		}
 
-		if (has_trait(creature_ptr, CF_WINGS))
+		if (has_trait(creature_ptr, TRAIT_WINGS))
 		{
 			creature_ptr->levitation = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_FEARLESS))
+		if (has_trait(creature_ptr, TRAIT_FEARLESS))
 		{
 			creature_ptr->resist_fear = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_REGEN))
+		if (has_trait(creature_ptr, TRAIT_REGEN))
 		{
 			creature_ptr->regenerate = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_ESP))
+		if (has_trait(creature_ptr, TRAIT_ESP))
 		{
 			creature_ptr->telepathy = TRUE;
 		}
 
-		if (has_trait(creature_ptr, CF_LIMBER))
+		if (has_trait(creature_ptr, TRAIT_LIMBER))
 		{
 			creature_ptr->stat_add[STAT_DEX] += 30;
 		}
 
-		if (has_trait(creature_ptr, CF_ARTHRITIS))
+		if (has_trait(creature_ptr, TRAIT_ARTHRITIS))
 		{
 			creature_ptr->stat_add[STAT_DEX] -= 30;
 		}
 
-		if (has_trait(creature_ptr, CF_MOTION))
+		if (has_trait(creature_ptr, TRAIT_MOTION))
 		{
 			creature_ptr->free_act = TRUE;
 			creature_ptr->skill_stl += 1;
 		}
 
-		if (has_trait(creature_ptr, CF_ILL_NORM))
+		if (has_trait(creature_ptr, TRAIT_ILL_NORM))
 		{
 			creature_ptr->stat_add[STAT_CHA] = 0;
 		}
@@ -5579,7 +5579,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
 	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
-	if(has_trait(cr_ptr, CF_GOLEM))
+	if(has_trait(cr_ptr, TRAIT_GOLEM))
 	{
 #if JP
 		strcat(subname, "型ゴーレム");
@@ -5588,7 +5588,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_ANDROID))
+	if(has_trait(cr_ptr, TRAIT_ANDROID))
 	{
 #if JP
 		strcat(subname, "型アンドロイド");
@@ -5598,7 +5598,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 	}
 
 
-	if(has_trait(cr_ptr, CF_VAMPIRE))
+	if(has_trait(cr_ptr, TRAIT_VAMPIRE))
 	{
 #if JP
 		strcat(subname, "の吸血鬼");
@@ -5607,7 +5607,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_ZOMBIE))
+	if(has_trait(cr_ptr, TRAIT_ZOMBIE))
 	{
 #if JP
 		strcat(subname, "のゾンビ");
@@ -5616,7 +5616,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_SKELETON))
+	if(has_trait(cr_ptr, TRAIT_SKELETON))
 	{
 #if JP
 		strcat(subname, "のスケルトン");
@@ -5625,7 +5625,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_LICH))
+	if(has_trait(cr_ptr, TRAIT_LICH))
 	{
 #if JP
 		strcat(subname, "のリッチ");
@@ -5634,7 +5634,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_NAZGUL))
+	if(has_trait(cr_ptr, TRAIT_NAZGUL))
 	{
 #if JP
 		strcat(subname, "のナズグル");
@@ -5643,7 +5643,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, CF_PUELLA_MAGI))
+	if(has_trait(cr_ptr, TRAIT_PUELLA_MAGI))
 	{
 #if JP
 		strcat(subname, "の魔法少女");
@@ -5725,7 +5725,7 @@ cptr get_class_desc(creature_type *cr_ptr){
 
 	strcat(name, class_info[cr_ptr->class_idx].title);
 
-	if(has_trait(cr_ptr, CF_PUELLA_MAGI))
+	if(has_trait(cr_ptr, TRAIT_PUELLA_MAGI))
 	{
 #if JP
 		strcat(name, "/魔法少女");

@@ -21,7 +21,7 @@
  */
 void set_experience(creature_type *cr_ptr)
 {
-	bool android = (has_trait(cr_ptr, CF_ANDROID) ? TRUE : FALSE);
+	bool android = (has_trait(cr_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
 
 	cr_ptr->lev = 1;
 
@@ -63,7 +63,7 @@ void check_experience(creature_type *cr_ptr)
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (has_trait(cr_ptr, CF_ANDROID) ? TRUE : FALSE);
+	bool android = (has_trait(cr_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
 	int  old_lev = cr_ptr->lev;
 
 	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
@@ -762,8 +762,8 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = !has_trait(killed_ptr, CF_ONLY_GOLD);
-	bool do_item = !has_trait(killed_ptr, CF_ONLY_ITEM);
+	bool do_gold = !has_trait(killed_ptr, TRAIT_ONLY_GOLD);
+	bool do_item = !has_trait(killed_ptr, TRAIT_ONLY_ITEM);
 	bool cloned = (killed_ptr->smart & SM_CLONED) ? TRUE : FALSE;
 	int force_coin = get_coin_type(killed_ptr->species_idx);
 
@@ -884,8 +884,8 @@ msg_print("地面に落とされた。");
 	}
 
 	/* Drop a dead corpse? */
-	if (one_in_(has_trait(killed_ptr, CF_UNIQUE) ? 1 : 4) &&
-	    (has_trait(killed_ptr, CF_DROP_CORPSE) || has_trait(killed_ptr, CF_DROP_SKELETON)) &&
+	if (one_in_(has_trait(killed_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
+	    (has_trait(killed_ptr, TRAIT_DROP_CORPSE) || has_trait(killed_ptr, TRAIT_DROP_SKELETON)) &&
 	    !(fight_arena_mode || gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
@@ -895,13 +895,13 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!has_trait(killed_ptr, CF_DROP_SKELETON))
+		if (!has_trait(killed_ptr, TRAIT_DROP_SKELETON))
 			corpse = TRUE;
-		else if (has_trait(killed_ptr, CF_DROP_CORPSE) && has_trait(killed_ptr, CF_UNIQUE))
+		else if (has_trait(killed_ptr, TRAIT_DROP_CORPSE) && has_trait(killed_ptr, TRAIT_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (has_trait(killed_ptr, CF_DROP_CORPSE))
+		else if (has_trait(killed_ptr, TRAIT_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
 			if ((0 - ((killed_ptr->mhp) / 4)) > killed_ptr->chp)
@@ -1287,7 +1287,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_trait(killed_ptr, CF_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
+		if (has_trait(killed_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
 		{
 			int k_idx = dungeon_info[floor_ptr->dun_type].final_object ? dungeon_info[floor_ptr->dun_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1459,7 +1459,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	u32b div_l;
 	int exp_limit;
 
-	if (has_trait(tar_ptr, CF_BLUFF)) return;
+	if (has_trait(tar_ptr, TRAIT_BLUFF)) return;
 	if (!tar_ptr->species_idx) return;
 	if (is_pet(player_ptr, tar_ptr) || gamble_arena_mode) return;
 
@@ -1474,7 +1474,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
 	/* Special penalty in the wilderness */
-	if (!floor_ptr->floor_level && (!has_trait(tar_ptr, CF_WILD_ONLY) || !(has_trait(tar_ptr, CF_UNIQUE))))
+	if (!floor_ptr->floor_level && (!has_trait(tar_ptr, TRAIT_WILD_ONLY) || !(has_trait(tar_ptr, TRAIT_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
@@ -2357,7 +2357,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((player_ptr->lev >= player_ptr->max_plv) || has_trait(player_ptr, CF_ANDROID))
+	if ((player_ptr->lev >= player_ptr->max_plv) || has_trait(player_ptr, TRAIT_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;
@@ -4021,7 +4021,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (has_trait(creature_ptr, CF_ANDROID))
+			if (has_trait(creature_ptr, TRAIT_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4062,7 +4062,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (has_trait(creature_ptr, CF_ANDROID))
+			if (has_trait(creature_ptr, TRAIT_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");

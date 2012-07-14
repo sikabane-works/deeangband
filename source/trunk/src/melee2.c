@@ -94,8 +94,8 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
-			if ((has_trait(m_ptr, CF_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
-			    (has_trait(m_ptr, CF_KILL_WALL) && (m_idx != cr_ptr->riding)))
+			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
+			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
 				if (!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -275,7 +275,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	if (now_cost == 0) now_cost = 999;
 
 	/* Can creature bash or open doors? */
-	if (has_trait(creature_ptr, CF_BASH_DOOR) || has_trait(creature_ptr, CF_OPEN_DOOR))
+	if (has_trait(creature_ptr, TRAIT_BASH_DOOR) || has_trait(creature_ptr, TRAIT_OPEN_DOOR))
 	{
 		can_open_door = TRUE;
 	}
@@ -300,8 +300,8 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		cost = c_ptr->cost;
 
 		/* Creature cannot kill or pass walls */
-		if (!((has_trait(creature_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
-			  (has_trait(creature_ptr, CF_KILL_WALL) && (m_idx != player_ptr->riding))))
+		if (!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
+			  (has_trait(creature_ptr, TRAIT_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -374,8 +374,8 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if (no_flow) return (FALSE);
 
 	/* Creature can go through rocks */
-	if (has_trait(nonplayer_ptr, CF_PASS_WALL) && ((m_idx != mover_ptr->riding) || mover_ptr->pass_wall)) return (FALSE);
-	if (has_trait(nonplayer_ptr, CF_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
+	if (has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || mover_ptr->pass_wall)) return (FALSE);
+	if (has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
 
 	/* Creature location */
 	y1 = nonplayer_ptr->fy;
@@ -436,7 +436,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		{
 			int cost;
 
-			if (has_trait(nonplayer_ptr, CF_BASH_DOOR) || has_trait(nonplayer_ptr, CF_BASH_DOOR))
+			if (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) || has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
 				cost = c_ptr->dist;
 			else cost = c_ptr->cost;
 
@@ -849,7 +849,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
-	bool         can_pass_wall = (has_trait(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
+	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
 
 	/* Counter attack to an enemy creature */
 	if (!will_run && nonplayer_ptr->target_y)
@@ -869,7 +869,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		}
 	}
 
-	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_trait(nonplayer_ptr, CF_FRIENDS) &&
+	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_trait(nonplayer_ptr, TRAIT_FRIENDS) &&
 	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
 	    (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
@@ -878,7 +878,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	 * (...unless they can move through walls -- TY)
 	 */
 		if (is_animal_creature(nonplayer_ptr) && !can_pass_wall &&
-			 !has_trait(nonplayer_ptr, CF_BASH_DOOR))
+			 !has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
 		{
 			int i, room = 0;
 
@@ -1329,7 +1329,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 static void do_multiply_creature(creature_type *creature_ptr)
 {
 	// Attempt to "multiply" if able and allowed
-	if (has_trait(creature_ptr, CF_MULTIPLY))
+	if (has_trait(creature_ptr, TRAIT_MULTIPLY))
 	{
 		floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 		int k, y, x;
@@ -1376,7 +1376,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	if (has_trait(creature_ptr, CF_SPECIAL))
+	if (has_trait(creature_ptr, TRAIT_SPECIAL))
 	{
 		/* Hack -- Ohmu scatters molds! */
 		if (creature_ptr->species_idx == MON_OHMU)
@@ -1397,7 +1397,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 						}
 					}
 
-					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_SPECIAL);
+					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_SPECIAL);
 				}
 			}
 		}
@@ -1469,7 +1469,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		}
 
 		// Some creatures can speak
-		if (has_trait(creature_ptr, CF_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
+		if (has_trait(creature_ptr, TRAIT_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
 		{
 			creature_speaking(creature_ptr);
 		}
@@ -1539,7 +1539,7 @@ static void process_nonplayer(int m_idx)
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
-	if (is_riding_mon && !has_trait(creature_ptr, CF_CAN_FLY))
+	if (is_riding_mon && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 		if (do_thrown_from_riding(player_ptr, 0, TRUE))
 		{
@@ -1603,7 +1603,7 @@ static void process_nonplayer(int m_idx)
 
 // TODO Riding pinch
 /*
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_trait(creature_ptr, CF_NAZGUL)) && !gamble_arena_mode)
+	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1695,7 +1695,7 @@ static void process_nonplayer(int m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, creature_ptr) &&
-	    (((is_unique_creature(creature_ptr) || has_trait(creature_ptr, CF_NAZGUL)) &&
+	    (((is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
 	      creature_has_hostile_align(creature_ptr, player_ptr))
 	     || (creature_ptr->resist_ultimate)))
 	{
@@ -1775,38 +1775,38 @@ static void process_nonplayer(int m_idx)
 	}
 
 	/* 75% random movement */
-	else if (has_trait(creature_ptr, CF_RAND_25) && has_trait(creature_ptr, CF_RAND_50) && (randint0(100) < 75))
+	else if (has_trait(creature_ptr, TRAIT_RAND_25) && has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_RAND_25);
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_RAND_50);
+		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
+		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 50% random movement */
-	else if (has_trait(creature_ptr, CF_RAND_50) && (randint0(100) < 50))
+	else if (has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_RAND_50);
+		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 25% random movement */
-	else if (has_trait(creature_ptr, CF_RAND_25) && (randint0(100) < 25))
+	else if (has_trait(creature_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_RAND_25);
+		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* Can't reach player - find something else to hit */
-	else if (has_trait(creature_ptr, CF_NEVER_MOVE) && (creature_ptr->cdis > 1))
+	else if (has_trait(creature_ptr, TRAIT_NEVER_MOVE) && (creature_ptr->cdis > 1))
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1926,7 +1926,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Creature destroys walls (and doors) */
-		else if (has_trait(creature_ptr, CF_KILL_WALL) &&
+		else if (has_trait(creature_ptr, TRAIT_KILL_WALL) &&
 		         (can_cross ? !have_flag(f_ptr->flags, FF_LOS) : !is_riding_mon) &&
 		         have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT) &&
 		         check_hp_for_feat_destruction(f_ptr, creature_ptr))
@@ -1946,7 +1946,7 @@ static void process_nonplayer(int m_idx)
 			do_move = TRUE;
 
 			/* Creature moves through walls (and doors) */
-			if (has_trait(creature_ptr, CF_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
+			if (has_trait(creature_ptr, TRAIT_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Creature went through a wall */
@@ -1963,7 +1963,7 @@ static void process_nonplayer(int m_idx)
 			do_move = FALSE;
 
 			/* Creature can open doors. */
-			if (has_trait(creature_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
+			if (has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
 				 (!is_pet(player_ptr, creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
@@ -1998,7 +1998,7 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Stuck doors -- attempt to bash them down if allowed */
-			if (may_bash && has_trait(creature_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
+			if (may_bash && has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
 				(!is_pet(player_ptr, creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
@@ -2044,7 +2044,7 @@ static void process_nonplayer(int m_idx)
 						/* Update some things */
 						update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_BASH_DOOR);
+						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
 						return;
 					}
@@ -2064,7 +2064,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if (do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, CF_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
+		if (do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2097,7 +2097,7 @@ static void process_nonplayer(int m_idx)
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !(has_trait(creature_ptr, CF_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
+			 !(has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2149,10 +2149,10 @@ static void process_nonplayer(int m_idx)
 		if (do_move && creature_bold(player_ptr, ny, nx))
 		{
 			/* Some creatures never attack */
-			if (has_trait(creature_ptr, CF_NEVER_BLOW))
+			if (has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 			{
 				/* Hack -- memorize lack of attacks */
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_NEVER_BLOW);
+				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2163,10 +2163,10 @@ static void process_nonplayer(int m_idx)
 			{
 				if (!creature_ptr->confused)
 				{
-					if (!has_trait(creature_ptr, CF_STUPID)) do_move = FALSE;
+					if (!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
 					else
 					{
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_RAND_50);
+						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 					}
 				}
 			}
@@ -2202,14 +2202,14 @@ static void process_nonplayer(int m_idx)
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if ((has_trait(creature_ptr, CF_KILL_BODY) && !has_trait(creature_ptr, CF_NEVER_BLOW) &&
+			if ((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
 				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
 				  are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
 			{
-				if (!has_trait(creature_ptr, CF_NEVER_BLOW))
+				if (!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 				{
-					if (has_trait(creature_ptr, CF_KILL_BODY))
+					if (has_trait(creature_ptr, TRAIT_KILL_BODY))
 					{
 						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
@@ -2223,9 +2223,9 @@ static void process_nonplayer(int m_idx)
 						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
 							if (creature_ptr->confused) return;
-							else if (has_trait(creature_ptr, CF_STUPID))
+							else if (has_trait(creature_ptr, TRAIT_STUPID))
 							{
-								if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_STUPID);
+								if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_STUPID);
 								return;
 							}
 						}
@@ -2234,7 +2234,7 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Push past weaker creatures (unless leaving a wall) */
-			else if (has_trait(creature_ptr, CF_MOVE_BODY) && !has_trait(creature_ptr, CF_NEVER_MOVE) &&
+			else if (has_trait(creature_ptr, TRAIT_MOVE_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
 				creature_can_cross_terrain(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
@@ -2282,7 +2282,7 @@ static void process_nonplayer(int m_idx)
 				/* Update some things */
 				update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_KILL_WALL);
+				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 
 				return;
 			}
@@ -2296,7 +2296,7 @@ static void process_nonplayer(int m_idx)
 			do_turn = TRUE;
 		}
 
-		if (must_alter_to_move && has_trait(creature_ptr, CF_AQUATIC))
+		if (must_alter_to_move && has_trait(creature_ptr, TRAIT_AQUATIC))
 		{
 			if (!creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0))
 			{
@@ -2318,10 +2318,10 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Some creatures never move */
-		if (do_move && has_trait(creature_ptr, CF_NEVER_MOVE))
+		if (do_move && has_trait(creature_ptr, TRAIT_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
-			if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, CF_NEVER_MOVE);
+			if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
@@ -2335,7 +2335,7 @@ static void process_nonplayer(int m_idx)
 
 			if (have_flag(f_ptr->flags, FF_TREE))
 			{
-				if (!has_trait(creature_ptr, CF_CAN_FLY) && !has_trait(creature_ptr, CF_WILD_WOOD))
+				if (!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_WILD_WOOD))
 				{
 					creature_ptr->energy_need += ENERGY_NEED();
 				}
@@ -2394,11 +2394,11 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Take or Kill objects on the floor */
-			if (c_ptr->object_idx && (has_trait(creature_ptr, CF_TAKE_ITEM) || has_trait(creature_ptr, CF_KILL_ITEM)) &&
-			    (!is_pet(player_ptr, creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_trait(creature_ptr, CF_TAKE_ITEM))))
+			if (c_ptr->object_idx && (has_trait(creature_ptr, TRAIT_TAKE_ITEM) || has_trait(creature_ptr, TRAIT_KILL_ITEM)) &&
+			    (!is_pet(player_ptr, creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_trait(creature_ptr, TRAIT_TAKE_ITEM))))
 			{
 				s16b this_object_idx, next_object_idx;
-				bool do_take = has_trait(creature_ptr, CF_TAKE_ITEM) ? TRUE : FALSE;
+				bool do_take = has_trait(creature_ptr, TRAIT_TAKE_ITEM) ? TRUE : FALSE;
 
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -2432,7 +2432,7 @@ static void process_nonplayer(int m_idx)
 					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
-					if (do_take && has_trait(creature_ptr, CF_STUPID) && one_in_(3))
+					if (do_take && has_trait(creature_ptr, TRAIT_STUPID) && one_in_(3))
 					{
 						/* Take note */
 						did_take_item = TRUE;
@@ -2537,7 +2537,7 @@ static void process_nonplayer(int m_idx)
 
 	/* Notice changes in view */
 	if (do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		|| ((has_trait(creature_ptr, CF_HAS_LITE_1) || has_trait(creature_ptr, CF_HAS_LITE_2)) && !gamble_arena_mode))
+		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !gamble_arena_mode))
 	{
 		/* Update some things */
 		update |= (PU_MON_LITE);
@@ -2547,25 +2547,25 @@ static void process_nonplayer(int m_idx)
 	if (is_original_ap_and_seen(player_ptr, creature_ptr))
 	{
 		/* Creature opened a door */
-		if (did_open_door) reveal_creature_info(creature_ptr, CF_OPEN_DOOR);
+		if (did_open_door) reveal_creature_info(creature_ptr, TRAIT_OPEN_DOOR);
 
 		/* Creature bashed a door */
-		if (did_bash_door) reveal_creature_info(creature_ptr, CF_BASH_DOOR);
+		if (did_bash_door) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
 		/* Creature tried to pick something up */
-		if (did_take_item) reveal_creature_info(creature_ptr, CF_TAKE_ITEM);
+		if (did_take_item) reveal_creature_info(creature_ptr, TRAIT_TAKE_ITEM);
 
 		/* Creature tried to crush something */
-		if (did_kill_item) reveal_creature_info(creature_ptr, CF_KILL_ITEM);
+		if (did_kill_item) reveal_creature_info(creature_ptr, TRAIT_KILL_ITEM);
 
 		/* Creature pushed past another creature */
-		if (did_move_body) reveal_creature_info(creature_ptr, CF_MOVE_BODY);
+		if (did_move_body) reveal_creature_info(creature_ptr, TRAIT_MOVE_BODY);
 
 		/* Creature passed through a wall */
-		if (did_pass_wall) reveal_creature_info(creature_ptr, CF_PASS_WALL);
+		if (did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_PASS_WALL);
 
 		/* Creature destroyed a wall */
-		if (did_pass_wall) reveal_creature_info(creature_ptr, CF_KILL_WALL);
+		if (did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 	}
 
 }
@@ -2651,7 +2651,7 @@ static void process_creature(int i)
 
 	do_creature_speaking(creature_ptr);
 
-	if (has_trait(creature_ptr, CF_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
+	if (has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else

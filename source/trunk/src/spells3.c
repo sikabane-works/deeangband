@@ -451,7 +451,7 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if (has_trait(m_ptr, CF_TPORT) && !has_trait(m_ptr, CF_RES_TELE))
+				if (has_trait(m_ptr, TRAIT_TPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
 				{
 					if (!m_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 				}
@@ -489,7 +489,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if (has_trait(creature_ptr, CF_TPORT) && !has_trait(creature_ptr, CF_RES_TELE))
+				if (has_trait(creature_ptr, TRAIT_TPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
 				{
 					if (!creature_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
 				}
@@ -568,7 +568,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 	{
 		bool follow = FALSE;
 
-		if (has_trait(creature_ptr, CF_VTELEPORT) || (creature_ptr->class_idx == CLASS_IMITATOR)) follow = TRUE;
+		if (has_trait(creature_ptr, TRAIT_VTELEPORT) || (creature_ptr->class_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
@@ -4944,7 +4944,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_trait(cr_ptr, CF_VULN_ELEM)) dam *= 2;
+	if (has_trait(cr_ptr, TRAIT_VULN_ELEM)) dam *= 2;
 
 	/* Resist the damage */
 	if (cr_ptr->resist_acid) dam = (dam + 2) / 3;
@@ -4987,7 +4987,7 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_trait(cr_ptr, CF_HURT_ELEC)) dam += dam / 3;
+	if (has_trait(cr_ptr, TRAIT_HURT_ELEC)) dam += dam / 3;
 
 	/* Resist the damage */
 	if (cr_ptr->resist_elec) dam = (dam + 2) / 3;

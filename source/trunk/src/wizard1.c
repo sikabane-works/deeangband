@@ -1785,7 +1785,7 @@ static void spoil_species_desc(cptr fname)
 
 		sprintf(id, "%5d ", who[i]);
 
-		if (is_shadow_species(species_ptr)) continue;
+		//TODOif (is_shadow_species(species_ptr)) continue;
 		/* Get the "name" */
 		/*
 		else if (is_quest_species(species_ptr))
@@ -1793,7 +1793,7 @@ static void spoil_species_desc(cptr fname)
 			sprintf(nam, "[Q] %s", name);
 		}
 		*/
-		else if (is_unique_species(species_ptr))
+		if (is_unique_species(species_ptr))
 		{
 			sprintf(nam, "[U] %s", name);
 		}
@@ -1920,20 +1920,20 @@ static void spoil_species_desc(cptr fname)
 			tmpwt = species_ptr->m_b_wt;
 		}
 
-		if(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(ht, "----");
-		else if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
+		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(ht, "----");
+		if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
-		if(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(wt, "----");
-		else if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
+		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(wt, "----");
+		if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
 		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
 		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
 		tmpsize = calc_bodysize(tmpht, tmpwt);
 
 		if(is_variable_race_species(species_ptr)) sprintf(size, "B%+2d ", tmpsize - 10);
-		else if(is_variable_size_species(species_ptr)) sprintf(size, "%3d+", tmpsize);
+		//TODO else if(is_variable_size_species(species_ptr)) sprintf(size, "%3d+", tmpsize);
 		else  sprintf(size, "%4d ", tmpsize);
 
 		/* Experience */
@@ -2010,7 +2010,7 @@ static void spoil_species_desc(cptr fname)
 #endif
 
 		}
-
+/*TODO
 		if(is_force_lesser_species(species_ptr)) 
 		{
 			strcat(trait, "/");
@@ -2020,7 +2020,8 @@ static void spoil_species_desc(cptr fname)
 			strcat(trait, "Lesser");
 #endif
 		}
-
+*/
+/*
 		if(is_variable_size_species(species_ptr)) 
 		{
 			strcat(trait, "/");
@@ -2030,6 +2031,7 @@ static void spoil_species_desc(cptr fname)
 			strcat(trait, "VariableSize");
 #endif
 		}
+*/
 
 		if(strlen(trait) == 0)
 			trait[1] = '\0';

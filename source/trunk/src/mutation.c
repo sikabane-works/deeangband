@@ -132,7 +132,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 	switch (power)
 	{
-		case CF_SPIT_ACID:
+		case TRAIT_SPIT_ACID:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
 #ifdef JP
@@ -144,7 +144,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			fire_ball(creature_ptr, GF_ACID, dir, lvl, 1 + (lvl / 30));
 			break;
 
-		case CF_BR_FIRE:
+		case TRAIT_BR_FIRE:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
 #ifdef JP
@@ -156,7 +156,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			fire_ball(creature_ptr, GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
 			break;
 
-		case CF_HYPN_GAZE:
+		case TRAIT_HYPN_GAZE:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("あなたの目は幻惑的になった...");
@@ -167,7 +167,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			(void)charm_creature(creature_ptr, dir, lvl);
 			break;
 
-		case CF_TELEKINES:
+		case TRAIT_TELEKINES:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("集中している...");
@@ -178,7 +178,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			fetch(creature_ptr, dir, lvl * 10, TRUE);
 			break;
 
-		case CF_VTELEPORT:
+		case TRAIT_VTELEPORT:
 #ifdef JP
 			msg_print("集中している...");
 #else
@@ -188,7 +188,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			teleport_player(creature_ptr, 10 + 4 * lvl, 0L);
 			break;
 
-		case CF_MIND_BLST:
+		case TRAIT_MIND_BLST:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("集中している...");
@@ -199,7 +199,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			fire_bolt(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
-		case CF_RADIATION:
+		case TRAIT_RADIATION:
 #ifdef JP
 			msg_print("体から放射能が発生した！");
 #else
@@ -209,7 +209,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			fire_ball(creature_ptr, GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
 			break;
 
-		case CF_VAMPIRISM:
+		case TRAIT_VAMPIRISM:
 			{
 				int x, y, dummy;
 				cave_type *c_ptr;
@@ -272,21 +272,21 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_SMELL_MET:
+		case TRAIT_SMELL_MET:
 			mutation_stop_mouth(creature_ptr);
 			(void)detect_treasure(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		case CF_SMELL_MON:
+		case TRAIT_SMELL_MON:
 			mutation_stop_mouth(creature_ptr);
 			(void)detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		case CF_BLINK:
+		case TRAIT_BLINK:
 			teleport_player(creature_ptr, 10, 0L);
 			break;
 
-		case CF_EAT_ROCK:
+		case TRAIT_EAT_ROCK:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -375,7 +375,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_SWAP_POS:
+		case TRAIT_SWAP_POS:
 			project_length = -1;
 			if (!get_aim_dir(creature_ptr, &dir))
 			{
@@ -386,17 +386,17 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			project_length = 0;
 			break;
 
-		case CF_SHRIEK:
+		case TRAIT_SHRIEK:
 			mutation_stop_mouth(creature_ptr);
 			(void)fire_ball(creature_ptr, GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_creatures(creature_ptr);
 			break;
 
-		case CF_ILLUMINE:
+		case TRAIT_ILLUMINE:
 			(void)lite_area(creature_ptr, diceroll(2, (lvl / 2)), (lvl / 10) + 1);
 			break;
 
-		case CF_DET_CURSE:
+		case TRAIT_DET_CURSE:
 			{
 				int i;
 
@@ -412,13 +412,13 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_BERSERK:
+		case TRAIT_BERSERK:
 			(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
 			(void)hp_player(creature_ptr, 30);
 			(void)set_afraid(creature_ptr, 0);
 			break;
 
-		case CF_POLYMORPH:
+		case TRAIT_POLYMORPH:
 #ifdef JP
 			if (!get_check("変身します。よろしいですか？")) return FALSE;
 #else
@@ -427,12 +427,12 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			do_poly_self(creature_ptr);
 			break;
 
-		case CF_MIDAS_TCH:
+		case TRAIT_MIDAS_TCH:
 			if (!alchemy(creature_ptr)) return FALSE;
 			break;
 
 		/* Summon pet molds around the player */
-		case CF_GROW_MOLD:
+		case TRAIT_GROW_MOLD:
 			{
 				int i;
 				for (i = 0; i < 8; i++)
@@ -442,7 +442,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_RESIST:
+		case TRAIT_RESIST:
 			{
 				int num = lvl / 10;
 				int dur = randint1(20) + 20;
@@ -475,19 +475,19 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_EARTHQUAKE:
+		case TRAIT_EARTHQUAKE:
 			(void)earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10);
 			break;
 
-		case CF_EAT_MAGIC:
+		case TRAIT_EAT_MAGIC:
 			if (!eat_magic(creature_ptr, creature_ptr->lev * 2)) return FALSE;
 			break;
 
-		case CF_WEIGH_MAG:
+		case TRAIT_WEIGH_MAG:
 			report_magics(creature_ptr);
 			break;
 
-		case CF_STERILITY:
+		case TRAIT_STERILITY:
 			/* Fake a population explosion. */
 #ifdef JP
 			msg_print("突然頭が痛くなった！");
@@ -500,7 +500,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			floor_ptr->num_repro += MAX_REPRO;
 			break;
 
-		case CF_PANIC_HIT:
+		case TRAIT_PANIC_HIT:
 			{
 				int x, y;
 
@@ -531,22 +531,22 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_DAZZLE:
+		case TRAIT_DAZZLE:
 			stun_creatures(creature_ptr, lvl * 4);
 			confuse_creatures(creature_ptr, lvl * 4);
 			turn_creatures(creature_ptr, lvl * 4);
 			break;
 
-		case CF_LASER_EYE:
+		case TRAIT_LASER_EYE:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_beam(creature_ptr, GF_LITE, dir, 2 * lvl);
 			break;
 
-		case CF_RECALL:
+		case TRAIT_RECALL:
 			if (!word_of_recall(creature_ptr)) return FALSE;
 			break;
 
-		case CF_BANISH:
+		case TRAIT_BANISH:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -609,7 +609,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		case CF_COLD_TOUCH:
+		case TRAIT_COLD_TOUCH:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -633,8 +633,8 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			}
 			break;
 
-		/* XXX_XXX_XXX Hack!  CF_LAUNCHER is negative, see above */
-		case 3: /* CF_LAUNCHER */
+		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
+		case 3: /* TRAIT_LAUNCHER */
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
 			if (!do_cmd_throw_aux(creature_ptr, 2 + lvl / 40, FALSE, 0)) return FALSE;
 			break;

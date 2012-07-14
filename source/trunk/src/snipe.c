@@ -406,13 +406,13 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_hurt_lite_creature(m_ptr))
 		{
 			int n = 20 + cr_ptr->concent;
-			reveal_creature_info(m_ptr, CF_HURT_LITE);
+			reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_FIRE:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
-		if (!has_trait(m_ptr, CF_RES_FIRE))
+		if (!has_trait(m_ptr, TRAIT_RES_FIRE))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
@@ -420,7 +420,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		break;
 	case SP_COLD:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
-		if (!has_trait(m_ptr, CF_RES_COLD))
+		if (!has_trait(m_ptr, TRAIT_RES_COLD))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
@@ -428,7 +428,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		break;
 	case SP_ELEC:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
-		if (!has_trait(m_ptr, CF_RES_ELEC))
+		if (!has_trait(m_ptr, TRAIT_RES_ELEC))
 		{
 			int n = 18 + (cr_ptr->concent * 4);
 			if (mult < n) mult = n;
@@ -438,13 +438,13 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_hurt_rock_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			reveal_creature_info(m_ptr, CF_HURT_ROCK);
+			reveal_creature_info(m_ptr, TRAIT_HURT_ROCK);
 			if (mult < n) mult = n;
 		}
-		else if (has_trait(m_ptr, CF_NONLIVING))
+		else if (has_trait(m_ptr, TRAIT_NONLIVING))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			reveal_creature_info(m_ptr, CF_NONLIVING);
+			reveal_creature_info(m_ptr, TRAIT_NONLIVING);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -465,7 +465,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 			if (is_hurt_lite_creature(m_ptr))
 			{
 				n += (cr_ptr->concent * 3);
-				reveal_creature_info(m_ptr, CF_HURT_LITE);
+				reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
 			}
 			if (mult < n) mult = n;
 		}

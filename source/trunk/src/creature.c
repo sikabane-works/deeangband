@@ -13,7 +13,7 @@ int estimate_level(species_type *species_ptr)
 	int factor = calc_expfact_sp(species_ptr);
 	int *table;
 
-	if(has_trait_raw(&species_ptr->flags, CF_ANDROID)) table = creature_exp_a;
+	if(has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) table = creature_exp_a;
 	else table = creature_exp;
 
 	for(i = 1; i < PY_MAX_LEVEL; i++)
@@ -188,7 +188,7 @@ int calc_expfact_sp(species_type *species_ptr)
 {
 	int expfact;
 
-	if (has_trait_raw(&species_ptr->flags, CF_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
+	if (has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
 	else 
 	{
 		if(IS_PURE(species_ptr))
@@ -213,7 +213,7 @@ int calc_expfact_sp(species_type *species_ptr)
 // Set Current Experience factor
 void set_expfact(creature_type *creature_ptr)
 {
-	if (has_trait(creature_ptr, CF_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
+	if (has_trait(creature_ptr, TRAIT_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
 	else {
 		if(IS_PURE(creature_ptr))
 		{
@@ -277,7 +277,7 @@ void set_base_hp(creature_type *cr_ptr)
 
 		for (i = 0; i < 2; i++)
 		{
-			if(has_trait(cr_ptr, CF_STIGMATIC))
+			if(has_trait(cr_ptr, TRAIT_STIGMATIC))
 				cr_ptr->base_hp[0] += (s16b)cr_ptr->hitdice;
 			else
 				cr_ptr->base_hp[0] += (s16b)randint1(cr_ptr->hitdice);
@@ -415,33 +415,33 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 
 void set_resistance(creature_type *creature_ptr)
 {
-	if(has_trait(creature_ptr, CF_RES_FIRE)) creature_ptr->resist_fire += 1;
-	if(has_trait(creature_ptr, CF_RES_COLD)) creature_ptr->resist_cold += 1;
-	if(has_trait(creature_ptr, CF_RES_ELEC)) creature_ptr->resist_elec += 1;
-	if(has_trait(creature_ptr, CF_RES_ACID)) creature_ptr->resist_acid += 1;
-	if(has_trait(creature_ptr, CF_RES_POIS)) creature_ptr->resist_pois += 1;
-	if(has_trait(creature_ptr, CF_RES_LITE)) creature_ptr->resist_lite += 1;
-	if(has_trait(creature_ptr, CF_RES_DARK)) creature_ptr->resist_dark += 1;
-	if(has_trait(creature_ptr, CF_RES_SHAR)) creature_ptr->resist_shard += 1;
-	if(has_trait(creature_ptr, CF_RES_SOUN)) creature_ptr->resist_sound += 1;
-	if(has_trait(creature_ptr, CF_RES_NETH)) creature_ptr->resist_neth += 1;
-	if(has_trait(creature_ptr, CF_RES_CHAO)) creature_ptr->resist_chaos += 1;
-	if(has_trait(creature_ptr, CF_RES_DISE)) creature_ptr->resist_disen += 1;
-	if(has_trait(creature_ptr, CF_RES_WALL)) creature_ptr->resist_force += 1;
-	if(has_trait(creature_ptr, CF_RES_NEXU)) creature_ptr->resist_nexus += 1;
-	if(has_trait(creature_ptr, CF_RES_INER)) creature_ptr->resist_inertia += 1;
-	if(has_trait(creature_ptr, CF_RES_TIME)) creature_ptr->resist_time += 1;
-	if(has_trait(creature_ptr, CF_RES_GRAV)) creature_ptr->resist_gravity += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_FIRE)) creature_ptr->resist_fire += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_COLD)) creature_ptr->resist_cold += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_ELEC)) creature_ptr->resist_elec += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_ACID)) creature_ptr->resist_acid += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_POIS)) creature_ptr->resist_pois += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_LITE)) creature_ptr->resist_lite += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_DARK)) creature_ptr->resist_dark += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_SHAR)) creature_ptr->resist_shard += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_SOUN)) creature_ptr->resist_sound += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_CHAO)) creature_ptr->resist_chaos += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_DISE)) creature_ptr->resist_disen += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_WALL)) creature_ptr->resist_force += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_NEXU)) creature_ptr->resist_nexus += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_INER)) creature_ptr->resist_inertia += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_GRAV)) creature_ptr->resist_gravity += 1;
 
-	if(has_trait(creature_ptr, CF_RES_TELE)) creature_ptr->resist_tele += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_TELE)) creature_ptr->resist_tele += 1;
 
-	if(has_trait(creature_ptr, CF_RES_ALL)) creature_ptr->resist_ultimate += 1;
+	if(has_trait(creature_ptr, TRAIT_RES_ALL)) creature_ptr->resist_ultimate += 1;
 
-	if(has_trait(creature_ptr, CF_NO_BLIND)) creature_ptr->resist_blind += TRUE;
-	if(has_trait(creature_ptr, CF_NO_CONF)) creature_ptr->resist_conf += TRUE;
-	if(has_trait(creature_ptr, CF_NO_FEAR)) creature_ptr->resist_fear += TRUE;
-	if(has_trait(creature_ptr, CF_NO_STUN)); //TODO
-	if(has_trait(creature_ptr, CF_NO_SLEEP)); //TODO
+	if(has_trait(creature_ptr, TRAIT_NO_BLIND)) creature_ptr->resist_blind += TRUE;
+	if(has_trait(creature_ptr, TRAIT_NO_CONF)) creature_ptr->resist_conf += TRUE;
+	if(has_trait(creature_ptr, TRAIT_NO_FEAR)) creature_ptr->resist_fear += TRUE;
+	if(has_trait(creature_ptr, TRAIT_NO_STUN)); //TODO
+	if(has_trait(creature_ptr, TRAIT_NO_SLEEP)); //TODO
 }
 
 void initialize_skill(creature_type *creature_ptr)
@@ -477,12 +477,12 @@ void initialize_skill(creature_type *creature_ptr)
 
 bool is_force_depth_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_FORCE_DEPTH);	
+	return has_trait(creature_ptr, TRAIT_FORCE_DEPTH);	
 }
 
 bool is_force_depth_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_FORCE_DEPTH]);
+	return (species_ptr->flags.add_lev[TRAIT_FORCE_DEPTH]);
 }
 
 bool is_orc_creature(creature_type *creature_ptr)
@@ -581,11 +581,11 @@ bool is_giant_species(species_type *species_ptr)
 
 bool is_undead_creature(creature_type *creature_ptr)
 {
-	if(has_trait(creature_ptr, CF_ZOMBIE) ||
-	   has_trait(creature_ptr, CF_SKELETON) ||
-	   has_trait(creature_ptr, CF_VAMPIRE) ||
-	   has_trait(creature_ptr, CF_LICH) ||
-	   has_trait(creature_ptr, CF_NAZGUL))
+	if(has_trait(creature_ptr, TRAIT_ZOMBIE) ||
+	   has_trait(creature_ptr, TRAIT_SKELETON) ||
+	   has_trait(creature_ptr, TRAIT_VAMPIRE) ||
+	   has_trait(creature_ptr, TRAIT_LICH) ||
+	   has_trait(creature_ptr, TRAIT_NAZGUL))
 		return TRUE;
 	else
 		return FALSE;
@@ -593,11 +593,11 @@ bool is_undead_creature(creature_type *creature_ptr)
 
 bool is_undead_species(species_type *species_ptr)
 {
-	if(has_trait_raw(&species_ptr->flags, CF_ZOMBIE) ||
-	   has_trait_raw(&species_ptr->flags, CF_SKELETON) ||
-	   has_trait_raw(&species_ptr->flags, CF_VAMPIRE) ||
-	   has_trait_raw(&species_ptr->flags, CF_LICH) ||
-	   has_trait_raw(&species_ptr->flags, CF_NAZGUL))
+	if(has_trait_raw(&species_ptr->flags, TRAIT_ZOMBIE) ||
+	   has_trait_raw(&species_ptr->flags, TRAIT_SKELETON) ||
+	   has_trait_raw(&species_ptr->flags, TRAIT_VAMPIRE) ||
+	   has_trait_raw(&species_ptr->flags, TRAIT_LICH) ||
+	   has_trait_raw(&species_ptr->flags, TRAIT_NAZGUL))
 		return TRUE;
 	else
 		return FALSE;
@@ -618,659 +618,659 @@ bool is_animal_species(species_type *species_ptr)
 
 bool is_quantum_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_QUANTUM]);
+	return (species_ptr->flags.add_lev[TRAIT_QUANTUM]);
 }
 
 
 
 bool is_unique_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_UNIQUE);	
+	return has_trait(creature_ptr, TRAIT_UNIQUE);	
 }
 
 bool is_unique_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_UNIQUE]);
+	return (species_ptr->flags.add_lev[TRAIT_UNIQUE]);
 }
 
 bool is_sub_unique_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_UNIQUE2);	
+	return has_trait(creature_ptr, TRAIT_UNIQUE2);	
 }
 
 bool is_sub_unique_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_UNIQUE2]);
+	return (species_ptr->flags.add_lev[TRAIT_UNIQUE2]);
 }
 
 bool is_quest_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_QUESTOR);	
+	return has_trait(creature_ptr, TRAIT_QUESTOR);	
 }
 
 bool is_quest_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_QUESTOR]);
+	return (species_ptr->flags.add_lev[TRAIT_QUESTOR]);
 }
 
 
 bool is_char_clear_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_CHAR_CLEAR);	
+	return has_trait(creature_ptr, TRAIT_CHAR_CLEAR);	
 }
 
 bool is_char_clear_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CHAR_CLEAR]);
+	return (species_ptr->flags.add_lev[TRAIT_CHAR_CLEAR]);
 }
 
 bool is_attr_clear_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ATTR_CLEAR);	
+	return has_trait(creature_ptr, TRAIT_ATTR_CLEAR);	
 }
 
 bool is_attr_clear_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ATTR_CLEAR]);
+	return (species_ptr->flags.add_lev[TRAIT_ATTR_CLEAR]);
 }
 
 bool is_attr_multi_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ATTR_MULTI);	
+	return has_trait(creature_ptr, TRAIT_ATTR_MULTI);	
 }
 
 bool is_attr_multi_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ATTR_MULTI]);
+	return (species_ptr->flags.add_lev[TRAIT_ATTR_MULTI]);
 }
 
 bool is_attr_any_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ATTR_ANY);	
+	return has_trait(creature_ptr, TRAIT_ATTR_ANY);	
 }
 
 bool is_attr_any_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ATTR_ANY]);
+	return (species_ptr->flags.add_lev[TRAIT_ATTR_ANY]);
 }
 
 
 bool is_attr_semirand_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ATTR_SEMIRAND);	
+	return has_trait(creature_ptr, TRAIT_ATTR_SEMIRAND);	
 }
 
 bool is_attr_semirand_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ATTR_SEMIRAND]);
+	return (species_ptr->flags.add_lev[TRAIT_ATTR_SEMIRAND]);
 }
 
 bool is_shapechanger_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SHAPECHANGER);	
+	return has_trait(creature_ptr, TRAIT_SHAPECHANGER);	
 }
 
 bool is_shapechanger_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SHAPECHANGER]);
+	return (species_ptr->flags.add_lev[TRAIT_SHAPECHANGER]);
 }
 
 
 bool is_force_sleep_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_FORCE_SLEEP);	
+	return has_trait(creature_ptr, TRAIT_FORCE_SLEEP);	
 }
 
 bool is_force_sleep_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_FORCE_SLEEP]);
+	return (species_ptr->flags.add_lev[TRAIT_FORCE_SLEEP]);
 }
 
 
 bool is_never_move_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NEVER_MOVE);	
+	return has_trait(creature_ptr, TRAIT_NEVER_MOVE);	
 }
 
 bool is_never_move_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NEVER_MOVE]);
+	return (species_ptr->flags.add_lev[TRAIT_NEVER_MOVE]);
 }
 
 bool is_never_blow_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NEVER_BLOW);	
+	return has_trait(creature_ptr, TRAIT_NEVER_BLOW);	
 }
 
 bool is_never_blow_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NEVER_BLOW]);
+	return (species_ptr->flags.add_lev[TRAIT_NEVER_BLOW]);
 }
 
 
 bool is_friends_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_FRIENDS);	
+	return has_trait(creature_ptr, TRAIT_FRIENDS);	
 }
 
 bool is_friends_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_FRIENDS]);
+	return (species_ptr->flags.add_lev[TRAIT_FRIENDS]);
 }
 
 bool is_escort_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ESCORT);	
+	return has_trait(creature_ptr, TRAIT_ESCORT);	
 }
 
 bool is_escort_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ESCORT]);
+	return (species_ptr->flags.add_lev[TRAIT_ESCORT]);
 }
 
 bool is_escorts_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ESCORTS);	
+	return has_trait(creature_ptr, TRAIT_ESCORTS);	
 }
 
 bool is_escorts_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ESCORTS]);
+	return (species_ptr->flags.add_lev[TRAIT_ESCORTS]);
 }
 
 
 bool is_only_gold_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ONLY_GOLD);	
+	return has_trait(creature_ptr, TRAIT_ONLY_GOLD);	
 }
 
 bool is_only_gold_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ONLY_GOLD]);
+	return (species_ptr->flags.add_lev[TRAIT_ONLY_GOLD]);
 }
 
 bool is_only_item_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ONLY_ITEM);	
+	return has_trait(creature_ptr, TRAIT_ONLY_ITEM);	
 }
 
 bool is_only_item_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ONLY_ITEM]);
+	return (species_ptr->flags.add_lev[TRAIT_ONLY_ITEM]);
 }
 
 
 
 bool is_smart_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SMART);	
+	return has_trait(creature_ptr, TRAIT_SMART);	
 }
 
 bool is_smart_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SMART]);
+	return (species_ptr->flags.add_lev[TRAIT_SMART]);
 }
 
 bool is_stupid_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_STUPID);	
+	return has_trait(creature_ptr, TRAIT_STUPID);	
 }
 
 bool is_stupid_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_STUPID]);
+	return (species_ptr->flags.add_lev[TRAIT_STUPID]);
 }
 
 bool is_multiply_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_MULTIPLY);	
+	return has_trait(creature_ptr, TRAIT_MULTIPLY);	
 }
 
 bool is_multiply_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_MULTIPLY]);
+	return (species_ptr->flags.add_lev[TRAIT_MULTIPLY]);
 }
 
 bool is_reflecting_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_REFLECTING);	
+	return has_trait(creature_ptr, TRAIT_REFLECTING);	
 }
 
 bool is_reflecting_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_REFLECTING]);
+	return (species_ptr->flags.add_lev[TRAIT_REFLECTING]);
 }
 
 bool is_invisible_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_INVISIBLE);	
+	return has_trait(creature_ptr, TRAIT_INVISIBLE);	
 }
 
 bool is_invisible_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_INVISIBLE]);
+	return (species_ptr->flags.add_lev[TRAIT_INVISIBLE]);
 }
 
 bool is_cold_blood_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_COLD_BLOOD);	
+	return has_trait(creature_ptr, TRAIT_COLD_BLOOD);	
 }
 
 bool is_cold_blood_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_COLD_BLOOD]);
+	return (species_ptr->flags.add_lev[TRAIT_COLD_BLOOD]);
 }
 
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_EMPTY_MIND);	
+	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	
 }
 
 bool is_empty_mind_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_EMPTY_MIND]);
+	return (species_ptr->flags.add_lev[TRAIT_EMPTY_MIND]);
 }
 
 bool is_weird_mind_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WEIRD_MIND);	
+	return has_trait(creature_ptr, TRAIT_WEIRD_MIND);	
 }
 
 bool is_weird_mind_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WEIRD_MIND]);
+	return (species_ptr->flags.add_lev[TRAIT_WEIRD_MIND]);
 }
 
 bool is_regenerate_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_REGENERATE);	
+	return has_trait(creature_ptr, TRAIT_REGENERATE);	
 }
 
 bool is_regenerate_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_REGENERATE]);
+	return (species_ptr->flags.add_lev[TRAIT_REGENERATE]);
 }
 
 bool is_non_living_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NONLIVING);	
+	return has_trait(creature_ptr, TRAIT_NONLIVING);	
 }
 
 bool is_non_living_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NONLIVING]);
+	return (species_ptr->flags.add_lev[TRAIT_NONLIVING]);
 }
 
 bool is_hurt_lite_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HURT_LITE);	
+	return has_trait(creature_ptr, TRAIT_HURT_LITE);	
 }
 
 bool is_hurt_lite_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HURT_LITE]);
+	return (species_ptr->flags.add_lev[TRAIT_HURT_LITE]);
 }
 
 bool is_hurt_rock_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HURT_ROCK);	
+	return has_trait(creature_ptr, TRAIT_HURT_ROCK);	
 }
 
 bool is_hurt_rock_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HURT_ROCK]);
+	return (species_ptr->flags.add_lev[TRAIT_HURT_ROCK]);
 }
 
 bool is_hurt_fire_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HURT_FIRE);	
+	return has_trait(creature_ptr, TRAIT_HURT_FIRE);	
 }
 
 bool is_hurt_fire_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HURT_FIRE]);
+	return (species_ptr->flags.add_lev[TRAIT_HURT_FIRE]);
 }
 
 bool is_hurt_cold_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HURT_COLD);	
+	return has_trait(creature_ptr, TRAIT_HURT_COLD);	
 }
 
 bool is_hurt_cold_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HURT_COLD]);
+	return (species_ptr->flags.add_lev[TRAIT_HURT_COLD]);
 }
 
 bool is_no_fear_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HURT_COLD);	
+	return has_trait(creature_ptr, TRAIT_HURT_COLD);	
 }
 
 bool is_no_fear_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HURT_COLD]);
+	return (species_ptr->flags.add_lev[TRAIT_HURT_COLD]);
 }
 
 bool is_no_stun_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NO_STUN);	
+	return has_trait(creature_ptr, TRAIT_NO_STUN);	
 }
 
 bool is_no_stun_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NO_STUN]);
+	return (species_ptr->flags.add_lev[TRAIT_NO_STUN]);
 }
 
 bool is_no_conf_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NO_CONF);	
+	return has_trait(creature_ptr, TRAIT_NO_CONF);	
 }
 
 bool is_no_conf_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NO_CONF]);
+	return (species_ptr->flags.add_lev[TRAIT_NO_CONF]);
 }
 
 bool is_no_sleep_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_NO_SLEEP);	
+	return has_trait(creature_ptr, TRAIT_NO_SLEEP);	
 }
 
 bool is_no_sleep_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_NO_SLEEP]);
+	return (species_ptr->flags.add_lev[TRAIT_NO_SLEEP]);
 }
 
 bool is_eldritch_horror_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_ELDRITCH_HORROR);	
+	return has_trait(creature_ptr, TRAIT_ELDRITCH_HORROR);	
 }
 
 bool is_eldritch_horror_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_ELDRITCH_HORROR]);
+	return (species_ptr->flags.add_lev[TRAIT_ELDRITCH_HORROR]);
 }
 
 bool is_random_walker_25_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_RAND_25);	
+	return has_trait(creature_ptr, TRAIT_RAND_25);	
 }
 
 bool is_random_walker_25_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_RAND_25]);
+	return (species_ptr->flags.add_lev[TRAIT_RAND_25]);
 }
 
 bool is_random_walker_50_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_RAND_50);	
+	return has_trait(creature_ptr, TRAIT_RAND_50);	
 }
 
 bool is_random_walker_50_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_RAND_50]);
+	return (species_ptr->flags.add_lev[TRAIT_RAND_50]);
 }
 
 bool is_aura_fire_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_AURA_FIRE);	
+	return has_trait(creature_ptr, TRAIT_AURA_FIRE);	
 }
 
 bool is_aura_fire_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_AURA_FIRE]);
+	return (species_ptr->flags.add_lev[TRAIT_AURA_FIRE]);
 }
 
 bool is_aura_cold_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_AURA_COLD);	
+	return has_trait(creature_ptr, TRAIT_AURA_COLD);	
 }
 
 bool is_aura_cold_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_AURA_COLD]);
+	return (species_ptr->flags.add_lev[TRAIT_AURA_COLD]);
 }
 
 bool is_aura_elec_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_AURA_ELEC);	
+	return has_trait(creature_ptr, TRAIT_AURA_ELEC);	
 }
 
 bool is_aura_elec_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_AURA_ELEC]);
+	return (species_ptr->flags.add_lev[TRAIT_AURA_ELEC]);
 }
 
 bool is_powerful_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_POWERFUL);	
+	return has_trait(creature_ptr, TRAIT_POWERFUL);	
 }
 
 bool is_powerful_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_POWERFUL]);
+	return (species_ptr->flags.add_lev[TRAIT_POWERFUL]);
 }
 
 
 bool is_pass_wall_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_PASS_WALL);	
+	return has_trait(creature_ptr, TRAIT_PASS_WALL);	
 }
 
 bool is_pass_wall_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_PASS_WALL]);
+	return (species_ptr->flags.add_lev[TRAIT_PASS_WALL]);
 }
 
 bool is_kill_wall_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_KILL_WALL);	
+	return has_trait(creature_ptr, TRAIT_KILL_WALL);	
 }
 
 bool is_kill_wall_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_KILL_WALL]);
+	return (species_ptr->flags.add_lev[TRAIT_KILL_WALL]);
 }
 
 bool is_take_item_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_TAKE_ITEM);	
+	return has_trait(creature_ptr, TRAIT_TAKE_ITEM);	
 }
 
 bool is_take_item_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_TAKE_ITEM]);
+	return (species_ptr->flags.add_lev[TRAIT_TAKE_ITEM]);
 }
 
 bool is_kill_item_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_KILL_ITEM);	
+	return has_trait(creature_ptr, TRAIT_KILL_ITEM);	
 }
 
 bool is_kill_item_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_KILL_ITEM]);
+	return (species_ptr->flags.add_lev[TRAIT_KILL_ITEM]);
 }
 
 bool is_open_door_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_OPEN_DOOR);	
+	return has_trait(creature_ptr, TRAIT_OPEN_DOOR);	
 }
 
 bool is_open_door_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_OPEN_DOOR]);
+	return (species_ptr->flags.add_lev[TRAIT_OPEN_DOOR]);
 }
 
 bool is_bash_door_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_BASH_DOOR);	
+	return has_trait(creature_ptr, TRAIT_BASH_DOOR);	
 }
 
 bool is_bash_door_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_BASH_DOOR]);
+	return (species_ptr->flags.add_lev[TRAIT_BASH_DOOR]);
 }
 
 bool is_move_body_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_MOVE_BODY);	
+	return has_trait(creature_ptr, TRAIT_MOVE_BODY);	
 }
 
 bool is_move_body_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_MOVE_BODY]);
+	return (species_ptr->flags.add_lev[TRAIT_MOVE_BODY]);
 }
 
 bool is_kill_body_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_KILL_BODY);	
+	return has_trait(creature_ptr, TRAIT_KILL_BODY);	
 }
 
 bool is_kill_body_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_KILL_BODY]);
+	return (species_ptr->flags.add_lev[TRAIT_KILL_BODY]);
 }
 
 
 bool is_puella_magi_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_PUELLA_MAGI]);
+	return (species_ptr->flags.add_lev[TRAIT_PUELLA_MAGI]);
 }
 
 bool is_puella_magi_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_PUELLA_MAGI);	
+	return has_trait(creature_ptr, TRAIT_PUELLA_MAGI);	
 }
 
 bool is_aquatic_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_AQUATIC]);
+	return (species_ptr->flags.add_lev[TRAIT_AQUATIC]);
 }
 
 bool is_aquatic_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_AQUATIC);	
+	return has_trait(creature_ptr, TRAIT_AQUATIC);	
 }
 
 bool can_swim_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_CAN_SWIM);	
+	return has_trait(creature_ptr, TRAIT_CAN_SWIM);	
 }
 
 bool can_swim_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CAN_SWIM]);
+	return (species_ptr->flags.add_lev[TRAIT_CAN_SWIM]);
 }
 
 bool can_fly_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_CAN_FLY);	
+	return has_trait(creature_ptr, TRAIT_CAN_FLY);	
 }
 
 bool can_fly_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CAN_FLY]);
+	return (species_ptr->flags.add_lev[TRAIT_CAN_FLY]);
 }
 
 bool is_guardian_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_GUARDIAN);	
+	return has_trait(creature_ptr, TRAIT_GUARDIAN);	
 }
 
 bool is_guardian_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_GUARDIAN]);
+	return (species_ptr->flags.add_lev[TRAIT_GUARDIAN]);
 }
 
 bool is_riding_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_RIDING);	
+	return has_trait(creature_ptr, TRAIT_RIDING);	
 }
 
 bool is_riding_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_RIDING]);
+	return (species_ptr->flags.add_lev[TRAIT_RIDING]);
 }
 
 bool is_self_lite_1_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SELF_LITE_1);	
+	return has_trait(creature_ptr, TRAIT_SELF_LITE_1);	
 }
 
 bool is_self_lite_1_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SELF_LITE_1]);
+	return (species_ptr->flags.add_lev[TRAIT_SELF_LITE_1]);
 }
 
 bool is_self_lite_2_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SELF_LITE_2);	
+	return has_trait(creature_ptr, TRAIT_SELF_LITE_2);	
 }
 
 bool is_self_lite_2_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SELF_LITE_2]);
+	return (species_ptr->flags.add_lev[TRAIT_SELF_LITE_2]);
 }
 
 bool is_self_dark_1_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SELF_DARK_1);	
+	return has_trait(creature_ptr, TRAIT_SELF_DARK_1);	
 }
 
 bool is_self_dark_1_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SELF_DARK_1]);
+	return (species_ptr->flags.add_lev[TRAIT_SELF_DARK_1]);
 }
 
 bool is_self_dark_2_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_SELF_DARK_2);	
+	return has_trait(creature_ptr, TRAIT_SELF_DARK_2);	
 }
 
 bool is_self_dark_2_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_SELF_DARK_2]);
+	return (species_ptr->flags.add_lev[TRAIT_SELF_DARK_2]);
 }
 
 bool is_has_lite_1_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HAS_LITE_1);	
+	return has_trait(creature_ptr, TRAIT_HAS_LITE_1);	
 }
 
 bool is_has_lite_1_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HAS_LITE_1]);
+	return (species_ptr->flags.add_lev[TRAIT_HAS_LITE_1]);
 }
 
 bool is_has_lite_2_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HAS_LITE_2);	
+	return has_trait(creature_ptr, TRAIT_HAS_LITE_2);	
 }
 
 bool is_has_lite_2_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HAS_LITE_2]);
+	return (species_ptr->flags.add_lev[TRAIT_HAS_LITE_2]);
 }
 
 bool is_has_dark_1_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HAS_DARK_1);	
+	return has_trait(creature_ptr, TRAIT_HAS_DARK_1);	
 }
 
 bool is_has_dark_1_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HAS_DARK_1]);
+	return (species_ptr->flags.add_lev[TRAIT_HAS_DARK_1]);
 }
 
 bool is_has_dark_2_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HAS_DARK_2);	
+	return has_trait(creature_ptr, TRAIT_HAS_DARK_2);	
 }
 
 bool is_has_dark_2_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HAS_DARK_2]);
+	return (species_ptr->flags.add_lev[TRAIT_HAS_DARK_2]);
 }
 
 bool is_lighting_creature(creature_type *creature_ptr)
@@ -1370,193 +1370,173 @@ bool is_intersex_creature(creature_type *creature_ptr)
 
 bool is_drop_corpse_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_DROP_CORPSE);	
+	return has_trait(creature_ptr, TRAIT_DROP_CORPSE);	
 }
 
 bool is_drop_corpse_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_DROP_CORPSE]);
+	return (species_ptr->flags.add_lev[TRAIT_DROP_CORPSE]);
 }
 
 bool is_drop_skeleton_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_DROP_SKELETON);	
+	return has_trait(creature_ptr, TRAIT_DROP_SKELETON);	
 }
 
 bool is_drop_skeleton_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_DROP_SKELETON]);
+	return (species_ptr->flags.add_lev[TRAIT_DROP_SKELETON]);
 }
 
 
 bool is_citizen_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_CITIZEN);	
+	return has_trait(creature_ptr, TRAIT_CITIZEN);	
 }
 
 bool is_citizen_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CITIZEN]);
+	return (species_ptr->flags.add_lev[TRAIT_CITIZEN]);
 }
 
 bool is_wild_only_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_ONLY);	
+	return has_trait(creature_ptr, TRAIT_WILD_ONLY);	
 }
 
 bool is_wild_only_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_ONLY]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_ONLY]);
 }
 
 bool is_wild_town_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_TOWN);	
+	return has_trait(creature_ptr, TRAIT_WILD_TOWN);	
 }
 
 bool is_wild_town_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_TOWN]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_TOWN]);
 }
 
 bool is_wild_all_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_ALL);	
+	return has_trait(creature_ptr, TRAIT_WILD_ALL);	
 }
 
 bool is_wild_all_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_ALL]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_ALL]);
 }
 
 bool is_wild_shore_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_SHORE]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_SHORE]);
 }
 
 bool is_wild_shore_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_SHORE);	
+	return has_trait(creature_ptr, TRAIT_WILD_SHORE);	
 }
 
 bool is_wild_ocean_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_OCEAN]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_OCEAN]);
 }
 
 bool is_wild_ocean_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_OCEAN);	
+	return has_trait(creature_ptr, TRAIT_WILD_OCEAN);	
 }
 
 bool is_wild_waste_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_WASTE]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_WASTE]);
 }
 
 bool is_wild_waste_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_WASTE);	
+	return has_trait(creature_ptr, TRAIT_WILD_WASTE);	
 }
 
 bool is_wild_wood_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_WOOD]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_WOOD]);
 }
 
 bool is_wild_wood_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_WOOD);	
+	return has_trait(creature_ptr, TRAIT_WILD_WOOD);	
 }
 
 bool is_wild_volcano_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_VOLCANO]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_VOLCANO]);
 }
 
 bool is_wild_volcano_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_VOLCANO);	
+	return has_trait(creature_ptr, TRAIT_WILD_VOLCANO);	
 }
 
 bool is_wild_grass_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_GRASS]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_GRASS]);
 }
 
 bool is_wild_grass_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_GRASS);	
+	return has_trait(creature_ptr, TRAIT_WILD_GRASS);	
 }
 
 bool is_wild_mountain_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_MOUNTAIN]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
 }
 
 bool is_wild_mountain_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_MOUNTAIN);	
-}
-
-bool is_shadow_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[CF_SHADOW]);
-}
-
-bool is_shadow_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, CF_SHADOW);	
+	return has_trait(creature_ptr, TRAIT_WILD_MOUNTAIN);	
 }
 
 bool is_chameleon_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CHAMELEON]);
+	return (species_ptr->flags.add_lev[TRAIT_CHAMELEON]);
 }
 
 bool is_chameleon_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_CHAMELEON);	
+	return has_trait(creature_ptr, TRAIT_CHAMELEON);	
 }
 
 bool is_tanuki_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_MOUNTAIN]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
 }
 
 bool is_tanuki_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_TANUKI);	
+	return has_trait(creature_ptr, TRAIT_TANUKI);	
 }
 
 bool is_kill_exp_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_KILL_EXP]);
+	return (species_ptr->flags.add_lev[TRAIT_KILL_EXP]);
 }
 
 bool is_kill_exp_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_KILL_EXP);	
+	return has_trait(creature_ptr, TRAIT_KILL_EXP);	
 }
 
 bool is_friendly_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_WILD_MOUNTAIN]);
+	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
 }
 
 bool is_friendly_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_WILD_MOUNTAIN);	
-}
-
-bool is_force_lesser_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, CF_FORCE_LESSER);	
-}
-
-bool is_force_lesser_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[CF_FORCE_LESSER]);
+	return has_trait(creature_ptr, TRAIT_WILD_MOUNTAIN);	
 }
 
 bool is_variable_race_species(species_type *species_ptr)
@@ -1579,45 +1559,34 @@ bool is_variable_chara_species(species_type *species_ptr)
 	return species_ptr->chara_idx == INDEX_VARIABLE;
 }
 
-bool is_variable_size_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, CF_VARIABLE_SIZE);	
-}
-
-bool is_variable_size_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[CF_VARIABLE_SIZE]);
-}
-
-
 bool is_hyper_str_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HYPER_STR);	
+	return has_trait(creature_ptr, TRAIT_HYPER_STR);	
 }
 
 bool is_hyper_str_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HYPER_STR]);
+	return (species_ptr->flags.add_lev[TRAIT_HYPER_STR]);
 }
 
 bool is_puny_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HYPER_STR);	
+	return has_trait(creature_ptr, TRAIT_HYPER_STR);	
 }
 
 bool is_puny_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HYPER_STR]);
+	return (species_ptr->flags.add_lev[TRAIT_HYPER_STR]);
 }
 
 bool is_hyper_int_creature(creature_type *creature_ptr)
 {
-	return has_trait(creature_ptr, CF_HYPER_INT);	
+	return has_trait(creature_ptr, TRAIT_HYPER_INT);	
 }
 
 bool is_hyper_int_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_HYPER_INT]);
+	return (species_ptr->flags.add_lev[TRAIT_HYPER_INT]);
 }
 
 
@@ -1813,8 +1782,8 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 			t = 0;
 			break;
 		}
-		if(has_trait(creature_ptr, CF_HURT_FIRE)) t *= 2;
-		if(has_trait(creature_ptr, CF_VULN_ELEM)) t += t / 2;
+		if(has_trait(creature_ptr, TRAIT_HURT_FIRE)) t *= 2;
+		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
@@ -1824,8 +1793,8 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 			t = 0;
 			break;
 		}
-		if(has_trait(creature_ptr, CF_HURT_COLD)) t *= 2;
-		if(has_trait(creature_ptr, CF_VULN_ELEM)) t += t / 2;
+		if(has_trait(creature_ptr, TRAIT_HURT_COLD)) t *= 2;
+		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
@@ -1835,7 +1804,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 			t = 0;
 			break;
 		}
-		if(has_trait(creature_ptr, CF_VULN_ELEM)) t += t / 2;
+		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
@@ -1845,7 +1814,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 			t = 0;
 			break;
 		}
-		if(has_trait(creature_ptr, CF_VULN_ELEM)) t += t / 2;
+		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
@@ -2118,57 +2087,57 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 
 bool has_breath_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_BR_FIRE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_COLD)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_ELEC)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_POIS)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_NETH)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_LITE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_DARK)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_CONF)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_SOUN)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_CHAO)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_NEXU)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_SHAR)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_TIME)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_INER)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_GRAV)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_PLAS)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_WALL)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_MANA)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_NUKE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BR_DISI)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_FIRE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_COLD)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_ELEC)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_POIS)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_NETH)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_LITE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_DARK)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_CONF)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_SOUN)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_CHAO)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_NEXU)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_SHAR)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_TIME)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_INER)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_GRAV)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_PLAS)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_WALL)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_MANA)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_NUKE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BR_DISI)) return TRUE;
 	return FALSE;
 }
 
 bool has_summon_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_S_KIN)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_CYBER)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_MONSTER)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_MONSTERS)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_ANT)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_SPIDER)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_HOUND)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_HYDRA)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_ANGEL)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_DEMON)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_UNDEAD)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_DRAGON)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_HI_UNDEAD)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_HI_DRAGON)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_AMBERITES)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_S_UNIQUE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_KIN)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_CYBER)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_MONSTER)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_MONSTERS)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_ANT)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_SPIDER)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_HOUND)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_HYDRA)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_ANGEL)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_DEMON)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_UNDEAD)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_DRAGON)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_HI_UNDEAD)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_HI_DRAGON)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_AMBERITES)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_S_UNIQUE)) return TRUE;
 	return FALSE;
 }
 
 bool has_big_ball_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_BA_CHAO)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_DARK)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_LITE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_WATE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_MANA)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_CHAO)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_DARK)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_LITE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_WATE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_MANA)) return TRUE;
 	return FALSE;
 }
 
@@ -2176,68 +2145,68 @@ bool has_ball_flags(traits *flags_ptr)
 {
 	if(has_big_ball_flags(flags_ptr)) return TRUE;
 	if(has_breath_flags(flags_ptr)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_ROCKET)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_NUKE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_ACID)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_ELEC)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_FIRE)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_COLD)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_POIS)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_BA_NETH)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_ROCKET)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_NUKE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_ACID)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_ELEC)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_FIRE)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_COLD)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_POIS)) return TRUE;
+	if(has_trait_raw(flags_ptr, TRAIT_BA_NETH)) return TRUE;	
 	return FALSE;
 }
 
 bool has_beam_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_PSY_SPEAR)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_PSY_SPEAR)) return TRUE;	
 	return FALSE;
 }
 
 bool has_bolt_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_ROCKET)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SHOOT)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_ACID)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_ELEC)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_FIRE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_COLD)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_NETH)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_WATE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_MANA)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_PLAS)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BO_ICEE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_MISSILE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_ROCKET)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SHOOT)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_ACID)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_ELEC)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_FIRE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_COLD)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_NETH)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_WATE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_MANA)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_PLAS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BO_ICEE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_MISSILE)) return TRUE;	
 	return FALSE;
 }
 
 bool has_intelligence_skill_flags(traits *flags_ptr)
 {
 	if(has_summon_flags(flags_ptr)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_DISPEL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HOLD)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SLOW)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CONF)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BLIND)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SCARE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TPORT)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TELE_LEVEL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TELE_AWAY)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HEAL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_INVULNER)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HASTE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TRAPS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_DISPEL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HOLD)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SLOW)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CONF)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BLIND)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SCARE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BLINK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TELE_LEVEL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TELE_AWAY)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HEAL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_INVULNER)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HASTE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TRAPS)) return TRUE;	
 	return FALSE;
 }
 
 bool has_riding_disable_skill_flags(traits *flags_ptr)
 {
-	if(has_trait_raw(flags_ptr, CF_SHRIEK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TPORT)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TRAPS)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_DARKNESS)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SPECIAL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SHRIEK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BLINK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TRAPS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_DARKNESS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SPECIAL)) return TRUE;	
 	return FALSE;
 }
 
@@ -2247,50 +2216,50 @@ bool has_attack_skill_flags(traits *flags_ptr)
 	if(has_bolt_flags(flags_ptr)) return TRUE;
 	if(has_beam_flags(flags_ptr)) return TRUE;
 	if(has_ball_flags(flags_ptr)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_DISPEL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_DRAIN_MANA)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_MIND_BLAST)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BRAIN_SMASH)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CAUSE_1)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CAUSE_2)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CAUSE_3)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CAUSE_4)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SCARE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BLIND)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_CONF)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SLOW)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HOLD)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HAND_DOOM)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TELE_TO)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TELE_AWAY)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TELE_LEVEL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_DARKNESS)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TRAPS)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_FORGET)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_DISPEL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_DRAIN_MANA)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_MIND_BLAST)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BRAIN_SMASH)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CAUSE_1)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CAUSE_2)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CAUSE_3)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CAUSE_4)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SCARE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BLIND)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_CONF)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SLOW)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HOLD)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HAND_DOOM)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TELE_TO)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TELE_AWAY)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TELE_LEVEL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_DARKNESS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TRAPS)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_FORGET)) return TRUE;	
 	return FALSE;
 }
 
 bool has_indirect_skill_flags(traits *flags_ptr)
 {
 	if(has_summon_flags(flags_ptr)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_SHRIEK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HASTE)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_HEAL)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_INVULNER)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_WORLD)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_TPORT)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_RAISE_DEAD)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SHRIEK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HASTE)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_HEAL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_INVULNER)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_BLINK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_WORLD)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_ANIM_DEAD)) return TRUE;	
 	return FALSE;
 }
 
 bool has_non_magic_skill_flags(traits *flags_ptr)
 {
 	if(has_breath_flags(flags_ptr)) return TRUE;
-	if(has_trait_raw(flags_ptr, CF_SHRIEK)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_ROCKET)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SHOOT)) return TRUE;	
-	if(has_trait_raw(flags_ptr, CF_SPECIAL)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SHRIEK)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_ROCKET)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SHOOT)) return TRUE;	
+	if(has_trait_raw(flags_ptr, TRAIT_SPECIAL)) return TRUE;	
 	return FALSE;
 }
 
@@ -2308,12 +2277,12 @@ bool has_status(creature_type *creature_ptr, int stat)
 			break;
 
 		case STAT_INT:
-			if(has_trait(creature_ptr, CF_EMPTY_MIND)) return FALSE;
+			if(has_trait(creature_ptr, TRAIT_EMPTY_MIND)) return FALSE;
 			return TRUE;
 			break;
 
 		case STAT_WIS:
-			if(has_trait(creature_ptr, CF_EMPTY_MIND)) return FALSE;
+			if(has_trait(creature_ptr, TRAIT_EMPTY_MIND)) return FALSE;
 			return TRUE;
 			break;
 
@@ -2326,8 +2295,8 @@ bool has_status(creature_type *creature_ptr, int stat)
 			break;
 
 		case STAT_CHA:
-			if(has_trait(creature_ptr, CF_EMPTY_MIND)) return FALSE;
-			if(has_trait(creature_ptr, CF_WEIRD_MIND)) return FALSE;
+			if(has_trait(creature_ptr, TRAIT_EMPTY_MIND)) return FALSE;
+			if(has_trait(creature_ptr, TRAIT_WEIRD_MIND)) return FALSE;
 			return TRUE;
 			break;
 	}

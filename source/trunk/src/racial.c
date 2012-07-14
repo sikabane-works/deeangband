@@ -1314,7 +1314,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(creature_ptr->skill_exp[SKILL_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !fight_arena_mode && !gamble_arena_mode
-			    && !has_trait(steed_ptr, CF_GUARDIAN) && !has_trait(steed_ptr, CF_UNIQUE)
+			    && !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
 			    && (rlev < creature_ptr->lev * 3 / 2 + randint0(creature_ptr->lev / 5)))
 			{
 #ifdef JP

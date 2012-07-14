@@ -1351,11 +1351,11 @@ msg_print("無傷の球の呪文を唱えた。");
 		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
-		if (has_trait(m_ptr, CF_RES_TELE))
+		if (has_trait(m_ptr, TRAIT_RES_TELE))
 		{
 			if ((is_unique_creature(m_ptr)) || (m_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
+				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
 				msg_format("%sには効果がなかった！", m_name);
 #else
@@ -1366,7 +1366,7 @@ msg_print("無傷の球の呪文を唱えた。");
 			}
 			else if (r_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
+				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
 				msg_format("%sには耐性がある！", m_name);
 #else
@@ -1411,7 +1411,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You gesture at %^s's feet.", m_name);
 #endif
 
-		if (has_trait(m_ptr, CF_RES_NEXU) || has_trait(m_ptr, CF_RES_TELE) ||
+		if (has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
 			is_quest_species(r_ptr) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP

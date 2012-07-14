@@ -51,10 +51,10 @@
 typedef struct traits traits;
 struct traits
 {
-	byte add_lev[CF_FLAG_MAX];
-	byte remove_lev[CF_FLAG_MAX];
-	byte probability[CF_FLAG_MAX];
-	bool applied[CF_FLAG_MAX];
+	byte add_lev[TRAIT_FLAG_MAX];
+	byte remove_lev[TRAIT_FLAG_MAX];
+	byte probability[TRAIT_FLAG_MAX];
+	bool applied[TRAIT_FLAG_MAX];
 };
 
 

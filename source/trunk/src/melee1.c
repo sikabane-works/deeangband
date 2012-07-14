@@ -21,7 +21,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 	int aura_damage = 0;
 	species_type *species_ptr = &species_info[tar_ptr->species_idx];
 
-	if (has_trait(tar_ptr, CF_AURA_FIRE))
+	if (has_trait(tar_ptr, TRAIT_AURA_FIRE))
 	{
 		if (!atk_ptr->immune_fire)
 		{
@@ -41,12 +41,12 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			aura_damage = calc_damage(atk_ptr, aura_damage, DAMAGE_TYPE_FIRE, FALSE);
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_FIRE);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_FIRE);
 			handle_stuff();
 		}
 	}
 
-	if (has_trait(tar_ptr, CF_AURA_COLD))
+	if (has_trait(tar_ptr, TRAIT_AURA_COLD))
 	{
 		if (!atk_ptr->immune_cold)
 		{
@@ -67,12 +67,12 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_COLD);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_COLD);
 			handle_stuff();
 		}
 	}
 
-	if (has_trait(tar_ptr, CF_AURA_ELEC))
+	if (has_trait(tar_ptr, TRAIT_AURA_ELEC))
 	{
 		if (!atk_ptr->immune_elec)
 		{
@@ -83,7 +83,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-			if (has_trait(atk_ptr, CF_ANDROID)) aura_damage += aura_damage / 3;
+			if (has_trait(atk_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (atk_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 
@@ -94,7 +94,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_ELEC);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_ELEC);
 			handle_stuff();
 		}
 	}
@@ -448,7 +448,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			k = 0;
 			anger_creature(atk_ptr, tar_ptr);
 
-			if (!has_trait(tar_ptr, CF_NO_STUN))
+			if (!has_trait(tar_ptr, TRAIT_NO_STUN))
 			{
 				if (tar_ptr->stun) // Get stunned
 				{
@@ -669,11 +669,11 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		{
 			bool resists_tele = FALSE;
 
-			if (has_trait(tar_ptr, CF_RES_TELE))
+			if (has_trait(tar_ptr, TRAIT_RES_TELE))
 			{
 				if (is_unique_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
+					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%^sには効果がなかった。", tar_name);
 #else
@@ -684,7 +684,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				}
 				else if (r_ptr->level > randint1(100))
 				{
-					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
+					if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%^sは抵抗力を持っている！", tar_name);
 #else
@@ -711,7 +711,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 		{
 			if (!(is_unique_creature(tar_ptr) || is_quest_creature(tar_ptr)) &&
-				!has_trait(tar_ptr, CF_RES_CHAO))
+				!has_trait(tar_ptr, TRAIT_RES_CHAO))
 			{
 				if (polymorph_creature(atk_ptr, y, x))
 				{
@@ -837,7 +837,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 	switch (attack)
 	{
-		case CF_SCOR_TAIL:
+		case TRAIT_SCOR_TAIL:
 			dss = 3;
 			ddd = 7;
 			n_weight = 5;
@@ -848,7 +848,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case CF_HORNS:
+		case TRAIT_HORNS:
 			dss = 2;
 			ddd = 6;
 			n_weight = 15;
@@ -859,7 +859,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case CF_BEAK:
+		case TRAIT_BEAK:
 			dss = 2;
 			ddd = 4;
 			n_weight = 5;
@@ -870,7 +870,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case CF_TRUNK:
+		case TRAIT_TRUNK:
 			dss = 1;
 			ddd = 4;
 			n_weight = 35;
@@ -881,7 +881,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case CF_TENTACLES:
+		case TRAIT_TENTACLES:
 			dss = 2;
 			ddd = 5;
 			n_weight = 5;
@@ -912,7 +912,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!has_trait(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
+	if ((!has_trait(tar_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -948,19 +948,19 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		/* Damage, check for fear and mdeath */
 		switch (attack)
 		{
-			case CF_SCOR_TAIL:
+			case TRAIT_SCOR_TAIL:
 				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
-			case CF_HORNS:
+			case TRAIT_HORNS:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case CF_BEAK:
+			case TRAIT_BEAK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case CF_TRUNK:
+			case TRAIT_TRUNK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case CF_TENTACLES:
+			case TRAIT_TENTACLES:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
@@ -1046,11 +1046,11 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 		int resist_stun = 0;
 		int weight = 8;
 
-		if (has_trait(tar_ptr, CF_UNIQUE)) resist_stun += 88;
-		if (has_trait(tar_ptr, CF_NO_STUN)) resist_stun += 66;
-		if (has_trait(tar_ptr, CF_NO_CONF)) resist_stun += 33;
-		if (has_trait(tar_ptr, CF_NO_SLEEP)) resist_stun += 33;
-		if (is_undead_creature(tar_ptr) || has_trait(tar_ptr, CF_NONLIVING))
+		if (has_trait(tar_ptr, TRAIT_UNIQUE)) resist_stun += 88;
+		if (has_trait(tar_ptr, TRAIT_NO_STUN)) resist_stun += 66;
+		if (has_trait(tar_ptr, TRAIT_NO_CONF)) resist_stun += 33;
+		if (has_trait(tar_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
+		if (is_undead_creature(tar_ptr) || has_trait(tar_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
 		if (atk_ptr->special_defense & KAMAE_BYAKKO)
@@ -1240,9 +1240,9 @@ static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Confuse the creature
-		if (has_trait(tar_ptr, CF_NO_CONF))
+		if (has_trait(tar_ptr, TRAIT_NO_CONF))
 		{
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_NO_CONF);
 
 			if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -1286,7 +1286,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	char attacker_name[100];
 	creature_desc(attacker_name, attacker_ptr, 0);
 
-	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, CF_HUMANOID) &&
+	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
 	    !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->ml))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
@@ -1627,23 +1627,23 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				break;
 
 			case MELEE_TYPE_HORNS:
-				natural_attack(attacker_ptr, target_ptr, CF_HORNS, &fear, &dead);
+				natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_BEAK:
-				natural_attack(attacker_ptr, target_ptr, CF_BEAK, &fear, &dead);
+				natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_SCOR_TAIL:
-				natural_attack(attacker_ptr, target_ptr, CF_SCOR_TAIL, &fear, &dead);
+				natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_TRUNK:
-				natural_attack(attacker_ptr, target_ptr, CF_TRUNK, &fear, &dead);
+				natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK, &fear, &dead);
 				break;
 
 			case MELEE_TYPE_TENTACLES:
-				natural_attack(attacker_ptr, target_ptr, CF_TENTACLES, &fear, &dead);
+				natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES, &fear, &dead);
 				break;
 
 		}
@@ -1858,7 +1858,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 	/* Not allowed to attack */
-	if (has_trait(attacker_ptr, CF_NEVER_BLOW)) return (FALSE);
+	if (has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
@@ -3314,7 +3314,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Damage CON (10% chance)*/
-				if ((randint1(100) < 11) && !has_trait(target_ptr, CF_ANDROID))
+				if ((randint1(100) < 11) && !has_trait(target_ptr, TRAIT_ANDROID))
 				{
 					/* 1% chance for perm. damage */
 					bool perm = one_in_(10);
@@ -3341,7 +3341,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					{
 					case 1: case 2: case 3: case 4: case 5:
 						{
-							if (has_trait(target_ptr, CF_ANDROID)) break;
+							if (has_trait(target_ptr, TRAIT_ANDROID)) break;
 #ifdef JP
 							msg_print("人生が逆戻りした気がする。");
 #else
@@ -3428,7 +3428,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
 				/* Heal the attacker? */
-				if(has_trait(target_ptr, CF_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
+				if(has_trait(target_ptr, TRAIT_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
 				{
 					resist_drain = TRUE;
 					break;
@@ -3579,7 +3579,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		{
 			if (target_ptr->sh_fire && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, CF_RES_SHAR))
+				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3608,7 +3608,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			if (target_ptr->sh_elec && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, CF_RES_ELEC))
+				if (!has_trait(attacker_ptr, TRAIT_RES_ELEC))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3637,7 +3637,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			if (target_ptr->sh_cold && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, CF_RES_COLD))
+				if (!has_trait(attacker_ptr, TRAIT_RES_COLD))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3667,7 +3667,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			/* by henkma */
 			if (target_ptr->dustrobe && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, CF_RES_SHAR))
+				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3726,7 +3726,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					}
 					else
 					{
-						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 					}
 				}
 			}
@@ -3755,7 +3755,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, CF_RES_ALL);
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				}
 			}
 
@@ -3764,7 +3764,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				int dam = 1;
 				object_type *o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
 
-				if (!has_trait(attacker_ptr, CF_RES_DARK))
+				if (!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
 					if (o_ptr->k_idx)
 					{
@@ -3817,8 +3817,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr))
 					{
-						reveal_creature_info(target_ptr, CF_RES_ALL);
-						reveal_creature_info(target_ptr, CF_RES_DARK);
+						reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+						reveal_creature_info(target_ptr, TRAIT_RES_DARK);
 					}
 				}
 			}

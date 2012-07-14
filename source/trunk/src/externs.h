@@ -926,7 +926,6 @@ extern bool is_wild_wood_species(species_type *species_ptr);
 extern bool is_wild_volcano_species(species_type *species_ptr);
 extern bool is_wild_grass_species(species_type *species_ptr);
 extern bool is_wild_mountain_species(species_type *species_ptr);
-extern bool is_shadow_species(species_type *species_ptr);
 extern bool is_chameleon_species(species_type *species_ptr);
 extern bool is_tanuki_species(species_type *species_ptr);
 extern bool is_kill_exp_species(species_type *species_ptr);
@@ -934,12 +933,10 @@ extern bool is_friendly_species(species_type *species_ptr);
 
 extern bool is_wild_mountain_creature(creature_type *creature_ptr);
 
-extern bool is_force_lesser_species(species_type *species_ptr);
 extern bool is_variable_race_species(species_type *species_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);
 extern bool is_variable_chara_species(species_type *species_ptr);
-extern bool is_variable_size_species(species_type *species_ptr);
 
 extern bool is_hyper_str_species(species_type *species_ptr);
 extern bool is_puny_species(species_type *species_ptr);

@@ -1050,7 +1050,7 @@ info[i++] = "あなたは閃光への耐性を持っている。";
 
 	}
 
-	if (has_trait(creature_ptr, CF_HURT_LITE))
+	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 #ifdef JP
 info[i++] = "あなたは閃光に弱い。";
@@ -2431,7 +2431,7 @@ bool detect_creatures_normal(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible creatures */
-		if (!has_trait(m_ptr, CF_INVISIBLE) || cr_ptr->see_inv)
+		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_creatures = TRUE;
@@ -2493,7 +2493,7 @@ bool detect_creatures_invis(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible creatures */
-		if (has_trait(m_ptr, CF_INVISIBLE))
+		if (has_trait(m_ptr, TRAIT_INVISIBLE))
 		{
 			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
@@ -2705,7 +2705,7 @@ bool detect_creatures_mind(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living creatures */
-		if (!has_trait(m_ptr, CF_EMPTY_MIND))
+		if (!has_trait(m_ptr, TRAIT_EMPTY_MIND))
 		{
 			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
@@ -4491,10 +4491,10 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			update_mon(c_ptr->creature_idx, FALSE);
 
 			/* Stupid creatures rarely wake up */
-			if (has_trait(m_ptr, CF_STUPID)) chance = 10;
+			if (has_trait(m_ptr, TRAIT_STUPID)) chance = 10;
 
 			/* Smart creatures always wake up */
-			if (has_trait(m_ptr, CF_SMART)) chance = 100;
+			if (has_trait(m_ptr, TRAIT_SMART)) chance = 100;
 
 			/* Sometimes creatures wake up */
 			if (m_ptr->paralyzed && (randint0(100) < chance))
@@ -5169,14 +5169,14 @@ msg_print("失敗した。");
 
 	(void)set_paralyzed(m_ptr, 0);
 
-	if (has_trait(m_ptr, CF_RES_TELE))
+	if (has_trait(m_ptr, TRAIT_RES_TELE))
 	{
 #ifdef JP
 		msg_print("テレポートを邪魔された！");
 #else
 		msg_print("Your teleportation is blocked!");
 #endif
-		if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
+		if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 
 		/* Failure */
 		return FALSE;

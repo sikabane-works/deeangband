@@ -214,7 +214,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	if (!feel) return;
 
 	/* Bad luck */
-	if (has_trait(creature_ptr, CF_BAD_LUCK) && !randint0(13))
+	if (has_trait(creature_ptr, TRAIT_BAD_LUCK) && !randint0(13))
 	{
 		switch (feel)
 		{
@@ -550,7 +550,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 		if (!IS_EQUIPPED(o_ptr) && (0 != randint0(5))) continue;
 
 		/* Good luck */
-		if (has_trait(creature_ptr, CF_GOOD_LUCK) && !randint0(13))
+		if (has_trait(creature_ptr, TRAIT_GOOD_LUCK) && !randint0(13))
 		{
 			heavy = TRUE;
 		}
@@ -1120,7 +1120,7 @@ static void regen_creatures(creature_type *creature_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some creatures regenerate quickly */
-			if (has_trait(creature_ptr, CF_REGENERATE)) frac *= 2;
+			if (has_trait(creature_ptr, TRAIT_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			m_ptr->chp += frac;
@@ -1170,7 +1170,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some creatures regenerate quickly */
-			if (has_trait(creature_ptr, CF_REGENERATE)) frac *= 2;
+			if (has_trait(creature_ptr, TRAIT_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			o_ptr->xtra4 += frac;
@@ -1619,7 +1619,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 
 	/* (Vampires) Take damage from sunlight */
-	if (has_trait(creature_ptr, CF_HURT_LITE))
+	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 		if (!floor_ptr->floor_level && !creature_ptr->resist_lite && !IS_INVULN(creature_ptr) && is_daytime())
 		{
@@ -1813,7 +1813,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 		int damage;
-		if (has_trait(steed_ptr, CF_AURA_FIRE) && !creature_ptr->immune_fire)
+		if (has_trait(steed_ptr, TRAIT_AURA_FIRE) && !creature_ptr->immune_fire)
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
@@ -1825,7 +1825,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if (has_trait(steed_ptr, CF_AURA_ELEC) && !creature_ptr->immune_elec)
+		if (has_trait(steed_ptr, TRAIT_AURA_ELEC) && !creature_ptr->immune_elec)
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ELEC, FALSE);
@@ -1837,7 +1837,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if (has_trait(steed_ptr, CF_AURA_COLD) && !creature_ptr->immune_cold)
+		if (has_trait(steed_ptr, TRAIT_AURA_COLD) && !creature_ptr->immune_cold)
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_COLD, FALSE);
@@ -2328,7 +2328,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	if (wild_mode) return;
 
 
-	if (has_trait(creature_ptr, CF_BERS_RAGE) && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2343,7 +2343,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		(void)set_afraid(creature_ptr, 0);
 	}
 
-	if (has_trait(creature_ptr, CF_COWARDICE) && (randint1(3000) == 13))
+	if (has_trait(creature_ptr, TRAIT_COWARDICE) && (randint1(3000) == 13))
 	{
 		if (!creature_ptr->resist_fear)
 		{
@@ -2358,9 +2358,9 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
+	if (has_trait(creature_ptr, TRAIT_RTELEPORT) && (randint1(5000) == 88))
 	{
-		if (!creature_ptr->resist_nexus && !has_trait(creature_ptr, CF_VTELEPORT) &&
+		if (!creature_ptr->resist_nexus && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
 		    !creature_ptr->anti_tele)
 		{
 			disturb(player_ptr, 0, 0);
@@ -2377,7 +2377,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
+	if (has_trait(creature_ptr, TRAIT_ALCOHOL) && (randint1(6400) == 321))
 	{
 		if (!creature_ptr->resist_conf && !creature_ptr->resist_chaos)
 		{
@@ -2430,7 +2430,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_HALLU) && (randint1(6400) == 42))
+	if (has_trait(creature_ptr, TRAIT_HALLU) && (randint1(6400) == 42))
 	{
 		if (!creature_ptr->resist_chaos)
 		{
@@ -2440,7 +2440,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_FLATULENT) && (randint1(3000) == 13))
+	if (has_trait(creature_ptr, TRAIT_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(player_ptr, 0, 0);
 
@@ -2454,7 +2454,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		fire_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
 	}
 
-	if (has_trait(creature_ptr, CF_PROD_MANA) &&
+	if (has_trait(creature_ptr, TRAIT_PROD_MANA) &&
 	    !creature_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
@@ -2471,7 +2471,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		fire_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
 	}
 
-	if (has_trait(creature_ptr, CF_ATT_DEMON) &&
+	if (has_trait(creature_ptr, TRAIT_ATT_DEMON) &&
 	    !creature_ptr->anti_magic && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
@@ -2493,7 +2493,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_SPEED_FLUX) && one_in_(6000))
+	if (has_trait(creature_ptr, TRAIT_SPEED_FLUX) && one_in_(6000))
 	{
 		disturb(player_ptr, 0, 0);
 		if (one_in_(2))
@@ -2532,7 +2532,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 		msg_print(NULL);
 	}
-	if (has_trait(creature_ptr, CF_BANISH_ALL) && one_in_(9000))
+	if (has_trait(creature_ptr, TRAIT_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2545,7 +2545,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 	}
 
-	if (has_trait(creature_ptr, CF_EAT_LIGHT) && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_EAT_LIGHT) && one_in_(3000))
 	{
 		object_type *o_ptr;
 
@@ -2596,7 +2596,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		unlite_area(creature_ptr, 50, 10);
 	}
 
-	if (has_trait(creature_ptr, CF_ATT_ANIMAL) &&
+	if (has_trait(creature_ptr, TRAIT_ATT_ANIMAL) &&
 	    !creature_ptr->anti_magic && one_in_(7000))
 	{
 		bool pet = one_in_(3);
@@ -2617,7 +2617,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, CF_RAW_CHAOS) &&
+	if (has_trait(creature_ptr, TRAIT_RAW_CHAOS) &&
 	    !creature_ptr->anti_magic && one_in_(8000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2630,7 +2630,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		fire_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
 	}
-	if (has_trait(creature_ptr, CF_NORMALITY) && one_in_(5000))
+	if (has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))
 	{
 		if (!lose_trait(creature_ptr, 0))
 #ifdef JP
@@ -2640,7 +2640,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
-	if (has_trait(creature_ptr, CF_WRAITH) && !creature_ptr->anti_magic && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_WRAITH) && !creature_ptr->anti_magic && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2652,11 +2652,11 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		set_wraith_form(creature_ptr, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
-	if (has_trait(creature_ptr, CF_POLY_WOUND) && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000))
 	{
 		do_poly_wounds(creature_ptr);
 	}
-	if (has_trait(creature_ptr, CF_WASTING) && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_WASTING) && one_in_(3000))
 	{
 		int which_stat = randint0(6);
 		int sustained = FALSE;
@@ -2704,7 +2704,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			(void)dec_stat(creature_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
-	if (has_trait(creature_ptr, CF_ATT_DRAGON) &&
+	if (has_trait(creature_ptr, TRAIT_ATT_DRAGON) &&
 	    !creature_ptr->anti_magic && one_in_(3000))
 	{
 		bool pet = one_in_(5);
@@ -2724,7 +2724,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			disturb(player_ptr, 0, 0);
 		}
 	}
-	if (has_trait(creature_ptr, CF_WEIRD_MIND) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !creature_ptr->anti_magic &&
 	    one_in_(3000))
 	{
 		if (creature_ptr->tim_esp > 0)
@@ -2748,7 +2748,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			set_tim_esp(creature_ptr, creature_ptr->lev, FALSE);
 		}
 	}
-	if (has_trait(creature_ptr, CF_NAUSEA) && !creature_ptr->slow_digest &&
+	if (has_trait(creature_ptr, TRAIT_NAUSEA) && !creature_ptr->slow_digest &&
 	    one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2764,13 +2764,13 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
-	if (has_trait(creature_ptr, CF_WALK_SHAD) &&
+	if (has_trait(creature_ptr, TRAIT_WALK_SHAD) &&
 	    !creature_ptr->anti_magic && one_in_(12000) && !fight_arena_mode)
 	{
 		alter_reality(creature_ptr);
 	}
 
-	if (has_trait(creature_ptr, CF_WARNING) && one_in_(1000))
+	if (has_trait(creature_ptr, TRAIT_WARNING) && one_in_(1000))
 	{
 		int danger_amount = 0;
 		int creature;
@@ -2832,7 +2832,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
-	if (has_trait(creature_ptr, CF_INVULN) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_INVULN) && !creature_ptr->anti_magic &&
 	    one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2845,7 +2845,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
 	}
-	if (has_trait(creature_ptr, CF_SP_TO_HP) && one_in_(2000))
+	if (has_trait(creature_ptr, TRAIT_SP_TO_HP_PASSIVE) && one_in_(2000))
 	{
 		int wounds = creature_ptr->mhp - creature_ptr->chp;
 
@@ -2865,7 +2865,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if (has_trait(creature_ptr, CF_HP_TO_SP) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_HP_TO_SP_PASSIVE) && !creature_ptr->anti_magic &&
 	    one_in_(4000))
 	{
 		int wounds = creature_ptr->msp - creature_ptr->csp;
@@ -2891,7 +2891,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		}
 	}
-	if (has_trait(creature_ptr, CF_DISARM) && one_in_(10000))
+	if (has_trait(creature_ptr, TRAIT_DISARM) && one_in_(10000))
 	{
 		int i;
 		int slot = 0;
@@ -3018,7 +3018,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (!has_trait(creature_ptr, CF_ANDROID) && 
+		if (!has_trait(creature_ptr, TRAIT_ANDROID) && 
 			((creature_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
 			creature_ptr->exp -= (creature_ptr->lev+1)/2;
@@ -3577,7 +3577,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		}
 
 		// Unusually crowded creatures get a little bit of rating boost
-		if (has_trait(creature_ptr, CF_FRIENDS))
+		if (has_trait(creature_ptr, TRAIT_FRIENDS))
 			if (5 <= get_creature_crowd_number(i)) delta += 1;
 		else
 			if (2 <= get_creature_crowd_number(i)) delta += 1;
@@ -5726,7 +5726,7 @@ msg_print("中断しました。");
 					r_ptr = &species_info[m_ptr->ap_species_idx];
 
 					/* Skip non-multi-hued creatures */
-					if (!has_trait(m_ptr, CF_ATTR_MULTI) && !has_trait(m_ptr, CF_SHAPECHANGER))
+					if (!has_trait(m_ptr, TRAIT_ATTR_MULTI) && !has_trait(m_ptr, TRAIT_SHAPECHANGER))
 						continue;
 
 					/* Reset the flag */
@@ -6125,7 +6125,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		r_ptr = &species_info[today_mon];
 
 		if (is_unique_species(r_ptr)) continue;
-		if (has_trait_raw(&r_ptr->flags, CF_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
+		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
 		if (is_multiply_species(r_ptr)) continue;
 		if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
@@ -6910,7 +6910,7 @@ void play_game(bool new_game)
 	/* Hack -- Enforce "delayed death" */
 	if (player_ptr->chp < 0) gameover = TRUE;
 
-	if (has_trait(player_ptr, CF_ANDROID)) calc_android_exp(player_ptr);
+	if (has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
 
 	if (new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
@@ -7023,7 +7023,7 @@ void world_wipe()
 		species_ptr->cur_num = 0; // Hack -- Reset the counter
 		species_ptr->max_num = 100; // Hack -- Reset the max counter
 		if (is_unique_species(species_ptr)) species_ptr->max_num = 1; // Hack -- Reset the max counter
-		else if (has_trait_raw(&species_ptr->flags, CF_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
+		else if (has_trait_raw(&species_ptr->flags, TRAIT_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 
 		species_ptr->r_pkills = 0; // Clear visible kills in this life
 		species_ptr->r_akills = 0; // Clear all kills in this life

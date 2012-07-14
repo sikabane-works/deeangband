@@ -3040,7 +3040,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
-				if (!has_trait(tar_ptr, CF_RES_ACID))
+				if (!has_trait(tar_ptr, TRAIT_RES_ACID))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3051,7 +3051,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				if (!has_trait(tar_ptr, CF_RES_ELEC))
+				if (!has_trait(tar_ptr, TRAIT_RES_ELEC))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3063,13 +3063,13 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
 				/* Notice immunity */
-				if (!has_trait(tar_ptr, CF_RES_FIRE))
+				if (!has_trait(tar_ptr, TRAIT_RES_FIRE))
 				{
 					if (is_hurt_fire_creature(tar_ptr))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-							reveal_creature_info(tar_ptr, CF_HURT_FIRE);
+							reveal_creature_info(tar_ptr, TRAIT_HURT_FIRE);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3081,13 +3081,13 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_COLD_RATE);
 
 				/* Otherwise, take the damage */
-				if (!has_trait(tar_ptr, CF_RES_COLD))
+				if (!has_trait(tar_ptr, TRAIT_RES_COLD))
 				{
 					if (is_hurt_cold_creature(tar_ptr))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-							reveal_creature_info(tar_ptr, CF_HURT_COLD);
+							reveal_creature_info(tar_ptr, TRAIT_HURT_COLD);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3098,7 +3098,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			{
 				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if (!has_trait(tar_ptr, CF_RES_POIS))
+				if (!has_trait(tar_ptr, TRAIT_RES_POIS))
 				{
 					if (mult < 17) mult = 17;
 				}
