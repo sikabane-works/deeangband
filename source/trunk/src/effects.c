@@ -6080,7 +6080,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 
 	// Curse of Amberites
-	if ((tar_ptr->race_idx1 == RACE_AMBERITE) && one_in_(1))
+	if (has_trait(tar_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
 	{
 		int curses = 1 + randint1(3);
 		bool stop_ty = FALSE;
