@@ -6726,7 +6726,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 			}
 
 			if (is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
-			else if ((caster_ptr->class_idx == CLASS_BEASTMASTER) && creature_living(target_ptr))
+			else if ((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
 				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
 			else
 				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
