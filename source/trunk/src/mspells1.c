@@ -1276,7 +1276,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	floor_type      *floor_ptr = get_floor_ptr(caster_ptr);
 	int             k, thrown_spell = 0, rlev, failrate;
-	int             racial_spell[TRAIT_FLAG_MAX], num = 0;
+	int             racial_spell[MAX_TRAITS], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP

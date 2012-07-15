@@ -1541,7 +1541,7 @@ static errr grab_one_trait(traits *cf_ptr, cptr what, byte add, byte remove, byt
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
+	for (i = 0; i < MAX_TRAITS; i++)
 	{
 		if (streq(what, trait_info[i].id2))
 		{

@@ -1390,7 +1390,7 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	switch (d_ptr->mode)
 	{
 	case DUNGEON_MODE_AND:
-		for (a = 0; a < TRAIT_FLAG_MAX; a++)
+		for (a = 0; a < MAX_TRAITS; a++)
 		{
 			if(has_trait_raw(&d_ptr->c_flags, a)
 				&& !has_trait_raw(&r_ptr->flags, a)) return FALSE; 
@@ -1401,7 +1401,7 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 		return TRUE;
 
 	case DUNGEON_MODE_NAND:
-		for (a = 0; a < TRAIT_FLAG_MAX; a++)
+		for (a = 0; a < MAX_TRAITS; a++)
 		{
 			if(has_trait_raw(&d_ptr->c_flags, a)
 				&& !has_trait_raw(&r_ptr->flags, a)) return TRUE; 
@@ -1412,7 +1412,7 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 		return FALSE;
 
 	case DUNGEON_MODE_OR:
-		for (a = 0; a < TRAIT_FLAG_MAX; a++)
+		for (a = 0; a < MAX_TRAITS; a++)
 		{
 			if(has_trait_raw(&d_ptr->c_flags, a)
 				&& has_trait_raw(&r_ptr->flags, a)) return TRUE; 
@@ -1423,7 +1423,7 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 		return FALSE;
 
 	case DUNGEON_MODE_NOR:
-		for (a = 0; a < TRAIT_FLAG_MAX; a++)
+		for (a = 0; a < MAX_TRAITS; a++)
 		{
 			if(has_trait_raw(&d_ptr->c_flags, a)
 				&& has_trait_raw(&r_ptr->flags, a)) return FALSE; 
