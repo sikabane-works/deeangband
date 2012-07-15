@@ -50,13 +50,9 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 52
+#define VER_PATCH 53
 
 #define VER_EXTRA 0
-
-
-#define RANDOM_TRY  100000 // Number of Trying for random search
-#define PERCENTAGE  100
 
 // Back Ground Color (Windows)
 #define WINDOWS_BK_COLOR_R  0

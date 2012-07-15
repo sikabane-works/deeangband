@@ -1323,7 +1323,6 @@ struct creature_type
 	u32b flags9;			/* Flags 9 (drops info) */
 	u32b flags10;			/* Flags R (resistances info) */
 	u32b flags11;			/* Flags E (ego info) */
-	u32b flags12;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];

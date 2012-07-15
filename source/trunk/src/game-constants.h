@@ -1,6 +1,9 @@
 
 // 2012 D'angband  game-contants.h
 
+#define RANDOM_TRY  100000 // Number of Trying for random search
+#define PERCENTAGE  100
+
 #define SPEAK_CHANCE 8
 #define GRINDNOISE 20
 #define CYBERNOISE 20
