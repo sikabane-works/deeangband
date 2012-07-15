@@ -1318,16 +1318,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			do_cmd_rerate(creature_ptr, FALSE);
 			get_max_stats(creature_ptr);
 			creature_ptr->creature_update |= CRU_BONUS;
-#ifdef JP
-			msg_print("全ての突然変異が治った。");
-#else
-			msg_print("You are cured of all mutations.");
-#endif
-
-			//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
-			creature_ptr->creature_update |= CRU_BONUS;
-			handle_stuff();
-			creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
+			do_cmd_rerate(creature_ptr, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1355,18 +1346,7 @@ msg_print("「オクレ兄さん！」");
 		
 		case SV_POTION_POLYMORPH:
 			//TODO
-			if (one_in_(23))
-			{
-#ifdef JP
-msg_print("全ての突然変異が治った。");
-#else
-				msg_print("You are cured of all mutations.");
-#endif
-
-				//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
-				creature_ptr->creature_update |= CRU_BONUS;
-				handle_stuff();
-			}
+			if (one_in_(23)) do_cmd_rerate(creature_ptr, FALSE);
 			else
 			{
 				do

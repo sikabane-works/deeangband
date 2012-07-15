@@ -34,6 +34,23 @@ void dump_traits(creature_type *cr_ptr, FILE *OutFile)
 	//TODO
 }
 
+void remove_all_postnatal_traits(creature_type *creature_ptr)
+{
+
+#ifdef JP
+	msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ª¡‚Á‚½B");
+#else
+	msg_print("You are cured of all mutations.");
+#endif
+
+	//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+	creature_ptr->creature_update |= CRU_BONUS;
+	creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
+	handle_stuff();
+	return;
+}
+
+
 // List traits we have...
 void do_cmd_knowledge_traits(creature_type *cr_ptr)
 {

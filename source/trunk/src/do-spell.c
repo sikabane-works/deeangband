@@ -854,16 +854,8 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the Judgement.");
 #endif
 
+		remove_all_postnatal_traits(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
-#ifdef JP
-		msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ªŽ¡‚Á‚½B");
-#else
-		msg_print("You are cured of all mutations.");
-#endif
-
-		//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
-		creature_ptr->creature_update |= CRU_BONUS;
-		handle_stuff();
 	}
 	else if (die < 120)
 	{
