@@ -1117,10 +1117,6 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->father_idx);
 	rd_s16b(&cr_ptr->mother_idx);
 
-	rd_u32b(&cr_ptr->flags1);
-	rd_u32b(&cr_ptr->flags2);
-	rd_u32b(&cr_ptr->flags3);
-
 	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&cr_ptr->karmas[i]);
 
 	// Calc the regeneration modifier for mutation

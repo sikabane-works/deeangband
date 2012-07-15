@@ -650,12 +650,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->father_idx);
 	wr_s16b(cr_ptr->mother_idx);
 
-	wr_u32b(cr_ptr->flags1);
-	wr_u32b(cr_ptr->flags2);
-	wr_u32b(cr_ptr->flags3);
-
-	for (i = 0; i < MAX_KARMA; i++)
-		wr_s32b(cr_ptr->karmas[i]);
+	for (i = 0; i < MAX_KARMA; i++) wr_s32b(cr_ptr->karmas[i]);
 
 	wr_s16b(cr_ptr->ele_attack);
 	wr_u32b(cr_ptr->special_attack);

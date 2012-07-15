@@ -1312,10 +1312,6 @@ struct creature_type
 	s16b multishadow;       /* Timed -- Multi-shadow */
 	s16b dustrobe;          /* Timed -- Robe of dust */
 
-	u32b flags1;			/* Flags 1 (general) */
-	u32b flags2;			/* Flags 2 (abilities) */
-	u32b flags3;			/* Flags 3 (race/resist) */
-
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
