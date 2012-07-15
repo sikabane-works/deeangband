@@ -374,7 +374,8 @@ struct species_type
 
 	s16b dr;			/* Divine Rank */
 
-	s16b ac;				/* Armour Class */
+	s16b ac;				// Armour Class
+	s16b ev;				// Evasion
 
 	s16b sleep;				/* Inactive counter (base) */
 	byte aaf;				/* Area affect radius (1-100) */

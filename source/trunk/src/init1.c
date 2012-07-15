@@ -3071,7 +3071,7 @@ static int grab_one_authority_flag(species_type *r_ptr, cptr what)
 	return -1;
 }
 
-#define SPECIES_INFO_CSV_COLUMNS 60
+#define SPECIES_INFO_CSV_COLUMNS 61
 static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3135,6 +3135,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"ARMS",
 	"FEET",
 	"TAIL",
+	"EV",
 
 };
 
@@ -3201,6 +3202,7 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define SPECIES_INFO_ARMS 57
 #define SPECIES_INFO_FEET 58
 #define SPECIES_INFO_TAIL 59
+#define SPECIES_INFO_EV   60
 
 errr parse_species_info_csv(char *buf, header *head)
 {
@@ -3704,6 +3706,11 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_info[n].slot_tail = (s16b)b;
+				break;
+
+			case SPECIES_INFO_EV:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				species_info[n].ev = (s16b)b;
 				break;
 
 			default:
