@@ -855,18 +855,15 @@ static void cast_shuffle(creature_type *creature_ptr)
 #endif
 
 		do_cmd_rerate(creature_ptr, FALSE);
-		if (creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14)
-		{
 #ifdef JP
-			msg_print("全ての突然変異が治った。");
+		msg_print("全ての突然変異が治った。");
 #else
-			msg_print("You are cured of all mutations.");
+		msg_print("You are cured of all mutations.");
 #endif
 
-			creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
-			creature_ptr->creature_update |= CRU_BONUS;
-			handle_stuff();
-		}
+		//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+		creature_ptr->creature_update |= CRU_BONUS;
+		handle_stuff();
 	}
 	else if (die < 120)
 	{

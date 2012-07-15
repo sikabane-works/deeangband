@@ -3751,7 +3751,8 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		c = '.';
 
 		/* Mutations ... */
-		if (cr_ptr->flags14 || cr_ptr->tsuyoshi)
+		//TODO
+		if (cr_ptr->tsuyoshi)
 		{
 			int dummy = 0;
 
@@ -5256,16 +5257,12 @@ static void dump_aux_karmas(creature_type *cr_ptr, FILE *fff)
  */
 static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
 {
-	if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
-	{
 #ifdef JP
-		fprintf(fff, "\n\n  [“Á«]\n\n");
+	fprintf(fff, "\n\n  [“Á«]\n\n");
 #else
-		fprintf(fff, "\n\n  [Trait]\n\n");
+	fprintf(fff, "\n\n  [Trait]\n\n");
 #endif
-
-		dump_traits(cr_ptr, fff);
-	}
+	dump_traits(cr_ptr, fff);
 }
 
 

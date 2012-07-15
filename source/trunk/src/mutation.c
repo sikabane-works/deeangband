@@ -77,9 +77,8 @@ int count_bits(u32b x)
 
 static int count_mutations(creature_type *cr_ptr)
 {
-	return (count_bits(cr_ptr->flags12) +
-		count_bits(cr_ptr->flags13) +
-		count_bits(cr_ptr->flags14));
+	//TODO
+	return 0;
 }
 
 

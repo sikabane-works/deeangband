@@ -1318,19 +1318,16 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			do_cmd_rerate(creature_ptr, FALSE);
 			get_max_stats(creature_ptr);
 			creature_ptr->creature_update |= CRU_BONUS;
-			if (creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14)
-			{
 #ifdef JP
-msg_print("全ての突然変異が治った。");
+			msg_print("全ての突然変異が治った。");
 #else
-				msg_print("You are cured of all mutations.");
+			msg_print("You are cured of all mutations.");
 #endif
 
-				creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
-				creature_ptr->creature_update |= CRU_BONUS;
-				handle_stuff();
-				creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
-			}
+			//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+			creature_ptr->creature_update |= CRU_BONUS;
+			handle_stuff();
+			creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
 			ident = TRUE;
 			break;
 
@@ -1357,7 +1354,8 @@ msg_print("「オクレ兄さん！」");
 			break;
 		
 		case SV_POTION_POLYMORPH:
-			if ((creature_ptr->flags12 || creature_ptr->flags13 || creature_ptr->flags14) && one_in_(23))
+			//TODO
+			if (one_in_(23))
 			{
 #ifdef JP
 msg_print("全ての突然変異が治った。");
@@ -1365,7 +1363,7 @@ msg_print("全ての突然変異が治った。");
 				msg_print("You are cured of all mutations.");
 #endif
 
-				creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+				//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
 				creature_ptr->creature_update |= CRU_BONUS;
 				handle_stuff();
 			}
