@@ -3,7 +3,7 @@ ID,NAME,E_NAME,SYM,COL,RACE1,RACE2,SEX,CLASS,PATRON,CHARA,RELM1,RELM2,LEV,RARE,S
 D'ang#
 Ѓ—‚і‚с‚ЙђЭ’и‚р—^‚¦‚Д‚Э‚Ѕ",,,,
 1,•‚QЋ™,Urchin,t,D,VARIABLE,VARIABLE,0x02,COMMONER,NONE,ORDINARY,NONE,NONE,0,2,50,0,10,14,0,1,NONE,NONE,-1,0,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BEG
-TOUCH:EAT_GOLD",,,WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%],,,Ѓ@”Ю‚з‚Н‰‚з‚µ‚­‚Д–{“–‚Й“Є‚Й—€‚й“z‚ѕЃB,they look squalid and thoroughly revolting.,J0# D'and# ѓGѓS–ј‚Є‚В‚­‚Ѕ‚Я‚Й–јЏМ‚рЏk‚Я‚ЅЃBUrchin’P‘М‚Е‚аѓNѓ\ѓKѓL€К‚М€У–Ў‚Н‚а‚В‚з‚µ‚ўЃB,,,,
+TOUCH:EAT_GOLD",,,WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER[80%],,,Ѓ@”Ю‚з‚Н‰‚з‚µ‚­‚Д–{“–‚Й“Є‚Й—€‚й“z‚ѕЃB,they look squalid and thoroughly revolting.,J0# D'and# ѓGѓS–ј‚Є‚В‚­‚Ѕ‚Я‚Й–јЏМ‚рЏk‚Я‚ЅЃBUrchin’P‘М‚Е‚аѓNѓ\ѓKѓL€К‚М€У–Ў‚Н‚а‚В‚з‚µ‚ўЃB,,,,
 2,‚в‚№‚±‚Ї‚Ѕ”L,Scrawny cat,f,U,FELINE,FELINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,5,62,0,1,NONE,NONE,-1,0,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CLAW:HURT:1d3,,,RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON,,,‰s‚ў’Ь‚Ж€Ј‚к‚И—e–e‚рЋќ‚Б‚Ѕ‚в‚№‚±‚Ї‚ЅЏ¬‚і‚ИѓlѓR‚ѕЃB,A skinny little furball with sharp claws and a menacing look. ,J0#,,,,
 3,‚·‚ё‚Я,Sparrow,B,U,BIRD,BIRD,0x01,NONE,NONE,ORDINARY,NONE,NONE,0,3,50,0,0,0,0,1,NONE,NONE,-1,0,30,1,10,4,4,4,5,4,4,15,1,1,0,15,1,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d1,,,RAND_25|CAN_FLY|WILD_TOWN|WILD_ONLY|DROP_SKELETON,,,"
 “{‚з‚№‚И‚Ї‚к‚О‘S‚­–іЉQ‚ѕЃB","Utterly harmless, except when angry.",JZ#,,,,
@@ -19,39 +19,39 @@ HIT:HURT:1d5","53:1d1
 54:1d1
 55:1d1",ART:232:100%,UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP,,,"Ѓ@ЉЫ‚ўђФ‚зЉз‚М‚ё‚с‚®‚и‚µ‚Ѕѓzѓrѓbѓg‚ЄЃAЋp‚рЊ»‚µ‚Ь‚µ‚ЅЃuѓ}ѓSѓbѓg‚¶‚ў‚і‚с‚Є‚З‚¤‚µ‚Ѕ‚Б‚Д‚ў‚¤‚с‚Е‚·ЃHЃv‚ЖЃAѓsѓsѓ“‚Є‚Ѕ‚ё‚Л‚Ь‚µ‚ЅЃBЃu‚ ‚М‚Р‚Ж‚Нѓuѓ‰ѓ“ѓfѓBѓoѓbѓN€к‘°‚М‚ѕ‚к‚Ж‚Е‚а’‡—З‚­‚в‚Б‚Д‚Ь‚·‚жЃB‚Ю‚л‚сЃA –Щ‚Б‚Д‚¶‚ў‚і‚с‚М“y’n‚Й“ь‚Б‚Д‚­‚й‚в‚В‚з‚Й‚НЃA‚Р‚З‚­•|‚ў‘¶ЌЭ‚ѕ‚µЃAаЦ–Т‚ИЊў‚а Ћ”‚Б‚Д‚й‚Ї‚З---‚ѕ‚Ї‚ЗЃA‚±‚М‚ ‚Ѕ‚и‚ЙЏZ‚с‚Е‚ў‚к‚О,ЏЇ‹«‚Й‚а‹Я‚ў‚µЃA‚ж‚»‚ж‚и —pђS‚µ‚Д‚©‚©‚з‚И‚«‚б‚И‚з‚И‚ў‚н‚Ї‚Е‚·‚жЃBЃvЃiJ.R.R.ѓgЃ[ѓ‹ѓLѓ“ЃAђЈ“c’е“сЃE“c’†–ѕЋq–у ђV”ЕЋw—Ц•ЁЊкЃj","Before you appears a broad thick-set hobbit with a round red face. ""What's wrong with old Maggot?"" asked Pippin. ""He's a good friend to  $all the Brandybucks. Of course he's a terror to trespassers, and keeps ferocious dogs -- but after all, folk down here are near the border and have to be more on their guard.""","J0#
 J0#",,,,
-9,‹ѓ‚«‚¶‚б‚­‚й”’’s,Blubbering idiot,t,W,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO,,,”Ю‚з‚Н‚ў‚В‚а‹ѓ‚ў‚Д‚О‚©‚и‚ў‚йЃB,They tend to blubber a lot. ,J0#,,,,
-10,•‚QЋТ,Hippie,t,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,"
+9,‹ѓ‚«‚¶‚б‚­‚й”’’s,Blubbering idiot,t,W,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER,,,”Ю‚з‚Н‚ў‚В‚а‹ѓ‚ў‚Д‚О‚©‚и‚ў‚йЃB,They tend to blubber a lot. ,J0#,,,,
+10,•‚QЋТ,Hippie,t,g,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER,,,"
 ЏX‚ў“z“™‚ѕ‚ЄЃA€к”Ф‚М“Б’Ґ‚Н‚»‚МЏX‚і‚Е‚Н‚И‚ўЃB",Ugly doesn't begin to describe them.,"http://www.hobo.org ‚рЋQЏЖЃB“ъ–{ђl‚Й‚Н‚ж‚­•Є‚©‚з‚И‚ўЃB
 D'ang#
 Џг‚М‚Н2011”NЊ»ЌЭЏБ–ЕЃAЌЕ‹Я‚МWikipedia‚ЙѓzЃ[ѓ{Ѓ[‚М‰рђа‚ЄЏo‚Д‚ў‚йЃB
 http://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%83%9C%E3%83%BC
 ЊВђl“I€УЊь‚©‚з‰p–у‚рHippie‚Й•П‚¦‚ЅЃB",,,,
-11,‚н‚Я‚­ѓLѓ`ѓKѓC,Raving lunatic,t,G,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,8,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO,,,‚ж‚ѕ‚к‚рђ‚‚з‚µ‚ДЉy‚µ‚»‚¤‚Й‚µ‚Д‚ў‚й‚ЄЃA‚»‚к€ИЏг‚М‰Ѕ‚рЉъ‘Т‚·‚й‚М‚ѕ‚л‚¤‚©ЃH,"Drooling and comical, but then, what do you expect? ",JZ#,,,,
-12,ЊођH,Beggar,t,U,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,14,0,1,NONE,NONE,-1,0,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO,,,"
+11,‚н‚Я‚­ѓLѓ`ѓKѓC,Raving lunatic,t,G,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,8,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,DROOL,,,DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER,,,‚ж‚ѕ‚к‚рђ‚‚з‚µ‚ДЉy‚µ‚»‚¤‚Й‚µ‚Д‚ў‚й‚ЄЃA‚»‚к€ИЏг‚М‰Ѕ‚рЉъ‘Т‚·‚й‚М‚ѕ‚л‚¤‚©ЃH,"Drooling and comical, but then, what do you expect? ",JZ#,,,,
+12,ЊођH,Beggar,t,U,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,14,0,1,NONE,NONE,-1,0,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER,,,"
 ”Ю‚з‚рЊ©‚й‚ЖЃA‚З‚¤‚µ‚Д‚а€Ј‚к‚ѕ‚Ж‚ў‚¤Ћv‚ў‚р‹Ц‚¶“ѕ‚И‚ўЃB",You just can't help feeling sorry for them.,"JO#
 D'ang#
 –јЏМ‚р’ZЏk",,,,
 13,‚¤‚л‚В‚­•aђl,Prowling leper,t,u,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,50,8,7,8,7,6,6,156,10,42,2,151,10,39,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BEG
-TOUCH:DISEASE",,,DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER_EGO,,,”Ю‚ЙђG‚й‚М‚НЉлЊЇ‚И‹C‚Є‚·‚йЃB,You feel it isn't safe to touch him. ,"J0#(ѓRѓЃѓ“ѓg)
+TOUCH:DISEASE",,,DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER,,,”Ю‚ЙђG‚й‚М‚НЉлЊЇ‚И‹C‚Є‚·‚йЃB,You feel it isn't safe to touch him. ,"J0#(ѓRѓЃѓ“ѓg)
 Ѓuѓ‰ѓC•aЃv‚Ж‚ў‚¤Њѕ—t‚Н–в‘и‚Є‚ ‚йЃA‚Ж‚ў‚¤Ћw“E‚рЋу‚Ї‚ЅЃB
 Ћ„‚Н’mЋЇ•s‘«‚Е‚»‚М‚±‚Ж‚ЙЉЦ‚µ‚Д‚Н”»’f‚µ‚©‚Л‚й‚ЄЃA‹C‚Й‚И‚йђl‚Є‚ў‚й‚М‚И‚з‚ ‚¦‚ДЃAЃuѓ‰ѓC•aЃv‚Ж‚·‚й•K—v‚а‚И‚ў‚Е‚ ‚л‚¤‚ЖЋv‚ўЃu•aђlЃv‚Й‚µ‚ЅЃB
 J0# * leper = ѓ‰ѓC•aЉіЋТ
 D'ang#
 –јЏМ‚р’ZЏkЃAЏг‚МѓRѓЃѓ“ѓg‚Й‚В‚ў‚Д‚НЃuѓ‰ѓC•aЃv‚ЖЏЗЏу‚рЊЕ’и‚·‚й‚ж‚и‚НЏЉ€аЃu‹Ж•aЃv€К‚М€У–Ў‚Й€У–у‚·‚й€К‚ЄЃA‚ж‚иЋР‰п“I€µ‚ў‚рЊ°’‚Й‚·‚й“_‚Е‚Н—З‚©‚Б‚Ѕ‚©‚а’m‚к‚И‚ўЃB",,,,
 14,€ЕЋs‚МЋd“ь‚кђl,Agent of black market,t,D,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,10,44,0,1,NONE,NONE,-1,0,10,8,99,12,9,9,11,11,10,158,10,47,2,152,10,40,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
-TOUCH:EAT_ITEM",,,DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,”Ю‚Нѓuѓ‰ѓbѓNѓ}Ѓ[ѓPѓbѓg‚МЏ¤•i‚рЃuЏE‚Б‚ДЃv—€‚йЃB–ы’f‚µ‚Ѕ–`ЊЇЋТ‚©‚з...,"He 'finds' new wares for the Black Market. From unwary adventurers... 
+TOUCH:EAT_ITEM",,,DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER,,,”Ю‚Нѓuѓ‰ѓbѓNѓ}Ѓ[ѓPѓbѓg‚МЏ¤•i‚рЃuЏE‚Б‚ДЃv—€‚йЃB–ы’f‚µ‚Ѕ–`ЊЇЋТ‚©‚з...,"He 'finds' new wares for the Black Market. From unwary adventurers... 
 ...","JZ#
 D'ang# –јЏМ‚р’ZЏk",,,,
-15,џT“©‚µ‚ўђЊ‚Б‚П‚з‚ў,"Singing, happy drunk",t,y,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,’N‚Е‚а”Ю‚Й‰п‚¦‚ОЃAђЊ‚ў‚рЉo‚Ь‚µ‚Д‚ ‚°‚Ѕ‚ў‚ж‚¤‚И‹C‚Й‚И‚йЃB,"He makes you glad to be sober.
+15,џT“©‚µ‚ўђЊ‚Б‚П‚з‚ў,"Singing, happy drunk",t,y,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BEG,,,HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER,,,’N‚Е‚а”Ю‚Й‰п‚¦‚ОЃAђЊ‚ў‚рЉo‚Ь‚µ‚Д‚ ‚°‚Ѕ‚ў‚ж‚¤‚И‹C‚Й‚И‚йЃB,"He makes you glad to be sober.
 ",J0#,,,,
-16,‚ ‚Д‚З‚И‚ўЏ¤ђl,Aimless merchant,t,o,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,255,9,8,7,8,8,11,160,10,53,2,152,10,47,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d5,,,HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO,,,"’¬‚р‚У‚з‚В‚­“TЊ^“I‚ИѓNѓY‚ЕЃAЌа•z‚р‚¶‚б‚з‚¶‚б‚з‚і‚№‚ДЃA–Ј—Н‚МѓAѓ~ѓ…ѓЊѓbѓg
+16,‚ ‚Д‚З‚И‚ўЏ¤ђl,Aimless merchant,t,o,VARIABLE,VARIABLE,0x01,COMMONER,NONE,ORDINARY,NONE,NONE,0,1,50,0,0,0,0,1,NONE,NONE,-1,0,10,1,255,9,8,7,8,8,11,160,10,53,2,152,10,47,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d5,,,HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER,,,"’¬‚р‚У‚з‚В‚­“TЊ^“I‚ИѓNѓY‚ЕЃAЌа•z‚р‚¶‚б‚з‚¶‚б‚з‚і‚№‚ДЃA–Ј—Н‚МѓAѓ~ѓ…ѓЊѓbѓg
 ‚р”ѓ‚Ё‚¤‚Ж’¬‚р’T‚µ‰с‚Б‚Д‚ў‚йЃB","The typical ponce around town, with purse jingling, and looking for more 
 amulets of adornment to buy.
 
 ",J0#,,,,
-17,•n–R—b•є,Mean mercenary,t,R,VARIABLE,VARIABLE,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,0,1,50,0,8,43,0,1,NONE,NONE,-1,0,10,20,250,13,8,7,11,10,6,161,10,53,2,156,10,44,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d10,,,DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,ЋdЋ–‚ЄЊ©‚В‚©‚з‚И‚ў‚±‚Ж‚Є”Ю‚р‚ў‚Б‚»‚¤•n‚µ‚­‚µ‚Д‚ў‚йЃB,"No job is too low for him.
+17,•n–R—b•є,Mean mercenary,t,R,VARIABLE,VARIABLE,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,0,1,50,0,8,43,0,1,NONE,NONE,-1,0,10,20,250,13,8,7,11,10,6,161,10,53,2,156,10,44,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d10,,,DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER,,,ЋdЋ–‚ЄЊ©‚В‚©‚з‚И‚ў‚±‚Ж‚Є”Ю‚р‚ў‚Б‚»‚¤•n‚µ‚­‚µ‚Д‚ў‚йЃB,"No job is too low for him.
 ",J0#,,,,
-18,ђнЏќ•є,Battle scarred veteran,t,r,VARIABLE,VARIABLE,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,0,1,50,0,8,43,0,1,NONE,NONE,-1,0,10,30,250,14,8,8,9,12,5,163,10,48,2,155,10,44,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:2d6,,,DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO,,,”Ю‚НЊ©’m‚з‚Кђl‚Й—D‚µ‚­ђЪ‚µ‚Ѕ‚и‚Н‚µ‚И‚ўЃB,"He doesn't take to strangers kindly.
+18,ђнЏќ•є,Battle scarred veteran,t,r,VARIABLE,VARIABLE,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,0,1,50,0,8,43,0,1,NONE,NONE,-1,0,10,30,250,14,8,8,9,12,5,163,10,48,2,155,10,44,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:2d6,,,DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER,,,”Ю‚НЊ©’m‚з‚Кђl‚Й—D‚µ‚­ђЪ‚µ‚Ѕ‚и‚Н‚µ‚И‚ўЃB,"He doesn't take to strangers kindly.
 ","J0# 
 –у‚Н“sЃX–Ъ‚і‚с‚Й‚ж‚й",,,,
 19,”µЃwѓ|ѓbѓ|Ѓx,Hato Poppo,B,s,WAREFOLK,WAREFOLK,0x02,TOURIST,NONE,PIOUS,NONE,NONE,0,4,50,24,0,0,60,95,NONE,NONE,-1,1,50,15,4,11,6,6,10,12,5,178,0,72,0,178,0,72,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d3,,,UNIQUE|CAN_SPEAK|FRIENDLY|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP|EMPTY_MIND,,,,,"#D'ang
@@ -113,7 +113,7 @@ JZ#(ѓRѓЃѓ“ѓg)–у‚Н Ћ‡ЊЋЉХЉЫ‚і‚с",,,,
 GAZE
 CRUSH",,ART:192:100%,RES_ALL|KILL_WALL|FORCE_MAXHP|CAN_SWIM|DROP_CORPSE|BLUFF,1_IN_9|TPORT|BLINK|TELE_AWAY,,‚±‚М•sЏт‚ИЌР‚ў‚Н‚ ‚И‚Ѕ‚р‰џ‚µ’Ч‚·‚ѕ‚л‚¤ЃB‚ў‚Ь‚М‚¤‚ї‚Й“¦‚°‚лЃI,"This unholy abomination will crush you. Flee while you can! 
 ЃI",JZ#,,,,
-40,ђв‹©‚Ё‚О‚ЇѓLѓmѓR,Shrieker mushroom patch,",",R,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,0,0,0,0,NONE,NONE,-1,0,4,0,0,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,FORCE_SLEEP|NEVER_MOVE|NEVER_BLOW|STUPID|EMPTY_MIND|IM_POIS|WILD_SWAMP|DROP_CORPSE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_4|SHRIEK,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  These look quite tasty.
+40,ђв‹©‚Ё‚О‚ЇѓLѓmѓR,Shrieker mushroom patch,",",R,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,0,0,0,0,NONE,NONE,-1,0,4,0,0,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,FORCE_SLEEP|NEVER_MOVE|NEVER_BLOW|STUPID|EMPTY_MIND|IM_POIS|WILD_SWAMP|DROP_CORPSE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,1_IN_4|SHRIEK,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  These look quite tasty.
 ЃI",J0#,,,,
 41,Ќ†‹ѓѓxѓgѓxѓg,Blubbering icky thing,i,g,ICKY,ICKY,0x01,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,12,103,0,0,NONE,NONE,-1,0,14,0,10,7,7,7,7,7,7,70,2,20,1,70,2,20,1,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRAWL:POISON:1d10
 CRAWL:EAT_FOOD
@@ -138,9 +138,9 @@ TOUCH:EAT_GOLD",,,DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOO
 ",J0#,,,,
 46,Њ©ЏKѓЃѓCѓW,Novice mage,p,R,VARIABLE,VARIABLE,0x01,MAGE,NONE,VARIABLE,VARIABLE,VARIABLE,2,1,50,10,100,240,0,0,NONE,NONE,-1,0,20,0,5,10,10,10,10,10,10,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d8,,,HAS_LITE_1|FORCE_SLEEP|WILD_ALL|DROP_SKELETON|DROP_CORPSE|DROP_60|EAT_GIVE_INT|EAT_LOSE_STR|EAT_LOSE_CON|OPEN_DOOR|BASH_DOOR|,1_IN_12|BLINK|BLIND|CONF|MISSILE,,”Ю‚Н‚і‚Б‚ЖЋф•¶‚рЏҐ‚¦‚й‚ѕ‚ЇЏҐ‚¦‚Д‚Н“¦‚°‚ж‚¤‚Ж‚·‚йЃB,"He is leaving behind a trail of dropped spell components.
 ",J0#,,,,
-47,‰©‚Ё‚О‚ЇѓLѓmѓR,Yellow mushroom patch,",",y,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,10,72,0,0,NONE,NONE,-1,0,2,1,0,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:TERRIFY:2d5,,,NEVER_MOVE|WILD_SWAMP|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
+47,‰©‚Ё‚О‚ЇѓLѓmѓR,Yellow mushroom patch,",",y,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,10,72,0,0,NONE,NONE,-1,0,2,1,0,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:TERRIFY:2d5,,,NEVER_MOVE|WILD_SWAMP|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
 ЃI",J0#,,,,
-48,ѓzѓЏѓCѓgЃEѓ[ѓЉЃ[,White jelly,j,w,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,6,66,0,0,NONE,NONE,-1,10,2,1,99,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:DR_MANA:1d3,,,NEVER_MOVE|CAN_SWIM|STUPID|WEIRD_MIND|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚Н”’‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"Its a large pile of white flesh.
+48,ѓzѓЏѓCѓgЃEѓ[ѓЉЃ[,White jelly,j,w,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,6,66,0,0,NONE,NONE,-1,10,2,1,99,7,7,7,7,7,7,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:DR_MANA:1d3,,,NEVER_MOVE|CAN_SWIM|STUPID|WEIRD_MIND|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚Н”’‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"Its a large pile of white flesh.
 ",J0#,,,,
 49,‹ђ‘еЌ•ѓAѓЉ,Giant black ant,a,D,ANT,ANT,0x01,NONE,NONE,ORDINARY,NONE,NONE,2,1,50,10,40,168,0,1,NONE,NONE,-1,0,8,0,80,7,7,7,7,7,7,103,13,31,10,103,13,31,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d8,,,RAND_25|WEIRD_MIND|DROP_CORPSE|EAT_ACIDIC|BASH_DOOR|WILD_WOOD|WILD_GRASS,,,‚»‚к‚Н‘е‚«‚і‚Є 1 ѓЃЃ[ѓgѓ‹‹Я‚­‚а‚ ‚йЃB,"It is about three feet long.
  1 ",J0#,,,,
@@ -203,11 +203,11 @@ HIT:HURT:8d6",,,UNIQUE|CAN_SWIM|DROP_SKELETON|DROP_CORPSE|FORCE_MAXHP|CAN_SPEAK|
 
 
 ",J0#,,,,
-64,ѓOѓЉЃ[ѓ“ЃEѓEЃ[ѓY,Green ooze,j,g,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,3,2,50,15,15,99,0,0,NONE,NONE,-1,10,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:ACID:1d7,,,RAND_50|RAND_25|DROP_90|STUPID|EMPTY_MIND|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚Н—ОђF‚р‚µ‚ЅѓVѓ~‚М‚ж‚¤‚Иђ¶•Ё‚ѕЃB,"It's green and it's oozing.
+64,ѓOѓЉЃ[ѓ“ЃEѓEЃ[ѓY,Green ooze,j,g,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,3,2,50,15,15,99,0,0,NONE,NONE,-1,10,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:ACID:1d7,,,RAND_50|RAND_25|DROP_90|STUPID|EMPTY_MIND|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚Н—ОђF‚р‚µ‚ЅѓVѓ~‚М‚ж‚¤‚Иђ¶•Ё‚ѕЃB,"It's green and it's oozing.
 ",J0#,,,,
 65,ѓ|ѓ‹ѓ^Ѓ[ѓKѓCѓXѓg,Poltergeist,G,s,WRAITH,WRAITH,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,10,133,0,0,NONE,NONE,-1,20,8,15,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:TERRIFY,,,RAND_50|RAND_25|CAN_FLY|DROP_60|DROP_90|INVISIBLE|COLD_BLOOD|PASS_WALL|TAKE_ITEM|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP,1_IN_15|BLINK,,‚»‚к‚Н‹°‚л‚µ‚°‚И—H—м‚М‚ж‚¤‚ИЋp‚р‚µ‚Д‚ў‚йЃB,"It is a ghastly, ghostly form.
 ",J0#,,,,
-66,ѓCѓGѓЌЃ[ЃEѓ[ѓЉЃ[,Yellow jelly,j,y,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,20,73,0,0,NONE,NONE,-1,10,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:POISON:1d7,,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_15|DRAIN_MANA,,‚»‚к‚Н‰©ђF‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It's a large pile of yellow flesh.
+66,ѓCѓGѓЌЃ[ЃEѓ[ѓЉЃ[,Yellow jelly,j,y,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,20,73,0,0,NONE,NONE,-1,10,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:POISON:1d7,,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,1_IN_15|DRAIN_MANA,,‚»‚к‚Н‰©ђF‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It's a large pile of yellow flesh.
 ",J0#,,,,
 67,‹вђВѓЂѓJѓf,Metallic blue centipede,c,B,ICKY,ICKY,0x01,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,15,77,0,0,NONE,NONE,-1,10,6,6,15,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:HURT:1d4,,,RAND_50|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|WILD_ALL,,,‚»‚к‚Н’·‚і‚Є 1.5 ѓЃЃ[ѓgѓ‹‹Я‚­‚а‚ ‚й“чђHђ¶•Ё‚ѕЃB,"It is about four feet long and carnivorous.
  1.5 ",J0#,,,,
@@ -221,10 +221,10 @@ JZ#(ѓRѓЃѓ“ѓg)–у‚Н Ћ‡ЊЋЉХЉЫ‚і‚с",,,,
 ",JZ#,,,,
 71,ѓuѓ‰ѓbѓNЃEѓiЃ[ѓK,Black naga,n,D,NAGA,NAGA,0x01,SOLDIER,NONE,VARIABLE,NONE,NONE,3,1,50,15,40,94,0,0,NONE,NONE,-1,0,16,40,120,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRUSH:HURT:2d6,,,RAND_25|DROP_60|DROP_CORPSE|BASH_DOOR|CAN_SWIM|EAT_POISONOUS|EAT_GIVE_DEX|EAT_ACIDIC,,,Џ—ђ«‚МЏг”јђg‚рЋќ‚Б‚Ѕ‘е‚«‚ИЌ•‚ўѓwѓr‚ѕЃB,"A large black serpent's body with a female torso.
 ",J0#,,,,
-72,”Б“_‚Ё‚О‚ЇѓLѓmѓR,Spotted mushroom patch,",",o,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,20,108,0,0,NONE,NONE,-1,0,2,1,0,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:POISON:2d8,,,NEVER_MOVE|WILD_SWAMP|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
+72,”Б“_‚Ё‚О‚ЇѓLѓmѓR,Spotted mushroom patch,",",o,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,20,108,0,0,NONE,NONE,-1,0,2,1,0,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:POISON:2d8,,,NEVER_MOVE|WILD_SWAMP|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
 ЃI",J0#,,,,
 73,ѓVѓ‹ѓoЃ[ЃEѓ[ѓЉЃ[,Silver jelly,j,W,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,2,50,15,25,84,0,0,NONE,NONE,-1,10,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:EAT_LITE:1d6
-TOUCH:EAT_LITE:1d6",,,NEVER_MOVE|CAN_SWIM|HAS_DARK_1|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_15|DRAIN_MANA,,‚»‚к‚Н‹вђF‚М“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ЕЃA•t‹Я‚МЊх‚р‘S‚Д‹z‚ўЋж‚йЃB,"It is a large pile of silver flesh that sucks all light from its 
+TOUCH:EAT_LITE:1d6",,,NEVER_MOVE|CAN_SWIM|HAS_DARK_1|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,1_IN_15|DRAIN_MANA,,‚»‚к‚Н‹вђF‚М“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ЕЃA•t‹Я‚МЊх‚р‘S‚Д‹z‚ўЋж‚йЃB,"It is a large pile of silver flesh that sucks all light from its 
 surroundings.
 ",J0#,,,,
 74,•nЋгѓzѓrѓbѓg,Scruffy looking hobbit,h,s,HOBBIT,HOBBIT,0x01,SOLDIER,NONE,VARIABLE,NONE,NONE,3,1,50,15,5000,539,0,0,NONE,NONE,-1,0,16,8,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d7
@@ -254,7 +254,7 @@ JZ#(ѓRѓЃѓ“ѓg)–у‚Н Ћ‡ЊЋЉХЉЫ‚і‚с",,,,
 HIT:HURT:1d7
 HIT:HURT:1d7",,,HAS_LITE_1|FORCE_SLEEP|DROP_SKELETON|DROP_CORPSE|DROP_60|EAT_LOSE_STR|EAT_LOSE_WIS|EAT_GIVE_CON|OPEN_DOOR|BASH_DOOR|WILD_WOOD,1_IN_9|SHOOT|MISSILE,,‹@•q‚И–м•љ‚ЕЃAЏн‚Йђн“¬‚р€УЋЇ‚µ‚Д‚ў‚йЃB,"An agile hunter, ready and relaxed.
 ",J0#,,,,
-84,ѓuѓ‹Ѓ[ЃEѓ[ѓЉЃ[,Blue jelly,j,b,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,4,1,50,20,30,101,0,0,NONE,NONE,-1,0,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:COLD:2d5,,,NEVER_MOVE|COLD_BLOOD|STUPID|EMPTY_MIND|CAN_SWIM|IM_COLD|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚Н–¬‘Е‚ВђВ‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It's a large pile of pulsing blue flesh.
+84,ѓuѓ‹Ѓ[ЃEѓ[ѓЉЃ[,Blue jelly,j,b,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,4,1,50,20,30,101,0,0,NONE,NONE,-1,0,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:COLD:2d5,,,NEVER_MOVE|COLD_BLOOD|STUPID|EMPTY_MIND|CAN_SWIM|IM_COLD|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚Н–¬‘Е‚ВђВ‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It's a large pile of pulsing blue flesh.
 ",J0#,,,,
 85,“є‚МѓNѓЉЃ[ѓsѓ“ѓOѓRѓCѓ“,Creeping copper coins,$,u,MIMIC,MIMIC,0x00,NONE,NONE,ORDINARY,NONE,NONE,4,2,50,20,40,117,0,0,NONE,NONE,-1,-10,3,24,10,10,10,10,10,10,10,77,10,73,3,77,10,73,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d7
 TOUCH:POISON:2d5",,,ONLY_GOLD|DROP_1D2|COLD_BLOOD|BASH_DOOR|IM_POIS|NO_CONF|NO_SLEEP,,,Ѓ@‚»‚к‚НѓRѓCѓ“‚М‰т‚ѕЃB,"It is a pile of coins.
@@ -303,11 +303,11 @@ He seems to consider you an agent of the devil.
 HIT:HURT:2d5
 DROOL",,,OPEN_DOOR|BASH_DOOR|DROP_90|DROP_SKELETON,,,‚ж‚ѕ‚к‚рђ‚‚з‚µ‚Д‚ў‚йЌ©’ЋЊ^‚МѓGѓCѓЉѓAѓ“‚ЕЃA‹CЋќ‚ї€«‚ўЏKђ«‚рЋќ‚Б‚Д‚ў‚йЃB,"Drooling, insectoid aliens with disgusting habits.
 ",JZ#,,,,
-99,ѓuѓ‹Ѓ[ЃEѓEЃ[ѓY,Blue ooze,j,b,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,5,1,50,30,0,0,0,0,NONE,NONE,-1,0,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:COLD:1d8,,,RAND_50|RAND_25|DROP_60|STUPID|EMPTY_MIND|CAN_SWIM|IM_COLD|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚НђВђF‚р‚µ‚ЅѓVѓ~‚М‚ж‚¤‚Иђ¶•Ё‚ѕЃB,"It's blue and it's oozing.
+99,ѓuѓ‹Ѓ[ЃEѓEЃ[ѓY,Blue ooze,j,b,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,5,1,50,30,0,0,0,0,NONE,NONE,-1,0,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:COLD:1d8,,,RAND_50|RAND_25|DROP_60|STUPID|EMPTY_MIND|CAN_SWIM|IM_COLD|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚НђВђF‚р‚µ‚ЅѓVѓ~‚М‚ж‚¤‚Иђ¶•Ё‚ѕЃB,"It's blue and it's oozing.
 ",J0#,,,,
 100,—О‚МђH‚ў‚µ‚с–VѓSЃ[ѓXѓg,Green glutton ghost,G,g,WRAITH,WRAITH,0x01,NONE,NONE,ORDINARY,NONE,NONE,5,1,50,30,15,133,0,0,NONE,NONE,-1,20,10,20,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:EAT_FOOD:1d1,,,RAND_50|RAND_25|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|PASS_WALL|RES_NETH|NO_CONF|NO_SLEEP,,,‚»‚к‚Нђs‚«‚й‚±‚Ж‚М‚И‚ў‰ ђ·‚ИђH—~‚рЋќ‚Б‚ЅЃA—ОђF‚МЏX‚ўѓSЃ[ѓXѓg‚ѕЃB,"It is a very ugly green ghost with a voracious appetite.
 ",J0#,,,,
-101,ѓOѓЉЃ[ѓ“ЃEѓ[ѓЉЃ[,Green jelly,j,g,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,5,1,50,30,40,131,0,0,NONE,NONE,-1,10,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:ACID:1d4,,,NEVER_MOVE|STUPID|EMPTY_MIND|CAN_SWIM|IM_ACID|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚Н–¬‘Е‚В—ОђF‚М“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a large pile of pulsing green flesh.
+101,ѓOѓЉЃ[ѓ“ЃEѓ[ѓЉЃ[,Green jelly,j,g,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,5,1,50,30,40,131,0,0,NONE,NONE,-1,10,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:ACID:1d4,,,NEVER_MOVE|STUPID|EMPTY_MIND|CAN_SWIM|IM_ACID|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚Н–¬‘Е‚В—ОђF‚М“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a large pile of pulsing green flesh.
 ",J0#,,,,
 102,ѓ‰Ѓ[ѓWЃEѓRѓ{ѓ‹ѓh,Large kobold,k,w,KOBOLD,KOBOLD,0x01,VARIABLE,NONE,ORDINARY,NONE,NONE,5,1,50,30,0,0,0,0,NONE,NONE,-1,0,20,32,30,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:2d6,,,DROP_90|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|IM_POIS|EAT_POISONOUS,,,"‚»‚к‚НђlЉФ‚­‚з‚ў‚М‘е‚«‚і‚ЕЃA‚З‚±‚©‚зЊ©‚Д‚аѓRѓ{ѓ‹ѓh‚ѕ‚Ж•Є‚©‚йЉз‚В‚«‚р
 ‚µ‚Д‚ў‚йЃB","It a man-sized figure with the all too recognizable face of a kobold.
@@ -328,7 +328,7 @@ SLASH:POISON:20d1",,,NEVER_MOVE|NONLIVING|NO_FEAR|STUPID|COLD_BLOOD|CHAR_MULTI|N
 ЃI",JZ#,,,,
 108,Ћ‡‚Ё‚О‚ЇѓLѓmѓR,Purple mushroom patch,",",v,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,6,2,50,45,0,0,0,0,NONE,NONE,-1,0,2,1,0,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SPORE:LOSE_CON:1d3
 SPORE:LOSE_CON:1d3
-SPORE:LOSE_CON:1d3",,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
+SPORE:LOSE_CON:1d3",,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
 ЃI",J0#,,,,
 109,ѓCЃ[ѓN‚М‹|ЋиЃwѓRѓpЃx,"Kopa, the Yeek Archer",y,G,YEEK,YEEK,0x02,ARCHER,NONE,NIMBLE,NONE,NONE,14,2,50,1123,0,0,0,0,NONE,NONE,-1,5,20,10,5,13,17,12,16,14,11,156,0,64,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SHOOT:HURT:3d5
 HIT:HURT:1d5
@@ -410,7 +410,7 @@ STING:POISON:1d5",,,FRIENDS|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|WILD_WOOD|IM_POIS
 130,ѓЊѓbѓhЃEѓiЃ[ѓK,Red naga,n,R,NAGA,NAGA,0x01,VARIABLE,NONE,ORDINARY,NONE,NONE,7,2,50,75,200,265,0,0,NONE,NONE,-1,0,20,40,120,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:HURT:2d6
 BITE:LOSE_STR:1d5",,,CAN_SWIM|WILD_SHORE|RAND_25|DROP_60|TAKE_ITEM|BASH_DOOR|DROP_CORPSE|EAT_LOSE_STR,,,Џ—ђ«‚МЏг”јђg‚рЋќ‚Б‚Ѕ‘е‚«‚Иѓwѓr‚ѕЃB,"A large red snake with a woman's torso.
 ",JZ#,,,,
-131,ѓЊѓbѓhЃEѓWѓFѓЉЃ[,Red jelly,j,R,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,7,1,50,75,150,212,0,0,NONE,NONE,-1,0,2,1,99,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:LOSE_STR:1d6,,,NEVER_MOVE|STUPID|EMPTY_MIND|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚»‚к‚Н–¬‘Е‚ВђФ‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a large pulsating mound of red flesh.
+131,ѓЊѓbѓhЃEѓWѓFѓЉЃ[,Red jelly,j,R,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,7,1,50,75,150,212,0,0,NONE,NONE,-1,0,2,1,99,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:LOSE_STR:1d6,,,NEVER_MOVE|STUPID|EMPTY_MIND|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚»‚к‚Н–¬‘Е‚ВђФ‚ў“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a large pulsating mound of red flesh.
 ",JZ#,,,,
 132,—Оѓxѓgѓxѓg,Green icky thing,i,G,ICKY,ICKY,0x01,NONE,NONE,ORDINARY,NONE,NONE,7,2,50,75,50,155,0,0,NONE,NONE,-1,0,14,12,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:ACID:2d6,,,RAND_50|CAN_SWIM|DROP_CORPSE|SELF_LITE_2|WEIRD_MIND|EAT_ACIDIC|IM_ACID,,,‚»‚к‚НѓhѓЌѓhѓЌ‚µ‚Дѓxѓgѓxѓg‚µ‚ЅЋ_‚Й–ћ‚ї‚Д‚ў‚йЏ¬‚і‚Иѓ‚ѓ“ѓXѓ^Ѓ[‚ѕЃB,"It is a smallish, slimy, icky, acidic creature.
 ",J0#,,,,
@@ -734,7 +734,7 @@ his body had an appearance of emaciation.""
 ‚Pp.80)","JZ#
 JZ#‚gЃE‚oЃEѓ‰ѓ”ѓNѓ‰ѓtѓgЃ•ѓIЃ[ѓKѓXѓgЃEѓ_Ѓ[ѓЊѓX‚МЃu”j•—‚М‘‹Ѓv‚Й“oЏкЃB
 JZ#‘e‚ў”§‚ЕЉб‚ЖЋЁ‚Є€ЩЏн‚Й‘е‚«‚­ЃAЋp‚НѓRѓAѓ‰‚ЙЋ—‚Д‚ў‚Ь‚·ЃBby ‹v—Ї‚і‚с",,,,
-184,“§–ѕ‚Ё‚О‚ЇѓLѓmѓR,Clear mushroom patch,",",w,FUNGUS,FUNGUS,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,180,0,0,0,0,NONE,NONE,-1,5,4,1,0,12,12,12,12,12,12,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:HURT:1d1,,,ATTR_CLEAR|NEVER_MOVE|INVISIBLE|COLD_BLOOD|MULTIPLY|STUPID|EMPTY_MIND|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
+184,“§–ѕ‚Ё‚О‚ЇѓLѓmѓR,Clear mushroom patch,",",w,FUNGUS,FUNGUS,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,180,0,0,0,0,NONE,NONE,-1,5,4,1,0,12,12,12,12,12,12,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:HURT:1d1,,,ATTR_CLEAR|NEVER_MOVE|INVISIBLE|COLD_BLOOD|MULTIPLY|STUPID|EMPTY_MIND|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB,"Yum!  It looks quite tasty.
 ЃI",J0#,,,,
 185,–о“›ѓXѓЌѓbѓg,Quiver slot,",",U,FUNGUS,FUNGUS,0x01,ARCHER,NONE,ORDINARY,NONE,NONE,10,2,50,180,0,0,0,0,NONE,NONE,-1,10,4,1,0,10,12,10,12,10,10,78,10,23,3,78,10,23,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SHOOT:HURT:2d5
 SPORE:CONFUSE:1d1",,,NEVER_MOVE|COLD_BLOOD|MULTIPLY|STUPID|EMPTY_MIND|NO_CONF|NO_SLEEP|NO_FEAR,1_IN_5|SHOOT,,‚»‚к‚НЉп–­‚ЙЊ©‚¦‚йЃB,"It looks weird.
@@ -833,7 +833,7 @@ a point of some sort.""
 
 ЃiЃj",JZ#,,,,
 202,ЋЂ‘М‚М‰т,Undead mass,j,u,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,180,0,0,0,0,NONE,NONE,-1,0,70,12,5,12,12,12,12,12,12,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:DISEASE:1d6
-TOUCH:LOSE_CON:1d6",,,EMPTY_MIND|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR|HURT_LITE|RES_NETH|COLD_BLOOD|NEVER_MOVE|MULTIPLY|VARIABLE_SIZE_EGO,,,"•…‚Б‚Ѕ“чЃAЌњЃAЋи‚И‚З‚М“f‚«‹C‚р‚а‚ж‚Ё‚·‰т‚ѕЃB‚»‚к‚Н‘е‚«‚­‚И‚Б‚Д‚ў‚й
+TOUCH:LOSE_CON:1d6",,,EMPTY_MIND|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR|HURT_LITE|RES_NETH|COLD_BLOOD|NEVER_MOVE|MULTIPLY|VARIABLE_SIZE,,,"•…‚Б‚Ѕ“чЃAЌњЃAЋи‚И‚З‚М“f‚«‹C‚р‚а‚ж‚Ё‚·‰т‚ѕЃB‚»‚к‚Н‘е‚«‚­‚И‚Б‚Д‚ў‚й
 ‚ж‚¤‚ЙЊ©‚¦‚йЃB","A sickening mound of decaying flesh, bones, hands and so on. It seems to 
 be growing.
 
@@ -900,7 +900,7 @@ BITE:HURT:1d4",,,RAND_25|FRIENDS|BASH_DOOR|WILD_WASTE|IM_COLD|DROP_SKELETON|DROP
 icy and its fur coated in frost.
 
 ",J0#,,,,
-212,ѓOѓЊЃ[ѓvЃEѓ[ѓЉЃ[,Grape jelly,j,v,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,12,3,50,300,200,245,0,0,NONE,NONE,-1,0,2,1,99,12,12,12,12,12,12,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:EXP_10,,,NEVER_MOVE|STUPID|EMPTY_MIND|SELF_LITE_1|IM_POIS|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_11|DRAIN_MANA,,‚»‚к‚Н–¬‘Е‚Б‚ДЊх‚р•ъ‚В“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a pulsing mound of glowing flesh.
+212,ѓOѓЊЃ[ѓvЃEѓ[ѓЉЃ[,Grape jelly,j,v,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,12,3,50,300,200,245,0,0,NONE,NONE,-1,0,2,1,99,12,12,12,12,12,12,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:EXP_10,,,NEVER_MOVE|STUPID|EMPTY_MIND|SELF_LITE_1|IM_POIS|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,1_IN_11|DRAIN_MANA,,‚»‚к‚Н–¬‘Е‚Б‚ДЊх‚р•ъ‚В“ч‚М‚ж‚¤‚И•ЁЋї‚М‰т‚ѕЃB,"It is a pulsing mound of glowing flesh.
 ",J0#,,,,
 213,–»ЉEѓCѓ‚ѓЂѓV‚М‘еЊQ,Nether worm mass,w,D,WORM,WORM,0x01,NONE,NONE,ORDINARY,NONE,NONE,12,4,50,300,0,0,0,0,NONE,NONE,-1,-10,10,15,3,12,12,12,12,12,12,1,0,1,0,1,0,1,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:EXP_10,,,RAND_50|RAND_25|CAN_SWIM|STUPID|WEIRD_MIND|MULTIPLY|BASH_DOOR|HURT_LITE|RES_NETH|NO_FEAR,,,"‚»‚к‚НЉх‚Ь‚н‚µ‚ў€ГЌ•‚МѓCѓ‚ѓЂѓV‚М‘еЊQ‚Е‚ ‚иЃA‚ЁЊЭ‚ў‚Й‹¤ђH‚ў‚µ‚ ‚ўЃAЏ°‚в‹у‹C
 ‚і‚¦‚ађH‚Ч‚йЃB‚»‚µ‚Д–`ЊЇЋТ‚і‚¦‚а...ЃB","It is a disgusting mass of dark worms, eating each other, the floor, 
@@ -1015,7 +1015,7 @@ STING:HURT:2d4",,,WEIRD_MIND|BASH_DOOR|DROP_SKELETON,,,‚»‚к‚НЉжЏд‚ИѓAѓS‚Жђл‚Б‚Ѕђ
 ",JZ#,,,,
 233,”Б“_ѓ[ѓЉЃ[,Spotted jelly,j,s,JELLY,JELLY,0x01,NONE,NONE,ORDINARY,NONE,NONE,12,3,50,300,200,245,0,0,NONE,NONE,-1,10,12,18,1,13,13,13,13,13,13,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:2d6
-TOUCH:ACID:2d6",,,NEVER_MOVE|STUPID|EMPTY_MIND|COLD_BLOOD|IM_ACID|IM_POIS|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,ѓ[ѓЉЃ[‚М‚ж‚¤‚И‚а‚М‚ѕЃB,"A jelly thing.
+TOUCH:ACID:2d6",,,NEVER_MOVE|STUPID|EMPTY_MIND|COLD_BLOOD|IM_ACID|IM_POIS|HURT_LITE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,ѓ[ѓЉЃ[‚М‚ж‚¤‚И‚а‚М‚ѕЃB,"A jelly thing.
 ",J0#,,,,
 234,ѓhѓЉѓ_Ѓ[,Drider,S,b,SPIDER,SPIDER,0x01,NONE,NONE,ORDINARY,NONE,NONE,13,2,50,360,0,0,0,0,NONE,NONE,-1,0,8,30,80,13,13,13,13,13,13,190,20,65,10,201,20,72,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SHOOT:HURT:3d6
 HIT:HURT:1d12
@@ -1063,7 +1063,7 @@ HIT:HURT:3d4
 HIT:HURT:3d4",,,WILD_ALL|DROP_SKELETON|DROP_CORPSE|FRIENDS|DROP_60|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK,1_IN_15|SHOOT,,”Ю‚з‚Н‹­‚ў—Н‚ЖЋЅЌ•‚М”§‚рЋќ‚ВѓIЃ[ѓN‚Мђё‹­‚И•”‘°‚М€к€х‚ѕЃB,,J0#,,,,
 245,ѓIЃ[ѓJЃ[ЃEѓ[ѓЉЃ[,Ochre jelly,j,y,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,13,3,50,360,400,286,0,0,NONE,NONE,-1,10,12,18,1,13,13,13,13,13,13,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:2d6
-TOUCH:ACID:2d6",,,STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,"“®‚«‚М‘f‘Ѓ‚ўЃAЋ_‚Й–ћ‚ї‚ ‚У‚к‚Ѕѓ[ѓЉЃ[‚М‚ж‚¤‚И•Ё‘М‚ЕЃA‰с‚и‚МЏ°‚р‚а
+TOUCH:ACID:2d6",,,STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,"“®‚«‚М‘f‘Ѓ‚ўЃAЋ_‚Й–ћ‚ї‚ ‚У‚к‚Ѕѓ[ѓЉЃ[‚М‚ж‚¤‚И•Ё‘М‚ЕЃA‰с‚и‚МЏ°‚р‚а
 •…ђH‚і‚№‚Д‚ў‚йЃB","A fast moving highly acidic jelly thing, that is eating away the floor it 
 rests on.
 
@@ -1103,7 +1103,7 @@ but evil cunning.  It hungers for food, and you look tasty.
 
 
 ",J0#,,,,
-253,•S–ЪЊы,Gibbering mouther,j,o,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,14,4,50,420,0,0,0,0,NONE,NONE,-1,0,15,20,20,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:POISON:1d4,,,NEVER_MOVE|MULTIPLY|CAN_SWIM|IM_POIS|EMPTY_MIND|NO_FEAR|RES_LITE|VARIABLE_SIZE_EGO,1_IN_7|SCARE|CONF|BR_LITE,,–¬“®‚·‚й‚Ѕ‚­‚і‚с‚М“ч‚Ж–Ъ‚ЖЊы‚МЌ¬“Ч‚Ж‚µ‚Ѕ‰т‚ѕЃB,"A chaotic mass of pulsating flesh, mouths and eyes.
+253,•S–ЪЊы,Gibbering mouther,j,o,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,14,4,50,420,0,0,0,0,NONE,NONE,-1,0,15,20,20,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:POISON:1d4,,,NEVER_MOVE|MULTIPLY|CAN_SWIM|IM_POIS|EMPTY_MIND|NO_FEAR|RES_LITE|VARIABLE_SIZE,1_IN_7|SCARE|CONF|BR_LITE,,–¬“®‚·‚й‚Ѕ‚­‚і‚с‚М“ч‚Ж–Ъ‚ЖЊы‚МЌ¬“Ч‚Ж‚µ‚Ѕ‰т‚ѕЃB,"A chaotic mass of pulsating flesh, mouths and eyes.
 ","JZ#
 JZ#AD&D",,,,
 254,ѓtѓЌЃ[ѓ‰‚МѓAѓCѓЉѓbѓVѓ…Њў,Irish wolfhound of Flora,C,s,CANINE,CANINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,14,2,50,420,0,0,0,0,NONE,NONE,-1,10,20,20,0,14,14,14,14,14,14,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:HURT:1d5
@@ -1176,7 +1176,7 @@ CRUSH:SUPERHURT:8d3
 CRUSH:SUPERHURT:8d3
 CRUSH:SUPERHURT:8d3",,,RAND_25|IM_COLD|RES_WATE|AQUATIC|WILD_ALL|RIDING,,,‚»‚с‚И‚Й‘f‘Ѓ‚­‚Н“®‚©‚И‚ў‚ЄЃA‚а‚µ“®‚ў‚Ѕ‚Ж‚«‚Н’Ќ€У‚µ‚лЃI,"It doesn't move very fast, but when it does - watch out!
 ЃI",JZ#,,,,
-267,–‚–@‚Ё‚О‚ЇѓLѓmѓR,Magic mushroom patch,",",B,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,15,2,50,10,0,0,0,0,NONE,NONE,-1,20,40,10,0,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,FORCE_SLEEP|NEVER_MOVE|NEVER_BLOW|FRIENDS|STUPID|RES_TELE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1|VARIABLE_SIZE_EGO,1_IN_1|BLINK|SLOW|SCARE|DARKNESS,,"‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB‚»‚к‚НЉп–­‚ИЊх‚Й‹P‚ў‚Д‚ў‚й
+267,–‚–@‚Ё‚О‚ЇѓLѓmѓR,Magic mushroom patch,",",B,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,15,2,50,10,0,0,0,0,NONE,NONE,-1,20,40,10,0,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,FORCE_SLEEP|NEVER_MOVE|NEVER_BLOW|FRIENDS|STUPID|RES_TELE|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1|VARIABLE_SIZE,1_IN_1|BLINK|SLOW|SCARE|DARKNESS,,"‚¤Ѓ[‚сЃI‚»‚к‚Н‚Ж‚Д‚а‚Ё‚ў‚µ‚»‚¤‚ЙЊ©‚¦‚йЃB‚»‚к‚НЉп–­‚ИЊх‚Й‹P‚ў‚Д‚ў‚й
 ‚ж‚¤‚ѕЃB","Yum!  It looks quite tasty.  It seems to glow with an unusual light.
 ЃI
 ",J0#,,,,
@@ -1281,7 +1281,7 @@ HIT:HURT:3d4
 HIT:HURT:3d4",,,WILD_ALL|DROP_90|OPEN_DOOR|BASH_DOOR|ESCORT|DROP_SKELETON|DROP_CORPSE|RES_DARK|CAN_SPEAK,1_IN_15|SHOOT,,ЉZ‚р’…‚ЅѓIЃ[ѓN‚ЕЃA€РЊµ‚М‚ ‚й•µ€Н‹C‚р•Y‚н‚№‚И‚Є‚зЃA‹°‚й‚Ч‚«йЁ‚Мђє‚Ж‹¤‚Й•”‘а‚рЋwЉц‚µ‚Д‚ў‚йЃB,,J0#,,,,
 286,ѓ[ѓ‰ѓ`ѓiѓXЃEѓLѓ…Ѓ[ѓu,Gelatinous cube,j,B,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,16,4,50,80,800,541,0,0,NONE,NONE,-1,0,12,18,1,14,14,14,14,14,14,300,20,8100,10,300,20,8100,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:1d10
-TOUCH:ACID:1d10",,,FORCE_MAXHP|DROP_1D2|DROP_4D2|STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,,,"‚»‚к‚Н—§•ыЊ`‚р‚µ‚ЅЉп–­‚Е‹ђ‘е‚Иѓ[ѓЉЃ[Џу‚МЌ\‘ў•Ё‚ЕЃA•”‰®‚М
+TOUCH:ACID:1d10",,,FORCE_MAXHP|DROP_1D2|DROP_4D2|STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,,,"‚»‚к‚Н—§•ыЊ`‚р‚µ‚ЅЉп–­‚Е‹ђ‘е‚Иѓ[ѓЉЃ[Џу‚МЌ\‘ў•Ё‚ЕЃA•”‰®‚М
 Ћl•ы‚М•З‚Й‰€‚Б‚Д•А‚с‚Е‚ў‚йЃB‚»‚М“§–ѕ‚И‘М‚М’†‚Й‚НЃA€щ‚ЭЌћ‚Ь‚к‚ЅЌа•у‚Ж
 ‚ў‚­‚з‚©‚МЋЂЉ[‚рЊ©‚ДЋж‚й‚±‚Ж‚Є‚Е‚«‚йЃB","It is a strange, vast gelatinous structure that assumes cubic proportions 
 as it lines all four walls of the corridors it patrols.  Through its 
@@ -1724,7 +1724,7 @@ HIT:SUPERHURT:5d1
 KICK:SUPERHURT:5d5
 HIT:SUPERHURT:5d1",,,DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|IM_ELEC|HAS_LITE_2|IM_FIRE|IM_COLD|IM_POIS|NO_FEAR|NO_CONF|NO_SLEEP|DROP_CORPSE|DROP_SKELETON,1_IN_6|BO_ELEC,,—ОђF‚М–@€Я‚рђg‚Й“Z‚Б‚ЅЃAЊќ–@‚ЙЏn—ы‚µ‚ЅЏCЌs‘m‚ѕЃB,"A green-garbed monk, trained in martial arts.
 ",,,,,
-371,ѓuѓ‰ѓbѓNЃEѓEЃ[ѓY,Black ooze,j,D,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,23,1,50,7,1000,626,0,0,NONE,NONE,-1,-20,10,6,1,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:ACID:2d6,,,RAND_50|DROP_60|STUPID|EMPTY_MIND|MULTIPLY|CAN_SWIM|TAKE_ITEM|KILL_BODY|OPEN_DOOR|BASH_DOOR|IM_POIS|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_11|DRAIN_MANA,,‚»‚к‚НЉп–­‚Й“®‚­“D‚М‚ж‚¤‚И‚а‚М‚ѕЃB,"It is a strangely moving puddle.
+371,ѓuѓ‰ѓbѓNЃEѓEЃ[ѓY,Black ooze,j,D,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,23,1,50,7,1000,626,0,0,NONE,NONE,-1,-20,10,6,1,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,TOUCH:ACID:2d6,,,RAND_50|DROP_60|STUPID|EMPTY_MIND|MULTIPLY|CAN_SWIM|TAKE_ITEM|KILL_BODY|OPEN_DOOR|BASH_DOOR|IM_POIS|NO_FEAR|VARIABLE_SIZE,1_IN_11|DRAIN_MANA,,‚»‚к‚НЉп–­‚Й“®‚­“D‚М‚ж‚¤‚И‚а‚М‚ѕЃB,"It is a strangely moving puddle.
 ",J0#,,,,
 372,Џd‘•”хђнЋm,Hardened warrior,p,u,HUMAN,HUMAN,0x01,NONE,NONE,ORDINARY,NONE,NONE,23,1,50,60,2500,532,0,0,NONE,NONE,-1,0,20,0,40,14,14,14,14,14,14,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d5
 HIT:SUPERHURT:3d5",,,HAS_LITE_2|DROP_1D2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE,,,Џќ‚ѕ‚з‚Ї‚МђнЋm‚ЕЃAЋ©ђM‚Й–ћ‚ї‚Ѕ‘«‚З‚и‚Е•а‚с‚Е‚ў‚йЃB,"A scarred warrior who moves with confidence.
@@ -1900,7 +1900,7 @@ HIT:HURT:1d6
 BITE:HURT:3d4",,,FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|REGENERATE|HURT_LITE|HURT_ROCK,,,ѓUѓ‰ѓUѓ‰‚МЌ•‚ў”з•†‚р‚µ‚Ѕ‹ђ‘е‚ИѓgѓЌѓ‹‚ѕЃB,"He is a giant troll with scabrous black skin.
 ",J0#,,,,
 402,Ќ•,Black,j,d,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,3,50,50,0,0,0,0,NONE,NONE,-1,1,12,65,30,15,15,15,15,15,15,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"ENGULF:EXP_VAMP:2d6
-ENGULF:EXP_VAMP:2d6",,,RAND_25|IM_COLD|IM_POIS|IM_ACID|RES_NETH|EMPTY_MIND|COLD_BLOOD|FRIENDS|VARIABLE_SIZE_EGO,,,"‚Ё‚З‚л‚Ё‚З‚л‚µ‚ўЃwѓCѓu=ѓcѓgѓDѓ‹Ѓx‚МЊЊ‚Н‚Ѕ‚ѕЃuЌ•Ѓv‚Ж‚ў‚¤–ј‚Е’m‚з‚к‚Д‚ў‚йЃB
+ENGULF:EXP_VAMP:2d6",,,RAND_25|IM_COLD|IM_POIS|IM_ACID|RES_NETH|EMPTY_MIND|COLD_BLOOD|FRIENDS|VARIABLE_SIZE,,,"‚Ё‚З‚л‚Ё‚З‚л‚µ‚ўЃwѓCѓu=ѓcѓgѓDѓ‹Ѓx‚МЊЊ‚Н‚Ѕ‚ѕЃuЌ•Ѓv‚Ж‚ў‚¤–ј‚Е’m‚з‚к‚Д‚ў‚йЃB
 ‚»‚к‚Н•s’иЊ^‚М•Ё‘М‚ЕЃA‚ ‚И‚Ѕ‚Мђ¶–Ѕ‚р‹z‚ў‚Ж‚Б‚ДЃwѓCѓu=ѓcѓgѓDѓ‹Ѓx
 ‚Й“Н‚Ї‚й‚ѕ‚л‚¤ЃB","The eldritch blood of Yibb-Tstll is know only as ""the Black"": it is 
 an amorphous substance, who will suck your life and deliver it to 
@@ -2973,7 +2973,7 @@ rather less solid as you see gravity warp all round the monsters.
 541,Ћ_ђ«ЌЧ–E,Acidic cytoplasm,j,G,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,35,5,50,36,2000,585,0,0,NONE,NONE,-1,10,12,18,1,18,18,18,18,18,18,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:1d10
 TOUCH:ACID:1d10
-TOUCH:ACID:1d10",,,FORCE_MAXHP|TAKE_ITEM|COLD_BLOOD|DROP_1D2|DROP_4D2|CAN_SWIM|STUPID|EMPTY_MIND|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,”j‰у‚рЊJ‚и•Ф‚·ѓhѓЌѓhѓЌ‚µ‚Ѕђ¶•Ё‚ѕЃB‚»‚М‹°‚й‚Ч‚«ђH—~‚Н‹°•|‚ѕЃB,"A disgusting animated blob of destruction.  Flee its gruesome hunger!
+TOUCH:ACID:1d10",,,FORCE_MAXHP|TAKE_ITEM|COLD_BLOOD|DROP_1D2|DROP_4D2|CAN_SWIM|STUPID|EMPTY_MIND|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,”j‰у‚рЊJ‚и•Ф‚·ѓhѓЌѓhѓЌ‚µ‚Ѕђ¶•Ё‚ѕЃB‚»‚М‹°‚й‚Ч‚«ђH—~‚Н‹°•|‚ѕЃB,"A disgusting animated blob of destruction.  Flee its gruesome hunger!
 ","J0#
 J0#
 J0#(ѓRѓЃѓ“ѓg)
@@ -3347,7 +3347,7 @@ HIT:FIRE:3d7",,,FORCE_SLEEP|AURA_FIRE|WILD_VOLCANO|KILL_ITEM|KILL_BODY|PASS_WALL
 585,ѓuѓ‰ѓbѓNЃEѓvѓЉѓ“,Black pudding,j,D,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,37,5,50,36,0,0,0,0,NONE,NONE,-1,0,12,18,1,18,18,18,18,18,18,200,30,240,3,200,30,240,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:1d10
 TOUCH:ACID:1d10
-TOUCH:ACID:1d10",,,FORCE_MAXHP|FRIENDS|DROP_60|DROP_90|DROP_1D2|STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|CAN_SWIM|VARIABLE_SIZE_EGO,,,•…‚Б‚ЅЌ•‚ў“ч‚М‰т‚ЕЃAѓ_ѓ“ѓWѓ‡ѓ“‚МЏ°‚р‚Н‚ў‚ё‚и‰с‚Б‚Д‚ў‚йЃB,"A lump of rotting black flesh that slurrrrrrrps across the dungeon floor.
+TOUCH:ACID:1d10",,,FORCE_MAXHP|FRIENDS|DROP_60|DROP_90|DROP_1D2|STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|CAN_SWIM|VARIABLE_SIZE,,,•…‚Б‚ЅЌ•‚ў“ч‚М‰т‚ЕЃAѓ_ѓ“ѓWѓ‡ѓ“‚МЏ°‚р‚Н‚ў‚ё‚и‰с‚Б‚Д‚ў‚йЃB,"A lump of rotting black flesh that slurrrrrrrps across the dungeon floor.
 ",J0#,,,,
 586,ЋEђlѓ^ѓ}ѓЂѓV,Killer iridescent beetle,K,v,INSECT,INSECT,0x01,NONE,NONE,ORDINARY,NONE,NONE,37,2,50,850,0,0,0,0,NONE,NONE,-1,0,16,60,30,18,18,18,18,18,18,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:ELEC:1d12
 CLAW:ELEC:1d12
@@ -3709,7 +3709,7 @@ BITE:ACID:5d10",,,FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_3D2|DROP_4D2|DROP_CORPSE|
 ENGULF:CONFUSE:8d4",,,FORCE_SLEEP|RAND_50|RAND_25|RES_CHAO|RES_NEXU|AURA_ELEC|IM_FIRE|IM_ELEC|EMPTY_MIND|BASH_DOOR|POWERFUL|CAN_FLY|ATTR_MULTI|ATTR_ANY|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING,1_IN_6|BR_CHAO|BR_NEXU|BR_NUKE,,‰QЉЄ‚­—†ђщЏу‚М–¶‚ЕЃAЏн‚ЙЊ`‚р•П‚¦‚Д‚ў‚йЃB,"A swirling spiral of mist, constantly changing its appearance.
 ",JZ#,,,,
 626,ѓEѓ{=ѓTѓXѓ‰‚М—Ћ‚Ж‚µЋq,Spawn of Ubbo-Sathla,j,v,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,40,5,50,150,0,0,0,0,NONE,NONE,-1,5,100,40,50,19,19,19,19,19,19,200,30,240,3,200,30,240,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:ACID:8d4
-CRUSH:ACID:8d4",,,FORCE_SLEEP|ATTR_MULTI|ATTR_ANY|MULTIPLY|RAND_25|RES_NEXU|AURA_ELEC|IM_FIRE|IM_ELEC|EMPTY_MIND|BASH_DOOR|POWERFUL|KILL_BODY|CAN_SWIM|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,‹C–Ў‚М€«‚ўѓ[ѓЉЃ[Џуђ¶•ЁЃB“Ї‚¶‚ж‚¤‚Й‚Э‚¦‚й‚а‚М‚Н“с‚В‚Ж–і‚ўЃB,"Weird, jelly like creatures. No two look the same.
+CRUSH:ACID:8d4",,,FORCE_SLEEP|ATTR_MULTI|ATTR_ANY|MULTIPLY|RAND_25|RES_NEXU|AURA_ELEC|IM_FIRE|IM_ELEC|EMPTY_MIND|BASH_DOOR|POWERFUL|KILL_BODY|CAN_SWIM|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,‹C–Ў‚М€«‚ўѓ[ѓЉЃ[Џуђ¶•ЁЃB“Ї‚¶‚ж‚¤‚Й‚Э‚¦‚й‚а‚М‚Н“с‚В‚Ж–і‚ўЃB,"Weird, jelly like creatures. No two look the same.
 ","JZ#
 JZ#by ‹v—Ї‚і‚с",,,,
 627,’nЌ–‚М“S’Ж,Hammer of hell,\,v,MIMIC,MIMIC,0x00,NONE,NONE,ORDINARY,NONE,NONE,24,5,50,1000,0,0,0,0,NONE,NONE,-1,-10,30,40,0,14,14,14,14,14,14,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRUSH:SUPERHURT:30d1,,,COLD_BLOOD|NO_SLEEP|NO_CONF|NO_FEAR|NO_STUN|NONLIVING|IM_ACID|IM_COLD|IM_POIS|RES_NETH|RES_DARK|BASH_DOOR,,,‹]ђµЋТ‚М‘•”х‚ЖЌ°‚рЊЕ‚Я‚ДЃA’nЌ–‚М“SЏ°‚Е’b‚¦‚Д‚Е‚«‚Ѕ‰РЃX‚µ‚ў“S’Ж‚ѕЃB,"A foul iron hammer forged with body and souls of victims on the infernal anvil.
@@ -7252,7 +7252,7 @@ ENGULF:POISON:5d6",,,AQUATIC|SMART|WEIRD_MIND|IM_POIS|RES_WATE|NO_CONF|NO_SLEEP|
 ",,,,,
 904,Ќ¬“Ч‚Ё‚О‚ЇѓLѓmѓR,Chaos mushroom,",",g,FUNGUS,FUNGUS,0x00,NONE,NONE,ORDINARY,NONE,NONE,23,3,50,360,0,0,0,0,NONE,NONE,-1,10,10,4,2,14,14,14,14,14,14,100,30,100,3,100,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SPORE:POISON:3d4
 SPORE:CONFUSE:3d4
-SPORE:BLIND:3d4",,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|RES_DISE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO,1_IN_11|BR_NUKE|BR_POIS,,"‹ђ‘е‚ИЊы‚рЋќ‚Б‚Д‚ў‚й‚ж‚¤‚ЙЊ©‚¦‚й‚З‚Б‚µ‚и‚Ж‚µ‚ЅѓLѓmѓR‚ѕЃB
+SPORE:BLIND:3d4",,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|RES_DISE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE,1_IN_11|BR_NUKE|BR_POIS,,"‹ђ‘е‚ИЊы‚рЋќ‚Б‚Д‚ў‚й‚ж‚¤‚ЙЊ©‚¦‚й‚З‚Б‚µ‚и‚Ж‚µ‚ЅѓLѓmѓR‚ѕЃB
 ‚±‚МѓLѓmѓR‚Н‚З‚±‚Й‚Е‚ађ¶‚¦‚Д‚Ь‚н‚и‚М‹у‹C‚р”Z‚ўбЏ‹C‚Е‰ђх‚·‚йЃB","It is a massive mushroom that seems to have a huge mouth. The air is thick
 with miasma, and you notice to your horror that the fungus is sprouting
 everywhere!
@@ -7580,13 +7580,13 @@ KICK:HURT:2d4",,,WILD_WASTE|BASH_DOOR|RAND_25|DROP_SKELETON|DROP_CORPSE|RIDING,,
 Watch out for it's reckless kicking.
 
 ", Description in English by Nick Keulmann,,,,
-958,ђФ‚Х‚ж,Red puyo,j,r,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:FIRE:10d2,,,IM_ACID|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,ђФ‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious red jelly thing.  It looks ready to explode.
+958,ђФ‚Х‚ж,Red puyo,j,r,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:FIRE:10d2,,,IM_ACID|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,ђФ‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious red jelly thing.  It looks ready to explode.
 ", Description in English by Nick Keulmann,,,,
-959,ђВ‚Х‚ж,Blue puyo,j,b,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:COLD:10d2,,,IM_ACID|IM_FIRE|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,ђВ‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious blue jelly thing.  It looks ready to explode.
+959,ђВ‚Х‚ж,Blue puyo,j,b,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:COLD:10d2,,,IM_ACID|IM_FIRE|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,ђВ‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious blue jelly thing.  It looks ready to explode.
 ",,,,,
-960,‰©‚Х‚ж,Yellow puyo,j,y,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:ELEC:10d2,,,IM_ACID|IM_FIRE|IM_COLD|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,‰©ђF‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious yellow jelly thing.  It looks ready to explode.
+960,‰©‚Х‚ж,Yellow puyo,j,y,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:ELEC:10d2,,,IM_ACID|IM_FIRE|IM_COLD|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,‰©ђF‚­‚Д‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious yellow jelly thing.  It looks ready to explode.
 ",,,,,
-961,—О‚Х‚ж,Green puyo,j,g,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:ACID:10d2,,,IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO,,,—ОђF‚Е‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious green jelly thing.  It looks ready to explode.
+961,—О‚Х‚ж,Green puyo,j,g,JELLY,JELLY,0x00,NONE,NONE,ORDINARY,NONE,NONE,25,8,50,50,0,0,0,0,NONE,NONE,-1,10,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:ACID:10d2,,,IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE,,,—ОђF‚Е‚Х‚ж‚Х‚ж‚µ‚Ѕ“д‚Мђ¶•Ё‚ѕЃB,"A mysterious green jelly thing.  It looks ready to explode.
 ",,,,,
 962,ѓXѓ‰ѓCѓЂѓ‚ѓ‹ѓh,Slime Mold,",",g,FUNGUS,FUNGUS,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,12,4,50,300,0,0,0,0,NONE,NONE,-1,-5,1,0,10,13,13,13,13,13,13,200,30,100,3,200,30,100,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:POISON:2d5
 TOUCH:POISON:2d5",,,SMART|COLD_BLOOD|WEIRD_MIND|MULTIPLY|REGENERATE|MOVE_BODY|NONLIVING|RES_TELE|CAN_SWIM|WILD_SWAMP,1_IN_10|SHRIEK|MIND_BLAST,,"‰В€¤‚з‚µ‚ўЏѓђS–іЌC‚ИѓXѓ‰ѓCѓЂѓ‚ѓ‹ѓh‚ѕЃB

@@ -3029,12 +3029,14 @@ static errr traits_splits(traits *flags_ptr, char *tmp)
 				b = 1;
 				c = PY_MAX_LEVEL + 1;
 			}
-			else return PARSE_ERROR_GENERIC;
+			else
+				return PARSE_ERROR_GENERIC;
 		}
 
 		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
 		{
-			if(sscanf(flag_aux, "%s", &flagname) != 1) return 1;
+			if(sscanf(flag_aux, "%s", &flagname) != 1)
+				return PARSE_ERROR_GENERIC;
 			prob = 100;
 		}
 

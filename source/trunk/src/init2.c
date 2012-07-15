@@ -223,7 +223,6 @@ void init_file_paths(char *path)
 int error_idx;
 int error_line;
 
-
 /*
  * Standard error message text
  */
