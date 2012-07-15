@@ -1321,7 +1321,6 @@ struct creature_type
 	u32b flags7;			/* Flags 7 (movement related abilities) */
 	u32b flags8;			/* Flags 8 (wilderness info) */
 	u32b flags9;			/* Flags 9 (drops info) */
-	u32b flags10;			/* Flags R (resistances info) */
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
