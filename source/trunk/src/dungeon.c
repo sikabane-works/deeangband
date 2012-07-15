@@ -2318,9 +2318,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	/* No mutation with effects */
-	if (!creature_ptr->flags13) return;
-
 	/* No effect on creature arena */
 	if (gamble_arena_mode) return;
 
