@@ -115,7 +115,7 @@ int calc_mutant_regenerate_mod(creature_type *cr_ptr)
 	 */
 
 	if (cr_ptr->chara_idx == CHARA_LUCKY) count--;
-	if (cr_ptr->race_idx1 == RACE_BEASTMAN)
+	if (has_trait(cr_ptr, TRAIT_KALEIDOSCOPIC_RACE))
 	{
 		count -= 10;
 		mod = 5;
