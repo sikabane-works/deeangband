@@ -1120,12 +1120,6 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->flags1);
 	rd_u32b(&cr_ptr->flags2);
 	rd_u32b(&cr_ptr->flags3);
-	rd_u32b(&cr_ptr->flags4);
-	rd_u32b(&cr_ptr->flags5);
-	rd_u32b(&cr_ptr->flags6);
-	rd_u32b(&cr_ptr->flags7);
-	rd_u32b(&cr_ptr->flags8);
-	rd_u32b(&cr_ptr->flags9);
 
 	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&cr_ptr->karmas[i]);
 
