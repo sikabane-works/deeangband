@@ -2801,6 +2801,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	// Species
 	creature_ptr->ac += species_ptr->ac;
 	creature_ptr->dis_ac += species_ptr->ac;
+	creature_ptr->ev += species_ptr->ev;
+	creature_ptr->dis_ev += species_ptr->ev;
 	creature_ptr->speed += species_ptr->speed;
 
 	creature_ptr->see_infra += MAX(race1_ptr->infra, race2_ptr->infra); // Base infravision (purely racial)
