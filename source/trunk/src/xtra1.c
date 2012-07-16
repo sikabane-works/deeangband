@@ -2949,12 +2949,11 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_thn += chara_ptr->a_thn;
 	creature_ptr->skill_thb += chara_ptr->a_thb;
 	creature_ptr->skill_tht += chara_ptr->a_thb;
+	creature_ptr->to_m_chance += chara_ptr->m_pena;
 
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
-	if (creature_ptr->chara_idx == CHARA_NAMAKE) creature_ptr->to_m_chance += 10;
-	if (creature_ptr->chara_idx == CHARA_KIREMONO) creature_ptr->to_m_chance -= 3;
+
 	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
-	if ((creature_ptr->chara_idx == CHARA_GAMAN) || (creature_ptr->chara_idx == CHARA_CHIKARA)) creature_ptr->to_m_chance++;
 
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{

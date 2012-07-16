@@ -1140,6 +1140,7 @@ struct chara_type
 	s16b a_thb;			/* chara combat (shooting) */
 
 	s16b a_mhp;			/* patron hit-dice modifier */
+	s16b m_pena;
 
 	byte no;			/* Japanese "no" */
 	byte sex;			/* seibetu seigen */

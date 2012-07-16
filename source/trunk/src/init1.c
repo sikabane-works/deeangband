@@ -5252,6 +5252,7 @@ enum CHARA_INFO {
 	CH_INFO_HD,
 	CH_INFO_JP_NO,
 	CH_INFO_SEX,
+	CH_INFO_M_PENA,
 	CH_INFO_FLAGS,
 	CH_INFO_CSV_COLUMNS
 };
@@ -5281,6 +5282,7 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 	"HD",
 	"JP_NO",
 	"SEX",
+	"M_PENA",
 	"FLAGS",
 };
 
@@ -5439,6 +5441,11 @@ errr parse_chara_info_csv(char *buf, header *head)
 				case CH_INFO_SEX:
 					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
 					chara_info[n].sex = (byte)b;
+					break;
+
+				case CH_INFO_M_PENA:
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+					chara_info[n].m_pena = (s16b)b;
 					break;
 
 				case CH_INFO_FLAGS:
