@@ -2834,29 +2834,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	switch (creature_ptr->class_idx)
 	{
-		/*
-		case CLASS_WARRIOR:
-			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
-			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
-			break;
-		*/
-
-		case CLASS_PALADIN:
-			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
-			break;
-
-		case CLASS_CHAOS_WARRIOR:
-			if (creature_ptr->lev > 29) creature_ptr->resist_chaos = TRUE;
-			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;
-			break;
-
-		case CLASS_MINDCRAFTER:
-			if (creature_ptr->lev >  9) creature_ptr->resist_fear = TRUE;
-			if (creature_ptr->lev > 19) creature_ptr->sustain_wis = TRUE;
-			if (creature_ptr->lev > 29) creature_ptr->resist_conf = TRUE;
-			if (creature_ptr->lev > 39) creature_ptr->telepathy = TRUE;
-			break;
-
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 			if (!(heavy_armor(creature_ptr))) // Unencumbered Monks become faster every 10 levels
@@ -2872,13 +2849,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac -= 50;
 			break;
 
-		case CLASS_BARD:
-			creature_ptr->resist_sound = TRUE;
-			break;
-
-		case CLASS_SAMURAI:
-			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
-			break;
 
 		case CLASS_BERSERKER:
 			creature_ptr->shero = 1;
