@@ -1513,6 +1513,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	disturb(player_ptr, 0, 0); // Disturb the player
 
+	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+
 	// Extract attacker and target name (or "it")
 	creature_desc(target_name, target_ptr, 0);
 	creature_desc(attacker_name, attacker_ptr, 0);
