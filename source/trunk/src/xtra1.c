@@ -2953,15 +2953,8 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
 
-	if (creature_ptr->chara_idx == CHARA_CHARGEMAN) creature_ptr->resist_conf = TRUE;
-
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		/*
-		creature_ptr->resist_blind = TRUE;
-		creature_ptr->resist_conf  = TRUE;
-		creature_ptr->hold_life = TRUE;
-		*/
 		if (creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
 
 		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE)) // Munchkin become faster
