@@ -4325,7 +4325,89 @@ errr parse_trait_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 71
+enum RC_INFO
+{
+	RC_INFO_ID,
+	RC_INFO_COMMON,
+	RC_INFO_NAME,
+	RC_INFO_E_NAME,
+	RC_INFO_SEX,
+	RC_INFO_LEV,
+	RC_INFO_DR,
+	RC_INFO_P_STR,
+	RC_INFO_P_INT,
+	RC_INFO_P_WIS,
+
+	RC_INFO_P_DEX,
+	RC_INFO_P_CON,
+	RC_INFO_P_CHA,
+	RC_INFO_H_STR,
+	RC_INFO_H_INT,
+	RC_INFO_H_WIS,
+	RC_INFO_H_DEX,
+	RC_INFO_H_CON,
+	RC_INFO_H_CHA,
+	RC_INFO_P_DIS,
+
+	RC_INFO_P_DEV,
+	RC_INFO_P_ROB,
+	RC_INFO_P_EVA,
+	RC_INFO_P_VOL,
+	RC_INFO_P_STL,
+	RC_INFO_P_SRH,
+	RC_INFO_P_FOS,
+	RC_INFO_P_THN,
+	RC_INFO_P_THB,
+	RC_INFO_P_INFRA,
+	RC_INFO_H_DIS,
+	RC_INFO_H_DEV,
+
+	RC_INFO_H_ROB,
+	RC_INFO_H_EVA,
+	RC_INFO_H_VOL,
+	RC_INFO_H_STL,
+	RC_INFO_H_SRH,
+	RC_INFO_H_FOS,
+	RC_INFO_H_THN,
+	RC_INFO_H_THB,
+	RC_INFO_H_INFRA,
+	RC_INFO_M_HB,
+	RC_INFO_M_HM,
+	RC_INFO_M_WB,
+
+	RC_INFO_M_WM,
+	RC_INFO_F_HB,
+	RC_INFO_F_HM,
+	RC_INFO_F_WB,
+	RC_INFO_F_WM,
+	RC_INFO_P_HITD_M,
+
+	RC_INFO_H_HITD_M,
+	RC_INFO_P_EXP,
+	RC_INFO_H_EXP,
+	RC_INFO_SYM,
+	RC_INFO_AGE,
+	RC_INFO_AGE_ADD,
+	RC_INFO_P_FLAGS,
+	RC_INFO_H_FLAGS,
+	RC_INFO_SUIT_CLASS,
+	RC_INFO_DESCRIPTION,
+	RC_INFO_E_DESCRIPTION,
+
+	RC_INFO_HAND,
+	RC_INFO_RING,
+	RC_INFO_AMULET,
+	RC_INFO_BODY,
+	RC_INFO_OUTER,
+	RC_INFO_HEAD,
+	RC_INFO_ARMS,
+	RC_INFO_FEET,
+	RC_INFO_TAIL,
+	RC_INFO_INTAKE,
+
+	RC_INFO_CSV_COLUMNS,
+};
+
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4409,84 +4491,6 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 };
 
 static enum DUNGEON_INFO rc_info_csv_code[RC_INFO_CSV_COLUMNS];
-
-#define RC_INFO_ID			0
-#define RC_INFO_COMMON		1
-#define RC_INFO_NAME		2
-#define RC_INFO_E_NAME		3
-#define RC_INFO_SEX			4
-#define RC_INFO_LEV			5
-#define RC_INFO_DR			6
-#define RC_INFO_P_STR		7
-#define RC_INFO_P_INT		8
-#define RC_INFO_P_WIS		9
-
-#define RC_INFO_P_DEX		10
-#define RC_INFO_P_CON		11
-#define RC_INFO_P_CHA		12
-#define RC_INFO_H_STR		13
-#define RC_INFO_H_INT		14
-#define RC_INFO_H_WIS		15
-#define RC_INFO_H_DEX		16
-#define RC_INFO_H_CON		17
-#define RC_INFO_H_CHA		18
-#define RC_INFO_P_DIS		19
-
-#define RC_INFO_P_DEV		20
-#define RC_INFO_P_ROB		21
-#define RC_INFO_P_EVA		22
-#define RC_INFO_P_VOL		23
-#define RC_INFO_P_STL		24
-#define RC_INFO_P_SRH		25
-#define RC_INFO_P_FOS		26
-#define RC_INFO_P_THN		27
-#define RC_INFO_P_THB		28
-#define RC_INFO_P_INFRA		29
-#define RC_INFO_H_DIS		30
-#define RC_INFO_H_DEV		31
-
-#define RC_INFO_H_ROB		32
-#define RC_INFO_H_EVA		33
-#define RC_INFO_H_VOL		34
-#define RC_INFO_H_STL		35
-#define RC_INFO_H_SRH		36
-#define RC_INFO_H_FOS		37
-#define RC_INFO_H_THN		38
-#define RC_INFO_H_THB		39
-#define RC_INFO_H_INFRA		40
-#define RC_INFO_M_HB		41
-#define RC_INFO_M_HM		42
-#define RC_INFO_M_WB		43
-
-#define RC_INFO_M_WM		44
-#define RC_INFO_F_HB		45
-#define RC_INFO_F_HM		46
-#define RC_INFO_F_WB		47
-#define RC_INFO_F_WM		48
-#define RC_INFO_P_HITD_M	49
-
-#define RC_INFO_H_HITD_M	50
-#define RC_INFO_P_EXP		51
-#define RC_INFO_H_EXP		52
-#define RC_INFO_SYM			53
-#define RC_INFO_AGE			54
-#define RC_INFO_AGE_ADD		55
-#define RC_INFO_P_FLAGS		56
-#define RC_INFO_H_FLAGS		57
-#define RC_INFO_SUIT_CLASS	58
-#define RC_INFO_DESCRIPTION		59
-#define RC_INFO_E_DESCRIPTION	60
-
-#define RC_INFO_HAND 61
-#define RC_INFO_RING 62
-#define RC_INFO_AMULET 63
-#define RC_INFO_BODY 64
-#define RC_INFO_OUTER 65
-#define RC_INFO_HEAD 66
-#define RC_INFO_ARMS 67
-#define RC_INFO_FEET 68
-#define RC_INFO_TAIL 69
-#define RC_INFO_INTAKE 70
 
 errr parse_race_info_csv(char *buf, header *head)
 {
