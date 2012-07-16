@@ -2834,10 +2834,12 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	switch (creature_ptr->class_idx)
 	{
+		/*
 		case CLASS_WARRIOR:
 			if (creature_ptr->lev > 29) creature_ptr->resist_fear = TRUE;
 			if (creature_ptr->lev > 44) creature_ptr->regenerate = TRUE;
 			break;
+		*/
 
 		case CLASS_PALADIN:
 			if (creature_ptr->lev > 39) creature_ptr->resist_fear = TRUE;

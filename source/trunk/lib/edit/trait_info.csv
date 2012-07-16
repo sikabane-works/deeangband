@@ -91,7 +91,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 89,NO_WOUND,-1,-1,出血しない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 90,HOLD_LIFE,-1,-1,生命力維持,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 91,NO_BLIND,-1,-1,盲目にならない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
-92,NO_FEAR,-1,-1,恐慌に陥らない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
+92,XXX0092,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 93,NO_STUN,-1,-1,朦朧としない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 94,NO_CONF,-1,-1,混乱しない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
 95,NO_SLEEP,-1,-1,麻痺しない,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,
@@ -438,7 +438,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 436,SCALES,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"あなたの肌は鱗になっている。(魅力-1, AC+10) ","Your skin has turned into scales (-1 CHR, +10 AC). ",肌が黒い鱗に変わった！,Your skin turns into black scales!,鱗が消えた！,Your scales vanish!
 437,IRON_SKIN,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"あなたの肌は鉄でできている。(器用-1, AC+25) ","Your skin is made of steel (-1 DEX, +25 AC). ",あなたの肌は鉄になった！,Your skin turns to steel!,肌が肉にもどった！,Your skin reverts to flesh!
 438,WINGS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは羽を持っている。 ,You have wings. ,背中に羽が生えた。,You grow a pair of wings.,背中の羽根が取れ落ちた。,Your wings fall off.
-439,FEARLESS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは全く恐怖を感じない。 ,You are completely fearless. ,完全に怖れ知らずになった。,You become completely fearless.,再び恐怖を感じるようになった。,You begin to feel fear again.
+439,FEARLESS,-1,-1,恐れ知らず,Fearless,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは全く恐怖を感じない。 ,You are completely fearless. ,完全に怖れ知らずになった。,You become completely fearless.,再び恐怖を感じるようになった。,You begin to feel fear again.
 440,REGEN,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは急速に回復する。 ,You are regenerating. ,急速に回復し始めた。,You start regenerating.,急速回復しなくなった。,You stop regenerating.
 441,ESP,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはテレパシーを持っている。 ,You are telepathic. ,テレパシーの能力を得た！,You develop a telepathic ability!,テレパシーの能力を失った！,You lose your telepathic ability!
 442,LIMBER,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの体は非常にしなやかだ。(器用+3) ,Your body is very limber (+3 DEX). ,筋肉がしなやかになった。,Your muscles become limber.,筋肉が硬くなった。,Your muscles stiffen.
