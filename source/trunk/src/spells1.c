@@ -5672,7 +5672,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 
 				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (caster_ptr->cursed & TRC_AGGRAVATE)
+			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
@@ -5747,7 +5747,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				obvious = FALSE;
 				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (caster_ptr->cursed & TRC_AGGRAVATE)
+			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
@@ -5822,7 +5822,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				obvious = FALSE;
 				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (caster_ptr->cursed & TRC_AGGRAVATE)
+			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
@@ -5908,7 +5908,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				obvious = FALSE;
 				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (caster_ptr->cursed & TRC_AGGRAVATE)
+			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
@@ -5997,7 +5997,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				obvious = FALSE;
 				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (caster_ptr->cursed & TRC_AGGRAVATE)
+			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
@@ -7052,7 +7052,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 				else if ((is_quest_creature(target_ptr)) ||
 				    (is_unique_creature(target_ptr)) ||
 				    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				    (caster_ptr->cursed & TRC_AGGRAVATE) ||
+				    (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					 ((species_ptr->level+10) > randint1(dam)))
 				{
 					/* Resist */

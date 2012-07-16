@@ -146,7 +146,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		{
 			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
 			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
-			if (atk_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
+			if (has_trait(atk_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if (r_ptr->level > (atk_ptr->lev * atk_ptr->lev / 20 + 10)) tmp /= 3;
 			if (tar_ptr->paralyzed && tar_ptr->ml)
 			{

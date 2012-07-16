@@ -1564,7 +1564,7 @@ static void process_nonplayer(int m_idx)
 	{
 		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
 		if (player_ptr->monlite) tmp /= 3;
-		if (player_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
+		if (has_trait(player_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 		if (r_ptr->level > (player_ptr->lev * player_ptr->lev / 20 + 10)) tmp /= 3;
 		// Low-level creatures will find it difficult to locate the player.
 		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
@@ -1656,7 +1656,7 @@ static void process_nonplayer(int m_idx)
 	if (creature_ptr->paralyzed)
 	{
 		// Handle non-aggravation - Still sleeping
-		if (!(player_ptr->cursed & TRC_AGGRAVATE)) return;
+		if (!has_trait(player_ptr, TRAIT_ANTIPATHY)) return;
 
 		// Handle aggravation
 		// Reset sleep counter
@@ -1691,7 +1691,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 	// No one wants to be your friend if you're aggravating
-	if (is_friendly(player_ptr, creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE)) gets_angry = TRUE;
+	if (is_friendly(player_ptr, creature_ptr) && (has_trait(player_ptr, TRAIT_ANTIPATHY))) gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, creature_ptr) &&
@@ -2609,22 +2609,8 @@ static void process_creature(int i)
 		test = TRUE;
 
 	// Handle "sight" and "aggravation"
-	else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || (player_ptr->cursed & TRC_AGGRAVATE)))
+	else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY)))
 		test = TRUE;
-
-#if 0 
-	/* (floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) is always FALSE... */
-	/* Hack -- Creatures can "smell" the player from far away */
-	/* Note that most creatures have "aaf" of "20" or so */
-	else if (!(creature_ptr->mflag2 & MFLAG2_NOFLOW) &&
-		cave_have_flag_bold(player_ptr->fy, player_ptr->fx, FF_MOVE) &&
-		(floor_ptr->cave[player_ptr->fy][player_ptr->fx].when == floor_ptr->cave[fy][fx].when) &&
-		(floor_ptr->cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
-		(floor_ptr->cave[fy][fx].dist < species_ptr->aaf))
-	{
-		test = TRUE; // We can "smell" the player
-	}
-#endif
 
 	else if (creature_ptr->target_y) test = TRUE;
 

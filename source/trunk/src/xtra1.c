@@ -2951,8 +2951,6 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_tht += chara_ptr->a_thb;
 	creature_ptr->to_m_chance += chara_ptr->m_pena;
 
-	if (creature_ptr->chara_idx == CHARA_SEXY) creature_ptr->cursed |= (TRC_AGGRAVATE);
-
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		if (creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
@@ -3506,7 +3504,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
 		/* Various flags */
-		if (have_flag(flgs, TR_AGGRAVATE))   creature_ptr->cursed |= TRC_AGGRAVATE;
 		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
 		if (have_flag(flgs, TR_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
 		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
@@ -4925,9 +4922,9 @@ static void fix_creature_status(creature_type *creature_ptr)
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
-	if ((IS_RACE(creature_ptr, RACE_S_FAIRY)) && (creature_ptr->chara_idx != CHARA_SEXY) && (creature_ptr->cursed & TRC_AGGRAVATE))
+	if ((IS_RACE(creature_ptr, RACE_S_FAIRY)) && has_trait(creature_ptr, TRAIT_ANTIPATHY))
 	{
-		creature_ptr->cursed &= ~(TRC_AGGRAVATE);
+		//TODO creature_ptr->cursed &= ~(TRC_AGGRAVATE);
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 

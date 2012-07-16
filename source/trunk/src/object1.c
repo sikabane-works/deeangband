@@ -3663,6 +3663,7 @@ info[i++] = "それは太古の禍々しい怨念が宿っている。";
 #endif
 
 	}
+/*
 	if ((have_flag(flgs, TR_AGGRAVATE)) || (o_ptr->curse_flags & TRC_AGGRAVATE))
 	{
 #ifdef JP
@@ -3672,6 +3673,7 @@ info[i++] = "それは付近のクリーチャーを怒らせる。";
 #endif
 
 	}
+*/
 	if ((have_flag(flgs, TR_DRAIN_EXP)) || (o_ptr->curse_flags & TRC_DRAIN_EXP))
 	{
 #ifdef JP

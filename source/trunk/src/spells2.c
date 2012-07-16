@@ -293,15 +293,6 @@ info[i++] = "あなたは邪悪な怨念に包まれている。";
 #endif
 
 	}
-	if (creature_ptr->cursed & TRC_AGGRAVATE)
-	{
-#ifdef JP
-info[i++] = "あなたはクリーチャーを怒らせている。";
-#else
-		info[i++] = "You aggravate creatures.";
-#endif
-
-	}
 	if (creature_ptr->cursed & TRC_DRAIN_EXP)
 	{
 #ifdef JP
