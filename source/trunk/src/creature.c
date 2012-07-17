@@ -991,36 +991,6 @@ bool is_random_walker_50_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_RAND_50]);
 }
 
-bool is_aura_fire_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_AURA_FIRE);	
-}
-
-bool is_aura_fire_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_AURA_FIRE]);
-}
-
-bool is_aura_cold_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_AURA_COLD);	
-}
-
-bool is_aura_cold_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_AURA_COLD]);
-}
-
-bool is_aura_elec_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_AURA_ELEC);	
-}
-
-bool is_aura_elec_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_AURA_ELEC]);
-}
-
 bool is_powerful_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_POWERFUL);	

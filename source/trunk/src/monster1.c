@@ -422,7 +422,7 @@ static bool mon_hook_shallow_water(int species_idx)
 
 	if (!species_hook_dungeon(species_idx)) return FALSE;
 
-	if (is_aura_fire_species(r_ptr))
+	if (has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE))
 		return FALSE;
 	else
 		return TRUE;
@@ -437,7 +437,7 @@ static bool mon_hook_lava(int species_idx)
 
 	if ((has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE) ||
 	     can_fly_species(r_ptr)) &&
-	    !is_aura_cold_species(r_ptr))
+	    !has_trait_raw(&r_ptr->flags, TRAIT_AURA_COLD))
 		return TRUE;
 	else
 		return FALSE;
@@ -621,7 +621,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Shallow water */
-			else if (is_aura_fire_species(r_ptr)) return FALSE;
+			else if (has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE)) return FALSE;
 		}
 	}
 
@@ -679,7 +679,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Shallow water */
-			else if (is_aura_fire_creature(cr_ptr)) return FALSE;
+			else if (has_trait(cr_ptr, TRAIT_AURA_FIRE)) return FALSE;
 		}
 	}
 

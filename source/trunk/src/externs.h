@@ -876,13 +876,8 @@ extern bool is_bash_door_species(species_type *species_ptr);
 extern bool is_move_body_species(species_type *species_ptr);
 extern bool is_kill_body_species(species_type *species_ptr);
 
-extern bool is_aura_fire_species(species_type *species_ptr);
-extern bool is_aura_cold_species(species_type *species_ptr);
-extern bool is_aura_elec_species(species_type *species_ptr);
-
 extern bool is_powerful_creature(creature_type *creature_ptr);
 extern bool is_pass_wall_creature(creature_type *creature_ptr);
-extern bool is_aura_fire_creature(creature_type *creature_ptr);
 
 extern bool is_aquatic_species(species_type *species_ptr);
 extern bool can_swim_species(species_type *species_ptr);
