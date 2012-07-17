@@ -5708,7 +5708,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_CONFUSION:
-		if (target_ptr->resist_conf) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
+		if (has_trait(target_ptr, TRAIT_NO_CONF)) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
 		break;
 
 	case GF_CHAOS:

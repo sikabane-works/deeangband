@@ -1453,7 +1453,6 @@ struct creature_type
 	s16b resist_force;   /* Resist force */
 	s16b resist_water;   /* Resist water */
 
-	bool resist_conf;	 /* Resist confusion */
 	bool resist_blind;	 /* Resist blindness */
 	bool resist_fear;	 /* Resist fear */
 	bool resist_tele;    /* Resist teleport */

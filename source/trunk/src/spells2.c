@@ -1060,7 +1060,7 @@ info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->resist_conf)
+	if (has_trait(creature_ptr, TRAIT_NO_CONF))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¬—‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";

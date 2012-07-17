@@ -2376,7 +2376,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_ALCOHOL) && (randint1(6400) == 321))
 	{
-		if (!creature_ptr->resist_conf && !creature_ptr->resist_chaos)
+		if (!has_trait(creature_ptr, TRAIT_NO_CONF) && !creature_ptr->resist_chaos)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
@@ -2388,7 +2388,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		}
 
-		if (!creature_ptr->resist_conf)
+		if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(creature_ptr, creature_ptr->confused + randint0(20) + 15);
 		}

@@ -2546,7 +2546,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Mind blast */
 	{
-		if (!watcher_ptr->resist_conf)
+		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
@@ -2566,7 +2566,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Brain smash */
 	{
-		if (!watcher_ptr->resist_conf)
+		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
@@ -5802,7 +5802,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 		break;
 
 	case DRS_CONF:
-		if (player_ptr->resist_conf) learner_ptr->smart |= (SM_RES_CONF);
+		if (has_trait(player_ptr, TRAIT_NO_CONF)) learner_ptr->smart |= (SM_RES_CONF);
 		break;
 
 	case DRS_CHAOS:

@@ -1498,7 +1498,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print("A gas of scintillating colors surrounds you!");
 #endif
 
-			if (!creature_ptr->resist_conf)
+			if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 			{
 				(void)set_confused(creature_ptr, creature_ptr->confused + randint0(20) + 10);
 			}
@@ -2176,7 +2176,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if (creature_ptr->resist_blind) return TRUE;
 		break;
 	case TRAP_CONFUSE:
-		if (creature_ptr->resist_conf) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_NO_CONF)) return TRUE;
 		break;
 	case TRAP_POISON:
 		if (creature_ptr->resist_pois) return TRUE;

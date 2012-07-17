@@ -130,7 +130,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CONFUSION:
 			{
-				if (!creature_ptr->resist_conf)
+				if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 				{
 					if (set_confused(creature_ptr, creature_ptr->confused + randint0(10) + 10))
 					{
@@ -838,8 +838,8 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			}
 			break;
 
-		case SV_POTION_CONFUSION: /* Booze */
-			if (!creature_ptr->resist_conf)
+		case SV_POTION_CONFUSION:
+			if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 			{
 				creature_ptr->special_attack |= ATTACK_SUIKEN;
 				if (set_confused(creature_ptr, randint0(20) + 15))

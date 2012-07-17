@@ -119,7 +119,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		if (caster_ptr->resist_lite) smart |= (SM_RES_LITE);
 		if (caster_ptr->resist_dark) smart |= (SM_RES_DARK);
 		if (caster_ptr->resist_fear) smart |= (SM_RES_FEAR);
-		if (caster_ptr->resist_conf) smart |= (SM_RES_CONF);
+		if (has_trait(caster_ptr, TRAIT_NO_CONF)) smart |= (SM_RES_CONF);
 		if (caster_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
 		if (caster_ptr->resist_disen) smart |= (SM_RES_DISEN);
 		if (caster_ptr->resist_blind) smart |= (SM_RES_BLIND);
@@ -2960,7 +2960,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s creates a mesmerising illusion.", m_name);
 #endif
 
-			if (target_ptr->resist_conf)
+			if (has_trait(target_ptr, TRAIT_NO_CONF))
 			{
 #ifdef JP
 				msg_print("しかし幻覚にはだまされなかった。");

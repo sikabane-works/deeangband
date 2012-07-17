@@ -2407,7 +2407,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	/* Mind blast */
 	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (!watcher_ptr->resist_conf)
+		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
@@ -2429,7 +2429,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	/* Brain smash */
 	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (!watcher_ptr->resist_conf)
+		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}

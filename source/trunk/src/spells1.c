@@ -2867,7 +2867,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					set_stun(target_ptr, target_ptr->stun + randint1(40));
 				}
-				if (!target_ptr->resist_conf)
+				if (!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
 					set_confused(target_ptr, target_ptr->confused + randint1(5) + 5);
 				}
@@ -2906,7 +2906,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if (!(target_ptr->multishadow && (turn & 1)))
 			{
-				if (!target_ptr->resist_conf)
+				if (!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
 					(void)set_confused(target_ptr, target_ptr->confused + randint0(20) + 10);
 				}
@@ -3029,7 +3029,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something puzzling!");
 #endif
 
-			if (target_ptr->resist_conf)
+			if (has_trait(target_ptr, TRAIT_NO_CONF))
 			{
 				dam *= 5; dam /= (randint1(4) + 7);
 			}
@@ -3056,7 +3056,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (target_ptr->resist_conf)
+			if (has_trait(target_ptr, TRAIT_NO_CONF))
 			{
 #ifdef JP
 				note = "‚É‚Í‘Ï«‚ª‚ ‚éB";
@@ -4400,7 +4400,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 					msg_print("Your mind is blasted by psyonic energy.");
 #endif
 
-					if (!target_ptr->resist_conf)
+					if (!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
 						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
 					}
@@ -4539,7 +4539,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 					{
 						(void)set_blind(target_ptr, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}
-					if (!target_ptr->resist_conf)
+					if (!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
 						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
 					}

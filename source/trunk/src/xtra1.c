@@ -3246,7 +3246,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->magicdef)
 	{
 		creature_ptr->resist_blind = TRUE;
-		creature_ptr->resist_conf = TRUE;
+		//TODO creature_ptr->resist_conf = TRUE;
 		creature_ptr->reflect = TRUE;
 		creature_ptr->free_act = TRUE;
 		creature_ptr->levitation = TRUE;
@@ -3366,7 +3366,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_fire = TRUE;
 		creature_ptr->resist_cold = TRUE;
 		creature_ptr->resist_pois = TRUE;
-		creature_ptr->resist_conf = TRUE;
+		//TODO creature_ptr->resist_conf = TRUE;
 		creature_ptr->resist_sound = TRUE;
 		creature_ptr->resist_lite = TRUE;
 		creature_ptr->resist_dark = TRUE;
@@ -3580,7 +3580,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
 
 		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
-		if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
+		//TODO if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
 		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
 
 		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
@@ -3842,7 +3842,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_fire = FALSE;
 	creature_ptr->resist_cold = FALSE;
 	creature_ptr->resist_pois = FALSE;
-	creature_ptr->resist_conf = FALSE;
+	//TODO creature_ptr->resist_conf = FALSE;
 	creature_ptr->resist_sound = FALSE;
 	creature_ptr->resist_lite = FALSE;
 	creature_ptr->resist_dark = FALSE;

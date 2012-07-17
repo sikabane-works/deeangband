@@ -3010,7 +3010,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if (IS_DEAD(target_ptr)) break;
 
 				/* Increase "confused" */
-				if (!target_ptr->resist_conf && !(target_ptr->multishadow && (turn & 1)))
+				if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->multishadow && (turn & 1)))
 				{
 					if (set_confused(target_ptr, target_ptr->confused + 3 + randint1(rlev)))
 					{
