@@ -3154,7 +3154,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		}
 		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
-			creature_ptr->sh_fire = TRUE;
+			//TODO creature_ptr->sh_fire = TRUE;
 			creature_ptr->regenerate = TRUE;
 		}
 		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
@@ -3378,7 +3378,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_neth = TRUE;
 		creature_ptr->resist_fear = TRUE;
 		creature_ptr->reflect = TRUE;
-		creature_ptr->sh_fire = TRUE;
+		//TODO creature_ptr->sh_fire = TRUE;
 		creature_ptr->sh_elec = TRUE;
 		creature_ptr->sh_cold = TRUE;
 		creature_ptr->to_ac += 100;
@@ -3397,7 +3397,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->tim_sh_fire)
 	{
-		creature_ptr->sh_fire = TRUE;
+		//TODO creature_ptr->sh_fire = TRUE;
 	}
 
 	if (creature_ptr->tim_res_time)
@@ -3584,7 +3584,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
 
 		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
-		if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
+		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
 		if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
 		if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
 		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
@@ -3855,7 +3855,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_time = FALSE;
 	creature_ptr->resist_fear = FALSE;
 	creature_ptr->reflect = FALSE;
-	creature_ptr->sh_fire = FALSE;
+	//TODO creature_ptr->sh_fire = FALSE;
 	creature_ptr->sh_elec = FALSE;
 	creature_ptr->sh_cold = FALSE;
 	creature_ptr->anti_magic = FALSE;
@@ -4184,7 +4184,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 
 		if (has_trait(creature_ptr, TRAIT_FIRE_BODY))
 		{
-			creature_ptr->sh_fire = TRUE;
+			//TODO creature_ptr->sh_fire = TRUE;
 			creature_ptr->lite = TRUE;
 		}
 
@@ -4716,7 +4716,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->resist_elec = TRUE;
 			creature_ptr->resist_cold = TRUE;
 			creature_ptr->resist_pois = TRUE;
-			creature_ptr->sh_fire = TRUE;
+			//TODO creature_ptr->sh_fire = TRUE;
 			creature_ptr->sh_elec = TRUE;
 			creature_ptr->sh_cold = TRUE;
 			creature_ptr->levitation = TRUE;
@@ -4918,7 +4918,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
 	 // Hack -- aura of fire also provides light
-	if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
+	//TODO if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
 	if (creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 

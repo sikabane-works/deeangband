@@ -771,7 +771,7 @@ info[i++] = "あなたは矢やボルトを反射する。";
 #endif
 
 	}
-	if (creature_ptr->sh_fire)
+	if (has_trait(creature_ptr, TRAIT_AURA_FIRE))
 	{
 #ifdef JP
 info[i++] = "あなたは炎のオーラに包まれている。";

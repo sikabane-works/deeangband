@@ -3579,7 +3579,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		if (touched)
 		{
-			if (target_ptr->sh_fire && !*dead && !IS_DEAD(target_ptr))
+			if (has_trait(target_ptr, TRAIT_AURA_FIRE) && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
