@@ -762,8 +762,8 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = !has_trait(killed_ptr, TRAIT_ONLY_GOLD);
-	bool do_item = !has_trait(killed_ptr, TRAIT_ONLY_ITEM);
+	bool do_gold = FALSE; // TODO
+	bool do_item = FALSE; // TODO
 	bool cloned = (killed_ptr->smart & SM_CLONED) ? TRUE : FALSE;
 	int force_coin = get_coin_type(killed_ptr->species_idx);
 

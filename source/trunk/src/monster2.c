@@ -2352,18 +2352,6 @@ int lore_do_probe(int species_idx)
 	/* Maximal drops */
 	tmp_byte = 0;
 
-	/* Only "valid" drops */
-	if (!is_only_gold_species(r_ptr))
-	{
-		if (r_ptr->r_drop_item != tmp_byte) n++;
-		r_ptr->r_drop_item = tmp_byte;
-	}
-	if (!is_only_item_species(r_ptr))
-	{
-		if (r_ptr->r_drop_gold != tmp_byte) n++;
-		r_ptr->r_drop_gold = tmp_byte;
-	}
-
 	/* Observe many spells */
 	if (r_ptr->r_cast_spell != MAX_UCHAR) n++;
 	r_ptr->r_cast_spell = MAX_UCHAR;

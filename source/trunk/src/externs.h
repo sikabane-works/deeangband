@@ -976,9 +976,6 @@ extern bool is_friends_species(species_type *species_ptr);
 extern bool is_escort_species(species_type *species_ptr);
 extern bool is_escorts_species(species_type *species_ptr);
 
-extern bool is_only_gold_species(species_type *species_ptr);
-extern bool is_only_item_species(species_type *species_ptr);
-
 extern bool is_smart_species(species_type *species_ptr);
 extern bool is_stupid_species(species_type *species_ptr);
 extern bool is_multiply_species(species_type *species_ptr);

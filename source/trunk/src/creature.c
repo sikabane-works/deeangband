@@ -779,26 +779,6 @@ bool is_escorts_species(species_type *species_ptr)
 }
 
 
-bool is_only_gold_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ONLY_GOLD);	
-}
-
-bool is_only_gold_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ONLY_GOLD]);
-}
-
-bool is_only_item_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ONLY_ITEM);	
-}
-
-bool is_only_item_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ONLY_ITEM]);
-}
-
 
 
 bool is_smart_creature(creature_type *creature_ptr)
