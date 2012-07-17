@@ -789,7 +789,7 @@ info[i++] = "あなたは電気に包まれている。";
 #endif
 
 	}
-	if (creature_ptr->sh_cold)
+	if (has_trait(creature_ptr, TRAIT_AURA_COLD))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気のオーラに包まれている。";

@@ -1465,7 +1465,6 @@ struct creature_type
 	bool immune_cold;	/* Immunity to cold */
 
 	bool reflect;       /* Reflect 'bolt' attacks */
-	bool sh_cold;       /* Cold 'immolation' effect */
 
 	bool anti_magic;    /* Anti-magic */
 	bool anti_tele;     /* Prevent teleportation */

@@ -3637,7 +3637,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->sh_cold && !*dead && !IS_DEAD(target_ptr))
+			if (has_trait(target_ptr, TRAIT_AURA_COLD) && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_trait(attacker_ptr, TRAIT_RES_COLD))
 				{

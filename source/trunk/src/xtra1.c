@@ -3159,7 +3159,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		}
 		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
 		{
-			creature_ptr->sh_cold = TRUE; 
+			//creature_ptr->sh_cold = TRUE; 
 			creature_ptr->to_ac += 30;
 			creature_ptr->dis_to_ac += 30;
 		}
@@ -3380,7 +3380,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->reflect = TRUE;
 		//TODO creature_ptr->sh_fire = TRUE;
 		//TODO creature_ptr->sh_elec = TRUE;
-		creature_ptr->sh_cold = TRUE;
+		//TODO creature_ptr->sh_cold = TRUE;
 		creature_ptr->to_ac += 100;
 		creature_ptr->dis_to_ac += 100;
 	}
@@ -3586,7 +3586,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
-		if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
+		//TODO if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
 		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
 		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
 
@@ -3857,7 +3857,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->reflect = FALSE;
 	//TODO creature_ptr->sh_fire = FALSE;
 	//TODO creature_ptr->sh_elec = FALSE;
-	creature_ptr->sh_cold = FALSE;
+	//TODO creature_ptr->sh_cold = FALSE;
 	creature_ptr->anti_magic = FALSE;
 	creature_ptr->anti_tele = FALSE;
 	creature_ptr->warning = FALSE;
@@ -4718,7 +4718,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->resist_pois = TRUE;
 			//TODO creature_ptr->sh_fire = TRUE;
 			//TODO creature_ptr->sh_elec = TRUE;
-			creature_ptr->sh_cold = TRUE;
+			//TODO creature_ptr->sh_cold = TRUE;
 			creature_ptr->levitation = TRUE;
 		}
 		else if (creature_ptr->special_defense & KAMAE_GENBU)
