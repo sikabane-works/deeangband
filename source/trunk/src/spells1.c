@@ -5042,7 +5042,7 @@ note = "は眠り込んでしまった！";
 									break;
 								case 3:
 								{
-									if (has_trait(target_ptr, TRAIT_NO_FEAR))
+									if (has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
 										note = "には効果がなかった。";
 #else
@@ -5317,7 +5317,7 @@ note = "は眠り込んでしまった！";
 								break;
 							default:
 							{
-								if (has_trait(target_ptr, TRAIT_NO_FEAR))
+								if (has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
 									note = "には効果がなかった。";
 #else
@@ -6460,7 +6460,7 @@ note = "には耐性がある！";
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(target_ptr)) ||
-			    (has_trait(target_ptr, TRAIT_NO_FEAR)) ||
+			    (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
@@ -7077,11 +7077,11 @@ msg_format("うまく捕まえられなかった。");
 
 			if (!success)
 			{
-				if (!has_trait(target_ptr, TRAIT_NO_FEAR))
+				if (!has_trait(target_ptr, TRAIT_FEARLESS))
 				{
 					do_fear = randint1(90)+10;
 				}
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_FEAR);
+				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
 			}
 
 			/* No "real" damage */
