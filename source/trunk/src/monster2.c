@@ -5814,7 +5814,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 		break;
 
 	case DRS_BLIND:
-		if (player_ptr->resist_blind) learner_ptr->smart |= (SM_RES_BLIND);
+		if (has_trait(player_ptr, TRAIT_NO_BLIND)) learner_ptr->smart |= (SM_RES_BLIND);
 		break;
 
 	case DRS_NEXUS:

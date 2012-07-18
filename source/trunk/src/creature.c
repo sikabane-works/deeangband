@@ -437,7 +437,7 @@ void set_resistance(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_RES_ALL)) creature_ptr->resist_ultimate += 1;
 
-	if(has_trait(creature_ptr, TRAIT_NO_BLIND)) creature_ptr->resist_blind += TRUE;
+	//TODO if(has_trait(creature_ptr, TRAIT_NO_BLIND)) has_trait(creature_ptr, TRAIT_NO_BLIND) += TRUE;
 	if(has_trait(creature_ptr, TRAIT_NO_FEAR)) creature_ptr->resist_fear += TRUE;
 	if(has_trait(creature_ptr, TRAIT_NO_STUN)); //TODO
 	if(has_trait(creature_ptr, TRAIT_NO_SLEEP)); //TODO

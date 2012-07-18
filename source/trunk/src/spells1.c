@@ -3301,7 +3301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 			}
-			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
+			else if (!blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
@@ -3407,7 +3407,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				//TODO Dark Immune
 				//if () dam = 0;
 			}
-			else if (!blind && !target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
+			else if (!blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
@@ -4535,7 +4535,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 				if (!(target_ptr->multishadow && (turn & 1)))
 				{
-					if (!target_ptr->resist_blind)
+					if (!has_trait(target_ptr, TRAIT_NO_BLIND))
 					{
 						(void)set_blind(target_ptr, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}

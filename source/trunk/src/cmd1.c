@@ -1483,7 +1483,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print("A black gas surrounds you!");
 #endif
 
-			if (!creature_ptr->resist_blind)
+			if (!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
 				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(50) + 25);
 			}
@@ -2173,7 +2173,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if (creature_ptr->immune_acid) return TRUE;
 		break;
 	case TRAP_BLIND:
-		if (creature_ptr->resist_blind) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_NO_BLIND)) return TRUE;
 		break;
 	case TRAP_CONFUSE:
 		if (has_trait(creature_ptr, TRAIT_NO_CONF)) return TRUE;

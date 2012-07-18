@@ -1038,7 +1038,7 @@ info[i++] = "‚ ‚È‚½‚Í‘S‚­‹°•|‚ğŠ´‚¶‚È‚¢B";
 #endif
 
 	}
-	if (creature_ptr->resist_blind)
+	if (has_trait(creature_ptr, TRAIT_NO_BLIND))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì–Ú‚Í–Ó–Ú‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
@@ -3706,7 +3706,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 #endif
 
 			/* Blind the player */
-			if (!caster_ptr->resist_blind && !caster_ptr->resist_lite)
+			if (!has_trait(caster_ptr, TRAIT_NO_BLIND) && !caster_ptr->resist_lite)
 			{
 				/* Become blind */
 				(void)set_blind(caster_ptr, caster_ptr->blind + 10 + randint1(10));

@@ -3245,7 +3245,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->magicdef)
 	{
-		creature_ptr->resist_blind = TRUE;
+		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
 		creature_ptr->reflect = TRUE;
 		creature_ptr->free_act = TRUE;
@@ -3374,7 +3374,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_disen = TRUE;
 		creature_ptr->resist_shard = TRUE;
 		creature_ptr->resist_nexus = TRUE;
-		creature_ptr->resist_blind = TRUE;
+		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		creature_ptr->resist_neth = TRUE;
 		creature_ptr->resist_fear = TRUE;
 		creature_ptr->reflect = TRUE;
@@ -3581,7 +3581,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
 		//TODO if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
-		if (have_flag(flgs, TR_RES_BLIND))  creature_ptr->resist_blind = TRUE;
+		//if (have_flag(flgs, TR_RES_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 
 		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
@@ -3838,7 +3838,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_disen = FALSE;
 	creature_ptr->resist_shard = FALSE;
 	creature_ptr->resist_nexus = FALSE;
-	creature_ptr->resist_blind = FALSE;
+	//has_trait(creature_ptr, TRAIT_NO_BLIND) = FALSE;
 	creature_ptr->resist_neth = FALSE;
 	creature_ptr->resist_time = FALSE;
 	creature_ptr->resist_fear = FALSE;

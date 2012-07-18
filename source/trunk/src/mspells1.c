@@ -122,7 +122,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		if (has_trait(caster_ptr, TRAIT_NO_CONF)) smart |= (SM_RES_CONF);
 		if (caster_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
 		if (caster_ptr->resist_disen) smart |= (SM_RES_DISEN);
-		if (caster_ptr->resist_blind) smart |= (SM_RES_BLIND);
+		if (has_trait(caster_ptr, TRAIT_NO_BLIND)) smart |= (SM_RES_BLIND);
 		if (caster_ptr->resist_nexus) smart |= (SM_RES_NEXUS);
 		if (caster_ptr->resist_sound) smart |= (SM_RES_SOUND);
 		if (caster_ptr->resist_shard) smart |= (SM_RES_SHARD);
@@ -2917,7 +2917,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a spell, burning your eyes!", m_name);
 #endif
 
-			if (target_ptr->resist_blind)
+			if (has_trait(target_ptr, TRAIT_NO_BLIND))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");

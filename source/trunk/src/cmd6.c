@@ -106,7 +106,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_BLINDNESS:
 			{
-				if (!creature_ptr->resist_blind)
+				if (!has_trait(creature_ptr, TRAIT_NO_BLIND))
 				{
 					if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(200) + 200))
 					{
@@ -829,7 +829,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_BLINDNESS:
-			if (!creature_ptr->resist_blind)
+			if (!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
 				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(100) + 100))
 				{
@@ -1559,7 +1559,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	{
 		case SV_SCROLL_DARKNESS:
 		{
-			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
+			if (!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
 			{
 				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5));
 			}
@@ -2242,7 +2242,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 	{
 		case SV_STAFF_DARKNESS:
 		{
-			if (!(creature_ptr->resist_blind) && !(creature_ptr->resist_dark))
+			if (!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
 			{
 				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5))) ident = TRUE;
 			}

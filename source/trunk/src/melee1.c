@@ -2982,7 +2982,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if (IS_DEAD(target_ptr)) break;
 
 				/* Increase "blind" */
-				if (!target_ptr->resist_blind && !(target_ptr->multishadow && (turn & 1)))
+				if (!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
 				{
 					if (set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
 					{
