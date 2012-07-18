@@ -1491,7 +1491,6 @@ struct creature_type
 	bool xtra_might;	/* Extra might bow */
 	bool impact[MAX_WEAPONS];		/* Earthquake blows */
 	bool pass_wall;     /* Permanent wraithform */
-	bool kill_wall;
 	bool dec_mana;
 	bool easy_spell;
 	bool heavy_spell;

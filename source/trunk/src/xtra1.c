@@ -3413,7 +3413,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (music_singing(creature_ptr, MUSIC_WALL))
 	{
-		creature_ptr->kill_wall = TRUE;
+		//TODO creature_ptr->kill_wall = TRUE;
 	}
 
 	if (creature_ptr->tsubureru)
@@ -3806,7 +3806,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->bless_blade = FALSE;
 	creature_ptr->xtra_might = FALSE;
 	creature_ptr->pass_wall = FALSE;
-	creature_ptr->kill_wall = FALSE;
 	creature_ptr->dec_mana = FALSE;
 	creature_ptr->easy_spell = FALSE;
 	creature_ptr->heavy_spell = FALSE;
@@ -4838,7 +4837,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
 
 	if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
-	if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
+	//TODO if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
 	if (creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
 
@@ -4943,7 +4942,7 @@ static void set_flow_flag(creature_type *creature_ptr)
 		}
 	}
 
-	if (creature_ptr->pass_wall && !creature_ptr->kill_wall) creature_ptr->no_flowed = TRUE;
+	if (creature_ptr->pass_wall && !has_trait(creature_ptr, TRAIT_KILL_WALL)) creature_ptr->no_flowed = TRUE;
 
 	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->class_idx == CLASS_SORCERER)))
 	{

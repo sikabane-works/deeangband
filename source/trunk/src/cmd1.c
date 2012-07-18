@@ -2379,7 +2379,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
-	p_can_kill_walls = creature_ptr->kill_wall && have_flag(f_ptr->flags, FF_HURT_DISI) &&
+	p_can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
 		(!p_can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
 		!have_flag(f_ptr->flags, FF_PERMANENT);
 

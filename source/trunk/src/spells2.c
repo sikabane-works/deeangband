@@ -3824,7 +3824,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	/* First, affect the player (if necessary) */
-	if (hurt && !target_ptr->pass_wall && !target_ptr->kill_wall)
+	if (hurt && !target_ptr->pass_wall && !has_trait(target_ptr, TRAIT_KILL_WALL))
 	{
 		/* Check around the player */
 		for (i = 0; i < 8; i++)
@@ -4007,8 +4007,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				}
 
 				/* Most creatures cannot co-exist with rock */
-				if (!is_kill_wall_species(r_ptr) &&
-				    !is_pass_wall_species(r_ptr))
+				if (!has_trait(m_ptr, TRAIT_KILL_WALL) && !is_pass_wall_species(r_ptr))
 				{
 					char m_name[80];
 

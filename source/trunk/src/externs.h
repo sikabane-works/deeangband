@@ -868,7 +868,6 @@ extern bool is_animal_species(species_type *species_ptr);
 extern bool is_quantum_species(species_type *species_ptr);
 extern bool is_powerful_species(species_type *species_ptr);
 extern bool is_pass_wall_species(species_type *species_ptr);
-extern bool is_kill_wall_species(species_type *species_ptr);
 extern bool is_take_item_species(species_type *species_ptr);
 extern bool is_kill_item_species(species_type *species_ptr);
 extern bool is_open_door_species(species_type *species_ptr);

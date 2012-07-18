@@ -1011,16 +1011,6 @@ bool is_pass_wall_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_PASS_WALL]);
 }
 
-bool is_kill_wall_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_KILL_WALL);	
-}
-
-bool is_kill_wall_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_KILL_WALL]);
-}
-
 bool is_take_item_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_TAKE_ITEM);	
