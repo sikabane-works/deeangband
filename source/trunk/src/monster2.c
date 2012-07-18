@@ -2914,21 +2914,21 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_animal) && is_animal_creature(player_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_ANIMAL) && is_animal_creature(player_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_undead) && is_undead_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_UNDEAD) && is_undead_species(r_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_demon) && is_demon_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_DEMON) && is_demon_species(r_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
@@ -2956,42 +2956,42 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_dragon) && is_dragon_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_DRAGON) && is_dragon_species(r_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_human) && (is_human_species(r_ptr)))
+			if (has_trait(player_ptr, TRAIT_SENSE_HUMAN) && (is_human_species(r_ptr)))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_evil) && is_enemy_of_good_creature(player_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_EVIL) && is_enemy_of_good_creature(player_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_good) && is_enemy_of_evil_creature(m_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_GOOD) && is_enemy_of_evil_creature(m_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_nonliving) && has_trait(m_ptr, TRAIT_NONLIVING) && !is_undead_creature(m_ptr)) 
+			if (has_trait(player_ptr, TRAIT_SENSE_NONLIVING) && has_trait(m_ptr, TRAIT_NONLIVING) && !is_undead_creature(m_ptr)) 
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, TRAIT_NONLIVING);
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_unique) && (is_unique_species(r_ptr)))
+			if (has_trait(player_ptr, TRAIT_SENSE_UNIQUE) && (is_unique_species(r_ptr)))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, TRAIT_UNIQUE);

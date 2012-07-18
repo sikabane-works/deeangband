@@ -1486,15 +1486,6 @@ struct creature_type
 	bool hold_life;		/* Resist life draining */
 
 	bool telepathy;		/* Telepathy */
-	bool esp_animal;
-	bool esp_undead;
-	bool esp_demon;
-	bool esp_dragon;
-	bool esp_human;
-	bool esp_evil;
-	bool esp_good;
-	bool esp_nonliving;
-	bool esp_unique;
 
 	bool slow_digest;	/* Slower digestion */
 	bool bless_blade;	/* Blessed blade */
