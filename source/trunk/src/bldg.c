@@ -2469,8 +2469,8 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if (has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
-		(has_trait(watcher_ptr, TRAIT_COWARDICE) || watcher_ptr->resist_fear) &&
+	if(has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
+		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
 		(has_trait(watcher_ptr, TRAIT_HALLU) || watcher_ptr->resist_chaos))
 	{
 		/* The poor bastard already has all possible insanities! */
@@ -2519,7 +2519,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			}
 			case 2:
 			{
-				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");

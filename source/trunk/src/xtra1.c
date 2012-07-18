@@ -2903,7 +2903,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
 			}
 			creature_ptr->slow_digest = TRUE;
-			creature_ptr->resist_fear = TRUE;
+			//TODO creature_ptr->resist_fear = TRUE;
 
 			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
 			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
@@ -3342,7 +3342,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	/* Hack -- Hero/Shero -> Res fear */
 	if (IS_HERO(creature_ptr) || creature_ptr->shero)
 	{
-		creature_ptr->resist_fear = TRUE;
+		//TODO creature_ptr->resist_fear = TRUE;
 	}
 
 	if (creature_ptr->ult_res || (creature_ptr->special_defense & KATA_MUSOU))
@@ -3376,7 +3376,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_nexus = TRUE;
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		creature_ptr->resist_neth = TRUE;
-		creature_ptr->resist_fear = TRUE;
+		//TODO creature_ptr->resist_fear = TRUE;
 		creature_ptr->reflect = TRUE;
 		//TODO creature_ptr->sh_fire = TRUE;
 		//TODO creature_ptr->sh_elec = TRUE;
@@ -3579,7 +3579,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;
 		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
 
-		if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
+		//TODO if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
 		//TODO if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
 		//if (have_flag(flgs, TR_RES_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 
@@ -3838,10 +3838,10 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_disen = FALSE;
 	creature_ptr->resist_shard = FALSE;
 	creature_ptr->resist_nexus = FALSE;
-	//has_trait(creature_ptr, TRAIT_NO_BLIND) = FALSE;
+	//TODO has_trait(creature_ptr, TRAIT_NO_BLIND) = FALSE;
 	creature_ptr->resist_neth = FALSE;
 	creature_ptr->resist_time = FALSE;
-	creature_ptr->resist_fear = FALSE;
+	//TODO creature_ptr->resist_fear = FALSE;
 	creature_ptr->reflect = FALSE;
 	//TODO creature_ptr->sh_fire = FALSE;
 	//TODO creature_ptr->sh_elec = FALSE;
@@ -4200,11 +4200,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		if (has_trait(creature_ptr, TRAIT_WINGS))
 		{
 			creature_ptr->levitation = TRUE;
-		}
-
-		if (has_trait(creature_ptr, TRAIT_FEARLESS))
-		{
-			creature_ptr->resist_fear = TRUE;
 		}
 
 		if (has_trait(creature_ptr, TRAIT_REGEN))

@@ -2605,7 +2605,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 
 	/* Else gain permanent insanity */
 	if (has_trait(watcher_ptr, TRAIT_MORONIC) &&
-		(has_trait(watcher_ptr, TRAIT_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
 		(has_trait(watcher_ptr, TRAIT_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
@@ -2660,10 +2660,10 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			case 9:
 			case 10:
 			case 11:
-				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
-msg_print("あなたはパラノイアになった！");
+					msg_print("あなたはパラノイアになった！");
 #else
 					msg_print("You become paranoid!");
 #endif
@@ -5798,7 +5798,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 		break;
 
 	case DRS_FEAR:
-		if (player_ptr->resist_fear) learner_ptr->smart |= (SM_RES_FEAR);
+		if (has_trait(player_ptr, TRAIT_FEARLESS)) learner_ptr->smart |= (SM_RES_FEAR);
 		break;
 
 	case DRS_CONF:

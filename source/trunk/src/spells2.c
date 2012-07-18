@@ -1029,7 +1029,7 @@ info[i++] = "あなたは地獄の力への耐性を持っている。";
 #endif
 
 	}
-	if (creature_ptr->resist_fear)
+	if (has_trait(creature_ptr, TRAIT_FEARLESS))
 	{
 #ifdef JP
 info[i++] = "あなたは全く恐怖を感じない。";

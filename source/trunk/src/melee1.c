@@ -3036,7 +3036,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					/* Do nothing */
 				}
-				else if (target_ptr->resist_fear)
+				else if (has_trait(target_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
 					msg_print("ÇµÇ©Çµã∞ï|Ç…êNÇ≥ÇÍÇ»Ç©Ç¡ÇΩÅI");

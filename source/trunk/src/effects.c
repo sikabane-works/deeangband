@@ -6421,7 +6421,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 	
 	/* Sometimes a creature gets scared by damage */
-	if (!tar_ptr->afraid && !has_trait(tar_ptr, TRAIT_NO_FEAR) && !tar_ptr->resist_fear)
+	if (!tar_ptr->afraid && !has_trait(tar_ptr, TRAIT_NO_FEAR) && !has_trait(tar_ptr, TRAIT_FEARLESS))
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;

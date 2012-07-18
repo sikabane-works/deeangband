@@ -118,7 +118,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		if (caster_ptr->resist_neth) smart |= (SM_RES_NETH);
 		if (caster_ptr->resist_lite) smart |= (SM_RES_LITE);
 		if (caster_ptr->resist_dark) smart |= (SM_RES_DARK);
-		if (caster_ptr->resist_fear) smart |= (SM_RES_FEAR);
+		if (has_trait(caster_ptr, TRAIT_FEARLESS)) smart |= (SM_RES_FEAR);
 		if (has_trait(caster_ptr, TRAIT_NO_CONF)) smart |= (SM_RES_CONF);
 		if (caster_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
 		if (caster_ptr->resist_disen) smart |= (SM_RES_DISEN);
@@ -2874,7 +2874,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a fearful illusion.", m_name);
 #endif
 
-			if (target_ptr->resist_fear)
+			if (has_trait(target_ptr, TRAIT_FEARLESS))
 			{
 #ifdef JP
 				msg_print("しかし恐怖に侵されなかった。");

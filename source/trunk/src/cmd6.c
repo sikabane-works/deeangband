@@ -118,7 +118,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_PARANOIA:
 			{
-				if (!creature_ptr->resist_fear)
+				if (!has_trait(creature_ptr, TRAIT_FEARLESS))
 				{
 					if (set_afraid(creature_ptr, creature_ptr->afraid + randint0(10) + 10))
 					{

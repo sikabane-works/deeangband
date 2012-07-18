@@ -2342,7 +2342,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_COWARDICE) && (randint1(3000) == 13))
 	{
-		if (!creature_ptr->resist_fear)
+		if (!has_trait(creature_ptr, TRAIT_FEARLESS))
 		{
 			disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -3132,7 +3132,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		}
 		if ((creature_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
 		{
-			if (!creature_ptr->resist_fear)
+			if (!has_trait(creature_ptr, TRAIT_FEARLESS))
 			{
 				disturb(player_ptr, 0, 0);
 #ifdef JP
