@@ -2935,7 +2935,7 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_orc) && (is_orc_creature(&creature_list[m_idx])))
+			if (has_trait(player_ptr, TRAIT_SENSE_ORC) && (is_orc_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);

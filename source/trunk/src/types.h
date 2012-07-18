@@ -1489,7 +1489,6 @@ struct creature_type
 	bool esp_animal;
 	bool esp_undead;
 	bool esp_demon;
-	bool esp_orc;
 	bool esp_troll;
 	bool esp_giant;
 	bool esp_dragon;

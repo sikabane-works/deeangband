@@ -672,7 +672,7 @@ info[i++] = "あなたは悪魔の存在を感じる能力を持っている。";
 #endif
 
 	}
-	if (creature_ptr->esp_orc)
+	if (has_trait(creature_ptr, TRAIT_SENSE_ORC))
 	{
 #ifdef JP
 info[i++] = "あなたはオークの存在を感じる能力を持っている。";
