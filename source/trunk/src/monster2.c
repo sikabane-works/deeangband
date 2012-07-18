@@ -2942,7 +2942,7 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_troll) && (is_troll_creature(&creature_list[m_idx])))
+			if (has_trait(player_ptr, TRAIT_SENSE_TROLL) && (is_troll_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
