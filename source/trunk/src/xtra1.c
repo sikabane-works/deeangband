@@ -3518,7 +3518,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
 		//TODO if (have_flag(flgs, TR_ESP_ORC))     creature_ptr->esp_orc = TRUE;
 		//if (have_flag(flgs, TR_ESP_TROLL))   creature_ptr->esp_troll = TRUE;
-		if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
+		//if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
 		if (have_flag(flgs, TR_ESP_DRAGON))  creature_ptr->esp_dragon = TRUE;
 		if (have_flag(flgs, TR_ESP_HUMAN))   creature_ptr->esp_human = TRUE;
 		if (have_flag(flgs, TR_ESP_EVIL))    creature_ptr->esp_evil = TRUE;
@@ -3821,7 +3821,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->esp_animal = FALSE;
 	creature_ptr->esp_undead = FALSE;
 	creature_ptr->esp_demon = FALSE;
-	creature_ptr->esp_giant = FALSE;
 	creature_ptr->esp_dragon = FALSE;
 	creature_ptr->esp_human = FALSE;
 	creature_ptr->esp_evil = FALSE;

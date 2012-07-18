@@ -2949,7 +2949,7 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((player_ptr->esp_giant) && is_giant_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_GIANT) && is_giant_species(r_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
