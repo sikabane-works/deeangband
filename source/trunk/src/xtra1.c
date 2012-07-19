@@ -4916,6 +4916,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;
 	}
 }
+
 static void set_flow_flag(creature_type *creature_ptr)
 {
 	int i;
