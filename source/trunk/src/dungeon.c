@@ -2451,8 +2451,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		fire_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
 	}
 
-	if (has_trait(creature_ptr, TRAIT_PROD_MANA) &&
-	    !creature_ptr->anti_magic && one_in_(9000))
+	if (has_trait(creature_ptr, TRAIT_PROD_MANA) && !creature_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
 		disturb(player_ptr, 0, 0);
