@@ -433,7 +433,7 @@ void set_resistance(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
 	if(has_trait(creature_ptr, TRAIT_RES_GRAV)) creature_ptr->resist_gravity += 1;
 
-	if(has_trait(creature_ptr, TRAIT_RES_TELE)) creature_ptr->resist_tele += 1;
+	//TODO if(has_trait(creature_ptr, TRAIT_RES_TELE)) creature_ptr->resist_tele += 1;
 
 	if(has_trait(creature_ptr, TRAIT_RES_ALL)) creature_ptr->resist_ultimate += 1;
 

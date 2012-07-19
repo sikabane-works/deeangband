@@ -875,7 +875,6 @@ struct resist
 	int resist_gravity;  /* Resist gravity */
 	int resist_inertia;
 	int resist_force;    /* Resist force */
-	int resist_tele;     /* Resist teleport */
 	int resist_water;    /* Resist water */
 	int resist_ultimate; /* Resist ultimate */
 
@@ -1453,7 +1452,6 @@ struct creature_type
 	s16b resist_force;   /* Resist force */
 	s16b resist_water;   /* Resist water */
 
-	bool resist_tele;    /* Resist teleport */
 	bool resist_ultimate;/* Resist ultimate */
 
 	bool immune_acid;	/* Immunity to acid */
