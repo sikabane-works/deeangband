@@ -1057,61 +1057,6 @@ info[i++] = "あなたは時間逆転への耐性を持っている。";
 
 	}
 
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR))
-	{
-#ifdef JP
-info[i++] = "あなたの腕力は維持されている。";
-#else
-		info[i++] = "Your strength is sustained.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_INT))
-	{
-#ifdef JP
-info[i++] = "あなたの知能は維持されている。";
-#else
-		info[i++] = "Your intelligence is sustained.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_WIS))
-	{
-#ifdef JP
-info[i++] = "あなたの賢さは維持されている。";
-#else
-		info[i++] = "Your wisdom is sustained.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_CON))
-	{
-#ifdef JP
-info[i++] = "あなたの耐久力は維持されている。";
-#else
-		info[i++] = "Your constitution is sustained.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_DEX))
-	{
-#ifdef JP
-info[i++] = "あなたの器用さは維持されている。";
-#else
-		info[i++] = "Your dexterity is sustained.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
-	{
-#ifdef JP
-info[i++] = "あなたの魅力は維持されている。";
-#else
-		info[i++] = "Your charisma is sustained.";
-#endif
-
-	}
-
 	if (have_flag(flgs, TR_STR))
 	{
 #ifdef JP
