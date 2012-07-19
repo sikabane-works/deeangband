@@ -2663,19 +2663,19 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sustained = TRUE;
 			break;
 		case STAT_INT:
-			if (creature_ptr->sustain_int) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sustained = TRUE;
 			break;
 		case STAT_WIS:
-			if (creature_ptr->sustain_wis) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sustained = TRUE;
 			break;
 		case STAT_DEX:
-			if (creature_ptr->sustain_dex) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sustained = TRUE;
 			break;
 		case STAT_CON:
-			if (creature_ptr->sustain_con) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sustained = TRUE;
 			break;
 		case STAT_CHA:
-			if (creature_ptr->sustain_chr) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sustained = TRUE;
 			break;
 		default:
 #ifdef JP

@@ -1066,7 +1066,7 @@ info[i++] = "あなたの腕力は維持されている。";
 #endif
 
 	}
-	if (creature_ptr->sustain_int)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_INT))
 	{
 #ifdef JP
 info[i++] = "あなたの知能は維持されている。";
@@ -1075,7 +1075,7 @@ info[i++] = "あなたの知能は維持されている。";
 #endif
 
 	}
-	if (creature_ptr->sustain_wis)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_WIS))
 	{
 #ifdef JP
 info[i++] = "あなたの賢さは維持されている。";
@@ -1084,7 +1084,7 @@ info[i++] = "あなたの賢さは維持されている。";
 #endif
 
 	}
-	if (creature_ptr->sustain_con)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_CON))
 	{
 #ifdef JP
 info[i++] = "あなたの耐久力は維持されている。";
@@ -1093,7 +1093,7 @@ info[i++] = "あなたの耐久力は維持されている。";
 #endif
 
 	}
-	if (creature_ptr->sustain_dex)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_DEX))
 	{
 #ifdef JP
 info[i++] = "あなたの器用さは維持されている。";
@@ -1102,7 +1102,7 @@ info[i++] = "あなたの器用さは維持されている。";
 #endif
 
 	}
-	if (creature_ptr->sustain_chr)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
 	{
 #ifdef JP
 info[i++] = "あなたの魅力は維持されている。";

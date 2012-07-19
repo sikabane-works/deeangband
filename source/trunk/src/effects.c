@@ -4092,16 +4092,16 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 			if (one_in_(3))
 			{
-				if (!creature_ptr->sustain_int) (void)do_dec_stat(creature_ptr, STAT_INT);
-				if (!creature_ptr->sustain_wis) (void)do_dec_stat(creature_ptr, STAT_WIS);
+				if (!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
+				if (!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 			}
 			else if (one_in_(2))
 			{
-				if (!creature_ptr->sustain_int) (void)do_dec_stat(creature_ptr, STAT_INT);
+				if (!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
 			}
 			else
 			{
-				if (!creature_ptr->sustain_wis) (void)do_dec_stat(creature_ptr, STAT_WIS);
+				if (!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 			}
 		}
 		if (creature_ptr->special_defense & KATA_MASK)
@@ -4422,7 +4422,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 		if (randint1(1000) < v || one_in_(16))
 		{
-			if (!creature_ptr->sustain_chr)
+			if (!has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
 			{
 				if(is_seen(player_ptr, creature_ptr))
 				{
@@ -5158,11 +5158,11 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 	switch (stat)
 	{
 		case STAT_STR: if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
-		case STAT_INT: if (creature_ptr->sustain_int) sust = TRUE; break;
-		case STAT_WIS: if (creature_ptr->sustain_wis) sust = TRUE; break;
-		case STAT_DEX: if (creature_ptr->sustain_dex) sust = TRUE; break;
-		case STAT_CON: if (creature_ptr->sustain_con) sust = TRUE; break;
-		case STAT_CHA: if (creature_ptr->sustain_chr) sust = TRUE; break;
+		case STAT_INT: if (has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
+		case STAT_WIS: if (has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sust = TRUE; break;
+		case STAT_DEX: if (has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sust = TRUE; break;
+		case STAT_CON: if (has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sust = TRUE; break;
+		case STAT_CHA: if (has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
 	}
 
 	/* Sustain */

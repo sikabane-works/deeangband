@@ -1459,12 +1459,6 @@ struct creature_type
 
 	bool reflect;       /* Reflect 'bolt' attacks */
 
-	bool sustain_int;	/* Keep intelligence */
-	bool sustain_wis;	/* Keep wisdom */
-	bool sustain_dex;	/* Keep dexterity */
-	bool sustain_con;	/* Keep constitution */
-	bool sustain_chr;	/* Keep charisma */
-
 	u32b cursed;            /* Player is cursed */
 
 	bool can_swim;		/* No damage falling */

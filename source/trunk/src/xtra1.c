@@ -2853,8 +2853,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 		case CLASS_BERSERKER:
 			creature_ptr->shero = 1;
 			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-			creature_ptr->sustain_dex = TRUE;
-			creature_ptr->sustain_con = TRUE;
+			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
+			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
 			creature_ptr->regenerate = TRUE;
 			creature_ptr->free_act = TRUE;
 			creature_ptr->speed += 2;
@@ -2906,7 +2906,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			//TODO creature_ptr->resist_fear = TRUE;
 
 			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
-			if (creature_ptr->lev > 24) creature_ptr->sustain_dex = TRUE;
+			//TODO if (creature_ptr->lev > 24) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
 			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
 			if (creature_ptr->lev > 44)
 			{
@@ -3356,11 +3356,11 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->telepathy = TRUE;
 		creature_ptr->lite = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-		creature_ptr->sustain_int = TRUE;
-		creature_ptr->sustain_wis = TRUE;
-		creature_ptr->sustain_con = TRUE;
-		creature_ptr->sustain_dex = TRUE;
-		creature_ptr->sustain_chr = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
 		creature_ptr->resist_acid = TRUE;
 		creature_ptr->resist_elec = TRUE;
 		creature_ptr->resist_fire = TRUE;
@@ -3592,11 +3592,11 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		/* Sustain flags */
 		//TODO if (have_flag(flgs, TR_SUST_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-		if (have_flag(flgs, TR_SUST_INT)) creature_ptr->sustain_int = TRUE;
-		if (have_flag(flgs, TR_SUST_WIS)) creature_ptr->sustain_wis = TRUE;
-		if (have_flag(flgs, TR_SUST_DEX)) creature_ptr->sustain_dex = TRUE;
-		if (have_flag(flgs, TR_SUST_CON)) creature_ptr->sustain_con = TRUE;
-		if (have_flag(flgs, TR_SUST_CHR)) creature_ptr->sustain_chr = TRUE;
+		//if (have_flag(flgs, TR_SUST_INT)) has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
+		//if (have_flag(flgs, TR_SUST_WIS)) has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
+		//if (have_flag(flgs, TR_SUST_DEX)) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
+		//if (have_flag(flgs, TR_SUST_CON)) has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
+		//if (have_flag(flgs, TR_SUST_CHR)) has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
 
 		if (object_ptr->name2 == EGO_YOIYAMI) creature_ptr->dusk_enchant = TRUE;
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
@@ -3819,11 +3819,11 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->telepathy = FALSE;
 	creature_ptr->lite = FALSE;
 	//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = FALSE;
-	creature_ptr->sustain_int = FALSE;
-	creature_ptr->sustain_wis = FALSE;
-	creature_ptr->sustain_con = FALSE;
-	creature_ptr->sustain_dex = FALSE;
-	creature_ptr->sustain_chr = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;
 	creature_ptr->resist_fire = FALSE;
