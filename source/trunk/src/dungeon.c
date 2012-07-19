@@ -2358,7 +2358,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	if (has_trait(creature_ptr, TRAIT_RTELEPORT) && (randint1(5000) == 88))
 	{
 		if (!creature_ptr->resist_nexus && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
-		    !creature_ptr->anti_tele)
+		    !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
 
@@ -3144,7 +3144,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			}
 		}
 		/* Teleport player */
-		if ((creature_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !creature_ptr->anti_tele)
+		if ((creature_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
 

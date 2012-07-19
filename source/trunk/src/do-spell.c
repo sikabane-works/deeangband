@@ -11170,7 +11170,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 				break;
 			}
-			if (caster_ptr->anti_tele)
+			if (has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
 			{
 #ifdef JP
 				msg_print("不思議な力がテレポートを防いだ！");

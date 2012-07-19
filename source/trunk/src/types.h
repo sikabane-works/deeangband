@@ -1459,8 +1459,6 @@ struct creature_type
 
 	bool reflect;       /* Reflect 'bolt' attacks */
 
-	bool anti_tele;     /* Prevent teleportation */
-
 	bool sustain_str;	/* Keep strength */
 	bool sustain_int;	/* Keep intelligence */
 	bool sustain_wis;	/* Keep wisdom */

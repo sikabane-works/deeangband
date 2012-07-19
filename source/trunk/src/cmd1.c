@@ -2164,7 +2164,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if (creature_ptr->levitation) return TRUE;
 		break;
 	case TRAP_TELEPORT:
-		if (creature_ptr->anti_tele) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) return TRUE;
 		break;
 	case TRAP_FIRE:
 		if (creature_ptr->immune_fire) return TRUE;

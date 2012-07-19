@@ -717,7 +717,7 @@ info[i++] = "あなたは反魔法シールドに包まれている。";
 #endif
 
 	}
-	if (creature_ptr->anti_tele)
+	if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
 #ifdef JP
 info[i++] = "あなたはテレポートできない。";
@@ -5009,7 +5009,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	}
 	c_ptr = &floor_ptr->cave[ty][tx];
 
-	if (creature_ptr->anti_tele)
+	if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
 #ifdef JP
 msg_print("不思議な力がテレポートを防いだ！");

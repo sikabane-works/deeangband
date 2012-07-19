@@ -3588,7 +3588,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
 		//TODO if (have_flag(flgs, TR_NO_MAGIC)) has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = TRUE;
-		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
+		//TODO if (have_flag(flgs, TR_NO_TELE))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
 
 		/* Sustain flags */
 		if (have_flag(flgs, TR_SUST_STR)) creature_ptr->sustain_str = TRUE;
@@ -3846,7 +3846,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	//TODO creature_ptr->sh_elec = FALSE;
 	//TODO creature_ptr->sh_cold = FALSE;
 	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
-	creature_ptr->anti_tele = FALSE;
+	//has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = FALSE;
 	creature_ptr->warning = FALSE;
 	creature_ptr->mighty_throw = FALSE;
 	creature_ptr->see_nocto = FALSE;
