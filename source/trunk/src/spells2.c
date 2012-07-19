@@ -1057,7 +1057,7 @@ info[i++] = "‚ ‚È‚½‚ÍŠÔ‹t“]‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
-	if (creature_ptr->sustain_str)
+	if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì˜r—Í‚ÍˆÛ‚³‚ê‚Ä‚¢‚éB";

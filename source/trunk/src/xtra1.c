@@ -2852,7 +2852,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 		case CLASS_BERSERKER:
 			creature_ptr->shero = 1;
-			creature_ptr->sustain_str = TRUE;
+			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 			creature_ptr->sustain_dex = TRUE;
 			creature_ptr->sustain_con = TRUE;
 			creature_ptr->regenerate = TRUE;
@@ -3355,7 +3355,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->hold_life = TRUE;
 		creature_ptr->telepathy = TRUE;
 		creature_ptr->lite = TRUE;
-		creature_ptr->sustain_str = TRUE;
+		//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 		creature_ptr->sustain_int = TRUE;
 		creature_ptr->sustain_wis = TRUE;
 		creature_ptr->sustain_con = TRUE;
@@ -3591,7 +3591,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_NO_TELE))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
 
 		/* Sustain flags */
-		if (have_flag(flgs, TR_SUST_STR)) creature_ptr->sustain_str = TRUE;
+		//TODO if (have_flag(flgs, TR_SUST_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 		if (have_flag(flgs, TR_SUST_INT)) creature_ptr->sustain_int = TRUE;
 		if (have_flag(flgs, TR_SUST_WIS)) creature_ptr->sustain_wis = TRUE;
 		if (have_flag(flgs, TR_SUST_DEX)) creature_ptr->sustain_dex = TRUE;
@@ -3818,7 +3818,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->hold_life = FALSE;
 	creature_ptr->telepathy = FALSE;
 	creature_ptr->lite = FALSE;
-	creature_ptr->sustain_str = FALSE;
+	//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = FALSE;
 	creature_ptr->sustain_int = FALSE;
 	creature_ptr->sustain_wis = FALSE;
 	creature_ptr->sustain_con = FALSE;

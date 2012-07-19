@@ -5157,7 +5157,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 	/* Access the "sustain" */
 	switch (stat)
 	{
-		case STAT_STR: if (creature_ptr->sustain_str) sust = TRUE; break;
+		case STAT_STR: if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
 		case STAT_INT: if (creature_ptr->sustain_int) sust = TRUE; break;
 		case STAT_WIS: if (creature_ptr->sustain_wis) sust = TRUE; break;
 		case STAT_DEX: if (creature_ptr->sustain_dex) sust = TRUE; break;

@@ -2660,7 +2660,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		switch (which_stat)
 		{
 		case STAT_STR:
-			if (creature_ptr->sustain_str) sustained = TRUE;
+			if (has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sustained = TRUE;
 			break;
 		case STAT_INT:
 			if (creature_ptr->sustain_int) sustained = TRUE;
