@@ -654,7 +654,7 @@ info[i++] = "あなたは自己の生命力をしっかりと維持する。";
 #endif
 
 	}
-	if (creature_ptr->reflect)
+	if (has_trait(creature_ptr, TRAIT_REFLECTING))
 	{
 #ifdef JP
 info[i++] = "あなたは矢やボルトを反射する。";

@@ -7252,7 +7252,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	if (is_player(attacker_ptr)) return (FALSE);
 	if (attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if ((player_ptr->reflect || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if ((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;

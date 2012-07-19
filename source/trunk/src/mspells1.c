@@ -126,7 +126,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		if (caster_ptr->resist_nexus) smart |= (SM_RES_NEXUS);
 		if (caster_ptr->resist_sound) smart |= (SM_RES_SOUND);
 		if (caster_ptr->resist_shard) smart |= (SM_RES_SHARD);
-		if (caster_ptr->reflect) smart |= (SM_IMM_REFLECT);
+		//if (caster_ptr->reflect) smart |= (SM_IMM_REFLECT);
 
 		/* Know bizarre "resistances" */
 		if (caster_ptr->free_act) smart |= (SM_IMM_FREE);

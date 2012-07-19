@@ -2868,12 +2868,12 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
 			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
 
-			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
+			//TODO if (creature_ptr->lev > 39) has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 			play_redraw |= PR_STATUS;
 			break;
 
 		case CLASS_MIRROR_MASTER:
-			if (creature_ptr->lev > 39) creature_ptr->reflect = TRUE;
+			//TODO if (creature_ptr->lev > 39) has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 			break;
 
 		case CLASS_NINJA:
@@ -3220,7 +3220,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	// Wraith form
 	if (creature_ptr->wraith_form)
 	{
-		creature_ptr->reflect = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		creature_ptr->pass_wall = TRUE;
 	}
 
@@ -3247,7 +3247,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	{
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
-		creature_ptr->reflect = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		creature_ptr->free_act = TRUE;
 		creature_ptr->levitation = TRUE;
 	}
@@ -3336,7 +3336,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	/* Temporary reflection */
 	if (creature_ptr->tim_reflect)
 	{
-		creature_ptr->reflect = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
@@ -3377,7 +3377,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		creature_ptr->resist_neth = TRUE;
 		//TODO creature_ptr->resist_fear = TRUE;
-		creature_ptr->reflect = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		//TODO creature_ptr->sh_fire = TRUE;
 		//TODO creature_ptr->sh_elec = TRUE;
 		//TODO creature_ptr->sh_cold = TRUE;
@@ -3583,7 +3583,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
 		//if (have_flag(flgs, TR_RES_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 
-		if (have_flag(flgs, TR_REFLECT))  creature_ptr->reflect = TRUE;
+		//TODO if (have_flag(flgs, TR_REFLECT))  has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
@@ -3841,7 +3841,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_neth = FALSE;
 	creature_ptr->resist_time = FALSE;
 	//TODO creature_ptr->resist_fear = FALSE;
-	creature_ptr->reflect = FALSE;
+	//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = FALSE;
 	//TODO creature_ptr->sh_fire = FALSE;
 	//TODO creature_ptr->sh_elec = FALSE;
 	//TODO creature_ptr->sh_cold = FALSE;
@@ -4707,7 +4707,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		{
 			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
-			creature_ptr->reflect = TRUE;
+			//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		}
 		else if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		{

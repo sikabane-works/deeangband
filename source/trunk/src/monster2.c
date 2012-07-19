@@ -5838,7 +5838,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 		break;
 
 	case DRS_REFLECT:
-		if (player_ptr->reflect) learner_ptr-> smart |= (SM_IMM_REFLECT);
+		if (has_trait(player_ptr, TRAIT_REFLECTING)) learner_ptr-> smart |= (SM_IMM_REFLECT);
 		break;
 	}
 }

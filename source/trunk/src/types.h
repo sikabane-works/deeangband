@@ -1457,7 +1457,7 @@ struct creature_type
 	bool immune_fire;	/* Immunity to fire */
 	bool immune_cold;	/* Immunity to cold */
 
-	bool reflect;       /* Reflect 'bolt' attacks */
+	// bool reflect;       /* Reflect 'bolt' attacks */
 
 	u32b cursed;            /* Player is cursed */
 
