@@ -2844,11 +2844,11 @@ static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
 }
 
 
-static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *tar_ptr)
+static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *target_ptr)
 {
 	int mult = 10;
 
-	species_type *r_ptr = &species_info[tar_ptr->species_idx];
+	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -2864,173 +2864,173 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 		{
 			/* Slay Animal */
 			if ((have_flag(flgs, TR_SLAY_ANIMAL)) &&
-			    is_animal_creature(tar_ptr))
+			    is_animal_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 17) mult = 17;
 			}
 
 			/* Kill Animal */
 			if ((have_flag(flgs, TR_KILL_ANIMAL)) &&
-			    is_animal_creature(tar_ptr))
+			    is_animal_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 27) mult = 27;
 			}
 
 			/* Slay Evil */
 			if ((have_flag(flgs, TR_SLAY_EVIL)) &&
-			    is_enemy_of_good_creature(tar_ptr))
+			    is_enemy_of_good_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 15) mult = 15;
 			}
 
 			/* Kill Evil */
 			if ((have_flag(flgs, TR_KILL_EVIL)) &&
-			    is_enemy_of_good_creature(tar_ptr))
+			    is_enemy_of_good_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 25) mult = 25;
 			}
 
 			/* Slay Human */
 			if ((have_flag(flgs, TR_SLAY_HUMAN)) &&
-			    (is_human_creature(tar_ptr)))
+			    (is_human_creature(target_ptr)))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 17) mult = 17;
 			}
 
 			/* Kill Human */
 			if ((have_flag(flgs, TR_KILL_HUMAN)) &&
-			    (is_human_creature(tar_ptr)))
+			    (is_human_creature(target_ptr)))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 27) mult = 27;
 			}
 
 			/* Slay Undead */
-			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(tar_ptr))
+			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Undead */
-			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Slay Demon */
-			if ((have_flag(flgs, TR_SLAY_DEMON)) && is_demon_creature(tar_ptr))
+			if ((have_flag(flgs, TR_SLAY_DEMON)) && is_demon_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Demon */
-			if ((have_flag(flgs, TR_KILL_DEMON)) && is_demon_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_DEMON)) && is_demon_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Slay Orc */
-			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(tar_ptr))
+			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Orc */
-			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Slay Troll */
-			if (have_flag(flgs, TR_SLAY_TROLL) && is_troll_creature(tar_ptr))
+			if (have_flag(flgs, TR_SLAY_TROLL) && is_troll_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Troll */
-			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Slay Giant */
-			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(tar_ptr))
+			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Giant */
-			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Slay Dragon  */
-			if ((have_flag(flgs, TR_SLAY_DRAGON)) && is_dragon_creature(tar_ptr))
+			if ((have_flag(flgs, TR_SLAY_DRAGON)) && is_dragon_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Execute Dragon */
-			if ((have_flag(flgs, TR_KILL_DRAGON)) && is_dragon_creature(tar_ptr))
+			if ((have_flag(flgs, TR_KILL_DRAGON)) && is_dragon_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 
 				if ((o_ptr->name1 == ART_BARD_ARROW) &&
-				    (tar_ptr->species_idx == MON_SMAUG) &&
+				    (target_ptr->species_idx == MON_SMAUG) &&
 				    (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_BARD))
 					mult *= 5;
 			}
@@ -3038,9 +3038,9 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 			/* Brand (Acid) */
 			if (have_flag(flgs, TR_BRAND_ACID))
 			{
-				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ACID_RATE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
-				if (!has_trait(tar_ptr, TRAIT_RES_ACID))
+				if (!has_trait(target_ptr, TRAIT_RES_ACID))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3049,9 +3049,9 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 			/* Brand (Elec) */
 			if (have_flag(flgs, TR_BRAND_ELEC))
 			{
-				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ELEC_RATE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				if (!has_trait(tar_ptr, TRAIT_RES_ELEC))
+				if (!has_trait(target_ptr, TRAIT_RES_ELEC))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3060,16 +3060,16 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 			/* Brand (Fire) */
 			if (have_flag(flgs, TR_BRAND_FIRE))
 			{
-				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_FIRE_RATE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
 				/* Notice immunity */
-				if (!has_trait(tar_ptr, TRAIT_RES_FIRE))
+				if (!has_trait(target_ptr, TRAIT_RES_FIRE))
 				{
-					if (is_hurt_fire_creature(tar_ptr))
+					if (is_hurt_fire_creature(target_ptr))
 					{
 						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-							reveal_creature_info(tar_ptr, TRAIT_HURT_FIRE);
+						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+							reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3078,16 +3078,16 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 			/* Brand (Cold) */
 			if (have_flag(flgs, TR_BRAND_COLD))
 			{
-				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_COLD_RATE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_COLD_RATE);
 
 				/* Otherwise, take the damage */
-				if (!has_trait(tar_ptr, TRAIT_RES_COLD))
+				if (!has_trait(target_ptr, TRAIT_RES_COLD))
 				{
-					if (is_hurt_cold_creature(tar_ptr))
+					if (is_hurt_cold_creature(target_ptr))
 					{
 						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(attacker_ptr, tar_ptr))
-							reveal_creature_info(tar_ptr, TRAIT_HURT_COLD);
+						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+							reveal_creature_info(target_ptr, TRAIT_HURT_COLD);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3096,9 +3096,9 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 			/* Brand (Poison) */
 			if (have_flag(flgs, TR_BRAND_POIS))
 			{
-				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if (!has_trait(tar_ptr, TRAIT_RES_POIS))
+				if (!has_trait(target_ptr, TRAIT_RES_POIS))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3115,7 +3115,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 	}
 
 	/* Sniper */
-	if (attacker_ptr->snipe_type) mult = tot_dam_aux_snipe(attacker_ptr, mult, tar_ptr);
+	if (attacker_ptr->snipe_type) mult = tot_dam_aux_snipe(attacker_ptr, mult, target_ptr);
 
 	/* Return the total damage */
 	return (tdam * mult / 10);

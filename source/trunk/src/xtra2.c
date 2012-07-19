@@ -1450,7 +1450,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * Get the coefficient first, and multiply (potentially huge) base
  * experience point of a creature later.
  */
-void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *tar_ptr)
+void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *target_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 	s32b new_exp;
@@ -1459,29 +1459,29 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *tar_p
 	u32b div_l;
 	int exp_limit;
 
-	if (has_trait(tar_ptr, TRAIT_BLUFF)) return;
-	if (!tar_ptr->species_idx) return;
-	if (is_pet(player_ptr, tar_ptr) || gamble_arena_mode) return;
+	if (has_trait(target_ptr, TRAIT_BLUFF)) return;
+	if (!target_ptr->species_idx) return;
+	if (is_pet(player_ptr, target_ptr) || gamble_arena_mode) return;
 
 	/*
 	 * - Ratio of creature's level to player's level effects
 	 * - Varying speed effects
 	 * - Get a fraction in proportion of damage point
 	 */
-	new_exp = tar_ptr->lev * SPEED_TO_ENERGY(tar_ptr->speed) * dam;
+	new_exp = target_ptr->lev * SPEED_TO_ENERGY(target_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
-	div_l = (attacker_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
+	div_l = (attacker_ptr->max_plv+2) * SPEED_TO_ENERGY(target_ptr->speed);
 
 	/* Special penalty in the wilderness */
-	if (!floor_ptr->floor_level && (!has_trait(tar_ptr, TRAIT_WILD_ONLY) || !(has_trait(tar_ptr, TRAIT_UNIQUE))))
+	if (!floor_ptr->floor_level && (!has_trait(target_ptr, TRAIT_WILD_ONLY) || !(has_trait(target_ptr, TRAIT_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Multiply base experience point of attacker and the target level*/
-	s64b_mul(&new_exp, &new_exp_frac, 0, tar_ptr->lev * tar_ptr->lev);
+	s64b_mul(&new_exp, &new_exp_frac, 0, target_ptr->lev * target_ptr->lev);
 	s64b_div(&new_exp, &new_exp_frac, 0, 1 + attacker_ptr->lev);
 
 	if(attacker_ptr->lev != PY_MAX_LEVEL)

@@ -187,15 +187,15 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 /*
  * Check should creature cast dispel spell at other creature.
  */
-static bool dispel_check_creature(creature_type *tar_ptr)
+static bool dispel_check_creature(creature_type *target_ptr)
 {
 	/* Invulnabilty */
-	if (tar_ptr->invuln) return TRUE;
+	if (target_ptr->invuln) return TRUE;
 
 	/* Speed */
-	if (tar_ptr->speed < 135)
+	if (target_ptr->speed < 135)
 	{
-		if (tar_ptr->fast) return TRUE;
+		if (target_ptr->fast) return TRUE;
 	}
 
 	/*TODO  Riding creature */

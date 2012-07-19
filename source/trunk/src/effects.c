@@ -5918,11 +5918,11 @@ static void you_died(cptr hit_from)
  * setting the player to "dead".
  */
 
-int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
+int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
-	floor_type *floor_ptr = get_floor_ptr(tar_ptr);
-	int old_chp = tar_ptr->chp;
-	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
+	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	int old_chp = target_ptr->chp;
+	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 	bool fear = FALSE;
 	char atk_name[100];
 	char tar_name[100];
@@ -5934,27 +5934,27 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	int         expdam;
 
 	// for Player
-	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
+	int warning = (target_ptr->mhp * hitpoint_warn / 10);
 
 	if(attacker_ptr) creature_desc(atk_name, attacker_ptr, MD_TRUE_NAME);
 	else atk_name[0] = '\0';
-	if(tar_ptr) creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
+	if(target_ptr) creature_desc(tar_name, target_ptr, MD_TRUE_NAME);
 	else tar_name[0] = '\0';
 
-	if (!has_trait(tar_ptr, TRAIT_KILL_EXP))
+	if (!has_trait(target_ptr, TRAIT_KILL_EXP))
 	{
-		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
-		if (has_trait(tar_ptr, TRAIT_HEAL)) expdam = (expdam+1) * 2 / 3;
+		expdam = (target_ptr->chp > damage) ? damage : target_ptr->chp;
+		if (has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam+1) * 2 / 3;
 
-		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, tar_ptr);
+		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, target_ptr);
 
 		/* Genocided by chaos patron */
 		//TODO check
-		//if (!tar_ptr->species_idx) m_idx = 0;
+		//if (!target_ptr->species_idx) m_idx = 0;
 	}
 
 	/* Wake it up */
-	(void)set_paralyzed(tar_ptr, 0);
+	(void)set_paralyzed(target_ptr, 0);
 
 	if(attacker_ptr)
 	{
@@ -5965,8 +5965,8 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 		}
 
 		/* Redraw (later) if needed */
-		if (&creature_list[health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
-		if (&creature_list[attacker_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[health_who] == target_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF))
@@ -5982,8 +5982,8 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	/* Paranoia */
 	if (gameover) return 0;
 
-	if (tar_ptr->sutemi) damage *= 2;
-	if (tar_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
+	if (target_ptr->sutemi) damage *= 2;
+	if (target_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
 
 	if (damage_type != DAMAGE_USELIFE)
 	{
@@ -5991,16 +5991,16 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 		disturb(player_ptr, 1, 0);
 		if (auto_more)
 		{
-			tar_ptr->now_damaged = TRUE;
+			target_ptr->now_damaged = TRUE;
 		}
 	}
 
-	if (monspell >= 0) learn_spell(tar_ptr, monspell);
+	if (monspell >= 0) learn_spell(target_ptr, monspell);
 
 	/* Mega-Hack -- Apply "invulnerability" */
 	if ((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))
 	{
-		if (IS_INVULN(tar_ptr) && (damage < 9000))
+		if (IS_INVULN(target_ptr) && (damage < 9000))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -6024,7 +6024,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			}
 		}
 
-		if ((tar_ptr->multishadow && (turn & 1)))
+		if ((target_ptr->multishadow && (turn & 1)))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -6045,7 +6045,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			}
 		}
 
-		if (tar_ptr->wraith_form)
+		if (target_ptr->wraith_form)
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -6062,7 +6062,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			}
 		}
 
-		if (tar_ptr->special_defense & KATA_MUSOU)
+		if (target_ptr->special_defense & KATA_MUSOU)
 		{
 			damage /= 2;
 			if ((damage == 0) && one_in_(2)) damage = 1;
@@ -6070,17 +6070,17 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	} /* not if LOSELIFE USELIFE */
 
 	/* Hurt creature */
-	tar_ptr->chp -= damage;
+	target_ptr->chp -= damage;
 
-	if(is_player(tar_ptr))
+	if(is_player(target_ptr))
 	{
-		if(tar_ptr->chp < 0) gameover = TRUE;
+		if(target_ptr->chp < 0) gameover = TRUE;
 		play_redraw |= (PR_HP | PW_PLAYER);
 		handle_stuff();
 	}
 
 	// Curse of Amberites
-	if (has_trait(tar_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
+	if (has_trait(target_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
 	{
 		int curses = 1 + randint1(3);
 		bool stop_ty = FALSE;
@@ -6099,10 +6099,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 		while (--curses);
 	}
 
-	if(damage_type == DAMAGE_GENO && tar_ptr->chp < 0)
+	if(damage_type == DAMAGE_GENO && target_ptr->chp < 0)
 	{
-		damage += tar_ptr->chp;
-		tar_ptr->chp = 0;
+		damage += target_ptr->chp;
+		target_ptr->chp = 0;
 	}
 
 	if (wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp/5)))
@@ -6115,40 +6115,40 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	else
 	{
 		/* It is dead now */
-		if (tar_ptr->chp < 0)
+		if (target_ptr->chp < 0)
 		{
 	
-			if (has_trait(tar_ptr, TRAIT_TANUKI))
+			if (has_trait(target_ptr, TRAIT_TANUKI))
 			{
 				/* You might have unmasked Tanuki first time */
-				r_ptr = &species_info[tar_ptr->species_idx];
-				tar_ptr->ap_species_idx = tar_ptr->species_idx;
+				r_ptr = &species_info[target_ptr->species_idx];
+				target_ptr->ap_species_idx = target_ptr->species_idx;
 				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
 	
-			if (tar_ptr->mflag2 & MFLAG2_CHAMELEON)
+			if (target_ptr->mflag2 & MFLAG2_CHAMELEON)
 			{
 				/* You might have unmasked Chameleon first time */
-				r_ptr = real_species_ptr(tar_ptr);
+				r_ptr = real_species_ptr(target_ptr);
 				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
 	
-			if (!(tar_ptr->smart & SM_CLONED))
+			if (!(target_ptr->smart & SM_CLONED))
 			{
 				/* When the player kills a Unique, it stays dead */
-				if (is_unique_creature(tar_ptr))
+				if (is_unique_creature(target_ptr))
 				{
 					r_ptr->max_num = 0;
 	
 					/* Mega-Hack -- Banor & Lupart */
-					if ((tar_ptr->species_idx == MON_BANOR) || (tar_ptr->species_idx == MON_LUPART))
+					if ((target_ptr->species_idx == MON_BANOR) || (target_ptr->species_idx == MON_LUPART))
 					{
 						species_info[MON_BANORLUPART].max_num = 0;
 						species_info[MON_BANORLUPART].r_pkills++;
 						species_info[MON_BANORLUPART].r_akills++;
 						if (species_info[MON_BANORLUPART].r_tkills < MAX_SHORT) species_info[MON_BANORLUPART].r_tkills++;
 					}
-					else if (tar_ptr->species_idx == MON_BANORLUPART)
+					else if (target_ptr->species_idx == MON_BANORLUPART)
 					{
 						species_info[MON_BANOR].max_num = 0;
 						species_info[MON_BANOR].r_pkills++;
@@ -6169,38 +6169,38 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if ((tar_ptr->ml && !IS_HALLUCINATION(attacker_ptr)) || is_unique_creature(tar_ptr))
+			if ((target_ptr->ml && !IS_HALLUCINATION(attacker_ptr)) || is_unique_creature(target_ptr))
 			{
 				/* Count kills this life */
-				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
+				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
 				else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
 	
 				/* Count kills in all lives */
-				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_tkills < MAX_SHORT)) species_info[MON_KAGE].r_tkills++;
+				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_tkills < MAX_SHORT)) species_info[MON_KAGE].r_tkills++;
 				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */
-				species_type_track(tar_ptr->ap_species_idx);
+				species_type_track(target_ptr->ap_species_idx);
 			}
 	
 			/* Extract creature name */
-			creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
+			creature_desc(tar_name, target_ptr, MD_TRUE_NAME);
 		
-			if (has_trait(tar_ptr, TRAIT_CAN_SPEAK))
+			if (has_trait(target_ptr, TRAIT_CAN_SPEAK))
 			{
 				char line_got[1024];
 	
 				// Dump a message
 	#ifdef JP
-				if (!get_rnd_line("mondeath_j.txt", tar_ptr->species_idx, line_got))
+				if (!get_rnd_line("mondeath_j.txt", target_ptr->species_idx, line_got))
 	#else
-				if (!get_rnd_line("mondeath.txt", tar_ptr->species_idx, line_got))
+				if (!get_rnd_line("mondeath.txt", target_ptr->species_idx, line_got))
 	#endif
 	
 					msg_format("%^s %s", tar_name, line_got);
 	
 	#ifdef WORLD_SCORE
-				if (tar_ptr->species_idx == MON_SERPENT)
+				if (target_ptr->species_idx == MON_SERPENT)
 				{
 					// Make screen dump
 					screen_dump = make_screen_dump();
@@ -6210,10 +6210,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	
 			for (i = 0; i < 4; i++)
 			{
-				if (tar_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
+				if (target_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
 	
-				if ((tar_ptr->blow[i].effect == RBE_EAT_ITEM)
-					|| (tar_ptr->blow[i].effect == RBE_EAT_GOLD))
+				if ((target_ptr->blow[i].effect == RBE_EAT_ITEM)
+					|| (target_ptr->blow[i].effect == RBE_EAT_GOLD))
 	
 					thief = TRUE; /* Thief! */
 			}
@@ -6221,13 +6221,13 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			/* The new law says it is illegal to live in the dungeon */
 			if (r_ptr->level != 0) innocent = FALSE;
 			
-			if (is_unique_creature(tar_ptr) && record_destroy_uniq)
+			if (is_unique_creature(target_ptr) && record_destroy_uniq)
 			{
 				char note_buf[160];
 	#ifdef JP
-				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(クローン)" : "");
+				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (target_ptr->smart & SM_CLONED) ? "(クローン)" : "");
 	#else
-				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(Clone)" : "");
+				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (target_ptr->smart & SM_CLONED) ? "(Clone)" : "");
 	#endif
 				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}
@@ -6242,9 +6242,9 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			}
 	
 			/* Death by physical attack -- invisible creature */
-			else if (!tar_ptr->ml)
+			else if (!target_ptr->ml)
 			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
 	#ifdef JP
 					if ((attacker_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
@@ -6268,7 +6268,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	
 				for (i = 0; i < 4; i++)
 				{
-					if (tar_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
+					if (target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
 				}
 	
 				/* Special note at death */
@@ -6300,7 +6300,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			{
 				if(attacker_ptr)
 				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 					{
 #ifdef JP
 						if ((attacker_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
@@ -6319,7 +6319,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 				}
 				else
 				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
 						msg_format("%sは死んだ。", tar_name);
 #else
@@ -6328,11 +6328,11 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 				}
 	
 			}
-			if (is_unique_creature(tar_ptr) && !(tar_ptr->smart & SM_CLONED))
+			if (is_unique_creature(target_ptr) && !(target_ptr->smart & SM_CLONED))
 			{
 				for (i = 0; i < MAX_BOUNTY; i++)
 				{
-					if ((kubi_species_idx[i] == tar_ptr->species_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
+					if ((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->mflag2 & MFLAG2_CHAMELEON))
 					{
 	#ifdef JP
 	msg_format("%sの首には賞金がかかっている。", tar_name);
@@ -6345,19 +6345,19 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			}
 	
 			/* Generate treasure */
-			creature_death(attacker_ptr, tar_ptr, TRUE);
+			creature_death(attacker_ptr, target_ptr, TRUE);
 	
 			/* Mega hack : replace IKETA to BIKETAL */
-			if ((tar_ptr->species_idx == MON_IKETA) &&
+			if ((target_ptr->species_idx == MON_IKETA) &&
 			    !(fight_arena_mode || gamble_arena_mode))
 			{
-				int dummy_y = tar_ptr->fy;
-				int dummy_x = tar_ptr->fx;
+				int dummy_y = target_ptr->fy;
+				int dummy_x = target_ptr->fx;
 				u32b mode = 0L;
 	
-				if (is_pet(player_ptr, tar_ptr)) mode |= PM_FORCE_PET;
+				if (is_pet(player_ptr, target_ptr)) mode |= PM_FORCE_PET;
 	
-				delete_species_idx(tar_ptr);
+				delete_species_idx(target_ptr);
 	
 				if (summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BIKETAL, mode))
 				{
@@ -6371,14 +6371,14 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			else
 			{
 				/* Delete the creature */
-				delete_species_idx(tar_ptr);
+				delete_species_idx(target_ptr);
 			}
 	
 			/* Prevent bug of chaos patron's reward */
-			if (has_trait(tar_ptr, TRAIT_KILL_EXP))
-				get_exp_from_mon(attacker_ptr, (long)tar_ptr->mhp*2, tar_ptr);
+			if (has_trait(target_ptr, TRAIT_KILL_EXP))
+				get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp*2, target_ptr);
 			else
-				get_exp_from_mon(attacker_ptr, ((long)tar_ptr->mhp+1L) * 9L / 10L, tar_ptr);
+				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp+1L) * 9L / 10L, target_ptr);
 	
 			/* Not afraid */
 			fear = FALSE;
@@ -6393,10 +6393,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 			char tar_name[80];
 	
 			/* Extract creature name */
-			creature_desc(tar_name, tar_ptr, 0);
+			creature_desc(tar_name, target_ptr, 0);
 	
-			if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
-			if (do_thrown_from_riding(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
+			if (target_ptr->chp > target_ptr->mhp/3) damage = (damage + 1) / 2;
+			if (do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 	#ifdef JP
 	msg_format("%^sに振り落とされた！", tar_name);
@@ -6410,10 +6410,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	}
 	
 	/* Mega-Hack -- Pain cancels fear */
-	if (tar_ptr->afraid && (damage > 0))
+	if (target_ptr->afraid && (damage > 0))
 	{
 		/* Cure fear */
-		if (set_afraid(tar_ptr, tar_ptr->afraid - randint1(damage)))
+		if (set_afraid(target_ptr, target_ptr->afraid - randint1(damage)))
 		{
 			/* No more fear */
 			fear = FALSE;
@@ -6421,33 +6421,33 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	}
 	
 	/* Sometimes a creature gets scared by damage */
-	if (!tar_ptr->afraid && !has_trait(tar_ptr, TRAIT_FEARLESS))
+	if (!target_ptr->afraid && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
 		/* Percentage of fully healthy */
-		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
 	
 		/*
 		 * Run (sometimes) if at 10% or less of max hit points,
 		 * or (usually) when hit for half its current hit points
 		 */
-		if ((randint1(10) >= percentage) || ((damage >= tar_ptr->chp) && (randint0(100) < 80)))
+		if ((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80)))
 		{
 			/* Hack -- note fear */
 			fear = TRUE;
 		}
 	}
 
-	if(fear && !tar_ptr->afraid)
+	if(fear && !target_ptr->afraid)
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
-		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
-		(void)set_afraid(tar_ptr, (randint1(10) +
-			(((damage >= tar_ptr->chp) && (percentage > 7)) ?
+		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
+		(void)set_afraid(target_ptr, (randint1(10) +
+			(((damage >= target_ptr->chp) && (percentage > 7)) ?
 			20 : ((11 - percentage) * 5))));
 	}
 
 	/* Hitpoint warning */
-	if (is_player(tar_ptr) && tar_ptr->chp < warning && !gameover)
+	if (is_player(target_ptr) && target_ptr->chp < warning && !gameover)
 	{
 		/* Hack -- bell on first notice */
 		if (old_chp > warning) bell();
@@ -6456,7 +6456,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 	
 		if (record_danger && (old_chp > warning))
 		{
-			if (IS_HALLUCINATION(tar_ptr) && damage_type == DAMAGE_ATTACK)
+			if (IS_HALLUCINATION(target_ptr) && damage_type == DAMAGE_ATTACK)
 	#ifdef JP
 				hit_from = "何か";
 	#else
@@ -6474,7 +6474,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_typ
 		if (auto_more)
 		{
 			/* stop auto_more even if DAMAGE_USELIFE */
-			tar_ptr->now_damaged = TRUE;
+			target_ptr->now_damaged = TRUE;
 		}
 	
 		/* Message */
