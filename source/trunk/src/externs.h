@@ -704,11 +704,11 @@ extern void disturb(creature_type *player_ptr, int stop_search, int flush_output
 extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
 
 // cmd1.c
-extern bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis);
-extern bool test_hit_norm(creature_type *atk_ptr, int chance, int ac, int vis);
+extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ac, int vis);
+extern bool test_hit_norm(creature_type *attacker_ptr, int chance, int ac, int vis);
 extern s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam);
 extern s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, s16b meichuu, int mode);
-extern s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_type *tar_ptr, int mode, bool thrown);
+extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *tar_ptr, int mode, bool thrown);
 extern void search(creature_type *cr_ptr);
 extern void py_pickup_aux(creature_type *cr_ptr, int object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
@@ -1151,10 +1151,10 @@ extern errr rd_savefile_new(void);
 extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
 /* melee1.c */
-extern bool melee_attack(creature_type *atk_ptr, int y, int x, int mode);
+extern bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode);
 
 /* melee2.c */
-extern bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr, int ap_cnt, bool *fear, bool *dead);
+extern bool special_melee(creature_type *attacker_ptr, creature_type *tar_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void creature_process_init(void);
@@ -1328,7 +1328,7 @@ extern void remove_loc(void);
 // spells1.c
 extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ);
-extern int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell);
+extern int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg);
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
@@ -1744,7 +1744,7 @@ extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
 extern int spell_exp_level(int spell_exp);
 extern void display_creature_dump(creature_type *cr_ptr);
-extern void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr);
+extern void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *m_ptr);
 extern void format_weight(char * buf, int weight);
 
 /* mspells1.c */

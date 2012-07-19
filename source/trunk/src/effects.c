@@ -5918,7 +5918,7 @@ static void you_died(cptr hit_from)
  * setting the player to "dead".
  */
 
-int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
+int take_hit(creature_type *attacker_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	floor_type *floor_ptr = get_floor_ptr(tar_ptr);
 	int old_chp = tar_ptr->chp;
@@ -5936,7 +5936,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	// for Player
 	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
 
-	if(atk_ptr) creature_desc(atk_name, atk_ptr, MD_TRUE_NAME);
+	if(attacker_ptr) creature_desc(atk_name, attacker_ptr, MD_TRUE_NAME);
 	else atk_name[0] = '\0';
 	if(tar_ptr) creature_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 	else tar_name[0] = '\0';
@@ -5946,7 +5946,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (has_trait(tar_ptr, TRAIT_HEAL)) expdam = (expdam+1) * 2 / 3;
 
-		if(atk_ptr) get_exp_from_mon(atk_ptr, expdam, tar_ptr);
+		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, tar_ptr);
 
 		/* Genocided by chaos patron */
 		//TODO check
@@ -5956,20 +5956,20 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	/* Wake it up */
 	(void)set_paralyzed(tar_ptr, 0);
 
-	if(atk_ptr)
+	if(attacker_ptr)
 	{
 		/* Hack - Cancel any special player stealth magics. -LM- */
-		if (atk_ptr->special_defense & NINJA_S_STEALTH)
+		if (attacker_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			set_superstealth(atk_ptr, FALSE);
+			set_superstealth(attacker_ptr, FALSE);
 		}
 
 		/* Redraw (later) if needed */
 		if (&creature_list[health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
-		if (&creature_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[attacker_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if(atk_ptr && has_trait(atk_ptr, TRAIT_BLUFF))
+	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF))
 	{
 		return 0;
 	}
@@ -6091,10 +6091,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#else
 		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", tar_name, atk_name);
 	#endif
-		curse_equipment(atk_ptr, 100, 50);	
+		curse_equipment(attacker_ptr, 100, 50);	
 		do
 		{
-			stop_ty = activate_ty_curse(atk_ptr, stop_ty, &count);
+			stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
 		}
 		while (--curses);
 	}
@@ -6169,7 +6169,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if ((tar_ptr->ml && !IS_HALLUCINATION(atk_ptr)) || is_unique_creature(tar_ptr))
+			if ((tar_ptr->ml && !IS_HALLUCINATION(attacker_ptr)) || is_unique_creature(tar_ptr))
 			{
 				/* Count kills this life */
 				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
@@ -6244,12 +6244,12 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Death by physical attack -- invisible creature */
 			else if (!tar_ptr->ml)
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+					if ((attacker_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 						msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
-					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+					else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
 					else
 						msg_format("%sは%sを殺した。", atk_name, tar_name);
@@ -6261,7 +6261,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Death by Physical attack -- non-living creature */
-			else if (!creature_living(atk_ptr))
+			else if (!creature_living(attacker_ptr))
 			{
 				int i;
 				bool explode = FALSE;
@@ -6281,13 +6281,13 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else
 				{
 	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+					if ((attacker_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 						msg_format("せっかくだから%sを倒した。", tar_name);
-					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+					else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%s！お許し下さい！", tar_name);
 					else
 						msg_format("%sを倒した。", tar_name);
-					if (atk_ptr->chara_idx == CHARA_CHARGEMAN)
+					if (attacker_ptr->chara_idx == CHARA_CHARGEMAN)
 						msg_format("%s!お許し下さい！", tar_name);
 	#else
 					msg_format("You have destroyed %s.", tar_name);
@@ -6298,14 +6298,14 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Death by Physical attack -- living creature */
 			else
 			{
-				if(atk_ptr)
+				if(attacker_ptr)
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 					{
 #ifdef JP
-						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+						if ((attacker_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 							msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
-						else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+						else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
 						{
 							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
 							msg_format("%s！お許し下さい！", tar_name);
@@ -6319,7 +6319,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				}
 				else
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%sは死んだ。", tar_name);
 #else
@@ -6345,7 +6345,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Generate treasure */
-			creature_death(atk_ptr, tar_ptr, TRUE);
+			creature_death(attacker_ptr, tar_ptr, TRUE);
 	
 			/* Mega hack : replace IKETA to BIKETAL */
 			if ((tar_ptr->species_idx == MON_IKETA) &&
@@ -6376,9 +6376,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			/* Prevent bug of chaos patron's reward */
 			if (has_trait(tar_ptr, TRAIT_KILL_EXP))
-				get_exp_from_mon(atk_ptr, (long)tar_ptr->mhp*2, tar_ptr);
+				get_exp_from_mon(attacker_ptr, (long)tar_ptr->mhp*2, tar_ptr);
 			else
-				get_exp_from_mon(atk_ptr, ((long)tar_ptr->mhp+1L) * 9L / 10L, tar_ptr);
+				get_exp_from_mon(attacker_ptr, ((long)tar_ptr->mhp+1L) * 9L / 10L, tar_ptr);
 	
 			/* Not afraid */
 			fear = FALSE;
@@ -6388,7 +6388,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 		
 	#if 0
-		if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (damage > 0))
+		if (attacker_ptr->riding && (attacker_ptr->riding == m_idx) && (damage > 0))
 		{
 			char tar_name[80];
 	

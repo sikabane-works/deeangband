@@ -1450,9 +1450,9 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * Get the coefficient first, and multiply (potentially huge) base
  * experience point of a creature later.
  */
-void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
+void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *tar_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
@@ -1471,7 +1471,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	new_exp = tar_ptr->lev * SPEED_TO_ENERGY(tar_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
-	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
+	div_l = (attacker_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
 	/* Special penalty in the wilderness */
 	if (!floor_ptr->floor_level && (!has_trait(tar_ptr, TRAIT_WILD_ONLY) || !(has_trait(tar_ptr, TRAIT_UNIQUE))))
@@ -1482,16 +1482,16 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 
 	/* Multiply base experience point of attacker and the target level*/
 	s64b_mul(&new_exp, &new_exp_frac, 0, tar_ptr->lev * tar_ptr->lev);
-	s64b_div(&new_exp, &new_exp_frac, 0, 1 + atk_ptr->lev);
+	s64b_div(&new_exp, &new_exp_frac, 0, 1 + attacker_ptr->lev);
 
-	if(atk_ptr->lev != PY_MAX_LEVEL)
-		exp_limit = (creature_exp[atk_ptr->lev+1] - creature_exp[atk_ptr->lev]) / (5 + atk_ptr->lev / 10);
+	if(attacker_ptr->lev != PY_MAX_LEVEL)
+		exp_limit = (creature_exp[attacker_ptr->lev+1] - creature_exp[attacker_ptr->lev]) / (5 + attacker_ptr->lev / 10);
 	else
-		exp_limit = (creature_exp[atk_ptr->lev] * 2) / (5 + atk_ptr->lev / 10);
+		exp_limit = (creature_exp[attacker_ptr->lev] * 2) / (5 + attacker_ptr->lev / 10);
 	new_exp = new_exp > exp_limit ? exp_limit : new_exp;
 
 	/* Gain experience */
-	gain_exp_64(atk_ptr, new_exp, new_exp_frac);
+	gain_exp_64(attacker_ptr, new_exp, new_exp_frac);
 }
 
 

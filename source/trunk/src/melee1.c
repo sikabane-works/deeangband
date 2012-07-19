@@ -16,14 +16,14 @@
 
 
 
-static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
+static void touch_zap_player(creature_type *attacker_ptr, creature_type *tar_ptr)
 {
 	int aura_damage = 0;
 	species_type *species_ptr = &species_info[tar_ptr->species_idx];
 
 	if (has_trait(tar_ptr, TRAIT_AURA_FIRE))
 	{
-		if (!atk_ptr->immune_fire)
+		if (!attacker_ptr->immune_fire)
 		{
 			char aura_dam[80];
 
@@ -38,17 +38,17 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			msg_print("You are suddenly very hot!");
 #endif
 
-			aura_damage = calc_damage(atk_ptr, aura_damage, DAMAGE_TYPE_FIRE, FALSE);
-			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			aura_damage = calc_damage(attacker_ptr, aura_damage, DAMAGE_TYPE_FIRE, FALSE);
+			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_FIRE);
+			if (is_original_ap_and_seen(attacker_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_FIRE);
 			handle_stuff();
 		}
 	}
 
 	if (has_trait(tar_ptr, TRAIT_AURA_COLD))
 	{
-		if (!atk_ptr->immune_cold)
+		if (!attacker_ptr->immune_cold)
 		{
 			char aura_dam[80];
 
@@ -63,18 +63,18 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			msg_print("You are suddenly very cold!");
 #endif
 
-			if (IS_OPPOSE_COLD(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
+			if (IS_OPPOSE_COLD(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (attacker_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_COLD);
+			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(attacker_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_COLD);
 			handle_stuff();
 		}
 	}
 
 	if (has_trait(tar_ptr, TRAIT_AURA_ELEC))
 	{
-		if (!atk_ptr->immune_elec)
+		if (!attacker_ptr->immune_elec)
 		{
 			char aura_dam[80];
 
@@ -83,9 +83,9 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-			if (has_trait(atk_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (atk_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
+			if (has_trait(attacker_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
+			if (IS_OPPOSE_ELEC(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (attacker_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 
 #ifdef JP
 			msg_print("電撃をくらった！");
@@ -93,8 +93,8 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			msg_print("You get zapped!");
 #endif
 
-			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_ELEC);
+			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(attacker_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_AURA_ELEC);
 			handle_stuff();
 		}
 	}
@@ -105,16 +105,16 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
  *
  * If no "weapon" is available, then "punch" the creature one time.
  */
-static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void weapon_attack(creature_type *attacker_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
-	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	// Access the weapon
-	object_type     *weapon_ptr = get_equipped_slot_ptr(atk_ptr, INVEN_SLOT_HAND, hand);
+	object_type     *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
 
 	char            atk_name[80];
 	char            tar_name[80];
@@ -135,25 +135,25 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	int             drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[TR_FLAG_SIZE]; /* A massive hack -- life-draining weapons */
 	bool            is_human = (r_ptr->d_char == 'p');
-	bool            is_lowlevel = (r_ptr->level < (atk_ptr->lev - 15));
+	bool            is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;
 
-	switch (atk_ptr->class_idx)
+	switch (attacker_ptr->class_idx)
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) > hand && !atk_ptr->icky_wield[hand])
+		if (get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand && !attacker_ptr->icky_wield[hand])
 		{
-			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
-			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
-			if (has_trait(atk_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-			if (r_ptr->level > (atk_ptr->lev * atk_ptr->lev / 20 + 10)) tmp /= 3;
+			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
+			if (attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+			if (has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
+			if (r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
 			if (tar_ptr->paralyzed && tar_ptr->ml)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !has_trait(tar_ptr, TRAIT_RES_ALL))
+			else if ((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !has_trait(tar_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
@@ -167,24 +167,24 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 
-	if (object_is_melee_weapon(atk_ptr, weapon_ptr))
+	if (object_is_melee_weapon(attacker_ptr, weapon_ptr))
 	{
 		// Weapon skill mastering
-		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->class_idx != INDEX_NONE)
+		if ((r_ptr->level + 10) > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
 		{
-			int tval = atk_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
-			int sval = atk_ptr->inventory[hand].sval;
+			int tval = attacker_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
+			int sval = attacker_ptr->inventory[hand].sval;
 			/*
-			int now_exp = atk_ptr->weapon_exp[tval][sval];
-			if (now_exp < skill_info[atk_ptr->class_idx].w_max[tval][sval])
+			int now_exp = attacker_ptr->weapon_exp[tval][sval];
+			if (now_exp < skill_info[attacker_ptr->class_idx].w_max[tval][sval])
 			{
 				int amount = 0;
 				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
 				else if (now_exp < WEAPON_EXP_SKILLED) amount = 10;
-				else if ((now_exp < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19)) amount = 1;
-				else if ((atk_ptr->lev > 34) && one_in_(2)) amount = 1;
-				atk_ptr->weapon_exp[tval][sval] += amount;
-				atk_ptr->creature_update |= (CRU_BONUS);
+				else if ((now_exp < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19)) amount = 1;
+				else if ((attacker_ptr->lev > 34) && one_in_(2)) amount = 1;
+				attacker_ptr->weapon_exp[tval][sval] += amount;
+				attacker_ptr->creature_update |= (CRU_BONUS);
 			}
 			*/
 		}
@@ -194,16 +194,16 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	(void)set_paralyzed(tar_ptr, 0);
 
 	// Extract attacker and target name (or "it")
-	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(atk_name, attacker_ptr, 0);
 	creature_desc(tar_name, tar_ptr, 0);
 
 	// Calculate the "attack quality"
-	bonus = atk_ptr->to_hit[hand] + weapon_ptr->to_hit;
-	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
+	bonus = attacker_ptr->to_hit[hand] + weapon_ptr->to_hit;
+	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if (mode == HISSATSU_IAI) chance += 60;
-	if (atk_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
+	if (attacker_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
 
-	if (atk_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
+	if (attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
 	zantetsu_mukou = ((weapon_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
 	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
@@ -211,12 +211,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	// Attack once for each legal blow
 	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 	{
-		int n = count_melee_slot(atk_ptr);
+		int n = count_melee_slot(attacker_ptr);
 		if (mode == HISSATSU_3DAN) n *= 2;
 		success_hit = one_in_(n);
 	}
-	else if ((atk_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(tar_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
+	else if ((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(tar_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
+	else success_hit = test_hit_norm(attacker_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -225,7 +225,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	{
 		int vorpal_chance = ((weapon_ptr->name1 == ART_VORPAL_BLADE) || (weapon_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
 		sound(SOUND_HIT);
-		if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 		{
 #ifdef JP
 			if (backstab)
@@ -278,44 +278,44 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Vampiric drain
-		if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
+		if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
 		{
 			// Only drain "living" creatures
 			if (creature_living(tar_ptr)) can_drain = TRUE;
 			else can_drain = FALSE;
 		}
 
-		if ((have_flag(flgs, TR_VORPAL) || hex_spelling(atk_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+		if ((have_flag(flgs, TR_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 			vorpal_cut = TRUE;
 		else vorpal_cut = FALSE;
 
 		// Handle normal weapon
 		if (weapon_ptr->k_idx)
 		{
-			k = diceroll(weapon_ptr->dd + atk_ptr->to_damaged[hand], weapon_ptr->ds + atk_ptr->to_damages[hand]);
-			k = tot_dam_aux(atk_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
+			k = diceroll(weapon_ptr->dd + attacker_ptr->to_damaged[hand], weapon_ptr->ds + attacker_ptr->to_damages[hand]);
+			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, tar_ptr, mode, FALSE);
 
 			if (backstab)
 			{
-				k *= (3 + (atk_ptr->lev / 20));
+				k *= (3 + (attacker_ptr->lev / 20));
 			}
 			else if (fuiuchi)
 			{
-				k = k*(5+(atk_ptr->lev*2/25))/2;
+				k = k*(5+(attacker_ptr->lev*2/25))/2;
 			}
 			else if (stab_fleeing)
 			{
 				k = (3 * k) / 2;
 			}
 
-			if ((atk_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
+			if ((attacker_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
 				(chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 			{
 				do_quake = TRUE;
 			}
 
 			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-				k = critical_norm(atk_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, atk_ptr->to_hit[hand], mode);
+				k = critical_norm(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
 
 			drain_result = k;
 
@@ -338,7 +338,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 				if (weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_print("目にも止まらぬヴォーパルブレード、手錬の早業！");
 #else
@@ -347,7 +347,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				}
 				else
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%sをグッサリ切り裂いた！", tar_name);
 #else
@@ -366,7 +366,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				// Ouch!
 				if ((has_trait(tar_ptr, TRAIT_RES_ALL) ? k / 100 : k) > tar_ptr->chp)
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%sを真っ二つにした！", tar_name);
 #else
@@ -377,7 +377,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				{
 					switch (mult)
 					{
-						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 						{
 #ifdef JP
 							case 2: msg_format("%sを斬った！", tar_name); break;
@@ -407,12 +407,12 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Apply the player damage bonuses
-		k += atk_ptr->to_damage[hand];
-		drain_result += atk_ptr->to_damage[hand];
+		k += attacker_ptr->to_damage[hand];
+		drain_result += attacker_ptr->to_damage[hand];
 
 		if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(tar_ptr)) k = 0;
-		if ((mode == HISSATSU_SEKIRYUKA) && !IS_WOUND(atk_ptr)) k /= 2;
+		if ((mode == HISSATSU_SEKIRYUKA) && !IS_WOUND(attacker_ptr)) k /= 2;
 		if (k < 0) k = 0; // No negative damage
 		if ((mode == HISSATSU_ZANMA) && !(!creature_living(tar_ptr) && is_enemy_of_good_creature(tar_ptr)))
 		{
@@ -421,7 +421,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 		if (zantetsu_mukou)
 		{
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 				msg_print("こんな軟らかいものは切れん！");
 #else
@@ -432,7 +432,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 		if (e_j_mukou)
 		{
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 				msg_print("蜘蛛は苦手だ！");
 #else
@@ -443,10 +443,10 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 		if (mode == HISSATSU_MINEUCHI)
 		{
-			int tmp = (10 + randint1(15) + atk_ptr->lev / 5);
+			int tmp = (10 + randint1(15) + attacker_ptr->lev / 5);
 
 			k = 0;
-			anger_creature(atk_ptr, tar_ptr);
+			anger_creature(attacker_ptr, tar_ptr);
 
 			if (!has_trait(tar_ptr, TRAIT_NO_STUN))
 			{
@@ -462,7 +462,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				}
 				else
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%s はもうろうとした。", tar_name);
 #else
@@ -475,7 +475,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 			else
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 					msg_format("%s には効果がなかった。", tar_name);
 #else
@@ -485,13 +485,13 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Modify the damage
-		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
+		k = invuln_damage_mod(tar_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
 		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
 			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
 			{
 				k = tar_ptr->chp + 1;
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 					msg_format("%sの急所を突き刺した！", tar_name);
 #else
@@ -500,13 +500,13 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			}
 			else k = 1;
 		}
-		else if ((atk_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(atk_ptr, INVEN_SLOT_HAND) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
+		else if ((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && !attacker_ptr->icky_wield[hand] && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
 			if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 			{
 				k *= 5;
 				drain_result *= 2;
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 					msg_format("刃が%sに深々と突き刺さった！", tar_name);
 #else
@@ -520,7 +520,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				{
 					k = MAX(k*5, tar_ptr->chp/2);
 					drain_result *= 2;
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%sに致命傷を負わせた！", tar_name);
 #else
@@ -530,7 +530,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				else
 				{
 					k = tar_ptr->chp + 1;
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("刃が%sの急所を貫いた！", tar_name);
 #else
@@ -551,17 +551,17 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		if (drain_result > tar_ptr->chp)
 			drain_result = tar_ptr->chp;
 
-		take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
+		take_hit(attacker_ptr, tar_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
 
 		if(gameover);
 		{
 			*mdeath = TRUE;
-			if ((atk_ptr->class_idx == CLASS_BERSERKER) && energy_use)
+			if ((attacker_ptr->class_idx == CLASS_BERSERKER) && energy_use)
 			{
 				//TODO
 			}
 			if ((weapon_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
-				if(is_player(atk_ptr))
+				if(is_player(attacker_ptr))
 #ifdef JP
 					msg_print("またつまらぬものを斬ってしまった．．．");
 #else
@@ -570,9 +570,9 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		}
 
 		// Anger the creature
-		if (k > 0) anger_creature(atk_ptr, tar_ptr);
+		if (k > 0) anger_creature(attacker_ptr, tar_ptr);
 
-		touch_zap_player(atk_ptr, tar_ptr);
+		touch_zap_player(attacker_ptr, tar_ptr);
 
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 
@@ -596,7 +596,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 					if (weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
 					{
-						if(is_seen(player_ptr, atk_ptr))
+						if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
 							msg_print("妖刀は血を吸って強くなった！");
 #else
@@ -614,7 +614,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					drain_heal = diceroll(2, drain_result / 6);
 
 					/* Hex */
-					if (hex_spelling(atk_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+					if (hex_spelling(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 					if (cheat_xtra)
 					{
@@ -640,7 +640,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 						if (drain_msg)
 						{
-							if(is_seen(player_ptr, atk_ptr))
+							if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
 								msg_format("刃が%sから生命力を吸い取った！", tar_name);
 #else
@@ -650,9 +650,9 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 							drain_msg = FALSE;
 						}
 
-						drain_heal = (drain_heal * atk_ptr->mutant_regenerate_mod) / 100;
+						drain_heal = (drain_heal * attacker_ptr->mutant_regenerate_mod) / 100;
 
-						hp_player(atk_ptr, drain_heal);
+						hp_player(attacker_ptr, drain_heal);
 						/* We get to keep some of it! */
 					}
 				}
@@ -713,7 +713,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			if (!(is_unique_creature(tar_ptr) || is_quest_creature(tar_ptr)) &&
 				!has_trait(tar_ptr, TRAIT_RES_CHAO))
 			{
-				if (polymorph_creature(atk_ptr, y, x))
+				if (polymorph_creature(attacker_ptr, y, x))
 				{
 #ifdef JP
 					msg_format("%^sは変化した！", tar_name);
@@ -764,7 +764,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			sound(SOUND_HIT);
 
 			/* Message */
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 			{
 #ifdef JP
 				msg_format("%sは%sの攻撃をかわした。", tar_name, atk_name);
@@ -781,9 +781,9 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			//TODO Death Scythe damage.
 			k = 0;
 #ifdef JP
-			take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
+			take_hit(NULL, attacker_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
 #else
-			take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+			take_hit(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
 			redraw_stuff();
@@ -818,14 +818,14 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 	// Mega-Hack -- apply earthquake brand
 	if (do_quake)
 	{
-		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
+		earthquake(tar_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
 		if (!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
 	}
 
 }
 
 
-static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int attack, bool *fear, bool *mdeath)
+static void natural_attack(creature_type *attacker_ptr, creature_type *tar_ptr, int attack, bool *fear, bool *mdeath)
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
@@ -907,12 +907,12 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 
 	/* Calculate the "attack quality" */
-	bonus = atk_ptr->to_hit_m;
-	bonus += (atk_ptr->lev * 6 / 5);
-	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
+	bonus = attacker_ptr->to_hit_m;
+	bonus += (attacker_ptr->lev * 6 / 5);
+	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!has_trait(tar_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
+	if ((!has_trait(tar_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_norm(attacker_ptr, chance, tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -925,10 +925,10 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 
 		k = diceroll(ddd, dss);
-		k = critical_norm(atk_ptr, n_weight, bonus, k, (s16b)bonus, 0);
+		k = critical_norm(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 
 		/* Apply the player damage bonuses */
-		k += atk_ptr->to_damage_m;
+		k += attacker_ptr->to_damage_m;
 
 		/* No negative damage */
 		if (k < 0) k = 0;
@@ -943,7 +943,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		}
 
 		/* Anger the creature */
-		if (k > 0) anger_creature(atk_ptr, tar_ptr);
+		if (k > 0) anger_creature(attacker_ptr, tar_ptr);
 
 		/* Damage, check for fear and mdeath */
 		switch (attack)
@@ -952,22 +952,22 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
 			case TRAIT_HORNS:
-				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_BEAK:
-				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_TRUNK:
-				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_TENTACLES:
-				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
-				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+				take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 		}
 		*mdeath = (tar_ptr->species_idx == 0);
-		touch_zap_player(atk_ptr, tar_ptr);
+		touch_zap_player(attacker_ptr, tar_ptr);
 	}
 	/* Player misses */
 	else
@@ -976,7 +976,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		sound(SOUND_MISS);
 
 		/* Message */
-		if(is_player(atk_ptr))
+		if(is_player(attacker_ptr))
 		{
 #ifdef JP
 			msg_format("ミス！ %sにかわされた。", target_name);
@@ -997,21 +997,21 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 }
 
 
-static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void barehand_attack(creature_type *attacker_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char weapon_name[100], atk_name[100], tar_name[100];
-	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 	bool monk_attack = FALSE;
 	int k;
 
-	switch(atk_ptr->class_idx)
+	switch(attacker_ptr->class_idx)
 	{
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 		case CLASS_BERSERKER:
-			if ((empty_hands(atk_ptr, TRUE) & EMPTY_HAND_RARM) && !atk_ptr->riding) monk_attack = TRUE;
+			if ((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
 			break;
 	}
 
@@ -1021,20 +1021,20 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 	strcpy(weapon_name, "bare hand");
 #endif
 
-	if ((r_ptr->level + 10) > atk_ptr->lev)
+	if ((r_ptr->level + 10) > attacker_ptr->lev)
 	{
 		// Matrial arts skill mastering
-		if (atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[atk_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
+		if (attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
 		{
-			if (atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
-				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 40;
-			else if ((atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
-				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 5;
-			else if ((atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
-				atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			else if ((atk_ptr->lev > 34))
-				if (one_in_(3)) atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			atk_ptr->creature_update |= (CRU_BONUS);
+			if (attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
+				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 40;
+			else if ((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
+				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 5;
+			else if ((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19))
+				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
+			else if ((attacker_ptr->lev > 34))
+				if (one_in_(3)) attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
+			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
 
@@ -1053,27 +1053,27 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 		if (is_undead_creature(tar_ptr) || has_trait(tar_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
-		if (atk_ptr->special_defense & KAMAE_BYAKKO)
-			max_times = (atk_ptr->lev < 3 ? 1 : atk_ptr->lev / 3);
-		else if (atk_ptr->special_defense & KAMAE_SUZAKU)
+		if (attacker_ptr->special_defense & KAMAE_BYAKKO)
+			max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
+		else if (attacker_ptr->special_defense & KAMAE_SUZAKU)
 			max_times = 1;
-		else if (atk_ptr->special_defense & KAMAE_GENBU)
+		else if (attacker_ptr->special_defense & KAMAE_GENBU)
 			max_times = 1;
 		else
-			max_times = (atk_ptr->lev < 7 ? 1 : atk_ptr->lev / 7);
+			max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
 		/* Attempt 'times' */
 		for (times = 0; times < max_times; times++)
 		{
 			do
 			{
 				ma_ptr = &ma_blows[randint0(MAX_MA)];
-				if ((atk_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+				if ((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
 				else min_level = ma_ptr->min_level;
 			}
-			while ((min_level > atk_ptr->lev) || (randint1(atk_ptr->lev) < ma_ptr->chance));
+			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
 
 			/* keep the highest level attack available we found */
-			if ((ma_ptr->min_level > old_ptr->min_level) && !atk_ptr->stun && !atk_ptr->confused)
+			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->stun && !attacker_ptr->confused)
 			{
 				old_ptr = ma_ptr;
 
@@ -1092,16 +1092,16 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 		}
 
-		if (atk_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+		if (attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
-		k = diceroll(ma_ptr->dd + atk_ptr->to_damaged[hand], ma_ptr->ds + atk_ptr->to_damages[hand]);
-		if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
+		k = diceroll(ma_ptr->dd + attacker_ptr->to_damaged[hand], ma_ptr->ds + attacker_ptr->to_damages[hand]);
+		if (attacker_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
 		if (ma_ptr->effect == MA_KNEE)
 		{
 			if (IS_MALE(tar_ptr))
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 #ifdef JP
 					msg_format("%sは%sに金的膝蹴りをくらわした！", atk_name, tar_name);
@@ -1116,7 +1116,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 			else
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 					msg_format(ma_ptr->desc, atk_name, tar_name);
 			}
 		}
@@ -1125,7 +1125,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 		{
 			if (!((is_never_move_species(r_ptr)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 				{
 #ifdef JP
 					msg_format("%sは%sの足首に関節蹴りをくらわした！", atk_name, tar_name);
@@ -1136,7 +1136,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 				}
 				special_effect = MA_SLOW;
 			}
-			else if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, tar_name);
+			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, tar_name);
 		}
 		else
 		{
@@ -1145,37 +1145,37 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 				stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 			}
 
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 		}
 
-		if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
-		if ((atk_ptr->class_idx == CLASS_FORCETRAINER) && (atk_ptr->magic_num1[0]))
+		if (attacker_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
+		if ((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->magic_num1[0]))
 		{
-			weight += (atk_ptr->magic_num1[0]/30);
+			weight += (attacker_ptr->magic_num1[0]/30);
 			if (weight > 20) weight = 20;
 		}
 
-		k = critical_norm(atk_ptr, atk_ptr->lev * weight, min_level, k, atk_ptr->to_hit[0], 0);
+		k = critical_norm(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
 
-		if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		if ((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
 #ifdef JP
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
 #else
-			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", tar_name);
 #endif
 
 			stun_effect = 7 + randint1(13);
 			resist_stun /= 3;
 		}
 
-		else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		else if ((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
 			if (!is_unique_creature(tar_ptr) &&
-			    (randint1(atk_ptr->lev) > r_ptr->level) &&
+			    (randint1(attacker_ptr->lev) > r_ptr->level) &&
 			    tar_ptr->speed > 60)
 			{
-				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 					msg_format("%^sは足をひきずり始めた。", tar_name);
 #else
@@ -1186,13 +1186,13 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 			}
 		}
 
-		if (stun_effect && ((k + atk_ptr->to_damage[hand]) < tar_ptr->chp))
+		if (stun_effect && ((k + attacker_ptr->to_damage[hand]) < tar_ptr->chp))
 		{
-			if (atk_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
+			if (attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 			{
 				if (set_stun(&creature_list[c_ptr->creature_idx], stun_effect + tar_ptr->stun))
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%^sはフラフラになった。", tar_name);
 #else
@@ -1201,7 +1201,7 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 				}
 				else
 				{
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
 						msg_format("%^sはさらにフラフラになった。", tar_name);
 #else
@@ -1215,21 +1215,21 @@ static void barehand_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 
 
 
-static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void confuse_melee(creature_type *attacker_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char tar_name[100];
-	floor_type *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 
 	// Confusion attack
-	//TODO if ((atk_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(atk_ptr, HEX_CONFUSION))
+	//TODO if ((attacker_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
 	{
 		// Cancel glowing hands
-		if (atk_ptr->special_attack & ATTACK_CONFUSE)
+		if (attacker_ptr->special_attack & ATTACK_CONFUSE)
 		{
-			atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
-			if(is_seen(player_ptr, atk_ptr))
+			attacker_ptr->special_attack &= ~(ATTACK_CONFUSE);
+			if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
 				msg_print("手の輝きがなくなった。");
 #else
@@ -1242,7 +1242,7 @@ static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		// Confuse the creature
 		if (has_trait(tar_ptr, TRAIT_NO_CONF))
 		{
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_NO_CONF);
+			if (is_original_ap_and_seen(attacker_ptr, tar_ptr)) reveal_creature_info(tar_ptr, TRAIT_NO_CONF);
 
 			if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -1271,7 +1271,7 @@ static void confuse_melee(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				msg_format("%^s appears confused.", tar_name);
 #endif
 
-			(void)set_confused(&creature_list[c_ptr->creature_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
+			(void)set_confused(&creature_list[c_ptr->creature_idx], tar_ptr->confused + 10 + randint0(attacker_ptr->lev) / 5);
 		}
 	}
 }
@@ -3981,28 +3981,28 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 }
 
 
-static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void tramping_attack(creature_type *attacker_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char attacker_name[100], target_name[100];
 
-	floor_type      *floor_ptr = get_floor_ptr(atk_ptr);
+	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	if(!mdeath)
 	{
-		int prob = 100 * atk_ptr->skill_exp[SKILL_MARTIAL_ARTS] / WEAPON_EXP_MASTER;
+		int prob = 100 * attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] / WEAPON_EXP_MASTER;
 		if(tar_ptr->levitation) prob /= 4;
-		if(atk_ptr->size - tar_ptr->size < 10) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 5) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 3) prob /= 2;
-		if(atk_ptr->size - tar_ptr->size < 1) prob /= 2;
+		if(attacker_ptr->size - tar_ptr->size < 10) prob /= 2;
+		if(attacker_ptr->size - tar_ptr->size < 5) prob /= 2;
+		if(attacker_ptr->size - tar_ptr->size < 3) prob /= 2;
+		if(attacker_ptr->size - tar_ptr->size < 1) prob /= 2;
 		if(100 * tar_ptr->chp / tar_ptr->mhp < 50) prob = prob * 3 / 2; 
 		if(100 * tar_ptr->chp / tar_ptr->mhp < 30) prob = prob * 3 / 2; 
 		if(100 * tar_ptr->chp / tar_ptr->mhp < 10) prob = prob * 3 / 2; 
 		if(prob > 95) prob = 95;
 
-		if (atk_ptr->size > tar_ptr->size && randint0(100) < prob)
+		if (attacker_ptr->size > tar_ptr->size && randint0(100) < prob)
 		{
 			int k;
 #ifdef JP
@@ -4010,8 +4010,8 @@ static void tramping_attack(creature_type *atk_ptr, creature_type *tar_ptr, int 
 #else
 			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
 #endif
-			k = diceroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
-			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
+			k = diceroll(attacker_ptr->size - tar_ptr->size, attacker_ptr->size - tar_ptr->size);
+			take_hit(attacker_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 			if (wizard)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
