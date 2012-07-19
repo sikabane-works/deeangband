@@ -1459,7 +1459,6 @@ struct creature_type
 
 	bool reflect;       /* Reflect 'bolt' attacks */
 
-	bool anti_magic;    /* Anti-magic */
 	bool anti_tele;     /* Prevent teleportation */
 
 	bool sustain_str;	/* Keep strength */

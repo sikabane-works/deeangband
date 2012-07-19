@@ -441,7 +441,7 @@ static bool can_do_cmd_cast(creature_type *creature_ptr)
 		msg_print(NULL);
 		return FALSE;
 	}
-	else if (creature_ptr->anti_magic)
+	else if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 #ifdef JP
 		msg_print("反魔法バリアが魔法を邪魔した！");

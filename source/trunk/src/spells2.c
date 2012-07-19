@@ -708,7 +708,7 @@ info[i++] = "あなたは闘気のオーラに包まれている。";
 #endif
 
 	}
-	if (creature_ptr->anti_magic)
+	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 #ifdef JP
 info[i++] = "あなたは反魔法シールドに包まれている。";

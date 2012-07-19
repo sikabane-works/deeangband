@@ -1475,7 +1475,7 @@ static void check_music(creature_type *creature_ptr)
 	if (creature_ptr->class_idx != CLASS_BARD) return;
 	if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
 
-	if (creature_ptr->anti_magic)
+	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		stop_singing(creature_ptr);
 		return;
@@ -2451,7 +2451,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		fire_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
 	}
 
-	if (has_trait(creature_ptr, TRAIT_PROD_MANA) && !creature_ptr->anti_magic && one_in_(9000))
+	if (has_trait(creature_ptr, TRAIT_PROD_MANA) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(9000))
 	{
 		int dire = 0;
 		disturb(player_ptr, 0, 0);
@@ -2468,7 +2468,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	}
 
 	if (has_trait(creature_ptr, TRAIT_ATT_DEMON) &&
-	    !creature_ptr->anti_magic && (randint1(6666) == 666))
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2593,7 +2593,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	}
 
 	if (has_trait(creature_ptr, TRAIT_ATT_ANIMAL) &&
-	    !creature_ptr->anti_magic && one_in_(7000))
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(7000))
 	{
 		bool pet = one_in_(3);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2614,7 +2614,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	}
 
 	if (has_trait(creature_ptr, TRAIT_RAW_CHAOS) &&
-	    !creature_ptr->anti_magic && one_in_(8000))
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(8000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2636,7 +2636,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
-	if (has_trait(creature_ptr, TRAIT_WRAITH) && !creature_ptr->anti_magic && one_in_(3000))
+	if (has_trait(creature_ptr, TRAIT_WRAITH) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2701,7 +2701,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 	if (has_trait(creature_ptr, TRAIT_ATT_DRAGON) &&
-	    !creature_ptr->anti_magic && one_in_(3000))
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		bool pet = one_in_(5);
 		u32b mode = PM_ALLOW_GROUP;
@@ -2720,7 +2720,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			disturb(player_ptr, 0, 0);
 		}
 	}
-	if (has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
 	    one_in_(3000))
 	{
 		if (creature_ptr->tim_esp > 0)
@@ -2761,7 +2761,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	}
 
 	if (has_trait(creature_ptr, TRAIT_WALK_SHAD) &&
-	    !creature_ptr->anti_magic && one_in_(12000) && !fight_arena_mode)
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(12000) && !fight_arena_mode)
 	{
 		alter_reality(creature_ptr);
 	}
@@ -2828,7 +2828,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
-	if (has_trait(creature_ptr, TRAIT_INVULN) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_INVULN) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
 	    one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2861,7 +2861,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if (has_trait(creature_ptr, TRAIT_HP_TO_SP_PASSIVE) && !creature_ptr->anti_magic &&
+	if (has_trait(creature_ptr, TRAIT_HP_TO_SP_PASSIVE) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
 	    one_in_(4000))
 	{
 		int wounds = creature_ptr->msp - creature_ptr->csp;
@@ -3186,7 +3186,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 	}
 
 	/* Rarely, take damage from the Jewel of Judgement */
-	if (one_in_(999) && !creature_ptr->anti_magic)
+	if (one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
@@ -4585,7 +4585,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					msg_print(NULL);
 				}
-				else if (creature_ptr->anti_magic && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
+				else if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
 #ifdef JP
 

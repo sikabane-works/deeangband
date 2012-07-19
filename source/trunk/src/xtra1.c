@@ -3425,7 +3425,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
 
-	if (creature_ptr->anti_magic)
+	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
 		creature_ptr->skill_eva += 20 + creature_ptr->lev * 5;
@@ -3587,7 +3587,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
 		//TODO if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
-		if (have_flag(flgs, TR_NO_MAGIC)) creature_ptr->anti_magic = TRUE;
+		//TODO if (have_flag(flgs, TR_NO_MAGIC)) has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = TRUE;
 		if (have_flag(flgs, TR_NO_TELE))  creature_ptr->anti_tele = TRUE;
 
 		/* Sustain flags */
@@ -3845,7 +3845,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	//TODO creature_ptr->sh_fire = FALSE;
 	//TODO creature_ptr->sh_elec = FALSE;
 	//TODO creature_ptr->sh_cold = FALSE;
-	creature_ptr->anti_magic = FALSE;
+	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
 	creature_ptr->anti_tele = FALSE;
 	creature_ptr->warning = FALSE;
 	creature_ptr->mighty_throw = FALSE;

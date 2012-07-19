@@ -145,7 +145,7 @@ void check_hex(creature_type *creature_ptr)
 	}
 
 	/* Stop all spells when anti-magic ability is given */
-	if (creature_ptr->anti_magic)
+	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		stop_hex_spell_all(creature_ptr);
 		return;
