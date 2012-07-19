@@ -2759,7 +2759,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3045,7 +3045,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3100,7 +3100,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3241,7 +3241,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3351,7 +3351,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3419,7 +3419,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3594,7 +3594,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3709,7 +3709,7 @@ note = "には耐性がある！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3857,7 +3857,7 @@ note_dies = "は蒸発した！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3938,7 +3938,7 @@ note = "には効果がなかった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4007,7 +4007,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4040,7 +4040,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4078,7 +4078,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4129,7 +4129,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4190,7 +4190,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4313,7 +4313,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4434,7 +4434,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4573,7 +4573,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4679,7 +4679,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4734,7 +4734,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4789,7 +4789,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4843,7 +4843,7 @@ note = "は眠り込んでしまった！";
 			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
 #endif
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4904,7 +4904,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4964,7 +4964,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -5102,7 +5102,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -5214,7 +5214,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -5253,7 +5253,7 @@ note = "は眠り込んでしまった！";
 
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5380,7 +5380,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -5416,7 +5416,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5523,7 +5523,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5569,7 +5569,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5632,7 +5632,7 @@ note = "は眠り込んでしまった！";
 
 			if (seen) obvious = TRUE;
 
-			if ((target_ptr->resist_ultimate) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5716,7 +5716,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5791,7 +5791,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5869,7 +5869,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((target_ptr->resist_ultimate) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5965,7 +5965,7 @@ note = "は眠り込んでしまった！";
 #else
 			msg_format("You stare into %s.", target_name);
 #endif
-			if ((target_ptr->resist_ultimate) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -6028,7 +6028,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -6075,7 +6075,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -6118,7 +6118,7 @@ note = "は眠り込んでしまった！";
 				skipped = TRUE;
 				break;
 			}
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				dam = 0;
 				break;
@@ -6157,7 +6157,7 @@ note = "は眠り込んでしまった！";
 		/* Stone to Mud */
 		case GF_KILL_WALL:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				dam = 0;
 				break;
@@ -6203,7 +6203,7 @@ note = "は眠り込んでしまった！";
 
 				if (has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
+					if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6258,7 +6258,7 @@ note = "は眠り込んでしまった！";
 
 				if (has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
+					if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6309,7 +6309,7 @@ note = "には耐性がある！";
 			bool resists_tele = FALSE;
 			if (has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if ((is_unique_creature(target_ptr)) || (target_ptr->resist_ultimate))
+				if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6351,7 +6351,7 @@ note = "には耐性がある！";
 		/* Turn undead (Use "dam" as "power") */
 		case GF_TURN_UNDEAD:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
@@ -6399,7 +6399,7 @@ note = "には耐性がある！";
 		/* Turn evil (Use "dam" as "power") */
 		case GF_TURN_EVIL:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
@@ -6447,7 +6447,7 @@ note = "には耐性がある！";
 		/* Turn creature (Use "dam" as "power") */
 		case GF_TURN_ALL:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
@@ -6483,7 +6483,7 @@ note = "には耐性がある！";
 		/* Dispel undead */
 		case GF_DISP_UNDEAD:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6525,7 +6525,7 @@ note = "には耐性がある！";
 		/* Dispel evil */
 		case GF_DISP_EVIL:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6566,7 +6566,7 @@ note = "には耐性がある！";
 		/* Dispel good */
 		case GF_DISP_GOOD:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6607,7 +6607,7 @@ note = "には耐性がある！";
 		/* Dispel living */
 		case GF_DISP_LIVING:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6646,7 +6646,7 @@ note = "には耐性がある！";
 		/* Dispel demons */
 		case GF_DISP_DEMON:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6687,7 +6687,7 @@ note = "には耐性がある！";
 		/* Dispel creature */
 		case GF_DISP_ALL:
 		{
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -6792,7 +6792,7 @@ msg_format("うまく捕まえられなかった。");
 
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -6937,7 +6937,7 @@ msg_format("うまく捕まえられなかった。");
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -7011,7 +7011,7 @@ msg_format("うまく捕まえられなかった。");
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -7093,7 +7093,7 @@ msg_format("うまく捕まえられなかった。");
 		{
 			if (seen) obvious = TRUE;
 
-			if (target_ptr->resist_ultimate)
+			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";

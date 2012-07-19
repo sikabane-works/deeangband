@@ -1413,7 +1413,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 {
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
-	if ((m_ptr->resist_ultimate) && dam > 0)
+	if (has_trait(m_ptr, TRAIT_RES_ALL) && dam > 0)
 	{
 		dam /= 100;
 		if ((dam == 0) && one_in_(3)) dam = 1;

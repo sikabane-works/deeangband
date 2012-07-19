@@ -153,7 +153,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !(tar_ptr->resist_ultimate))
+			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !has_trait(tar_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
@@ -215,7 +215,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 		if (mode == HISSATSU_3DAN) n *= 2;
 		success_hit = one_in_(n);
 	}
-	else if ((atk_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
+	else if ((atk_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(tar_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
 	else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_ac, tar_ptr->ml);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
@@ -364,7 +364,7 @@ static void weapon_attack(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 				k *= mult;
 
 				// Ouch!
-				if (((tar_ptr->resist_ultimate) ? k / 100 : k) > tar_ptr->chp)
+				if ((has_trait(tar_ptr, TRAIT_RES_ALL) ? k / 100 : k) > tar_ptr->chp)
 				{
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
@@ -3705,7 +3705,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if (is_enemy_of_good_creature(target_ptr))
 				{
-					if (!(attacker_ptr->resist_ultimate))
+					if (!has_trait(attacker_ptr, TRAIT_RES_ALL))
 					{
 						int dam = diceroll(2, 6);
 
@@ -3735,7 +3735,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			if (target_ptr->tim_sh_touki && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!(attacker_ptr->resist_ultimate))
+				if (!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
 					int dam = diceroll(2, 6);
 

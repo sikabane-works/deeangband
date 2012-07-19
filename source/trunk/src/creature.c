@@ -435,7 +435,7 @@ void set_resistance(creature_type *creature_ptr)
 
 	//TODO if(has_trait(creature_ptr, TRAIT_RES_TELE)) creature_ptr->resist_tele += 1;
 
-	if(has_trait(creature_ptr, TRAIT_RES_ALL)) creature_ptr->resist_ultimate += 1;
+	//TODO if(has_trait(creature_ptr, TRAIT_RES_ALL)) has_trait(creature_ptr, TRAIT_RES_ALL) += 1;
 
 	//TODO if(has_trait(creature_ptr, TRAIT_NO_BLIND)) has_trait(creature_ptr, TRAIT_NO_BLIND) += TRUE;
 	//TODO if(has_trait(creature_ptr, TRAIT_NO_FEAR)) creature_ptr->resist_fear += TRUE;
@@ -1716,7 +1716,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		if(creature_ptr->immune_fire || creature_ptr->resist_ultimate)
+		if(creature_ptr->immune_fire || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1727,7 +1727,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_COLD:
-		if(creature_ptr->immune_cold || creature_ptr->resist_ultimate)
+		if(creature_ptr->immune_cold || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1738,7 +1738,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ELEC:
-		if(creature_ptr->immune_elec || creature_ptr->resist_ultimate)
+		if(creature_ptr->immune_elec || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1748,7 +1748,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ACID:
-		if(creature_ptr->immune_acid || creature_ptr->resist_ultimate)
+		if(creature_ptr->immune_acid || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1758,7 +1758,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_POIS:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1766,7 +1766,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_LITE:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1775,7 +1775,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_DARK:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1784,7 +1784,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_NETH:
-		if(creature_ptr->resist_ultimate || is_undead_creature(creature_ptr))
+		if(has_trait(creature_ptr, TRAIT_RES_ALL) || is_undead_creature(creature_ptr))
 		{
 			t = 0;
 			break;
@@ -1793,7 +1793,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		//TODO Evil x0.5
 		break;
 	case DAMAGE_TYPE_WATER:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1801,14 +1801,14 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
 	case DAMAGE_TYPE_PLASMA:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_SHARD:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1816,7 +1816,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_shard > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_SOUND:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1827,7 +1827,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		break;
 	case DAMAGE_TYPE_CHAOS:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1835,7 +1835,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_chaos > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_NEXUS:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1843,7 +1843,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_nexus > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_DISEN:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1851,35 +1851,35 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_disen > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_FORCE:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_INERTIA:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_TIME:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_GRAVITY:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_HOLY_FIRE:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1887,7 +1887,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		//TODO Evil x2
 		break;
 	case DAMAGE_TYPE_HELL_FIRE:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1895,35 +1895,35 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		//TODO Good x2
 		break;
 	case DAMAGE_TYPE_NUKE:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_LOW_MANA:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_HIGH_MANA:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	case DAMAGE_TYPE_ROCKET:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
 	default:
-		if(creature_ptr->resist_ultimate)
+		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;

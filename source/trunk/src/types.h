@@ -1452,8 +1452,6 @@ struct creature_type
 	s16b resist_force;   /* Resist force */
 	s16b resist_water;   /* Resist water */
 
-	bool resist_ultimate;/* Resist ultimate */
-
 	bool immune_acid;	/* Immunity to acid */
 	bool immune_elec;	/* Immunity to lightning */
 	bool immune_fire;	/* Immunity to fire */

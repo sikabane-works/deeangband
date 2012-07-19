@@ -1697,7 +1697,7 @@ static void process_nonplayer(int m_idx)
 	if (is_pet(player_ptr, creature_ptr) &&
 	    (((is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
 	      creature_has_hostile_align(creature_ptr, player_ptr))
-	     || (creature_ptr->resist_ultimate)))
+	     || (has_trait(creature_ptr, TRAIT_RES_ALL))))
 	{
 		gets_angry = TRUE;
 	}
