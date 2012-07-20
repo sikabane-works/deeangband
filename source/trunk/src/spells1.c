@@ -2792,9 +2792,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(void)set_stun(target_ptr, target_ptr->stun + k);
 			}
 
-			if (!(target_ptr->resist_fire ||
-			      IS_OPPOSE_FIRE(target_ptr) ||
-			      target_ptr->immune_fire))
+			if (!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			{
 				inven_damage(target_ptr, set_acid_destroy, 3);
 			}
@@ -4067,7 +4065,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			if (!target_ptr->resist_shard || one_in_(13))
 			{
-				if (!target_ptr->immune_fire) inven_damage(target_ptr, set_fire_destroy, 2);
+				if (!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
 
@@ -4117,7 +4115,7 @@ note = "‚Í–°‚èž‚ñ‚Å‚µ‚Ü‚Á‚½I";
 
 				if ((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
 				{
-					if (!target_ptr->immune_cold) inven_damage(target_ptr, set_cold_destroy, 3);
+					if (!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 				}
 			}
 

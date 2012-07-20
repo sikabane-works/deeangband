@@ -2167,10 +2167,10 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) return TRUE;
 		break;
 	case TRAP_FIRE:
-		if (creature_ptr->immune_fire) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_IM_FIRE)) return TRUE;
 		break;
 	case TRAP_ACID:
-		if (creature_ptr->immune_acid) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_IM_ACID)) return TRUE;
 		break;
 	case TRAP_BLIND:
 		if (has_trait(creature_ptr, TRAIT_NO_BLIND)) return TRUE;
@@ -3193,7 +3193,7 @@ static bool run_test(creature_type *creature_ptr)
 				}
 
 				/* Lava */
-				else if (have_flag(f_ptr->flags, FF_LAVA) && (creature_ptr->immune_fire || IS_INVULN(creature_ptr)))
+				else if (have_flag(f_ptr->flags, FF_LAVA) && (has_trait(creature_ptr, TRAIT_IM_FIRE) || IS_INVULN(creature_ptr)))
 				{
 					/* Ignore */
 					notice = FALSE;

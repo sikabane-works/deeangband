@@ -1681,7 +1681,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 #endif
 	}
 
-	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !creature_ptr->immune_fire)
+	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 	{
 		int damage = 0;
 
@@ -1759,7 +1759,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation && !creature_ptr->immune_acid)
+	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation && !has_trait(creature_ptr, TRAIT_IM_ACID))
 	{
 		int damage = 0;
 
@@ -1813,7 +1813,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 		int damage;
-		if (has_trait(steed_ptr, TRAIT_AURA_FIRE) && !creature_ptr->immune_fire)
+		if (has_trait(steed_ptr, TRAIT_AURA_FIRE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
@@ -1825,7 +1825,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if (has_trait(steed_ptr, TRAIT_AURA_ELEC) && !creature_ptr->immune_elec)
+		if (has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ELEC, FALSE);
@@ -1837,7 +1837,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if (has_trait(steed_ptr, TRAIT_AURA_COLD) && !creature_ptr->immune_cold)
+		if (has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_COLD, FALSE);

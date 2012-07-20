@@ -5758,25 +5758,25 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	case DRS_ACID:
 		if (player_ptr->resist_acid) learner_ptr->smart |= (SM_RES_ACID);
 		if (IS_OPPOSE_ACID(player_ptr)) learner_ptr->smart |= (SM_OPP_ACID);
-		if (player_ptr->immune_acid) learner_ptr->smart |= (SM_IMM_ACID);
+		//if (player_ptr->immune_acid) learner_ptr->smart |= (SM_IMM_ACID);
 		break;
 
 	case DRS_ELEC:
 		if (player_ptr->resist_elec) learner_ptr->smart |= (SM_RES_ELEC);
 		if (IS_OPPOSE_ELEC(player_ptr)) learner_ptr->smart |= (SM_OPP_ELEC);
-		if (player_ptr->immune_elec) learner_ptr->smart |= (SM_IMM_ELEC);
+		//if (player_ptr->immune_elec) learner_ptr->smart |= (SM_IMM_ELEC);
 		break;
 
 	case DRS_FIRE:
 		if (player_ptr->resist_fire) learner_ptr->smart |= (SM_RES_FIRE);
 		if (IS_OPPOSE_FIRE(player_ptr)) learner_ptr->smart |= (SM_OPP_FIRE);
-		if (player_ptr->immune_fire) learner_ptr->smart |= (SM_IMM_FIRE);
+		//if (player_ptr->immune_fire) learner_ptr->smart |= (SM_IMM_FIRE);
 		break;
 
 	case DRS_COLD:
 		if (player_ptr->resist_cold) learner_ptr->smart |= (SM_RES_COLD);
 		if (IS_OPPOSE_COLD(player_ptr)) learner_ptr->smart |= (SM_OPP_COLD);
-		if (player_ptr->immune_cold) learner_ptr->smart |= (SM_IMM_COLD);
+		//if (player_ptr->immune_cold) learner_ptr->smart |= (SM_IMM_COLD);
 		break;
 
 	case DRS_POIS:

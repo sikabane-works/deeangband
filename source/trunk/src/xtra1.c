@@ -3299,6 +3299,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->ele_immune)
 	{
+		/*
 		if (creature_ptr->special_defense & DEFENSE_ACID)
 			creature_ptr->immune_acid = TRUE;
 		else if (creature_ptr->special_defense & DEFENSE_ELEC)
@@ -3307,6 +3308,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 			creature_ptr->immune_fire = TRUE;
 		else if (creature_ptr->special_defense & DEFENSE_COLD)
 			creature_ptr->immune_cold = TRUE;
+		*/
 	}
 
 	/* Temporary see invisible */
@@ -3558,10 +3560,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		}
 
 		/* Immunity flags */
-		if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
-		if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
-		if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
-		if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
+		//TODO if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
+		//TODO if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
+		//TODO if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
+		//TODO if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
 
 		/* Resistance flags */
 		if (have_flag(flgs, TR_RES_ACID))   creature_ptr->resist_acid += 1;
@@ -3851,11 +3853,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->mighty_throw = FALSE;
 	creature_ptr->see_nocto = FALSE;
 	creature_ptr->dusk_enchant = FALSE;
-
-	creature_ptr->immune_acid = FALSE;
-	creature_ptr->immune_elec = FALSE;
-	creature_ptr->immune_fire = FALSE;
-	creature_ptr->immune_cold = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
@@ -4894,10 +4891,10 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if (creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
 
 	// Hack -- Each elemental immunity includes resistance
-	if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
-	if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
-	if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
-	if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
+	//TODO if (creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
+	//TODO if (creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
+	//TODO if (creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
+	//TODO if (creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
 
 	 // Hack -- aura of fire also provides light
 	//TODO if (creature_ptr->sh_fire) creature_ptr->lite = TRUE;

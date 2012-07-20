@@ -23,7 +23,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 
 	if (has_trait(target_ptr, TRAIT_AURA_FIRE))
 	{
-		if (!attacker_ptr->immune_fire)
+		if (!has_trait(attacker_ptr, TRAIT_IM_FIRE))
 		{
 			char aura_dam[80];
 
@@ -48,7 +48,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 
 	if (has_trait(target_ptr, TRAIT_AURA_COLD))
 	{
-		if (!attacker_ptr->immune_cold)
+		if (!has_trait(attacker_ptr, TRAIT_IM_COLD))
 		{
 			char aura_dam[80];
 
@@ -74,7 +74,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 
 	if (has_trait(target_ptr, TRAIT_AURA_ELEC))
 	{
-		if (!attacker_ptr->immune_elec)
+		if (!has_trait(attacker_ptr, TRAIT_IM_ELEC))
 		{
 			char aura_dam[80];
 

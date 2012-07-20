@@ -1936,7 +1936,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			fire_ball(creature_ptr, GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if (!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || creature_ptr->immune_fire))
+			if (!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || has_trait(creature_ptr, TRAIT_IM_FIRE)))
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "‰Š‚ÌŠª•¨", NULL, -1);
 #else
@@ -1951,7 +1951,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_ICE:
 		{
 			fire_ball(creature_ptr, GF_ICE, 0, 777, 4);
-			if (!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || creature_ptr->immune_cold))
+			if (!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || has_trait(creature_ptr, TRAIT_IM_COLD)))
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "•X‚ÌŠª•¨", NULL, -1);
 #else

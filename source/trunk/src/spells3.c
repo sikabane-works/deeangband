@@ -274,7 +274,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 			if (!creature_ptr->levitation && !creature_ptr->can_swim) return FALSE;
 		}
 
-		if (have_flag(f_ptr->flags, FF_LAVA) && !creature_ptr->immune_fire && !IS_INVULN(creature_ptr))
+		if (have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_IM_FIRE) && !IS_INVULN(creature_ptr))
 		{
 			/* Always forbid deep lava */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
@@ -4937,7 +4937,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	bool double_resist = IS_OPPOSE_ACID(cr_ptr);
 
 	/* Total Immunity */
-	if (cr_ptr->immune_acid || (dam <= 0))
+	if (has_trait(cr_ptr, TRAIT_IM_ACID) || (dam <= 0))
 	{
 		learn_spell(cr_ptr, monspell);
 		return 0;
@@ -4979,8 +4979,8 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ELEC(cr_ptr);
 
-	/* Total immunity */
-	if (cr_ptr->immune_elec || (dam <= 0))
+	// Total immunity
+	if(has_trait(cr_ptr, TRAIT_IM_ELEC) || (dam <= 0))
 	{
 		learn_spell(cr_ptr, monspell);
 		return 0;

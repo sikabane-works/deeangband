@@ -781,6 +781,7 @@ info[i++] = "あなたは強く物を投げる。";
 
 	}
 
+	/*
 	if (creature_ptr->immune_acid)
 	{
 #ifdef JP
@@ -790,7 +791,8 @@ info[i++] = "あなたは酸に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_acid && IS_OPPOSE_ACID(creature_ptr))
+	*/
+	if (creature_ptr->resist_acid && IS_OPPOSE_ACID(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは酸への強力な耐性を持っている。";
@@ -808,6 +810,7 @@ info[i++] = "あなたは酸への耐性を持っている。";
 #endif
 	}
 
+	/*
 	if (creature_ptr->immune_elec)
 	{
 #ifdef JP
@@ -817,7 +820,8 @@ info[i++] = "あなたは電撃に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_elec && IS_OPPOSE_ELEC(creature_ptr))
+	*/
+	if (creature_ptr->resist_elec && IS_OPPOSE_ELEC(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは電撃への強力な耐性を持っている。";
@@ -836,6 +840,7 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 
 	}
 
+/*
 	if (creature_ptr->immune_fire)
 	{
 #ifdef JP
@@ -845,7 +850,8 @@ info[i++] = "あなたは火に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_fire && IS_OPPOSE_FIRE(creature_ptr))
+*/
+	if (creature_ptr->resist_fire && IS_OPPOSE_FIRE(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは火への強力な耐性を持っている。";
@@ -876,7 +882,8 @@ info[i++] = "あなたは火に弱い。";
 	}
 	*/
 
-	if (creature_ptr->immune_cold)
+/*
+	if (has_trait(cr_ptr, TRAIT_IM_COLD))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気に対する完全なる免疫を持っている。";
@@ -885,7 +892,8 @@ info[i++] = "あなたは冷気に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_cold && IS_OPPOSE_COLD(creature_ptr))
+*/
+	if (creature_ptr->resist_cold && IS_OPPOSE_COLD(creature_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気への強力な耐性を持っている。";

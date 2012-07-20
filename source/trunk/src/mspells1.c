@@ -99,16 +99,16 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		/* Know basic info */
 		if (caster_ptr->resist_acid) smart |= (SM_RES_ACID);
 		if (IS_OPPOSE_ACID(caster_ptr)) smart |= (SM_OPP_ACID);
-		if (caster_ptr->immune_acid) smart |= (SM_IMM_ACID);
+		//if (caster_ptr->immune_acid) smart |= (SM_IMM_ACID);
 		if (caster_ptr->resist_elec) smart |= (SM_RES_ELEC);
 		if (IS_OPPOSE_ELEC(caster_ptr)) smart |= (SM_OPP_ELEC);
-		if (caster_ptr->immune_elec) smart |= (SM_IMM_ELEC);
+		//if (caster_ptr->immune_elec) smart |= (SM_IMM_ELEC);
 		if (caster_ptr->resist_fire) smart |= (SM_RES_FIRE);
 		if (IS_OPPOSE_FIRE(caster_ptr)) smart |= (SM_OPP_FIRE);
-		if (caster_ptr->immune_fire) smart |= (SM_IMM_FIRE);
+		//if (caster_ptr->immune_fire) smart |= (SM_IMM_FIRE);
 		if (caster_ptr->resist_cold) smart |= (SM_RES_COLD);
 		if (IS_OPPOSE_COLD(caster_ptr)) smart |= (SM_OPP_COLD);
-		if (caster_ptr->immune_cold) smart |= (SM_IMM_COLD);
+		//if (caster_ptr->immune_cold) smart |= (SM_IMM_COLD);
 
 		/* Know poison info */
 		if (caster_ptr->resist_pois) smart |= (SM_RES_POIS);
@@ -868,7 +868,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Elemental resistances */
 	if (has_trait(caster_ptr, TRAIT_BR_ACID))
 	{
-		if (!target_ptr->immune_acid && (target_ptr->oppose_acid || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if (!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->oppose_acid || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
 		if (target_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
@@ -876,20 +876,20 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		if (!(is_demon_creature(target_ptr) && target_ptr->lev > 44))
 		{
-			if (!target_ptr->immune_fire && (target_ptr->oppose_fire || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+			if (!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->oppose_fire || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
 			if (target_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
 		}
 	}
 
 	if (has_trait(caster_ptr, TRAIT_BR_ELEC))
 	{
-		if (!target_ptr->immune_elec && (target_ptr->oppose_elec || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if (!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->oppose_elec || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
 		if (target_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
 	if (has_trait(caster_ptr, TRAIT_BR_COLD))
 	{
-		if (!target_ptr->immune_cold && (target_ptr->oppose_cold || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if (!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->oppose_cold || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
 		if (target_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 

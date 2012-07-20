@@ -1716,7 +1716,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		if(creature_ptr->immune_fire || has_trait(creature_ptr, TRAIT_RES_ALL))
+		if(has_trait(creature_ptr, TRAIT_IM_FIRE) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1727,7 +1727,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_COLD:
-		if(creature_ptr->immune_cold || has_trait(creature_ptr, TRAIT_RES_ALL))
+		if(has_trait(creature_ptr, TRAIT_IM_COLD) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1738,7 +1738,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ELEC:
-		if(creature_ptr->immune_elec || has_trait(creature_ptr, TRAIT_RES_ALL))
+		if(has_trait(creature_ptr, TRAIT_IM_ELEC) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
@@ -1748,7 +1748,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ACID:
-		if(creature_ptr->immune_acid || has_trait(creature_ptr, TRAIT_RES_ALL))
+		if(has_trait(creature_ptr, TRAIT_IM_ACID) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
