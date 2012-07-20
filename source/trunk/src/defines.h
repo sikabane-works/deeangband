@@ -2850,8 +2850,6 @@
 #define is_pval_flag(INDEX) ((TR_STR <= (INDEX) && (INDEX) <= TR_MAGIC_MASTERY) || (TR_STEALTH <= (INDEX) && (INDEX) <= TR_BLOWS))
 #define have_pval_flags(ARRAY) !!((ARRAY)[0] & (0x00003f7f))
 
-
-
 #define TR_FLAG_SIZE           (TR_FLAG_MAX / 32) + 1
 
 #define RR_RES_ACID            0

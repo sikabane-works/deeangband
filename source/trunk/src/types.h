@@ -138,7 +138,8 @@ struct object_kind
 
 	s32b cost;			/* Object "base cost" */
 
-	u32b flags[TR_FLAG_SIZE];	/* Flags */
+	u32b flags[TR_FLAG_SIZE];	// Flags
+	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
 
@@ -148,14 +149,11 @@ struct object_kind
 	byte level;			/* Level */
 	byte extra;			/* Something */
 
-
 	byte d_attr;		/* Default object attribute */
 	byte d_char;		/* Default object character */
 
-
 	byte x_attr;		/* Desired object attribute */
 	byte x_char;		/* Desired object character */
-
 
 	s16b flavor;		/* Special object flavor (or zero) */
 

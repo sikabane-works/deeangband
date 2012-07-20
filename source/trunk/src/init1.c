@@ -2005,7 +2005,40 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 }
 
 
-#define OBJECT_KIND_INFO_CSV_COLUMNS 29
+enum OBJECT_KIND_INFO {
+	OK_INFO_ID,
+	OK_INFO_NAME,
+	OK_INFO_UI_NAME,
+	OK_INFO_E_NAME,
+	OK_INFO_E_UI_NAME,
+	OK_INFO_SYMBOL,
+	OK_INFO_COLOR,
+	OK_INFO_TVAL,
+	OK_INFO_SVAL,
+	OK_INFO_PVAL,
+	OK_INFO_DEPTH,
+	OK_INFO_RARITY,
+	OK_INFO_WEIGHT,
+	OK_INFO_COST,
+	OK_INFO_BASE_AC,
+	OK_INFO_BASE_EV,
+	OK_INFO_BASE_DAMAGE,
+	OK_INFO_PLUS_HIT,
+	OK_INFO_PLUS_DAM,
+	OK_INFO_PLUS_AC,
+	OK_INFO_ADD_DEPTH_RARITY,
+	OK_INFO_FLAGS,
+	OK_INFO_ADD_CREATURE_TRAITS,
+	OK_INFO_DESCRIPTION,
+	OK_INFO_E_DESCRIPTION,
+	OK_INFO_COMMENT,
+	OK_INFO_MIN_SIZE,
+	OK_INFO_MAX_SIZE,
+	OK_INFO_SLOT,
+	OK_INFO_AP_RATE,
+	OBJECT_KIND_INFO_CSV_COLUMNS
+};
+
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2030,6 +2063,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"PLUS_AC",
 	"ADD_DEPTH_RARITY",
 	"FLAGS",
+	"ADD_CREATURE_TRAITS",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
 	"COMMENT",
@@ -2039,37 +2073,6 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"AP_RATE"
 };
 
-enum OBJECT_KIND_INFO {
-  OK_INFO_ID,
-  OK_INFO_NAME,
-  OK_INFO_UI_NAME,
-  OK_INFO_E_NAME,
-  OK_INFO_E_UI_NAME,
-  OK_INFO_SYMBOL,
-  OK_INFO_COLOR,
-  OK_INFO_TVAL,
-  OK_INFO_SVAL,
-  OK_INFO_PVAL,
-  OK_INFO_DEPTH,
-  OK_INFO_RARITY,
-  OK_INFO_WEIGHT,
-  OK_INFO_COST,
-  OK_INFO_BASE_AC,
-  OK_INFO_BASE_EV,
-  OK_INFO_BASE_DAMAGE,
-  OK_INFO_PLUS_HIT,
-  OK_INFO_PLUS_DAM,
-  OK_INFO_PLUS_AC,
-  OK_INFO_ADD_DEPTH_RARITY,
-  OK_INFO_FLAGS,
-  OK_INFO_DESCRIPTION,
-  OK_INFO_E_DESCRIPTION,
-  OK_INFO_COMMENT,
-  OK_INFO_MIN_SIZE,
-  OK_INFO_MAX_SIZE,
-  OK_INFO_SLOT,
-  OK_INFO_AP_RATE,
-};
 /*
  * Initialize the "object_kind_info" array, by parsing an ascii "template" file
  */
@@ -2283,6 +2286,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 						if (chance > 0) object_kind_info[n].chance[j] = chance;
 					}
 				}
+				break;
+
+			case OK_INFO_ADD_CREATURE_TRAITS:
+				if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, tmp))
+					return PARSE_ERROR_GENERIC;
 				break;
 
 			case OK_INFO_FLAGS:
