@@ -90,20 +90,20 @@ snipe_power snipe_powers[MAX_SNIPE_POWERS] =
 };
 
 
-static bool snipe_concentrate(creature_type *cr_ptr)
+static bool snipe_concentrate(creature_type *creature_ptr)
 {
-	if ((int)cr_ptr->concent < (2 + (cr_ptr->lev + 5) / 10)) cr_ptr->concent++;
+	if ((int)creature_ptr->concent < (2 + (creature_ptr->lev + 5) / 10)) creature_ptr->concent++;
 
 #ifdef JP
-	msg_format("集中した。(集中度 %d)", cr_ptr->concent);
+	msg_format("集中した。(集中度 %d)", creature_ptr->concent);
 #else
-	msg_format("You concentrate deeply. (lvl %d)", cr_ptr->concent);
+	msg_format("You concentrate deeply. (lvl %d)", creature_ptr->concent);
 #endif
 
-	cr_ptr->reset_concent = FALSE;
+	creature_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 
@@ -113,7 +113,7 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 	return (TRUE);
 }
 
-void reset_concentration(creature_type *cr_ptr, bool msg)
+void reset_concentration(creature_type *creature_ptr, bool msg)
 {
 	if (msg)
 	{
@@ -124,11 +124,11 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 #endif
 	}
 
-	cr_ptr->concent = 0;
-	cr_ptr->reset_concent = FALSE;
+	creature_ptr->concent = 0;
+	creature_ptr->reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATUS);
 
@@ -136,20 +136,20 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	update |= (PU_MONSTERS);
 }
 
-int boost_concentration_damage(creature_type *cr_ptr, int tdam)
+int boost_concentration_damage(creature_type *creature_ptr, int tdam)
 {
-	tdam *= (10 + cr_ptr->concent);
+	tdam *= (10 + creature_ptr->concent);
 	tdam /= 10;
 
 	return (tdam);
 }
 
-void display_snipe_list(creature_type *cr_ptr)
+void display_snipe_list(creature_type *creature_ptr)
 {
 	int             i;
 	int             y = 1;
 	int             x = 1;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	snipe_power     spell;
 	char            psi_desc[80];
 
@@ -169,7 +169,7 @@ void display_snipe_list(creature_type *cr_ptr)
 		/* Access the available spell */
 		spell = snipe_powers[i];
 		if (spell.min_lev > plev) continue;
-		if (spell.mana_cost > (int)cr_ptr->concent) continue;
+		if (spell.mana_cost > (int)creature_ptr->concent) continue;
 
 		/* Dump the spell */
 		sprintf(psi_desc, "  %c) %-30s%2d %4d",
@@ -195,13 +195,13 @@ void display_snipe_list(creature_type *cr_ptr)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
+static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_browse)
 {
 	int             i;
 	int             num = 0;
 	int             y = 1;
 	int             x = 20;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	int             ask;
 	char            choice;
 	char            out_val[160];
@@ -223,7 +223,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	if (repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if ((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)cr_ptr->concent))
+		if ((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
 		{
 			/* Success */
 			return (TRUE);
@@ -239,7 +239,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)
 	{
 		if ((snipe_powers[i].min_lev <= plev) &&
-			((only_browse) || (snipe_powers[i].mana_cost <= (int)cr_ptr->concent)))
+			((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
 		{
 			num = i;
 		}
@@ -304,7 +304,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 					/* Access the spell */
 					spell = snipe_powers[i];
 					if (spell.min_lev > plev) continue;
-					if (!only_browse && (spell.mana_cost > (int)cr_ptr->concent)) continue;
+					if (!only_browse && (spell.mana_cost > (int)creature_ptr->concent)) continue;
 
 					/* Dump the spell --(-- */
 					if (only_browse)
@@ -344,7 +344,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 
 		/* Totally Illegal */
 		if ((i < 0) || (i > num) || 
-			(!only_browse &&(snipe_powers[i].mana_cost > (int)cr_ptr->concent)))
+			(!only_browse &&(snipe_powers[i].mana_cost > (int)creature_ptr->concent)))
 		{
 			bell();
 			continue;
@@ -395,17 +395,17 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 }
 
 
-int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
+int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_ptr)
 {
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
-	bool seen = is_seen(cr_ptr, m_ptr);
+	bool seen = is_seen(creature_ptr, m_ptr);
 
-	switch (cr_ptr->snipe_type)
+	switch (creature_ptr->snipe_type)
 	{
 	case SP_LITE:
 		if (is_hurt_lite_creature(m_ptr))
 		{
-			int n = 20 + cr_ptr->concent;
+			int n = 20 + creature_ptr->concent;
 			reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
 			if (mult < n) mult = n;
 		}
@@ -414,7 +414,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 		if (!has_trait(m_ptr, TRAIT_RES_FIRE))
 		{
-			int n = 15 + (cr_ptr->concent * 3);
+			int n = 15 + (creature_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -422,7 +422,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
 		if (!has_trait(m_ptr, TRAIT_RES_COLD))
 		{
-			int n = 15 + (cr_ptr->concent * 3);
+			int n = 15 + (creature_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -430,20 +430,20 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 		if (!has_trait(m_ptr, TRAIT_RES_ELEC))
 		{
-			int n = 18 + (cr_ptr->concent * 4);
+			int n = 18 + (creature_ptr->concent * 4);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_KILL_WALL:
 		if (is_hurt_rock_creature(m_ptr))
 		{
-			int n = 15 + (cr_ptr->concent * 2);
+			int n = 15 + (creature_ptr->concent * 2);
 			reveal_creature_info(m_ptr, TRAIT_HURT_ROCK);
 			if (mult < n) mult = n;
 		}
 		else if (has_trait(m_ptr, TRAIT_NONLIVING))
 		{
-			int n = 15 + (cr_ptr->concent * 2);
+			int n = 15 + (creature_ptr->concent * 2);
 			reveal_creature_info(m_ptr, TRAIT_NONLIVING);
 			if (mult < n) mult = n;
 		}
@@ -451,7 +451,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 	case SP_EVILNESS:
 		if (is_enemy_of_evil_creature(m_ptr))
 		{
-			int n = 15 + (cr_ptr->concent * 4);
+			int n = 15 + (creature_ptr->concent * 4);
 			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			if (mult < n) mult = n;
 		}
@@ -459,12 +459,12 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 	case SP_HOLYNESS:
 		if (is_enemy_of_good_creature(m_ptr))
 		{
-			int n = 12 + (cr_ptr->concent * 3);
+			int n = 12 + (creature_ptr->concent * 3);
 			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 
 			if (is_hurt_lite_creature(m_ptr))
 			{
-				n += (cr_ptr->concent * 3);
+				n += (creature_ptr->concent * 3);
 				reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
 			}
 			if (mult < n) mult = n;
@@ -482,10 +482,10 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
+static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 {
 	bool flag = FALSE;
-	object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
+	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	if (o_ptr->tval != TV_BOW)
 	{
@@ -501,24 +501,24 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 	switch (spell)
 	{
 	case 0: /* Concentration */
-		if (!snipe_concentrate(cr_ptr)) return (FALSE);
+		if (!snipe_concentrate(creature_ptr)) return (FALSE);
 		energy_use = 100;
 		return (TRUE);
-	case 1: cr_ptr->snipe_type = SP_LITE; break;
-	case 2: cr_ptr->snipe_type = SP_AWAY; break;
-	case 3: cr_ptr->snipe_type = SP_KILL_TRAP; break;
-	case 4: cr_ptr->snipe_type = SP_FIRE; break;
-	case 5: cr_ptr->snipe_type = SP_KILL_WALL; break;
-	case 6: cr_ptr->snipe_type = SP_COLD; break;
-	case 7: cr_ptr->snipe_type = SP_RUSH; break;
-	case 8: cr_ptr->snipe_type = SP_PIERCE; break;
-	case 9: cr_ptr->snipe_type = SP_EVILNESS; break;
-	case 10: cr_ptr->snipe_type = SP_HOLYNESS; break;
-	case 11: cr_ptr->snipe_type = SP_EXPLODE; break;
-	case 12: cr_ptr->snipe_type = SP_DOUBLE; break;
-	case 13: cr_ptr->snipe_type = SP_ELEC; break;
-	case 14: cr_ptr->snipe_type = SP_NEEDLE; break;
-	case 15: cr_ptr->snipe_type = SP_FINAL; break;
+	case 1: creature_ptr->snipe_type = SP_LITE; break;
+	case 2: creature_ptr->snipe_type = SP_AWAY; break;
+	case 3: creature_ptr->snipe_type = SP_KILL_TRAP; break;
+	case 4: creature_ptr->snipe_type = SP_FIRE; break;
+	case 5: creature_ptr->snipe_type = SP_KILL_WALL; break;
+	case 6: creature_ptr->snipe_type = SP_COLD; break;
+	case 7: creature_ptr->snipe_type = SP_RUSH; break;
+	case 8: creature_ptr->snipe_type = SP_PIERCE; break;
+	case 9: creature_ptr->snipe_type = SP_EVILNESS; break;
+	case 10: creature_ptr->snipe_type = SP_HOLYNESS; break;
+	case 11: creature_ptr->snipe_type = SP_EXPLODE; break;
+	case 12: creature_ptr->snipe_type = SP_DOUBLE; break;
+	case 13: creature_ptr->snipe_type = SP_ELEC; break;
+	case 14: creature_ptr->snipe_type = SP_NEEDLE; break;
+	case 15: creature_ptr->snipe_type = SP_FINAL; break;
 	default:
 #ifdef JP
 		msg_print("なに？");
@@ -528,10 +528,10 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 	}
 
 	command_cmd = 'f';
-	do_cmd_fire(cr_ptr);
-	cr_ptr->snipe_type = 0;
+	do_cmd_fire(creature_ptr);
+	creature_ptr->snipe_type = 0;
 
-	return (cr_ptr->is_fired);
+	return (creature_ptr->is_fired);
 }
 
 
@@ -539,17 +539,17 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_snipe(creature_type *cr_ptr)
+void do_cmd_snipe(creature_type *creature_ptr)
 {
 	int             n = 0;
-	int             plev = cr_ptr->lev;
-	int             old_chp = cr_ptr->chp;
+	int             plev = creature_ptr->lev;
+	int             old_chp = creature_ptr->chp;
 	snipe_power     spell;
 	bool            cast;
 
 
 	/* not if confused */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて集中できない！");
@@ -560,7 +560,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	}
 
 	/* not if hullucinated */
-	if (IS_HALLUCINATION(cr_ptr))
+	if (IS_HALLUCINATION(creature_ptr))
 	{
 #ifdef JP
 		msg_print("幻覚が見えて集中できない！");
@@ -571,7 +571,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	}
 
 	/* not if stuned */
-	if (cr_ptr->stun)
+	if (creature_ptr->stun)
 	{
 #ifdef JP
 		msg_print("頭が朦朧としていて集中できない！");
@@ -582,14 +582,14 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	}
 
 	/* get power */
-	if (!get_snipe_power(cr_ptr, &n, FALSE)) return;
+	if (!get_snipe_power(creature_ptr, &n, FALSE)) return;
 
 	spell = snipe_powers[n];
 
 	sound(SOUND_SHOOT);
 
 	/* Cast the spell */
-	cast = cast_sniper_spell(cr_ptr, n);
+	cast = cast_sniper_spell(creature_ptr, n);
 
 	if (!cast) return;
 #if 0
@@ -608,7 +608,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_snipe_browse(creature_type *cr_ptr)
+void do_cmd_snipe_browse(creature_type *creature_ptr)
 {
 	int n = 0;
 	int j, line;
@@ -619,7 +619,7 @@ void do_cmd_snipe_browse(creature_type *cr_ptr)
 	while(1)
 	{
 		/* get power */
-		if (!get_snipe_power(cr_ptr, &n, TRUE))
+		if (!get_snipe_power(creature_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;

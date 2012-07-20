@@ -640,7 +640,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 /*
  * Check if creature can cross terrain
  */
-bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
+bool creature_can_cross_terrain(s16b feat, creature_type *creature_ptr, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feat];
 
@@ -649,7 +649,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 	{
 		if (!(mode & CEM_RIDING))
 		{
-			if (!can_fly_creature(cr_ptr)) return FALSE;
+			if (!can_fly_creature(creature_ptr)) return FALSE;
 		}
 		else
 		{
@@ -658,38 +658,38 @@ bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode)
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(cr_ptr)) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(cr_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(creature_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(creature_ptr)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
-		if (is_pass_wall_creature(cr_ptr)) return TRUE;
+		if (is_pass_wall_creature(creature_ptr)) return TRUE;
 	}
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
 	/* Some creatures can walk on mountains */
-	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_creature(cr_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_creature(creature_ptr)) return TRUE;
 
 	/* Water */
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
-		if (!is_aquatic_creature(cr_ptr))
+		if (!is_aquatic_creature(creature_ptr))
 		{
 			/* Deep water */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Shallow water */
-			else if (has_trait(cr_ptr, TRAIT_AURA_FIRE)) return FALSE;
+			else if (has_trait(creature_ptr, TRAIT_AURA_FIRE)) return FALSE;
 		}
 	}
 
 	/* Aquatic creature into non-water? */
-	else if (is_aquatic_creature(cr_ptr)) return FALSE;
+	else if (is_aquatic_creature(creature_ptr)) return FALSE;
 
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		if (!has_trait(cr_ptr, TRAIT_RES_FIRE)) return FALSE;
+		if (!has_trait(creature_ptr, TRAIT_RES_FIRE)) return FALSE;
 	}
 
 	return TRUE;
@@ -708,7 +708,7 @@ bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr,
 	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
 }
 
-bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
+bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode)
 {
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -717,7 +717,7 @@ bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode)
 	if (c_ptr->creature_idx) return FALSE;
 
 	//TODO
-	return creature_can_cross_terrain(c_ptr->feat, cr_ptr, mode);
+	return creature_can_cross_terrain(c_ptr->feat, creature_ptr, mode);
 }
 
 

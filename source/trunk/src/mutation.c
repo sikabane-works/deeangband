@@ -13,21 +13,21 @@
 #include "angband.h"
 
 
-bool gain_trait(creature_type *cr_ptr, int choose_mut, bool messsage)
+bool gain_trait(creature_type *creature_ptr, int choose_mut, bool messsage)
 {
 	//TODO
 	return TRUE;
 }
 
 
-bool lose_trait(creature_type *cr_ptr, int choose_mut)
+bool lose_trait(creature_type *creature_ptr, int choose_mut)
 {
 	//TODO
 	return TRUE;
 }
 
 
-void dump_traits(creature_type *cr_ptr, FILE *OutFile)
+void dump_traits(creature_type *creature_ptr, FILE *OutFile)
 {
 	if (!OutFile) return;
 
@@ -52,7 +52,7 @@ void remove_all_postnatal_traits(creature_type *creature_ptr)
 
 
 // List traits we have...
-void do_cmd_knowledge_traits(creature_type *cr_ptr)
+void do_cmd_knowledge_traits(creature_type *creature_ptr)
 {
 	FILE *fff;
 	char file_name[1024];
@@ -61,7 +61,7 @@ void do_cmd_knowledge_traits(creature_type *cr_ptr)
 	fff = my_fopen_temp(file_name, 1024);
 
 	/* Dump the mutations to file */
-	if (fff) dump_traits(cr_ptr, fff);
+	if (fff) dump_traits(creature_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -92,7 +92,7 @@ int count_bits(u32b x)
 }
 
 
-static int count_mutations(creature_type *cr_ptr)
+static int count_mutations(creature_type *creature_ptr)
 {
 	//TODO
 	return 0;
@@ -103,19 +103,19 @@ static int count_mutations(creature_type *cr_ptr)
  * Return the modifier to the regeneration rate
  * (in percent)
  */
-int calc_mutant_regenerate_mod(creature_type *cr_ptr)
+int calc_mutant_regenerate_mod(creature_type *creature_ptr)
 {
 	int regen;
 	int mod = 10;
-	int count = count_mutations(cr_ptr);
+	int count = count_mutations(creature_ptr);
 
 	/*
 	 * Beastman get 10 "free" mutations and
 	 * only 5% decrease per additional mutation
 	 */
 
-	if (cr_ptr->chara_idx == CHARA_LUCKY) count--;
-	if (has_trait(cr_ptr, TRAIT_KALEIDOSCOPIC_RACE))
+	if (creature_ptr->chara_idx == CHARA_LUCKY) count--;
+	if (has_trait(creature_ptr, TRAIT_KALEIDOSCOPIC_RACE))
 	{
 		count -= 10;
 		mod = 5;
@@ -133,10 +133,10 @@ int calc_mutant_regenerate_mod(creature_type *cr_ptr)
 }
 
 
-void mutation_stop_mouth(creature_type *cr_ptr)
+void mutation_stop_mouth(creature_type *creature_ptr)
 {
-	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
-	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
+	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
 

@@ -2204,7 +2204,7 @@ static cptr likert(int x, int y)
  *
  * This code is "imitated" elsewhere to "dump" a character sheet.
  */
-static void display_player_various(creature_type * cr_ptr)
+static void display_player_various(creature_type * creature_ptr)
 {
 	int         tmp;
 	int			xthn, xthb, xfos, xsrh;
@@ -2216,18 +2216,18 @@ static void display_player_various(creature_type * cr_ptr)
 
 	object_type		*o_ptr;
 
-	if (has_trait(cr_ptr, TRAIT_HORNS))     muta_att++;
-	if (has_trait(cr_ptr, TRAIT_SCOR_TAIL)) muta_att++;
-	if (has_trait(cr_ptr, TRAIT_BEAK))      muta_att++;
-	if (has_trait(cr_ptr, TRAIT_TRUNK))     muta_att++;
-	if (has_trait(cr_ptr, TRAIT_TENTACLES)) muta_att++;
+	if (has_trait(creature_ptr, TRAIT_HORNS))     muta_att++;
+	if (has_trait(creature_ptr, TRAIT_SCOR_TAIL)) muta_att++;
+	if (has_trait(creature_ptr, TRAIT_BEAK))      muta_att++;
+	if (has_trait(creature_ptr, TRAIT_TRUNK))     muta_att++;
+	if (has_trait(creature_ptr, TRAIT_TENTACLES)) muta_att++;
 
-	xthn = cr_ptr->skill_thn + (cr_ptr->to_hit_m * BTH_PLUS_ADJ);
+	xthn = creature_ptr->skill_thn + (creature_ptr->to_hit_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1);
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
-	tmp = cr_ptr->to_hit_b;
+	tmp = creature_ptr->to_hit_b;
 
 	tmp += o_ptr->to_hit;
 	/* If the player is wielding one? */
@@ -2236,23 +2236,23 @@ static void display_player_various(creature_type * cr_ptr)
 		s16b energy_fire = bow_energy(o_ptr->sval);
 
 		/* Calculate shots per round */
-		shots = cr_ptr->num_fire * 100;
+		shots = creature_ptr->num_fire * 100;
 		shot_frac = (shots * 100 / energy_fire) % 100;
 		shots = shots / energy_fire;
 		if (o_ptr->name1 == ART_CRIMSON)
 		{
 			shots = 1;
 			shot_frac = 0;
-			if (cr_ptr->class_idx == CLASS_ARCHER)
+			if (creature_ptr->class_idx == CLASS_ARCHER)
 			{
 				/* Extra shot at level 10 */
-				if (cr_ptr->lev >= 10) shots++;
+				if (creature_ptr->lev >= 10) shots++;
 
 				/* Extra shot at level 30 */
-				if (cr_ptr->lev >= 30) shots++;
+				if (creature_ptr->lev >= 30) shots++;
 
 				/* Extra shot at level 45 */
-				if (cr_ptr->lev >= 45) shots++;
+				if (creature_ptr->lev >= 45) shots++;
 			}
 		}
 	}
@@ -2264,16 +2264,16 @@ static void display_player_various(creature_type * cr_ptr)
 
 	/* Basic abilities */
 
-	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
-	xdis = cr_ptr->skill_dis;
-	xdev = cr_ptr->skill_dev;
-	xrob = cr_ptr->skill_rob;
-	xagi = cr_ptr->skill_eva;
-	xvol = cr_ptr->skill_vol;
-	xstl = cr_ptr->skill_stl;
-	xsrh = cr_ptr->skill_srh;
-	xfos = cr_ptr->skill_fos;
-	xdig = cr_ptr->skill_dig;
+	xthb = creature_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
+	xdis = creature_ptr->skill_dis;
+	xdev = creature_ptr->skill_dev;
+	xrob = creature_ptr->skill_rob;
+	xagi = creature_ptr->skill_eva;
+	xvol = creature_ptr->skill_vol;
+	xstl = creature_ptr->skill_stl;
+	xsrh = creature_ptr->skill_srh;
+	xfos = creature_ptr->skill_fos;
+	xdig = creature_ptr->skill_dig;
 
 
 	desc = likert(xthn, 10);
@@ -2322,7 +2322,7 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_AVG_DMG, desc, TERM_L_BLUE);
 */
 
-	display_player_one_line(ENTRY_INFRA, format("%d feet", cr_ptr->see_infra * 10), TERM_WHITE);
+	display_player_one_line(ENTRY_INFRA, format("%d feet", creature_ptr->see_infra * 10), TERM_WHITE);
 }
 
 
@@ -2330,7 +2330,7 @@ static void display_player_various(creature_type * cr_ptr)
 /*
  * Obtain the "flags" for the player as if he was an item
  */
-static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2339,57 +2339,57 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* Classes */
-	switch (cr_ptr->class_idx)
+	switch (creature_ptr->class_idx)
 	{
 	case CLASS_WARRIOR:
-		if (cr_ptr->lev > 44)
+		if (creature_ptr->lev > 44)
 			add_flag(flgs, TR_REGEN);
 	case CLASS_SAMURAI:
-		if (cr_ptr->lev > 29)
+		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_FEAR);
 		break;
 	case CLASS_PALADIN:
-		if (cr_ptr->lev > 39)
+		if (creature_ptr->lev > 39)
 			add_flag(flgs, TR_RES_FEAR);
 		break;
 	case CLASS_CHAOS_WARRIOR:
-		if (cr_ptr->lev > 29)
+		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_CHAOS);
-		if (cr_ptr->lev > 39)
+		if (creature_ptr->lev > 39)
 			add_flag(flgs, TR_RES_FEAR);
 		break;
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
-		if ((cr_ptr->lev > 9) && !heavy_armor(cr_ptr))
+		if ((creature_ptr->lev > 9) && !heavy_armor(creature_ptr))
 			add_flag(flgs, TR_SPEED);
-		if ((cr_ptr->lev>24) && !heavy_armor(cr_ptr))
+		if ((creature_ptr->lev>24) && !heavy_armor(creature_ptr))
 			add_flag(flgs, TR_FREE_ACT);
 		break;
 	case CLASS_NINJA:
-		if (heavy_armor(cr_ptr))
+		if (heavy_armor(creature_ptr))
 			add_flag(flgs, TR_SPEED);
 		else
 		{
-			if ((!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1)->k_idx || cr_ptr->can_melee[0]) &&
-			    (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2)->k_idx || cr_ptr->can_melee[1]))
+			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 				add_flag(flgs, TR_SPEED);
-			if (cr_ptr->lev>24)
+			if (creature_ptr->lev>24)
 				add_flag(flgs, TR_FREE_ACT);
 		}
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_RES_FEAR);
-		if (cr_ptr->lev > 19) add_flag(flgs, TR_RES_POIS);
-		if (cr_ptr->lev > 24) add_flag(flgs, TR_SUST_DEX);
-		if (cr_ptr->lev > 29) add_flag(flgs, TR_SEE_INVIS);
+		if (creature_ptr->lev > 19) add_flag(flgs, TR_RES_POIS);
+		if (creature_ptr->lev > 24) add_flag(flgs, TR_SUST_DEX);
+		if (creature_ptr->lev > 29) add_flag(flgs, TR_SEE_INVIS);
 		break;
 	case CLASS_MINDCRAFTER:
-		if (cr_ptr->lev > 9)
+		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_RES_FEAR);
-		if (cr_ptr->lev > 19)
+		if (creature_ptr->lev > 19)
 			add_flag(flgs, TR_SUST_WIS);
-		if (cr_ptr->lev > 29)
+		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_CONF);
-		if (cr_ptr->lev > 39)
+		if (creature_ptr->lev > 39)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
 	case CLASS_BARD:
@@ -2402,97 +2402,97 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_REGEN);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SPEED);
-		if (cr_ptr->lev > 39) add_flag(flgs, TR_REFLECT);
+		if (creature_ptr->lev > 39) add_flag(flgs, TR_REFLECT);
 		break;
 	case CLASS_MIRROR_MASTER:
-		if(cr_ptr->lev > 39)add_flag(flgs, TR_REFLECT);
+		if(creature_ptr->lev > 39)add_flag(flgs, TR_REFLECT);
 		break;
 	default:
 		break; /* Do nothing */
 	}
 
-	switch (cr_ptr->race_idx1)
+	switch (creature_ptr->race_idx1)
 	{
 	case RACE_KLACKON:
-		if (cr_ptr->lev > 9)
+		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 		break;
 	case RACE_SPRITE:
-		if (cr_ptr->lev > 9)
+		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 		break;
 	default:
 		; /* Do nothing */
 	}
 
-	if (has_trait(cr_ptr, TRAIT_FLESH_ROT))
+	if (has_trait(creature_ptr, TRAIT_FLESH_ROT))
 	{
 		remove_flag(flgs, TR_REGEN);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_XTRA_FAT) ||
-		has_trait(cr_ptr, TRAIT_XTRA_LEGS) ||
-		has_trait(cr_ptr, TRAIT_SHORT_LEG) )
+	if (has_trait(creature_ptr, TRAIT_XTRA_FAT) ||
+		has_trait(creature_ptr, TRAIT_XTRA_LEGS) ||
+		has_trait(creature_ptr, TRAIT_SHORT_LEG) )
 	{
 		add_flag(flgs, TR_SPEED);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_ELEC_TOUC))
+	if (has_trait(creature_ptr, TRAIT_ELEC_TOUC))
 	{
 		add_flag(flgs, TR_SH_ELEC);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_FIRE_BODY))
+	if (has_trait(creature_ptr, TRAIT_FIRE_BODY))
 	{
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_LITE);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_WINGS))
+	if (has_trait(creature_ptr, TRAIT_WINGS))
 	{
 		add_flag(flgs, TR_LEVITATION);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_FEARLESS))
+	if (has_trait(creature_ptr, TRAIT_FEARLESS))
 	{
 		add_flag(flgs, TR_RES_FEAR);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_REGEN))
+	if (has_trait(creature_ptr, TRAIT_REGEN))
 	{
 		add_flag(flgs, TR_REGEN);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_ESP))
+	if (has_trait(creature_ptr, TRAIT_ESP))
 	{
 		add_flag(flgs, TR_TELEPATHY);
 	}
 
-	if (has_trait(cr_ptr, TRAIT_MOTION))
+	if (has_trait(creature_ptr, TRAIT_MOTION))
 	{
 		add_flag(flgs, TR_FREE_ACT);
 	}
 
-	if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
+	if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
 		add_flag(flgs, TR_RES_CONF);
-	if (cr_ptr->chara_idx == CHARA_SEXY)
+	if (creature_ptr->chara_idx == CHARA_SEXY)
 		add_flag(flgs, TR_AGGRAVATE);
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TR_HOLD_LIFE);
-		if (cr_ptr->class_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
-		if (cr_ptr->lev > 9)
+		if (creature_ptr->class_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
+		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 	}
-	if (cr_ptr->special_defense & KATA_FUUJIN)
+	if (creature_ptr->special_defense & KATA_FUUJIN)
 		add_flag(flgs, TR_REFLECT);
-	if (cr_ptr->special_defense & KAMAE_GENBU)
+	if (creature_ptr->special_defense & KAMAE_GENBU)
 		add_flag(flgs, TR_REFLECT);
-	if (cr_ptr->special_defense & KAMAE_SUZAKU)
+	if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		add_flag(flgs, TR_LEVITATION);
-	if (cr_ptr->special_defense & KAMAE_SEIRYU)
+	if (creature_ptr->special_defense & KAMAE_SEIRYU)
 	{
 		add_flag(flgs, TR_RES_FIRE);
 		add_flag(flgs, TR_RES_COLD);
@@ -2504,7 +2504,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_SH_ELEC);
 		add_flag(flgs, TR_SH_COLD);
 	}
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
 		add_flag(flgs, TR_RES_FEAR);
 		add_flag(flgs, TR_RES_LITE);
@@ -2539,7 +2539,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 }
 
 
-static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2547,53 +2547,53 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (IS_HERO(cr_ptr) || cr_ptr->shero)
+	if (IS_HERO(creature_ptr) || creature_ptr->shero)
 		add_flag(flgs, TR_RES_FEAR);
-	if (cr_ptr->tim_invis)
+	if (creature_ptr->tim_invis)
 		add_flag(flgs, TR_SEE_INVIS);
-	if (cr_ptr->tim_regen)
+	if (creature_ptr->tim_regen)
 		add_flag(flgs, TR_REGEN);
-	if (IS_TIM_ESP(cr_ptr))
+	if (IS_TIM_ESP(creature_ptr))
 		add_flag(flgs, TR_TELEPATHY);
-	if (IS_FAST(cr_ptr) || cr_ptr->slow)
+	if (IS_FAST(creature_ptr) || creature_ptr->slow)
 		add_flag(flgs, TR_SPEED);
 
-	if (IS_OPPOSE_ACID(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(cr_ptr, RACE_YEEK) && (cr_ptr->lev > 19)))
+	if (IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))
 		add_flag(flgs, TR_RES_ACID);
-	if (IS_OPPOSE_ELEC(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ELEC))
+	if (IS_OPPOSE_ELEC(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ELEC))
 		add_flag(flgs, TR_RES_ELEC);
-	if (IS_OPPOSE_FIRE(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_FIRE))
+	if (IS_OPPOSE_FIRE(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_FIRE))
 		add_flag(flgs, TR_RES_FIRE);
-	if (IS_OPPOSE_COLD(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_COLD))
+	if (IS_OPPOSE_COLD(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_COLD))
 		add_flag(flgs, TR_RES_COLD);
-	if (IS_OPPOSE_POIS(cr_ptr))
+	if (IS_OPPOSE_POIS(creature_ptr))
 		add_flag(flgs, TR_RES_POIS);
 
-	if (cr_ptr->special_attack & ATTACK_ACID)
+	if (creature_ptr->special_attack & ATTACK_ACID)
 		add_flag(flgs, TR_BRAND_ACID);
-	if (cr_ptr->special_attack & ATTACK_ELEC)
+	if (creature_ptr->special_attack & ATTACK_ELEC)
 		add_flag(flgs, TR_BRAND_ELEC);
-	if (cr_ptr->special_attack & ATTACK_FIRE)
+	if (creature_ptr->special_attack & ATTACK_FIRE)
 		add_flag(flgs, TR_BRAND_FIRE);
-	if (cr_ptr->special_attack & ATTACK_COLD)
+	if (creature_ptr->special_attack & ATTACK_COLD)
 		add_flag(flgs, TR_BRAND_COLD);
-	if (cr_ptr->special_attack & ATTACK_POIS)
+	if (creature_ptr->special_attack & ATTACK_POIS)
 		add_flag(flgs, TR_BRAND_POIS);
-	if (cr_ptr->special_defense & DEFENSE_ACID)
+	if (creature_ptr->special_defense & DEFENSE_ACID)
 		add_flag(flgs, TR_IM_ACID);
-	if (cr_ptr->special_defense & DEFENSE_ELEC)
+	if (creature_ptr->special_defense & DEFENSE_ELEC)
 		add_flag(flgs, TR_IM_ELEC);
-	if (cr_ptr->special_defense & DEFENSE_FIRE)
+	if (creature_ptr->special_defense & DEFENSE_FIRE)
 		add_flag(flgs, TR_IM_FIRE);
-	if (cr_ptr->special_defense & DEFENSE_COLD)
+	if (creature_ptr->special_defense & DEFENSE_COLD)
 		add_flag(flgs, TR_IM_COLD);
-	if (cr_ptr->wraith_form)
+	if (creature_ptr->wraith_form)
 		add_flag(flgs, TR_REFLECT);
 	/* by henkma */
-	if (cr_ptr->tim_reflect)
+	if (creature_ptr->tim_reflect)
 		add_flag(flgs, TR_REFLECT);
 
-	if (cr_ptr->magicdef)
+	if (creature_ptr->magicdef)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
@@ -2601,15 +2601,15 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_LEVITATION);
 	}
-	if (cr_ptr->tim_res_nether)
+	if (creature_ptr->tim_res_nether)
 	{
 		add_flag(flgs, TR_RES_NETHER);
 	}
-	if (cr_ptr->tim_sh_fire)
+	if (creature_ptr->tim_sh_fire)
 	{
 		add_flag(flgs, TR_SH_FIRE);
 	}
-	if (cr_ptr->ult_res)
+	if (creature_ptr->ult_res)
 	{
 		add_flag(flgs, TR_RES_FEAR);
 		add_flag(flgs, TR_RES_LITE);
@@ -2643,15 +2643,15 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 
 	/* Hex bonuses */
-	if (cr_ptr->realm1 == REALM_HEX)
+	if (creature_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling(cr_ptr, HEX_DEMON_AURA))
+		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
 			add_flag(flgs, TR_SH_FIRE);
 			add_flag(flgs, TR_REGEN);
 		}
-		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
-		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
+		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
+		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
 	}
 }
 
@@ -2665,7 +2665,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 /*
  * Equippy chars
  */
-static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_ptr)
+static void display_player_equippy(int y, int x, u16b mode, creature_type *creature_ptr)
 {
 	int i, j;
 	byte a;
@@ -2676,10 +2676,10 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	/* Dump equippy chars */
 	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i]; // Object
+		o_ptr = &creature_ptr->inventory[i]; // Object
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
-		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(cr_ptr, i) != INVEN_SLOT_HAND) continue;
+		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(creature_ptr, i) != INVEN_SLOT_HAND) continue;
 
 		a = object_attr(o_ptr);
 		c = object_char(o_ptr);
@@ -2697,7 +2697,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	}
 }
 
-static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2712,7 +2712,7 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 
 		object_type *o_ptr;
 
-		o_ptr = &cr_ptr->inventory[i]; // object
+		o_ptr = &creature_ptr->inventory[i]; // object
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
 		if (!o_ptr->k_idx) continue;
@@ -2727,7 +2727,7 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 }
 
-static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2736,18 +2736,18 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* TODO 
-	if (IS_RACE(cr_ptr, RACE_LICH))
+	if (IS_RACE(creature_ptr, RACE_LICH))
 		add_flag(flgs, TR_RES_NETHER);
-	if (cr_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(cr_ptr, RACE_VAMPIRE))
+	if (creature_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TR_RES_DARK);
-	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD)
+	if (creature_ptr->mimic_form == MIMIC_DEMON_LORD)
 		add_flag(flgs, TR_RES_FIRE);
 	*/
-	if (IS_RACE(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
+	if (IS_RACE(creature_ptr, RACE_YEEK) && creature_ptr->lev > 19)
 		add_flag(flgs, TR_RES_ACID);
 }
 
-static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2755,19 +2755,19 @@ static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (cr_ptr->special_defense & DEFENSE_ACID)
+	if (creature_ptr->special_defense & DEFENSE_ACID)
 		add_flag(flgs, TR_RES_ACID);
-	if (cr_ptr->special_defense & DEFENSE_ELEC)
+	if (creature_ptr->special_defense & DEFENSE_ELEC)
 		add_flag(flgs, TR_RES_ELEC);
-	if (cr_ptr->special_defense & DEFENSE_FIRE)
+	if (creature_ptr->special_defense & DEFENSE_FIRE)
 		add_flag(flgs, TR_RES_FIRE);
-	if (cr_ptr->special_defense & DEFENSE_COLD)
+	if (creature_ptr->special_defense & DEFENSE_COLD)
 		add_flag(flgs, TR_RES_COLD);
-	if (cr_ptr->wraith_form)
+	if (creature_ptr->wraith_form)
 		add_flag(flgs, TR_RES_DARK);
 }
 
-static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
+static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 {
 	int i;
 
@@ -2775,20 +2775,20 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (has_trait(cr_ptr, TRAIT_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if (has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);
 		add_flag(flgs, TR_RES_FIRE);
 		add_flag(flgs, TR_RES_COLD);
 	}
-	if (has_trait(cr_ptr, TRAIT_ANDROID))
+	if (has_trait(creature_ptr, TRAIT_ANDROID))
 		add_flag(flgs, TR_RES_ELEC);
-	if (IS_RACE(cr_ptr, RACE_ENT))
+	if (IS_RACE(creature_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);
 	/*TODO
-	if (IS_RACE(cr_ptr, RACE_VAMPIRE) || IS_RACE(cr_ptr, RACE_S_FAIRY) ||
-	    (cr_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (IS_RACE(creature_ptr, RACE_VAMPIRE) || IS_RACE(creature_ptr, RACE_S_FAIRY) ||
+	    (creature_ptr->mimic_form == MIMIC_VAMPIRE))
 		add_flag(flgs, TR_RES_LITE);
 		*/
 }
@@ -2810,7 +2810,7 @@ typedef struct {
 /*
  * Helper function, see below
  */
-static void display_flag_aux(int row, int col, cptr header, int flag1, all_player_flags *f, u16b mode, creature_type *cr_ptr)
+static void display_flag_aux(int row, int col, cptr header, int flag1, all_player_flags *f, u16b mode, creature_type *creature_ptr)
 {
 	int     i;
 	bool    vuln = FALSE;
@@ -2834,7 +2834,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		object_type *o_ptr;
 
 		/* Object */
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
 		if((mode & DP_WP) && WIELD_SLOT(o_ptr) != INVEN_SLOT_HAND) continue;
@@ -2886,7 +2886,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 
 }
 
-static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
+static cptr get_equipped_flag_label(creature_type *creature_ptr, u16b mode)
 {
 	int i, n;
 	cptr list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -2894,7 +2894,7 @@ static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
 
 	for(i = 0, n = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *object_ptr = &cr_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVEN_SLOT_HAND) continue;
 		if(IS_EQUIPPED(object_ptr))
 		{
@@ -2911,7 +2911,7 @@ static cptr get_equipped_flag_label(creature_type *cr_ptr, u16b mode)
 /*
  * Special display, part 1
  */
-static void display_creature_flag_info1(creature_type *cr_ptr)
+static void display_creature_flag_info1(creature_type *creature_ptr)
 {
 	int row;
 	int col;
@@ -2921,143 +2921,143 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, cr_ptr);
-	tim_player_flags(f.tim_player_flags, cr_ptr);
-	player_immunity(f.player_imm, cr_ptr);
-	tim_player_immunity(f.tim_player_imm, cr_ptr);
-	known_obj_immunity(f.known_obj_imm, cr_ptr);
-	player_vuln_flags(f.player_vuln, cr_ptr);
+	player_flags(f.player_flags, creature_ptr);
+	tim_player_flags(f.tim_player_flags, creature_ptr);
+	player_immunity(f.player_imm, creature_ptr);
+	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	known_obj_immunity(f.known_obj_imm, creature_ptr);
+	player_vuln_flags(f.player_vuln, creature_ptr);
 
 	/*** Set 1 ***/
 
 	row = 12;
 	col = 1;
 
-	display_player_equippy(row-2, col+8, 0, cr_ptr);
+	display_player_equippy(row-2, col+8, 0, creature_ptr);
 
 #ifdef JP
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "耐酸  :", TR_RES_ACID, &f, 0, cr_ptr);
-	display_flag_aux(row+0, col, "耐酸  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+1, col, "耐電撃:", TR_RES_ELEC, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "耐電撃:", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+2, col, "耐火炎:", TR_RES_FIRE, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "耐火炎:", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+3, col, "耐冷気:", TR_RES_COLD, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "耐冷気:", TR_IM_COLD, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+4, col, "耐毒  :", TR_RES_POIS, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "耐閃光:", TR_RES_LITE, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "耐暗黒:", TR_RES_DARK, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "耐破片:", TR_RES_SHARDS, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "耐盲目:", TR_RES_BLIND, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "耐混乱:", TR_RES_CONF, &f, 0, cr_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
+	display_flag_aux(row+0, col, "耐酸  :", TR_RES_ACID, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "耐酸  :", TR_IM_ACID, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+1, col, "耐電撃:", TR_RES_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "耐電撃:", TR_IM_ELEC, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+2, col, "耐火炎:", TR_RES_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "耐火炎:", TR_IM_FIRE, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+3, col, "耐冷気:", TR_RES_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "耐冷気:", TR_IM_COLD, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+4, col, "耐毒  :", TR_RES_POIS, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "耐閃光:", TR_RES_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "耐暗黒:", TR_RES_DARK, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "耐破片:", TR_RES_SHARDS, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "耐盲目:", TR_RES_BLIND, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "耐混乱:", TR_RES_CONF, &f, 0, creature_ptr);
 #else
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, cr_ptr);
-	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "Elec  :", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "Fire  :", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "Cold  :", TR_IM_COLD, &f, DP_IMM, cr_ptr);
-	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "Shard :", TR_RES_SHARDS, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, cr_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
+	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TR_IM_ELEC, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TR_IM_FIRE, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TR_IM_COLD, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "Shard :", TR_RES_SHARDS, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, creature_ptr);
 #endif
 
 	//acid
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_ACID))
+	if (has_trait(creature_ptr, TRAIT_RES_ACID))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
-	if (has_trait(cr_ptr, TRAIT_OPP_ACID))
+	if (has_trait(creature_ptr, TRAIT_OPP_ACID))
 		c_put_str(TERM_YELLOW, "#", row + 0, col + 31);
-	if (has_trait(cr_ptr, TRAIT_IM_ACID))
+	if (has_trait(creature_ptr, TRAIT_IM_ACID))
 		c_put_str(TERM_YELLOW, "*", row + 0, col * 31);
-	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ACID))
+	if (creature_ptr->ele_immune && creature_ptr->special_defense & (DEFENSE_ACID))
 		c_put_str(TERM_WHITE, "*", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	//elec
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_ELEC))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
-	if (has_trait(cr_ptr, TRAIT_RES_ELEC))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
-	if (has_trait(cr_ptr, TRAIT_IM_ELEC))
+	if (has_trait(creature_ptr, TRAIT_RES_ELEC))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
+	if (has_trait(creature_ptr, TRAIT_RES_ELEC))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
+	if (has_trait(creature_ptr, TRAIT_IM_ELEC))
 		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
 
-	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ELEC))
+	if (creature_ptr->ele_immune && creature_ptr->special_defense & (DEFENSE_ELEC))
 		c_put_str(TERM_WHITE, "*", row + 1, col + 31);
-	if (has_trait(cr_ptr, TRAIT_HURT_ELEC))
+	if (has_trait(creature_ptr, TRAIT_HURT_ELEC))
 		c_put_str(TERM_RED, "v", row + 1, col + 31);
 
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	//fire
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_FIRE))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
-	if (has_trait(cr_ptr, TRAIT_RES_FIRE))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
-	if (has_trait(cr_ptr, TRAIT_IM_FIRE))
+	if (has_trait(creature_ptr, TRAIT_RES_FIRE))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
+	if (has_trait(creature_ptr, TRAIT_RES_FIRE))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
+	if (has_trait(creature_ptr, TRAIT_IM_FIRE))
 		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
-	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_FIRE))
+	if (creature_ptr->ele_immune && creature_ptr->special_defense & (DEFENSE_FIRE))
 		c_put_str(TERM_WHITE, "*", row + 2, col + 31);
-	if (has_trait(cr_ptr, TRAIT_HURT_FIRE))
+	if (has_trait(creature_ptr, TRAIT_HURT_FIRE))
 		c_put_str(TERM_RED, "v", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 2, col + 33);
 
 	//cold
 
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_COLD))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
-	if (has_trait(cr_ptr, TRAIT_OPP_COLD))
-		c_put_str((byte)(has_trait(cr_ptr, TRAIT_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
-	if (has_trait(cr_ptr, TRAIT_IM_COLD))
+	if (has_trait(creature_ptr, TRAIT_RES_COLD))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
+	if (has_trait(creature_ptr, TRAIT_OPP_COLD))
+		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
+	if (has_trait(creature_ptr, TRAIT_IM_COLD))
 		c_put_str(TERM_YELLOW, "*", row + 3, col * 31);
-	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_COLD))
+	if (creature_ptr->ele_immune && creature_ptr->special_defense & (DEFENSE_COLD))
 		c_put_str(TERM_WHITE, "*", row + 3, col + 31);
-	if (has_trait(cr_ptr, TRAIT_HURT_COLD))
+	if (has_trait(creature_ptr, TRAIT_HURT_COLD))
 		c_put_str(TERM_RED, "v", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
 	//pois
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_POIS))
+	if (has_trait(creature_ptr, TRAIT_RES_POIS))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
-	if (has_trait(cr_ptr, TRAIT_OPP_POIS))
+	if (has_trait(creature_ptr, TRAIT_OPP_POIS))
 		c_put_str(TERM_YELLOW, "#", row + 4, col + 31);
-	if (has_trait(cr_ptr, TRAIT_IM_POIS))
+	if (has_trait(creature_ptr, TRAIT_IM_POIS))
 		c_put_str(TERM_YELLOW, "*", row + 4, col * 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 	//lite
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_LITE))
+	if (has_trait(creature_ptr, TRAIT_RES_LITE))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_DARK, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_DARK))
+	if (has_trait(creature_ptr, TRAIT_RES_DARK))
 		c_put_str(TERM_WHITE, "+", row + 6, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_SHARD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_SHAR))
+	if (has_trait(creature_ptr, TRAIT_RES_SHAR))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+7, col + 33);
 
@@ -3067,54 +3067,54 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 	row = 12;
 	col = 41;
 
-	display_player_equippy(row-2, col+8, 0, cr_ptr);
+	display_player_equippy(row-2, col+8, 0, creature_ptr);
 
 
 #ifdef JP
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, cr_ptr);
-	display_flag_aux(row+4, col, "耐劣化:", TR_RES_DISEN, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, cr_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
+	display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "耐劣化:", TR_RES_DISEN, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, creature_ptr);
 #else
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0, cr_ptr);
-	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, cr_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
+	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, creature_ptr);
 #endif
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_SOUN))
+	if (has_trait(creature_ptr, TRAIT_RES_SOUN))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_NETH, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_NETH))
+	if (has_trait(creature_ptr, TRAIT_RES_NETH))
 		c_put_str(TERM_WHITE, "+", row + 1, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_NEXUS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_NEXU))
+	if (has_trait(creature_ptr, TRAIT_RES_NEXU))
 		c_put_str(TERM_WHITE, "+", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_CHAOS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_CHAOS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_CHAO))
+	if (has_trait(creature_ptr, TRAIT_RES_CHAO))
 		c_put_str(TERM_WHITE, "+", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
+	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	if (has_trait(cr_ptr, TRAIT_RES_DISE))
+	if (has_trait(creature_ptr, TRAIT_RES_DISE))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
@@ -3124,7 +3124,7 @@ static void display_creature_flag_info1(creature_type *cr_ptr)
 /*
  * Special display, part 2
  */
-static void display_creature_flag_info2(creature_type *cr_ptr)
+static void display_creature_flag_info2(creature_type *creature_ptr)
 {
 	int row;
 	int col;
@@ -3132,51 +3132,51 @@ static void display_creature_flag_info2(creature_type *cr_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, cr_ptr);
-	tim_player_flags(f.tim_player_flags, cr_ptr);
-	player_immunity(f.player_imm, cr_ptr);
-	tim_player_immunity(f.tim_player_imm, cr_ptr);
-	known_obj_immunity(f.known_obj_imm, cr_ptr);
-	player_vuln_flags(f.player_vuln, cr_ptr);
+	player_flags(f.player_flags, creature_ptr);
+	tim_player_flags(f.tim_player_flags, creature_ptr);
+	player_immunity(f.player_imm, creature_ptr);
+	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	known_obj_immunity(f.known_obj_imm, creature_ptr);
+	player_vuln_flags(f.player_vuln, creature_ptr);
 
 	/*** Set 3 ***/
 
 	row = 3;
 	col = 1;
 
-	display_player_equippy(row-2, col+12, 0, cr_ptr);
+	display_player_equippy(row-2, col+12, 0, creature_ptr);
 
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+12);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
-	display_flag_aux(row+0, col, "反射      :", TR_REFLECT, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "電気オーラ:", TR_SH_ELEC, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, cr_ptr);
-	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "透明体視認:", TR_SEE_INVIS, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "経験値保持:", TR_HOLD_LIFE, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "警告      :", TR_WARNING, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "遅消化    :", TR_SLOW_DIGEST, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "急回復    :", TR_REGEN, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "浮遊      :", TR_LEVITATION, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "永遠光源  :", TR_LITE, &f, 0, cr_ptr);
-	display_flag_aux(row+13, col, "呪い      :", 0, &f, DP_CURSE, cr_ptr);
+	display_flag_aux(row+0, col, "反射      :", TR_REFLECT, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "電気オーラ:", TR_SH_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "透明体視認:", TR_SEE_INVIS, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "経験値保持:", TR_HOLD_LIFE, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "警告      :", TR_WARNING, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "遅消化    :", TR_SLOW_DIGEST, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "急回復    :", TR_REGEN, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "浮遊      :", TR_LEVITATION, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "永遠光源  :", TR_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+13, col, "呪い      :", 0, &f, DP_CURSE, creature_ptr);
 #else
-	display_flag_aux(row+0, col, "Reflct    :", TR_REFLECT, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "AuraFire  :", TR_SH_FIRE, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "AuraElec  :", TR_SH_ELEC, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, cr_ptr);
-	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "Warning   :", TR_WARNING, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "Levitation:", TR_LEVITATION, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, cr_ptr);
-	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, cr_ptr);
+	display_flag_aux(row+0, col, "Reflct    :", TR_REFLECT, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "AuraFire  :", TR_SH_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "AuraElec  :", TR_SH_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "Warning   :", TR_WARNING, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "Levitation:", TR_LEVITATION, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, creature_ptr);
 #endif
 
 }
@@ -3184,7 +3184,7 @@ static void display_creature_flag_info2(creature_type *cr_ptr)
 /*
  * Special display, part 3
  */
-static void display_creature_flag_info3(creature_type *cr_ptr)
+static void display_creature_flag_info3(creature_type *creature_ptr)
 {
 	int row;
 	int col;
@@ -3192,67 +3192,67 @@ static void display_creature_flag_info3(creature_type *cr_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, cr_ptr);
-	tim_player_flags(f.tim_player_flags, cr_ptr);
-	player_immunity(f.player_imm, cr_ptr);
-	tim_player_immunity(f.tim_player_imm, cr_ptr);
-	known_obj_immunity(f.known_obj_imm, cr_ptr);
-	player_vuln_flags(f.player_vuln, cr_ptr);
+	player_flags(f.player_flags, creature_ptr);
+	tim_player_flags(f.tim_player_flags, creature_ptr);
+	player_immunity(f.player_imm, creature_ptr);
+	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	known_obj_immunity(f.known_obj_imm, creature_ptr);
+	player_vuln_flags(f.player_vuln, creature_ptr);
 
 	/*** Set 1 ***/
 
 	row = 3;
 	col = 1;
 
-	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
+	display_player_equippy(row-2, col+12, DP_WP, creature_ptr);
 
 	/*** Set 2 ***/
 
 	row = 3;
 	col = 1;
 
-	display_player_equippy(row-2, col+12, 0, cr_ptr);
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+12);
+	display_player_equippy(row-2, col+12, 0, creature_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
-	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "無生物ESP :", TR_ESP_NONLIVING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "善良ESP   :", TR_ESP_GOOD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "不死ESP   :", TR_ESP_UNDEAD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "悪魔ESP   :", TR_ESP_DEMON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 6, col, "龍ESP     :", TR_ESP_DRAGON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 7, col, "人間ESP   :", TR_ESP_HUMAN, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "動物ESP   :", TR_ESP_ANIMAL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "オークESP :", TR_ESP_ORC, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "トロルESP :", TR_ESP_TROLL, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "巨人ESP   :", TR_ESP_GIANT, &f, 0, cr_ptr);
+	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "無生物ESP :", TR_ESP_NONLIVING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "善良ESP   :", TR_ESP_GOOD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "不死ESP   :", TR_ESP_UNDEAD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "悪魔ESP   :", TR_ESP_DEMON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 6, col, "龍ESP     :", TR_ESP_DRAGON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "人間ESP   :", TR_ESP_HUMAN, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "動物ESP   :", TR_ESP_ANIMAL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "オークESP :", TR_ESP_ORC, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "トロルESP :", TR_ESP_TROLL, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "巨人ESP   :", TR_ESP_GIANT, &f, 0, creature_ptr);
 
-	display_flag_aux(row+13, col, "腕力維持  :", TR_SUST_STR, &f, 0, cr_ptr);
-	display_flag_aux(row+14, col, "知力維持  :", TR_SUST_INT, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "賢さ維持  :", TR_SUST_WIS, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "器用維持  :", TR_SUST_DEX, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "耐久維持  :", TR_SUST_CON, &f, 0, cr_ptr);
-	display_flag_aux(row+18, col, "魅力維持  :", TR_SUST_CHR, &f, 0, cr_ptr);
+	display_flag_aux(row+13, col, "腕力維持  :", TR_SUST_STR, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "知力維持  :", TR_SUST_INT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "賢さ維持  :", TR_SUST_WIS, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "器用維持  :", TR_SUST_DEX, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "耐久維持  :", TR_SUST_CON, &f, 0, creature_ptr);
+	display_flag_aux(row+18, col, "魅力維持  :", TR_SUST_CHR, &f, 0, creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, cr_ptr);
+	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, creature_ptr);
 
-	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, cr_ptr);
-	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, cr_ptr);
-	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, cr_ptr);
+	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, creature_ptr);
+	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, creature_ptr);
 #endif
 
 
@@ -3261,52 +3261,52 @@ static void display_creature_flag_info3(creature_type *cr_ptr)
 	row = 3;
 	col = 41;
 
-	display_player_equippy(row-2, col+14, 0, cr_ptr);
+	display_player_equippy(row-2, col+14, 0, creature_ptr);
 
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row-1, col+14);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+14);
 #ifdef JP
-	display_flag_aux(row+ 0, col, "追加攻撃    :", TR_BLOWS, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "採掘        :", TR_TUNNEL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "赤外線視力  :", TR_INFRA, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "魔法道具支配:", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "隠密        :", TR_STEALTH, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "探索        :", TR_SEARCH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 0, col, "追加攻撃    :", TR_BLOWS, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "採掘        :", TR_TUNNEL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "赤外線視力  :", TR_INFRA, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "魔法道具支配:", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "隠密        :", TR_STEALTH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "探索        :", TR_SEARCH, &f, 0, creature_ptr);
 
-	display_flag_aux(row+ 7, col, "乗馬        :", TR_RIDING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "投擲        :", TR_THROW, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "祝福        :", TR_BLESSED, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "反テレポート:", TR_NO_TELE, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "反魔法      :", TR_NO_MAGIC, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "消費魔力減少:", TR_DEC_MANA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "乗馬        :", TR_RIDING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "投擲        :", TR_THROW, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "祝福        :", TR_BLESSED, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "反テレポート:", TR_NO_TELE, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "反魔法      :", TR_NO_MAGIC, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "消費魔力減少:", TR_DEC_MANA, &f, 0, creature_ptr);
 
-	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "反感        :", TR_AGGRAVATE, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "太古の怨念  :", TR_TY_CURSE, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "反感        :", TR_AGGRAVATE, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "太古の怨念  :", TR_TY_CURSE, &f, 0, creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, creature_ptr);
 
-	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, creature_ptr);
 
-	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0, creature_ptr);
 #endif
 
 }
 
-static void display_creature_flag_info4(creature_type *cr_ptr)
+static void display_creature_flag_info4(creature_type *creature_ptr)
 {
 	int row;
 	int col;
@@ -3314,63 +3314,63 @@ static void display_creature_flag_info4(creature_type *cr_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, cr_ptr);
-	tim_player_flags(f.tim_player_flags, cr_ptr);
-	player_immunity(f.player_imm, cr_ptr);
-	tim_player_immunity(f.tim_player_imm, cr_ptr);
-	known_obj_immunity(f.known_obj_imm, cr_ptr);
-	player_vuln_flags(f.player_vuln, cr_ptr);
+	player_flags(f.player_flags, creature_ptr);
+	tim_player_flags(f.tim_player_flags, creature_ptr);
+	player_immunity(f.player_imm, creature_ptr);
+	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	known_obj_immunity(f.known_obj_imm, creature_ptr);
+	player_vuln_flags(f.player_vuln, creature_ptr);
 
 	/*** Set 1 ***/
 
 	row = 3;
 	col = 1;
 
-	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
+	display_player_equippy(row-2, col+12, DP_WP, creature_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row+ 0, col, "邪悪 倍打 :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 0, col, "邪悪 倍打 :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 1, col, "善良 倍打 :", TR_SLAY_GOOD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 1, col, "善良 倍打 :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 2, col, "不死 倍打 :", TR_SLAY_UNDEAD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 2, col, "不死 倍打 :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 3, col, "悪魔 倍打 :", TR_SLAY_DEMON, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 3, col, "悪魔 倍打 :", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 4, col, "龍 倍打   :", TR_SLAY_DRAGON, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 4, col, "龍 倍打   :", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 5, col, "人間 倍打 :", TR_SLAY_HUMAN, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 5, col, "人間 倍打 :", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 6, col, "動物 倍打 :", TR_SLAY_ANIMAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 6, col, "動物 倍打 :", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 7, col, "オーク倍打:", TR_SLAY_ORC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 7, col, "オーク倍打:", TR_KILL_ORC, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 8, col, "トロル倍打:", TR_SLAY_TROLL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 8, col, "トロル倍打:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 9, col, "巨人 倍打 :", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 9, col, "巨人 倍打 :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 0, col, "邪悪 倍打 :", TR_SLAY_EVIL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 0, col, "邪悪 倍打 :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 1, col, "善良 倍打 :", TR_SLAY_GOOD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 1, col, "善良 倍打 :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 2, col, "不死 倍打 :", TR_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 2, col, "不死 倍打 :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 3, col, "悪魔 倍打 :", TR_SLAY_DEMON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 3, col, "悪魔 倍打 :", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 4, col, "龍 倍打   :", TR_SLAY_DRAGON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 4, col, "龍 倍打   :", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 5, col, "人間 倍打 :", TR_SLAY_HUMAN, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 5, col, "人間 倍打 :", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 6, col, "動物 倍打 :", TR_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 6, col, "動物 倍打 :", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 7, col, "オーク倍打:", TR_SLAY_ORC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 7, col, "オーク倍打:", TR_KILL_ORC, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 8, col, "トロル倍打:", TR_SLAY_TROLL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 8, col, "トロル倍打:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 9, col, "巨人 倍打 :", TR_SLAY_GIANT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 9, col, "巨人 倍打 :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 1, col, "Slay Good :", TR_SLAY_GOOD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 1, col, "Slay Good :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 2, col, "Slay Und. :", TR_SLAY_UNDEAD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 2, col, "Slay Und. :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 3, col, "Slay Demon:", TR_SLAY_DEMON, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 3, col, "Slay Demon:", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_SLAY_DRAGON, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 5, col, "Slay Human:", TR_SLAY_HUMAN, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 5, col, "Slay Human:", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_SLAY_ANIMAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_SLAY_ORC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_KILL_ORC, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 8, col, "Slay Troll:", TR_SLAY_TROLL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 1, col, "Slay Good :", TR_SLAY_GOOD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 1, col, "Slay Good :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 2, col, "Slay Und. :", TR_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 2, col, "Slay Und. :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 3, col, "Slay Demon:", TR_SLAY_DEMON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 3, col, "Slay Demon:", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_SLAY_DRAGON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 5, col, "Slay Human:", TR_SLAY_HUMAN, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 5, col, "Slay Human:", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_SLAY_ORC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_KILL_ORC, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 8, col, "Slay Troll:", TR_SLAY_TROLL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), creature_ptr);
+	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), creature_ptr);
 #endif
 
 
@@ -3379,31 +3379,31 @@ static void display_creature_flag_info4(creature_type *cr_ptr)
 	row = 3;
 	col = 25;
 
-	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, DP_WP), row-1, col+12);
+	display_player_equippy(row-2, col+12, DP_WP, creature_ptr);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row, col, "溶解      :", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+1, col, "電撃      :", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+2, col, "焼棄      :", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+3, col, "凍結      :", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+4, col, "毒殺      :", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+5, col, "切れ味    :", TR_VORPAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+6, col, "地震      :", TR_IMPACT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+7, col, "吸血      :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+8, col, "カオス効果:", TR_CHAOTIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+9, col, "理力      :", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row, col, "溶解      :", TR_BRAND_ACID, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+1, col, "電撃      :", TR_BRAND_ELEC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+2, col, "焼棄      :", TR_BRAND_FIRE, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+3, col, "凍結      :", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+4, col, "毒殺      :", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+5, col, "切れ味    :", TR_VORPAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+6, col, "地震      :", TR_IMPACT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+7, col, "吸血      :", TR_VAMPIRIC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+8, col, "カオス効果:", TR_CHAOTIC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+9, col, "理力      :", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #else
-	display_flag_aux(row, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+1, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+2, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+3, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+4, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+5, col, "Sharpness :", TR_VORPAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+6, col, "Quake     :", TR_IMPACT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+7, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+8, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+1, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+2, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+3, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+4, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+5, col, "Sharpness :", TR_VORPAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+6, col, "Quake     :", TR_IMPACT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+7, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+8, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #endif
 
 }
@@ -3463,7 +3463,7 @@ static void display_creature_underings(creature_type *creature_ptr)
  * Huge mods (>9), like from MICoMorgoth, will be a '*'
  * No mod, no sustain, will be a slate '.'
  */
-static void display_player_stat_info(creature_type *cr_ptr)
+static void display_player_stat_info(creature_type *creature_ptr)
 {
 	int i, j, e_adj;
 	int stat_col, stat;
@@ -3499,14 +3499,14 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		int r_adj, cl_adj, p_adj = 0;
 
 		//TODO MIMIC
-		if(IS_PURE(cr_ptr))
-			r_adj = race_info[cr_ptr->race_idx1].r_adj[i];
+		if(IS_PURE(creature_ptr))
+			r_adj = race_info[creature_ptr->race_idx1].r_adj[i];
 		else
-			r_adj = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
+			r_adj = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 
 		for(j = 0; j < max_trait_idx; j++)
 		{
-			if(has_trait(cr_ptr, j))
+			if(has_trait(creature_ptr, j))
 				r_adj += trait_info[j].adj[i];
 		}
 
@@ -3514,24 +3514,24 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			o_ptr = &cr_ptr->inventory[j];
+			o_ptr = &creature_ptr->inventory[j];
 			if(!IS_EQUIPPED(o_ptr)) continue;
 			object_flags_known(o_ptr, flgs);
 			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
 		}
 
-		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) - cr_ptr->lev, i);
+		r_adj -= calc_unreached_race_level_penalty(calc_base_level(creature_ptr) - creature_ptr->lev, i);
 		
-		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i] && has_status(cr_ptr, i))
+		if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i] && has_status(creature_ptr, i))
 			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1); // Reduced name of stat
 		else
 			c_put_str(TERM_WHITE, stat_names[i], row + i+1, stat_col+1);
 
 		// Internal "natural" max value.  Maxes at 18/100 This is useful to see if you are maxed out
-		if(has_status(cr_ptr, i))
+		if(has_status(creature_ptr, i))
 		{
-			cnv_stat(cr_ptr->stat_max[i], buf);
-			if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
+			cnv_stat(creature_ptr->stat_max[i], buf);
+			if (creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
 			{
 #ifdef JP
 				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 9);
@@ -3547,9 +3547,9 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 
 
-		if(has_status(cr_ptr, i))
+		if(has_status(creature_ptr, i))
 		{
-			if(cr_ptr->knowledge & KNOW_HPRATE) cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
+			if(creature_ptr->knowledge & KNOW_HPRATE) cnv_stat(creature_ptr->stat_mod_max_max[i], buf);
 			else strcpy(buf, "????");
 			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 20 - strlen(buf));
 		}
@@ -3561,7 +3561,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 
 		/* Race, class, and equipment modifiers */
-		if(cr_ptr->race_idx1 != INDEX_NONE && has_status(cr_ptr, i))
+		if(creature_ptr->race_idx1 != INDEX_NONE && has_status(creature_ptr, i))
 		{
 			(void)sprintf(buf, "%+3d", r_adj);
 			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 20);
@@ -3575,14 +3575,14 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 
 
-		if(cr_ptr->class_idx != INDEX_NONE && has_status(cr_ptr, i))
+		if(creature_ptr->class_idx != INDEX_NONE && has_status(creature_ptr, i))
 		{
-			cl_adj = (int)class_info[cr_ptr->class_idx].c_adj[i];
-			if(cr_ptr->cls_bonus) cl_adj += class_info[cr_ptr->class_idx].c_adj_b[i];
+			cl_adj = (int)class_info[creature_ptr->class_idx].c_adj[i];
+			if(creature_ptr->cls_bonus) cl_adj += class_info[creature_ptr->class_idx].c_adj_b[i];
 
 			(void)sprintf(buf, "%+3d", cl_adj);
-			if(class_info[cr_ptr->class_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
-			else if(class_info[cr_ptr->class_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
+			if(class_info[creature_ptr->class_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
+			else if(class_info[creature_ptr->class_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 23);
 		}
 		else
@@ -3591,15 +3591,15 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 
 		//authority bonus
-		if((cr_ptr->patron_idx != INDEX_NONE || cr_ptr->dr >= 0) && has_status(cr_ptr, i))
+		if((creature_ptr->patron_idx != INDEX_NONE || creature_ptr->dr >= 0) && has_status(creature_ptr, i))
 		{
 			for(j = 0; j < max_authorities_idx; j++)
-				if(HAS_AUTHORITY(cr_ptr, j)) p_adj += authority_info[j].a_adj[i];
+				if(HAS_AUTHORITY(creature_ptr, j)) p_adj += authority_info[j].a_adj[i];
 
 			//worshipment bonus
-			if(cr_ptr->dr < 0 && cr_ptr->patron_idx != INDEX_NONE && cr_ptr->patron_idx != cr_ptr->species_idx)
+			if(creature_ptr->dr < 0 && creature_ptr->patron_idx != INDEX_NONE && creature_ptr->patron_idx != creature_ptr->species_idx)
 			{
-				creature_type *patron_ptr = find_unique_instance(cr_ptr->patron_idx);
+				creature_type *patron_ptr = find_unique_instance(creature_ptr->patron_idx);
 				if(patron_ptr)
 				{
 					for(j = 0; j < max_authorities_idx; j++)
@@ -3618,11 +3618,11 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
 		}
 
-		if(cr_ptr->chara_idx != INDEX_NONE && has_status(cr_ptr, i))
+		if(creature_ptr->chara_idx != INDEX_NONE && has_status(creature_ptr, i))
 		{
-			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara_idx].a_adj[i]);
-			if(chara_info[cr_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 29);
-			else if(chara_info[cr_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 29);
+			(void)sprintf(buf, "%+3d", (int)chara_info[creature_ptr->chara_idx].a_adj[i]);
+			if(chara_info[creature_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 29);
+			else if(chara_info[creature_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 29);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 29);
 		}
 		else
@@ -3630,7 +3630,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 29);
 		}
 
-		if(has_status(cr_ptr, i))
+		if(has_status(creature_ptr, i))
 		{
 			(void)sprintf(buf, "%+3d", (int)e_adj);
 			if(e_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 32);
@@ -3642,16 +3642,16 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 32);
 		}
 
-		if(has_status(cr_ptr, i))
+		if(has_status(creature_ptr, i))
 		{
 			// Actual maximal modified value
-			cnv_stat(cr_ptr->stat_top[i], buf);
+			cnv_stat(creature_ptr->stat_top[i], buf);
 			c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 36);
 
 			// Only display stat_use if not maximal
-			if (cr_ptr->stat_use[i] < cr_ptr->stat_top[i])
+			if (creature_ptr->stat_use[i] < creature_ptr->stat_top[i])
 			{
-				cnv_stat(cr_ptr->stat_use[i], buf);
+				cnv_stat(creature_ptr->stat_use[i], buf);
 				c_put_str(TERM_YELLOW, buf, row + i+1, stat_col + 42);
 			}
 		}
@@ -3665,7 +3665,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	col = stat_col + 49; // Column
 
 	/* Header and Footer */
-	c_put_str(TERM_WHITE, get_equipped_flag_label(cr_ptr, 0), row, col);
+	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row, col);
 #ifdef JP
 	c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
 #else
@@ -3677,7 +3677,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
 
@@ -3741,7 +3741,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	}
 
 	/* Player flags */
-	player_flags(flgs, cr_ptr);
+	player_flags(flgs, creature_ptr);
 
 	/* Check stats */
 	for (stat = 0; stat < 6; stat++)
@@ -3752,43 +3752,43 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		/* Mutations ... */
 		//TODO
-		if (cr_ptr->tsuyoshi)
+		if (creature_ptr->tsuyoshi)
 		{
 			int dummy = 0;
 
 			if (stat == STAT_STR)
 			{
-				if (has_trait(cr_ptr, TRAIT_HYPER_STR)) dummy += 4;
-				if (has_trait(cr_ptr, TRAIT_PUNY)) dummy -= 4;
-				if (cr_ptr->tsuyoshi) dummy += 4;
+				if (has_trait(creature_ptr, TRAIT_HYPER_STR)) dummy += 4;
+				if (has_trait(creature_ptr, TRAIT_PUNY)) dummy -= 4;
+				if (creature_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
-				if (has_trait(cr_ptr, TRAIT_HYPER_INT)) dummy += 4;
-				if (has_trait(cr_ptr, TRAIT_MORONIC)) dummy -= 4;
+				if (has_trait(creature_ptr, TRAIT_HYPER_INT)) dummy += 4;
+				if (has_trait(creature_ptr, TRAIT_MORONIC)) dummy -= 4;
 			}
 			else if (stat == STAT_DEX)
 			{
-				if (has_trait(cr_ptr, TRAIT_IRON_SKIN)) dummy -= 1;
-				if (has_trait(cr_ptr, TRAIT_LIMBER)) dummy += 3;
-				if (has_trait(cr_ptr, TRAIT_ARTHRITIS)) dummy -= 3;
+				if (has_trait(creature_ptr, TRAIT_IRON_SKIN)) dummy -= 1;
+				if (has_trait(creature_ptr, TRAIT_LIMBER)) dummy += 3;
+				if (has_trait(creature_ptr, TRAIT_ARTHRITIS)) dummy -= 3;
 			}
 			else if (stat == STAT_CON)
 			{
-				if (has_trait(cr_ptr, TRAIT_RESILIENT)) dummy += 4;
-				if (has_trait(cr_ptr, TRAIT_XTRA_FAT)) dummy += 2;
-				if (has_trait(cr_ptr, TRAIT_ALBINO)) dummy -= 4;
-				if (has_trait(cr_ptr, TRAIT_FLESH_ROT)) dummy -= 2;
-				if (cr_ptr->tsuyoshi) dummy += 4;
+				if (has_trait(creature_ptr, TRAIT_RESILIENT)) dummy += 4;
+				if (has_trait(creature_ptr, TRAIT_XTRA_FAT)) dummy += 2;
+				if (has_trait(creature_ptr, TRAIT_ALBINO)) dummy -= 4;
+				if (has_trait(creature_ptr, TRAIT_FLESH_ROT)) dummy -= 2;
+				if (creature_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_CHA)
 			{
-				if (has_trait(cr_ptr, TRAIT_SILLY_VOI)) dummy -= 4;
-				if (has_trait(cr_ptr, TRAIT_BLANK_FAC)) dummy -= 1;
-				if (has_trait(cr_ptr, TRAIT_FLESH_ROT)) dummy -= 1;
-				if (has_trait(cr_ptr, TRAIT_SCALES)) dummy -= 1;
-				if (has_trait(cr_ptr, TRAIT_WART_SKIN)) dummy -= 2;
-				if (has_trait(cr_ptr, TRAIT_ILL_NORM)) dummy = 0;
+				if (has_trait(creature_ptr, TRAIT_SILLY_VOI)) dummy -= 4;
+				if (has_trait(creature_ptr, TRAIT_BLANK_FAC)) dummy -= 1;
+				if (has_trait(creature_ptr, TRAIT_FLESH_ROT)) dummy -= 1;
+				if (has_trait(creature_ptr, TRAIT_SCALES)) dummy -= 1;
+				if (has_trait(creature_ptr, TRAIT_WART_SKIN)) dummy -= 2;
+				if (has_trait(creature_ptr, TRAIT_ILL_NORM)) dummy = 0;
 			}
 
 			/* Boost */
@@ -4284,7 +4284,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 /*
  *
  */
-static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *fff)
 {
 	int x, y;
 	byte a;
@@ -4292,7 +4292,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	char		buf[1024];
 
 	/* Display player */
-	display_creature_status(0, cr_ptr);
+	display_creature_status(0, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4323,7 +4323,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display history */
-	display_creature_status(1, cr_ptr);
+	display_creature_status(1, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 10; y < 19; y++)
@@ -4351,7 +4351,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 1) */
-	display_creature_status(2, cr_ptr);
+	display_creature_status(2, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 2; y < 22; y++)
@@ -4382,7 +4382,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 2) */
-	display_creature_status(3, cr_ptr);
+	display_creature_status(3, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4411,7 +4411,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display flags (part 3) */
-	display_creature_status(4, cr_ptr);
+	display_creature_status(4, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4440,7 +4440,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display flags (part 4) */
-	display_creature_status(5, cr_ptr);
+	display_creature_status(5, creature_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4475,7 +4475,7 @@ static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 {
 	int i;
 	bool pet = FALSE;
@@ -4489,7 +4489,7 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 		if (!m_ptr->species_idx) continue;
 		if (!is_pet(player_ptr, m_ptr)) continue;
 		pet_settings = TRUE;
-		if (!m_ptr->nickname && (cr_ptr->riding != i)) continue;
+		if (!m_ptr->nickname && (creature_ptr->riding != i)) continue;
 		if (!pet)
 		{
 #ifdef JP
@@ -4512,39 +4512,39 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n ドアを開ける:                       %s", (cr_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
+		fprintf(fff, "\n ドアを開ける:                       %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Pets open doors:                    %s", (cr_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
+		fprintf(fff, "\n Pets open doors:                    %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n アイテムを拾う:                     %s", (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
+		fprintf(fff, "\n アイテムを拾う:                     %s", (creature_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Pets pick up items:                 %s", (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
+		fprintf(fff, "\n Pets pick up items:                 %s", (creature_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n テレポート系魔法を使う:             %s", (cr_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
+		fprintf(fff, "\n テレポート系魔法を使う:             %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow teleport:                     %s", (cr_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow teleport:                     %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow cast attack spell:            %s", (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast attack spell:            %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n 召喚魔法を使う:                     %s", (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 召喚魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow cast summon spell:            %s", (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (cr_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow involve player in area spell: %s", (cr_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow involve player in area spell: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #endif
 
 		fputc('\n', fff);
@@ -4555,9 +4555,9 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 {
-	if (cr_ptr->class_idx == CLASS_BLUE_MAGE)
+	if (creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
 		int i = 0;
 		int j = 0;
@@ -4645,7 +4645,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 
 			for (i = 0; i < num; i++)
 			{
-				if (cr_ptr->magic_num2[spellnum[i]])
+				if (creature_ptr->magic_num2[spellnum[i]])
 				{
 					pcol = TRUE;
 					/* Dump blue magic */
@@ -4690,7 +4690,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 			fprintf(fff, p[i]);
 		}
 	}
-	else if (cr_ptr->class_idx == CLASS_MAGIC_EATER)
+	else if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		char s[EATER_EXT][MAX_NLEN];
 		int tval, ext, k_idx;
@@ -4740,7 +4740,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 			{
 				int idx = EATER_EXT * ext + i;
 
-				magic_num = cr_ptr->magic_num2[idx];
+				magic_num = creature_ptr->magic_num2[idx];
 				if (!magic_num) continue;
 
 				k_idx = lookup_kind(tval, i);
@@ -4812,11 +4812,11 @@ static void dump_aux_quest(FILE *fff)
 /*
  *
  */
-static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_last_message(creature_type *creature_ptr, FILE *fff)
 {
 	if (gameover)
 	{
-		if (!cr_ptr->total_winner)
+		if (!creature_ptr->total_winner)
 		{
 			int i;
 
@@ -4833,14 +4833,14 @@ static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 		}
 
 		/* Hack -- *Winning* message */
-		else if (cr_ptr->last_message)
+		else if (creature_ptr->last_message)
 		{
 #ifdef JP
 			fprintf(fff, "\n  [*勝利*メッセージ]\n\n");
 #else
 			fprintf(fff, "\n  [*Winning* Message]\n\n");
 #endif
-			fprintf(fff,"  %s\n", cr_ptr->last_message);
+			fprintf(fff,"  %s\n", creature_ptr->last_message);
 			fputc('\n', fff);
 		}
 	}
@@ -4850,7 +4850,7 @@ static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_recall(creature_type *creature_ptr, FILE *fff)
 {
 	int y;
 
@@ -4884,7 +4884,7 @@ static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_options(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "\n  [オプション設定]\n");
@@ -5168,28 +5168,28 @@ static void dump_aux_creatures(FILE *fff)
 /*
  *
  */
-static void dump_aux_race_history(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
 {
-	if (cr_ptr->old_race1 || cr_ptr->old_race2)
+	if (creature_ptr->old_race1 || creature_ptr->old_race2)
 	{
 		int i;
 
 #ifdef JP
-		fprintf(fff, "\n\n あなたは%sとして生まれた。", desc_race_name(cr_ptr));
+		fprintf(fff, "\n\n あなたは%sとして生まれた。", desc_race_name(creature_ptr));
 #else
-		fprintf(fff, "\n\n You were born as %s.", desc_race_name(cr_ptr));
+		fprintf(fff, "\n\n You were born as %s.", desc_race_name(creature_ptr));
 #endif
 		//TODO
 		for (i = 0; i < MAX_RACES; i++)
 		{
-			if (cr_ptr->start_race1 == i) continue;
+			if (creature_ptr->start_race1 == i) continue;
 			if (i < 32)
 			{
-				if (!(cr_ptr->old_race1 & 1L << i)) continue;
+				if (!(creature_ptr->old_race1 & 1L << i)) continue;
 			}
 			else
 			{
-				if (!(cr_ptr->old_race2 & 1L << (i-32))) continue;
+				if (!(creature_ptr->old_race2 & 1L << (i-32))) continue;
 			}
 #ifdef JP
 			fprintf(fff, "\n あなたはかつて%sだった。", race_info[i].title);
@@ -5206,16 +5206,16 @@ static void dump_aux_race_history(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_realm_history(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_realm_history(creature_type *creature_ptr, FILE *fff)
 {
-	if (cr_ptr->old_realm)
+	if (creature_ptr->old_realm)
 	{
 		int i;
 
 		fputc('\n', fff);
 		for (i = 0; i < MAX_MAGIC; i++)
 		{
-			if (!(cr_ptr->old_realm & 1L << i)) continue;
+			if (!(creature_ptr->old_realm & 1L << i)) continue;
 #ifdef JP
 			fprintf(fff, "\n あなたはかつて%s魔法を使えた。", realm_names[i+1]);
 #else
@@ -5230,10 +5230,10 @@ static void dump_aux_realm_history(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_karmas(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_karmas(creature_type *creature_ptr, FILE *fff)
 {
 	char buf[100];
-	show_alignment(buf, cr_ptr);
+	show_alignment(buf, creature_ptr);
 
 #ifdef JP
 	fprintf(fff, "\n\n  [プレイヤーの業]\n\n");
@@ -5248,34 +5248,34 @@ static void dump_aux_karmas(creature_type *cr_ptr, FILE *fff)
 #endif
 
 	fprintf(fff, "\n");
-	dump_karmas(cr_ptr, fff);
+	dump_karmas(creature_ptr, fff);
 }
 
 
 /*
  *
  */
-static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_mutations(creature_type *creature_ptr, FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "\n\n  [特性]\n\n");
 #else
 	fprintf(fff, "\n\n  [Trait]\n\n");
 #endif
-	dump_traits(cr_ptr, fff);
+	dump_traits(creature_ptr, fff);
 }
 
 
 /*
  *
  */
-static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 {
 	int i;
 	char o_name[MAX_NLEN];
 
 	/* Dump the equipment */
-	if (cr_ptr->equip_cnt)
+	if (creature_ptr->equip_cnt)
 	{
 #ifdef JP
 		fprintf(fff, "  [キャラクタの装備]\n\n");
@@ -5285,10 +5285,10 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			if(!IS_EQUIPPED(&cr_ptr->inventory[i])) continue;
+			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
-			object_desc(o_name, &cr_ptr->inventory[i], 0);
-			if ((((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) && cr_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2)) && cr_ptr->can_melee[0])) && cr_ptr->two_handed)
+			object_desc(o_name, &creature_ptr->inventory[i], 0);
+			if ((((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) && creature_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
 #ifdef JP
 				strcpy(o_name, "(武器を両手持ち)");
 #else
@@ -5311,10 +5311,10 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Don't dump the empty slots */
-		if (!cr_ptr->inventory[i].k_idx) break;
+		if (!creature_ptr->inventory[i].k_idx) break;
 
 		/* Dump the inventory slots */
-		object_desc(o_name, &cr_ptr->inventory[i], 0);
+		object_desc(o_name, &creature_ptr->inventory[i], 0);
 		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
 	}
 
@@ -5412,7 +5412,7 @@ static void dump_aux_home_museum(FILE *fff)
 /*
  * Output the character dump to a file
  */
-errr make_character_dump(creature_type *cr_ptr, FILE *fff)
+errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "  [D\'angband %d.%d.%d キャラクタ情報]\n\n",
@@ -5424,21 +5424,21 @@ errr make_character_dump(creature_type *cr_ptr, FILE *fff)
 
 	update_playtime();
 
-	dump_aux_display_creature_status(cr_ptr, fff);
-	dump_aux_last_message(cr_ptr, fff);
-	dump_aux_options(cr_ptr, fff);
-	dump_aux_recall(cr_ptr, fff);
+	dump_aux_display_creature_status(creature_ptr, fff);
+	dump_aux_last_message(creature_ptr, fff);
+	dump_aux_options(creature_ptr, fff);
+	dump_aux_recall(creature_ptr, fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_creatures(fff);
-	dump_aux_karmas(cr_ptr, fff);
-	dump_aux_race_history(cr_ptr, fff);
-	dump_aux_realm_history(cr_ptr, fff);
-	dump_aux_class_special(cr_ptr, fff);
-	dump_aux_mutations(cr_ptr, fff);
-	dump_aux_pet(cr_ptr, fff);
+	dump_aux_karmas(creature_ptr, fff);
+	dump_aux_race_history(creature_ptr, fff);
+	dump_aux_realm_history(creature_ptr, fff);
+	dump_aux_class_special(creature_ptr, fff);
+	dump_aux_mutations(creature_ptr, fff);
+	dump_aux_pet(creature_ptr, fff);
 	fputs("\n\n", fff);
-	dump_aux_equipment_inventory(cr_ptr, fff);
+	dump_aux_equipment_inventory(creature_ptr, fff);
 	dump_aux_home_museum(fff);
 
 #ifdef JP
@@ -6486,12 +6486,12 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_p
  *
  * What a horrible name for a global function.  XXX XXX XXX
  */
-void get_name(creature_type *cr_ptr)
+void get_name(creature_type *creature_ptr)
 {
 	char tmp[80];
 
 	/* Save the player name */
-	strcpy(tmp, cr_ptr->name);
+	strcpy(tmp, creature_ptr->name);
 
 	/* Prompt for a new name */
 #ifdef JP
@@ -6501,23 +6501,23 @@ void get_name(creature_type *cr_ptr)
 #endif
 	{
 		/* Use the name */
-		strcpy(cr_ptr->name, tmp);
+		strcpy(creature_ptr->name, tmp);
 	}
 
-	if (0 == strlen(cr_ptr->name))
+	if (0 == strlen(creature_ptr->name))
 	{
 		/* Use default name */
-		strcpy(cr_ptr->name, species_name + species_info[cr_ptr->species_idx].name);
+		strcpy(creature_ptr->name, species_name + species_info[creature_ptr->species_idx].name);
 	}
 
-	strcpy(tmp,chara_info[cr_ptr->chara_idx].title);
+	strcpy(tmp,chara_info[creature_ptr->chara_idx].title);
 #ifdef JP
-	if(chara_info[cr_ptr->chara_idx].no == 1)
+	if(chara_info[creature_ptr->chara_idx].no == 1)
 		strcat(tmp,"の");
 #else
 	strcat(tmp, " ");
 #endif
-	strcat(tmp,cr_ptr->name);
+	strcat(tmp,creature_ptr->name);
 
 	/* Re-Draw the name (in light blue) */
 	Term_erase(34, 1, 255);
@@ -6532,7 +6532,7 @@ void get_name(creature_type *cr_ptr)
 /*
  * Hack -- commit suicide
  */
-void do_cmd_suicide(creature_type *cr_ptr)
+void do_cmd_suicide(creature_type *creature_ptr)
 {
 	int i;
 
@@ -6540,7 +6540,7 @@ void do_cmd_suicide(creature_type *cr_ptr)
 	flush();
 
 	/* Verify Retirement */
-	if (cr_ptr->total_winner)
+	if (creature_ptr->total_winner)
 	{
 		/* Verify */
 #ifdef JP
@@ -6579,11 +6579,11 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	}
 
 	/* Initialize "last message" buffer */
-	if (cr_ptr->last_message) string_free(cr_ptr->last_message);
-	cr_ptr->last_message = NULL;
+	if (creature_ptr->last_message) string_free(creature_ptr->last_message);
+	creature_ptr->last_message = NULL;
 
 	/* Hack -- Note *winning* message */
-	if (cr_ptr->total_winner && last_words)
+	if (creature_ptr->total_winner && last_words)
 	{
 		char buf[1024] = "";
 
@@ -6603,8 +6603,8 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 
 		if (buf[0])
 		{
-			cr_ptr->last_message = string_make(buf);
-			msg_print(cr_ptr->last_message);
+			creature_ptr->last_message = string_make(buf);
+			msg_print(creature_ptr->last_message);
 		}
 	}
 
@@ -6617,7 +6617,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	/* Leaving */
 	subject_change_floor = TRUE;
 
-	if (!cr_ptr->total_winner)
+	if (!creature_ptr->total_winner)
 	{
 #ifdef JP
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
@@ -7397,7 +7397,7 @@ msg_print("強制終了のためスコアが記録されません。");
 #ifdef JP
 if (!player_ptr->total_winner && streq(gameover_from, "途中終了"))
 #else
-	if (!cr_ptr->total_winner && streq(gameover_from, "Quitting"))
+	if (!creature_ptr->total_winner && streq(gameover_from, "Quitting"))
 #endif
 
 	{

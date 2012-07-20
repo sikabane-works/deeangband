@@ -1436,7 +1436,7 @@ s32b object_value(object_type *o_ptr)
 /*
  * Determines whether an object can be destroyed, and makes fake inscription.
  */
-bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr)
+bool can_player_destroy_object(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Artifacts cannot be destroyed */
 	if (!object_is_artifact(o_ptr)) return TRUE;
@@ -1456,7 +1456,7 @@ bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr)
 		o_ptr->ident |= (IDENT_SENSE);
 
 		/* Combine the pack */
-		cr_ptr->creature_update |= (CRU_COMBINE);
+		creature_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -4606,11 +4606,11 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Describe the charges on an item in the cr_ptr->inventory.
+ * Describe the charges on an item in the creature_ptr->inventory.
  */
-void inven_item_charges(creature_type *cr_ptr, int item)
+void inven_item_charges(creature_type *creature_ptr, int item)
 {
-	object_type *o_ptr = &cr_ptr->inventory[item];
+	object_type *o_ptr = &creature_ptr->inventory[item];
 
 	/* Require staff/wand */
 	if ((o_ptr->tval != TV_STAFF) && (o_ptr->tval != TV_WAND)) return;
@@ -4649,9 +4649,9 @@ void inven_item_charges(creature_type *cr_ptr, int item)
 /*
  * Describe an item in the inventory.
  */
-void inven_item_describe(creature_type *cr_ptr, int item)
+void inven_item_describe(creature_type *creature_ptr, int item)
 {
-	object_type *o_ptr = &cr_ptr->inventory[item];
+	object_type *o_ptr = &creature_ptr->inventory[item];
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
@@ -4680,9 +4680,9 @@ void inven_item_describe(creature_type *cr_ptr, int item)
 /*
  * Increase the "number" of an item in the inventory
  */
-void inven_item_increase(creature_type *cr_ptr, int item, int num)
+void inven_item_increase(creature_type *creature_ptr, int item, int num)
 {
-	object_type *o_ptr = &cr_ptr->inventory[item];
+	object_type *o_ptr = &creature_ptr->inventory[item];
 
 	/* Apply */
 	num += o_ptr->number;
@@ -4701,30 +4701,30 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 		o_ptr->number += num;
 
 		/* Add the weight */
-		set_inventory_weight(cr_ptr);
+		set_inventory_weight(creature_ptr);
 
 		/* Recalculate bonuses */
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Recalculate mana XXX */
-		cr_ptr->creature_update |= (CRU_MANA);
+		creature_ptr->creature_update |= (CRU_MANA);
 
 		/* Combine the pack */
-		cr_ptr->creature_update |= (CRU_COMBINE);
+		creature_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
-		if (!o_ptr->number && cr_ptr->ele_attack)
+		if (!o_ptr->number && creature_ptr->ele_attack)
 		{
-			if ((item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1)) ||
-				(item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2)))
+			if ((item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ||
+				(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)))
 			{
-				if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+				if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 				{
 					/* Clear all temporary elemental brands */
-					set_ele_attack(cr_ptr, 0, 0);
+					set_ele_attack(creature_ptr, 0, 0);
 				}
 			}
 		}
@@ -4735,9 +4735,9 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 /*
  * Erase an inventory slot if it has no more items
  */
-void inven_item_optimize(creature_type *cr_ptr, int item)
+void inven_item_optimize(creature_type *creature_ptr, int item)
 {
-	object_type *o_ptr = &cr_ptr->inventory[item];
+	object_type *o_ptr = &creature_ptr->inventory[item];
 
 	/* Only optimize real items */
 	if (!o_ptr->k_idx) return;
@@ -4751,17 +4751,17 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 		int i;
 
 		/* One less item */
-		cr_ptr->inven_cnt--;
+		creature_ptr->inven_cnt--;
 
 		/* Slide everything down */
 		for (i = item; i < INVEN_TOTAL; i++)
 		{
 			/* Structure copy */
-			cr_ptr->inventory[i] = cr_ptr->inventory[i+1];
+			creature_ptr->inventory[i] = creature_ptr->inventory[i+1];
 		}
 
 		/* Erase the "final" slot */
-		object_wipe(&cr_ptr->inventory[i]);
+		object_wipe(&creature_ptr->inventory[i]);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -4771,13 +4771,13 @@ void inven_item_optimize(creature_type *cr_ptr, int item)
 	else
 	{
 		/* One less item */
-		cr_ptr->equip_cnt--;
+		creature_ptr->equip_cnt--;
 
 		/* Erase the empty slot */
-		object_wipe(&cr_ptr->inventory[item]);
+		object_wipe(&creature_ptr->inventory[item]);
 
 		/* Recalculate torch */
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -4830,7 +4830,7 @@ void floor_item_charges(int item)
 
 
 /*
- * Describe an item in the cr_ptr->inventory.
+ * Describe an item in the creature_ptr->inventory.
  */
 void floor_item_describe(creature_type *creature_type, int item)
 {
@@ -4901,17 +4901,17 @@ void floor_item_optimize(int item)
 /*
  * Check if we have space for an item in the pack without overflow
  */
-bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr)
+bool inven_carry_okay(creature_type *creature_ptr, object_type *o_ptr)
 {
 	int j;
 
 	/* Empty slot? */
-	if (cr_ptr->inven_cnt < INVEN_TOTAL) return (TRUE);
+	if (creature_ptr->inven_cnt < INVEN_TOTAL) return (TRUE);
 
 	/* Similar slot? */
 	for (j = 0; j < INVEN_TOTAL; j++)
 	{
-		object_type *j_ptr = &cr_ptr->inventory[j];
+		object_type *j_ptr = &creature_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -5023,7 +5023,7 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *o_ptr, s32b o_val
  * Note that this code must remove any location/stack information
  * from the object once it is placed into the inventory.
  */
-s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
+s16b inven_carry(creature_type *creature_ptr, object_type *o_ptr)
 {
 	int i, j, k;
 	int n = -1;
@@ -5034,7 +5034,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	/* Check for combining */
 	for (j = 0; j < INVEN_TOTAL; j++)
 	{
-		j_ptr = &cr_ptr->inventory[j];
+		j_ptr = &creature_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -5049,10 +5049,10 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 			object_absorb(j_ptr, o_ptr);
 
 			/* Increase the weight */
-			set_inventory_weight(cr_ptr);
+			set_inventory_weight(creature_ptr);
 
 			/* Recalculate bonuses */
-			cr_ptr->creature_update |= (CRU_BONUS);
+			creature_ptr->creature_update |= (CRU_BONUS);
 
 			/* Window stuff */
 			play_window |= (PW_INVEN);
@@ -5064,12 +5064,12 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 
 
 	/* Paranoia */
-	if (cr_ptr->inven_cnt > INVEN_TOTAL) return (-1);
+	if (creature_ptr->inven_cnt > INVEN_TOTAL) return (-1);
 
 	/* Find an empty slot */
 	for (j = 0; j <= INVEN_TOTAL; j++)
 	{
-		j_ptr = &cr_ptr->inventory[j];
+		j_ptr = &creature_ptr->inventory[j];
 
 		/* Use it if found */
 		if (!j_ptr->k_idx) break;
@@ -5088,7 +5088,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if (object_sort_comp(cr_ptr, o_ptr, o_value, &cr_ptr->inventory[j])) break;
+			if (object_sort_comp(creature_ptr, o_ptr, o_value, &creature_ptr->inventory[j])) break;
 		}
 
 		/* Use that slot */
@@ -5098,19 +5098,19 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 		for (k = n; k >= i; k--)
 		{
 			/* Hack -- Slide the item */
-			object_copy(&cr_ptr->inventory[k+1], &cr_ptr->inventory[k]);
+			object_copy(&creature_ptr->inventory[k+1], &creature_ptr->inventory[k]);
 		}
 
 		/* Wipe the empty slot */
-		object_wipe(&cr_ptr->inventory[i]);
+		object_wipe(&creature_ptr->inventory[i]);
 	}
 
 
 	/* Copy the item */
-	object_copy(&cr_ptr->inventory[i], o_ptr);
+	object_copy(&creature_ptr->inventory[i], o_ptr);
 
 	/* Access new object */
-	j_ptr = &cr_ptr->inventory[i];
+	j_ptr = &creature_ptr->inventory[i];
 
 	/* Forget stack */
 	j_ptr->next_object_idx = 0;
@@ -5125,16 +5125,16 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 	j_ptr->marked = OM_TOUCHED;
 
 	/* Increase the weight */
-	set_inventory_weight(cr_ptr);
+	set_inventory_weight(creature_ptr);
 
 	/* Count the items */
-	cr_ptr->inven_cnt++;
+	creature_ptr->inven_cnt++;
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine and Reorder pack */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -5154,7 +5154,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
  *
  * Return the inventory slot into which the item is placed.
  */
-s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
+s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 {
 	//TODO
 	int slot;
@@ -5170,7 +5170,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 
 	// Get the item to take off
-	o_ptr = &cr_ptr->inventory[item];
+	o_ptr = &creature_ptr->inventory[item];
 
 	o_ptr->equipped_slot_type = INVEN_SLOT_INVENTORY;
 	o_ptr->equipped_slot_num = 0;
@@ -5194,7 +5194,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	object_desc(o_name, q_ptr, 0);
 
 	// Took off weapon
-	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(cr_ptr, o_ptr))
+	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, o_ptr))
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -5205,7 +5205,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	// Took off bow
-	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_BOW)
+	else if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_BOW)
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -5216,7 +5216,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	// Took off light
-	else if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_LITE)
+	else if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_LITE)
 	{
 #ifdef JP
 		act = "‚ðŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½";
@@ -5238,11 +5238,11 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	// Modify, Optimize
-	inven_item_increase(cr_ptr, item, -amt);
-	inven_item_optimize(cr_ptr, item);
+	inven_item_increase(creature_ptr, item, -amt);
+	inven_item_optimize(creature_ptr, item);
 
 	// Carry the object
-	slot = inven_carry(cr_ptr, q_ptr);
+	slot = inven_carry(creature_ptr, q_ptr);
 
 	// Message
 #ifdef JP
@@ -5262,18 +5262,18 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
  *
  * The object will be dropped "near" the current location
  */
-void inven_drop(creature_type *cr_ptr, int item, int amt)
+void inven_drop(creature_type *creature_ptr, int item, int amt)
 {
 	object_type forge;
 	object_type *q_ptr;
 	object_type *o_ptr;
-	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	char o_name[MAX_NLEN];
 
 
 	/* Access original object */
-	o_ptr = &cr_ptr->inventory[item];
+	o_ptr = &creature_ptr->inventory[item];
 
 	/* Error check */
 	if (amt <= 0) return;
@@ -5287,10 +5287,10 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	if (IS_EQUIPPED(o_ptr))
 	{
 		// Take off first
-		item = inven_takeoff(cr_ptr, item, amt);
+		item = inven_takeoff(creature_ptr, item, amt);
 
 		// Access original object
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	*/
@@ -5320,12 +5320,12 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(floor_ptr, q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
+	(void)drop_near(floor_ptr, q_ptr, 0, creature_ptr->fy, creature_ptr->fx);
 
 	/* Modify, Describe, Optimize */
-	inven_item_increase(cr_ptr, item, -amt);
-	inven_item_describe(cr_ptr, item);
-	inven_item_optimize(cr_ptr, item);
+	inven_item_increase(creature_ptr, item, -amt);
+	inven_item_describe(creature_ptr, item);
+	inven_item_optimize(creature_ptr, item);
 }
 
 
@@ -6040,7 +6040,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 }
 
 
-static bool item_tester_hook_melee_ammo(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{
@@ -6882,7 +6882,7 @@ static int choose_essence(void)
 static void add_essence(creature_type *creature_ptr, int mode)
 {
 	int item_tester_tval;
-	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
 	int item, max_num = 0;
 	int i;
 	bool flag,redraw;

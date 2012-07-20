@@ -976,9 +976,9 @@ msg_print("張りつめた大気が流れ去った...");
 }
 
 
-bool word_of_recall(creature_type *cr_ptr)
+bool word_of_recall(creature_type *creature_ptr)
 {
-	return(recall_player(cr_ptr, randint0(21) + 15));
+	return(recall_player(creature_ptr, randint0(21) + 15));
 }
 
 
@@ -1061,7 +1061,7 @@ msg_format("%sの帰還レベルを %d 階にセット。", dungeon_name + dungeon_info[selec
  *
  * Return "TRUE" if the player notices anything
  */
-bool apply_disenchant(creature_type *cr_ptr, int mode)
+bool apply_disenchant(creature_type *creature_ptr, int mode)
 {
 	int             t = 0, item;
 	object_type     *o_ptr;
@@ -1073,7 +1073,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	item = randint1(INVEN_TOTAL);
 
 	// Get the item
-	o_ptr = &cr_ptr->inventory[item];
+	o_ptr = &creature_ptr->inventory[item];
 
 	if(!IS_EQUIPPED(o_ptr)) return FALSE;
 
@@ -1150,12 +1150,12 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 #endif
 
 		/* Recalculate bonuses */
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP | PW_PLAYER);
 
-		calc_android_exp(cr_ptr);
+		calc_android_exp(creature_ptr);
 	}
 
 	/* Notice */
@@ -1163,7 +1163,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 }
 
 
-void mutate_creature(creature_type *cr_ptr)
+void mutate_creature(creature_type *creature_ptr)
 {
 	int max1, cur1, max2, cur2, ii, jj, i;
 
@@ -1171,23 +1171,23 @@ void mutate_creature(creature_type *cr_ptr)
 	ii = randint0(6);
 	for (jj = ii; jj == ii; jj = randint0(6)) /* loop */;
 
-	max1 = cr_ptr->stat_max[ii];
-	cur1 = cr_ptr->stat_cur[ii];
-	max2 = cr_ptr->stat_max[jj];
-	cur2 = cr_ptr->stat_cur[jj];
+	max1 = creature_ptr->stat_max[ii];
+	cur1 = creature_ptr->stat_cur[ii];
+	max2 = creature_ptr->stat_max[jj];
+	cur2 = creature_ptr->stat_cur[jj];
 
-	cr_ptr->stat_max[ii] = max2;
-	cr_ptr->stat_cur[ii] = cur2;
-	cr_ptr->stat_max[jj] = max1;
-	cr_ptr->stat_cur[jj] = cur1;
+	creature_ptr->stat_max[ii] = max2;
+	creature_ptr->stat_cur[ii] = cur2;
+	creature_ptr->stat_max[jj] = max1;
+	creature_ptr->stat_cur[jj] = cur1;
 
 	for (i=0;i<6;i++)
 	{
-		if(cr_ptr->stat_max[i] > cr_ptr->stat_mod_max_max[i]) cr_ptr->stat_max[i] = cr_ptr->stat_mod_max_max[i];
-		if(cr_ptr->stat_cur[i] > cr_ptr->stat_mod_max_max[i]) cr_ptr->stat_cur[i] = cr_ptr->stat_mod_max_max[i];
+		if(creature_ptr->stat_max[i] > creature_ptr->stat_mod_max_max[i]) creature_ptr->stat_max[i] = creature_ptr->stat_mod_max_max[i];
+		if(creature_ptr->stat_cur[i] > creature_ptr->stat_mod_max_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_mod_max_max[i];
 	}
 
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 }
 
 
@@ -1257,10 +1257,10 @@ msg_print("体がねじれ始めた...");
 /*
  * Charge a lite (torch or latern)
  */
-void phlogiston(creature_type *cr_ptr)
+void phlogiston(creature_type *creature_ptr)
 {
 	int max_flog = 0;
-	object_type *o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 	/* It's a lamp */
 	if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_LANTERN))
@@ -1321,7 +1321,7 @@ msg_print("照明用アイテムは満タンになった。");
 	}
 
 	/* Recalculate torch */
-	cr_ptr->creature_update |= (CRU_TORCH);
+	creature_ptr->creature_update |= (CRU_TORCH);
 }
 
 
@@ -1967,7 +1967,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 }
 
 
-void alter_reality(creature_type *cr_ptr)
+void alter_reality(creature_type *creature_ptr)
 {
 	/* Ironman option */
 	if (fight_arena_mode || ironman_downward)
@@ -1980,11 +1980,11 @@ void alter_reality(creature_type *cr_ptr)
 		return;
 	}
 
-	if (!cr_ptr->alter_reality)
+	if (!creature_ptr->alter_reality)
 	{
 		int turns = randint0(21) + 15;
 
-		cr_ptr->alter_reality = turns;
+		creature_ptr->alter_reality = turns;
 #ifdef JP
 		msg_print("回りの景色が変わり始めた...");
 #else
@@ -1995,7 +1995,7 @@ void alter_reality(creature_type *cr_ptr)
 	}
 	else
 	{
-		cr_ptr->alter_reality = 0;
+		creature_ptr->alter_reality = 0;
 #ifdef JP
 		msg_print("景色が元に戻った...");
 #else
@@ -2100,23 +2100,23 @@ bool explosive_rune(creature_type *creature_ptr)
  * Identify everything being carried.
  * Done by a potion of "self knowledge".
  */
-void identify_pack(creature_type *cr_ptr)
+void identify_pack(creature_type *creature_ptr)
 {
 	int i;
 
 	/* Simply identify and know every item */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
 		/* Identify it */
-		identify_item(cr_ptr, o_ptr);
+		identify_item(creature_ptr, o_ptr);
 
 		/* Auto-inscription */
-		autopick_alter_item(cr_ptr, i, FALSE);
+		autopick_alter_item(creature_ptr, i, FALSE);
 	}
 }
 
@@ -2144,14 +2144,14 @@ static int enchant_table[16] =
  * "Heavy-Cursed" (Mormegil, Calris, and Weapons of Morgul)
  * will not be uncursed.
  */
-static int remove_curse_aux(creature_type *cr_ptr, int all)
+static int remove_curse_aux(creature_type *creature_ptr, int all)
 {
 	int i, cnt = 0;
 
 	/* Attempt to uncurse items being worn */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
 
@@ -2182,7 +2182,7 @@ static int remove_curse_aux(creature_type *cr_ptr, int all)
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -2199,24 +2199,24 @@ static int remove_curse_aux(creature_type *cr_ptr, int all)
 /*
  * Remove most curses
  */
-bool remove_curse(creature_type *cr_ptr)
+bool remove_curse(creature_type *creature_ptr)
 {
-	return (remove_curse_aux(cr_ptr, FALSE));
+	return (remove_curse_aux(creature_ptr, FALSE));
 }
 
 /*
  * Remove all curses
  */
-bool remove_all_curse(creature_type *cr_ptr)
+bool remove_all_curse(creature_type *creature_ptr)
 {
-	return (remove_curse_aux(cr_ptr, TRUE));
+	return (remove_curse_aux(creature_ptr, TRUE));
 }
 
 
 /*
  * Turns an object into gold, gain some of its value in a shop
  */
-bool alchemy(creature_type *cr_ptr)
+bool alchemy(creature_type *creature_ptr)
 {
 	int item, amt = 1;
 	int old_number;
@@ -2240,12 +2240,12 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2289,7 +2289,7 @@ sprintf(out_val, "本当に%sを金に変えますか？", o_name);
 	}
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(cr_ptr, o_ptr))
+	if (!can_player_destroy_object(creature_ptr, o_ptr))
 	{
 		/* Message */
 #ifdef JP
@@ -2327,7 +2327,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 		msg_format("You turn %s to %ld coins worth of gold.", o_name, price);
 #endif
 
-		cr_ptr->au += price;
+		creature_ptr->au += price;
 
 		/* Redraw gold */
 		play_redraw |= (PR_GOLD);
@@ -2340,16 +2340,16 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 	/* Eliminate the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -amt);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */
 	else
 	{
 		floor_item_increase(0 - item, -amt);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -2394,7 +2394,7 @@ msg_print("かけられていた呪いが打ち破られた！");
  * Note that this function can now be used on "piles" of items, and
  * the larger the pile, the lower the chance of success.
  */
-bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
+bool enchant(creature_type *creature_ptr, object_type *o_ptr, int n, int eflag)
 {
 	int     i, chance, prob;
 	bool    res = FALSE;
@@ -2478,15 +2478,15 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 	if (!res) return (FALSE);
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	/* Success */
 	return (TRUE);
@@ -2499,7 +2499,7 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
  * Note that "num_ac" requires armour, else weapon
  * Returns TRUE if attempted, FALSE if cancelled
  */
-bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac)
+bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac)
 {
 	int         item;
 	bool        okay = FALSE;
@@ -2522,12 +2522,12 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2552,9 +2552,9 @@ msg_format("%s は明るく輝いた！",
 
 
 	/* Enchant */
-	if (enchant(cr_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
-	if (enchant(cr_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
-	if (enchant(cr_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
+	if (enchant(creature_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
+	if (enchant(creature_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
+	if (enchant(creature_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
 
 	/* Failure */
 	if (!okay)
@@ -2571,7 +2571,7 @@ msg_print("強化に失敗した。");
 
 	}
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	/* Something happened */
 	return (TRUE);
@@ -2581,13 +2581,13 @@ msg_print("強化に失敗した。");
 /*
  * Check if an object is nameless weapon or armour
  */
-static bool item_tester_hook_nameless_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_nameless_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Require weapon or armour */
 	if (!object_is_weapon_armour_ammo(o_ptr)) return FALSE;
 	
 	/* Require nameless object if the object is well known */
-	if (object_is_known(o_ptr) && !object_is_nameless(cr_ptr, o_ptr))
+	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
 		return FALSE;
 
 	return TRUE;
@@ -2724,7 +2724,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 /*
  * Identify an object
  */
-bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
+bool identify_item(creature_type *creature_ptr, object_type *o_ptr)
 {
 	bool old_known = FALSE;
 	char o_name[MAX_NLEN];
@@ -2743,10 +2743,10 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -2766,12 +2766,12 @@ bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_identify(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify(creature_type *creature_ptr, object_type *o_ptr)
 {
 	return (bool)!object_is_known(o_ptr);
 }
 
-static bool item_tester_hook_identify_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (object_is_known(o_ptr))
 		return FALSE;
@@ -2783,21 +2783,21 @@ static bool item_tester_hook_identify_weapon_armour(creature_type *cr_ptr, objec
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was identified, else FALSE.
  */
-bool ident_spell(creature_type *cr_ptr, bool only_equip)
+bool ident_spell(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 	bool old_known;
-	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
 
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_weapon_armour;
 	else
 		item_tester_hook = item_tester_hook_identify;
 
-	if (can_get_item(cr_ptr))
+	if (can_get_item(creature_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを鑑定しますか? ";
@@ -2826,12 +2826,12 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2841,7 +2841,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Identify it */
-	old_known = identify_item(cr_ptr, o_ptr);
+	old_known = identify_item(creature_ptr, o_ptr);
 
 	/* Description */
 	object_desc(o_name, o_ptr, 0);
@@ -2850,9 +2850,9 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	if(IS_EQUIPPED(o_ptr))
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(item));
+		msg_format("%^s: %s(%c)。", describe_use(creature_ptr, item), o_name, index_to_label(item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(item));
+		msg_format("%^s: %s (%c).", describe_use(creature_ptr, item), o_name, index_to_label(item));
 #endif
 	}
 	else if (item >= 0)
@@ -2873,7 +2873,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(cr_ptr, item, (bool)(destroy_identify && !old_known));
+	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Something happened */
 	return (TRUE);
@@ -2885,12 +2885,12 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was mundanified, else FALSE.
  */
-bool mundane_spell(creature_type *cr_ptr, bool only_equip)
+bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
 	cptr            q, s;
-	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
 
 	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
@@ -2904,12 +2904,12 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2940,9 +2940,9 @@ s = "使えるものがありません。";
 		o_ptr->next_object_idx = next_object_idx;
 		o_ptr->marked = marked;
 		o_ptr->inscription = inscription;
-		set_inventory_weight(cr_ptr);
+		set_inventory_weight(creature_ptr);
 	}
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	/* Something happened */
 	return TRUE;
@@ -2950,14 +2950,14 @@ s = "使えるものがありません。";
 
 
 
-static bool item_tester_hook_identify_fully(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_fully(creature_type *creature_ptr, object_type *o_ptr)
 {
 	return (bool)(!object_is_known(o_ptr) || !(o_ptr->ident & IDENT_MENTAL));
 }
 
-static bool item_tester_hook_identify_fully_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_fully_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
 {
-	if (!item_tester_hook_identify_fully(cr_ptr, o_ptr))
+	if (!item_tester_hook_identify_fully(creature_ptr, o_ptr))
 		return FALSE;
 	return object_is_weapon_armour_ammo(o_ptr);
 }
@@ -2966,7 +2966,7 @@ static bool item_tester_hook_identify_fully_weapon_armour(creature_type *cr_ptr,
  * Fully "identify" an object in the inventory  -BEN-
  * This routine returns TRUE if an item was identified.
  */
-bool identify_fully(creature_type *cr_ptr, bool only_equip)
+bool identify_fully(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -2974,14 +2974,14 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	cptr            q, s;
 	bool old_known;
 
-	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
 
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
 	else
 		item_tester_hook = item_tester_hook_identify_fully;
 
-	if (can_get_item(cr_ptr))
+	if (can_get_item(creature_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを*鑑定*しますか? ";
@@ -3010,12 +3010,12 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3025,7 +3025,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Identify it */
-	old_known = identify_item(cr_ptr, o_ptr);
+	old_known = identify_item(creature_ptr, o_ptr);
 
 	/* Mark the item as fully known */
 	o_ptr->ident |= (IDENT_MENTAL);
@@ -3040,9 +3040,9 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	if(IS_EQUIPPED(o_ptr))
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(item));
+		msg_format("%^s: %s(%c)。", describe_use(creature_ptr, item), o_name, index_to_label(item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(item));
+		msg_format("%^s: %s (%c).", describe_use(creature_ptr, item), o_name, index_to_label(item));
 #endif
 
 
@@ -3068,7 +3068,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	(void)screen_object(o_ptr, 0L);
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(cr_ptr, item, (bool)(destroy_identify && !old_known));
+	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Success */
 	return (TRUE);
@@ -3080,7 +3080,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 /*
  * Hook for "get_item()".  Determine if something is rechargable.
  */
-bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
+bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Recharge staffs */
 	if (o_ptr->tval == TV_STAFF) return (TRUE);
@@ -3113,7 +3113,7 @@ bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
  *
  * XXX XXX XXX Beware of "sliding index errors".
  */
-bool recharge(creature_type *cr_ptr, int power)
+bool recharge(creature_type *creature_ptr, int power)
 {
 	int item, lev;
 	int recharge_strength, recharge_amount;
@@ -3136,12 +3136,12 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3277,7 +3277,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER || cr_ptr->class_idx == CLASS_MAGIC_EATER || cr_ptr->class_idx == CLASS_BLUE_MAGE)
+			if (creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)
@@ -3372,19 +3372,19 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				if (o_ptr->tval == TV_ROD) o_ptr->timeout = (o_ptr->number - 1) * k_ptr->pval;
 				if (o_ptr->tval == TV_WAND) o_ptr->pval = 0;
 
-				/* Reduce and describe cr_ptr->inventory */
+				/* Reduce and describe creature_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(cr_ptr, item, -1);
-					inven_item_describe(cr_ptr, item);
-					inven_item_optimize(cr_ptr, item);
+					inven_item_increase(creature_ptr, item, -1);
+					inven_item_describe(creature_ptr, item);
+					inven_item_optimize(creature_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
 				else
 				{
 					floor_item_increase(0 - item, -1);
-					floor_item_describe(cr_ptr, 0 - item);
+					floor_item_describe(creature_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -3408,19 +3408,19 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 
 
 
-				/* Reduce and describe cr_ptr->inventory */
+				/* Reduce and describe creature_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(cr_ptr, item, -999);
-					inven_item_describe(cr_ptr, item);
-					inven_item_optimize(cr_ptr, item);
+					inven_item_increase(creature_ptr, item, -999);
+					inven_item_describe(creature_ptr, item);
+					inven_item_optimize(creature_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
 				else
 				{
 					floor_item_increase(0 - item, -999);
-					floor_item_describe(cr_ptr, 0 - item);
+					floor_item_describe(creature_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -3428,7 +3428,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -3441,7 +3441,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 /*
  * Bless a weapon
  */
-bool bless_weapon(creature_type *cr_ptr)
+bool bless_weapon(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -3458,13 +3458,13 @@ s = "祝福できる武器がありません。";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3515,7 +3515,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -3617,12 +3617,12 @@ msg_format("%s は劣化した！",
 	}
 
 	/* Recalculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	return TRUE;
 }
@@ -3631,7 +3631,7 @@ msg_format("%s は劣化した！",
 /*
  * pulish shield
  */
-bool pulish_shield(creature_type *cr_ptr)
+bool pulish_shield(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -3648,13 +3648,13 @@ s = "磨く盾がありません。";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
 		return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3681,7 +3681,7 @@ msg_format("%sは輝いた！", o_name);
 		    ((o_ptr->number > 1) ? "" : "s"));
 #endif
 		o_ptr->name2 = EGO_REFLECTION;
-		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
+		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
 
 		o_ptr->discount = 99;
 
@@ -3698,7 +3698,7 @@ msg_print("失敗した。");
 #endif
 
 	}
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	return FALSE;
 }
@@ -3870,7 +3870,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
  *
  * XXX XXX XXX Need more color coding.
  */
-void display_spell_list(creature_type *cr_ptr)
+void display_spell_list(creature_type *creature_ptr)
 {
 	int             i, j;
 	int             y, x;
@@ -3884,28 +3884,28 @@ void display_spell_list(creature_type *cr_ptr)
 	clear_from(0);
 
 	/* They have too many spells to list */
-	if (cr_ptr->class_idx == CLASS_SORCERER) return;
-	if (cr_ptr->class_idx == CLASS_RED_MAGE) return;
+	if (creature_ptr->class_idx == CLASS_SORCERER) return;
+	if (creature_ptr->class_idx == CLASS_RED_MAGE) return;
 
 	/* Snipers */
-	if (cr_ptr->class_idx == CLASS_SNIPER)
+	if (creature_ptr->class_idx == CLASS_SNIPER)
 	{
-		display_snipe_list(cr_ptr);
+		display_snipe_list(creature_ptr);
 		return;
 	}
 
 	/* mind.c type classes */
-	if ((cr_ptr->class_idx == CLASS_MINDCRAFTER) ||
-	    (cr_ptr->class_idx == CLASS_BERSERKER) ||
-	    (cr_ptr->class_idx == CLASS_NINJA) ||
-	    (cr_ptr->class_idx == CLASS_MIRROR_MASTER) ||
-	    (cr_ptr->class_idx == CLASS_FORCETRAINER))
+	if ((creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
+	    (creature_ptr->class_idx == CLASS_BERSERKER) ||
+	    (creature_ptr->class_idx == CLASS_NINJA) ||
+	    (creature_ptr->class_idx == CLASS_MIRROR_MASTER) ||
+	    (creature_ptr->class_idx == CLASS_FORCETRAINER))
 	{
 		int             i;
 		int             y = 1;
 		int             x = 1;
 		int             minfail = 0;
-		int             plev = cr_ptr->lev;
+		int             plev = creature_ptr->lev;
 		int             chance = 0;
 		mind_type       spell;
 		char            comment[80];
@@ -3923,7 +3923,7 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 		put_str("Lv Mana Fail Info", y, x + 35);
 #endif
 
-		switch(cr_ptr->class_idx)
+		switch(creature_ptr->class_idx)
 		{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
@@ -3946,24 +3946,24 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			chance = spell.fail;
 
 			/* Reduce failure rate by "effective" level adjustment */
-			chance -= 3 * (cr_ptr->lev - spell.min_lev);
+			chance -= 3 * (creature_ptr->lev - spell.min_lev);
 
 			/* Reduce failure rate by INT/WIS adjustment */
-			chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
+			chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 
 			if (!use_hp)
 			{
 				/* Not enough mana to cast */
-				if (spell.mana_cost > cr_ptr->csp)
+				if (spell.mana_cost > creature_ptr->csp)
 				{
-					chance += 5 * (spell.mana_cost - cr_ptr->csp);
+					chance += 5 * (spell.mana_cost - creature_ptr->csp);
 					a = TERM_ORANGE;
 				}
 			}
 			else
 			{
 				/* Not enough hp to cast */
-				if (spell.mana_cost > cr_ptr->chp)
+				if (spell.mana_cost > creature_ptr->chp)
 				{
 					chance += 100;
 					a = TERM_RED;
@@ -3971,20 +3971,20 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			}
 
 			/* Extract the minimum failure rate */
-			minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
+			minfail = adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]];
 
 			/* Minimum failure rate */
 			if (chance < minfail) chance = minfail;
 
 			/* Stunning makes spells harder */
-			if (cr_ptr->stun > 50) chance += 25;
-			else if (cr_ptr->stun) chance += 15;
+			if (creature_ptr->stun > 50) chance += 25;
+			else if (creature_ptr->stun) chance += 15;
 
 			/* Always a 5 percent chance of working */
 			if (chance > 95) chance = 95;
 
 			/* Get info */
-			mindcraft_info(cr_ptr, comment, use_mind, i);
+			mindcraft_info(creature_ptr, comment, use_mind, i);
 
 			/* Dump the spell */
 			sprintf(psi_desc, "  %c) %-30s%2d %4d %3d%%%s",
@@ -3997,12 +3997,12 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 	}
 
 	/* Cannot read spellbooks */
-	if (REALM_NONE == cr_ptr->realm1) return;
+	if (REALM_NONE == creature_ptr->realm1) return;
 
 	/* Normal spellcaster with books */
 
 	/* Scan books */
-	for (j = 0; j < ((cr_ptr->realm2 > REALM_NONE) ? 2 : 1); j++)
+	for (j = 0; j < ((creature_ptr->realm2 > REALM_NONE) ? 2 : 1); j++)
 	{
 		int n = 0;
 
@@ -4021,16 +4021,16 @@ put_str("Lv   MP 失率 効果", y, x + 35);
 			byte a = TERM_WHITE;
 
 			/* Access the spell */
-			if (!is_magic((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2))
+			if (!is_magic((j < 1) ? creature_ptr->realm1 : creature_ptr->realm2))
 			{
-				s_ptr = &technic_info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - MIN_TECHNIC][i % 32];
+				s_ptr = &technic_info[((j < 1) ? creature_ptr->realm1 : creature_ptr->realm2) - MIN_TECHNIC][i % 32];
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->class_idx].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
+				s_ptr = &magic_info[creature_ptr->class_idx].info[((j < 1) ? creature_ptr->realm1 : creature_ptr->realm2) - 1][i % 32];
 			}
 
-			strcpy(name, do_spell(cr_ptr, (j < 1) ? cr_ptr->realm1 : cr_ptr->realm2, i % 32, SPELL_NAME));
+			strcpy(name, do_spell(creature_ptr, (j < 1) ? creature_ptr->realm1 : creature_ptr->realm2, i % 32, SPELL_NAME));
 
 			/* Illegible */
 			if (s_ptr->slevel >= 99)
@@ -4049,8 +4049,8 @@ strcpy(name, "(判読不能)");
 
 			/* Forgotten */
 			else if ((j < 1) ?
-				((cr_ptr->spell_forgotten1 & (1L << i))) :
-				((cr_ptr->spell_forgotten2 & (1L << (i % 32)))))
+				((creature_ptr->spell_forgotten1 & (1L << i))) :
+				((creature_ptr->spell_forgotten2 & (1L << (i % 32)))))
 			{
 				/* Forgotten */
 				a = TERM_ORANGE;
@@ -4058,8 +4058,8 @@ strcpy(name, "(判読不能)");
 
 			/* Unknown */
 			else if (!((j < 1) ?
-				(cr_ptr->spell_learned1 & (1L << i)) :
-				(cr_ptr->spell_learned2 & (1L << (i % 32)))))
+				(creature_ptr->spell_learned1 & (1L << i)) :
+				(creature_ptr->spell_learned2 & (1L << (i % 32)))))
 			{
 				/* Unknown */
 				a = TERM_RED;
@@ -4067,8 +4067,8 @@ strcpy(name, "(判読不能)");
 
 			/* Untried */
 			else if (!((j < 1) ?
-				(cr_ptr->spell_worked1 & (1L << i)) :
-				(cr_ptr->spell_worked2 & (1L << (i % 32)))))
+				(creature_ptr->spell_worked1 & (1L << i)) :
+				(creature_ptr->spell_worked2 & (1L << (i % 32)))))
 			{
 				/* Untried */
 				a = TERM_YELLOW;
@@ -4094,12 +4094,12 @@ strcpy(name, "(判読不能)");
 /*
  * Returns experience of a spell
  */
-s16b experience_of_spell(creature_type *cr_ptr, int spell, int use_realm)
+s16b experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
 {
-	if (cr_ptr->class_idx == CLASS_SORCERER) return SPELL_EXP_MASTER;
-	else if (cr_ptr->class_idx == CLASS_RED_MAGE) return SPELL_EXP_SKILLED;
-	else if (use_realm == cr_ptr->realm1) return cr_ptr->spell_exp[spell];
-	else if (use_realm == cr_ptr->realm2) return cr_ptr->spell_exp[spell + 32];
+	if (creature_ptr->class_idx == CLASS_SORCERER) return SPELL_EXP_MASTER;
+	else if (creature_ptr->class_idx == CLASS_RED_MAGE) return SPELL_EXP_SKILLED;
+	else if (use_realm == creature_ptr->realm1) return creature_ptr->spell_exp[spell];
+	else if (use_realm == creature_ptr->realm2) return creature_ptr->spell_exp[spell + 32];
 	else return 0;
 }
 
@@ -4142,17 +4142,17 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 
 /*
  * Modify spell fail rate
- * Using cr_ptr->to_m_chance, cr_ptr->dec_mana, cr_ptr->easy_spell and cr_ptr->heavy_spell
+ * Using creature_ptr->to_m_chance, creature_ptr->dec_mana, creature_ptr->easy_spell and creature_ptr->heavy_spell
  */
-int mod_spell_chance_1(creature_type *cr_ptr, int chance)
+int mod_spell_chance_1(creature_type *creature_ptr, int chance)
 {
-	chance += cr_ptr->to_m_chance;
+	chance += creature_ptr->to_m_chance;
 
-	if (cr_ptr->heavy_spell) chance += 20;
+	if (creature_ptr->heavy_spell) chance += 20;
 
-	if (cr_ptr->dec_mana && cr_ptr->easy_spell) chance -= 4;
-	else if (cr_ptr->easy_spell) chance -= 3;
-	else if (cr_ptr->dec_mana) chance -= 2;
+	if (creature_ptr->dec_mana && creature_ptr->easy_spell) chance -= 4;
+	else if (creature_ptr->easy_spell) chance -= 3;
+	else if (creature_ptr->dec_mana) chance -= 2;
 
 	return chance;
 }
@@ -4160,14 +4160,14 @@ int mod_spell_chance_1(creature_type *cr_ptr, int chance)
 
 /*
  * Modify spell fail rate (as "suffix" process)
- * Using cr_ptr->dec_mana, cr_ptr->easy_spell and cr_ptr->heavy_spell
+ * Using creature_ptr->dec_mana, creature_ptr->easy_spell and creature_ptr->heavy_spell
  * Note: variable "chance" cannot be negative.
  */
-int mod_spell_chance_2(creature_type *cr_ptr, int chance)
+int mod_spell_chance_2(creature_type *creature_ptr, int chance)
 {
-	if (cr_ptr->dec_mana) chance--;
+	if (creature_ptr->dec_mana) chance--;
 
-	if (cr_ptr->heavy_spell) chance += 5;
+	if (creature_ptr->heavy_spell) chance += 5;
 
 	return MAX(chance, 0);
 }
@@ -4176,16 +4176,16 @@ int mod_spell_chance_2(creature_type *cr_ptr, int chance)
 /*
  * Returns spell chance of failure for spell -RAK-
  */
-s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
+s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 {
 	int             chance, minfail;
 	magic_type      *s_ptr;
 	int             need_mana;
-	int penalty = (magic_info[cr_ptr->class_idx].spell_stat == STAT_WIS) ? 10 : 4;
+	int penalty = (magic_info[creature_ptr->class_idx].spell_stat == STAT_WIS) ? 10 : 4;
 
 
 	/* Paranoia -- must be literate */
-	if (!magic_info[cr_ptr->class_idx].spell_book) return (100);
+	if (!magic_info[creature_ptr->class_idx].spell_book) return (100);
 
 	if (use_realm == REALM_HISSATSU) return 0;
 
@@ -4196,61 +4196,61 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	}
 	else
 	{
-		s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
+		s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
 	}
 
 	/* Extract the base spell failure rate */
 	chance = s_ptr->sfail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	chance -= 3 * (cr_ptr->lev - s_ptr->slevel);
+	chance -= 3 * (creature_ptr->lev - s_ptr->slevel);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 
-	if (cr_ptr->riding)
-		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[SKILL_RIDING] / 100 - 10, 0));
+	if (creature_ptr->riding)
+		chance += (MAX(species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
-	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);
+	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 
 	/* Not enough mana to cast */
-	if (need_mana > cr_ptr->csp)
+	if (need_mana > creature_ptr->csp)
 	{
-		chance += 5 * (need_mana - cr_ptr->csp);
+		chance += 5 * (need_mana - creature_ptr->csp);
 	}
 
-	if ((use_realm != cr_ptr->realm1) && ((cr_ptr->class_idx == CLASS_MAGE) || (cr_ptr->class_idx == CLASS_PRIEST))) chance += 5;
+	if ((use_realm != creature_ptr->realm1) && ((creature_ptr->class_idx == CLASS_MAGE) || (creature_ptr->class_idx == CLASS_PRIEST))) chance += 5;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]];
+	minfail = adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]];
 
 	/*
 	 * Non mage/priest characters never get too good
 	 * (added high mage, mindcrafter)
 	 */
-	if (magic_info[cr_ptr->class_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
+	if (magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
 	{
 		if (minfail < 5) minfail = 5;
 	}
 
 	/* Hack -- Priest prayer penalty for "edged" weapons  -DGK */
-	if (((cr_ptr->class_idx == CLASS_PRIEST) || (cr_ptr->class_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[0]) chance += 25;
-	if (((cr_ptr->class_idx == CLASS_PRIEST) || (cr_ptr->class_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[1]) chance += 25;
+	if (((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER)) && creature_ptr->icky_wield[0]) chance += 25;
+	if (((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER)) && creature_ptr->icky_wield[1]) chance += 25;
 
-	chance = mod_spell_chance_1(cr_ptr, chance);
+	chance = mod_spell_chance_1(creature_ptr, chance);
 
 	/* Goodness or evilness gives a penalty to failure rate */
 	switch (use_realm)
 	{
 	case REALM_NATURE:
-		if ((cr_ptr->balance_rank < -50)) chance += penalty;
+		if ((creature_ptr->balance_rank < -50)) chance += penalty;
 		break;
 	case REALM_LIFE: case REALM_CRUSADE:
-		if (cr_ptr->good_rank < 0) chance += penalty;
+		if (creature_ptr->good_rank < 0) chance += penalty;
 		break;
 	case REALM_DEATH: case REALM_DAEMON: case REALM_HEX:
-		if (cr_ptr->evil_rank < 0) chance += penalty;
+		if (creature_ptr->evil_rank < 0) chance += penalty;
 		break;
 	}
 
@@ -4258,22 +4258,22 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (cr_ptr->stun > 50) chance += 25;
-	else if (cr_ptr->stun) chance += 15;
+	if (creature_ptr->stun > 50) chance += 25;
+	else if (creature_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
 
-	if ((use_realm == cr_ptr->realm1) || (use_realm == cr_ptr->realm2)
-	    || (cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
+	if ((use_realm == creature_ptr->realm1) || (use_realm == creature_ptr->realm2)
+	    || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 	{
-		s16b exp = experience_of_spell(cr_ptr, spell, use_realm);
+		s16b exp = experience_of_spell(creature_ptr, spell, use_realm);
 		if (exp >= SPELL_EXP_EXPERT) chance--;
 		if (exp >= SPELL_EXP_MASTER) chance--;
 	}
 
 	/* Return the chance */
-	return mod_spell_chance_2(cr_ptr, chance);
+	return mod_spell_chance_2(creature_ptr, chance);
 }
 
 
@@ -4283,7 +4283,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
  * The spell must be legible, not forgotten, and also, to cast,
  * it must be known, and to study, it must not be known.
  */
-bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray, int use_realm)
+bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, int use_realm)
 {
 	magic_type *s_ptr;
 
@@ -4294,28 +4294,28 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 	}
 	else
 	{
-		s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
+		s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
 	}
 
 	/* Spell is illegal */
-	if (s_ptr->slevel > cr_ptr->lev) return (FALSE);
+	if (s_ptr->slevel > creature_ptr->lev) return (FALSE);
 
 	/* Spell is forgotten */
-	if ((use_realm == cr_ptr->realm2) ?
-	    (cr_ptr->spell_forgotten2 & (1L << spell)) :
-	    (cr_ptr->spell_forgotten1 & (1L << spell)))
+	if ((use_realm == creature_ptr->realm2) ?
+	    (creature_ptr->spell_forgotten2 & (1L << spell)) :
+	    (creature_ptr->spell_forgotten1 & (1L << spell)))
 	{
 		/* Never okay */
 		return (FALSE);
 	}
 
-	if (cr_ptr->class_idx == CLASS_SORCERER) return (TRUE);
-	if (cr_ptr->class_idx == CLASS_RED_MAGE) return (TRUE);
+	if (creature_ptr->class_idx == CLASS_SORCERER) return (TRUE);
+	if (creature_ptr->class_idx == CLASS_RED_MAGE) return (TRUE);
 
 	/* Spell is learned */
-	if ((use_realm == cr_ptr->realm2) ?
-	    (cr_ptr->spell_learned2 & (1L << spell)) :
-	    (cr_ptr->spell_learned1 & (1L << spell)))
+	if ((use_realm == creature_ptr->realm2) ?
+	    (creature_ptr->spell_learned2 & (1L << spell)) :
+	    (creature_ptr->spell_learned1 & (1L << spell)))
 	{
 		/* Always true */
 		return (!study_pray);
@@ -4329,7 +4329,7 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 /*
  * Print a list of spells (for browsing or casting or viewing)
  */
-void print_spells(creature_type *cr_ptr, int target_spell, byte *spells, int num, int y, int x, int use_realm)
+void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, int use_realm)
 {
 	int             i, spell, exp_level, increment = 64;
 	magic_type      *s_ptr;
@@ -4374,9 +4374,9 @@ put_str(buf, y, x + 29);
 	put_str(buf, y, x + 29);
 #endif
 
-	if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE)) increment = 0;
-	else if (use_realm == cr_ptr->realm1) increment = 0;
-	else if (use_realm == cr_ptr->realm2) increment = 32;
+	if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE)) increment = 0;
+	else if (use_realm == creature_ptr->realm1) increment = 0;
+	else if (use_realm == creature_ptr->realm2) increment = 32;
 
 	/* Dump the spells */
 	for (i = 0; i < num; i++)
@@ -4391,17 +4391,17 @@ put_str(buf, y, x + 29);
 		}
 		else
 		{
-			s_ptr = &magic_info[cr_ptr->class_idx].info[use_realm][spell];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
 		}
 
 		if (use_realm == REALM_HISSATSU)
 			need_mana = s_ptr->smana;
 		else
 		{
-			s16b exp = experience_of_spell(cr_ptr, spell, use_realm);
+			s16b exp = experience_of_spell(creature_ptr, spell, use_realm);
 
 			/* Extract mana consumption rate */
-			need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);
+			need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 
 			if ((increment == 64) || (s_ptr->slevel >= 99)) exp_level = EXP_LEVEL_UNSKILLED;
 			else exp_level = spell_exp_level(exp);
@@ -4410,7 +4410,7 @@ put_str(buf, y, x + 29);
 			if (!increment && (exp_level == EXP_LEVEL_MASTER)) max = TRUE;
 			else if ((increment == 32) && (exp_level >= EXP_LEVEL_EXPERT)) max = TRUE;
 			else if (s_ptr->slevel >= 99) max = TRUE;
-			else if ((cr_ptr->class_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
+			else if ((creature_ptr->class_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
 
 			strncpy(ryakuji, exp_level_str[exp_level], 4);
 			ryakuji[3] = ']';
@@ -4445,7 +4445,7 @@ strcat(out_val, format("%-30s", "(判読不能)"));
 		/* XXX XXX Could label spells above the players level */
 
 		/* Get extra info */
-		strcpy(info, do_spell(cr_ptr, use_realm, spell, SPELL_INFO));
+		strcpy(info, do_spell(creature_ptr, use_realm, spell, SPELL_INFO));
 
 		/* Use that info */
 		comment = info;
@@ -4454,9 +4454,9 @@ strcat(out_val, format("%-30s", "(判読不能)"));
 		line_attr = TERM_WHITE;
 
 		/* Analyze the spell */
-		if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
+		if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 		{
-			if (s_ptr->slevel > cr_ptr->max_plv)
+			if (s_ptr->slevel > creature_ptr->max_plv)
 			{
 #ifdef JP
 comment = "未知";
@@ -4466,7 +4466,7 @@ comment = "未知";
 
 				line_attr = TERM_L_BLUE;
 			}
-			else if (s_ptr->slevel > cr_ptr->lev)
+			else if (s_ptr->slevel > creature_ptr->lev)
 			{
 #ifdef JP
 comment = "忘却";
@@ -4477,7 +4477,7 @@ comment = "忘却";
 				line_attr = TERM_YELLOW;
 			}
 		}
-		else if ((use_realm != cr_ptr->realm1) && (use_realm != cr_ptr->realm2))
+		else if ((use_realm != creature_ptr->realm1) && (use_realm != creature_ptr->realm2))
 		{
 #ifdef JP
 comment = "未知";
@@ -4487,9 +4487,9 @@ comment = "未知";
 
 			line_attr = TERM_L_BLUE;
 		}
-		else if ((use_realm == cr_ptr->realm1) ?
-		    ((cr_ptr->spell_forgotten1 & (1L << spell))) :
-		    ((cr_ptr->spell_forgotten2 & (1L << spell))))
+		else if ((use_realm == creature_ptr->realm1) ?
+		    ((creature_ptr->spell_forgotten1 & (1L << spell))) :
+		    ((creature_ptr->spell_forgotten2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "忘却";
@@ -4499,9 +4499,9 @@ comment = "忘却";
 
 			line_attr = TERM_YELLOW;
 		}
-		else if (!((use_realm == cr_ptr->realm1) ?
-		    (cr_ptr->spell_learned1 & (1L << spell)) :
-		    (cr_ptr->spell_learned2 & (1L << spell))))
+		else if (!((use_realm == creature_ptr->realm1) ?
+		    (creature_ptr->spell_learned1 & (1L << spell)) :
+		    (creature_ptr->spell_learned2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "未知";
@@ -4511,9 +4511,9 @@ comment = "未知";
 
 			line_attr = TERM_L_BLUE;
 		}
-		else if (!((use_realm == cr_ptr->realm1) ?
-		    (cr_ptr->spell_worked1 & (1L << spell)) :
-		    (cr_ptr->spell_worked2 & (1L << spell))))
+		else if (!((use_realm == creature_ptr->realm1) ?
+		    (creature_ptr->spell_worked1 & (1L << spell)) :
+		    (creature_ptr->spell_worked2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "未経験";
@@ -4528,15 +4528,15 @@ comment = "未経験";
 		if (use_realm == REALM_HISSATSU)
 		{
 			strcat(out_val, format("%-25s %2d %4d",
-			    do_spell(cr_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
+			    do_spell(creature_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
 			    s_ptr->slevel, need_mana));
 		}
 		else
 		{
 			strcat(out_val, format("%-25s%c%-4s %2d %4d %3d%% %s",
-			    do_spell(cr_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
+			    do_spell(creature_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
 			    (max ? '!' : ' '), ryakuji,
-			    s_ptr->slevel, need_mana, spell_chance(cr_ptr, spell, use_realm), comment));
+			    s_ptr->slevel, need_mana, spell_chance(creature_ptr, spell, use_realm), comment));
 		}
 		c_prt(line_attr, out_val, y + i + 1, x);
 	}
@@ -4763,13 +4763,13 @@ int set_cold_destroy(object_type *o_ptr)
  * New-style wands and rods handled correctly. -LM-
  * Returns number of items destroyed.
  */
-int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
+int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 {
 	int         i, j, k, amt;
 	object_type *o_ptr;
 	char        o_name[MAX_NLEN];
 
-	if ((cr_ptr->multishadow && (turn & 1))) return 0;
+	if ((creature_ptr->multishadow && (turn & 1))) return 0;
 
 	if (fight_arena_mode) return 0;
 
@@ -4779,7 +4779,7 @@ int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 	/* Scan through the slots backwards */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4823,25 +4823,25 @@ o_name, index_to_label(i),
 #endif
 
 #ifdef JP
-				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
 					msg_print("やりやがったな！");
 
-				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
+				if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("なんて事をするんだ！");
 #endif
 
 				/* Potions smash open */
-				if (object_is_potion(cr_ptr, o_ptr))
+				if (object_is_potion(creature_ptr, o_ptr))
 				{
-					(void)potion_smash_effect(0, cr_ptr->fy, cr_ptr->fx, o_ptr->k_idx);
+					(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, o_ptr->k_idx);
 				}
 
 				/* Reduce the charges of rods/wands */
 				reduce_charges(o_ptr, amt);
 
 				/* Destroy "amt" items */
-				inven_item_increase(cr_ptr, i, -amt);
-				inven_item_optimize(cr_ptr, i);
+				inven_item_increase(creature_ptr, i, -amt);
+				inven_item_optimize(creature_ptr, i);
 
 				/* Count the casualties */
 				k += amt;
@@ -4861,7 +4861,7 @@ o_name, index_to_label(i),
  *
  * If any armor is damaged (or resists), the player takes less damage.
  */
-static int minus_ac(creature_type *cr_ptr)
+static int minus_ac(creature_type *creature_ptr)
 {
 	int i;
 	object_type *o_ptr = NULL;
@@ -4873,7 +4873,7 @@ static int minus_ac(creature_type *cr_ptr)
 	//TODO
 	i = randint0(INVEN_TOTAL);
 	if(!IS_EQUIPPED(o_ptr)) return (FALSE);
-	o_ptr = &cr_ptr->inventory[i];
+	o_ptr = &creature_ptr->inventory[i];
 
 	/* Nothing to damage */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -4915,12 +4915,12 @@ msg_format("%sがダメージを受けた！", o_name);
 	o_ptr->to_ac--;
 
 	/* Calculate bonuses */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	/* Item was damaged */
 	return (TRUE);
@@ -4930,42 +4930,42 @@ msg_format("%sがダメージを受けた！", o_name);
 /*
  * Hurt the player with Acid
  */
-int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
+int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ACID(cr_ptr);
+	bool double_resist = IS_OPPOSE_ACID(creature_ptr);
 
 	/* Total Immunity */
-	if (has_trait(cr_ptr, TRAIT_IM_ACID) || (dam <= 0))
+	if (has_trait(creature_ptr, TRAIT_IM_ACID) || (dam <= 0))
 	{
-		learn_spell(cr_ptr, monspell);
+		learn_spell(creature_ptr, monspell);
 		return 0;
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_trait(cr_ptr, TRAIT_VULN_ELEM)) dam *= 2;
+	if (has_trait(creature_ptr, TRAIT_VULN_ELEM)) dam *= 2;
 
 	/* Resist the damage */
-	if (cr_ptr->resist_acid) dam = (dam + 2) / 3;
+	if (creature_ptr->resist_acid) dam = (dam + 2) / 3;
 	if (double_resist) dam = (dam + 2) / 3;
 
-	if (!(cr_ptr->multishadow && (turn & 1)))
+	if (!(creature_ptr->multishadow && (turn & 1)))
 	{
-		if ((!(double_resist || cr_ptr->resist_acid)) &&
+		if ((!(double_resist || creature_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(cr_ptr, STAT_CHA);
+			(void)do_dec_stat(creature_ptr, STAT_CHA);
 
 		/* If any armor gets hit, defend the player */
-		if (minus_ac(cr_ptr)) dam = (dam + 1) / 2;
+		if (minus_ac(creature_ptr)) dam = (dam + 1) / 2;
 	}
 
 	/* Take damage */
-	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* inventory damage */
-	if (!(double_resist && cr_ptr->resist_acid))
-		inven_damage(cr_ptr, set_acid_destroy, inv);
+	if (!(double_resist && creature_ptr->resist_acid))
+		inven_damage(creature_ptr, set_acid_destroy, inv);
 	return get_damage;
 }
 
@@ -4973,36 +4973,36 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 /*
  * Hurt the player with electricity
  */
-int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
+int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ELEC(cr_ptr);
+	bool double_resist = IS_OPPOSE_ELEC(creature_ptr);
 
 	// Total immunity
-	if(has_trait(cr_ptr, TRAIT_IM_ELEC) || (dam <= 0))
+	if(has_trait(creature_ptr, TRAIT_IM_ELEC) || (dam <= 0))
 	{
-		learn_spell(cr_ptr, monspell);
+		learn_spell(creature_ptr, monspell);
 		return 0;
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_trait(cr_ptr, TRAIT_HURT_ELEC)) dam += dam / 3;
+	if (has_trait(creature_ptr, TRAIT_HURT_ELEC)) dam += dam / 3;
 
 	/* Resist the damage */
-	if (cr_ptr->resist_elec) dam = (dam + 2) / 3;
+	if (creature_ptr->resist_elec) dam = (dam + 2) / 3;
 	if (double_resist) dam = (dam + 2) / 3;
 
-	if ((!(double_resist || cr_ptr->resist_elec)) &&
-	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, STAT_DEX);
+	if ((!(double_resist || creature_ptr->resist_elec)) &&
+	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
+		(void)do_dec_stat(creature_ptr, STAT_DEX);
 
 	/* Take damage */
-	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
-	/* cr_ptr->inventory damage */
-	if (!(double_resist && cr_ptr->resist_elec))
-		inven_damage(cr_ptr, set_elec_destroy, inv);
+	/* creature_ptr->inventory damage */
+	if (!(double_resist && creature_ptr->resist_elec))
+		inven_damage(creature_ptr, set_elec_destroy, inv);
 
 	return get_damage;
 }
@@ -5011,25 +5011,25 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 /*
  * Hurt the player with Fire
  */
-int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
+int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_FIRE(cr_ptr);
+	bool double_resist = IS_OPPOSE_FIRE(creature_ptr);
 
-	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
-	if(dam <= 0) learn_spell(cr_ptr, monspell);
+	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
+	if(dam <= 0) learn_spell(creature_ptr, monspell);
 
-	if ((!(double_resist || cr_ptr->resist_fire)) &&
-	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, STAT_STR);
+	if ((!(double_resist || creature_ptr->resist_fire)) &&
+	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
+		(void)do_dec_stat(creature_ptr, STAT_STR);
 
 	/* Take damage */
-	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* inventory damage */
-	if (!(double_resist && cr_ptr->resist_fire))
-		inven_damage(cr_ptr, set_fire_destroy, inv);
+	if (!(double_resist && creature_ptr->resist_fire))
+		inven_damage(creature_ptr, set_fire_destroy, inv);
 
 	return get_damage;
 }
@@ -5038,31 +5038,31 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 /*
  * Hurt the player with Cold
  */
-int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
+int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_COLD(cr_ptr);
+	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
 
-	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
-	if(dam <= 0) learn_spell(cr_ptr, monspell);
+	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
+	if(dam <= 0) learn_spell(creature_ptr, monspell);
 
-	if ((!(double_resist || cr_ptr->resist_cold)) &&
-	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, STAT_STR);
+	if ((!(double_resist || creature_ptr->resist_cold)) &&
+	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
+		(void)do_dec_stat(creature_ptr, STAT_STR);
 
 	/* Take damage */
-	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
-	/* cr_ptr->inventory damage */
-	if (!(double_resist && cr_ptr->resist_cold))
-		inven_damage(cr_ptr, set_cold_destroy, inv);
+	/* creature_ptr->inventory damage */
+	if (!(double_resist && creature_ptr->resist_cold))
+		inven_damage(creature_ptr, set_cold_destroy, inv);
 
 	return get_damage;
 }
 
 
-bool rustproof(creature_type *cr_ptr)
+bool rustproof(creature_type *creature_ptr)
 {
 	int         item;
 	object_type *o_ptr;
@@ -5078,12 +5078,12 @@ s = "錆止めできるものがありません。";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -5120,7 +5120,7 @@ msg_format("%sは腐食しなくなった。", o_name);
 #endif
 
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 
 	return TRUE;
 }
@@ -5129,7 +5129,7 @@ msg_format("%sは腐食しなくなった。", o_name);
 /*
  * Curse the players armor
  */
-bool curse_armor(creature_type *cr_ptr)
+bool curse_armor(creature_type *creature_ptr)
 {
 	int i;
 	object_type *o_ptr;
@@ -5138,7 +5138,7 @@ bool curse_armor(creature_type *cr_ptr)
 
 
 	/* Curse the body armor */
-	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_BODY, 1);
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -5191,7 +5191,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		// Recalculate bonuses and mana
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -5282,14 +5282,14 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 /*
  * Enchant some bolts
  */
-bool brand_bolts(creature_type *cr_ptr)
+bool brand_bolts(creature_type *creature_ptr)
 {
 	int i;
 
 	/* Use the first acceptable bolts */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-bolts */
 		if (o_ptr->tval != TV_BOLT) continue;
@@ -5316,7 +5316,7 @@ msg_print("クロスボウの矢が炎のオーラに包まれた！");
 		o_ptr->name2 = EGO_FLAME;
 
 		/* Enchant */
-		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		/* Notice */
 		return (TRUE);
@@ -5435,25 +5435,25 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 /*
  * Dimension Door
  */
-static bool dimension_door_aux(creature_type *cr_ptr, int x, int y)
+static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
 {
-	int	plev = cr_ptr->lev;
+	int	plev = creature_ptr->lev;
 
-	cr_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+	creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
 
-	if (!cave_player_teleportable_bold(cr_ptr, y, x, 0L) ||
-	    (distance(y, x, cr_ptr->fy, cr_ptr->fx) > plev / 2 + 10) ||
+	if (!cave_player_teleportable_bold(creature_ptr, y, x, 0L) ||
+	    (distance(y, x, creature_ptr->fy, creature_ptr->fx) > plev / 2 + 10) ||
 	    (!randint0(plev / 10 + 10)))
 	{
-		cr_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
-		teleport_player(cr_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
+		creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+		teleport_player(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
 		/* Failed */
 		return FALSE;
 	}
 	else
 	{
-		teleport_creature_to(cr_ptr, y, x, 0L);
+		teleport_creature_to(creature_ptr, y, x, 0L);
 
 		/* Success */
 		return TRUE;
@@ -5464,14 +5464,14 @@ static bool dimension_door_aux(creature_type *cr_ptr, int x, int y)
 /*
  * Dimension Door
  */
-bool dimension_door(creature_type *cr_ptr)
+bool dimension_door(creature_type *creature_ptr)
 {
 	int x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
-	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
-	if (dimension_door_aux(cr_ptr, x, y)) return TRUE;
+	if (dimension_door_aux(creature_ptr, x, y)) return TRUE;
 
 #ifdef JP
 	msg_print("精霊界から物質界に戻る時うまくいかなかった！");
@@ -5486,14 +5486,14 @@ bool dimension_door(creature_type *cr_ptr)
 /*
  * Mirror Master's Dimension Door
  */
-bool mirror_tunnel(creature_type *cr_ptr)
+bool mirror_tunnel(creature_type *creature_ptr)
 {
 	int x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
-	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
-	if (dimension_door_aux(cr_ptr, x, y)) return TRUE;
+	if (dimension_door_aux(creature_ptr, x, y)) return TRUE;
 
 #ifdef JP
 	msg_print("鏡の世界をうまく通れなかった！");
@@ -5505,7 +5505,7 @@ bool mirror_tunnel(creature_type *cr_ptr)
 }
 
 
-bool eat_magic(creature_type *cr_ptr, int power)
+bool eat_magic(creature_type *creature_ptr, int power)
 {
 	object_type * o_ptr;
 	object_kind *k_ptr;
@@ -5527,11 +5527,11 @@ s = "魔力を吸収できるアイテムがありません。";
 	s = "You have nothing to drain.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
@@ -5564,7 +5564,7 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 			}
 			else
 			{
-				cr_ptr->csp += lev;
+				creature_ptr->csp += lev;
 				o_ptr->timeout += k_ptr->pval;
 			}
 		}
@@ -5587,7 +5587,7 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 		{
 			if (o_ptr->pval > 0)
 			{
-				cr_ptr->csp += lev / 2;
+				creature_ptr->csp += lev / 2;
 				o_ptr->pval --;
 
 				/* XXX Hack -- unstack if necessary */
@@ -5610,8 +5610,8 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 
 					/* Unstack the used item */
 					o_ptr->number--;
-					set_inventory_weight(cr_ptr);
-					item = inven_carry(cr_ptr, q_ptr);
+					set_inventory_weight(creature_ptr);
+					item = inven_carry(creature_ptr, q_ptr);
 
 					/* Message */
 #ifdef JP
@@ -5665,7 +5665,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER || cr_ptr->class_idx == CLASS_MAGIC_EATER || cr_ptr->class_idx == CLASS_BLUE_MAGE)
+			if (creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)
@@ -5760,19 +5760,19 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 					msg_format("Wild magic consumes your %s!", o_name);
 #endif
 
-				/* Reduce and describe cr_ptr->inventory */
+				/* Reduce and describe creature_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(cr_ptr, item, -1);
-					inven_item_describe(cr_ptr, item);
-					inven_item_optimize(cr_ptr, item);
+					inven_item_increase(creature_ptr, item, -1);
+					inven_item_describe(creature_ptr, item);
+					inven_item_optimize(creature_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
 				else
 				{
 					floor_item_increase(0 - item, -1);
-					floor_item_describe(cr_ptr, 0 - item);
+					floor_item_describe(creature_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
@@ -5796,43 +5796,43 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 
 
 
-				/* Reduce and describe cr_ptr->inventory */
+				/* Reduce and describe creature_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(cr_ptr, item, -999);
-					inven_item_describe(cr_ptr, item);
-					inven_item_optimize(cr_ptr, item);
+					inven_item_increase(creature_ptr, item, -999);
+					inven_item_describe(creature_ptr, item);
+					inven_item_optimize(creature_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
 				else
 				{
 					floor_item_increase(0 - item, -999);
-					floor_item_describe(cr_ptr, 0 - item);
+					floor_item_describe(creature_ptr, 0 - item);
 					floor_item_optimize(0 - item);
 				}
 			}
 		}
 	}
 
-	if (cr_ptr->csp > cr_ptr->msp)
+	if (creature_ptr->csp > creature_ptr->msp)
 	{
-		cr_ptr->csp = cr_ptr->msp;
+		creature_ptr->csp = creature_ptr->msp;
 	}
 
 	/* Redraw mana and hp */
 	play_redraw |= (PR_MANA);
 
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 	play_window |= (PW_INVEN);
 
 	return TRUE;
 }
 
 
-bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode)
+bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode)
 {
 	bool pet = (bool)(mode & PM_FORCE_PET);
 	if (!pet) mode |= PM_NO_PET;
-	return summon_specific((pet ? cr_ptr : NULL), y, x, level, SUMMON_KIN, mode);
+	return summon_specific((pet ? creature_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }

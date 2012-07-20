@@ -20,7 +20,7 @@
 /*
  * Calculate the direction to the next enemy
  */
-static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
+static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 {
 	int i;
 	int x = 0, y = 0;
@@ -34,7 +34,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 
 	creature_type *t_ptr;
 
-	if (riding_t_m_idx && creature_bold(cr_ptr, m_ptr->fy, m_ptr->fx))
+	if (riding_t_m_idx && creature_bold(creature_ptr, m_ptr->fy, m_ptr->fx))
 	{
 		y = creature_list[riding_t_m_idx].fy;
 		x = creature_list[riding_t_m_idx].fx;
@@ -72,17 +72,17 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (is_pet(player_ptr, m_ptr))
 			{
 				/* Hack -- only fight away from player */
-				if (cr_ptr->pet_follow_distance < 0)
+				if (creature_ptr->pet_follow_distance < 0)
 				{
 					/* No fighting near player */
-					if (t_ptr->cdis <= (0 - cr_ptr->pet_follow_distance))
+					if (t_ptr->cdis <= (0 - creature_ptr->pet_follow_distance))
 					{
 						continue;
 					}
 				}
 				/* Hack -- no fighting away from player */
 				else if ((m_ptr->cdis < t_ptr->cdis) &&
-							(t_ptr->cdis > cr_ptr->pet_follow_distance))
+							(t_ptr->cdis > creature_ptr->pet_follow_distance))
 				{
 					continue;
 				}
@@ -94,8 +94,8 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
-			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
-			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != cr_ptr->riding)))
+			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || creature_ptr->pass_wall)) ||
+			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != creature_ptr->riding)))
 			{
 				if (!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -2778,29 +2778,29 @@ void process_creatures(void)
 }
 
 
-int get_mproc_idx(creature_type *cr_ptr, int mproc_type)
+int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 {
 	creature_type **cur_mproc_list = mproc_list[mproc_type];
 	int i;
 
 	for (i = mproc_max[mproc_type] - 1; i >= 0; i--)
 	{
-		if (cur_mproc_list[i] == cr_ptr) return i;
+		if (cur_mproc_list[i] == creature_ptr) return i;
 	}
 
 	return -1;
 }
 
 
-void mproc_add(creature_type *cr_ptr, int mproc_type)
+void mproc_add(creature_type *creature_ptr, int mproc_type)
 {
-	if (mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = cr_ptr;
+	if (mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = creature_ptr;
 }
 
 
-void mproc_remove(creature_type *cr_ptr, int mproc_type)
+void mproc_remove(creature_type *creature_ptr, int mproc_type)
 {
-	int mproc_idx = get_mproc_idx(cr_ptr, mproc_type);
+	int mproc_idx = get_mproc_idx(creature_ptr, mproc_type);
 	if (mproc_idx >= 0) mproc_list[mproc_type][mproc_idx] = mproc_list[mproc_type][--mproc_max[mproc_type]];
 }
 
@@ -2836,14 +2836,14 @@ void creature_process_init(void)
 }
 
 
-static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *cr_ptr, int mtimed_idx)
+static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *creature_ptr, int mtimed_idx)
 {
 
 	switch (mtimed_idx)
 	{
 	case MTIMED_CSLEEP:
 	{
-		species_type *r_ptr = &species_info[cr_ptr->species_idx];
+		species_type *r_ptr = &species_info[creature_ptr->species_idx];
 		u32b csleep_noise;
 
 		/* Assume does not wake up */
@@ -2854,17 +2854,17 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 
 		/* Hack -- Require proximity */
-		if (cr_ptr->cdis < AAF_LIMIT)
+		if (creature_ptr->cdis < AAF_LIMIT)
 		{
 			/* Handle "sensing radius" */
-			if (cr_ptr->cdis <= (is_pet(player_ptr, cr_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+			if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
 			{
 				/* We may wake up */
 				test = TRUE;
 			}
 
 			/* Handle "sight" and "aggravation" */
-			else if ((cr_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(cr_ptr->fy, cr_ptr->fx)))
+			else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(creature_ptr->fy, creature_ptr->fx)))
 			{
 				/* We may wake up */
 				test = TRUE;
@@ -2883,7 +2883,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 			{
 				/* Hack -- amount of "waking" */
 				/* Wake up faster near the player */
-				int d = (cr_ptr->cdis < AAF_LIMIT / 2) ? (AAF_LIMIT / cr_ptr->cdis) : 1;
+				int d = (creature_ptr->cdis < AAF_LIMIT / 2) ? (AAF_LIMIT / creature_ptr->cdis) : 1;
 
 				/* Hack -- amount of "waking" is affected by speed of player */
 				d = (d * SPEED_TO_ENERGY(watcher_ptr->speed)) / 10;
@@ -2892,10 +2892,10 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				/* Creature wakes up "a little bit" */
 
 				/* Still asleep */
-				if (!set_paralyzed(cr_ptr, cr_ptr->paralyzed - d))
+				if (!set_paralyzed(creature_ptr, creature_ptr->paralyzed - d))
 				{
 					/* Notice the "not waking up" */
-					if (is_original_ap_and_seen(watcher_ptr, cr_ptr))
+					if (is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the ignores */
 						if (r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
@@ -2906,12 +2906,12 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				else
 				{
 					/* Notice the "waking up" */
-					if (cr_ptr->ml)
+					if (creature_ptr->ml)
 					{
 						char m_name[80];
 
 						/* Acquire the creature name */
-						creature_desc(m_name, cr_ptr, 0);
+						creature_desc(m_name, creature_ptr, 0);
 
 						/* Dump a message */
 #ifdef JP
@@ -2921,7 +2921,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 #endif
 					}
 
-					if (is_original_ap_and_seen(watcher_ptr, cr_ptr))
+					if (is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the wakings */
 						if (r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;
@@ -2934,34 +2934,34 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
-		set_fast(cr_ptr, cr_ptr->fast - 1, FALSE);
+		set_fast(creature_ptr, creature_ptr->fast - 1, FALSE);
 		break;
 
 	case MTIMED_SLOW:
 		/* Reduce by one, note if expires */
-		set_slow(cr_ptr, cr_ptr->slow - 1, FALSE);
+		set_slow(creature_ptr, creature_ptr->slow - 1, FALSE);
 		break;
 
 	case MTIMED_STUNNED:
 	{
-		int rlev = species_info[cr_ptr->species_idx].level;
+		int rlev = species_info[creature_ptr->species_idx].level;
 		/* Recover from stun */
-		set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1));
+		set_stun(creature_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->stun - 1));
 		break;
 	}
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		set_confused(cr_ptr, cr_ptr->confused - randint1(species_info[cr_ptr->species_idx].level / 20 + 1));
+		set_confused(creature_ptr, creature_ptr->confused - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		set_afraid(cr_ptr, cr_ptr->afraid - randint1(species_info[cr_ptr->species_idx].level / 20 + 1));
+		set_afraid(creature_ptr, creature_ptr->afraid - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_INVULNER:
-		set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE);
+		set_invuln(creature_ptr, creature_ptr->invuln - 1, TRUE);
 		break;
 	}
 }
@@ -2972,7 +2972,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
  *
  * These functions are to process creatures' counters same as player's.
  */
-void process_creatures_mtimed(creature_type *cr_ptr, int mtimed_idx)
+void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx)
 {
 	int  i;
 	creature_type **cur_mproc_list = mproc_list[mtimed_idx];
@@ -2982,7 +2982,7 @@ void process_creatures_mtimed(creature_type *cr_ptr, int mtimed_idx)
 	for (i = mproc_max[mtimed_idx] - 1; i >= 0; i--)
 	{
 		/* Access the creature */
-		process_creatures_mtimed_aux(cr_ptr, cur_mproc_list[i], mtimed_idx);
+		process_creatures_mtimed_aux(creature_ptr, cur_mproc_list[i], mtimed_idx);
 	}
 }
 

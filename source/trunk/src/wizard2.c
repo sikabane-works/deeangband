@@ -46,17 +46,17 @@ void strip_name(char *buf, int k_idx)
 /*
  * Hack -- Rerate Hitpoints
  */
-void do_cmd_rerate(creature_type *cr_ptr, bool display)
+void do_cmd_rerate(creature_type *creature_ptr, bool display)
 {
 	int percent;
 
 	/* Rerate */
-	set_base_hp(cr_ptr);
+	set_base_hp(creature_ptr);
 
-	percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) / (2 * cr_ptr->hitdice + ((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
+	percent = (int)(((long)creature_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 	/* Update and redraw hitpoints */
-	cr_ptr->creature_update |= (CRU_HP);
+	creature_ptr->creature_update |= (CRU_HP);
 	play_redraw |= (PR_HP);
 
 	/* Window stuff */
@@ -73,7 +73,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 #else
 		msg_format("Your life rate is %d/100 now.", percent);
 #endif
-		cr_ptr->knowledge |= KNOW_HPRATE;
+		creature_ptr->knowledge |= KNOW_HPRATE;
 	}
 	else
 	{
@@ -82,7 +82,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 #else
 		msg_print("Life rate is changed.");
 #endif
-		cr_ptr->knowledge &= ~(KNOW_HPRATE);
+		creature_ptr->knowledge &= ~(KNOW_HPRATE);
 	}
 }
 
@@ -92,13 +92,13 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 /*
  * Dimension Door
  */
-static bool wiz_dimension_door(creature_type *cr_ptr)
+static bool wiz_dimension_door(creature_type *creature_ptr)
 {
 	int	x = 0, y = 0;
 
-	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
-	teleport_creature_to(cr_ptr, y, x, TELEPORT_NONMAGICAL);
+	teleport_creature_to(creature_ptr, y, x, TELEPORT_NONMAGICAL);
 
 	return (TRUE);
 }
@@ -108,10 +108,10 @@ static bool wiz_dimension_door(creature_type *cr_ptr)
  * Create the artifact of the specified number -- DAN
  *
  */
-static void wiz_drop_named_art(creature_type* cr_ptr, int a_idx)
+static void wiz_drop_named_art(creature_type* creature_ptr, int a_idx)
 {
 	/* Create the artifact */
-	(void)drop_named_art(cr_ptr, a_idx, cr_ptr->fy, cr_ptr->fx);
+	(void)drop_named_art(creature_ptr, a_idx, creature_ptr->fy, creature_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -321,7 +321,7 @@ static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 /*
  * Aux function for "do_cmd_wiz_change()".	-RAK-
  */
-static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
+static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 {
 	int i, j;
 	int tmp_int;
@@ -335,10 +335,10 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		/* Prompt */
-		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, cr_ptr->stat_mod_max_max[i]);
+		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, creature_ptr->stat_mod_max_max[i]);
 
 		/* Default */
-		sprintf(tmp_val, "%d", cr_ptr->stat_max[i]);
+		sprintf(tmp_val, "%d", creature_ptr->stat_max[i]);
 
 		/* Query */
 		if (!get_string(ppp, tmp_val, 3)) return;
@@ -347,11 +347,11 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		tmp_int = atoi(tmp_val);
 
 		/* Verify */
-		if (tmp_int > cr_ptr->stat_mod_max_max[i]) tmp_int = cr_ptr->stat_mod_max_max[i];
+		if (tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i];
 		else if (tmp_int < 3) tmp_int = 3;
 
 		/* Save it */
-		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = tmp_int;
+		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = tmp_int;
 	}
 
 
@@ -377,25 +377,25 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	{
 		for (i = 0;i < 64;i++)
 		{
-			cr_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (cr_ptr->weapon_exp[j][i] > skill_info[cr_ptr->class_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = skill_info[cr_ptr->class_idx].w_max[j][i];
+			creature_ptr->weapon_exp[j][i] = tmp_s16b;
+			if (creature_ptr->weapon_exp[j][i] > skill_info[creature_ptr->class_idx].w_max[j][i]) creature_ptr->weapon_exp[j][i] = skill_info[creature_ptr->class_idx].w_max[j][i];
 		}
 	}
 	*/
 
 	for (j = 0; j < 10; j++)
 	{
-		cr_ptr->skill_exp[j] = tmp_s16b;
-		if (cr_ptr->skill_exp[j] > skill_info[cr_ptr->class_idx].s_max[j]) cr_ptr->skill_exp[j] = skill_info[cr_ptr->class_idx].s_max[j];
+		creature_ptr->skill_exp[j] = tmp_s16b;
+		if (creature_ptr->skill_exp[j] > skill_info[creature_ptr->class_idx].s_max[j]) creature_ptr->skill_exp[j] = skill_info[creature_ptr->class_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)
-		cr_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
+		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
 	for (; j < 64; j++)
-		cr_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
+		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
 
 	/* Default */
-	sprintf(tmp_val, "%ld", (long)(cr_ptr->au));
+	sprintf(tmp_val, "%ld", (long)(creature_ptr->au));
 
 	/* Query */
 	if (!get_string("Gold: ", tmp_val, 9)) return;
@@ -407,11 +407,11 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	if (tmp_long < 0) tmp_long = 0L;
 
 	/* Save */
-	cr_ptr->au = tmp_long;
+	creature_ptr->au = tmp_long;
 
 
 	/* Default */
-	sprintf(tmp_val, "%ld", (long)(cr_ptr->max_exp));
+	sprintf(tmp_val, "%ld", (long)(creature_ptr->max_exp));
 
 	/* Query */
 	if (!get_string("Experience: ", tmp_val, 9)) return;
@@ -422,28 +422,28 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	/* Verify */
 	if (tmp_long < 0) tmp_long = 0L;
 
-	if (!has_trait(cr_ptr, TRAIT_ANDROID))
+	if (!has_trait(creature_ptr, TRAIT_ANDROID))
 	{
 		/* Save */
-		cr_ptr->max_exp = tmp_long;
-		cr_ptr->exp = tmp_long;
+		creature_ptr->max_exp = tmp_long;
+		creature_ptr->exp = tmp_long;
 	}
 
 	/* Query */
-	sprintf(tmp_val, "%ld", (long)(cr_ptr->dr));
+	sprintf(tmp_val, "%ld", (long)(creature_ptr->dr));
 	if (!get_string("Devine Rank: ", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
 	if (tmp_int < -1) tmp_int = -1;
 	if (tmp_int > 30) tmp_int = 30;
-	cr_ptr->dr = tmp_int;
+	creature_ptr->dr = tmp_int;
 
-	check_experience(cr_ptr);
+	check_experience(creature_ptr);
 
 	/* Query */
-	sprintf(tmp_val, "%ld", (long)(cr_ptr->authority[0]));
+	sprintf(tmp_val, "%ld", (long)(creature_ptr->authority[0]));
 	if (!get_string("Authority: ", tmp_val, 2)) return;
-	cr_ptr->authority[0] = atoi(tmp_val);
+	creature_ptr->authority[0] = atoi(tmp_val);
 
 }
 
@@ -451,10 +451,10 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 /*
  * Change various "permanent" player variables.
  */
-static void do_cmd_wiz_change(creature_type *cr_ptr)
+static void do_cmd_wiz_change(creature_type *creature_ptr)
 {
 	/* Interact */
-	do_cmd_wiz_change_aux(cr_ptr);
+	do_cmd_wiz_change_aux(creature_ptr);
 
 	/* Redraw everything */
 	do_cmd_redraw();
@@ -771,7 +771,7 @@ static int wiz_create_itemtype(void)
 /*
  * Tweak an item
  */
-static void wiz_tweak_item(creature_type *cr_ptr, object_type *o_ptr)
+static void wiz_tweak_item(creature_type *creature_ptr, object_type *o_ptr)
 {
 	cptr p;
 	char tmp_val[80];
@@ -1106,7 +1106,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 /*
  * Change the quantity of a the item
  */
-static void wiz_quantity_item(creature_type *cr_ptr, object_type *o_ptr)
+static void wiz_quantity_item(creature_type *creature_ptr, object_type *o_ptr)
 {
 	int         tmp_int, tmp_qnt;
 
@@ -1143,7 +1143,7 @@ static void wiz_quantity_item(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 /* debug command for blue mage */
-static void do_cmd_wiz_blue_mage(creature_type *cr_ptr)
+static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 {
 
 	int				i = 0;
@@ -1157,15 +1157,15 @@ static void do_cmd_wiz_blue_mage(creature_type *cr_ptr)
 
 		for (i = 0; i < 32; i++)
 		{
-			if ((0x00000001 << i) & f4) cr_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << i) & f4) creature_ptr->magic_num2[i] = 1;
 		}
 		for (; i < 64; i++)
 		{
-			if ((0x00000001 << (i - 32)) & f5) cr_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << (i - 32)) & f5) creature_ptr->magic_num2[i] = 1;
 		}
 		for (; i < 96; i++)
 		{
-			if ((0x00000001 << (i - 64)) & f6) cr_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << (i - 64)) & f6) creature_ptr->magic_num2[i] = 1;
 		}
 	}
 }
@@ -1178,7 +1178,7 @@ static void do_cmd_wiz_blue_mage(creature_type *cr_ptr)
  *   - Change properties (via wiz_tweak_item)
  *   - Change the number of items (via wiz_quantity_item)
  */
-static void do_cmd_wiz_play(creature_type *cr_ptr)
+static void do_cmd_wiz_play(creature_type *creature_ptr)
 {
 	int item;
 
@@ -1196,12 +1196,12 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1246,22 +1246,22 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 		if (ch == 's' || ch == 'S')
 		{
-			wiz_statistics(cr_ptr, q_ptr);
+			wiz_statistics(creature_ptr, q_ptr);
 		}
 
 		if (ch == 'r' || ch == 'r')
 		{
-			wiz_reroll_item(cr_ptr, q_ptr);
+			wiz_reroll_item(creature_ptr, q_ptr);
 		}
 
 		if (ch == 't' || ch == 'T')
 		{
-			wiz_tweak_item(cr_ptr, q_ptr);
+			wiz_tweak_item(creature_ptr, q_ptr);
 		}
 
 		if (ch == 'q' || ch == 'Q')
 		{
-			wiz_quantity_item(cr_ptr, q_ptr);
+			wiz_quantity_item(creature_ptr, q_ptr);
 		}
 	}
 
@@ -1279,7 +1279,7 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 		/* Recalcurate object's weight */
 		if (item >= 0)
 		{
-			set_inventory_weight(cr_ptr);
+			set_inventory_weight(creature_ptr);
 		}
 
 		/* Change */
@@ -1287,10 +1287,10 @@ static void do_cmd_wiz_play(creature_type *cr_ptr)
 
 
 		/* Recalculate bonuses */
-		cr_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -1378,24 +1378,24 @@ static void wiz_create_item(creature_type *creature_ptr)
 /*
  * Cure everything instantly
  */
-static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
+static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 {
 	/* Restore stats */
-	(void)res_stat(cr_ptr, STAT_STR);
-	(void)res_stat(cr_ptr, STAT_INT);
-	(void)res_stat(cr_ptr, STAT_WIS);
-	(void)res_stat(cr_ptr, STAT_CON);
-	(void)res_stat(cr_ptr, STAT_DEX);
-	(void)res_stat(cr_ptr, STAT_CHA);
+	(void)res_stat(creature_ptr, STAT_STR);
+	(void)res_stat(creature_ptr, STAT_INT);
+	(void)res_stat(creature_ptr, STAT_WIS);
+	(void)res_stat(creature_ptr, STAT_CON);
+	(void)res_stat(creature_ptr, STAT_DEX);
+	(void)res_stat(creature_ptr, STAT_CHA);
 
 	/* Restore the level */
-	(void)restore_level(cr_ptr);
+	(void)restore_level(creature_ptr);
 
 	/* Heal the player */
-	if (cr_ptr->chp < cr_ptr->mhp)
+	if (creature_ptr->chp < creature_ptr->mhp)
 	{
-		cr_ptr->chp = cr_ptr->mhp;
-		cr_ptr->chp_frac = 0;
+		creature_ptr->chp = creature_ptr->mhp;
+		creature_ptr->chp_frac = 0;
 
 		/* Redraw */
 		play_redraw |= (PR_HP);
@@ -1405,10 +1405,10 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 	}
 
 	/* Restore mana */
-	if (cr_ptr->csp < cr_ptr->msp)
+	if (creature_ptr->csp < creature_ptr->msp)
 	{
-		cr_ptr->csp = cr_ptr->msp;
-		cr_ptr->csp_frac = 0;
+		creature_ptr->csp = creature_ptr->msp;
+		creature_ptr->csp_frac = 0;
 
 		play_redraw |= (PR_MANA);
 		play_window |= (PW_PLAYER);
@@ -1416,18 +1416,18 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 	}
 
 	/* Cure stuff */
-	(void)set_blind(cr_ptr, 0);
-	(void)set_confused(cr_ptr, 0);
-	(void)set_poisoned(cr_ptr, 0);
-	(void)set_afraid(cr_ptr, 0);
-	(void)set_paralyzed(cr_ptr, 0);
-	(void)set_image(cr_ptr, 0);
-	(void)set_stun(cr_ptr, 0);
-	(void)set_cut(cr_ptr, 0);
-	(void)set_slow(cr_ptr, 0, TRUE);
+	(void)set_blind(creature_ptr, 0);
+	(void)set_confused(creature_ptr, 0);
+	(void)set_poisoned(creature_ptr, 0);
+	(void)set_afraid(creature_ptr, 0);
+	(void)set_paralyzed(creature_ptr, 0);
+	(void)set_image(creature_ptr, 0);
+	(void)set_stun(creature_ptr, 0);
+	(void)set_cut(creature_ptr, 0);
+	(void)set_slow(creature_ptr, 0, TRUE);
 
 	/* No longer hungry */
-	(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
+	(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 }
 
 /*
@@ -1785,7 +1785,7 @@ static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_i
 /*
  * Hack -- Delete all nearby creatures
  */
-static void do_cmd_wiz_zap(creature_type *cr_ptr)
+static void do_cmd_wiz_zap(creature_type *creature_ptr)
 {
 	int i;
 
@@ -1799,7 +1799,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == cr_ptr->riding) continue;
+		if (i == creature_ptr->riding) continue;
 
 		/* Delete nearby creatures */
 		if (m_ptr->cdis <= MAX_SIGHT)
@@ -1821,7 +1821,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 /*
  * Hack -- Delete all creatures
  */
-static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
+static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 {
 	int i;
 
@@ -1834,7 +1834,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == cr_ptr->riding) continue;
+		if (i == creature_ptr->riding) continue;
 
 		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{

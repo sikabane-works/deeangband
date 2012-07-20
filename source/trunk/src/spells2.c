@@ -23,7 +23,7 @@
  *
  * It is now a lot more efficient. -BEN-
  *
- * See also "identify_fully(cr_ptr, )".
+ * See also "identify_fully(creature_ptr, )".
  *
  * XXX XXX XXX Use the "show_file()" method, perhaps.
  */
@@ -883,7 +883,7 @@ info[i++] = "あなたは火に弱い。";
 	*/
 
 /*
-	if (has_trait(cr_ptr, TRAIT_IM_COLD))
+	if (has_trait(creature_ptr, TRAIT_IM_COLD))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気に対する完全なる免疫を持っている。";
@@ -1593,7 +1593,7 @@ static cptr report_magic_durations[] =
 /*
  * Report all currently active magical effects.
  */
-void report_magics(creature_type *cr_ptr)
+void report_magics(creature_type *creature_ptr)
 {
 	int     i = 0, j, k;
 	char    Dummy[80];
@@ -1601,9 +1601,9 @@ void report_magics(creature_type *cr_ptr)
 	int     info2[128];
 
 
-	if (IS_BLIND(cr_ptr))
+	if (IS_BLIND(creature_ptr))
 	{
-		info2[i]  = report_magics_aux(IS_BLIND(cr_ptr));
+		info2[i]  = report_magics_aux(IS_BLIND(creature_ptr));
 #ifdef JP
 info[i++] = "あなたは目が見えない。";
 #else
@@ -1611,9 +1611,9 @@ info[i++] = "あなたは目が見えない。";
 #endif
 
 	}
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->confused);
+		info2[i]  = report_magics_aux(creature_ptr->confused);
 #ifdef JP
 info[i++] = "あなたは混乱している。";
 #else
@@ -1621,9 +1621,9 @@ info[i++] = "あなたは混乱している。";
 #endif
 
 	}
-	if (cr_ptr->afraid)
+	if (creature_ptr->afraid)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->afraid);
+		info2[i]  = report_magics_aux(creature_ptr->afraid);
 #ifdef JP
 info[i++] = "あなたは恐怖に侵されている。";
 #else
@@ -1631,9 +1631,9 @@ info[i++] = "あなたは恐怖に侵されている。";
 #endif
 
 	}
-	if (cr_ptr->poisoned)
+	if (creature_ptr->poisoned)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->poisoned);
+		info2[i]  = report_magics_aux(creature_ptr->poisoned);
 #ifdef JP
 info[i++] = "あなたは毒に侵されている。";
 #else
@@ -1641,9 +1641,9 @@ info[i++] = "あなたは毒に侵されている。";
 #endif
 
 	}
-	if (IS_HALLUCINATION(cr_ptr))
+	if (IS_HALLUCINATION(creature_ptr))
 	{
-		info2[i]  = report_magics_aux(IS_HALLUCINATION(cr_ptr));
+		info2[i]  = report_magics_aux(IS_HALLUCINATION(creature_ptr));
 #ifdef JP
 info[i++] = "あなたは幻覚を見ている。";
 #else
@@ -1651,9 +1651,9 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if (cr_ptr->blessed)
+	if (creature_ptr->blessed)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->blessed);
+		info2[i]  = report_magics_aux(creature_ptr->blessed);
 #ifdef JP
 info[i++] = "あなたは公正さを感じている。";
 #else
@@ -1661,9 +1661,9 @@ info[i++] = "あなたは公正さを感じている。";
 #endif
 
 	}
-	if (cr_ptr->hero)
+	if (creature_ptr->hero)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->hero);
+		info2[i]  = report_magics_aux(creature_ptr->hero);
 #ifdef JP
 info[i++] = "あなたはヒーロー気分だ。";
 #else
@@ -1671,9 +1671,9 @@ info[i++] = "あなたはヒーロー気分だ。";
 #endif
 
 	}
-	if (cr_ptr->shero)
+	if (creature_ptr->shero)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->shero);
+		info2[i]  = report_magics_aux(creature_ptr->shero);
 #ifdef JP
 info[i++] = "あなたは戦闘狂だ。";
 #else
@@ -1681,9 +1681,9 @@ info[i++] = "あなたは戦闘狂だ。";
 #endif
 
 	}
-	if (cr_ptr->protevil)
+	if (creature_ptr->protevil)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->protevil);
+		info2[i]  = report_magics_aux(creature_ptr->protevil);
 #ifdef JP
 info[i++] = "あなたは邪悪なる存在から守られている。";
 #else
@@ -1691,9 +1691,9 @@ info[i++] = "あなたは邪悪なる存在から守られている。";
 #endif
 
 	}
-	if (cr_ptr->shield)
+	if (creature_ptr->shield)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->shield);
+		info2[i]  = report_magics_aux(creature_ptr->shield);
 #ifdef JP
 info[i++] = "あなたは神秘のシールドで守られている。";
 #else
@@ -1701,9 +1701,9 @@ info[i++] = "あなたは神秘のシールドで守られている。";
 #endif
 
 	}
-	if (cr_ptr->invuln)
+	if (creature_ptr->invuln)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->invuln);
+		info2[i]  = report_magics_aux(creature_ptr->invuln);
 #ifdef JP
 info[i++] = "無敵でいられる。";
 #else
@@ -1711,9 +1711,9 @@ info[i++] = "無敵でいられる。";
 #endif
 
 	}
-	if (cr_ptr->wraith_form)
+	if (creature_ptr->wraith_form)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->wraith_form);
+		info2[i]  = report_magics_aux(creature_ptr->wraith_form);
 #ifdef JP
 info[i++] = "幽体化できる。";
 #else
@@ -1721,7 +1721,7 @@ info[i++] = "幽体化できる。";
 #endif
 
 	}
-	if (cr_ptr->special_attack & ATTACK_CONFUSE)
+	if (creature_ptr->special_attack & ATTACK_CONFUSE)
 	{
 		info2[i]  = 7;
 #ifdef JP
@@ -1731,9 +1731,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (cr_ptr->word_recall)
+	if (creature_ptr->word_recall)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->word_recall);
+		info2[i]  = report_magics_aux(creature_ptr->word_recall);
 #ifdef JP
 		info[i++] = "この後帰還の詔を発動する。";
 #else
@@ -1741,9 +1741,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (cr_ptr->alter_reality)
+	if (creature_ptr->alter_reality)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->alter_reality);
+		info2[i]  = report_magics_aux(creature_ptr->alter_reality);
 #ifdef JP
 		info[i++] = "この後現実変容が発動する。";
 #else
@@ -1751,9 +1751,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (cr_ptr->oppose_acid)
+	if (creature_ptr->oppose_acid)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->oppose_acid);
+		info2[i]  = report_magics_aux(creature_ptr->oppose_acid);
 #ifdef JP
 info[i++] = "あなたは酸への耐性を持っている。";
 #else
@@ -1761,9 +1761,9 @@ info[i++] = "あなたは酸への耐性を持っている。";
 #endif
 
 	}
-	if (cr_ptr->oppose_elec)
+	if (creature_ptr->oppose_elec)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->oppose_elec);
+		info2[i]  = report_magics_aux(creature_ptr->oppose_elec);
 #ifdef JP
 info[i++] = "あなたは電撃への耐性を持っている。";
 #else
@@ -1771,9 +1771,9 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 #endif
 
 	}
-	if (cr_ptr->oppose_fire)
+	if (creature_ptr->oppose_fire)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->oppose_fire);
+		info2[i]  = report_magics_aux(creature_ptr->oppose_fire);
 #ifdef JP
 info[i++] = "あなたは火への耐性を持っている。";
 #else
@@ -1781,9 +1781,9 @@ info[i++] = "あなたは火への耐性を持っている。";
 #endif
 
 	}
-	if (cr_ptr->oppose_cold)
+	if (creature_ptr->oppose_cold)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->oppose_cold);
+		info2[i]  = report_magics_aux(creature_ptr->oppose_cold);
 #ifdef JP
 info[i++] = "あなたは冷気への耐性を持っている。";
 #else
@@ -1791,9 +1791,9 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 #endif
 
 	}
-	if (cr_ptr->oppose_pois)
+	if (creature_ptr->oppose_pois)
 	{
-		info2[i]  = report_magics_aux(cr_ptr->oppose_pois);
+		info2[i]  = report_magics_aux(creature_ptr->oppose_pois);
 #ifdef JP
 		info[i++] = "あなたは毒への耐性を持っている。";
 #else
@@ -1918,13 +1918,13 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 /*
  * Detect all traps on current panel
  */
-bool detect_traps(creature_type *cr_ptr, int range, bool known)
+bool detect_traps(creature_type *creature_ptr, int range, bool known)
 {
-	bool detect = detect_feat_flag(cr_ptr, range, FF_TRAP, known);
+	bool detect = detect_feat_flag(creature_ptr, range, FF_TRAP, known);
 
 	if (known) detect_trap = TRUE;
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -1944,11 +1944,11 @@ bool detect_traps(creature_type *cr_ptr, int range, bool known)
 /*
  * Detect all doors on current panel
  */
-bool detect_doors(creature_type *cr_ptr, int range)
+bool detect_doors(creature_type *creature_ptr, int range)
 {
-	bool detect = detect_feat_flag(cr_ptr, range, FF_DOOR, TRUE);
+	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -1968,11 +1968,11 @@ bool detect_doors(creature_type *cr_ptr, int range)
 /*
  * Detect all stairs on current panel
  */
-bool detect_stairs(creature_type *cr_ptr, int range)
+bool detect_stairs(creature_type *creature_ptr, int range)
 {
-	bool detect = detect_feat_flag(cr_ptr, range, FF_STAIRS, TRUE);
+	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -1992,11 +1992,11 @@ bool detect_stairs(creature_type *cr_ptr, int range)
 /*
  * Detect any treasure on the current panel
  */
-bool detect_treasure(creature_type *cr_ptr, int range)
+bool detect_treasure(creature_type *creature_ptr, int range)
 {
-	bool detect = detect_feat_flag(cr_ptr, range, FF_HAS_GOLD, TRUE);
+	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -2083,15 +2083,15 @@ msg_print("財宝の存在を感じとった！");
 /*
  * Detect all "normal" objects on the current panel
  */
-bool detect_objects_normal(creature_type *cr_ptr, int range)
+bool detect_objects_normal(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
-	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	bool detect = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -2109,7 +2109,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "real" objects */
 		if (o_ptr->tval != TV_GOLD)
@@ -2125,7 +2125,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 		}
 	}
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -2138,7 +2138,7 @@ msg_print("アイテムの存在を感じとった！");
 
 	}
 
-	if (detect_creatures_string(cr_ptr, range, "!=?|/`"))
+	if (detect_creatures_string(creature_ptr, range, "!=?|/`"))
 	{
 		detect = TRUE;
 	}
@@ -2157,14 +2157,14 @@ msg_print("アイテムの存在を感じとった！");
  *
  * It can probably be argued that this function is now too powerful.
  */
-bool detect_objects_magic(creature_type *cr_ptr, int range)
+bool detect_objects_magic(creature_type *creature_ptr, int range)
 {
 	int i, y, x, tv;
-	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	bool detect = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
 	{
@@ -2181,7 +2181,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 		x = o_ptr->fx;
 
 		/* Only detect nearby objects */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Examine the tval */
 		tv = o_ptr->tval;
@@ -2242,13 +2242,13 @@ msg_print("魔法のアイテムの存在を感じとった！");
 /*
  * Detect all "normal" creatures on the current panel
  */
-bool detect_creatures_normal(creature_type *cr_ptr, int range)
+bool detect_creatures_normal(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2264,10 +2264,10 @@ bool detect_creatures_normal(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible creatures */
-		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || cr_ptr->see_inv)
+		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || creature_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_creatures = TRUE;
@@ -2283,7 +2283,7 @@ bool detect_creatures_normal(creature_type *cr_ptr, int range)
 		}
 	}
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -2305,12 +2305,12 @@ msg_print("クリーチャーの存在を感じとった！");
 /*
  * Detect all "invisible" creatures around the player
  */
-bool detect_creatures_invis(creature_type *cr_ptr, int range)
+bool detect_creatures_invis(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2326,7 +2326,7 @@ bool detect_creatures_invis(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible creatures */
 		if (has_trait(m_ptr, TRAIT_INVISIBLE))
@@ -2352,7 +2352,7 @@ bool detect_creatures_invis(creature_type *cr_ptr, int range)
 		}
 	}
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -2375,12 +2375,12 @@ msg_print("透明な生物の存在を感じとった！");
 /*
  * Detect all "evil" creatures on current panel
  */
-bool detect_creatures_evil(creature_type *cr_ptr, int range)
+bool detect_creatures_evil(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2396,7 +2396,7 @@ bool detect_creatures_evil(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil creatures */
 		if (is_enemy_of_good_creature(m_ptr))
@@ -2450,12 +2450,12 @@ msg_print("邪悪なる生物の存在を感じとった！");
 /*
  * Detect all "nonliving", "undead" or "demonic" creatures on current panel
  */
-bool detect_creatures_nonliving(creature_type *cr_ptr, int range)
+bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2471,10 +2471,10 @@ bool detect_creatures_nonliving(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living creatures */
-		if (!creature_living(cr_ptr))
+		if (!creature_living(creature_ptr))
 		{
 			/* Update creature recall window */
 			if (species_window_idx == m_ptr->species_idx)
@@ -2517,12 +2517,12 @@ msg_print("自然でないクリーチャーの存在を感じた！");
 /*
  * Detect all creatures it has mind on current panel
  */
-bool detect_creatures_mind(creature_type *cr_ptr, int range)
+bool detect_creatures_mind(creature_type *creature_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2538,7 +2538,7 @@ bool detect_creatures_mind(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living creatures */
 		if (!has_trait(m_ptr, TRAIT_EMPTY_MIND))
@@ -2584,12 +2584,12 @@ msg_print("殺気を感じとった！");
 /*
  * Detect all (string) creatures on current panel
  */
-bool detect_creatures_string(creature_type *cr_ptr, int range, cptr Match)
+bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 {
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2605,7 +2605,7 @@ bool detect_creatures_string(creature_type *cr_ptr, int range, cptr Match)
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect creatures with the same symbol */
 		if (my_strchr(Match, r_ptr->d_char))
@@ -2631,7 +2631,7 @@ bool detect_creatures_string(creature_type *cr_ptr, int range, cptr Match)
 		}
 	}
 
-	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -2653,7 +2653,7 @@ msg_print("クリーチャーの存在を感じとった！");
 /*
  * A "generic" detect creatures routine, tagged to flags3
  */
-bool detect_creatures_xxx(creature_type *cr_ptr, int range, u32b match_flag)
+bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag)
 {
 	int  i, y, x;
 	bool flag = FALSE;
@@ -2663,7 +2663,7 @@ cptr desc_creatures = "変なクリーチャー";
 	cptr desc_creatures = "weird creatures";
 #endif
 
-	if (dungeon_info[get_floor_ptr(cr_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2679,7 +2679,7 @@ cptr desc_creatures = "変なクリーチャー";
 		x = m_ptr->fx;
 
 		/* Only detect nearby creatures */
-		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
+		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil creatures */
 		//TODO if (r_ptr->flags3 & (match_flag))
@@ -2744,22 +2744,22 @@ msg_format("%sの存在を感じとった！", desc_creatures);
 /*
  * Detect everything
  */
-bool detect_all(creature_type *cr_ptr, int range)
+bool detect_all(creature_type *creature_ptr, int range)
 {
 	bool detect = FALSE;
 
 	/* Detect everything */
-	if (detect_traps(cr_ptr, range, TRUE)) detect = TRUE;
-	if (detect_doors(cr_ptr, range)) detect = TRUE;
-	if (detect_stairs(cr_ptr, range)) detect = TRUE;
+	if (detect_traps(creature_ptr, range, TRUE)) detect = TRUE;
+	if (detect_doors(creature_ptr, range)) detect = TRUE;
+	if (detect_stairs(creature_ptr, range)) detect = TRUE;
 
 	/* There are too many hidden treasure.  So... */
 	/* if (detect_treasure(range)) detect = TRUE; */
 
-	if (detect_objects_gold(cr_ptr, range)) detect = TRUE;
-	if (detect_objects_normal(cr_ptr, range)) detect = TRUE;
-	if (detect_creatures_invis(cr_ptr, range)) detect = TRUE;
-	if (detect_creatures_normal(cr_ptr, range)) detect = TRUE;
+	if (detect_objects_gold(creature_ptr, range)) detect = TRUE;
+	if (detect_objects_normal(creature_ptr, range)) detect = TRUE;
+	if (detect_creatures_invis(creature_ptr, range)) detect = TRUE;
+	if (detect_creatures_normal(creature_ptr, range)) detect = TRUE;
 
 	/* Result */
 	return (detect);
@@ -2922,16 +2922,16 @@ bool dispel_demons(creature_type *caster_ptr, int dam)
 /*
  * Crusade
  */
-bool crusade(creature_type *cr_ptr)
+bool crusade(creature_type *creature_ptr)
 {
-	return (project_hack(cr_ptr, GF_CRUSADE, cr_ptr->lev*4));
+	return (project_hack(creature_ptr, GF_CRUSADE, creature_ptr->lev*4));
 }
 
 
 /*
  * Wake up all creatures, and speed up "los" creatures.
  */
-void aggravate_creatures(creature_type *cr_ptr)
+void aggravate_creatures(creature_type *creature_ptr)
 {
 	int     i;
 	bool    sleep = FALSE;
@@ -2947,7 +2947,7 @@ void aggravate_creatures(creature_type *cr_ptr)
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip aggravating creature (or player) */
-		if (m_ptr == cr_ptr) continue;
+		if (m_ptr == creature_ptr) continue;
 
 		/* Wake up nearby sleeping creatures */
 		if (m_ptr->cdis < MAX_SIGHT * 2)
@@ -2980,7 +2980,7 @@ void aggravate_creatures(creature_type *cr_ptr)
 	if (speed) msg_print("You feel a sudden stirring nearby!");
 	else if (sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
-	if (cr_ptr->riding) cr_ptr->creature_update |= CRU_BONUS;
+	if (creature_ptr->riding) creature_ptr->creature_update |= CRU_BONUS;
 }
 
 
@@ -5251,10 +5251,10 @@ bool tree_creation(creature_type *caster_ptr)
 }
 
 
-bool glyph_creation(creature_type *cr_ptr)
+bool glyph_creation(creature_type *creature_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM;
-	return (project(0, 1, cr_ptr->fy, cr_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
+	return (project(0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
 }
 
 
@@ -5281,24 +5281,24 @@ bool destroy_doors_touch(creature_type *caster_ptr)
 }
 
 
-bool sleep_creatures_touch(creature_type *cr_ptr)
+bool sleep_creatures_touch(creature_type *creature_ptr)
 {
 	int flg = PROJECT_KILL | PROJECT_HIDE;
-	return (project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, cr_ptr->lev, GF_OLD_SLEEP, flg, -1));
+	return (project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, flg, -1));
 }
 
 
-bool animate_dead(creature_type *cr_ptr, int y, int x)
+bool animate_dead(creature_type *creature_ptr, int y, int x)
 {
 	int flg = PROJECT_ITEM | PROJECT_HIDE;
-	return (project(cr_ptr, 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
+	return (project(creature_ptr, 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
 }
 
 
-void call_chaos(creature_type *cr_ptr)
+void call_chaos(creature_type *creature_ptr)
 {
 	int Chaos_type, dummy, dir;
-	int plev = cr_ptr->lev;
+	int plev = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
 	int hurt_types[31] =
@@ -5323,23 +5323,23 @@ void call_chaos(creature_type *cr_ptr)
 			if (dummy - 5)
 			{
 				if (line_chaos)
-					fire_beam(cr_ptr, Chaos_type, dummy, 150);
+					fire_beam(creature_ptr, Chaos_type, dummy, 150);
 				else
-					fire_ball(cr_ptr, Chaos_type, dummy, 150, 2);
+					fire_ball(creature_ptr, Chaos_type, dummy, 150, 2);
 			}
 		}
 	}
 	else if (one_in_(3))
 	{
-		fire_ball(cr_ptr, Chaos_type, 0, 500, 8);
+		fire_ball(creature_ptr, Chaos_type, 0, 500, 8);
 	}
 	else
 	{
-		if (!get_aim_dir(cr_ptr, &dir)) return;
+		if (!get_aim_dir(creature_ptr, &dir)) return;
 		if (line_chaos)
-			fire_beam(cr_ptr, Chaos_type, dir, 250);
+			fire_beam(creature_ptr, Chaos_type, dir, 250);
 		else
-			fire_ball(cr_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
+			fire_ball(creature_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
 	}
 }
 

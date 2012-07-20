@@ -269,22 +269,22 @@ karma_type karma[MAX_KARMA] =
 
 };
 
-void set_karma(creature_type *cr_ptr, int karma, int amount)
+void set_karma(creature_type *creature_ptr, int karma, int amount)
 {
-	cr_ptr->karmas[karma] = amount;
+	creature_ptr->karmas[karma] = amount;
 }
 
-void chg_karma(creature_type *cr_ptr, int karma, int amount)
+void chg_karma(creature_type *creature_ptr, int karma, int amount)
 {
-	cr_ptr->karmas[karma] += amount;
+	creature_ptr->karmas[karma] += amount;
 }
 
-int karma_number(creature_type *cr_ptr, int karma){
-	return cr_ptr->karmas[karma];
+int karma_number(creature_type *creature_ptr, int karma){
+	return creature_ptr->karmas[karma];
 }
 
 
-void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
+void dump_karmas(creature_type *creature_ptr, FILE *OutFile)
 {
 	int v_nr = 0;
 
@@ -292,19 +292,19 @@ void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
 
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
-		if(cr_ptr->karmas[v_nr] > 0)
+		if(creature_ptr->karmas[v_nr] > 0)
 		{
 #ifdef JP
 		fprintf(OutFile, "[%s]‚Ì‹Æ: %d\n",
 #else
 		fprintf(OutFile, "Your karma of %s is %d.",
 #endif
-			karma[v_nr].title, cr_ptr->karmas[v_nr]);
+			karma[v_nr].title, creature_ptr->karmas[v_nr]);
 		}
 	}
 }
 
-void authority_desc(char *tmp, creature_type *cr_ptr)
+void authority_desc(char *tmp, creature_type *creature_ptr)
 {
 	int i;
 	/* Authority */
@@ -312,7 +312,7 @@ void authority_desc(char *tmp, creature_type *cr_ptr)
 
 	for(i = 0; i < max_authorities_idx; i++)
 	{
-		if(cr_ptr->authority[i / 32] & (0x0001 << (i % 32)))
+		if(creature_ptr->authority[i / 32] & (0x0001 << (i % 32)))
 		{
 			strcat(tmp, authority_info[i].title);
 			strcat(tmp, "[");

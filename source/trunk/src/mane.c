@@ -15,9 +15,9 @@
 
 static int damage;
 
-static void mane_info(creature_type *cr_ptr, char *p, int power, int dam)
+static void mane_info(creature_type *creature_ptr, char *p, int power, int dam)
 {
-	int plev = cr_ptr->lev;
+	int plev = creature_ptr->lev;
 #ifdef JP
 	cptr s_dam = "損傷:";
 	cptr s_dur = "期間:";
@@ -80,14 +80,14 @@ static void mane_info(creature_type *cr_ptr, char *p, int power, int dam)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_mane_power(creature_type *cr_ptr, int *sn, bool baigaesi)
+static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 {
 	int             i = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	int             chance = 0;
 	int             ask;
 	char            choice;
@@ -111,7 +111,7 @@ cptr            p = "能力";
 	/* No redraw yet */
 	redraw = FALSE;
 
-	num = cr_ptr->mane_num;
+	num = creature_ptr->mane_num;
 
 	/* Build a prompt (accept all spells) */
 	(void)strnfmt(out_val, 78, 
@@ -163,7 +163,7 @@ put_str("失率 効果", y, x + 36);
 				for (i = 0; i < num; i++)
 				{
 					/* Access the spell */
-					spell = racial_powers[cr_ptr->mane_spell[i]];
+					spell = racial_powers[creature_ptr->mane_spell[i]];
 
 					chance = spell.manefail;
 
@@ -171,27 +171,27 @@ put_str("失率 効果", y, x + 36);
 					if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[STAT_DEX]] - 2) / 2;
+					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
-					if (spell.manedam) chance = chance * cr_ptr->mane_dam[i] / spell.manedam;
+					if (spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
 
-					chance += cr_ptr->to_m_chance;
+					chance += creature_ptr->to_m_chance;
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[cr_ptr->stat_ind[spell.use_stat]];
+					minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
 
 					/* Minimum failure rate */
 					if (chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (cr_ptr->stun > 50) chance += 25;
-					else if (cr_ptr->stun) chance += 15;
+					if (creature_ptr->stun > 50) chance += 25;
+					else if (creature_ptr->stun) chance += 15;
 
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
 
 					/* Get info */
-					mane_info(cr_ptr, comment, cr_ptr->mane_spell[i], (baigaesi ? cr_ptr->mane_dam[i]*2 : cr_ptr->mane_dam[i]));
+					mane_info(creature_ptr, comment, creature_ptr->mane_spell[i], (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]));
 
 					/* Dump the spell --(-- */
 					sprintf(psi_desc, "  %c) %-30s %3d%%%s",
@@ -235,7 +235,7 @@ put_str("失率 効果", y, x + 36);
 		}
 
 		/* Save the spell index */
-		spell = racial_powers[cr_ptr->mane_spell[i]];
+		spell = racial_powers[creature_ptr->mane_spell[i]];
 
 		/* Verify it */
 		if (ask)
@@ -244,9 +244,9 @@ put_str("失率 効果", y, x + 36);
 
 			/* Prompt */
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sをまねますか？", racial_powers[cr_ptr->mane_spell[i]].name);
+			(void) strnfmt(tmp_val, 78, "%sをまねますか？", racial_powers[creature_ptr->mane_spell[i]].name);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[cr_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[creature_ptr->mane_spell[i]].name);
 #endif
 
 
@@ -273,7 +273,7 @@ put_str("失率 効果", y, x + 36);
 	/* Save the choice */
 	(*sn) = i;
 
-	damage = (baigaesi ? cr_ptr->mane_dam[i]*2 : cr_ptr->mane_dam[i]);
+	damage = (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]);
 
 	/* Success */
 	return (TRUE);
@@ -1274,18 +1274,18 @@ msg_print("特別な強敵を召喚した！");
  * do_cmd_cast calls this function if the player's class
  * is 'imitator'.
  */
-bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi)
+bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 {
 	int             n = 0, j;
 	int             chance;
 	int             minfail = 0;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	racial_power   spell;
 	bool            cast;
 
 
 	/* not if confused */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -1296,7 +1296,7 @@ msg_print("混乱していて集中できない！");
 		return TRUE;
 	}
 
-	if (!cr_ptr->mane_num)
+	if (!creature_ptr->mane_num)
 	{
 #ifdef JP
 msg_print("まねられるものが何もない！");
@@ -1308,9 +1308,9 @@ msg_print("まねられるものが何もない！");
 	}
 
 	/* get power */
-	if (!get_mane_power(cr_ptr, &n, baigaesi)) return FALSE;
+	if (!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE;
 
-	spell = racial_powers[cr_ptr->mane_spell[n]];
+	spell = racial_powers[creature_ptr->mane_spell[n]];
 
 	/* Spell failure chance */
 	chance = spell.manefail;
@@ -1319,21 +1319,21 @@ msg_print("まねられるものが何もない！");
 	if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[STAT_DEX]] - 2) / 2;
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
 	if (spell.manedam) chance = chance * damage / spell.manedam;
 
-	chance += cr_ptr->to_m_chance;
+	chance += creature_ptr->to_m_chance;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[spell.use_stat]];
+	minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
 
 	/* Minimum failure rate */
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (cr_ptr->stun > 50) chance += 25;
-	else if (cr_ptr->stun) chance += 15;
+	if (creature_ptr->stun > 50) chance += 25;
+	else if (creature_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
@@ -1355,16 +1355,16 @@ msg_print("ものまねに失敗した！");
 		sound(SOUND_ZAP);
 
 		/* Cast the spell */
-		cast = use_mane(cr_ptr, cr_ptr->mane_spell[n]);
+		cast = use_mane(creature_ptr, creature_ptr->mane_spell[n]);
 
 		if (!cast) return FALSE;
 	}
 
-	cr_ptr->mane_num--;
-	for (j = n; j < cr_ptr->mane_num;j++)
+	creature_ptr->mane_num--;
+	for (j = n; j < creature_ptr->mane_num;j++)
 	{
-		cr_ptr->mane_spell[j] = cr_ptr->mane_spell[j+1];
-		cr_ptr->mane_dam[j] = cr_ptr->mane_dam[j+1];
+		creature_ptr->mane_spell[j] = creature_ptr->mane_spell[j+1];
+		creature_ptr->mane_dam[j] = creature_ptr->mane_dam[j+1];
 	}
 
 	/* Take a turn */

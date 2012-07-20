@@ -878,7 +878,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 #define MAX_SUBTITLE (sizeof(subtitle)/sizeof(subtitle[0]))
 
-static void do_cmd_disp_nikki(creature_type *cr_ptr)
+static void do_cmd_disp_nikki(creature_type *creature_ptr)
 {
 	char nikki_title[256];
 	char file_name[80];
@@ -959,18 +959,18 @@ static void do_cmd_disp_nikki(creature_type *cr_ptr)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
-	if (cr_ptr->class_idx == CLASS_WARRIOR || cr_ptr->class_idx == CLASS_MONK || cr_ptr->class_idx == CLASS_SAMURAI || cr_ptr->class_idx == CLASS_BERSERKER)
+	if (creature_ptr->class_idx == CLASS_WARRIOR || creature_ptr->class_idx == CLASS_MONK || creature_ptr->class_idx == CLASS_SAMURAI || creature_ptr->class_idx == CLASS_BERSERKER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)]);
-	else if (cr_ptr->class_idx == CLASS_MAGE || cr_ptr->class_idx == CLASS_HIGH_MAGE || cr_ptr->class_idx == CLASS_SORCERER)
+	else if (creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)+1]);
 	else strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-2)+1]);
 
 #ifdef JP
 	sprintf(nikki_title, "「%s%s%sの伝説 -%s-」",
-		chara_info[cr_ptr->chara_idx].title, chara_info[cr_ptr->chara_idx].no ? "の" : "", cr_ptr->name, tmp);
+		chara_info[creature_ptr->chara_idx].title, chara_info[creature_ptr->chara_idx].no ? "の" : "", creature_ptr->name, tmp);
 #else
 	sprintf(nikki_title, "Legend of %s %s '%s'",
-		chara_info[cr_ptr->chara_idx].title, cr_ptr->name, tmp);
+		chara_info[creature_ptr->chara_idx].title, creature_ptr->name, tmp);
 #endif
 
 	/* Display the file contents */
@@ -1170,13 +1170,13 @@ void do_cmd_redraw(void)
 
 	/*
 	// Combine and Reorder the pack (later)
-	cr_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	// Update torch
-	cr_ptr->creature_update |= (CRU_TORCH);
+	creature_ptr->creature_update |= (CRU_TORCH);
 
 	// Update stuff
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	*/
 
 	/* Forget lite/view */
@@ -1203,7 +1203,7 @@ void do_cmd_redraw(void)
 	handle_stuff();
 
 	/*
-	if (has_trait(cr_ptr, TRAIT_ANDROID)) calc_android_exp(cr_ptr);
+	if (has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
 	*/
 
 	/* Redraw every window */
@@ -1230,7 +1230,7 @@ void do_cmd_redraw(void)
 /*
  * Hack -- change name
  */
-void do_cmd_change_name(creature_type *cr_ptr)
+void do_cmd_change_name(creature_type *creature_ptr)
 {
 	char	c;
 
@@ -1250,7 +1250,7 @@ void do_cmd_change_name(creature_type *cr_ptr)
 		mode %= DISPLAY_CR_STATUS_MAX;
 
 		/* Display the player */
-		display_creature_status(mode, cr_ptr);
+		display_creature_status(mode, creature_ptr);
 
 
 		/* Prompt */
@@ -1267,8 +1267,8 @@ void do_cmd_change_name(creature_type *cr_ptr)
 
 		if (c == 'c') // Change name
 		{
-			get_name(cr_ptr);
-			set_creature_name(FALSE, cr_ptr); // Process the player name
+			get_name(creature_ptr);
+			set_creature_name(FALSE, creature_ptr); // Process the player name
 		}
 
 		else if (c == 'f') // File dump
@@ -6944,7 +6944,7 @@ static void do_cmd_knowledge_uniques(void)
 /*
  * Display weapon-exp
  */
-static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
+static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 {
 	int i, j, num;
 	FILE *fff;
@@ -6975,10 +6975,10 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 					if ((k_ptr->tval == TV_BOW) && (k_ptr->sval == SV_CRIMSON)) continue;
 
 					/*TODO 
-					weapon_exp = cr_ptr->weapon_exp[4 - i][num];
+					weapon_exp = creature_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
-					//if (weapon_exp >= skill_info[cr_ptr->class_idx].w_max[4 - i][num]) fprintf(fff, "!");
+					//if (weapon_exp >= skill_info[creature_ptr->class_idx].w_max[4 - i][num]) fprintf(fff, "!");
 					//else fprintf(fff, " ");
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
@@ -7009,7 +7009,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 /*
  * Display spell-exp
  */
-static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
+static void do_cmd_knowledge_spell_exp(creature_type *creature_ptr)
 {
 	int i = 0, spell_exp, exp_level;
 
@@ -7030,28 +7030,28 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 	    return;
 	}
 
-	if (cr_ptr->realm1 != REALM_NONE)
+	if (creature_ptr->realm1 != REALM_NONE)
 	{
 #ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[cr_ptr->realm1]);
+		fprintf(fff, "%sの魔法書\n", realm_names[creature_ptr->realm1]);
 #else
-		fprintf(fff, "%s Spellbook\n", realm_names[cr_ptr->realm1]);
+		fprintf(fff, "%s Spellbook\n", realm_names[creature_ptr->realm1]);
 #endif
 		for (i = 0; i < 32; i++)
 		{
-			if (!is_magic(cr_ptr->realm1))
+			if (!is_magic(creature_ptr->realm1))
 			{
-				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][i];
+				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][i];
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1 - 1][i];
+				s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
-			spell_exp = cr_ptr->spell_exp[i];
+			spell_exp = creature_ptr->spell_exp[i];
 			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(cr_ptr, cr_ptr->realm1, i, SPELL_NAME));
-			if (cr_ptr->realm1 == REALM_HISSATSU)
+			fprintf(fff, "%-25s ", do_spell(creature_ptr, creature_ptr->realm1, i, SPELL_NAME));
+			if (creature_ptr->realm1 == REALM_HISSATSU)
 				fprintf(fff, "[--]");
 			else
 			{
@@ -7064,28 +7064,28 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 		}
 	}
 
-	if (cr_ptr->realm2 != REALM_NONE)
+	if (creature_ptr->realm2 != REALM_NONE)
 	{
 #ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[cr_ptr->realm2]);
+		fprintf(fff, "%sの魔法書\n", realm_names[creature_ptr->realm2]);
 #else
-		fprintf(fff, "\n%s Spellbook\n", realm_names[cr_ptr->realm2]);
+		fprintf(fff, "\n%s Spellbook\n", realm_names[creature_ptr->realm2]);
 #endif
 		for (i = 0; i < 32; i++)
 		{
-			if (!is_magic(cr_ptr->realm1))
+			if (!is_magic(creature_ptr->realm1))
 			{
-				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][i];
+				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][i];
 			}
 			else
 			{
-				s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2 - 1][i];
+				s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 
-			spell_exp = cr_ptr->spell_exp[i + 32];
+			spell_exp = creature_ptr->spell_exp[i + 32];
 			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(cr_ptr, cr_ptr->realm2, i, SPELL_NAME));
+			fprintf(fff, "%-25s ", do_spell(creature_ptr, creature_ptr->realm2, i, SPELL_NAME));
 			if (exp_level >= EXP_LEVEL_EXPERT) fprintf(fff, "!");
 			else fprintf(fff, " ");
 			fprintf(fff, "%s", exp_level_str[exp_level]);
@@ -7113,7 +7113,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 /*
  * Display skill-exp
  */
-static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
+static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 {
 	int i = 0, skill_exp;
 
@@ -7140,9 +7140,9 @@ static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
 
 	for (i = 0; i < 3; i++)
 	{
-		skill_exp = cr_ptr->skill_exp[i];
+		skill_exp = creature_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);
-		if (skill_exp >= skill_info[cr_ptr->class_idx].s_max[i]) fprintf(fff, "!");
+		if (skill_exp >= skill_info[creature_ptr->class_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, "%s", exp_level_str[(i == SKILL_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
 		if (cheat_xtra) fprintf(fff, " %d", skill_exp);
@@ -9139,7 +9139,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 /*
  * List wanted creatures
  */
-static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
+static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 {
 	int i;
 	FILE *fff;
@@ -9212,13 +9212,13 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 /*
  * List karmas & status
  */
-static void do_cmd_knowledge_karmas(creature_type *cr_ptr)
+static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 {
 	FILE *fff;
 	
 	char file_name[1024];
 	char buf[100];
-	show_alignment(buf, cr_ptr);
+	show_alignment(buf, creature_ptr);
 	
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
@@ -9239,7 +9239,7 @@ static void do_cmd_knowledge_karmas(creature_type *cr_ptr)
 #else
 		fprintf(fff, "Your alighnment : %s\n\n", buf);
 #endif
-		dump_karmas(cr_ptr, fff);
+		dump_karmas(creature_ptr, fff);
 	}
 	
 	/* Close the file */
@@ -9314,7 +9314,7 @@ static void do_cmd_knowledge_dungeon()
 * List karmas & status
 *
 */
-static void do_cmd_knowledge_stat(creature_type *cr_ptr)
+static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 {
 	FILE *fff;
 	
@@ -9335,31 +9335,31 @@ static void do_cmd_knowledge_stat(creature_type *cr_ptr)
 	
 	if (fff)
 	{
-		percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
-			(2 * cr_ptr->hitdice +
-			((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
+		percent = (int)(((long)creature_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
+			(2 * creature_ptr->hitdice +
+			((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 #ifdef JP
-		if (cr_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "現在の体力ランク : %d/100\n\n", percent);
+		if (creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "現在の体力ランク : %d/100\n\n", percent);
 		else fprintf(fff, "現在の体力ランク : ???\n\n");
 		fprintf(fff, "能力の最大値\n\n");
 #else
-		if (cr_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
+		if (creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
 		else fprintf(fff, "Your current Life Rating is ???.\n\n");
 		fprintf(fff, "Limits of maximum stats\n\n");
 #endif
 		for (v_nr = 0; v_nr < 6; v_nr++)
 		{
-			if ((cr_ptr->knowledge & KNOW_STAT) || cr_ptr->stat_max[v_nr] == cr_ptr->stat_max_max[v_nr])
+			if ((creature_ptr->knowledge & KNOW_STAT) || creature_ptr->stat_max[v_nr] == creature_ptr->stat_max_max[v_nr])
 			{
-				int n = cr_ptr->stat_mod_max_max[v_nr];
+				int n = creature_ptr->stat_mod_max_max[v_nr];
 				fprintf(fff, "%s %2d.%d\n", stat_names[v_nr], n / STAT_FRACTION, n % STAT_FRACTION);
 			}
 			else fprintf(fff, "%s ???\n", stat_names[v_nr]);
 		}
 	}
 
-	dump_yourself(cr_ptr, fff);
+	dump_yourself(creature_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -10082,7 +10082,7 @@ static void do_cmd_knowledge_autopick(void)
 /*
  * Interact with "knowledge"
  */
-void do_cmd_knowledge(creature_type *cr_ptr)
+void do_cmd_knowledge(creature_type *creature_ptr)
 {
 	int i, p = 0;
 	bool need_redraw = FALSE;
@@ -10189,7 +10189,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			p = 1 - p;
 			break;
 		case '1': /* Artifacts */
-			do_cmd_knowledge_artifacts(cr_ptr);
+			do_cmd_knowledge_artifacts(creature_ptr);
 			break;
 		case '2': /* Objects */
 			do_cmd_knowledge_objects(&need_redraw, FALSE, -1);
@@ -10204,16 +10204,16 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_kill_count();
 			break;
 		case '6': /* wanted */
-			do_cmd_knowledge_kubi(cr_ptr);
+			do_cmd_knowledge_kubi(creature_ptr);
 			break;
 		case '7': /* Pets */
-			do_cmd_knowledge_pets(cr_ptr);
+			do_cmd_knowledge_pets(creature_ptr);
 			break;
 		case '8': /* Home */
 			do_cmd_knowledge_home();
 			break;
 		case '9': /* Resist list */
-			do_cmd_knowledge_inven(cr_ptr);
+			do_cmd_knowledge_inven(creature_ptr);
 			break;
 		case '0': /* Feature list */
 			{
@@ -10223,22 +10223,22 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			break;
 		/* Next page */
 		case 'a': /* Max stat */
-			do_cmd_knowledge_stat(cr_ptr);
+			do_cmd_knowledge_stat(creature_ptr);
 			break;
 		case 'b': /* Mutations */
-			do_cmd_knowledge_traits(cr_ptr);
+			do_cmd_knowledge_traits(creature_ptr);
 			break;
 		case 'c': /* weapon-exp */
-			do_cmd_knowledge_weapon_exp(cr_ptr);
+			do_cmd_knowledge_weapon_exp(creature_ptr);
 			break;
 		case 'd': /* spell-exp */
-			do_cmd_knowledge_spell_exp(cr_ptr);
+			do_cmd_knowledge_spell_exp(creature_ptr);
 			break;
 		case 'e': /* skill-exp */
-			do_cmd_knowledge_skill_exp(cr_ptr);
+			do_cmd_knowledge_skill_exp(creature_ptr);
 			break;
 		case 'f': /* Virtues */
-			do_cmd_knowledge_karmas(cr_ptr);
+			do_cmd_knowledge_karmas(creature_ptr);
 			break;
 		case 'g': /* Dungeon */
 			do_cmd_knowledge_dungeon();
@@ -10286,7 +10286,7 @@ void do_cmd_checkquest(void)
 /*
  * Display the time and date
  */
-void do_cmd_time(creature_type *cr_ptr)
+void do_cmd_time(creature_type *creature_ptr)
 {
 	int day, hour, min, full, start, end, num;
 	char desc[1024];
@@ -10328,7 +10328,7 @@ void do_cmd_time(creature_type *cr_ptr)
 
 
 	/* Find the path */
-	if (!randint0(10) || IS_HALLUCINATION(cr_ptr))
+	if (!randint0(10) || IS_HALLUCINATION(creature_ptr))
 	{
 #ifdef JP
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timefun_j.txt");

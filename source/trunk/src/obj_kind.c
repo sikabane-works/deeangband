@@ -3,13 +3,13 @@
 #include "angband.h"
 
 
-bool object_is_potion(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_potion(creature_type *creature_ptr, object_type *o_ptr)
 {
 	return (object_kind_info[o_ptr->k_idx].tval == TV_POTION);
 }
 
 
-bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_shoukinkubi(creature_type *creature_ptr, object_type *o_ptr)
 {
 	int i;
 
@@ -35,7 +35,7 @@ bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Favorite weapons
  */
-bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_favorite(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Only melee weapons match */
 	if (!(o_ptr->tval == TV_POLEARM ||
@@ -47,7 +47,7 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 	}
 
 	/* Favorite weapons are varied depend on the class */
-	switch (cr_ptr->class_idx)
+	switch (creature_ptr->class_idx)
 	{
 	case CLASS_PRIEST:
 	{
@@ -64,7 +64,7 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 	case CLASS_FORCETRAINER:
 		/* Icky to wield? */
 		/*
-		if (!(skill_info[cr_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
+		if (!(skill_info[creature_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
 			return FALSE;
 		*/
 		break;
@@ -85,7 +85,7 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 	case CLASS_NINJA:
 		/* Icky to wield? */
 		/*
-		if (skill_info[cr_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
+		if (skill_info[creature_ptr->class_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
 			return FALSE;
 		*/
 		break;
@@ -174,7 +174,7 @@ bool object_is_weapon(object_type *o_ptr)
 	if (object_kind_info[o_ptr->k_idx].slot == INVEN_SLOT_ARMS) return TRUE;
 	return FALSE;
 }
-bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_weapon2(creature_type *creature_ptr, object_type *o_ptr)
 {
 	return object_is_weapon(o_ptr);
 }
@@ -188,7 +188,7 @@ bool object_is_weapon_ammo(object_type *o_ptr)
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
 	return FALSE;
 }
-bool object_is_weapon_ammo2(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_weapon_ammo2(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
 	return FALSE;
@@ -228,7 +228,7 @@ bool object_is_weapon_armour_ammo(object_type *o_ptr)
 	return FALSE;
 
 }
-bool object_is_weapon_armour_ammo2(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_weapon_armour_ammo2(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (object_is_weapon_ammo(o_ptr) || object_is_armour(o_ptr)) return TRUE;
 
@@ -239,7 +239,7 @@ bool object_is_weapon_armour_ammo2(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Melee weapons
  */
-bool object_is_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_melee_weapon(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (TV_DIGGING <= o_ptr->tval && o_ptr->tval <= TV_SWORD) return TRUE;
 
@@ -267,7 +267,7 @@ bool object_is_equipment(object_type *o_ptr)
 
 	return FALSE;
 }
-bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_equipment2(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (TV_EQUIP_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_EQUIP_END) return TRUE;
 
@@ -278,7 +278,7 @@ bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Poison needle can not be enchanted
  */
-bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
+bool object_refuse_enchant_weapon(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_DOKUBARI) return TRUE;
 
@@ -289,9 +289,9 @@ bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is weapon (including bows and ammo) and allows enchantment
  */
-bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
+bool object_allow_enchant_weapon(creature_type *creature_ptr, object_type *o_ptr)
 {
-	if (object_is_weapon_ammo(o_ptr) && !object_refuse_enchant_weapon(cr_ptr, o_ptr)) return TRUE;
+	if (object_is_weapon_ammo(o_ptr) && !object_refuse_enchant_weapon(creature_ptr, o_ptr)) return TRUE;
 
 	return FALSE;
 }
@@ -300,9 +300,9 @@ bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is melee weapon and allows enchantment
  */
-bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
+bool object_allow_enchant_melee_weapon(creature_type *creature_ptr, object_type *o_ptr)
 {
-	if (object_is_melee_weapon(cr_ptr, o_ptr) && !object_refuse_enchant_weapon(cr_ptr, o_ptr)) return TRUE;
+	if (object_is_melee_weapon(creature_ptr, o_ptr) && !object_refuse_enchant_weapon(creature_ptr, o_ptr)) return TRUE;
 
 	return FALSE;
 }
@@ -318,7 +318,7 @@ bool object_is_smith(object_type *o_ptr)
 }
 
 
-bool object_is_smith2(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_smith2(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (object_is_weapon_armour_ammo(o_ptr) && o_ptr->xtra3) return TRUE;
 
@@ -347,7 +347,7 @@ bool object_is_artifact_aux(object_type *o_ptr)
 /*
  * Check if an object is neither artifact, ego, nor 'smith' object
  */
-bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_nameless(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (!object_is_artifact(o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(o_ptr))
 		return TRUE;
@@ -361,9 +361,9 @@ bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is melee weapon and allows wielding with two-hands
  */
-bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr)
+bool object_allow_two_hands_wielding(creature_type *creature_ptr, object_type *o_ptr)
 {
-	if (object_is_melee_weapon(cr_ptr, o_ptr) && ((o_ptr->weight > 99) || (o_ptr->tval == TV_POLEARM))) return TRUE;
+	if (object_is_melee_weapon(creature_ptr, o_ptr) && ((o_ptr->weight > 99) || (o_ptr->tval == TV_POLEARM))) return TRUE;
 
 	return FALSE;
 }
@@ -372,7 +372,7 @@ bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Hook to determine if an object is readable
  */
-bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
+bool item_tester_hook_readable(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==
 		TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);

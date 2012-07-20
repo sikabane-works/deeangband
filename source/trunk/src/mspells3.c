@@ -14,10 +14,10 @@
 
 #define pseudo_plev(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
 
-static void learnedungeon_info(creature_type *cr_ptr, char *p, int power)
+static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 {
-	int plev = pseudo_plev(cr_ptr);
-	int hp = cr_ptr->chp;
+	int plev = pseudo_plev(creature_ptr);
+	int hp = creature_ptr->chp;
 
 #ifdef JP
 	cptr s_dam = "損傷:";
@@ -84,8 +84,8 @@ static void learnedungeon_info(creature_type *cr_ptr, char *p, int power)
 		case MS_SHOOT:
 		{
 			object_type *o_ptr = NULL;
-			if      (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
-			else if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
+			if      (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)
@@ -249,14 +249,14 @@ static void learnedungeon_info(creature_type *cr_ptr, char *p, int power)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_learned_power(creature_type *cr_ptr, int *sn)
+static int get_learned_power(creature_type *creature_ptr, int *sn)
 {
 	int             i = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE, mode = 0;
 	int             spellnum[MAX_MONSPELLS];
@@ -397,7 +397,7 @@ cptr            p = "魔法";
 	}
 	for (i = 0; i < num; i++)
 	{
-		if (cr_ptr->magic_num2[spellnum[i]])
+		if (creature_ptr->magic_num2[spellnum[i]])
 		{
 			if (use_menu) menu_line = i+1;
 			break;
@@ -450,7 +450,7 @@ cptr            p = "魔法";
 					{
 						menu_line += (num-1);
 						if (menu_line > num) menu_line -= num;
-					} while(!cr_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!creature_ptr->magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -462,7 +462,7 @@ cptr            p = "魔法";
 					{
 						menu_line++;
 						if (menu_line > num) menu_line -= num;
-					} while(!cr_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!creature_ptr->magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -471,7 +471,7 @@ cptr            p = "魔法";
 				case 'L':
 				{
 					menu_line=num;
-					while(!cr_ptr->magic_num2[spellnum[menu_line-1]]) menu_line--;
+					while(!creature_ptr->magic_num2[spellnum[menu_line-1]]) menu_line--;
 					break;
 				}
 
@@ -480,7 +480,7 @@ cptr            p = "魔法";
 				case 'H':
 				{
 					menu_line=1;
-					while(!cr_ptr->magic_num2[spellnum[menu_line-1]]) menu_line++;
+					while(!creature_ptr->magic_num2[spellnum[menu_line-1]]) menu_line++;
 					break;
 				}
 
@@ -529,7 +529,7 @@ put_str("MP 失率 効果", y, x + 33);
 					int need_mana;
 
 					prt("", y + i + 1, x);
-					if (!cr_ptr->magic_num2[spellnum[i]]) continue;
+					if (!creature_ptr->magic_num2[spellnum[i]]) continue;
 
 					/* Access the spell */
 					spell = racial_powers[spellnum[i]];
@@ -541,35 +541,35 @@ put_str("MP 失率 効果", y, x + 33);
 					else chance += (spell.level - plev);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[STAT_INT]] - 1);
+					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
 
-					chance = mod_spell_chance_1(cr_ptr, chance);
+					chance = mod_spell_chance_1(creature_ptr, chance);
 
-					need_mana = mod_need_mana(cr_ptr, racial_powers[spellnum[i]].smana, 0, REALM_NONE);
+					need_mana = mod_need_mana(creature_ptr, racial_powers[spellnum[i]].smana, 0, REALM_NONE);
 
 					/* Not enough mana to cast */
-					if (need_mana > cr_ptr->csp)
+					if (need_mana > creature_ptr->csp)
 					{
-						chance += 5 * (need_mana - cr_ptr->csp);
+						chance += 5 * (need_mana - creature_ptr->csp);
 					}
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[cr_ptr->stat_ind[STAT_INT]];
+					minfail = adj_mag_fail[creature_ptr->stat_ind[STAT_INT]];
 
 					/* Minimum failure rate */
 					if (chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (cr_ptr->stun > 50) chance += 25;
-					else if (cr_ptr->stun) chance += 15;
+					if (creature_ptr->stun > 50) chance += 25;
+					else if (creature_ptr->stun) chance += 15;
 
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
 
-					chance = mod_spell_chance_2(cr_ptr, chance);
+					chance = mod_spell_chance_2(creature_ptr, chance);
 
 					/* Get info */
-					learnedungeon_info(cr_ptr, comment, spellnum[i]);
+					learnedungeon_info(creature_ptr, comment, spellnum[i]);
 
 					if (use_menu)
 					{
@@ -620,7 +620,7 @@ put_str("MP 失率 効果", y, x + 33);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= num) || !cr_ptr->magic_num2[spellnum[i]])
+		if ((i < 0) || (i >= num) || !creature_ptr->magic_num2[spellnum[i]])
 		{
 			bell();
 			continue;
@@ -1884,19 +1884,19 @@ msg_print("No one have appeared.");
  * do_cmd_cast calls this function if the player's class
  * is 'Blue-Mage'.
  */
-bool do_cmd_cast_learned(creature_type *cr_ptr)
+bool do_cmd_cast_learned(creature_type *creature_ptr)
 {
 	int             n = 0;
 	int             chance;
 	int             minfail = 0;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	racial_power   spell;
 	bool            cast;
 	int             need_mana;
 
 
 	/* not if confused */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -1908,14 +1908,14 @@ msg_print("混乱していて唱えられない！");
 	}
 
 	/* get power */
-	if (!get_learned_power(cr_ptr, &n)) return FALSE;
+	if (!get_learned_power(creature_ptr, &n)) return FALSE;
 
 	spell = racial_powers[n];
 
-	need_mana = mod_need_mana(cr_ptr, spell.smana, 0, REALM_NONE);
+	need_mana = mod_need_mana(creature_ptr, spell.smana, 0, REALM_NONE);
 
 	/* Verify "dangerous" spells */
-	if (need_mana > cr_ptr->csp)
+	if (need_mana > creature_ptr->csp)
 	{
 		/* Warning */
 #ifdef JP
@@ -1944,30 +1944,30 @@ if (!get_check("それでも挑戦しますか? ")) return FALSE;
 	else chance += (spell.level - plev);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[STAT_INT]] - 1);
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
 
-	chance = mod_spell_chance_1(cr_ptr, chance);
+	chance = mod_spell_chance_1(creature_ptr, chance);
 
 	/* Not enough mana to cast */
-	if (need_mana > cr_ptr->csp)
+	if (need_mana > creature_ptr->csp)
 	{
-		chance += 5 * (need_mana - cr_ptr->csp);
+		chance += 5 * (need_mana - creature_ptr->csp);
 	}
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[STAT_INT]];
+	minfail = adj_mag_fail[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Minimum failure rate */
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (cr_ptr->stun > 50) chance += 25;
-	else if (cr_ptr->stun) chance += 15;
+	if (creature_ptr->stun > 50) chance += 25;
+	else if (creature_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
 
-	chance = mod_spell_chance_2(cr_ptr, chance);
+	chance = mod_spell_chance_2(creature_ptr, chance);
 
 	/* Failed spell */
 	if (randint0(100) < chance)
@@ -1983,31 +1983,31 @@ msg_print("魔法をうまく唱えられなかった。");
 
 		if (n >= MS_S_KIN)
 			/* Cast the spell */
-			cast = cast_learned_spell(cr_ptr, n, FALSE);
+			cast = cast_learned_spell(creature_ptr, n, FALSE);
 	}
 	else
 	{
 		sound(SOUND_ZAP);
 
 		/* Cast the spell */
-		cast = cast_learned_spell(cr_ptr, n, TRUE);
+		cast = cast_learned_spell(creature_ptr, n, TRUE);
 
 		if (!cast) return FALSE;
 	}
 
 	/* Sufficient mana */
-	if (need_mana <= cr_ptr->csp)
+	if (need_mana <= creature_ptr->csp)
 	{
 		/* Use some mana */
-		cr_ptr->csp -= need_mana;
+		creature_ptr->csp -= need_mana;
 	}
 	else
 	{
 		int oops = need_mana;
 
 		/* No mana left */
-		cr_ptr->csp = 0;
-		cr_ptr->csp_frac = 0;
+		creature_ptr->csp = 0;
+		creature_ptr->csp_frac = 0;
 
 		/* Message */
 #ifdef JP
@@ -2018,7 +2018,7 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if (randint0(100) < 50)
@@ -2034,7 +2034,7 @@ msg_print("体を悪くしてしまった！");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(cr_ptr, STAT_CON, 15 + randint1(10), perm);
+			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
 	}
 
@@ -2049,21 +2049,21 @@ msg_print("体を悪くしてしまった！");
 	return TRUE;
 }
 
-void learn_spell(creature_type *cr_ptr, int monspell)
+void learn_spell(creature_type *creature_ptr, int monspell)
 {
-	if (cr_ptr->action != ACTION_LEARN) return;
+	if (creature_ptr->action != ACTION_LEARN) return;
 	if (monspell < 0) return; /* Paranoia */
-	if (cr_ptr->magic_num2[monspell]) return;
-	if (cr_ptr->confused || IS_BLIND(cr_ptr) || IS_HALLUCINATION(cr_ptr) || cr_ptr->stun || cr_ptr->paralyzed) return;
-	if (randint1(cr_ptr->lev + 70) > racial_powers[monspell].level + 40)
+	if (creature_ptr->magic_num2[monspell]) return;
+	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->stun || creature_ptr->paralyzed) return;
+	if (randint1(creature_ptr->lev + 70) > racial_powers[monspell].level + 40)
 	{
-		cr_ptr->magic_num2[monspell] = 1;
+		creature_ptr->magic_num2[monspell] = 1;
 #ifdef JP
 		msg_format("%sを学習した！", racial_powers[monspell].name);
 #else
 		msg_format("You have learned %s!", racial_powers[monspell].name);
 #endif
-		gain_exp(cr_ptr, racial_powers[monspell].level * racial_powers[monspell].smana);
+		gain_exp(creature_ptr, racial_powers[monspell].level * racial_powers[monspell].smana);
 
 		/* Sound */
 		sound(SOUND_STUDY);

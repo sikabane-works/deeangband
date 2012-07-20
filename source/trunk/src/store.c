@@ -1193,7 +1193,7 @@ static int cur_store_feat;
  * to adjust (by 200) to extract a usable multiplier.  Note that the
  * "greed" value is always something (?).
  */
-static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, bool flip)
+static s32b price_item(creature_type *creature_ptr, object_type *o_ptr, int greed, bool flip)
 {
 	int 	factor;
 	int 	adjust;
@@ -1212,7 +1212,7 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
 	factor = 100;
 
 	/* Add in the charisma factor */
-	factor += adj_chr_gold[cr_ptr->stat_ind[STAT_CHA]];
+	factor += adj_chr_gold[creature_ptr->stat_ind[STAT_CHA]];
 
 
 	/* Shop is buying */
@@ -1613,7 +1613,7 @@ static bool is_blessed(object_type *o_ptr)
  *
  * Note that a shop-keeper must refuse to buy "worthless" items
  */
-static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_type *o_ptr)
+static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Hack -- The Home is simple */
 	if (is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
@@ -1982,7 +1982,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
  * Also note that it may not correctly "adapt" to "knowledge" bacoming
  * known, the player may have to pick stuff up and drop it again.
  */
-static int home_carry(creature_type *cr_ptr, store_type *st_ptr, object_type *o_ptr)
+static int home_carry(creature_type *creature_ptr, store_type *st_ptr, object_type *o_ptr)
 {
 	int 				slot;
 	s32b			   value;
@@ -2034,7 +2034,7 @@ static int home_carry(creature_type *cr_ptr, store_type *st_ptr, object_type *o_
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(cr_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
+		if (object_sort_comp(creature_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
@@ -2482,7 +2482,7 @@ static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num
 /*
  * Re-displays a single store entry
  */
-static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
+static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int pos)
 {
 	int 		i, cur_col;
 	object_type 	*o_ptr;
@@ -2578,7 +2578,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		{
 			/* Extract the "minimum" price */
 			//TODO
-			x = price_item(cr_ptr, o_ptr, 120, FALSE);
+			x = price_item(creature_ptr, o_ptr, 120, FALSE);
 
 			/* Actually draw the price (not fixed) */
 #ifdef JP
@@ -2595,7 +2595,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		{
 			/* Extract the "minimum" price */
 			//TODO
-			x = price_item(cr_ptr, o_ptr, 120, FALSE);
+			x = price_item(creature_ptr, o_ptr, 120, FALSE);
 
 			/* Hack -- Apply Sales Tax if needed */
 			if (!noneedtobargain(st_ptr, x)) x += x / 10;
@@ -2610,7 +2610,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		{
 			/* Extrect the "maximum" price */
 			//TODO
-			x = price_item(cr_ptr, o_ptr, 120, FALSE);
+			x = price_item(creature_ptr, o_ptr, 120, FALSE);
 
 			/* Actually draw the price (not fixed) */
 			(void)sprintf(out_val, "%9ld  ", (long)x);
@@ -2624,7 +2624,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
  * Displays a store's inventory 		-RAK-
  * All prices are listed as "per individual object".  -BEN-
  */
-static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
+static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 {
 	int i, k;
 
@@ -2635,7 +2635,7 @@ static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
 		if (store_top + k >= st_ptr->stock_num) break;
 
 		/* Display that line */
-		display_entry(st_ptr, cr_ptr, store_top + k);
+		display_entry(st_ptr, creature_ptr, store_top + k);
 	}
 
 	/* Erase the extra lines and the "more" prompt */
@@ -2686,7 +2686,7 @@ static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
 /*
  * Displays players gold					-RAK-
  */
-static void store_prt_gold(creature_type *cr_ptr)
+static void store_prt_gold(creature_type *creature_ptr)
 {
 	char out_val[64];
 
@@ -2697,7 +2697,7 @@ static void store_prt_gold(creature_type *cr_ptr)
 #endif
 
 
-	sprintf(out_val, "%9ld", (long)cr_ptr->au);
+	sprintf(out_val, "%9ld", (long)creature_ptr->au);
 	prt(out_val, 19 + xtra_stock, 68);
 }
 
@@ -2705,7 +2705,7 @@ static void store_prt_gold(creature_type *cr_ptr)
 /*
  * Displays store (after clearing screen)		-RAK-
  */
-static void display_store(creature_type *cr_ptr, store_type *st_ptr)
+static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 {
 	char buf[80];
 
@@ -2818,10 +2818,10 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	}
 
 	/* Display the current gold */
-	store_prt_gold(cr_ptr);
+	store_prt_gold(creature_ptr);
 
 	/* Draw in the inventory */
-	display_inventory(cr_ptr, st_ptr);
+	display_inventory(creature_ptr, st_ptr);
 }
 
 
@@ -3157,7 +3157,7 @@ static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_
  *
  * Return TRUE if purchase is NOT successful
  */
-static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *o_ptr, s32b *price)
+static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, object_type *o_ptr, s32b *price)
 {
 	s32b			   cur_ask, final_ask;
 	s32b			   last_offer, offer;
@@ -3183,8 +3183,8 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_ty
 
 	/* Extract the starting offer and the final offer */
 	//TODO
-	cur_ask = price_item(cr_ptr, o_ptr, 150, FALSE);
-	final_ask = price_item(cr_ptr, o_ptr, 150, FALSE);
+	cur_ask = price_item(creature_ptr, o_ptr, 150, FALSE);
+	final_ask = price_item(creature_ptr, o_ptr, 150, FALSE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(st_ptr, final_ask);
@@ -3373,7 +3373,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_ty
  *
  * Return TRUE if purchase is NOT successful
  */
-static bool sell_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *o_ptr, s32b *price)
+static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_type *o_ptr, s32b *price)
 {
 	s32b    purse, cur_ask, final_ask;
 	s32b    last_offer = 0, offer = 0;
@@ -3395,8 +3395,8 @@ static bool sell_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *
 
 
 	/* Obtain the starting offer and the final offer */
-	cur_ask = price_item(cr_ptr, o_ptr, 120, TRUE);
-	final_ask = price_item(cr_ptr, o_ptr, 100, TRUE);
+	cur_ask = price_item(creature_ptr, o_ptr, 120, TRUE);
+	final_ask = price_item(creature_ptr, o_ptr, 100, TRUE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(st_ptr, final_ask);
@@ -4036,7 +4036,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 /*
  * Sell an item to the store (or home)
  */
-static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
+static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 {
 	int choice;
 	int item, item_pos;
@@ -4104,12 +4104,12 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	}
 
 	// TODO: Restrict store will buy
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -4217,7 +4217,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 		msg_print(NULL);
 
 		/* Haggle for it */
-		choice = sell_haggle(st_ptr, cr_ptr, q_ptr, &price);
+		choice = sell_haggle(st_ptr, creature_ptr, q_ptr, &price);
 
 		/* Kicked out */
 		if (st_ptr->store_open >= turn) return;
@@ -4234,16 +4234,16 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 			decrease_insults(st_ptr);
 
 			/* Get some money */
-			cr_ptr->au += price;
+			creature_ptr->au += price;
 
 			/* Update the display */
-			store_prt_gold(cr_ptr);
+			store_prt_gold(creature_ptr);
 
 			/* Get the "apparent" value */
 			dummy = object_value(q_ptr) * q_ptr->number;
 
 			/* Identify it */
-			identify_item(cr_ptr, o_ptr);
+			identify_item(creature_ptr, o_ptr);
 
 			/* Get local object */
 			q_ptr = &forge;
@@ -4284,7 +4284,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			if (!((o_ptr->tval == TV_FIGURINE) && (value > 0)))
 			{
 			 /* Analyze the prices (and comment verbally) unless a figurine*/
-			purchase_analyze(cr_ptr, price, value, dummy);
+			purchase_analyze(creature_ptr, price, value, dummy);
 			}
 
 			/*
@@ -4297,14 +4297,14 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			q_ptr->timeout = 0;
 
 			/* Take the item from the player, describe the result */
-			inven_item_increase(cr_ptr, item, -amt);
-			inven_item_describe(cr_ptr, item);
+			inven_item_increase(creature_ptr, item, -amt);
+			inven_item_describe(creature_ptr, item);
 
 			/* If items remain, auto-inscribe before optimizing */
 			if (o_ptr->number > 0)
-				autopick_alter_item(cr_ptr, item, FALSE);
+				autopick_alter_item(creature_ptr, item, FALSE);
 
-			inven_item_optimize(cr_ptr, item);
+			inven_item_optimize(creature_ptr, item);
 
 			/* Handle stuff */
 			handle_stuff();
@@ -4316,7 +4316,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			if (item_pos >= 0)
 			{
 				store_top = (item_pos / store_bottom) * store_bottom;
-				display_inventory(cr_ptr, st_ptr);
+				display_inventory(creature_ptr, st_ptr);
 			}
 		}
 	}
@@ -4350,7 +4350,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 #endif
 
 		/* Identify it */
-		identify_item(cr_ptr, q_ptr);
+		identify_item(creature_ptr, q_ptr);
 		q_ptr->ident |= IDENT_MENTAL;
 
 		/* Distribute charges of wands/rods */
@@ -4365,22 +4365,22 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		choice = 0;
 
-		/* Take it from the players cr_ptr->inventory */
-		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		/* Take it from the players creature_ptr->inventory */
+		inven_item_increase(creature_ptr, item, -amt);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 
 		/* Handle stuff */
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
+		item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
 		{
 			store_top = (item_pos / store_bottom) * store_bottom;
-			display_inventory(cr_ptr, st_ptr);
+			display_inventory(creature_ptr, st_ptr);
 		}
 	}
 	/* Player is at home */
@@ -4398,29 +4398,29 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		choice = 0;
 
-		/* Take it from the players cr_ptr->inventory */
-		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		/* Take it from the players creature_ptr->inventory */
+		inven_item_increase(creature_ptr, item, -amt);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 
 		/* Handle stuff */
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
+		item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
 		{
 			store_top = (item_pos / store_bottom) * store_bottom;
-			display_inventory(cr_ptr, st_ptr);
+			display_inventory(creature_ptr, st_ptr);
 		}
 	}
 
 	if ((choice == 0) && (IS_EQUIPPED(o_ptr)))
 	{
-		calc_android_exp(cr_ptr);
-		kamaenaoshi(cr_ptr, item);
+		calc_android_exp(creature_ptr);
+		kamaenaoshi(creature_ptr, item);
 	}
 }
 
@@ -4528,7 +4528,7 @@ msg_print("“Á‚É•Ï‚í‚Á‚½‚Æ‚±‚ë‚Í‚È‚¢‚æ‚¤‚¾B");
 /*
  * Remove an item from museum (Originally from TOband)
  */
-static void museum_remove_object(store_type *st_ptr, creature_type *cr_ptr)
+static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr)
 {
 	int         i;
 	int         item;
@@ -4603,7 +4603,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *cr_ptr)
 	else if (store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
 	/* Redraw everything */
-	display_inventory(cr_ptr, st_ptr);
+	display_inventory(creature_ptr, st_ptr);
 
 	return;
 }
@@ -4721,18 +4721,18 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 			int mode = 0;
 
 
-			//creature_type *cr_ptr =
+			//creature_type *creature_ptr =
 			while (1)
 			{
 				update_playtime();
 
 				/* Display the player */
-				//display_creature_status(mode, cr_ptr);
+				//display_creature_status(mode, creature_ptr);
 
 				if (mode == DISPLAY_CR_STATUS_MAX)
 				{
 					mode = 0;
-					//display_creature_status(mode, cr_ptr);
+					//display_creature_status(mode, creature_ptr);
 				}
 
 				/* Prompt */
@@ -5044,7 +5044,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
  * into other commands, normally, we convert "p" (pray) and "m"
  * (cast magic) into "g" (get), and "s" (search) into "d" (drop).
  */
-void store_process(creature_type *cr_ptr, store_type *st_ptr)
+void store_process(creature_type *creature_ptr, store_type *st_ptr)
 {
 	int         maintain_num;
 	int         i;
@@ -5091,7 +5091,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	store_top = 0;
 
 	/* Display the store */
-	display_store(cr_ptr, st_ptr);
+	display_store(creature_ptr, st_ptr);
 
 	/* Do not leave */
 	leave_store = FALSE;
@@ -5105,7 +5105,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 		/* Clear */
 		clear_from(20 + xtra_stock);
-		display_store(cr_ptr, st_ptr);
+		display_store(creature_ptr, st_ptr);
 
 
 
@@ -5208,29 +5208,29 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 
 		/* Get a command */
-		request_command(cr_ptr, TRUE);
+		request_command(creature_ptr, TRUE);
 
 		/* Process the command */
-		store_process_command(st_ptr, cr_ptr);
+		store_process_command(st_ptr, creature_ptr);
 
 		/*
 		 * Hack -- To redraw missiles damage and prices in store
 		 * If player's charisma changes, or if player changes a bow, CRU_BONUS is set
 		 */
-		need_redraw_store_inv = (cr_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
+		need_redraw_store_inv = (creature_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
 
 		/* Notice stuff */
-		notice_stuff(cr_ptr);
+		notice_stuff(creature_ptr);
 
 		/* Handle stuff */
 		handle_stuff();
 
 		/* XXX XXX XXX Pack Overflow */
-		if (cr_ptr->inventory[INVEN_TOTAL].k_idx)
+		if (creature_ptr->inventory[INVEN_TOTAL].k_idx)
 		{
 			int item = INVEN_TOTAL;
 
-			object_type *o_ptr = &cr_ptr->inventory[item];
+			object_type *o_ptr = &creature_ptr->inventory[item];
 
 			/* Hack -- Flee from the store */
 			if (!is_home(st_ptr))
@@ -5304,29 +5304,29 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 #endif
 
 
-				/* Remove it from the players cr_ptr->inventory */
-				inven_item_increase(cr_ptr, item, -255);
-				inven_item_describe(cr_ptr, item);
-				inven_item_optimize(cr_ptr, item);
+				/* Remove it from the players creature_ptr->inventory */
+				inven_item_increase(creature_ptr, item, -255);
+				inven_item_describe(creature_ptr, item);
+				inven_item_optimize(creature_ptr, item);
 
 				/* Handle stuff */
 				handle_stuff();
 
 				/* Let the home carry it */
-				item_pos = home_carry(cr_ptr, st_ptr, q_ptr);
+				item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
 
 				/* Redraw the home */
 				if (item_pos >= 0)
 				{
 					store_top = (item_pos / store_bottom) * store_bottom;
-					display_inventory(cr_ptr, st_ptr);
+					display_inventory(creature_ptr, st_ptr);
 				}
 			}
 		}
 
 		/* Hack -- Redisplay store prices if charisma changes */
 		/* Hack -- Redraw missiles damage if player changes bow */
-		if (need_redraw_store_inv) display_inventory(cr_ptr, st_ptr);
+		if (need_redraw_store_inv) display_inventory(creature_ptr, st_ptr);
 
 		/* Hack -- get kicked out of the store */
 		if (st_ptr->store_open >= turn) leave_store = TRUE;

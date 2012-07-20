@@ -2864,7 +2864,7 @@ static void spoil_random_artifact_aux(object_type *o_ptr, int i)
 /*
  * Create a list file for random artifacts
  */
-void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
+void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 {
 	int i,j;
 
@@ -2901,15 +2901,15 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			/* Skip no equip */
-			q_ptr = &cr_ptr->inventory[i];
+			q_ptr = &creature_ptr->inventory[i];
 			if (!IS_EQUIPPED(q_ptr)) continue;
 			spoil_random_artifact_aux(q_ptr, j);
 		}
 
-		/* random artifacts in cr_ptr */
+		/* random artifacts in creature_ptr */
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			q_ptr = &cr_ptr->inventory[i];
+			q_ptr = &creature_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}
 

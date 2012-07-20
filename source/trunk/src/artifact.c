@@ -177,7 +177,7 @@ void one_ability(object_type *o_ptr)
 }
 
 
-static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
+static void curse_artifact(creature_type *creature_ptr, object_type * o_ptr)
 {
 	if (o_ptr->pval > 0) o_ptr->pval = 0 - (o_ptr->pval + (s16b)randint1(4));
 	if (o_ptr->to_ac > 0) o_ptr->to_ac = 0 - (o_ptr->to_ac + (s16b)randint1(4));
@@ -194,7 +194,7 @@ static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 	if (one_in_(2)) add_flag(o_ptr->art_flags, TR_TELEPORT);
 	else if (one_in_(3)) add_flag(o_ptr->art_flags, TR_NO_TELE);
 
-	if ((cr_ptr->class_idx != CLASS_WARRIOR) && (cr_ptr->class_idx != CLASS_ARCHER) && (cr_ptr->class_idx != CLASS_CAVALRY) && (cr_ptr->class_idx != CLASS_BERSERKER) && (cr_ptr->class_idx != CLASS_SMITH) && one_in_(3))
+	if ((creature_ptr->class_idx != CLASS_WARRIOR) && (creature_ptr->class_idx != CLASS_ARCHER) && (creature_ptr->class_idx != CLASS_CAVALRY) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH) && one_in_(3))
 		add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 }
 
@@ -739,7 +739,7 @@ static void random_resistance(object_type * o_ptr, int artifact_bias)
 
 
 
-static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact_bias)
+static void random_misc(creature_type *creature_ptr, object_type * o_ptr, int artifact_bias)
 {
 	switch (artifact_bias)
 	{
@@ -887,7 +887,7 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact
 		case 25:
 		case 26:
 			if (object_is_armour(o_ptr))
-				random_misc(cr_ptr, o_ptr, artifact_bias);
+				random_misc(creature_ptr, o_ptr, artifact_bias);
 			else
 			{
 				o_ptr->to_ac = 4 + (s16b)randint1(11);
@@ -3108,7 +3108,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, ar
 }
 
 
-bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
+bool create_named_art(creature_type *creature_ptr, object_type *q_ptr, int a_idx)
 {
 	int i;
 
@@ -3154,7 +3154,7 @@ bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) q_ptr->curse_flags |= get_curse(1, q_ptr);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
 
-	random_artifact_resistance(cr_ptr, q_ptr, a_ptr);
+	random_artifact_resistance(creature_ptr, q_ptr, a_ptr);
 	return TRUE;
 }
 

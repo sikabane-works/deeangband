@@ -1017,7 +1017,7 @@ void init_wilderness_terrains(void)
 
 
 
-bool change_wild_mode(creature_type *cr_ptr)
+bool change_wild_mode(creature_type *creature_ptr)
 {
 	int i;
 	bool have_pet = FALSE;
@@ -1029,11 +1029,11 @@ bool change_wild_mode(creature_type *cr_ptr)
 	if (wild_mode)
 	{
 		/* Save the location in the global map */
-		cr_ptr->wx = cr_ptr->fx;
-		cr_ptr->wy = cr_ptr->fy;
+		creature_ptr->wx = creature_ptr->fx;
+		creature_ptr->wy = creature_ptr->fy;
 
 		/* Give first move to the player */
-		cr_ptr->energy_need = 0;
+		creature_ptr->energy_need = 0;
 
 		/* Go back to the ordinary map */
 		wild_mode = FALSE;
@@ -1050,7 +1050,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
-		if (is_pet(player_ptr, m_ptr) && i != cr_ptr->riding) have_pet = TRUE;
+		if (is_pet(player_ptr, m_ptr) && i != creature_ptr->riding) have_pet = TRUE;
 		if (m_ptr->paralyzed) continue;
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 		if (!is_hostile(m_ptr)) continue;
@@ -1079,10 +1079,10 @@ bool change_wild_mode(creature_type *cr_ptr)
 	}
 
 	/* Cancel hex spelling */
-	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
+	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Cancel any special action */
-	set_action(cr_ptr, ACTION_NONE);
+	set_action(creature_ptr, ACTION_NONE);
 
 	/* Go into the global map */
 	wild_mode = TRUE;
@@ -1092,22 +1092,22 @@ bool change_wild_mode(creature_type *cr_ptr)
 	subject_change_floor = TRUE;
 
 	//TODO
-	wilderness[cr_ptr->wy][cr_ptr->wx].known = TRUE;
-	wilderness[cr_ptr->wy - 1][cr_ptr->wx - 1].known = TRUE;
-	wilderness[cr_ptr->wy + 1][cr_ptr->wx + 1].known = TRUE;
-	wilderness[cr_ptr->wy + 1][cr_ptr->wx - 1].known = TRUE;
-	wilderness[cr_ptr->wy - 1][cr_ptr->wx + 1].known = TRUE;
-	wilderness[cr_ptr->wy][cr_ptr->wx - 1].known = TRUE;
-	wilderness[cr_ptr->wy - 1][cr_ptr->wx].known = TRUE;
-	wilderness[cr_ptr->wy][cr_ptr->wx + 1].known = TRUE;
-	wilderness[cr_ptr->wy + 1][cr_ptr->wx].known = TRUE;
+	wilderness[creature_ptr->wy][creature_ptr->wx].known = TRUE;
+	wilderness[creature_ptr->wy - 1][creature_ptr->wx - 1].known = TRUE;
+	wilderness[creature_ptr->wy + 1][creature_ptr->wx + 1].known = TRUE;
+	wilderness[creature_ptr->wy + 1][creature_ptr->wx - 1].known = TRUE;
+	wilderness[creature_ptr->wy - 1][creature_ptr->wx + 1].known = TRUE;
+	wilderness[creature_ptr->wy][creature_ptr->wx - 1].known = TRUE;
+	wilderness[creature_ptr->wy - 1][creature_ptr->wx].known = TRUE;
+	wilderness[creature_ptr->wy][creature_ptr->wx + 1].known = TRUE;
+	wilderness[creature_ptr->wy + 1][creature_ptr->wx].known = TRUE;
 
 	/* HACK */
 	energy_use = 1000;
 
 	/* Remember the position */
-	cr_ptr->oldpx = cr_ptr->fx;
-	cr_ptr->oldpy = cr_ptr->fy;
+	creature_ptr->oldpx = creature_ptr->fx;
+	creature_ptr->oldpy = creature_ptr->fy;
 
 	/* Succeed */
 	return TRUE;

@@ -624,30 +624,30 @@ extern bool use_menu;
 extern void autopick_load_pref(bool disp_mes);
 extern errr process_autopick_file_command(char *buf);
 extern cptr autopick_line_from_entry(autopick_type *entry);
-extern int is_autopick(creature_type *cr_ptr, object_type *o_ptr);
-extern void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy);
+extern int is_autopick(creature_type *creature_ptr, object_type *o_ptr);
+extern void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy);
 extern void autopick_delayed_alter(creature_type *creature_ptr);
-extern void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr);
-extern bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr);
-extern void do_cmd_edit_autopick(creature_type *cr_ptr);
+extern void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr);
+extern bool autopick_autoregister(creature_type *creature_ptr, object_type *o_ptr);
+extern void do_cmd_edit_autopick(creature_type *creature_ptr);
 
 /* birth.c */
 extern void add_history_from_pref_line(cptr t);
-extern void creature_wipe(creature_type *cr_ptr);
-extern bool ask_quick_start(creature_type *cr_ptr);
+extern void creature_wipe(creature_type *creature_ptr);
+extern bool ask_quick_start(creature_type *creature_ptr);
 extern creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_type *save_ptr, u32b flags);
-extern void get_max_stats(creature_type *cr_ptr);
+extern void get_max_stats(creature_type *creature_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
-extern void dump_yourself(creature_type *cr_ptr, FILE *fff);
-extern void add_outfit(creature_type *cr_ptr, object_type *o_ptr, u32b flags);
+extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
+extern void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags);
 extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);
 extern void realm_detail(int code);
 extern void starting_point_detail(int code);
 extern void init_dungeon_quests(void);
-extern void save_prev_data(creature_type *cr_ptr, species_type *species_ptr);
+extern void save_prev_data(creature_type *creature_ptr, species_type *species_ptr);
 extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
 extern void world_wipe(void);
 
@@ -661,17 +661,17 @@ extern bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void update_local_illumination(floor_type *floor_ptr, int y, int x);
 extern bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x);
 extern bool cave_valid_bold(floor_type *floor_ptr, int y, int x);
-extern bool no_lite(creature_type *cr_ptr);
+extern bool no_lite(creature_type *creature_ptr);
 extern void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX]);
 extern void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp);
 extern void move_cursor_relative(int row, int col);
-extern void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x);
+extern void print_rel(creature_type *creature_ptr, char c, byte a, int y, int x);
 extern void note_spot(floor_type *floor_ptr, int y, int x);
-extern void display_dungeon(creature_type *cr_ptr);
+extern void display_dungeon(creature_type *creature_ptr);
 extern void lite_spot(floor_type *floor_ptr, int y, int x);
-extern void prt_map(creature_type *cr_ptr);
+extern void prt_map(creature_type *creature_ptr);
 extern void prt_path(creature_type *creature_ptr, int y, int x);
-extern void display_map(creature_type *cr_ptr, int *cy, int *cx);
+extern void display_map(creature_type *creature_ptr, int *cy, int *cx);
 extern void do_cmd_view_map(creature_type *creature_ptr);
 extern void forget_lite(floor_type *floor_ptr);
 extern void update_lite(creature_type *creature_ptr);
@@ -682,10 +682,10 @@ extern void clear_creature_lite(floor_type *floor_ptr);
 extern void delayed_visual_update(floor_type *floor_ptr);
 extern void forget_flow(floor_type *floor_ptr);
 extern void update_flow(creature_type *creature_ptr);
-extern void update_smell(creature_type *cr_ptr);
+extern void update_smell(creature_type *creature_ptr);
 extern void map_area(creature_type *creature_ptr, int range);
-extern void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja);
-extern void wiz_dark(floor_type *floor_ptr, creature_type *cr_ptr);
+extern void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja);
+extern void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr);
 extern void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat);
 extern int conv_dungeon_feat(floor_type *floor_ptr, int newfeat);
 extern int feat_state(floor_type *floor_ptr, int feat, int action);
@@ -706,62 +706,62 @@ extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
 // cmd1.c
 extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ac, int vis);
 extern bool test_hit_norm(creature_type *attacker_ptr, int chance, int ac, int vis);
-extern s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam);
-extern s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, s16b meichuu, int mode);
+extern s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam);
+extern s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode);
 extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown);
-extern void search(creature_type *cr_ptr);
-extern void py_pickup_aux(creature_type *cr_ptr, int object_idx);
+extern void search(creature_type *creature_ptr);
+extern void py_pickup_aux(creature_type *creature_ptr, int object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
-extern bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x);
-extern bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode);
+extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
+extern bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode);
 extern bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_mode);
-extern bool trap_can_be_ignored(creature_type *cr_ptr, int feat);
+extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);
-extern void run_step(creature_type *cr_ptr, int dir);
+extern void run_step(creature_type *creature_ptr, int dir);
 #ifdef TRAVEL
-extern void travel_step(creature_type *cr_ptr);
+extern void travel_step(creature_type *creature_ptr);
 #endif
 
 // cmd2.c
 extern void do_cmd_go_up(creature_type *creature_ptr);
 extern void do_cmd_go_down(creature_type *creature_ptr);
-extern void do_cmd_search(creature_type *cr_ptr);
+extern void do_cmd_search(creature_type *creature_ptr);
 extern void do_cmd_open(creature_type *creature_ptr);
-extern void do_cmd_close(creature_type *cr_ptr);
-extern void do_cmd_tunnel(creature_type *cr_ptr);
+extern void do_cmd_close(creature_type *creature_ptr);
+extern void do_cmd_tunnel(creature_type *creature_ptr);
 extern void do_cmd_disarm(creature_type *creature_ptr);
 extern void do_cmd_bash(creature_type *creature_ptr);
 extern void do_cmd_alter(creature_type *creature_ptr);
 extern void do_cmd_spike(creature_type *creature_ptr);
-extern void do_cmd_walk(creature_type *cr_ptr, bool pickup);
-extern void do_cmd_stay(creature_type *cr_ptr, bool pickup);
-extern void do_cmd_run(creature_type *cr_ptr);
-extern void do_cmd_rest(creature_type *cr_ptr);
-extern void do_cmd_fire(creature_type *cr_ptr);
+extern void do_cmd_walk(creature_type *creature_ptr, bool pickup);
+extern void do_cmd_stay(creature_type *creature_ptr, bool pickup);
+extern void do_cmd_run(creature_type *creature_ptr);
+extern void do_cmd_rest(creature_type *creature_ptr);
+extern void do_cmd_fire(creature_type *creature_ptr);
 extern void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr);
-extern void do_cmd_throw(creature_type *cr_ptr);
-extern bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuriken);
+extern void do_cmd_throw(creature_type *creature_ptr);
+extern bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken);
 #ifdef TRAVEL
 extern void do_cmd_travel(creature_type *creature_ptr);
 #endif
 
 /* cmd3.c */
-extern void do_cmd_inven(creature_type *cr_ptr);
-extern void do_cmd_equip(creature_type *cr_ptr);
-extern void do_cmd_wield(creature_type *cr_ptr);
-extern void do_cmd_takeoff(creature_type *cr_ptr);
-extern void do_cmd_drop(creature_type *cr_ptr);
-extern void do_cmd_destroy(creature_type *cr_ptr);
-extern void do_cmd_observe(creature_type *cr_ptr);
-extern void do_cmd_uninscribe(creature_type *cr_ptr);
-extern void do_cmd_inscribe(creature_type *cr_ptr);
-extern void do_cmd_inscribe_caves(creature_type *cr_ptr);
-extern void do_cmd_refill(creature_type *cr_ptr);
-extern void do_cmd_target(creature_type *cr_ptr);
-extern void do_cmd_look(creature_type *cr_ptr);
-extern void do_cmd_locate(creature_type *cr_ptr);
-extern void do_cmd_query_symbol(creature_type *cr_ptr);
-extern void kamaenaoshi(creature_type *cr_ptr, int item);
+extern void do_cmd_inven(creature_type *creature_ptr);
+extern void do_cmd_equip(creature_type *creature_ptr);
+extern void do_cmd_wield(creature_type *creature_ptr);
+extern void do_cmd_takeoff(creature_type *creature_ptr);
+extern void do_cmd_drop(creature_type *creature_ptr);
+extern void do_cmd_destroy(creature_type *creature_ptr);
+extern void do_cmd_observe(creature_type *creature_ptr);
+extern void do_cmd_uninscribe(creature_type *creature_ptr);
+extern void do_cmd_inscribe(creature_type *creature_ptr);
+extern void do_cmd_inscribe_caves(creature_type *creature_ptr);
+extern void do_cmd_refill(creature_type *creature_ptr);
+extern void do_cmd_target(creature_type *creature_ptr);
+extern void do_cmd_look(creature_type *creature_ptr);
+extern void do_cmd_locate(creature_type *creature_ptr);
+extern void do_cmd_query_symbol(creature_type *creature_ptr);
+extern void kamaenaoshi(creature_type *creature_ptr, int item);
 extern bool ang_sort_comp_hook(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 
@@ -772,7 +772,7 @@ extern cptr get_ordinal_number_suffix(int num);
 extern errr do_cmd_write_nikki(int type, int num, cptr note);
 extern void do_cmd_nikki(creature_type *player_ptr);
 extern void do_cmd_redraw(void);
-extern void do_cmd_change_name(creature_type *cr_ptr);
+extern void do_cmd_change_name(creature_type *creature_ptr);
 extern void do_cmd_message_one(void);
 extern void do_cmd_messages(int num_now);
 extern void do_cmd_options_aux(int page, cptr info);
@@ -792,70 +792,70 @@ extern void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[]);
 extern void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[]);
 extern bool ang_sort_comp_quest_num(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_quest_num(vptr u, vptr v, int a, int b);
-extern void do_cmd_knowledge(creature_type *cr_ptr);
+extern void do_cmd_knowledge(creature_type *creature_ptr);
 extern void plural_aux(char * Name);
 extern void do_cmd_checkquest(void);
-extern void do_cmd_time(creature_type *cr_ptr);
+extern void do_cmd_time(creature_type *creature_ptr);
 
 // cmd5.c
 extern cptr spell_category_name(int tval);
-extern void do_cmd_browse(creature_type *cr_ptr);
-extern void do_cmd_study(creature_type *cr_ptr);
-extern void do_cmd_cast(creature_type *cr_ptr);
+extern void do_cmd_browse(creature_type *creature_ptr);
+extern void do_cmd_study(creature_type *creature_ptr);
+extern void do_cmd_cast(creature_type *creature_ptr);
 extern bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force);
 extern bool do_riding(creature_type *rider_ptr, bool force);
 extern void check_pets_num_and_align(creature_type *m_ptr, bool inc);
 extern int calculate_upkeep_servant(creature_type *master_ptr);
-extern void do_cmd_pet_dismiss(creature_type *cr_ptr);
+extern void do_cmd_pet_dismiss(creature_type *creature_ptr);
 extern void do_cmd_pet(creature_type *master_ptr);
 
 /* cmd6.c */
-extern void do_cmd_eat_food(creature_type *cr_ptr);
-extern void do_cmd_quaff_potion(creature_type *cr_ptr);
-extern void do_cmd_read_scroll(creature_type *cr_ptr);
-extern void do_cmd_aim_wand(creature_type *cr_ptr);
-extern void do_cmd_use_staff(creature_type *cr_ptr);
-extern void do_cmd_zap_rod(creature_type *cr_ptr);
-extern void do_cmd_activate(creature_type *cr_ptr);
-extern void do_cmd_rerate(creature_type *cr_ptr, bool display);
-extern void ring_of_power(creature_type *cr_ptr, int dir);
-extern void do_cmd_use(creature_type *cr_ptr);
-extern void do_cmd_magic_eater(creature_type *cr_ptr, bool only_browse);
+extern void do_cmd_eat_food(creature_type *creature_ptr);
+extern void do_cmd_quaff_potion(creature_type *creature_ptr);
+extern void do_cmd_read_scroll(creature_type *creature_ptr);
+extern void do_cmd_aim_wand(creature_type *creature_ptr);
+extern void do_cmd_use_staff(creature_type *creature_ptr);
+extern void do_cmd_zap_rod(creature_type *creature_ptr);
+extern void do_cmd_activate(creature_type *creature_ptr);
+extern void do_cmd_rerate(creature_type *creature_ptr, bool display);
+extern void ring_of_power(creature_type *creature_ptr, int dir);
+extern void do_cmd_use(creature_type *creature_ptr);
+extern void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse);
 
 /* creature.c */
 extern int estimate_level(species_type *species_ptr);
-extern bool is_player(creature_type *cr_ptr);
+extern bool is_player(creature_type *creature_ptr);
 extern bool is_in_this_floor(creature_type *creature_ptr);
-extern void set_sex(creature_type *cr_ptr);
+extern void set_sex(creature_type *creature_ptr);
 extern void set_underlings(creature_type *creature_ptr, species_type *species_ptr);
-extern void set_height_weight(creature_type *cr_ptr);
+extern void set_height_weight(creature_type *creature_ptr);
 extern int calc_expfact_sp(species_type *species_ptr);
-extern void set_expfact(creature_type *cr_ptr);
-extern void set_bodysize(creature_type *cr_ptr);
-extern void set_base_hp(creature_type *cr_ptr);
-extern void set_hitdice(creature_type *cr_ptr);
-extern void set_creature_hp_percent(creature_type *cr_ptr, int percentage);
-extern void set_creature_sp_percent(creature_type *cr_ptr, int percentage);
+extern void set_expfact(creature_type *creature_ptr);
+extern void set_bodysize(creature_type *creature_ptr);
+extern void set_base_hp(creature_type *creature_ptr);
+extern void set_hitdice(creature_type *creature_ptr);
+extern void set_creature_hp_percent(creature_type *creature_ptr, int percentage);
+extern void set_creature_sp_percent(creature_type *creature_ptr, int percentage);
 extern s16b calc_bodysize(s32b ht, s32b wt);
-extern s16b calc_punishment_slay(creature_type *cr_ptr, int alignment);
+extern s16b calc_punishment_slay(creature_type *creature_ptr, int alignment);
 extern s16b calc_race_standard_size(race_type *ir_ptr);
 extern void estimate_enemy_hp(species_type *mr_ptr, int *result);
-extern void set_resistance(creature_type *cr_ptr);
-extern void initialize_skill(creature_type *cr_ptr);
+extern void set_resistance(creature_type *creature_ptr);
+extern void initialize_skill(creature_type *creature_ptr);
 
-extern bool is_force_depth_creature(creature_type *cr_ptr);
+extern bool is_force_depth_creature(creature_type *creature_ptr);
 extern bool is_force_depth_species(species_type *species_ptr);
 
-extern bool have_shoot_weapon(creature_type *cr_ptr);
+extern bool have_shoot_weapon(creature_type *creature_ptr);
 
-extern bool is_orc_creature(creature_type *cr_ptr);
-extern bool is_troll_creature(creature_type *cr_ptr);
-extern bool is_dragon_creature(creature_type *cr_ptr);
-extern bool is_demon_creature(creature_type *cr_ptr);
-extern bool is_giant_creature(creature_type *cr_ptr);
-extern bool is_undead_creature(creature_type *cr_ptr);
-extern bool is_human_creature(creature_type *cr_ptr);
-extern bool is_animal_creature(creature_type *cr_ptr);
+extern bool is_orc_creature(creature_type *creature_ptr);
+extern bool is_troll_creature(creature_type *creature_ptr);
+extern bool is_dragon_creature(creature_type *creature_ptr);
+extern bool is_demon_creature(creature_type *creature_ptr);
+extern bool is_giant_creature(creature_type *creature_ptr);
+extern bool is_undead_creature(creature_type *creature_ptr);
+extern bool is_human_creature(creature_type *creature_ptr);
+extern bool is_animal_creature(creature_type *creature_ptr);
 extern bool is_orc_species(species_type *species_ptr);
 extern bool is_troll_species(species_type *species_ptr);
 extern bool is_dragon_species(species_type *species_ptr);
@@ -936,20 +936,20 @@ extern bool is_hyper_str_species(species_type *species_ptr);
 extern bool is_puny_species(species_type *species_ptr);
 extern bool is_hyper_int_species(species_type *species_ptr);
 
-extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
-extern bool is_enemy_of_evil_species(species_type *cr_ptr);
-extern bool is_enemy_of_good_creature(creature_type *cr_ptr);
-extern bool is_enemy_of_good_species(species_type *cr_ptr);
-extern bool is_enemy_of_order_creature(creature_type *cr_ptr);
-extern bool is_enemy_of_order_species(species_type *cr_ptr);
-extern bool is_enemy_of_chaos_creature(creature_type *cr_ptr);
-extern bool is_enemy_of_chaos_species(species_type *cr_ptr);
-extern bool is_enemy_of_balance_creature(creature_type *cr_ptr);
-extern bool is_enemy_of_balance_species(species_type *cr_ptr);
+extern bool is_enemy_of_evil_creature(creature_type *creature_ptr);
+extern bool is_enemy_of_evil_species(species_type *creature_ptr);
+extern bool is_enemy_of_good_creature(creature_type *creature_ptr);
+extern bool is_enemy_of_good_species(species_type *creature_ptr);
+extern bool is_enemy_of_order_creature(creature_type *creature_ptr);
+extern bool is_enemy_of_order_species(species_type *creature_ptr);
+extern bool is_enemy_of_chaos_creature(creature_type *creature_ptr);
+extern bool is_enemy_of_chaos_species(species_type *creature_ptr);
+extern bool is_enemy_of_balance_creature(creature_type *creature_ptr);
+extern bool is_enemy_of_balance_species(species_type *creature_ptr);
 
 extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
-extern bool is_sub_unique_creature(creature_type *cr_ptr);
+extern bool is_sub_unique_creature(creature_type *creature_ptr);
 extern bool is_sub_unique_species(species_type *species_ptr);
 extern bool is_quest_creature(creature_type *creature_ptr);
 extern bool is_quest_species(species_type *species_ptr);
@@ -1015,8 +1015,8 @@ extern bool has_trait_from_chara(creature_type *creature_ptr, int type);
 extern bool has_trait(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 
-extern int calc_base_level(creature_type *cr_ptr);
-extern int calc_base_divine_rank(creature_type *cr_ptr);
+extern int calc_base_level(creature_type *creature_ptr);
+extern int calc_base_divine_rank(creature_type *creature_ptr);
 extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
 extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
@@ -1035,9 +1035,9 @@ extern bool has_magic_power(creature_type *creature_ptr);
 
 extern bool has_status(creature_type *creature_ptr, int stat);
 
-extern int get_equip_weapon_num(creature_type *cr_ptr);
+extern int get_equip_weapon_num(creature_type *creature_ptr);
 extern u32b calc_equipping_weight_limit(creature_type *creature_ptr);
-extern u32b calc_carrying_weight_limit(creature_type *cr_ptr);
+extern u32b calc_carrying_weight_limit(creature_type *creature_ptr);
 
 extern creature_type *find_unique_instance(int n);
 
@@ -1053,29 +1053,29 @@ extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow
 extern int calc_action_power(creature_type *creature_ptr);
 
 // do-spell.c
-extern void stop_singing(creature_type *cr_ptr);
-extern cptr do_spell(creature_type *cr_ptr, int realm, int spell, int mode);
-extern void wild_magic(creature_type *cr_ptr, int spell);
+extern void stop_singing(creature_type *creature_ptr);
+extern cptr do_spell(creature_type *creature_ptr, int realm, int spell, int mode);
+extern void wild_magic(creature_type *creature_ptr, int spell);
 
 // dungeon.c
-extern void leave_quest_check(creature_type *cr_ptr);
+extern void leave_quest_check(creature_type *creature_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
-extern void determine_today_mon(creature_type *cr_ptr, bool conv_old);
+extern void determine_today_mon(creature_type *creature_ptr, bool conv_old);
 extern void play_game(bool new_game);
-extern bool psychometry(creature_type *cr_ptr);
+extern bool psychometry(creature_type *creature_ptr);
 extern void leave_level(int level);
 extern void enter_level(int level);
-extern s32b turn_real(creature_type *cr_ptr, s32b hoge);
-extern void prevent_turn_overflow(creature_type *cr_ptr);
+extern s32b turn_real(creature_type *creature_ptr, s32b hoge);
+extern void prevent_turn_overflow(creature_type *creature_ptr);
 
 
 /* files.c */
 extern void safe_setuid_drop(void);
 extern void safe_setuid_grab(void);
 extern s16b tokenize(char *buf, s16b num, char **tokens, int mode);
-extern void display_creature_status(int mode, creature_type *cr_ptr);
-extern errr make_character_dump(creature_type *cr_ptr, FILE *fff);
+extern void display_creature_status(int mode, creature_type *creature_ptr);
+extern errr make_character_dump(creature_type *creature_ptr, FILE *fff);
 extern errr file_character(cptr name);
 extern errr process_pref_file_command(char *buf);
 extern cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr);
@@ -1089,8 +1089,8 @@ extern errr check_load(void);
 extern bool show_file(bool show_version, cptr name, cptr what, int line, int mode);
 extern void do_cmd_help(void);
 extern void set_creature_name(bool sf, creature_type *creature_ptr);
-extern void get_name(creature_type *cr_ptr);
-extern void do_cmd_suicide(creature_type *cr_ptr);
+extern void get_name(creature_type *creature_ptr);
+extern void do_cmd_suicide(creature_type *creature_ptr);
 extern void do_cmd_save_game(int is_autosave);
 extern void do_cmd_save_and_exit(creature_type *creature_ptr);
 extern long total_points(creature_type *player_ptr);
@@ -1121,7 +1121,7 @@ extern void init_saved_floors(bool force);
 extern s16b floor_pop(void);
 extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
 extern void move_floor(creature_type *creature_ptr);
-extern void change_floor(floor_type *floor_ptr, creature_type *cr_ptr);
+extern void change_floor(floor_type *floor_ptr, creature_type *creature_ptr);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
 extern void reset_cave_creature_reference(void);
 extern int get_floor_id(floor_type *floor_ptr);
@@ -1156,15 +1156,15 @@ extern bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode);
 /* melee2.c */
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
-extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
+extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
 extern void creature_process_init(void);
-extern void process_creatures_mtimed(creature_type *cr_ptr, int mtimed_idx);
+extern void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx);
 extern u32b get_curse(int power, object_type *o_ptr);
-extern void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance);
+extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 extern bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player);
 extern void creature_gain_exp(int m_idx, int s_idx);
-extern void mproc_add(creature_type *cr_ptr, int mproc_type);
-extern void mproc_remove(creature_type *cr_ptr, int mproc_type);
+extern void mproc_add(creature_type *creature_ptr, int mproc_type);
+extern void mproc_remove(creature_type *creature_ptr, int mproc_type);
 
 
 /* creature1.c */
@@ -1182,9 +1182,9 @@ extern void set_pet(creature_type *master_ptr, creature_type *m_ptr);
 extern void set_hostile(creature_type *master_ptr, creature_type *m_ptr);
 extern void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr);
 extern bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode);
-extern bool creature_can_cross_terrain(s16b feat, creature_type *cr_ptr, u16b mode);
+extern bool creature_can_cross_terrain(s16b feat, creature_type *creature_ptr, u16b mode);
 extern bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr, u16b mode);
-extern bool creature_can_enter(int y, int x, creature_type *cr_ptr, u16b mode);
+extern bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode);
 extern bool are_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr);
 extern bool species_living(species_type *r_ptr);
@@ -1214,7 +1214,7 @@ extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
 extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern int lore_do_probe(int species_idx);
-extern void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold);
+extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro);
 extern void update_mon(int m_idx, bool full);
 extern void update_creatures(bool full);
@@ -1225,7 +1225,7 @@ extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int 
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
 extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode);
 extern bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode);
-extern bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode);
+extern bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode);
 extern bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx);
@@ -1241,18 +1241,18 @@ extern void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE]);
 extern cptr item_activation(object_type *o_ptr);
 extern bool screen_object(object_type *o_ptr, u32b mode);
 extern char index_to_label(int i);
-extern s16b label_to_item(creature_type *cr_ptr, int c);
-extern cptr mention_use(creature_type *cr_ptr, int slot, int num);
-extern cptr describe_use(creature_type *cr_ptr, int i);
-extern bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval);
-extern bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval);
-extern void display_inven(creature_type *cr_ptr);
-extern void display_equip(creature_type *cr_ptr);
-extern int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr));
+extern s16b label_to_item(creature_type *creature_ptr, int c);
+extern cptr mention_use(creature_type *creature_ptr, int slot, int num);
+extern cptr describe_use(creature_type *creature_ptr, int i);
+extern bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const byte book_sval);
+extern bool item_tester_okay(creature_type *creature_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval);
+extern void display_inven(creature_type *creature_ptr);
+extern void display_equip(creature_type *creature_ptr);
+extern int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr));
 extern void toggle_inven_equip(void);
-extern bool can_get_item(creature_type *cr_ptr);
+extern bool can_get_item(creature_type *creature_ptr);
 extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s);
-extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval);
+extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval);
 
 // object2.c
 extern void weapon_boost(object_type *o_ptr, int level, int power);
@@ -1270,7 +1270,7 @@ extern void object_aware(object_type *o_ptr);
 extern void object_tried(object_type *o_ptr);
 extern s32b object_value(object_type *o_ptr);
 extern s32b object_value_real(object_type *o_ptr);
-extern bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr);
+extern bool can_player_destroy_object(creature_type *creature_ptr, object_type *o_ptr);
 extern void distribute_charges(object_type *o_ptr, object_type *q_ptr, int amt);
 extern void reduce_charges(object_type *o_ptr, int amt);
 extern int object_similar_part(object_type *o_ptr, object_type *j_ptr);
@@ -1294,19 +1294,19 @@ extern void init_normal_traps(void);
 extern s16b choose_random_trap(floor_type *floor_ptr);
 extern void disclose_grid(floor_type *floor_ptr, int y, int x);
 extern void place_trap(floor_type *floor_ptr, int y, int x);
-extern void inven_item_charges(creature_type *cr_ptr, int item);
-extern void inven_item_describe(creature_type *cr_ptr, int item);
-extern void inven_item_increase(creature_type *cr_ptr, int item, int num);
-extern void inven_item_optimize(creature_type *cr_ptr, int item);
+extern void inven_item_charges(creature_type *creature_ptr, int item);
+extern void inven_item_describe(creature_type *creature_ptr, int item);
+extern void inven_item_increase(creature_type *creature_ptr, int item, int num);
+extern void inven_item_optimize(creature_type *creature_ptr, int item);
 extern void floor_item_charges(int item);
 extern void floor_item_describe(creature_type *creature_type, int item);
 extern void floor_item_increase(int item, int num);
 extern void floor_item_optimize(int item);
-extern bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr);
+extern bool inven_carry_okay(creature_type *creature_ptr, object_type *o_ptr);
 extern bool object_sort_comp(creature_type *subject_ptr, object_type *o_ptr, s32b o_value, object_type *j_ptr);
-extern s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr);
-extern s16b inven_takeoff(creature_type *cr_ptr, int item, int amt);
-extern void inven_drop(creature_type *cr_ptr, int item, int amt);
+extern s16b inven_carry(creature_type *creature_ptr, object_type *o_ptr);
+extern s16b inven_takeoff(creature_type *creature_ptr, int item, int amt);
+extern void inven_drop(creature_type *creature_ptr, int item, int amt);
 extern void combine_pack(creature_type *creature_ptr);
 extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(creature_type *creature_ptr, int k_idx);
@@ -1317,8 +1317,8 @@ extern void set_inventory_weight(creature_type *creature_ptr);
 
 
 /* racial.c */
-extern bool gain_magic(creature_type *cr_ptr);
-extern void do_cmd_racial_power(creature_type *cr_ptr);
+extern bool gain_magic(creature_type *creature_ptr);
+extern void do_cmd_racial_power(creature_type *creature_ptr);
 
 /* save.c */
 extern bool save_player(void);
@@ -1339,27 +1339,27 @@ extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
 // spells2.c
 extern void message_pain(int m_idx, int dam);
-extern void creature_knowledge(creature_type *cr_ptr);
-extern bool detect_traps(creature_type *cr_ptr, int range, bool known);
-extern bool detect_doors(creature_type *cr_ptr, int range);
-extern bool detect_stairs(creature_type *cr_ptr, int range);
-extern bool detect_treasure(creature_type *cr_ptr, int range);
+extern void creature_knowledge(creature_type *creature_ptr);
+extern bool detect_traps(creature_type *creature_ptr, int range, bool known);
+extern bool detect_doors(creature_type *creature_ptr, int range);
+extern bool detect_stairs(creature_type *creature_ptr, int range);
+extern bool detect_treasure(creature_type *creature_ptr, int range);
 extern bool detect_objects_gold(creature_type *creature_ptr, int range);
-extern bool detect_objects_normal(creature_type *cr_ptr, int range);
-extern bool detect_objects_magic(creature_type *cr_ptr, int range);
-extern bool detect_creatures_normal(creature_type *cr_ptr, int range);
-extern bool detect_creatures_invis(creature_type *cr_ptr, int range);
-extern bool detect_creatures_evil(creature_type *cr_ptr, int range);
-extern bool detect_creatures_xxx(creature_type *cr_ptr, int range, u32b match_flag);
-extern bool detect_creatures_string(creature_type *cr_ptr, int range, cptr);
-extern bool detect_creatures_nonliving(creature_type *cr_ptr, int range);
-extern bool detect_creatures_mind(creature_type *cr_ptr, int range);
-extern bool detect_all(creature_type *cr_ptr, int range);
+extern bool detect_objects_normal(creature_type *creature_ptr, int range);
+extern bool detect_objects_magic(creature_type *creature_ptr, int range);
+extern bool detect_creatures_normal(creature_type *creature_ptr, int range);
+extern bool detect_creatures_invis(creature_type *creature_ptr, int range);
+extern bool detect_creatures_evil(creature_type *creature_ptr, int range);
+extern bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag);
+extern bool detect_creatures_string(creature_type *creature_ptr, int range, cptr);
+extern bool detect_creatures_nonliving(creature_type *creature_ptr, int range);
+extern bool detect_creatures_mind(creature_type *creature_ptr, int range);
+extern bool detect_all(creature_type *creature_ptr, int range);
 extern bool wall_stone(creature_type *caster_ptr);
 extern bool speed_creatures(creature_type *caster_ptr);
 extern bool slow_creatures(creature_type *caster_ptr);
 extern bool sleep_creatures(creature_type *caster_ptr);
-extern void aggravate_creatures(creature_type *cr_ptr);
+extern void aggravate_creatures(creature_type *creature_ptr);
 extern bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name);
 extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast);
 extern bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast);
@@ -1372,7 +1372,7 @@ extern bool dispel_undead(creature_type *caster_ptr, int dam);
 extern bool dispel_creatures(creature_type *caster_ptr, int dam);
 extern bool dispel_living(creature_type *caster_ptr, int dam);
 extern bool dispel_demons(creature_type *caster_ptr, int dam);
-extern bool crusade(creature_type *cr_ptr);
+extern bool crusade(creature_type *creature_ptr);
 extern bool turn_undead(creature_type *caster_ptr);
 extern bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate);
 extern bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx);
@@ -1387,7 +1387,7 @@ extern bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam,
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
 extern bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
-extern void call_chaos(creature_type *cr_ptr);
+extern void call_chaos(creature_type *creature_ptr);
 extern bool fire_beam(creature_type *caster_ptr, int typ, int dir, int dam);
 extern bool fire_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam);
 extern bool lite_line(creature_type *caster_ptr, int dir);
@@ -1412,12 +1412,12 @@ extern bool teleport_creature(creature_type *caster_ptr, int dir);
 extern bool door_creation(creature_type *caster_ptr);
 extern bool trap_creation(creature_type *caster_ptr, int y, int x);
 extern bool tree_creation(creature_type *caster_ptr);
-extern bool glyph_creation(creature_type *cr_ptr);
+extern bool glyph_creation(creature_type *creature_ptr);
 extern bool destroy_doors_touch(creature_type *caster_ptr);
-extern bool animate_dead(creature_type *cr_ptr, int y, int x);
-extern bool sleep_creatures_touch(creature_type *cr_ptr);
+extern bool animate_dead(creature_type *creature_ptr, int y, int x);
+extern bool sleep_creatures_touch(creature_type *creature_ptr);
 extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count);
-extern int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet);
+extern int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet);
 extern int summon_cyber(creature_type *summoner_ptr, int y, int x);
 extern void wall_breaker(creature_type *creature_ptr);
 extern bool confuse_creatures(creature_type *caster_ptr, int dam);
@@ -1436,15 +1436,15 @@ extern bool charm_animal(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_living(creature_type *caster_ptr, int dir, int plev);
 extern bool mindblast_creatures(creature_type *caster_ptr, int dam);
 extern s32b flag_cost(object_type *o_ptr, int plusses);
-extern void report_magics(creature_type *cr_ptr);
+extern void report_magics(creature_type *creature_ptr);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
-extern bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr);
+extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *o_ptr);
 extern bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg);
 extern bool project_hack(creature_type *caster_ptr, int typ, int dam);
-extern bool eat_magic(creature_type *cr_ptr, int power);
+extern bool eat_magic(creature_type *creature_ptr, int power);
 extern void discharge_minion(creature_type *caster_ptr);
 extern bool kawarimi(creature_type *user_ptr, bool success);
-extern bool rush_attack(creature_type *cr_ptr, bool *mdeath);
+extern bool rush_attack(creature_type *creature_ptr, bool *mdeath);
 extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool explode);
 
 // spells3.c
@@ -1452,49 +1452,49 @@ extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode);
-extern void teleport_player(creature_type *cr_ptr, int dis, u32b mode);
+extern void teleport_player(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_player_away(creature_type *creature_ptr, int dis);
 extern void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode);
 extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, int m_idx);
 extern int choose_dungeon(cptr note, int y, int x);
-extern bool recall_player(creature_type *cr_ptr, int turns);
-extern bool word_of_recall(creature_type *cr_ptr);
+extern bool recall_player(creature_type *creature_ptr, int turns);
+extern bool word_of_recall(creature_type *creature_ptr);
 extern bool reset_recall(creature_type *creature_ptr);
-extern bool apply_disenchant(creature_type *cr_ptr, int mode);
-extern void mutate_creature(creature_type *cr_ptr);
+extern bool apply_disenchant(creature_type *creature_ptr, int mode);
+extern void mutate_creature(creature_type *creature_ptr);
 extern void apply_nexus(creature_type *m_ptr);
-extern void phlogiston(creature_type *cr_ptr);
-extern void brand_weapon(creature_type *cr_ptr, int brand_type);
+extern void phlogiston(creature_type *creature_ptr);
+extern void brand_weapon(creature_type *creature_ptr, int brand_type);
 extern void call_the_void(creature_type *creature_ptr);
 extern void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los);
-extern void alter_reality(creature_type *cr_ptr);
+extern void alter_reality(creature_type *creature_ptr);
 extern bool warding_glyph(creature_type *creature_ptr);
-extern bool place_mirror(creature_type *cr_ptr);
-extern bool explosive_rune(creature_type *cr_ptr);
-extern void identify_pack(creature_type *cr_ptr);
-extern bool remove_curse(creature_type *cr_ptr);
-extern bool remove_all_curse(creature_type *cr_ptr);
-extern bool alchemy(creature_type *cr_ptr);
-extern bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag);
-extern bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac);
+extern bool place_mirror(creature_type *creature_ptr);
+extern bool explosive_rune(creature_type *creature_ptr);
+extern void identify_pack(creature_type *creature_ptr);
+extern bool remove_curse(creature_type *creature_ptr);
+extern bool remove_all_curse(creature_type *creature_ptr);
+extern bool alchemy(creature_type *creature_ptr);
+extern bool enchant(creature_type *creature_ptr, object_type *o_ptr, int n, int eflag);
+extern bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac);
 extern bool artifact_scroll(creature_type *caster_ptr);
-extern bool ident_spell(creature_type *cr_ptr, bool only_equip);
-extern bool mundane_spell(creature_type *cr_ptr, bool only_equip);
-extern bool identify_item(creature_type *cr_ptr, object_type *o_ptr);
-extern bool identify_fully(creature_type *cr_ptr, bool only_equip);
-extern bool recharge(creature_type *cr_ptr, int num);
-extern bool bless_weapon(creature_type *cr_ptr);
-extern bool pulish_shield(creature_type *cr_ptr);
+extern bool ident_spell(creature_type *creature_ptr, bool only_equip);
+extern bool mundane_spell(creature_type *creature_ptr, bool only_equip);
+extern bool identify_item(creature_type *creature_ptr, object_type *o_ptr);
+extern bool identify_fully(creature_type *creature_ptr, bool only_equip);
+extern bool recharge(creature_type *creature_ptr, int num);
+extern bool bless_weapon(creature_type *creature_ptr);
+extern bool pulish_shield(creature_type *creature_ptr);
 extern bool potion_smash_effect(int who, int y, int x, int k_idx);
-extern void display_spell_list(creature_type *cr_ptr);
-extern s16b experience_of_spell(creature_type *cr_ptr, int spell, int realm);
+extern void display_spell_list(creature_type *creature_ptr);
+extern s16b experience_of_spell(creature_type *creature_ptr, int spell, int realm);
 extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int realm);
-extern int mod_spell_chance_1(creature_type *cr_ptr, int chance);
-extern int mod_spell_chance_2(creature_type *cr_ptr, int chance);
-extern s16b spell_chance(creature_type *cr_ptr, int spell,int realm);
-extern bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray, int realm);
-extern void print_spells(creature_type *cr_ptr, int target_spell, byte *spells, int num, int y, int x, int realm);
+extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
+extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
+extern s16b spell_chance(creature_type *creature_ptr, int spell,int realm);
+extern bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, int realm);
+extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, int realm);
 extern bool hates_acid(object_type *o_ptr);
 extern bool hates_elec(object_type *o_ptr);
 extern bool hates_fire(object_type *o_ptr);
@@ -1503,23 +1503,23 @@ extern int set_acid_destroy(object_type *o_ptr);
 extern int set_elec_destroy(object_type *o_ptr);
 extern int set_fire_destroy(object_type *o_ptr);
 extern int set_cold_destroy(object_type *o_ptr);
-extern int inven_damage(creature_type *cr_ptr, inven_func typ, int perc);
-extern int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
-extern int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
-extern int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
-extern int cold_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
-extern bool rustproof(creature_type *cr_ptr);
-extern bool curse_armor(creature_type *cr_ptr);
+extern int inven_damage(creature_type *creature_ptr, inven_func typ, int perc);
+extern int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
+extern int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
+extern int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
+extern int cold_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
+extern bool rustproof(creature_type *creature_ptr);
+extern bool curse_armor(creature_type *creature_ptr);
 extern bool curse_weapon(creature_type *target_ptr, bool force, int slot);
-extern bool brand_bolts(creature_type *cr_ptr);
+extern bool brand_bolts(creature_type *creature_ptr);
 extern bool polymorph_creature(creature_type *creature_ptr, int y, int x);
-extern bool dimension_door(creature_type *cr_ptr);
-extern bool mirror_tunnel(creature_type *cr_ptr);
-extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode);
+extern bool dimension_door(creature_type *creature_ptr);
+extern bool mirror_tunnel(creature_type *creature_ptr);
+extern bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode);
 
 /* store.c */
 extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);
-extern void store_process(creature_type *cr_ptr, store_type *st_ptr);
+extern void store_process(creature_type *creature_ptr, store_type *st_ptr);
 extern void store_maintenance(store_type *st_ptr);
 extern void move_to_black_market(object_type * o_ptr);
 extern void init_stores(void);
@@ -1624,94 +1624,94 @@ extern void extract_day_hour_min(int *day, int *hour, int *min);
 extern void prt_time(creature_type *player_ptr);
 extern cptr map_name(floor_type *floor_ptr);
 extern void set_creature_bonuses(creature_type *crrature_ptr, bool message);
-extern void notice_stuff(creature_type *cr_ptr);
+extern void notice_stuff(creature_type *creature_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);
 extern void redraw_stuff(void);
 extern void window_stuff(void);
 extern void handle_stuff(void);
-extern s16b empty_hands(creature_type *cr_ptr, bool riding_control);
-extern bool heavy_armor(creature_type *cr_ptr);
+extern s16b empty_hands(creature_type *creature_ptr, bool riding_control);
+extern bool heavy_armor(creature_type *creature_ptr);
 extern s16b calc_rank(s32b align);
-extern bool get_subrace(creature_type *cr_ptr, int n);
-extern void set_subrace(creature_type *cr_ptr, int n, bool b);
-extern cptr desc_race_name(creature_type *cr_ptr);
-extern cptr get_class_desc(creature_type *cr_ptr);
+extern bool get_subrace(creature_type *creature_ptr, int n);
+extern void set_subrace(creature_type *creature_ptr, int n, bool b);
+extern cptr desc_race_name(creature_type *creature_ptr);
+extern cptr get_class_desc(creature_type *creature_ptr);
 
 
 /* effects.c */
-extern void set_action(creature_type *cr_ptr, int typ);
-extern void reset_tim_flags(creature_type *cr_ptr);
-extern void dispel_creature(creature_type *cr_ptr);
-extern bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec);
-extern bool set_blind(creature_type *cr_ptr, int v);
-extern bool set_confused(creature_type *cr_ptr, int v);
-extern bool set_poisoned(creature_type *cr_ptr, int v);
-extern bool set_afraid(creature_type *cr_ptr, int v);
-extern bool set_paralyzed(creature_type *cr_ptr, int v);
-extern bool set_image(creature_type *cr_ptr, int v);
-extern bool set_fast(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_slow(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_shield(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_blessed(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_hero(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_shero(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_protevil(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_invuln(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_regen(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_sh_touki(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_sh_fire(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v);
-extern bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v);
-extern bool set_oppose_acid(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_oppose_elec(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_oppose_cold(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_stun(creature_type *cr_ptr, int v);
-extern bool set_cut(creature_type *cr_ptr, int v);
-extern bool set_food(creature_type *cr_ptr, int v);
-extern bool inc_stat(creature_type *cr_ptr, int stat);
-extern bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent);
-extern bool res_stat(creature_type *cr_ptr, int stat);
-extern bool hp_player(creature_type *cr_ptr, int num);
-extern bool do_dec_stat(creature_type *cr_ptr, int stat);
-extern bool do_res_stat(creature_type *cr_ptr, int stat);
-extern bool do_inc_stat(creature_type *cr_ptr, int stat);
-extern bool restore_level(creature_type *cr_ptr);
-extern bool lose_all_info(creature_type *cr_ptr);
-extern void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac);
-extern void gain_exp(creature_type *cr_ptr, s32b amount);
-extern void calc_android_exp(creature_type *cr_ptr);
-extern void lose_exp(creature_type *cr_ptr, s32b amount);
-extern bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob);
-extern void do_poly_self(creature_type *cr_ptr);
-extern bool set_ultimate_res(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_res_nether(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_res_time(creature_type *cr_ptr, int v, bool do_dec);
-extern bool choose_ele_attack(creature_type *cr_ptr);
-extern bool choose_ele_immune(creature_type *cr_ptr, int turn);
-extern bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec);
+extern void set_action(creature_type *creature_ptr, int typ);
+extern void reset_tim_flags(creature_type *creature_ptr);
+extern void dispel_creature(creature_type *creature_ptr);
+extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
+extern bool set_blind(creature_type *creature_ptr, int v);
+extern bool set_confused(creature_type *creature_ptr, int v);
+extern bool set_poisoned(creature_type *creature_ptr, int v);
+extern bool set_afraid(creature_type *creature_ptr, int v);
+extern bool set_paralyzed(creature_type *creature_ptr, int v);
+extern bool set_image(creature_type *creature_ptr, int v);
+extern bool set_fast(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_slow(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_shield(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_blessed(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_hero(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_shero(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_protevil(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_invuln(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v);
+extern bool set_ele_immune(creature_type *creature_ptr, u32b immune_type, int v);
+extern bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_stun(creature_type *creature_ptr, int v);
+extern bool set_cut(creature_type *creature_ptr, int v);
+extern bool set_food(creature_type *creature_ptr, int v);
+extern bool inc_stat(creature_type *creature_ptr, int stat);
+extern bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent);
+extern bool res_stat(creature_type *creature_ptr, int stat);
+extern bool hp_player(creature_type *creature_ptr, int num);
+extern bool do_dec_stat(creature_type *creature_ptr, int stat);
+extern bool do_res_stat(creature_type *creature_ptr, int stat);
+extern bool do_inc_stat(creature_type *creature_ptr, int stat);
+extern bool restore_level(creature_type *creature_ptr);
+extern bool lose_all_info(creature_type *creature_ptr);
+extern void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac);
+extern void gain_exp(creature_type *creature_ptr, s32b amount);
+extern void calc_android_exp(creature_type *creature_ptr);
+extern void lose_exp(creature_type *creature_ptr, s32b amount);
+extern bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob);
+extern void do_poly_self(creature_type *creature_ptr);
+extern bool set_ultimate_res(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_res_nether(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_res_time(creature_type *creature_ptr, int v, bool do_dec);
+extern bool choose_ele_attack(creature_type *creature_ptr);
+extern bool choose_ele_immune(creature_type *creature_ptr, int turn);
+extern bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec);
+extern bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_superstealth(creature_type *creature_ptr, bool set);
 
 /* xtra2.c */
-extern void set_experience(creature_type *cr_ptr);
-extern void check_experience(creature_type *cr_ptr);
+extern void set_experience(creature_type *creature_ptr);
+extern void check_experience(creature_type *creature_ptr);
 extern void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr);
 extern cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr);
 extern void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item);
@@ -1727,23 +1727,23 @@ extern void ang_sort(vptr u, vptr v, int n, bool (*ang_sort_comp)(vptr u, vptr v
 extern bool target_able(creature_type *creature_ptr, int m_idx);
 extern bool target_okay(creature_type *creature_ptr);
 extern bool target_set(creature_type *aimer, int mode);
-extern bool get_aim_dir(creature_type *cr_ptr, int *dp);
-extern bool get_hack_dir(creature_type *cr_ptr, int *dp);
-extern bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under);
-extern bool get_rep_dir2(creature_type *cr_ptr, int *dp);
-extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
+extern bool get_aim_dir(creature_type *creature_ptr, int *dp);
+extern bool get_hack_dir(creature_type *creature_ptr, int *dp);
+extern bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under);
+extern bool get_rep_dir2(creature_type *creature_ptr, int *dp);
+extern void gain_level_reward(creature_type *creature_ptr, int chosen_reward);
 extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
-extern void do_poly_wounds(creature_type *cr_ptr);
-extern void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg);
+extern void do_poly_wounds(creature_type *creature_ptr);
+extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg);
 extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern s16b gain_energy(void);
 extern s16b bow_energy(int sval);
 extern int bow_tmul(int sval);
-extern void show_alignment(char *buf, creature_type *cr_ptr);
+extern void show_alignment(char *buf, creature_type *creature_ptr);
 extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
 extern int spell_exp_level(int spell_exp);
-extern void display_creature_dump(creature_type *cr_ptr);
+extern void display_creature_dump(creature_type *creature_ptr);
 extern void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *m_ptr);
 extern void format_weight(char * buf, int weight);
 
@@ -1752,7 +1752,7 @@ extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
-extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
+extern bool make_attack_spell(creature_type *creature_ptr, creature_type *target_ptr);
 
 /* mspells2.c */
 extern void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *tx, int flg);
@@ -1770,7 +1770,7 @@ extern bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a
 extern bool activate_random_artifact(creature_type *creature_ptr,  object_type * o_ptr);
 extern void get_bloody_moon_flags(object_type *o_ptr);
 extern void random_artifact_resistance(creature_type *owner_ptr, object_type * o_ptr, artifact_type *a_ptr);
-extern bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx);
+extern bool create_named_art(creature_type *creature_ptr, object_type *q_ptr, int a_idx);
 extern bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x);
 
 // scores.c
@@ -1782,35 +1782,35 @@ extern errr top_twenty(creature_type *player_ptr);
 extern errr predict_score(creature_type *player_ptr);
 extern void race_legends(creature_type *player_ptr);
 extern void race_score(creature_type *player_ptr, int race_num);
-extern void show_highclass(creature_type *cr_ptr);
+extern void show_highclass(creature_type *creature_ptr);
 
 /* mind.c */
 extern mind_power mind_powers[5];
-extern void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power);
-extern void do_cmd_mind(creature_type *cr_ptr);
-extern void do_cmd_mind_browse(creature_type *cr_ptr);
+extern void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int power);
+extern void do_cmd_mind(creature_type *creature_ptr);
+extern void do_cmd_mind_browse(creature_type *creature_ptr);
 
 /* mane.c */
-extern bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi);
+extern bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi);
 
 /* mspells3.c */
-extern bool do_cmd_cast_learned(creature_type *cr_ptr);
-extern void learn_spell(creature_type *cr_ptr, int monspell);
+extern bool do_cmd_cast_learned(creature_type *creature_ptr);
+extern void learn_spell(creature_type *creature_ptr, int monspell);
 
 /* hissatsu.c */
 extern void hissatsu_info(char *p, int power);
-extern void do_cmd_hissatsu(creature_type *cr_ptr);
-extern void do_cmd_gain_hissatsu(creature_type *cr_ptr);
+extern void do_cmd_hissatsu(creature_type *creature_ptr);
+extern void do_cmd_gain_hissatsu(creature_type *creature_ptr);
 
 /* mutation.c */
 extern int count_bits(u32b x);
-extern bool gain_trait(creature_type *cr_ptr, int choose_mut, bool message);
-extern bool lose_trait(creature_type *cr_ptr, int choose_mut);
+extern bool gain_trait(creature_type *creature_ptr, int choose_mut, bool message);
+extern bool lose_trait(creature_type *creature_ptr, int choose_mut);
 extern void remove_all_postnatal_traits(creature_type *creature_ptr);
-extern void dump_traits(creature_type *cr_ptr, FILE *OutFile);
-extern void do_cmd_knowledge_traits(creature_type *cr_ptr);
-extern int calc_mutant_regenerate_mod(creature_type *cr_ptr);
-extern bool mutation_power_aux(creature_type *cr_ptr, u32b power);
+extern void dump_traits(creature_type *creature_ptr, FILE *OutFile);
+extern void do_cmd_knowledge_traits(creature_type *creature_ptr);
+extern int calc_mutant_regenerate_mod(creature_type *creature_ptr);
+extern bool mutation_power_aux(creature_type *creature_ptr, u32b power);
 
 
 /*
@@ -1882,56 +1882,56 @@ extern bool easy_open_door(creature_type *creature_ptr, int y, int x);
 extern bool easy_disarm;
 
 /* cmd2.c */
-extern bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir);
+extern bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir);
 
 // object1.c
 extern int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode);
 extern int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_width);
-extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval);
-extern void py_pickup_floor(creature_type *cr_ptr, bool pickup);
+extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval);
+extern void py_pickup_floor(creature_type *creature_ptr, bool pickup);
 
 // variable.c
 extern bool easy_floor;
 extern u32b creature_idx_latest;
 
 /* obj_kind.c */
-extern bool object_is_potion(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_rare(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_potion(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_is_shoukinkubi(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_is_favorite(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_is_rare(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_weapon(object_type *o_ptr);
-extern bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_weapon2(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_weapon_ammo(object_type *o_ptr);
-extern bool object_is_weapon_ammo2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_weapon_ammo2(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_ammo(object_type *o_ptr);
 
 extern bool object_is_armour(object_type *o_ptr);
-extern bool object_is_armour2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_armour2(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_weapon_armour_ammo(object_type *o_ptr);
-extern bool object_is_weapon_armour_ammo2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_weapon_armour_ammo2(creature_type *creature_ptr, object_type *o_ptr);
 
-extern bool object_is_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_melee_weapon(creature_type *creature_ptr, object_type *o_ptr);
 extern bool object_is_wearable(object_type *o_ptr);
 
 extern bool object_is_equipment(object_type *o_ptr);
-extern bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_equipment2(creature_type *creature_ptr, object_type *o_ptr);
 
-extern bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_refuse_enchant_weapon(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_allow_enchant_weapon(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_allow_enchant_melee_weapon(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_smith(object_type *o_ptr);
-extern bool object_is_smith2(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_smith2(creature_type *creature_ptr, object_type *o_ptr);
 
 extern bool object_is_artifact(object_type *o_ptr);
 extern bool object_is_artifact_aux(object_type *o_ptr);
-extern bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr);
-extern bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_nameless(creature_type *creature_ptr, object_type *o_ptr);
+extern bool object_allow_two_hands_wielding(creature_type *creature_ptr, object_type *o_ptr);
+extern bool item_tester_hook_readable(creature_type *creature_ptr, object_type *o_ptr);
 
 /* wild.c */
 extern void set_floor_and_wall(byte type);
@@ -1941,21 +1941,21 @@ extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);
 extern errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x);
-extern bool change_wild_mode(creature_type *cr_ptr);
+extern bool change_wild_mode(creature_type *creature_ptr);
 
 /* wizard1.c */
-extern void spoil_random_artifact(creature_type *cr_ptr, cptr fname);
+extern void spoil_random_artifact(creature_type *creature_ptr, cptr fname);
 
 /* wizard2.c */
 extern void strip_name(char *buf, int k_idx);
 
 /* avatar.c */
 extern karma_type karma[MAX_KARMA];
-extern void set_karma(creature_type *cr_ptr, int karma, int amount);
-extern void chg_karma(creature_type *cr_ptr, int karma, int amount);
-extern void dump_karmas(creature_type *cr_ptr, FILE * OutFile);
-extern int karma_number(creature_type *cr_ptr, int karma);
-extern void authority_desc(char *tmp, creature_type *cr_ptr);
+extern void set_karma(creature_type *creature_ptr, int karma, int amount);
+extern void chg_karma(creature_type *creature_ptr, int karma, int amount);
+extern void dump_karmas(creature_type *creature_ptr, FILE * OutFile);
+extern int karma_number(creature_type *creature_ptr, int karma);
+extern void authority_desc(char *tmp, creature_type *creature_ptr);
 
 #ifdef JP
 /* japanese.c */
@@ -2007,20 +2007,20 @@ extern travel_type travel;
 
 
 /* snipe.c */
-extern void reset_concentration(creature_type *cr_ptr, bool msg);
-extern void display_snipe_list(creature_type *cr_ptr);
-extern int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr);
-extern void do_cmd_snipe(creature_type *cr_ptr);
-extern void do_cmd_snipe_browse(creature_type *cr_ptr);
-extern int boost_concentration_damage(creature_type *cr_ptr, int tdam);
+extern void reset_concentration(creature_type *creature_ptr, bool msg);
+extern void display_snipe_list(creature_type *creature_ptr);
+extern int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_ptr);
+extern void do_cmd_snipe(creature_type *creature_ptr);
+extern void do_cmd_snipe_browse(creature_type *creature_ptr);
+extern int boost_concentration_damage(creature_type *creature_ptr, int tdam);
 
 // hex.c
-extern bool stop_hex_spell_all(creature_type *cr_ptr);
-extern bool stop_hex_spell(creature_type *cr_ptr);
+extern bool stop_hex_spell_all(creature_type *creature_ptr);
+extern bool stop_hex_spell(creature_type *creature_ptr);
 extern void check_hex(creature_type *creature_ptr);
-extern bool hex_spell_fully(creature_type *cr_ptr);
-extern void revenge_spell(creature_type *cr_ptr);
-extern void revenge_store(creature_type *cr_ptr, int dam);
+extern bool hex_spell_fully(creature_type *creature_ptr);
+extern void revenge_spell(creature_type *creature_ptr);
+extern void revenge_store(creature_type *creature_ptr, int dam);
 extern bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr);
 extern bool magic_barrier(creature_type *cast_ptr, creature_type *target_ptr);
 extern bool multiply_barrier(creature_type *creature_ptr, creature_type *target_ptr);

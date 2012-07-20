@@ -19,92 +19,92 @@
 /*
  * Advance experience levels for initial creature
  */
-void set_experience(creature_type *cr_ptr)
+void set_experience(creature_type *creature_ptr)
 {
-	bool android = (has_trait(cr_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
+	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
 
-	cr_ptr->lev = 1;
+	creature_ptr->lev = 1;
 
 	// Hack -- lower limit
-	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
-	if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
-	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
+	if (creature_ptr->exp < 0) creature_ptr->exp = 0;
+	if (creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+	if (creature_ptr->max_max_exp < 0) creature_ptr->max_max_exp = 0;
 
 	// Hack -- upper limit
-	if (cr_ptr->exp > CREATURE_MAX_EXP) cr_ptr->exp = CREATURE_MAX_EXP;
-	if (cr_ptr->max_exp > CREATURE_MAX_EXP) cr_ptr->max_exp = CREATURE_MAX_EXP;
-	if (cr_ptr->max_max_exp > CREATURE_MAX_EXP) cr_ptr->max_max_exp = CREATURE_MAX_EXP;
+	if (creature_ptr->exp > CREATURE_MAX_EXP) creature_ptr->exp = CREATURE_MAX_EXP;
+	if (creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
+	if (creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	/* Hack -- maintain "max" experience */
-	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
+	if (creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
 
 	/* Hack -- maintain "max max" experience */
-	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
+	if (creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
-	if (cr_ptr->dr >= 0)
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
+	if (creature_ptr->dr >= 0)
+		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
 	else
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
+		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	/* Gain levels while possible */
-	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? creature_exp_a : creature_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	while ((creature_ptr->lev < creature_ptr->max_lev) &&
+	       (creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
-		cr_ptr->lev++;
+		creature_ptr->lev++;
 	}
 }
 
 /*
  * Advance experience levels and print experience
  */
-void check_experience(creature_type *cr_ptr)
+void check_experience(creature_type *creature_ptr)
 {
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (has_trait(cr_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
-	int  old_lev = cr_ptr->lev;
+	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
+	int  old_lev = creature_ptr->lev;
 
-	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
+	if(creature_ptr->max_lev > PY_MAX_LEVEL) creature_ptr->max_lev = PY_MAX_LEVEL;
 
 	/* Hack -- lower limit */
-	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
-	if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
-	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
+	if (creature_ptr->exp < 0) creature_ptr->exp = 0;
+	if (creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+	if (creature_ptr->max_max_exp < 0) creature_ptr->max_max_exp = 0;
 
 	/* Hack -- upper limit */
-	if (cr_ptr->exp > CREATURE_MAX_EXP) cr_ptr->exp = CREATURE_MAX_EXP;
-	if (cr_ptr->max_exp > CREATURE_MAX_EXP) cr_ptr->max_exp = CREATURE_MAX_EXP;
-	if (cr_ptr->max_max_exp > CREATURE_MAX_EXP) cr_ptr->max_max_exp = CREATURE_MAX_EXP;
+	if (creature_ptr->exp > CREATURE_MAX_EXP) creature_ptr->exp = CREATURE_MAX_EXP;
+	if (creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
+	if (creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	/* Hack -- maintain "max" experience */
-	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
+	if (creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
 
 	/* Hack -- maintain "max max" experience */
-	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
+	if (creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
 	/* Redraw experience */
-	if(is_player(cr_ptr))
+	if(is_player(creature_ptr))
 		play_redraw |= (PR_EXP);
 
 	/* Handle stuff */
 	handle_stuff();
 
-	if (cr_ptr->dr >= 0)
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
+	if (creature_ptr->dr >= 0)
+		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
 	else
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
+		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	/* Lose levels while possible */
-	while ((cr_ptr->lev > 1) &&
-		(cr_ptr->exp < ((android ? creature_exp_a : creature_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
+	while ((creature_ptr->lev > 1) &&
+		(creature_ptr->exp < ((android ? creature_exp_a : creature_exp)[creature_ptr->lev - 2] * creature_ptr->expfact / 100L)) || creature_ptr->lev > creature_ptr->max_lev)
 	{
 		/* Lose a level */
-		cr_ptr->lev--;
+		creature_ptr->lev--;
 
 		/* Update some stuff */
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -118,41 +118,41 @@ void check_experience(creature_type *cr_ptr)
 
 
 	/* Gain levels while possible */
-	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? creature_exp_a : creature_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	while ((creature_ptr->lev < creature_ptr->max_lev) &&
+	       (creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
-		cr_ptr->lev++;
+		creature_ptr->lev++;
 
 		/* Save the highest level */
-		if (cr_ptr->lev > cr_ptr->max_plv)
+		if (creature_ptr->lev > creature_ptr->max_plv)
 		{
-			cr_ptr->max_plv = cr_ptr->lev;
+			creature_ptr->max_plv = creature_ptr->lev;
 
-			if (IS_RACE(cr_ptr, RACE_BEASTMAN))
+			if (IS_RACE(creature_ptr, RACE_BEASTMAN))
 			{
-				if (one_in_(IS_PURE_RACE(cr_ptr, RACE_BEASTMAN) ? 4 : 7)) level_mutation = TRUE;
+				if (one_in_(IS_PURE_RACE(creature_ptr, RACE_BEASTMAN) ? 4 : 7)) level_mutation = TRUE;
 			}
 			level_inc_stat = TRUE;
 
-			do_cmd_write_nikki(DIARY_LEVELUP, cr_ptr->lev, NULL);
+			do_cmd_write_nikki(DIARY_LEVELUP, creature_ptr->lev, NULL);
 		}
 
 		/* Sound */
 		sound(SOUND_LEVEL);
 
 		/* Message */
-		if(is_player(cr_ptr))
+		if(is_player(creature_ptr))
 		{
 #ifdef JP
-			msg_format("レベル %d にようこそ。", cr_ptr->lev);
+			msg_format("レベル %d にようこそ。", creature_ptr->lev);
 #else
-			msg_format("Welcome to level %d.", cr_ptr->lev);
+			msg_format("Welcome to level %d.", creature_ptr->lev);
 #endif
 		}
 
 		/* Update some stuff */
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
@@ -170,9 +170,9 @@ void check_experience(creature_type *cr_ptr)
 
 		if (level_inc_stat)
 		{
-			if(!(cr_ptr->max_plv % 10))
+			if(!(creature_ptr->max_plv % 10))
 			{
-				if(is_player(cr_ptr))
+				if(is_player(creature_ptr))
 				{
 					int choice;
 					screen_save();
@@ -182,32 +182,32 @@ void check_experience(creature_type *cr_ptr)
 						char tmp[32];
 
 #ifdef JP
-						cnv_stat(cr_ptr->stat_max[0], tmp);
+						cnv_stat(creature_ptr->stat_max[0], tmp);
 						prt(format("        a) 腕力 (現在値 %s)", tmp), 2, 14);
-						cnv_stat(cr_ptr->stat_max[1], tmp);
+						cnv_stat(creature_ptr->stat_max[1], tmp);
 						prt(format("        b) 知能 (現在値 %s)", tmp), 3, 14);
-						cnv_stat(cr_ptr->stat_max[2], tmp);
+						cnv_stat(creature_ptr->stat_max[2], tmp);
 						prt(format("        c) 賢さ (現在値 %s)", tmp), 4, 14);
-						cnv_stat(cr_ptr->stat_max[3], tmp);
+						cnv_stat(creature_ptr->stat_max[3], tmp);
 						prt(format("        d) 器用 (現在値 %s)", tmp), 5, 14);
-						cnv_stat(cr_ptr->stat_max[4], tmp);
+						cnv_stat(creature_ptr->stat_max[4], tmp);
 						prt(format("        e) 耐久 (現在値 %s)", tmp), 6, 14);
-						cnv_stat(cr_ptr->stat_max[5], tmp);
+						cnv_stat(creature_ptr->stat_max[5], tmp);
 						prt(format("        f) 魅力 (現在値 %s)", tmp), 7, 14);
 						prt("", 8, 14);
 						prt("        どの能力値を上げますか？", 1, 14);
 #else
-						cnv_stat(cr_ptr->stat_max[0], tmp);
+						cnv_stat(creature_ptr->stat_max[0], tmp);
 						prt(format("        a) Str (cur %s)", tmp), 2, 14);
-						cnv_stat(cr_ptr->stat_max[1], tmp);
+						cnv_stat(creature_ptr->stat_max[1], tmp);
 						prt(format("        b) Int (cur %s)", tmp), 3, 14);
-						cnv_stat(cr_ptr->stat_max[2], tmp);
+						cnv_stat(creature_ptr->stat_max[2], tmp);
 						prt(format("        c) Wis (cur %s)", tmp), 4, 14);
-						cnv_stat(cr_ptr->stat_max[3], tmp);
+						cnv_stat(creature_ptr->stat_max[3], tmp);
 						prt(format("        d) Dex (cur %s)", tmp), 5, 14);
-						cnv_stat(cr_ptr->stat_max[4], tmp);
+						cnv_stat(creature_ptr->stat_max[4], tmp);
 						prt(format("        e) Con (cur %s)", tmp), 6, 14);
-						cnv_stat(cr_ptr->stat_max[5], tmp);
+						cnv_stat(creature_ptr->stat_max[5], tmp);
 						prt(format("        f) Chr (cur %s)", tmp), 7, 14);
 						prt("", 8, 14);
 						prt("        Which stat do you want to raise?", 1, 14);
@@ -227,22 +227,22 @@ void check_experience(creature_type *cr_ptr)
 						if (get_check("Are you sure? ")) break;
 #endif
 					}
-					do_inc_stat(cr_ptr, choice - 'a');
+					do_inc_stat(creature_ptr, choice - 'a');
 					screen_load();
 				}
 				else
 				{
-					do_inc_stat(cr_ptr, randint0(6));
+					do_inc_stat(creature_ptr, randint0(6));
 				}
 			}
-			else if(!(cr_ptr->max_plv % 2))
-				do_inc_stat(cr_ptr, randint0(6));
+			else if(!(creature_ptr->max_plv % 2))
+				do_inc_stat(creature_ptr, randint0(6));
 		}
 
 		if (level_mutation)
 		{
 
-			if(is_player(cr_ptr))
+			if(is_player(creature_ptr))
 			{
 #ifdef JP
 				msg_print("あなたは変わった気がする...");
@@ -250,7 +250,7 @@ void check_experience(creature_type *cr_ptr)
 				msg_print("You feel different...");
 #endif
 			}
-			(void)gain_trait(cr_ptr, 0, is_player(cr_ptr));
+			(void)gain_trait(creature_ptr, 0, is_player(creature_ptr));
 			level_mutation = FALSE;
 		}
 
@@ -259,12 +259,12 @@ void check_experience(creature_type *cr_ptr)
 		 */
 		if (level_reward)
 		{
-			gain_level_reward(cr_ptr, 0);
+			gain_level_reward(creature_ptr, 0);
 			level_reward = FALSE;
 		}
 
 		/* Update some stuff */
-		cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
@@ -277,7 +277,7 @@ void check_experience(creature_type *cr_ptr)
 	}
 
 	/* Load an autopick preference file */
-	if (old_lev != cr_ptr->lev) autopick_load_pref(FALSE);
+	if (old_lev != creature_ptr->lev) autopick_load_pref(FALSE);
 }
 
 
@@ -3542,7 +3542,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
  *
  * Note that confusion over-rides any (explicit?) user choice.
  */
-bool get_aim_dir(creature_type *cr_ptr, int *dp)
+bool get_aim_dir(creature_type *creature_ptr, int *dp)
 {
 	int		dir;
 
@@ -3557,14 +3557,14 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 	dir = command_dir;
 
 	/* Hack -- auto-target if requested */
-	if (use_old_target && target_okay(cr_ptr)) dir = 5;
+	if (use_old_target && target_okay(creature_ptr)) dir = 5;
 
 	if (repeat_pull(dp))
 	{
 		/* Confusion? */
 
 		/* Verify */
-		if (!(*dp == 5 && !target_okay(cr_ptr)))
+		if (!(*dp == 5 && !target_okay(creature_ptr)))
 		{
 /*			return (TRUE); */
 			dir = *dp;
@@ -3575,7 +3575,7 @@ bool get_aim_dir(creature_type *cr_ptr, int *dp)
 	while (!dir)
 	{
 		/* Choose a prompt */
-		if (!target_okay(cr_ptr))
+		if (!target_okay(creature_ptr))
 		{
 #ifdef JP
 p = "方向 ('*'でターゲット選択, ESCで中断)? ";
@@ -3621,7 +3621,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 			case ' ':
 			case '\r':
 			{
-				if (target_set(cr_ptr, TARGET_KILL)) dir = 5;
+				if (target_set(creature_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
@@ -3635,7 +3635,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		}
 
 		/* Verify requested targets */
-		if ((dir == 5) && !target_okay(cr_ptr)) dir = 0;
+		if ((dir == 5) && !target_okay(creature_ptr)) dir = 0;
 
 		/* Error */
 		if (!dir) bell();
@@ -3652,7 +3652,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 		/* XXX XXX XXX */
 		/* Random direction */
@@ -3699,7 +3699,7 @@ msg_print("あなたは混乱している。");
  * This function tracks and uses the "global direction", and uses
  * that as the "desired direction", to which "confusion" is applied.
  */
-bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under)
+bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 {
 	int dir;
 
@@ -3745,7 +3745,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)
@@ -3754,9 +3754,9 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 			dir = ddd[randint0(8)];
 		}
 	}
-	else if (cr_ptr->riding)
+	else if (creature_ptr->riding)
 	{
-		creature_type *m_ptr = &creature_list[cr_ptr->riding];
+		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		if (m_ptr->confused)
@@ -3783,7 +3783,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	/* Notice confusion */
 	if (command_dir != dir)
 	{
-		if (cr_ptr->confused)
+		if (creature_ptr->confused)
 		{
 			/* Warn the user */
 #ifdef JP
@@ -3795,7 +3795,7 @@ msg_print("あなたは混乱している。");
 		else
 		{
 			char m_name[80];
-			creature_type *m_ptr = &creature_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 
 			creature_desc(m_name, m_ptr, 0);
 			if (m_ptr->confused)
@@ -3829,7 +3829,7 @@ msg_format("You cannot control %s.", m_name);
 }
 
 
-bool get_rep_dir2(creature_type *cr_ptr, int *dp)
+bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 {
 	int dir;
 
@@ -3875,7 +3875,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)
@@ -5157,7 +5157,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 }
 
 
-bool get_hack_dir(creature_type *cr_ptr, int *dp)
+bool get_hack_dir(creature_type *creature_ptr, int *dp)
 {
 	int		dir;
 	cptr    p;
@@ -5176,7 +5176,7 @@ bool get_hack_dir(creature_type *cr_ptr, int *dp)
 	while (!dir)
 	{
 		/* Choose a prompt */
-		if (!target_okay(cr_ptr))
+		if (!target_okay(creature_ptr))
 		{
 #ifdef JP
 p = "方向 ('*'でターゲット選択, ESCで中断)? ";
@@ -5222,7 +5222,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 			case ' ':
 			case '\r':
 			{
-				if (target_set(cr_ptr, TARGET_KILL)) dir = 5;
+				if (target_set(creature_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
@@ -5236,7 +5236,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		}
 
 		/* Verify requested targets */
-		if ((dir == 5) && !target_okay(cr_ptr)) dir = 0;
+		if ((dir == 5) && !target_okay(creature_ptr)) dir = 0;
 
 		/* Error */
 		if (!dir) bell();
@@ -5249,7 +5249,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 		/* XXX XXX XXX */
 		/* Random direction */
@@ -5415,15 +5415,15 @@ int bow_tmul(int sval)
 /*
  * Return alignment title
  */
-void show_alignment(char* buf, creature_type *cr_ptr)
+void show_alignment(char* buf, creature_type *creature_ptr)
 {
 #ifdef JP
 	sprintf(buf, "善[%d]/悪[%d]/秩序[%d]/混沌[%d]/天秤[%d]",
-		cr_ptr->good_rank, cr_ptr->evil_rank, cr_ptr->order_rank, cr_ptr->chaos_rank, cr_ptr->balance_rank);
+		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
 
 #else
 	sprintf(buf, "Good[%d]/Evil[%d]/Order[%d]/Chaos[%d]/Balance[%d]",
-		cr_ptr->good_rank, cr_ptr->evil_rank, cr_ptr->order_rank, cr_ptr->chaos_rank, cr_ptr->balance_rank);
+		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
 #endif
 }
 
@@ -5467,7 +5467,7 @@ int spell_exp_level(int spell_exp)
 }
 
 
-void display_creature_dump(creature_type *cr_ptr)
+void display_creature_dump(creature_type *creature_ptr)
 {
 	char c;
 	int m = 0;
@@ -5481,12 +5481,12 @@ void display_creature_dump(creature_type *cr_ptr)
 		update_playtime();
 
 		/* Display the player */
-		display_creature_status(m, cr_ptr);
+		display_creature_status(m, creature_ptr);
 
 		if (m == DISPLAY_CR_STATUS_MAX)
 		{
 			m = 0;
-			display_creature_status(m, cr_ptr);
+			display_creature_status(m, creature_ptr);
 		}
 
 		/* Prompt */

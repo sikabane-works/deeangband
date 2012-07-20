@@ -17,7 +17,7 @@
 /*
  * Display inventory
  */
-void do_cmd_inven(creature_type *cr_ptr)
+void do_cmd_inven(creature_type *creature_ptr)
 {
 	char out_val[160];
 	char buf1[80], buf2[80];
@@ -32,19 +32,19 @@ void do_cmd_inven(creature_type *cr_ptr)
 	screen_save();
 
 	/* Display the inventory */
-	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
+	(void)show_item_list(0, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 
-	format_weight(buf1, cr_ptr->carrying_weight);
-	format_weight(buf2, calc_carrying_weight_limit(cr_ptr));
+	format_weight(buf1, creature_ptr->carrying_weight);
+	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
 #ifdef JP
 	sprintf(out_val, "所持重量： %s/%s (%ld%%) コマンド: ",
 		buf1, buf2,
-	    (cr_ptr->carrying_weight * 100) / calc_carrying_weight_limit(cr_ptr));
+	    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #else
 	sprintf(out_val, "Carrying Weight %s/%s (%ld%%). Command: ",
 		buf1, buf2,
-	    (cr_ptr->carrying_weight * 100) / calc_carrying_weight_limit(cr_ptr));
+	    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #endif
 
 
@@ -83,7 +83,7 @@ void do_cmd_inven(creature_type *cr_ptr)
 /*
  * Display equipment
  */
-void do_cmd_equip(creature_type *cr_ptr)
+void do_cmd_equip(creature_type *creature_ptr)
 {
 	char out_val[160];
 	char buf1[80], buf2[80];
@@ -98,20 +98,20 @@ void do_cmd_equip(creature_type *cr_ptr)
 	screen_save();
 
 	/* Display the equipment */
-	(void)show_item_list(0, cr_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT | SHOW_ITEM_FULL, NULL);
+	(void)show_item_list(0, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT | SHOW_ITEM_FULL, NULL);
 
-	format_weight(buf1, cr_ptr->equipping_weight);
-	format_weight(buf2, calc_equipping_weight_limit(cr_ptr));
+	format_weight(buf1, creature_ptr->equipping_weight);
+	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 
 	/* Build a prompt */
 #ifdef JP
 	sprintf(out_val, "装備重量： %s/%s (%ld%%). コマンド: ",
 		buf1, buf2,
-	    (cr_ptr->equipping_weight * 100) / calc_equipping_weight_limit(cr_ptr));
+	    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #else
 	sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ",
 		buf1, buf2,
-	    (cr_ptr->equipping_weight * 100) / calc_equipping_weight_limit(cr_ptr));
+	    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #endif
 
 
@@ -150,10 +150,10 @@ void do_cmd_equip(creature_type *cr_ptr)
 /*
  * The "wearable" tester
  */
-static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI))
-		if (cr_ptr->sex == SEX_MALE) return FALSE;
+		if (creature_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
 	if (WIELD_SLOT(o_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
@@ -163,7 +163,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Check for a usable slot */
 	if (((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD)) ||
@@ -175,14 +175,14 @@ static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_hand(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (WIELD_SLOT(o_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
 	return (FALSE); // Assume not wearable
 }
 
 // Wield or wear a single item from the pack or floor
-void do_cmd_wield(creature_type *cr_ptr)
+void do_cmd_wield(creature_type *creature_ptr)
 {
 	int i, n, item, slot, old_item;
 	object_type forge, *q_ptr, *o_ptr, *old_equipped_ptr;
@@ -192,7 +192,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 
 	int need_switch_wielding = 0;
 
-	if (cr_ptr->special_defense & KATA_MUSOU) set_action(cr_ptr, ACTION_NONE);
+	if (creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
@@ -203,10 +203,10 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You have nothing you can wear or wield.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 
 	if (item >= 0) // pack
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	else // floor
 		o_ptr = &object_list[0 - item];
 
@@ -221,15 +221,15 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You can't equip it";
 #endif
 
-	n = get_equip_slot(cr_ptr, object_kind_info[o_ptr->k_idx].slot, q, s);
+	n = get_equip_slot(creature_ptr, object_kind_info[o_ptr->k_idx].slot, q, s);
 	if (!n) return;
 
 	// Recalculate bonuses
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
-	update_creature(cr_ptr, TRUE);
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+	update_creature(creature_ptr, TRUE);
 
-	old_equipped_ptr = get_equipped_slot_ptr(cr_ptr, object_kind_info[o_ptr->k_idx].slot, n);
-	old_item = get_equipped_slot_idx(cr_ptr, object_kind_info[o_ptr->k_idx].slot, n);
+	old_equipped_ptr = get_equipped_slot_ptr(creature_ptr, object_kind_info[o_ptr->k_idx].slot, n);
+	old_item = get_equipped_slot_idx(creature_ptr, object_kind_info[o_ptr->k_idx].slot, n);
 
 
 	// Prevent wielding into a cursed slot
@@ -240,9 +240,9 @@ void do_cmd_wield(creature_type *cr_ptr)
 		// Message
 /*
 #ifdef JP
-		msg_format("%s%sは呪われているようだ。", describe_use(cr_ptr, slot) , o_name );
+		msg_format("%s%sは呪われているようだ。", describe_use(creature_ptr, slot) , o_name );
 #else
-		msg_format("The %s you are %s appears to be cursed.", o_name, describe_use(cr_ptr, slot));
+		msg_format("The %s you are %s appears to be cursed.", o_name, describe_use(creature_ptr, slot));
 #endif
 */
 		return; // Cancel the command
@@ -262,8 +262,8 @@ void do_cmd_wield(creature_type *cr_ptr)
 	}
 
 	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) &&
-		!has_trait(cr_ptr, TRAIT_VAMPIRE) && !has_trait(cr_ptr, TRAIT_LICH) &&
-		!has_trait(cr_ptr, TRAIT_SKELETON) && !has_trait(cr_ptr, TRAIT_NONLIVING))
+		!has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_LICH) &&
+		!has_trait(creature_ptr, TRAIT_SKELETON) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
 		char dummy[MAX_NLEN+80];
 		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
@@ -276,18 +276,18 @@ void do_cmd_wield(creature_type *cr_ptr)
 		if (!get_check(dummy)) return;
 	}
 
-	if (need_switch_wielding && !object_is_cursed(&cr_ptr->inventory[need_switch_wielding]))
+	if (need_switch_wielding && !object_is_cursed(&creature_ptr->inventory[need_switch_wielding]))
 	{
 		object_type *slot_o_ptr = old_equipped_ptr;
-		object_type *switch_o_ptr = &cr_ptr->inventory[need_switch_wielding];
+		object_type *switch_o_ptr = &creature_ptr->inventory[need_switch_wielding];
 		object_type object_tmp;
-		object_type *otmcr_ptr = &object_tmp;
+		object_type *otmcreature_ptr = &object_tmp;
 		char switch_name[MAX_NLEN];
 
 		object_desc(switch_name, switch_o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-		object_copy(otmcr_ptr, switch_o_ptr);
+		object_copy(otmcreature_ptr, switch_o_ptr);
 		object_copy(switch_o_ptr, slot_o_ptr);
-		object_copy(slot_o_ptr, otmcr_ptr);
+		object_copy(slot_o_ptr, otmcreature_ptr);
 
 		slot = need_switch_wielding;
 	}
@@ -299,7 +299,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		{
 			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
-			quest[i].complev = (byte)cr_ptr->lev;
+			quest[i].complev = (byte)creature_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -309,23 +309,23 @@ void do_cmd_wield(creature_type *cr_ptr)
 		}
 	}
 
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		identify_item(cr_ptr, o_ptr);
-		autopick_alter_item(cr_ptr, item, FALSE); // Auto-inscription
+		identify_item(creature_ptr, o_ptr);
+		autopick_alter_item(creature_ptr, item, FALSE); // Auto-inscription
 	}
 
 	energy_use = 100;          // Take a turn
 
 	o_ptr->marked |= OM_TOUCHED;   // Player touches it
-	cr_ptr->equip_cnt++;           // Increment the equip counter by hand
+	creature_ptr->equip_cnt++;           // Increment the equip counter by hand
 
 	o_ptr->equipped_slot_num = n;
 	o_ptr->equipped_slot_type = object_kind_info[o_ptr->k_idx].slot;
-	cr_ptr->inventory[old_item].equipped_slot_num = 0;
-	cr_ptr->inventory[old_item].equipped_slot_type = 0;
+	creature_ptr->inventory[old_item].equipped_slot_num = 0;
+	creature_ptr->inventory[old_item].equipped_slot_type = 0;
 
-	set_inventory_weight(cr_ptr); // Increase the weight
+	set_inventory_weight(creature_ptr); // Increase the weight
 
 #ifdef JP
 		act = "%s(%c)を装備した。";
@@ -350,39 +350,39 @@ void do_cmd_wield(creature_type *cr_ptr)
 	}
 
 	// The Stone Mask make the player turn into a vampire!
-	if ((o_ptr->name1 == ART_STONEMASK) && !has_trait(cr_ptr, TRAIT_VAMPIRE) && !has_trait(cr_ptr, TRAIT_NONLIVING))
+	if ((o_ptr->name1 == ART_STONEMASK) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
 		// TODO: ADD Vampire Flag 
 	}
 
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
 	play_redraw |= (PR_EQUIPPY);
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 
-	calc_android_exp(cr_ptr);
+	calc_android_exp(creature_ptr);
 }
 
 
-void kamaenaoshi(creature_type *cr_ptr, int item)
+void kamaenaoshi(creature_type *creature_ptr, int item)
 {
 	object_type *o_ptr, *new_o_ptr;
 	char o_name[MAX_NLEN];
 
-	if (GET_INVEN_SLOT_TYPE(cr_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&cr_ptr->inventory[item]) == 1)
+	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&creature_ptr->inventory[item]) == 1)
 	{
-		if (get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2))
+		if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2))
 		{
-			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
+			o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
+				new_o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 				object_copy(new_o_ptr, o_ptr);
-				set_inventory_weight(cr_ptr);
-				inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2), -((int)o_ptr->number));
-				inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2));
-				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
+				set_inventory_weight(creature_ptr);
+				inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2), -((int)o_ptr->number));
+				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2));
+				if (object_allow_two_hands_wielding(creature_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -390,14 +390,14 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 #endif
 				 else
 #ifdef JP
-					msg_format("%sを%sで構えた。", o_name, (has_trait(cr_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
+					msg_format("%sを%sで構えた。", o_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
 #else
-					msg_format("You are wielding %s in your %s hand.", o_name, (has_trait(cr_ptr, TRAIT_LEFT_HANDER) ? "left":"right"));
+					msg_format("You are wielding %s in your %s hand.", o_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "left":"right"));
 #endif
 			}
 			else
 			{
-				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
+				if (object_allow_two_hands_wielding(creature_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -406,27 +406,27 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 			}
 		}
 	}
-	else if (item == get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 2))
+	else if (item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2))
 	{
-		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 1);
+		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND) == 1)
+		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 1)
 		{
-			if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
+			if (object_allow_two_hands_wielding(creature_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 				msg_format("%sを両手で構えた。", o_name);
 #else
 				msg_format("You are wielding %s with both hands.", o_name);
 #endif
 		}
-		else if (!(empty_hands(cr_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
+		else if (!(empty_hands(creature_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
 		{
-			new_o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, 2);
+			new_o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			object_copy(new_o_ptr, o_ptr);
-			set_inventory_weight(cr_ptr);
-			inven_item_increase(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1), -((int)o_ptr->number));
-			inven_item_optimize(cr_ptr, get_equipped_slot_idx(cr_ptr, INVEN_SLOT_HAND, 1));
+			set_inventory_weight(creature_ptr);
+			inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1), -((int)o_ptr->number));
+			inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1));
 #ifdef JP
 			msg_format("%sを持ち替えた。", o_name);
 #else
@@ -437,13 +437,13 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 }
 
 // Take off an item
-void do_cmd_takeoff(creature_type *cr_ptr)
+void do_cmd_takeoff(creature_type *creature_ptr)
 {
 	int item;
 	object_type *o_ptr;
 	cptr q, s;
 
-	if (cr_ptr->special_defense & KATA_MUSOU) set_action(cr_ptr, ACTION_NONE);
+	if (creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	// Get an item
 #ifdef JP
@@ -454,16 +454,16 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 	s = "You are not wearing anything to take off.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
 
-	if (item >= 0) o_ptr = &cr_ptr->inventory[item]; // Get the item (in the pack)
+	if (item >= 0) o_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
 	else o_ptr = &object_list[0 - item]; // Get the item (on the floor)
 
 	if (object_is_cursed(o_ptr)) // Item is cursed
 	{
 		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
-			if (o_ptr->xtra1 >= cr_ptr->dr)
+			if (o_ptr->xtra1 >= creature_ptr->dr)
 			{
 #ifdef JP
 				msg_print("なんてこった！あなたは神域の力に呪われている！");
@@ -473,7 +473,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 			return;
 			}
 		}
-		else if (cr_ptr->class_idx != CLASS_BERSERKER)
+		else if (creature_ptr->class_idx != CLASS_BERSERKER)
 		{
 #ifdef JP
 			msg_print("ふーむ、どうやら呪われているようだ。");
@@ -483,7 +483,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 			return;
 		}
 
-		if(o_ptr->curse_flags & TRC_DIVINE_CURSE && o_ptr->xtra1 < cr_ptr->dr)
+		if(o_ptr->curse_flags & TRC_DIVINE_CURSE && o_ptr->xtra1 < creature_ptr->dr)
 		{
 #ifdef JP
 			msg_print("あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。");
@@ -503,7 +503,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 			o_ptr->ident |= (IDENT_SENSE);
 			o_ptr->curse_flags = 0L;
 			o_ptr->feeling = FEEL_NONE;
-			cr_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
+			creature_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
 			play_window |= (PW_EQUIP); // Window stuff
 
 #ifdef JP
@@ -525,16 +525,16 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 	}
 
 	energy_use = 50; // Take a partial turn
-	(void)inven_takeoff(cr_ptr, item, 255); // Take off the item
+	(void)inven_takeoff(creature_ptr, item, 255); // Take off the item
 
-	kamaenaoshi(cr_ptr, item);
-	calc_android_exp(cr_ptr);
+	kamaenaoshi(creature_ptr, item);
+	calc_android_exp(creature_ptr);
 	play_redraw |= (PR_EQUIPPY);
 
 }
 
 // Drop an item
-void do_cmd_drop(creature_type *cr_ptr)
+void do_cmd_drop(creature_type *creature_ptr)
 {
 	int item, amt = 1;
 
@@ -542,9 +542,9 @@ void do_cmd_drop(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -556,12 +556,12 @@ void do_cmd_drop(creature_type *cr_ptr)
 	s = "You have nothing to drop.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -602,12 +602,12 @@ void do_cmd_drop(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Drop (some of) the item */
-	inven_drop(cr_ptr, item, amt);
+	inven_drop(creature_ptr, item, amt);
 
 	if (IS_EQUIPPED(o_ptr))
 	{
-		kamaenaoshi(cr_ptr, item);
-		calc_android_exp(cr_ptr);
+		kamaenaoshi(creature_ptr, item);
+		calc_android_exp(creature_ptr);
 	}
 
 	play_redraw |= (PR_EQUIPPY);
@@ -641,7 +641,7 @@ static bool high_level_book(object_type *o_ptr)
 /*
  * Destroy an item
  */
-void do_cmd_destroy(creature_type *cr_ptr)
+void do_cmd_destroy(creature_type *creature_ptr)
 {
 	int			item, amt = 1;
 	int			old_number;
@@ -658,9 +658,9 @@ void do_cmd_destroy(creature_type *cr_ptr)
 
 	cptr q, s;
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Hack -- force destruction */
@@ -676,12 +676,12 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	s = "You have nothing to destroy.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -737,10 +737,10 @@ void do_cmd_destroy(creature_type *cr_ptr)
 			if (i == 'A')
 			{
 				/* Add an auto-destroy preference line */
-				if (autopick_autoregister(cr_ptr, o_ptr))
+				if (autopick_autoregister(creature_ptr, o_ptr))
 				{
 					/* Auto-destroy it */
-					autopick_alter_item(cr_ptr, item, TRUE);
+					autopick_alter_item(creature_ptr, item, TRUE);
 				}
 
 				/* The object is already destroyed. */
@@ -770,7 +770,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	energy_use = 100;
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(cr_ptr, o_ptr))
+	if (!can_player_destroy_object(creature_ptr, o_ptr))
 	{
 		energy_use = 0;
 
@@ -802,16 +802,16 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	/* Eliminate the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -amt);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */
 	else
 	{
 		floor_item_increase(0 - item, -amt);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
@@ -819,16 +819,16 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	{
 		bool gain_expr = FALSE;
 
-		if (has_trait(cr_ptr, TRAIT_ANDROID))
+		if (has_trait(creature_ptr, TRAIT_ANDROID))
 		{
 		}
-		else if ((cr_ptr->class_idx == CLASS_WARRIOR) || (cr_ptr->class_idx == CLASS_BERSERKER))
+		else if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_BERSERKER))
 		{
 			gain_expr = TRUE;
 		}
-		else if (cr_ptr->class_idx == CLASS_PALADIN)
+		else if (creature_ptr->class_idx == CLASS_PALADIN)
 		{
-			if (is_good_realm(cr_ptr->realm1))
+			if (is_good_realm(creature_ptr->realm1))
 			{
 				if (!is_good_realm(tval2realm(q_ptr->tval))) gain_expr = TRUE;
 			}
@@ -838,9 +838,9 @@ void do_cmd_destroy(creature_type *cr_ptr)
 			}
 		}
 
-		if (gain_expr && (cr_ptr->exp < CREATURE_MAX_EXP))
+		if (gain_expr && (creature_ptr->exp < CREATURE_MAX_EXP))
 		{
-			s32b tester_exp = cr_ptr->max_exp / 20;
+			s32b tester_exp = creature_ptr->max_exp / 20;
 			if (tester_exp > 10000) tester_exp = 10000;
 			if (q_ptr->sval < 3) tester_exp /= 4;
 			if (tester_exp<1) tester_exp = 1;
@@ -851,18 +851,18 @@ msg_print("更に経験を積んだような気がする。");
 			msg_print("You feel more experienced.");
 #endif
 
-			gain_exp(cr_ptr, tester_exp * amt);
+			gain_exp(creature_ptr, tester_exp * amt);
 		}
 		}
 
-	if (IS_EQUIPPED(o_ptr)) calc_android_exp(cr_ptr);
+	if (IS_EQUIPPED(o_ptr)) calc_android_exp(creature_ptr);
 }
 
 
 /*
  * Observe an item which has been *identify*-ed
  */
-void do_cmd_observe(creature_type *cr_ptr)
+void do_cmd_observe(creature_type *creature_ptr)
 {
 	int			item;
 	object_type		*o_ptr;
@@ -878,12 +878,12 @@ void do_cmd_observe(creature_type *cr_ptr)
 	s = "You have nothing to examine.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -931,7 +931,7 @@ void do_cmd_observe(creature_type *cr_ptr)
  * Remove the inscription from an object
  * XXX Mention item (when done)?
  */
-void do_cmd_uninscribe(creature_type *cr_ptr)
+void do_cmd_uninscribe(creature_type *creature_ptr)
 {
 	int   item;
 
@@ -948,12 +948,12 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	s = "You have nothing to un-inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -986,13 +986,13 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	o_ptr->inscription = 0;
 
 	/* Combine the pack */
-	cr_ptr->creature_update |= (CRU_COMBINE);
+	creature_ptr->creature_update |= (CRU_COMBINE);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* .や$の関係で, 再計算が必要なはず -- henkma */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 
 }
 
@@ -1000,7 +1000,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 /*
  * Inscribe an object with a comment
  */
-void do_cmd_inscribe(creature_type *cr_ptr)
+void do_cmd_inscribe(creature_type *creature_ptr)
 {
 	int			item;
 
@@ -1021,12 +1021,12 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 	s = "You have nothing to inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1068,13 +1068,13 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 		o_ptr->inscription = quark_add(out_val);
 
 		/* Combine the pack */
-		cr_ptr->creature_update |= (CRU_COMBINE);
+		creature_ptr->creature_update |= (CRU_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* .や$の関係で, 再計算が必要なはず -- henkma */
-		cr_ptr->creature_update  |= (CRU_BONUS);
+		creature_ptr->creature_update  |= (CRU_BONUS);
 	}
 }
 
@@ -1155,7 +1155,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 /*
  * An "item_tester_hook" for refilling lanterns
  */
-static bool item_tester_refill_lantern(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Flasks of oil are okay */
 	if (o_ptr->tval == TV_FLASK) return (TRUE);
@@ -1172,7 +1172,7 @@ static bool item_tester_refill_lantern(creature_type *cr_ptr, object_type *o_ptr
 /*
  * Refill the players lamp (from the pack or floor)
  */
-static void do_cmd_refill_lamp(creature_type *cr_ptr)
+static void do_cmd_refill_lamp(creature_type *creature_ptr)
 {
 	int item;
 
@@ -1190,12 +1190,12 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1209,7 +1209,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the lantern */
-	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4;
@@ -1254,28 +1254,28 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	/* Decrease the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -1);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Decrease the item (from the floor) */
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
 	/* Recalculate torch */
-	cr_ptr->creature_update |= (CRU_TORCH);
+	creature_ptr->creature_update |= (CRU_TORCH);
 }
 
 
 /*
  * An "item_tester_hook" for refilling torches
  */
-static bool item_tester_refill_torch(creature_type *cr_ptr, object_type *o_ptr)
+static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o_ptr)
 {
 	/* Torches are okay */
 	if ((o_ptr->tval == TV_LITE) &&
@@ -1289,7 +1289,7 @@ static bool item_tester_refill_torch(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Refuel the players torch (from the pack or floor)
  */
-static void do_cmd_refill_torch(creature_type *cr_ptr)
+static void do_cmd_refill_torch(creature_type *creature_ptr)
 {
 	int item;
 
@@ -1307,12 +1307,12 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1326,7 +1326,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	energy_use = 50;
 
 	/* Access the primary torch */
-	j_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4 + 5;
@@ -1384,37 +1384,37 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	/* Decrease the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(cr_ptr, item);
-		inven_item_optimize(cr_ptr, item);
+		inven_item_increase(creature_ptr, item, -1);
+		inven_item_describe(creature_ptr, item);
+		inven_item_optimize(creature_ptr, item);
 	}
 
 	/* Decrease the item (from the floor) */
 	else
 	{
 		floor_item_increase(0 - item, -1);
-		floor_item_describe(cr_ptr, 0 - item);
+		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
 
 	/* Recalculate torch */
-	cr_ptr->creature_update |= (CRU_TORCH);
+	creature_ptr->creature_update |= (CRU_TORCH);
 }
 
 
 /*
  * Refill the players lamp, or restock his torches
  */
-void do_cmd_refill(creature_type *cr_ptr)
+void do_cmd_refill(creature_type *creature_ptr)
 {
 	object_type *o_ptr;
 
 	/* Get the light */
-	o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_LITE, 1);
+	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-	if (cr_ptr->special_defense & KATA_MUSOU)
+	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* It is nothing */
@@ -1431,13 +1431,13 @@ void do_cmd_refill(creature_type *cr_ptr)
 	/* It's a lamp */
 	else if (o_ptr->sval == SV_LITE_LANTERN)
 	{
-		do_cmd_refill_lamp(cr_ptr);
+		do_cmd_refill_lamp(creature_ptr);
 	}
 
 	/* It's a torch */
 	else if (o_ptr->sval == SV_LITE_TORCH)
 	{
-		do_cmd_refill_torch(cr_ptr);
+		do_cmd_refill_torch(creature_ptr);
 	}
 
 	/* No torch to refill */
@@ -1456,10 +1456,10 @@ void do_cmd_refill(creature_type *cr_ptr)
 /*
  * Target command
  */
-void do_cmd_target(creature_type *cr_ptr)
+void do_cmd_target(creature_type *creature_ptr)
 {
 	/* Target set */
-	if (target_set(cr_ptr,TARGET_KILL))
+	if (target_set(creature_ptr,TARGET_KILL))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -1486,10 +1486,10 @@ void do_cmd_target(creature_type *cr_ptr)
 /*
  * Look command
  */
-void do_cmd_look(creature_type *cr_ptr)
+void do_cmd_look(creature_type *creature_ptr)
 {
 	/* Look around */
-	if (target_set(cr_ptr, TARGET_LOOK))
+	if (target_set(creature_ptr, TARGET_LOOK))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -1505,7 +1505,7 @@ void do_cmd_look(creature_type *cr_ptr)
 /*
  * Allow the player to examine other sectors on the map
  */
-void do_cmd_locate(creature_type *cr_ptr)
+void do_cmd_locate(creature_type *creature_ptr)
 {
 	int		dir, y1, x1, y2, x2;
 
@@ -1592,7 +1592,7 @@ void do_cmd_locate(creature_type *cr_ptr)
 
 
 	/* Recenter the map around the player */
-	verify_panel(cr_ptr);
+	verify_panel(creature_ptr);
 
 	/* Update stuff */
 	update |= (PU_MONSTERS);
@@ -1718,7 +1718,7 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
  *
  * Note that the player ghosts are ignored. XXX XXX XXX
  */
-void do_cmd_query_symbol(creature_type *cr_ptr)
+void do_cmd_query_symbol(creature_type *creature_ptr)
 {
 	int		i, n, species_idx;
 	char	sym, query;

@@ -149,30 +149,30 @@ static void prt_dungeon(void)
 /*
  * Print character stat in given row, column
  */
-static void prt_stat(creature_type *cr_ptr, int stat)
+static void prt_stat(creature_type *creature_ptr, int stat)
 {
 	char tmp[32];
 
-	if (!has_status(cr_ptr, stat))
+	if (!has_status(creature_ptr, stat))
 	{
 		put_str(stat_names[stat], ROW_STAT + stat, 0);
 		c_put_str(TERM_L_DARK, "------", ROW_STAT + stat, COL_STAT + 6);
 	}
-	else if (cr_ptr->stat_cur[stat] < cr_ptr->stat_max[stat]) // Display "injured" stat
+	else if (creature_ptr->stat_cur[stat] < creature_ptr->stat_max[stat]) // Display "injured" stat
 	{
 		put_str(stat_names_reduced[stat], ROW_STAT + stat, 0);
-		cnv_stat(cr_ptr->stat_use[stat], tmp);
+		cnv_stat(creature_ptr->stat_use[stat], tmp);
 		c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
 	else // Display "healthy" stat
 	{
 		put_str(stat_names[stat], ROW_STAT + stat, 0);
-		cnv_stat(cr_ptr->stat_use[stat], tmp);
+		cnv_stat(creature_ptr->stat_use[stat], tmp);
 		c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
 
 	/* Indicate natural maximum */
-	if (cr_ptr->stat_max[stat] == cr_ptr->stat_mod_max_max[stat])
+	if (creature_ptr->stat_max[stat] == creature_ptr->stat_mod_max_max[stat])
 	{
 #ifdef JP
 		/* 日本語にかぶらないように表示位置を変更 */
@@ -415,7 +415,7 @@ static struct {
 /*
  *  Show status bar
  */
-static void prt_status(creature_type *cr_ptr)
+static void prt_status(creature_type *creature_ptr)
 {
 	u32b bar_flags[3];
 	int wid, hgt, row_statbar, max_col_statbar;
@@ -430,122 +430,122 @@ static void prt_status(creature_type *cr_ptr)
 
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
-	if (cr_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
-	if (IS_HALLUCINATION(cr_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
-	if (IS_BLIND(cr_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
-	if (cr_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
-	if (cr_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
-	if (cr_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
-	if (cr_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
-	if (IS_TIM_ESP(cr_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
-	if (cr_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
-	if (cr_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
-	if (cr_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
-	if (IS_INVULN(cr_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
-	if (cr_ptr->wraith_form) ADD_FLG(BAR_WRAITH);		// Wraith form
-	if (cr_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);		// Pass wall
-	if (cr_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
-	if (IS_HERO(cr_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
-	if (cr_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
-	if (IS_BLESSED(cr_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
-	if (cr_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
-	if (cr_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
-	if (cr_ptr->shield) ADD_FLG(BAR_STONESKIN);
-	if (cr_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
+	if (creature_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
+	if (IS_HALLUCINATION(creature_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
+	if (IS_BLIND(creature_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
+	if (creature_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
+	if (creature_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
+	if (creature_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
+	if (creature_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
+	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
+	if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	if (creature_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
+	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
+	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
+	if (creature_ptr->wraith_form) ADD_FLG(BAR_WRAITH);		// Wraith form
+	if (creature_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);		// Pass wall
+	if (creature_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
+	if (IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
+	if (creature_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
+	if (IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
+	if (creature_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
+	if (creature_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
+	if (creature_ptr->shield) ADD_FLG(BAR_STONESKIN);
+	if (creature_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
-	if (cr_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
-	if (IS_OPPOSE_ACID(cr_ptr)) ADD_FLG(BAR_RESACID);
+	if (creature_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
+	if (IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
 
-	if (cr_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
-	if (IS_OPPOSE_ELEC(cr_ptr)) ADD_FLG(BAR_RESELEC);
+	if (creature_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
+	if (IS_OPPOSE_ELEC(creature_ptr)) ADD_FLG(BAR_RESELEC);
 
 	/* Oppose Fire */
-	if (cr_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
-	if (IS_OPPOSE_FIRE(cr_ptr)) ADD_FLG(BAR_RESFIRE);
+	if (creature_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
+	if (IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
 
 	/* Oppose Cold */
-	if (cr_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
-	if (IS_OPPOSE_COLD(cr_ptr)) ADD_FLG(BAR_RESCOLD);
+	if (creature_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
+	if (IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
 
 	/* Oppose Poison */
-	if (IS_OPPOSE_POIS(cr_ptr)) ADD_FLG(BAR_RESPOIS);
+	if (IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
 
 	/* Word of Recall */
-	if (cr_ptr->word_recall) ADD_FLG(BAR_RECALL);
+	if (creature_ptr->word_recall) ADD_FLG(BAR_RECALL);
 
 	/* Alter realiry */
-	if (cr_ptr->alter_reality) ADD_FLG(BAR_ALTER);
+	if (creature_ptr->alter_reality) ADD_FLG(BAR_ALTER);
 
 	/* Afraid */
-	if (cr_ptr->afraid) ADD_FLG(BAR_AFRAID);
+	if (creature_ptr->afraid) ADD_FLG(BAR_AFRAID);
 
 	/* Resist time */
-	if (cr_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
+	if (creature_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
 
-	if (cr_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
+	if (creature_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
 
 	/* Confusing Hands */
-	if (cr_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
+	if (creature_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
 
-	if (cr_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
+	if (creature_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
 
 	/* Ultimate-resistance */
-	if (cr_ptr->ult_res) ADD_FLG(BAR_ULTIMATE);
+	if (creature_ptr->ult_res) ADD_FLG(BAR_ULTIMATE);
 
 	/* tim levitation */
-	if (cr_ptr->tim_levitation) ADD_FLG(BAR_LEVITATE);
+	if (creature_ptr->tim_levitation) ADD_FLG(BAR_LEVITATE);
 
-	if (cr_ptr->tim_res_nether) ADD_FLG(BAR_RESNETH);
+	if (creature_ptr->tim_res_nether) ADD_FLG(BAR_RESNETH);
 
-	if (cr_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
+	if (creature_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
 
 	/* Mahouken */
-	if (cr_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
-	if (cr_ptr->special_attack & ATTACK_COLD) ADD_FLG(BAR_ATTKCOLD);
-	if (cr_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
-	if (cr_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
-	if (cr_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
-	if (cr_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
+	if (creature_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
+	if (creature_ptr->special_attack & ATTACK_COLD) ADD_FLG(BAR_ATTKCOLD);
+	if (creature_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
+	if (creature_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
+	if (creature_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
+	if (creature_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
-	if (cr_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
+	if (creature_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
 
 	/* tim stealth */
-	if (IS_TIM_STEALTH(cr_ptr)) ADD_FLG(BAR_STEALTH);
+	if (IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH);
 
-	if (cr_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
+	if (creature_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
 
 	/* Holy aura */
-	if (cr_ptr->tim_sh_holy) ADD_FLG(BAR_SHHOLY);
+	if (creature_ptr->tim_sh_holy) ADD_FLG(BAR_SHHOLY);
 
 	/* An Eye for an Eye */
-	if (cr_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
+	if (creature_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
-	if (cr_ptr->realm1 == REALM_HEX)
+	if (creature_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling(cr_ptr, HEX_BLESS)) ADD_FLG(BAR_BLESSED);
-		if (hex_spelling(cr_ptr, HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
-		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
-		if (hex_spelling(cr_ptr, HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
-		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
-		if (hex_spelling(cr_ptr, HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
-		if (hex_spelling(cr_ptr, HEX_BUILDING)) ADD_FLG(BAR_BUILD);
-		if (hex_spelling(cr_ptr, HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
-		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
-		if (hex_spelling(cr_ptr, HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
-		if (hex_spelling(cr_ptr, HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
-		if (hex_spelling(cr_ptr, HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
-		if (hex_spelling(cr_ptr, HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
-		if (hex_spelling(cr_ptr, HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
-		if (hex_spelling(cr_ptr, HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
-		if (hex_spelling(cr_ptr, HEX_CURE_LIGHT) ||
-			hex_spelling(cr_ptr, HEX_CURE_SERIOUS) ||
-			hex_spelling(cr_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
+		if (hex_spelling(creature_ptr, HEX_BLESS)) ADD_FLG(BAR_BLESSED);
+		if (hex_spelling(creature_ptr, HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
+		if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
+		if (hex_spelling(creature_ptr, HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
+		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
+		if (hex_spelling(creature_ptr, HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
+		if (hex_spelling(creature_ptr, HEX_BUILDING)) ADD_FLG(BAR_BUILD);
+		if (hex_spelling(creature_ptr, HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
+		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
+		if (hex_spelling(creature_ptr, HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
+		if (hex_spelling(creature_ptr, HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
+		if (hex_spelling(creature_ptr, HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
+		if (hex_spelling(creature_ptr, HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
+		if (hex_spelling(creature_ptr, HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
+		if (hex_spelling(creature_ptr, HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
+		if (hex_spelling(creature_ptr, HEX_CURE_LIGHT) ||
+			hex_spelling(creature_ptr, HEX_CURE_SERIOUS) ||
+			hex_spelling(creature_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
 
-		if (cr_ptr->magic_num2[2])
+		if (creature_ptr->magic_num2[2])
 		{
-			if (cr_ptr->magic_num2[1] == 1) ADD_FLG(BAR_PATIENCE);
-			if (cr_ptr->magic_num2[1] == 2) ADD_FLG(BAR_REVENGE);
+			if (creature_ptr->magic_num2[1] == 1) ADD_FLG(BAR_PATIENCE);
+			if (creature_ptr->magic_num2[1] == 2) ADD_FLG(BAR_REVENGE);
 		}
 	}
 
@@ -606,13 +606,13 @@ static void prt_status(creature_type *cr_ptr)
 /*
  * Prints level
  */
-static void prt_level(creature_type *cr_ptr)
+static void prt_level(creature_type *creature_ptr)
 {
 	char tmp[32];
 
-	sprintf(tmp, "%2d/%2d", cr_ptr->lev, cr_ptr->max_lev);
+	sprintf(tmp, "%2d/%2d", creature_ptr->lev, creature_ptr->max_lev);
 
-	if (cr_ptr->lev >= cr_ptr->max_plv)
+	if (creature_ptr->lev >= creature_ptr->max_plv)
 	{
 		put_str("LEV", ROW_LEVEL, 0);				
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 3);
@@ -628,29 +628,29 @@ static void prt_level(creature_type *cr_ptr)
 /*
  * Display the experience
  */
-static void prt_exp(creature_type *cr_ptr)
+static void prt_exp(creature_type *creature_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(has_trait(cr_ptr, TRAIT_ANDROID)))
+	if ((!exp_need)||(has_trait(creature_ptr, TRAIT_ANDROID)))
 	{
-		(void)sprintf(out_val, "%9ld", (long)cr_ptr->exp);
+		(void)sprintf(out_val, "%9ld", (long)creature_ptr->exp);
 	}
 	else
 	{
-		if (cr_ptr->lev >= cr_ptr->max_lev)
+		if (creature_ptr->lev >= creature_ptr->max_lev)
 		{
 			(void)sprintf(out_val, "*********");
 		}
 		else
 		{
-			(void)sprintf(out_val, "%9ld", (long)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
+			(void)sprintf(out_val, "%9ld", (long)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L) - creature_ptr->exp);
 		}
 	}
 
-	if (cr_ptr->exp >= cr_ptr->max_exp)
+	if (creature_ptr->exp >= creature_ptr->max_exp)
 	{
-		if (has_trait(cr_ptr, TRAIT_ANDROID)) put_str("Cst ", ROW_EXP, 0);
+		if (has_trait(creature_ptr, TRAIT_ANDROID)) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP", ROW_EXP, COL_EXP);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 3);
 
@@ -665,7 +665,7 @@ static void prt_exp(creature_type *cr_ptr)
 /*
  * Prints current gold
  */
-static void prt_gold(creature_type *cr_ptr)
+static void prt_gold(creature_type *creature_ptr)
 {
 	char tmp[32];
 
@@ -675,41 +675,41 @@ static void prt_gold(creature_type *cr_ptr)
 	put_str("AU ", ROW_GOLD, COL_GOLD);
 #endif
 
-	sprintf(tmp, "%9ld", (long)cr_ptr->au);
+	sprintf(tmp, "%9ld", (long)creature_ptr->au);
 	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 3);
 }
 
 
 // Prints current AC and EV
-static void prt_ac_ev(creature_type *cr_ptr)
+static void prt_ac_ev(creature_type *creature_ptr)
 {
 	char tmp[32];
 	put_str(" AC(     )  EV(     )", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_ac);
+	sprintf(tmp, "%5d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 4);
-	sprintf(tmp, "%5d", cr_ptr->dis_ev + cr_ptr->dis_to_ev);
+	sprintf(tmp, "%5d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 15);
 }
 
 /*
  * Prints Cur/Max hit points
  */
-static void prt_hp(creature_type *cr_ptr)
+static void prt_hp(creature_type *creature_ptr)
 {
 	char tmp[32]; 
 	byte color;
 
 	put_str("HP", ROW_CURHP, COL_CURHP);
-	sprintf(tmp, "%5ld", cr_ptr->chp);
+	sprintf(tmp, "%5ld", creature_ptr->chp);
 
-	if (cr_ptr->chp >= cr_ptr->mhp) color = TERM_L_GREEN;
-	else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10) color = TERM_YELLOW;
+	if (creature_ptr->chp >= creature_ptr->mhp) color = TERM_L_GREEN;
+	else if (creature_ptr->chp > (creature_ptr->mhp * hitpoint_warn) / 10) color = TERM_YELLOW;
 	else color = TERM_RED;
 
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 2);
 
 	put_str("/", ROW_CURHP, COL_CURHP + 7);
-	sprintf(tmp, "%5ld", cr_ptr->mhp);
+	sprintf(tmp, "%5ld", creature_ptr->mhp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 8);
@@ -719,7 +719,7 @@ static void prt_hp(creature_type *cr_ptr)
 /*
  * Prints players max/cur spell points
  */
-static void prt_sp(creature_type *cr_ptr)
+static void prt_sp(creature_type *creature_ptr)
 {
 	char tmp[32];
 	byte color;
@@ -730,16 +730,16 @@ static void prt_sp(creature_type *cr_ptr)
 	put_str("SP", ROW_CURSP, COL_CURSP);
 #endif
 
-	sprintf(tmp, "%5ld", cr_ptr->csp);
+	sprintf(tmp, "%5ld", creature_ptr->csp);
 
-	if (cr_ptr->csp >= cr_ptr->msp) color = TERM_L_GREEN;
-	else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10) color = TERM_YELLOW;
+	if (creature_ptr->csp >= creature_ptr->msp) color = TERM_L_GREEN;
+	else if (creature_ptr->csp > (creature_ptr->msp * mana_warn) / 10) color = TERM_YELLOW;
 	else color = TERM_RED;
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 2);
 
 	put_str( "/", ROW_CURSP, COL_CURSP + 7);
 
-	sprintf(tmp, "%5d", cr_ptr->msp);
+	sprintf(tmp, "%5d", creature_ptr->msp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 8);
@@ -818,13 +818,13 @@ static void prt_depth(creature_type *creature_ptr)
 /*
  * Prints status of hunger
  */
-static void prt_hunger(creature_type *cr_ptr)
+static void prt_hunger(creature_type *creature_ptr)
 {
 	byte color;
 	char *expression;
 	char tmp[30];
 
-	if (cr_ptr->food < PY_FOOD_FAINT)
+	if (creature_ptr->food < PY_FOOD_FAINT)
 	{
 		color = TERM_RED;
 #ifdef JP
@@ -836,7 +836,7 @@ static void prt_hunger(creature_type *cr_ptr)
 #endif
 
 	}
-	else if (cr_ptr->food < PY_FOOD_WEAK)
+	else if (creature_ptr->food < PY_FOOD_WEAK)
 	{
 		color = TERM_ORANGE;
 #ifdef JP
@@ -848,7 +848,7 @@ static void prt_hunger(creature_type *cr_ptr)
 #endif
 
 	}
-	else if (cr_ptr->food < PY_FOOD_ALERT)
+	else if (creature_ptr->food < PY_FOOD_ALERT)
 	{
 		color = TERM_YELLOW;
 #ifdef JP
@@ -859,13 +859,13 @@ static void prt_hunger(creature_type *cr_ptr)
 		c_put_str(TERM_YELLOW, "Hungry", ROW_HUNGRY, COL_HUNGRY);
 #endif
 	}
-	else if (cr_ptr->food < PY_FOOD_FULL)
+	else if (creature_ptr->food < PY_FOOD_FULL)
 	{
 		color = TERM_L_GREEN;
 		expression = "      ";
 		c_put_str(TERM_L_GREEN, "      ", ROW_HUNGRY, COL_HUNGRY);
 	}
-	else if (cr_ptr->food < PY_FOOD_MAX)
+	else if (creature_ptr->food < PY_FOOD_MAX)
 	{
 		color = TERM_L_GREEN;
 #ifdef JP
@@ -886,7 +886,7 @@ static void prt_hunger(creature_type *cr_ptr)
 
 	}
 
-	if(wizard) sprintf(tmp, "%6s(%d)", expression, cr_ptr->food);
+	if(wizard) sprintf(tmp, "%6s(%d)", expression, creature_ptr->food);
 	else sprintf(tmp, "%6s", expression);
 
 	c_put_str(color, tmp, ROW_HUNGRY, COL_HUNGRY);
@@ -900,7 +900,7 @@ static void prt_hunger(creature_type *cr_ptr)
  * This function was a major bottleneck when resting, so a lot of
  * the text formatting code was optimized in place below.
  */
-static void prt_state(creature_type *cr_ptr)
+static void prt_state(creature_type *creature_ptr)
 {
 	byte attr = TERM_WHITE;
 
@@ -932,7 +932,7 @@ sprintf(text, "  %2d", command_rep);
 	/* Action */
 	else
 	{
-		switch(cr_ptr->action)
+		switch(creature_ptr->action)
 		{
 			case ACTION_SEARCH:
 			{
@@ -1026,7 +1026,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KAMAE; i++)
-					if (cr_ptr->special_defense & (KAMAE_GENBU << i)) break;
+					if (creature_ptr->special_defense & (KAMAE_GENBU << i)) break;
 				switch (i)
 				{
 					case 0: attr = TERM_GREEN;break;
@@ -1041,7 +1041,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KATA; i++)
-					if (cr_ptr->special_defense & (KATA_IAI << i)) break;
+					if (creature_ptr->special_defense & (KATA_IAI << i)) break;
 				strcpy(text, kata_shurui[i].desc);
 				break;
 			}
@@ -1088,10 +1088,10 @@ sprintf(text, "  %2d", command_rep);
 /*
  * Prints the speed of a character.			-CJS-
  */
-static void prt_speed(creature_type *cr_ptr)
+static void prt_speed(creature_type *creature_ptr)
 {
-	int i = cr_ptr->speed;
-	bool is_fast = IS_FAST(cr_ptr);
+	int i = creature_ptr->speed;
+	bool is_fast = IS_FAST(creature_ptr);
 
 	byte attr = TERM_WHITE;
 	char buf[32] = "";
@@ -1102,23 +1102,23 @@ static void prt_speed(creature_type *cr_ptr)
 	row_speed = hgt + ROW_SPEED;
 
 	/* Hack -- Visually "undo" the Search Mode Slowdown */
-	if (cr_ptr->action == ACTION_SEARCH && !cr_ptr->lightspeed) i += 10;
+	if (creature_ptr->action == ACTION_SEARCH && !creature_ptr->lightspeed) i += 10;
 
 	/* Fast */
 	if (i > 0)
 	{
-		if (cr_ptr->riding)
+		if (creature_ptr->riding)
 		{
-			creature_type *m_ptr = &creature_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
 			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
-		else if ((is_fast && !cr_ptr->slow) || cr_ptr->lightspeed) attr = TERM_YELLOW;
-		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
+		else if ((is_fast && !creature_ptr->slow) || creature_ptr->lightspeed) attr = TERM_YELLOW;
+		else if (creature_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
-		sprintf(buf, "%s(%+d)", (cr_ptr->riding ? "乗馬" : "加速"), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "乗馬" : "加速"), i);
 #else
 		sprintf(buf, "Fast(%+d)", i);
 #endif
@@ -1128,24 +1128,24 @@ static void prt_speed(creature_type *cr_ptr)
 	/* Slow */
 	else if (i < 0)
 	{
-		if (cr_ptr->riding)
+		if (creature_ptr->riding)
 		{
-			creature_type *m_ptr = &creature_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
 			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
-		else if (is_fast && !cr_ptr->slow) attr = TERM_YELLOW;
-		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
+		else if (is_fast && !creature_ptr->slow) attr = TERM_YELLOW;
+		else if (creature_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
 #ifdef JP
-		sprintf(buf, "%s(%+d)", (cr_ptr->riding ? "乗馬" : "減速"), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "乗馬" : "減速"), i);
 #else
 		sprintf(buf, "Slow(%+d)", i);
 #endif
 	}
 
-	else if (cr_ptr->riding)
+	else if (creature_ptr->riding)
 	{
 		attr = TERM_GREEN;
 #ifdef JP
@@ -1160,7 +1160,7 @@ static void prt_speed(creature_type *cr_ptr)
 }
 
 
-static void prt_study(creature_type *cr_ptr)
+static void prt_study(creature_type *creature_ptr)
 {
 	int wid, hgt, row_study, col_study;
 
@@ -1168,7 +1168,7 @@ static void prt_study(creature_type *cr_ptr)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (cr_ptr->new_spells)
+	if (creature_ptr->new_spells)
 	{
 #ifdef JP
 		put_str("学習", row_study, col_study);
@@ -1184,7 +1184,7 @@ static void prt_study(creature_type *cr_ptr)
 }
 
 
-static void prt_imitation(creature_type *cr_ptr)
+static void prt_imitation(creature_type *creature_ptr)
 {
 	int wid, hgt, row_study, col_study;
 
@@ -1192,9 +1192,9 @@ static void prt_imitation(creature_type *cr_ptr)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (cr_ptr->class_idx == CLASS_IMITATOR)
+	if (creature_ptr->class_idx == CLASS_IMITATOR)
 	{
-		if (cr_ptr->mane_num)
+		if (creature_ptr->mane_num)
 		{
 			byte attr;
 			if (new_mane) attr = TERM_L_RED;
@@ -1213,9 +1213,9 @@ static void prt_imitation(creature_type *cr_ptr)
 }
 
 
-static void prt_cut(creature_type *cr_ptr)
+static void prt_cut(creature_type *creature_ptr)
 {
-	int c = cr_ptr->cut;
+	int c = creature_ptr->cut;
 
 	if (c > 1000)
 	{
@@ -1288,9 +1288,9 @@ static void prt_cut(creature_type *cr_ptr)
 
 
 
-static void prt_stun(creature_type *cr_ptr)
+static void prt_stun(creature_type *creature_ptr)
 {
-	int s = cr_ptr->stun;
+	int s = creature_ptr->stun;
 
 	if (s > 100)
 	{
@@ -1341,7 +1341,7 @@ static void prt_stun(creature_type *cr_ptr)
  * Auto-track current target creature when bored.  Note that the
  * health-bar stops tracking any creature that "disappears".
  */
-static void health_redraw(creature_type *cr_ptr, bool riding)
+static void health_redraw(creature_type *creature_ptr, bool riding)
 {
 	int row, col;
 	creature_type *m_ptr;
@@ -1350,7 +1350,7 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 
 	if (riding)
 	{
-		health_who = cr_ptr->riding;
+		health_who = creature_ptr->riding;
 		row = ROW_RIDING_INFO;
 
 		col = COL_RIDING_INFO;
@@ -1381,7 +1381,7 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 	}
 
 	/* Tracking a hallucinatory creature */
-	else if (IS_HALLUCINATION(cr_ptr))
+	else if (IS_HALLUCINATION(creature_ptr))
 	{
 		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
@@ -1451,68 +1451,68 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 /*
  * Display basic info (mostly left of map)
  */
-static void prt_frame_basic(creature_type *cr_ptr)
+static void prt_frame_basic(creature_type *creature_ptr)
 {
 	int i;
 
 	/* Level/Experience */
-	prt_level(cr_ptr);
-	prt_exp(cr_ptr);
+	prt_level(creature_ptr);
+	prt_exp(creature_ptr);
 
 	/* All Stats */
-	for (i = 0; i < 6; i++) prt_stat(cr_ptr, i);
+	for (i = 0; i < 6; i++) prt_stat(creature_ptr, i);
 
 	/* Armor */
-	prt_ac_ev(cr_ptr);
+	prt_ac_ev(creature_ptr);
 
 	/* Hitpoints */
-	prt_hp(cr_ptr);
+	prt_hp(creature_ptr);
 
 	/* Spellpoints */
-	prt_sp(cr_ptr);
+	prt_sp(creature_ptr);
 
 	/* Gold */
-	prt_gold(cr_ptr);
+	prt_gold(creature_ptr);
 
 	/* Current depth */
-	prt_depth(cr_ptr);
+	prt_depth(creature_ptr);
 
 	/* Special */
-//TODO	//health_redraw(cr_ptr, FALSE);
+//TODO	//health_redraw(creature_ptr, FALSE);
 }
 
 
 /*
  * Display extra info (mostly below map)
  */
-static void prt_frame_extra(creature_type *cr_ptr)
+static void prt_frame_extra(creature_type *creature_ptr)
 {
 	/* Cut/Stun */
-	prt_cut(cr_ptr);
-	prt_stun(cr_ptr);
+	prt_cut(creature_ptr);
+	prt_stun(creature_ptr);
 
 	/* Food */
-	prt_hunger(cr_ptr);
+	prt_hunger(creature_ptr);
 
 	/* State */
-	prt_state(cr_ptr);
+	prt_state(creature_ptr);
 
 	/* Speed */
-	prt_speed(cr_ptr);
+	prt_speed(creature_ptr);
 
 	/* Study spells */
-	prt_study(cr_ptr);
+	prt_study(creature_ptr);
 
-	prt_imitation(cr_ptr);
+	prt_imitation(creature_ptr);
 
-	prt_status(cr_ptr);
+	prt_status(creature_ptr);
 }
 
 
 /*
  * Hack -- display inventory in sub-windows
  */
-static void fix_inven(creature_type *cr_ptr)
+static void fix_inven(creature_type *creature_ptr)
 {
 	int j;
 
@@ -1531,7 +1531,7 @@ static void fix_inven(creature_type *cr_ptr)
 		Term_activate(angband_term[j]);
 
 		/* Display inventory */
-		display_inven(cr_ptr);
+		display_inven(creature_ptr);
 
 		/* Fresh */
 		Term_fresh();
@@ -1774,7 +1774,7 @@ static void fix_dungeon(creature_type *creature_ptr)
 /*
  * Hack -- display creature recall in sub-windows
  */
-static void fix_creature(creature_type *cr_ptr)
+static void fix_creature(creature_type *creature_ptr)
 {
 	int j;
 
@@ -1844,7 +1844,7 @@ static void fix_object(creature_type *creature_ptr)
  * Note that this function induces various "status" messages,
  * which must be bypasses until the character is created.
  */
-static void calc_spells(creature_type *cr_ptr, bool message)
+static void calc_spells(creature_type *creature_ptr, bool message)
 {
 	int			i, j, k, levels;
 	int			num_allowed;
@@ -1858,42 +1858,42 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	cptr p;
 
 	/* Hack -- must be literate */
-	if (!magic_info[cr_ptr->class_idx].spell_book) return;
+	if (!magic_info[creature_ptr->class_idx].spell_book) return;
 
 	/* Hack -- wait for creation */
 	if (!character_generated) return;
 
-	if ((cr_ptr->class_idx == CLASS_SORCERER) || (cr_ptr->class_idx == CLASS_RED_MAGE))
+	if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 	{
-		cr_ptr->new_spells = 0;
+		creature_ptr->new_spells = 0;
 		return;
 	}
 
-	p = spell_category_name(magic_info[cr_ptr->class_idx].spell_book);
+	p = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
 
 	/* Determine the number of spells allowed */
-	levels = cr_ptr->lev - magic_info[cr_ptr->class_idx].spell_first + 1;
+	levels = creature_ptr->lev - magic_info[creature_ptr->class_idx].spell_first + 1;
 
 	/* Hack -- no negative spells */
 	if (levels < 0) levels = 0;
 
 	/* Extract total allowed spells */
-	num_allowed = (adj_mag_study[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] * levels / 2);
+	num_allowed = (adj_mag_study[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] * levels / 2);
 
-	if ((cr_ptr->class_idx != CLASS_SAMURAI) && (magic_info[cr_ptr->class_idx].spell_book != TV_LIFE_BOOK))
+	if ((creature_ptr->class_idx != CLASS_SAMURAI) && (magic_info[creature_ptr->class_idx].spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
-	if (cr_ptr->class_idx == CLASS_SAMURAI)
+	if (creature_ptr->class_idx == CLASS_SAMURAI)
 	{
 		num_allowed = 32;
 	}
-	else if (cr_ptr->realm2 == REALM_NONE)
+	else if (creature_ptr->realm2 == REALM_NONE)
 	{
 		num_allowed = (num_allowed+1)/2;
 		if (num_allowed>(32+bonus)) num_allowed = 32+bonus;
 	}
-	else if ((cr_ptr->class_idx == CLASS_MAGE) || (cr_ptr->class_idx == CLASS_PRIEST))
+	else if ((creature_ptr->class_idx == CLASS_MAGE) || (creature_ptr->class_idx == CLASS_PRIEST))
 	{
 		if (num_allowed>(96+bonus)) num_allowed = 96+bonus;
 	}
@@ -1907,87 +1907,87 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	{
 		/* Count known spells */
 		if ((j < 32) ?
-		    (cr_ptr->spell_forgotten1 & (1L << j)) :
-		    (cr_ptr->spell_forgotten2 & (1L << (j - 32))))
+		    (creature_ptr->spell_forgotten1 & (1L << j)) :
+		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			num_boukyaku++;
 		}
 	}
 
 	/* See how many spells we must forget or may learn */
-	cr_ptr->new_spells = num_allowed + cr_ptr->add_spells + num_boukyaku - cr_ptr->learned_spells;
+	creature_ptr->new_spells = num_allowed + creature_ptr->add_spells + num_boukyaku - creature_ptr->learned_spells;
 
 	/* Forget spells which are too hard */
 
 	for (i = 63; i >= 0; i--)
 	{
 		/* Efficiency -- all done */
-		if (!cr_ptr->spell_learned1 && !cr_ptr->spell_learned2) break;
+		if (!creature_ptr->spell_learned1 && !creature_ptr->spell_learned2) break;
 
 		/* Access the spell */
-		j = cr_ptr->spell_order[i];
+		j = creature_ptr->spell_order[i];
 
 	/* Skip non-spells */
 		if (j >= 99) continue;
 
 
 		/* Get the spell */
-		if (!is_magic((j < 32) ? cr_ptr->realm1 : cr_ptr->realm2))
+		if (!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
 		{
 			if (j < 32)
-				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][j];
+				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
 			else
-				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
+				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j < 32)
-			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
 		else
-			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%32];
 
 		/* Skip spells we are allowed to know */
-		if (s_ptr->slevel <= cr_ptr->lev) continue;
+		if (s_ptr->slevel <= creature_ptr->lev) continue;
 
 		/* Is it known? */
 		if ((j < 32) ?
-		    (cr_ptr->spell_learned1 & (1L << j)) :
-		    (cr_ptr->spell_learned2 & (1L << (j - 32))))
+		    (creature_ptr->spell_learned1 & (1L << j)) :
+		    (creature_ptr->spell_learned2 & (1L << (j - 32))))
 		{
 			/* Mark as forgotten */
 			if (j < 32)
 			{
-				cr_ptr->spell_forgotten1 |= (1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_forgotten1 |= (1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_forgotten2 |= (1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_forgotten2 |= (1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* No longer known */
 			if (j < 32)
 			{
-				cr_ptr->spell_learned1 &= ~(1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_learned1 &= ~(1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_learned2 &= ~(1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_learned2 &= ~(1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* Message */
 #ifdef JP
 			if(message) msg_format("%sの%sを忘れてしまった。",
-				   do_spell(cr_ptr, which, j%32, SPELL_NAME), p );
+				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
 			if(message) msg_format("You have forgotten the %s of %s.", p,
-					do_spell(cr_ptr, which, j%32, SPELL_NAME));
+					do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
 			/* One more can be learned */
-			cr_ptr->new_spells++;
+			creature_ptr->new_spells++;
 		}
 	}
 
@@ -1996,58 +1996,58 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	for (i = 63; i >= 0; i--)
 	{
 		/* Stop when possible */
-		if (cr_ptr->new_spells >= 0) break;
+		if (creature_ptr->new_spells >= 0) break;
 
 		/* Efficiency -- all done */
-		if (!cr_ptr->spell_learned1 && !cr_ptr->spell_learned2) break;
+		if (!creature_ptr->spell_learned1 && !creature_ptr->spell_learned2) break;
 
 		/* Get the (i+1)th spell learned */
-		j = cr_ptr->spell_order[i];
+		j = creature_ptr->spell_order[i];
 
 		/* Skip unknown spells */
 		if (j >= 99) continue;
 
 		/* Forget it (if learned) */
 		if ((j < 32) ?
-		    (cr_ptr->spell_learned1 & (1L << j)) :
-		    (cr_ptr->spell_learned2 & (1L << (j - 32))))
+		    (creature_ptr->spell_learned1 & (1L << j)) :
+		    (creature_ptr->spell_learned2 & (1L << (j - 32))))
 		{
 			/* Mark as forgotten */
 			if (j < 32)
 			{
-				cr_ptr->spell_forgotten1 |= (1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_forgotten1 |= (1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_forgotten2 |= (1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_forgotten2 |= (1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* No longer known */
 			if (j < 32)
 			{
-				cr_ptr->spell_learned1 &= ~(1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_learned1 &= ~(1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_learned2 &= ~(1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_learned2 &= ~(1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* Message */
 #ifdef JP
 			if(message) msg_format("%sの%sを忘れてしまった。",
-				   do_spell(cr_ptr, which, j%32, SPELL_NAME), p );
+				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
 			if(message) msg_format("You have forgotten the %s of %s.", p,
-				   do_spell(cr_ptr, which, j%32, SPELL_NAME));
+				   do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
 			/* One more can be learned */
-			cr_ptr->new_spells++;
+			creature_ptr->new_spells++;
 		}
 	}
 
@@ -2056,92 +2056,92 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	for (i = 0; i < 64; i++)
 	{
 		/* None left to remember */
-		if (cr_ptr->new_spells <= 0) break;
+		if (creature_ptr->new_spells <= 0) break;
 
 		/* Efficiency -- all done */
-		if (!cr_ptr->spell_forgotten1 && !cr_ptr->spell_forgotten2) break;
+		if (!creature_ptr->spell_forgotten1 && !creature_ptr->spell_forgotten2) break;
 
 		/* Get the next spell we learned */
-		j = cr_ptr->spell_order[i];
+		j = creature_ptr->spell_order[i];
 
 		/* Skip unknown spells */
 		if (j >= 99) break;
 
 		/* Access the spell */
-		if (!is_magic((j < 32) ? cr_ptr->realm1 : cr_ptr->realm2))
+		if (!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
 		{
 			if (j < 32)
-				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][j];
+				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
 			else
-				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
+				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j<32)
-			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
 		else
-			s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%32];
 
 		/* Skip spells we cannot remember */
-		if (s_ptr->slevel > cr_ptr->lev) continue;
+		if (s_ptr->slevel > creature_ptr->lev) continue;
 
 		/* First set of spells */
 		if ((j < 32) ?
-		    (cr_ptr->spell_forgotten1 & (1L << j)) :
-		    (cr_ptr->spell_forgotten2 & (1L << (j - 32))))
+		    (creature_ptr->spell_forgotten1 & (1L << j)) :
+		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			/* No longer forgotten */
 			if (j < 32)
 			{
-				cr_ptr->spell_forgotten1 &= ~(1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_forgotten1 &= ~(1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_forgotten2 &= ~(1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_forgotten2 &= ~(1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* Known once more */
 			if (j < 32)
 			{
-				cr_ptr->spell_learned1 |= (1L << j);
-				which = cr_ptr->realm1;
+				creature_ptr->spell_learned1 |= (1L << j);
+				which = creature_ptr->realm1;
 			}
 			else
 			{
-				cr_ptr->spell_learned2 |= (1L << (j - 32));
-				which = cr_ptr->realm2;
+				creature_ptr->spell_learned2 |= (1L << (j - 32));
+				which = creature_ptr->realm2;
 			}
 
 			/* Message */
 #ifdef JP
 			if(message) msg_format("%sの%sを思い出した。",
-				   do_spell(cr_ptr, which, j%32, SPELL_NAME), p );
+				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
 			if(message) msg_format("You have remembered the %s of %s.",
-				   p, do_spell(cr_ptr, which, j%32, SPELL_NAME));
+				   p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
 			/* One less can be learned */
-			cr_ptr->new_spells--;
+			creature_ptr->new_spells--;
 		}
 	}
 
 	k = 0;
 
-	if (cr_ptr->realm2 == REALM_NONE)
+	if (creature_ptr->realm2 == REALM_NONE)
 	{
 		/* Count spells that can be learned */
 		for (j = 0; j < 32; j++)
 		{
-			if (!is_magic(cr_ptr->realm1)) s_ptr = &technic_info[cr_ptr->realm1-MIN_TECHNIC][j];
-			else s_ptr = &magic_info[cr_ptr->class_idx].info[cr_ptr->realm1-1][j];
+			if (!is_magic(creature_ptr->realm1)) s_ptr = &technic_info[creature_ptr->realm1-MIN_TECHNIC][j];
+			else s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
 
 			/* Skip spells we cannot remember */
-			if (s_ptr->slevel > cr_ptr->lev) continue;
+			if (s_ptr->slevel > creature_ptr->lev) continue;
 
 			/* Skip spells we already know */
-			if (cr_ptr->spell_learned1 & (1L << j))
+			if (creature_ptr->spell_learned1 & (1L << j))
 			{
 				continue;
 			}
@@ -2150,34 +2150,34 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 			k++;
 		}
 		if (k>32) k = 32;
-		if ((cr_ptr->new_spells > k) && ((magic_info[cr_ptr->class_idx].spell_book == TV_LIFE_BOOK) || (magic_info[cr_ptr->class_idx].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
+		if ((creature_ptr->new_spells > k) && ((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) || (magic_info[creature_ptr->class_idx].spell_book == TV_HISSATSU_BOOK))) creature_ptr->new_spells = k;
 	}
 
-	if (cr_ptr->new_spells < 0) cr_ptr->new_spells = 0;
+	if (creature_ptr->new_spells < 0) creature_ptr->new_spells = 0;
 
 	/* Spell count changed */
-	if (cr_ptr->old_spells != cr_ptr->new_spells)
+	if (creature_ptr->old_spells != creature_ptr->new_spells)
 	{
 		/* Message if needed */
-		if (cr_ptr->new_spells)
+		if (creature_ptr->new_spells)
 		{
 			/* Message */
 #ifdef JP
-			if( cr_ptr->new_spells < 10 ){
-				if(message) msg_format("あと %d つの%sを学べる。", cr_ptr->new_spells, p);
+			if( creature_ptr->new_spells < 10 ){
+				if(message) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
 			}else{
-				if(message) msg_format("あと %d 個の%sを学べる。", cr_ptr->new_spells, p);
+				if(message) msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
 			}
 #else
 			if(message) msg_format("You can learn %d more %s%s.",
-				   cr_ptr->new_spells, p,
-				   (cr_ptr->new_spells != 1) ? "s" : "");
+				   creature_ptr->new_spells, p,
+				   (creature_ptr->new_spells != 1) ? "s" : "");
 #endif
 
 		}
 
 		/* Save the new_spells value */
-		cr_ptr->old_spells = cr_ptr->new_spells;
+		creature_ptr->old_spells = creature_ptr->new_spells;
 
 		/* Redraw Study Status */
 		play_redraw |= (PR_STUDY);
@@ -2194,47 +2194,47 @@ static void calc_spells(creature_type *cr_ptr, bool message)
  *
  * This function induces status messages.
  */
-static void calc_mana(creature_type *cr_ptr, bool message)
+static void calc_mana(creature_type *creature_ptr, bool message)
 {
 	int		msp, levels, cur_wgt, max_wgt;
 
 	object_type	*o_ptr;
 
-	levels = cr_ptr->lev;
+	levels = creature_ptr->lev;
 
-	switch(cr_ptr->class_idx)
+	switch(creature_ptr->class_idx)
 	{
 		case CLASS_SAMURAI:
-			msp = (adj_mag_mana[cr_ptr->stat_ind[magic_info[cr_ptr->class_idx].spell_stat]] + 10) * 2;
-			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->class_idx].spell_stat] / 20);
+			msp = (adj_mag_mana[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] + 10) * 2;
+			if (msp) msp += (msp * race_info[creature_ptr->race_idx1].r_adj[magic_info[creature_ptr->class_idx].spell_stat] / 20);
 			break;
 
 		default:
 			/* Extract total mana */
-			msp = adj_mag_mana[cr_ptr->stat_ind[STAT_INT]] * (levels+3) / 4;
+			msp = adj_mag_mana[creature_ptr->stat_ind[STAT_INT]] * (levels+3) / 4;
 
 			/* Hack -- usually add one mana */
 			msp++;
 
-			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[magic_info[cr_ptr->class_idx].spell_stat] / 20);
+			if (msp) msp += (msp * race_info[creature_ptr->race_idx1].r_adj[magic_info[creature_ptr->class_idx].spell_stat] / 20);
 
-			if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp / 2;
+			if (msp && (creature_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp / 2;
 
 			/* Hack: High mages have a 25% mana bonus */
-			if (msp && (cr_ptr->class_idx == CLASS_MAGE)) msp += msp / 6;
-			if (msp && (cr_ptr->class_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
+			if (msp && (creature_ptr->class_idx == CLASS_MAGE)) msp += msp / 6;
+			if (msp && (creature_ptr->class_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
 	}
 
 	/* Only mages are affected */
-	if (magic_info[cr_ptr->class_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
+	if (magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 
 		/* Assume player is not encumbered by gloves */
-		cr_ptr->cumber_glove = FALSE;
+		creature_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_ARMS, 1);
+		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_ARMS, 1);
 
 		/* Examine the gloves */
 		object_flags(o_ptr, flgs);
@@ -2246,7 +2246,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		    !((have_flag(flgs, TR_DEX)) && (o_ptr->pval > 0)))
 		{
 			/* Encumbered */
-			cr_ptr->cumber_glove = TRUE;
+			creature_ptr->cumber_glove = TRUE;
 
 			/* Reduce mana */
 			msp = (3 * msp) / 4;
@@ -2255,23 +2255,23 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 
 	/* Assume player not encumbered by armor */
-	cr_ptr->cumber_armor = FALSE;
+	creature_ptr->cumber_armor = FALSE;
 
 	/* Weigh the armor */
 	cur_wgt = 0;
 
 
 	/*TODO:ADJUST
-	if(cr_ptr->inventory[].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
-	if(cr_ptr->inventory[].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
-	cur_wgt += cr_ptr->inventory[].weight;
-	cur_wgt += cr_ptr->inventory[].weight;
-	//TODO cur_wgt += cr_ptr->inventory[].weight;
-	cur_wgt += cr_ptr->inventory[].weight;
-	cur_wgt += cr_ptr->inventory[].weight;
+	if(creature_ptr->inventory[].tval> TV_SWORD) cur_wgt += creature_ptr->inventory[].weight;
+	if(creature_ptr->inventory[].tval> TV_SWORD) cur_wgt += creature_ptr->inventory[].weight;
+	cur_wgt += creature_ptr->inventory[].weight;
+	cur_wgt += creature_ptr->inventory[].weight;
+	//TODO cur_wgt += creature_ptr->inventory[].weight;
+	cur_wgt += creature_ptr->inventory[].weight;
+	cur_wgt += creature_ptr->inventory[].weight;
 
 	// Subtract a percentage of maximum mana.
-	switch (cr_ptr->class_idx)
+	switch (creature_ptr->class_idx)
 	{
 		// For these classes, mana is halved if armour 
 		// is 30 pounds over their weight limit.
@@ -2282,8 +2282,8 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_FORCETRAINER:
 		case CLASS_SORCERER:
 		{
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight;
 			break;
 		}
 
@@ -2292,8 +2292,8 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_BARD:
 		case CLASS_TOURIST:
 		{
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight*2/3;
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight*2/3;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight*2/3;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight*2/3;
 			break;
 		}
 
@@ -2301,8 +2301,8 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_BEASTMASTER:
 		case CLASS_MIRROR_MASTER:
 		{
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/2;
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/2;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/2;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/2;
 			break;
 		}
 
@@ -2312,8 +2312,8 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_RED_MAGE:
 		case CLASS_WARRIOR_MAGE:
 		{
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/3;
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/3;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/3;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/3;
 			break;
 		}
 
@@ -2321,8 +2321,8 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		case CLASS_PALADIN:
 		case CLASS_CHAOS_WARRIOR:
 		{
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/5;
-			if (cr_ptr->inventory[].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[].weight/5;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/5;
+			if (creature_ptr->inventory[].tval <= TV_SWORD) cur_wgt += creature_ptr->inventory[].weight/5;
 			break;
 		}
 
@@ -2335,16 +2335,16 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	*/
 
 	/* Determine the weight allowance */
-	max_wgt = magic_info[cr_ptr->class_idx].spell_weight;
+	max_wgt = magic_info[creature_ptr->class_idx].spell_weight;
 
 	/* Heavy armor penalizes mana by a percentage.  -LM- */
 	if ((cur_wgt - max_wgt) > 0)
 	{
 		/* Encumbered */
-		cr_ptr->cumber_armor = TRUE;
+		creature_ptr->cumber_armor = TRUE;
 
 		/* Subtract a percentage of maximum mana. */
-		switch (cr_ptr->class_idx)
+		switch (creature_ptr->class_idx)
 		{
 			/* For these classes, mana is halved if armour 
 			 * is 30 pounds over their weight limit. */
@@ -2396,7 +2396,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 			case CLASS_SAMURAI:
 			{
-				cr_ptr->cumber_armor = FALSE;
+				creature_ptr->cumber_armor = FALSE;
 				break;
 			}
 
@@ -2414,25 +2414,25 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 
 	/* Maximum mana has changed */
-	if (cr_ptr->msp != msp)
+	if (creature_ptr->msp != msp)
 	{
 		/* Enforce maximum */
-		if ((cr_ptr->csp >= msp) && (cr_ptr->class_idx != CLASS_SAMURAI))
+		if ((creature_ptr->csp >= msp) && (creature_ptr->class_idx != CLASS_SAMURAI))
 		{
-			cr_ptr->csp = msp;
-			cr_ptr->csp_frac = 0;
+			creature_ptr->csp = msp;
+			creature_ptr->csp_frac = 0;
 		}
 
 #ifdef JP
 		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (msp > cr_ptr->msp))
+		if ((level_up == 1) && (msp > creature_ptr->msp))
 		{
 			if(message) msg_format("最大マジック・ポイントが %d 増加した！",
-				   (msp - cr_ptr->msp));
+				   (msp - creature_ptr->msp));
 		}
 #endif
 		/* Save new mana */
-		cr_ptr->msp = msp;
+		creature_ptr->msp = msp;
 
 		/* Display mana later */
 		play_redraw |= (PR_MANA);
@@ -2443,10 +2443,10 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	}
 
 	/* Take note when "glove state" changes */
-	if (cr_ptr->old_cumber_glove != cr_ptr->cumber_glove)
+	if (creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
 	{
 		/* Message */
-		if (cr_ptr->cumber_glove)
+		if (creature_ptr->cumber_glove)
 		{
 #ifdef JP
 			if(message) msg_print("手が覆われて呪文が唱えにくい感じがする。");
@@ -2466,15 +2466,15 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		}
 
 		/* Save it */
-		cr_ptr->old_cumber_glove = cr_ptr->cumber_glove;
+		creature_ptr->old_cumber_glove = creature_ptr->cumber_glove;
 	}
 
 
 	/* Take note when "armor state" changes */
-	if (cr_ptr->old_cumber_armor != cr_ptr->cumber_armor)
+	if (creature_ptr->old_cumber_armor != creature_ptr->cumber_armor)
 	{
 		/* Message */
-		if (cr_ptr->cumber_armor)
+		if (creature_ptr->cumber_armor)
 		{
 #ifdef JP
 			if(message) msg_print("装備の重さで動きが鈍くなってしまっている。");
@@ -2494,7 +2494,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		}
 
 		/* Save it */
-		cr_ptr->old_cumber_armor = cr_ptr->cumber_armor;
+		creature_ptr->old_cumber_armor = creature_ptr->cumber_armor;
 	}
 }
 
@@ -2504,26 +2504,26 @@ static void calc_mana(creature_type *cr_ptr, bool message)
  * Calculate the players (maximal) hit points
  * Adjust current hitpoints if necessary
  */
-static void calc_hitpoints(creature_type *cr_ptr, bool message)
+static void calc_hitpoints(creature_type *creature_ptr, bool message)
 {
 	int bonus, mhp;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
-	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[STAT_CON]])) * cr_ptr->lev / 4;
+	bonus = ((int)(adj_con_mhp[creature_ptr->stat_ind[STAT_CON]])) * creature_ptr->lev / 4;
 
 	/* Divine Bonuses */
-	if(cr_ptr->dr >= 0){
-		bonus += adj_dr_mhp[cr_ptr->dr] * cr_ptr->hitdice;
+	if(creature_ptr->dr >= 0){
+		bonus += adj_dr_mhp[creature_ptr->dr] * creature_ptr->hitdice;
 	}
 
 	/* Calculate hitpoints */
-	mhp = cr_ptr->base_hp[cr_ptr->lev - 1];
+	mhp = creature_ptr->base_hp[creature_ptr->lev - 1];
 
 	// TODO MIMIC FORM
-	if (cr_ptr->class_idx == CLASS_SORCERER)
+	if (creature_ptr->class_idx == CLASS_SORCERER)
 	{
-		if (cr_ptr->lev < 30)
-			mhp = (mhp * (45+cr_ptr->lev) / 100);
+		if (creature_ptr->lev < 30)
+			mhp = (mhp * (45+creature_ptr->lev) / 100);
 		else
 			mhp = (mhp * 75 / 100);
 		bonus = (bonus * 65 / 100);
@@ -2531,43 +2531,43 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	mhp += bonus;
 
-	if (cr_ptr->class_idx == CLASS_BERSERKER)
+	if (creature_ptr->class_idx == CLASS_BERSERKER)
 	{
-		mhp = mhp * (110+ (((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110)) / 100;
+		mhp = mhp * (110+ (((creature_ptr->lev + 40) * (creature_ptr->lev + 40) - 1550) / 110)) / 100;
 	}
 
 	/* Always have at least one hitpoint per level */
-	if (mhp < cr_ptr->lev + 1) mhp = cr_ptr->lev + 1;
+	if (mhp < creature_ptr->lev + 1) mhp = creature_ptr->lev + 1;
 
 	/* Factor in the hero / superhero settings */
-	if (IS_HERO(cr_ptr)) mhp += 10;
-	if (cr_ptr->shero && (cr_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
-	if (cr_ptr->tsuyoshi) mhp += 50;
+	if (IS_HERO(creature_ptr)) mhp += 10;
+	if (creature_ptr->shero && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
+	if (creature_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
-	if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) mhp += 15;
-	if (hex_spelling(cr_ptr, HEX_BUILDING)) mhp += 60;
+	if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) mhp += 15;
+	if (hex_spelling(creature_ptr, HEX_BUILDING)) mhp += 60;
 
 	/* New maximum hitpoints */
-	if (cr_ptr->mhp != mhp)
+	if (creature_ptr->mhp != mhp)
 	{
 		/* Enforce maximum */
-		if (cr_ptr->chp >= mhp)
+		if (creature_ptr->chp >= mhp)
 		{
-			cr_ptr->chp = mhp;
-			cr_ptr->chp_frac = 0;
+			creature_ptr->chp = mhp;
+			creature_ptr->chp_frac = 0;
 		}
 
 #ifdef JP
 		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (mhp > cr_ptr->mhp))
+		if ((level_up == 1) && (mhp > creature_ptr->mhp))
 		{
-			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - cr_ptr->mhp) );
+			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - creature_ptr->mhp) );
 		}
 #endif
 		/* Save the new max-hitpoints */
-		cr_ptr->mhp = mhp;
-		cr_ptr->mmhp = mhp;
+		creature_ptr->mhp = mhp;
+		creature_ptr->mmhp = mhp;
 
 		/* Display hitpoints (later) */
 		play_redraw |= (PR_HP);
@@ -5029,32 +5029,32 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 
 /*
- * Handle "cr_ptr->creature_update"
+ * Handle "creature_ptr->creature_update"
  */
-void notice_stuff(creature_type *cr_ptr)
+void notice_stuff(creature_type *creature_ptr)
 {
 	/* Notice stuff */
-	if (!cr_ptr->creature_update) return;
+	if (!creature_ptr->creature_update) return;
 
 	/* Actually do auto-destroy */
-	if (cr_ptr->creature_update & (CRN_AUTODESTROY))
+	if (creature_ptr->creature_update & (CRN_AUTODESTROY))
 	{
-		cr_ptr->creature_update &= ~(CRN_AUTODESTROY);
-		autopick_delayed_alter(cr_ptr);
+		creature_ptr->creature_update &= ~(CRN_AUTODESTROY);
+		autopick_delayed_alter(creature_ptr);
 	}
 
 	/* Combine the pack */
-	if (cr_ptr->creature_update & (CRU_COMBINE))
+	if (creature_ptr->creature_update & (CRU_COMBINE))
 	{
-		cr_ptr->creature_update &= ~(CRU_COMBINE);
-		combine_pack(cr_ptr);
+		creature_ptr->creature_update &= ~(CRU_COMBINE);
+		combine_pack(creature_ptr);
 	}
 
 	/* Reorder the pack */
-	if (cr_ptr->creature_update & (CRU_REORDER))
+	if (creature_ptr->creature_update & (CRU_REORDER))
 	{
-		cr_ptr->creature_update &= ~(CRU_REORDER);
-		reorder_pack(cr_ptr);
+		creature_ptr->creature_update &= ~(CRU_REORDER);
+		reorder_pack(creature_ptr);
 	}
 }
 
@@ -5446,15 +5446,15 @@ void handle_stuff(void)
 }
 
 
-s16b empty_hands(creature_type *cr_ptr, bool riding_control)
+s16b empty_hands(creature_type *creature_ptr, bool riding_control)
 {
 	s16b status = 0x0000, least_zero_bit;
 	int i;
 
 	for(i = 0; i < MAX_WEAPONS; i++)
-		if (!get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, i)->k_idx) status |= 0x0001 << i;
+		if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i)->k_idx) status |= 0x0001 << i;
 
-	if (riding_control && status && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))
+	if (riding_control && status && creature_ptr->riding && !(creature_ptr->pet_extra_flags & PF_RYOUTE))
 	{
 		least_zero_bit = ~status & -(~status);
 		status &= ~least_zero_bit;
@@ -5464,23 +5464,23 @@ s16b empty_hands(creature_type *cr_ptr, bool riding_control)
 }
 
 
-bool heavy_armor(creature_type *cr_ptr)
+bool heavy_armor(creature_type *creature_ptr)
 {
 	u16b monk_arm_wgt = 0;
 
-	if ((cr_ptr->class_idx != CLASS_MONK) && (cr_ptr->class_idx != CLASS_FORCETRAINER) && (cr_ptr->class_idx != CLASS_NINJA)) return FALSE;
+	if ((creature_ptr->class_idx != CLASS_MONK) && (creature_ptr->class_idx != CLASS_FORCETRAINER) && (creature_ptr->class_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
 	//TODO
-	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
-	//if(cr_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[].weight;
-	//monk_arm_wgt += cr_ptr->inventory[].weight;
-	//monk_arm_wgt += cr_ptr->inventory[].weight;
-	//monk_arm_wgt += cr_ptr->inventory[].weight;
-	//monk_arm_wgt += cr_ptr->inventory[].weight;
-	//monk_arm_wgt += cr_ptr->inventory[].weight;
+	//if(creature_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += creature_ptr->inventory[].weight;
+	//if(creature_ptr->inventory[].tval > TV_SWORD) monk_arm_wgt += creature_ptr->inventory[].weight;
+	//monk_arm_wgt += creature_ptr->inventory[].weight;
+	//monk_arm_wgt += creature_ptr->inventory[].weight;
+	//monk_arm_wgt += creature_ptr->inventory[].weight;
+	//monk_arm_wgt += creature_ptr->inventory[].weight;
+	//monk_arm_wgt += creature_ptr->inventory[].weight;
 
-	return (monk_arm_wgt > (100 + (cr_ptr->lev * 4)) * cr_ptr->size / 10 * cr_ptr->size / 10);
+	return (monk_arm_wgt > (100 + (creature_ptr->lev * 4)) * creature_ptr->size / 10 * creature_ptr->size / 10);
 }
 
 
@@ -5495,34 +5495,34 @@ s16b calc_rank(s32b align){
 }
 
 /* get subrace */
-bool get_subrace(creature_type *cr_ptr, int n)
+bool get_subrace(creature_type *creature_ptr, int n)
 {
-	if(cr_ptr->sub_race[n / 32] & (0x01 << (n % 32))) return TRUE;
+	if(creature_ptr->sub_race[n / 32] & (0x01 << (n % 32))) return TRUE;
 	return FALSE;
 }
 
 /* set subrace */
-void set_subrace(creature_type *cr_ptr, int n, bool b)
+void set_subrace(creature_type *creature_ptr, int n, bool b)
 {
 	unsigned int a = n;
-	if(b) cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] | (0x01 << (a % 32));
-	else cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] & !(0x01 << (a % 32));
+	if(b) creature_ptr->sub_race[a / 32] = creature_ptr->sub_race[a / 32] | (0x01 << (a % 32));
+	else creature_ptr->sub_race[a / 32] = creature_ptr->sub_race[a / 32] & !(0x01 << (a % 32));
 }
 
 
 
 /* Return Race Name */
-cptr desc_race_name(creature_type *cr_ptr){
+cptr desc_race_name(creature_type *creature_ptr){
 	char name[80];
 	char subname[80];
-	race_type *rcr_ptr = &race_info[cr_ptr->race_idx1];
+	race_type *rcreature_ptr = &race_info[creature_ptr->race_idx1];
 	name[0] = '\0';
 	subname[0] = '\0';
 
-	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
-	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
+	if(creature_ptr->race_idx1 == INDEX_NONE) return format("");
+	else if(creature_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[creature_ptr->race_idx1].title);
 
-	if(has_trait(cr_ptr, TRAIT_GOLEM))
+	if(has_trait(creature_ptr, TRAIT_GOLEM))
 	{
 #if JP
 		strcat(subname, "型ゴーレム");
@@ -5531,7 +5531,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_ANDROID))
+	if(has_trait(creature_ptr, TRAIT_ANDROID))
 	{
 #if JP
 		strcat(subname, "型アンドロイド");
@@ -5541,7 +5541,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 	}
 
 
-	if(has_trait(cr_ptr, TRAIT_VAMPIRE))
+	if(has_trait(creature_ptr, TRAIT_VAMPIRE))
 	{
 #if JP
 		strcat(subname, "の吸血鬼");
@@ -5550,7 +5550,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_ZOMBIE))
+	if(has_trait(creature_ptr, TRAIT_ZOMBIE))
 	{
 #if JP
 		strcat(subname, "のゾンビ");
@@ -5559,7 +5559,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_SKELETON))
+	if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 #if JP
 		strcat(subname, "のスケルトン");
@@ -5568,7 +5568,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_LICH))
+	if(has_trait(creature_ptr, TRAIT_LICH))
 	{
 #if JP
 		strcat(subname, "のリッチ");
@@ -5577,7 +5577,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_NAZGUL))
+	if(has_trait(creature_ptr, TRAIT_NAZGUL))
 	{
 #if JP
 		strcat(subname, "のナズグル");
@@ -5586,7 +5586,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(has_trait(cr_ptr, TRAIT_PUELLA_MAGI))
+	if(has_trait(creature_ptr, TRAIT_PUELLA_MAGI))
 	{
 #if JP
 		strcat(subname, "の魔法少女");
@@ -5605,7 +5605,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
-	if(IS_PURE(cr_ptr))
+	if(IS_PURE(creature_ptr))
 	{
 		if(!name[0])
 		{
@@ -5613,19 +5613,19 @@ cptr desc_race_name(creature_type *cr_ptr){
 			strcat(name, "純血種の");
 #else
 			strcat(name, "Pure-blooded ");
-			strcat(name, sex_info[cr_ptr->sex].title);
+			strcat(name, sex_info[creature_ptr->sex].title);
 			strcat(name, " ");
 #endif
 		}
-		strcat(name, race_info[cr_ptr->race_idx1].title);
+		strcat(name, race_info[creature_ptr->race_idx1].title);
 	}
 	else
 	{
 		int i;
 		for(i = 0; i < MAX_HALF_RACE_DESCRIPTION; i++)
 		{
-			if((cr_ptr->race_idx1 == half_race_desc[i].race1 && cr_ptr->race_idx2 == half_race_desc[i].race2) ||
-			   (cr_ptr->race_idx2 == half_race_desc[i].race1 && cr_ptr->race_idx1 == half_race_desc[i].race2))
+			if((creature_ptr->race_idx1 == half_race_desc[i].race1 && creature_ptr->race_idx2 == half_race_desc[i].race2) ||
+			   (creature_ptr->race_idx2 == half_race_desc[i].race1 && creature_ptr->race_idx1 == half_race_desc[i].race2))
 			{
 				strcat(name, half_race_desc[i].title);
 				break;
@@ -5635,16 +5635,16 @@ cptr desc_race_name(creature_type *cr_ptr){
 		if(!name[0])
 		{
 #if !JP
-			strcat(name, sex_info[cr_ptr->sex].title);
+			strcat(name, sex_info[creature_ptr->sex].title);
 			strcat(name, "Mixed ");
 #endif
-			strcat(name, race_info[cr_ptr->race_idx1].title);
+			strcat(name, race_info[creature_ptr->race_idx1].title);
 #if JP
 			strcat(name, "と");
 #else
 			strcat(name, "and ");
 #endif
-			strcat(name, race_info[cr_ptr->race_idx2].title);
+			strcat(name, race_info[creature_ptr->race_idx2].title);
 #if JP
 			strcat(name, "の混血");
 #endif
@@ -5655,20 +5655,20 @@ cptr desc_race_name(creature_type *cr_ptr){
 	strcat(name, subname);
 
 	strcat(name, "(");
-	strcat(name, sex_info[cr_ptr->sex].title);
+	strcat(name, sex_info[creature_ptr->sex].title);
 	strcat(name, ")");
 
 	return format("%s", name);
 }
 
 
-cptr get_class_desc(creature_type *cr_ptr){
+cptr get_class_desc(creature_type *creature_ptr){
 	char name[80];
 	name[0] = '\0';
 
-	strcat(name, class_info[cr_ptr->class_idx].title);
+	strcat(name, class_info[creature_ptr->class_idx].title);
 
-	if(has_trait(cr_ptr, TRAIT_PUELLA_MAGI))
+	if(has_trait(creature_ptr, TRAIT_PUELLA_MAGI))
 	{
 #if JP
 		strcat(name, "/魔法少女");
@@ -5677,14 +5677,14 @@ cptr get_class_desc(creature_type *cr_ptr){
 #endif
 	}
 
-	if(cr_ptr->realm1 != REALM_NONE && cr_ptr->realm1 < MAX_REALM)
+	if(creature_ptr->realm1 != REALM_NONE && creature_ptr->realm1 < MAX_REALM)
 	{
 		strcat(name, " (");
-		strcat(name, realm_names[cr_ptr->realm1]);
-		if(cr_ptr->realm2 != REALM_NONE && cr_ptr->realm2 < MAX_REALM)
+		strcat(name, realm_names[creature_ptr->realm1]);
+		if(creature_ptr->realm2 != REALM_NONE && creature_ptr->realm2 < MAX_REALM)
 		{
 			strcat(name, ", ");
-			strcat(name, realm_names[cr_ptr->realm2]);
+			strcat(name, realm_names[creature_ptr->realm2]);
 		}
 		strcat(name, ")");
 	}

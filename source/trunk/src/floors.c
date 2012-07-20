@@ -587,7 +587,7 @@ void move_floor(creature_type *creature_ptr)
  * restored from the temporal file.  If the floor is new one, new cave
  * will be generated.
  */
-void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
+void change_floor(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	//floor_type *sf_ptr;
 	bool loaded = FALSE;
@@ -620,13 +620,13 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 				loaded = TRUE;
 
 				// Forbid return stairs
-				if (cr_ptr->change_floor_mode & CFM_NO_RETURN)
+				if (creature_ptr->change_floor_mode & CFM_NO_RETURN)
 				{
-					cave_type *c_ptr = &floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+					cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 
 					if (!feat_uses_special(c_ptr->feat))
 					{
-						if (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
+						if (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
 						{
 							// Reset to floor
 							c_ptr->feat = feat_floor_rand_table[randint0(100)];
@@ -644,30 +644,30 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 		//* Stair creation/Teleport level/Trap door will take
 		//* you the same floor when you used it later again.
 		
-		if (cr_ptr->floor_id)
+		if (creature_ptr->floor_id)
 		{
-			floor_type *cur_sf_ptr = &floor_list[cr_ptr->floor_id];
+			floor_type *cur_sf_ptr = &floor_list[creature_ptr->floor_id];
 
-			if (cr_ptr->change_floor_mode & CFM_UP)
+			if (creature_ptr->change_floor_mode & CFM_UP)
 			{
 				// New floor is right-above
 				if (cur_sf_ptr->upper_floor_id == current_floor_id)
-					sf_ptr->lower_floor_id = cr_ptr->floor_id;
+					sf_ptr->lower_floor_id = creature_ptr->floor_id;
 			}
-			else if (cr_ptr->change_floor_mode & CFM_DOWN)
+			else if (creature_ptr->change_floor_mode & CFM_DOWN)
 			{
 				// New floor is right-under
 				if (cur_sf_ptr->lower_floor_id == current_floor_id)
-					sf_ptr->upper_floor_id = cr_ptr->floor_id;
+					sf_ptr->upper_floor_id = creature_ptr->floor_id;
 			}
 		}
 
 		// Break connection to killed floor
 		else
 		{
-			if (cr_ptr->change_floor_mode & CFM_UP)
+			if (creature_ptr->change_floor_mode & CFM_UP)
 				sf_ptr->lower_floor_id = 0;
-			else if (cr_ptr->change_floor_mode & CFM_DOWN)
+			else if (creature_ptr->change_floor_mode & CFM_DOWN)
 				sf_ptr->upper_floor_id = 0;
 		}
 
@@ -705,7 +705,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 				// TODO set cave data?
 			}
 
-			(void)place_quest_creatures(cr_ptr);
+			(void)place_quest_creatures(creature_ptr);
 
 			// Place some random creatures
 			alloc_times = absence_ticks / alloc_chance;
@@ -716,7 +716,7 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 			for (i = 0; i < alloc_times; i++)
 			{
 				// Make a (group of) new creature
-				(void)alloc_creature(floor_ptr, cr_ptr, 0, 0);
+				(void)alloc_creature(floor_ptr, creature_ptr, 0, 0);
 			}
 		}
 
@@ -733,14 +733,14 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 #endif
 
 				// Create simple dead end
-				build_dead_end(cr_ptr);
+				build_dead_end(creature_ptr);
 
 				// Break connection
-				if (cr_ptr->change_floor_mode & CFM_UP)
+				if (creature_ptr->change_floor_mode & CFM_UP)
 				{
 					sf_ptr->upper_floor_id = 0;
 				}
-				else if (cr_ptr->change_floor_mode & CFM_DOWN)
+				else if (creature_ptr->change_floor_mode & CFM_DOWN)
 				{
 					sf_ptr->lower_floor_id = 0;
 				}
@@ -756,42 +756,42 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 			// Set correct floor_ptr->floor_level value
 			sf_ptr->floor_ptr->floor_level = floor_ptr->floor_level;
 			sf_ptr->dun_type = floor_ptr->dun_type;
-			sf_ptr->world_x = cr_ptr->wx;
-			sf_ptr->world_y = cr_ptr->wy;
+			sf_ptr->world_x = creature_ptr->wx;
+			sf_ptr->world_y = creature_ptr->wy;
 
 			// Create connected stairs
-			if (!(cr_ptr->change_floor_mode & CFM_NO_RETURN))
+			if (!(creature_ptr->change_floor_mode & CFM_NO_RETURN))
 			{
 				// Extract stair position
-				cave_type *c_ptr = &floor_ptr->cave[cr_ptr->fy][cr_ptr->fx];
+				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 
 				// Create connected stairs
 
 				// No stairs down from Quest
-				if ((cr_ptr->change_floor_mode & CFM_UP) && !quest_number(floor_ptr))
+				if ((creature_ptr->change_floor_mode & CFM_UP) && !quest_number(floor_ptr))
 				{
-					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
+					c_ptr->feat = (creature_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair;
 				}
 
 				// No stairs up when ironman_downward
-				else if ((cr_ptr->change_floor_mode & CFM_DOWN) && !ironman_downward)
+				else if ((creature_ptr->change_floor_mode & CFM_DOWN) && !ironman_downward)
 				{
-					c_ptr->feat = (cr_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair;
+					c_ptr->feat = (creature_ptr->change_floor_mode & CFM_SHAFT) ? feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair;
 				}
 
 				// Paranoia -- Clear mimic
 				c_ptr->mimic = 0;
 
 				// Connect to previous floor
-				c_ptr->special = cr_ptr->floor_id;
+				c_ptr->special = creature_ptr->floor_id;
 			}
 		}
 
 
 		// You see stairs blocked
-		else if ((cr_ptr->change_floor_mode & CFM_NO_RETURN) && (cr_ptr->change_floor_mode & (CFM_DOWN | CFM_UP)))
+		else if ((creature_ptr->change_floor_mode & CFM_NO_RETURN) && (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP)))
 		{
-			if (!IS_BLIND(cr_ptr))
+			if (!IS_BLIND(creature_ptr))
 			{
 #ifdef JP
 				msg_print("“Ë‘RŠK’i‚ªÇ‚ª‚ê‚Ä‚µ‚Ü‚Á‚½B");
@@ -815,14 +815,14 @@ void change_floor(floor_type *floor_ptr, creature_type *cr_ptr)
 	floor_generated = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
-	if (cr_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, cr_ptr, (bool)(cr_ptr->class_idx == CLASS_NINJA));
+	if (creature_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->class_idx == CLASS_NINJA));
 
 	/* Remember when this level was "created" */
 	old_turn = turn;
 
 	/* No dungeon feeling yet */
-	cr_ptr->feeling_turn = old_turn;
-	cr_ptr->floor_feeling = 0;
+	creature_ptr->feeling_turn = old_turn;
+	creature_ptr->floor_feeling = 0;
 
 }
 

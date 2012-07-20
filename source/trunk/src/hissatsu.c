@@ -28,13 +28,13 @@
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_hissatsu_power(creature_type *cr_ptr, int *sn)
+static int get_hissatsu_power(creature_type *creature_ptr, int *sn)
 {
 	int             i, j = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 15;
-	int             plev = cr_ptr->lev;
+	int             plev = creature_ptr->lev;
 	int             ask = TRUE;
 	char            choice;
 	char            out_val[160];
@@ -115,7 +115,7 @@ cptr            p = "•KŽEŒ•";
 					{
 						menu_line += 31;
 						if (menu_line > 32) menu_line -= 32;
-					} while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))));
+					} while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
 
@@ -127,7 +127,7 @@ cptr            p = "•KŽEŒ•";
 					{
 						menu_line++;
 						if (menu_line > 32) menu_line -= 32;
-					} while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))));
+					} while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
 
@@ -146,7 +146,7 @@ cptr            p = "•KŽEŒ•";
 						reverse = TRUE;
 					}
 					else menu_line+=16;
-					while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))))
+					while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))))
 					{
 						if (reverse)
 						{
@@ -203,11 +203,11 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 					if (spell.slevel > PY_MAX_LEVEL) continue;
 					line++;
-					if (!(cr_ptr->spell_learned1 >> i)) break;
+					if (!(creature_ptr->spell_learned1 >> i)) break;
 
 					/* Access the spell */
 					if (spell.slevel > plev)   continue;
-					if (!(cr_ptr->spell_learned1 & (1L << i))) continue;
+					if (!(creature_ptr->spell_learned1 & (1L << i))) continue;
 					if (use_menu)
 					{
 						if (i == (menu_line-1))
@@ -231,7 +231,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 					/* Dump the spell --(-- */
 					strcat(psi_desc, format(" %-18s%2d %3d",
-						do_spell(cr_ptr, REALM_HISSATSU, i, SPELL_NAME),
+						do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME),
 						spell.slevel, spell.smana));
 					prt(psi_desc, y + (line%17) + (line >= 17), x+(line/17)*30);
 					prt("", y + (line%17) + (line >= 17) + 1, x+(line/17)*30);
@@ -274,7 +274,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= 32) || !(cr_ptr->spell_learned1 & (1 << sentaku[i])))
+		if ((i < 0) || (i >= 32) || !(creature_ptr->spell_learned1 & (1 << sentaku[i])))
 		{
 			bell();
 			continue;
@@ -289,9 +289,9 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 			/* Prompt */
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%s‚ðŽg‚¢‚Ü‚·‚©H", do_spell(cr_ptr, REALM_HISSATSU, j, SPELL_NAME));
+			(void) strnfmt(tmp_val, 78, "%s‚ðŽg‚¢‚Ü‚·‚©H", do_spell(creature_ptr, REALM_HISSATSU, j, SPELL_NAME));
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", do_spell(cr_ptr, REALM_HISSATSU, j, SPELL_NAME));
+			(void)strnfmt(tmp_val, 78, "Use %s? ", do_spell(creature_ptr, REALM_HISSATSU, j, SPELL_NAME));
 #endif
 
 
@@ -330,14 +330,14 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_hissatsu(creature_type *cr_ptr)
+void do_cmd_hissatsu(creature_type *creature_ptr)
 {
 	int             n = 0;
 	magic_type      spell;
 
 
 	/* not if confused */
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
@@ -347,7 +347,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 
 		return;
 	}
-	if (!get_equipped_slot_num(cr_ptr, INVEN_SLOT_HAND))
+	if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -358,7 +358,7 @@ msg_print("•Ší‚ðŽ‚½‚È‚¢‚Æ•KŽE‹Z‚ÍŽg‚¦‚È‚¢I");
 
 		return;
 	}
-	if (!cr_ptr->spell_learned1)
+	if (!creature_ptr->spell_learned1)
 	{
 #ifdef JP
 msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
@@ -369,18 +369,18 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 		return;
 	}
 
-	if (cr_ptr->special_defense & KATA_MASK)
+	if (creature_ptr->special_defense & KATA_MASK)
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* get power */
-	if (!get_hissatsu_power(cr_ptr, &n)) return;
+	if (!get_hissatsu_power(creature_ptr, &n)) return;
 
 	spell = technic_info[TECHNIC_HISSATSU][n];
 
 	/* Verify "dangerous" spells */
-	if (spell.smana > cr_ptr->csp)
+	if (spell.smana > creature_ptr->csp)
 	{
 		if (flush_failure) flush();
 		/* Warning */
@@ -396,16 +396,16 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 	sound(SOUND_ZAP);
 
 	/* Cast the spell */
-	if (!do_spell(cr_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
+	if (!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
 
 	/* Take a turn */
 	energy_use = 100;
 
 	/* Use some mana */
-	cr_ptr->csp -= spell.smana;
+	creature_ptr->csp -= spell.smana;
 
 	/* Limit */
-	if (cr_ptr->csp < 0) cr_ptr->csp = 0;
+	if (creature_ptr->csp < 0) creature_ptr->csp = 0;
 
 	/* Redraw mana */
 	play_redraw |= (PR_MANA);
@@ -416,7 +416,7 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 }
 
 
-void do_cmd_gain_hissatsu(creature_type *cr_ptr)
+void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 {
 	int item, i, j;
 
@@ -425,12 +425,12 @@ void do_cmd_gain_hissatsu(creature_type *cr_ptr)
 
 	bool gain = FALSE;
 
-	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(cr_ptr, ACTION_NONE);
+		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	if (IS_BLIND(cr_ptr) || no_lite(cr_ptr))
+	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr))
 	{
 #ifdef JP
 msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
@@ -441,7 +441,7 @@ msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
 		return;
 	}
 
-	if (cr_ptr->confused)
+	if (creature_ptr->confused)
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
@@ -452,7 +452,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
 		return;
 	}
 
-	if (!(cr_ptr->new_spells))
+	if (!(creature_ptr->new_spells))
 	{
 #ifdef JP
 msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
@@ -464,14 +464,14 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 	}
 
 #ifdef JP
-	if( cr_ptr->new_spells < 10 ){
-		msg_format("‚ ‚Æ %d ‚Â‚Ì•KŽE‹Z‚ðŠw‚×‚éB", cr_ptr->new_spells);
+	if( creature_ptr->new_spells < 10 ){
+		msg_format("‚ ‚Æ %d ‚Â‚Ì•KŽE‹Z‚ðŠw‚×‚éB", creature_ptr->new_spells);
 	}else{
-		msg_format("‚ ‚Æ %d ŒÂ‚Ì•KŽE‹Z‚ðŠw‚×‚éB", cr_ptr->new_spells);
+		msg_format("‚ ‚Æ %d ŒÂ‚Ì•KŽE‹Z‚ðŠw‚×‚éB", creature_ptr->new_spells);
 	}
 #else
-	msg_format("You can learn %d new special attack%s.", cr_ptr->new_spells,
-		(cr_ptr->new_spells == 1?"":"s"));
+	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells,
+		(creature_ptr->new_spells == 1?"":"s"));
 #endif
 
 	/* Get an item */
@@ -487,12 +487,12 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -503,22 +503,22 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 
 	for (i = o_ptr->sval * 8; i < o_ptr->sval * 8 + 8; i++)
 	{
-		if (cr_ptr->spell_learned1 & (1L << i)) continue;
-		if (technic_info[TECHNIC_HISSATSU][i].slevel > cr_ptr->lev) continue;
+		if (creature_ptr->spell_learned1 & (1L << i)) continue;
+		if (technic_info[TECHNIC_HISSATSU][i].slevel > creature_ptr->lev) continue;
 
-		cr_ptr->spell_learned1 |= (1L << i);
-		cr_ptr->spell_worked1 |= (1L << i);
+		creature_ptr->spell_learned1 |= (1L << i);
+		creature_ptr->spell_worked1 |= (1L << i);
 #ifdef JP
-		msg_format("%s‚Ì‹Z‚ðŠo‚¦‚½B", do_spell(cr_ptr, REALM_HISSATSU, i, SPELL_NAME));
+		msg_format("%s‚Ì‹Z‚ðŠo‚¦‚½B", do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME));
 #else
-		msg_format("You have learned the special attack of %s.", do_spell(cr_ptr, REALM_HISSATSU, i, SPELL_NAME));
+		msg_format("You have learned the special attack of %s.", do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME));
 #endif
 		for (j = 0; j < 64; j++)
 		{
 			/* Stop at the first empty space */
-			if (cr_ptr->spell_order[j] == 99) break;
+			if (creature_ptr->spell_order[j] == 99) break;
 		}
-		cr_ptr->spell_order[j] = i;
+		creature_ptr->spell_order[j] = i;
 		gain = TRUE;
 	}
 
@@ -534,5 +534,5 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	else
 		energy_use = 100;
 
-	cr_ptr->creature_update |= (CRU_SPELLS);
+	creature_ptr->creature_update |= (CRU_SPELLS);
 }

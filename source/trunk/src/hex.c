@@ -2,11 +2,11 @@
 
 /* Flag list */
 /*
-cr_ptr-magic_num1
+creature_ptr-magic_num1
 0: Flag bits of spelling spells
 1: Flag bits of despelled spells
 2: Revange damage
-cr_ptr->magic_num2
+creature_ptr->magic_num2
 0: Number of spelling spells
 1: Type of revenge
 2: Turn count for revenge
@@ -14,31 +14,31 @@ cr_ptr->magic_num2
 
 #define MAX_KEEP 4
 
-bool stop_hex_spell_all(creature_type *cr_ptr)
+bool stop_hex_spell_all(creature_type *creature_ptr)
 {
 	int i;
 
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if (hex_spelling(cr_ptr, spell)) do_spell(cr_ptr, REALM_HEX, spell, SPELL_STOP);
+		if (hex_spelling(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
-	cr_ptr->magic_num1[0] = 0;
-	cr_ptr->magic_num2[0] = 0;
+	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->magic_num2[0] = 0;
 
 	/* Print message */
-	if (cr_ptr->action == ACTION_SPELL) set_action(cr_ptr, ACTION_NONE);
+	if (creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
 
 	/* Redraw status */
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
 }
 
 
-bool stop_hex_spell(creature_type *cr_ptr)
+bool stop_hex_spell(creature_type *creature_ptr)
 {
 	int spell;
 	char choice;
@@ -48,7 +48,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 	int x = 20;
 	int sp[MAX_KEEP];
 
-	if (!hex_spelling_any(cr_ptr))
+	if (!hex_spelling_any(creature_ptr))
 	{
 #ifdef JP
 		msg_print("Žô•¶‚ð‰r¥‚µ‚Ä‚¢‚Ü‚¹‚ñB");
@@ -59,18 +59,18 @@ bool stop_hex_spell(creature_type *cr_ptr)
 	}
 
 	/* Stop all spells */
-	else if ((cr_ptr->magic_num2[0] == 1) || (cr_ptr->lev < 35))
+	else if ((creature_ptr->magic_num2[0] == 1) || (creature_ptr->lev < 35))
 	{
-		return stop_hex_spell_all(cr_ptr);
+		return stop_hex_spell_all(creature_ptr);
 	}
 	else
 	{
 #ifdef JP
 		strnfmt(out_val, 78, "‚Ç‚ÌŽô•¶‚Ì‰r¥‚ð’†’f‚µ‚Ü‚·‚©H(Žô•¶ %c-%c, 'l'‘S‚Ä, ESC)",
-			I2A(0), I2A(cr_ptr->magic_num2[0] - 1));
+			I2A(0), I2A(creature_ptr->magic_num2[0] - 1));
 #else
 		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)",
-			I2A(0), I2A(cr_ptr->magic_num2[0] - 1));
+			I2A(0), I2A(creature_ptr->magic_num2[0] - 1));
 #endif
 
 		screen_save();
@@ -82,10 +82,10 @@ bool stop_hex_spell(creature_type *cr_ptr)
 			prt("     –¼‘O", y, x + 5);
 			for (spell = 0; spell < 32; spell++)
 			{
-				if (hex_spelling(cr_ptr, spell))
+				if (hex_spelling(creature_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
-					put_str(format("%c)  %s", I2A(n), do_spell(cr_ptr, REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
+					put_str(format("%c)  %s", I2A(n), do_spell(creature_ptr, REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
 					sp[n++] = spell;
 				}
 			}
@@ -96,9 +96,9 @@ bool stop_hex_spell(creature_type *cr_ptr)
 			if (choice == 'l')	/* All */
 			{
 				screen_load();
-				return stop_hex_spell_all(cr_ptr);
+				return stop_hex_spell_all(creature_ptr);
 			}
-			if ((choice < I2A(0)) || (choice > I2A(cr_ptr->magic_num2[0] - 1))) continue;
+			if ((choice < I2A(0)) || (choice > I2A(creature_ptr->magic_num2[0] - 1))) continue;
 			flag = TRUE;
 		}
 	}
@@ -109,13 +109,13 @@ bool stop_hex_spell(creature_type *cr_ptr)
 	{
 		int n = sp[A2I(choice)];
 
-		do_spell(cr_ptr, REALM_HEX, n, SPELL_STOP);
-		cr_ptr->magic_num1[0] &= ~(1L << n);
-		cr_ptr->magic_num2[0]--;
+		do_spell(creature_ptr, REALM_HEX, n, SPELL_STOP);
+		creature_ptr->magic_num1[0] &= ~(1L << n);
+		creature_ptr->magic_num2[0]--;
 	}
 
 	/* Redraw status */
-	cr_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
@@ -230,39 +230,39 @@ void check_hex(creature_type *creature_ptr)
 }
 
 
-bool hex_spell_fully(creature_type *cr_ptr)
+bool hex_spell_fully(creature_type *creature_ptr)
 {
 	int k_max = 0;
 
-	k_max = (cr_ptr->lev / 15) + 1;
+	k_max = (creature_ptr->lev / 15) + 1;
 
 	/* Paranoia */
 	k_max = MIN(k_max, MAX_KEEP);
 
-	if (cr_ptr->magic_num2[0] < k_max) return FALSE;
+	if (creature_ptr->magic_num2[0] < k_max) return FALSE;
 
 	return TRUE;
 }
 
-void revenge_spell(creature_type *cr_ptr)
+void revenge_spell(creature_type *creature_ptr)
 {
-	if (cr_ptr->realm1 != REALM_HEX) return;
-	if (cr_ptr->magic_num2[2] <= 0) return;
+	if (creature_ptr->realm1 != REALM_HEX) return;
+	if (creature_ptr->magic_num2[2] <= 0) return;
 
-	switch(cr_ptr->magic_num2[1])
+	switch(creature_ptr->magic_num2[1])
 	{
 	//TODO
-	case 1: do_spell(cr_ptr, REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
-	case 2: do_spell(cr_ptr, REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
+	case 1: do_spell(creature_ptr, REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
+	case 2: do_spell(creature_ptr, REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
 	}
 }
 
-void revenge_store(creature_type *cr_ptr, int dam)
+void revenge_store(creature_type *creature_ptr, int dam)
 {
-	if (cr_ptr->realm1 != REALM_HEX) return;
-	if (cr_ptr->magic_num2[2] <= 0) return;
+	if (creature_ptr->realm1 != REALM_HEX) return;
+	if (creature_ptr->magic_num2[2] <= 0) return;
 
-	cr_ptr->magic_num1[2] += dam;
+	creature_ptr->magic_num1[2] += dam;
 }
 
 

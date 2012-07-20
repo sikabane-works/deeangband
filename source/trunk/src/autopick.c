@@ -439,7 +439,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 /*
  * Get auto-picker entry from o_ptr.
  */
-static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *entry, object_type *o_ptr)
+static void autopick_entry_from_object(creature_type *creature_ptr, autopick_type *entry, object_type *o_ptr)
 {
 	/* Assume that object name is to be added */
 	bool name = TRUE;
@@ -542,7 +542,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 				name = FALSE;
 
 				/* Restrict to 'common' equipments */
-				if (!object_is_rare(cr_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
+				if (!object_is_rare(creature_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
 			}
 
 			ADD_FLG(FLG_EGO);
@@ -565,7 +565,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	}
 
 	/* Melee weapon with boosted dice */
-	if (object_is_melee_weapon(cr_ptr, o_ptr))
+	if (object_is_melee_weapon(creature_ptr, o_ptr))
 	{
 		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
@@ -574,7 +574,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	}
 
 	/* Wanted creature's corpse */
-	if (object_is_shoukinkubi(cr_ptr, o_ptr))
+	if (object_is_shoukinkubi(creature_ptr, o_ptr))
 	{
 		REM_FLG(FLG_WORTHLESS);
 		ADD_FLG(FLG_WANTED);
@@ -592,23 +592,23 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	}
 
 	if (o_ptr->tval >= TV_LIFE_BOOK &&
-	    !check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval))
+	    !check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval))
 	{
 		ADD_FLG(FLG_UNREADABLE);
 		if (o_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
 	}
 
-	if (REALM1_BOOK(cr_ptr) == o_ptr->tval &&
-	    cr_ptr->class_idx != CLASS_SORCERER &&
-	    cr_ptr->class_idx != CLASS_RED_MAGE)
+	if (REALM1_BOOK(creature_ptr) == o_ptr->tval &&
+	    creature_ptr->class_idx != CLASS_SORCERER &&
+	    creature_ptr->class_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM1);
 		name = FALSE;
 	}
 
-	if (REALM2_BOOK(cr_ptr) == o_ptr->tval &&
-	    cr_ptr->class_idx != CLASS_SORCERER &&
-	    cr_ptr->class_idx != CLASS_RED_MAGE)
+	if (REALM2_BOOK(creature_ptr) == o_ptr->tval &&
+	    creature_ptr->class_idx != CLASS_SORCERER &&
+	    creature_ptr->class_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM2);
 		name = FALSE;
@@ -1026,7 +1026,7 @@ static cptr autopick_line_from_entry_kill(autopick_type *entry)
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the entry
  */
-static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_type *entry, cptr o_name)
+static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, autopick_type *entry, cptr o_name)
 {
 	int j;
 	cptr ptr = entry->name;
@@ -1055,7 +1055,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
 
 		/* Require melee weapon */
-		if (!object_is_melee_weapon(cr_ptr, o_ptr))
+		if (!object_is_melee_weapon(creature_ptr, o_ptr))
 			return FALSE;
 
 		/* Require boosted dice */
@@ -1121,7 +1121,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(cr_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, o_ptr))
 				return FALSE;
 
 			/* Average are not okay */
@@ -1161,7 +1161,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(cr_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, o_ptr))
 				return FALSE;
 		}
 
@@ -1200,7 +1200,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(cr_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, o_ptr))
 				return FALSE;
 
 			/* Cursed or broken objects are not okay */
@@ -1236,15 +1236,15 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	}
 
 	/*** Rere equipments ***/
-	if (IS_FLG(FLG_RARE) && !object_is_rare(cr_ptr, o_ptr))
+	if (IS_FLG(FLG_RARE) && !object_is_rare(creature_ptr, o_ptr))
 		return FALSE;
 
 	/*** Common equipments ***/
-	if (IS_FLG(FLG_COMMON) && object_is_rare(cr_ptr, o_ptr))
+	if (IS_FLG(FLG_COMMON) && object_is_rare(creature_ptr, o_ptr))
 		return FALSE;
 
 	/*** Wanted creature's corpse/skeletons ***/
-	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(cr_ptr, o_ptr))
+	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(creature_ptr, o_ptr))
 		return FALSE;
 
 	/*** Unique creature's corpse/skeletons/statues ***/
@@ -1262,21 +1262,21 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Unreadable spellbooks ***/
 	if (IS_FLG(FLG_UNREADABLE) &&
 	    (o_ptr->tval < TV_LIFE_BOOK ||
-	     check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)))
+	     check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval)))
 		return FALSE;
 
 	/*** First realm spellbooks ***/
 	if (IS_FLG(FLG_REALM1) && 
-	    (REALM1_BOOK(cr_ptr) != o_ptr->tval ||
-	     cr_ptr->class_idx == CLASS_SORCERER ||
-	     cr_ptr->class_idx == CLASS_RED_MAGE))
+	    (REALM1_BOOK(creature_ptr) != o_ptr->tval ||
+	     creature_ptr->class_idx == CLASS_SORCERER ||
+	     creature_ptr->class_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** Second realm spellbooks ***/
 	if (IS_FLG(FLG_REALM2) &&
-	    (REALM2_BOOK(cr_ptr) != o_ptr->tval ||
-	     cr_ptr->class_idx == CLASS_SORCERER ||
-	     cr_ptr->class_idx == CLASS_RED_MAGE))
+	    (REALM2_BOOK(creature_ptr) != o_ptr->tval ||
+	     creature_ptr->class_idx == CLASS_SORCERER ||
+	     creature_ptr->class_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** First rank spellbooks ***/
@@ -1307,7 +1307,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	}
 	else if (IS_FLG(FLG_FAVORITE_WEAPONS))
 	{
-		if (!object_is_favorite(cr_ptr, o_ptr))
+		if (!object_is_favorite(creature_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_ARMORS))
@@ -1425,11 +1425,11 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	{
 		/*
 		 * 'Collecting' means the item must be absorbed 
-		 * into an cr_ptr->inventory slot.
+		 * into an creature_ptr->inventory slot.
 		 * But an item can not be absorbed into itself!
 		 */
-		if ((&cr_ptr->inventory[j] != o_ptr) &&
-		    object_similar(&cr_ptr->inventory[j], o_ptr))
+		if ((&creature_ptr->inventory[j] != o_ptr) &&
+		    object_similar(&creature_ptr->inventory[j], o_ptr))
 			return TRUE;
 	}
 
@@ -1442,7 +1442,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the list of keywords or not.
  */
-int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
+int is_autopick(creature_type *creature_ptr, object_type *o_ptr)
 {
 	int i;
 	char o_name[MAX_NLEN];
@@ -1460,7 +1460,7 @@ int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
 	{
 		autopick_type *entry = &autopick_list[i];
 
-		if (is_autopick_aux(cr_ptr, o_ptr, entry, o_name)) return i;
+		if (is_autopick_aux(creature_ptr, o_ptr, entry, o_name)) return i;
 	}
 
 	/* No matching entry */
@@ -1471,7 +1471,7 @@ int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
 /*
  *  Auto inscription
  */
-static void auto_inscribe_item(creature_type *cr_ptr, object_type *o_ptr, int idx)
+static void auto_inscribe_item(creature_type *creature_ptr, object_type *o_ptr, int idx)
 {
 	/* Are there auto-inscription? */
 	if (idx < 0 || !autopick_list[idx].insc) return;
@@ -1483,14 +1483,14 @@ static void auto_inscribe_item(creature_type *cr_ptr, object_type *o_ptr, int id
 	play_window |= (PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect warning and TRC_TELEPORT_SELF */
-	cr_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS);
 }
 
 
 /*
  * Automatically destroy items in this grid.
  */
-static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
+static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (!destroy_items) return FALSE;
 
@@ -1506,7 +1506,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 
 	if (leave_wanted)
 	{
-		if (object_is_shoukinkubi(cr_ptr, o_ptr)) return FALSE;
+		if (object_is_shoukinkubi(creature_ptr, o_ptr)) return FALSE;
 	}
 
 	if (leave_corpse)
@@ -1517,7 +1517,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 
 	if (leave_special)
 	{
-		if (is_demon_creature(cr_ptr))
+		if (is_demon_creature(creature_ptr))
 		{
 			if (o_ptr->tval == TV_CORPSE &&
 			    o_ptr->sval == SV_CORPSE &&
@@ -1525,20 +1525,20 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 				return FALSE;
 		}
 
-		if (cr_ptr->class_idx == CLASS_ARCHER)
+		if (creature_ptr->class_idx == CLASS_ARCHER)
 		{
 			if (o_ptr->tval == TV_SKELETON ||
 			    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
 				return FALSE;
 		}
-		else if (cr_ptr->class_idx == CLASS_NINJA)
+		else if (creature_ptr->class_idx == CLASS_NINJA)
 		{
 			if (o_ptr->tval == TV_LITE &&
 			    o_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(o_ptr))
 				return FALSE;
 		}
-		else if (cr_ptr->class_idx == CLASS_BEASTMASTER ||
-			 cr_ptr->class_idx == CLASS_CAVALRY)
+		else if (creature_ptr->class_idx == CLASS_BEASTMASTER ||
+			 creature_ptr->class_idx == CLASS_CAVALRY)
 		{
 			if (o_ptr->tval == TV_WAND &&
 			    o_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE && object_is_aware(o_ptr))
@@ -1560,12 +1560,12 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
  */
 static object_type autopick_last_destroyed_object;
 
-static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int autopick_idx)
+static void auto_destroy_item(creature_type *creature_ptr, object_type *o_ptr, int autopick_idx)
 {
 	bool destroy = FALSE;
 
 	/* Easy-Auto-Destroyer (3rd priority) */
-	if (is_opt_confirm_destroy(cr_ptr, o_ptr)) destroy = TRUE;
+	if (is_opt_confirm_destroy(creature_ptr, o_ptr)) destroy = TRUE;
 
 	/* Protected by auto-picker (2nd priotity) */
 	if (autopick_idx >= 0 &&
@@ -1589,7 +1589,7 @@ static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int aut
 	disturb(player_ptr, 0,0);
 
 	/* Artifact? */
-	if (!can_player_destroy_object(cr_ptr, o_ptr))
+	if (!can_player_destroy_object(creature_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
 
@@ -1612,7 +1612,7 @@ static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int aut
 
 	/* Destroy Later */
 	o_ptr->marked |= OM_AUTODESTROY;
-	cr_ptr->creature_update |= CRN_AUTODESTROY;
+	creature_ptr->creature_update |= CRN_AUTODESTROY;
 
 	return;
 }
@@ -1621,12 +1621,12 @@ static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int aut
 /*
  *  Auto-destroy marked item
  */
-static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
+static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
 	object_type *o_ptr;
 
 	// Get the item (in the pack)
-	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
+	if (item >= 0) o_ptr = &creature_ptr->inventory[item];
 
 	// Get the item (on the floor)
 	else o_ptr = &object_list[0 - item];
@@ -1641,8 +1641,8 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 		/* Eliminate the item (from the pack) */
 		if (item >= 0)
 		{
-			inven_item_increase(cr_ptr, item, -(o_ptr->number));
-			inven_item_optimize(cr_ptr, item);
+			inven_item_increase(creature_ptr, item, -(o_ptr->number));
+			inven_item_optimize(creature_ptr, item);
 		}
 
 		/* Eliminate the item (from the floor) */
@@ -1693,33 +1693,33 @@ void autopick_delayed_alter(creature_type *creature_ptr)
  * Auto-destroyer works only on inventory or on floor stack only when
  * requested.
  */
-void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
+void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
 {
 	object_type *o_ptr;
 	int idx;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
+	if (item >= 0) o_ptr = &creature_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else o_ptr = &object_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
-	idx = is_autopick(cr_ptr, o_ptr);
+	idx = is_autopick(creature_ptr, o_ptr);
 
 	/* Do auto-inscription */
-	auto_inscribe_item(cr_ptr, o_ptr, idx);
+	auto_inscribe_item(creature_ptr, o_ptr, idx);
 
 	/* Do auto-destroy if needed */
 	if (destroy && item <= INVEN_TOTAL)
-		auto_destroy_item(cr_ptr, o_ptr, idx);
+		auto_destroy_item(creature_ptr, o_ptr, idx);
 }
 
 
 /*
  * Automatically pickup/destroy items in this grid.
  */
-void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
+void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 {
 	s16b this_object_idx, next_object_idx = 0;
 	
@@ -1734,17 +1734,17 @@ void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 		/* Acquire next object */
 		next_object_idx = o_ptr->next_object_idx;
 
-		idx = is_autopick(cr_ptr, o_ptr);
+		idx = is_autopick(creature_ptr, o_ptr);
 
 		/* Item index for floor -1,-2,-3,...  */
-		auto_inscribe_item(cr_ptr, o_ptr, idx);
+		auto_inscribe_item(creature_ptr, o_ptr, idx);
 
 		if (idx >= 0 &&
 			(autopick_list[idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK)))
 		{
 			disturb(player_ptr, 0,0);
 
-			if (!inven_carry_okay(cr_ptr, o_ptr))
+			if (!inven_carry_okay(creature_ptr, o_ptr))
 			{
 				char o_name[MAX_NLEN];
 
@@ -1790,7 +1790,7 @@ void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 				}
 
 			}
-			py_pickup_aux(cr_ptr, this_object_idx);
+			py_pickup_aux(creature_ptr, this_object_idx);
 		}
 		
 		/*
@@ -1801,7 +1801,7 @@ void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 		 */
 		else
 		{
-			auto_destroy_item(cr_ptr, o_ptr, idx);
+			auto_destroy_item(creature_ptr, o_ptr, idx);
 		}
 	} /* for () */
 }
@@ -1940,14 +1940,14 @@ static bool clear_auto_register(void)
 /*
  *  Automatically register an auto-destroy preference line
  */
-bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
+bool autopick_autoregister(creature_type *creature_ptr, object_type *o_ptr)
 {
 	char buf[1024];
 	char pref_file[1024];
 	FILE *pref_fff;
 	autopick_type an_entry, *entry = &an_entry;
 
-	int match_autopick = is_autopick(cr_ptr, o_ptr);
+	int match_autopick = is_autopick(creature_ptr, o_ptr);
 
 	/* Already registered */
 	if (match_autopick != -1)
@@ -1996,7 +1996,7 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 	}
 
 
-	if (!cr_ptr->autopick_autoregister)
+	if (!creature_ptr->autopick_autoregister)
 	{
 		/* Clear old auto registered lines */
 		if (!clear_auto_register()) return FALSE;
@@ -2020,7 +2020,7 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 		if (my_fgets(pref_fff, buf, sizeof(buf)))
 		{
 			/* No header found */
-			cr_ptr->autopick_autoregister = FALSE;
+			creature_ptr->autopick_autoregister = FALSE;
 
 			break;
 		}
@@ -2028,7 +2028,7 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 		if (streq(buf, autoregister_header))
 		{
 			/* Found the header */
-			cr_ptr->autopick_autoregister = TRUE;
+			creature_ptr->autopick_autoregister = TRUE;
 
 			break;
 		}
@@ -2053,7 +2053,7 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 		return FALSE;
 	}
 
-	if (!cr_ptr->autopick_autoregister)
+	if (!creature_ptr->autopick_autoregister)
 	{
 		/* Add the header */
 		fprintf(pref_fff, "%s\n", autoregister_header);
@@ -2067,11 +2067,11 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 #endif
 
 		/* Now auto register is in-use */
-		cr_ptr->autopick_autoregister = TRUE;
+		creature_ptr->autopick_autoregister = TRUE;
 	}
 
 	/* Get a preference entry */
-	autopick_entry_from_object(cr_ptr, entry, o_ptr);
+	autopick_entry_from_object(creature_ptr, entry, o_ptr);
 
 	/* Set to auto-destroy (with no-display) */
 	entry->action = DO_AUTODESTROY;
@@ -3315,14 +3315,14 @@ static bool insert_return_code(text_body_type *tb)
 /*
  * Choose an item and get auto-picker entry from it.
  */
-static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
+static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
 {
 	int item;
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), NULL, 0)) return NULL;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), NULL, 0)) return NULL;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) return &cr_ptr->inventory[item];
+	if (item >= 0) return &creature_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else return &object_list[0 - item];
@@ -3332,7 +3332,7 @@ static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
 /*
  * Choose an item and get auto-picker entry from it.
  */
-static bool entry_from_choosed_object(creature_type *cr_ptr, autopick_type *entry)
+static bool entry_from_choosed_object(creature_type *creature_ptr, autopick_type *entry)
 {
 	object_type *o_ptr;
 	cptr q, s;
@@ -3345,10 +3345,10 @@ static bool entry_from_choosed_object(creature_type *cr_ptr, autopick_type *entr
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(cr_ptr, q, s);
+	o_ptr = choose_object(creature_ptr, q, s);
 	if (!o_ptr) return FALSE;
 
-	autopick_entry_from_object(cr_ptr, entry, o_ptr);
+	autopick_entry_from_object(creature_ptr, entry, o_ptr);
 	return TRUE;
 }
 
@@ -3356,7 +3356,7 @@ static bool entry_from_choosed_object(creature_type *cr_ptr, autopick_type *entr
 /*
  * Choose an item for search
  */
-static byte get_object_for_search(creature_type *cr_ptr, object_type **o_handle, cptr *search_strp)
+static byte get_object_for_search(creature_type *creature_ptr, object_type **o_handle, cptr *search_strp)
 {
 	char buf[MAX_NLEN+20];
 	object_type *o_ptr;
@@ -3370,7 +3370,7 @@ static byte get_object_for_search(creature_type *cr_ptr, object_type **o_handle,
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(cr_ptr, q, s);
+	o_ptr = choose_object(creature_ptr, q, s);
 	if (!o_ptr) return 0;
 
 	*o_handle = o_ptr;
@@ -3403,7 +3403,7 @@ static byte get_destroyed_object_for_search(object_type **o_handle, cptr *search
 /*
  * Choose an item or string for search
  */
-static byte get_string_for_search(creature_type *cr_ptr, object_type **o_handle, cptr *search_strp)
+static byte get_string_for_search(creature_type *creature_ptr, object_type **o_handle, cptr *search_strp)
 {
 	int pos = 0;
 
@@ -3524,7 +3524,7 @@ static byte get_string_for_search(creature_type *cr_ptr, object_type **o_handle,
 
 		case KTRL('i'):
 			/* Get an item */
-			return get_object_for_search(cr_ptr, o_handle, search_strp);
+			return get_object_for_search(creature_ptr, o_handle, search_strp);
 
 		case KTRL('l'):
 			/* Prepare string for destroyed object if there is one. */
@@ -3698,7 +3698,7 @@ static byte get_string_for_search(creature_type *cr_ptr, object_type **o_handle,
 /*
  * Search next line matches for o_ptr
  */
-static void search_for_object(creature_type *cr_ptr, text_body_type *tb, object_type *o_ptr, bool forward)
+static void search_for_object(creature_type *creature_ptr, text_body_type *tb, object_type *o_ptr, bool forward)
 {
 	autopick_type an_entry, *entry = &an_entry;
 	char o_name[MAX_NLEN];
@@ -3731,7 +3731,7 @@ static void search_for_object(creature_type *cr_ptr, text_body_type *tb, object_
 		if (!autopick_new_entry(entry, tb->lines_list[i], FALSE)) continue;
 
 		/* Does this line match to the object? */
-		match = is_autopick_aux(cr_ptr, o_ptr, entry, o_name);
+		match = is_autopick_aux(creature_ptr, o_ptr, entry, o_name);
 		autopick_free_entry(entry);
 		if (!match)	continue;
 
@@ -5134,7 +5134,7 @@ static bool insert_keymap_line(text_body_type *tb)
 /*
  * Execute a single editor command
  */
-static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com_id)
+static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, int com_id)
 {
 	switch(com_id)
 	{
@@ -5632,7 +5632,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 		/* Cut end of line */
 		tb->yank_eol = TRUE;
 
-		do_editor_command(cr_ptr, tb, EC_DELETE_CHAR);
+		do_editor_command(creature_ptr, tb, EC_DELETE_CHAR);
 		break;
 	}
 
@@ -5672,7 +5672,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 			}
 		}
 
-		do_editor_command(cr_ptr, tb, EC_BACKSPACE);
+		do_editor_command(creature_ptr, tb, EC_BACKSPACE);
 		break;
 	}
 
@@ -5764,19 +5764,19 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		search_dir = get_string_for_search(cr_ptr, &tb->search_o_ptr, &tb->search_str);
+		search_dir = get_string_for_search(creature_ptr, &tb->search_o_ptr, &tb->search_str);
 
 		if (!search_dir) break;
 
-		if (search_dir == 1) do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
-		else do_editor_command(cr_ptr, tb, EC_SEARCH_BACK);
+		if (search_dir == 1) do_editor_command(creature_ptr, tb, EC_SEARCH_FORW);
+		else do_editor_command(creature_ptr, tb, EC_SEARCH_BACK);
 		break;
 	}
 
 	case EC_SEARCH_FORW:
 		if (tb->search_o_ptr)
 		{
-			search_for_object(cr_ptr, tb, tb->search_o_ptr, TRUE);
+			search_for_object(creature_ptr, tb, tb->search_o_ptr, TRUE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5791,7 +5791,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 	case EC_SEARCH_BACK:
 		if (tb->search_o_ptr)
 		{
-			search_for_object(cr_ptr, tb, tb->search_o_ptr, FALSE);
+			search_for_object(creature_ptr, tb, tb->search_o_ptr, FALSE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5807,9 +5807,9 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		if (!get_object_for_search(cr_ptr, &tb->search_o_ptr, &tb->search_str)) break;
+		if (!get_object_for_search(creature_ptr, &tb->search_o_ptr, &tb->search_str)) break;
 
-		do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
+		do_editor_command(creature_ptr, tb, EC_SEARCH_FORW);
 		break;
 
 	case EC_SEARCH_DESTROYED:
@@ -5821,7 +5821,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 			break;
 		}
 
-		do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
+		do_editor_command(creature_ptr, tb, EC_SEARCH_FORW);
 		break;
 
 	case EC_INSERT_OBJECT:
@@ -5830,7 +5830,7 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 
 		autopick_type an_entry, *entry = &an_entry;
 
-		if (!entry_from_choosed_object(cr_ptr, entry))
+		if (!entry_from_choosed_object(creature_ptr, entry))
 		{
 			/* Now dirty because of item/equip menu */
 			tb->dirty_flags |= DIRTY_SCREEN;
@@ -5873,11 +5873,11 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 		/* Conditional Expression for Class and Race */
 		sprintf(expression, "?:[AND [EQU $RACE %s] [EQU $CLASS %s] [GEQ $LEVEL %02d]]", 
 #ifdef JP
-			race_info[cr_ptr->race_idx1].E_title, class_info[cr_ptr->class_idx].E_title,
+			race_info[creature_ptr->race_idx1].E_title, class_info[creature_ptr->class_idx].E_title,
 #else
-			race_info[cr_ptr->race_idx1].title, class_info[cr_ptr->class_idx].title,
+			race_info[creature_ptr->race_idx1].title, class_info[creature_ptr->class_idx].title,
 #endif
-			cr_ptr->lev
+			creature_ptr->lev
 			);
 
 		tb->cx = 0;
@@ -6170,7 +6170,7 @@ static int analyze_move_key(text_body_type *tb, int skey)
 /*
  * In-game editor of Object Auto-picker/Destoryer
  */
-void do_cmd_edit_autopick(creature_type *cr_ptr)
+void do_cmd_edit_autopick(creature_type *creature_ptr)
 {
 	int cx_save = 0;
 	int cy_save = 0;
@@ -6225,7 +6225,7 @@ void do_cmd_edit_autopick(creature_type *cr_ptr)
 	/* Command Description of the 'Last Destroyed Item' */
 	if (autopick_last_destroyed_object.k_idx)
 	{
-		autopick_entry_from_object(cr_ptr, entry, &autopick_last_destroyed_object);
+		autopick_entry_from_object(creature_ptr, entry, &autopick_last_destroyed_object);
 		tb->last_destroyed = autopick_line_from_entry_kill(entry);
 	}
 
@@ -6327,7 +6327,7 @@ void do_cmd_edit_autopick(creature_type *cr_ptr)
 			com_id = get_com_id(key);
 		}
 
-		if (com_id) quit = do_editor_command(cr_ptr, tb, com_id);
+		if (com_id) quit = do_editor_command(creature_ptr, tb, com_id);
 	} /* while (TRUE) */
 
 	/* Restore the screen */

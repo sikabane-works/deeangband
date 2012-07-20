@@ -396,7 +396,7 @@ static void rd_object(object_type *o_ptr)
  *
  * Note that the p_inventory is "re-sorted" later by "dungeon()".
  */
-static errr rd_inventory(creature_type *cr_ptr)
+static errr rd_inventory(creature_type *creature_ptr)
 {
 	int slot = 0;
 
@@ -404,12 +404,12 @@ static errr rd_inventory(creature_type *cr_ptr)
 	object_type *q_ptr;
 
 	/* No weight */
-	cr_ptr->carrying_weight = 0;
-	cr_ptr->equipping_weight = 0;
+	creature_ptr->carrying_weight = 0;
+	creature_ptr->equipping_weight = 0;
 
 	/* No items */
-	cr_ptr->inven_cnt = 0;
-	cr_ptr->equip_cnt = 0;
+	creature_ptr->inven_cnt = 0;
+	creature_ptr->equip_cnt = 0;
 
 	/* Read until done */
 	while (1)
@@ -441,17 +441,17 @@ static errr rd_inventory(creature_type *cr_ptr)
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&cr_ptr->inventory[n], q_ptr);
+			object_copy(&creature_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			set_inventory_weight(cr_ptr);
+			set_inventory_weight(creature_ptr);
 
 			/* One more item */
-			cr_ptr->equip_cnt++;
+			creature_ptr->equip_cnt++;
 		}
 
 		/* Warning -- backpack is full */
-		else if (cr_ptr->inven_cnt == INVEN_TOTAL)
+		else if (creature_ptr->inven_cnt == INVEN_TOTAL)
 		{
 			/* Oops */
 #ifdef JP
@@ -475,13 +475,13 @@ static errr rd_inventory(creature_type *cr_ptr)
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&cr_ptr->inventory[n], q_ptr);
+			object_copy(&creature_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			set_inventory_weight(cr_ptr);
+			set_inventory_weight(creature_ptr);
 
 			/* One more item */
-			cr_ptr->inven_cnt++;
+			creature_ptr->inven_cnt++;
 		}
 	}
 
@@ -918,7 +918,7 @@ static void load_quick_start(species_type *species_ptr)
 
 }
 
-static void rd_creature(creature_type *cr_ptr)
+static void rd_creature(creature_type *creature_ptr)
 {
 	int i;
 	char buf[1024];
@@ -926,58 +926,58 @@ static void rd_creature(creature_type *cr_ptr)
 	byte tmp8u;
 	u16b tmp16u;
 
-	rd_u32b(&cr_ptr->creature_idx);
+	rd_u32b(&creature_ptr->creature_idx);
 
-	rd_byte(&cr_ptr->player);
-	rd_byte(&cr_ptr->stigmatic);
-	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
+	rd_byte(&creature_ptr->player);
+	rd_byte(&creature_ptr->stigmatic);
+	rd_string(creature_ptr->name, sizeof(creature_ptr->name));
 
 	// Read the message
 	rd_string(buf, sizeof buf);
-	if (buf[0]) cr_ptr->last_message = string_make(buf);
+	if (buf[0]) creature_ptr->last_message = string_make(buf);
 
 	for (i = 0; i < HISTORY_ROW; i++)
 	{
-		rd_string(cr_ptr->history[i], sizeof(cr_ptr->history[i]));
+		rd_string(creature_ptr->history[i], sizeof(creature_ptr->history[i]));
 	}
 
 	// Class/Race/Chara/Gender/Spells
-	rd_s16b(&cr_ptr->species_idx);
-	rd_s16b(&cr_ptr->ap_species_idx);
-	rd_s16b(&cr_ptr->race_idx1);
-	rd_s16b(&cr_ptr->race_idx2);
-	rd_s16b(&cr_ptr->mimic_race_idx);
-	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
-	rd_s16b(&cr_ptr->creature_ego_idx);
-	rd_s16b(&cr_ptr->class_idx);
-	rd_s16b(&cr_ptr->chara_idx);
-	rd_s16b(&cr_ptr->starting_idx);
-	rd_s16b(&cr_ptr->sex);
-	rd_s16b(&cr_ptr->realm1);
-	rd_s16b(&cr_ptr->realm2);
+	rd_s16b(&creature_ptr->species_idx);
+	rd_s16b(&creature_ptr->ap_species_idx);
+	rd_s16b(&creature_ptr->race_idx1);
+	rd_s16b(&creature_ptr->race_idx2);
+	rd_s16b(&creature_ptr->mimic_race_idx);
+	for (i = 0; i < 8; i++) rd_u32b(&creature_ptr->sub_race[i]);
+	rd_s16b(&creature_ptr->creature_ego_idx);
+	rd_s16b(&creature_ptr->class_idx);
+	rd_s16b(&creature_ptr->chara_idx);
+	rd_s16b(&creature_ptr->starting_idx);
+	rd_s16b(&creature_ptr->sex);
+	rd_s16b(&creature_ptr->realm1);
+	rd_s16b(&creature_ptr->realm2);
 
-	rd_s16b(&cr_ptr->camp_idx);
-	rd_s16b(&cr_ptr->master_creature_idx);
+	rd_s16b(&creature_ptr->camp_idx);
+	rd_s16b(&creature_ptr->master_creature_idx);
 
 	// Special Race/Class info
-	rd_s16b(&cr_ptr->hitdice);
-	rd_u16b(&cr_ptr->expfact);
+	rd_s16b(&creature_ptr->hitdice);
+	rd_u16b(&creature_ptr->expfact);
 
 	// Age/Height/Weight
-	rd_s32b(&cr_ptr->age);
-	rd_s32b(&cr_ptr->ht);
-	rd_s32b(&cr_ptr->wt);
-	rd_s16b(&cr_ptr->dr);
+	rd_s32b(&creature_ptr->age);
+	rd_s32b(&creature_ptr->ht);
+	rd_s32b(&creature_ptr->wt);
+	rd_s16b(&creature_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		rd_s16b(&cr_ptr->iven_fitting_rate[i]);
-		rd_byte(&cr_ptr->two_handed[i]);
-		rd_byte(&cr_ptr->equip_now[i]);
+		rd_s16b(&creature_ptr->iven_fitting_rate[i]);
+		rd_byte(&creature_ptr->two_handed[i]);
+		rd_byte(&creature_ptr->equip_now[i]);
 	}
 
 	// Read the inventory
-	if (rd_inventory(cr_ptr))
+	if (rd_inventory(creature_ptr))
 	{
 #ifdef JP
 		note("éùÇøï®èÓïÒÇì«Ç›çûÇﬁÇ±Ç∆Ç™Ç≈Ç´Ç‹ÇπÇÒ");
@@ -988,186 +988,186 @@ static void rd_creature(creature_type *cr_ptr)
 	}
 
 	// Read the stat info
-	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_cur[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_cur[i]);
 
-	rd_s32b(&cr_ptr->au);
+	rd_s32b(&creature_ptr->au);
 
-	rd_s32b(&cr_ptr->max_exp);
-	rd_s32b(&cr_ptr->max_max_exp);
-	rd_s32b(&cr_ptr->exp);
-	rd_u32b(&cr_ptr->exp_frac);
-	rd_s16b(&cr_ptr->lev);
+	rd_s32b(&creature_ptr->max_exp);
+	rd_s32b(&creature_ptr->max_max_exp);
+	rd_s32b(&creature_ptr->exp);
+	rd_u32b(&creature_ptr->exp_frac);
+	rd_s16b(&creature_ptr->lev);
 
-	rd_byte(&cr_ptr->fy);
-	rd_byte(&cr_ptr->fx);
+	rd_byte(&creature_ptr->fy);
+	rd_byte(&creature_ptr->fx);
 
-	rd_s32b(&cr_ptr->wx);
-	rd_s32b(&cr_ptr->wy);
+	rd_s32b(&creature_ptr->wx);
+	rd_s32b(&creature_ptr->wy);
 
-	rd_s16b(&cr_ptr->depth);
+	rd_s16b(&creature_ptr->depth);
 
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
 	if (tmp16u > PY_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
-	for (i = 0; i < tmp16u; i++) rd_s16b(&cr_ptr->base_hp[i]);
+	for (i = 0; i < tmp16u; i++) rd_s16b(&creature_ptr->base_hp[i]);
 
-	for (i = 0; i < 8; i++) rd_s32b(&cr_ptr->authority[i]);
-	for (i = 0; i < 64; i++) rd_s16b(&cr_ptr->spell_exp[i]);
-	/*for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&cr_ptr->weapon_exp[i][j]);*/
-	for (i = 0; i < 10; i++) rd_s16b(&cr_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) rd_s32b(&cr_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) rd_byte(&cr_ptr->magic_num2[i]);
+	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);
+	for (i = 0; i < 64; i++) rd_s16b(&creature_ptr->spell_exp[i]);
+	/*for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&creature_ptr->weapon_exp[i][j]);*/
+	for (i = 0; i < 10; i++) rd_s16b(&creature_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) rd_byte(&creature_ptr->magic_num2[i]);
 
-	if (music_singing_any(cr_ptr)) cr_ptr->action = ACTION_SING;
+	if (music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
 
-	rd_s16b(&cr_ptr->start_race1);
-	rd_s16b(&cr_ptr->start_race2);
-	rd_s32b(&cr_ptr->old_race1);
-	rd_s32b(&cr_ptr->old_race2);
-	rd_s32b(&cr_ptr->old_race3);
-	rd_s32b(&cr_ptr->old_race4);
-	rd_s16b(&cr_ptr->old_realm);
+	rd_s16b(&creature_ptr->start_race1);
+	rd_s16b(&creature_ptr->start_race2);
+	rd_s32b(&creature_ptr->old_race1);
+	rd_s32b(&creature_ptr->old_race2);
+	rd_s32b(&creature_ptr->old_race3);
+	rd_s32b(&creature_ptr->old_race4);
+	rd_s16b(&creature_ptr->old_realm);
 
 	for (i = 0; i < MAX_MANE; i++)
 	{
-		rd_s16b(&cr_ptr->mane_spell[i]);
-		rd_s16b(&cr_ptr->mane_dam[i]);
+		rd_s16b(&creature_ptr->mane_spell[i]);
+		rd_s16b(&creature_ptr->mane_dam[i]);
 	}
-	rd_s16b(&cr_ptr->mane_num);
+	rd_s16b(&creature_ptr->mane_num);
 
-	rd_s16b(&cr_ptr->oldpx);
-	rd_s16b(&cr_ptr->oldpy);
+	rd_s16b(&creature_ptr->oldpx);
+	rd_s16b(&creature_ptr->oldpy);
 
-	rd_s32b(&cr_ptr->mhp);
-	rd_s32b(&cr_ptr->mmhp);
-	rd_s32b(&cr_ptr->chp);
-	rd_u32b(&cr_ptr->chp_frac);
+	rd_s32b(&creature_ptr->mhp);
+	rd_s32b(&creature_ptr->mmhp);
+	rd_s32b(&creature_ptr->chp);
+	rd_u32b(&creature_ptr->chp_frac);
 
-	rd_s32b(&cr_ptr->msp);
-	rd_s32b(&cr_ptr->csp);
-	rd_u32b(&cr_ptr->csp_frac);
+	rd_s32b(&creature_ptr->msp);
+	rd_s32b(&creature_ptr->csp);
+	rd_u32b(&creature_ptr->csp_frac);
 
-	rd_s16b(&cr_ptr->max_plv);
+	rd_s16b(&creature_ptr->max_plv);
 
 	// Repair maximum player level
-	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;
+	if (creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;
 
-	rd_s16b(&cr_ptr->sc);
-	rd_s16b(&cr_ptr->concent);
+	rd_s16b(&creature_ptr->sc);
+	rd_s16b(&creature_ptr->concent);
 
-	rd_s16b(&cr_ptr->blind);
-	rd_s16b(&cr_ptr->paralyzed);
-	rd_s16b(&cr_ptr->confused);
-	rd_s16b(&cr_ptr->food);
-	rd_s16b(&cr_ptr->energy_need);
+	rd_s16b(&creature_ptr->blind);
+	rd_s16b(&creature_ptr->paralyzed);
+	rd_s16b(&creature_ptr->confused);
+	rd_s16b(&creature_ptr->food);
+	rd_s16b(&creature_ptr->energy_need);
 
-	rd_s16b(&cr_ptr->fast);
-	rd_s16b(&cr_ptr->slow);
-	rd_s16b(&cr_ptr->afraid);
-	rd_s16b(&cr_ptr->cut);
-	rd_s16b(&cr_ptr->stun);
-	rd_s16b(&cr_ptr->poisoned);
-	rd_s16b(&cr_ptr->image);
-	rd_s16b(&cr_ptr->protevil);
-	rd_s16b(&cr_ptr->invuln);
-	rd_s16b(&cr_ptr->ult_res);
-	rd_s16b(&cr_ptr->hero);
-	rd_s16b(&cr_ptr->shero);
-	rd_s16b(&cr_ptr->shield);
-	rd_s16b(&cr_ptr->blessed);
-	rd_s16b(&cr_ptr->tim_invis);
-	rd_s16b(&cr_ptr->word_recall);
-	rd_byte(&cr_ptr->recall_dungeon);
+	rd_s16b(&creature_ptr->fast);
+	rd_s16b(&creature_ptr->slow);
+	rd_s16b(&creature_ptr->afraid);
+	rd_s16b(&creature_ptr->cut);
+	rd_s16b(&creature_ptr->stun);
+	rd_s16b(&creature_ptr->poisoned);
+	rd_s16b(&creature_ptr->image);
+	rd_s16b(&creature_ptr->protevil);
+	rd_s16b(&creature_ptr->invuln);
+	rd_s16b(&creature_ptr->ult_res);
+	rd_s16b(&creature_ptr->hero);
+	rd_s16b(&creature_ptr->shero);
+	rd_s16b(&creature_ptr->shield);
+	rd_s16b(&creature_ptr->blessed);
+	rd_s16b(&creature_ptr->tim_invis);
+	rd_s16b(&creature_ptr->word_recall);
+	rd_byte(&creature_ptr->recall_dungeon);
 
-	rd_s16b(&cr_ptr->alter_reality);
-	rd_s16b(&cr_ptr->see_infra);
-	rd_s16b(&cr_ptr->tim_infra);
-	rd_s16b(&cr_ptr->oppose_fire);
-	rd_s16b(&cr_ptr->oppose_cold);
-	rd_s16b(&cr_ptr->oppose_acid);
-	rd_s16b(&cr_ptr->oppose_elec);
-	rd_s16b(&cr_ptr->oppose_pois);
-	rd_s16b(&cr_ptr->tsuyoshi);
+	rd_s16b(&creature_ptr->alter_reality);
+	rd_s16b(&creature_ptr->see_infra);
+	rd_s16b(&creature_ptr->tim_infra);
+	rd_s16b(&creature_ptr->oppose_fire);
+	rd_s16b(&creature_ptr->oppose_cold);
+	rd_s16b(&creature_ptr->oppose_acid);
+	rd_s16b(&creature_ptr->oppose_elec);
+	rd_s16b(&creature_ptr->oppose_pois);
+	rd_s16b(&creature_ptr->tsuyoshi);
 
-	rd_s16b(&cr_ptr->tim_esp);
-	rd_s16b(&cr_ptr->wraith_form);
-	rd_s16b(&cr_ptr->resist_magic);
-	rd_s16b(&cr_ptr->tim_regen);
-	rd_s16b(&cr_ptr->kabenuke);
-	rd_s16b(&cr_ptr->tim_stealth);
-	rd_s16b(&cr_ptr->tim_levitation);
-	rd_s16b(&cr_ptr->tim_sh_touki);
-	rd_s16b(&cr_ptr->lightspeed);
-	rd_s16b(&cr_ptr->tsubureru);
-	rd_s16b(&cr_ptr->magicdef);
-	rd_s16b(&cr_ptr->tim_res_nether);
-	rd_s16b(&cr_ptr->tim_res_time);
-	rd_byte(&cr_ptr->mimic_form);
-	rd_s16b(&cr_ptr->tim_mimic);
-	rd_s16b(&cr_ptr->tim_sh_fire);
-	rd_s16b(&cr_ptr->tim_sh_holy);
-	rd_s16b(&cr_ptr->tim_eyeeye);
-	rd_s16b(&cr_ptr->tim_reflect);
-	rd_s16b(&cr_ptr->multishadow);
-	rd_s16b(&cr_ptr->dustrobe);
-	rd_s16b(&cr_ptr->patron_idx);
-	rd_s16b(&cr_ptr->father_idx);
-	rd_s16b(&cr_ptr->mother_idx);
+	rd_s16b(&creature_ptr->tim_esp);
+	rd_s16b(&creature_ptr->wraith_form);
+	rd_s16b(&creature_ptr->resist_magic);
+	rd_s16b(&creature_ptr->tim_regen);
+	rd_s16b(&creature_ptr->kabenuke);
+	rd_s16b(&creature_ptr->tim_stealth);
+	rd_s16b(&creature_ptr->tim_levitation);
+	rd_s16b(&creature_ptr->tim_sh_touki);
+	rd_s16b(&creature_ptr->lightspeed);
+	rd_s16b(&creature_ptr->tsubureru);
+	rd_s16b(&creature_ptr->magicdef);
+	rd_s16b(&creature_ptr->tim_res_nether);
+	rd_s16b(&creature_ptr->tim_res_time);
+	rd_byte(&creature_ptr->mimic_form);
+	rd_s16b(&creature_ptr->tim_mimic);
+	rd_s16b(&creature_ptr->tim_sh_fire);
+	rd_s16b(&creature_ptr->tim_sh_holy);
+	rd_s16b(&creature_ptr->tim_eyeeye);
+	rd_s16b(&creature_ptr->tim_reflect);
+	rd_s16b(&creature_ptr->multishadow);
+	rd_s16b(&creature_ptr->dustrobe);
+	rd_s16b(&creature_ptr->patron_idx);
+	rd_s16b(&creature_ptr->father_idx);
+	rd_s16b(&creature_ptr->mother_idx);
 
-	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&cr_ptr->karmas[i]);
+	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&creature_ptr->karmas[i]);
 
 	// Calc the regeneration modifier for mutation
-	cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
+	creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
 
-	rd_s16b(&cr_ptr->ele_attack);
-	rd_u32b(&cr_ptr->special_attack);
-	if (cr_ptr->special_attack & KAMAE_MASK) cr_ptr->action = ACTION_KAMAE;
-	else if (cr_ptr->special_attack & KATA_MASK) cr_ptr->action = ACTION_KATA;
-	rd_s16b(&cr_ptr->ele_immune);
-	rd_u32b(&cr_ptr->special_defense);
-	rd_byte(&cr_ptr->knowledge);
+	rd_s16b(&creature_ptr->ele_attack);
+	rd_u32b(&creature_ptr->special_attack);
+	if (creature_ptr->special_attack & KAMAE_MASK) creature_ptr->action = ACTION_KAMAE;
+	else if (creature_ptr->special_attack & KATA_MASK) creature_ptr->action = ACTION_KATA;
+	rd_s16b(&creature_ptr->ele_immune);
+	rd_u32b(&creature_ptr->special_defense);
+	rd_byte(&creature_ptr->knowledge);
 
 	rd_byte(&tmp8u);
-	cr_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
+	creature_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
 
-	rd_byte(&cr_ptr->action);
+	rd_byte(&creature_ptr->action);
 
 	// Read "feeling"
-	rd_byte(&cr_ptr->floor_feeling);
-	rd_s32b(&cr_ptr->feeling_turn);
+	rd_byte(&creature_ptr->floor_feeling);
+	rd_s32b(&creature_ptr->feeling_turn);
 
-	rd_s16b(&cr_ptr->riding);
-	rd_s16b(&cr_ptr->ridden);
-	rd_s16b(&cr_ptr->floor_id);
+	rd_s16b(&creature_ptr->riding);
+	rd_s16b(&creature_ptr->ridden);
+	rd_s16b(&creature_ptr->floor_id);
 
-	rd_s32b(&cr_ptr->visit);
+	rd_s32b(&creature_ptr->visit);
 
 	// Read spell info
-	rd_u32b(&cr_ptr->spell_learned1);
-	rd_u32b(&cr_ptr->spell_learned2);
-	rd_u32b(&cr_ptr->spell_worked1);
-	rd_u32b(&cr_ptr->spell_worked2);
-	rd_u32b(&cr_ptr->spell_forgotten1);
-	rd_u32b(&cr_ptr->spell_forgotten2);
-	rd_s16b(&cr_ptr->learned_spells);
-	rd_s16b(&cr_ptr->add_spells);
+	rd_u32b(&creature_ptr->spell_learned1);
+	rd_u32b(&creature_ptr->spell_learned2);
+	rd_u32b(&creature_ptr->spell_worked1);
+	rd_u32b(&creature_ptr->spell_worked2);
+	rd_u32b(&creature_ptr->spell_forgotten1);
+	rd_u32b(&creature_ptr->spell_forgotten2);
+	rd_s16b(&creature_ptr->learned_spells);
+	rd_s16b(&creature_ptr->add_spells);
 
-	rd_s16b(&cr_ptr->start_wx);
-	rd_s16b(&cr_ptr->start_wy);
+	rd_s16b(&creature_ptr->start_wx);
+	rd_s16b(&creature_ptr->start_wy);
 
 	for (i = 0; i < 64; i++)
 	{
-		rd_byte(&cr_ptr->spell_order[i]);
+		rd_byte(&creature_ptr->spell_order[i]);
 	}
 
-	rd_u16b(&cr_ptr->total_winner);
+	rd_u16b(&creature_ptr->total_winner);
 
 	// Update
-	set_experience(cr_ptr);
-	set_creature_bonuses(cr_ptr, FALSE);
+	set_experience(creature_ptr);
+	set_creature_bonuses(creature_ptr, FALSE);
 
 }
 
@@ -1210,7 +1210,7 @@ static void rd_extra(void)
 	rd_byte(&tmp8u);
 
 
-	/* Was cr_ptr->rewards[BUILDING_FUNCTION_MAX] */
+	/* Was creature_ptr->rewards[BUILDING_FUNCTION_MAX] */
 	rd_s16b(&tmp16s);
 	for (i = 0; i < tmp16s; i++)
 	{

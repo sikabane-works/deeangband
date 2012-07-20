@@ -579,9 +579,9 @@ bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 /*
  * Returns true if the player's grid is dark
  */
-bool no_lite(creature_type *cr_ptr)
+bool no_lite(creature_type *creature_ptr)
 {
-	return (!creature_can_see_bold(cr_ptr, cr_ptr->fy, cr_ptr->fx));
+	return (!creature_can_see_bold(creature_ptr, creature_ptr->fy, creature_ptr->fx));
 }
 
 
@@ -1399,7 +1399,7 @@ void move_cursor_relative(int row, int col)
 /*
  * Place an attr/char pair at the given map coordinate, if legal.
  */
-void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
+void print_rel(creature_type *creature_ptr, char c, byte a, int y, int x)
 {
 	/* Only do "legal" locations */
 	if (panel_contains(y, x))
@@ -1408,8 +1408,8 @@ void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
 		if (!use_graphics)
 		{
 			if (the_world) a = TERM_DARK;
-			else if (IS_INVULN(cr_ptr) || cr_ptr->time_stopper) a = TERM_WHITE;
-			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
+			else if (IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
+			else if (creature_ptr->wraith_form) a = TERM_L_DARK;
 		}
 
 		/* Draw the char using the attr */
@@ -1554,7 +1554,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 }
 
 
-void display_dungeon(creature_type *cr_ptr)
+void display_dungeon(creature_type *creature_ptr)
 {
 	int x, y;
 	byte a;
@@ -1563,28 +1563,28 @@ void display_dungeon(creature_type *cr_ptr)
 	byte ta;
 	char tc;
 
-	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	for (x = cr_ptr->fx - Term->wid / 2 + 1; x <= cr_ptr->fx + Term->wid / 2; x++)
+	for (x = creature_ptr->fx - Term->wid / 2 + 1; x <= creature_ptr->fx + Term->wid / 2; x++)
 	{
-		for (y = cr_ptr->fy - Term->hgt / 2 + 1; y <= cr_ptr->fy + Term->hgt / 2; y++)
+		for (y = creature_ptr->fy - Term->hgt / 2 + 1; y <= creature_ptr->fy + Term->hgt / 2; y++)
 		{
 			if (in_bounds2(floor_ptr, y, x))
 			{
 
 				/* Examine the grid */
-				map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
+				map_info(creature_ptr, y, x, &a, &c, &ta, &tc);
 
 				/* Hack -- fake monochrome */
 				if (!use_graphics)
 				{
 					if (the_world) a = TERM_DARK;
-					else if (IS_INVULN(cr_ptr) || cr_ptr->time_stopper) a = TERM_WHITE;
-					else if (cr_ptr->wraith_form) a = TERM_L_DARK;
+					else if (IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
+					else if (creature_ptr->wraith_form) a = TERM_L_DARK;
 				}
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - cr_ptr->fx + Term->wid / 2 - 1, y - cr_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - creature_ptr->fx + Term->wid / 2 - 1, y - creature_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 			else
 			{
@@ -1600,7 +1600,7 @@ void display_dungeon(creature_type *cr_ptr)
 				c = f_ptr->x_char[F_LIT_STANDARD];
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - cr_ptr->fx + Term->wid / 2 - 1, y - cr_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - creature_ptr->fx + Term->wid / 2 - 1, y - creature_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 		}
 	}
@@ -2827,11 +2827,11 @@ static s16b mon_fy, mon_fx;
 /*
  * Add a square to the changes array
  */
-static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
+static void mon_lite_hack(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
-	floor_type *floor_ptr = &floor_list[cr_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	/* We trust this grid is in bounds */
 	/* if (!in_bounds2(floor_ptr, y, x)) return; */
@@ -2846,11 +2846,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 		/* Hack -- Prevent creature lite leakage in walls */
 
 		/* Horizontal walls between player and a creature */
-		if (((y < cr_ptr->fy) && (y > mon_fy)) || ((y > cr_ptr->fy) && (y < mon_fy)))
+		if (((y < creature_ptr->fy) && (y > mon_fy)) || ((y > creature_ptr->fy) && (y < mon_fy)))
 		{
-			dpf = cr_ptr->fy - mon_fy;
+			dpf = creature_ptr->fy - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((cr_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((creature_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
@@ -2865,11 +2865,11 @@ static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 		}
 
 		/* Vertical walls between player and a creature */
-		if (((x < cr_ptr->fx) && (x > mon_fx)) || ((x > cr_ptr->fx) && (x < mon_fx)))
+		if (((x < creature_ptr->fx) && (x > mon_fx)) || ((x > creature_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = cr_ptr->fx - mon_fx;
+			dpf = creature_ptr->fx - mon_fx;
 			d = x - mon_fx;
-			midpoint = mon_fy + ((cr_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fy + ((creature_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
@@ -4381,7 +4381,7 @@ void map_area(creature_type *creature_ptr, int range)
  * since this would prevent the use of "view_torch_grids" as a method to
  * keep track of what grids have been observed directly.
  */
-void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
+void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 {
 	int i, y, x;
 	s16b feat;
@@ -4466,9 +4466,9 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if (cr_ptr->special_defense & NINJA_S_STEALTH)
+	if (creature_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+		if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
 }
 
@@ -4476,7 +4476,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *cr_ptr, bool ninja)
 /*
  * Forget the dungeon map (ala "Thinking of Maud...").
  */
-void wiz_dark(floor_type *floor_ptr, creature_type *cr_ptr)
+void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int i, y, x;
 
@@ -4627,7 +4627,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
-		creature_type *cr_ptr;
+		creature_type *creature_ptr;
 
 		for (i = 0; i < 9; i++)
 		{
@@ -4635,7 +4635,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			xx = x + ddx_ddd[i];
 			if (!in_bounds2(floor_ptr, yy, xx)) continue;
 			cc_ptr = &floor_ptr->cave[yy][xx];
-			cr_ptr = &creature_list[cc_ptr->creature_idx];
+			creature_ptr = &creature_list[cc_ptr->creature_idx];
 			cc_ptr->info |= CAVE_GLOW;
 
 			if (player_has_los_grid(cc_ptr))
@@ -4652,9 +4652,9 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 			update_local_illumination(floor_ptr, yy, xx);
 
-			if (cr_ptr->special_defense & NINJA_S_STEALTH)
+			if (creature_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 			}
 
 		}

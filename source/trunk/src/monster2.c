@@ -2426,19 +2426,19 @@ int lore_do_probe(int species_idx)
  * gold and items are dropped, and remembers that information to be
  * described later by the creature recall code.
  */
-void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
+void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 {
-	species_type *r_ptr = &species_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
 	/* If the creature doesn't have original appearance, don't note */
-	if (!is_original_ap(cr_ptr)) return;
+	if (!is_original_ap(creature_ptr)) return;
 
 	/* Note the number of things dropped */
 	if (num_item > r_ptr->r_drop_item) r_ptr->r_drop_item = num_item;
 	if (num_gold > r_ptr->r_drop_gold) r_ptr->r_drop_gold = num_gold;
 
 	/* Update creature recall window */
-	if (species_window_idx == cr_ptr->species_idx)
+	if (species_window_idx == creature_ptr->species_idx)
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);
@@ -4970,7 +4970,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 }
 
 /* A "dangerous" function, creates a pet of the specified type */
-bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode)
+bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode)
 {
 	int x, y;
 
@@ -4982,7 +4982,7 @@ bool summon_named_creature(creature_type *cr_ptr, floor_type *floor_ptr, int oy,
 	if (!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_creature_species(cr_ptr, floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
 }
 
 

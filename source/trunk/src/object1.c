@@ -3999,7 +3999,7 @@ char index_to_label(int i)
  * Convert a label into the index of an item in the "inven"
  * Return "-1" if the label does not indicate a real item
  */
-s16b label_to_item(creature_type *cr_ptr, int c)
+s16b label_to_item(creature_type *creature_ptr, int c)
 {
 	int i;
 
@@ -4010,7 +4010,7 @@ s16b label_to_item(creature_type *cr_ptr, int c)
 	if ((i < 0) || (i > INVEN_TOTAL)) return (-1);
 
 	/* Empty slots can never be chosen */
-	if (!cr_ptr->inventory[i].k_idx) return (-1);
+	if (!creature_ptr->inventory[i].k_idx) return (-1);
 
 	/* Return the index */
 	return (i);
@@ -4020,7 +4020,7 @@ s16b label_to_item(creature_type *cr_ptr, int c)
 /*
  * Return a string mentioning how a given item is carried
  */
-cptr mention_use(creature_type *cr_ptr, int slot, int num)
+cptr mention_use(creature_type *creature_ptr, int slot, int num)
 {
 	cptr p;
 
@@ -4045,7 +4045,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
-			if(cr_ptr->heavy_wield[num])
+			if(creature_ptr->heavy_wield[num])
 			{
 				p = "â^î¿íÜ";
 				break;
@@ -4055,10 +4055,10 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 				switch(num)
 				{
 					case 1:
-						p = has_trait(cr_ptr, TRAIT_HUMANOID) ? "âEéË" : "ëÊÇPéË";
+						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "âEéË" : "ëÊÇPéË";
 						break;
 					case 2:
-						p = has_trait(cr_ptr, TRAIT_HUMANOID) ? "ç∂éË" : "ëÊÇQéË";
+						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "ç∂éË" : "ëÊÇQéË";
 						break;
 					case 3:
 						p = "ëÊÇRéË";
@@ -4086,18 +4086,18 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 			break;
 #else
 		case INVEN_SLOT_HAND:
-			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
+			p = creature_ptr->heavy_wield[0] ? "Just lifting" : (creature_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
 		case INVEN_SLOT_BOW:
 			p = "éÀåÇóp";
-//			p = (adj_str_equipping_weight[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "â^î¿íÜ" : "éÀåÇóp"; break;
+//			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "â^î¿íÜ" : "éÀåÇóp"; break;
 			break;
 #else
 		case INVEN_SLOT_BOW:
 			p = "Shooting";
-//			p = (adj_str_equipping_weight[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
+//			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 			break;
 #endif
 
@@ -4114,10 +4114,10 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 			switch(num)
 			{
 				case 1:
-					p = has_trait(cr_ptr, TRAIT_HUMANOID) ? "âEéw" : "ëÊÇPéw";
+					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "âEéw" : "ëÊÇPéw";
 					break;
 				case 2:
-					p = has_trait(cr_ptr, TRAIT_HUMANOID) ? "ç∂éw" : "ëÊÇQéw";
+					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "ç∂éw" : "ëÊÇQéw";
 					break;
 				default:
 					p = "éwÅH";
@@ -4175,7 +4175,7 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
 			switch(num)
 			{
 				case 1:
-					p = has_trait(cr_ptr, TRAIT_HUMANOID) ? "ì™ïî" : "ëÊÇPì™";
+					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "ì™ïî" : "ëÊÇPì™";
 					break;
 				case 2:
 					p = "ëÊÇQì™";
@@ -4251,28 +4251,28 @@ cptr mention_use(creature_type *cr_ptr, int slot, int num)
  * Return a string describing how a given item is being worn.
  * Currently, only used for items in the equipment, not inventory.
  */
-cptr describe_use(creature_type *cr_ptr, int i)
+cptr describe_use(creature_type *creature_ptr, int i)
 {
 	cptr p;
 
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "â^î¿íÜÇÃ" : ((cr_ptr->two_handed && cr_ptr->can_melee[0]) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (has_trait(cr_ptr, TRAIT_LEFT_HANDER) ? "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
+		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "â^î¿íÜÇÃ" : ((creature_ptr->two_handed && creature_ptr->can_melee[0]) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
 #else
-		case INVEN_SLOT_HAND:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
+		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "just lifting" : (creature_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "éùÇ¬ÇæÇØÇ≈ê∏àÍîtÇÃ" : "éÀåÇópÇ…ëïîıÇµÇƒÇ¢ÇÈ"; break;
+		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "éùÇ¬ÇæÇØÇ≈ê∏àÍîtÇÃ" : "éÀåÇópÇ…ëïîıÇµÇƒÇ¢ÇÈ"; break;
 #else
-		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_RING: p = (has_trait(cr_ptr, TRAIT_LEFT_HANDER) ? "ç∂éËÇÃéwÇ…ÇÕÇﬂÇƒÇ¢ÇÈ" : "âEéËÇÃéwÇ…ÇÕÇﬂÇƒÇ¢ÇÈ"); break;
+		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "ç∂éËÇÃéwÇ…ÇÕÇﬂÇƒÇ¢ÇÈ" : "âEéËÇÃéwÇ…ÇÕÇﬂÇƒÇ¢ÇÈ"); break;
 #else
-		case INVEN_SLOT_RING: p = (has_trait(cr_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
+		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
 
 #ifdef JP
@@ -4331,26 +4331,26 @@ cptr describe_use(creature_type *cr_ptr, int i)
 
 /* Hack: Check if a spellbook is one of the realms we can use. -- TY */
 
-bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval)
+bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const byte book_sval)
 {
 	if (book_tval < TV_LIFE_BOOK) return FALSE;
-	if (cr_ptr->class_idx == CLASS_SORCERER)
+	if (creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		return is_magic(tval2realm(book_tval));
 	}
-	else if (cr_ptr->class_idx == CLASS_RED_MAGE)
+	else if (creature_ptr->class_idx == CLASS_RED_MAGE)
 	{
 		if (is_magic(tval2realm(book_tval)))
 			return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));
 	}
-	return (REALM1_BOOK(cr_ptr) == book_tval || REALM2_BOOK(cr_ptr) == book_tval);
+	return (REALM1_BOOK(creature_ptr) == book_tval || REALM2_BOOK(creature_ptr) == book_tval);
 }
 
 
 /*
  * Check an item against the item tester info
  */
-bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
+bool item_tester_okay(creature_type *creature_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
 {
 
 	/* Require an item */
@@ -4373,7 +4373,7 @@ bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tes
 		/* Is it a spellbook? If so, we need a hack -- TY */
 		if ((item_tester_tval <= TV_DEATH_BOOK) &&
 			(item_tester_tval >= TV_LIFE_BOOK))
-			return check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval);
+			return check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval);
 		else
 			if (item_tester_tval != o_ptr->tval) return (FALSE);
 	}
@@ -4381,7 +4381,7 @@ bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tes
 	/* Check the hook */
 	if (item_tester_hook)
 	{
-		if (!(*item_tester_hook)(cr_ptr, o_ptr)) return (FALSE);
+		if (!(*item_tester_hook)(creature_ptr, o_ptr)) return (FALSE);
 	}
 
 	/* Assume okay */
@@ -4394,7 +4394,7 @@ bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tes
 /*
  * Choice window "shadow" of the "show_item_list()" function
  */
-void display_inven(creature_type *cr_ptr)
+void display_inven(creature_type *creature_ptr)
 {
 	register        int i, n, z = 0;
 	object_type     *o_ptr;
@@ -4409,7 +4409,7 @@ void display_inven(creature_type *cr_ptr)
 	/* Find the "final" slot */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4422,13 +4422,13 @@ void display_inven(creature_type *cr_ptr)
 	for (i = 0; i < z; i++)
 	{
 		/* Examine the item */
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(cr_ptr, o_ptr, NULL, 0))
+		if (item_tester_okay(creature_ptr, o_ptr, NULL, 0))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4487,7 +4487,7 @@ void display_inven(creature_type *cr_ptr)
 /*
  * Choice window "shadow" of the "show_item_list()" function
  */
-void display_equip(creature_type *cr_ptr)
+void display_equip(creature_type *creature_ptr)
 {
 	register        int i, j, n;
 	object_type     *o_ptr;
@@ -4502,9 +4502,9 @@ void display_equip(creature_type *cr_ptr)
 	n = 0;
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		for(j = 0; j < cr_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
+		for(j = 0; j < creature_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
 		{
-			o_ptr = get_equipped_slot_ptr(cr_ptr, INVEN_SLOT_HAND, j);
+			o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
 			if(o_ptr->k_idx)
 			{
 				/* Obtain an item description */
@@ -4523,7 +4523,7 @@ void display_equip(creature_type *cr_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Examine the item */
-		o_ptr = &cr_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(o_ptr)) continue;
 
@@ -4567,7 +4567,7 @@ void display_equip(creature_type *cr_ptr)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(cr_ptr, GET_INVEN_SLOT_TYPE(cr_ptr, i), IS_EQUIPPED(o_ptr)), i, wid - 15);
+			prt(mention_use(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(o_ptr)), i, wid - 15);
 		}
 	}
 
@@ -4591,17 +4591,17 @@ void display_equip(creature_type *cr_ptr)
  * Also, the tag "@xn" will work as well, where "n" is a any tag-char,
  * and "x" is the "current" command_cmd code.
  */
-static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
+static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 {
 	int i;
 	cptr s;
 
 	/**** Find a tag in the form of {@x#} (allow alphabet tag) ***/
 
-	/* Check every cr_ptr->inventory object */
+	/* Check every creature_ptr->inventory object */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4613,7 +4613,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL, 0)) continue;
+		if (!item_tester_okay(creature_ptr, o_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4624,7 +4624,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 			/* Check the special tags */
 			if ((s[1] == command_cmd) && (s[2] == tag))
 			{
-				/* Save the actual cr_ptr->inventory ID */
+				/* Save the actual creature_ptr->inventory ID */
 				*cp = i;
 
 				/* Success */
@@ -4649,7 +4649,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 	/* Check every object */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 
 		if (IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
 		if (!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
@@ -4661,7 +4661,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(cr_ptr, o_ptr, NULL, 0)) continue;
+		if (!item_tester_okay(creature_ptr, o_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4672,7 +4672,7 @@ static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 			/* Check the normal tags */
 			if (s[1] == tag)
 			{
-				/* Save the actual cr_ptr->inventory ID */
+				/* Save the actual creature_ptr->inventory ID */
 				*cp = i;
 
 				/* Success */
@@ -4782,7 +4782,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 /*
  * Move around label characters with correspond tags
  */
-static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
+static void prepare_label_string(creature_type *creature_ptr, char *label, int mode)
 {
 	cptr alphabet_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int  i, j;
@@ -4795,14 +4795,14 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 	{
 		int index;
 		char c;
-		object_type *o_ptr = &cr_ptr->inventory[i];
+		object_type *o_ptr = &creature_ptr->inventory[i];
 		if(!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
 		if( IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
 
 		c = alphabet_chars[j];
 
 		/* Find a tag with this label */
-		if (get_tag(cr_ptr, &index, c, mode))
+		if (get_tag(creature_ptr, &index, c, mode))
 		{
 			/* Delete the overwritten label */
 			if (label[j] == c) label[j] = ' ';
@@ -4850,7 +4850,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
+int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr))
 {
 	int             i, j, k, l, m, n;
 	int             col, cur_col, len;
@@ -4877,17 +4877,17 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	/* Default "max-length" */
 	len = wid - col - 1;
 
-	prepare_label_string(cr_ptr, inven_label, USE_INVEN);
+	prepare_label_string(creature_ptr, inven_label, USE_INVEN);
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
 		for(k = 0, i = 1; i < MAX_INVENTORY_SLOT; i++)
 		{
-			n = cr_ptr->item_slot_num[i]; 
+			n = creature_ptr->item_slot_num[i]; 
 			for(j = 1; j <= n; j++)
 			{
-				m = get_equipped_slot_idx(cr_ptr, i, j); 
-				o_ptr = &cr_ptr->inventory[m];
+				m = get_equipped_slot_idx(creature_ptr, i, j); 
+				o_ptr = &creature_ptr->inventory[m];
 				object_desc(o_name, o_ptr, 0); // Describe the object
 
 				// Save the object index, color, and description
@@ -4922,12 +4922,12 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	{
 		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
 		{
-			o_ptr = &cr_ptr->inventory[i];
+			o_ptr = &creature_ptr->inventory[i];
 
 			/* Is this item acceptable? */
 			if (!o_ptr->k_idx) continue;
 
-			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(cr_ptr, o_ptr, hook, 0)) continue;
+			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, o_ptr, hook, 0)) continue;
 			if (!((IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
@@ -4961,7 +4961,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 			/* Maintain the maximum length */
 			if (l > len) len = l;
 
-			slot[k] = GET_INVEN_SLOT_TYPE(cr_ptr, i);
+			slot[k] = GET_INVEN_SLOT_TYPE(creature_ptr, i);
 			num[k] = IS_EQUIPPED(o_ptr);
 
 			/* Advance to next "line" */
@@ -5005,7 +5005,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 	for (j = 0; j < k; j++)
 	{
 		i = out_index[j]; // Get the index
-		o_ptr = &cr_ptr->inventory[i]; // Get the item
+		o_ptr = &creature_ptr->inventory[i]; // Get the item
 		prt("", j + 1, col ? col - 2 : col); // Clear the line
 
 		if (use_menu && target_item)
@@ -5045,7 +5045,7 @@ int show_item_list(int target_item, creature_type *cr_ptr, u32b flags, bool (*ho
 		}
 
 		// Display the entry itself
-		c_put_str(IS_EQUIPPED(o_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(cr_ptr, slot[j], num[j]) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(o_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		// Display the weight if needed
@@ -5114,7 +5114,7 @@ void toggle_inven_equip(void)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool verify(creature_type *cr_ptr, cptr prompt, int item)
+static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 {
 	char        o_name[MAX_NLEN];
 	char        out_val[MAX_NLEN+20];
@@ -5124,7 +5124,7 @@ static bool verify(creature_type *cr_ptr, cptr prompt, int item)
 	/* inventory */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Floor */
@@ -5154,7 +5154,7 @@ static bool verify(creature_type *cr_ptr, cptr prompt, int item)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool get_item_allow(creature_type *cr_ptr, int item)
+static bool get_item_allow(creature_type *creature_ptr, int item)
 {
 	cptr s;
 
@@ -5162,10 +5162,10 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 
 	if (!command_cmd) return TRUE; /* command_cmd is no longer effective */
 
-	/* cr_ptr->inventory */
+	/* creature_ptr->inventory */
 	if (item >= 0)
 	{
-		o_ptr = &cr_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Floor */
@@ -5188,7 +5188,7 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 		{
 			/* Verify the choice */
 #ifdef JP
-			if (!verify(cr_ptr, "ñ{ìñÇ…", item)) return (FALSE);
+			if (!verify(creature_ptr, "ñ{ìñÇ…", item)) return (FALSE);
 #else
 			if (!verify("Really try", item)) return (FALSE);
 #endif
@@ -5208,10 +5208,10 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 /*
  * Auxiliary function for "get_item()" -- test an index
  */
-static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
+static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
 {
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE); // Illegal items
-	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i], hook, item_tester_tval)) return (FALSE); // Verify the item
+	if (!item_tester_okay(creature_ptr, &creature_ptr->inventory[i], hook, item_tester_tval)) return (FALSE); // Verify the item
 	return (TRUE); // Assume okay
 }
 
@@ -5347,7 +5347,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
  * We always erase the prompt when we are done, leaving a blank line,
  * or a warning message, if appropriate, if no items are available.
  */
-bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr), int item_tester_tval)
+bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -7625,20 +7625,20 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
  *
  * This is called by py_pickup() when easy_floor is TRUE.
  */
-void py_pickup_floor(creature_type *cr_ptr, bool pickup)
+void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 {
 	s16b this_object_idx, next_object_idx = 0;
 
 	char o_name[MAX_NLEN];
 	object_type *o_ptr;
 
-	floor_type *floor_ptr = get_floor_ptr(cr_ptr);
+	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int floor_num = 0, floor_list[23], floor_object_idx = 0;
 
 	int can_pickup = 0;
 
 	/* Scan the pile of objects */
-	for (this_object_idx = floor_ptr->cave[cr_ptr->fy][cr_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
+	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *o_ptr;
 
@@ -7668,7 +7668,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 
 
 			/* Collect the gold */
-			cr_ptr->au += o_ptr->pval;
+			creature_ptr->au += o_ptr->pval;
 
 			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
@@ -7691,7 +7691,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		}
 
 		/* Count non-gold objects that can be picked up. */
-		if (inven_carry_okay(cr_ptr, o_ptr))
+		if (inven_carry_okay(creature_ptr, o_ptr))
 		{
 			can_pickup++;
 		}
@@ -7863,7 +7863,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 		/* Pick up the object */
-		py_pickup_aux(cr_ptr, floor_object_idx);
+		py_pickup_aux(creature_ptr, floor_object_idx);
 	}
 
 	/* Allow the user to choose an object */
@@ -7871,7 +7871,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 	{
 		while (can_pickup--)
 		{
-			if (!py_pickup_floor_aux(cr_ptr)) break;
+			if (!py_pickup_floor_aux(creature_ptr)) break;
 		}
 	}
 }
