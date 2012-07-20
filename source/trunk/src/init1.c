@@ -3268,14 +3268,16 @@ errr parse_species_info_csv(char *buf, header *head)
 	}
 	else
 	{
+		species_type *species_ptr;
 		int n;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Creature:%d]", n);
 
-		species_info[n].species_idx = n;
-		species_info[n].ap_species_idx = n;
+		species_ptr = &species_info[n];
+		species_ptr->species_idx = n;
+		species_ptr->ap_species_idx = n;
 
 
 		note(nt);
@@ -3292,226 +3294,226 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_NAME:
 #if JP
-				if (!add_name(&species_info[n].name, head, tmp))
+				if (!add_name(&species_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case SPECIES_INFO_E_NAME:
 #if JP
-				if (!add_name(&species_info[n].E_name, head, tmp))
+				if (!add_name(&species_ptr->E_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_name(&species_info[n].name, head, tmp))
+				if (!add_name(&species_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case SPECIES_INFO_SYM:
-				species_info[n].d_char = tmp[0];
-				species_info[n].x_char = tmp[0];
+				species_ptr->d_char = tmp[0];
+				species_ptr->x_char = tmp[0];
 				break;
 
 			case SPECIES_INFO_COL:
-				species_info[n].d_attr = color_char_to_acttr(tmp[0]);
-				species_info[n].x_attr = color_char_to_acttr(tmp[0]);
+				species_ptr->d_attr = color_char_to_acttr(tmp[0]);
+				species_ptr->x_attr = color_char_to_acttr(tmp[0]);
 				break;
 
 			case SPECIES_INFO_RACE1:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].race_idx1 = (s16b)b;
+					species_ptr->race_idx1 = (s16b)b;
 				else 
 					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].race_idx1 = (s16b)b;
+				species_ptr->race_idx1 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RACE2:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].race_idx2 = (s16b)b;
+					species_ptr->race_idx2 = (s16b)b;
 				else 
 					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].race_idx2 = (s16b)b;
+				species_ptr->race_idx2 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_CLASS:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].class_idx = (s16b)b;
+					species_ptr->class_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, class_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
-				species_info[n].class_idx = (s16b)b;
+				species_ptr->class_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].patron_idx = (s16b)b;
+					species_ptr->patron_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].patron_idx = (s16b)b;
+				species_ptr->patron_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_CHARA:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].chara_idx = (s16b)b;
+					species_ptr->chara_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, chara_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].chara_idx = (s16b)b;
+				species_ptr->chara_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RELM1:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].realm1 = (s16b)b;
+					species_ptr->realm1 = (s16b)b;
 				else 
 					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
-				species_info[n].realm1 = (s16b)b;
+				species_ptr->realm1 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RELM2:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].realm2 = (s16b)b;
+					species_ptr->realm2 = (s16b)b;
 				else 
 					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
-				species_info[n].realm2 = (s16b)b;
+				species_ptr->realm2 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_LEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].level = (byte)b;
+				species_ptr->level = (byte)b;
 				break;
 
 			case SPECIES_INFO_RARE:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].rarity = (byte)b;
+				species_ptr->rarity = (byte)b;
 				break;
 
 			case SPECIES_INFO_SPELL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].freq_spell = (byte)b;
+				species_ptr->freq_spell = (byte)b;
 				break;
 
 			case SPECIES_INFO_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].exp = (s32b)b;
+				species_ptr->exp = (s32b)b;
 				break;
 
 			case SPECIES_INFO_N_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].next_exp = (u32b)b;
+				species_ptr->next_exp = (u32b)b;
 				break;
 
 			case SPECIES_INFO_N_MIN:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].next_species_idx = (s16b)b;
+				species_ptr->next_species_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AGE:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].age = (s32b)b;
+				species_ptr->age = (s32b)b;
 				break;
 
 			case SPECIES_INFO_SC:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].sc = (s16b)b;
+				species_ptr->sc = (s16b)b;
 				break;
 
 			case SPECIES_INFO_DV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].dr = (s16b)b;
+				species_ptr->dr = (s16b)b;
 				break;
 
 			case SPECIES_INFO_SP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].speed = (s16b)b;
+				species_ptr->speed = (s16b)b;
 				break;
 
 			case SPECIES_INFO_IS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].sleep = (s16b)b;
+				species_ptr->sleep = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AC:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].ac = (s16b)b;
+				species_ptr->ac = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ALERT:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].aaf = (byte)b;
+				species_ptr->aaf = (byte)b;
 				break;
 
 			case SPECIES_INFO_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_STR] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_STR] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_STR] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_STR] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_INT] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_INT] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_INT] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_INT] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_WIS] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_DEX] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_CON] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_CON] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_CON] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_CON] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].stat_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
-				species_info[n].stat_max_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
+				species_ptr->stat_max_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
 				break;
 
 			case SPECIES_INFO_M_HB:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].m_b_ht = (u32b)ub;
+				species_ptr->m_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_HM:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].m_m_ht = (u32b)ub;
+				species_ptr->m_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WB:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].m_b_wt = (u32b)ub;
+				species_ptr->m_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WM:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].m_m_wt = (u32b)ub;
+				species_ptr->m_m_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HB:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].f_b_ht = (u32b)ub;
+				species_ptr->f_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HM:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].f_m_ht = (u32b)ub;
+				species_ptr->f_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WB:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].f_b_wt = (u32b)ub;
+				species_ptr->f_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WM:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].f_m_wt = (u32b)ub;
+				species_ptr->f_m_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_BATTLE:				
@@ -3549,14 +3551,14 @@ errr parse_species_info_csv(char *buf, header *head)
 						return PARSE_ERROR_GENERIC;
 
 					/* Save the method */
-					species_info[n].blow[k].method = am;
+					species_ptr->blow[k].method = am;
 
 					/* Save the effect */
-					species_info[n].blow[k].effect = ae;
+					species_ptr->blow[k].effect = ae;
 
 					/* Extract the damage dice and sides */
-					species_info[n].blow[k].d_dice = n1;
-					species_info[n].blow[k].d_side = n2;
+					species_ptr->blow[k].d_dice = n1;
+					species_ptr->blow[k].d_side = n2;
 
 					k++;
 
@@ -3573,9 +3575,9 @@ errr parse_species_info_csv(char *buf, header *head)
 
 					if (k == MAX_UNDERLINGS) return PARSE_ERROR_GENERIC;
 
-					species_info[n].underling_id[k] = id;
-					species_info[n].underling_d_num[k] = num;
-					species_info[n].underling_d_side[k] = side;
+					species_ptr->underling_id[k] = id;
+					species_ptr->underling_d_num[k] = num;
+					species_ptr->underling_d_side[k] = side;
 					k++;
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
 					if(tmp[offset]) offset++;
@@ -3610,12 +3612,12 @@ errr parse_species_info_csv(char *buf, header *head)
 
 					if (k == INVEN_TOTAL) return PARSE_ERROR_GENERIC;
 
-					species_info[n].artifact_id[k] = id;
-					species_info[n].artifact_ego[k] = ego;
-					species_info[n].artifact_flag[k] = flags;
-					species_info[n].artifact_tval[k] = tval;
-					species_info[n].artifact_sval[k] = sval;
-					species_info[n].artifact_prob[k] = prob;
+					species_ptr->artifact_id[k] = id;
+					species_ptr->artifact_ego[k] = ego;
+					species_ptr->artifact_flag[k] = flags;
+					species_ptr->artifact_tval[k] = tval;
+					species_ptr->artifact_sval[k] = sval;
+					species_ptr->artifact_prob[k] = prob;
 					k++;
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
 					if(tmp[offset]) offset++;
@@ -3628,17 +3630,17 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_FLAG:
 			case SPECIES_INFO_ACTION:
-				if(0 != traits_precondition_splits(&species_info[n].flags, tmp))
+				if(0 != traits_precondition_splits(&species_ptr->flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
 			case SPECIES_INFO_DESCRIPTION:
-				if (!add_text(&species_info[n].text, head, tmp, TRUE))
+				if (!add_text(&species_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_E_DESCRIPTION:
-				if (!add_text(&species_info[n].E_text, head, tmp, TRUE))
+				if (!add_text(&species_ptr->E_text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -3658,7 +3660,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 					// Parse this entry
 					if ((b = grab_one_authority_flag(&species_info[n], s)) < 0) return (5);
-					species_info[n].authority[b / 32] |= (0x0001 << (b % 32));
+					species_ptr->authority[b / 32] |= (0x0001 << (b % 32));
 
 					// Start the next entry
 					s = t;
@@ -3668,73 +3670,73 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_SEX:
 				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].sex = (s16b)b;
+				species_ptr->sex = (s16b)b;
 				break;
 
 			case SPECIES_INFO_FATHER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].father_idx = (s16b)b;
+					species_ptr->father_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].father_idx = (s16b)b;
+				species_ptr->father_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_MOTHER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].mother_idx = (s16b)b;
+					species_ptr->mother_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_info[n].mother_idx = (s16b)b;
+				species_ptr->mother_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_HAND:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_hand = (s16b)b;
+				species_ptr->slot_hand = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RING:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_ring = (s16b)b;
+				species_ptr->slot_ring = (s16b)b;
 				break;
 
 			case SPECIES_INFO_AMULET:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_amulet = (s16b)b;
+				species_ptr->slot_amulet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_BODY:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_body = (s16b)b;
+				species_ptr->slot_body = (s16b)b;
 				break;
 
 			case SPECIES_INFO_OUTER:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_outer = (s16b)b;
+				species_ptr->slot_outer = (s16b)b;
 				break;
 
 			case SPECIES_INFO_HEAD:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_head = (s16b)b;
+				species_ptr->slot_head = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ARMS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_arms = (s16b)b;
+				species_ptr->slot_arms = (s16b)b;
 				break;
 
 			case SPECIES_INFO_FEET:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_feet = (s16b)b;
+				species_ptr->slot_feet = (s16b)b;
 				break;
 
 			case SPECIES_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].slot_tail = (s16b)b;
+				species_ptr->slot_tail = (s16b)b;
 				break;
 
 			case SPECIES_INFO_EV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_info[n].ev = (s16b)b;
+				species_ptr->ev = (s16b)b;
 				break;
 
 			default:
