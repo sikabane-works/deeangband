@@ -1039,7 +1039,7 @@ u16b max_dungeon_idx;
 u16b max_object_idx;
 
 
-// Maximum number of traits
+// Maximum number of traits_precondition
 u16b max_trait_idx;
 
 // Maximum number of creatures in simulate

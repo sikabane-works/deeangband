@@ -51,7 +51,7 @@ void remove_all_postnatal_traits(creature_type *creature_ptr)
 }
 
 
-// List traits we have...
+// List traits_precondition we have...
 void do_cmd_knowledge_traits(creature_type *creature_ptr)
 {
 	FILE *fff;

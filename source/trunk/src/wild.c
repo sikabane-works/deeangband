@@ -111,21 +111,11 @@ static void plasma_recursive(floor_type *floor_ptr, int x1, int y1, int x2, int 
 
 	// Are we done?
 	if (x1 + 1 == x2) return;
-
-	perturb_point_mid(floor_ptr, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[y1][x2].feat,
-		floor_ptr->cave[y2][x2].feat, xmid, ymid, rough, depth_max);
-
-	perturb_point_end(floor_ptr, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[y1][x2].feat, floor_ptr->cave[ymid][xmid].feat,
-		xmid, y1, rough, depth_max);
-
-	perturb_point_end(floor_ptr, floor_ptr->cave[y1][x2].feat, floor_ptr->cave[y2][x2].feat, floor_ptr->cave[ymid][xmid].feat,
-		x2, ymid, rough, depth_max);
-
-	perturb_point_end(floor_ptr, floor_ptr->cave[y2][x2].feat, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[ymid][xmid].feat,
-		xmid, y2, rough, depth_max);
-
-	perturb_point_end(floor_ptr, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[ymid][xmid].feat,
-		x1, ymid, rough, depth_max);
+	perturb_point_mid(floor_ptr, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[y1][x2].feat, floor_ptr->cave[y2][x2].feat, xmid, ymid, rough, depth_max);
+	perturb_point_end(floor_ptr, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[y1][x2].feat, floor_ptr->cave[ymid][xmid].feat, xmid, y1, rough, depth_max);
+	perturb_point_end(floor_ptr, floor_ptr->cave[y1][x2].feat, floor_ptr->cave[y2][x2].feat, floor_ptr->cave[ymid][xmid].feat, x2, ymid, rough, depth_max);
+	perturb_point_end(floor_ptr, floor_ptr->cave[y2][x2].feat, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[ymid][xmid].feat, xmid, y2, rough, depth_max);
+	perturb_point_end(floor_ptr, floor_ptr->cave[y2][x1].feat, floor_ptr->cave[y1][x1].feat, floor_ptr->cave[ymid][xmid].feat, x1, ymid, rough, depth_max);
 
 	// Recurse the four quadrants
 	plasma_recursive(floor_ptr, x1, y1, xmid, ymid, depth_max, rough);

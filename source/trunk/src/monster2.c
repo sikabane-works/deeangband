@@ -3653,7 +3653,7 @@ void deal_item(creature_type *creature_ptr)
 	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
 	//TODO
-	// Food depend on traits
+	// Food depend on traits_precondition
 	if(is_player(creature_ptr)) deal_food(creature_ptr);
 
 	if(is_player(creature_ptr)) deal_lite(creature_ptr);

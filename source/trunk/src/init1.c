@@ -1536,7 +1536,7 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 
 
 
-static errr grab_one_trait(traits *cf_ptr, cptr what, byte add, byte remove, byte prob)
+static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byte remove, byte prob)
 {
 	int i;
 
@@ -2975,7 +2975,7 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 /*
  * Grab one (basic) flag in a species_type from a textual string
  */
-static errr grab_one_race_flags(traits *flag_ptr, cptr what, byte add, byte remove)
+static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte add, byte remove)
 {
 
 
@@ -2991,7 +2991,7 @@ static errr grab_one_race_flags(traits *flag_ptr, cptr what, byte add, byte remo
 	return PARSE_ERROR_GENERIC;
 }
 
-static errr traits_splits(traits *flags_ptr, char *tmp)
+static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char *tmp)
 {
 	char flagname[80];
 	char flag_aux[80];
@@ -3041,7 +3041,7 @@ static errr traits_splits(traits *flags_ptr, char *tmp)
 		}
 
 		/* Parse this entry */
-		if (grab_one_trait(flags_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
+		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
 			return (PARSE_ERROR_INVALID_FLAG);
 
 		/* Start the next entry */
@@ -3607,7 +3607,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_FLAG:
 			case SPECIES_INFO_ACTION:
-				if(0 != traits_splits(&species_info[n].flags, tmp))
+				if(0 != traits_precondition_splits(&species_info[n].flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
@@ -4063,7 +4063,7 @@ errr reprocess_trait(header *head)
 	int i;
 	for(i = 0; i < max_trait_idx; i++)
 	{
-		traits_splits(&trait_info[i].flags, head->tmp_ptr);
+		traits_precondition_splits(&trait_info[i].flags, head->tmp_ptr);
 	}
 
 	return 0;
@@ -4824,12 +4824,12 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_FLAGS:
-				if(0 != traits_splits(&race_info[n].p_flags, tmp))
+				if(0 != traits_precondition_splits(&race_info[n].p_flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
 			case RC_INFO_H_FLAGS:
-				if(0 != traits_splits(&race_info[n].h_flags, tmp))
+				if(0 != traits_precondition_splits(&race_info[n].h_flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
@@ -5222,7 +5222,7 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_FLAGS:
-					if(0 != traits_splits(&class_info[n].flags, tmp))
+					if(0 != traits_precondition_splits(&class_info[n].flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
 			}
@@ -5453,7 +5453,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 
 				case CH_INFO_FLAGS:
-					if(0 != traits_splits(&chara_info[n].flags, tmp))
+					if(0 != traits_precondition_splits(&chara_info[n].flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
 			}

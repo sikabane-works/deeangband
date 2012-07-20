@@ -596,7 +596,7 @@ struct flag_desc
 
 /*
  * These are used for "+3 to STR, DEX", etc. These are separate from
- * the other pval affected traits to simplify the case where an object
+ * the other pval affected traits_precondition to simplify the case where an object
  * affects all stats.  In this case, "All stats" is used instead of
  * listing each stat individually.
  */
@@ -621,7 +621,7 @@ static flag_desc stat_flags_desc[] =
 };
 
 /*
- * Besides stats, these are the other player traits
+ * Besides stats, these are the other player traits_precondition
  * which may be affected by an object's pval
  */
 
@@ -909,7 +909,7 @@ typedef struct
 	char pval_desc[12];
 
 	/*
-	 * A list of various player traits affected by an object's pval such
+	 * A list of various player traits_precondition affected by an object's pval such
 	 * as stats, speed, stealth, etc.  "Extra attacks" is NOT included in
 	 * this list since it will probably be desirable to format its
 	 * description differently.
@@ -932,7 +932,7 @@ typedef struct
  * An "object analysis structure"
  *
  * It will be filled with descriptive strings detailing an object's
- * various magical powers. The "ignore X" traits are not noted since
+ * various magical powers. The "ignore X" traits_precondition are not noted since
  * all artifacts ignore "normal" destruction.
  */
 
@@ -1046,7 +1046,7 @@ static void analyze_general(object_type *o_ptr, char *desc_ptr)
 
 
 /*
- * List "player traits" altered by an artifact's pval. These include stats,
+ * List "player traits_precondition" altered by an artifact's pval. These include stats,
  * speed, infravision, tunneling, stealth, searching, and extra attacks.
  */
 static void analyze_pval(object_type *o_ptr, pval_info_type *pval_ptr)
@@ -1393,7 +1393,7 @@ static void print_header(void)
  * However, the code distinguishes between a single list of many items vs.
  * many lists. (The separator is used to make this determination.) A single
  * list of many items will not cause line wrapping (since there is no
- * apparent reason to do so). So the lists of Ulmo's miscellaneous traits
+ * apparent reason to do so). So the lists of Ulmo's miscellaneous traits_precondition
  * might look like this:
  *
  *     Free Action; Hold Life; See Invisible; Slow Digestion; Regeneration

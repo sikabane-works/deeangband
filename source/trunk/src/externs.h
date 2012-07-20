@@ -1002,12 +1002,12 @@ extern bool is_random_walker_25_species(species_type *species_ptr);
 extern bool is_random_walker_50_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
-extern void set_traits(traits *flags_ptr, int type, int low, int high);
+extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high);
 
 extern void reveal_species_info(species_type *species_ptr, int type);
 extern void reveal_creature_info(creature_type *creature_ptr, int type);
 
-extern bool has_trait_raw(traits *cf_ptr, int type);
+extern bool has_trait_raw(traits_precondition *cf_ptr, int type);
 extern bool has_trait_from_race(creature_type *creature_ptr, int type);
 extern bool has_trait_from_species(creature_type *creature_ptr, int type);
 extern bool has_trait_from_class(creature_type *creature_ptr, int type);
@@ -1020,17 +1020,17 @@ extern int calc_base_divine_rank(creature_type *creature_ptr);
 extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
 extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
-extern bool has_breath_flags(traits *flags_ptr);
-extern bool has_summon_flags(traits *flags_ptr);
-extern bool has_big_ball_flags(traits *flags_ptr);
-extern bool has_ball_flags(traits *flags_ptr);
-extern bool has_beam_flags(traits *flags_ptr);
-extern bool has_bolt_flags(traits *flags_ptr);
-extern bool has_intelligence_skill_flags(traits *flags_ptr);
-extern bool has_riding_disable_skill_flags(traits *flags_ptr);
-extern bool has_attack_skill_flags(traits *flags_ptr);
-extern bool has_indirect_skill_flags(traits *flags_ptr);
-extern bool has_non_magic_skill_flags(traits *flags_ptr);
+extern bool has_breath_flags(traits_precondition *flags_pre_ptr);
+extern bool has_summon_flags(traits_precondition *flags_pre_ptr);
+extern bool has_big_ball_flags(traits_precondition *flags_pre_ptr);
+extern bool has_ball_flags(traits_precondition *flags_pre_ptr);
+extern bool has_beam_flags(traits_precondition *flags_pre_ptr);
+extern bool has_bolt_flags(traits_precondition *flags_pre_ptr);
+extern bool has_intelligence_skill_flags(traits_precondition *flags_pre_ptr);
+extern bool has_riding_disable_skill_flags(traits_precondition *flags_pre_ptr);
+extern bool has_attack_skill_flags(traits_precondition *flags_pre_ptr);
+extern bool has_indirect_skill_flags(traits_precondition *flags_pre_ptr);
+extern bool has_non_magic_skill_flags(traits_precondition *flags_pre_ptr);
 extern bool has_magic_power(creature_type *creature_ptr);
 
 extern bool has_status(creature_type *creature_ptr, int stat);

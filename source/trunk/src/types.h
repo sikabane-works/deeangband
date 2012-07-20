@@ -48,8 +48,8 @@
 /*
  * Creature flags
  */
-typedef struct traits traits;
-struct traits
+typedef struct traits_precondition traits_precondition;
+struct traits_precondition
 {
 	byte add_lev[MAX_TRAITS];
 	byte remove_lev[MAX_TRAITS];
@@ -401,7 +401,7 @@ struct species_type
 
 	byte freq_spell;		/* Spell frequency */
 
-	traits flags;
+	traits_precondition flags;
 
 	special_blow_type blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
@@ -1003,8 +1003,8 @@ struct race_type
 
 	u32b choice;        /* Legal class choices */
 
-	traits p_flags;
-	traits h_flags;
+	traits_precondition p_flags;
+	traits_precondition h_flags;
 
 	char symbol;
 
@@ -1074,7 +1074,7 @@ struct class_type
 
 	byte pet_upkeep_div; /* Pet upkeep divider */
 
-	traits flags;
+	traits_precondition flags;
 };
 
 typedef struct player_patron player_patron;
@@ -1144,7 +1144,7 @@ struct chara_type
 	byte no;			/* Japanese "no" */
 	byte sex;			/* seibetu seigen */
 
-	traits flags;
+	traits_precondition flags;
 };
 
 
@@ -1583,7 +1583,7 @@ struct creature_type
 	byte tsuri_dir;
 };
 
-// traits_type
+// traits_precondition_type
 typedef struct trait_type trait_type;
 
 struct trait_type
@@ -1617,7 +1617,7 @@ struct trait_type
 	s32b E_get_text;
 	s32b lost_text;
 	s32b E_lost_text;
-	traits flags;
+	traits_precondition flags;
 
 	s16b base_level;
 	s16b mp_cost;
@@ -1856,7 +1856,7 @@ struct dungeon_type {
 
 	u32b flags1;		/* Flags 1 */
 
-	traits c_flags;
+	traits_precondition c_flags;
 
 	s16b final_object;	/* The object you'll find at the bottom */
 	s16b final_artifact;	/* The artifact you'll find at the bottom */
