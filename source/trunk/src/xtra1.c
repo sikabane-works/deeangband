@@ -3600,7 +3600,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_SUST_CON)) has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
 		//if (have_flag(flgs, TR_SUST_CHR)) has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
 
-		if (object_ptr->name2 == EGO_YOIYAMI) creature_ptr->dusk_enchant = TRUE;
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
 		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
@@ -3852,7 +3851,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->warning = FALSE;
 	creature_ptr->mighty_throw = FALSE;
 	creature_ptr->see_nocto = FALSE;
-	creature_ptr->dusk_enchant = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
@@ -4907,7 +4905,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
 	}
 
-	if (creature_ptr->dusk_enchant)
+	if (has_trait(creature_ptr, TRAIT_DUSK_ENCHANT))
 	{
 		if (creature_ptr->to_ac > (0 - creature_ptr->ac))         creature_ptr->to_ac     = 0 - creature_ptr->ac;
 		if (creature_ptr->dis_to_ac > (0 - creature_ptr->dis_ac)) creature_ptr->dis_to_ac = 0 - creature_ptr->dis_ac;

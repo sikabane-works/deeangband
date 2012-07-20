@@ -1404,7 +1404,6 @@ struct creature_type
 	bool riding_wield[MAX_WEAPONS];	/* Riding weapon */
 	bool riding_two_handed;	/* Riding weapon */
 	bool monlite;
-	bool dusk_enchant;
 
 	s16b cur_lite;		/* Radius of lite (if any) */
 
