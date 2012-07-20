@@ -44,6 +44,10 @@
 
 #include "init.h"
 
+
+static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byte remove, byte prob);
+
+
 static void note(cptr str)
 {
 	Term_erase(0, 23, 255);
@@ -887,6 +891,7 @@ static cptr store_pre_info_flags[] =
 };
 
 
+
 /*
  * Add a text to the text-storage and store offset to it.
  *
@@ -1535,6 +1540,65 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 }
 
 
+static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char *tmp)
+{
+	char flagname[80];
+	char flag_aux[80];
+	char *s, *t;
+	int b, c, prob;
+
+
+	for (s = tmp; *s; )
+	{
+
+		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
+
+		/* Nuke and skip any dividers */
+		if (*t)
+		{
+			*t++ = '\0';
+			while (*t == ' ' || *t == '|' || *t == '\n') t++;
+		}
+
+		if (1 == sscanf(s, "1_IN_%d", &b))
+		{
+			//TODO
+				s=t;
+				continue;
+		}
+
+		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
+		{
+			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
+			{
+				c = PY_MAX_LEVEL + 1;
+			}
+			else if(sscanf(s, "%s", &flag_aux) == 1)
+			{
+				b = 1;
+				c = PY_MAX_LEVEL + 1;
+			}
+			else
+				return PARSE_ERROR_GENERIC;
+		}
+
+		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
+		{
+			if(sscanf(flag_aux, "%s", &flagname) != 1)
+				return PARSE_ERROR_GENERIC;
+			prob = 100;
+		}
+
+		/* Parse this entry */
+		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
+			return (PARSE_ERROR_INVALID_FLAG);
+
+		/* Start the next entry */
+		s = t;
+	}
+
+	return 0; // OK
+}
 
 static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byte remove, byte prob)
 {
@@ -2731,7 +2795,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 
 
-#define OBJECT_EGO_INFO_CSV_COLUMNS 17
+#define OBJECT_EGO_INFO_CSV_COLUMNS 18
 static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2749,6 +2813,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"WEIGHT",
 	"COST",
 	"FLAG",
+	"ADD_CREATURE_TRAITS",
 	"COMMENT",
 	"AP_RATE",
 };
@@ -2768,8 +2833,9 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 #define OBJECT_EGO_INFO_WEIGHT  12
 #define OBJECT_EGO_INFO_COST    13
 #define OBJECT_EGO_INFO_FLAG    14
-#define OBJECT_EGO_INFO_COMMENT 15
-#define OBJECT_EGO_INFO_AP_RATE 16
+#define OBJECT_EGO_ADD_CREATURE_TRAITS 15
+#define OBJECT_EGO_INFO_COMMENT 16
+#define OBJECT_EGO_INFO_AP_RATE 17
 
 static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
@@ -2938,6 +3004,11 @@ errr parse_object_ego_csv(char *buf, header *head)
 				}
 				break;
 
+			case OBJECT_EGO_ADD_CREATURE_TRAITS:
+				if(0 != traits_precondition_splits(&object_ego_info[n].add_creature_traits, tmp))
+					return PARSE_ERROR_GENERIC;
+				break;
+
 			case OBJECT_EGO_INFO_COMMENT:
 				break;
 
@@ -2997,66 +3068,6 @@ static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte a
 
 	/* Failure */
 	return PARSE_ERROR_GENERIC;
-}
-
-static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char *tmp)
-{
-	char flagname[80];
-	char flag_aux[80];
-	char *s, *t;
-	int b, c, prob;
-
-
-	for (s = tmp; *s; )
-	{
-
-		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
-
-		/* Nuke and skip any dividers */
-		if (*t)
-		{
-			*t++ = '\0';
-			while (*t == ' ' || *t == '|' || *t == '\n') t++;
-		}
-
-		if (1 == sscanf(s, "1_IN_%d", &b))
-		{
-			//TODO
-				s=t;
-				continue;
-		}
-
-		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
-		{
-			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
-			{
-				c = PY_MAX_LEVEL + 1;
-			}
-			else if(sscanf(s, "%s", &flag_aux) == 1)
-			{
-				b = 1;
-				c = PY_MAX_LEVEL + 1;
-			}
-			else
-				return PARSE_ERROR_GENERIC;
-		}
-
-		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
-		{
-			if(sscanf(flag_aux, "%s", &flagname) != 1)
-				return PARSE_ERROR_GENERIC;
-			prob = 100;
-		}
-
-		/* Parse this entry */
-		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
-			return (PARSE_ERROR_INVALID_FLAG);
-
-		/* Start the next entry */
-		s = t;
-	}
-
-	return 0; // OK
 }
 
 

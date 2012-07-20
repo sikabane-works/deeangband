@@ -258,6 +258,7 @@ struct ego_item_type
 	s32b cost;			/* Ego-item "cost" */
 
 	u32b flags[TR_FLAG_SIZE];	/* Ego-Item Flags */
+	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
 };
