@@ -4550,13 +4550,14 @@ errr parse_race_info_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		race_type *race_ptr;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize RC:%d]", n);
 
-
 		note(nt);
+		race_ptr = &race_info[n];
 
 		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
 		{
@@ -4570,248 +4571,248 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_COMMON:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].race_category = (byte)b;
+				race_ptr->race_category = (byte)b;
 				break;
 
 			case RC_INFO_NAME:
 
-				if (!add_name(&race_info[n].name, head, tmp))
+				if (!add_name(&race_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case RC_INFO_E_NAME:
 #if JP
-				if (!add_name(&race_info[n].E_name, head, tmp))
+				if (!add_name(&race_ptr->E_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_name(&race_info[n].name, head, tmp))
+				if (!add_name(&race_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case RC_INFO_SEX:
 				if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].sex_flag = (byte)b;
+				race_ptr->sex_flag = (byte)b;
 				break;
 
 			case RC_INFO_LEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].lev = (s16b)b;
+				race_ptr->lev = (s16b)b;
 				break;
 
 			case RC_INFO_DR:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].dr = (s16b)b;
+				race_ptr->dr = (s16b)b;
 				break;
 
 			case RC_INFO_P_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_STR] = (s16b)b;
+				race_ptr->r_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_P_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_INT] = (s16b)b;
+				race_ptr->r_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_P_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_WIS] = (s16b)b;
+				race_ptr->r_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_DEX] = (s16b)b;
+				race_ptr->r_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_CON] = (s16b)b;
+				race_ptr->r_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_adj[STAT_CHA] = (s16b)b;
+				race_ptr->r_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_H_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_STR] = (s16b)b;
+				race_ptr->r_s_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_H_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_INT] = (s16b)b;
+				race_ptr->r_s_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_H_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_WIS] = (s16b)b;
+				race_ptr->r_s_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_DEX] = (s16b)b;
+				race_ptr->r_s_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_CON] = (s16b)b;
+				race_ptr->r_s_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_adj[STAT_CHA] = (s16b)b;
+				race_ptr->r_s_adj[STAT_CHA] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_dis = (s16b)b;
+				race_ptr->r_dis = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_dev = (s16b)b;
+				race_ptr->r_dev = (s16b)b;
 				break;
 
 			case RC_INFO_P_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_rob = (s16b)b;
+				race_ptr->r_rob = (s16b)b;
 				break;
 
 			case RC_INFO_P_EVA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_eva = (s16b)b;
+				race_ptr->r_eva = (s16b)b;
 				break;
 
 			case RC_INFO_P_VOL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_vol = (s16b)b;
+				race_ptr->r_vol = (s16b)b;
 				break;
 
 			case RC_INFO_P_STL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_stl = (s16b)b;
+				race_ptr->r_stl = (s16b)b;
 				break;
 
 			case RC_INFO_P_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_srh = (s16b)b;
+				race_ptr->r_srh = (s16b)b;
 				break;
 
 			case RC_INFO_P_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_fos = (s16b)b;
+				race_ptr->r_fos = (s16b)b;
 				break;
 
 			case RC_INFO_P_THN:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_thn = (s16b)b;
+				race_ptr->r_thn = (s16b)b;
 				break;
 
 			case RC_INFO_P_THB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_thb = (s16b)b;
+				race_ptr->r_thb = (s16b)b;
 				break;
 
 			case RC_INFO_P_INFRA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].infra = (byte)b;
+				race_ptr->infra = (byte)b;
 				break;
 
 			case RC_INFO_H_DIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_dis = (s16b)b;
+				race_ptr->r_s_dis = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_dev = (s16b)b;
+				race_ptr->r_s_dev = (s16b)b;
 				break;
 
 			case RC_INFO_H_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_rob = (s16b)b;
+				race_ptr->r_s_rob = (s16b)b;
 				break;
 
 			case RC_INFO_H_EVA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_eva = (s16b)b;
+				race_ptr->r_s_eva = (s16b)b;
 				break;
 
 			case RC_INFO_H_VOL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_vol = (s16b)b;
+				race_ptr->r_s_vol = (s16b)b;
 				break;
 
 			case RC_INFO_H_STL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_stl = (s16b)b;
+				race_ptr->r_s_stl = (s16b)b;
 				break;
 
 			case RC_INFO_H_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_srh = (s16b)b;
+				race_ptr->r_s_srh = (s16b)b;
 				break;
 
 			case RC_INFO_H_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_fos = (s16b)b;
+				race_ptr->r_s_fos = (s16b)b;
 				break;
 
 			case RC_INFO_H_THN:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_thn = (s16b)b;
+				race_ptr->r_s_thn = (s16b)b;
 				break;
 
 			case RC_INFO_H_THB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_thb = (s16b)b;
+				race_ptr->r_s_thb = (s16b)b;
 				break;
 
 			case RC_INFO_H_INFRA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].infra = (byte)b;
+				race_ptr->infra = (byte)b;
 				break;
 
 			case RC_INFO_M_HB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].m_b_ht = (s32b)b;
+				race_ptr->m_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_HM:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].m_m_ht = (s32b)b;
+				race_ptr->m_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_WB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].m_b_wt = (s32b)b;
+				race_ptr->m_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_M_WM:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].m_m_wt = (s32b)b;
+				race_ptr->m_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_HB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].f_b_ht = (s32b)b;
+				race_ptr->f_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_HM:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].f_m_ht = (s32b)b;
+				race_ptr->f_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_WB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].f_b_wt = (s32b)b;
+				race_ptr->f_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_WM:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].f_m_wt = (s32b)b;
+				race_ptr->f_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_P_HITD_M:
@@ -4824,35 +4825,35 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_exp = (s16b)b;
+				race_ptr->r_exp = (s16b)b;
 				break;
 
 			case RC_INFO_H_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].r_s_exp = (s16b)b;
+				race_ptr->r_s_exp = (s16b)b;
 				break;
 
 			case RC_INFO_SYM:
-				race_info[n].symbol = tmp[0];
+				race_ptr->symbol = tmp[0];
 				break;
 
 			case RC_INFO_AGE:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].b_age = (s32b)b;
+				race_ptr->b_age = (s32b)b;
 				break;
 
 			case RC_INFO_AGE_ADD:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].m_age = (s32b)b;
+				race_ptr->m_age = (s32b)b;
 				break;
 
 			case RC_INFO_P_FLAGS:
-				if(0 != traits_precondition_splits(&race_info[n].p_flags, tmp))
+				if(0 != traits_precondition_splits(&race_ptr->p_flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
 			case RC_INFO_H_FLAGS:
-				if(0 != traits_precondition_splits(&race_info[n].h_flags, tmp))
+				if(0 != traits_precondition_splits(&race_ptr->h_flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
@@ -4860,69 +4861,69 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_DESCRIPTION:
-				if (!add_text(&race_info[n].text, head, tmp, TRUE))
+				if (!add_text(&race_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 
 			case RC_INFO_E_DESCRIPTION:
 #if JP
-				if (!add_text(&race_info[n].E_text, head, tmp, TRUE))
+				if (!add_text(&race_ptr->E_text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_text(&race_info[n].text, head, tmp, TRUE))
+				if (!add_text(&race_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case RC_INFO_HAND:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_hand = (s16b)b;
+				race_ptr->slot_hand = (s16b)b;
 				break;
 
 			case RC_INFO_RING:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_ring = (s16b)b;
+				race_ptr->slot_ring = (s16b)b;
 				break;
 
 			case RC_INFO_AMULET:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_amulet = (s16b)b;
+				race_ptr->slot_amulet = (s16b)b;
 				break;
 
 			case RC_INFO_BODY:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_body = (s16b)b;
+				race_ptr->slot_body = (s16b)b;
 				break;
 
 			case RC_INFO_OUTER:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_outer = (s16b)b;
+				race_ptr->slot_outer = (s16b)b;
 				break;
 
 			case RC_INFO_HEAD:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_head = (s16b)b;
+				race_ptr->slot_head = (s16b)b;
 				break;
 
 			case RC_INFO_ARMS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_arms = (s16b)b;
+				race_ptr->slot_arms = (s16b)b;
 				break;
 
 			case RC_INFO_FEET:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_feet = (s16b)b;
+				race_ptr->slot_feet = (s16b)b;
 				break;
 
 			case RC_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_tail = (s16b)b;
+				race_ptr->slot_tail = (s16b)b;
 				break;
 
 			case RC_INFO_INTAKE:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_info[n].slot_intake = (s16b)b;
+				race_ptr->slot_intake = (s16b)b;
 				break;
 
 			default:
