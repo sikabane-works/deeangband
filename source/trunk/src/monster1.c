@@ -601,7 +601,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 
 	/* "CAN" flags */
 	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_species(r_ptr)) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_species(r_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait_raw(&r_ptr->flags, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
 		if (is_pass_wall_species(r_ptr)) return TRUE;
@@ -659,7 +659,7 @@ bool creature_can_cross_terrain(s16b feat, creature_type *creature_ptr, u16b mod
 
 	/* "CAN" flags */
 	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(creature_ptr)) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(creature_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(creature_ptr, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
 		if (is_pass_wall_creature(creature_ptr)) return TRUE;

@@ -3814,7 +3814,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->free_act = FALSE;
 	creature_ptr->slow_digest = FALSE;
 	creature_ptr->regenerate = FALSE;
-	creature_ptr->can_swim = FALSE;
 	creature_ptr->levitation = FALSE;
 	creature_ptr->hold_life = FALSE;
 	creature_ptr->telepathy = FALSE;
@@ -4829,7 +4828,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if (riding_m_ptr->fast) creature_ptr->speed += 10;
 	if (riding_m_ptr->slow) creature_ptr->speed -= 10;
 	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
-	if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) creature_ptr->can_swim = TRUE;
 
 	if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
 	//TODO if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;

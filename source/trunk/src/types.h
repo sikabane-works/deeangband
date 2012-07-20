@@ -1450,8 +1450,6 @@ struct creature_type
 	s16b resist_force;   /* Resist force */
 	s16b resist_water;   /* Resist water */
 
-	// bool reflect;       /* Reflect 'bolt' attacks */
-
 	u32b cursed;            /* Player is cursed */
 
 	bool can_swim;		/* No damage falling */

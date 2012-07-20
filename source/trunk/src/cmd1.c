@@ -1880,7 +1880,7 @@ bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
 
 	/* "CAN" flags */
 	if (have_flag(f_ptr->flags, FF_CAN_FLY) && creature_ptr->levitation) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && creature_ptr->can_swim) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(creature_ptr, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS) && creature_ptr->pass_wall) return TRUE;
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
@@ -3201,7 +3201,7 @@ static bool run_test(creature_type *creature_ptr)
 
 				/* Deep water */
 				else if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-				         (creature_ptr->levitation || creature_ptr->can_swim || (creature_ptr->carrying_weight <= calc_carrying_weight_limit(creature_ptr))))
+				         (creature_ptr->levitation || has_trait(creature_ptr, TRAIT_CAN_SWIM) || (creature_ptr->carrying_weight <= calc_carrying_weight_limit(creature_ptr))))
 				{
 					/* Ignore */
 					notice = FALSE;
