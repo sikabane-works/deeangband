@@ -1545,60 +1545,38 @@ static errr init_object_alloc(void)
 	s16b num[MAX_DEPTH];
 	s16b aux[MAX_DEPTH];
 
+	// Analyze object allocation info
+	(void)C_WIPE(&aux, MAX_DEPTH, s16b); // Clear the "aux" array
+	(void)C_WIPE(&num, MAX_DEPTH, s16b); // Clear the "num" array
 
-	/*** Analyze object allocation info ***/
+	// Free the old "alloc_kind_table" (if it exists)
+	if (alloc_kind_table) C_KILL(alloc_kind_table, alloc_kind_size, alloc_entry);
 
-	/* Clear the "aux" array */
-	(void)C_WIPE(&aux, MAX_DEPTH, s16b);
+	alloc_kind_size = 0; // Size of "alloc_kind_table"
 
-	/* Clear the "num" array */
-	(void)C_WIPE(&num, MAX_DEPTH, s16b);
-
-	/* Free the old "alloc_kind_table" (if it exists) */
-	if (alloc_kind_table)
-	{
-		C_KILL(alloc_kind_table, alloc_kind_size, alloc_entry);
-	}
-
-	/* Size of "alloc_kind_table" */
-	alloc_kind_size = 0;
-
-	/* Scan the objects */
-	for (i = 1; i < max_object_kind_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++) // Scan the objects
 	{
 		k_ptr = &object_kind_info[i];
-
-		/* Scan allocation pairs */
-		for (j = 0; j < 4; j++)
+		
+		for (j = 0; j < 4; j++) // Scan allocation pairs
 		{
-			/* Count the "legal" entries */
-			if (k_ptr->chance[j])
+			if (k_ptr->chance[j]) // Count the "legal" entries
 			{
-				/* Count the entries */
-				alloc_kind_size++;
-
-				/* Group by level */
-				num[k_ptr->locale[j]]++;
+				alloc_kind_size++;	// Count the entries
+				num[k_ptr->locale[j]]++; // Group by level
 			}
 		}
 	}
 
-	/* Collect the level indexes */
-	for (i = 1; i < MAX_DEPTH; i++)
-	{
-		/* Group by level */
-		num[i] += num[i-1];
-	}
+	// Collect the level indexes
+	for (i = 1; i < MAX_DEPTH; i++) num[i] += num[i-1];
 
-	/* Paranoia */
-
+	// Paranoia
 #ifdef JP
 	if (!num[0]) quit("町のアイテムがない！");
 #else
 	if (!num[0]) quit("No town objects!");
 #endif
-
-
 
 	/*** Initialize object allocation info ***/
 
