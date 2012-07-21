@@ -2122,22 +2122,14 @@ void init_angband(void)
 	if (init_other()) quit("Cannot initialize other stuff");
 
 	/* Initialize some other arrays */
-#ifdef JP
-	/* translation */
-	note("[データの初期化中... (アロケーション)]");
-	if (init_alloc()) quit("アロケーション・スタッフ初期化不能");
-#else
 	note("[Initializing arrays... (alloc)]");
 	if (init_alloc()) quit("Cannot initialize alloc stuff");
-#endif
-
-
 
 	/*** Load default user pref files ***/
 
 	/* Initialize feature info */
 #ifdef JP
-note("[ユーザー設定ファイルを初期化しています...]");
+	note("[ユーザー設定ファイルを初期化しています...]");
 #else
 	note("[Initializing user pref files...]");
 #endif
@@ -2207,11 +2199,7 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 		}
 		offset += 1;
 	}
-/*	if(n != field_num)
-	{
-		return (1);
-	}
-*/
+
 	for(n = 0; n < field_num; n++)
 	{
 		if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);
@@ -2236,7 +2224,6 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 		}
 
 	}
-
 
 	return 0;
 }
