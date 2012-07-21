@@ -3143,7 +3143,6 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_ARTIFACT,
 	SPECIES_INFO_COMMENT,
 	SPECIES_INFO_FLAG,
-	SPECIES_INFO_ACTION,
 	SPECIES_INFO_DESCRIPTION,
 	SPECIES_INFO_AUTHORITY,
 	SPECIES_INFO_SEX,
@@ -3210,7 +3209,6 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"ARTIFACT",
 	"COMMENT",
 	"FLAG",
-	"ACTION",
 	"DESCRIPTION",
 	"AUTHORITY",
 	"SEX",
@@ -3632,7 +3630,6 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_FLAG:
-			case SPECIES_INFO_ACTION:
 				if(0 != traits_precondition_splits(&species_ptr->flags, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
