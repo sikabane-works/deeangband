@@ -2178,11 +2178,14 @@ errr parse_object_kind_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		object_kind *object_kind_ptr;
+
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Object Kind:%d]", n);
 
+		object_kind_ptr = &object_kind_info[n];
 
 		note(nt);
 
@@ -2196,12 +2199,12 @@ errr parse_object_kind_csv(char *buf, header *head)
 			switch(object_kind_info_csv_code[i])
 			{
 			case OK_INFO_NAME:
-				if(!add_name(&object_kind_info[n].name, head, tmp))
+				if(!add_name(&object_kind_info->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case OK_INFO_UI_NAME:
-				if(!add_name(&object_kind_info[n].flavospecies_name, head, tmp))
+				if(!add_name(&object_kind_info->flavospecies_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2212,11 +2215,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_SYMBOL:
-				object_kind_info[n].d_char = (byte)tmp[0];
+				object_kind_info->d_char = (byte)tmp[0];
 				break;
 
 			case OK_INFO_COLOR:
-				object_kind_info[n].d_attr = color_char_to_acttr(tmp[0]);
+				object_kind_info->d_attr = color_char_to_acttr(tmp[0]);
 				break;
 
 			case OK_INFO_TVAL:
@@ -2224,107 +2227,107 @@ errr parse_object_kind_csv(char *buf, header *head)
 				{
 					if(streq(tval_flags[j], tmp))
 					{
-						object_kind_info[n].tval = j;
+						object_kind_info->tval = j;
 						break;
 					}
 				}
 				if(j > 127)
 				{
 					if(sscanf(tmp, "%d", &b) == 1)
-						object_kind_info[n].tval = (byte)b;
+						object_kind_info->tval = (byte)b;
 					else
-						object_kind_info[n].tval = 0;
+						object_kind_info->tval = 0;
 				}
 				break;
 
 			case OK_INFO_SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].sval = (byte)b;
+					object_kind_info->sval = (byte)b;
 				else
-					object_kind_info[n].sval = 0;
+					object_kind_info->sval = 0;
 				break;
 
 			case OK_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].pval = (byte)b;
+					object_kind_info->pval = (byte)b;
 				else
-					object_kind_info[n].pval = 0;
+					object_kind_info->pval = 0;
 				break;
 
 			case OK_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].level = (byte)b;
+					object_kind_info->level = (byte)b;
 				else
-					object_kind_info[n].level = 0;
+					object_kind_info->level = 0;
 				break;
 
 			case OK_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].extra = (byte)b;
+					object_kind_info->extra = (byte)b;
 				else
-					object_kind_info[n].extra = 0;
+					object_kind_info->extra = 0;
 				break;
 
 			case OK_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].weight = (s16b)b;
+					object_kind_info->weight = (s16b)b;
 				else
-					object_kind_info[n].weight = 0;
+					object_kind_info->weight = 0;
 				break;
 
 			case OK_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].cost = (s32b)b;
+					object_kind_info->cost = (s32b)b;
 				else
-					object_kind_info[n].cost = 0;
+					object_kind_info->cost = 0;
 				break;
 
 			case OK_INFO_BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].ac = (byte)b;
+					object_kind_info->ac = (byte)b;
 				else
-					object_kind_info[n].ac = 0;
+					object_kind_info->ac = 0;
 				break;
 
 			case OK_INFO_BASE_EV:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].ev = (byte)b;
+					object_kind_info->ev = (byte)b;
 				else
-					object_kind_info[n].ev = 0;
+					object_kind_info->ev = 0;
 				break;
 
 			case OK_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
-					object_kind_info[n].dd = (byte)b;
-					object_kind_info[n].ds = (byte)c;
+					object_kind_info->dd = (byte)b;
+					object_kind_info->ds = (byte)c;
 				}
 				else
 				{
-					object_kind_info[n].dd = 0;
-					object_kind_info[n].ds = 0;
+					object_kind_info->dd = 0;
+					object_kind_info->ds = 0;
 				}
 				break;
 
 			case OK_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_hit = (s16b)b;
+					object_kind_info->to_hit = (s16b)b;
 				else
-					object_kind_info[n].to_hit = 0;
+					object_kind_info->to_hit = 0;
 				break;
 
 			case OK_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_damage = (s16b)b;
+					object_kind_info->to_damage = (s16b)b;
 				else
-					object_kind_info[n].to_damage = 0;
+					object_kind_info->to_damage = 0;
 				break;
 
 			case OK_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].to_ac = (s16b)b;
+					object_kind_info->to_ac = (s16b)b;
 				else
-					object_kind_info[n].to_ac = 0;
+					object_kind_info->to_ac = 0;
 				break;
 
 			case OK_INFO_ADD_DEPTH_RARITY:
@@ -2332,10 +2335,10 @@ errr parse_object_kind_csv(char *buf, header *head)
 				for (j = 0, s = tmp; s; ++j)
 				{
 						/* Default chance */
-					object_kind_info[n].chance[j] = 1;
+					object_kind_info->chance[j] = 1;
 
 						/* Store the attack damage index */
-					object_kind_info[n].locale[j] = atoi(s+1);
+					object_kind_info->locale[j] = atoi(s+1);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -2347,13 +2350,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 					if (t && (!s || t < s))
 					{
 						int chance = atoi(t+1);
-						if (chance > 0) object_kind_info[n].chance[j] = chance;
+						if (chance > 0) object_kind_info->chance[j] = chance;
 					}
 				}
 				break;
 
 			case OK_INFO_ADD_CREATURE_TRAITS:
-				if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, tmp))
+				if(0 != traits_precondition_splits(&object_kind_info->add_creature_traits, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
@@ -2384,7 +2387,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OK_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&object_kind_info[n].text, head, tmp, TRUE))
+				if (!add_text(&object_kind_info->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2396,16 +2399,16 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OK_INFO_MIN_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].min_size = (s16b)b;
+					object_kind_info->min_size = (s16b)b;
 				else
-					object_kind_info[n].min_size = 0;
+					object_kind_info->min_size = 0;
 				break;
 
 			case OK_INFO_MAX_SIZE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].max_size = (s16b)b;
+					object_kind_info->max_size = (s16b)b;
 				else
-					object_kind_info[n].max_size = 0;
+					object_kind_info->max_size = 0;
 				break;
 
 			case OK_INFO_SLOT:
@@ -2413,7 +2416,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
-						object_kind_info[n].slot = j;
+						object_kind_info->slot = j;
 						break;
 					}
 				}
@@ -2423,9 +2426,9 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OK_INFO_AP_RATE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_info[n].ap_rate = (s16b)b;
+					object_kind_info->ap_rate = (s16b)b;
 				else
-					object_kind_info[n].ap_rate = 100;
+					object_kind_info->ap_rate = 100;
 				break;
 
 			default:
