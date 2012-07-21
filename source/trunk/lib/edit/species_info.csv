@@ -57,7 +57,7 @@ amulets of adornment to buy.
 19,鳩『ポッポ』,Hato Poppo,B,s,WAREFOLK,WAREFOLK,0x02,TOURIST,NONE,PIOUS,NONE,NONE,0,4,50,24,0,0,60,95,NONE,NONE,-1,1,50,15,0,4,11,6,6,10,12,5,178,0,72,0,178,0,72,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d3,,,UNIQUE|CAN_SPEAK|FRIENDLY|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP|EMPTY_MIND,,,,"#D'ang
 開発してる間にポッポ＞空缶＞…とめぐるましく。",,,,
 20,グレイ・モルド,Grey mold,m,s,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,1,1,50,5,6,76,0,0,NONE,NONE,-1,0,2,0,0,0,5,5,5,5,5,5,50,20,15,2,50,20,15,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SPORE:HURT:1d6
-SPORE:HURT:1d6",,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|DROP_CORPSE|NO_CONF|NO_SLEEP|FEARLESS,,小さい奇妙なカビだ。,"A small strange growth.
+SPORE:HURT:1d6",,,IM_POIS|DROP_CORPSE|NO_CONF|NO_SLEEP|FEARLESS,,小さい奇妙なカビだ。,"A small strange growth.
 ",J0#,,,,
 21,大白蛇,Large white snake,J,w,SNAKE,SNAKE,0x01,NONE,NONE,ORDINARY,NONE,NONE,1,1,50,5,5,28,0,0,NONE,NONE,-1,-10,4,0,0,99,5,5,5,5,5,5,240,10,15,2,240,10,15,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:HURT:1d3
 CRUSH:HURT:1d3",,,RAND_50|WILD_ALL|BASH_DOOR|DROP_SKELETON|DROP_CORPSE,,それは長さが 2.5 メートル近くもある。,"It is about eight feet long.
@@ -235,7 +235,7 @@ for a good tavern.
 ",J0#,,,,
 75,巨大シロアリ,Giant white ant,a,w,ANT,ANT,0x01,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,40,168,0,1,NONE,NONE,-1,0,8,16,0,80,10,10,10,10,10,10,114,13,35,10,114,13,35,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d7,,,WEIRD_MIND|BASH_DOOR|WILD_GRASS|DROP_CORPSE,,それは大きさが 60 センチ近くあり、さらに鋭いアゴも持っている。,"It is about two feet long and has sharp pincers.
  60 ",J0#,,,,
-76,イエロー・モルド,Yellow mold,m,y,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,50,113,0,0,NONE,NONE,-1,0,2,10,0,99,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:HURT:1d8,,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙なカビだ。,"It is a strange growth on the dungeon floor.
+76,イエロー・モルド,Yellow mold,m,y,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,50,113,0,0,NONE,NONE,-1,0,2,10,0,99,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:HURT:1d8,,,IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙なカビだ。,"It is a strange growth on the dungeon floor.
 ",J0#,,,,
 77,銀赤ムカデ,Metallic red centipede,c,R,ICKY,ICKY,0x01,NONE,NONE,ORDINARY,NONE,NONE,3,1,50,15,150,276,0,0,NONE,NONE,-1,10,8,9,0,20,10,10,10,10,10,10,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRAWL:HURT:1d4,,,RAND_25|WEIRD_MIND|BASH_DOOR|WILD_ALL|DROP_SKELETON,,それは長さが 1.5 メートル近くもある肉食生物だ。,"It is about four feet long and carnivorous.
  1.5 ",J0#,,,,
@@ -346,7 +346,7 @@ TOUCH:EAT_GOLD",,,FRIENDS|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK|RES_D
 ",JZ#,,,,
 112,喉を絞める手,Disembodied hand that strangled people,z,g,HUMAN,HUMAN,0x00,NONE,NONE,ORDINARY,NONE,NONE,6,2,50,45,0,0,0,0,NONE,NONE,-1,20,30,15,0,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,CRUSH:HURT:1d10,,,ZOMBIE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_POIS|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|FEARLESS,,今日でさえ、それがどこに潜んでいるのか誰も知らない。,"Even today, nobody knows where it lurks... 
 ",JZ#,,,,
-113,ブラウン・モルド,Brown mold,m,u,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,6,1,50,45,50,146,0,0,NONE,NONE,-1,0,2,12,0,99,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:CONFUSE:1d5,,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,ダンジョンの床に生えている奇妙な茶色のカビだ。,"A strange brown growth on the dungeon floor.
+113,ブラウン・モルド,Brown mold,m,u,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,6,1,50,45,50,146,0,0,NONE,NONE,-1,0,2,12,0,99,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:CONFUSE:1d5,,,IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,ダンジョンの床に生えている奇妙な茶色のカビだ。,"A strange brown growth on the dungeon floor.
 ",J0#,,,,
 114,巨大茶コウモリ,Giant brown bat,b,u,BAT,BAT,0x01,NONE,NONE,ORDINARY,NONE,NONE,6,1,50,45,0,0,0,0,NONE,NONE,-1,20,10,15,0,30,11,11,11,11,11,11,35,2,6,1,35,2,6,1,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d4,,,RAND_50|CAN_FLY|WILD_MOUNTAIN|WILD_WOOD|DROP_CORPSE,,それは攻撃をするときにキーキーと鳴く。,"It screeches as it attacks.
 ",J0#,,,,
@@ -507,7 +507,7 @@ J0#",,,,
 CLAW:HURT:2d5
 BITE:HURT:7d1",,,CAN_FLY|WILD_WOOD|WILD_MOUNTAIN|DROP_CORPSE,,　それは奇っ怪で、しかも恐ろしく見える。,"It looks fantastic, yet frightening.
 ",JZ#,,,,
-146,グリーン・モルド,Green mold,m,g,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,8,2,50,100,100,190,0,0,NONE,NONE,-1,0,2,14,0,75,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:TERRIFY:1d5,,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,　それはダンジョンの床に生えている奇妙なカビだ。,"It is a strange growth on the dungeon floor.
+146,グリーン・モルド,Green mold,m,g,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,8,2,50,100,100,190,0,0,NONE,NONE,-1,0,2,14,0,75,11,11,11,11,11,11,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:TERRIFY:1d5,,,IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,　それはダンジョンの床に生えている奇妙なカビだ。,"It is a strange growth on the dungeon floor.
 ",J0#,,,,
 147,冥府王の鉄槌『ゴスモグ』,"Gothmog, the Iron Hammer of Nether Marshal",o,w,URUK,AVARI,0x01,PALADIN,856,FEARLESS,DEATH,NONE,66,5,50,2341119,0,0,4187,89,NONE,NONE,8,0,20,0,0,50,29,28,27,28,28,26,0,0,0,0,285,0,234,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d4
 HIT:HURT:10d4
@@ -762,13 +762,13 @@ CRUSH:HURT:1d10",,,OPEN_DOOR|BASH_DOOR|DROP_CORPSE,,奇怪な熊型のモンスターで、フ
 189,ブルーホラー,Blue horror,u,B,IMP,IMP,0x00,WARRIOR,1137,ORDINARY,NONE,NONE,10,3,50,180,200,242,0,0,NONE,NONE,-1,0,20,35,0,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:TERRIFY:1d8
 CLAW:TERRIFY:1d8",,,FRIENDS|OPEN_DOOR|BASH_DOOR|IM_FIRE|FEARLESS|NO_CONF,,ティーンチのしもべの、叫ぶ醜い小型の悪魔だ。,"An ugly screaming little demon servant of Tzeentch.
 ",JZ#,,,,
-190,毛むくじゃらモルド,Hairy mold,m,U,MOLD,MOLD,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,10,2,50,180,80,192,0,0,NONE,NONE,-1,0,2,15,0,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:POISON:1d3,,,NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙なカビで毛が生えている。,"It is a strange hairy growth on the dungeon floor.
+190,毛むくじゃらモルド,Hairy mold,m,U,MOLD,MOLD,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,10,2,50,180,80,192,0,0,NONE,NONE,-1,0,2,15,0,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:POISON:1d3,,,CAN_SWIM|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙なカビで毛が生えている。,"It is a strange hairy growth on the dungeon floor.
 ",J0#,,,,
 191,グリズリー,Grizzly bear,q,u,QUADRUPED,QUADRUPED,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,1,50,180,300,1028,0,0,NONE,NONE,-1,0,10,35,0,10,23,9,13,19,18,11,290,15,491,10,287,15,485,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:1d5
 CLAW:HURT:1d5
 BITE:HURT:1d10",,,BASH_DOOR|WILD_WOOD|WILD_MOUNTAIN|DROP_CORPSE|WILD_ONLY,,大きくて獰猛な熊だ。,"A huge, beastly bear.
 ",JZ#,,,,
-192,劣化モルド,Disenchanter mold,m,v,MOLD,MOLD,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,10,2,50,180,500,324,0,0,NONE,NONE,-1,0,2,20,0,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:UN_BONUS:1d6,,,NEVER_MOVE|STUPID|EMPTY_MIND|RES_DISE|IM_POIS|ATTR_MULTI|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS|SELF_LITE_1|DRAIN_MANA,,それはダンジョンの床に生えている奇妙な輝くカビだ。,"It is a strange glowing growth on the dungeon floor.
+192,劣化モルド,Disenchanter mold,m,v,MOLD,MOLD,0x00,WARRIOR,NONE,ORDINARY,NONE,NONE,10,2,50,180,500,324,0,0,NONE,NONE,-1,0,2,20,0,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:UN_BONUS:1d6,,,RES_DISE|IM_POIS|ATTR_MULTI|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS|SELF_LITE_1|DRAIN_MANA,,それはダンジョンの床に生えている奇妙な輝くカビだ。,"It is a strange glowing growth on the dungeon floor.
 ",J0#,,,,
 193,ニセドラゴン,Pseudo dragon,d,v,DRAGON,DRAGON,0x01,NONE,NONE,ORDINARY,NONE,NONE,10,2,50,180,1200,504,0,0,NONE,NONE,-1,0,20,30,0,40,14,14,14,14,14,14,227,30,324,10,227,30,324,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:1d4
 CLAW:HURT:1d4
@@ -1454,7 +1454,7 @@ HIT:HURT:3d8",,,TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|WILD_MOU
 323,石ゴーレム,Stone golem,g,s,HUMAN,HUMAN,0x00,NONE,NONE,ORDINARY,NONE,NONE,19,2,50,100,0,0,0,0,NONE,NONE,-1,-10,12,75,0,10,14,14,14,14,14,14,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d10
 HIT:HURT:1d10",,,GOLEM|COLD_BLOOD|BASH_DOOR|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|HURT_ROCK|NO_CONF|NO_SLEEP|FEARLESS|NONLIVING,,それは生命を吹き込まれた堂々たる石像だ。,"It is a massive animated statue.
 ",J0#,,,,
-324,レッド・モルド,Red mold,m,r,MOLD,MOLD,0x01,NONE,NONE,ORDINARY,NONE,NONE,19,1,50,64,5000,711,0,0,NONE,NONE,-1,0,2,16,0,70,14,14,14,14,14,14,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:FIRE:4d4,,,NEVER_MOVE|STUPID|EMPTY_MIND|IM_FIRE|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙な赤いカビで、炎に燃えているようだ。,"It is a strange red growth on the dungeon floor; it seems to burn with 
+324,レッド・モルド,Red mold,m,r,MOLD,MOLD,0x01,NONE,NONE,ORDINARY,NONE,NONE,19,1,50,64,5000,711,0,0,NONE,NONE,-1,0,2,16,0,70,14,14,14,14,14,14,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,SPORE:FIRE:4d4,,,IM_FIRE|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|FEARLESS,,それはダンジョンの床に生えている奇妙な赤いカビで、炎に燃えているようだ。,"It is a strange red growth on the dungeon floor; it seems to burn with 
 flame.
 ",J0#,,,,
 325,巨大ゴールド・トンボ,Giant gold dragon fly,F,y,INSECT,INSECT,0x01,NONE,NONE,ORDINARY,NONE,NONE,18,2,50,78,0,0,0,0,NONE,NONE,-1,10,12,20,0,50,14,14,14,14,14,14,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:HURT:1d3,,,FORCE_SLEEP|RAND_50|RAND_25|WILD_MOUNTAIN|WEIRD_MIND|BASH_DOOR|IM_FIRE|RES_SOUN|CAN_FLY|BR_SOUN,,"激しくはばたく長い羽を持ち、光沢のある体をした昆虫だ。
@@ -4717,7 +4717,7 @@ smoke curl up from his nostrils as he regards you with disdain.
 711,デス・モルド,Death mold,m,D,MOLD,MOLD,0x00,NONE,NONE,ORDINARY,NONE,NONE,47,1,50,1000,0,0,0,0,NONE,NONE,0,30,200,60,0,0,23,23,23,23,23,23,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SPORE:UN_BONUS:7d7
 SPORE:UN_BONUS:7d7
 SPORE:UN_BONUS:7d7
-SPORE:EXP_VAMP:5d5",,,FORCE_SLEEP|NEVER_MOVE|CAN_SWIM|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,"それはカビに包まれた全ての邪悪の権化だ。この魂のないモンスターは近づいた者の
+SPORE:EXP_VAMP:5d5",,,FORCE_SLEEP|CAN_SWIM|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS,,"それはカビに包まれた全ての邪悪の権化だ。この魂のないモンスターは近づいた者の
 生命力を吸い取って力を得る。それは生々しい邪悪の雰囲気に覆われている。
 冒険者にとって幸運なことに、それは動くことができない。","It is the epitome of all that is evil, in a mold.  Its lifeless form draws 
 power from sucking the souls of those that approach it, a nimbus of pure 
