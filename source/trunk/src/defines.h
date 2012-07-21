@@ -610,16 +610,6 @@
 
 
 /*
- * Intelligence race rarerity.
- */
-#define RACE_RARELITY_COMMON       0
-#define RACE_RARELITY_UNCOMMON     1
-#define RACE_RARELITY_RARE         2
-#define RACE_RARELITY_LEGENDARY    3
-#define RACE_RARELITY_UNSELECTABLE 4
-
-
-/*
  * Race FLAGS
  */
 #define RACE_BIRTH_SELECTABLE    0x01
