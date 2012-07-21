@@ -170,6 +170,7 @@ static cptr race_flags[MAX_RACES] =
 	"GREAT_OLD_ONE",
 	"REPTILIA",
 	"FIEND_LORD",
+	"HYDRA",
 };
 
 static cptr class_flags[MAX_CLASS]=
