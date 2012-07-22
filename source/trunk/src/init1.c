@@ -5054,10 +5054,13 @@ errr parse_class_info_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		class_type *class_ptr;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize CL:%d]", n);
+
+		class_ptr = &class_info[n];
 
 
 		note(nt);
@@ -5072,182 +5075,182 @@ errr parse_class_info_csv(char *buf, header *head)
 			switch(cl_info_csv_code[i])
 			{
 				case CL_INFO_NAME:
-					if (!add_name(&class_info[n].name, head, tmp))
+					if (!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					if (!add_name(&class_info[n].E_name, head, tmp))
+					if (!add_name(&class_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if (!add_name(&class_info[n].name, head, tmp))
+					if (!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 
 				case CL_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_STR] = (s16b)b;
+					class_ptr->c_adj[STAT_STR] = (s16b)b;
 					break;
 
 				case CL_INFO_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_INT] = (s16b)b;
+					class_ptr->c_adj[STAT_INT] = (s16b)b;
 					break;
 
 				case CL_INFO_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_WIS] = (s16b)b;
+					class_ptr->c_adj[STAT_WIS] = (s16b)b;
 					break;
 
 				case CL_INFO_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_DEX] = (s16b)b;
+					class_ptr->c_adj[STAT_DEX] = (s16b)b;
 					break;
 
 				case CL_INFO_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_CON] = (s16b)b;
+					class_ptr->c_adj[STAT_CON] = (s16b)b;
 					break;
 
 				case CL_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj[STAT_CHA] = (s16b)b;
+					class_ptr->c_adj[STAT_CHA] = (s16b)b;
 					break;
 
 				case CL_INFO_A_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_STR] = (s16b)b;
+					class_ptr->c_adj_b[STAT_STR] = (s16b)b;
 					break;
 
 				case CL_INFO_A_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_INT] = (s16b)b;
+					class_ptr->c_adj_b[STAT_INT] = (s16b)b;
 					break;
 
 				case CL_INFO_A_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_WIS] = (s16b)b;
+					class_ptr->c_adj_b[STAT_WIS] = (s16b)b;
 					break;
 
 				case CL_INFO_A_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_DEX] = (s16b)b;
+					class_ptr->c_adj_b[STAT_DEX] = (s16b)b;
 					break;
 
 				case CL_INFO_A_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_CON] = (s16b)b;
+					class_ptr->c_adj_b[STAT_CON] = (s16b)b;
 					break;
 
 				case CL_INFO_A_CHA:
 					break;
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_adj_b[STAT_CHA] = (s16b)b;
+					class_ptr->c_adj_b[STAT_CHA] = (s16b)b;
 
 				case CL_INFO_RARITY:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].rarelity = (s16b)b;
+					class_ptr->rarelity = (s16b)b;
 					break;
 
 				case CL_INFO_C_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_dis = (s16b)b;
+					class_ptr->c_dis = (s16b)b;
 					break;
 
 				case CL_INFO_C_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_dev = (s16b)b;
+					class_ptr->c_dev = (s16b)b;
 					break;
 
 				case CL_INFO_C_SAV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_sav = (s16b)b;
+					class_ptr->c_sav = (s16b)b;
 					break;
 
 				case CL_INFO_C_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_stl = (s16b)b;
+					class_ptr->c_stl = (s16b)b;
 					break;
 
 				case CL_INFO_C_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_srh = (s16b)b;
+					class_ptr->c_srh = (s16b)b;
 					break;
 
 				case CL_INFO_C_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_fos = (s16b)b;
+					class_ptr->c_fos = (s16b)b;
 					break;
 
 				case CL_INFO_C_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_thn = (s16b)b;
+					class_ptr->c_thn = (s16b)b;
 					break;
 
 				case CL_INFO_C_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_thb = (s16b)b;
+					class_ptr->c_thb = (s16b)b;
 					break;
 
 				case CL_INFO_X_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_dis = (s16b)b;
+					class_ptr->x_dis = (s16b)b;
 					break;
 
 				case CL_INFO_X_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_dev = (s16b)b;
+					class_ptr->x_dev = (s16b)b;
 					break;
 
 				case CL_INFO_X_SAV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_sav = (s16b)b;
+					class_ptr->x_sav = (s16b)b;
 					break;
 
 				case CL_INFO_X_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_stl = (s16b)b;
+					class_ptr->x_stl = (s16b)b;
 					break;
 
 				case CL_INFO_X_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_srh = (s16b)b;
+					class_ptr->x_srh = (s16b)b;
 					break;
 
 				case CL_INFO_X_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_fos = (s16b)b;
+					class_ptr->x_fos = (s16b)b;
 					break;
 
 				case CL_INFO_X_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_thn = (s16b)b;
+					class_ptr->x_thn = (s16b)b;
 					break;
 
 				case CL_INFO_X_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].x_thb = (s16b)b;
+					class_ptr->x_thb = (s16b)b;
 					break;
 
 				case CL_INFO_HD:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_mhp = (s16b)b;
+					class_ptr->c_mhp = (s16b)b;
 					break;
 
 				case CL_INFO_EXP:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].c_exp = (s16b)b;
+					class_ptr->c_exp = (s16b)b;
 					break;
 
 				case CL_INFO_PET_UPKEEP:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_info[n].pet_upkeep_div = (byte)b;
+					class_ptr->pet_upkeep_div = (byte)b;
 					break;
 
 				case CL_INFO_FLAGS:
-					if(0 != traits_precondition_splits(&class_info[n].flags, tmp))
+					if(0 != traits_precondition_splits(&class_ptr->flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
 			}
