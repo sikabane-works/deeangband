@@ -6717,12 +6717,12 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				{
 					int k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 					object_type forge;
-					object_type *q_ptr = &forge;
+					object_type *quest_ptr = &forge;
 
-					object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
+					object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
 					/* Drop it in the dungeon */
-					drop_here(floor_ptr, q_ptr, *y, *x);
+					drop_here(floor_ptr, quest_ptr, *y, *x);
 				}
 				else
 				{
@@ -6745,7 +6745,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	else if (buf[0] == 'Q')
 	{
 		int num;
-		quest_type *q_ptr;
+		quest_type *quest_ptr;
 #ifdef JP
 		if (buf[2] == '$')
 			return 0;
@@ -6760,7 +6760,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		if (num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
 		/* Get the quest */
-		q_ptr = &(quest[atoi(zz[0])]);
+		quest_ptr = &(quest[atoi(zz[0])]);
 
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
 		if (zz[1][0] == 'Q')
@@ -6772,23 +6772,23 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				if (num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-				q_ptr->type    = atoi(zz[2]);
-				q_ptr->num_mon = atoi(zz[3]);
-				q_ptr->cur_num = atoi(zz[4]);
-				q_ptr->max_num = atoi(zz[5]);
-				q_ptr->level   = atoi(zz[6]);
-				q_ptr->species_idx   = atoi(zz[7]);
-				q_ptr->k_idx   = atoi(zz[8]);
-				q_ptr->dungeon = atoi(zz[9]);
+				quest_ptr->type    = atoi(zz[2]);
+				quest_ptr->num_mon = atoi(zz[3]);
+				quest_ptr->cur_num = atoi(zz[4]);
+				quest_ptr->max_num = atoi(zz[5]);
+				quest_ptr->level   = atoi(zz[6]);
+				quest_ptr->species_idx   = atoi(zz[7]);
+				quest_ptr->k_idx   = atoi(zz[8]);
+				quest_ptr->dungeon = atoi(zz[9]);
 
 				if (num > 10)
-					q_ptr->flags  = atoi(zz[10]);
+					quest_ptr->flags  = atoi(zz[10]);
 
-				r_ptr = &species_info[q_ptr->species_idx];
+				r_ptr = &species_info[quest_ptr->species_idx];
 				//if (is_unique_species(r_ptr))
 					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
-				a_ptr = &artifact_info[q_ptr->k_idx];
+				a_ptr = &artifact_info[quest_ptr->k_idx];
 				a_ptr->gen_flags |= TRG_QUESTITEM;
 			}
 			return PARSE_ERROR_NONE;
@@ -6799,7 +6799,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		{
 			if (init_flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
 			{
-				strcpy(q_ptr->name, zz[2]);
+				strcpy(quest_ptr->name, zz[2]);
 			}
 
 			return PARSE_ERROR_NONE;

@@ -2802,7 +2802,7 @@ static void castle_quest(creature_type *creature_ptr)
 {
 	int             q_index = 0;
 	species_type    *species_ptr;
-	quest_type      *q_ptr;
+	quest_type      *quest_ptr;
 	cptr            name;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -2824,30 +2824,30 @@ put_str("今のところクエストはありません。", 8, 3);
 		return;
 	}
 
-	q_ptr = &quest[q_index];
+	quest_ptr = &quest[q_index];
 
 	/* Quest is completed */
-	if (q_ptr->status == QUEST_STATUS_COMPLETED)
+	if (quest_ptr->status == QUEST_STATUS_COMPLETED)
 	{
 		/* Rewarded quest */
-		q_ptr->status = QUEST_STATUS_REWARDED;
+		quest_ptr->status = QUEST_STATUS_REWARDED;
 
 		get_questinfo(q_index);
 
 		reinit_wilderness = TRUE;
 	}
 	/* Failed quest */
-	else if (q_ptr->status == QUEST_STATUS_FAILED)
+	else if (quest_ptr->status == QUEST_STATUS_FAILED)
 	{
 		get_questinfo(q_index);
 
 		/* Mark quest as done (but failed) */
-		q_ptr->status = QUEST_STATUS_FAILED_DONE;
+		quest_ptr->status = QUEST_STATUS_FAILED_DONE;
 
 		reinit_wilderness = TRUE;
 	}
 	/* Quest is still unfinished */
-	else if (q_ptr->status == QUEST_STATUS_TAKEN)
+	else if (quest_ptr->status == QUEST_STATUS_TAKEN)
 	{
 #ifdef JP
 put_str("あなたは現在のクエストを終了させていません！", 8, 3);
@@ -2869,40 +2869,40 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 
 	}
 	/* No quest yet */
-	else if (q_ptr->status == QUEST_STATUS_UNTAKEN)
+	else if (quest_ptr->status == QUEST_STATUS_UNTAKEN)
 	{
 		/* Assign a new quest */
-		if (q_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
+		if (quest_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
 		{
-			if (q_ptr->species_idx == 0)
+			if (quest_ptr->species_idx == 0)
 			{
 				/* Random creature at least 5 - 10 levels out of deep */
-				q_ptr->species_idx = get_species_num(floor_ptr, q_ptr->level + 4 + randint1(6));
+				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level + 4 + randint1(6));
 			}
 
-			species_ptr = &species_info[q_ptr->species_idx];
+			species_ptr = &species_info[quest_ptr->species_idx];
 
 			while (is_unique_species(species_ptr) || (species_ptr->rarity != 1))
 			{
-				q_ptr->species_idx = get_species_num(floor_ptr, q_ptr->level) + 4 + (s16b)randint1(6);
-				species_ptr = &species_info[q_ptr->species_idx];
+				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level) + 4 + (s16b)randint1(6);
+				species_ptr = &species_info[quest_ptr->species_idx];
 			}
 
-			if (q_ptr->max_num == 0)
+			if (quest_ptr->max_num == 0)
 			{
 				/* Random creature number */
 				if (randint1(10) > 7)
-					q_ptr->max_num = 1;
+					quest_ptr->max_num = 1;
 				else
-					q_ptr->max_num = (s16b)randint1(3) + 1;
+					quest_ptr->max_num = (s16b)randint1(3) + 1;
 			}
 
-			q_ptr->cur_num = 0;
+			quest_ptr->cur_num = 0;
 			name = (species_name + species_ptr->name);
 #ifdef JP
-msg_format("クエスト: %sを %d体倒す", name,q_ptr->max_num);
+msg_format("クエスト: %sを %d体倒す", name,quest_ptr->max_num);
 #else
-			msg_format("Your quest: kill %d %s", q_ptr->max_num, name);
+			msg_format("Your quest: kill %d %s", quest_ptr->max_num, name);
 #endif
 
 		}
@@ -2921,12 +2921,12 @@ msg_format("クエスト: %sを %d体倒す", name,q_ptr->max_num);
 			return;
 		}
 
-		q_ptr->status = QUEST_STATUS_TAKEN;
+		quest_ptr->status = QUEST_STATUS_TAKEN;
 		reinit_wilderness = TRUE;
 #ifdef JP
-		msg_format("クエスト『%s』を受諾しました。", q_ptr->name);
+		msg_format("クエスト『%s』を受諾しました。", quest_ptr->name);
 #else
-		msg_format("You accepted the quest, '%s'. ", q_ptr->name);
+		msg_format("You accepted the quest, '%s'. ", quest_ptr->name);
 #endif
 		clear_bldg(4, 18);
 
@@ -5019,9 +5019,9 @@ static cptr find_quest[] =
  */
 void quest_discovery(int q_idx)
 {
-	quest_type      *q_ptr = &quest[q_idx];
-	species_type    *r_ptr = &species_info[q_ptr->species_idx];
-	int             q_num = q_ptr->max_num;
+	quest_type      *quest_ptr = &quest[q_idx];
+	species_type    *r_ptr = &species_info[quest_ptr->species_idx];
+	int             q_num = quest_ptr->max_num;
 	char            name[80];
 
 	/* No quest index */

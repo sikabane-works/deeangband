@@ -185,7 +185,7 @@ static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *o_pt
 void do_cmd_wield(creature_type *creature_ptr)
 {
 	int i, n, item, slot, old_item;
-	object_type forge, *q_ptr, *o_ptr, *old_equipped_ptr;
+	object_type forge, *quest_ptr, *o_ptr, *old_equipped_ptr;
 	cptr act;
 	char o_name[MAX_NLEN];
 	cptr q, s;
@@ -210,7 +210,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	else // floor
 		o_ptr = &object_list[0 - item];
 
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	// Equip Flag
 #ifdef JP
@@ -650,7 +650,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	object_type		*o_ptr;
 	object_type             forge;
-	object_type             *q_ptr = &forge;
+	object_type             *quest_ptr = &forge;
 
 	char		o_name[MAX_NLEN];
 
@@ -785,7 +785,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		return;
 	}
 
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Message */
 #ifdef JP
@@ -815,7 +815,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	if (high_level_book(q_ptr))
+	if (high_level_book(quest_ptr))
 	{
 		bool gain_expr = FALSE;
 
@@ -830,11 +830,11 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		{
 			if (is_good_realm(creature_ptr->realm1))
 			{
-				if (!is_good_realm(tval2realm(q_ptr->tval))) gain_expr = TRUE;
+				if (!is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
 			}
 			else
 			{
-				if (is_good_realm(tval2realm(q_ptr->tval))) gain_expr = TRUE;
+				if (is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
 			}
 		}
 
@@ -842,7 +842,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		{
 			s32b tester_exp = creature_ptr->max_exp / 20;
 			if (tester_exp > 10000) tester_exp = 10000;
-			if (q_ptr->sval < 3) tester_exp /= 4;
+			if (quest_ptr->sval < 3) tester_exp /= 4;
 			if (tester_exp<1) tester_exp = 1;
 
 #ifdef JP

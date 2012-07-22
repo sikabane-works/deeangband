@@ -442,7 +442,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 	int slot = 0;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	/* No weight */
 	creature_ptr->carrying_weight = 0;
@@ -464,25 +464,25 @@ static errr rd_inventory(creature_type *creature_ptr)
 		if (n == 0xFFFF) break;
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Wipe the object */
-		object_wipe(q_ptr);
+		object_wipe(quest_ptr);
 
 		/* Read the item */
-		rd_object(q_ptr);
+		rd_object(quest_ptr);
 
 		/* Hack -- verify item */
-		if (!q_ptr->k_idx) return (53);
+		if (!quest_ptr->k_idx) return (53);
 
 		/* Wield equipment */
-		if (IS_EQUIPPED(q_ptr))
+		if (IS_EQUIPPED(quest_ptr))
 		{
 			/* Player touches it */
-			q_ptr->marked |= OM_TOUCHED;
+			quest_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], q_ptr);
+			object_copy(&creature_ptr->inventory[n], quest_ptr);
 
 			/* Add the weight */
 			set_inventory_weight(creature_ptr);
@@ -513,10 +513,10 @@ static errr rd_inventory(creature_type *creature_ptr)
 			n = slot++;
 
 			/* Player touches it */
-			q_ptr->marked |= OM_TOUCHED;
+			quest_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], q_ptr);
+			object_copy(&creature_ptr->inventory[n], quest_ptr);
 
 			/* Add the weight */
 			set_inventory_weight(creature_ptr);
@@ -678,16 +678,16 @@ static errr rd_store(store_type *st_ptr)
 	for (j = 0; j < num; j++)
 	{
 		object_type forge;
-		object_type *q_ptr;
+		object_type *quest_ptr;
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Wipe the object */
-		object_wipe(q_ptr);
+		object_wipe(quest_ptr);
 
 		/* Read the item */
-		rd_object(q_ptr);
+		rd_object(quest_ptr);
 
 		/* Acquire valid items */
 		if (st_ptr->stock_num < st_ptr->stock_size)
@@ -695,14 +695,14 @@ static errr rd_store(store_type *st_ptr)
 			int k;
 			if (sort)
 			{
-				store_item_load(st_ptr, q_ptr);
+				store_item_load(st_ptr, quest_ptr);
 			}
 			else
 			{
 				k = st_ptr->stock_num++;
 
 				/* Acquire the item */
-				object_copy(&st_ptr->stock[k], q_ptr);
+				object_copy(&st_ptr->stock[k], quest_ptr);
 			}
 		}
 	}

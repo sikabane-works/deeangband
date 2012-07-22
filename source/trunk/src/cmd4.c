@@ -6734,23 +6734,23 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		if (z)
 		{
 			object_type forge;
-			object_type *q_ptr;
+			object_type *quest_ptr;
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Create fake object */
-			object_prep(q_ptr, z, ITEM_FREE_SIZE);
+			object_prep(quest_ptr, z, ITEM_FREE_SIZE);
 
 			/* Make it an artifact */
-			q_ptr->name1 = (byte)who[k];
+			quest_ptr->name1 = (byte)who[k];
 
 			/* Display as if known */
-			q_ptr->ident |= IDENT_STORE;
+			quest_ptr->ident |= IDENT_STORE;
 
 			/* Describe the artifact */
 			object_desc(
-				base_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				base_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 		}
 
 		/* Hack -- Build the artifact name */

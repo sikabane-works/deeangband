@@ -5779,7 +5779,7 @@ bool charm_living(creature_type *caster_ptr, int dir, int plev)
 bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;
-	object_type *q_ptr = &forge;
+	object_type *quest_ptr = &forge;
 	int y, x;
 	char user_name[80];
 	floor_type *floor_ptr = get_floor_ptr(user_ptr);
@@ -5809,14 +5809,14 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	teleport_player(user_ptr, 10 + randint1(90), 0L);
 
-	object_wipe(q_ptr);
+	object_wipe(quest_ptr);
 
-	object_prep(q_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
+	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
 
-	q_ptr->pval = MON_NINJA;
+	quest_ptr->pval = MON_NINJA;
 
 	/* Drop it in the dungeon */
-	(void)drop_near(floor_ptr, q_ptr, -1, y, x);
+	(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 
 #ifdef JP
 	if (success) msg_format("%s‚ÍUŒ‚‚ğó‚¯‚é‘O‚É‘f‘‚­g‚ğ‚Ğ‚é‚ª‚¦‚µ‚½B", user_name);

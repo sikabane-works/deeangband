@@ -265,30 +265,30 @@ static grouper group_item[] =
 static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int k)
 {
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Prepare a fake item */
-	object_prep(q_ptr, k, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, k, ITEM_FREE_SIZE);
 
 	/* It is known */
-	q_ptr->ident |= (IDENT_KNOWN);
+	quest_ptr->ident |= (IDENT_KNOWN);
 
 	/* Cancel bonuses */
-	q_ptr->pval = 0;
-	q_ptr->to_ac = 0;
-	q_ptr->to_hit = 0;
-	q_ptr->to_damage = 0;
+	quest_ptr->pval = 0;
+	quest_ptr->to_ac = 0;
+	quest_ptr->to_hit = 0;
+	quest_ptr->to_damage = 0;
 
 
 	/* Level */
-	(*lev) = object_kind_info[q_ptr->k_idx].level;
+	(*lev) = object_kind_info[quest_ptr->k_idx].level;
 
 	/* Value */
-	(*val) = object_value(q_ptr);
+	(*val) = object_value(quest_ptr);
 
 
 	/* Hack */
@@ -296,14 +296,14 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 
 
 	/* Description (too brief) */
-	object_desc(buf, q_ptr, (OD_NAME_ONLY | OD_STORE));
+	object_desc(buf, quest_ptr, (OD_NAME_ONLY | OD_STORE));
 
 
 	/* Misc info */
 	strcpy(dam, "");
 
 	/* Damage */
-	switch (q_ptr->tval)
+	switch (quest_ptr->tval)
 	{
 		/* Bows */
 		case TV_BOW:
@@ -316,7 +316,7 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 		case TV_BOLT:
 		case TV_ARROW:
 		{
-			sprintf(dam, "%dd%d", q_ptr->dd, q_ptr->ds);
+			sprintf(dam, "%dd%d", quest_ptr->dd, quest_ptr->ds);
 			break;
 		}
 
@@ -326,7 +326,7 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 		case TV_SWORD:
 		case TV_DIGGING:
 		{
-			sprintf(dam, "%dd%d", q_ptr->dd, q_ptr->ds);
+			sprintf(dam, "%dd%d", quest_ptr->dd, quest_ptr->ds);
 			break;
 		}
 
@@ -341,14 +341,14 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 		case TV_HARD_ARMOR:
 		case TV_DRAG_ARMOR:
 		{
-			sprintf(dam, "%d", q_ptr->ac);
+			sprintf(dam, "%d", quest_ptr->ac);
 			break;
 		}
 	}
 
 
 	/* Weight */
-	sprintf(wgt, "%3d.%d", q_ptr->weight / 10, q_ptr->weight % 10);
+	sprintf(wgt, "%3d.%d", quest_ptr->weight / 10, quest_ptr->weight % 10);
 }
 
 
@@ -1621,7 +1621,7 @@ static void spoil_artifact(cptr fname)
 	int i, j;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	obj_desc_list artifact;
 
@@ -1667,16 +1667,16 @@ static void spoil_artifact(cptr fname)
 			if (a_ptr->tval != group_artifact[i].tval) continue;
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Wipe the object */
-			object_wipe(q_ptr);
+			object_wipe(quest_ptr);
 
 			/* Attempt to "forge" the artifact */
-			if (!make_fake_artifact(q_ptr, j)) continue;
+			if (!make_fake_artifact(quest_ptr, j)) continue;
 
 			/* Analyze the artifact */
-			object_analyze(q_ptr, &artifact);
+			object_analyze(quest_ptr, &artifact);
 
 			/* Write out the artifact description to the spoiler file */
 			spoiler_print_art(&artifact);
@@ -2869,7 +2869,7 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	int i,j;
 
 	//store_type  *st_ptr;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	char buf[1024];
 
@@ -2901,16 +2901,16 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			/* Skip no equip */
-			q_ptr = &creature_ptr->inventory[i];
-			if (!IS_EQUIPPED(q_ptr)) continue;
-			spoil_random_artifact_aux(q_ptr, j);
+			quest_ptr = &creature_ptr->inventory[i];
+			if (!IS_EQUIPPED(quest_ptr)) continue;
+			spoil_random_artifact_aux(quest_ptr, j);
 		}
 
 		/* random artifacts in creature_ptr */
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			q_ptr = &creature_ptr->inventory[i];
-			spoil_random_artifact_aux(q_ptr, j);
+			quest_ptr = &creature_ptr->inventory[i];
+			spoil_random_artifact_aux(quest_ptr, j);
 		}
 
 		/* random artifacts in home */
@@ -2918,8 +2918,8 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 		st_ptr = &town[1].store[STORE_HOME];
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
-			q_ptr = &st_ptr->stock[i];
-			spoil_random_artifact_aux(q_ptr, j);
+			quest_ptr = &st_ptr->stock[i];
+			spoil_random_artifact_aux(quest_ptr, j);
 		}
 		*/
 
@@ -2928,8 +2928,8 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 		st_ptr = &town[1].store[STORE_MUSEUM];
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
-			q_ptr = &st_ptr->stock[i];
-			spoil_random_artifact_aux(q_ptr, j);
+			quest_ptr = &st_ptr->stock[i];
+			spoil_random_artifact_aux(quest_ptr, j);
 		}
 		*/
 	}

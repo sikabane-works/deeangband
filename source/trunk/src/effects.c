@@ -6542,7 +6542,7 @@ void calc_android_exp(creature_type *creature_ptr)
 	{
 		object_type *o_ptr = &creature_ptr->inventory[i];
 		object_type forge;
-		object_type *q_ptr = &forge;
+		object_type *quest_ptr = &forge;
 		u32b value, exp;
 		int level = MAX(object_kind_info[o_ptr->k_idx].level - 8, 1);
 		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
@@ -6555,11 +6555,11 @@ void calc_android_exp(creature_type *creature_ptr)
 		if(!o_ptr->k_idx) continue;
 
 		/* Wipe the object */
-		object_wipe(q_ptr);
+		object_wipe(quest_ptr);
 
-		object_copy(q_ptr, o_ptr);
-		q_ptr->discount = 0;
-		q_ptr->curse_flags = 0L;
+		object_copy(quest_ptr, o_ptr);
+		quest_ptr->discount = 0;
+		quest_ptr->curse_flags = 0L;
 
 		if (object_is_fixed_artifact(o_ptr))
 		{
@@ -6593,7 +6593,7 @@ void calc_android_exp(creature_type *creature_ptr)
 			level = MAX(level, (level + MAX(fake_level - 8, 5)) / 2 + 3);
 		}
 
-		value = object_value_real(q_ptr);
+		value = object_value_real(quest_ptr);
 
 		if (value <= 0) continue;
 		if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI) && (creature_ptr->chara_idx != CHARA_SEXY)) value /= 32;

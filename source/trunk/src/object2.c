@@ -768,14 +768,14 @@ void object_aware(object_type *o_ptr)
 	   !gameover && ((o_ptr->tval >= TV_AMULET && o_ptr->tval <= TV_POTION) || (o_ptr->tval == TV_FOOD)))
 	{
 		object_type forge;
-		object_type *q_ptr;
+		object_type *quest_ptr;
 		char o_name[MAX_NLEN];
 
-		q_ptr = &forge;
-		object_copy(q_ptr, o_ptr);
+		quest_ptr = &forge;
+		object_copy(quest_ptr, o_ptr);
 
-		q_ptr->number = 1;
-		object_desc(o_name, q_ptr, OD_NAME_ONLY);
+		quest_ptr->number = 1;
+		object_desc(o_name, quest_ptr, OD_NAME_ONLY);
 		
 		do_cmd_write_nikki(DIARY_HANMEI, 0, o_name);
 	}
@@ -1474,10 +1474,10 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *o_ptr)
  * Distribute charges of rods or wands.
  *
  * o_ptr = source item
- * q_ptr = target item, must be of the same type as o_ptr
+ * quest_ptr = target item, must be of the same type as o_ptr
  * amt   = number of items that are transfered
  */
-void distribute_charges(object_type *o_ptr, object_type *q_ptr, int amt)
+void distribute_charges(object_type *o_ptr, object_type *quest_ptr, int amt)
 {
 	/*
 	 * Hack -- If rods or wands are dropped, the total maximum timeout or
@@ -1487,8 +1487,8 @@ void distribute_charges(object_type *o_ptr, object_type *q_ptr, int amt)
 	 */
 	if ((o_ptr->tval == TV_WAND) || (o_ptr->tval == TV_ROD))
 	{
-		q_ptr->pval = o_ptr->pval * amt / o_ptr->number;
-		if (amt < o_ptr->number) o_ptr->pval -= q_ptr->pval;
+		quest_ptr->pval = o_ptr->pval * amt / o_ptr->number;
+		if (amt < o_ptr->number) o_ptr->pval -= quest_ptr->pval;
 
 		/* Hack -- Rods also need to have their timeouts distributed.  The
 		 * dropped stack will accept all time remaining to charge up to its
@@ -1496,12 +1496,12 @@ void distribute_charges(object_type *o_ptr, object_type *q_ptr, int amt)
 		 */
 		if ((o_ptr->tval == TV_ROD) && (o_ptr->timeout))
 		{
-			if (q_ptr->pval > o_ptr->timeout)
-				q_ptr->timeout = o_ptr->timeout;
+			if (quest_ptr->pval > o_ptr->timeout)
+				quest_ptr->timeout = o_ptr->timeout;
 			else
-				q_ptr->timeout = q_ptr->pval;
+				quest_ptr->timeout = quest_ptr->pval;
 
-			if (amt < o_ptr->number) o_ptr->timeout -= q_ptr->timeout;
+			if (amt < o_ptr->number) o_ptr->timeout -= quest_ptr->timeout;
 		}
 	}
 }
@@ -3894,20 +3894,20 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	if (!in_bounds(floor_ptr, y, x)) return; // Paranoia -- check bounds
 	if (!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
 	if (c_ptr->object_idx) return; // Avoid stacking on other objects
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Wipe the object */
-	object_wipe(q_ptr);
+	object_wipe(quest_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(q_ptr, mode, 0, floor_ptr->object_level)) return;
+	if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level)) return;
 
 
 	/* Make an object */
@@ -3922,7 +3922,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 		o_ptr = &object_list[object_idx];
 
 		/* Structure Copy */
-		object_copy(o_ptr, q_ptr);
+		object_copy(o_ptr, quest_ptr);
 
 		/* Location */
 		o_ptr->fy = y;
@@ -3943,9 +3943,9 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	else
 	{
 		/* Hack -- Preserve artifacts */
-		if (object_is_fixed_artifact(q_ptr))
+		if (object_is_fixed_artifact(quest_ptr))
 		{
-			artifact_info[q_ptr->name1].cur_num = 0;
+			artifact_info[quest_ptr->name1].cur_num = 0;
 		}
 	}
 }
@@ -4003,7 +4003,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 
 	/* Paranoia -- check bounds */
@@ -4017,13 +4017,13 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Wipe the object */
-	object_wipe(q_ptr);
+	object_wipe(quest_ptr);
 
 	/* Make some gold */
-	if (!make_gold(floor_ptr, q_ptr, 0)) return;
+	if (!make_gold(floor_ptr, quest_ptr, 0)) return;
 
 
 	/* Make an object */
@@ -4038,7 +4038,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 		o_ptr = &object_list[object_idx];
 
 		/* Copy the object */
-		object_copy(o_ptr, q_ptr);
+		object_copy(o_ptr, quest_ptr);
 
 		/* Save location */
 		o_ptr->fy = y;
@@ -5160,7 +5160,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	int slot;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	object_type *o_ptr;
 
@@ -5182,16 +5182,16 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	if (amt > o_ptr->number) amt = o_ptr->number;
 
 	// Get local object
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	// Obtain a local object
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	// Modify quantity
-	q_ptr->number = amt;
+	quest_ptr->number = amt;
 
 	// Describe the object
-	object_desc(o_name, q_ptr, 0);
+	object_desc(o_name, quest_ptr, 0);
 
 	// Took off weapon
 	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, o_ptr))
@@ -5242,7 +5242,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	inven_item_optimize(creature_ptr, item);
 
 	// Carry the object
-	slot = inven_carry(creature_ptr, q_ptr);
+	slot = inven_carry(creature_ptr, quest_ptr);
 
 	// Message
 #ifdef JP
@@ -5265,7 +5265,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 void inven_drop(creature_type *creature_ptr, int item, int amt)
 {
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 	object_type *o_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -5297,19 +5297,19 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Obtain local object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Distribute charges of wands or rods */
-	distribute_charges(o_ptr, q_ptr, amt);
+	distribute_charges(o_ptr, quest_ptr, amt);
 
 	/* Modify quantity */
-	q_ptr->number = amt;
+	quest_ptr->number = amt;
 
 	/* Describe local object */
-	object_desc(o_name, q_ptr, 0);
+	object_desc(o_name, quest_ptr, 0);
 
 	/* Message */
 #ifdef JP
@@ -5320,7 +5320,7 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(floor_ptr, q_ptr, 0, creature_ptr->fy, creature_ptr->fx);
+	(void)drop_near(floor_ptr, quest_ptr, 0, creature_ptr->fy, creature_ptr->fx);
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(creature_ptr, item, -amt);
@@ -5454,7 +5454,7 @@ void reorder_pack(creature_type *creature_ptr)
 	int             i, j, k;
 	s32b            o_value;
 	object_type     forge;
-	object_type     *q_ptr;
+	object_type     *quest_ptr;
 	object_type     *o_ptr;
 	bool            flag = FALSE;
 
@@ -5487,10 +5487,10 @@ void reorder_pack(creature_type *creature_ptr)
 		flag = TRUE;
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Save a copy of the moving item */
-		object_copy(q_ptr, &creature_ptr->inventory[i]);
+		object_copy(quest_ptr, &creature_ptr->inventory[i]);
 
 		/* Slide the objects */
 		for (k = i; k > j; k--)
@@ -5500,7 +5500,7 @@ void reorder_pack(creature_type *creature_ptr)
 		}
 
 		/* Insert the moving item */
-		object_copy(&creature_ptr->inventory[j], q_ptr);
+		object_copy(&creature_ptr->inventory[j], quest_ptr);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -5526,7 +5526,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	int y;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 	int         sval;
 	int         use_realm;
 
@@ -5544,20 +5544,20 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	if (!k_idx) return;
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Prepare the object */
-	object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Describe */
-	object_desc(o_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
+	object_desc(o_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
 	Term_putstr(0, 0, -1, TERM_WHITE, o_name);
 
 	/* Access the item's sval */
-	sval = q_ptr->sval;
-	use_realm = tval2realm(q_ptr->tval);
+	sval = quest_ptr->sval;
+	use_realm = tval2realm(quest_ptr->tval);
 
 	/* Warriors are illiterate */
 	if (creature_ptr->realm1 || creature_ptr->realm2)

@@ -35,14 +35,14 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 	char ch;
 
 	object_type	forge;
-	object_type     *q_ptr;
+	object_type     *quest_ptr;
 
 	char com[80];
 	char o_name[MAX_NLEN];
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	if(creature_ptr->lev >= 20)
 #ifdef JP
@@ -140,19 +140,19 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 			s16b slot;
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
-			object_prep(q_ptr, lookup_kind(TV_SHOT, m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(15,30);
-			object_aware(q_ptr);
-			object_known(q_ptr);
-			apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
-			q_ptr->discount = 99;
+			object_prep(quest_ptr, lookup_kind(TV_SHOT, m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
+			quest_ptr->number = (byte)rand_range(15,30);
+			object_aware(quest_ptr);
+			object_known(quest_ptr);
+			apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+			quest_ptr->discount = 99;
 
-			slot = inven_carry(creature_ptr, q_ptr);
+			slot = inven_carry(creature_ptr, quest_ptr);
 
-			object_desc(o_name, q_ptr, 0);
+			object_desc(o_name, quest_ptr, 0);
 #ifdef JP
 			msg_format("%sを作った。", o_name);
 #else
@@ -188,28 +188,28 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &creature_ptr->inventory[item];
+			quest_ptr = &creature_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
 		else
 		{
-			q_ptr = &object_list[0 - item];
+			quest_ptr = &object_list[0 - item];
 		}
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_ARROW, m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(5, 10);
-		object_aware(q_ptr);
-		object_known(q_ptr);
-		apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		object_prep(quest_ptr, lookup_kind(TV_ARROW, m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(5, 10);
+		object_aware(quest_ptr);
+		object_known(quest_ptr);
+		apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
-		q_ptr->discount = 99;
+		quest_ptr->discount = 99;
 
-		object_desc(o_name, q_ptr, 0);
+		object_desc(o_name, quest_ptr, 0);
 #ifdef JP
 		msg_format("%sを作った。", o_name);
 #else
@@ -229,7 +229,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(creature_ptr, q_ptr);
+		slot = inven_carry(creature_ptr, quest_ptr);
 
 		/* Auto-inscription */
 		if (slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
@@ -254,28 +254,28 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &creature_ptr->inventory[item];
+			quest_ptr = &creature_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
 		else
 		{
-			q_ptr = &object_list[0 - item];
+			quest_ptr = &object_list[0 - item];
 		}
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(4, 8);
-		object_aware(q_ptr);
-		object_known(q_ptr);
-		apply_magic(creature_ptr, q_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		object_prep(quest_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(4, 8);
+		object_aware(quest_ptr);
+		object_known(quest_ptr);
+		apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
-		q_ptr->discount = 99;
+		quest_ptr->discount = 99;
 
-		object_desc(o_name, q_ptr, 0);
+		object_desc(o_name, quest_ptr, 0);
 #ifdef JP
 		msg_format("%sを作った。", o_name);
 #else
@@ -295,7 +295,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(creature_ptr, q_ptr);
+		slot = inven_carry(creature_ptr, quest_ptr);
 
 		/* Auto-inscription */
 		if (slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
@@ -1545,17 +1545,17 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 		case RACE_HOBBIT:
 			{
-				object_type *q_ptr;
+				object_type *quest_ptr;
 				object_type forge;
 
 				/* Get local object */
-				q_ptr = &forge;
+				quest_ptr = &forge;
 
 				/* Create the food ration */
-				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				(void)drop_near(floor_ptr, q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+				(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 #ifdef JP
 				msg_print("食事を料理して作った。");
 #else

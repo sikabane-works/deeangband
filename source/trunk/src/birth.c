@@ -2803,7 +2803,7 @@ static bool creature_hook_quest(int species_idx)
 /*
  * Determine the random quest uniques
  */
-void determine_random_questor(quest_type *q_ptr)
+void determine_random_questor(quest_type *quest_ptr)
 {
 	int          species_idx;
 	species_type *r_ptr;
@@ -2816,7 +2816,7 @@ void determine_random_questor(quest_type *q_ptr)
 		 * Random creatures 5 - 10 levels out of depth
 		 * (depending on level)
 		 */
-		species_idx = get_species_num(current_floor_ptr, q_ptr->level + 5 + randint1(q_ptr->level / 10));
+		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
 		r_ptr = &species_info[species_idx];
 
 		if (!is_unique_species(r_ptr)) continue;
@@ -2831,10 +2831,10 @@ void determine_random_questor(quest_type *q_ptr)
 		 * Accept creatures that are 2 - 6 levels
 		 * out of depth depending on the quest level
 		 */
-		if (r_ptr->level > (q_ptr->level + (q_ptr->level / 20))) break;
+		if (r_ptr->level > (quest_ptr->level + (quest_ptr->level / 20))) break;
 	}
 
-	q_ptr->species_idx = species_idx;
+	quest_ptr->species_idx = species_idx;
 }
 
 
@@ -2857,17 +2857,17 @@ void init_dungeon_quests(void)
 	/* Generate quests */
 	for (i = MIN_RANDOM_QUEST + number_of_quests - 1; i >= MIN_RANDOM_QUEST; i--)
 	{
-		quest_type      *q_ptr = &quest[i];
+		quest_type      *quest_ptr = &quest[i];
 		species_type    *quest_r_ptr;
 
-		q_ptr->status = QUEST_STATUS_TAKEN;
-		determine_random_questor(q_ptr);
+		quest_ptr->status = QUEST_STATUS_TAKEN;
+		determine_random_questor(quest_ptr);
 
 		/* Mark uniques */
-		quest_r_ptr = &species_info[q_ptr->species_idx];
+		quest_r_ptr = &species_info[quest_ptr->species_idx];
 		//TODO quest_r_ptr->flags1 |= RF1_QUESTOR;
 
-		q_ptr->max_num = 1;
+		quest_ptr->max_num = 1;
 	}
 
 	/* Init the two main quests (AOY) */

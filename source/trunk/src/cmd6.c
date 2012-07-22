@@ -471,16 +471,16 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚İ–‚½‚³‚ê‚éI");
 		    (item >= 0) && (o_ptr->number > 1))
 		{
 			object_type forge;
-			object_type *q_ptr;
+			object_type *quest_ptr;
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Obtain a local object */
-			object_copy(q_ptr, o_ptr);
+			object_copy(quest_ptr, o_ptr);
 
 			/* Modify quantity */
-			q_ptr->number = 1;
+			quest_ptr->number = 1;
 
 			/* Restore the charges */
 			o_ptr->pval++;
@@ -488,7 +488,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚İ–‚½‚³‚ê‚éI");
 			/* Unstack the used item */
 			o_ptr->number--;
 			set_inventory_weight(creature_ptr);
-			item = inven_carry(creature_ptr, q_ptr);
+			item = inven_carry(creature_ptr, quest_ptr);
 
 			/* Message */
 #ifdef JP
@@ -552,7 +552,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚İ–‚½‚³‚ê‚éI");
 		      (o_ptr->sval < SV_FOOD_BISCUIT)))
 		{
 			object_type forge;
-			object_type *q_ptr = &forge;
+			object_type *quest_ptr = &forge;
 
 #ifdef JP
 msg_print("H‚×•¨‚ªƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
@@ -562,10 +562,10 @@ msg_print("H‚×•¨‚ªƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
 
 
 			/* Create the item */
-			object_prep(q_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
 
 			/* Drop the object from heaven */
-			(void)drop_near(floor_ptr, q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		else
 		{
@@ -691,7 +691,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	int         ident, lev;
 	object_type	*o_ptr;
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	// Take a turn
 	energy_use = 100;
@@ -728,13 +728,13 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Single object */
-	q_ptr->number = 1;
+	quest_ptr->number = 1;
 
 	/* Reduce and describe creature_ptr->inventory */
 	if (item >= 0)
@@ -760,12 +760,12 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	ident = FALSE;
 
 	/* Object level */
-	lev = object_kind_info[q_ptr->k_idx].level;
+	lev = object_kind_info[quest_ptr->k_idx].level;
 
 	/* Analyze the potion */
-	if (q_ptr->tval == TV_POTION)
+	if (quest_ptr->tval == TV_POTION)
 	{
-		switch (q_ptr->sval)
+		switch (quest_ptr->sval)
 		{
 #ifdef JP
 			/* ˆù‚İ‚²‚½‚¦‚ğƒIƒŠƒWƒiƒ‹‚æ‚è×‚©‚­•\Œ» */
@@ -1370,19 +1370,19 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
 		msg_print("Some of the fluid falls through your jaws!");
 #endif
 
-		(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, q_ptr->k_idx);
+		(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, quest_ptr->k_idx);
 	}
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* The item has been tried */
-	object_tried(q_ptr);
+	object_tried(quest_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(q_ptr))
+	if (ident && !object_is_aware(quest_ptr))
 	{
-		object_aware(q_ptr);
+		object_aware(quest_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -1392,7 +1392,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
 
 	if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
-		if (q_ptr->tval == TV_FLASK)
+		if (quest_ptr->tval == TV_FLASK)
 		{
 #ifdef JP
 			msg_print("ƒIƒCƒ‹‚ğ•â‹‹‚µ‚½B");
@@ -1403,7 +1403,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
 		}
 		else
 		{
-			set_food(creature_ptr, creature_ptr->food + ((q_ptr->pval) / 20));
+			set_food(creature_ptr, creature_ptr->food + ((quest_ptr->pval) / 20));
 		}
 	}
 
@@ -1414,23 +1414,23 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ğ‘f’Ê‚è‚µ‚Ä—‚¿‚½I");
 #else
 		msg_print("You are moistened.");
 #endif
-		set_food(creature_ptr, MIN(creature_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
+		set_food(creature_ptr, MIN(creature_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
 	}
 	else
 	{
-		(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
+		(void)set_food(creature_ptr, creature_ptr->food + quest_ptr->pval);
 	}
 
 	//TODO
 	/*
 	case MIMIC_DEMON_LORD:
-		set_food(creature_ptr, creature_ptr->food + ((q_ptr->pval) / 20));
+		set_food(creature_ptr, creature_ptr->food + ((quest_ptr->pval) / 20));
 		break;
 	case MIMIC_VAMPIRE:
-		(void)set_food(creature_ptr, creature_ptr->food + (q_ptr->pval / 10));
+		(void)set_food(creature_ptr, creature_ptr->food + (quest_ptr->pval / 10));
 		break;
 	default:
-		(void)set_food(creature_ptr, creature_ptr->food + q_ptr->pval);
+		(void)set_food(creature_ptr, creature_ptr->food + quest_ptr->pval);
 		break;
 	}
 	*/
@@ -2726,16 +2726,16 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if ((item >= 0) && (o_ptr->number > 1))
 	{
 		object_type forge;
-		object_type *q_ptr;
+		object_type *quest_ptr;
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Obtain a local object */
-		object_copy(q_ptr, o_ptr);
+		object_copy(quest_ptr, o_ptr);
 
 		/* Modify quantity */
-		q_ptr->number = 1;
+		quest_ptr->number = 1;
 
 		/* Restore the charges */
 		o_ptr->pval++;
@@ -2743,7 +2743,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		/* Unstack the used item */
 		o_ptr->number--;
 		set_inventory_weight(creature_ptr);
-		item = inven_carry(creature_ptr, q_ptr);
+		item = inven_carry(creature_ptr, quest_ptr);
 
 		/* Message */
 #ifdef JP

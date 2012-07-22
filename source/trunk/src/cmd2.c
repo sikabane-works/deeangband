@@ -88,13 +88,13 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 	else
 	{
-		quest_type *q_ptr = &quest[inside_quest];
+		quest_type *quest_ptr = &quest[inside_quest];
 
 		/* Confirm leaving from once only quest */
 		if (confirm_quest && inside_quest &&
-		    (q_ptr->type == QUEST_TYPE_RANDOM ||
-		     (q_ptr->flags & QUEST_FLAG_ONCE &&
-		      q_ptr->status != QUEST_STATUS_COMPLETED)))
+		    (quest_ptr->type == QUEST_TYPE_RANDOM ||
+		     (quest_ptr->flags & QUEST_FLAG_ONCE &&
+		      quest_ptr->status != QUEST_STATUS_COMPLETED)))
 		{
 #ifdef JP
 			msg_print("この階を一度去ると二度と戻って来られません。");
@@ -448,7 +448,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	u32b mode = AM_GOOD;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	object_type *o_ptr = &object_list[object_idx];
 
@@ -482,22 +482,22 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	for (; number > 0; --number)
 	{
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Wipe the object */
-		object_wipe(q_ptr);
+		object_wipe(quest_ptr);
 
 		/* Small chests often drop gold */
 		if (small && (randint0(100) < 25))
 		{
-			if (!make_gold(floor_ptr, q_ptr, 0)) continue; // Make some gold
+			if (!make_gold(floor_ptr, quest_ptr, 0)) continue; // Make some gold
 		}
 
 		/* Otherwise drop an item */
 		else
 		{
 			/* Make a good object */
-			if (!make_object(q_ptr, mode, 0, floor_ptr->object_level)) continue;
+			if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level)) continue;
 		}
 
 		/* If chest scatters its contents, pick any floor square. */
@@ -514,13 +514,13 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 				if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
 				/* Place the object there. */
-				drop_near(floor_ptr, q_ptr, -1, y, x);
+				drop_near(floor_ptr, quest_ptr, -1, y, x);
 
 				/* Done. */
 				break;
 			}
 		}
-		else drop_near(floor_ptr, q_ptr, -1, y, x); // Normally, drop object near the chest.
+		else drop_near(floor_ptr, quest_ptr, -1, y, x); // Normally, drop object near the chest.
 	}
 
 	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
@@ -3160,7 +3160,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	int cur_dis, visible;
 
 	object_type forge;
-	object_type *q_ptr, *o_ptr;
+	object_type *quest_ptr, *o_ptr;
 
 	bool hit_body = FALSE;
 
@@ -3287,13 +3287,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	x = creature_ptr->fx;
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Single object */
-	q_ptr->number = 1;
+	quest_ptr->number = 1;
 
 	/* Reduce and describe creature_ptr->inventory */
 	if (item >= 0)
@@ -3377,8 +3377,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* The player can see the (on screen) missile */
 		if (panel_contains(ny, nx) && creature_can_see_bold(creature_ptr, ny, nx))
 		{
-			char c = object_char(q_ptr);
-			byte a = object_attr(q_ptr);
+			char c = object_char(quest_ptr);
+			byte a = object_attr(quest_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
 			print_rel(creature_ptr, c, a, ny, nx);
@@ -3543,8 +3543,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				else
 				{
 					/* Apply special damage XXX XXX XXX */
-					tdam = tot_dam_aux_shot(creature_ptr, q_ptr, tdam, m_ptr);
-					tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_hit, tdam);
+					tdam = tot_dam_aux_shot(creature_ptr, quest_ptr, tdam, m_ptr);
+					tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
 
 					/* No negative damage */
 					if (tdam < 0) tdam = 0;
@@ -3585,7 +3585,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
 					/* STICK TO */
-					if (object_is_fixed_artifact(q_ptr))
+					if (object_is_fixed_artifact(quest_ptr))
 					{
 						char m_name[80];
 
@@ -3690,7 +3690,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(creature_ptr, q_ptr) : 0);
+	j = (hit_body ? breakage_chance(creature_ptr, quest_ptr) : 0);
 
 	if (stick_to)
 	{
@@ -3705,7 +3705,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 #else
 			msg_format("The %s have gone to somewhere.", o_name);
 #endif
-			if (object_is_fixed_artifact(q_ptr))
+			if (object_is_fixed_artifact(quest_ptr))
 			{
 				artifact_info[j_ptr->name1].cur_num = 0;
 			}
@@ -3713,7 +3713,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		}
 
 		o_ptr = &object_list[object_idx];
-		object_copy(o_ptr, q_ptr);
+		object_copy(o_ptr, quest_ptr);
 
 		/* Forget mark */
 		o_ptr->marked &= OM_TOUCHED;
@@ -3733,12 +3733,12 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	else if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
-		(void)drop_near(floor_ptr, q_ptr, j, y, x);
+		(void)drop_near(floor_ptr, quest_ptr, j, y, x);
 	}
 	else
 	{
 		/* Drop (or break) near that location */
-		(void)drop_near(floor_ptr, q_ptr, j, prev_y, prev_x);
+		(void)drop_near(floor_ptr, quest_ptr, j, prev_y, prev_x);
 	}
 
 	/* Sniper - Repeat shooting when double shots */
@@ -3856,7 +3856,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	int cur_dis, visible;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	object_type *o_ptr;
 
@@ -3963,22 +3963,22 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Extract the thrown object's flags. */
-	object_flags(q_ptr, flgs);
+	object_flags(quest_ptr, flgs);
 
 	/* Distribute the charges of rods/wands between the stacks */
-	distribute_charges(o_ptr, q_ptr, 1);
+	distribute_charges(o_ptr, quest_ptr, 1);
 
 	/* Single object */
-	q_ptr->number = 1;
+	quest_ptr->number = 1;
 
 	/* Description */
-	object_desc(o_name, q_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, quest_ptr, OD_OMIT_PREFIX);
 
 	if (creature_ptr->mighty_throw) mult += 3;
 
@@ -3987,7 +3987,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	mul = 10 + 2 * (mult - 1);
 
 	/* Enforce a minimum "weight" of one pound */
-	div = ((q_ptr->weight > 10) ? q_ptr->weight : 10);
+	div = ((quest_ptr->weight > 10) ? quest_ptr->weight : 10);
 	if ((have_flag(flgs, TR_THROW)) || boomerang) div /= 2;
 
 	/* Hack -- Distance -- Reward strength, penalize weight */
@@ -4022,8 +4022,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		project_length = 0;  /* reset to default */
 	}
 
-	if ((q_ptr->name1 == ART_MJOLLNIR) ||
-	    (q_ptr->name1 == ART_AEGISFANG) || boomerang)
+	if ((quest_ptr->name1 == ART_MJOLLNIR) ||
+	    (quest_ptr->name1 == ART_AEGISFANG) || boomerang)
 		return_when_thrown = TRUE;
 
 	/* Reduce and describe creature_ptr->inventory */
@@ -4062,12 +4062,12 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((creature_ptr->class_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if ((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */
 	if (have_flag(flgs, TR_THROW)) chance = ((creature_ptr->skill_tht) +
-		((creature_ptr->to_hit_b + q_ptr->to_hit) * BTH_PLUS_ADJ));
+		((creature_ptr->to_hit_b + quest_ptr->to_hit) * BTH_PLUS_ADJ));
 	else chance = (creature_ptr->skill_tht + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
 
 	if (shuriken) chance *= 2;
@@ -4091,14 +4091,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		if (!cave_have_flag_bold(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, q_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
+			if ((quest_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, quest_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
 		if (panel_contains(ny[cur_dis], nx[cur_dis]) && creature_can_see_bold(creature_ptr, ny[cur_dis], nx[cur_dis]))
 		{
-			char c = object_char(q_ptr);
-			byte a = object_attr(q_ptr);
+			char c = object_char(quest_ptr);
+			byte a = object_attr(quest_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
 			print_rel(creature_ptr, c, a, ny[cur_dis], nx[cur_dis]);
@@ -4184,14 +4184,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				}
 
 				/* Hack -- Base damage from thrown object */
-				tdam = diceroll(q_ptr->dd, q_ptr->ds);
+				tdam = diceroll(quest_ptr->dd, quest_ptr->ds);
 				/* Apply special damage XXX XXX XXX */
-				tdam = tot_dam_aux(creature_ptr, q_ptr, tdam, m_ptr, 0, TRUE);
-				tdam = critical_shot(creature_ptr, q_ptr->weight, q_ptr->to_hit, tdam);
-				if (q_ptr->to_damage > 0)
-					tdam += q_ptr->to_damage;
+				tdam = tot_dam_aux(creature_ptr, quest_ptr, tdam, m_ptr, 0, TRUE);
+				tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
+				if (quest_ptr->to_damage > 0)
+					tdam += quest_ptr->to_damage;
 				else
-					tdam += -q_ptr->to_damage;
+					tdam += -quest_ptr->to_damage;
 
 				if (boomerang)
 				{
@@ -4233,7 +4233,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
-					if ((tdam > 0) && !object_is_potion(creature_ptr, q_ptr))
+					if ((tdam > 0) && !object_is_potion(creature_ptr, quest_ptr))
 						anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
@@ -4264,21 +4264,21 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(creature_ptr, q_ptr) : 0);
+	j = (hit_body ? breakage_chance(creature_ptr, quest_ptr) : 0);
 
 	/* Figurines transform */
-	if ((q_ptr->tval == TV_FIGURINE) && !(fight_arena_mode))
+	if ((quest_ptr->tval == TV_FIGURINE) && !(fight_arena_mode))
 	{
 		j = 100;
 
-		if (!(summon_named_creature(0, floor_ptr, y, x, q_ptr->pval, !(object_is_cursed(q_ptr)) ? PM_FORCE_PET : 0L)))
+		if (!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PM_FORCE_PET : 0L)))
 #ifdef JP
 msg_print("人形は捻じ曲がり砕け散ってしまった！");
 #else
 			msg_print("The Figurine writhes and then shatters.");
 #endif
 
-		else if (object_is_cursed(q_ptr))
+		else if (object_is_cursed(quest_ptr))
 #ifdef JP
 msg_print("これはあまり良くない気がする。");
 #else
@@ -4289,7 +4289,7 @@ msg_print("これはあまり良くない気がする。");
 
 
 	/* Potions smash open */
-	if (object_is_potion(creature_ptr, q_ptr))
+	if (object_is_potion(creature_ptr, quest_ptr))
 	{
 		if (hit_body || hit_wall || (randint1(100) < j))
 		{
@@ -4301,7 +4301,7 @@ msg_print("これはあまり良くない気がする。");
 #endif
 
 
-			if (potion_smash_effect(0, y, x, q_ptr->k_idx))
+			if (potion_smash_effect(0, y, x, quest_ptr->k_idx))
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
@@ -4333,12 +4333,12 @@ msg_print("これはあまり良くない気がする。");
 	{
 		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
-		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
+		bool super_boomerang = (((quest_ptr->name1 == ART_MJOLLNIR) || (quest_ptr->name1 == ART_AEGISFANG)) && boomerang);
 
 		j = -1;
 		if (boomerang) back_chance += 4 + randint1(5);
 		if (super_boomerang) back_chance += 100;
-		object_desc(o2_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o2_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		if((back_chance > 30) && (!one_in_(100) || super_boomerang))
 		{
@@ -4346,8 +4346,8 @@ msg_print("これはあまり良くない気がする。");
 			{
 				if (panel_contains(ny[i], nx[i]) && creature_can_see_bold(creature_ptr, ny[i], nx[i]))
 				{
-					char c = object_char(q_ptr);
-					byte a = object_attr(q_ptr);
+					char c = object_char(quest_ptr);
+					byte a = object_attr(quest_ptr);
 
 					/* Draw, Hilite, Fresh, Pause, Erase */
 					print_rel(creature_ptr, c, a, ny[i], nx[i]);
@@ -4412,7 +4412,7 @@ msg_print("これはあまり良くない気がする。");
 			o_ptr = &creature_ptr->inventory[item];
 
 			/* Wear the new stuff */
-			object_copy(o_ptr, q_ptr);
+			object_copy(o_ptr, quest_ptr);
 
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
@@ -4428,7 +4428,7 @@ msg_print("これはあまり良くない気がする。");
 		}
 		else
 		{
-			inven_carry(creature_ptr, q_ptr);
+			inven_carry(creature_ptr, quest_ptr);
 		}
 		do_drop = FALSE;
 	}
@@ -4444,12 +4444,12 @@ msg_print("これはあまり良くない気がする。");
 		if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
-			(void)drop_near(floor_ptr, q_ptr, j, y, x);
+			(void)drop_near(floor_ptr, quest_ptr, j, y, x);
 		}
 		else
 		{
 			/* Drop (or break) near that location */
-			(void)drop_near(floor_ptr, q_ptr, j, prev_y, prev_x);
+			(void)drop_near(floor_ptr, quest_ptr, j, prev_y, prev_x);
 		}
 	}
 

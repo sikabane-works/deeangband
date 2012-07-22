@@ -812,7 +812,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	char ch;
 
@@ -824,26 +824,26 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Copy the object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 
 	/* Main loop. Ask for magification and artifactification */
 	while (TRUE)
 	{
 		/* Display full item debug information */
-		wiz_display_item(q_ptr);
+		wiz_display_item(quest_ptr);
 
 		/* Ask wizard what to do. */
 		if (!get_com("[a]ccept, [w]orthless, [c]ursed, [n]ormal, [g]ood, [e]xcellent, [s]pecial? ", &ch, FALSE))
 		{
 			/* Preserve wizard-generated artifacts */
-			if (object_is_fixed_artifact(q_ptr))
+			if (object_is_fixed_artifact(quest_ptr))
 			{
-				artifact_info[q_ptr->name1].cur_num = 0;
-				q_ptr->name1 = 0;
+				artifact_info[quest_ptr->name1].cur_num = 0;
+				quest_ptr->name1 = 0;
 			}
 
 			changed = FALSE;
@@ -858,10 +858,10 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 		}
 
 		/* Preserve wizard-generated artifacts */
-		if (object_is_fixed_artifact(q_ptr))
+		if (object_is_fixed_artifact(quest_ptr))
 		{
-			artifact_info[q_ptr->name1].cur_num = 0;
-			q_ptr->name1 = 0;
+			artifact_info[quest_ptr->name1].cur_num = 0;
+			quest_ptr->name1 = 0;
 		}
 
 		switch(ch)
@@ -869,53 +869,53 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 			/* Apply bad magic, but first clear object */
 			case 'w': case 'W':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
-				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(caster_ptr, q_ptr, floor_ptr->floor_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
+				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(q_ptr)) create_artifact(caster_ptr, q_ptr, FALSE);
+				if (!object_is_artifact(quest_ptr)) create_artifact(caster_ptr, quest_ptr, FALSE);
 				break;
 			}
 		}
-		q_ptr->fy = o_ptr->fy;
-		q_ptr->fx = o_ptr->fx;
-		q_ptr->next_object_idx = o_ptr->next_object_idx;
-		q_ptr->marked = o_ptr->marked;
+		quest_ptr->fy = o_ptr->fy;
+		quest_ptr->fx = o_ptr->fx;
+		quest_ptr->next_object_idx = o_ptr->next_object_idx;
+		quest_ptr->marked = o_ptr->marked;
 	}
 
 
@@ -923,7 +923,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 	if (changed)
 	{
 		/* Apply changes */
-		object_copy(o_ptr, q_ptr);
+		object_copy(o_ptr, quest_ptr);
 
 		/* Recalculate bonuses */
 		caster_ptr->creature_update |= (CRU_BONUS);
@@ -957,7 +957,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 	u32b mode;
 
 	object_type forge;
-	object_type	*q_ptr;
+	object_type	*quest_ptr;
 
 	cptr q = "Rolls: %ld  Correct: %ld  Matches: %ld  Better: %ld  Worse: %ld  Other: %ld";
 
@@ -1037,50 +1037,50 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Wipe the object */
-			object_wipe(q_ptr);
+			object_wipe(quest_ptr);
 
 			/* Create an object */
-			make_object(q_ptr, mode, 0, floor_ptr->object_level);
+			make_object(quest_ptr, mode, 0, floor_ptr->object_level);
 
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-			if (object_is_fixed_artifact(q_ptr)) artifact_info[q_ptr->name1].cur_num = 0;
+			if (object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
 
 
 			/* Test for the same tval and sval. */
-			if ((o_ptr->tval) != (q_ptr->tval)) continue;
-			if ((o_ptr->sval) != (q_ptr->sval)) continue;
+			if ((o_ptr->tval) != (quest_ptr->tval)) continue;
+			if ((o_ptr->sval) != (quest_ptr->sval)) continue;
 
 			/* One more correct item */
 			correct++;
 
 			/* Check for match */
-			if ((q_ptr->pval == o_ptr->pval) &&
-				 (q_ptr->to_ac == o_ptr->to_ac) &&
-				 (q_ptr->to_hit == o_ptr->to_hit) &&
-				 (q_ptr->to_damage == o_ptr->to_damage) &&
-				 (q_ptr->name1 == o_ptr->name1))
+			if ((quest_ptr->pval == o_ptr->pval) &&
+				 (quest_ptr->to_ac == o_ptr->to_ac) &&
+				 (quest_ptr->to_hit == o_ptr->to_hit) &&
+				 (quest_ptr->to_damage == o_ptr->to_damage) &&
+				 (quest_ptr->name1 == o_ptr->name1))
 			{
 				matches++;
 			}
 
 			/* Check for better */
-			else if ((q_ptr->pval >= o_ptr->pval) &&
-						(q_ptr->to_ac >= o_ptr->to_ac) &&
-						(q_ptr->to_hit >= o_ptr->to_hit) &&
-						(q_ptr->to_damage >= o_ptr->to_damage))
+			else if ((quest_ptr->pval >= o_ptr->pval) &&
+						(quest_ptr->to_ac >= o_ptr->to_ac) &&
+						(quest_ptr->to_hit >= o_ptr->to_hit) &&
+						(quest_ptr->to_damage >= o_ptr->to_damage))
 			{
 				better++;
 			}
 
 			/* Check for worse */
-			else if ((q_ptr->pval <= o_ptr->pval) &&
-						(q_ptr->to_ac <= o_ptr->to_ac) &&
-						(q_ptr->to_hit <= o_ptr->to_hit) &&
-						(q_ptr->to_damage <= o_ptr->to_damage))
+			else if ((quest_ptr->pval <= o_ptr->pval) &&
+						(quest_ptr->to_ac <= o_ptr->to_ac) &&
+						(quest_ptr->to_hit <= o_ptr->to_hit) &&
+						(quest_ptr->to_damage <= o_ptr->to_damage))
 			{
 				worse++;
 			}
@@ -1183,7 +1183,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	int item;
 
 	object_type	forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	object_type *o_ptr;
 
@@ -1219,17 +1219,17 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Copy object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 
 	/* The main loop */
 	while (TRUE)
 	{
 		/* Display the item */
-		wiz_display_item(q_ptr);
+		wiz_display_item(quest_ptr);
 
 		/* Get choice */
 		if (!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE))
@@ -1246,22 +1246,22 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 
 		if (ch == 's' || ch == 'S')
 		{
-			wiz_statistics(creature_ptr, q_ptr);
+			wiz_statistics(creature_ptr, quest_ptr);
 		}
 
 		if (ch == 'r' || ch == 'r')
 		{
-			wiz_reroll_item(creature_ptr, q_ptr);
+			wiz_reroll_item(creature_ptr, quest_ptr);
 		}
 
 		if (ch == 't' || ch == 'T')
 		{
-			wiz_tweak_item(creature_ptr, q_ptr);
+			wiz_tweak_item(creature_ptr, quest_ptr);
 		}
 
 		if (ch == 'q' || ch == 'Q')
 		{
-			wiz_quantity_item(creature_ptr, q_ptr);
+			wiz_quantity_item(creature_ptr, quest_ptr);
 		}
 	}
 
@@ -1283,7 +1283,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		}
 
 		/* Change */
-		object_copy(o_ptr, q_ptr);
+		object_copy(o_ptr, quest_ptr);
 
 
 		/* Recalculate bonuses */
@@ -1316,7 +1316,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 static void wiz_create_item(creature_type *creature_ptr)
 {
 	object_type	forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	int k_idx;
@@ -1359,16 +1359,16 @@ static void wiz_create_item(creature_type *creature_ptr)
 	}
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Create the item */
-	object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Apply magic */
-	apply_magic(creature_ptr, q_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
+	apply_magic(creature_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
 
 	/* Drop the object from heaven */
-	(void)drop_near(floor_ptr, q_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+	(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -1723,7 +1723,7 @@ static void do_cmd_wiz_learn(void)
 	int i;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	/* Scan every object */
 	for (i = 1; i < max_object_kind_idx; i++)
@@ -1734,13 +1734,13 @@ static void do_cmd_wiz_learn(void)
 		if (k_ptr->level <= command_arg)
 		{
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Prepare object */
-			object_prep(q_ptr, i, ITEM_FREE_SIZE);
+			object_prep(quest_ptr, i, ITEM_FREE_SIZE);
 
 			/* Awareness */
-			object_aware(q_ptr);
+			object_aware(quest_ptr);
 		}
 	}
 }

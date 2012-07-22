@@ -2335,23 +2335,23 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 
 	if (photo)
 	{
-		object_type *q_ptr;
+		object_type *quest_ptr;
 		object_type forge;
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Prepare to make a Blade of Chaos */
-		object_prep(q_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE);
+		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE);
 
-		q_ptr->pval = photo;
+		quest_ptr->pval = photo;
 
 		/* Mark the item as fully known */
-		q_ptr->ident |= (IDENT_MENTAL);
+		quest_ptr->ident |= (IDENT_MENTAL);
 
 
 		/* Drop it in the dungeon */
-		(void)drop_near(floor_ptr, q_ptr, -1, player_ptr->fy, player_ptr->fx);
+		(void)drop_near(floor_ptr, quest_ptr, -1, player_ptr->fy, player_ptr->fx);
 	}
 
 	/* Track it */

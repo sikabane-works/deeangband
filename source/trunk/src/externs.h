@@ -637,7 +637,7 @@ extern void creature_wipe(creature_type *creature_ptr);
 extern bool ask_quick_start(creature_type *creature_ptr);
 extern creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_type *save_ptr, u32b flags);
 extern void get_max_stats(creature_type *creature_ptr);
-extern void determine_random_questor(quest_type *q_ptr);
+extern void determine_random_questor(quest_type *quest_ptr);
 extern bool creature_hook_human(int species_idx);
 extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
 extern void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags);
@@ -1269,7 +1269,7 @@ extern void object_tried(object_type *o_ptr);
 extern s32b object_value(object_type *o_ptr);
 extern s32b object_value_real(object_type *o_ptr);
 extern bool can_player_destroy_object(creature_type *creature_ptr, object_type *o_ptr);
-extern void distribute_charges(object_type *o_ptr, object_type *q_ptr, int amt);
+extern void distribute_charges(object_type *o_ptr, object_type *quest_ptr, int amt);
 extern void reduce_charges(object_type *o_ptr, int amt);
 extern int object_similar_part(object_type *o_ptr, object_type *j_ptr);
 extern bool object_similar(object_type *o_ptr, object_type *j_ptr);
@@ -1768,7 +1768,7 @@ extern bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a
 extern bool activate_random_artifact(creature_type *creature_ptr,  object_type * o_ptr);
 extern void get_bloody_moon_flags(object_type *o_ptr);
 extern void random_artifact_resistance(creature_type *owner_ptr, object_type * o_ptr, artifact_type *a_ptr);
-extern bool create_named_art(creature_type *creature_ptr, object_type *q_ptr, int a_idx);
+extern bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a_idx);
 extern bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x);
 
 // scores.c

@@ -3108,7 +3108,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *o_ptr, ar
 }
 
 
-bool create_named_art(creature_type *creature_ptr, object_type *q_ptr, int a_idx)
+bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a_idx)
 {
 	int i;
 
@@ -3124,37 +3124,37 @@ bool create_named_art(creature_type *creature_ptr, object_type *q_ptr, int a_idx
 	if (!i) return FALSE;
 
 	/* Create the artifact */
-	object_prep(q_ptr, i, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, i, ITEM_FREE_SIZE);
 
 	/* Save the name */
-	q_ptr->name1 = (byte_hack)a_idx;
+	quest_ptr->name1 = (byte_hack)a_idx;
 
 	/* Extract the fields */
-	q_ptr->pval = a_ptr->pval;
-	q_ptr->ac = a_ptr->ac;
-	q_ptr->size_lower = a_ptr->size_lower; 
-	q_ptr->size_upper = a_ptr->size_upper; 
-	q_ptr->dd = a_ptr->dd;
-	q_ptr->ds = a_ptr->ds;
-	q_ptr->to_ac = a_ptr->to_ac;
-	q_ptr->to_hit = a_ptr->to_hit;
-	q_ptr->to_damage = a_ptr->to_damage;
-	q_ptr->weight = a_ptr->weight;
-	q_ptr->xtra1 = a_ptr->xtra1;
-	q_ptr->xtra2 = a_ptr->xtra2;
-	q_ptr->xtra3 = a_ptr->xtra3;
-	q_ptr->xtra4 = a_ptr->xtra4;
-	q_ptr->xtra5 = a_ptr->xtra5;
+	quest_ptr->pval = a_ptr->pval;
+	quest_ptr->ac = a_ptr->ac;
+	quest_ptr->size_lower = a_ptr->size_lower; 
+	quest_ptr->size_upper = a_ptr->size_upper; 
+	quest_ptr->dd = a_ptr->dd;
+	quest_ptr->ds = a_ptr->ds;
+	quest_ptr->to_ac = a_ptr->to_ac;
+	quest_ptr->to_hit = a_ptr->to_hit;
+	quest_ptr->to_damage = a_ptr->to_damage;
+	quest_ptr->weight = a_ptr->weight;
+	quest_ptr->xtra1 = a_ptr->xtra1;
+	quest_ptr->xtra2 = a_ptr->xtra2;
+	quest_ptr->xtra3 = a_ptr->xtra3;
+	quest_ptr->xtra4 = a_ptr->xtra4;
+	quest_ptr->xtra5 = a_ptr->xtra5;
 
 	/* Hack -- extract the "cursed" flag */
-	if (a_ptr->gen_flags & TRG_CURSED) q_ptr->curse_flags |= (TRC_CURSED);
-	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) q_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) q_ptr->curse_flags |= (TRC_DIVINE_CURSE);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) q_ptr->curse_flags |= get_curse(0, q_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) q_ptr->curse_flags |= get_curse(1, q_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
+	if (a_ptr->gen_flags & TRG_CURSED) quest_ptr->curse_flags |= (TRC_CURSED);
+	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) quest_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) quest_ptr->curse_flags |= (TRC_DIVINE_CURSE);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags |= get_curse(0, quest_ptr);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) quest_ptr->curse_flags |= get_curse(1, quest_ptr);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) quest_ptr->curse_flags |= get_curse(2, quest_ptr);
 
-	random_artifact_resistance(creature_ptr, q_ptr, a_ptr);
+	random_artifact_resistance(creature_ptr, quest_ptr, a_ptr);
 	return TRUE;
 }
 

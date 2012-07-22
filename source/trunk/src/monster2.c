@@ -3410,26 +3410,26 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 {
 	int min, max, tv;
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
-	q_ptr = &forge;
+	quest_ptr = &forge;
 	tv = TV_LIFE_BOOK + realm - 1;
 
 	// First Book
 	min = (creature_ptr->lev > 15 ? 2 : 1);
 	max = (min + creature_ptr->lev / 10);
-	object_prep(q_ptr, lookup_kind(tv, 0), ITEM_FREE_SIZE);
-	q_ptr->number = (byte)rand_range(min, max);
-	add_outfit(creature_ptr, q_ptr, 0);
+	object_prep(quest_ptr, lookup_kind(tv, 0), ITEM_FREE_SIZE);
+	quest_ptr->number = (byte)rand_range(min, max);
+	add_outfit(creature_ptr, quest_ptr, 0);
 
 	// Second Book
 	if(creature_ptr->lev > 10 || one_in_(50))
 	{
 		min = (creature_ptr->lev > 22 ? 2 : 1);
 		max = (min + creature_ptr->lev / 17);
-		object_prep(q_ptr, lookup_kind(tv, 1), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, q_ptr, 0);
+		object_prep(quest_ptr, lookup_kind(tv, 1), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 	// Third Book
@@ -3437,9 +3437,9 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 	{
 		min = (creature_ptr->lev > 41 ? 2 : 1);
 		max = (min + creature_ptr->lev / 37);
-		object_prep(q_ptr, lookup_kind(tv, 2), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, q_ptr, 0);
+		object_prep(quest_ptr, lookup_kind(tv, 2), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 	// Fourth Book
@@ -3447,9 +3447,9 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 	{
 		min = (creature_ptr->lev > 48 ? 2 : 1);
 		max = (min + creature_ptr->lev / 50);
-		object_prep(q_ptr, lookup_kind(tv, 3), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, q_ptr, 0);
+		object_prep(quest_ptr, lookup_kind(tv, 3), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 }
@@ -3464,34 +3464,34 @@ static void deal_potion(creature_type *creature_ptr)
 {
 	int min, max;
 	object_type forge;
-	object_type *q_ptr;
-	q_ptr = &forge;
+	object_type *quest_ptr;
+	quest_ptr = &forge;
 
 	if((creature_ptr->lev >= 3 || one_in_(5)) && creature_ptr->lev <= 12)
 	{
 		min = (1 + creature_ptr->lev / 10);
 		max = (min + creature_ptr->lev * 2 / 3);
-		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_CURE_LIGHT), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, q_ptr, 0);
+		object_prep(quest_ptr, lookup_kind(TV_POTION, SV_POTION_CURE_LIGHT), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 }
 
 static void deal_food(creature_type *creature_ptr)
 {
-	object_type *q_ptr;
+	object_type *quest_ptr;
 	object_type forge;
 	int i;
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	if(has_trait(creature_ptr, TRAIT_FOOD_EATER))
 	{
 		/* Food rations */
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(3, 7);
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(3, 7);
 
-		add_outfit(creature_ptr, q_ptr, 0);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
@@ -3501,55 +3501,55 @@ static void deal_food(creature_type *creature_ptr)
 
 		for (i = rand_range(3,4); i > 0; i--)
 		{
-			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
-			q_ptr->pval = get_species_num(current_floor_ptr, 2);
-			q_ptr->number = 1;
-			add_outfit(creature_ptr, q_ptr, 0);
+			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
+			quest_ptr->pval = get_species_num(current_floor_ptr, 2);
+			quest_ptr->number = 1;
+			add_outfit(creature_ptr, quest_ptr, 0);
 		}
 	}
 	else if(has_trait(creature_ptr, TRAIT_WATER_DRINKER))
 	{
 		/* Potions of Water */
-		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 23);
-		add_outfit(creature_ptr, q_ptr, 0);
+		object_prep(quest_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(15, 23);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	else if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
 		/* Flasks of oil */
-		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
+		object_prep(quest_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
 
 		/* Fuel with oil (move pval to xtra4) */
-		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART, 0);
-		q_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(creature_ptr, q_ptr, 0);
+		apply_magic(creature_ptr, quest_ptr, 1, AM_NO_FIXED_ART, 0);
+		quest_ptr->number = (byte)rand_range(7, 12);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 }
 
 static void deal_lite(creature_type *creature_ptr)
 {
-	object_type *q_ptr;
+	object_type *quest_ptr;
 	object_type forge;
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	if (has_trait(creature_ptr, TRAIT_HUMANOID))
 	{
 		if (has_trait(creature_ptr, TRAIT_VAMPIRE) && (creature_ptr->class_idx != CLASS_NINJA))
 		{
 			// Hack -- Give the player scrolls of DARKNESS!
-			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(2, 5);
-			add_outfit(creature_ptr, q_ptr, 0);
+			object_prep(quest_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
+			quest_ptr->number = (byte)rand_range(2, 5);
+			add_outfit(creature_ptr, quest_ptr, 0);
 		}
 
 		else if (creature_ptr->class_idx != CLASS_NINJA)
 		{
 			// Hack -- Give the player some torches
-			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(3, 7);
-			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
-			add_outfit(creature_ptr, q_ptr, 0);
+			object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
+			quest_ptr->number = (byte)rand_range(3, 7);
+			quest_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
+			add_outfit(creature_ptr, quest_ptr, 0);
 		}
 	}
 }
@@ -3573,7 +3573,7 @@ void deal_item(creature_type *creature_ptr)
 {
 	int tv, sv;
 	object_type	forge;
-	object_type	*q_ptr;
+	object_type	*quest_ptr;
 	int i, number;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	u32b mo_mode = 0L;
@@ -3596,13 +3596,13 @@ void deal_item(creature_type *creature_ptr)
 	// TODO Inventory Count
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/*
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(q_ptr, AM_UNCURSED, 0, object_level);
-		add_outfit(creature_ptr, q_ptr, 0);
+		make_object(quest_ptr, AM_UNCURSED, 0, object_level);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	*/
 
@@ -3653,66 +3653,66 @@ void deal_item(creature_type *creature_ptr)
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
-		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
 	{
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
-		object_prep(q_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		object_prep(quest_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	// Item depend on Class
 	if ((creature_ptr->class_idx == CLASS_RANGER) || (creature_ptr->class_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{
 		/* Hack -- Give the player some arrows */
-		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		object_prep(quest_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(15, 20);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	if (creature_ptr->class_idx == CLASS_RANGER)
 	{
-		q_ptr = &forge;
+		quest_ptr = &forge;
 		/* Hack -- Give the player some arrows */
-		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		object_prep(quest_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	else if (creature_ptr->class_idx == CLASS_ARCHER)
 	{
-		q_ptr = &forge;
+		quest_ptr = &forge;
 		/* Hack -- Give the player some arrows */
-		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		object_prep(quest_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(15, 20);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 	else if (creature_ptr->class_idx == CLASS_HIGH_MAGE)
 	{
 		/* Hack -- Give the player some arrows */
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
-		q_ptr->number = 1;
-		q_ptr->pval = (byte)rand_range(25, 30);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
+		quest_ptr->number = 1;
+		quest_ptr->pval = (byte)rand_range(25, 30);
 
-		add_outfit(creature_ptr, q_ptr, 0);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	else if (creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK + MAX_MAGIC - 1; i++)
 		{
-			q_ptr = &forge;
+			quest_ptr = &forge;
 			/* Hack -- Give the player some arrows */
-			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(1, creature_ptr->lev / 8);
-			add_outfit(creature_ptr, q_ptr, 0);
+			object_prep(quest_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
+			quest_ptr->number = (byte)rand_range(1, creature_ptr->lev / 8);
+			add_outfit(creature_ptr, quest_ptr, 0);
 
 		}
 	}
@@ -3720,56 +3720,56 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if (creature_ptr->chara_idx != CHARA_SEXY)
 		{
-			q_ptr = &forge;
+			quest_ptr = &forge;
 			/* Hack -- Give the player some arrows */
-			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(15, 20);
+			object_prep(quest_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
+			quest_ptr->number = (byte)rand_range(15, 20);
 
-			add_outfit(creature_ptr, q_ptr, 0);
+			add_outfit(creature_ptr, quest_ptr, 0);
 		}
 
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr, 0);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(2, 4);
+		add_outfit(creature_ptr, quest_ptr, 0);
 
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr, 0);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(2, 4);
+		add_outfit(creature_ptr, quest_ptr, 0);
 
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(1, 3);
-		add_outfit(creature_ptr, q_ptr, 0);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(1, 3);
+		add_outfit(creature_ptr, quest_ptr, 0);
 
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr, 0);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(2, 4);
+		add_outfit(creature_ptr, quest_ptr, 0);
 
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr, 0);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(2, 4);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	else if (creature_ptr->class_idx == CLASS_NINJA)
 	{
 		/* Hack -- Give the player some arrows */
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 20);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, q_ptr, 0);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	else if (creature_ptr->class_idx == CLASS_SNIPER)
 	{
 		/* Hack -- Give the player some bolts */
-		q_ptr = &forge;
-		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 20);
+		quest_ptr = &forge;
+		object_prep(quest_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		quest_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	/* Hack -- Give the player three useful objects */
@@ -3803,19 +3803,19 @@ void deal_item(creature_type *creature_ptr)
 			}
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Hack -- Give the player an object */
-			object_prep(q_ptr, lookup_kind(tv, sv), creature_ptr->size);
+			object_prep(quest_ptr, lookup_kind(tv, sv), creature_ptr->size);
 
 			/* Assassins begin the game with a poisoned dagger */
 			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE &&
 				creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
 			{
-				q_ptr->name2 = EGO_BRAND_POIS;
+				quest_ptr->name2 = EGO_BRAND_POIS;
 			}
 
-			add_outfit(creature_ptr, q_ptr, ADD_OUTFIT_EQUIP);
+			add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 		}
 	}
 

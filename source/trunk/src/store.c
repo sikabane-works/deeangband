@@ -2305,7 +2305,7 @@ static int store_replacement(store_type *st_ptr, int num)
 	int suc = 0;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 
 	/* Paranoia -- no room left */
@@ -2335,7 +2335,7 @@ static int store_replacement(store_type *st_ptr, int num)
 		}
 
 		/* Get local object */
-		q_ptr = &forge;
+		quest_ptr = &forge;
 
 		/* Set Standard Item Size */
 
@@ -2370,48 +2370,48 @@ static int store_replacement(store_type *st_ptr, int num)
 
 		size = 10;
 
-		object_prep(q_ptr, i, size);
+		object_prep(quest_ptr, i, size);
 
 		/* Create a new object of the chosen kind */
 
 		/* Apply some "low-level" magic (no artifacts) */
-		apply_magic(find_unique_instance(st_ptr->owner_id), q_ptr, level, AM_NO_FIXED_ART, 0);
+		apply_magic(find_unique_instance(st_ptr->owner_id), quest_ptr, level, AM_NO_FIXED_ART, 0);
 
 		/* Require valid object */
-		//if (!store_will_buy(st_ptr, NULL, q_ptr)) continue;
+		//if (!store_will_buy(st_ptr, NULL, quest_ptr)) continue;
 
 		/* Hack -- Charge lite's */
-		if (q_ptr->tval == TV_LITE)
+		if (quest_ptr->tval == TV_LITE)
 		{
-			if (q_ptr->sval == SV_LITE_TORCH) q_ptr->xtra4 = FUEL_TORCH / 2;
-			if (q_ptr->sval == SV_LITE_LANTERN) q_ptr->xtra4 = FUEL_LAMP / 2;
+			if (quest_ptr->sval == SV_LITE_TORCH) quest_ptr->xtra4 = FUEL_TORCH / 2;
+			if (quest_ptr->sval == SV_LITE_LANTERN) quest_ptr->xtra4 = FUEL_LAMP / 2;
 		}
 
 		/* The item is "known" */
-		object_known(q_ptr);
+		object_known(quest_ptr);
 
 		/* Mark it storebought */
-		q_ptr->ident |= IDENT_STORE;
+		quest_ptr->ident |= IDENT_STORE;
 
 		/* Mega-Hack -- no chests in stores */
-		if (q_ptr->tval == TV_CHEST) continue;
+		if (quest_ptr->tval == TV_CHEST) continue;
 
 		/* Prune the black market */
 		if (is_black_market(st_ptr))
 		{
 			// Hack -- No "crappy" items
-			if (black_market_crap(st_ptr, q_ptr)) continue;
+			if (black_market_crap(st_ptr, quest_ptr)) continue;
 
 			// Hack -- No "cheap" items
-			if (object_value(q_ptr) < 10) continue;
+			if (object_value(quest_ptr) < 10) continue;
 
 		}
 
 		/* Mass produce and/or Apply discount */
-		mass_produce(st_ptr, q_ptr);
+		mass_produce(st_ptr, quest_ptr);
 
 		/* Attempt to carry the (known) item */
-		(void)store_carry(st_ptr, q_ptr);
+		(void)store_carry(st_ptr, quest_ptr);
 		suc++;
 
 		/* Definitely done */
@@ -4045,7 +4045,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	s32b price, value, dummy;
 
 	object_type forge;
-	object_type *q_ptr;
+	object_type *quest_ptr;
 
 	object_type *o_ptr;
 
@@ -4149,13 +4149,13 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	}
 
 	/* Get local object */
-	q_ptr = &forge;
+	quest_ptr = &forge;
 
 	/* Get a copy of the object */
-	object_copy(q_ptr, o_ptr);
+	object_copy(quest_ptr, o_ptr);
 
 	/* Modify quantity */
-	q_ptr->number = amt;
+	quest_ptr->number = amt;
 
 	/*
 	 * Hack -- If a rod or wand, allocate total maximum
@@ -4163,21 +4163,21 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	 */
 	if ((o_ptr->tval == TV_ROD) || (o_ptr->tval == TV_WAND))
 	{
-		q_ptr->pval = o_ptr->pval * amt / o_ptr->number;
+		quest_ptr->pval = o_ptr->pval * amt / o_ptr->number;
 	}
 
 	/* Get a full description */
-	object_desc(o_name, q_ptr, 0);
+	object_desc(o_name, quest_ptr, 0);
 
 	/* Remove any inscription, feeling for stores */
 	if (!is_home(st_ptr) && !is_museum(st_ptr))
 	{
-		q_ptr->inscription = 0;
-		q_ptr->feeling = FEEL_NONE;
+		quest_ptr->inscription = 0;
+		quest_ptr->feeling = FEEL_NONE;
 	}
 
 	/* Is there room in the store (or the home?) */
-	if (!store_check_num(st_ptr, q_ptr))
+	if (!store_check_num(st_ptr, quest_ptr))
 	{
 		if (is_home(st_ptr))
 #ifdef JP
@@ -4217,7 +4217,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		msg_print(NULL);
 
 		/* Haggle for it */
-		choice = sell_haggle(st_ptr, creature_ptr, q_ptr, &price);
+		choice = sell_haggle(st_ptr, creature_ptr, quest_ptr, &price);
 
 		/* Kicked out */
 		if (st_ptr->store_open >= turn) return;
@@ -4240,22 +4240,22 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			store_prt_gold(creature_ptr);
 
 			/* Get the "apparent" value */
-			dummy = object_value(q_ptr) * q_ptr->number;
+			dummy = object_value(quest_ptr) * quest_ptr->number;
 
 			/* Identify it */
 			identify_item(creature_ptr, o_ptr);
 
 			/* Get local object */
-			q_ptr = &forge;
+			quest_ptr = &forge;
 
 			/* Get a copy of the object */
-			object_copy(q_ptr, o_ptr);
+			object_copy(quest_ptr, o_ptr);
 
 			/* Modify quantity */
-			q_ptr->number = amt;
+			quest_ptr->number = amt;
 
 			/* Make it look like to be known */
-			q_ptr->ident |= IDENT_STORE;
+			quest_ptr->ident |= IDENT_STORE;
 
 			/*
 			 * Hack -- If a rod or wand, let the shopkeeper know just
@@ -4263,14 +4263,14 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			 */
 			if ((o_ptr->tval == TV_ROD) || (o_ptr->tval == TV_WAND))
 			{
-				q_ptr->pval = o_ptr->pval * amt / o_ptr->number;
+				quest_ptr->pval = o_ptr->pval * amt / o_ptr->number;
 			}
 
 			/* Get the "actual" value */
-			value = object_value(q_ptr) * q_ptr->number;
+			value = object_value(quest_ptr) * quest_ptr->number;
 
 			/* Get the description all over again */
-			object_desc(o_name, q_ptr, 0);
+			object_desc(o_name, quest_ptr, 0);
 
 			/* Describe the result (in message buffer) */
 #ifdef JP
@@ -4291,10 +4291,10 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			 * Hack -- Allocate charges between those wands or rods sold
 			 * and retained, unless all are being sold. -LM-
 			 */
-			distribute_charges(o_ptr, q_ptr, amt);
+			distribute_charges(o_ptr, quest_ptr, amt);
 
 			/* Reset timeouts of the sold items */
-			q_ptr->timeout = 0;
+			quest_ptr->timeout = 0;
 
 			/* Take the item from the player, describe the result */
 			inven_item_increase(creature_ptr, item, -amt);
@@ -4310,7 +4310,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			handle_stuff();
 
 			/* The store gets that (known) item */
-			item_pos = store_carry(st_ptr, q_ptr);
+			item_pos = store_carry(st_ptr, quest_ptr);
 
 			/* Re-display if item is now in store */
 			if (item_pos >= 0)
@@ -4325,9 +4325,9 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 	else if (is_museum(st_ptr))
 	{
 		char o2_name[MAX_NLEN];
-		object_desc(o2_name, q_ptr, OD_NAME_ONLY);
+		object_desc(o2_name, quest_ptr, OD_NAME_ONLY);
 
-		if (-1 == store_check_num(st_ptr, q_ptr))
+		if (-1 == store_check_num(st_ptr, quest_ptr))
 		{
 #ifdef JP
 			msg_print("‚»‚ê‚Æ“¯‚¶•i•¨‚ÍŠù‚É”Ž•¨ŠÙ‚É‚ ‚é‚æ‚¤‚Å‚·B");
@@ -4350,11 +4350,11 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 #endif
 
 		/* Identify it */
-		identify_item(creature_ptr, q_ptr);
-		q_ptr->ident |= IDENT_MENTAL;
+		identify_item(creature_ptr, quest_ptr);
+		quest_ptr->ident |= IDENT_MENTAL;
 
 		/* Distribute charges of wands/rods */
-		distribute_charges(o_ptr, q_ptr, amt);
+		distribute_charges(o_ptr, quest_ptr, amt);
 
 		/* Describe */
 #ifdef JP
@@ -4374,7 +4374,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
+		item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
@@ -4387,7 +4387,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 	else
 	{
 		/* Distribute charges of wands/rods */
-		distribute_charges(o_ptr, q_ptr, amt);
+		distribute_charges(o_ptr, quest_ptr, amt);
 
 		/* Describe */
 #ifdef JP
@@ -4407,7 +4407,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		handle_stuff();
 
 		/* Let the home carry it */
-		item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
+		item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
 
 		/* Update store display */
 		if (item_pos >= 0)
@@ -5274,7 +5274,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				int item_pos;
 
 				object_type forge;
-				object_type *q_ptr;
+				object_type *quest_ptr;
 
 				char o_name[MAX_NLEN];
 
@@ -5288,13 +5288,13 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 
 				/* Get local object */
-				q_ptr = &forge;
+				quest_ptr = &forge;
 
 				/* Grab a copy of the item */
-				object_copy(q_ptr, o_ptr);
+				object_copy(quest_ptr, o_ptr);
 
 				/* Describe it */
-				object_desc(o_name, q_ptr, 0);
+				object_desc(o_name, quest_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -5313,7 +5313,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				handle_stuff();
 
 				/* Let the home carry it */
-				item_pos = home_carry(creature_ptr, st_ptr, q_ptr);
+				item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
 
 				/* Redraw the home */
 				if (item_pos >= 0)

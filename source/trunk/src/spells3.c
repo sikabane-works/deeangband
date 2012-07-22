@@ -5594,16 +5594,16 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 				if ((o_ptr->tval == TV_STAFF) && (item >= 0) && (o_ptr->number > 1))
 				{
 					object_type forge;
-					object_type *q_ptr;
+					object_type *quest_ptr;
 
 					/* Get local object */
-					q_ptr = &forge;
+					quest_ptr = &forge;
 
 					/* Obtain a local object */
-					object_copy(q_ptr, o_ptr);
+					object_copy(quest_ptr, o_ptr);
 
 					/* Modify quantity */
-					q_ptr->number = 1;
+					quest_ptr->number = 1;
 
 					/* Restore the charges */
 					o_ptr->pval++;
@@ -5611,7 +5611,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 					/* Unstack the used item */
 					o_ptr->number--;
 					set_inventory_weight(creature_ptr);
-					item = inven_carry(creature_ptr, q_ptr);
+					item = inven_carry(creature_ptr, quest_ptr);
 
 					/* Message */
 #ifdef JP
