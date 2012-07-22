@@ -6496,26 +6496,26 @@ static errr parse_line_building(char *buf)
 static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	// Get new object
 	s16b object_idx = object_pop();
 
 	// Access new object
-	o_ptr = &object_list[object_idx];
+	object_ptr = &object_list[object_idx];
 
 	// Structure copy
-	object_copy(o_ptr, j_ptr);
+	object_copy(object_ptr, j_ptr);
 
 	// Locate
-	o_ptr->fy = y;
-	o_ptr->fx = x;
+	object_ptr->fy = y;
+	object_ptr->fx = x;
 
 	// No creature
-	o_ptr->held_m_idx = 0;
+	object_ptr->held_m_idx = 0;
 
 	// Build a stack
-	o_ptr->next_object_idx = c_ptr->object_idx;
+	object_ptr->next_object_idx = c_ptr->object_idx;
 
 	// Place the object
 	c_ptr->object_idx = object_idx;
@@ -6692,22 +6692,22 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			else if (object_index)
 			{
 				/* Get local object */
-				object_type *o_ptr = &object_type_body;
+				object_type *object_ptr = &object_type_body;
 
 				/* Create the item */
-				object_prep(o_ptr, object_index, ITEM_FREE_SIZE);
+				object_prep(object_ptr, object_index, ITEM_FREE_SIZE);
 
-				if (o_ptr->tval == TV_GOLD)
+				if (object_ptr->tval == TV_GOLD)
 				{
 					coin_type = object_index - OBJ_GOLD_LIST;
-					make_gold(floor_ptr, o_ptr, letter[idx].special);
+					make_gold(floor_ptr, object_ptr, letter[idx].special);
 					coin_type = 0;
 				}
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(player_ptr, o_ptr, floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(player_ptr, object_ptr, floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
-				drop_here(floor_ptr, o_ptr, *y, *x);
+				drop_here(floor_ptr, object_ptr, *y, *x);
 			}
 
 			/* Artifact */

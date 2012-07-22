@@ -1038,10 +1038,10 @@ static cptr *spoiler_flag_aux(const u32b art_flags[TR_FLAG_SIZE],
 /*
  * Acquire a "basic" description "The Cloak of Death [1,+10]"
  */
-static void analyze_general(object_type *o_ptr, char *desc_ptr)
+static void analyze_general(object_type *object_ptr, char *desc_ptr)
 {
 	/* Get a "useful" description of the object */
-	object_desc(desc_ptr, o_ptr, (OD_NAME_AND_ENCHANT | OD_STORE));
+	object_desc(desc_ptr, object_ptr, (OD_NAME_AND_ENCHANT | OD_STORE));
 }
 
 
@@ -1049,14 +1049,14 @@ static void analyze_general(object_type *o_ptr, char *desc_ptr)
  * List "player traits_precondition" altered by an artifact's pval. These include stats,
  * speed, infravision, tunneling, stealth, searching, and extra attacks.
  */
-static void analyze_pval(object_type *o_ptr, pval_info_type *pval_ptr)
+static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	cptr *affects_list;
 
 	/* If pval == 0, there is nothing to do. */
-	if (!o_ptr->pval)
+	if (!object_ptr->pval)
 	{
 		/* An "empty" pval description indicates that pval == 0 */
 		pval_ptr->pval_desc[0] = '\0';
@@ -1064,12 +1064,12 @@ static void analyze_pval(object_type *o_ptr, pval_info_type *pval_ptr)
 	}
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	affects_list = pval_ptr->pval_affects;
 
 	/* Create the "+N" string */
-	sprintf(pval_ptr->pval_desc, "%s%d", POSITIZE(o_ptr->pval), o_ptr->pval);
+	sprintf(pval_ptr->pval_desc, "%s%d", POSITIZE(object_ptr->pval), object_ptr->pval);
 
 	/* First, check to see if the pval affects all stats */
 	if (have_flag(flgs, TR_STR) && have_flag(flgs, TR_INT) &&
@@ -1104,11 +1104,11 @@ static void analyze_pval(object_type *o_ptr, pval_info_type *pval_ptr)
 
 
 /* Note the slaying specialties of a weapon */
-static void analyze_slay(object_type *o_ptr, cptr *slay_list)
+static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	slay_list = spoiler_flag_aux(flgs, slay_flags_desc, slay_list,
 				     N_ELEMENTS(slay_flags_desc));
@@ -1118,11 +1118,11 @@ static void analyze_slay(object_type *o_ptr, cptr *slay_list)
 }
 
 /* Note an object's elemental brands */
-static void analyze_brand(object_type *o_ptr, cptr *brand_list)
+static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	brand_list = spoiler_flag_aux(flgs, brand_flags_desc, brand_list,
 				      N_ELEMENTS(brand_flags_desc));
@@ -1133,11 +1133,11 @@ static void analyze_brand(object_type *o_ptr, cptr *brand_list)
 
 
 /* Note the resistances granted by an object */
-static void analyze_resist(object_type *o_ptr, cptr *resist_list)
+static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	resist_list = spoiler_flag_aux(flgs, resist_flags_desc,
 				       resist_list, N_ELEMENTS(resist_flags_desc));
@@ -1148,11 +1148,11 @@ static void analyze_resist(object_type *o_ptr, cptr *resist_list)
 
 
 /* Note the immunities granted by an object */
-static void analyze_immune(object_type *o_ptr, cptr *immune_list)
+static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	immune_list = spoiler_flag_aux(flgs, immune_flags_desc,
 				       immune_list, N_ELEMENTS(immune_flags_desc));
@@ -1163,11 +1163,11 @@ static void analyze_immune(object_type *o_ptr, cptr *immune_list)
 
 
 /* Note which stats an object sustains */
-static void analyze_sustains(object_type *o_ptr, cptr *sustain_list)
+static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Simplify things if an item sustains all stats */
 	if (have_flag(flgs, TR_SUST_STR) && have_flag(flgs, TR_SUST_INT) &&
@@ -1200,11 +1200,11 @@ static void analyze_sustains(object_type *o_ptr, cptr *sustain_list)
  * Note miscellaneous powers bestowed by an artifact such as see invisible,
  * free action, permanent light, etc.
  */
-static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
+static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	misc_list = spoiler_flag_aux(flgs, misc_flags2_desc, misc_list,
 				     N_ELEMENTS(misc_flags2_desc));
@@ -1215,7 +1215,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 	/*
 	 * Artifact lights -- large radius light.
 	 */
-	if ((o_ptr->tval == TV_LITE) && object_is_fixed_artifact(o_ptr))
+	if ((object_ptr->tval == TV_LITE) && object_is_fixed_artifact(object_ptr))
 	{
 #ifdef JP
 		*misc_list++ = "‰i‹vŒõŒ¹(”¼Œa3)";
@@ -1242,7 +1242,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 	 * being "lightly cursed".
 	 */
 
-/*	if (object_is_cursed(o_ptr)) */
+/*	if (object_is_cursed(object_ptr)) */
 	{
 		if (have_flag(flgs, TR_TY_CURSE))
 		{
@@ -1252,7 +1252,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 			*misc_list++ = "Ancient Curse";
 #endif
 		}
-		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
+		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 #ifdef JP
 			*misc_list++ = "_ˆæ‚ÌŽô‚¢";
@@ -1260,7 +1260,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 			*misc_list++ = "Divinely Cursed";
 #endif
 		}
-		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
+		else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
 		{
 #ifdef JP
 			*misc_list++ = "‹­—Í‚ÈŽô‚¢";
@@ -1269,7 +1269,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 #endif
 		}
 /*		else */
-		else if (o_ptr->curse_flags & TRC_CURSED)
+		else if (object_ptr->curse_flags & TRC_CURSED)
 		{
 #ifdef JP
 			*misc_list++ = "Žô‚¢";
@@ -1287,9 +1287,9 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 /*
  * Note additional ability and/or resistance of fixed artifacts
  */
-static void analyze_addition(object_type *o_ptr, char *addition)
+static void analyze_addition(object_type *object_ptr, char *addition)
 {
-	artifact_type *a_ptr = &artifact_info[o_ptr->name1];
+	artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
 	/* Init */
 	strcpy(addition, "");
@@ -1328,12 +1328,12 @@ static void analyze_addition(object_type *o_ptr, char *addition)
  * Determine the minimum depth an artifact can appear, its rarity, its weight,
  * and its value in gold pieces
  */
-static void analyze_misc(object_type *o_ptr, char *misc_desc)
+static void analyze_misc(object_type *object_ptr, char *misc_desc)
 {
 	char buf[80];
-	artifact_type *a_ptr = &artifact_info[o_ptr->name1];
+	artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
-	format_weight(buf, o_ptr->weight);
+	format_weight(buf, object_ptr->weight);
 
 #ifdef JP
 	sprintf(misc_desc, "ƒŒƒxƒ‹ %u, Šó­“x %u, %s, %ld",
@@ -1348,19 +1348,19 @@ static void analyze_misc(object_type *o_ptr, char *misc_desc)
 /*
  * Fill in an object description structure for a given object
  */
-static void object_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
+static void object_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
 {
-	analyze_general(o_ptr, desc_ptr->description);
-	analyze_pval(o_ptr, &desc_ptr->pval_info);
-	analyze_brand(o_ptr, desc_ptr->brands);
-	analyze_slay(o_ptr, desc_ptr->slays);
-	analyze_immune(o_ptr, desc_ptr->immunities);
-	analyze_resist(o_ptr, desc_ptr->resistances);
-	analyze_sustains(o_ptr, desc_ptr->sustains);
-	analyze_misc_magic(o_ptr, desc_ptr->misc_magic);
-	analyze_addition(o_ptr, desc_ptr->addition);
-	analyze_misc(o_ptr, desc_ptr->misc_desc);
-	desc_ptr->activation = item_activation(o_ptr);
+	analyze_general(object_ptr, desc_ptr->description);
+	analyze_pval(object_ptr, &desc_ptr->pval_info);
+	analyze_brand(object_ptr, desc_ptr->brands);
+	analyze_slay(object_ptr, desc_ptr->slays);
+	analyze_immune(object_ptr, desc_ptr->immunities);
+	analyze_resist(object_ptr, desc_ptr->resistances);
+	analyze_sustains(object_ptr, desc_ptr->sustains);
+	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
+	analyze_addition(object_ptr, desc_ptr->addition);
+	analyze_misc(object_ptr, desc_ptr->misc_desc);
+	desc_ptr->activation = item_activation(object_ptr);
 }
 
 
@@ -1574,7 +1574,7 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 /*
  * Hack -- Create a "forged" artifact
  */
-static bool make_fake_artifact(object_type *o_ptr, int name1)
+static bool make_fake_artifact(object_type *object_ptr, int name1)
 {
 	int i;
 
@@ -1591,22 +1591,22 @@ static bool make_fake_artifact(object_type *o_ptr, int name1)
 	if (!i) return (FALSE);
 
 	/* Create the artifact */
-	object_prep(o_ptr, i, ITEM_FREE_SIZE);
+	object_prep(object_ptr, i, ITEM_FREE_SIZE);
 
 	/* Save the name */
-	o_ptr->name1 = name1;
+	object_ptr->name1 = name1;
 
 	/* Extract the fields */
-	o_ptr->pval = a_ptr->pval;
-	o_ptr->ac = a_ptr->ac;
-	o_ptr->ev = a_ptr->ev;
-	o_ptr->dd = a_ptr->dd;
-	o_ptr->ds = a_ptr->ds;
-	o_ptr->to_ac = a_ptr->to_ac;
-	o_ptr->to_ev = a_ptr->to_ev;
-	o_ptr->to_hit = a_ptr->to_hit;
-	o_ptr->to_damage = a_ptr->to_damage;
-	o_ptr->weight = a_ptr->weight;
+	object_ptr->pval = a_ptr->pval;
+	object_ptr->ac = a_ptr->ac;
+	object_ptr->ev = a_ptr->ev;
+	object_ptr->dd = a_ptr->dd;
+	object_ptr->ds = a_ptr->ds;
+	object_ptr->to_ac = a_ptr->to_ac;
+	object_ptr->to_ev = a_ptr->to_ev;
+	object_ptr->to_hit = a_ptr->to_hit;
+	object_ptr->to_damage = a_ptr->to_damage;
+	object_ptr->weight = a_ptr->weight;
 
 	/* Success */
 	return (TRUE);
@@ -2759,20 +2759,20 @@ void do_cmd_spoilers(void)
 /*
  * Fill in an object description structure for a given object
  */
-static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
+static void random_artifact_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
 {
 	char buf[80];
-	format_weight(buf, o_ptr->weight);
+	format_weight(buf, object_ptr->weight);
 
-	analyze_general(o_ptr, desc_ptr->description);
-	analyze_pval(o_ptr, &desc_ptr->pval_info);
-	analyze_brand(o_ptr, desc_ptr->brands);
-	analyze_slay(o_ptr, desc_ptr->slays);
-	analyze_immune(o_ptr, desc_ptr->immunities);
-	analyze_resist(o_ptr, desc_ptr->resistances);
-	analyze_sustains(o_ptr, desc_ptr->sustains);
-	analyze_misc_magic(o_ptr, desc_ptr->misc_magic);
-	desc_ptr->activation = item_activation(o_ptr);
+	analyze_general(object_ptr, desc_ptr->description);
+	analyze_pval(object_ptr, &desc_ptr->pval_info);
+	analyze_brand(object_ptr, desc_ptr->brands);
+	analyze_slay(object_ptr, desc_ptr->slays);
+	analyze_immune(object_ptr, desc_ptr->immunities);
+	analyze_resist(object_ptr, desc_ptr->resistances);
+	analyze_sustains(object_ptr, desc_ptr->sustains);
+	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
+	desc_ptr->activation = item_activation(object_ptr);
 #ifdef JP
 	sprintf(desc_ptr->misc_desc, "d‚³ %s", buf);
 #else
@@ -2782,7 +2782,7 @@ static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
 
 /* Create a spoiler file entry for an artifact */
 
-static void spoiler_print_randart(object_type *o_ptr, obj_desc_list *art_ptr)
+static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_ptr)
 {
 	pval_info_type *pval_ptr = &art_ptr->pval_info;
 
@@ -2792,7 +2792,7 @@ static void spoiler_print_randart(object_type *o_ptr, obj_desc_list *art_ptr)
 	fprintf(fff, "%s\n", art_ptr->description);
 	
 	/* unidentified */
-	if (!(o_ptr->ident & (IDENT_MENTAL)))
+	if (!(object_ptr->ident & (IDENT_MENTAL)))
 	{
 #ifdef JP
 		fprintf(fff, "%s•s–¾\n",INDENT1);
@@ -2846,19 +2846,19 @@ static void spoiler_print_randart(object_type *o_ptr, obj_desc_list *art_ptr)
 
 /* Create a part of file for random artifacts */
 
-static void spoil_random_artifact_aux(object_type *o_ptr, int i)
+static void spoil_random_artifact_aux(object_type *object_ptr, int i)
 {
 	obj_desc_list artifact;
 
-	if (!object_is_known(o_ptr) || !o_ptr->art_name
-		|| o_ptr->tval != group_artifact[i].tval)
+	if (!object_is_known(object_ptr) || !object_ptr->art_name
+		|| object_ptr->tval != group_artifact[i].tval)
 		return;
 
 	/* Analyze the artifact */
-	random_artifact_analyze(o_ptr, &artifact);
+	random_artifact_analyze(object_ptr, &artifact);
 
 	/* Write out the artifact description to the spoiler file */
-	spoiler_print_randart(o_ptr, &artifact);
+	spoiler_print_randart(object_ptr, &artifact);
 }
 
 /*

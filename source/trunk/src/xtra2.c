@@ -2260,16 +2260,16 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	/* Scan all objects in the grid */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Memorized object */
-		if (o_ptr->marked & OM_FOUND) return (TRUE);
+		if (object_ptr->marked & OM_FOUND) return (TRUE);
 	}
 
 	/* Interesting memorized features */
@@ -2647,13 +2647,13 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			{
 				char o_name[MAX_NLEN];
 
-				object_type *o_ptr;
+				object_type *object_ptr;
 
 				/* Acquire object */
-				o_ptr = &object_list[floor_list[0]];
+				object_ptr = &object_list[floor_list[0]];
 
 				/* Describe the object */
-				object_desc(o_name, o_ptr, 0);
+				object_desc(o_name, object_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -2766,17 +2766,17 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
 
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Describe it */
-		if (o_ptr->marked & OM_FOUND)
+		if (object_ptr->marked & OM_FOUND)
 		{
 			char o_name[MAX_NLEN];
 
@@ -2784,7 +2784,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			boring = FALSE;
 
 			/* Obtain an object description */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(o_name, object_ptr, 0);
 
 			/* Describe the object */
 #ifdef JP
@@ -2813,9 +2813,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 			/* Plurals */
 #ifdef JP
-			if (o_ptr->number != 1) s1 = "‚»‚ê‚ç‚Í";
+			if (object_ptr->number != 1) s1 = "‚»‚ê‚ç‚Í";
 #else
-			if (o_ptr->number != 1) s1 = "They are ";
+			if (object_ptr->number != 1) s1 = "They are ";
 #endif
 
 

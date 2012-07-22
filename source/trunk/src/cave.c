@@ -605,16 +605,16 @@ bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 	/* Check objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Forbid artifact grids */
-		if (object_is_artifact(o_ptr)) return (FALSE);
+		if (object_is_artifact(object_ptr)) return (FALSE);
 	}
 
 	/* Accept */
@@ -1173,22 +1173,22 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	/* Objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Memorized objects */
-		if (o_ptr->marked & OM_FOUND)
+		if (object_ptr->marked & OM_FOUND)
 		{
 			if (display_autopick)
 			{
 				byte act;
 
-				match_autopick = is_autopick(watcher_ptr, o_ptr);
+				match_autopick = is_autopick(watcher_ptr, object_ptr);
 				if(match_autopick == -1)
 					continue;
 
@@ -1196,7 +1196,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 
 				if ((act & DO_DISPLAY) && (act & display_autopick))
 				{
-					autopick_obj = o_ptr;
+					autopick_obj = object_ptr;
 				}
 				else
 				{
@@ -1205,10 +1205,10 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				}
 			}
 			/* Normal char */
-			(*cp) = object_char(o_ptr);
+			(*cp) = object_char(object_ptr);
 
 			/* Normal attr */
-			(*ap) = object_attr(o_ptr);
+			(*ap) = object_attr(object_ptr);
 
 			feat_priority = 20;
 
@@ -1488,13 +1488,13 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 	/* Hack -- memorize objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr = &object_list[this_object_idx];
+		object_type *object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Memorize objects */
-		o_ptr->marked |= OM_FOUND;
+		object_ptr->marked |= OM_FOUND;
 	}
 
 
@@ -1829,15 +1829,15 @@ static cptr simplify_list[][2] =
 #endif
 };
 
-static void display_shortened_item_name(creature_type *watcher_ptr, object_type *o_ptr, int y)
+static void display_shortened_item_name(creature_type *watcher_ptr, object_type *object_ptr, int y)
 {
 	char buf[MAX_NLEN];
 	char *c = buf;
 	int len = 0;
 	byte attr;
 
-	object_desc(buf, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
-	attr = tval_to_acttr[o_ptr->tval % 128];
+	object_desc(buf, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
+	attr = tval_to_acttr[object_ptr->tval % 128];
 
 	if (IS_HALLUCINATION(watcher_ptr))
 	{
@@ -4390,16 +4390,16 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	/* Memorize objects */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip held objects */
-		if (o_ptr->held_m_idx) continue;
+		if (object_ptr->held_m_idx) continue;
 
 		/* Memorize */
-		o_ptr->marked |= OM_FOUND;
+		object_ptr->marked |= OM_FOUND;
 	}
 
 	/* Scan all normal grids */
@@ -4510,16 +4510,16 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	/* Forget all objects */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip held objects */
-		if (o_ptr->held_m_idx) continue;
+		if (object_ptr->held_m_idx) continue;
 
 		/* Forget the object */
-		o_ptr->marked &= OM_TOUCHED;
+		object_ptr->marked &= OM_TOUCHED;
 	}
 
 	/* Mega-Hack -- Forget the view and lite */

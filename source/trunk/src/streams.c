@@ -271,21 +271,21 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					/* Acquire object */
-					object_type *o_ptr = &object_list[this_object_idx];
+					object_type *object_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_object_idx = o_ptr->next_object_idx;
+					next_object_idx = object_ptr->next_object_idx;
 
 					/* Hack -- Preserve unknown artifacts */
-					if (object_is_fixed_artifact(o_ptr))
+					if (object_is_fixed_artifact(object_ptr))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						artifact_info[o_ptr->name1].cur_num = 0;
+						artifact_info[object_ptr->name1].cur_num = 0;
 
 						if (cheat_peek)
 						{
 							char o_name[MAX_NLEN];
-							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+							object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 #ifdef JP
 							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", o_name);
 #else
@@ -293,7 +293,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 #endif
 						}
 					}
-					else if (cheat_peek && o_ptr->art_name)
+					else if (cheat_peek && object_ptr->art_name)
 					{
 #ifdef JP
 						msg_print("ランダム・アーティファクトの1つはストリーマーにより削除された。");

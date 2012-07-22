@@ -572,18 +572,18 @@ void teleport_away_followable(creature_type *creature_ptr)
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
-			object_type *o_ptr;
+			object_type *object_ptr;
 			int i;
 
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
-				o_ptr = &creature_ptr->inventory[i];
+				object_ptr = &creature_ptr->inventory[i];
 
-				if(!IS_EQUIPPED(o_ptr)) continue;
+				if(!IS_EQUIPPED(object_ptr)) continue;
 
-				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
+				if (object_ptr->k_idx && !object_is_cursed(object_ptr))
 				{
-					object_flags(o_ptr, flgs);
+					object_flags(object_ptr, flgs);
 					if (have_flag(flgs, TR_TELEPORT))
 					{
 						follow = TRUE;
@@ -1064,7 +1064,7 @@ msg_format("%sの帰還レベルを %d 階にセット。", dungeon_name + dungeon_info[selec
 bool apply_disenchant(creature_type *creature_ptr, int mode)
 {
 	int             t = 0, item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	int to_hit, to_damage, to_ac, pval;
 
@@ -1073,19 +1073,19 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	item = randint1(INVEN_TOTAL);
 
 	// Get the item
-	o_ptr = &creature_ptr->inventory[item];
+	object_ptr = &creature_ptr->inventory[item];
 
-	if(!IS_EQUIPPED(o_ptr)) return FALSE;
+	if(!IS_EQUIPPED(object_ptr)) return FALSE;
 
 	/* No item, nothing happens */
-	if (!o_ptr->k_idx) return (FALSE);
+	if (!object_ptr->k_idx) return (FALSE);
 
 	/* Disenchant equipments only -- No disenchant on creature ball */
-	if (!object_is_weapon_armour_ammo(o_ptr))
+	if (!object_is_weapon_armour_ammo(object_ptr))
 		return FALSE;
 
 	/* Nothing to disenchant */
-	if ((o_ptr->to_hit <= 0) && (o_ptr->to_damage <= 0) && (o_ptr->to_ac <= 0) && (o_ptr->pval <= 1))
+	if ((object_ptr->to_hit <= 0) && (object_ptr->to_damage <= 0) && (object_ptr->to_ac <= 0) && (object_ptr->pval <= 1))
 	{
 		/* Nothing to notice */
 		return (FALSE);
@@ -1093,11 +1093,11 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 
 
 	/* Describe the object */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 
 	/* Artifacts have 71% chance to resist */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 71))
+	if (object_is_artifact(object_ptr) && (randint0(100) < 71))
 	{
 		/* Message */
 #ifdef JP
@@ -1105,7 +1105,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 #else
 		msg_format("Your %s (%c) resist%s disenchantment!",
 			   o_name, index_to_label(t),
-			   ((o_ptr->number != 1) ? "" : "s"));
+			   ((object_ptr->number != 1) ? "" : "s"));
 #endif
 
 
@@ -1115,29 +1115,29 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 
 
 	/* Memorize old value */
-	to_hit = o_ptr->to_hit;
-	to_damage = o_ptr->to_damage;
-	to_ac = o_ptr->to_ac;
-	pval = o_ptr->pval;
+	to_hit = object_ptr->to_hit;
+	to_damage = object_ptr->to_damage;
+	to_ac = object_ptr->to_ac;
+	pval = object_ptr->pval;
 
 	/* Disenchant tohit */
-	if (o_ptr->to_hit > 0) o_ptr->to_hit--;
-	if ((o_ptr->to_hit > 5) && (randint0(100) < 20)) o_ptr->to_hit--;
+	if (object_ptr->to_hit > 0) object_ptr->to_hit--;
+	if ((object_ptr->to_hit > 5) && (randint0(100) < 20)) object_ptr->to_hit--;
 
 	/* Disenchant todam */
-	if (o_ptr->to_damage > 0) o_ptr->to_damage--;
-	if ((o_ptr->to_damage > 5) && (randint0(100) < 20)) o_ptr->to_damage--;
+	if (object_ptr->to_damage > 0) object_ptr->to_damage--;
+	if ((object_ptr->to_damage > 5) && (randint0(100) < 20)) object_ptr->to_damage--;
 
 	/* Disenchant toac */
-	if (o_ptr->to_ac > 0) o_ptr->to_ac--;
-	if ((o_ptr->to_ac > 5) && (randint0(100) < 20)) o_ptr->to_ac--;
+	if (object_ptr->to_ac > 0) object_ptr->to_ac--;
+	if ((object_ptr->to_ac > 5) && (randint0(100) < 20)) object_ptr->to_ac--;
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
-	if ((o_ptr->pval > 1) && one_in_(13) && !(mode & 0x01)) o_ptr->pval--;
+	if ((object_ptr->pval > 1) && one_in_(13) && !(mode & 0x01)) object_ptr->pval--;
 
-	if ((to_hit != o_ptr->to_hit) || (to_damage != o_ptr->to_damage) ||
-	    (to_ac != o_ptr->to_ac) || (pval != o_ptr->pval))
+	if ((to_hit != object_ptr->to_hit) || (to_damage != object_ptr->to_damage) ||
+	    (to_ac != object_ptr->to_ac) || (pval != object_ptr->pval))
 	{
 		/* Message */
 #ifdef JP
@@ -1146,7 +1146,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 #else
 		msg_format("Your %s (%c) %s disenchanted!",
 			   o_name, index_to_label(t),
-			   ((o_ptr->number != 1) ? "were" : "was"));
+			   ((object_ptr->number != 1) ? "were" : "was"));
 #endif
 
 		/* Recalculate bonuses */
@@ -1260,16 +1260,16 @@ msg_print("体がねじれ始めた...");
 void phlogiston(creature_type *creature_ptr)
 {
 	int max_flog = 0;
-	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 	/* It's a lamp */
-	if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_LANTERN))
+	if ((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN))
 	{
 		max_flog = FUEL_LAMP;
 	}
 
 	/* It's a torch */
-	else if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_TORCH))
+	else if ((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH))
 	{
 		max_flog = FUEL_TORCH;
 	}
@@ -1286,7 +1286,7 @@ msg_print("燃素を消費するアイテムを装備していません。");
 		return;
 	}
 
-	if (o_ptr->xtra4 >= max_flog)
+	if (object_ptr->xtra4 >= max_flog)
 	{
 #ifdef JP
 msg_print("このアイテムにはこれ以上燃素を補充できません。");
@@ -1298,7 +1298,7 @@ msg_print("このアイテムにはこれ以上燃素を補充できません。");
 	}
 
 	/* Refuel */
-	o_ptr->xtra4 += (max_flog / 2);
+	object_ptr->xtra4 += (max_flog / 2);
 
 	/* Message */
 #ifdef JP
@@ -1309,9 +1309,9 @@ msg_print("照明用アイテムに燃素を補充した。");
 
 
 	/* Comment */
-	if (o_ptr->xtra4 >= max_flog)
+	if (object_ptr->xtra4 >= max_flog)
 	{
-		o_ptr->xtra4 = max_flog;
+		object_ptr->xtra4 = max_flog;
 #ifdef JP
 msg_print("照明用アイテムは満タンになった。");
 #else
@@ -1329,7 +1329,7 @@ msg_print("照明用アイテムは満タンになった。");
 void brand_weapon(creature_type *creature_ptr, int brand_type)
 {
 	int         item;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	cptr        q, s;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -1348,35 +1348,35 @@ s = "強化できる武器がない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
 	/* TY: You _can_ modify broken items (if you're silly enough) */
-	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
-	    !object_is_cursed(o_ptr) &&
-	    !((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) &&
-	    !((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) &&
-	    !((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)))
+	if (object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) &&
+	    !object_is_cursed(object_ptr) &&
+	    !((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI)) &&
+	    !((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_DEATH_SCYTHE)) &&
+	    !((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)))
 	{
 		cptr act = NULL;
 
 		/* Let's get the name before it is changed... */
 		char o_name[MAX_NLEN];
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		switch (brand_type)
 		{
 		case 17:
-			if (o_ptr->tval == TV_SWORD)
+			if (object_ptr->tval == TV_SWORD)
 			{
 #ifdef JP
 act = "は鋭さを増した！";
@@ -1384,11 +1384,11 @@ act = "は鋭さを増した！";
 				act = "becomes very sharp!";
 #endif
 
-				o_ptr->name2 = EGO_SHARPNESS;
-				o_ptr->pval = m_bonus(5, floor_ptr->floor_level) + 1;
+				object_ptr->name2 = EGO_SHARPNESS;
+				object_ptr->pval = m_bonus(5, floor_ptr->floor_level) + 1;
 
-				if ((o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2))
-					o_ptr->pval = 2;
+				if ((object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2))
+					object_ptr->pval = 2;
 			}
 			else
 			{
@@ -1398,8 +1398,8 @@ act = "は破壊力を増した！";
 				act = "seems very powerful.";
 #endif
 
-				o_ptr->name2 = EGO_EARTHQUAKES;
-				o_ptr->pval = m_bonus(3, floor_ptr->floor_level);
+				object_ptr->name2 = EGO_EARTHQUAKES;
+				object_ptr->pval = m_bonus(3, floor_ptr->floor_level);
 			}
 			break;
 		case 16:
@@ -1409,7 +1409,7 @@ act = "は人間の血を求めている！";
 			act = "seems to be looking for humans!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_HUMAN;
+			object_ptr->name2 = EGO_SLAY_HUMAN;
 			break;
 		case 15:
 #ifdef JP
@@ -1418,7 +1418,7 @@ act = "は電撃に覆われた！";
 			act = "covered with lightning!";
 #endif
 
-			o_ptr->name2 = EGO_BRAND_ELEC;
+			object_ptr->name2 = EGO_BRAND_ELEC;
 			break;
 		case 14:
 #ifdef JP
@@ -1427,7 +1427,7 @@ act = "は酸に覆われた！";
 			act = "coated with acid!";
 #endif
 
-			o_ptr->name2 = EGO_BRAND_ACID;
+			object_ptr->name2 = EGO_BRAND_ACID;
 			break;
 		case 13:
 #ifdef JP
@@ -1436,7 +1436,7 @@ act = "は邪悪なる怪物を求めている！";
 			act = "seems to be looking for evil creatures!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_EVIL;
+			object_ptr->name2 = EGO_SLAY_EVIL;
 			break;
 		case 12:
 #ifdef JP
@@ -1445,7 +1445,7 @@ act = "は異世界の住人の肉体を求めている！";
 			act = "seems to be looking for demons!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_DEMON;
+			object_ptr->name2 = EGO_SLAY_DEMON;
 			break;
 		case 11:
 #ifdef JP
@@ -1454,7 +1454,7 @@ act = "は屍を求めている！";
 			act = "seems to be looking for undead!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_UNDEAD;
+			object_ptr->name2 = EGO_SLAY_UNDEAD;
 			break;
 		case 10:
 #ifdef JP
@@ -1463,7 +1463,7 @@ act = "は動物の血を求めている！";
 			act = "seems to be looking for animals!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_ANIMAL;
+			object_ptr->name2 = EGO_SLAY_ANIMAL;
 			break;
 		case 9:
 #ifdef JP
@@ -1472,7 +1472,7 @@ act = "はドラゴンの血を求めている！";
 			act = "seems to be looking for dragons!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_DRAGON;
+			object_ptr->name2 = EGO_SLAY_DRAGON;
 			break;
 		case 8:
 #ifdef JP
@@ -1481,7 +1481,7 @@ act = "はトロルの血を求めている！";
 			act = "seems to be looking for troll!s";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_TROLL;
+			object_ptr->name2 = EGO_SLAY_TROLL;
 			break;
 		case 7:
 #ifdef JP
@@ -1490,7 +1490,7 @@ act = "はオークの血を求めている！";
 			act = "seems to be looking for orcs!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_ORC;
+			object_ptr->name2 = EGO_SLAY_ORC;
 			break;
 		case 6:
 #ifdef JP
@@ -1499,7 +1499,7 @@ act = "は巨人の血を求めている！";
 			act = "seems to be looking for giants!";
 #endif
 
-			o_ptr->name2 = EGO_SLAY_GIANT;
+			object_ptr->name2 = EGO_SLAY_GIANT;
 			break;
 		case 5:
 #ifdef JP
@@ -1508,8 +1508,8 @@ act = "は非常に不安定になったようだ。";
 			act = "seems very unstable now.";
 #endif
 
-			o_ptr->name2 = EGO_TRUMP;
-			o_ptr->pval = (s16b)randint1(2);
+			object_ptr->name2 = EGO_TRUMP;
+			object_ptr->pval = (s16b)randint1(2);
 			break;
 		case 4:
 #ifdef JP
@@ -1518,7 +1518,7 @@ act = "は血を求めている！";
 			act = "thirsts for blood!";
 #endif
 
-			o_ptr->name2 = EGO_VAMPIRIC;
+			object_ptr->name2 = EGO_VAMPIRIC;
 			break;
 		case 3:
 #ifdef JP
@@ -1527,7 +1527,7 @@ act = "は毒に覆われた。";
 			act = "is coated with poison.";
 #endif
 
-			o_ptr->name2 = EGO_BRAND_POIS;
+			object_ptr->name2 = EGO_BRAND_POIS;
 			break;
 		case 2:
 #ifdef JP
@@ -1536,7 +1536,7 @@ act = "は純ログルスに飲み込まれた。";
 			act = "is engulfed in raw Logrus!";
 #endif
 
-			o_ptr->name2 = EGO_CHAOTIC;
+			object_ptr->name2 = EGO_CHAOTIC;
 			break;
 		case 1:
 #ifdef JP
@@ -1545,7 +1545,7 @@ act = "は炎のシールドに覆われた！";
 			act = "is covered in a fiery shield!";
 #endif
 
-			o_ptr->name2 = EGO_BRAND_FIRE;
+			object_ptr->name2 = EGO_BRAND_FIRE;
 			break;
 		default:
 #ifdef JP
@@ -1554,7 +1554,7 @@ act = "は深く冷たいブルーに輝いた！";
 			act = "glows deep, icy blue!";
 #endif
 
-			o_ptr->name2 = EGO_BRAND_COLD;
+			object_ptr->name2 = EGO_BRAND_COLD;
 			break;
 		}
 
@@ -1565,9 +1565,9 @@ msg_format("あなたの%s%s", o_name, act);
 #endif
 
 
-		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
-		o_ptr->discount = 99;
+		object_ptr->discount = 99;
 	}
 	else
 	{
@@ -1831,7 +1831,7 @@ void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los)
 {
 	int ty, tx, i;
 	cave_type *c_ptr;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char o_name[MAX_NLEN];
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -1933,9 +1933,9 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 		while (!c_ptr->object_idx);
 	}
 
-	o_ptr = &object_list[c_ptr->object_idx];
+	object_ptr = &object_list[c_ptr->object_idx];
 
-	if (o_ptr->weight > wgt)
+	if (object_ptr->weight > wgt)
 	{
 		/* Too heavy to 'fetch' */
 #ifdef JP
@@ -1948,13 +1948,13 @@ msg_print("そのアイテムは重過ぎます。");
 	}
 
 	i = c_ptr->object_idx;
-	c_ptr->object_idx = o_ptr->next_object_idx;
+	c_ptr->object_idx = object_ptr->next_object_idx;
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx = i; /* 'move' it */
-	o_ptr->next_object_idx = 0;
-	o_ptr->fy = (byte)creature_ptr->fy;
-	o_ptr->fx = (byte)creature_ptr->fx;
+	object_ptr->next_object_idx = 0;
+	object_ptr->fy = (byte)creature_ptr->fy;
+	object_ptr->fx = (byte)creature_ptr->fx;
 
-	object_desc(o_name, o_ptr, OD_NAME_ONLY);
+	object_desc(o_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #else
@@ -2107,13 +2107,13 @@ void identify_pack(creature_type *creature_ptr)
 	/* Simply identify and know every item */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Identify it */
-		identify_item(creature_ptr, o_ptr);
+		identify_item(creature_ptr, object_ptr);
 
 		/* Auto-inscription */
 		autopick_alter_item(creature_ptr, i, FALSE);
@@ -2151,35 +2151,35 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 	/* Attempt to uncurse items being worn */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Uncursed already */
-		if (!object_is_cursed(o_ptr)) continue;
+		if (!object_is_cursed(object_ptr)) continue;
 
 		/* Heavily Cursed Items need a special spell */
-		if (!all && (o_ptr->curse_flags & TRC_HEAVY_CURSE)) continue;
+		if (!all && (object_ptr->curse_flags & TRC_HEAVY_CURSE)) continue;
 
 		/* Perma-Cursed Items can NEVER be uncursed */
-		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
+		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 			/* Uncurse it */
-			o_ptr->curse_flags &= (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE);
+			object_ptr->curse_flags &= (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE);
 			continue;
 		}
 
 		/* Uncurse it */
-		o_ptr->curse_flags = 0L;
+		object_ptr->curse_flags = 0L;
 
 		/* Hack -- Assume felt */
-		o_ptr->ident |= (IDENT_SENSE);
+		object_ptr->ident |= (IDENT_SENSE);
 
 		/* Take note */
-		o_ptr->feeling = FEEL_NONE;
+		object_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
@@ -2222,7 +2222,7 @@ bool alchemy(creature_type *creature_ptr)
 	int old_number;
 	long price;
 	bool force = FALSE;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char o_name[MAX_NLEN];
 	char out_val[MAX_NLEN+40];
 
@@ -2245,21 +2245,21 @@ s = "金に変えられる物がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* See how many items */
-	if (o_ptr->number > 1)
+	if (object_ptr->number > 1)
 	{
 		/* Get a quantity */
-		amt = get_quantity(NULL, o_ptr->number);
+		amt = get_quantity(NULL, object_ptr->number);
 
 		/* Allow user abort */
 		if (amt <= 0) return FALSE;
@@ -2267,15 +2267,15 @@ s = "金に変えられる物がありません。";
 
 
 	/* Describe the object */
-	old_number = o_ptr->number;
-	o_ptr->number = amt;
-	object_desc(o_name, o_ptr, 0);
-	o_ptr->number = old_number;
+	old_number = object_ptr->number;
+	object_ptr->number = amt;
+	object_desc(o_name, object_ptr, 0);
+	object_ptr->number = old_number;
 
 	/* Verify unless quantity given */
 	if (!force)
 	{
-		if (confirm_destroy || (object_value(o_ptr) > 0))
+		if (confirm_destroy || (object_value(object_ptr) > 0))
 		{
 			/* Make a verification */
 #ifdef JP
@@ -2289,7 +2289,7 @@ sprintf(out_val, "本当に%sを金に変えますか？", o_name);
 	}
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(creature_ptr, o_ptr))
+	if (!can_player_destroy_object(creature_ptr, object_ptr))
 	{
 		/* Message */
 #ifdef JP
@@ -2302,7 +2302,7 @@ sprintf(out_val, "本当に%sを金に変えますか？", o_name);
 		return FALSE;
 	}
 
-	price = object_value_real(o_ptr);
+	price = object_value_real(object_ptr);
 
 	if (price <= 0)
 	{
@@ -2360,9 +2360,9 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 /*
  * Break the curse of an item
  */
-static void break_curse(object_type *o_ptr)
+static void break_curse(object_type *object_ptr)
 {
-	if (object_is_cursed(o_ptr) && !(o_ptr->curse_flags & TRC_DIVINE_CURSE) && !(o_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint0(100) < 25))
+	if (object_is_cursed(object_ptr) && !(object_ptr->curse_flags & TRC_DIVINE_CURSE) && !(object_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint0(100) < 25))
 	{
 #ifdef JP
 msg_print("かけられていた呪いが打ち破られた！");
@@ -2370,11 +2370,11 @@ msg_print("かけられていた呪いが打ち破られた！");
 		msg_print("The curse is broken!");
 #endif
 
-		o_ptr->curse_flags = 0L;
+		object_ptr->curse_flags = 0L;
 
-		o_ptr->ident |= (IDENT_SENSE);
+		object_ptr->ident |= (IDENT_SENSE);
 
-		o_ptr->feeling = FEEL_NONE;
+		object_ptr->feeling = FEEL_NONE;
 	}
 }
 
@@ -2394,21 +2394,21 @@ msg_print("かけられていた呪いが打ち破られた！");
  * Note that this function can now be used on "piles" of items, and
  * the larger the pile, the lower the chance of success.
  */
-bool enchant(creature_type *creature_ptr, object_type *o_ptr, int n, int eflag)
+bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int eflag)
 {
 	int     i, chance, prob;
 	bool    res = FALSE;
-	bool    a = object_is_artifact(o_ptr);
+	bool    a = object_is_artifact(object_ptr);
 	bool    force = (eflag & ENCH_FORCE);
 
 
 	/* Large piles resist enchantment */
-	prob = o_ptr->number * 100;
+	prob = object_ptr->number * 100;
 
 	/* Missiles are easy to enchant */
-	if ((o_ptr->tval == TV_BOLT) ||
-	    (o_ptr->tval == TV_ARROW) ||
-	    (o_ptr->tval == TV_SHOT))
+	if ((object_ptr->tval == TV_BOLT) ||
+	    (object_ptr->tval == TV_ARROW) ||
+	    (object_ptr->tval == TV_SHOT))
 	{
 		prob = prob / 20;
 	}
@@ -2422,54 +2422,54 @@ bool enchant(creature_type *creature_ptr, object_type *o_ptr, int n, int eflag)
 		/* Enchant to hit */
 		if (eflag & ENCH_TOHIT)
 		{
-			if (o_ptr->to_hit < 0) chance = 0;
-			else if (o_ptr->to_hit > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_hit];
+			if (object_ptr->to_hit < 0) chance = 0;
+			else if (object_ptr->to_hit > 15) chance = 1000;
+			else chance = enchant_table[object_ptr->to_hit];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_hit++;
+				object_ptr->to_hit++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_hit >= 0)
-					break_curse(o_ptr);
+				if (object_ptr->to_hit >= 0)
+					break_curse(object_ptr);
 			}
 		}
 
 		/* Enchant to damage */
 		if (eflag & ENCH_TODAM)
 		{
-			if (o_ptr->to_damage < 0) chance = 0;
-			else if (o_ptr->to_damage > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_damage];
+			if (object_ptr->to_damage < 0) chance = 0;
+			else if (object_ptr->to_damage > 15) chance = 1000;
+			else chance = enchant_table[object_ptr->to_damage];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_damage++;
+				object_ptr->to_damage++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_damage >= 0)
-					break_curse(o_ptr);
+				if (object_ptr->to_damage >= 0)
+					break_curse(object_ptr);
 			}
 		}
 
 		/* Enchant to armor class */
 		if (eflag & ENCH_TOAC)
 		{
-			if (o_ptr->to_ac < 0) chance = 0;
-			else if (o_ptr->to_ac > 15) chance = 1000;
-			else chance = enchant_table[o_ptr->to_ac];
+			if (object_ptr->to_ac < 0) chance = 0;
+			else if (object_ptr->to_ac > 15) chance = 1000;
+			else chance = enchant_table[object_ptr->to_ac];
 
 			if (force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
 			{
-				o_ptr->to_ac++;
+				object_ptr->to_ac++;
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if (o_ptr->to_ac >= 0)
-					break_curse(o_ptr);
+				if (object_ptr->to_ac >= 0)
+					break_curse(object_ptr);
 			}
 		}
 	}
@@ -2503,7 +2503,7 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 {
 	int         item;
 	bool        okay = FALSE;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char        o_name[MAX_NLEN];
 	cptr        q, s;
 
@@ -2527,18 +2527,18 @@ s = "強化できるアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Describe */
 #ifdef JP
@@ -2547,14 +2547,14 @@ msg_format("%s は明るく輝いた！",
 #else
 	msg_format("%s %s glow%s brightly!",
 		   ((item >= 0) ? "Your" : "The"), o_name,
-		   ((o_ptr->number > 1) ? "" : "s"));
+		   ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
 
 	/* Enchant */
-	if (enchant(creature_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
-	if (enchant(creature_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
-	if (enchant(creature_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
+	if (enchant(creature_ptr, object_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
+	if (enchant(creature_ptr, object_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
+	if (enchant(creature_ptr, object_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
 
 	/* Failure */
 	if (!okay)
@@ -2581,13 +2581,13 @@ msg_print("強化に失敗した。");
 /*
  * Check if an object is nameless weapon or armour
  */
-static bool item_tester_hook_nameless_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_nameless_weapon_armour(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Require weapon or armour */
-	if (!object_is_weapon_armour_ammo(o_ptr)) return FALSE;
+	if (!object_is_weapon_armour_ammo(object_ptr)) return FALSE;
 	
 	/* Require nameless object if the object is well known */
-	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
+	if (object_is_known(object_ptr) && !object_is_nameless(creature_ptr, object_ptr))
 		return FALSE;
 
 	return TRUE;
@@ -2598,7 +2598,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 {
 	int             item;
 	bool            okay = FALSE;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 
@@ -2616,18 +2616,18 @@ bool artifact_scroll(creature_type *caster_ptr)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &caster_ptr->inventory[item];
+		object_ptr = &caster_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Describe */
 #ifdef JP
@@ -2635,68 +2635,68 @@ bool artifact_scroll(creature_type *caster_ptr)
 #else
 	msg_format("%s %s radiate%s a blinding light!",
 		  ((item >= 0) ? "Your" : "The"), o_name,
-		  ((o_ptr->number > 1) ? "" : "s"));
+		  ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-	if (object_is_artifact(o_ptr))
+	if (object_is_artifact(object_ptr))
 	{
 #ifdef JP
 		msg_format("%sは既に伝説のアイテムです！", o_name  );
 #else
 		msg_format("The %s %s already %s!",
-		    o_name, ((o_ptr->number > 1) ? "are" : "is"),
-		    ((o_ptr->number > 1) ? "artifacts" : "an artifact"));
+		    o_name, ((object_ptr->number > 1) ? "are" : "is"),
+		    ((object_ptr->number > 1) ? "artifacts" : "an artifact"));
 #endif
 
 		okay = FALSE;
 	}
 
-	else if (object_is_ego(o_ptr))
+	else if (object_is_ego(object_ptr))
 	{
 #ifdef JP
 		msg_format("%sは既に名のあるアイテムです！", o_name );
 #else
 		msg_format("The %s %s already %s!",
-		    o_name, ((o_ptr->number > 1) ? "are" : "is"),
-		    ((o_ptr->number > 1) ? "ego items" : "an ego item"));
+		    o_name, ((object_ptr->number > 1) ? "are" : "is"),
+		    ((object_ptr->number > 1) ? "ego items" : "an ego item"));
 #endif
 
 		okay = FALSE;
 	}
 
-	else if (o_ptr->xtra3)
+	else if (object_ptr->xtra3)
 	{
 #ifdef JP
 		msg_format("%sは既に強化されています！", o_name );
 #else
 		msg_format("The %s %s already %s!",
-		    o_name, ((o_ptr->number > 1) ? "are" : "is"),
-		    ((o_ptr->number > 1) ? "customized items" : "a customized item"));
+		    o_name, ((object_ptr->number > 1) ? "are" : "is"),
+		    ((object_ptr->number > 1) ? "customized items" : "a customized item"));
 #endif
 	}
 
 	else
 	{
-		if (o_ptr->number > 1)
+		if (object_ptr->number > 1)
 		{
 #ifdef JP
 			msg_print("複数のアイテムに魔法をかけるだけのエネルギーはありません！");
-			msg_format("%d 個の%sが壊れた！",(o_ptr->number)-1, o_name);
+			msg_format("%d 個の%sが壊れた！",(object_ptr->number)-1, o_name);
 #else
 			msg_print("Not enough enough energy to enchant more than one object!");
-			msg_format("%d of your %s %s destroyed!",(o_ptr->number)-1, o_name, (o_ptr->number>2?"were":"was"));
+			msg_format("%d of your %s %s destroyed!",(object_ptr->number)-1, o_name, (object_ptr->number>2?"were":"was"));
 #endif
 
 			if (item >= 0)
 			{
-				inven_item_increase(caster_ptr, item, 1-(o_ptr->number));
+				inven_item_increase(caster_ptr, item, 1-(object_ptr->number));
 			}
 			else
 			{
-				floor_item_increase(0-item, 1-(o_ptr->number));
+				floor_item_increase(0-item, 1-(object_ptr->number));
 			}
 		}
-		okay = create_artifact(caster_ptr, o_ptr, TRUE);
+		okay = create_artifact(caster_ptr, object_ptr, TRUE);
 	}
 
 	/* Failure */
@@ -2724,23 +2724,23 @@ bool artifact_scroll(creature_type *caster_ptr)
 /*
  * Identify an object
  */
-bool identify_item(creature_type *creature_ptr, object_type *o_ptr)
+bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	bool old_known = FALSE;
 	char o_name[MAX_NLEN];
 
 	/* Description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 
-	if (o_ptr->ident & IDENT_KNOWN)
+	if (object_ptr->ident & IDENT_KNOWN)
 		old_known = TRUE;
 
 	/* Identify it fully */
-	object_aware(o_ptr);
-	object_known(o_ptr);
+	object_aware(object_ptr);
+	object_known(object_ptr);
 
 	/* Player touches it */
-	o_ptr->marked |= OM_TOUCHED;
+	object_ptr->marked |= OM_TOUCHED;
 
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -2755,27 +2755,27 @@ bool identify_item(creature_type *creature_ptr, object_type *o_ptr)
 	record_turn = turn;
 
 	/* Description */
-	object_desc(o_name, o_ptr, OD_NAME_ONLY);
+	object_desc(o_name, object_ptr, OD_NAME_ONLY);
 
-	if(record_fix_art && !old_known && object_is_fixed_artifact(o_ptr))
+	if(record_fix_art && !old_known && object_is_fixed_artifact(object_ptr))
 		do_cmd_write_nikki(DIARY_ART, 0, o_name);
-	if(record_rand_art && !old_known && o_ptr->art_name)
+	if(record_rand_art && !old_known && object_ptr->art_name)
 		do_cmd_write_nikki(DIARY_ART, 0, o_name);
 
 	return old_known;
 }
 
 
-static bool item_tester_hook_identify(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify(creature_type *creature_ptr, object_type *object_ptr)
 {
-	return (bool)!object_is_known(o_ptr);
+	return (bool)!object_is_known(object_ptr);
 }
 
-static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (object_is_known(o_ptr))
+	if (object_is_known(object_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(o_ptr);
+	return object_is_weapon_armour_ammo(object_ptr);
 }
 
 /*
@@ -2786,11 +2786,11 @@ static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr,
 bool ident_spell(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 	bool old_known;
-	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_weapon_armour;
@@ -2831,23 +2831,23 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Identify it */
-	old_known = identify_item(creature_ptr, o_ptr);
+	old_known = identify_item(creature_ptr, object_ptr);
 
 	/* Description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 
 	/* Describe */
-	if(IS_EQUIPPED(o_ptr))
+	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)。", describe_use(creature_ptr, item), o_name, index_to_label(item));
@@ -2888,9 +2888,9 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	cptr            q, s;
-	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
 	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
@@ -2909,13 +2909,13 @@ s = "使えるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Oops */
@@ -2925,21 +2925,21 @@ s = "使えるものがありません。";
 	msg_print("There is a bright flash of light!");
 #endif
 	{
-		byte iy = o_ptr->fy;                 /* Y-position on map, or zero */
-		byte ix = o_ptr->fx;                 /* X-position on map, or zero */
-		s16b next_object_idx = o_ptr->next_object_idx; /* Next object in stack (if any) */
-		byte marked = o_ptr->marked;         /* Object is marked */
-		s16b weight = o_ptr->number * o_ptr->weight;
-		u16b inscription = o_ptr->inscription;
+		byte iy = object_ptr->fy;                 /* Y-position on map, or zero */
+		byte ix = object_ptr->fx;                 /* X-position on map, or zero */
+		s16b next_object_idx = object_ptr->next_object_idx; /* Next object in stack (if any) */
+		byte marked = object_ptr->marked;         /* Object is marked */
+		s16b weight = object_ptr->number * object_ptr->weight;
+		u16b inscription = object_ptr->inscription;
 
 		/* Wipe it clean */
-		object_prep(o_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+		object_prep(object_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 
-		o_ptr->fy = iy;
-		o_ptr->fx = ix;
-		o_ptr->next_object_idx = next_object_idx;
-		o_ptr->marked = marked;
-		o_ptr->inscription = inscription;
+		object_ptr->fy = iy;
+		object_ptr->fx = ix;
+		object_ptr->next_object_idx = next_object_idx;
+		object_ptr->marked = marked;
+		object_ptr->inscription = inscription;
 		set_inventory_weight(creature_ptr);
 	}
 	calc_android_exp(creature_ptr);
@@ -2950,16 +2950,16 @@ s = "使えるものがありません。";
 
 
 
-static bool item_tester_hook_identify_fully(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_fully(creature_type *creature_ptr, object_type *object_ptr)
 {
-	return (bool)(!object_is_known(o_ptr) || !(o_ptr->ident & IDENT_MENTAL));
+	return (bool)(!object_is_known(object_ptr) || !(object_ptr->ident & IDENT_MENTAL));
 }
 
-static bool item_tester_hook_identify_fully_weapon_armour(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_identify_fully_weapon_armour(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (!item_tester_hook_identify_fully(creature_ptr, o_ptr))
+	if (!item_tester_hook_identify_fully(creature_ptr, object_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(o_ptr);
+	return object_is_weapon_armour_ammo(object_ptr);
 }
 
 /*
@@ -2969,12 +2969,12 @@ static bool item_tester_hook_identify_fully_weapon_armour(creature_type *creatur
 bool identify_fully(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 	bool old_known;
 
-	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr);
+	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
@@ -3015,29 +3015,29 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Identify it */
-	old_known = identify_item(creature_ptr, o_ptr);
+	old_known = identify_item(creature_ptr, object_ptr);
 
 	/* Mark the item as fully known */
-	o_ptr->ident |= (IDENT_MENTAL);
+	object_ptr->ident |= (IDENT_MENTAL);
 
 	/* Handle stuff */
 	handle_stuff();
 
 	/* Description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 
 	/* Describe */
-	if(IS_EQUIPPED(o_ptr))
+	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)。", describe_use(creature_ptr, item), o_name, index_to_label(item));
@@ -3065,7 +3065,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	}
 
 	/* Describe it fully */
-	(void)screen_object(o_ptr, 0L);
+	(void)screen_object(object_ptr, 0L);
 
 	/* Auto-inscription/destroy */
 	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
@@ -3080,16 +3080,16 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 /*
  * Hook for "get_item()".  Determine if something is rechargable.
  */
-bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *o_ptr)
+bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Recharge staffs */
-	if (o_ptr->tval == TV_STAFF) return (TRUE);
+	if (object_ptr->tval == TV_STAFF) return (TRUE);
 
 	/* Recharge wands */
-	if (o_ptr->tval == TV_WAND) return (TRUE);
+	if (object_ptr->tval == TV_WAND) return (TRUE);
 
 	/* Hack -- Recharge rods */
-	if (o_ptr->tval == TV_ROD) return (TRUE);
+	if (object_ptr->tval == TV_ROD) return (TRUE);
 
 	/* Nope */
 	return (FALSE);
@@ -3118,7 +3118,7 @@ bool recharge(creature_type *creature_ptr, int power)
 	int item, lev;
 	int recharge_strength, recharge_amount;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 	object_kind *k_ptr;
 
 	bool fail = FALSE;
@@ -3141,24 +3141,24 @@ s = "魔力を充填すべきアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Get the object kind. */
-	k_ptr = &object_kind_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* Extract the object "level" */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 
 
 	/* Recharge a rod */
-	if (o_ptr->tval == TV_ROD)
+	if (object_ptr->tval == TV_ROD)
 	{
 		/* Extract a recharge strength by comparing object level to power. */
 		recharge_strength = ((power > lev/2) ? (power - lev/2) : 0) / 5;
@@ -3178,10 +3178,10 @@ s = "魔力を充填すべきアイテムがない。";
 			recharge_amount = (power * diceroll(3, 2));
 
 			/* Recharge by that amount */
-			if (o_ptr->timeout > recharge_amount)
-				o_ptr->timeout -= recharge_amount;
+			if (object_ptr->timeout > recharge_amount)
+				object_ptr->timeout -= recharge_amount;
 			else
-				o_ptr->timeout = 0;
+				object_ptr->timeout = 0;
 		}
 	}
 
@@ -3192,13 +3192,13 @@ s = "魔力を充填すべきアイテムがない。";
 		/* Extract a recharge strength by comparing object level to power.
 		 * Divide up a stack of wands' charges to calculate charge penalty.
 		 */
-		if ((o_ptr->tval == TV_WAND) && (o_ptr->number > 1))
+		if ((object_ptr->tval == TV_WAND) && (object_ptr->number > 1))
 			recharge_strength = (100 + power - lev -
-			(8 * o_ptr->pval / o_ptr->number)) / 15;
+			(8 * object_ptr->pval / object_ptr->number)) / 15;
 
 		/* All staffs, unstacked wands. */
 		else recharge_strength = (100 + power - lev -
-			(8 * o_ptr->pval)) / 15;
+			(8 * object_ptr->pval)) / 15;
 
 		/* Paranoia */
 		if (recharge_strength < 0) recharge_strength = 0;
@@ -3217,10 +3217,10 @@ s = "魔力を充填すべきアイテムがない。";
 			recharge_amount = randint1(1 + k_ptr->pval / 2);
 
 			/* Multiple wands in a stack increase recharging somewhat. */
-			if ((o_ptr->tval == TV_WAND) && (o_ptr->number > 1))
+			if ((object_ptr->tval == TV_WAND) && (object_ptr->number > 1))
 			{
 				recharge_amount +=
-					(randint1(recharge_amount * (o_ptr->number - 1))) / 2;
+					(randint1(recharge_amount * (object_ptr->number - 1))) / 2;
 				if (recharge_amount < 1) recharge_amount = 1;
 				if (recharge_amount > 12) recharge_amount = 12;
 			}
@@ -3228,21 +3228,21 @@ s = "魔力を充填すべきアイテムがない。";
 			/* But each staff in a stack gets fewer additional charges,
 			 * although always at least one.
 			 */
-			if ((o_ptr->tval == TV_STAFF) && (o_ptr->number > 1))
+			if ((object_ptr->tval == TV_STAFF) && (object_ptr->number > 1))
 			{
-				recharge_amount /= o_ptr->number;
+				recharge_amount /= object_ptr->number;
 				if (recharge_amount < 1) recharge_amount = 1;
 			}
 
 			/* Recharge the wand or staff. */
-			o_ptr->pval += recharge_amount;
+			object_ptr->pval += recharge_amount;
 
 
 			/* Hack -- we no longer "know" the item */
-			o_ptr->ident &= ~(IDENT_KNOWN);
+			object_ptr->ident &= ~(IDENT_KNOWN);
 
 			/* Hack -- we no longer think the item is empty */
-			o_ptr->ident &= ~(IDENT_EMPTY);
+			object_ptr->ident &= ~(IDENT_EMPTY);
 		}
 	}
 
@@ -3251,9 +3251,9 @@ s = "魔力を充填すべきアイテムがない。";
 	if (fail)
 	{
 		/* Artifacts are never destroyed. */
-		if (object_is_fixed_artifact(o_ptr))
+		if (object_is_fixed_artifact(object_ptr))
 		{
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 #else
@@ -3262,17 +3262,17 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 
 
 			/* Artifact rods. */
-			if ((o_ptr->tval == TV_ROD) && (o_ptr->timeout < 10000))
-				o_ptr->timeout = (o_ptr->timeout + 100) * 2;
+			if ((object_ptr->tval == TV_ROD) && (object_ptr->timeout < 10000))
+				object_ptr->timeout = (object_ptr->timeout + 100) * 2;
 
 			/* Artifact wands and staffs. */
-			else if ((o_ptr->tval == TV_WAND) || (o_ptr->tval == TV_STAFF))
-				o_ptr->pval = 0;
+			else if ((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF))
+				object_ptr->pval = 0;
 		}
 		else
 		{
 			/* Get the object description */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/*** Determine Seriousness of Failure ***/
 
@@ -3280,19 +3280,19 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			if (creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 					if (one_in_(10)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 75% chance to blow up one wand, otherwise draining. */
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 					if (!one_in_(3)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 50% chance to blow up one staff, otherwise no effect. */
-				else if (o_ptr->tval == TV_STAFF)
+				else if (object_ptr->tval == TV_STAFF)
 				{
 					if (one_in_(2)) fail_type = 2;
 					else fail_type = 0;
@@ -3303,19 +3303,19 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			else
 			{
 				/* 33% chance to blow up one rod, otherwise draining. */
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 					if (one_in_(3)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 20% chance of the entire stack, else destroy one wand. */
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 					if (one_in_(5)) fail_type = 3;
 					else fail_type = 2;
 				}
 				/* Blow up one staff. */
-				else if (o_ptr->tval == TV_STAFF)
+				else if (object_ptr->tval == TV_STAFF)
 				{
 					fail_type = 2;
 				}
@@ -3326,7 +3326,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/* Drain object or stack of objects. */
 			if (fail_type == 1)
 			{
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 #ifdef JP
 msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
@@ -3334,10 +3334,10 @@ msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
 					msg_print("The recharge backfires, draining the rod further!");
 #endif
 
-					if (o_ptr->timeout < 10000)
-						o_ptr->timeout = (o_ptr->timeout + 100) * 2;
+					if (object_ptr->timeout < 10000)
+						object_ptr->timeout = (object_ptr->timeout + 100) * 2;
 				}
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 #ifdef JP
 msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
@@ -3345,7 +3345,7 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
 					msg_format("You save your %s from destruction, but all charges are lost.", o_name);
 #endif
 
-					o_ptr->pval = 0;
+					object_ptr->pval = 0;
 				}
 				/* Staffs aren't drained. */
 			}
@@ -3353,7 +3353,7 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
 			/* Destroy an object or one in a stack of objects. */
 			if (fail_type == 2)
 			{
-				if (o_ptr->number > 1)
+				if (object_ptr->number > 1)
 #ifdef JP
 msg_format("乱暴な魔法のために%sが一本壊れた！", o_name);
 #else
@@ -3369,8 +3369,8 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 
 
 				/* Reduce rod stack maximum timeout, drain wands. */
-				if (o_ptr->tval == TV_ROD) o_ptr->timeout = (o_ptr->number - 1) * k_ptr->pval;
-				if (o_ptr->tval == TV_WAND) o_ptr->pval = 0;
+				if (object_ptr->tval == TV_ROD) object_ptr->timeout = (object_ptr->number - 1) * k_ptr->pval;
+				if (object_ptr->tval == TV_WAND) object_ptr->pval = 0;
 
 				/* Reduce and describe creature_ptr->inventory */
 				if (item >= 0)
@@ -3392,7 +3392,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 			/* Destroy all members of a stack of objects. */
 			if (fail_type == 3)
 			{
-				if (o_ptr->number > 1)
+				if (object_ptr->number > 1)
 #ifdef JP
 msg_format("乱暴な魔法のために%sが全て壊れた！", o_name);
 #else
@@ -3444,7 +3444,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 bool bless_weapon(creature_type *creature_ptr)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
@@ -3464,26 +3464,26 @@ s = "祝福できる武器がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
-	if (object_is_cursed(o_ptr))
+	if (object_is_cursed(object_ptr))
 	{
-		if (((o_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint1(100) < 33)) ||
-		    (o_ptr->curse_flags & TRC_DIVINE_CURSE))
+		if (((object_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint1(100) < 33)) ||
+		    (object_ptr->curse_flags & TRC_DIVINE_CURSE))
 		{
 #ifdef JP
 msg_format("%sを覆う黒いオーラは祝福を跳ね返した！",
@@ -3506,13 +3506,13 @@ msg_format("%s から邪悪なオーラが消えた。",
 
 
 		/* Uncurse it */
-		o_ptr->curse_flags = 0L;
+		object_ptr->curse_flags = 0L;
 
 		/* Hack -- Assume felt */
-		o_ptr->ident |= (IDENT_SENSE);
+		object_ptr->ident |= (IDENT_SENSE);
 
 		/* Take note */
-		o_ptr->feeling = FEEL_NONE;
+		object_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
@@ -3537,13 +3537,13 @@ msg_format("%s は既に祝福されている。",
 #else
 		msg_format("%s %s %s blessed already.",
 		    ((item >= 0) ? "Your" : "The"), o_name,
-		    ((o_ptr->number > 1) ? "were" : "was"));
+		    ((object_ptr->number > 1) ? "were" : "was"));
 #endif
 
 		return TRUE;
 	}
 
-	if (!(object_is_artifact(o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
+	if (!(object_is_artifact(object_ptr) || object_is_ego(object_ptr)) || one_in_(3))
 	{
 		/* Describe */
 #ifdef JP
@@ -3552,11 +3552,11 @@ msg_format("%sは輝いた！",
 #else
 		msg_format("%s %s shine%s!",
 		    ((item >= 0) ? "Your" : "The"), o_name,
-		    ((o_ptr->number > 1) ? "" : "s"));
+		    ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-		add_flag(o_ptr->art_flags, TR_BLESSED);
-		o_ptr->discount = 99;
+		add_flag(object_ptr->art_flags, TR_BLESSED);
+		object_ptr->discount = 99;
 	}
 	else
 	{
@@ -3570,31 +3570,31 @@ msg_print("その武器は祝福を嫌っている！");
 
 
 		/* Disenchant tohit */
-		if (o_ptr->to_hit > 0)
+		if (object_ptr->to_hit > 0)
 		{
-			o_ptr->to_hit--;
+			object_ptr->to_hit--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_hit > 5) && (randint0(100) < 33)) o_ptr->to_hit--;
+		if ((object_ptr->to_hit > 5) && (randint0(100) < 33)) object_ptr->to_hit--;
 
 		/* Disenchant todam */
-		if (o_ptr->to_damage > 0)
+		if (object_ptr->to_damage > 0)
 		{
-			o_ptr->to_damage--;
+			object_ptr->to_damage--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_damage > 5) && (randint0(100) < 33)) o_ptr->to_damage--;
+		if ((object_ptr->to_damage > 5) && (randint0(100) < 33)) object_ptr->to_damage--;
 
 		/* Disenchant toac */
-		if (o_ptr->to_ac > 0)
+		if (object_ptr->to_ac > 0)
 		{
-			o_ptr->to_ac--;
+			object_ptr->to_ac--;
 			dis_happened = TRUE;
 		}
 
-		if ((o_ptr->to_ac > 5) && (randint0(100) < 33)) o_ptr->to_ac--;
+		if ((object_ptr->to_ac > 5) && (randint0(100) < 33)) object_ptr->to_ac--;
 
 		if (dis_happened)
 		{
@@ -3610,7 +3610,7 @@ msg_format("%s は劣化した！",
 #else
 			msg_format("%s %s %s disenchanted!",
 			    ((item >= 0) ? "Your" : "The"), o_name,
-			    ((o_ptr->number > 1) ? "were" : "was"));
+			    ((object_ptr->number > 1) ? "were" : "was"));
 #endif
 
 		}
@@ -3634,7 +3634,7 @@ msg_format("%s は劣化した！",
 bool pulish_shield(creature_type *creature_ptr)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
@@ -3654,36 +3654,36 @@ s = "磨く盾がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
-	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
-	    !object_is_cursed(o_ptr) && (o_ptr->sval != SV_MIRROR_SHIELD))
+	if (object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) &&
+	    !object_is_cursed(object_ptr) && (object_ptr->sval != SV_MIRROR_SHIELD))
 	{
 #ifdef JP
 msg_format("%sは輝いた！", o_name);
 #else
 		msg_format("%s %s shine%s!",
 		    ((item >= 0) ? "Your" : "The"), o_name,
-		    ((o_ptr->number > 1) ? "" : "s"));
+		    ((object_ptr->number > 1) ? "" : "s"));
 #endif
-		o_ptr->name2 = EGO_REFLECTION;
-		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
+		object_ptr->name2 = EGO_REFLECTION;
+		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOAC);
 
-		o_ptr->discount = 99;
+		object_ptr->discount = 99;
 
 		return TRUE;
 	}
@@ -3720,7 +3720,7 @@ msg_print("失敗した。");
  *          (Not anymore -- I changed this; TY)
  *    y, x  --- coordinates of the potion (or player if
  *          the potion was in her inventory);
- *    o_ptr --- pointer to the potion object.
+ *    object_ptr --- pointer to the potion object.
  */
 bool potion_smash_effect(int who, int y, int x, int k_idx)
 {
@@ -4556,10 +4556,10 @@ comment = "未経験";
  * Does a given class of objects (usually) hate acid?
  * Note that acid can either melt or corrode something.
  */
-bool hates_acid(object_type *o_ptr)
+bool hates_acid(object_type *object_ptr)
 {
 	/* Analyze the type */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		/* Wearable items */
 		case TV_ARROW:
@@ -4610,9 +4610,9 @@ bool hates_acid(object_type *o_ptr)
 /*
  * Does a given object (usually) hate electricity?
  */
-bool hates_elec(object_type *o_ptr)
+bool hates_elec(object_type *object_ptr)
 {
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_RING:
 		case TV_WAND:
@@ -4630,10 +4630,10 @@ bool hates_elec(object_type *o_ptr)
  * Hafted/Polearm weapons have wooden shafts.
  * Arrows/Bows are mostly wooden.
  */
-bool hates_fire(object_type *o_ptr)
+bool hates_fire(object_type *object_ptr)
 {
 	/* Analyze the type */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		/* Wearable */
 		case TV_LITE:
@@ -4688,9 +4688,9 @@ bool hates_fire(object_type *o_ptr)
 /*
  * Does a given object (usually) hate cold?
  */
-bool hates_cold(object_type *o_ptr)
+bool hates_cold(object_type *object_ptr)
 {
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_POTION:
 		case TV_FLASK:
@@ -4707,11 +4707,11 @@ bool hates_cold(object_type *o_ptr)
 /*
  * Melt something
  */
-int set_acid_destroy(object_type *o_ptr)
+int set_acid_destroy(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
-	if (!hates_acid(o_ptr)) return (FALSE);
-	object_flags(o_ptr, flgs);
+	if (!hates_acid(object_ptr)) return (FALSE);
+	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TR_IGNORE_ACID)) return (FALSE);
 	return (TRUE);
 }
@@ -4720,11 +4720,11 @@ int set_acid_destroy(object_type *o_ptr)
 /*
  * Electrical damage
  */
-int set_elec_destroy(object_type *o_ptr)
+int set_elec_destroy(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
-	if (!hates_elec(o_ptr)) return (FALSE);
-	object_flags(o_ptr, flgs);
+	if (!hates_elec(object_ptr)) return (FALSE);
+	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TR_IGNORE_ELEC)) return (FALSE);
 	return (TRUE);
 }
@@ -4733,11 +4733,11 @@ int set_elec_destroy(object_type *o_ptr)
 /*
  * Burn something
  */
-int set_fire_destroy(object_type *o_ptr)
+int set_fire_destroy(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
-	if (!hates_fire(o_ptr)) return (FALSE);
-	object_flags(o_ptr, flgs);
+	if (!hates_fire(object_ptr)) return (FALSE);
+	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TR_IGNORE_FIRE)) return (FALSE);
 	return (TRUE);
 }
@@ -4746,11 +4746,11 @@ int set_fire_destroy(object_type *o_ptr)
 /*
  * Freeze things
  */
-int set_cold_destroy(object_type *o_ptr)
+int set_cold_destroy(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
-	if (!hates_cold(o_ptr)) return (FALSE);
-	object_flags(o_ptr, flgs);
+	if (!hates_cold(object_ptr)) return (FALSE);
+	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TR_IGNORE_COLD)) return (FALSE);
 	return (TRUE);
 }
@@ -4766,7 +4766,7 @@ int set_cold_destroy(object_type *o_ptr)
 int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 {
 	int         i, j, k, amt;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char        o_name[MAX_NLEN];
 
 	if ((creature_ptr->multishadow && (turn & 1))) return 0;
@@ -4779,19 +4779,19 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 	/* Scan through the slots backwards */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Hack -- for now, skip artifacts */
-		if (object_is_artifact(o_ptr)) continue;
+		if (object_is_artifact(object_ptr)) continue;
 
 		/* Give this item slot a shot at death */
-		if ((*typ)(o_ptr))
+		if ((*typ)(object_ptr))
 		{
 			/* Count the casualties */
-			for (amt = j = 0; j < o_ptr->number; ++j)
+			for (amt = j = 0; j < object_ptr->number; ++j)
 			{
 				if (randint0(100) < perc) amt++;
 			}
@@ -4800,7 +4800,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 			if (amt)
 			{
 				/* Get a description */
-				object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+				object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
 
 				/* Message */
 #ifdef JP
@@ -4811,12 +4811,12 @@ msg_format("%s(%c)が%s壊れてしまった！",
 
 #ifdef JP
 o_name, index_to_label(i),
-    ((o_ptr->number > 1) ?
-    ((amt == o_ptr->number) ? "全部" :
+    ((object_ptr->number > 1) ?
+    ((amt == object_ptr->number) ? "全部" :
     (amt > 1 ? "何個か" : "一個")) : "")    );
 #else
-				    ((o_ptr->number > 1) ?
-				    ((amt == o_ptr->number) ? "All of y" :
+				    ((object_ptr->number > 1) ?
+				    ((amt == object_ptr->number) ? "All of y" :
 				    (amt > 1 ? "Some of y" : "One of y")) : "Y"),
 				    o_name, index_to_label(i),
 				    ((amt > 1) ? "were" : "was"));
@@ -4831,13 +4831,13 @@ o_name, index_to_label(i),
 #endif
 
 				/* Potions smash open */
-				if (object_is_potion(creature_ptr, o_ptr))
+				if (object_is_potion(creature_ptr, object_ptr))
 				{
-					(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, o_ptr->k_idx);
+					(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, object_ptr->k_idx);
 				}
 
 				/* Reduce the charges of rods/wands */
-				reduce_charges(o_ptr, amt);
+				reduce_charges(object_ptr, amt);
 
 				/* Destroy "amt" items */
 				inven_item_increase(creature_ptr, i, -amt);
@@ -4864,7 +4864,7 @@ o_name, index_to_label(i),
 static int minus_ac(creature_type *creature_ptr)
 {
 	int i;
-	object_type *o_ptr = NULL;
+	object_type *object_ptr = NULL;
 	u32b flgs[TR_FLAG_SIZE];
 	char o_name[MAX_NLEN];
 
@@ -4872,23 +4872,23 @@ static int minus_ac(creature_type *creature_ptr)
 	/* Pick a (possibly empty) inventory slot */
 	//TODO
 	i = randint0(INVEN_TOTAL);
-	if(!IS_EQUIPPED(o_ptr)) return (FALSE);
-	o_ptr = &creature_ptr->inventory[i];
+	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
+	object_ptr = &creature_ptr->inventory[i];
 
 	/* Nothing to damage */
-	if (!o_ptr->k_idx) return (FALSE);
+	if (!object_ptr->k_idx) return (FALSE);
 
-	if (!object_is_armour(o_ptr)) return (FALSE);
+	if (!object_is_armour(object_ptr)) return (FALSE);
 
 	/* No damage left to be done */
-	if (o_ptr->ac + o_ptr->to_ac <= 0) return (FALSE);
+	if (object_ptr->ac + object_ptr->to_ac <= 0) return (FALSE);
 
 
 	/* Describe */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Object resists */
 	if (have_flag(flgs, TR_IGNORE_ACID))
@@ -4912,7 +4912,7 @@ msg_format("%sがダメージを受けた！", o_name);
 
 
 	/* Damage the item */
-	o_ptr->to_ac--;
+	object_ptr->to_ac--;
 
 	/* Calculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -5065,7 +5065,7 @@ int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 bool rustproof(creature_type *creature_ptr)
 {
 	int         item;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char        o_name[MAX_NLEN];
 	cptr        q, s;
 
@@ -5083,32 +5083,32 @@ s = "錆止めできるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	add_flag(o_ptr->art_flags, TR_IGNORE_ACID);
+	add_flag(object_ptr->art_flags, TR_IGNORE_ACID);
 
-	if ((o_ptr->to_ac < 0) && !object_is_cursed(o_ptr))
+	if ((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
 #ifdef JP
 msg_format("%sは新品同様になった！",o_name);
 #else
 		msg_format("%s %s look%s as good as new!",
 			((item >= 0) ? "Your" : "The"), o_name,
-			((o_ptr->number > 1) ? "" : "s"));
+			((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-		o_ptr->to_ac = 0;
+		object_ptr->to_ac = 0;
 	}
 
 #ifdef JP
@@ -5116,7 +5116,7 @@ msg_format("%sは腐食しなくなった。", o_name);
 #else
 	msg_format("%s %s %s now protected against corrosion.",
 		((item >= 0) ? "Your" : "The"), o_name,
-		((o_ptr->number > 1) ? "are" : "is"));
+		((object_ptr->number > 1) ? "are" : "is"));
 #endif
 
 
@@ -5132,23 +5132,23 @@ msg_format("%sは腐食しなくなった。", o_name);
 bool curse_armor(creature_type *creature_ptr)
 {
 	int i;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char o_name[MAX_NLEN];
 
 
 	/* Curse the body armor */
-	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
 
 	/* Nothing to curse */
-	if (!o_ptr->k_idx) return (FALSE);
+	if (!object_ptr->k_idx) return (FALSE);
 
 
 	/* Describe */
-	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 50))
+	if (object_is_artifact(object_ptr) && (randint0(100) < 50))
 	{
 		/* Cool */
 #ifdef JP
@@ -5172,23 +5172,23 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 #endif
 
 		/* Blast the armor */
-		o_ptr->name1 = 0;
-		o_ptr->name2 = EGO_BLASTED;
-		o_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_hit = 0;
-		o_ptr->to_damage = 0;
-		o_ptr->ac = 0;
-		o_ptr->dd = 0;
-		o_ptr->ds = 0;
+		object_ptr->name1 = 0;
+		object_ptr->name2 = EGO_BLASTED;
+		object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		object_ptr->to_hit = 0;
+		object_ptr->to_damage = 0;
+		object_ptr->ac = 0;
+		object_ptr->dd = 0;
+		object_ptr->ds = 0;
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
-			o_ptr->art_flags[i] = 0;
+			object_ptr->art_flags[i] = 0;
 
 		/* Curse it */
-		o_ptr->curse_flags = TRC_CURSED;
+		object_ptr->curse_flags = TRC_CURSED;
 
 		/* Break it */
-		o_ptr->ident |= (IDENT_BROKEN);
+		object_ptr->ident |= (IDENT_BROKEN);
 
 		// Recalculate bonuses and mana
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
@@ -5208,23 +5208,23 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 {
 	int i;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char o_name[MAX_NLEN];
 
 
 	/* Curse the weapon */
-	o_ptr = &target_ptr->inventory[slot];
+	object_ptr = &target_ptr->inventory[slot];
 
 	/* Nothing to curse */
-	if (!o_ptr->k_idx) return (FALSE);
+	if (!object_ptr->k_idx) return (FALSE);
 
 
 	/* Describe */
-	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 50) && !force)
+	if (object_is_artifact(object_ptr) && (randint0(100) < 50) && !force)
 	{
 		/* Cool */
 #ifdef JP
@@ -5248,24 +5248,24 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 #endif
 
 		/* Shatter the weapon */
-		o_ptr->name1 = 0;
-		o_ptr->name2 = EGO_SHATTERED;
-		o_ptr->to_hit = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_damage = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		o_ptr->to_ac = 0;
-		o_ptr->ac = 0;
-		o_ptr->dd = 0;
-		o_ptr->ds = 0;
+		object_ptr->name1 = 0;
+		object_ptr->name2 = EGO_SHATTERED;
+		object_ptr->to_hit = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		object_ptr->to_damage = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+		object_ptr->to_ac = 0;
+		object_ptr->ac = 0;
+		object_ptr->dd = 0;
+		object_ptr->ds = 0;
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
-			o_ptr->art_flags[i] = 0;
+			object_ptr->art_flags[i] = 0;
 
 
 		/* Curse it */
-		o_ptr->curse_flags = TRC_CURSED;
+		object_ptr->curse_flags = TRC_CURSED;
 
 		/* Break it */
-		o_ptr->ident |= (IDENT_BROKEN);
+		object_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses and mana */
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
@@ -5289,17 +5289,17 @@ bool brand_bolts(creature_type *creature_ptr)
 	/* Use the first acceptable bolts */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-bolts */
-		if (o_ptr->tval != TV_BOLT) continue;
+		if (object_ptr->tval != TV_BOLT) continue;
 
 		/* Skip artifacts and ego-items */
-		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+		if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 			continue;
 
 		/* Skip cursed/broken items */
-		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) continue;
+		if (object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
 
 		/* Randomize */
 		if (randint0(100) < 75) continue;
@@ -5313,10 +5313,10 @@ msg_print("クロスボウの矢が炎のオーラに包まれた！");
 
 
 		/* Ego-item */
-		o_ptr->name2 = EGO_FLAME;
+		object_ptr->name2 = EGO_FLAME;
 
 		/* Enchant */
-		enchant(creature_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		/* Notice */
 		return (TRUE);
@@ -5507,7 +5507,7 @@ bool mirror_tunnel(creature_type *creature_ptr)
 
 bool eat_magic(creature_type *creature_ptr, int power)
 {
-	object_type * o_ptr;
+	object_type * object_ptr;
 	object_kind *k_ptr;
 	int lev, item;
 	int recharge_strength = 0;
@@ -5531,17 +5531,17 @@ s = "魔力を吸収できるアイテムがありません。";
 
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
-	k_ptr = &object_kind_info[o_ptr->k_idx];
-	lev = object_kind_info[o_ptr->k_idx].level;
+	k_ptr = &object_kind_info[object_ptr->k_idx];
+	lev = object_kind_info[object_ptr->k_idx].level;
 
-	if (o_ptr->tval == TV_ROD)
+	if (object_ptr->tval == TV_ROD)
 	{
 		recharge_strength = ((power > lev/2) ? (power - lev/2) : 0) / 5;
 
@@ -5553,7 +5553,7 @@ s = "魔力を吸収できるアイテムがありません。";
 		}
 		else
 		{
-			if (o_ptr->timeout > (o_ptr->number - 1) * k_ptr->pval)
+			if (object_ptr->timeout > (object_ptr->number - 1) * k_ptr->pval)
 			{
 #ifdef JP
 msg_print("充填中のロッドから魔力を吸収することはできません。");
@@ -5565,7 +5565,7 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 			else
 			{
 				creature_ptr->csp += lev;
-				o_ptr->timeout += k_ptr->pval;
+				object_ptr->timeout += k_ptr->pval;
 			}
 		}
 	}
@@ -5585,13 +5585,13 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 		}
 		else
 		{
-			if (o_ptr->pval > 0)
+			if (object_ptr->pval > 0)
 			{
 				creature_ptr->csp += lev / 2;
-				o_ptr->pval --;
+				object_ptr->pval --;
 
 				/* XXX Hack -- unstack if necessary */
-				if ((o_ptr->tval == TV_STAFF) && (item >= 0) && (o_ptr->number > 1))
+				if ((object_ptr->tval == TV_STAFF) && (item >= 0) && (object_ptr->number > 1))
 				{
 					object_type forge;
 					object_type *quest_ptr;
@@ -5600,16 +5600,16 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 					quest_ptr = &forge;
 
 					/* Obtain a local object */
-					object_copy(quest_ptr, o_ptr);
+					object_copy(quest_ptr, object_ptr);
 
 					/* Modify quantity */
 					quest_ptr->number = 1;
 
 					/* Restore the charges */
-					o_ptr->pval++;
+					object_ptr->pval++;
 
 					/* Unstack the used item */
-					o_ptr->number--;
+					object_ptr->number--;
 					set_inventory_weight(creature_ptr);
 					item = inven_carry(creature_ptr, quest_ptr);
 
@@ -5631,7 +5631,7 @@ msg_print("吸収できる魔力がありません！");
 #endif
 
 			}
-			if (!o_ptr->pval) o_ptr->ident |= IDENT_EMPTY;
+			if (!object_ptr->pval) object_ptr->ident |= IDENT_EMPTY;
 		}
 	}
 
@@ -5639,9 +5639,9 @@ msg_print("吸収できる魔力がありません！");
 	if (fail)
 	{
 		/* Artifacts are never destroyed. */
-		if (object_is_fixed_artifact(o_ptr))
+		if (object_is_fixed_artifact(object_ptr))
 		{
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
 msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 #else
@@ -5650,17 +5650,17 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 
 
 			/* Artifact rods. */
-			if (o_ptr->tval == TV_ROD)
-				o_ptr->timeout = k_ptr->pval * o_ptr->number;
+			if (object_ptr->tval == TV_ROD)
+				object_ptr->timeout = k_ptr->pval * object_ptr->number;
 
 			/* Artifact wands and staffs. */
-			else if ((o_ptr->tval == TV_WAND) || (o_ptr->tval == TV_STAFF))
-				o_ptr->pval = 0;
+			else if ((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF))
+				object_ptr->pval = 0;
 		}
 		else
 		{
 			/* Get the object description */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/*** Determine Seriousness of Failure ***/
 
@@ -5668,19 +5668,19 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			if (creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 					if (one_in_(10)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 75% chance to blow up one wand, otherwise draining. */
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 					if (!one_in_(3)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 50% chance to blow up one staff, otherwise no effect. */
-				else if (o_ptr->tval == TV_STAFF)
+				else if (object_ptr->tval == TV_STAFF)
 				{
 					if (one_in_(2)) fail_type = 2;
 					else fail_type = 0;
@@ -5691,19 +5691,19 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			else
 			{
 				/* 33% chance to blow up one rod, otherwise draining. */
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 					if (one_in_(3)) fail_type = 2;
 					else fail_type = 1;
 				}
 				/* 20% chance of the entire stack, else destroy one wand. */
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 					if (one_in_(5)) fail_type = 3;
 					else fail_type = 2;
 				}
 				/* Blow up one staff. */
-				else if (o_ptr->tval == TV_STAFF)
+				else if (object_ptr->tval == TV_STAFF)
 				{
 					fail_type = 2;
 				}
@@ -5714,7 +5714,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", o_name);
 			/* Drain object or stack of objects. */
 			if (fail_type == 1)
 			{
-				if (o_ptr->tval == TV_ROD)
+				if (object_ptr->tval == TV_ROD)
 				{
 #ifdef JP
 msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
@@ -5722,9 +5722,9 @@ msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
 					msg_format("You save your rod from destruction, but all charges are lost.", o_name);
 #endif
 
-					o_ptr->timeout = k_ptr->pval * o_ptr->number;
+					object_ptr->timeout = k_ptr->pval * object_ptr->number;
 				}
-				else if (o_ptr->tval == TV_WAND)
+				else if (object_ptr->tval == TV_WAND)
 				{
 #ifdef JP
 msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
@@ -5732,7 +5732,7 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
 					msg_format("You save your %s from destruction, but all charges are lost.", o_name);
 #endif
 
-					o_ptr->pval = 0;
+					object_ptr->pval = 0;
 				}
 				/* Staffs aren't drained. */
 			}
@@ -5740,7 +5740,7 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", o_name);
 			/* Destroy an object or one in a stack of objects. */
 			if (fail_type == 2)
 			{
-				if (o_ptr->number > 1)
+				if (object_ptr->number > 1)
 				{
 #ifdef JP
 msg_format("乱暴な魔法のために%sが一本壊れた！", o_name);
@@ -5749,8 +5749,8 @@ msg_format("乱暴な魔法のために%sが一本壊れた！", o_name);
 #endif
 
 					/* Reduce rod stack maximum timeout, drain wands. */
-					if (o_ptr->tval == TV_ROD) o_ptr->timeout = MIN(o_ptr->timeout, k_ptr->pval * (o_ptr->number - 1));
-					else if (o_ptr->tval == TV_WAND) o_ptr->pval = o_ptr->pval * (o_ptr->number - 1) / o_ptr->number;
+					if (object_ptr->tval == TV_ROD) object_ptr->timeout = MIN(object_ptr->timeout, k_ptr->pval * (object_ptr->number - 1));
+					else if (object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * (object_ptr->number - 1) / object_ptr->number;
 
 				}
 				else
@@ -5780,7 +5780,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 			/* Destroy all members of a stack of objects. */
 			if (fail_type == 3)
 			{
-				if (o_ptr->number > 1)
+				if (object_ptr->number > 1)
 #ifdef JP
 msg_format("乱暴な魔法のために%sが全て壊れた！", o_name);
 #else

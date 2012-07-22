@@ -2214,7 +2214,7 @@ static void display_player_various(creature_type * creature_ptr)
 	int         muta_att = 0;
 	int		shots, shot_frac;
 
-	object_type		*o_ptr;
+	object_type		*object_ptr;
 
 	if (has_trait(creature_ptr, TRAIT_HORNS))     muta_att++;
 	if (has_trait(creature_ptr, TRAIT_SCOR_TAIL)) muta_att++;
@@ -2225,21 +2225,21 @@ static void display_player_various(creature_type * creature_ptr)
 	xthn = creature_ptr->skill_thn + (creature_ptr->to_hit_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	tmp = creature_ptr->to_hit_b;
 
-	tmp += o_ptr->to_hit;
+	tmp += object_ptr->to_hit;
 	/* If the player is wielding one? */
-	if (o_ptr->k_idx)
+	if (object_ptr->k_idx)
 	{
-		s16b energy_fire = bow_energy(o_ptr->sval);
+		s16b energy_fire = bow_energy(object_ptr->sval);
 
 		/* Calculate shots per round */
 		shots = creature_ptr->num_fire * 100;
 		shot_frac = (shots * 100 / energy_fire) % 100;
 		shots = shots / energy_fire;
-		if (o_ptr->name1 == ART_CRIMSON)
+		if (object_ptr->name1 == ART_CRIMSON)
 		{
 			shots = 1;
 			shot_frac = 0;
@@ -2671,21 +2671,21 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *creat
 	byte a;
 	char c;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	/* Dump equippy chars */
 	for (i = 0, j = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i]; // Object
+		object_ptr = &creature_ptr->inventory[i]; // Object
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(creature_ptr, i) != INVEN_SLOT_HAND) continue;
 
-		a = object_attr(o_ptr);
-		c = object_char(o_ptr);
+		a = object_attr(object_ptr);
+		c = object_char(object_ptr);
 
 		/* Clear the part of the screen */
-		if (!equippy_chars || !o_ptr->k_idx)
+		if (!equippy_chars || !object_ptr->k_idx)
 		{
 			c = 'x';
 			a = TERM_L_DARK;
@@ -2710,15 +2710,15 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_
 	{
 		u32b o_flgs[TR_FLAG_SIZE];
 
-		object_type *o_ptr;
+		object_type *object_ptr;
 
-		o_ptr = &creature_ptr->inventory[i]; // object
+		object_ptr = &creature_ptr->inventory[i]; // object
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
-		if (!o_ptr->k_idx) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Known flags */
-		object_flags_known(o_ptr, o_flgs);
+		object_flags_known(object_ptr, o_flgs);
 
 		if (have_flag(o_flgs, TR_IM_ACID)) add_flag(flgs, TR_RES_ACID);
 		if (have_flag(o_flgs, TR_IM_ELEC)) add_flag(flgs, TR_RES_ELEC);
@@ -2831,16 +2831,16 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Object */
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
-		if((mode & DP_WP) && WIELD_SLOT(o_ptr) != INVEN_SLOT_HAND) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
+		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVEN_SLOT_HAND) continue;
 
 		/* Known flags */
-		object_flags_known(o_ptr, flgs);
+		object_flags_known(object_ptr, flgs);
 
 		/* Default */
 		if (!(mode & DP_IMM))
@@ -2849,9 +2849,9 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		/* Check flags */
 		if (mode & DP_CURSE)
 		{
-			if ((mode & DP_CURSE) && (o_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE)))
+			if ((mode & DP_CURSE) && (object_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE)))
 				c_put_str(TERM_WHITE, "+", row, col);
-			if ((mode & DP_CURSE) && (o_ptr->curse_flags & TRC_DIVINE_CURSE))
+			if ((mode & DP_CURSE) && (object_ptr->curse_flags & TRC_DIVINE_CURSE))
 				c_put_str(TERM_WHITE, "*", row, col);
 		}
 		else
@@ -3468,7 +3468,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	int i, j, e_adj;
 	int stat_col, stat;
 	int row, col;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	byte a;
 	char c;
@@ -3514,10 +3514,10 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			o_ptr = &creature_ptr->inventory[j];
-			if(!IS_EQUIPPED(o_ptr)) continue;
-			object_flags_known(o_ptr, flgs);
-			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
+			object_ptr = &creature_ptr->inventory[j];
+			if(!IS_EQUIPPED(object_ptr)) continue;
+			object_flags_known(object_ptr, flgs);
+			if (have_flag(flgs, i)) e_adj += object_ptr->pval;
 		}
 
 		r_adj -= calc_unreached_race_level_penalty(calc_base_level(creature_ptr) - creature_ptr->lev, i);
@@ -3677,12 +3677,12 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Acquire "known" flags */
-		object_flags_known(o_ptr, flgs);
+		object_flags_known(object_ptr, flgs);
 
 		/* Initialize color based of sign of pval. */
 		for (stat = 0; stat < 6; stat++)
@@ -3698,13 +3698,13 @@ static void display_player_stat_info(creature_type *creature_ptr)
 				c = '*';
 
 				/* Good */
-				if (o_ptr->pval > 0)
+				if (object_ptr->pval > 0)
 				{
 					/* Good */
 					a = TERM_L_GREEN;
 
 					/* Label boost */
-					if (o_ptr->pval < 10) c = '0' + o_ptr->pval;
+					if (object_ptr->pval < 10) c = '0' + object_ptr->pval;
 				}
 
 				if (have_flag(flgs, stat + TR_SUST_STR))
@@ -3714,13 +3714,13 @@ static void display_player_stat_info(creature_type *creature_ptr)
 				}
 
 				/* Bad */
-				if (o_ptr->pval < 0)
+				if (object_ptr->pval < 0)
 				{
 					/* Bad */
 					a = TERM_RED;
 
 					/* Label boost */
-					if (o_ptr->pval > -10) c = '0' - o_ptr->pval;
+					if (object_ptr->pval > -10) c = '0' - object_ptr->pval;
 				}
 			}
 
@@ -7131,20 +7131,20 @@ static void show_info(creature_type *creature_ptr)
 {
 //	int             i, j, k, l;
 	int i;
-	object_type		*o_ptr;
+	object_type		*object_ptr;
 //	store_type		*st_ptr;
 
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Aware and Known */
-		object_aware(o_ptr);
-		object_known(o_ptr);
+		object_aware(object_ptr);
+		object_known(object_ptr);
 	}
 
 	/*
@@ -7155,14 +7155,14 @@ static void show_info(creature_type *creature_ptr)
 		// Hack -- Know everything in the home
 		for (j = 0; j < st_ptr->stock_num; j++)
 		{
-			o_ptr = &st_ptr->stock[j];
+			object_ptr = &st_ptr->stock[j];
 
 			// Skip non-objects
-			if (!o_ptr->k_idx) continue;
+			if (!object_ptr->k_idx) continue;
 
 			// Aware and Known
-			object_aware(o_ptr);
-			object_known(o_ptr);
+			object_aware(object_ptr);
+			object_known(object_ptr);
 		}
 	}
 	*/
@@ -7292,15 +7292,15 @@ prt("Ž‚Á‚Ä‚¢‚½ƒAƒCƒeƒ€: -‘±‚­-", 0, 0);
 					char tmp_val[80];
 
 					// Acquire item
-					o_ptr = &st_ptr->stock[i];
+					object_ptr = &st_ptr->stock[i];
 
 					// Print header, clear line
 					sprintf(tmp_val, "%c) ", I2A(j));
 					prt(tmp_val, j+2, 4);
 
 					// Display object description
-					object_desc(o_name, o_ptr, 0);
-					c_put_str(tval_to_acttr[o_ptr->tval], o_name, j+2, 7);
+					object_desc(o_name, object_ptr, 0);
+					c_put_str(tval_to_acttr[object_ptr->tval], o_name, j+2, 7);
 				}
 
 				// Caption

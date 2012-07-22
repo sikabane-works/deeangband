@@ -125,41 +125,41 @@ static void object_kind_info_reset(void)
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
  */
 //TODO
-static byte value_check_aux1(creature_type *creature_ptr, object_type *o_ptr)
+static byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Artifacts */
-	if (object_is_artifact(o_ptr))
+	if (object_is_artifact(object_ptr))
 	{
 		/* Cursed/Broken */
-		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
+		if (object_is_cursed(object_ptr) || object_is_broken(object_ptr)) return FEEL_TERRIBLE;
 
 		/* Normal */
 		return FEEL_SPECIAL;
 	}
 
 	/* Ego-Items */
-	if (object_is_ego(o_ptr))
+	if (object_is_ego(object_ptr))
 	{
 		/* Cursed/Broken */
-		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_WORTHLESS;
+		if (object_is_cursed(object_ptr) || object_is_broken(object_ptr)) return FEEL_WORTHLESS;
 
 		/* Normal */
 		return FEEL_EXCELLENT;
 	}
 
 	/* Cursed items */
-	if (object_is_cursed(o_ptr)) return FEEL_CURSED;
+	if (object_is_cursed(object_ptr)) return FEEL_CURSED;
 
 	/* Broken items */
-	if (object_is_broken(o_ptr)) return FEEL_BROKEN;
+	if (object_is_broken(object_ptr)) return FEEL_BROKEN;
 
-	if ((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) return FEEL_AVERAGE;
+	if ((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) return FEEL_AVERAGE;
 
 	/* Good "armor" bonus */
-	if (o_ptr->to_ac > 0) return FEEL_GOOD;
+	if (object_ptr->to_ac > 0) return FEEL_GOOD;
 
 	/* Good "weapon" bonus */
-	if (o_ptr->to_hit + o_ptr->to_damage > 0) return FEEL_GOOD;
+	if (object_ptr->to_hit + object_ptr->to_damage > 0) return FEEL_GOOD;
 
 	/* Default to "average" */
 	return FEEL_AVERAGE;
@@ -169,25 +169,25 @@ static byte value_check_aux1(creature_type *creature_ptr, object_type *o_ptr)
 /*
  * Return a "feeling" (or NULL) about an item.  Method 2 (Light).
  */
-static byte value_check_aux2(creature_type *creature_ptr, object_type *o_ptr)
+static byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Cursed items (all of them) */
-	if (object_is_cursed(o_ptr)) return FEEL_CURSED;
+	if (object_is_cursed(object_ptr)) return FEEL_CURSED;
 
 	/* Broken items (all of them) */
-	if (object_is_broken(o_ptr)) return FEEL_BROKEN;
+	if (object_is_broken(object_ptr)) return FEEL_BROKEN;
 
 	/* Artifacts -- except cursed/broken ones */
-	if (object_is_artifact(o_ptr)) return FEEL_UNCURSED;
+	if (object_is_artifact(object_ptr)) return FEEL_UNCURSED;
 
 	/* Ego-Items -- except cursed/broken ones */
-	if (object_is_ego(o_ptr)) return FEEL_UNCURSED;
+	if (object_is_ego(object_ptr)) return FEEL_UNCURSED;
 
 	/* Good armor bonus */
-	if (o_ptr->to_ac > 0) return FEEL_UNCURSED;
+	if (object_ptr->to_ac > 0) return FEEL_UNCURSED;
 
 	/* Good weapon bonuses */
-	if (o_ptr->to_hit + o_ptr->to_damage > 0) return FEEL_UNCURSED;
+	if (object_ptr->to_hit + object_ptr->to_damage > 0) return FEEL_UNCURSED;
 
 	/* No feeling */
 	return FEEL_NONE;
@@ -198,17 +198,17 @@ static byte value_check_aux2(creature_type *creature_ptr, object_type *o_ptr)
 static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heavy)
 {
 	byte        feel;
-	object_type *o_ptr = &creature_ptr->inventory[slot];
+	object_type *object_ptr = &creature_ptr->inventory[slot];
 	char        o_name[MAX_NLEN];
 
 	/* We know about it already, do not tell us again */
-	if (o_ptr->ident & (IDENT_SENSE))return;
+	if (object_ptr->ident & (IDENT_SENSE))return;
 
 	/* It is fully known, no information needed */
-	if (object_is_known(o_ptr)) return;
+	if (object_is_known(object_ptr)) return;
 
 	/* Check for a feeling */
-	feel = (heavy ? value_check_aux1(creature_ptr, o_ptr) : value_check_aux2(creature_ptr, o_ptr));
+	feel = (heavy ? value_check_aux1(creature_ptr, object_ptr) : value_check_aux2(creature_ptr, object_ptr));
 
 	/* Skip non-feelings */
 	if (!feel) return;
@@ -266,10 +266,10 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 
 	/* Get an object description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	// Message (equipment)
-	if(IS_EQUIPPED(o_ptr))
+	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
 msg_format("%s%s(%c)は%sという感じがする...",
@@ -277,7 +277,7 @@ describe_use(creature_ptr, slot),o_name, index_to_label(slot),game_inscriptions[
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
 			   o_name, index_to_label(slot), describe_use(slot),
-			   ((o_ptr->number == 1) ? "is" : "are"),
+			   ((object_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
 
@@ -292,17 +292,17 @@ o_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
 			   o_name, index_to_label(slot),
-			   ((o_ptr->number == 1) ? "is" : "are"),
+			   ((object_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
 
 	}
 
 	/* We have "felt" it */
-	o_ptr->ident |= (IDENT_SENSE);
+	object_ptr->ident |= (IDENT_SENSE);
 
 	/* Set the "inscription" */
-	o_ptr->feeling = feel;
+	object_ptr->feeling = feel;
 
 	/* Auto-inscription/destroy */
 	autopick_alter_item(creature_ptr, slot, destroy_feeling);
@@ -331,7 +331,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	int         i;
 	int         plev = creature_ptr->lev;
 	bool        heavy = FALSE;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 
 	/*** Check for "sensing" ***/
@@ -511,13 +511,13 @@ static void sense_inventory1(creature_type *creature_ptr)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Valid "tval" codes */
-		switch (o_ptr->tval)
+		switch (object_ptr->tval)
 		{
 			case TV_SHOT:
 			case TV_ARROW:
@@ -547,7 +547,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on creature_ptr->inventory items */
-		if (!IS_EQUIPPED(o_ptr) && (0 != randint0(5))) continue;
+		if (!IS_EQUIPPED(object_ptr) && (0 != randint0(5))) continue;
 
 		/* Good luck */
 		if (has_trait(creature_ptr, TRAIT_GOOD_LUCK) && !randint0(13))
@@ -564,7 +564,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 {
 	int         i;
 	int         plev = creature_ptr->lev;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 
 	/*** Check for "sensing" ***/
@@ -655,13 +655,13 @@ static void sense_inventory2(creature_type *creature_ptr)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Valid "tval" codes */
-		switch (o_ptr->tval)
+		switch (object_ptr->tval)
 		{
 			case TV_RING:
 			case TV_AMULET:
@@ -677,7 +677,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on creature_ptr->inventory items */
-		if (!IS_EQUIPPED(o_ptr) && (0 != randint0(5))) continue;
+		if (!IS_EQUIPPED(object_ptr) && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(creature_ptr, i, TRUE);
 	}
@@ -1150,21 +1150,21 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		species_type *r_ptr;
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		if (!o_ptr->k_idx) continue;
-		if (o_ptr->tval != TV_CAPTURE) continue;
-		if (!o_ptr->pval) continue;
+		if (!object_ptr->k_idx) continue;
+		if (object_ptr->tval != TV_CAPTURE) continue;
+		if (!object_ptr->pval) continue;
 
 		heal = TRUE;
 
-		r_ptr = &species_info[o_ptr->pval];
+		r_ptr = &species_info[object_ptr->pval];
 
 		/* Allow regeneration (if needed) */
-		if (o_ptr->xtra4 < o_ptr->xtra5)
+		if (object_ptr->xtra4 < object_ptr->xtra5)
 		{
 			/* Hack -- Base regeneration */
-			frac = o_ptr->xtra5 / 100;
+			frac = object_ptr->xtra5 / 100;
 
 			/* Hack -- Minimal regeneration rate */
 			if (!frac) if (one_in_(2)) frac = 1;
@@ -1173,10 +1173,10 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 			if (has_trait(creature_ptr, TRAIT_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
-			o_ptr->xtra4 += frac;
+			object_ptr->xtra4 += frac;
 
 			/* Do not over-regenerate */
-			if (o_ptr->xtra4 > o_ptr->xtra5) o_ptr->xtra4 = o_ptr->xtra5;
+			if (object_ptr->xtra4 > object_ptr->xtra5) object_ptr->xtra4 = object_ptr->xtra5;
 		}
 	}
 
@@ -1193,10 +1193,10 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 }
 
 
-static void notice_lite_change(creature_type *creature_ptr, object_type *o_ptr)
+static void notice_lite_change(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Hack -- notice interesting fuel steps */
-	if ((o_ptr->xtra4 < 100) || (!(o_ptr->xtra4 % 100)))
+	if ((object_ptr->xtra4 < 100) || (!(object_ptr->xtra4 % 100)))
 	{
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -1206,11 +1206,11 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *o_ptr)
 	if (IS_BLIND(creature_ptr))
 	{
 		/* Hack -- save some light for later */
-		if (o_ptr->xtra4 == 0) o_ptr->xtra4++;
+		if (object_ptr->xtra4 == 0) object_ptr->xtra4++;
 	}
 
 	/* The light is now out */
-	else if (o_ptr->xtra4 == 0)
+	else if (object_ptr->xtra4 == 0)
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -1224,9 +1224,9 @@ msg_print("明かりが消えてしまった！");
 	}
 
 	/* The light is getting dim */
-	else if (o_ptr->name2 == EGO_LITE_LONG)
+	else if (object_ptr->name2 == EGO_LITE_LONG)
 	{
-		if ((o_ptr->xtra4 < 50) && (!(o_ptr->xtra4 % 5))
+		if ((object_ptr->xtra4 < 50) && (!(object_ptr->xtra4 % 5))
 		    && (turn % (TURNS_PER_TICK*2)))
 		{
 			if (disturb_minor) disturb(player_ptr, 0, 0);
@@ -1240,7 +1240,7 @@ msg_print("明かりが微かになってきている。");
 	}
 
 	/* The light is getting dim */
-	else if ((o_ptr->xtra4 < 100) && (!(o_ptr->xtra4 % 10)))
+	else if ((object_ptr->xtra4 < 100) && (!(object_ptr->xtra4 % 10)))
 	{
 		if (disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -1295,7 +1295,7 @@ void leave_quest_check(creature_type *creature_ptr)
 bool psychometry(creature_type *creature_ptr)
 {
 	int             item;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	byte            feel;
 	cptr            q, s;
@@ -1315,17 +1315,17 @@ s = "調べるアイテムがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* It is fully known, no information needed */
-	if (object_is_known(o_ptr))
+	if (object_is_known(object_ptr))
 	{
 #ifdef JP
 msg_print("何も新しいことは判らなかった。");
@@ -1337,10 +1337,10 @@ msg_print("何も新しいことは判らなかった。");
 	}
 
 	/* Check for a feeling */
-	feel = value_check_aux1(creature_ptr, o_ptr);
+	feel = value_check_aux1(creature_ptr, object_ptr);
 
 	/* Get an object description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Skip non-feelings */
 	if (!feel)
@@ -1359,19 +1359,19 @@ msg_format("%sは%sという感じがする...",
     o_name,  game_inscriptions[feel]);
 #else
 	msg_format("You feel that the %s %s %s...",
-			   o_name, ((o_ptr->number == 1) ? "is" : "are"),
+			   o_name, ((object_ptr->number == 1) ? "is" : "are"),
 			   game_inscriptions[feel]);
 #endif
 
 
 	/* We have "felt" it */
-	o_ptr->ident |= (IDENT_SENSE);
+	object_ptr->ident |= (IDENT_SENSE);
 
 	/* "Inscribe" it */
-	o_ptr->feeling = feel;
+	object_ptr->feeling = feel;
 
 	/* Player touches it */
-	o_ptr->marked |= OM_TOUCHED;
+	object_ptr->marked |= OM_TOUCHED;
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -1380,7 +1380,7 @@ msg_format("%sは%sという感じがする...",
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Valid "tval" codes */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 	case TV_SHOT:
 	case TV_ARROW:
@@ -1420,17 +1420,17 @@ msg_format("%sは%sという感じがする...",
  * If player has inscribed the object with "!!", let him know when it's
  * recharged. -LM-
  */
-static void recharged_notice(object_type *o_ptr)
+static void recharged_notice(object_type *object_ptr)
 {
 	char o_name[MAX_NLEN];
 
 	cptr s;
 
 	/* No inscription */
-	if (!o_ptr->inscription) return;
+	if (!object_ptr->inscription) return;
 
 	/* Find a '!' */
-	s = my_strchr(quark_str(o_ptr->inscription), '!');
+	s = my_strchr(quark_str(object_ptr->inscription), '!');
 
 	/* Process notification request. */
 	while (s)
@@ -1439,13 +1439,13 @@ static void recharged_notice(object_type *o_ptr)
 		if (s[1] == '!')
 		{
 			/* Describe (briefly) */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/* Notify the player */
 #ifdef JP
 			msg_format("%sは再充填された。", o_name);
 #else
-			if (o_ptr->number > 1)
+			if (object_ptr->number > 1)
 				msg_format("Your %s are recharged.", o_name);
 			else
 				msg_format("Your %s is recharged.", o_name);
@@ -1551,10 +1551,10 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 	/* Search Inventry */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		object_type *object_ptr = &creature_ptr->inventory[i];
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		if (o_ptr->curse_flags & flag)
+		if (object_ptr->curse_flags & flag)
 		{
 			choices[number] = i;
 			number++;
@@ -1642,12 +1642,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
 		    !creature_ptr->resist_lite)
 		{
-			object_type * o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 			char o_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
 			/* Get an object description */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
@@ -1657,7 +1657,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 			cave_no_regen = TRUE;
 
 			/* Get an object description */
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(o_name, object_ptr, OD_NAME_ONLY);
 
 #ifdef JP
 			sprintf(ouch, "%sを装備したダメージ", o_name);
@@ -2291,23 +2291,23 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 static void process_world_aux_light(creature_type *creature_ptr)
 {
 	/* Check for light being wielded */
-	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 	/* Burn some fuel in the current lite */
-	if (o_ptr->tval == TV_LITE)
+	if (object_ptr->tval == TV_LITE)
 	{
 		/* Hack -- Use some fuel (except on artifacts) */
-		if (!(object_is_fixed_artifact(o_ptr) || o_ptr->sval == SV_LITE_FEANOR) && (o_ptr->xtra4 > 0))
+		if (!(object_is_fixed_artifact(object_ptr) || object_ptr->sval == SV_LITE_FEANOR) && (object_ptr->xtra4 > 0))
 		{
 			/* Decrease life-span */
-			if (o_ptr->name2 == EGO_LITE_LONG)
+			if (object_ptr->name2 == EGO_LITE_LONG)
 			{
-				if (turn % (TURNS_PER_TICK*2)) o_ptr->xtra4--;
+				if (turn % (TURNS_PER_TICK*2)) object_ptr->xtra4--;
 			}
-			else o_ptr->xtra4--;
+			else object_ptr->xtra4--;
 
 			/* Notice interesting fuel steps */
-			notice_lite_change(creature_ptr, o_ptr);
+			notice_lite_change(creature_ptr, object_ptr);
 		}
 	}
 }
@@ -2543,7 +2543,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_EAT_LIGHT) && one_in_(3000))
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 #ifdef JP
 		msg_print("影につつまれた。");
@@ -2559,19 +2559,19 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			hp_player(creature_ptr, 10);
 		}
 
-		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
 		/* Absorb some fuel in the current lite */
-		if (o_ptr->tval == TV_LITE)
+		if (object_ptr->tval == TV_LITE)
 		{
 			/* Use some fuel (except on artifacts) */
-			if (!object_is_fixed_artifact(o_ptr) && (o_ptr->xtra4 > 0))
+			if (!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))
 			{
 				/* Heal the player a bit */
-				hp_player(creature_ptr, o_ptr->xtra4 / 20);
+				hp_player(creature_ptr, object_ptr->xtra4 / 20);
 
 				/* Decrease life-span of lite */
-				o_ptr->xtra4 /= 2;
+				object_ptr->xtra4 /= 2;
 
 #ifdef JP
 				msg_print("光源からエネルギーを吸収した！");
@@ -2581,7 +2581,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 
 				/* Notice interesting fuel steps */
-				notice_lite_change(creature_ptr, o_ptr);
+				notice_lite_change(creature_ptr, object_ptr);
 			}
 		}
 
@@ -2891,7 +2891,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	{
 		int i;
 		int slot = 0;
-		object_type *o_ptr = NULL;
+		object_type *object_ptr = NULL;
 
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2907,11 +2907,11 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		if (i = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		{
 			int j = randint0(i);
-			o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
+			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
 			slot = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, j);
 		}
 
-		if (slot && !object_is_cursed(o_ptr))
+		if (slot && !object_is_cursed(object_ptr))
 		{
 #ifdef JP
 			msg_print("武器を落としてしまった！");
@@ -2938,28 +2938,28 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		if ((creature_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
 		{
 			char o_name[MAX_NLEN];
-			object_type *o_ptr;
+			object_type *object_ptr;
 			int i, i_keep = 0, count = 0;
 
 			/* Scan the equipment with random teleport ability */
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
-				o_ptr = &creature_ptr->inventory[i];
+				object_ptr = &creature_ptr->inventory[i];
 
 				// Skip no equip
-				if(!IS_EQUIPPED(o_ptr)) continue;
+				if(!IS_EQUIPPED(object_ptr)) continue;
 
 				/* Skip non-objects */
-				if (!o_ptr->k_idx) continue;
+				if (!object_ptr->k_idx) continue;
 
 				/* Extract the item flags */
-				object_flags(o_ptr, flgs);
+				object_flags(object_ptr, flgs);
 
 				if (have_flag(flgs, TR_TELEPORT))
 				{
 					/* {.} will stop random teleportation. */
-					if (!o_ptr->inscription || !my_strchr(quark_str(o_ptr->inscription), '.'))
+					if (!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '.'))
 					{
 						count++;
 						if (one_in_(count)) i_keep = i;
@@ -2967,8 +2967,8 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				}
 			}
 
-			o_ptr = &creature_ptr->inventory[i_keep];
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_ptr = &creature_ptr->inventory[i_keep];
+			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 			msg_format("%sがテレポートの能力を発動させようとしている。", o_name);
@@ -3027,25 +3027,25 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		if ((creature_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
-			object_type *o_ptr;
+			object_type *object_ptr;
 
-			o_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_L_CURSE);
+			object_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_L_CURSE);
 
-			new_curse = get_curse(0, o_ptr);
-			if (!(o_ptr->curse_flags & new_curse))
+			new_curse = get_curse(0, object_ptr);
+			if (!(object_ptr->curse_flags & new_curse))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-				o_ptr->curse_flags |= new_curse;
+				object_ptr->curse_flags |= new_curse;
 #ifdef JP
 				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", o_name);
 #else
 				msg_format("There is a malignant black aura surrounding your %s...", o_name);
 #endif
 
-				o_ptr->feeling = FEEL_NONE;
+				object_ptr->feeling = FEEL_NONE;
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
@@ -3053,25 +3053,25 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		if ((creature_ptr->cursed & TRC_ADD_H_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
-			object_type *o_ptr;
+			object_type *object_ptr;
 
-			o_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_H_CURSE);
+			object_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_H_CURSE);
 
-			new_curse = get_curse(1, o_ptr);
-			if (!(o_ptr->curse_flags & new_curse))
+			new_curse = get_curse(1, object_ptr);
+			if (!(object_ptr->curse_flags & new_curse))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-				o_ptr->curse_flags |= new_curse;
+				object_ptr->curse_flags |= new_curse;
 #ifdef JP
 				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", o_name);
 #else
 				msg_format("There is a malignant black aura surrounding your %s...", o_name);
 #endif
 
-				o_ptr->feeling = FEEL_NONE;
+				object_ptr->feeling = FEEL_NONE;
 
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
@@ -3188,19 +3188,19 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if (one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-		object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-		if (o_ptr->name1 == ART_JUDGE)
+		if (object_ptr->name1 == ART_JUDGE)
 		{
 #ifdef JP
-			if (object_is_known(o_ptr))
+			if (object_is_known(object_ptr))
 				msg_print("『審判の宝石』はあなたの体力を吸収した！");
 			else
 				msg_print("なにかがあなたの体力を吸収した！");
 
 			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "審判の宝石", NULL, -1);
 #else
-			if (object_is_known(o_ptr))
+			if (object_is_known(object_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
@@ -3224,24 +3224,24 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Get the object */
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		// Skip no equip
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Recharge activatable objects */
-		if (o_ptr->timeout > 0)
+		if (object_ptr->timeout > 0)
 		{
 			/* Recharge */
-			o_ptr->timeout--;
+			object_ptr->timeout--;
 
 			/* Notice changes */
-			if (!o_ptr->timeout)
+			if (!object_ptr->timeout)
 			{
-				recharged_notice(o_ptr);
+				recharged_notice(object_ptr);
 				changed = TRUE;
 			}
 		}
@@ -3262,34 +3262,34 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	 */
 	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
-		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+		object_type *object_ptr = &creature_ptr->inventory[i];
+		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Examine all charging rods or stacks of charging rods. */
-		if ((o_ptr->tval == TV_ROD) && (o_ptr->timeout))
+		if ((object_ptr->tval == TV_ROD) && (object_ptr->timeout))
 		{
 			/* Determine how many rods are charging. */
-			int temp = (o_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
-			if (temp > o_ptr->number) temp = o_ptr->number;
+			int temp = (object_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
+			if (temp > object_ptr->number) temp = object_ptr->number;
 
 			/* Decrease timeout by that number. */
-			o_ptr->timeout -= temp;
+			object_ptr->timeout -= temp;
 
 			/* Boundary control. */
-			if (o_ptr->timeout < 0) o_ptr->timeout = 0;
+			if (object_ptr->timeout < 0) object_ptr->timeout = 0;
 
 			/* Notice changes, provide message if object is inscribed. */
-			if (!(o_ptr->timeout))
+			if (!(object_ptr->timeout))
 			{
-				recharged_notice(o_ptr);
+				recharged_notice(object_ptr);
 				changed = TRUE;
 			}
 
 			/* One of the stack of rod is charged */
-			else if (o_ptr->timeout % k_ptr->pval)
+			else if (object_ptr->timeout % k_ptr->pval)
 			{
 				changed = TRUE;
 			}
@@ -3308,19 +3308,19 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	for (i = 1; i < object_max; i++)
 	{
 		/* Access object */
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Recharge rods on the ground.  No messages. */
-		if ((o_ptr->tval == TV_ROD) && (o_ptr->timeout))
+		if ((object_ptr->tval == TV_ROD) && (object_ptr->timeout))
 		{
 			/* Charge it */
-			o_ptr->timeout -= o_ptr->number;
+			object_ptr->timeout -= object_ptr->number;
 
 			/* Boundary control. */
-			if (o_ptr->timeout < 0) o_ptr->timeout = 0;
+			if (object_ptr->timeout < 0) object_ptr->timeout = 0;
 		}
 	}
 }
@@ -3593,8 +3593,8 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 
 		if (object_is_ego(object_ptr)) // Ego objects
 		{
-			ego_item_type *ego_ptr = &object_ego_info[object_ptr->name2];
-			delta += ego_ptr->rating * base;
+			ego_item_type *egobject_ptr = &object_ego_info[object_ptr->name2];
+			delta += egobject_ptr->rating * base;
 		}
 
 		if (object_is_artifact(object_ptr)) // Artifacts
@@ -5263,14 +5263,14 @@ static void pack_overflow(creature_type *creature_ptr)
 	if (creature_ptr->inventory[INVEN_TOTAL].k_idx)
 	{
 		char o_name[MAX_NLEN];
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Is auto-destroy done? */
 		notice_stuff(creature_ptr);
 		if (!creature_ptr->inventory[INVEN_TOTAL].k_idx) return;
 
 		/* Access the slot to be dropped */
-		o_ptr = &creature_ptr->inventory[INVEN_TOTAL];
+		object_ptr = &creature_ptr->inventory[INVEN_TOTAL];
 
 		/* Disturbing */
 		disturb(player_ptr, 0, 0);
@@ -5283,7 +5283,7 @@ static void pack_overflow(creature_type *creature_ptr)
 #endif
 
 		/* Describe */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
@@ -5293,7 +5293,7 @@ static void pack_overflow(creature_type *creature_ptr)
 #endif
 
 		/* Drop it (carefully) near the player */
-		(void)drop_near(floor_ptr, o_ptr, 0, creature_ptr->fy, creature_ptr->fx);
+		(void)drop_near(floor_ptr, object_ptr, 0, creature_ptr->fy, creature_ptr->fx);
 
 		/* Modify, Describe, Optimize */
 		inven_item_increase(creature_ptr, INVEN_TOTAL, -255);

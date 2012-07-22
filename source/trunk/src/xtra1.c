@@ -2198,7 +2198,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 {
 	int		msp, levels, cur_wgt, max_wgt;
 
-	object_type	*o_ptr;
+	object_type	*object_ptr;
 
 	levels = creature_ptr->lev;
 
@@ -2234,16 +2234,16 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		creature_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_ARMS, 1);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_ARMS, 1);
 
 		/* Examine the gloves */
-		object_flags(o_ptr, flgs);
+		object_flags(object_ptr, flgs);
 
 		/* Normal gloves hurt mage-type spells */
-		if (o_ptr->k_idx &&
+		if (object_ptr->k_idx &&
 		    !(have_flag(flgs, TR_FREE_ACT)) &&
 		    !(have_flag(flgs, TR_MAGIC_MASTERY)) &&
-		    !((have_flag(flgs, TR_DEX)) && (o_ptr->pval > 0)))
+		    !((have_flag(flgs, TR_DEX)) && (object_ptr->pval > 0)))
 		{
 			/* Encumbered */
 			creature_ptr->cumber_glove = TRUE;
@@ -2588,7 +2588,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 static void calc_lite(creature_type *creature_ptr)
 {
 	int i;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -2598,66 +2598,66 @@ static void calc_lite(creature_type *creature_ptr)
 	// Loop through all wielded items
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		// Examine actual lites
-		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_LITE && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
+		if (GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_LITE && (object_ptr->k_idx) && (object_ptr->tval == TV_LITE))
 		{
-			if (o_ptr->name2 == EGO_LITE_DARKNESS)
+			if (object_ptr->name2 == EGO_LITE_DARKNESS)
 			{
-				if (o_ptr->sval == SV_LITE_TORCH)
+				if (object_ptr->sval == SV_LITE_TORCH)
 				{
 					creature_ptr->cur_lite -= 2;
 				}
 
 				// Lanterns (with fuel) provide more lite
-				else if (o_ptr->sval == SV_LITE_LANTERN)
+				else if (object_ptr->sval == SV_LITE_LANTERN)
 				{
 					creature_ptr->cur_lite -= 2;
 				}
 
-				else if (o_ptr->sval == SV_LITE_FEANOR)
+				else if (object_ptr->sval == SV_LITE_FEANOR)
 				{
 					creature_ptr->cur_lite -= 3;
 				}
 			}
 			/* Torches (with fuel) provide some lite */
-			else if ((o_ptr->sval == SV_LITE_TORCH) && (o_ptr->xtra4 > 0))
+			else if ((object_ptr->sval == SV_LITE_TORCH) && (object_ptr->xtra4 > 0))
 			{
 				creature_ptr->cur_lite += 2;
 			}
 
 			/* Lanterns (with fuel) provide more lite */
-			else if ((o_ptr->sval == SV_LITE_LANTERN) && (o_ptr->xtra4 > 0))
+			else if ((object_ptr->sval == SV_LITE_LANTERN) && (object_ptr->xtra4 > 0))
 			{
 				creature_ptr->cur_lite += 2;
 			}
 
-			else if (o_ptr->sval == SV_LITE_FEANOR || o_ptr->sval == SV_LITE_UDUN)
+			else if (object_ptr->sval == SV_LITE_FEANOR || object_ptr->sval == SV_LITE_UDUN)
 			{
 				creature_ptr->cur_lite += 3;
 			}
 
 			/* Artifact Lites provide permanent, bright, lite */
-			else if (object_is_fixed_artifact(o_ptr))
+			else if (object_is_fixed_artifact(object_ptr))
 			{
 				creature_ptr->cur_lite += 4;
 			}
 
-			if (o_ptr->name2 == EGO_LITE_SHINE) creature_ptr->cur_lite++;
+			if (object_ptr->name2 == EGO_LITE_SHINE) creature_ptr->cur_lite++;
 		}
 		else
 		{
 			/* Skip empty slots */
-			if (!o_ptr->k_idx) continue;
+			if (!object_ptr->k_idx) continue;
 
 			/* Extract the flags */
-			object_flags(o_ptr, flgs);
+			object_flags(object_ptr, flgs);
 
 			/* does this item glow? */
 			if (have_flag(flgs, TR_LITE))
 			{
-				if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
+				if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
 				else creature_ptr->cur_lite++;
 			}
 		}
@@ -4927,12 +4927,12 @@ static void set_flow_flag(creature_type *creature_ptr)
 	{
 		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
-			object_type *o_ptr;
-			o_ptr = &object_list[this_object_idx]; // Acquire object
-			next_object_idx = o_ptr->next_object_idx; // Acquire next object
+			object_type *object_ptr;
+			object_ptr = &object_list[this_object_idx]; // Acquire object
+			next_object_idx = object_ptr->next_object_idx; // Acquire next object
 
-			if ((o_ptr->tval == TV_NATURE_BOOK) && (o_ptr->sval == 2)) have_sw = TRUE;
-			if ((o_ptr->tval == TV_CRAFT_BOOK)  && (o_ptr->sval == 2)) have_kabe = TRUE;
+			if ((object_ptr->tval == TV_NATURE_BOOK) && (object_ptr->sval == 2)) have_sw = TRUE;
+			if ((object_ptr->tval == TV_CRAFT_BOOK)  && (object_ptr->sval == 2)) have_kabe = TRUE;
 		}
 	}
 

@@ -4242,7 +4242,7 @@ msg_print("守りのルーンが壊れた！");
 		if (is_unique_species(r_ptr))
 		{
 			cptr color;
-			object_type *o_ptr;
+			object_type *object_ptr;
 			char o_name[MAX_NLEN];
 
 			if (r_ptr->level > watcher_ptr->lev + 30)
@@ -4282,10 +4282,10 @@ msg_print("守りのルーンが壊れた！");
 				color = "white";
 #endif
 
-			o_ptr = choose_warning_item(watcher_ptr);
-			if (o_ptr)
+			object_ptr = choose_warning_item(watcher_ptr);
+			if (object_ptr)
 			{
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sは%s光った。", o_name, color);
 #else

@@ -1828,7 +1828,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	s32b gold;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char o_name[MAX_NLEN];
 
@@ -2543,20 +2543,20 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					i = randint0(INVEN_TOTAL);
 
 					/* Obtain the item */
-					o_ptr = &target_ptr->inventory[i];
+					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!o_ptr->k_idx) continue;
+					if (!object_ptr->k_idx) continue;
 
 					/* Drain charged wands/staffs */
-					if (((o_ptr->tval == TV_STAFF) ||
-						(o_ptr->tval == TV_WAND)) &&
-						(o_ptr->pval))
+					if (((object_ptr->tval == TV_STAFF) ||
+						(object_ptr->tval == TV_WAND)) &&
+						(object_ptr->pval))
 					{
 						/* Calculate healed hitpoints */
-						int heal=rlev * o_ptr->pval;
-						if( o_ptr->tval == TV_STAFF)
-							heal *=  o_ptr->number;
+						int heal=rlev * object_ptr->pval;
+						if( object_ptr->tval == TV_STAFF)
+							heal *=  object_ptr->number;
 
 						/* Don't heal more than max hp */
 						heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
@@ -2580,7 +2580,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						//if (&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Uncharge */
-						o_ptr->pval = 0;
+						object_ptr->pval = 0;
 
 						/* Combine / Reorder the pack */
 						target_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -2719,25 +2719,25 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					i = randint0(INVEN_TOTAL);
 
 					/* Obtain the item */
-					o_ptr = &target_ptr->inventory[i];
+					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!o_ptr->k_idx) continue;
+					if (!object_ptr->k_idx) continue;
 
 					/* Skip artifacts */
-					if (object_is_artifact(o_ptr)) continue;
+					if (object_is_artifact(object_ptr)) continue;
 
 					/* Get a description */
-					object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+					object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
 
 					/* Message */
 #ifdef JP
 					msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I",
 						o_name, index_to_label(i),
-						((o_ptr->number > 1) ? "ˆê‚Â" : ""));
+						((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 					msg_format("%sour %s (%c) was stolen!",
-						((o_ptr->number > 1) ? "One of y" : "Y"),
+						((object_ptr->number > 1) ? "One of y" : "Y"),
 						o_name, index_to_label(i));
 #endif
 
@@ -2753,7 +2753,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						j_ptr = &object_list[object_idx];
 
 						/* Copy object */
-						object_copy(j_ptr, o_ptr);
+						object_copy(j_ptr, object_ptr);
 
 						/* Modify number */
 						j_ptr->number = 1;
@@ -2762,10 +2762,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						* maximum timeouts or charges between those
 						* stolen and those missed. -LM-
 						*/
-						if ((o_ptr->tval == TV_ROD) || (o_ptr->tval == TV_WAND))
+						if ((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
 						{
-							j_ptr->pval = o_ptr->pval / o_ptr->number;
-							o_ptr->pval -= j_ptr->pval;
+							j_ptr->pval = object_ptr->pval / object_ptr->number;
+							object_ptr->pval -= j_ptr->pval;
 						}
 
 						/* Forget mark */
@@ -2806,25 +2806,25 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					i = randint0(INVEN_TOTAL);
 
 					/* Get the item */
-					o_ptr = &target_ptr->inventory[i];
+					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!o_ptr->k_idx) continue;
+					if (!object_ptr->k_idx) continue;
 
 					/* Skip non-food objects */
-					if ((o_ptr->tval != TV_FOOD) && !((o_ptr->tval == TV_CORPSE) && (o_ptr->sval))) continue;
+					if ((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
 
 					/* Get a description */
-					object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+					object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 					/* Message */
 #ifdef JP
 					msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I",
 						o_name, index_to_label(i),
-						((o_ptr->number > 1) ? "ˆê‚Â" : ""));
+						((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 					msg_format("%sour %s (%c) was eaten!",
-						((o_ptr->number > 1) ? "One of y" : "Y"),
+						((object_ptr->number > 1) ? "One of y" : "Y"),
 						o_name, index_to_label(i));
 #endif
 
@@ -2846,7 +2846,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_LITE:
 			{
 				/* Access the lite */
-				o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 1);
+				object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 1);
 
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
@@ -2854,11 +2854,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if (IS_DEAD(target_ptr) || (target_ptr->multishadow && (turn & 1))) break;
 
 				/* Drain fuel */
-				if ((o_ptr->xtra4 > 0) && (!object_is_fixed_artifact(o_ptr)))
+				if ((object_ptr->xtra4 > 0) && (!object_is_fixed_artifact(object_ptr)))
 				{
 					/* Reduce fuel */
-					o_ptr->xtra4 -= (250 + (s16b)randint1(250));
-					if (o_ptr->xtra4 < 1) o_ptr->xtra4 = 1;
+					object_ptr->xtra4 -= (250 + (s16b)randint1(250));
+					if (object_ptr->xtra4 < 1) object_ptr->xtra4 = 1;
 
 					/* Notice */
 					if (!IS_BLIND(target_ptr))
@@ -3764,19 +3764,19 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
-				object_type *o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
+				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
 
 				if (!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
-					if (o_ptr->k_idx)
+					if (object_ptr->k_idx)
 					{
-						int basedam = ((o_ptr->dd + target_ptr->to_damaged[0]) * (o_ptr->ds + target_ptr->to_damages[0] + 1));
-						dam = basedam / 2 + o_ptr->to_damage + target_ptr->to_damage[0];
+						int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
+						dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];
 					}
 
 					/* Cursed armor makes damages doubled */
-					o_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
-					if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
+					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
+					if ((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -3808,8 +3808,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					// Some cursed armours gives an extra effect
 					for (j = 0; j < 4; j++)
 					{
-					o_ptr = &target_ptr->inventory[typ[j][0]];
-					if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(o_ptr))
+					object_ptr = &target_ptr->inventory[typ[j][0]];
+					if ((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
 					project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
 					}
 					}

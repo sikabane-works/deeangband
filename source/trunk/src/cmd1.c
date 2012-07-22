@@ -218,7 +218,7 @@ s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s
  * Note that most brands and slays are x3, except Slay Animal (x2),
  * Slay Evil (x2), and Kill dragon (x5).
  */
-s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
+s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
 {
 	int mult = 10;
 
@@ -227,10 +227,10 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, crea
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Some "weapons" and "ammo" do extra damage */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_SHOT:
 		case TV_ARROW:
@@ -426,7 +426,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, crea
 
 				if (mult < 50) mult = 50;
 
-				if ((o_ptr->name1 == ART_NOTHUNG) && (target_ptr->species_idx == MON_FAFNER))
+				if ((object_ptr->name1 == ART_NOTHUNG) && (target_ptr->species_idx == MON_FAFNER))
 					mult *= 3;
 			}
 
@@ -584,9 +584,9 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *o_ptr, int tdam, crea
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = 60;
 			}
-			if ((attacker_ptr->class_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (attacker_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+			if ((attacker_ptr->class_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (attacker_ptr->csp > (object_ptr->dd * object_ptr->ds / 5)))
 			{
-				attacker_ptr->csp -= (1+(o_ptr->dd * o_ptr->ds / 5));
+				attacker_ptr->csp -= (1+(object_ptr->dd * object_ptr->ds / 5));
 				play_redraw |= (PR_MANA);
 				mult = mult * 3 / 2 + 20;
 			}
@@ -666,22 +666,22 @@ void search(creature_type *creature_ptr)
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
-					object_type *o_ptr;
+					object_type *object_ptr;
 
 					/* Acquire object */
-					o_ptr = &object_list[this_object_idx];
+					object_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_object_idx = o_ptr->next_object_idx;
+					next_object_idx = object_ptr->next_object_idx;
 
 					/* Skip non-chests */
-					if (o_ptr->tval != TV_CHEST) continue;
+					if (object_ptr->tval != TV_CHEST) continue;
 
 					/* Skip non-trapped chests */
-					if (!chest_traps[o_ptr->pval]) continue;
+					if (!chest_traps[object_ptr->pval]) continue;
 
 					/* Identify once */
-					if (!object_is_known(o_ptr))
+					if (!object_is_known(object_ptr))
 					{
 						/* Message */
 #ifdef JP
@@ -691,7 +691,7 @@ void search(creature_type *creature_ptr)
 #endif
 
 						/* Know the trap */
-						object_known(o_ptr);
+						object_known(object_ptr);
 
 						/* Notice it */
 						disturb(player_ptr, 0, 0);
@@ -730,42 +730,42 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	char o_name[MAX_NLEN];
 #endif
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
-	o_ptr = &object_list[object_idx];
+	object_ptr = &object_list[object_idx];
 
 #ifdef JP
 	/* Describe the object */
-	object_desc(old_name, o_ptr, OD_NAME_ONLY);
-	object_desc_kosuu(kazu_str, o_ptr);
-	hirottakazu = o_ptr->number;
+	object_desc(old_name, object_ptr, OD_NAME_ONLY);
+	object_desc_kosuu(kazu_str, object_ptr);
+	hirottakazu = object_ptr->number;
 #endif
 	/* Carry the object */
-	slot = inven_carry(creature_ptr, o_ptr);
+	slot = inven_carry(creature_ptr, object_ptr);
 
 	/* Get the object again */
-	o_ptr = &creature_ptr->inventory[slot];
+	object_ptr = &creature_ptr->inventory[slot];
 
 	/* Delete the object */
 	delete_object_idx(object_idx);
 
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		bool old_known = identify_item(creature_ptr, o_ptr);
+		bool old_known = identify_item(creature_ptr, object_ptr);
 
 		/* Auto-inscription/destroy */
 		autopick_alter_item(creature_ptr, slot, (bool)(destroy_identify && !old_known));
 
 		/* If it is destroyed, don't pick it up */
-		if (o_ptr->marked & OM_AUTODESTROY) return;
+		if (object_ptr->marked & OM_AUTODESTROY) return;
 	}
 
 	/* Describe the object */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 
 	/* Message */
 #ifdef JP
-	if ((o_ptr->name1 == ART_CRIMSON) && (creature_ptr->chara_idx == CHARA_COMBAT))
+	if ((object_ptr->name1 == ART_CRIMSON) && (creature_ptr->chara_idx == CHARA_COMBAT))
 	{
 		msg_format("こうして、%sは『クリムゾン』を手に入れた。", creature_ptr->name);
 		msg_print("しかし今、『混沌のサーペント』の放ったクリーチャーが、");
@@ -779,7 +779,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 		}
 		else
 		{
-			if (o_ptr->number > hirottakazu) {
+			if (object_ptr->number > hirottakazu) {
 			    msg_format("%s拾って、%s(%c)を持っている。",
 			       kazu_str, o_name, index_to_label(slot));
 			} else {
@@ -800,7 +800,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	{
 		if ((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) &&
 		    (quest[i].status == QUEST_STATUS_TAKEN) &&
-			   (quest[i].k_idx == o_ptr->name1))
+			   (quest[i].k_idx == object_ptr->name1))
 		{
 			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
@@ -858,10 +858,10 @@ void carry(creature_type *creature_ptr, bool pickup)
 
 	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 		/* Access the object */
-		o_ptr = &object_list[this_object_idx];
-		next_object_idx = o_ptr->next_object_idx;
+		object_ptr = &object_list[this_object_idx];
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Hack -- disturb */
 		disturb(player_ptr, 0, 0);
@@ -885,10 +885,10 @@ void carry(creature_type *creature_ptr, bool pickup)
 	/* Scan the pile of objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 #ifdef ALLOW_EASY_SENSE /* TNB */
 
@@ -896,24 +896,24 @@ void carry(creature_type *creature_ptr, bool pickup)
 		if (easy_sense)
 		{
 			/* Sense the object */
-			(void)sense_object(o_ptr);
+			(void)sense_object(object_ptr);
 		}
 
 #endif /* ALLOW_EASY_SENSE -- TNB */
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Hack -- disturb */
 		disturb(player_ptr, 0, 0);
 
 		/* Pick up gold */
-		if (o_ptr->tval == TV_GOLD)
+		if (object_ptr->tval == TV_GOLD)
 		{
-			int value = (long)o_ptr->pval;
+			int value = (long)object_ptr->pval;
 
 			/* Delete the gold */
 			delete_object_idx(this_object_idx);
@@ -944,10 +944,10 @@ void carry(creature_type *creature_ptr, bool pickup)
 		else
 		{
 			/* Hack - some objects were handled in autopick_pickup_items(). */
-			if (o_ptr->marked & OM_NOMSG)
+			if (object_ptr->marked & OM_NOMSG)
 			{
 				/* Clear the flag. */
-				o_ptr->marked &= ~OM_NOMSG;
+				object_ptr->marked &= ~OM_NOMSG;
 			}
 			/* Describe the object */
 			else if (!pickup)
@@ -963,7 +963,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 			}
 
 			/* Note that the pack is too full */
-			else if (!inven_carry_okay(creature_ptr, o_ptr))
+			else if (!inven_carry_okay(creature_ptr, object_ptr))
 			{
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", o_name);
@@ -3156,16 +3156,16 @@ static bool run_test(creature_type *creature_ptr)
 		/* Visible objects abort running */
 		for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
-			object_type *o_ptr;
+			object_type *object_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_object_idx];
+			object_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_object_idx = o_ptr->next_object_idx;
+			next_object_idx = object_ptr->next_object_idx;
 
 			/* Visible object */
-			if (o_ptr->marked & OM_FOUND) return (TRUE);
+			if (object_ptr->marked & OM_FOUND) return (TRUE);
 		}
 
 		/* Assume unknown */

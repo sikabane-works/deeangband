@@ -83,13 +83,13 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 			break;
 		case MS_SHOOT:
 		{
-			object_type *o_ptr = NULL;
-			if      (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
+			object_type *object_ptr = NULL;
+			if      (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+			else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			else
 				sprintf(p, " %s1", s_dam);
-			if (o_ptr)
-				sprintf(p, " %s%dd%d+%d", s_dam, o_ptr->dd, o_ptr->ds, o_ptr->to_damage);
+			if (object_ptr)
+				sprintf(p, " %s%dd%d+%d", s_dam, object_ptr->dd, object_ptr->ds, object_ptr->to_damage);
 			break;
 		}
 		case MS_BR_ACID:
@@ -739,7 +739,7 @@ msg_print("ロケットを発射した。");
 		break;
 	case MS_SHOOT:
 	{
-		object_type *o_ptr = NULL;
+		object_type *object_ptr = NULL;
 
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
@@ -749,13 +749,13 @@ msg_print("矢を放った。");
 #else
 			msg_print("You fire an arrow.");
 #endif
-			if (get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 0) o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 1);
-			else if (get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 1) o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 2);
+			if (get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 1);
+			else if (get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 2);
 			else
 			damage = 1;
-			if (o_ptr)
+			if (object_ptr)
 			{
-				damage = diceroll(o_ptr->dd, o_ptr->ds)+ o_ptr->to_damage;
+				damage = diceroll(object_ptr->dd, object_ptr->ds)+ object_ptr->to_damage;
 				if (damage < 1) damage = 1;
 			}
 			fire_bolt(caster_ptr, GF_ARROW, dir, damage);

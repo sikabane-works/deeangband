@@ -37,7 +37,7 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	u32b flgs[TR_FLAG_SIZE];
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char Dummy[80];
 	char Dummy2[10][80];
@@ -78,14 +78,14 @@ void creature_knowledge(creature_type *creature_ptr)
 	{
 		u32b tflgs[TR_FLAG_SIZE];
 
-		o_ptr = &creature_ptr->inventory[k];
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		object_ptr = &creature_ptr->inventory[k];
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Extract the flags */
-		object_flags(o_ptr, tflgs);
+		object_flags(object_ptr, tflgs);
 
 		/* Extract flags */
 		for (j = 0; j < TR_FLAG_SIZE; j++)
@@ -1176,10 +1176,10 @@ info[i++] = "あなたの攻撃速度は装備によって影響を受けている。";
 	}
 
 	/* Access the current weapon */
-	o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 
 	/* Analyze the weapon */
-	if (o_ptr->k_idx)
+	if (object_ptr->k_idx)
 	{
 		/* Indicate Blessing */
 		if (have_flag(flgs, TR_BLESSED))
@@ -2028,26 +2028,26 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 	// Scan objects
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip held objects */
-		if (o_ptr->held_m_idx) continue;
+		if (object_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->fy;
-		x = o_ptr->fx;
+		y = object_ptr->fy;
+		x = object_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "gold" objects */
-		if (o_ptr->tval == TV_GOLD)
+		if (object_ptr->tval == TV_GOLD)
 		{
 			/* Hack -- memorize it */
-			o_ptr->marked |= OM_FOUND;
+			object_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
 			lite_spot(floor_ptr, y, x);
@@ -2096,26 +2096,26 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip held objects */
-		if (o_ptr->held_m_idx) continue;
+		if (object_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->fy;
-		x = o_ptr->fx;
+		y = object_ptr->fy;
+		x = object_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "real" objects */
-		if (o_ptr->tval != TV_GOLD)
+		if (object_ptr->tval != TV_GOLD)
 		{
 			/* Hack -- memorize it */
-			o_ptr->marked |= OM_FOUND;
+			object_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
 			lite_spot(floor_ptr, y, x);
@@ -2168,27 +2168,27 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip held objects */
-		if (o_ptr->held_m_idx) continue;
+		if (object_ptr->held_m_idx) continue;
 
 		/* Location */
-		y = o_ptr->fy;
-		x = o_ptr->fx;
+		y = object_ptr->fy;
+		x = object_ptr->fx;
 
 		/* Only detect nearby objects */
 		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Examine the tval */
-		tv = o_ptr->tval;
+		tv = object_ptr->tval;
 
 		/* Artifacts, misc magic items, or enchanted wearables */
-		if (object_is_artifact(o_ptr) ||
-			object_is_ego(o_ptr) ||
+		if (object_is_artifact(object_ptr) ||
+			object_is_ego(object_ptr) ||
 		    (tv == TV_WHISTLE) ||
 		    (tv == TV_AMULET) ||
 			(tv == TV_RING) ||
@@ -2210,10 +2210,10 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 			(tv == TV_MUSIC_BOOK) ||
 			(tv == TV_HISSATSU_BOOK) ||
 			(tv == TV_HEX_BOOK) ||
-		    ((o_ptr->to_ac > 0) || (o_ptr->to_hit + o_ptr->to_damage > 0)))
+		    ((object_ptr->to_ac > 0) || (object_ptr->to_hit + object_ptr->to_damage > 0)))
 		{
 			/* Memorize the item */
-			o_ptr->marked |= OM_FOUND;
+			object_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
 			lite_spot(floor_ptr, y, x);
@@ -3509,24 +3509,24 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
-					object_type *o_ptr;
+					object_type *object_ptr;
 
 					/* Acquire object */
-					o_ptr = &object_list[this_object_idx];
+					object_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_object_idx = o_ptr->next_object_idx;
+					next_object_idx = object_ptr->next_object_idx;
 
 					/* Hack -- Preserve unknown artifacts */
-					if (object_is_fixed_artifact(o_ptr) && (!object_is_known(o_ptr) || in_generate))
+					if (object_is_fixed_artifact(object_ptr) && (!object_is_known(object_ptr) || in_generate))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						artifact_info[o_ptr->name1].cur_num = 0;
+						artifact_info[object_ptr->name1].cur_num = 0;
 
 						if (in_generate && cheat_peek)
 						{
 							char o_name[MAX_NLEN];
-							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+							object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 #ifdef JP
 							msg_format("伝説のアイテム (%s) は生成中に*破壊*された。", o_name);
 #else
@@ -3534,7 +3534,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 #endif
 						}
 					}
-					else if (in_generate && cheat_peek && o_ptr->art_name)
+					else if (in_generate && cheat_peek && object_ptr->art_name)
 					{
 #ifdef JP
 						msg_print("ランダム・アーティファクトの1つは生成中に*破壊*された。");

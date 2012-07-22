@@ -2902,26 +2902,26 @@ static void init_turn(creature_type *creature_ptr)
 
 static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 {
-	object_type *o_ptr; 
+	object_type *object_ptr; 
 	object_type *i_ptr; 
 	object_type object_type_body; 
  
 	int slot; 
 
-	o_ptr = &creature_ptr->inventory[item]; 
+	object_ptr = &creature_ptr->inventory[item]; 
  
 	// Skip non-objects
-	if (!o_ptr->k_idx) return -1; 
+	if (!object_ptr->k_idx) return -1; 
  
 	// Make sure we can wield it and that there's nothing else in that slot
-	slot = WIELD_SLOT(o_ptr);
+	slot = WIELD_SLOT(object_ptr);
 
 	if (slot == INVEN_SLOT_INVENTORY) return -1; 
 	if (creature_ptr->inventory[slot].k_idx) return -1; 
  
 	/* Get local object */ 
 	i_ptr = &object_type_body; 
-	object_copy(i_ptr, o_ptr); 
+	object_copy(i_ptr, object_ptr); 
  
 	/* Modify quantity */ 
 	i_ptr->number = 1; 
@@ -2941,10 +2941,10 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	} 
  
 	/* Get the wield slot */ 
-	o_ptr = &creature_ptr->inventory[slot]; 
+	object_ptr = &creature_ptr->inventory[slot]; 
  
 	/* Wear the new stuff */ 
-	object_copy(o_ptr, i_ptr); 
+	object_copy(object_ptr, i_ptr); 
  
 	/* Increase the weight */ 
 	set_inventory_weight(creature_ptr);
@@ -2991,21 +2991,21 @@ bool creature_hook_human(int species_idx)
 /*
  * Add an outfit object
  */
-void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags)
+void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags)
 {
 	s16b slot;
 
 	if(is_player(creature_ptr))
 	{
-		object_aware(o_ptr);
-		object_known(o_ptr);
+		object_aware(object_ptr);
+		object_known(object_ptr);
 	}
-	slot = inven_carry(creature_ptr, o_ptr);
+	slot = inven_carry(creature_ptr, object_ptr);
 
 	/* Auto-inscription */
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
-	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(o_ptr))
+	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr))
 	{
 		if(get_equip_weapon_num(creature_ptr) >= 1) return;
 	}

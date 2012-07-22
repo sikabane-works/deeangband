@@ -5325,25 +5325,25 @@ bool lose_all_info(creature_type *creature_ptr)
 	/* Forget info about objects */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Allow "protection" by the MENTAL flag */
-		if (o_ptr->ident & (IDENT_MENTAL)) continue;
+		if (object_ptr->ident & (IDENT_MENTAL)) continue;
 
 		/* Remove "default inscriptions" */
-		o_ptr->feeling = FEEL_NONE;
+		object_ptr->feeling = FEEL_NONE;
 
 		/* Hack -- Clear the "empty" flag */
-		o_ptr->ident &= ~(IDENT_EMPTY);
+		object_ptr->ident &= ~(IDENT_EMPTY);
 
 		/* Hack -- Clear the "known" flag */
-		o_ptr->ident &= ~(IDENT_KNOWN);
+		object_ptr->ident &= ~(IDENT_KNOWN);
 
 		/* Hack -- Clear the "felt" flag */
-		o_ptr->ident &= ~(IDENT_SENSE);
+		object_ptr->ident &= ~(IDENT_SENSE);
 	}
 
 	/* Recalculate bonuses */
@@ -6540,42 +6540,42 @@ void calc_android_exp(creature_type *creature_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 		object_type forge;
 		object_type *quest_ptr = &forge;
 		u32b value, exp;
-		int level = MAX(object_kind_info[o_ptr->k_idx].level - 8, 1);
+		int level = MAX(object_kind_info[object_ptr->k_idx].level - 8, 1);
 		slot = GET_INVEN_SLOT_TYPE(creature_ptr, i);
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		if(slot == INVEN_SLOT_RING || slot == INVEN_SLOT_AMULET || slot == INVEN_SLOT_LITE)
 		   continue;
 
-		if(!o_ptr->k_idx) continue;
+		if(!object_ptr->k_idx) continue;
 
 		/* Wipe the object */
 		object_wipe(quest_ptr);
 
-		object_copy(quest_ptr, o_ptr);
+		object_copy(quest_ptr, object_ptr);
 		quest_ptr->discount = 0;
 		quest_ptr->curse_flags = 0L;
 
-		if (object_is_fixed_artifact(o_ptr))
+		if (object_is_fixed_artifact(object_ptr))
 		{
-			level = (level + MAX(artifact_info[o_ptr->name1].level - 8, 5)) / 2;
-			level += MIN(20, artifact_info[o_ptr->name1].rarity/(artifact_info[o_ptr->name1].gen_flags & TRG_INSTA_ART ? 10 : 3));
+			level = (level + MAX(artifact_info[object_ptr->name1].level - 8, 5)) / 2;
+			level += MIN(20, artifact_info[object_ptr->name1].rarity/(artifact_info[object_ptr->name1].gen_flags & TRG_INSTA_ART ? 10 : 3));
 		}
-		else if (object_is_ego(o_ptr))
+		else if (object_is_ego(object_ptr))
 		{
-			level += MAX(3, (object_ego_info[o_ptr->name2].rating - 5)/2);
+			level += MAX(3, (object_ego_info[object_ptr->name2].rating - 5)/2);
 		}
-		else if (o_ptr->art_name)
+		else if (object_ptr->art_name)
 		{
-			s32b total_flags = flag_cost(o_ptr, o_ptr->pval);
+			s32b total_flags = flag_cost(object_ptr, object_ptr->pval);
 			int fake_level;
 
-			if (!object_is_weapon_ammo(o_ptr))
+			if (!object_is_weapon_ammo(object_ptr))
 			{
 				/* For armors */
 				if (total_flags < 15000) fake_level = 10;
@@ -6596,17 +6596,17 @@ void calc_android_exp(creature_type *creature_ptr)
 		value = object_value_real(quest_ptr);
 
 		if (value <= 0) continue;
-		if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI) && (creature_ptr->chara_idx != CHARA_SEXY)) value /= 32;
+		if ((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ABUNAI_MIZUGI) && (creature_ptr->chara_idx != CHARA_SEXY)) value /= 32;
 		if (value > 5000000L) value = 5000000L;
-		if ((o_ptr->tval == TV_DRAG_ARMOR) || (o_ptr->tval == TV_CARD)) level /= 2;
+		if ((object_ptr->tval == TV_DRAG_ARMOR) || (object_ptr->tval == TV_CARD)) level /= 2;
 
-		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr) ||
-		    (o_ptr->tval == TV_DRAG_ARMOR) ||
-		    ((o_ptr->tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM)) ||
-		    ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||
-		    ((o_ptr->tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
-		    ((o_ptr->tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)) ||
-		    ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)))
+		if (object_is_artifact(object_ptr) || object_is_ego(object_ptr) ||
+		    (object_ptr->tval == TV_DRAG_ARMOR) ||
+		    ((object_ptr->tval == TV_HELM) && (object_ptr->sval == SV_DRAGON_HELM)) ||
+		    ((object_ptr->tval == TV_SHIELD) && (object_ptr->sval == SV_DRAGON_SHIELD)) ||
+		    ((object_ptr->tval == TV_GLOVES) && (object_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
+		    ((object_ptr->tval == TV_BOOTS) && (object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)) ||
+		    ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)))
 		{
 			if (level > 65) level = 35 + (level - 65) / 5;
 			else if (level > 35) level = 25 + (level - 35) / 3;

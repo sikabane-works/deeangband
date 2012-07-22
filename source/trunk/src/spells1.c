@@ -586,7 +586,7 @@ static s16b creature_target_y;
  *
  * XXX XXX XXX Perhaps we should affect doors?
  */
-static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, int y, int x, int dam, int typ)
+static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type      *floor_ptr = get_floor_ptr(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -1285,7 +1285,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		/* Acquire object */
-		object_type *o_ptr = &object_list[this_object_idx];
+		object_type *object_ptr = &object_list[this_object_idx];
 
 		bool is_art = FALSE;
 		bool ignore = FALSE;
@@ -1295,17 +1295,17 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 #ifndef JP
 		/* Get the "plural"-ness */
-		bool plural = (o_ptr->number > 1);
+		bool plural = (object_ptr->number > 1);
 #endif
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Extract the flags */
-		object_flags(o_ptr, flgs);
+		object_flags(object_ptr, flgs);
 
 		/* Check for artifact */
-		if (object_is_artifact(o_ptr)) is_art = TRUE;
+		if (object_is_artifact(object_ptr)) is_art = TRUE;
 
 		/* Analyze the type */
 		switch (typ)
@@ -1313,7 +1313,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			/* Acid -- Lots of things */
 			case GF_ACID:
 			{
-				if (hates_acid(o_ptr))
+				if (hates_acid(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1330,7 +1330,7 @@ note_kill = "融けてしまった！";
 			/* Elec -- Rings and Wands */
 			case GF_ELEC:
 			{
-				if (hates_elec(o_ptr))
+				if (hates_elec(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1347,7 +1347,7 @@ note_kill = "壊れてしまった！";
 			/* Fire -- Flammable objects */
 			case GF_FIRE:
 			{
-				if (hates_fire(o_ptr))
+				if (hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1364,7 +1364,7 @@ note_kill = "燃えてしまった！";
 			/* Cold -- potions and flasks */
 			case GF_COLD:
 			{
-				if (hates_cold(o_ptr))
+				if (hates_cold(object_ptr))
 				{
 #ifdef JP
 note_kill = "砕け散ってしまった！";
@@ -1381,7 +1381,7 @@ note_kill = "砕け散ってしまった！";
 			/* Fire + Elec */
 			case GF_PLASMA:
 			{
-				if (hates_fire(o_ptr))
+				if (hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1392,7 +1392,7 @@ note_kill = "燃えてしまった！";
 
 					if (have_flag(flgs, TR_IGNORE_FIRE)) ignore = TRUE;
 				}
-				if (hates_elec(o_ptr))
+				if (hates_elec(object_ptr))
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
@@ -1410,7 +1410,7 @@ note_kill = "壊れてしまった！";
 			/* Fire + Cold */
 			case GF_METEOR:
 			{
-				if (hates_fire(o_ptr))
+				if (hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1421,7 +1421,7 @@ note_kill = "燃えてしまった！";
 
 					if (have_flag(flgs, TR_IGNORE_FIRE)) ignore = TRUE;
 				}
-				if (hates_cold(o_ptr))
+				if (hates_cold(object_ptr))
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
@@ -1442,7 +1442,7 @@ note_kill = "砕け散ってしまった！";
 			case GF_FORCE:
 			case GF_SOUND:
 			{
-				if (hates_cold(o_ptr))
+				if (hates_cold(object_ptr))
 				{
 #ifdef JP
 note_kill = "砕け散ってしまった！";
@@ -1492,7 +1492,7 @@ note_kill = "壊れてしまった！";
 #endif
 
 				if (have_flag(flgs, TR_RES_CHAOS)) ignore = TRUE;
-				else if ((o_ptr->tval == TV_SCROLL) && (o_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
+				else if ((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
 				break;
 			}
 
@@ -1500,7 +1500,7 @@ note_kill = "壊れてしまった！";
 			case GF_HOLY_FIRE:
 			case GF_HELL_FIRE:
 			{
-				if (object_is_cursed(o_ptr))
+				if (object_is_cursed(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1515,7 +1515,7 @@ note_kill = "壊れてしまった！";
 
 			case GF_IDENTIFY:
 			{
-				identify_item(caster_ptr, o_ptr);
+				identify_item(caster_ptr, object_ptr);
 
 				/* Auto-inscription */
 				autopick_alter_item(caster_ptr, (-this_object_idx), FALSE);
@@ -1527,19 +1527,19 @@ note_kill = "壊れてしまった！";
 			case GF_KILL_DOOR:
 			{
 				/* Chests are noticed only if trapped or locked */
-				if (o_ptr->tval == TV_CHEST)
+				if (object_ptr->tval == TV_CHEST)
 				{
 					/* Disarm/Unlock traps */
-					if (o_ptr->pval > 0)
+					if (object_ptr->pval > 0)
 					{
 						/* Disarm or Unlock */
-						o_ptr->pval = (0 - o_ptr->pval);
+						object_ptr->pval = (0 - object_ptr->pval);
 
 						/* Identify */
-						object_known(o_ptr);
+						object_known(object_ptr);
 
 						/* Notice */
-						if (known && (o_ptr->marked & OM_FOUND))
+						if (known && (object_ptr->marked & OM_FOUND))
 						{
 #ifdef JP
 msg_print("カチッと音がした！");
@@ -1556,7 +1556,7 @@ msg_print("カチッと音がした！");
 			}
 			case GF_ANIM_DEAD:
 			{
-				if (o_ptr->tval == TV_CORPSE)
+				if (object_ptr->tval == TV_CORPSE)
 				{
 					int i;
 					u32b mode = 0L;
@@ -1564,10 +1564,10 @@ msg_print("カチッと音がした！");
 					if ((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
 						mode |= PM_FORCE_PET;
 
-					for (i = 0; i < o_ptr->number ; i++)
+					for (i = 0; i < object_ptr->number ; i++)
 					{
-						if (((o_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
-						    ((o_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
+						if (((object_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
+						    ((object_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
 						{
 							if (!note_kill)
 							{
@@ -1580,7 +1580,7 @@ note_kill = "灰になった。";
 							continue;
 						}
 /*TODO
-						else if (summon_named_creature(caster_ptr, y, x, o_ptr->pval, mode))
+						else if (summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
 						{
 #ifdef JP
 note_kill = "生き返った。";
@@ -1610,17 +1610,17 @@ note_kill = "灰になった。";
 		if (do_kill)
 		{
 			/* Effect "observed" */
-			if (known && (o_ptr->marked & OM_FOUND))
+			if (known && (object_ptr->marked & OM_FOUND))
 			{
 				obvious = TRUE;
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			}
 
 			/* Artifacts, and other objects, get to resist */
 			if (is_art || ignore)
 			{
 				/* Observe the resist */
-				if (known && (o_ptr->marked & OM_FOUND))
+				if (known && (object_ptr->marked & OM_FOUND))
 				{
 #ifdef JP
 msg_format("%sは影響を受けない！",
@@ -1637,7 +1637,7 @@ msg_format("%sは影響を受けない！",
 			else
 			{
 				/* Describe if needed */
-				if (known && (o_ptr->marked & OM_FOUND) && note_kill)
+				if (known && (object_ptr->marked & OM_FOUND) && note_kill)
 				{
 #ifdef JP
 msg_format("%sは%s", o_name, note_kill);
@@ -1647,8 +1647,8 @@ msg_format("%sは%s", o_name, note_kill);
 
 				}
 
-				k_idx = o_ptr->k_idx;
-				is_potion = object_is_potion(caster_ptr, o_ptr);
+				k_idx = object_ptr->k_idx;
+				is_potion = object_is_potion(caster_ptr, object_ptr);
 
 
 				/* Delete the object */

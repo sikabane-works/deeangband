@@ -103,9 +103,9 @@ void reset_visuals(void)
 /*
  * Obtain the "flags" for an item
  */
-void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
+void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 {
-	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 	int i;
 
 	/* Base object */
@@ -113,31 +113,31 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 		flgs[i] = k_ptr->flags[i];
 
 	/* Artifact */
-	if (object_is_fixed_artifact(o_ptr))
+	if (object_is_fixed_artifact(object_ptr))
 	{
-		artifact_type *a_ptr = &artifact_info[o_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] = a_ptr->flags[i];
 	}
 
 	/* Ego-item */
-	if (object_is_ego(o_ptr))
+	if (object_is_ego(object_ptr))
 	{
-		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] |= e_ptr->flags[i];
 
-		if ((o_ptr->name2 == EGO_LITE_AURA_FIRE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_SH_FIRE);
 		}
-		else if ((o_ptr->name2 == EGO_LITE_INFRA) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_INFRA);
 		}
-		else if ((o_ptr->name2 == EGO_LITE_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_RES_BLIND);
 			remove_flag(flgs, TR_SEE_INVIS);
@@ -146,11 +146,11 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 
 	/* Random artifact ! */
 	for (i = 0; i < TR_FLAG_SIZE; i++)
-		flgs[i] |= o_ptr->art_flags[i];
+		flgs[i] |= object_ptr->art_flags[i];
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(object_ptr))
 	{
-		int add = o_ptr->xtra3 - 1;
+		int add = object_ptr->xtra3 - 1;
 
 		if (add < TR_FLAG_MAX)
 		{
@@ -210,43 +210,43 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 /*
  * Obtain the "flags" for an item which are known to the player
  */
-void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
+void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 {
 	bool spoil = FALSE;
 	int i;
 
-	object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* Clear */
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0;
 
-	if (!object_is_aware(o_ptr)) return;
+	if (!object_is_aware(object_ptr)) return;
 
 	/* Base object */
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = k_ptr->flags[i];
 
 	/* Must be identified */
-	if (!object_is_known(o_ptr)) return;
+	if (!object_is_known(object_ptr)) return;
 
 	/* Ego-item (known basic flags) */
-	if (object_is_ego(o_ptr))
+	if (object_is_ego(object_ptr))
 	{
-		ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
 		for (i = 0; i < TR_FLAG_SIZE; i++)
 			flgs[i] |= e_ptr->flags[i];
 
-		if ((o_ptr->name2 == EGO_LITE_AURA_FIRE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_SH_FIRE);
 		}
-		else if ((o_ptr->name2 == EGO_LITE_INFRA) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_INFRA);
 		}
-		else if ((o_ptr->name2 == EGO_LITE_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TR_RES_BLIND);
 			remove_flag(flgs, TR_SEE_INVIS);
@@ -256,21 +256,21 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 
 #ifdef SPOIL_ARTIFACTS
 	/* Full knowledge for some artifacts */
-	if (object_is_artifact(o_ptr)) spoil = TRUE;
+	if (object_is_artifact(object_ptr)) spoil = TRUE;
 #endif /* SPOIL_ARTIFACTS */
 
 #ifdef SPOIL_EGO_ITEMS
 	/* Full knowledge for some ego-items */
-	if (object_is_ego(o_ptr)) spoil = TRUE;
+	if (object_is_ego(object_ptr)) spoil = TRUE;
 #endif /* SPOIL_EGO_ITEMS */
 
 	/* Need full knowledge or spoilers */
-	if (spoil || (o_ptr->ident & IDENT_MENTAL))
+	if (spoil || (object_ptr->ident & IDENT_MENTAL))
 	{
 		/* Artifact */
-		if (object_is_fixed_artifact(o_ptr))
+		if (object_is_fixed_artifact(object_ptr))
 		{
-			artifact_type *a_ptr = &artifact_info[o_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
 			for (i = 0; i < TR_FLAG_SIZE; i++)
 				flgs[i] = a_ptr->flags[i];
@@ -278,12 +278,12 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 
 		/* Random artifact ! */
 		for (i = 0; i < TR_FLAG_SIZE; i++)
-			flgs[i] |= o_ptr->art_flags[i];
+			flgs[i] |= object_ptr->art_flags[i];
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(object_ptr))
 	{
-		int add = o_ptr->xtra3 - 1;
+		int add = object_ptr->xtra3 - 1;
 
 		if (add < TR_FLAG_MAX)
 		{
@@ -335,12 +335,12 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
  * Determine the "Activation" (if any) for an artifact
  * Return a string, or NULL for "no activation"
  */
-cptr item_activation(object_type *o_ptr)
+cptr item_activation(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Require activation ability */
 #ifdef JP
@@ -358,12 +358,12 @@ if (!(have_flag(flgs, TR_ACTIVATE))) return ("なし");
 	 * for art_name
 	 */
 
-	if (!object_is_fixed_artifact(o_ptr) &&
-	    !object_is_ego(o_ptr) &&
-	    !(o_ptr->xtra1) &&
-	    (o_ptr->xtra2))
+	if (!object_is_fixed_artifact(object_ptr) &&
+	    !object_is_ego(object_ptr) &&
+	    !(object_ptr->xtra1) &&
+	    (object_ptr->xtra2))
 	{
-		switch (o_ptr->xtra2)
+		switch (object_ptr->xtra2)
 		{
 			case ACT_SUNLIGHT:
 			{
@@ -1044,7 +1044,7 @@ return "未定義";
 	}
 
 	/* Some artifacts can be activated */
-	switch (o_ptr->name1)
+	switch (object_ptr->name1)
 	{
 		case ART_NARTHANC:
 		{
@@ -1866,7 +1866,7 @@ return "魔力復活: 777 ターン毎";
 	}
 
 
-	if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_TSURIZAO))
+	if ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_TSURIZAO))
 	{
 #ifdef JP
 return "釣りをする : いつでも";
@@ -1876,9 +1876,9 @@ return "釣りをする : いつでも";
 
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(object_ptr))
 	{
-		switch (o_ptr->xtra3 - 1)
+		switch (object_ptr->xtra3 - 1)
 		{
 		case ESSENCE_TMP_RES_ACID:
 #ifdef JP
@@ -1917,7 +1917,7 @@ return "釣りをする : いつでも";
 		}
 	}
 
-	if (o_ptr->name2 == EGO_TRUMP)
+	if (object_ptr->name2 == EGO_TRUMP)
 	{
 #ifdef JP
 return "テレポート : 50+d50 ターン毎";
@@ -1927,7 +1927,7 @@ return "テレポート : 50+d50 ターン毎";
 
 	}
 
-	if (o_ptr->name2 == EGO_LITE_ILLUMINATION)
+	if (object_ptr->name2 == EGO_LITE_ILLUMINATION)
 	{
 #ifdef JP
 return "イルミネーション : 10+d10 ターン毎";
@@ -1936,7 +1936,7 @@ return "イルミネーション : 10+d10 ターン毎";
 #endif
 	}
 
-	else if (o_ptr->name2 == EGO_EARTHQUAKES)
+	else if (object_ptr->name2 == EGO_EARTHQUAKES)
 	{
 #ifdef JP
 return "地震 : 100+d100 ターン毎";
@@ -1946,7 +1946,7 @@ return "地震 : 100+d100 ターン毎";
 
 	}
 
-	else if (o_ptr->name2 == EGO_JUMP)
+	else if (object_ptr->name2 == EGO_JUMP)
 	{
 #ifdef JP
 return "ショート・テレポート : 10+d10 ターン毎";
@@ -1956,11 +1956,11 @@ return "ショート・テレポート : 10+d10 ターン毎";
 
 	}
 
-	if (o_ptr->tval == TV_RING)
+	if (object_ptr->tval == TV_RING)
 	{
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(object_ptr))
 		{
-			switch (o_ptr->name2)
+			switch (object_ptr->name2)
 			{
 			case EGO_RING_HERO:
 #ifdef JP
@@ -2035,7 +2035,7 @@ return "魔力の嵐 (250) : 300 ターン毎";
 				return "mana storm (250) every 300 turns";
 #endif
 			case EGO_RING_DRAGON_F:
-				if (o_ptr->sval == SV_RING_FLAMES)
+				if (object_ptr->sval == SV_RING_FLAMES)
 #ifdef JP
 return "火炎のブレス (200) と火への耐性 : 200 ターン毎";
 #else
@@ -2048,7 +2048,7 @@ return "火炎のブレス (200) : 250 ターン毎";
 					return "fire breath (200) every 250 turns";
 #endif
 			case EGO_RING_DRAGON_C:
-				if (o_ptr->sval == SV_RING_ICE)
+				if (object_ptr->sval == SV_RING_ICE)
 #ifdef JP
 return "冷気のブレス (200) と冷気への耐性 : 200 ターン毎";
 #else
@@ -2092,7 +2092,7 @@ return "士気高揚、祝福、究極の耐性 : 777 ターン毎";
 #endif
 			}
 		}
-		switch (o_ptr->sval)
+		switch (object_ptr->sval)
 		{
 			case SV_RING_FLAMES:
 #ifdef JP
@@ -2127,11 +2127,11 @@ return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
 		}
 	}
 
-	if (o_ptr->tval == TV_AMULET)
+	if (object_ptr->tval == TV_AMULET)
 	{
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(object_ptr))
 		{
-			switch (o_ptr->name2)
+			switch (object_ptr->name2)
 			{
 			case EGO_AMU_IDENT:
 #ifdef JP
@@ -2197,7 +2197,7 @@ return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
 		}
 	}
 
-	if (o_ptr->tval == TV_WHISTLE)
+	if (object_ptr->tval == TV_WHISTLE)
 	{
 #ifdef JP
 return "ペット呼び寄せ : 100+d100ターン毎";
@@ -2206,7 +2206,7 @@ return "ペット呼び寄せ : 100+d100ターン毎";
 #endif
 	}
 
-	if (o_ptr->tval == TV_CAPTURE)
+	if (object_ptr->tval == TV_CAPTURE)
 	{
 #ifdef JP
 return "クリーチャーを捕える、又は解放する。";
@@ -2217,14 +2217,14 @@ return "クリーチャーを捕える、又は解放する。";
 
 	/* Require dragon scale mail */
 #ifdef JP
-if (o_ptr->tval != TV_DRAG_ARMOR) return ("奇妙な光");
+if (object_ptr->tval != TV_DRAG_ARMOR) return ("奇妙な光");
 #else
-	if (o_ptr->tval != TV_DRAG_ARMOR) return ("a strange glow");
+	if (object_ptr->tval != TV_DRAG_ARMOR) return ("a strange glow");
 #endif
 
 
 	/* Branch on the sub-type */
-	switch (o_ptr->sval)
+	switch (object_ptr->sval)
 	{
 		case SV_DRAGON_BLUE:
 		{
@@ -2358,7 +2358,7 @@ return "空気の息";
 /*
  * Describe a "fully identified" item
  */
-bool screen_object(object_type *o_ptr, u32b mode)
+bool screen_object(object_type *object_ptr, u32b mode)
 {
 	int                     i = 0, j, k;
 
@@ -2372,18 +2372,18 @@ bool screen_object(object_type *o_ptr, u32b mode)
 	int trivial_info = 0;
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Extract the description */
 	{
-		roff_to_buf(o_ptr->name1 ? (artifact_text + artifact_info[o_ptr->name1].text) :
-			    (object_kind_text + object_kind_info[o_ptr->k_idx].text),
+		roff_to_buf(object_ptr->name1 ? (artifact_text + artifact_info[object_ptr->name1].text) :
+			    (object_kind_text + object_kind_info[object_ptr->k_idx].text),
 			    77 - 15, temp, sizeof(temp));
 		for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
 		{ info[i] = &temp[j]; i++;}
 	}
 
-	if (object_is_equipment(o_ptr))
+	if (object_is_equipment(object_ptr))
 	{
 		/* Descriptions of a basic equipment is just a flavor */
 		trivial_info = i;
@@ -2398,7 +2398,7 @@ info[i++] = "始動したときの効果...";
 		info[i++] = "It can be activated for...";
 #endif
 
-		info[i++] = item_activation(o_ptr);
+		info[i++] = item_activation(object_ptr);
 #ifdef JP
 info[i++] = "...ただし装備していなければならない。";
 #else
@@ -2408,7 +2408,7 @@ info[i++] = "...ただし装備していなければならない。";
 	}
 
 	/* Figurines, a hack */
-	if (o_ptr->tval == TV_FIGURINE)
+	if (object_ptr->tval == TV_FIGURINE)
 	{
 #ifdef JP
 info[i++] = "それは投げた時ペットに変化する。";
@@ -2419,7 +2419,7 @@ info[i++] = "それは投げた時ペットに変化する。";
 	}
 
 	/* Figurines, a hack */
-	if (o_ptr->name1 == ART_STONEMASK)
+	if (object_ptr->name1 == ART_STONEMASK)
 	{
 #ifdef JP
 info[i++] = "それを装備した者は吸血鬼になる。";
@@ -2429,7 +2429,7 @@ info[i++] = "それを装備した者は吸血鬼になる。";
 
 	}
 
-	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI))
+	if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI))
 	{
 #ifdef JP
 info[i++] = "それは相手を一撃で倒すことがある。";
@@ -2439,7 +2439,7 @@ info[i++] = "それは相手を一撃で倒すことがある。";
 
 	}
 
-	if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE))
+	if ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_DEATH_SCYTHE))
 	{
 #ifdef JP
 info[i++] = "それは自分自身に攻撃が返ってくることがある。";
@@ -2454,7 +2454,7 @@ info[i++] = "それは無敵のバリアを切り裂く。";
 #endif
 	}
 
-	if (o_ptr->name2 == EGO_TWO_WEAPON)
+	if (object_ptr->name2 == EGO_TWO_WEAPON)
 	{
 #ifdef JP
 info[i++] = "それは二刀流での命中率を向上させる。";
@@ -2473,7 +2473,7 @@ info[i++] = "それは魔法の難易度を下げる。";
 #endif
 	}
 
-	if (o_ptr->name2 == EGO_AMU_FOOL)
+	if (object_ptr->name2 == EGO_AMU_FOOL)
 	{
 #ifdef JP
 info[i++] = "それは魔法の難易度を上げる。";
@@ -2482,7 +2482,7 @@ info[i++] = "それは魔法の難易度を上げる。";
 #endif
 	}
 
-	if (o_ptr->name2 == EGO_RING_THROW)
+	if (object_ptr->name2 == EGO_RING_THROW)
 	{
 #ifdef JP
 info[i++] = "それは物を強く投げることを可能にする。";
@@ -2491,7 +2491,7 @@ info[i++] = "それは物を強く投げることを可能にする。";
 #endif
 	}
 
-	if (o_ptr->name2 == EGO_AMU_NAIVETY)
+	if (object_ptr->name2 == EGO_AMU_NAIVETY)
 	{
 #ifdef JP
 info[i++] = "それは魔法抵抗力を下げる。";
@@ -2500,24 +2500,24 @@ info[i++] = "それは魔法抵抗力を下げる。";
 #endif
 	}
 
-	if (o_ptr->tval == TV_STATUE)
+	if (object_ptr->tval == TV_STATUE)
 	{
-		species_type *r_ptr = &species_info[o_ptr->pval];
+		species_type *r_ptr = &species_info[object_ptr->pval];
 
 
-		if(o_ptr->sval == SV_DAKIMAKURA)
+		if(object_ptr->sval == SV_DAKIMAKURA)
 #ifdef JP
 			info[i++] = "それはベッドに置くと癒される。";
 #else
 			info[i++] = "It is shameful.";
 #endif	
-		else if(o_ptr->sval == SV_DOUJINSHI)
+		else if(object_ptr->sval == SV_DOUJINSHI)
 #ifdef JP
 			info[i++] = "それは公序良俗に反している。";
 #else
 			info[i++] = "It is HENTAI.";
 #endif	
-		else if (o_ptr->pval == MON_RICHARD_STOLENMAN || o_ptr->sval == SV_FS_FIGURE || o_ptr->sval == SV_FIGURE )
+		else if (object_ptr->pval == MON_RICHARD_STOLENMAN || object_ptr->sval == SV_FS_FIGURE || object_ptr->sval == SV_FIGURE )
 #ifdef JP
 			info[i++] = "それは部屋に飾ると恥ずかしい。";
 #else
@@ -2538,9 +2538,9 @@ info[i++] = "それは魔法抵抗力を下げる。";
 	}
 
 	/* Hack -- describe lite's */
-	if (o_ptr->tval == TV_LITE)
+	if (object_ptr->tval == TV_LITE)
 	{
-		if (o_ptr->name2 == EGO_LITE_DARKNESS)
+		if (object_ptr->name2 == EGO_LITE_DARKNESS)
 		{
 #ifdef JP
 			info[i++] = "それは全く光らない。";
@@ -2548,7 +2548,7 @@ info[i++] = "それは魔法抵抗力を下げる。";
 			info[i++] = "It provides no light.";
 #endif
 
-			if (o_ptr->sval == SV_LITE_FEANOR)
+			if (object_ptr->sval == SV_LITE_FEANOR)
 			{
 #ifdef JP
 				info[i++] = "それは明かりの半径を狭める(半径に-3)。";
@@ -2556,7 +2556,7 @@ info[i++] = "それは魔法抵抗力を下げる。";
 				info[i++] = "It decreases radius of light source by 3.";
 #endif
 			}
-			else if (o_ptr->sval == SV_LITE_LANTERN)
+			else if (object_ptr->sval == SV_LITE_LANTERN)
 			{
 #ifdef JP
 				info[i++] = "それは明かりの半径を狭める(半径に-2)。";
@@ -2573,7 +2573,7 @@ info[i++] = "それは魔法抵抗力を下げる。";
 #endif
 			}
 		}
-		else if (object_is_fixed_artifact(o_ptr))
+		else if (object_is_fixed_artifact(object_ptr))
 		{
 #ifdef JP
 info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
@@ -2582,9 +2582,9 @@ info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
 #endif
 
 		}
-		else if (o_ptr->name2 == EGO_LITE_SHINE)
+		else if (object_ptr->name2 == EGO_LITE_SHINE)
 		{
-			if (o_ptr->sval == SV_LITE_FEANOR)
+			if (object_ptr->sval == SV_LITE_FEANOR)
 			{
 #ifdef JP
 info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
@@ -2593,7 +2593,7 @@ info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
 #endif
 
 			}
-			else if (o_ptr->sval == SV_LITE_LANTERN)
+			else if (object_ptr->sval == SV_LITE_LANTERN)
 			{
 #ifdef JP
 info[i++] = "それは燃料補給によって明かり(半径 3)を授ける。";
@@ -2614,7 +2614,7 @@ info[i++] = "それは燃料補給によって明かり(半径 2)を授ける。";
 		}
 		else
 		{
-			if (o_ptr->sval == SV_LITE_FEANOR)
+			if (object_ptr->sval == SV_LITE_FEANOR)
 			{
 #ifdef JP
 info[i++] = "それは永遠なる明かり(半径 2)を授ける。";
@@ -2623,7 +2623,7 @@ info[i++] = "それは永遠なる明かり(半径 2)を授ける。";
 #endif
 
 			}
-			else if (o_ptr->sval == SV_LITE_LANTERN)
+			else if (object_ptr->sval == SV_LITE_LANTERN)
 			{
 #ifdef JP
 info[i++] = "それは燃料補給によって明かり(半径 2)を授ける。";
@@ -2642,7 +2642,7 @@ info[i++] = "それは燃料補給によって明かり(半径 1)を授ける。";
 
 			}
 		}
-		if (o_ptr->name2 == EGO_LITE_LONG)
+		if (object_ptr->name2 == EGO_LITE_LONG)
 		{
 #ifdef JP
 info[i++] = "それは長いターン明かりを授ける。";
@@ -2657,7 +2657,7 @@ info[i++] = "それは長いターン明かりを授ける。";
 
 	if (have_flag(flgs, TR_RIDING))
 	{
-		if ((o_ptr->tval == TV_POLEARM) && ((o_ptr->sval == SV_LANCE) || (o_ptr->sval == SV_HEAVY_LANCE)))
+		if ((object_ptr->tval == TV_POLEARM) && ((object_ptr->sval == SV_LANCE) || (object_ptr->sval == SV_HEAVY_LANCE)))
 #ifdef JP
 info[i++] = "それは乗馬中は非常に使いやすい。";
 #else
@@ -3365,7 +3365,7 @@ info[i++] = "それは宙に浮くことを可能にする。";
 	}
 	if (have_flag(flgs, TR_LITE))
 	{
-		if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT))
+		if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT))
 #ifdef JP
 info[i++] = "それは明かりの半径を狭める(半径に-1)。";
 #else
@@ -3615,21 +3615,21 @@ info[i++] = "それは神に祝福されている。";
 
 	}
 
-	if (object_is_cursed(o_ptr))
+	if (object_is_cursed(object_ptr))
 	{
-		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
+		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 			char tx[80];
 			tx[0] = '\0';
 #ifdef JP
-			sprintf(tx, "それは神格 %d の神域の呪いがかけられている。", o_ptr->xtra1);
+			sprintf(tx, "それは神格 %d の神域の呪いがかけられている。", object_ptr->xtra1);
 #else
-			sprintf(tx, "It is divinely cursed (Divine Rank %d)", o_ptr->xtra1);
+			sprintf(tx, "It is divinely cursed (Divine Rank %d)", object_ptr->xtra1);
 #endif
 			info[i++] = tx;
 
 		}
-		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
+		else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
 		{
 #ifdef JP
 info[i++] = "それは強力な呪いがかけられている。";
@@ -3654,7 +3654,7 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if ((have_flag(flgs, TR_TY_CURSE)) || (o_ptr->curse_flags & TRC_TY_CURSE))
+	if ((have_flag(flgs, TR_TY_CURSE)) || (object_ptr->curse_flags & TRC_TY_CURSE))
 	{
 #ifdef JP
 info[i++] = "それは太古の禍々しい怨念が宿っている。";
@@ -3664,7 +3664,7 @@ info[i++] = "それは太古の禍々しい怨念が宿っている。";
 
 	}
 /*
-	if ((have_flag(flgs, TR_AGGRAVATE)) || (o_ptr->curse_flags & TRC_AGGRAVATE))
+	if ((have_flag(flgs, TR_AGGRAVATE)) || (object_ptr->curse_flags & TRC_AGGRAVATE))
 	{
 #ifdef JP
 info[i++] = "それは付近のクリーチャーを怒らせる。";
@@ -3674,7 +3674,7 @@ info[i++] = "それは付近のクリーチャーを怒らせる。";
 
 	}
 */
-	if ((have_flag(flgs, TR_DRAIN_EXP)) || (o_ptr->curse_flags & TRC_DRAIN_EXP))
+	if ((have_flag(flgs, TR_DRAIN_EXP)) || (object_ptr->curse_flags & TRC_DRAIN_EXP))
 	{
 #ifdef JP
 info[i++] = "それは経験値を吸い取る。";
@@ -3683,7 +3683,7 @@ info[i++] = "それは経験値を吸い取る。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_SLOW_REGEN)
+	if (object_ptr->curse_flags & TRC_SLOW_REGEN)
 	{
 #ifdef JP
 info[i++] = "それは回復力を弱める。";
@@ -3692,7 +3692,7 @@ info[i++] = "それは回復力を弱める。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_ADD_L_CURSE)
+	if (object_ptr->curse_flags & TRC_ADD_L_CURSE)
 	{
 #ifdef JP
 info[i++] = "それは弱い呪いを増やす。";
@@ -3701,7 +3701,7 @@ info[i++] = "それは弱い呪いを増やす。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_ADD_H_CURSE)
+	if (object_ptr->curse_flags & TRC_ADD_H_CURSE)
 	{
 #ifdef JP
 info[i++] = "それは強力な呪いを増やす。";
@@ -3710,7 +3710,7 @@ info[i++] = "それは強力な呪いを増やす。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_CALL_ANIMAL)
+	if (object_ptr->curse_flags & TRC_CALL_ANIMAL)
 	{
 #ifdef JP
 info[i++] = "それは動物を呼び寄せる。";
@@ -3719,7 +3719,7 @@ info[i++] = "それは動物を呼び寄せる。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_CALL_DEMON)
+	if (object_ptr->curse_flags & TRC_CALL_DEMON)
 	{
 #ifdef JP
 info[i++] = "それは悪魔を呼び寄せる。";
@@ -3728,7 +3728,7 @@ info[i++] = "それは悪魔を呼び寄せる。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_CALL_DRAGON)
+	if (object_ptr->curse_flags & TRC_CALL_DRAGON)
 	{
 #ifdef JP
 info[i++] = "それはドラゴンを呼び寄せる。";
@@ -3737,7 +3737,7 @@ info[i++] = "それはドラゴンを呼び寄せる。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_COWARDICE)
+	if (object_ptr->curse_flags & TRC_COWARDICE)
 	{
 #ifdef JP
 info[i++] = "それは恐怖感を引き起こす。";
@@ -3746,7 +3746,7 @@ info[i++] = "それは恐怖感を引き起こす。";
 #endif
 
 	}
-	if ((have_flag(flgs, TR_TELEPORT)) || (o_ptr->curse_flags & TRC_TELEPORT))
+	if ((have_flag(flgs, TR_TELEPORT)) || (object_ptr->curse_flags & TRC_TELEPORT))
 	{
 #ifdef JP
 info[i++] = "それはランダムなテレポートを引き起こす。";
@@ -3755,7 +3755,7 @@ info[i++] = "それはランダムなテレポートを引き起こす。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_LOW_MELEE)
+	if (object_ptr->curse_flags & TRC_LOW_MELEE)
 	{
 #ifdef JP
 info[i++] = "それは攻撃を外しやすい。";
@@ -3764,7 +3764,7 @@ info[i++] = "それは攻撃を外しやすい。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_LOW_AC)
+	if (object_ptr->curse_flags & TRC_LOW_AC)
 	{
 #ifdef JP
 info[i++] = "それは攻撃を受けやすい。";
@@ -3773,7 +3773,7 @@ info[i++] = "それは攻撃を受けやすい。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_LOW_MAGIC)
+	if (object_ptr->curse_flags & TRC_LOW_MAGIC)
 	{
 #ifdef JP
 info[i++] = "それは魔法を唱えにくくする。";
@@ -3782,7 +3782,7 @@ info[i++] = "それは魔法を唱えにくくする。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_FAST_DIGEST)
+	if (object_ptr->curse_flags & TRC_FAST_DIGEST)
 	{
 #ifdef JP
 info[i++] = "それはあなたの新陳代謝を速くする。";
@@ -3791,7 +3791,7 @@ info[i++] = "それはあなたの新陳代謝を速くする。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_DRAIN_HP)
+	if (object_ptr->curse_flags & TRC_DRAIN_HP)
 	{
 #ifdef JP
 info[i++] = "それはあなたの体力を吸い取る。";
@@ -3800,7 +3800,7 @@ info[i++] = "それはあなたの体力を吸い取る。";
 #endif
 
 	}
-	if (o_ptr->curse_flags & TRC_DRAIN_MANA)
+	if (object_ptr->curse_flags & TRC_DRAIN_MANA)
 	{
 #ifdef JP
 info[i++] = "それはあなたの魔力を吸い取る。";
@@ -3813,10 +3813,10 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 	/* Describe about this kind of object instead of THIS fake object */
 	if (mode & SCROBJ_FAKE_OBJECT)
 	{
-		switch (o_ptr->tval)
+		switch (object_ptr->tval)
 		{
 		case TV_RING:
-			switch (o_ptr->sval)
+			switch (object_ptr->sval)
 			{
 			case SV_RING_LORDLY:
 #ifdef JP
@@ -3836,7 +3836,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			break;
 
 		case TV_AMULET:
-			switch (o_ptr->sval)
+			switch (object_ptr->sval)
 			{
 			case SV_AMULET_RESISTANCE:
 #ifdef JP
@@ -3922,9 +3922,9 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 
 	/* Display Item name */
 	if (!(mode & SCROBJ_FAKE_OBJECT))
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 	else
-		object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+		object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 
 	prt(o_name, 0, 0);
 
@@ -3932,9 +3932,9 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 	for (k = 1; k < hgt; k++) prt("", k, 13);
 
 	/* Label the information */
-	if ((o_ptr->tval == TV_STATUE) && (o_ptr->sval == SV_PHOTO))
+	if ((object_ptr->tval == TV_STATUE) && (object_ptr->sval == SV_PHOTO))
 	{
-		species_type *r_ptr = &species_info[o_ptr->pval];
+		species_type *r_ptr = &species_info[object_ptr->pval];
 		int namelen = strlen(species_name + r_ptr->name);
 		prt(format("%s: '", species_name + r_ptr->name), 1, 15);
 		Term_queue_bigchar(18 + namelen, 1, r_ptr->x_attr, r_ptr->x_char, 0, 0);
@@ -4350,15 +4350,15 @@ bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const b
 /*
  * Check an item against the item tester info
  */
-bool item_tester_okay(creature_type *creature_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
+bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 
 	/* Require an item */
-	if (!o_ptr->k_idx) return (FALSE);
+	if (!object_ptr->k_idx) return (FALSE);
 
 	/* Hack -- ignore "gold" */
 	/* TODO remove
-	if (o_ptr->tval == TV_GOLD)
+	if (object_ptr->tval == TV_GOLD)
 	{
 		// See xtra2.c
 		extern bool show_gold_on_floor;
@@ -4373,15 +4373,15 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *o_ptr, bool (*it
 		/* Is it a spellbook? If so, we need a hack -- TY */
 		if ((item_tester_tval <= TV_DEATH_BOOK) &&
 			(item_tester_tval >= TV_LIFE_BOOK))
-			return check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval);
+			return check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval);
 		else
-			if (item_tester_tval != o_ptr->tval) return (FALSE);
+			if (item_tester_tval != object_ptr->tval) return (FALSE);
 	}
 
 	/* Check the hook */
 	if (item_tester_hook)
 	{
-		if (!(*item_tester_hook)(creature_ptr, o_ptr)) return (FALSE);
+		if (!(*item_tester_hook)(creature_ptr, object_ptr)) return (FALSE);
 	}
 
 	/* Assume okay */
@@ -4397,7 +4397,7 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *o_ptr, bool (*it
 void display_inven(creature_type *creature_ptr)
 {
 	register        int i, n, z = 0;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
 	char            o_name[MAX_NLEN];
@@ -4409,10 +4409,10 @@ void display_inven(creature_type *creature_ptr)
 	/* Find the "final" slot */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Track */
 		z = i + 1;
@@ -4422,13 +4422,13 @@ void display_inven(creature_type *creature_ptr)
 	for (i = 0; i < z; i++)
 	{
 		/* Examine the item */
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(creature_ptr, o_ptr, NULL, 0))
+		if (item_tester_okay(creature_ptr, object_ptr, NULL, 0))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4441,17 +4441,17 @@ void display_inven(creature_type *creature_ptr)
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Obtain the length of the description */
 		n = strlen(o_name);
 
 		/* Get a color */
-		attr = tval_to_acttr[o_ptr->tval % 128];
+		attr = tval_to_acttr[object_ptr->tval % 128];
 		if (attr == TERM_DARK) attr = TERM_WHITE;
 
 		/* Grey out charging items */
-		if (o_ptr->timeout)
+		if (object_ptr->timeout)
 		{
 			attr = TERM_L_DARK;
 		}
@@ -4465,7 +4465,7 @@ void display_inven(creature_type *creature_ptr)
 		/* Display the weight if needed */
 		if (show_weights)
 		{
-			int wgt = o_ptr->weight * o_ptr->number;
+			int wgt = object_ptr->weight * object_ptr->number;
 			char buf[80];
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
@@ -4490,7 +4490,7 @@ void display_inven(creature_type *creature_ptr)
 void display_equip(creature_type *creature_ptr)
 {
 	register        int i, j, n;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
 	char            o_name[MAX_NLEN];
@@ -4504,11 +4504,11 @@ void display_equip(creature_type *creature_ptr)
 	{
 		for(j = 0; j < creature_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
 		{
-			o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
-			if(o_ptr->k_idx)
+			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
+			if(object_ptr->k_idx)
 			{
 				/* Obtain an item description */
-				object_desc(o_name, o_ptr, 0);
+				object_desc(o_name, object_ptr, 0);
 
 				/* Display the index (or blank space) */
 				Term_putstr(0, n, 3, TERM_WHITE, o_name);
@@ -4523,9 +4523,9 @@ void display_equip(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Examine the item */
-		o_ptr = &creature_ptr->inventory[i];
+		object_ptr = &creature_ptr->inventory[i];
 
-		if(!IS_EQUIPPED(o_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
@@ -4534,14 +4534,14 @@ void display_equip(creature_type *creature_ptr)
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		object_desc(o_name, o_ptr, 0);
-		attr = tval_to_acttr[o_ptr->tval % 128];
+		object_desc(o_name, object_ptr, 0);
+		attr = tval_to_acttr[object_ptr->tval % 128];
 
 		/* Obtain the length of the description */
 		n = strlen(o_name);
 
 		/* Grey out charging items */
-		if (o_ptr->timeout)
+		if (object_ptr->timeout)
 		{
 			attr = TERM_L_DARK;
 		}
@@ -4555,7 +4555,7 @@ void display_equip(creature_type *creature_ptr)
 		/* Display the weight (if needed) */
 		if (show_weights)
 		{
-			int wgt = o_ptr->weight * o_ptr->number;
+			int wgt = object_ptr->weight * object_ptr->number;
 			char buf[80];
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
@@ -4567,7 +4567,7 @@ void display_equip(creature_type *creature_ptr)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(o_ptr)), i, wid - 15);
+			prt(mention_use(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(object_ptr)), i, wid - 15);
 		}
 	}
 
@@ -4601,22 +4601,22 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	/* Check every creature_ptr->inventory object */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
-		if (IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
-		if (!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
+		if (IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
+		if (!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
 
 		/* Skip empty inscriptions */
-		if (!o_ptr->inscription) continue;
+		if (!object_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(creature_ptr, o_ptr, NULL, 0)) continue;
+		if (!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
-		s = my_strchr(quark_str(o_ptr->inscription), '@');
+		s = my_strchr(quark_str(object_ptr->inscription), '@');
 
 		/* Process all tags */
 		while (s)
@@ -4649,22 +4649,22 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	/* Check every object */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		if (IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
-		if (!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
+		if (IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
+		if (!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Skip empty inscriptions */
-		if (!o_ptr->inscription) continue;
+		if (!object_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(creature_ptr, o_ptr, NULL, 0)) continue;
+		if (!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue;
 
 		/* Find a '@' */
-		s = my_strchr(quark_str(o_ptr->inscription), '@');
+		s = my_strchr(quark_str(object_ptr->inscription), '@');
 
 		/* Process all tags */
 		while (s)
@@ -4709,13 +4709,13 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/* Check every object in the grid */
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &object_list[floor_list[i]];
+		object_type *object_ptr = &object_list[floor_list[i]];
 
 		/* Skip empty inscriptions */
-		if (!o_ptr->inscription) continue;
+		if (!object_ptr->inscription) continue;
 
 		/* Find a '@' */
-		s = my_strchr(quark_str(o_ptr->inscription), '@');
+		s = my_strchr(quark_str(object_ptr->inscription), '@');
 
 		/* Process all tags */
 		while (s)
@@ -4748,13 +4748,13 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/* Check every object in the grid */
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &object_list[floor_list[i]];
+		object_type *object_ptr = &object_list[floor_list[i]];
 
 		/* Skip empty inscriptions */
-		if (!o_ptr->inscription) continue;
+		if (!object_ptr->inscription) continue;
 
 		/* Find a '@' */
-		s = my_strchr(quark_str(o_ptr->inscription), '@');
+		s = my_strchr(quark_str(object_ptr->inscription), '@');
 
 		/* Process all tags */
 		while (s)
@@ -4795,9 +4795,9 @@ static void prepare_label_string(creature_type *creature_ptr, char *label, int m
 	{
 		int index;
 		char c;
-		object_type *o_ptr = &creature_ptr->inventory[i];
-		if(!IS_EQUIPPED(o_ptr) && mode != USE_EQUIP) continue;
-		if( IS_EQUIPPED(o_ptr) && mode != USE_INVEN) continue;
+		object_type *object_ptr = &creature_ptr->inventory[i];
+		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
+		if( IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 
 		c = alphabet_chars[j];
 
@@ -4850,11 +4850,11 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr))
+int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
 {
 	int             i, j, k, l, m, n;
 	int             col, cur_col, len;
-	object_type     *o_ptr;
+	object_type     *object_ptr;
 	char            o_name[MAX_NLEN];
 	char            tmp_val[MAX_NLEN];
 	int             out_index[INVEN_TOTAL];
@@ -4887,14 +4887,14 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			for(j = 1; j <= n; j++)
 			{
 				m = get_equipped_slot_idx(creature_ptr, i, j); 
-				o_ptr = &creature_ptr->inventory[m];
-				object_desc(o_name, o_ptr, 0); // Describe the object
+				object_ptr = &creature_ptr->inventory[m];
+				object_desc(o_name, object_ptr, 0); // Describe the object
 
 				// Save the object index, color, and description
 				out_index[k] = m;
-				out_color[k] = tval_to_acttr[o_ptr->tval % 128];
+				out_color[k] = tval_to_acttr[object_ptr->tval % 128];
 
-				if (o_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
+				if (object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
 
 				(void)strcpy(out_desc[k], o_name);
 
@@ -4922,23 +4922,23 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 	{
 		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
 		{
-			o_ptr = &creature_ptr->inventory[i];
+			object_ptr = &creature_ptr->inventory[i];
 
 			/* Is this item acceptable? */
-			if (!o_ptr->k_idx) continue;
+			if (!object_ptr->k_idx) continue;
 
-			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, o_ptr, hook, 0)) continue;
-			if (!((IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(o_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
+			if (!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, object_ptr, hook, 0)) continue;
+			if (!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(o_name, object_ptr, 0);
 
 			/* Save the object index, color, and description */
 			out_index[k] = i;
-			out_color[k] = tval_to_acttr[o_ptr->tval % 128];
+			out_color[k] = tval_to_acttr[object_ptr->tval % 128];
 
 			/* Grey out charging items */
-			if (o_ptr->timeout)
+			if (object_ptr->timeout)
 			{
 				out_color[k] = TERM_L_DARK;
 			}
@@ -4962,7 +4962,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			if (l > len) len = l;
 
 			slot[k] = GET_INVEN_SLOT_TYPE(creature_ptr, i);
-			num[k] = IS_EQUIPPED(o_ptr);
+			num[k] = IS_EQUIPPED(object_ptr);
 
 			/* Advance to next "line" */
 			k++;
@@ -5005,7 +5005,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 	for (j = 0; j < k; j++)
 	{
 		i = out_index[j]; // Get the index
-		o_ptr = &creature_ptr->inventory[i]; // Get the item
+		object_ptr = &creature_ptr->inventory[i]; // Get the item
 		prt("", j + 1, col ? col - 2 : col); // Clear the line
 
 		if (use_menu && target_item)
@@ -5034,8 +5034,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		/* Display graphics for object, if desired */
 		if (show_item_graph)
 		{
-			byte a = object_attr(o_ptr);
-			char c = object_char(o_ptr);
+			byte a = object_attr(object_ptr);
+			char c = object_char(object_ptr);
 
 			if(j + 1 >= hgt) break;
 			Term_queue_bigchar(cur_col, j + 1, a, c, 0, 0);
@@ -5045,13 +5045,13 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		}
 
 		// Display the entry itself
-		c_put_str(IS_EQUIPPED(o_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		// Display the weight if needed
 		if (show_weights)
 		{
-			int wgt = o_ptr->weight * o_ptr->number;
+			int wgt = object_ptr->weight * object_ptr->number;
 			char buf[80];
 			format_weight(buf, wgt);
 			(void)sprintf(tmp_val, "%10s", buf);
@@ -5118,23 +5118,23 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 {
 	char        o_name[MAX_NLEN];
 	char        out_val[MAX_NLEN+20];
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 
 	/* inventory */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Floor */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Describe */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 
 	/* Prompt */
 #ifdef JP
@@ -5158,27 +5158,27 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 {
 	cptr s;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	if (!command_cmd) return TRUE; /* command_cmd is no longer effective */
 
 	/* creature_ptr->inventory */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Floor */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* No inscription */
-	if (!o_ptr->inscription) return (TRUE);
+	if (!object_ptr->inscription) return (TRUE);
 
 	/* Find a '!' */
-	s = my_strchr(quark_str(o_ptr->inscription), '!');
+	s = my_strchr(quark_str(object_ptr->inscription), '!');
 
 	/* Process preventions */
 	while (s)
@@ -5208,7 +5208,7 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 /*
  * Auxiliary function for "get_item()" -- test an index
  */
-static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
+static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE); // Illegal items
 	if (!item_tester_okay(creature_ptr, &creature_ptr->inventory[i], hook, item_tester_tval)) return (FALSE); // Verify the item
@@ -5347,7 +5347,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
  * We always erase the prompt when we are done, leaving a blank line,
  * or a warning message, if appropriate, if no items are available.
  */
-bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
+bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -5405,16 +5405,16 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		// Floor item?
 		else if (floor && (*cp < 0))
 		{
-			object_type *o_ptr;
+			object_type *object_ptr;
 
 			// Special index
 			k = 0 - (*cp);
 
 			// Acquire object
-			o_ptr = &object_list[k];
+			object_ptr = &object_list[k];
 
 			// Validate the item
-			if (item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval))
+			if (item_tester_okay(creature_ptr, object_ptr, hook, item_tester_tval))
 			{
 				// Forget restrictions
 				item_tester_tval = 0;
@@ -5516,16 +5516,16 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Scan all objects in the grid */
 		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
-			object_type *o_ptr;
+			object_type *object_ptr;
 
 			/* Acquire object */
-			o_ptr = &object_list[this_object_idx];
+			object_ptr = &object_list[this_object_idx];
 
 			/* Acquire next object */
-			next_object_idx = o_ptr->next_object_idx;
+			next_object_idx = object_ptr->next_object_idx;
 
 			/* Accept the item on the floor if legal */
-			if (item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval) && (o_ptr->marked & OM_FOUND)) allow_floor = TRUE;
+			if (item_tester_okay(creature_ptr, object_ptr, hook, item_tester_tval) && (object_ptr->marked & OM_FOUND)) allow_floor = TRUE;
 		}
 	}
 
@@ -5914,16 +5914,16 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 					/* Scan all objects in the grid */
 					for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 					{
-						object_type *o_ptr;
+						object_type *object_ptr;
 
 						/* Acquire object */
-						o_ptr = &object_list[this_object_idx];
+						object_ptr = &object_list[this_object_idx];
 
 						/* Acquire next object */
-						next_object_idx = o_ptr->next_object_idx;
+						next_object_idx = object_ptr->next_object_idx;
 
 						/* Validate the item */
-						if (!item_tester_okay(creature_ptr, o_ptr, hook, item_tester_tval)) continue;
+						if (!item_tester_okay(creature_ptr, object_ptr, hook, item_tester_tval)) continue;
 
 						/* Special index */
 						k = 0 - this_object_idx;
@@ -6165,19 +6165,19 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 	/* Scan all objects in the grid */
 	for (this_object_idx = floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Acquire object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Item tester */
-		if ((mode & 0x01) && !item_tester_okay(player_ptr, o_ptr, NULL, 0)) continue;
+		if ((mode & 0x01) && !item_tester_okay(player_ptr, object_ptr, NULL, 0)) continue;
 
 		/* Marked */
-		if ((mode & 0x02) && !(o_ptr->marked & OM_FOUND)) continue;
+		if ((mode & 0x02) && !(object_ptr->marked & OM_FOUND)) continue;
 
 		/* Accept this item */
 		/* XXX Hack -- Enforce limit */
@@ -6203,7 +6203,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	int i, j, k, l;
 	int col, len;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char o_name[MAX_NLEN];
 
@@ -6232,16 +6232,16 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	/* Display the floor objects */
 	for (k = 0, i = 0; i < floor_num && i < 23; i++)
 	{
-		o_ptr = &object_list[floor_list[i]];
+		object_ptr = &object_list[floor_list[i]];
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Save the index */
 		out_index[k] = i;
 
 		/* Acquire inventory color */
-		out_color[k] = tval_to_acttr[o_ptr->tval & 0x7F];
+		out_color[k] = tval_to_acttr[object_ptr->tval & 0x7F];
 
 		/* Save the object description */
 		strcpy(out_desc[k], o_name);
@@ -6252,7 +6252,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		/* Be sure to account for the weight */
 		if (show_weights) l += 9;
 
-		if (o_ptr->tval != TV_GOLD) dont_need_to_show_weights = FALSE;
+		if (object_ptr->tval != TV_GOLD) dont_need_to_show_weights = FALSE;
 
 		/* Maintain the maximum length */
 		if (l > len) len = l;
@@ -6278,7 +6278,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		i = floor_list[out_index[j]];
 
 		/* Get the item */
-		o_ptr = &object_list[i];
+		object_ptr = &object_list[i];
 
 		/* Clear the line */
 		prt("", j + 1, col ? col - 2 : col);
@@ -6309,10 +6309,10 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		c_put_str(out_color[j], out_desc[j], j + 1, col + 3);
 
 		/* Display the weight if needed */
-		if (show_weights && (o_ptr->tval != TV_GOLD))
+		if (show_weights && (object_ptr->tval != TV_GOLD))
 		{
 			char weight[80];
-			int wgt = o_ptr->weight * o_ptr->number;
+			int wgt = object_ptr->weight * object_ptr->number;
 			format_weight(weight, wgt);
 			sprintf(tmp_val, "%10s", weight);
 
@@ -6328,7 +6328,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 
 // This version of get_item() is called by get_item() when
 // the easy_floor is on.
-bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *o_ptr), int item_tester_tval)
+bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';
@@ -7630,7 +7630,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 	s16b this_object_idx, next_object_idx = 0;
 
 	char o_name[MAX_NLEN];
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int floor_num = 0, floor_list[23], floor_object_idx = 0;
@@ -7640,35 +7640,35 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 	/* Scan the pile of objects */
 	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Access the object */
-		o_ptr = &object_list[this_object_idx];
+		object_ptr = &object_list[this_object_idx];
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Access the next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
 		/* Hack -- disturb */
 		disturb(player_ptr, 0, 0);
 
 		/* Pick up gold */
-		if (o_ptr->tval == TV_GOLD)
+		if (object_ptr->tval == TV_GOLD)
 		{
 			/* Message */
 #ifdef JP
 		msg_format(" $%ld の価値がある%sを見つけた。",
-			   (long)o_ptr->pval, o_name);
+			   (long)object_ptr->pval, o_name);
 #else
 			msg_format("You have found %ld gold pieces worth of %s.",
-				(long) o_ptr->pval, o_name);
+				(long) object_ptr->pval, o_name);
 #endif
 
 
 			/* Collect the gold */
-			creature_ptr->au += o_ptr->pval;
+			creature_ptr->au += object_ptr->pval;
 
 			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
@@ -7682,16 +7682,16 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Check the next object */
 			continue;
 		}
-		else if (o_ptr->marked & OM_NOMSG)
+		else if (object_ptr->marked & OM_NOMSG)
 		{
 			/* If 0 or 1 non-NOMSG items are in the pile, the NOMSG ones are
 			 * ignored. Otherwise, they are included in the prompt. */
-			o_ptr->marked &= ~(OM_NOMSG);
+			object_ptr->marked &= ~(OM_NOMSG);
 			continue;
 		}
 
 		/* Count non-gold objects that can be picked up. */
-		if (inven_carry_okay(creature_ptr, o_ptr))
+		if (inven_carry_okay(creature_ptr, object_ptr))
 		{
 			can_pickup++;
 		}
@@ -7718,7 +7718,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		if (floor_num == 1)
 		{
 			/* Access the object */
-			o_ptr = &object_list[floor_object_idx];
+			object_ptr = &object_list[floor_object_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7726,13 +7726,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			if (easy_sense)
 			{
 				/* Sense the object */
-				(void) sense_object(o_ptr);
+				(void) sense_object(object_ptr);
 			}
 
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(o_name, object_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -7766,7 +7766,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		if (floor_num == 1)
 		{
 			/* Access the object */
-			o_ptr = &object_list[floor_object_idx];
+			object_ptr = &object_list[floor_object_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7774,13 +7774,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			if (easy_sense)
 			{
 				/* Sense the object */
-				(void) sense_object(o_ptr);
+				(void) sense_object(object_ptr);
 			}
 
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(o_name, object_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -7816,7 +7816,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			char out_val[MAX_NLEN+20];
 
 			/* Access the object */
-			o_ptr = &object_list[floor_object_idx];
+			object_ptr = &object_list[floor_object_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7824,13 +7824,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			if (easy_sense)
 			{
 				/* Sense the object */
-				(void) sense_object(o_ptr);
+				(void) sense_object(object_ptr);
 			}
 
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(o_name, object_ptr, 0);
 
 			/* Build a prompt */
 #ifdef JP
@@ -7849,7 +7849,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		}
 
 		/* Access the object */
-		o_ptr = &object_list[floor_object_idx];
+		object_ptr = &object_list[floor_object_idx];
 
 #ifdef ALLOW_EASY_SENSE
 
@@ -7857,7 +7857,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		if (easy_sense)
 		{
 			/* Sense the object */
-			(void) sense_object(o_ptr);
+			(void) sense_object(object_ptr);
 		}
 
 #endif /* ALLOW_EASY_SENSE */

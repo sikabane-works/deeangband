@@ -257,7 +257,7 @@ static void strip_bytes(int n)
 /*
  * Read an object
  */
-static void rd_object(object_type *o_ptr)
+static void rd_object(object_type *object_ptr)
 {
 	object_kind *k_ptr;
 	u32b flags, flags2;
@@ -269,160 +269,160 @@ static void rd_object(object_type *o_ptr)
 
 	/*** Read un-obvious elements ***/
 	/* Kind */
-	rd_s16b(&o_ptr->k_idx);
+	rd_s16b(&object_ptr->k_idx);
 
 	/* Location */
-	rd_byte(&o_ptr->floor_id);
-	rd_byte(&o_ptr->fy);
-	rd_byte(&o_ptr->fx);
+	rd_byte(&object_ptr->floor_id);
+	rd_byte(&object_ptr->fy);
+	rd_byte(&object_ptr->fx);
 
 	/* Type/Subtype */
-	k_ptr = &object_kind_info[o_ptr->k_idx];
-	o_ptr->tval = k_ptr->tval;
-	o_ptr->sval = k_ptr->sval;
+	k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_ptr->tval = k_ptr->tval;
+	object_ptr->sval = k_ptr->sval;
 
 	/* Special pval */
-	if (flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&o_ptr->pval);
-	else o_ptr->pval = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&object_ptr->pval);
+	else object_ptr->pval = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) rd_byte(&o_ptr->discount);
-	else o_ptr->discount = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) rd_byte(&object_ptr->discount);
+	else object_ptr->discount = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_NUMBER) rd_byte(&o_ptr->number);
-	else o_ptr->number = 1;
+	if (flags & SAVEFLAG_OBJECT_KIND_NUMBER) rd_byte(&object_ptr->number);
+	else object_ptr->number = 1;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_VOLUME) rd_s32b(&o_ptr->volume);
-	else o_ptr->volume = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_VOLUME) rd_s32b(&object_ptr->volume);
+	else object_ptr->volume = 0;
 
-	rd_s16b(&o_ptr->weight);
+	rd_s16b(&object_ptr->weight);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) rd_byte(&o_ptr->name1);
-	else o_ptr->name1 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) rd_s16b(&o_ptr->name2);
-	else o_ptr->name2 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&o_ptr->timeout);
-	else o_ptr->timeout = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) rd_byte(&object_ptr->name1);
+	else object_ptr->name1 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) rd_s16b(&object_ptr->name2);
+	else object_ptr->name2 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&object_ptr->timeout);
+	else object_ptr->timeout = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&o_ptr->to_hit);
-	else o_ptr->to_hit = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) rd_s16b(&o_ptr->to_damage);
-	else o_ptr->to_damage = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) rd_s16b(&o_ptr->to_ac);
-	else o_ptr->to_ac = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) rd_s16b(&o_ptr->to_ev);
-	else o_ptr->to_ev = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&object_ptr->to_hit);
+	else object_ptr->to_hit = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) rd_s16b(&object_ptr->to_damage);
+	else object_ptr->to_damage = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) rd_s16b(&object_ptr->to_ac);
+	else object_ptr->to_ac = 0;
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) rd_s16b(&object_ptr->to_ev);
+	else object_ptr->to_ev = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&o_ptr->ac);
-	else o_ptr->ac = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) rd_s16b(&o_ptr->ev);
-	else o_ptr->ev = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_DD) rd_byte(&o_ptr->dd);
-	else o_ptr->dd = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_DS) rd_byte(&o_ptr->ds);
-	else o_ptr->ds = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&object_ptr->ac);
+	else object_ptr->ac = 0;
+	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) rd_s16b(&object_ptr->ev);
+	else object_ptr->ev = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_DD) rd_byte(&object_ptr->dd);
+	else object_ptr->dd = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_DS) rd_byte(&object_ptr->ds);
+	else object_ptr->ds = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) rd_byte(&o_ptr->ident);
-	else o_ptr->ident = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) rd_byte(&object_ptr->ident);
+	else object_ptr->ident = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&o_ptr->marked);
-	else o_ptr->marked = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&object_ptr->marked);
+	else object_ptr->marked = 0;
 
 	/* Object flags */
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) rd_u32b(&o_ptr->art_flags[0]);
-	else o_ptr->art_flags[0] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) rd_u32b(&o_ptr->art_flags[1]);
-	else o_ptr->art_flags[1] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) rd_u32b(&o_ptr->art_flags[2]);
-	else o_ptr->art_flags[2] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) rd_u32b(&o_ptr->art_flags[3]);
-	else o_ptr->art_flags[3] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) rd_u32b(&object_ptr->art_flags[0]);
+	else object_ptr->art_flags[0] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) rd_u32b(&object_ptr->art_flags[1]);
+	else object_ptr->art_flags[1] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) rd_u32b(&object_ptr->art_flags[2]);
+	else object_ptr->art_flags[2] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) rd_u32b(&object_ptr->art_flags[3]);
+	else object_ptr->art_flags[3] = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&o_ptr->trait_flags[0]);
-	else o_ptr->trait_flags[0] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) rd_u32b(&o_ptr->trait_flags[1]);
-	else o_ptr->trait_flags[1] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) rd_u32b(&o_ptr->trait_flags[2]);
-	else o_ptr->trait_flags[2] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) rd_u32b(&o_ptr->trait_flags[3]);
-	else o_ptr->trait_flags[3] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) rd_u32b(&o_ptr->trait_flags[4]);
-	else o_ptr->trait_flags[4] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) rd_u32b(&o_ptr->trait_flags[5]);
-	else o_ptr->trait_flags[5] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) rd_u32b(&o_ptr->trait_flags[6]);
-	else o_ptr->trait_flags[6] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) rd_u32b(&o_ptr->trait_flags[7]);
-	else o_ptr->trait_flags[7] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) rd_u32b(&o_ptr->trait_flags[8]);
-	else o_ptr->trait_flags[8] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) rd_u32b(&o_ptr->trait_flags[9]);
-	else o_ptr->trait_flags[9] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) rd_u32b(&o_ptr->trait_flags[10]);
-	else o_ptr->trait_flags[10] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) rd_u32b(&o_ptr->trait_flags[11]);
-	else o_ptr->trait_flags[11] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) rd_u32b(&o_ptr->trait_flags[12]);
-	else o_ptr->trait_flags[12] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) rd_u32b(&o_ptr->trait_flags[13]);
-	else o_ptr->trait_flags[13] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) rd_u32b(&o_ptr->trait_flags[14]);
-	else o_ptr->trait_flags[14] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) rd_u32b(&o_ptr->trait_flags[15]);
-	else o_ptr->trait_flags[15] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) rd_u32b(&o_ptr->trait_flags[16]);
-	else o_ptr->trait_flags[16] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) rd_u32b(&o_ptr->trait_flags[17]);
-	else o_ptr->trait_flags[17] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&o_ptr->trait_flags[18]);
-	else o_ptr->trait_flags[18] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&object_ptr->trait_flags[0]);
+	else object_ptr->trait_flags[0] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) rd_u32b(&object_ptr->trait_flags[1]);
+	else object_ptr->trait_flags[1] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) rd_u32b(&object_ptr->trait_flags[2]);
+	else object_ptr->trait_flags[2] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) rd_u32b(&object_ptr->trait_flags[3]);
+	else object_ptr->trait_flags[3] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) rd_u32b(&object_ptr->trait_flags[4]);
+	else object_ptr->trait_flags[4] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) rd_u32b(&object_ptr->trait_flags[5]);
+	else object_ptr->trait_flags[5] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) rd_u32b(&object_ptr->trait_flags[6]);
+	else object_ptr->trait_flags[6] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) rd_u32b(&object_ptr->trait_flags[7]);
+	else object_ptr->trait_flags[7] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) rd_u32b(&object_ptr->trait_flags[8]);
+	else object_ptr->trait_flags[8] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) rd_u32b(&object_ptr->trait_flags[9]);
+	else object_ptr->trait_flags[9] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) rd_u32b(&object_ptr->trait_flags[10]);
+	else object_ptr->trait_flags[10] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) rd_u32b(&object_ptr->trait_flags[11]);
+	else object_ptr->trait_flags[11] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) rd_u32b(&object_ptr->trait_flags[12]);
+	else object_ptr->trait_flags[12] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) rd_u32b(&object_ptr->trait_flags[13]);
+	else object_ptr->trait_flags[13] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) rd_u32b(&object_ptr->trait_flags[14]);
+	else object_ptr->trait_flags[14] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) rd_u32b(&object_ptr->trait_flags[15]);
+	else object_ptr->trait_flags[15] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) rd_u32b(&object_ptr->trait_flags[16]);
+	else object_ptr->trait_flags[16] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) rd_u32b(&object_ptr->trait_flags[17]);
+	else object_ptr->trait_flags[17] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&object_ptr->trait_flags[18]);
+	else object_ptr->trait_flags[18] = 0;
 
 
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&o_ptr->curse_flags);
-	else o_ptr->curse_flags = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&object_ptr->curse_flags);
+	else object_ptr->curse_flags = 0;
 
 	/* Creature holding object */
-	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&o_ptr->held_m_idx);
-	else o_ptr->held_m_idx = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&object_ptr->held_m_idx);
+	else object_ptr->held_m_idx = 0;
 
 	/* Special powers */
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA1) rd_byte(&o_ptr->xtra1);
-	else o_ptr->xtra1 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA2) rd_byte(&o_ptr->xtra2);
-	else o_ptr->xtra2 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA3) rd_byte(&o_ptr->xtra3);
-	else o_ptr->xtra3 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA4) rd_s16b(&o_ptr->xtra4);
-	else o_ptr->xtra4 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA5) rd_s16b(&o_ptr->xtra5);
-	else o_ptr->xtra5 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA1) rd_byte(&object_ptr->xtra1);
+	else object_ptr->xtra1 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA2) rd_byte(&object_ptr->xtra2);
+	else object_ptr->xtra2 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA3) rd_byte(&object_ptr->xtra3);
+	else object_ptr->xtra3 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA4) rd_s16b(&object_ptr->xtra4);
+	else object_ptr->xtra4 = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA5) rd_s16b(&object_ptr->xtra5);
+	else object_ptr->xtra5 = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_FEELING) rd_byte(&o_ptr->feeling);
-	else o_ptr->feeling = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_FEELING) rd_byte(&object_ptr->feeling);
+	else object_ptr->feeling = 0;
 
 	if (flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION)
 	{
 		rd_string(buf, sizeof(buf));
-		o_ptr->inscription = quark_add(buf);
+		object_ptr->inscription = quark_add(buf);
 	}
-	else o_ptr->inscription = 0;
+	else object_ptr->inscription = 0;
 
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_NAME)
 	{
 		rd_string(buf, sizeof(buf));
-		o_ptr->art_name = quark_add(buf);
+		object_ptr->art_name = quark_add(buf);
 	}
-	else o_ptr->art_name = 0;
+	else object_ptr->art_name = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CREATER) rd_s16b(&o_ptr->creater_idx);
-	else o_ptr->art_name = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_CREATER) rd_s16b(&object_ptr->creater_idx);
+	else object_ptr->art_name = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
+	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) rd_byte(&object_ptr->equipped_slot_type);
+	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) rd_byte(&object_ptr->equipped_slot_num);
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) rd_s16b(&o_ptr->size_upper);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) rd_s16b(&o_ptr->size_lower);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) rd_s16b(&o_ptr->to_size);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) rd_s16b(&object_ptr->size_upper);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) rd_s16b(&object_ptr->size_lower);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) rd_s16b(&object_ptr->to_size);
 
 }
 
@@ -577,7 +577,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 
 /*
- * Add the item "o_ptr" to the inventory of the "Home"
+ * Add the item "object_ptr" to the inventory of the "Home"
  *
  * In all cases, return the slot (or -1) where the object was placed
  *
@@ -586,7 +586,7 @@ static errr rd_inventory(creature_type *creature_ptr)
  * Also note that it may not correctly "adapt" to "knowledge" bacoming
  * known, the player may have to pick stuff up and drop it again.
  */
-static void store_item_load(store_type *st_ptr, object_type *o_ptr)
+static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 {
 	int 				slot;
 	s32b			   value;
@@ -601,10 +601,10 @@ static void store_item_load(store_type *st_ptr, object_type *o_ptr)
 		j_ptr = &st_ptr->stock[slot];
 
 		/* The home acts just like the player */
-		if (object_similar(j_ptr, o_ptr))
+		if (object_similar(j_ptr, object_ptr))
 		{
 			/* Save the new number of items */
-			object_absorb(j_ptr, o_ptr);
+			object_absorb(j_ptr, object_ptr);
 
 			/* All done */
 			return;
@@ -617,12 +617,12 @@ static void store_item_load(store_type *st_ptr, object_type *o_ptr)
 	}
 
 	/* Determine the "value" of the item */
-	value = object_value(o_ptr);
+	value = object_value(object_ptr);
 
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(player_ptr, o_ptr, value, &st_ptr->stock[slot])) break;
+		if (object_sort_comp(player_ptr, object_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
@@ -635,7 +635,7 @@ static void store_item_load(store_type *st_ptr, object_type *o_ptr)
 	st_ptr->stock_num++;
 
 	/* Insert the new item */
-	st_ptr->stock[slot] = *o_ptr;
+	st_ptr->stock[slot] = *object_ptr;
 
 	/* Return the location */
 	return;
@@ -1760,16 +1760,16 @@ note("—”î•ñ‚ğƒ[ƒh‚µ‚Ü‚µ‚½");
 	for (i = 1; i < limit; i++)
 	{
 		int object_idx;
-		object_type *o_ptr;
+		object_type *object_ptr;
 
 		/* Get a new record */
 		object_idx = object_pop();
 
 		/* Acquire place */
-		o_ptr = &object_list[object_idx];
+		object_ptr = &object_list[object_idx];
 
 		/* Read the item */
-		rd_object(o_ptr);
+		rd_object(object_ptr);
 	}
 
 #ifdef JP

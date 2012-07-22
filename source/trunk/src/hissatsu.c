@@ -420,7 +420,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 {
 	int item, i, j;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 	cptr q, s;
 
 	bool gain = FALSE;
@@ -492,16 +492,16 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
-	for (i = o_ptr->sval * 8; i < o_ptr->sval * 8 + 8; i++)
+	for (i = object_ptr->sval * 8; i < object_ptr->sval * 8 + 8; i++)
 	{
 		if (creature_ptr->spell_learned1 & (1L << i)) continue;
 		if (technic_info[TECHNIC_HISSATSU][i].slevel > creature_ptr->lev) continue;

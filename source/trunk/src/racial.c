@@ -15,11 +15,11 @@
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
  */
-static bool item_tester_hook_convertible(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_convertible(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if((o_ptr->tval==TV_JUNK) || (o_ptr->tval==TV_SKELETON)) return TRUE;
+	if((object_ptr->tval==TV_JUNK) || (object_ptr->tval==TV_SKELETON)) return TRUE;
 
-	if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON)) return TRUE;
+	if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON)) return TRUE;
 	/* Assume not */
 	return (FALSE);
 }
@@ -309,7 +309,7 @@ bool gain_magic(creature_type *creature_ptr)
 	int pval;
 	int ext = 0;
 	cptr q, s;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char o_name[MAX_NLEN];
 
 	/* Get an item */
@@ -326,16 +326,16 @@ s = "魔力を取り込めるアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
-	if (o_ptr->tval == TV_STAFF && o_ptr->sval == SV_STAFF_NOTHING)
+	if (object_ptr->tval == TV_STAFF && object_ptr->sval == SV_STAFF_NOTHING)
 	{
 #ifdef JP
 		msg_print("この杖には発動の為の能力は何も備わっていないようだ。");
@@ -346,7 +346,7 @@ s = "魔力を取り込めるアイテムがない。";
 	}
 
 
-	if (!object_is_known(o_ptr))
+	if (!object_is_known(object_ptr))
 	{
 #ifdef JP
 		msg_print("鑑定されていないと取り込めない。");
@@ -356,7 +356,7 @@ s = "魔力を取り込めるアイテムがない。";
 		return FALSE;
 	}
 
-	if (o_ptr->timeout)
+	if (object_ptr->timeout)
 	{
 #ifdef JP
 		msg_print("充填中のアイテムは取り込めない。");
@@ -366,40 +366,40 @@ s = "魔力を取り込めるアイテムがない。";
 		return FALSE;
 	}
 
-	pval = o_ptr->pval;
-	if (o_ptr->tval == TV_ROD)
+	pval = object_ptr->pval;
+	if (object_ptr->tval == TV_ROD)
 		ext = 72;
-	else if (o_ptr->tval == TV_WAND)
+	else if (object_ptr->tval == TV_WAND)
 		ext = 36;
 
-	if (o_ptr->tval == TV_ROD)
+	if (object_ptr->tval == TV_ROD)
 	{
-		creature_ptr->magic_num2[o_ptr->sval + ext] += o_ptr->number;
-		if (creature_ptr->magic_num2[o_ptr->sval + ext] > 99) creature_ptr->magic_num2[o_ptr->sval + ext] = 99;
+		creature_ptr->magic_num2[object_ptr->sval + ext] += object_ptr->number;
+		if (creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
 	}
 	else
 	{
 		int num;
-		for (num = o_ptr->number; num; num--)
+		for (num = object_ptr->number; num; num--)
 		{
 			int gain_num = pval;
-			if (o_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
-			if (creature_ptr->magic_num2[o_ptr->sval + ext])
+			if (object_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
+			if (creature_ptr->magic_num2[object_ptr->sval + ext])
 			{
 				gain_num *= 256;
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if (gain_num < 1) gain_num = 1;
 			}
-			creature_ptr->magic_num2[o_ptr->sval + ext] += gain_num;
-			if (creature_ptr->magic_num2[o_ptr->sval + ext] > 99) creature_ptr->magic_num2[o_ptr->sval + ext] = 99;
-			creature_ptr->magic_num1[o_ptr->sval + ext] += pval * 0x10000;
-			if (creature_ptr->magic_num1[o_ptr->sval + ext] > 99 * 0x10000) creature_ptr->magic_num1[o_ptr->sval + ext] = 99 * 0x10000;
-			if (creature_ptr->magic_num1[o_ptr->sval + ext] > creature_ptr->magic_num2[o_ptr->sval + ext] * 0x10000) creature_ptr->magic_num1[o_ptr->sval + ext] = creature_ptr->magic_num2[o_ptr->sval + ext] * 0x10000;
-			if (o_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
+			creature_ptr->magic_num2[object_ptr->sval + ext] += gain_num;
+			if (creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
+			creature_ptr->magic_num1[object_ptr->sval + ext] += pval * 0x10000;
+			if (creature_ptr->magic_num1[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = 99 * 0x10000;
+			if (creature_ptr->magic_num1[object_ptr->sval + ext] > creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000;
+			if (object_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
 		}
 	}
 
-	object_desc(o_name, o_ptr, 0);
+	object_desc(o_name, object_ptr, 0);
 	/* Message */
 #ifdef JP
 	msg_format("%sの魔力を取り込んだ。", o_name);

@@ -235,15 +235,15 @@ static void update_unique_artifact(s16b cur_floor_id)
 	/* Maintain artifatcs */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *o_ptr = &object_list[i];
+		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Memorize location of the artifact */
-		if (object_is_fixed_artifact(o_ptr))
+		if (object_is_fixed_artifact(object_ptr))
 		{
-			artifact_info[o_ptr->name1].floor_id = cur_floor_id;
+			artifact_info[object_ptr->name1].floor_id = cur_floor_id;
 		}
 	}
 }
@@ -697,10 +697,10 @@ void change_floor(floor_type *floor_ptr, creature_type *creature_ptr)
 			// Maintain artifatcs
 			for (i = 1; i < object_max; i++)
 			{
-				object_type *o_ptr = &object_list[i];
+				object_type *object_ptr = &object_list[i];
 
 				// Skip empty objects
-				if (!o_ptr->k_idx) continue;
+				if (!object_ptr->k_idx) continue;
 
 				// TODO set cave data?
 			}

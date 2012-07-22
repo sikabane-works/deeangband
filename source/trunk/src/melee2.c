@@ -2406,27 +2406,27 @@ static void process_nonplayer(int m_idx)
 					char creature_name[80], o_name[MAX_NLEN];
 
 					/* Acquire object */
-					object_type *o_ptr = &object_list[this_object_idx];
+					object_type *object_ptr = &object_list[this_object_idx];
 
 					/* Acquire next object */
-					next_object_idx = o_ptr->next_object_idx;
+					next_object_idx = object_ptr->next_object_idx;
 
 					if (do_take)
 					{
 						/* Skip gold */
-						if (o_ptr->tval == TV_GOLD) continue;
+						if (object_ptr->tval == TV_GOLD) continue;
 
 						/*
 						 * Skip "real" corpses and statues, to avoid extreme
 						 * silliness like a novice rogue pockets full of statues
 						 * and corpses.
 						 */
-						if ((o_ptr->tval == TV_CORPSE) ||
-						    (o_ptr->tval == TV_STATUE)) continue;
+						if ((object_ptr->tval == TV_CORPSE) ||
+						    (object_ptr->tval == TV_STATUE)) continue;
 					}
 
 					/* Acquire the object name */
-					object_desc(o_name, o_ptr, 0);
+					object_desc(o_name, object_ptr, 0);
 
 					/* Acquire the creature name */
 					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
@@ -2470,13 +2470,13 @@ static void process_nonplayer(int m_idx)
 						excise_object_idx(this_object_idx);
 
 						/* Forget mark */
-						o_ptr->marked &= OM_TOUCHED;
+						object_ptr->marked &= OM_TOUCHED;
 
 						/* Forget location */
-						o_ptr->fy = o_ptr->fx = 0;
+						object_ptr->fy = object_ptr->fx = 0;
 
 						/* Memorize creature */
-						o_ptr->held_m_idx = m_idx;
+						object_ptr->held_m_idx = m_idx;
 					}
 
 					/* Destroy the item if not a pet */

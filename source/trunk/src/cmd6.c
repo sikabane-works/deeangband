@@ -46,7 +46,7 @@
  * giving a staff "negative" charges, or "turning a staff into a stick".
  * It seems as though a "rod of recharging" might in fact cause problems.
  * The basic problem is that the act of recharging (and destroying) an
- * item causes the inducer of that action to "move", causing "o_ptr" to
+ * item causes the inducer of that action to "move", causing "object_ptr" to
  * no longer point at the correct item, with horrifying results.
  *
  * Note that food/potions/scrolls no longer use bit-flags for effects,
@@ -57,7 +57,7 @@
 static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 {
 	int ident, lev;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
@@ -66,13 +66,13 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Sound */
@@ -85,12 +85,12 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	ident = FALSE;
 
 	/* Object level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 
-	if (o_ptr->tval == TV_FOOD)
+	if (object_ptr->tval == TV_FOOD)
 	{
 		/* Analyze the food */
-		switch (o_ptr->sval)
+		switch (object_ptr->sval)
 		{
 			case SV_FOOD_POISON:
 			{
@@ -383,12 +383,12 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* We have tried it */
-	if (o_ptr->tval == TV_FOOD) object_tried(o_ptr);
+	if (object_ptr->tval == TV_FOOD) object_tried(object_ptr);
 
 	/* The player is now aware of the object */
-	if (ident && !object_is_aware(o_ptr))
+	if (ident && !object_is_aware(object_ptr))
 	{
-		object_aware(o_ptr);
+		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -400,7 +400,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	if (has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
 	{
 		// Reduced nutritional benefit
-		(void)set_food(creature_ptr, creature_ptr->food + (o_ptr->pval / 10));
+		(void)set_food(creature_ptr, creature_ptr->food + (object_ptr->pval / 10));
 #ifdef JP
 msg_print("あなたのような者にとって食糧など僅かな栄養にしかならない。");
 #else
@@ -415,12 +415,12 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 	}
-	else if (is_undead_creature(creature_ptr) && (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND))
+	else if (is_undead_creature(creature_ptr) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
 	{
 		cptr staff;
 
-		if (o_ptr->tval == TV_STAFF &&
-		    (item < 0) && (o_ptr->number > 1))
+		if (object_ptr->tval == TV_STAFF &&
+		    (item < 0) && (object_ptr->number > 1))
 		{
 #ifdef JP
 			msg_print("まずは杖を拾わなければ。");
@@ -431,13 +431,13 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		}
 
 #ifdef JP
-		staff = (o_ptr->tval == TV_STAFF) ? "杖" : "魔法棒";
+		staff = (object_ptr->tval == TV_STAFF) ? "杖" : "魔法棒";
 #else
-		staff = (o_ptr->tval == TV_STAFF) ? "staff" : "wand";
+		staff = (object_ptr->tval == TV_STAFF) ? "staff" : "wand";
 #endif
 
 		/* "Eat" charges */
-		if (o_ptr->pval == 0)
+		if (object_ptr->pval == 0)
 		{
 #ifdef JP
 			msg_format("この%sにはもう魔力が残っていない。", staff);
@@ -445,7 +445,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 			msg_format("The %s has no charges left.", staff);
 #endif
 
-			o_ptr->ident |= (IDENT_EMPTY);
+			object_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
 			creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -461,14 +461,14 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 		/* Use a single charge */
-		o_ptr->pval--;
+		object_ptr->pval--;
 
 		/* Eat a charge */
 		set_food(creature_ptr, creature_ptr->food + 5000);
 
 		/* XXX Hack -- unstack if necessary */
-		if (o_ptr->tval == TV_STAFF &&
-		    (item >= 0) && (o_ptr->number > 1))
+		if (object_ptr->tval == TV_STAFF &&
+		    (item >= 0) && (object_ptr->number > 1))
 		{
 			object_type forge;
 			object_type *quest_ptr;
@@ -477,16 +477,16 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 			quest_ptr = &forge;
 
 			/* Obtain a local object */
-			object_copy(quest_ptr, o_ptr);
+			object_copy(quest_ptr, object_ptr);
 
 			/* Modify quantity */
 			quest_ptr->number = 1;
 
 			/* Restore the charges */
-			o_ptr->pval++;
+			object_ptr->pval++;
 
 			/* Unstack the used item */
-			o_ptr->number--;
+			object_ptr->number--;
 			set_inventory_weight(creature_ptr);
 			item = inven_carry(creature_ptr, quest_ptr);
 
@@ -517,13 +517,13 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		return;
 	}
 	else if (is_demon_creature(creature_ptr) &&
-		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
-		  my_strchr("pht", species_info[o_ptr->pval].d_char)))
+		 (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_CORPSE &&
+		  my_strchr("pht", species_info[object_ptr->pval].d_char)))
 	{
 		/* Drain vitality of humanoids */
 		char o_name[MAX_NLEN];
 
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 		msg_format("%sは燃え上り灰になった。精力を吸収した気がする。", o_name);
@@ -535,8 +535,8 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 	else if (has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 #if 0
-		if (o_ptr->tval == TV_SKELETON ||
-		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
+		if (object_ptr->tval == TV_SKELETON ||
+		    (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_SKELETON))
 		{
 #ifdef JP
 			msg_print("あなたは骨で自分の体を補った。");
@@ -548,8 +548,8 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		else 
 #endif
 
-		if (!((o_ptr->sval == SV_FOOD_WAYBREAD) ||
-		      (o_ptr->sval < SV_FOOD_BISCUIT)))
+		if (!((object_ptr->sval == SV_FOOD_WAYBREAD) ||
+		      (object_ptr->sval < SV_FOOD_BISCUIT)))
 		{
 			object_type forge;
 			object_type *quest_ptr = &forge;
@@ -562,7 +562,7 @@ msg_print("食べ物がアゴを素通りして落ちた！");
 
 
 			/* Create the item */
-			object_prep(quest_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(object_ptr->tval, object_ptr->sval), ITEM_FREE_SIZE);
 
 			/* Drop the object from heaven */
 			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
@@ -585,9 +585,9 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 		msg_print("The food of mortals is poor sustenance for you.");
 #endif
 
-		set_food(creature_ptr, creature_ptr->food + ((o_ptr->pval) / 20));
+		set_food(creature_ptr, creature_ptr->food + ((object_ptr->pval) / 20));
 	}
-	else if (o_ptr->tval == TV_FOOD && o_ptr->sval == SV_FOOD_WAYBREAD)
+	else if (object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
 		set_food(creature_ptr, MAX(creature_ptr->food, PY_FOOD_MAX - 1));
@@ -595,7 +595,7 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 	else
 	{
 		/* Food can feed the player */
-		(void)set_food(creature_ptr, creature_ptr->food + o_ptr->pval);
+		(void)set_food(creature_ptr, creature_ptr->food + object_ptr->pval);
 	}
 
 	/* Destroy a food in the pack */
@@ -619,15 +619,15 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 /*
  * Hook to determine if an object is eatable
  */
-static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (o_ptr->tval==TV_FOOD) return TRUE;
+	if (object_ptr->tval==TV_FOOD) return TRUE;
 
 #if 0
 	if (IS_RACE(creature_ptr, RACE_SKELETON))
 	{
-		if (o_ptr->tval == TV_SKELETON ||
-		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
+		if (object_ptr->tval == TV_SKELETON ||
+		    (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_SKELETON))
 			return TRUE;
 	}
 	else 
@@ -635,15 +635,15 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 
 	if (is_undead_creature(creature_ptr))
 	{
-		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
+		if (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND)
 			return TRUE;
 	}
 
 	else if (is_demon_creature(creature_ptr))
 	{
-		if (o_ptr->tval == TV_CORPSE &&
-		    o_ptr->sval == SV_CORPSE &&
-		    my_strchr("pht", species_info[o_ptr->pval].d_char))
+		if (object_ptr->tval == TV_CORPSE &&
+		    object_ptr->sval == SV_CORPSE &&
+		    my_strchr("pht", species_info[object_ptr->pval].d_char))
 			return TRUE;
 	}
 
@@ -689,7 +689,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 {
 	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 	int         ident, lev;
-	object_type	*o_ptr;
+	object_type	*object_ptr;
 	object_type forge;
 	object_type *quest_ptr;
 
@@ -718,20 +718,20 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(quest_ptr, o_ptr);
+	object_copy(quest_ptr, object_ptr);
 
 	/* Single object */
 	quest_ptr->number = 1;
@@ -1440,13 +1440,13 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 /*
  * Hook to determine if an object can be quaffed
  */
-static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (o_ptr->tval == TV_POTION) return TRUE;
+	if (object_ptr->tval == TV_POTION) return TRUE;
 
 	if (has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
-		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
+		if (object_ptr->tval == TV_FLASK && object_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
 	}
 
@@ -1493,7 +1493,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool known)
 {
 	int         k, used_up, ident, lev;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	char        Rumor[1024];
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -1502,13 +1502,13 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
@@ -1547,15 +1547,15 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	ident = FALSE;
 
 	/* Object level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Assume the scroll will get used up */
 	used_up = TRUE;
 
-	if (o_ptr->tval == TV_SCROLL)
+	if (object_ptr->tval == TV_SCROLL)
 	{
 	/* Analyze the scroll */
-	switch (o_ptr->sval)
+	switch (object_ptr->sval)
 	{
 		case SV_SCROLL_DARKNESS:
 		{
@@ -2060,7 +2060,7 @@ msg_print("巻物は煙を立てて消え去った！");
 		}
 	}
 	}
-	else if (o_ptr->name1 == ART_GHB)
+	else if (object_ptr->name1 == ART_GHB)
 	{
 #ifdef JP
 		msg_print("私は苦労して『グレーター・ヘル=ビースト』を倒した。");
@@ -2071,7 +2071,7 @@ msg_print("巻物は煙を立てて消え去った！");
 #endif
 		used_up = FALSE;
 	}
-	else if (o_ptr->name1 == ART_POWER)
+	else if (object_ptr->name1 == ART_POWER)
 	{
 #ifdef JP
 		msg_print("「一つの指輪は全てを統べ、");
@@ -2092,7 +2092,7 @@ msg_print("巻物は煙を立てて消え去った！");
 #endif
 		used_up = FALSE;
 	}
-	else if (o_ptr->tval==TV_PARCHMENT)
+	else if (object_ptr->tval==TV_PARCHMENT)
 	{
 		cptr q;
 		char o_name[MAX_NLEN];
@@ -2101,10 +2101,10 @@ msg_print("巻物は煙を立てて消え去った！");
 		/* Save screen */
 		screen_save();
 
-		q=format("book-%d_jp.txt",o_ptr->sval);
+		q=format("book-%d_jp.txt",object_ptr->sval);
 
 		/* Display object description */
-		object_desc(o_name, o_ptr, OD_NAME_ONLY);
+		object_desc(o_name, object_ptr, OD_NAME_ONLY);
 
 		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, q);
@@ -2123,12 +2123,12 @@ msg_print("巻物は煙を立てて消え去った！");
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* The item was tried */
-	object_tried(o_ptr);
+	object_tried(object_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(o_ptr))
+	if (ident && !object_is_aware(object_ptr))
 	{
-		object_aware(o_ptr);
+		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -2164,7 +2164,7 @@ msg_print("巻物は煙を立てて消え去った！");
 
 void do_cmd_read_scroll(creature_type *creature_ptr)
 {
-	object_type *o_ptr;
+	object_type *object_ptr;
 	int  item;
 	cptr q, s;
 
@@ -2217,17 +2217,17 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Read the scroll */
-	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(o_ptr));
+	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));
 }
 
 
@@ -2590,7 +2590,7 @@ msg_print("ダンジョンが揺れた。");
 static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 {
 	int         ident, chance, lev;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 
 	/* Hack -- let staffs of identify get aborted */
@@ -2600,18 +2600,18 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Mega-Hack -- refuse to use a pile from the ground */
-	if ((item < 0) && (o_ptr->number > 1))
+	if ((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずは杖を拾わなければ。");
@@ -2627,7 +2627,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
@@ -2673,7 +2673,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Notice empty staffs */
-	if (o_ptr->pval <= 0)
+	if (object_ptr->pval <= 0)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -2682,7 +2682,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		msg_print("The staff has no charges left.");
 #endif
 
-		o_ptr->ident |= (IDENT_EMPTY);
+		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
 		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -2695,19 +2695,19 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = staff_effect(creature_ptr, o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
+	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
 
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Tried the item */
-	object_tried(o_ptr);
+	object_tried(object_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(o_ptr))
+	if (ident && !object_is_aware(object_ptr))
 	{
-		object_aware(o_ptr);
+		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -2720,10 +2720,10 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Use a single charge */
-	o_ptr->pval--;
+	object_ptr->pval--;
 
 	/* XXX Hack -- unstack if necessary */
-	if ((item >= 0) && (o_ptr->number > 1))
+	if ((item >= 0) && (object_ptr->number > 1))
 	{
 		object_type forge;
 		object_type *quest_ptr;
@@ -2732,16 +2732,16 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		quest_ptr = &forge;
 
 		/* Obtain a local object */
-		object_copy(quest_ptr, o_ptr);
+		object_copy(quest_ptr, object_ptr);
 
 		/* Modify quantity */
 		quest_ptr->number = 1;
 
 		/* Restore the charges */
-		o_ptr->pval++;
+		object_ptr->pval++;
 
 		/* Unstack the used item */
-		o_ptr->number--;
+		object_ptr->number--;
 		set_inventory_weight(creature_ptr);
 		item = inven_carry(creature_ptr, quest_ptr);
 
@@ -3108,23 +3108,23 @@ msg_print("ロケットを発射した！");
 static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 {
 	int         lev, ident, chance, dir;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	bool old_target_pet = target_pet;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
-	if ((item < 0) && (o_ptr->number > 1))
+	if ((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずは魔法棒を拾わなければ。");
@@ -3137,8 +3137,8 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 
 	/* Allow direction to be cancelled for free */
-	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
-				      || o_ptr->sval == SV_WAND_HASTE_MONSTER))
+	if (object_is_aware(object_ptr) && (object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
+				      || object_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
 	if (!get_aim_dir(creature_ptr, &dir))
 	{
@@ -3151,7 +3151,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	energy_use = 100;
 
 	/* Get the level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
@@ -3197,7 +3197,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* The wand is already empty! */
-	if (o_ptr->pval <= 0)
+	if (object_ptr->pval <= 0)
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3206,7 +3206,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		msg_print("The wand has no charges left.");
 #endif
 
-		o_ptr->ident |= (IDENT_EMPTY);
+		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
 		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -3218,18 +3218,18 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = wand_effect(creature_ptr, o_ptr->sval, dir, FALSE);
+	ident = wand_effect(creature_ptr, object_ptr->sval, dir, FALSE);
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Mark it as tried */
-	object_tried(o_ptr);
+	object_tried(object_ptr);
 
 	/* Apply identification */
-	if (ident && !object_is_aware(o_ptr))
+	if (ident && !object_is_aware(object_ptr))
 	{
-		object_aware(o_ptr);
+		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -3238,7 +3238,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 
 	/* Use a single charge */
-	o_ptr->pval--;
+	object_ptr->pval--;
 
 	/* Describe the charges in the pack */
 	if (item >= 0)
@@ -3531,7 +3531,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 {
 	int ident, chance, lev, fail;
 	int dir = 0;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	bool success;
 
 	/* Hack -- let perception get aborted */
@@ -3542,18 +3542,18 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Mega-Hack -- refuse to zap a pile from the ground */
-	if ((item < 0) && (o_ptr->number > 1))
+	if ((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずはロッドを拾わなければ。");
@@ -3566,8 +3566,8 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 
 	/* Get a direction (unless KNOWN not to need it) */
-	if (((o_ptr->sval >= SV_ROD_MIN_DIRECTION) && (o_ptr->sval != SV_ROD_HAVOC) && (o_ptr->sval != SV_ROD_AGGRAVATE) && (o_ptr->sval != SV_ROD_PESTICIDE)) ||
-	     !object_is_aware(o_ptr))
+	if (((object_ptr->sval >= SV_ROD_MIN_DIRECTION) && (object_ptr->sval != SV_ROD_HAVOC) && (object_ptr->sval != SV_ROD_AGGRAVATE) && (object_ptr->sval != SV_ROD_PESTICIDE)) ||
+	     !object_is_aware(object_ptr))
 	{
 		/* Get a direction, allow cancel */
 		if (!get_aim_dir(creature_ptr, &dir)) return;
@@ -3578,7 +3578,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
@@ -3631,10 +3631,10 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	k_ptr = &object_kind_info[o_ptr->k_idx];
+	k_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* A single rod is still charging */
-	if ((o_ptr->number == 1) && (o_ptr->timeout))
+	if ((object_ptr->number == 1) && (object_ptr->timeout))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3646,7 +3646,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 	/* A stack of rods lacks enough energy. */
-	else if ((o_ptr->number > 1) && (o_ptr->timeout > k_ptr->pval * (o_ptr->number - 1)))
+	else if ((object_ptr->number > 1) && (object_ptr->timeout > k_ptr->pval * (object_ptr->number - 1)))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3661,21 +3661,21 @@ msg_print("そのロッドはまだ充填中です。");
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = rod_effect(creature_ptr, o_ptr->sval, dir, &use_charge, FALSE);
+	ident = rod_effect(creature_ptr, object_ptr->sval, dir, &use_charge, FALSE);
 
 	/* Increase the timeout by the rod kind's pval. -LM- */
-	if (use_charge) o_ptr->timeout += k_ptr->pval;
+	if (use_charge) object_ptr->timeout += k_ptr->pval;
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* Tried the object */
-	object_tried(o_ptr);
+	object_tried(object_ptr);
 
 	/* Successfully determined the object function */
-	if (ident && !object_is_aware(o_ptr))
+	if (ident && !object_is_aware(object_ptr))
 	{
-		object_aware(o_ptr);
+		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
@@ -3713,15 +3713,15 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 /*
  * Hook to determine if an object is activatable
  */
-static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Not known */
-	if (!object_is_known(o_ptr)) return (FALSE);
+	if (!object_is_known(object_ptr)) return (FALSE);
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Check activation flag */
 	if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);
@@ -3850,7 +3850,7 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 {
 	int         k, dir, lev, chance, fail;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	bool success;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -3858,26 +3858,26 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Take a turn */
 	energy_use = 100;
 
 	/* Extract the item level */
-	lev = object_kind_info[o_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Hack -- use artifact level instead */
-	if (object_is_fixed_artifact(o_ptr)) lev = artifact_info[o_ptr->name1].level;
-	else if (o_ptr->art_name)
+	if (object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level;
+	else if (object_ptr->art_name)
 	{
-		switch (o_ptr->xtra2)
+		switch (object_ptr->xtra2)
 		{
 			case ACT_SUNLIGHT:
 			case ACT_BO_MISS_1:
@@ -3973,7 +3973,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 0;
 		}
 	}
-	else if (((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) && o_ptr->name2) lev = object_ego_info[o_ptr->name2].level;
+	else if (((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
@@ -4027,7 +4027,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Check the recharge */
-	if (o_ptr->timeout)
+	if (object_ptr->timeout)
 	{
 #ifdef JP
 		msg_print("それは微かに音を立て、輝き、消えた...");
@@ -4051,9 +4051,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_ZAP);
 
 
-	if (o_ptr->art_name && o_ptr->xtra2)
+	if (object_ptr->art_name && object_ptr->xtra2)
 	{
-		(void)activate_random_artifact(creature_ptr, o_ptr);
+		(void)activate_random_artifact(creature_ptr, object_ptr);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -4063,10 +4063,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Artifacts */
-	else if (object_is_fixed_artifact(o_ptr))
+	else if (object_is_fixed_artifact(object_ptr))
 	{
 		/* Choose effect */
-		switch (o_ptr->name1)
+		switch (object_ptr->name1)
 		{
 			case ART_GALADRIEL:
 			{
@@ -4077,7 +4077,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #endif
 
 				lite_area(creature_ptr, diceroll(2, 15), 3);
-				o_ptr->timeout = randint0(10) + 10;
+				object_ptr->timeout = randint0(10) + 10;
 				break;
 			}
 
@@ -4091,7 +4091,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 				map_area(creature_ptr, DETECT_RAD_MAP);
 				lite_area(creature_ptr, diceroll(2, 15), 3);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 
@@ -4126,7 +4126,7 @@ if (get_check("帰還の力を使いますか？"))
 					(void)word_of_recall(creature_ptr);
 				}
 
-				o_ptr->timeout = randint0(20) + 20;
+				object_ptr->timeout = randint0(20) + 20;
 				break;
 			}
 
@@ -4140,7 +4140,7 @@ if (get_check("帰還の力を使いますか？"))
 
 				k = 3 * creature_ptr->lev;
 				(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
-				o_ptr->timeout = randint0(225) + 225;
+				object_ptr->timeout = randint0(225) + 225;
 				break;
 			}
 
@@ -4153,7 +4153,7 @@ if (get_check("帰還の力を使いますか？"))
 #endif
 
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -4166,7 +4166,7 @@ if (get_check("帰還の力を使いますか？"))
 #endif
 
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -4180,7 +4180,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				if (drain_life(creature_ptr, dir, 100))
-				o_ptr->timeout = randint0(100) + 100;
+				object_ptr->timeout = randint0(100) + 100;
 				break;
 			}
 
@@ -4193,7 +4193,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 
@@ -4207,7 +4207,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 300, 3);
-				o_ptr->timeout = randint0(225) + 225;
+				object_ptr->timeout = randint0(225) + 225;
 				break;
 			}
 
@@ -4221,7 +4221,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 400, 3);
-				o_ptr->timeout = randint0(325) + 325;
+				object_ptr->timeout = randint0(325) + 325;
 				break;
 			}
 
@@ -4229,14 +4229,14 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			case ART_GOURYU:
 			{
 #ifdef JP
-				msg_format("%sは深いブルーに輝いた...", o_ptr->name1 == ART_VILYA ? "指輪" : "ソード");
+				msg_format("%sは深いブルーに輝いた...", object_ptr->name1 == ART_VILYA ? "指輪" : "ソード");
 #else
-				msg_format("The %s glows deep blue...", o_ptr->name1 == ART_VILYA ? "ring" : "sword");
+				msg_format("The %s glows deep blue...", object_ptr->name1 == ART_VILYA ? "ring" : "sword");
 #endif
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_ELEC, dir, 500, 3);
-				o_ptr->timeout = randint0(425) + 425;
+				object_ptr->timeout = randint0(425) + 425;
 				break;
 			}
 
@@ -4251,7 +4251,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				ring_of_power(creature_ptr, dir);
-				o_ptr->timeout = randint0(450) + 450;
+				object_ptr->timeout = randint0(450) + 450;
 				break;
 			}
 
@@ -4285,7 +4285,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 							  (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 
-				o_ptr->timeout = 1000;
+				object_ptr->timeout = 1000;
 				break;
 			}
 
@@ -4314,7 +4314,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				(void)set_oppose_fire(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_cold(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_pois(creature_ptr, randint1(50) + 50, FALSE);
-				o_ptr->timeout = 400;
+				object_ptr->timeout = 400;
 				break;
 			}
 
@@ -4330,7 +4330,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				(void)hp_player(creature_ptr, 1000);
 				(void)set_cut(creature_ptr, 0);
-				o_ptr->timeout = 888;
+				object_ptr->timeout = 888;
 				break;
 			}
 
@@ -4350,7 +4350,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)hp_player(creature_ptr, 777);
-				o_ptr->timeout = 300;
+				object_ptr->timeout = 300;
 				break;
 			}
 
@@ -4363,7 +4363,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				(void)symbol_genocide(creature_ptr, 200, TRUE);
-				o_ptr->timeout = 500;
+				object_ptr->timeout = 500;
 				break;
 			}
 
@@ -4376,7 +4376,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				destroy_doors_touch(creature_ptr);
-				o_ptr->timeout = 10;
+				object_ptr->timeout = 10;
 				break;
 			}
 
@@ -4385,7 +4385,7 @@ msg_print("天国の歌が聞こえる...");
 			case ART_STONEMASK:
 			{
 				turn_creatures(creature_ptr, 40 + creature_ptr->lev);
-				o_ptr->timeout = 3 * (creature_ptr->lev + 10);
+				object_ptr->timeout = 3 * (creature_ptr->lev + 10);
 
 				break;
 			}
@@ -4401,7 +4401,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-				o_ptr->timeout = randint0(55) + 55;
+				object_ptr->timeout = randint0(55) + 55;
 				break;
 			}
 
@@ -4417,7 +4417,7 @@ msg_print("天国の歌が聞こえる...");
 
 				(void)hp_player(creature_ptr, 700);
 				(void)set_cut(creature_ptr, 0);
-				o_ptr->timeout = 250;
+				object_ptr->timeout = 250;
 				break;
 			}
 
@@ -4425,9 +4425,9 @@ msg_print("天国の歌が聞こえる...");
 			case ART_SEIRYU:
 			{
 #ifdef JP
-				msg_format("%sが様々な色に輝いた...", o_ptr->name1 == ART_COLLUIN ? "クローク" : "鎧");
+				msg_format("%sが様々な色に輝いた...", object_ptr->name1 == ART_COLLUIN ? "クローク" : "鎧");
 #else
-				msg_format("Your %s glows many colours...", o_ptr->name1 == ART_COLLUIN ? "cloak" : "armor");
+				msg_format("Your %s glows many colours...", object_ptr->name1 == ART_COLLUIN ? "cloak" : "armor");
 #endif
 
 				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
@@ -4435,7 +4435,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
 				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
 				(void)set_oppose_pois(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = 111;
+				object_ptr->timeout = 111;
 				break;
 			}
 
@@ -4448,7 +4448,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				sleep_creatures_touch(creature_ptr);
-				o_ptr->timeout = 55;
+				object_ptr->timeout = 55;
 
 
 				break;
@@ -4464,7 +4464,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				recharge(creature_ptr, 130);
-				o_ptr->timeout = 70;
+				object_ptr->timeout = 70;
 				break;
 			}
 
@@ -4477,7 +4477,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				teleport_player(creature_ptr, 100, 0L);
-				o_ptr->timeout = 45;
+				object_ptr->timeout = 45;
 				break;
 			}
 
@@ -4490,7 +4490,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				restore_level(creature_ptr);
-				o_ptr->timeout = 450;
+				object_ptr->timeout = 450;
 				break;
 			}
 
@@ -4502,7 +4502,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cloak glows soft white...");
 #endif
 				if (!word_of_recall(creature_ptr)) return;
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4516,7 +4516,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
-				o_ptr->timeout = 2;
+				object_ptr->timeout = 2;
 				break;
 			}
 
@@ -4530,7 +4530,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-				o_ptr->timeout = randint0(8) + 8;
+				object_ptr->timeout = randint0(8) + 8;
 				break;
 			}
 
@@ -4544,7 +4544,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				o_ptr->timeout = randint0(7) + 7;
+				object_ptr->timeout = randint0(7) + 7;
 				break;
 			}
 
@@ -4558,7 +4558,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-				o_ptr->timeout = randint0(5) + 5;
+				object_ptr->timeout = randint0(5) + 5;
 				break;
 			}
 
@@ -4572,7 +4572,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
-				o_ptr->timeout = randint0(6) + 6;
+				object_ptr->timeout = randint0(6) + 6;
 				break;
 			}
 
@@ -4586,7 +4586,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ARROW, dir, 150);
-				o_ptr->timeout = randint0(90) + 90;
+				object_ptr->timeout = randint0(90) + 90;
 				break;
 			}
 
@@ -4599,7 +4599,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4613,7 +4613,7 @@ msg_print("天国の歌が聞こえる...");
 
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_poisoned(creature_ptr, 0);
-				o_ptr->timeout = 5;
+				object_ptr->timeout = 5;
 				break;
 			}
 
@@ -4627,7 +4627,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-				o_ptr->timeout = randint0(8) + 8;
+				object_ptr->timeout = randint0(8) + 8;
 				break;
 			}
 
@@ -4641,7 +4641,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				o_ptr->timeout = randint0(7) + 7;
+				object_ptr->timeout = randint0(7) + 7;
 				break;
 			}
 
@@ -4655,7 +4655,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-				o_ptr->timeout = randint0(5) + 5;
+				object_ptr->timeout = randint0(5) + 5;
 				break;
 			}
 
@@ -4669,7 +4669,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_POIS, dir, 12, 3);
-				o_ptr->timeout = randint0(4) + 4;
+				object_ptr->timeout = randint0(4) + 4;
 				break;
 			}
 
@@ -4683,7 +4683,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_WATER, dir, 200, 3);
-				o_ptr->timeout = 250;
+				object_ptr->timeout = 250;
 				break;
 			}
 
@@ -4697,7 +4697,7 @@ msg_print("天国の歌が聞こえる...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 48, 2);
-				o_ptr->timeout = randint0(5) + 5;
+				object_ptr->timeout = randint0(5) + 5;
 				break;
 			}
 
@@ -4729,14 +4729,14 @@ if (get_check("この階を去りますか？"))
 						subject_change_floor = TRUE;
 					}
 				}
-				o_ptr->timeout = 35;
+				object_ptr->timeout = 35;
 				break;
 			}
 
 			case ART_KAMUI:
 			{
 				teleport_player(creature_ptr, 222, 0L);
-				o_ptr->timeout = 25;
+				object_ptr->timeout = 25;
 				break;
 			}
 
@@ -4750,7 +4750,7 @@ if (get_check("この階を去りますか？"))
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4763,7 +4763,7 @@ msg_print("暁の師団を召喚した。");
 #endif
 
 				(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
-				o_ptr->timeout = 500 + randint1(500);
+				object_ptr->timeout = 500 + randint1(500);
 				break;
 			}
 
@@ -4777,7 +4777,7 @@ msg_print("暁の師団を召喚した。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 72, 2);
-				o_ptr->timeout = 400;
+				object_ptr->timeout = 400;
 				break;
 			}
 
@@ -4791,7 +4791,7 @@ msg_print("暁の師団を召喚した。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 120);
-				o_ptr->timeout = 400;
+				object_ptr->timeout = 400;
 				break;
 			}
 
@@ -4805,7 +4805,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_ELEC, dir, 100, 3);
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4819,7 +4819,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 3);
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4833,7 +4833,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				wall_to_mud(creature_ptr, dir);
-				o_ptr->timeout = 5;
+				object_ptr->timeout = 5;
 				break;
 			}
 
@@ -4847,7 +4847,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				wall_to_mud(creature_ptr, dir);
-				o_ptr->timeout = 2;
+				object_ptr->timeout = 2;
 				break;
 			}
 
@@ -4860,7 +4860,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				(void)mass_genocide(creature_ptr, 200, TRUE);
-				o_ptr->timeout = 1000;
+				object_ptr->timeout = 1000;
 				break;
 			}
 
@@ -4874,7 +4874,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				hp_player(creature_ptr, diceroll(4, 8));
 				(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
-				o_ptr->timeout = randint0(3) + 3;
+				object_ptr->timeout = randint0(3) + 3;
 				break;
 			}
 
@@ -4888,7 +4888,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				teleport_creature(creature_ptr, dir);
-				o_ptr->timeout = 150;
+				object_ptr->timeout = 150;
 				break;
 			}
 
@@ -4900,7 +4900,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your scythe glows soft white...");
 #endif
 				if (!word_of_recall(creature_ptr)) return;
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4912,7 +4912,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your scythe glows soft white...");
 #endif
 				if (!word_of_recall(creature_ptr)) return;
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -4926,7 +4926,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				confuse_creature(creature_ptr, dir, 20);
-				o_ptr->timeout = 15;
+				object_ptr->timeout = 15;
 				break;
 			}
 
@@ -4940,7 +4940,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 72, 3);
-				o_ptr->timeout = 100;
+				object_ptr->timeout = 100;
 				break;
 			}
 
@@ -4954,7 +4954,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 120, 3);
-				o_ptr->timeout = 15;
+				object_ptr->timeout = 15;
 				break;
 			}
 
@@ -4967,7 +4967,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(100) + 100;
+				object_ptr->timeout = randint0(100) + 100;
 				break;
 			}
 
@@ -4980,7 +4980,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!ident_spell(creature_ptr, FALSE)) return;
-				o_ptr->timeout = 10;
+				object_ptr->timeout = 10;
 				break;
 			}
 
@@ -4995,7 +4995,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 				probing(floor_ptr);
 				identify_fully(creature_ptr, FALSE);
-				o_ptr->timeout = 100;
+				object_ptr->timeout = 100;
 				break;
 			}
 
@@ -5009,7 +5009,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 90);
-				o_ptr->timeout = 70;
+				object_ptr->timeout = 70;
 				break;
 			}
 
@@ -5023,7 +5023,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				(void)brand_bolts(creature_ptr);
-				o_ptr->timeout = 999;
+				object_ptr->timeout = 999;
 				break;
 			}
 			case ART_CRIMSON:
@@ -5065,7 +5065,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				for (i = 0; i < num; i++)
 					project(creature_ptr, creature_ptr->lev/20+1, ty, tx, creature_ptr->lev*creature_ptr->lev*6/50, GF_ROCKET, flg, -1);
-				o_ptr->timeout = 15;
+				object_ptr->timeout = 15;
 				break;
 			}
 			case ART_PALANTIR:
@@ -5100,7 +5100,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					}
 				}
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -5168,7 +5168,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "perilous secrets", NULL, -1);
 #endif
-				o_ptr->timeout = 0;
+				object_ptr->timeout = 0;
 				break;
 			}
 
@@ -5182,7 +5182,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You wind a mighty blast; your enemies tremble!");
 #endif
 				(void)turn_creatures(creature_ptr, (3 * creature_ptr->lev / 2) + 10);
-				o_ptr->timeout = randint0(40) + 40;
+				object_ptr->timeout = randint0(40) + 40;
 				break;
 			}
 			case ART_FARAMIR:
@@ -5193,7 +5193,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You exterminate small life.");
 #endif
 				(void)dispel_creatures(creature_ptr, 4);
-				o_ptr->timeout = randint0(55) + 55;
+				object_ptr->timeout = randint0(55) + 55;
 				break;
 			}
 
@@ -5205,7 +5205,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("A shrill wailing sound surrounds you.");
 #endif
 				(void)set_protevil(creature_ptr, randint1(25) + creature_ptr->lev, FALSE);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5219,7 +5219,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MANA, dir, 120);
-				o_ptr->timeout = randint0(120) + 120;
+				object_ptr->timeout = randint0(120) + 120;
 				break;
 			}
 			case ART_HURIN:
@@ -5228,7 +5228,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				hp_player(creature_ptr, 10);
 				set_afraid(creature_ptr, 0);
 				set_hero(creature_ptr, randint1(50) + 50, FALSE);
-				o_ptr->timeout = randint0(200) + 100;
+				object_ptr->timeout = randint0(200) + 100;
 				break;
 			}
 			case ART_GIL_GALAD:
@@ -5240,7 +5240,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				fire_ball(creature_ptr, GF_LITE, 0, 300, 6);
 				confuse_creatures(creature_ptr, 3 * creature_ptr->lev / 2);
-				o_ptr->timeout = 250;
+				object_ptr->timeout = 250;
 				break;
 			}
 			case ART_YENDOR:
@@ -5251,7 +5251,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your card gleams with blinding light...");
 #endif
 				if (!recharge(creature_ptr, 1000)) return;
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 			case ART_MURAMASA:
@@ -5290,7 +5290,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_MANA, dir, 400, 4);
-				o_ptr->timeout = randint0(250) + 250;
+				object_ptr->timeout = randint0(250) + 250;
 				break;
 			}
 			case ART_TAIKOBO:
@@ -5336,7 +5336,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fetch(creature_ptr, dir, 500, TRUE);
-				o_ptr->timeout = randint0(25) + 25;
+				object_ptr->timeout = randint0(25) + 25;
 				break;
 			}
 			case ART_ARRYU:
@@ -5365,7 +5365,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				}
 
-				o_ptr->timeout = 300 + randint1(150);
+				object_ptr->timeout = 300 + randint1(150);
 				break;
 			}
 
@@ -5379,7 +5379,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_LITE, dir, 200, 3);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5448,7 +5448,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					msg_print("Nothing happen.");
 #endif
 				}
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 
@@ -5469,7 +5469,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_afraid(creature_ptr, 0);
 				set_hero(creature_ptr, randint1(25)+25, FALSE);
 				hp_player(creature_ptr, 10);
-				o_ptr->timeout = randint0(30) + 30;
+				object_ptr->timeout = randint0(30) + 30;
 				break;
 			}
 
@@ -5482,7 +5482,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_cut(creature_ptr, 0);
 				(void)set_image(creature_ptr, 0);
 
-				o_ptr->timeout = 100;
+				object_ptr->timeout = 100;
 				break;
 			}
 
@@ -5491,7 +5491,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				(void)charm_animal(creature_ptr, dir, creature_ptr->lev);
 
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			}
 
@@ -5504,7 +5504,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(12, 8));
-				o_ptr->timeout = 50;
+				object_ptr->timeout = 50;
 				break;
 			}
 			case ART_BLOOD:
@@ -5514,8 +5514,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your scythe glows brightly!");
 #endif
-				get_bloody_moon_flags(o_ptr);
-				o_ptr->timeout = 3333;
+				get_bloody_moon_flags(object_ptr);
+				object_ptr->timeout = 3333;
 				if (has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;
@@ -5530,7 +5530,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(20) + 20, FALSE);
 				dispel_evil(creature_ptr, creature_ptr->lev * 3);
-				o_ptr->timeout = 100 + randint1(100);
+				object_ptr->timeout = 100 + randint1(100);
 				break;
 			}
 			case ART_MOOK:
@@ -5541,7 +5541,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your cloak grows white.");
 #endif
 				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = 40 + randint1(40);
+				object_ptr->timeout = 40 + randint1(40);
 				break;
 			}
 			case ART_HERMIT:
@@ -5554,7 +5554,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				k = 3 * creature_ptr->lev;
 				(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
-				o_ptr->timeout = randint0(225) + 225;
+				object_ptr->timeout = randint0(225) + 225;
 				break;
 			}
 			case ART_JIZO:
@@ -5581,7 +5581,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				}
 
-				o_ptr->timeout = 300 + randint1(150);
+				object_ptr->timeout = 300 + randint1(150);
 				break;
 			}
 
@@ -5594,7 +5594,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				o_ptr->timeout = randint0(100) + 100;
+				object_ptr->timeout = randint0(100) + 100;
 				break;
 			}
 
@@ -5613,7 +5613,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)do_res_stat(creature_ptr, STAT_CON);
 				(void)do_res_stat(creature_ptr, STAT_CHA);
 				(void)restore_level(creature_ptr);
-				o_ptr->timeout = 750;
+				object_ptr->timeout = 750;
 				break;
 			}
 
@@ -5626,7 +5626,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_DARK, dir, 250, 4);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 			case ART_HELL:
@@ -5638,7 +5638,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_DARK, dir, 250, 4);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 			case ART_SACRED_KNIGHTS:
@@ -5701,7 +5701,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					play_window |= (PW_PLAYER);
 					play_window |= (PW_SPELL);
 				}
-				o_ptr->timeout = 777;
+				object_ptr->timeout = 777;
 				break;
 			}
 		}
@@ -5713,33 +5713,33 @@ msg_print("あなたの槍は電気でスパークしている...");
 		return;
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(object_ptr))
 	{
-		switch (o_ptr->xtra3-1)
+		switch (object_ptr->xtra3-1)
 		{
 		case ESSENCE_TMP_RES_ACID:
 			(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
-			o_ptr->timeout = randint0(50) + 50;
+			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_ELEC:
 			(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
-			o_ptr->timeout = randint0(50) + 50;
+			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_FIRE:
 			(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-			o_ptr->timeout = randint0(50) + 50;
+			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_COLD:
 			(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-			o_ptr->timeout = randint0(50) + 50;
+			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case TR_IMPACT:
 			earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
-			o_ptr->timeout = 100 + randint1(100);
+			object_ptr->timeout = 100 + randint1(100);
 			
 			/* Window stuff */
 			play_window |= (PW_INVEN | PW_EQUIP);
@@ -5750,10 +5750,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 	}
 
 
-	if (o_ptr->name2 == EGO_TRUMP)
+	if (object_ptr->name2 == EGO_TRUMP)
 	{
 		teleport_player(creature_ptr, 100, 0L);
-		o_ptr->timeout = 50 + randint1(50);
+		object_ptr->timeout = 50 + randint1(50);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -5763,9 +5763,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 	}
 
 
-	if (o_ptr->name2 == EGO_LITE_ILLUMINATION)
+	if (object_ptr->name2 == EGO_LITE_ILLUMINATION)
 	{
-		if (!o_ptr->xtra4 && ((o_ptr->sval == SV_LITE_TORCH) || (o_ptr->sval == SV_LITE_LANTERN)))
+		if (!object_ptr->xtra4 && ((object_ptr->sval == SV_LITE_TORCH) || (object_ptr->sval == SV_LITE_LANTERN)))
 		{
 #ifdef JP
 			msg_print("燃料がない。");
@@ -5776,7 +5776,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			return;
 		}
 		lite_area(creature_ptr, diceroll(2, 15), 3);
-		o_ptr->timeout = randint0(10) + 10;
+		object_ptr->timeout = randint0(10) + 10;
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -5785,10 +5785,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 	}
 
 
-	if (o_ptr->name2 == EGO_EARTHQUAKES)
+	if (object_ptr->name2 == EGO_EARTHQUAKES)
 	{
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
-		o_ptr->timeout = 100 + randint1(100);
+		object_ptr->timeout = 100 + randint1(100);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -5798,10 +5798,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 	}
 
 
-	if (o_ptr->name2 == EGO_JUMP)
+	if (object_ptr->name2 == EGO_JUMP)
 	{
 		teleport_player(creature_ptr, 10, 0L);
-		o_ptr->timeout = 10 + randint1(10);
+		object_ptr->timeout = 10 + randint1(10);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
@@ -5812,7 +5812,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 
 	/* Hack -- Dragon Scale Mail can be activated as well */
-	if (o_ptr->tval == TV_DRAG_ARMOR)
+	if (object_ptr->tval == TV_DRAG_ARMOR)
 	{
 		/* Get a direction for breathing (or abort) */
 		if (!get_aim_dir(creature_ptr, &dir)) return;
@@ -5821,7 +5821,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		/* Branch on the sub-type */
-		switch (o_ptr->sval)
+		switch (object_ptr->sval)
 		{
 			case SV_DRAGON_BLUE:
 			{
@@ -5832,7 +5832,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_ELEC, dir, 100, -2);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 
@@ -5845,7 +5845,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_COLD, dir, 110, -2);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 
@@ -5858,7 +5858,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_ACID, dir, 130, -2);
-				o_ptr->timeout = randint0(150) + 150;
+				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 
@@ -5871,7 +5871,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_POIS, dir, 150, -2);
-				o_ptr->timeout = randint0(180) + 180;
+				object_ptr->timeout = randint0(180) + 180;
 				break;
 			}
 
@@ -5884,7 +5884,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_FIRE, dir, 200, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5910,7 +5910,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					    ((chance == 3) ? GF_ACID :
 					     ((chance == 4) ? GF_POIS : GF_FIRE)))),
 					  dir, 250, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5923,7 +5923,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_CONFUSION, dir, 120, -2);
-				o_ptr->timeout = randint0(180) + 180;
+				object_ptr->timeout = randint0(180) + 180;
 				break;
 			}
 
@@ -5936,7 +5936,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, GF_SOUND, dir, 130, -2);
-				o_ptr->timeout = randint0(180) + 180;
+				object_ptr->timeout = randint0(180) + 180;
 				break;
 			}
 
@@ -5953,7 +5953,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				fire_ball(creature_ptr, (chance == 1 ? GF_CHAOS : GF_DISENCHANT),
 					  dir, 220, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5970,7 +5970,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				fire_ball(creature_ptr, (chance == 1 ? GF_SOUND : GF_SHARDS),
 					  dir, 230, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5993,7 +5993,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					   ((chance == 2) ? GF_DISENCHANT :
 					    ((chance == 3) ? GF_SOUND : GF_SHARDS))),
 					  dir, 250, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -6009,7 +6009,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fire_ball(creature_ptr, (chance == 0 ? GF_LITE : GF_DARK), dir, 200, -2);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -6022,7 +6022,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 #endif
 
 				fire_ball(creature_ptr, GF_MISSILE, dir, 300, -3);
-				o_ptr->timeout = randint0(200) + 200;
+				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 		}
@@ -6034,113 +6034,113 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		return;
 	}
 
-	else if (o_ptr->tval == TV_RING)
+	else if (object_ptr->tval == TV_RING)
 	{
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(object_ptr))
 		{
 			bool success = TRUE;
 
-			switch (o_ptr->name2)
+			switch (object_ptr->name2)
 			{
 			case EGO_RING_HERO:
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)hp_player(creature_ptr, 10);
-				o_ptr->timeout = randint1(100)+100;
+				object_ptr->timeout = randint1(100)+100;
 				break;
 			case EGO_RING_MAGIC_MIS:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
-				o_ptr->timeout = 2;
+				object_ptr->timeout = 2;
 				break;
 			case EGO_RING_FIRE_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-				o_ptr->timeout = randint0(8) + 8;
+				object_ptr->timeout = randint0(8) + 8;
 				break;
 			case EGO_RING_COLD_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				o_ptr->timeout = randint0(7) + 7;
+				object_ptr->timeout = randint0(7) + 7;
 				break;
 			case EGO_RING_ELEC_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-				o_ptr->timeout = randint0(5) + 5;
+				object_ptr->timeout = randint0(5) + 5;
 				break;
 			case EGO_RING_ACID_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
-				o_ptr->timeout = randint0(6) + 6;
+				object_ptr->timeout = randint0(6) + 6;
 				break;
 			case EGO_RING_MANA_BOLT:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MANA, dir, 120);
-				o_ptr->timeout = randint0(120)+120;
+				object_ptr->timeout = randint0(120)+120;
 				break;
 			case EGO_RING_FIRE_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 100, 2);
-				o_ptr->timeout = randint0(80) + 80;
+				object_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_COLD_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				o_ptr->timeout = randint0(80) + 80;
+				object_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ELEC_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_ELEC, dir, 100, 2);
-				o_ptr->timeout = randint0(80) + 80;
+				object_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ACID_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_ACID, dir, 100, 2);
-				o_ptr->timeout = randint0(80) + 80;
+				object_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_MANA_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_MANA, dir, 250, 2);
-				o_ptr->timeout = 300;
+				object_ptr->timeout = 300;
 				break;
 			case EGO_RING_DRAGON_F:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 200, -2);
-				if (o_ptr->sval == SV_RING_FLAMES)
+				if (object_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-					o_ptr->timeout = 200;
+					object_ptr->timeout = 200;
 				}
-				else o_ptr->timeout = 250;
+				else object_ptr->timeout = 250;
 				break;
 			case EGO_RING_DRAGON_C:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 200, -2);
-				if (o_ptr->sval == SV_RING_ICE)
+				if (object_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-					o_ptr->timeout = 200;
+					object_ptr->timeout = 200;
 				}
-				else o_ptr->timeout = 250;
+				else object_ptr->timeout = 250;
 				break;
 			case EGO_RING_M_DETECT:
 				(void)detect_creatures_invis(creature_ptr, 255);
 				(void)detect_creatures_normal(creature_ptr, 255);
-				o_ptr->timeout = 150;
+				object_ptr->timeout = 150;
 				break;
 			case EGO_RING_D_SPEED:
 				(void)set_fast(creature_ptr, randint1(30) + 15, FALSE);
-				o_ptr->timeout = 100;
+				object_ptr->timeout = 100;
 				break;
 			case EGO_RING_BERSERKER:
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
-				o_ptr->timeout = randint0(75)+75;
+				object_ptr->timeout = randint0(75)+75;
 				break;
 			case EGO_RING_TELE_AWAY:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				teleport_creature(creature_ptr, dir);
-				o_ptr->timeout = 150;
+				object_ptr->timeout = 150;
 				break;
 			case EGO_RING_TRUE:
 			{
@@ -6155,7 +6155,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_oppose_cold(creature_ptr, v, FALSE);
 				(void)set_oppose_pois(creature_ptr, v, FALSE);
 				(void)set_ultimate_res(creature_ptr, v, FALSE);
-				o_ptr->timeout = 777;
+				object_ptr->timeout = 777;
 				break;
 			}
 			default:
@@ -6168,13 +6168,13 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		/* Get a direction for breathing (or abort) */
 		if (!get_aim_dir(creature_ptr, &dir)) return;
 
-		switch (o_ptr->sval)
+		switch (object_ptr->sval)
 		{
 			case SV_RING_ACID:
 			{
 				fire_ball(creature_ptr, GF_ACID, dir, 100, 2);
 				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 
@@ -6182,7 +6182,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
 				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 
@@ -6190,7 +6190,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				fire_ball(creature_ptr, GF_FIRE, dir, 100, 2);
 				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 
@@ -6198,7 +6198,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				fire_ball(creature_ptr, GF_ELEC, dir, 100, 2);
 				(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 		}
@@ -6210,59 +6210,59 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		return;
 	}
 
-	else if (o_ptr->tval == TV_AMULET)
+	else if (object_ptr->tval == TV_AMULET)
 	{
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(object_ptr))
 		{
-			switch (o_ptr->name2)
+			switch (object_ptr->name2)
 			{
 			case EGO_AMU_IDENT:
 				if (!ident_spell(creature_ptr, FALSE)) return;
-				o_ptr->timeout = 10;
+				object_ptr->timeout = 10;
 				break;
 			case EGO_AMU_CHARM:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev));
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			case EGO_AMU_JUMP:
 				teleport_player(creature_ptr, 10, 0L);
-				o_ptr->timeout = randint0(10) + 10;
+				object_ptr->timeout = randint0(10) + 10;
 				break;
 			case EGO_AMU_TELEPORT:
 				teleport_player(creature_ptr, 100, 0L);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_D_DOOR:
 				(void)dimension_door(creature_ptr);
-				o_ptr->timeout = 200;
+				object_ptr->timeout = 200;
 				break;
 			case EGO_AMU_RES_FIRE_:
 				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_RES_COLD_:
 				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_RES_ELEC_:
 				(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_RES_ACID_:
 				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
-				o_ptr->timeout = randint0(50) + 50;
+				object_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_DETECTION:
 				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-				o_ptr->timeout = randint0(55)+55;
+				object_ptr->timeout = randint0(55)+55;
 				break;
 			}
 		}
 		return;
 	}
 
-	else if (o_ptr->tval == TV_WHISTLE)
+	else if (object_ptr->tval == TV_WHISTLE)
 	{
 		if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
@@ -6294,12 +6294,12 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			/* Free the "who" array */
 			C_KILL(who, max_creature_idx, u16b);
 		}
-		o_ptr->timeout = 100+randint1(100);
+		object_ptr->timeout = 100+randint1(100);
 		return;
 	}
-	else if (o_ptr->tval == TV_CAPTURE)
+	else if (object_ptr->tval == TV_CAPTURE)
 	{
-		if(!o_ptr->pval)
+		if(!object_ptr->pval)
 		{
 			bool old_target_pet = target_pet;
 			target_pet = TRUE;
@@ -6321,8 +6321,8 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					char *s;
 					char buf[80] = "";
 
-					if (o_ptr->inscription)
-						strcpy(buf, quark_str(o_ptr->inscription));
+					if (object_ptr->inscription)
+						strcpy(buf, quark_str(object_ptr->inscription));
 					s = buf;
 					for (s = buf;*s && (*s != '#'); s++)
 					{
@@ -6350,7 +6350,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					*s++ = '\'';
 #endif
 					*s = '\0';
-					o_ptr->inscription = quark_add(buf);
+					object_ptr->inscription = quark_add(buf);
 				}
 				*/
 
@@ -6360,15 +6360,15 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool success = FALSE;
 			if (!get_rep_dir2(creature_ptr, &dir)) return;
-			if (species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[o_ptr->pval], 0))
+			if (species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
 			{
-				if (place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
+				if (place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{
-					if (o_ptr->xtra3) creature_list[hack_m_idx_ii].speed = o_ptr->xtra3;
-					if (o_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = o_ptr->xtra5;
-					if (o_ptr->xtra4) creature_list[hack_m_idx_ii].chp = o_ptr->xtra4;
+					if (object_ptr->xtra3) creature_list[hack_m_idx_ii].speed = object_ptr->xtra3;
+					if (object_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = object_ptr->xtra5;
+					if (object_ptr->xtra4) creature_list[hack_m_idx_ii].chp = object_ptr->xtra4;
 					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
-					if (o_ptr->inscription)
+					if (object_ptr->inscription)
 					{
 						char buf[80];
 						cptr t;
@@ -6376,8 +6376,8 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 						bool quote = FALSE;
 #endif
 
-						t = quark_str(o_ptr->inscription);
-						for (t = quark_str(o_ptr->inscription);*t && (*t != '#'); t++)
+						t = quark_str(object_ptr->inscription);
+						for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
 						{
 #ifdef JP
 							if (iskanji(*t)) t++;
@@ -6410,7 +6410,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 #endif
 							*s = '\0';
 							creature_list[hack_m_idx_ii].nickname = quark_add(buf);
-							t = quark_str(o_ptr->inscription);
+							t = quark_str(object_ptr->inscription);
 							s = buf;
 							while(*t && (*t != '#'))
 							{
@@ -6419,13 +6419,13 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 								s++;
 							}
 							*s = '\0';
-							o_ptr->inscription = quark_add(buf);
+							object_ptr->inscription = quark_add(buf);
 						}
 					}
-					o_ptr->pval = 0;
-					o_ptr->xtra3 = 0;
-					o_ptr->xtra4 = 0;
-					o_ptr->xtra5 = 0;
+					object_ptr->pval = 0;
+					object_ptr->xtra3 = 0;
+					object_ptr->xtra4 = 0;
+					object_ptr->xtra5 = 0;
 					success = TRUE;
 				}
 			}
@@ -6481,16 +6481,16 @@ void do_cmd_activate(creature_type *creature_ptr)
 /*
  * Hook to determine if an object is useable
  */
-static bool item_tester_hook_use(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_use(creature_type *creature_ptr, object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Ammo */
-	if (o_ptr->tval == creature_ptr->tval_ammo)
+	if (object_ptr->tval == creature_ptr->tval_ammo)
 		return (TRUE);
 
 	/* Useable object */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_SPIKE:
 		case TV_STAFF:
@@ -6508,17 +6508,17 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *o_ptr
 			int i;
 
 			/* Not known */
-			if (!object_is_known(o_ptr)) return (FALSE);
+			if (!object_is_known(object_ptr)) return (FALSE);
 
 			/* HACK - only items from the equipment can be activated */
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
-				if(!IS_EQUIPPED(o_ptr)) continue;
+				if(!IS_EQUIPPED(object_ptr)) continue;
 
-				if (&creature_ptr->inventory[i] == o_ptr)
+				if (&creature_ptr->inventory[i] == object_ptr)
 				{
 					/* Extract the flags */
-					object_flags(o_ptr, flgs);
+					object_flags(object_ptr, flgs);
 
 					/* Check activation flag */
 					if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);
@@ -6539,7 +6539,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *o_ptr
 void do_cmd_use(creature_type *creature_ptr)
 {
 	int         item;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	cptr        q, s;
 
 	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
@@ -6561,15 +6561,15 @@ s = "使えるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		/* Spike a door */
 		case TV_SPIKE:

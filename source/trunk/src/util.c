@@ -4628,19 +4628,19 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 	{
 		cptr s;
 
-		object_type *o_ptr = &guest_ptr->inventory[i];
+		object_type *object_ptr = &guest_ptr->inventory[i];
 
 		/* Skip no equip */
-		if (!IS_EQUIPPED(o_ptr)) continue;
+		if (!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* No inscription */
-		if (!o_ptr->inscription) continue;
+		if (!object_ptr->inscription) continue;
 
 		/* Obtain the inscription */
-		s = quark_str(o_ptr->inscription);
+		s = quark_str(object_ptr->inscription);
 
 		/* Find a '^' */
 		s = my_strchr(s, '^');

@@ -411,13 +411,13 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				/* Acquire object */
-				object_type *o_ptr = &object_list[this_object_idx];
+				object_type *object_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_object_idx = o_ptr->next_object_idx;
+				next_object_idx = object_ptr->next_object_idx;
 
 				/* Known to be worthless? */
-				if (o_ptr->tval == TV_CORPSE)
+				if (object_ptr->tval == TV_CORPSE)
 				{
 					if (!creature_has_hostile_align(target_ptr, caster_ptr)) return TRUE;
 				}
@@ -546,7 +546,7 @@ static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp,
 }
 
 
-u32b get_curse(int power, object_type *o_ptr)
+u32b get_curse(int power, object_type *object_ptr)
 {
 	u32b new_curse;
 
@@ -565,8 +565,8 @@ u32b get_curse(int power, object_type *o_ptr)
 		{
 			if (new_curse & TRC_HEAVY_MASK) continue;
 		}
-		if (new_curse == TRC_LOW_MELEE && !object_is_weapon(o_ptr)) continue;
-		if (new_curse == TRC_LOW_AC && !object_is_armour(o_ptr)) continue;
+		if (new_curse == TRC_LOW_MELEE && !object_is_weapon(object_ptr)) continue;
+		if (new_curse == TRC_LOW_AC && !object_is_armour(object_ptr)) continue;
 		break;
 	}
 	return new_curse;
@@ -579,16 +579,16 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	u32b        new_curse;
 	u32b oflgs[TR_FLAG_SIZE];
 	//TODO SELECT
-	object_type *o_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 	char o_name[MAX_NLEN];
 
 	if (randint1(100) > chance) return;
 
-	if (!o_ptr->k_idx) return;
+	if (!object_ptr->k_idx) return;
 
-	object_flags(o_ptr, oflgs);
+	object_flags(object_ptr, oflgs);
 
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extra, biased saving throw for blessed items */
 	if (have_flag(oflgs, TR_BLESSED) && (randint1(888) > chance))
@@ -596,7 +596,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 #ifdef JP
 		msg_format("%s‚Ì%s‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½I", creature_ptr->name, o_name);
 #else
-		msg_format("%s's %s resist%s cursing!", creature_ptr->name, o_name, ((o_ptr->number > 1) ? "" : "s"));
+		msg_format("%s's %s resist%s cursing!", creature_ptr->name, o_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 			
 		/* Hmmm -- can we wear multiple items? If not, this is unnecessary */
@@ -604,27 +604,27 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	}
 
 	if ((randint1(100) <= heavy_chance) &&
-	    (object_is_artifact(o_ptr) || object_is_ego(o_ptr)))
+	    (object_is_artifact(object_ptr) || object_is_ego(object_ptr)))
 	{
-		if (!(o_ptr->curse_flags & TRC_HEAVY_CURSE))
+		if (!(object_ptr->curse_flags & TRC_HEAVY_CURSE))
 			changed = TRUE;
-		o_ptr->curse_flags |= TRC_HEAVY_CURSE;
-		o_ptr->curse_flags |= TRC_CURSED;
+		object_ptr->curse_flags |= TRC_HEAVY_CURSE;
+		object_ptr->curse_flags |= TRC_CURSED;
 		curse_power++;
 	}
 	else
 	{
-		if (!object_is_cursed(o_ptr))
+		if (!object_is_cursed(object_ptr))
 			changed = TRUE;
-		o_ptr->curse_flags |= TRC_CURSED;
+		object_ptr->curse_flags |= TRC_CURSED;
 	}
 	if (heavy_chance >= 50) curse_power++;
 
-	new_curse = get_curse(curse_power, o_ptr);
-	if (!(o_ptr->curse_flags & new_curse))
+	new_curse = get_curse(curse_power, object_ptr);
+	if (!(object_ptr->curse_flags & new_curse))
 	{
 		changed = TRUE;
-		o_ptr->curse_flags |= new_curse;
+		object_ptr->curse_flags |= new_curse;
 	}
 
 	if (changed)
@@ -635,7 +635,7 @@ msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚Ì%s‚ð‚Æ‚è‚Ü‚¢‚½...", creature_ptr->name, 
 		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, o_name);
 #endif
 
-		o_ptr->feeling = FEEL_NONE;
+		object_ptr->feeling = FEEL_NONE;
 	}
 	creature_ptr->creature_update |= (CRU_BONUS);
 }

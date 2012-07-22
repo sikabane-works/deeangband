@@ -5964,32 +5964,32 @@ cptr inven_res_label =
 
 
 /* XTRA HACK RESLIST */
-static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, byte tval, char *where)
+static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *j, byte tval, char *where)
 {
 	char o_name[MAX_NLEN];
 	u32b flgs[TR_FLAG_SIZE];
 
-	if (!o_ptr->k_idx) return;
-	if (o_ptr->tval != tval) return;
+	if (!object_ptr->k_idx) return;
+	if (object_ptr->tval != tval) return;
 
 	/* Identified items only */
-	if (!object_is_known(o_ptr)) return;
+	if (!object_is_known(object_ptr)) return;
 
 	/*
 	 * HACK:Ring of Lordly protection and Dragon equipment
 	 * have random resistances.
 	 */
-	if ((object_is_wearable(o_ptr) && object_is_ego(o_ptr))
-	    || ((tval == TV_AMULET) && (o_ptr->sval == SV_AMULET_RESISTANCE))
-	    || ((tval == TV_RING) && (o_ptr->sval == SV_RING_LORDLY))
-	    || ((tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD))
-	    || ((tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM))
-	    || ((tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES))
-	    || ((tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE))
-	    || object_is_artifact(o_ptr))
+	if ((object_is_wearable(object_ptr) && object_is_ego(object_ptr))
+	    || ((tval == TV_AMULET) && (object_ptr->sval == SV_AMULET_RESISTANCE))
+	    || ((tval == TV_RING) && (object_ptr->sval == SV_RING_LORDLY))
+	    || ((tval == TV_SHIELD) && (object_ptr->sval == SV_DRAGON_SHIELD))
+	    || ((tval == TV_HELM) && (object_ptr->sval == SV_DRAGON_HELM))
+	    || ((tval == TV_GLOVES) && (object_ptr->sval == SV_SET_OF_DRAGON_GLOVES))
+	    || ((tval == TV_BOOTS) && (object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE))
+	    || object_is_artifact(object_ptr))
 	{
 		int i = 0;
-		object_desc(o_name, o_ptr, OD_NAME_ONLY);
+		object_desc(o_name, object_ptr, OD_NAME_ONLY);
 
 		while (o_name[i] && (i < 26))
 		{
@@ -6010,7 +6010,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
 
 		fprintf(fff, "%s %s", where, o_name);
 
-		if (!(o_ptr->ident & (IDENT_MENTAL)))
+		if (!(object_ptr->ident & (IDENT_MENTAL)))
 		{
 #ifdef JP
 			fputs("-------ïsñæ--------------- -------ïsñæ---------\n", fff);
@@ -6020,7 +6020,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
 		}
 		else
 		{
-			object_flags_known(o_ptr, flgs);
+			object_flags_known(object_ptr, flgs);
 
 			print_im_or_res_flag(TR_IM_ACID, TR_RES_ACID);
 			print_im_or_res_flag(TR_IM_ELEC, TR_RES_ELEC);
@@ -6668,22 +6668,22 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			/* Scan all objects in the grid */
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
-				object_type *o_ptr;
+				object_type *object_ptr;
 
 				/* Acquire object */
-				o_ptr = &object_list[this_object_idx];
+				object_ptr = &object_list[this_object_idx];
 
 				/* Acquire next object */
-				next_object_idx = o_ptr->next_object_idx;
+				next_object_idx = object_ptr->next_object_idx;
 
 				/* Ignore non-artifacts */
-				if (!object_is_fixed_artifact(o_ptr)) continue;
+				if (!object_is_fixed_artifact(object_ptr)) continue;
 
 				/* Ignore known items */
-				if (object_is_known(o_ptr)) continue;
+				if (object_is_known(object_ptr)) continue;
 
 				/* Note the artifact */
-				okay[o_ptr->name1] = FALSE;
+				okay[object_ptr->name1] = FALSE;
 			}
 		}
 	}
@@ -6691,19 +6691,19 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	/* Check the owner_ptr->inventory and equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &owner_ptr->inventory[i];
+		object_type *object_ptr = &owner_ptr->inventory[i];
 
 		/* Ignore non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Ignore non-artifacts */
-		if (!object_is_fixed_artifact(o_ptr)) continue;
+		if (!object_is_fixed_artifact(object_ptr)) continue;
 
 		/* Ignore known items */
-		if (object_is_known(o_ptr)) continue;
+		if (object_is_known(object_ptr)) continue;
 
 		/* Note the artifact */
-		okay[o_ptr->name1] = FALSE;
+		okay[object_ptr->name1] = FALSE;
 	}
 
 	for (k = 0; k < max_artifact_idx; k++)
@@ -8395,23 +8395,23 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
  */
 static void desc_obj_fake(int k_idx)
 {
-	object_type *o_ptr;
+	object_type *object_ptr;
 	object_type object_type_body;
 
 	/* Get local object */
-	o_ptr = &object_type_body;
+	object_ptr = &object_type_body;
 
 	/* Wipe the object */
-	object_wipe(o_ptr);
+	object_wipe(object_ptr);
 
 	/* Create the artifact */
-	object_prep(o_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(object_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* It's fully know */
-	o_ptr->ident |= IDENT_KNOWN;
+	object_ptr->ident |= IDENT_KNOWN;
 
 	/* Track the object */
-	/* object_actual_track(o_ptr); */
+	/* object_actual_track(object_ptr); */
 
 	/* Hack - mark as fake */
 	/* term_obj_real = FALSE; */
@@ -8419,7 +8419,7 @@ static void desc_obj_fake(int k_idx)
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if (!screen_object(o_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))
+	if (!screen_object(object_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))
 	{
 #ifdef JP
 		msg_print("ì¡Ç…ïœÇÌÇ¡ÇΩÇ∆Ç±ÇÎÇÕÇ»Ç¢ÇÊÇ§ÇæÅB");

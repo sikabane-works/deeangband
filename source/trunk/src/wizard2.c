@@ -522,44 +522,44 @@ static void do_cmd_wiz_change(creature_type *creature_ptr)
  * Originally by David Reeve Sward <sward+@CMU.EDU>
  * Verbose item flags by -Bernd-
  */
-static void wiz_display_item(object_type *o_ptr)
+static void wiz_display_item(object_type *object_ptr)
 {
 	int i, j = 13;
 	u32b flgs[TR_FLAG_SIZE];
 	char buf[256];
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Clear the screen */
 	for (i = 1; i <= 23; i++) prt("", i, j - 2);
 
-	prt_alloc(o_ptr->tval, o_ptr->sval, 1, 0);
+	prt_alloc(object_ptr->tval, object_ptr->sval, 1, 0);
 
 	/* Describe fully */
-	object_desc(buf, o_ptr, OD_STORE);
+	object_desc(buf, object_ptr, OD_STORE);
 
 	prt(buf, 2, j);
 
 	prt(format("kind = %-5d  level = %-4d  tval = %-5d  sval = %-5d",
-		   o_ptr->k_idx, object_kind_info[o_ptr->k_idx].level,
-		   o_ptr->tval, o_ptr->sval), 4, j);
+		   object_ptr->k_idx, object_kind_info[object_ptr->k_idx].level,
+		   object_ptr->tval, object_ptr->sval), 4, j);
 
 	prt(format("number = %-3d  wgt = %-6d  ac = %-5d    damage = %dd%d",
-		   o_ptr->number, o_ptr->weight,
-		   o_ptr->ac, o_ptr->dd, o_ptr->ds), 5, j);
+		   object_ptr->number, object_ptr->weight,
+		   object_ptr->ac, object_ptr->dd, object_ptr->ds), 5, j);
 
 	prt(format("pval = %-5d  toac = %-5d  tohit = %-4d  todam = %-4d",
-		   o_ptr->pval, o_ptr->to_ac, o_ptr->to_hit, o_ptr->to_damage), 6, j);
+		   object_ptr->pval, object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
 
 	prt(format("name1 = %-4d  name2 = %-4d  cost = %ld",
-		   o_ptr->name1, o_ptr->name2, (long)object_value_real(o_ptr)), 7, j);
+		   object_ptr->name1, object_ptr->name2, (long)object_value_real(object_ptr)), 7, j);
 
 	prt(format("ident = %04x  xtra1 = %-4d  xtra2 = %-4d  timeout = %-d",
-		   o_ptr->ident, o_ptr->xtra1, o_ptr->xtra2, o_ptr->timeout), 8, j);
+		   object_ptr->ident, object_ptr->xtra1, object_ptr->xtra2, object_ptr->timeout), 8, j);
 
 	prt(format("xtra3 = %-4d  xtra4 = %-4d  xtra5 = %-4d  cursed  = %-d",
-		   o_ptr->xtra3, o_ptr->xtra4, o_ptr->xtra5, o_ptr->curse_flags), 9, j);
+		   object_ptr->xtra3, object_ptr->xtra4, object_ptr->xtra5, object_ptr->curse_flags), 9, j);
 
 	prt("+------------FLAGS1------------+", 10, j);
 	prt("AFFECT........SLAY........BRAND.", 11, j);
@@ -771,44 +771,44 @@ static int wiz_create_itemtype(void)
 /*
  * Tweak an item
  */
-static void wiz_tweak_item(creature_type *creature_ptr, object_type *o_ptr)
+static void wiz_tweak_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	cptr p;
 	char tmp_val[80];
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(object_ptr)) return;
 
 	p = "Enter new 'pval' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->pval);
+	sprintf(tmp_val, "%d", object_ptr->pval);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->pval = atoi(tmp_val);
-	wiz_display_item(o_ptr);
+	object_ptr->pval = atoi(tmp_val);
+	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_ac' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_ac);
+	sprintf(tmp_val, "%d", object_ptr->to_ac);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_ac = atoi(tmp_val);
-	wiz_display_item(o_ptr);
+	object_ptr->to_ac = atoi(tmp_val);
+	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_hit' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_hit);
+	sprintf(tmp_val, "%d", object_ptr->to_hit);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_hit = atoi(tmp_val);
-	wiz_display_item(o_ptr);
+	object_ptr->to_hit = atoi(tmp_val);
+	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_damage' setting: ";
-	sprintf(tmp_val, "%d", o_ptr->to_damage);
+	sprintf(tmp_val, "%d", object_ptr->to_damage);
 	if (!get_string(p, tmp_val, 5)) return;
-	o_ptr->to_damage = atoi(tmp_val);
-	wiz_display_item(o_ptr);
+	object_ptr->to_damage = atoi(tmp_val);
+	wiz_display_item(object_ptr);
 }
 
 
 
 // Apply magic to an item or turn it into an artifact. -Bernd-
-static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
+static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	object_type forge;
@@ -820,14 +820,14 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(object_ptr)) return;
 
 
 	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Copy the object */
-	object_copy(quest_ptr, o_ptr);
+	object_copy(quest_ptr, object_ptr);
 
 
 	/* Main loop. Ask for magification and artifactification */
@@ -869,42 +869,42 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 			/* Apply bad magic, but first clear object */
 			case 'w': case 'W':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART, 0);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
-				object_prep(quest_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
+				object_prep(quest_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
 
 				/* Failed to create artifact; make a random one */
@@ -912,10 +912,10 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 				break;
 			}
 		}
-		quest_ptr->fy = o_ptr->fy;
-		quest_ptr->fx = o_ptr->fx;
-		quest_ptr->next_object_idx = o_ptr->next_object_idx;
-		quest_ptr->marked = o_ptr->marked;
+		quest_ptr->fy = object_ptr->fy;
+		quest_ptr->fx = object_ptr->fx;
+		quest_ptr->next_object_idx = object_ptr->next_object_idx;
+		quest_ptr->marked = object_ptr->marked;
 	}
 
 
@@ -923,7 +923,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 	if (changed)
 	{
 		/* Apply changes */
-		object_copy(o_ptr, quest_ptr);
+		object_copy(object_ptr, quest_ptr);
 
 		/* Recalculate bonuses */
 		caster_ptr->creature_update |= (CRU_BONUS);
@@ -947,7 +947,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
  * counter flags to prevent weirdness.  We use the items to collect
  * statistics on item creation relative to the initial item.
  */
-static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
+static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	u32b i, matches, better, worse, other, correct;
@@ -966,7 +966,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 
 	/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-	if (object_is_fixed_artifact(o_ptr)) artifact_info[o_ptr->name1].cur_num = 0;
+	if (object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
 
 
 	/* Interact */
@@ -975,7 +975,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 		cptr pmt = "Roll for [n]ormal, [g]ood, or [e]xcellent treasure? ";
 
 		/* Display item */
-		wiz_display_item(o_ptr);
+		wiz_display_item(object_ptr);
 
 		/* Get choices */
 		if (!get_com(pmt, &ch, FALSE)) break;
@@ -1051,36 +1051,36 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 
 			/* Test for the same tval and sval. */
-			if ((o_ptr->tval) != (quest_ptr->tval)) continue;
-			if ((o_ptr->sval) != (quest_ptr->sval)) continue;
+			if ((object_ptr->tval) != (quest_ptr->tval)) continue;
+			if ((object_ptr->sval) != (quest_ptr->sval)) continue;
 
 			/* One more correct item */
 			correct++;
 
 			/* Check for match */
-			if ((quest_ptr->pval == o_ptr->pval) &&
-				 (quest_ptr->to_ac == o_ptr->to_ac) &&
-				 (quest_ptr->to_hit == o_ptr->to_hit) &&
-				 (quest_ptr->to_damage == o_ptr->to_damage) &&
-				 (quest_ptr->name1 == o_ptr->name1))
+			if ((quest_ptr->pval == object_ptr->pval) &&
+				 (quest_ptr->to_ac == object_ptr->to_ac) &&
+				 (quest_ptr->to_hit == object_ptr->to_hit) &&
+				 (quest_ptr->to_damage == object_ptr->to_damage) &&
+				 (quest_ptr->name1 == object_ptr->name1))
 			{
 				matches++;
 			}
 
 			/* Check for better */
-			else if ((quest_ptr->pval >= o_ptr->pval) &&
-						(quest_ptr->to_ac >= o_ptr->to_ac) &&
-						(quest_ptr->to_hit >= o_ptr->to_hit) &&
-						(quest_ptr->to_damage >= o_ptr->to_damage))
+			else if ((quest_ptr->pval >= object_ptr->pval) &&
+						(quest_ptr->to_ac >= object_ptr->to_ac) &&
+						(quest_ptr->to_hit >= object_ptr->to_hit) &&
+						(quest_ptr->to_damage >= object_ptr->to_damage))
 			{
 				better++;
 			}
 
 			/* Check for worse */
-			else if ((quest_ptr->pval <= o_ptr->pval) &&
-						(quest_ptr->to_ac <= o_ptr->to_ac) &&
-						(quest_ptr->to_hit <= o_ptr->to_hit) &&
-						(quest_ptr->to_damage <= o_ptr->to_damage))
+			else if ((quest_ptr->pval <= object_ptr->pval) &&
+						(quest_ptr->to_ac <= object_ptr->to_ac) &&
+						(quest_ptr->to_hit <= object_ptr->to_hit) &&
+						(quest_ptr->to_damage <= object_ptr->to_damage))
 			{
 				worse++;
 			}
@@ -1099,14 +1099,14 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *o_ptr)
 
 
 	/* Hack -- Normally only make a single artifact */
-	if (object_is_fixed_artifact(o_ptr)) artifact_info[o_ptr->name1].cur_num = 1;
+	if (object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 1;
 }
 
 
 /*
  * Change the quantity of a the item
  */
-static void wiz_quantity_item(creature_type *creature_ptr, object_type *o_ptr)
+static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int         tmp_int, tmp_qnt;
 
@@ -1114,13 +1114,13 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *o_ptr)
 
 
 	/* Never duplicate artifacts */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(object_ptr)) return;
 
 	/* Store old quantity. -LM- */
-	tmp_qnt = o_ptr->number;
+	tmp_qnt = object_ptr->number;
 
 	/* Default */
-	sprintf(tmp_val, "%d", o_ptr->number);
+	sprintf(tmp_val, "%d", object_ptr->number);
 
 	/* Query */
 	if (get_string("Quantity: ", tmp_val, 2))
@@ -1133,12 +1133,12 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *o_ptr)
 		if (tmp_int > 99) tmp_int = 99;
 
 		/* Accept modifications */
-		o_ptr->number = tmp_int;
+		object_ptr->number = tmp_int;
 	}
 
-	if (o_ptr->tval == TV_ROD)
+	if (object_ptr->tval == TV_ROD)
 	{
-		o_ptr->pval = o_ptr->pval * o_ptr->number / tmp_qnt;
+		object_ptr->pval = object_ptr->pval * object_ptr->number / tmp_qnt;
 	}
 }
 
@@ -1185,7 +1185,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	object_type	forge;
 	object_type *quest_ptr;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	char ch;
 
@@ -1201,13 +1201,13 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 	
 	/* The item was not changed */
@@ -1222,7 +1222,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	quest_ptr = &forge;
 
 	/* Copy object */
-	object_copy(quest_ptr, o_ptr);
+	object_copy(quest_ptr, object_ptr);
 
 
 	/* The main loop */
@@ -1283,7 +1283,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		}
 
 		/* Change */
-		object_copy(o_ptr, quest_ptr);
+		object_copy(object_ptr, quest_ptr);
 
 
 		/* Recalculate bonuses */

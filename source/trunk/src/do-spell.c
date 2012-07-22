@@ -1020,14 +1020,14 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 /*
  * An "item_tester_hook" for offer
  */
-static bool item_tester_offer(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_offer(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
-	if (o_ptr->tval != TV_CORPSE) return (FALSE);
+	if (object_ptr->tval != TV_CORPSE) return (FALSE);
 
-	if (o_ptr->sval != SV_CORPSE) return (FALSE);
+	if (object_ptr->sval != SV_CORPSE) return (FALSE);
 
-	if (my_strchr("pht", species_info[o_ptr->pval].d_char)) return (TRUE);
+	if (my_strchr("pht", species_info[object_ptr->pval].d_char)) return (TRUE);
 
 	/* Assume not okay */
 	return (FALSE);
@@ -1043,7 +1043,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 	int summon_lev;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 #ifdef JP
 	q = "どの死体を捧げますか? ";
@@ -1057,16 +1057,16 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
-	summon_lev = plev * 2 / 3 + species_info[o_ptr->pval].level;
+	summon_lev = plev * 2 / 3 + species_info[object_ptr->pval].level;
 
 	if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 	{
@@ -10899,7 +10899,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int total_damage = 0, basedam, i;
 			u32b flgs[TR_FLAG_SIZE];
-			object_type *o_ptr;
+			object_type *object_ptr;
 			if (!get_aim_dir(caster_ptr, &dir)) return NULL;
 #ifdef JP
 			msg_print("武器を大きく振り下ろした。");
@@ -10911,11 +10911,11 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				int damage;
 	
 				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
-				o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
-				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
-				damage = o_ptr->to_damage * 100;
-				object_flags(o_ptr, flgs);
-				if ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD))
+				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
+				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
+				damage = object_ptr->to_damage * 100;
+				object_flags(object_ptr, flgs);
+				if ((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
 				{
 					/* vorpal blade */
 					basedam *= 5;
@@ -11238,7 +11238,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			int total_damage = 0, basedam, i;
 			int y, x;
 			u32b flgs[TR_FLAG_SIZE];
-			object_type *o_ptr;
+			object_type *object_ptr;
 	
 			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
@@ -11264,11 +11264,11 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int damage;
 				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
-				o_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
-				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
-				damage = o_ptr->to_damage * 100;
-				object_flags(o_ptr, flgs);
-				if ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD))
+				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
+				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
+				damage = object_ptr->to_damage * 100;
+				object_flags(object_ptr, flgs);
+				if ((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
 				{
 					/* vorpal blade */
 					basedam *= 5;
@@ -11377,9 +11377,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 
 /* Hex */
-static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, object_type *object_ptr)
 {
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_SWORD:
 		case TV_HAFTED:
@@ -11393,9 +11393,9 @@ static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, obje
 	return (FALSE);
 }
 
-static bool item_tester_hook_cursed(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_cursed(creature_type *creature_ptr, object_type *object_ptr)
 {
-	return (bool)(object_is_cursed(o_ptr));
+	return (bool)(object_is_cursed(object_ptr));
 }
 
 static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
@@ -11547,7 +11547,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int item;
 			char *q, *s;
 			char o_name[MAX_NLEN];
-			object_type *o_ptr;
+			object_type *object_ptr;
 			u32b f[TR_FLAG_SIZE];
 
 #ifdef JP
@@ -11560,9 +11560,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
 
-			o_ptr = &creature_ptr->inventory[item];
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
-			object_flags(o_ptr, f);
+			object_ptr = &creature_ptr->inventory[item];
+			object_desc(o_name, object_ptr, OD_NAME_ONLY);
+			object_flags(object_ptr, f);
 
 #ifdef JP
 			if (!get_check(format("本当に %s を呪いますか？", o_name))) return FALSE;
@@ -11571,7 +11571,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(object_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s は呪いを跳ね返した。", o_name);
@@ -11580,20 +11580,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				if (one_in_(3))
 				{
-					if (o_ptr->to_damage > 0)
+					if (object_ptr->to_damage > 0)
 					{
-						o_ptr->to_damage -= randint1(3) % 2;
-						if (o_ptr->to_damage < 0) o_ptr->to_damage = 0;
+						object_ptr->to_damage -= randint1(3) % 2;
+						if (object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 					}
-					if (o_ptr->to_hit > 0)
+					if (object_ptr->to_hit > 0)
 					{
-						o_ptr->to_hit -= randint1(3) % 2;
-						if (o_ptr->to_hit < 0) o_ptr->to_hit = 0;
+						object_ptr->to_hit -= randint1(3) % 2;
+						if (object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 					}
-					if (o_ptr->to_ac > 0)
+					if (object_ptr->to_ac > 0)
 					{
-						o_ptr->to_ac -= randint1(3) % 2;
-						if (o_ptr->to_ac < 0) o_ptr->to_ac = 0;
+						object_ptr->to_ac -= randint1(3) % 2;
+						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", o_name);
@@ -11610,20 +11610,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", o_name);
 #endif
-				o_ptr->curse_flags |= (TRC_CURSED);
+				object_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+					if (one_in_(3)) object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 					if (one_in_(666))
 					{
-						o_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
+						object_ptr->curse_flags |= (TRC_TY_CURSE);
+						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
-						add_flag(o_ptr->art_flags, TR_AGGRAVATE);
-						add_flag(o_ptr->art_flags, TR_VORPAL);
-						add_flag(o_ptr->art_flags, TR_VAMPIRIC);
+						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+						add_flag(object_ptr->art_flags, TR_VORPAL);
+						add_flag(object_ptr->art_flags, TR_VAMPIRIC);
 #ifdef JP
 						msg_print("血だ！血だ！血だ！");
 #else
@@ -11633,7 +11633,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					}
 				}
 
-				o_ptr->curse_flags |= get_curse(power, o_ptr);
+				object_ptr->curse_flags |= get_curse(power, object_ptr);
 			}
 
 			creature_ptr->creature_update |= (CRU_BONUS);
@@ -12012,7 +12012,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int item;
 			char *q, *s;
 			char o_name[MAX_NLEN];
-			object_type *o_ptr;
+			object_type *object_ptr;
 			u32b f[TR_FLAG_SIZE];
 
 #ifdef JP
@@ -12025,9 +12025,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
 
-			o_ptr = &creature_ptr->inventory[item];
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
-			object_flags(o_ptr, f);
+			object_ptr = &creature_ptr->inventory[item];
+			object_desc(o_name, object_ptr, OD_NAME_ONLY);
+			object_flags(object_ptr, f);
 
 #ifdef JP
 			if (!get_check(format("本当に %s を呪いますか？", o_name))) return FALSE;
@@ -12036,7 +12036,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(object_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s は呪いを跳ね返した。", o_name);
@@ -12045,20 +12045,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				if (one_in_(3))
 				{
-					if (o_ptr->to_damage > 0)
+					if (object_ptr->to_damage > 0)
 					{
-						o_ptr->to_damage -= randint1(3) % 2;
-						if (o_ptr->to_damage < 0) o_ptr->to_damage = 0;
+						object_ptr->to_damage -= randint1(3) % 2;
+						if (object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 					}
-					if (o_ptr->to_hit > 0)
+					if (object_ptr->to_hit > 0)
 					{
-						o_ptr->to_hit -= randint1(3) % 2;
-						if (o_ptr->to_hit < 0) o_ptr->to_hit = 0;
+						object_ptr->to_hit -= randint1(3) % 2;
+						if (object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 					}
-					if (o_ptr->to_ac > 0)
+					if (object_ptr->to_ac > 0)
 					{
-						o_ptr->to_ac -= randint1(3) % 2;
-						if (o_ptr->to_ac < 0) o_ptr->to_ac = 0;
+						object_ptr->to_ac -= randint1(3) % 2;
+						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", o_name);
@@ -12075,21 +12075,21 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", o_name);
 #endif
-				o_ptr->curse_flags |= (TRC_CURSED);
+				object_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+					if (one_in_(3)) object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 					if (one_in_(666))
 					{
-						o_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
+						object_ptr->curse_flags |= (TRC_TY_CURSE);
+						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
-						add_flag(o_ptr->art_flags, TR_AGGRAVATE);
-						add_flag(o_ptr->art_flags, TR_RES_POIS);
-						add_flag(o_ptr->art_flags, TR_RES_DARK);
-						add_flag(o_ptr->art_flags, TR_RES_NETHER);
+						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+						add_flag(object_ptr->art_flags, TR_RES_POIS);
+						add_flag(object_ptr->art_flags, TR_RES_DARK);
+						add_flag(object_ptr->art_flags, TR_RES_NETHER);
 #ifdef JP
 						msg_print("血だ！血だ！血だ！");
 #else
@@ -12099,7 +12099,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					}
 				}
 
-				o_ptr->curse_flags |= get_curse(power, o_ptr);
+				object_ptr->curse_flags |= get_curse(power, object_ptr);
 			}
 
 			creature_ptr->creature_update |= (CRU_BONUS);
@@ -12118,9 +12118,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (cast)
 		{
 			//TODO: GET outer equipment.
-			object_type *o_ptr = &creature_ptr->inventory[0];
+			object_type *object_ptr = &creature_ptr->inventory[0];
 
-			if (!o_ptr->k_idx)
+			if (!object_ptr->k_idx)
 			{
 #ifdef JP
 				msg_print("クロークを身につけていない！");
@@ -12129,7 +12129,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				return NULL;
 			}
-			else if (!object_is_cursed(o_ptr))
+			else if (!object_is_cursed(object_ptr))
 			{
 #ifdef JP
 				msg_print("クロークは呪われていない！");
@@ -12150,9 +12150,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if (cont)
 		{
 			//TODO: GET outer Equipment
-			object_type *o_ptr = &creature_ptr->inventory[0];
+			object_type *object_ptr = &creature_ptr->inventory[0];
 
-			if ((!o_ptr->k_idx) || (!object_is_cursed(o_ptr)))
+			if ((!object_ptr->k_idx) || (!object_is_cursed(object_ptr)))
 			{
 				do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 				creature_ptr->magic_num1[0] &= ~(1L << spell);
@@ -12303,7 +12303,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int item;
 			char *s, *q;
 			u32b f[TR_FLAG_SIZE];
-			object_type *o_ptr;
+			object_type *object_ptr;
 #ifdef JP
 			q = "どの装備品から吸収しますか？";
 			s = "呪われたアイテムを装備していない。";
@@ -12314,18 +12314,18 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed, 0)) return FALSE;
 
-			o_ptr = &creature_ptr->inventory[item];
-			object_flags(o_ptr, f);
+			object_ptr = &creature_ptr->inventory[item];
+			object_flags(object_ptr, f);
 
 			creature_ptr->csp += (creature_ptr->lev / 5) + randint1(creature_ptr->lev / 5);
-			if (have_flag(f, TR_TY_CURSE) || (o_ptr->curse_flags & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
+			if (have_flag(f, TR_TY_CURSE) || (object_ptr->curse_flags & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
 			if (creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
-			if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
+			if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
 			{
 				/* Nothing */
 			}
-			else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
+			else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
 			{
 				if (one_in_(7))
 				{
@@ -12334,17 +12334,17 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 					msg_print("Heavy curse vanished away.");
 #endif
-					o_ptr->curse_flags = 0L;
+					object_ptr->curse_flags = 0L;
 				}
 			}
-			else if ((o_ptr->curse_flags & (TRC_CURSED)) && one_in_(3))
+			else if ((object_ptr->curse_flags & (TRC_CURSED)) && one_in_(3))
 			{
 #ifdef JP
 				msg_print("呪いを全て吸い取った。");
 #else
 				msg_print("Curse vanished away.");
 #endif
-				o_ptr->curse_flags = 0L;
+				object_ptr->curse_flags = 0L;
 			}
 
 			add = FALSE;

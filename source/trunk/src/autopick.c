@@ -437,9 +437,9 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 
 
 /*
- * Get auto-picker entry from o_ptr.
+ * Get auto-picker entry from object_ptr.
  */
-static void autopick_entry_from_object(creature_type *creature_ptr, autopick_type *entry, object_type *o_ptr)
+static void autopick_entry_from_object(creature_type *creature_ptr, autopick_type *entry, object_type *object_ptr)
 {
 	/* Assume that object name is to be added */
 	bool name = TRUE;
@@ -457,22 +457,22 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	/* Initialize name string */
 	name_str[0] = '\0';
 
-	entry->insc = string_make(quark_str(o_ptr->inscription));
+	entry->insc = string_make(quark_str(object_ptr->inscription));
 	entry->action = DO_AUTOPICK | DO_DISPLAY;
 	entry->flag[0] = entry->flag[1] = 0L;
 	entry->dice = 0;
 
 	/* Unaware */
-	if (!object_is_aware(o_ptr))
+	if (!object_is_aware(object_ptr))
 	{
 		ADD_FLG(FLG_UNAWARE);
 		bol_mark = TRUE;
 	}
 
 	/* Not really identified */
-	else if (!object_is_known(o_ptr))
+	else if (!object_is_known(object_ptr))
 	{
-		if (!(o_ptr->ident & IDENT_SENSE))
+		if (!(object_ptr->ident & IDENT_SENSE))
 		{
 			ADD_FLG(FLG_UNIDENTIFIED);
 			bol_mark = TRUE;
@@ -480,7 +480,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 		else
 		{
 			/* Pseudo-identified */
-			switch (o_ptr->feeling)
+			switch (object_ptr->feeling)
 			{
 			case FEEL_AVERAGE:
 			case FEEL_GOOD:
@@ -520,16 +520,16 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	else
 	{
 		/* Ego objects */
-		if (object_is_ego(o_ptr))
+		if (object_is_ego(object_ptr))
 		{
-			if (object_is_weapon_armour_ammo(o_ptr))
+			if (object_is_weapon_armour_ammo(object_ptr))
 			{
 				/*
 				 * Base name of ego weapons and armors
 				 * are almost meaningless.
 				 * Register the ego type only.
 				 */
-				ego_item_type *e_ptr = &object_ego_info[o_ptr->name2];
+				ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 #ifdef JP
 				/* エゴ銘には「^」マークが使える */
 				sprintf(name_str, "^%s", object_ego_name + e_ptr->name);
@@ -542,21 +542,21 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 				name = FALSE;
 
 				/* Restrict to 'common' equipments */
-				if (!object_is_rare(creature_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
+				if (!object_is_rare(creature_ptr, object_ptr)) ADD_FLG(FLG_COMMON);
 			}
 
 			ADD_FLG(FLG_EGO);
 		}
 
 		/* Artifact */
-		else if (object_is_artifact(o_ptr))
+		else if (object_is_artifact(object_ptr))
 			ADD_FLG(FLG_ARTIFACT);
 
 		/* Non-ego, non-artifact */
 		else
 		{
 			/* Wearable nameless object */
-			if (object_is_equipment(o_ptr))
+			if (object_is_equipment(object_ptr))
 				ADD_FLG(FLG_NAMELESS);
 
 			bol_mark = TRUE;
@@ -565,40 +565,40 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	}
 
 	/* Melee weapon with boosted dice */
-	if (object_is_melee_weapon(creature_ptr, o_ptr))
+	if (object_is_melee_weapon(creature_ptr, object_ptr))
 	{
-		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
-		if ((o_ptr->dd != k_ptr->dd) || (o_ptr->ds != k_ptr->ds))
+		if ((object_ptr->dd != k_ptr->dd) || (object_ptr->ds != k_ptr->ds))
 			ADD_FLG(FLG_BOOSTED);
 	}
 
 	/* Wanted creature's corpse */
-	if (object_is_shoukinkubi(creature_ptr, o_ptr))
+	if (object_is_shoukinkubi(creature_ptr, object_ptr))
 	{
 		REM_FLG(FLG_WORTHLESS);
 		ADD_FLG(FLG_WANTED);
 	}
 
-	if ((o_ptr->tval == TV_CORPSE || o_ptr->tval == TV_STATUE)
-	    && is_unique_species(&species_info[o_ptr->pval]))
+	if ((object_ptr->tval == TV_CORPSE || object_ptr->tval == TV_STATUE)
+	    && is_unique_species(&species_info[object_ptr->pval]))
 	{
 		ADD_FLG(FLG_UNIQUE);
 	}
 
-	if (o_ptr->tval == TV_CORPSE && my_strchr("pht", species_info[o_ptr->pval].d_char))
+	if (object_ptr->tval == TV_CORPSE && my_strchr("pht", species_info[object_ptr->pval].d_char))
 	{
 		ADD_FLG(FLG_HUMAN);
 	}
 
-	if (o_ptr->tval >= TV_LIFE_BOOK &&
-	    !check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval))
+	if (object_ptr->tval >= TV_LIFE_BOOK &&
+	    !check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval))
 	{
 		ADD_FLG(FLG_UNREADABLE);
-		if (o_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
+		if (object_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
 	}
 
-	if (REALM1_BOOK(creature_ptr) == o_ptr->tval &&
+	if (REALM1_BOOK(creature_ptr) == object_ptr->tval &&
 	    creature_ptr->class_idx != CLASS_SORCERER &&
 	    creature_ptr->class_idx != CLASS_RED_MAGE)
 	{
@@ -606,7 +606,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 		name = FALSE;
 	}
 
-	if (REALM2_BOOK(creature_ptr) == o_ptr->tval &&
+	if (REALM2_BOOK(creature_ptr) == object_ptr->tval &&
 	    creature_ptr->class_idx != CLASS_SORCERER &&
 	    creature_ptr->class_idx != CLASS_RED_MAGE)
 	{
@@ -614,50 +614,50 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 		name = FALSE;
 	}
 
-	if (o_ptr->tval >= TV_LIFE_BOOK && 0 == o_ptr->sval)
+	if (object_ptr->tval >= TV_LIFE_BOOK && 0 == object_ptr->sval)
 		ADD_FLG(FLG_FIRST);
-	if (o_ptr->tval >= TV_LIFE_BOOK && 1 == o_ptr->sval)
+	if (object_ptr->tval >= TV_LIFE_BOOK && 1 == object_ptr->sval)
 		ADD_FLG(FLG_SECOND);
-	if (o_ptr->tval >= TV_LIFE_BOOK && 2 == o_ptr->sval)
+	if (object_ptr->tval >= TV_LIFE_BOOK && 2 == object_ptr->sval)
 		ADD_FLG(FLG_THIRD);
-	if (o_ptr->tval >= TV_LIFE_BOOK && 3 == o_ptr->sval)
+	if (object_ptr->tval >= TV_LIFE_BOOK && 3 == object_ptr->sval)
 		ADD_FLG(FLG_FOURTH);
 
-	if (object_is_ammo(o_ptr))
+	if (object_is_ammo(object_ptr))
 		ADD_FLG(FLG_MISSILES);
-	else if (o_ptr->tval == TV_SCROLL || o_ptr->tval == TV_STAFF
-		 || o_ptr->tval == TV_WAND || o_ptr->tval == TV_ROD)
+	else if (object_ptr->tval == TV_SCROLL || object_ptr->tval == TV_STAFF
+		 || object_ptr->tval == TV_WAND || object_ptr->tval == TV_ROD)
 		ADD_FLG(FLG_DEVICES);
-	else if (o_ptr->tval == TV_LITE)
+	else if (object_ptr->tval == TV_LITE)
 		ADD_FLG(FLG_LIGHTS);
-	else if (o_ptr->tval == TV_SKELETON || o_ptr->tval == TV_BOTTLE
-		 || o_ptr->tval == TV_JUNK || o_ptr->tval == TV_STATUE)
+	else if (object_ptr->tval == TV_SKELETON || object_ptr->tval == TV_BOTTLE
+		 || object_ptr->tval == TV_JUNK || object_ptr->tval == TV_STATUE)
 		ADD_FLG(FLG_JUNKS);
-	else if (o_ptr->tval == TV_CORPSE)
+	else if (object_ptr->tval == TV_CORPSE)
 		ADD_FLG(FLG_CORPSES);
-	else if (o_ptr->tval >= TV_LIFE_BOOK)
+	else if (object_ptr->tval >= TV_LIFE_BOOK)
 		ADD_FLG(FLG_SPELLBOOKS);
-	else if (o_ptr->tval == TV_POLEARM || o_ptr->tval == TV_SWORD
-		 || o_ptr->tval == TV_DIGGING || o_ptr->tval == TV_HAFTED)
+	else if (object_ptr->tval == TV_POLEARM || object_ptr->tval == TV_SWORD
+		 || object_ptr->tval == TV_DIGGING || object_ptr->tval == TV_HAFTED)
 		ADD_FLG(FLG_WEAPONS);
-	else if (o_ptr->tval == TV_SHIELD)
+	else if (object_ptr->tval == TV_SHIELD)
 		ADD_FLG(FLG_SHIELDS);
-	else if (o_ptr->tval == TV_BOW)
+	else if (object_ptr->tval == TV_BOW)
 		ADD_FLG(FLG_BOWS);
-	else if (o_ptr->tval == TV_RING)
+	else if (object_ptr->tval == TV_RING)
 		ADD_FLG(FLG_RINGS);
-	else if (o_ptr->tval == TV_AMULET)
+	else if (object_ptr->tval == TV_AMULET)
 		ADD_FLG(FLG_AMULETS);
-	else if (o_ptr->tval == TV_DRAG_ARMOR || o_ptr->tval == TV_HARD_ARMOR ||
-		 o_ptr->tval == TV_SOFT_ARMOR)
+	else if (object_ptr->tval == TV_DRAG_ARMOR || object_ptr->tval == TV_HARD_ARMOR ||
+		 object_ptr->tval == TV_SOFT_ARMOR)
 		ADD_FLG(FLG_SUITS);
-	else if (o_ptr->tval == TV_CLOAK)
+	else if (object_ptr->tval == TV_CLOAK)
 		ADD_FLG(FLG_CLOAKS);
-	else if (o_ptr->tval == TV_HELM)
+	else if (object_ptr->tval == TV_HELM)
 		ADD_FLG(FLG_HELMS);
-	else if (o_ptr->tval == TV_GLOVES)
+	else if (object_ptr->tval == TV_GLOVES)
 		ADD_FLG(FLG_GLOVES);
-	else if (o_ptr->tval == TV_BOOTS)
+	else if (object_ptr->tval == TV_BOOTS)
 		ADD_FLG(FLG_BOOTS);
 
 	/* Prepare the object description */
@@ -665,7 +665,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	{
 		char o_name[MAX_NLEN];
 
-		object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
+		object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
 
 		/*
 		 * If necessary, add a '^' which indicates the
@@ -1026,77 +1026,77 @@ static cptr autopick_line_from_entry_kill(autopick_type *entry)
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the entry
  */
-static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, autopick_type *entry, cptr o_name)
+static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr, autopick_type *entry, cptr o_name)
 {
 	int j;
 	cptr ptr = entry->name;
 
 	/*** Unaware items ***/
-	if (IS_FLG(FLG_UNAWARE) && object_is_aware(o_ptr))
+	if (IS_FLG(FLG_UNAWARE) && object_is_aware(object_ptr))
 		return FALSE;
 
 	/*** Unidentified ***/
 	if (IS_FLG(FLG_UNIDENTIFIED)
-	    && (object_is_known(o_ptr) || (o_ptr->ident & IDENT_SENSE)))
+	    && (object_is_known(object_ptr) || (object_ptr->ident & IDENT_SENSE)))
 		return FALSE;
 
 	/*** Identified ***/
-	if (IS_FLG(FLG_IDENTIFIED) && !object_is_known(o_ptr))
+	if (IS_FLG(FLG_IDENTIFIED) && !object_is_known(object_ptr))
 		return FALSE;
 
 	/*** *Identified* ***/
 	if (IS_FLG(FLG_STAR_IDENTIFIED) &&
-	    (!object_is_known(o_ptr) || !(o_ptr->ident & IDENT_MENTAL)))
+	    (!object_is_known(object_ptr) || !(object_ptr->ident & IDENT_MENTAL)))
 		return FALSE;
 
 	/*** Dice boosted (weapon of slaying) ***/
 	if (IS_FLG(FLG_BOOSTED))
 	{
-		object_kind *k_ptr = &object_kind_info[o_ptr->k_idx];
+		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* Require melee weapon */
-		if (!object_is_melee_weapon(creature_ptr, o_ptr))
+		if (!object_is_melee_weapon(creature_ptr, object_ptr))
 			return FALSE;
 
 		/* Require boosted dice */
-		if ((o_ptr->dd == k_ptr->dd) && (o_ptr->ds == k_ptr->ds))
+		if ((object_ptr->dd == k_ptr->dd) && (object_ptr->ds == k_ptr->ds))
 			return FALSE;
 	}
 
 	/*** Weapons which dd*ds is more than nn ***/
 	if (IS_FLG(FLG_MORE_DICE))
 	{
-		if (o_ptr->dd * o_ptr->ds < entry->dice)
+		if (object_ptr->dd * object_ptr->ds < entry->dice)
 			return FALSE;
 	}
 				
 	/*** Weapons whic dd*ds is more than nn ***/
 	if (IS_FLG(FLG_MORE_BONUS))
 	{
-		if (!object_is_known(o_ptr)) return FALSE;
+		if (!object_is_known(object_ptr)) return FALSE;
 
-		if (o_ptr->pval)
+		if (object_ptr->pval)
 		{
-			if (o_ptr->pval < entry->bonus) return FALSE;
+			if (object_ptr->pval < entry->bonus) return FALSE;
 		}
 		else
 		{
-			if (o_ptr->to_hit < entry->bonus &&
-			    o_ptr->to_damage < entry->bonus &&
-			    o_ptr->to_ac < entry->bonus &&
-			    o_ptr->pval < entry->bonus)
+			if (object_ptr->to_hit < entry->bonus &&
+			    object_ptr->to_damage < entry->bonus &&
+			    object_ptr->to_ac < entry->bonus &&
+			    object_ptr->pval < entry->bonus)
 				return FALSE;
 		}
 	}
 				
 	/*** Worthless items ***/
-	if (IS_FLG(FLG_WORTHLESS) && object_value(o_ptr) > 0)
+	if (IS_FLG(FLG_WORTHLESS) && object_value(object_ptr) > 0)
 		return FALSE;
 
 	/*** Artifact object ***/
 	if (IS_FLG(FLG_ARTIFACT))
 	{
-		if (!object_is_known(o_ptr) || !object_is_artifact(o_ptr))
+		if (!object_is_known(object_ptr) || !object_is_artifact(object_ptr))
 			return FALSE;
 	}
 
@@ -1104,35 +1104,35 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	if (IS_FLG(FLG_EGO))
 	{
 		/* Need to be an ego item */
-		if (!object_is_ego(o_ptr)) return FALSE;
+		if (!object_is_ego(object_ptr)) return FALSE;
 
 		/* Need to be known to be an ego */
-		if (!object_is_known(o_ptr) &&
-		    !((o_ptr->ident & IDENT_SENSE) && o_ptr->feeling == FEEL_EXCELLENT))
+		if (!object_is_known(object_ptr) &&
+		    !((object_ptr->ident & IDENT_SENSE) && object_ptr->feeling == FEEL_EXCELLENT))
 			return FALSE;
 	}
 
 	/*** Good ***/
 	if (IS_FLG(FLG_GOOD))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(object_ptr)) return FALSE;
 
 		/* Identified */
-		if (object_is_known(o_ptr))
+		if (object_is_known(object_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(creature_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, object_ptr))
 				return FALSE;
 
 			/* Average are not okay */
-			if (o_ptr->to_ac <= 0 && (o_ptr->to_hit + o_ptr->to_damage) <= 0)
+			if (object_ptr->to_ac <= 0 && (object_ptr->to_hit + object_ptr->to_damage) <= 0)
 				return FALSE;
 		}
 
 		/* Pseudo-identified */
-		else if (o_ptr->ident & IDENT_SENSE)
+		else if (object_ptr->ident & IDENT_SENSE)
 		{
-			switch (o_ptr->feeling)
+			switch (object_ptr->feeling)
 			{
 			case FEEL_GOOD:
 				/* It's good */
@@ -1155,20 +1155,20 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	/*** Nameless ***/
 	if (IS_FLG(FLG_NAMELESS))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(object_ptr)) return FALSE;
 
 		/* Identified */
-		if (object_is_known(o_ptr))
+		if (object_is_known(object_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(creature_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, object_ptr))
 				return FALSE;
 		}
 
 		/* Pseudo-identified */
-		else if (o_ptr->ident & IDENT_SENSE)
+		else if (object_ptr->ident & IDENT_SENSE)
 		{
-			switch (o_ptr->feeling)
+			switch (object_ptr->feeling)
 			{
 			case FEEL_AVERAGE:
 			case FEEL_GOOD:
@@ -1194,28 +1194,28 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	/*** Average ***/
 	if (IS_FLG(FLG_AVERAGE))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(object_ptr)) return FALSE;
 
 		/* Identified */
-		if (object_is_known(o_ptr))
+		if (object_is_known(object_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(creature_ptr, o_ptr))
+			if (!object_is_nameless(creature_ptr, object_ptr))
 				return FALSE;
 
 			/* Cursed or broken objects are not okay */
-			if (object_is_cursed(o_ptr) || object_is_broken(o_ptr))
+			if (object_is_cursed(object_ptr) || object_is_broken(object_ptr))
 				return FALSE;
 
 			/* Good are not okay */
-			if (o_ptr->to_ac > 0 || (o_ptr->to_hit + o_ptr->to_damage) > 0)
+			if (object_ptr->to_ac > 0 || (object_ptr->to_hit + object_ptr->to_damage) > 0)
 				return FALSE;
 		}
 
 		/* Pseudo-identified */
-		else if (o_ptr->ident & IDENT_SENSE)
+		else if (object_ptr->ident & IDENT_SENSE)
 		{
-			switch (o_ptr->feeling)
+			switch (object_ptr->feeling)
 			{
 			case FEEL_AVERAGE:
 				/* It's average */
@@ -1236,92 +1236,92 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	}
 
 	/*** Rere equipments ***/
-	if (IS_FLG(FLG_RARE) && !object_is_rare(creature_ptr, o_ptr))
+	if (IS_FLG(FLG_RARE) && !object_is_rare(creature_ptr, object_ptr))
 		return FALSE;
 
 	/*** Common equipments ***/
-	if (IS_FLG(FLG_COMMON) && object_is_rare(creature_ptr, o_ptr))
+	if (IS_FLG(FLG_COMMON) && object_is_rare(creature_ptr, object_ptr))
 		return FALSE;
 
 	/*** Wanted creature's corpse/skeletons ***/
-	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(creature_ptr, o_ptr))
+	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(creature_ptr, object_ptr))
 		return FALSE;
 
 	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE) &&
-	    ((o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_STATUE) ||
-	     !is_unique_species(&species_info[o_ptr->pval])))
+	    ((object_ptr->tval != TV_CORPSE && object_ptr->tval != TV_STATUE) ||
+	     !is_unique_species(&species_info[object_ptr->pval])))
 		return FALSE;
 
 	/*** Human corpse/skeletons (for Daemon magic) ***/
 	if (IS_FLG(FLG_HUMAN) &&
-	    (o_ptr->tval != TV_CORPSE ||
-	     !my_strchr("pht", species_info[o_ptr->pval].d_char)))
+	    (object_ptr->tval != TV_CORPSE ||
+	     !my_strchr("pht", species_info[object_ptr->pval].d_char)))
 		return FALSE;
 
 	/*** Unreadable spellbooks ***/
 	if (IS_FLG(FLG_UNREADABLE) &&
-	    (o_ptr->tval < TV_LIFE_BOOK ||
-	     check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval)))
+	    (object_ptr->tval < TV_LIFE_BOOK ||
+	     check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval)))
 		return FALSE;
 
 	/*** First realm spellbooks ***/
 	if (IS_FLG(FLG_REALM1) && 
-	    (REALM1_BOOK(creature_ptr) != o_ptr->tval ||
+	    (REALM1_BOOK(creature_ptr) != object_ptr->tval ||
 	     creature_ptr->class_idx == CLASS_SORCERER ||
 	     creature_ptr->class_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** Second realm spellbooks ***/
 	if (IS_FLG(FLG_REALM2) &&
-	    (REALM2_BOOK(creature_ptr) != o_ptr->tval ||
+	    (REALM2_BOOK(creature_ptr) != object_ptr->tval ||
 	     creature_ptr->class_idx == CLASS_SORCERER ||
 	     creature_ptr->class_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** First rank spellbooks ***/
 	if (IS_FLG(FLG_FIRST) &&
-	    (o_ptr->tval < TV_LIFE_BOOK || 0 != o_ptr->sval))
+	    (object_ptr->tval < TV_LIFE_BOOK || 0 != object_ptr->sval))
 		return FALSE;
 
 	/*** Second rank spellbooks ***/
 	if (IS_FLG(FLG_SECOND) &&
-	    (o_ptr->tval < TV_LIFE_BOOK || 1 != o_ptr->sval))
+	    (object_ptr->tval < TV_LIFE_BOOK || 1 != object_ptr->sval))
 		return FALSE;
 
 	/*** Third rank spellbooks ***/
 	if (IS_FLG(FLG_THIRD) && 
-	    (o_ptr->tval < TV_LIFE_BOOK || 2 != o_ptr->sval))
+	    (object_ptr->tval < TV_LIFE_BOOK || 2 != object_ptr->sval))
 		return FALSE;
 
 	/*** Fourth rank spellbooks ***/
 	if (IS_FLG(FLG_FOURTH) &&
-	    (o_ptr->tval < TV_LIFE_BOOK || 3 != o_ptr->sval))
+	    (object_ptr->tval < TV_LIFE_BOOK || 3 != object_ptr->sval))
 		return FALSE;
 
 	/*** Items ***/
 	if (IS_FLG(FLG_WEAPONS))
 	{
-		if (!object_is_weapon(o_ptr))
+		if (!object_is_weapon(object_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_FAVORITE_WEAPONS))
 	{
-		if (!object_is_favorite(creature_ptr, o_ptr))
+		if (!object_is_favorite(creature_ptr, object_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_ARMORS))
 	{
-		if (!object_is_armour(o_ptr))
+		if (!object_is_armour(object_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_MISSILES))
 	{
-		if (!object_is_ammo(o_ptr)) return FALSE;
+		if (!object_is_ammo(object_ptr)) return FALSE;
 	}
 	else if (IS_FLG(FLG_DEVICES))
 	{
-		switch(o_ptr->tval)
+		switch(object_ptr->tval)
 		{
 		case TV_SCROLL: case TV_STAFF: case TV_WAND: case TV_ROD:
 			break;
@@ -1330,12 +1330,12 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	}
 	else if (IS_FLG(FLG_LIGHTS))
 	{
-		if (!(o_ptr->tval == TV_LITE))
+		if (!(object_ptr->tval == TV_LITE))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_JUNKS))
 	{
-		switch(o_ptr->tval)
+		switch(object_ptr->tval)
 		{
 		case TV_SKELETON: case TV_BOTTLE:
 		case TV_JUNK: case TV_STATUE:
@@ -1345,64 +1345,64 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 	}
 	else if (IS_FLG(FLG_CORPSES))
 	{
-		if (o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_SKELETON)
+		if (object_ptr->tval != TV_CORPSE && object_ptr->tval != TV_SKELETON)
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_SPELLBOOKS))
 	{
-		if (!(o_ptr->tval >= TV_LIFE_BOOK))
+		if (!(object_ptr->tval >= TV_LIFE_BOOK))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_HAFTED))
 	{
-		if (!(o_ptr->tval == TV_HAFTED))
+		if (!(object_ptr->tval == TV_HAFTED))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_SHIELDS))
 	{
-		if (!(o_ptr->tval == TV_SHIELD))
+		if (!(object_ptr->tval == TV_SHIELD))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_BOWS))
 	{
-		if (!(o_ptr->tval == TV_BOW))
+		if (!(object_ptr->tval == TV_BOW))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_RINGS))
 	{
-		if (!(o_ptr->tval == TV_RING))
+		if (!(object_ptr->tval == TV_RING))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_AMULETS))
 	{
-		if (!(o_ptr->tval == TV_AMULET))
+		if (!(object_ptr->tval == TV_AMULET))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_SUITS))
 	{
-		if (!(o_ptr->tval == TV_DRAG_ARMOR ||
-		      o_ptr->tval == TV_HARD_ARMOR ||
-		      o_ptr->tval == TV_SOFT_ARMOR))
+		if (!(object_ptr->tval == TV_DRAG_ARMOR ||
+		      object_ptr->tval == TV_HARD_ARMOR ||
+		      object_ptr->tval == TV_SOFT_ARMOR))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_CLOAKS))
 	{
-		if (!(o_ptr->tval == TV_CLOAK))
+		if (!(object_ptr->tval == TV_CLOAK))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_HELMS))
 	{
-		if (!(o_ptr->tval == TV_CROWN || o_ptr->tval == TV_HELM))
+		if (!(object_ptr->tval == TV_CROWN || object_ptr->tval == TV_HELM))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_GLOVES))
 	{
-		if (!(o_ptr->tval == TV_GLOVES))
+		if (!(object_ptr->tval == TV_GLOVES))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_BOOTS))
 	{
-		if (!(o_ptr->tval == TV_BOOTS))
+		if (!(object_ptr->tval == TV_BOOTS))
 			return FALSE;
 	}
 
@@ -1428,8 +1428,8 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
 		 * into an creature_ptr->inventory slot.
 		 * But an item can not be absorbed into itself!
 		 */
-		if ((&creature_ptr->inventory[j] != o_ptr) &&
-		    object_similar(&creature_ptr->inventory[j], o_ptr))
+		if ((&creature_ptr->inventory[j] != object_ptr) &&
+		    object_similar(&creature_ptr->inventory[j], object_ptr))
 			return TRUE;
 	}
 
@@ -1442,15 +1442,15 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *o_ptr, aut
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the list of keywords or not.
  */
-int is_autopick(creature_type *creature_ptr, object_type *o_ptr)
+int is_autopick(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i;
 	char o_name[MAX_NLEN];
 
-	if (o_ptr->tval == TV_GOLD) return -1;
+	if (object_ptr->tval == TV_GOLD) return -1;
 
 	/* Prepare object name string first */
-	object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+	object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
 	/* Convert the string to lower case */
 	str_tolower(o_name);
@@ -1460,7 +1460,7 @@ int is_autopick(creature_type *creature_ptr, object_type *o_ptr)
 	{
 		autopick_type *entry = &autopick_list[i];
 
-		if (is_autopick_aux(creature_ptr, o_ptr, entry, o_name)) return i;
+		if (is_autopick_aux(creature_ptr, object_ptr, entry, o_name)) return i;
 	}
 
 	/* No matching entry */
@@ -1471,13 +1471,13 @@ int is_autopick(creature_type *creature_ptr, object_type *o_ptr)
 /*
  *  Auto inscription
  */
-static void auto_inscribe_item(creature_type *creature_ptr, object_type *o_ptr, int idx)
+static void auto_inscribe_item(creature_type *creature_ptr, object_type *object_ptr, int idx)
 {
 	/* Are there auto-inscription? */
 	if (idx < 0 || !autopick_list[idx].insc) return;
 
-	if (!o_ptr->inscription)
-		o_ptr->inscription = quark_add(autopick_list[idx].insc);
+	if (!object_ptr->inscription)
+		object_ptr->inscription = quark_add(autopick_list[idx].insc);
 
 	/* Redraw inscription */
 	play_window |= (PW_EQUIP | PW_INVEN);
@@ -1490,63 +1490,63 @@ static void auto_inscribe_item(creature_type *creature_ptr, object_type *o_ptr, 
 /*
  * Automatically destroy items in this grid.
  */
-static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *o_ptr)
+static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if (!destroy_items) return FALSE;
 
 	/* Known to be worthless? */
 	if (leave_worth)
-		if (object_value(o_ptr) > 0) return FALSE;
+		if (object_value(object_ptr) > 0) return FALSE;
 
 	if (leave_equip)
-		if (object_is_weapon_armour_ammo(o_ptr)) return FALSE;
+		if (object_is_weapon_armour_ammo(object_ptr)) return FALSE;
 
 	if (leave_chest)
-		if ((o_ptr->tval == TV_CHEST) && o_ptr->pval) return FALSE;
+		if ((object_ptr->tval == TV_CHEST) && object_ptr->pval) return FALSE;
 
 	if (leave_wanted)
 	{
-		if (object_is_shoukinkubi(creature_ptr, o_ptr)) return FALSE;
+		if (object_is_shoukinkubi(creature_ptr, object_ptr)) return FALSE;
 	}
 
 	if (leave_corpse)
-		if (o_ptr->tval == TV_CORPSE) return FALSE;
+		if (object_ptr->tval == TV_CORPSE) return FALSE;
 
 	if (leave_junk)
-		if ((o_ptr->tval == TV_SKELETON) || (o_ptr->tval == TV_BOTTLE) || (o_ptr->tval == TV_JUNK) || (o_ptr->tval == TV_STATUE)) return FALSE;
+		if ((object_ptr->tval == TV_SKELETON) || (object_ptr->tval == TV_BOTTLE) || (object_ptr->tval == TV_JUNK) || (object_ptr->tval == TV_STATUE)) return FALSE;
 
 	if (leave_special)
 	{
 		if (is_demon_creature(creature_ptr))
 		{
-			if (o_ptr->tval == TV_CORPSE &&
-			    o_ptr->sval == SV_CORPSE &&
-			    my_strchr("pht", species_info[o_ptr->pval].d_char))
+			if (object_ptr->tval == TV_CORPSE &&
+			    object_ptr->sval == SV_CORPSE &&
+			    my_strchr("pht", species_info[object_ptr->pval].d_char))
 				return FALSE;
 		}
 
 		if (creature_ptr->class_idx == CLASS_ARCHER)
 		{
-			if (o_ptr->tval == TV_SKELETON ||
-			    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
+			if (object_ptr->tval == TV_SKELETON ||
+			    (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_SKELETON))
 				return FALSE;
 		}
 		else if (creature_ptr->class_idx == CLASS_NINJA)
 		{
-			if (o_ptr->tval == TV_LITE &&
-			    o_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(o_ptr))
+			if (object_ptr->tval == TV_LITE &&
+			    object_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(object_ptr))
 				return FALSE;
 		}
 		else if (creature_ptr->class_idx == CLASS_BEASTMASTER ||
 			 creature_ptr->class_idx == CLASS_CAVALRY)
 		{
-			if (o_ptr->tval == TV_WAND &&
-			    o_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE && object_is_aware(o_ptr))
+			if (object_ptr->tval == TV_WAND &&
+			    object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE && object_is_aware(object_ptr))
 				return FALSE;
 		}
 	}
 
-	if (o_ptr->tval == TV_GOLD) return FALSE;
+	if (object_ptr->tval == TV_GOLD) return FALSE;
 
 	return TRUE;
 }
@@ -1560,12 +1560,12 @@ static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *o_p
  */
 static object_type autopick_last_destroyed_object;
 
-static void auto_destroy_item(creature_type *creature_ptr, object_type *o_ptr, int autopick_idx)
+static void auto_destroy_item(creature_type *creature_ptr, object_type *object_ptr, int autopick_idx)
 {
 	bool destroy = FALSE;
 
 	/* Easy-Auto-Destroyer (3rd priority) */
-	if (is_opt_confirm_destroy(creature_ptr, o_ptr)) destroy = TRUE;
+	if (is_opt_confirm_destroy(creature_ptr, object_ptr)) destroy = TRUE;
 
 	/* Protected by auto-picker (2nd priotity) */
 	if (autopick_idx >= 0 &&
@@ -1589,12 +1589,12 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *o_ptr, i
 	disturb(player_ptr, 0,0);
 
 	/* Artifact? */
-	if (!can_player_destroy_object(creature_ptr, o_ptr))
+	if (!can_player_destroy_object(creature_ptr, object_ptr))
 	{
 		char o_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
@@ -1608,10 +1608,10 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *o_ptr, i
 	}
 
 	/* Record name of destroyed item */
-	COPY(&autopick_last_destroyed_object, o_ptr, object_type);
+	COPY(&autopick_last_destroyed_object, object_ptr, object_type);
 
 	/* Destroy Later */
-	o_ptr->marked |= OM_AUTODESTROY;
+	object_ptr->marked |= OM_AUTODESTROY;
 	creature_ptr->creature_update |= CRN_AUTODESTROY;
 
 	return;
@@ -1623,25 +1623,25 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *o_ptr, i
  */
 static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	// Get the item (in the pack)
-	if (item >= 0) o_ptr = &creature_ptr->inventory[item];
+	if (item >= 0) object_ptr = &creature_ptr->inventory[item];
 
 	// Get the item (on the floor)
-	else o_ptr = &object_list[0 - item];
+	else object_ptr = &object_list[0 - item];
 
-	if (o_ptr->k_idx && (o_ptr->marked & OM_AUTODESTROY))
+	if (object_ptr->k_idx && (object_ptr->marked & OM_AUTODESTROY))
 	{
 		char o_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Eliminate the item (from the pack) */
 		if (item >= 0)
 		{
-			inven_item_increase(creature_ptr, item, -(o_ptr->number));
+			inven_item_increase(creature_ptr, item, -(object_ptr->number));
 			inven_item_optimize(creature_ptr, item);
 		}
 
@@ -1695,24 +1695,24 @@ void autopick_delayed_alter(creature_type *creature_ptr)
  */
 void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
 {
-	object_type *o_ptr;
+	object_type *object_ptr;
 	int idx;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &creature_ptr->inventory[item];
+	if (item >= 0) object_ptr = &creature_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
-	else o_ptr = &object_list[0 - item];
+	else object_ptr = &object_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
-	idx = is_autopick(creature_ptr, o_ptr);
+	idx = is_autopick(creature_ptr, object_ptr);
 
 	/* Do auto-inscription */
-	auto_inscribe_item(creature_ptr, o_ptr, idx);
+	auto_inscribe_item(creature_ptr, object_ptr, idx);
 
 	/* Do auto-destroy if needed */
 	if (destroy && item <= INVEN_TOTAL)
-		auto_destroy_item(creature_ptr, o_ptr, idx);
+		auto_destroy_item(creature_ptr, object_ptr, idx);
 }
 
 
@@ -1729,27 +1729,27 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 		int idx;
 	
 		/* Acquire object */
-		object_type *o_ptr = &object_list[this_object_idx];
+		object_type *object_ptr = &object_list[this_object_idx];
 		
 		/* Acquire next object */
-		next_object_idx = o_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx;
 
-		idx = is_autopick(creature_ptr, o_ptr);
+		idx = is_autopick(creature_ptr, object_ptr);
 
 		/* Item index for floor -1,-2,-3,...  */
-		auto_inscribe_item(creature_ptr, o_ptr, idx);
+		auto_inscribe_item(creature_ptr, object_ptr, idx);
 
 		if (idx >= 0 &&
 			(autopick_list[idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK)))
 		{
 			disturb(player_ptr, 0,0);
 
-			if (!inven_carry_okay(creature_ptr, o_ptr))
+			if (!inven_carry_okay(creature_ptr, object_ptr))
 			{
 				char o_name[MAX_NLEN];
 
 				/* Describe the object */
-				object_desc(o_name, o_ptr, 0);
+				object_desc(o_name, object_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -1758,7 +1758,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				msg_format("You have no room for %s.", o_name);
 #endif
 				/* Hack - remember that the item has given a message here. */
-				o_ptr->marked |= OM_NOMSG;
+				object_ptr->marked |= OM_NOMSG;
 
 				continue;
 			}
@@ -1767,14 +1767,14 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				char out_val[MAX_NLEN+20];
 				char o_name[MAX_NLEN];
 
-				if (o_ptr->marked & OM_NO_QUERY)
+				if (object_ptr->marked & OM_NO_QUERY)
 				{
 					/* Already answered as 'No' */
 					continue;
 				}
 
 				/* Describe the object */
-				object_desc(o_name, o_ptr, 0);
+				object_desc(o_name, object_ptr, 0);
 
 #ifdef JP
 				sprintf(out_val, "%sを拾いますか? ", o_name);
@@ -1785,7 +1785,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				if (!get_check(out_val))
 				{
 					/* Hack - remember that the item has given a message here. */
-					o_ptr->marked |= (OM_NOMSG | OM_NO_QUERY);
+					object_ptr->marked |= (OM_NOMSG | OM_NO_QUERY);
 					continue;
 				}
 
@@ -1801,7 +1801,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 		 */
 		else
 		{
-			auto_destroy_item(creature_ptr, o_ptr, idx);
+			auto_destroy_item(creature_ptr, object_ptr, idx);
 		}
 	} /* for () */
 }
@@ -1940,14 +1940,14 @@ static bool clear_auto_register(void)
 /*
  *  Automatically register an auto-destroy preference line
  */
-bool autopick_autoregister(creature_type *creature_ptr, object_type *o_ptr)
+bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 {
 	char buf[1024];
 	char pref_file[1024];
 	FILE *pref_fff;
 	autopick_type an_entry, *entry = &an_entry;
 
-	int match_autopick = is_autopick(creature_ptr, o_ptr);
+	int match_autopick = is_autopick(creature_ptr, object_ptr);
 
 	/* Already registered */
 	if (match_autopick != -1)
@@ -1975,14 +1975,14 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *o_ptr)
 	}
 
 	/* Known to be an artifact? */
-	if ((object_is_known(o_ptr) && object_is_artifact(o_ptr)) ||
-	    ((o_ptr->ident & IDENT_SENSE) &&
-	     (o_ptr->feeling == FEEL_TERRIBLE || o_ptr->feeling == FEEL_SPECIAL)))
+	if ((object_is_known(object_ptr) && object_is_artifact(object_ptr)) ||
+	    ((object_ptr->ident & IDENT_SENSE) &&
+	     (object_ptr->feeling == FEEL_TERRIBLE || object_ptr->feeling == FEEL_SPECIAL)))
 	{
 		char o_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(o_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
@@ -2071,7 +2071,7 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *o_ptr)
 	}
 
 	/* Get a preference entry */
-	autopick_entry_from_object(creature_ptr, entry, o_ptr);
+	autopick_entry_from_object(creature_ptr, entry, object_ptr);
 
 	/* Set to auto-destroy (with no-display) */
 	entry->action = DO_AUTODESTROY;
@@ -2127,7 +2127,7 @@ typedef struct {
 	int mx, my;
 	byte mark;
 
-	object_type *search_o_ptr;
+	object_type *search_object_ptr;
 	cptr search_str;
 	cptr last_destroyed;
 
@@ -3334,7 +3334,7 @@ static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
  */
 static bool entry_from_choosed_object(creature_type *creature_ptr, autopick_type *entry)
 {
-	object_type *o_ptr;
+	object_type *object_ptr;
 	cptr q, s;
 
 	/* Get an item */
@@ -3345,10 +3345,10 @@ static bool entry_from_choosed_object(creature_type *creature_ptr, autopick_type
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(creature_ptr, q, s);
-	if (!o_ptr) return FALSE;
+	object_ptr = choose_object(creature_ptr, q, s);
+	if (!object_ptr) return FALSE;
 
-	autopick_entry_from_object(creature_ptr, entry, o_ptr);
+	autopick_entry_from_object(creature_ptr, entry, object_ptr);
 	return TRUE;
 }
 
@@ -3359,7 +3359,7 @@ static bool entry_from_choosed_object(creature_type *creature_ptr, autopick_type
 static byte get_object_for_search(creature_type *creature_ptr, object_type **o_handle, cptr *search_strp)
 {
 	char buf[MAX_NLEN+20];
-	object_type *o_ptr;
+	object_type *object_ptr;
 	cptr q, s;
 
 	/* Get an item */
@@ -3370,10 +3370,10 @@ static byte get_object_for_search(creature_type *creature_ptr, object_type **o_h
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(creature_ptr, q, s);
-	if (!o_ptr) return 0;
+	object_ptr = choose_object(creature_ptr, q, s);
+	if (!object_ptr) return 0;
 
-	*o_handle = o_ptr;
+	*o_handle = object_ptr;
 
 	string_free(*search_strp);
 	object_desc(buf, *o_handle, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
@@ -3696,9 +3696,9 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 
 
 /*
- * Search next line matches for o_ptr
+ * Search next line matches for object_ptr
  */
-static void search_for_object(creature_type *creature_ptr, text_body_type *tb, object_type *o_ptr, bool forward)
+static void search_for_object(creature_type *creature_ptr, text_body_type *tb, object_type *object_ptr, bool forward)
 {
 	autopick_type an_entry, *entry = &an_entry;
 	char o_name[MAX_NLEN];
@@ -3708,7 +3708,7 @@ static void search_for_object(creature_type *creature_ptr, text_body_type *tb, o
 	int i = tb->cy;
 
 	/* Prepare object name string first */
-	object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+	object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
 	/* Convert the string to lower case */
 	str_tolower(o_name);
@@ -3731,7 +3731,7 @@ static void search_for_object(creature_type *creature_ptr, text_body_type *tb, o
 		if (!autopick_new_entry(entry, tb->lines_list[i], FALSE)) continue;
 
 		/* Does this line match to the object? */
-		match = is_autopick_aux(creature_ptr, o_ptr, entry, o_name);
+		match = is_autopick_aux(creature_ptr, object_ptr, entry, o_name);
 		autopick_free_entry(entry);
 		if (!match)	continue;
 
@@ -5764,7 +5764,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		search_dir = get_string_for_search(creature_ptr, &tb->search_o_ptr, &tb->search_str);
+		search_dir = get_string_for_search(creature_ptr, &tb->search_object_ptr, &tb->search_str);
 
 		if (!search_dir) break;
 
@@ -5774,9 +5774,9 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 	}
 
 	case EC_SEARCH_FORW:
-		if (tb->search_o_ptr)
+		if (tb->search_object_ptr)
 		{
-			search_for_object(creature_ptr, tb, tb->search_o_ptr, TRUE);
+			search_for_object(creature_ptr, tb, tb->search_object_ptr, TRUE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5789,9 +5789,9 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		break;
 
 	case EC_SEARCH_BACK:
-		if (tb->search_o_ptr)
+		if (tb->search_object_ptr)
 		{
-			search_for_object(creature_ptr, tb, tb->search_o_ptr, FALSE);
+			search_for_object(creature_ptr, tb, tb->search_object_ptr, FALSE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5807,13 +5807,13 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		if (!get_object_for_search(creature_ptr, &tb->search_o_ptr, &tb->search_str)) break;
+		if (!get_object_for_search(creature_ptr, &tb->search_object_ptr, &tb->search_str)) break;
 
 		do_editor_command(creature_ptr, tb, EC_SEARCH_FORW);
 		break;
 
 	case EC_SEARCH_DESTROYED:
-		if (!get_destroyed_object_for_search(&tb->search_o_ptr, &tb->search_str))
+		if (!get_destroyed_object_for_search(&tb->search_object_ptr, &tb->search_str))
 		{
 			/* There is no object to search */
 			tb->dirty_flags |= DIRTY_NO_SEARCH;
@@ -6197,7 +6197,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 	tb->old_com_id = 0;
 
 	tb->yank = NULL;
-	tb->search_o_ptr = NULL;
+	tb->search_object_ptr = NULL;
 	tb->search_str = NULL;
 	tb->last_destroyed = NULL;
 	tb->dirty_flags = DIRTY_ALL | DIRTY_MODE | DIRTY_EXPRESSION;

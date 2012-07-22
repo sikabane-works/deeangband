@@ -417,12 +417,12 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
 	// Scan all objects in the grid
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *o_ptr;
-		o_ptr = &object_list[this_object_idx];    // Acquire object
-		next_object_idx = o_ptr->next_object_idx; // Acquire next object
+		object_type *object_ptr;
+		object_ptr = &object_list[this_object_idx];    // Acquire object
+		next_object_idx = object_ptr->next_object_idx; // Acquire next object
 		/* Skip unknown chests XXX XXX */
-		/* if (!(o_ptr->marked & OM_FOUND)) continue; */
-		if (o_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
+		/* if (!(object_ptr->marked & OM_FOUND)) continue; */
+		if (object_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
 	}
 
 	return (0); // No chest
@@ -450,30 +450,30 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	object_type forge;
 	object_type *quest_ptr;
 
-	object_type *o_ptr = &object_list[object_idx];
+	object_type *object_ptr = &object_list[object_idx];
 
 
 	/* Small chests often hold "gold" */
-	small = (o_ptr->sval < SV_CHEST_MIN_LARGE);
+	small = (object_ptr->sval < SV_CHEST_MIN_LARGE);
 
 	/* Determine how much to drop (see above) */
-	number = (o_ptr->sval % SV_CHEST_MIN_LARGE) * 2;
+	number = (object_ptr->sval % SV_CHEST_MIN_LARGE) * 2;
 
-	if (o_ptr->sval == SV_CHEST_KANDUME)
+	if (object_ptr->sval == SV_CHEST_KANDUME)
 	{
 		number = 5;
 		small = FALSE;
 		mode |= AM_GREAT;
-		floor_ptr->object_level = o_ptr->xtra3;
+		floor_ptr->object_level = object_ptr->xtra3;
 	}
 	else
 	{
 		/* Determine the "value" of the items */
-		floor_ptr->object_level = ABS(o_ptr->pval) + 10;
+		floor_ptr->object_level = ABS(object_ptr->pval) + 10;
 	}
 
 	/* Zero pval means empty chest */
-	if (!o_ptr->pval) number = 0;
+	if (!object_ptr->pval) number = 0;
 
 	/* Opening a chest */
 	opening_chest = TRUE;
@@ -525,8 +525,8 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 
 	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
 	opening_chest = FALSE; // No longer opening a chest
-	o_ptr->pval = 0; // Empty
-	object_known(o_ptr); // Known
+	object_ptr->pval = 0; // Empty
+	object_known(object_ptr); // Known
 }
 
 
@@ -539,16 +539,16 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_idx)
 {
 	int  i, trap;
-	object_type *o_ptr = &object_list[object_idx];
+	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	int mon_level = o_ptr->xtra3;
+	int mon_level = object_ptr->xtra3;
 
 	/* Ignore disarmed chests */
-	if (o_ptr->pval <= 0) return;
+	if (object_ptr->pval <= 0) return;
 
 	/* Obtain the traps */
-	trap = chest_traps[o_ptr->pval];
+	trap = chest_traps[object_ptr->pval];
 
 	/* Lose strength */
 	if (trap & (CHEST_LOSE_STR))
@@ -653,9 +653,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 
 		for (i = 0; i < randint1(3) + 3; i++)
-			(void)fire_meteor(-1, GF_FORCE, y, x, o_ptr->pval / 5, 7);
+			(void)fire_meteor(-1, GF_FORCE, y, x, object_ptr->pval / 5, 7);
 
-		for (i = 0; i < randint1(5) + o_ptr->pval / 5; i++)
+		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
 		{
 			(void)summon_specific(0, y, x, mon_level, SUMMON_BIRD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 		}
@@ -727,7 +727,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Dispel player. */
-	if ((trap & (CHEST_RUNES_OF_EVIL)) && o_ptr->k_idx)
+	if ((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
 	{
 		/* Determine how many nasty tricks can be played. */
 		int nasty_tricks_count = 4 + randint0(3);
@@ -743,7 +743,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if (randint1(100+o_ptr->pval*2) > creature_ptr->skill_rob)
+			if (randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
 			{
 #ifdef JP
 				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "破滅のトラップの宝箱", NULL, -1);
@@ -787,7 +787,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Explode */
-	if ((trap & (CHEST_EXPLODE)) && o_ptr->k_idx)
+	if ((trap & (CHEST_EXPLODE)) && object_ptr->k_idx)
 	{
 #ifdef JP
 		msg_print("突然、箱が爆発した！");
@@ -797,7 +797,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("Everything inside the chest is destroyed!");
 #endif
 
-		o_ptr->pval = 0;
+		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
 		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "爆発する箱", NULL, -1);
@@ -807,7 +807,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	}
 	/* Scatter contents. */
-	if ((trap & (CHEST_SCATTER)) && o_ptr->k_idx)
+	if ((trap & (CHEST_SCATTER)) && object_ptr->k_idx)
 	{
 #ifdef JP
 		msg_print("宝箱の中身はダンジョンじゅうに散乱した！");
@@ -815,7 +815,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("The contents of the chest scatter all over the dungeon!");
 #endif
 		chest_death(TRUE, floor_ptr, y, x, object_idx);
-		o_ptr->pval = 0;
+		object_ptr->pval = 0;
 	}
 }
 
@@ -832,7 +832,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	int i, j;
 	bool flag = TRUE;
 	bool more = FALSE;
-	object_type *o_ptr = &object_list[object_idx];
+	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 
@@ -840,7 +840,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	energy_use = 100;
 
 	/* Attempt to unlock it */
-	if (o_ptr->pval > 0)
+	if (object_ptr->pval > 0)
 	{
 		/* Assume locked, and thus not open */
 		flag = FALSE;
@@ -853,7 +853,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the difficulty */
-		j = i - o_ptr->pval;
+		j = i - object_ptr->pval;
 
 		/* Always have a small chance of success */
 		if (j < 2) j = 2;
@@ -963,7 +963,7 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
 static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trapped)
 {
 	int d, count, object_idx;
-	object_type *o_ptr;
+	object_type *object_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
 	/* Count how many matches */
@@ -979,14 +979,14 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 		if ((object_idx = chest_check(floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
 		/* Grab the object */
-		o_ptr = &object_list[object_idx];
+		object_ptr = &object_list[object_idx];
 
 		/* Already open */
-		if (o_ptr->pval == 0) continue;
+		if (object_ptr->pval == 0) continue;
 
 		/* No (known) traps here */
-		if (trapped && (!object_is_known(o_ptr) ||
-			!chest_traps[o_ptr->pval])) continue;
+		if (trapped && (!object_is_known(object_ptr) ||
+			!chest_traps[object_ptr->pval])) continue;
 
 		/* OK */
 		++count;
@@ -1810,7 +1810,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 	bool more = FALSE;
 
-	object_type *o_ptr = &object_list[object_idx];
+	object_type *object_ptr = &object_list[object_idx];
 
 
 	/* Take a turn */
@@ -1824,13 +1824,13 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 	/* Extract the difficulty */
-	j = i - o_ptr->pval;
+	j = i - object_ptr->pval;
 
 	/* Always have a small chance of success */
 	if (j < 2) j = 2;
 
 	/* Must find the trap first. */
-	if (!object_is_known(o_ptr))
+	if (!object_is_known(object_ptr))
 	{
 #ifdef JP
 		msg_print("トラップが見あたらない。");
@@ -1841,7 +1841,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* Already disarmed/unlocked */
-	else if (o_ptr->pval <= 0)
+	else if (object_ptr->pval <= 0)
 	{
 #ifdef JP
 		msg_print("箱にはトラップが仕掛けられていない。");
@@ -1852,7 +1852,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* No traps to find. */
-	else if (!chest_traps[o_ptr->pval])
+	else if (!chest_traps[object_ptr->pval])
 	{
 #ifdef JP
 		msg_print("箱にはトラップが仕掛けられていない。");
@@ -1871,8 +1871,8 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 		msg_print("You have disarmed the chest.");
 #endif
 
-		gain_exp(creature_ptr, o_ptr->pval);
-		o_ptr->pval = (0 - o_ptr->pval);
+		gain_exp(creature_ptr, object_ptr->pval);
+		object_ptr->pval = (0 - object_ptr->pval);
 	}
 
 	/* Failure -- Keep trying */
@@ -2445,13 +2445,13 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 	/* Check every item in the pack */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &creature_ptr->inventory[i];
+		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
+		if (!object_ptr->k_idx) continue;
 
 		/* Check the "tval" code */
-		if (o_ptr->tval == TV_SPIKE)
+		if (object_ptr->tval == TV_SPIKE)
 		{
 			/* Save the spike index */
 			(*ip) = i;
@@ -2794,7 +2794,7 @@ void do_cmd_rest(creature_type *creature_ptr)
  *
  * Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
  */
-static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
+static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int archer_bonus = (creature_ptr->class_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
 
@@ -2811,7 +2811,7 @@ static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
 	}
 
 	/* Examine the item type */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		/* Always break */
 		case TV_FLASK:
@@ -2844,7 +2844,7 @@ static int breakage_chance(creature_type *creature_ptr, object_type *o_ptr)
 }
 
 
-static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, int tdam, creature_type *target_ptr)
+static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr)
 {
 	int mult = 10;
 
@@ -2853,10 +2853,10 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Extract the flags */
-	object_flags(o_ptr, flgs);
+	object_flags(object_ptr, flgs);
 
 	/* Some "weapons" and "ammo" do extra damage */
-	switch (o_ptr->tval)
+	switch (object_ptr->tval)
 	{
 		case TV_SHOT:
 		case TV_ARROW:
@@ -3029,7 +3029,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *o_ptr, in
 
 				if (mult < 30) mult = 30;
 
-				if ((o_ptr->name1 == ART_BARD_ARROW) &&
+				if ((object_ptr->name1 == ART_BARD_ARROW) &&
 				    (target_ptr->species_idx == MON_SMAUG) &&
 				    (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_BARD))
 					mult *= 5;
@@ -3160,7 +3160,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	int cur_dis, visible;
 
 	object_type forge;
-	object_type *quest_ptr, *o_ptr;
+	object_type *quest_ptr, *object_ptr;
 
 	bool hit_body = FALSE;
 
@@ -3176,18 +3176,18 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Sniper - Cannot shot a single arrow twice */
-	if ((creature_ptr->snipe_type == SP_DOUBLE) && (o_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
+	if ((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
 
 	/* Describe the object */
-	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+	object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */
 	thits = creature_ptr->num_fire;
@@ -3196,10 +3196,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	tdis = 10;
 
 	/* Base damage from thrown object plus launcher bonus */
-	tdam_base = diceroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_damage + j_ptr->to_damage;
+	tdam_base = diceroll(object_ptr->dd, object_ptr->ds) + object_ptr->to_damage + j_ptr->to_damage;
 
 	/* Actually "fire" the object */
-	bonus = (creature_ptr->to_hit_b + o_ptr->to_hit + j_ptr->to_hit);
+	bonus = (creature_ptr->to_hit_b + object_ptr->to_hit + j_ptr->to_hit);
 
 	/* TODO
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
@@ -3290,7 +3290,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(quest_ptr, o_ptr);
+	object_copy(quest_ptr, object_ptr);
 
 	/* Single object */
 	quest_ptr->number = 1;
@@ -3712,17 +3712,17 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			return;
 		}
 
-		o_ptr = &object_list[object_idx];
-		object_copy(o_ptr, quest_ptr);
+		object_ptr = &object_list[object_idx];
+		object_copy(object_ptr, quest_ptr);
 
 		/* Forget mark */
-		o_ptr->marked &= OM_TOUCHED;
+		object_ptr->marked &= OM_TOUCHED;
 
 		/* Forget location */
-		o_ptr->fy = o_ptr->fx = 0;
+		object_ptr->fy = object_ptr->fx = 0;
 
 		/* Memorize creature */
-		o_ptr->held_m_idx = m_idx;
+		object_ptr->held_m_idx = m_idx;
 
 		/* Build a stack */
 		//TODO
@@ -3827,9 +3827,9 @@ void do_cmd_fire(creature_type *creature_ptr)
 }
 
 
-static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if ((o_ptr->tval==TV_DIGGING) || (o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM) || (o_ptr->tval == TV_HAFTED)) return (TRUE);
+	if ((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
 
 	/* Assume not */
 	return (FALSE);
@@ -3858,7 +3858,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	object_type forge;
 	object_type *quest_ptr;
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	bool hit_body = FALSE;
 	bool hit_wall = FALSE;
@@ -3924,16 +3924,16 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 
 	/* Item is cursed */
-	if (object_is_cursed(o_ptr) && IS_EQUIPPED(o_ptr))
+	if (object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -3948,7 +3948,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if (fight_arena_mode && !boomerang)
 	{
-		if (o_ptr->tval != TV_SPIKE)
+		if (object_ptr->tval != TV_SPIKE)
 		{
 #ifdef JP
 			msg_print("アリーナではアイテムを使えない！");
@@ -3966,13 +3966,13 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	quest_ptr = &forge;
 
 	/* Obtain a local object */
-	object_copy(quest_ptr, o_ptr);
+	object_copy(quest_ptr, object_ptr);
 
 	/* Extract the thrown object's flags. */
 	object_flags(quest_ptr, flgs);
 
 	/* Distribute the charges of rods/wands between the stacks */
-	distribute_charges(o_ptr, quest_ptr, 1);
+	distribute_charges(object_ptr, quest_ptr, 1);
 
 	/* Single object */
 	quest_ptr->number = 1;
@@ -4041,7 +4041,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (IS_EQUIPPED(o_ptr))
+	if (IS_EQUIPPED(object_ptr))
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);
@@ -4409,10 +4409,10 @@ msg_print("これはあまり良くない気がする。");
 		if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_ARMS)
 		{
 			/* Access the wield slot */
-			o_ptr = &creature_ptr->inventory[item];
+			object_ptr = &creature_ptr->inventory[item];
 
 			/* Wear the new stuff */
-			object_copy(o_ptr, quest_ptr);
+			object_copy(object_ptr, quest_ptr);
 
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);

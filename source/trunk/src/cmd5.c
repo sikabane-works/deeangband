@@ -323,7 +323,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 }
 
 
-static bool item_tester_learn_spell(creature_type *creature_ptr, object_type *o_ptr)
+static bool item_tester_learn_spell(creature_type *creature_ptr, object_type *object_ptr)
 {
 	s32b choices = realm_choices2[creature_ptr->class_idx];
 
@@ -339,11 +339,11 @@ static bool item_tester_learn_spell(creature_type *creature_ptr, object_type *o_
 		}
 	}
 
-	if ((o_ptr->tval < TV_LIFE_BOOK) || (o_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
-	if ((o_ptr->tval == TV_MUSIC_BOOK) && (creature_ptr->class_idx == CLASS_BARD)) return (TRUE);
-	else if (!is_magic(tval2realm(o_ptr->tval))) return FALSE;
-	if ((REALM1_BOOK(creature_ptr) == o_ptr->tval) || (REALM2_BOOK(creature_ptr) == o_ptr->tval)) return (TRUE);
-	if (choices & (0x0001 << (tval2realm(o_ptr->tval) - 1))) return (TRUE);
+	if ((object_ptr->tval < TV_LIFE_BOOK) || (object_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
+	if ((object_ptr->tval == TV_MUSIC_BOOK) && (creature_ptr->class_idx == CLASS_BARD)) return (TRUE);
+	else if (!is_magic(tval2realm(object_ptr->tval))) return FALSE;
+	if ((REALM1_BOOK(creature_ptr) == object_ptr->tval) || (REALM2_BOOK(creature_ptr) == object_ptr->tval)) return (TRUE);
+	if (choices & (0x0001 << (tval2realm(object_ptr->tval) - 1))) return (TRUE);
 	return (FALSE);
 }
 
@@ -352,18 +352,18 @@ static bool creature_has_no_spellbooks(creature_type *creature_ptr)
 {
 	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
 	int         i;
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &creature_ptr->inventory[i];
-		if (o_ptr->k_idx && check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;
+		object_ptr = &creature_ptr->inventory[i];
+		if (object_ptr->k_idx && check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval)) return FALSE;
 	}
 
-	for (i = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; i; i = o_ptr->next_object_idx)
+	for (i = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; i; i = object_ptr->next_object_idx)
 	{
-		o_ptr = &object_list[i];
-		if (o_ptr->k_idx && (o_ptr->marked & OM_FOUND) && check_book_realm(creature_ptr, o_ptr->tval, o_ptr->sval)) return FALSE;
+		object_ptr = &object_list[i];
+		if (object_ptr->k_idx && (object_ptr->marked & OM_FOUND) && check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval)) return FALSE;
 	}
 
 	return TRUE;
@@ -432,7 +432,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 
 	int item_tester_tval;
 
-	object_type	*o_ptr;
+	object_type	*object_ptr;
 
 	cptr q, s;
 
@@ -497,22 +497,22 @@ void do_cmd_browse(creature_type *creature_ptr)
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Access the item's sval */
-	sval = o_ptr->sval;
+	sval = object_ptr->sval;
 
-	use_realm = tval2realm(o_ptr->tval);
+	use_realm = tval2realm(object_ptr->tval);
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(object_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff();
@@ -541,9 +541,9 @@ void do_cmd_browse(creature_type *creature_ptr)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(creature_ptr, &spell, "読む", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(creature_ptr, &spell, "読む", object_ptr->sval, TRUE, use_realm))
 #else
-		if (!get_spell(creature_ptr, &spell, "browse", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(creature_ptr, &spell, "browse", object_ptr->sval, TRUE, use_realm))
 #endif
 		{
 			/* If cancelled, leave immediately. */
@@ -648,7 +648,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	cptr p = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
 
-	object_type *o_ptr;
+	object_type *object_ptr;
 
 	cptr q, s;
 
@@ -737,32 +737,32 @@ s = "読める本がない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Access the item's sval */
-	sval = o_ptr->sval;
+	sval = object_ptr->sval;
 
-	if (o_ptr->tval == REALM2_BOOK(creature_ptr)) increment = 32;
-	else if (o_ptr->tval != REALM1_BOOK(creature_ptr))
+	if (object_ptr->tval == REALM2_BOOK(creature_ptr)) increment = 32;
+	else if (object_ptr->tval != REALM1_BOOK(creature_ptr))
 	{
 #ifdef JP
 		if (!get_check("本当に魔法の領域を変更しますか？")) return;
 #else
 		if (!get_check("Really, change magic realm? ")) return;
 #endif
-		change_realm2(creature_ptr, tval2realm(o_ptr->tval));
+		change_realm2(creature_ptr, tval2realm(object_ptr->tval));
 		increment = 32;
 	}
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(object_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff();
@@ -772,10 +772,10 @@ s = "読める本がない。";
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(creature_ptr, &spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(creature_ptr, &spell, "学ぶ", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #else
-		if (!get_spell(creature_ptr, &spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(creature_ptr, &spell, "study", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #endif
 
@@ -972,7 +972,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	cptr prayer;
 
-	object_type	*o_ptr;
+	object_type	*object_ptr;
 
 	magic_type	*s_ptr;
 
@@ -1081,29 +1081,29 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &creature_ptr->inventory[item];
+		object_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
 	else
 	{
-		o_ptr = &object_list[0 - item];
+		object_ptr = &object_list[0 - item];
 	}
 
 	/* Access the item's sval */
-	sval = o_ptr->sval;
+	sval = object_ptr->sval;
 
-	if ((creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(creature_ptr))) increment = 32;
+	if ((creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE) && (object_ptr->tval == REALM2_BOOK(creature_ptr))) increment = 32;
 
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(object_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	if ((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
-		realm = o_ptr->tval - TV_LIFE_BOOK + 1;
+		realm = object_ptr->tval - TV_LIFE_BOOK + 1;
 	else if (increment) realm = creature_ptr->realm2;
 	else realm = creature_ptr->realm1;
 
@@ -1127,7 +1127,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 #endif
 
 
-	use_realm = tval2realm(o_ptr->tval);
+	use_realm = tval2realm(object_ptr->tval);
 
 	/* Hex */
 	if (use_realm == REALM_HEX)
@@ -1213,7 +1213,7 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 		do_spell(creature_ptr, realm, spell, SPELL_FAIL);
 
 
-		if ((o_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
+		if ((object_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
 		{
 #ifdef JP
 msg_print("カオス的な効果を発生した！");
@@ -1223,7 +1223,7 @@ msg_print("カオス的な効果を発生した！");
 
 			wild_magic(creature_ptr, spell);
 		}
-		else if ((o_ptr->tval == TV_DEATH_BOOK) && (randint1(100) < spell))
+		else if ((object_ptr->tval == TV_DEATH_BOOK) && (randint1(100) < spell))
 		{
 			if ((sval == 3) && one_in_(2))
 			{
@@ -1238,16 +1238,16 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 
 				if ((spell > 15) && one_in_(6) && !creature_ptr->hold_life)
 					lose_exp(creature_ptr, spell * 250);
 			}
 		}
-		else if ((o_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
+		else if ((object_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
 		{
 #ifdef JP
 msg_print("いやな音が響いた");
