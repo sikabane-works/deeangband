@@ -337,6 +337,47 @@ static void rd_object(object_type *o_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) rd_u32b(&o_ptr->art_flags[3]);
 	else o_ptr->art_flags[3] = 0;
 
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&o_ptr->trait_flags[0]);
+	else o_ptr->trait_flags[0] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) rd_u32b(&o_ptr->trait_flags[1]);
+	else o_ptr->trait_flags[1] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) rd_u32b(&o_ptr->trait_flags[2]);
+	else o_ptr->trait_flags[2] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) rd_u32b(&o_ptr->trait_flags[3]);
+	else o_ptr->trait_flags[3] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) rd_u32b(&o_ptr->trait_flags[4]);
+	else o_ptr->trait_flags[4] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) rd_u32b(&o_ptr->trait_flags[5]);
+	else o_ptr->trait_flags[5] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) rd_u32b(&o_ptr->trait_flags[6]);
+	else o_ptr->trait_flags[6] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) rd_u32b(&o_ptr->trait_flags[7]);
+	else o_ptr->trait_flags[7] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) rd_u32b(&o_ptr->trait_flags[8]);
+	else o_ptr->trait_flags[8] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) rd_u32b(&o_ptr->trait_flags[9]);
+	else o_ptr->trait_flags[9] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) rd_u32b(&o_ptr->trait_flags[10]);
+	else o_ptr->trait_flags[10] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) rd_u32b(&o_ptr->trait_flags[11]);
+	else o_ptr->trait_flags[11] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) rd_u32b(&o_ptr->trait_flags[12]);
+	else o_ptr->trait_flags[12] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) rd_u32b(&o_ptr->trait_flags[13]);
+	else o_ptr->trait_flags[13] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) rd_u32b(&o_ptr->trait_flags[14]);
+	else o_ptr->trait_flags[14] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) rd_u32b(&o_ptr->trait_flags[15]);
+	else o_ptr->trait_flags[15] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) rd_u32b(&o_ptr->trait_flags[16]);
+	else o_ptr->trait_flags[16] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) rd_u32b(&o_ptr->trait_flags[17]);
+	else o_ptr->trait_flags[17] = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&o_ptr->trait_flags[18]);
+	else o_ptr->trait_flags[18] = 0;
+
+
+
 	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&o_ptr->curse_flags);
 	else o_ptr->curse_flags = 0;
 

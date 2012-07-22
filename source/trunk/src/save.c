@@ -132,6 +132,29 @@ static void wr_object(object_type *o_ptr)
 	if (o_ptr->size_lower) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_LOWER;
 	if (o_ptr->to_size) flags2 |= SAVEFLAG_OBJECT_KIND_TO_SIZE;
 
+	if (o_ptr->trait_flags[0]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0;
+	if (o_ptr->trait_flags[1]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1;
+	if (o_ptr->trait_flags[2]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2;
+	if (o_ptr->trait_flags[3]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3;
+	if (o_ptr->trait_flags[4]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4;
+
+	if (o_ptr->trait_flags[5]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5;
+	if (o_ptr->trait_flags[6]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6;
+	if (o_ptr->trait_flags[7]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7;
+	if (o_ptr->trait_flags[8]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8;
+	if (o_ptr->trait_flags[9]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9;
+
+	if (o_ptr->trait_flags[10]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10;
+	if (o_ptr->trait_flags[11]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11;
+	if (o_ptr->trait_flags[12]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12;
+	if (o_ptr->trait_flags[13]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13;
+	if (o_ptr->trait_flags[14]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14;
+
+	if (o_ptr->trait_flags[15]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15;
+	if (o_ptr->trait_flags[16]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16;
+	if (o_ptr->trait_flags[17]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17;
+	if (o_ptr->trait_flags[18]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18;
+
 	/*** Item save flags ***/
 	wr_u32b(flags);
 	wr_u32b(flags2);
@@ -174,6 +197,28 @@ static void wr_object(object_type *o_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) wr_u32b(o_ptr->art_flags[1]);
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) wr_u32b(o_ptr->art_flags[2]);
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) wr_u32b(o_ptr->art_flags[3]);
+
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) wr_u32b(o_ptr->trait_flags[0]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) wr_u32b(o_ptr->trait_flags[1]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) wr_u32b(o_ptr->trait_flags[2]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) wr_u32b(o_ptr->trait_flags[3]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) wr_u32b(o_ptr->trait_flags[4]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) wr_u32b(o_ptr->trait_flags[5]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) wr_u32b(o_ptr->trait_flags[6]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) wr_u32b(o_ptr->trait_flags[7]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) wr_u32b(o_ptr->trait_flags[8]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) wr_u32b(o_ptr->trait_flags[9]);
+
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) wr_u32b(o_ptr->trait_flags[10]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) wr_u32b(o_ptr->trait_flags[11]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) wr_u32b(o_ptr->trait_flags[12]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) wr_u32b(o_ptr->trait_flags[13]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) wr_u32b(o_ptr->trait_flags[14]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) wr_u32b(o_ptr->trait_flags[15]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) wr_u32b(o_ptr->trait_flags[16]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) wr_u32b(o_ptr->trait_flags[17]);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) wr_u32b(o_ptr->trait_flags[18]);
+
 
 	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(o_ptr->curse_flags);
 
