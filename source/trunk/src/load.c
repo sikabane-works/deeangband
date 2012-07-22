@@ -282,106 +282,106 @@ static void rd_object(object_type *o_ptr)
 	o_ptr->sval = k_ptr->sval;
 
 	/* Special pval */
-	if (flags & SAVE_ITEM_PVAL) rd_s16b(&o_ptr->pval);
+	if (flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&o_ptr->pval);
 	else o_ptr->pval = 0;
 
-	if (flags & SAVE_ITEM_DISCOUNT) rd_byte(&o_ptr->discount);
+	if (flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) rd_byte(&o_ptr->discount);
 	else o_ptr->discount = 0;
 
-	if (flags & SAVE_ITEM_NUMBER) rd_byte(&o_ptr->number);
+	if (flags & SAVEFLAG_OBJECT_KIND_NUMBER) rd_byte(&o_ptr->number);
 	else o_ptr->number = 1;
 
-	if (flags & SAVE_ITEM_VOLUME) rd_s32b(&o_ptr->volume);
+	if (flags & SAVEFLAG_OBJECT_KIND_VOLUME) rd_s32b(&o_ptr->volume);
 	else o_ptr->volume = 0;
 
 	rd_s16b(&o_ptr->weight);
 
-	if (flags & SAVE_ITEM_NAME1) rd_byte(&o_ptr->name1);
+	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) rd_byte(&o_ptr->name1);
 	else o_ptr->name1 = 0;
-	if (flags & SAVE_ITEM_NAME2) rd_s16b(&o_ptr->name2);
+	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) rd_s16b(&o_ptr->name2);
 	else o_ptr->name2 = 0;
-	if (flags & SAVE_ITEM_TIMEOUT) rd_s32b(&o_ptr->timeout);
+	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&o_ptr->timeout);
 	else o_ptr->timeout = 0;
 
-	if (flags & SAVE_ITEM_TO_H) rd_s16b(&o_ptr->to_hit);
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&o_ptr->to_hit);
 	else o_ptr->to_hit = 0;
-	if (flags & SAVE_ITEM_TO_D) rd_s16b(&o_ptr->to_damage);
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) rd_s16b(&o_ptr->to_damage);
 	else o_ptr->to_damage = 0;
-	if (flags & SAVE_ITEM_TO_A) rd_s16b(&o_ptr->to_ac);
+	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) rd_s16b(&o_ptr->to_ac);
 	else o_ptr->to_ac = 0;
-	if (flags2 & SAVE_ITEM_TO_E) rd_s16b(&o_ptr->to_ev);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) rd_s16b(&o_ptr->to_ev);
 	else o_ptr->to_ev = 0;
 
-	if (flags & SAVE_ITEM_AC) rd_s16b(&o_ptr->ac);
+	if (flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&o_ptr->ac);
 	else o_ptr->ac = 0;
-	if (flags2 & SAVE_ITEM_EV) rd_s16b(&o_ptr->ev);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) rd_s16b(&o_ptr->ev);
 	else o_ptr->ev = 0;
-	if (flags & SAVE_ITEM_DD) rd_byte(&o_ptr->dd);
+	if (flags & SAVEFLAG_OBJECT_KIND_DD) rd_byte(&o_ptr->dd);
 	else o_ptr->dd = 0;
-	if (flags & SAVE_ITEM_DS) rd_byte(&o_ptr->ds);
+	if (flags & SAVEFLAG_OBJECT_KIND_DS) rd_byte(&o_ptr->ds);
 	else o_ptr->ds = 0;
 
-	if (flags & SAVE_ITEM_IDENT) rd_byte(&o_ptr->ident);
+	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) rd_byte(&o_ptr->ident);
 	else o_ptr->ident = 0;
 
-	if (flags & SAVE_ITEM_MARKED) rd_byte(&o_ptr->marked);
+	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&o_ptr->marked);
 	else o_ptr->marked = 0;
 
 	/* Object flags */
-	if (flags & SAVE_ITEM_ART_FLAGS0) rd_u32b(&o_ptr->art_flags[0]);
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) rd_u32b(&o_ptr->art_flags[0]);
 	else o_ptr->art_flags[0] = 0;
-	if (flags & SAVE_ITEM_ART_FLAGS1) rd_u32b(&o_ptr->art_flags[1]);
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) rd_u32b(&o_ptr->art_flags[1]);
 	else o_ptr->art_flags[1] = 0;
-	if (flags & SAVE_ITEM_ART_FLAGS2) rd_u32b(&o_ptr->art_flags[2]);
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) rd_u32b(&o_ptr->art_flags[2]);
 	else o_ptr->art_flags[2] = 0;
-	if (flags & SAVE_ITEM_ART_FLAGS3) rd_u32b(&o_ptr->art_flags[3]);
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) rd_u32b(&o_ptr->art_flags[3]);
 	else o_ptr->art_flags[3] = 0;
 
-	if (flags & SAVE_ITEM_CURSE_FLAGS) rd_u32b(&o_ptr->curse_flags);
+	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&o_ptr->curse_flags);
 	else o_ptr->curse_flags = 0;
 
 	/* Creature holding object */
-	if (flags & SAVE_ITEM_HELD_M_IDX) rd_s16b(&o_ptr->held_m_idx);
+	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&o_ptr->held_m_idx);
 	else o_ptr->held_m_idx = 0;
 
 	/* Special powers */
-	if (flags & SAVE_ITEM_XTRA1) rd_byte(&o_ptr->xtra1);
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA1) rd_byte(&o_ptr->xtra1);
 	else o_ptr->xtra1 = 0;
-	if (flags & SAVE_ITEM_XTRA2) rd_byte(&o_ptr->xtra2);
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA2) rd_byte(&o_ptr->xtra2);
 	else o_ptr->xtra2 = 0;
-	if (flags & SAVE_ITEM_XTRA3) rd_byte(&o_ptr->xtra3);
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA3) rd_byte(&o_ptr->xtra3);
 	else o_ptr->xtra3 = 0;
-	if (flags & SAVE_ITEM_XTRA4) rd_s16b(&o_ptr->xtra4);
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA4) rd_s16b(&o_ptr->xtra4);
 	else o_ptr->xtra4 = 0;
-	if (flags & SAVE_ITEM_XTRA5) rd_s16b(&o_ptr->xtra5);
+	if (flags & SAVEFLAG_OBJECT_KIND_XTRA5) rd_s16b(&o_ptr->xtra5);
 	else o_ptr->xtra5 = 0;
 
-	if (flags & SAVE_ITEM_FEELING) rd_byte(&o_ptr->feeling);
+	if (flags & SAVEFLAG_OBJECT_KIND_FEELING) rd_byte(&o_ptr->feeling);
 	else o_ptr->feeling = 0;
 
-	if (flags & SAVE_ITEM_INSCRIPTION)
+	if (flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION)
 	{
 		rd_string(buf, sizeof(buf));
 		o_ptr->inscription = quark_add(buf);
 	}
 	else o_ptr->inscription = 0;
 
-	if (flags & SAVE_ITEM_ART_NAME)
+	if (flags & SAVEFLAG_OBJECT_KIND_ART_NAME)
 	{
 		rd_string(buf, sizeof(buf));
 		o_ptr->art_name = quark_add(buf);
 	}
 	else o_ptr->art_name = 0;
 
-	if (flags & SAVE_ITEM_CREATER) rd_s16b(&o_ptr->creater_idx);
+	if (flags & SAVEFLAG_OBJECT_KIND_CREATER) rd_s16b(&o_ptr->creater_idx);
 	else o_ptr->art_name = 0;
 
-	if (flags & SAVE_ITEM_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
-	if (flags & SAVE_ITEM_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
+	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) rd_byte(&o_ptr->equipped_slot_type);
+	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) rd_byte(&o_ptr->equipped_slot_num);
 
-	if (flags2 & SAVE_ITEM_SIZE_UPPER) rd_s16b(&o_ptr->size_upper);
-	if (flags2 & SAVE_ITEM_SIZE_LOWER) rd_s16b(&o_ptr->size_lower);
-	if (flags2 & SAVE_ITEM_TO_SIZE) rd_s16b(&o_ptr->to_size);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) rd_s16b(&o_ptr->size_upper);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) rd_s16b(&o_ptr->size_lower);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) rd_s16b(&o_ptr->to_size);
 
 }
 

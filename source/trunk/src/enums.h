@@ -155,7 +155,6 @@ enum RACE_RARELITY_TYPE
 };
 
 
-
 enum CLASS_TYPE
 {
 	CLASS_NONE,
