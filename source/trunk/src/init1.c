@@ -5633,10 +5633,13 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		dungeon_type *dungeon_ptr;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize DU:%d]", n);
+
+		dungeon_ptr = &dungeon_info[n];
 
 
 		note(nt);
@@ -5651,32 +5654,32 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			switch(du_info_csv_code[i])
 			{
 				case DU_INFO_NAME:
-					if (!add_name(&dungeon_info[n].name, head, tmp))
+					if (!add_name(&dungeon_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_NAME:
-					if (!add_name(&dungeon_info[n].E_name, head, tmp))
+					if (!add_name(&dungeon_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_DY:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].dy = (byte)b;
+					dungeon_ptr->dy = (byte)b;
 					break;
 
 				case DU_INFO_DX:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].dx = (byte)b;
+					dungeon_ptr->dx = (byte)b;
 					break;
 
 				case DU_INFO_TEXT:
-					if (!add_name(&dungeon_info[n].text, head, tmp))
+					if (!add_name(&dungeon_ptr->text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_TEXT:
-					if (!add_name(&dungeon_info[n].E_text, head, tmp))
+					if (!add_name(&dungeon_ptr->E_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
@@ -5722,27 +5725,27 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_MINDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].mindepth = (s16b)b;
+					dungeon_ptr->mindepth = (s16b)b;
 					break;
 
 				case DU_INFO_MAXDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].maxdepth = (s16b)b;
+					dungeon_ptr->maxdepth = (s16b)b;
 					break;
 
 				case DU_INFO_MIN_PLEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].min_plev = (byte)b;
+					dungeon_ptr->min_plev = (byte)b;
 					break;
 
 				case DU_INFO_PIT:
 					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].pit = (s16b)b;
+					dungeon_ptr->pit = (s16b)b;
 					break;
 
 				case DU_INFO_NEST:
 					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].nest = (s16b)b;
+					dungeon_ptr->nest = (s16b)b;
 					break;
 
 				case DU_INFO_MODE:
@@ -5755,12 +5758,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_MIN_M_ALLOC_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].min_m_alloc_level = (s16b)b;
+					dungeon_ptr->min_m_alloc_level = (s16b)b;
 					break;
 
 				case DU_INFO_MAX_M_ALLOC_CHANCE:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].max_m_alloc_chance = (s16b)b;
+					dungeon_ptr->max_m_alloc_chance = (s16b)b;
 					break;
 
 				case DU_INFO_D_FLAGS:
@@ -5793,37 +5796,37 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_FINAL_OBJECT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].final_object = (s16b)b;
+					dungeon_ptr->final_object = (s16b)b;
 					break;
 
 				case DU_INFO_FINAL_ARTIFACT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].final_artifact = (s16b)b;
+					dungeon_ptr->final_artifact = (s16b)b;
 					break;
 
 				case DU_INFO_FINAL_GUARDIAN:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].final_artifact = (s16b)b;
+					dungeon_ptr->final_artifact = (s16b)b;
 					break;
 
 				case DU_INFO_SPECIAL_DIV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].special_div = (byte)b;
+					dungeon_ptr->special_div = (byte)b;
 					break;
 
 				case DU_INFO_TUNNEL_PERCENT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].tunnel_percent = (byte)b;
+					dungeon_ptr->tunnel_percent = (byte)b;
 					break;
 
 				case DU_INFO_OBJ_GREAT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].obj_great = (byte)b;
+					dungeon_ptr->obj_great = (byte)b;
 					break;
 
 				case DU_INFO_OBJ_GOOD:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_info[n].obj_good = (byte)b;
+					dungeon_ptr->obj_good = (byte)b;
 					break;
 
 				case DU_INFO_RACE_POP:
