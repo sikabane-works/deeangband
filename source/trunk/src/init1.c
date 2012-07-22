@@ -5353,10 +5353,13 @@ errr parse_chara_info_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		chara_type *chara_ptr;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize CH:%d]", n);
+
+		chara_ptr = &chara_info[n];
 
 
 		note(nt);
@@ -5371,117 +5374,117 @@ errr parse_chara_info_csv(char *buf, header *head)
 			switch(ch_info_csv_code[i])
 			{
 				case CH_INFO_NAME:
-					if (!add_name(&chara_info[n].name, head, tmp))
+					if (!add_name(&chara_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_NAME:
 #if JP
-					if (!add_name(&chara_info[n].E_name, head, tmp))
+					if (!add_name(&chara_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if (!add_name(&chara_info[n].name, head, tmp))
+					if (!add_name(&chara_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 
 				case CH_INFO_RARITY:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].rarity = (s16b)b;
+					chara_ptr->rarity = (s16b)b;
 					break;
 
 				case CH_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_STR] = (s16b)b;
+					chara_ptr->a_adj[STAT_STR] = (s16b)b;
 					break;
 
 				case CH_INFO_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_INT] = (s16b)b;
+					chara_ptr->a_adj[STAT_INT] = (s16b)b;
 					break;
 
 				case CH_INFO_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_WIS] = (s16b)b;
+					chara_ptr->a_adj[STAT_WIS] = (s16b)b;
 					break;
 
 				case CH_INFO_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_DEX] = (s16b)b;
+					chara_ptr->a_adj[STAT_DEX] = (s16b)b;
 					break;
 
 				case CH_INFO_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_CON] = (s16b)b;
+					chara_ptr->a_adj[STAT_CON] = (s16b)b;
 					break;
 
 				case CH_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_adj[STAT_CHA] = (s16b)b;
+					chara_ptr->a_adj[STAT_CHA] = (s16b)b;
 					break;
 
 				case CH_INFO_C_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_dis = (s16b)b;
+					chara_ptr->a_dis = (s16b)b;
 					break;
 
 				case CH_INFO_C_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_dev = (s16b)b;
+					chara_ptr->a_dev = (s16b)b;
 					break;
 
 				case CH_INFO_C_SAV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_sav = (s16b)b;
+					chara_ptr->a_sav = (s16b)b;
 					break;
 
 				case CH_INFO_C_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_stl = (s16b)b;
+					chara_ptr->a_stl = (s16b)b;
 					break;
 
 				case CH_INFO_C_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_srh = (s16b)b;
+					chara_ptr->a_srh = (s16b)b;
 					break;
 
 				case CH_INFO_C_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_fos = (s16b)b;
+					chara_ptr->a_fos = (s16b)b;
 					break;
 
 				case CH_INFO_C_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_thn = (s16b)b;
+					chara_ptr->a_thn = (s16b)b;
 					break;
 
 				case CH_INFO_C_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_thb = (s16b)b;
+					chara_ptr->a_thb = (s16b)b;
 					break;
 
 				case CH_INFO_HD:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].a_mhp = (s16b)b;
+					chara_ptr->a_mhp = (s16b)b;
 					break;
 
 				case CH_INFO_JP_NO:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].no = (byte)b;
+					chara_ptr->no = (byte)b;
 					break;
 
 				case CH_INFO_SEX:
 					if(sscanf(tmp, "0x%x", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].sex = (byte)b;
+					chara_ptr->sex = (byte)b;
 					break;
 
 				case CH_INFO_M_PENA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_info[n].m_pena = (s16b)b;
+					chara_ptr->m_pena = (s16b)b;
 					break;
 
 				case CH_INFO_FLAGS:
-					if(0 != traits_precondition_splits(&chara_info[n].flags, tmp))
+					if(0 != traits_precondition_splits(&chara_ptr->flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
 			}
