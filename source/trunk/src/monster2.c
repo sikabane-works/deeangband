@@ -1765,16 +1765,9 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		if (!gamble_arena_mode && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" creatures must be "unique" */
-			if (((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL)) &&
-			    (r_ptr->cur_num >= r_ptr->max_num))
-			{
-				continue;
-			}
+			if ((is_unique_species(r_ptr)) && (r_ptr->cur_num >= r_ptr->max_num)) continue;
 
-			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1))
-			{
-				continue;
-			}
+			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1)) continue;
 
 			if (species_idx == MON_BANORLUPART)
 			{

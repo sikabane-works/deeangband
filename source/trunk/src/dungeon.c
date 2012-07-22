@@ -6061,16 +6061,9 @@ void determine_bounty_uniques(void)
 			r_ptr = &species_info[kubi_species_idx[i]];
 
 			if (!is_unique_species(r_ptr)) continue;
-
-			if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
-
 			if (r_ptr->rarity > 100) continue;
-
 			if (no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
-
-			for (j = 0; j < i; j++)
-				if (kubi_species_idx[i] == kubi_species_idx[j]) break;
-
+			for (j = 0; j < i; j++) if (kubi_species_idx[i] == kubi_species_idx[j]) break;
 			if (j == i) break;
 		}
 	}
