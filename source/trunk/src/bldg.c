@@ -1656,23 +1656,23 @@ static bool vault_aux_battle(int species_idx)
 	int i;
 	int dam = 0;
 
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 	
-	if (is_unique_species(r_ptr)) return (FALSE); // Decline unique creatures
-	if (is_never_move_species(r_ptr)) return (FALSE);
-	if (is_multiply_species(r_ptr)) return (FALSE);
-	if (is_quantum_species(r_ptr)) return (FALSE);
-	if (is_aquatic_species(r_ptr)) return (FALSE);
-	if (is_chameleon_species(r_ptr)) return (FALSE);
+	if (is_unique_species(species_ptr)) return (FALSE); // Decline unique creatures
+	if (is_never_move_species(species_ptr)) return (FALSE);
+	if (is_multiply_species(species_ptr)) return (FALSE);
+	if (is_quantum_species(species_ptr)) return (FALSE);
+	if (is_aquatic_species(species_ptr)) return (FALSE);
+	if (is_chameleon_species(species_ptr)) return (FALSE);
 
 	for (i = 0; i < 4; i++)
 	{
-		if (r_ptr->blow[i].method == RBM_EXPLODE) return (FALSE);
-		if (r_ptr->blow[i].effect != RBE_DR_MANA) dam += r_ptr->blow[i].d_dice;
+		if (species_ptr->blow[i].method == RBM_EXPLODE) return (FALSE);
+		if (species_ptr->blow[i].effect != RBE_DR_MANA) dam += species_ptr->blow[i].d_dice;
 	}
 	if (!dam && 
-		!(has_bolt_flags(&r_ptr->flags) || has_beam_flags(&r_ptr->flags) ||
-		  has_ball_flags(&r_ptr->flags) || has_breath_flags(&r_ptr->flags)))
+		!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) ||
+		  has_ball_flags(&species_ptr->flags) || has_breath_flags(&species_ptr->flags)))
 			return (FALSE);
 
 	/* Okay */
@@ -2801,7 +2801,7 @@ sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
 static void castle_quest(creature_type *creature_ptr)
 {
 	int             q_index = 0;
-	species_type    *r_ptr;
+	species_type    *species_ptr;
 	quest_type      *q_ptr;
 	cptr            name;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -2880,12 +2880,12 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 				q_ptr->species_idx = get_species_num(floor_ptr, q_ptr->level + 4 + randint1(6));
 			}
 
-			r_ptr = &species_info[q_ptr->species_idx];
+			species_ptr = &species_info[q_ptr->species_idx];
 
-			while (is_unique_species(r_ptr) || (r_ptr->rarity != 1))
+			while (is_unique_species(species_ptr) || (species_ptr->rarity != 1))
 			{
 				q_ptr->species_idx = get_species_num(floor_ptr, q_ptr->level) + 4 + (s16b)randint1(6);
-				r_ptr = &species_info[q_ptr->species_idx];
+				species_ptr = &species_info[q_ptr->species_idx];
 			}
 
 			if (q_ptr->max_num == 0)
@@ -2898,7 +2898,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 			}
 
 			q_ptr->cur_num = 0;
-			name = (species_name + r_ptr->name);
+			name = (species_name + species_ptr->name);
 #ifdef JP
 msg_format("クエスト: %sを %d体倒す", name,q_ptr->max_num);
 #else
