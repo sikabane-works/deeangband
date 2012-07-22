@@ -5646,7 +5646,6 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 		for(i = 1; i < DU_INFO_CSV_COLUMNS; i++)
 		{
-			dungeon_type *d_ptr = &dungeon_info[n];
 			
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
@@ -5685,42 +5684,42 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_FEAT_PROB_FLOOR:
 					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
-					d_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
-					d_ptr->floor[0].percent = atoi(zz[1]);
-					d_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
-					d_ptr->floor[1].percent = atoi(zz[3]);
-					d_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
-					d_ptr->floor[2].percent = atoi(zz[5]);
+					dungeon_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
+					dungeon_ptr->floor[0].percent = atoi(zz[1]);
+					dungeon_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
+					dungeon_ptr->floor[1].percent = atoi(zz[3]);
+					dungeon_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
+					dungeon_ptr->floor[2].percent = atoi(zz[5]);
 					break;
 
 				case DU_INFO_FEAT_PROB_FILL:
 					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
-					d_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
-					d_ptr->fill[0].percent = atoi(zz[1]);
-					d_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
-					d_ptr->fill[1].percent = atoi(zz[3]);
-					d_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
-					d_ptr->fill[2].percent = atoi(zz[5]);
+					dungeon_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
+					dungeon_ptr->fill[0].percent = atoi(zz[1]);
+					dungeon_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
+					dungeon_ptr->fill[1].percent = atoi(zz[3]);
+					dungeon_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
+					dungeon_ptr->fill[2].percent = atoi(zz[5]);
 					break;
 
 				case DU_INFO_OUTER_WALL:
-					d_ptr->outer_wall = feature_tag_to_index(tmp);
-					if (d_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					dungeon_ptr->outer_wall = feature_tag_to_index(tmp);
+					if (dungeon_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_INNER_WALL:
-					d_ptr->inner_wall = feature_tag_to_index(tmp);
-					if (d_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					dungeon_ptr->inner_wall = feature_tag_to_index(tmp);
+					if (dungeon_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_STREAM1:
-					d_ptr->stream1 = feature_tag_to_index(tmp);
-					if (d_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					dungeon_ptr->stream1 = feature_tag_to_index(tmp);
+					if (dungeon_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_STREAM2:
-					d_ptr->stream2 = feature_tag_to_index(tmp);
-					if (d_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					dungeon_ptr->stream2 = feature_tag_to_index(tmp);
+					if (dungeon_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_MINDEPTH:
@@ -5749,11 +5748,11 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_MODE:
-					if(strcmp(tmp, "NONE") == 0) d_ptr->mode = DUNGEON_MODE_NONE;
-					if(strcmp(tmp, "AND") == 0) d_ptr->mode = DUNGEON_MODE_AND;
-					if(strcmp(tmp, "NAND") == 0) d_ptr->mode = DUNGEON_MODE_NAND;
-					if(strcmp(tmp, "OR") == 0) d_ptr->mode = DUNGEON_MODE_OR;
-					if(strcmp(tmp, "NOR") == 0) d_ptr->mode = DUNGEON_MODE_NOR;
+					if(strcmp(tmp, "NONE") == 0) dungeon_ptr->mode = DUNGEON_MODE_NONE;
+					if(strcmp(tmp, "AND") == 0) dungeon_ptr->mode = DUNGEON_MODE_AND;
+					if(strcmp(tmp, "NAND") == 0) dungeon_ptr->mode = DUNGEON_MODE_NAND;
+					if(strcmp(tmp, "OR") == 0) dungeon_ptr->mode = DUNGEON_MODE_OR;
+					if(strcmp(tmp, "NOR") == 0) dungeon_ptr->mode = DUNGEON_MODE_NOR;
 					break;
 
 				case DU_INFO_MIN_M_ALLOC_LEVEL:
@@ -5781,7 +5780,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 						}
 
 						/* Parse this entry */
-						if (0 != grab_one_dungeon_flag(d_ptr, s)) return (5);
+						if (0 != grab_one_dungeon_flag(dungeon_ptr, s)) return (5);
 
 						/* Start the next entry */
 						s = t;
