@@ -1639,20 +1639,6 @@ bool has_trait_from_race(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-bool has_trait_from_species(creature_type *creature_ptr, int type)
-{
-	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
-	{
-		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		if(species_ptr->flags.add_lev[type] != 0 && 
-		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
-		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
-		{
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
 
 bool has_trait_from_class(creature_type *creature_ptr, int type)
 {
@@ -1685,12 +1671,31 @@ bool has_trait_from_chara(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-bool has_trait(creature_type *creature_ptr, int type)
+bool has_trait_from_species(creature_type *creature_ptr, int type)
 {
+	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
+	{
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
+		if(species_ptr->flags.add_lev[type] != 0 && 
+		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+
 	if(has_trait_from_race(creature_ptr, type)) return TRUE;
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
 	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
+
+	return FALSE;
+}
+
+bool has_trait(creature_type *creature_ptr, int type)
+{
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;
+	if(has_trait_from_class(creature_ptr, type)) return TRUE;
+	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
 
 	return FALSE;
 }
