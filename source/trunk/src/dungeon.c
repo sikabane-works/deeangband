@@ -6061,9 +6061,11 @@ void determine_bounty_uniques(void)
 			r_ptr = &species_info[kubi_species_idx[i]];
 
 			if (!is_unique_species(r_ptr)) continue;
+			//TODO if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 			if (r_ptr->rarity > 100) continue;
 			if (no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
-			for (j = 0; j < i; j++) if (kubi_species_idx[i] == kubi_species_idx[j]) break;
+			for (j = 0; j < i; j++)
+				if (kubi_species_idx[i] == kubi_species_idx[j]) break;
 			if (j == i) break;
 		}
 	}
@@ -6116,7 +6118,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		if (is_unique_species(r_ptr)) continue;
 		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
 		if (is_multiply_species(r_ptr)) continue;
-		if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
+		//if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;
@@ -6427,6 +6429,7 @@ static void new_game_setting(void)
 
 	load = FALSE;
 
+	prt("Please Wait ... Bounties", 0, 0);
 	determine_bounty_uniques();
 	determine_today_mon(player_ptr, FALSE);
 
