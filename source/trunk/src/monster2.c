@@ -4243,7 +4243,7 @@ msg_print("守りのルーンが壊れた！");
 		{
 			cptr color;
 			object_type *object_ptr;
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 
 			if (r_ptr->level > watcher_ptr->lev + 30)
 #ifdef JP
@@ -4285,11 +4285,11 @@ msg_print("守りのルーンが壊れた！");
 			object_ptr = choose_warning_item(watcher_ptr);
 			if (object_ptr)
 			{
-				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-				msg_format("%sは%s光った。", o_name, color);
+				msg_format("%sは%s光った。", object_name, color);
 #else
-				msg_format("%s glows %s.", o_name, color);
+				msg_format("%s glows %s.", object_name, color);
 #endif
 			}
 			else

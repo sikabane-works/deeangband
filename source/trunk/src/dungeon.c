@@ -199,7 +199,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 {
 	byte        feel;
 	object_type *object_ptr = &creature_ptr->inventory[slot];
-	char        o_name[MAX_NLEN];
+	char        object_name[MAX_NLEN];
 
 	/* We know about it already, do not tell us again */
 	if (object_ptr->ident & (IDENT_SENSE))return;
@@ -266,17 +266,17 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 
 	/* Get an object description */
-	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	// Message (equipment)
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
 msg_format("%s%s(%c)は%sという感じがする...",
-describe_use(creature_ptr, slot),o_name, index_to_label(slot),game_inscriptions[feel]);
+describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
-			   o_name, index_to_label(slot), describe_use(slot),
+			   object_name, index_to_label(slot), describe_use(slot),
 			   ((object_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -288,10 +288,10 @@ describe_use(creature_ptr, slot),o_name, index_to_label(slot),game_inscriptions[
 	{
 #ifdef JP
 msg_format("ザックの中の%s(%c)は%sという感じがする...",
-o_name, index_to_label(slot),game_inscriptions[feel]);
+object_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
-			   o_name, index_to_label(slot),
+			   object_name, index_to_label(slot),
 			   ((object_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -1296,7 +1296,7 @@ bool psychometry(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *object_ptr;
-	char            o_name[MAX_NLEN];
+	char            object_name[MAX_NLEN];
 	byte            feel;
 	cptr            q, s;
 	bool okay = FALSE;
@@ -1340,15 +1340,15 @@ msg_print("何も新しいことは判らなかった。");
 	feel = value_check_aux1(creature_ptr, object_ptr);
 
 	/* Get an object description */
-	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Skip non-feelings */
 	if (!feel)
 	{
 #ifdef JP
-msg_format("%sからは特に変わった事は感じとれなかった。", o_name);
+msg_format("%sからは特に変わった事は感じとれなかった。", object_name);
 #else
-		msg_format("You do not perceive anything unusual about the %s.", o_name);
+		msg_format("You do not perceive anything unusual about the %s.", object_name);
 #endif
 
 		return TRUE;
@@ -1356,10 +1356,10 @@ msg_format("%sからは特に変わった事は感じとれなかった。", o_name);
 
 #ifdef JP
 msg_format("%sは%sという感じがする...",
-    o_name,  game_inscriptions[feel]);
+    object_name,  game_inscriptions[feel]);
 #else
 	msg_format("You feel that the %s %s %s...",
-			   o_name, ((object_ptr->number == 1) ? "is" : "are"),
+			   object_name, ((object_ptr->number == 1) ? "is" : "are"),
 			   game_inscriptions[feel]);
 #endif
 
@@ -1422,7 +1422,7 @@ msg_format("%sは%sという感じがする...",
  */
 static void recharged_notice(object_type *object_ptr)
 {
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	cptr s;
 
@@ -1439,16 +1439,16 @@ static void recharged_notice(object_type *object_ptr)
 		if (s[1] == '!')
 		{
 			/* Describe (briefly) */
-			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/* Notify the player */
 #ifdef JP
-			msg_format("%sは再充填された。", o_name);
+			msg_format("%sは再充填された。", object_name);
 #else
 			if (object_ptr->number > 1)
-				msg_format("Your %s are recharged.", o_name);
+				msg_format("Your %s are recharged.", object_name);
 			else
-				msg_format("Your %s is recharged.", o_name);
+				msg_format("Your %s is recharged.", object_name);
 #endif
 
 			disturb(player_ptr, 0, 0);
@@ -1643,26 +1643,26 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		    !creature_ptr->resist_lite)
 		{
 			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
-			char o_name [MAX_NLEN];
+			char object_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
 			/* Get an object description */
-			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
+msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 #else
-			msg_format("The %s scorches your undead flesh!", o_name);
+			msg_format("The %s scorches your undead flesh!", object_name);
 #endif
 			cave_no_regen = TRUE;
 
 			/* Get an object description */
-			object_desc(o_name, object_ptr, OD_NAME_ONLY);
+			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
 #ifdef JP
-			sprintf(ouch, "%sを装備したダメージ", o_name);
+			sprintf(ouch, "%sを装備したダメージ", object_name);
 #else
-			sprintf(ouch, "wielding %s", o_name);
+			sprintf(ouch, "wielding %s", object_name);
 #endif
 
 			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
@@ -2937,7 +2937,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		 */
 		if ((creature_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
 		{
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 			object_type *object_ptr;
 			int i, i_keep = 0, count = 0;
 
@@ -2968,12 +2968,12 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			}
 
 			object_ptr = &creature_ptr->inventory[i_keep];
-			object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-			msg_format("%sがテレポートの能力を発動させようとしている。", o_name);
+			msg_format("%sがテレポートの能力を発動させようとしている。", object_name);
 #else
-			msg_format("Your %s is activating teleportation.", o_name);
+			msg_format("Your %s is activating teleportation.", object_name);
 #endif
 
 #ifdef JP
@@ -2988,9 +2988,9 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				msg_format("%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", o_name);
+				msg_format("%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", object_name);
 #else
-				msg_format("You can inscribe {.} on your %s to disable random teleportation. ", o_name);
+				msg_format("You can inscribe {.} on your %s to disable random teleportation. ", object_name);
 #endif
 				disturb(player_ptr, 1, 0);
 			}
@@ -3034,15 +3034,15 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			new_curse = get_curse(0, object_ptr);
 			if (!(object_ptr->curse_flags & new_curse))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
-				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 				object_ptr->curse_flags |= new_curse;
 #ifdef JP
-				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", o_name);
+				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
 #else
-				msg_format("There is a malignant black aura surrounding your %s...", o_name);
+				msg_format("There is a malignant black aura surrounding your %s...", object_name);
 #endif
 
 				object_ptr->feeling = FEEL_NONE;
@@ -3060,15 +3060,15 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			new_curse = get_curse(1, object_ptr);
 			if (!(object_ptr->curse_flags & new_curse))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
-				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 				object_ptr->curse_flags |= new_curse;
 #ifdef JP
-				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", o_name);
+				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
 #else
-				msg_format("There is a malignant black aura surrounding your %s...", o_name);
+				msg_format("There is a malignant black aura surrounding your %s...", object_name);
 #endif
 
 				object_ptr->feeling = FEEL_NONE;
@@ -3082,13 +3082,13 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-				msg_format("%sが動物を引き寄せた！", o_name);
+				msg_format("%sが動物を引き寄せた！", object_name);
 #else
-				msg_format("Your %s have attracted an animal!", o_name);
+				msg_format("Your %s have attracted an animal!", object_name);
 #endif
 
 				disturb(player_ptr, 0, 0);
@@ -3099,13 +3099,13 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		{
 			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-				msg_format("%sが悪魔を引き寄せた！", o_name);
+				msg_format("%sが悪魔を引き寄せた！", object_name);
 #else
-				msg_format("Your %s have attracted a demon!", o_name);
+				msg_format("Your %s have attracted a demon!", object_name);
 #endif
 
 				disturb(player_ptr, 0, 0);
@@ -3117,13 +3117,13 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-				msg_format("%sがドラゴンを引き寄せた！", o_name);
+				msg_format("%sがドラゴンを引き寄せた！", object_name);
 #else
-				msg_format("Your %s have attracted an animal!", o_name);
+				msg_format("Your %s have attracted an animal!", object_name);
 #endif
 
 				disturb(player_ptr, 0, 0);
@@ -3154,26 +3154,26 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		/* Handle HP draining */
 		if ((creature_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
 		{
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-			msg_format("%sはあなたの体力を吸収した！", o_name);
+			msg_format("%sはあなたの体力を吸収した！", object_name);
 #else
-			msg_format("Your %s drains HP from you!", o_name);
+			msg_format("Your %s drains HP from you!", object_name);
 #endif
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), o_name, NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
 		}
 		/* Handle mana draining */
 		if ((creature_ptr->cursed & TRC_DRAIN_MANA) && creature_ptr->csp && one_in_(666))
 		{
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-			msg_format("%sはあなたの魔力を吸収した！", o_name);
+			msg_format("%sはあなたの魔力を吸収した！", object_name);
 #else
-			msg_format("Your %s drains mana from you!", o_name);
+			msg_format("Your %s drains mana from you!", object_name);
 #endif
 			creature_ptr->csp -= MIN(creature_ptr->lev, 50);
 			if (creature_ptr->csp < 0)
@@ -5262,7 +5262,7 @@ static void pack_overflow(creature_type *creature_ptr)
 
 	if (creature_ptr->inventory[INVEN_TOTAL].k_idx)
 	{
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 		object_type *object_ptr;
 
 		/* Is auto-destroy done? */
@@ -5283,13 +5283,13 @@ static void pack_overflow(creature_type *creature_ptr)
 #endif
 
 		/* Describe */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
-		msg_format("%s(%c)を落とした。", o_name, index_to_label(INVEN_TOTAL));
+		msg_format("%s(%c)を落とした。", object_name, index_to_label(INVEN_TOTAL));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(INVEN_TOTAL));
+		msg_format("You drop %s (%c).", object_name, index_to_label(INVEN_TOTAL));
 #endif
 
 		/* Drop it (carefully) near the player */
@@ -7105,6 +7105,6 @@ void world_wipe()
 	the_world = FALSE;
 	now_message = 0;
 	start_time = (u32b)time(NULL) - 1;
-	record_o_name[0] = '\0';
+	record_object_name[0] = '\0';
 
 }

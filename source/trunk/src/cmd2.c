@@ -3164,7 +3164,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	bool hit_body = FALSE;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	u16b path_g[512];	/* For calcuration of path length */
 
@@ -3187,7 +3187,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	if ((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
 
 	/* Describe the object */
-	object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
+	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */
 	thits = creature_ptr->num_fire;
@@ -3489,9 +3489,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				{
 					/* Invisible creature */
 #ifdef JP
-					msg_format("%sが敵を捕捉した。", o_name);
+					msg_format("%sが敵を捕捉した。", object_name);
 #else
-					msg_format("The %s finds a mark.", o_name);
+					msg_format("The %s finds a mark.", object_name);
 #endif
 
 				}
@@ -3506,9 +3506,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 					/* Message */
 #ifdef JP
-					msg_format("%sが%sに命中した。", o_name, m_name);
+					msg_format("%sが%sに命中した。", object_name, m_name);
 #else
-					msg_format("The %s hits %s.", o_name, m_name);
+					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
 					if (m_ptr->ml)
@@ -3593,9 +3593,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 						stick_to = TRUE;
 #ifdef JP
-						msg_format("%sは%sに突き刺さった！",o_name, m_name);
+						msg_format("%sは%sに突き刺さった！",object_name, m_name);
 #else
-						msg_format("%^s have stuck into %s!",o_name, m_name);
+						msg_format("%^s have stuck into %s!",object_name, m_name);
 #endif
 					}
 
@@ -3701,9 +3701,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		if (!object_idx)
 		{
 #ifdef JP
-			msg_format("%sはどこかへ行った。", o_name);
+			msg_format("%sはどこかへ行った。", object_name);
 #else
-			msg_format("The %s have gone to somewhere.", o_name);
+			msg_format("The %s have gone to somewhere.", object_name);
 #endif
 			if (object_is_fixed_artifact(quest_ptr))
 			{
@@ -3865,7 +3865,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	bool equiped_item = FALSE;
 	bool return_when_thrown = FALSE;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
@@ -3978,7 +3978,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	quest_ptr->number = 1;
 
 	/* Description */
-	object_desc(o_name, quest_ptr, OD_OMIT_PREFIX);
+	object_desc(object_name, quest_ptr, OD_OMIT_PREFIX);
 
 	if (creature_ptr->mighty_throw) mult += 3;
 
@@ -4151,9 +4151,9 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					/* Invisible creature */
 #ifdef JP
-					msg_format("%sが敵を捕捉した。", o_name);
+					msg_format("%sが敵を捕捉した。", object_name);
 #else
-					msg_format("The %s finds a mark.", o_name);
+					msg_format("The %s finds a mark.", object_name);
 #endif
 
 				}
@@ -4168,9 +4168,9 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 					/* Message */
 #ifdef JP
-					msg_format("%sが%sに命中した。", o_name, m_name);
+					msg_format("%sが%sに命中した。", object_name, m_name);
 #else
-					msg_format("The %s hits %s.", o_name, m_name);
+					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
 					if (m_ptr->ml)
@@ -4295,9 +4295,9 @@ msg_print("これはあまり良くない気がする。");
 		{
 			/* Message */
 #ifdef JP
-			msg_format("%sは砕け散った！", o_name);
+			msg_format("%sは砕け散った！", object_name);
 #else
-			msg_format("The %s shatters!", o_name);
+			msg_format("The %s shatters!", object_name);
 #endif
 
 

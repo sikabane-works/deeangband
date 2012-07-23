@@ -11546,7 +11546,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int item;
 			char *q, *s;
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 			object_type *object_ptr;
 			u32b f[TR_FLAG_SIZE];
 
@@ -11561,22 +11561,22 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
 
 			object_ptr = &creature_ptr->inventory[item];
-			object_desc(o_name, object_ptr, OD_NAME_ONLY);
+			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
 
 #ifdef JP
-			if (!get_check(format("本当に %s を呪いますか？", o_name))) return FALSE;
+			if (!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
 #else
-			if (!get_check(format("Do you curse %s, really？", o_name))) return FALSE;
+			if (!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
 #endif
 
 			if (!one_in_(3) &&
 				(object_is_artifact(object_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
-				msg_format("%s は呪いを跳ね返した。", o_name);
+				msg_format("%s は呪いを跳ね返した。", object_name);
 #else
-				msg_format("%s resists the effect.", o_name);
+				msg_format("%s resists the effect.", object_name);
 #endif
 				if (one_in_(3))
 				{
@@ -11596,9 +11596,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
-					msg_format("%s は劣化してしまった。", o_name);
+					msg_format("%s は劣化してしまった。", object_name);
 #else
-					msg_format("Your %s was disenchanted!", o_name);
+					msg_format("Your %s was disenchanted!", object_name);
 #endif
 				}
 			}
@@ -11606,9 +11606,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int power = 0;
 #ifdef JP
-				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
+				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 #else
-				msg_format("A terrible black aura blasts your %s!", o_name);
+				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
 				object_ptr->curse_flags |= (TRC_CURSED);
 
@@ -12011,7 +12011,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int item;
 			char *q, *s;
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 			object_type *object_ptr;
 			u32b f[TR_FLAG_SIZE];
 
@@ -12026,22 +12026,22 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
 
 			object_ptr = &creature_ptr->inventory[item];
-			object_desc(o_name, object_ptr, OD_NAME_ONLY);
+			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
 
 #ifdef JP
-			if (!get_check(format("本当に %s を呪いますか？", o_name))) return FALSE;
+			if (!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
 #else
-			if (!get_check(format("Do you curse %s, really？", o_name))) return FALSE;
+			if (!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
 #endif
 
 			if (!one_in_(3) &&
 				(object_is_artifact(object_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
-				msg_format("%s は呪いを跳ね返した。", o_name);
+				msg_format("%s は呪いを跳ね返した。", object_name);
 #else
-				msg_format("%s resists the effect.", o_name);
+				msg_format("%s resists the effect.", object_name);
 #endif
 				if (one_in_(3))
 				{
@@ -12061,9 +12061,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
-					msg_format("%s は劣化してしまった。", o_name);
+					msg_format("%s は劣化してしまった。", object_name);
 #else
-					msg_format("Your %s was disenchanted!", o_name);
+					msg_format("Your %s was disenchanted!", object_name);
 #endif
 				}
 			}
@@ -12071,9 +12071,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int power = 0;
 #ifdef JP
-				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
+				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 #else
-				msg_format("A terrible black aura blasts your %s!", o_name);
+				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
 				object_ptr->curse_flags |= (TRC_CURSED);
 

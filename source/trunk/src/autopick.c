@@ -532,10 +532,10 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 				ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 #ifdef JP
 				/* エゴ銘には「^」マークが使える */
-				sprintf(name_str, "^%s", object_ego_name + e_ptr->name);
+				sprintf(name_str, "^%s", object_egobject_name + e_ptr->name);
 #else
 				/* We ommit the basename and cannot use the ^ mark */
-				strcpy(name_str, object_ego_name + e_ptr->name);
+				strcpy(name_str, object_egobject_name + e_ptr->name);
 #endif
 
 				/* Don't use the object description */
@@ -663,15 +663,15 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	/* Prepare the object description */
 	if (name)
 	{
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
-		object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
+		object_desc(object_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
 
 		/*
 		 * If necessary, add a '^' which indicates the
 		 * beginning of line.
 		 */
-		sprintf(name_str, "%s%s", bol_mark ? "^" : "", o_name);
+		sprintf(name_str, "%s%s", bol_mark ? "^" : "", object_name);
 	}
 
 	/* Register the name in lowercase */
@@ -1026,7 +1026,7 @@ static cptr autopick_line_from_entry_kill(autopick_type *entry)
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the entry
  */
-static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr, autopick_type *entry, cptr o_name)
+static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr, autopick_type *entry, cptr object_name)
 {
 	int j;
 	cptr ptr = entry->name;
@@ -1410,11 +1410,11 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr
 	if (*ptr == '^')
 	{
 		ptr++;
-		if (strncmp(o_name, ptr, strlen(ptr))) return FALSE;
+		if (strncmp(object_name, ptr, strlen(ptr))) return FALSE;
 	}
 	else
 	{
-		if (!my_strstr(o_name, ptr)) return FALSE;
+		if (!my_strstr(object_name, ptr)) return FALSE;
 	}
 
 	/* TRUE when it need not to be 'collecting' */
@@ -1445,22 +1445,22 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr
 int is_autopick(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	if (object_ptr->tval == TV_GOLD) return -1;
 
 	/* Prepare object name string first */
-	object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+	object_desc(object_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
 	/* Convert the string to lower case */
-	str_tolower(o_name);
+	str_tolower(object_name);
 
 	/* Look for a matching entry in the list */	
 	for (i=0; i < max_autopick; i++)
 	{
 		autopick_type *entry = &autopick_list[i];
 
-		if (is_autopick_aux(creature_ptr, object_ptr, entry, o_name)) return i;
+		if (is_autopick_aux(creature_ptr, object_ptr, entry, object_name)) return i;
 	}
 
 	/* No matching entry */
@@ -1591,16 +1591,16 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 	/* Artifact? */
 	if (!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
-		msg_format("%sは破壊不能だ。", o_name);
+		msg_format("%sは破壊不能だ。", object_name);
 #else
-		msg_format("You cannot auto-destroy %s.", o_name);
+		msg_format("You cannot auto-destroy %s.", object_name);
 #endif
 
 		/* Done */
@@ -1633,10 +1633,10 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 
 	if (object_ptr->k_idx && (object_ptr->marked & OM_AUTODESTROY))
 	{
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Eliminate the item (from the pack) */
 		if (item >= 0)
@@ -1653,9 +1653,9 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 
 		/* Print a message */
 #ifdef JP
-		msg_format("%sを自動破壊します。", o_name);
+		msg_format("%sを自動破壊します。", object_name);
 #else
-		msg_format("Auto-destroying %s.", o_name);
+		msg_format("Auto-destroying %s.", object_name);
 #endif
 	}
 }
@@ -1746,16 +1746,16 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 
 			if (!inven_carry_okay(creature_ptr, object_ptr))
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
 				/* Describe the object */
-				object_desc(o_name, object_ptr, 0);
+				object_desc(object_name, object_ptr, 0);
 
 				/* Message */
 #ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
+				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else
-				msg_format("You have no room for %s.", o_name);
+				msg_format("You have no room for %s.", object_name);
 #endif
 				/* Hack - remember that the item has given a message here. */
 				object_ptr->marked |= OM_NOMSG;
@@ -1765,7 +1765,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 			else if (autopick_list[idx].action & DO_QUERY_AUTOPICK)
 			{
 				char out_val[MAX_NLEN+20];
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
 				if (object_ptr->marked & OM_NO_QUERY)
 				{
@@ -1774,12 +1774,12 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				}
 
 				/* Describe the object */
-				object_desc(o_name, object_ptr, 0);
+				object_desc(object_name, object_ptr, 0);
 
 #ifdef JP
-				sprintf(out_val, "%sを拾いますか? ", o_name);
+				sprintf(out_val, "%sを拾いますか? ", object_name);
 #else
-				sprintf(out_val, "Pick up %s? ", o_name);
+				sprintf(out_val, "Pick up %s? ", object_name);
 #endif
 
 				if (!get_check(out_val))
@@ -1979,16 +1979,16 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	    ((object_ptr->ident & IDENT_SENSE) &&
 	     (object_ptr->feeling == FEEL_TERRIBLE || object_ptr->feeling == FEEL_SPECIAL)))
 	{
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
 		/* Describe the object (with {terrible/special}) */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Message */
 #ifdef JP
-		msg_format("%sは破壊不能だ。", o_name);
+		msg_format("%sは破壊不能だ。", object_name);
 #else
-		msg_format("You cannot auto-destroy %s.", o_name);
+		msg_format("You cannot auto-destroy %s.", object_name);
 #endif
 
 		/* Done */
@@ -3701,17 +3701,17 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 static void search_for_object(creature_type *creature_ptr, text_body_type *tb, object_type *object_ptr, bool forward)
 {
 	autopick_type an_entry, *entry = &an_entry;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	int bypassed_cy = -1;
 
 	/* Start searching from current cursor position */
 	int i = tb->cy;
 
 	/* Prepare object name string first */
-	object_desc(o_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+	object_desc(object_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
 	/* Convert the string to lower case */
-	str_tolower(o_name);
+	str_tolower(object_name);
 
 	while (TRUE)
 	{
@@ -3731,7 +3731,7 @@ static void search_for_object(creature_type *creature_ptr, text_body_type *tb, o
 		if (!autopick_new_entry(entry, tb->lines_list[i], FALSE)) continue;
 
 		/* Does this line match to the object? */
-		match = is_autopick_aux(creature_ptr, object_ptr, entry, o_name);
+		match = is_autopick_aux(creature_ptr, object_ptr, entry, object_name);
 		autopick_free_entry(entry);
 		if (!match)	continue;
 

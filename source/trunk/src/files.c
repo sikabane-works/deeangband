@@ -5272,7 +5272,7 @@ static void dump_aux_mutations(creature_type *creature_ptr, FILE *fff)
 static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 {
 	int i;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	/* Dump the equipment */
 	if (creature_ptr->equip_cnt)
@@ -5287,16 +5287,16 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 		{
 			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
-			object_desc(o_name, &creature_ptr->inventory[i], 0);
+			object_desc(object_name, &creature_ptr->inventory[i], 0);
 			if ((((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) && creature_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
 #ifdef JP
-				strcpy(o_name, "(武器を両手持ち)");
+				strcpy(object_name, "(武器を両手持ち)");
 #else
-				strcpy(o_name, "(wielding with two-hands)");
+				strcpy(object_name, "(wielding with two-hands)");
 #endif
 
 			fprintf(fff, "%c) %s\n",
-				index_to_label(i), o_name);
+				index_to_label(i), object_name);
 		}
 		fprintf(fff, "\n\n");
 	}
@@ -5314,8 +5314,8 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 		if (!creature_ptr->inventory[i].k_idx) break;
 
 		/* Dump the inventory slots */
-		object_desc(o_name, &creature_ptr->inventory[i], 0);
-		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
+		object_desc(object_name, &creature_ptr->inventory[i], 0);
+		fprintf(fff, "%c) %s\n", index_to_label(i), object_name);
 	}
 
 	/* Add an empty line */
@@ -5328,7 +5328,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
  */
 static void dump_aux_home_museum(FILE *fff)
 {
-//	char o_name[MAX_NLEN];
+//	char object_name[MAX_NLEN];
 //	store_type  *st_ptr;
 
 	/* Do we need it?? */
@@ -5361,8 +5361,8 @@ static void dump_aux_home_museum(FILE *fff)
 #else
 				fprintf(fff, "\n ( page %d )\n", x++);
 #endif
-			object_desc(o_name, &st_ptr->stock[i], 0);
-			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
+			object_desc(object_name, &st_ptr->stock[i], 0);
+			fprintf(fff, "%c) %s\n", I2A(i%12), object_name);
 		}
 
 		// Add an empty line
@@ -5390,12 +5390,12 @@ static void dump_aux_home_museum(FILE *fff)
 		{
 #ifdef JP
 		if ((i % 12) == 0) fprintf(fff, "\n ( %d ページ )\n", x++);
-			object_desc(o_name, &st_ptr->stock[i], 0);
-			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
+			object_desc(object_name, &st_ptr->stock[i], 0);
+			fprintf(fff, "%c) %s\n", I2A(i%12), object_name);
 #else
 		if ((i % 12) == 0) fprintf(fff, "\n ( page %d )\n", x++);
-			object_desc(o_name, &st_ptr->stock[i], 0);
-			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
+			object_desc(object_name, &st_ptr->stock[i], 0);
+			fprintf(fff, "%c) %s\n", I2A(i%12), object_name);
 #endif
 
 		}
@@ -7288,7 +7288,7 @@ prt("持っていたアイテム: -続く-", 0, 0);
 				// Show 12 items
 				for (j = 0; (j < 12) && (i < st_ptr->stock_num); j++, i++)
 				{
-					char o_name[MAX_NLEN];
+					char object_name[MAX_NLEN];
 					char tmp_val[80];
 
 					// Acquire item
@@ -7299,8 +7299,8 @@ prt("持っていたアイテム: -続く-", 0, 0);
 					prt(tmp_val, j+2, 4);
 
 					// Display object description
-					object_desc(o_name, object_ptr, 0);
-					c_put_str(tval_to_acttr[object_ptr->tval], o_name, j+2, 7);
+					object_desc(object_name, object_ptr, 0);
+					c_put_str(tval_to_acttr[object_ptr->tval], object_name, j+2, 7);
 				}
 
 				// Caption

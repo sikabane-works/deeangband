@@ -769,15 +769,15 @@ void object_aware(object_type *object_ptr)
 	{
 		object_type forge;
 		object_type *quest_ptr;
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
 		quest_ptr = &forge;
 		object_copy(quest_ptr, object_ptr);
 
 		quest_ptr->number = 1;
-		object_desc(o_name, quest_ptr, OD_NAME_ONLY);
+		object_desc(object_name, quest_ptr, OD_NAME_ONLY);
 		
-		do_cmd_write_nikki(DIARY_HANMEI, 0, o_name);
+		do_cmd_write_nikki(DIARY_HANMEI, 0, object_name);
 	}
 }
 
@@ -2028,19 +2028,19 @@ s16b m_bonus(int max, int level)
  */
 static void object_mention(object_type *object_ptr)
 {
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	/* Describe */
-	object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
+	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 
 	/* Artifact */
 	if (object_is_fixed_artifact(object_ptr))
 	{
 		/* Silly message */
 #ifdef JP
-		msg_format("伝説のアイテム (%s)", o_name);
+		msg_format("伝説のアイテム (%s)", object_name);
 #else
-		msg_format("Artifact (%s)", o_name);
+		msg_format("Artifact (%s)", object_name);
 #endif
 
 	}
@@ -2061,9 +2061,9 @@ static void object_mention(object_type *object_ptr)
 	{
 		/* Silly message */
 #ifdef JP
-		msg_format("名のあるアイテム (%s)", o_name);
+		msg_format("名のあるアイテム (%s)", object_name);
 #else
-		msg_format("Ego-item (%s)", o_name);
+		msg_format("Ego-item (%s)", object_name);
 #endif
 
 	}
@@ -2073,9 +2073,9 @@ static void object_mention(object_type *object_ptr)
 	{
 		/* Silly message */
 #ifdef JP
-		msg_format("アイテム (%s)", o_name);
+		msg_format("アイテム (%s)", object_name);
 #else
-		msg_format("Object (%s)", o_name);
+		msg_format("Object (%s)", object_name);
 #endif
 
 	}
@@ -4090,7 +4090,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 
 	cave_type *c_ptr;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	bool flag = FALSE;
 	bool done = FALSE;
@@ -4101,7 +4101,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 #endif
 
 	/* Describe object */
-	object_desc(o_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 
 	/* Handle normal "breakage" */
@@ -4112,10 +4112,10 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		{
 /* TODO
 #ifdef JP
-		msg_format("%sは壊れて使い物にならなくなった", o_name);
+		msg_format("%sは壊れて使い物にならなくなった", object_name);
 #else
 		msg_format("The %s was broken and become%s useless.",
-			   o_name, (plural ? "" : "s"));
+			   object_name, (plural ? "" : "s"));
 #endif
 */
 		}
@@ -4232,10 +4232,10 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	{
 		/* Message */
 #ifdef JP
-		msg_format("%sは消えた。", o_name);
+		msg_format("%sは消えた。", object_name);
 #else
 		msg_format("The %s disappear%s.",
-			   o_name, (plural ? "" : "s"));
+			   object_name, (plural ? "" : "s"));
 #endif
 
 
@@ -4292,9 +4292,9 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		{
 			/* Message */
 #ifdef JP
-			msg_format("%sは消えた。", o_name);
+			msg_format("%sは消えた。", object_name);
 #else
-			msg_format("The %s disappear%s.", o_name, (plural ? "" : "s"));
+			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
 #endif
 
 			/* Debug */
@@ -4379,10 +4379,10 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	{
 		/* Message */
 #ifdef JP
-		msg_format("%sは消えた。", o_name);
+		msg_format("%sは消えた。", object_name);
 #else
 		msg_format("The %s disappear%s.",
-			   o_name, (plural ? "" : "s"));
+			   object_name, (plural ? "" : "s"));
 #endif
 
 
@@ -4652,10 +4652,10 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 void inven_item_describe(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
-	char        o_name[MAX_NLEN];
+	char        object_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
@@ -4663,15 +4663,15 @@ void inven_item_describe(creature_type *creature_ptr, int item)
 	if (object_ptr->number <= 0)
 	{
 		/*FIRST*//*ここはもう通らないかも */
-		msg_format("もう%sを持っていない。", o_name);
+		msg_format("もう%sを持っていない。", object_name);
 	}
 	else
 	{
 		/* アイテム名を英日切り替え機能対応 */
-		msg_format("まだ%sを持っている。", o_name);
+		msg_format("まだ%sを持っている。", object_name);
 	}
 #else
-	msg_format("You have %s.", o_name);
+	msg_format("You have %s.", object_name);
 #endif
 
 }
@@ -4835,24 +4835,24 @@ void floor_item_charges(int item)
 void floor_item_describe(creature_type *creature_type, int item)
 {
 	object_type *object_ptr = &object_list[item];
-	char        o_name[MAX_NLEN];
+	char        object_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
 	/* "no more" の場合はこちらで表示を分ける */
 	if (object_ptr->number <= 0)
 	{
-		msg_format("床上には、もう%sはない。", o_name);
+		msg_format("床上には、もう%sはない。", object_name);
 	}
 	else
 	{
-		msg_format("床上には、まだ%sがある。", o_name);
+		msg_format("床上には、まだ%sがある。", object_name);
 	}
 #else
-	msg_format("You see %s.", o_name);
+	msg_format("You see %s.", object_name);
 #endif
 
 }
@@ -5166,7 +5166,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 	cptr act;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 
 	// Get the item to take off
@@ -5191,7 +5191,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	quest_ptr->number = amt;
 
 	// Describe the object
-	object_desc(o_name, quest_ptr, 0);
+	object_desc(object_name, quest_ptr, 0);
 
 	// Took off weapon
 	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, object_ptr))
@@ -5246,9 +5246,9 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 	// Message
 #ifdef JP
-	msg_format("%s(%c)%s。", o_name, index_to_label(slot), act);
+	msg_format("%s(%c)%s。", object_name, index_to_label(slot), act);
 #else
-	msg_format("%s %s (%c).", act, o_name, index_to_label(slot));
+	msg_format("%s %s (%c).", act, object_name, index_to_label(slot));
 #endif
 
 
@@ -5269,7 +5269,7 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	object_type *object_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 
 	/* Access original object */
@@ -5309,13 +5309,13 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	quest_ptr->number = amt;
 
 	/* Describe local object */
-	object_desc(o_name, quest_ptr, 0);
+	object_desc(object_name, quest_ptr, 0);
 
 	/* Message */
 #ifdef JP
-	msg_format("%s(%c)を落とした。", o_name, index_to_label(item));
+	msg_format("%s(%c)を落とした。", object_name, index_to_label(item));
 #else
-	msg_format("You drop %s (%c).", o_name, index_to_label(item));
+	msg_format("You drop %s (%c).", object_name, index_to_label(item));
 #endif
 
 
@@ -5530,7 +5530,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	int         sval;
 	int         use_realm;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 
 	/* Erase the window */
@@ -5550,10 +5550,10 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Describe */
-	object_desc(o_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
+	object_desc(object_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
-	Term_putstr(0, 0, -1, TERM_WHITE, o_name);
+	Term_putstr(0, 0, -1, TERM_WHITE, object_name);
 
 	/* Access the item's sval */
 	sval = quest_ptr->sval;
@@ -5886,7 +5886,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	floor_type *floor_ptr = get_floor_ptr(player_ptr);
 	int mx, my;
 	cave_type *c_ptr;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 #define WARNING_AWARE_RANGE 12
 	int dam_max = 0;
@@ -5996,13 +5996,13 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 		{
 			object_type *object_ptr = choose_warning_item(player_ptr);
 
-			if (object_ptr) object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			if (object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-			else strcpy(o_name, "体"); /* Warning ability without item */
-			msg_format("%sが鋭く震えた！", o_name);
+			else strcpy(object_name, "体"); /* Warning ability without item */
+			msg_format("%sが鋭く震えた！", object_name);
 #else
-			else strcpy(o_name, "body"); /* Warning ability without item */
-			msg_format("Your %s pulsates sharply!", o_name);
+			else strcpy(object_name, "body"); /* Warning ability without item */
+			msg_format("Your %s pulsates sharply!", object_name);
 #endif
 			disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -6020,13 +6020,13 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	{
 		object_type *object_ptr = choose_warning_item(player_ptr);
 
-		if (object_ptr) object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		if (object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-		else strcpy(o_name, "体"); /* Warning ability without item */
-		msg_format("%sが震えた！", o_name);
+		else strcpy(object_name, "体"); /* Warning ability without item */
+		msg_format("%sが震えた！", object_name);
 #else
-		else strcpy(o_name, "body"); /* Warning ability without item */
-		msg_format("Your %s pulsates!", o_name);
+		else strcpy(object_name, "body"); /* Warning ability without item */
+		msg_format("Your %s pulsates!", object_name);
 #endif
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -6584,12 +6584,12 @@ static void drain_essence(creature_type *creature_ptr)
 
 	if (object_is_known(object_ptr) && !object_is_nameless(creature_ptr, object_ptr))
 	{
-		char o_name[MAX_NLEN];
-		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		char object_name[MAX_NLEN];
+		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-		if (!get_check(format("本当に%sから抽出してよろしいですか？", o_name))) return;
+		if (!get_check(format("本当に%sから抽出してよろしいですか？", object_name))) return;
 #else
-		if (!get_check(format("Really extract from %s? ", o_name))) return;
+		if (!get_check(format("Really extract from %s? ", object_name))) return;
 #endif
 	}
 
@@ -6892,7 +6892,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	int ask = TRUE;
 	char out_val[160];
 	int num[22];
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	int use_essence;
 	essence_type *es_ptr;
 
@@ -7224,7 +7224,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		return;
 	}
 
-	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	use_essence = es_ptr->value;
 	if ((object_ptr->tval >= TV_SHOT) && (object_ptr->tval <= TV_BOLT)) use_essence = (use_essence+9)/10;
@@ -7473,9 +7473,9 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	energy_use = 100;
 
 #ifdef JP
-	msg_format("%sに%sの能力を付加しました。", o_name, es_ptr->add_name);
+	msg_format("%sに%sの能力を付加しました。", object_name, es_ptr->add_name);
 #else
-	msg_format("You have added ability of %s to %s.", es_ptr->add_name, o_name);
+	msg_format("You have added ability of %s to %s.", es_ptr->add_name, object_name);
 #endif
 
 	/* Combine the pack */
@@ -7491,7 +7491,7 @@ static void erase_essence(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 	object_type *object_ptr;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Get an item */
@@ -7517,11 +7517,11 @@ static void erase_essence(creature_type *creature_ptr)
 		object_ptr = &object_list[0 - item];
 	}
 
-	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
-	if (!get_check(format("よろしいですか？ [%s]", o_name))) return;
+	if (!get_check(format("よろしいですか？ [%s]", object_name))) return;
 #else
-	if (!get_check(format("Are you sure? [%s]", o_name))) return;
+	if (!get_check(format("Are you sure? [%s]", object_name))) return;
 #endif
 
 	energy_use = 100;

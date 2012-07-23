@@ -787,7 +787,7 @@ char *artifact_text;
  * The ego-item arrays
  */
 ego_item_type *object_ego_info;
-char *object_ego_name;
+char *object_egobject_name;
 char *object_ego_text;
 
 /*
@@ -965,7 +965,7 @@ bool (*get_obj_num_hook)(int k_idx);
 bool monk_armour_aux;
 bool monk_notify_aux;
 
-char record_o_name[MAX_NLEN];
+char record_object_name[MAX_NLEN];
 s32b record_turn;
 
 /*

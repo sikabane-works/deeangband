@@ -1271,7 +1271,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 
 	u32b flgs[TR_FLAG_SIZE];
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	int k_idx = 0;
 	bool is_potion = FALSE;
@@ -1613,7 +1613,7 @@ note_kill = "ŠD‚É‚È‚Á‚½B";
 			if (known && (object_ptr->marked & OM_FOUND))
 			{
 				obvious = TRUE;
-				object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			}
 
 			/* Artifacts, and other objects, get to resist */
@@ -1624,10 +1624,10 @@ note_kill = "ŠD‚É‚È‚Á‚½B";
 				{
 #ifdef JP
 msg_format("%s‚Í‰e‹¿‚ðŽó‚¯‚È‚¢I",
-   o_name);
+   object_name);
 #else
 					msg_format("The %s %s unaffected!",
-							o_name, (plural ? "are" : "is"));
+							object_name, (plural ? "are" : "is"));
 #endif
 
 				}
@@ -1640,9 +1640,9 @@ msg_format("%s‚Í‰e‹¿‚ðŽó‚¯‚È‚¢I",
 				if (known && (object_ptr->marked & OM_FOUND) && note_kill)
 				{
 #ifdef JP
-msg_format("%s‚Í%s", o_name, note_kill);
+msg_format("%s‚Í%s", object_name, note_kill);
 #else
-					msg_format("The %s%s", o_name, note_kill);
+					msg_format("The %s%s", object_name, note_kill);
 #endif
 
 				}
@@ -2439,7 +2439,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		creature_desc(caster_name, caster_ptr, 0);
 
 		/* Get the creature's real name (gotten before polymorph!) */
-		//TODO ? strcpy(killer, who_name);
+		//TODO ? strcpy(killer, whobject_name);
 	}
 	else
 	{
@@ -7159,7 +7159,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
  * (Deskull)
  */
 
-static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
+static bool project_creature(creature_type *attacker_ptr, cptr whobject_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	int k = 0;
 
@@ -7882,13 +7882,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	bool jump = FALSE;
 
 	/* Attacker's name (prepared before polymorph)*/
-	char who_name[80];
+	char whobject_name[80];
 
 	/* Can the player see the source of this effect? */
 	bool see_s_msg = TRUE;
 
 	/* Initialize by null string */
-	who_name[0] = '\0';
+	whobject_name[0] = '\0';
 
 	do_thrown_from_ridingdam_p = 0;
 	do_thrown_from_ridingdam_m = 0;
@@ -7919,7 +7919,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	{
 		x1 = caster_ptr->fx;
 		y1 = caster_ptr->fy;
-		creature_desc(who_name, caster_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(whobject_name, caster_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 	}
 
 
@@ -8870,7 +8870,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Affect the player */
-			if (project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, monspell)) notice = TRUE;
+			if (project_creature(caster_ptr, whobject_name, effective_dist, y, x, dam, typ, flg, TRUE, monspell)) notice = TRUE;
 		}
 	}
 

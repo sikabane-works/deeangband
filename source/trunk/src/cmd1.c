@@ -722,12 +722,12 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
  * あるという指摘をうけたので、「～を拾った、～を持っている」という表示
  * にかえてある。そのための配列。
  */
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	char old_name[MAX_NLEN];
 	char kazu_str[80];
 	int hirottakazu;
 #else
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 #endif
 
 	object_type *object_ptr;
@@ -761,7 +761,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	}
 
 	/* Describe the object */
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 
 	/* Message */
 #ifdef JP
@@ -775,22 +775,22 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	{
 		if (plain_pickup)
 		{
-			msg_format("%s(%c)を持っている。",o_name, index_to_label(slot));
+			msg_format("%s(%c)を持っている。",object_name, index_to_label(slot));
 		}
 		else
 		{
 			if (object_ptr->number > hirottakazu) {
 			    msg_format("%s拾って、%s(%c)を持っている。",
-			       kazu_str, o_name, index_to_label(slot));
+			       kazu_str, object_name, index_to_label(slot));
 			} else {
-				msg_format("%s(%c)を拾った。", o_name, index_to_label(slot));
+				msg_format("%s(%c)を拾った。", object_name, index_to_label(slot));
 			}
 		}
 	}
-	strcpy(record_o_name, old_name);
+	strcpy(record_object_name, old_name);
 #else
-	msg_format("You have %s (%c).", o_name, index_to_label(slot));
-	strcpy(record_o_name, o_name);
+	msg_format("You have %s (%c).", object_name, index_to_label(slot));
+	strcpy(record_object_name, object_name);
 #endif
 	record_turn = turn;
 
@@ -830,7 +830,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 
 	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
 
-	char	o_name[MAX_NLEN];
+	char	object_name[MAX_NLEN];
 
 	/* Recenter the map around the player */
 	verify_panel(creature_ptr);
@@ -902,7 +902,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE -- TNB */
 
 		/* Describe the object */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Acquire next object */
 		next_object_idx = object_ptr->next_object_idx;
@@ -921,10 +921,10 @@ void carry(creature_type *creature_ptr, bool pickup)
 			/* Message */
 #ifdef JP
 		msg_format(" $%ld の価値がある%sを見つけた。",
-			   (long)value, o_name);
+			   (long)value, object_name);
 #else
 			msg_format("You collect %ld gold pieces worth of %s.",
-				   (long)value, o_name);
+				   (long)value, object_name);
 #endif
 
 
@@ -955,9 +955,9 @@ void carry(creature_type *creature_ptr, bool pickup)
 				if(floor_num < 3)
 				{
 #ifdef JP
-					msg_format("%sがある。", o_name);
+					msg_format("%sがある。", object_name);
 #else
-					msg_format("You see %s.", o_name);
+					msg_format("You see %s.", object_name);
 #endif
 				}
 			}
@@ -966,9 +966,9 @@ void carry(creature_type *creature_ptr, bool pickup)
 			else if (!inven_carry_okay(creature_ptr, object_ptr))
 			{
 #ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
+				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else
-				msg_format("You have no room for %s.", o_name);
+				msg_format("You have no room for %s.", object_name);
 #endif
 
 			}
@@ -983,9 +983,9 @@ void carry(creature_type *creature_ptr, bool pickup)
 				{
 					char out_val[MAX_NLEN+20];
 #ifdef JP
-					sprintf(out_val, "%sを拾いますか? ", o_name);
+					sprintf(out_val, "%sを拾いますか? ", object_name);
 #else
-					sprintf(out_val, "Pick up %s? ", o_name);
+					sprintf(out_val, "Pick up %s? ", object_name);
 #endif
 
 					okay = get_check(out_val);

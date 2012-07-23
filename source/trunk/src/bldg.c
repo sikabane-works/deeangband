@@ -2053,7 +2053,7 @@ static bool kankin(creature_type *creature_ptr)
 {
 	int i, j;
 	bool change = FALSE;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	object_type *object_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -2066,11 +2066,11 @@ static bool kankin(creature_type *creature_ptr)
 		if ((object_ptr->tval == TV_CAPTURE) && (object_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 #ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
+			sprintf(buf, "%s を換金しますか？",object_name);
 #else
-			sprintf(buf, "Convert %s into money? ",o_name);
+			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
 			if (get_check(buf))
 			{
@@ -2097,11 +2097,11 @@ static bool kankin(creature_type *creature_ptr)
 		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 #ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
+			sprintf(buf, "%s を換金しますか？",object_name);
 #else
-			sprintf(buf, "Convert %s into money? ",o_name);
+			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
 			if (get_check(buf))
 			{
@@ -2128,11 +2128,11 @@ static bool kankin(creature_type *creature_ptr)
 		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->pval == MON_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 #ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
+			sprintf(buf, "%s を換金しますか？",object_name);
 #else
-			sprintf(buf, "Convert %s into money? ",o_name);
+			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
 			if (get_check(buf))
 			{
@@ -2157,11 +2157,11 @@ static bool kankin(creature_type *creature_ptr)
 		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 #ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
+			sprintf(buf, "%s を換金しますか？",object_name);
 #else
-			sprintf(buf, "Convert %s into money? ",o_name);
+			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
 			if (get_check(buf))
 			{
@@ -2187,11 +2187,11 @@ static bool kankin(creature_type *creature_ptr)
 		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 #ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
+			sprintf(buf, "%s を換金しますか？",object_name);
 #else
-			sprintf(buf, "Convert %s into money? ",o_name);
+			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
 			if (get_check(buf))
 			{
@@ -2222,11 +2222,11 @@ static bool kankin(creature_type *creature_ptr)
 				int num, k, item_new;
 				object_type forge;
 
-				object_desc(o_name, object_ptr, 0);
+				object_desc(object_name, object_ptr, 0);
 #ifdef JP
-				sprintf(buf, "%sを渡しますか？",o_name);
+				sprintf(buf, "%sを渡しますか？",object_name);
 #else
-				sprintf(buf, "Hand %s over? ",o_name);
+				sprintf(buf, "Hand %s over? ",object_name);
 #endif
 				if (!get_check(buf)) continue;
 
@@ -2281,11 +2281,11 @@ static bool kankin(creature_type *creature_ptr)
 				item_new = inven_carry(creature_ptr, &forge);
 
 				/* Describe the object */
-				object_desc(o_name, &forge, 0);
+				object_desc(object_name, &forge, 0);
 #ifdef JP
-				msg_format("%s(%c)を貰った。", o_name, index_to_label(item_new));
+				msg_format("%s(%c)を貰った。", object_name, index_to_label(item_new));
 #else
-				msg_format("You get %s (%c). ", o_name, index_to_label(item_new));
+				msg_format("You get %s (%c). ", object_name, index_to_label(item_new));
 #endif
 
 				/* Auto-inscription */
@@ -3095,7 +3095,7 @@ static int hit_chance(creature_type *creature_ptr, int to_hit, int ac)
  */
 static void list_weapon(creature_type *creature_ptr, object_type *object_ptr, int row, int col)
 {
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	char tmp_str[80];
 
 	/* Effective dices */
@@ -3103,8 +3103,8 @@ static void list_weapon(creature_type *creature_ptr, object_type *object_ptr, in
 	int eff_ds = object_ptr->ds + creature_ptr->to_damages[0];
 
 	/* Print the weapon name */
-	object_desc(o_name, object_ptr, OD_NAME_ONLY);
-	c_put_str(TERM_YELLOW, o_name, row, col);
+	object_desc(object_name, object_ptr, OD_NAME_ONLY);
+	c_put_str(TERM_YELLOW, object_name, row, col);
 
 	put_str(tmp_str, row+1, col);
 

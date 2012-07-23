@@ -38,7 +38,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 	object_type     *quest_ptr;
 
 	char com[80];
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -152,9 +152,9 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 
 			slot = inven_carry(creature_ptr, quest_ptr);
 
-			object_desc(o_name, quest_ptr, 0);
+			object_desc(object_name, quest_ptr, 0);
 #ifdef JP
-			msg_format("%sを作った。", o_name);
+			msg_format("%sを作った。", object_name);
 #else
 			msg_print("You make some ammo.");
 #endif
@@ -209,9 +209,9 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 
 		quest_ptr->discount = 99;
 
-		object_desc(o_name, quest_ptr, 0);
+		object_desc(object_name, quest_ptr, 0);
 #ifdef JP
-		msg_format("%sを作った。", o_name);
+		msg_format("%sを作った。", object_name);
 #else
 		msg_print("You make some ammo.");
 #endif
@@ -275,9 +275,9 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 
 		quest_ptr->discount = 99;
 
-		object_desc(o_name, quest_ptr, 0);
+		object_desc(object_name, quest_ptr, 0);
 #ifdef JP
-		msg_format("%sを作った。", o_name);
+		msg_format("%sを作った。", object_name);
 #else
 		msg_print("You make some ammo.");
 #endif
@@ -310,7 +310,7 @@ bool gain_magic(creature_type *creature_ptr)
 	int ext = 0;
 	cptr q, s;
 	object_type *object_ptr;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	/* Get an item */
 #ifdef JP
@@ -399,12 +399,12 @@ s = "魔力を取り込めるアイテムがない。";
 		}
 	}
 
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 	/* Message */
 #ifdef JP
-	msg_format("%sの魔力を取り込んだ。", o_name);
+	msg_format("%sの魔力を取り込んだ。", object_name);
 #else
-	msg_format("You absorb magic of %s.", o_name);
+	msg_format("You absorb magic of %s.", object_name);
 #endif
 
 	/* Eliminate the item (from the pack) */

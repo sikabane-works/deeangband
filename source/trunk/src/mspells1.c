@@ -580,7 +580,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	u32b oflgs[TR_FLAG_SIZE];
 	//TODO SELECT
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	if (randint1(100) > chance) return;
 
@@ -588,15 +588,15 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 
 	object_flags(object_ptr, oflgs);
 
-	object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extra, biased saving throw for blessed items */
 	if (have_flag(oflgs, TR_BLESSED) && (randint1(888) > chance))
 	{
 #ifdef JP
-		msg_format("%sの%sは呪いを跳ね返した！", creature_ptr->name, o_name);
+		msg_format("%sの%sは呪いを跳ね返した！", creature_ptr->name, object_name);
 #else
-		msg_format("%s's %s resist%s cursing!", creature_ptr->name, o_name, ((object_ptr->number > 1) ? "" : "s"));
+		msg_format("%s's %s resist%s cursing!", creature_ptr->name, object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 			
 		/* Hmmm -- can we wear multiple items? If not, this is unnecessary */
@@ -630,9 +630,9 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	if (changed)
 	{
 #ifdef JP
-msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", creature_ptr->name, o_name);
+msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", creature_ptr->name, object_name);
 #else
-		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, o_name);
+		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, object_name);
 #endif
 
 		object_ptr->feeling = FEEL_NONE;

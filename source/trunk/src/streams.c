@@ -284,12 +284,12 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 
 						if (cheat_peek)
 						{
-							char o_name[MAX_NLEN];
-							object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
+							char object_name[MAX_NLEN];
+							object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 #ifdef JP
-							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", o_name);
+							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", object_name);
 #else
-							msg_format("Artifact (%s) was deleted by streamer.", o_name);
+							msg_format("Artifact (%s) was deleted by streamer.", object_name);
 #endif
 						}
 					}

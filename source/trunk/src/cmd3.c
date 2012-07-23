@@ -187,7 +187,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	int i, n, item, slot, old_item;
 	object_type forge, *quest_ptr, *object_ptr, *old_equipped_ptr;
 	cptr act;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	cptr q, s;
 
 	int need_switch_wielding = 0;
@@ -235,14 +235,14 @@ void do_cmd_wield(creature_type *creature_ptr)
 	// Prevent wielding into a cursed slot
 	if (object_is_cursed(old_equipped_ptr))
 	{
-		object_desc(o_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
+		object_desc(object_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 
 		// Message
 /*
 #ifdef JP
-		msg_format("%s%sは呪われているようだ。", describe_use(creature_ptr, slot) , o_name );
+		msg_format("%s%sは呪われているようだ。", describe_use(creature_ptr, slot) , object_name );
 #else
-		msg_format("The %s you are %s appears to be cursed.", o_name, describe_use(creature_ptr, slot));
+		msg_format("The %s you are %s appears to be cursed.", object_name, describe_use(creature_ptr, slot));
 #endif
 */
 		return; // Cancel the command
@@ -252,11 +252,11 @@ void do_cmd_wield(creature_type *creature_ptr)
 		((object_ptr->ident & IDENT_SENSE) && (FEEL_BROKEN <= object_ptr->feeling) && (object_ptr->feeling <= FEEL_CURSED))))
 	{
 		char dummy[MAX_NLEN+80];
-		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
+		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 #ifdef JP
-		sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
+		sprintf(dummy, "本当に%s{呪われている}を使いますか？", object_name);
 #else
-		sprintf(dummy, "Really use the %s {cursed}? ", o_name);
+		sprintf(dummy, "Really use the %s {cursed}? ", object_name);
 #endif
 		if (!get_check(dummy)) return;
 	}
@@ -266,11 +266,11 @@ void do_cmd_wield(creature_type *creature_ptr)
 		!has_trait(creature_ptr, TRAIT_SKELETON) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
 		char dummy[MAX_NLEN+80];
-		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
+		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 #ifdef JP
-		sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name);
+		sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", object_name);
 #else
-		msg_format("%s will transforms you into a true vampire permanently when equiped.", o_name);
+		msg_format("%s will transforms you into a true vampire permanently when equiped.", object_name);
 		sprintf(dummy, "Do you become a vampire?");
 #endif
 		if (!get_check(dummy)) return;
@@ -334,8 +334,8 @@ void do_cmd_wield(creature_type *creature_ptr)
 #endif
 
 
-	object_desc(o_name, object_ptr, 0); // Describe the result
-	msg_format(act, o_name, index_to_label(slot)); // Message
+	object_desc(object_name, object_ptr, 0); // Describe the result
+	msg_format(act, object_name, index_to_label(slot)); // Message
 
 	// Cursed!
 	if (object_is_cursed(object_ptr))
@@ -366,14 +366,14 @@ void do_cmd_wield(creature_type *creature_ptr)
 void kamaenaoshi(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr, *new_object_ptr;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&creature_ptr->inventory[item]) == 1)
 	{
 		if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2))
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			if (!object_is_cursed(object_ptr))
 			{
@@ -384,24 +384,24 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2));
 				if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
-					msg_format("%sを両手で構えた。", o_name);
+					msg_format("%sを両手で構えた。", object_name);
 #else
-					msg_format("You are wielding %s with both hands.", o_name);
+					msg_format("You are wielding %s with both hands.", object_name);
 #endif
 				 else
 #ifdef JP
-					msg_format("%sを%sで構えた。", o_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
+					msg_format("%sを%sで構えた。", object_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
 #else
-					msg_format("You are wielding %s in your %s hand.", o_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "left":"right"));
+					msg_format("You are wielding %s in your %s hand.", object_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "left":"right"));
 #endif
 			}
 			else
 			{
 				if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
-					msg_format("%sを両手で構えた。", o_name);
+					msg_format("%sを両手で構えた。", object_name);
 #else
-					msg_format("You are wielding %s with both hands.", o_name);
+					msg_format("You are wielding %s with both hands.", object_name);
 #endif
 			}
 		}
@@ -409,15 +409,15 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	else if (item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2))
 	{
 		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-		if (object_ptr->k_idx) object_desc(o_name, object_ptr, 0);
+		if (object_ptr->k_idx) object_desc(object_name, object_ptr, 0);
 
 		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 1)
 		{
 			if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
-				msg_format("%sを両手で構えた。", o_name);
+				msg_format("%sを両手で構えた。", object_name);
 #else
-				msg_format("You are wielding %s with both hands.", o_name);
+				msg_format("You are wielding %s with both hands.", object_name);
 #endif
 		}
 		else if (!(empty_hands(creature_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(object_ptr))
@@ -428,9 +428,9 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 			inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1), -((int)object_ptr->number));
 			inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1));
 #ifdef JP
-			msg_format("%sを持ち替えた。", o_name);
+			msg_format("%sを持ち替えた。", object_name);
 #else
-			msg_format("You switched hand of %s.", o_name);
+			msg_format("You switched hand of %s.", object_name);
 #endif
 		}
 	}
@@ -652,7 +652,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	object_type             forge;
 	object_type             *quest_ptr = &forge;
 
-	char		o_name[MAX_NLEN];
+	char		object_name[MAX_NLEN];
 
 	char		out_val[MAX_NLEN+40];
 
@@ -693,7 +693,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	/* Verify unless quantity given beforehand */
 	if (!force && (confirm_destroy || (object_value(object_ptr) > 0)))
 	{
-		object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
+		object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 		/* Make a verification */
 		sprintf(out_val, 
@@ -702,7 +702,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 #else
 			"Really destroy %s? [y/n/Auto]",
 #endif
-			o_name);
+			object_name);
 
 		msg_print(NULL);
 
@@ -763,7 +763,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	/* Describe the object */
 	old_number = object_ptr->number;
 	object_ptr->number = amt;
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 	object_ptr->number = old_number;
 
 	/* Take a turn */
@@ -776,9 +776,9 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 		/* Message */
 #ifdef JP
-		msg_format("%sは破壊不可能だ。", o_name);
+		msg_format("%sは破壊不可能だ。", object_name);
 #else
-		msg_format("You cannot destroy %s.", o_name);
+		msg_format("You cannot destroy %s.", object_name);
 #endif
 
 		/* Done */
@@ -789,9 +789,9 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	/* Message */
 #ifdef JP
-	msg_format("%sを壊した。", o_name);
+	msg_format("%sを壊した。", object_name);
 #else
-	msg_format("You destroy %s.", o_name);
+	msg_format("You destroy %s.", object_name);
 #endif
 
 	sound(SOUND_DESTITEM);
@@ -866,7 +866,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 {
 	int			item;
 	object_type		*object_ptr;
-	char		o_name[MAX_NLEN];
+	char		object_name[MAX_NLEN];
 	cptr q, s;
 
 	/* Get an item */
@@ -907,13 +907,13 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 
 	/* Description */
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 
 	/* Describe */
 #ifdef JP
-	msg_format("%sを調べている...", o_name);
+	msg_format("%sを調べている...", object_name);
 #else
-	msg_format("Examining %s...", o_name);
+	msg_format("Examining %s...", object_name);
 #endif
 
 	/* Describe it fully */
@@ -1006,7 +1006,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 
 	object_type		*object_ptr;
 
-	char		o_name[MAX_NLEN];
+	char		object_name[MAX_NLEN];
 
 	char		out_val[80];
 
@@ -1036,13 +1036,13 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	}
 
 	/* Describe the activity */
-	object_desc(o_name, object_ptr, OD_OMIT_INSCRIPTION);
+	object_desc(object_name, object_ptr, OD_OMIT_INSCRIPTION);
 
 	/* Message */
 #ifdef JP
-	msg_format("%sに銘を刻む。", o_name);
+	msg_format("%sに銘を刻む。", object_name);
 #else
-	msg_format("Inscribing %s.", o_name);
+	msg_format("Inscribing %s.", object_name);
 #endif
 
 	msg_print(NULL);

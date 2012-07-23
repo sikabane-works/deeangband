@@ -1988,7 +1988,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	return TRUE;
 }
 
-static void do_name_pet(creature_type *master_ptr)
+static void dobject_name_pet(creature_type *master_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(master_ptr);
 	creature_type *pet_ptr;
@@ -2711,7 +2711,7 @@ void do_cmd_pet(creature_type *master_ptr)
 
 		case PET_NAME:
 		{
-			do_name_pet(master_ptr);
+			dobject_name_pet(master_ptr);
 			break;
 		}
 

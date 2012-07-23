@@ -2366,7 +2366,7 @@ bool screen_object(object_type *object_ptr, u32b mode)
 
 	char temp[70 * 20];
 	cptr            info[128];
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	int wid, hgt;
 
 	int trivial_info = 0;
@@ -3922,11 +3922,11 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 
 	/* Display Item name */
 	if (!(mode & SCROBJ_FAKE_OBJECT))
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 	else
-		object_desc(o_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
+		object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
 
-	prt(o_name, 0, 0);
+	prt(object_name, 0, 0);
 
 	/* Erase the screen */
 	for (k = 1; k < hgt; k++) prt("", k, 13);
@@ -4400,7 +4400,7 @@ void display_inven(creature_type *creature_ptr)
 	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
-	char            o_name[MAX_NLEN];
+	char            object_name[MAX_NLEN];
 	int             wid, hgt;
 
 	/* Get size */
@@ -4441,10 +4441,10 @@ void display_inven(creature_type *creature_ptr)
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Obtain the length of the description */
-		n = strlen(o_name);
+		n = strlen(object_name);
 
 		/* Get a color */
 		attr = tval_to_acttr[object_ptr->tval % 128];
@@ -4457,7 +4457,7 @@ void display_inven(creature_type *creature_ptr)
 		}
 
 		/* Display the entry itself */
-		Term_putstr(3, i, n, attr, o_name);
+		Term_putstr(3, i, n, attr, object_name);
 
 		/* Erase the rest of the line */
 		Term_erase(3+n, i, 255);
@@ -4493,7 +4493,7 @@ void display_equip(creature_type *creature_ptr)
 	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
-	char            o_name[MAX_NLEN];
+	char            object_name[MAX_NLEN];
 	int             wid, hgt;
 
 	/* Get size */
@@ -4508,10 +4508,10 @@ void display_equip(creature_type *creature_ptr)
 			if(object_ptr->k_idx)
 			{
 				/* Obtain an item description */
-				object_desc(o_name, object_ptr, 0);
+				object_desc(object_name, object_ptr, 0);
 
 				/* Display the index (or blank space) */
-				Term_putstr(0, n, 3, TERM_WHITE, o_name);
+				Term_putstr(0, n, 3, TERM_WHITE, object_name);
 				n++;
 			}
 		}
@@ -4534,11 +4534,11 @@ void display_equip(creature_type *creature_ptr)
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 		attr = tval_to_acttr[object_ptr->tval % 128];
 
 		/* Obtain the length of the description */
-		n = strlen(o_name);
+		n = strlen(object_name);
 
 		/* Grey out charging items */
 		if (object_ptr->timeout)
@@ -4547,7 +4547,7 @@ void display_equip(creature_type *creature_ptr)
 		}
 
 		/* Display the entry itself */
-		Term_putstr(3, i, n, attr, o_name);
+		Term_putstr(3, i, n, attr, object_name);
 
 		/* Erase the rest of the line */
 		Term_erase(3+n, i, 255);
@@ -4855,7 +4855,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 	int             i, j, k, l, m, n;
 	int             col, cur_col, len;
 	object_type     *object_ptr;
-	char            o_name[MAX_NLEN];
+	char            object_name[MAX_NLEN];
 	char            tmp_val[MAX_NLEN];
 	int             out_index[INVEN_TOTAL];
 	byte            out_color[INVEN_TOTAL];
@@ -4888,7 +4888,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			{
 				m = get_equipped_slot_idx(creature_ptr, i, j); 
 				object_ptr = &creature_ptr->inventory[m];
-				object_desc(o_name, object_ptr, 0); // Describe the object
+				object_desc(object_name, object_ptr, 0); // Describe the object
 
 				// Save the object index, color, and description
 				out_index[k] = m;
@@ -4896,7 +4896,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 
 				if (object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
 
-				(void)strcpy(out_desc[k], o_name);
+				(void)strcpy(out_desc[k], object_name);
 
 				l = strlen(out_desc[k]); // Find the predicted "line length"
 				if (show_weights) l += 15; // Be sure to account for the weight
@@ -4931,7 +4931,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			if (!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			/* Describe the object */
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			/* Save the object index, color, and description */
 			out_index[k] = i;
@@ -4943,7 +4943,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 				out_color[k] = TERM_L_DARK;
 			}
 
-			(void)strcpy(out_desc[k], o_name);
+			(void)strcpy(out_desc[k], object_name);
 
 			/* Find the predicted "line length" */
 			l = strlen(out_desc[k]);
@@ -5116,7 +5116,7 @@ void toggle_inven_equip(void)
  */
 static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 {
-	char        o_name[MAX_NLEN];
+	char        object_name[MAX_NLEN];
 	char        out_val[MAX_NLEN+20];
 	object_type *object_ptr;
 
@@ -5134,13 +5134,13 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 	}
 
 	/* Describe */
-	object_desc(o_name, object_ptr, 0);
+	object_desc(object_name, object_ptr, 0);
 
 	/* Prompt */
 #ifdef JP
-(void)sprintf(out_val, "%s%sですか? ", prompt, o_name);
+(void)sprintf(out_val, "%s%sですか? ", prompt, object_name);
 #else
-	(void)sprintf(out_val, "%s %s? ", prompt, o_name);
+	(void)sprintf(out_val, "%s %s? ", prompt, object_name);
 #endif
 
 
@@ -6205,7 +6205,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 
 	object_type *object_ptr;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	char tmp_val[80];
 
@@ -6235,7 +6235,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		object_ptr = &object_list[floor_list[i]];
 
 		/* Describe the object */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Save the index */
 		out_index[k] = i;
@@ -6244,7 +6244,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		out_color[k] = tval_to_acttr[object_ptr->tval & 0x7F];
 
 		/* Save the object description */
-		strcpy(out_desc[k], o_name);
+		strcpy(out_desc[k], object_name);
 
 		/* Find the predicted "line length" */
 		l = strlen(out_desc[k]) + 5;
@@ -7629,7 +7629,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 {
 	s16b this_object_idx, next_object_idx = 0;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	object_type *object_ptr;
 
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -7646,7 +7646,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		object_ptr = &object_list[this_object_idx];
 
 		/* Describe the object */
-		object_desc(o_name, object_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 
 		/* Access the next object */
 		next_object_idx = object_ptr->next_object_idx;
@@ -7660,10 +7660,10 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Message */
 #ifdef JP
 		msg_format(" $%ld の価値がある%sを見つけた。",
-			   (long)object_ptr->pval, o_name);
+			   (long)object_ptr->pval, object_name);
 #else
 			msg_format("You have found %ld gold pieces worth of %s.",
-				(long) object_ptr->pval, o_name);
+				(long) object_ptr->pval, object_name);
 #endif
 
 
@@ -7732,13 +7732,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			/* Message */
 #ifdef JP
-			msg_format("%sがある。", o_name);
+			msg_format("%sがある。", object_name);
 #else
-			msg_format("You see %s.", o_name);
+			msg_format("You see %s.", object_name);
 #endif
 
 		}
@@ -7780,13 +7780,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			/* Message */
 #ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
+				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else
-			msg_format("You have no room for %s.", o_name);
+			msg_format("You have no room for %s.", object_name);
 #endif
 
 		}
@@ -7796,7 +7796,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		{
 			/* Message */
 #ifdef JP
-			msg_format("ザックには床にあるどのアイテムも入らない。", o_name);
+			msg_format("ザックには床にあるどのアイテムも入らない。", object_name);
 #else
 			msg_print("You have no room for any of the objects on the floor.");
 #endif
@@ -7830,13 +7830,13 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			/* Build a prompt */
 #ifdef JP
-			(void) sprintf(out_val, "%sを拾いますか? ", o_name);
+			(void) sprintf(out_val, "%sを拾いますか? ", object_name);
 #else
-			(void) sprintf(out_val, "Pick up %s? ", o_name);
+			(void) sprintf(out_val, "Pick up %s? ", object_name);
 #endif
 
 

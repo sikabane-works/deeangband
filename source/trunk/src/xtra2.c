@@ -2645,7 +2645,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		{
 			if (floor_num == 1)
 			{
-				char o_name[MAX_NLEN];
+				char object_name[MAX_NLEN];
 
 				object_type *object_ptr;
 
@@ -2653,15 +2653,15 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				object_ptr = &object_list[floor_list[0]];
 
 				/* Describe the object */
-				object_desc(o_name, object_ptr, 0);
+				object_desc(object_name, object_ptr, 0);
 
 				/* Message */
 #ifdef JP
 				sprintf(out_val, "%s%s%s%s[%s]",
-					s1, o_name, s2, s3, info);
+					s1, object_name, s2, s3, info);
 #else
 				sprintf(out_val, "%s%s%s%s [%s]",
-					s1, s2, s3, o_name, info);
+					s1, s2, s3, object_name, info);
 #endif
 
 				prt(out_val, 0, 0);
@@ -2778,19 +2778,19 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Describe it */
 		if (object_ptr->marked & OM_FOUND)
 		{
-			char o_name[MAX_NLEN];
+			char object_name[MAX_NLEN];
 
 			/* Not boring */
 			boring = FALSE;
 
 			/* Obtain an object description */
-			object_desc(o_name, object_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 
 			/* Describe the object */
 #ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s]", s1, o_name, s2, s3, info);
+			sprintf(out_val, "%s%s%s%s[%s]", s1, object_name, s2, s3, info);
 #else
-			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, o_name, info);
+			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, object_name, info);
 #endif
 
 			prt(out_val, 0, 0);
@@ -3918,7 +3918,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	int         dummy = 0, dummy2 = 0;
 	int         type, effect;
 	cptr        reward = NULL;
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	int count = 0;
 
@@ -4570,12 +4570,12 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 				if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
 					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 			}
-			object_desc(o_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
+			object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(creature_ptr, FALSE, dummy);
 #ifdef JP
-			reward = format("%s‚ª”j‰ó‚³‚ê‚½B", o_name);
+			reward = format("%s‚ª”j‰ó‚³‚ê‚½B", object_name);
 #else
-			reward = format("destroying %s", o_name);
+			reward = format("destroying %s", object_name);
 #endif
 			break;
 		case REW_CURSE_AR:
@@ -4594,12 +4594,12 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
 			(void)curse_armor(creature_ptr);
 #ifdef JP
-			reward = format("%s‚ª”j‰ó‚³‚ê‚½B", o_name);
+			reward = format("%s‚ª”j‰ó‚³‚ê‚½B", object_name);
 #else
-			reward = format("destroying %s", o_name);
+			reward = format("destroying %s", object_name);
 #endif
 			break;
 		case REW_PISS_OFF:
@@ -4646,23 +4646,23 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 							if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
 								dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 						}
-						object_desc(o_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
+						object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(creature_ptr, FALSE, dummy);
 #ifdef JP
-						reward = format("%s‚ª”j‰ó‚³‚ê‚½B", o_name);
+						reward = format("%s‚ª”j‰ó‚³‚ê‚½B", object_name);
 #else
-						reward = format("destroying %s", o_name);
+						reward = format("destroying %s", object_name);
 #endif
 					}
 					else
 					{
 						if (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
-						object_desc(o_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+						object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
 						(void)curse_armor(creature_ptr);
 #ifdef JP
-						reward = format("%s‚ª”j‰ó‚³‚ê‚½B", o_name);
+						reward = format("%s‚ª”j‰ó‚³‚ê‚½B", object_name);
 #else
-						reward = format("destroying %s", o_name);
+						reward = format("destroying %s", object_name);
 #endif
 					}
 					break;

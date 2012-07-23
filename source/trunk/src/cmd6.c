@@ -521,14 +521,14 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		  my_strchr("pht", species_info[object_ptr->pval].d_char)))
 	{
 		/* Drain vitality of humanoids */
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 
-		object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-		msg_format("%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ð‹zŽû‚µ‚½‹C‚ª‚·‚éB", o_name);
+		msg_format("%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ð‹zŽû‚µ‚½‹C‚ª‚·‚éB", object_name);
 #else
-		msg_format("%^s is burnt to ashes.  You absorb its vitality!", o_name);
+		msg_format("%^s is burnt to ashes.  You absorb its vitality!", object_name);
 #endif
 		(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 	}
@@ -2095,7 +2095,7 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 	else if (object_ptr->tval==TV_PARCHMENT)
 	{
 		cptr q;
-		char o_name[MAX_NLEN];
+		char object_name[MAX_NLEN];
 		char buf[1024];
 
 		/* Save screen */
@@ -2104,13 +2104,13 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 		q=format("book-%d_jp.txt",object_ptr->sval);
 
 		/* Display object description */
-		object_desc(o_name, object_ptr, OD_NAME_ONLY);
+		object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
 		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, q);
 
 		/* Peruse the help file */
-		(void)show_file(TRUE, buf, o_name, 0, 0);
+		(void)show_file(TRUE, buf, object_name, 0, 0);
 
 		/* Load screen */
 		screen_load();

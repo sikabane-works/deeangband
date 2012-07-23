@@ -999,21 +999,21 @@ static void do_cmd_last_get(void)
 	char buf[256];
 	s32b turn_tmp;
 
-	if (record_o_name[0] == '\0') return;
+	if (record_object_name[0] == '\0') return;
 
 #ifdef JP
-	sprintf(buf,"%sの入手を記録します。",record_o_name);
+	sprintf(buf,"%sの入手を記録します。",record_object_name);
 #else
-	sprintf(buf,"Do you really want to record getting %s? ",record_o_name);
+	sprintf(buf,"Do you really want to record getting %s? ",record_object_name);
 #endif
 	if (!get_check(buf)) return;
 
 	turn_tmp = turn;
 	turn = record_turn;
 #ifdef JP
-	sprintf(buf,"%sを手に入れた。", record_o_name);
+	sprintf(buf,"%sを手に入れた。", record_object_name);
 #else
-	sprintf(buf,"descover %s.", record_o_name);
+	sprintf(buf,"descover %s.", record_object_name);
 #endif
 	do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
 	turn = turn_tmp;
@@ -3899,7 +3899,7 @@ void do_cmd_visuals(void)
 			/* Dump objects */
 			for (i = 0; i < max_object_kind_idx; i++)
 			{
-				char o_name[80];
+				char object_name[80];
 				object_kind *k_ptr = &object_kind_info[i];
 
 				/* Skip non-entries */
@@ -3908,7 +3908,7 @@ void do_cmd_visuals(void)
 				if (!k_ptr->flavor)
 				{
 					/* Tidy name */
-					strip_name(o_name, i);
+					strip_name(object_name, i);
 				}
 				else
 				{
@@ -3918,11 +3918,11 @@ void do_cmd_visuals(void)
 					object_prep(&forge, i, ITEM_FREE_SIZE);
 
 					/* Get un-shuffled flavor name */
-					object_desc(o_name, &forge, OD_FORCE_FLAVOR);
+					object_desc(object_name, &forge, OD_FORCE_FLAVOR);
 				}
 
 				/* Dump a comment */
-				auto_dump_printf("# %s\n", o_name);
+				auto_dump_printf("# %s\n", object_name);
 
 				/* Dump the object attr/char info */
 				auto_dump_printf("K:%d:0x%02X/0x%02X\n\n", i,
@@ -5966,7 +5966,7 @@ cptr inven_res_label =
 /* XTRA HACK RESLIST */
 static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *j, byte tval, char *where)
 {
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	u32b flgs[TR_FLAG_SIZE];
 
 	if (!object_ptr->k_idx) return;
@@ -5989,12 +5989,12 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 	    || object_is_artifact(object_ptr))
 	{
 		int i = 0;
-		object_desc(o_name, object_ptr, OD_NAME_ONLY);
+		object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
-		while (o_name[i] && (i < 26))
+		while (object_name[i] && (i < 26))
 		{
 #ifdef JP
-			if (iskanji(o_name[i])) i++;
+			if (iskanji(object_name[i])) i++;
 #endif
 			i++;
 		}
@@ -6003,12 +6003,12 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 		{
 			while (i < 28)
 			{
-				o_name[i] = ' '; i++;
+				object_name[i] = ' '; i++;
 			}
 		}
-		o_name[i] = '\0';
+		object_name[i] = '\0';
 
-		fprintf(fff, "%s %s", where, o_name);
+		fprintf(fff, "%s %s", where, object_name);
 
 		if (!(object_ptr->ident & (IDENT_MENTAL)))
 		{
@@ -8322,7 +8322,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 	/* Display lines until done */
 	for (i = 0; i < per_page && (object_idx[object_top + i] >= 0); i++)
 	{
-		char o_name[80];
+		char object_name[80];
 		byte a, c;
 		object_kind *flavor_k_ptr;
 
@@ -8355,16 +8355,16 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		if (!k_ptr->flavor || (!visual_only && k_ptr->aware))
 		{
 			/* Tidy name */
-			strip_name(o_name, k_idx);
+			strip_name(object_name, k_idx);
 		}
 		else
 		{
 			/* Flavor name */
-			strcpy(o_name, object_kind_name + flavor_k_ptr->flavospecies_name);
+			strcpy(object_name, object_kind_name + flavor_k_ptr->flavospecies_name);
 		}
 
 		/* Display the name */
-		c_prt(attr, o_name, row + i, col);
+		c_prt(attr, object_name, row + i, col);
 
 		/* Hack -- visual_list mode */
 		if (per_page == 1)
@@ -9891,7 +9891,7 @@ static void do_cmd_knowledge_home(void)
 //	int i;
 	char file_name[1024];
 //	store_type  *st_ptr;
-//	char o_name[MAX_NLEN];
+//	char object_name[MAX_NLEN];
 	cptr		paren = ")";
 
 	process_dungeon_file(current_floor_ptr, "w_info.txt", 0, 0, max_wild_y, max_wild_x);
@@ -9933,25 +9933,25 @@ static void do_cmd_knowledge_home(void)
 			{
 #ifdef JP
 				if ((i % 12) == 0) fprintf(fff, "\n ( %d ページ )\n", x++);
-				object_desc(o_name, &st_ptr->stock[i], 0);
-				if (strlen(o_name) <= 80-3)
+				object_desc(object_name, &st_ptr->stock[i], 0);
+				if (strlen(object_name) <= 80-3)
 				{
-					fprintf(fff, "%c%s %s\n", I2A(i%12), paren, o_name);
+					fprintf(fff, "%c%s %s\n", I2A(i%12), paren, object_name);
 				}
 				else
 				{
 					int n;
 					char *t;
-					for (n = 0, t = o_name; n < 80-3; n++, t++)
+					for (n = 0, t = object_name; n < 80-3; n++, t++)
 						if(iskanji(*t)) {t++; n++;}
 					if (n == 81-3) n = 79-3; // 最後が漢字半分
 
-					fprintf(fff, "%c%s %.*s\n", I2A(i%12), paren, n, o_name);
-					fprintf(fff, "   %.77s\n", o_name+n);
+					fprintf(fff, "%c%s %.*s\n", I2A(i%12), paren, n, object_name);
+					fprintf(fff, "   %.77s\n", object_name+n);
 				}
 #else
-				object_desc(o_name, &st_ptr->stock[i], 0);
-				fprintf(fff, "%c%s %s\n", I2A(i%12), paren, o_name);
+				object_desc(object_name, &st_ptr->stock[i], 0);
+				fprintf(fff, "%c%s %s\n", I2A(i%12), paren, object_name);
 #endif
 
 			}

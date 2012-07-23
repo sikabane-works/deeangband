@@ -1830,7 +1830,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	object_type *object_ptr;
 
-	char o_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	char attacker_name[100];
 	char target_name[100];
@@ -2728,17 +2728,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if (object_is_artifact(object_ptr)) continue;
 
 					/* Get a description */
-					object_desc(o_name, object_ptr, OD_OMIT_PREFIX);
+					object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 					/* Message */
 #ifdef JP
 					msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I",
-						o_name, index_to_label(i),
+						object_name, index_to_label(i),
 						((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 					msg_format("%sour %s (%c) was stolen!",
 						((object_ptr->number > 1) ? "One of y" : "Y"),
-						o_name, index_to_label(i));
+						object_name, index_to_label(i));
 #endif
 
 					/* Make an object */
@@ -2815,17 +2815,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if ((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
 
 					/* Get a description */
-					object_desc(o_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 					/* Message */
 #ifdef JP
 					msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I",
-						o_name, index_to_label(i),
+						object_name, index_to_label(i),
 						((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 					msg_format("%sour %s (%c) was eaten!",
 						((object_ptr->number > 1) ? "One of y" : "Y"),
-						o_name, index_to_label(i));
+						object_name, index_to_label(i));
 #endif
 
 

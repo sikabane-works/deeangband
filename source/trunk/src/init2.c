@@ -948,7 +948,7 @@ static errr init_object_ego_info(void)
 	/* Save a pointer to the parsing function */
 	object_ego_head.parse_info_txt = parse_object_ego_csv;
 
-	return init_info2("object_ego_info", &object_ego_head, (void*)&object_ego_info, &object_ego_name, &object_ego_text, NULL, NULL);
+	return init_info2("object_ego_info", &object_ego_head, (void*)&object_ego_info, &object_egobject_name, &object_ego_text, NULL, NULL);
 }
 
 

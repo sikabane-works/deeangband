@@ -347,7 +347,7 @@ extern bool cheat_know;
 extern bool cheat_live;
 extern bool cheat_save;
 
-extern char record_o_name[MAX_NLEN];
+extern char record_object_name[MAX_NLEN];
 extern s32b record_turn;
 extern byte hitpoint_warn;
 extern byte mana_warn;
@@ -448,7 +448,7 @@ extern artifact_type *artifact_info;
 extern char *artifact_name;
 extern char *artifact_text;
 extern ego_item_type *object_ego_info;
-extern char *object_ego_name;
+extern char *object_egobject_name;
 extern char *object_ego_text;
 extern species_type *species_info;
 extern char *species_name;

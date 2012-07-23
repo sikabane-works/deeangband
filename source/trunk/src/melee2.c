@@ -2403,7 +2403,7 @@ static void process_nonplayer(int m_idx)
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
-					char creature_name[80], o_name[MAX_NLEN];
+					char creature_name[80], object_name[MAX_NLEN];
 
 					/* Acquire object */
 					object_type *object_ptr = &object_list[this_object_idx];
@@ -2426,7 +2426,7 @@ static void process_nonplayer(int m_idx)
 					}
 
 					/* Acquire the object name */
-					object_desc(o_name, object_ptr, 0);
+					object_desc(object_name, object_ptr, 0);
 
 					/* Acquire the creature name */
 					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
@@ -2442,9 +2442,9 @@ static void process_nonplayer(int m_idx)
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^s‚Í%s‚ğE‚¨‚¤‚Æ‚µ‚½‚ªA‚¾‚ß‚¾‚Á‚½B", creature_name, o_name);
+							msg_format("%^s‚Í%s‚ğE‚¨‚¤‚Æ‚µ‚½‚ªA‚¾‚ß‚¾‚Á‚½B", creature_name, object_name);
 #else
-							msg_format("%^s tries to pick up %s, but fails.", creature_name, o_name);
+							msg_format("%^s tries to pick up %s, but fails.", creature_name, object_name);
 #endif
 						}
 					}
@@ -2460,9 +2460,9 @@ static void process_nonplayer(int m_idx)
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^s‚ª%s‚ğE‚Á‚½B", creature_name, o_name);
+							msg_format("%^s‚ª%s‚ğE‚Á‚½B", creature_name, object_name);
 #else
-							msg_format("%^s picks up %s.", creature_name, o_name);
+							msg_format("%^s picks up %s.", creature_name, object_name);
 #endif
 						}
 
@@ -2490,9 +2490,9 @@ static void process_nonplayer(int m_idx)
 						{
 							/* Dump a message */
 #ifdef JP
-							msg_format("%^s‚ª%s‚ğ”j‰ó‚µ‚½B", creature_name, o_name);
+							msg_format("%^s‚ª%s‚ğ”j‰ó‚µ‚½B", creature_name, object_name);
 #else
-							msg_format("%^s destroys %s.", creature_name, o_name);
+							msg_format("%^s destroys %s.", creature_name, object_name);
 #endif
 						}
 
