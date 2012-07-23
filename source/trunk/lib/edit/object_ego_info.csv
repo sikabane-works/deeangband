@@ -1,21 +1,21 @@
 ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,PVAL,DEPTH,RARITY,WEIGHT,COST,FLAG,ADD_CREATURE_TRAITS,COMMENT
-4,耐酸の,of Resist Acid,BODY,16,100,,,,0,,0,12,0,1000,RES_ACID|IGNORE_ACID,,"# File: e_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ## This file is used to initialize the ""lib/raw/e_info.raw"" file, which is# used to initialize the ""ego-item"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/e_info.raw"" file.# The ego-item indexes are defined in ""defines.h"", and must not be changed.# Ego-items 1-63 are ""armor"", and 64-127 are ""weapons""# Note that every ""ego-item"" type has a different ""index"", and can only be# created from items that belong to a certain ""slot"" in the equipment, if# one assumes that ""ammo"" belongs to an imaginary slot (23).  However, it# is possible for several ""ego-item"" types to have the same ""textual name"",# such as with ""Armor of Resistance"" and ""HAND of Resistance"".# === Understanding e_info.txt ===# N: serial number : ego type# X: inventory slot : rating# C: max to-hit : max to-dam : max to-ac : pval# W: depth : rarity : weight : cost# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item.# 'X' is for extra information - inventory slot and rating. Slots# range from 23 (for ammunition) to 35 (for boots). Rating affects# level feelings.# 'C' is for creation bonusses - maximum to-hit, to-dam, to-ac, and# pval. Cursed ego-items will negate the given value.# 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)### Body Armor ###"
-5,耐電の,of Resist Lightning,BODY,10,100,,,,0,,0,12,0,400,RES_ELEC|IGNORE_ELEC,,
-6,耐火の,of Resist Fire,BODY,14,100,,,,0,,0,9,0,800,RES_FIRE|IGNORE_FIRE,,
-7,耐冷の,of Resist Cold,BODY,12,100,,,,0,,0,9,0,600,RES_COLD|IGNORE_COLD,,
+4,耐酸の,of Resist Acid,BODY,16,100,,,,0,,0,12,0,1000,IGNORE_ACID,RES_ACID,"# File: e_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ## This file is used to initialize the ""lib/raw/e_info.raw"" file, which is# used to initialize the ""ego-item"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/e_info.raw"" file.# The ego-item indexes are defined in ""defines.h"", and must not be changed.# Ego-items 1-63 are ""armor"", and 64-127 are ""weapons""# Note that every ""ego-item"" type has a different ""index"", and can only be# created from items that belong to a certain ""slot"" in the equipment, if# one assumes that ""ammo"" belongs to an imaginary slot (23).  However, it# is possible for several ""ego-item"" types to have the same ""textual name"",# such as with ""Armor of Resistance"" and ""HAND of Resistance"".# === Understanding e_info.txt ===# N: serial number : ego type# X: inventory slot : rating# C: max to-hit : max to-dam : max to-ac : pval# W: depth : rarity : weight : cost# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item.# 'X' is for extra information - inventory slot and rating. Slots# range from 23 (for ammunition) to 35 (for boots). Rating affects# level feelings.# 'C' is for creation bonusses - maximum to-hit, to-dam, to-ac, and# pval. Cursed ego-items will negate the given value.# 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)### Body Armor ###"
+5,耐電の,of Resist Lightning,BODY,10,100,,,,0,,0,12,0,400,IGNORE_ELEC,RES_ELEC,
+6,耐火の,of Resist Fire,BODY,14,100,,,,0,,0,9,0,800,IGNORE_FIRE,RES_FIRE,
+7,耐冷の,of Resist Cold,BODY,12,100,,,,0,,0,9,0,600,IGNORE_COLD,RES_COLD,
 8,全耐性の,of Resistance,BODY,20,100,0,0,10,0,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,,# OnePower
 9,エルフの,of Elvenkind,BODY,25,100,0,0,10,0,3,0,18,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,,
 10,(ドワーフ),(Dwarven),BODY,5,100,0,0,12,0,3,0,18,0,1500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,# OnePower
 11,永続の,of Permanence,BODY,30,100,0,0,10,0,0,0,0,0,30000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,,
 12,宵闇の,of The Twilight,BODY,99,100,0,0,0,0,0,0,0,0,100000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,DUSK_ENCHANT,# 13 (unused)# 14 (unused)# 15 (unused)### HANDs ###
-16,耐酸の,of Resist Acid,HAND,16,100,,,,0,,0,18,0,1000,RES_ACID|IGNORE_ACID,,
-17,耐電の,of Resist Lightning,HAND,10,100,,,,0,,0,7,0,400,RES_ELEC|IGNORE_ELEC,,
-18,耐火の,of Resist Fire,HAND,14,100,,,,0,,0,9,0,800,RES_FIRE|IGNORE_FIRE,,
-19,耐冷の,of Resist Cold,HAND,12,100,,,,0,,0,7,0,600,RES_COLD|IGNORE_COLD,,
+16,耐酸の,of Resist Acid,HAND,16,100,,,,0,,0,18,0,1000,IGNORE_ACID,RES_ACID,
+17,耐電の,of Resist Lightning,HAND,10,100,,,,0,,0,7,0,400,IGNORE_ELEC,RES_ELEC,
+18,耐火の,of Resist Fire,HAND,14,100,,,,0,,0,9,0,800,IGNORE_FIRE,RES_FIRE,
+19,耐冷の,of Resist Cold,HAND,12,100,,,,0,,0,7,0,600,IGNORE_COLD,RES_COLD,
 20,全耐性の,of Resistance,HAND,20,100,0,0,10,0,0,0,18,0,12500,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,#JZ#
 21,反射の,of Reflection,HAND,20,100,0,0,5,0,0,0,18,0,8000,IGNORE_ELEC|IGNORE_ACID|IGNORE_COLD|IGNORE_FIRE,,
-22,光と影の,of Night and Day,HAND,18,100,0,0,5,0,0,0,18,0,8000,RES_LITE|RES_DARK,,### Crowns and Helms ###
-23,闇の,of Darkness,HEAD,6,100,,,,0,,0,18,0,800,LITE|RES_DARK,,
+22,光と影の,of Night and Day,HAND,18,100,0,0,5,0,0,0,18,0,8000,,RES_LITE|RES_DARK,### Crowns and Helms ###
+23,闇の,of Darkness,HEAD,6,100,,,,0,,0,18,0,800,LITE,RES_DARK,
 24,知能の,of Intelligence,HEAD,13,100,0,0,0,0,2,0,18,0,500,INT|SUST_INT,,
 25,賢明の,of Wisdom,HEAD,13,100,0,0,0,0,2,0,18,0,500,WIS|SUST_WIS,,
 26,美貌の,of Beauty,HEAD,8,100,0,0,0,0,4,0,18,0,1000,CHR|SUST_CHR,,# OneAbility#J0##J0# 名前の訳は都々目さんによる#J0#
@@ -24,10 +24,10 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,PVAL,DEPTH,RARI
 29,尊厳の,of Lordliness,HEAD,17,100,0,0,0,0,3,0,18,0,10000,WIS|CHR|SUST_WIS|SUST_CHR|XTRA_H_RES,,
 30,鋭敏の,of Seeing,HEAD,8,100,0,0,0,0,6,0,18,0,1000,SEARCH|RES_BLIND|SEE_INVIS,,
 31,赤外線視力の,of Infravision,HEAD,11,100,0,0,0,0,8,0,9,0,500,INFRA|HIDE_TYPE,,
-32,光の,of Light,HEAD,6,100,,,,0,,0,18,0,500,LITE|RES_LITE,,
+32,光の,of Light,HEAD,6,100,,,,0,,0,18,0,500,LITE,RES_LITE,
 33,テレパシーの,of Telepathy,HEAD,20,100,,,,0,,0,18,0,15000,,,#F:TELEPATHY
-34,急速回復の,of Regeneration,HEAD,10,100,,,,0,,0,36,0,1500,REGEN,,
-35,テレポートの,of Teleportation,HEAD,0,100,,,,0,,0,36,0,0,TELEPORT,,
+34,急速回復の,of Regeneration,HEAD,10,100,,,,0,,0,36,0,1500,,REGENERATE,
+35,テレポートの,of Teleportation,HEAD,0,100,,,,0,,0,36,0,0,,TPORT,
 36,無知の,of Stupidity,HEAD,0,100,0,0,0,0,5,0,18,0,0,INT,,
 37,愚鈍の,of Naivety,HEAD,0,100,0,0,0,0,5,0,18,0,0,WIS,,
 38,醜悪の,of Ugliness,HEAD,0,100,0,0,0,0,5,0,36,0,0,CHR,,
@@ -37,8 +37,8 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,PVAL,DEPTH,RARI
 42,至福の地アマンの,of Aman,OUTER,20,100,0,0,20,0,3,0,36,0,15000,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,"# Aura, Fire#JZ#"
 43,灼熱の,of Immolation,OUTER,16,100,0,0,4,0,0,0,36,0,4000,IGNORE_ACID|IGNORE_FIRE|SH_FIRE|RES_FIRE,,#J0##J0# felicia.x さんの訳です#J0#
 44,束縛の,of Enveloping,OUTER,0,100,10,10,0,0,0,0,36,0,0,SHOW_MODS,,
-45,いじめられの,of Vulnerability,OUTER,0,100,0,0,50,0,0,0,36,0,0,AGGRAVATE,,
-46,いらつきの,of Irritation,OUTER,0,100,15,15,0,0,0,0,36,0,0,AGGRAVATE|SHOW_MODS,,"# Aura, Electricity#JZ#"
+45,いじめられの,of Vulnerability,OUTER,0,100,0,0,50,0,0,0,36,0,0,,ANTIPATHY,
+46,いらつきの,of Irritation,OUTER,0,100,15,15,0,0,0,0,36,0,0,SHOW_MODS,ANTIPATHY,"# Aura, Electricity#JZ#"
 47,電撃の,of Electricity,OUTER,16,100,0,0,4,0,0,0,36,0,4000,IGNORE_ACID|IGNORE_ELEC|SH_ELEC|RES_ELEC,,### Gloves ###
 48,麻痺知らずの,of Free Action,ARMS,11,100,,,,0,,0,4,0,1000,FREE_ACT,,
 49,殺戮の,of Slaying,ARMS,17,100,8,8,0,0,0,0,6,0,2500,SHOW_MODS,,
