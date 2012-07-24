@@ -2417,7 +2417,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 	else if ((owner_ptr->class_idx == CLASS_NINJA) && (object_ptr->tval == TV_SPIKE))
 	{
-		int avgdam = owner_ptr->mighty_throw ? (1 + 3) : 1;
+		int avgdam = has_trait(owner_ptr, TRAIT_MIGHTY_THROW) ? (1 + 3) : 1;
 		s16b energy_fire = 100 - owner_ptr->lev;
 
 		avgdam += ((owner_ptr->lev + 30) * (owner_ptr->lev + 30) - 900) / 55;

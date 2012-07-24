@@ -3980,7 +3980,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Description */
 	object_desc(object_name, quest_ptr, OD_OMIT_PREFIX);
 
-	if (creature_ptr->mighty_throw) mult += 3;
+	if (has_trait(creature_ptr, TRAIT_MIGHTY_THROW)) mult += 3;
 
 	/* Extract a "distance multiplier" */
 	/* Changed for 'launcher' mutation */

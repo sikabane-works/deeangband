@@ -3602,7 +3602,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
-		if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
+		//if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
 		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
 		if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
 
@@ -3848,7 +3848,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
 	//has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = FALSE;
 	creature_ptr->warning = FALSE;
-	creature_ptr->mighty_throw = FALSE;
 	creature_ptr->see_nocto = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
@@ -4977,7 +4976,6 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
 	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
-	bool old_mighty_throw = creature_ptr->mighty_throw;
 	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 
@@ -5010,7 +5008,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	// Hack -- See Invis Change
 	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy) update |= (PU_MONSTERS);
-	if (old_mighty_throw != creature_ptr->mighty_throw) play_window |= PW_INVEN; // Redraw average damege display of Shuriken
+	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 	play_redraw |= (PR_SPEED); // TODO
 
 	// Redraw armor (if needed)

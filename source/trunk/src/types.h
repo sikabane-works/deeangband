@@ -1474,7 +1474,6 @@ struct creature_type
 	bool heavy_spell;
 	bool easy_multi_weapon;
 	bool warning;
-	bool mighty_throw;
 	bool see_nocto;		/* Noctovision */
 
 	s32b regist_rate[RR_MAX]; 
