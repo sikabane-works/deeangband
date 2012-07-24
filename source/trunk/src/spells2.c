@@ -784,17 +784,6 @@ info[i++] = "‚ ‚È‚½‚Í‰Î‚Éã‚¢B";
 	}
 	*/
 
-
-	if (creature_ptr->resist_lite)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are resistant to bright light.";
-#endif
-
-	}
-
 	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 #ifdef JP
@@ -805,33 +794,6 @@ info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Éã‚¢B";
 
 	}
 
-	if (creature_ptr->resist_dark)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are resistant to darkness.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_NO_CONF))
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í¬—‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are resistant to confusion.";
-#endif
-
-	}
-	if (creature_ptr->resist_sound)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í‰¹”g‚ÌÕŒ‚‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are resistant to sonic attacks.";
-#endif
-
-	}
 	if (creature_ptr->resist_disen)
 	{
 #ifdef JP
