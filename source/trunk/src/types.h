@@ -1459,7 +1459,6 @@ struct creature_type
 	bool lite;		/* Permanent light */
 	bool free_act;		/* Never paralyzed */
 	bool see_inv;		/* Can see invisible */
-	bool regenerate;	/* Regenerate hit pts */
 	bool hold_life;		/* Resist life draining */
 
 	bool telepathy;		/* Telepathy */

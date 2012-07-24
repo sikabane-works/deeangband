@@ -438,7 +438,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
 	if (creature_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
-	if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	//TODO if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
 	if (creature_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
@@ -2855,7 +2855,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
 			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
-			creature_ptr->regenerate = TRUE;
+			//TODO creature_ptr->regenerate = TRUE;
 			creature_ptr->free_act = TRUE;
 			creature_ptr->speed += 2;
 
@@ -3155,7 +3155,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
 			//TODO creature_ptr->sh_fire = TRUE;
-			creature_ptr->regenerate = TRUE;
+			//TODO creature_ptr->regenerate = TRUE;
 		}
 		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR))
 		{
@@ -3326,7 +3326,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	/* Temporary regeneration boost */
 	if (creature_ptr->tim_regen)
 	{
-		creature_ptr->regenerate = TRUE;
+		//TODO creature_ptr->regenerate = TRUE;
 	}
 
 	/* Temporary levitation */
@@ -3352,7 +3352,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->see_inv = TRUE;
 		creature_ptr->free_act = TRUE;
 		creature_ptr->slow_digest = TRUE;
-		creature_ptr->regenerate = TRUE;
+		//creature_ptr->regenerate = TRUE;
 		creature_ptr->levitation = TRUE;
 		creature_ptr->hold_life = TRUE;
 		creature_ptr->telepathy = TRUE;
@@ -3512,7 +3512,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
 		if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
-		if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
+		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
 
 		if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
 		//if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
@@ -3813,7 +3813,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->see_inv = FALSE;
 	creature_ptr->free_act = FALSE;
 	creature_ptr->slow_digest = FALSE;
-	creature_ptr->regenerate = FALSE;
 	creature_ptr->levitation = FALSE;
 	creature_ptr->hold_life = FALSE;
 	creature_ptr->telepathy = FALSE;
@@ -4144,11 +4143,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 	}
 
 	{
-		if (has_trait(creature_ptr, TRAIT_FLESH_ROT))
-		{
-			creature_ptr->regenerate = FALSE;
-			/* Cancel innate regeneration */
-		}
 
 		if (has_trait(creature_ptr, TRAIT_MAGIC_RES))
 		{
@@ -4192,11 +4186,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		if (has_trait(creature_ptr, TRAIT_WINGS))
 		{
 			creature_ptr->levitation = TRUE;
-		}
-
-		if (has_trait(creature_ptr, TRAIT_REGEN))
-		{
-			creature_ptr->regenerate = TRUE;
 		}
 
 		if (has_trait(creature_ptr, TRAIT_ESP))

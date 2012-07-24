@@ -1911,7 +1911,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 	else
 	{
 		// Regeneration ability
-		if (creature_ptr->regenerate) regen_amount = regen_amount * 2;
+		if (has_trait(creature_ptr, TRAIT_REGENERATE)) regen_amount = regen_amount * 2;
 		if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
 		if (creature_ptr->cursed & TRC_SLOW_REGEN) regen_amount /= 5;
 	}

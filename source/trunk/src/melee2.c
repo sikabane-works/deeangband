@@ -1306,16 +1306,12 @@ static void creature_food_digest(creature_type *creature_ptr)
 			int digestion = SPEED_TO_ENERGY(creature_ptr->speed);
 
 			// Regeneration takes more food
-			if (creature_ptr->regenerate)
-				digestion += 20;
-			if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
-				digestion += 20;
-			if (creature_ptr->cursed & TRC_FAST_DIGEST)
-				digestion += 30;
+			if (has_trait(creature_ptr, TRAIT_REGENERATE)) digestion += 20;
+			if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) digestion += 20;
+			if (creature_ptr->cursed & TRC_FAST_DIGEST) digestion += 30;
 
 			// Slow digestion takes less food
-			if (creature_ptr->slow_digest)
-				digestion -= 5;
+			if (creature_ptr->slow_digest) digestion -= 5;
 
 			if (digestion < 1) digestion = 1;     // Minimal digestion
 			if (digestion > 100) digestion = 100; // Maximal digestion

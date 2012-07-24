@@ -618,15 +618,6 @@ info[i++] = "‚ ‚È‚½‚Í–ƒáƒ’m‚ç‚¸‚ÌŒø‰Ê‚ðŽ‚Á‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->regenerate)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í‘f‘‚­‘Ì—Í‚ð‰ñ•œ‚·‚éB";
-#else
-		info[i++] = "You regenerate quickly.";
-#endif
-
-	}
 	if (creature_ptr->slow_digest)
 	{
 #ifdef JP
