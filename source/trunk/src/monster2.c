@@ -2863,7 +2863,7 @@ void update_mon(int m_idx, bool full)
 
 			/* Basic telepathy */
 			/* Snipers get telepathy when they concentrate deeper */
-			else if (player_ptr->telepathy)
+			else if (has_trait(player_ptr, TRAIT_ESP))
 			{
 				/* Empty mind, no telepathy */
 				if (has_trait(m_ptr, TRAIT_EMPTY_MIND))

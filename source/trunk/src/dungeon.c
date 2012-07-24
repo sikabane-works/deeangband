@@ -2744,7 +2744,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			set_tim_esp(creature_ptr, creature_ptr->lev, FALSE);
 		}
 	}
-	if (has_trait(creature_ptr, TRAIT_NAUSEA) && !creature_ptr->slow_digest &&
+	if (has_trait(creature_ptr, TRAIT_NAUSEA) && !has_trait(creature_ptr, TRAIT_SLOW_DIGEST) &&
 	    one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);

@@ -2481,7 +2481,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 
-				if (!creature_ptr->telepathy)
+				if (!has_trait(creature_ptr, TRAIT_ESP))
 				{
 					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 				}
@@ -6630,7 +6630,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 
-				if (!creature_ptr->telepathy)
+				if (!has_trait(creature_ptr, TRAIT_ESP))
 				{
 					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 				}

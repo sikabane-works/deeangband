@@ -618,24 +618,7 @@ info[i++] = "あなたは麻痺知らずの効果を持っている。";
 #endif
 
 	}
-	if (creature_ptr->slow_digest)
-	{
-#ifdef JP
-info[i++] = "あなたは食欲が少ない。";
-#else
-		info[i++] = "Your appetite is small.";
-#endif
 
-	}
-	if (creature_ptr->telepathy)
-	{
-#ifdef JP
-info[i++] = "あなたはテレパシー能力を持っている。";
-#else
-		info[i++] = "You have ESP.";
-#endif
-
-	}
 	if (creature_ptr->hold_life)
 	{
 #ifdef JP

@@ -2902,7 +2902,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->to_ac += creature_ptr->lev/2+5;
 				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
 			}
-			creature_ptr->slow_digest = TRUE;
+			//creature_ptr->slow_digest = TRUE;
 			//TODO creature_ptr->resist_fear = TRUE;
 
 			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
@@ -3295,7 +3295,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if (IS_FAST(creature_ptr)) creature_ptr->speed += 10;
 	if (creature_ptr->lightspeed && !creature_ptr->riding) creature_ptr->speed += 40;
 	if (creature_ptr->slow) creature_ptr->speed -= 10;
-	if (IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
+	//TODO if (IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
 	if (creature_ptr->ele_immune)
 	{
@@ -3351,11 +3351,11 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	{
 		creature_ptr->see_inv = TRUE;
 		creature_ptr->free_act = TRUE;
-		creature_ptr->slow_digest = TRUE;
+		//creature_ptr->slow_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
 		creature_ptr->levitation = TRUE;
 		creature_ptr->hold_life = TRUE;
-		creature_ptr->telepathy = TRUE;
+		//TODO creature_ptr->telepathy = TRUE;
 		creature_ptr->lite = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
@@ -3511,10 +3511,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
 		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
-		if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
+		//TODO if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
 		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
 
-		if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
+		//if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
 		//if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
 		//if (have_flag(flgs, TR_ESP_UNDEAD))  creature_ptr->esp_undead = TRUE;
 		//if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
@@ -3812,23 +3812,14 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->heavy_spell = FALSE;
 	creature_ptr->see_inv = FALSE;
 	creature_ptr->free_act = FALSE;
-	creature_ptr->slow_digest = FALSE;
 	creature_ptr->levitation = FALSE;
 	creature_ptr->hold_life = FALSE;
-	creature_ptr->telepathy = FALSE;
 	creature_ptr->lite = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = FALSE;
-	//has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;
 	creature_ptr->resist_fire = FALSE;
 	creature_ptr->resist_cold = FALSE;
 	creature_ptr->resist_pois = FALSE;
-	//TODO creature_ptr->resist_conf = FALSE;
 	creature_ptr->resist_sound = FALSE;
 	creature_ptr->resist_lite = FALSE;
 	creature_ptr->resist_dark = FALSE;
@@ -4186,11 +4177,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		if (has_trait(creature_ptr, TRAIT_WINGS))
 		{
 			creature_ptr->levitation = TRUE;
-		}
-
-		if (has_trait(creature_ptr, TRAIT_ESP))
-		{
-			creature_ptr->telepathy = TRUE;
 		}
 
 		if (has_trait(creature_ptr, TRAIT_LIMBER))
@@ -4963,7 +4949,6 @@ static void set_flow_flag(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	bool old_telepathy = creature_ptr->telepathy;
 	bool old_see_inv = creature_ptr->see_inv;
 	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
@@ -4996,7 +4981,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(message) creature_bonuses_message(creature_ptr);
 
 	// Hack -- See Invis Change
-	if (creature_ptr->see_inv != old_see_inv || creature_ptr->telepathy != old_telepathy) update |= (PU_MONSTERS);
+	//TODO update |= (PU_MONSTERS);
 	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 	play_redraw |= (PR_SPEED); // TODO
 

@@ -1461,9 +1461,6 @@ struct creature_type
 	bool see_inv;		/* Can see invisible */
 	bool hold_life;		/* Resist life draining */
 
-	bool telepathy;		/* Telepathy */
-
-	bool slow_digest;	/* Slower digestion */
 	bool bless_blade;	/* Blessed blade */
 	bool xtra_might;	/* Extra might bow */
 	bool impact[MAX_WEAPONS];		/* Earthquake blows */

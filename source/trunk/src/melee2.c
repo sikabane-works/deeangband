@@ -1311,7 +1311,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 			if (creature_ptr->cursed & TRC_FAST_DIGEST) digestion += 30;
 
 			// Slow digestion takes less food
-			if (creature_ptr->slow_digest) digestion -= 5;
+			if (has_trait(creature_ptr, TRAIT_SLOW_DIGEST)) digestion -= 5;
 
 			if (digestion < 1) digestion = 1;     // Minimal digestion
 			if (digestion > 100) digestion = 100; // Maximal digestion
