@@ -807,25 +807,6 @@ info[i++] = "あなたは地獄の力を吸収できる。";
 	}
 	*/
 
-	else if (creature_ptr->resist_neth)
-	{
-#ifdef JP
-info[i++] = "あなたは地獄の力への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to nether forces.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_FEARLESS))
-	{
-#ifdef JP
-info[i++] = "あなたは全く恐怖を感じない。";
-#else
-		info[i++] = "You are completely fearless.";
-#endif
-
-	}
-
 	if (have_flag(flgs, TR_STR))
 	{
 #ifdef JP
