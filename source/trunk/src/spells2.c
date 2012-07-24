@@ -772,17 +772,6 @@ info[i++] = "‚ ‚È‚½‚Í‚‚¢¸”s—¦‚Å–‚–@‚ğ¥‚¦‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢B";
 
 	}
 
-	/*
-	if (creature_ptr->immune_acid)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í_‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are completely immune to acid.";
-#endif
-
-	}
-	*/
 	if (creature_ptr->resist_acid || IS_OPPOSE_ACID(creature_ptr))
 	{
 #ifdef JP
@@ -792,17 +781,6 @@ info[i++] = "‚ ‚È‚½‚Í_‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 #endif
 	}
 
-	/*
-	if (creature_ptr->immune_elec)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í“dŒ‚‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are completely immune to lightning.";
-#endif
-
-	}
-	*/
 	if (creature_ptr->resist_elec || IS_OPPOSE_ELEC(creature_ptr))
 	{
 #ifdef JP
@@ -813,17 +791,6 @@ info[i++] = "‚ ‚È‚½‚Í“dŒ‚‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
-/*
-	if (creature_ptr->immune_fire)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í‰Î‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are completely immune to fire.";
-#endif
-
-	}
-*/
 	if (creature_ptr->resist_fire && IS_OPPOSE_FIRE(creature_ptr))
 	{
 #ifdef JP
@@ -845,18 +812,6 @@ info[i++] = "‚ ‚È‚½‚Í‰Î‚Éã‚¢B";
 
 	}
 	*/
-
-/*
-	if (has_trait(creature_ptr, TRAIT_IM_COLD))
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í—â‹C‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are completely immune to cold.";
-#endif
-
-	}
-*/
 
 
 	if (creature_ptr->resist_lite)
