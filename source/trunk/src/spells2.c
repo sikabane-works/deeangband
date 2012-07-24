@@ -860,15 +860,6 @@ info[i++] = "あなたは火への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_fire || IS_OPPOSE_FIRE(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは火への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to fire.";
-#endif
-
-	}
 
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
@@ -902,15 +893,6 @@ info[i++] = "あなたは冷気への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (creature_ptr->resist_cold || IS_OPPOSE_COLD(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは冷気への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to cold.";
-#endif
-
-	}
 
 	if (creature_ptr->resist_pois && IS_OPPOSE_POIS(creature_ptr))
 	{
@@ -918,15 +900,6 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 info[i++] = "あなたは毒への強力な耐性を持っている。";
 #else
 		info[i++] = "You resist poison exceptionally well.";
-#endif
-
-	}
-	else if (creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは毒への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to poison.";
 #endif
 
 	}
