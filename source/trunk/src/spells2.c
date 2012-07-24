@@ -772,35 +772,6 @@ info[i++] = "あなたは高い失敗率で魔法を唱えなければいけない。";
 
 	}
 
-	if (creature_ptr->resist_acid || IS_OPPOSE_ACID(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは酸への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to acid.";
-#endif
-	}
-
-	if (creature_ptr->resist_elec || IS_OPPOSE_ELEC(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは電撃への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to lightning.";
-#endif
-
-	}
-
-	if (creature_ptr->resist_fire && IS_OPPOSE_FIRE(creature_ptr))
-	{
-#ifdef JP
-info[i++] = "あなたは火への強力な耐性を持っている。";
-#else
-		info[i++] = "You resist fire exceptionally well.";
-#endif
-
-	}
-
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
 	{
@@ -926,24 +897,6 @@ info[i++] = "あなたは地獄の力への耐性を持っている。";
 info[i++] = "あなたは全く恐怖を感じない。";
 #else
 		info[i++] = "You are completely fearless.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_NO_BLIND))
-	{
-#ifdef JP
-info[i++] = "あなたの目は盲目への耐性を持っている。";
-#else
-		info[i++] = "Your eyes are resistant to blindness.";
-#endif
-
-	}
-	if (creature_ptr->resist_time)
-	{
-#ifdef JP
-info[i++] = "あなたは時間逆転への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to time.";
 #endif
 
 	}
