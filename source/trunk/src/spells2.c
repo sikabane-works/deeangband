@@ -771,15 +771,6 @@ info[i++] = "‚ ‚È‚½‚Í‚‚¢Ž¸”s—¦‚Å–‚–@‚ð¥‚¦‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢B";
 #endif
 
 	}
-	if (creature_ptr->mighty_throw)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í‹­‚­•¨‚ð“Š‚°‚éB";
-#else
-		info[i++] = "You can throw objects powerfully.";
-#endif
-
-	}
 
 	/*
 	if (creature_ptr->immune_acid)
