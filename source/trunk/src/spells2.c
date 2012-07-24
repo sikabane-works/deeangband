@@ -794,43 +794,6 @@ info[i++] = "あなたは閃光に弱い。";
 
 	}
 
-	if (creature_ptr->resist_disen)
-	{
-#ifdef JP
-info[i++] = "あなたは劣化への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to disenchantment.";
-#endif
-
-	}
-	if (creature_ptr->resist_chaos)
-	{
-#ifdef JP
-info[i++] = "あなたはカオスの力への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to chaos.";
-#endif
-
-	}
-	if (creature_ptr->resist_shard)
-	{
-#ifdef JP
-info[i++] = "あなたは破片の攻撃への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to blasts of shards.";
-#endif
-
-	}
-	if (creature_ptr->resist_nexus)
-	{
-#ifdef JP
-info[i++] = "あなたは因果混乱の攻撃への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to nexus attacks.";
-#endif
-
-	}
-
 	//TODO
 	/*
 	if (IS_RACE(creature_ptr, RACE_LICH))
