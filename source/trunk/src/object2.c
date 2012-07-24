@@ -5601,7 +5601,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	int number = 0;
 
 	/* Paranoia -- Player has no warning ability */
-	if (!caster_ptr->warning) return NULL;
+	if (!has_trait(caster_ptr, TRAIT_WARNING)) return NULL;
 
 	/* Search inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)

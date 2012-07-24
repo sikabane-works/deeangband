@@ -709,15 +709,6 @@ info[i++] = "あなたの身体は光っている。";
 #endif
 
 	}
-	if (creature_ptr->warning)
-	{
-#ifdef JP
-info[i++] = "あなたは行動の前に危険を察知することができる。";
-#else
-		info[i++] = "You will be warned before dangerous actions.";
-#endif
-
-	}
 	if (creature_ptr->dec_mana)
 	{
 #ifdef JP

@@ -2687,7 +2687,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 		u32b mpe_mode = MPE_ENERGY_USE;
 
-		if (creature_ptr->warning)
+		if (has_trait(creature_ptr, TRAIT_WARNING))
 		{
 			if (!process_warning(creature_ptr, x, y))
 			{

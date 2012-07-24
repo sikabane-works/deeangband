@@ -3533,10 +3533,11 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
 		if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
+		/*
 		if (have_flag(flgs, TR_WARNING)){
-			if (!object_ptr->inscription || !(my_strchr(quark_str(object_ptr->inscription),'$')))
-			  creature_ptr->warning = TRUE;
+			if (!object_ptr->inscription || !(my_strchr(quark_str(object_ptr->inscription),'$'))) creature_ptr->warning = TRUE;
 		}
+		*/
 
 		if (have_flag(flgs, TR_TELEPORT))
 		{
@@ -3837,7 +3838,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	//TODO creature_ptr->sh_cold = FALSE;
 	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
 	//has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = FALSE;
-	creature_ptr->warning = FALSE;
 	creature_ptr->see_nocto = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
