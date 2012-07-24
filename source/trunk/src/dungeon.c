@@ -1970,7 +1970,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if (cave_no_regen) regen_amount = 0;
 
-	regen_amount = (regen_amount * creature_ptr->mutant_regenerate_mod) / 100;
+	regen_amount = (regen_amount * creature_ptr->regenerate_mod) / 100;
 
 	/* Regenerate Hit Points if needed */
 	if ((creature_ptr->chp < creature_ptr->mhp) && !cave_no_regen)

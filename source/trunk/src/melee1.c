@@ -650,7 +650,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 							drain_msg = FALSE;
 						}
 
-						drain_heal = (drain_heal * attacker_ptr->mutant_regenerate_mod) / 100;
+						drain_heal = (drain_heal * attacker_ptr->regenerate_mod) / 100;
 
 						hp_player(attacker_ptr, drain_heal);
 						/* We get to keep some of it! */

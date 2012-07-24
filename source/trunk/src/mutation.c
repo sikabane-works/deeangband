@@ -45,7 +45,7 @@ void remove_all_postnatal_traits(creature_type *creature_ptr)
 
 	//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
 	creature_ptr->creature_update |= CRU_BONUS;
-	creature_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(creature_ptr);
+	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 	handle_stuff();
 	return;
 }
@@ -103,7 +103,7 @@ static int count_mutations(creature_type *creature_ptr)
  * Return the modifier to the regeneration rate
  * (in percent)
  */
-int calc_mutant_regenerate_mod(creature_type *creature_ptr)
+int calc_regenerate_mod(creature_type *creature_ptr)
 {
 	int regen;
 	int mod = 10;
