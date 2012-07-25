@@ -439,7 +439,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 437,IRON_SKIN,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"あなたの肌は鉄でできている。(器用-1, AC+25) ","Your skin is made of steel (-1 DEX, +25 AC). ",あなたの肌は鉄になった！,Your skin turns to steel!,肌が肉にもどった！,Your skin reverts to flesh!
 438,WINGS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは羽を持っている。 ,You have wings. ,背中に羽が生えた。,You grow a pair of wings.,背中の羽根が取れ落ちた。,Your wings fall off.
 439,FEARLESS,-1,-1,恐れ知らず,Fearless,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは全く恐怖を感じない。 ,You are completely fearless. ,完全に怖れ知らずになった。,You become completely fearless.,再び恐怖を感じるようになった。,You begin to feel fear again.
-440,XXX0440,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+440,SEE_DARKNESS,-1,-1,完全暗視,See Darkness,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたは完全な暗闇の中を見通すことができる。,You can see darkness completely.,,,,
 441,ESP,-1,-1,テレパシー,Telepathy,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはテレパシーを持っている。 ,You are telepathic. ,テレパシーの能力を得た！,You develop a telepathic ability!,テレパシーの能力を失った！,You lose your telepathic ability!
 442,LIMBER,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの体は非常にしなやかだ。(器用+3) ,Your body is very limber (+3 DEX). ,筋肉がしなやかになった。,Your muscles become limber.,筋肉が硬くなった。,Your muscles stiffen.
 443,ARTHRITIS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたはいつも関節に痛みを感じている。(器用-3) ,Your joints ache constantly (-3 DEX). ,関節が突然痛み出した。,Your joints suddenly hurt.,関節が痛くなくなった。,Your joints stop hurting.

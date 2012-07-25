@@ -2458,7 +2458,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_FEAR);
 	}
 
-	if (has_trait(creature_ptr, TRAIT_REGEN))
+	if (has_trait(creature_ptr, TRAIT_REGENERATE))
 	{
 		add_flag(flgs, TR_REGEN);
 	}
