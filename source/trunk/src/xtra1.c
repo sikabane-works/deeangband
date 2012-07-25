@@ -2905,12 +2905,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			//creature_ptr->slow_digest = TRUE;
 			//TODO creature_ptr->resist_fear = TRUE;
 
-			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
-			//TODO if (creature_ptr->lev > 24) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
-			//if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
 			if (creature_ptr->lev > 44)
 			{
-				creature_ptr->oppose_pois = 1;
 				play_redraw |= PR_STATUS;
 			}
 			//TODO creature_ptr->see_nocto = TRUE;
