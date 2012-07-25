@@ -561,7 +561,7 @@ bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 	if (!player_has_los_bold(y, x)) return FALSE;
 
 	/* Noctovision of Ninja */
-	if (viewer_ptr->see_nocto) return TRUE;
+	if (has_trait(viewer_ptr, TRAIT_SEE_DARKNESS)) return TRUE;
 
 	/* Require "perma-lite" of the grid */
 	if ((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) != CAVE_GLOW) return FALSE;
@@ -792,7 +792,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
 /* Is this grid "darkened" by creature? */
 #define darkened_grid(PLAYER, C) \
 	((((C)->info & (CAVE_VIEW | CAVE_LITE | CAVE_MNLT | CAVE_MNDK)) == (CAVE_VIEW | CAVE_MNDK)) && \
-	!(PLAYER)->see_nocto)
+	!has_trait((PLAYER), TRAIT_SEE_DARKNESS))
 
 
 /*
@@ -944,7 +944,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		 * - Can see grids with CAVE_VIEW unless darkened by creatures.
 		 */
 		if (!IS_BLIND(watcher_ptr) && ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
-		    ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || watcher_ptr->see_nocto))))
+		    ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || has_trait(watcher_ptr, TRAIT_SEE_DARKNESS)))))
 		{
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1480,7 +1480,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 		if ((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) != CAVE_GLOW)
 		{
 			/* Not Ninja */
-			if (!player_ptr->see_nocto) return;
+			if (!has_trait(player_ptr, TRAIT_SEE_DARKNESS)) return;
 		}
 	}
 
@@ -1509,7 +1509,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 		{
 			/* Option -- memorize all torch-lit floors */
 			if (view_torch_grids &&
-			    ((c_ptr->info & (CAVE_LITE | CAVE_MNLT)) || player_ptr->see_nocto))
+			    ((c_ptr->info & (CAVE_LITE | CAVE_MNLT)) || has_trait(player_ptr, TRAIT_SEE_DARKNESS)))
 			{
 				/* Memorize */
 				c_ptr->info |= (CAVE_MARK);
@@ -1538,7 +1538,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 		}
 
 		/* Memorize walls seen by noctovision of Ninja */
-		else if (player_ptr->see_nocto)
+		else if (has_trait(player_ptr, TRAIT_SEE_DARKNESS))
 		{
 			/* Memorize */
 			c_ptr->info |= (CAVE_MARK);
@@ -2999,7 +2999,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	s16b end_temp;
 
 	/* Non-Ninja player in the darkness */
-	int dis_lim = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto) ?
+	int dis_lim = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(player_ptr, TRAIT_SEE_DARKNESS)) ?
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
 	/* Clear all creature lit squares */

@@ -2802,7 +2802,7 @@ void update_mon(int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !player_ptr->see_nocto;
+	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(player_ptr, TRAIT_SEE_DARKNESS);
 
 	/* Do disturb? */
 	if (disturb_high)

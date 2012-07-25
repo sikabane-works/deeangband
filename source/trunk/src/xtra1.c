@@ -2913,7 +2913,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->oppose_pois = 1;
 				play_redraw |= PR_STATUS;
 			}
-			creature_ptr->see_nocto = TRUE;
+			//TODO creature_ptr->see_nocto = TRUE;
 			break;
 	}
 
@@ -3838,7 +3838,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	//TODO creature_ptr->sh_cold = FALSE;
 	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
 	//has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = FALSE;
-	creature_ptr->see_nocto = FALSE;
+	//creature_ptr->see_nocto = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
