@@ -1711,7 +1711,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			/* ƒŒƒxƒ‹‚Ì’á‚¢æ”n‚©‚ç‚Í—”n‚µ‚É‚­‚¢ */
 			if (randint0(dam / 2 + do_thrown_from_ridinglevel * 2) < cur / 30 + 10)
 			{
-				if ((((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY)) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
+				if ((has_trait(creature_ptr, TRAIT_RODEO) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
 				{
 					return FALSE;
 				}
