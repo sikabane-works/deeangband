@@ -3354,7 +3354,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//creature_ptr->slow_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
 		creature_ptr->levitation = TRUE;
-		creature_ptr->hold_life = TRUE;
+		//creature_ptr->hold_life = TRUE;
 		//TODO creature_ptr->telepathy = TRUE;
 		creature_ptr->lite = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
@@ -3531,7 +3531,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
 		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
 		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
-		if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
+		//if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
 		/*
 		if (have_flag(flgs, TR_WARNING)){
@@ -3814,7 +3814,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->see_inv = FALSE;
 	creature_ptr->free_act = FALSE;
 	creature_ptr->levitation = FALSE;
-	creature_ptr->hold_life = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;

@@ -619,15 +619,6 @@ info[i++] = "‚ ‚È‚½‚Í–ƒáƒ’m‚ç‚¸‚ÌŒø‰Ê‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
-	if (creature_ptr->hold_life)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í©ŒÈ‚Ì¶–½—Í‚ğ‚µ‚Á‚©‚è‚ÆˆÛ‚·‚éB";
-#else
-		info[i++] = "You have a firm hold on your life force.";
-#endif
-
-	}
 	if (has_trait(creature_ptr, TRAIT_REFLECTING))
 	{
 #ifdef JP

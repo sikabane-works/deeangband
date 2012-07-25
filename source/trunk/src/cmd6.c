@@ -912,7 +912,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_LOSE_MEMORIES:
-			if (!creature_ptr->hold_life && (creature_ptr->exp > 0))
+			if (!has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (creature_ptr->exp > 0))
 			{
 #ifdef JP
 				msg_print("過去の記憶が薄れていく気がする。");

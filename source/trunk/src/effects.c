@@ -6661,7 +6661,7 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 	/* Androids and their mimics are never drained */
 	if (has_trait(creature_ptr, TRAIT_ANDROID)) return FALSE;
 
-	if (creature_ptr->hold_life && (randint0(100) < hold_life_prob))
+	if (has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < hold_life_prob))
 	{
 		/* Hold experience */
 #ifdef JP
@@ -6673,7 +6673,7 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 	}
 
 	/* Hold experience failed */
-	if (creature_ptr->hold_life)
+	if (has_trait(creature_ptr, TRAIT_HOLD_LIFE))
 	{
 #ifdef JP
 		msg_print("¶–½—Í‚ğ­‚µ‹z‚¢æ‚ç‚ê‚½‹C‚ª‚·‚éI");

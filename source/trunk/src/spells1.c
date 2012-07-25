@@ -2251,14 +2251,14 @@ msg_print("エネルギーのうねりを感じた！");
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
-				if (caster_ptr->hold_life && (randint0(100) < 75)) break;
+				if (has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
 #ifdef JP
 msg_print("生命力が体から吸い取られた気がする！");
 #else
 				msg_print("You feel your life draining away...");
 #endif
 
-				if (caster_ptr->hold_life) lose_exp(caster_ptr, caster_ptr->exp / 160);
+				if (has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
 				else lose_exp(caster_ptr, caster_ptr->exp / 16);
 				if (!one_in_(6)) break;
 			case 26: case 27: case 28:

@@ -1459,7 +1459,6 @@ struct creature_type
 	bool lite;		/* Permanent light */
 	bool free_act;		/* Never paralyzed */
 	bool see_inv;		/* Can see invisible */
-	bool hold_life;		/* Resist life draining */
 
 	bool bless_blade;	/* Blessed blade */
 	bool xtra_might;	/* Extra might bow */
