@@ -2907,7 +2907,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 			if (creature_ptr->lev > 19) creature_ptr->resist_pois = TRUE;
 			//TODO if (creature_ptr->lev > 24) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
-			if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
+			//if (creature_ptr->lev > 29) creature_ptr->see_inv = TRUE;
 			if (creature_ptr->lev > 44)
 			{
 				creature_ptr->oppose_pois = 1;
@@ -3314,7 +3314,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	/* Temporary see invisible */
 	if (creature_ptr->tim_invis)
 	{
-		creature_ptr->see_inv = TRUE;
+		//creature_ptr->see_inv = TRUE;
 	}
 
 	/* Temporary infravision boost */
@@ -3349,7 +3349,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if (creature_ptr->ult_res || (creature_ptr->special_defense & KATA_MUSOU))
 	{
-		creature_ptr->see_inv = TRUE;
+		//creature_ptr->see_inv = TRUE;
 		creature_ptr->free_act = TRUE;
 		//creature_ptr->slow_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
@@ -3528,7 +3528,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_ESP_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
 		//if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
 
-		if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
+		//if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
 		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
 		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
 		//if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
@@ -3811,7 +3811,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->dec_mana = FALSE;
 	creature_ptr->easy_spell = FALSE;
 	creature_ptr->heavy_spell = FALSE;
-	creature_ptr->see_inv = FALSE;
 	creature_ptr->free_act = FALSE;
 	creature_ptr->levitation = FALSE;
 	creature_ptr->lite = FALSE;
@@ -4948,7 +4947,6 @@ static void set_flow_flag(creature_type *creature_ptr)
  */
 void set_creature_bonuses(creature_type *creature_ptr, bool message)
 {
-	bool old_see_inv = creature_ptr->see_inv;
 	bool old_dis_ac    = (bool)creature_ptr->dis_ac;
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 

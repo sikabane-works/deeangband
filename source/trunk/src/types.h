@@ -1458,7 +1458,6 @@ struct creature_type
 	bool levitation;		/* No damage falling */
 	bool lite;		/* Permanent light */
 	bool free_act;		/* Never paralyzed */
-	bool see_inv;		/* Can see invisible */
 
 	bool bless_blade;	/* Blessed blade */
 	bool xtra_might;	/* Extra might bow */

@@ -3032,7 +3032,7 @@ void update_mon(int m_idx, bool full)
 					do_invisible = TRUE;
 
 					/* See invisible */
-					if (player_ptr->see_inv)
+					if (!has_trait(player_ptr, TRAIT_INVISIBLE))
 					{
 						/* Easy to see */
 						easy = flag = TRUE;

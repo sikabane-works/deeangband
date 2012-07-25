@@ -591,15 +591,6 @@ info[i++] = "あなたの瞳は赤外線に敏感である。";
 #endif
 
 	}
-	if (creature_ptr->see_inv)
-	{
-#ifdef JP
-info[i++] = "あなたは透明なクリーチャーを見ることができる。";
-#else
-		info[i++] = "You can see invisible creatures.";
-#endif
-
-	}
 	if (creature_ptr->levitation)
 	{
 #ifdef JP
@@ -1965,7 +1956,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible creatures */
-		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || creature_ptr->see_inv)
+		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))
 		{
 			/* Repair visibility later */
 			repair_creatures = TRUE;
