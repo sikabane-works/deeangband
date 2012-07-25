@@ -4524,7 +4524,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			else if (!(have_flag(flgs, TR_RIDING)))
 			{
 				int penalty;
-				if ((creature_ptr->class_idx == CLASS_BEASTMASTER) || (creature_ptr->class_idx == CLASS_CAVALRY))
+				if (has_trait(creature_ptr, TRAIT_RODEO))
 				{
 					penalty = 5;
 				}
