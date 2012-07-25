@@ -2979,7 +2979,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER)) && !heavy_armor(creature_ptr))
+	if (has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && !heavy_armor(creature_ptr))
 	{
 		/* TODO Monks get extra ac for armour _not worn_
 		if (!(creature_ptr->inventory[INVEN_SLOT_BODY].k_idx))
@@ -4071,7 +4071,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
 	}
 
-	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
+	if (has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && (monk_armour_aux != monk_notify_aux))
 	{
 		if (heavy_armor(creature_ptr))
 		{
@@ -5429,7 +5429,7 @@ bool heavy_armor(creature_type *creature_ptr)
 {
 	u16b monk_arm_wgt = 0;
 
-	if ((creature_ptr->class_idx != CLASS_MONK) && (creature_ptr->class_idx != CLASS_FORCETRAINER) && (creature_ptr->class_idx != CLASS_NINJA)) return FALSE;
+	if (has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT)) return FALSE;
 
 	/* Weight the armor */
 	//TODO
