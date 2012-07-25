@@ -1224,12 +1224,12 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	/* Handle creatures */
 	if (c_ptr->creature_idx && display_autopick == 0 )
 	{
-		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
+		creature_type *creature_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Visible creature */
-		if (m_ptr->ml)
+		if (creature_ptr->ml)
 		{
-			species_type *r_ptr = &species_info[m_ptr->ap_species_idx];
+			species_type *species_ptr = &species_info[creature_ptr->ap_species_idx];
 
 			feat_priority = 30;
 
@@ -1240,7 +1240,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				if (has_trait(m_ptr, TRAIT_CHAR_CLEAR) && has_trait(m_ptr, TRAIT_ATTR_CLEAR))
+				if (has_trait(creature_ptr, TRAIT_CHAR_CLEAR) && has_trait(creature_ptr, TRAIT_ATTR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1253,13 +1253,13 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			else
 			{
 				/* Creature attr/char */
-				a = r_ptr->x_attr;
-				c = r_ptr->x_char;
+				a = species_ptr->x_attr;
+				c = species_ptr->x_char;
 
 				/* Normal creatures */
-				if (!has_trait(m_ptr, TRAIT_ATTR_SEMIRAND) && !has_trait(m_ptr, TRAIT_ATTR_MULTI) &&
-					!has_trait(m_ptr, TRAIT_SHAPECHANGER) && !has_trait(m_ptr, TRAIT_CHAR_CLEAR) &&
-					!has_trait(m_ptr, TRAIT_ATTR_CLEAR))
+				if (!has_trait(creature_ptr, TRAIT_ATTR_SEMIRAND) && !has_trait(creature_ptr, TRAIT_ATTR_MULTI) &&
+					!has_trait(creature_ptr, TRAIT_SHAPECHANGER) && !has_trait(creature_ptr, TRAIT_CHAR_CLEAR) &&
+					!has_trait(creature_ptr, TRAIT_ATTR_CLEAR))
 				{
 					/* Desired creature attr/char */
 					*ap = a;
@@ -1270,7 +1270,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				else if (has_trait(m_ptr, TRAIT_ATTR_CLEAR) && has_trait(m_ptr, TRAIT_CHAR_CLEAR))
+				else if (has_trait(creature_ptr, TRAIT_ATTR_CLEAR) && has_trait(creature_ptr, TRAIT_CHAR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1278,15 +1278,15 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				else
 				{
 					/***  Creature's attr  ***/
-					if (has_trait(m_ptr, TRAIT_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
+					if (has_trait(creature_ptr, TRAIT_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
 					{
 						/* Clear-attr */
 						/* Do nothing */
 					}
-					else if (has_trait(m_ptr, TRAIT_ATTR_MULTI) && !use_graphics)
+					else if (has_trait(creature_ptr, TRAIT_ATTR_MULTI) && !use_graphics)
 					{
 						/* Multi-hued attr */
-						if (has_trait(m_ptr, TRAIT_ATTR_ANY)) *ap = (byte_hack)randint1(15);
+						if (has_trait(creature_ptr, TRAIT_ATTR_ANY)) *ap = (byte_hack)randint1(15);
 						else switch (randint1(7))
 						{
 						case 1: *ap = TERM_RED;     break;
@@ -1298,7 +1298,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 						case 7: *ap = TERM_GREEN;   break;
 						}
 					}
-					else if (has_trait(m_ptr, TRAIT_ATTR_SEMIRAND) && !use_graphics)
+					else if (has_trait(creature_ptr, TRAIT_ATTR_SEMIRAND) && !use_graphics)
 					{
 						/* Use semi-random attr (usually mimics' colors vary) */
 						*ap = c_ptr->creature_idx % 15 + 1;
@@ -1310,18 +1310,18 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					}
 
 					/***  Creature's char  ***/
-					if (has_trait(m_ptr, TRAIT_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
+					if (has_trait(creature_ptr, TRAIT_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
 					{
 						/* Clear-char */
 						/* Do nothing */
 					}
-					else if (has_trait(m_ptr, TRAIT_SHAPECHANGER))
+					else if (has_trait(creature_ptr, TRAIT_SHAPECHANGER))
 					{
 						if (use_graphics)
 						{
-							species_type *tmp_r_ptr = &species_info[randint1(max_species_idx - 1)];
-							*cp = tmp_r_ptr->x_char;
-							*ap = tmp_r_ptr->x_attr;
+							species_type *tmp_species_ptr = &species_info[randint1(max_species_idx - 1)];
+							*cp = tmp_species_ptr->x_char;
+							*ap = tmp_species_ptr->x_attr;
 						}
 						else
 						{
@@ -1343,13 +1343,13 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	/* Handle "player" */
 	if (creature_bold(watcher_ptr, y, x))
 	{
-		species_type *r_ptr = &species_info[0];
+		species_type *species_ptr = &species_info[0];
 
 		/* Get the "player" attr */
-		*ap = r_ptr->x_attr;
+		*ap = species_ptr->x_attr;
 
 		/* Get the "player" char */
-		*cp = r_ptr->x_char;
+		*cp = species_ptr->x_char;
 
 		feat_priority = 31;
 	}

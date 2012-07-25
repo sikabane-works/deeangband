@@ -1942,27 +1942,27 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
 	{
-		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		creature_type *target_ptr = &creature_list[i];
+		species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 		/* Skip dead creatures */
-		if (!m_ptr->species_idx) continue;
+		if (!target_ptr->species_idx) continue;
 
 		/* Location */
-		y = m_ptr->fy;
-		x = m_ptr->fx;
+		y = target_ptr->fy;
+		x = target_ptr->fx;
 
 		/* Only detect nearby creatures */
 		if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible creatures */
-		if (!has_trait(m_ptr, TRAIT_INVISIBLE) || has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))
+		if (!has_trait(target_ptr, TRAIT_INVISIBLE) || has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))
 		{
 			/* Repair visibility later */
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			target_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
 			update_mon(i, FALSE);
@@ -4635,7 +4635,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 {
 	int tx, ty;
 	cave_type * c_ptr;
-	creature_type * m_ptr;
+	creature_type * target_ptr;
 	species_type * r_ptr;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -4688,19 +4688,19 @@ msg_print("失敗した。");
 		return FALSE;
 	}
 
-	m_ptr = &creature_list[c_ptr->creature_idx];
-	r_ptr = &species_info[m_ptr->species_idx];
+	target_ptr = &creature_list[c_ptr->creature_idx];
+	r_ptr = &species_info[target_ptr->species_idx];
 
-	(void)set_paralyzed(m_ptr, 0);
+	(void)set_paralyzed(target_ptr, 0);
 
-	if (has_trait(m_ptr, TRAIT_RES_TELE))
+	if (has_trait(target_ptr, TRAIT_RES_TELE))
 	{
 #ifdef JP
 		msg_print("テレポートを邪魔された！");
 #else
 		msg_print("Your teleportation is blocked!");
 #endif
-		if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+		if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 
 		/* Failure */
 		return FALSE;
