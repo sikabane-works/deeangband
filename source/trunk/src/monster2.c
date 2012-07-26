@@ -2781,7 +2781,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * way).  Note that "moves" includes "appears" and "disappears".
  */
 //TODO  Marge to set_creature_bonuses
-void update_mon(int m_idx, bool full)
+void update_creature_view(int m_idx, bool full)
 {
 	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = get_floor_ptr(target_ptr);
@@ -3181,7 +3181,7 @@ void update_creatures(bool full)
 		if (!m_ptr->species_idx) continue;
 
 		/* Update the creature */
-		update_mon(i, full);
+		update_creature_view(i, full);
 	}
 }
 
@@ -3288,7 +3288,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
-	update_mon(m_idx, FALSE);
+	update_creature_view(m_idx, FALSE);
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_ego_idx == MONEGO_NONE)
@@ -4211,7 +4211,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 */
 
 	/* Update the creature */
-	update_mon(c_ptr->creature_idx, TRUE);
+	update_creature_view(c_ptr->creature_idx, TRUE);
 
 	/* Count the creatures on the level */
 	real_species_ptr(creature_ptr)->cur_num++;

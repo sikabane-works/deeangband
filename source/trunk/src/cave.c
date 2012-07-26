@@ -407,7 +407,7 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 	if (player_has_los_bold((Y), (X))) \
 	{ \
 		/* Update the creature */ \
-		if ((FLOOR)->cave[(Y)][(X)].creature_idx) update_mon((FLOOR)->cave[(Y)][(X)].creature_idx, FALSE); \
+		if ((FLOOR)->cave[(Y)][(X)].creature_idx) update_creature_view((FLOOR)->cave[(Y)][(X)].creature_idx, FALSE); \
 \
 		/* Notice and redraw */ \
 		note_spot((FLOOR), (Y), (X)); \
@@ -4067,7 +4067,7 @@ void delayed_visual_update(floor_type *floor_ptr)
 		lite_spot(floor_ptr, y, x);
 
 		/* Hack -- Visual update of creature on this grid */
-		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
+		if (c_ptr->creature_idx) update_creature_view(c_ptr->creature_idx, FALSE);
 
 		/* No longer in the array */
 		c_ptr->info &= ~(CAVE_NOTE | CAVE_REDRAW);
@@ -4600,7 +4600,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	if (!have_flag(f_ptr->flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);
 
 	/* Update the creature */
-	if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
+	if (c_ptr->creature_idx) update_creature_view(c_ptr->creature_idx, FALSE);
 
 	/* Notice */
 	note_spot(floor_ptr, y, x);
@@ -4641,7 +4641,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			if (player_has_los_grid(cc_ptr))
 			{
 				/* Update the creature */
-				if (cc_ptr->creature_idx) update_mon(cc_ptr->creature_idx, FALSE);
+				if (cc_ptr->creature_idx) update_creature_view(cc_ptr->creature_idx, FALSE);
 
 				/* Notice */
 				note_spot(floor_ptr, yy, xx);
@@ -4793,7 +4793,7 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
 		/* Update the creature */
-		if (c_ptr->creature_idx) update_mon(c_ptr->creature_idx, FALSE);
+		if (c_ptr->creature_idx) update_creature_view(c_ptr->creature_idx, FALSE);
 
 		update_local_illumination(floor_ptr, y, x);
 	}

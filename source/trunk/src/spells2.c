@@ -1965,7 +1965,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 			target_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2034,7 +2034,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2110,7 +2110,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2179,7 +2179,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2246,7 +2246,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2313,7 +2313,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -2394,7 +2394,7 @@ cptr desc_creatures = "変なクリーチャー";
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_mon(i, FALSE);
+			update_creature_view(i, FALSE);
 
 			/* Detect */
 			flag = TRUE;
@@ -3756,7 +3756,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 						m_ptr->fx = sx;
 
 						/* Update the creature (new location) */
-						update_mon(m_idx, TRUE);
+						update_creature_view(m_idx, TRUE);
 
 						/* Redraw the old grid */
 						lite_spot(floor_ptr, yy, xx);
@@ -4012,7 +4012,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Update the creature */
-			update_mon(c_ptr->creature_idx, FALSE);
+			update_creature_view(c_ptr->creature_idx, FALSE);
 
 			/* Stupid creatures rarely wake up */
 			if (has_trait(m_ptr, TRAIT_STUPID)) chance = 10;
@@ -4128,7 +4128,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 			if (c_ptr->creature_idx)
 			{
 				/* Update the creature */
-				update_mon(c_ptr->creature_idx, FALSE);
+				update_creature_view(c_ptr->creature_idx, FALSE);
 			}
 
 			/* Redraw */
@@ -5608,7 +5608,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		if (!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the creature */
-		update_mon(floor_ptr->cave[ny][nx].creature_idx, TRUE);
+		update_creature_view(floor_ptr->cave[ny][nx].creature_idx, TRUE);
 
 		/* Found a creature */
 		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];

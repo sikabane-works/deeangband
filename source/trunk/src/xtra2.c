@@ -3008,7 +3008,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
  * some form of "scrolling" the map around the cursor.  XXX XXX XXX
  * That is, consider the possibility of "auto-scrolling" the screen
  * while the cursor moves around.  This may require changes in the
- * "update_mon()" code to allow "visibility" even if off panel, and
+ * "update_creature_view()" code to allow "visibility" even if off panel, and
  * may require dynamic recalculation of the "temp" grid set.
  *
  * Hack -- targeting/observing an "outer border grid" may induce
