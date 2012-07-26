@@ -2822,6 +2822,24 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_thb += class_ptr->c_thb;
 	creature_ptr->skill_tht += class_ptr->c_thb;
 
+	if(has_trait(creature_ptr, TRAIT_ORDINARILY_BERSERK))
+	{
+		creature_ptr->shero = 1;
+		creature_ptr->free_act = TRUE;
+		creature_ptr->speed += 2;
+
+		if (creature_ptr->lev > 29) creature_ptr->speed++;
+		if (creature_ptr->lev > 39) creature_ptr->speed++;
+		if (creature_ptr->lev > 44) creature_ptr->speed++;
+		if (creature_ptr->lev > 49) creature_ptr->speed++;
+
+		creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
+		creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
+		creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
+
+		play_redraw |= PR_STATUS;
+	}
+
 	switch (creature_ptr->class_idx)
 	{
 		case CLASS_MONK:
@@ -2839,29 +2857,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac -= 50;
 			break;
 
-
-		case CLASS_BERSERKER:
-			creature_ptr->shero = 1;
-			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
-			//TODO has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
-			//TODO creature_ptr->regenerate = TRUE;
-			creature_ptr->free_act = TRUE;
-			creature_ptr->speed += 2;
-
-			if (creature_ptr->lev > 29) creature_ptr->speed++;
-			if (creature_ptr->lev > 39) creature_ptr->speed++;
-			if (creature_ptr->lev > 44) creature_ptr->speed++;
-			if (creature_ptr->lev > 49) creature_ptr->speed++;
-
-			creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
-			creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
-			creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
-
-			//TODO if (creature_ptr->lev > 39) has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-			play_redraw |= PR_STATUS;
-			break;
-
 		case CLASS_MIRROR_MASTER:
 			//TODO if (creature_ptr->lev > 39) has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 			break;
@@ -2877,9 +2872,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
-				if (!(IS_RACE(creature_ptr, RACE_KLACKON) ||
-				      IS_RACE(creature_ptr, RACE_SPRITE) ||
-				      (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+				if (!(IS_RACE(creature_ptr, RACE_KLACKON) || IS_RACE(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
@@ -2892,14 +2885,12 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->to_ac += creature_ptr->lev/2+5;
 				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
 			}
-			//creature_ptr->slow_digest = TRUE;
-			//TODO creature_ptr->resist_fear = TRUE;
 
 			if (creature_ptr->lev > 44)
 			{
 				play_redraw |= PR_STATUS;
 			}
-			//TODO creature_ptr->see_nocto = TRUE;
+
 			break;
 	}
 
