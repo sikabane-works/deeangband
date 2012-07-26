@@ -204,7 +204,7 @@ int calc_expfact_sp(species_type *species_ptr)
 
 	}
 
-	if (((species_ptr->class_idx == CLASS_MONK) || (species_ptr->class_idx == CLASS_FORCETRAINER) || (species_ptr->class_idx == CLASS_NINJA)) && ((species_ptr->race_idx1 == RACE_KLACKON) || (species_ptr->race_idx1 == RACE_SPRITE)))
+	if (has_trait_raw(&species_ptr->flags, TRAIT_WANT_LIGHT_WEIGHT) && has_trait_raw(&species_ptr->flags, TRAIT_AGILE_RACE))
 		expfact -= 15;
 
 	return expfact;
@@ -228,7 +228,7 @@ void set_expfact(creature_type *creature_ptr)
 
 	}
 
-	if (((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_NINJA)) && ((creature_ptr->race_idx1 == RACE_KLACKON) || (creature_ptr->race_idx1 == RACE_SPRITE)))
+	if (has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && has_trait(creature_ptr, TRAIT_AGILE_RACE))
 		creature_ptr->expfact -= 15;
 }
 

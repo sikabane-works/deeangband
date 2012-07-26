@@ -2784,19 +2784,9 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 	set_resistance(creature_ptr);
 
-	if(!IS_MIMICED(creature_ptr))
-	{
-		if(IS_RACE(creature_ptr, RACE_SPRITE))
-		{
-			creature_ptr->levitation = TRUE;
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
+	//TODO RACE_SPRITE creature_ptr->levitation = TRUE;
 
-		if(IS_RACE(creature_ptr, RACE_KLACKON))
-		{
-			creature_ptr->speed += (creature_ptr->lev) / 10;
-		}
-	}
+	if(has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += creature_ptr->lev / 8;
 
 	// Species
 	creature_ptr->ac += species_ptr->ac;
@@ -2950,9 +2940,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		if (creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
-
-		if ((creature_ptr->race_idx1 != RACE_KLACKON) && (creature_ptr->race_idx1 != RACE_SPRITE)) // Munchkin become faster
-			creature_ptr->speed += (creature_ptr->lev) / 10 + 5;
+		creature_ptr->speed += (creature_ptr->lev) / 8 + 5; // Munchkin become faster
 	}
 
 	creature_ptr->skill_dis += (chara_ptr->a_dis * creature_ptr->lev / 50);
