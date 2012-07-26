@@ -5247,7 +5247,7 @@ void gamble_arena_limitation(void)
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 			/* Update the creature */
-			update_creature_view(i, FALSE);
+			update_creature_view(player_ptr, i, FALSE);
 		}
 
 		prt_time(player_ptr);
@@ -5781,7 +5781,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							m_ptr->ml = FALSE;
 
 							/* Update the creature */
-							update_creature_view(i, FALSE);
+							update_creature_view(player_ptr, i, FALSE);
 
 							if (health_who == i) play_redraw |= (PR_HEALTH);
 							if (creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);

@@ -3659,7 +3659,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							m_ptr->fy = ny;
 
 							/* Update the creature (new location) */
-							update_creature_view(c_ptr->creature_idx, TRUE);
+							update_creature_view(player_ptr, c_ptr->creature_idx, TRUE);
 
 							lite_spot(floor_ptr, ny, nx);
 							lite_spot(floor_ptr, oy, ox);

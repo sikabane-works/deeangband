@@ -2350,7 +2350,7 @@ static void process_nonplayer(int m_idx)
 					y_ptr->fx = ox;
 
 					/* Update the old creature */
-					update_creature_view(c_ptr->creature_idx, TRUE);
+					update_creature_view(player_ptr, c_ptr->creature_idx, TRUE);
 				}
 
 				/* Hack -- Update the new location */
@@ -2361,7 +2361,7 @@ static void process_nonplayer(int m_idx)
 				creature_ptr->fx = nx;
 
 				/* Update the creature */
-				update_creature_view(m_idx, TRUE);
+				update_creature_view(player_ptr, m_idx, TRUE);
 
 				/* Redraw the old grid */
 				lite_spot(floor_ptr, oy, ox);

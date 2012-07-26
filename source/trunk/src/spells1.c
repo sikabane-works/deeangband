@@ -1025,7 +1025,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 
 				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->creature_idx) update_creature_view(c_ptr->creature_idx, FALSE);
+				if (c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
 				if (aimer_ptr->special_defense & NINJA_S_STEALTH)
 				{
@@ -1090,7 +1090,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 
 				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->creature_idx) update_creature_view(c_ptr->creature_idx, FALSE);
+				if (c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 			}
 
 			/* All done */
@@ -2298,7 +2298,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the creature */
-	if (target_ptr->species_idx) update_creature_view(c_ptr->creature_idx, FALSE);
+	if (target_ptr->species_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
 	/* Redraw the creature grid */
 	lite_spot(floor_ptr, y, x);

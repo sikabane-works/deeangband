@@ -1142,7 +1142,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 
-					update_creature_view(m_idx, TRUE);
+					update_creature_view(player_ptr, m_idx, TRUE);
 					lite_spot(floor_ptr, oy, ox);
 					lite_spot(floor_ptr, ty, tx);
 
@@ -1699,7 +1699,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		/* Update the creature (new location) */
-		update_creature_view(m_idx, TRUE);
+		update_creature_view(player_ptr, m_idx, TRUE);
 
 		/* Redraw the old grid */
 		lite_spot(floor_ptr, target_row, target_col);

@@ -2781,7 +2781,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * way).  Note that "moves" includes "appears" and "disappears".
  */
 //TODO  Marge to set_creature_bonuses
-void update_creature_view(int m_idx, bool full)
+void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 {
 	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = get_floor_ptr(target_ptr);
@@ -2801,14 +2801,14 @@ void update_creature_view(int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(player_ptr, TRAIT_SEE_DARKNESS);
+	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(creature_ptr, TRAIT_SEE_DARKNESS);
 
 	/* Do disturb? */
 	if (disturb_high)
 	{
 		species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
 
-		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)
+		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= creature_ptr->lev)
 			do_disturb = TRUE;
 	}
 
@@ -2816,8 +2816,8 @@ void update_creature_view(int m_idx, bool full)
 	if (full)
 	{
 		/* Distance components */
-		int dy = (player_ptr->fy > fy) ? (player_ptr->fy - fy) : (fy - player_ptr->fy);
-		int dx = (player_ptr->fx > fx) ? (player_ptr->fx - fx) : (fx - player_ptr->fx);
+		int dy = (creature_ptr->fy > fy) ? (creature_ptr->fy - fy) : (fy - creature_ptr->fy);
+		int dx = (creature_ptr->fx > fx) ? (creature_ptr->fx - fx) : (fx - creature_ptr->fx);
 
 		/* Approximate distance */
 		d = (dy > dx) ? (dy + (dx>>1)) : (dx + (dy>>1));
@@ -2848,12 +2848,12 @@ void update_creature_view(int m_idx, bool full)
 	{
 		if (!in_darkness || (d <= MAX_SIGHT / 4))
 		{
-			if (player_ptr->special_defense & KATA_MUSOU)
+			if (creature_ptr->special_defense & KATA_MUSOU)
 			{
 				/* Detectable */
 				flag = TRUE;
 
-				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
+				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
 				{
 					if (has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);;
 					if (has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_STUPID);;
@@ -2862,13 +2862,13 @@ void update_creature_view(int m_idx, bool full)
 
 			/* Basic telepathy */
 			/* Snipers get telepathy when they concentrate deeper */
-			else if (has_trait(player_ptr, TRAIT_ESP))
+			else if (has_trait(creature_ptr, TRAIT_ESP))
 			{
 				/* Empty mind, no telepathy */
 				if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
 				{
 					/* Memorize flags */
-					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+					if (is_original_ap_and_seen(creature_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
@@ -2880,7 +2880,7 @@ void update_creature_view(int m_idx, bool full)
 						/* Detectable */
 						flag = TRUE;
 
-						if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
+						if (is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
 						{
 							/* Memorize flags */
 							reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
@@ -2896,7 +2896,7 @@ void update_creature_view(int m_idx, bool full)
 					/* Detectable */
 					flag = TRUE;
 
-					if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
+					if (is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
 					{
 						/* Hack -- Memorize mental flags */
 						reveal_creature_info(target_ptr, TRAIT_SMART);
@@ -2906,84 +2906,84 @@ void update_creature_view(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_ANIMAL) &&  has_trait(target_ptr, TRAIT_ANIMAL))
+			if (has_trait(creature_ptr, TRAIT_SENSE_ANIMAL) &&  has_trait(target_ptr, TRAIT_ANIMAL))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_UNDEAD) && has_trait(target_ptr, TRAIT_UNDEAD))
+			if (has_trait(creature_ptr, TRAIT_SENSE_UNDEAD) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_DEMON) && has_trait(target_ptr, TRAIT_DEMON))
+			if (has_trait(creature_ptr, TRAIT_SENSE_DEMON) && has_trait(target_ptr, TRAIT_DEMON))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_ORC) && has_trait(target_ptr, TRAIT_ORC))
+			if (has_trait(creature_ptr, TRAIT_SENSE_ORC) && has_trait(target_ptr, TRAIT_ORC))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
+			if (has_trait(creature_ptr, TRAIT_SENSE_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_GIANT) && has_trait(target_ptr, TRAIT_GIANT))
+			if (has_trait(creature_ptr, TRAIT_SENSE_GIANT) && has_trait(target_ptr, TRAIT_GIANT))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_DRAGON) && has_trait(target_ptr, TRAIT_DRAGON))
+			if (has_trait(creature_ptr, TRAIT_SENSE_DRAGON) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_HUMAN) && has_trait(target_ptr, TRAIT_HUMAN))
+			if (has_trait(creature_ptr, TRAIT_SENSE_HUMAN) && has_trait(target_ptr, TRAIT_HUMAN))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_EVIL) && is_enemy_of_good_creature(target_ptr))
+			if (has_trait(creature_ptr, TRAIT_SENSE_EVIL) && is_enemy_of_good_creature(target_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_GOOD) && is_enemy_of_evil_creature(target_ptr))
+			if (has_trait(creature_ptr, TRAIT_SENSE_GOOD) && is_enemy_of_evil_creature(target_ptr))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !is_undead_creature(target_ptr)) 
+			if (has_trait(creature_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !is_undead_creature(target_ptr)) 
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, TRAIT_NONLIVING);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_UNIQUE) && has_trait(target_ptr, TRAIT_UNIQUE))
+			if (has_trait(creature_ptr, TRAIT_SENSE_UNIQUE) && has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, TRAIT_UNIQUE);
@@ -2991,20 +2991,20 @@ void update_creature_view(int m_idx, bool full)
 		}
 
 		/* Normal line of sight, and not blind */
-		if (player_has_los_bold(fy, fx) && !IS_BLIND(player_ptr))
+		if (player_has_los_bold(fy, fx) && !IS_BLIND(creature_ptr))
 		{
 			bool do_invisible = FALSE;
 			bool do_cold_blood = FALSE;
 
 			/* Snipers can see targets in darkness when they concentrate deeper */
-			if (player_ptr->concent >= CONCENT_RADAR_THRESHOLD)
+			if (creature_ptr->concent >= CONCENT_RADAR_THRESHOLD)
 			{
 				/* Easy to see */
 				easy = flag = TRUE;
 			}
 
 			/* Use "infravision" */
-			if (d <= player_ptr->see_infra)
+			if (d <= creature_ptr->see_infra)
 			{
 				/* Handle "cold blooded" creatures */
 				if (has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE))
@@ -3022,7 +3022,7 @@ void update_creature_view(int m_idx, bool full)
 			}
 
 			/* Use "illumination" */
-			if (creature_can_see_bold(player_ptr, fy, fx))
+			if (creature_can_see_bold(creature_ptr, fy, fx))
 			{
 				/* Handle "invisible" creatures */
 				if (has_trait(target_ptr, TRAIT_INVISIBLE))
@@ -3031,7 +3031,7 @@ void update_creature_view(int m_idx, bool full)
 					do_invisible = TRUE;
 
 					/* See invisible */
-					if (!has_trait(player_ptr, TRAIT_INVISIBLE))
+					if (!has_trait(creature_ptr, TRAIT_INVISIBLE))
 					{
 						/* Easy to see */
 						easy = flag = TRUE;
@@ -3049,7 +3049,7 @@ void update_creature_view(int m_idx, bool full)
 			/* Visible */
 			if (flag)
 			{
-				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
+				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
 				{
 					/* Memorize flags */
 					reveal_creature_info(target_ptr, TRAIT_INVISIBLE);
@@ -3074,10 +3074,10 @@ void update_creature_view(int m_idx, bool full)
 
 			/* Update health bar as needed */
 			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
-			if (player_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if (creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
-			if (!IS_HALLUCINATION(player_ptr))
+			if (!IS_HALLUCINATION(creature_ptr))
 			{
 				//if ((target_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
 				//	species_info[MON_KAGE].r_sights++;
@@ -3088,14 +3088,14 @@ void update_creature_view(int m_idx, bool full)
 			/* Eldritch Horror */
 			if (is_eldritch_horror_species(&species_info[target_ptr->ap_species_idx]))
 			{
-				sanity_blast(player_ptr, target_ptr, FALSE);
+				sanity_blast(creature_ptr, target_ptr, FALSE);
 			}
 
 			/* Disturb on appearance */
-			if (disturb_near && (projectable(floor_ptr, player_ptr->fy, player_ptr->fx, target_ptr->fy, target_ptr->fx)))
+			if (disturb_near && (projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)))
 			{
 				if (disturb_pets || is_hostile(target_ptr))
-					disturb(player_ptr, 1, 0);
+					disturb(creature_ptr, 1, 0);
 			}
 		}
 	}
@@ -3114,13 +3114,13 @@ void update_creature_view(int m_idx, bool full)
 
 			/* Update health bar as needed */
 			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
-			if (player_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if (creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Disturb on disappearance */
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(target_ptr))
-					disturb(player_ptr, 1, 0);
+					disturb(creature_ptr, 1, 0);
 			}
 		}
 	}
@@ -3139,7 +3139,7 @@ void update_creature_view(int m_idx, bool full)
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(target_ptr))
-					disturb(player_ptr, 1, 0);
+					disturb(creature_ptr, 1, 0);
 			}
 		}
 	}
@@ -3158,7 +3158,7 @@ void update_creature_view(int m_idx, bool full)
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(target_ptr))
-					disturb(player_ptr, 1, 0);
+					disturb(creature_ptr, 1, 0);
 			}
 		}
 	}
@@ -3181,7 +3181,7 @@ void update_creatures(bool full)
 		if (!m_ptr->species_idx) continue;
 
 		/* Update the creature */
-		update_creature_view(i, full);
+		update_creature_view(player_ptr, i, full);
 	}
 }
 
@@ -3288,7 +3288,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
-	update_creature_view(m_idx, FALSE);
+	update_creature_view(player_ptr, m_idx, FALSE);
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_ego_idx == MONEGO_NONE)
@@ -4211,7 +4211,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 */
 
 	/* Update the creature */
-	update_creature_view(c_ptr->creature_idx, TRUE);
+	update_creature_view(player_ptr, c_ptr->creature_idx, TRUE);
 
 	/* Count the creatures on the level */
 	real_species_ptr(creature_ptr)->cur_num++;
