@@ -1725,7 +1725,7 @@ msg_format("%sは%s", object_name, note_kill);
  * We attempt to return "TRUE" if the player saw anything "useful" happen.
  */
 /* "flg" was added. */
-static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
+static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
 {
 	int tmp;
 
@@ -2365,7 +2365,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 
 // Deskull
-// For intagration of project_m() and project_p()
+// For intagration of project_creature_aux2() and project_p()
 static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell, bool see_s_msg)
 {
 	int k;
@@ -2500,7 +2500,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = acid_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		// project_m()
+		// project_creature_aux2()
 		/*
 		case GF_ACID:
 		{
@@ -2523,7 +2523,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_FIRE:
 		{
 			if (seen) obvious = TRUE;
@@ -2544,7 +2544,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_COLD:
 		{
 			if (seen) obvious = TRUE;
@@ -2566,7 +2566,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = elec_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		// project_m()
+		// project_creature_aux2()
 		/*
 		case GF_ELEC:
 		{
@@ -2605,7 +2605,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_POIS:
 		{
 			if (seen) obvious = TRUE;
@@ -4666,7 +4666,7 @@ note = "は眠り込んでしまった！";
 			}
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_CAUSE_1:
 		{
 			if (seen) obvious = TRUE;
@@ -4721,7 +4721,7 @@ note = "は眠り込んでしまった！";
 			}
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_CAUSE_2:
 		{
 			if (seen) obvious = TRUE;
@@ -4776,7 +4776,7 @@ note = "は眠り込んでしまった！";
 			}
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_CAUSE_3:
 		{
 			if (seen) obvious = TRUE;
@@ -4897,7 +4897,7 @@ note = "は眠り込んでしまった！";
 			}
 			break;
 		}
-		/* project_m()
+		/* project_creature_aux2()
 		case GF_HAND_DOOM:
 		{
 			if (seen) obvious = TRUE;
