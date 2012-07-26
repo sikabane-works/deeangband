@@ -2783,17 +2783,16 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 //TODO  Marge to set_creature_bonuses
 void update_mon(int m_idx, bool full)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	creature_type *target_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = get_floor_ptr(target_ptr);
 
 	bool do_disturb = disturb_move;
 
 	int d;
 
 	/* Current location */
-	int fy = m_ptr->fy;
-	int fx = m_ptr->fx;
+	int fy = target_ptr->fy;
+	int fx = target_ptr->fx;
 
 	/* Seen at all */
 	bool flag = FALSE;
@@ -2807,7 +2806,7 @@ void update_mon(int m_idx, bool full)
 	/* Do disturb? */
 	if (disturb_high)
 	{
-		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
+		species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
 
 		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)
 			do_disturb = TRUE;
@@ -2829,19 +2828,19 @@ void update_mon(int m_idx, bool full)
 		if (!d) d = 1;
 
 		/* Save the distance */
-		m_ptr->cdis = d;
+		target_ptr->cdis = d;
 	}
 
 	/* Extract distance */
 	else
 	{
 		/* Extract the distance */
-		d = m_ptr->cdis;
+		d = target_ptr->cdis;
 	}
 
 
 	/* Detected */
-	if (m_ptr->mflag2 & (MFLAG2_MARK)) flag = TRUE;
+	if (target_ptr->mflag2 & (MFLAG2_MARK)) flag = TRUE;
 
 
 	/* Nearby */
@@ -2854,10 +2853,10 @@ void update_mon(int m_idx, bool full)
 				/* Detectable */
 				flag = TRUE;
 
-				if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
+				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
 				{
-					if (has_trait(m_ptr, TRAIT_SMART)) reveal_creature_info(m_ptr, TRAIT_SMART);;
-					if (has_trait(m_ptr, TRAIT_SMART)) reveal_creature_info(m_ptr, TRAIT_STUPID);;
+					if (has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);;
+					if (has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_STUPID);;
 				}
 			}
 
@@ -2866,14 +2865,14 @@ void update_mon(int m_idx, bool full)
 			else if (has_trait(player_ptr, TRAIT_ESP))
 			{
 				/* Empty mind, no telepathy */
-				if (has_trait(m_ptr, TRAIT_EMPTY_MIND))
+				if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
 				{
 					/* Memorize flags */
-					if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_EMPTY_MIND);
+					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
-				else if (has_trait(m_ptr, TRAIT_WEIRD_MIND))
+				else if (has_trait(target_ptr, TRAIT_WEIRD_MIND))
 				{
 					/* One in ten individuals are detectable */
 					if ((m_idx % 10) == 5)
@@ -2881,12 +2880,12 @@ void update_mon(int m_idx, bool full)
 						/* Detectable */
 						flag = TRUE;
 
-						if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
+						if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
 						{
 							/* Memorize flags */
-							reveal_creature_info(m_ptr, TRAIT_WEIRD_MIND);
-							reveal_creature_info(m_ptr, TRAIT_SMART);
-							reveal_creature_info(m_ptr, TRAIT_STUPID);
+							reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+							reveal_creature_info(target_ptr, TRAIT_SMART);
+							reveal_creature_info(target_ptr, TRAIT_STUPID);
 						}
 					}
 				}
@@ -2897,97 +2896,97 @@ void update_mon(int m_idx, bool full)
 					/* Detectable */
 					flag = TRUE;
 
-					if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
+					if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
 					{
 						/* Hack -- Memorize mental flags */
-						reveal_creature_info(m_ptr, TRAIT_SMART);
-						reveal_creature_info(m_ptr, TRAIT_STUPID);
+						reveal_creature_info(target_ptr, TRAIT_SMART);
+						reveal_creature_info(target_ptr, TRAIT_STUPID);
 					}
 				}
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_ANIMAL) && is_animal_creature(player_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_ANIMAL) &&  has_trait(target_ptr, TRAIT_ANIMAL))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_UNDEAD) && is_undead_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_UNDEAD) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_DEMON) && is_demon_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_DEMON) && has_trait(target_ptr, TRAIT_DEMON))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_ORC) && (is_orc_creature(&creature_list[m_idx])))
+			if (has_trait(player_ptr, TRAIT_SENSE_ORC) && has_trait(target_ptr, TRAIT_ORC))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_TROLL) && (is_troll_creature(&creature_list[m_idx])))
+			if (has_trait(player_ptr, TRAIT_SENSE_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_GIANT) && is_giant_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_GIANT) && has_trait(target_ptr, TRAIT_GIANT))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_DRAGON) && is_dragon_species(r_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_DRAGON) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_HUMAN) && (is_human_species(r_ptr)))
+			if (has_trait(player_ptr, TRAIT_SENSE_HUMAN) && has_trait(target_ptr, TRAIT_HUMAN))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
+				reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_EVIL) && is_enemy_of_good_creature(player_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_EVIL) && is_enemy_of_good_creature(target_ptr))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
+				reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_GOOD) && is_enemy_of_evil_creature(m_ptr))
+			if (has_trait(player_ptr, TRAIT_SENSE_GOOD) && is_enemy_of_evil_creature(target_ptr))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
+				reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_NONLIVING) && has_trait(m_ptr, TRAIT_NONLIVING) && !is_undead_creature(m_ptr)) 
+			if (has_trait(player_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !is_undead_creature(target_ptr)) 
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, TRAIT_NONLIVING);
+				reveal_creature_info(target_ptr, TRAIT_NONLIVING);
 			}
 
 			/* Magical sensing */
-			if (has_trait(player_ptr, TRAIT_SENSE_UNIQUE) && (is_unique_species(r_ptr)))
+			if (has_trait(player_ptr, TRAIT_SENSE_UNIQUE) && has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				flag = TRUE;
-				reveal_creature_info(m_ptr, TRAIT_UNIQUE);
+				reveal_creature_info(target_ptr, TRAIT_UNIQUE);
 			}
 		}
 
@@ -3008,7 +3007,7 @@ void update_mon(int m_idx, bool full)
 			if (d <= player_ptr->see_infra)
 			{
 				/* Handle "cold blooded" creatures */
-				if (has_trait(m_ptr, TRAIT_COLD_BLOOD) || !has_trait(m_ptr, TRAIT_AURA_FIRE))
+				if (has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE))
 				{
 					/* Take note */
 					do_cold_blood = TRUE;
@@ -3026,7 +3025,7 @@ void update_mon(int m_idx, bool full)
 			if (creature_can_see_bold(player_ptr, fy, fx))
 			{
 				/* Handle "invisible" creatures */
-				if (has_trait(m_ptr, TRAIT_INVISIBLE))
+				if (has_trait(target_ptr, TRAIT_INVISIBLE))
 				{
 					/* Take note */
 					do_invisible = TRUE;
@@ -3050,11 +3049,11 @@ void update_mon(int m_idx, bool full)
 			/* Visible */
 			if (flag)
 			{
-				if (is_original_ap(m_ptr) && !IS_HALLUCINATION(player_ptr))
+				if (is_original_ap(target_ptr) && !IS_HALLUCINATION(player_ptr))
 				{
 					/* Memorize flags */
-					reveal_creature_info(m_ptr, TRAIT_INVISIBLE);
-					reveal_creature_info(m_ptr, TRAIT_COLD_BLOOD);
+					reveal_creature_info(target_ptr, TRAIT_INVISIBLE);
+					reveal_creature_info(target_ptr, TRAIT_COLD_BLOOD);
 				}
 			}
 		}
@@ -3065,10 +3064,10 @@ void update_mon(int m_idx, bool full)
 	if (flag)
 	{
 		/* It was previously unseen */
-		if (!m_ptr->ml)
+		if (!target_ptr->ml)
 		{
 			/* Mark as visible */
-			m_ptr->ml = TRUE;
+			target_ptr->ml = TRUE;
 
 			/* Draw the creature */
 			lite_spot(floor_ptr, fy, fx);
@@ -3080,22 +3079,22 @@ void update_mon(int m_idx, bool full)
 			/* Hack -- Count "fresh" sightings */
 			if (!IS_HALLUCINATION(player_ptr))
 			{
-				if ((m_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
-					species_info[MON_KAGE].r_sights++;
-				else if (is_original_ap(m_ptr) && (r_ptr->r_sights < MAX_SHORT))
-					r_ptr->r_sights++;
+				//if ((target_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
+				//	species_info[MON_KAGE].r_sights++;
+				//else if (is_original_ap(target_ptr) && (r_ptr->r_sights < MAX_SHORT))
+				//	r_ptr->r_sights++;
 			}
 
 			/* Eldritch Horror */
-			if (is_eldritch_horror_species(&species_info[m_ptr->ap_species_idx]))
+			if (is_eldritch_horror_species(&species_info[target_ptr->ap_species_idx]))
 			{
-				sanity_blast(player_ptr, m_ptr, FALSE);
+				sanity_blast(player_ptr, target_ptr, FALSE);
 			}
 
 			/* Disturb on appearance */
-			if (disturb_near && (projectable(floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
+			if (disturb_near && (projectable(floor_ptr, player_ptr->fy, player_ptr->fx, target_ptr->fy, target_ptr->fx)))
 			{
-				if (disturb_pets || is_hostile(m_ptr))
+				if (disturb_pets || is_hostile(target_ptr))
 					disturb(player_ptr, 1, 0);
 			}
 		}
@@ -3105,10 +3104,10 @@ void update_mon(int m_idx, bool full)
 	else
 	{
 		/* It was previously seen */
-		if (m_ptr->ml)
+		if (target_ptr->ml)
 		{
 			/* Mark as not visible */
-			m_ptr->ml = FALSE;
+			target_ptr->ml = FALSE;
 
 			/* Erase the creature */
 			lite_spot(floor_ptr, fy, fx);
@@ -3120,7 +3119,7 @@ void update_mon(int m_idx, bool full)
 			/* Disturb on disappearance */
 			if (do_disturb)
 			{
-				if (disturb_pets || is_hostile(m_ptr))
+				if (disturb_pets || is_hostile(target_ptr))
 					disturb(player_ptr, 1, 0);
 			}
 		}
@@ -3131,15 +3130,15 @@ void update_mon(int m_idx, bool full)
 	if (easy)
 	{
 		/* Change */
-		if (!(m_ptr->mflag & (MFLAG_VIEW)))
+		if (!(target_ptr->mflag & (MFLAG_VIEW)))
 		{
 			/* Mark as easily visible */
-			m_ptr->mflag |= (MFLAG_VIEW);
+			target_ptr->mflag |= (MFLAG_VIEW);
 
 			/* Disturb on appearance */
 			if (do_disturb)
 			{
-				if (disturb_pets || is_hostile(m_ptr))
+				if (disturb_pets || is_hostile(target_ptr))
 					disturb(player_ptr, 1, 0);
 			}
 		}
@@ -3149,16 +3148,16 @@ void update_mon(int m_idx, bool full)
 	else
 	{
 		/* Change */
-		if (m_ptr->mflag & (MFLAG_VIEW))
+		if (target_ptr->mflag & (MFLAG_VIEW))
 
 		{
 			/* Mark as not easily visible */
-			m_ptr->mflag &= ~(MFLAG_VIEW);
+			target_ptr->mflag &= ~(MFLAG_VIEW);
 
 			/* Disturb on disappearance */
 			if (do_disturb)
 			{
-				if (disturb_pets || is_hostile(m_ptr))
+				if (disturb_pets || is_hostile(target_ptr))
 					disturb(player_ptr, 1, 0);
 			}
 		}

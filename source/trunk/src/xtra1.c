@@ -2857,10 +2857,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac -= 50;
 			break;
 
-		case CLASS_MIRROR_MASTER:
-			//TODO if (creature_ptr->lev > 39) has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-			break;
-
 		case CLASS_NINJA:
 			// Unencumbered Ninjas become faster every 10 levels
 			if (heavy_armor(creature_ptr))
