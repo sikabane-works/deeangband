@@ -5740,7 +5740,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_GRAVITY:
-		if (target_ptr->levitation) dam = (dam * 2) / 3;
+		if (has_trait(target_ptr, TRAIT_CAN_FLY)) dam = (dam * 2) / 3;
 		break;
 
 	case GF_ROCKET:

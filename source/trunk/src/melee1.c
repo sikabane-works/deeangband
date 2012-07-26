@@ -3992,7 +3992,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 	if(!mdeath)
 	{
 		int prob = 100 * attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] / WEAPON_EXP_MASTER;
-		if(target_ptr->levitation) prob /= 4;
+		if(has_trait(target_ptr, TRAIT_CAN_FLY)) prob /= 4;
 		if(attacker_ptr->size - target_ptr->size < 10) prob /= 2;
 		if(attacker_ptr->size - target_ptr->size < 5) prob /= 2;
 		if(attacker_ptr->size - target_ptr->size < 3) prob /= 2;

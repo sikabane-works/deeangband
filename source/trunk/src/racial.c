@@ -1414,7 +1414,7 @@ static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
 				feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
-				    (!creature_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP)))
+				    (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP)))
 				{
 #ifdef JP
 					msg_print("‚±‚±‚Å‚Í‘f‘‚­“®‚¯‚È‚¢B");

@@ -3564,20 +3564,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (!(target_ptr->multishadow && (turn & 1)))
 			{
 				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
-				if (!target_ptr->levitation)
+				if (!has_trait(target_ptr, TRAIT_CAN_FLY))
 					(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
-				if (!(target_ptr->resist_sound || target_ptr->levitation))
+				if (!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 					(void)set_stun(target_ptr, target_ptr->stun + k);
 				}
 			}
-			if (target_ptr->levitation)
+			if (has_trait(target_ptr, TRAIT_CAN_FLY))
 			{
 				dam = (dam * 2) / 3;
 			}
 
-			if (!target_ptr->levitation || one_in_(13))
+			if (!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13))
 			{
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}

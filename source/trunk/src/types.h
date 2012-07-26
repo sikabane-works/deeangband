@@ -1455,7 +1455,6 @@ struct creature_type
 	u32b cursed;            /* Player is cursed */
 
 	bool can_swim;		/* No damage falling */
-	bool levitation;		/* No damage falling */
 	bool lite;		/* Permanent light */
 	bool free_act;		/* Never paralyzed */
 

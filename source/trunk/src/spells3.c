@@ -271,7 +271,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 
 		if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 		{
-			if (!creature_ptr->levitation && !has_trait(creature_ptr, TRAIT_CAN_SWIM)) return FALSE;
+			if (!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM)) return FALSE;
 		}
 
 		if (have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_IM_FIRE) && !IS_INVULN(creature_ptr))
@@ -280,7 +280,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Forbid shallow lava when the player don't have levitation */
-			if (!creature_ptr->levitation) return FALSE;
+			if (!has_trait(creature_ptr, TRAIT_CAN_FLY)) return FALSE;
 		}
 
 	}

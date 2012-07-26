@@ -1066,7 +1066,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 	{
 		case TRAP_TRAPDOOR:
 		{
-			if (creature_ptr->levitation)
+			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
 				msg_print("—Ž‚Æ‚µŒË‚ð”ò‚Ñ‰z‚¦‚½B");
@@ -1117,7 +1117,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_PIT:
 		{
-			if (creature_ptr->levitation)
+			if (has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
 				msg_print("—Ž‚Æ‚µŒŠ‚ð”ò‚Ñ‰z‚¦‚½B");
@@ -1148,7 +1148,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SPIKED_PIT:
 		{
-			if (creature_ptr->levitation)
+			if (has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
 				msg_print("ƒgƒQ‚Ì‚ ‚é—Ž‚Æ‚µŒŠ‚ð”ò‚Ñ‰z‚¦‚½B");
@@ -1203,7 +1203,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_POISON_PIT:
 		{
-			if (creature_ptr->levitation)
+			if (has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
 				msg_print("ƒgƒQ‚Ì‚ ‚é—Ž‚Æ‚µŒŠ‚ð”ò‚Ñ‰z‚¦‚½B");
@@ -1879,7 +1879,7 @@ bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && creature_ptr->levitation) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait(creature_ptr, TRAIT_CAN_FLY)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(creature_ptr, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS) && creature_ptr->pass_wall) return TRUE;
 
@@ -1992,7 +1992,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 
 		if ((creature_ptr->action == ACTION_HAYAGAKE) &&
 		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
-		     (!creature_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
+		     (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 
 			if(is_player(creature_ptr))
@@ -2161,7 +2161,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 	case TRAP_PIT:
 	case TRAP_SPIKED_PIT:
 	case TRAP_POISON_PIT:
-		if (creature_ptr->levitation) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_CAN_FLY)) return TRUE;
 		break;
 	case TRAP_TELEPORT:
 		if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) return TRUE;
@@ -2536,7 +2536,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 	}
 
-	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !creature_ptr->levitation)
+	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 #ifdef JP
 		msg_format("‹ó‚ð”ò‚Î‚È‚¢‚Æ%s‚Ìã‚É‚Ís‚¯‚È‚¢B", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
@@ -2556,7 +2556,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
 	{
-		if ((creature_ptr->class_idx != CLASS_RANGER) && !creature_ptr->levitation && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
+		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
 	}
 
 	/* Disarm a visible trap */
@@ -3201,7 +3201,7 @@ static bool run_test(creature_type *creature_ptr)
 
 				/* Deep water */
 				else if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-				         (creature_ptr->levitation || has_trait(creature_ptr, TRAIT_CAN_SWIM) || (creature_ptr->carrying_weight <= calc_carrying_weight_limit(creature_ptr))))
+				         (has_trait(creature_ptr, TRAIT_CAN_FLY) || has_trait(creature_ptr, TRAIT_CAN_SWIM) || (creature_ptr->carrying_weight <= calc_carrying_weight_limit(creature_ptr))))
 				{
 					/* Ignore */
 					notice = FALSE;

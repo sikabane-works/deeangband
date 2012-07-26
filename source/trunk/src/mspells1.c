@@ -3423,7 +3423,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 						sound(SOUND_FALL);
 
-						if (target_ptr->levitation)
+						if (has_trait(target_ptr, TRAIT_CAN_FLY))
 						{
 #ifdef JP
 							msg_print("あなたは静かに着地した。");

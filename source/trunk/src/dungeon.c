@@ -1689,7 +1689,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!creature_ptr->levitation)
+		else if (!has_trait(creature_ptr, TRAIT_CAN_FLY))
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1699,11 +1699,11 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 
 			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
 
-			if (creature_ptr->levitation) damage = damage / 5;
+			if (has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
-			if (creature_ptr->levitation)
+			if (has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
@@ -1728,7 +1728,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation)
+	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 		int damage = 0;
 
@@ -1736,7 +1736,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!creature_ptr->levitation)
+		else if (!has_trait(creature_ptr, TRAIT_CAN_FLY))
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1759,7 +1759,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !creature_ptr->levitation && !has_trait(creature_ptr, TRAIT_IM_ACID))
+	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
 	{
 		int damage = 0;
 
@@ -1767,7 +1767,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!creature_ptr->levitation)
+		else if (!has_trait(creature_ptr, TRAIT_CAN_FLY))
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1792,7 +1792,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 
 
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-	    !creature_ptr->levitation && !has_trait(creature_ptr, TRAIT_CAN_SWIM))
+	    !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM))
 	{
 		if (creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
 		{

@@ -1795,7 +1795,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 	/* Update health track of mount */
 	play_redraw |= (PR_UHEALTH);
 
-	if (creature_ptr->levitation && !force)
+	if (has_trait(creature_ptr, TRAIT_CAN_FLY) && !force)
 	{
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP

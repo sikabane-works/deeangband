@@ -591,15 +591,6 @@ info[i++] = "‚ ‚È‚½‚Ì“µ‚ÍÔŠOü‚É•qŠ´‚Å‚ ‚éB";
 #endif
 
 	}
-	if (creature_ptr->levitation)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í”ò‚Ô‚±‚Æ‚ª‚Å‚«‚éB";
-#else
-		info[i++] = "You can fly.";
-#endif
-
-	}
 	if (creature_ptr->free_act)
 	{
 #ifdef JP

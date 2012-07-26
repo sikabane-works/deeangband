@@ -3220,7 +3220,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->resist_conf = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		creature_ptr->free_act = TRUE;
-		creature_ptr->levitation = TRUE;
+		//creature_ptr->levitation = TRUE;
 	}
 
 	/* Temporary "Hero" */
@@ -3303,7 +3303,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	/* Temporary levitation */
 	if (creature_ptr->tim_levitation)
 	{
-		creature_ptr->levitation = TRUE;
+		//TODO creature_ptr->levitation = TRUE;
 	}
 
 	/* Temporary reflection */
@@ -3324,7 +3324,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->free_act = TRUE;
 		//creature_ptr->slow_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
-		creature_ptr->levitation = TRUE;
+		//creature_ptr->levitation = TRUE;
 		//creature_ptr->hold_life = TRUE;
 		//TODO creature_ptr->telepathy = TRUE;
 		creature_ptr->lite = TRUE;
@@ -3500,7 +3500,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
 
 		//if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
-		if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
+		//if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
 		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
 		//if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
@@ -3783,7 +3783,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->easy_spell = FALSE;
 	creature_ptr->heavy_spell = FALSE;
 	creature_ptr->free_act = FALSE;
-	creature_ptr->levitation = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;
@@ -4145,7 +4144,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 
 		if (has_trait(creature_ptr, TRAIT_WINGS))
 		{
-			creature_ptr->levitation = TRUE;
+			//TODO creature_ptr->levitation = TRUE;
 		}
 
 		if (has_trait(creature_ptr, TRAIT_LIMBER))
@@ -4638,7 +4637,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			//TODO creature_ptr->sh_fire = TRUE;
 			//TODO creature_ptr->sh_elec = TRUE;
 			//TODO creature_ptr->sh_cold = TRUE;
-			creature_ptr->levitation = TRUE;
+			//TODO creature_ptr->levitation = TRUE;
 		}
 		else if (creature_ptr->special_defense & KAMAE_GENBU)
 		{
@@ -4653,7 +4652,7 @@ static void set_melee_status(creature_type *creature_ptr)
 
 			creature_ptr->dis_to_hit[0] -= (creature_ptr->lev / 3);
 			creature_ptr->dis_to_damage[0] -= (creature_ptr->lev / 6);
-			creature_ptr->levitation = TRUE;
+			//TODO creature_ptr->levitation = TRUE;
 		}
 
 	}
@@ -4809,7 +4808,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
 	creature_ptr->to_hit_b -= penalty;
 	creature_ptr->dis_to_hit_b -= penalty;
-	creature_ptr->levitation = riding_levitation;
+	//TODO creature_ptr->levitation = riding_levitation;
 }
 
 
