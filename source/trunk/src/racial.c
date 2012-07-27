@@ -2235,7 +2235,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 		{
 			(void)dispel_creatures(creature_ptr, plev * 4);
 			turn_creatures(creature_ptr, plev * 4);
-			banish_creatures(creature_ptr, plev * 4);			}
+			banish_creatures(creature_ptr, plev * 4);
 			break;
 		}
 
@@ -2282,7 +2282,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 		}
 
 	}
-
+}
 
 		/* TODO 
 
