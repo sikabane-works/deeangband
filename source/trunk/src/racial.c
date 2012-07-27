@@ -2449,6 +2449,22 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_TAKE_PHOTO:
+		{
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			project_length = 1;
+			fire_beam(creature_ptr, GF_PHOTO, dir, 1);
+			break;
+		}
+
+		case TRAIT_IDENTIFY_TRUE:
+		{
+			if (!identify_fully(creature_ptr, FALSE)) return FALSE;
+			break;
+		}
+
+
+
 	}
 }
 
@@ -2457,20 +2473,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case CLASS_TOURIST:
-		{
-			if (command == -3)
-			{
-				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				project_length = 1;
-				fire_beam(creature_ptr, GF_PHOTO, dir, 1);
-			}
-			else if (command == -4)
-			{
-				if (!identify_fully(creature_ptr, FALSE)) return FALSE;
-			}
-			break;
-		}
 
 		case CLASS_IMITATOR:
 		{
