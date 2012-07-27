@@ -2353,14 +2353,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-	}
-}
-
-		/* TODO 
-
-
-
-		case CLASS_MONK:
+		case TRAIT_DOUBLE_ATTACK:
 		{
 			if (!(empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
@@ -2426,6 +2419,14 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+
+	}
+}
+
+		/* TODO 
+
+
+
 		case CLASS_MINDCRAFTER:
 		case CLASS_FORCETRAINER:
 		{
