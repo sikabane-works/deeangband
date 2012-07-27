@@ -2470,6 +2470,30 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_DOMINATE_LIVE:
+		{
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			(void)fire_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
+			break;
+		}
+
+		case TRAIT_DOMINATE_LIVES:
+		{
+			project_hack(creature_ptr, GF_CONTROL_LIVING, creature_ptr->lev);
+			break;
+		}
+
+		case TRAIT_CREATE_AMMO:
+		{
+			if (!do_cmd_archer(creature_ptr)) return FALSE;
+			break;
+		}
+
+		case TRAIT_ABSORB_MAGIC:
+		{
+			if (!gain_magic(creature_ptr)) return FALSE;
+			break;
+		}
 
 	}
 }
@@ -2481,29 +2505,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case CLASS_BEASTMASTER:
-		{
-			if (command == -3)
-			{
-				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				(void)fire_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
-			}
-			else if (command == -4)
-			{
-				project_hack(creature_ptr, GF_CONTROL_LIVING, creature_ptr->lev);
-			}
-			break;
-		}
-		case CLASS_ARCHER:
-		{
-			if (!do_cmd_archer(creature_ptr)) return FALSE;
-			break;
-		}
-		case CLASS_MAGIC_EATER:
-		{
-			if (!gain_magic(creature_ptr)) return FALSE;
-			break;
-		}
+
 		case CLASS_BARD:
 		{
 			// Singing is already stopped
