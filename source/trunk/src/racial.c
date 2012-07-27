@@ -2078,7 +2078,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 			(void)fear_creature(dir, plev);
 			break;
-			*/
+			
 
 		case RACE_SPRITE:
 #ifdef JP
@@ -2212,11 +2212,12 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 		}
 
 		case TRAIT_STOP_HEX:
-			{
+		{
 			bool retval = stop_hex_spell(creature_ptr);
 			if (retval) energy_use = 10;
 			return (retval);
-			}
+			break;
+		}
 
 		case TRAIT_EAT_MAGIC:
 		{
@@ -2229,9 +2230,8 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			if (!bless_weapon(creature_ptr)) return FALSE;
 			break;
 		}
-	}
 
-		/* TODO 
+		case TRAIT_EVOCATION:
 		{
 			(void)dispel_creatures(creature_ptr, plev * 4);
 			turn_creatures(creature_ptr, plev * 4);
@@ -2239,7 +2239,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		case CLASS_ROGUE:
+		case TRAIT_PANIC_HIT:
 		{
 			int x, y;
 
@@ -2270,18 +2270,22 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		case CLASS_RANGER:
-		case CLASS_SNIPER:
+		case TRAIT_SCAN_CREATURE:
 		{
 #ifdef JP
 			msg_print("ìGÇí≤ç∏ÇµÇΩ...");
 #else
 			msg_print("You examine your foes...");
 #endif
-
 			probing(floor_ptr);
 			break;
 		}
+
+	}
+
+
+		/* TODO 
+
 
 		case CLASS_PALADIN:
 			{
@@ -3466,9 +3470,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 	}
 
 #endif
-
-	return TRUE;
-}
 
 
 
