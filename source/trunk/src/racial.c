@@ -887,7 +887,7 @@ static void ratial_stop_mouth(creature_type *creature_ptr)
 }
 
 
-static bool cmd_racial_power_aux(creature_type *creature_ptr, s32b command)
+static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 {
 	s16b        plev = creature_ptr->lev;
 	int         dir = 0;
@@ -2448,7 +2448,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 	{
 	case 1:
 		if (power_desc[i].number < 0)
-			cast = cmd_racial_power_aux(creature_ptr, power_desc[i].number);
+			cast = do_racial_power_aux(creature_ptr, power_desc[i].number);
 		else
 			cast = mutation_power_aux(creature_ptr,power_desc[i].number);
 		break;
