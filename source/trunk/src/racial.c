@@ -2587,18 +2587,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 		*/
 
-	}
-}
-
-		/* TODO 
-
-
-
-
-
-
-
-		case CLASS_CAVALRY:
+		case TRAIT_RODEO:
 		{
 			char steed_name[80];
 			creature_type *steed_ptr;
@@ -2652,12 +2641,16 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+
+		/*
 		case CLASS_BERSERKER:
 		{
 			if (!word_of_recall(creature_ptr)) return FALSE;
 			break;
 		}
-		case CLASS_SMITH:
+		*/
+/*
+		case TRAIT_:
 		{
 			if (creature_ptr->lev > 29)
 			{
@@ -2669,6 +2662,19 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+		*/
+
+	}
+}
+
+		/* TODO 
+
+
+
+
+
+
+
 		case CLASS_MIRROR_MASTER:
 		{
 			if (command == -3)
