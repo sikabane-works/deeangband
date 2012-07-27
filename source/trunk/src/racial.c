@@ -2463,6 +2463,12 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_DOUBLE_REVENGE:
+		{
+			handle_stuff();
+			if (!do_cmd_mane(creature_ptr, TRUE)) return FALSE;
+			break;
+		}
 
 
 	}
@@ -2474,12 +2480,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case CLASS_IMITATOR:
-		{
-			handle_stuff();
-			if (!do_cmd_mane(creature_ptr, TRUE)) return FALSE;
-			break;
-		}
+
 		case CLASS_BEASTMASTER:
 		{
 			if (command == -3)
