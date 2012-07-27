@@ -2281,19 +2281,36 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_HOLY_LANCE:
+		case TRAIT_HELL_LANCE:
+		{
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			fire_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, plev * 3);
+			break;
+		}
+
+		case TRAIT_CONFUSING_LIGHT:
+		{
+#ifdef JP
+			msg_print("•Ó‚è‚ðáÉ‚ñ‚¾...");
+#else
+			msg_print("You glare nearby creatures...");
+#endif
+			slow_creatures(creature_ptr);
+			stun_creatures(creature_ptr, creature_ptr->lev * 4);
+			confuse_creatures(creature_ptr, creature_ptr->lev * 4);
+			turn_creatures(creature_ptr, creature_ptr->lev * 4);
+			stasis_creatures(creature_ptr, creature_ptr->lev * 4);
+			break;
+		}
+
 	}
 }
 
 		/* TODO 
 
 
-		case CLASS_PALADIN:
-			{
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
-			          dir, plev * 3);
-			break;
-		}
+
 		case CLASS_WARRIOR_MAGE:
 		{
 			if (command == -3)
@@ -2337,20 +2354,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			// Redraw mana and hp
 			play_redraw |= (PR_HP | PR_MANA);
 
-			break;
-		}
-		case CLASS_CHAOS_WARRIOR:
-		{
-#ifdef JP
-			msg_print("•Ó‚è‚ðáÉ‚ñ‚¾...");
-#else
-			msg_print("You glare nearby creatures...");
-#endif
-			slow_creatures(creature_ptr);
-			stun_creatures(creature_ptr, creature_ptr->lev * 4);
-			confuse_creatures(creature_ptr, creature_ptr->lev * 4);
-			turn_creatures(creature_ptr, creature_ptr->lev * 4);
-			stasis_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 		}
 		case CLASS_MONK:
