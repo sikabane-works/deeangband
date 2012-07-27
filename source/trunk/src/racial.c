@@ -2420,15 +2420,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-	}
-}
-
-		/* TODO 
-
-
-
-		case CLASS_MINDCRAFTER:
-		case CLASS_FORCETRAINER:
+		case TRAIT_CLEAR_MIND:
 		{
 			if (total_friends)
 			{
@@ -2456,6 +2448,15 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			play_redraw |= (PR_MANA);
 			break;
 		}
+
+	}
+}
+
+		/* TODO 
+
+
+
+
 		case CLASS_TOURIST:
 		{
 			if (command == -3)
@@ -2470,6 +2471,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+
 		case CLASS_IMITATOR:
 		{
 			handle_stuff();
