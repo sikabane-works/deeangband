@@ -2495,18 +2495,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-	}
-}
-
-		/* TODO 
-
-
-
-
-
-
-
-		case CLASS_BARD:
+		case TRAIT_STOP_SINGING:
 		{
 			// Singing is already stopped
 			if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return FALSE;
@@ -2515,7 +2504,8 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			energy_use = 10;
 			break;
 		}
-		case CLASS_RED_MAGE:
+
+		case TRAIT_DOUBLE_MAGIC:
 		{
 			if (!can_do_cmd_cast(creature_ptr)) return FALSE;
 			handle_stuff();
@@ -2525,10 +2515,9 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 				do_cmd_cast(creature_ptr);
 			break;
 		}
-		case CLASS_SAMURAI:
+
+		case TRAIT_POSTURE2:
 		{
-			if (command == -3)
-			{
 				int max_csp = MAX(creature_ptr->msp*4, creature_ptr->lev*5+5);
 
 				if (total_friends)
@@ -2564,9 +2553,24 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 				// Redraw mana
 				play_redraw |= (PR_MANA);
-			}
-			else if (command == -4)
+		}
+
+		case TRAIT_LEARNING:
+		{
+			if (creature_ptr->action == ACTION_LEARN)
 			{
+				set_action(creature_ptr, ACTION_NONE);
+			}
+			else
+			{
+				set_action(creature_ptr, ACTION_LEARN);
+			}
+			energy_use = 0;
+			break;
+		}
+
+		/*TODO
+
 				if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 				{
 #ifdef JP
@@ -2580,20 +2584,20 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 			break;
-		}
-		case CLASS_BLUE_MAGE:
-		{
-			if (creature_ptr->action == ACTION_LEARN)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-			else
-			{
-				set_action(creature_ptr, ACTION_LEARN);
-			}
-			energy_use = 0;
-			break;
-		}
+
+		*/
+
+	}
+}
+
+		/* TODO 
+
+
+
+
+
+
+
 		case CLASS_CAVALRY:
 		{
 			char steed_name[80];
