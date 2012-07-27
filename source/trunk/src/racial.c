@@ -2289,6 +2289,55 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_HP_TO_SP_ACTIVE:
+		{
+#ifdef JP
+				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "ÇgÇoÇ©ÇÁÇlÇoÇ÷ÇÃñ≥ñdÇ»ïœä∑", NULL, -1) / 5;
+#else
+				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
+#endif
+				if (gain_sp)
+				{
+					creature_ptr->csp += gain_sp;
+					if (creature_ptr->csp > creature_ptr->msp)
+					{
+						creature_ptr->csp = creature_ptr->msp;
+						creature_ptr->csp_frac = 0;
+					}
+				}
+				else
+#ifdef JP
+					msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
+#else
+					msg_print("You failed to convert.");
+#endif
+				break;
+
+			// Redraw mana and hp
+			play_redraw |= (PR_HP | PR_MANA);
+			break;
+
+		}
+
+		case TRAIT_SP_TO_HP_ACTIVE:
+		{
+				if (creature_ptr->csp >= creature_ptr->lev / 5)
+				{
+					creature_ptr->csp -= creature_ptr->lev / 5;
+					hp_player(creature_ptr, creature_ptr->lev);
+				}
+				else
+#ifdef JP
+					msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
+#else
+					msg_print("You failed to convert.");
+#endif
+
+			// Redraw mana and hp
+			play_redraw |= (PR_HP | PR_MANA);
+			break;
+		}
+
 		case TRAIT_CONFUSING_LIGHT:
 		{
 #ifdef JP
@@ -2311,51 +2360,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case CLASS_WARRIOR_MAGE:
-		{
-			if (command == -3)
-			{
-#ifdef JP
-				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "ÇgÇoÇ©ÇÁÇlÇoÇ÷ÇÃñ≥ñdÇ»ïœä∑", NULL, -1) / 5;
-#else
-				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
-#endif
-				if (gain_sp)
-				{
-					creature_ptr->csp += gain_sp;
-					if (creature_ptr->csp > creature_ptr->msp)
-					{
-						creature_ptr->csp = creature_ptr->msp;
-						creature_ptr->csp_frac = 0;
-					}
-				}
-				else
-#ifdef JP
-					msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
-#else
-					msg_print("You failed to convert.");
-#endif
-			}
-			else if (command == -4)
-			{
-				if (creature_ptr->csp >= creature_ptr->lev / 5)
-				{
-					creature_ptr->csp -= creature_ptr->lev / 5;
-					hp_player(creature_ptr, creature_ptr->lev);
-				}
-				else
-#ifdef JP
-					msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
-#else
-					msg_print("You failed to convert.");
-#endif
-			}
-
-			// Redraw mana and hp
-			play_redraw |= (PR_HP | PR_MANA);
-
-			break;
-		}
 		case CLASS_MONK:
 		{
 			if (!(empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
