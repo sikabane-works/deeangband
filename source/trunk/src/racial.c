@@ -2646,31 +2646,16 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		/*
-		case TRAIT_:
+		case TRAIT_IDENTIFY:
 		{
-			if (creature_ptr->lev > 29)
-			{
-				if (!identify_fully(creature_ptr, TRUE)) return FALSE;
-			}
-			else
-			{
-				if (!ident_spell(creature_ptr, TRUE)) return FALSE;
-			}
+			if (!ident_spell(creature_ptr, TRUE)) return FALSE;
 			break;
 		}
-		*/
 
 	}
 }
 
 		/* TODO 
-
-
-
-
-
-
 
 		case CLASS_MIRROR_MASTER:
 		{
