@@ -2940,6 +2940,29 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			else fire_ball(creature_ptr, GF_ACID, dir, plev, 2);
 			break;
 
+		case TRAIT_POISON_DART:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+			msg_print("毒のダーツを投げた。");
+#else
+			msg_print("You throw a dart of poison.");
+#endif
+
+			fire_bolt(creature_ptr, GF_POIS, dir, plev);
+			break;
+
+		case TRAIT_MISSILE:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+			msg_print("マジック・ミサイルを放った。");
+#else
+			msg_print("You cast a magic missile.");
+#endif
+
+			fire_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
+			    diceroll(3 + ((plev - 1) / 5), 4));
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -2982,44 +3005,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 	switch (creature_ptr->race_idx1)
 	{
 
-
-
-
-
-		case RACE_KOBOLD:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("毒のダーツを投げた。");
-#else
-			msg_print("You throw a dart of poison.");
-#endif
-
-			fire_bolt(creature_ptr, GF_POIS, dir, plev);
-			break;
-
-		case RACE_NIBELUNG:
-#ifdef JP
-			msg_print("周囲を調査した。");
-#else
-			msg_print("You examine your surroundings.");
-#endif
-
-			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
-			break;
-
-		case RACE_DARK_ELF:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("マジック・ミサイルを放った。");
-#else
-			msg_print("You cast a magic missile.");
-#endif
-
-			fire_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
-			    diceroll(3 + ((plev - 1) / 5), 4));
-			break;
 
 		case RACE_DRACONIAN:
 			{
@@ -3275,78 +3260,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 			(void)restore_level(creature_ptr);
 			break;
-
-		case RACE_VAMPIRE:
-			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-			{
-#ifdef JP
-				msg_print("なぜか攻撃することができない。");
-#else
-				msg_print("Something prevent you from attacking.");
-#endif
-				return FALSE;
-			}
-			else
-			{
-				int y, x, dummy = 0;
-				cave_type *c_ptr;
-
-				//Only works on adjacent creatures
-				if (!get_rep_dir(creature_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
-				y = creature_ptr->fy + ddy[dir];
-				x = creature_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
-
-				ratial_stop_mouth(creature_ptr);
-
-				if (!c_ptr->creature_idx)
-				{
-#ifdef JP
-					msg_print("何もない場所に噛みついた！");
-#else
-					msg_print("You bite into thin air!");
-#endif
-
-					break;
-				}
-
-#ifdef JP
-				msg_print("あなたはニヤリとして牙をむいた...");
-#else
-				msg_print("You grin and bare your fangs...");
-#endif
-
-				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
-				if (drain_life(creature_ptr, dir, dummy))
-				{
-					if (creature_ptr->food < PY_FOOD_FULL)
-						// No heal if we are "full"
-						(void)hp_player(creature_ptr, dummy);
-					else
-#ifdef JP
-						msg_print("あなたは空腹ではありません。");
-#else
-						msg_print("You were not hungry.");
-#endif
-
-					// Gain nutritional sustenance: 150/hp drained
-					// A Food ration gives 5000 food points (by contrast)
-					// Don't ever get more than "Full" this way
-					// But if we ARE Gorged,  it won't cure us
-					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if (creature_ptr->food < PY_FOOD_MAX)   // Not gorged already
-						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
-				}
-				else
-#ifdef JP
-					msg_print("げぇ。ひどい味だ。");
-#else
-					msg_print("Yechh. That tastes foul.");
-#endif
-
-			}
-			break;
-			*/
 
 			/*
 		case LICH:
