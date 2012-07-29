@@ -2889,6 +2889,22 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			(void)hp_player(creature_ptr, 30);
 			break;
 
+		case TRAIT_EXPLOSIVE_RUNE:
+#ifdef JP
+			msg_print("”š”­‚Ìƒ‹[ƒ“‚ğTd‚ÉdŠ|‚¯‚½...");
+#else
+			msg_print("You carefully set an explosive rune...");
+#endif
+
+			explosive_rune(creature_ptr);
+			break;
+
+		case TRAIT_STONE_TO_MUD:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			(void)wall_to_mud(creature_ptr, dir);
+			break;
+
+			//THROW_BOULDER
 		/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -2932,20 +2948,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 	{
 
 
-		case RACE_OGRE:
-#ifdef JP
-			msg_print("”š”­‚Ìƒ‹[ƒ“‚ğTd‚ÉdŠ|‚¯‚½...");
-#else
-			msg_print("You carefully set an explosive rune...");
-#endif
-
-			explosive_rune(creature_ptr);
-			break;
-
-		case RACE_GIANT:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			(void)wall_to_mud(creature_ptr, dir);
-			break;
 
 		case RACE_TITAN:
 #ifdef JP
