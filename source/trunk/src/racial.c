@@ -2726,6 +2726,18 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_DETECT_DOOR_TRAP:
+#ifdef JP
+			msg_print("üˆÍ‚ğ’²‚×‚½B");
+#else
+			msg_print("You examine your surroundings.");
+#endif
+
+			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
+			break;
+
 	}
 }
 
@@ -2829,17 +2841,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 	switch (creature_ptr->race_idx1)
 	{
-		case RACE_DWARF:
-#ifdef JP
-			msg_print("üˆÍ‚ğ’²‚×‚½B");
-#else
-			msg_print("You examine your surroundings.");
-#endif
-
-			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
-			break;
 
 		case RACE_HOBBIT:
 			{
