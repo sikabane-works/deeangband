@@ -2963,6 +2963,51 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
+		case TRAIT_RESTORE_LIFE:
+#ifdef JP
+			msg_print("あなたは失ったエネルギーを取り戻そうと試みた。");
+#else
+			msg_print("You attempt to restore your lost energies.");
+#endif
+
+			(void)restore_level(creature_ptr);
+			break;
+
+		case TRAIT_MIND_BLAST:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+			msg_print("あなたは集中し、目が赤く輝いた...");
+#else
+			msg_print("You concentrate and your eyes glow red...");
+#endif
+
+			fire_bolt(creature_ptr, GF_PSI, dir, plev);
+			break;
+
+		case TRAIT_FIRE_BALL:
+			{
+#ifdef JP
+				msg_print("ファイア・ボールを放った。");
+#else
+				msg_print("You cast a ball of fire.");
+#endif
+
+				fire_ball(creature_ptr, GF_FIRE, dir, plev, 2);
+			}
+			break;
+
+		case TRAIT_FIRE_BOLT:
+			{
+#ifdef JP
+				msg_print("ファイア・ボルトを放った。");
+#else
+				msg_print("You cast a bolt of fire.");
+#endif
+
+				fire_bolt(creature_ptr, GF_FIRE, dir, plev);
+			}
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -3006,261 +3051,10 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 	{
 
 
-		case RACE_DRACONIAN:
-			{
-				int  Type = (one_in_(3) ? GF_COLD : GF_FIRE);
-#ifdef JP
-				cptr Type_desc = ((Type == GF_COLD) ? "冷気" : "炎");
-#else
-				cptr Type_desc = ((Type == GF_COLD) ? "cold" : "fire");
-#endif
 
-				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-				if (randint1(100) < plev)
-				{
-					switch (creature_ptr->class_idx)
-					{
-						case CLASS_WARRIOR:
-						case CLASS_BERSERKER:
-						case CLASS_RANGER:
-						case CLASS_TOURIST:
-						case CLASS_IMITATOR:
-						case CLASS_ARCHER:
-						case CLASS_SMITH:
-							if (one_in_(3))
-							{
-								Type = GF_MISSILE;
-#ifdef JP
-								Type_desc = "エレメント";
-#else
-								Type_desc = "the elements";
-#endif
-							}
-							else
-							{
-								Type = GF_SHARDS;
-#ifdef JP
-								Type_desc = "破片";
-#else
-								Type_desc = "shards";
-#endif
-							}
-							break;
-						case CLASS_MAGE:
-						case CLASS_WARRIOR_MAGE:
-						case CLASS_HIGH_MAGE:
-						case CLASS_SORCERER:
-						case CLASS_MAGIC_EATER:
-						case CLASS_RED_MAGE:
-						case CLASS_BLUE_MAGE:
-						case CLASS_MIRROR_MASTER:
-							if (one_in_(3))
-							{
-								Type = GF_MANA;
-#ifdef JP
-								Type_desc = "魔力";
-#else
-								Type_desc = "mana";
-#endif
-							}
-							else
-							{
-								Type = GF_DISENCHANT;
-#ifdef JP
-								Type_desc = "劣化";
-#else
-								Type_desc = "disenchantment";
-#endif
-							}
-							break;
-						case CLASS_CHAOS_WARRIOR:
-							if (!one_in_(3))
-							{
-								Type = GF_CONFUSION;
-#ifdef JP
-								Type_desc = "混乱";
-#else
-								Type_desc = "confusion";
-#endif
-							}
-							else
-							{
-								Type = GF_CHAOS;
-#ifdef JP
-								Type_desc = "カオス";
-#else
-								Type_desc = "chaos";
-#endif
-							}
-							break;
-						case CLASS_MONK:
-						case CLASS_SAMURAI:
-						case CLASS_FORCETRAINER:
-							if (!one_in_(3))
-							{
-								Type = GF_CONFUSION;
-#ifdef JP
-								Type_desc = "混乱";
-#else
-								Type_desc = "confusion";
-#endif
-							}
-							else
-							{
-								Type = GF_SOUND;
-#ifdef JP
-								Type_desc = "轟音";
-#else
-								Type_desc = "sound";
-#endif
-							}
-							break;
-						case CLASS_MINDCRAFTER:
-							if (!one_in_(3))
-							{
-								Type = GF_CONFUSION;
-#ifdef JP
-								Type_desc = "混乱";
-#else
-								Type_desc = "confusion";
-#endif
-							}
-							else
-							{
-								Type = GF_PSI;
-#ifdef JP
-								Type_desc = "精神エネルギー";
-#else
-								Type_desc = "mental energy";
-#endif
-							}
-							break;
-						case CLASS_PRIEST:
-						case CLASS_PALADIN:
-							if (one_in_(3))
-							{
-								Type = GF_HELL_FIRE;
-#ifdef JP
-								Type_desc = "地獄の劫火";
-#else
-								Type_desc = "hellfire";
-#endif
-							}
-							else
-							{
-								Type = GF_HOLY_FIRE;
-#ifdef JP
-								Type_desc = "聖なる炎";
-#else
-								Type_desc = "holy fire";
-#endif
-							}
-							break;
-						case CLASS_ROGUE:
-						case CLASS_NINJA:
-							if (one_in_(3))
-							{
-								Type = GF_DARK;
-#ifdef JP
-								Type_desc = "暗黒";
-#else
-								Type_desc = "darkness";
-#endif
-							}
-							else
-							{
-								Type = GF_POIS;
-#ifdef JP
-								Type_desc = "毒";
-#else
-								Type_desc = "poison";
-#endif
-							}
-							break;
-						case CLASS_BARD:
-							if (!one_in_(3))
-							{
-								Type = GF_SOUND;
-#ifdef JP
-								Type_desc = "轟音";
-#else
-								Type_desc = "sound";
-#endif
-							}
-							else
-							{
-								Type = GF_CONFUSION;
-#ifdef JP
-								Type_desc = "混乱";
-#else
-								Type_desc = "confusion";
-#endif
-							}
-							break;
-					}
-				}
-
-				ratial_stop_mouth(creature_ptr);
-
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。", Type_desc);
-#else
-				msg_format("You breathe %s.", Type_desc);
-#endif
-
-				fire_ball(creature_ptr, Type, dir, plev * 2,
-				    -(plev / 15) - 1);
-			}
-			break;
-
-		case RACE_MIND_FLAYER:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("あなたは集中し、目が赤く輝いた...");
-#else
-			msg_print("You concentrate and your eyes glow red...");
-#endif
-
-			fire_bolt(creature_ptr, GF_PSI, dir, plev);
-			break;
-
-		case RACE_IMP:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			if (plev >= 30)
-			{
-#ifdef JP
-				msg_print("ファイア・ボールを放った。");
-#else
-				msg_print("You cast a ball of fire.");
-#endif
-
-				fire_ball(creature_ptr, GF_FIRE, dir, plev, 2);
-			}
-			else
-			{
-#ifdef JP
-				msg_print("ファイア・ボルトを放った。");
-#else
-				msg_print("You cast a bolt of fire.");
-#endif
-
-				fire_bolt(creature_ptr, GF_FIRE, dir, plev);
-			}
-			break;
 
 			/*
-		case RACE_SKELETON:
-		case RACE_ZOMBIE:
-#ifdef JP
-			msg_print("あなたは失ったエネルギーを取り戻そうと試みた。");
-#else
-			msg_print("You attempt to restore your lost energies.");
-#endif
-
-			(void)restore_level(creature_ptr);
-			break;
-
 			/*
 		case LICH:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
