@@ -3082,6 +3082,18 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 
+		case TRAIT_SCARE_CREATURE:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
+#ifdef JP
+			msg_print("あなたはおどろおどろしい叫び声をあげた！");
+#else
+			msg_print("You emit an eldritch howl!");
+#endif
+
+			(void)fear_creature(creature_ptr, dir, plev);
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -3115,39 +3127,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 }
 
-
-#if 0
-
-			/*
-		case LICH:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("あなたはおどろおどろしい叫び声をあげた！");
-#else
-			msg_print("You emit an eldritch howl!");
-#endif
-
-			(void)fear_creature(dir, plev);
-			break;
-			*/
-
-
-/*TODO
-			*/
-
-		default:
-#ifdef JP
-			msg_print("この種族は特殊な能力を持っていません。");
-#else
-			msg_print("This race has no bonus power.");
-#endif
-
-			energy_use = 0;
-	}
-	}
-
-#endif
 
 
 
