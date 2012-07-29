@@ -2915,6 +2915,31 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			fire_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
+		case TRAIT_SHRIEK:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
+#ifdef JP
+			msg_print("g‚Ì–Ñ‚à‚æ‚¾‚Â‹©‚Ñº‚ğã‚°‚½I");
+#else
+			msg_print("You make a horrible scream!");
+#endif
+
+			(void)fear_creature(creature_ptr, dir, plev);
+			break;
+
+		case TRAIT_SPIT_ACID:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
+#ifdef JP
+			msg_print("_‚ğ“f‚¢‚½B");
+#else
+			msg_print("You spit acid.");
+#endif
+
+			if (plev < 25) fire_bolt(creature_ptr, GF_ACID, dir, plev);
+			else fire_ball(creature_ptr, GF_ACID, dir, plev, 2);
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -2960,30 +2985,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case RACE_YEEK:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("g‚Ì–Ñ‚à‚æ‚¾‚Â‹©‚Ñº‚ğã‚°‚½I");
-#else
-			msg_print("You make a horrible scream!");
-#endif
-
-			(void)fear_creature(creature_ptr, dir, plev);
-			break;
-
-		case RACE_KLACKON:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("_‚ğ“f‚¢‚½B");
-#else
-			msg_print("You spit acid.");
-#endif
-
-			if (plev < 25) fire_bolt(creature_ptr, GF_ACID, dir, plev);
-			else fire_ball(creature_ptr, GF_ACID, dir, plev, 2);
-			break;
 
 		case RACE_KOBOLD:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
