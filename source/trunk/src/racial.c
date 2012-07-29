@@ -2569,23 +2569,21 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		/*TODO
-
-				if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
-				{
+		case TRAIT_POSTURE:
+		{
+			if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+			{
 #ifdef JP
-					msg_print("•Ší‚ðŽ‚½‚È‚¢‚Æ‚¢‚¯‚Ü‚¹‚ñB");
+				msg_print("•Ší‚ðŽ‚½‚È‚¢‚Æ‚¢‚¯‚Ü‚¹‚ñB");
 #else
-					msg_print("You need to wield a weapon.");
+				msg_print("You need to wield a weapon.");
 #endif
-					return FALSE;
-				}
-				if (!choose_kata(creature_ptr)) return FALSE;
-				creature_ptr->creature_update |= (CRU_BONUS);
+				return FALSE;
 			}
+			if (!choose_kata(creature_ptr)) return FALSE;
+			creature_ptr->creature_update |= (CRU_BONUS);
 			break;
-
-		*/
+		}
 
 		case TRAIT_RODEO:
 		{
