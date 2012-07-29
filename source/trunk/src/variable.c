@@ -153,7 +153,6 @@ s16b hack_m_idx = 0;	/* Hack -- see "process_creatures()" */
 s16b hack_m_idx_ii = 0;
 bool multi_rew = FALSE;
 
-int total_friends = 0;
 s32b friend_align = 0;
 s32b friend_ethics = 0;
 

@@ -1128,7 +1128,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_MINDCRAFTER:
 		case CLASS_FORCETRAINER:
 		{
-			if (total_friends)
+			if (creature_ptr->total_friends)
 			{
 #ifdef JP
 				msg_print("今はペットを操ることに集中していないと。");
@@ -1222,7 +1222,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				int max_csp = MAX(creature_ptr->msp*4, creature_ptr->lev*5+5);
 
-				if (total_friends)
+				if (creature_ptr->total_friends)
 				{
 #ifdef JP
 					msg_print("今はペットを操ることに集中していないと。");
@@ -1364,7 +1364,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (total_friends)
+				if (creature_ptr->total_friends)
 				{
 #ifdef JP
 					msg_print("今はペットを操ることに集中していないと。");
@@ -2422,7 +2422,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 		case TRAIT_CLEAR_MIND:
 		{
-			if (total_friends)
+			if (creature_ptr->total_friends)
 			{
 #ifdef JP
 				msg_print("今はペットを操ることに集中していないと。");
@@ -2520,7 +2520,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 		{
 				int max_csp = MAX(creature_ptr->msp*4, creature_ptr->lev*5+5);
 
-				if (total_friends)
+				if (creature_ptr->total_friends)
 				{
 #ifdef JP
 					msg_print("今はペットを操ることに集中していないと。");
@@ -2660,7 +2660,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 		case TRAIT_MIRROR_CONC:
 		{
-				if (total_friends)
+				if (creature_ptr->total_friends)
 				{
 #ifdef JP
 					msg_print("今はペットを操ることに集中していないと。");
@@ -2711,7 +2711,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (total_friends)
+				if (creature_ptr->total_friends)
 				{
 #ifdef JP
 					msg_print("今はペットを操ることに集中していないと。");

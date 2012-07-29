@@ -1404,20 +1404,20 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	return w1 <= w2;
 }
 
-void check_pets_num_and_align(creature_type *m_ptr, bool inc)
+void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc)
 {
 	s32b old_friend_align = friend_align;
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	if (inc)
 	{
-		total_friends++;
+		master_ptr->total_friends++;
 		if (is_enemy_of_evil_creature(m_ptr)) friend_align += r_ptr->level;
 		if (is_enemy_of_good_creature(m_ptr)) friend_align -= r_ptr->level;
 	}
 	else
 	{
-		total_friends--;
+		master_ptr->total_friends--;
 		if (is_enemy_of_evil_creature(m_ptr)) friend_align -= r_ptr->level;
 		if (is_enemy_of_good_creature(m_ptr)) friend_align += r_ptr->level;
 	}
@@ -1432,7 +1432,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 	bool have_a_unique = FALSE;
 	s32b total_friend_levels = 0;
 
-	total_friends = 0;
+	master_ptr->total_friends = 0;
 	friend_align = 0;
 
 	for (m_idx = creature_max - 1; m_idx >=1; m_idx--)
@@ -1444,7 +1444,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 
 		if (is_pet(player_ptr, pet_ptr))
 		{
-			total_friends++;
+			master_ptr->total_friends++;
 			if (is_unique_creature(master_ptr))
 			{
 				if (master_ptr->class_idx == CLASS_CAVALRY)
@@ -1469,7 +1469,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 		}
 	}
 	if (old_friend_align != friend_align) master_ptr->creature_update |= (CRU_BONUS);
-	if (total_friends)
+	if (master_ptr->total_friends)
 	{
 		int upkeep_factor;
 		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (class_info[master_ptr->class_idx].pet_upkeep_div)));

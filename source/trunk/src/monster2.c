@@ -735,7 +735,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	/* Creature is gone */
 	floor_ptr->cave[y][x].creature_idx = 0;
 
-	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, FALSE);
 
 	/* Wipe the Creature */
 	(void)WIPE(creature_ptr, creature_type);
@@ -3284,7 +3284,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 		if (!species_idx) return;
 	}
 
-	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, FALSE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, FALSE);
 
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
@@ -3305,7 +3305,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
 		update |= (PU_MON_LITE);
 
-	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(creature_ptr, TRUE);
+	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, TRUE);
 
 	if (born)
 	{

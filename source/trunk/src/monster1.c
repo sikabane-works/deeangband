@@ -533,7 +533,7 @@ void set_camp(creature_type *m_ptr)
 
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
-	if (!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
+	if (!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, TRUE);
 
 	/* Check for quest completion */
 	check_quest_completion(master_ptr, m_ptr);
@@ -550,7 +550,7 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if (gamble_arena_mode) return;
 
-	if (is_pet(master_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, FALSE);
 
 	m_ptr->smart &= ~SM_PET;
 	//TODO m_ptr->smart &= ~SM_FRIENDLY;

@@ -1350,6 +1350,7 @@ struct creature_type
 	s16b mane_num;
 
 	s16b concent;      /* Sniper's concentration level */
+	u16b total_friends; // number of servent.
 
 	s16b base_hp[PY_MAX_LEVEL];
 	cptr last_message;        /* Last message on death or retirement */
