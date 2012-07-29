@@ -2878,6 +2878,17 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 
+		case TRAIT_BERSERK:
+#ifdef JP
+			msg_print("‚¤‚§‚§‚¨‚¨I");
+#else
+			msg_print("Raaagh!");
+#endif
+			(void)set_afraid(creature_ptr, 0);
+			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
+			(void)hp_player(creature_ptr, 30);
+			break;
+
 		/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -2920,30 +2931,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 	switch (creature_ptr->race_idx1)
 	{
 
-		case RACE_TROLL:
-#ifdef JP
-			msg_print("‚¤‚ª‚Ÿ‚ŸI");
-#else
-			msg_print("RAAAGH!");
-#endif
-
-			(void)set_afraid(creature_ptr, 0);
-			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(creature_ptr, 30);
-			break;
-
-
-		case RACE_BARBARIAN:
-#ifdef JP
-			msg_print("‚¤‚§‚§‚¨‚¨I");
-#else
-			msg_print("Raaagh!");
-#endif
-
-			(void)set_afraid(creature_ptr, 0);
-			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(creature_ptr, 30);
-			break;
 
 		case RACE_OGRE:
 #ifdef JP
