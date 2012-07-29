@@ -2726,75 +2726,8 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		case TRAIT_DETECT_DOOR_TRAP:
-#ifdef JP
-			msg_print("周囲を調べた。");
-#else
-			msg_print("You examine your surroundings.");
-#endif
-
-			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
-			break;
-
-
-		case TRAIT_CREATE_FOOD:
-			{
-				object_type *quest_ptr;
-				object_type forge;
-
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Create the food ration */
-				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
-
-				/* Drop the object from heaven */
-				(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
-#ifdef JP
-				msg_print("食事を料理して作った。");
-#else
-				msg_print("You cook some food.");
-#endif
-
-			}
-			break;
-
-		case TRAIT_BLINK:
-#ifdef JP
-			msg_print("パッ！");
-#else
-			msg_print("Blink!");
-#endif
-
-			teleport_player(creature_ptr, 10, 0L);
-			break;
-
-	}
-
-}
-
-
-		/*
-		switch (creature_ptr->mimic_form)
+		case TRAIT_VAMPIRISM:
 		{
-		case MIMIC_DEMON:
-		case MIMIC_DEMON_LORD:
-		{
-			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			ratial_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
-#else
-			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
-#endif
-
-			fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
-			break;
-		}
-		case MIMIC_VAMPIRE:
 			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
@@ -2852,7 +2785,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 					// Don't ever get more than "Full" this way
 					// But if we ARE Gorged,  it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if (creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already
+					if (creature_ptr->food < PY_FOOD_MAX) // Not gorged already
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
@@ -2865,6 +2798,78 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
+
+		case TRAIT_DETECT_DOOR_TRAP:
+#ifdef JP
+			msg_print("周囲を調べた。");
+#else
+			msg_print("You examine your surroundings.");
+#endif
+
+			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
+			break;
+
+
+		case TRAIT_CREATE_FOOD:
+			{
+				object_type *quest_ptr;
+				object_type forge;
+
+				/* Get local object */
+				quest_ptr = &forge;
+
+				/* Create the food ration */
+				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+
+				/* Drop the object from heaven */
+				(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+#ifdef JP
+				msg_print("食事を料理して作った。");
+#else
+				msg_print("You cook some food.");
+#endif
+
+			}
+			break;
+
+
+		case TRAIT_BLINK:
+#ifdef JP
+			msg_print("パッ！");
+#else
+			msg_print("Blink!");
+#endif
+
+			teleport_player(creature_ptr, 10, 0L);
+			break;
+
+		/* TODO
+		case TRAIT_:
+		{
+			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			ratial_stop_mouth(creature_ptr);
+#ifdef JP
+			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
+#else
+			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
+#endif
+
+			fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
+			break;
+		}
+		*/
+
+	}
+
+}
+
+
+		/*
+		switch (creature_ptr->mimic_form)
+		{
 	}
 */
 
