@@ -2183,6 +2183,8 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
 	char caster_name[100];
 
+	creature_desc(caster_name, caster_ptr, 0);
+
 	switch (command)
 	{
 		case TRAIT_SWORD_DANCING:
@@ -2203,9 +2205,9 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				else
 				{
 #ifdef JP
-					msg_print("攻撃が空をきった。");
+					msg_format("$^sの攻撃が空をきった。", caster_name);
 #else
-					msg_print("You attack the empty air.");
+					msg_format("$^s attack the empty air.", caster_name);
 #endif
 				}
 			}
@@ -3095,19 +3097,21 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			(void)fear_creature(caster_ptr, dir, plev);
 			break;
 
-			/*
+		/*
 		case TRAIT_SHRIEK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sがかん高い金切り声をあげた。", caster_name);
+			msg_format("%^sはかん高い金切り声をあげた。", caster_name);
 #else
 			msg_format("%^s makes a high pitched shriek.", caster_name);
 #endif
-
 			aggravate_creatures(caster_ptr);
 			break;
 		}
+		*/
+
+			/*
 
 		case TRAIT_DISPEL:
 		{
@@ -5759,7 +5763,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			*/
 
-}
+	}
 }
 
 
