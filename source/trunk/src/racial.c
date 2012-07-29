@@ -2834,7 +2834,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 
-
 		case TRAIT_BLINK:
 #ifdef JP
 			msg_print("パッ！");
@@ -2844,6 +2843,52 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 			teleport_player(creature_ptr, 10, 0L);
 			break;
+
+		case TRAIT_SHADOW_SHIFT:
+			{
+#ifdef JP
+				msg_print("あなたは歩き周り始めた。");
+#else
+				msg_print("You start walking around. ");
+#endif
+				alter_reality(creature_ptr);
+			}
+
+		case TRAIT_PATTERN_WALK:
+			{
+#ifdef JP
+				msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
+#else
+				msg_print("You picture the Pattern in your mind and walk it...");
+#endif
+
+				(void)set_poisoned(creature_ptr, 0);
+				(void)set_image(creature_ptr, 0);
+				(void)set_stun(creature_ptr, 0);
+				(void)set_cut(creature_ptr, 0);
+				(void)set_blind(creature_ptr, 0);
+				(void)set_afraid(creature_ptr, 0);
+				(void)do_res_stat(creature_ptr, STAT_STR);
+				(void)do_res_stat(creature_ptr, STAT_INT);
+				(void)do_res_stat(creature_ptr, STAT_WIS);
+				(void)do_res_stat(creature_ptr, STAT_DEX);
+				(void)do_res_stat(creature_ptr, STAT_CON);
+				(void)do_res_stat(creature_ptr, STAT_CHA);
+				(void)restore_level(creature_ptr);
+			}
+			break;
+
+		/* TODO
+		case TRAIT_:
+#ifdef JP
+			msg_print("勇気を出した。");
+#else
+			msg_print("You play tough.");
+#endif
+
+			(void)set_afraid(creature_ptr, 0);
+			break;
+		*/
 
 		/* TODO
 		case TRAIT_:
@@ -2867,12 +2912,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 }
 
 
-		/*
-		switch (creature_ptr->mimic_form)
-		{
-	}
-*/
-
 #if 0
 
 	else 
@@ -2880,18 +2919,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 	switch (creature_ptr->race_idx1)
 	{
-
-
-
-		case RACE_ORC:
-#ifdef JP
-			msg_print("勇気を出した。");
-#else
-			msg_print("You play tough.");
-#endif
-
-			(void)set_afraid(creature_ptr, 0);
-			break;
 
 		case RACE_TROLL:
 #ifdef JP
@@ -2905,39 +2932,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			(void)hp_player(creature_ptr, 30);
 			break;
 
-		case RACE_AMBERITE:
-			if (command == -1)
-			{
-#ifdef JP
-				msg_print("あなたは歩き周り始めた。");
-#else
-				msg_print("You start walking around. ");
-#endif
-				alter_reality(creature_ptr);
-			}
-			else if (command == -2)
-			{
-#ifdef JP
-				msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
-#else
-				msg_print("You picture the Pattern in your mind and walk it...");
-#endif
-
-				(void)set_poisoned(creature_ptr, 0);
-				(void)set_image(creature_ptr, 0);
-				(void)set_stun(creature_ptr, 0);
-				(void)set_cut(creature_ptr, 0);
-				(void)set_blind(creature_ptr, 0);
-				(void)set_afraid(creature_ptr, 0);
-				(void)do_res_stat(creature_ptr, STAT_STR);
-				(void)do_res_stat(creature_ptr, STAT_INT);
-				(void)do_res_stat(creature_ptr, STAT_WIS);
-				(void)do_res_stat(creature_ptr, STAT_DEX);
-				(void)do_res_stat(creature_ptr, STAT_CON);
-				(void)do_res_stat(creature_ptr, STAT_CHA);
-				(void)restore_level(creature_ptr);
-			}
-			break;
 
 		case RACE_BARBARIAN:
 #ifdef JP
