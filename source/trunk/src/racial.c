@@ -2698,58 +2698,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-	}
-}
-
-		/* TODO 
-
-		case CLASS_MIRROR_MASTER:
-		{
-			if (command == -3)
-			{
-				remove_all_mirrors(creature_ptr, get_floor_ptr(creature_ptr), TRUE); // Explode all mirrors
-			}
-			else if (command == -4)
-			{
-				if (creature_ptr->total_friends)
-				{
-#ifdef JP
-					msg_print("今はペットを操ることに集中していないと。");
-#else
-					msg_print("You need concentration on the pets now.");
-#endif
-					return FALSE;
-				}
-				if (is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]))
-				{
-#ifdef JP
-					msg_print("少し頭がハッキリした。");
-#else
-					msg_print("You feel your head clear a little.");
-#endif
-
-					creature_ptr->csp += (5 + creature_ptr->lev * creature_ptr->lev / 100);
-					if (creature_ptr->csp >= creature_ptr->msp)
-					{
-						creature_ptr->csp = creature_ptr->msp;
-						creature_ptr->csp_frac = 0;
-					}
-
-					// Redraw mana
-					play_redraw |= (PR_MANA);
-				}
-				else
-				{
-#ifdef JP
-					msg_print("鏡の上でないと集中できない！");
-#else
-					msg_print("Here are not any mirrors!");
-#endif
-				}
-			}
-			break;
-		}
-		case CLASS_NINJA:
+		case TRAIT_QUICK_WALK:
 		{
 			if (creature_ptr->action == ACTION_HAYAGAKE)
 			{
@@ -2760,8 +2709,7 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 				feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
-				    (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP)))
+				if (!have_flag(f_ptr->flags, FF_PROJECT) || (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP)))
 				{
 #ifdef JP
 					msg_print("ここでは素早く動けない。");
@@ -2777,10 +2725,11 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			energy_use = 0;
 			break;
 		}
-		}
+
 	}
-	else if (creature_ptr->mimic_form)
-	{
+}
+
+
 		/*
 		switch (creature_ptr->mimic_form)
 		{
