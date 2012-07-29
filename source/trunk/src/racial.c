@@ -2640,14 +2640,13 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
-		/*
-		case CLASS_BERSERKER:
+		case TRAIT_RECALL:
 		{
 			if (!word_of_recall(creature_ptr)) return FALSE;
 			break;
 		}
-		*/
-/*
+
+		/*
 		case TRAIT_:
 		{
 			if (creature_ptr->lev > 29)
