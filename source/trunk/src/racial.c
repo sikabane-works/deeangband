@@ -2652,6 +2652,52 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 		}
 
+		case TRAIT_BREAK_MIRROR:
+		{
+			remove_all_mirrors(creature_ptr, get_floor_ptr(creature_ptr), TRUE); // Explode all mirrors
+			break;
+		}
+
+		case TRAIT_MIRROR_CONC:
+		{
+				if (total_friends)
+				{
+#ifdef JP
+					msg_print("今はペットを操ることに集中していないと。");
+#else
+					msg_print("You need concentration on the pets now.");
+#endif
+					return FALSE;
+				}
+				if (is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]))
+				{
+#ifdef JP
+					msg_print("少し頭がハッキリした。");
+#else
+					msg_print("You feel your head clear a little.");
+#endif
+
+					creature_ptr->csp += (5 + creature_ptr->lev * creature_ptr->lev / 100);
+					if (creature_ptr->csp >= creature_ptr->msp)
+					{
+						creature_ptr->csp = creature_ptr->msp;
+						creature_ptr->csp_frac = 0;
+					}
+
+					// Redraw mana
+					play_redraw |= (PR_MANA);
+				}
+				else
+				{
+#ifdef JP
+					msg_print("鏡の上でないと集中できない！");
+#else
+					msg_print("Here are not any mirrors!");
+#endif
+				}
+			break;
+		}
+
 	}
 }
 
