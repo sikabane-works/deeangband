@@ -3023,6 +3023,65 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			(void)set_tsubureru(creature_ptr, randint1(20) + 30, FALSE);
 			break;
 
+		case TRAIT_RAY_GUN:
+			{
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+				msg_print("レイガンを発射した。");
+#else
+				msg_print("You fire your ray gun.");
+#endif
+				fire_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
+			}
+			break;
+
+		case TRAIT_BLASTER:
+			{
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+				msg_print("ブラスターを発射した。");
+#else
+				msg_print("You fire your blaster.");
+#endif
+				fire_bolt(creature_ptr, GF_MISSILE, dir, plev);
+			}
+			break;
+
+		case TRAIT_BAZOOKA:
+			{
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+				msg_print("バズーカを発射した。");
+#else
+				msg_print("You fire your bazooka.");
+#endif
+				fire_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
+			}
+			break;
+
+		case TRAIT_BEAM_CANNON:
+			{
+				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+				msg_print("ビームキャノンを発射した。");
+#else
+				msg_print("You fire a beam cannon.");
+#endif
+				fire_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
+			}
+			break;
+
+		case TRAIT_ROCKET:
+			{
+#ifdef JP
+				msg_print("ロケットを発射した。");
+#else
+				msg_print("You fire a rocket.");
+#endif
+				fire_rocket(creature_ptr, GF_ROCKET, dir, plev * 5, 2);
+			}
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -3075,54 +3134,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 /*TODO
-		case RACE_ANDROID:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			if (plev < 10)
-			{
-#ifdef JP
-				msg_print("レイガンを発射した。");
-#else
-				msg_print("You fire your ray gun.");
-#endif
-				fire_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
-			}
-			else if (plev < 25)
-			{
-#ifdef JP
-				msg_print("ブラスターを発射した。");
-#else
-				msg_print("You fire your blaster.");
-#endif
-				fire_bolt(creature_ptr, GF_MISSILE, dir, plev);
-			}
-			else if (plev < 35)
-			{
-#ifdef JP
-				msg_print("バズーカを発射した。");
-#else
-				msg_print("You fire your bazooka.");
-#endif
-				fire_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
-			}
-			else if (plev < 45)
-			{
-#ifdef JP
-				msg_print("ビームキャノンを発射した。");
-#else
-				msg_print("You fire a beam cannon.");
-#endif
-				fire_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
-			}
-			else
-			{
-#ifdef JP
-				msg_print("ロケットを発射した。");
-#else
-				msg_print("You fire a rocket.");
-#endif
-				fire_rocket(creature_ptr, GF_ROCKET, dir, plev * 5, 2);
-			}
-			break;
 			*/
 
 		default:
