@@ -2904,8 +2904,18 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			(void)wall_to_mud(creature_ptr, dir);
 			break;
 
-			//THROW_BOULDER
-		/* TODO
+		case TRAIT_THROW_BOULDER:
+			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+#ifdef JP
+			msg_print("巨大な岩を投げた。");
+#else
+			msg_print("You throw a huge boulder.");
+#endif
+
+			fire_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
+			break;
+
+			/* TODO
 		case TRAIT_:
 #ifdef JP
 			msg_print("勇気を出した。");
@@ -2949,26 +2959,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 
 
-		case RACE_TITAN:
-#ifdef JP
-			msg_print("敵を調査した...");
-#else
-			msg_print("You examine your foes...");
-#endif
-
-			probing(floor_ptr);
-			break;
-
-		case RACE_CYCLOPS:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("巨大な岩を投げた。");
-#else
-			msg_print("You throw a huge boulder.");
-#endif
-
-			fire_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
-			break;
 
 		case RACE_YEEK:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
