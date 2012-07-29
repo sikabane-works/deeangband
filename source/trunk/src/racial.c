@@ -3008,6 +3008,21 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			}
 			break;
 
+		case TRAIT_SLEEPING_DUST:
+#ifdef JP
+			msg_print("あなたは魔法の粉を投げつけた...");
+#else
+			msg_print("You throw some magic dust...");
+#endif
+
+			if (plev < 25) sleep_creatures_touch(creature_ptr);
+			else (void)sleep_creatures(creature_ptr);
+			break;
+
+		case TRAIT_EXPAND_HLIZN:
+			(void)set_tsubureru(creature_ptr, randint1(20) + 30, FALSE);
+			break;
+
 			/* TODO
 		case TRAIT_:
 #ifdef JP
@@ -3044,17 +3059,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 
 #if 0
 
-	else 
-	{
-
-	switch (creature_ptr->race_idx1)
-	{
-
-
-
-
-
-			/*
 			/*
 		case LICH:
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
@@ -3069,36 +3073,6 @@ static bool do_racial_power_aux_new(creature_type *creature_ptr, s32b command)
 			break;
 			*/
 
-		case RACE_SPRITE:
-#ifdef JP
-			msg_print("あなたは魔法の粉を投げつけた...");
-#else
-			msg_print("You throw some magic dust...");
-#endif
-
-			if (plev < 25) sleep_creatures_touch(creature_ptr);
-			else (void)sleep_creatures(creature_ptr);
-			break;
-
-		case RACE_DEMON:
-		case RACE_BALROG:
-			{
-				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-				if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				ratial_stop_mouth(creature_ptr);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
-#else
-				msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
-#endif
-
-				fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
-			}
-			break;
-
-		case RACE_KUTAR:
-			(void)set_tsubureru(creature_ptr, randint1(20) + 30, FALSE);
-			break;
 
 /*TODO
 		case RACE_ANDROID:
