@@ -323,7 +323,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 }
 
 
-static bool item_tester_learn_spell(creature_type *creature_ptr, object_type *object_ptr)
+static bool item_tester_learn_trait(creature_type *creature_ptr, object_type *object_ptr)
 {
 	s32b choices = realm_choices2[creature_ptr->class_idx];
 
@@ -732,7 +732,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_spell, item_tester_tval)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_trait, item_tester_tval)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

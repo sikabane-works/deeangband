@@ -2832,7 +2832,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				hp_player(target_ptr, dam / 4);
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4268,7 +4268,7 @@ note = "は眠り込んでしまった！";
 					target_ptr->csp -= dam;
 				}
 
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 
 				/* Redraw mana */
 				play_redraw |= (PR_MANA);
@@ -4386,7 +4386,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4509,7 +4509,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4656,7 +4656,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4712,7 +4712,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4767,7 +4767,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4822,7 +4822,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(target_ptr, spell);
+				learn_trait(target_ptr, spell);
 			}
 			else
 			{
@@ -4877,7 +4877,7 @@ note = "は眠り込んでしまった！";
 #else
 				msg_format("You resist the effects!");
 #endif
-				learn_spell(target_ptr,spell);
+				learn_trait(target_ptr,spell);
 			}
 			else
 			{

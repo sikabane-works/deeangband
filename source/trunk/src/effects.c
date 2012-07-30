@@ -5995,7 +5995,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		}
 	}
 
-	if (monspell >= 0) learn_spell(target_ptr, monspell);
+	if (monspell >= 0) learn_trait(target_ptr, monspell);
 
 	/* Mega-Hack -- Apply "invulnerability" */
 	if ((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))

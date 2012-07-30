@@ -4939,7 +4939,7 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	/* Total Immunity */
 	if (has_trait(creature_ptr, TRAIT_IM_ACID) || (dam <= 0))
 	{
-		learn_spell(creature_ptr, monspell);
+		learn_trait(creature_ptr, monspell);
 		return 0;
 	}
 
@@ -4982,7 +4982,7 @@ int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	// Total immunity
 	if(has_trait(creature_ptr, TRAIT_IM_ELEC) || (dam <= 0))
 	{
-		learn_spell(creature_ptr, monspell);
+		learn_trait(creature_ptr, monspell);
 		return 0;
 	}
 
@@ -5018,7 +5018,7 @@ int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	bool double_resist = IS_OPPOSE_FIRE(creature_ptr);
 
 	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
-	if(dam <= 0) learn_spell(creature_ptr, monspell);
+	if(dam <= 0) learn_trait(creature_ptr, monspell);
 
 	if ((!(double_resist || creature_ptr->resist_fire)) &&
 	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
@@ -5045,7 +5045,7 @@ int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
 
 	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
-	if(dam <= 0) learn_spell(creature_ptr, monspell);
+	if(dam <= 0) learn_trait(creature_ptr, monspell);
 
 	if ((!(double_resist || creature_ptr->resist_cold)) &&
 	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))

@@ -1059,6 +1059,7 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < 64; i++) rd_s16b(&creature_ptr->spell_exp[i]);
 	for (i = 0; i < 10; i++) rd_s16b(&creature_ptr->skill_exp[i]);
 
+	// Class skill
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
 		for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&creature_ptr->class_skills.blue_mage.learned_trait[i]);

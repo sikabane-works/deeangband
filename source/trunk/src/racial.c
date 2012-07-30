@@ -3132,7 +3132,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			else if (target_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_print("弱いものいじめはやめるんだ！");
 #endif
-			learn_spell(target_ptr, MS_DISPEL);
+			learn_trait(target_ptr, MS_DISPEL);
 			break;
 		}
 
@@ -4337,7 +4337,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				(void)set_afraid(target_ptr, target_ptr->afraid + randint0(4) + 4);
 			}
-			learn_spell(target_ptr, MS_SCARE);
+			learn_trait(target_ptr, MS_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
 			break;
 		}
@@ -4380,7 +4380,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				(void)set_blind(target_ptr, 12 + randint0(4));
 			}
-			learn_spell(target_ptr, MS_BLIND);
+			learn_trait(target_ptr, MS_BLIND);
 			update_smart_learn(caster_ptr, DRS_BLIND);
 			break;
 		}
@@ -4423,7 +4423,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
 			}
-			learn_spell(target_ptr, MS_CONF);
+			learn_trait(target_ptr, MS_CONF);
 			update_smart_learn(caster_ptr, DRS_CONF);
 			break;
 		}
@@ -4460,7 +4460,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
 			}
-			learn_spell(target_ptr, MS_SLOW);
+			learn_trait(target_ptr, MS_SLOW);
 			update_smart_learn(caster_ptr, DRS_FREE);
 			break;
 		}
@@ -4503,7 +4503,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
 			}
-			learn_spell(target_ptr, MS_SLEEP);
+			learn_trait(target_ptr, MS_SLEEP);
 			update_smart_learn(caster_ptr, DRS_FREE);
 			break;
 		}
@@ -4924,7 +4924,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
-			learn_spell(target_ptr, MS_TELE_TO);
+			learn_trait(target_ptr, MS_TELE_TO);
 			break;
 		}
 
@@ -4944,7 +4944,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			msg_format("%^s teleports you away.", caster_name);
 #endif
 
-			learn_spell(target_ptr, MS_TELE_AWAY);
+			learn_trait(target_ptr, MS_TELE_AWAY);
 			teleport_player_away(caster_ptr, 100);
 			break;
 		}
@@ -4987,7 +4987,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			{
 				teleport_level(target_ptr, 0);
 			}
-			learn_spell(target_ptr, MS_TELE_LEVEL);
+			learn_trait(target_ptr, MS_TELE_LEVEL);
 			update_smart_learn(caster_ptr, DRS_NEXUS);
 			break;
 		}
@@ -5034,7 +5034,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			if (can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
 			else
 			{
-				learn_spell(target_ptr, MS_DARKNESS);
+				learn_trait(target_ptr, MS_DARKNESS);
 				(void)unlite_area(caster_ptr, 0, 3);
 			}
 			break;
@@ -5055,7 +5055,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			else msg_format("%^s casts a spell and cackles evilly.", caster_name);
 #endif
 
-			learn_spell(target_ptr, MS_MAKE_TRAP);
+			learn_trait(target_ptr, MS_MAKE_TRAP);
 			(void)trap_creation(caster_ptr, y, x);
 			break;
 		}
@@ -5089,7 +5089,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			}
-			learn_spell(target_ptr, MS_FORGET);
+			learn_trait(target_ptr, MS_FORGET);
 			break;
 		}
 
