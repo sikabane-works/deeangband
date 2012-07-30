@@ -1896,7 +1896,22 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_IMITATOR) || (creature_ptr->class_idx == CLASS_MINDCRAFTER) || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_MAGIC_EATER) || (creature_ptr->class_idx == CLASS_RED_MAGE) || (creature_ptr->class_idx == CLASS_SAMURAI) || (creature_ptr->class_idx == CLASS_BLUE_MAGE) || (creature_ptr->class_idx == CLASS_CAVALRY) || (creature_ptr->class_idx == CLASS_BERSERKER) || (creature_ptr->class_idx == CLASS_SMITH) || (creature_ptr->class_idx == CLASS_MIRROR_MASTER) || (creature_ptr->class_idx == CLASS_NINJA)) break;
+			if ((creature_ptr->class_idx == CLASS_WARRIOR) ||
+				(creature_ptr->class_idx == CLASS_IMITATOR) ||
+				(creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
+				(creature_ptr->class_idx == CLASS_SORCERER) ||
+				(creature_ptr->class_idx == CLASS_ARCHER) ||
+				(creature_ptr->class_idx == CLASS_MAGIC_EATER) ||
+				(creature_ptr->class_idx == CLASS_RED_MAGE) ||
+				(creature_ptr->class_idx == CLASS_SAMURAI) ||
+				(creature_ptr->class_idx == CLASS_BLUE_MAGE) ||
+				(creature_ptr->class_idx == CLASS_CAVALRY) ||
+				(creature_ptr->class_idx == CLASS_BERSERKER) ||
+				(creature_ptr->class_idx == CLASS_SMITH) ||
+				(creature_ptr->class_idx == CLASS_MIRROR_MASTER) ||
+				(creature_ptr->class_idx == CLASS_NINJA) ||
+				(creature_ptr->class_idx == CLASS_SNIPER))
+				break;
 			creature_ptr->add_spells++;
 			creature_ptr->creature_update |= (CRU_SPELLS);
 			ident = TRUE;

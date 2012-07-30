@@ -2693,12 +2693,13 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					creature_ptr->stun = 0;
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
+
 					if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 					{
 						int i;
 						for (i = 0; i < 72; i++)
 						{
-							creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
+							creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i] * EATER_CHARGE;
 						}
 						for (; i < 108; i++)
 						{

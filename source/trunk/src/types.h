@@ -1179,6 +1179,11 @@ union class_skills_union{
 	{
 		u32b learned_trait[TRAIT_FLAG_MAX];
 	} blue_mage;
+
+	struct magic_eater
+	{
+		s32b magic_num1[108];     /* Array for non-spellbook type magic */
+	} magic_eater;
 };
 
 typedef struct creature_type creature_type;
