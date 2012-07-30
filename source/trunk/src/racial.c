@@ -3622,7 +3622,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #endif
 
 			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, MS_BALL_NUKE, learnable);
+			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, MS_BA_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -3664,7 +3664,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #endif
 
 			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BALL_CHAOS, learnable);
+			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BA_CHAOS, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -3706,7 +3706,7 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, MS_BALL_ACID, learnable);
+			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, MS_BA_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
@@ -3727,7 +3727,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
+			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, MS_BA_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
@@ -3766,7 +3766,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 
 			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, MS_BALL_FIRE, learnable);
+			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, MS_BA_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
 		}
@@ -3787,7 +3787,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
+			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, MS_BA_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
@@ -3808,7 +3808,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
+			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, MS_BA_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -3829,7 +3829,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
+			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BA_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -3856,7 +3856,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
+			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BA_WATER, learnable);
 			break;
 		}
 
@@ -3876,7 +3876,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (rlev * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, MS_BALL_MANA, learnable);
+			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, MS_BA_MANA, learnable);
 			break;
 		}
 
@@ -3896,7 +3896,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (rlev * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, MS_BALL_DARK, learnable);
+			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, MS_BA_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
@@ -4069,7 +4069,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
+			bolt(caster_ptr, target_ptr, GF_ACID, dam, MS_BO_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4092,7 +4092,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
+			bolt(caster_ptr, target_ptr, GF_ELEC, dam, MS_BO_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4115,7 +4115,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
+			bolt(caster_ptr, target_ptr, GF_FIRE, dam, MS_BO_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4138,7 +4138,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
+			bolt(caster_ptr, target_ptr, GF_COLD, dam, MS_BO_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4182,7 +4182,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-			bolt(caster_ptr, target_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
+			bolt(caster_ptr, target_ptr, GF_NETHER, dam, MS_BO_NETHER, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4205,7 +4205,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
+			bolt(caster_ptr, target_ptr, GF_WATER, dam, MS_BO_WATER, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4227,7 +4227,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = randint1(rlev * 7 / 2) + 50;
-			bolt(caster_ptr, target_ptr, GF_MANA, dam, MS_BOLT_MANA, learnable);
+			bolt(caster_ptr, target_ptr, GF_MANA, dam, MS_BO_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4249,7 +4249,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
+			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, MS_BO_PLASMA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4271,7 +4271,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #endif
 
 			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
+			bolt(caster_ptr, target_ptr, GF_ICE, dam, MS_BO_ICE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;

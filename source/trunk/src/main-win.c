@@ -178,7 +178,7 @@
 
 #define IDM_OPTIONS_NO_GRAPHICS			400
 #define IDM_OPTIONS_OLDEST_GRAPHICS		401
-#define IDM_OPTIONS_ADAMBOLT_GRAPHICS	402
+#define IDM_OPTIONS_ADAMBO_GRAPHICS	402
 #define IDM_OPTIONS_DESKULL_GRAPHICS	403
 #define IDM_OPTIONS_BIGTILE				409
 #define IDM_OPTIONS_SOUND				410
@@ -3344,7 +3344,7 @@ static void setup_menus(void)
 	/* Menu "Options", disable all */
 	EnableMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	EnableMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,   MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_OPTIONS_ADAMBO_GRAPHICS, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	EnableMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	EnableMenuItem(hm, IDM_OPTIONS_BIGTILE,           MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	EnableMenuItem(hm, IDM_OPTIONS_SOUND,             MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
@@ -3362,7 +3362,7 @@ static void setup_menus(void)
 	/* Menu "Options", update all */
 	CheckMenuItem(hm, IDM_OPTIONS_NO_GRAPHICS,       (arg_graphics == GRAPHICS_NONE ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS,   (arg_graphics == GRAPHICS_ORIGINAL ? MF_CHECKED : MF_UNCHECKED));
-	CheckMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS, (arg_graphics == GRAPHICS_ADAM_BOLT ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hm, IDM_OPTIONS_ADAMBO_GRAPHICS, (arg_graphics == GRAPHICS_ADAM_BOLT ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS,  (arg_graphics == GRAPHICS_DESKULL ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(hm, IDM_OPTIONS_BIGTILE, (arg_bigtile ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(hm, IDM_OPTIONS_SOUND,   (arg_sound ? MF_CHECKED : MF_UNCHECKED));
@@ -3376,7 +3376,7 @@ static void setup_menus(void)
 	/* Menu "Options", Item "Graphics" */
 	EnableMenuItem(hm, IDM_OPTIONS_OLDEST_GRAPHICS, MF_ENABLED);
 	/* Menu "Options", Item "Graphics" */
-	EnableMenuItem(hm, IDM_OPTIONS_ADAMBOLT_GRAPHICS, MF_ENABLED);
+	EnableMenuItem(hm, IDM_OPTIONS_ADAMBO_GRAPHICS, MF_ENABLED);
 	/* Menu "Options", Item "Graphics" */
 	EnableMenuItem(hm, IDM_OPTIONS_DESKULL_GRAPHICS, MF_ENABLED);
 	/* Menu "Options", Item "Graphics" */
@@ -3936,7 +3936,7 @@ static void process_menus(WORD wCmd)
 			break;
 		}
 
-		case IDM_OPTIONS_ADAMBOLT_GRAPHICS:
+		case IDM_OPTIONS_ADAMBO_GRAPHICS:
 		{
 			/* Paranoia */
 			if (!inkey_flag)

@@ -547,7 +547,7 @@ else msg_print("魔力のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_MANA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BALL_NUKE:
+	case MS_BA_NUKE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射能球を放った。");
@@ -567,7 +567,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BALL_CHAOS:
+	case MS_BA_CHAOS:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
@@ -587,7 +587,7 @@ else msg_print("分解のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_DISINTEGRATE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BALL_ACID:
+	case MS_BA_ACID:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボールの呪文を唱えた。");
@@ -597,7 +597,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_ACID, dir, damage, 2);
 		break;
-	case MS_BALL_ELEC:
+	case MS_BA_ELEC:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボールの呪文を唱えた。");
@@ -607,7 +607,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_ELEC, dir, damage, 2);
 		break;
-	case MS_BALL_FIRE:
+	case MS_BA_FIRE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボールの呪文を唱えた。");
@@ -617,7 +617,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_FIRE, dir, damage, 2);
 		break;
-	case MS_BALL_COLD:
+	case MS_BA_COLD:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボールの呪文を唱えた。");
@@ -627,7 +627,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_COLD, dir, damage, 2);
 		break;
-	case MS_BALL_POIS:
+	case MS_BA_POIS:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("悪臭雲の呪文を唱えた。");
@@ -637,7 +637,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_POIS, dir, damage, 2);
 		break;
-	case MS_BALL_NETHER:
+	case MS_BA_NETHER:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
@@ -647,7 +647,7 @@ else msg_print("地獄球の呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_NETHER, dir, damage, 2);
 		break;
-	case MS_BALL_WATER:
+	case MS_BA_WATER:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
@@ -657,7 +657,7 @@ else msg_print("流れるような身振りをした。");
 		
 			fire_ball(creature_ptr, GF_WATER, dir, damage, 4);
 		break;
-	case MS_BALL_MANA:
+	case MS_BA_MANA:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の嵐の呪文を念じた。");
@@ -667,7 +667,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 		
 			fire_ball(creature_ptr, GF_MANA, dir, damage, 4);
 		break;
-	case MS_BALL_DARK:
+	case MS_BA_DARK:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒の嵐の呪文を念じた。");
@@ -705,7 +705,7 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
-	case MS_BOLT_ACID:
+	case MS_BO_ACID:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボルトの呪文を唱えた。");
@@ -715,7 +715,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_ACID, dir, damage);
 		break;
-	case MS_BOLT_ELEC:
+	case MS_BO_ELEC:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボルトの呪文を唱えた。");
@@ -725,7 +725,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_ELEC, dir, damage);
 		break;
-	case MS_BOLT_FIRE:
+	case MS_BO_FIRE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボルトの呪文を唱えた。");
@@ -735,7 +735,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_FIRE, dir, damage);
 		break;
-	case MS_BOLT_COLD:
+	case MS_BO_COLD:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボルトの呪文を唱えた。");
@@ -755,7 +755,7 @@ else msg_print("スターバーストの呪文を念じた。");
 		
 			fire_ball(creature_ptr, GF_LITE, dir, damage, 4);
 		break;
-	case MS_BOLT_NETHER:
+	case MS_BO_NETHER:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄の矢の呪文を唱えた。");
@@ -765,7 +765,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_NETHER, dir, damage);
 		break;
-	case MS_BOLT_WATER:
+	case MS_BO_WATER:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ウォーター・ボルトの呪文を唱えた。");
@@ -775,7 +775,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_WATER, dir, damage);
 		break;
-	case MS_BOLT_MANA:
+	case MS_BO_MANA:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の矢の呪文を唱えた。");
@@ -785,7 +785,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_MANA, dir, damage);
 		break;
-	case MS_BOLT_PLASMA:
+	case MS_BO_PLASMA:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマ・ボルトの呪文を唱えた。");
@@ -795,7 +795,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 		
 			fire_bolt(creature_ptr, GF_PLASMA, dir, damage);
 		break;
-	case MS_BOLT_ICE:
+	case MS_BO_ICE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("極寒の矢の呪文を唱えた。");
