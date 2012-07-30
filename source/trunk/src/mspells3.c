@@ -2049,21 +2049,22 @@ msg_print("体を悪くしてしまった！");
 	return TRUE;
 }
 
-void learn_trait(creature_type *creature_ptr, int spell_index)
+void learn_trait(creature_type *creature_ptr, int trait_index)
 {
 	if (creature_ptr->action != ACTION_LEARN) return;
-	if (spell_index < 0) return; /* Paranoia */
-	if (creature_ptr->class_skills.old_skills.magic_num2[spell_index]) return;
+	if (trait_index < 0) return; /* Paranoia */
+	if (creature_ptr->class_skills.old_skills.magic_num2[trait_index]) return;
 	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->stun || creature_ptr->paralyzed) return;
-	if (randint1(creature_ptr->lev + 70) > racial_powers[spell_index].level + 40)
+
+	if (randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{
-		creature_ptr->class_skills.old_skills.magic_num2[spell_index] = 1;
+		creature_ptr->class_skills.old_skills.magic_num2[trait_index / 32] |= 0x01 << (trait_index % 32);
 #ifdef JP
-		msg_format("%sを学習した！", racial_powers[spell_index].name);
+		msg_format("%sを学習した！", trait_info[trait_index].title);
 #else
-		msg_format("You have learned %s!", racial_powers[spell_index].name);
+		msg_format("You have learned %s!", trait_info[trait_index].title);
 #endif
-		gain_exp(creature_ptr, racial_powers[spell_index].level * racial_powers[spell_index].smana);
+		gain_exp(creature_ptr, trait_info[trait_index].base_level * trait_info[trait_index].mp_cost);
 
 		/* Sound */
 		sound(SOUND_STUDY);

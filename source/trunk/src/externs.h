@@ -1792,7 +1792,7 @@ extern bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi);
 
 /* mspells3.c */
 extern bool do_cmd_cast_learned(creature_type *creature_ptr);
-extern void learn_trait(creature_type *creature_ptr, int spell_index);
+extern void learn_trait(creature_type *creature_ptr, int trait_index);
 
 /* hissatsu.c */
 extern void hissatsu_info(char *p, int power);
