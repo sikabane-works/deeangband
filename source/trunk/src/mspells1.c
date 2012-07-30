@@ -1712,7 +1712,7 @@ msg_format("%^s‚ª‚©‚ñ‚‚¢‹àØ‚èº‚ð‚ ‚°‚½B", m_name);
 
 			dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 			breath(y, x, caster_ptr, GF_ROCKET,
-				dam, 2, FALSE, MS_ROCKET, learnable);
+				dam, 2, FALSE, TRAIT_ROCKET, learnable);
 			update_smart_learn(caster_ptr, DRS_SHARD);
 			break;
 		}

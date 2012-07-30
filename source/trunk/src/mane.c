@@ -298,7 +298,7 @@ static bool use_mane(creature_type *creature_ptr, int spell)
 	/* spell code */
 	switch (spell)
 	{
-	case MS_SHRIEK:
+	case TRAIT_SHRIEK:
 #ifdef JP
 msg_print("かん高い金切り声をあげた。");
 #else
@@ -321,7 +321,7 @@ msg_print("かん高い金切り声をあげた。");
 		dispel_creature(creature_ptr);
 		break;
 	}
-	case MS_ROCKET:
+	case TRAIT_ROCKET:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ロケットを発射した。");

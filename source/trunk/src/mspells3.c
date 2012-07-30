@@ -35,7 +35,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 
 	switch (power)
 	{
-		case MS_SHRIEK:
+		case TRAIT_SHRIEK:
 		case MS_XXX1:
 		case MS_XXX2:
 		case MS_XXX3:
@@ -78,7 +78,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 			break;
 		case TRAIT_DISPEL:
 			break;
-		case MS_ROCKET:
+		case TRAIT_ROCKET:
 			sprintf(p, " %s%d", s_dam, hp/4);
 			break;
 		case MS_SHOOT:
@@ -703,7 +703,7 @@ static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool succes
 	/* spell code */
 	switch (spell)
 	{
-	case MS_SHRIEK:
+	case TRAIT_SHRIEK:
 #ifdef JP
 msg_print("Ç©ÇÒçÇÇ¢ã‡êÿÇËê∫ÇÇ†Ç∞ÇΩÅB");
 #else
@@ -726,7 +726,7 @@ msg_print("Ç©ÇÒçÇÇ¢ã‡êÿÇËê∫ÇÇ†Ç∞ÇΩÅB");
 		dispel_creature(&creature_list[m_idx]);
 		break;
 	}
-	case MS_ROCKET:
+	case TRAIT_ROCKET:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 #ifdef JP

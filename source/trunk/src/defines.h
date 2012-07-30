@@ -3458,10 +3458,10 @@ extern int PlayerUID;
 #define DETECT_RAD_ALL     255
 
 /* Creature Spells */
-#define MS_SHRIEK         0
+//#define TRAIT_SHRIEK         0
 #define MS_XXX1           1
 //#define TRAIT_DISPEL         2
-#define MS_ROCKET         3
+//#define TRAIT_ROCKET         3
 #define MS_SHOOT          4
 #define MS_XXX2           5
 #define MS_XXX3           6
