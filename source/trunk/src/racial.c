@@ -3132,7 +3132,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			else if (target_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_print("é„Ç¢Ç‡ÇÃÇ¢Ç∂ÇﬂÇÕÇ‚ÇﬂÇÈÇÒÇæÅI");
 #endif
-			learn_trait(target_ptr, MS_DISPEL);
+			learn_trait(target_ptr, TRAIT_DISPEL);
 			break;
 		}
 

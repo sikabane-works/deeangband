@@ -3460,7 +3460,7 @@ extern int PlayerUID;
 /* Creature Spells */
 #define MS_SHRIEK         0
 #define MS_XXX1           1
-#define MS_DISPEL         2
+//#define TRAIT_DISPEL         2
 #define MS_ROCKET         3
 #define MS_SHOOT          4
 #define MS_XXX2           5

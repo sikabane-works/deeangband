@@ -76,7 +76,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 		case MS_STARBURST:
 			sprintf(p, " %s%d+10d10", s_dam, plev * 8 + 50);
 			break;
-		case MS_DISPEL:
+		case TRAIT_DISPEL:
 			break;
 		case MS_ROCKET:
 			sprintf(p, " %s%d", s_dam, hp/4);
@@ -714,7 +714,7 @@ msg_print("Ç©ÇÒçÇÇ¢ã‡êÿÇËê∫ÇÇ†Ç∞ÇΩÅB");
 		break;
 	case MS_XXX1:
 		break;
-	case MS_DISPEL:
+	case TRAIT_DISPEL:
 	{
 		int m_idx;
 

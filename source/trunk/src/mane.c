@@ -309,7 +309,7 @@ msg_print("‚©‚ñ‚‚¢‹àØ‚èº‚ğ‚ ‚°‚½B");
 		break;
 	case MS_XXX1:
 		break;
-	case MS_DISPEL:
+	case TRAIT_DISPEL:
 	{
 		int m_idx;
 

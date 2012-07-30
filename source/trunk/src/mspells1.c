@@ -1691,7 +1691,7 @@ msg_format("%^sÇ™Ç©ÇÒçÇÇ¢ã‡êÿÇËê∫ÇÇ†Ç∞ÇΩÅB", m_name);
 			else if (target_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_print("é„Ç¢Ç‡ÇÃÇ¢Ç∂ÇﬂÇÕÇ‚ÇﬂÇÈÇÒÇæÅI");
 #endif
-			learn_trait(target_ptr, MS_DISPEL);
+			learn_trait(target_ptr, TRAIT_DISPEL);
 			break;
 		}
 
