@@ -1168,11 +1168,17 @@ struct chara_type
 typedef union class_skills_union class_skills_union;
 
 union class_skills_union{
+
 	struct old_skills
 	{
 		s32b magic_num1[108];     /* Array for non-spellbook type magic */
 		byte magic_num2[108];     /* Flags for non-spellbook type magics */
 	} old_skills;
+
+	struct blue_mage
+	{
+		u32b learned_trait[TRAIT_FLAG_MAX];
+	} blue_mage;
 };
 
 typedef struct creature_type creature_type;

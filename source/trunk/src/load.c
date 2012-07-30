@@ -1057,10 +1057,17 @@ static void rd_creature(creature_type *creature_ptr)
 
 	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);
 	for (i = 0; i < 64; i++) rd_s16b(&creature_ptr->spell_exp[i]);
-	/*for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&creature_ptr->weapon_exp[i][j]);*/
 	for (i = 0; i < 10; i++) rd_s16b(&creature_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->class_skills.old_skills.magic_num1[i]);
-	for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
+
+	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
+	{
+		for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&creature_ptr->class_skills.blue_mage.learned_trait[i]);
+	}
+	else
+	{
+		for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->class_skills.old_skills.magic_num1[i]);
+		for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
+	}
 
 	if (music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
 
