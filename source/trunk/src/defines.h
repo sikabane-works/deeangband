@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 62
+#define VER_PATCH 63
 
 #define VER_EXTRA 0
 

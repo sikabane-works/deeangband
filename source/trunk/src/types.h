@@ -1182,7 +1182,7 @@ union class_skills_union{
 
 	struct magic_eater
 	{
-		byte current_charge[MAGIC_EATER_SKILL_MAX];
+		u32b current_charge[MAGIC_EATER_SKILL_MAX];
 		byte max_charge[MAGIC_EATER_SKILL_MAX];
 	} magic_eater;
 };

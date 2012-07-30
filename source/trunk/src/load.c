@@ -1066,7 +1066,7 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
-		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->class_skills.magic_eater.current_charge[i]);
+		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_u32b(&creature_ptr->class_skills.magic_eater.current_charge[i]);
 		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->class_skills.magic_eater.max_charge[i]);		
 	}
 	else
