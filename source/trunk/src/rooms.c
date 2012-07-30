@@ -6323,7 +6323,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	s16b room_num[ROOM_T_MAX];
 
 	/* Limit number of rooms */
-	int dun_rooms = DUN_ROOMS_MAX * area_size / 100;
+	int dun_rooms = DUN_ROOTRAIT_MAX * area_size / 100;
 
 	/* Assume normal cave */
 	room_info_type *room_infobject_ptr = room_info_normal;

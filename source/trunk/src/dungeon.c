@@ -2489,7 +2489,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		}
 	}
 
-	if (has_trait(creature_ptr, TRAIT_SPEED_FLUX) && one_in_(6000))
+	if (has_trait(creature_ptr, TRAIT_HASTE_FLUX) && one_in_(6000))
 	{
 		disturb(player_ptr, 0, 0);
 		if (one_in_(2))

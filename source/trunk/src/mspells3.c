@@ -36,44 +36,44 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 	switch (power)
 	{
 		case TRAIT_SHRIEK:
-		case MS_XXX1:
-		case MS_XXX2:
-		case MS_XXX3:
-		case MS_XXX4:
-		case MS_SCARE:
-		case MS_BLIND:
-		case MS_CONF:
-		case MS_SLOW:
-		case MS_SLEEP:
-		case MS_HAND_DOOM:
-		case MS_WORLD:
-		case MS_SPECIAL:
-		case MS_TELE_TO:
-		case MS_TELE_AWAY:
-		case MS_TELE_LEVEL:
-		case MS_DARKNESS:
-		case MS_MAKE_TRAP:
-		case MS_FORGET:
-		case MS_S_KIN:
-		case MS_S_CYBER:
-		case MS_S_MONSTER:
-		case MS_S_MONSTERS:
-		case MS_S_ANT:
-		case MS_S_SPIDER:
-		case MS_S_HOUND:
-		case MS_S_HYDRA:
-		case MS_S_ANGEL:
-		case MS_S_DEMON:
-		case MS_S_UNDEAD:
-		case MS_S_DRAGON:
-		case MS_S_HI_UNDEAD:
-		case MS_S_HI_DRAGON:
-		case MS_S_AMBERITE:
-		case MS_S_UNIQUE:
+		case TRAIT_XXX1:
+		case TRAIT_XXX2:
+		case TRAIT_XXX3:
+		case TRAIT_XXX4:
+		case TRAIT_SCARE:
+		case TRAIT_BLIND:
+		case TRAIT_CONF:
+		case TRAIT_SLOW:
+		case TRAIT_HOLD:
+		case TRAIT_HAND_DOOM:
+		case TRAIT_WORLD:
+		case TRAIT_SPECIAL:
+		case TRAIT_TELE_TO:
+		case TRAIT_TELE_AWAY:
+		case TRAIT_TELE_LEVEL:
+		case TRAIT_DARKNESS:
+		case TRAIT_TRAPS:
+		case TRAIT_FORGET:
+		case TRAIT_S_KIN:
+		case TRAIT_S_CYBER:
+		case TRAIT_S_MONSTER:
+		case TRAIT_S_MONSTERS:
+		case TRAIT_S_ANT:
+		case TRAIT_S_SPIDER:
+		case TRAIT_S_HOUND:
+		case TRAIT_S_HYDRA:
+		case TRAIT_S_ANGEL:
+		case TRAIT_S_DEMON:
+		case TRAIT_S_UNDEAD:
+		case TRAIT_S_DRAGON:
+		case TRAIT_S_HI_UNDEAD:
+		case TRAIT_S_HI_DRAGON:
+		case TRAIT_S_AMBERITES:
+		case TRAIT_S_UNIQUE:
 			break;
-		case MS_BA_MANA:
-		case MS_BA_DARK:
-		case MS_STARBURST:
+		case TRAIT_BA_MANA:
+		case TRAIT_BA_DARK:
+		case TRAIT_BA_LITE:
 			sprintf(p, " %s%d+10d10", s_dam, plev * 8 + 50);
 			break;
 		case TRAIT_DISPEL:
@@ -81,7 +81,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 		case TRAIT_ROCKET:
 			sprintf(p, " %s%d", s_dam, hp/4);
 			break;
-		case MS_SHOOT:
+		case TRAIT_SHOOT:
 		{
 			object_type *object_ptr = NULL;
 			if      (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
@@ -92,141 +92,141 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 				sprintf(p, " %s%dd%d+%d", s_dam, object_ptr->dd, object_ptr->ds, object_ptr->to_damage);
 			break;
 		}
-		case MS_BR_ACID:
-		case MS_BR_ELEC:
-		case MS_BR_FIRE:
-		case MS_BR_COLD:
-		case MS_BR_POIS:
-		case MS_BR_NUKE:
+		case TRAIT_BR_ACID:
+		case TRAIT_BR_ELEC:
+		case TRAIT_BR_FIRE:
+		case TRAIT_BR_COLD:
+		case TRAIT_BR_POIS:
+		case TRAIT_BR_NUKE:
 			sprintf(p, " %s%d", s_dam, hp/3);
 			break;
-		case MS_BR_NEXU:
+		case TRAIT_BR_NEXU:
 			sprintf(p, " %s%d", s_dam, MIN(hp/3, 250));
 			break;
-		case MS_BR_TIME:
+		case TRAIT_BR_TIME:
 			sprintf(p, " %s%d", s_dam, MIN(hp/3, 150));
 			break;
-		case MS_BR_GRAV:
+		case TRAIT_BR_GRAV:
 			sprintf(p, " %s%d", s_dam, MIN(hp/3, 200));
 			break;
-		case MS_BR_MANA:
+		case TRAIT_BR_MANA:
 			sprintf(p, " %s%d", s_dam, MIN(hp/3, 250));
 			break;
-		case MS_BR_NETH:
-		case MS_BR_LITE:
-		case MS_BR_DARK:
-		case MS_BR_CONF:
-		case MS_BR_SOUN:
-		case MS_BR_CHAO:
-		case MS_BR_DISE:
-		case MS_BR_SHAR:
-		case MS_BR_PLAS:
+		case TRAIT_BR_NETH:
+		case TRAIT_BR_LITE:
+		case TRAIT_BR_DARK:
+		case TRAIT_BR_CONF:
+		case TRAIT_BR_SOUN:
+		case TRAIT_BR_CHAO:
+		case TRAIT_BR_DISE:
+		case TRAIT_BR_SHAR:
+		case TRAIT_BR_PLAS:
 			sprintf(p, " %s%d", s_dam, hp/6);
 			break;
-		case MS_BR_INER:
-		case MS_BA_WALL:
+		case TRAIT_BR_INER:
+		case TRAIT_BR_WALL:
 			sprintf(p, " %s%d", s_dam, MIN(hp/6, 200));
 			break;
-		case MS_BR_DISI:
+		case TRAIT_BR_DISI:
 			sprintf(p, " %s%d", s_dam, MIN(hp/6, 150));
 			break;
-		case MS_BA_NUKE:
+		case TRAIT_BA_NUKE:
 			sprintf(p, " %s%d+10d6", s_dam, plev * 2);
 			break;
-		case MS_BA_CHAO:
+		case TRAIT_BA_CHAO:
 			sprintf(p, " %s%d+10d10", s_dam, plev * 4);
 			break;
-		case MS_BA_ACID:
+		case TRAIT_BA_ACID:
 			sprintf(p, " %s15+d%d", s_dam, plev * 6);
 			break;
-		case MS_BA_ELEC:
+		case TRAIT_BA_ELEC:
 			sprintf(p, " %s8+d%d", s_dam, plev * 3);
 			break;
-		case MS_BA_FIRE:
+		case TRAIT_BA_FIRE:
 			sprintf(p, " %s10+d%d", s_dam, plev * 7);
 			break;
-		case MS_BA_COLD:
+		case TRAIT_BA_COLD:
 			sprintf(p, " %s10+d%d", s_dam, plev * 3);
 			break;
-		case MS_BA_POIS:
+		case TRAIT_BA_POIS:
 			sprintf(p, " %s12d2", s_dam);
 			break;
-		case MS_BA_NETH:
+		case TRAIT_BA_NETH:
 			sprintf(p, " %s%d+10d10", s_dam, plev * 2 + 50);
 			break;
-		case MS_BA_WATE:
+		case TRAIT_BA_WATE:
 			sprintf(p, " %s50+d%d", s_dam, plev * 4);
 			break;
-		case MS_DRAIN_MANA:
+		case TRAIT_DRAIN_MANA:
 			sprintf(p, " %sd%d+%d", s_heal, plev, plev);
 			break;
-		case MS_MIND_BLAST:
+		case TRAIT_MIND_BLAST:
 			sprintf(p, " %s8d8", s_dam);
 			break;
-		case MS_BRAIN_SMASH:
+		case TRAIT_BRAIN_SMASH:
 			sprintf(p, " %s12d15", s_dam);
 			break;
-		case MS_CAUSE_1:
+		case TRAIT_CAUSE_1:
 			sprintf(p, " %s3d8", s_dam);
 			break;
-		case MS_CAUSE_2:
+		case TRAIT_CAUSE_2:
 			sprintf(p, " %s8d8", s_dam);
 			break;
-		case MS_CAUSE_3:
+		case TRAIT_CAUSE_3:
 			sprintf(p, " %s10d15", s_dam);
 			break;
-		case MS_CAUSE_4:
+		case TRAIT_CAUSE_4:
 			sprintf(p, " %s15d15", s_dam);
 			break;
-		case MS_BO_ACID:
+		case TRAIT_BO_ACID:
 			sprintf(p, " %s%d+7d8", s_dam, plev * 2 / 3);
 			break;
-		case MS_BO_ELEC:
+		case TRAIT_BO_ELEC:
 			sprintf(p, " %s%d+4d8", s_dam, plev * 2 / 3);
 			break;
-		case MS_BO_FIRE:
+		case TRAIT_BO_FIRE:
 			sprintf(p, " %s%d+9d8", s_dam, plev * 2 / 3);
 			break;
-		case MS_BO_COLD:
+		case TRAIT_BO_COLD:
 			sprintf(p, " %s%d+6d8", s_dam, plev * 2 / 3);
 			break;
-		case MS_BO_NETHER:
+		case TRAIT_BO_NETH:
 			sprintf(p, " %s%d+5d5", s_dam, 30 + plev * 8 / 3);
 			break;
-		case MS_BO_WATER:
+		case TRAIT_BO_WATE:
 			sprintf(p, " %s%d+10d10", s_dam, plev * 2);
 			break;
-		case MS_BO_MANA:
+		case TRAIT_BO_MANA:
 			sprintf(p, " %s50+d%d", s_dam, plev * 7);
 			break;
-		case MS_BO_PLASMA:
+		case TRAIT_BO_PLAS:
 			sprintf(p, " %s%d+8d7", s_dam, plev * 2 + 10);
 			break;
-		case MS_BO_ICE:
+		case TRAIT_BO_ICEE:
 			sprintf(p, " %s%d+6d6", s_dam, plev * 2);
 			break;
-		case MS_MAGIC_MISSILE:
+		case TRAIT_MISSILE:
 			sprintf(p, " %s%d+2d6", s_dam, plev * 2 / 3);
 			break;
-		case MS_SPEED:
+		case TRAIT_HASTE:
 			sprintf(p, " %sd%d+%d", s_dur, 20+plev, plev);
 			break;
-		case MS_HEAL:
+		case TRAIT_HEAL:
 			sprintf(p, " %s%d", s_heal, plev*4);
 			break;
-		case MS_INVULNER:
+		case TRAIT_INVULNER:
 			sprintf(p, " %sd7+7", s_dur);
 			break;
-		case MS_BLINK:
+		case TRAIT_BLINK:
 			sprintf(p, " %s10", s_range);
 			break;
-		case MS_TELEPORT:
+		case TRAIT_TPORT:
 			sprintf(p, " %s%d", s_range, plev * 5);
 			break;
-		case MS_PSY_SPEAR:
+		case TRAIT_PSY_SPEAR:
 			sprintf(p, " %s100+d%d", s_dam, plev * 3);
 			break;
-		case MS_RAISE_DEAD:
+		case TRAIT_ANIM_DEAD:
 			sprintf(p, " %s5", s_range);
 			break;
 		default:
@@ -712,7 +712,7 @@ msg_print("かん高い金切り声をあげた。");
 
 		aggravate_creatures(caster_ptr);
 		break;
-	case MS_XXX1:
+	case TRAIT_XXX1:
 		break;
 	case TRAIT_DISPEL:
 	{
@@ -737,7 +737,7 @@ msg_print("ロケットを発射した。");
 		damage = hp / 4;
 			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 		break;
-	case MS_SHOOT:
+	case TRAIT_SHOOT:
 	{
 		object_type *object_ptr = NULL;
 
@@ -762,13 +762,13 @@ msg_print("矢を放った。");
 		}
 		break;
 	}
-	case MS_XXX2:
+	case TRAIT_XXX2:
 		break;
-	case MS_XXX3:
+	case TRAIT_XXX3:
 		break;
-	case MS_XXX4:
+	case TRAIT_XXX4:
 		break;
-	case MS_BR_ACID:
+	case TRAIT_BR_ACID:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("酸のブレスを吐いた。");
@@ -778,7 +778,7 @@ else msg_print("酸のブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_ELEC:
+	case TRAIT_BR_ELEC:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("稲妻のブレスを吐いた。");
@@ -788,7 +788,7 @@ else msg_print("稲妻のブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_FIRE:
+	case TRAIT_BR_FIRE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("火炎のブレスを吐いた。");
@@ -798,7 +798,7 @@ else msg_print("火炎のブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_COLD:
+	case TRAIT_BR_COLD:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("冷気のブレスを吐いた。");
@@ -808,7 +808,7 @@ else msg_print("冷気のブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_POIS:
+	case TRAIT_BR_POIS:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ガスのブレスを吐いた。");
@@ -818,7 +818,7 @@ else msg_print("ガスのブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_NETH:
+	case TRAIT_BR_NETH:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄のブレスを吐いた。");
@@ -828,7 +828,7 @@ else msg_print("地獄のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_LITE:
+	case TRAIT_BR_LITE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("閃光のブレスを吐いた。");
@@ -838,7 +838,7 @@ else msg_print("閃光のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_DARK:
+	case TRAIT_BR_DARK:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒のブレスを吐いた。");
@@ -848,7 +848,7 @@ else msg_print("暗黒のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_CONF:
+	case TRAIT_BR_CONF:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("混乱のブレスを吐いた。");
@@ -858,7 +858,7 @@ else msg_print("混乱のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_SOUN:
+	case TRAIT_BR_SOUN:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("轟音のブレスを吐いた。");
@@ -868,7 +868,7 @@ else msg_print("轟音のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_CHAO:
+	case TRAIT_BR_CHAO:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("カオスのブレスを吐いた。");
@@ -878,7 +878,7 @@ else msg_print("カオスのブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_DISE:
+	case TRAIT_BR_DISE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("劣化のブレスを吐いた。");
@@ -888,7 +888,7 @@ else msg_print("劣化のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_NEXU:
+	case TRAIT_BR_NEXU:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("因果混乱のブレスを吐いた。");
@@ -898,7 +898,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 		damage = MIN(hp / 3, 250);
 		fire_ball(caster_ptr, GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_TIME:
+	case TRAIT_BR_TIME:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("時間逆転のブレスを吐いた。");
@@ -908,7 +908,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 		damage = MIN(hp / 3, 150);
 		fire_ball(caster_ptr, GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_INER:
+	case TRAIT_BR_INER:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("遅鈍のブレスを吐いた。");
@@ -918,7 +918,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 		damage = MIN(hp / 6, 200);
 		fire_ball(caster_ptr, GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_GRAV:
+	case TRAIT_BR_GRAV:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("重力のブレスを吐いた。");
@@ -928,7 +928,7 @@ else msg_print("重力のブレスを吐いた。");
 		damage = MIN(hp / 3, 200);
 		fire_ball(caster_ptr, GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_SHAR:
+	case TRAIT_BR_SHAR:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("破片のブレスを吐いた。");
@@ -938,7 +938,7 @@ else msg_print("破片のブレスを吐いた。");
 		damage = hp / 6;
 		fire_ball(caster_ptr, GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_PLAS:
+	case TRAIT_BR_PLAS:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマのブレスを吐いた。");
@@ -948,7 +948,7 @@ else msg_print("プラズマのブレスを吐いた。");
 		damage = MIN(hp / 6, 150);
 		fire_ball(caster_ptr, GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BA_WALL:
+	case TRAIT_BR_WALL:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("フォースのブレスを吐いた。");
@@ -958,7 +958,7 @@ else msg_print("フォースのブレスを吐いた。");
 		damage = MIN(hp / 6, 200);
 		fire_ball(caster_ptr, GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BR_MANA:
+	case TRAIT_BR_MANA:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力のブレスを吐いた。");
@@ -969,7 +969,7 @@ else msg_print("魔力のブレスを吐いた。");
 		damage = MIN(hp / 3, 250);
 		fire_ball(caster_ptr, GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BA_NUKE:
+	case TRAIT_BA_NUKE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射能球を放った。");
@@ -979,7 +979,7 @@ else msg_print("放射能球を放った。");
 		damage = plev * 2 + diceroll(10, 6);
 		fire_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
-	case MS_BR_NUKE:
+	case TRAIT_BR_NUKE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射性廃棄物のブレスを吐いた。");
@@ -989,7 +989,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 		damage = hp / 3;
 		fire_ball(caster_ptr, GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BA_CHAO:
+	case TRAIT_BA_CHAO:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
@@ -999,7 +999,7 @@ else msg_print("純ログルスを放った。");
 		damage = plev * 4 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
-	case MS_BR_DISI:
+	case TRAIT_BR_DISI:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("分解のブレスを吐いた。");
@@ -1009,7 +1009,7 @@ else msg_print("分解のブレスを吐いた。");
 		damage = MIN(hp / 6, 150);
 		fire_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
-	case MS_BA_ACID:
+	case TRAIT_BA_ACID:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボールの呪文を唱えた。");
@@ -1019,7 +1019,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 		damage = randint1(plev * 6) + 15;
 		fire_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
-	case MS_BA_ELEC:
+	case TRAIT_BA_ELEC:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボールの呪文を唱えた。");
@@ -1029,7 +1029,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 		damage = randint1(plev * 3) + 8;
 		fire_ball(caster_ptr, GF_ELEC, dir, damage, 2);
 		break;
-	case MS_BA_FIRE:
+	case TRAIT_BA_FIRE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボールの呪文を唱えた。");
@@ -1039,7 +1039,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 		damage = randint1(plev * 7) + 10;
 		fire_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
-	case MS_BA_COLD:
+	case TRAIT_BA_COLD:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボールの呪文を唱えた。");
@@ -1049,7 +1049,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 		damage = randint1(plev * 3) + 10;
 		fire_ball(caster_ptr, GF_COLD, dir, damage, 2);
 		break;
-	case MS_BA_POIS:
+	case TRAIT_BA_POIS:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("悪臭雲の呪文を唱えた。");
@@ -1059,7 +1059,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 		damage = diceroll(12,2);
 		fire_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
-	case MS_BA_NETH:
+	case TRAIT_BA_NETH:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
@@ -1069,7 +1069,7 @@ else msg_print("地獄球の呪文を唱えた。");
 		damage = plev * 2 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
-	case MS_BA_WATE:
+	case TRAIT_BA_WATE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
@@ -1079,7 +1079,7 @@ else msg_print("流れるような身振りをした。");
 		damage = randint1(plev * 4) + 50;
 		fire_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
-	case MS_BA_MANA:
+	case TRAIT_BA_MANA:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の嵐の呪文を念じた。");
@@ -1089,7 +1089,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
-	case MS_BA_DARK:
+	case TRAIT_BA_DARK:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒の嵐の呪文を念じた。");
@@ -1099,41 +1099,41 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
-	case MS_DRAIN_MANA:
+	case TRAIT_DRAIN_MANA:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		fire_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(plev)+plev, 0);
 		break;
-	case MS_MIND_BLAST:
+	case TRAIT_MIND_BLAST:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(7, 7);
 		fire_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
-	case MS_BRAIN_SMASH:
+	case TRAIT_BRAIN_SMASH:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
 		fire_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
-	case MS_CAUSE_1:
+	case TRAIT_CAUSE_1:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(3, 8);
 		fire_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
-	case MS_CAUSE_2:
+	case TRAIT_CAUSE_2:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(8, 8);
 		fire_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
-	case MS_CAUSE_3:
+	case TRAIT_CAUSE_3:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(10, 15);
 		fire_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
-	case MS_CAUSE_4:
+	case TRAIT_CAUSE_4:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(15, 15);
 		fire_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
-	case MS_BO_ACID:
+	case TRAIT_BO_ACID:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボルトの呪文を唱えた。");
@@ -1143,7 +1143,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 		damage = diceroll(7, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
-	case MS_BO_ELEC:
+	case TRAIT_BO_ELEC:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボルトの呪文を唱えた。");
@@ -1153,7 +1153,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 		damage = diceroll(4, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
-	case MS_BO_FIRE:
+	case TRAIT_BO_FIRE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボルトの呪文を唱えた。");
@@ -1163,7 +1163,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 		damage = diceroll(9, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
-	case MS_BO_COLD:
+	case TRAIT_BO_COLD:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボルトの呪文を唱えた。");
@@ -1173,7 +1173,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 		damage = diceroll(6, 8) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
-	case MS_STARBURST:
+	case TRAIT_BA_LITE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 #ifdef JP
@@ -1184,7 +1184,7 @@ msg_print("スターバーストの呪文を念じた。");
 		damage = plev * 8 + 50 + diceroll(10, 10);
 		fire_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
-	case MS_BO_NETHER:
+	case TRAIT_BO_NETH:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄の矢の呪文を唱えた。");
@@ -1194,7 +1194,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 		damage = 30 + diceroll(5, 5) + plev * 8 / 3;
 		fire_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
-	case MS_BO_WATER:
+	case TRAIT_BO_WATE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ウォーター・ボルトの呪文を唱えた。");
@@ -1204,7 +1204,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 		damage = diceroll(10, 10) + plev * 2;
 		fire_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
-	case MS_BO_MANA:
+	case TRAIT_BO_MANA:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の矢の呪文を唱えた。");
@@ -1214,7 +1214,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 		damage = randint1(plev * 7) + 50;
 		fire_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
-	case MS_BO_PLASMA:
+	case TRAIT_BO_PLAS:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマ・ボルトの呪文を唱えた。");
@@ -1224,7 +1224,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 		damage = 10 + diceroll(8, 7) + plev * 2;
 		fire_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
-	case MS_BO_ICE:
+	case TRAIT_BO_ICEE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("極寒の矢の呪文を唱えた。");
@@ -1234,7 +1234,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 		damage = diceroll(6, 6) + plev * 2;
 		fire_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
-	case MS_MAGIC_MISSILE:
+	case TRAIT_MISSILE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("マジック・ミサイルの呪文を唱えた。");
@@ -1244,7 +1244,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 		damage = diceroll(2, 6) + plev * 2 / 3;
 		fire_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
-	case MS_SCARE:
+	case TRAIT_SCARE:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("恐ろしげな幻覚を作り出した。");
@@ -1253,11 +1253,11 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 #endif
 		fear_creature(caster_ptr, dir, plev+10);
 		break;
-	case MS_BLIND:
+	case TRAIT_BLIND:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_creature(caster_ptr, dir, plev * 2);
 		break;
-	case MS_CONF:
+	case TRAIT_CONF:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("誘惑的な幻覚をつくり出した。");
@@ -1266,18 +1266,18 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 #endif
 		confuse_creature(caster_ptr, dir, plev * 2);
 		break;
-	case MS_SLOW:
+	case TRAIT_SLOW:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		slow_creature(caster_ptr, dir);
 		break;
-	case MS_SLEEP:
+	case TRAIT_HOLD:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_creature(caster_ptr, dir);
 		break;
-	case MS_SPEED:
+	case TRAIT_HASTE:
 		(void)set_fast(caster_ptr, randint1(20 + plev) + plev, FALSE);
 		break;
-	case MS_HAND_DOOM:
+	case TRAIT_HAND_DOOM:
 	{
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1289,7 +1289,7 @@ else msg_print("<破滅の手>を放った！");
 		fire_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
 		break;
 	}
-	case MS_HEAL:
+	case TRAIT_HEAL:
 #ifdef JP
 msg_print("自分の傷に念を集中した。");
 #else
@@ -1299,7 +1299,7 @@ msg_print("自分の傷に念を集中した。");
 		(void)set_stun(caster_ptr, 0);
 		(void)set_cut(caster_ptr, 0);
 		break;
-	case MS_INVULNER:
+	case TRAIT_INVULNER:
 #ifdef JP
 msg_print("無傷の球の呪文を唱えた。");
 #else
@@ -1307,13 +1307,13 @@ msg_print("無傷の球の呪文を唱えた。");
 #endif
 		(void)set_invuln(caster_ptr, randint1(4) + 4, FALSE);
 		break;
-	case MS_BLINK:
+	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
-	case MS_TELEPORT:
+	case TRAIT_TPORT:
 		teleport_player(caster_ptr, plev * 5, 0L);
 		break;
-	case MS_WORLD:
+	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
 #ifdef JP
 		msg_print("「時よ！」");
@@ -1336,9 +1336,9 @@ msg_print("無傷の球の呪文を唱えた。");
 
 		handle_stuff();
 		break;
-	case MS_SPECIAL:
+	case TRAIT_SPECIAL:
 		break;
-	case MS_TELE_TO:
+	case TRAIT_TELE_TO:
 	{
 		creature_type *m_ptr;
 		species_type *r_ptr;
@@ -1385,12 +1385,12 @@ msg_format("%sを引き戻した。", m_name);
 		teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
-	case MS_TELE_AWAY:
+	case TRAIT_TELE_AWAY:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 		(void)fire_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
 		break;
-	case MS_TELE_LEVEL:
+	case TRAIT_TELE_LEVEL:
 	{
 		int target_m_idx;
 		creature_type *m_ptr;
@@ -1423,7 +1423,7 @@ msg_format("%sを引き戻した。", m_name);
 		else teleport_level(caster_ptr, target_m_idx);
 		break;
 	}
-	case MS_PSY_SPEAR:
+	case TRAIT_PSY_SPEAR:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 #ifdef JP
@@ -1434,7 +1434,7 @@ else msg_print("光の剣を放った。");
 		damage = randint1(plev * 3) + 100;
 		(void)fire_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
-	case MS_DARKNESS:
+	case TRAIT_DARKNESS:
 #ifdef JP
 msg_print("暗闇の中で手を振った。");
 #else
@@ -1442,7 +1442,7 @@ msg_print("暗闇の中で手を振った。");
 #endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
-	case MS_MAKE_TRAP:
+	case TRAIT_TRAPS:
 		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("呪文を唱えて邪悪に微笑んだ。");
@@ -1451,14 +1451,14 @@ msg_print("呪文を唱えて邪悪に微笑んだ。");
 #endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
-	case MS_FORGET:
+	case TRAIT_FORGET:
 #ifdef JP
 msg_print("しかし何も起きなかった。");
 #else
 			msg_print("Nothing happen.");
 #endif
 		break;
-	case MS_RAISE_DEAD:
+	case TRAIT_ANIM_DEAD:
 #ifdef JP
 msg_print("死者復活の呪文を唱えた。");
 #else
@@ -1466,7 +1466,7 @@ msg_print("死者復活の呪文を唱えた。");
 #endif
 		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
-	case MS_S_KIN:
+	case TRAIT_S_KIN:
 	{
 		int k;
 #ifdef JP
@@ -1492,7 +1492,7 @@ msg_print("Summoned fellows are angry!");
 		}
 		break;
 	}
-	case MS_S_CYBER:
+	case TRAIT_S_CYBER:
 	{
 		int k;
 #ifdef JP
@@ -1516,7 +1516,7 @@ msg_print("The summoned Cyberdemon are angry!");
 			}
 		break;
 	}
-	case MS_S_MONSTER:
+	case TRAIT_S_MONSTER:
 	{
 		int k;
 #ifdef JP
@@ -1540,7 +1540,7 @@ msg_print("The summoned creature is angry!");
 			}
 		break;
 	}
-	case MS_S_MONSTERS:
+	case TRAIT_S_MONSTERS:
 	{
 		int k;
 #ifdef JP
@@ -1564,7 +1564,7 @@ msg_print("Summoned creatures are angry!");
 			}
 		break;
 	}
-	case MS_S_ANT:
+	case TRAIT_S_ANT:
 	{
 		int k;
 #ifdef JP
@@ -1588,7 +1588,7 @@ msg_print("Summoned ants are angry!");
 			}
 		break;
 	}
-	case MS_S_SPIDER:
+	case TRAIT_S_SPIDER:
 	{
 		int k;
 #ifdef JP
@@ -1612,7 +1612,7 @@ msg_print("Summoned spiders are angry!");
 			}
 		break;
 	}
-	case MS_S_HOUND:
+	case TRAIT_S_HOUND:
 	{
 		int k;
 #ifdef JP
@@ -1636,7 +1636,7 @@ msg_print("Summoned hounds are angry!");
 			}
 		break;
 	}
-	case MS_S_HYDRA:
+	case TRAIT_S_HYDRA:
 	{
 		int k;
 #ifdef JP
@@ -1660,7 +1660,7 @@ msg_print("Summoned hydras are angry!");
 			}
 		break;
 	}
-	case MS_S_ANGEL:
+	case TRAIT_S_ANGEL:
 	{
 		int k;
 #ifdef JP
@@ -1684,7 +1684,7 @@ msg_print("Summoned angels are angry!");
 			}
 		break;
 	}
-	case MS_S_DEMON:
+	case TRAIT_S_DEMON:
 	{
 		int k;
 #ifdef JP
@@ -1708,7 +1708,7 @@ msg_print("Summoned demons are angry!");
 			}
 		break;
 	}
-	case MS_S_UNDEAD:
+	case TRAIT_S_UNDEAD:
 	{
 		int k;
 #ifdef JP
@@ -1732,7 +1732,7 @@ msg_print("Summoned undeads are angry!");
 			}
 		break;
 	}
-	case MS_S_DRAGON:
+	case TRAIT_S_DRAGON:
 	{
 		int k;
 #ifdef JP
@@ -1756,7 +1756,7 @@ msg_print("Summoned dragons are angry!");
 			}
 		break;
 	}
-	case MS_S_HI_UNDEAD:
+	case TRAIT_S_HI_UNDEAD:
 	{
 		int k;
 #ifdef JP
@@ -1780,7 +1780,7 @@ msg_print("Summoned greater undeads are angry!");
 			}
 		break;
 	}
-	case MS_S_HI_DRAGON:
+	case TRAIT_S_HI_DRAGON:
 	{
 		int k;
 #ifdef JP
@@ -1804,7 +1804,7 @@ msg_print("Summoned ancient dragons are angry!");
 			}
 		break;
 	}
-	case MS_S_AMBERITE:
+	case TRAIT_S_AMBERITES:
 	{
 		int k;
 #ifdef JP
@@ -1828,7 +1828,7 @@ msg_print("Summoned Lords of Amber are angry!");
 			}
 		break;
 	}
-	case MS_S_UNIQUE:
+	case TRAIT_S_UNIQUE:
 	{
 		int k, count = 0;
 #ifdef JP
@@ -1981,7 +1981,7 @@ msg_print("魔法をうまく唱えられなかった。");
 
 		sound(SOUND_FAIL);
 
-		if (n >= MS_S_KIN)
+		if (n >= TRAIT_S_KIN)
 			/* Cast the spell */
 			cast = cast_learned_spell(creature_ptr, n, FALSE);
 	}

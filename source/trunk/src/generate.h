@@ -90,8 +90,8 @@ extern int dun_tun_jct;
 /*
  * Maximum numbers of rooms along each axis (currently 6x6)
  */
-#define MAX_ROOMS_ROW	(MAX_HGT / BLOCK_HGT)
-#define MAX_ROOMS_COL	(MAX_WID / BLOCK_WID)
+#define MAX_ROOTRAIT_ROW	(MAX_HGT / BLOCK_HGT)
+#define MAX_ROOTRAIT_COL	(MAX_WID / BLOCK_WID)
 
 
 /*
@@ -133,7 +133,7 @@ struct dun_data
 	int col_rooms;
 
 	/* Array of which blocks are used */
-	bool room_map[MAX_ROOMS_ROW][MAX_ROOMS_COL];
+	bool room_map[MAX_ROOTRAIT_ROW][MAX_ROOTRAIT_COL];
 
 	/* Various type of dungeon floors */
 	bool destroyed;
