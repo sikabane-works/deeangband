@@ -1182,7 +1182,8 @@ union class_skills_union{
 
 	struct magic_eater
 	{
-		s32b magic_num1[108];     /* Array for non-spellbook type magic */
+		byte current_charge[MAGIC_EATER_SKILL_MAX];
+		byte max_charge[MAGIC_EATER_SKILL_MAX];
 	} magic_eater;
 };
 

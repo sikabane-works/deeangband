@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 61
+#define VER_PATCH 62
 
 #define VER_EXTRA 0
 
@@ -99,6 +99,8 @@
 
 // Starting points
 #define STARTING_MAX	15
+
+#define MAGIC_EATER_SKILL_MAX 72
 
 // Quest constants
 #define MIN_RANDOM_QUEST    40
