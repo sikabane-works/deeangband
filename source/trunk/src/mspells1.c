@@ -1861,7 +1861,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, MS_BR_NETHER, learnable);
+			breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, MS_BR_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -1951,7 +1951,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, MS_BR_SOUND, learnable);
+			breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, MS_BR_SOUN, learnable);
 			update_smart_learn(caster_ptr, DRS_SOUND);
 			break;
 		}
@@ -1972,7 +1972,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, MS_BR_CHAOS, learnable);
+			breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, MS_BR_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -1993,7 +1993,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, MS_BR_DISEN, learnable);
+			breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, MS_BR_DISE, learnable);
 			update_smart_learn(caster_ptr, DRS_DISEN);
 			break;
 		}
@@ -2014,7 +2014,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, MS_BR_NEXUS, learnable);
+			breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, MS_BR_NEXU, learnable);
 			update_smart_learn(caster_ptr, DRS_NEXUS);
 			break;
 		}
@@ -2055,7 +2055,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, MS_BR_INERTIA, learnable);
+			breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, MS_BR_INER, learnable);
 			break;
 		}
 
@@ -2075,7 +2075,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, MS_BR_GRAVITY, learnable);
+			breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, MS_BR_GRAV, learnable);
 			break;
 		}
 
@@ -2101,7 +2101,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, MS_BR_SHARDS, learnable);
+			breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, MS_BR_SHAR, learnable);
 			update_smart_learn(caster_ptr, DRS_SHARD);
 			break;
 		}
@@ -2122,7 +2122,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, MS_BR_PLASMA, learnable);
+			breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, MS_BR_PLAS, learnable);
 			break;
 		}
 
@@ -2142,7 +2142,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, MS_BR_FORCE, learnable);
+			breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, MS_BA_WALL, learnable);
 			break;
 		}
 
@@ -2223,7 +2223,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #endif
 
 			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BA_CHAOS, learnable);
+			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, MS_BA_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -2388,7 +2388,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 
 			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BA_NETHER, learnable);
+			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, MS_BA_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -2415,7 +2415,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #endif
 
 			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BA_WATER, learnable);
+			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, MS_BA_WATE, learnable);
 			break;
 		}
 

@@ -397,7 +397,7 @@ else msg_print("ガスのブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_POIS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_NETHER:
+	case MS_BR_NETH:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄のブレスを吐いた。");
@@ -437,7 +437,7 @@ else msg_print("混乱のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_CONFUSION, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_SOUND:
+	case MS_BR_SOUN:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("轟音のブレスを吐いた。");
@@ -447,7 +447,7 @@ else msg_print("轟音のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_SOUND, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_CHAOS:
+	case MS_BR_CHAO:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("カオスのブレスを吐いた。");
@@ -457,7 +457,7 @@ else msg_print("カオスのブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_CHAOS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_DISEN:
+	case MS_BR_DISE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("劣化のブレスを吐いた。");
@@ -467,7 +467,7 @@ else msg_print("劣化のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_DISENCHANT, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_NEXUS:
+	case MS_BR_NEXU:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("因果混乱のブレスを吐いた。");
@@ -487,7 +487,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_TIME, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_INERTIA:
+	case MS_BR_INER:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("遅鈍のブレスを吐いた。");
@@ -497,7 +497,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_INERTIA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_GRAVITY:
+	case MS_BR_GRAV:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("重力のブレスを吐いた。");
@@ -507,7 +507,7 @@ else msg_print("重力のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_GRAVITY, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_SHARDS:
+	case MS_BR_SHAR:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("破片のブレスを吐いた。");
@@ -517,7 +517,7 @@ else msg_print("破片のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_SHARDS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_PLASMA:
+	case MS_BR_PLAS:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマのブレスを吐いた。");
@@ -527,7 +527,7 @@ else msg_print("プラズマのブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_PLASMA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BR_FORCE:
+	case MS_BA_WALL:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("フォースのブレスを吐いた。");
@@ -567,7 +567,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 		
 			fire_ball(creature_ptr, GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
-	case MS_BA_CHAOS:
+	case MS_BA_CHAO:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
@@ -637,7 +637,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_POIS, dir, damage, 2);
 		break;
-	case MS_BA_NETHER:
+	case MS_BA_NETH:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
@@ -647,7 +647,7 @@ else msg_print("地獄球の呪文を唱えた。");
 		
 			fire_ball(creature_ptr, GF_NETHER, dir, damage, 2);
 		break;
-	case MS_BA_WATER:
+	case MS_BA_WATE:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
