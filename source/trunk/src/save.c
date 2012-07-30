@@ -599,8 +599,8 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < 64; i++) wr_s16b(creature_ptr->spell_exp[i]);
 	// for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(creature_ptr->weapon_exp[i][j]);
 	for (i = 0; i < 10; i++) wr_s16b(creature_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) wr_s32b(creature_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) wr_byte(creature_ptr->magic_num2[i]);
+	for (i = 0; i < 108; i++) wr_s32b(creature_ptr->class_skills.old_skills.magic_num1[i]);
+	for (i = 0; i < 108; i++) wr_byte(creature_ptr->class_skills.old_skills.magic_num2[i]);
 
 	wr_s16b(creature_ptr->start_race1);
 	wr_s16b(creature_ptr->start_race2);

@@ -236,8 +236,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 
 	if (creature_ptr->class_idx == CLASS_BARD)
 	{
-		creature_ptr->magic_num1[0] = 0;
-		creature_ptr->magic_num2[0] = 0;
+		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
+		creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
 	}
 }
 
@@ -303,8 +303,8 @@ void dispel_creature(creature_type *creature_ptr)
 #else
 		cptr str = (music_singing_any(creature_ptr)) ? "singing" : "spelling";
 #endif
-		creature_ptr->magic_num1[1] = creature_ptr->magic_num1[0];
-		creature_ptr->magic_num1[0] = 0;
+		creature_ptr->class_skills.old_skills.magic_num1[1] = creature_ptr->class_skills.old_skills.magic_num1[0];
+		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 #ifdef JP
 		msg_format("%s‚ª“rØ‚ê‚½B", str);
 #else

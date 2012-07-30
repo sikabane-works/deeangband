@@ -374,8 +374,8 @@ s = "魔力を取り込めるアイテムがない。";
 
 	if (object_ptr->tval == TV_ROD)
 	{
-		creature_ptr->magic_num2[object_ptr->sval + ext] += object_ptr->number;
-		if (creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
+		creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] += object_ptr->number;
+		if (creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] > 99) creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] = 99;
 	}
 	else
 	{
@@ -384,17 +384,17 @@ s = "魔力を取り込めるアイテムがない。";
 		{
 			int gain_num = pval;
 			if (object_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
-			if (creature_ptr->magic_num2[object_ptr->sval + ext])
+			if (creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext])
 			{
 				gain_num *= 256;
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if (gain_num < 1) gain_num = 1;
 			}
-			creature_ptr->magic_num2[object_ptr->sval + ext] += gain_num;
-			if (creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
-			creature_ptr->magic_num1[object_ptr->sval + ext] += pval * 0x10000;
-			if (creature_ptr->magic_num1[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = 99 * 0x10000;
-			if (creature_ptr->magic_num1[object_ptr->sval + ext] > creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000;
+			creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] += gain_num;
+			if (creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] > 99) creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] = 99;
+			creature_ptr->class_skills.old_skills.magic_num1[object_ptr->sval + ext] += pval * 0x10000;
+			if (creature_ptr->class_skills.old_skills.magic_num1[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->class_skills.old_skills.magic_num1[object_ptr->sval + ext] = 99 * 0x10000;
+			if (creature_ptr->class_skills.old_skills.magic_num1[object_ptr->sval + ext] > creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] * 0x10000) creature_ptr->class_skills.old_skills.magic_num1[object_ptr->sval + ext] = creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] * 0x10000;
 			if (object_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
 		}
 	}
@@ -1200,7 +1200,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_BARD:
 		{
 			/* Singing is already stopped */
-			if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return FALSE;
+			if (!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(creature_ptr);
 			energy_use = 10;
@@ -2501,7 +2501,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_STOP_SINGING:
 		{
 			// Singing is already stopped
-			if (!caster_ptr->magic_num1[0] && !caster_ptr->magic_num1[1]) return FALSE;
+			if (!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(caster_ptr);
 			energy_use = 10;
@@ -3111,8 +3111,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		}
 		*/
 
-			/*
-
+		/*
 		case TRAIT_DISPEL:
 		{
 			if (!direct) return (FALSE);

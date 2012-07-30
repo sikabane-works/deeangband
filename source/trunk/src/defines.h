@@ -3869,8 +3869,8 @@ extern int PlayerUID;
 
 #define MUSIC_DETECT            101
 
-#define music_singing(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->magic_num1[0] == (X)))
-#define music_singing_any(C) (((C)->class_idx == CLASS_BARD) && (C)->magic_num1[0])
+#define music_singing(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->class_skills.old_skills.magic_num1[0] == (X)))
+#define music_singing_any(C) (((C)->class_idx == CLASS_BARD) && (C)->class_skills.old_skills.magic_num1[0])
 
 #define HISSATSU_NONE   0
 #define HISSATSU_2      1
@@ -4182,9 +4182,9 @@ extern int PlayerUID;
 
 /* Hex */
 #define hex_spelling_any(USER) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0]))
+	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
 #define hex_spelling(USER, X) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0] & (1L << (X))))
+	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
 
 #define INFO_TYPE_RACE            1000

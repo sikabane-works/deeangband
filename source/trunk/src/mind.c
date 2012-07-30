@@ -332,7 +332,7 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int powe
       break;
     case MIND_KI:
       {
-	int boost = creature_ptr->magic_num1[0];
+	int boost = creature_ptr->class_skills.old_skills.magic_num1[0];
 
 	if (heavy_armor(creature_ptr)) boost /= 2;
 
@@ -682,7 +682,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 							if (i == 5)
 							{
 								int j;
-								for (j = 0; j < creature_ptr->magic_num1[0] / 50; j++)
+								for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
 									mana_cost += (j+1) * 3 / 2;
 							}
 						}
@@ -1034,7 +1034,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 	int             dir;
 	int             plev = creature_ptr->lev;
-	int             boost = creature_ptr->magic_num1[0];
+	int             boost = creature_ptr->class_skills.old_skills.magic_num1[0];
 
 	if (heavy_armor(creature_ptr)) boost /= 2;
 
@@ -1066,20 +1066,20 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #else
 		msg_print("You improved the Force.");
 #endif
-		creature_ptr->magic_num1[0] += (70 + plev);
+		creature_ptr->class_skills.old_skills.magic_num1[0] += (70 + plev);
 		creature_ptr->creature_update |= (CRU_BONUS);
-		if (randint1(creature_ptr->magic_num1[0]) > (plev * 4 + 120))
+		if (randint1(creature_ptr->class_skills.old_skills.magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
 			msg_print("気が暴走した！");
 #else
 			msg_print("The Force exploded!");
 #endif
-			fire_ball(creature_ptr, GF_MANA, 0, creature_ptr->magic_num1[0] / 2, 10);
+			fire_ball(creature_ptr, GF_MANA, 0, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, 10);
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "気の暴走", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "気の暴走", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
 #endif
 		}
 		else return TRUE;
@@ -1214,7 +1214,7 @@ msg_print("なに？");
 #endif
 
 	}
-	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	return TRUE;
@@ -1400,7 +1400,7 @@ msg_print("なに？");
 #endif
 
 	}
-	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 
 	return TRUE;
 }
@@ -1858,7 +1858,7 @@ msg_print("混乱していて集中できない！");
 		if (n == 5)
 		{
 			int j;
-			for (j = 0; j < creature_ptr->magic_num1[0] / 50; j++)
+			for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
 				mana_cost += (j+1) * 3 / 2;
 		}
 	}
@@ -1948,14 +1948,14 @@ msg_format("%sの集中に失敗した！",p);
 
 		if ((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 		{
-			if ((use_mind == MIND_KI) && (n != 5) && creature_ptr->magic_num1[0])
+			if ((use_mind == MIND_KI) && (n != 5) && creature_ptr->class_skills.old_skills.magic_num1[0])
 			{
 #ifdef JP
 				msg_print("気が散ってしまった．．．");
 #else
 				msg_print("Your improved Force has gone away...");
 #endif
-				creature_ptr->magic_num1[0] = 0;
+				creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 			}
 
 			if (randint1(100) < (chance / 2))

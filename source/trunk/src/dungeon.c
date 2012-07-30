@@ -1062,24 +1062,24 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 
 	for (i = 0; i < EATER_EXT*2; i++)
 	{
-		if (!creature_ptr->magic_num2[i]) continue;
-		if (creature_ptr->magic_num1[i] == ((long)creature_ptr->magic_num2[i] << 16)) continue;
-		new_mana = ((long)creature_ptr->magic_num2[i]+adj_mag_mana[STAT_INT]+13) * percent / 8;
-		creature_ptr->magic_num1[i] += new_mana;
+		if (!creature_ptr->class_skills.old_skills.magic_num2[i]) continue;
+		if (creature_ptr->class_skills.old_skills.magic_num1[i] == ((long)creature_ptr->class_skills.old_skills.magic_num2[i] << 16)) continue;
+		new_mana = ((long)creature_ptr->class_skills.old_skills.magic_num2[i]+adj_mag_mana[STAT_INT]+13) * percent / 8;
+		creature_ptr->class_skills.old_skills.magic_num1[i] += new_mana;
 
 		/* Check maximum charge */
-		if (creature_ptr->magic_num1[i] > (creature_ptr->magic_num2[i] << 16))
+		if (creature_ptr->class_skills.old_skills.magic_num1[i] > (creature_ptr->class_skills.old_skills.magic_num2[i] << 16))
 		{
-			creature_ptr->magic_num1[i] = ((long)creature_ptr->magic_num2[i] << 16);
+			creature_ptr->class_skills.old_skills.magic_num1[i] = ((long)creature_ptr->class_skills.old_skills.magic_num2[i] << 16);
 		}
 		wild_regen = 20;
 	}
 	for (i = EATER_EXT*2; i < EATER_EXT*3; i++)
 	{
-		if (!creature_ptr->magic_num1[i]) continue;
-		if (!creature_ptr->magic_num2[i]) continue;
-		creature_ptr->magic_num1[i] -= (long)(creature_ptr->magic_num2[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
-		if (creature_ptr->magic_num1[i] < 0) creature_ptr->magic_num1[i] = 0;
+		if (!creature_ptr->class_skills.old_skills.magic_num1[i]) continue;
+		if (!creature_ptr->class_skills.old_skills.magic_num2[i]) continue;
+		creature_ptr->class_skills.old_skills.magic_num1[i] -= (long)(creature_ptr->class_skills.old_skills.magic_num2[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
+		if (creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
 		wild_regen = 20;
 	}
 }
@@ -1473,7 +1473,7 @@ static void check_music(creature_type *creature_ptr)
 
 	/* Music singed by player */
 	if (creature_ptr->class_idx != CLASS_BARD) return;
-	if (!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
+	if (!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return;
 
 	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
@@ -1481,7 +1481,7 @@ static void check_music(creature_type *creature_ptr)
 		return;
 	}
 
-	spell = creature_ptr->magic_num2[0];
+	spell = creature_ptr->class_skills.old_skills.magic_num2[0];
 	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
 
 	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_MUSIC);
@@ -1500,10 +1500,10 @@ static void check_music(creature_type *creature_ptr)
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
 		play_redraw |= PR_MANA;
-		if (creature_ptr->magic_num1[1])
+		if (creature_ptr->class_skills.old_skills.magic_num1[1])
 		{
-			creature_ptr->magic_num1[0] = creature_ptr->magic_num1[1];
-			creature_ptr->magic_num1[1] = 0;
+			creature_ptr->class_skills.old_skills.magic_num1[0] = creature_ptr->class_skills.old_skills.magic_num1[1];
+			creature_ptr->class_skills.old_skills.magic_num1[1] = 0;
 #ifdef JP
 			msg_print("‰Ì‚ðÄŠJ‚µ‚½B");
 #else
@@ -5490,13 +5490,13 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	{
 		(void)set_lightspeed(creature_ptr, creature_ptr->lightspeed - 1, TRUE);
 	}
-	if ((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->magic_num1[0]))
+	if ((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
 	{
-		if (creature_ptr->magic_num1[0] < 40)
+		if (creature_ptr->class_skills.old_skills.magic_num1[0] < 40)
 		{
-			creature_ptr->magic_num1[0] = 0;
+			creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 		}
-		else creature_ptr->magic_num1[0] -= 40;
+		else creature_ptr->class_skills.old_skills.magic_num1[0] -= 40;
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 	if (creature_ptr->action == ACTION_LEARN)
@@ -6161,11 +6161,11 @@ static void cheat_death(void)
 	{
 		for (i = 0; i < EATER_EXT*2; i++)
 		{
-			player_ptr->magic_num1[i] = player_ptr->magic_num2[i]*EATER_CHARGE;
+			player_ptr->class_skills.old_skills.magic_num1[i] = player_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
 		}
 		for (; i < EATER_EXT*3; i++)
 		{
-			player_ptr->magic_num1[i] = 0;
+			player_ptr->class_skills.old_skills.magic_num1[i] = 0;
 		}
 	}
 
@@ -6582,8 +6582,8 @@ static void play_loop(void)
 			}
 		}
 
-		if ((player_ptr->class_idx == CLASS_BARD) && (player_ptr->magic_num1[0] > MUSIC_DETECT))
-			player_ptr->magic_num1[0] = MUSIC_DETECT;
+		if ((player_ptr->class_idx == CLASS_BARD) && (player_ptr->class_skills.old_skills.magic_num1[0] > MUSIC_DETECT))
+			player_ptr->class_skills.old_skills.magic_num1[0] = MUSIC_DETECT;
 
 		/* Hack -- notice death or departure */
 		if (!playing || gameover) return;

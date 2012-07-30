@@ -6530,7 +6530,7 @@ static void display_essence(creature_type *creature_ptr)
 	for (i = 0; essence_name[i]; i++)
 	{
 		if (!essence_name[i][0]) continue;
-		prt(format("%-11s %5d", essence_name[i], creature_ptr->magic_num1[i]), 2+num%21, 8+num/21*22);
+		prt(format("%-11s %5d", essence_name[i], creature_ptr->class_skills.old_skills.magic_num1[i]), 2+num%21, 8+num/21*22);
 		num++;
 	}
 #ifdef JP
@@ -6545,7 +6545,7 @@ static void display_essence(creature_type *creature_ptr)
 
 static void drain_essence(creature_type *creature_ptr)
 {
-	int drain_value[sizeof(creature_ptr->magic_num1) / sizeof(s32b)];
+	int drain_value[sizeof(creature_ptr->class_skills.old_skills.magic_num1) / sizeof(s32b)];
 	int i, item;
 	int dec = 4;
 	bool observe = FALSE;
@@ -6753,8 +6753,8 @@ static void drain_essence(creature_type *creature_ptr)
 			if (!essence_name[i][0]) continue;
 			if (!drain_value[i]) continue;
 
-			creature_ptr->magic_num1[i] += drain_value[i];
-			creature_ptr->magic_num1[i] = MIN(20000, creature_ptr->magic_num1[i]);
+			creature_ptr->class_skills.old_skills.magic_num1[i] += drain_value[i];
+			creature_ptr->class_skills.old_skills.magic_num1[i] = MIN(20000, creature_ptr->class_skills.old_skills.magic_num1[i]);
 			msg_print(NULL);
 			msg_format("%s...%d", essence_name[i], drain_value[i]);
 		}
@@ -7044,7 +7044,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 					if (es_ptr->essence != -1)
 					{
 						strcat(dummy, format("(%s)", essence_name[es_ptr->essence]));
-						if (creature_ptr->magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
+						if (creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
 					}
 					else
 					{
@@ -7056,8 +7056,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand fire + res.fire)");
 #endif
-							if (creature_ptr->magic_num1[TR_BRAND_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_ELEC:
 #ifdef JP
@@ -7065,8 +7065,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand elec. + res. elec.)");
 #endif
-							if (creature_ptr->magic_num1[TR_BRAND_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_COLD:
 #ifdef JP
@@ -7074,8 +7074,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand cold + res. cold)");
 #endif
-							if (creature_ptr->magic_num1[TR_BRAND_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_RESISTANCE:
 #ifdef JP
@@ -7083,10 +7083,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SUSTAIN:
 #ifdef JP
@@ -7094,10 +7094,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						}
 					}
@@ -7106,7 +7106,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 					if (es_ptr->essence != -1)
 					{
-						sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->magic_num1[es_ptr->essence]);
+						sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence]);
 					}
 					else
 					{
@@ -7241,7 +7241,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 	if (es_ptr->essence != -1)
 	{
-		if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+		if (creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 		{
 #ifdef JP
 			msg_print("エッセンスが足りない。");
@@ -7293,7 +7293,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				char tmp[80];
 				char tmp_val[160];
 				int pval;
-				int limit = MIN(5, creature_ptr->magic_num1[es_ptr->essence]/es_ptr->value);
+				int limit = MIN(5, creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence]/es_ptr->value);
 
 #ifdef JP
 				sprintf(tmp, "いくつ付加しますか？ (1-%d): ", limit);
@@ -7315,7 +7315,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 			}
 
-			if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if (creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 			{
 #ifdef JP
 				msg_print("エッセンスが足りない。");
@@ -7346,7 +7346,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 			msg_format("It will take %d essences.", use_essence);
 #endif
-			if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if (creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 			{
 #ifdef JP
 				msg_print("エッセンスが足りない。");
@@ -7361,7 +7361,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			object_ptr->to_hit += get_to_hit;
 			object_ptr->to_damage += get_to_damage;
 		}
-		creature_ptr->magic_num1[es_ptr->essence] -= use_essence;
+		creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] -= use_essence;
 		if (es_ptr->add == ESSENCE_ATTACK)
 		{
 			if ((object_ptr->to_hit >= creature_ptr->lev/5+5) && (object_ptr->to_damage >= creature_ptr->lev/5+5))
@@ -7409,43 +7409,43 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		switch(es_ptr->add)
 		{
 		case ESSENCE_SH_FIRE:
-			if ((creature_ptr->magic_num1[TR_BRAND_FIRE] < use_essence) || (creature_ptr->magic_num1[TR_RES_FIRE] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TR_BRAND_FIRE] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] -= use_essence;
 			break;
 		case ESSENCE_SH_ELEC:
-			if ((creature_ptr->magic_num1[TR_BRAND_ELEC] < use_essence) || (creature_ptr->magic_num1[TR_RES_ELEC] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TR_BRAND_ELEC] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] -= use_essence;
 			break;
 		case ESSENCE_SH_COLD:
-			if ((creature_ptr->magic_num1[TR_BRAND_COLD] < use_essence) || (creature_ptr->magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TR_BRAND_COLD] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] -= use_essence;
 			break;
 		case ESSENCE_RESISTANCE:
 		case ESSENCE_SUSTAIN:
-			if ((creature_ptr->magic_num1[TR_RES_ACID] < use_essence) || (creature_ptr->magic_num1[TR_RES_ELEC] < use_essence) || (creature_ptr->magic_num1[TR_RES_FIRE] < use_essence) || (creature_ptr->magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TR_RES_ACID] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
-			creature_ptr->magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] -= use_essence;
 			break;
 		}
 		if (!success)

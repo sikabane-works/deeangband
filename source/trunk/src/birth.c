@@ -2740,8 +2740,8 @@ void creature_wipe(creature_type *creature_ptr)
 
 	for (i = 0; i < 108; i++)
 	{
-		creature_ptr->magic_num1[i] = 0;
-		creature_ptr->magic_num2[i] = 0;
+		creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
+		creature_ptr->class_skills.old_skills.magic_num2[i] = 0;
 	}
 
 	/* Level one */

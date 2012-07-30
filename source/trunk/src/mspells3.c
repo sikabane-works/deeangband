@@ -397,7 +397,7 @@ cptr            p = "魔法";
 	}
 	for (i = 0; i < num; i++)
 	{
-		if (creature_ptr->magic_num2[spellnum[i]])
+		if (creature_ptr->class_skills.old_skills.magic_num2[spellnum[i]])
 		{
 			if (use_menu) menu_line = i+1;
 			break;
@@ -450,7 +450,7 @@ cptr            p = "魔法";
 					{
 						menu_line += (num-1);
 						if (menu_line > num) menu_line -= num;
-					} while(!creature_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!creature_ptr->class_skills.old_skills.magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -462,7 +462,7 @@ cptr            p = "魔法";
 					{
 						menu_line++;
 						if (menu_line > num) menu_line -= num;
-					} while(!creature_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!creature_ptr->class_skills.old_skills.magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -471,7 +471,7 @@ cptr            p = "魔法";
 				case 'L':
 				{
 					menu_line=num;
-					while(!creature_ptr->magic_num2[spellnum[menu_line-1]]) menu_line--;
+					while(!creature_ptr->class_skills.old_skills.magic_num2[spellnum[menu_line-1]]) menu_line--;
 					break;
 				}
 
@@ -480,7 +480,7 @@ cptr            p = "魔法";
 				case 'H':
 				{
 					menu_line=1;
-					while(!creature_ptr->magic_num2[spellnum[menu_line-1]]) menu_line++;
+					while(!creature_ptr->class_skills.old_skills.magic_num2[spellnum[menu_line-1]]) menu_line++;
 					break;
 				}
 
@@ -529,7 +529,7 @@ put_str("MP 失率 効果", y, x + 33);
 					int need_mana;
 
 					prt("", y + i + 1, x);
-					if (!creature_ptr->magic_num2[spellnum[i]]) continue;
+					if (!creature_ptr->class_skills.old_skills.magic_num2[spellnum[i]]) continue;
 
 					/* Access the spell */
 					spell = racial_powers[spellnum[i]];
@@ -620,7 +620,7 @@ put_str("MP 失率 効果", y, x + 33);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= num) || !creature_ptr->magic_num2[spellnum[i]])
+		if ((i < 0) || (i >= num) || !creature_ptr->class_skills.old_skills.magic_num2[spellnum[i]])
 		{
 			bell();
 			continue;
@@ -2053,11 +2053,11 @@ void learn_spell(creature_type *creature_ptr, int monspell)
 {
 	if (creature_ptr->action != ACTION_LEARN) return;
 	if (monspell < 0) return; /* Paranoia */
-	if (creature_ptr->magic_num2[monspell]) return;
+	if (creature_ptr->class_skills.old_skills.magic_num2[monspell]) return;
 	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->stun || creature_ptr->paralyzed) return;
 	if (randint1(creature_ptr->lev + 70) > racial_powers[monspell].level + 40)
 	{
-		creature_ptr->magic_num2[monspell] = 1;
+		creature_ptr->class_skills.old_skills.magic_num2[monspell] = 1;
 #ifdef JP
 		msg_format("%sを学習した！", racial_powers[monspell].name);
 #else

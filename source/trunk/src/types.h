@@ -1164,6 +1164,17 @@ struct chara_type
  * whenever anything important changes.
  */
 
+
+typedef union class_skills_union class_skills_union;
+
+union class_skills_union{
+	struct old_skills
+	{
+		s32b magic_num1[108];     /* Array for non-spellbook type magic */
+		byte magic_num2[108];     /* Flags for non-spellbook type magics */
+	} old_skills;
+};
+
 typedef struct creature_type creature_type;
 
 struct creature_type
@@ -1339,11 +1350,10 @@ struct creature_type
 	byte spell_order[64];	  /* order spells learned/remembered/forgotten */
 
 	s16b spell_exp[64];       /* Proficiency of spells */
-	//s16b weapon_exp[5][64];   /* Proficiency of weapons */
+	//s16b weapon_exp[5][64];   /* Proficiency of weapons*/
 	s16b skill_exp[10];       /* Proficiency of misc. skill */
 
-	s32b magic_num1[108];     /* Array for non-spellbook type magic */
-	byte magic_num2[108];     /* Flags for non-spellbook type magics */
+	class_skills_union class_skills;
 
 	s16b mane_spell[MAX_MANE];
 	s16b mane_dam[MAX_MANE];
