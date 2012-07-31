@@ -3354,7 +3354,7 @@ info[i++] = "‚»‚ê‚Í—ò‰»‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
 
 	}
 
-	if (have_flag(flgs, TR_LEVITATION))
+	if (have_flag(flgs, TRAIT_LEVITATION))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í’ˆ‚É•‚‚­‚±‚Æ‚ğ‰Â”\‚É‚·‚éB";

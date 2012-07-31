@@ -987,7 +987,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_TY_CURSE)) total -= 15000;
 	if (have_flag(flgs, TR_HIDE_TYPE)) total += 0;
 	if (have_flag(flgs, TR_SHOW_MODS)) total += 0;
-	if (have_flag(flgs, TR_LEVITATION)) total += 1250;
+	if (have_flag(flgs, TRAIT_LEVITATION)) total += 1250;
 	if (have_flag(flgs, TR_LITE)) total += 1250;
 	if (have_flag(flgs, TR_SEE_INVIS)) total += 2000;
 	if (have_flag(flgs, TR_TELEPATHY)) total += 20000;
@@ -3008,7 +3008,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_HOLD_LIFE;
 						break;
 					case 9:
-						if (have_flag(k_ptr->flags, TR_LEVITATION)) break;
+						if (have_flag(k_ptr->flags, TRAIT_LEVITATION)) break;
 						object_ptr->name2 = EGO_AMU_LEVITATION;
 						break;
 					case 10: case 11: case 21:
@@ -6136,7 +6136,7 @@ static essence_type essence_info[] =
 	{TR_SH_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "îΩñÇñ@", 3, TR_NO_MAGIC, 15},
 	{TR_WARNING, "åxçê", 3, TR_WARNING, 20},
-	{TR_LEVITATION, "ïÇóV", 3, TR_LEVITATION, 20},
+	{TRAIT_LEVITATION, "ïÇóV", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "âiãvåıåπ", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "â¬éãìßñæ", 3, TR_SEE_INVIS, 20},
 	{TR_TELEPATHY, "ÉeÉåÉpÉVÅ[", 6, TR_TELEPATHY, 15},
@@ -6247,7 +6247,7 @@ static essence_type essence_info[] =
 	{TR_SH_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "anti magic", 3, TR_NO_MAGIC, 15},
 	{TR_WARNING, "warning", 3, TR_WARNING, 20},
-	{TR_LEVITATION, "levitation", 3, TR_LEVITATION, 20},
+	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "see invisible", 3, TR_SEE_INVIS, 20},
 	{TR_TELEPATHY, "telepathy", 6, TR_TELEPATHY, 15},

@@ -2450,7 +2450,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_WINGS))
 	{
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_FEARLESS))
@@ -2491,7 +2491,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	if (creature_ptr->special_defense & KAMAE_GENBU)
 		add_flag(flgs, TRAIT_REFLECTING);
 	if (creature_ptr->special_defense & KAMAE_SUZAKU)
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 	if (creature_ptr->special_defense & KAMAE_SEIRYU)
 	{
 		add_flag(flgs, TR_RES_FIRE);
@@ -2499,7 +2499,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);
 		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_SH_ELEC);
 		add_flag(flgs, TR_SH_COLD);
@@ -2523,7 +2523,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_SH_ELEC);
 		add_flag(flgs, TR_SH_COLD);
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TR_SEE_INVIS);
 		add_flag(flgs, TR_TELEPATHY);
@@ -2599,7 +2599,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 	}
 	if (creature_ptr->tim_res_nether)
 	{
@@ -2628,7 +2628,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_SH_ELEC);
 		add_flag(flgs, TR_SH_COLD);
-		add_flag(flgs, TR_LEVITATION);
+		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TR_SEE_INVIS);
 		add_flag(flgs, TR_TELEPATHY);
@@ -3159,7 +3159,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+8, col, "åxçê      :", TR_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "íxè¡âª    :", TR_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "ã}âÒïú    :", TR_REGEN, &f, 0, creature_ptr);
-	display_flag_aux(row+11, col, "ïÇóV      :", TR_LEVITATION, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "ïÇóV      :", TRAIT_LEVITATION, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "âiâìåıåπ  :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "éÙÇ¢      :", 0, &f, DP_CURSE, creature_ptr);
 #else
@@ -3174,7 +3174,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+8, col, "Warning   :", TR_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, creature_ptr);
-	display_flag_aux(row+11, col, "Levitation:", TR_LEVITATION, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "Levitation:", TRAIT_LEVITATION, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, creature_ptr);
 #endif

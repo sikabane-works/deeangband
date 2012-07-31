@@ -161,7 +161,7 @@ void one_ability(object_type *object_ptr)
 {
 	switch (randint0(10))
 	{
-	case 0: add_flag(object_ptr->art_flags, TR_LEVITATION);     break;
+	case 0: add_flag(object_ptr->art_flags, TRAIT_LEVITATION);     break;
 	case 1: add_flag(object_ptr->art_flags, TR_LITE);        break;
 	case 2: add_flag(object_ptr->art_flags, TR_SEE_INVIS);   break;
 	case 3: add_flag(object_ptr->art_flags, TR_WARNING);     break;
@@ -865,7 +865,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			break;
 		case 12:
 		case 13:
-			add_flag(object_ptr->trait_flags, TR_LEVITATION);
+			add_flag(object_ptr->trait_flags, TRAIT_LEVITATION);
 			break;
 		case 15:
 		case 16:

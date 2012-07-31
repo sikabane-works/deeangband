@@ -6048,7 +6048,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			print_flag(TR_TELEPATHY);
 			print_flag(TR_SLOW_DIGEST);
 			print_flag(TR_REGEN);
-			print_flag(TR_LEVITATION);
+			print_flag(TRAIT_LEVITATION);
 
 			fputc('\n', fff);
 		}
