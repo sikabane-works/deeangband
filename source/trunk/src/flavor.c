@@ -620,7 +620,7 @@ static flag_insc_table flag_insc_resistance[] =
 	{ "çå", "So", TR_RES_SOUND, -1 },
 	{ "çñ", "Nt", TR_RES_NETHER, -1 },
 	{ "àˆ", "Nx", TR_RES_NEXUS, -1 },
-	{ "ì◊", "Ca", TR_RES_CHAOS, -1 },
+	{ "ì◊", "Ca", TRAIT_RES_CHAO, -1 },
 	{ "óÚ", "Di", TRAIT_RES_DISE, -1 },
 	{ "ã∞", "Fe", TR_RES_FEAR, -1 },
 	{ NULL, NULL, 0, -1 }
@@ -781,7 +781,7 @@ static flag_insc_table flag_insc_resistance[] =
 	{ "So", TR_RES_SOUND, -1 },
 	{ "Nt", TR_RES_NETHER, -1 },
 	{ "Nx", TR_RES_NEXUS, -1 },
-	{ "Ca", TR_RES_CHAOS, -1 },
+	{ "Ca", TRAIT_RES_CHAO, -1 },
 	{ "Di", TRAIT_RES_DISE, -1 },
 	{ "Fe", TR_RES_FEAR, -1 },
 	{ NULL, 0, -1 }

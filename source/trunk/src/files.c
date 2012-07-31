@@ -2354,7 +2354,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		break;
 	case CLASS_CHAOS_WARRIOR:
 		if (creature_ptr->lev > 29)
-			add_flag(flgs, TR_RES_CHAOS);
+			add_flag(flgs, TRAIT_RES_CHAO);
 		if (creature_ptr->lev > 39)
 			add_flag(flgs, TR_RES_FEAR);
 		break;
@@ -2515,7 +2515,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_SHARDS);
 		add_flag(flgs, TR_RES_NETHER);
 		add_flag(flgs, TR_RES_NEXUS);
-		add_flag(flgs, TR_RES_CHAOS);
+		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TR_REFLECT);
 		add_flag(flgs, TR_HOLD_LIFE);
@@ -2620,7 +2620,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_SHARDS);
 		add_flag(flgs, TR_RES_NETHER);
 		add_flag(flgs, TR_RES_NEXUS);
-		add_flag(flgs, TR_RES_CHAOS);
+		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TR_REFLECT);
 		add_flag(flgs, TR_HOLD_LIFE);
@@ -3075,7 +3075,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "耐カオ:", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "耐劣化:", TRAIT_RES_DISE, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, creature_ptr);
 #else
@@ -3083,7 +3083,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "Chaos :", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Disnch:", TRAIT_RES_DISE, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, creature_ptr);
 #endif

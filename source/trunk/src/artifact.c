@@ -58,7 +58,7 @@ void one_high_resistance(object_type *object_ptr)
 		case  6: add_flag(object_ptr->art_flags, TR_RES_SOUND);  break;
 		case  7: add_flag(object_ptr->art_flags, TR_RES_NETHER); break;
 		case  8: add_flag(object_ptr->art_flags, TR_RES_NEXUS);  break;
-		case  9: add_flag(object_ptr->art_flags, TR_RES_CHAOS);  break;
+		case  9: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
 		case 10: add_flag(object_ptr->trait_flags, TRAIT_RES_DISE);  break;
 		case 11: add_flag(object_ptr->art_flags, TR_RES_FEAR);   break;
 	}
@@ -80,7 +80,7 @@ void one_lordly_high_resistance(object_type *object_ptr)
 		case 5: add_flag(object_ptr->art_flags, TR_RES_SOUND);  break;
 		case 6: add_flag(object_ptr->art_flags, TR_RES_NETHER); break;
 		case 7: add_flag(object_ptr->art_flags, TR_RES_NEXUS);  break;
-		case 8: add_flag(object_ptr->art_flags, TR_RES_CHAOS);  break;
+		case 8: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
 		case 9: add_flag(object_ptr->art_flags, TR_RES_FEAR);   break;
 	}
 }
@@ -555,9 +555,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_CHAOS:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_CHAOS)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_CHAOS);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);
 			if (one_in_(2)) return;
 		}
 		if (!(have_flag(object_ptr->art_flags, TR_RES_CONF)))
@@ -695,7 +695,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 35:
 		case 36:
-			add_flag(object_ptr->art_flags, TR_RES_CHAOS);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);
 			if (!artifact_bias && one_in_(2))
 				artifact_bias = BIAS_CHAOS;
 			break;

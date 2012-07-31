@@ -3335,7 +3335,7 @@ info[i++] = "それは因果混乱への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_CHAOS))
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO))
 	{
 #ifdef JP
 info[i++] = "それはカオスへの耐性を授ける。";

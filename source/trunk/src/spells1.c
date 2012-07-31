@@ -1491,7 +1491,7 @@ note_kill = "‰ó‚ê‚Ä‚µ‚Ü‚Á‚½I";
 				note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-				if (have_flag(flgs, TR_RES_CHAOS)) ignore = TRUE;
+				if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
 				else if ((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
 				break;
 			}
